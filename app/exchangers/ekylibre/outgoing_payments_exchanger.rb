@@ -57,13 +57,12 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
       end
 
       # Check affair presence
-      if r.reference_number && entity
-        # see if purchase exist anyway
-        if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
-          w.info "Purchase found with ID : #{purchase.id}"
-        else
-          w.warn 'No purchase found. Outgoing payment will be in stand-by'
-        end
+      next unless r.reference_number && entity
+      # see if purchase exist anyway
+      if purchase = Purchase.where(supplier_id: entity.id, invoiced_at: r.invoiced_at, reference_number: r.reference_number).first
+        w.info "Purchase found with ID : #{purchase.id}"
+      else
+        w.warn 'No purchase found. Outgoing payment will be in stand-by'
       end
     end
     valid

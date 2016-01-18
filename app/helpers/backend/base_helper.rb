@@ -100,7 +100,7 @@ module Backend::BaseHelper
     yield menu
 
     main_name = args[0].to_s.to_sym
-    main_options[:icon] ||= main_name.to_s.parameterize.gsub(/\_/, '-')
+    main_options[:icon] ||= main_name.to_s.parameterize.tr('_', '-')
 
     html = ''.html_safe
     for name, url, options in menu.items
@@ -112,7 +112,7 @@ module Backend::BaseHelper
       if icon = options.delete(:icon)
         item[:title] = content_tag(:i, '', class: 'icon-' + icon.to_s) + ' '.html_safe + h(item[:title])
       end
-      url[:action] ||= name if url.is_a?(Hash) if name != :back
+      url[:action] ||= name if name != :back && url.is_a?(Hash)
       html << content_tag(:li, link_to(options[:title], url, options), li_options) if authorized?(url)
     end
 

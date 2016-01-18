@@ -382,11 +382,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     options[:wrapper] = self.options[:wrapper] if options[:wrapper].nil?
     options[:defaults] ||= self.options[:defaults]
 
-    if self.class < ActionView::Helpers::FormBuilder
-      options[:builder] ||= self.class
-    else
-      options[:builder] ||= Backend::FormBuilder
-    end
+    options[:builder] ||= if self.class < ActionView::Helpers::FormBuilder
+                            self.class
+                          else
+                            Backend::FormBuilder
+                          end
     fields_for(*(args << options), &block)
   end
 
@@ -438,11 +438,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       end
 
       # Add form body
-      if block_given?
-        html << @template.capture(&block)
-      else
-        html << @template.render(partial: 'backend/shared/default_product_form', locals: { f: self })
-      end
+      html << if block_given?
+                @template.capture(&block)
+              else
+                @template.render(partial: 'backend/shared/default_product_form', locals: { f: self })
+    end
 
       # Add first indicators
 
@@ -504,10 +504,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         end
       end
 
-    end
+  end
 
     html
-  end
+end
 
   def variety(options = {})
     scope = options[:scope]
@@ -542,20 +542,20 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         @template.content_tag(:label, class: 'control-label') do
           Ekylibre::Access.human_resource_name(resource)
         end +
-          @template.content_tag(:div, class: 'controls') do
-            rights.collect do |interaction, right|
-              checked = resource_reference.include?(interaction.to_s)
-              attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}" } }
-              if right.dependencies
-                attributes[:data][:need_accesses] = right.dependencies.join(' ')
-              end
-              attributes[:class] << ' active' if checked
-              @template.content_tag(:label, attributes) do
-                @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
-                  ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
-              end
-            end.join.html_safe
-          end
+        @template.content_tag(:div, class: 'controls') do
+          rights.collect do |interaction, right|
+            checked = resource_reference.include?(interaction.to_s)
+            attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}" } }
+            if right.dependencies
+              attributes[:data][:need_accesses] = right.dependencies.join(' ')
+            end
+            attributes[:class] << ' active' if checked
+            @template.content_tag(:label, attributes) do
+              @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
+              ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
+            end
+          end.join.html_safe
+        end
       end
     end
     html
@@ -570,12 +570,12 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     @template.form_actions do
       html = ''.html_safe
       for action in @actions
-        if action[:type] == :block
-          html << action[:content].html_safe
-        else
-          html << @template.send(action[:type], *action[:args])
-        end
+        html << if action[:type] == :block
+                  action[:content].html_safe
+                else
+                  @template.send(action[:type], *action[:args])
       end
+    end
       html
     end
   end

@@ -1,7 +1,7 @@
 module Procedo
   XML_NAMESPACE       = 'http://www.ekylibre.org/XML/2013/procedures'.freeze
   DEFAULT_NAMESPACE   = :base
-  NAMESPACE_SEPARATOR = '-'
+  NAMESPACE_SEPARATOR = '-'.freeze
   VERSION_SEPARATOR   = NAMESPACE_SEPARATOR
 
   autoload :Error,               'procedo/errors'
@@ -37,7 +37,7 @@ module Procedo
     def procedures(options = {})
       list(options).keys
     end
-    alias_method :names, :procedures
+    alias names procedures
 
     # Give access to named procedures
     def [](name)

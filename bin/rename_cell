@@ -33,7 +33,7 @@ end.parse!
 old_cell = ARGV.shift
 new_cell = ARGV.shift
 
-unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
+unless $PROGRAM_NAME =~ /^(.\/)?bin\//
   puts 'Script must be started from Rails root.'
   exit 0
 end
@@ -94,10 +94,9 @@ for file in Dir[config.join('locales', '*', 'action.yml')].sort
   code = tr.to_yaml
 
   puts "Update #{lf}"
-  unless @simulate
-    File.open(lf, 'wb') do |f|
-      f.write code
-    end
+  next if @simulate
+  File.open(lf, 'wb') do |f|
+    f.write code
   end
 end
 

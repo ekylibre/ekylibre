@@ -71,12 +71,11 @@ module Procedo
       @action = nil
 
       for action in ACTIONS
-        if action.match(@expression)
-          if @action
-            fail Procedo::Errors::AmbiguousExpression, "Given expression #{@expression.inspect} match with many actions: #{@action.name} and #{action.name}"
-          else
-            @action = action
-          end
+        next unless action.match(@expression)
+        if @action
+          fail Procedo::Errors::AmbiguousExpression, "Given expression #{@expression.inspect} match with many actions: #{@action.name} and #{action.name}"
+        else
+          @action = action
         end
       end
       unless @action
@@ -91,13 +90,13 @@ module Procedo
       data = expression.match(@action.pattern)
       for parameter, type in @action.definition
         expr = data[parameter]
-        if type == :indicator
-          @parameters[parameter] = Procedo::Indicator.new(self, *expr.split(/\|/))
-        elsif type == :symbol
-          @parameters[parameter] = expr.to_s.strip.gsub(/[^\W]+/, '_').to_sym
-        else
-          @parameters[parameter] = procedure.variables[expr]
-        end
+        @parameters[parameter] = if type == :indicator
+                                   Procedo::Indicator.new(self, *expr.split(/\|/))
+                                 elsif type == :symbol
+                                   expr.to_s.strip.gsub(/[^\W]+/, '_').to_sym
+                                 else
+                                   procedure.variables[expr]
+                                 end
       end
     end
 
@@ -133,6 +132,6 @@ module Procedo
     def human_name
       "procedo.actions.#{@action.type}".t(human_parameters)
     end
-    alias_method :human_expression, :human_name
+    alias human_expression human_name
   end
 end

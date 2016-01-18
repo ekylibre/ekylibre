@@ -25,7 +25,7 @@ namespace :clean do
           source = f.read
         end
         source.gsub!(/^\#[^\n]*\n/, '')
-        unless source.match(/class\ +#{class_name}\ +/)
+        unless source =~ /class\ +#{class_name}\ +/
           errors[:models] += 1
           log.write(" - Error: Test file #{file} seems to be invalid. Class name #{class_name} expected but not found\n")
           if source.blank?
@@ -62,7 +62,7 @@ namespace :clean do
           source = f.read
         end
         source.gsub!(/^\#[^\n]*\n/, '')
-        unless source.match(/class\ +#{test_class_name}\ +/)
+        unless source =~ /class\ +#{test_class_name}\ +/
           errors[:helpers] += 1
           log.write(" - Error: Test file #{file} seems to be invalid. Class name #{test_class_name} expected but not found\n")
           if source.blank?
@@ -101,7 +101,7 @@ namespace :clean do
           source = f.read
         end
         source.gsub!(/^\#[^\n]*\n/, '')
-        unless source.match(/class\ +#{class_name}\ +/)
+        unless source =~ /class\ +#{class_name}\ +/
           errors[:controllers] += 1
           log.write(" - Error: Test file #{file} seems to be invalid. Class name #{class_name} expected but not found\n")
           if source.blank?
@@ -201,7 +201,7 @@ namespace :clean do
           source = f.read
         end
         source.gsub!(/^\#[^\n]*\n/, '')
-        unless source.match(/class\ +#{test_class_name}\ +/)
+        unless source =~ /class\ +#{test_class_name}\ +/
           errors[:jobs] += 1
           log.write(" - Error: Test file #{file} seems to be invalid. Class name #{test_class_name} expected but not found\n")
           if source.blank?

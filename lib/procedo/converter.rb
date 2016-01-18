@@ -79,14 +79,14 @@ module Procedo
     def initialize(handler, element = nil)
       @handler = handler
       # Extract attributes from XML element
-      if element.is_a?(Hash)
-        @attributes = element
-      else
-        @attributes = %w(to forward backward).inject({}) do |hash, attr|
-          hash[attr.to_sym] = element.attr(attr) if element.has_attribute?(attr)
-          hash
-        end
-      end
+      @attributes = if element.is_a?(Hash)
+                      element
+                    else
+                      %w(to forward backward).inject({}) do |hash, attr|
+                        hash[attr.to_sym] = element.attr(attr) if element.has_attribute?(attr)
+                        hash
+                      end
+                    end
 
       @destination = (@attributes[:to] || @handler.indicator.name).to_sym
       unless @@whole_indicators.include?(@destination)

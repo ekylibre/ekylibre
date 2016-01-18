@@ -6,7 +6,7 @@ module Ekylibre
   end
 
   class Tenant
-    AGGREGATION_NAME = '__all__'
+    AGGREGATION_NAME = '__all__'.freeze
 
     class << self
       # Tests existence of a tenant
@@ -199,7 +199,7 @@ module Ekylibre
         Apartment::Tenant.switch!(name)
       end
 
-      alias_method :current=, :switch!
+      alias current= switch!
 
       def switch_default!
         if list.empty?

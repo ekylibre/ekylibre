@@ -114,7 +114,7 @@ class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Bas
       entry[:items_attributes][index.to_s] = { real_debit: r.debit, real_credit: r.credit, account: r.account, name: r.entry_name }
 
       # Adds a real entity with known information
-      if r.account.number.match(/^4(0|1)\d/)
+      if r.account.number =~ /^4(0|1)\d/
         last_name = r.entity_name.mb_chars.capitalize
         modified = false
         entities[last_name] ||= Entity.where('last_name ILIKE ?', last_name).first || Entity.create!(last_name: last_name, nature: 'organization', first_met_at: r.printed_on)
@@ -124,12 +124,12 @@ class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Bas
           modified = true
         end
         account_number = r.account.number
-        if account_number.match(/^401/)
+        if account_number =~ /^401/
           entity.supplier = true
           entity.supplier_account_id = r.account.id
           modified = true
         end
-        if account_number.match(/^411/)
+        if account_number =~ /^411/
           entity.client = true
           entity.client_account_id = r.account.id
           modified = true

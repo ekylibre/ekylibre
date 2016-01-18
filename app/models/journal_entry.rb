@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -227,7 +227,7 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   def main_bank_statement_number
-    self.bank_statement.first.number if self.bank_statement.count > 0
+    bank_statement.first.number if bank_statement.count > 0
   end
 
   # determines if the entry is balanced or not.
@@ -238,7 +238,7 @@ class JournalEntry < Ekylibre::Record::Base
   # this method computes the debit and the credit of the entry.
   def refresh
     reload
-    self.save!
+    save!
   end
 
   # Add a entry which cancel the entry
@@ -266,7 +266,7 @@ class JournalEntry < Ekylibre::Record::Base
       items.clear
       entry_items.each_index do |index|
         entry_items[index] = items.build(entry_items[index])
-        saved = false unless entry_items[index].save if saved
+        saved = false if saved && !entry_items[index].save
       end
       if saved
         reload
@@ -274,7 +274,7 @@ class JournalEntry < Ekylibre::Record::Base
           errors.add(:items, :empty)
           saved = false
         end
-        unless self.balanced?
+        unless balanced?
           errors.add(:debit, :unbalanced)
           saved = false
         end
@@ -310,7 +310,7 @@ class JournalEntry < Ekylibre::Record::Base
       name = name[0..254 - omission.size] + omission
     end
     credit = options.delete(:credit) ? true : false
-    credit = (!credit) if amount < 0
+    credit = !credit if amount < 0
     attributes = options.merge(name: name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
     # attributes[:real_currency] = self.journal.currency

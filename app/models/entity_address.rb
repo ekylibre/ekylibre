@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -88,7 +88,7 @@ class EntityAddress < Ekylibre::Record::Base
       coordinate.strip!
       coordinate.downcase!
     end
-    if self.mail?
+    if mail?
       self.mail_country = Preference[:country] if mail_country.blank?
       if mail_line_6
         self.mail_line_6 = mail_line_6.to_s.gsub(/\s+/, ' ').strip
@@ -103,8 +103,8 @@ class EntityAddress < Ekylibre::Record::Base
       self.mail_line_1 = entity.full_name if mail_line_1.blank?
       self.mail_auto_update = (entity.full_name == mail_line_1 ? true : false)
       self.coordinate = mail_lines
-    elsif self.website?
-      self.coordinate = 'http://' + coordinate unless coordinate.match(/^.+p.*\/\//)
+    elsif website?
+      self.coordinate = 'http://' + coordinate unless coordinate =~ /^.+p.*\/\//
     end
   end
 
@@ -152,7 +152,7 @@ class EntityAddress < Ekylibre::Record::Base
   def mail_line_6_code
     mail_postal_zone.postal_code if mail_postal_zone
   end
-  alias_method :mail_postal_code, :mail_line_6_code
+  alias mail_postal_code mail_line_6_code
 
   def mail_line_6_code=(value)
     self.mail_line_6 = (value.to_s + ' ' + mail_line_6.to_s).strip

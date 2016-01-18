@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -110,7 +110,7 @@ class Account < Ekylibre::Record::Base
 
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
-    self.reconcilable = self.reconcilableable? if reconcilable.nil?
+    self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
   end
 
@@ -178,8 +178,8 @@ class Account < Ekylibre::Record::Base
       excepts = []
       for prefix in expr.strip.split(/[\,\s]+/)
         code = prefix.gsub(/(^(\-|\^)|[CDX]+$)/, '')
-        excepts << code if prefix.match(/^\^\d+$/)
-        normals << code if prefix.match(/^\-?\d+[CDX]?$/)
+        excepts << code if prefix =~ /^\^\d+$/
+        normals << code if prefix =~ /^\-?\d+[CDX]?$/
       end
       conditions = ''
       if normals.any?
@@ -194,7 +194,7 @@ class Account < Ekylibre::Record::Base
       end
       conditions
     end
-    alias_method :find_with_regexp, :regexp_condition
+    alias find_with_regexp regexp_condition
 
     # Find all account matching with the regexp in a String
     # 123 will take all accounts 123*
@@ -265,7 +265,7 @@ class Account < Ekylibre::Record::Base
       unless range.blank?
         valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
         for expr in range.split(/[^0-9A-Z\-\*]+/)
-          if expr.match(/\-/)
+          if expr =~ /\-/
             start, finish = expr.split(/\-+/)[0..1]
             next unless start < finish && start.match(valid_expr) && finish.match(valid_expr)
             expression << " #{start}-#{finish}"
@@ -287,7 +287,7 @@ class Account < Ekylibre::Record::Base
         range = clean_range_condition(range)
         table = table_name || Account.table_name
         for expr in range.split(/\s+/)
-          if expr.match(/\-/)
+          if expr =~ /\-/
             start, finish = expr.split(/\-+/)[0..1]
             max = [start.length, finish.length].max
             conditions << "#{connection.substr(table + '.number', 1, max)} BETWEEN #{connection.quote(start.ljust(max, '0'))} AND #{connection.quote(finish.ljust(max, 'Z'))}"
@@ -436,7 +436,7 @@ class Account < Ekylibre::Record::Base
       # raise StandardError.new compute[:balance].to_s
       # end
 
-      if account.number.match /^(6|7)/
+      if account.number =~ /^(6|7)/
         res_debit += compute[:debit]
         res_credit += compute[:credit]
         res_balance += compute[:balance]
@@ -449,13 +449,13 @@ class Account < Ekylibre::Record::Base
     # raise StandardError.new res_balance.to_s
     balance.each do |account|
       if res_balance > 0
-        if account[:number].to_s.match /^12/
+        if account[:number].to_s =~ /^12/
           account[:debit] += res_debit
           account[:credit] += res_credit
           account[:balance] += res_balance # solde
         end
       elsif res_balance < 0
-        if account[:number].to_s.match /^129/
+        if account[:number].to_s =~ /^129/
           account[:debit] += res_debit
           account[:credit] += res_credit
           account[:balance] += res_balance # solde
@@ -475,24 +475,23 @@ class Account < Ekylibre::Record::Base
 
       journal_entry_items = account.journal_entry_items.where('r.created_at' => from..to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order('r.number ASC')
 
-      if journal_entry_items.size > 0
-        entries = []
-        compute << account.number.to_i
-        compute << account.name.to_s
-        journal_entry_items.each do |e|
-          entry = HashWithIndifferentAccess.new
-          entry[:date] = e.entry.created_at
-          entry[:name] = e.name.to_s
-          entry[:number_entry] = e.entry.number
-          entry[:journal] = e.entry.journal.name.to_s
-          entry[:credit] = e.credit
-          entry[:debit] = e.debit
-          entries << entry
-          # compute[:journal_entry_items] << entry
-        end
-        compute << entries
-        ledger << compute
+      next unless journal_entry_items.size > 0
+      entries = []
+      compute << account.number.to_i
+      compute << account.name.to_s
+      journal_entry_items.each do |e|
+        entry = HashWithIndifferentAccess.new
+        entry[:date] = e.entry.created_at
+        entry[:name] = e.name.to_s
+        entry[:number_entry] = e.entry.number
+        entry[:journal] = e.entry.journal.name.to_s
+        entry[:credit] = e.credit
+        entry[:debit] = e.debit
+        entries << entry
+        # compute[:journal_entry_items] << entry
       end
+      compute << entries
+      ledger << compute
     end
 
     ledger.compact

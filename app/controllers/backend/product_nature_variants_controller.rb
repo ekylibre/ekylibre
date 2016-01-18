@@ -89,11 +89,11 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
     if catalog && item = catalog.items.find_by(variant_id: @product_nature_variant.id)
       infos[:all_taxes_included] = item.all_taxes_included
       unless infos[:tax_id] = (item.reference_tax ? item.reference_tax.id : nil)
-        if items = SaleItem.where(variant_id: @product_nature_variant.id) and items.any?
-          infos[:tax_id] = items.order(id: :desc).first.tax_id
-        else
-          infos[:tax_id] = Tax.first.id
-        end
+        infos[:tax_id] = if (items = SaleItem.where(variant_id: @product_nature_variant.id)) && items.any?
+                           items.order(id: :desc).first.tax_id
+                         else
+                           Tax.first.id
+                         end
       end
       if tax = Tax.find_by(id: infos[:tax_id])
         if item.all_taxes_included
@@ -105,14 +105,14 @@ class Backend::ProductNatureVariantsController < Backend::BaseController
         end
       end
     elsif params[:mode] == 'last_purchase_item'
-      if items = PurchaseItem.where(variant_id: @product_nature_variant.id) and items.any?
+      if (items = PurchaseItem.where(variant_id: @product_nature_variant.id)) && items.any?
         item = items.order(id: :desc).first
         infos[:tax_id] = item.tax_id
         infos[:unit][:pretax_amount] = item.unit_pretax_amount
         infos[:unit][:amount] = item.unit_amount
       end
     elsif params[:mode] == 'last_sale_item'
-      if items = SaleItem.where(variant_id: @product_nature_variant.id) and items.any?
+      if (items = SaleItem.where(variant_id: @product_nature_variant.id)) && items.any?
         item = items.order(id: :desc).first
         infos[:tax_id] = item.tax_id
         infos[:unit][:pretax_amount] = item.unit_pretax_amount

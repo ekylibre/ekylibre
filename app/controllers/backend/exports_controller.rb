@@ -29,12 +29,11 @@ class Backend::ExportsController < Backend::BaseController
     end
 
     klass.parameters.each do |parameter|
-      unless parameter.record_list?
-        value_preference = "exports.#{klass.name}.parameters.#{parameter.name}.value"
-        value = current_user.preference(value_preference, parameter.default).value
-        params[parameter.name] ||= value
-        current_user.prefer!(value_preference, params[parameter.name])
-      end
+      next if parameter.record_list?
+      value_preference = "exports.#{klass.name}.parameters.#{parameter.name}.value"
+      value = current_user.preference(value_preference, parameter.default).value
+      params[parameter.name] ||= value
+      current_user.prefer!(value_preference, params[parameter.name])
     end
 
     @aggregator = klass.new(params)

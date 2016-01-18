@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -149,11 +149,11 @@ class ProductionSupport < Ekylibre::Record::Base
   def soil_enrichment_indicator_content_per_area(indicator, from = nil, to = nil, area_unit = :hectare)
     balance = []
     procedure_nature = :soil_enrichment
-    if from && to
-      interventions = self.interventions.real.of_nature(procedure_nature).between(from, to)
-    else
-      interventions = self.interventions.real.of_nature(procedure_nature)
-    end
+    interventions = if from && to
+                      self.interventions.real.of_nature(procedure_nature).between(from, to)
+                    else
+                      self.interventions.real.of_nature(procedure_nature)
+                    end
     interventions.each do |intervention|
       intervention.casts.of_role("#{procedure_nature}-input").each do |input|
         # m = net_mass of the input at intervention time
@@ -203,21 +203,21 @@ class ProductionSupport < Ekylibre::Record::Base
 
   def tool_cost(surface_unit = :hectare)
     if net_surface_area.to_s.to_f > 0.0
-      return cost(:tool) / (net_surface_area.to_d(surface_unit).to_s.to_f)
+      return cost(:tool) / net_surface_area.to_d(surface_unit).to_s.to_f
     end
     0.0
   end
 
   def input_cost(surface_unit = :hectare)
     if net_surface_area.to_s.to_f > 0.0
-      return cost(:input) / (net_surface_area.to_d(surface_unit).to_s.to_f)
+      return cost(:input) / net_surface_area.to_d(surface_unit).to_s.to_f
     end
     0.0
   end
 
   def time_cost(surface_unit = :hectare)
     if net_surface_area.to_s.to_f > 0.0
-      return cost(:doer) / (net_surface_area.to_d(surface_unit).to_s.to_f)
+      return cost(:doer) / net_surface_area.to_d(surface_unit).to_s.to_f
     end
     0.0
   end
@@ -272,11 +272,10 @@ class ProductionSupport < Ekylibre::Record::Base
       harvest_interventions.find_each do |harvest|
         harvest.casts.of_role(role).each do |cast|
           actor = cast.actor
-          if actor && actor.variety
-            variety = Nomen::Variety.find(actor.variety)
-            if variety && variety <= harvest_variety
-              total_quantity += actor.get(quantity_indicator, cast)
-            end
+          next unless actor && actor.variety
+          variety = Nomen::Variety.find(actor.variety)
+          if variety && variety <= harvest_variety
+            total_quantity += actor.get(quantity_indicator, cast)
           end
         end
       end

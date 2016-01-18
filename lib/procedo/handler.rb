@@ -5,18 +5,18 @@ module Procedo
     def initialize(variable, element = nil)
       @variable = variable
       # Extract attributes from XML element
-      if element.is_a?(Hash)
-        @attributes = element
-      else
-        @attributes = %w(forward backward indicator unit to datatype name widget converters if).inject({}) do |hash, attr|
-          if attr == 'converters'
-            hash[:converters] = element.xpath('xmlns:converter').to_a
-          elsif element.has_attribute?(attr)
-            hash[attr.to_sym] = element.attr(attr)
-          end
-          hash
-        end
-      end
+      @attributes = if element.is_a?(Hash)
+                      element
+                    else
+                      %w(forward backward indicator unit to datatype name widget converters if).inject({}) do |hash, attr|
+                        if attr == 'converters'
+                          hash[:converters] = element.xpath('xmlns:converter').to_a
+                        elsif element.has_attribute?(attr)
+                          hash[attr.to_sym] = element.attr(attr)
+                        end
+                        hash
+                      end
+                    end
 
       # Check indicator
       unless @indicator = Nomen::Indicator[@attributes[:indicator]]

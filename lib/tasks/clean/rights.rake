@@ -50,13 +50,12 @@ namespace :clean do
             yaml << "    - #{dependency}\n"
           end
         end
-        if details[:actions].any?
-          yaml << "    actions:\n"
-          for action in details[:actions].sort
-            yaml << "    - \"#{action}\""
-            yaml << ' #?' if unexistent_actions.include?(action)
-            yaml << "\n"
-          end
+        next unless details[:actions].any?
+        yaml << "    actions:\n"
+        for action in details[:actions].sort
+          yaml << "    - \"#{action}\""
+          yaml << ' #?' if unexistent_actions.include?(action)
+          yaml << "\n"
         end
       end
     end

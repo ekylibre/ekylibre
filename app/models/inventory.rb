@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -66,30 +66,27 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def reflectable?
-    !self.reflected? && self.class.unreflecteds.where(self.class.arel_table[:achieved_at].lt(self.achieved_at)).empty?
+    !reflected? && self.class.unreflecteds.where(self.class.arel_table[:achieved_at].lt(self.achieved_at)).empty?
   end
 
   # Apply deltas on products
   def reflect
-    unless self.reflectable?
-      fail StandardError, 'Cannot reflect reflected inventory'
-    end
+    fail StandardError, 'Cannot reflect reflected inventory' unless reflectable?
     self.class.transaction do
       self.reflected_at = Time.zone.now
       self.reflected = true
-      self.save!
+      save!
       for item in items
-        if item.actual_population != item.expected_population && product = item.product
-          delta = item.actual_population - item.expected_population
+        next unless item.actual_population != item.expected_population && product = item.product
+        delta = item.actual_population - item.expected_population
 
-          # Adds reading now if not found before
-          product.read!(:population, item.actual_population, at: self.achieved_at, originator: item)
+        # Adds reading now if not found before
+        product.read!(:population, item.actual_population, at: self.achieved_at, originator: item)
 
-          # Updates
-          for reading in product.readings.where(indicator_name: 'population').where('read_at > ?', self.achieved_at)
-            reading.value += delta
-            reading.save!
-          end
+        # Updates
+        for reading in product.readings.where(indicator_name: 'population').where('read_at > ?', self.achieved_at)
+          reading.value += delta
+          reading.save!
         end
       end
     end
@@ -98,20 +95,17 @@ class Inventory < Ekylibre::Record::Base
   def build_missing_items
     self.achieved_at ||= Time.zone.now
     for product in Matter.at(achieved_at).of_owner(Entity.of_company)
-      unless items.detect { |i| i.product_id == product.id }
-        population = product.population(at: self.achieved_at)
-        # shape = product.shape(at: self.achieved_at)
-        items.build(product_id: product.id, actual_population: population, expected_population: population)
-      end
+      next if items.detect { |i| i.product_id == product.id }
+      population = product.population(at: self.achieved_at)
+      # shape = product.shape(at: self.achieved_at)
+      items.build(product_id: product.id, actual_population: population, expected_population: population)
     end
   end
 
   def refresh!
-    unless self.editable?
-      fail StandardError, 'Cannot refresh uneditable inventory'
-    end
+    fail StandardError, 'Cannot refresh uneditable inventory' unless editable?
     items.clear
     build_missing_items
-    self.save!
+    save!
   end
 end

@@ -13,16 +13,16 @@ Ekylibre::Tenant.setup!('sekindovall')
 Ekylibre::Tenant.setup!('test', keep_files: true)
 
 class FixtureRetriever
-  ROLES = %w(zeroth first second third fourth fifth sixth seventh eighth nineth tenth)
+  ROLES = %w(zeroth first second third fourth fifth sixth seventh eighth nineth tenth).freeze
   @@truc = {}
 
   def initialize(model, options = {}, fixture_options = nil)
-    if model and model < Ekylibre::Record::Base
+    if model && model < Ekylibre::Record::Base
       fixture_options ||= {}
       @model  = fixture_options.delete(:model) || model
       @prefix = fixture_options.delete(:prefix) || @model.name.underscore.pluralize
       @table  = fixture_options.delete(:table) || @model.table_name
-      options = { first: normalize(options) } if options and !options.is_a?(Hash)
+      options = { first: normalize(options) } if options && !options.is_a?(Hash)
       @options = options || {}
     end
   end
@@ -143,24 +143,24 @@ class ActionController::TestCase
       other_record = "other_#{record}"
       attributes = nil
       file_columns = {}
-      if model and model < ActiveRecord::Base
+      if model && model < ActiveRecord::Base
         table_name = model.table_name
         if model.respond_to?(:attachment_definitions)
           unless model.attachment_definitions.nil?
             file_columns = model.attachment_definitions
           end
         end
-        attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if{|c|
+        attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if do|c|
           [:depth, :lft, :rgt].include?(c)
-        }
+        end
         attributes += options.delete(:other_attributes) || []
         attributes = ('{' + attributes.map(&:to_sym).uniq.collect do |a|
-                        if file_columns[a]
-                          "#{a}: fixture_file_upload('files/sample_image.png')"
-                        else
-                          "#{a}: #{record}.#{a}"
-                        end
-                      end.join(', ') + '}').c
+                              if file_columns[a]
+                                "#{a}: fixture_file_upload('files/sample_image.png')"
+                              else
+                                "#{a}: #{record}.#{a}"
+                              end
+                            end.join(', ') + '}').c
       end
 
       if block_given?
@@ -252,14 +252,14 @@ class ActionController::TestCase
         fixtures_to_use = FixtureRetriever.new(model, params.delete(:fixture), params.delete(:fixture_options))
         test_code = ''
 
-        sanitized_params = proc { |p = {}|
+        sanitized_params = proc do |p = {}|
           p.deep_symbolize_keys
-          .merge(locale: '@locale'.c)
-          .deep_merge(params)
-          .inspect
-          .gsub('OTHER_RECORD', other_record)
-          .gsub('RECORD', record)
-        }
+           .merge(locale: '@locale'.c)
+           .deep_merge(params)
+           .inspect
+           .gsub('OTHER_RECORD', other_record)
+           .gsub('RECORD', record)
+        end
         if mode == :index
           test_code << "get :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, 'Try to get action: #{action} #{sanitized_params[]}. ' + #{context}\n"
@@ -291,11 +291,11 @@ class ActionController::TestCase
           test_code << "end\n"
         elsif mode == :show
           test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
-          if strictness == :api
-            test_code << "assert_response 404\n" # , #{context}
-          else
-            test_code << "assert_redirected_to root_url\n" # , #{context}
-          end
+          test_code << if strictness == :api
+                         "assert_response 404\n" # , #{context}
+                       else
+                         "assert_redirected_to root_url\n" # , #{context}
+        end
           if model
             test_code << "#{model}.limit(5).find_each do |record|\n"
             test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c]}\n"
@@ -390,7 +390,7 @@ class ActionController::TestCase
           test_code << "xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           test_code << "assert_not_nil assigns(:#{record})\n"
         elsif mode == :resource
-          # TODO: Adds test for resource
+        # TODO: Adds test for resource
         elsif mode == :unroll
           test_code << "xhr :get, :#{action}, #{sanitized_params[]}\n"
           test_code << "assert_response :success, #{context}\n"
@@ -438,13 +438,13 @@ class ActionController::TestCase
           test_code << "assert_response :redirect, #{context}\n"
         else
           test_code << "raise StandardError, 'What is this mode? #{mode.inspect}'\n"
-        end
+      end
 
-        if action != mode
-          code << "test '#{action} action in #{mode} mode' do\n"
-        else
-          code << "test '#{action} action' do\n"
-        end
+        code << if action != mode
+                  "test '#{action} action in #{mode} mode' do\n"
+                else
+                  "test '#{action} action' do\n"
+      end
         # code << "  puts '#{controller_path.to_s.yellow}##{action.to_s.red}'\n"
         code << test_code.dig
         code << "end\n\n"
@@ -458,7 +458,7 @@ class ActionController::TestCase
       end
 
       class_eval(code, "(test) #{controller_path}") # :#{__LINE__}
-    end
+end
 
     MODES = {
       /\Abackend\/cells\/.*\#show\z/ => :get,
@@ -476,7 +476,7 @@ class ActionController::TestCase
       /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run|qualify|evaluate|quote|negociate|win|lose|reset|start|prospect|retrieve)\z/ => :touch,
       /\#take\z/          => :take,
       /\#unroll\z/        => :unroll
-    }
+    }.freeze
 
     def choose_mode(action)
       array = action.to_s.split('#')
@@ -487,21 +487,21 @@ class ActionController::TestCase
                 rescue
                   nil
                 end
-        return :new_product if model and model <= Product
+        return :new_product if model && model <= Product
       elsif action_name == :show
         model = begin
                   array.first.split(/\//).last.classify.constantize
                 rescue
                   nil
                 end
-        return :show_sti_record if model and (model <= Product or model <= Affair)
+        return :show_sti_record if model && (model <= Product || model <= Affair)
       end
       for exp, mode in MODES
         return mode if action =~ exp
       end
       :get
     end
-  end
+end
 end
 
 # Cheat Sheet
@@ -550,7 +550,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     wait_for_ajax
     save_page file.to_s.gsub(/\.png\z/, '.html')
-    save_screenshot file # , full: true
+    # , full: true
   end
 
   def resize_window(width, height)

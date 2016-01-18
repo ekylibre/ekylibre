@@ -1,9 +1,9 @@
 class Backend::Cells::ElapsedInterventionsTimesByActivitiesCellsController < Backend::Cells::BaseController
   def show
-    if params[:campaign_id] && campaign = Campaign.find(params[:campaign_id])
-      @campaign = campaign
-    else
-      @campaign = current_campaign
-    end
+    @campaign = if params[:campaign_id] && campaign = Campaign.find(params[:campaign_id])
+                  campaign
+                else
+                  current_campaign
+                end
   end
 end

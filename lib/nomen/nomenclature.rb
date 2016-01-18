@@ -3,7 +3,7 @@ module Nomen
   class Nomenclature
     attr_reader :properties, :items, :name, :roots
     attr_accessor :name, :notions, :translateable, :forest_right
-    alias_method :property_natures, :properties
+    alias property_natures properties
 
     # Instanciate a new nomenclature
     def initialize(name, options = {})
@@ -189,23 +189,22 @@ module Nomen
     # name and new_name are Symbol
     def cascade_item_renaming(name, new_name)
       @set.references.each do |reference|
-        if reference.foreign_nomenclature == self
-          p = reference.property
-          if p.list?
-            reference.nomenclature.find_each do |item|
-              v = item.property(p.name)
-              if v && v.include?(name)
-                l = v.map do |n|
-                  n == name ? new_name : n
-                end
-                item.set(p.name, l)
+        next unless reference.foreign_nomenclature == self
+        p = reference.property
+        if p.list?
+          reference.nomenclature.find_each do |item|
+            v = item.property(p.name)
+            if v && v.include?(name)
+              l = v.map do |n|
+                n == name ? new_name : n
               end
+              item.set(p.name, l)
             end
-          else
-            reference.nomenclature.find_each do |item|
-              v = item.property(p.name)
-              item.set(p.name, new_name) if v == name
-            end
+          end
+        else
+          reference.nomenclature.find_each do |item|
+            v = item.property(p.name)
+            item.set(p.name, new_name) if v == name
           end
         end
       end
@@ -242,10 +241,9 @@ module Nomen
         if property.choices_nomenclature && !property.inline_choices? && !Nomen[property.choices_nomenclature.to_s]
           fail InvalidPropertyNature, "[#{name}] #{property.name} nomenclature property must refer to an existing nomenclature. Got #{property.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
         end
-        if property.type == :choice && property.default
-          unless property.choices.include?(property.default)
-            fail InvalidPropertyNature, "The default choice #{property.default.inspect} is invalid (in #{name}##{property.name}). Pick one from #{property.choices.sort.inspect}."
-          end
+        next unless property.type == :choice && property.default
+        unless property.choices.include?(property.default)
+          fail InvalidPropertyNature, "The default choice #{property.default.inspect} is invalid (in #{name}##{property.name}). Pick one from #{property.choices.sort.inspect}."
         end
       end
 
@@ -297,7 +295,7 @@ module Nomen
     def human_name(options = {})
       "nomenclatures.#{name}.name".t(options.merge(default: ["labels.#{name}".to_sym, name.to_s.humanize]))
     end
-    alias_method :humanize, :human_name
+    alias humanize human_name
 
     def new_boundaries(count = 2)
       boundaries = []
@@ -321,7 +319,7 @@ module Nomen
         return @items.keys.sort
       end
     end
-    alias_method :all, :to_a
+    alias all to_a
 
     def <=>(other)
       name <=> other.name
@@ -382,7 +380,7 @@ module Nomen
     def find(item_name)
       @items[item_name]
     end
-    alias_method :item, :find
+    alias item find
 
     def property(property_name)
       @properties[property_name]
@@ -458,11 +456,11 @@ module Nomen
     def cast_options(options)
       return {} if options.nil?
       hash = options.each_with_object({}) do |(k, v), h|
-        if properties[k]
-          h[k.to_sym] = cast_property(k, v.to_s)
-        else
-          h[k.to_sym] = v
-        end
+        h[k.to_sym] = if properties[k]
+                        cast_property(k, v.to_s)
+                      else
+                        v
+                      end
       end
     end
 

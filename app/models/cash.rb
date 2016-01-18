@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -53,7 +53,7 @@ class Cash < Ekylibre::Record::Base
   include Attachable
   BBAN_TRANSLATIONS = {
     fr: %w(abcdefghijklmonpqrstuvwxyz 12345678912345678923456789)
-  }
+  }.freeze
   attr_readonly :nature
   attr_readonly :currency, if: :used?
   refers_to :country
@@ -109,9 +109,9 @@ class Cash < Ekylibre::Record::Base
         self.currency = eoc.currency
       end
     end
-    if self.mode_iban?
+    if mode_iban?
       self.iban = iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
-    elsif self.mode_bban? && self.bank_code? && self.bank_agency_code? && self.bank_account_number? && bank_account_key
+    elsif mode_bban? && bank_code? && bank_agency_code? && bank_account_number? && bank_account_key
       self.iban = self.class.generate_iban(country, bank_code + bank_agency_code + bank_account_number + bank_account_key)
     end
     unless iban.blank?
@@ -126,8 +126,8 @@ class Cash < Ekylibre::Record::Base
         errors.add(:journal, :currency_does_not_match, journal: journal.name)
       end
     end
-    if self.bank_account?
-      if self.mode_bban?
+    if bank_account?
+      if mode_bban?
         unless country.blank?
           errors.add(:bank_account_key, :unvalid_bban) unless self.class.valid_bban?(country, attributes)
         end
@@ -139,7 +139,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.used?
+    used?
   end
 
   def used?

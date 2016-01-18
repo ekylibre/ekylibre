@@ -111,7 +111,7 @@ module Backend::HelpsHelper
       align = { '  ' => 'center', ' x' => 'right', 'x ' => 'left', 'xx' => '' }[(data[0][0..0] + data[0][-1..-1]).gsub(/[^\ ]/, 'x')]
       title = data[1] || data[0].split(/[\:\\\/]+/)[-1].humanize
       src = data[0].strip
-      if src.match(/^icon:/)
+      if src =~ /^icon:/
         icon_name = src.split(':')[1]
         "<i class='icon icon-#{icon_name}'></i>"
       else

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -76,11 +76,11 @@ class CustomField < Ekylibre::Record::Base
 
   # Adds a new column in the given model
   after_save do
-    unless self.column_exists?
+    unless column_exists?
       options = {}
       options.update(precision: 19, scale: 6) if column_type == :decimal
       self.class.connection.add_column(customized_table_name, column_name, column_type, options)
-      if self.choice? && !self.index_exists?
+      if choice? && !index_exists?
         self.class.connection.add_index(customized_table_name, column_name, name: index_name)
       end
       reset_schema
@@ -98,8 +98,8 @@ class CustomField < Ekylibre::Record::Base
 
   # Destroy column and its data
   before_destroy do
-    if self.column_exists?
-      if self.index_exists?
+    if column_exists?
+      if index_exists?
         self.class.connection.remove_index(customized_table_name, column_name)
       end
       self.class.connection.remove_column(customized_table_name, column_name)
@@ -120,7 +120,7 @@ class CustomField < Ekylibre::Record::Base
 
   # Returns the data type for the column
   def column_type
-    (self.choice? ? :string : nature).to_sym
+    (choice? ? :string : nature).to_sym
   end
 
   # Check if column exists in DB
@@ -130,7 +130,7 @@ class CustomField < Ekylibre::Record::Base
 
   # Check if index exists in DB
   def index_exists?
-    return false unless self.column_exists?
+    return false unless column_exists?
     self.class.connection.index_exists?(customized_table_name, column_name)
   end
 

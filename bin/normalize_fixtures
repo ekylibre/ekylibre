@@ -12,7 +12,7 @@ require 'rgeo'
 
 root = Pathname.new(__FILE__).dirname.dirname
 
-UNWANTED = %w(created_at updated_at id)
+UNWANTED = %w(created_at updated_at id).freeze
 
 tables = YAML.load_file(root.join('db', 'tables.yml'))
 
@@ -36,30 +36,28 @@ for file in Dir.glob(root.join('test', 'fixtures', '*.yml')).sort
     attributes = hash[record]
     attributes.delete_if { |k, _v| UNWANTED.include?(k) }
     for name in hash[record].keys
-      if name =~ /\id\z/
-        new_name = name.gsub(/_id\z/, '')
-        unless attributes[new_name]
-          column = tables[table][name]
-          references = column['references']
-          if references =~ /\A\~/
-            type_attribute = "#{new_name}_type"
-            type = attributes[type_attribute]
-            attributes[new_name] = "#{type.underscore.pluralize}_#{attributes[name].to_s.rjust(3, '0')} (#{type})"
-            attributes.delete(type_attribute)
-          else
-            unless t = labels[models[references.pluralize]]
-              puts '*' * 200
-              puts references.pluralize
-            end
-            if t and label = t[attributes[name]]
-              attributes[new_name] = label
-            else
-              attributes[new_name] = "#{references.pluralize}_#{attributes[name].to_s.rjust(3, '0')}"
-            end
-          end
-          attributes.delete(name)
+      next unless name.end_with?('id')
+      new_name = name.gsub(/_id\z/, '')
+      next if attributes[new_name]
+      column = tables[table][name]
+      references = column['references']
+      if references.start_with?('~')
+        type_attribute = "#{new_name}_type"
+        type = attributes[type_attribute]
+        attributes[new_name] = "#{type.underscore.pluralize}_#{attributes[name].to_s.rjust(3, '0')} (#{type})"
+        attributes.delete(type_attribute)
+      else
+        unless t = labels[models[references.pluralize]]
+          puts '*' * 200
+          puts references.pluralize
+        end
+        attributes[new_name] = if t && (label = t[attributes[name]])
+                                 label
+                               else
+                                 "#{references.pluralize}_#{attributes[name].to_s.rjust(3, '0')}"
         end
       end
+      attributes.delete(name)
     end
     hash[record] = Hash[attributes.sort]
 

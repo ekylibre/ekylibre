@@ -10,7 +10,7 @@ class Backend::Cells::QuandlCellsController < Backend::Cells::BaseController
     url = "https://www.quandl.com/api/v1/datasets/#{dataset}.json?auth_token=#{token}"
     data = JSON.load(open(url))
     if data['errors'].any?
-      # TODO: Prevent ?
+    # TODO: Prevent ?
     else
       @data = data.deep_symbolize_keys
     end

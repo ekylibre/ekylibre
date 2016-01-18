@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -116,7 +116,7 @@ class Journal < Ekylibre::Record::Base
       unless journal = preferred(pref_name)
         journal = journals.find_by_nature(name)
         journal = journals.create!(name: tc("default.journals.#{name}"), nature: name, currency: default_currency) unless journal
-        self.prefer!(pref_name, journal)
+        prefer!(pref_name, journal)
       end
       journal
     end
@@ -216,10 +216,10 @@ class Journal < Ekylibre::Record::Base
   def next_number
     entry = entries.order(id: :desc).first
     number = entry ? entry.number : code.to_s.upcase + '000000'
-    number.gsub!(/(9+)\z/, '0\1') if number.match(/[^\d]9+\z/)
+    number.gsub!(/(9+)\z/, '0\1') if number =~ /[^\d]9+\z/
     number.succ!
     while entries.where(number: number).any?
-      number.gsub!(/(9+)\z/, '0\1') if number.match(/[^\d]9+\z/)
+      number.gsub!(/(9+)\z/, '0\1') if number =~ /[^\d]9+\z/
       number.succ!
     end
     number
@@ -270,7 +270,7 @@ class Journal < Ekylibre::Record::Base
     values = expression.split(/\,/).collect do |expr|
       words = expr.strip.split(/\s+/)
       direction = 1
-      direction = -1 if words.shift == '-' if words.first =~ /^(\+|\-)$/
+      direction = -1 if words.first =~ /^(\+|\-)$/ && words.shift == '-'
       mode = words.last =~ /^[BCD]$/ ? words.delete_at(-1) : 'B'
       accounts_range = {}
       words.map do |word|

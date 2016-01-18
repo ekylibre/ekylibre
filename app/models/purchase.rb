@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -142,7 +142,7 @@ class Purchase < Ekylibre::Record::Base
   # This callback permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(nature.journal, printed_on: invoiced_on, if: self.invoice?) do |entry|
+    b.journal_entry(nature.journal, printed_on: invoiced_on, if: invoice?) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: self.supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
       for item in items
         entry.add_debit(label, item.account, item.pretax_amount) unless item.pretax_amount.zero?
@@ -157,14 +157,14 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def dealt_at
-    (self.invoice? ? invoiced_at : self.created_at? ? self.created_at : Time.zone.now)
+    (invoice? ? invoiced_at : created_at? ? self.created_at : Time.zone.now)
   end
 
   # Globalizes taxes into an array of hash
   def deal_taxes(mode = :debit)
     return [] if deal_mode_amount(mode).zero?
     taxes = {}
-    coeff = (1).to_d # (self.send("deal_#{mode}?") ? 1 : -1)
+    coeff = 1.to_d # (self.send("deal_#{mode}?") ? 1 : -1)
     for item in items
       taxes[item.tax_id] ||= { amount: 0.0.to_d, tax: item.tax }
       taxes[item.tax_id][:amount] += coeff * item.amount
@@ -181,11 +181,11 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def purchased?
-    (self.order? || self.invoice?)
+    (order? || invoice?)
   end
 
   def has_content_not_deliverable?
-    return false unless self.has_content?
+    return false unless has_content?
     deliverable = false
     for item in items
       deliverable = true if item.variant.deliverable?
@@ -209,19 +209,19 @@ class Purchase < Ekylibre::Record::Base
 
   # Save the last date when the purchase was confirmed
   def confirm(confirmed_at = nil)
-    return false unless self.can_confirm?
+    return false unless can_confirm?
     reload
     self.confirmed_at ||= confirmed_at || Time.zone.now
-    self.save!
+    save!
     super
   end
 
   # Save the last date when the invoice of purchase was received
   def invoice(invoiced_at = nil)
-    return false unless self.can_invoice?
+    return false unless can_invoice?
     reload
     self.invoiced_at ||= invoiced_at || Time.zone.now
-    self.save!
+    save!
     super
   end
 
@@ -235,7 +235,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def status
-    return affair.status if self.invoice?
+    return affair.status if invoice?
     :stop
   end
 

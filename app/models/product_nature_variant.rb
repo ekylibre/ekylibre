@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -253,7 +253,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
                       { name: '', symbol: unit.symbol, human_name: unit.human_name }
                     else
                       { name: '', symbol: unit_name, human_name: unit_name }
-                     end
+                    end
       hash
     end
 
@@ -336,7 +336,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         # Filter and imports
         filtereds = nomenclature.select do |item|
           item[:variety].include?(variety) &&
-          ((derivative_of && item[:derivative_of] && item[:derivative_of].include?(derivative_of)) || (derivative_of.blank? && item[:derivative_of].blank?))
+            ((derivative_of && item[:derivative_of] && item[:derivative_of].include?(derivative_of)) || (derivative_of.blank? && item[:derivative_of].blank?))
         end
         filtereds.each do |item|
           import_from_nomenclature(item[:reference_name])
@@ -374,7 +374,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       unless item.frozen_indicators_values.to_s.blank?
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
-          .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
+            .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
           variant.read!(i.first.strip.downcase.to_sym, i.second)
         end
       end

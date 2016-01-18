@@ -15,7 +15,7 @@ module Ekylibre
       def check_point(increment = 1)
         @count += increment
         @block.call(@count, increment) if @block
-        fail CountExceeded if @count >= @maximum if @maximum > 0
+        fail CountExceeded if @maximum > 0 && @count >= @maximum
       end
     end
   end

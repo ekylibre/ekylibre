@@ -138,7 +138,7 @@ module ApplicationHelper
     locales = ::I18n.available_locales.sort { |a, b| a.to_s <=> b.to_s }
     # locales = ::I18n.valid_locales.sort{|a,b| a.to_s <=> b.to_s}
     locale = nil # ::I18n.locale
-    if params[:locale].to_s.match(/^[a-z][a-z][a-z]$/)
+    if params[:locale].to_s =~ /^[a-z][a-z][a-z]$/
       locale = params[:locale].to_sym if locales.include? params[:locale].to_sym
     end
     locale ||= ::I18n.locale || ::I18n.default_locale
@@ -186,7 +186,7 @@ module ApplicationHelper
         tag_options = nil
       end
 
-      href_attr = "href=\"" + url + "\"" unless href
+      href_attr = 'href="' + url + '"' unless href
       "<a #{href_attr}#{tag_options}>".html_safe + (name || url) + '</a>'.html_safe
     end
   end
@@ -255,7 +255,7 @@ module ApplicationHelper
       model = object.class
       model_name = model.name.underscore
       default = ["activerecord.attributes.#{model_name}.#{attribute}_id".to_sym]
-      default << "activerecord.attributes.#{model_name}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s.match(/_label$/)
+      default << "activerecord.attributes.#{model_name}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s =~ /_label$/
       default << "attributes.#{attribute}".to_sym
       default << "attributes.#{attribute}_id".to_sym
       label = "activerecord.attributes.#{model_name}.#{attribute}".t(default: default)
@@ -281,7 +281,7 @@ module ApplicationHelper
       value = content_tag(:div, '', class: "checkbox-#{value}")
     elsif value.respond_to?(:text)
       value = value.send(:text)
-    elsif attribute.to_s.match(/(^|_)currency$/)
+    elsif attribute.to_s =~ /(^|_)currency$/
       value = Nomen::Currency[value].human_name
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
@@ -408,7 +408,7 @@ module ApplicationHelper
   end
 
   def doctype_tag
-    "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN\" \"http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd\">".html_safe
+    '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN" "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd">'.html_safe
   end
 
   def search_results(search, _options = {}, &block)
@@ -443,7 +443,7 @@ module ApplicationHelper
         for p in page_min..page_max
           attrs = {}
           attrs[:class] = 'active' if p == params[:page]
-          pagination << link_to("#{p}", { q: params[:q], page: p }, attrs)
+          pagination << link_to(p.to_s, { q: params[:q], page: p }, attrs)
         end
         pagination << content_tag(:span, '&hellip;'.html_safe) if page_max < search[:last_page]
         pagination.html_safe
@@ -592,11 +592,10 @@ module ApplicationHelper
     for item in array
       item << content_tag(:td, capture(item, &block))
       size += 1
-      if size >= coln
-        html << content_tag(:tr, item).html_safe
-        item = ''
-        size = 0
-      end
+      next unless size >= coln
+      html << content_tag(:tr, item).html_safe
+      item = ''
+      size = 0
     end
     html << content_tag(:tr, item).html_safe unless item.blank?
     content_tag(:table, html, html_options).html_safe
@@ -900,7 +899,7 @@ module ApplicationHelper
   end
 
   def condition_label(condition)
-    if condition.match(/^generic/)
+    if condition =~ /^generic/
       klass = condition.split(/\-/)[1].pluralize.classify.constantize
       attribute = condition.split(/\-/)[2]
       return tl('conditions.filter_on_attribute_of_class', attribute: klass.human_attribute_name(attribute), class: klass.model_name.human)
@@ -923,7 +922,7 @@ module ApplicationHelper
     else
       options[:class] = options[:class].to_s + ' modal fade'
     end
-    if id = args.shift and !options[:id]
+    if (id = args.shift) && !options[:id]
       if id.is_a?(Symbol)
         options[:id] = id.to_s.dasherize
         options[:title] ||= id.tl

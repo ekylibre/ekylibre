@@ -9,7 +9,7 @@ module Procedo
       if element.has_attribute?('new')
         @new_variable = true
         @new_value = element.attr('new').to_s
-        unless @new_value.match(/\A(parted\-from|produced-by)\:/)
+        unless @new_value =~ /\A(parted\-from|produced-by)\:/
           fail StandardError, "The new variable #{@name} in procedure #{@procedure.name} must specify where does it comes from"
         end
         new_array = @new_value.split(/\s*\:\s*/)
@@ -71,7 +71,7 @@ module Procedo
           fail StandardError, "'variant' attribute must be removed to limit ambiguity when new variable is parted from another"
         end
         @variant = element.attr('variant').to_s.strip
-        if @variant =~ /\A\:/
+        if @variant.start_with?(':')
           unless @procedure.variable_names.include?(@variant[1..-1].to_sym)
             fail StandardError, "Unknown variable for variant attribute: #{@variant}"
           end
@@ -165,7 +165,7 @@ module Procedo
         if @variety =~ /\:/
           attr, other = @variety.split(/\:/)[0..1].map(&:strip)
           attr = 'variety' if attr.blank?
-          attr.gsub!(/\-/, '_')
+          attr.tr!('-', '_')
           unless variable = @procedure.variables[other]
             fail Procedo::Errors::MissingVariable, "Variable #{other.inspect} can not be found"
           end
@@ -182,7 +182,7 @@ module Procedo
         if @derivative_of =~ /\:/
           attr, other = @derivative_of.split(/\:/)[0..1].map(&:strip)
           attr = 'derivative_of' if attr.blank?
-          attr.gsub!(/\-/, '_')
+          attr.tr!('-', '_')
           unless variable = @procedure.variables[other]
             fail Procedo::Errors::MissingVariable, "Variable #{other.inspect} can not be found"
           end
@@ -209,7 +209,7 @@ module Procedo
 
     # Return a ProductNatureVariant based on given informations
     def variant(intervention)
-      if @variant =~ /\A\:/
+      if @variant.start_with?(':')
         other = @variant[1..-1]
         return intervention.casts.find_by(variable: other).variant
       elsif Nomen::ProductNatureVariant[@variant]
@@ -224,7 +224,7 @@ module Procedo
     def variant_variable
       if parted?
         return producer
-      elsif @variant =~ /\A\:/
+      elsif @variant.start_with?(':')
         other = @variant[1..-1]
         return @procedure.variables[other]
       end

@@ -88,16 +88,15 @@ namespace :clean do
                          end
       translateable_actions = []
       translateable_actions += (actions.delete_if { |a| [:update, :create, :picture, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
-      if translateable_actions.any?
-        translation << '    ' + controller_path + ":\n"
-        for action_name in translateable_actions
-          name = ::I18n.hardtranslate("actions.#{controller_path}.#{action_name}")
-          to_translate += 1
-          untranslated += 1 if name.blank? if actions.include?(action_name)
-          translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? Clean::Support.default_action_title(controller_path, action_name) : name, 3)
-          translation << ' #?' unless actions.include?(action_name)
-          translation << "\n"
-        end
+      next unless translateable_actions.any?
+      translation << '    ' + controller_path + ":\n"
+      for action_name in translateable_actions
+        name = ::I18n.hardtranslate("actions.#{controller_path}.#{action_name}")
+        to_translate += 1
+        untranslated += 1 if actions.include?(action_name) && name.blank?
+        translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? Clean::Support.default_action_title(controller_path, action_name) : name, 3)
+        translation << ' #?' unless actions.include?(action_name)
+        translation << "\n"
       end
     end
 
@@ -272,7 +271,7 @@ namespace :clean do
     all_parameters.uniq!.sort!
     all_parameters.each do |param_name|
       to_translate = 1
-      if name = ref[:aggregator_parameters][param_name] and name.present?
+      if (name = ref[:aggregator_parameters][param_name]) && name.present?
         translation << "    #{param_name}: " + Clean::Support.yaml_value(name) + "\n"
       elsif name = I18n.hardtranslate("labels.#{param_name}") || I18n.hardtranslate("attributes.#{param_name}")
         to_translate -= 1
@@ -293,7 +292,7 @@ namespace :clean do
     all_properties.uniq!.sort!
     all_properties.each do |property_name|
       to_translate = 1
-      if name = ref[:aggregator_properties][property_name] and name.present?
+      if (name = ref[:aggregator_properties][property_name]) && name.present?
         translation << "    #{property_name}: " + Clean::Support.yaml_value(name) + "\n"
       elsif property_name.to_s.underscore != property_name.to_s
         to_translate -= 1
@@ -313,7 +312,7 @@ namespace :clean do
     Aggeratio.each do |aggregator|
       to_translate += 1
       agg_name = aggregator.aggregator_name.to_sym
-      if name = ref[:aggregators][agg_name] and name.present?
+      if (name = ref[:aggregators][agg_name]) && name.present?
         translation << "    #{aggregator.aggregator_name}: " + Clean::Support.yaml_value(name) + "\n"
       elsif item = Nomen::DocumentNature[agg_name]
         to_translate -= 1
@@ -370,25 +369,24 @@ namespace :clean do
     for model_file in models_files
       model_name = model_file.sub(/\.rb$/, '')
       model = model_name.camelize.constantize
-      if model < ActiveRecord::Base && !model.abstract_class?
-        if models[model_name]
-          models[model_name][1] = :used
-        else
-          models[model_name] = [model_name.humanize, :undefined]
+      next unless model < ActiveRecord::Base && !model.abstract_class?
+      if models[model_name]
+        models[model_name][1] = :used
+      else
+        models[model_name] = [model_name.humanize, :undefined]
+      end
+      for column in model.columns.collect { |c| c.name.to_s }
+        if attributes[column]
+          attributes[column][1] = :used
+        elsif !column.match(/_id$/)
+          attributes[column] = [column.humanize, :undefined]
         end
-        for column in model.columns.collect { |c| c.name.to_s }
-          if attributes[column]
-            attributes[column][1] = :used
-          elsif !column.match(/_id$/)
-            attributes[column] = [column.humanize, :undefined]
-          end
-        end
-        for column in model.instance_methods
-          attributes[column][1] = :used if attributes[column]
-        end
-        for column in model.reflect_on_all_associations.map(&:name)
-          attributes[column] = [column.to_s.humanize, :undefined] unless attributes[column]
-        end
+      end
+      for column in model.instance_methods
+        attributes[column][1] = :used if attributes[column]
+      end
+      for column in model.reflect_on_all_associations.map(&:name)
+        attributes[column] = [column.to_s.humanize, :undefined] unless attributes[column]
       end
     end
     for k, v in models
@@ -503,14 +501,13 @@ namespace :clean do
         line = Clean::Support.exp(ref, nomenclature.name, :items, item.name.to_sym)
         translation << (item.root? ? line : line.ljust(50) + " #< #{item.parent.name}").dig(4)
       end
-      if nomenclature.notions.any?
-        translation << "      notions:\n"
-        nomenclature.notions.each do |notion|
-          translation << "        #{notion}:\n"
-          for item in nomenclature.list.sort { |a, b| a.name.to_s <=> b.name.to_s }
-            line = Clean::Support.exp(ref, nomenclature.name, :notions, notion, item.name.to_sym, default: "#{notion.to_s.humanize} of #{item.name.to_s.humanize}")
-            translation << line.dig(5)
-          end
+      next unless nomenclature.notions.any?
+      translation << "      notions:\n"
+      nomenclature.notions.each do |notion|
+        translation << "        #{notion}:\n"
+        for item in nomenclature.list.sort { |a, b| a.name.to_s <=> b.name.to_s }
+          line = Clean::Support.exp(ref, nomenclature.name, :notions, notion, item.name.to_sym, default: "#{notion.to_s.humanize} of #{item.name.to_s.humanize}")
+          translation << line.dig(5)
         end
       end
     end
@@ -629,7 +626,7 @@ namespace :clean do
       total = 0
       count = 0
       for reference_path in Dir.glob(Rails.root.join('config', 'locales', ::I18n.default_locale.to_s, '*.yml')).sort
-        next if reference_path.match(/\Wcomplement\.yml\z/)
+        next if reference_path =~ /\Wcomplement\.yml\z/
         file_name = reference_path.split(/[\/\\]+/)[-1]
         target_path = Rails.root.join('config', 'locales', locale.to_s, file_name)
         unless File.exist?(target_path)

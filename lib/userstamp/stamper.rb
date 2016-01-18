@@ -17,7 +17,7 @@ module Userstamp
       # details on how to use this method.
       def stamper=(object)
         object_stamper = if object.is_a?(ActiveRecord::Base)
-                           object.send("#{object.class.primary_key}".to_sym)
+                           object.send(object.class.primary_key.to_s.to_sym)
                          else
                            object
                          end

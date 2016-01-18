@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -87,11 +87,11 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def point(item_ids)
-    return false if self.new_record?
+    return false if new_record?
     JournalEntryItem.where(bank_statement_id: id).update_all(bank_statement_id: nil)
     JournalEntryItem.where(bank_statement_id: nil, id: item_ids).update_all(bank_statement_id: id)
     # Computes debit and credit
-    self.save!
+    save!
     true
   end
 end

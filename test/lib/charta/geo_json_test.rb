@@ -49,7 +49,7 @@ class Charta::GeoJSONTest < ActiveSupport::TestCase
       { "type": "Feature",
         "geometry": {"type": "Point", "coordinates": [102.0, 0.5]},
         "properties": {"prop0": "value0"}
-        },
+      },
       { "type": "Feature",
         "geometry": {
           "type": "LineString",
@@ -61,7 +61,7 @@ class Charta::GeoJSONTest < ActiveSupport::TestCase
           "prop0": "value0",
           "prop1": 0.0
           }
-        },
+      },
       { "type": "Feature",
          "geometry": {
            "type": "Polygon",
@@ -74,7 +74,7 @@ class Charta::GeoJSONTest < ActiveSupport::TestCase
            "prop0": "value0",
            "prop1": {"this": "that"}
            }
-         }
+      }
        ]
      }'
 

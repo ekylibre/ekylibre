@@ -39,7 +39,7 @@ class UpdateProducts < ActiveRecord::Migration
     { table: 'products', column: 'type', old: 'AnimalMedicine', new: 'Matter' },
     { table: 'products', column: 'type', old: 'PlantMedicine', new: 'Matter' },
     { table: 'products', column: 'type', old: 'Medicine', new: 'Matter' }
-  ]
+  ].freeze
 
   def up
     # check if product_nature is present in DB and update it with new values

@@ -37,7 +37,7 @@ class ChangeProcedures < ActiveRecord::Migration
     { table: 'product_natures', column: 'variable_indicators_list', new: 'approved_input_dose', reference_name: 'molluscicide' },
     { table: 'product_natures', column: 'variable_indicators_list', new: 'untreated_zone_length', reference_name: 'molluscicide' }
 
-  ]
+  ].freeze
 
   CHANGING_INTERVENTION_CAST_REFERENCE_NAMES = [
 
@@ -45,7 +45,7 @@ class ChangeProcedures < ActiveRecord::Migration
     { procedure_reference_name: 'base-animal_treatment-0', column: 'reference_name', new: 'animal_medicine_to_give', old: 'medicine_to_give' },
     { procedure_reference_name: 'base-spraying_on_cultivation-0', column: 'reference_name', new: 'plant_medicine', old: 'medicine' },
     { procedure_reference_name: 'base-spraying_on_cultivation-0', column: 'reference_name', new: 'plant_medicine_to_spray', old: 'medicine_to_spray' }
-  ]
+  ].freeze
 
   CHANGING_INTERVENTION_CAST_ROLES = [
 
@@ -66,7 +66,7 @@ class ChangeProcedures < ActiveRecord::Migration
     { procedure_reference_name: 'base-implanting-0', column: 'roles', new: 'implanting-input', old: 'implant-input', reference_name: 'plants_to_fix' },
     { procedure_reference_name: 'base-implanting-0', column: 'roles', new: 'implanting-output', old: 'implant-output', reference_name: 'cultivation' }
 
-  ]
+  ].freeze
 
   INTERVENTION_CAST_ITEMS = [
 
@@ -79,7 +79,7 @@ class ChangeProcedures < ActiveRecord::Migration
 
     { table: 'intervention_casts', column: 'roles', new: 'plant_illness_treatment-input_origin', reference_name: 'insecticide' },
     { table: 'intervention_casts', column: 'roles', new: 'plant_illness_treatment-input_origin', reference_name: 'molluscicide' }
-  ]
+  ].freeze
 
   def up
     add_column :interventions, :description, :text
@@ -110,7 +110,7 @@ class ChangeProcedures < ActiveRecord::Migration
 
     for item in CHANGING_INTERVENTION_CAST_ROLES
       execute("UPDATE intervention_casts SET #{item[:column]} = '#{item[:old]}' WHERE #{item[:column]} = '#{item[:new]}' AND reference_name = '#{item[:reference_name]}' AND intervention_id IN (SELECT i.id FROM interventions i WHERE i.reference_name = '#{item[:procedure_reference_name]}')")
-   end
+    end
 
     # change roles name in medicine casts
     for item in CHANGING_INTERVENTION_CAST_REFERENCE_NAMES

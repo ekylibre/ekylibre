@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -167,7 +167,7 @@ class Intervention < Ekylibre::Record::Base
 
   # prevents from deleting an intervention that was executed
   protect on: :destroy do
-    self.done?
+    done?
   end
 
   # Main reference
@@ -226,9 +226,9 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def status
-    if self.undone?
-      return (self.runnable? ? :caution : :stop)
-    elsif self.done?
+    if undone?
+      return (runnable? ? :caution : :stop)
+    elsif done?
       return :go
     end
   end
@@ -238,10 +238,10 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def runnable?
-    return false unless self.undone? && reference
+    return false unless undone? && reference
     valid = true
     for variable in reference.variables.values
-      unless cast = casts.find_by(reference_name: variable.name) and cast.runnable?
+      unless (cast = casts.find_by(reference_name: variable.name)) && cast.runnable?
         valid = false
       end
     end
@@ -256,7 +256,7 @@ class Intervention < Ekylibre::Record::Base
     self.class.transaction do
       self.state = :in_progress
       self.parameters = parameters.with_indifferent_access if parameters
-      self.save!
+      save!
 
       started_at = period[:started_at] ||= self.started_at
       duration   = period[:duration] ||= (self.stopped_at - self.started_at)
@@ -309,7 +309,7 @@ class Intervention < Ekylibre::Record::Base
       self.started_at = period[:started_at]
       self.stopped_at = started_at
       self.state = :done
-      self.save!
+      save!
 
       # Sets name for newborns
       for variable in reference.new_variables

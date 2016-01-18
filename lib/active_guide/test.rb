@@ -25,7 +25,7 @@ module ActiveGuide
       test = nil
       if block_given?
         test = Test.new(self, name, options, &block)
-      elsif proc = args.shift and proc.respond_to? :call
+      elsif (proc = args.shift) && proc.respond_to?(:call)
         test = Test.new(self, name, options.merge(validate: proc))
       else
         fail "Cannot do anything with test #{name}"

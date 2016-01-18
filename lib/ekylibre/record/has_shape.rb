@@ -8,7 +8,7 @@ module Ekylibre::Record
       SRID = {
         wgs84: 4326,
         rgf93: 2154
-      }
+      }.freeze
 
       # Returns the corresponding SRID from its name or number
       def srid(srname)

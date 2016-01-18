@@ -18,14 +18,13 @@ class Ekylibre::BuildingsJsonExchanger < ActiveExchanger::Base
         variant = ProductNatureVariant.import_from_nomenclature(:building)
         building = Building.create!(properties.slice('name').merge(initial_shape: shape, variant: variant))
         divisions = properties['divisions']
-        if divisions && divisions.any?
-          divisions['features'].each do |_division|
-            properties = feature['properties']
-            shape = ::Charta::Geometry.from_geojson(feature)
-            variant = ProductNatureVariant.import_from_nomenclature(:building_division)
-            div = BuildingDivision.create!(properties.slice('name').merge(initial_shape: shape, variant: variant))
-            # FIXME: We lose level (storey) and building information on division recording
-          end
+        next unless divisions && divisions.any?
+        divisions['features'].each do |_division|
+          properties = feature['properties']
+          shape = ::Charta::Geometry.from_geojson(feature)
+          variant = ProductNatureVariant.import_from_nomenclature(:building_division)
+          div = BuildingDivision.create!(properties.slice('name').merge(initial_shape: shape, variant: variant))
+          # FIXME: We lose level (storey) and building information on division recording
         end
       end
     else

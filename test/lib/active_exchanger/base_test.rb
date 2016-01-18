@@ -7,7 +7,7 @@ class ActiveExchanger::BaseTest < ActiveSupport::TestCase
   IMPORTS = {
     ekylibre_settings: FIRST_RUN_V1.join('manifest.yml'),
     ekylibre_visuals: fixture_files_path.join('sample_image.png')
-  }
+  }.freeze
 
   setup do
     # Ekylibre::Tenant.create(:sekindovall)

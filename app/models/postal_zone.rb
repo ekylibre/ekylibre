@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,7 +57,7 @@ class PostalZone < Ekylibre::Record::Base
       self.postal_code = (words[0..start - 1] || []).join(' ')
       self.city = (words[start..-1] || []).join(' ')
       self.city_name = city
-      if city_name.match(/cedex/i)
+      if city_name =~ /cedex/i
         self.city_name = city_name.split(/\scedex/i)[0].strip
       end
     end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -65,7 +65,7 @@ class ProductJunction < Ekylibre::Record::Base
       mixed: ProductJunction::Reflection.new(:has_many, :mixed, as: :finish),
       produced: ProductJunction::Reflection.new(:has_one, :produced, as: :start)
     }
-  }
+  }.freeze
 
   belongs_to :tool, class_name: 'Product'
   enumerize :nature, in: NATURES.keys, predicates: true

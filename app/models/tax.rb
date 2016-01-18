@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -88,18 +88,17 @@ class Tax < Ekylibre::Record::Base
           reference_name: item.name
         }
         for account in [:deduction, :collect]
-          if name = nature.send("#{account}_account")
-            # find the relative account tax  by name
-            tax_radical = Account.find_or_import_from_nomenclature(name)
-            # find if already account tax  by number was created
-            tax_account = Account.find_or_create_by!(number: "#{tax_radical.number}#{nature.suffix}") do |a|
-              a.name = "#{tax_radical.name} - #{item.human_name}"
-              a.usages = tax_radical.usages
-            end
-            attributes["#{account}_account_id"] = tax_account.id
+          next unless name = nature.send("#{account}_account")
+          # find the relative account tax  by name
+          tax_radical = Account.find_or_import_from_nomenclature(name)
+          # find if already account tax  by number was created
+          tax_account = Account.find_or_create_by!(number: "#{tax_radical.number}#{nature.suffix}") do |a|
+            a.name = "#{tax_radical.name} - #{item.human_name}"
+            a.usages = tax_radical.usages
           end
+          attributes["#{account}_account_id"] = tax_account.id
         end
-        tax = self.create!(attributes)
+        tax = create!(attributes)
       end
       tax
     end

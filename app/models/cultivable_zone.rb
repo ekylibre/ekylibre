@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -96,9 +96,9 @@ class CultivableZone < Zone
   after_validation do
     # Compute population
     if initial_shape && nature
-      #self.initial_shape = ::Charta::Geometry.new(initial_shape).multi_polygon
+      # self.initial_shape = ::Charta::Geometry.new(initial_shape).multi_polygon
       if variable_indicators_list.include?(:net_surface_area)
-        self.read!(:net_surface_area, ::Charta::Geometry.new(initial_shape).area, at: initial_born_at)
+        read!(:net_surface_area, ::Charta::Geometry.new(initial_shape).area, at: initial_born_at)
       end
       if variable_indicators_list.include?(:population)
         self.initial_population = ::Charta::Geometry.new(initial_shape).area / variant.net_surface_area
@@ -150,10 +150,9 @@ class CultivableZone < Zone
     varieties = []
     if land_parcels.any?
       for land_parcel in land_parcels
-        if land_parcel.soil_nature
-          if item = Nomen::SoilNature[land_parcel.soil_nature]
-            varieties << item.human_name
-          end
+        next unless land_parcel.soil_nature
+        if item = Nomen::SoilNature[land_parcel.soil_nature]
+          varieties << item.human_name
         end
       end
       return varieties.to_sentence

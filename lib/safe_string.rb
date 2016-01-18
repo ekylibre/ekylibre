@@ -1,11 +1,11 @@
 # coding: utf-8
 
 class ::String
-  MAJUSCULES = %w(Á À Â Ä Å Ã Æ É È Ê Ë Ì Ï Î Ò Ô Ö Œ Û Ü Ù Ç)
-  MINUSCULES = %w(á à â ä å ã æ é è ê ë ì ï î ò ô ö œ û ü ù ç)
-  MOLUSCULES = %w(a a a a a a ae é é é é i i i o o o oe u u u ss) # Phonétique
-  MEJUSCULES = %w(A A A A A A AE E E E E I I I O O O OE U U U C)  # Simplification "lisible"
-  MENUSCULES = %w(a a a a a a ae e e e e i i i o o o oe u u u c)  # Simplification "lisible"
+  MAJUSCULES = %w(Á À Â Ä Å Ã Æ É È Ê Ë Ì Ï Î Ò Ô Ö Œ Û Ü Ù Ç).freeze
+  MINUSCULES = %w(á à â ä å ã æ é è ê ë ì ï î ò ô ö œ û ü ù ç).freeze
+  MOLUSCULES = %w(a a a a a a ae é é é é i i i o o o oe u u u ss).freeze # Phonétique
+  MEJUSCULES = %w(A A A A A A AE E E E E I I I O O O OE U U U C).freeze  # Simplification "lisible"
+  MENUSCULES = %w(a a a a a a ae e e e e i i i o o o oe u u u c).freeze  # Simplification "lisible"
 
   def dig(depth = 1)
     strip.gsub(/^/, '  ' * depth) + "\n"
@@ -16,8 +16,8 @@ class ::String
   end
 
   def translate!(from, to)
-    force_encoding('UTF-8') if self.respond_to? :force_encoding
-    from.length.times { |x| self.gsub!(from[x], to[x]) }
+    force_encoding('UTF-8') if respond_to? :force_encoding
+    from.length.times { |x| gsub!(from[x], to[x]) }
     self
   end
 
@@ -26,8 +26,8 @@ class ::String
   end
 
   def lower!
-    self.translate!(MAJUSCULES, MINUSCULES)
-    self.downcase!
+    translate!(MAJUSCULES, MINUSCULES)
+    downcase!
     self
   end
 
@@ -36,8 +36,8 @@ class ::String
   end
 
   def upper!
-    self.translate!(MINUSCULES, MAJUSCULES)
-    self.upcase!
+    translate!(MINUSCULES, MAJUSCULES)
+    upcase!
     self
   end
 
@@ -80,7 +80,7 @@ class ::String
     ss = ss.translate(MAJUSCULES, MOLUSCULES).translate(MINUSCULES, MOLUSCULES)
     ss += ' '
     ss.gsub!('.', ' . ')
-    ss.gsub!(/\'/, ' ')
+    ss.tr!("'", ' ')
     ss.gsub!(/(\\|\/|\-|\_|\&|\||\,|\.|\!|\?|\*|\+|\=|\(|\)|\[|\]|\{|\}|\$|\#)/, ' ')
 
     # Analyse phonétique

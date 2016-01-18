@@ -39,7 +39,7 @@ class AddAnAnimalTest < CapybaraIntegrationTest
 
   # View a cow
   test 'view an animal' do
-    visit ('/backend/animals')
+    visit '/backend/animals'
     shoot_screen 'animals/index'
     name = 'Bonnemine'
     assert has_content?(name), "#{name} must appear in animals list"
@@ -62,7 +62,7 @@ class AddAnAnimalTest < CapybaraIntegrationTest
   end
 
   test 'view an issue on an animal' do
-    visit ('/backend/issues')
+    visit '/backend/issues'
     shoot_screen 'issues/index'
   end
 end

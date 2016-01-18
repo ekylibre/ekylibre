@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# encoding: utf-8
 require 'test_helper'
 
 class Ekylibre::EdnotifTest < ActiveSupport::TestCase
@@ -13,7 +13,7 @@ class Ekylibre::EdnotifTest < ActiveSupport::TestCase
              ednotif_site_version: '1.00',
              user_id: 'ekylibrt33d',
              user_password: 'hf4y3c6tY'
-    }
+           }
 
     @tr = ::Tele::Idele::Ednotif.new args
   end

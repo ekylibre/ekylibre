@@ -110,7 +110,7 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
     salmon_farming:   { support_variety: :animal_group, cultivation_variety: :salmonidae },
     sturgeon_farming: { support_variety: :animal_group, cultivation_variety: :acipenseridae },
     wine: {}
-  }
+  }.freeze
 
   def change
     execute "UPDATE journals SET closed_on = '1899-12-31' WHERE closed_on IS NULL"

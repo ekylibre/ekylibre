@@ -1,6 +1,6 @@
 module Aggeratio
   class Parameter
-    TYPES = [:record_list, :record, :string, :decimal, :integer, :date, :datetime]
+    TYPES = [:record_list, :record, :string, :decimal, :integer, :date, :datetime].freeze
     attr_reader :name, :type, :options, :default, :foreign_class
 
     def initialize(name, type, options = {})
@@ -30,8 +30,8 @@ module Aggeratio
 
     for type in TYPES
       class_eval "def #{type}?\n" \
-        "  !!(self.type == :#{type})\n" \
-        'end'
+                 "  !!(self.type == :#{type})\n" \
+                 'end'
     end
   end
 end

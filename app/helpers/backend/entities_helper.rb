@@ -50,7 +50,7 @@ module Backend::EntitiesHelper
       series << { type: 'column', name: :incoming_payments.tl, data: normalize_serie(item_h, categories.keys) }
     end
 
-    return nil unless series.any? unless options[:blank].is_a?(FalseClass)
+    return nil unless options[:blank].is_a?(FalseClass) || series.any?
 
     html = column_highcharts(series, y_axis: { title: { text: :pretax_amount.tl } }, x_axis: { categories: categories.values }, legend: true)
 

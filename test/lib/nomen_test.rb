@@ -27,8 +27,8 @@ class NomenTest < ActiveSupport::TestCase
       item = invalid[:item]
       exception = invalid[:exception]
       "#{item.name.to_s.yellow}:\n" \
-        "  expression: #{item.expression.inspect}\n" \
-        "  exception: #{exception.message}"
+      "  expression: #{item.expression.inspect}\n" \
+      "  exception: #{exception.message}"
     end.join("\n")
 
     assert invalids.empty?, "#{invalids.count} working sets have invalid syntax:\n" + details.dig
@@ -47,8 +47,8 @@ class NomenTest < ActiveSupport::TestCase
       item = invalid[:item]
       exception = invalid[:exception]
       "#{item.name.to_s.yellow}:\n" \
-        "  expression: #{item.abilities.inspect}\n" \
-        "  exception: #{exception.message}"
+      "  expression: #{item.abilities.inspect}\n" \
+      "  exception: #{exception.message}"
     end.join("\n")
 
     assert invalids.empty?, "#{invalids.count} product nature have invalid abilities:\n" + details.dig

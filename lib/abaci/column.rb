@@ -6,17 +6,17 @@ module Abaci
       components = name.to_s.strip.split(/\s+/)
       @name = components.shift
       type = (components.shift || '').downcase
-      if type == 'd'
-        @type = :decimal
-      elsif type == 'i'
-        @type = :integer
-      elsif type == 'b'
-        @type = :boolean
-      elsif type == 'l'
-        @type = :list
-      else
-        @type = :string
-      end
+      @type = if type == 'd'
+                :decimal
+              elsif type == 'i'
+                :integer
+              elsif type == 'b'
+                :boolean
+              elsif type == 'l'
+                :list
+              else
+                :string
+              end
       if type =~ /r\(\w+\)/
         @references = Nomen[type[2..-2]] || fail("Cannot find #{type}")
       end

@@ -5,7 +5,7 @@ module SVF
       @name = name.to_s
       @line = @name
       @range = definition
-      if definition.to_s.match('-')
+      if definition.to_s =~ '-'
         @line, @range = definition.split('-')[0..1]
         @line = @line.to_sym
       end
@@ -18,7 +18,7 @@ module SVF
         @range = 1..-1
       elsif @range.is_a? Integer
         @range = @range..@range
-      elsif @range.match(/\.\./)
+      elsif @range =~ /\.\./
         pr = @range.split(/\.\./)[0..1]
         pr[1] = -1 if pr[1].blank?
         @range = pr[0].to_i..pr[1].to_i

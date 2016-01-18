@@ -109,11 +109,11 @@ module SVF
         code << "if line.is_a?(#{line.class_name(@name)})\n"
         new_line = (line.has_children? ? sibling.line : 'line')
         code << "    #{sibling.line} = line\n" if line.has_children?
-        if sibling.range.max == 1
-          code << "    #{full_name} = #{new_line}\n"
-        else
-          code << "    #{full_name} << #{new_line}\n"
-        end
+        code << if sibling.range.max == 1
+                  "    #{full_name} = #{new_line}\n"
+                else
+                  "    #{full_name} << #{new_line}\n"
+      end
         if line.to
           code << "    line = #{options[:file]}.gets\n"
           code << "    line_number += 1\n"
@@ -130,7 +130,7 @@ module SVF
           code << "    line_number += 1\n"
         end
         code << '  els'
-      end
+    end
       if parents.size > 0
 
         code << 'if [' + all_parents.collect { |s| fail([s, s.line].inspect) if @lines[s.line].nil?; @lines[s.line].class_name(@name) }.sort.join(', ') + "].include?(line.class)\n"
@@ -147,10 +147,10 @@ module SVF
 
       code << "end\n"
       code
-    end
+  end
 
     def build_code(siblings, options = {})
-      code  = ''
+      code = ''
       var = options[:variable]
       root = options[:root].to_s
       # code << "_string )\n"
@@ -171,5 +171,5 @@ module SVF
       end
       code
     end
-  end
+end
 end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -117,7 +117,7 @@ class JournalEntryItem < Ekylibre::Record::Base
       for replicated in [:financial_year_id, :printed_on, :journal_id, :state, :currency, :absolute_currency, :real_currency, :real_currency_rate]
         send("#{replicated}=", entry.send(replicated))
       end
-      unless self.closed?
+      unless closed?
         self.debit  = entry.real_currency.to_currency.round(self.real_debit * real_currency_rate)
         self.credit = entry.real_currency.to_currency.round(self.real_credit * real_currency_rate)
       end
@@ -168,7 +168,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   end
 
   protect do
-    self.closed? || (entry && entry.protected_on_update?)
+    closed? || (entry && entry.protected_on_update?)
   end
 
   # Prints human name of current state
@@ -200,7 +200,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Returns the previous item
   def previous
     return nil unless account
-    if self.new_record?
+    if new_record?
       account.journal_entry_items.order(printed_on: :desc, id: :desc).where('printed_on <= ?', printed_on).limit(1).first
     else
       account.journal_entry_items.order(printed_on: :desc, id: :desc).where('(printed_on = ? AND id < ?) OR printed_on < ?', printed_on, id, printed_on).limit(1).first
@@ -210,7 +210,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # Returns following items
   def followings
     return self.class.none unless account
-    if self.new_record?
+    if new_record?
       account.journal_entry_items.where('printed_on > ?', printed_on)
     else
       account.journal_entry_items.where('(printed_on = ? AND id > ?) OR printed_on > ?', printed_on, id, printed_on)
@@ -240,7 +240,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # this method allows to fix a display color if the entry_item is in draft mode.
   def mode
     mode = ''
-    mode += 'warning' if self.draft?
+    mode += 'warning' if draft?
     mode
   end
 

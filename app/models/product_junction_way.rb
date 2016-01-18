@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -55,7 +55,7 @@ class ProductJunctionWay < Ekylibre::Record::Base
   end
 
   before_update do
-    unless self.continuity?
+    unless continuity?
       if product_id != old_record.product_id
         old_record.product.update_column(touch_column, nil)
       end
@@ -66,7 +66,7 @@ class ProductJunctionWay < Ekylibre::Record::Base
     if junction
       reflection = junction.reflect_on(role)
       if reflection
-        # TODO: check cardinality
+      # TODO: check cardinality
       else
         errors.add(:role, :invalid)
       end
@@ -74,11 +74,11 @@ class ProductJunctionWay < Ekylibre::Record::Base
   end
 
   after_save do
-    unless self.continuity?
+    unless continuity?
       if stopped_at != product.send(touch_column)
         product.update_column(touch_column, stopped_at)
       end
-      if self.start?
+      if start?
         # Sets frozen and given indicators
         product_variant.readings.each do |reading|
           product.read!(reading.indicator_name, reading.value, at: stopped_at, force: true)
@@ -88,11 +88,11 @@ class ProductJunctionWay < Ekylibre::Record::Base
   end
 
   before_destroy do
-    old_record.product.update_column(touch_column, nil) unless self.continuity?
+    old_record.product.update_column(touch_column, nil) unless continuity?
   end
 
   # Returns the column to impact on
   def touch_column
-    (self.start? ? :born_at : self.finish? ? :dead_at : nil)
+    (start? ? :born_at : finish? ? :dead_at : nil)
   end
 end

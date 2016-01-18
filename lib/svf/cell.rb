@@ -11,10 +11,10 @@ module SVF
       else
         return nil
       end
-      if definition[:type].match('-')
+      if definition[:type] =~ '-'
         type, format = definition[:type].split('-')[0..1]
         definition = { type: type.to_sym }
-        if format.match(/^\d+$/)
+        if format =~ /^\d+$/
           definition[:length] = format.to_i
         elsif type.to_sym == :float && format.match(/^\d+\.\d+$/)
           definition[:format] = format

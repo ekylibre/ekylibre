@@ -16,7 +16,7 @@ module Aggeratio
   # autoload :XSD,  'aggeratio/xsd'
 
   XMLNS = 'http://www.ekylibre.org/XML/2013/aggregators'.freeze
-  NS_SEPARATOR = '-'
+  NS_SEPARATOR = '-'.freeze
 
   @@list = HashWithIndifferentAccess.new
   @@categories = HashWithIndifferentAccess.new
@@ -88,11 +88,11 @@ module Aggeratio
             child['value'] = child.attr('name').to_s
           end
           unless of.blank?
-            if child.has_attribute?('of')
-              child['of'] = of + '.' + child.attr('of').to_s
-            else
-              child['of'] = of
-            end
+            child['of'] = if child.has_attribute?('of')
+                            of + '.' + child.attr('of').to_s
+                          else
+                            of
+                          end
           end
           unless child.has_attribute?('of-type') || of_type.blank?
             child['of-type'] = of_type
@@ -109,14 +109,14 @@ module Aggeratio
       for section in element.xpath('//*[self::xmlns:section or self::xmlns:sections]')
         of = section.attr('of')
         of_type = section.attr('of-type')
-        section['if'] = of unless of.blank? if section.name == 'section'
+        section['if'] = of if section.name == 'section' && !of.blank?
         for child in section.children
           unless of.blank?
-            if child.has_attribute?('of')
-              child['of'] = of + '.' + child.attr('of').to_s
-            else
-              child['of'] = of
-            end
+            child['of'] = if child.has_attribute?('of')
+                            of + '.' + child.attr('of').to_s
+                          else
+                            of
+                          end
           end
           unless child.has_attribute?('of-type') || of_type.blank?
             child['of-type'] = of_type

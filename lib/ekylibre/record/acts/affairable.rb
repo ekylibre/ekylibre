@@ -146,13 +146,13 @@ module Ekylibre::Record
 
           # Return if deal is a debit for us
           code << "def good_deal?\n"
-          if options[:good] == :debit
-            code << "  return self.deal_debit?\n"
-          elsif options[:good] == :credit
-            code << "  return self.deal_credit?\n"
-          else
-            code << "  return self.#{options[:good]}\n"
-          end
+          code << if options[:good] == :debit
+                    "  return self.deal_debit?\n"
+                  elsif options[:good] == :credit
+                    "  return self.deal_credit?\n"
+                  else
+                    "  return self.#{options[:good]}\n"
+        end
           code << "end\n"
 
           # Return if deal is a debit for us
@@ -234,19 +234,19 @@ module Ekylibre::Record
 
           # Define the third of the deal
           code << "def deal_third_role\n"
-          if options[:role].is_a?(Symbol)
-            code << "  return self.#{options[:role]}\n"
-          else
-            code << "  return #{options[:role].to_sym.inspect}\n"
-          end
+          code << if options[:role].is_a?(Symbol)
+                    "  return self.#{options[:role]}\n"
+                  else
+                    "  return #{options[:role].to_sym.inspect}\n"
+        end
           code << "end\n"
 
           # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4).white + ": " + x.blue)}
 
           class_eval(code)
-        end
-      end
     end
   end
+end
+end
 end
 Ekylibre::Record::Base.send(:include, Ekylibre::Record::Acts::Affairable)

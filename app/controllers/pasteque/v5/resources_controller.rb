@@ -12,7 +12,7 @@ class Pasteque::V5::ResourcesController < Pasteque::V5::BaseController
       nature: :string,
       default: 'Good bye'
     }
-  }
+  }.freeze
 
   def show
     if pref = CONVERT[params[:label]]

@@ -10,7 +10,7 @@ class SimplifyProductJunctions < ActiveRecord::Migration
     'ProductQuadrupleMixing' => :mixing,
     'ProductQuintupleMixing' => :mixing,
     'ProductTripleMixing' => :mixing
-  }
+  }.freeze
 
   WAYS = [
     [:birth, :product, :born],
@@ -29,7 +29,7 @@ class SimplifyProductJunctions < ActiveRecord::Migration
     [:mixing, :third_producer, :mixed],
     [:mixing, :fourth_producer, :mixed],
     [:mixing, :fifth_producer, :mixed]
-  ]
+  ].freeze
 
   POLYMORPHIC_REFERENCES = [
     [:attachments, :resource],
@@ -48,7 +48,7 @@ class SimplifyProductJunctions < ActiveRecord::Migration
     [:product_reading_tasks, :originator],
     [:product_readings, :originator],
     [:versions, :item]
-  ]
+  ].freeze
 
   def change
     rename_column :product_junction_ways, :road_id, :product_id

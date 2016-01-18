@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
@@ -57,7 +57,7 @@ gem 'foreman'
 
 # Background jobs
 gem 'sidekiq'
-gem 'sidekiq-cron', '~> 0.3.0'
+gem 'sidekiq-cron', '~> 0.4.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

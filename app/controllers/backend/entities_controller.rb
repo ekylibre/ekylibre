@@ -204,7 +204,7 @@ class Backend::EntitiesController < Backend::BaseController
         where = ' WHERE entity.active'
         select_array = []
         for k, v in params[:columns].select { |_k, v| v[:check].to_i == 1 }.sort { |a, b| a[1][:order].to_i <=> b[1][:order].to_i }
-          if k.match(/^custom_field\-/)
+          if k =~ /^custom_field\-/
             id = k.split('-')[1][2..-1].to_i
             if custom_field = CustomField.find_by_id(id)
               # from += " LEFT JOIN #{CustomFieldDatum.table_name} AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id})"
@@ -242,8 +242,8 @@ class Backend::EntitiesController < Backend::BaseController
                                                       "'" + ActiveRecord::Base.connection.quoted_date(x) + "'"
                                                     else
                                                       subn[:subscribed_at].to_i.to_s
-                                         end + " BETWEEN #{nature.start} AND #{nature.finish})"
-                       end
+                       end + " BETWEEN #{nature.start} AND #{nature.finish})"
+                     end
                        timestamp = ''
                        if condition[:use_timestamp]
                          x = begin
@@ -261,17 +261,17 @@ class Backend::EntitiesController < Backend::BaseController
                        "entity.id IN (SELECT entity_id FROM #{Subscription.table_name} AS subscriptions WHERE nature_id=#{nature.id}" + products + subscribed_at + timestamp + ')'
                      else
                        'true'
-                     end
-                   elsif condition.match(/^generic/)
+                   end
+                   elsif condition =~ /^generic/
                      klass = condition.split(/\-/)[1].classify.constantize
                      attribute = condition.split(/\-/)[2]
                      column = klass.columns_hash[attribute]
                      ListingNode.condition(condition.split(/\-/)[1..2].join('.'), preferences[:comparator], preferences[:comparated], column.sql_type)
-                   end
+          end
             "\n" + (preferences[:reverse].to_i == 1 ? 'NOT ' : '') + "(#{expr})"
           end.join(params[:check] == 'and' ? ' AND ' : ' OR ')
           where += " AND (#{code})"
-        end
+      end
         select = 'SELECT ' + select_array.collect { |x| x[0] }.join(', ')
         query = select + "\n" + from + "\n" + where
 
@@ -283,9 +283,9 @@ class Backend::EntitiesController < Backend::BaseController
           end
         end
         send_data(csv_string, filename: 'export.csv', type: Mime::CSV)
-      end
     end
   end
+end
 
   def import
     @step = begin

@@ -20,11 +20,11 @@ class Backend::CrumbsController < Backend::BaseController
   manage_restfully only: [:update, :destroy]
 
   def index
-    unless params[:worked_on].blank?
-      @worked_on = params[:worked_on].to_date
-    else
-      @worked_on = current_user.unconverted_crumb_days.first
-    end
+    @worked_on = unless params[:worked_on].blank?
+                   params[:worked_on].to_date
+                 else
+                   current_user.unconverted_crumb_days.first
+                 end
   end
 
   # Creates an intervention from crumb and redirects to an edit form for

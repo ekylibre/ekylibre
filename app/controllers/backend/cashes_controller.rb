@@ -26,7 +26,7 @@ class Backend::CashesController < Backend::BaseController
   # Displays the main page with the list of bank statements
   before_action only: [:index] do
     cashes = Cash.bank_accounts
-    if count = JournalEntryItem.where(bank_statement_id: nil, account_id: cashes.pluck(:account_id)).count and count > 0
+    if (count = JournalEntryItem.where(bank_statement_id: nil, account_id: cashes.pluck(:account_id)).count) && count > 0
       notify_now(:x_unpointed_journal_entry_items, count: count)
     end
   end

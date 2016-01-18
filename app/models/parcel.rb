@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -129,7 +129,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   after_initialize do
-    if self.new_record? && self.incoming?
+    if new_record? && incoming?
       self.address ||= Entity.of_company.default_mail_address
     end
   end
@@ -144,7 +144,7 @@ class Parcel < Ekylibre::Record::Base
 
   after_save do
     if delivery
-      if self.prepared? && self.delivery_in_preparation?
+      if prepared? && delivery_in_preparation?
         delivery.check if delivery.parcels.all?(&:prepared?)
         # elsif self.in_preparation? && self.delivery_ordered?
         #   delivery.prepare
@@ -198,7 +198,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def status
-    if self.given?
+    if given?
       return (issues? ? :caution : :go)
     else
       return (issues? ? :stop : :caution)
@@ -206,11 +206,11 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def third_id
-    (self.incoming? ? sender_id : self.outgoing? ? recipient_id : nil)
+    (incoming? ? sender_id : outgoing? ? recipient_id : nil)
   end
 
   def third
-    (self.incoming? ? sender : self.outgoing? ? recipient : nil)
+    (incoming? ? sender : outgoing? ? recipient : nil)
   end
 
   def order

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -66,11 +66,11 @@ class CashTransfer < Ekylibre::Record::Base
     self.emission_currency = emission_cash.currency if emission_cash
     self.reception_currency = reception_cash.currency if reception_cash
     if currency_rate.blank?
-      if emission_currency == reception_currency
-        self.currency_rate = 1
-      else
-        self.currency_rate = I18n.currency_rate(emission_currency, reception_currency)
-      end
+      self.currency_rate = if emission_currency == reception_currency
+                             1
+                           else
+                             I18n.currency_rate(emission_currency, reception_currency)
+                           end
     end
     if emission_amount && currency_rate
       self.reception_amount = currency_rate * emission_amount

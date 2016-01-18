@@ -52,11 +52,10 @@ module Ekylibre
         [:sequences, :accounts, :document_templates, :taxes, :journals, :cashes,
          :sale_natures, :purchase_natures, :incoming_payment_modes,
          :outgoing_payment_modes].each do |dataset|
-          unless @defaults[dataset].is_a?(FalseClass)
-            puts "Load default #{dataset}..."
-            model = dataset.to_s.classify.constantize
-            model.load_defaults
-          end
+          next if @defaults[dataset].is_a?(FalseClass)
+          puts "Load default #{dataset}..."
+          model = dataset.to_s.classify.constantize
+          model.load_defaults
         end
       end
 

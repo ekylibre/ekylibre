@@ -27,7 +27,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
           backup[model] << row.attributes.inject({}) do |hash, pair|
             attribute = pair.first.to_sym
             value = pair.second.to_s
-            if schema[table] and schema[table][attribute] and type = schema[table][attribute][:type].to_sym
+            if schema[table] && schema[table][attribute] && (type = schema[table][attribute][:type].to_sym)
               if type == :boolean
                 value = (value == 'true' ? true : false)
               elsif type == :integer
@@ -65,7 +65,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
       else
         value = item[old_column]
         if references
-          if references =~ /^\~/ and ref = item[references[1..-1]]
+          if references =~ /^\~/ && (ref = item[references[1..-1]])
             ref = ref.underscore
             if ref.blank?
               value = nil
@@ -250,7 +250,7 @@ class Ekylibre::BackupExchanger < ActiveExchanger::Base
     data.import(:district, :name, :code)
     w.check_point
     data.import(:journal, :name, converters: {
-                  nature: lambda { |j| j.nature == 'renew' ? 'forward' : j.nature }
+                  nature: ->(j) { j.nature == 'renew' ? 'forward' : j.nature }
                 })
     w.check_point
     data.import(:sequence, :number_format)

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -154,13 +154,12 @@ class ProductNature < Ekylibre::Record::Base
   def self.matching_model(variety)
     if item = Nomen::Variety.find(variety)
       for ancestor in item.self_and_parents
-        if model = begin
-                     ancestor.name.camelcase.constantize
-                   rescue
-                     nil
-                   end
-          return model if model <= Product
-        end
+        next unless model = begin
+                              ancestor.name.camelcase.constantize
+                            rescue
+                              nil
+                            end
+        return model if model <= Product
       end
     end
     nil
@@ -173,12 +172,12 @@ class ProductNature < Ekylibre::Record::Base
 
   # Returns if population is frozen
   def population_frozen?
-    self.population_counting_unitary?
+    population_counting_unitary?
   end
 
   # Returns the minimum couting element
   def population_modulo
-    (self.population_counting_decimal? ? 0.0001 : 1)
+    (population_counting_decimal? ? 0.0001 : 1)
   end
 
   # Returns list of all indicators
@@ -257,8 +256,8 @@ class ProductNature < Ekylibre::Record::Base
 
   def to
     to = []
-    to << :sales if self.saleable?
-    to << :purchases if self.purchasable?
+    to << :sales if saleable?
+    to << :purchases if purchasable?
     # to << :produce if self.producible?
     to.collect { |x| tc('to.' + x.to_s) }.to_sentence
   end
@@ -292,7 +291,7 @@ class ProductNature < Ekylibre::Record::Base
       active: true
     }
     attributes[:linkage_points_list] = item.linkage_points if item.linkage_points
-    self.create!(attributes)
+    create!(attributes)
   end
 
   # Load.all product nature from product nature nomenclature

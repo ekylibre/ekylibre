@@ -68,12 +68,11 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
         'monsieur' => :contact,
         'madame' => :contact
       }.each do |expr, name|
-        if r.full_name =~ /^#{expr}/i
-          nature = name
-          r.title = expr.upcase
-          r.last_name = r.full_name.gsub(/^#{expr}/i, '').strip
-          break
-        end
+        next unless r.full_name =~ /^#{expr}/i
+        nature = name
+        r.title = expr.upcase
+        r.last_name = r.full_name.gsub(/^#{expr}/i, '').strip
+        break
       end
 
       if person = Entity.where('full_name ILIKE ?', r.full_name.strip).first
@@ -90,11 +89,11 @@ class LaGraineInformatique::Vinifera::EntitiesExchanger < ActiveExchanger::Base
       end
 
       if r.client_type
-        if r.client_type == 'X' || r.client_type == 'Y' || r.client_type == 'Z'
-          account_number = 412
-        else
-          account_number = 411
-        end
+        account_number = if r.client_type == 'X' || r.client_type == 'Y' || r.client_type == 'Z'
+                           412
+                         else
+                           411
+                         end
         person.client = true
         person.client_account = Account.get(account_number, name: person.full_name)
       end

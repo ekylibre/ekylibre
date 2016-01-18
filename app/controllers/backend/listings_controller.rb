@@ -95,7 +95,7 @@ class Backend::ListingsController < Backend::BaseController
 
   def destroy
     return unless @listing = find_and_check
-    Listing.destroy(@listing.id) if @listing if request.post? || request.delete?
+    Listing.destroy(@listing.id) if request.post? || request.delete? && @listing
     redirect_to action: :index
   end
 

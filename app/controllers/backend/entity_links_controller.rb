@@ -27,5 +27,5 @@ class Backend::EntityLinksController < Backend::BaseController
     end
   end
 
-  alias_method :index, :show
+  alias index show
 end

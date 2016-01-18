@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -109,20 +109,20 @@ class ProductNatureCategory < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.storable = false unless self.deliverable?
-    self.subscription_nature_id = nil unless self.subscribing?
+    self.storable = false unless deliverable?
+    self.subscription_nature_id = nil unless subscribing?
   end
 
   def to
     to = []
-    to << :sales if self.saleable?
-    to << :purchases if self.purchasable?
+    to << :sales if saleable?
+    to << :purchases if purchasable?
     # to << :produce if self.producible?
     to.collect { |x| tc('to.' + x.to_s) }.to_sentence
   end
 
   def deliverable?
-    self.storable?
+    storable?
   end
 
   def label
@@ -205,7 +205,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
     end
     # TODO: add in rake clean method a way to detect same translation in nomenclatures by locale (to avoid conflict with validation on uniq name for example)
     # puts "#{item.human_name} - #{item.name}".red
-    self.create!(attributes)
+    create!(attributes)
   end
 
   # Load.all product nature from product nature nomenclature

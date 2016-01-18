@@ -3,7 +3,7 @@ require 'procedo/converter'
 module Procedo
   FORMULA_TRUC = {
     shape: ['whole#net_surface_area']
-  }
+  }.freeze
 
   # This class represents a procedure
   class Procedure
@@ -104,7 +104,7 @@ module Procedo
       end
 
       # Compile it
-      self.compile!
+      compile!
     end
 
     def self.of_nature(nature)
@@ -141,7 +141,7 @@ module Procedo
     def name
       not_so_short_name + VERSION_SEPARATOR + version.to_s
     end
-    alias_method :uid, :name
+    alias uid name
 
     def flat_version
       'v' + version.to_s.gsub(/\W/, '_')
@@ -176,7 +176,7 @@ module Procedo
     def minimal_duration
       operations.values.map(&:duration).compact.sum
     end
-    alias_method :fixed_duration, :minimal_duration
+    alias fixed_duration minimal_duration
 
     # Returns the spread duration for operation with unknown duration
     def spread_time(duration)
@@ -223,7 +223,7 @@ module Procedo
       code << "  end\n\n"
 
       # Adds impact_stopped_at! method to permit to compute duration
-      if self.can_compute_duration?
+      if can_compute_duration?
         rubyist.compile(duration_tree)
         code << "  def impact_stopped_at!\n"
         code << "    duration = 3600 * (#{rubyist.compiled})\n"
@@ -238,11 +238,11 @@ module Procedo
 
         code << "    def initialize(procedure, attributes = {})\n"
         code << "      super(procedure)\n"
-        if variable.new?
-          code << "      @variant = (attributes[:variant].present? ? ProductNatureVariant.find(attributes[:variant]) : nil)\n"
-        else
-          code << "      @actor = (attributes[:actor].blank? ? nil : Product.find(attributes[:actor]))\n"
-        end
+        code << if variable.new?
+                  "      @variant = (attributes[:variant].present? ? ProductNatureVariant.find(attributes[:variant]) : nil)\n"
+                else
+                  "      @actor = (attributes[:actor].blank? ? nil : Product.find(attributes[:actor]))\n"
+      end
         variable.destinations.each do |destination|
           code << "      @destinations[:#{destination}] = " + cast_expr("attributes[:destinations][:#{destination}]", Nomen::Indicator[destination].datatype) + "\n"
         end
@@ -280,12 +280,12 @@ module Procedo
           code << "      unless #{variable.new? ? '@variant' : '@actor'}\n"
           code << "        raise Procedo::Errors::UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
           code << "      end\n"
-          if variable.new?
-            code << "      value = @variant.get(indicator)\n"
-          else
-            code << "      value = @actor.get(indicator, at: now, gathering: !options[:individual])\n"
-          end
+          code << if variable.new?
+                    "      value = @variant.get(indicator)\n"
+                  else
+                    "      value = @actor.get(indicator, at: now, gathering: !options[:individual])\n"
         end
+      end
         code << "      unless value\n"
         code << "        raise Procedo::Errors::UnavailableReading, \"Nil \#{'individual ' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
         code << "      end\n"
@@ -322,7 +322,7 @@ module Procedo
             end
           end
 
-          if self.can_compute_duration?
+          if can_compute_duration?
             code << "      # Update stopped_at if possible\n"
             code << "      procedure.impact_stopped_at!\n"
           end
@@ -338,8 +338,8 @@ module Procedo
           if h.check_usability?
             rubyist.compile(h.usability_tree)
             code << "      #{rubyist.compiled}\n"
-            # code << "    rescue\n"
-            # code << "      return false\n"
+          # code << "    rescue\n"
+          # code << "      return false\n"
           else
             code << "      return true\n"
           end
@@ -347,9 +347,7 @@ module Procedo
 
           # Method to impact handler's new value
           code << "    def impact_handler_#{h.name}!\n"
-          if h.check_usability?
-            code << "      return unless can_use_#{h.name}?\n"
-          end
+          code << "      return unless can_use_#{h.name}?\n" if h.check_usability?
           h.forward_converters.each do |converter|
             rubyist.compile(converter.forward_tree)
             code << "      begin\n"
@@ -374,13 +372,12 @@ module Procedo
 
           # Set variants of "parted-from variables"
           variable.others.each do |other|
-            if other.parted? && other.producer == variable
-              code << "        # Updates variant of #{other.name} if possible\n"
-              code << "        if procedure.#{other.name}.variant != #{variant}\n"
-              code << "          procedure.#{other.name}.variant = #{variant}\n"
-              code << "          procedure.#{other.name}.impact_#{other.new? ? :variant : :actor}!\n"
-              code << "        end\n"
-            end
+            next unless other.parted? && other.producer == variable
+            code << "        # Updates variant of #{other.name} if possible\n"
+            code << "        if procedure.#{other.name}.variant != #{variant}\n"
+            code << "          procedure.#{other.name}.variant = #{variant}\n"
+            code << "          procedure.#{other.name}.impact_#{other.new? ? :variant : :actor}!\n"
+            code << "        end\n"
           end
           code << "      end\n"
         end
@@ -389,26 +386,25 @@ module Procedo
         variable.others.each do |other|
           ref = other.name
           other.destinations.each do |destination|
-            if other.default(destination) =~ /\A\:\s*#{variable.name}\s*\z/
-              code << "      # Updates default #{destination} of #{ref} if possible\n"
-              dest = "procedure.#{ref}.destinations[:#{destination}]"
-              code << "      if #{dest}.blank? or procedure.updater?(:casting, :#{variable.name})"
-              code << ' or procedure.updater?(:global, :support)' if [:storage, :variant_localized_in_storage].include?(variable.default_actor)
-              code << "\n"
+            next unless other.default(destination) =~ /\A\:\s*#{variable.name}\s*\z/
+            code << "      # Updates default #{destination} of #{ref} if possible\n"
+            dest = "procedure.#{ref}.destinations[:#{destination}]"
+            code << "      if #{dest}.blank? or procedure.updater?(:casting, :#{variable.name})"
+            code << ' or procedure.updater?(:global, :support)' if [:storage, :variant_localized_in_storage].include?(variable.default_actor)
+            code << "\n"
 
-              code << "        begin\n"
-              code << "          #{dest} = "
-              code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
-              code << "self.get(:#{destination}, at: now)\n"
-              if [:geometry, :point].include?(Nomen::Indicator[destination].datatype)
-                code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
-              end
-              code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
-              code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
-              code << "          Rails.logger.error e.message\n"
-              code << "        end\n"
-              code << "      end\n"
+            code << "        begin\n"
+            code << "          #{dest} = "
+            code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
+            code << "self.get(:#{destination}, at: now)\n"
+            if [:geometry, :point].include?(Nomen::Indicator[destination].datatype)
+              code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
             end
+            code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
+            code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
+            code << "          Rails.logger.error e.message\n"
+            code << "        end\n"
+            code << "      end\n"
           end
         end
 
@@ -493,7 +489,7 @@ module Procedo
             code << "          #{variable.name}.actor = __localizeds__.first\n"
             code << "          #{variable.name}.impact_actor!\n"
             code << "        end\n"
-          elsif variable.default_actor.to_s =~ /\Afirst_localized_in\:/
+          elsif variable.default_actor.to_s.start_with?('first_localized_in:')
             unless v = variables[variable.default_actor.to_s.split(':').second.strip]
               fail Procedo::Errors::UnknownVariable, "Unknown variable used in #{variable.default_actor}"
             end
@@ -524,7 +520,7 @@ module Procedo
         if variable.handlers.any?
           vcode << "  elsif @__updater__.third == :handlers\n"
           vcode << variable.handlers.collect do |handler|
-            hcode  = "if @__updater__.fourth == :#{handler.name}\n"
+            hcode = "if @__updater__.fourth == :#{handler.name}\n"
             hcode << "  #{variable.name}.impact_handler_#{handler.name}!\n"
           end.join('els').dig(2)
           vcode << "    else\n"
@@ -541,10 +537,9 @@ module Procedo
       code << "    elsif @__updater__.first == :initial\n"
       # Refresh all handlers from all destinations
       variables.values.each do |variable|
-        if variable.handlers.any?
-          variable.destinations.each do |destination|
-            code << "      #{variable.name}.impact_destination_#{destination}!\n"
-          end
+        next unless variable.handlers.any?
+        variable.destinations.each do |destination|
+          code << "      #{variable.name}.impact_destination_#{destination}!\n"
         end
       end
       code << "    else\n"
@@ -559,11 +554,11 @@ module Procedo
       code << "      casting: {\n"
       code << @variables.values.collect do |variable|
         vcode = "#{variable.name}: "
-        if variable.new?
-          vcode << "{variant: @#{variable.name}.variant_id"
-        else
-          vcode << "{actor: @#{variable.name}.actor_id"
-        end
+        vcode << if variable.new?
+                   "{variant: @#{variable.name}.variant_id"
+                 else
+                   "{actor: @#{variable.name}.actor_id"
+      end
         if variable.handlers.any?
           vcode << ', destinations: {'
           vcode << variable.destinations.collect do |destination|
@@ -578,21 +573,21 @@ module Procedo
           vcode << variable.handlers.collect do |handler|
             indicator = handler.indicator
             hcode = "#{handler.name}: {value: "
-            if [:measure, :decimal].include?(indicator.datatype)
-              hcode << "@#{variable.name}.handlers[:#{handler.name}].round(3).to_f"
-            elsif [:geometry, :point].include?(indicator.datatype)
-              hcode << "@#{variable.name}.handlers[:#{handler.name}].to_geojson"
-            elsif indicator.datatype == :integer
-              hcode << "@#{variable.name}.handlers[:#{handler.name}].to_i"
-            else
-              hcode << "@#{variable.name}.handlers[:#{handler.name}]"
-            end
+            hcode << if [:measure, :decimal].include?(indicator.datatype)
+                       "@#{variable.name}.handlers[:#{handler.name}].round(3).to_f"
+                     elsif [:geometry, :point].include?(indicator.datatype)
+                       "@#{variable.name}.handlers[:#{handler.name}].to_geojson"
+                     elsif indicator.datatype == :integer
+                       "@#{variable.name}.handlers[:#{handler.name}].to_i"
+                     else
+                       "@#{variable.name}.handlers[:#{handler.name}]"
+          end
             hcode << ", usable: @#{variable.name}.can_use_#{handler.name}?"
             hcode << '}'
             hcode
           end.join(', ')
           vcode << '}'
-        end
+      end
         vcode << '}'
         vcode
       end.join(",\n").strip.dig(4)
@@ -614,7 +609,7 @@ module Procedo
 
       class_eval(code, "(procedure #{name})")
       Procedo::CompiledProcedure[name] = full_name.join('::').constantize
-    end
+end
 
     # Computes what have to be updated if the given value in
     # the casting is considered to be updated
@@ -700,10 +695,9 @@ module Procedo
         end
 
         # finally, manage the case when there's no more actor to match with variables
-        if variables_for_each_actor.empty?
-          actors_for_each_variable.keys.each do |variable_key|
-            result[variable_key] = nil
-          end
+        next unless variables_for_each_actor.empty?
+        actors_for_each_variable.keys.each do |variable_key|
+          result[variable_key] = nil
         end
 
       end
@@ -728,5 +722,5 @@ module Procedo
       # removing current variable from hash "variable => actors"
       variables_hash.delete(variable)
     end
-  end
+end
 end

@@ -45,16 +45,14 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
             doc_a_dir = doc_a_path.join(id_partition(doc_a[0]))
 
-            if File.directory?(doc_a_dir)
+            next unless File.directory?(doc_a_dir)
 
-              doc_dir = doc_path.join(id_partition(doc_a[1]))
+            doc_dir = doc_path.join(id_partition(doc_a[1]))
 
-              FileUtils.mkdir_p(doc_dir) unless File.directory?(doc_dir)
+            FileUtils.mkdir_p(doc_dir) unless File.directory?(doc_dir)
 
-              if File.directory?(doc_dir)
-                FileUtils.mv Dir.glob("#{doc_a_dir}/*"), doc_dir
-              end
-
+            if File.directory?(doc_dir)
+              FileUtils.mv Dir.glob("#{doc_a_dir}/*"), doc_dir
             end
 
           end
@@ -115,16 +113,14 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
 
             doc_dir = doc_path.join(id_partition(doc[1]))
 
-            if File.directory?(doc_dir)
+            next unless File.directory?(doc_dir)
 
-              doc_a_dir = doc_a_path.join(id_partition(doc[0]))
+            doc_a_dir = doc_a_path.join(id_partition(doc[0]))
 
-              FileUtils.mkdir_p(doc_a_dir) unless File.directory?(doc_a_dir)
+            FileUtils.mkdir_p(doc_a_dir) unless File.directory?(doc_a_dir)
 
-              if File.directory?(doc_a_dir)
-                FileUtils.mv Dir.glob("#{doc_dir}/*"), doc_a_dir
-              end
-
+            if File.directory?(doc_a_dir)
+              FileUtils.mv Dir.glob("#{doc_dir}/*"), doc_a_dir
             end
 
           end

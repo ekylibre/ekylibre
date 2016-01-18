@@ -1,6 +1,6 @@
 # coding: utf-8
 class AtomizeInterventions < ActiveRecord::Migration
-  TASK_TABLES = [:product_enjoyments, :product_junctions, :product_links, :product_linkages, :product_localizations, :product_memberships, :product_ownerships, :product_phases, :product_reading_tasks]
+  TASK_TABLES = [:product_enjoyments, :product_junctions, :product_links, :product_linkages, :product_localizations, :product_memberships, :product_ownerships, :product_phases, :product_reading_tasks].freeze
   POLYMORPHIC_REFERENCES = [
     [:attachments, :resource],
     # [:interventions, :resource],
@@ -19,7 +19,7 @@ class AtomizeInterventions < ActiveRecord::Migration
     [:product_reading_tasks, :originator],
     [:product_readings, :originator],
     [:versions, :item]
-  ]
+  ].freeze
 
   def change
     revert { add_reference :interventions, :resource, polymorphic: true, index: true }

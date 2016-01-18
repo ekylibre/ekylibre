@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -68,7 +68,7 @@ class FinancialYear < Ekylibre::Record::Base
         # First
         unless first = first_of_all
           started_on = Time.zone.today
-          first = self.create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
+          first = create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
         end
         return nil if first.started_on > searched_on
 
@@ -167,7 +167,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # When a financial year is closed,.all the matching journals are closed too.
   def close(to_close_on = nil, options = {})
-    return false unless self.closable?
+    return false unless closable?
 
     to_close_on ||= stopped_on
 
@@ -181,7 +181,7 @@ class FinancialYear < Ekylibre::Record::Base
       update_attributes(stopped_on: to_close_on, closed: true)
 
       # Compute balance of closed year
-      self.compute_balances!
+      compute_balances!
 
       # Create first entry of the new year
       if journal = Journal.find_by(id: options[:journal_id].to_i)
@@ -195,7 +195,7 @@ class FinancialYear < Ekylibre::Record::Base
           revenues = Account.find_in_nomenclature(:revenues)
 
           for balance in account_balances.joins(:account).order('number')
-            if balance.account.number.to_s.match(/^(#{expenses.number}|#{revenues.number})/)
+            if balance.account.number.to_s =~ /^(#{expenses.number}|#{revenues.number})/
               result += balance.balance
             elsif balance.balance != 0
               # TODO: Use currencies properly in account_balances !
@@ -316,7 +316,7 @@ class FinancialYear < Ekylibre::Record::Base
   # Generate last journal entry with financial assets depreciations (option.ally)
   def generate_last_journal_entry(options = {})
     unless last_journal_entry
-      self.create_last_journal_entry!(printed_on: stopped_on, journal_id: options[:journal_id])
+      create_last_journal_entry!(printed_on: stopped_on, journal_id: options[:journal_id])
     end
 
     # Empty journal entry

@@ -143,14 +143,13 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
           products_array = []
           if r.products_name
             (0..r.products_name.length).each do |product_index|
-              unless r.products_name[product_index].nil?
-                arr = []
-                arr << r.products_name[product_index]
-                arr << r.products_input_population[product_index]
-                arr << r.products_input_unit[product_index]
-                arr << r.products_code[product_index] if r.products_code
-                products_array << arr
-              end
+              next if r.products_name[product_index].nil?
+              arr = []
+              arr << r.products_name[product_index]
+              arr << r.products_input_population[product_index]
+              arr << r.products_input_unit[product_index]
+              arr << r.products_code[product_index] if r.products_code
+              products_array << arr
             end
           end
 
@@ -158,23 +157,22 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
           extrants_array = []
           if r.extrants_name
             (0..r.extrants_name.length).each do |extrant_index|
-              unless r.extrants_name[extrant_index].nil?
-                arr = []
-                arr << r.extrants_name[extrant_index]
-                arr << r.extrants_population[extrant_index]
-                arr << r.extrants_population_unit[extrant_index]
-                extrants_array << arr
-              end
+              next if r.extrants_name[extrant_index].nil?
+              arr = []
+              arr << r.extrants_name[extrant_index]
+              arr << r.extrants_population[extrant_index]
+              arr << r.extrants_population_unit[extrant_index]
+              extrants_array << arr
             end
           end
 
           intervention_started_at = r.intervention_started_at.to_time + 9.hours
           duration_in_seconds = r.intervention_duration_in_hour.hours
-          if duration_in_seconds
-            intervention_stopped_at = intervention_started_at + duration_in_seconds
-          else
-            intervention_stopped_at = intervention_started_at + 2.hours
-          end
+          intervention_stopped_at = if duration_in_seconds
+                                      intervention_started_at + duration_in_seconds
+                                    else
+                                      intervention_started_at + 2.hours
+                                    end
 
           intervention_year = intervention_started_at.year
           intervention_month = intervention_started_at.month
@@ -240,46 +238,45 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
             product_input_unit = input_product[2].to_s.downcase if input_product[2]
             product_input_code = input_product[3].to_s if input_product[3]
 
-            if variants_transcode[product_name] && (product_input_population && product_input_unit)
-              variant = ProductNatureVariant.import_from_nomenclature(variants_transcode[product_name])
-              intrant = variant.generate(product_name, r.intervention_started_at, cultivable_zone)
+            next unless variants_transcode[product_name] && (product_input_population && product_input_unit)
+            variant = ProductNatureVariant.import_from_nomenclature(variants_transcode[product_name])
+            intrant = variant.generate(product_name, r.intervention_started_at, cultivable_zone)
 
-              unless intrant.frozen_indicators_list.include?(:population)
-                # transcode unit in file in a Nomen::Unit.item
-                # ex: kg to kilogram
-                unit = units_transcode[product_input_unit]
-                value = product_input_population
-                if units_transcode[unit.to_s] == :population || unit == :population
-                  population_value = value
-                elsif units_transcode[unit.to_s] == :net_volume || units_transcode[unit.to_s] == :net_mass
-                  # create a Measure from value and unit in file
-                  # ex: 182.25 kilogram
-                  measure = Measure.new(value, unit)
-                  # get an indicator from variant linked to indicator mentionned in transcoded file
-                  # ex: kg,kilogram,net_mass in file
-                  # ex: kilogram => net_mass
-                  # ex: variant_indicator = variant.net_mass
-                  if variant_indicator = variant.send(units_transcode[unit.to_s])
-                    # convert measure to variant unit and divide by variant_indicator
-                    # ex : for a wheat_seed_25kg
-                    # 182.25 kilogram (converting in kilogram) / 25.00 kilogram
-                    population_value = (measure.to_f(variant_indicator.unit.to_sym)) / variant_indicator.value.to_f
-                  end
+            unless intrant.frozen_indicators_list.include?(:population)
+              # transcode unit in file in a Nomen::Unit.item
+              # ex: kg to kilogram
+              unit = units_transcode[product_input_unit]
+              value = product_input_population
+              if units_transcode[unit.to_s] == :population || unit == :population
+                population_value = value
+              elsif units_transcode[unit.to_s] == :net_volume || units_transcode[unit.to_s] == :net_mass
+                # create a Measure from value and unit in file
+                # ex: 182.25 kilogram
+                measure = Measure.new(value, unit)
+                # get an indicator from variant linked to indicator mentionned in transcoded file
+                # ex: kg,kilogram,net_mass in file
+                # ex: kilogram => net_mass
+                # ex: variant_indicator = variant.net_mass
+                if variant_indicator = variant.send(units_transcode[unit.to_s])
+                  # convert measure to variant unit and divide by variant_indicator
+                  # ex : for a wheat_seed_25kg
+                  # 182.25 kilogram (converting in kilogram) / 25.00 kilogram
+                  population_value = measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f
                 end
-                if r.working_area
-                  global_intrant_value = population_value.to_d * r.working_area.to_d
-                end
-                w.debug ' measure : ' + measure.inspect.yellow
-                w.debug ' units_transcode[unit.to_s] : ' + units_transcode[unit.to_s].inspect.yellow
-                w.debug ' intrant_population_value : ' + population_value.inspect.yellow
-                w.debug ' intrant_global_population_value : ' + global_intrant_value.to_f.inspect.yellow
-                intrant.read!(:population, global_intrant_value, at: r.intervention_started_at.to_time + 3.hours) if global_intrant_value
-                intrant.identification_number = product_input_code if product_input_code
-                intrant.save!
               end
-              w.debug ' intrant : ' + intrant.name.inspect.yellow
-              intrants << intrant
+              if r.working_area
+                global_intrant_value = population_value.to_d * r.working_area.to_d
+              end
+              w.debug ' measure : ' + measure.inspect.yellow
+              w.debug ' units_transcode[unit.to_s] : ' + units_transcode[unit.to_s].inspect.yellow
+              w.debug ' intrant_population_value : ' + population_value.inspect.yellow
+              w.debug ' intrant_global_population_value : ' + global_intrant_value.to_f.inspect.yellow
+              intrant.read!(:population, global_intrant_value, at: r.intervention_started_at.to_time + 3.hours) if global_intrant_value
+              intrant.identification_number = product_input_code if product_input_code
+              intrant.save!
             end
+            w.debug ' intrant : ' + intrant.name.inspect.yellow
+            intrants << intrant
 
           end
 
@@ -293,31 +290,30 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
             extrant_population = extrant_product[1].tr(',', '.').to_d if extrant_product[1]
             extrant_unit = extrant_product[2].to_s.downcase if extrant_product[2]
             # create extrant variant if variant exist
-            if variants_transcode[extrant_name]
-              extrant_variant = ProductNatureVariant.import_from_nomenclature(variants_transcode[extrant_name])
-              unit = units_transcode[extrant_unit]
-              value = extrant_population
-              if unit.to_sym == :population
-                extrant_population_value = value
-              else
-                extrant_measure = Measure.new(value, unit)
-                if extrant_variant_unit = extrant_variant.send(units_transcode[unit.to_s]).unit
-                  extrant_population_value = extrant_measure.to_f(extrant_variant_unit.to_sym)
-                end
-                if extrant_variant_indicator = extrant_variant.send(units_transcode[unit.to_s])
-                  extrant_population_value = (extrant_measure.to_f(extrant_variant_indicator.unit.to_sym)) / extrant_variant_indicator.value.to_f
-                end
+            next unless variants_transcode[extrant_name]
+            extrant_variant = ProductNatureVariant.import_from_nomenclature(variants_transcode[extrant_name])
+            unit = units_transcode[extrant_unit]
+            value = extrant_population
+            if unit.to_sym == :population
+              extrant_population_value = value
+            else
+              extrant_measure = Measure.new(value, unit)
+              if extrant_variant_unit = extrant_variant.send(units_transcode[unit.to_s]).unit
+                extrant_population_value = extrant_measure.to_f(extrant_variant_unit.to_sym)
               end
-              if r.working_area
-                global_extrant_value = extrant_population_value.to_d * r.working_area.to_d
+              if extrant_variant_indicator = extrant_variant.send(units_transcode[unit.to_s])
+                extrant_population_value = extrant_measure.to_f(extrant_variant_indicator.unit.to_sym) / extrant_variant_indicator.value.to_f
               end
-              w.debug ' extrant_measure : ' + extrant_measure.inspect.yellow
-              w.debug ' extrant_population_value : ' + extrant_population_value.inspect.yellow
-              w.debug ' global_extrant_value : ' + global_extrant_value.to_f.inspect.yellow
-
-              w.debug ' extrant_variant : ' + extrant_variant.name.inspect.yellow
-              extrants << { extrant_variant: extrant_variant, global_extrant_value: global_extrant_value }
             end
+            if r.working_area
+              global_extrant_value = extrant_population_value.to_d * r.working_area.to_d
+            end
+            w.debug ' extrant_measure : ' + extrant_measure.inspect.yellow
+            w.debug ' extrant_population_value : ' + extrant_population_value.inspect.yellow
+            w.debug ' global_extrant_value : ' + global_extrant_value.to_f.inspect.yellow
+
+            w.debug ' extrant_variant : ' + extrant_variant.name.inspect.yellow
+            extrants << { extrant_variant: extrant_variant, global_extrant_value: global_extrant_value }
 
           end
 

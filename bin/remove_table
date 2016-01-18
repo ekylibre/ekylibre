@@ -11,13 +11,13 @@ STDOUT.sync = true
 @simulate = false
 
 def execute(command)
-  puts "#{command.send(@simulate ? :yellow : :red)}"
+  puts command.send(@simulate ? :yellow : :red).to_s
   system(command) unless @simulate
 end
 
 table = ARGV.shift
 
-unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
+unless $PROGRAM_NAME =~ /^(.\/)?bin\//
   puts 'Script must be started from Rails root.'
   exit 0
 end

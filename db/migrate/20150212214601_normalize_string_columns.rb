@@ -169,7 +169,7 @@ class NormalizeStringColumns < ActiveRecord::Migration
     [:affairs, [:number, :originator_type], 255],
     [:budget_items, [:currency], 255],
     [:analyses, [:nature, :number, :reference_number], 255]
-  ]
+  ].freeze
 
   def up
     LIMITS.each do |l|

@@ -6,11 +6,11 @@ module Unrollable
     # including the default scope
     def unroll(*columns)
       available_options = [:model, :max, :order, :partial, :fill_in, :scope]
-      if columns.last.is_a?(Hash) && (columns.last.keys - available_options).empty?
-        options = columns.last.slice!(available_options)
-      else
-        options = {}
-      end
+      options = if columns.last.is_a?(Hash) && (columns.last.keys - available_options).empty?
+                  columns.last.slice!(available_options)
+                else
+                  {}
+                end
       model = (options.delete(:model) || controller_name).to_s.classify.constantize
       scope_name = options.delete(:scope) || 'unscoped'
       max = options[:max] || 80
@@ -61,11 +61,11 @@ module Unrollable
       haml << "    - items.limit(items.count > #{(max * 1.5).round} ? #{max} : #{max * 2}).each do |item|\n"
       haml << "      - item_label = #{item_label}\n"
       haml << "      %li.item{data: {item: {label: item_label, id: item.id}}}\n"
-      if options[:partial]
-        haml << "        = render '#{partial}', item: item\n"
-      else
-        haml << "        = highlight(item_label, keys)\n"
-      end
+      haml << if options[:partial]
+                "        = render '#{partial}', item: item\n"
+              else
+                "        = highlight(item_label, keys)\n"
+    end
       haml << "  - if items.count > #{(max * 1.5).round}\n"
       haml << "    %span.items-status.items-status-too-many-records\n"
       haml << "      = 'labels.x_items_remain'.t(count: (items.count - #{max}))\n"
@@ -130,7 +130,7 @@ module Unrollable
       end.join(' OR ').inspect + "\n"
       code << '      conditions += [' + searchable_filters.collect do |column|
         column[:pattern].inspect.gsub('X', '" + key + "')
-          .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
+                                        .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
       end.join(', ') + "]\n"
       code << "    end\n"
       code << "    conditions[0] << ')'\n"
@@ -146,7 +146,7 @@ module Unrollable
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l.blue)}
       class_eval(code)
       :unroll
-    end
+  end
 
     private
 
@@ -222,5 +222,5 @@ module Unrollable
         fail "What a parameter? #{object.inspect}"
       end
     end
-  end
+end
 end

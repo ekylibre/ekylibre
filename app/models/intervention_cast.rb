@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -105,7 +105,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   before_save do
-    self.actor = nil if self.nature_variant?
+    self.actor = nil if nature_variant?
 
     if self.actor && self.actor.respond_to?(:person) && self.actor.person
       columns = { event_id: event.id, participant_id: self.actor.person_id, state: :accepted }
@@ -125,9 +125,9 @@ class InterventionCast < Ekylibre::Record::Base
   # multiply evaluated_price of an actor(product) and used population in this cast
   def cost
     if actor && price = evaluated_price
-      if self.input?
+      if input?
         return price * (population || 0.0)
-      elsif self.tool? || self.doer?
+      elsif tool? || doer?
         return price * ((stopped_at - started_at).to_d / 3600)
       end
     end
@@ -135,12 +135,12 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def duration
-    ((stopped_at - started_at).in(:second))
+    (stopped_at - started_at).in(:second)
   end
 
   def earn
     if actor && price = evaluated_price
-      return price * (population || 0.0) if self.output?
+      return price * (population || 0.0) if output?
     end
     nil
   end

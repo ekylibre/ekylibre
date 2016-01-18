@@ -51,11 +51,11 @@ module Procedo
       identified_outgoing_delivery: { product: :product, client: :entity },
       incoming_delivery:            { product: :product },
       identified_incoming_delivery: { product: :product, supplier: :entity }
-    }
+    }.freeze
 
     ACTORS = {
       indicator: '\\w+\\|\\w+(\\|[\\:\\w]+)?'
-    }
+    }.freeze
 
     attr_reader :type, :expression, :pattern
 

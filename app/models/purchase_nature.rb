@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -54,7 +54,7 @@ class PurchaseNature < Ekylibre::Record::Base
   scope :actives, -> { where(active: true) }
 
   validate do
-    self.journal = nil unless self.with_accounting?
+    self.journal = nil unless with_accounting?
     if journal
       errors.add(:journal, :currency_does_not_match, currency: journal_currency) if currency != journal_currency
     end

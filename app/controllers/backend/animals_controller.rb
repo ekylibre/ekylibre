@@ -223,7 +223,7 @@ class Backend::AnimalsController < Backend::MattersController
       return unless find_and_check(id: id)
     end
     if request.post?
-      if group = AnimalGroup.find(params[:group_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
+      if (group = AnimalGroup.find(params[:group_id])) && (production = Production.find_by(id: params[:production_id])) && (production_support = ProductionSupport.find_by(id: params[:production_support_id])) && params[:started_at]
         group.add_animals(ids, at: params[:started_at], production: production, production_support: production_support)
         redirect_to params[:redirect] || backend_animal_group_url(group)
       end
@@ -237,7 +237,7 @@ class Backend::AnimalsController < Backend::MattersController
       return unless find_and_check(id: id)
     end
     if request.post?
-      if variant = ProductNatureVariant.find(params[:variant_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
+      if (variant = ProductNatureVariant.find(params[:variant_id])) && (production = Production.find_by(id: params[:production_id])) && (production_support = ProductionSupport.find_by(id: params[:production_support_id])) && params[:started_at]
         variant.add_products(ids, at: params[:started_at], production: production, production_support: production_support)
         redirect_to params[:redirect] || backend_product_nature_variant_url(variant)
       end
@@ -251,7 +251,7 @@ class Backend::AnimalsController < Backend::MattersController
       return unless find_and_check(id: id)
     end
     if request.post?
-      if container = Product.find(params[:container_id]) and production = Production.find_by(id: params[:production_id]) and production_support = ProductionSupport.find_by(id: params[:production_support_id]) and params[:started_at]
+      if (container = Product.find(params[:container_id])) && (production = Production.find_by(id: params[:production_id])) && (production_support = ProductionSupport.find_by(id: params[:production_support_id])) && params[:started_at]
         container.add_content_products(ids, at: params[:started_at], production: production, production_support: production_support)
         redirect_to params[:redirect] || backend_product_url(container)
       end

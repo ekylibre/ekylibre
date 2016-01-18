@@ -5,7 +5,7 @@ module Clean
     MODELS_DIR      = Rails.root.join('app', 'models')
     FIXTURES_DIR    = Rails.root.join('test', 'fixtures')
     MODEL_TESTS_DIR = Rails.root.join('test', 'models')
-    PREFIX = '= Informations'
+    PREFIX = '= Informations'.freeze
 
     class << self
       # Simple quoting for the default column value
@@ -48,15 +48,15 @@ module Clean
 
         max_size = klass.column_names.collect(&:size).max
         klass.columns.sort { |a, b| a.name <=> b.name }.each do |col|
-          next if col.name.to_s =~ /\A\_/ # Custom fields
+          next if col.name.to_s.start_with?('_') # Custom fields
           attrs = []
           if col.default
-            if col.default.is_a? Date
-              attrs << 'default(CURRENT_DATE)'
-            else
-              attrs << "default(#{quote_value(col.default, col.type)})"
-            end
+            attrs << if col.default.is_a? Date
+                       'default(CURRENT_DATE)'
+                     else
+                       "default(#{quote_value(col.default, col.type)})"
           end
+        end
           attrs << 'not null' unless col.null
           attrs << 'primary key' if col.name == klass.primary_key
 
@@ -72,7 +72,7 @@ module Clean
 
         # info << "#coding: utf-8 \n"
         info << "#\n"
-      end
+    end
 
       # Use the column information in an ActiveRecord class
       # to create a comment block containing a line for
@@ -83,34 +83,33 @@ module Clean
         info += "# #{klass.table_name}_001:\n"
         klass.columns.sort { |a, b| a.name <=> b.name }.each do |col|
           next if [:created_at, :updated_at, :id, :lock_version].include? col.name.to_sym
-          next if col.name =~ /\A\_/ # Custom fields
+          next if col.name.start_with?('_') # Custom fields
           next if col.name =~ /\_type$/ && klass.columns_hash[col.name.gsub(/\_type$/, '_id')]
-          if !col.null || [:creator_id, :updater_id].include?(col.name.to_sym)
-            if col.name.match(/_id$/)
-              name = col.name.gsub(/_id$/, '')
-              model = { 'creator' => 'user', 'updater' => 'user' }[name] || name
-              info << "#   #{name}: #{model.pluralize}_001"
-              info << ' (Model)' if klass.columns_hash["#{name}_type"]
-            else
-              info << "#   #{col.name}: "
-              if col.name.match(/_at$/)
-                info << "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')} #{(Time.zone.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(60).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
-              elsif col.name.match(/_on$/)
-                info << "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')}"
-              elsif col.type == :boolean
-                info << 'true'
-              elsif col.type == :decimal || col.type == :integer
-                info << '0'
-              else
-                info << '"Lorem ipsum"'
-              end
-            end
-            info << "\n"
+          next unless !col.null || [:creator_id, :updater_id].include?(col.name.to_sym)
+          if col.name =~ /_id$/
+            name = col.name.gsub(/_id$/, '')
+            model = { 'creator' => 'user', 'updater' => 'user' }[name] || name
+            info << "#   #{name}: #{model.pluralize}_001"
+            info << ' (Model)' if klass.columns_hash["#{name}_type"]
+          else
+            info << "#   #{col.name}: "
+            info << if col.name =~ /_at$/
+                      "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')} #{(Time.zone.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(60).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
+                    elsif col.name =~ /_on$/
+                      "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')}"
+                    elsif col.type == :boolean
+                      'true'
+                    elsif col.type == :decimal || col.type == :integer
+                      '0'
+                    else
+                      '"Lorem ipsum"'
           end
+        end
+          info << "\n"
         end
         info << "#\n"
         info
-      end
+    end
 
       # Add a schema block to a file. If the file already contains
       # a schema info block (a comment starting
@@ -213,6 +212,6 @@ module Clean
           end
         end
       end
-    end
-  end
+end
+end
 end

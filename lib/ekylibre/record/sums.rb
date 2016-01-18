@@ -44,12 +44,12 @@ module Ekylibre::Record
           code << "      Rails.logger.warn 'Nil value in sums'\n"
           code << "      x = 0.0\n"
           code << "    end\n"
-          if negate
-            code << "    #{v} -= x\n"
-          else
-            code << "    #{v} += x\n"
-          end
+          code << if negate
+                    "    #{v} -= x\n"
+                  else
+                    "    #{v} += x\n"
         end
+      end
         code << "  end\n"
         # code << "  " + Ekylibre::Schema.references(self.name.underscore.to_sym, target_id).to_s.camelcase + ".where(id: self.#{target_id}).update_all(" + options.collect{|k, v| "#{v}: #{v}"}.join(", ") + ")\n"
         # code << "  " + target_reflection.class_name + ".where(id: self.#{target_id}).update_all(" + options.collect{|k, v| "#{v}: #{v}"}.join(", ") + ")\n"
@@ -59,9 +59,9 @@ module Ekylibre::Record
         # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
 
         class_eval code
-      end
     end
   end
+end
 end
 
 Ekylibre::Record::Base.send(:include, Ekylibre::Record::Sums)

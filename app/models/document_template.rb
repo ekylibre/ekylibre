@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -190,21 +190,21 @@ class DocumentTemplate < Ekylibre::Record::Base
   # Archive the document using the given archiving method
   def document(data_or_path, key, _format, options = {})
     document = nil
-    return document if self.archiving_none? || self.archiving_none_of_template?
+    return document if archiving_none? || archiving_none_of_template?
 
     # Gets historic of document
     documents = Document.where(nature: nature, key: key).where('template_id IS NOT NULL')
 
     # Checks if archiving is expected
-    return document unless (self.archiving_first? && documents.empty?) ||
-                           (self.archiving_first_of_template? && documents.where(template_id: id).empty?) ||
+    return document unless (archiving_first? && documents.empty?) ||
+                           (archiving_first_of_template? && documents.where(template_id: id).empty?) ||
                            archiving.to_s =~ /^(last|all)(\_of\_template)?$/
 
     # Lists last documents to remove after archiving
     removables = []
-    if self.archiving_last?
+    if archiving_last?
       removables = documents.pluck(:id)
-    elsif self.archiving_last_of_template?
+    elsif archiving_last_of_template?
       removables = documents.where(template_id: id).pluck(:id)
     end
 

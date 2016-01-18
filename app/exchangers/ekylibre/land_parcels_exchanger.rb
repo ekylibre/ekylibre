@@ -38,7 +38,7 @@ class Ekylibre::LandParcelsExchanger < ActiveExchanger::Base
           zone.save!
         end
         # link a land parcel to a land parcel cluster
-        if land_parcel_cluster = LandParcelCluster.find_by(work_number: r.land_parcel_cluster_code) and zone.clusters_work_number.nil?
+        if (land_parcel_cluster = LandParcelCluster.find_by(work_number: r.land_parcel_cluster_code)) && zone.clusters_work_number.nil?
           ProductMembership.create!(member: zone, group: land_parcel_cluster, started_at: born_at, nature: :interior)
         end
         if r.soil_nature

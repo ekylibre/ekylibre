@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -176,10 +176,9 @@ class Sale < Ekylibre::Record::Base
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
     for mail_address in [:address, :delivery_address, :invoice_address]
-      if send(mail_address)
-        unless send(mail_address).mail?
-          errors.add(mail_address, :must_be_a_mail_address)
-        end
+      next unless send(mail_address)
+      unless send(mail_address).mail?
+        errors.add(mail_address, :must_be_a_mail_address)
       end
     end
   end
@@ -199,7 +198,7 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (self.nature.with_accounting? && self.invoice?)) do |entry|
+    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (self.nature.with_accounting? && invoice?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       entry.add_debit(label, client.account(:client).id, amount) unless amount.zero?
       for item in items
@@ -215,19 +214,19 @@ class Sale < Ekylibre::Record::Base
 
   # Gives the date to use for affair bookkeeping
   def dealt_at
-    (self.invoice? ? invoiced_at : self.created_at)
+    (invoice? ? invoiced_at : self.created_at)
   end
 
   # Gives the amount to use for affair bookkeeping
   def deal_amount
-    ((self.aborted? || self.refused?) ? 0 : self.credit? ? -amount : amount)
+    ((aborted? || refused?) ? 0 : credit? ? -amount : amount)
   end
 
   # Globalizes taxes into an array of hash
   def deal_taxes(mode = :debit)
     return [] if deal_mode_amount(mode).zero?
     taxes = {}
-    coeff = (self.credit? ? -1 : 1).to_d
+    coeff = (credit? ? -1 : 1).to_d
     # coeff *= (self.send("deal_#{mode}?") ? 1 : -1)
     for item in items
       taxes[item.tax_id] ||= { amount: 0.0.to_d, tax: item.tax }
@@ -264,7 +263,7 @@ class Sale < Ekylibre::Record::Base
   # Returns if the sale has been validated and so if it can be
   # considered as sold.
   def sold?
-    (self.order? || self.invoice?)
+    (order? || invoice?)
   end
 
   # Check if sale can generate parcel from all the items of the sale
@@ -291,14 +290,14 @@ class Sale < Ekylibre::Record::Base
 
   # Remove all bad dependencies and return at draft state with no parcels
   def correct
-    return false unless self.can_correct?
+    return false unless can_correct?
     parcels.clear
     super
   end
 
   # Confirm the sale order. This permits to define parcels and assert validity of sale
   def confirm(confirmed_at = Time.zone.now)
-    return false unless self.can_confirm?
+    return false unless can_confirm?
     update_column(:confirmed_at, confirmed_at || Time.zone.now)
     super
   end
@@ -306,7 +305,7 @@ class Sale < Ekylibre::Record::Base
   # Invoices all the products creating the delivery if necessary.
   # Changes number with an invoice number saving exiting number in +initial_number+.
   def invoice(invoiced_at = Time.zone.now)
-    return false unless self.can_invoice?
+    return false unless can_invoice?
     ActiveRecord::Base.transaction do
       # Set values for invoice
       self.invoiced_at ||= invoiced_at
@@ -319,7 +318,7 @@ class Sale < Ekylibre::Record::Base
           break unless self.class.find_by(number: number, state: 'invoice')
         end
       end
-      self.save!
+      save!
       client.add_event(:sales_invoice_creation, updater.person) if updater
       return super
     end
@@ -332,7 +331,7 @@ class Sale < Ekylibre::Record::Base
 
   # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions
   def duplicate(attributes = {})
-    fail StandardError, 'Uncancelable sale' unless self.duplicatable?
+    fail StandardError, 'Uncancelable sale' unless duplicatable?
     hash = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description, :currency].inject({}) do |h, field|
       h[field] = send(field)
       h
@@ -371,13 +370,13 @@ class Sale < Ekylibre::Record::Base
 
   # Label of the sales order depending on the state and the number
   def name
-    tc("label.#{(self.credit? && self.invoice?) ? :credit : self.state}", number: number)
+    tc("label.#{(credit? && invoice?) ? :credit : self.state}", number: number)
   end
-  alias_method :label, :name
+  alias label name
 
   # Alias for letter_format? method
   def letter?
-    self.letter_format?
+    letter_format?
   end
 
   def mail_address
@@ -385,7 +384,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   def number_label
-    tc('number_label.' + (self.estimate? ? 'proposal' : 'command'), number: number)
+    tc('number_label.' + (estimate? ? 'proposal' : 'command'), number: number)
   end
 
   def taxes_amount
@@ -417,7 +416,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   def unpaid_days
-    (Time.zone.now - self.invoiced_at) if self.invoice?
+    (Time.zone.now - self.invoiced_at) if invoice?
   end
 
   def products
@@ -430,7 +429,7 @@ class Sale < Ekylibre::Record::Base
 
   # Returns true if sale is cancellable as an invoice
   def cancellable?
-    !self.credit? && self.invoice? && amount + credits.sum(:amount) > 0
+    !credit? && invoice? && amount + credits.sum(:amount) > 0
   end
 
   # Build a new sale with new items ready for correction and save
@@ -461,7 +460,7 @@ class Sale < Ekylibre::Record::Base
 
   # Returns status of affair if invoiced else "stop"
   def status
-    return affair.status if self.invoice? && affair
+    return affair.status if invoice? && affair
     :stop
   end
 end

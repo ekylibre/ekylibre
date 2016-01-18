@@ -21,7 +21,7 @@ class EBP::EDIExchanger < ActiveExchanger::Base
       ActiveRecord::Base.transaction do
         loop do
           begin
-            line = f.readline.gsub(/\n/, '')
+            line = f.readline.delete("\n")
           rescue
             break
           end

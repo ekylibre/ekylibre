@@ -110,12 +110,11 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
             account_infos = r.variant[key].to_s.split(':')
             account_number = account_infos.shift
             account_name = account_infos.shift
-            unless account_number.blank?
-              unless account = Account.find_by(number: account_number.strip)
-                account = Account.create!(name: account_name || account_number, number: account_number)
-              end
-              r.variant[key] = account
+            next if account_number.blank?
+            unless account = Account.find_by(number: account_number.strip)
+              account = Account.create!(name: account_name || account_number, number: account_number)
             end
+            r.variant[key] = account
           end
           attrs = r.variant.select { |k, v| !v.blank? && k != :variety }
           attrs[:name] = r.variant_code

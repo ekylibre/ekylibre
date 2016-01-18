@@ -12,11 +12,11 @@ module Nomen
       end
 
       def initialize
-        if Nomen.reference_path.exist?
-          @set = Nomen::NomenclatureSet.load_file(Nomen.reference_path)
-        else
-          @set = Nomen::NomenclatureSet.new
-        end
+        @set = if Nomen.reference_path.exist?
+                 Nomen::NomenclatureSet.load_file(Nomen.reference_path)
+               else
+                 Nomen::NomenclatureSet.new
+               end
       end
 
       def version

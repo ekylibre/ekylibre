@@ -33,20 +33,19 @@ module Ekylibre
       # Load all plugins
       def load
         Dir.glob(File.join(directory, '*')).sort.each do |directory|
-          if File.directory?(directory)
-            lib = File.join(directory, 'lib')
-            if File.directory?(lib)
-              $LOAD_PATH.unshift lib
-              ActiveSupport::Dependencies.autoload_paths += [lib]
-            end
-            initializer = File.join(directory, 'Plugfile')
-            if File.file?(initializer)
-              plugin = new(initializer)
-              registered_plugins[plugin.name] = plugin
-              Rails.logger.info "Load #{plugin.name} plugin"
-            else
-              Rails.logger.warn "No Plugfile found in #{directory}"
-            end
+          next unless File.directory?(directory)
+          lib = File.join(directory, 'lib')
+          if File.directory?(lib)
+            $LOAD_PATH.unshift lib
+            ActiveSupport::Dependencies.autoload_paths += [lib]
+          end
+          initializer = File.join(directory, 'Plugfile')
+          if File.file?(initializer)
+            plugin = new(initializer)
+            registered_plugins[plugin.name] = plugin
+            Rails.logger.info "Load #{plugin.name} plugin"
+          else
+            Rails.logger.warn "No Plugfile found in #{directory}"
           end
         end
       end
@@ -123,7 +122,7 @@ module Ekylibre
       def after_login_plugin
         registered_plugins.values.detect(&:redirect_after_login?)
       end
-      alias_method :redirect_after_login?, :after_login_plugin
+      alias redirect_after_login? after_login_plugin
 
       # Call after_login_path on 'after login' plugin
       def after_login_path(resource)

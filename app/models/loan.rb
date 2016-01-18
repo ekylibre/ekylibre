@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -87,7 +87,7 @@ class Loan < Ekylibre::Record::Base
   end
 
   def generate_repayments
-    period = self.repayment_period_month? ? 12 : 1
+    period = repayment_period_month? ? 12 : 1
     ids = []
     Calculus::Loan.new(amount, repayment_duration, interests: { interest_amount: interest_percentage / 100.0 }, insurances: { insurance_amount: insurance_percentage / 100.0 }, period: period, shift: self.shift_duration, shift_method: shift_method.to_sym, started_on: started_on).compute_repayments(repayment_method).each do |repayment|
       if r = repayments.find_by(position: repayment[:position])

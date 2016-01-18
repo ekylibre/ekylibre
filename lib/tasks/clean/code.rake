@@ -2,7 +2,7 @@ namespace :clean do
   desc 'Removes end spaces'
   task :code do
     print ' - White spaces: '
-    files  = []
+    files = []
     dirs = '{app,bin,config,db,doc,lib,plugins,public,test,vendor}'
     Dir.chdir(Rails.root) do
       files += Dir['Gemfile*']
@@ -42,11 +42,10 @@ namespace :clean do
       end
       # source.gsub!(/\n+\n$/, "\n")
 
-      if source != original
-        log.write " - #{file}\n"
-        File.write(file, source)
-        count += 1
-      end
+      next unless source != original
+      log.write " - #{file}\n"
+      File.write(file, source)
+      count += 1
     end
     log.close
     puts "#{count.to_s.rjust(3)} files updated"

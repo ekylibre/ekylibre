@@ -36,13 +36,13 @@ module ReadingStorable
   end
 
   def absolutize_measure
-    if self.indicator_datatype_measure? && measure_value.is_a?(Measure)
+    if indicator_datatype_measure? && measure_value.is_a?(Measure)
       self.absolute_measure_value = measure_value.in(indicator.unit)
     end
   end
 
   def validate_value
-    if self.indicator_datatype_measure?
+    if indicator_datatype_measure?
       # TODO: Check unit
       # errors.add(:unit, :invalid) if unit.dimension != indicator.unit.dimension
     end

@@ -5,7 +5,7 @@
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
 # Copyright (C) 2010-2012 Brice Texier
-# Copyright (C) 2012-2015 Brice Texier, David Joulin
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -75,20 +75,20 @@ class Subscription < Ekylibre::Record::Base
   before_validation(on: :create) do
     if nature
       if nature.period?
-        if product_nature
-          period = (product_nature.subscription_duration.blank? ? '1 year' : product_nature.subscription_duration) || '1 year'
-        else
-          period = '1 year'
-        end
+        period = if product_nature
+                   (product_nature.subscription_duration.blank? ? '1 year' : product_nature.subscription_duration) || '1 year'
+                 else
+                   '1 year'
+                 end
         # raise StandardError.new "ok"+period.inspect+self.product.subscription_duration.inspect
         self.started_at ||= Time.zone.today
         self.stopped_at ||= Delay.compute(period + ', 1 day ago', self.started_at)
       elsif nature.quantity?
-        if product_nature
-          period = (product_nature.subscription_quantity.blank? ? 1 : product_nature.subscription_quantity) || 1
-        else
-          period = 1
-        end
+        period = if product_nature
+                   (product_nature.subscription_quantity.blank? ? 1 : product_nature.subscription_quantity) || 1
+                 else
+                   1
+                 end
         self.first_number ||= nature.actual_number
         self.last_number ||= self.first_number + period - 1
       end
@@ -99,7 +99,7 @@ class Subscription < Ekylibre::Record::Base
     if address && subscriber
       errors.add(:subscriber_id, :entity_must_be_the_same_as_the_contact_entity) if address.entity_id != subscriber_id
     end
-    errors.add(:address_id, :invalid) unless address.mail? if address
+    errors.add(:address_id, :invalid) if address && !address.mail?
   end
 
   def subscriber_name
@@ -110,7 +110,7 @@ class Subscription < Ekylibre::Record::Base
   def compute_period
     # self.clean
     self.nature_id ||= product_nature.subscription_nature_id if product_nature
-    self.valid? if self.new_record?
+    valid? if new_record?
     self
   end
 
