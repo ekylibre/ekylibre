@@ -38,5 +38,12 @@ module Backend
       t.column :started_on
       t.column :stopped_on
     end
+
+    def current
+      unless current_campaign.present?
+        current_user.current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year, name: Date.current.year)
+      end
+      redirect_to backend_campaign_path(current_campaign)
+    end
   end
 end

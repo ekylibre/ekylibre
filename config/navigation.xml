@@ -593,6 +593,8 @@
         <page to="backend/analysis_items#new"/>
       </item>
       <item name="productions">
+        <page to="backend/campaigns#current"/>
+        <page to="backend/campaigns#show"/>
         <page to="backend/activity_productions#index"/>
         <page to="backend/activity_productions#list_interventions"/>
         <page to="backend/activity_productions#show"/>

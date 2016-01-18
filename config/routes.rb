@@ -251,6 +251,9 @@ Rails.application.routes.draw do
     resources :building_divisions, concerns: :products, path: 'building-divisions'
 
     resources :campaigns, concerns: [:list, :unroll] do
+      collection do
+        get :current
+      end
       member do
         get :list_activity_productions
       end
