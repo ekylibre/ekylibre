@@ -7,13 +7,11 @@
       - l.attribute :name
       - l.attribute :harvest_year
       - l.attribute :closed
-      - l.attribute :number
       - l.attribute :description
-
-  - c.cobble(:productions) do
-    = cobble_toolbar do |t|
-      - t.new variants: Activity.availables.reorder(:name).to_a.map { |n| [n.name, {activity_id: n.id, controller: :activity_productions, campaign_id: resource.id}] }
-    = cobble_list(:activity_productions)
+  -#- c.cobble(:productions) do
+  -#  = cobble_toolbar do |t|
+  -#    - t.new variants: Activity.availables.reorder(:name).to_a.map { |n| [n.name, {activity_id: n.id, controller: :activity_productions, campaign_id: resource.id}] }
+  -#  = cobble_list(:activity_productions)
 
   - c.cobble :map do
     = cell :map, params: {campaign_ids: resource.id}
