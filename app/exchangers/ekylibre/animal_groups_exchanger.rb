@@ -133,6 +133,7 @@ module Ekylibre
                 size_indicator: 'members_count',
                 support_variety: :animal_group,
                 nature: family.nature,
+                production_cycle: :annual,
                 with_cultivation: false,
                 with_supports: true
               )

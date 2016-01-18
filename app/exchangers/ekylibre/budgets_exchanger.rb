@@ -65,7 +65,8 @@ module Ekylibre
             size_indicator: (production_indicator[0] ? production_indicator[0].strip.to_sym : nil),
             size_unit: (production_indicator[1] ? production_indicator[1].strip.to_sym : nil),
             nature: family.nature,
-            with_supports: (production_support_numbers.any? ? true : false)
+            with_supports: (production_support_numbers.any? ? true : false),
+            production_cycle: :annual
           )
           if support_variant && support_variant.variety
             activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :cultivable_zone : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))
@@ -114,7 +115,8 @@ module Ekylibre
             support: product,
             started_on: Date.new(campaign.harvest_year - 1, 10, 1),
             stopped_on: Date.new(campaign.harvest_year, 8, 1),
-            state: :opened
+            state: :opened,
+            campaign_id: campaign.id
           }
 
           if activity.with_supports && cz && product && product.shape && Nomen::ActivityFamily[activity.family] <= :vegetal_crops
@@ -144,6 +146,8 @@ module Ekylibre
         # E "Unité de la quantité CF NOMENCLATURE"
         # F "Prix TTC"
         # G "sens -1 = dépense / +1 = recette"
+
+        activity_budget = ActivityBudget.find_or_create_by!(campaign: campaign, activity: activity)
 
         # 3 first line are not budget items
         4.upto(s.last_row) do |row_number|
@@ -208,14 +212,16 @@ module Ekylibre
               indicator = indics.first
             end
           end
-          activity_budget = ActivityBudgetItem.find_or_initialize_by(activity: activity, campaign: campaign, variant: item_variant, unit_amount: r.item_unit_price_amount)
-          activity_budget.variant_unit = unit
-          activity_budget.variant_indicator = indicator
-          activity_budget.direction = r.item_direction
-          activity_budget.computation_method = r.computation_method
-          activity_budget.quantity = r.item_quantity if r.item_quantity
-          # activity_budget.unit_population = r.item_quantity_unity if r.item_quantity_unity
-          activity_budget.save!
+
+
+          activity_budget_items = activity_budget.items.find_or_initialize_by(variant: item_variant, unit_amount: r.item_unit_price_amount)
+          activity_budget_items.variant_unit = unit
+          activity_budget_items.variant_indicator = indicator
+          activity_budget_items.direction = r.item_direction
+          activity_budget_items.computation_method = r.computation_method
+          activity_budget_items.quantity = r.item_quantity if r.item_quantity
+          # activity_budget_items.unit_population = r.item_quantity_unity if r.item_quantity_unity
+          activity_budget_items.save!
         end
         w.check_point
       end
