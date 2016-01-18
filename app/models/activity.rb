@@ -99,10 +99,10 @@ class Activity < Ekylibre::Record::Base
 
   validate do
     if family = Nomen::ActivityFamily[self.family]
-      if with_supports && variety = Nomen::Variety[support_variety]
+      if with_supports && (variety = Nomen::Variety[support_variety])
         errors.add(:support_variety, :invalid) unless variety <= family.support_variety
       end
-      if with_cultivation && variety = Nomen::Variety[cultivation_variety]
+      if with_cultivation && (variety = Nomen::Variety[cultivation_variety])
         errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
       end
     end
@@ -222,14 +222,14 @@ class Activity < Ekylibre::Record::Base
         valid = false unless !cultivation_variety == !item.cultivation_variety
         distance = 0
         if valid && cultivation_variety
-          if Nomen::Variety[cultivation_variety] <= item.cultivation_variety
+          if Nomen::Variety[cultivation_variety] && Nomen::Variety[cultivation_variety] <= item.cultivation_variety
             distance += Nomen::Variety[cultivation_variety].depth - Nomen::Variety[item.cultivation_variety].depth
           else
             valid = false
           end
         end
         if valid && support_variety
-          if Nomen::Variety[support_variety] <= item.support_variety
+          if Nomen::Variety[support_variety] && Nomen::Variety[support_variety] <= item.support_variety
             distance += Nomen::Variety[support_variety].depth - Nomen::Variety[item.support_variety].depth
           else
             valid = false
