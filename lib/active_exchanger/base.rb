@@ -11,6 +11,7 @@ module ActiveExchanger
           Rails.logger.warn "Unknown exchange: #{name}"
         end
         ActiveExchanger::Base.register_exchanger(subclass)
+        super
       end
 
       def exchanger_name

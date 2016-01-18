@@ -186,6 +186,12 @@ module Ekylibre
       # Adds the app/{controllers,helpers,models} concerns directories of the plugin to the autoload path
       Dir.glob File.expand_path(@root.join('app', '{controllers,models}/concerns')) do |dir|
         ActiveSupport::Dependencies.autoload_paths += [dir]
+        $LOAD_PATH.unshift(dir) if Dir.exist?(dir)
+      end
+
+      # Load all exchanger
+      Dir.glob(@root.join('app', 'exchangers', '**', '*.rb')).each do |path|
+        require path
       end
 
       # Load helpers
