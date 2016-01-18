@@ -38,7 +38,7 @@ module Backend
 
     def index
       started_on = (params[:started_on] ? Time.new(*params[:started_on].split('-')) : Time.zone.now)
-      @events = Event.between(started_on.beginning_of_month, started_on.end_of_month).includes(participations: [:participant])
+      @events = Event.between(started_on.beginning_of_month.beginning_of_week, started_on.end_of_month.end_of_week).includes(participations: [:participant])
       render partial: 'month' if request.xhr? && params[:started_on]
     end
 

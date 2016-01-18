@@ -1,0 +1,16 @@
+%header.calendar-header
+  = link_to raw('&laquo;'), { calendar.options[:param_name] => date_range.first - 1.day }, remote: true, class: 'previous-month', data: {}
+  %span= 'date.month_names'.t[start_date.month] + ' ' + start_date.year.to_s
+  = link_to raw('&raquo;'), { calendar.options[:param_name] => date_range.last + 1.day }, remote: true, class: 'next-month'
+
+%table
+  %thead
+    %tr
+      - date_range.slice(0, 7).each do |day|
+        %th= 'date.abbr_day_names'.t[day.wday]
+  %tbody
+    - date_range.each_slice(7) do |week|
+      %tr
+        - week.each do |day|
+          %td{ class: calendar.td_classes_for(day) }
+            = capture(day, sorted_events.fetch(day, []), &block)

@@ -1,11 +1,12 @@
 - details = capture do
   %p
     = event.started_at.l(format: "%H:%M")
-    = " - "
-    - if event.started_at.to_date == event.stopped_at.to_date
-      = event.stopped_at.l(format: "%H:%M")
-    - else
-      = event.stopped_at.l
+    - if event.stopped_at
+      = " - "
+      - if event.started_at.to_date == event.stopped_at.to_date
+        = event.stopped_at.l(format: "%H:%M")
+      - else
+        = event.stopped_at.l
   - if event.place
     %p= event.place
   - if event.participations.any?
