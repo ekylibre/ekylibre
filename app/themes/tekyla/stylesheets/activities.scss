@@ -7,12 +7,11 @@ $activity_border_size: 5px;
 
 .activities-index {
   .activity-container {
-    width: 33.33%;
     @include float(left);
-    //@include make-lg-column(3);
-    //@include make-md-column(4);
-    //@include make-sm-column(6);
-    //@include make-xs-column(12);
+    @include make-xs-column(12);
+    @include make-sm-column(6);
+    @include make-md-column(4);
+    @include make-lg-column(3);
     padding: 0;
   }
 }
