@@ -25,15 +25,6 @@ i.icon {
       @include transition(background 0.4s, box-shadow 0.4s);
     }
   }
-  /*
-    li.dropdown {
-    position: relative;
-    }
-
-ul.dropdown-menu {
-@include dropdown-menu;
-}
- */
   .collapse {
     > ul {
       @include float(left);
@@ -152,6 +143,10 @@ li.dropdown {
 
 ul.dropdown-menu {
   @include dropdown-menu;
+}
+
+.dropdown-backdrop {
+  z-index: -1;
 }
 
 .btn-export {
@@ -1464,6 +1459,7 @@ html.backend {
     $height: $fs-normal * 1.2;
     max-height: ($height + 2 * $item-padding) * 12;
     min-width: 350px;
+    max-width: 600px;
     overflow-y: auto;
     li {
       height: $height;
@@ -2557,6 +2553,3 @@ a[data-annotate] {
   }
 }
 
-.dropdown-backdrop {
-  z-index: -1;
-}

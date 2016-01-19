@@ -65,8 +65,8 @@ $default-text-shadow-blur: 1px;
 $default-text-shadow-spread: false;
 
 // Menu colors
-$menu-background: mix($neutral-background, white, 93%) !default;
-$menu-border-color: mix($menu-background, #000000, 77%);
+$menu-background: mix($neutral-background, white, 53%) !default;
+$menu-border-color: mix($menu-background, #000000, 88%);
 $menu-border-width: floor($fs-normal / 10);
 $menu-border: $menu-border-width solid $menu-border-color;
 $menu-width: $fs-normal * 15;

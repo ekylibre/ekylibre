@@ -7,6 +7,8 @@ module Ekylibre
     class Lister
       delegate :map, :collect, :each, :any?, :size, :first, :[], :detect, to: :list
 
+      attr_reader :list
+
       def initialize(*types)
         @list = []
         types.each do |type|
@@ -26,9 +28,6 @@ module Ekylibre
         @list.delete_at(index)
       end
 
-      protected
-
-      attr_reader :list
     end
   end
 end

@@ -183,9 +183,8 @@ module Ekylibre::Record
       end
 
       # Link to nomenclature
-      def refers_to(*args)
+      def refers_to(name, *args)
         options = args.extract_options!
-        name = args.shift
         scope = args.shift
         Rails.logger.warn 'Cannot support Proc scope' unless scope.nil?
         column = ["#{name}_name".to_sym, name].detect { |c| columns_definition[c] }
@@ -193,7 +192,8 @@ module Ekylibre::Record
         reflection = Nomen::Reflection.new(self, name, options)
         @nomenclature_reflections ||= {}.with_indifferent_access
         @nomenclature_reflections[reflection.name] = reflection
-        enumerize reflection.foreign_key, in: reflection.all(reflection.scope), i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
+        enumerize reflection.foreign_key, in: reflection.all(reflection.scope),
+                  i18n_scope: ["nomenclatures.#{reflection.nomenclature}.items"]
 
         if reflection.foreign_key != reflection.name
           define_method name do
@@ -206,8 +206,8 @@ module Ekylibre::Record
         end
 
         # Define a default scope "of_<name>"
-        scope 'of_' + name.to_s, proc { |*items|
-          where(column => items.map { |i| reflection.klass.all(i) }.flatten.uniq)
+        scope "of_#{name}".to_sym, proc { |*items|
+          where(reflection.foreign_key => items.map { |i| reflection.klass.all(i) }.flatten.uniq)
         }
       end
 

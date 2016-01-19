@@ -910,6 +910,7 @@ por:
       # zero: "No emails"
     # main_settings: "Main settings"
     # make_your_production_support: "Make your production support"
+    # manage_activities: "Manage activities"
     # manual: "Manual"
     # manual_period: "from %{start} to %{finish}"
     # manure_management_plan_chart: "Manure management plan chart"

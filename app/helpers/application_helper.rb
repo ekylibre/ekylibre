@@ -388,9 +388,13 @@ module ApplicationHelper
     content_tag(:ul, class: 'dropdown-menu') do
       items.map do |item|
         if item.name == :item
-          content_tag(:li, link_to(*item.args, &item.block))
+          args = item.args
+          options = args.extract_options!
+          item_options = {}
+          item_options[:class] = options.delete(:as) if options.key?(:as)
+          content_tag(:li, link_to(*args, options, &item.block), item_options)
         elsif item.name == :separator
-          content_tag(:li, nil, class: 'separator')
+          content_tag(:li, '', class: 'separator')
         else
           fail 'Cannot handle that type of menu item: ' + item.name.inspect
         end
@@ -398,8 +402,8 @@ module ApplicationHelper
     end
   end
 
-  def dropdown_menu_button(name, options = {}, &_block)
-    menu = Ekylibre::Support::Lister.new(:item)
+  def dropdown_menu_button(name, options = {})
+    menu = Ekylibre::Support::Lister.new(:item, :separator)
     yield menu
     return nil unless menu.any?
     menu_size = menu.size
@@ -408,7 +412,7 @@ module ApplicationHelper
     end
     fail 'Need a name or a default item' unless name || default_item
     if name.is_a?(Symbol)
-      options[:icon] ||= name
+      options[:icon] ||= name unless options.key?(:icon)
       name = options[:label] || name.ta
     end
     item_options = default_item.args.third if default_item
@@ -426,7 +430,7 @@ module ApplicationHelper
     else
       content_tag(:div, class: 'btn-group') do
         dropdown_toggle_button(name, icon: options[:icon]) +
-          dropdown_menu(menu.items)
+          dropdown_menu(menu.list)
       end
     end
   end
@@ -705,8 +709,8 @@ module ApplicationHelper
     nil
   end
 
-  def toolbar_menu(name, &block)
-    dropdown_menu_button(name, &block)
+  def toolbar_menu(name, options = {}, &block)
+    dropdown_menu_button(name, options, &block)
   end
 
   def toolbar_export(_nature, _record = nil, _options = {}, &_block)
@@ -853,8 +857,8 @@ module ApplicationHelper
       add(:export, *args, &block)
     end
 
-    def menu(name, &block)
-      add(:menu, name, &block)
+    def menu(name, options = {}, &block)
+      add(:menu, name, options, &block)
     end
 
     def method_missing(method_name, *args, &_block)

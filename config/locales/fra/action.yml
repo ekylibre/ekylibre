@@ -1207,6 +1207,7 @@ fra:
     make_your_production_support: "Faite votre assolement ou prévisionnel de production"
     mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère" #?
     mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère" #?
+    manage_activities: "Gérer les activités"
     management: "Gestion commerciale" #?
     management_index: "Index de la gestion commerciale" #?
     mandates_fields: "Vous devez saisir au moins une valeur dans l’un des champs" #?

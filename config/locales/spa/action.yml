@@ -1062,6 +1062,7 @@ spa:
       zero: "Ningun correo electronico"
     # main_settings: "Main settings"
     # make_your_production_support: "Make your production support"
+    # manage_activities: "Manage activities"
     management: "Administración comercial" #?
     # manual: "Manual"
     manual_period: "del %{start} al %{finish}"

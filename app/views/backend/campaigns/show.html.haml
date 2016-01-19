@@ -2,7 +2,11 @@
 
 - main_toolbar do |t|
   -# t.edit resource
-  - t.open resource, variants: Activity.availables.where.not(id: activities).map { |a| [a.name, { activity_id: a.id }] }, method: :post
+  - t.menu :open, icon: nil do |menu|
+    - Activity.availables.where.not(id: activities).order(:name).each do |a|
+      - menu.item a.name, { activity_id: a.id }, method: :post, title: a.name
+    - menu.separator
+    - menu.item :manage_activities.tl, { controller: :activities, action: :index }, as: 'main'
 
 - content_for :heading_toolbar do
   = campaign_selector(resource, param_name: :id)

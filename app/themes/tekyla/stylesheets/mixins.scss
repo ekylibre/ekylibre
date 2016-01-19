@@ -325,6 +325,7 @@
   padding: 0;
   height: $menu-height;
   min-width: $menu-width;
+  max-width: 2 * $menu-width;
   list-style-type: none;
   @include transition(background 0.2s, box-shadow 0.2s);
   &:hover > a {
@@ -385,6 +386,11 @@
   li {
     @include float(none);
     @include menu-item;
+    &.main {
+      &, a {
+        font-weight: bold;
+      }
+    }
   }
   z-index: 14;
 }
@@ -394,7 +400,7 @@
   height: $menu-border-width;
   background: $menu-border-color;
   padding: 0;
-  margin: $menu-padding auto;
+  margin: $default-gap auto;
 }
 
 @mixin item-label {

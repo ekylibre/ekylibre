@@ -1337,6 +1337,7 @@ arb:
       zero: "ولا بريد الكتروني "
     # main_settings: "Main settings"
     # make_your_production_support: "Make your production support"
+    # manage_activities: "Manage activities"
     management: "ادارة الاعمال" #?
     management_index: "دليل ادارة الاعمال" #?
     mandate_create: "انشاء تفويض" #?
