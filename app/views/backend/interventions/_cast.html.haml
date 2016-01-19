@@ -17,7 +17,7 @@
       %p= cast.name
       %p= cast.human_roles
       - if actor.is_a?(Product) and !actor.population_counting_unitary? and variant = cast.variant
-        %p= :x_thing.tl(x: cast.population.round(2).l, thing: variant.unit_name.mb_chars.downcase)
+        %p= :x_thing.tl(x: (cast.population || 0).round(2).l, thing: variant.unit_name.mb_chars.downcase)
   - elsif variant = cast.variant
     .picture
       - if variant.picture.file?
