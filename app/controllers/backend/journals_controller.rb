@@ -172,7 +172,7 @@ module Backend
             end
           end
           notify_success(:bookkeeping_is_finished)
-          redirect_to action: (state == :draft ? :draft : :bookkeep)
+          redirect_to (state == :draft ? { controller: :draft_journals, action: :show } : { action: :bookkeep })
         end
       end
     end
