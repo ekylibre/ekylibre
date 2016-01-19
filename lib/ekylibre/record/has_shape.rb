@@ -13,6 +13,7 @@ module Ekylibre::Record
       def has_geometry(*columns)
         options = columns.extract_options!
         columns.each do |column|
+          col = column.to_s
           define_method "#{column}=" do |value|
             self[column] = Charta.clean_for_active_record(value, options)
           end
@@ -21,9 +22,54 @@ module Ekylibre::Record
             self[column].blank? ? nil : Charta.new_geometry(self[column])
           end
 
-          define_method "#{column}_area" do
-            send(column).area
+          unless [:point, :multi_point, :line_string, :multi_line_string].include?(options[:type])
+            define_method "#{column}_area" do |unit = nil|
+              if unit
+                send(column).area.in(unit)
+              else
+                send(column).area
+              end
+            end
+
+            define_method "human_#{column}_area" do |unit = nil, precision = 3|
+              send(column + '_area', unit).round(precision).l
+            end
           end
+
+          define_method "#{column}_centroid" do |_unit = nil|
+            send(column).centroid
+          end
+
+          scope col + '_overlapping', lambda { |shape|
+            where('ST_Overlaps(' + col + ', ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+          }
+
+          scope col + '_covering', lambda { |shape, margin = 0|
+            if margin > 0
+              common = 1 - margin
+              where('(ST_Overlaps(' + col + ', ST_GeomFromEWKT(?)) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(?))) / ST_Area(ST_GeomFromEWKT(?)) >= ?)', ewkt, ewkt, ewkt, common)
+            else
+              where('ST_Covers(' + col + ', ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+            end
+          }
+
+          scope col + '_intersecting', lambda { |shape|
+            where('ST_Intersects(' + col + ', ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+          }
+
+          scope col + '_covered_by', lambda { |shape|
+            where('ST_CoveredBy(' + col + ', ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+          }
+
+          scope col + '_within', lambda { |shape|
+            where('ST_Within(' + col + ', ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+          }
+
+          scope col + '_matching', lambda { |shape, margin = 0.05|
+            ewkt = ::Charta::Geometry.new(shape).to_ewkt
+            common = 1 - margin
+            where('ST_Equals(' + col + ', ST_GeomFromEWKT(?)) OR (ST_Overlaps(' + col + ', ST_GeomFromEWKT(?)) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(?))) / ST_Area(' + col + ') >= ? AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(?))) / ST_Area(ST_GeomFromEWKT(?)) >= ?)', ewkt, ewkt, ewkt, common, ewkt, ewkt, common)
+          }
         end
       end
 

@@ -51,26 +51,13 @@ class CultivableZone < Ekylibre::Record::Base
 
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
   scope :of_campaign, ->(campaign) { where(id: ActivityProduction.select(:cultivable_zone_id).of_campaign(campaign)) }
-  scope :covers_shape, lambda { |shape|
-    where('ST_Covers(shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
-  }
-  scope :overlaps_shape, lambda { |shape|
-    where('ST_Overlaps(shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
-  }
 
   before_validation do
     self.uuid ||= UUIDTools::UUID.random_create.to_s
     self.work_number ||= UUIDTools::UUID.parse(self.uuid).to_i.to_s(36)
   end
 
-  def to_geom
-    ::Charta.new_geometry(shape)
-  end
-
-  # Computes net surface area of shape
-  def net_surface_area(unit = :hectare)
-    shape_area.in(unit).round(3)
-  end
+  alias net_surface_area shape_area
 
   # get the first object with variety 'plant', availables
   def current_cultivations
@@ -79,7 +66,7 @@ class CultivableZone < Ekylibre::Record::Base
 
   # Returns last created islet number from cap statements
   def cap_number
-    islets = CapIslet.overlaps_shape(shape).order(id: :desc)
+    islets = CapIslet.shape_matching(shape).order(id: :desc)
     return islets.first.islet_number if islets.any?
     nil
   end

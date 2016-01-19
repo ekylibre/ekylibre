@@ -148,15 +148,6 @@ class InterventionProductParameter < InterventionParameter
     class_eval(code)
   end
 
-  def to_geom
-    ::Charta.new_geometry(working_zone)
-  end
-
-  # Computes net surface area of working_zone
-  def working_zone_area(unit = :hectare)
-    to_geom.area.in(unit).round(3)
-  end
-
   # def roles_array
   #   roles.to_s.split(/[\,[[:space:]]]+/).collect { |role| role.split(/\-/)[0..1].map(&:to_sym) }
   # end

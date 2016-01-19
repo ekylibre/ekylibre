@@ -99,9 +99,6 @@ class ActivityProduction < Ekylibre::Record::Base
     where(activity: Activity.of_families(*families))
   }
   scope :current, -> { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: Time.zone.now) }
-  scope :overlaps_shape, lambda { |shape|
-    where('ST_Overlaps(support_shape, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
-  }
 
   state_machine :state, initial: :opened do
     state :opened
@@ -137,7 +134,9 @@ class ActivityProduction < Ekylibre::Record::Base
     if vegetal_crops?
       self.support_shape ||= cultivable_zone.shape if cultivable_zone
       if support_shape && !support
-        land_parcels = LandParcel.overlaps_shape(::Charta.new_geometry(support_shape)).order(:id)
+        land_parcels = LandParcel.shape_matching(support_shape)
+                                 .where.not(id: ActivityProduction.select(:support_id))
+                                 .order(:id)
         self.support = if land_parcels.any?
                          land_parcels.first
                        else
@@ -401,22 +400,7 @@ end
     self.class.create!(new_attributes)
   end
 
-  ## AREA METHODS ##
-
-  def to_geom
-    ::Charta.new_geometry(support_shape)
-  end
-
-  # FIXME: net_surface_area must be immutable
-  def net_surface_area(unit_name = :hectare)
-    area = 0.0.in(unit_name)
-    if size_indicator_name == 'net_surface_area' && size_value != 0.0
-      area = size
-    elsif support_shape
-      area = support_shape_area.in(unit_name).round(3)
-    end
-    area
-  end
+  alias net_surface_area support_shape_area
 
   ## LABEL METHODS ##
 

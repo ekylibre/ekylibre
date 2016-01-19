@@ -62,7 +62,7 @@ class Unicoque::PlantZonesExchanger < ActiveExchanger::Base
         if record.geometry
           plant_shape = Charta.new_geometry(record.geometry).transform(:WGS84)
           plant.read!(:shape, plant_shape, at: attributes[:born_at], force: true)
-          if product_around = CultivableZone.covers_shape(plant_shape).first
+          if product_around = CultivableZone.shape_covering(plant_shape, 0.05).first
             plant.initial_container = product_around
             plant.save!
           end

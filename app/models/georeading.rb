@@ -43,16 +43,8 @@ class Georeading < Ekylibre::Record::Base
   validates_presence_of :number
   validates_uniqueness_of :number
 
-  def to_geom
-    return geom = ::Charta.new_geometry(content).transform(:WGS84) if content
-  end
-
   def net_surface_area
     return 0.0.in_square_meter unless polygon?
     content_area
-  end
-
-  def label_area(unit = :hectare)
-    return net_surface_area.in(unit).round(3).l if polygon?
   end
 end

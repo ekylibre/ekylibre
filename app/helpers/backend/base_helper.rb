@@ -215,9 +215,7 @@ module Backend
         current_user.current_campaign = @current_campaign
       end
       campaign ||= current_campaign
-      if campaign
-        campaign.create_following! unless campaign.following
-      end
+      campaign.create_following! if campaign && !campaign.following
       render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign_id
     end
 

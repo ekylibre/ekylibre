@@ -42,7 +42,7 @@ module Ekylibre
         if zone
           if georeading = Georeading.find_by(number: r.code)
             zone.read!(:shape, georeading.content, at: born_at, force: true)
-            zone.read!(:net_surface_area, georeading.to_geom.area, at: born_at, force: true)
+            zone.read!(:net_surface_area, georeading.content_area, at: born_at, force: true)
           end
         end
 

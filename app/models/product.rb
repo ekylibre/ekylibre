@@ -182,22 +182,20 @@ class Product < Ekylibre::Record::Base
   scope :supports_of_campaign, lambda { |campaign|
     joins(:supports).merge(ActivityProduction.of_campaign(campaign))
   }
-  scope :intersects_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Intersects(multi_polygon_value, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt).select(:product_id))
+  scope :shape_intersecting, lambda { |shape|
+    where(id: ProductReading.multi_polygon_value_intersecting(shape).select(:product_id))
   }
-  scope :within_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Within(multi_polygon_value, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt).select(:product_id))
+  scope :shape_within, lambda { |shape|
+    where(id: ProductReading.multi_polygon_value_within(shape).select(:product_id))
   }
-  scope :covers_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Covers(multi_polygon_value, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt).select(:product_id))
+  scope :shape_covering, lambda { |shape|
+    where(id: ProductReading.multi_polygon_value_covering(shape).select(:product_id))
   }
-  scope :overlaps_shape, lambda { |shape|
-    where(id: ProductReading.where('ST_Overlaps(multi_polygon_value, ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt).select(:product_id))
+  scope :shape_overlapping, lambda { |shape|
+    where(id: ProductReading.multi_polygon_value_overlapping(shape).select(:product_id))
   }
-  scope :matches_shape, lambda { |shape, margin = 0.05|
-    ewkt = ::Charta::Geometry.new(shape).to_ewkt
-    common = 1 - margin
-    where(id: ProductReading.where('ST_Equals(geometry_value, ST_GeomFromEWKT(?)) OR (ST_Overlaps(geometry_value, ST_GeomFromEWKT(?)) AND ST_Area(ST_Intersection(geometry_value, ST_GeomFromEWKT(?))) / ST_Area(geometry_value) >= ? AND ST_Area(ST_Intersection(geometry_value, ST_GeomFromEWKT(?))) / ST_Area(ST_GeomFromEWKT(?)) >= ?)', ewkt, ewkt, ewkt, common, ewkt, ewkt, common).select(:product_id))
+  scope :shape_matching, lambda { |shape, margin = 0.05|
+    where(id: ProductReading.multi_polygon_value_matching(shape, margin).select(:product_id))
   }
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }

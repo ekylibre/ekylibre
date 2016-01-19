@@ -91,12 +91,10 @@ module Ekylibre
           if product = Product.find_by(number: production_support_number) || Product.find_by(identification_number: production_support_number) || Product.find_by(work_number: production_support_number)
             # puts 'Product exist'.inspect.yellow
             if product.shape
-              c = ::Charta.new_geometry(product.shape)
-              cz = CultivableZone.covers_shape(c).first
+              cz = CultivableZone.shape_covering(product.shape, 0.02).first
             end
           elsif cz = CultivableZone.find_by(work_number: production_support_number)
-            c = ::Charta.new_geometry(cz.shape)
-            product = LandParcel.covers_shape(c).first
+            product = LandParcel.shape_covering(cz.shape, 0.02).first
             unless product
               lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
               product = LandParcel.create!(variant: lp_variant, work_number: cz.work_number,

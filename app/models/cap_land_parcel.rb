@@ -57,19 +57,5 @@ class CapLandParcel < Ekylibre::Record::Base
     where(cap_islet_id: CapIslet.of_campaign(*campaigns))
   }
 
-  scope :of_cap_statement, lambda { |cap_statement|
-    joins(:islet).where('cap_islets.cap_statement_id = ?', cap_statement.id)
-  }
-
-  def to_geom
-    ::Charta.new_geometry(shape)
-  end
-
-  def label_area(unit = :hectare)
-    net_surface_area(unit).l
-  end
-
-  def net_surface_area(unit = :hectare)
-    to_geom.area.to_d(unit).round(3)
-  end
+  alias net_surface_area shape_area
 end

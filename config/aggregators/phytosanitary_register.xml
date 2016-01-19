@@ -15,14 +15,14 @@
         <!-- looking for all CultivableZone -->
         <sections for="zone" in="CultivableZone.all" of-type="record">
           <title name="name" of="zone"/>
-          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).overlaps_shape(zone.shape)"/>
+          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).shape_matching(zone.shape)"/>
           <property name="work_number" of="zone"/>
           <property name="uuid" of="zone"/>
-          <property name="islet_number" if="CapIslet.overlaps_shape(zone.shape).of_campaign(campaign).first" value="CapIslet.overlaps_shape(zone.shape).of_campaign(campaign).first.islet_number"/>
+          <property name="islet_number" if="CapIslet.shape_matching(zone.shape).of_campaign(campaign).first" value="CapIslet.shape_matching(zone.shape).of_campaign(campaign).first.islet_number"/>
           <property name="net_surface_area" value="zone.net_surface_area.l" type="measure"/>
           <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
-          <property name="shape_svg" value="zone.to_geom.to_svg(srid: 2154)" type="svg" level="api"/>
+          <property name="shape_svg" value="zone.shape.to_svg(srid: 2154)" type="svg" level="api"/>
           <!-- looking for all Production in current cultivable_zone and campaign ## add real.where(state: 'done') when ready-->
 	          <sections for="intervention" in="Intervention.of_campaign(campaign).of_category(:crop_protection).with_targets(targets).reorder(:started_at)" of-type="record">
 	            <title name="name" of="intervention"/>

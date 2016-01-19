@@ -270,7 +270,7 @@ module Backend
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
           editor[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
         elsif zone = CultivableZone.first
-          editor[:view] = { center: zone.to_geom.centroid }
+          editor[:view] = { center: zone.shape_centroid }
         end
       end
       show = options.delete(:show) || @object.class.where("#{attribute_name} IS NOT NULL AND id != ?", @object.id || 0)
@@ -313,7 +313,7 @@ module Backend
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
           marker[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
         elsif zone = CultivableZone.first
-          marker[:view] = { center: zone.to_geom.centroid }
+          marker[:view] = { center: zone.shape_centroid }
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
