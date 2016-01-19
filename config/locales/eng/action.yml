@@ -725,6 +725,12 @@ eng:
       new: "New user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/vegetal_activities:
+      # edit: "Edit vegetal activity: %{name}"
+      # family: "Family vegetal activity: %{name}"
+      # index: "Vegetal activities"
+      # new: "New vegetal activity"
+      # show: "Vegetal activity: %{name}"
     backend/wine_tanks:
       index: "Wine tanks"
     backend/workers:

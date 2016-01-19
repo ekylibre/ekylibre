@@ -18,7 +18,7 @@
 
 module Backend
   class ActivitiesController < Backend::BaseController
-    manage_restfully
+    manage_restfully except: [:index, :show]
 
     unroll
 
@@ -38,6 +38,15 @@ module Backend
     def index
       @current_activities = Activity.of_campaign(current_campaign).order(name: :asc) || []
       @activities = Activity.order(name: :asc)
+    end
+
+    def show
+      return unless @activity = find_and_check
+      if @activity.vegetal_crops?
+        redirect_to(controller: :vegetal_activities, action: :show, id: @activity.id)
+        return
+      end
+      t3e @activity
     end
 
     # Duplicate activity basing on campaign

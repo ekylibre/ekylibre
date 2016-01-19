@@ -261,6 +261,7 @@ eng:
       team: "Team"
       tracking: "Tracking"
       user: "User"
+      # vegetal_activity: "Vegetal activity"
       version: "Version"
       worker: "Worker"
       zone: "Zone"

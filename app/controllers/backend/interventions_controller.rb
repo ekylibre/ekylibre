@@ -49,9 +49,8 @@ module Backend
 
       # Current campaign
       code << "if current_campaign\n"
-      code << "  c[0] << \" AND (#{Intervention.table_name}.started_at, #{Intervention.table_name}.stopped_at) OVERLAPS (COALESCE(?, #{Intervention.table_name}.started_at), COALESCE(?, #{Intervention.table_name}.stopped_at))\"\n"
-      code << "  c << current_campaign.started_on\n"
-      code << "  c << current_campaign.stopped_on\n"
+      code << "  c[0] << \" AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?\"\n"
+      code << "  c << current_campaign.harvest_year\n"
       code << "end\n"
 
       # Support

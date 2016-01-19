@@ -40,6 +40,12 @@
       - if resource.custom_fields.any?
         - l.custom_fields
 
+  - if current_campaign && resource.productions.of_campaign(current_campaign).any?
+
+    - c.cobble :map do
+      = model_map(resource.productions.of_campaign(current_campaign), shape_method: :support_shape)
+
+
   - c.cobble(:productions) do
     = cobble_toolbar do |t|
       - t.new(params: {controller: :activity_productions, activity_id: resource.id})

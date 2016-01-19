@@ -27,6 +27,20 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :activities do
+    concerns :attachments, :list, :unroll
+    collection do
+      get :family
+      post :duplicate
+    end
+    member do
+      get :list_budgets
+      get :list_distributions
+      get :list_interventions
+      get :list_productions
+    end
+  end
+
   concern :products do
     concerns :attachments, :list, :unroll
     member do
@@ -166,18 +180,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :activities, concerns: [:attachments, :list, :unroll] do
-      collection do
-        get :family
-        post :duplicate
-      end
-      member do
-        get :list_budgets
-        get :list_distributions
-        get :list_interventions
-        get :list_productions
-      end
-    end
+    resources :activities, concerns: [:activities]
 
     resources :activity_budgets do
       member do
@@ -796,6 +799,8 @@ Rails.application.routes.draw do
         post :unlock
       end
     end
+
+    resources :vegetal_activities, concerns: [:activities], path: 'vegetal-activities'
 
     resources :visuals, only: [] do
       match 'picture(/:style)', via: :get, action: :picture, as: :picture
