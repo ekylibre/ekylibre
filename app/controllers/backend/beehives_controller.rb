@@ -33,6 +33,7 @@ module Backend
         cells.any? ? { cells: cells } : nil
       end.compact
       begin
+        current_user.reload
         current_user.prefer!("beehive.#{params[:id]}", {
           version: Backend::BeehiveHelper::FORMAT_VERSION,
           boxes: boxes
