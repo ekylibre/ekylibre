@@ -6,10 +6,10 @@ More details can be found on the official website http://ekylibre.org.
 
 ## Code status
 
-[![Build Status](https://api.travis-ci.org/ekylibre/ekylibre.png?branch=master)](https://travis-ci.org/ekylibre/ekylibre)
-[![Gem Dependency Status](https://img.shields.io/gemnasium/ekylibre/ekylibre.svg)](https://gemnasium.com/ekylibre/ekylibre)
-[![Code Metrics](https://codeclimate.com/github/ekylibre/ekylibre.png)](https://codeclimate.com/github/ekylibre/ekylibre)
-[![Code Coverage](https://img.shields.io/coveralls/ekylibre/ekylibre/master.svg)](https://coveralls.io/r/ekylibre/ekylibre)
+[![Build Status](https://api.travis-ci.org/ekylibre/ekylibre.svg?branch=master)](https://travis-ci.org/ekylibre/ekylibre)
+[![Gem Dependency Status](https://gemnasium.com/ekylibre/ekylibre.svg)](https://gemnasium.com/ekylibre/ekylibre)
+[![Code Metrics](https://codeclimate.com/github/ekylibre/ekylibre.svg)](https://codeclimate.com/github/ekylibre/ekylibre)
+[![Code Coverage](https://coveralls.io/repos/github/ekylibre/ekylibre/badge.svg?branch=master)](https://coveralls.io/r/ekylibre/ekylibre)
 
 ## Guides
 
