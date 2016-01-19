@@ -18,7 +18,7 @@
 
 module Backend
   class ActivitiesController < Backend::BaseController
-    manage_restfully except: [:index, :show]
+    manage_restfully except: [:show]
 
     unroll
 
@@ -33,11 +33,6 @@ module Backend
       t.column :cultivation_variety, hidden: true
       t.column :with_supports
       t.column :support_variety, hidden: true
-    end
-
-    def index
-      @current_activities = Activity.of_campaign(current_campaign).order(name: :asc) || []
-      @activities = Activity.order(name: :asc)
     end
 
     def show
