@@ -196,6 +196,9 @@ table {
           border-right: none;
           line-height: $lh-normal;
           @include ellipsis;
+          &.with-selector {
+            overflow: visible;
+          }
           &.hidden {
             display: none;
           }
