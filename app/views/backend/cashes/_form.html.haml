@@ -1,15 +1,16 @@
 = field_set do
   = f.input :name
   = f.input :currency, collection: currencies
-  = f.input :nature, show: ".{{value}}_options", as: :radio_buttons
-  = f.referenced_association :owner
+  = f.input :nature, show: '.{{value}}-options', as: :radio_buttons
+  .associated_account-options
+    = f.referenced_association :owner
   = f.custom_fields
 
-.bank_account_options
+.bank_account-options
   = field_set(:bank_account) do
     = f.input :bank_name
     = f.input :bank_agency_address
-    = f.input :mode, show: "\#{{value}}", as: :radio_buttons
+    = f.input :mode, show: '#{{value}}', as: :radio_buttons
 
   = field_set(:iban) do
     = f.input :iban
@@ -24,6 +25,6 @@
 
 = field_set(:accountancy) do
   = f.referenced_association :account, source: :banks_or_cashes_or_associates
-  = f.referenced_association :journal, source: {nature: :banks_or_cashes}
+  = f.referenced_association :journal, source: { nature: :banks_or_cashes }
 
 = f.attachments_field_set
