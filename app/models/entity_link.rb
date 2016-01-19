@@ -63,10 +63,6 @@ class EntityLink < Ekylibre::Record::Base
   }
   scope :actives, -> { at(Time.zone.now) }
 
-  scope :of_nature, lambda { |*natures|
-    where(nature: natures.collect { |v| Nomen::EntityLinkNature.all(v.to_sym) }.flatten.map(&:to_s).uniq)
-  }
-
   before_validation do
     self.started_at ||= Time.zone.now
     if item = Nomen::EntityLinkNature[nature]

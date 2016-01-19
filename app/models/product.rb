@@ -137,12 +137,7 @@ class Product < Ekylibre::Record::Base
   scope :contained_by, lambda { |container, viewed_at = Time.zone.now|
     where(id: ProductLocalization.select(:product_id).where(container: container).at(viewed_at))
   }
-  scope :of_variety, lambda { |*varieties|
-    where(variety: varieties.flatten.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
-  }
-  scope :derivative_of, lambda { |*varieties|
-    where(derivative_of: varieties.flatten.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
-  }
+  scope :derivative_of, ->(*varieties) { of_derivative_of(*varieties) }
   scope :can, lambda { |*abilities|
     of_expression(abilities.map { |a| "can #{a}" }.join(' or '))
   }
@@ -157,9 +152,7 @@ class Product < Ekylibre::Record::Base
   scope :of_expression, lambda { |expression|
     joins(:nature).where(WorkingSet.to_sql(expression, default: :products, abilities: :product_natures, indicators: :product_natures))
   }
-  scope :of_nature, lambda { |nature|
-    where(nature_id: nature.id)
-  }
+  scope :of_nature, ->(nature) { where(nature_id: nature.id) }
   scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }

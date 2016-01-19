@@ -122,17 +122,20 @@ module Ekylibre::Record
         base_class.descendants.each(&:reset_column_information)
       end
 
-      def has_picture
-        has_attached_file :picture,           url: '/backend/:class/:id/picture/:style',
-                          path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
-                          styles: {
-                            thumb: ['64x64>', :jpg],
-                            identity: ['180x180>', :jpg]
-                          },
-                          convert_options: {
-                            thumb:    '-background white -gravity center -extent 64x64',
-                            identity: '-background white -gravity center -extent 180x180'
-                          }
+      def has_picture(options = {})
+        default_options = {
+          url: '/backend/:class/:id/picture/:style',
+          path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
+          styles: {
+            thumb: ['64x64>', :jpg],
+            identity: ['180x180>', :jpg]
+          },
+          convert_options: {
+            thumb:    '-background white -gravity center -extent 64x64',
+            identity: '-background white -gravity center -extent 180x180'
+          }
+        }
+        has_attached_file :picture, default_options.deep_merge(options)
       end
 
       # Returns the definition of custom fields of the class
@@ -185,7 +188,8 @@ module Ekylibre::Record
         name = args.shift
         scope = args.shift
         Rails.logger.warn 'Cannot support Proc scope' unless scope.nil?
-        options[:foreign_key] ||= ["#{name}_name".to_sym, name].detect { |c| columns_definition[c] }
+        column = ["#{name}_name".to_sym, name].detect { |c| columns_definition[c] }
+        options[:foreign_key] ||= column
         reflection = Nomen::Reflection.new(self, name, options)
         @nomenclature_reflections ||= {}.with_indifferent_access
         @nomenclature_reflections[reflection.name] = reflection
@@ -200,6 +204,11 @@ module Ekylibre::Record
         define_method "#{name}=" do |value|
           self[reflection.foreign_key] = value.is_a?(Nomen::Item) ? value.name : value
         end
+
+        # Define a default scope "of_<name>"
+        scope 'of_' + name.to_s, proc { |*items|
+          where(column => items.map { |i| reflection.klass.all(i) }.flatten.uniq)
+        }
       end
 
       # Permits to consider something and something_id like the same

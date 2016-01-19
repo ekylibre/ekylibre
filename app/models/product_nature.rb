@@ -86,7 +86,7 @@ class ProductNature < Ekylibre::Record::Base
   accepts_nested_attributes_for :variants, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: false
 
-  delegate :subscribing?, :deliverable?, :purchasable?, to: :category
+  delegate :subscribing?, :deliverable?, :purchasable?, :to, to: :category
   delegate :fixed_asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   scope :availables, -> { where(active: true).order(:name) }
@@ -98,12 +98,7 @@ class ProductNature < Ekylibre::Record::Base
 
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
-  scope :of_variety, proc { |*varieties|
-    where(variety: varieties.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
-  }
-  scope :derivative_of, proc { |*varieties|
-    where(derivative_of: varieties.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
-  }
+  scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
 
   scope :can, lambda { |*abilities|
     of_expression(abilities.map { |a| "can #{a}" }.join(' or '))
@@ -252,14 +247,6 @@ class ProductNature < Ekylibre::Record::Base
   # Returns list of abilities as an array of ability items from the nomenclature
   def linkage_points
     linkage_points_list
-  end
-
-  def to
-    to = []
-    to << :sales if saleable?
-    to << :purchases if purchasable?
-    # to << :produce if self.producible?
-    to.collect { |x| tc('to.' + x.to_s) }.to_sentence
   end
 
   def picture_path(style = :original)

@@ -82,19 +82,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :stockables_or_depreciables, -> { joins(:nature).merge(ProductNature.stockables_or_depreciables).order(:name) }
 
-  scope :of_variety, proc { |*varieties|
-    varieties.flatten!
-    where(variety: varieties.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
-  }
-  scope :derivative_of, proc { |*varieties|
-    where(derivative_of: varieties.collect { |v| Nomen::Variety.all(v.to_sym) }.flatten.map(&:to_s).uniq)
-  }
+  scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
+
   scope :can, proc { |*abilities|
-    # where(nature_id: ProductNature.can(*abilities))
     of_expression(abilities.map { |a| "can #{a}" }.join(' or '))
   }
   scope :can_each, proc { |*abilities|
-    # where(nature_id: ProductNature.can_each(*abilities))
     of_expression(abilities.map { |a| "can #{a}" }.join(' and '))
   }
   scope :of_working_set, lambda { |working_set|
@@ -109,21 +102,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
     joins(:nature).where(WorkingSet.to_sql(expression, default: :product_nature_variants, abilities: :product_natures, indicators: :product_natures))
   }
 
-  scope :of_natures, lambda { |*natures|
-    natures.flatten!
-    for nature in natures
-      fail ArgumentError.new("Expected Product Nature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProductNature)
-    end
-    where("#{ProductNatureVariant.table_name}.nature_id IN (?)", natures.map(&:id))
-  }
+  scope :of_natures, ->(*natures) { where(nature_id: natures) }
 
-  scope :of_categories, lambda { |*categories|
-    categories.flatten!
-    for category in categories
-      fail ArgumentError.new("Expected Product Nature Category, got #{category.class.name}:#{category.inspect}") unless category.is_a?(ProductNatureCategory)
-    end
-    where("#{ProductNatureVariant.table_name}.category_id IN (?)", categories.map(&:id))
-  }
+  scope :of_categories, ->(*categories) { where(category_id: categories) }
 
   scope :of_category, ->(category) { where(category: category) }
 
@@ -132,20 +113,20 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   before_validation on: :create do
-    if self.nature
-      self.category_id = self.nature.category_id
-      self.nature_name ||= self.nature.name
+    if nature
+      self.category_id = nature.category_id
+      self.nature_name ||= nature.name
       # self.variable_indicators ||= self.nature.indicators
       self.name ||= self.nature_name
-      self.variety ||= self.nature.variety
-      if derivative_of.blank? && self.nature.derivative_of
-        self.derivative_of ||= self.nature.derivative_of
+      self.variety ||= nature.variety
+      if derivative_of.blank? && nature.derivative_of
+        self.derivative_of ||= nature.derivative_of
       end
     end
   end
 
   validate do
-    if self.nature
+    if nature
       unless Nomen::Variety.all(nature_variety).include?(self.variety.to_s)
         logger.debug "#{nature_variety}#{Nomen::Variety.all(nature_variety)} not include #{self.variety.inspect}"
         errors.add(:variety, :invalid)
