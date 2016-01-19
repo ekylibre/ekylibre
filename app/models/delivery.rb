@@ -101,6 +101,10 @@ class Delivery < Ekylibre::Record::Base
     draft? ? :stop : finished? ? :go : :caution
   end
 
+  def human_delivery_mode
+    mode.text
+  end
+
   def check
     return false unless can_check?
     parcels.find_each do |parcel|

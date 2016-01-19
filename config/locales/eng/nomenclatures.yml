@@ -1437,6 +1437,7 @@ eng:
         sales_invoice: "Sales invoice"
         sales_order: "Sales order"
         security_data_sheet: "Security data sheet"
+        # shipping_note: "Shipping note"
         stocks: "Stocks"
         tax_assessment: "Tax assessment"
         trial_balance: "Trial balance"

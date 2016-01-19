@@ -68,7 +68,6 @@ capybara*.html
 
 # ignore jasper file stack
 *.jasper
-*.jrxml
 *.jrtx
 
 /.ruby-version

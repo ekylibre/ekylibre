@@ -21,6 +21,8 @@ module Backend
     manage_restfully parcel_ids: '(params[:parcel_ids] || [])'.c
     manage_restfully_attachments
 
+    respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
+
     unroll
 
     list(conditions: search_conditions(deliveries: [:number, :annotation], entities: [:number, :full_name])) do |t|
@@ -47,6 +49,29 @@ module Backend
       t.column :sale, url: true, hidden: true
       t.column :purchase, url: true, hidden: true
       # t.column :net_mass
+    end
+
+    # Displays details of one sale selected with +params[:id]+
+    def show
+      return unless @delivery = find_and_check
+      respond_with(@delivery, methods: [:all_parcels_prepared, :human_delivery_mode],
+                              include: {
+                                parcels: {
+                                  methods: [:human_delivery_mode, :human_delivery_nature],
+                                  include: {
+                                    items: {
+                                      include: [:variant, :product]
+                                            },
+                                    address: {},
+                                    sender: {}
+                                            }
+                                         }
+                                       }
+                  ) do |format|
+        format.html do
+          t3e @delivery.attributes
+        end
+      end
     end
 
     Delivery.state_machine.events.each do |event|

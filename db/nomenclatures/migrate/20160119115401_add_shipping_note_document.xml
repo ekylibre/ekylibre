@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add shipping note">
+  <item-creation item="document_natures#shipping_note" category="exploitation"/>
+</migration>

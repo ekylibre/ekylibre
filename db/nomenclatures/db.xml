@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160113144856">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160119115401">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1451,6 +1451,7 @@
       <item name="sales_invoice" category="marketing"/>
       <item name="sales_order" category="marketing"/>
       <item name="security_data_sheet" category="land_parcel_management"/>
+      <item name="shipping_note" category="exploitation"/>
       <item name="stocks" category="exploitation"/>
       <item name="tax_assessment" category="accountancy"/>
       <item name="trial_balance" category="accountancy"/>

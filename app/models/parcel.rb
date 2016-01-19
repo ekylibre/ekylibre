@@ -180,6 +180,14 @@ class Parcel < Ekylibre::Record::Base
     (address || sale.client.default_mail_address).mail_coordinate
   end
 
+  def human_delivery_mode
+    delivery_mode.text
+  end
+
+  def human_delivery_nature
+    nature.text
+  end
+
   # Number of products delivered
   def items_quantity
     items.sum(:population)
