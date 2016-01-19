@@ -200,6 +200,11 @@ class Product < Ekylibre::Record::Base
   scope :overlaps_shape, lambda { |shape|
     where(id: ProductReading.where('ST_Overlaps(geometry_value, ST_GeomFromEWKT(?))', ::Charta::Geometry.new(shape).to_ewkt).select(:product_id))
   }
+  scope :matches_shape, lambda { |shape, margin = 0.05|
+    ewkt = ::Charta::Geometry.new(shape).to_ewkt
+    common = 1 - margin
+    where(id: ProductReading.where('ST_Equals(geometry_value, ST_GeomFromEWKT(?)) OR (ST_Overlaps(geometry_value, ST_GeomFromEWKT(?)) AND ST_Area(ST_Intersection(geometry_value, ST_GeomFromEWKT(?))) / ST_Area(geometry_value) >= ? AND ST_Area(ST_Intersection(geometry_value, ST_GeomFromEWKT(?))) / ST_Area(ST_GeomFromEWKT(?)) >= ?)', ewkt, ewkt, ewkt, common, ewkt, ewkt, common).select(:product_id))
+  }
 
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
