@@ -53,6 +53,8 @@ class Role < Ekylibre::Record::Base
     revoked_rights = old_rights_array - new_rights_array
 
     users.find_each do |user|
+      user.rights ||= {}
+
       # Remove revoked rights
       revoked_rights.each do |right|
         resource, action = right.split('-')

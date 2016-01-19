@@ -36,5 +36,27 @@
 require 'test_helper'
 
 class RoleTest < ActiveSupport::TestCase
-  # Add tests here...
+  test 'rights changes echo' do
+    manager = Role.create!(name: 'Manager')
+
+    bob = User.create!(
+      first_name: 'Bob',
+      last_name: 'Doe',
+      language: :jpn,
+      email: 'bob@doe.foo',
+      password: '123456789',
+      password_confirmation: '123456789',
+      role: manager
+    )
+
+    manager.rights = {
+      'sales' => %w(read write)
+    }
+    manager.save!
+
+    bob.reload
+    assert bob.rights['sales'], 'User should have right resource "sales"'
+    assert bob.rights['sales'].include?('read'), 'User should have right "read-sales"'
+    assert bob.rights['sales'].include?('write'), 'User should have right "write-sales"'
+  end
 end
