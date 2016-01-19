@@ -106,6 +106,8 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionTarget.of_actors(targets).select(:intervention_id))
   }
 
+  scope :done, -> {}
+
   before_validation do
     if self.started_at && self.stopped_at
       self.whole_duration = (stopped_at - started_at).to_i

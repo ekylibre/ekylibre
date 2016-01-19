@@ -33,7 +33,7 @@
             <property name="provisional_yield" if="support.get(:mass_area_yield)" value="support.get(:mass_area_yield).l" type="measure"/>
 
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="intervention" in="support.interventions.real.where(state: 'done').reorder(:started_at)" of-type="record">
+            <sections for="intervention" in="support.interventions.real.done.reorder(:started_at)" of-type="record">
               <variable name="target_cast" value="intervention.targets.first"/>
               <variable name="target" value="target_cast.actor"/>
               <title name="name" of="intervention"/>
