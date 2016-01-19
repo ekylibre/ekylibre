@@ -51,11 +51,7 @@ module Clean
           next if col.name.to_s.start_with?('_') # Custom fields
           attrs = []
           if col.default
-            attrs += if col.default.is_a? Date
-                       'default(CURRENT_DATE)'
-                     else
-                       "default(#{quote_value(col.default, col.type)})"
-                     end
+            attrs << 'default(' + (col.default.is_a?(Date) ? 'CURRENT_DATE' : quote_value(col.default, col.type)) + ')'
           end
           attrs << 'not null' unless col.null
           attrs << 'primary key' if col.name == klass.primary_key
