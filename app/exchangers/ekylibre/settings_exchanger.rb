@@ -41,6 +41,10 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Company entity
     attributes = { language: language, currency: currency, nature: :organization, last_name: 'Ekylibre' }.merge(@manifest[:company].select { |k, _v| ![:addresses].include?(k) }).merge(of_company: true)
+    siret  = attributes.delete(:siret)
+    siret_number = attributes.delete(:siret_number)
+    attributes[:siren] ||= siret_number.to_s[0..8] if siret_number
+    attributes[:siren] ||= siret.to_s[0..8] if siret
     company = Entity.create!(attributes)
     # f.close if f
     if @manifest[:company][:addresses].is_a?(Hash)
@@ -232,6 +236,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Load identifiers
     @manifest[:identifiers].each do |nature, value|
+      next unless Nomen::IdentifierNature.find(nature)
       Identifier.create!(nature: nature, value: value)
     end
     w.check_point
