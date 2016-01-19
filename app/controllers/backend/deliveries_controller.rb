@@ -63,10 +63,13 @@ module Backend
                                       include: [:variant, :product]
                                     },
                                     address: {},
-                                    sender: {}
-                                  }
-                                }
-                              }
+                                    sender: {},
+                                    recipient: {}
+                                            }
+                                         },
+                                transporter: {},
+                                responsible: {}
+                                       }
                   ) do |format|
         format.html do
           t3e @delivery.attributes
