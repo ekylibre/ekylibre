@@ -20,7 +20,7 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: 'RECORD.procedure.human_name'.c }
+    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
