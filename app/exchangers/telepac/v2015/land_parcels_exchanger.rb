@@ -140,7 +140,7 @@ class Telepac::V2015::LandParcelsExchanger < ActiveExchanger::Base
           # Create an activity if not exist with production_code
           production_nature = Nomen::ProductionNature.find_by(telepac_crop_code_v2015: record.attributes['TYPE'].to_s)
           unless production_nature && activity_family = Nomen::ActivityFamily[production_nature.activity]
-            fail "No activity family found. (#{record.attributes['TYPE']})"
+            Rails.logger.warn "No activity family found. (#{record.attributes['TYPE']})"
           end
 
           # find the sub-variety if exist
