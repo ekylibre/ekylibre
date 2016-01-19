@@ -1,19 +1,17 @@
-- campaign = current_campaign
 .btn-group.campaign-selector
 
-  - url, attrs = "#", {class: "btn btn-previous"}
+  - url, attrs = '#', {class: 'btn btn-previous icn icn-only'}
   - if campaign.preceding
-    - url = {current_campaign_id: campaign.preceding.id}
+    - url = { param_name => campaign.preceding.id }
   - else
     - attrs[:disabled] = true
-  = link_to(url, attrs) do
-    %i
-  %span.add-on.campaign= campaign.harvest_year
+  = link_to('', url, attrs)
 
-  - url, attrs = "#", {class: "btn btn-next"}
+  = link_to(campaign.harvest_year.to_s, { controller: '/backend/campaigns', action: :show, id: campaign }, class: 'btn campaign')
+
+  - url, attrs = '#', {class: 'btn btn-next icn icn-only'}
   - if campaign.following
-    - url = {current_campaign_id: campaign.following.id}
+    - url = { param_name => campaign.following.id }
   - else
     - attrs[:disabled] = true
-  = link_to(url, attrs) do
-    %i
+  = link_to('', url, attrs)

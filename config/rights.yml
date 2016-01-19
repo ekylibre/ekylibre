@@ -16,7 +16,6 @@
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
 #     - "backend/buildings#take"
-#     - "backend/campaigns#current"
 #     - "backend/cap_statements#list_cap_land_parcels"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
@@ -229,6 +228,7 @@ activities:
     - "backend/activity_budgets#edit"
     - "backend/activity_budgets#new"
     - "backend/activity_budgets#update"
+    - "backend/campaigns#open"
 
 affairs:
   read:
@@ -415,6 +415,7 @@ buildings:
 campaigns:
   read:
     actions:
+    - "backend/campaigns#current"
     - "backend/campaigns#index"
     - "backend/campaigns#list"
     - "backend/campaigns#list_activity_productions"

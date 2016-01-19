@@ -209,15 +209,16 @@ module Backend
       end
     end
 
-    def campaign_selector
+    def campaign_selector(campaign = nil, options = {})
       unless Campaign.any?
         @current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
         current_user.current_campaign = @current_campaign
       end
-      if current_campaign
-        current_campaign.create_following! unless current_campaign.following
+      campaign ||= current_campaign
+      if campaign
+        campaign.create_following! unless campaign.following
       end
-      render 'backend/shared/campaign_selector'
+      render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign_id
     end
 
     def lights(status, html_options = {})

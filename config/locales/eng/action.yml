@@ -99,6 +99,7 @@ eng:
       edit: "Edit campaign: %{name}"
       index: "Campaigns"
       new: "New campaign"
+      # open: "Open campaign: %{name}"
       show: "Campaign %{name}"
     backend/cap_islets:
       edit: "Edit cap islet: %{islet_number}"

@@ -20,6 +20,11 @@ module Backend
   class CampaignsController < Backend::BaseController
     manage_restfully
 
+    after_action only: :show do
+      @current_campaign = @campaign
+      current_user.current_campaign = @current_campaign
+    end
+
     unroll
 
     list do |t|
@@ -37,6 +42,13 @@ module Backend
       t.column :state
       t.column :started_on
       t.column :stopped_on
+    end
+
+    def open
+      return unless (@campaign = find_and_check)
+      activity = Activity.find(params[:activity_id])
+      activity.budgets.find_or_create_by!(campaign: @campaign)
+      redirect_to params[:redirect] || { action: :show, id: @campaign.id }
     end
 
     def current

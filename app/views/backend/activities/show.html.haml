@@ -1,7 +1,7 @@
 - main_toolbar do |t|
   - t.edit resource
   - budget = resource.budget_of(current_campaign)
-  - if budget
+  - if budget && budget.items.any?
     - t.edit params: {controller: :activity_budgets, id: budget.id}, label: :edit_budget.tl
 
 - main_campaign_selector
@@ -11,7 +11,7 @@
     - c.cobble :budget do
       = infos do
         - budget = resource.budgets.find_by(campaign: current_campaign)
-        - if budget
+        - if budget && budget.items.any?
           = link_to(controller: :activity_budgets, action: :edit, id: budget.id, redirect: request.fullpath) do
             = info ActivityBudget.human_attribute_name(:expenses_amount), budget.expenses_amount.round(budget.currency_precision).l(currency: budget.currency)
           = link_to(controller: :activity_budgets, action: :edit, id: budget.id, redirect: request.fullpath) do
@@ -26,7 +26,8 @@
             = dropdown_menu_button(:copy_from_another_activity.tl) do |menu|
               - other_budgets.includes(:activity).order('activities.name').each do |budget|
                 - menu.item budget.activity_name, { controller: :activity_budgets, action: :duplicate, id: budget.id, activity_id: resource.id, campaign_id: current_campaign.id, edit: true, redirect: request.fullpath }, method: :post
-          = link_to(:new_budget.tl, { controller: :activity_budgets, action: :new, activity_id: resource.id, campaign_id: current_campaign.id, redirect: request.fullpath }, class: 'btn btn-default')
+          - url_options = budget ? { action: :edit, id: budget.id } : {action: :new, activity_id: resource.id, campaign_id: current_campaign.id}
+          = link_to(:new_budget.tl, url_options.merge(controller: :activity_budgets, redirect: request.fullpath ), class: 'btn btn-default')
   - c.cobble :details do
     = attributes_list do |l|
       - l.attribute :nature

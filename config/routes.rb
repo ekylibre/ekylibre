@@ -256,6 +256,7 @@ Rails.application.routes.draw do
       end
       member do
         get :list_activity_productions
+        post :open
       end
     end
 

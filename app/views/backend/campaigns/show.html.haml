@@ -1,7 +1,14 @@
-- main_toolbar do |t|
-  - t.edit resource
+- activities = Activity.of_campaign(resource)
 
-= cobbles do |c|
+- main_toolbar do |t|
+  -# t.edit resource
+  - t.open resource, variants: Activity.availables.where.not(id: activities).map { |a| [a.name, { activity_id: a.id }] }, method: :post
+
+- content_for :heading_toolbar do
+  = campaign_selector(resource, param_name: :id)
+
+
+-#= cobbles do |c|
   - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :name
@@ -15,3 +22,12 @@
 
   - c.cobble :map do
     = cell :map, params: {campaign_ids: resource.id}
+
+- if activities.any?
+  .activities-index
+    - activities.each do |activity|
+      .activity-container
+        = render 'backend/activities/card', activity: activity, campaign: resource
+- else
+  .placeholding-message
+    = :no_production_found_you_can_add_it_or_copy_from_previous_records.tn

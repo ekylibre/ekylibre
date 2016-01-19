@@ -206,8 +206,8 @@
 
 @mixin icon-after($name, $gap: $default-gap, $font-size: null) {
   &::after {
-    @include padding-left($gap);
     content: icon-character($name);
+    @include padding-left($gap);
     @include basic-icon($font-size);
   }
 }

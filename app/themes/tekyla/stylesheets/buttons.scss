@@ -34,6 +34,9 @@ a.btn, button.btn {
   }
   &.icn {
     @include icon-before(cog, $font-size: 14px);
+    &.icn-only {
+      @include padding-right(0);
+    }
   }
   &.dropdown-toggle {
     @include icon-after(caret-down, $font-size: 14px);
