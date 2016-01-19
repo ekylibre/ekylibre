@@ -75,6 +75,7 @@ por:
     backend/calculators/grains_commercialization_threshold_simulators:  #?
       show: "Simulador de comercialização de grãos" #?
     backend/campaigns:
+      # current: "Campaign"
       edit: "Editar campanhas: %{name}"
       index: "Campanhas"
       new: "Nova campanha"

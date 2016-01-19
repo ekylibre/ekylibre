@@ -73,6 +73,7 @@ jpn:
       # new: "New building"
       # show: "Building: %{name}"
     backend/campaigns:
+      # current: "Campaign"
       # edit: "Edit campaign: %{name}"
       # index: "Campaigns"
       # new: "New campaign"

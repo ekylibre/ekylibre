@@ -84,6 +84,7 @@ fra:
       new: "Nouveau bâtiment"
       show: "Détail du bâtiment\_: %{name}"
     backend/campaigns:
+      current: "Campagne"
       edit: "Campagne\_: %{name}"
       index: "Campagnes"
       new: "Nouvelle campagne"

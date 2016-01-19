@@ -16,6 +16,7 @@
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
 #     - "backend/buildings#take"
+#     - "backend/campaigns#current"
 #     - "backend/cap_statements#list_cap_land_parcels"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"

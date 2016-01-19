@@ -79,6 +79,7 @@ arb:
       new: "اضافة موقع للتخزين"
       show: "تفاصيل عن مواقع التخزين : %{name}"
     backend/campaigns:
+      # current: "Campaign"
       # edit: "Edit campaign: %{name}"
       # index: "Campaigns"
       # new: "New campaign"

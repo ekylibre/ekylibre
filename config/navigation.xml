@@ -549,52 +549,18 @@
   <part name="production" icon="cogs">
     <page to="backend/dashboards#production"/>
     <group name="activity" icon="cogs">
-      <item name="interventions">
-        <page to="backend/interventions#index"/>
-        <page to="backend/interventions#compute"/>
-        <page to="backend/interventions#create"/>
-        <page to="backend/interventions#destroy"/>
-        <page to="backend/interventions#edit"/>
-        <page to="backend/interventions#list"/>
-        <page to="backend/interventions#new"/>
-        <page to="backend/interventions#show"/>
-        <page to="backend/interventions#update"/>
-        <page to="backend/interventions#list_product_parameters"/>
-        <page to="backend/interventions#run"/>
-        <page to="backend/interventions#unroll"/>
-        <page to="backend/crumbs#index"/>
-        <page to="backend/crumbs#update"/>
-        <page to="backend/crumbs#convert"/>
-        <page to="backend/crumbs#destroy"/>
-        <page to="backend/prescriptions#index"/>
-        <page to="backend/prescriptions#attachments"/>
-        <page to="backend/prescriptions#create"/>
-        <page to="backend/prescriptions#destroy"/>
-        <page to="backend/prescriptions#edit"/>
-        <page to="backend/prescriptions#list"/>
-        <page to="backend/prescriptions#list_interventions"/>
-        <page to="backend/prescriptions#new"/>
-        <page to="backend/prescriptions#show"/>
-        <page to="backend/prescriptions#unroll"/>
-        <page to="backend/prescriptions#update"/>
-      </item>
-      <item name="analyses" icon="beaker">
-        <page to="backend/analyses#index"/>
-        <page to="backend/analyses#attachments"/>
-        <page to="backend/analyses#create"/>
-        <page to="backend/analyses#destroy"/>
-        <page to="backend/analyses#edit"/>
-        <page to="backend/analyses#list"/>
-        <page to="backend/analyses#list_items"/>
-        <page to="backend/analyses#new"/>
-        <page to="backend/analyses#show"/>
-        <page to="backend/analyses#unroll"/>
-        <page to="backend/analyses#update"/>
-        <page to="backend/analysis_items#new"/>
-      </item>
       <item name="productions">
         <page to="backend/campaigns#current"/>
         <page to="backend/campaigns#show"/>
+        <page to="backend/campaigns#index"/>
+        <page to="backend/campaigns#create"/>
+        <page to="backend/campaigns#destroy"/>
+        <page to="backend/campaigns#edit"/>
+        <page to="backend/campaigns#list"/>
+        <page to="backend/campaigns#new"/>
+        <page to="backend/campaigns#update"/>
+        <page to="backend/campaigns#list_activity_productions"/>
+        <page to="backend/campaigns#unroll"/>
         <page to="backend/activity_productions#index"/>
         <page to="backend/activity_productions#list_interventions"/>
         <page to="backend/activity_productions#show"/>
@@ -712,6 +678,49 @@
         <page to="backend/manure_management_plans#show"/>
         <page to="backend/manure_management_plans#unroll"/>
         <page to="backend/manure_management_plans#update"/>
+      </item>
+      <item name="interventions">
+        <page to="backend/interventions#index"/>
+        <page to="backend/interventions#compute"/>
+        <page to="backend/interventions#create"/>
+        <page to="backend/interventions#destroy"/>
+        <page to="backend/interventions#edit"/>
+        <page to="backend/interventions#list"/>
+        <page to="backend/interventions#new"/>
+        <page to="backend/interventions#show"/>
+        <page to="backend/interventions#update"/>
+        <page to="backend/interventions#list_product_parameters"/>
+        <page to="backend/interventions#run"/>
+        <page to="backend/interventions#unroll"/>
+        <page to="backend/crumbs#index"/>
+        <page to="backend/crumbs#update"/>
+        <page to="backend/crumbs#convert"/>
+        <page to="backend/crumbs#destroy"/>
+        <page to="backend/prescriptions#index"/>
+        <page to="backend/prescriptions#attachments"/>
+        <page to="backend/prescriptions#create"/>
+        <page to="backend/prescriptions#destroy"/>
+        <page to="backend/prescriptions#edit"/>
+        <page to="backend/prescriptions#list"/>
+        <page to="backend/prescriptions#list_interventions"/>
+        <page to="backend/prescriptions#new"/>
+        <page to="backend/prescriptions#show"/>
+        <page to="backend/prescriptions#unroll"/>
+        <page to="backend/prescriptions#update"/>
+      </item>
+      <item name="analyses" icon="beaker">
+        <page to="backend/analyses#index"/>
+        <page to="backend/analyses#attachments"/>
+        <page to="backend/analyses#create"/>
+        <page to="backend/analyses#destroy"/>
+        <page to="backend/analyses#edit"/>
+        <page to="backend/analyses#list"/>
+        <page to="backend/analyses#list_items"/>
+        <page to="backend/analyses#new"/>
+        <page to="backend/analyses#show"/>
+        <page to="backend/analyses#unroll"/>
+        <page to="backend/analyses#update"/>
+        <page to="backend/analysis_items#new"/>
       </item>
     </group>
     <group name="land_parcels" icon="land-parcels">
@@ -1229,18 +1238,6 @@
       </item>
     </group>
     <group name="production" icon="cogs">
-      <item name="backend/campaigns">
-        <page to="backend/campaigns#index"/>
-        <page to="backend/campaigns#create"/>
-        <page to="backend/campaigns#destroy"/>
-        <page to="backend/campaigns#edit"/>
-        <page to="backend/campaigns#list"/>
-        <page to="backend/campaigns#new"/>
-        <page to="backend/campaigns#show"/>
-        <page to="backend/campaigns#update"/>
-        <page to="backend/campaigns#list_activity_productions"/>
-        <page to="backend/campaigns#unroll"/>
-      </item>
       <item name="workers">
         <page to="backend/workers#index"/>
         <page to="backend/workers#attachments"/>

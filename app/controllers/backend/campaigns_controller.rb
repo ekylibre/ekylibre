@@ -41,7 +41,8 @@ module Backend
 
     def current
       unless current_campaign.present?
-        current_user.current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year, name: Date.current.year)
+        @current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
+        current_user.current_campaign = @current_campaign
       end
       redirect_to backend_campaign_path(current_campaign)
     end

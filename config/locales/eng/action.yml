@@ -95,6 +95,7 @@ eng:
       show: "Building: %{name}"
       # take: "Take building: %{name}"
     backend/campaigns:
+      current: "Campaign"
       edit: "Edit campaign: %{name}"
       index: "Campaigns"
       new: "New campaign"
@@ -1815,6 +1816,7 @@ eng:
       convert: "Convert"
       correct: "Correct"
       create: "Create"
+      # current: "Current"
       decrement: "Decrement"
       destroy: "Destroy"
       detach: "Detach"

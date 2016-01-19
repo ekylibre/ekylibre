@@ -79,6 +79,7 @@ spa:
       new: "Añadir un lugar de deposito"
       show: "Detaile del lugar de deposito\_: %{name}"
     backend/campaigns:
+      # current: "Campaign"
       # edit: "Edit campaign: %{name}"
       # index: "Campaigns"
       # new: "New campaign"
