@@ -1,5 +1,6 @@
 .log.log-observation.log-with-content
-  .log-avatar= image_tag step.author.avatar_url(size: avatar_size)
+  - if step.author
+    .log-avatar= image_tag step.author.avatar_url(size: avatar_size)
   .log-wrapper
     .log-symbol
     .log-heading
