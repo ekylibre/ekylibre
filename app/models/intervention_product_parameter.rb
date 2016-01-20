@@ -95,9 +95,9 @@ class InterventionProductParameter < InterventionParameter
     if reference
       if reference.handled? && quantity_handler?
         handler = reference.handler(quantity_handler)
-        if handler
+        if handler && handler.indicator
           self.quantity_indicator_name = handler.indicator.name
-          self.quantity_unit_name = handler.unit.name
+          self.quantity_unit_name = handler.unit.name if handler.unit
         end
       end
     end
