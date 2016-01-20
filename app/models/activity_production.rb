@@ -178,15 +178,11 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def computed_support_name
     list = []
-    list << if cultivable_zone
-              cultivable_zone.name
-            else
-              activity.name
-  end
+    list = cultivable_zone ? cultivable_zone.name : activity.name
     list << :rank.t(number: rank_number)
     list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')
-end
+  end
 
   def active?
     activity.family.to_s != 'fallow_land'

@@ -81,7 +81,7 @@ class Campaign < Ekylibre::Record::Base
   end
 
   def net_surface_area
-    activity_productions.map(&:shape_area).sum
+    activity_productions.map(&:support_shape_area).sum
   end
   alias shape_area net_surface_area
 

@@ -383,23 +383,13 @@ class Activity < Ekylibre::Record::Base
     end
   end
 
-  def shape_area(*campaigns)
-    productions.of_campaign(campaigns).map(&:shape_area).compact.sum
+  def support_shape_area(*campaigns)
+    options = campaigns.extract_options!
+    productions.of_campaign(*campaigns).map(&:support_shape_area)
+      .compact.sum.in(options[:unit] || :square_meter)
   end
 
-  def net_surface_area(*campaigns)
-    surface = []
-    for campaign in campaigns
-      surface << productions.of_campaign(campaign).map(&:net_surface_area).compact.sum
-    end
-    surface.compact.sum
-  end
-
-  def area(*campaigns)
-    # raise "NO AREA"
-    ActiveSupport::Deprecation.warn("#{self.class.name}#area is deprecated. Please use #{self.class.name}#net_surface_area instead.")
-    net_surface_area(*campaigns)
-  end
+  alias_method :net_surface_area, :support_shape_area
 
   def interventions_duration(*campaigns)
     productions.of_campaign(campaigns).map(&:duration).compact.sum
