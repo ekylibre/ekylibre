@@ -141,7 +141,7 @@ class NormalizeDeliveries < ActiveRecord::Migration
 
       create_table :incoming_parcels do |t|
         t.string :number, null: false
-        t.references :sender, null: false, index: true, index: true
+        t.references :sender, null: false, index: true
         t.string :reference_number
         t.references :purchase, index: true
         t.references :address, index: true

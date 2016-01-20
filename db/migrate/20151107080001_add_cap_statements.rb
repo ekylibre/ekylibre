@@ -41,9 +41,9 @@ class AddCapStatements < ActiveRecord::Migration
         execute "INSERT INTO campaigns(name, number, harvest_year, created_at, updated_at) VALUES ('#{year}', '#{year}', #{year}, current_timestamp, current_timestamp)"
       end
       campaign = select_one('SELECT * FROM campaigns ORDER BY id DESC').symbolize_keys
-      execute "INSERT INTO cap_statements (campaign_id, declarant_id, siret_number, farm_name, created_at, creator_id, updated_at, updater_id) SELECT id, #{company[:id]}, '#{company[:siren]}', '#{company[:full_name]}', created_at, creator_id, updated_at, updater_id FROM campaigns WHERE id = #{campaign[:id]}"
+      execute "INSERT INTO cap_statements (campaign_id, declarant_id, siret_number, farm_name, created_at, creator_id, updated_at, updater_id) SELECT id, #{company[:id]}, #{quote(company[:siren])}, #{quote(company[:full_name])}, created_at, creator_id, updated_at, updater_id FROM campaigns WHERE id = #{campaign[:id]}"
       execute "INSERT INTO cap_islets (cap_statement_id, islet_number, shape, created_at, creator_id, updated_at, updater_id, lock_version) SELECT cs.id, lpc.number, lpc.initial_shape, lpc.created_at, lpc.creator_id, lpc.updated_at, lpc.updater_id, lpc.lock_version  FROM cap_statements AS cs, products AS lpc WHERE lpc.type = 'LandParcelCluster' AND initial_shape IS NOT NULL"
-      execute "INSERT INTO cap_land_parcels (cap_islet_id, land_parcel_number, main_crop_code, shape, created_at, creator_id, updated_at, updater_id, lock_version) SELECT ci.id, lp.number, '???', lp.initial_shape, lp.created_at, lp.creator_id, lp.updated_at, lp.updater_id, lp.lock_version FROM products AS lp LEFT JOIN cap_islets AS ci ON (ST_Covers(ci.shape, lp.initial_shape)) WHERE lp.type = 'LandParcel' AND initial_shape IS NOT NULL"
+      execute "INSERT INTO cap_land_parcels (cap_islet_id, land_parcel_number, main_crop_code, shape, created_at, creator_id, updated_at, updater_id, lock_version) SELECT ci.id, lp.number, '???', lp.initial_shape, lp.created_at, lp.creator_id, lp.updated_at, lp.updater_id, lp.lock_version FROM products AS lp JOIN cap_islets AS ci ON (ST_Covers(ci.shape, lp.initial_shape)) WHERE lp.type = 'LandParcel' AND initial_shape IS NOT NULL"
     end
 
     drop_table :cultivable_zone_memberships
