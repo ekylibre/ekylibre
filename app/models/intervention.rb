@@ -184,6 +184,10 @@ class Intervention < Ekylibre::Record::Base
   def start_time
     started_at
   end
+  
+  def duration(unit = :hour)
+    working_duration.in(:second).convert(unit).round(2)
+  end
 
   # Update temporality informations in intervention
   def update_temporality

@@ -1,6 +1,6 @@
 = kujaku do |k|
   - k.text
-  - k.multi_choice :state, [:done, :undone].map{ |s| [s.tl, s] }
+  -# k.multi_choice :state, [:done, :undone].map{ |s| [s.tl, s] }
   - k.helper do
     %label= Intervention.human_attribute_name(:reference_name)
     = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}, params[:procedure_name]))

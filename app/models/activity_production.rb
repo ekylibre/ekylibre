@@ -401,7 +401,7 @@ class ActivityProduction < Ekylibre::Record::Base
   ## LABEL METHODS ##
 
   def work_name
-    "#{support_work_number} - #{net_surface_area}"
+    "#{support_work_number} - #{net_surface_area.convert(:hectare).round(2)}"
   end
 
   # Returns unique i18nized name for given production

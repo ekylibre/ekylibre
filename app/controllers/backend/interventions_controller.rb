@@ -55,7 +55,7 @@ module Backend
 
       # Support
       code << "if params[:support_id].to_i > 0\n"
-      code << "  c[0] << ' AND production_support_id IN (SELECT id FROM #{ActivityProduction.table_name} WHERE storage_id IN (?))'\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (?))'\n"
       code << "  c << params[:support_id].to_i\n"
       code << "end\n"
 
@@ -80,14 +80,16 @@ module Backend
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
       t.column :name, sort: :procedure_name, url: true
+      t.column :procedure_name
       # t.column :production, url: true, hidden: true
       # t.column :campaign, url: true
       # t.column :activity, url: true, hidden: true
       t.column :state, hidden: true
       t.column :started_at
-      t.column :duration
       t.column :stopped_at, hidden: true
-      t.status
+      t.column :duration, datatype: :measure
+      t.column :working_area, datatype: :measure
+      # t.status
       t.column :issue, url: true
       # t.column :casting, hidden: true
     end
