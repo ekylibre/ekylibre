@@ -5,7 +5,7 @@ module Procedo
       class << self
         # Test if population counting is as specified for given product
         def population_counting_is(product, expected)
-          (product.population_counting.to_sym == expected ? 1 : 0)
+          ((product && product.population_counting.to_sym) == expected ? 1 : 0)
         end
 
         # Sums indicator values for a set of product
