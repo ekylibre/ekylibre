@@ -24,6 +24,7 @@ module Ekylibre::Record
 
           unless [:point, :multi_point, :line_string, :multi_line_string].include?(options[:type])
             define_method "#{column}_area" do |unit = nil|
+              return 0.in(unit || :square_meter) if send(column).nil?
               if unit
                 send(column).area.in(unit)
               else
