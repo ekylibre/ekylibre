@@ -54,7 +54,7 @@ class InterventionGroupParameter < InterventionParameter
   belongs_to :intervention, inverse_of: :group_parameters
   belongs_to :parent, class_name: 'InterventionGroupParameter', foreign_key: :group_id, inverse_of: :children
   has_many :children, class_name: 'InterventionParameter', dependent: :destroy, inverse_of: :parent, foreign_key: :group_id
-  with_options dependent: :destroy, inverse_of: :group, foreign_key: :group_id do
+  with_options inverse_of: :group, foreign_key: :group_id do
     has_many :parameters, class_name: 'InterventionParameter'
     has_many :group_parameters, -> { order(:position) }, class_name: 'InterventionGroupParameter'
     has_many :doers, class_name: 'InterventionDoer'

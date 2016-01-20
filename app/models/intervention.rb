@@ -48,7 +48,8 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :issue
   belongs_to :prescription
-  with_options inverse_of: :intervention, dependent: :destroy do
+  with_options inverse_of: :intervention do
+    has_many :root_parameters, -> {where(group_id: nil)}, class_name: 'InterventionParameter', dependent: :destroy
     has_many :parameters, class_name: 'InterventionParameter'
     has_many :group_parameters, -> { order(:position) }, class_name: 'InterventionGroupParameter'
     has_many :product_parameters, -> { order(:position) }, class_name: 'InterventionProductParameter'
@@ -186,7 +187,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Update temporality informations in intervention
   def update_temporality
-    reload
+    reload unless new_record? || destroyed?
     started_at = working_periods.minimum(:started_at)
     stopped_at = working_periods.maximum(:stopped_at)
     update_columns(

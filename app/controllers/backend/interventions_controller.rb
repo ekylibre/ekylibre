@@ -76,7 +76,7 @@ module Backend
 
     # conditions: list_conditions,
     list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
-      t.action :run,  if: :runnable?, method: :post, confirm: true
+      # t.action :run,  if: :runnable?, method: :post, confirm: true
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
       t.column :name, sort: :procedure_name, url: true

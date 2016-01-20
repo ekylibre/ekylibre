@@ -50,6 +50,7 @@
 class InterventionParameter < Ekylibre::Record::Base
   attr_readonly :reference_name
   belongs_to :group, class_name: 'InterventionGroupParameter'
+  belongs_to :parent, class_name: 'InterventionGroupParameter', foreign_key: :group_id, inverse_of: :children
   belongs_to :intervention, inverse_of: :parameters
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
