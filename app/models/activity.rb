@@ -386,10 +386,10 @@ class Activity < Ekylibre::Record::Base
   def support_shape_area(*campaigns)
     options = campaigns.extract_options!
     productions.of_campaign(*campaigns).map(&:support_shape_area)
-      .compact.sum.in(options[:unit] || :square_meter)
+               .compact.sum.in(options[:unit] || :square_meter)
   end
 
-  alias_method :net_surface_area, :support_shape_area
+  alias net_surface_area support_shape_area
 
   def interventions_duration(*campaigns)
     productions.of_campaign(campaigns).map(&:duration).compact.sum

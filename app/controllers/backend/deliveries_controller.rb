@@ -65,11 +65,11 @@ module Backend
                                     address: {},
                                     sender: {},
                                     recipient: {}
-                                            }
-                                         },
+                                  }
+                                },
                                 transporter: {},
                                 responsible: {}
-                                       }
+                              }
                   ) do |format|
         format.html do
           t3e @delivery.attributes
