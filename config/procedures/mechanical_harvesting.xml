@@ -13,11 +13,11 @@
       	<handler name="population"/>
       	<handler indicator="net_mass" unit="quintal"
       		     if="VARIANT? and VARIANT.net_mass?"
-      		     backward="POPULATION * VARIANT.net_mass(quintal)" 
+      		     backward="POPULATION * VARIANT.net_mass(quintal)"
       		     forward="VALUE / VARIANT.net_mass(quintal)"/>
         <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
         	     if="VARIANT? and VARIANT.net_mass?"
-      		     backward="POPULATION * VARIANT.net_mass(ton)" 
+      		     backward="POPULATION * VARIANT.net_mass(ton)"
       		     forward="VALUE / VARIANT.net_mass(ton)"/>
         <handler indicator="mass_area_density" unit="quintal_per_hectare"
         	     if="sum_working_zone_areas(cultivation, :hectare) >= 0.1 and VARIANT? and VARIANT.net_mass?"
@@ -28,7 +28,7 @@
       	<handler name="population"/>
       	<handler indicator="net_mass" unit="ton"
       		     if="VARIANT? and VARIANT.net_mass?"
-      		     backward="POPULATION * VARIANT.net_mass(ton)" 
+      		     backward="POPULATION * VARIANT.net_mass(ton)"
       		     forward="VALUE / VARIANT.net_mass(ton)"/>
         <handler indicator="mass_area_density" unit="ton_per_hectare"
         	     if="sum_working_zone_areas(cultivation, :hectare) >= 0.1 and VARIANT? and VARIANT.net_mass?"
