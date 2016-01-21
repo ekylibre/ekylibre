@@ -6,10 +6,12 @@
     = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}, params[:procedure_name]))
   - if current_campaign
     - productions = ActivityProduction.of_campaign(current_campaign)
+    - targets = InterventionTarget.joins(:product)
     - if productions && productions.any?
       - k.helper do
         %label= ActivityProduction.human_attribute_name(:support)
-        = select_tag(:activity_production_id, options_for_select([[]] + productions.joins(:support).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:activity_production_id]))
+        = select_tag(:product_id, options_for_select([[]] + targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}, params[:product_id]))
+        -#= select_tag(:support_id, options_for_select([[]] + productions.joins(:support).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:support_id]))
 
 - main_toolbar do |t|
   - t.new

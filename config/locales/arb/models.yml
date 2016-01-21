@@ -909,6 +909,7 @@ arb:
       transfer: "التحويل" #?
       unit: "الوحدة" #?
       user: "المستخدم"
+      # vegetal_activity: "Vegetal activity"
       # version: "Version"
       # worker: "Worker"
       # zone: "Zone"
@@ -939,6 +940,8 @@ arb:
     active: "فعال"
     # activities: "Activities"
     # activity: "Activity"
+    # activity_budget: "Activity budget"
+    # activity_budgets: "Activity budgets"
     activity_code: "APE/NAF رمز"
     # activity_distributions: "Activity distributions"
     # activity_production: "Activity production"
@@ -967,6 +970,7 @@ arb:
     # analyser: "Analyser"
     # analyses: "Analyses"
     # analysis: "Analysis"
+    # analysis_items: "Analysis items"
     annotation: "ملاحظة"
     # archive: "Archive"
     # archiving: "Archiving"
@@ -1137,6 +1141,7 @@ arb:
     currency: "عملة"
     # currency_precision: "Currency precision"
     currency_rate: "سعر الصرف"
+    # current_activity_productions: "Current activity productions"
     # current_amount: "Current amount"
     # current_enjoyment: "Current enjoyment"
     # current_father_link: "Current father link"
@@ -1150,6 +1155,7 @@ arb:
     # current_quantity: "Current quantity"
     # current_sign_in_at: "Current sign in at"
     # current_sign_in_ip: "Current sign in ip"
+    # current_supports: "Current supports"
     custom_field: "حقول اضافية"
     custom_field_choices: "اختيارات الحقول الاضافية" #?
     custom_field_data: "تكملة بيانات الملف" #?
@@ -1169,6 +1175,7 @@ arb:
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
     decimal_value: "القيمة العشرية"
+    # declarant: "Declarant"
     declared_at: "صرح يوم" #?
     # deduction_account: "Deduction account"
     # default_computation_method: "Default computation method"
@@ -1192,6 +1199,8 @@ arb:
     delivery_items: "طرق التسليم"
     # delivery_mode: "Delivery mode"
     delivery_modes: "اسلوب التسليم" #?
+    # delivery_products: "Delivery products"
+    # delta: "Delta"
     density_label: "الكثافة" #?
     departed_at: "نقل يوم"
     department: "المبنى" #?
@@ -1244,6 +1253,7 @@ arb:
     downpayment_rate: "معدل القسط" #?
     draft: "المسودة" #?
     draft_mode: "نمط المسودة" #?
+    # driver: "Driver"
     # due_at: "Due at"
     # due_on: "Due on"
     duration: "المدة"
@@ -1312,6 +1322,7 @@ arb:
     # failed_attempts: "Failed attempts"
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
+    # farm_name: "Farm name"
     # father: "Father"
     fax: "فاكس" #?
     # faxes: "Faxes"
@@ -1413,6 +1424,7 @@ arb:
     # interest_amount: "Interest amount"
     # interest_percentage: "Interest percentage"
     # intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
+    # interpolations: "Interpolations"
     # intervention: "Intervention"
     # intervention_cast: "Intervention cast"
     # intervention_parameter: "Intervention parameter"
@@ -1431,7 +1443,9 @@ arb:
     # irrigated: "Irrigated"
     # irrigation_water_nitrogen: "Irrigation water nitrogen"
     is_debit: "مدين" #?
+    # islet: "Islet"
     # islet_number: "Islet number"
+    # islets: "Islets"
     # issue: "Issue"
     # issues: "Issues"
     # issues_count: "Issues count"
@@ -1549,6 +1563,7 @@ arb:
     # members: "Members"
     # members_count: "Members count"
     # memberships: "Memberships"
+    # message: "Message"
     # metadata: "Metadata"
     min_duration: "(دقيقة (دقائق" #?
     # mineral_nitrogen_at_opening: "Mineral nitrogen at opening"
@@ -1618,6 +1633,7 @@ arb:
     original_name: "الاسم الاصلي" #?
     # originator: "Originator"
     # originator_type: "Originator type"
+    # outcoming_product: "Outcoming product"
     # outgoing_parcel_item: "Outgoing parcel item"
     # outgoing_parcel_items: "Outgoing parcel items"
     # outgoing_parcels: "Outgoing parcels"
@@ -1789,6 +1805,7 @@ arb:
     # quantity_value: "Quantity value"
     query: "التساؤل"
     range: "فترة فاصلة" #?
+    # rank_number: "Rank number"
     rate: "معدل سعر الصرف" #?
     # read_at: "Read at"
     # reading_tasks: "Reading tasks"
@@ -1852,6 +1869,7 @@ arb:
     responsible: "المسؤول"
     responsible_id: "المسؤول" #?
     # restricted: "Restricted"
+    # retrieval_message: "Retrieval message"
     # retrieval_mode: "Retrieval mode"
     # retrieval_status: "Retrieval status"
     # revenues: "Revenues"
@@ -1864,6 +1882,7 @@ arb:
     root_model: "الجذر"
     root_model_name: "جذر"
     # root_node: "Root node"
+    # root_parameters: "Root parameters"
     sale: "طلب البيع"
     # sale_credit: "Sale credit"
     sale_id: "طلب بيع" #?
@@ -1924,6 +1943,7 @@ arb:
     # size_indicator_name: "Size indicator name"
     # size_unit: "Size unit"
     # size_unit_name: "Size unit name"
+    # size_value: "Size value"
     # soil_nature: "Soil type"
     # soil_production: "Soil production"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
@@ -1968,6 +1988,7 @@ arb:
     subscriptions: "الاشتراك"
     subsubdivision: "Z الوضع" #?
     sum_method: "اسلوب الاحصاء" #?
+    # supervision: "Supervision"
     supplier: "الممول"
     supplier_account: "حساب مساعد الممول"
     supplier_account_id: "حساب مساعد الممول" #?
@@ -1990,6 +2011,7 @@ arb:
     target: "الهدف"
     target_id: "الهدف" #?
     target_type: "نوع الهدف"
+    # target_url: "Target url"
     # targets: "Targets"
     # tasks: "Tasks"
     tax: "الضريبة"
@@ -2037,15 +2059,19 @@ arb:
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة" #?
     # unit_amount: "Unit amount"
+    # unit_currency: "Unit currency"
     unit_id: "وحدة" #?
     # unit_name: "Unit name"
+    # unit_population: "Unit population"
     # unit_pretax_amount: "Unit pre-tax amount"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
     # unlock_token: "Unlock token"
     # unlocked_payments: "Unlocked payments"
     # unpaid_sales: "Unpaid sales"
+    # unpointed_journal_entry_items: "Unpointed journal entry items"
     unquantifiable: "غير قابل للقياس" #?
+    # unread_notifications: "Unread notifications"
     updated_at: "تم تحديثه في"
     updater: "التحديث"
     updater_id: "التحديث" #?
@@ -2079,12 +2105,14 @@ arb:
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
     # vendor_euid: "Vendor"
     # versions: "Versions"
+    # view_parameters: "View parameters"
     virtual: "عملي" #?
     virtual_quantity: "الاسهم العملية" #?
     # waiting_deliveries: "Waiting deliveries"
     webpass: "كلمة مرور الموقع الااكتروني" #?
     website: "الموقع الالكتروني" #?
     # websites: "Websites"
+    # whole_duration: "Whole duration"
     with_accounting: "سجل الدفعات"
     with_commission: "تشمل عمولة"
     # with_cultivation: "With cultivation"
@@ -2095,6 +2123,7 @@ arb:
     # work_number: "Work number"
     # worker: "Worker"
     # working_duration: "Working duration"
+    # working_periods: "Working periods"
     # working_shape: "Working shape"
     # working_zone: "Working zone"
     # zone_memberships: "Zone memberships"

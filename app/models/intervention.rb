@@ -176,6 +176,11 @@ class Intervention < Ekylibre::Record::Base
     product_parameters.map(&:product).compact.map(&:name).sort.to_sentence
   end
 
+  # Returns parameter names
+  def human_target_names
+    targets.map(&:product).compact.map(&:work_name).sort.to_sentence
+  end
+
   def name
     # raise self.inspect if self.procedure_name.blank?
     tc(:name, intervention: (procedure ? procedure.human_name : "procedures.#{procedure_name}".t(default: procedure_name.humanize)), number: number)
@@ -184,7 +189,7 @@ class Intervention < Ekylibre::Record::Base
   def start_time
     started_at
   end
-  
+
   def duration(unit = :hour)
     working_duration.in(:second).convert(unit).round(2)
   end

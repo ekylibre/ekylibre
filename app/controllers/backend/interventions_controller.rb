@@ -54,9 +54,9 @@ module Backend
       code << "end\n"
 
       # Support
-      code << "if params[:support_id].to_i > 0\n"
+      code << "if params[:product_id].to_i > 0\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (?))'\n"
-      code << "  c << params[:support_id].to_i\n"
+      code << "  c << params[:product_id].to_i\n"
       code << "end\n"
 
       # ActivityProduction || Activity
@@ -88,6 +88,7 @@ module Backend
       t.column :started_at
       t.column :stopped_at, hidden: true
       t.column :duration, datatype: :measure
+      t.column :human_target_names
       t.column :working_area, datatype: :measure
       # t.status
       t.column :issue, url: true

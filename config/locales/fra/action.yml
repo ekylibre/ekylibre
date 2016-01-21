@@ -1072,6 +1072,7 @@ fra:
     hint: "Astuce\_: %{value}"
     historic: "Historique"
     home: "Accueil"
+    human_target_names: "Nom des cibles" #?
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
     identifiers: "Identifiants"
@@ -1791,6 +1792,7 @@ fra:
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
     workers: "Travailleurs"
+    working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
     working_sets_stocks: "Stocks d’ensembles de produits"
     working_zone: "Zone travaillée" #?
