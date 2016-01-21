@@ -385,7 +385,9 @@ intervention_inputs_001:
   outcoming_product_id: 89
   position: 2
   product_id: 53
+  quantity_handler: population
   quantity_population: 20.0001
+  quantity_value: 20.0001
   reference_name: seeds
   type: InterventionInput
   updated_at: 2015-03-23 09:36:39.560725000 Z
@@ -400,7 +402,9 @@ intervention_inputs_002:
   outcoming_product_id: 91
   position: 2
   product_id: 53
+  quantity_handler: population
   quantity_population: 29.4553
+  quantity_value: 29.4553
   reference_name: seeds
   type: InterventionInput
   updated_at: 2014-11-06 17:50:06.991523000 Z
@@ -415,7 +419,9 @@ intervention_inputs_003:
   outcoming_product_id: 94
   position: 3
   product_id: 59
+  quantity_handler: population
   quantity_population: 0.02
+  quantity_value: 0.02
   reference_name: animal_medicine
   type: InterventionInput
   updated_at: 2014-11-07 14:44:18.866173000 Z
@@ -430,7 +436,9 @@ intervention_inputs_004:
   outcoming_product_id: 96
   position: 2
   product_id: 57
+  quantity_handler: population
   quantity_population: 4.1745
+  quantity_value: 4.1745
   reference_name: plant_medicine
   type: InterventionInput
   updated_at: 2014-11-07 15:02:58.793077000 Z
@@ -445,7 +453,9 @@ intervention_inputs_005:
   outcoming_product_id: 99
   position: 2
   product_id: 98
+  quantity_handler: population
   quantity_population: 0.6425
+  quantity_value: 0.6425
   reference_name: fertilizer
   type: InterventionInput
   updated_at: 2014-11-07 15:26:50.566188000 Z
@@ -460,7 +470,9 @@ intervention_inputs_006:
   outcoming_product_id: 102
   position: 2
   product_id: 101
+  quantity_handler: population
   quantity_population: 177.8641
+  quantity_value: 177.8641
   reference_name: seeds
   type: InterventionInput
   updated_at: 2014-11-07 15:45:45.773268000 Z
@@ -474,7 +486,9 @@ intervention_inputs_007:
   lock_version: 0
   position: 2
   product_id: 98
+  quantity_handler: population
   quantity_population: 0.7477
+  quantity_value: 0.7477
   reference_name: fertilizer
   type: InterventionInput
   updated_at: 2014-11-07 16:20:51.424030000 Z
@@ -489,7 +503,9 @@ intervention_inputs_008:
   outcoming_product_id: 109
   position: 2
   product_id: 107
+  quantity_handler: population
   quantity_population: 5000.0
+  quantity_value: 5000.0
   reference_name: plants
   type: InterventionInput
   updated_at: 2014-11-07 16:50:07.168748000 Z
@@ -504,7 +520,9 @@ intervention_inputs_009:
   outcoming_product_id: 111
   position: 2
   product_id: 57
+  quantity_handler: population
   quantity_population: 6.4745
+  quantity_value: 6.4745
   reference_name: plant_medicine
   type: InterventionInput
   updated_at: 2014-11-07 16:59:09.814608000 Z
@@ -519,7 +537,9 @@ intervention_inputs_010:
   outcoming_product_id: 123
   position: 2
   product_id: 114
+  quantity_handler: population
   quantity_population: 3200.0
+  quantity_value: 3200.0
   reference_name: grape
   type: InterventionInput
   updated_at: 2014-11-07 19:02:56.195971000 Z
@@ -534,7 +554,9 @@ intervention_inputs_011:
   outcoming_product_id: 129
   position: 4
   product_id: 128
+  quantity_handler: population
   quantity_population: 6.0
+  quantity_value: 6.0
   reference_name: oenological_intrant
   type: InterventionInput
   updated_at: 2014-11-07 19:08:55.217270000 Z
@@ -549,7 +571,9 @@ intervention_inputs_012:
   outcoming_product_id: 132
   position: 4
   product_id: 131
+  quantity_handler: population
   quantity_population: 0.118
+  quantity_value: 0.118
   reference_name: oenological_intrant
   type: InterventionInput
   updated_at: 2014-11-07 19:12:42.886870000 Z
@@ -564,7 +588,9 @@ intervention_inputs_013:
   outcoming_product_id: 134
   position: 4
   product_id: 133
+  quantity_handler: population
   quantity_population: 1.18
+  quantity_value: 1.18
   reference_name: oenological_intrant
   type: InterventionInput
   updated_at: 2014-11-07 19:24:10.255802000 Z
@@ -579,7 +605,9 @@ intervention_inputs_014:
   outcoming_product_id: 139
   position: 3
   product_id: 130
+  quantity_handler: population
   quantity_population: 15.0
+  quantity_value: 15.0
   reference_name: wine
   type: InterventionInput
   updated_at: 2014-11-07 19:36:59.081425000 Z
@@ -594,7 +622,9 @@ intervention_inputs_015:
   outcoming_product_id: 140
   position: 5
   product_id: 135
+  quantity_handler: population
   quantity_population: 2004.0
+  quantity_value: 2004.0
   reference_name: bottles
   type: InterventionInput
   updated_at: 2014-11-07 19:36:59.149265000 Z
@@ -609,7 +639,9 @@ intervention_inputs_016:
   outcoming_product_id: 141
   position: 7
   product_id: 136
+  quantity_handler: population
   quantity_population: 1520.0
+  quantity_value: 1520.0
   reference_name: corks
   type: InterventionInput
   updated_at: 2014-11-07 19:36:59.212241000 Z

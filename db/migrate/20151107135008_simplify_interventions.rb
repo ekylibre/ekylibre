@@ -625,7 +625,7 @@ class SimplifyInterventions < ActiveRecord::Migration
     execute <<SQL
       UPDATE intervention_parameters
       SET outcoming_product_id = intervention_parameters.product_id,
-        product_id = origin.product_id
+        product_id = origin.product_id, quantity_handler = 'population', quantity_value = intervention_parameters.quantity_population
       FROM interventions AS i,
         intervention_parameters AS origin JOIN interventions AS oi ON (oi.id = origin.intervention_id)
       WHERE oi.id = i.id AND i.id = intervention_parameters.intervention_id AND (
@@ -837,27 +837,6 @@ SQL
       FROM interventions AS i
       WHERE i.id = intervention_id
 SQL
-    # Rename interventions
-    execute <<SQL
-      UPDATE interventions
-      SET reference_name = CASE
-         WHEN reference_name = 'base-animal_treatment-0'                          THEN 'base-animal_antibiotic_treatment-0'
-         WHEN reference_name = 'base-calving_one-0'                               THEN 'base-parturition-0'
-         WHEN reference_name = 'base-egg_production-0'                            THEN 'base-egg_collecting-0'
-         WHEN reference_name = 'base-grains_harvest-0'                            THEN 'base-mechanical_harvesting-0'
-         WHEN reference_name = 'base-grinding-0'                                  THEN 'base-crop_residues_grinding-0'
-         WHEN reference_name = 'base-implanting-0'                                THEN 'base-mechanical_planting-0'
-         WHEN reference_name = 'base-item_replacement-0'                          THEN 'base-equipment_item_replacement-0'
-         WHEN reference_name = 'base-mammal_milking-0'                            THEN 'base-milking-0'
-         WHEN reference_name = 'base-mineral_fertilizing-0'                       THEN 'base-mechanical_fertilizing-0'
-         WHEN reference_name = 'base-plastic_mulching-0'                          THEN 'base-plant_mulching-0'
-         WHEN reference_name = 'base-sorting-0'                                   THEN 'base-field_plant_sorting-0'
-         WHEN reference_name = 'base-sowing_with_insecticide_and_molluscicide-0'  THEN 'base-sowing_with_spraying-0'
-         WHEN reference_name = 'base-spraying_on_cultivation-0'                   THEN 'base-spraying-0'
-         WHEN reference_name = 'base-watering-0'                                  THEN 'base-plant_watering-0'
-        ELSE reference_name END
-      WHERE reference_name IN ('base-animal_treatment-0', 'base-calving_one-0', 'base-egg_production-0', 'base-grains_harvest-0', 'base-grinding-0', 'base-implanting-0', 'base-item_replacement-0', 'base-mammal_milking-0', 'base-mineral_fertilizing-0', 'base-plastic_mulching-0', 'base-sorting-0', 'base-sowing_with_insecticide_and_molluscicide-0', 'base-spraying_on_cultivation-0', 'base-watering-0')
-SQL
     # Merge interventions
     execute <<SQL
       DELETE FROM intervention_parameters
@@ -933,5 +912,51 @@ SQL
     # Remove not wanted interventions
     execute "DELETE FROM intervention_parameters WHERE intervention_id IN (SELECT id FROM interventions WHERE reference_name IN ('base-administrative_task-0', 'base-attach-0', 'base-detach-0', 'base-double_chemical_mixing-0', 'base-double_seed_mixing-0', 'base-filling-0', 'base-group_exclusion-0', 'base-group_inclusion-0', 'base-maintenance_task-0', 'base-product_evolution-0', 'base-product_moving-0', 'base-technical_task-0', 'base-triple_seed_mixing-0'))"
     execute "DELETE FROM interventions WHERE reference_name IN ('base-administrative_task-0', 'base-attach-0', 'base-detach-0', 'base-double_chemical_mixing-0', 'base-double_seed_mixing-0', 'base-filling-0', 'base-group_exclusion-0', 'base-group_inclusion-0', 'base-maintenance_task-0', 'base-product_evolution-0', 'base-product_moving-0', 'base-technical_task-0', 'base-triple_seed_mixing-0')"
+    # Rename interventions
+    execute <<SQL
+      UPDATE interventions
+      SET reference_name = CASE
+         WHEN reference_name = 'base-animal_treatment-0'                          THEN 'base-animal_antibiotic_treatment-0'
+         WHEN reference_name = 'base-calving_one-0'                               THEN 'base-parturition-0'
+         WHEN reference_name = 'base-egg_production-0'                            THEN 'base-egg_collecting-0'
+         WHEN reference_name = 'base-grains_harvest-0'                            THEN 'base-mechanical_harvesting-0'
+         WHEN reference_name = 'base-grinding-0'                                  THEN 'base-crop_residues_grinding-0'
+         WHEN reference_name = 'base-implanting-0'                                THEN 'base-mechanical_planting-0'
+         WHEN reference_name = 'base-item_replacement-0'                          THEN 'base-equipment_item_replacement-0'
+         WHEN reference_name = 'base-mammal_milking-0'                            THEN 'base-milking-0'
+         WHEN reference_name = 'base-mineral_fertilizing-0'                       THEN 'base-mechanical_fertilizing-0'
+         WHEN reference_name = 'base-plastic_mulching-0'                          THEN 'base-plant_mulching-0'
+         WHEN reference_name = 'base-sorting-0'                                   THEN 'base-field_plant_sorting-0'
+         WHEN reference_name = 'base-sowing_with_insecticide_and_molluscicide-0'  THEN 'base-sowing_with_spraying-0'
+         WHEN reference_name = 'base-spraying_on_cultivation-0'                   THEN 'base-spraying-0'
+         WHEN reference_name = 'base-watering-0'                                  THEN 'base-plant_watering-0'
+        ELSE reference_name END
+      WHERE reference_name IN ('base-animal_treatment-0', 'base-calving_one-0', 'base-egg_production-0', 'base-grains_harvest-0', 'base-grinding-0', 'base-implanting-0', 'base-item_replacement-0', 'base-mammal_milking-0', 'base-mineral_fertilizing-0', 'base-plastic_mulching-0', 'base-sorting-0', 'base-sowing_with_insecticide_and_molluscicide-0', 'base-spraying_on_cultivation-0', 'base-watering-0')
+SQL
+    # Rename interventions
+    execute <<SQL
+      UPDATE interventions
+      SET reference_name = CASE
+         WHEN reference_name = 'base-calving_twin-0'                              THEN 'base-parturition-0'
+         WHEN reference_name = 'base-chemical_weed_killing-0'                     THEN 'base-spraying-0'
+         WHEN reference_name = 'base-double_spraying_on_cultivation-0'            THEN 'base-spraying-0'
+         WHEN reference_name = 'base-double_spraying_on_land_parcel-0'            THEN 'base-spraying-0'
+         WHEN reference_name = 'base-spraying_on_land_parcel-0'                   THEN 'base-spraying-0'
+         WHEN reference_name = 'base-triple_spraying_on_cultivation-0'            THEN 'base-spraying-0'
+         WHEN reference_name = 'base-harvest_helping-0'                           THEN 'base-mechanical_harvesting-0'
+         WHEN reference_name = 'base-hazelnuts_harvest-0'                         THEN 'base-mechanical_harvesting-0'
+         WHEN reference_name = 'base-plants_harvest-0'                            THEN 'base-mechanical_harvesting-0'
+         WHEN reference_name = 'base-plums_harvest-0'                             THEN 'base-mechanical_harvesting-0'
+         WHEN reference_name = 'base-vine_harvest-0'                              THEN 'base-mechanical_harvesting-0'
+         WHEN reference_name = 'base-walnuts_harvest-0'                           THEN 'base-mechanical_harvesting-0'
+         WHEN reference_name = 'base-implant_helping-0'                           THEN 'base-mechanical_planting-0'
+         WHEN reference_name = 'base-mammal_herd_milking-0'                       THEN 'base-milking-0'
+         WHEN reference_name = 'base-organic_fertilizing-0'                       THEN 'base-mechanical_fertilizing-0'
+         WHEN reference_name = 'base-plant_grinding-0'                            THEN 'base-crop_residues_grinding-0'
+         WHEN reference_name = 'base-double_food_mixing-0'                        THEN 'base-food_preparation-0'
+         WHEN reference_name = 'base-triple_food_mixing-0'                        THEN 'base-food_preparation-0'
+        ELSE reference_name END
+      WHERE reference_name IN ('base-calving_twin-0', 'base-chemical_weed_killing-0', 'base-double_spraying_on_cultivation-0', 'base-double_spraying_on_land_parcel-0', 'base-spraying_on_land_parcel-0', 'base-triple_spraying_on_cultivation-0', 'base-harvest_helping-0', 'base-hazelnuts_harvest-0', 'base-plants_harvest-0', 'base-plums_harvest-0', 'base-vine_harvest-0', 'base-walnuts_harvest-0', 'base-implant_helping-0', 'base-mammal_herd_milking-0', 'base-organic_fertilizing-0', 'base-plant_grinding-0', 'base-double_food_mixing-0', 'base-triple_food_mixing-0')
+SQL
   end
 end
