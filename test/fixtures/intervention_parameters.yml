@@ -92,7 +92,6 @@ intervention_doers_003:
   created_at: 2014-11-05 15:39:35.626436000 Z
   creator_id: 1
   event_participation_id: 23
-  group_id: 156
   id: 41
   intervention_id: 11
   lock_version: 0
@@ -123,7 +122,6 @@ intervention_doers_005:
   created_at: 2014-11-06 17:49:34.382240000 Z
   creator_id: 1
   event_participation_id: 25
-  group_id: 155
   id: 52
   intervention_id: 13
   lock_version: 0
@@ -184,7 +182,6 @@ intervention_doers_009:
   created_at: 2014-11-07 15:45:30.924281000 Z
   creator_id: 1
   event_participation_id: 29
-  group_id: 154
   id: 75
   intervention_id: 17
   lock_version: 0
@@ -349,7 +346,6 @@ intervention_doers_019:
 intervention_group_parameters_001:
   created_at: 2014-11-07 15:45:30.882661000 Z
   creator_id: 1
-  group_id: 154
   id: 154
   intervention_id: 17
   lock_version: 2
@@ -361,7 +357,6 @@ intervention_group_parameters_001:
 intervention_group_parameters_002:
   created_at: 2014-11-06 17:49:34.368349000 Z
   creator_id: 1
-  group_id: 155
   id: 155
   intervention_id: 13
   lock_version: 2
@@ -373,7 +368,6 @@ intervention_group_parameters_002:
 intervention_group_parameters_003:
   created_at: 2014-11-05 15:39:35.599908000 Z
   creator_id: 1
-  group_id: 156
   id: 156
   intervention_id: 11
   lock_version: 4
@@ -385,13 +379,12 @@ intervention_group_parameters_003:
 intervention_inputs_001:
   created_at: 2014-11-05 15:39:35.605810000 Z
   creator_id: 1
-  group_id: 156
   id: 39
   intervention_id: 11
   lock_version: 3
   outcoming_product_id: 89
   position: 2
-  product_id: 101
+  product_id: 53
   quantity_population: 20.0001
   reference_name: seeds
   type: InterventionInput
@@ -401,13 +394,12 @@ intervention_inputs_001:
 intervention_inputs_002:
   created_at: 2014-11-06 17:49:34.371997000 Z
   creator_id: 1
-  group_id: 155
   id: 50
   intervention_id: 13
   lock_version: 1
   outcoming_product_id: 91
   position: 2
-  product_id: 101
+  product_id: 53
   quantity_population: 29.4553
   reference_name: seeds
   type: InterventionInput
@@ -462,7 +454,6 @@ intervention_inputs_005:
 intervention_inputs_006:
   created_at: 2014-11-07 15:45:30.886707000 Z
   creator_id: 1
-  group_id: 154
   id: 73
   intervention_id: 17
   lock_version: 1
@@ -1219,7 +1210,6 @@ intervention_tools_004:
 intervention_tools_005:
   created_at: 2014-11-05 15:39:35.607997000 Z
   creator_id: 1
-  group_id: 156
   id: 40
   intervention_id: 11
   lock_version: 0
@@ -1234,7 +1224,6 @@ intervention_tools_005:
 intervention_tools_006:
   created_at: 2014-11-05 15:39:35.630192000 Z
   creator_id: 1
-  group_id: 156
   id: 42
   intervention_id: 11
   lock_version: 0
@@ -1277,7 +1266,6 @@ intervention_tools_008:
 intervention_tools_009:
   created_at: 2014-11-06 17:49:34.373467000 Z
   creator_id: 1
-  group_id: 155
   id: 51
   intervention_id: 13
   lock_version: 0
@@ -1292,7 +1280,6 @@ intervention_tools_009:
 intervention_tools_010:
   created_at: 2014-11-06 17:49:34.385387000 Z
   creator_id: 1
-  group_id: 155
   id: 53
   intervention_id: 13
   lock_version: 0
@@ -1363,7 +1350,6 @@ intervention_tools_014:
 intervention_tools_015:
   created_at: 2014-11-07 15:45:30.888448000 Z
   creator_id: 1
-  group_id: 154
   id: 74
   intervention_id: 17
   lock_version: 0
@@ -1378,7 +1364,6 @@ intervention_tools_015:
 intervention_tools_016:
   created_at: 2014-11-07 15:45:30.928585000 Z
   creator_id: 1
-  group_id: 154
   id: 76
   intervention_id: 17
   lock_version: 0

@@ -1168,7 +1168,7 @@ product_natures_058:
 product_natures_059:
   active: true
   category_id: 25
-  created_at: 2015-12-23 08:40:16.600336000 Z
+  created_at: 2016-01-21 08:46:30.561727000 Z
   evolvable: false
   frozen_indicators_list: net_surface_area
   id: 59
@@ -1177,7 +1177,7 @@ product_natures_059:
   number: BUILDIPG
   population_counting: decimal
   reference_name: land_parcel
-  updated_at: 2015-12-23 08:40:16.600336000 Z
+  updated_at: 2016-01-21 08:46:30.561727000 Z
   variable_indicators_list: aluminium_concentration, available_water_capacity_per_area,
     boron_concentration, calcium_concentration, cation_exchange_capacity, cation_exchange_capacity_analysis_method,
     copper_concentration, iron_concentration, magnesium_concentration, manganese_concentration,

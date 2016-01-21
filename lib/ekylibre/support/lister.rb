@@ -27,7 +27,6 @@ module Ekylibre
         return nil unless index
         @list.delete_at(index)
       end
-
     end
   end
 end

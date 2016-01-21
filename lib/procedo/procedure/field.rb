@@ -63,7 +63,7 @@ module Procedo
           return Procedo::Formula.parse(code.to_s, options)
         rescue Procedo::Formula::SyntaxError => e
           raise (options[:message] || "Syntax error in #{code.inspect}.") + ' ' + e.message + "\n" +
-                code + "\n" + ('━' * e.failure_index) + '┛'
+          code + "\n" + ('━' * e.failure_index) + '┛'
         end
 
         # Detects environment variables for the given name

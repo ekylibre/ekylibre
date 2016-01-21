@@ -15,7 +15,7 @@ module Charta
       geom_ewkt = nil
       if coordinates.blank?
         geom_ewkt = empty_geometry(srs).to_ewkt
-      elsif coordinates.is_a?(self.class)
+      elsif coordinates.is_a?(::Charta::Geometry)
         geom_ewkt = coordinates.ewkt
       elsif coordinates.is_a?(Hash) || (coordinates.is_a?(String) && ::Charta::GeoJSON.valid?(coordinates)) # GeoJSON
         srid = srs ? find_srid(srs) : :WGS84

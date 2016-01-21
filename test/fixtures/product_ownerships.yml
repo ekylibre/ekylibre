@@ -882,202 +882,250 @@ product_ownerships_083:
   updated_at: 2015-09-17 13:40:58.111078000 Z
   updater_id: 1
 product_ownerships_084:
-  created_at: 2015-12-23 08:40:16.779060000 Z
+  created_at: 2016-01-21 08:46:30.881767000 Z
   id: 91
   lock_version: 0
   nature: unknown
   product_id: 145
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:16.779060000 Z
+  updated_at: 2016-01-21 08:46:30.881767000 Z
 product_ownerships_085:
-  created_at: 2015-12-23 08:40:16.995515000 Z
+  created_at: 2016-01-21 08:46:31.123207000 Z
   id: 92
   lock_version: 0
   nature: unknown
   product_id: 146
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:16.995515000 Z
+  updated_at: 2016-01-21 08:46:31.123207000 Z
 product_ownerships_086:
-  created_at: 2015-12-23 08:40:17.179886000 Z
+  created_at: 2016-01-21 08:46:31.290905000 Z
   id: 93
   lock_version: 0
   nature: unknown
   product_id: 147
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:17.179886000 Z
+  updated_at: 2016-01-21 08:46:31.290905000 Z
 product_ownerships_087:
-  created_at: 2015-12-23 08:40:17.316796000 Z
+  created_at: 2016-01-21 08:46:31.432508000 Z
   id: 94
   lock_version: 0
   nature: unknown
   product_id: 148
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:17.316796000 Z
+  updated_at: 2016-01-21 08:46:31.432508000 Z
 product_ownerships_088:
-  created_at: 2015-12-23 08:40:17.462820000 Z
+  created_at: 2016-01-21 08:46:31.579697000 Z
   id: 95
   lock_version: 0
   nature: unknown
   product_id: 149
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:17.462820000 Z
+  updated_at: 2016-01-21 08:46:31.579697000 Z
 product_ownerships_089:
-  created_at: 2015-12-23 08:40:17.793005000 Z
+  created_at: 2016-01-21 08:46:31.733224000 Z
   id: 96
   lock_version: 0
   nature: unknown
   product_id: 150
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:17.793005000 Z
+  updated_at: 2016-01-21 08:46:31.733224000 Z
 product_ownerships_090:
-  created_at: 2015-12-23 08:40:18.057523000 Z
+  created_at: 2016-01-21 08:46:31.881758000 Z
   id: 97
   lock_version: 0
   nature: unknown
   product_id: 151
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.057523000 Z
+  updated_at: 2016-01-21 08:46:31.881758000 Z
 product_ownerships_091:
-  created_at: 2015-12-23 08:40:18.409131000 Z
+  created_at: 2016-01-21 08:46:32.031455000 Z
   id: 98
   lock_version: 0
   nature: unknown
   product_id: 152
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.409131000 Z
+  updated_at: 2016-01-21 08:46:32.031455000 Z
 product_ownerships_092:
-  created_at: 2015-12-23 08:40:18.551866000 Z
+  created_at: 2016-01-21 08:46:32.160486000 Z
   id: 99
   lock_version: 0
   nature: unknown
   product_id: 153
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.551866000 Z
+  updated_at: 2016-01-21 08:46:32.160486000 Z
 product_ownerships_093:
-  created_at: 2015-12-23 08:40:18.678618000 Z
+  created_at: 2016-01-21 08:46:32.289627000 Z
   id: 100
   lock_version: 0
   nature: unknown
   product_id: 154
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.678618000 Z
+  updated_at: 2016-01-21 08:46:32.289627000 Z
 product_ownerships_094:
-  created_at: 2015-12-23 08:40:18.805460000 Z
+  created_at: 2016-01-21 08:46:32.434316000 Z
   id: 101
   lock_version: 0
   nature: unknown
   product_id: 155
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.805460000 Z
+  updated_at: 2016-01-21 08:46:32.434316000 Z
 product_ownerships_095:
-  created_at: 2015-12-23 08:40:18.922488000 Z
+  created_at: 2016-01-21 08:46:32.607240000 Z
   id: 102
   lock_version: 0
   nature: unknown
   product_id: 156
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.922488000 Z
+  updated_at: 2016-01-21 08:46:32.607240000 Z
 product_ownerships_096:
-  created_at: 2015-12-23 08:40:19.044649000 Z
+  created_at: 2016-01-21 08:46:32.758395000 Z
   id: 103
   lock_version: 0
   nature: unknown
   product_id: 157
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.044649000 Z
+  updated_at: 2016-01-21 08:46:32.758395000 Z
 product_ownerships_097:
-  created_at: 2015-12-23 08:40:19.164953000 Z
+  created_at: 2016-01-21 08:46:32.911431000 Z
   id: 104
   lock_version: 0
   nature: unknown
   product_id: 158
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.164953000 Z
+  updated_at: 2016-01-21 08:46:32.911431000 Z
 product_ownerships_098:
-  created_at: 2015-12-23 08:40:19.319015000 Z
+  created_at: 2016-01-21 08:46:33.059597000 Z
   id: 105
   lock_version: 0
   nature: unknown
   product_id: 159
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.319015000 Z
+  updated_at: 2016-01-21 08:46:33.059597000 Z
 product_ownerships_099:
-  created_at: 2015-12-23 08:40:19.433560000 Z
+  created_at: 2016-01-21 08:46:33.202756000 Z
   id: 106
   lock_version: 0
   nature: unknown
   product_id: 160
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.433560000 Z
+  updated_at: 2016-01-21 08:46:33.202756000 Z
 product_ownerships_100:
-  created_at: 2015-12-23 08:40:19.548843000 Z
+  created_at: 2016-01-21 08:46:33.347839000 Z
   id: 107
   lock_version: 0
   nature: unknown
   product_id: 161
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.548843000 Z
+  updated_at: 2016-01-21 08:46:33.347839000 Z
 product_ownerships_101:
-  created_at: 2015-12-23 08:40:19.677797000 Z
+  created_at: 2016-01-21 08:46:33.472690000 Z
   id: 108
   lock_version: 0
   nature: unknown
   product_id: 162
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.677797000 Z
+  updated_at: 2016-01-21 08:46:33.472690000 Z
 product_ownerships_102:
-  created_at: 2015-12-23 08:40:19.799515000 Z
+  created_at: 2016-01-21 08:46:33.607093000 Z
   id: 109
   lock_version: 0
   nature: unknown
   product_id: 163
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.799515000 Z
+  updated_at: 2016-01-21 08:46:33.607093000 Z
 product_ownerships_103:
-  created_at: 2015-12-23 08:40:19.924573000 Z
+  created_at: 2016-01-21 08:46:33.774742000 Z
   id: 110
   lock_version: 0
   nature: unknown
   product_id: 164
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.924573000 Z
+  updated_at: 2016-01-21 08:46:33.774742000 Z
 product_ownerships_104:
-  created_at: 2015-12-23 08:40:20.049380000 Z
+  created_at: 2016-01-21 08:46:33.914837000 Z
   id: 111
   lock_version: 0
   nature: unknown
   product_id: 165
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.049380000 Z
+  updated_at: 2016-01-21 08:46:33.914837000 Z
 product_ownerships_105:
-  created_at: 2015-12-23 08:40:20.176526000 Z
+  created_at: 2016-01-21 08:46:34.048768000 Z
   id: 112
   lock_version: 0
   nature: unknown
   product_id: 166
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.176526000 Z
+  updated_at: 2016-01-21 08:46:34.048768000 Z
 product_ownerships_106:
-  created_at: 2015-12-23 08:40:20.314390000 Z
+  created_at: 2016-01-21 08:46:34.178524000 Z
   id: 113
   lock_version: 0
   nature: unknown
   product_id: 167
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.314390000 Z
+  updated_at: 2016-01-21 08:46:34.178524000 Z
 product_ownerships_107:
-  created_at: 2015-12-23 08:40:20.471559000 Z
+  created_at: 2016-01-21 08:46:34.309763000 Z
   id: 114
   lock_version: 0
   nature: unknown
   product_id: 168
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.471559000 Z
+  updated_at: 2016-01-21 08:46:34.309763000 Z
 product_ownerships_108:
-  created_at: 2015-12-23 08:40:20.595468000 Z
+  created_at: 2016-01-21 08:46:34.438687000 Z
   id: 115
   lock_version: 0
   nature: unknown
   product_id: 169
   started_at: 0001-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.595468000 Z
+  updated_at: 2016-01-21 08:46:34.438687000 Z
+product_ownerships_109:
+  created_at: 2016-01-21 08:46:34.567366000 Z
+  id: 116
+  lock_version: 0
+  nature: unknown
+  product_id: 170
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:34.567366000 Z
+product_ownerships_110:
+  created_at: 2016-01-21 08:46:34.697870000 Z
+  id: 117
+  lock_version: 0
+  nature: unknown
+  product_id: 171
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:34.697870000 Z
+product_ownerships_111:
+  created_at: 2016-01-21 08:46:34.869067000 Z
+  id: 118
+  lock_version: 0
+  nature: unknown
+  product_id: 172
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:34.869067000 Z
+product_ownerships_112:
+  created_at: 2016-01-21 08:46:35.030805000 Z
+  id: 119
+  lock_version: 0
+  nature: unknown
+  product_id: 173
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:35.030805000 Z
+product_ownerships_113:
+  created_at: 2016-01-21 08:46:35.170670000 Z
+  id: 120
+  lock_version: 0
+  nature: unknown
+  product_id: 174
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:35.170670000 Z
+product_ownerships_114:
+  created_at: 2016-01-21 08:46:35.307440000 Z
+  id: 121
+  lock_version: 0
+  nature: unknown
+  product_id: 175
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:35.307440000 Z

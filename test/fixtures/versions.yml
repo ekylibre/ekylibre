@@ -11215,7 +11215,7 @@ versions_220:
     title:
   item_type: Entity
 versions_221:
-  created_at: 2015-12-23 08:40:15.962416000 Z
+  created_at: 2016-01-21 08:46:29.813539000 Z
   event: create
   id: 258
   item_id: 17
@@ -11255,12 +11255,12 @@ versions_221:
     picture_content_type:
     picture_file_size:
     picture_updated_at:
-    created_at: 2015-12-23 08:40:15.942441000 Z
+    created_at: 2016-01-21 08:46:29.784800000 Z
     creator_id:
     title:
   item_type: Entity
 versions_222:
-  created_at: 2015-12-23 08:40:16.714863000 Z
+  created_at: 2016-01-21 08:46:30.821805000 Z
   event: create
   id: 259
   item_id: 145
@@ -11277,7 +11277,7 @@ versions_222:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.25534E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11338,7 +11338,7 @@ versions_222:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -11350,15 +11350,15 @@ versions_222:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:16.709669000 Z
+    created_at: 2016-01-21 08:46:30.816834000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 7d658bb9-e347-41d6-9015-c596ef873b66
+    uuid: bae5e052-eabc-4c05-9a87-baa06bde0268
     initial_movement_id:
   item_type: Product
 versions_223:
-  created_at: 2015-12-23 08:40:16.977113000 Z
+  created_at: 2016-01-21 08:46:31.105675000 Z
   event: create
   id: 260
   item_id: 146
@@ -11375,7 +11375,7 @@ versions_223:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.49989E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11443,7 +11443,7 @@ versions_223:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -11455,15 +11455,15 @@ versions_223:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:16.973840000 Z
+    created_at: 2016-01-21 08:46:31.100996000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: b931339d-3580-495b-9650-0e785f65e559
+    uuid: 9ecccfc9-d9d8-4a5f-9f99-e769e161451f
     initial_movement_id:
   item_type: Product
 versions_224:
-  created_at: 2015-12-23 08:40:17.160962000 Z
+  created_at: 2016-01-21 08:46:31.243062000 Z
   event: create
   id: 261
   item_id: 147
@@ -11480,7 +11480,7 @@ versions_224:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.12768E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11526,7 +11526,7 @@ versions_224:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -11538,15 +11538,15 @@ versions_224:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:17.157013000 Z
+    created_at: 2016-01-21 08:46:31.240103000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 97a7fd5f-30f1-47b2-8fb2-6238143a305c
+    uuid: 2247d09d-f3a3-40dd-a3aa-a8a035b4e119
     initial_movement_id:
   item_type: Product
 versions_225:
-  created_at: 2015-12-23 08:40:17.298633000 Z
+  created_at: 2016-01-21 08:46:31.414987000 Z
   event: create
   id: 262
   item_id: 148
@@ -11563,7 +11563,7 @@ versions_225:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.6467E0
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11607,7 +11607,7 @@ versions_225:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -11619,15 +11619,15 @@ versions_225:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:17.295127000 Z
+    created_at: 2016-01-21 08:46:31.411920000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 0237ee32-8de6-4497-80b9-d70ff5e24130
+    uuid: 508aee68-8ff2-4824-8277-78037f881a25
     initial_movement_id:
   item_type: Product
 versions_226:
-  created_at: 2015-12-23 08:40:17.442807000 Z
+  created_at: 2016-01-21 08:46:31.563358000 Z
   event: create
   id: 263
   item_id: 149
@@ -11644,7 +11644,7 @@ versions_226:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.1206E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11694,7 +11694,7 @@ versions_226:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -11706,22 +11706,22 @@ versions_226:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:17.438590000 Z
+    created_at: 2016-01-21 08:46:31.560190000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 250963f8-0be3-4387-ac24-e717029fab9e
+    uuid: da4ebbb7-4466-4523-8da1-e901f84b03b6
     initial_movement_id:
   item_type: Product
 versions_227:
-  created_at: 2015-12-23 08:40:17.767177000 Z
+  created_at: 2016-01-21 08:46:31.716335000 Z
   event: create
   id: 264
   item_id: 150
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
     id: 150
     type: LandParcel
-    name: 'ZC-017005218-8-3 #1'
+    name: 'ZC-017005218-6-1 #2'
     number: PR00000000094
     variant_id: 69
     nature_id: 59
@@ -11731,7 +11731,200 @@ versions_227:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.9712E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7958136103262110 45.8205957862590978, -0.7951309756600500
+        45.8206244957227966, -0.7944580175572100 45.8206476008045982, -0.7942814903093380
+        45.8206578988385971, -0.7940856374741760 45.8206775704670974, -0.7938830698449140
+        45.8207180611792992, -0.7936997171137961 45.8207647283450967, -0.7934760799049010
+        45.8208216421079015, -0.7933762186827220 45.8208409614870007, -0.7932299242377880
+        45.8208686373126000, -0.7926895320086350 45.8210891058195031, -0.7928215510143740
+        45.8213111278753971, -0.7930463195604200 45.8217412277263989, -0.7932350130026780
+        45.8221230169452980, -0.7934333319984110 45.8225432815801028, -0.7936303083373700
+        45.8228811262425992, -0.7938121129418960 45.8231619747001986, -0.7942895780755440
+        45.8239404144450972, -0.7945649401985680 45.8244828611297024, -0.7946105262863860
+        45.8245092190590029, -0.7953616317671069 45.8243684312051016, -0.7964277736426510
+        45.8241703243376008, -0.7967352844990570 45.8241139731345015, -0.7965878827615380
+        45.8239402184613027, -0.7963769384826340 45.8236807675673035, -0.7962888077520850
+        45.8235665176527007, -0.7962264575468710 45.8234634710851978, -0.7962041081530250
+        45.8233703201435034, -0.7961983063483600 45.8232694471843018, -0.7962055037941670
+        45.8231812812963000, -0.7962818066227200 45.8227833798389028, -0.7963540981339480
+        45.8223598077680023, -0.7963799822923420 45.8221798015553006, -0.7964208004617290
+        45.8220194124411009, -0.7964486378363230 45.8219468807304011, -0.7965067062383850
+        45.8218366206638024, -0.7966096777622910 45.8216742811100985, -0.7966675594422959
+        45.8216078931083004, -0.7967416193256640 45.8215388818334972, -0.7968846087394170
+        45.8214342928923983, -0.7969810234494870 45.8213710618058983, -0.7971772969252900
+        45.8212538260653020, -0.7973391255547870 45.8211509582914971, -0.7974211952927960
+        45.8210811252535990, -0.7975081836858821 45.8209847089986013, -0.7975103263551900
+        45.8209575250831023, -0.7972033764185860 45.8208313600749975, -0.7969723886768409
+        45.8207400331013019, -0.7967807952862800 45.8206784542921000, -0.7966391802561220
+        45.8206431168879007, -0.7964512322044620 45.8205975874952998, -0.7962854061166720
+        45.8205829853425968, -0.7960399689633439 45.8205828323007012, -0.7958136103262110
+        45.8205957862590978)))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2015-01-01 00:00:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-01-21 08:46:31.713155000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid: 6674a24b-d189-41fc-83b3-677f9227c089
+    initial_movement_id:
+  item_type: Product
+versions_228:
+  created_at: 2016-01-21 08:46:31.863280000 Z
+  event: create
+  id: 265
+  item_id: 151
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 151
+    type: LandParcel
+    name: 'ZC-017005218-7-1 #3'
+    number: PR00000000095
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    initial_born_at: 2015-01-01 00:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.42445E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7965163738624690 45.8257557825475033, -0.7965294167624870
+        45.8257923282732023, -0.7966685307224930 45.8262181745976989, -0.7967103783485340
+        45.8264536364930990, -0.7967575171346160 45.8267214323726009, -0.7967861622284480
+        45.8268500172127986, -0.7968419271799220 45.8268758128397025, -0.7971108257778150
+        45.8268371463586988, -0.7974389309707630 45.8267518016891984, -0.7976289505223780
+        45.8266804027947998, -0.7977765920530721 45.8266041991126016, -0.7979177437172780
+        45.8265008304344974, -0.7980337652832590 45.8263521135760996, -0.7980702969214830
+        45.8262479326227989, -0.7980766030913250 45.8261074363327978, -0.7980615813140280
+        45.8259967493944984, -0.7980088494378370 45.8258756963245020, -0.7979623485135300
+        45.8258151347169971, -0.7978859376172480 45.8257093652073024, -0.7977324576850000
+        45.8255490895759010, -0.7975834149678330 45.8253843803697976, -0.7974418937765760
+        45.8252243384807016, -0.7973508496364100 45.8251082029884031, -0.7972506615441510
+        45.8249311420577996, -0.7970666052265249 45.8246356286170027, -0.7968295006096960
+        45.8242607806422981, -0.7967355682583230 45.8241276695940982, -0.7964628277174600
+        45.8241779990685032, -0.7953088963546820 45.8243973417256001, -0.7946193206255330
+        45.8245227537610020, -0.7948631757746510 45.8249540789722971, -0.7951011986757610
+        45.8254196138210972, -0.7953442693548900 45.8259288985053033, -0.7957032691261940
+        45.8258690879844011, -0.7963777044333890 45.8257311104909988, -0.7964789905499340
+        45.8257261580983979, -0.7965163738624690 45.8257557825475033)))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2015-01-01 00:00:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-01-21 08:46:31.860120000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid: 53d4384d-e0e3-4840-9dea-9009be9229e4
+    initial_movement_id:
+  item_type: Product
+versions_229:
+  created_at: 2016-01-21 08:46:32.016184000 Z
+  event: create
+  id: 266
+  item_id: 152
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 152
+    type: LandParcel
+    name: 'ZC-017005218-8-3 #1'
+    number: PR00000000096
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    initial_born_at: 2015-01-01 00:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.33423E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11778,7 +11971,7 @@ versions_227:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -11790,23 +11983,23 @@ versions_227:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:17.762808000 Z
+    created_at: 2016-01-21 08:46:32.013499000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 497c54f5-d46c-41f4-b47c-15759e9e008f
+    uuid: f3c9ad3c-1f77-414b-9acf-68c23209ed01
     initial_movement_id:
   item_type: Product
-versions_228:
-  created_at: 2015-12-23 08:40:18.038590000 Z
+versions_230:
+  created_at: 2016-01-21 08:46:32.145551000 Z
   event: create
-  id: 265
-  item_id: 151
+  id: 267
+  item_id: 153
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 151
+    id: 153
     type: LandParcel
-    name: 'ZC-017005218-8-2 #1'
-    number: PR00000000095
+    name: 'ZC-017005218-8-1 #1'
+    number: PR00000000097
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -11815,7 +12008,97 @@ versions_228:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.33843E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7852636909296210 45.8295795369011003, -0.7852881212351390
+        45.8296191330142975, -0.7850952988284640 45.8297925705589009, -0.7848085111184721
+        45.8300884235029997, -0.7844634325459930 45.8305293474504012, -0.7841698109508169
+        45.8308667311033986, -0.7840158511912240 45.8310676826819972, -0.7840174521408390
+        45.8311096662752036, -0.7842346462663260 45.8311396896585990, -0.7842850567204650
+        45.8311562292741996, -0.7843075865456920 45.8311888961803007, -0.7842979689098750
+        45.8312388458653999, -0.7842250306002770 45.8313375076194021, -0.7842096808656230
+        45.8313923887993013, -0.7842065639467790 45.8315147790371995, -0.7841916599849960
+        45.8316849567956979, -0.7842209654913410 45.8317131269291025, -0.7842720402475050
+        45.8317619162359975, -0.7844134234580910 45.8318312011632969, -0.7846401942852330
+        45.8319265068649031, -0.7848037941809640 45.8320087432872967, -0.7849360644516750
+        45.8320602079840000, -0.7851440314112400 45.8321921971501993, -0.7852550807899500
+        45.8322397113424032, -0.7853218829860940 45.8322342471895965, -0.7853883848550010
+        45.8323230801721024, -0.7857642437079900 45.8318334159025014, -0.7859813144250080
+        45.8315160465614966, -0.7863466770089680 45.8311221425404014, -0.7866342775014400
+        45.8308381855273979, -0.7866948045244430 45.8307202851437978, -0.7860863854270930
+        45.8302257144576970, -0.7852636909296210 45.8295795369011003)))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2015-01-01 00:00:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-01-21 08:46:32.142751000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid: 1b1b87ed-6973-4559-b531-2b5053312cc4
+    initial_movement_id:
+  item_type: Product
+versions_231:
+  created_at: 2016-01-21 08:46:32.274733000 Z
+  event: create
+  id: 268
+  item_id: 154
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 154
+    type: LandParcel
+    name: 'ZC-017005218-8-2 #1'
+    number: PR00000000098
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    initial_born_at: 2015-01-01 00:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.40579E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11869,7 +12152,7 @@ versions_228:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -11881,23 +12164,23 @@ versions_228:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:18.034632000 Z
+    created_at: 2016-01-21 08:46:32.271914000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 08056755-d62f-4bc0-9c3c-edf8cda0434e
+    uuid: 383d61a9-a2ab-4764-ba1e-faad51edabe9
     initial_movement_id:
   item_type: Product
-versions_229:
-  created_at: 2015-12-23 08:40:18.392046000 Z
+versions_232:
+  created_at: 2016-01-21 08:46:32.419224000 Z
   event: create
-  id: 266
-  item_id: 152
+  id: 269
+  item_id: 155
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 152
+    id: 155
     type: LandParcel
-    name: 'ZC-017005218-10-1 #1'
-    number: PR00000000096
+    name: 'ZC-017005218-9-1 #1'
+    number: PR00000000099
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -11906,7 +12189,272 @@ versions_229:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.72782E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7992691840824930 45.8222166412026013, -0.7964513719672860
+        45.8223999757516012, -0.7964148969886580 45.8226349260796013, -0.7963671679368510
+        45.8228924065384007, -0.7962646980772780 45.8231462290614004, -0.7963085634640390
+        45.8232878726810000, -0.7963334415891720 45.8233821096320995, -0.7963167521503750
+        45.8234068627863991, -0.7964530827726120 45.8236527341541020, -0.7965198784037880
+        45.8237108320992022, -0.7968785648565940 45.8241680732971020, -0.7970456162161390
+        45.8244321826108987, -0.7973134441634320 45.8248512777656032, -0.7974392215855560
+        45.8250521895365992, -0.7976888284068669 45.8253650843236997, -0.7979100318886670
+        45.8256016469152030, -0.7981117766006420 45.8258156531149012, -0.7982140895238620
+        45.8259129021553022, -0.7984405481558040 45.8258429592774021, -0.7991460523658630
+        45.8256186125378022, -0.7993058838550210 45.8255633563944969, -0.7993259209723200
+        45.8250064116561973, -0.7993328925726370 45.8245422175846002, -0.7993559608374780
+        45.8239106679875974, -0.7993942701628109 45.8234364603364028, -0.7994112801887100
+        45.8232203623335010, -0.7994245265385530 45.8232201895325986, -0.7992691840824930
+        45.8222166412026013)))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2015-01-01 00:00:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-01-21 08:46:32.416341000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid: e3afbe46-9324-48f4-baeb-873a18570225
+    initial_movement_id:
+  item_type: Product
+versions_233:
+  created_at: 2016-01-21 08:46:32.589744000 Z
+  event: create
+  id: 270
+  item_id: 156
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 156
+    type: LandParcel
+    name: 'ZC-017005218-9-3 #1'
+    number: PR00000000100
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    initial_born_at: 2015-01-01 00:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.48002E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.8017876816940400 45.8220527208855017, -0.7992691840824930
+        45.8222166412026013, -0.7994245265385530 45.8232201895325986, -0.7994624605664340
+        45.8232196931250968, -0.7994315088571970 45.8236672471686006, -0.7993913550115150
+        45.8242464564511991, -0.7993810289037560 45.8243782802694000, -0.8003409739662170
+        45.8243199745797014, -0.8015894690402370 45.8242443627102034, -0.8018491257594180
+        45.8242299783829026, -0.8019038964363490 45.8239049488864012, -0.8019149868816040
+        45.8238401893772007, -0.8019019040978690 45.8237545027974988, -0.8019380655648650
+        45.8237460371088972, -0.8019778409284410 45.8234992260208003, -0.8020083971214790
+        45.8232626613300980, -0.8020251930473020 45.8230986479222011, -0.8020337514914611
+        45.8230141994091014, -0.8020216853355990 45.8228559851957016, -0.8019716851570750
+        45.8225660427056027, -0.8019398304801570 45.8224227259158994, -0.8018473608907351
+        45.8221998027223023, -0.8017876816940400 45.8220527208855017)))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2015-01-01 00:00:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-01-21 08:46:32.585644000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid: 980ee640-4cd7-479b-a54c-9da510d6e3c9
+    initial_movement_id:
+  item_type: Product
+versions_234:
+  created_at: 2016-01-21 08:46:32.742379000 Z
+  event: create
+  id: 271
+  item_id: 157
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 157
+    type: LandParcel
+    name: 'ZC-017005218-9-2 #2'
+    number: PR00000000101
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    initial_born_at: 2015-01-01 00:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.49359E1
+    initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
+      factory: !ruby/object:RGeo::Geos::CAPIFactory
+        has_z_coordinate: false
+        has_m_coordinate: false
+        srid: 4326
+        buffer_resolution: 1
+        lenient_multi_polygon_assertions: false
+        wkt_generator:
+          tag_format: wkt11
+          emit_ewkt_srid:
+          square_brackets: false
+          convert_case: upper
+        wkb_generator:
+          type_format: wkb11
+          emit_ewkb_srid:
+          hex_format: false
+          little_endian: false
+        wkt_parser:
+          support_ewkt: false
+          support_wkt12: false
+          strict_wkt11: false
+          ignore_extra_tokens: false
+          default_srid:
+        wkb_parser:
+          support_ewkb: false
+          support_wkb12: false
+          ignore_extra_bytes: false
+          default_srid:
+        auto_prepare: simple
+      wkt: MULTIPOLYGON (((-0.7964749948888480 45.8222478037722993, -0.7964513719672860
+        45.8223999757516012, -0.8017876816940400 45.8220527208855017, -0.8017576185351950
+        45.8219786285390001, -0.8016305977983210 45.8217083133937990, -0.8015753275870580
+        45.8215945840178023, -0.8015301975359850 45.8214640690246995, -0.8015150127112930
+        45.8213751617513978, -0.8015030236602960 45.8212276948657973, -0.8015168876367710
+        45.8211186459919020, -0.8015405841726650 45.8209986070286988, -0.8015756255093670
+        45.8208496315429983, -0.8015811050073099 45.8208195367064022, -0.8015417531493430
+        45.8208147030836983, -0.8010786090008580 45.8208411190630969, -0.8006670323018720
+        45.8208861638491030, -0.8003411494124570 45.8209099488847968, -0.7998857518477470
+        45.8209849171466033, -0.7994473712135520 45.8210593105947979, -0.7991001719364440
+        45.8211502221070006, -0.7989148330445490 45.8211768127139010, -0.7987197970669030
+        45.8211833782071025, -0.7985453488351970 45.8211789656700006, -0.7982505200537470
+        45.8211469536458011, -0.7979468365739700 45.8210932243233984, -0.7976571553012050
+        45.8210160609365005, -0.7976256749226330 45.8210299671851971, -0.7974696972445749
+        45.8211629931347986, -0.7973655775885430 45.8212521262514016, -0.7972093268207460
+        45.8213354008667011, -0.7970684562741440 45.8214102900687976, -0.7969286970184720
+        45.8214960664690025, -0.7968019541866130 45.8215946031894035, -0.7967237055638230
+        45.8216726535601993, -0.7965864257282030 45.8218738766108018, -0.7965155773841750
+        45.8220347171336968, -0.7964749948888480 45.8222478037722993)))
+    initial_father_id:
+    initial_mother_id:
+    variety: land_parcel
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2015-01-01 00:00:00.000000000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-01-21 08:46:32.739061000 Z
+    creator_id:
+    person_id:
+    initial_geolocation:
+    uuid: 4484c83b-cb39-4d6f-a8b6-6b66846b66f6
+    initial_movement_id:
+  item_type: Product
+versions_235:
+  created_at: 2016-01-21 08:46:32.895338000 Z
+  event: create
+  id: 272
+  item_id: 158
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 158
+    type: LandParcel
+    name: 'ZC-017005218-10-1 #1'
+    number: PR00000000102
+    variant_id: 69
+    nature_id: 59
+    category_id: 25
+    initial_born_at: 2015-01-01 00:00:00.000000000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id:
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.23814E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -11952,7 +12500,7 @@ versions_229:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -11964,23 +12512,23 @@ versions_229:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:18.388645000 Z
+    created_at: 2016-01-21 08:46:32.892057000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: b1933a39-2de1-4aab-b98f-2915dcb2e4e0
+    uuid: ebb77170-1c23-45f4-9e5f-7d7c8b6168ba
     initial_movement_id:
   item_type: Product
-versions_230:
-  created_at: 2015-12-23 08:40:18.535162000 Z
+versions_236:
+  created_at: 2016-01-21 08:46:33.043195000 Z
   event: create
-  id: 267
-  item_id: 153
+  id: 273
+  item_id: 159
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 153
+    id: 159
     type: LandParcel
     name: 'ZC-017005218-11-1 #1'
-    number: PR00000000097
+    number: PR00000000103
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -11989,7 +12537,7 @@ versions_230:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.23421E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12039,7 +12587,7 @@ versions_230:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12051,23 +12599,23 @@ versions_230:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:18.531826000 Z
+    created_at: 2016-01-21 08:46:33.039290000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: fe8025f0-7b16-4080-802b-0b89170e83da
+    uuid: ec5b095a-437c-4c6c-b987-5171ef506320
     initial_movement_id:
   item_type: Product
-versions_231:
-  created_at: 2015-12-23 08:40:18.661537000 Z
+versions_237:
+  created_at: 2016-01-21 08:46:33.186386000 Z
   event: create
-  id: 268
-  item_id: 154
+  id: 274
+  item_id: 160
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 154
+    id: 160
     type: LandParcel
     name: 'ZC-017005218-13-1 #1'
-    number: PR00000000098
+    number: PR00000000104
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12076,7 +12624,7 @@ versions_231:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.1944E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12126,7 +12674,7 @@ versions_231:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12138,23 +12686,23 @@ versions_231:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:18.658593000 Z
+    created_at: 2016-01-21 08:46:33.183494000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 198295bf-ad9f-45d5-8ef7-0183d3fb64f2
+    uuid: 65957a14-6226-439e-a089-f80aeeb39df9
     initial_movement_id:
   item_type: Product
-versions_232:
-  created_at: 2015-12-23 08:40:18.788562000 Z
+versions_238:
+  created_at: 2016-01-21 08:46:33.332330000 Z
   event: create
-  id: 269
-  item_id: 155
+  id: 275
+  item_id: 161
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 155
+    id: 161
     type: LandParcel
     name: 'ZC-017005218-14-1 #4'
-    number: PR00000000099
+    number: PR00000000105
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12163,7 +12711,7 @@ versions_232:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.60725E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12215,7 +12763,7 @@ versions_232:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12227,23 +12775,23 @@ versions_232:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:18.785665000 Z
+    created_at: 2016-01-21 08:46:33.329275000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 39e00561-b4ab-42fd-927b-4649a20c4a81
+    uuid: 720bd67e-b2e8-456c-9635-f1350b57edb0
     initial_movement_id:
   item_type: Product
-versions_233:
-  created_at: 2015-12-23 08:40:18.905637000 Z
+versions_239:
+  created_at: 2016-01-21 08:46:33.456819000 Z
   event: create
-  id: 270
-  item_id: 156
+  id: 276
+  item_id: 162
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 156
+    id: 162
     type: LandParcel
     name: 'ZC-017005218-14-2 #2'
-    number: PR00000000100
+    number: PR00000000106
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12252,7 +12800,7 @@ versions_233:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.35386E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12298,7 +12846,7 @@ versions_233:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12310,23 +12858,23 @@ versions_233:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:18.902768000 Z
+    created_at: 2016-01-21 08:46:33.453945000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 6dff8003-7fcd-430e-bfdc-9f3cce213774
+    uuid: a2acec3a-b2fc-4a98-a23c-3a388d6a2d68
     initial_movement_id:
   item_type: Product
-versions_234:
-  created_at: 2015-12-23 08:40:19.028116000 Z
+versions_240:
+  created_at: 2016-01-21 08:46:33.590790000 Z
   event: create
-  id: 271
-  item_id: 157
+  id: 277
+  item_id: 163
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 157
+    id: 163
     type: LandParcel
     name: 'ZC-017005218-15-1 #1'
-    number: PR00000000101
+    number: PR00000000107
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12335,7 +12883,7 @@ versions_234:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.55413E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12378,7 +12926,7 @@ versions_234:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12390,23 +12938,23 @@ versions_234:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:19.025104000 Z
+    created_at: 2016-01-21 08:46:33.587734000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: d03e75b7-93bc-4427-8331-5b1e8d8c74a6
+    uuid: e03f4930-c24d-4c83-967e-14ba4a3bff92
     initial_movement_id:
   item_type: Product
-versions_235:
-  created_at: 2015-12-23 08:40:19.148727000 Z
+versions_241:
+  created_at: 2016-01-21 08:46:33.758417000 Z
   event: create
-  id: 272
-  item_id: 158
+  id: 278
+  item_id: 164
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 158
+    id: 164
     type: LandParcel
     name: 'ZC-017005218-16-1 #2'
-    number: PR00000000102
+    number: PR00000000108
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12415,7 +12963,7 @@ versions_235:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.2039E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12456,7 +13004,7 @@ versions_235:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12468,23 +13016,23 @@ versions_235:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:19.145734000 Z
+    created_at: 2016-01-21 08:46:33.755308000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 98950036-f023-4bfe-b47c-0507628e1af9
+    uuid: 56e74a2f-aa20-425d-8e6a-e2eeead99232
     initial_movement_id:
   item_type: Product
-versions_236:
-  created_at: 2015-12-23 08:40:19.302455000 Z
+versions_242:
+  created_at: 2016-01-21 08:46:33.897729000 Z
   event: create
-  id: 273
-  item_id: 159
+  id: 279
+  item_id: 165
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 159
+    id: 165
     type: LandParcel
     name: 'ZC-017005218-17-1 #2'
-    number: PR00000000103
+    number: PR00000000109
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12493,7 +13041,7 @@ versions_236:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.57285E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12539,7 +13087,7 @@ versions_236:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12551,23 +13099,23 @@ versions_236:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:19.299446000 Z
+    created_at: 2016-01-21 08:46:33.894306000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 8f9fd0fa-9b24-4a24-918d-1c0c66fbd04e
+    uuid: ba0ec597-fab7-4a63-b9c7-46ca468abb67
     initial_movement_id:
   item_type: Product
-versions_237:
-  created_at: 2015-12-23 08:40:19.418594000 Z
+versions_243:
+  created_at: 2016-01-21 08:46:34.033102000 Z
   event: create
-  id: 274
-  item_id: 160
+  id: 280
+  item_id: 166
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 160
+    id: 166
     type: LandParcel
     name: 'ZC-017005218-19-1 #3'
-    number: PR00000000104
+    number: PR00000000110
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12576,7 +13124,7 @@ versions_237:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.2087E0
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12616,7 +13164,7 @@ versions_237:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12628,23 +13176,23 @@ versions_237:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:19.415539000 Z
+    created_at: 2016-01-21 08:46:34.029806000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 17d05bd1-5b2c-444f-823c-b87e08fb973b
+    uuid: 78418f92-57ab-4359-8b61-692dbaefac66
     initial_movement_id:
   item_type: Product
-versions_238:
-  created_at: 2015-12-23 08:40:19.531182000 Z
+versions_244:
+  created_at: 2016-01-21 08:46:34.162517000 Z
   event: create
-  id: 275
-  item_id: 161
+  id: 281
+  item_id: 167
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 161
+    id: 167
     type: LandParcel
     name: 'ZC-017005218-20-1 #4'
-    number: PR00000000105
+    number: PR00000000111
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12653,7 +13201,7 @@ versions_238:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.5827E0
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12693,7 +13241,7 @@ versions_238:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12705,23 +13253,23 @@ versions_238:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:19.528276000 Z
+    created_at: 2016-01-21 08:46:34.159676000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 5acb750e-c9a9-4def-bde8-d6678554b041
+    uuid: fb7dc508-6ab0-4be7-9055-6a8b77ff5d82
     initial_movement_id:
   item_type: Product
-versions_239:
-  created_at: 2015-12-23 08:40:19.661524000 Z
+versions_245:
+  created_at: 2016-01-21 08:46:34.293308000 Z
   event: create
-  id: 276
-  item_id: 162
+  id: 282
+  item_id: 168
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 162
+    id: 168
     type: LandParcel
     name: 'ZC-017005218-21-1 #5'
-    number: PR00000000106
+    number: PR00000000112
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12730,7 +13278,7 @@ versions_239:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.1063E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12780,7 +13328,7 @@ versions_239:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12792,23 +13340,23 @@ versions_239:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:19.657204000 Z
+    created_at: 2016-01-21 08:46:34.290372000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 5fdbdbeb-c4e1-4cbf-80cb-fe1335437a01
+    uuid: 436e09c2-f8f8-448c-8161-5c588fa9e7c1
     initial_movement_id:
   item_type: Product
-versions_240:
-  created_at: 2015-12-23 08:40:19.784453000 Z
+versions_246:
+  created_at: 2016-01-21 08:46:34.423874000 Z
   event: create
-  id: 277
-  item_id: 163
+  id: 283
+  item_id: 169
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 163
+    id: 169
     type: LandParcel
     name: 'ZC-017005218-22-1 #6'
-    number: PR00000000107
+    number: PR00000000113
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12817,7 +13365,7 @@ versions_240:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.14511E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12859,7 +13407,7 @@ versions_240:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12871,23 +13419,23 @@ versions_240:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:19.780771000 Z
+    created_at: 2016-01-21 08:46:34.420829000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: e2a84feb-602d-433f-868b-099809fc490f
+    uuid: e8449e29-aeab-4c36-beb2-73d0032aa095
     initial_movement_id:
   item_type: Product
-versions_241:
-  created_at: 2015-12-23 08:40:19.908960000 Z
+versions_247:
+  created_at: 2016-01-21 08:46:34.552828000 Z
   event: create
-  id: 278
-  item_id: 164
+  id: 284
+  item_id: 170
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 164
+    id: 170
     type: LandParcel
     name: 'ZC-017005218-23-1 #7'
-    number: PR00000000108
+    number: PR00000000114
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12896,7 +13444,7 @@ versions_241:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.3009E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -12936,7 +13484,7 @@ versions_241:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -12948,23 +13496,23 @@ versions_241:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:19.905684000 Z
+    created_at: 2016-01-21 08:46:34.549792000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 5ba5bb6c-a45d-4258-9ad5-b524b35483aa
+    uuid: a4eb0ac6-5a49-4fb4-8d8f-429a42b2cfb1
     initial_movement_id:
   item_type: Product
-versions_242:
-  created_at: 2015-12-23 08:40:20.032341000 Z
+versions_248:
+  created_at: 2016-01-21 08:46:34.679156000 Z
   event: create
-  id: 279
-  item_id: 165
+  id: 285
+  item_id: 171
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 165
+    id: 171
     type: LandParcel
     name: 'ZC-017005218-24-1 #3'
-    number: PR00000000109
+    number: PR00000000115
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -12973,7 +13521,7 @@ versions_242:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.37979E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13014,7 +13562,7 @@ versions_242:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -13026,23 +13574,23 @@ versions_242:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:20.028888000 Z
+    created_at: 2016-01-21 08:46:34.676086000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: 2e53e54c-bb60-4d2c-a786-3bb00a2e4e1a
+    uuid: eca1f2b1-c693-4137-89e5-bdd8024fe677
     initial_movement_id:
   item_type: Product
-versions_243:
-  created_at: 2015-12-23 08:40:20.161358000 Z
+versions_249:
+  created_at: 2016-01-21 08:46:34.852573000 Z
   event: create
-  id: 280
-  item_id: 166
+  id: 286
+  item_id: 172
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 166
+    id: 172
     type: LandParcel
     name: 'ZC-017005218-25-1 #1'
-    number: PR00000000110
+    number: PR00000000116
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -13051,7 +13599,7 @@ versions_243:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.81114E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13095,7 +13643,7 @@ versions_243:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -13107,23 +13655,23 @@ versions_243:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:20.158504000 Z
+    created_at: 2016-01-21 08:46:34.849212000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: e03b0b88-63bf-4646-8c1a-174eeb343e11
+    uuid: 5bb806b0-6aa7-43fc-a782-0566a034eccb
     initial_movement_id:
   item_type: Product
-versions_244:
-  created_at: 2015-12-23 08:40:20.296100000 Z
+versions_250:
+  created_at: 2016-01-21 08:46:35.013059000 Z
   event: create
-  id: 281
-  item_id: 167
+  id: 287
+  item_id: 173
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 167
+    id: 173
     type: LandParcel
     name: 'ZC-017005218-26-1 #4'
-    number: PR00000000111
+    number: PR00000000117
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -13132,7 +13680,7 @@ versions_244:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.120715E2
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13205,7 +13753,7 @@ versions_244:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -13217,23 +13765,23 @@ versions_244:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:20.292924000 Z
+    created_at: 2016-01-21 08:46:35.009465000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: b1c2736d-a171-4db3-8c8b-cafa5edee7ba
+    uuid: 94c928f9-d885-4bb8-9ca1-a7ae73f26bc3
     initial_movement_id:
   item_type: Product
-versions_245:
-  created_at: 2015-12-23 08:40:20.455249000 Z
+versions_251:
+  created_at: 2016-01-21 08:46:35.155137000 Z
   event: create
-  id: 282
-  item_id: 168
+  id: 288
+  item_id: 174
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 168
+    id: 174
     type: LandParcel
     name: 'ZC-017005218-27-1 #8'
-    number: PR00000000112
+    number: PR00000000118
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -13242,7 +13790,7 @@ versions_245:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.46746E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13285,7 +13833,7 @@ versions_245:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -13297,23 +13845,23 @@ versions_245:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:20.451926000 Z
+    created_at: 2016-01-21 08:46:35.151886000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: dd2364c7-e862-4672-b7a5-fd7db14c0b66
+    uuid: 6f76a47f-c866-4fc1-94d2-bd480509c274
     initial_movement_id:
   item_type: Product
-versions_246:
-  created_at: 2015-12-23 08:40:20.579477000 Z
+versions_252:
+  created_at: 2016-01-21 08:46:35.291562000 Z
   event: create
-  id: 283
-  item_id: 169
+  id: 289
+  item_id: 175
   item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-    id: 169
+    id: 175
     type: LandParcel
     name: 'ZC-017005218-28-1 #1'
-    number: PR00000000113
+    number: PR00000000119
     variant_id: 69
     nature_id: 59
     category_id: 25
@@ -13322,7 +13870,7 @@ versions_246:
     initial_container_id:
     initial_owner_id:
     initial_enjoyer_id:
-    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_population: !ruby/object:BigDecimal 18:0.23275E1
     initial_shape: !ruby/object:RGeo::Geos::CAPIMultiPolygonImpl
       factory: !ruby/object:RGeo::Geos::CAPIFactory
         has_z_coordinate: false
@@ -13365,7 +13913,7 @@ versions_246:
     derivative_of:
     tracking_id:
     fixed_asset_id:
-    born_at:
+    born_at: 2015-01-01 00:00:00.000000000 Z
     dead_at:
     description:
     picture_file_name:
@@ -13377,10 +13925,10 @@ versions_246:
     address_id:
     parent_id:
     default_storage_id:
-    created_at: 2015-12-23 08:40:20.576332000 Z
+    created_at: 2016-01-21 08:46:35.288480000 Z
     creator_id:
     person_id:
     initial_geolocation:
-    uuid: aec813a9-8268-4d21-beea-14da7d8f231b
+    uuid: df861802-a1b5-4556-8c8f-4325f8ebea6e
     initial_movement_id:
   item_type: Product

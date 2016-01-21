@@ -109,67 +109,63 @@ module SVF
         code << "if line.is_a?(#{line.class_name(@name)})\n"
         new_line = (line.has_children? ? sibling.line : 'line')
         code << "    #{sibling.line} = line\n" if line.has_children?
-        code << if sibling.range.max == 1
-        "    #{full_name} = #{new_line}\n"
+        code << sibling.range.max == 1 ? "    #{full_name} = #{new_line}\n" : "    #{full_name} << #{new_line}\n"
+        if line.to
+          code << "    line = #{options[:file]}.gets\n"
+          code << "    line_number += 1\n"
+          code << "    while (!line.nil? and line.match(/^#{line.to.gsub(/\ /, '\\ ')}\\ *$/))\n"
+          code << "      #{full_name}.text << line\n"
+          code << "      line = #{options[:file]}.gets\n"
+          code << "      line_number += 1\n"
+          code << "    end\n"
+        end
+        if line.has_children?
+          code << parse_code(line.children, file: options[:file], root: sibling.line, parents: siblings, all_parents: siblings + all_parents).strip.gsub(/^/, '    ') + "\n"
+        else
+          code << "    line = self.parse_line(#{options[:file]}.gets)\n"
+          code << "    line_number += 1\n"
+        end
+        code << '  els'
+      end
+      if parents.size > 0
+        
+        code << 'if [' + all_parents.collect { |s| fail([s, s.line].inspect) if @lines[s.line].nil?; @lines[s.line].class_name(@name) }.sort.join(', ') + "].include?(line.class)\n"
+        # code << "if "+all_parents.collect{|s| "line.is_a?(#{@lines[s.line].class_name(@name)})"}.join(" or ")+"\n"
+        code << "    break\n"
+        code << "  else\n"
+        rep = '[#{__LINE__}]'
+        code << "    raise StandardError.new(\"#{rep} Unexpected element at line \#{line_number}: \#{line.class.name}:\#{line.inspect}\")\n"
       else
-        "    #{full_name} << #{new_line}\n"
+        code << "e\n"
+        code << "    raise StandardError.new(\"#{rep} Unexpected element at line \#{line_number}: \#{line.class.name}:\#{line.inspect}\")\n"
       end
-      if line.to
-        code << "    line = #{options[:file]}.gets\n"
-        code << "    line_number += 1\n"
-        code << "    while (!line.nil? and line.match(/^#{line.to.gsub(/\ /, '\\ ')}\\ *$/))\n"
-        code << "      #{full_name}.text << line\n"
-        code << "      line = #{options[:file]}.gets\n"
-        code << "      line_number += 1\n"
-        code << "    end\n"
-      end
-      if line.has_children?
-        code << parse_code(line.children, file: options[:file], root: sibling.line, parents: siblings, all_parents: siblings + all_parents).strip.gsub(/^/, '    ') + "\n"
-      else
-        code << "    line = self.parse_line(#{options[:file]}.gets)\n"
-        code << "    line_number += 1\n"
-      end
-      code << '  els'
-    end
-    if parents.size > 0
+      code << "  end\n"
 
-      code << 'if [' + all_parents.collect { |s| fail([s, s.line].inspect) if @lines[s.line].nil?; @lines[s.line].class_name(@name) }.sort.join(', ') + "].include?(line.class)\n"
-      # code << "if "+all_parents.collect{|s| "line.is_a?(#{@lines[s.line].class_name(@name)})"}.join(" or ")+"\n"
-      code << "    break\n"
-      code << "  else\n"
-      rep = '[#{__LINE__}]'
-      code << "    raise StandardError.new(\"#{rep} Unexpected element at line \#{line_number}: \#{line.class.name}:\#{line.inspect}\")\n"
-    else
-      code << "e\n"
-      code << "    raise StandardError.new(\"#{rep} Unexpected element at line \#{line_number}: \#{line.class.name}:\#{line.inspect}\")\n"
-    end
-    code << "  end\n"
-
-    code << "end\n"
-    code
-  end
-
-  def build_code(siblings, options = {})
-    code = ''
-    var = options[:variable]
-    root = options[:root].to_s
-    # code << "_string )\n"
-    for sibling in siblings
-      line = @lines[sibling.line]
-      full_name = "#{root + '.' if options[:root]}#{sibling.name}"
-      code << "if #{sibling.name} = #{full_name}\n"
-      if sibling.range.max == 1
-        code << "  #{var} << #{sibling.name}.to_s\n"
-        code << build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '  ') + "\n" if line.has_children?
-      else
-        code << "  for #{sibling.line} in #{sibling.name}\n"
-        code << "    #{var} << #{sibling.line}.to_s\n"
-        code << build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '    ') + "\n" if line.has_children?
-        code << "  end\n"
-      end
       code << "end\n"
+      code
     end
-    code
+
+    def build_code(siblings, options = {})
+      code = ''
+      var = options[:variable]
+      root = options[:root].to_s
+      # code << "_string )\n"
+      for sibling in siblings
+        line = @lines[sibling.line]
+        full_name = "#{root + '.' if options[:root]}#{sibling.name}"
+        code << "if #{sibling.name} = #{full_name}\n"
+        if sibling.range.max == 1
+          code << "  #{var} << #{sibling.name}.to_s\n"
+          code << build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '  ') + "\n" if line.has_children?
+        else
+          code << "  for #{sibling.line} in #{sibling.name}\n"
+          code << "    #{var} << #{sibling.line}.to_s\n"
+          code << build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '    ') + "\n" if line.has_children?
+          code << "  end\n"
+        end
+        code << "end\n"
+      end
+      code
+    end
   end
-end
 end

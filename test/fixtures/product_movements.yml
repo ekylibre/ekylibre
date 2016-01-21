@@ -1524,227 +1524,281 @@ product_movements_132:
   updated_at: 2014-11-07 18:53:57.995416000 Z
   updater_id: 1
 product_movements_133:
-  created_at: 2015-12-23 08:40:16.816662000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:30.940130000 Z
+  delta: 2.5534
   id: 133
   lock_version: 0
-  population: 0.0
+  population: 2.5534
   product_id: 145
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:16.816662000 Z
+  updated_at: 2016-01-21 08:46:30.940130000 Z
 product_movements_134:
-  created_at: 2015-12-23 08:40:17.006618000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:31.138417000 Z
+  delta: 4.9989
   id: 134
   lock_version: 0
-  population: 0.0
+  population: 4.9989
   product_id: 146
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:17.006618000 Z
+  updated_at: 2016-01-21 08:46:31.138417000 Z
 product_movements_135:
-  created_at: 2015-12-23 08:40:17.191130000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:31.309108000 Z
+  delta: 1.2768
   id: 135
   lock_version: 0
-  population: 0.0
+  population: 1.2768
   product_id: 147
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:17.191130000 Z
+  updated_at: 2016-01-21 08:46:31.309108000 Z
 product_movements_136:
-  created_at: 2015-12-23 08:40:17.331392000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:31.449673000 Z
+  delta: 0.6467
   id: 136
   lock_version: 0
-  population: 0.0
+  population: 0.6467
   product_id: 148
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:17.331392000 Z
+  updated_at: 2016-01-21 08:46:31.449673000 Z
 product_movements_137:
-  created_at: 2015-12-23 08:40:17.476509000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:31.596844000 Z
+  delta: 1.206
   id: 137
   lock_version: 0
-  population: 0.0
+  population: 1.206
   product_id: 149
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:17.476509000 Z
+  updated_at: 2016-01-21 08:46:31.596844000 Z
 product_movements_138:
-  created_at: 2015-12-23 08:40:17.807441000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:31.749548000 Z
+  delta: 9.712
   id: 138
   lock_version: 0
-  population: 0.0
+  population: 9.712
   product_id: 150
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:17.807441000 Z
+  updated_at: 2016-01-21 08:46:31.749548000 Z
 product_movements_139:
-  created_at: 2015-12-23 08:40:18.067507000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:31.899752000 Z
+  delta: 4.2445
   id: 139
   lock_version: 0
-  population: 0.0
+  population: 4.2445
   product_id: 151
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.067507000 Z
+  updated_at: 2016-01-21 08:46:31.899752000 Z
 product_movements_140:
-  created_at: 2015-12-23 08:40:18.419759000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:32.045977000 Z
+  delta: 3.3423
   id: 140
   lock_version: 0
-  population: 0.0
+  population: 3.3423
   product_id: 152
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.419759000 Z
+  updated_at: 2016-01-21 08:46:32.045977000 Z
 product_movements_141:
-  created_at: 2015-12-23 08:40:18.561728000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:32.174941000 Z
+  delta: 3.3843
   id: 141
   lock_version: 0
-  population: 0.0
+  population: 3.3843
   product_id: 153
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.561728000 Z
+  updated_at: 2016-01-21 08:46:32.174941000 Z
 product_movements_142:
-  created_at: 2015-12-23 08:40:18.688508000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:32.303966000 Z
+  delta: 4.0579
   id: 142
   lock_version: 0
-  population: 0.0
+  population: 4.0579
   product_id: 154
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.688508000 Z
+  updated_at: 2016-01-21 08:46:32.303966000 Z
 product_movements_143:
-  created_at: 2015-12-23 08:40:18.815346000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:32.476915000 Z
+  delta: 7.2782
   id: 143
   lock_version: 0
-  population: 0.0
+  population: 7.2782
   product_id: 155
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.815346000 Z
+  updated_at: 2016-01-21 08:46:32.476915000 Z
 product_movements_144:
-  created_at: 2015-12-23 08:40:18.933482000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:32.625639000 Z
+  delta: 4.8002
   id: 144
   lock_version: 0
-  population: 0.0
+  population: 4.8002
   product_id: 156
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:18.933482000 Z
+  updated_at: 2016-01-21 08:46:32.625639000 Z
 product_movements_145:
-  created_at: 2015-12-23 08:40:19.055209000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:32.775693000 Z
+  delta: 4.9359
   id: 145
   lock_version: 0
-  population: 0.0
+  population: 4.9359
   product_id: 157
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.055209000 Z
+  updated_at: 2016-01-21 08:46:32.775693000 Z
 product_movements_146:
-  created_at: 2015-12-23 08:40:19.175705000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:32.929911000 Z
+  delta: 2.3814
   id: 146
   lock_version: 0
-  population: 0.0
+  population: 2.3814
   product_id: 158
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.175705000 Z
+  updated_at: 2016-01-21 08:46:32.929911000 Z
 product_movements_147:
-  created_at: 2015-12-23 08:40:19.330584000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:33.076831000 Z
+  delta: 2.3421
   id: 147
   lock_version: 0
-  population: 0.0
+  population: 2.3421
   product_id: 159
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.330584000 Z
+  updated_at: 2016-01-21 08:46:33.076831000 Z
 product_movements_148:
-  created_at: 2015-12-23 08:40:19.444382000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:33.218450000 Z
+  delta: 1.944
   id: 148
   lock_version: 0
-  population: 0.0
+  population: 1.944
   product_id: 160
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.444382000 Z
+  updated_at: 2016-01-21 08:46:33.218450000 Z
 product_movements_149:
-  created_at: 2015-12-23 08:40:19.560300000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:33.363784000 Z
+  delta: 6.0725
   id: 149
   lock_version: 0
-  population: 0.0
+  population: 6.0725
   product_id: 161
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.560300000 Z
+  updated_at: 2016-01-21 08:46:33.363784000 Z
 product_movements_150:
-  created_at: 2015-12-23 08:40:19.688974000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:33.488297000 Z
+  delta: 3.5386
   id: 150
   lock_version: 0
-  population: 0.0
+  population: 3.5386
   product_id: 162
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.688974000 Z
+  updated_at: 2016-01-21 08:46:33.488297000 Z
 product_movements_151:
-  created_at: 2015-12-23 08:40:19.810054000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:33.654786000 Z
+  delta: 5.5413
   id: 151
   lock_version: 0
-  population: 0.0
+  population: 5.5413
   product_id: 163
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.810054000 Z
+  updated_at: 2016-01-21 08:46:33.654786000 Z
 product_movements_152:
-  created_at: 2015-12-23 08:40:19.936202000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:33.792716000 Z
+  delta: 2.039
   id: 152
   lock_version: 0
-  population: 0.0
+  population: 2.039
   product_id: 164
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:19.936202000 Z
+  updated_at: 2016-01-21 08:46:33.792716000 Z
 product_movements_153:
-  created_at: 2015-12-23 08:40:20.060017000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:33.931852000 Z
+  delta: 5.7285
   id: 153
   lock_version: 0
-  population: 0.0
+  population: 5.7285
   product_id: 165
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.060017000 Z
+  updated_at: 2016-01-21 08:46:33.931852000 Z
 product_movements_154:
-  created_at: 2015-12-23 08:40:20.187778000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:34.066106000 Z
+  delta: 0.2087
   id: 154
   lock_version: 0
-  population: 0.0
+  population: 0.2087
   product_id: 166
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.187778000 Z
+  updated_at: 2016-01-21 08:46:34.066106000 Z
 product_movements_155:
-  created_at: 2015-12-23 08:40:20.356009000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:34.193750000 Z
+  delta: 0.5827
   id: 155
   lock_version: 0
-  population: 0.0
+  population: 0.5827
   product_id: 167
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.356009000 Z
+  updated_at: 2016-01-21 08:46:34.193750000 Z
 product_movements_156:
-  created_at: 2015-12-23 08:40:20.481421000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:34.325248000 Z
+  delta: 1.063
   id: 156
   lock_version: 0
-  population: 0.0
+  population: 1.063
   product_id: 168
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.481421000 Z
+  updated_at: 2016-01-21 08:46:34.325248000 Z
 product_movements_157:
-  created_at: 2015-12-23 08:40:20.605528000 Z
-  delta: 0.0
+  created_at: 2016-01-21 08:46:34.454976000 Z
+  delta: 1.4511
   id: 157
   lock_version: 0
-  population: 0.0
+  population: 1.4511
   product_id: 169
   started_at: 2015-01-01 00:00:00.000000000 Z
-  updated_at: 2015-12-23 08:40:20.605528000 Z
+  updated_at: 2016-01-21 08:46:34.454976000 Z
+product_movements_158:
+  created_at: 2016-01-21 08:46:34.583373000 Z
+  delta: 3.009
+  id: 158
+  lock_version: 0
+  population: 3.009
+  product_id: 170
+  started_at: 2015-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:34.583373000 Z
+product_movements_159:
+  created_at: 2016-01-21 08:46:34.713327000 Z
+  delta: 3.7979
+  id: 159
+  lock_version: 0
+  population: 3.7979
+  product_id: 171
+  started_at: 2015-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:34.713327000 Z
+product_movements_160:
+  created_at: 2016-01-21 08:46:34.887187000 Z
+  delta: 8.1114
+  id: 160
+  lock_version: 0
+  population: 8.1114
+  product_id: 172
+  started_at: 2015-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:34.887187000 Z
+product_movements_161:
+  created_at: 2016-01-21 08:46:35.046993000 Z
+  delta: 12.0715
+  id: 161
+  lock_version: 0
+  population: 12.0715
+  product_id: 173
+  started_at: 2015-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:35.046993000 Z
+product_movements_162:
+  created_at: 2016-01-21 08:46:35.186797000 Z
+  delta: 4.6746
+  id: 162
+  lock_version: 0
+  population: 4.6746
+  product_id: 174
+  started_at: 2015-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:35.186797000 Z
+product_movements_163:
+  created_at: 2016-01-21 08:46:35.322872000 Z
+  delta: 2.3275
+  id: 163
+  lock_version: 0
+  population: 2.3275
+  product_id: 175
+  started_at: 2015-01-01 00:00:00.000000000 Z
+  updated_at: 2016-01-21 08:46:35.322872000 Z
