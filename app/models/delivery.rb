@@ -76,12 +76,15 @@ class Delivery < Ekylibre::Record::Base
       transition ordered: :in_preparation
     end
     event :check do
-      transition in_preparation: :prepared, if: :all_parcels_in_preparation?
+      transition in_preparation: :prepared, if: :all_parcels_prepared?
     end
     event :start do
+      transition in_preparation: :started
       transition prepared: :started
     end
     event :finish do
+      transition in_preparation: :finished
+      transition prepared: :finished
       transition started: :finished
     end
     event :cancel do

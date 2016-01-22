@@ -165,7 +165,7 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def delivery_started?
-    delivery? && delivery.started?
+    delivery?
   end
 
   def shippable?
