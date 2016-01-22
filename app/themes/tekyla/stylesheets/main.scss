@@ -157,10 +157,12 @@ ul.dropdown-menu {
 }
 
 .placeholding-message {
-  font-size: $fs-huge;
-  line-height: $lh-huge;
+  padding: 15vh 20%;
   @include text-align(center);
-  padding: 4 * $fs-huge;
+  &, * {
+    font-size: $fs-huge;
+    line-height: $lh-huge;
+  }
 }
 
 a[data-toggle='side'] {
@@ -2244,7 +2246,11 @@ svg.map {
 
 .thumbs {
   @include clearfix;
+  white-space: nowrap;
+  overflow-x: auto;
+  @include text-align(center);
   .thumb {
+    @include inline-block;
     border: $menu-border;
     box-shadow: 0 0 $default-gap rgba(0, 0, 0, 0.15);
     margin: 0 $default-gap;
@@ -2252,11 +2258,10 @@ svg.map {
     @include respond-to-bigger-than(small) {
       max-width: 200px;
     }
-    &, a {
+    a {
       display: block;
     }
     background: white;
-    @include float(left);
     img {
       width: 100%;
     }
@@ -2527,15 +2532,6 @@ a[data-annotate] {
   }
 }
 
-
-.no-notifications {
-  padding: 20vh 20vw;
-  text-align: center;
-  &, * {
-    font-size: $fs-large;
-    line-height: $lh-large;
-  }
-}
 
 @import "bootstrap/progress-bars";
 

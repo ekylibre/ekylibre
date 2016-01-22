@@ -413,7 +413,7 @@ module ApplicationHelper
     fail 'Need a name or a default item' unless name || default_item
     if name.is_a?(Symbol)
       options[:icon] ||= name unless options.key?(:icon)
-      name = options[:label] || name.ta
+      name = options[:label] || name.ta(default: ["labels.#{name}".to_sym])
     end
     item_options = default_item.args.third if default_item
     item_options ||= {}
@@ -427,6 +427,11 @@ module ApplicationHelper
         end
       end
       return html
+    elsif menu.list.size == 1 && menu.first.type == :item
+      default_item = menu.first
+      tool_to(name, default_item.args.second,
+              (default_item.args.third || {}).merge(item_options),
+              &default_item.block)
     else
       content_tag(:div, class: 'btn-group') do
         dropdown_toggle_button(name, icon: options[:icon]) +
@@ -691,7 +696,8 @@ module ApplicationHelper
 
   def tool_to(name, url, options = {})
     fail ArgumentError.new("##{__method__} cannot use blocks") if block_given?
-    icon = (options.key?(:tool) ? options.delete(:tool) : url.is_a?(Hash) ? url[:action] : nil)
+    icon = options.delete(:tool)
+    icon ||= url[:action] if url.is_a?(Hash)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
     options[:class] << ' icn btn-' + icon.to_s if icon
     if url.is_a?(Hash)
@@ -713,29 +719,25 @@ module ApplicationHelper
     dropdown_menu_button(name, options, &block)
   end
 
-  def toolbar_export(_nature, _record = nil, _options = {}, &_block)
-    return nil
-    exporter = Ekylibre::Support::Lister.new(:nature)
-    yield exporter if block_given?
-    if exporter.natures.any? && DocumentTemplate.of_nature(exporter.natures.map(&:name)).any?
-
-      exporter.natures.each do |nature|
-        key = nature.args.shift
-        unless key.is_a?(String)
-          fail ArgumentError.new("Expected String for document key: #{key.class.name}:#{key.inspect}")
+  def toolbar_export(*natures)
+    options = natures.extract_options!
+    record = options[:resource] || resource
+    options[:key] ||= :number
+    key = (options[:key].is_a?(Symbol) ? record.send(options[:key]) : options[:key]).to_s
+    dropdown_menu_button(:print) do |menu|
+      natures.each do |nature_name|
+        nature = Nomen::DocumentNature.find(nature_name)
+        modal_id = nature.name.to_s + '-exporting'
+        if Document.of(nature.name, key).any?
+          content_for :popover, render('backend/shared/export', nature: nature, key: key, modal_id: modal_id)
+          menu.item nature.human_name, '#' + modal_id, data: { toggle: 'modal' }
+        else
+          DocumentTemplate.of_nature(nature.name).each do |template|
+            menu.item(template.name, params.merge(format: :pdf, template: template.id, key: key))
+          end
         end
-
-        content_for(:popover, render('backend/shared/export', nature: nature, key: key))
-      end
-
-      default = exporter.natures.first
-      return dropdown_button(content_tag(:i) + ' ' + :print.tl, "##{default.name}-printing", class: 'btn btn-print', data: { toggle: 'modal' }) do |l|
-        exporter.natures.each do |nature|
-          l.link_to(content_tag(:i) + ' ' + h(Nomen::DocumentNature.find(nature.name).human_name), "##{nature.name}-printing", data: { toggle: 'modal' })
-        end if exporter.natures.size > 1
       end
     end
-    nil
   end
 
   def toolbar_mail_to(*args)
@@ -850,11 +852,8 @@ module ApplicationHelper
       add(:mail_to, *args)
     end
 
-    def export(*args, &block)
-      args << {} unless args[-1].is_a?(Hash)
-      args[-1][:group] ||= new_group
-      @export = true
-      add(:export, *args, &block)
+    def export(*natures)
+      add(:export, *natures)
     end
 
     def menu(name, options = {}, &block)

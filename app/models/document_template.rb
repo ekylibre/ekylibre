@@ -189,23 +189,23 @@ class DocumentTemplate < Ekylibre::Record::Base
 
   # Archive the document using the given archiving method
   def document(data_or_path, key, _format, options = {})
-    document = nil
-    return document if archiving_none? || archiving_none_of_template?
+    return nil if archiving_none? || archiving_none_of_template?
 
     # Gets historic of document
-    documents = Document.where(nature: nature, key: key).where('template_id IS NOT NULL')
+    archives = Document.where(nature: nature, key: key).where.not(template_id: nil)
+    archives_of_template = archives.where(template_id: id)
 
     # Checks if archiving is expected
-    return document unless (archiving_first? && documents.empty?) ||
-                           (archiving_first_of_template? && documents.where(template_id: id).empty?) ||
-                           archiving.to_s =~ /^(last|all)(\_of\_template)?$/
+    return nil unless (archiving_first? && archives.empty?) ||
+                      (archiving_first_of_template? && archives_of_template.empty?) ||
+                      archiving.to_s =~ /\A(last|all)(\_of\_template)?\z/
 
     # Lists last documents to remove after archiving
     removables = []
     if archiving_last?
-      removables = documents.pluck(:id)
+      removables = archives.pluck(:id)
     elsif archiving_last_of_template?
-      removables = documents.where(template_id: id).pluck(:id)
+      removables = archives_of_template.pluck(:id)
     end
 
     # Creates document if not exist

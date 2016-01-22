@@ -1,7 +1,6 @@
 - main_toolbar do |t|
-  - t.export do |e|
-    - e.animal_list Time.zone.now.to_s, @animals
-  - t.new data: {target: '#new-animal', toggle: 'modal'}, href: "#"
+  - t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
+  - t.new data: { target: '#new-animal', toggle: 'modal' }, href: "#"
 
 = janus do |j|
   - j.face :list do

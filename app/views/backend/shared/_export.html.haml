@@ -1,37 +1,24 @@
-.modal.fade{tabindex: -1, role: :dialog, aria: {hidden: true}, id: "#{nature.name}-printing"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        = button_tag(class: "close", type: "button", data: {dismiss: "modal"}) do
-          %span{aria: {hidden: "true"}}= "&times;".html_safe
-        %h4.modal-title= :printing_document.tl(document: Nomen::DocumentNature.find(nature.name).human_name)
-      .modal-body
-        - if Document.of(nature.name, key).any?
-          %ul.thumbs
-            - Document.of(nature.name, key).each do |document|
-              %li.thumb
-                = link_to(backend_document_url(document, format: :pdf)) do
-                  = image_tag(backend_document_path(document, format: :jpg))
-                = link_to(backend_document_url(document)) do
-                  .archived-at= document.updated_at.l
-                  .template-name= document.template_name
-        - else
-          .placeholding-message= :no_archived_prints.tn
-      - templates = DocumentTemplate.of_nature(nature.name.to_s)
-      - if templates.any?
-        .modal-footer
-          - if templates.count == 1
-            - template = templates.first
-            = link_to(params.merge(format: :pdf, template: template.id, key: key), class: "btn btn-default btn-print") do
-              %i
-              = :print.tl
-          - else
-            - templates.each do |template|
-              = link_to(params.merge(format: :pdf, template: template.id, key: key), class: "btn btn-default btn-print") do
-                %i
-                = template.name
-            -# - formats = [:pdf] # template.formats (template.name, params.merge(format: formats.first, template: template.id, key: key))
-            -# = dropdown_button do |l|
-            -#   - formats.each do |format|
-            -#     - l.link_to("formats.#{format}".t, params.merge(format: format, template: template.id, key: key))
-          = button_tag(:close.tl, class: "btn btn-default", data: {dismiss: "modal"})
+- attrs = {}
+- attrs[:id] = modal_id if defined? modal_id
+- attrs[:title] = title if defined? title
+- attrs[:title] ||= :printing_document.tl(document: nature.human_name)
+= modal(attrs) do
+  - if Document.of(nature.name, key).any?
+    .modal-body.thumbs
+      - Document.of(nature.name, key).each do |document|
+        .thumb
+          = link_to(backend_document_url(document, format: :pdf)) do
+            = image_tag(backend_document_path(document, format: :jpg))
+          = link_to(backend_document_url(document)) do
+            .archived-at= document.updated_at.l
+            .template-name= document.template_name
+  - else
+    .modal-body
+      .placeholding-message= :no_archived_prints.tn
+  .modal-footer
+    - templates = DocumentTemplate.of_nature(nature.name.to_s)
+    - if templates.any?
+      = dropdown_menu_button(:print) do |menu|
+        - templates.each do |template|
+          - menu.item(template.name, params.merge(format: :pdf, template: template.id, key: key))
+    = button_tag(:close.tl, class: 'btn btn-default', data: { dismiss: 'modal' })

@@ -73,7 +73,7 @@ class Document < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.name = file.original_filename
-    self.key = "#{Time.now.to_i}-#{file.original_filename}"
+    self.name ||= file.original_filename
+    self.key ||= "#{Time.now.to_i}-#{file.original_filename}"
   end
 end

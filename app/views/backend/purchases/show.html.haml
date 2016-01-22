@@ -1,6 +1,5 @@
 - main_toolbar do |t|
-  - t.export do |e|
-    - e.purchases_invoice resource.number, resource
+  - t.export :purchases_invoice
   - t.edit resource if resource.draft?
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 

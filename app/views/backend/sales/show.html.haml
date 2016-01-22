@@ -1,11 +1,9 @@
 - main_toolbar do |t|
-  - t.export do |e|
-    - if resource.invoice?
-      - e.sales_invoice resource.number, resource
-    - elsif resource.order?
-      - e.sales_order resource.number, resource
-    - elsif resource.estimate? || resource.draft? || resource.refused?
-      - e.sales_estimate resource.number, resource
+  - exports = []
+  - exports << :sales_invoice if resource.invoice?
+  - exports << :sales_order if resource.order?
+  - exports << :sales_estimate if resource.estimate? || resource.draft? || resource.refused?
+  - t.export(*exports, key: :number)
   - t.duplicate resource, method: :post, params: {redirect: nil}
   - t.generate_parcel(resource, method: :post) if resource.can_generate_parcel?
   - if resource.invoice?

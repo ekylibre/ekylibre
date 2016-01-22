@@ -1,7 +1,6 @@
 - main_toolbar do |t|
   - t.edit resource
-  - t.export do |e|
-    - e.intervention_sheet resource.number, resource
+  - t.export :intervention_sheet
   - if resource.destroyable?
     - t.destroy resource, method: :delete, "data-confirm" => :are_you_sure.tl
   - if resource.runnable?

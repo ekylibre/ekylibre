@@ -1,10 +1,10 @@
 - main_toolbar do |t|
-  - t.export :entity, resource
+  - t.export :entity_sheet
   - t.edit resource
   - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
 
 = main_informations attachment: true do
-  = render "coordinates"
+  = render 'coordinates'
 
 = janus do |j|
   - j.face :timeline do

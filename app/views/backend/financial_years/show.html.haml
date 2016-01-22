@@ -1,8 +1,5 @@
 - main_toolbar do |t|
-  - t.export do |e|
-    - e.balance_sheet    resource.code, resource
-    - e.income_statement resource.code, resource
-    - e.trial_balance    resource.code, resource
+  - t.export(:balance_sheet, :income_statement, :trial_balance, key: :code)
   - t.compute_balances resource, method: :post
   - attrs = {}
   - attrs["data-confirm"] = :are_you_sure.tl if resource.last_journal_entry

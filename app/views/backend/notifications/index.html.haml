@@ -25,5 +25,5 @@
             %td{title: notification.created_at.l}
               = distance_of_time_in_words_to_now(notification.created_at)
 - else
-  .no-notifications
+  .placeholding-message
     %p= :no_notifications.tl
