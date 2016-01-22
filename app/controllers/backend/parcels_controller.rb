@@ -88,7 +88,7 @@ module Backend
       t.column :recipient, url: true
       t.column :sender, url: true
       t.status
-      t.column :state
+      t.column :human_state_name
       t.column :delivery, url: true
       t.column :transporter, url: true, hidden: true
       # t.column :sent_at
