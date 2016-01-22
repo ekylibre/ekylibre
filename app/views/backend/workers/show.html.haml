@@ -13,11 +13,9 @@
         %i.picto{class: "picto-#{icon}"}
       = link_to(variant.name, controller: :product_nature_variants, action: :show, id: variant.id)
     - if resource.person
-      .med-info
-        %span.title= :entity.tl
-        %span.value
-          %i.picto{class: "picto-user"}
-          = link_to(resource.person.full_name, controller: :entities, action: :show, id: resource.person_id)
+      = resource_info(:person) do |person|
+        %i.picto{class: "picto-user"}
+        = link_to(person.full_name, controller: :entities, action: :show, id: person.id)
     - if resource.born_at && resource.age >= 1.day
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}

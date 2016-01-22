@@ -220,11 +220,18 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
-  def working_area(unit = :hectare)
+  def working_zone_area(unit = :hectare, precision = nil)
     if targets.any?
-      return targets.with_working_zone.map(&:working_zone_area).compact.sum.in(unit).round(2)
+      area = targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
     end
-    nil
+    area ||= 0.0.in(unit)
+    return (precision.blank? ? area : area.round(precision))
+  end
+
+
+  def working_area(unit = :hectare)
+    ActiveSupport::Deprecation.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'
+    working_zone_area(unit)
   end
 
   def status

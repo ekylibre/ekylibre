@@ -19,7 +19,7 @@
           <property name="work_number" of="zone"/>
           <property name="uuid" of="zone"/>
           <property name="islet_number" if="CapIslet.shape_matching(zone.shape).of_campaign(campaign).first" value="CapIslet.shape_matching(zone.shape).of_campaign(campaign).first.islet_number"/>
-          <property name="net_surface_area" value="zone.net_surface_area.convert(:hectare).round(3).l" type="measure"/>
+          <property name="net_surface_area" value="zone.net_surface_area(:hectare).round(3).l" type="measure"/>
           <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
           <property name="shape_svg" value="zone.shape.to_svg(srid: 2154)" type="svg" level="api"/>
@@ -30,8 +30,8 @@
 	            <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
 	            <property name="started_at" of="intervention" type="datetime"/>
 	            <property name="stopped_at" of="intervention" type="datetime"/>
-	            <property name="working_duration" value="intervention.working_duration.in(:second).convert(:hour).round(2).l" type="measure"/>
-	            <property name="working_area" value="intervention.working_area.in(:hectare).l" type="measure"/>
+	            <property name="working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
+	            <property name="working_area" value="intervention.working_zone_area(:hectare, 2).l" type="measure"/>
 	            <variable name="doer" value="intervention.doers.first"/>
 	            <property name="doer_name" if="doer and doer.product" value="doer.product.name"/>
 	            <section name="issue" of="intervention.issue">

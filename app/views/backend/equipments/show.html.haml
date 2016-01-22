@@ -5,10 +5,7 @@
 - main_campaign_selector
 
 = main_informations attachment: true do
-  - if resource.container && resource.container.shape
-    = mini_map(resource.container)
-  - elsif resource.picture.exists?
-    .picture= image_tag(resource.picture.url(:identity))
+  = render 'picture'
   = infos do
     = resource_info(:work_number, important: true)
     .med-info.important
@@ -18,17 +15,13 @@
         %i.picto{class: "picto-#{icon}"}
         = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
     - if resource.born_at and resource.age >= 1.day
-      .med-info
-        %span.title= Equipment.human_attribute_name(:age)
-        %span.value
-          %i.picto{class: "picto-clock-o"}
-          = human_age(resource.age, display: 2)
+      = resource_info(:age) do |age|
+        %i.picto{class: "picto-clock-o"}
+        = human_age(age, display: 2)
     - if resource.fixed_asset
-      .med-info
-        %span.title= :fixed_assets.tl
-        %span.value
-          %i.picto{class: "picto-money"}
-          = link_to(resource.fixed_asset.number, controller: :fixed_assets, action: :show, id: resource.fixed_asset_id)
+      = resource_info :fixed_asset do |fixed_asset|
+        %i.picto{class: "picto-money"}
+        = link_to(fixed_asset.number, controller: :fixed_assets, action: :show, id: fixed_asset.id)
     .med-info.important
       %span.title= Equipment.human_attribute_name(:state)
       %span.value= lights(resource.status)

@@ -1078,7 +1078,6 @@ eng:
     email: "Email:" #?
     end: "to" #?
     entities: "Entities"
-    entity: "Entity"
     entity_links: "Entity links"
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"

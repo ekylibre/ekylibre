@@ -195,7 +195,6 @@ fra:
     press: "Presse"
     product: "Produit" #?
     pruner: "Sécateur" #?
-    # raw_seedlings: "Raw seedlings"
     residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux" #?
     second_chemical_input_to_use: "Second intrant de protection des végétaux à utiliser" #?
@@ -217,7 +216,6 @@ fra:
     silage_unloader: "Désileuse"
     silo: "Silo" #?
     # sortable: "Sortable"
-    # sorted_seedlings: "Sorted seedlings"
     sower: "Semoir"
     sprayer: "Pulvérisateur"
     spreader: "Épandeur"
@@ -335,7 +333,6 @@ fra:
     plant_grinding: "Broyage de végétaux" #?
     plant_mowing: "Fauchage"
     plant_mulching: "Paillage/Mulching"
-    # plant_sorting: "Plant sorting"
     plant_watering: "Arrosage des plants"
     plantation_unfixing: "Déchaussage"
     plants_harvest: "Récolte de plante" #?

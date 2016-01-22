@@ -3,10 +3,7 @@
   - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
 
 = main_informations attachment: true do
-  - if resource.shape
-    = mini_map(resource)
-  - elsif resource.picture.exists?
-    .picture= image_tag(resource.picture.url(:identity))
+  = render 'picture'
   = infos do
     = resource_info(:work_number, important: true)
     = resource_info(:population, important: true) do |population|

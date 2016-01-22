@@ -161,7 +161,7 @@ module Backend
       t.column :started_at, through: :intervention, datatype: :datetime
       t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
       t.column :duration, through: :intervention, datatype: :measure
-      t.column :working_area, through: :intervention, datatype: :measure
+      t.column :working_zone_area, through: :intervention, datatype: :measure
     end
 
     # Returns value of an indicator
