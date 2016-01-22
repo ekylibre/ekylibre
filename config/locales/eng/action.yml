@@ -1362,7 +1362,7 @@ eng:
     previous_bank_statement: "Previous account statement N°%{number}"
     price: "Price" #?
     prices: "Prices" #?
-    print: "Print"
+    print: "Print" #?
     printing_document: "Printing %{document}"
     procedures: "Procedures"
     product: "Product"

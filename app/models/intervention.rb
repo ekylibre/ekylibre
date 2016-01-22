@@ -49,7 +49,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :issue
   belongs_to :prescription
   with_options inverse_of: :intervention do
-    has_many :root_parameters, -> {where(group_id: nil)}, class_name: 'InterventionParameter', dependent: :destroy
+    has_many :root_parameters, -> { where(group_id: nil) }, class_name: 'InterventionParameter', dependent: :destroy
     has_many :parameters, class_name: 'InterventionParameter'
     has_many :group_parameters, -> { order(:position) }, class_name: 'InterventionGroupParameter'
     has_many :product_parameters, -> { order(:position) }, class_name: 'InterventionProductParameter'
