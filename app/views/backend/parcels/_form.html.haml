@@ -8,7 +8,7 @@
   = f.referenced_association :storage, source: :storage
   = f.input :delivery_mode, as: :radio_buttons
   #delivery-mode-transporter
-    = f.referenced_association :transporter
+    = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
   -#= f.referenced_association :sale
   = f.input :planned_at
   = f.input :remain_owner
