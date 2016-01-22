@@ -35,13 +35,16 @@
 #
 
 class InterventionWorkingPeriod < Ekylibre::Record::Base
+  include PeriodicCalculable
   belongs_to :intervention
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :duration, allow_nil: true, only_integer: true
   validates_presence_of :duration, :intervention, :started_at, :stopped_at
   # ]VALIDATORS]
-
+  
+  calculable period: :month, column: :duration, at: :started_at, name: :sum
+  
   scope :of_activity, ->(activity) { where(intervention_id: Intervention.of_activity(activity)) }
   scope :of_activities, ->(*activities) { where(intervention_id: Intervention.of_activities(*activities)) }
   scope :of_campaign, lambda { |campaign|

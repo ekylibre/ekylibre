@@ -1,14 +1,14 @@
 - main_toolbar do |t|
   - t.edit resource
-  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl)
+  - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
 
 = main_informations attachment: true do
-  - if resource.picture.exists?
-    .picture= image_tag(resource.picture.url(:identity))
-  - else
+  - if resource.shape
     = mini_map(resource)
+  - elsif resource.picture.exists?
+    .picture= image_tag(resource.picture.url(:identity))  
   = infos do
-    = resource_info(:name, important: true)
+    = resource_info(:work_number, important: true)
     = resource_info(:population, important: true) do |population|
       = resource.population.l + " " + resource.unit_name
     = resource_info(:variety, important: true, nomenclature: true)
@@ -29,13 +29,14 @@
 
 = cobbles do |c|
 
-  - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
-    = cobble_list(:intervention_product_parameters)
+  - if resource.intervention_product_parameters.any?
+    - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
+      = cobble_list(:intervention_product_parameters)
 
-  - c.cobble(:issues) do
-    = cobble_toolbar do |t|
-      - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
-      = cobble_list(:issues)
+  - if resource.issues.any?
+    - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
+      = cobble_toolbar do |t|
+        = cobble_list(:issues)
 
   -# c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
     = cobble_list(:readings)
