@@ -207,7 +207,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   def pointable?
-    unpointed_journal_entry_items.any? # && bank_account?  
+    unpointed_journal_entry_items.any? # && bank_account?
   end
 
   def monthly_sums(started_at, stopped_at, expr = 'debit - credit')

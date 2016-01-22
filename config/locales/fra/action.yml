@@ -77,7 +77,7 @@ fra:
       edit: "Modifier la zone\_: %{name}"
       index: "Zones de bâtiments"
       new: "Nouvelle zone"
-      show: "Détail d’une zone\_: %{name}"
+      show: "Zone\_: %{name}"
     backend/buildings:
       edit: "Modifier un bâtiment"
       index: "Bâtiments"
@@ -217,7 +217,7 @@ fra:
       edit: "Modifier l’équipement\_: %{name}"
       index: "Équipements"
       new: "Nouvel équipement"
-      show: "Équipement %{name}"
+      show: "Équipement\_: %{name}"
     backend/establishments:  #?
       edit: "Modifier l’établissement\_: %{name}" #?
       index: "Établissements" #?
@@ -246,7 +246,7 @@ fra:
       edit: "Modifier l’immobilisation\_: %{name}"
       index: "Immobilisations"
       new: "Nouvelle immobilisation"
-      show: "Immobilisation\_: %{name}"
+      show: "Immobilisation\_: %{number} - %{name} "
     backend/fungi:
       edit: "Modifier une culture de champignons\_: %{name}"
       index: "Champignons"

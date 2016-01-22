@@ -6,7 +6,7 @@
   - if resource.shape
     = mini_map(resource)
   - elsif resource.picture.exists?
-    .picture= image_tag(resource.picture.url(:identity))  
+    .picture= image_tag(resource.picture.url(:identity))
   = infos do
     = resource_info(:work_number, important: true)
     = resource_info(:population, important: true) do |population|

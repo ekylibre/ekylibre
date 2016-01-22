@@ -42,9 +42,9 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   validates_numericality_of :duration, allow_nil: true, only_integer: true
   validates_presence_of :duration, :intervention, :started_at, :stopped_at
   # ]VALIDATORS]
-  
+
   calculable period: :month, column: :duration, at: :started_at, name: :sum
-  
+
   scope :of_activity, ->(activity) { where(intervention_id: Intervention.of_activity(activity)) }
   scope :of_activities, ->(*activities) { where(intervention_id: Intervention.of_activities(*activities)) }
   scope :of_campaign, lambda { |campaign|

@@ -46,7 +46,7 @@
   - if resource.intervention_product_parameters.any?
     - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
       = cobble_list(:intervention_product_parameters)
-  
+
   - if resource.issues.any?
     - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
       = cobble_toolbar do |t|
