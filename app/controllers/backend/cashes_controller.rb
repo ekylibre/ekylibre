@@ -33,7 +33,7 @@ module Backend
     end
 
     list(order: :name) do |t|
-      t.action :point, if: :pointable?
+      t.action :point, if: :unpointed_journal_entry_items?
       t.action :edit
       t.action :destroy
       t.column :name, url: true
