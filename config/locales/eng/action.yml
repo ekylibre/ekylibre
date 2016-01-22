@@ -914,6 +914,7 @@ eng:
       reopen_issue: "Are you sure you want to reopen this issue?"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
+    are_you_sure_you_want_to_generate_parcel: "Are you sure you want to generate parcel"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?

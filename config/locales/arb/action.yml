@@ -875,6 +875,7 @@ arb:
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?
+    # are_you_sure_you_want_to_generate_parcel: "Are you sure you want to generate parcel"
     are_you_sure_you_want_to_invoice: "هل انت متأكد من رغبتك باعداد فاتورة البيع؟"
     are_you_sure_you_want_to_send_mails: "هل انت متأكد من رغبتك بارسال الرسالة"
     # area: "Area"

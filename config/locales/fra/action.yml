@@ -748,6 +748,7 @@ fra:
       reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident\_?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande\_?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
+    are_you_sure_you_want_to_generate_parcel: "Êtes-vous sûr(e) de vouloir générer ce bon de préparation\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
     area: "Zone"
