@@ -36,7 +36,7 @@
         - t.new variants: variants, params: {controller: :deposits}
       = cobble_list(:deposits)
 
-  - if resource.bank_account?
+  - if resource.pointable?
     - c.cobble(:bank_statements, title: Cash.human_attribute_name(:bank_statements)) do
       = cobble_list(:bank_statements)
 

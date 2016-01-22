@@ -1,5 +1,5 @@
 = field_set do
-  = f.referenced_association :cash, source: :bank_accounts, new: {nature: :bank_account}
+  = f.referenced_association :cash, source: :pointables
   = f.input :number
   = f.input :started_at
   = f.input :stopped_at

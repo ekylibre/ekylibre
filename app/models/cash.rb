@@ -99,6 +99,7 @@ class Cash < Ekylibre::Record::Base
   scope :cash_boxes,    -> { where(nature: 'cash_box') }
   scope :associated_accounts, -> { where(nature: %w(associated_account owner_account)) }
   scope :with_pointing_work, -> { where(account_id: JournalEntryItem.select(:account_id).unpointed) }
+  scope :pointables, -> { where(nature: %w(associated_account owner_account bank_account)) }
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do
@@ -206,7 +207,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   def pointable?
-    bank_account? && unpointed_journal_entry_items.any?
+    unpointed_journal_entry_items.any? # && bank_account?  
   end
 
   def monthly_sums(started_at, stopped_at, expr = 'debit - credit')
