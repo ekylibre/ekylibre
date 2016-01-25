@@ -91,7 +91,7 @@ class Cash < Ekylibre::Record::Base
   validates_inclusion_of :mode, in: mode.values
   validates_inclusion_of :nature, in: nature.values
   validates_uniqueness_of :account
-  validates_presence_of :owner, if: :associated_account?
+  # validates_presence_of :owner, if: :associated_account?
 
   delegate :currency, to: :journal, prefix: true
 
