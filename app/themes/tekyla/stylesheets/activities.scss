@@ -58,7 +58,7 @@ $activity_border_size: 5px;
 
       .activity-indicator {
         @include ellipsis;
-        @include make-md-column(3, $gutter: 0);
+        @include make-md-column(6, $gutter: 0);
         // height: 100%;
         text-align: center;
         font-size: $fs-normal;

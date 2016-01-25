@@ -9,12 +9,13 @@
     .activity-name= link_to(activity.name, {controller: :activities, action: :show, id: activity.id })
     - if active
       .activity-indicators
-        .activity-indicator.value
+        .activity-indicator.size
           = activity.size_during(current_campaign)
         .activity-indicator.cash
           = activity.real_expense_amount(current_campaign).l(currency: Preference[:currency])
           = '/'
           = activity.budget_expenses_amount(current_campaign).l(currency: Preference[:currency])
+      .activity-indicators
         .activity-indicator.cumulated-time
           = Intervention.of_campaign(current_campaign).of_activity(activity).sum(:working_duration)
         .activity-indicator.opened-issues
