@@ -138,16 +138,12 @@ class ActivityProduction < Ekylibre::Record::Base
         land_parcels = LandParcel.shape_matching(support_shape)
                                  .where.not(id: ActivityProduction.select(:support_id))
                                  .order(:id)
-        self.support = if land_parcels.any?
-                         land_parcels.first
-                       else
-                         LandParcel.create!(
-                           name: computed_support_name,
-                           initial_shape: support_shape,
-                           initial_born_at: started_on,
-                           variant: ProductNatureVariant.import_from_nomenclature(:land_parcel)
-                         )
-                       end
+        self.support = land_parcels.any? ? land_parcels.first : LandParcel.new
+        self.support.name = computed_support_name
+        self.support.initial_shape = support_shape
+        self.support.initial_born_at = started_on
+        self.support.variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+        self.save!
       end
     end
     self.size = current_size if support && size_indicator_name && size_unit_name
@@ -179,7 +175,8 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def computed_support_name
     list = []
-    list << (cultivable_zone ? cultivable_zone.name : activity.name)
+    list << cultivable_zone.name if cultivable_zone
+    list << activity.name
     list << :rank.t(number: rank_number)
     list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')
