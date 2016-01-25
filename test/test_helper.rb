@@ -569,13 +569,14 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185
   # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
   def fill_unroll(field, options = {})
-    fill_in(field, with: options[:with])
+    node  = find(:xpath, ".//*[@data-selector-id='#{field}']")
+    node.set(options[:with])
 
     shoot_screen "#{options[:name]}/unroll-before" if options[:name]
 
     wait_for_ajax
 
-    script = "$('input##{field}').next().next().find('.items-list .item"
+    script = "$('input##{node[:id]}').next().next().find('.items-list .item"
     script << (options[:select] ? "[data-item-label~=\"#{options[:select]}\"]" : ':first-child')
     script << "').mouseenter().click();"
 
