@@ -87,9 +87,9 @@ module Backend
       t.column :state, hidden: true
       t.column :started_at
       t.column :stopped_at, hidden: true
-      t.column :duration, datatype: :measure
+      t.column :human_working_duration
       t.column :human_target_names
-      t.column :working_area, datatype: :measure
+      t.column :human_working_zone_area
       # t.status
       t.column :issue, url: true
       # t.column :casting, hidden: true

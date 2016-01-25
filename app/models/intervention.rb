@@ -190,8 +190,8 @@ class Intervention < Ekylibre::Record::Base
     started_at
   end
 
-  def duration(unit = :hour)
-    working_duration.in(:second).convert(unit).round(2)
+  def human_working_duration(unit = :hour)
+    working_duration.in(:second).convert(unit).round(2).l
   end
 
   # Update temporality informations in intervention
@@ -227,7 +227,10 @@ class Intervention < Ekylibre::Record::Base
     area ||= 0.0.in(unit)
     return (precision.blank? ? area : area.round(precision))
   end
-
+ 
+  def human_working_zone_area(unit = :hectare, precision = 3)
+    working_zone_area(unit, precision).l
+  end
 
   def working_area(unit = :hectare)
     ActiveSupport::Deprecation.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'

@@ -160,8 +160,8 @@ module Backend
       t.column :name, sort: :reference_name
       t.column :started_at, through: :intervention, datatype: :datetime
       t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
-      t.column :duration, through: :intervention, datatype: :measure
-      t.column :working_zone_area, through: :intervention, datatype: :measure
+      t.column :human_working_duration, through: :intervention
+      t.column :human_working_zone_area, through: :intervention
     end
 
     # Returns value of an indicator
