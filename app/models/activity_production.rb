@@ -73,7 +73,8 @@ class ActivityProduction < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_uniqueness_of :rank_number, scope: :activity_id
   validates_presence_of :started_on
-  validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
+  # validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
+  validates_presence_of :support_nature, if: :vegetal_crops?
   validates_presence_of :campaign, if: :annual?
 
   delegate :name, :work_number, to: :support, prefix: true

@@ -33,7 +33,7 @@ module Ekylibre::Record
             end
 
             define_method "human_#{column}_area" do |mode = :metric|
-              area = send(col+ '_area')
+              area = send(col + '_area')
               if mode == :imperial
                 area.in(:acre).round(3).l
               else # metric
@@ -57,11 +57,12 @@ module Ekylibre::Record
           }
 
           scope col + '_covering', lambda { |shape, margin = 0|
+            ewkt = ::Charta.new_geometry(shape).to_ewkt
             if margin > 0
               common = 1 - margin
               where('(ST_Overlaps(' + col + ', ST_GeomFromEWKT(?)) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(?))) / ST_Area(ST_GeomFromEWKT(?)) >= ?)', ewkt, ewkt, ewkt, common)
             else
-              where('ST_Covers(' + col + ', ST_GeomFromEWKT(?))', ::Charta.new_geometry(shape).to_ewkt)
+              where('ST_Covers(' + col + ', ST_GeomFromEWKT(?))', ewkt)
             end
           }
 

@@ -139,11 +139,11 @@ module Backend
                                      nature: { include: { payment_mode: { include: :cash } } },
                                      supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
                                      credits: {},
-                                     parcels: {methods: [:human_delivery_mode, :human_delivery_nature, :items_quantity],include: {
-                                    address: {},
-                                    sender: {},
-                                    recipient: {}
-                                  }},
+                                     parcels: { methods: [:human_delivery_mode, :human_delivery_nature, :items_quantity], include: {
+                                       address: {},
+                                       sender: {},
+                                       recipient: {}
+                                     } },
                                      affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
                                      invoice_address: { methods: [:mail_coordinate] },
                                      items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant, parcel_items: { include: [:product, :parcel] }] }

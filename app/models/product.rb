@@ -188,8 +188,8 @@ class Product < Ekylibre::Record::Base
   scope :shape_within, lambda { |shape|
     where(id: ProductReading.multi_polygon_value_within(shape).select(:product_id))
   }
-  scope :shape_covering, lambda { |shape|
-    where(id: ProductReading.multi_polygon_value_covering(shape).select(:product_id))
+  scope :shape_covering, lambda { |shape, margin = 0.02|
+    where(id: ProductReading.multi_polygon_value_covering(shape, margin).select(:product_id))
   }
   scope :shape_overlapping, lambda { |shape|
     where(id: ProductReading.multi_polygon_value_overlapping(shape).select(:product_id))

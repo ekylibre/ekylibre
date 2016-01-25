@@ -220,16 +220,16 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
-  def working_zone_area(unit = :hectare, precision = nil)
+  def working_zone_area(unit = :hectare)
     if targets.any?
       area = targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
     end
     area ||= 0.0.in(unit)
-    return (precision.blank? ? area : area.round(precision))
+    area
   end
 
   def human_working_zone_area(unit = :hectare, precision = 3)
-    working_zone_area(unit, precision).l
+    working_zone_area(unit).round(precision).l
   end
 
   def working_area(unit = :hectare)

@@ -69,8 +69,8 @@ module Ekylibre
             production_cycle: :annual
           )
           if support_variant && support_variant.variety
-            activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :cultivable_zone : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))
-            activity.with_cultivation = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? true : false)
+            activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :land_parcel : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))
+            activity.with_cultivation = (Nomen::Variety.find(activity.support_variety) <= :land_parcel ? true : false)
           end
           activity.cultivation_variety = cultivation_variety if cultivation_variant
           activity.save!
@@ -126,11 +126,11 @@ module Ekylibre
             attributes[:size_value] = 1.0
             attributes[:usage] = :meat
           else
-            attributes[:size_indicator] = 'net_mass'
+            attributes[:size_indicator] = 'net_surface_area'
             attributes[:size_value] = 1.0
             attributes[:usage] = :grain
           end
-          unless ap = ActivityProduction.find_by(activity: activity, support: product)
+          unless (ap = ActivityProduction.find_by(activity: activity, support: product))
             ap = ActivityProduction.create!(attributes)
             td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: product) if Nomen::ActivityFamily[activity.family] <= :vegetal_crops
           end
@@ -165,7 +165,8 @@ module Ekylibre
             w.error "No variant given at row #{row_number}"
             next
           else
-            unless item_variant = ProductNatureVariant.find_by(number: r.item_code_variant) || ProductNatureVariant.find_by(reference_name: r.item_code_variant)
+            unless item_variant = ProductNatureVariant.find_by(number: r.item_code_variant) ||
+                                  ProductNatureVariant.find_by(reference_name: r.item_code_variant)
               unless Nomen::ProductNatureVariant[r.item_code_variant]
                 w.error "Cannot find valid variant for budget: #{r.item_code_variant.inspect.red}"
                 next
