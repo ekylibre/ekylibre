@@ -50,7 +50,7 @@ module RestfullyManageable
 
       t3e_code = "t3e(@#{record_name}.attributes"
       if t3e = options[:t3e]
-        t3e_code << '.merge(' + t3e.collect do|k, v|
+        t3e_code << '.merge(' + t3e.collect do |k, v|
           "#{k}: (" + (v.is_a?(Symbol) ? "@#{record_name}.#{v}" : v.inspect.gsub(/RECORD/, '@' + record_name)) + ')'
         end.join(', ') + ')'
       end

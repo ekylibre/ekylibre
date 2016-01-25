@@ -463,8 +463,7 @@ module Backend
         clear_actions!
         variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
         if variants.any?
-          html << @template.subheading(:choose_a_type_of_product)
-          html << @template.content_tag(:div, class: 'variant-list proposal-list') do
+          html << @template.field_set(:choose_a_type_of_product) do
             #           buttons = ''.html_safe
             #           for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
             #             buttons << @template.link_to(variant.name, { action: :new, variant_id: variant.id }, class: 'btn')
@@ -484,7 +483,12 @@ module Backend
 
             html_options = {}
             html_options[:data] ||= {}
-            input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
+            @template.content_tag(:div, class: 'control-group') do
+              @template.content_tag(:label, Product.human_attribute_name(:variant), class: 'control-label') +
+                @template.content_tag(:div, class: 'controls') do
+                input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
+              end
+            end
           end
         end
 

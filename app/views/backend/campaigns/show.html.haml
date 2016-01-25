@@ -4,7 +4,7 @@
   -# t.edit resource
   - t.menu :open, icon: nil do |menu|
     - Activity.availables.where.not(id: activities).order(:name).each do |a|
-      - menu.item a.name, { activity_id: a.id }, method: :post, title: a.name
+      - menu.item a.name, { action: :open, activity_id: a.id }, method: :post, title: a.name
     - menu.separator
     - menu.item :manage_activities.tl, { controller: :activities, action: :index }, as: 'main'
 

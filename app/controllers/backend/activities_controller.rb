@@ -18,7 +18,7 @@
 
 module Backend
   class ActivitiesController < Backend::BaseController
-    manage_restfully except: [:show]
+    manage_restfully except: [:show], subclass_inheritance: true
 
     unroll
 

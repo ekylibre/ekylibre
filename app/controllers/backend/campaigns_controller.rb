@@ -22,9 +22,13 @@ module Backend
 
     before_action only: :show do
       if params[:id] == 'preceding'
-        params[:id] = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year - 1).id
+        campaign = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year - 1)
       elsif params[:id] == 'following'
-        params[:id] = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year + 1).id
+        campaign = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year + 1)
+      end
+      if campaign
+        redirect_to action: :show, id: campaign.id
+        false
       end
     end
     

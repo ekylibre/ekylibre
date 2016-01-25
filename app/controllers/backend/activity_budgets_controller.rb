@@ -18,7 +18,7 @@ module Backend
       return unless @activity_budget
       activity = Activity.find_by(id: params[:activity_id])
       campaign = Campaign.find_by(id: params[:campaign_id])
-      new_activity_budget = @activity_budget.duplicate!(activity: activity, campaign: campaign)
+      new_activity_budget = @activity_budget.duplicate!(activity, campaign)
       if params[:edit]
         redirect_to action: :edit, id: new_activity_budget.id, redirect: params[:redirect]
       else

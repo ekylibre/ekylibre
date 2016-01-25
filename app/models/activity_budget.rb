@@ -100,8 +100,8 @@ class ActivityBudget < Ekylibre::Record::Base
   end
 
   # Duplicate current budget in given activity and campaign
-  def duplicate!(updates = {})
-    budget = ActivityBudget.create!({ activity: activity }.merge(updates))
+  def duplicate!(activity, campaign)
+    budget = ActivityBudget.find_or_create_by!(activity: activity, campaign: campaign)
     items.each do |item|
       item.duplicate!(activity_budget: budget)
     end

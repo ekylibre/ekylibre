@@ -20,7 +20,7 @@
 
 module Backend
   class ProductsController < Backend::BaseController
-    manage_restfully t3e: { nature: :nature_name }, subclass_inheritance: true, multipart: true
+    manage_restfully t3e: { nature: '(RECORD ? RECORD.nature_name : nil)' }, subclass_inheritance: true, multipart: true
     manage_restfully_picture
     manage_restfully_attachments
 
