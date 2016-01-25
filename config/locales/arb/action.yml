@@ -1117,7 +1117,6 @@ arb:
     entities_export: "CSV جميع الصادرات ضمن" #?
     entities_import: "CSV استيراد سجلات" #?
     entities_merge: "دمج السجلات" #?
-    # entity: "Entity"
     entity_category_create: "اضافة نوع الملف" #?
     entity_category_update: "تعديل نوع الملف" #?
     entity_create: "انشاء سجل جديد" #?

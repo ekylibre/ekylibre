@@ -227,7 +227,7 @@ class Intervention < Ekylibre::Record::Base
     area ||= 0.0.in(unit)
     return (precision.blank? ? area : area.round(precision))
   end
- 
+
   def human_working_zone_area(unit = :hectare, precision = 3)
     working_zone_area(unit, precision).l
   end

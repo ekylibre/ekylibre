@@ -981,7 +981,7 @@ fra:
     employee_name: "Employé" #?
     end: "au"
     entities: "Tiers"
-    entity: "Tiers"
+    entity: "Tiers" #?
     entity_links: "Liens entre entité"
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
