@@ -337,3 +337,16 @@ financial_years_024:
   stopped_on: 2015-08-31
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+financial_years_025:
+  closed: false
+  code: EX2015/2016
+  created_at: 2016-01-22 13:21:22.066344000 Z
+  creator_id: 1
+  currency: EUR
+  currency_precision: 2
+  id: 25
+  lock_version: 0
+  started_on: 2015-09-01
+  stopped_on: 2016-08-31
+  updated_at: 2016-01-22 13:21:22.066344000 Z
+  updater_id: 1

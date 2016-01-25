@@ -16,7 +16,7 @@ class Telepac::V2014::LandParcelsExchanger < ActiveExchanger::Base
       file.each do |record|
         # check cap_statement presence for the consider year
         harvest_year = record.attributes['CAMPAGNE'].to_s
-        campaign = Campaign.find_by!(harvest_year: harvest_year.to_i)
+        campaign = Campaign.find_or_create_by!(harvest_year: harvest_year.to_i)
         w.info 'Campaign exist' if campaign
 
         pacage_number = record.attributes['PACAGE'].to_s

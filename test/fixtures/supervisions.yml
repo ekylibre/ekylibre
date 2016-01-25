@@ -40,4 +40,22 @@
 #   name: "Lorem ipsum"
 #   updater: users_001
 #
---- {}
+---
+supervisions_001:
+  created_at: 2016-01-25 13:37:25.068107000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  name: sdfghj
+  time_window: 600
+  updated_at: 2016-01-25 13:37:25.068107000 Z
+  updater_id: 1
+supervisions_002:
+  created_at: 2016-01-25 13:37:46.929393000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  name: Weather
+  time_window: 60
+  updated_at: 2016-01-25 13:37:46.929393000 Z
+  updater_id: 1

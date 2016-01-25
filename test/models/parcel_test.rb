@@ -102,7 +102,7 @@ class ParcelTest < ActiveSupport::TestCase
     delivery.reload
     delivery.finish!
     product.reload
-    assert_equal storage, product.current_localization.container
+    assert_equal storage, product.current_localization.container, 'Container differs from expected'
     assert_equal :own, product.current_enjoyment.nature.to_sym, 'All enjoyments: ' + product.enjoyments.order(:started_at).collect { |e| "#{e.started_at.l}: #{e.nature} (#{e.enjoyer_id})" }.join(', ')
     assert_equal :own, product.current_ownership.nature.to_sym, 'All ownerships: ' + product.ownerships.order(:started_at).collect { |e| "#{e.started_at.l}: #{e.nature} (#{e.owner_id})" }.join(', ')
   end

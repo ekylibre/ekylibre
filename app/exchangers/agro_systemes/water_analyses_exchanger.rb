@@ -3,7 +3,9 @@ class AgroSystemes::WaterAnalysesExchanger < ActiveExchanger::Base
     here = Pathname.new(__FILE__).dirname
     analyser_attributes = YAML.load_file(here.join('entity.yml'))
 
-    unless analyser = Entity.find_by(siret_number: analyser_attributes[:siret_number])
+    land_parcels_transcode = {}
+
+    unless analyser = Entity.find_by(analyser_attributes.slice(:siret_number))
       analyser = Entity.create!(analyser_attributes)
     end
 
@@ -18,7 +20,7 @@ class AgroSystemes::WaterAnalysesExchanger < ActiveExchanger::Base
       r = OpenStruct.new(code_distri: (row[0].blank? ? nil : row[0].to_s),
                          reference_number: row[6].to_s,
                          at: (row[7].blank? ? nil : Date.civil(*row[7].to_s.split(/\//).reverse.map(&:to_i))),
-                         water_work_number: row[8].blank? ? nil : landparcels_transcode[row[8]],
+                         water_work_number: row[8].blank? ? nil : land_parcels_transcode[row[8]],
                          potential_hydrogen: row[9].blank? ? nil : row[9].to_d,
                          nitrogen_concentration: row[10].blank? ? nil : row[10].to_d.in_percent,
                          sampled_at: (row[12].blank? ? nil : Date.civil(*row[12].to_s.split(/\//).reverse.map(&:to_i))),

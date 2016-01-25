@@ -185,3 +185,142 @@ documents_005:
   updated_at: 2015-07-14 13:21:36.730242000 Z
   updater_id: 1
   uploaded: false
+documents_006:
+  created_at: 2016-01-22 13:13:56.771952000 Z
+  creator_id: 1
+  file_content_text: "Ferstivall LTD\nLa Banquise\n4 rue Eugène et Marc Dulout\n33600
+    PESSAC\nFrance\n\nFERSTIVALL LTD\nLA BANQUISE\n4 RUE EUGÈNE ET MARC DULOUT\n33600
+    PESSAC\nFRANCE\n\nCommande SO000000000011\n\nCode\nKRYVPNV000000\n\nDésignation\nGraine
+    de blé\n\n17 septembre 2015\n\nQté.\n\nPU HT\n\nRemise\n\nMontant\nHT\n\nMontant\nTVA\n\nTaux\nTVA\n\n250,00\n\n180,00\n\n0,00
+    %\n\n45000,00\n\n9000,00\n\n20.0%\n\n45000,00\n\n9000,00\n\nTotaux\nNet à payer\n\n54000,00\n\nCe
+    devis et ses conditions générales sont valables jusqu’au 11/10/2015 00:00.\n\nVeuillez
+    apposer la mention\n« Bon pour accord », dater\net signer.\n\n22/01/2016 14:13\n\nN°
+    TVA Intracommunautaire : FR00123456789\n\n1/2\n\n\fColis\nType\n\nNom\n\nQté.\n\nGraine
+    de blé\n\nGraine de blé\n\n250.0\n\nNuméro du colis\nP000000000002\n\nEtat\n\nPlannifié
+    le\n\nLivré\n\n17/09/2015 12.00\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_o1cvf5_zuiwjon.pdf
+  file_file_size: 37877
+  file_fingerprint: 2329cb8767b7f3a27798af024aea60fa
+  file_pages_count: 2
+  file_updated_at: 2016-01-22 13:13:56.362011000 Z
+  id: 8
+  key: 1453468436-beardley_o1cvf5_zuiwjon.pdf
+  lock_version: 0
+  name: beardley_o1cvf5_zuiwjon.pdf
+  nature: sales_order
+  number: D000000000006
+  template_id: 19
+  updated_at: 2016-01-22 13:13:56.771952000 Z
+  updater_id: 1
+  uploaded: false
+documents_007:
+  created_at: 2016-01-22 13:14:24.107679000 Z
+  creator_id: 1
+  file_content_text: "Ferstivall LTD\nLa Banquise\n4 rue Eugène et Marc Dulout\n33600
+    PESSAC\nFrance\n\nFERSTIVALL LTD\nLA BANQUISE\n4 RUE EUGÈNE ET MARC DULOUT\n33600
+    PESSAC\nFRANCE\n\nCommande SO000000000011\n\nCode\nKRYVPNV000000\n\nDésignation\nGraine
+    de blé\n\n17 septembre 2015\n\nQté.\n\nPU HT\n\nRemise\n\nMontant\nHT\n\nMontant\nTVA\n\nTaux\nTVA\n\n250,00\n\n180,00\n\n0,00
+    %\n\n45000,00\n\n9000,00\n\n20.0%\n\n45000,00\n\n9000,00\n\nTotaux\nNet à payer\n\n54000,00\n\nCe
+    devis et ses conditions générales sont valables jusqu’au 11/10/2015 00:00.\n\nVeuillez
+    apposer la mention\n« Bon pour accord », dater\net signer.\n\n22/01/2016 14:14\n\nN°
+    TVA Intracommunautaire : FR00123456789\n\n1/2\n\n\fColis\nType\n\nNom\n\nQté.\n\nGraine
+    de blé\n\nGraine de blé\n\n250.0\n\nNuméro du colis\nP000000000002\n\nEtat\n\nPlannifié
+    le\n\nLivré\n\n17/09/2015 12.00\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_o1cvfz_6ra0q9t.pdf
+  file_file_size: 37876
+  file_fingerprint: c16aaa6abd09591980de3d46303a271d
+  file_pages_count: 2
+  file_updated_at: 2016-01-22 13:14:23.792152000 Z
+  id: 9
+  key: 1453468464-beardley_o1cvfz_6ra0q9t.pdf
+  lock_version: 0
+  name: beardley_o1cvfz_6ra0q9t.pdf
+  nature: sales_order
+  number: D000000000007
+  template_id: 19
+  updated_at: 2016-01-22 13:14:24.107679000 Z
+  updater_id: 1
+  uploaded: false
+documents_008:
+  created_at: 2016-01-22 13:17:47.121716000 Z
+  creator_id: 1
+  file_content_text: "Ferstivall LTD\nLa Banquise\n4 rue Eugène et Marc Dulout\n33600
+    PESSAC\nFrance\n\nFERSTIVALL LTD\nLA BANQUISE\n4 RUE EUGÈNE ET MARC DULOUT\n33600
+    PESSAC\nFRANCE\n\nCommande SO000000000011\n\nCode\nKRYVPNV000000\n\nDésignation\nGraine
+    de blé\n\n17 septembre 2015\n\nQté.\n\nPU HT\n\nRemise\n\nMontant\nHT\n\nMontant\nTVA\n\nTaux\nTVA\n\n250,00\n\n180,00\n\n0,00
+    %\n\n45000,00\n\n9000,00\n\n20.0%\n\n45000,00\n\n9000,00\n\nTotaux\nNet à payer\n\n54000,00\n\nCe
+    devis et ses conditions générales sont valables jusqu’au 11/10/2015 00:00.\n\nVeuillez
+    apposer la mention\n« Bon pour accord », dater\net signer.\n\n22/01/2016 14:17\n\nN°
+    TVA Intracommunautaire : FR00123456789\n\n1/2\n\n\fColis\nType\n\nNom\n\nQté.\n\nGraine
+    de blé\n\nGraine de blé\n\n250.0\n\nNuméro du colis\nP000000000002\n\nEtat\n\nPlannifié
+    le\n\nLivré\n\n17/09/2015 12.00\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_o1cvlm_dddh0bi.pdf
+  file_file_size: 37877
+  file_fingerprint: 51104374aae3f2ced41c81d591ef0e06
+  file_pages_count: 2
+  file_updated_at: 2016-01-22 13:17:46.810427000 Z
+  id: 10
+  key: 1453468667-beardley_o1cvlm_dddh0bi.pdf
+  lock_version: 0
+  name: beardley_o1cvlm_dddh0bi.pdf
+  nature: sales_order
+  number: D000000000008
+  template_id: 19
+  updated_at: 2016-01-22 13:17:47.121716000 Z
+  updater_id: 1
+  uploaded: false
+documents_009:
+  created_at: 2016-01-22 13:26:08.484941000 Z
+  creator_id: 1
+  file_content_text: "Ferstivall LTD\nLa Banquise\n4 rue Eugène et Marc Dulout\n33600
+    PESSAC\nFrance\n\nAvoir F2015000002\n\n30 mai 2015\n\nAffaire A000000000030\nCode\nGWNVKRYVPNV0\n00000000049\n\nDésignation\nBouteille
+    Bordelaise 75cl\n\nQté.\n\nPU HT\n\nRemise\n\nMontant\nHT\n\nMontant\nTVA\n\nTaux\nTVA\n\n-250,00\n\n1,67\n\n0,00
+    %\n\n-417,50\n\n-82,50\n\n20.0%\n\n-417,50\n\n-82,50\n\nTotaux\nNet à payer\n\nFacture
+    acquittée\n\n22/01/2016 14:26\n\nDate\n\nN° TVA Intracommunautaire : FR00123456789\n\n-500,00\n\nPièces\n\nVersement(s)\n\nFacture\n\nA000000000030\n\n500,00\n\n500,00\n\n1/2\n\n\fAvoir
+    F2015000002\n\n30 mai 2015\n\nAffaire A000000000030\nColis\n\n22/01/2016 14:26\n\nN°
+    TVA Intracommunautaire : FR00123456789\n\n2/2\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_o1cvzj_ws69rny.pdf
+  file_file_size: 49236
+  file_fingerprint: 55c078da224500a63ca9b1332655254b
+  file_pages_count: 2
+  file_updated_at: 2016-01-22 13:26:08.143264000 Z
+  id: 11
+  key: 1453469168-beardley_o1cvzj_ws69rny.pdf
+  lock_version: 0
+  name: beardley_o1cvzj_ws69rny.pdf
+  nature: sales_invoice
+  number: D000000000009
+  template_id: 3
+  updated_at: 2016-01-22 13:26:08.484941000 Z
+  updater_id: 1
+  uploaded: false
+documents_010:
+  created_at: 2016-01-22 14:06:38.102426000 Z
+  creator_id: 1
+  file_content_text: "Ferstivall LTD\nLa Banquise\n4 rue Eugène et Marc Dulout\n33600
+    PESSAC\nFrance\n\nAvoir F2015000002\n\n30 mai 2015\n\nAffaire A000000000030\nCode\nGWNVKRYVPNV0\n00000000049\n\nDésignation\nBouteille
+    Bordelaise 75cl\n\nQté.\n\nPU HT\n\nRemise\n\nMontant\nHT\n\nMontant\nTVA\n\nTaux\nTVA\n\n-250,00\n\n1,67\n\n0,00
+    %\n\n-417,50\n\n-82,50\n\n20.0%\n\n-417,50\n\n-82,50\n\nTotaux\nNet à payer\n\nFacture
+    acquittée\n\n22/01/2016 15:06\n\nDate\n\nN° TVA Intracommunautaire : FR00123456789\n\n-500,00\n\nPièces\n\nVersement(s)\n\nFacture\n\nA000000000030\n\n500,00\n\n500,00\n\n1/2\n\n\fAvoir
+    F2015000002\n\n30 mai 2015\n\nAffaire A000000000030\nColis\n\n22/01/2016 15:06\n\nN°
+    TVA Intracommunautaire : FR00123456789\n\n2/2\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_o1cxv1_lu9n3x0.pdf
+  file_file_size: 49234
+  file_fingerprint: 8862bb62fabff6987ff916b134b0d686
+  file_pages_count: 2
+  file_updated_at: 2016-01-22 14:06:37.768218000 Z
+  id: 19
+  key: F2015000002
+  lock_version: 0
+  name: Facture de vente F2015000002
+  nature: sales_invoice
+  number: D000000000017
+  template_id: 3
+  updated_at: 2016-01-22 14:06:38.102426000 Z
+  updater_id: 1
+  uploaded: false

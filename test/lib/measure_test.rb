@@ -92,11 +92,11 @@ class MeasureTest < ActiveSupport::TestCase
     assert_equal m2.value, 1.045
     assert_equal m2, 1.045.in_ton
 
-    assert_raise IncompatibleDimensions do
+    assert_raise Measure::IncompatibleDimensions do
       (m2 != 1.045.in_square_meter)
     end
 
-    assert_raise IncompatibleDimensions do
+    assert_raise Measure::IncompatibleDimensions do
       (m2 == 1.045.in_square_meter)
     end
 
@@ -122,7 +122,7 @@ class MeasureTest < ActiveSupport::TestCase
 
     m4 = 1.2.in_cubic_meter
 
-    assert_raise IncompatibleDimensions do
+    assert_raise Measure::IncompatibleDimensions do
       m4 + m2
     end
   end
@@ -135,7 +135,7 @@ class MeasureTest < ActiveSupport::TestCase
 
   test 'all units' do
     value = 5123.23
-    for unit in Nomen::Unit.list
+    Nomen::Unit.each do |unit|
       assert_nothing_raised do
         Measure.new("#{value} #{unit.symbol}")
         Measure.new("#{value}#{unit.symbol}")

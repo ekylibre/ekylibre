@@ -41,4 +41,24 @@
 #   supervision: supervisions_001
 #   updater: users_001
 #
---- {}
+---
+supervision_items_001:
+  color: "#000000"
+  created_at: 2016-01-25 13:37:46.930784000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  sensor_id: 2
+  supervision_id: 2
+  updated_at: 2016-01-25 13:37:46.930784000 Z
+  updater_id: 1
+supervision_items_002:
+  color: "#b54d4d"
+  created_at: 2016-01-25 13:37:46.939757000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  sensor_id: 3
+  supervision_id: 2
+  updated_at: 2016-01-25 13:37:46.939757000 Z
+  updater_id: 1

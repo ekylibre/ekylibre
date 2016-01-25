@@ -188,17 +188,17 @@ sequences_009:
   created_at: 2014-11-01 16:03:04.418996000 Z
   creator_id: 1
   id: 9
-  last_cweek: 29
-  last_month: 7
-  last_number: 5
-  last_year: 2015
-  lock_version: 7
+  last_cweek: 3
+  last_month: 1
+  last_number: 17
+  last_year: 2016
+  lock_version: 19
   name: Document
   number_format: D[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2015-07-14 13:21:36.728573000 Z
+  updated_at: 2016-01-22 14:06:38.099683000 Z
   updater_id: 1
   usage: documents
 sequences_010:

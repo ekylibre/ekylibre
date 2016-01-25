@@ -1719,11 +1719,24 @@ preferences_144:
   created_at: 2014-11-01 16:54:56.566215000 Z
   creator_id: 1
   id: 144
-  lock_version: 0
+  lock_version: 2
   name: list._cultivable_zones_list_cultivable_zones_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-11-01 16:54:56.566215000 Z
+  string_value:
+    content_for: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      actions: main_toolbar
+      pagination: meta_toolbar
+      settings: meta_toolbar
+    page: 1
+    only: content
+    redirect: "/backend/cultivable-zones"
+    controller: backend/cultivable_zones
+    action: list
+    hidden_columns: []
+    dir: ''
+    per_page: 20
+    sort: ''
+  updated_at: 2016-01-22 16:35:08.840869000 Z
   updater_id: 1
   user_id: 1
 preferences_145:
@@ -2910,11 +2923,11 @@ preferences_247:
   created_at: 2015-06-02 20:35:20.100688000 Z
   creator_id: 1
   id: 248
-  integer_value: 1
-  lock_version: 40
+  integer_value: 5
+  lock_version: 62
   name: current_campaign.id
   nature: integer
-  updated_at: 2015-06-02 20:57:58.761489000 Z
+  updated_at: 2016-01-25 13:27:47.995723000 Z
   updater_id: 1
   user_id: 1
 preferences_248:
@@ -3392,3 +3405,239 @@ preferences_290:
   name: create_activities_from_telepac
   nature: boolean
   updated_at: 2016-01-21 14:05:45.983826000 Z
+preferences_291:
+  created_at: 2016-01-22 13:21:33.363979000 Z
+  creator_id: 1
+  id: 292
+  lock_version: 0
+  name: cobbler.financial_years-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-22 13:21:33.363979000 Z
+  updater_id: 1
+  user_id: 1
+preferences_292:
+  created_at: 2016-01-22 13:21:33.385120000 Z
+  creator_id: 1
+  id: 293
+  lock_version: 0
+  name: list._financial_years_list_fixed_asset_depreciations_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-22 13:21:33.385120000 Z
+  updater_id: 1
+  user_id: 1
+preferences_293:
+  created_at: 2016-01-22 13:25:47.043552000 Z
+  creator_id: 1
+  id: 294
+  lock_version: 0
+  name: list._last_outgoing_parcels_cells_list_last_outgoing_parcels_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-22 13:25:47.043552000 Z
+  updater_id: 1
+  user_id: 1
+preferences_294:
+  created_at: 2016-01-22 13:25:47.143675000 Z
+  creator_id: 1
+  id: 295
+  lock_version: 0
+  name: list._last_incoming_parcels_cells_list_last_incoming_parcels_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-22 13:25:47.143675000 Z
+  updater_id: 1
+  user_id: 1
+preferences_295:
+  created_at: 2016-01-22 13:25:55.928983000 Z
+  creator_id: 1
+  id: 296
+  lock_version: 0
+  name: list._entities_list_subscriptions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-22 13:25:55.928983000 Z
+  updater_id: 1
+  user_id: 1
+preferences_296:
+  boolean_value: false
+  created_at: 2016-01-22 13:25:58.450671000 Z
+  creator_id: 1
+  id: 297
+  lock_version: 0
+  name: interface.snippets.supervision.collapsed
+  nature: boolean
+  updated_at: 2016-01-22 13:25:58.450671000 Z
+  updater_id: 1
+  user_id: 1
+preferences_297:
+  created_at: 2016-01-22 16:04:54.946646000 Z
+  creator_id: 1
+  id: 298
+  lock_version: 6
+  name: interface.janus.backend-cultivable_zones-index-6.current_face
+  nature: string
+  string_value: list
+  updated_at: 2016-01-25 12:40:21.278888000 Z
+  updater_id: 1
+  user_id: 1
+preferences_298:
+  created_at: 2016-01-22 16:04:57.414145000 Z
+  creator_id: 1
+  id: 299
+  lock_version: 0
+  name: cobbler.cultivable_zones-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-22 16:04:57.414145000 Z
+  updater_id: 1
+  user_id: 1
+preferences_299:
+  created_at: 2016-01-25 12:26:20.590059000 Z
+  creator_id: 1
+  id: 300
+  lock_version: 0
+  name: cobbler.vegetal_activities-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-25 12:26:20.590059000 Z
+  updater_id: 1
+  user_id: 1
+preferences_300:
+  boolean_value: true
+  created_at: 2016-01-25 12:26:28.575194000 Z
+  creator_id: 1
+  id: 301
+  lock_version: 0
+  name: interface.kujakus.backend-analyses-index-3.collapsed
+  nature: boolean
+  updated_at: 2016-01-25 12:26:28.575194000 Z
+  updater_id: 1
+  user_id: 1
+preferences_301:
+  created_at: 2016-01-25 12:26:28.584331000 Z
+  creator_id: 1
+  id: 302
+  lock_version: 0
+  name: kujaku.feathers.backend-analyses-index-3:0.default
+  nature: string
+  updated_at: 2016-01-25 12:26:28.584331000 Z
+  updater_id: 1
+  user_id: 1
+preferences_302:
+  created_at: 2016-01-25 12:53:06.163317000 Z
+  creator_id: 1
+  id: 303
+  lock_version: 0
+  name: cobbler.myselves-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-25 12:53:06.163317000 Z
+  updater_id: 1
+  user_id: 1
+preferences_303:
+  boolean_value: true
+  created_at: 2016-01-25 13:07:46.573156000 Z
+  creator_id: 1
+  id: 304
+  lock_version: 0
+  name: interface.kujakus.backend-postal_zones-index-1.collapsed
+  nature: boolean
+  updated_at: 2016-01-25 13:07:46.573156000 Z
+  updater_id: 1
+  user_id: 1
+preferences_304:
+  created_at: 2016-01-25 13:07:46.582737000 Z
+  creator_id: 1
+  id: 305
+  lock_version: 0
+  name: kujaku.feathers.backend-postal_zones-index-1:0.default
+  nature: string
+  updated_at: 2016-01-25 13:07:46.582737000 Z
+  updater_id: 1
+  user_id: 1
+preferences_305:
+  created_at: 2016-01-25 13:07:46.590662000 Z
+  creator_id: 1
+  id: 306
+  lock_version: 0
+  name: list._postal_zones_list_postal_zones_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-25 13:07:46.590662000 Z
+  updater_id: 1
+  user_id: 1
+preferences_306:
+  created_at: 2016-01-25 13:07:54.507908000 Z
+  creator_id: 1
+  id: 307
+  lock_version: 0
+  name: host
+  nature: string
+  string_value: erp.example.com
+  updated_at: 2016-01-25 13:07:54.507908000 Z
+  updater_id: 1
+preferences_307:
+  boolean_value: false
+  created_at: 2016-01-25 13:07:54.516453000 Z
+  creator_id: 1
+  id: 308
+  lock_version: 0
+  name: force_intervention_started_at
+  nature: boolean
+  updated_at: 2016-01-25 13:07:54.516453000 Z
+  updater_id: 1
+preferences_308:
+  boolean_value: false
+  created_at: 2016-01-25 13:07:54.521300000 Z
+  creator_id: 1
+  id: 309
+  lock_version: 0
+  name: force_intervention_stopped_at
+  nature: boolean
+  updated_at: 2016-01-25 13:07:54.521300000 Z
+  updater_id: 1
+preferences_309:
+  boolean_value: true
+  created_at: 2016-01-25 13:36:38.756774000 Z
+  creator_id: 1
+  id: 310
+  lock_version: 0
+  name: interface.kujakus.backend-cap_statements-index-1.collapsed
+  nature: boolean
+  updated_at: 2016-01-25 13:36:38.756774000 Z
+  updater_id: 1
+  user_id: 1
+preferences_310:
+  created_at: 2016-01-25 13:36:38.766291000 Z
+  creator_id: 1
+  id: 311
+  lock_version: 0
+  name: kujaku.feathers.backend-cap_statements-index-1:0.default
+  nature: string
+  updated_at: 2016-01-25 13:36:38.766291000 Z
+  updater_id: 1
+  user_id: 1
+preferences_311:
+  created_at: 2016-01-25 13:36:38.775716000 Z
+  creator_id: 1
+  id: 312
+  lock_version: 0
+  name: list._cap_statements_list_cap_statements_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-25 13:36:38.775716000 Z
+  updater_id: 1
+  user_id: 1
+preferences_312:
+  created_at: 2016-01-25 13:37:17.340524000 Z
+  creator_id: 1
+  id: 313
+  lock_version: 0
+  name: list._supervisions_list_supervisions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-01-25 13:37:17.340524000 Z
+  updater_id: 1
+  user_id: 1

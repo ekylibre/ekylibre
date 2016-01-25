@@ -4,10 +4,10 @@ require 'test_helper'
 class Ekylibre::SchemaTest < ActiveSupport::TestCase
   # Checks the validity of references files for models
   test 'ekylibre tables' do
-    for k, v in Ekylibre::Schema.tables
-      for n, column in v
+    Ekylibre::Schema.tables.each do |table, columns|
+      columns.each do |n, column|
         next if column.references.nil?
-        assert(column.references.present?, "#{k}.#{n} foreign key is not determined.")
+        assert(column.references.present?, "#{table}.#{n} foreign key is not determined.")
         next if column.polymorphic?
         assert_nothing_raised do
           column.references.to_s.pluralize.classify.constantize
