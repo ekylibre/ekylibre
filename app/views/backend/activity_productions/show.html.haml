@@ -4,10 +4,11 @@
 = cobbles do |c|
   - c.cobble :general_informations do
     - if resource.vegetal_crops? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
+      = mini_map(resource.support)
       = infos do
         .med-info.important
           %span.title= LandParcel.human_attribute_name(:net_surface_area)
-          %span.value= resource.net_surface_area.l
+          %span.value= resource.support_shape_area.in(:hectare).round(2).l
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:support_nature)
           %span.value= resource.support_nature.text
@@ -22,18 +23,18 @@
           %span.title= ActivityProduction.human_attribute_name(:nitrate_fixing)
           %span.value
             %i.picto{class: "picto-#{resource.nitrate_fixing ? :done : :clear}"}
-      -# if resource.estimate_yield.to_d > 0.0
-        .info
-          %span.title= :estimate_yield.tl
-          %span.value= resource.estimate_yield.l
-      - if resource.implanted_at
-        .info
-          %span.title= :implanted_at.tl
-          %span.value= resource.implanted_at.l
-      - if resource.harvested_at
-        .info
-          %span.title= :harvested_at.tl
-          %span.value= resource.harvested_at.l
+        -# if resource.estimate_yield.to_d > 0.0
+          .med-info
+            %span.title= :estimate_yield.tl
+            %span.value= resource.estimate_yield.l
+        - if resource.implanted_at
+          .med-info
+            %span.title= :implanted_at.tl
+            %span.value= resource.implanted_at.l
+        - if resource.harvested_at
+          .med-info
+            %span.title= :harvested_at.tl
+            %span.value= resource.harvested_at.l
 
   - if resource.vegetal_crops? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
     - c.cobble :weather do
@@ -104,7 +105,7 @@
 
       = waterfall_highcharts(series, tooltip: {point_format: '{point.y: 1.3f}'}, title: {text: 'Budget prévisionnel'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: '€'}})
 
-  - if resource.interventions.any? and Nomen::Variety[resource.production.variant.variety] <= :plant
+  - if resource.interventions.any? and Nomen::Variety[resource.activity.cultivation_variety] <= :plant
     - c.cobble :production_cost do
       :ruby
         # prepare an array of hash
@@ -124,7 +125,7 @@
           data = []
           for role in [:input, :doer, :tool]
             if intervention.cost(role)
-              cost_per_hectare = intervention.cost(role) / (resource.support_net_surface_area(intervention.started_at).to_d(unit))
+              cost_per_hectare = intervention.cost(role) / (resource.support_shape_area.to_d(unit))
             else
               cost_per_hectare = 0.0
             end
@@ -139,7 +140,7 @@
           cost = []
           for role in [:input, :doer, :tool]
             if intervention.cost(role)
-              cost << intervention.cost(role) / (resource.support_net_surface_area(intervention.started_at).to_d(unit))
+              cost << intervention.cost(role) / (resource.support_shape_area.to_d(unit))
             end
           end
           data << {name: intervention.name, y: cost.compact.sum.round(2).to_s.to_f }

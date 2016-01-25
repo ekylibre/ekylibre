@@ -29,10 +29,13 @@ module Backend
     # List interventions for one production support
     list(:interventions, conditions: "['interventions.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))', params[:id]]".c, order: { created_at: :desc }, line_class: :status) do |t|
       t.column :name, url: true
-      t.status
-      t.column :issue, url: true
+      # t.status
       t.column :started_at
+      t.column :human_working_duration
+      t.column :human_target_names
+      t.column :human_working_zone_area
       t.column :stopped_at, hidden: true
+      t.column :issue, url: true
       # t.column :provisional
     end
   end

@@ -21,7 +21,7 @@
     - unless resource.population_counting_unitary?
       = resource_info :population, important: true do |population|
         = population.l + " " + resource.unit_name
-    - if resource.has_indicator?(:net_mass)
+    - if resource.has_indicator?(:net_mass) && resource.net_mass.to_d > 0
       = resource_info(:net_mass, important: true)
     - if resource.current_ownership && resource.current_ownership.other?
       = resource_info(:owner, important: true) do |owner|
