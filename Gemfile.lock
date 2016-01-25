@@ -147,7 +147,7 @@ GEM
     docile (1.1.5)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
-    enumerize (1.1.0)
+    enumerize (1.1.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.0.9.1)
@@ -269,7 +269,7 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
-    rails-html-sanitizer (1.0.2)
+    rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     rails_best_practices (1.15.7)
       activesupport

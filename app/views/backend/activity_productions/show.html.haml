@@ -8,7 +8,7 @@
       = infos do
         .med-info.important
           %span.title= LandParcel.human_attribute_name(:net_surface_area)
-          %span.value= resource.support_shape_area.in(:hectare).round(2).l
+          %span.value= resource.human_support_shape_area
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:support_nature)
           %span.value= resource.support_nature.text
