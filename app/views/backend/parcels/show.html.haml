@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   - t.edit resource if resource.updateable?
-  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl, params: {redirect: nil}) if resource.destroyable?
+  - t.destroy
 
 = main_state_bar(resource)
 

@@ -1,7 +1,7 @@
 - main_toolbar do |t|
   - t.export :shipping_note, key: :number
   - t.edit resource
-  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
+  - t.destroy
 
 = main_state_bar(resource)
 

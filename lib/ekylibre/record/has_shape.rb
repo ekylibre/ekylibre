@@ -32,8 +32,19 @@ module Ekylibre::Record
               end
             end
 
-            define_method "human_#{column}_area" do |unit = nil, precision = 3|
-              send(column + '_area', unit).round(precision).l
+            define_method "human_#{column}_area" do |mode = :metric|
+              area = send(col+ '_area')
+              if mode == :imperial
+                area.in(:acre).round(3).l
+              else # metric
+                if area > 1.in_hectare
+                  area.in_hectare.round(3).l
+                elsif area > 1.in_are
+                  area.in_are.round(3).l
+                else
+                  area.in_square_meter.round(3).l
+                end
+              end
             end
           end
 

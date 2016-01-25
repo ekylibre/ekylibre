@@ -1,6 +1,6 @@
 - if @notifications.any?
   - main_toolbar do |t|
-    - t.destroy label: :mark_all_as_read.tl, method: :delete, params: {redirect: params[:redirect] }
+    - t.destroy label: :mark_all_as_read.tl, redirect: params[:redirect]
 
   .active-list
     %table.list

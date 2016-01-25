@@ -28,7 +28,7 @@ module Backend
       t.action :destroy
       t.column :name, url: true
       t.column :work_number
-      t.column :net_surface_area, datatype: :measure
+      t.column :human_shape_area, datatype: :measure
       # t.column :unit
     end
 

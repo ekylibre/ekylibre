@@ -2,7 +2,7 @@
   - t.export :animal_sheet, key: :identification_number
   - t.edit resource
   - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
-  -# t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
+  -# t.destroy
 
 = main_informations attachment: true do
   - if resource.picture.exists?

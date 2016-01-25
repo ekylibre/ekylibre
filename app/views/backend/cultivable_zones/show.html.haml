@@ -1,7 +1,6 @@
 - main_toolbar do |t|
   - t.edit resource
-  - if resource.destroyable?
-    - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl)
+  - t.destroy
 
 = main_informations attachment: true do
   = mini_map(resource)
@@ -11,7 +10,7 @@
       %span.value= resource.work_number
     .med-info
       %span.title= CultivableZone.human_attribute_name(:net_surface_area)
-      %span.value= resource.net_surface_area.l
+      %span.value= resource.human_shape_area
     - if resource.current_cultivations.any?
       .med-info
         %span.title= :current_cultivation.tl

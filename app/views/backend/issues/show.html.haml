@@ -9,7 +9,7 @@
   -# for event in resource.state_paths.events
     - if resource.send("can_#{event}?")
       - t.send(event, resource, method: :post, "data-confirm" => are_you_sure_you_want_to("#{event}_issue"))
-  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
+  - t.destroy
 
 = main_informations attachment: true do
   - if resource.picture.exists?

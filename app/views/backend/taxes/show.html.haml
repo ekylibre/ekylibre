@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   - t.edit resource
-  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
+  - t.destroy
 
 = cobbles do |c|
   - c.cobble :general_informations do

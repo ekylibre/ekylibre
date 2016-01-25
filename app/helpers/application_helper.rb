@@ -813,7 +813,7 @@ module ApplicationHelper
   # Build a tool bar composed of tool groups composed of tool
   def toolbar(options = {}, &_block)
     html = '[EmptyToolbarError]'
-    toolbar = Toolbar.new
+    toolbar = Toolbar.new(self)
     yield toolbar if block_given?
 
     # To HTML
@@ -835,7 +835,8 @@ module ApplicationHelper
   class Toolbar
     attr_reader :tools
 
-    def initialize
+    def initialize(template)
+      @template = template
       @tools = {}
       @group = '0'
     end
@@ -858,6 +859,12 @@ module ApplicationHelper
 
     def menu(name, options = {}, &block)
       add(:menu, name, options, &block)
+    end
+
+    def destroy(options = {})
+      if @template.resource.destroyable?
+        add(:tool_to, options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
+      end
     end
 
     def method_missing(method_name, *args, &_block)

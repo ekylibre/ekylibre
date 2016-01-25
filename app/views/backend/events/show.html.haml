@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   - t.edit resource
-  - t.destroy(resource, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete.tl) if resource.destroyable?
+  - t.destroy
 
 = main_informations attachment: true do
   = attributes_list(resource) do |l|
