@@ -106,6 +106,7 @@ module Backend
       t.column :name, url: true
       # t.column :campaign, url: true
       # t.column :product_nature, url: true
+      t.column :human_support_shape_area
       t.column :state
       t.column :started_on
       t.column :stopped_on

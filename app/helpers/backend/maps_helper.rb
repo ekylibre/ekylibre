@@ -105,6 +105,7 @@ module Backend
     # A module map displays an ActiveRecord::Relation as map. Model must have
     # a shape method and a name method. Methods are configurable through
     # options (:shape_method and :label_method)
+    # the area unit could be given with options :area_unit
     def model_map(records, options = {}, &block)
       return nil unless records.any?
       klass = records.first.class
@@ -118,9 +119,10 @@ module Backend
         elsif popup.is_a?(String)
           feature = render popup, object: record, resource: record
         else
+          area_unit = options[:area_unit] || :hectare
           content = []
           content << { label: klass.human_attribute_name(label_method), value: record.send(label_method) }
-          content << { label: Nomen::Indicator.find(:net_surface_area).human_name, value: record.net_surface_area.l }
+          content << { label: Nomen::Indicator.find(:net_surface_area).human_name, value: record.net_surface_area.in(area_unit).round(2).l }
           content << link_to(:show.tl, { controller: controller, action: :show, id: record.id }, class: 'btn btn-default')
           feature = { popup: { content: content, header: true } }
         end
