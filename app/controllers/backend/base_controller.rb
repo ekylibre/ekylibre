@@ -39,9 +39,18 @@ module Backend
     end
 
     def set_current_campaign
-      if params[:current_campaign_id] && (campaign = Campaign.find(params[:current_campaign_id]))
-        @current_campaign = campaign
-        current_user.current_campaign = @current_campaign
+      if params[:current_campaign_id]
+        if params[:current_campaign_id] == 'preceding'
+          campaign = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year - 1)
+        elsif params[:current_campaign_id] == 'following'
+          campaign = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year + 1)
+        else
+          campaign = Campaign.find(params[:current_campaign_id])
+        end
+        if current_campaign != campaign
+          @current_campaign = campaign
+          current_user.current_campaign = @current_campaign
+        end
       end
     end
 

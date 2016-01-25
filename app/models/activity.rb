@@ -265,7 +265,7 @@ class Activity < Ekylibre::Record::Base
     # short-way solution, can be externalized in mid-way solution
     def color(family, variety)
       colors = { gold: '#FFD700', golden_rod: '#DAA520', yellow: '#FFFF00',
-                 orange: '#FF8000', red: '#FF0000', green: '#80DD00',
+                 orange: '#FF8000', red: '#FF0000', green: '#80BB00',
                  green_yellow: '#ADFF2F', spring_green: '#00FF7F',
                  dark_green: '#006400', lime: '#00FF00', dark_turquoise: '#00FFFF',
                  blue: '#0000FF', purple: '#BF00FF', gray: '#A4A4A4',
@@ -286,7 +286,7 @@ class Activity < Ekylibre::Record::Base
           if variety <= :zea || variety <= :sorghum
             colors[:orange]
           elsif variety <= :hordeum || variety <= :avena || variety <= :secale
-            colors[:yellow]
+            '#EEDD99'
           elsif variety <= :triticum || variety <= :triticosecale
             colors[:gold]
           else

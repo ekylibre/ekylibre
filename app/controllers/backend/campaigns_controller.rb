@@ -20,6 +20,14 @@ module Backend
   class CampaignsController < Backend::BaseController
     manage_restfully
 
+    before_action only: :show do
+      if params[:id] == 'preceding'
+        params[:id] = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year - 1).id
+      elsif params[:id] == 'following'
+        params[:id] = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year + 1).id
+      end
+    end
+    
     after_action only: :show do
       @current_campaign = @campaign
       current_user.current_campaign = @current_campaign
