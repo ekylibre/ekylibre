@@ -951,6 +951,7 @@ spa:
     # hint: "Hint: %{value}"
     # historic: "Historic"
     home: "Vuelta a la cogida de la ayuda"
+    # human_working_duration: "Working duration"
     iban: "Numero de cuento bancario internacional (IBAN)"
     # identification: "Identification"
     # identifiers: "Identifiers"

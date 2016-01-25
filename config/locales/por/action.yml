@@ -824,6 +824,7 @@ por:
     # hint: "Hint: %{value}"
     # historic: "Historic"
     # home: "Home"
+    # human_working_duration: "Working duration"
     # iban: "International Bank Account Number (IBAN)"
     # identification: "Identification"
     # identifiers: "Identifiers"

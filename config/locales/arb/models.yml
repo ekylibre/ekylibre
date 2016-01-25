@@ -1382,6 +1382,9 @@ arb:
     hashed_password: "تشفير كلمة المرور" #?
     # host: "Host"
     hour_duration: "(ساعة (ساعات" #?
+    # human_target_names: "Target names"
+    # human_working_duration: "Working duration"
+    # human_working_zone_area: "Working zone area"
     # humus_mineralization: "Humus mineralization"
     iban: "IBAN"
     iban_label: "IBAN" #?

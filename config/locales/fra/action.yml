@@ -1074,6 +1074,8 @@ fra:
     historic: "Historique"
     home: "Accueil"
     human_target_names: "Nom des cibles" #?
+    human_working_duration: "Temps de travail"
+    human_working_zone_area: "Zone travaillée" #?
     iban: "Numéro de compte bancaire internationale (IBAN)"
     identification: "Identification"
     identifiers: "Identifiants"

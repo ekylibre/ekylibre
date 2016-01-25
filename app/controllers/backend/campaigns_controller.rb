@@ -31,7 +31,7 @@ module Backend
         false
       end
     end
-    
+
     after_action only: :show do
       @current_campaign = @campaign
       current_user.current_campaign = @current_campaign

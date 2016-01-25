@@ -822,6 +822,7 @@ jpn:
     # hint: "Hint: %{value}"
     # historic: "Historic"
     home: "持て成しの手伝いに帰り"
+    # human_working_duration: "Working duration"
     # iban: "International Bank Account Number (IBAN)"
     # identification: "Identification"
     # identifiers: "Identifiers"

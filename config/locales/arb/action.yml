@@ -1211,6 +1211,7 @@ arb:
       one: "مجموع الوقت المستخدم : ساعة واحدة" #?
       other: "مجموع الوقت المستخدم%{count} ساعات" #?
       zero: "" #?
+    # human_working_duration: "Working duration"
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
     identification: "اسم ورمز المنتج"
     # identifiers: "Identifiers"
