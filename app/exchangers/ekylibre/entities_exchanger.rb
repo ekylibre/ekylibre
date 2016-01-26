@@ -55,7 +55,7 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
       end
 
       # Add SIREN, VAT or APE numbers if given
-      if r.siren_number
+      unless r.siren_number.blank?
         if r.siren_number =~ /\A\d{9}\z/
           code = r.siren_number + '0001'
           person.siret_number = code + Luhn.control_digit(code).to_s
