@@ -75,3 +75,24 @@ $activity_border_size: 5px;
     }
   }
 }
+
+.cash {
+  @include is-icon($fs-normal);
+  @include use-icon(money);
+}
+
+.cumulated-time {
+  @include is-icon($fs-normal);
+  @include use-icon(timelapse);
+}
+
+.opened-issues {
+  @include is-icon($fs-normal);
+  @include use-icon(bug);
+}
+
+.size {
+  @include is-icon($fs-normal);
+  @include use-icon(settings-ethernet);
+}
+

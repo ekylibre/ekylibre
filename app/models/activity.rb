@@ -209,7 +209,11 @@ class Activity < Ekylibre::Record::Base
   end
 
   def size_during(campaign)
-    total = productions.of_campaign(campaign).pluck(:size_value).sum
+    if self.vegetal_crops?
+     total = productions.of_campaign(campaign).map(&:support_shape_area).compact.sum.in(:hectare).round(2).l
+    else
+      total = productions.of_campaign(campaign).map(&:current_size).compact.sum
+    end
     # total = total.in(size_unit) if size_unit
     total
   end

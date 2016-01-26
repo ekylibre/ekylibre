@@ -17,7 +17,7 @@
           = activity.budget_expenses_amount(current_campaign).l(currency: Preference[:currency])
       .activity-indicators
         .activity-indicator.cumulated-time
-          = Intervention.of_campaign(current_campaign).of_activity(activity).sum(:working_duration)
+          = Intervention.of_campaign(current_campaign).of_activity(activity).sum(:working_duration).to_d.in(:second).convert(:hour).round(2).l
         .activity-indicator.opened-issues
           = Issue.of_campaign(current_campaign).of_activity(activity).opened.count
           = '/'
