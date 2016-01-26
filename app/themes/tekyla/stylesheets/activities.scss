@@ -49,7 +49,7 @@ $activity_border_size: 5px;
         line-height: $lh-large;
         font-size: $fs-large;
       }
-      margin-bottom: $default-gap;
+      margin-bottom: 2 * $default-gap;
     }
 
     .activity-indicators {
@@ -77,22 +77,18 @@ $activity_border_size: 5px;
 }
 
 .cash {
-  @include is-icon($fs-normal);
-  @include use-icon(money);
+  @include icon-before(money, $font-size: 14px);
 }
 
 .cumulated-time {
-  @include is-icon($fs-normal);
-  @include use-icon(timelapse);
+  @include icon-before(timelapse, $font-size: 14px);
 }
 
 .opened-issues {
-  @include is-icon($fs-normal);
-  @include use-icon(bug);
+  @include icon-before(bug, $font-size: 14px);
 }
 
 .size {
-  @include is-icon($fs-normal);
-  @include use-icon(settings-ethernet);
+  @include icon-before(settings-ethernet, $font-size: 14px);
 }
 
