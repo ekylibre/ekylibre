@@ -75,15 +75,20 @@ module Charta
     end
 
     def to_geojson
-      JSON.parse(select_value("SELECT ST_AsGeoJSON(#{geom})"))
+      select_value("SELECT ST_AsGeoJSON(#{geom})")
     end
     alias to_json to_geojson
+
+    def to_json_object
+      JSON.parse(to_json)
+    end
 
     # Test if the other measure is equal to self
     def ==(other_geometry)
       other = Charta.new_geometry(other_geometry).transform(srid)
       return true if empty? && other.empty?
-      fail 'Cannot compare geometry collection' if collection? && other.collection?
+      # fail 'Cannot compare geometry collection' if collection? && other.collection?
+      return false if collection? && other.collection?
       select_value("SELECT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
     end
 
@@ -92,7 +97,8 @@ module Charta
       other = Charta.new_geometry(other_geometry).transform(srid)
       if collection? && other.collection?
         return true if (empty? && !other.empty?) || (!empty? && other.empty?)
-        fail 'Cannot compare geometry collection'
+        # fail 'Cannot compare geometry collection'
+        return false
       end
       select_value("SELECT NOT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
     end
@@ -110,6 +116,7 @@ module Charta
     def empty?
       select_value("SELECT ST_IsEmpty(#{geom})") =~ /\At(rue)?\z/
     end
+    alias blank? empty?
 
     def centroid
       select_row("SELECT ST_Y(ST_Centroid(#{geom})), ST_X(ST_Centroid(#{geom}))").map(&:to_f)

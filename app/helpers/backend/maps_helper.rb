@@ -28,7 +28,7 @@ module Backend
         hash[:url] ||= url_for(controller: "/backend/#{resource.class.name.tableize}", action: :show, id: resource.id)
         if hash[:shape]
           global = (global ? global.merge(hash[:shape]) : Charta.new_geometry(hash[:shape]))
-          hash[:shape] = Charta.new_geometry(hash[:shape]).transform(:WGS84).to_geojson
+          hash[:shape] = Charta.new_geometry(hash[:shape]).transform(:WGS84).to_json_object
         end
         hash
       end
@@ -88,7 +88,7 @@ module Backend
         options.deep_merge!(data: { map_editor: { controls: { importers: { content: importer_form(options[:data][:map_editor][:controls][:importers][:formats]) } } } })
       end
 
-      options.deep_merge!(data: { map_editor: { edit: geometry.to_geojson } }) unless value.nil?
+      options.deep_merge!(data: { map_editor: { edit: geometry.to_json_object } }) unless value.nil?
       text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys } }))
     end
 

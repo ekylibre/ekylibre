@@ -729,8 +729,8 @@ arb:
       account: "الحساب"
       account_balance: "رصيد الحساب"
       # activity: "Activity"
-      # activity_budget: ""
-      # activity_budget_item: "Budget"
+      # activity_budget: "Activity budget"
+      # activity_budget_item: "Activity budget item"
       # activity_distribution: "Activity distribution"
       # activity_production: "Production support"
       # affair: "Affair"
@@ -802,6 +802,7 @@ arb:
       incoming_payment_mode: "نوع الدفعة"
       incoming_payment_use: "تأثير الدفعة" #?
       # intervention: "Intervention"
+      # intervention_agent: "Intervention agent"
       # intervention_doer: "Intervention doer"
       # intervention_group_parameter: "Intervention group parameter"
       # intervention_input: "Intervention input"
@@ -859,6 +860,7 @@ arb:
       # product_localization: "Product localization"
       # product_membership: "Product membership"
       product_move: "حركة السهم" #?
+      # product_movement: "Product movement"
       product_nature: "الانتاج"
       product_nature_category: "فئة الانتاج"
       # product_nature_category_taxation: "Product type category taxation"

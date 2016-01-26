@@ -226,7 +226,6 @@ class Product < Ekylibre::Record::Base
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: true
   delegate :serial_number, :producer, to: :tracking
-  delegate :name, to: :nature, prefix: true
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
            to: :variant, prefix: true
   delegate :unit_name, to: :variant
@@ -242,13 +241,14 @@ class Product < Ekylibre::Record::Base
 
   after_initialize :choose_default_name
   after_save :set_initial_values, if: :initializeable?
-  before_validation :set_default_values, on: :create
-  before_validation :update_default_values, on: :update
 
   before_validation do
     self.initial_born_at ||= Time.zone.now
     self.uuid ||= UUIDTools::UUID.random_create.to_s
   end
+
+  before_validation :set_default_values, on: :create
+  before_validation :update_default_values, on: :update
 
   after_validation do
     self.born_at ||= self.initial_born_at
@@ -300,6 +300,11 @@ class Product < Ekylibre::Record::Base
     dead_at.nil? && !population.zero?
   end
 
+  def nature_name
+    nature ? nature.name : nil
+  end
+
+  # FIXME: Not I18nized
   def work_name
     "#{name} (#{work_number})"
   end
@@ -339,6 +344,7 @@ class Product < Ekylibre::Record::Base
         reading.value = initial_shape
         reading.read_at = born_at
         reading.save!
+        ProductReading.destroy readings.where.not(id: reading.id).where(indicator_name: :shape, read_at: reading.read_at).pluck(:id)
       end
     end
 

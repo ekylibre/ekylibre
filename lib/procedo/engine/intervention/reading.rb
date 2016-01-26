@@ -24,22 +24,25 @@ module Procedo
               @value = attributes[:measure_value_value].to_d.in(attributes[:measure_value_unit])
             end
           else
-            value = attributes["#{datatype}_value".to_sym]
+            val = attributes["#{datatype}_value".to_sym]
             @value = if [:point, :geometry, :multi_polygon].include?(datatype)
-                       puts value.inspect.yellow
-                       v = Charta.new_geometry(v)
-                       v.srid = 4326 if v.srid == 0
-                       v
+                       if val.blank? || val == 'null'
+                         Charta.empty_geometry
+                       else
+                         val = Charta.from_geojson(val)
+                         val.srid = 4326 if val.srid == 0
+                         val
+                       end
                      elsif datatype == :integer
-                       value.to_i
+                       val.to_i
                      elsif datatype == :decimal
-                       value.to_d
+                       val.to_d
                      elsif datatype == :boolean
-                       %w(1 true t ok yes).include?(value.downcase)
+                       %w(1 true t ok yes).include?(val.downcase)
                      elsif datatype == :choice
-                       value.blank? ? nil : value.to_sym
+                       val.blank? ? nil : val.to_sym
                      else
-                       value
+                       val
                      end
           end
         end
@@ -48,8 +51,8 @@ module Procedo
           @indicator = Nomen::Indicator.find!(name)
         end
 
-        def value=(value)
-          @value = value
+        def value=(val)
+          @value = val
           impact_dependencies!
         end
 
@@ -84,11 +87,7 @@ module Procedo
             hash[:measure_value_value] = @value.to_d.to_s.to_f
             hash[:measure_value_unit] = @value.unit
           elsif [:point, :geometry, :multi_polygon].include?(datatype)
-            hash["#{datatype}_value".to_sym] = if reference.hidden?
-                                                 @value.to_ewkt
-                                               else
-                                                 @value.to_json
-                                               end
+            hash["#{datatype}_value".to_sym] = @value.to_json
           else
             hash["#{datatype}_value".to_sym] = @value
           end

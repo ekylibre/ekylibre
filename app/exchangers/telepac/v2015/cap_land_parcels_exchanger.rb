@@ -22,7 +22,7 @@ class Telepac::V2015::CapLandParcelsExchanger < ActiveExchanger::Base
         pacage_number = record.attributes['PACAGE'].to_s
 
         company = Entity.of_company
-        
+
         cap_statement_attributes = {
           campaign: campaign,
           declarant: company,

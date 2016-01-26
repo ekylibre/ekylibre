@@ -54,23 +54,30 @@ class InterventionOutput < InterventionProductParameter
   belongs_to :intervention, inverse_of: :outputs
   belongs_to :product, dependent: :destroy
   has_one :product_movement, as: :originator
-  validates :variant, presence: true
+  validates :variant, :quantity_population, presence: true
 
   after_save do
     if variant
       output = product
       output ||= variant.products.new unless output
+      output.type = variant.matching_model.name
+      output.born_at = intervention.started_at
+      output.initial_born_at = output.born_at
       # output.name = ''
       # output.attributes = product_attributes
+      reading = readings.find_by(indicator_name: :shape)
+      output.initial_shape = reading.value if reading
       output.save!
 
       movement = product_movement
-      movement = output.movements.build unless movement
+      movement = output.movements.build(originator: output) unless movement
       movement.delta = quantity_population
       movement.started_at = intervention.started_at
+      movement.save!
 
       update_columns(product_id: output.id) # , movement_id: movement.id)
     end
+    true
   end
 
   def earn_amount_computation

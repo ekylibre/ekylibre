@@ -57,6 +57,7 @@ class InterventionParameterReading < Ekylibre::Record::Base
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :indicator_datatype, :indicator_name, :intervention_parameter
   # ]VALIDATORS]
+  validates_uniqueness_of :indicator_name, scope: :parameter_id
 
   delegate :started_at, :stopped_at, to: :intervention
 
@@ -74,7 +75,7 @@ class InterventionParameterReading < Ekylibre::Record::Base
       product_reading ||= product.readings.new(indicator: indicator)
       product_reading.originator = self
       product_reading.value = value
-      product_reading.read_at = intervention.started_at || Time.now
+      product_reading.read_at = product.born_at || intervention.started_at || Time.now
       product_reading.save!
     end
   end

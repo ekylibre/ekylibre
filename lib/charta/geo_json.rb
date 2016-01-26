@@ -37,6 +37,7 @@ module Charta
           object_to_ewkt(feature)
         end.join(', ') + ')'
       end
+      alias geometry_collection_to_ewkt feature_collection_to_ewkt
 
       def feature_to_ewkt(hash)
         object_to_ewkt(hash['geometry'])

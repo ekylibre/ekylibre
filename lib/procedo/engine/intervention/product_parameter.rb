@@ -85,8 +85,10 @@ module Procedo
             next unless attribute.default_value?
             next unless attribute.default_value_with_environment_variable?(field, :self)
             next if attribute.condition? && !usable_attribute?(attribute)
+            # value = send(attribute.name)
+            # next unless value.blank?
             value = compute_attribute(attribute)
-            next unless value != send(attribute.name)
+            next if value.blank? || value == send(attribute.name)
             puts "Update #{attribute.name}"
             value = Charta.new_geometry(value) if value && attribute.name == :working_zone
             send(attribute.name.to_s + '=', value)
@@ -100,11 +102,13 @@ module Procedo
             next unless ir && ref_reading.default_value?
             next unless ref_reading.default_value_with_environment_variable?(field, :self)
             next if ref_reading.condition? && !usable_reading?(ref_reading)
+            # next unless ir.value.blank?
             value = compute_reading(ref_reading)
             if value != ir.value
               puts "Update reading #{ref_reading.name}"
               ir.value = value
             end
+            ir.impact_dependencies!
           end
         end
 

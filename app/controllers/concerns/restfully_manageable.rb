@@ -100,7 +100,7 @@ module RestfullyManageable
       end
 
       code << "def resource_model\n"
-      code << "  #{model_name}\n"
+      code << "  ::#{model_name}\n"
       code << "end\n"
       code << "private :resource_model\n"
 
@@ -146,6 +146,7 @@ module RestfullyManageable
 
       if actions.include?(:create)
         code << "def create\n"
+        # code << "  raise params.inspect.red\n"
         code << "  @#{record_name} = resource_model.new(permitted_params)\n"
         code << "  return if save_and_redirect(@#{record_name}#{', url: (' + after_save_url + ')' if after_save_url})\n"
         code << "  #{t3e_code}\n"

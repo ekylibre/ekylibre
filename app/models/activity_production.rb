@@ -139,11 +139,11 @@ class ActivityProduction < Ekylibre::Record::Base
                                  .where.not(id: ActivityProduction.select(:support_id))
                                  .order(:id)
         self.support = land_parcels.any? ? land_parcels.first : LandParcel.new
-        self.support.name = computed_support_name
-        self.support.initial_shape = support_shape
-        self.support.initial_born_at = started_on
-        self.support.variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
-        self.save!
+        support.name = computed_support_name
+        support.initial_shape = support_shape
+        support.initial_born_at = started_on
+        support.variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+        save!
       end
     end
     self.size = current_size if support && size_indicator_name && size_unit_name

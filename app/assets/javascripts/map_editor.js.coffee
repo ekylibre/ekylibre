@@ -303,6 +303,7 @@
     edit: (geojson) ->
       return this.options.edit unless geojson?
       this.options.edit = geojson
+      this._saveUpdates()
       this._refreshEditionLayerGroup()
 
     view: (view) ->

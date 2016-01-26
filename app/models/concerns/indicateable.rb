@@ -70,8 +70,8 @@ module Indicateable
     results.max { |a, b| a.read_at <=> b.read_at }
   end
 
-  def first_reading(_indicator)
-    candidates = readings.order(:read_at)
+  def first_reading(indicator_name)
+    candidates = readings.where(indicator_name: indicator_name).order(:read_at)
     return candidates.first if candidates.any?
     nil
   end

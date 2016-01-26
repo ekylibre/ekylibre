@@ -82,6 +82,7 @@ class InterventionParameter < Ekylibre::Record::Base
       now = Time.zone.now
       self.position = (precision * now.to_f).round - (precision * now.to_i)
     end
+    true
   end
 
   # Returns a Procedo::Parameter corresponding to its reference_name

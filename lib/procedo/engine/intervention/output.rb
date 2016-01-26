@@ -17,8 +17,13 @@ module Procedo
           @variant ? @variant.id : nil
         end
 
+        def variant=(record)
+          self.variant_id = record.id
+        end
+
         def variant_id=(id)
           @variant = ProductNatureVariant.find_by(id: id)
+          impact_dependencies!(:variant)
         end
 
         def to_hash

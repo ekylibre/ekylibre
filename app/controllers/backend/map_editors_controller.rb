@@ -25,10 +25,10 @@ module Backend
 
       case format
       when 'gml'
-        geometry = ::Charta.from_gml(geometry).transform(:WGS84).to_geojson if ::Charta::GML.valid?(geometry)
+        geometry = ::Charta.from_gml(geometry).transform(:WGS84).to_json_object if ::Charta::GML.valid?(geometry)
 
       when 'kml'
-        geometry = Charta.from_kml(geometry).transform(:WGS84).to_geojson if ::Charta::KML.valid?(geometry)
+        geometry = Charta.from_kml(geometry).transform(:WGS84).to_json_object if ::Charta::KML.valid?(geometry)
 
       when 'geojson'
       # DO Nothing
@@ -62,7 +62,7 @@ module Backend
                       id: gfeature.try(:[], 'properties').try(:[], 'id'),
                       removable: true
                     }.reject { |_, v| v.nil? },
-                    geometry: Charta.from_geojson(gfeature['geometry']).transform(:WGS84).to_geojson
+                    geometry: Charta.from_geojson(gfeature['geometry']).transform(:WGS84).to_json_object
                   }.reject { |_, v| v.nil? }
                 end
               end

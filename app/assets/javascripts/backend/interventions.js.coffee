@@ -32,6 +32,7 @@
                   console.log "Updates ##{subprefix} with: ", value
                   element.selector('value', value)
             else if element.is(":ui-mapeditor")
+              value = $.parseJSON(value)
               element.mapeditor "show", value
               element.mapeditor "edit", value
               try
@@ -104,7 +105,8 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'selector:change selector:initialized', '*[data-intervention-updater]', ->
+  #  selector:initialized
+  $(document).on 'selector:change', '*[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
 
@@ -112,29 +114,29 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'change', '*[data-procedure-global="at"]', ->
-    $(this).each ->
-      E.interventions.refresh $(this)
+  # $(document).on 'change', '*[data-procedure-global="at"]', ->
+  #   $(this).each ->
+  #     E.interventions.refresh $(this)
 
-  $(document).behave 'load', '*[data-procedure]', (event) ->
-    $(this).each ->
-      E.interventions.refresh $(this)
+  # $(document).behave 'load', '*[data-procedure]', (event) ->
+  #   $(this).each ->
+  #     E.interventions.refresh $(this)
 
-  # Filters supports with given production
-  # Hides supports line if needed
-  $(document).behave "load selector:set", "*[data-intervention-updater='global:production']", (event) ->
-    production = $(this)
-    id = production.selector('value')
-    form = production.closest('form')
-    url = "/backend/production_supports/unroll?scope[of_current_campaigns]=true"
-    support = form.find("*[data-intervention-updater='global:support']").first()
-    if /^\d+$/.test(id)
-      url += "&scope[of_productions]=#{id}"
-      form.addClass("with-supports")
-    else
-      form.removeClass("with-supports")
-    support.attr("data-selector", url)
-    support.data("selector", url)
+  # # Filters supports with given production
+  # # Hides supports line if needed
+  # $(document).behave "load selector:set", "*[data-intervention-updater='global:production']", (event) ->
+  #   production = $(this)
+  #   id = production.selector('value')
+  #   form = production.closest('form')
+  #   url = "/backend/production_supports/unroll?scope[of_current_campaigns]=true"
+  #   support = form.find("*[data-intervention-updater='global:support']").first()
+  #   if /^\d+$/.test(id)
+  #     url += "&scope[of_productions]=#{id}"
+  #     form.addClass("with-supports")
+  #   else
+  #     form.removeClass("with-supports")
+  #   support.attr("data-selector", url)
+  #   support.data("selector", url)
 
   true
 ) ekylibre, jQuery

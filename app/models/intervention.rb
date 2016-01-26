@@ -117,6 +117,7 @@ class Intervention < Ekylibre::Record::Base
     if procedure
       self.actions = procedure.actions.map(&:name) if actions && actions.empty?
     end
+    true
   end
 
   validate do
@@ -130,6 +131,7 @@ class Intervention < Ekylibre::Record::Base
     if self.started_at && self.stopped_at && self.stopped_at <= self.started_at
       errors.add(:stopped_at, :posterior, to: self.started_at.l)
     end
+    true
   end
 
   before_save do
@@ -142,6 +144,7 @@ class Intervention < Ekylibre::Record::Base
       # self.update_column(:event_id, event.id)
       self.event_id = event.id
     end
+    true
   end
 
   # Prevents from deleting an intervention that was executed

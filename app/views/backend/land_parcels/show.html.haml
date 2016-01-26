@@ -7,8 +7,8 @@
     = mini_map(resource)
     = infos do
       .med-info
-        %span.title= LandParcel.human_attribute_name(:net_surface_area)
-        %span.value= resource.population.l + " " + resource.unit_name
+        %span.title= LandParcel.human_attribute_name(:population)
+        %span.value= resource.population.round(3).l + " " + resource.unit_name
       = resource_info(:soil_nature, label: Nomen::Indicator[:soil_nature].human_name, nomenclature: true)
       - indicators = [:potential_hydrogen, :available_water_capacity_per_area, :soil_depth, :organic_matter_concentration]
       - indicators.each do |indicator|

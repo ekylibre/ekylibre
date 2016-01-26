@@ -237,6 +237,7 @@ eng:
       product_ownership: "Product ownership"
       product_phase: "Product phase"
       product_reading: "Product reading"
+      production: "" #?
       purchase: "Purchase"
       purchase_item: "Purchase item"
       purchase_nature: "Purchase type"

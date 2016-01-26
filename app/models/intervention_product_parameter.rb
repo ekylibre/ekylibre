@@ -109,6 +109,7 @@ class InterventionProductParameter < InterventionParameter
       #   end
       # end
     end
+    true
   end
 
   validate do
@@ -121,16 +122,11 @@ class InterventionProductParameter < InterventionParameter
         errors.add(:reference_name, :invalid)
       end
     end
+    true
   end
 
   def name
     reference ? reference.human_name : reference_name.humanize
-  end
-
-  def shape_svg(options = {})
-    geom = Charta.new_geometry(self['shape'])
-    geom = geom.transform(options[:srid]) if options[:srid]
-    geom.to_svg
   end
 
   def self.role
@@ -218,21 +214,27 @@ class InterventionProductParameter < InterventionParameter
     false
   end
 
-  # FIXME: Seems that Rails does not define population method when aggregators are used...
-  def population
-    self['quantity']
-  end
+  # def shape_svg(options = {})
+  #   geom = Charta.new_geometry(self['shape'])
+  #   geom = geom.transform(options[:srid]) if options[:srid]
+  #   geom.to_svg
+  # end
 
-  # FIXME: Seems that Rails does not define shape method when aggregators are used...
-  def shape
-    self['shape']
-  end
+  # # FIXME: Seems that Rails does not define population method when aggregators are used...
+  # def population
+  #   self['quantity']
+  # end
 
-  # Returns value of an indicator if its name correspond to
-  def method_missing(method_name, *args)
-    if Nomen::Indicator.exists?(method_name.to_s) && product && product.respond_to?(:get)
-      return product.get(method_name, self)
-    end
-    super
-  end
+  # # FIXME: Seems that Rails does not define shape method when aggregators are used...
+  # def shape
+  #   self['shape']
+  # end
+
+  # # Returns value of an indicator if its name correspond to
+  # def method_missing(method_name, *args)
+  #   if Nomen::Indicator.exists?(method_name.to_s) && product && product.respond_to?(:get)
+  #     return product.get(method_name, self)
+  #   end
+  #   super
+  # end
 end

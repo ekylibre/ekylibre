@@ -8,7 +8,7 @@
   = infos do
     = resource_info(:work_number, important: true)
     = resource_info(:population, important: true) do |population|
-      = resource.population.l + " " + resource.unit_name
+      = resource.population.round(3).l + " " + resource.unit_name
     = resource_info(:variety, important: true, nomenclature: true)
     = resource_info(:born_at, important: true)
     - if resource.born_at && resource.age >= 1.day

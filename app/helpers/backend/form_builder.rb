@@ -264,7 +264,7 @@ module Backend
       editor[:controls][:draw] ||= {}
       editor[:controls][:draw][:draw] = options[:draw] || {}
       if geom = @object.send(attribute_name)
-        editor[:edit] = Charta.new_geometry(geom).to_geojson
+        editor[:edit] = Charta.new_geometry(geom).to_json_object
         editor[:view] = { center: Charta.new_geometry(geom).centroid, zoom: 16 }
       else
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
@@ -289,15 +289,15 @@ module Backend
         rescue
         end
       end
-      editor[:show] = union.to_geojson unless union.empty?
+      editor[:show] = union.to_json_object unless union.empty?
       input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
     end
 
     def shape_field(attribute_name = :shape, options = {})
       fail @object.send(attribute_name)
       geometry = Charta.new_geometry(@object.send(attribute_name) || Charta.empty_geometry)
-      # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_geojson}}))
-      input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_geojson } } }))
+      # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_json_object}}))
+      input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
     end
 
     def geolocation(attribute_name = :geolocation, _options = {})
@@ -307,7 +307,7 @@ module Backend
     def point(attribute_name, options = {})
       marker = {}
       if geom = @object.send(attribute_name)
-        marker[:marker] = Charta.new_geometry(geom).to_geojson['coordinates'].reverse
+        marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
         marker[:view] = { center: marker[:marker] }
       else
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
@@ -485,7 +485,7 @@ module Backend
             html_options[:data] ||= {}
             @template.content_tag(:div, class: 'control-group') do
               @template.content_tag(:label, Product.human_attribute_name(:variant), class: 'control-label') +
-                @template.content_tag(:div, class: 'controls') do
+              @template.content_tag(:div, class: 'controls') do
                 input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
               end
             end
