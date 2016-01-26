@@ -10,17 +10,17 @@
     - if active
       .activity-indicators
         .activity-indicator.size
-          = activity.size_during(current_campaign)
+          = activity.size_during(campaign)
         .activity-indicator.cash
-          = activity.real_expense_amount(current_campaign).l(currency: Preference[:currency])
+          = activity.real_expense_amount(campaign).l(currency: Preference[:currency])
           = '/'
-          = activity.budget_expenses_amount(current_campaign).l(currency: Preference[:currency])
+          = activity.budget_expenses_amount(campaign).l(currency: Preference[:currency])
       .activity-indicators
         .activity-indicator.cumulated-time
-          = Intervention.of_campaign(current_campaign).of_activity(activity).sum(:working_duration).to_d.in(:second).convert(:hour).round(2).l
+          = Intervention.of_campaign(campaign).of_activity(activity).sum(:working_duration).to_d.in(:second).convert(:hour).round(2).l
         .activity-indicator.opened-issues
-          = Issue.of_campaign(current_campaign).of_activity(activity).opened.count
+          = Issue.of_campaign(campaign).of_activity(activity).opened.count
           = '/'
-          = Issue.of_campaign(current_campaign).of_activity(activity).count
+          = Issue.of_campaign(campaign).of_activity(activity).count
     - else
-      = link_to(:new_production.tl, {controller: :activity_productions, action: :new, activity_id: activity.id, campaign_id: current_campaign.id}, class: 'btn btn-default')
+      = link_to(:new_production.tl, {controller: :activity_productions, action: :new, activity_id: activity.id, campaign_id: campaign.id}, class: 'btn btn-default')
