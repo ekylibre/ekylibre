@@ -1,2 +1,2 @@
-web: bundle exec unicorn_rails -c config/unicorn.rb
+web: bundle exec unicorn_rails
 job: bundle exec sidekiq -c 2
