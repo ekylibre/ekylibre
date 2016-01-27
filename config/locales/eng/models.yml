@@ -1,10 +1,6 @@
 eng:
   activerecord:
     attributes:
-      activity:
-        parent: "Parent activity"
-        production_campaign: "Target campaign"
-        production_cycle: "Production cycle"
       animal_group:
         born_at: "Created at"
       building:
@@ -887,7 +883,7 @@ eng:
     product_readings: "Product readings" #?
     # product_shape_reading: "Product shape reading"
     production: "Production" #?
-    production_campaign: "Target campaign"
+    production_campaign: "Production campaign"
     production_cycle: "Production cycle"
     production_support: "Production support" #?
     production_supports: "Production supports" #?

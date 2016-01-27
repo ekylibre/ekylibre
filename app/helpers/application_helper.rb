@@ -418,22 +418,20 @@ module ApplicationHelper
     item_options = default_item.args.third if default_item
     item_options ||= {}
     item_options[:tool] = options[:icon] if options[:icon]
-    if default_item
-      html = tool_to(default_item.args.first, default_item.args.second,
-                     item_options, &default_item.block)
-      if menu_size > 1
-        html = content_tag(:div, class: 'btn-group') do
-          html + dropdown_toggle_button + dropdown_menu(menu.items)
+    content_tag(:div, class: 'btn-group' + (options[:class] ? ' ' + options[:class].to_s : '')) do
+      if default_item
+        html = tool_to(default_item.args.first, default_item.args.second,
+                       item_options, &default_item.block)
+        if menu_size > 1
+          html << dropdown_toggle_button + dropdown_menu(menu.items)
         end
-      end
-      return html
-    elsif menu.list.size == 1 && menu.first.type == :item
-      default_item = menu.first
-      tool_to(name, default_item.args.second,
-              (default_item.args.third || {}).merge(item_options),
-              &default_item.block)
-    else
-      content_tag(:div, class: 'btn-group') do
+        html
+      elsif menu.list.size == 1 && menu.first.type == :item
+        default_item = menu.first
+        tool_to(name, default_item.args.second,
+                (default_item.args.third || {}).merge(item_options),
+                &default_item.block)
+      else
         dropdown_toggle_button(name, icon: options[:icon]) +
           dropdown_menu(menu.list)
       end

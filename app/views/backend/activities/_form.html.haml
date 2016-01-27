@@ -1,21 +1,21 @@
+= f.object.errors.inspect
 = field_set do
   = f.input :name
-  = f.input :nature, as: :radio_buttons, show: ".{{value}}-nature-options"
-  = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
-  .perennial-production-cycle-options
-    = f.input :production_campaign, as: :radio_buttons
+  = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
   = f.input :family, collection: Nomen::ActivityFamily.selection, input_html: {data: {activity_family: true}}
   - family = Nomen::ActivityFamily[f.object.family]
   = f.input :with_cultivation, as: :hidden
   = f.input :cultivation_variety, collection: ((family and family.cultivation_variety) ? Nomen::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety) ? 'block' : 'none'}"}
   = f.input :with_supports, as: :hidden
   = f.input :support_variety, collection: ((family and family.support_variety) ? Nomen::Variety.selection(family.support_variety) : []), wrapper_html: {style: "display: #{(family and family.support_variety) ? 'block' : 'none'}"}
-  = f.input :description
-  = f.custom_fields
-
+  = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
+  .perennial-production-cycle-options
+    = f.input :production_campaign, as: :radio_buttons
   .main-nature-options
     = f.input :size_indicator_name
     = f.input :size_unit_name
+  = f.input :description
+  = f.custom_fields
 
 .auxiliary-nature-options
   = field_set(Activity.human_attribute_name(:distributions)) do

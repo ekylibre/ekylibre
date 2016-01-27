@@ -29,7 +29,7 @@
 
 - if activities.any?
   .activities-index
-    - activities.each do |activity|
+    - activities.order(:name).each do |activity|
       .activity-container
         = render 'backend/activities/card', activity: activity, campaign: resource
 - else

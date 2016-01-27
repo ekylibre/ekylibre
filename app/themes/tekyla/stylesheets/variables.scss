@@ -14,7 +14,7 @@ $fs-very-huge: 41px !default;
 $fs-awesome:   61px !default;
 
 // Line heights
-$lh-ratio: 1.5 !default;
+$lh-ratio: 1.618 !default;
 $lh-small:     round($lh-ratio * $fs-small);
 $lh-normal:    round($lh-ratio * $fs-normal);
 $lh-large:     round($lh-ratio * $fs-large);

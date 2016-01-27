@@ -1714,6 +1714,7 @@ spa:
       no_lines_found: "Ningun producto ha sido añadido al encargo" #?
       # no_parcels_given: "No parcels given"
       no_payment_to_deposit: "Ninguna forma de pago a cobrar"
+      # no_production_defined_for_current_campaign: "No production defined for current campaign"
       # no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_reopenable_journal: "nos se puede cerrar este periodico."
       no_stocks: "No hay ningun deposito. Si se quiere adùinistrar los depositos para une producto, por favor escroge la opción «administrar los depositos» dentro de las caracteristicas de vuestro producto." #?

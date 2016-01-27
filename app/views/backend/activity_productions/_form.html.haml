@@ -1,16 +1,23 @@
 - activity = f.object.activity
 = f.object.errors.inspect if f.object.errors.any? && Rails.env.development?
 = field_set do
-  = f.referenced_association :activity
+  = f.input :name
+  = f.referenced_association :activity, as: :hidden
   = f.date_range
-  = f.input :usage
-  -# Vegetal crops
-  = f.referenced_association :cultivable_zone
-  - unless f.object.new_record?
+  - if activity.annual?
+    = f.referenced_association :campaign
+  - if activity.vegetal_crops?
+    -# Vegetal crops
+    = f.input :support_nature, as: :radio_buttons
+    = f.input :usage
+    = f.referenced_association :cultivable_zone
     = f.shape :support_shape
-  = f.input :support_nature, as: :radio_buttons
-  = f.input :irrigated
-  = f.input :nitrate_fixing
-  -# Other families
-  = f.referenced_association :support
+    = f.input :irrigated
+    = f.input :nitrate_fixing
+  - elsif activity.animal_farming?
+    -# Animal farming
+    = f.input :size_value
+  - elsif activity.with_support
+    -# Other families
+    = f.referenced_association :support
   = f.custom_fields

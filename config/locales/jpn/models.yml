@@ -1,10 +1,6 @@
 jpn:
   activerecord:
     attributes:
-      activity:
-        # parent: "Parent activity"
-        # production_campaign: "Target campaign"
-        # production_cycle: "Production cycle"
       animal_group:
         # born_at: "Created at"
       building:
@@ -873,7 +869,7 @@ jpn:
     # product_reading_tasks: "Product reading tasks"
     # product_readings: "Product readings"
     # production: "Production"
-    # production_campaign: "Target campaign"
+    # production_campaign: "Production campaign"
     # production_cycle: "Production cycle"
     # production_support: "Production support"
     # production_supports: "Production supports"

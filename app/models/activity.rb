@@ -72,7 +72,7 @@ class Activity < Ekylibre::Record::Base
   validates_presence_of :cultivation_variety, if: :with_cultivation
   validates_presence_of :support_variety, if: :with_supports
   validates_uniqueness_of :name
-  validates_associated :productions
+  # validates_associated :productions
   validates_presence_of :production_cycle
   validates_presence_of :production_campaign, if: :perennial?
 
@@ -200,8 +200,10 @@ class Activity < Ekylibre::Record::Base
     productions.of_campaign(campaign).any?
   end
 
-  def vegetal_crops?
-    family && Nomen::ActivityFamily.find(family) <= :vegetal_crops
+  [:vegetal_crops, :animal_farming, :equipment_management, :processing].each do |family_name|
+    define_method  family_name.to_s + '?' do
+      self.family && Nomen::ActivityFamily.find(self.family) <= family_name
+    end
   end
 
   def of_campaign?(campaign)
@@ -209,12 +211,8 @@ class Activity < Ekylibre::Record::Base
   end
 
   def size_during(campaign)
-    if self.vegetal_crops?
-     total = productions.of_campaign(campaign).map(&:support_shape_area).compact.sum.in(:hectare).round(2).l
-    else
-      total = productions.of_campaign(campaign).map(&:current_size).compact.sum
-    end
-    # total = total.in(size_unit) if size_unit
+    total = productions.of_campaign(campaign).map(&:size).sum
+    total = total.in(size_unit) if size_unit
     total
   end
 

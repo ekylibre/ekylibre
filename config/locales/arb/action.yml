@@ -2147,6 +2147,7 @@ arb:
       no_items_found: "لم يتم اضافة اي منتج الى الطلب" #?
       # no_parcels_given: "No parcels given"
       no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
+      # no_production_defined_for_current_campaign: "No production defined for current campaign"
       # no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
       no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك" #?

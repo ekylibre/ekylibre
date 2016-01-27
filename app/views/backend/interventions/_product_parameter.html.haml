@@ -34,8 +34,6 @@
         - elsif computation.purchase?
           = :amount_computed_from.th(source: link_to(computation.purchase.number, {controller: :purchases, action: :show, id: computation.purchase.id}, title: Purchase.model_name.human))
 
-
-
   - actor = product_parameter.product
   - variant = product_parameter.variant
   - if actor

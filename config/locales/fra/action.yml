@@ -2026,6 +2026,7 @@ fra:
       no_items_found: "Aucun produit n’a été ajouté à la commande " #?
       no_parcels_given: "Aucun colis fournis"
       no_payment_to_deposit: "Aucun règlement à encaisser"
+      no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune production pour l'instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
       no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?

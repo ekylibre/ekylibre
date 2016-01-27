@@ -1842,6 +1842,22 @@ ul.tree {
   @include box-emphasis;
 }
 
+.activity-family {
+  margin: $default-gap * 2;
+  h2.activity-family-name {
+    font-size: $fs-large;
+    line-height: $lh-large;
+    margin-bottom: $default-gap * 2;
+    border-bottom: 1px solid #DDD;
+  }
+  .btn-group {
+    margin: $default-gap;
+    .btn {
+      min-width: 20em;
+    }
+  }
+}
+
 .proposal-list {
   padding: $default-gap;
   text-align: center;
@@ -1852,8 +1868,6 @@ ul.tree {
     margin: $margin;
     width: 100%;
     @include calc(width, "#{100%} - #{3 * $margin}");
-    @include box-sizing(border-box);
-    height: 2 * $fs-normal;
     @include text-align(center);
     @include respond-to-bigger-than(medium) {
       width: 33.33%;

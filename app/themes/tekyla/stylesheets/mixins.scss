@@ -630,7 +630,7 @@
   margin: 0;
   @include box-sizing(border-box);
   padding: $button-vertical-padding $button-horizontal-padding;
-  height: $button-height;
+  // height: $button-height;
   font-weight: bold;
   font-size: $fs-normal;
   line-height: $button-line-height;
@@ -647,6 +647,7 @@
   @include border-radius($default-border-radius);
   @include inline-block;
   @include transition-duration(0.15s);
+  @include text-align(center);
   /* &, &::after, &::before { */
   /*   vertical-align: middle !important; */
   /* } */

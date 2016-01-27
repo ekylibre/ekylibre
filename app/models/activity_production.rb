@@ -76,6 +76,7 @@ class ActivityProduction < Ekylibre::Record::Base
   # validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
   validates_presence_of :support_nature, if: :vegetal_crops?
   validates_presence_of :campaign, if: :annual?
+  validates_numericality_of :size_value, greater_than: 0
 
   delegate :name, :work_number, to: :support, prefix: true
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
@@ -146,7 +147,7 @@ class ActivityProduction < Ekylibre::Record::Base
         save!
       end
     end
-    self.size = current_size if support && size_indicator_name && size_unit_name
+    self.size = current_size if support && size_indicator && size_unit
   end
 
   before_validation(on: :create) do

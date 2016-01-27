@@ -52,8 +52,10 @@ class InterventionGroupParameter < InterventionParameter
   include CastGroupable
   belongs_to :group, class_name: 'InterventionGroupParameter' # , inverse_of: :group_parameters
   belongs_to :intervention, inverse_of: :group_parameters
-  belongs_to :parent, class_name: 'InterventionGroupParameter', foreign_key: :group_id, inverse_of: :children
-  has_many :children, class_name: 'InterventionParameter', dependent: :destroy, inverse_of: :parent, foreign_key: :group_id
+  belongs_to :parent, class_name: 'InterventionGroupParameter',
+                      foreign_key: :group_id, inverse_of: :children
+  has_many :children, class_name: 'InterventionParameter', dependent: :destroy,
+                      foreign_key: :group_id, inverse_of: :parent
   with_options inverse_of: :group, foreign_key: :group_id do
     has_many :parameters, class_name: 'InterventionParameter'
     has_many :group_parameters, -> { order(:position) }, class_name: 'InterventionGroupParameter'
@@ -64,7 +66,7 @@ class InterventionGroupParameter < InterventionParameter
     has_many :tools, class_name: 'InterventionTool'
   end
 
-  # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools
+  validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools
 
   accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, allow_destroy: true
 

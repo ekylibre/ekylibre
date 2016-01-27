@@ -1,99 +1,101 @@
 - activity_productions = ActivityProduction
 - if @activity_production_ids
   - activity_productions = activity_productions.where(id: @activity_production_ids)
+- data = []
 
 - if @campaigns && activity_productions.where.not(support_shape: nil).any?
   :ruby
-    data = []
-        activity_productions.of_campaign(@campaigns).find_each do |support|
-          if support.support_shape
-            popup_content = []
+    activity_productions.of_campaign(@campaigns).find_each do |support|
+      next unless support.support_shape
+      popup_content = []
 
-            # for support
+      # for support
 
-            #popup_content << {label: :campaign.tl, value: link_to(@campaigns.name, backend_campaign_path(@campaigns))}
-            #popup_content << {label: :activity.tl, value: link_to(support.activity.name, backend_activity_path(support.activity))}
+      #popup_content << {label: :campaign.tl, value: link_to(@campaigns.name, backend_campaign_path(@campaigns))}
+      #popup_content << {label: :activity.tl, value: link_to(support.activity.name, backend_activity_path(support.activity))}
 
-            popup_content << {label: :production_support.tl, value: link_to(support.name, backend_activity_production_path(support))}
+      popup_content << {label: :production_support.tl, value: link_to(support.name, backend_activity_production_path(support))}
 
-            if support_input_cost = support.input_cost and support_input_cost.to_d > 0.0
-              popup_content << {label: :costs_per_hectare.tl}
-              popup_content << {value: "#{:inputs.tl} : #{support_input_cost.to_s.to_f.round(2)}"}
-            end
-            if support_tool_cost = support.tool_cost and support_tool_cost.to_d > 0.0
-              popup_content << {value: "#{:tools.tl} : #{support_tool_cost.to_s.to_f.round(2)}"}
-            end
-            if support_time_cost = support.time_cost and support_time_cost.to_d > 0.0
-              popup_content << {value: "#{:times.tl} : #{support_time_cost.to_s.to_f.round(2)}"}
-            end
-
-            #nitrogen_concentration = support.soil_enrichment_indicator_content_per_area(:nitrogen_concentration)
-            #phosphorus_concentration = support.soil_enrichment_indicator_content_per_area(:phosphorus_concentration)
-            #potassium_concentration = support.soil_enrichment_indicator_content_per_area(:potassium_concentration)
-
-            # TODO refactor
-            #if nitrogen_concentration
-            #  popup_content << {label: :item_concentration_per_hectare.tl}
-            #  symbol = Nomen::ChemicalElement[:nitrogen].symbol
-            #  popup_content << {value: "#{symbol} : #{nitrogen_concentration.in(:unity_per_hectare).round(2).l}"}
-            #end
-
-            #if phosphorus_concentration
-            #  symbol = Nomen::ChemicalElement[:phosphorus].symbol
-            #  popup_content << {value: "#{symbol} : #{phosphorus_concentration.in(:unity_per_hectare).round(2).l}"}
-            #end
-
-            #if potassium_concentration
-            #  symbol = Nomen::ChemicalElement[:potassium].symbol
-            #  popup_content << {value: "#{symbol} : #{potassium_concentration.in(:unity_per_hectare).round(2).l}"}
-            #end
-
-            # TODO refactor
-            #mass_unit = :quintal
-            #surface_unit = :hectare
-            #grain_yield = support.grains_yield(mass_unit, surface_unit)
-            #measure_unit = "#{mass_unit.to_s}_per_#{surface_unit.to_s}"
-            #yield_symbol = Nomen::Unit[measure_unit.to_sym]
-
-            #if params[:visualization] == "grain_yield" && grain_yield
-            #  popup_content << {label: :grain_yield.tl, value: "#{grain_yield.to_d.round(2)} #{yield_symbol.symbol}"}
-            #end
-
-            #if support.net_surface_area
-            #  popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.net_surface_area.in_hectare.round(2).l}
-            #end
-
-            interventions = support.interventions
-            if interventions.any?
-              spent_time = interventions.map(&:working_duration).compact.sum
-              popup_content << {label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (spent_time/3600).round(2))}"}
-
-              last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
-              popup_content << {label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
-            end
-
-            popup_content << render('popup', support: support)
-
-            item = {
-              name:       "#{support.support.work_number} - #{@campaigns.name} - #{support.activity.name} - #{support.net_surface_area.in_hectare.round(2).l}",
-              shape:      support.support_shape,
-              shape_color: support.activity.color,
-              activity:   support.activity.name,
-              tool_cost:  support.tool_cost.to_s.to_f.round(2),
-              input_cost: support.input_cost.to_s.to_f.round(2),
-              time_cost:  support.time_cost.to_s.to_f.round(2),
-              #nitrogen_concentration:   nitrogen_concentration.to_s.to_f.round(2),
-              #phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
-              #potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
-              interventions_count: interventions.count,
-              grain_yield: support.grains_yield.to_s.to_f.round(2),
-              popup: {header: true, content: popup_content}
-            }
-          data << item
-        end
+      if support_input_cost = support.input_cost and support_input_cost.to_d > 0.0
+        popup_content << {label: :costs_per_hectare.tl}
+        popup_content << {value: "#{:inputs.tl} : #{support_input_cost.to_s.to_f.round(2)}"}
       end
+      if support_tool_cost = support.tool_cost and support_tool_cost.to_d > 0.0
+        popup_content << {value: "#{:tools.tl} : #{support_tool_cost.to_s.to_f.round(2)}"}
+      end
+      if support_time_cost = support.time_cost and support_time_cost.to_d > 0.0
+        popup_content << {value: "#{:times.tl} : #{support_time_cost.to_s.to_f.round(2)}"}
+      end
+
+      #nitrogen_concentration = support.soil_enrichment_indicator_content_per_area(:nitrogen_concentration)
+      #phosphorus_concentration = support.soil_enrichment_indicator_content_per_area(:phosphorus_concentration)
+      #potassium_concentration = support.soil_enrichment_indicator_content_per_area(:potassium_concentration)
+
+      # TODO refactor
+      #if nitrogen_concentration
+      #  popup_content << {label: :item_concentration_per_hectare.tl}
+      #  symbol = Nomen::ChemicalElement[:nitrogen].symbol
+      #  popup_content << {value: "#{symbol} : #{nitrogen_concentration.in(:unity_per_hectare).round(2).l}"}
+      #end
+
+      #if phosphorus_concentration
+      #  symbol = Nomen::ChemicalElement[:phosphorus].symbol
+      #  popup_content << {value: "#{symbol} : #{phosphorus_concentration.in(:unity_per_hectare).round(2).l}"}
+      #end
+
+      #if potassium_concentration
+      #  symbol = Nomen::ChemicalElement[:potassium].symbol
+      #  popup_content << {value: "#{symbol} : #{potassium_concentration.in(:unity_per_hectare).round(2).l}"}
+      #end
+
+      # TODO refactor
+      #mass_unit = :quintal
+      #surface_unit = :hectare
+      #grain_yield = support.grains_yield(mass_unit, surface_unit)
+      #measure_unit = "#{mass_unit.to_s}_per_#{surface_unit.to_s}"
+      #yield_symbol = Nomen::Unit[measure_unit.to_sym]
+
+      #if params[:visualization] == "grain_yield" && grain_yield
+      #  popup_content << {label: :grain_yield.tl, value: "#{grain_yield.to_d.round(2)} #{yield_symbol.symbol}"}
+      #end
+
+      #if support.net_surface_area
+      #  popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.net_surface_area.in_hectare.round(2).l}
+      #end
+
+      interventions = support.interventions
+      if interventions.any?
+        spent_time = interventions.map(&:working_duration).compact.sum
+        popup_content << {label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (spent_time/3600).round(2))}"}
+
+        last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
+        popup_content << {label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
+      end
+
+      popup_content << render('popup', support: support)
+
+      item = {
+        name:       "#{support.support.work_number} - #{@campaigns.name} - #{support.activity.name} - #{support.net_surface_area.in_hectare.round(2).l}",
+        shape:      support.support_shape,
+        shape_color: support.activity.color,
+        activity:   support.activity.name,
+        tool_cost:  support.tool_cost.to_s.to_f.round(2),
+        input_cost: support.input_cost.to_s.to_f.round(2),
+        time_cost:  support.time_cost.to_s.to_f.round(2),
+        # nitrogen_concentration:   nitrogen_concentration.to_s.to_f.round(2),
+        # phosphorus_concentration: phosphorus_concentration.to_s.to_f.round(2),
+        # potassium_concentration:  potassium_concentration.to_s.to_f.round(2),
+        interventions_count: interventions.count,
+        grain_yield: support.grains_yield.to_s.to_f.round(2),
+        popup: {header: true, content: popup_content}
+      }
+      data << item
+    end
   end
 
+- if data.empty?
+  .placeholding-message= :no_production_defined_for_current_campaign.tn
+- else
   = visualization do |v|
     - v.serie :main, data
     - v.background "OpenStreetMap.HOT"
@@ -119,6 +121,3 @@
     - v.control :scale
     - v.control :fullscreen
     - v.control :layer_selector
-
-- else
-  = no_data

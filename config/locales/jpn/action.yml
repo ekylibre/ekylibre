@@ -1446,6 +1446,7 @@ jpn:
       # no_depositable_payments: "There are no payment to deposit"
       # no_parcels_given: "No parcels given"
       # no_payment_to_deposit: "There are no payment to deposit"
+      # no_production_defined_for_current_campaign: "No production defined for current campaign"
       # no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       # no_reopenable_journal: "You can not re-open this journal."
       # record_already_imported: "Record already imported"

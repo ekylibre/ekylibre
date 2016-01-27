@@ -29,26 +29,15 @@
 
 - else # Root Procedure Natures
   - main_campaign_selector
-  - proposed = []
-  - default_params = { action: :new }
-  .activity-families{ data: { collapse: "accordion" } }
-    - Activity.of_campaign(current_campaign).pluck(:family).collect{|f| Nomen::ActivityFamily[f]}.compact.uniq.sort{|a,b| a.human_name <=> b.human_name }.each do |family|
-      - procedures = Procedo.procedures_of_activity_family(family.name.to_sym)
-      - if procedures.any?
-        - proposed += procedures
-        %h3
-          %i
-          = family.human_name
-        .proposal-list
-          - procedures.sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-            = link_to(procedure.human_name, default_params.merge(procedure_name: procedure.name).merge(params), class: "btn")
-    - remainings = Procedo.procedures - proposed
-    - if remainings.any?
-      %h3.others
-        %i
-        = :others.tl
-      .proposal-list
-        - remainings.sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-          = link_to(procedure.human_name, default_params.merge(procedure_name: procedure.name).merge(params), class: "btn")
+  - [:animal_farming, :equipment_management, :vegetal_crops, :processing].each do |family_name|
+    - family = Nomen::ActivityFamily.find(family_name)
+    -# next unless Activity.all.detect { |a| family >= a.family }
+    .activity-family
+      %h2.activity-family-name= family.human_name
+      .activity-family-procedures
+        - Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family_name) }.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
+          = dropdown_menu_button(category.human_name, class: 'btn-group-lg') do |menu|
+            - Procedo.procedures_of_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
+              - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect] }
 
   - f.clear_actions!

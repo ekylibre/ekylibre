@@ -67,6 +67,11 @@ a.btn, button.btn {
 
 .btn-group {
   @include button-group;
+  &.btn-group-lg {
+    .btn {
+      padding: $default-gap 2*$default-gap;
+    }
+  }
 }
 
 
