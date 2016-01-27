@@ -42,5 +42,6 @@ end
 
 desc 'Load first run in one transaction'
 task first_run: :environment do
+  ENV['name'] ||= ENV['TENANT']
   Ekylibre::FirstRun.launch! ENV.to_hash.symbolize_keys.slice(:folder, :name, :max, :mode, :verbose, :path)
 end

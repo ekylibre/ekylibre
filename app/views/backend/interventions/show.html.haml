@@ -32,10 +32,10 @@
     - c.cobble :resource_map, title: :map.tl do
       = map
 
-  -# tractor_cast = resource.product_parameters.find_by(reference_name: 'tractor')
-  -# if tractor_cast && tractor_cast.product
+  - tractor_tool = resource.product_parameters.find_by(reference_name: 'tractor')
+  - if tractor_tool && tractor_tool.product
     :ruby
-      tractor = tractor_cast.product
+      tractor = tractor_tool.product
       series = []
       [:fuel_consumption].each do |indicator_name|
         indicator = Nomen::Indicator[indicator_name]

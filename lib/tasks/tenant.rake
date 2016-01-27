@@ -18,6 +18,7 @@ namespace :tenant do
   task drop: :environment do
     name = ENV['TENANT'] || ENV['name']
     if Ekylibre::Tenant.exist?(name)
+      puts "Drop tenant: #{name.inspect.red}"
       Ekylibre::Tenant.drop(name)
     else
       puts "Unknown tenant: #{name.inspect.red}"

@@ -76,7 +76,7 @@ class ActivityProduction < Ekylibre::Record::Base
   # validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
   validates_presence_of :support_nature, if: :vegetal_crops?
   validates_presence_of :campaign, if: :annual?
-  validates_numericality_of :size_value, greater_than: 0
+  # validates_numericality_of :size_value, greater_than: 0
 
   delegate :name, :work_number, to: :support, prefix: true
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
@@ -379,7 +379,8 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # Compute quantity of a support as defined in production
   def current_size(options = {})
-    value = get(size_indicator_name, options)
+    options[:at] ||= self.started_on ? self.started_on.to_time : Time.zone.now
+    value = support.get(size_indicator_name, options)
     value = value.in(size_unit_name) unless size_unit_name.blank?
     value
   end
