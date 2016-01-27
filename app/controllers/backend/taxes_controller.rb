@@ -34,7 +34,7 @@ module Backend
 
     def load
       Tax.import_all_from_nomenclature(Preference[:country].to_sym)
-      redirect_to params[:redirect]
+      redirect_to params[:redirect] unless params[:redirect].nil?
     end
   end
 end
