@@ -43,7 +43,7 @@
   - if current_campaign && resource.productions.of_campaign(current_campaign).any?
 
     - c.cobble :map do
-      = model_map(resource.productions.of_campaign(current_campaign), shape_method: :support_shape)
+      = model_map(resource.productions.of_campaign(current_campaign), shape_method: :support_shape, color: resource.color)
 
 
   - c.cobble(:productions) do

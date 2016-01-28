@@ -12,10 +12,8 @@
       # for support
 
       #popup_content << {label: :campaign.tl, value: link_to(@campaigns.name, backend_campaign_path(@campaigns))}
-      #popup_content << {label: :activity.tl, value: link_to(support.activity.name, backend_activity_path(support.activity))}
-
-      popup_content << {label: :production_support.tl, value: link_to(support.name, backend_activity_production_path(support))}
-
+      popup_content << { label: ActivityProduction.human_attribute_name(:net_surface_area), value: support.human_support_shape_area }
+      popup_content << { label: ActivityProduction.human_attribute_name(:activity), value: link_to(support.activity_name, backend_activity_path(support.activity)) }
       if support_input_cost = support.input_cost and support_input_cost.to_d > 0.0
         popup_content << {label: :costs_per_hectare.tl}
         popup_content << {value: "#{:inputs.tl} : #{support_input_cost.to_s.to_f.round(2)}"}
@@ -72,10 +70,10 @@
         popup_content << {label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
       end
 
-      popup_content << render('popup', support: support)
+      popup_content << render('popup', production: support)
 
       item = {
-        name:       "#{support.support.work_number} - #{@campaigns.name} - #{support.activity.name} - #{support.net_surface_area.in_hectare.round(2).l}",
+        name:       support.name,
         shape:      support.support_shape,
         shape_color: support.activity.color,
         activity:   support.activity.name,

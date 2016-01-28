@@ -375,6 +375,11 @@ module ApplicationHelper
     content_tag(:svg, capture(&block))
   end
 
+  def button_group(options = {}, &block)
+    options[:class] = options[:class].to_s + ' btn-group'
+    content_tag(:div, options, &block)
+  end
+  
   def dropdown_toggle_button(name = nil, options = {})
     class_attribute = 'btn btn-default dropdown-toggle'
     class_attribute << ' sr-only' if name.blank?
@@ -695,7 +700,7 @@ module ApplicationHelper
   def tool_to(name, url, options = {})
     fail ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = options.delete(:tool)
-    icon ||= url[:action] if url.is_a?(Hash)
+    icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
     options[:class] << ' icn btn-' + icon.to_s if icon
     if url.is_a?(Hash)
