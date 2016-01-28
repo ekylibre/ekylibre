@@ -28,7 +28,7 @@
       dataType: "json"
       success: (data, status, response) ->
         $("*[data-access]").removeClass("active");
-        console.log data.rights
+        # console.log data.rights
         for resource, actions of data.rights
           for action in actions
             $("*[data-access='#{action}-#{resource}']").addClass("active")
