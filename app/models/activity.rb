@@ -244,14 +244,6 @@ class Activity < Ekylibre::Record::Base
     end
   end
 
-  def avatar_path
-    if cultivation_variety
-      path = Nomen::Varieties[cultivation_variety].avatar_path
-    end
-    path = Nomen::ActivityFamilies[family].avatar_path if family && !path
-    path
-  end
-
   def real_expense_amount(campaign)
     Intervention.of_campaign(campaign).of_activity(self).map(&:cost).compact.sum
   end

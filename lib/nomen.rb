@@ -114,7 +114,7 @@ module Nomen
 
     # Returns the matching nomenclature
     def const_missing(name)
-      n = name.to_s.underscore.pluralize
+      n = name.to_s.tableize
       return self[n] if @@set.exist?(n)
       super
     end

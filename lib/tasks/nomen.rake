@@ -127,4 +127,26 @@ namespace :nomen do
       Nomen::Migrator::Translation.run(migration)
     end
   end
+
+  task avatar: :environment do
+    cache = {}
+    avatars_dir = Rails.root.join('app', 'assets', 'images')
+    Nomen.each do |nomenclature|
+      folder = nomenclature.table_name
+      dir = avatars_dir.join(folder)
+      if dir.exist?
+        cache[folder] = {}
+        nomenclature.find_each do |i|
+          %w(jpg png).each do |format|
+            image_path = dir.join(i.name + '.' + format)
+            if image_path.exist?
+              cache[folder][i.name] = image_path.relative_path_from(avatars_dir).to_s
+              break
+            end
+          end
+        end
+      end
+    end
+    File.write(NomenHelper::AVATARS_INDEX, cache.to_yaml)
+  end
 end

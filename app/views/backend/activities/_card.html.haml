@@ -2,8 +2,8 @@
 - active = true # activity.used_during?(campaign)
 .activity{style: "border-right-color: #{activity.color}", class: (active ? 'active' : 'inactive')}
   - attrs = {}
-  - if activity.avatar_path
-    - attrs = { style: "background-image: url(#{image_url(activity.avatar_path.relative_path_from(Rails.root.join('app', 'assets', 'images')))})" }
+  - if (avatar_path = activity_avatar_path(activity))
+    - attrs = { style: "background-image: url(#{image_path(avatar_path)})" }
   = link_to('', {controller: :activities, action: :show, id: activity.id }, attrs.merge(class: 'activity-avatar', title: activity.name))
   .activity-content
     .activity-name= link_to(activity.name, {controller: :activities, action: :show, id: activity.id }, title: activity.name)

@@ -125,6 +125,12 @@ module Nomen
       [self] + parents
     end
 
+    def rise(&block)
+      result = yield(self)
+      return result if result
+      return self.parent ? self.parent.rise(&block) : nil
+    end
+
     # Computes left/right value for nested set
     # Returns right index
     def rebuild_tree!
@@ -158,14 +164,6 @@ module Nomen
 
     def human_notion_name(notion_name, options = {})
       "nomenclatures.#{nomenclature.name}.notions.#{notion_name}.#{name}".t(options.merge(default: ["labels.#{name}".to_sym]))
-    end
-
-    def avatar_path
-      self_and_parents.each do |item|
-        img = Rails.root.join('app', 'assets', 'images', nomenclature.table_name.to_s, "#{item.name}.jpg")
-        return img if img.exist?
-      end
-      nil
     end
 
     def ==(other)
