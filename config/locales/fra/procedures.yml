@@ -93,6 +93,7 @@ fra:
     corker: "Boucheuse"
     corks: "Bouchons"
     corks_to_use: "Bouchons à utiliser" #?
+    cover_implanter: "Plastifieuse"
     cropper: "Moissonneuse batteuse"
     cropper_driver: "Conducteur de moissonneuse batteuse"
     cultivation: "Culture"
@@ -142,6 +143,7 @@ fra:
     hand_drawn: "Tireuse"
     harrow: "Herse"
     harvester_man: "Récolteur" #?
+    hay_rake: "Andaineur"
     hazelnuts: "Noisettes" #?
     herd: "Troupeau"
     implanter: "Planteuse"
@@ -194,6 +196,7 @@ fra:
     plow: "Charrue"
     press: "Presse"
     product: "Produit" #?
+    protective_canvas: "Bâche de protection"
     pruner: "Sécateur" #?
     residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux" #?
@@ -215,7 +218,7 @@ fra:
     silage_to_give: "Ensilage à donner" #?
     silage_unloader: "Désileuse"
     silo: "Silo" #?
-    # sortable: "Sortable"
+    sortable: "Produit à trier"
     sower: "Semoir"
     sprayer: "Pulvérisateur"
     spreader: "Épandeur"
@@ -330,6 +333,7 @@ fra:
     partial_wine_transfer: "Transfert de vin (Partiel)"
     parturition: "Mise bas"
     pasturing: "Pâturage"
+    # plant_covering: "Plant covering"
     plant_grinding: "Broyage de végétaux" #?
     plant_mowing: "Fauchage"
     plant_mulching: "Paillage/Mulching"
@@ -355,6 +359,7 @@ fra:
     straw_transport: "Transport de fourrages" #?
     sulfur_addition: "Sulfitage"
     superficial_plowing: "Déchaumage"
+    # swathing: "Swathing"
     technical_task: "Tâche technique générale" #?
     triple_food_mixing: "Mélange alimentaire avec trois ingrédients" #?
     triple_seed_mixing: "Mélange de semences avec trois semences" #?

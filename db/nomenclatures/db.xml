@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160128093149">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160128154202">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -20,6 +20,7 @@
       <item name="clean" parameters="variety"/>
       <item name="close" parameters="variety"/>
       <item name="consume" parameters="variety"/>
+      <item name="cover" parameters="variety"/>
       <item name="cut"/>
       <item name="deliver" parameters="variety"/>
       <item name="drain"/>
@@ -3033,7 +3034,7 @@
       <item name="printer" nature="computer"/>
       <item name="product_warranty" nature="product_insurance"/>
       <item name="project_study" nature="studies_and_research"/>
-      <item name="protective_canvas" nature="crop_protective_item"/>
+      <item name="protective_canvas" nature="protective_canvas"/>
       <item name="protective_net" nature="crop_protective_item"/>
       <item name="pruning_platform" nature="pruning_platform" frozen_indicators_values="" unit_name="equipment"/>
       <item name="punching_machine" nature="implanter" frozen_indicators_values=""/>
@@ -3383,6 +3384,7 @@
       <item name="product_insurance" category="insurance" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="professional_subscription" category="professional_subscription" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="project_management" category="service" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
+      <item name="protective_canvas" category="small_equipment" variety="matter" population_counting="unitary" abilities="care(plant), cover(plant)" frozen_indicators="length, width"/>
       <item name="pruning_platform" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators=""/>
       <item name="rabbit_herd" category="cattle_herd" variety="animal_group" derivative_of="oryctolagus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" frozen_indicators=""/>
       <item name="radio_subscription" category="telecommunication" variety="service" population_counting="decimal" variable_indicators=""/>
