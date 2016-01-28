@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160119115401">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160128093149">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -4113,10 +4113,10 @@
       <item name="brassica_oleracea_sabellica" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_sunny" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_viridis" parent="brassica_oleracea" itis_tsn="23062"/>
-      <item name="brassica_pringlea" parent="brassica" itis_tsn="23062"/>
       <item name="brassica_rapa" parent="brassica" itis_tsn="12345"/>
-      <item name="brassica_rapa_annua" parent="brassica_rapa" itis_tsn="23063"/>
-      <item name="brassica_rapa_biennis" parent="brassica_rapa" itis_tsn="23063"/>
+      <item name="brassica_rapa_oleifera" parent="brassica_rapa" itis_tsn="23063"/>
+      <item name="brassica_rapa_oleifera_annua" parent="brassica_rapa_oleifera" itis_tsn="23063"/>
+      <item name="brassica_rapa_oleifera_biennis" parent="brassica_rapa_oleifera" itis_tsn="23063"/>
       <item name="brassica_rapa_pekinensis" parent="brassica_rapa" itis_tsn="23062"/>
       <item name="brassica_rapa_pekinensis_bilko" parent="brassica_rapa_pekinensis" itis_tsn="23062"/>
       <item name="brassica_rapa_pekinensis_emiko" parent="brassica_rapa_pekinensis" itis_tsn="23062"/>
@@ -4230,20 +4230,20 @@
       <item name="castanea" parent="fagaceae" itis_tsn="19451"/>
       <item name="castanea_bantarde" parent="castanea" itis_tsn="19451"/>
       <item name="castanea_bossue" parent="castanea" itis_tsn="19451"/>
-      <item name="castanea_bouchaud" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_grosse_nousillade" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_jaunan" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_marron_de_veuil" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_nousillade" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_patouille_jaune" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_patouille_noire" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_perote" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_pillemongrin" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_pointue" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_rouillaud" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_saint_michel" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_torse" parent="triticum_aestivum" itis_tsn="42237"/>
-      <item name="castanea_vert_josnon" parent="triticum_aestivum" itis_tsn="42237"/>
+      <item name="castanea_bouchaud" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_grosse_nousillade" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_jaunan" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_marron_de_veuil" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_nousillade" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_patouille_jaune" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_patouille_noire" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_perote" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_pillemongrin" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_pointue" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_rouillaud" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_saint_michel" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_torse" parent="castanea" itis_tsn="19451"/>
+      <item name="castanea_vert_josnon" parent="castanea" itis_tsn="19451"/>
       <item name="centaurea" parent="asteraceae" itis_tsn="36950"/>
       <item name="centaurea_cyanus" parent="centaurea" itis_tsn="36954"/>
       <item name="cerambycidae" parent="insecta"/>
@@ -5236,16 +5236,16 @@
       <item name="phaseolus" parent="fabaceae" itis_tsn="203844"/>
       <item name="phaseolus_vulgaris" parent="phaseolus" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_blanc_de_flandre" parent="phaseolus_vulgaris" itis_tsn="26857"/>
-      <item name="phaseolus_vulgaris_carthage" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_carthage" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_denver" parent="phaseolus_vulgaris" itis_tsn="26857"/>
-      <item name="phaseolus_vulgaris_flagrano" parent="phaseolus" itis_tsn="26857"/>
-      <item name="phaseolus_vulgaris_kaiser" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_flagrano" parent="phaseolus_vulgaris" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_kaiser" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_lingot" parent="phaseolus_vulgaris" itis_tsn="26857"/>
-      <item name="phaseolus_vulgaris_lugos" parent="phaseolus" itis_tsn="26857"/>
-      <item name="phaseolus_vulgaris_mogex" parent="phaseolus" itis_tsn="26857"/>
-      <item name="phaseolus_vulgaris_molly" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_lugos" parent="phaseolus_vulgaris" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_mogex" parent="phaseolus_vulgaris" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_molly" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_princesse_du_peleve" parent="phaseolus_vulgaris" itis_tsn="26857"/>
-      <item name="phaseolus_vulgaris_stanley" parent="phaseolus" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_stanley" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_sv1162gn" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_verdelys" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phasianidae" parent="aves" itis_tsn="175861"/>
@@ -5294,6 +5294,7 @@
       <item name="press" parent="equipment"/>
       <item name="primula" parent="primulaceae" itis_tsn="24014"/>
       <item name="primulaceae" parent="plant" itis_tsn="23929"/>
+      <item name="pringlea_antiscorbutica" parent="brassicaceae" itis_tsn="23062"/>
       <item name="processed_grain" parent="preparation" derivative_of="grain"/>
       <item name="processed_meat" parent="preparation" derivative_of="meat"/>
       <item name="product"/>
@@ -5400,78 +5401,78 @@
       <item name="pyrus_communis" parent="pyrus" itis_tsn="25295"/>
       <item name="pyrus_communis_beurre_d_anjou" parent="pyrus_communis" itis_tsn="25295"/>
       <item name="pyrus_communis_beurre_de_l_assomption" parent="pyrus_communis" itis_tsn="25295"/>
-      <item name="pyrus_communis_beurre_hardy" parent="pyrus_communis" itis_tsn="0"/>
-      <item name="pyrus_communis_beurre_lebrun" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_beurre_surperfin" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_bonnissime_de_la_sarthe" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_comelie" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_comtesse_de_paris" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_cuisse_dame" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_cure" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_dayenne" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_duchesse_de_poitiers" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_duchesse_du_berry" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_eugene_thirriot" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_fondante_thirriot" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_grosse_louise" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_jean_nicolas" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_legipont" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_madame_gregoire" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_marguerite_marillat" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_nipe_nime" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_plovinne" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_a_clement" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_a_cote_d_or" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_a_cuire_grise_de_wierre_au_bois" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_blanquette" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_boutoc_poire_d_ange" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_caillaou_rosat" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_catillac" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_citron" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_cure" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_d_anis" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_d_aout_de_seninghem" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_beton" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_beurre" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_blanc" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_calot" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_cave" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_cheminee" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_cure" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_fret" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_guinette" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_jargonelle" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_livre" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_loup" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_mare" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_marsanneix" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_moreau" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_petit_roux" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_rapace" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_rateau_rouge" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_roulee" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_saint_antoine" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_sang" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_de_vierge" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_duchesse_d_angouleme" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_epargne_cuisse_madame" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_marguerite_marillat" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_monsallard_epine_d_ete" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_mouille_bouche_jansemine" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_notre_dame" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_orange" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_perou_d_argent" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_reinette" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_saint_jean" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_poire_sucre_vert" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_rivailles" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_saint_mathieu" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_sans_pepins" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_sucree_de_montlucon" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_sucree_vert_de_montlucon" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_triomphe_de_vienne" parent="prunus_persica" itis_tsn="24765"/>
-      <item name="pyrus_communis_william" parent="pyrus_communis" itis_tsn="0"/>
-      <item name="pyrus_communis_william_bon_chretien" parent="pyrus_communis" itis_tsn="0"/>
+      <item name="pyrus_communis_beurre_hardy" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_beurre_lebrun" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_beurre_surperfin" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_bonnissime_de_la_sarthe" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_comelie" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_comtesse_de_paris" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_cuisse_dame" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_cure" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_dayenne" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_duchesse_de_poitiers" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_duchesse_du_berry" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_eugene_thirriot" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_fondante_thirriot" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_grosse_louise" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_jean_nicolas" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_legipont" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_madame_gregoire" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_marguerite_marillat" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_nipe_nime" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_plovinne" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_a_clement" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_a_cote_d_or" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_a_cuire_grise_de_wierre_au_bois" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_blanquette" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_boutoc_poire_d_ange" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_caillaou_rosat" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_catillac" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_citron" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_cure" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_d_anis" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_d_aout_de_seninghem" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_beton" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_beurre" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_blanc" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_calot" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_cave" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_cheminee" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_cure" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_fret" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_guinette" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_jargonelle" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_livre" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_loup" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_mare" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_marsanneix" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_moreau" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_petit_roux" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_rapace" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_rateau_rouge" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_roulee" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_saint_antoine" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_sang" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_de_vierge" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_duchesse_d_angouleme" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_epargne_cuisse_madame" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_marguerite_marillat" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_monsallard_epine_d_ete" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_mouille_bouche_jansemine" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_notre_dame" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_orange" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_perou_d_argent" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_reinette" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_saint_jean" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_poire_sucre_vert" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_rivailles" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_saint_mathieu" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_sans_pepins" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_sucree_de_montlucon" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_sucree_vert_de_montlucon" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_triomphe_de_vienne" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_william" parent="pyrus_communis" itis_tsn="25295"/>
+      <item name="pyrus_communis_william_bon_chretien" parent="pyrus_communis" itis_tsn="25295"/>
       <item name="quercus" parent="fagaceae" itis_tsn="19276"/>
       <item name="raphanus" parent="brassicaceae" itis_tsn="23288"/>
       <item name="raphanus_sativus" parent="raphanus" itis_tsn="23290"/>

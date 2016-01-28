@@ -1437,7 +1437,7 @@ eng:
         sales_invoice: "Sales invoice"
         sales_order: "Sales order"
         security_data_sheet: "Security data sheet"
-        # shipping_note: "Shipping note"
+        shipping_note: "Shipping note"
         stocks: "Stocks"
         tax_assessment: "Tax assessment"
         trial_balance: "Trial balance"
@@ -4096,10 +4096,10 @@ eng:
         brassica_oleracea_sabellica: "Kale"                #< brassica_oleracea
         brassica_oleracea_sunny: "Cabbage Sunny"           #< brassica_oleracea
         brassica_oleracea_viridis: "Collards greens"       #< brassica_oleracea
-        brassica_pringlea: "Kerguelen cabbage"             #< brassica
         brassica_rapa: "Brassica rapa"                     #< brassica
-        brassica_rapa_annua: "Brassica rapa annua"         #< brassica_rapa
-        brassica_rapa_biennis: "Brassica rapa biennis"     #< brassica_rapa
+        brassica_rapa_oleifera: "Turnip rape"              #< brassica_rapa
+        brassica_rapa_oleifera_annua: "Turnip rape annua"  #< brassica_rapa_oleifera
+        brassica_rapa_oleifera_biennis: "Turnip rape biennis" #< brassica_rapa_oleifera
         brassica_rapa_pekinensis: "Chinese Cabbage"        #< brassica_rapa
         brassica_rapa_pekinensis_bilko: "Chinese Cabbage Bilko" #< brassica_rapa_pekinensis
         brassica_rapa_pekinensis_emiko: "Chinese Cabbage Emiko" #< brassica_rapa_pekinensis
@@ -4213,20 +4213,20 @@ eng:
         castanea: "Chestnut"                               #< fagaceae
         castanea_bantarde: "Chestnut Bantarde"             #< castanea
         castanea_bossue: "Chestnut Bossue"                 #< castanea
-        castanea_bouchaud: "Chestnut Bouchaud"             #< triticum_aestivum
-        castanea_grosse_nousillade: "Chestnut Grosse Nousillade" #< triticum_aestivum
-        castanea_jaunan: "Chestnut Jaunan"                 #< triticum_aestivum
-        castanea_marron_de_veuil: "Chestnut Marron de veuil" #< triticum_aestivum
-        castanea_nousillade: "Chestnut Nousillade"         #< triticum_aestivum
-        castanea_patouille_jaune: "Chestnut Patouille jaune" #< triticum_aestivum
-        castanea_patouille_noire: "Chestnut Patouille noire" #< triticum_aestivum
-        castanea_perote: "Chestnut Pérote"                 #< triticum_aestivum
-        castanea_pillemongrin: "Chestnut Pillemongrin"     #< triticum_aestivum
-        castanea_pointue: "Chestnut Pointue"               #< triticum_aestivum
-        castanea_rouillaud: "Chestnut Rouillaud"           #< triticum_aestivum
-        castanea_saint_michel: "Chestnut Saint-Michel"     #< triticum_aestivum
-        castanea_torse: "Chestnut Torse"                   #< triticum_aestivum
-        castanea_vert_josnon: "Chestnut Vert-Josnon"       #< triticum_aestivum
+        castanea_bouchaud: "Chestnut Bouchaud"             #< castanea
+        castanea_grosse_nousillade: "Chestnut Grosse Nousillade" #< castanea
+        castanea_jaunan: "Chestnut Jaunan"                 #< castanea
+        castanea_marron_de_veuil: "Chestnut Marron de veuil" #< castanea
+        castanea_nousillade: "Chestnut Nousillade"         #< castanea
+        castanea_patouille_jaune: "Chestnut Patouille jaune" #< castanea
+        castanea_patouille_noire: "Chestnut Patouille noire" #< castanea
+        castanea_perote: "Chestnut Pérote"                 #< castanea
+        castanea_pillemongrin: "Chestnut Pillemongrin"     #< castanea
+        castanea_pointue: "Chestnut Pointue"               #< castanea
+        castanea_rouillaud: "Chestnut Rouillaud"           #< castanea
+        castanea_saint_michel: "Chestnut Saint-Michel"     #< castanea
+        castanea_torse: "Chestnut Torse"                   #< castanea
+        castanea_vert_josnon: "Chestnut Vert-Josnon"       #< castanea
         centaurea: "Centaurea"                             #< asteraceae
         centaurea_cyanus: "Centaurea cyanus"               #< centaurea
         cerambycidae: "Cerambycidae"                       #< insecta
@@ -5219,16 +5219,16 @@ eng:
         phaseolus: "Phaseolus"                             #< fabaceae
         phaseolus_vulgaris: "Bean"                         #< phaseolus
         phaseolus_vulgaris_blanc_de_flandre: "Bean Blanc de Flandre" #< phaseolus_vulgaris
-        phaseolus_vulgaris_carthage: "Bean Carthage"       #< phaseolus
+        phaseolus_vulgaris_carthage: "Bean Carthage"       #< phaseolus_vulgaris
         phaseolus_vulgaris_denver: "bean Denver"           #< phaseolus_vulgaris
-        phaseolus_vulgaris_flagrano: "Bean Flagrano"       #< phaseolus
-        phaseolus_vulgaris_kaiser: "Bean Kaiser"           #< phaseolus
+        phaseolus_vulgaris_flagrano: "Bean Flagrano"       #< phaseolus_vulgaris
+        phaseolus_vulgaris_kaiser: "Bean Kaiser"           #< phaseolus_vulgaris
         phaseolus_vulgaris_lingot: "Bean Lingot (du Nord)" #< phaseolus_vulgaris
-        phaseolus_vulgaris_lugos: "Bean Lugos"             #< phaseolus
-        phaseolus_vulgaris_mogex: "Bean Mogex"             #< phaseolus
-        phaseolus_vulgaris_molly: "Bean Molly"             #< phaseolus
+        phaseolus_vulgaris_lugos: "Bean Lugos"             #< phaseolus_vulgaris
+        phaseolus_vulgaris_mogex: "Bean Mogex"             #< phaseolus_vulgaris
+        phaseolus_vulgaris_molly: "Bean Molly"             #< phaseolus_vulgaris
         phaseolus_vulgaris_princesse_du_peleve: "Bean Princesse du Pélève" #< phaseolus_vulgaris
-        phaseolus_vulgaris_stanley: "Bean Stanley"         #< phaseolus
+        phaseolus_vulgaris_stanley: "Bean Stanley"         #< phaseolus_vulgaris
         phaseolus_vulgaris_sv1162gn: "Bean SV1162GN"       #< phaseolus_vulgaris
         phaseolus_vulgaris_verdelys: "Bean green flageolet Verdelys (dwarf)" #< phaseolus_vulgaris
         phasianidae: "Phasianidae"                         #< aves
@@ -5277,6 +5277,7 @@ eng:
         press: "Press"                                     #< equipment
         primula: "Primula"                                 #< primulaceae
         primulaceae: "Primulaceae"                         #< plant
+        pringlea_antiscorbutica: "Kerguelen cabbage"       #< brassicaceae
         processed_grain: "Processed grain"                 #< preparation
         processed_meat: "Processed meat"                   #< preparation
         product: "Product"
@@ -5384,75 +5385,75 @@ eng:
         pyrus_communis_beurre_d_anjou: "Pear tree Beurée d'Anjou" #< pyrus_communis
         pyrus_communis_beurre_de_l_assomption: "Pear tree Beurée de l'Assomption" #< pyrus_communis
         pyrus_communis_beurre_hardy: "Pear tree Beurée Hardy" #< pyrus_communis
-        pyrus_communis_beurre_lebrun: "Pear tree Beurée Lebrun" #< prunus_persica
-        pyrus_communis_beurre_surperfin: "Pear tree Beurée Surperfin" #< prunus_persica
-        pyrus_communis_bonnissime_de_la_sarthe: "Pear tree Bonnissime de la Sarthe" #< prunus_persica
-        pyrus_communis_comelie: "Pear tree Comélie"        #< prunus_persica
-        pyrus_communis_comtesse_de_paris: "Pear tree Comtesse de Paris" #< prunus_persica
-        pyrus_communis_cuisse_dame: "Pear tree Cuisse dame" #< prunus_persica
-        pyrus_communis_cure: "Pear tree Curé"              #< prunus_persica
-        pyrus_communis_dayenne: "Pear tree Dayenné"        #< prunus_persica
-        pyrus_communis_duchesse_de_poitiers: "Pear tree Duchesse de Poitiers" #< prunus_persica
-        pyrus_communis_duchesse_du_berry: "Pear tree Duchesse du Berry" #< prunus_persica
-        pyrus_communis_eugene_thirriot: "Pear tree Eugene Thirriot" #< prunus_persica
-        pyrus_communis_fondante_thirriot: "Pear tree Fondante Thirriot" #< prunus_persica
-        pyrus_communis_grosse_louise: "Pear tree Grosse Louise" #< prunus_persica
-        pyrus_communis_jean_nicolas: "Pear tree Jean Nicolas" #< prunus_persica
-        pyrus_communis_legipont: "Pear tree Légipont"      #< prunus_persica
-        pyrus_communis_madame_gregoire: "Pear tree Madame Grégoire" #< prunus_persica
-        pyrus_communis_marguerite_marillat: "Pear tree Marguerite Marillat" #< prunus_persica
-        pyrus_communis_nipe_nime: "Pear tree Nipé Nimé"    #< prunus_persica
-        pyrus_communis_plovinne: "Pear tree Plovinne"      #< prunus_persica
-        pyrus_communis_poire_a_clement: "Pear tree Poire à Clément" #< prunus_persica
-        pyrus_communis_poire_a_cote_d_or: "Pear tree Poire à côte d'or" #< prunus_persica
-        pyrus_communis_poire_a_cuire_grise_de_wierre_au_bois: "Pear tree Poire à cuire grise de Wierre au bois" #< prunus_persica
-        pyrus_communis_poire_blanquette: "Pear tree Poire Blanquette" #< prunus_persica
-        pyrus_communis_poire_boutoc_poire_d_ange: "Pear tree Poire Boutoc - Poire d'ange" #< prunus_persica
-        pyrus_communis_poire_caillaou_rosat: "Pear tree Poire Caillaou Rosat" #< prunus_persica
-        pyrus_communis_poire_catillac: "Pear tree Poire Catillac" #< prunus_persica
-        pyrus_communis_poire_citron: "Pear tree Poire Citron" #< prunus_persica
-        pyrus_communis_poire_cure: "Pear tree Poire Curé"  #< prunus_persica
-        pyrus_communis_poire_d_anis: "Pear tree Poire d'anis" #< prunus_persica
-        pyrus_communis_poire_d_aout_de_seninghem: "Pear tree Poire d'août de Seninghem" #< prunus_persica
-        pyrus_communis_poire_de_beton: "Pear tree Poire de Béton" #< prunus_persica
-        pyrus_communis_poire_de_beurre: "Pear tree Poire de Beurre" #< prunus_persica
-        pyrus_communis_poire_de_blanc: "Pear tree Poirede Blanc" #< prunus_persica
-        pyrus_communis_poire_de_calot: "Pear tree Poirede Calot" #< prunus_persica
-        pyrus_communis_poire_de_cave: "Pear tree Poirede Cave" #< prunus_persica
-        pyrus_communis_poire_de_cheminee: "Pear tree Poire de Cheminée" #< prunus_persica
-        pyrus_communis_poire_de_cure: "Pear tree Poire de Curé" #< prunus_persica
-        pyrus_communis_poire_de_fret: "Pear tree Poire de Fret" #< prunus_persica
-        pyrus_communis_poire_de_guinette: "Pear tree Poire de Guinette" #< prunus_persica
-        pyrus_communis_poire_de_jargonelle: "Pear tree Poire de Jargonelle" #< prunus_persica
-        pyrus_communis_poire_de_livre: "Pear tree Poire de Livre" #< prunus_persica
-        pyrus_communis_poire_de_loup: "Pear tree Poire de Loup" #< prunus_persica
-        pyrus_communis_poire_de_mare: "Pear tree Poire de Mare" #< prunus_persica
-        pyrus_communis_poire_de_marsanneix: "Pear tree Poire de Marsanneix" #< prunus_persica
-        pyrus_communis_poire_de_moreau: "Pear tree Poire de Moreau" #< prunus_persica
-        pyrus_communis_poire_de_petit_roux: "Pear tree Poire de Petit Roux" #< prunus_persica
-        pyrus_communis_poire_de_rapace: "Pear tree Poire de Rapace" #< prunus_persica
-        pyrus_communis_poire_de_rateau_rouge: "Pear tree Poire de Rateau rouge" #< prunus_persica
-        pyrus_communis_poire_de_roulee: "Pear tree Poire de Roulée" #< prunus_persica
-        pyrus_communis_poire_de_saint_antoine: "Pear tree Poire de Saint Antoine" #< prunus_persica
-        pyrus_communis_poire_de_sang: "Pear tree Poire de Sang" #< prunus_persica
-        pyrus_communis_poire_de_vierge: "Pear tree Poire de Vierge" #< prunus_persica
-        pyrus_communis_poire_duchesse_d_angouleme: "Pear tree Poire Duchesse d'Angoulême" #< prunus_persica
-        pyrus_communis_poire_epargne_cuisse_madame: "Pear tree Poire Epargne - Cuisse madame" #< prunus_persica
-        pyrus_communis_poire_marguerite_marillat: "Pear tree Poire Marguerite Marillat" #< prunus_persica
-        pyrus_communis_poire_monsallard_epine_d_ete: "Pear tree Poire Monsallard épine d'été" #< prunus_persica
-        pyrus_communis_poire_mouille_bouche_jansemine: "Pear tree Poire Mouille Bouche - Jansemine" #< prunus_persica
-        pyrus_communis_poire_notre_dame: "Pear tree Poire Notre-Dame" #< prunus_persica
-        pyrus_communis_poire_orange: "Pear tree Poire Orange" #< prunus_persica
-        pyrus_communis_poire_perou_d_argent: "Pear tree Poire Pérou d'Argent" #< prunus_persica
-        pyrus_communis_poire_reinette: "Pear tree Poire Reinette" #< prunus_persica
-        pyrus_communis_poire_saint_jean: "Pear tree Poire Saint Jean" #< prunus_persica
-        pyrus_communis_poire_sucre_vert: "Pear tree Poire Sucré vert" #< prunus_persica
-        pyrus_communis_rivailles: "Pear tree Rivailles"    #< prunus_persica
-        pyrus_communis_saint_mathieu: "Pear tree Saint Mathieu" #< prunus_persica
-        pyrus_communis_sans_pepins: "Pear tree Sans pépins" #< prunus_persica
-        pyrus_communis_sucree_de_montlucon: "Pear tree Sucrée de Montluçon" #< prunus_persica
-        pyrus_communis_sucree_vert_de_montlucon: "Pear tree Sucrée vert de Montluçon" #< prunus_persica
-        pyrus_communis_triomphe_de_vienne: "Pear tree Triomphe de Vienne" #< prunus_persica
+        pyrus_communis_beurre_lebrun: "Pear tree Beurée Lebrun" #< pyrus_communis
+        pyrus_communis_beurre_surperfin: "Pear tree Beurée Surperfin" #< pyrus_communis
+        pyrus_communis_bonnissime_de_la_sarthe: "Pear tree Bonnissime de la Sarthe" #< pyrus_communis
+        pyrus_communis_comelie: "Pear tree Comélie"        #< pyrus_communis
+        pyrus_communis_comtesse_de_paris: "Pear tree Comtesse de Paris" #< pyrus_communis
+        pyrus_communis_cuisse_dame: "Pear tree Cuisse dame" #< pyrus_communis
+        pyrus_communis_cure: "Pear tree Curé"              #< pyrus_communis
+        pyrus_communis_dayenne: "Pear tree Dayenné"        #< pyrus_communis
+        pyrus_communis_duchesse_de_poitiers: "Pear tree Duchesse de Poitiers" #< pyrus_communis
+        pyrus_communis_duchesse_du_berry: "Pear tree Duchesse du Berry" #< pyrus_communis
+        pyrus_communis_eugene_thirriot: "Pear tree Eugene Thirriot" #< pyrus_communis
+        pyrus_communis_fondante_thirriot: "Pear tree Fondante Thirriot" #< pyrus_communis
+        pyrus_communis_grosse_louise: "Pear tree Grosse Louise" #< pyrus_communis
+        pyrus_communis_jean_nicolas: "Pear tree Jean Nicolas" #< pyrus_communis
+        pyrus_communis_legipont: "Pear tree Légipont"      #< pyrus_communis
+        pyrus_communis_madame_gregoire: "Pear tree Madame Grégoire" #< pyrus_communis
+        pyrus_communis_marguerite_marillat: "Pear tree Marguerite Marillat" #< pyrus_communis
+        pyrus_communis_nipe_nime: "Pear tree Nipé Nimé"    #< pyrus_communis
+        pyrus_communis_plovinne: "Pear tree Plovinne"      #< pyrus_communis
+        pyrus_communis_poire_a_clement: "Pear tree Poire à Clément" #< pyrus_communis
+        pyrus_communis_poire_a_cote_d_or: "Pear tree Poire à côte d'or" #< pyrus_communis
+        pyrus_communis_poire_a_cuire_grise_de_wierre_au_bois: "Pear tree Poire à cuire grise de Wierre au bois" #< pyrus_communis
+        pyrus_communis_poire_blanquette: "Pear tree Poire Blanquette" #< pyrus_communis
+        pyrus_communis_poire_boutoc_poire_d_ange: "Pear tree Poire Boutoc - Poire d'ange" #< pyrus_communis
+        pyrus_communis_poire_caillaou_rosat: "Pear tree Poire Caillaou Rosat" #< pyrus_communis
+        pyrus_communis_poire_catillac: "Pear tree Poire Catillac" #< pyrus_communis
+        pyrus_communis_poire_citron: "Pear tree Poire Citron" #< pyrus_communis
+        pyrus_communis_poire_cure: "Pear tree Poire Curé"  #< pyrus_communis
+        pyrus_communis_poire_d_anis: "Pear tree Poire d'anis" #< pyrus_communis
+        pyrus_communis_poire_d_aout_de_seninghem: "Pear tree Poire d'août de Seninghem" #< pyrus_communis
+        pyrus_communis_poire_de_beton: "Pear tree Poire de Béton" #< pyrus_communis
+        pyrus_communis_poire_de_beurre: "Pear tree Poire de Beurre" #< pyrus_communis
+        pyrus_communis_poire_de_blanc: "Pear tree Poirede Blanc" #< pyrus_communis
+        pyrus_communis_poire_de_calot: "Pear tree Poirede Calot" #< pyrus_communis
+        pyrus_communis_poire_de_cave: "Pear tree Poirede Cave" #< pyrus_communis
+        pyrus_communis_poire_de_cheminee: "Pear tree Poire de Cheminée" #< pyrus_communis
+        pyrus_communis_poire_de_cure: "Pear tree Poire de Curé" #< pyrus_communis
+        pyrus_communis_poire_de_fret: "Pear tree Poire de Fret" #< pyrus_communis
+        pyrus_communis_poire_de_guinette: "Pear tree Poire de Guinette" #< pyrus_communis
+        pyrus_communis_poire_de_jargonelle: "Pear tree Poire de Jargonelle" #< pyrus_communis
+        pyrus_communis_poire_de_livre: "Pear tree Poire de Livre" #< pyrus_communis
+        pyrus_communis_poire_de_loup: "Pear tree Poire de Loup" #< pyrus_communis
+        pyrus_communis_poire_de_mare: "Pear tree Poire de Mare" #< pyrus_communis
+        pyrus_communis_poire_de_marsanneix: "Pear tree Poire de Marsanneix" #< pyrus_communis
+        pyrus_communis_poire_de_moreau: "Pear tree Poire de Moreau" #< pyrus_communis
+        pyrus_communis_poire_de_petit_roux: "Pear tree Poire de Petit Roux" #< pyrus_communis
+        pyrus_communis_poire_de_rapace: "Pear tree Poire de Rapace" #< pyrus_communis
+        pyrus_communis_poire_de_rateau_rouge: "Pear tree Poire de Rateau rouge" #< pyrus_communis
+        pyrus_communis_poire_de_roulee: "Pear tree Poire de Roulée" #< pyrus_communis
+        pyrus_communis_poire_de_saint_antoine: "Pear tree Poire de Saint Antoine" #< pyrus_communis
+        pyrus_communis_poire_de_sang: "Pear tree Poire de Sang" #< pyrus_communis
+        pyrus_communis_poire_de_vierge: "Pear tree Poire de Vierge" #< pyrus_communis
+        pyrus_communis_poire_duchesse_d_angouleme: "Pear tree Poire Duchesse d'Angoulême" #< pyrus_communis
+        pyrus_communis_poire_epargne_cuisse_madame: "Pear tree Poire Epargne - Cuisse madame" #< pyrus_communis
+        pyrus_communis_poire_marguerite_marillat: "Pear tree Poire Marguerite Marillat" #< pyrus_communis
+        pyrus_communis_poire_monsallard_epine_d_ete: "Pear tree Poire Monsallard épine d'été" #< pyrus_communis
+        pyrus_communis_poire_mouille_bouche_jansemine: "Pear tree Poire Mouille Bouche - Jansemine" #< pyrus_communis
+        pyrus_communis_poire_notre_dame: "Pear tree Poire Notre-Dame" #< pyrus_communis
+        pyrus_communis_poire_orange: "Pear tree Poire Orange" #< pyrus_communis
+        pyrus_communis_poire_perou_d_argent: "Pear tree Poire Pérou d'Argent" #< pyrus_communis
+        pyrus_communis_poire_reinette: "Pear tree Poire Reinette" #< pyrus_communis
+        pyrus_communis_poire_saint_jean: "Pear tree Poire Saint Jean" #< pyrus_communis
+        pyrus_communis_poire_sucre_vert: "Pear tree Poire Sucré vert" #< pyrus_communis
+        pyrus_communis_rivailles: "Pear tree Rivailles"    #< pyrus_communis
+        pyrus_communis_saint_mathieu: "Pear tree Saint Mathieu" #< pyrus_communis
+        pyrus_communis_sans_pepins: "Pear tree Sans pépins" #< pyrus_communis
+        pyrus_communis_sucree_de_montlucon: "Pear tree Sucrée de Montluçon" #< pyrus_communis
+        pyrus_communis_sucree_vert_de_montlucon: "Pear tree Sucrée vert de Montluçon" #< pyrus_communis
+        pyrus_communis_triomphe_de_vienne: "Pear tree Triomphe de Vienne" #< pyrus_communis
         pyrus_communis_william: "Pear tree William"        #< pyrus_communis
         pyrus_communis_william_bon_chretien: "Pear tree William Bon-Chretien" #< pyrus_communis
         quercus: "Oak"                                     #< fagaceae
