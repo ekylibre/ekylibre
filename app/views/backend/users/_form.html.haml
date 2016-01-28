@@ -18,5 +18,5 @@
 = field_set(:access) do
   = f.input :administrator, :hide => :role
   #role
-    = f.referenced_association :role, input_html: {data: {refresh_access_control_list: backend_role_url("ID")}}
+    = f.referenced_association :role, input_html: { data: { refresh_access_control_list: backend_role_path("ID") } }
     = f.access_control_list
