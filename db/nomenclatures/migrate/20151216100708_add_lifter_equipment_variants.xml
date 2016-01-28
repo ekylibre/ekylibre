@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add lifter equipment variants">
-   <item-creation item="product_nature_variants#lifter" nature="harvester" frozen_indicators_values="population: 1"/>
+  <item-creation item="product_nature_variants#lifter" nature="harvester" frozen_indicators_values="population: 1"/>
 </migration>

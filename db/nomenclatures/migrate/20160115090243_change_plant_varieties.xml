@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Change plant varieties">
-   <item-change item="varieties#brassica_pringlea" name="pringlea_antiscorbutica" parent="brassica"/>
-   <item-creation item="varieties#brassica_rapa_oleifera" parent="brassica_rapa" itis_tsn="23063">
-   <item-change item="varieties#brassica_rapa_annua" name="brassica_rapa_oleifera_annua" parent="brassica_rapa_oleifera" itis_tsn="23063"/>
-   <item-change item="varieties#brassica_rapa_annua" name="brassica_rapa_oleifera_biennis" parent="brassica_rapa_oleifera" itis_tsn="23063"/>
+  <item-change item="varieties#brassica_pringlea" name="pringlea_antiscorbutica" parent="brassicaceae"/>
+  <item-creation item="varieties#brassica_rapa_oleifera" parent="brassica_rapa" itis_tsn="23063"/>
+  <item-change item="varieties#brassica_rapa_annua" name="brassica_rapa_oleifera_annua" parent="brassica_rapa_oleifera" itis_tsn="23063"/>
+  <item-change item="varieties#brassica_rapa_biennis" name="brassica_rapa_oleifera_biennis" parent="brassica_rapa_oleifera" itis_tsn="23063"/>
 </migration>

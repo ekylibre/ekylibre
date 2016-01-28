@@ -43,4 +43,4 @@
   <item-creation item="varieties#zea_mays_p921s" parent="zea_mays" itis_tsn="42269"/>
   <item-creation item="varieties#zea_mays_ph30" parent="zea_mays" itis_tsn="42269"/>
   <item-creation item="varieties#zea_mays_ph31s" parent="zea_mays" itis_tsn="42269"/>
- </migration>
+</migration>

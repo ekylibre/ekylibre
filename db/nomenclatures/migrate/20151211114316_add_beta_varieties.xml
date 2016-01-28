@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add beta varieties">
-	<item-creation item="varieties#beta_vulgaris_cicla_barese" parent="beta_vulgaris_cicla" itis_tsn="20681"/>
+  <item-creation item="varieties#beta_vulgaris_cicla_barese" parent="beta_vulgaris_cicla" itis_tsn="20681"/>
 </migration>

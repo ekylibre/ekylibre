@@ -1,102 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Fixes invalid parent">
-      <item-change item="varieties#castanea_bouchaud" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_grosse_nousillade" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_jaunan" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_marron_de_veuil" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_nousillade" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_patouille_jaune" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_patouille_noire" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_perote" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_pillemongrin" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_pointue" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#astanea_rouillaud" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_saint_michel" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_torse" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#castanea_vert_josnon" parent="castanea" itis_tsn="19451"/>
-      <item-change item="varieties#pyrus_communis_beurre_hardy" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_beurre_lebrun" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_beurre_surperfin" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_bonnissime_de_la_sarthe" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_comelie" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_comtesse_de_paris" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_cuisse_dame" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_cure" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_dayenne" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_duchesse_de_poitiers" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_duchesse_du_berry" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_eugene_thirriot" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_fondante_thirriot" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_grosse_louise" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_jean_nicolas" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_legipont" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_madame_gregoire" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_marguerite_marillat" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_nipe_nime" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_plovinne" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_a_clement" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_a_cote_d_or" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_a_cuire_grise_de_wierre_au_bois" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_blanquette" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_boutoc_poire_d_ange" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_caillaou_rosat" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_catillac" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_citron" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_cure" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_d_anis" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_d_aout_de_seninghem" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_beton" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_beurre" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_blanc" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_calot" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_cave" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_cheminee" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_cure" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_fret" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_guinette" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_jargonelle" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_livre" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_loup" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_mare" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_marsanneix" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_moreau" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_petit_roux" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_rapace" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_rateau_rouge" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_roulee" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_saint_antoine" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_sang" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_de_vierge" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_duchesse_d_angouleme" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_epargne_cuisse_madame" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_marguerite_marillat" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_monsallard_epine_d_ete" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_mouille_bouche_jansemine" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_notre_dame" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_orange" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_perou_d_argent" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_reinette" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_saint_jean" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_poire_sucre_vert" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_rivailles" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_saint_mathieu" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_sans_pepins" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_sucree_de_montlucon" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_sucree_vert_de_montlucon" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_triomphe_de_vienne" parent="pyrus_communis" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_william" itis_tsn="25295"/>
-      <item-change item="varieties#pyrus_communis_william_bon_chretien" itis_tsn="25295"/>
-      <item-change item="varieties#phaseolus_vulgaris_blanc_de_flandre" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_carthage" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_denver" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_flagrano" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_kaiser" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_lingot" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_lugos" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_mogex" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_molly" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_princesse_du_peleve" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_stanley" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_sv1162gn" parent="phaseolus_vulgaris"/>
-      <item-change item="varieties#phaseolus_vulgaris_verdelys" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#castanea_bouchaud" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_grosse_nousillade" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_jaunan" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_marron_de_veuil" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_nousillade" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_patouille_jaune" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_patouille_noire" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_perote" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_pillemongrin" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_pointue" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_rouillaud" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_saint_michel" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_torse" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#castanea_vert_josnon" parent="castanea" itis_tsn="19451"/>
+  <item-change item="varieties#pyrus_communis_beurre_hardy" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_beurre_lebrun" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_beurre_surperfin" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_bonnissime_de_la_sarthe" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_comelie" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_comtesse_de_paris" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_cuisse_dame" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_cure" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_dayenne" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_duchesse_de_poitiers" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_duchesse_du_berry" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_eugene_thirriot" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_fondante_thirriot" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_grosse_louise" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_jean_nicolas" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_legipont" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_madame_gregoire" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_marguerite_marillat" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_nipe_nime" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_plovinne" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_a_clement" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_a_cote_d_or" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_a_cuire_grise_de_wierre_au_bois" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_blanquette" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_boutoc_poire_d_ange" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_caillaou_rosat" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_catillac" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_citron" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_cure" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_d_anis" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_d_aout_de_seninghem" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_beton" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_beurre" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_blanc" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_calot" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_cave" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_cheminee" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_cure" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_fret" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_guinette" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_jargonelle" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_livre" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_loup" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_mare" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_marsanneix" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_moreau" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_petit_roux" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_rapace" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_rateau_rouge" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_roulee" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_saint_antoine" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_sang" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_de_vierge" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_duchesse_d_angouleme" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_epargne_cuisse_madame" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_marguerite_marillat" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_monsallard_epine_d_ete" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_mouille_bouche_jansemine" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_notre_dame" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_orange" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_perou_d_argent" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_reinette" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_saint_jean" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_poire_sucre_vert" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_rivailles" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_saint_mathieu" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_sans_pepins" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_sucree_de_montlucon" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_sucree_vert_de_montlucon" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_triomphe_de_vienne" parent="pyrus_communis" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_william" itis_tsn="25295"/>
+  <item-change item="varieties#pyrus_communis_william_bon_chretien" itis_tsn="25295"/>
+  <item-change item="varieties#phaseolus_vulgaris_blanc_de_flandre" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_carthage" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_denver" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_flagrano" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_kaiser" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_lingot" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_lugos" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_mogex" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_molly" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_princesse_du_peleve" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_stanley" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_sv1162gn" parent="phaseolus_vulgaris"/>
+  <item-change item="varieties#phaseolus_vulgaris_verdelys" parent="phaseolus_vulgaris"/>
 </migration>

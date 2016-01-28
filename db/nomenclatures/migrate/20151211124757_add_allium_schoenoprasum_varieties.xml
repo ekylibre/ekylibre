@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add allium schoenoprasum varieties">
-	<item-creation item="varieties#allium_schoenoprasum_hi11600chc" parent="allium_schoenoprasum" itis_tsn="42636"/>
+  <item-creation item="varieties#allium_schoenoprasum_hi11600chc" parent="allium_schoenoprasum" itis_tsn="42636"/>
 </migration>
