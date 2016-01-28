@@ -265,7 +265,6 @@ jpn:
       # edit: "Edit %{procedure_name} #%{number}"
       # index: "Interventions"
       # new: "New intervention"
-      # run: "Run intervention: %{procedure_name} #%{number}"
       # show: "%{procedure_name}"
     backend/inventories:
       # edit: "Edit inventory"

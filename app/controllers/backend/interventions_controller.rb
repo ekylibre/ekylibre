@@ -76,7 +76,6 @@ module Backend
 
     # conditions: list_conditions,
     list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
-      # t.action :run,  if: :runnable?, method: :post, confirm: true
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
       t.column :name, sort: :procedure_name, url: true
@@ -111,20 +110,10 @@ module Backend
     def show
       return unless @intervention = find_and_check
       t3e @intervention, procedure_name: @intervention.name
-      if params[:mode] == 'spraying'
-        render 'spraying'
-        return
-      end
       respond_with(@intervention, methods: [:cost, :earn, :status, :name, :duration],
                                   include: [{ parameters: { methods: [:reference_name, :default_name], include: { product: { methods: [:picture_path, :nature_name, :unit_name] } } } }, { storage: {} }, :recommender, :prescription],
                                   procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) }
                   )
-    end
-
-    def run
-      return unless intervention = find_and_check
-      intervention.run!({}, params[:parameters])
-      redirect_to backend_intervention_url(intervention)
     end
 
     # Computes reverberation of a updated value in an intervention input context

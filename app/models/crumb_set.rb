@@ -20,7 +20,7 @@
 # along with this program.  If not, see http://www.gnu.org/licenses.
 
 class CrumbSet
-  attr_reader :crumbs, :start, :started_at, :stopped_at, :user, :device_uid, :intervention_cast, :procedure_nature
+  attr_reader :crumbs, :start, :started_at, :stopped_at, :user, :device_uid, :intervention_parameter, :procedure_nature
 
   delegate :possible_procedures_matching, to: :start
   delegate :each, :to_a, :where, :order, :update_all, :delete_all, to: :crumbs
@@ -41,7 +41,7 @@ class CrumbSet
     @stopped_at = @crumbs.last.read_at
     @user = @start.user
     @device_uid = @start.device_uid
-    @intervention_cast = @start.intervention_cast
+    @intervention_parameter = @start.intervention_parameter
   end
 
   def human_name
@@ -55,7 +55,7 @@ class CrumbSet
   end
 
   def casted?
-    !@intervention_cast.nil?
+    !@intervention_parameter.nil?
   end
 
   def procedure_name
@@ -63,6 +63,6 @@ class CrumbSet
   end
 
   def intervention
-    (@intervention_cast ? @intervention_cast.intervention : nil)
+    (@intervention_parameter ? @intervention_parameter.intervention : nil)
   end
 end

@@ -704,7 +704,6 @@
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
         <page to="backend/interventions#list_product_parameters"/>
-        <page to="backend/interventions#run"/>
         <page to="backend/interventions#unroll"/>
         <page to="backend/crumbs#index"/>
         <page to="backend/crumbs#update"/>

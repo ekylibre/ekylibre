@@ -202,7 +202,7 @@ class Activity < Ekylibre::Record::Base
 
   [:vegetal_crops, :animal_farming, :equipment_management, :processing].each do |family_name|
     define_method  family_name.to_s + '?' do
-      self.family && Nomen::ActivityFamily.find(self.family) <= family_name
+      family && Nomen::ActivityFamily.find(family) <= family_name
     end
   end
 

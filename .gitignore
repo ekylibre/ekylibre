@@ -59,6 +59,7 @@ private/test/tmp
 /config/api.yml
 /config/tools.xml
 /config/tenants.yml
+/config/unicorn.rb
 
 # Coveralls
 coverage
@@ -74,3 +75,5 @@ capybara*.html
 
 Gemfile.local
 Gemfile.local.lock
+
+Procfile.*

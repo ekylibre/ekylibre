@@ -1,0 +1,39 @@
+- count = 0
+- map = visualization do |v|
+  - v.background "OpenStreetMap.HOT"
+  - v.background "OpenStreetMap.Mapnik"
+  - v.background "Thunderforest.Landscape"
+  - v.background "Esri.WorldImagery"
+  - for cast in resource.product_parameters
+    - shape = cast.shape
+    - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor
+    - if shape
+      - v.serie cast.id, [{name: cast.name, shape: shape}]
+      - v.simple (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
+      - count += 1
+  - resource.product_parameters.each do |cast|
+    - if cast.crumbs.any?
+      -# raise cast.crumbs.reorder(:read_at).collect{|c| c.metadata.symbolize_keys.merge(name: cast.name, point: [c.geolocation.y, c.geolocation.x])}.inspect
+      :ruby
+        infos = {:right_flow => "Débit droit", :left_flow => "Débit gauche", :wind_speed => "Vitesse du vent", :tank_level => "Niveau de la cuve"}
+        data = cast.crumbs.reorder(:read_at).collect do |c|
+          infos.keys.inject({}) do |h,k|
+            h[k] = Measure.new(c.metadata[k.to_s]).to_f
+            h
+          end.merge(name: cast.name, shape: c.geolocation, width: 12)
+        end
+      - v.serie "crumb_#{cast.id}", data
+      - infos.each do |info, label|
+        - if params[:heatmap].to_i > 0
+          - v.heatmap "heatmap_#{info}", "crumb_#{cast.id}", reference: info.to_s.camelcase(:lower), label: label + " (Heatmap)"
+        - if params[:heatmap].to_i <= 0 or params[:band].to_i > 0
+          - v.band    "band_#{info}", "crumb_#{cast.id}", reference: info.to_s.camelcase(:lower), label: label + " (Bande)"
+      -# v.heatmap (cast.actor ? cast.actor.name : cast.variant ? cast.variant.name : cast.name), "heatmap_#{cast.id}", reference: :leftFlow
+      - count += 1
+  - v.control :zoom
+  - v.control :scale
+  - v.control :fullscreen
+  - v.control :layer_selector
+- if count > 0
+  - cobbler.cobble :resource_map, title: :map do
+    = map

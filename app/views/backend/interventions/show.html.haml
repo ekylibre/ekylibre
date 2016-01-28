@@ -2,35 +2,12 @@
   - t.edit resource
   - t.export :intervention_sheet
   - t.destroy
-  -# if resource.runnable?
-    - t.run resource, method: :post, "data-confirm" => :are_you_sure.tl
 
 = cobbles do |c|
-  - count = 0
-  - map = visualization do |v|
-    - v.background "OpenStreetMap.HOT"
-    - v.background "OpenStreetMap.Mapnik"
-    - v.background "Thunderforest.Landscape"
-    - v.background "Esri.WorldImagery"
-    - resource.product_parameters.each do |cast|
-      - shape = cast.working_zone
-      - shape ||= cast.product.shape(at: resource.started_at) if cast.product
-      - if shape
-        - v.serie cast.id, [{name: cast.name, shape: shape}]
-        - v.simple (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
-        - count += 1
-    - resource.product_parameters.each do |cast|
-      - if cast.crumbs.any?
-        - v.serie "path_#{cast.id}", cast.crumbs.reorder(:read_at).collect{|c| {name: cast.name, shape: c.geolocation}}
-        - v.path (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), "path_#{cast.id}"
-        - count += 1
-    - v.control :zoom
-    - v.control :scale
-    - v.control :fullscreen
-    - v.control :layer_selector
-  - if count > 0
-    - c.cobble :resource_map, title: :map.tl do
-      = map
+  - if params[:mode] == 'spraying'
+    = render 'spraying_map', cobbler: c
+  - else
+    = render 'map', cobbler: c
 
   - tractor_tool = resource.product_parameters.find_by(reference_name: 'tractor')
   - if tractor_tool && tractor_tool.product

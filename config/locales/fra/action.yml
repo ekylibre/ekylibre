@@ -307,7 +307,7 @@ fra:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
-      run: "Exécuter l’intervention"
+      run: "Exécuter l’intervention" #?
       set: "Saisie des valeurs de l’intervention" #?
       show: "%{procedure_name}"
     backend/inventories:

@@ -1051,11 +1051,6 @@ interventions:
     - "backend/interventions#edit"
     - "backend/interventions#new"
     - "backend/interventions#update"
-  execute:
-    dependencies:
-    - read-interventions
-    actions:
-    - "backend/interventions#run"
 
 inventories:
   read:

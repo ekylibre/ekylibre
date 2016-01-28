@@ -1,4 +1,3 @@
-# coding: utf-8
 # = Informations
 #
 # == License
@@ -100,7 +99,7 @@ class Crumb < Ekylibre::Record::Base
 
   class << self
     # Returns all products whose shape contains the given crumbs or any crumb if no crumb is given
-    # options:  no_content: excludes contents. Default: false
+    # options: no_content: excludes contents. Default: false
     # TODO: when refactoring, move this method to Product model, as Product#of_crumbs(*crumbs)
     def products(*crumbs)
       options = crumbs.extract_options!
@@ -213,16 +212,16 @@ class Crumb < Ekylibre::Record::Base
         attributes = {}
         attributes[:actor] = actor
         attributes[:reference_name] = variable.name
-        cast = intervention.add_cast!(attributes)
+        parameter = intervention.add_parameter!(attributes)
         if worker && actor == worker
-          intervention_path.update_all(intervention_parameter_id: cast.id)
+          intervention_path.update_all(intervention_parameter_id: parameter.id)
         end
       end
 
       # adds empty product_parameters for unknown actors
       for variable in procedure.variables.values
         unless intervention.product_parameters.map(&:reference_name).include? variable.name.to_s
-          intervention.add_cast!(reference_name: variable.name)
+          intervention.add_parameter!(reference_name: variable.name)
         end
       end
     end

@@ -396,7 +396,6 @@ eng:
       edit: "Edit %{procedure_name} #%{number}"
       index: "Interventions"
       new: "New intervention"
-      run: "Run intervention: %{procedure_name} #%{number}"
       show: "%{procedure_name}"
     backend/inventories:
       # attachments: "Attachments inventory: %{name}"
@@ -1370,7 +1369,6 @@ eng:
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
-    # product_parameters: "Product parameters"
     production: "Production"
     production_cost: "Production cost"
     production_distribution: "Production distribution" #?

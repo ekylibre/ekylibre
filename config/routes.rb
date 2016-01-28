@@ -490,7 +490,6 @@ Rails.application.routes.draw do
         patch :compute
       end
       member do
-        post :run
         get :list_product_parameters
       end
     end
