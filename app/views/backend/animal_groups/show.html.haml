@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  - t.edit resource
-  - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
-  - t.destroy
+  = t.edit resource
+  = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
+  = t.destroy
 
 = cobbles do |c|
   - c.cobble :general_informations do

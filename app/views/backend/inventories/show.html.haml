@@ -1,10 +1,10 @@
 - main_toolbar do |t|
   - if resource.editable?
-    - t.edit    resource
-    - t.refresh resource, method: :post
+    = t.edit    resource
+    = t.refresh resource, method: :post
   - if resource.reflectable?
-    - t.reflect resource, method: :post
-  - t.export :inventory_sheet
+    = t.reflect resource, method: :post
+  = t.export :inventory_sheet
 
 = main_informations attachment: true do
   = attributes_list do |l|

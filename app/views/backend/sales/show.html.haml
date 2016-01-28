@@ -3,13 +3,13 @@
   - exports << :sales_invoice if resource.invoice?
   - exports << :sales_order if resource.order?
   - exports << :sales_estimate if resource.estimate? || resource.draft? || resource.refused?
-  - t.export(*exports, key: :number)
-  - t.duplicate resource, method: :post, params: {redirect: nil}
-  - t.generate_parcel(resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_generate_parcel.tl) if resource.can_generate_parcel?
+  = t.export(*exports, key: :number)
+  = t.duplicate resource, method: :post, params: {redirect: nil}
+  = t.generate_parcel(resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_generate_parcel.tl) if resource.can_generate_parcel?
   - if resource.invoice?
-    - t.cancel(resource) if resource.cancellable?
-  - t.edit resource if resource.draft?
-  - t.destroy
+    = t.cancel(resource) if resource.cancellable?
+  = t.edit resource if resource.draft?
+  = t.destroy
 
 = main_state_bar(resource)
 
@@ -55,7 +55,7 @@
         = cobble_toolbar do |t|
           - for item in resource.items.includes(:product, :reduction_origin)
             - if item.product.nature.subscribing? and not item.reduction_origin
-              - t.link :add_subscription_for_sale_item, {action: :new, controller: :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
+              = t.link :add_subscription_for_sale_item, {action: :new, controller: :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
       = cobble_list :subscriptions
 
   - c.cobble(:affair, title: Sale.human_attribute_name(:affair)) do

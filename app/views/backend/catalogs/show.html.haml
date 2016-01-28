@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  - t.edit resource
+  = t.edit resource
 
 = cobbles do |c|
   - c.cobble :general_informations do
@@ -15,5 +15,5 @@
 
   - c.cobble :items do
     = cobble_toolbar do |t|
-      - t.new(params: {controller: :catalog_items, catalog_id: resource.id})
+      = t.new(params: {controller: :catalog_items, catalog_id: resource.id})
     = cobble_list :items

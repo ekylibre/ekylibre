@@ -6,8 +6,8 @@
     = select_tag(:category_id, options_for_select([[]] + ProductNatureCategory.to_a.collect{|s| [s.name, s.id]}, :selected => params[:category_id]))
 
 - main_toolbar do |t|
-  - t.new
-  - t.pick
+  = t.new
+  = t.pick
 
 = main_list
 

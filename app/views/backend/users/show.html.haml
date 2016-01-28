@@ -1,10 +1,10 @@
 - main_toolbar do |t|
-  - t.edit resource
+  = t.edit resource
   - if resource != current_user
     - if resource.locked?
-      - t.unlock resource, method: :post
+      = t.unlock resource, method: :post
     - else
-      - t.lock resource, method: :post
+      = t.lock resource, method: :post
 
 = cobbles do |c|
   - c.cobble :general_informations do

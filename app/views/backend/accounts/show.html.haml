@@ -1,6 +1,6 @@
 - main_toolbar do |t|
-  - t.edit(resource)
-  - t.mark(resource) if resource.reconcilable?
+  = t.edit(resource)
+  = t.mark(resource) if resource.reconcilable?
 
 = cobbles do |c|
   - c.cobble(:general_informations) do

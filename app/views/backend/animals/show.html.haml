@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  - t.export :animal_sheet, key: :identification_number
-  - t.edit resource
-  - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
+  = t.export :animal_sheet, key: :identification_number
+  = t.edit resource
+  = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
   -# t.destroy
 
 = main_informations attachment: true do
@@ -145,7 +145,7 @@
 
   - c.cobble(:issues) do
     = cobble_toolbar do |t|
-      - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name}, tool: 'new-issue')
+      = t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name}, tool: 'new-issue')
     = cobble_list(:issues)
 
   - c.cobble(:intervention_product_parameters, title: :x_intervention_product_parameters.tl(count: resource.intervention_product_parameters.count)) do

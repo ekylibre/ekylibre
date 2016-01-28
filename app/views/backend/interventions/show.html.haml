@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  - t.edit resource
-  - t.export :intervention_sheet
-  - t.destroy
+  = t.edit resource
+  = t.export :intervention_sheet
+  = t.destroy
 
 = cobbles do |c|
   - if params[:mode] == 'spraying'

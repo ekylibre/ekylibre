@@ -3,6 +3,6 @@
     = field :entity_to_update.tl, selector_tag(:master)
     = field :entity_to_delete.tl, selector_tag(:double)
   -# = toolbar do |t|
-    - t.link :permute, {action: :merge}, "data-permute-combo-box" => "#master, #double"
+    = t.link :permute, {action: :merge}, "data-permute-combo-box" => "#master, #double"
   = form_actions do
     = submit_tag "rest.actions.merge".t

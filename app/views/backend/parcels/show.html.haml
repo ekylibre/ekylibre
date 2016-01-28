@@ -1,6 +1,6 @@
 - main_toolbar do |t|
-  - t.edit resource if resource.updateable?
-  - t.destroy
+  = t.edit resource if resource.updateable?
+  = t.destroy
 
 = main_state_bar(resource)
 

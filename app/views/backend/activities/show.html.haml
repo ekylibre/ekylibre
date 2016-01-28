@@ -1,8 +1,8 @@
 - main_toolbar do |t|
-  - t.edit resource
+  = t.edit resource
   - budget = resource.budget_of(current_campaign)
   - if budget && budget.items.any?
-    - t.edit params: {controller: :activity_budgets, id: budget.id}, label: :edit_budget.tl
+    = t.edit params: {controller: :activity_budgets, id: budget.id}, label: :edit_budget.tl
 
 - main_campaign_selector
 
@@ -42,7 +42,7 @@
 
   - c.cobble(:productions) do
     = cobble_toolbar do |t|
-      - t.new(params: {controller: :activity_productions, activity_id: resource.id})
+      = t.new(params: {controller: :activity_productions, activity_id: resource.id})
     = cobble_list(:productions)
 
   - if resource.auxiliary?

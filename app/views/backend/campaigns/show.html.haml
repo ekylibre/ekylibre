@@ -2,7 +2,7 @@
 
 - main_toolbar do |t|
   -# t.edit resource
-  - t.menu :open, icon: nil do |menu|
+  = t.menu :open, icon: nil do |menu|
     - Activity.availables.where.not(id: activities).order(:name).each do |a|
       - menu.item a.name, { action: :open, activity_id: a.id }, method: :post, title: a.name
     - menu.separator
@@ -21,7 +21,7 @@
       - l.attribute :description
   -#- c.cobble(:productions) do
   -#  = cobble_toolbar do |t|
-  -#    - t.new variants: Activity.availables.reorder(:name).to_a.map { |n| [n.name, {activity_id: n.id, controller: :activity_productions, campaign_id: resource.id}] }
+  -#    = t.new variants: Activity.availables.reorder(:name).to_a.map { |n| [n.name, {activity_id: n.id, controller: :activity_productions, campaign_id: resource.id}] }
   -#  = cobble_list(:activity_productions)
 
   - c.cobble :map do

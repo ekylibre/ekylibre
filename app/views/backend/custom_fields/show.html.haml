@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  - t.edit resource
+  = t.edit resource
 
 = cobbles do |c|
   - c.cobble :general_informations do
@@ -12,5 +12,5 @@
   - if resource.choice?
     - c.cobble(:choices) do
       = cobble_toolbar do |t|
-        - t.sort resource, {method: :post}
+        = t.sort resource, {method: :post}
       = cobble_list :choices

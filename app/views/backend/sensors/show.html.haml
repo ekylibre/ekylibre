@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  - t.edit resource
+  = t.edit resource
   - if resource.requesting?
-    - t.retrieve resource, method: :post
+    = t.retrieve resource, method: :post
 
 = main_informations attachment: true do
   = attributes_list do |l|

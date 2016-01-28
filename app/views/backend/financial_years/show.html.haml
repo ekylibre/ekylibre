@@ -1,11 +1,11 @@
 - main_toolbar do |t|
-  - t.export(:balance_sheet, :income_statement, :trial_balance, key: :code)
-  - t.compute_balances resource, method: :post
+  = t.export(:balance_sheet, :income_statement, :trial_balance, key: :code)
+  = t.compute_balances resource, method: :post
   - attrs = {}
   - attrs["data-confirm"] = :are_you_sure.tl if resource.last_journal_entry
-  - t.generate_last_journal_entry resource, attrs
+  = t.generate_last_journal_entry resource, attrs
   - if resource == resource_model.closable
-    - t.close resource
+    = t.close resource
 
 = main_informations attachment: true do
   = attributes_list do |l|

@@ -7,8 +7,8 @@
     = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
 
 - main_toolbar do |t|
-  - t.new params: {nature: :organization}, label: :new_organization.tl
-  - t.new params: {nature: :contact}, label: :new_contact.tl
-  - t.merge
+  = t.new params: {nature: :organization}, label: :new_organization.tl
+  = t.new params: {nature: :contact}, label: :new_contact.tl
+  = t.merge
 
 = main_list

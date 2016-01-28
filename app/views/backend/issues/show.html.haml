@@ -1,15 +1,15 @@
 - main_toolbar do |t|
-  - t.edit resource
+  = t.edit resource
   - if resource.can_close?
-    - t.close(resource, method: :post, "data-confirm" => are_you_sure_you_want_to(:close_issue))
+    = t.close(resource, method: :post, "data-confirm" => are_you_sure_you_want_to(:close_issue))
   - if resource.can_abort?
-    - t.abort(resource, method: :post, "data-confirm" => are_you_sure_you_want_to(:abort_issue))
+    = t.abort(resource, method: :post, "data-confirm" => are_you_sure_you_want_to(:abort_issue))
   - if resource.can_reopen?
-    - t.reopen(resource, method: :post, "data-confirm" => are_you_sure_you_want_to(:reopen_issue))
+    = t.reopen(resource, method: :post, "data-confirm" => are_you_sure_you_want_to(:reopen_issue))
   -# for event in resource.state_paths.events
     - if resource.send("can_#{event}?")
-      - t.send(event, resource, method: :post, "data-confirm" => are_you_sure_you_want_to("#{event}_issue"))
-  - t.destroy
+      = t.send(event, resource, method: :post, "data-confirm" => are_you_sure_you_want_to("#{event}_issue"))
+  = t.destroy
 
 = main_informations attachment: true do
   - if resource.picture.exists?
@@ -43,7 +43,7 @@
 
       - c.cobble(:interventions) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :interventions, issue_id: resource.id})
+          = t.new(params: {controller: :interventions, issue_id: resource.id})
         = cobble_list(:interventions)
 
   - j.face :timeline do

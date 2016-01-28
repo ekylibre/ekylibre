@@ -1,6 +1,6 @@
 = main_toolbar do |t|
-  - t.edit resource
-  - t.export :manure_management_plan_sheet, key: :id
+  = t.edit resource
+  = t.export :manure_management_plan_sheet, key: :id
 
 = main_informations attachment: true do
   = attributes_list do |l|

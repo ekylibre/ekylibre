@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   -# [:qualify, :evaluate, :quote, :negociate, :win, :lose].each do |event|
     - if resource.send("can_#{event}?")
-      - t.send(event, resource, method: :post)
-  - t.edit resource
+      = t.send(event, resource, method: :post)
+  = t.edit resource
 
 = main_state_bar(resource)
 
@@ -54,7 +54,7 @@
         = render "show", affair: resource, current_deal: nil
       - c.cobble :tasks, title: :x_tasks.tl(count: resource.tasks.count) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})
+          = t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})
         = cobble_list(:tasks)
 
 

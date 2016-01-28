@@ -1,4 +1,4 @@
 #!/bin/bash
 
 rake clean CRON=0
-rubocop -a -n -o log/rubocop.log
+rubocop --auto-correct --no-color --out log/rubocop.log

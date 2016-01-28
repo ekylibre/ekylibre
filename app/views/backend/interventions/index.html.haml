@@ -14,10 +14,10 @@
         -#= select_tag(:support_id, options_for_select([[]] + productions.joins(:support).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:support_id]))
 
 - main_toolbar do |t|
-  - t.new
+  = t.new
   - if current_user.crumbs.unconverted.any?
     - count = current_user.crumbs.unconverted.where(nature: "start").count
-    - t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
+    = t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
 
 - main_campaign_selector
 

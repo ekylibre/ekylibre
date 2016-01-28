@@ -1,9 +1,9 @@
 - main_toolbar do |t|
-  - t.new
+  = t.new
   - if current_campaign && current_campaign.activity_productions.empty?
     - preceding = current_campaign.preceding
     - if preceding && preceding.activity_productions.any?
-      - t.duplicate method: :post, confirm: :are_you_sure.tl
+      = t.duplicate method: :post, confirm: :are_you_sure.tl
 
 - main_campaign_selector
 

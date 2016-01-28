@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  - t.export :entity_sheet
-  - t.edit resource
-  - t.destroy
+  = t.export :entity_sheet
+  = t.edit resource
+  = t.destroy
 
 = main_informations attachment: true do
   = render 'coordinates'
@@ -89,61 +89,61 @@
 
       - c.cobble(:events, title: :x_events.tl(count: resource.participations.count)) do
         = cobble_toolbar do |t|
-          - t.new params: {controller: :events, action: :new, nature: :meeting, participations: {"0" => {participant_id: resource.id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
+          = t.new params: {controller: :events, action: :new, nature: :meeting, participations: {"0" => {participant_id: resource.id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
         - if resource.participations.any?
           = cobble_list(:event_participations)
 
       - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
+          = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
         - if resource.issues.any?
           = cobble_list(:issues)
 
       - c.cobble(:entity_links, title: :x_entity_links.tl(count: EntityLink.of_entity(resource).count)) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :entity_links, entity_id: resource.id})
+          = t.new(params: {controller: :entity_links, entity_id: resource.id})
         - if EntityLink.of_entity(resource).any?
           = cobble_list(:links)
 
       - c.cobble(:tasks, title: :x_tasks.tl(count: resource.tasks.count)) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :tasks, entity_id: resource.id, executor_id: current_user.person_id, state: :todo})
+          = t.new(params: {controller: :tasks, entity_id: resource.id, executor_id: current_user.person_id, state: :todo})
         - if resource.tasks.any?
           = cobble_list(:tasks)
 
       - c.cobble(:sale_opportunities, title: :x_sale_opportunities.tl(count: resource.sale_opportunities.count)) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :sale_opportunities, third_id: resource.id})
+          = t.new(params: {controller: :sale_opportunities, third_id: resource.id})
         - if resource.sale_opportunities.any?
           = cobble_list(:sale_opportunities)
 
       - c.cobble(:sales, title: :x_sales.tl(count: resource.sales.count)) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :sales, :client_id => resource.id})
+          = t.new(params: {controller: :sales, :client_id => resource.id})
         - if resource.sales.any?
           = cobble_list(:sales)
 
       - c.cobble(:incoming_payments, title: :x_incoming_payments.tl(count: resource.incoming_payments.count)) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :incoming_payments, :payer_id => resource.id})
+          = t.new(params: {controller: :incoming_payments, :payer_id => resource.id})
         - if resource.incoming_payments.any?
           = cobble_list(:incoming_payments)
 
       - c.cobble(:subscriptions, title: :x_subscriptions.tl(count: resource.subscriptions.count)) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :subscriptions, entity_id: resource.id})
+          = t.new(params: {controller: :subscriptions, entity_id: resource.id})
         - if resource.subscriptions.any?
           = cobble_list(:subscriptions)
 
       - c.cobble(:purchases, title: :x_purchases.tl(count: resource.purchases.count)) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :purchases, :supplier_id => resource.id})
+          = t.new(params: {controller: :purchases, :supplier_id => resource.id})
         - if resource.purchases.any?
           = cobble_list(:purchases)
 
       - c.cobble(:outgoing_payments, title: :x_outgoing_payments.tl(count: resource.outgoing_payments.count)) do
         = cobble_toolbar do |t|
-          - t.new(params: {controller: :outgoing_payments, :payee_id => resource.id})
+          = t.new(params: {controller: :outgoing_payments, :payee_id => resource.id})
         - if resource.outgoing_payments.any?
           = cobble_list(:outgoing_payments)
 

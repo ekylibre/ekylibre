@@ -1,13 +1,13 @@
 - main_toolbar do |t|
   - activities = Activity.availables # .where.not(id: @activities)
-  - t.new params: { campaign_id: current_campaign.id }, variants: activities.order(:name).map { |a| [a.name, { activity_id: a.id }] }
+  = t.new params: { campaign_id: current_campaign.id }, variants: activities.order(:name).map { |a| [a.name, { activity_id: a.id }] }
   - preceding = current_campaign.preceding
   - if preceding
     - variants = []
     - variants << [:all.tl, {}] if @activities.empty?
     - variants += activities.where.not(id: @activities).where(id: ActivityProduction.select(:activity_id).of_campaign(preceding)).order(:name).map { |a| [a.name, { source_activity_id: a.id }] }
     - if variants.any?
-      - t.duplicate params: { controller: :activities, campaign_id: current_campaign.id, source_campaign_id: preceding.id, redirect: request.fullpath }, variants: variants, label: :copy_from_previous_campaign.tl, method: :post
+      = t.duplicate params: { controller: :activities, campaign_id: current_campaign.id, source_campaign_id: preceding.id, redirect: request.fullpath }, variants: variants, label: :copy_from_previous_campaign.tl, method: :post
 
 - main_campaign_selector
 

@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  - t.export :purchases_invoice
-  - t.edit resource if resource.draft?
-  - t.destroy
+  = t.export :purchases_invoice
+  = t.edit resource if resource.draft?
+  = t.destroy
 
 = main_state_bar(resource)
 

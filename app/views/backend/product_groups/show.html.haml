@@ -1,6 +1,6 @@
 - main_toolbar do |t|
-  - t.edit resource
-  - t.destroy
+  = t.edit resource
+  = t.destroy
 
 = cobbles do |c|
   - c.cobble :details do
@@ -26,7 +26,7 @@
 
   - c.cobble(:issues) do
     = cobble_toolbar do |t|
-      - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
+      = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
     = cobble_list(:issues)
 
   - c.cobble(:readings, title: tl(:x_readings, count: resource.readings.count)) do

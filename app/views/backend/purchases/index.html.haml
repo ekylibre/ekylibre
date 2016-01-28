@@ -5,5 +5,5 @@
   - k.helper :journal_period_crit
   - k.multi_choice :nature, [:unpaid].map{ |s| [s.tl, s] }
 - main_toolbar do |t|
-  - t.new variants: PurchaseNature.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }
+  = t.new variants: PurchaseNature.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }
 = main_list

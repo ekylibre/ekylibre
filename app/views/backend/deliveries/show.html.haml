@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  - t.export :shipping_note, key: :number
-  - t.edit resource
-  - t.destroy
+  = t.export :shipping_note, key: :number
+  = t.edit resource
+  = t.destroy
 
 = main_state_bar(resource)
 

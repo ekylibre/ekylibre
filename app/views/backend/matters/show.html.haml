@@ -1,7 +1,7 @@
 - main_toolbar do |t|
-  - t.edit resource
-  - t.destroy
-  - t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
+  = t.edit resource
+  = t.destroy
+  = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
 
 = main_informations attachment: true do
   = render 'picture'
@@ -63,7 +63,7 @@
 
   - c.cobble(:interventions) do
     = cobble_toolbar do |t|
-      - t.new(params: {controller: :interventions})
+      = t.new(params: {controller: :interventions})
     = cobble_list(:intervention_product_parameters)
 
   -# c.cobble(:groups) do

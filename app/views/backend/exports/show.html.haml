@@ -3,6 +3,6 @@
     = render "parameter", parameter: parameter, k: k
 
 - main_toolbar do |t|
-  - t.export @aggregator.class.aggregator_name, key: :key, resource: @aggregator
+  = t.export @aggregator.class.aggregator_name, key: :key, resource: @aggregator
 
 .aggregator= @aggregator.to_html_fragment
