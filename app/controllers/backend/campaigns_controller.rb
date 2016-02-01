@@ -34,7 +34,7 @@ module Backend
 
     after_action only: :show do
       @current_campaign = @campaign
-      current_user.current_campaign = @current_campaign
+      current_user.current_campaign = @current_campaign unless @current_campaign == false
     end
 
     unroll
