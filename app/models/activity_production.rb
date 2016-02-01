@@ -77,7 +77,7 @@ class ActivityProduction < Ekylibre::Record::Base
   validates_presence_of :support_nature, if: :vegetal_crops?
   validates_presence_of :campaign, if: :annual?
   # validates_numericality_of :size_value, greater_than: 0
-  validates_presence_of :size_unit, if: :size_value?
+  # validates_presence_of :size_unit, if: :size_value?
 
   delegate :name, :work_number, to: :support, prefix: true
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
@@ -149,17 +149,19 @@ class ActivityProduction < Ekylibre::Record::Base
         support.save!
       end
     elsif animal_farming?
-      self.support = AnimalGroup.new unless support
-      support.name = computed_support_name
-      # FIXME: Need to find better category and population_counting...
-      nature = ProductNature.find_or_create_by!(variety: :animal_group, derivative_of: :animal, name: AnimalGroup.model_name.human, category: ProductNatureCategory.import_from_nomenclature(:cattle_herd), population_counting: :unitary)
-      variant = ProductNatureVariant.find_or_initialize_by(nature: nature, variety: :animal_group, derivative_of: :animal)
-      variant.name ||= nature.name
-      variant.unit_name ||= :unit.tl
-      variant.save! if variant.new_record?
-      support.variant = variant
-      support.derivative_of = self.activity.cultivation_variety
-      support.save!
+      unless support
+        self.support = AnimalGroup.new 
+        support.name = computed_support_name
+        # FIXME: Need to find better category and population_counting...
+        nature = ProductNature.find_or_create_by!(variety: :animal_group, derivative_of: :animal, name: AnimalGroup.model_name.human, category: ProductNatureCategory.import_from_nomenclature(:cattle_herd), population_counting: :unitary)
+        variant = ProductNatureVariant.find_or_initialize_by(nature: nature, variety: :animal_group, derivative_of: :animal)
+        variant.name ||= nature.name
+        variant.unit_name ||= :unit.tl
+        variant.save! if variant.new_record?
+        support.variant = variant
+        support.derivative_of = self.activity.cultivation_variety
+        support.save!
+      end
       self.size = current_size if support && size_indicator && size_unit
     end
   end

@@ -560,7 +560,7 @@
         <page to="backend/campaigns#new"/>
         <page to="backend/campaigns#open"/>
         <page to="backend/campaigns#update"/>
-        <page to="backend/campaigns#list_activity_productions"/>
+        <page to="backend/campaigns#list_activity_productions" nonexistent="true"/>
         <page to="backend/campaigns#unroll"/>
         <page to="backend/activity_productions#index"/>
         <page to="backend/activity_productions#list_interventions"/>

@@ -431,7 +431,7 @@ campaigns:
     - "backend/campaigns#current"
     - "backend/campaigns#index"
     - "backend/campaigns#list"
-    - "backend/campaigns#list_activity_productions"
+    - "backend/campaigns#list_activity_productions" #?
     - "backend/campaigns#show"
     - "backend/campaigns#unroll"
   write:
