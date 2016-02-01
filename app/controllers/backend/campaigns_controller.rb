@@ -48,13 +48,13 @@ module Backend
     end
 
     # List of productions for one campaign
-    list(:activity_productions, conditions: "campaign = Campaign.find(params[:id])\n['(started_on, stopped_on) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on]".c, order: { started_on: :desc }) do |t|
-      t.column :name, url: true
-      # t.column :product_nature, url: true
-      t.column :state
-      t.column :started_on
-      t.column :stopped_on
-    end
+    # list(:activity_productions, conditions: "campaign = Campaign.find(params[:id])\n['(started_on, stopped_on) OVERLAPS (?, ?)', campaign.started_on, campaign.stopped_on]".c, order: { started_on: :desc }) do |t|
+    #   t.column :name, url: true
+    #   # t.column :product_nature, url: true
+    #   t.column :state
+    #   t.column :started_on
+    #   t.column :stopped_on
+    # end
 
     def open
       return unless (@campaign = find_and_check)
