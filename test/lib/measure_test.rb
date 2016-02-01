@@ -135,7 +135,7 @@ class MeasureTest < ActiveSupport::TestCase
 
   test 'all units' do
     value = 5123.23
-    Nomen::Unit.each do |unit|
+    Nomen::Unit.items.values.each do |unit|
       assert_nothing_raised do
         Measure.new("#{value} #{unit.symbol}")
         Measure.new("#{value}#{unit.symbol}")
