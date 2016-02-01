@@ -9,26 +9,8 @@
 = cobbles do |c|
   - if current_campaign
     - c.cobble :budget do
-      = infos do
-        - budget = resource.budgets.find_by(campaign: current_campaign)
-        - if budget && budget.items.any?
-          = link_to(controller: :activity_budgets, action: :edit, id: budget.id, redirect: request.fullpath) do
-            = info ActivityBudget.human_attribute_name(:expenses_amount), budget.expenses_amount.round(budget.currency_precision).l(currency: budget.currency)
-          = link_to(controller: :activity_budgets, action: :edit, id: budget.id, redirect: request.fullpath) do
-            = info ActivityBudget.human_attribute_name(:revenues_amount), budget.revenues_amount.round(budget.currency_precision).l(currency: budget.currency)
-        - else
-          %p.help-message= :no_budget_defined_for_current_campaign.tn
-          - if current_campaign.preceding && resource.budgets.find_by(campaign: current_campaign.preceding)
-            - source = resource.budgets.find_by(campaign: current_campaign.preceding)
-            = link_to(:copy_previous_budget.tl, { controller: :activity_budgets, action: :duplicate, activity_id: resource.id, campaign_id: current_campaign.id, id: source.id, edit: true, redirect: request.fullpath }, method: :post, class: 'btn btn-default')
-          - other_budgets = current_campaign.activity_budgets.where.not(activity_id: resource.id)
-          - if other_budgets.any?
-            = dropdown_menu_button(:copy_from_another_activity.tl) do |menu|
-              - other_budgets.includes(:activity).order('activities.name').each do |budget|
-                - menu.item budget.activity_name, { controller: :activity_budgets, action: :duplicate, id: budget.id, activity_id: resource.id, campaign_id: current_campaign.id, edit: true, redirect: request.fullpath }, method: :post
-          - url_options = budget ? { action: :edit, id: budget.id } : {action: :new, activity_id: resource.id, campaign_id: current_campaign.id}
-          = link_to(:new_budget.tl, url_options.merge(controller: :activity_budgets, redirect: request.fullpath ), class: 'btn btn-default')
-  - c.cobble :details do
+      = render 'budget'
+  -# c.cobble :details do
     = attributes_list do |l|
       - l.attribute :nature
       - l.attribute :family
@@ -41,9 +23,8 @@
         - l.custom_fields
 
   - c.cobble(:productions) do
-    = cobble_toolbar do |t|
-      = t.new(params: {controller: :activity_productions, activity_id: resource.id})
-    = cobble_list(:productions)
+    = render 'productions'
+
 
   - if resource.auxiliary?
     - c.cobble(:distributions, title: Activity.human_attribute_name(:distributions)) do

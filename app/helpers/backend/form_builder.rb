@@ -273,23 +273,15 @@ module Backend
           editor[:view] = { center: zone.shape_centroid }
         end
       end
-      show = options.delete(:show) || @object.class.where("#{attribute_name} IS NOT NULL AND id != ?", @object.id || 0)
-      union = Charta.empty_geometry
-      if show.any?
-        show.collect do |obj|
-          if shape = obj.send(attribute_name)
-            union = union.merge(Charta.new_geometry(shape))
-          end
-        end.compact
-      else
-        begin
-          for obj in @object.class.where.not(id: @object.id || 0)
-            union = union.merge Charta.new_geometry(obj.send(:shape))
-          end
-        rescue
+      show = options.delete(:show)
+      unless show.is_a?(FalseClass)
+        show ||= @object.class.where.not(attribute_name => nil)
+        union = Charta.empty_geometry
+        if show.any?
+          union = show.geom_union(attribute_name)
+          editor[:show] = union.to_json_object unless union.empty?
         end
       end
-      editor[:show] = union.to_json_object unless union.empty?
       input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
     end
 
@@ -348,9 +340,9 @@ module Backend
       attribute_name = args.shift || options[:name] || :period
       input(attribute_name, options.merge(wrapper: :append)) do
         @template.content_tag(:span, :from.tl, class: 'add-on') +
-          input_field(start_attribute_name) +
+          input(start_attribute_name, wrapper: :simplest) +
           @template.content_tag(:span, :to.tl, class: 'add-on') +
-          input_field(stop_attribute_name)
+          input(stop_attribute_name, wrapper: :simplest)
       end
     end
 

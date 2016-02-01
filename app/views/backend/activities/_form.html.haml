@@ -1,4 +1,4 @@
-= f.object.errors.inspect
+= f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
 = field_set do
   = f.input :name
   = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
@@ -11,7 +11,7 @@
   = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
   .perennial-production-cycle-options
     = f.input :production_campaign, as: :radio_buttons
-  .main-nature-options
+  -#.main-nature-options
     = f.input :size_indicator_name
     = f.input :size_unit_name
   = f.input :description

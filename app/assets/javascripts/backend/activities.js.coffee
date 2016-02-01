@@ -1,6 +1,16 @@
 ((E, $) ->
   'use strict'
 
+  $(document).on "selector:change", "#activity_production_cultivable_zone_id", (event)->
+    element = $(this)
+    id = element.selector('value')
+    map = $('#activity_production_support_shape')
+    $.ajax
+      url: "/backend/cultivable-zones/#{id}.json"
+      success: (data, status, request) ->
+        console.log data
+        map.mapeditor('edit', data.shape, true)
+
 
   # Set
   $(document).on "change keyup", "select[data-activity-family]", (event)->

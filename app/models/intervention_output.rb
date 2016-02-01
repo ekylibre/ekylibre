@@ -69,9 +69,10 @@ class InterventionOutput < InterventionProductParameter
     output.save!
 
     movement = product_movement
-    movement = product_movement.build(product: output) unless movement
+    movement = build_product_movement(product: output) unless movement
     movement.delta = quantity_population
-    movement.started_at = intervention.started_at
+    movement.started_at = intervention.started_at || Time.zone.now - 1.hour
+    movement.stopped_at = intervention.stopped_at || movement.started_at + 1.hour
     movement.save!
 
     update_columns(product_id: output.id) # , movement_id: movement.id)

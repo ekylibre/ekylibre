@@ -217,8 +217,6 @@ class Activity < Ekylibre::Record::Base
     total = productions.of_campaign(campaign).map(&:size).sum
     total = total.in(size_unit) if size_unit
     total
-  rescue
-    nil
   end
 
   # Returns human_name of support variety

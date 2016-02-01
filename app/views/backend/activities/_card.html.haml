@@ -10,7 +10,7 @@
     - if active
       .activity-indicators
         .activity-indicator.size
-          = activity.size_during(campaign).l rescue nil
+          = activity.size_during(campaign).round(3).l rescue nil
         .activity-indicator.cash
           = activity.real_expense_amount(campaign).l(currency: Preference[:currency])
           = '/'

@@ -300,11 +300,13 @@
       this.options.show = geojson
       this._refreshReferenceLayerGroup()
 
-    edit: (geojson) ->
+    edit: (geojson, zoom = false) ->
       return this.options.edit unless geojson?
       this.options.edit = geojson
       this._saveUpdates()
       this._refreshEditionLayerGroup()
+      if zoom
+        this._refreshView('edit')
 
     view: (view) ->
       return this.options.view unless view?

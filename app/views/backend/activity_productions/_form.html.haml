@@ -3,12 +3,14 @@
 = field_set do
   -# = f.input :name
   = f.referenced_association :activity, as: :hidden
-  = f.date_range
   - if activity.annual?
+    - f.object.campaign ||= current_campaign
     = f.referenced_association :campaign
+  = f.date_range
   - if activity.vegetal_crops?
     -# Vegetal crops
     = f.input :support_nature, as: :radio_buttons
+    - f.object.usage ||= :grain
     = f.input :usage
     = f.referenced_association :cultivable_zone
     = f.shape :support_shape

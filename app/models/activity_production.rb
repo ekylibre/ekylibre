@@ -75,7 +75,8 @@ class ActivityProduction < Ekylibre::Record::Base
   validates_presence_of :started_on
   # validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
   validates_presence_of :support_nature, if: :vegetal_crops?
-  validates_presence_of :campaign, if: :annual?
+  validates_presence_of :campaign, :stopped_on, if: :annual?
+  validates_presence_of :started_on
   # validates_numericality_of :size_value, greater_than: 0
   # validates_presence_of :size_unit, if: :size_value?
 
@@ -87,7 +88,11 @@ class ActivityProduction < Ekylibre::Record::Base
            :color, :annual?, :perennial?, to: :activity
 
   scope :of_campaign, lambda { |campaign|
-    where("campaign_id = ? OR activity_productions.id IN (SELECT c.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_start' AND ((ap.stopped_on is null AND c.harvest_year >= EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) <= c.harvest_year AND c.harvest_year < EXTRACT(YEAR FROM ap.stopped_on)))) OR activity_productions.id IN (SELECT c.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_end' AND ((ap.stopped_on is null AND c.harvest_year > EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) < c.harvest_year AND c.harvest_year <= EXTRACT(YEAR FROM ap.stopped_on))))", campaign.id)
+    where('campaign_id = ?' \
+          ' OR campaign_id IS NULL AND (' \
+          "activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_start' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year >= EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) <= c.harvest_year AND c.harvest_year < EXTRACT(YEAR FROM ap.stopped_on))))" \
+            " OR activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_end' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year > EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) < c.harvest_year AND c.harvest_year <= EXTRACT(YEAR FROM ap.stopped_on))))" \
+          ')', campaign.id, campaign.id, campaign.id)
   }
 
   scope :of_cultivation_variety, lambda { |variety|
@@ -148,9 +153,10 @@ class ActivityProduction < Ekylibre::Record::Base
         support.variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
         support.save!
       end
+      self.size = support_shape_area.in(size_unit_name)
     elsif animal_farming?
       unless support
-        self.support = AnimalGroup.new 
+        self.support = AnimalGroup.new
         support.name = computed_support_name
         # FIXME: Need to find better category and population_counting...
         nature = ProductNature.find_or_create_by!(variety: :animal_group, derivative_of: :animal, name: AnimalGroup.model_name.human, category: ProductNatureCategory.import_from_nomenclature(:cattle_herd), population_counting: :unitary)
@@ -162,7 +168,7 @@ class ActivityProduction < Ekylibre::Record::Base
         support.derivative_of = self.activity.cultivation_variety
         support.save!
       end
-      self.size = current_size if support && size_indicator && size_unit
+      self.size = size_value.in(size_unit_name)
     end
   end
 

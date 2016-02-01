@@ -1,0 +1,6 @@
+%ul
+  - ActivityProduction.of_activity(resource).of_campaign(current_campaign).order(:rank_number).each do |production|
+    %li
+      = link_to(production.name, {action: :show, controller: :activity_productions, id: production.id})
+      = production.size.l rescue nil
+  %li= tool_to :new.ta, {action: :new, controller: :activity_productions, activity_id: resource.id, campaign_id: current_campaign.id, redirect: request.fullpath}, tool: :new
