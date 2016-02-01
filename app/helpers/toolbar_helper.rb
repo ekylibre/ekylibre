@@ -56,6 +56,7 @@ module ToolbarHelper
     end
 
     def destroy(options = {})
+      return if @template.resource.nil?
       if @template.resource.destroyable?
         tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
       end
