@@ -137,6 +137,9 @@ class Activity < Ekylibre::Record::Base
       if vegetal_crops?
         self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
         self.size_unit_name = 'hectare' if size_unit_name.blank?
+      elsif animal_farming?
+        self.size_indicator_name = 'members_population' if size_indicator_name.blank?
+        self.size_unit_name = 'unity' # if size_unit_name.blank?
       end
     end
     true

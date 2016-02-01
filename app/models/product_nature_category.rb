@@ -210,7 +210,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
 
   # Load.all product nature from product nature nomenclature
   def self.import_all_from_nomenclature
-    for product_nature_category in Nomen::ProductNatureCategory.all
+    Nomen::ProductNatureCategory.find_each do |product_nature_category|
       import_from_nomenclature(product_nature_category)
     end
   end

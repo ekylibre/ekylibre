@@ -44,7 +44,7 @@ module ToolbarHelper
             menu.item nature.human_name, '#' + modal_id, data: { toggle: 'modal' }
           else
             DocumentTemplate.of_nature(nature.name).each do |template|
-              menu.item(template.name, params.merge(format: :pdf, template: template.id, key: key))
+              menu.item(template.name, @template.params.merge(format: :pdf, template: template.id, key: key))
             end
           end
         end
@@ -56,9 +56,12 @@ module ToolbarHelper
     end
 
     def destroy(options = {})
-      return if @template.resource.nil?
-      if @template.resource.destroyable?
-        tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
+      if @template.resource
+        if @template.resource.destroyable?
+          tool(options[:label] || :destroy.ta, { action: :destroy, id: @template.resource.id, redirect: options[:redirect] }, method: :delete, data: { confirm: :are_you_sure_you_want_to_delete.tl })
+        end
+      else
+        tool(options[:label] || :destroy.ta, action: :destroy, redirect: options[:redirect])
       end
     end
 

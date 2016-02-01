@@ -309,7 +309,7 @@ class ProductNature < Ekylibre::Record::Base
 
     # Load.all product nature from product nature nomenclature
     def import_all_from_nomenclature
-      for product_nature in Nomen::ProductNature.all
+      Nomen::ProductNature.find_each do |product_nature|
         import_from_nomenclature(product_nature)
       end
     end

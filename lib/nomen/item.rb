@@ -128,7 +128,7 @@ module Nomen
     def rise(&block)
       result = yield(self)
       return result if result
-      return self.parent ? self.parent.rise(&block) : nil
+      parent ? parent.rise(&block) : nil
     end
 
     # Computes left/right value for nested set

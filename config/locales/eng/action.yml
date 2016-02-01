@@ -1535,7 +1535,7 @@ eng:
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     undone: "Undone" #?
-    unit: "Unit" #?
+    unit: "Unit"
     unit_and_indicator: "%{unit} (%{indicator})"
     unknown: "Unknown"
     unknown_condition: "Unknown condition"

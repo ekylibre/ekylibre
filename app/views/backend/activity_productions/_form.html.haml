@@ -1,7 +1,7 @@
 - activity = f.object.activity
 = f.object.errors.inspect if f.object.errors.any? && Rails.env.development?
 = field_set do
-  = f.input :name
+  -# = f.input :name
   = f.referenced_association :activity, as: :hidden
   = f.date_range
   - if activity.annual?

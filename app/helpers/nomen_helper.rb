@@ -1,12 +1,11 @@
 module NomenHelper
-
   AVATARS_INDEX = Rails.root.join('db', 'nomenclatures', 'avatars.yml').freeze
   AVATARS = (AVATARS_INDEX.exist? ? YAML.load_file(AVATARS_INDEX) : {}).freeze
 
   def item_avatar_path(item)
     nomenclature = AVATARS[item.nomenclature.table_name]
     return nil unless nomenclature
-    return item.rise { |i| nomenclature[i.name] }
+    item.rise { |i| nomenclature[i.name] }
   end
 
   def activity_avatar_path(activity)

@@ -379,7 +379,7 @@ module ApplicationHelper
     options[:class] = options[:class].to_s + ' btn-group'
     content_tag(:div, options, &block)
   end
-  
+
   def dropdown_toggle_button(name = nil, options = {})
     class_attribute = 'btn btn-default dropdown-toggle'
     class_attribute << ' sr-only' if name.blank?

@@ -1,6 +1,5 @@
 # FIXME: Not absolute name. Rename to ProductNatureVariantsExchanger (don't forget nomenclature)
 module Ekylibre
-
   # Expected file is a OpenDocument spreadsheet.
   # Columns are
   # A: Variant name in DB
@@ -120,11 +119,10 @@ module Ekylibre
             end
           end
           # create a sale price if needed
-          if r.sale_unit_pretax_amount
-            catalog = Catalog.by_default!(:sale)
-            if variant.catalog_items.where(catalog: catalog).empty?
-              variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.sale_unit_pretax_amount * ratio, currency: currency)
-            end
+          next unless r.sale_unit_pretax_amount
+          catalog = Catalog.by_default!(:sale)
+          if variant.catalog_items.where(catalog: catalog).empty?
+            variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.sale_unit_pretax_amount * ratio, currency: currency)
           end
         end
         w.check_point
