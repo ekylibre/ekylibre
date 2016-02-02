@@ -129,7 +129,9 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   before_validation on: :create do
-    self.rank_number = (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
+    if self.activity
+      self.rank_number = (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
+    end
   end
 
   before_validation do

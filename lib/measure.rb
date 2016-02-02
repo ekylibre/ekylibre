@@ -78,7 +78,8 @@ class Measure
       if units.size > 1
         fail AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
       elsif units.size.zero?
-        fail ArgumentError, "Unknown unit: #{unit.inspect}"
+        # fail ArgumentError, "Unknown unit: #{unit.inspect}"
+        unit = 'unity'
       else
         @unit = units.first.name.to_s
       end

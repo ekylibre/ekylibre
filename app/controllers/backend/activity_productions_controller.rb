@@ -20,7 +20,7 @@ module Backend
   class ActivityProductionsController < Backend::BaseController
     manage_restfully(t3e: { name: :name }, except: :index)
 
-    unroll activity: :name, support: :name
+    unroll :rank_number, activity: :name, support: :name
 
     def index
       @activities = Activity.of_campaign(current_campaign).order(name: :asc) || []
