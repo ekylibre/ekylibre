@@ -6,7 +6,7 @@ module RestfullyManageable
     def manage_restfully(defaults = {})
       name = controller_name
       path = controller_path
-      options = defaults.extract!(:t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url)
+      options = defaults.extract!(:t3e, :creation_t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only, :cancel_url)
       after_save_url    = options[:redirect_to]
       after_destroy_url = options[:destroy_to] || :index
       actions  = [:index, :show, :new, :create, :edit, :update, :destroy]
@@ -55,6 +55,8 @@ module RestfullyManageable
         end.join(', ') + ')'
       end
       t3e_code << ')'
+
+      creation_t3e = options[:creation_t3e].is_a?(TrueClass)
 
       code = ''
 
@@ -134,11 +136,11 @@ module RestfullyManageable
           code << "  if request.xhr?\n"
           code << "    render partial: #{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
           code << "  else\n"
-          code << "    #{t3e_code}\n"
+          code << "    #{t3e_code}\n" if creation_t3e
           code << "    #{render_form}\n"
           code << "  end\n"
         else
-          code << "  #{t3e_code}\n"
+          code << "  #{t3e_code}\n" if creation_t3e
           code << "  #{render_form}\n"
         end
         code << "end\n"
@@ -149,7 +151,7 @@ module RestfullyManageable
         # code << "  raise params.inspect.red\n"
         code << "  @#{record_name} = resource_model.new(permitted_params)\n"
         code << "  return if save_and_redirect(@#{record_name}#{', url: (' + after_save_url + ')' if after_save_url})\n"
-        code << "  #{t3e_code}\n"
+        code << "  #{t3e_code}\n" if creation_t3e
         code << "  #{render_form}\n"
         code << "end\n"
       end

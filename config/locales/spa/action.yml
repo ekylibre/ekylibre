@@ -1859,7 +1859,7 @@ spa:
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
-    # backend/activity_productions: "%{storage_name} (%{production_name} %{campaign_name})"
+    # backend/activity_productions: "%{activity_name} %{support_name} #%{rank_number}"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"
     # backend/catalog_items: "%{name}"
