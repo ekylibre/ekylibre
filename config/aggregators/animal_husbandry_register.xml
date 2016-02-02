@@ -30,7 +30,7 @@
         </section>
         <section name="animal_productions">
           <variable name="animal_activities" value="Activity.of_families(:animal_farming)"/>
-          <sections for="production" in="Production.of_activities(animal_activities).of_campaign(campaign)" of-type="record">
+          <sections for="production" in="ActivityProduction.of_activities(animal_activities).of_campaign(campaign)" of-type="record">
             <title name="name" of="production"/>
             <property name="started_at" of="production" type="datetime"/>
             <property name="stopped_at" of="production" type="datetime"/>
