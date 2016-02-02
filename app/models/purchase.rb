@@ -77,7 +77,7 @@ class Purchase < Ekylibre::Record::Base
   acts_as_affairable :supplier
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? && item[:variant].blank? }, allow_destroy: true
 
-  delegate :closed, to: :affair, prefix: true
+  delegate :closed, :balance, to: :affair, prefix: true
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
     where(invoiced_at: started_at..stopped_at)
