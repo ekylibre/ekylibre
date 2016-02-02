@@ -20,6 +20,12 @@
 require 'test_helper'
 module Backend
   class JournalsControllerTest < ActionController::TestCase
-    test_restfully_all_actions close: :get_and_post, reopen: :get_and_post
+    test_restfully_all_actions close: :get_and_post, except: :reopen
+
+    test 'reopen action in get mode' do
+      journal = journals(:journals_001)
+      get :reopen, {:id=>journal.id, :locale=>@locale}
+      assert_redirected_to action: :index
+    end
   end
 end
