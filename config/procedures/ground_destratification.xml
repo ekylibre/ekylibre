@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="ground_destratification" categories="planting" actions="loosening">
+  <procedure name="ground_destratification" categories="soil_working" actions="loosening">
     <parameters>
       <parameter name="land_parcel" type="target" filter="is land_parcel and has indicator shape" default-shape=":land_parcel" default-actor="storage">
         <handler indicator="shape">
