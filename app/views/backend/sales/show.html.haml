@@ -13,35 +13,34 @@
 
 = main_state_bar(resource)
 
+= main_informations attachment: true do
+  = attributes_list do |l|
+    - l.attribute :client, :label => :label, url: true
+    - l.attribute :number
+    - l.attribute :initial_number if resource.invoice?
+    - l.attribute :state_label
+    - l.attribute :responsible, :label => :full_name
+    - l.attribute :confirmed_at if resource.confirmed_at?
+    - l.attribute :invoiced_at if resource.invoiced_at?
+    - l.attribute :credited_sale, url: true if resource.invoice? and resource.credited_sale
+    - l.attribute :payment_delay, :label => :name
+    - l.attribute :nature
+    - l.attribute :currency unless resource.currency == Preference[:currency]
+    - l.attribute :description if resource.description?
+    - l.attribute :address, :label => :coordinate
+    -# l.attribute :delivery_address, :label => :coordinate
+    - l.attribute :invoice_address, :label => :coordinate
+    - l.attribute(:journal_entry, url: true) if resource.journal_entry
+    - l.attribute(:affair, label: :number, url: true) if resource.affair
+    - l.attribute :letter_format
+    - if resource.letter_format?
+      - l.attribute :subject
+      - l.attribute :function_title
+      - l.attribute :introduction
+      - l.attribute :conclusion
+    - l.custom_fields
+      
 = cobbles do |c|
-
-  - c.cobble :general_informations do
-    = attributes_list do |l|
-      - l.attribute :client, :label => :label, url: true
-      - l.attribute :number
-      - l.attribute :initial_number if resource.invoice?
-      - l.attribute :state_label
-      - l.attribute :responsible, :label => :full_name
-      - l.attribute :confirmed_at if resource.confirmed_at?
-      - l.attribute :invoiced_at if resource.invoiced_at?
-      - l.attribute :credited_sale, url: true if resource.invoice? and resource.credited_sale
-      - l.attribute :payment_delay, :label => :name
-      - l.attribute :nature
-      - l.attribute :currency unless resource.currency == Preference[:currency]
-      - l.attribute :description if resource.description?
-      - l.attribute :address, :label => :coordinate
-      -# l.attribute :delivery_address, :label => :coordinate
-      - l.attribute :invoice_address, :label => :coordinate
-      - l.attribute(:journal_entry, url: true) if resource.journal_entry
-      - l.attribute(:affair, label: :number, url: true) if resource.affair
-      - l.attribute :letter_format
-      - if resource.letter_format?
-        - l.attribute :subject
-        - l.attribute :function_title
-        - l.attribute :introduction
-        - l.attribute :conclusion
-      - l.custom_fields
-
   - c.cobble :items, title: Sale.human_attribute_name(:items) do
     = cobble_list :items do
       %tr.total
