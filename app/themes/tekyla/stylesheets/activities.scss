@@ -74,21 +74,111 @@ $activity_border_size: 5px;
       background: white;
     }
   }
+
+
+  .cash {
+    @include icon-before(money, $font-size: 14px);
+  }
+
+  .cumulated-time {
+    @include icon-before(timelapse, $font-size: 14px);
+  }
+
+  .opened-issues {
+    @include icon-before(bug, $font-size: 14px);
+  }
+
+  .size {
+    @include icon-before(settings-ethernet, $font-size: 14px);
+  }
+
 }
 
-.cash {
-  @include icon-before(money, $font-size: 14px);
+
+
+.activity-production-header {
+  @include make-row($gutter: 0);
+  height: 30px;
+  border-bottom: 1px solid black;
+
+
+  .activity-production-timeline-container {
+    height: 100%;
+    @include make-md-column(7, $gutter: 0);
+    @include make-md-column-offset(5);
+
+    .activity-production-timeline {
+      height: 100%;
+      //margin: 0 0 0 5%;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+
+      .started-on {
+        float: left;
+        margin-left: 5px;
+
+      }
+      .stopped-on {
+        float: right;
+        margin-right: 5px;
+      }
+    }
+  }
 }
 
-.cumulated-time {
-  @include icon-before(timelapse, $font-size: 14px);
-}
+.activity-production {
+  @include make-row($gutter: 0);
+  border-bottom: 1px solid black;
 
-.opened-issues {
-  @include icon-before(bug, $font-size: 14px);
-}
+  height: 50px;
 
-.size {
-  @include icon-before(settings-ethernet, $font-size: 14px);
-}
+  line-height: $lh-normal;
 
+  .name {
+    @include make-md-column(3, $gutter: 0);
+  }
+
+  .size {
+    @include make-md-column(2, $gutter: 0);
+  }
+
+  .activity-production-timeline-container {
+    height:100%;
+    @include make-md-column(7, $gutter: 0);
+
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    box-sizing: border-box;
+
+    .activity-production-timeline {
+      height: 100%;
+      background-color: lighten($neutral-color, 40%);
+
+      //margin: 0 0 0 5%;
+      .timeline-item {
+        height:100%;
+        background-color: $base-color;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+
+        position: relative;
+
+        .timeline-item-label {
+          position: absolute;
+          @include transform(rotate(-45deg));
+          @include transform-origin(0% 100%);
+
+          top: -20px;
+          padding-left: 5px;
+          border-left: 1px solid black;
+        }
+        .started-on {
+        }
+
+        .stopped-on {
+          right: -75px;
+        }
+      }
+    }
+  }
+}

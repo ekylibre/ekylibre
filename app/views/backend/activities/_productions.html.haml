@@ -4,3 +4,39 @@
       = link_to(production.name, {action: :show, controller: :activity_productions, id: production.id})
       = production.size.l rescue nil
   %li= tool_to :new.ta, {action: :new, controller: :activity_productions, activity_id: resource.id, campaign_id: current_campaign.id, redirect: request.fullpath}, tool: :new
+
+  :ruby
+    #start_of_year = Date.new(current_campaign.harvest_year)
+    start_of_year = ActivityProduction.of_activity(resource).of_campaign(current_campaign).order(:started_on).first.started_on
+
+    if resource.production_cycle == :annual
+      end_of_year = ActivityProduction.of_activity(resource).of_campaign(current_campaign).order(stopped_on: :desc).first.stopped_on
+    elsif resource.production_cycle == :perennial
+      #TODO for perenial
+      #TMP
+      end_of_year = ActivityProduction.of_activity(resource).of_campaign(current_campaign).order(:stopped_on).first.stopped_on
+    end
+
+    year_in_days = (end_of_year - start_of_year + 1).to_i
+
+%div
+  .activity-production-header
+    .activity-production-timeline-container
+      .activity-production-timeline
+        .started-on=start_of_year
+        .stopped-on=end_of_year
+  - ActivityProduction.of_activity(resource).of_campaign(current_campaign).order(:rank_number).each do |production|
+    .activity-production
+      .name
+        = link_to(production.name, {action: :show, controller: :activity_productions, id: production.id})
+      .size
+        = production.size.l rescue nil
+      .activity-production-timeline-container
+        .activity-production-timeline
+          :ruby
+            margin_left = (production.started_on - start_of_year).to_i > 0 ? ((production.started_on - start_of_year).to_f/year_in_days*100).round(2) : 0
+            margin_right = (end_of_year - production.stopped_on).to_i > 0 ? ((end_of_year - production.stopped_on).to_f/year_in_days*100).round(2) : 0
+          .timeline-item{style: "margin-left: #{margin_left}%; margin-right: #{margin_right}%"}
+            .timeline-item-label.started-on= production.started_on unless production.started_on.nil?
+            .timeline-item-label.stopped-on= production.stopped_on unless production.stopped_on.nil?
+  %div= tool_to :new.ta, {action: :new, controller: :activity_productions, activity_id: resource.id, campaign_id: current_campaign.id, redirect: request.fullpath}, tool: :new
