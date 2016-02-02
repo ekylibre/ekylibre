@@ -20,6 +20,13 @@
 require 'test_helper'
 module Backend
   class CashesControllerTest < ActionController::TestCase
-    test_restfully_all_actions
+    test_restfully_all_actions except: :point
+
+    test 'point action in get mode' do
+      cash = cashes(:cashes_001)
+      get :point, {locale: @locale, id: cash.id}
+      assert_redirected_to controller: :bank_statements, action: :new, cash_id: cash.id
+    end
+
   end
 end
