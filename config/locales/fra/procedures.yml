@@ -146,6 +146,7 @@ fra:
     hay_rake: "Andaineur"
     hazelnuts: "Noisettes" #?
     herd: "Troupeau"
+    hiller: "Butteuse"
     implanter: "Planteuse"
     implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
@@ -243,6 +244,7 @@ fra:
     tool: "Outil" #?
     tractor: "Tracteur"
     trailer: "Remorque" #?
+    uncover: "Débâcheuse"
     variant: "Variant"
     vial: "Paillette"
     vial_to_give: "Paillette à utiliser" #?
@@ -295,6 +297,7 @@ fra:
     enzyme_addition: "Ajout d'enzymes"
     equipment_item_replacement: "Remplacement de pièces d'équipement"
     fermentation: "Fermentation"
+    fertilizing: "Fertilisation"
     field_plant_sorting: "Tri au champ"
     filling: "Remplissage" #?
     food_preparation: "Préparation des aliments"
@@ -310,6 +313,8 @@ fra:
     harvest_helping: "Aide à la récolte" #?
     hazelnuts_harvest: "Récolte de noisettes" #?
     hazelnuts_transport: "Transport de noisettes" #?
+    hilling: "Buttage"
+    hilling_for_sifting: "Buttage pour tamisage"
     hoeing: "Binage"
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
@@ -322,7 +327,6 @@ fra:
     manual_feeding: "Alimentation manuelle"
     manual_vine_harvest: "Vendange manuelle" #?
     mecanical_vine_harvest: "Vendange mécanique" #?
-    mechanical_fertilizing: "Fertilisation mécanique"
     mechanical_harvesting: "Récolte mécanique"
     mechanical_planting: "Plantation mécanique"
     milking: "Traite"
@@ -333,10 +337,11 @@ fra:
     partial_wine_transfer: "Transfert de vin (Partiel)"
     parturition: "Mise bas"
     pasturing: "Pâturage"
-    # plant_covering: "Plant covering"
+    plant_covering: "Bâchage"
     plant_grinding: "Broyage de végétaux" #?
     plant_mowing: "Fauchage"
     plant_mulching: "Paillage/Mulching"
+    plant_uncovering: "Débâchage"
     plant_watering: "Arrosage des plants"
     plantation_unfixing: "Déchaussage"
     plants_harvest: "Récolte de plante" #?
@@ -359,7 +364,7 @@ fra:
     straw_transport: "Transport de fourrages" #?
     sulfur_addition: "Sulfitage"
     superficial_plowing: "Déchaumage"
-    # swathing: "Swathing"
+    swathing: "Andainage"
     technical_task: "Tâche technique générale" #?
     triple_food_mixing: "Mélange alimentaire avec trois ingrédients" #?
     triple_seed_mixing: "Mélange de semences avec trois semences" #?

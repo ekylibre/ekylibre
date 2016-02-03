@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="mechanical_fertilizing" categories="fertilizing" actions="fertilization" optional-actions="biostimulation, organic_fertilization, mineral_fertilization, micronutrient_fertilization, liming">
+  <procedure name="fertilizing" categories="fertilizing" actions="fertilization" optional-actions="biostimulation, organic_fertilization, mineral_fertilization, micronutrient_fertilization, liming">
     <parameters>
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
@@ -20,9 +20,9 @@
                  backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(land_parcel, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
       </input>
-      <tool name="spreader" filter="can spread(preparation)"/>
-      <tool name="tractor" filter="is equipment and can tow(spreader)"/>
-      <doer name="driver"  filter="can drive(tractor) and can move"/>
+      <tool name="spreader" filter="can spread(preparation)" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can tow(spreader)" cardinality="*"/>
+      <doer name="driver"  filter="can drive(tractor) and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
