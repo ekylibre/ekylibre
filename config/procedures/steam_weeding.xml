@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="steam_weeding" categories="crop_maintenance" actions="weeding">
+    <parameters>
+      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="water" filter="is water">
+        <handler name="population"/>
+      </input>
+      <input name="plastic_sheet" filter="can cover(plant)" cardinality="*">
+        <handler name="population"/>
+      </input>
+      <tool name="steam_engine" filter="can store_liquid and kill(plant)"/>
+      <doer name="worker" filter="is worker"/>
+    </parameters>
+  </procedure>
+</procedures>

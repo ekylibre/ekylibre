@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="hilling" categories="soil_working">
+    <parameters>
+      <target name="cultivation" filter="is plant and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <tool name="hiller"   filter="can earth_up"/>
+      <tool name="tractor" filter="can tow(equipment) and can move"/>
+      <doer name="driver"  filter="can drive(equipment) and can move"/>
+    </parameters>
+  </procedure>
+</procedures>
