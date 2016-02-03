@@ -25,7 +25,7 @@ You can learn how to contribute in Ekylibre by following our official guide:
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
-* [English](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation.rdoc)
+* [English](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation.rdoc) ([for Debian Jessie](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.rdoc))
 * [Français](https://wiki.ekylibre.com/fr/guides/installation)
 
 ## Contributing
