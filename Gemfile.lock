@@ -231,7 +231,7 @@ GEM
     nori (2.6.0)
     ntlm-http (0.1.1)
     orm_adapter (0.5.0)
-    paperclip (4.3.3)
+    paperclip (4.3.4)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       cocaine (~> 0.5.5)
@@ -363,7 +363,7 @@ GEM
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
-    simplecov (0.11.1)
+    simplecov (0.11.2)
       docile (~> 1.1.0)
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
@@ -403,7 +403,7 @@ GEM
       json (>= 1.8.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.1)
+    unf_ext (0.0.7.2)
     unicorn (5.0.1)
       kgio (~> 2.6)
       rack
