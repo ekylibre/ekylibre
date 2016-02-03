@@ -31,6 +31,7 @@
 #  lock_version            :integer          default(0), not null
 #  new_container_id        :integer
 #  new_group_id            :integer
+#  new_name                :string
 #  new_variant_id          :integer
 #  outcoming_product_id    :integer
 #  position                :integer          not null

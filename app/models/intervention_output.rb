@@ -31,6 +31,7 @@
 #  lock_version            :integer          default(0), not null
 #  new_container_id        :integer
 #  new_group_id            :integer
+#  new_name                :string
 #  new_variant_id          :integer
 #  outcoming_product_id    :integer
 #  position                :integer          not null
@@ -62,7 +63,7 @@ class InterventionOutput < InterventionProductParameter
     output.type = variant.matching_model.name
     output.born_at = intervention.started_at
     output.initial_born_at = output.born_at
-    # output.name = ''
+    output.name = new_name
     # output.attributes = product_attributes
     reading = readings.find_by(indicator_name: :shape)
     output.initial_shape = reading.value if reading

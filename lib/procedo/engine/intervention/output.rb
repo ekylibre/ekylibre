@@ -6,6 +6,8 @@ module Procedo
       class Output < Procedo::Engine::Intervention::Quantified
         attr_reader :variant
 
+        attr_reader :new_name
+
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
           if @attributes[:variant_id].present?
@@ -26,6 +28,11 @@ module Procedo
           impact_dependencies!(:variant)
         end
 
+        def new_name=(name)
+          @new_name = name
+          impact_dependencies!(:new_name)
+        end
+
         def to_hash
           hash = super
           hash[:variant_id] = @variant ? @variant.id : nil
@@ -33,7 +40,7 @@ module Procedo
         end
 
         def env
-          { variant: variant }.merge(super)
+          { variant: variant, new_name: new_name }.merge(super)
         end
       end
     end

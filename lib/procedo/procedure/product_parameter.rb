@@ -93,7 +93,8 @@ module Procedo
 
       # Returns an attribute by its name
       def attribute(name)
-        @attributes[name.to_sym]
+        fail 'Invalid attribute: ' + name.inspect unless Procedo::Procedure::Attribute::TYPES.include?(name)
+        @attributes[name]
       end
 
       # Returns an reading by its name

@@ -7,7 +7,7 @@
           <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
         <output name="cultivation" filter="is plant" cardinality="1">
-          <!-- <attribute name="name" default-value="'{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})'"/> -->
+          <attribute name="new_name"/><!-- default-value="'{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})'"/> -->
           <!-- <attribute name="variety" default-value="derivative_of(first(seeds))"/> -->
           <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
             <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT?" to="population"/>

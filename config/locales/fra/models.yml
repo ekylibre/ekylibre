@@ -953,6 +953,7 @@ fra:
     net_volume: "Volume net" #?
     # new_container: "New container"
     new_group: "Nouveau groupe"
+    new_name: "Nouveau nom"
     new_variant: "Nouveau variant"
     nic: "NIC (Numéro Interne de Classement)" #?
     nitrate_fixing: "Piège à nitrates"

@@ -31,6 +31,7 @@
 #  lock_version            :integer          default(0), not null
 #  new_container_id        :integer
 #  new_group_id            :integer
+#  new_name                :string
 #  new_variant_id          :integer
 #  outcoming_product_id    :integer
 #  position                :integer          not null
@@ -75,15 +76,6 @@ class InterventionProductParameter < InterventionParameter
   delegate :matching_model, to: :variant
 
   accepts_nested_attributes_for :readings, allow_destroy: true
-
-  # scope :of_role, lambda { |role|
-  #   fail 'No more usable'
-  #   unless role.to_s =~ /\-/
-  #     fail ArgumentError, 'Need a valid role: <procedure_nature>-<role>'
-  #   end
-  #   nature, role = role.to_s.split('-')[0..1]
-  #   where('roles ~ E?', "\\\\m(#{Nomen::ProcedureNature.all(nature).sort.join('|')})-#{role}\\\\M")
-  # }
 
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
   scope :of_actors, ->(actors) { where(product_id: actors.flatten.map(&:id)) }
@@ -138,21 +130,11 @@ class InterventionProductParameter < InterventionParameter
   end
 
   [:doer, :input, :output, :target, :tool].each do |role|
-    code = "def #{role}?\n"
-    code << "  self.type.to_s == 'Intervention#{role.to_s.camelize}'\n"
-    code << "end\n"
-    class_eval(code)
+    role_class_name = ('Intervention' + role.to_s.camelize).freeze
+    define_method role.to_s + '?' do
+      type.to_s == role_class_name
+    end
   end
-
-  # def roles_array
-  #   roles.to_s.split(/[\,[[:space:]]]+/).collect { |role| role.split(/\-/)[0..1].map(&:to_sym) }
-  # end
-
-  # def human_roles
-  #   roles_array.collect do |role|
-  #     :x_of_y.tl(x: Nomen::ProcedureRole[role.second].human_name, y: Nomen::ProcedureNature[role.first].human_name.mb_chars.downcase)
-  #   end.to_sentence
-  # end
 
   # Change name with default name like described in procedure
   # if default-name attribute is given too.
@@ -213,28 +195,4 @@ class InterventionProductParameter < InterventionParameter
     end
     false
   end
-
-  # def shape_svg(options = {})
-  #   geom = Charta.new_geometry(self['shape'])
-  #   geom = geom.transform(options[:srid]) if options[:srid]
-  #   geom.to_svg
-  # end
-
-  # # FIXME: Seems that Rails does not define population method when aggregators are used...
-  # def population
-  #   self['quantity']
-  # end
-
-  # # FIXME: Seems that Rails does not define shape method when aggregators are used...
-  # def shape
-  #   self['shape']
-  # end
-
-  # # Returns value of an indicator if its name correspond to
-  # def method_missing(method_name, *args)
-  #   if Nomen::Indicator.exists?(method_name.to_s) && product && product.respond_to?(:get)
-  #     return product.get(method_name, self)
-  #   end
-  #   super
-  # end
 end

@@ -766,6 +766,7 @@ eng:
     net_service: "Net service"
     new_container: "New container"
     new_group: "New group"
+    new_name: "New name"
     new_variant: "New variant"
     nitrate_fixing: "Nitrate fixing"
     nitrogen_at_closing: "Nitrogen at closing"

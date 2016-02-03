@@ -2557,6 +2557,8 @@ intervention_parameters:
   new_group_id:
     type: integer
     references: product_group
+  new_name:
+    type: string
   new_variant_id:
     type: integer
     references: product_nature_variant

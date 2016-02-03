@@ -24,9 +24,8 @@ module Backend
 
     test 'point action in get mode' do
       cash = cashes(:cashes_001)
-      get :point, {locale: @locale, id: cash.id}
+      get :point, locale: @locale, id: cash.id
       assert_redirected_to controller: :bank_statements, action: :new, cash_id: cash.id
     end
-
   end
 end

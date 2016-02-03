@@ -1345,6 +1345,7 @@ ActiveRecord::Schema.define(version: 20160203104038) do
     t.string   "quantity_unit_name"
     t.string   "quantity_indicator_name"
     t.integer  "group_id"
+    t.string   "new_name"
   end
 
   add_index "intervention_parameters", ["created_at"], name: "index_intervention_parameters_on_created_at", using: :btree
