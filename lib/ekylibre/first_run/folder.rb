@@ -3,9 +3,10 @@ module Ekylibre
     class Folder
       VERSION = 2
 
-      attr_reader :path, :version, :imports, :preferences, :defaults
+      attr_reader :path, :version, :imports, :preferences, :defaults, :verbose
 
-      def initialize(path)
+      def initialize(path, options = {})
+        @verbose = !options[:verbose].is_a?(FalseClass)
         @path = Pathname.new(path)
         manifest = YAML.load_file(@path.join('manifest.yml')).deep_symbolize_keys
         @version = manifest[:version]

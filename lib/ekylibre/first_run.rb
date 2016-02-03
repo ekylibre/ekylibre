@@ -43,70 +43,28 @@ module Ekylibre
         else
           fail ArgumentError, 'Need at least :path or :folder option'
         end
-        base = Base.new(path, options)
+        manifest = YAML.load_file(path.join('manifest.yml'))
+        sentence = 'Launch first run'
+        sentence << " in tenant #{name}" if name
+        sentence << " from #{path.relative_path_from(Rails.root)}"
+        max = options[:max].to_i
+        sentence << (max > 0 ? " with max of #{max}" : ' without max')
+        sentence << (options[:hard] ? ' without global transaction' : ' inside global transaction')
+        sentence << '.'
+        Rails.logger.info sentence
+        puts sentence.yellow if options[:verbose]
         secure_tenant(name) do
-          sentence = 'Launch first run'
-          sentence << " in tenant #{name}" if name
-          sentence << " from #{base.path.relative_path_from(Rails.root)}"
-          # sentence << " in #{base.mode} mode"
-          sentence << (base.max > 0 ? " with max of #{base.max}" : ' without max')
-          sentence << (base.hard? ? ' without global transaction' : ' inside global transaction')
-          sentence << '.'
-          Rails.logger.info sentence
-          puts sentence.yellow if base.verbose
-          call_loaders(base)
+          if manifest['version'] == 2
+            Folder.new(path, options).run
+          else
+            Base.new(path, options).run
+          end
         end
       end
 
       # Returns the default path where first_runs data are expected
       def path
         Rails.root.join('db', 'first_runs')
-      end
-
-      # Adds a loader
-      def add_loader(name, &block)
-        @loaders ||= {}
-        @loaders[name.to_sym] = block
-      end
-
-      # Returns loaders names
-      def loaders
-        (@loaders ? @loaders.keys : [])
-      end
-
-      def executed_preference
-        Preference.get('first_run.executed', false)
-      end
-
-      # Execute all loaders for a given base
-      def call_loaders(base)
-        @loaders ||= []
-        secure_transaction(!base.hard?) do
-          preference = executed_preference
-          loaders.each do |loader|
-            call_loader(loader, base)
-          end
-          preference.value = true
-          preference.save!
-        end
-      end
-
-      # Execute given loader for a given base
-      def call_loader(loader, base)
-        unless base.is_a?(Ekylibre::FirstRun::Base)
-          fail 'Invalid first run. Need a Ekylibre::FirstRun::Base'
-        end
-        ::I18n.locale = Preference[:language]
-        ActiveRecord::Base.transaction do
-          preference = Preference.get("first_run.executed_loaders.#{loader}", false)
-          if base.force || !preference.value
-            @loaders[loader].call(base)
-            preference.value = true
-            preference.save!
-          else
-            puts 'Skip'.yellow + " #{loader} loader"
-          end
-        end
       end
 
       # Wrap code in a tenant creation transaction if wanted
@@ -125,14 +83,6 @@ module Ekylibre
           yield
         end
       end
-
-      # Wrap code in a transaction if wanted
-      def secure_transaction(with_transaction = true, &block)
-        (with_transaction ? ActiveRecord::Base.transaction(&block) : yield)
-      end
     end
   end
 end
-
-# Add loaders
-require 'ekylibre/first_run/loaders'
