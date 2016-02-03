@@ -13,6 +13,7 @@ module Procedo
           if @attributes[:variant_id].present?
             @variant = ProductNatureVariant.find_by(id: @attributes[:variant_id])
           end
+          @new_name = @attributes[:new_name]
         end
 
         def variant_id
@@ -36,6 +37,7 @@ module Procedo
         def to_hash
           hash = super
           hash[:variant_id] = @variant ? @variant.id : nil
+          hash[:new_name] = @new_name
           hash
         end
 
