@@ -174,7 +174,7 @@ interventions_008:
   id: 16
   lock_version: 2
   number: '15'
-  procedure_name: mechanical_fertilizing
+  procedure_name: fertilizing
   started_at: 2012-12-12 09:20:00.000000000 Z
   state: done
   stopped_at: 2012-12-12 11:12:00.000000000 Z
@@ -238,7 +238,7 @@ interventions_012:
   id: 20
   lock_version: 0
   number: '19'
-  procedure_name: mechanical_fertilizing
+  procedure_name: fertilizing
   started_at: 2014-02-01 09:45:00.000000000 Z
   state: undone
   stopped_at: 2014-02-01 12:30:00.000000000 Z
