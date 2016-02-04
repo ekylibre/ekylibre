@@ -94,91 +94,47 @@ $activity_border_size: 5px;
 
 }
 
-
-
-.activity-production-header {
-  @include make-row($gutter: 0);
-  height: 30px;
-  border-bottom: 1px solid black;
-
-
-  .activity-production-timeline-container {
-    height: 100%;
-    @include make-md-column(7, $gutter: 0);
-    @include make-md-column-offset(5);
-
-    .activity-production-timeline {
-      height: 100%;
-      //margin: 0 0 0 5%;
-      border-left: 1px solid black;
-      border-right: 1px solid black;
-
-      .started-on {
-        float: left;
-        margin-left: 5px;
-
+$chronology-background-color: #EEE;
+.chronology {
+  .grades {
+    height: $lh-normal;
+    position: relative;
+    .grade {
+      font-size: $fs-small;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: $neutral-color;
+      position: absolute;
+      @include inline-block;
+      @include padding-left($default-gap);
+      &.grade-start {
+        @include border-left($menu-border);
       }
-      .stopped-on {
-        float: right;
-        margin-right: 5px;
+      &.grade-month {
+        color: darken($chronology-background-color, 5%);
       }
+    }
+  }
+  .periods {
+    position: relative;
+    height: $lh-normal;
+    background-color: $chronology-background-color;
+    @include border-radius($default-border-radius);
+    .period {
+      position: absolute;
+      height: inherit;
+      background-color: $active-color;
+      @include border-radius($default-border-radius);
     }
   }
 }
 
-.activity-production {
-  @include make-row($gutter: 0);
-  border-bottom: 1px solid black;
-
-  height: 50px;
-
-  line-height: $lh-normal;
-
-  .name {
-    @include make-md-column(3, $gutter: 0);
+.activity-productions {
+  .activity-production {
+    margin-top: 2*$default-gap;
   }
+}
 
-  .size {
-    @include make-md-column(2, $gutter: 0);
-  }
-
-  .activity-production-timeline-container {
-    height:100%;
-    @include make-md-column(7, $gutter: 0);
-
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    box-sizing: border-box;
-
-    .activity-production-timeline {
-      height: 100%;
-      background-color: lighten($neutral-color, 40%);
-
-      //margin: 0 0 0 5%;
-      .timeline-item {
-        height:100%;
-        background-color: $base-color;
-        border-left: 1px solid black;
-        border-right: 1px solid black;
-
-        position: relative;
-
-        .timeline-item-label {
-          position: absolute;
-          @include transform(rotate(-45deg));
-          @include transform-origin(0% 100%);
-
-          top: -20px;
-          padding-left: 5px;
-          border-left: 1px solid black;
-        }
-        .started-on {
-        }
-
-        .stopped-on {
-          right: -75px;
-        }
-      }
-    }
-  }
+.productions-list {
+  padding: 0 2 * $fs-normal 2 * $fs-normal;
 }

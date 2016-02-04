@@ -84,6 +84,7 @@ class ActivityProduction < Ekylibre::Record::Base
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
   delegate :animal_farming?, :vegetal_crops?,
+           :at_cycle_start?, :at_cycle_end?,
            :with_cultivation, :cultivation_variety, :with_supports, :support_variety,
            :color, :annual?, :perennial?, to: :activity
 
@@ -218,6 +219,20 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def campaigns
     Campaign.of_activity_production(self)
+  end
+
+  def started_on_for(campaign)
+    return self.started_on if self.annual?
+    on = Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day)
+    on -= 1.year if at_cycle_end?
+    return on
+  end
+
+  def stopped_on_for(campaign)
+    return self.stopped_on if self.annual?
+    on = Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day) - 1
+    on += 1.year if at_cycle_start?
+    return on
   end
 
   # Used for find current campaign for given production

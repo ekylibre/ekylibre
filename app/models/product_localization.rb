@@ -82,10 +82,10 @@ class ProductLocalization < Ekylibre::Record::Base
     end
   end
 
-  protect do
-    return intervention.present? unless destroyed_by_association
-    return false
-  end
+  # protect do
+  #   return intervention.present? unless destroyed_by_association
+  #   return false
+  # end
 
   private
 

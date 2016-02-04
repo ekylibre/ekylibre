@@ -28,10 +28,15 @@
     = cell :map, params: {campaign_ids: resource.id}
 
 - if activities.any?
-  .activities-index
-    - activities.order(:name).each do |activity|
-      .activity-container
-        = render 'backend/activities/card', activity: activity, campaign: resource
+  = janus do |j|
+    - j.face :cobbles do
+      .activities-index
+        - activities.order(:name).each do |activity|
+          .activity-container
+            = render 'backend/activities/card', activity: activity, campaign: resource
+    - j.face :list do
+      .productions-list
+        = production_chronologies(resource.activity_productions)
 - else
   .placeholding-message
     = :no_production_found_you_can_add_it_or_copy_from_previous_records.tn
