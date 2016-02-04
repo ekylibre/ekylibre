@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160128154202">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160204122030">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -67,6 +67,7 @@
       <item name="tow" parameters="variety"/>
       <item name="treat" parameters="issue_nature, variety"/>
       <item name="uncompact"/>
+      <item name="uncover" parameters="variety"/>
       <item name="wrap" parameters="variety"/>
     </items>
   </nomenclature>
@@ -3035,7 +3036,7 @@
       <item name="product_warranty" nature="product_insurance"/>
       <item name="project_study" nature="studies_and_research"/>
       <item name="protective_canvas" nature="protective_canvas"/>
-      <item name="protective_net" nature="crop_protective_item"/>
+      <item name="protective_net" nature="protective_canvas"/>
       <item name="pruning_platform" nature="pruning_platform" frozen_indicators_values="" unit_name="equipment"/>
       <item name="punching_machine" nature="implanter" frozen_indicators_values=""/>
       <item name="quince_crop" nature="fruit_crop" variety="cydonia_oblonga" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
@@ -3225,7 +3226,7 @@
       <item name="consumer_goods_office_item" category="consumer_goods_office_item" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="cork" category="wine_package_consumable" variety="cork" population_counting="integer" abilities="close(cork_bottle)" variable_indicators="length, width"/>
       <item name="corker" category="equipment" variety="equipment" population_counting="unitary" abilities="close(bottle)" frozen_indicators=""/>
-      <item name="cover_implanter" category="equipment" variety="implanter" population_counting="unitary" abilities="seat(canvas_cover)" variable_indicators="application_width, geolocation" frozen_indicators=""/>
+      <item name="cover_implanter" category="equipment" variety="implanter" population_counting="unitary" abilities="cover(plant)" variable_indicators="application_width, geolocation" frozen_indicators=""/>
       <item name="crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(straw)" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count" frozen_indicators="net_surface_area" derivatives="straw"/>
       <item name="crop_protective_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="care(plant)" variable_indicators="length, width"/>
       <item name="crop_residue" category="straw" variety="straw" derivative_of="plant" population_counting="decimal" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
@@ -3431,7 +3432,7 @@
       <item name="training_course" category="service" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
       <item name="trimmer" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators="" variable_indicators="application_width, geolocation"/>
       <item name="truck" category="equipment" variety="tractor" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="" linkage_points="rear"/>
-      <item name="uncover" category="equipment" variety="equipment" population_counting="unitary" abilities="remove(canvas_cover)" frozen_indicators="" variable_indicators="application_width, geolocation"/>
+      <item name="uncover" category="equipment" variety="equipment" population_counting="unitary" abilities="uncover(plant)" frozen_indicators="" variable_indicators="application_width, geolocation"/>
       <item name="user_support" category="service" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
       <item name="usual_vine_seedling" category="plant" variety="seedling" derivative_of="vitis" population_counting="integer" abilities="grow" variable_indicators="" frozen_indicators="woodstock_variety"/>
       <item name="various_loan_interest" category="various_loan_interest" variety="service" population_counting="decimal" variable_indicators=""/>

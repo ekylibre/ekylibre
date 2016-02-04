@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Change protective net nature">
+  <item-change item="product_nature_variants#protective_net" nature="protective_canvas"/>
+</migration>

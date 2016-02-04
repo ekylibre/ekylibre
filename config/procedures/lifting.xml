@@ -1,14 +1,11 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plant_uncovering" categories="crop_protection">
+  <procedure name="lifting" categories="harvesting">
     <parameters>
       <target name="cultivation" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <output name="protective_canvas" filter="can care(plant) and can cover(plant)" cardinality="*">
-        <handler name="population"/>
-      </output>
-      <tool name="uncover"  filter="can uncover(plant)"/>
+      <tool name="lifter"  filter="can harvest(plant)"/>
       <tool name="tractor" filter="can tow(equipment) and can move"/>
       <doer name="driver"  filter="can drive(equipment) and can move"/>
     </parameters>

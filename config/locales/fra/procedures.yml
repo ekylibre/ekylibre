@@ -163,6 +163,7 @@ fra:
     juice: "Jus"
     juice_to_ferment: "Jus à fermenter"
     land_parcel: "Parcelle"
+    lifter: "Souleveuse"
     maintained: "Maintenu" #?
     mammal: "Animal" #?
     mammal_herd: "Troupeau à traire" #?
@@ -182,6 +183,8 @@ fra:
     mother_animal: "Mère" #?
     mower: "Faucheuse"
     mower_driver: "Conducteur de faucheuse"
+    net_implanter: "Dérouleur de filet"
+    net_roll: "Enrouleur de filet"
     new_animal_variant: "Nouveau variant de l'animal" #?
     nuts: "Fruits à coques" #?
     nuts_harvester: "Récolteuse de fruits à coques" #?
@@ -202,6 +205,7 @@ fra:
     press: "Presse"
     product: "Produit" #?
     protective_canvas: "Bâche de protection"
+    protective_net: "Filet de protection"
     pruner: "Sécateur" #?
     residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux" #?
@@ -218,6 +222,7 @@ fra:
     seeder: "Semoir" #?
     seeds: "Semences"
     seeds_to_sow: "Semence à semer" #?
+    sieve_shaker: "Tamiseuse"
     silage: "Ensilage"
     silage_to_deliver: "Ensilage à livrer" #?
     silage_to_give: "Ensilage à donner" #?
@@ -250,6 +255,9 @@ fra:
     topper: "Effaneuse"
     tractor: "Tracteur"
     trailer: "Remorque" #?
+    tunnel: "Tunnel/Chenille"
+    tunnel_implanter: "Outil de pose de tunnel/chenille"
+    tunnel_remover: "Outil de retrait de tunnel/chenille"
     uncover: "Débâcheuse"
     variant: "Variant"
     vial: "Paillette"
@@ -329,6 +337,7 @@ fra:
     indirect_silage: "Ensilage indirect"
     item_replacement: "Remplacement de pièce" #?
     land_parcel_grinding: "Broyage du sol"
+    lifting: "Soulevage"
     maintenance_task: "Tâche de maintenance générale" #?
     mammal_herd_milking: "Traite d’un troupeau" #?
     mammal_milking: "Traite d’un animal" #?
@@ -340,6 +349,8 @@ fra:
     milking: "Traite"
     mineral_fertilizing: "Fertilisation minérale" #?
     moving: "Déplacement" #?
+    net_installation: "Pose de filet de protection"
+    net_removing: "Retrait de filet"
     oil_replacement: "Vidange d’huile"
     organic_fertilizing: "Fertilisation organique" #?
     partial_wine_transfer: "Transfert de vin (Partiel)"
@@ -359,6 +370,7 @@ fra:
     product_evolution: "Evolution d'un produit" #?
     product_moving: "Mouvement d'un produit" #?
     raking: "Hersage"
+    sifting: "Tamisage"
     silage_transport: "Transport d'ensilage" #?
     silage_unload: "Alimentation d’un troupeau via désileuse"
     sowing: "Semis"
@@ -379,6 +391,8 @@ fra:
     triple_food_mixing: "Mélange alimentaire avec trois ingrédients" #?
     triple_seed_mixing: "Mélange de semences avec trois semences" #?
     triple_spraying_on_cultivation: "Pulvérisation sur culture (trois spécialités)" #?
+    tunnel_installation: "Pose de chenille ou tunnel"
+    tunnel_removing: "Retrait de chenille ou tunnel"
     uncompacting: "Décompactage"
     vine_harvest: "Vendange" #?
     walnuts_harvest: "Récolte de noix" #?

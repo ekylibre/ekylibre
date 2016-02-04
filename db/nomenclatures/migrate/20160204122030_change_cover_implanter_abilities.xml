@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Change cover implanter abilities">
+  <item-change item="product_natures#cover_implanter" abilities="cover(plant)"/>
+  <item-creation item="abilities#uncover" parameters="variety"/>
+  <item-change item="product_natures#uncover" abilities="uncover(plant)"/>
+</migration>

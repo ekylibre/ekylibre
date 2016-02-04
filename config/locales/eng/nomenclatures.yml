@@ -67,6 +67,7 @@ eng:
         tow: "Tow"
         treat: "Treat"
         uncompact: "Uncompact"
+        uncover: "Uncover"
         wrap: "Wrap"
     accounting_systems:
       name: "Accounting systems"

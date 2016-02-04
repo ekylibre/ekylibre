@@ -64,6 +64,7 @@ spa:
         # tow: "Tow"
         # treat: "Treat"
         # uncompact: "Uncompact"
+        # uncover: "Uncover"
         # wrap: "Wrap"
       # name: "Abilities"
       property_natures:

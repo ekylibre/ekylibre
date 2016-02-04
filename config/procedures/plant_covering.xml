@@ -8,7 +8,7 @@
       <input name="protective_canvas" filter="can care(plant) and can cover(plant)">
         <handler name="population"/>
       </input>
-      <tool name="cover_implanter"  filter="seat(canvas_cover)"/>
+      <tool name="cover_implanter"  filter="can cover(plant)"/>
       <tool name="tractor" filter="can tow(equipment) and can move"/>
       <doer name="driver"  filter="can drive(equipment) and can move"/>
     </parameters>

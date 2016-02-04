@@ -64,6 +64,7 @@ fra:
         tow: "Tracter"
         treat: "Traiter"
         uncompact: "Décompacter"
+        uncover: "Découvrir"
         wrap: "Couvrir"
       name: "Compétences"
       property_natures:
@@ -3173,7 +3174,7 @@ fra:
         product_warranty: "Garantie (produit)"
         project_study: "Etude de projet"
         protective_canvas: "Bâche de protection"
-        protective_net: "Filet de protaction"
+        protective_net: "Filet de protection"
         pruning_platform: "plate-forme de taille"
         punching_machine: "Poinçonneuse"
         quince_crop: "Culture de cognassier"

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="tunnel_installation" categories="crop_protection">
+    <parameters>
+      <target name="cultivation" filter="is plant and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="tunnel" filter="can care(plant) and can cover(plant)">
+        <handler name="population"/>
+      </input>
+      <tool name="tunnel_implanter"  filter="can cover(plant)" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <doer name="worker"  filter="is worker"/>
+    </parameters>
+  </procedure>
+</procedures>
