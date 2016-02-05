@@ -5,7 +5,7 @@
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="herbicide" filter="can kill(plant) and can care(plant) " cardinality="*">
+      <input name="herbicide" filter="can kill(plant) and can care(plant)" cardinality="*">
         <handler name="population"/>
       </input>
       <tool name="tool" filter="can kill(plant)" cardinality="*"/>

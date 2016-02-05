@@ -11,7 +11,7 @@
       <input name="plastic_sheet" filter="can cover(plant)" cardinality="*">
         <handler name="population"/>
       </input>
-      <tool name="steam_engine" filter="can store_liquid and kill(plant)"/>
+      <tool name="steam_engine" filter="can store_liquid and can kill(plant)"/>
       <doer name="worker" filter="is worker"/>
     </parameters>
   </procedure>

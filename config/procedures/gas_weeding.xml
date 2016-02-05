@@ -8,7 +8,7 @@
       <input name="energy" filter="is gas" cardinality="*">
         <handler name="population"/>
       </input>
-      <tool name="gaz_engine" filter="can store_gaz and kill(plant)"/>
+      <tool name="gaz_engine" filter="can store_gaz and can kill(plant)"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
       <doer name="worker" filter="is worker"/>
     </parameters>
