@@ -447,6 +447,7 @@ class ActivityProduction < Ekylibre::Record::Base
   def name(options = {})
     list = []
     list << activity.name unless options[:activity].is_a?(FalseClass)
+    list << cultivable_zone.name if cultivable_zone
     v = Nomen::Variety.find(cultivation_variety)
     list << v.human_name if v && !(activity.name.start_with?(v.human_name) || activity.name.end_with?(v.human_name))
     # list << support.name if !options[:support].is_a?(FalseClass) && support
