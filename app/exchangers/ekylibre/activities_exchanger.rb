@@ -35,10 +35,10 @@ class Ekylibre::ActivitiesExchanger < ActiveExchanger::Base
 
       family = Nomen::ActivityFamily[r.family]
 
-      attributes = if family <= :vegetal_crops
+      attributes = if family <= :plant_farming
                      {
                        name: r.name,
-                       family: :vegetal_crops,
+                       family: :plant_farming,
                        cultivation_variety: r.variety,
                        support_variety: :cultivable_zone,
                        with_cultivation: true,

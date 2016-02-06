@@ -134,7 +134,7 @@ class Activity < Ekylibre::Record::Base
         end
       end
       # FIXME: Need to use nomenclatures to set that data!
-      if vegetal_crops?
+      if plant_farming?
         self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
         self.size_unit_name = 'hectare' if size_unit_name.blank?
       elsif animal_farming?
@@ -203,7 +203,7 @@ class Activity < Ekylibre::Record::Base
     productions.of_campaign(campaign).any?
   end
 
-  [:vegetal_crops, :animal_farming, :equipment_management, :processing].each do |family_name|
+  [:plant_farming, :animal_farming, :equipment_management, :processing].each do |family_name|
     define_method  family_name.to_s + '?' do
       family && Nomen::ActivityFamily.find(family) <= family_name
     end
@@ -274,7 +274,7 @@ class Activity < Ekylibre::Record::Base
         i.varieties.detect { |v| variety <= v }
       end.map { |i| i.name.to_sym }
       return colors[:gray] unless activity_family
-      if activity_family <= :vegetal_crops && variety
+      if activity_family <= :plant_farming && variety
         # MEADOW
         if crop_sets.include?(:meadow)
           colors[:dark_green]

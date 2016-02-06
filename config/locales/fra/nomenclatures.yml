@@ -394,135 +394,135 @@ fra:
           main: "Principale"
           standalone: "Indépendante"
       items:
-        accountancy: "Comptabilité"
-        administrative: "Administratif"
-        agricultural_works: "Travaux agricoles"
-        alfalfa_crops: "Luzerne"
-        almond_orchards: "Amandiers"
-        animal_farming: "Élevage"
-        animal_housing: "Pension animale"
-        apple_orchards: "Pommiers"
-        arboriculture: "Arboriculture"
-        aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques"
-        artichoke_crops: "Artichaud"
-        asparagus_crops: "Asperges"
-        avocado_crops: "Avocats"
-        barley_crops: "Orge"
-        bean_crops: "Haricots"
-        beekeeping: "Apiculture"
-        beet_crops: "Betteraves"
-        bere_crops: "Escourgeon"
-        bison_farming: "Bisons"
-        black_mustard_crops: "Moutarde noire"
-        blackcurrant_crops: "Cassissiers"
-        building_works: "Travaux de bâtiment"
-        cabbage_crops: "Choux"
-        canary_grass_crops: "Alpiste"
-        carob_orchards: "Caroubiers"
-        carrot_crops: "Carottes"
-        catering: "Restauration"
-        cattle_farming: "Bovins"
-        celery_crops: "Céleri"
-        cereal_crops: "Céréales"
-        chestnut_orchards: "Châtaigniers"
-        chickpea_crops: "Pois chiche"
-        chicory_crops: "Chicorée"
-        cichorium_crops: "Chicorée"
-        citrus_orchards: "Agrumes"
-        cocoa_crops: "Cacaoyers"
-        common_wheat_crops: "Blé tendre"
-        cotton_crops: "Coton"
-        durum_wheat_crops: "Blé dur"
-        eggplant_crops: "Aubergine"
-        equipment_management: "Équipements"
-        exploitation: "Exploitation"
-        fallow_land: "Jachère"
-        field_crops: "Cultures de plein champ"
+        accountancy: "Comptabilité" #?
+        administering: "Administratif"
+        agricultural_works: "Travaux agricoles" #?
+        alfalfa_crops: "Luzerne" #?
+        almond_orchards: "Amandiers" #?
+        animal_farming: "Production animale"
+        animal_housing: "Pension animale" #?
+        apple_orchards: "Pommiers" #?
+        arboriculture: "Arboriculture" #?
+        aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques" #?
+        artichoke_crops: "Artichaud" #?
+        asparagus_crops: "Asperges" #?
+        avocado_crops: "Avocats" #?
+        barley_crops: "Orge" #?
+        bean_crops: "Haricots" #?
+        beekeeping: "Apiculture" #?
+        beet_crops: "Betteraves" #?
+        bere_crops: "Escourgeon" #?
+        bison_farming: "Bisons" #?
+        black_mustard_crops: "Moutarde noire" #?
+        blackcurrant_crops: "Cassissiers" #?
+        building_works: "Travaux de bâtiment" #?
+        cabbage_crops: "Choux" #?
+        canary_grass_crops: "Alpiste" #?
+        carob_orchards: "Caroubiers" #?
+        carrot_crops: "Carottes" #?
+        catering: "Restauration" #?
+        cattle_farming: "Bovins" #?
+        celery_crops: "Céleri" #?
+        cereal_crops: "Céréales" #?
+        chestnut_orchards: "Châtaigniers" #?
+        chickpea_crops: "Pois chiche" #?
+        chicory_crops: "Chicorée" #?
+        cichorium_crops: "Chicorée" #?
+        citrus_orchards: "Agrumes" #?
+        cocoa_crops: "Cacaoyers" #?
+        common_wheat_crops: "Blé tendre" #?
+        cotton_crops: "Coton" #?
+        durum_wheat_crops: "Blé dur" #?
+        eggplant_crops: "Aubergine" #?
+        equipment_management: "Équipements" #?
+        exploitation: "Exploitation" #?
+        fallow_land: "Jachère" #?
+        field_crops: "Cultures de plein champ" #?
         fish_farming: "Aquaculture" #?
-        flax_crops: "Lin"
-        flower_crops: "Floriculture"
-        fodder_crops: "Fourrages"
-        fruits_crops: "Cultures fruitières"
-        garden_pea_crops: "Petits pois"
-        garlic_crops: "Ail"
-        goat_farming: "Caprins"
+        flax_crops: "Lin" #?
+        flower_crops: "Floriculture" #?
+        fodder_crops: "Fourrages" #?
+        fruits_crops: "Cultures fruitières" #?
+        garden_pea_crops: "Petits pois" #?
+        garlic_crops: "Ail" #?
+        goat_farming: "Caprins" #?
         handicraft: "Artisanat" #?
-        hazel_orchards: "Noisetiers"
-        hemp_crops: "Chanvre"
-        hop_crops: "Houblon"
-        horsebean_crops: "Fèves"
-        lavender_crops: "Lavande"
-        leek_crops: "Poireaux"
-        leguminous_crops: "Légumineux"
-        lentil_crops: "Lentilles"
-        lettuce_crops: "Laitues"
-        lodging: "Hébergement"
-        lupin_crops: "Lupin"
-        maintenance: "Maintenance"
-        maize_crops: "Maïs"
-        market_garden_crops: "Maraîchage"
-        meadow: "Prairie"
-        muskmelon_crops: "Melons"
-        mussel_farming: "Mytiliculture"
-        oat_crops: "Avoine"
-        oilseed_crops: "Culture oléagineuse"
-        olive_groves: "Oliviers"
-        olive_orchards: "Oliviers"
-        onion_crops: "Oignons"
+        hazel_orchards: "Noisetiers" #?
+        hemp_crops: "Chanvre" #?
+        hop_crops: "Houblon" #?
+        horsebean_crops: "Fèves" #?
+        lavender_crops: "Lavande" #?
+        leek_crops: "Poireaux" #?
+        leguminous_crops: "Légumineux" #?
+        lentil_crops: "Lentilles" #?
+        lettuce_crops: "Laitues" #?
+        lodging: "Hébergement" #?
+        lupin_crops: "Lupin" #?
+        maize_crops: "Maïs" #?
+        market_garden_crops: "Maraîchage" #?
+        meadow: "Prairie" #?
+        muskmelon_crops: "Melons" #?
+        mussel_farming: "Mytiliculture" #?
+        oat_crops: "Avoine" #?
+        oilseed_crops: "Culture oléagineuse" #?
+        olive_groves: "Oliviers" #?
+        olive_orchards: "Oliviers" #?
+        onion_crops: "Oignons" #?
         orchard_crops: "Vergers" #?
-        ostrich_farming: "Autruches"
-        oyster_farming: "Ostréïculture"
-        palmiped_farming: "Palmipèdes"
-        parsley_crops: "Persil"
-        pea_crops: "Pois"
-        peach_orchards: "Pêchers"
-        peanut_crops: "Arachides"
-        pear_orchards: "Poiriers"
-        pig_farming: "Porcins"
-        pineapple_crops: "Ananas"
-        pistachio_orchards: "Pistachiers"
-        plum_orchards: "Pruniers"
-        poaceae_crops: "Graminées"
-        potato_crops: "Pommes de terre"
-        poultry_farming: "Volaille"
+        ostrich_farming: "Autruches" #?
+        oyster_farming: "Ostréïculture" #?
+        palmiped_farming: "Palmipèdes" #?
+        parsley_crops: "Persil" #?
+        pea_crops: "Pois" #?
+        peach_orchards: "Pêchers" #?
+        peanut_crops: "Arachides" #?
+        pear_orchards: "Poiriers" #?
+        pig_farming: "Porcins" #?
+        pineapple_crops: "Ananas" #?
+        pistachio_orchards: "Pistachiers" #?
+        plant_farming: "Production végétale"
+        plum_orchards: "Pruniers" #?
+        poaceae_crops: "Graminées" #?
+        potato_crops: "Pommes de terre" #?
+        poultry_farming: "Volaille" #?
         processing: "Transformation"
-        protein_crops: "Culture protéagineuse"
-        purchases: "Achats"
-        rabbit_farming: "Cuniculture"
-        radish_crops: "Radis"
-        rapeseed_crops: "Colza"
-        raspberry_crops: "Framboisiers"
-        redcurrant_crops: "Groseillers"
-        renting: "Location"
-        rice_crops: "Riz"
-        rye_crops: "Sègle"
-        saffron_crops: "Safran"
-        sales: "Ventes"
-        salmon_farming: "Saumons"
-        scallop_farming: "Pectiniculture"
-        service: "Service"
-        sheep_farming: "Ovins"
-        snail_farming: "Héliciculture"
-        sorghum_crops: "Sorgho"
-        soybean_crops: "Soja"
-        stocks: "Stocks"
+        protein_crops: "Culture protéagineuse" #?
+        purchases: "Achats" #?
+        rabbit_farming: "Cuniculture" #?
+        radish_crops: "Radis" #?
+        rapeseed_crops: "Colza" #?
+        raspberry_crops: "Framboisiers" #?
+        redcurrant_crops: "Groseillers" #?
+        renting: "Location" #?
+        rice_crops: "Riz" #?
+        rye_crops: "Sègle" #?
+        saffron_crops: "Safran" #?
+        sales: "Ventes" #?
+        salmon_farming: "Saumons" #?
+        scallop_farming: "Pectiniculture" #?
+        service_delivering: "Prestation de service"
+        sheep_farming: "Ovins" #?
+        snail_farming: "Héliciculture" #?
+        sorghum_crops: "Sorgho" #?
+        soybean_crops: "Soja" #?
+        stocks: "Stocks" #?
         straw_cereal_crops: "Céréales à paille" #?
-        strawberry_crops: "Fraises"
-        sturgeon_farming: "Esturgeons"
-        sunflower_crops: "Tournesol"
+        strawberry_crops: "Fraises" #?
+        sturgeon_farming: "Esturgeons" #?
+        sunflower_crops: "Tournesol" #?
         theobroma_crops: "Theobroma" #?
-        tobacco_crops: "Tabac"
-        tomato_crops: "Tomates"
-        triticale_crops: "Triticale"
-        turnip_crops: "Navets"
-        vegetal_crops: "Production végétale"
-        vetch_crops: "Vesce"
+        tobacco_crops: "Tabac" #?
+        tomato_crops: "Tomates" #?
+        tool_maintaining: "Maintenance"
+        triticale_crops: "Triticale" #?
+        turnip_crops: "Navets" #?
+        vetch_crops: "Vesce" #?
         vine_wine: "Vignes & vin" #?
-        vines: "Vignes"
-        walnut_orchards: "Noyers"
-        watermelon_crops: "Pastèques"
-        wine: "Vin"
-        works: "Travaux"
+        vines: "Vignes" #?
+        walnut_orchards: "Noyers" #?
+        watermelon_crops: "Pastèques" #?
+        wine_making: "Vinification"
+        works: "Travaux" #?
       name: "Familles d’activité"
       property_natures:
         cultivation_variety: "Variété de la culture"
@@ -1399,12 +1399,12 @@ fra:
         land_parcel_management: "Conduite de la parcelle"
         management: "Gestion"
         marketing: "Commercial ‒ Marketing"
+        plant_farming: "Cultures"
+        processing: "Transformation"
         production: "Production"
         reproduction: "Reproduction"
         stock_management: "Stocks"
-        transformation: "Transformation"
-        vegetal_crops: "Cultures"
-        vinification: "Vinification"
+        wine_making: "Vinification"
       name: "Catégories de documents"
       property_natures:
         acta_category: "Catégorie ACTA"

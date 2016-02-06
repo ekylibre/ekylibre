@@ -117,7 +117,7 @@ module Ekylibre
             campaign_id: campaign.id
           }
 
-          if activity.with_supports && cz && product && product.shape && Nomen::ActivityFamily[activity.family] <= :vegetal_crops
+          if activity.with_supports && cz && product && product.shape && Nomen::ActivityFamily[activity.family] <= :plant_farming
             attributes[:cultivable_zone] = cz
             attributes[:support_shape] = product.shape
             attributes[:size] = ::Charta.new_geometry(product.shape).area.in(:hectare)
@@ -132,7 +132,7 @@ module Ekylibre
           end
           unless (ap = ActivityProduction.find_by(activity: activity, support: product))
             ap = ActivityProduction.create!(attributes)
-            td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: product) if Nomen::ActivityFamily[activity.family] <= :vegetal_crops
+            td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: product) if Nomen::ActivityFamily[activity.family] <= :plant_farming
           end
         end
 

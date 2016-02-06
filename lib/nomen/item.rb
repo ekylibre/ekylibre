@@ -269,11 +269,15 @@ module Nomen
 
     def set(name, value)
       fail "Invalid property: #{name.inspect}" if [:name, :parent].include?(name.to_sym)
-      # TODO: check format
-      if property = nomenclature.properties[name]
-        value ||= [] if property.list?
+      # # TODO: check format
+      # if property = nomenclature.properties[name]
+      #   value ||= [] if property.list?
+      # end
+      if value.nil?
+        @attributes.delete(name)
+      else
+        @attributes[name] = value
       end
-      @attributes[name] = value
     end
 
     private

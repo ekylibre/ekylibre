@@ -9,7 +9,7 @@ module Backend
       assert_redirected_to root_url
       Activity.limit(5).find_each do |record|
         get :show, id: record.id, locale: @locale
-        if record.vegetal_crops?
+        if record.plant_farming?
           assert_redirected_to backend_vegetal_activity_url(record)
         else
           assert_response :success

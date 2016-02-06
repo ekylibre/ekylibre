@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160204122030">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160206163031">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -396,129 +396,13 @@
       <property name="support_variety" type="item" choices="varieties"/>
     </properties>
     <items>
-      <item name="accountancy" parent="exploitation" nature="auxiliary"/>
-      <item name="administrative" parent="exploitation" nature="auxiliary"/>
-      <item name="agricultural_works" parent="works"/>
-      <item name="alfalfa_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="medicago"/>
-      <item name="almond_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="prunus_dulcis"/>
+      <item name="administering" nature="auxiliary"/>
       <item name="animal_farming" support_variety="animal_group" cultivation_variety="animal"/>
-      <item name="animal_housing" parent="service"/>
-      <item name="apple_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="malus"/>
-      <item name="arboriculture" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="aromatic_and_medicinal_plants" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="artichoke_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="cynara_scolymus"/>
-      <item name="asparagus_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="asparagus"/>
-      <item name="avocado_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="persea_americana"/>
-      <item name="barley_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="hordeum"/>
-      <item name="bean_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="phaseolus"/>
-      <item name="beekeeping" parent="animal_farming" support_variety="animal_group" cultivation_variety="apidae"/>
-      <item name="beet_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="beta"/>
-      <item name="bere_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="hordeum_hexastichum"/>
-      <item name="bison_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="bison"/>
-      <item name="black_mustard_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="brassica_nigra"/>
-      <item name="blackcurrant_crops" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="ribes_nigrum"/>
-      <item name="building_works" parent="works"/>
-      <item name="cabbage_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="brassica_oleracea"/>
-      <item name="canary_grass_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="phalaris"/>
-      <item name="carob_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="ceratonia"/>
-      <item name="carrot_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="daucus_carota"/>
-      <item name="catering" parent="service"/>
-      <item name="cattle_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="bos"/>
-      <item name="celery_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="apium_graveolens"/>
-      <item name="cereal_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="poaceae"/>
-      <item name="chestnut_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="castanea"/>
-      <item name="chickpea_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="cicer"/>
-      <item name="chicory_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="cichorium"/>
-      <item name="cichorium_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="cichorium"/>
-      <item name="citrus_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="citrus"/>
-      <item name="cocoa_crops" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="theobroma_cacao"/>
-      <item name="common_wheat_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="triticum_aestivum"/>
-      <item name="cotton_crops" parent="oilseed_crops" support_variety="cultivable_zone" cultivation_variety="gossypium"/>
-      <item name="durum_wheat_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="triticum_durum"/>
-      <item name="eggplant_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="solanum_melongena"/>
-      <item name="equipment_management" nature="auxiliary"/>
-      <item name="exploitation" nature="auxiliary"/>
-      <item name="fallow_land" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="field_crops" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="flax_crops" parent="oilseed_crops" support_variety="cultivable_zone" cultivation_variety="linum"/>
-      <item name="flower_crops" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="fodder_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="fruits_crops" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="garden_pea_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="pisum_sativum"/>
-      <item name="garlic_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="allium"/>
-      <item name="goat_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="capra"/>
-      <item name="hazel_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="corylus"/>
-      <item name="hemp_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="cannabaceae"/>
-      <item name="hop_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="humulus_lupulus"/>
-      <item name="horsebean_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="vicia_faba"/>
-      <item name="lavender_crops" parent="aromatic_and_medicinal_plants" support_variety="cultivable_zone" cultivation_variety="lavandula"/>
-      <item name="leek_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="allium_porrum"/>
-      <item name="leguminous_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="fabaceae"/>
-      <item name="lentil_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="lens"/>
-      <item name="lettuce_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="lactuca"/>
-      <item name="lodging" parent="service"/>
-      <item name="lupin_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="lupinus"/>
-      <item name="maintenance" nature="auxiliary" cultivation_variety="equipment"/>
-      <item name="maize_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="zea"/>
-      <item name="market_garden_crops" parent="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="meadow" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="muskmelon_crops" parent="fruits_crops" support_variety="cultivable_zone" cultivation_variety="cucumis_melo"/>
-      <item name="mussel_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="mytilidae"/>
-      <item name="oat_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="avena"/>
-      <item name="oilseed_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="olive_groves" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="olea_europaea"/>
-      <item name="olive_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="olea"/>
-      <item name="onion_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="allium_cepa"/>
-      <item name="ostrich_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="struthionidae"/>
-      <item name="oyster_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="ostreidae"/>
-      <item name="palmiped_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="anatidae"/>
-      <item name="parsley_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="petroselinum"/>
-      <item name="pea_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="pisum"/>
-      <item name="peach_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="prunus_persica"/>
-      <item name="peanut_crops" parent="oilseed_crops" support_variety="cultivable_zone" cultivation_variety="arachis"/>
-      <item name="pear_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="pyrus"/>
-      <item name="pig_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="suidae"/>
-      <item name="pineapple_crops" parent="fruits_crops" support_variety="cultivable_zone" cultivation_variety="ananas"/>
-      <item name="pistachio_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="pistacia"/>
-      <item name="plum_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="prunus_domestica"/>
-      <item name="poaceae_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="poaceae"/>
-      <item name="potato_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="solanum_tuberosum"/>
-      <item name="poultry_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="phasianidae"/>
+      <item name="plant_farming" support_variety="cultivable_zone" cultivation_variety="plant"/>
       <item name="processing"/>
-      <item name="protein_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="purchases" parent="exploitation" nature="auxiliary"/>
-      <item name="rabbit_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="leporidae"/>
-      <item name="radish_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="raphanus_sativus"/>
-      <item name="rapeseed_crops" parent="oilseed_crops" support_variety="cultivable_zone" cultivation_variety="brassica_napus"/>
-      <item name="raspberry_crops" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="rubus_idaeus"/>
-      <item name="redcurrant_crops" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="ribes_rubrum"/>
-      <item name="renting" parent="service"/>
-      <item name="rice_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="oryza"/>
-      <item name="rye_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="secale"/>
-      <item name="saffron_crops" parent="aromatic_and_medicinal_plants" support_variety="cultivable_zone" cultivation_variety="crocus_sativus"/>
-      <item name="sales" parent="exploitation"/>
-      <item name="salmon_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="salmonidae"/>
-      <item name="scallop_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="pectinidae"/>
-      <item name="service"/>
-      <item name="sheep_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="ovis"/>
-      <item name="snail_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="helicidae"/>
-      <item name="sorghum_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="sorghum"/>
-      <item name="soybean_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="glycine_max"/>
-      <item name="stocks" parent="exploitation" nature="auxiliary"/>
-      <item name="strawberry_crops" parent="fruits_crops" support_variety="cultivable_zone" cultivation_variety="fragaria"/>
-      <item name="sturgeon_farming" parent="animal_farming" support_variety="animal_group" cultivation_variety="acipenseridae"/>
-      <item name="sunflower_crops" parent="oilseed_crops" support_variety="cultivable_zone" cultivation_variety="helianthus"/>
-      <item name="tobacco_crops" parent="field_crops" support_variety="cultivable_zone" cultivation_variety="nicotiana_tabacum"/>
-      <item name="tomato_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="solanum_lycopersicum"/>
-      <item name="triticale_crops" parent="cereal_crops" support_variety="cultivable_zone" cultivation_variety="triticosecale"/>
-      <item name="turnip_crops" parent="market_garden_crops" support_variety="cultivable_zone" cultivation_variety="brassica_rapa"/>
-      <item name="vegetal_crops" support_variety="cultivable_zone" cultivation_variety="plant"/>
-      <item name="vetch_crops" parent="protein_crops" support_variety="cultivable_zone" cultivation_variety="vicia"/>
-      <item name="vines" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="vitis"/>
-      <item name="walnut_orchards" parent="arboriculture" support_variety="cultivable_zone" cultivation_variety="juglans"/>
-      <item name="watermelon_crops" parent="fruits_crops" support_variety="cultivable_zone" cultivation_variety="citrullus_lanatus"/>
-      <item name="wine" parent="processing"/>
-      <item name="works" parent="service"/>
+      <item name="service_delivering"/>
+      <item name="tool_maintaining" nature="auxiliary" cultivation_variety=""/>
+      <item name="wine_making" parent="processing"/>
     </items>
   </nomenclature>
   <nomenclature name="administrative_area_natures" translateable="true">
@@ -1405,12 +1289,12 @@
       <item name="land_parcel_management" acta_category="C"/>
       <item name="management" acta_category="A"/>
       <item name="marketing" acta_category="E"/>
+      <item name="plant_farming" acta_category="B"/>
+      <item name="processing" acta_category="M"/>
       <item name="production" acta_category="K"/>
       <item name="reproduction" acta_category="L"/>
       <item name="stock_management" acta_category="D"/>
-      <item name="transformation" acta_category="M"/>
-      <item name="vegetal_crops" acta_category="B"/>
-      <item name="vinification" acta_category="F"/>
+      <item name="wine_making" acta_category="F"/>
     </items>
   </nomenclature>
   <nomenclature name="document_natures" translateable="true">
@@ -1460,9 +1344,9 @@
       <item name="vat_register" category="accountancy"/>
       <item name="veterinary_booklet" category="health"/>
       <item name="vine_phytosanitary_register" category="land_parcel_management"/>
-      <item name="wine_bottling_register" category="vinification"/>
-      <item name="wine_detention_register" category="vinification"/>
-      <item name="wine_manipulation_register" category="vinification"/>
+      <item name="wine_bottling_register" category="wine_making"/>
+      <item name="wine_detention_register" category="wine_making"/>
+      <item name="wine_manipulation_register" category="wine_making"/>
     </items>
   </nomenclature>
   <nomenclature name="entity_link_natures" translateable="true" notions="entity, linked">
@@ -2039,17 +1923,17 @@
       <property name="url" type="string"/>
     </properties>
     <items>
-      <item name="cartodb" nature="exploitation" url="https://cartodb.com" approach="human" identifiers="cartodb_login, password"/>
-      <item name="charentes_alliance_extranet" nature="exploitation" url="http://www.charentes-alliance.fr/HP/HomePage.aspx" approach="human" identifiers="charentes_alliance_extranet_username, password"/>
+      <item name="cartodb" nature="administering" url="https://cartodb.com" approach="human" identifiers="cartodb_login, password"/>
+      <item name="charentes_alliance_extranet" nature="administering" url="http://www.charentes-alliance.fr/HP/HomePage.aspx" approach="human" identifiers="charentes_alliance_extranet_username, password"/>
       <item name="est_elevage" nature="animal_farming" url="http://www.estelevage.com/" approach="human" identifiers="synel_username, password"/>
-      <item name="idele" nature="exploitation" url="http://zoe.cmre.fr/wsannuaire/WsAnnuaire?wsdl" approach="human" identifiers="idele_login, idele_password"/>
+      <item name="idele" nature="administering" url="http://zoe.cmre.fr/wsannuaire/WsAnnuaire?wsdl" approach="human" identifiers="idele_login, idele_password"/>
       <item name="lilco" nature="animal_farming" url="http://www.lilco-s.com/" approach="human" identifiers="lilco_labratory_code, password"/>
-      <item name="msa" nature="exploitation" url="http://www.msa.fr/lfr/espace-prive" approach="human" identifiers="msa_username, password"/>
-      <item name="openweathermap" nature="exploitation" url="api.openweathermap.org" approach="rest" identifiers="openweathermap_api_key"/>
+      <item name="msa" nature="administering" url="http://www.msa.fr/lfr/espace-prive" approach="human" identifiers="msa_username, password"/>
+      <item name="openweathermap" nature="administering" url="api.openweathermap.org" approach="rest" identifiers="openweathermap_api_key"/>
       <item name="selso" nature="animal_farming" url="http://www.selso.net/" approach="human" identifiers="synel_username, password"/>
       <item name="synel" nature="animal_farming" url="http://www.synel.net/" approach="human" identifiers="synel_username, password"/>
       <item name="synest" nature="animal_farming" url="http://www.synest.net/" approach="human" identifiers="synel_username, password"/>
-      <item name="telepac" nature="vegetal_crops" url="https://www3.telepac.agriculture.gouv.fr/telepac/auth/accueil.action" approach="human" identifiers="pacage_number, password"/>
+      <item name="telepac" nature="plant_farming" url="https://www3.telepac.agriculture.gouv.fr/telepac/auth/accueil.action" approach="human" identifiers="pacage_number, password"/>
     </items>
   </nomenclature>
   <nomenclature name="opportunity_origins" translateable="true">
@@ -2241,26 +2125,26 @@
       <item name="animal_feeding" activity_family="animal_farming"/>
       <item name="animal_production" activity_family="animal_farming"/>
       <item name="animal_treating" activity_family="animal_farming"/>
-      <item name="building_maintenance" activity_family="equipment_management"/>
+      <item name="building_maintenance" activity_family="tool_maintaining"/>
       <item name="cook_transformation" activity_family="processing"/>
-      <item name="crop_maintenance" activity_family="vegetal_crops"/>
-      <item name="crop_protection" activity_family="vegetal_crops"/>
+      <item name="crop_maintenance" activity_family="plant_farming"/>
+      <item name="crop_protection" activity_family="plant_farming"/>
       <item name="dairy_transformation" activity_family="processing"/>
-      <item name="energy_supplying" activity_family="equipment_management"/>
-      <item name="equipment_maintenance" activity_family="equipment_management"/>
-      <item name="fertilizing" activity_family="vegetal_crops"/>
+      <item name="energy_supplying" activity_family="tool_maintaining"/>
+      <item name="equipment_maintenance" activity_family="tool_maintaining"/>
+      <item name="fertilizing" activity_family="plant_farming"/>
       <item name="fish_transformation" activity_family="processing"/>
       <item name="habitat_maintenance" activity_family="animal_farming"/>
-      <item name="harvesting" activity_family="vegetal_crops"/>
-      <item name="installations_modification" activity_family="animal_farming, equipment_management, vegetal_crops"/>
-      <item name="irrigating" activity_family="vegetal_crops"/>
-      <item name="land_maintenance" activity_family="animal_farming, equipment_management, vegetal_crops"/>
+      <item name="harvesting" activity_family="plant_farming"/>
+      <item name="installations_modification" activity_family="animal_farming, tool_maintaining, plant_farming"/>
+      <item name="irrigating" activity_family="plant_farming"/>
+      <item name="land_maintenance" activity_family="animal_farming, tool_maintaining, plant_farming"/>
       <item name="meat_transformation" activity_family="processing"/>
-      <item name="planting" activity_family="vegetal_crops"/>
+      <item name="planting" activity_family="plant_farming"/>
       <item name="plants_transformation" activity_family="processing"/>
-      <item name="soil_working" activity_family="vegetal_crops"/>
+      <item name="soil_working" activity_family="plant_farming"/>
       <item name="textile_transformation" activity_family="processing"/>
-      <item name="troubleshooting" activity_family="equipment_management"/>
+      <item name="troubleshooting" activity_family="tool_maintaining"/>
       <item name="viticulture_transformation" activity_family="processing"/>
       <item name="washing_packaging_transformation" activity_family="processing"/>
     </items>
@@ -2272,7 +2156,7 @@
     </properties>
     <items>
       <item name="addition" parent="transformation" roles="input_origin, input, target, doer" activity_families="processing"/>
-      <item name="administrative_task" roles="doer" activity_families="vegetal_crops, animal_farming, exploitation"/>
+      <item name="administrative_task" roles="doer" activity_families="plant_farming, animal_farming, administering"/>
       <item name="animal_care" roles="input, target, doer" activity_families="animal_farming"/>
       <item name="animal_changing" roles="target, input, doer, variant" activity_families="animal_farming"/>
       <item name="animal_curative_medicine_admission" parent="animal_illness_treatment" roles="input, target, doer, input_origin" activity_families="animal_farming"/>
@@ -2286,80 +2170,80 @@
       <item name="animal_nutrition" roles="input, target, doer, tool" activity_families="animal_farming"/>
       <item name="animal_preventive_medicine_admission" parent="animal_illness_treatment" roles="input, target, doer, input_origin" activity_families="animal_farming"/>
       <item name="animal_production" roles="target, output, doer" activity_families="animal_farming"/>
-      <item name="automatic_soil_enrichment" parent="soil_enrichment" roles="input, target, tool, input_origin" activity_families="vegetal_crops"/>
+      <item name="automatic_soil_enrichment" parent="soil_enrichment" roles="input, target, tool, input_origin" activity_families="plant_farming"/>
       <item name="blending" parent="transformation" roles="input_origin, input, output, doer, container" activity_families="processing"/>
       <item name="bottling" parent="transformation" roles="target, input, output, doer, tool" activity_families="processing"/>
-      <item name="chemical_weed_killing" parent="weed_killing" roles="input, target, doer, tool, input_origin" activity_families="vegetal_crops, exploitation"/>
-      <item name="consummables_addition" parent="maintenance_task" roles="target, doer, input" activity_families="exploitation"/>
-      <item name="coupling" roles="doer, tool" activity_families="vegetal_crops, exploitation"/>
-      <item name="cultipacking" parent="tillage" roles="target, doer, tool" activity_families="vegetal_crops"/>
-      <item name="cutting" roles="doer, tool, target" activity_families="arboriculture"/>
-      <item name="egg_production" parent="animal_production" roles="output, target, doer" activity_families="poultry_farming"/>
-      <item name="enclosing" roles="input_origin, input, target, doer" activity_families="vegetal_crops, animal_farming, arboriculture, fruits_crops"/>
+      <item name="chemical_weed_killing" parent="weed_killing" roles="input, target, doer, tool, input_origin" activity_families="plant_farming, administering"/>
+      <item name="consummables_addition" parent="maintenance_task" roles="target, doer, input" activity_families="administering"/>
+      <item name="coupling" roles="doer, tool" activity_families="plant_farming, administering"/>
+      <item name="cultipacking" parent="tillage" roles="target, doer, tool" activity_families="plant_farming"/>
+      <item name="cutting" roles="doer, tool, target" activity_families="plant_farming"/>
+      <item name="egg_production" parent="animal_production" roles="output, target, doer" activity_families="animal_farming"/>
+      <item name="enclosing" roles="input_origin, input, target, doer" activity_families="plant_farming, animal_farming, plant_farming, plant_farming"/>
       <item name="fermentation" parent="transformation" roles="input_origin, input, target, output, doer, tool" activity_families="processing"/>
-      <item name="filling" roles="input, input_origin, doer, target" activity_families="vegetal_crops, exploitation"/>
+      <item name="filling" roles="input, input_origin, doer, target" activity_families="plant_farming, administering"/>
       <item name="filtration" parent="transformation" roles="input, target, output, doer, tool" activity_families="processing"/>
       <item name="food_mixing" parent="animal_nutrition" roles="input, output, doer" activity_families="animal_farming"/>
       <item name="food_supply" parent="animal_nutrition" roles="input, target, doer, tool, input_origin" activity_families="animal_farming"/>
-      <item name="fruits_harvest" parent="harvest" roles="target, output, doer, tool" activity_families="arboriculture"/>
-      <item name="garden_human_working" parent="manual_working" roles="target, doer" activity_families="market_garden_crops, maize_crops"/>
-      <item name="gardening_harvest" parent="harvest" roles="target, doer, tool" activity_families="market_garden_crops, arboriculture, flower_crops"/>
-      <item name="grain_transport" parent="transport" roles="doer, tool, target, container" activity_families="cereal_crops"/>
-      <item name="grains_harvest" parent="harvest" roles="target, output, doer, tool" activity_families="cereal_crops, maize_crops"/>
-      <item name="grape_harvest" parent="harvest" roles="target, output, doer, tool" activity_families="vines"/>
-      <item name="grape_transport" parent="transport" roles="doer, tool, target, container" activity_families="vines"/>
-      <item name="grinding" roles="doer, tool, target" activity_families="vegetal_crops"/>
-      <item name="ground_arrangement" roles="target, doer, tool" activity_families="arboriculture, fruits_crops, aromatic_and_medicinal_plants"/>
-      <item name="group_exclusion" roles="target, includer" activity_families="exploitation, vegetal_crops, animal_farming, processing, service, maintenance"/>
-      <item name="group_inclusion" roles="target, includer" activity_families="exploitation, vegetal_crops, animal_farming, processing, service, maintenance"/>
-      <item name="growth_control" roles="target" activity_families="vegetal_crops"/>
+      <item name="fruits_harvest" parent="harvest" roles="target, output, doer, tool" activity_families="plant_farming"/>
+      <item name="garden_human_working" parent="manual_working" roles="target, doer" activity_families="plant_farming, plant_farming"/>
+      <item name="gardening_harvest" parent="harvest" roles="target, doer, tool" activity_families="plant_farming, plant_farming, plant_farming"/>
+      <item name="grain_transport" parent="transport" roles="doer, tool, target, container" activity_families="plant_farming"/>
+      <item name="grains_harvest" parent="harvest" roles="target, output, doer, tool" activity_families="plant_farming, plant_farming"/>
+      <item name="grape_harvest" parent="harvest" roles="target, output, doer, tool" activity_families="plant_farming"/>
+      <item name="grape_transport" parent="transport" roles="doer, tool, target, container" activity_families="plant_farming"/>
+      <item name="grinding" roles="doer, tool, target" activity_families="plant_farming"/>
+      <item name="ground_arrangement" roles="target, doer, tool" activity_families="plant_farming, plant_farming, plant_farming"/>
+      <item name="group_exclusion" roles="target, includer" activity_families="administering, plant_farming, animal_farming, processing, service_delivering, tool_maintaining"/>
+      <item name="group_inclusion" roles="target, includer" activity_families="administering, plant_farming, animal_farming, processing, service_delivering, tool_maintaining"/>
+      <item name="growth_control" roles="target" activity_families="plant_farming"/>
       <item name="harvest" roles="target, output, doer, tool"/>
-      <item name="haymaking" roles="target, output, doer, tool" activity_families="vegetal_crops"/>
-      <item name="hoeing" parent="tillage" roles="target, doer, tool" activity_families="vegetal_crops"/>
-      <item name="implantation" roles="input, target, output, doer, tool, input_origin" activity_families="vegetal_crops"/>
-      <item name="implanting" parent="implantation" roles="input, target, output, doer, tool, input_origin" activity_families="arboriculture, fruits_crops, aromatic_and_medicinal_plants"/>
-      <item name="maintenance_task" roles="target, doer" activity_families="vegetal_crops, animal_farming, exploitation"/>
+      <item name="haymaking" roles="target, output, doer, tool" activity_families="plant_farming"/>
+      <item name="hoeing" parent="tillage" roles="target, doer, tool" activity_families="plant_farming"/>
+      <item name="implantation" roles="input, target, output, doer, tool, input_origin" activity_families="plant_farming"/>
+      <item name="implanting" parent="implantation" roles="input, target, output, doer, tool, input_origin" activity_families="plant_farming, plant_farming, plant_farming"/>
+      <item name="maintenance_task" roles="target, doer" activity_families="plant_farming, animal_farming, administering"/>
       <item name="manual_food_supply" parent="animal_nutrition" roles="input, target, doer, input_origin" activity_families="animal_farming"/>
-      <item name="manual_soil_enrichment" parent="soil_enrichment" roles="input, target, tool, doer, input_origin" activity_families="vegetal_crops"/>
-      <item name="manual_working" roles="doer, target" activity_families="vegetal_crops, animal_farming, exploitation"/>
-      <item name="milk_production" parent="animal_production" roles="output, target, doer" activity_families="cattle_farming"/>
+      <item name="manual_soil_enrichment" parent="soil_enrichment" roles="input, target, tool, doer, input_origin" activity_families="plant_farming"/>
+      <item name="manual_working" roles="doer, target" activity_families="plant_farming, animal_farming, administering"/>
+      <item name="milk_production" parent="animal_production" roles="output, target, doer" activity_families="animal_farming"/>
       <item name="mixing" parent="transformation" roles="input, output, doer" activity_families="processing"/>
-      <item name="moving" roles="doer, tool, target" activity_families="vegetal_crops, animal_farming, exploitation"/>
-      <item name="mulching" parent="implantation" roles="input, target, doer, tool, input_origin" activity_families="market_garden_crops"/>
-      <item name="nuts_harvest" parent="harvest" roles="target, output, doer, tool" activity_families="chestnut_orchards, hazel_orchards, walnut_orchards"/>
-      <item name="nuts_transport" parent="transport" roles="doer, tool, target, container" activity_families="chestnut_orchards, hazel_orchards, walnut_orchards"/>
-      <item name="oviparous_birth" roles="target, output" activity_families="poultry_farming"/>
+      <item name="moving" roles="doer, tool, target" activity_families="plant_farming, animal_farming, administering"/>
+      <item name="mulching" parent="implantation" roles="input, target, doer, tool, input_origin" activity_families="plant_farming"/>
+      <item name="nuts_harvest" parent="harvest" roles="target, output, doer, tool" activity_families="plant_farming, plant_farming, plant_farming"/>
+      <item name="nuts_transport" parent="transport" roles="doer, tool, target, container" activity_families="plant_farming, plant_farming, plant_farming"/>
+      <item name="oviparous_birth" roles="target, output" activity_families="animal_farming"/>
       <item name="pasturing" parent="animal_nutrition" roles="input, target, doer" activity_families="animal_farming"/>
-      <item name="physical_weed_killing" parent="weed_killing" roles="target, doer, tool" activity_families="vegetal_crops, exploitation"/>
-      <item name="piece_replacement" parent="maintenance_task" roles="target, doer, input" activity_families="exploitation"/>
-      <item name="plant_care" roles="tool, target, doer" activity_families="vegetal_crops"/>
-      <item name="plant_chemical_mixing" parent="plant_care" roles="input, output, doer" activity_families="vegetal_crops"/>
-      <item name="plant_fertilisation" parent="plant_nutrition" roles="input, target, doer" activity_families="vegetal_crops"/>
-      <item name="plant_illness_treatment" parent="plant_care" roles="input, target, doer, tool, input_origin" activity_families="vegetal_crops"/>
-      <item name="plant_irrigation" parent="plant_nutrition" roles="input, target" activity_families="vegetal_crops"/>
-      <item name="plant_nutrition" roles="input, target" activity_families="vegetal_crops"/>
-      <item name="plowing" parent="tillage" roles="target, doer, tool" activity_families="vegetal_crops"/>
+      <item name="physical_weed_killing" parent="weed_killing" roles="target, doer, tool" activity_families="plant_farming, administering"/>
+      <item name="piece_replacement" parent="maintenance_task" roles="target, doer, input" activity_families="administering"/>
+      <item name="plant_care" roles="tool, target, doer" activity_families="plant_farming"/>
+      <item name="plant_chemical_mixing" parent="plant_care" roles="input, output, doer" activity_families="plant_farming"/>
+      <item name="plant_fertilisation" parent="plant_nutrition" roles="input, target, doer" activity_families="plant_farming"/>
+      <item name="plant_illness_treatment" parent="plant_care" roles="input, target, doer, tool, input_origin" activity_families="plant_farming"/>
+      <item name="plant_irrigation" parent="plant_nutrition" roles="input, target" activity_families="plant_farming"/>
+      <item name="plant_nutrition" roles="input, target" activity_families="plant_farming"/>
+      <item name="plowing" parent="tillage" roles="target, doer, tool" activity_families="plant_farming"/>
       <item name="pressing" parent="transformation" roles="input_origin, input, target, output, doer, tool" activity_families="processing"/>
-      <item name="product_evolution" roles="target, variant" activity_families="exploitation, vegetal_crops, animal_farming, processing, service, maintenance"/>
-      <item name="product_moving" roles="target, container, doer" activity_families="exploitation, vegetal_crops, animal_farming, processing, service, maintenance"/>
-      <item name="pruning" roles="doer, target" activity_families="vegetal_crops"/>
-      <item name="raking" parent="tillage" roles="target, doer, tool" activity_families="vegetal_crops"/>
+      <item name="product_evolution" roles="target, variant" activity_families="administering, plant_farming, animal_farming, processing, service_delivering, tool_maintaining"/>
+      <item name="product_moving" roles="target, container, doer" activity_families="administering, plant_farming, animal_farming, processing, service_delivering, tool_maintaining"/>
+      <item name="pruning" roles="doer, target" activity_families="plant_farming"/>
+      <item name="raking" parent="tillage" roles="target, doer, tool" activity_families="plant_farming"/>
       <item name="remontage" parent="transformation" roles="target, doer" activity_families="processing"/>
-      <item name="seed_mixing" parent="implantation" roles="input, output, doer" activity_families="cereal_crops, maize_crops, oilseed_crops, protein_crops, fodder_crops, meadow"/>
-      <item name="silage" parent="harvest" roles="target, output, doer, tool" activity_families="maize_crops, fodder_crops, meadow, fallow_land"/>
+      <item name="seed_mixing" parent="implantation" roles="input, output, doer" activity_families="plant_farming, plant_farming, plant_farming, plant_farming, plant_farming, plant_farming"/>
+      <item name="silage" parent="harvest" roles="target, output, doer, tool" activity_families="plant_farming, plant_farming, plant_farming, plant_farming"/>
       <item name="soil_cleaning" roles="target" activity_families="animal_farming"/>
-      <item name="soil_enrichment" roles="input, target, tool, input_origin" activity_families="vegetal_crops"/>
-      <item name="sowing" parent="implantation" roles="input, target, output, doer, tool, input_origin" activity_families="field_crops, market_garden_crops"/>
-      <item name="straw_processing" parent="harvest" roles="input, output, doer, tool" activity_families="cereal_crops, fodder_crops, meadow, fallow_land"/>
-      <item name="straw_transport" parent="transport" roles="doer, tool, target, container" activity_families="cereal_crops, fodder_crops, meadow"/>
-      <item name="technical_task" roles="target, doer" activity_families="vegetal_crops, animal_farming, exploitation"/>
-      <item name="thermal_weed_killing" parent="weed_killing" roles="target, doer, tool" activity_families="vegetal_crops, exploitation"/>
-      <item name="tillage" roles="target" activity_families="vegetal_crops"/>
+      <item name="soil_enrichment" roles="input, target, tool, input_origin" activity_families="plant_farming"/>
+      <item name="sowing" parent="implantation" roles="input, target, output, doer, tool, input_origin" activity_families="plant_farming, plant_farming"/>
+      <item name="straw_processing" parent="harvest" roles="input, output, doer, tool" activity_families="plant_farming, plant_farming, plant_farming, plant_farming"/>
+      <item name="straw_transport" parent="transport" roles="doer, tool, target, container" activity_families="plant_farming, plant_farming, plant_farming"/>
+      <item name="technical_task" roles="target, doer" activity_families="plant_farming, animal_farming, administering"/>
+      <item name="thermal_weed_killing" parent="weed_killing" roles="target, doer, tool" activity_families="plant_farming, administering"/>
+      <item name="tillage" roles="target" activity_families="plant_farming"/>
       <item name="transfer" parent="transformation" roles="container, target, doer" activity_families="processing"/>
       <item name="transformation" roles="input, output, doer, tool" activity_families="processing"/>
-      <item name="transport" roles="input, doer, input_origin, tool, target" activity_families="vegetal_crops, animal_farming, exploitation"/>
-      <item name="viviparous_birth" roles="target, output" activity_families="cattle_farming, sheep_farming, goat_farming, pig_farming"/>
-      <item name="weed_killing" roles="doer, target" activity_families="vegetal_crops"/>
+      <item name="transport" roles="input, doer, input_origin, tool, target" activity_families="plant_farming, animal_farming, administering"/>
+      <item name="viviparous_birth" roles="target, output" activity_families="animal_farming, animal_farming, animal_farming, animal_farming"/>
+      <item name="weed_killing" roles="doer, target" activity_families="plant_farming"/>
     </items>
   </nomenclature>
   <nomenclature name="procedure_roles" translateable="true">
@@ -3463,103 +3347,103 @@
       <property name="variant_support" type="item" choices="product_nature_variants"/>
     </properties>
     <items>
-      <item name="administrative" production_code="A100" activity="exploitation"/>
-      <item name="annual_frost_fallow_land" production_code="3900" activity="fallow_land" telepac_crop_code="GA" variant_support="annual_fallow_crop"/>
-      <item name="apple" production_code="5000" activity="apple_orchards" telepac_crop_code="VE" variant_support="apple_crop"/>
-      <item name="asparagus" production_code="4060" activity="asparagus_crops" telepac_crop_code="FG" variant_support="asparagus_crop"/>
-      <item name="bean" production_code="2040" activity="bean_crops" telepac_crop_code="HA" variant_support="bean_crop"/>
-      <item name="beet" production_code="2210" activity="beet_crops" telepac_crop_code="BT" variant_support="beet_crop"/>
-      <item name="building" production_code="B000" activity="exploitation" telepac_crop_code="BR" variant_support="building"/>
-      <item name="calf" production_code="8230" activity="cattle_farming" variant_support="calf"/>
-      <item name="carrot" production_code="4120" activity="carrot_crops" telepac_crop_code="CT" variant_support="carrot_crop"/>
-      <item name="chicken" production_code="9050" activity="poultry_farming" variant_support="male_hen_band"/>
-      <item name="duck" production_code="9120" activity="palmiped_farming" variant_support="duck_band"/>
-      <item name="escourgeon_barley" production_code="1420" activity="bere_crops" telepac_crop_code="OH" variant_support="escourgeon_barley_crop"/>
-      <item name="exploitation" production_code="G100" activity="exploitation"/>
-      <item name="five_years_temporary_meadow" production_code="3400" activity="meadow" telepac_crop_code="PX" variant_support="temporary_meadow_crop"/>
-      <item name="fixed_frost_fallow_land" production_code="3900" activity="fallow_land" telepac_crop_code="GF" variant_support="annual_fallow_crop"/>
-      <item name="flax" production_code="2330" activity="flax_crops" telepac_crop_code="LN" variant_support="flax_crop"/>
-      <item name="forager_lupin" production_code="3140" activity="lupin_crops" telepac_crop_code="FO" variant_support="lupin_crop"/>
-      <item name="forager_soy" production_code="3220" activity="soybean_crops" telepac_crop_code="FO" variant_support="soy_crop"/>
+      <item name="administrative" production_code="A100" activity="administering"/>
+      <item name="annual_frost_fallow_land" production_code="3900" activity="plant_farming" telepac_crop_code="GA" variant_support="annual_fallow_crop"/>
+      <item name="apple" production_code="5000" activity="plant_farming" telepac_crop_code="VE" variant_support="apple_crop"/>
+      <item name="asparagus" production_code="4060" activity="plant_farming" telepac_crop_code="FG" variant_support="asparagus_crop"/>
+      <item name="bean" production_code="2040" activity="plant_farming" telepac_crop_code="HA" variant_support="bean_crop"/>
+      <item name="beet" production_code="2210" activity="plant_farming" telepac_crop_code="BT" variant_support="beet_crop"/>
+      <item name="building" production_code="B000" activity="administering" telepac_crop_code="BR" variant_support="building"/>
+      <item name="calf" production_code="8230" activity="animal_farming" variant_support="calf"/>
+      <item name="carrot" production_code="4120" activity="plant_farming" telepac_crop_code="CT" variant_support="carrot_crop"/>
+      <item name="chicken" production_code="9050" activity="animal_farming" variant_support="male_hen_band"/>
+      <item name="duck" production_code="9120" activity="animal_farming" variant_support="duck_band"/>
+      <item name="escourgeon_barley" production_code="1420" activity="plant_farming" telepac_crop_code="OH" variant_support="escourgeon_barley_crop"/>
+      <item name="exploitation" production_code="G100" activity="administering"/>
+      <item name="five_years_temporary_meadow" production_code="3400" activity="plant_farming" telepac_crop_code="PX" variant_support="temporary_meadow_crop"/>
+      <item name="fixed_frost_fallow_land" production_code="3900" activity="plant_farming" telepac_crop_code="GF" variant_support="annual_fallow_crop"/>
+      <item name="flax" production_code="2330" activity="plant_farming" telepac_crop_code="LN" variant_support="flax_crop"/>
+      <item name="forager_lupin" production_code="3140" activity="plant_farming" telepac_crop_code="FO" variant_support="lupin_crop"/>
+      <item name="forager_soy" production_code="3220" activity="plant_farming" telepac_crop_code="FO" variant_support="soy_crop"/>
       <item name="fruit_processing" production_code="P100" activity="processing"/>
-      <item name="garden_center" production_code="7500" activity="vegetal_crops" telepac_crop_code="BV" variant_support="market_gardening_crop"/>
-      <item name="garlic" production_code="4000" activity="garlic_crops" telepac_crop_code="AI" variant_support="garlic_crop"/>
-      <item name="goat" production_code="8900" activity="cattle_farming" variant_support="female_adult_goat"/>
-      <item name="gooseberry" production_code="5710" activity="redcurrant_crops" telepac_crop_code="BX" variant_support="gooseberry_crop"/>
-      <item name="grain_corn" production_code="1710" activity="maize_crops" telepac_crop_code="MA" variant_support="corn_grain_crop"/>
-      <item name="green_fallow_land" production_code="3900" activity="fallow_land" telepac_crop_code="GV" variant_support="annual_fallow_crop"/>
-      <item name="hazel" production_code="5760" activity="hazel_orchards" telepac_crop_code="NS" variant_support="hazel_crop"/>
-      <item name="horsebean" production_code="2020" activity="horsebean_crops" telepac_crop_code="FL" variant_support="horsebean_crop"/>
-      <item name="lavender" production_code="2790" activity="lavender_crops" telepac_crop_code="LA" variant_support="lavender_crop"/>
-      <item name="laying_hen" production_code="9020" activity="poultry_farming" variant_support="female_hen_band"/>
-      <item name="lentil" production_code="2050" activity="lentil_crops" telepac_crop_code="LE" variant_support="lentil_crop"/>
-      <item name="maintenance" production_code="M100" activity="exploitation"/>
-      <item name="market_gardening" production_code="4999" activity="market_garden_crops" telepac_crop_code="MX" variant_support="market_gardening_crop"/>
-      <item name="market_gardening_under_greenhouse" production_code="4999" activity="market_garden_crops" telepac_crop_code="MY" variant_support="market_gardening_crop"/>
-      <item name="marketable_bean" production_code="2040" activity="bean_crops" telepac_crop_code="HI" variant_support="bean_crop"/>
-      <item name="marketable_flax" production_code="2330" activity="flax_crops" telepac_crop_code="LJ" variant_support="flax_crop"/>
-      <item name="marketable_forager_lupin" production_code="3140" activity="lupin_crops" telepac_crop_code="FD" variant_support="lupin_crop"/>
-      <item name="marketable_forager_soy" production_code="3220" activity="soybean_crops" telepac_crop_code="FD" variant_support="soy_crop"/>
-      <item name="marketable_garden_center" production_code="7500" activity="vegetal_crops" telepac_crop_code="BW" variant_support="market_gardening_crop"/>
-      <item name="marketable_hazel" production_code="5760" activity="hazel_orchards" telepac_crop_code="NO" variant_support="hazel_crop"/>
-      <item name="marketable_lentil" production_code="2050" activity="lentil_crops" telepac_crop_code="LH" variant_support="lentil_crop"/>
-      <item name="marketable_soy" production_code="2120" activity="soybean_crops" telepac_crop_code="SJ" variant_support="soy_crop"/>
-      <item name="marketable_sunflower" production_code="2380" activity="sunflower_crops" telepac_crop_code="TS" variant_support="sunflower_crop"/>
-      <item name="marketable_walnut" production_code="5750" activity="walnut_orchards" telepac_crop_code="NC" variant_support="walnut_crop"/>
-      <item name="meat_cattle" production_code="8100" activity="cattle_farming" variant_support="female_adult_cow"/>
-      <item name="melon" production_code="4570" activity="muskmelon_crops" telepac_crop_code="MN" variant_support="muskmelon_crop"/>
-      <item name="milk_bull_calf" production_code="8270" activity="cattle_farming" variant_support="male_young_cow"/>
-      <item name="milk_cattle" production_code="8200" activity="cattle_farming" variant_support="female_adult_cow"/>
-      <item name="other_crop" production_code="C000" activity="market_garden_crops" telepac_crop_code="AT" variant_support="market_gardening_crop"/>
-      <item name="other_gardening" production_code="4999" activity="market_garden_crops" telepac_crop_code="FP" variant_support="market_gardening_crop"/>
-      <item name="others_usages" production_code="3900" activity="fallow_land" telepac_crop_code="AU" variant_support="fallow_crop"/>
-      <item name="oyster" production_code="9720" activity="oyster_farming" variant_support="oyster_band"/>
-      <item name="peach" production_code="5300" activity="peach_orchards" telepac_crop_code="PG" variant_support="peach_crop"/>
-      <item name="pear" production_code="5100" activity="pear_orchards" telepac_crop_code="PK" variant_support="pear_crop"/>
-      <item name="permanent_meadow" production_code="3800" activity="meadow" telepac_crop_code="PN" variant_support="permanent_meadow_crop"/>
-      <item name="pig" production_code="8600" activity="cattle_farming" variant_support="female_adult_pig"/>
-      <item name="plum" production_code="5500" activity="plum_orchards" telepac_crop_code="PU" variant_support="plum_crop"/>
-      <item name="potato" production_code="2270" activity="potato_crops" telepac_crop_code="PE" variant_support="potato_crop"/>
-      <item name="raspberry" production_code="5740" activity="raspberry_crops" telepac_crop_code="BX" variant_support="raspberry_crop"/>
-      <item name="rose" production_code="7460" activity="aromatic_and_medicinal_plants" telepac_crop_code="PV" variant_support="rose_crop"/>
-      <item name="rye" production_code="1300" activity="rye_crops" telepac_crop_code="SE" variant_support="rye_crop"/>
-      <item name="saffron" production_code="2840" activity="saffron_crops" telepac_crop_code="AR" variant_support="saffron_crop"/>
-      <item name="salmon" production_code="9660" activity="salmon_farming" variant_support="salmon_band"/>
-      <item name="seed_bean" production_code="2040" activity="bean_crops" telepac_crop_code="HA" variant_support="bean_crop"/>
-      <item name="seed_corn" production_code="1712" activity="maize_crops" telepac_crop_code="MS" variant_support="corn_seed_crop"/>
-      <item name="seed_pea" production_code="2080" activity="pea_crops" telepac_crop_code="PH" variant_support="pea_crop"/>
-      <item name="services" production_code="S100" activity="service"/>
-      <item name="silage_corn" production_code="3150" activity="maize_crops" telepac_crop_code="ME" variant_support="corn_silage_crop"/>
-      <item name="sorghum" production_code="3210" activity="sorghum_crops" telepac_crop_code="SH" variant_support="sorghum_crop"/>
-      <item name="soy" production_code="2120" activity="soybean_crops" telepac_crop_code="SO" variant_support="soy_crop"/>
-      <item name="specific_fallow_land" production_code="3900" activity="fallow_land" telepac_crop_code="GS" variant_support="annual_fallow_crop"/>
-      <item name="spring_barley" production_code="1430" activity="barley_crops" telepac_crop_code="OP" variant_support="spring_barley_crop"/>
-      <item name="spring_hard_wheat" production_code="1230" activity="durum_wheat_crops" telepac_crop_code="BB" variant_support="hard_wheat_crop"/>
-      <item name="spring_oat" production_code="1520" activity="oat_crops" telepac_crop_code="AP" variant_support="spring_oat_crop"/>
-      <item name="spring_pea" production_code="2080" activity="pea_crops" telepac_crop_code="PP" variant_support="pea_crop"/>
-      <item name="spring_rapeseed" production_code="2310" activity="rapeseed_crops" telepac_crop_code="C3" variant_support="rape_crop"/>
-      <item name="spring_soft_wheat" production_code="1100" activity="common_wheat_crops" telepac_crop_code="BP" variant_support="wheat_crop"/>
-      <item name="strawberry" production_code="4450" activity="strawberry_crops" telepac_crop_code="FR" variant_support="strawberry_crop"/>
-      <item name="sunflower" production_code="2380" activity="sunflower_crops" telepac_crop_code="TO" variant_support="sunflower_crop"/>
-      <item name="table_grape_vine" production_code="6500" activity="vines" telepac_crop_code="VU" variant_support="vine_grape_crop"/>
-      <item name="temporary_meadow" production_code="3400" activity="meadow" telepac_crop_code="PT" variant_support="temporary_meadow_crop"/>
-      <item name="thicket" production_code="7200" activity="field_crops" telepac_crop_code="TI" variant_support="thicket_crop"/>
-      <item name="tobacco" production_code="2530" activity="tobacco_crops" telepac_crop_code="TD" variant_support="tobacco_crop"/>
-      <item name="trade" production_code="C100" activity="exploitation"/>
-      <item name="triticale" production_code="1800" activity="triticale_crops" telepac_crop_code="TR" variant_support="triticale_crop"/>
-      <item name="unexploited_cultivable_zone" production_code="CZ000" activity="exploitation" telepac_crop_code="NE" variant_support="cultivable_zone"/>
-      <item name="vine" production_code="6000" activity="vines" telepac_crop_code="VY" variant_support="vine_grape_crop"/>
-      <item name="vine_restructuration" production_code="6100" activity="vines" telepac_crop_code="RE" variant_support="vine_grape_crop"/>
-      <item name="walnut" production_code="5750" activity="walnut_orchards" telepac_crop_code="NX" variant_support="walnut_crop"/>
-      <item name="wine_storehouse" activity="wine" variant_support="wine"/>
-      <item name="winery" activity="wine" variant_support="vine_grape_must"/>
-      <item name="winter_barley" production_code="1410" activity="barley_crops" telepac_crop_code="OH" variant_support="winter_barley_crop"/>
-      <item name="winter_hard_wheat" production_code="1200" activity="durum_wheat_crops" telepac_crop_code="BA" variant_support="hard_wheat_crop"/>
-      <item name="winter_oat" production_code="1510" activity="oat_crops" telepac_crop_code="AH" variant_support="winter_oat_crop"/>
-      <item name="winter_pea" production_code="2080" activity="pea_crops" telepac_crop_code="PH" variant_support="pea_crop"/>
-      <item name="winter_rapeseed" production_code="2320" activity="rapeseed_crops" telepac_crop_code="CS" variant_support="rape_crop"/>
-      <item name="winter_soft_wheat" production_code="1100" activity="common_wheat_crops" telepac_crop_code="BH" variant_support="wheat_crop"/>
-      <item name="without_crop" production_code="3900" activity="fallow_land" telepac_crop_code="HC" variant_support="fallow_crop"/>
+      <item name="garden_center" production_code="7500" activity="plant_farming" telepac_crop_code="BV" variant_support="market_gardening_crop"/>
+      <item name="garlic" production_code="4000" activity="plant_farming" telepac_crop_code="AI" variant_support="garlic_crop"/>
+      <item name="goat" production_code="8900" activity="animal_farming" variant_support="female_adult_goat"/>
+      <item name="gooseberry" production_code="5710" activity="plant_farming" telepac_crop_code="BX" variant_support="gooseberry_crop"/>
+      <item name="grain_corn" production_code="1710" activity="plant_farming" telepac_crop_code="MA" variant_support="corn_grain_crop"/>
+      <item name="green_fallow_land" production_code="3900" activity="plant_farming" telepac_crop_code="GV" variant_support="annual_fallow_crop"/>
+      <item name="hazel" production_code="5760" activity="plant_farming" telepac_crop_code="NS" variant_support="hazel_crop"/>
+      <item name="horsebean" production_code="2020" activity="plant_farming" telepac_crop_code="FL" variant_support="horsebean_crop"/>
+      <item name="lavender" production_code="2790" activity="plant_farming" telepac_crop_code="LA" variant_support="lavender_crop"/>
+      <item name="laying_hen" production_code="9020" activity="animal_farming" variant_support="female_hen_band"/>
+      <item name="lentil" production_code="2050" activity="plant_farming" telepac_crop_code="LE" variant_support="lentil_crop"/>
+      <item name="maintenance" production_code="M100" activity="administering"/>
+      <item name="market_gardening" production_code="4999" activity="plant_farming" telepac_crop_code="MX" variant_support="market_gardening_crop"/>
+      <item name="market_gardening_under_greenhouse" production_code="4999" activity="plant_farming" telepac_crop_code="MY" variant_support="market_gardening_crop"/>
+      <item name="marketable_bean" production_code="2040" activity="plant_farming" telepac_crop_code="HI" variant_support="bean_crop"/>
+      <item name="marketable_flax" production_code="2330" activity="plant_farming" telepac_crop_code="LJ" variant_support="flax_crop"/>
+      <item name="marketable_forager_lupin" production_code="3140" activity="plant_farming" telepac_crop_code="FD" variant_support="lupin_crop"/>
+      <item name="marketable_forager_soy" production_code="3220" activity="plant_farming" telepac_crop_code="FD" variant_support="soy_crop"/>
+      <item name="marketable_garden_center" production_code="7500" activity="plant_farming" telepac_crop_code="BW" variant_support="market_gardening_crop"/>
+      <item name="marketable_hazel" production_code="5760" activity="plant_farming" telepac_crop_code="NO" variant_support="hazel_crop"/>
+      <item name="marketable_lentil" production_code="2050" activity="plant_farming" telepac_crop_code="LH" variant_support="lentil_crop"/>
+      <item name="marketable_soy" production_code="2120" activity="plant_farming" telepac_crop_code="SJ" variant_support="soy_crop"/>
+      <item name="marketable_sunflower" production_code="2380" activity="plant_farming" telepac_crop_code="TS" variant_support="sunflower_crop"/>
+      <item name="marketable_walnut" production_code="5750" activity="plant_farming" telepac_crop_code="NC" variant_support="walnut_crop"/>
+      <item name="meat_cattle" production_code="8100" activity="animal_farming" variant_support="female_adult_cow"/>
+      <item name="melon" production_code="4570" activity="plant_farming" telepac_crop_code="MN" variant_support="muskmelon_crop"/>
+      <item name="milk_bull_calf" production_code="8270" activity="animal_farming" variant_support="male_young_cow"/>
+      <item name="milk_cattle" production_code="8200" activity="animal_farming" variant_support="female_adult_cow"/>
+      <item name="other_crop" production_code="C000" activity="plant_farming" telepac_crop_code="AT" variant_support="market_gardening_crop"/>
+      <item name="other_gardening" production_code="4999" activity="plant_farming" telepac_crop_code="FP" variant_support="market_gardening_crop"/>
+      <item name="others_usages" production_code="3900" activity="plant_farming" telepac_crop_code="AU" variant_support="fallow_crop"/>
+      <item name="oyster" production_code="9720" activity="animal_farming" variant_support="oyster_band"/>
+      <item name="peach" production_code="5300" activity="plant_farming" telepac_crop_code="PG" variant_support="peach_crop"/>
+      <item name="pear" production_code="5100" activity="plant_farming" telepac_crop_code="PK" variant_support="pear_crop"/>
+      <item name="permanent_meadow" production_code="3800" activity="plant_farming" telepac_crop_code="PN" variant_support="permanent_meadow_crop"/>
+      <item name="pig" production_code="8600" activity="animal_farming" variant_support="female_adult_pig"/>
+      <item name="plum" production_code="5500" activity="plant_farming" telepac_crop_code="PU" variant_support="plum_crop"/>
+      <item name="potato" production_code="2270" activity="plant_farming" telepac_crop_code="PE" variant_support="potato_crop"/>
+      <item name="raspberry" production_code="5740" activity="plant_farming" telepac_crop_code="BX" variant_support="raspberry_crop"/>
+      <item name="rose" production_code="7460" activity="plant_farming" telepac_crop_code="PV" variant_support="rose_crop"/>
+      <item name="rye" production_code="1300" activity="plant_farming" telepac_crop_code="SE" variant_support="rye_crop"/>
+      <item name="saffron" production_code="2840" activity="plant_farming" telepac_crop_code="AR" variant_support="saffron_crop"/>
+      <item name="salmon" production_code="9660" activity="animal_farming" variant_support="salmon_band"/>
+      <item name="seed_bean" production_code="2040" activity="plant_farming" telepac_crop_code="HA" variant_support="bean_crop"/>
+      <item name="seed_corn" production_code="1712" activity="plant_farming" telepac_crop_code="MS" variant_support="corn_seed_crop"/>
+      <item name="seed_pea" production_code="2080" activity="plant_farming" telepac_crop_code="PH" variant_support="pea_crop"/>
+      <item name="services" production_code="S100" activity="service_delivering"/>
+      <item name="silage_corn" production_code="3150" activity="plant_farming" telepac_crop_code="ME" variant_support="corn_silage_crop"/>
+      <item name="sorghum" production_code="3210" activity="plant_farming" telepac_crop_code="SH" variant_support="sorghum_crop"/>
+      <item name="soy" production_code="2120" activity="plant_farming" telepac_crop_code="SO" variant_support="soy_crop"/>
+      <item name="specific_fallow_land" production_code="3900" activity="plant_farming" telepac_crop_code="GS" variant_support="annual_fallow_crop"/>
+      <item name="spring_barley" production_code="1430" activity="plant_farming" telepac_crop_code="OP" variant_support="spring_barley_crop"/>
+      <item name="spring_hard_wheat" production_code="1230" activity="plant_farming" telepac_crop_code="BB" variant_support="hard_wheat_crop"/>
+      <item name="spring_oat" production_code="1520" activity="plant_farming" telepac_crop_code="AP" variant_support="spring_oat_crop"/>
+      <item name="spring_pea" production_code="2080" activity="plant_farming" telepac_crop_code="PP" variant_support="pea_crop"/>
+      <item name="spring_rapeseed" production_code="2310" activity="plant_farming" telepac_crop_code="C3" variant_support="rape_crop"/>
+      <item name="spring_soft_wheat" production_code="1100" activity="plant_farming" telepac_crop_code="BP" variant_support="wheat_crop"/>
+      <item name="strawberry" production_code="4450" activity="plant_farming" telepac_crop_code="FR" variant_support="strawberry_crop"/>
+      <item name="sunflower" production_code="2380" activity="plant_farming" telepac_crop_code="TO" variant_support="sunflower_crop"/>
+      <item name="table_grape_vine" production_code="6500" activity="plant_farming" telepac_crop_code="VU" variant_support="vine_grape_crop"/>
+      <item name="temporary_meadow" production_code="3400" activity="plant_farming" telepac_crop_code="PT" variant_support="temporary_meadow_crop"/>
+      <item name="thicket" production_code="7200" activity="plant_farming" telepac_crop_code="TI" variant_support="thicket_crop"/>
+      <item name="tobacco" production_code="2530" activity="plant_farming" telepac_crop_code="TD" variant_support="tobacco_crop"/>
+      <item name="trade" production_code="C100" activity="administering"/>
+      <item name="triticale" production_code="1800" activity="plant_farming" telepac_crop_code="TR" variant_support="triticale_crop"/>
+      <item name="unexploited_cultivable_zone" production_code="CZ000" activity="administering" telepac_crop_code="NE" variant_support="cultivable_zone"/>
+      <item name="vine" production_code="6000" activity="plant_farming" telepac_crop_code="VY" variant_support="vine_grape_crop"/>
+      <item name="vine_restructuration" production_code="6100" activity="plant_farming" telepac_crop_code="RE" variant_support="vine_grape_crop"/>
+      <item name="walnut" production_code="5750" activity="plant_farming" telepac_crop_code="NX" variant_support="walnut_crop"/>
+      <item name="wine_storehouse" activity="wine_making" variant_support="wine"/>
+      <item name="winery" activity="wine_making" variant_support="vine_grape_must"/>
+      <item name="winter_barley" production_code="1410" activity="plant_farming" telepac_crop_code="OH" variant_support="winter_barley_crop"/>
+      <item name="winter_hard_wheat" production_code="1200" activity="plant_farming" telepac_crop_code="BA" variant_support="hard_wheat_crop"/>
+      <item name="winter_oat" production_code="1510" activity="plant_farming" telepac_crop_code="AH" variant_support="winter_oat_crop"/>
+      <item name="winter_pea" production_code="2080" activity="plant_farming" telepac_crop_code="PH" variant_support="pea_crop"/>
+      <item name="winter_rapeseed" production_code="2320" activity="plant_farming" telepac_crop_code="CS" variant_support="rape_crop"/>
+      <item name="winter_soft_wheat" production_code="1100" activity="plant_farming" telepac_crop_code="BH" variant_support="wheat_crop"/>
+      <item name="without_crop" production_code="3900" activity="plant_farming" telepac_crop_code="HC" variant_support="fallow_crop"/>
     </items>
   </nomenclature>
   <nomenclature name="production_usages" translateable="true">

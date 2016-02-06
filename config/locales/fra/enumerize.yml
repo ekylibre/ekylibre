@@ -6,8 +6,8 @@ fra:
         main: "Principale"
         standalone: "Indépendante"
       production_campaign:
-        at_cycle_end: "En fin de cycle (Année N+1)"
-        at_cycle_start: "En début de cycle (Année N)"
+        at_cycle_end: "Celle de la fin de cycle (Année N+1)"
+        at_cycle_start: "Celle du début de cycle (Année N)"
       production_cycle:
         annual: "Annuelle"
         perennial: "Pérenne"

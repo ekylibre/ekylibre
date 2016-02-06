@@ -73,8 +73,8 @@ class ActivityProduction < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_uniqueness_of :rank_number, scope: :activity_id
   validates_presence_of :started_on
-  # validates_presence_of :cultivable_zone, :support_nature, if: :vegetal_crops?
-  validates_presence_of :support_nature, if: :vegetal_crops?
+  # validates_presence_of :cultivable_zone, :support_nature, if: :plant_farming?
+  validates_presence_of :support_nature, if: :plant_farming?
   validates_presence_of :campaign, :stopped_on, if: :annual?
   validates_presence_of :started_on
   # validates_numericality_of :size_value, greater_than: 0
@@ -83,7 +83,7 @@ class ActivityProduction < Ekylibre::Record::Base
   delegate :name, :work_number, to: :support, prefix: true
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
-  delegate :animal_farming?, :vegetal_crops?,
+  delegate :animal_farming?, :plant_farming?,
            :at_cycle_start?, :at_cycle_end?,
            :with_cultivation, :cultivation_variety, :with_supports, :support_variety,
            :color, :annual?, :perennial?, to: :activity
@@ -143,7 +143,7 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
-    if vegetal_crops?
+    if plant_farming?
       self.support_shape ||= cultivable_zone.shape if cultivable_zone
       if support_shape && !support
         land_parcels = LandParcel.shape_matching(support_shape)

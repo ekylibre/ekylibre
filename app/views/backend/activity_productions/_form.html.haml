@@ -7,7 +7,7 @@
     - f.object.campaign ||= current_campaign
     = f.referenced_association :campaign
   = f.date_range
-  - if activity.vegetal_crops?
+  - if activity.plant_farming?
     -# Vegetal crops
     = f.input :support_nature, as: :radio_buttons
     - f.object.usage ||= :grain

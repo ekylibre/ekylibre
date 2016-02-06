@@ -29,9 +29,7 @@
 
 - else # Root Procedure Natures
   - main_campaign_selector
-  - [:animal_farming, :equipment_management, :vegetal_crops, :processing].each do |family_name|
-    - family = Nomen::ActivityFamily.find(family_name)
-    -# next unless Activity.all.detect { |a| family >= a.family }
+  - Nomen::ActivityFamily.find_each do |family|
     .activity-family
       %h2.activity-family-name= family.human_name
       .activity-family-procedures
