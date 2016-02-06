@@ -20,7 +20,7 @@ class Ekylibre::PicturesExchanger < ActiveExchanger::Base
     if nature == 'products'
       klass = Product
     else
-      fail "Unknown picture type: #{mimetype.inspect}"
+      raise "Unknown picture type: #{mimetype.inspect}"
     end
 
     Dir.chdir(dir.join('pictures')) do

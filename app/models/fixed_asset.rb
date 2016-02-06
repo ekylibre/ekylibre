@@ -184,7 +184,7 @@ class FixedAsset < Ekylibre::Record::Base
       depreciation.position = position
       position += 1
       unless depreciation.save
-        fail 'AAAAAAAAAAAAAAAAAAAARrrrrrrrrrrrrrrrrr' + depreciation.errors.inspect
+        raise 'AAAAAAAAAAAAAAAAAAAARrrrrrrrrrrrrrrrrr' + depreciation.errors.inspect
       end
     end
   end
@@ -265,7 +265,7 @@ class FixedAsset < Ekylibre::Record::Base
     elsif options[:mode] == :linear
       days = (stopped_on - started_on) + 1
     else
-      fail "What ? #{options[:mode].inspect}"
+      raise "What ? #{options[:mode].inspect}"
     end
     days.to_f
   end

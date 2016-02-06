@@ -5,7 +5,7 @@ module Charta
 
     def initialize(ewkt)
       @ewkt = ewkt
-      fail ArgumentError, 'Need EWKT to instantiate Geometry' if @ewkt.blank?
+      raise ArgumentError, 'Need EWKT to instantiate Geometry' if @ewkt.blank?
     end
 
     def inspect

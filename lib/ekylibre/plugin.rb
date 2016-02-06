@@ -146,9 +146,9 @@ module Ekylibre
       if @name
         @name = @name.to_sym
       else
-        fail "Need a name for plugin #{plugfile_path}"
+        raise "Need a name for plugin #{plugfile_path}"
       end
-      fail "Plugin name cannot be #{@name}." if [:ekylibre].include?(@name)
+      raise "Plugin name cannot be #{@name}." if [:ekylibre].include?(@name)
 
       # Adds lib
       @lib_dir = @root.join('lib')
@@ -250,11 +250,11 @@ module Ekylibre
       options = requirements.extract_options!
       requirements.each do |requirement|
         unless requirement =~ /\A((~>|>=|>|<|<=)\s+)?\d.\d(\.[a-z0-9]+)*\z/
-          fail PluginRequirementError, "Invalid version requirement expression: #{requirement}"
+          raise PluginRequirementError, "Invalid version requirement expression: #{requirement}"
         end
       end
       unless Gem::Requirement.new(*requirements) =~ Gem::Version.create(Ekylibre.version)
-        fail PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})"
+        raise PluginRequirementError, "Plugin (#{@name}) is incompatible with current version of app (#{Ekylibre.version} not #{requirements.inspect})"
       end
       true
     end

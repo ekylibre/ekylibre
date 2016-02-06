@@ -73,7 +73,7 @@ class AnimalGroup < ProductGroup
   # Add a member to the group
   def add(member, options = {})
     unless member.is_a?(Animal)
-      fail ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
+      raise ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
     end
     super(member, options)
   end
@@ -81,7 +81,7 @@ class AnimalGroup < ProductGroup
   # Remove a member from the group
   def remove(member, options = {})
     unless member.is_a?(Animal)
-      fail ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
+      raise ArgumentError, "Animal expected, got #{member.class}:#{member.inspect}"
     end
     super(member, options)
   end

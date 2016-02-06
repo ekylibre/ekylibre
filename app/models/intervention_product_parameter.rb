@@ -130,11 +130,11 @@ class InterventionProductParameter < InterventionParameter
   end
 
   def quantity_handler_reference
-    self.reference.handler(self.quantity_handler)
+    reference.handler(quantity_handler)
   end
 
   def measurable?
-    self.quantity_handler? && quantity_handler_reference.indicator?
+    quantity_handler? && quantity_handler_reference.indicator?
   end
 
   [:doer, :input, :output, :target, :tool].each do |role|

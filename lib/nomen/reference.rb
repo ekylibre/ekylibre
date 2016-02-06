@@ -7,7 +7,7 @@ module Nomen
       @type = type
       @property = property
       @foreign_nomenclature = foreign_nomenclature
-      fail "Invalid nomenclature: #{@foreign_nomenclature.inspect}" unless @foreign_nomenclature.is_a?(Nomenclature)
+      raise "Invalid nomenclature: #{@foreign_nomenclature.inspect}" unless @foreign_nomenclature.is_a?(Nomenclature)
     end
 
     def nomenclature

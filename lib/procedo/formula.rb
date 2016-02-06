@@ -4,7 +4,7 @@ module Procedo
       def parse(text, options = {})
         @@parser ||= ::Procedo::Formula::Parser.new
         unless tree = @@parser.parse(text.to_s, options)
-          fail ::Procedo::Formula::SyntaxError, @@parser
+          raise ::Procedo::Formula::SyntaxError, @@parser
         end
         tree
       end

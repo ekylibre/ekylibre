@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
       action = url_options.split('#')
       url_options = { controller: action[0].to_sym, action: action[1].to_sym }
     else
-      fail ArgumentError, 'Invalid URL: ' + url_options.inspect
+      raise ArgumentError, 'Invalid URL: ' + url_options.inspect
     end
     unless url_options[:controller] =~ /\/\w+/
       namespace = controller_path.gsub(/\/\w+$/, '')

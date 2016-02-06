@@ -94,7 +94,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     if item = Nomen::WorkingSet.find(working_set)
       of_expression(item.expression)
     else
-      fail StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature"
+      raise StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature"
     end
   }
 
@@ -154,7 +154,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # Measure a product for a given indicator
   def read!(indicator, value, _options = {})
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     reading = readings.find_or_initialize_by(indicator_name: indicator.name)
     reading.value = value
@@ -165,7 +165,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # Return the reading
   def reading(indicator)
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     readings.find_by(indicator_name: indicator.name)
   end
@@ -173,7 +173,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # Returns the direct value of an indicator of variant
   def get(indicator)
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     if reading = reading(indicator.name)
       return reading.value
@@ -352,10 +352,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
     # Load a product nature variant from product nature variant nomenclature
     def import_from_nomenclature(reference_name, force = false)
       unless item = Nomen::ProductNatureVariant[reference_name]
-        fail ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
+        raise ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
       end
       unless nature_item = Nomen::ProductNature[item.nature]
-        fail ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
+        raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
       end
       unless !force && variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)
         attributes = {
@@ -371,7 +371,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         variant = new(attributes)
         # puts variant.name.inspect.green
         unless variant.save
-          fail "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
+          raise "Cannot import variant #{reference_name.inspect}: #{variant.errors.full_messages.join(', ')}"
         end
 
       end

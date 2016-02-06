@@ -25,7 +25,7 @@ module Ekylibre
       # Returns the current tenant
       def current
         unless name = Apartment::Tenant.current
-          fail TenantError, 'No current tenant'
+          raise TenantError, 'No current tenant'
         end
         name
       end
@@ -40,7 +40,7 @@ module Ekylibre
       def create(name)
         name = name.to_s
         check!(name)
-        fail TenantError, 'Already existing tenant' if exist?(name)
+        raise TenantError, 'Already existing tenant' if exist?(name)
         Apartment::Tenant.create(name)
         add(name)
       end
@@ -62,7 +62,7 @@ module Ekylibre
       # Drop tenant
       def drop(name, options = {})
         name = name.to_s
-        fail TenantError, "Unexistent tenant: #{name}" unless exist?(name)
+        raise TenantError, "Unexistent tenant: #{name}" unless exist?(name)
         Apartment::Tenant.drop(name) if Apartment.connection.schema_exists? name
         FileUtils.rm_rf private_directory(name) unless options[:keep_files]
         @list[env].delete(name)
@@ -78,7 +78,7 @@ module Ekylibre
 
       def rename(old, new)
         check!(old)
-        fail TenantError, "Unexistent tenant: #{name}" unless exist?(old)
+        raise TenantError, "Unexistent tenant: #{name}" unless exist?(old)
         ActiveRecord::Base.connection.execute("ALTER SCHEMA #{old.to_s.inspect} RENAME TO #{new.to_s.inspect};")
         @list[env].delete(old.to_s)
         @list[env] << new.to_s
@@ -152,21 +152,21 @@ module Ekylibre
         end
 
         puts 'Checking archive...'.yellow if verbose
-        fail 'Invalid archive' unless archive_path.join('manifest.yml').exist?
+        raise 'Invalid archive' unless archive_path.join('manifest.yml').exist?
 
         manifest = YAML.load_file(archive_path.join('manifest.yml')).symbolize_keys
         format_version = manifest[:format_version]
         unless format_version == '2.0'
-          fail "Cannot handle this version of archive: #{format_version}"
+          raise "Cannot handle this version of archive: #{format_version}"
         end
 
         unless name = options[:tenant] || manifest[:tenant]
-          fail 'No given name for the tenant'
+          raise 'No given name for the tenant'
         end
 
         database_version = manifest[:database_version].to_i
         if database_version > ActiveRecord::Migrator.last_version
-          fail 'Too recent archive'
+          raise 'Too recent archive'
         end
 
         puts "Resetting tenant #{name}...".yellow if verbose
@@ -192,7 +192,7 @@ module Ekylibre
 
       # Change current tenant
       def switch(name, &block)
-        fail 'Need block to use Ekylibre::Tenant.switch' unless block_given?
+        raise 'Need block to use Ekylibre::Tenant.switch' unless block_given?
         Apartment::Tenant.switch(name, &block)
       end
 
@@ -204,7 +204,7 @@ module Ekylibre
 
       def switch_default!
         if list.empty?
-          fail TenantError, 'No default tenant'
+          raise TenantError, 'No default tenant'
         else
           Apartment::Tenant.switch!(list.first)
         end
@@ -243,7 +243,7 @@ module Ekylibre
       end
 
       def create_aggregation_views_schema!
-        fail 'No tenant to build an aggregation schema' if list.empty?
+        raise 'No tenant to build an aggregation schema' if list.empty?
         name = AGGREGATION_NAME
         connection = ActiveRecord::Base.connection
         connection.execute("CREATE SCHEMA IF NOT EXISTS #{name};")

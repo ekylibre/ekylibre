@@ -6,7 +6,7 @@ module Nomen
 
         def initialize(element)
           @nomenclature = element['nomenclature']
-          fail 'No given nomenclature' if @nomenclature.blank?
+          raise 'No given nomenclature' if @nomenclature.blank?
         end
 
         alias name nomenclature

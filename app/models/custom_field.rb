@@ -91,7 +91,10 @@ class CustomField < Ekylibre::Record::Base
   after_save do
     unless column_exists?
       options = {}
-      options.update(precision: 19, scale: 6) if column_type == :decimal
+      if column_type == :decimal
+        options[:precision] = 19
+        options[:scale] = 6
+      end
       self.class.connection.add_column(customized_table_name, column_name, column_type, options)
       if choice? && !index_exists?
         self.class.connection.add_index(customized_table_name, column_name, name: index_name)

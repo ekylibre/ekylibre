@@ -41,7 +41,7 @@ module Ekylibre
 
       def add_child(node)
         unless node.type == levels.first
-          fail "Invalid node type: #{node.type.inspect}. Expecting #{levels.first.inspect}"
+          raise "Invalid node type: #{node.type.inspect}. Expecting #{levels.first.inspect}"
         end
         @children << node
       end

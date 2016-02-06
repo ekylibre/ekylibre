@@ -120,7 +120,7 @@ module Visualization
             for value in content
               block = {}
               if value.is_a? String
-                block.update(content: value)
+                block[:content] = value
               elsif value.is_a? Hash
                 block.update(value)
               else
@@ -137,13 +137,13 @@ module Visualization
             for attribute, value in content
               block = {}
               if value.is_a? String
-                block.update(content: value)
+                block[:content] = value
               elsif value.is_a? Hash
                 block.update(value)
               elsif value.is_a? TrueClass
-                block.update(value: item[attribute].to_s, label: true)
-              else
-                fail "Not implemented hash block for #{object.class}"
+                  block[:value] = item[attribute].to_s
+  block[:label] = true
+                end
               end
               if block[:label].is_a?(TrueClass)
                 block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])

@@ -66,11 +66,11 @@ class Version < ActiveRecord::Base
   end
 
   before_update do
-    fail StandardError, 'Cannot update a past version'
+    raise StandardError, 'Cannot update a past version'
   end
 
   before_destroy do
-    fail StandardError, 'Cannot destroy a past version'
+    raise StandardError, 'Cannot destroy a past version'
   end
 
   def self.diff(a, b)

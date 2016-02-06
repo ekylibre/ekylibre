@@ -41,7 +41,7 @@ module Backend::KujakuHelper
       class << self
         def inherited(subclass)
           class_name = subclass.name
-          fail 'Invalid feather name' unless class_name =~ /Feather$/
+          raise 'Invalid feather name' unless class_name =~ /Feather$/
           feather_name = class_name.gsub(/Feather$/, '').underscore.split('/').last.to_sym
           Kujaku.send(:define_method, feather_name) do |*args, &block|
             add_feather(subclass.new(self, "#{@uid}:#{@feathers.size}", *args, &block))
@@ -69,7 +69,7 @@ module Backend::KujakuHelper
       end
 
       def to_html
-        fail NotImplementedError
+        raise NotImplementedError
       end
 
       def inspect
@@ -186,7 +186,7 @@ module Backend::KujakuHelper
         elsif @name = args.shift
           @args = args
         else
-          fail ArgumentError, 'block or name is missing for helper feather'
+          raise ArgumentError, 'block or name is missing for helper feather'
         end
       end
 

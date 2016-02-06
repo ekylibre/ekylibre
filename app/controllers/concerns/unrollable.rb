@@ -26,7 +26,7 @@ module Unrollable
       end
 
       if columns.blank?
-        fail "Cannot unroll #{model.name} records. No column available (#{columns.inspect})."
+        raise "Cannot unroll #{model.name} records. No column available (#{columns.inspect})."
       end
 
       # Normalize parameters
@@ -43,12 +43,12 @@ module Unrollable
       fill_in = fill_in.to_sym unless fill_in.nil?
 
       if !fill_in.nil? && !filters.detect { |c| c[:name] == fill_in }
-        fail StandardError, "Label (#{filters.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
+        raise StandardError, "Label (#{filters.inspect}) of unroll must include the primary column: #{fill_in.inspect}"
       end
 
       searchable_filters = filters.select { |c| c[:pattern] && c[:column_type] != :boolean }
       unless searchable_filters.any?
-        fail "No searchable filters for #{controller_path}#unroll.\nFilters: #{filters.inspect}\nColumns: #{columns.inspect}"
+        raise "No searchable filters for #{controller_path}#unroll.\nFilters: #{filters.inspect}\nColumns: #{columns.inspect}"
       end
 
       item_label = "'unrolls.#{controller_path}'.t(" + filters.map do |f|
@@ -157,7 +157,7 @@ module Unrollable
       elsif object.is_a?(Hash)
         object.map do |k, v|
           unless reflection = model.reflect_on_association(k)
-            fail "Cannot find a reflection #{k} for #{model.name}"
+            raise "Cannot find a reflection #{k} for #{model.name}"
           end
           fmodel = reflection.class_name.constantize
           filterify(v, fmodel, parents + [k.to_sym])
@@ -176,7 +176,7 @@ module Unrollable
         }
         return filter if infos.second == '!'
         unless definition = model.columns_definition[infos.first]
-          fail "Cannot find column definition for #{model.table_name}##{infos.first}"
+          raise "Cannot find column definition for #{model.table_name}##{infos.first}"
         end
         filter[:search]  = "#{model.table_name}.#{infos.first}"
         filter[:pattern] = infos.second || '%X%'
@@ -184,7 +184,7 @@ module Unrollable
         filter[:column_type] = definition.type
         return filter
       else
-        fail "What a parameter? #{object.inspect}"
+        raise "What a parameter? #{object.inspect}"
       end
     end
 
@@ -205,7 +205,7 @@ module Unrollable
       elsif object.is_a?(Symbol) || object.is_a?(String)
         return nil
       else
-        fail "What a parameter? #{object.inspect}"
+        raise "What a parameter? #{object.inspect}"
       end
     end
 
@@ -219,7 +219,7 @@ module Unrollable
       elsif object.is_a?(Symbol) || object.is_a?(String)
         return object
       else
-        fail "What a parameter? #{object.inspect}"
+        raise "What a parameter? #{object.inspect}"
       end
     end
 end

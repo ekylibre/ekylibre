@@ -222,17 +222,17 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def started_on_for(campaign)
-    return self.started_on if self.annual?
+    return self.started_on if annual?
     on = Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day)
     on -= 1.year if at_cycle_end?
-    return on
+    on
   end
 
   def stopped_on_for(campaign)
-    return self.stopped_on if self.annual?
+    return stopped_on if annual?
     on = Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day) - 1
     on += 1.year if at_cycle_start?
-    return on
+    on
   end
 
   # Used for find current campaign for given production
@@ -348,10 +348,10 @@ class ActivityProduction < Ekylibre::Record::Base
   def harvest_yield(harvest_variety, options = {})
     size_indicator_name = options[:size_indicator_name] || :net_mass
     ind = Nomen::Indicator.find(size_indicator_name)
-    fail "Invalid indicator: #{size_indicator_name}" unless ind
+    raise "Invalid indicator: #{size_indicator_name}" unless ind
     size_unit_name = options[:size_unit_name] || ind.unit
     unless Nomen::Unit.find(size_unit_name)
-      fail "Invalid indicator unit: #{size_unit_name.inspect}"
+      raise "Invalid indicator unit: #{size_unit_name.inspect}"
     end
     surface_unit_name = options[:surface_unit_name] || :hectare
     procedure_category = options[:procedure_category] || :harvesting
@@ -361,7 +361,7 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     harvest_yield_unit_name = "#{size_unit_name}_per_#{surface_unit_name}".to_sym
     unless Nomen::Unit.find(harvest_yield_unit_name)
-      fail "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
+      raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
     total_quantity = 0.0.in(size_unit_name)
     harvest_interventions = interventions.real.of_category(procedure_category)
@@ -399,7 +399,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # call method in production for instance
   def estimate_yield(options = {})
-    fail 'Not possible anymore'
+    raise 'Not possible anymore'
     production.estimate_yield(options)
   end
 
@@ -459,7 +459,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def get(*args)
     unless support.present?
-      fail StandardError, "No support defined. Got: #{support.inspect}"
+      raise StandardError, "No support defined. Got: #{support.inspect}"
     end
     support.get(*args)
   end

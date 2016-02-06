@@ -33,9 +33,9 @@ module CobblesHelper
 
     def cobble(name, options = {}, &block)
       if @items.detect { |i| i.name.to_s == name.to_s }
-        fail "Already taken. You already use #{name.inspect}"
+        raise "Already taken. You already use #{name.inspect}"
       end
-      fail "Need a block for #{name} in cobbler #{@name}" unless block_given?
+      raise "Need a block for #{name} in cobbler #{@name}" unless block_given?
       @items << Cobble.new(self, name, options, &block)
     end
 

@@ -19,7 +19,7 @@ module ActiveGuide
 
     def subtest(name, *args, &block)
       if @validate_block.present?
-        fail "Validation has been already defined in #{@name}"
+        raise "Validation has been already defined in #{@name}"
       end
       options = args.extract_options!
       test = nil
@@ -28,13 +28,13 @@ module ActiveGuide
       elsif (proc = args.shift) && proc.respond_to?(:call)
         test = Test.new(self, name, options.merge(validate: proc))
       else
-        fail "Cannot do anything with test #{name}"
+        raise "Cannot do anything with test #{name}"
       end
       @subtests << test
     end
 
     def validate(&block)
-      fail "Sub-test has been already defined in #{@name}" if @subtests.any?
+      raise "Sub-test has been already defined in #{@name}" if @subtests.any?
       @validate_block = block
     end
   end

@@ -138,7 +138,7 @@ class Sequence < Ekylibre::Record::Base
     self.last_year = today.year
     self.last_month = today.month
     self.last_cweek = today.cweek
-    fail [updateable?, destroyable?, errors.to_hash].inspect unless save
+    raise [updateable?, destroyable?, errors.to_hash].inspect unless save
     compute
   end
 end

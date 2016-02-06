@@ -37,10 +37,10 @@ module Nomen
           item = nomenclature.find!(item.to_s)
         end
         if item.nomenclature != nomenclature
-          fail 'Item must come from same nomenclature'
+          raise 'Item must come from same nomenclature'
         end
         if item.parents.include?(self) || item == self
-          fail 'Circular dependency. Item can be parent of itself.'
+          raise 'Circular dependency. Item can be parent of itself.'
         end
         @parent = item
         @parent_name = @parent.name.to_s
@@ -252,7 +252,7 @@ module Nomen
           [i.human_name, i.name]
         end
       else
-        fail StandardError, 'Cannot call selection for a non-list property'
+        raise StandardError, 'Cannot call selection for a non-list property'
       end
     end
 
@@ -268,7 +268,7 @@ module Nomen
     end
 
     def set(name, value)
-      fail "Invalid property: #{name.inspect}" if [:name, :parent].include?(name.to_sym)
+      raise "Invalid property: #{name.inspect}" if [:name, :parent].include?(name.to_sym)
       # # TODO: check format
       # if property = nomenclature.properties[name]
       #   value ||= [] if property.list?
@@ -289,7 +289,7 @@ module Nomen
     def item_for_comparison(other)
       item = nomenclature[other.is_a?(Item) ? other.name : other]
       unless item
-        fail StandardError, "Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}"
+        raise StandardError, "Invalid operand to compare: #{other.inspect} not in #{nomenclature.name}"
       end
       item
     end

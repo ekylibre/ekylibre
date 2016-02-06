@@ -20,7 +20,7 @@ module ActiveSensor
     end
 
     def retrieve(*_args)
-      fail :not_implemented
+      raise :not_implemented
     end
   end
 end

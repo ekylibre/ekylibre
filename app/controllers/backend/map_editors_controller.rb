@@ -34,7 +34,7 @@ module Backend
       # DO Nothing
 
       else
-        fail 'Invalid format'
+        raise 'Invalid format'
       end
 
       if ::Charta::GeoJSON.valid?(geometry)

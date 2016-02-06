@@ -40,7 +40,7 @@ module Procedo
       # Returns parameter with its name. Raise exception if parameter not found
       def find!(name)
         parameter = find(name)
-        fail "Cannot find parameter: #{name.inspect}" unless parameter
+        raise "Cannot find parameter: #{name.inspect}" unless parameter
         parameter
       end
 

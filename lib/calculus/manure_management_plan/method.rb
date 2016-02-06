@@ -36,11 +36,11 @@ module Calculus
       end
 
       def estimate_expected_yield
-        fail NotImplemented
+        raise NotImplemented
       end
 
       def compute
-        fail NotImplemented
+        raise NotImplemented
       end
     end
   end

@@ -31,7 +31,7 @@ class FixtureRetriever
     if @model
       "#{@table}(#{normalize(@options[role] || default_value || role).inspect})"
     else
-      fail 'No valid model given, cannot retrieve fixture from that'
+      raise 'No valid model given, cannot retrieve fixture from that'
     end
   end
 
@@ -46,7 +46,7 @@ class FixtureRetriever
         end
       end
       unless name = @@truc[@table][value]
-        fail "Cannot find fixture in #{@table} with id=#{value.inspect}"
+        raise "Cannot find fixture in #{@table} with id=#{value.inspect}"
       end
       return name
     elsif value.is_a?(Symbol)
@@ -60,7 +60,7 @@ class FixtureRetriever
     elsif value.is_a?(CodeString)
       return value
     else
-      fail "What kind of value (#{value.class.name}:#{value.inspect})"
+      raise "What kind of value (#{value.class.name}:#{value.inspect})"
     end
   end
 end
@@ -80,7 +80,7 @@ class ActiveSupport::TestCase
     @@fixtures ||= {}
     @@fixtures[model.table_name] ||= YAML.load_file(Rails.root.join('test', 'fixtures', "#{model.table_name}.yml"))
     unless attrs = @@fixtures[model.table_name][label.to_s]
-      fail "Unknown fixture #{label}"
+      raise "Unknown fixture #{label}"
     end
     attrs['id'].to_i
   end
@@ -150,7 +150,7 @@ class ActionController::TestCase
             file_columns = model.attachment_definitions
           end
         end
-        attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if do|c|
+        attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if do |c|
           [:depth, :lft, :rgt].include?(c)
         end
         attributes += options.delete(:other_attributes) || []
@@ -560,7 +560,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     elsif driver == :selenium
       page.driver.browser.manage.window.resize_to(width, height)
     else
-      fail NotImplemented, "Not implemented for #{driver.inspect}"
+      raise NotImplemented, "Not implemented for #{driver.inspect}"
     end
   end
 

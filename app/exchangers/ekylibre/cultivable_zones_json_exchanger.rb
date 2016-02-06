@@ -18,7 +18,7 @@ class Ekylibre::CultivableZonesJsonExchanger < ActiveExchanger::Base
         CultivableZone.create!(properties.slice('name', 'work_number').merge(shape: shape))
       end
     else
-      fail ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.'
+      raise ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.'
     end
   end
 end

@@ -5,7 +5,7 @@ module Nomen
         attr_reader :nomenclature, :changes
 
         def initialize(element)
-          fail 'No given name' unless element.key?('nomenclature')
+          raise 'No given name' unless element.key?('nomenclature')
           @nomenclature = element['nomenclature'].to_s
           @changes = {}
           @changes[:name] = element['name'].to_s if element.key?('name')

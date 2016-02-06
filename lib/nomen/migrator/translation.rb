@@ -19,7 +19,7 @@ module Nomen
             elsif action.is_a?(Nomen::Migration::Actions::NomenclatureRemoval)
               ref.delete(action.nomenclature.to_sym)
             elsif !action.is_a?(Nomen::Migration::Actions::Base)
-              fail "Cannot handle: #{action.inspect}"
+              raise "Cannot handle: #{action.inspect}"
             end
             File.write(file, Clean::Support.hash_to_yaml(hash))
           end

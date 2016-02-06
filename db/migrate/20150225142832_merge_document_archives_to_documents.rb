@@ -59,7 +59,7 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
           FileUtils.remove_dir(doc_a_path, true)
 
         else
-          fail 'Not a path'
+          raise 'Not a path'
         end
 
         drop_table :document_archives
@@ -126,7 +126,7 @@ class MergeDocumentArchivesToDocuments < ActiveRecord::Migration
           FileUtils.remove_dir(doc_path, true)
 
         else
-          fail 'Not a path'
+          raise 'Not a path'
         end
       end
     end

@@ -34,7 +34,7 @@ module ReadingStorable
 
   def set_datatype
     unless indicator
-      fail "Unknown indicator name in #{self.class.name}##{id}: #{indicator_name.inspect}"
+      raise "Unknown indicator name in #{self.class.name}##{id}: #{indicator_name.inspect}"
     end
     self.indicator_datatype = indicator.datatype
   end
@@ -92,7 +92,7 @@ module ReadingStorable
   module ClassMethods
     def value_column(indicator_name)
       unless indicator = Nomen::Indicator[indicator_name]
-        fail ArgumentError, "Expecting an indicator name. Got #{indicator_name.inspect}."
+        raise ArgumentError, "Expecting an indicator name. Got #{indicator_name.inspect}."
       end
       { measure: :measure_value_value }[indicator.datatype] || "#{indicator.datatype}_value".to_sym
     end

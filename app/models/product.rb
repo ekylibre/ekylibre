@@ -146,7 +146,7 @@ class Product < Ekylibre::Record::Base
   }
   scope :of_working_set, lambda { |working_set|
     item = Nomen::WorkingSet.find(working_set)
-    fail StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature" unless item
+    raise StandardError, "#{working_set.inspect} is not in Nomen::WorkingSet nomenclature" unless item
     of_expression(item.expression)
   }
   scope :of_expression, lambda { |expression|
@@ -283,7 +283,7 @@ class Product < Ekylibre::Record::Base
     # Auto-cast product to best matching class with type column
     def new_with_cast(*attributes, &block)
       if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && type.length > 0 && (klass = type.constantize) != self
-        fail "Can not cast #{name} to #{klass.name}" unless klass <= self
+        raise "Can not cast #{name} to #{klass.name}" unless klass <= self
         return klass.new(*attributes, &block)
       end
       new_without_cast(*attributes, &block)

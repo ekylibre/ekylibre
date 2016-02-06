@@ -77,7 +77,7 @@ module Backend::BeehiveHelper
 
       def initialize(name, options = {})
         unless name.is_a?(Symbol)
-          fail 'Only symbol for cell name. Use :title option to specify title.'
+          raise 'Only symbol for cell name. Use :title option to specify title.'
         end
         @name = name.to_sym
         @options = options
@@ -86,9 +86,9 @@ module Backend::BeehiveHelper
         @content = @options.delete(:content)
         @i18n = @options.delete(:i18n) || @options
         if self.class.controller_types.include?(@type)
-          fail "Local type cannot be: #{@type}. Already taken." if content?
+          raise "Local type cannot be: #{@type}. Already taken." if content?
         elsif !content?
-          fail "Invalid cell. Need content or a valid controller cell name (Not #{@name} alone)"
+          raise "Invalid cell. Need content or a valid controller cell name (Not #{@name} alone)"
         end
       end
 
@@ -120,11 +120,11 @@ module Backend::BeehiveHelper
     def cell(name = :details, options = {}, &block)
       if @current_box
         if block_given?
-          fail StandardError, 'No block accepted for cells'
+          raise StandardError, 'No block accepted for cells'
           # options[:content] = @template.capture(&block)
         end
         if @cells.keys.include? name.to_s
-          fail StandardError, "A cell with a given name (#{name}) has already been given."
+          raise StandardError, "A cell with a given name (#{name}) has already been given."
         end
         c = Cell.new(name, options)
         @cells[name] = c
@@ -186,7 +186,7 @@ module Backend::BeehiveHelper
     protected
 
     def box(&block)
-      fail StandardError, 'Cannot define box in other box' if @current_box
+      raise StandardError, 'Cannot define box in other box' if @current_box
       old_current_box = @current_box
       if block_given?
         @current_box = Box.new

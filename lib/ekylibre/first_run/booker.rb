@@ -46,7 +46,7 @@ module Ekylibre
           variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
           variants.can(options[:can]) if options[:can]
           unless attributes[:variant] = variants.first
-            fail StandardError, "Cannot find product variant with options #{options.inspect}"
+            raise StandardError, "Cannot find product variant with options #{options.inspect}"
           end
           model.create!(attributes)
         end
@@ -75,14 +75,14 @@ module Ekylibre
           # Find procedure
           procedure = Procedo[procedure_name]
           unless procedure
-            fail ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
+            raise ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
           end
 
           # Find actors
           booker = new(procedure, Time.new(year, month, day), duration)
           yield booker
           actors = booker.product_parameters.collect { |c| c[:actor] }.compact
-          fail ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
+          raise ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
 
           # Adds fixed durations to given time
           fixed_duration = procedure.fixed_duration / 3600
@@ -138,7 +138,7 @@ module Ekylibre
           # Find procedure
           procedure = Procedo[procedure_name]
           unless procedure
-            fail ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
+            raise ArgumentError, "Unknown procedure: #{procedure_name.inspect}"
           end
 
           # Adds fixed durations to given time
@@ -149,7 +149,7 @@ module Ekylibre
           booker = new(procedure, started_at, duration)
           yield booker
           actors = booker.product_parameters.collect { |c| c[:actor] }.compact
-          fail ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
+          raise ArgumentError, "What's the fuck ? No actors ? " if actors.empty?
 
           # Find a slot for all actors for given day and given duration
           at = nil
@@ -183,15 +183,15 @@ module Ekylibre
 
       def add_cast(options = {})
         unless procedure.parameter[options[:parameter_name]]
-          fail "Invalid parameter: #{options[:parameter_name]} in procedure #{procedure.name}"
+          raise "Invalid parameter: #{options[:parameter_name]} in procedure #{procedure.name}"
         end
         @product_parameters << options
       end
 
       # Find a valid actor in the given period
       def find(model, options = {})
-        options.update(started_at: @started_at)
-        options.update(stopped_at: @started_at)
+        options[:started_at] = @started_at
+        options[:stopped_at] = @started_at
         self.class.find(model, options)
       end
     end

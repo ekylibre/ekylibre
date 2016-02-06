@@ -7,7 +7,7 @@ module Procedo
       def initialize(parameter, name, options = {})
         super(parameter, name, options)
         unless TYPES.include?(@name)
-          fail "Unknown attribute type for #{procedure_name}/#{parameter_name}: " + @name.inspect
+          raise "Unknown attribute type for #{procedure_name}/#{parameter_name}: " + @name.inspect
         end
       end
     end

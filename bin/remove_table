@@ -22,7 +22,7 @@ unless $PROGRAM_NAME =~ /^(.\/)?bin\//
   exit 0
 end
 
-fail 'No table given' if table.blank?
+raise 'No table given' if table.blank?
 
 root = Pathname.new('.')
 

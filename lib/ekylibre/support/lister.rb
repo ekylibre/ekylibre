@@ -12,7 +12,7 @@ module Ekylibre
       def initialize(*types)
         @list = []
         types.each do |type|
-          fail 'Cannot use "list" as type name' if type.to_s == 'list'
+          raise 'Cannot use "list" as type name' if type.to_s == 'list'
           define_singleton_method type do |*args, &block|
             @list << Item.new(type.to_sym, args, block)
           end

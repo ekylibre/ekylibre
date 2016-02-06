@@ -84,7 +84,7 @@ module ChartsHelper
   # Values are represented relatively to all
   #   engine:     Engine for rendering. c3 by default.
   def distribution_chart(_options = {})
-    fail NotImplemented
+    raise NotImplemented
   end
 
   # Permits to draw a nonlinear chart (line, spline)
@@ -137,6 +137,6 @@ module ChartsHelper
   # Values are represented relatively to all
   #   engine:     Engine for rendering. c3 by default.
   def tree_distribution_chart(_options = {})
-    fail NotImplemented
+    raise NotImplemented
   end
 end

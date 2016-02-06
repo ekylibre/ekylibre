@@ -6,7 +6,7 @@ module Nomen
 
         def initialize(element)
           @nomenclature = element.key?('nomenclature') ? element['nomenclature'].to_s : element.key?('name') ? element['name'].to_s : nil
-          fail 'No given name' unless @nomenclature
+          raise 'No given name' unless @nomenclature
           @options = {}
           notions = element.attr('notions').to_s.split(/\s*\,\s*/).map(&:to_sym)
           @options[:notions] = notions if notions.any?

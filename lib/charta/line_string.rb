@@ -7,7 +7,7 @@ module Charta
       elsif block.arity == 2
         points.each_with_index(&block)
       else
-        fail 'Cannot browse each point without parameter'
+        raise 'Cannot browse each point without parameter'
       end
     end
 

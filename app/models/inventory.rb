@@ -72,7 +72,7 @@ class Inventory < Ekylibre::Record::Base
 
   # Apply deltas on products
   def reflect
-    fail StandardError, 'Not reflectable inventory' unless reflectable?
+    raise StandardError, 'Not reflectable inventory' unless reflectable?
     self.class.transaction do
       self.reflected_at = Time.zone.now
       self.reflected = true
@@ -92,7 +92,7 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def refresh!
-    fail StandardError, 'Cannot refresh uneditable inventory' unless editable?
+    raise StandardError, 'Cannot refresh uneditable inventory' unless editable?
     items.clear
     build_missing_items
     save!

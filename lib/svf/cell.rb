@@ -30,7 +30,7 @@ module SVF
         definition[:length] = 8
       end
       @length = definition.delete(:length)
-      fail definition.inspect if @length.nil?
+      raise definition.inspect if @length.nil?
       @format = definition.delete(:format)
       @options = definition.delete(:options) || {}
       @default = definition.delete(:default)

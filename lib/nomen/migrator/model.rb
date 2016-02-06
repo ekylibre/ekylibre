@@ -20,7 +20,7 @@ module Nomen
             end
             dn << "# Reverse: #{action.human_name}"
           elsif !action.is_a?(Nomen::Migration::Actions::Base)
-            fail "Cannot handle: #{action.inspect}"
+            raise "Cannot handle: #{action.inspect}"
           end
         end
         name = migration.name.gsub(/\s+/, '_').classify

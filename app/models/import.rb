@@ -91,12 +91,12 @@ class Import < Ekylibre::Record::Base
     Ekylibre::Record::Base.transaction do
       ActiveExchanger::Base.import(nature.to_sym, archive.path) do |progression, count|
         update_columns(progression_percentage: progression)
-        fail InterruptRequest unless File.exist? progress_file
+        raise InterruptRequest unless File.exist? progress_file
         File.write(progress_file, progression.to_i.to_s)
         break if block_given? && !yield(progression, count)
       end
     end
-    fail InterruptRequest unless File.exist? progress_file
+    raise InterruptRequest unless File.exist? progress_file
     update_columns(state: :finished, progression_percentage: 100, imported_at: Time.zone.now, importer_id: (User.stamper.is_a?(User) ? User.stamper.id : User.stamper.is_a?(Fixnum) ? User.stamper : nil))
   end
 

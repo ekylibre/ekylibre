@@ -9,7 +9,7 @@ module Nomen
           @name = name.second
           @type = element['type'].to_sym
           unless Nomen::PROPERTY_TYPES.include?(@type)
-            fail ArgumentError, "Property #{name} type is unknown: #{@type.inspect}"
+            raise ArgumentError, "Property #{name} type is unknown: #{@type.inspect}"
           end
           @options = {}
           if element.has_attribute?('fallbacks')

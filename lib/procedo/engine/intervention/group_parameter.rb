@@ -83,7 +83,7 @@ module Procedo
           elsif steps.size >= 2
             @members[steps[0]][steps[1]].impact_with(steps[2..-1])
           else
-            fail 'Invalid steps: ' + steps.inspect
+            raise 'Invalid steps: ' + steps.inspect
           end
         end
 
@@ -91,7 +91,7 @@ module Procedo
 
         def add_parameter(parameter)
           unless parameter.is_a?(Procedo::Engine::Intervention::Parameter)
-            fail "Invalid parameter: #{parameter.inspect}"
+            raise "Invalid parameter: #{parameter.inspect}"
           end
           @members[parameter.reference_reflection_name] ||= {}.with_indifferent_access
           @members[parameter.reference_reflection_name][parameter.id] = parameter

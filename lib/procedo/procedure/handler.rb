@@ -16,7 +16,7 @@ module Procedo
         @trees = {}.with_indifferent_access
         options[:type] ||= :population if @name == :population
         @type = options[:type] || :indicator
-        fail 'Invalid type: ' + @type.inspect unless TYPES.include?(@type)
+        raise 'Invalid type: ' + @type.inspect unless TYPES.include?(@type)
         if indicator?
           self.indicator_name = options[:indicator] || @name
           self.unit_name = options[:unit] if measure?
@@ -36,7 +36,7 @@ module Procedo
       def indicator=(value)
         @indicator = value
         unless @indicator.respond_to?(:nomenclature) && @indicator.nomenclature.name == :indicators
-          fail Procedo::Errors::InvalidHandler, "Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}"
+          raise Procedo::Errors::InvalidHandler, "Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}"
         end
         self.unit_name = indicator.unit if measure?
       end
@@ -48,15 +48,15 @@ module Procedo
 
       # Sets the indicator name
       def unit_name=(value)
-        fail 'Cant assign unit without indicator' unless indicator
-        fail 'Cant assign unit with indicator which is not a measure' unless measure?
+        raise 'Cant assign unit without indicator' unless indicator
+        raise 'Cant assign unit with indicator which is not a measure' unless measure?
         unit = Nomen::Unit.find(value)
         unless unit
-          fail Procedo::Errors::InvalidHandler, "Cannot find unit. Got: #{value.inspect}"
+          raise Procedo::Errors::InvalidHandler, "Cannot find unit. Got: #{value.inspect}"
         end
         indicator_dimension = Nomen::Unit.find(indicator.unit).dimension
         unless unit.dimension == indicator_dimension
-          fail "Dimension of unit (#{unit.dimension.inspect}) must be identical to indicator's (#{indicator_dimension.inspect}) in #{parameter_name}##{@name} of #{procedure_name}"
+          raise "Dimension of unit (#{unit.dimension.inspect}) must be identical to indicator's (#{indicator_dimension.inspect}) in #{parameter_name}##{@name} of #{procedure_name}"
         end
         @unit = unit
       end
@@ -118,7 +118,7 @@ module Procedo
         elsif name == :condition
           @condition_tree
         else
-          fail 'Unknown tree: ' + name.inspect
+          raise 'Unknown tree: ' + name.inspect
         end
       end
 

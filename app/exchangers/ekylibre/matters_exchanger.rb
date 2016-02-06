@@ -82,7 +82,7 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
           if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
           else
-            fail "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
+            raise "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           end
         end
         pmodel = variant.nature.matching_model

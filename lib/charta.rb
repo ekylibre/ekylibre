@@ -43,7 +43,7 @@ module Charta
         geom_ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates.as_text}', #{coordinates.srid}))")
       end
       if geom_ewkt.blank?
-        fail ArgumentError, "Invalid data: coordinates=#{coordinates.inspect}, srid=#{srid.inspect}"
+        raise ArgumentError, "Invalid data: coordinates=#{coordinates.inspect}, srid=#{srid.inspect}"
       end
       type = select_value("SELECT GeometryType(ST_GeomFromEWKT('#{geom_ewkt}'))").to_s.strip
       geom = case type
@@ -112,7 +112,7 @@ module Charta
 
     def from(format, data)
       unless respond_to?("from_#{format}")
-        fail "Unknown format: #{format.inspect}"
+        raise "Unknown format: #{format.inspect}"
       end
       send("from_#{format}", data)
     end

@@ -62,7 +62,7 @@ module Backend
             file = details['file']
             File.open(file, 'rb:UTF-8') do |f|
               data = f.read
-              details.update(count: data.scan(reg).size)
+              details[:count] = data.scan(reg).size
             end
             details[:count].zero?
           end

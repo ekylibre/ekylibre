@@ -151,7 +151,7 @@ module Ekylibre
           [:company_id, :creator_id, :updater_id, :id, :lock_version].include? c
         end
         keys.each do |key|
-          fail "Invalid key for record identification: #{key}" unless columns.include? key
+          raise "Invalid key for record identification: #{key}" unless columns.include? key
         end
         renamings = columns.keys.inject({}) do |h, k|
           h[k] = { comment: :description, department_id: :team_id }[k] || k
@@ -160,7 +160,7 @@ module Ekylibre
         converters = options.delete(:converters) || {}
         default_values = options[:default_values] || {}
         options[:rename].each do |old_column, new_column|
-          fail "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
+          raise "What is #{old_column}? #{columns.keys.sort.to_sentence} only are accepted." unless columns.keys.include?(old_column)
           renamings[old_column] = new_column
         end if options[:rename]
         model = options[:model] || backup_model
@@ -221,7 +221,7 @@ module Ekylibre
 
       # Check database
       database = dir.join('backup.xml')
-      fail NotWellFormedFileError unless database.exist?
+      raise NotWellFormedFileError unless database.exist?
 
       w.check_point
 
@@ -236,7 +236,7 @@ module Ekylibre
 
       root = doc.root
       unless root.attr(:version).to_s == '20120806083148' # Ekylibre v0.4
-        fail NotSupportedFormatError
+        raise NotSupportedFormatError
       end
       data = Backup.load(root.children.first)
 

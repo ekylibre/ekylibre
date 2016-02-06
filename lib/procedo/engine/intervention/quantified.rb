@@ -27,7 +27,7 @@ module Procedo
         # remains equal.
         def quantity_handler=(handler)
           rh = reference.handler(handler)
-          fail 'Invalid handler: ' + handler.inspect unless rh
+          raise 'Invalid handler: ' + handler.inspect unless rh
           unless usable_handler?(rh)
             # fail 'Unusable handler: ' + rh.name.inspect
             rh = reference.handlers.detect { |h| usable_handler?(h) }

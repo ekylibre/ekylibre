@@ -34,7 +34,7 @@ module Procedo
     # Adds category to procedure
     def add_category(name)
       category = Nomen::ProcedureCategory.find(name)
-      fail "Invalid category: #{name.inspect}" unless category
+      raise "Invalid category: #{name.inspect}" unless category
       @categories << category unless @categories.include?(category)
     end
 
@@ -51,7 +51,7 @@ module Procedo
     # Adds action to procedure
     def add_action(name, optional = false)
       action = Nomen::ProcedureAction.find(name)
-      fail "Invalid action: #{name.inspect}" unless action
+      raise "Invalid action: #{name.inspect}" unless action
       actions = optional ? @optional_actions : @mandatory_actions
       actions << action unless actions.include?(action)
     end
@@ -81,13 +81,13 @@ module Procedo
       # Check ungiven roles
       remaining_roles = roles - given_roles.uniq
       if remaining_roles.any?
-        fail Procedo::Errors::MissingRole, "Remaining roles of procedure #{name} are not given: #{remaining_roles.join(', ')}"
+        raise Procedo::Errors::MissingRole, "Remaining roles of procedure #{name} are not given: #{remaining_roles.join(', ')}"
       end
 
       # Check producers
       new_parameters.each do |parameter|
         unless parameter.producer.is_a?(Parameter)
-          fail Procedo::Errors::UnknownAspect, "Unknown parameter producer for #{parameter.name}"
+          raise Procedo::Errors::UnknownAspect, "Unknown parameter producer for #{parameter.name}"
         end
       end
     end

@@ -86,7 +86,7 @@ class CustomFieldTest < ActiveSupport::TestCase
             choice = field.choices.sample
             record.send(method_name, choice.value)
           else
-            fail "Unknown custom field datatype: #{field.nature.inspect}"
+            raise "Unknown custom field datatype: #{field.nature.inspect}"
           end
 
           record.save!
@@ -99,7 +99,7 @@ class CustomFieldTest < ActiveSupport::TestCase
           elsif field.choice?
             assert_equal choice.value, value, "Selected choice in custom field #{field.column_name} differs from expected"
           else
-            fail "Unknown custom field datatype: #{field.nature.inspect}"
+            raise "Unknown custom field datatype: #{field.nature.inspect}"
           end
 
           column_name = field.column_name

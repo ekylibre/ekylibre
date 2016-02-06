@@ -157,7 +157,7 @@ module Backend
     def invoice
       return unless @purchase = find_and_check
       ActiveRecord::Base.transaction do
-        fail ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_at])
+        raise ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_at])
       end
       redirect_to action: :show, id: @purchase.id
     end
@@ -171,10 +171,10 @@ module Backend
     def propose_and_invoice
       return unless @purchase = find_and_check
       ActiveRecord::Base.transaction do
-        fail ActiveRecord::Rollback unless @purchase.propose
-        fail ActiveRecord::Rollback unless @purchase.confirm
+        raise ActiveRecord::Rollback unless @purchase.propose
+        raise ActiveRecord::Rollback unless @purchase.confirm
         # raise ActiveRecord::Rollback unless @purchase.deliver
-        fail ActiveRecord::Rollback unless @purchase.invoice
+        raise ActiveRecord::Rollback unless @purchase.invoice
       end
       redirect_to action: :show, id: @purchase.id
     end

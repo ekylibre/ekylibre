@@ -9,7 +9,7 @@ module SVF
       for cell in cells
         for name, definition in cell
           unless c = Cell.new(name, definition, @key.length + @cells.inject(0) { |s, c| s += c.length })
-            fail "Element #{@name} has an cell #{name} with no definition"
+            raise "Element #{@name} has an cell #{name} with no definition"
           end
           @cells << c
         end

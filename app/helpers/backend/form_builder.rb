@@ -38,7 +38,7 @@ module Backend
     def nested_association(association, *args)
       options = args.extract_options!
       reflection = find_association_reflection(association)
-      fail "Association #{association.inspect} not found" unless reflection
+      raise "Association #{association.inspect} not found" unless reflection
       if block_given?
         ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead."
       end
@@ -110,7 +110,7 @@ module Backend
     def variant_quantifier_of_field(association, *args)
       options = args.extract_options!
       unless reflection = find_association_reflection(association)
-        fail "Association #{association.inspect} not found"
+        raise "Association #{association.inspect} not found"
       end
       indicator_column = options[:indicator_column] || "#{association}_indicator"
       unit_column = options[:unit_column] || "#{association}_unit"
@@ -176,7 +176,7 @@ module Backend
           selection = Nomen[options[:of]].selection
         end
       else
-        fail 'Need selection'
+        raise 'Need selection'
       end
       list = @object.send(attribute_name) || []
       input(attribute_name, options) do
@@ -208,7 +208,7 @@ module Backend
                 elsif parameter == :issue_nature
                   data_lists[parameter] ||= Nomen::IssueNature.selection
                 else
-                  fail "Unknown parameter type for an ability: #{parameter.inspect}"
+                  raise "Unknown parameter type for an ability: #{parameter.inspect}"
                 end
               end
               attrs[:data] = { ability_parameters: a.parameters.join(', ') }
@@ -286,7 +286,7 @@ module Backend
     end
 
     def shape_field(attribute_name = :shape, options = {})
-      fail @object.send(attribute_name)
+      raise @object.send(attribute_name)
       geometry = Charta.new_geometry(@object.send(attribute_name) || Charta.empty_geometry)
       # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_json_object}}))
       input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
@@ -593,9 +593,9 @@ module Backend
     # Compute all needed options for referenced_association
     def referenced_association_input_options(association, options = {})
       reflection = find_association_reflection(association)
-      fail "Association #{association.inspect} not found" unless reflection
+      raise "Association #{association.inspect} not found" unless reflection
       if reflection.macro != :belongs_to
-        fail ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
+        raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
       end
 
       choices = options.delete(:source) || {}

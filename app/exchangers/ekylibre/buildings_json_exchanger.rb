@@ -28,7 +28,7 @@ class Ekylibre::BuildingsJsonExchanger < ActiveExchanger::Base
         end
       end
     else
-      fail ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.'
+      raise ActiveExchanger::NotWellFormedFileError, 'File seems to be JSON but not GeoJSON.'
     end
   end
 end

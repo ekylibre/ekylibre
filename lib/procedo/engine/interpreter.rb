@@ -51,7 +51,7 @@ module Procedo
           when '==' then run(node.head) == run(node.operand)
           when '!=' then run(node.head) != run(node.operand)
           else
-            fail 'Invalid operator: ' + node.operator.text_value
+            raise 'Invalid operator: ' + node.operator.text_value
           end
         elsif node.is_a?(Procedo::Formula::Language::NegativeTest)
           !run(node.negated_test)
@@ -98,11 +98,11 @@ module Procedo
           unit = nil
           if node.options && node.options.respond_to?(:unit)
             unless unit = Nomen::Unit[node.options.unit.text_value]
-              fail "Valid unit expected in #{node.inspect}"
+              raise "Valid unit expected in #{node.inspect}"
             end
           end
           unless indicator = Nomen::Indicator[node.indicator.text_value]
-            fail 'Invalid indicator: ' + node.indicator.text_value.inspect
+            raise 'Invalid indicator: ' + node.indicator.text_value.inspect
           end
           product = run(node.object)
           Rails.logger.warn 'Invalid product. Got: ' + product.inspect + ' ' + node.text_value unless product.is_a?(Product)
@@ -115,7 +115,7 @@ module Procedo
         elsif node.nil?
           null
         else
-          fail 'Dont known how to manage node: ' + node.class.name
+          raise 'Dont known how to manage node: ' + node.class.name
         end
       end
     end

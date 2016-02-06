@@ -5,7 +5,7 @@ module Procedo
       def initialize(parameter, name, options = {})
         super(parameter, name, options)
         unless Nomen::Indicator.find(@name)
-          fail "Unknown reading type for #{procedure_name}/#{parameter_name}: " + @name.inspect
+          raise "Unknown reading type for #{procedure_name}/#{parameter_name}: " + @name.inspect
         end
       end
     end

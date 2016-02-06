@@ -204,7 +204,7 @@ class Entity < Ekylibre::Record::Base
     # Auto-cast entity to best matching class with type column
     def new_with_cast(*attributes, &block)
       if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && type.length > 0 && (klass = type.constantize) != self
-        fail "Can not cast #{name} to #{klass.name}" unless klass <= self
+        raise "Can not cast #{name} to #{klass.name}" unless klass <= self
         return klass.new(*attributes, &block)
       end
       new_without_cast(*attributes, &block)
@@ -259,7 +259,7 @@ class Entity < Ekylibre::Record::Base
     nature = nature.to_sym
     nature = conversions[nature] || nature
     unless natures.include?(nature)
-      fail ArgumentError, "Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)"
+      raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)"
     end
     valid_account = send("#{nature}_account")
     if valid_account.nil?
@@ -330,7 +330,7 @@ class Entity < Ekylibre::Record::Base
   # Merge given entity into record. Alls related records of given entity will point on
   # self.
   def merge_with(entity, author = nil)
-    fail StandardError.new('Company entity is not mergeable') if entity.of_company?
+    raise StandardError.new('Company entity is not mergeable') if entity.of_company?
     Ekylibre::Record::Base.transaction do
       # EntityAddress
       threads = EntityAddress.unscoped.where(entity_id: id).pluck(:thread).uniq

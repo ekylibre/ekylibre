@@ -27,13 +27,13 @@ module ActiveGuide
       elsif (proc = args.shift) && proc.respond_to?(:call)
         add_item Test.new(self, name, options.merge(validate: proc))
       else
-        fail "Cannot do anything with test #{name}"
+        raise "Cannot do anything with test #{name}"
       end
     end
 
     def add_item(item)
       unless item.is_a?(ActiveGuide::Item) || item.is_a?(ActiveGuide::Result)
-        fail "Invalid item. Got #{item.inspect}:#{item.class.name}"
+        raise "Invalid item. Got #{item.inspect}:#{item.class.name}"
       end
       @items << item
     end

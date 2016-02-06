@@ -20,7 +20,7 @@ unless $PROGRAM_NAME =~ /^(.\/)?bin\//
   exit 0
 end
 
-fail 'Not cell given' if cell.blank?
+raise 'Not cell given' if cell.blank?
 
 root = Pathname.new('.')
 

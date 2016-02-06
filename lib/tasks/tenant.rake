@@ -34,7 +34,7 @@ namespace :tenant do
   desc 'Create a tenant with alone admin user (with TENANT, EMAIL, PASSWORD variable)'
   task init: :environment do
     tenant = ENV['TENANT']
-    fail 'Need TENANT variable' unless tenant
+    raise 'Need TENANT variable' unless tenant
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
       email = ENV['EMAIL'] || 'admin@ekylibre.org'
@@ -76,7 +76,7 @@ namespace :tenant do
   task dump: :environment do
     archive = ENV['ARCHIVE'] || ENV['archive']
     tenant = ENV['TENANT'] || ENV['name']
-    fail 'Need TENANT env variable to dump' unless tenant
+    raise 'Need TENANT env variable to dump' unless tenant
     options = {}
     options[:path] = Pathname.new(archive) if archive
     Ekylibre::Tenant.dump(tenant, options)
@@ -90,7 +90,7 @@ namespace :tenant do
       archive ||= Rails.root.join('tmp', 'archives', "#{tenant}.zip")
       options[:tenant] = tenant
     end
-    fail 'Need ARCHIVE env variable to find archive' unless archive
+    raise 'Need ARCHIVE env variable to find archive' unless archive
     Ekylibre::Tenant.restore(archive, options)
   end
 

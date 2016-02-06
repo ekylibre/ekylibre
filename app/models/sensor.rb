@@ -71,7 +71,7 @@ class Sensor < Ekylibre::Record::Base
 
   # Read sensor indicator and write an analysis
   def retrieve(options = {})
-    fail "Unknown equipment: vendor=#{vendor_euid}, model=#{model_euid}" unless equipment
+    raise "Unknown equipment: vendor=#{vendor_euid}, model=#{model_euid}" unless equipment
 
     connection = equipment.connect(access_parameters)
 

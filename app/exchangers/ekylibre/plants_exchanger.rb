@@ -24,7 +24,7 @@ class Ekylibre::PlantsExchanger < ActiveExchanger::Base
       end
       # find the container
       unless container = Product.find_by_work_number(r.container_number)
-        fail 'No container for cultivation!'
+        raise 'No container for cultivation!'
       end
 
       # create the plant

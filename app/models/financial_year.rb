@@ -175,7 +175,7 @@ class FinancialYear < Ekylibre::Record::Base
     ActiveRecord::Base.transaction do
       # Close all journals to the
       for journal in Journal.where('closed_on < ?', to_close_on)
-        fail "Journal #{journal.name} cannot be closed on #{to_close_on}" unless journal.close!(to_close_on)
+        raise "Journal #{journal.name} cannot be closed on #{to_close_on}" unless journal.close!(to_close_on)
       end
 
       # Close year

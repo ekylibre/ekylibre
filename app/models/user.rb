@@ -209,7 +209,7 @@ class User < Ekylibre::Record::Base
     return true if administrator?
     if url.is_a?(Hash)
       unless url[:controller] && url[:action]
-        fail "Invalid URL for accessibility test: #{url.inspect}"
+        raise "Invalid URL for accessibility test: #{url.inspect}"
       end
       key = "#{url[:controller].to_s.gsub(/^\//, '')}##{url[:action]}"
     else

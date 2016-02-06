@@ -9,15 +9,15 @@ module Aggeratio
 
     class << self
       def parameters
-        fail NotImplementedError
+        raise NotImplementedError
       end
 
       def aggregator_name
-        fail NotImplementedError
+        raise NotImplementedError
       end
 
       def category
-        fail NotImplementedError
+        raise NotImplementedError
       end
 
       def human_name
@@ -27,15 +27,15 @@ module Aggeratio
     end
 
     def to_xml(*_args)
-      fail NotImplementedError
+      raise NotImplementedError
     end
 
     def to_document_fragment(*_args)
-      fail NotImplementedError
+      raise NotImplementedError
     end
 
     def to_json(*_args)
-      fail NotImplementedError
+      raise NotImplementedError
     end
 
     def key

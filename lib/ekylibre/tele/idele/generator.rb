@@ -127,7 +127,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele codeTypeRacial.csv is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele codeTypeRacial.csv is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -261,7 +261,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele IPBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele IPBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -410,7 +410,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele IPBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele IPBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -541,7 +541,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele CauseEntree.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele CauseEntree.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -683,7 +683,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele CauseSortie.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele CauseSortie.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -815,7 +815,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -948,7 +948,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -1085,7 +1085,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -1216,7 +1216,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -1353,7 +1353,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
 
@@ -1485,7 +1485,7 @@ module Ekylibre
             print 'If exception is found, thanks to fill exception files before reloading that script'
 
           else
-            fail "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
+            raise "Idele IpBNotif_v1.xsd is missing for transcoding table #{transcoding_filename} generation"
           end
         end
       end

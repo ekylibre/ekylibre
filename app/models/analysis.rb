@@ -83,9 +83,9 @@ class Analysis < Ekylibre::Record::Base
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
-    fail ArgumentError, 'Value must be given' if value.nil?
+    raise ArgumentError, 'Value must be given' if value.nil?
     options[:indicator_name] = indicator.name
     unless item = items.find_by(indicator_name: indicator.name)
       item = items.build(indicator_name: indicator.name)
@@ -97,7 +97,7 @@ class Analysis < Ekylibre::Record::Base
 
   def get(indicator, *args)
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      fail ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     options = args.extract_options!
     items = self.items.where(indicator_name: indicator.name.to_s)

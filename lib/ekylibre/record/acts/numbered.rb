@@ -26,7 +26,7 @@ module Ekylibre::Record
 
           usage = options[:usage] || class_name.tableize
           unless Sequence.usage.values.include?(usage)
-            fail "Usage #{usage} must be defined in Sequence usages"
+            raise "Usage #{usage} must be defined in Sequence usages"
           end
 
           last  = "#{class_name}.where('#{column} IS NOT NULL').reorder('LENGTH(#{column}) DESC, #{column} DESC').first"

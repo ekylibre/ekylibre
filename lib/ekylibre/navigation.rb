@@ -42,7 +42,7 @@ module Ekylibre
       # Returns the path (part, group, item) from an action
       def reverse!(controller, action)
         unless path = reverse(controller, action)
-          fail ReverseImpossible, "Cannot reverse action #{controller}##{action}"
+          raise ReverseImpossible, "Cannot reverse action #{controller}##{action}"
         end
         path
       end

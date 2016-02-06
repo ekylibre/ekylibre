@@ -10,7 +10,7 @@ module ToolbarHelper
     end
 
     def group(options = {}, &_block)
-      fail 'Nested group are forbidden' unless @group.nil?
+      raise 'Nested group are forbidden' unless @group.nil?
       options[:class] = options[:class].to_s + ' btn-group'
       @template.content_tag(:div, options) do
         yield(self)
@@ -90,7 +90,7 @@ module ToolbarHelper
     end
 
     def method_missing(method_name, *args)
-      fail ArgumentError, 'Block can not be accepted' if block_given?
+      raise ArgumentError, 'Block can not be accepted' if block_given?
       options = args.extract_options!
       name = method_name.to_s.gsub(/\_+$/, '').to_sym
       record = args.shift

@@ -155,7 +155,7 @@ module Backend::TimelineHelper
 
     def side(name, options = {})
       unless reflection = @model.reflect_on_association(name)
-        fail ArgumentError, "Invalid reflection #{name.inspect} for #{@model.name}"
+        raise ArgumentError, "Invalid reflection #{name.inspect} for #{@model.name}"
       end
       klass = reflection.class_name.constantize
       available_methods = klass.columns_hash.keys.map(&:to_sym)

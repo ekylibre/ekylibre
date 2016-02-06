@@ -16,7 +16,7 @@ class Ekylibre::CultivableZonesExchanger < ActiveExchanger::Base
       }.to_struct
 
       georeading = Georeading.find_by(number: r.georeading_number)
-      fail "Cannot find georeading: #{r.georeading_number}" unless georeading
+      raise "Cannot find georeading: #{r.georeading_number}" unless georeading
       zone = CultivableZone.find_or_initialize_by(work_number: r.code)
       zone.name = r.name
       zone.shape = georeading.content

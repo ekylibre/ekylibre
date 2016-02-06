@@ -125,7 +125,7 @@ module Ekylibre
               family = Nomen::ActivityFamily.find(:animal_farming)
               unless family
                 w.error 'Cannot determine activity'
-                fail ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
+                raise ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
               end
               activity = Activity.create!(
                 name: r.activity_name,

@@ -331,7 +331,7 @@ class Sale < Ekylibre::Record::Base
 
   # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions
   def duplicate(attributes = {})
-    fail StandardError, 'Uncancelable sale' unless duplicatable?
+    raise StandardError, 'Uncancelable sale' unless duplicatable?
     hash = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description, :currency].inject({}) do |h, field|
       h[field] = send(field)
       h

@@ -47,7 +47,7 @@ module ActiveGuide
       elsif item.is_a? ActiveGuide::Result
         return analyze_result(item, env)
       else
-        fail "Unknown item type: #{item.class.name}"
+        raise "Unknown item type: #{item.class.name}"
       end
     end
 

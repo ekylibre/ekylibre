@@ -159,7 +159,7 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
             if item
               p.update_column(:support_variant_id, ProductNatureVariant.import_from_nomenclature(item.name).id)
             else
-              fail "What #{support_variety}"
+              raise "What #{support_variety}"
             end
           end
           quantifiers = p.support_variant.quantifiers
@@ -184,7 +184,7 @@ class AddQuantifierForProductionSupports < ActiveRecord::Migration
             if item
               p.update_column(:cultivation_variant_id, ProductNatureVariant.import_from_nomenclature(item.name).id)
             else
-              fail "What #{cultivation_variety}"
+              raise "What #{cultivation_variety}"
             end
           end
         end

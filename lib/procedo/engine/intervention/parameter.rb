@@ -16,7 +16,7 @@ module Procedo
             @group = group
             @intervention = @group.intervention
           else
-            fail "Invalid group: #{group.inspect}"
+            raise "Invalid group: #{group.inspect}"
           end
           @attributes = attributes.symbolize_keys
           @id = id.to_s
@@ -40,7 +40,7 @@ module Procedo
         end
 
         def impact_with(_steps)
-          fail NotImplementedError
+          raise NotImplementedError
         end
 
         def impact(field)

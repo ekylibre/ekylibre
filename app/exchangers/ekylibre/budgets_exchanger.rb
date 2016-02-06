@@ -57,7 +57,7 @@ module Ekylibre
                    end
           unless family
             w.error 'Cannot determine activity'
-            fail ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
+            raise ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"
           end
           activity = Activity.new(
             name: activity_name[0].strip,
@@ -186,7 +186,7 @@ module Ekylibre
             if u = Nomen::Unit.find_by(symbol: unit)
               unit = u.name.to_s
             else
-              fail ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
+              raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
             end
           end
           unless indicator = (unit.blank? ? :population : r.item_quantity_unity.second)
@@ -199,13 +199,13 @@ module Ekylibre
               if indics.include?(default_indicators[dimension].to_s)
                 indicator = default_indicators[dimension]
               else
-                fail ActiveExchanger::NotWellFormedFileError, "Ambiguity on unit #{unit.inspect} for variant #{item_variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'."
+                raise ActiveExchanger::NotWellFormedFileError, "Ambiguity on unit #{unit.inspect} for variant #{item_variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'."
               end
             elsif indics.empty?
               if unit == 'hour'
                 indicator = 'working_duration'
               else
-                fail ActiveExchanger::NotWellFormedFileError, "Unit #{unit.inspect} is invalid for variant #{item_variant.name.inspect}. No indicator can be used with this unit."
+                raise ActiveExchanger::NotWellFormedFileError, "Unit #{unit.inspect} is invalid for variant #{item_variant.name.inspect}. No indicator can be used with this unit."
               end
             else
               indicator = indics.first

@@ -11,7 +11,7 @@ module Ekylibre
         manifest = YAML.load_file(@path.join('manifest.yml')).deep_symbolize_keys
         @version = manifest[:version]
         unless @version == VERSION
-          fail "Incompatible first-run folder: #{@version.inspect}." \
+          raise "Incompatible first-run folder: #{@version.inspect}." \
                "Need v#{VERSION} first-run API."
         end
         @company = manifest[:company] || {}
@@ -43,7 +43,7 @@ module Ekylibre
           if Preference.reference[key]
             Preference.set!(key, value)
           else
-            fail "Unknown preference: #{key}"
+            raise "Unknown preference: #{key}"
           end
         end
       end

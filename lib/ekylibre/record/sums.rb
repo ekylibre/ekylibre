@@ -14,7 +14,7 @@ module Ekylibre::Record
           elsif arg.is_a? Hash
             options.merge!(arg)
           else
-            fail ArgumentError, "Unvalid type #{arg.inspect}:#{arg.class.name}"
+            raise ArgumentError, "Unvalid type #{arg.inspect}:#{arg.class.name}"
           end
         end
         method_name = options.delete(:method) || "sums_#{children}_of_#{target}"

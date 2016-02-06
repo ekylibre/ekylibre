@@ -243,7 +243,7 @@ module Backend
     def invoice
       return unless @sale = find_and_check
       ActiveRecord::Base.transaction do
-        fail ActiveRecord::Rollback unless @sale.invoice
+        raise ActiveRecord::Rollback unless @sale.invoice
       end
       redirect_to action: :show, id: @sale.id
     end
@@ -257,10 +257,10 @@ module Backend
     def propose_and_invoice
       return unless @sale = find_and_check
       ActiveRecord::Base.transaction do
-        fail ActiveRecord::Rollback unless @sale.propose
-        fail ActiveRecord::Rollback unless @sale.confirm
+        raise ActiveRecord::Rollback unless @sale.propose
+        raise ActiveRecord::Rollback unless @sale.confirm
         # raise ActiveRecord::Rollback unless @sale.deliver
-        fail ActiveRecord::Rollback unless @sale.invoice
+        raise ActiveRecord::Rollback unless @sale.invoice
       end
       redirect_to action: :show, id: @sale.id
     end

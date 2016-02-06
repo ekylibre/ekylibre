@@ -19,7 +19,7 @@ module Aggeratio
     end
 
     def build
-      fail NotImplementedError
+      raise NotImplementedError
     end
 
     def build_variable(element)
@@ -32,7 +32,7 @@ module Aggeratio
       array << element if %w(section cell property title).include?(element.name)
       for child in element.children
         if child.has_attribute?('name') && (not child.attr('name') =~ /^\w+(\_\w+)*$/)
-          fail InvalidDocument, "#{child.name} element has invalid name attribute: #{child.attr('name')}"
+          raise InvalidDocument, "#{child.name} element has invalid name attribute: #{child.attr('name')}"
         end
         array += properties(child)
       end

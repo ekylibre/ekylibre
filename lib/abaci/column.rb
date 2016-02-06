@@ -18,7 +18,7 @@ module Abaci
                 :string
               end
       if type =~ /r\(\w+\)/
-        @references = Nomen[type[2..-2]] || fail("Cannot find #{type}")
+        @references = Nomen[type[2..-2]] || raise("Cannot find #{type}")
       end
     end
 

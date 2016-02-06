@@ -29,9 +29,9 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
         # Find or create financial year
         unless fy = FinancialYear.find_by_started_on_and_stopped_on(isa_fy.started_on, isa_fy.stopped_on)
           if FinancialYear.where('? BETWEEN started_on AND stopped_on OR ? BETWEEN started_on AND stopped_on', isa_fy.started_on, isa_fy.stopped_on).count > 0
-            fail ActiveExchanger::IncompatibleDataError.new('Financial year dates overlaps existing financial years')
+            raise ActiveExchanger::IncompatibleDataError.new('Financial year dates overlaps existing financial years')
           else
-            fail ActiveExchanger::IncompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'") if isa_fy.currency != 'EUR'
+            raise ActiveExchanger::IncompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'") if isa_fy.currency != 'EUR'
             fy = FinancialYear.create!(started_on: isa_fy.started_on, stopped_on: isa_fy.stopped_on)
           end
         end
@@ -122,7 +122,7 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
             end
             unless entry
               entry = JournalEntry.create(number: number, journal_id: all_journals[isa_entry.journal], printed_on: isa_entry.printed_on, created_on: isa_entry.created_on, updated_at: isa_entry.updated_on, lock_version: isa_entry.version_number) # , :state => (isa_entry.unupdateable? ? :confirmed : :draft)
-              fail isa_entry.inspect + "\n" + entry.errors.full_messages.to_sentence unless entry.valid?
+              raise isa_entry.inspect + "\n" + entry.errors.full_messages.to_sentence unless entry.valid?
             end
           end
 
@@ -136,7 +136,7 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
               isa_line.credit = debit.abs
             end
             line = entry.lines.create(account_id: all_accounts[isa_line.account], name: "#{isa_line.label} (#{isa_entry.label})", real_debit: isa_line.debit, real_credit: isa_line.credit, letter: (isa_line.lettering > 0 ? isa_line.letter : nil), comment: isa_line.to_s)
-            fail isa_line.to_s + "\n" + line.errors.full_messages.to_sentence unless line.valid?
+            raise isa_line.to_s + "\n" + line.errors.full_messages.to_sentence unless line.valid?
           end
 
           count += 1
@@ -154,17 +154,17 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
         # Check all lines line-per-line
         found = fy.journal_entries.size
         expected = isa_fy.entries.size
-        fail StandardError.new("The count of entries is different: #{found} in database and #{expected} in file") if found != expected
+        raise StandardError.new("The count of entries is different: #{found} in database and #{expected} in file") if found != expected
         found = JournalEntryLine.between(fy.started_on, fy.stopped_on).count
         expected = isa_fy.entries.inject(0) { |s, e| s += e.lines.size }
-        fail StandardError.new("The count of entry lines is different: #{found} in database and #{expected} in file") if found != expected
+        raise StandardError.new("The count of entry lines is different: #{found} in database and #{expected} in file") if found != expected
         for entry in fy.journal_entries
         end
 
       end
 
     else
-      fail ActiveExchanger::NotWellFormedFileError, 'Version does not seems to be supported'
+      raise ActiveExchanger::NotWellFormedFileError, 'Version does not seems to be supported'
     end
   end
 end

@@ -24,7 +24,7 @@ module ActiveSensor
       #       controller: ...
       #       indicators: ...
       def register_many(path, _options = {})
-        fail "Cannot find #{path}" unless Pathname(path).exist?
+        raise "Cannot find #{path}" unless Pathname(path).exist?
         sensors = YAML.load_file(path).deep_symbolize_keys
         sensors.each do |vendor, models|
           models.each do |model, options|
@@ -59,7 +59,7 @@ module ActiveSensor
       def find!(vendor, model)
         equipment = find(vendor, model)
         unless equipment
-          fail EquipmentNotFound, "Cannot find vendor=#{vendor.inspect}, model=#{model.inspect}"
+          raise EquipmentNotFound, "Cannot find vendor=#{vendor.inspect}, model=#{model.inspect}"
         end
         equipment
       end
@@ -82,12 +82,12 @@ module ActiveSensor
     def initialize(vendor, model, options = {})
       # options.symbolize_keys!
       @vendor = vendor.to_sym
-      fail 'Need vendor' unless @vendor
+      raise 'Need vendor' unless @vendor
       @model = model.to_sym
-      fail 'Need model' unless @model
+      raise 'Need model' unless @model
       if options[:indicators]
         @indicators = options[:indicators].collect do |i|
-          fail "Invalid indicator: #{i.inspect}" unless Nomen::Indicator.find(i)
+          raise "Invalid indicator: #{i.inspect}" unless Nomen::Indicator.find(i)
           i.to_sym
         end
       end
@@ -95,7 +95,7 @@ module ActiveSensor
       store_translation(:description, options[:description])
       if options[:image_path]
         path = Pathname.new(options[:image_path])
-        fail "Cannot find image #{options[:image_path]}" unless path.exist?
+        raise "Cannot find image #{options[:image_path]}" unless path.exist?
         @image_path = path
       end
       @controller = options[:controller].constantize if options[:controller]

@@ -60,7 +60,7 @@ module ActiveExchanger
             exchanger.import
           end
           valid = true
-          fail ActiveRecord::Rollback
+          raise ActiveRecord::Rollback
         end
         GC.start
         valid
@@ -76,7 +76,7 @@ module ActiveExchanger
       def find(nature)
         klass = @@exchangers[nature.to_sym]
         unless klass
-          fail "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.inspect})"
+          raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.inspect})"
         end
         klass
       end

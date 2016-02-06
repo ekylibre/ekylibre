@@ -172,7 +172,7 @@ module Fixturing
               if attrs = data[foreign_model.table_name][fixture_id]
                 attributes[column.to_s] = attrs['id']
               else
-                fail "Cannot find #{fixture_id} for #{references} in #{table}##{record}"
+                raise "Cannot find #{fixture_id} for #{references} in #{table}##{record}"
               end
               attributes.delete(reflection)
             end
@@ -188,7 +188,7 @@ module Fixturing
                 attributes[column.to_s] = attrs['id']
                 attributes[type_column] = foreign_model.name
               else
-                fail "Cannot find #{fixture_id} for #{references} in #{table}##{record}"
+                raise "Cannot find #{fixture_id} for #{references} in #{table}##{record}"
               end
               attributes.delete(reflection)
             end
@@ -245,7 +245,7 @@ module Fixturing
               if attrs = data[foreign_model.table_name].detect { |_r, a| a['id'] == fixture_id }
                 attributes[column.to_s.gsub(/\_id\z/, '')] = attrs.first
               else
-                fail "Cannot find #{foreign_model.name} #{fixture_id} for #{column} in #{table}##{record}"
+                raise "Cannot find #{foreign_model.name} #{fixture_id} for #{column} in #{table}##{record}"
               end
               attributes.delete(column.to_s)
             end
@@ -258,7 +258,7 @@ module Fixturing
               if attrs = data[foreign_model.table_name].detect { |_r, a| a['id'] == fixture_id && (a['type'] || foreign_model.name) == fixture_type }
                 attributes[column.to_s.gsub(/\_id\z/, '')] = "#{attrs.first} (#{fixture_type})"
               else
-                fail "Cannot find #{fixture_type}##{fixture_id} for #{column} in #{table}##{record} (#{attributes['id']})"
+                raise "Cannot find #{fixture_type}##{fixture_id} for #{column} in #{table}##{record} (#{attributes['id']})"
               end
               attributes.delete(column.to_s)
               attributes.delete(type_column)

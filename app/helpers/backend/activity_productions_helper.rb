@@ -1,6 +1,5 @@
 module Backend
   module ActivityProductionsHelper
-
     def production_chronologies(productions, campaign = nil)
       campaign ||= current_campaign
       return nil if productions.empty?
@@ -18,9 +17,8 @@ module Backend
         on += 1.month
       end
       render 'backend/shared/production_chronologies', productions: productions,
-             campaign: campaign, grades: grades, duration: duration,
-             period_started_on: period_started_on
+                                                       campaign: campaign, grades: grades, duration: duration,
+                                                       period_started_on: period_started_on
     end
-
   end
 end

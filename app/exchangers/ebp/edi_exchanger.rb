@@ -9,7 +9,7 @@ class EBP::EDIExchanger < ActiveExchanger::Base
                  nil
                end
       unless header == 'EBP.EDI'
-        fail ActiveExchanger::NotWellFormedFileError.new("Start is not valid. Got #{header.inspect}.")
+        raise ActiveExchanger::NotWellFormedFileError.new("Start is not valid. Got #{header.inspect}.")
       end
       encoding = f.readline
       f.readline

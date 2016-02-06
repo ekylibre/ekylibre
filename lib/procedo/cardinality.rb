@@ -19,7 +19,7 @@ module Procedo
           @maximum = object.to_i
           @minimum = object.to_i
         elsif object != '*'
-          fail "Cannot parse that: #{object.inspect}"
+          raise "Cannot parse that: #{object.inspect}"
         end
       elsif object.is_a?(Numeric)
         @minimum = object.to_i
@@ -28,7 +28,7 @@ module Procedo
         @minimum = array.min
         @maximum = array.max
       else
-        fail "Cannot handle that: #{object.inspect}"
+        raise "Cannot handle that: #{object.inspect}"
       end
     end
 
@@ -40,13 +40,13 @@ module Procedo
     end
 
     def minimum=(value)
-      fail 'Invalid value' if value && (value < 0 || (maximum? && value > @maximum))
+      raise 'Invalid value' if value && (value < 0 || (maximum? && value > @maximum))
       @minimum = value
       @minimum = nil if @minimum && @minimum.zero?
     end
 
     def maximum=(value)
-      fail 'Invalid value' if value && (value < 0 || (minimum? && value < @minimum))
+      raise 'Invalid value' if value && (value < 0 || (minimum? && value < @minimum))
       @maximum = value
       @maximum = nil if @maximum && @maximum == Float::INFINITY
     end

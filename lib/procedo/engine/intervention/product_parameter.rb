@@ -67,7 +67,7 @@ module Procedo
         end
 
         def impact_with(steps)
-          fail 'Invalid steps: ' + steps.inspect if steps.size != 1
+          raise 'Invalid steps: ' + steps.inspect if steps.size != 1
           impact(steps.first)
         end
 

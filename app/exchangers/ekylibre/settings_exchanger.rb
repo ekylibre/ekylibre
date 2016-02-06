@@ -165,7 +165,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     if can_load_default?(:cashes)
       @manifest[:cashes] = [:bank_account, :cash_box].inject({}) do |hash, nature|
         unless journal_nature = { bank_account: :bank, cash_box: :cash }[nature]
-          fail StandardError, 'Need a valid journal nature to register a cash'
+          raise StandardError, 'Need a valid journal nature to register a cash'
         end
         journal = Journal.find_by(nature: journal_nature)
         account = Account.find_by(name: "enumerize.cash.nature.#{nature}".t)
@@ -263,7 +263,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
       @records ||= {}.with_indifferent_access
       @records[records] ||= {}.with_indifferent_access
       unless data.is_a?(Hash)
-        fail "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
+        raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
       end
       for identifier, attributes in data
         attributes = attributes.with_indifferent_access
@@ -278,7 +278,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
           @records[records][identifier.to_s] = record
         else
           puts "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"
-          fail ActiveRecord::RecordInvalid, record
+          raise ActiveRecord::RecordInvalid, record
         end
       end
     end

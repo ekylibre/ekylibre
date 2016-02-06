@@ -14,7 +14,7 @@ module Ekylibre
         @mode = @mode.to_sym
         @path = path
         unless @path.exist?
-          fail ArgumentError, "Need a valid folder path. #{@path} doesn't exist."
+          raise ArgumentError, "Need a valid folder path. #{@path} doesn't exist."
         end
         @term_width = begin
                         `/usr/bin/env tput cols`.to_i
@@ -69,7 +69,7 @@ module Ekylibre
               elsif format == :file
                 import_file(nature, path, options)
               else
-                fail 'Cannot import that format: ' + format.inspect
+                raise 'Cannot import that format: ' + format.inspect
               end
             end
             preference.value = true

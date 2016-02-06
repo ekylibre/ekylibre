@@ -27,7 +27,7 @@ module Ekylibre
         elsif block_given?
           @subscriptions[message] << block
         else
-          fail 'Need block or proc'
+          raise 'Need block or proc'
         end
       end
     end

@@ -72,7 +72,7 @@ class Plant < Bioproduct
   # Return all Plant object who is alive in the given campaigns
   scope :of_campaign, lambda { |campaign|
     unless campaign.is_a?(Campaign)
-      fail ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
+      raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
     end
     started_at = Date.new(campaign.harvest_year.to_f, 01, 01)
     stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)

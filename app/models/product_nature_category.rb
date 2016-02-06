@@ -179,7 +179,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   # Load a product nature category from product nature category nomenclature
   def self.import_from_nomenclature(reference_name, force = false)
     unless item = Nomen::ProductNatureCategory.find(reference_name)
-      fail ArgumentError, "The product_nature_category #{reference_name.inspect} is unknown"
+      raise ArgumentError, "The product_nature_category #{reference_name.inspect} is unknown"
     end
     if !force && category = ProductNatureCategory.find_by_reference_name(reference_name)
       return category

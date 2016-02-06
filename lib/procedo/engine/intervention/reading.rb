@@ -10,14 +10,14 @@ module Procedo
 
         def initialize(parameter, id, attributes = {})
           unless parameter.is_a?(Procedo::Engine::Intervention::Parameter)
-            fail "Invalid parameter: #{parameter.inspect}"
+            raise "Invalid parameter: #{parameter.inspect}"
           end
           @parameter = parameter
           @id = id.to_s
           self.indicator_name = attributes[:indicator_name]
           @reference = parameter.reference.reading(name)
           unless reference
-            fail 'Cannot find reference for: ' + attributes.inspect
+            raise 'Cannot find reference for: ' + attributes.inspect
           end
           if measure?
             if attributes[:measure_value_value] && attributes[:measure_value_unit]

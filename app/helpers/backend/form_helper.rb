@@ -50,7 +50,7 @@ module Backend::FormHelper
       hidden_field_tag(name, '0') + check_box_tag(name, '1', value, html_options)
     elsif datatype == :measure
       unless unit = options[:unit] || (value ? value.unit : nil)
-        fail StandardError, 'Need unit'
+        raise StandardError, 'Need unit'
       end
       content_tag(:div, class: 'input-append') do
         text_field_tag("#{name}[value]", (value ? value.to_d : nil)) +

@@ -71,7 +71,7 @@ class Account < Ekylibre::Record::Base
   scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
     unless Nomen::Account[usage]
-      fail ArgumentError, "Unknown usage #{usage.inspect}"
+      raise ArgumentError, "Unknown usage #{usage.inspect}"
     end
     where('usages ~ E?', "\\\\m#{usage}\\\\M")
   }
@@ -183,12 +183,12 @@ class Account < Ekylibre::Record::Base
       end
       conditions = ''
       if normals.any?
-        conditions << '(' + normals.sort.collect do|c|
+        conditions << '(' + normals.sort.collect do |c|
           "#{table}.number LIKE '#{c}%'"
         end.join(' OR ') + ')'
       end
       if excepts.any?
-        conditions << ' AND NOT (' + excepts.sort.collect do|c|
+        conditions << ' AND NOT (' + excepts.sort.collect do |c|
           "#{table}.number LIKE '#{c}%'"
         end.join(' OR ') + ')'
       end
@@ -211,7 +211,7 @@ class Account < Ekylibre::Record::Base
         account = create!(name: item.human_name, number: item.send(accounting_system), debtor: !!item.debtor, usages: item.name)
         return account
       else
-        fail ArgumentError, "The usage #{usage.inspect} is unknown"
+        raise ArgumentError, "The usage #{usage.inspect} is unknown"
       end
     end
 
@@ -229,7 +229,7 @@ class Account < Ekylibre::Record::Base
     # It takes the information in preferences
     def accounting_system=(name)
       unless item = Nomen::AccountingSystem[name]
-        fail ArgumentError, "The accounting system #{name.inspect} is unknown."
+        raise ArgumentError, "The accounting system #{name.inspect} is unknown."
       end
       Preference.set!(:accounting_system, item.name)
     end

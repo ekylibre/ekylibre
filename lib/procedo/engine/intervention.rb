@@ -14,7 +14,7 @@ module Procedo
         @attributes = attributes.deep_symbolize_keys
         @procedure = Procedo.find(@attributes[:procedure_name])
         unless @procedure
-          fail "Cannot find procedure: #{@attributes[:procedure_name].inspect}"
+          raise "Cannot find procedure: #{@attributes[:procedure_name].inspect}"
         end
         @actions = (@attributes[:actions] || []).map(&:to_sym)
         @root_group = Procedo::Engine::Intervention::GroupParameter.new(self, Procedo::Procedure::ROOT_NAME)

@@ -11,10 +11,10 @@ module Procedo
         # Sums indicator values for a set of product
         def sum(set, indicator_name, unit = nil)
           indicator = Nomen::Indicator.find!(indicator_name)
-          fail 'Only measure indicator can use this function' unless indicator.datatype == :measure
+          raise 'Only measure indicator can use this function' unless indicator.datatype == :measure
           list = set.map do |parameter|
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
-              fail 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
+              raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
             (parameter.product ? parameter.product.get(indicator.name) : nil)
           end
@@ -25,7 +25,7 @@ module Procedo
         def sum_working_zone_areas(set, unit = nil)
           list = set.map do |parameter|
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
-              fail 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
+              raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
             parameter.working_zone ? parameter.working_zone.area : nil
           end
@@ -37,7 +37,7 @@ module Procedo
           zone = nil
           list = set.map do |parameter|
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
-              fail 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
+              raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
             zone = zone.nil? ? parameter.working_zone : zone.merge(parameter.working_zone)
           end

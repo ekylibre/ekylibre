@@ -51,7 +51,7 @@ module Ekylibre
             nature = ProductNature.import_from_nomenclature(r.reference_name, true)
             variant = nature.variants.new(name: nature.name)
           else
-            fail 'Invalid reference name: ' + r.reference_name.inspect
+            raise 'Invalid reference name: ' + r.reference_name.inspect
           end
           # update variant with attributes in the current row
           variant.name = r.name if r.name
@@ -73,7 +73,7 @@ module Ekylibre
                 unit = u.name.to_s
                 measure_unit_price = 1.00.in(unit.to_sym) if unit
               else
-                fail ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{variant.name.inspect}."
+                raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{variant.name.inspect}."
               end
             end
 
@@ -87,13 +87,13 @@ module Ekylibre
                 if indics.include?(default_indicators[dimension].to_s)
                   indicator = default_indicators[dimension]
                 else
-                  fail ActiveExchanger::NotWellFormedFileError, "Ambiguity on unit #{unit.inspect} for variant #{variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'."
+                  raise ActiveExchanger::NotWellFormedFileError, "Ambiguity on unit #{unit.inspect} for variant #{variant.name.inspect} between #{indics.to_sentence(locale: :eng)}. Cannot known what is wanted, insert indicator name after unit like: '#{unit} (#{indics.first})'."
                 end
               elsif indics.empty?
                 if unit == 'hour'
                   indicator = 'working_duration'
                 else
-                  fail ActiveExchanger::NotWellFormedFileError, "Unit #{unit.inspect} is invalid for variant #{variant.name.inspect}. No indicator can be used with this unit."
+                  raise ActiveExchanger::NotWellFormedFileError, "Unit #{unit.inspect} is invalid for variant #{variant.name.inspect}. No indicator can be used with this unit."
                 end
               else
                 indicator = indics.first

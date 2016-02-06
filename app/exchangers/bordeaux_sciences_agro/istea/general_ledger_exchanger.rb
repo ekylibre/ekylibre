@@ -90,7 +90,7 @@ class BordeauxSciencesAgro::ISTEA::GeneralLedgerExchanger < ActiveExchanger::Bas
           end
           entry = nil
         else
-          fail 'What ???'
+          raise 'What ???'
         end
       end
 

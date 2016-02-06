@@ -9,7 +9,7 @@ module Charta
           yield polygon, index + 1
         end
       else
-        fail 'Cannot browse each polygon without parameter'
+        raise 'Cannot browse each polygon without parameter'
       end
     end
 

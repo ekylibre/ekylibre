@@ -42,7 +42,7 @@ module WorkingSet
         end
 
         unless ability_item = Nomen::Ability.find(ability.ability_name.text_value)
-          fail InvalidExpression, "Unknown ability: #{ability.ability_name.text_value}"
+          raise InvalidExpression, "Unknown ability: #{ability.ability_name.text_value}"
         end
         parameters = []
         if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
@@ -61,18 +61,18 @@ module WorkingSet
               elsif parameter == :issue_nature
                 item = find_nomenclature_item(:issue_natures, parameters[index].text_value)
               else
-                fail StandardError, "What parameter type: #{parameter}?"
+                raise StandardError, "What parameter type: #{parameter}?"
               end
               unless item
-                fail InvalidExpression, "Parameter #{parameter} (#{parameters[index].text_value}) is unknown in its nomenclature"
+                raise InvalidExpression, "Parameter #{parameter} (#{parameters[index].text_value}) is unknown in its nomenclature"
               end
             end
           else
-            fail InvalidExpression, "Argument expected for ability #{ability_item.name}"
+            raise InvalidExpression, "Argument expected for ability #{ability_item.name}"
           end
         else
           if parameters.any?
-            fail InvalidExpression, "No argument expected for ability #{ability_item.name}"
+            raise InvalidExpression, "No argument expected for ability #{ability_item.name}"
           end
         end
       end
@@ -83,7 +83,7 @@ module WorkingSet
 
     def find_nomenclature_item(nomenclature, name)
       unless item = Nomen[nomenclature].find(name)
-        fail "Unknown item in #{nomenclature} nomenclature: #{name}"
+        raise "Unknown item in #{nomenclature} nomenclature: #{name}"
       end
       item
     end

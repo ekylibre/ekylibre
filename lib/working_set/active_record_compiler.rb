@@ -50,7 +50,7 @@ module WorkingSet
       elsif object.is_a?(WorkingSet::QueryLanguage::AbilityTest)
         ability = object.ability
         unless ability_item = Nomen::Ability.find(ability.ability_name.text_value)
-          fail "Unknown ability: #{ability.ability_name.text_value}"
+          raise "Unknown ability: #{ability.ability_name.text_value}"
         end
         parameters = []
         if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
@@ -69,7 +69,7 @@ module WorkingSet
               elsif parameter == :issue_nature
                 item = find_nomenclature_item(:issue_natures, parameters[index].text_value)
               else
-                fail "What parameter type: #{parameter}?"
+                raise "What parameter type: #{parameter}?"
               end
               lists << item.self_and_parents.map(&:name)
             end
@@ -78,11 +78,11 @@ module WorkingSet
               a =~ exp
             end.present?
           else
-            fail "Argument expected for ability #{ability_item.name}"
+            raise "Argument expected for ability #{ability_item.name}"
           end
         else
           if parameters.any?
-            fail "No argument expected for ability #{ability_item.name}"
+            raise "No argument expected for ability #{ability_item.name}"
           else
             record.abilities_list.include?(ability_item.name.to_s)
           end
@@ -101,18 +101,18 @@ module WorkingSet
         elsif only == :variable
           record.variable_indicators.include?(indicator_name)
         else
-          fail "Unknown only value: #{only.inspect}"
+          raise "Unknown only value: #{only.inspect}"
         end
       elsif object.nil?
         nil
       else
-        fail "Unknown node: #{object.class.name}"
+        raise "Unknown node: #{object.class.name}"
       end
     end
 
     def find_nomenclature_item(nomenclature, name)
       unless item = Nomen[nomenclature].find(name)
-        fail "Unknown item in #{nomenclature} nomenclature: #{name}"
+        raise "Unknown item in #{nomenclature} nomenclature: #{name}"
       end
       item
     end

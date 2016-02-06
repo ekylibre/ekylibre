@@ -40,7 +40,7 @@ module Clean
         needed += model.reflect_on_all_associations(:belongs_to).select do |association|
           column = model.columns_hash[association.foreign_key.to_s]
           unless column
-            fail StandardError, "Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'"
+            raise StandardError, "Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'"
           end
           !column.null && validable_column?(column)
         end.map { |r| ":#{r.name}" }

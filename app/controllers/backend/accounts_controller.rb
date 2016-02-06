@@ -137,7 +137,7 @@ module Backend
         if Nomen::Account.property_natures.keys.include?(Account.accounting_system.to_s)
           Account.load_defaults
         else
-          fail 'Arrrggggg'
+          raise 'Arrrggggg'
         end
         redirect_to action: :index
       end

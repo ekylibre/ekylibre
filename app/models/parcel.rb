@@ -268,7 +268,7 @@ class Parcel < Ekylibre::Record::Base
         if options[:transporter_id]
           options[:delivery_mode] ||= :transporter
         elsif !delivery_mode.values.include? options[:delivery_mode].to_s
-          fail "Need a valid delivery mode at least if no transporter given. Got: #{options[:delivery_mode].inspect}. Expecting one of: #{delivery_mode.values.map(&:inspect).to_sentence}"
+          raise "Need a valid delivery mode at least if no transporter given. Got: #{options[:delivery_mode].inspect}. Expecting one of: #{delivery_mode.values.map(&:inspect).to_sentence}"
         end
         delivery_mode = options[:delivery_mode].to_sym
         if delivery_mode == :transporter
@@ -277,7 +277,7 @@ class Parcel < Ekylibre::Record::Base
             if transporter_ids.size == 1
               options[:transporter_id] = transporter_ids.first
             else
-              fail StandardError, 'Need an obvious transporter to ship parcels'
+              raise StandardError, 'Need an obvious transporter to ship parcels'
             end
           end
         end
@@ -312,7 +312,7 @@ class Parcel < Ekylibre::Record::Base
         planned_at = parcels.map(&:given_at).last || Time.zone.now
         unless nature = SaleNature.actives.first
           unless journal = Journal.sales.opened_at(planned_at).first
-            fail 'No sale journal'
+            raise 'No sale journal'
           end
           nature = SaleNature.create!(active: true, currency: Preference[:currency], with_accounting: true, journal: journal, by_default: true, name: SaleNature.tc('default.name', default: SaleNature.model_name.human))
         end
@@ -365,7 +365,7 @@ class Parcel < Ekylibre::Record::Base
         planned_at = parcels.map(&:given_at).last
         unless nature = PurchaseNature.actives.first
           unless journal = Journal.purchases.opened_at(planned_at).first
-            fail 'No purchase journal'
+            raise 'No purchase journal'
           end
           nature = PurchaseNature.create!(
             active: true,
@@ -404,7 +404,7 @@ class Parcel < Ekylibre::Record::Base
 
     def detect_third(parcels)
       thirds = parcels.map(&:third_id).uniq
-      fail "Need unique third (#{thirds.inspect})" if thirds.count != 1
+      raise "Need unique third (#{thirds.inspect})" if thirds.count != 1
       Entity.find(thirds.first)
     end
   end

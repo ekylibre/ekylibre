@@ -21,7 +21,7 @@ module ActiveSensor
     def normalize!(value)
       if value.blank?
         return default if default
-        fail MissingParameter, "Parameter #{@name} cannot be blank" if required?
+        raise MissingParameter, "Parameter #{@name} cannot be blank" if required?
         return nil
       end
       value

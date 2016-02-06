@@ -15,7 +15,7 @@ class UpdateProducts < ActiveRecord::Migration
     elsif options[:old]
       execute("UPDATE #{table} SET #{column} = REPLACE(REPLACE(REPLACE(#{column}, ', #{options[:old]}', ''), '#{options[:old]}', ''), '#{options[:old]},', '') WHERE #{conditions}")
     else
-      fail StandardException
+      raise StandardException
     end
   end
 
@@ -49,6 +49,6 @@ class UpdateProducts < ActiveRecord::Migration
   end
 
   def down
-    fail IrreversibleMigration
+    raise IrreversibleMigration
   end
 end

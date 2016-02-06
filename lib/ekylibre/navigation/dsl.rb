@@ -21,7 +21,7 @@ module Ekylibre
 
       def group(name, options = {}, &block)
         unless node = current_node
-          fail 'group must be in a part' unless node.type == :part
+          raise 'group must be in a part' unless node.type == :part
         end
         unless child = node.index[name]
           child = Node.new(:group, name, options)
@@ -32,7 +32,7 @@ module Ekylibre
 
       def item(name, options = {}, &block)
         unless node = current_node
-          fail 'item must be in a group' unless node.type == :group
+          raise 'item must be in a group' unless node.type == :group
         end
         unless child = node.index[name]
           child = Node.new(:item, name, options)
@@ -42,7 +42,7 @@ module Ekylibre
       end
 
       def page(to, options = {}, &_block)
-        fail 'No part/group/item given' unless current_node
+        raise 'No part/group/item given' unless current_node
         current_node.add_page(to, options)
       end
 

@@ -69,7 +69,7 @@ class Observation < Ekylibre::Record::Base
                                    rescue
                                      nil
                                    end
-      fail "Invalid class name: #{class_name.inspect}"
+      raise "Invalid class name: #{class_name.inspect}"
     end
     super(normalized_class_name)
   end

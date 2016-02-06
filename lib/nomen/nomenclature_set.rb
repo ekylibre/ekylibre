@@ -51,7 +51,7 @@ module Nomen
 
     def find!(name)
       unless nomenclature = @nomenclatures[name]
-        fail "Nomenclature #{name} does not exist"
+        raise "Nomenclature #{name} does not exist"
       end
       nomenclature
     end
@@ -105,16 +105,16 @@ module Nomen
     end
 
     def add_nomenclature(name, options = {})
-      fail "Nomenclature #{name} already exists" if @nomenclatures[name]
+      raise "Nomenclature #{name} already exists" if @nomenclatures[name]
       options[:set] = self
       @nomenclatures[name] = Nomenclature.new(name, options)
     end
 
     def move_nomenclature(old_name, new_name)
       unless @nomenclatures[old_name]
-        fail "Nomenclature #{old_name} does not exist"
+        raise "Nomenclature #{old_name} does not exist"
       end
-      fail "Nomenclature #{new_name} already exists" if @nomenclatures[new_name]
+      raise "Nomenclature #{new_name} already exists" if @nomenclatures[new_name]
       @nomenclatures[new_name] = @nomenclatures.delete(old_name)
       @nomenclatures[new_name]
     end
@@ -139,11 +139,11 @@ module Nomen
     end
 
     def change_property(_nomenclature_name, _property_name, _updates = {})
-      fail NotImplementedError
+      raise NotImplementedError
     end
 
     def remove_property(_nomenclature_name, _property_name, _options = {})
-      fail NotImplementedError
+      raise NotImplementedError
     end
 
     def add_item(nomenclature_name, item_name, options = {})

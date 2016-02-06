@@ -92,7 +92,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
 
       # Find or import a variant
       unless r.variant_code
-        fail "Variant identifiant must be given at line #{line_index}"
+        raise "Variant identifiant must be given at line #{line_index}"
       end
       unless variant = ProductNatureVariant.find_by(number: r.variant_code)
         if Nomen::ProductNatureVariant.find(r.variant_code)
@@ -134,7 +134,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
           end
         end
       end
-      fail "Unknown variant at line #{line_index}" unless variant
+      raise "Unknown variant at line #{line_index}" unless variant
 
       # Find or create a purchase
       # if supplier and r.invoiced_at and r.reference_number
@@ -142,9 +142,9 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
       unless purchase = Purchase.find_by(reference_number: r.reference_number)
         # Find supplier
         unless supplier = Entity.where('full_name ILIKE ?', r.supplier_full_name).first
-          fail "Cannot find supplier #{r.supplier_full_name} at line #{line_index}"
+          raise "Cannot find supplier #{r.supplier_full_name} at line #{line_index}"
         end
-        fail "Missing invoice date at line #{line_index}" unless r.invoiced_at
+        raise "Missing invoice date at line #{line_index}" unless r.invoiced_at
         purchase = Purchase.create!(planned_at: r.invoiced_at,
                                     invoiced_at: r.invoiced_at,
                                     reference_number: r.reference_number,
@@ -158,13 +158,13 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
       # Find or create a tax
       # TODO: search country before for good tax request (country and amount)
       # country via supplier if information exist
-      fail "Missing VAT at line #{line_index}" unless r.vat_percentage
+      raise "Missing VAT at line #{line_index}" unless r.vat_percentage
       item = Nomen::Tax.find_by(country: purchase.supplier.country.to_sym, amount: r.vat_percentage)
       tax = Tax.import_from_nomenclature(item.name)
 
       # find or create a purchase line
       unless purchase.items.find_by(pretax_amount: r.pretax_amount, variant_id: variant.id, tax_id: tax.id)
-        fail "Missing quantity at line #{line_index}" unless r.quantity
+        raise "Missing quantity at line #{line_index}" unless r.quantity
         # puts r.variant_code.inspect.red
         purchase.items.create!(quantity: r.quantity, tax: tax, unit_pretax_amount: r.unit_pretax_amount, variant: variant, fixed: r.depreciate)
       end

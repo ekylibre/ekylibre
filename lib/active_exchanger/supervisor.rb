@@ -4,7 +4,7 @@ module ActiveExchanger
 
     def initialize(mode = :normal, &block)
       if block_given?
-        fail 'Invalid arity must be 1..2' unless (1..2).cover?(block.arity)
+        raise 'Invalid arity must be 1..2' unless (1..2).cover?(block.arity)
         @block = block
       end
       @mode = mode
@@ -15,13 +15,13 @@ module ActiveExchanger
     end
 
     def count=(value)
-      fail 'Need a positive value' unless value >= 0
+      raise 'Need a positive value' unless value >= 0
       @count = value
       @count = @max if @max > 0 && @count > @max
     end
 
     def check_point(new_cursor = nil)
-      fail 'You need to set count before calling check_point' unless @count
+      raise 'You need to set count before calling check_point' unless @count
       if new_cursor
         @cursor = new_cursor
       else

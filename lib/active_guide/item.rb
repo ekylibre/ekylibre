@@ -19,17 +19,17 @@ module ActiveGuide
     end
 
     def accept(&block)
-      fail 'Missing block' unless block_given?
+      raise 'Missing block' unless block_given?
       @accept_block = block
     end
 
     def before(&block)
-      fail 'Missing block' unless block_given?
+      raise 'Missing block' unless block_given?
       @before_block = block
     end
 
     def after(&block)
-      fail 'Missing block' unless block_given?
+      raise 'Missing block' unless block_given?
       @after_block = block
     end
   end

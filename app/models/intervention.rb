@@ -267,7 +267,7 @@ class Intervention < Ekylibre::Record::Base
   # Run the intervention ie. the state is marked as done
   # Returns intervention
   def run!
-    fail 'Cannot run intervention without procedure' unless runnable?
+    raise 'Cannot run intervention without procedure' unless runnable?
     update_attributes(state: :done)
     self
   end

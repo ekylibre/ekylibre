@@ -129,7 +129,7 @@ module SVF
       end
       if parents.size > 0
 
-        code << 'if [' + all_parents.collect { |s| fail([s, s.line].inspect) if @lines[s.line].nil?; @lines[s.line].class_name(@name) }.sort.join(', ') + "].include?(line.class)\n"
+        code << 'if [' + all_parents.collect { |s| raise([s, s.line].inspect) if @lines[s.line].nil?; @lines[s.line].class_name(@name) }.sort.join(', ') + "].include?(line.class)\n"
         # code << "if "+all_parents.collect{|s| "line.is_a?(#{@lines[s.line].class_name(@name)})"}.join(" or ")+"\n"
         code << "    break\n"
         code << "  else\n"

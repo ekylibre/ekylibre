@@ -74,9 +74,9 @@ module Procedo
         # Adds parameters
         parameters_count = element.xpath('xmlns:parameters').count
         if parameters_count > 1
-          fail "Too many <parameters> markup in #{procedure.name}. Only one accepted."
+          raise "Too many <parameters> markup in #{procedure.name}. Only one accepted."
         elsif parameters_count < 1
-          fail "No <parameters> markup in #{procedure.name}. One is needed."
+          raise "No <parameters> markup in #{procedure.name}. One is needed."
         end
         parse_group_children(procedure, element.xpath('xmlns:parameters').first)
 
@@ -94,7 +94,7 @@ module Procedo
           elsif %w(group parameter-group).include?(child.name)
             parse_parameter_group(procedure, child, options)
           else
-            fail "Unexpected child: #{child.name}"
+            raise "Unexpected child: #{child.name}"
           end
         end
       end
@@ -104,11 +104,11 @@ module Procedo
         name = element.attr('name').to_sym
         if element.name != 'parameter'
           type = element.name.to_sym
-          fail 'type attribute is not supported' if element.has_attribute?('type')
+          raise 'type attribute is not supported' if element.has_attribute?('type')
         else
           type = element.attr('type').underscore.to_sym
         end
-        fail "No type given for #{name} parameter" unless type
+        raise "No type given for #{name} parameter" unless type
         %w(filter cardinality).each do |info|
           if element.has_attribute?(info)
             options[info.underscore.to_sym] = element.attr(info).to_s
@@ -201,7 +201,7 @@ module Procedo
       # Parse <parameter-group> element
       def parse_parameter_group(procedure, element, options = {})
         unless element.has_attribute?('name')
-          fail Procedo::Errors::MissingAttribute, "Missing name for parameter-group in #{procedure.name} at line #{element.line}"
+          raise Procedo::Errors::MissingAttribute, "Missing name for parameter-group in #{procedure.name} at line #{element.line}"
         end
         name = element.attr('name').to_sym
         options = {}

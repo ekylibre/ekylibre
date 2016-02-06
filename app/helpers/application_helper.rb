@@ -41,10 +41,10 @@ module ApplicationHelper
     object = options[:object] || instance_variable_get("@#{object_name}")
     model = object.class
     unless reflection = object.class.reflect_on_association(association)
-      fail ArgumentError, "Unknown reflection for #{model.name}: #{association.inspect}"
+      raise ArgumentError, "Unknown reflection for #{model.name}: #{association.inspect}"
     end
     if reflection.macro != :belongs_to
-      fail ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
+      raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
     end
     text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
   end
@@ -314,7 +314,7 @@ module ApplicationHelper
     columns = options[:columns] || 3
     attribute_list = AttributesList.new(record)
     unless block.arity == 1
-      fail ArgumentError, 'One parameter needed for attribute_list block'
+      raise ArgumentError, 'One parameter needed for attribute_list block'
     end
     yield attribute_list if block_given?
     unless options[:without_custom_fields]
@@ -401,7 +401,7 @@ module ApplicationHelper
         elsif item.name == :separator
           content_tag(:li, '', class: 'separator')
         else
-          fail 'Cannot handle that type of menu item: ' + item.name.inspect
+          raise 'Cannot handle that type of menu item: ' + item.name.inspect
         end
       end.join.html_safe
     end
@@ -415,7 +415,7 @@ module ApplicationHelper
     default_item = menu.detect_and_extract! do |item|
       item.args[2].is_a?(Hash) && item.args[2][:by_default]
     end
-    fail 'Need a name or a default item' unless name || default_item
+    raise 'Need a name or a default item' unless name || default_item
     if name.is_a?(Symbol)
       options[:icon] ||= name unless options.key?(:icon)
       name = options[:label] || name.ta(default: ["labels.#{name}".to_sym])
@@ -616,7 +616,7 @@ module ApplicationHelper
   end
 
   def subheading(i18n_key, options = {})
-    fail StandardError.new('A subheading has already been given.') if content_for?(:subheading)
+    raise StandardError.new('A subheading has already been given.') if content_for?(:subheading)
     if options[:here]
       return subheading_tag(tl(i18n_key, options))
     else
@@ -673,7 +673,7 @@ module ApplicationHelper
   # TOOLBAR
 
   def menu_to(name, url, options = {})
-    fail ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = (options.key?(:menu) ? options.delete(:menu) : url.is_a?(Hash) ? url[:action] : nil)
     sprite = options.delete(:sprite) || 'icons-16'
     options[:class] = (options[:class].blank? ? 'mn' : options[:class] + ' mn')
@@ -698,7 +698,7 @@ module ApplicationHelper
   # end
 
   def tool_to(name, url, options = {})
-    fail ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = options.delete(:tool)
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')

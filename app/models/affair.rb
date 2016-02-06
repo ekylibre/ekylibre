@@ -220,7 +220,7 @@ class Affair < Ekylibre::Record::Base
     thirds = self.thirds
     distribution = thirds_distribution if distribution.nil?
     if distribution.values.sum != balance
-      fail StandardError, 'Cannot finish the affair with invalid distribution'
+      raise StandardError, 'Cannot finish the affair with invalid distribution'
     end
     self.class.transaction do
       # raise thirds.map(&:name).inspect

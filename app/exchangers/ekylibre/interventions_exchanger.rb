@@ -128,11 +128,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         r.intervention_stopped_at = r.intervention_started_at + r.intervention_duration_in_hour.hours
       else
         w.warn "Need a duration for intervention ##{r.intervention_number}"
-        fail "Need a duration for intervention ##{r.intervention_number}"
+        raise "Need a duration for intervention ##{r.intervention_number}"
       end
 
       unless r.procedure_name
-        fail "Need a duration for intervention ##{r.intervention_number}"
+        raise "Need a duration for intervention ##{r.intervention_number}"
       end
 
       # Get supports and existing production_supports or activity by activity family input
@@ -224,7 +224,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             # for the same intervention session
             r.intervention_started_at += duration.seconds
           else
-            fail "Cannot handle this type of support storage: #{storage.inspect}"
+            raise "Cannot handle this type of support storage: #{storage.inspect}"
           end
         end
       # case 2 no support but production find
@@ -266,7 +266,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       if u = Nomen::Units.find_by(symbol: unit)
         unit = u.name.to_s
       else
-        fail ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
+        raise ActiveExchanger::NotWellFormedFileError, "Unknown unit #{unit.inspect} for variant #{item_variant.name.inspect}."
       end
     end
     unit = unit.to_sym if unit
@@ -282,21 +282,21 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         if variant_indicator.value.to_f != 0.0
           population_value = (measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f)
         else
-          fail "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
+          raise "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
         end
       elsif measure.dimension == :mass
         variant_indicator = variant.send(:net_mass)
         if variant_indicator.value.to_f != 0.0
           population_value = (measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f)
         else
-          fail "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
+          raise "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
         end
       elsif measure.dimension == :distance
         variant_indicator = variant.send(:net_length)
         if variant_indicator.value.to_f != 0.0
           population_value = (measure.to_f(variant_indicator.unit.to_sym) / variant_indicator.value.to_f)
         else
-          fail "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
+          raise "No way to divide by zero : variant indicator value is #{variant_indicator.inspect}"
         end
       elsif measure.dimension == :none
         population_value = value
@@ -430,7 +430,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       record
     end
     if unfound.any?
-      fail "Cannot find #{klass.name.tableize} with #{column}: #{unfound.to_sentence}"
+      raise "Cannot find #{klass.name.tableize} with #{column}: #{unfound.to_sentence}"
     end
     records
   end

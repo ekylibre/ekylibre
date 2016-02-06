@@ -17,7 +17,7 @@ module Procedo
         super(procedure, name, options)
         @type = type
         unless ProductParameter::TYPES.include?(@type)
-          fail ArgumentError, "Unknown parameter type: #{@type.inspect}"
+          raise ArgumentError, "Unknown parameter type: #{@type.inspect}"
         end
         if options[:filter]
           @filter = options[:filter]
@@ -37,7 +37,7 @@ module Procedo
       def add_handler(name, options = {})
         handler = Procedo::Procedure::Handler.new(self, name, options)
         if @handlers.key?(handler.name)
-          fail ArgumentError, "Handler name already taken: #{name}"
+          raise ArgumentError, "Handler name already taken: #{name}"
         end
         @handlers[handler.name] = handler
       end
@@ -46,7 +46,7 @@ module Procedo
       def add_attribute(name, options = {})
         attribute = Procedo::Procedure::Attribute.new(self, name, options)
         if @attributes.key?(attribute.name)
-          fail ArgumentError, "Attribute name already taken: #{name}"
+          raise ArgumentError, "Attribute name already taken: #{name}"
         end
         @attributes[attribute.name] = attribute
       end
@@ -55,7 +55,7 @@ module Procedo
       def add_reading(name, options = {})
         reading = Procedo::Procedure::Reading.new(self, name, options)
         if @readings.key?(reading.name)
-          fail ArgumentError, "Reading name already taken: #{name}"
+          raise ArgumentError, "Reading name already taken: #{name}"
         end
         @readings[reading.name] = reading
       end
@@ -93,7 +93,7 @@ module Procedo
 
       # Returns an attribute by its name
       def attribute(name)
-        fail 'Invalid attribute: ' + name.inspect unless Procedo::Procedure::Attribute::TYPES.include?(name)
+        raise 'Invalid attribute: ' + name.inspect unless Procedo::Procedure::Attribute::TYPES.include?(name)
         @attributes[name]
       end
 
@@ -146,7 +146,7 @@ module Procedo
             attr = 'variety' if attr.blank?
             attr.tr!('-', '_')
             unless parameter = @procedure.parameters[other]
-              fail Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
+              raise Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
             end
             return parameter.send("computed_#{attr}")
           else
@@ -163,7 +163,7 @@ module Procedo
             attr = 'derivative_of' if attr.blank?
             attr.tr!('-', '_')
             unless parameter = @procedure.parameters[other]
-              fail Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
+              raise Procedo::Errors::MissingParameter, "Parameter #{other.inspect} can not be found"
             end
             return parameter.send("computed_#{attr}")
           else

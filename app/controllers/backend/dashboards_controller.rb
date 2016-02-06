@@ -150,7 +150,7 @@ module Backend
         if auxiliaries[model_name]
           reflection = model.reflect_on_association(auxiliaries[model_name])
           unless reflection.macro == :belongs_to
-            fail 'Cannot use this auxiliary. Only works with belongs_to for now.'
+            raise 'Cannot use this auxiliary. Only works with belongs_to for now.'
           end
           main_model = reflection.class_name.constantize
         end

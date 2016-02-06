@@ -102,7 +102,7 @@ module Ekylibre
         def srid(srname)
           return srname if srname.is_a?(Integer)
           unless id = SRID[srname]
-            fail ArgumentError.new("Unreferenced SRID: #{srname.inspect}")
+            raise ArgumentError.new("Unreferenced SRID: #{srname.inspect}")
           end
           id
         end

@@ -60,7 +60,7 @@ class NormalizeVariousMistakes < ActiveRecord::Migration
         end
         dir.down do
           # TODO: Replace it with valid code based on DB content
-          fail ActiveRecord::IrreversibleMigration
+          raise ActiveRecord::IrreversibleMigration
         end
       end
     end
