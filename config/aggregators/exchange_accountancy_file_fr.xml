@@ -20,7 +20,7 @@
         <cell name="CompteLib" value="item.account.name"/>
         <cell name="CompAuxNum" value="''"/>
         <cell name="CompAuxLib" value="''"/>
-        <cell name="PieceRef" if="item.entry.resource" value="item.entry.resource_type"/>
+        <cell name="PieceRef" if="item.entry.resource" value="item.entry.resource.number"/>
         <cell name="PieceDate" if="item.entry.resource" value="item.created_at" type="date"/>
         <cell name="EcritureLib" value="item.name"/>
         <cell name="Debit" value="item.debit" type="number"/>
