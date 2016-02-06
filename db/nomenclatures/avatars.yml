@@ -1,9 +1,8 @@
 ---
 activity_families:
   animal_farming: activity_families/animal_farming.jpg
-  equipment_management: activity_families/equipment_management.jpg
-  maintenance: activity_families/maintenance.jpg
-  vegetal_crops: activity_families/vegetal_crops.jpg
+  plant_farming: activity_families/plant_farming.jpg
+  tool_maintaining: activity_families/tool_maintaining.jpg
 countries:
   ad: countries/ad.png
   ae: countries/ae.png

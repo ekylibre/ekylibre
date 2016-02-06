@@ -141,9 +141,8 @@ module Visualization
               elsif value.is_a? Hash
                 block.update(value)
               elsif value.is_a? TrueClass
-                  block[:value] = item[attribute].to_s
-  block[:label] = true
-                end
+                block[:value] = item[attribute].to_s
+                block[:label] = true
               end
               if block[:label].is_a?(TrueClass)
                 block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])

@@ -30,10 +30,12 @@
 - else # Root Procedure Natures
   - main_campaign_selector
   - Nomen::ActivityFamily.find_each do |family|
+    - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
+    - next unless categories.any?
     .activity-family
       %h2.activity-family-name= family.human_name
       .activity-family-procedures
-        - Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family_name) }.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
+        - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
           = dropdown_menu_button(category.human_name, class: 'btn-group-lg') do |menu|
             - Procedo.procedures_of_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
               - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect] }
