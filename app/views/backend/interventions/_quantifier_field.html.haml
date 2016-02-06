@@ -9,5 +9,5 @@
     - else
       - fail "Cannot handler #{handler.widget} handlers"
   = f.input(:quantity, wrapper: :append) do
-    = f.input :quantity_value, data: { intervention_updater: prefix + 'quantity_value', intervention_field: 'quantity-value' }, wrapper: :simplest
-    = f.input(:quantity_handler, collection: options, include_blank: false, data: { intervention_updater: prefix + 'quantity_handler', intervention_field: 'quantity-handler' }, wrapper: :simplest)
+    = f.input :quantity_value, input_html: { data: { intervention_updater: prefix + 'quantity_value', intervention_field: 'quantity-value' } }, wrapper: :simplest
+    = f.input(:quantity_handler, collection: options, include_blank: false, input_html: { data: { intervention_updater: prefix + 'quantity_handler', intervention_field: 'quantity-handler' } }, wrapper: :simplest)

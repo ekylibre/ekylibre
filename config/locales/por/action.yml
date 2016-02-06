@@ -961,6 +961,7 @@ por:
       # zero: "Make a deposit %{mode}: no available payments"
     # new_email: "New email"
     # new_group: "New group"
+    # new_issue: "New issue"
     # new_organization: "New organization"
     # new_production: "New production"
     # new_production_of_activity: "New production of %{activity}"

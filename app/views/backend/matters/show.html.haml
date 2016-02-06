@@ -1,10 +1,10 @@
 - main_toolbar do |t|
   = t.edit resource
   = t.destroy
-  = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
+  = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, label: :new_issue.tl, tool: 'new-issue')
 
 = main_informations attachment: true do
-  = render 'picture'
+  -# = render 'picture'
   = infos do
     -#
       .med-info.important
@@ -28,13 +28,13 @@
         = owner.name
     - if resource.incoming_parcel_item
       .med-info.important
-        %span.title= :incoming_parcels.tl
+        %span.title= resource_model.human_attribute_name(:incoming_parcel_item)
         %span.value
           %i.picto{class: "picto-movements"}
           = link_to(resource.incoming_parcel_item.parcel.number, controller: :parcels, action: :show, id: resource.incoming_parcel_item.parcel.id)
     - if resource.outgoing_parcel_item
       .med-info.important
-        %span.title= :outgoing_parcels.tl
+        %span.title= resource_model.human_attribute_name(:outgoing_parcel_item)
         %span.value
           %i.picto{class: "picto-movements"}
           = link_to(resource.outgoing_parcel_item.parcel.number, controller: :parcels, action: :show, id: resource.outgoing_parcel_item.parcel.id)

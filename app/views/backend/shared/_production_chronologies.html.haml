@@ -6,7 +6,7 @@
         %span.pull-right= production.size.l rescue nil
       .activity-production-chronology
         .chronology
-          .grades  
+          .grades
             - grades.each_with_index do |grade, index|
               .grade{style: "left: #{(100 * index.to_f / grades.count.to_f).round(4)}%", class: (grade.month == 1 ? 'grade-start' : 'grade-middle') + ' ' + ((index == 0 || grade.month == 1) ? 'grade-year' : 'grade-month')}= ((index == 0 || grade.month == 1) ? grade.year.to_s : I18n.t('date.abbr_month_names')[grade.month])
           .periods

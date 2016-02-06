@@ -111,7 +111,7 @@ module Backend
       return unless @intervention = find_and_check
       t3e @intervention, procedure_name: @intervention.name
       respond_with(@intervention, methods: [:cost, :earn, :status, :name, :duration],
-                                  include: [{ parameters: { methods: [:reference_name, :default_name], include: { product: { methods: [:picture_path, :nature_name, :unit_name] } } } }, { storage: {} }, :recommender, :prescription],
+                                  include: [{ parameters: { methods: [:reference_name, :default_name], include: { product: { methods: [:picture_path, :nature_name, :unit_name] } } } }, :prescription],
                                   procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) }
                   )
     end
