@@ -122,13 +122,6 @@ class Account < Ekylibre::Record::Base
   end
 
   class << self
-    # Account#get(number[, name][, options])
-    # @deprecated
-    def get(*args)
-      ActiveSupport::Deprecation.warn('Account::get is deprecated. Please use Account::find_or_create_by_number instead.')
-      find_or_create_by_number(*args)
-    end
-
     # Create an account with its number (and name)
     def find_or_create_by_number(*args)
       options = args.extract_options!
