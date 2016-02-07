@@ -174,12 +174,6 @@ class Intervention < Ekylibre::Record::Base
   end
 
   # Returns parameter names
-  def casting
-    ActiveSupport::Deprecation.warn 'Intervention#casting is deprecated.'
-    product_parameters.map(&:product).compact.map(&:name).sort.to_sentence
-  end
-
-  # Returns parameter names
   def human_target_names
     targets.map(&:product).compact.map(&:work_name).sort.to_sentence
   end

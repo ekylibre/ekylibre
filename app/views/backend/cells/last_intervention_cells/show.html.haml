@@ -24,8 +24,8 @@
     %span.title= Intervention.human_attribute_name(:name)
     %span.value= link_to(@intervention.name, controller: "/backend/interventions", action: :show, id: @intervention.to_param)
   .info
-    %span.title= Intervention.human_attribute_name(:casting)
-    %span.value= @intervention.casting
+    %span.title= Intervention.human_attribute_name(:targets)
+    %span.value= @intervention.human_target_names
   - if @intervention.started_at?
     .info
       %span.title= Intervention.human_attribute_name(:started_at)
