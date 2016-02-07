@@ -84,4 +84,16 @@ class LandParcel < Easement
   protect(on: :destroy) do
     activity_productions.any?
   end
+
+  def administrative_area
+    # TODO Find best administrative area with its shape
+    nil
+  end
+
+  def estimated_soil_nature
+    # TODO Find estimated soil nature through analysis in this zone
+    nil
+  end
+
+
 end

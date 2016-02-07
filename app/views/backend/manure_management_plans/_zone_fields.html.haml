@@ -1,5 +1,5 @@
 = field_set f.object.name, collapsed: !f.object.errors.any?, class: (f.object.expected_yield.to_f <= 0 ? :error : :valid) do
-  = f.association :support, as: :hidden
+  = f.association :activity_production, as: :hidden
   = f.input :computation_method, collection: Calculus::ManureManagementPlan.method_selection
   = f.input :soil_nature
   = f.input :administrative_area
