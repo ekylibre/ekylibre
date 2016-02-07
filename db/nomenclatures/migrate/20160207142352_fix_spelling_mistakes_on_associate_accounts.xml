@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix spelling mistakes on associate accounts">
+  <item-change item="accounts#associated_accounts"           name="associates_current_accounts"/>
+  <item-change item="accounts#locked_associated_accounts"    name="associates_frozen_accounts"/>
+  <item-change item="accounts#principal_associated_accounts" name="principal_associates_current_accounts"/>
+  <item-change item="accounts#usual_associated_accounts"     name="usual_associates_current_accounts"/>
+</migration>

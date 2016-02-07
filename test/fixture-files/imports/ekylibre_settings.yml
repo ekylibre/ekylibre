@@ -110,7 +110,7 @@ cashes:
     name: Compte courant activité Coop
     journal: CCCA
     account: cc_coopca
-    nature: "associated_account"
+    nature: "associate_account"
     mode: "" 							#mode
     country: fr 						#code pays
     iban: "" 			#numéro IBAN du compte

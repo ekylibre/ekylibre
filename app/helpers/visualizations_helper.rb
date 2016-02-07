@@ -74,7 +74,7 @@ module Visualization
 
     # Add a serie of geo data
     def serie(name, data)
-      fail StandardError, 'data must be an array. Got: ' + data.class.name unless data.is_a? Array
+      raise StandardError, 'data must be an array. Got: ' + data.class.name unless data.is_a? Array
       @config[:series] ||= {}.with_indifferent_access
       @config[:series][name] = data.compact.collect do |item|
         next unless item[:shape]
@@ -124,7 +124,7 @@ module Visualization
               elsif value.is_a? Hash
                 block.update(value)
               else
-                fail "Not implemented array block for #{object.class}"
+                raise "Not implemented array block for #{object.class}"
               end
               if block[:label].is_a?(TrueClass)
                 block[:label] = "attributes.#{attribute}".t(default: ["labels.#{attribute}".to_sym, attribute.to_s.humanize])
@@ -152,7 +152,7 @@ module Visualization
               blocks << block.merge(type: :content)
             end
           else
-            fail "Not implemented content for #{content.class}"
+            raise "Not implemented content for #{content.class}"
           end
         end
         if footer = object[:footer]
@@ -160,7 +160,7 @@ module Visualization
         end
         return blocks
       else
-        fail "Not implemented for #{object.class}"
+        raise "Not implemented for #{object.class}"
       end
     end
 
@@ -174,12 +174,12 @@ module Visualization
         if options[:content]
           block = { type: type, content: options[:content] }
         else
-          fail StandardError, 'Option :content must be given when info is a TrueClass'
+          raise StandardError, 'Option :content must be given when info is a TrueClass'
         end
       elsif info.is_a? Hash
         block = info.merge(type: type)
       else
-        fail StandardError, "Not implemented #{type} for #{object.class}"
+        raise StandardError, "Not implemented #{type} for #{object.class}"
       end
       block
     end

@@ -2,7 +2,7 @@
   = f.input :name
   = f.input :currency, collection: currencies
   = f.input :nature, show: '.{{value}}-options', as: :radio_buttons
-  .associated_account-options
+  .associate_account-options
     = f.referenced_association :owner
   = f.custom_fields
 

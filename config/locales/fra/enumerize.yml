@@ -15,7 +15,7 @@ fra:
       computation_method:
         per_campaign: "Par campagne"
         per_production: "Par production"
-        per_working_unit: "Par unité d'œuvre"
+        per_working_unit: "Par unité d’œuvre"
     activity_production:
       support_nature:
         border: "Bordure"
@@ -28,7 +28,7 @@ fra:
         bban: "Relevé d’identité bancaire (RIB)"
         iban: "IBAN"
       nature:
-        associated_account: "Compte courant"
+        associate_account: "Compte courant d’associé"
         bank_account: "Compte bancaire"
         cash_box: "Caisse"
     catalog:
@@ -206,7 +206,7 @@ fra:
         percentage: "Pourcentage"
     tracking:
       usage_limit_nature:
-        best_before: "Date Limite d'Utilisation Optimale (DLUO)"
+        best_before: "Date Limite d’Utilisation Optimale (DLUO)"
         no_limit: "Aucune limite"
         used_by: "Date Limite de Consommation (DLC)"
   simple_form:

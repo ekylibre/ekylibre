@@ -29,7 +29,8 @@ por:
         bban: "Número básico contas bancárias (BBAN)"
         iban: "Número internacional de conta bancária (IBAN)"
       nature:
-        associated_account: "Conta associada"
+        # associate_account: "Associate account"
+        associated_account: "Conta associada" #?
         bank_account: "Conta bancária"
         cash_box: "Caixa de dinheiro"
     catalog:

@@ -424,7 +424,7 @@ fra:
     analyser: "Analyseur"
     analyses: "Analyses"
     analysis: "Analyse"
-    analysis_items: "Lignes d'analyse"
+    analysis_items: "Lignes d’analyse"
     annotation: "Annotation"
     archive: "Archive"
     archived_at: "Archivé le" #?
@@ -702,7 +702,7 @@ fra:
     expenses_accounts: "Comptes de charge" #?
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"
-    exploitation_name: "Nom de l'exploitation"
+    exploitation_name: "Nom de l’exploitation"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
     expression: "Expression" #?
@@ -824,7 +824,7 @@ fra:
     irrigated: "Irrigué"
     irrigation_water_nitrogen: "Azote apporté par l’eau d’irrigation (Nirr)"
     islet: "Ilôt"
-    islet_number: "Numéro de l'ilot PAC"
+    islet_number: "Numéro de l’ilot PAC"
     islets: "Ilôts"
     issue: "Incident"
     issues: "Incidents"
@@ -1213,7 +1213,7 @@ fra:
     sales_invoices: "Factures"
     sampled_at: "Prélevé le"
     sampler: "Préleveur"
-    sampling_temporal_mode: "Type d'échantillonnage"
+    sampling_temporal_mode: "Type d’échantillonnage"
     scheduled: "Encaissement programmé"
     second_producer: "Second producteur"
     second_producer_way: "Voie du second producteur" #?

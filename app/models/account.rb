@@ -91,8 +91,8 @@ class Account < Ekylibre::Record::Base
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }
   scope :banks_or_cashes, -> { of_usages(:cashes, :banks) }
-  scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :principal_associated_accounts, :associated_accounts, :usual_associated_accounts, :locked_associated_accounts, :owner_account) }
-  scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associated_accounts, :attorneys, :compensation_operations) }
+  scope :banks_or_cashes_or_associates, -> { of_usages(:cashes, :banks, :principal_associates_current_accounts, :associates_current_accounts, :usual_associates_current_accounts, :associates_frozen_accounts) } # , :owner_account doesn't exist
+  scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associates_current_accounts, :attorneys, :compensation_operations) }
 
   # scope :assets_depreciations, -> { where('number LIKE ?', '28%').order(:number, :name) }
   scope :assets_depreciations, lambda {

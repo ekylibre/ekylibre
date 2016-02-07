@@ -73,7 +73,7 @@ class Cash < Ekylibre::Record::Base
   has_many :unpointed_journal_entry_items, -> { where(bank_statement_id: nil) }, through: :account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order('stopped_at DESC') }, class_name: 'BankStatement'
 
-  enumerize :nature, in: [:bank_account, :cash_box, :associated_account], default: :bank_account, predicates: true
+  enumerize :nature, in: [:bank_account, :cash_box, :associate_account], default: :bank_account, predicates: true
   enumerize :mode, in: [:iban, :bban], default: :iban, predicates: { prefix: true }
   # refers_to :currency
 
@@ -91,15 +91,15 @@ class Cash < Ekylibre::Record::Base
   validates_inclusion_of :mode, in: mode.values
   validates_inclusion_of :nature, in: nature.values
   validates_uniqueness_of :account
-  # validates_presence_of :owner, if: :associated_account?
+  # validates_presence_of :owner, if: :associate_account?
 
   delegate :currency, to: :journal, prefix: true
 
   scope :bank_accounts, -> { where(nature: 'bank_account') }
   scope :cash_boxes,    -> { where(nature: 'cash_box') }
-  scope :associated_accounts, -> { where(nature: %w(associated_account owner_account)) }
+  scope :associate_accounts, -> { where(nature: %w(associate_account owner_account)) }
   scope :with_pointing_work, -> { where(account_id: JournalEntryItem.select(:account_id).unpointed) }
-  scope :pointables, -> { where(nature: %w(associated_account owner_account bank_account)) }
+  scope :pointables, -> { where(nature: %w(associate_account owner_account bank_account)) }
 
   # before create a bank account, this computes automati.ally code iban.
   before_validation do
@@ -207,7 +207,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   def pointable?
-    bank_account? || associated_account?
+    bank_account? || associate_account?
   end
 
   def unpointed_journal_entry_items?

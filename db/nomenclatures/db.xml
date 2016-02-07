@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160206163031">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160207142352">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -106,7 +106,8 @@
       <item name="animals_making_expenses_expenses" fr_pcga="6054"/>
       <item name="animals_subsidies" fr_pcga="7454"/>
       <item name="associate_social_contribution_expenses" fr_pcga="646"/>
-      <item name="associated_accounts" fr_pcga="455"/>
+      <item name="associates_current_accounts" fr_pcga="455"/>
+      <item name="associates_frozen_accounts" fr_pcga="4553"/>
       <item name="associates_salary" fr_pcga="6413"/>
       <item name="attorneys" fr_pcg82="467"/>
       <item name="banks" fr_pcg82="512"/>
@@ -222,7 +223,6 @@
       <item name="living_corporeal_assets" fr_pcga="24"/>
       <item name="loans" fr_pcg82="164"/>
       <item name="loans_interests" fr_pcg82="661"/>
-      <item name="locked_associated_accounts" fr_pcga="4553"/>
       <item name="long_cycle_animals_inventory_variations" fr_pcga="7131"/>
       <item name="long_cycle_cultivation_advances" fr_pcga="331"/>
       <item name="long_cycle_products_liquors_stock" fr_pcga="352"/>
@@ -304,7 +304,7 @@
       <item name="plant_medicine_matter_expenses" fr_pcga="6013"/>
       <item name="plant_medicine_stock" fr_pcga="3013"/>
       <item name="plants_subsidies" fr_pcga="7451"/>
-      <item name="principal_associated_accounts" fr_pcga="4551"/>
+      <item name="principal_associates_current_accounts" fr_pcga="4551"/>
       <item name="processing_products_revenues" fr_pcga="703"/>
       <item name="processing_products_stock" fr_pcga="376"/>
       <item name="products_inventory_variations" fr_pcga="7137"/>
@@ -376,7 +376,7 @@
       <item name="transports_expenses" fr_pcga="624"/>
       <item name="travels_expenses" fr_pcga="625"/>
       <item name="unstorable_expenses" fr_pcg82="606"/>
-      <item name="usual_associated_accounts" fr_pcga="4552"/>
+      <item name="usual_associates_current_accounts" fr_pcga="4552"/>
       <item name="usual_bank_overdraft" fr_pcg82="519"/>
       <item name="vat" fr_pcga="445"/>
       <item name="vegetals_making_services_expenses" fr_pcga="6051"/>

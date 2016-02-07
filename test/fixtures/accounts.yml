@@ -1745,7 +1745,7 @@ accounts_131:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.800045000 Z
   updater_id: 1
-  usages: locked_associated_accounts
+  usages: associates_frozen_accounts
 accounts_132:
   created_at: 2014-12-24 11:08:52.805048000 Z
   creator_id: 1
@@ -2291,7 +2291,7 @@ accounts_173:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.999278000 Z
   updater_id: 1
-  usages: principal_associated_accounts
+  usages: principal_associates_current_accounts
 accounts_174:
   created_at: 2014-12-24 11:08:53.004180000 Z
   creator_id: 1
@@ -2876,7 +2876,7 @@ accounts_218:
   reconcilable: false
   updated_at: 2014-12-24 11:08:53.211852000 Z
   updater_id: 1
-  usages: usual_associated_accounts
+  usages: usual_associates_current_accounts
 accounts_219:
   created_at: 2014-12-24 11:08:53.216449000 Z
   creator_id: 1
@@ -3032,7 +3032,6 @@ accounts_230:
   reconcilable: false
   updated_at: 2015-04-26 12:44:23.241295000 Z
   updater_id: 1
-  usages: ''
 accounts_231:
   created_at: 2015-05-07 23:15:03.718709000 Z
   creator_id: 1
