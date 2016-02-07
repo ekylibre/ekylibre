@@ -2,20 +2,26 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_mowing" categories="harvesting" actions="harvest">
     <parameters>
-      <parameter name="tractor" type="tool" filter="is equipment and can tow(mower)"/>
-      <parameter name="mower_driver" type="doer" filter="can drive(tractor)"/>
-      <parameter name="mower" type="tool" filter="can mow"/>
-      <parameter name="cultivation" type="target" filter="is plant" default-shape=":cultivation" default-actor="variant_localized_in_storage">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, cultivation.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
-      <parameter name="straw" type="output" variety="grass" derivative-of="variety: cultivation" filter="is grass and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-        <handler indicator="net_mass" unit="ton" to="population" backward="POPULATION * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
-        <handler indicator="mass_area_density" unit="quintal_per_hectare" to="population" backward="(POPULATION * PRODUCT..net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)" forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(quintal)"/>
-        <handler name="mass_area_density_in_ton_per_hectare" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(POPULATION * PRODUCT..net_mass(ton)) / sum(cultivation, :net_surface_area, hectare)" forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(ton)"/>
-      </parameter>
+      <tool name="tractor" filter="is equipment and can tow(mower)"/>
+      <doer name="mower_driver" filter="can drive(tractor)"/>
+      <tool name="mower" filter="can mow"/>
+      <target name="cultivation" filter="is plant">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?">
+          <compute expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)" if="VARIANT?" to="population"/>
+        </attribute>
+      </target>
+      <output name="straw" filter="is grass and derives from plant">
+        <attribute name="new_name"/><!--  value="'{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})'" -->
+        <handler indicator="net_mass" unit="ton"
+                 backward="POPULATION * PRODUCT..net_mass(ton)"
+                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+        <handler indicator="mass_area_density" unit="quintal_per_hectare"
+                 backward="(POPULATION * PRODUCT..net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)"
+                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(quintal)"/>
+        <handler name="mass_area_density_in_ton_per_hectare" indicator="mass_area_density" unit="ton_per_hectare"
+                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum(cultivation, :net_surface_area, hectare)"
+                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(ton)"/>
+      </output>
     </parameters>
   </procedure>
 </procedures>
