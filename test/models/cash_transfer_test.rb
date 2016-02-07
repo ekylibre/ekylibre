@@ -26,6 +26,7 @@
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  currency_rate              :decimal(19, 10)  not null
+#  custom_fields              :jsonb
 #  description                :text
 #  emission_amount            :decimal(19, 4)   not null
 #  emission_cash_id           :integer          not null

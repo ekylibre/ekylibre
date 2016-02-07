@@ -27,6 +27,7 @@
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  currency         :string           not null
+#  custom_fields    :jsonb
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  name             :string           not null
@@ -38,6 +39,7 @@
 #
 
 class Journal < Ekylibre::Record::Base
+  include Customizable
   attr_readonly :currency
   has_many :cashes
   has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal

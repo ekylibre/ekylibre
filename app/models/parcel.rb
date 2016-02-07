@@ -25,6 +25,7 @@
 #  address_id        :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  custom_fields     :jsonb
 #  delivery_id       :integer
 #  delivery_mode     :string
 #  given_at          :datetime
@@ -51,6 +52,7 @@
 #
 class Parcel < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   enumerize :nature, in: [:incoming, :outgoing, :internal], predicates: true, scope: true, default: :incoming
   enumerize :delivery_mode, in: [:transporter, :us, :third, :indifferent], predicates: { prefix: true }, scope: true, default: :indifferent
   belongs_to :address, class_name: 'EntityAddress'

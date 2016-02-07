@@ -24,6 +24,7 @@
 #
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  custom_fields    :jsonb
 #  delivered_at     :datetime
 #  description      :text
 #  id               :integer          not null, primary key
@@ -35,6 +36,7 @@
 #
 class Prescription < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   belongs_to :prescriptor, class_name: 'Entity'
   has_many :interventions
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

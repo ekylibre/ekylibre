@@ -25,6 +25,7 @@
 #  annotation              :text
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  custom_fields           :jsonb
 #  driver_id               :integer
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
@@ -43,6 +44,7 @@
 
 class Delivery < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   acts_as_numbered
   enumerize :mode, in: [:transporter, :us, :third], predicates: true, default: :us
   belongs_to :driver, -> { contacts }, class_name: 'Entity'

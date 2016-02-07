@@ -24,6 +24,7 @@
 #
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  custom_fields        :jsonb
 #  description          :text
 #  geolocation          :geometry({:srid=>4326, :type=>"point"})
 #  gravity              :integer
@@ -46,6 +47,7 @@
 
 class Issue < Ekylibre::Record::Base
   include Versionable, Commentable, Attachable
+  include Customizable
   refers_to :nature, class_name: 'IssueNature'
   has_many :interventions
   belongs_to :target, polymorphic: true

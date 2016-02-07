@@ -53,4 +53,60 @@
 #   required: true
 #   updater: users_001
 #
---- {}
+---
+custom_fields_001:
+  active: true
+  column_name: bla_bla_dfdf
+  created_at: 2016-02-07 21:55:22.738238000 Z
+  creator_id: 1
+  customized_type: Event
+  id: 1
+  lock_version: 0
+  name: Bla bla dfdf
+  nature: text
+  position: 1
+  required: false
+  updated_at: 2016-02-07 21:55:22.738238000 Z
+  updater_id: 1
+custom_fields_002:
+  active: true
+  column_name: bla_dsfk_jioh_sdf
+  created_at: 2016-02-07 22:04:51.962007000 Z
+  creator_id: 1
+  customized_type: Entity
+  id: 2
+  lock_version: 1
+  name: Bla dsfk jioh sdf
+  nature: text
+  position: 1
+  required: false
+  updated_at: 2016-02-07 22:10:51.766879000 Z
+  updater_id: 1
+custom_fields_003:
+  active: true
+  column_name: sdqdqsdq_sd_qsq
+  created_at: 2016-02-07 22:13:52.160118000 Z
+  creator_id: 1
+  customized_type: Entity
+  id: 3
+  lock_version: 1
+  name: sdqdqsdq sd qsq
+  nature: choice
+  position: 2
+  required: false
+  updated_at: 2016-02-07 22:15:24.527510000 Z
+  updater_id: 1
+custom_fields_004:
+  active: true
+  column_name: bpozesopdf
+  created_at: 2016-02-07 22:15:42.606577000 Z
+  creator_id: 1
+  customized_type: Entity
+  id: 4
+  lock_version: 0
+  name: Bpozesopdf
+  nature: date
+  position: 3
+  required: false
+  updated_at: 2016-02-07 22:15:42.606577000 Z
+  updater_id: 1

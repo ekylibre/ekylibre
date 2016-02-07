@@ -353,7 +353,7 @@ module Fixturing
                 value.to_time(:utc)
               elsif type == :boolean
                 (%w(1 t T true yes TRUE).include?(value) ? true : false)
-              elsif type == :json
+              elsif type == :json || type == :jsonb
                 JSON.parse(value)
               else
                 puts "Unknown type to parse in fixtures: #{type.inspect}".red unless [:text, :string, :uuid].include?(type)

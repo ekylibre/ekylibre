@@ -27,6 +27,7 @@
 #  cash_id          :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  custom_fields    :jsonb
 #  description      :text
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
@@ -41,6 +42,7 @@
 #
 
 class Deposit < Ekylibre::Record::Base
+  include Customizable
   acts_as_numbered
   belongs_to :cash
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'

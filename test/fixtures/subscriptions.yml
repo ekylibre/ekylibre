@@ -25,6 +25,7 @@
 #  address_id        :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  custom_fields     :jsonb
 #  description       :text
 #  first_number      :integer
 #  id                :integer          not null, primary key

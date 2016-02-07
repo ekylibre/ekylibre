@@ -42,4 +42,37 @@
 #   name: "Lorem ipsum"
 #   updater: users_001
 #
---- {}
+---
+custom_field_choices_001:
+  created_at: 2016-02-07 22:13:52.162689000 Z
+  creator_id: 1
+  custom_field_id: 3
+  id: 1
+  lock_version: 0
+  name: qsdqd
+  position: 1
+  updated_at: 2016-02-07 22:13:52.162689000 Z
+  updater_id: 1
+  value: QSDQD
+custom_field_choices_002:
+  created_at: 2016-02-07 22:13:52.165185000 Z
+  creator_id: 1
+  custom_field_id: 3
+  id: 2
+  lock_version: 0
+  name: qsdsfdsfgsdfgsdg
+  position: 2
+  updated_at: 2016-02-07 22:13:52.165185000 Z
+  updater_id: 1
+  value: QSDSFDSFGSDFGSDG
+custom_field_choices_003:
+  created_at: 2016-02-07 22:13:52.167312000 Z
+  creator_id: 1
+  custom_field_id: 3
+  id: 3
+  lock_version: 0
+  name: '212'
+  position: 3
+  updated_at: 2016-02-07 22:13:52.167312000 Z
+  updater_id: 1
+  value: '212'

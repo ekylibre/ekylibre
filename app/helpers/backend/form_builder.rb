@@ -69,21 +69,20 @@ module Backend
 
     # Adds custom fields
     def custom_fields
-      custom_fields = @object.custom_fields
-      if custom_fields.any?
-        return @template.content_tag(:div, id: 'custom-fields-field') do
-          html = ''.html_safe
-          for custom_field in custom_fields
+      return nil unless @object.customizable?
+      custom_fields = @object.class.custom_fields
+      return nil unless custom_fields.any?
+      @template.content_tag(:div, class: 'custom-fields') do
+        simple_fields_for(:custom_fields, OpenStruct.new(@object.custom_fields)) do |cff|
+          custom_fields.map do |custom_field|
             options = { as: custom_field.nature.to_sym, required: custom_field.required?, label: custom_field.name }
             if custom_field.choice?
               options[:collection] = custom_field.choices.collect { |c| [c.name, c.value] }
             end
-            html << input(custom_field.column_name, options)
-          end
-          html
+            cff.input(custom_field.column_name, options)
+          end.join.html_safe
         end
       end
-      nil
     end
 
     def attachments_field_set

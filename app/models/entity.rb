@@ -33,6 +33,7 @@
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  currency                  :string           not null
+#  custom_fields             :jsonb
 #  dead_at                   :datetime
 #  deliveries_conditions     :string
 #  description               :text
@@ -71,6 +72,7 @@ require 'digest/sha2'
 
 class Entity < Ekylibre::Record::Base
   include Versionable, Commentable, Attachable
+  include Customizable
   attr_accessor :password_confirmation, :old_password
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: 'Account'

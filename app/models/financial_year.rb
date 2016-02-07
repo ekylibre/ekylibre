@@ -28,6 +28,7 @@
 #  creator_id            :integer
 #  currency              :string           not null
 #  currency_precision    :integer
+#  custom_fields         :jsonb
 #  id                    :integer          not null, primary key
 #  last_journal_entry_id :integer
 #  lock_version          :integer          default(0), not null
@@ -39,6 +40,7 @@
 
 class FinancialYear < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   attr_readonly :currency
   refers_to :currency
   belongs_to :last_journal_entry, class_name: 'JournalEntry'

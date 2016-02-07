@@ -33,6 +33,7 @@
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  currency              :string           not null
+#  custom_fields         :jsonb
 #  deposit_id            :integer
 #  downpayment           :boolean          default(TRUE), not null
 #  id                    :integer          not null, primary key

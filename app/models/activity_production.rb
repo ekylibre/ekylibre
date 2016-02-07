@@ -27,6 +27,7 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  cultivable_zone_id  :integer
+#  custom_fields       :jsonb
 #  id                  :integer          not null, primary key
 #  irrigated           :boolean          default(FALSE), not null
 #  lock_version        :integer          default(0), not null
@@ -47,6 +48,7 @@
 #
 
 class ActivityProduction < Ekylibre::Record::Base
+  include Customizable
   enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'

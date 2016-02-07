@@ -24,6 +24,7 @@
 #
 #  created_at      :datetime         not null
 #  creator_id      :integer
+#  custom_fields   :jsonb
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  name            :string           not null
@@ -33,6 +34,7 @@
 #  view_parameters :json
 #
 class Supervision < Ekylibre::Record::Base
+  include Customizable
   has_many :items, class_name: 'SupervisionItem', dependent: :destroy, inverse_of: :supervision
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :time_window, allow_nil: true, only_integer: true

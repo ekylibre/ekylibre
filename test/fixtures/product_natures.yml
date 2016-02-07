@@ -27,6 +27,7 @@
 #  category_id              :integer          not null
 #  created_at               :datetime         not null
 #  creator_id               :integer
+#  custom_fields            :jsonb
 #  derivative_of            :string
 #  derivatives_list         :text
 #  description              :text

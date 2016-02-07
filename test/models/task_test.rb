@@ -24,6 +24,7 @@
 #
 #  created_at          :datetime         not null
 #  creator_id          :integer
+#  custom_fields       :jsonb
 #  description         :text
 #  due_at              :datetime         not null
 #  entity_id           :integer          not null

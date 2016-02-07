@@ -25,6 +25,7 @@
 #  address_id        :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  custom_fields     :jsonb
 #  description       :text
 #  first_number      :integer
 #  id                :integer          not null, primary key
@@ -45,6 +46,7 @@
 #
 
 class Subscription < Ekylibre::Record::Base
+  include Customizable
   acts_as_numbered
   # attr_accessible :address_id, :description, :first_number, :last_number, :started_at, :stopped_at, :suspended, :sale_item_id, :nature_id
   belongs_to :address, class_name: 'EntityAddress'

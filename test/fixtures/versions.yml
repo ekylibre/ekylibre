@@ -13932,3 +13932,231 @@ versions_252:
     uuid: 62a7405f-422a-42ef-988e-ee281139e5a2
     initial_movement_id:
   item_type: Product
+versions_253:
+  created_at: 2016-02-07 22:21:10.940984000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 290
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    nature: cooperative
+    siren: '123456789'
+    siret_number: '12345678900015'
+    title:
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: '2016-02-03'
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+  item_id: 13
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 13
+    nature: organization
+    last_name: Coop Ain Coop'In
+    first_name: ''
+    number: P00000003
+    active: false
+    born_at: 1962-08-11 23:00:00.000000000 Z
+    dead_at:
+    client: true
+    client_account_id: 209
+    supplier: true
+    supplier_account_id: 211
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siret_number: '12345678900015'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-05 10:01:10.914643000 Z
+    creator_id: 1
+    title:
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: '2016-02-03'
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+  item_type: Entity
+versions_254:
+  created_at: 2016-02-07 22:23:35.228956000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 291
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: '2016-02-03'
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+  item_id: 13
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 13
+    nature: organization
+    last_name: Coop Ain Coop'In
+    first_name: ''
+    number: P00000003
+    active: false
+    born_at: 1962-08-11 23:00:00.000000000 Z
+    dead_at:
+    client: true
+    client_account_id: 209
+    supplier: true
+    supplier_account_id: 211
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siret_number: '12345678900015'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-05 10:01:10.914643000 Z
+    creator_id: 1
+    title:
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: '2016-02-02'
+      sdqdqsdq_sd_qsq: QSDQD
+      bla_dsfk_jioh_sdf: ''
+  item_type: Entity
+versions_255:
+  created_at: 2016-02-07 22:40:59.478062000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 292
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: '2016-02-02'
+      sdqdqsdq_sd_qsq: QSDQD
+      bla_dsfk_jioh_sdf: ''
+  item_id: 13
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 13
+    nature: organization
+    last_name: Coop Ain Coop'In
+    first_name: ''
+    number: P00000003
+    active: false
+    born_at: 1962-08-11 23:00:00.000000000 Z
+    dead_at:
+    client: true
+    client_account_id: 209
+    supplier: true
+    supplier_account_id: 211
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siret_number: '12345678900015'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-05 10:01:10.914643000 Z
+    creator_id: 1
+    title:
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: '2016-02-02'
+      sdqdqsdq_sd_qsq: QSDQD
+      bla_dsfk_jioh_sdf: dgdfg
+  item_type: Entity
+versions_256:
+  created_at: 2016-02-07 22:41:10.101031000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 293
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: '2016-02-02'
+      sdqdqsdq_sd_qsq: QSDQD
+      bla_dsfk_jioh_sdf: dgdfg
+  item_id: 13
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 13
+    nature: organization
+    last_name: Coop Ain Coop'In
+    first_name: ''
+    number: P00000003
+    active: false
+    born_at: 1962-08-11 23:00:00.000000000 Z
+    dead_at:
+    client: true
+    client_account_id: 209
+    supplier: true
+    supplier_account_id: 211
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: ''
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siret_number: '12345678900015'
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2014-11-05 10:01:10.914643000 Z
+    creator_id: 1
+    title:
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: '2016-02-02'
+      sdqdqsdq_sd_qsq: QSDSFDSFGSDFGSDG
+      bla_dsfk_jioh_sdf: dgdfg
+  item_type: Entity

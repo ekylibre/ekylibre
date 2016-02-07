@@ -26,6 +26,7 @@
 #  analyser_id            :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
+#  custom_fields          :jsonb
 #  description            :text
 #  geolocation            :geometry({:srid=>4326, :type=>"point"})
 #  host_id                :integer

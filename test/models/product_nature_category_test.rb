@@ -26,6 +26,7 @@
 #  charge_account_id                   :integer
 #  created_at                          :datetime         not null
 #  creator_id                          :integer
+#  custom_fields                       :jsonb
 #  depreciable                         :boolean          default(FALSE), not null
 #  description                         :text
 #  fixed_asset_account_id              :integer

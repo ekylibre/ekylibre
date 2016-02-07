@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207143859) do
+ActiveRecord::Schema.define(version: 20160207171458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,19 +45,20 @@ ActiveRecord::Schema.define(version: 20160207143859) do
   add_index "account_balances", ["updater_id"], name: "index_account_balances_on_updater_id", using: :btree
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "number",                       null: false
-    t.string   "name",                         null: false
-    t.string   "label",                        null: false
-    t.boolean  "debtor",       default: false, null: false
+    t.string   "number",                        null: false
+    t.string   "name",                          null: false
+    t.string   "label",                         null: false
+    t.boolean  "debtor",        default: false, null: false
     t.string   "last_letter"
     t.text     "description"
-    t.boolean  "reconcilable", default: false, null: false
+    t.boolean  "reconcilable",  default: false, null: false
     t.text     "usages"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0,     null: false
+    t.integer  "lock_version",  default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "accounts", ["created_at"], name: "index_accounts_on_created_at", using: :btree
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.boolean  "suspended",           default: false, null: false
     t.string   "production_cycle",                    null: false
     t.string   "production_campaign"
+    t.jsonb    "custom_fields"
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -178,6 +180,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.string   "state"
     t.integer  "rank_number",                                                                                                null: false
     t.integer  "campaign_id"
+    t.jsonb    "custom_fields"
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
@@ -251,6 +254,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.datetime "stopped_at"
     t.string   "retrieval_status",                                             default: "ok",      null: false
     t.string   "retrieval_message"
+    t.jsonb    "custom_fields"
   end
 
   add_index "analyses", ["analyser_id"], name: "index_analyses_on_analyser_id", using: :btree
@@ -320,18 +324,19 @@ ActiveRecord::Schema.define(version: 20160207143859) do
   add_index "attachments", ["updater_id"], name: "index_attachments_on_updater_id", using: :btree
 
   create_table "bank_statements", force: :cascade do |t|
-    t.integer  "cash_id",                                             null: false
-    t.datetime "started_at",                                          null: false
-    t.datetime "stopped_at",                                          null: false
-    t.string   "number",                                              null: false
-    t.decimal  "debit",        precision: 19, scale: 4, default: 0.0, null: false
-    t.decimal  "credit",       precision: 19, scale: 4, default: 0.0, null: false
-    t.string   "currency",                                            null: false
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.integer  "cash_id",                                              null: false
+    t.datetime "started_at",                                           null: false
+    t.datetime "stopped_at",                                           null: false
+    t.string   "number",                                               null: false
+    t.decimal  "debit",         precision: 19, scale: 4, default: 0.0, null: false
+    t.decimal  "credit",        precision: 19, scale: 4, default: 0.0, null: false
+    t.string   "currency",                                             null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                          default: 0,   null: false
+    t.integer  "lock_version",                           default: 0,   null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "bank_statements", ["cash_id"], name: "index_bank_statements_on_cash_id", using: :btree
@@ -461,6 +466,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                         default: 0, null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "cash_transfers", ["created_at"], name: "index_cash_transfers_on_created_at", using: :btree
@@ -497,6 +503,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "container_id"
     t.integer  "last_number"
     t.integer  "owner_id"
+    t.jsonb    "custom_fields"
   end
 
   add_index "cashes", ["account_id"], name: "index_cashes_on_account_id", using: :btree
@@ -581,16 +588,17 @@ ActiveRecord::Schema.define(version: 20160207143859) do
   add_index "crumbs", ["user_id"], name: "index_crumbs_on_user_id", using: :btree
 
   create_table "cultivable_zones", force: :cascade do |t|
-    t.string   "name",                                                                   null: false
-    t.string   "work_number",                                                            null: false
-    t.geometry "shape",        limit: {:srid=>4326, :type=>"multi_polygon"},             null: false
+    t.string   "name",                                                                    null: false
+    t.string   "work_number",                                                             null: false
+    t.geometry "shape",         limit: {:srid=>4326, :type=>"multi_polygon"},             null: false
     t.text     "description"
     t.uuid     "uuid"
-    t.datetime "created_at",                                                             null: false
-    t.datetime "updated_at",                                                             null: false
+    t.datetime "created_at",                                                              null: false
+    t.datetime "updated_at",                                                              null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                               default: 0, null: false
+    t.integer  "lock_version",                                                default: 0, null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "cultivable_zones", ["created_at"], name: "index_cultivable_zones_on_created_at", using: :btree
@@ -674,6 +682,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.string   "state",                               null: false
     t.integer  "driver_id"
     t.string   "mode"
+    t.jsonb    "custom_fields"
   end
 
   add_index "deliveries", ["created_at"], name: "index_deliveries_on_created_at", using: :btree
@@ -718,6 +727,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                              default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "deposits", ["cash_id"], name: "index_deposits_on_cash_id", using: :btree
@@ -784,6 +794,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.string   "file_fingerprint"
     t.integer  "file_pages_count"
     t.text     "file_content_text"
+    t.jsonb    "custom_fields"
   end
 
   add_index "documents", ["created_at"], name: "index_documents_on_created_at", using: :btree
@@ -838,6 +849,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "updater_id"
     t.integer  "lock_version",              default: 0,     null: false
     t.string   "title"
+    t.jsonb    "custom_fields"
   end
 
   add_index "entities", ["client_account_id"], name: "index_entities_on_client_account_id", using: :btree
@@ -934,20 +946,21 @@ ActiveRecord::Schema.define(version: 20160207143859) do
   add_index "event_participations", ["updater_id"], name: "index_event_participations_on_updater_id", using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.string   "name",                         null: false
-    t.datetime "started_at",                   null: false
+    t.string   "name",                          null: false
+    t.datetime "started_at",                    null: false
     t.datetime "stopped_at"
-    t.boolean  "restricted",   default: false, null: false
+    t.boolean  "restricted",    default: false, null: false
     t.integer  "duration"
     t.string   "place"
     t.text     "description"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0,     null: false
-    t.string   "nature",                       null: false
+    t.integer  "lock_version",  default: 0,     null: false
+    t.string   "nature",                        null: false
     t.integer  "affair_id"
+    t.jsonb    "custom_fields"
   end
 
   add_index "events", ["created_at"], name: "index_events_on_created_at", using: :btree
@@ -968,6 +981,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",          default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "financial_years", ["created_at"], name: "index_financial_years_on_created_at", using: :btree
@@ -1032,6 +1046,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                     default: 0, null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "fixed_assets", ["allocation_account_id"], name: "index_fixed_assets_on_allocation_account_id", using: :btree
@@ -1276,6 +1291,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                   default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "incoming_payments", ["accounted_at"], name: "index_incoming_payments_on_accounted_at", using: :btree
@@ -1400,6 +1416,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "working_duration"
     t.integer  "whole_duration"
     t.string   "actions"
+    t.jsonb    "custom_fields"
   end
 
   add_index "interventions", ["created_at"], name: "index_interventions_on_created_at", using: :btree
@@ -1427,6 +1444,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "lock_version",     default: 0,     null: false
     t.string   "name",                             null: false
     t.datetime "achieved_at"
+    t.jsonb    "custom_fields"
   end
 
   add_index "inventories", ["created_at"], name: "index_inventories_on_created_at", using: :btree
@@ -1477,6 +1495,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                               default: 0, null: false
     t.geometry "geolocation",          limit: {:srid=>4326, :type=>"point"}
+    t.jsonb    "custom_fields"
   end
 
   add_index "issues", ["created_at"], name: "index_issues_on_created_at", using: :btree
@@ -1582,6 +1601,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",     default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "journals", ["created_at"], name: "index_journals_on_created_at", using: :btree
@@ -1714,6 +1734,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                  default: 0, null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "loans", ["cash_id"], name: "index_loans_on_cash_id", using: :btree
@@ -1883,6 +1904,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                               default: 0,    null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "outgoing_payments", ["affair_id"], name: "index_outgoing_payments_on_affair_id", using: :btree
@@ -1966,6 +1988,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",      default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "parcels", ["address_id"], name: "index_parcels_on_address_id", using: :btree
@@ -2040,6 +2063,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",     default: 0, null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "prescriptions", ["created_at"], name: "index_prescriptions_on_created_at", using: :btree
@@ -2240,6 +2264,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "fixed_asset_expenses_account_id"
     t.decimal  "fixed_asset_depreciation_percentage", precision: 19, scale: 4, default: 0.0
     t.string   "fixed_asset_depreciation_method"
+    t.jsonb    "custom_fields"
   end
 
   add_index "product_nature_categories", ["charge_account_id"], name: "index_product_nature_categories_on_charge_account_id", using: :btree
@@ -2324,6 +2349,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",         default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "product_nature_variants", ["category_id"], name: "index_product_nature_variants_on_category_id", using: :btree
@@ -2358,6 +2384,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",             default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "product_natures", ["category_id"], name: "index_product_natures_on_category_id", using: :btree
@@ -2501,6 +2528,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.geometry "initial_geolocation",   limit: {:srid=>4326, :type=>"point"}
     t.uuid     "uuid"
     t.integer  "initial_movement_id"
+    t.jsonb    "custom_fields"
   end
 
   add_index "products", ["address_id"], name: "index_products_on_address_id", using: :btree
@@ -2604,6 +2632,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                 default: 0,   null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "purchases", ["accounted_at"], name: "index_purchases_on_accounted_at", using: :btree
@@ -2741,6 +2770,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                 default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "sales", ["accounted_at"], name: "index_sales_on_accounted_at", using: :btree
@@ -2776,6 +2806,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "updater_id"
     t.integer  "lock_version",      default: 0,     null: false
     t.string   "token"
+    t.jsonb    "custom_fields"
   end
 
   add_index "sensors", ["created_at"], name: "index_sensors_on_created_at", using: :btree
@@ -2851,6 +2882,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                               default: 0,     null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "subscriptions", ["address_id"], name: "index_subscriptions_on_address_id", using: :btree
@@ -2891,6 +2923,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0, null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "supervisions", ["created_at"], name: "index_supervisions_on_created_at", using: :btree
@@ -2934,6 +2967,7 @@ ActiveRecord::Schema.define(version: 20160207143859) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",        default: 0, null: false
+    t.jsonb    "custom_fields"
   end
 
   add_index "tasks", ["created_at"], name: "index_tasks_on_created_at", using: :btree

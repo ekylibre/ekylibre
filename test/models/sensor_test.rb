@@ -26,6 +26,7 @@
 #  active            :boolean          default(TRUE), not null
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  custom_fields     :jsonb
 #  embedded          :boolean          default(FALSE), not null
 #  host_id           :integer
 #  id                :integer          not null, primary key

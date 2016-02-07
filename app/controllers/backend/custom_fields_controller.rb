@@ -18,7 +18,7 @@
 
 module Backend
   class CustomFieldsController < Backend::BaseController
-    manage_restfully
+    manage_restfully active: true
     manage_restfully_list
     unroll
 

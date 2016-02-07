@@ -27,6 +27,7 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  cultivable_zone_id  :integer
+#  custom_fields       :jsonb
 #  id                  :integer          not null, primary key
 #  irrigated           :boolean          default(FALSE), not null
 #  lock_version        :integer          default(0), not null

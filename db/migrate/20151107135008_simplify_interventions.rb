@@ -130,6 +130,9 @@ class SimplifyInterventions < ActiveRecord::Migration
     wine_bottling: { mandatory: [:wine_bottling] }
   }.freeze
 
+  # Radius of big corn plant
+  RADIUS = 0.0000097
+
   # Rename table and depending stuff
   def rename_model_and_co(old_model, new_model)
     old_table = old_model.to_s.tableize
@@ -219,8 +222,12 @@ class SimplifyInterventions < ActiveRecord::Migration
     reversible do |dir|
       dir.up do
         # SELECT id, test, ST_GeometryN(poli, generate_series(1, ST_NumGeometries(geom))) AS geom FROM multi
-        execute "INSERT INTO cultivable_zones (name, work_number, shape, uuid, product_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT name, work_number, ST_Multi(initial_shape), uuid_generate_v4(), id, created_at, creator_id, updated_at, updater_id, lock_version FROM products WHERE type = 'LandParcel'"
-        execute 'UPDATE cultivable_zones SET shape = ST_Multi(geometry_value) FROM product_readings AS pr WHERE pr.product_id = cultivable_zones.product_id AND geometry_value IS NOT NULL'
+        column = :initial_shape
+        execute "INSERT INTO cultivable_zones (name, work_number, shape, uuid, product_id, created_at, creator_id, updated_at, updater_id, lock_version) SELECT name, COALESCE(work_number, id::VARCHAR), ST_Multi(ST_Union(ARRAY[ST_Buffer(ST_CollectionExtract(#{column}, 1), #{RADIUS}), ST_Buffer(ST_CollectionExtract(#{column}, 2), #{RADIUS}), ST_CollectionExtract(#{column}, 3)])), uuid_generate_v4(), id, created_at, creator_id, updated_at, updater_id, lock_version FROM products WHERE type = 'LandParcel'"
+
+        column = :geometry_value
+        # ST_Multi(geometry_value)
+        execute 'UPDATE cultivable_zones SET shape = ' + "ST_Multi(ST_Union(ARRAY[ST_Buffer(ST_CollectionExtract(#{column}, 1), #{RADIUS}), ST_Buffer(ST_CollectionExtract(#{column}, 2), #{RADIUS}), ST_CollectionExtract(#{column}, 3)]))" + ' FROM product_readings AS pr WHERE pr.product_id = cultivable_zones.product_id AND geometry_value IS NOT NULL AND NOT ST_IsEmpty(geometry_value)'
         execute 'DELETE FROM cultivable_zones WHERE shape IS NULL'
       end
       dir.down do
@@ -256,6 +263,7 @@ class SimplifyInterventions < ActiveRecord::Migration
     add_reference :activity_budgets, :campaign, index: true
     reversible do |d|
       d.up do
+        execute 'DELETE FROM activity_budgets WHERE production_id NOT IN (SELECT id FROM productions)'
         execute "UPDATE activity_budgets SET computation_method = CASE WHEN computation_method = 'per_production' THEN 'per_campaign' WHEN computation_method = 'per_production_support' THEN 'per_production' ELSE computation_method END, activity_id = p.activity_id, campaign_id = p.campaign_id FROM productions AS p WHERE p.id = activity_budgets.production_id"
       end
     end
@@ -502,14 +510,12 @@ class SimplifyInterventions < ActiveRecord::Migration
       end
     end
 
-    # Radius of big corn plant
-    radius = 0.0000097
     MULTI_POLYGON_COLUMNS.each do |table, columns|
       columns.each do |column|
         reversible do |dir|
           dir.up do
             # Transform Points and Linestrings to Polygons with ST_Buffer function
-            execute "UPDATE #{table} SET #{column} = ST_Multi(ST_Union(ARRAY[ST_Buffer(ST_CollectionExtract(#{column}, 1), #{radius}), ST_Buffer(ST_CollectionExtract(#{column}, 2), #{radius}), ST_CollectionExtract(#{column}, 3)]))"
+            execute "UPDATE #{table} SET #{column} = ST_Multi(ST_Union(ARRAY[ST_Buffer(ST_CollectionExtract(#{column}, 1), #{RADIUS}), ST_Buffer(ST_CollectionExtract(#{column}, 2), #{RADIUS}), ST_CollectionExtract(#{column}, 3)]))"
             change_column table, column, :geometry, limit: 'MULTIPOLYGON,4326'
             execute "UPDATE #{table} SET #{column} = ST_Multi(#{column})"
           end

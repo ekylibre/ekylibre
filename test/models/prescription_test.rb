@@ -24,6 +24,7 @@
 #
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  custom_fields    :jsonb
 #  delivered_at     :datetime
 #  description      :text
 #  id               :integer          not null, primary key

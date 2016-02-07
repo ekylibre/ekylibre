@@ -1,18 +1,14 @@
 = field_set do
-  = f.input :customized_type, collection: resource.class.enumerized_attributes[:customized_type].values.collect{|m| [Ekylibre::Record.human_name(m.to_s.underscore), m]}.sort{|a,b| a[0] <=> b[0]}
+  = f.input :customized_type, collection: resource.class.customizable_types.collect{|m| [Ekylibre::Record.human_name(m.to_s.underscore), m]}.sort{|a,b| a[0] <=> b[0]}
   = f.input :name
-  = f.input :nature, :show => {:decimal => :decimal_options, :string => :string_options, :choice => :choice_options}
   = f.input :active
   = f.input :required
-  = f.custom_fields
-
-= field_set(:string_options) do
-  = f.input :minimal_length
-  = f.input :maximal_length
-
-= field_set(:decimal_options) do
-  = f.input :minimal_value
-  = f.input :maximal_value
-
-= field_set(:choice_options) do
-  = f.nested_association :choices
+  = f.input :nature, as: :radio_buttons, show: '.{{value}}_options'
+  .text_options
+    = f.input :minimal_length
+    = f.input :maximal_length
+  .decimal_options
+    = f.input :minimal_value
+    = f.input :maximal_value
+  .choice_options
+    = f.nested_association :choices

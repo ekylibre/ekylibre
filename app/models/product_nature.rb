@@ -27,6 +27,7 @@
 #  category_id              :integer          not null
 #  created_at               :datetime         not null
 #  creator_id               :integer
+#  custom_fields            :jsonb
 #  derivative_of            :string
 #  derivatives_list         :text
 #  description              :text
@@ -50,6 +51,7 @@
 #
 
 class ProductNature < Ekylibre::Record::Base
+  include Customizable
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   refers_to :reference_name, class_name: 'ProductNature'

@@ -35,6 +35,7 @@
 #  credit              :boolean          default(FALSE), not null
 #  credited_sale_id    :integer
 #  currency            :string           not null
+#  custom_fields       :jsonb
 #  delivery_address_id :integer
 #  description         :text
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null

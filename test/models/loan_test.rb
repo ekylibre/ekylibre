@@ -28,6 +28,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  currency             :string           not null
+#  custom_fields        :jsonb
 #  id                   :integer          not null, primary key
 #  insurance_percentage :decimal(19, 4)   not null
 #  interest_percentage  :decimal(19, 4)   not null

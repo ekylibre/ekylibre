@@ -26,6 +26,7 @@
 #  analyser_id            :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
+#  custom_fields          :jsonb
 #  description            :text
 #  geolocation            :geometry({:srid=>4326, :type=>"point"})
 #  host_id                :integer
@@ -48,6 +49,7 @@
 
 class Analysis < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   enumerize :retrieval_status, in: [:ok, :controller_error, :internal_error, :sensor_error, :error], predicates: true
   refers_to :nature, class_name: 'AnalysisNature'
   belongs_to :analyser, class_name: 'Entity'

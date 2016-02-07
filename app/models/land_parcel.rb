@@ -27,6 +27,7 @@
 #  category_id           :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
+#  custom_fields         :jsonb
 #  dead_at               :datetime
 #  default_storage_id    :integer
 #  derivative_of         :string
@@ -86,14 +87,12 @@ class LandParcel < Easement
   end
 
   def administrative_area
-    # TODO Find best administrative area with its shape
+    # TODO: Find best administrative area with its shape
     nil
   end
 
   def estimated_soil_nature
-    # TODO Find estimated soil nature through analysis in this zone
+    # TODO: Find estimated soil nature through analysis in this zone
     nil
   end
-
-
 end

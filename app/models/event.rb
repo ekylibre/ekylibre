@@ -22,25 +22,27 @@
 #
 # == Table: events
 #
-#  affair_id    :integer
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :text
-#  duration     :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  nature       :string           not null
-#  place        :string
-#  restricted   :boolean          default(FALSE), not null
-#  started_at   :datetime         not null
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  affair_id     :integer
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  custom_fields :jsonb
+#  description   :text
+#  duration      :integer
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  name          :string           not null
+#  nature        :string           not null
+#  place         :string
+#  restricted    :boolean          default(FALSE), not null
+#  started_at    :datetime         not null
+#  stopped_at    :datetime
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 
 class Event < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   belongs_to :affair
   has_one :intervention, inverse_of: :event
   has_many :participations, class_name: 'EventParticipation', dependent: :destroy, inverse_of: :event

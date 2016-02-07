@@ -24,6 +24,7 @@
 #
 #  created_at          :datetime         not null
 #  creator_id          :integer
+#  custom_fields       :jsonb
 #  description         :text
 #  due_at              :datetime         not null
 #  entity_id           :integer          not null
@@ -40,6 +41,7 @@
 
 class Task < Ekylibre::Record::Base
   include Versionable, Commentable, Attachable
+  include Customizable
   enumerize :state, in: [:todo, :doing, :done], default: :todo, predicates: true
   enumerize :nature, in: [:incoming_call, :outgoing_call, :incoming_mail, :outgoing_mail, :incoming_email, :outgoing_email], default: :outgoing_call, predicates: true # , :quote, :document
   belongs_to :entity

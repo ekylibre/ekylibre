@@ -25,6 +25,7 @@
 #  annotation              :text
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  custom_fields           :jsonb
 #  driver_id               :integer
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null

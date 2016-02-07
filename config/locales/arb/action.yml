@@ -952,7 +952,6 @@ arb:
     # chart: "Chart"
     check: "نحقق"
     # children: "Children"
-    # choice_options: "Choice options"
     choices: "خيارات"
     # choose_a_type_of_product: "Choose a type of product"
     # choose_creation_mode: "Choose creation mode"
@@ -1043,7 +1042,6 @@ arb:
     debit: "الدين"
     # debts_on_assets: "Debts on assets"
     decimal_case: "خيارات للكسر العشري" #?
-    # decimal_options: "Decimal options"
     # decision_making: "Decision-making"
     # default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
     # default_letter_function_title: "Dear madam, dear sir"
@@ -1769,7 +1767,6 @@ arb:
     stop: "لغاية"
     # storage: "Storage"
     string_case: "خيارات للنص" #?
-    # string_options: "Text options"
     subject: "الموضوع"
     submit: "ارسال"
     subscriber_period: "تم التسجيل في %{subscribed_at}"

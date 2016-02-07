@@ -817,7 +817,6 @@ fra:
     checked_at: "Vérifié le" #?
     children: "Descendance"
     childrens: "Enfants" #?
-    choice_options: "Indicateur avec liste de choix"
     choices: "Choix"
     choose_a_type_of_product: "Choisissez un type de produit"
     choose_creation_mode: "Choisissez un mode de création"
@@ -923,7 +922,6 @@ fra:
     debit: "Débit"
     debts_on_assets: "Taux d'endettement (Dettes / Actifs)"
     decimal_case: "Options pour un décimal" #?
-    decimal_options: "Indicateur de type décimal"
     decision_making: "Décision"
     default_letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
     default_letter_function_title: "Chère Madame, Cher Monsieur"
@@ -1634,7 +1632,6 @@ fra:
     stop: "Jusqu’au"
     storage: "Support"
     string_case: "Options pour le texte" #?
-    string_options: "Indicateur de type Texte"
     subject: "Sujet"
     submit: "Envoyer"
     subscriber_period: "Abonné(e) le %{subscribed_at}"

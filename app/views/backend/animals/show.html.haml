@@ -62,7 +62,7 @@
 
   - if resource.custom_fields.any?
     - c.cobble :custom_fields do
-      = attributes_list(without_stamps: true) do |l|
+      = attributes_list(stamps: false) do |l|
         - l.custom_fields
 
   -# c.cobble :indicators_evolutions do

@@ -24,6 +24,7 @@
 #
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  custom_fields     :jsonb
 #  file_content_text :text
 #  file_content_type :string
 #  file_file_name    :string

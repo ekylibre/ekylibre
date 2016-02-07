@@ -29,6 +29,7 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  currency            :string           not null
+#  custom_fields       :jsonb
 #  delivery_address_id :integer
 #  description         :text
 #  id                  :integer          not null, primary key
@@ -49,6 +50,7 @@
 
 class Purchase < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   attr_readonly :currency, :nature_id
   refers_to :currency
   belongs_to :delivery_address, class_name: 'EntityAddress'

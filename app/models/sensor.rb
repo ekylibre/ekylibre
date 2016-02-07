@@ -26,6 +26,7 @@
 #  active            :boolean          default(TRUE), not null
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  custom_fields     :jsonb
 #  embedded          :boolean          default(FALSE), not null
 #  host_id           :integer
 #  id                :integer          not null, primary key
@@ -42,6 +43,7 @@
 
 class Sensor < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   enumerize :retrieval_mode, in: [:requesting, :listening], default: :requesting, predicates: true
   belongs_to :product
   belongs_to :host, class_name: 'Product'

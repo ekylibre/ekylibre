@@ -27,6 +27,7 @@
 #  category_id           :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
+#  custom_fields         :jsonb
 #  dead_at               :datetime
 #  default_storage_id    :integer
 #  derivative_of         :string
@@ -69,6 +70,7 @@ require 'ffaker'
 
 class Product < Ekylibre::Record::Base
   include Versionable, Indicateable, Attachable
+  include Customizable
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   belongs_to :address, class_name: 'EntityAddress'

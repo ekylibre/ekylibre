@@ -25,6 +25,7 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  cultivation_variety :string
+#  custom_fields       :jsonb
 #  description         :text
 #  family              :string           not null
 #  id                  :integer          not null, primary key
@@ -48,6 +49,7 @@
 # production done inside the given activity with same work method.
 class Activity < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   refers_to :family, class_name: 'ActivityFamily'
   refers_to :cultivation_variety, class_name: 'Variety'
   refers_to :support_variety, class_name: 'Variety'

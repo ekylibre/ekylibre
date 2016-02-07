@@ -32,6 +32,7 @@
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  currency                  :string           not null
+#  custom_fields             :jsonb
 #  dead_at                   :datetime
 #  deliveries_conditions     :string
 #  description               :text
@@ -430,13 +431,17 @@ entities_013:
   created_at: 2014-11-05 10:01:10.914643000 Z
   creator_id: 1
   currency: EUR
+  custom_fields:
+    bpozesopdf: '2016-02-02'
+    sdqdqsdq_sd_qsq: QSDSFDSFGSDFGSDG
+    bla_dsfk_jioh_sdf: dgdfg
   deliveries_conditions: ''
   first_name: ''
   full_name: Coop Ain Coop'In
   id: 13
   language: fra
   last_name: Coop Ain Coop'In
-  lock_version: 1
+  lock_version: 5
   locked: false
   meeting_origin: ''
   nature: organization
@@ -448,7 +453,7 @@ entities_013:
   supplier: true
   supplier_account_id: 211
   transporter: false
-  updated_at: 2014-11-05 14:14:01.977457000 Z
+  updated_at: 2016-02-07 22:41:10.095019000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: false

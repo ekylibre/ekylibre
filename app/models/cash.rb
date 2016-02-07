@@ -35,6 +35,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  currency             :string           not null
+#  custom_fields        :jsonb
 #  iban                 :string
 #  id                   :integer          not null, primary key
 #  journal_id           :integer          not null
@@ -51,6 +52,7 @@
 
 class Cash < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   BBAN_TRANSLATIONS = {
     fr: %w(abcdefghijklmonpqrstuvwxyz 12345678912345678923456789)
   }.freeze

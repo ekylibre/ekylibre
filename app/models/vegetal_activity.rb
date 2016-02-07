@@ -25,6 +25,7 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  cultivation_variety :string
+#  custom_fields       :jsonb
 #  description         :text
 #  family              :string           not null
 #  id                  :integer          not null, primary key

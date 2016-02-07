@@ -105,4 +105,9 @@ class Version < ActiveRecord::Base
       end
     end
   end
+
+  # Adds method for CustomFields
+  def self.customizable?
+    false
+  end
 end

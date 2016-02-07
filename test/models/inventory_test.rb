@@ -26,6 +26,7 @@
 #  achieved_at      :datetime
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  custom_fields    :jsonb
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null

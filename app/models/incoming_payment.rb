@@ -33,6 +33,7 @@
 #  created_at            :datetime         not null
 #  creator_id            :integer
 #  currency              :string           not null
+#  custom_fields         :jsonb
 #  deposit_id            :integer
 #  downpayment           :boolean          default(TRUE), not null
 #  id                    :integer          not null, primary key
@@ -53,6 +54,7 @@
 
 class IncomingPayment < Ekylibre::Record::Base
   include PeriodicCalculable, Attachable
+  include Customizable
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: proc { deposit && deposit.locked? }
   refers_to :currency

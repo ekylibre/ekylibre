@@ -27,6 +27,7 @@
 #  category_id           :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
+#  custom_fields         :jsonb
 #  dead_at               :datetime
 #  default_storage_id    :integer
 #  derivative_of         :string

@@ -26,6 +26,7 @@
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
 #  currency_rate              :decimal(19, 10)  not null
+#  custom_fields              :jsonb
 #  description                :text
 #  emission_amount            :decimal(19, 4)   not null
 #  emission_cash_id           :integer          not null
@@ -44,6 +45,7 @@
 #
 
 class CashTransfer < Ekylibre::Record::Base
+  include Customizable
   acts_as_numbered
   attr_readonly :number
   refers_to :emission_currency, class_name: 'Currency'

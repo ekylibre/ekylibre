@@ -72,6 +72,8 @@ accounts:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   debtor:
     type: boolean
     required: true
@@ -116,6 +118,8 @@ activities:
     references: user
   cultivation_variety:
     type: string
+  custom_fields:
+    type: jsonb
   description:
     type: text
   family:
@@ -297,6 +301,8 @@ activity_productions:
   cultivable_zone_id:
     type: integer
     references: cultivable_zone
+  custom_fields:
+    type: jsonb
   id:
     type: integer
     required: true
@@ -444,6 +450,8 @@ analyses:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   description:
     type: text
   geolocation:
@@ -626,6 +634,8 @@ bank_statements:
   currency:
     type: string
     required: true
+  custom_fields:
+    type: jsonb
   debit:
     type: decimal
     precision: 19
@@ -856,6 +866,8 @@ cash_transfers:
     precision: 19
     scale: 10
     required: true
+  custom_fields:
+    type: jsonb
   description:
     type: text
   emission_amount:
@@ -939,6 +951,8 @@ cashes:
   currency:
     type: string
     required: true
+  custom_fields:
+    type: jsonb
   iban:
     type: string
   id:
@@ -1119,6 +1133,8 @@ cultivable_zones:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   description:
     type: text
   id:
@@ -1267,6 +1283,8 @@ deliveries:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   driver_id:
     type: integer
     references: entity
@@ -1347,6 +1365,8 @@ deposits:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   description:
     type: text
   id:
@@ -1457,6 +1477,8 @@ documents:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   file_content_text:
     type: text
   file_content_type:
@@ -1530,6 +1552,8 @@ entities:
   currency:
     type: string
     required: true
+  custom_fields:
+    type: jsonb
   dead_at:
     type: datetime
   deliveries_conditions:
@@ -1771,6 +1795,8 @@ events:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   description:
     type: text
   duration:
@@ -1823,6 +1849,8 @@ financial_years:
     required: true
   currency_precision:
     type: integer
+  custom_fields:
+    type: jsonb
   id:
     type: integer
     required: true
@@ -1926,6 +1954,8 @@ fixed_assets:
     type: decimal
     precision: 19
     scale: 4
+  custom_fields:
+    type: jsonb
   depreciable_amount:
     type: decimal
     precision: 19
@@ -2409,6 +2439,8 @@ incoming_payments:
   currency:
     type: string
     required: true
+  custom_fields:
+    type: jsonb
   deposit_id:
     type: integer
     references: deposit
@@ -2645,6 +2677,8 @@ interventions:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   description:
     type: text
   event_id:
@@ -2695,6 +2729,8 @@ inventories:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   id:
     type: integer
     required: true
@@ -2771,6 +2807,8 @@ issues:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   description:
     type: text
   geolocation:
@@ -3050,6 +3088,8 @@ journals:
   currency:
     type: string
     required: true
+  custom_fields:
+    type: jsonb
   id:
     type: integer
     required: true
@@ -3289,6 +3329,8 @@ loans:
   currency:
     type: string
     required: true
+  custom_fields:
+    type: jsonb
   id:
     type: integer
     required: true
@@ -3638,6 +3680,8 @@ outgoing_payments:
   currency:
     type: string
     required: true
+  custom_fields:
+    type: jsonb
   delivered:
     type: boolean
     required: true
@@ -3765,6 +3809,8 @@ parcels:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   delivery_id:
     type: integer
     references: delivery
@@ -3915,6 +3961,8 @@ prescriptions:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   delivered_at:
     type: datetime
   description:
@@ -4207,6 +4255,8 @@ product_nature_categories:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   depreciable:
     type: boolean
     required: true
@@ -4396,6 +4446,8 @@ product_nature_variants:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   derivative_of:
     type: string
   id:
@@ -4451,6 +4503,8 @@ product_natures:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   derivative_of:
     type: string
   derivatives_list:
@@ -4683,6 +4737,8 @@ products:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   dead_at:
     type: datetime
   default_storage_id:
@@ -4926,6 +4982,8 @@ purchases:
   currency:
     type: string
     required: true
+  custom_fields:
+    type: jsonb
   delivery_address_id:
     type: integer
     references: entity_address
@@ -5187,6 +5245,8 @@ sales:
   currency:
     type: string
     required: true
+  custom_fields:
+    type: jsonb
   delivery_address_id:
     type: integer
     references: entity_address
@@ -5277,6 +5337,8 @@ sensors:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   embedded:
     type: boolean
     required: true
@@ -5403,6 +5465,8 @@ subscriptions:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   description:
     type: text
   first_number:
@@ -5486,6 +5550,8 @@ supervisions:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   id:
     type: integer
     required: true
@@ -5547,6 +5613,8 @@ tasks:
   creator_id:
     type: integer
     references: user
+  custom_fields:
+    type: jsonb
   description:
     type: text
   due_at:

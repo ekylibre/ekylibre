@@ -25,6 +25,7 @@
 #  actions          :string
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  custom_fields    :jsonb
 #  description      :text
 #  event_id         :integer
 #  id               :integer          not null, primary key

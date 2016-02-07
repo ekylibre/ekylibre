@@ -35,6 +35,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  currency             :string           not null
+#  custom_fields        :jsonb
 #  iban                 :string
 #  id                   :integer          not null, primary key
 #  journal_id           :integer          not null

@@ -25,6 +25,7 @@
 #  actions          :string
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  custom_fields    :jsonb
 #  description      :text
 #  event_id         :integer
 #  id               :integer          not null, primary key
@@ -44,6 +45,7 @@
 
 class Intervention < Ekylibre::Record::Base
   include PeriodicCalculable, CastGroupable
+  include Customizable
   attr_readonly :procedure_name, :production_id
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :issue

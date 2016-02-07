@@ -26,6 +26,7 @@
 #  category_id          :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer
+#  custom_fields        :jsonb
 #  derivative_of        :string
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
@@ -45,6 +46,7 @@
 
 class ProductNatureVariant < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants

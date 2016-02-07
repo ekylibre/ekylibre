@@ -32,6 +32,7 @@
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  currency                  :string           not null
+#  custom_fields             :jsonb
 #  dead_at                   :datetime
 #  deliveries_conditions     :string
 #  description               :text

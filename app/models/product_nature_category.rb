@@ -26,6 +26,7 @@
 #  charge_account_id                   :integer
 #  created_at                          :datetime         not null
 #  creator_id                          :integer
+#  custom_fields                       :jsonb
 #  depreciable                         :boolean          default(FALSE), not null
 #  description                         :text
 #  fixed_asset_account_id              :integer
@@ -52,6 +53,7 @@
 #  updater_id                          :integer
 #
 class ProductNatureCategory < Ekylibre::Record::Base
+  include Customizable
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :pictogram, in: Nomen::ProductNatureCategory.pictogram.choices
   # refers_to :pictogram, class_name: 'ProductPictograms'

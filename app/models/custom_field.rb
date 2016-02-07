@@ -42,22 +42,9 @@
 #
 
 class CustomField < Ekylibre::Record::Base
-  NOT_CUSTOMIZABLE_MODELS = [
-    :AccountBalance, :ActivityDistribution, :AnalysisItem, :Affair, :CashSession,
-    :Crumb, :CultivableZoneMembership, :CustomField, :CustomFieldChoice,
-    :DocumentArchive, :EntityAddress, :FixedAssetDepreciation, :Gap, :GapItem,
-    :GuideAnalysis, :GuideAnalysisPoint, :InterventionGroupParameter, :InterventionParameter,
-    :InterventionDoer, :InterventionTool, :InterventionTarget, :InterventionOutput,
-    :InterventionInput, :InterventionProductParameter, :InterventionParameterReading,
-    :InventoryItem, :JournalEntryItem, :ListingNode, :ListingNodeItem, :ManureManagementPlan,
-    :ManureManagementPlanZone, :Observation, :ParcelItem, :Preference, :ProductEnjoyment,
-    :ActivityBudgetItem, :ProductionDistribution, :ProductLink, :ProductLinkage,
-    :ProductLocalization, :ProductMembership, :ProductNatureCategoryTaxation,
-    :ProductNatureVariantReading, :ProductOwnership, :ProductPhase, :ProductReading,
-    :PurchaseItem, :SaleItem, :TargetDistribution, :User, :Version].freeze
   attr_readonly :nature
   enumerize :nature, in: [:text, :decimal, :boolean, :date, :datetime, :choice], predicates: true
-  enumerize :customized_type, in: (Ekylibre::Schema.model_names - NOT_CUSTOMIZABLE_MODELS)
+  enumerize :customized_type, in: Ekylibre::Schema.model_names
   has_many :choices, -> { order(:position) }, class_name: 'CustomFieldChoice', dependent: :delete_all, inverse_of: :custom_field
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true
@@ -69,7 +56,7 @@ class CustomField < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: nature.values
   validates_inclusion_of :customized_type, in: customized_type.values
   validates_uniqueness_of :column_name, scope: [:customized_type]
-  validates_format_of :column_name, with: /\A(\_[a-z]+)+\z/
+  validates_format_of :column_name, with: /\A([a-z]+(\_[a-z]+)*)+\z/
   validates_exclusion_of :column_name, in: ['_destroy']
 
   accepts_nested_attributes_for :choices
@@ -77,53 +64,21 @@ class CustomField < Ekylibre::Record::Base
 
   # default_scope -> { order(:customized_type, :position) }
   scope :actives, -> { where(active: true).order(:position) }
-  scope :of, ->(model) { (customized_type.values.include?(model) ? where(active: true, customized_type: model).order(:position) : none) }
+  scope :of, ->(model) { where(active: true, customized_type: model).order(:position) }
 
   before_validation do
     self.column_name ||= name
-    self.column_name = ('_' + self.column_name.parameterize.gsub(/[^a-z]+/, '_').gsub(/(^\_+|\_+$)/, ''))[0..62]
+    self.column_name = self.column_name.parameterize.gsub(/[^a-z]+/, '_').gsub(/(^\_+|\_+$)/, '')[0..62]
     while others.where(column_name: column_name, customized_type: customized_type).any?
       column_name.succ!
     end
   end
 
-  # Adds a new column in the given model
-  after_save do
-    unless column_exists?
-      options = {}
-      if column_type == :decimal
-        options[:precision] = 19
-        options[:scale] = 6
-      end
-      self.class.connection.add_column(customized_table_name, column_name, column_type, options)
-      if choice? && !index_exists?
-        self.class.connection.add_index(customized_table_name, column_name, name: index_name)
-      end
-      reset_schema
+  validate do
+    unless customized_type.to_s.constantize.respond_to?(:custom_fields)
+      errors.add(:customized_type, :invalid)
     end
   end
-
-  # Updates name of the column if necessary
-  before_update do
-    old = old_record
-    if column_name != old.column_name && old.column_exists?
-      self.class.connection.rename_column(customized_table_name, old.column_name, column_name)
-      reset_schema
-    end
-  end
-
-  # Destroy column and its data
-  before_destroy do
-    if column_exists?
-      if index_exists?
-        self.class.connection.remove_index(customized_table_name, column_name)
-      end
-      self.class.connection.remove_column(customized_table_name, column_name)
-      reset_schema
-    end
-  end
-
-  delegate :reset_schema, to: :customized_model
 
   delegate :count, to: :choices, prefix: true
 
@@ -134,24 +89,10 @@ class CustomField < Ekylibre::Record::Base
     end
   end
 
-  # Returns the data type for the column
-  def column_type
-    (choice? ? :string : nature).to_sym
-  end
-
-  # Check if column exists in DB
-  def column_exists?
-    self.class.connection.column_exists?(customized_table_name, column_name)
-  end
-
-  # Check if index exists in DB
-  def index_exists?
-    return false unless column_exists?
-    self.class.connection.index_exists?(customized_table_name, column_name)
-  end
-
-  def index_name
-    "index_#{customized_table_name}_on_cf_#{id}"
+  def self.customizable_types
+    Ekylibre::Schema.model_names.select do |model_name|
+      model_name.to_s.constantize.respond_to?(:custom_fields)
+    end
   end
 
   # Access to the customized model

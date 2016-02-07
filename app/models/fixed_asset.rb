@@ -29,6 +29,7 @@
 #  creator_id              :integer
 #  currency                :string           not null
 #  current_amount          :decimal(19, 4)
+#  custom_fields           :jsonb
 #  depreciable_amount      :decimal(19, 4)   not null
 #  depreciated_amount      :decimal(19, 4)   not null
 #  depreciation_method     :string           not null
@@ -54,6 +55,7 @@
 
 class FixedAsset < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   acts_as_numbered
   enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: { prefix: true } # graduated
   refers_to :currency

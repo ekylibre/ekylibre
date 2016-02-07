@@ -29,6 +29,7 @@
 #  creator_id              :integer
 #  currency                :string           not null
 #  current_amount          :decimal(19, 4)
+#  custom_fields           :jsonb
 #  depreciable_amount      :decimal(19, 4)   not null
 #  depreciated_amount      :decimal(19, 4)   not null
 #  depreciation_method     :string           not null

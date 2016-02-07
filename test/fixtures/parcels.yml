@@ -25,6 +25,7 @@
 #  address_id        :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  custom_fields     :jsonb
 #  delivery_id       :integer
 #  delivery_mode     :string
 #  given_at          :datetime

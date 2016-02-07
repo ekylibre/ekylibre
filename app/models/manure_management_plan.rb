@@ -70,16 +70,15 @@ class ManureManagementPlan < Ekylibre::Record::Base
     campaign.activity_productions.includes(:support).order(:activity_id, 'products.name').each do |activity_production|
       # activity_production.active? return all activies except fallow_land
       next unless activity_production.support.is_a?(LandParcel) && activity_production.active?
-      unless zones.find_by(activity_production: activity_production)
-        zone = zones.build(
-          activity_production: activity_production,
-          computation_method: default_computation_method,
-          administrative_area: activity_production.support.administrative_area,
-          cultivation_variety: activity_production.cultivation_variety,
-          soil_nature: activity_production.support.soil_nature || activity_production.support.estimated_soil_nature
-        )
-        zone.estimate_expected_yield
-      end
+      next if zones.find_by(activity_production: activity_production)
+      zone = zones.build(
+        activity_production: activity_production,
+        computation_method: default_computation_method,
+        administrative_area: activity_production.support.administrative_area,
+        cultivation_variety: activity_production.cultivation_variety,
+        soil_nature: activity_production.support.soil_nature || activity_production.support.estimated_soil_nature
+      )
+      zone.estimate_expected_yield
     end
   end
 

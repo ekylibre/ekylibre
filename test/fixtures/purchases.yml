@@ -29,6 +29,7 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  currency            :string           not null
+#  custom_fields       :jsonb
 #  delivery_address_id :integer
 #  description         :text
 #  id                  :integer          not null, primary key

@@ -30,6 +30,7 @@
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  currency          :string           not null
+#  custom_fields     :jsonb
 #  delivered         :boolean          default(TRUE), not null
 #  downpayment       :boolean          default(TRUE), not null
 #  id                :integer          not null, primary key

@@ -26,6 +26,7 @@
 #  achieved_at      :datetime
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  custom_fields    :jsonb
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
@@ -40,6 +41,7 @@
 
 class Inventory < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

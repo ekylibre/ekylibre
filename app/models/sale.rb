@@ -35,6 +35,7 @@
 #  credit              :boolean          default(FALSE), not null
 #  credited_sale_id    :integer
 #  currency            :string           not null
+#  custom_fields       :jsonb
 #  delivery_address_id :integer
 #  description         :text
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
@@ -66,6 +67,7 @@
 
 class Sale < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   attr_readonly :currency
   refers_to :currency
   belongs_to :affair
@@ -175,7 +177,7 @@ class Sale < Ekylibre::Record::Base
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
     end
-    for mail_address in [:address, :delivery_address, :invoice_address]
+    [:address, :delivery_address, :invoice_address].each do |mail_address|
       next unless send(mail_address)
       unless send(mail_address).mail?
         errors.add(mail_address, :must_be_a_mail_address)
@@ -184,9 +186,8 @@ class Sale < Ekylibre::Record::Base
   end
 
   before_update do
-    old = self.class.find(id)
-    if old.invoice?
-      for attr in self.class.columns_definition.keys
+    if old_record.invoice?
+      self.class.columns_definition.keys.each do |attr|
         send(attr + '=', old.send(attr))
       end
     end

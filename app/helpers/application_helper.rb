@@ -317,12 +317,11 @@ module ApplicationHelper
       raise ArgumentError, 'One parameter needed for attribute_list block'
     end
     yield attribute_list if block_given?
-    unless options[:without_custom_fields]
-      unless attribute_list.items.detect { |item| item[0] == :custom_fields }
-        attribute_list.custom_fields
-      end
+    if resource.customizable? && !options[:custom_fields].is_a?(FalseClass) &&
+       !attribute_list.items.detect { |item| item[0] == :custom_fields }
+      attribute_list.custom_fields
     end
-    unless options[:without_stamp] || options[:without_stamps] || options[:stamps].is_a?(FalseClass)
+    unless options[:stamps].is_a?(FalseClass)
       attribute_list.attribute :creator, label: :full_name
       attribute_list.attribute :created_at
       attribute_list.attribute :updater, label: :full_name

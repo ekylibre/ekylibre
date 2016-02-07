@@ -28,6 +28,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  currency             :string           not null
+#  custom_fields        :jsonb
 #  id                   :integer          not null, primary key
 #  insurance_percentage :decimal(19, 4)   not null
 #  interest_percentage  :decimal(19, 4)   not null
@@ -46,6 +47,7 @@
 #
 class Loan < Ekylibre::Record::Base
   include Attachable
+  include Customizable
   enumerize :repayment_method, in: [:constant_rate, :constant_amount], default: :constant_amount
   enumerize :shift_method, in: [:immediate_payment, :anatocism], default: :immediate_payment
   enumerize :repayment_period, in: [:month, :year], default: :month, predicates: { prefix: true }

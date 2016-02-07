@@ -22,23 +22,25 @@
 #
 # == Table: accounts
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  debtor       :boolean          default(FALSE), not null
-#  description  :text
-#  id           :integer          not null, primary key
-#  label        :string           not null
-#  last_letter  :string
-#  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  number       :string           not null
-#  reconcilable :boolean          default(FALSE), not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
-#  usages       :text
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  custom_fields :jsonb
+#  debtor        :boolean          default(FALSE), not null
+#  description   :text
+#  id            :integer          not null, primary key
+#  label         :string           not null
+#  last_letter   :string
+#  lock_version  :integer          default(0), not null
+#  name          :string           not null
+#  number        :string           not null
+#  reconcilable  :boolean          default(FALSE), not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer
+#  usages        :text
 #
 
 class Account < Ekylibre::Record::Base
+  include Customizable
   @@references = []
   attr_readonly :number
   # has_many :account_balances
