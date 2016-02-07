@@ -65,7 +65,7 @@ module Procedo
 
       # Impact changes
       def impact_with!(updater_name)
-        steps = updater_name.split(/[\[\]]+/)
+        steps = updater_name.to_s.split(/[\[\]]+/)
         impact_with(steps)
       end
 
