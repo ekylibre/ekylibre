@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Backend
   class ActivitiesControllerTest < ActionController::TestCase
-    test_restfully_all_actions family: { mode: :index, name: :mussel_farming, format: :json }, except: :show
+    test_restfully_all_actions family: { mode: :index, name: :mussel_farming, format: :json }, duplicate: { params: { source_activity_id: 1 } }, except: :show
 
     test 'show action' do
       get :show, id: 'NaID', redirect: root_url, locale: @locale
