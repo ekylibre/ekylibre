@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   class ActivityBudgetsControllerTest < ActionController::TestCase
-    test_restfully_all_actions duplicate: { params: { activity_id: 1, campaign_id: 6 } }, except: :show
+    test_restfully_all_actions duplicate: { params: { activity_id: 1, campaign_id: 6 } }, except: [:show, :index]
 
     test 'show action' do
       get :show, id: 'NaID', redirect: root_url, locale: @locale
@@ -12,6 +12,11 @@ module Backend
 
         assert_not_nil assigns(:activity_budget)
       end
+    end
+
+    test 'index action' do
+      get :index, redirect: root_url, locale: @locale
+      assert_redirected_to backend_activities_url
     end
   end
 end
