@@ -60,10 +60,10 @@ class InventoryItem < Ekylibre::Record::Base
       movement.delta = delta
       movement.started_at = achieved_at
       movement.save!
-      update_column(product_movement_id: movement.id)
+      update_columns(product_movement_id: movement.id)
     elsif product_movement
       ProductMovement.destroy(product_movement)
-      update_column(product_movement_id: nil)
+      update_columns(product_movement_id: nil)
     end
   end
 
