@@ -1,9 +1,9 @@
 :ruby
   campaign = @campaigns.first
-  activities = Activity.of_campaign(@campaigns).order(:name)
-  activity_productions = ActivityProduction.of_campaign(@campaigns).order(:name)
-  cultivable_zones_ready_for_production = CultivableZone.of_activity_production(activity_productions).order(:name) if activity_productions
-  interventions = Intervention.of_campaign(@campaigns).order(:started_at)
+  activities = Activity.of_campaign(campaign).order(:name)
+  activity_productions = ActivityProduction.of_campaign(campaign).order(:name)
+  cultivable_zones_ready_for_production = CultivableZone.of_current_activity_productions.order(:name) if activity_productions
+  interventions = Intervention.of_campaign(campaign).order(:started_at)
   equipments = Equipment.availables
   workers = Worker.availables
   incoming_parcels = Parcel.with_nature(:incoming)
