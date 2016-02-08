@@ -75,12 +75,13 @@ custom_fields_002:
   creator_id: 1
   customized_type: Entity
   id: 2
-  lock_version: 1
-  name: Bla dsfk jioh sdf
+  lock_version: 3
+  minimal_length: 3
+  name: Bla dsfk min 3
   nature: text
   position: 1
-  required: false
-  updated_at: 2016-02-07 22:10:51.766879000 Z
+  required: true
+  updated_at: 2016-02-07 22:52:39.817635000 Z
   updater_id: 1
 custom_fields_003:
   active: true
@@ -109,4 +110,18 @@ custom_fields_004:
   position: 3
   required: false
   updated_at: 2016-02-07 22:15:42.606577000 Z
+  updater_id: 1
+custom_fields_005:
+  active: true
+  column_name: test
+  created_at: 2016-02-08 10:30:40.852803000 Z
+  creator_id: 1
+  customized_type: Matter
+  id: 5
+  lock_version: 0
+  name: Test
+  nature: text
+  position: 1
+  required: false
+  updated_at: 2016-02-08 10:30:40.852803000 Z
   updater_id: 1

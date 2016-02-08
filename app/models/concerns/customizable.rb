@@ -13,7 +13,8 @@ module Customizable
 
   # Returns the value of given custom_field
   def custom_value(field)
-    custom_fields[field.column_name]
+    return nil unless self.custom_fields
+    self.custom_fields[field.column_name]
   end
 
   def validate_custom_fields

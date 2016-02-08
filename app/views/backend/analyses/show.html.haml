@@ -11,7 +11,7 @@
     - l.attribute :sampled_at
     - l.attribute :analyser, url: true
     - l.attribute :analysed_at
-    - l.custom_fields
+
   - if resource.geolocation
     = visualization do |v|
       - v.background 'OpenStreetMap.HOT'
@@ -22,7 +22,6 @@
       - v.control :scale
       - v.control :fullscreen
       - v.control :layer_selector
-
 
 = cobbles do |c|
 

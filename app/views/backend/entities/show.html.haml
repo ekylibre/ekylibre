@@ -75,8 +75,6 @@
           - if resource.supplier
             - l.attribute :supplier_account, url: true
           - l.attribute :transporter
-          - if resource.custom_fields.any?
-            - l.custom_fields
 
       -# if cash = resource.cash
         - c.cobble(:cash_balance) do

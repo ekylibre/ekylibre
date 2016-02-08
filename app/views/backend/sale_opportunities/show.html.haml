@@ -33,7 +33,6 @@
     - l.attribute :pretax_amount, currency: true
     - l.attribute :description if resource.description?
     - l.attribute :origin
-    - l.custom_fields
 
 = janus do |j|
   - j.face :timeline do
@@ -56,5 +55,3 @@
         = cobble_toolbar do |t|
           = t.new(params: {controller: :tasks, entity_id: resource.third_id, executor_id: current_user.id, state: :todo})
         = cobble_list(:tasks)
-
-

@@ -21,9 +21,8 @@
     = resource_info :container do |container|
       %i.picto{class: "zone"}
       = link_to(container.work_name, {controller: container.type.tableize, action: :show, id: container.id})
-    - if resource.custom_fields.any?
-      = attributes_list do |l|
-        - l.custom_fields
+    - if resource.customized?
+      = attributes_list(stamps: false)
 
 = cobbles do |c|
 

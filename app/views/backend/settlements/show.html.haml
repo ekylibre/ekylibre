@@ -1,9 +1,7 @@
 - main_toolbar do |t|
-  = t.edit @settlement
+  = t.edit resource
 
 = cobbles do |c|
-  -c.cobble :general_informations do
+  - c.cobble :general_informations do
     = attributes_list do |l|
       - l.attribute :name
-      - if resource.custom_fields.any?
-        - l.custom_fields

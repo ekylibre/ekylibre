@@ -53,6 +53,10 @@ module Ekylibre
         self.class.customizable?
       end
 
+      def customized?
+        customizable? && self.class.custom_fields.any?
+      end
+
       def human_attribute_name(*args)
         self.class.human_attribute_name(*args)
       end

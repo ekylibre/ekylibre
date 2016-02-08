@@ -32,4 +32,3 @@
       end
       series << {name: Loan.human_attribute_name(:remaining_amount), data: resource.repayments.pluck(:remaining_amount).map(&:to_f), type: 'line', marker: {enabled: false}, y_axis: 1}
     = area_highcharts(series, legend: true, y_axis: [{title: { text: Loan.human_attribute_name(:repayments)}, min: 0}, {title: { text: Loan.human_attribute_name(:remaining_amount)}, min: 0, opposite: true}], plot_options: {area: {stacking: 'normal', marker: {enabled: false}}})
-

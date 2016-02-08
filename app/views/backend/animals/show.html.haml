@@ -60,10 +60,10 @@
     - c.cobble(:variable_indicators) do
       = variable_readings(resource)
 
-  - if resource.custom_fields.any?
+  - if resource.customized?
     - c.cobble :custom_fields do
-      = attributes_list(stamps: false) do |l|
-        - l.custom_fields
+      = attributes_list(stamps: false)
+
 
   -# c.cobble :indicators_evolutions do
     - if resource.born_at

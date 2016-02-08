@@ -11,8 +11,6 @@
       - l.attribute :active
       - l.attribute :category, url: true
       - l.attribute :description
-      - if resource.custom_fields.any?
-        - l.custom_fields
 
   - c.cobble :variants, title: ProductNature.human_attribute_name(:variants) do
     = cobble_list :variants

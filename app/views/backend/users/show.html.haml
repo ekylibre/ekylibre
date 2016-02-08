@@ -18,8 +18,6 @@
       - l.attribute :commercial
       - l.attribute :employment
       - l.attribute :team, label: :name
-      - if resource.custom_fields.any?
-        - l.custom_fields
 
   - unless resource.administrator?
     - c.cobble :rights do

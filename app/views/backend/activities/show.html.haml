@@ -19,12 +19,9 @@
       - if resource.with_supports
         - l.attribute :support_variety
       - l.attribute :production_cycle
-      - if resource.custom_fields.any?
-        - l.custom_fields
 
   - c.cobble(:productions) do
     = render 'productions'
-
 
   - if resource.auxiliary?
     - c.cobble(:distributions, title: Activity.human_attribute_name(:distributions)) do

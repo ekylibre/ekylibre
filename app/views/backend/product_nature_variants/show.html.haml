@@ -24,7 +24,6 @@
     - l.attribute :unit_name
     - l.attribute :variety
     - l.attribute :derivative_of
-    - l.custom_fields
 
 = cobbles do |c|
   - c.cobble(:products) do
@@ -55,5 +54,3 @@
 
   - c.cobble(:catalog_items) do
     = cobble_list(:catalog_items)
-
-

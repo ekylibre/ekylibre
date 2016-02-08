@@ -19,7 +19,6 @@
           - list = resource.current_cultivations.collect { |c| link_to(c.name, {controller: c.type.tableize, action: :show, id: c.id}) }
           = list.to_sentence.html_safe
 
-
 = cobbles do |c|
 
   - c.cobble :weather do

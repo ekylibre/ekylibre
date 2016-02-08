@@ -313,10 +313,12 @@ module ApplicationHelper
     record = args.shift || resource
     columns = options[:columns] || 3
     attribute_list = AttributesList.new(record)
-    unless block.arity == 1
-      raise ArgumentError, 'One parameter needed for attribute_list block'
+    if block_given?
+      unless block.arity == 1
+        raise ArgumentError, 'One parameter needed for attribute_list block'
+      end
+      yield attribute_list
     end
-    yield attribute_list if block_given?
     if resource.customizable? && !options[:custom_fields].is_a?(FalseClass) &&
        !attribute_list.items.detect { |item| item[0] == :custom_fields }
       attribute_list.custom_fields
@@ -329,7 +331,7 @@ module ApplicationHelper
       # attribute_list.attribute :lock_version
     end
     code = ''
-    items = attribute_list.items.delete_if { |x| x[0] == :custom_fields }
+    items = attribute_list.items # .delete_if { |x| x[0] == :custom_fields }
     if items.any?
       for item in items
         label, value = if item[0] == :custom
@@ -361,8 +363,9 @@ module ApplicationHelper
       @items << [:custom, args]
     end
 
-    def custom_fields(*_args)
-      @object.custom_fields.each do |custom_field|
+    def custom_fields
+      fail 'Cannot show custom fields on ' + @object.class.name unless @object.customizable?
+      @object.class.custom_fields.each do |custom_field|
         value = @object.custom_value(custom_field)
         custom(custom_field.name, value) unless value.blank?
       end

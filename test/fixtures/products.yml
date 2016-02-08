@@ -1835,17 +1835,27 @@ matters_008:
   category_id: 5
   created_at: 2014-11-01 16:00:08.017208000 Z
   creator_id: 1
+  custom_fields:
+    test: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed posuere lectus
+      purus, et venenatis eros pretium et. Curabitur molestie mauris ac purus sagittis,
+      eget blandit quam sodales. Curabitur eget elementum ligula, at consectetur ligula.
+      In dictum, dui nec euismod mattis, ante risus placerat risus, vel lacinia diam
+      velit a erat. Suspendisse tempus nisi ante. Morbi sed odio sagittis, mattis
+      massa in, aliquam nisi. Donec non mi non sem euismod varius nec sit amet lorem.
+      Ut aliquam tellus libero, a vehicula ante tincidunt non. Pellentesque semper
+      magna id justo lacinia varius. '
   derivative_of: avena_sativa_une_de_mai
   description: ''
   id: 54
+  initial_born_at: 2016-02-08 10:33:04.269256000 Z
   initial_movement_id: 109
   initial_population: 20.0
-  lock_version: 0
+  lock_version: 2
   name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
   nature_id: 10
   number: P00000000001
   type: Matter
-  updated_at: 2014-11-01 16:00:08.017208000 Z
+  updated_at: 2016-02-08 10:33:27.670999000 Z
   updater_id: 1
   uuid: 2d8ed18e-de21-4159-854c-63f6eb32713c
   variant_id: 11

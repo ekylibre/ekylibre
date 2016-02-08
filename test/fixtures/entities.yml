@@ -432,16 +432,16 @@ entities_013:
   creator_id: 1
   currency: EUR
   custom_fields:
-    bpozesopdf: '2016-02-02'
-    sdqdqsdq_sd_qsq: QSDSFDSFGSDFGSDG
-    bla_dsfk_jioh_sdf: dgdfg
+    bpozesopdf: ''
+    sdqdqsdq_sd_qsq: QSDQD
+    bla_dsfk_jioh_sdf: sfsdfsf
   deliveries_conditions: ''
   first_name: ''
   full_name: Coop Ain Coop'In
   id: 13
   language: fra
   last_name: Coop Ain Coop'In
-  lock_version: 5
+  lock_version: 12
   locked: false
   meeting_origin: ''
   nature: organization
@@ -453,7 +453,7 @@ entities_013:
   supplier: true
   supplier_account_id: 211
   transporter: false
-  updated_at: 2016-02-07 22:41:10.095019000 Z
+  updated_at: 2016-02-07 23:24:22.687646000 Z
   updater_id: 1
   vat_number: ''
   vat_subjected: false

@@ -6,8 +6,7 @@
       - l.attribute :started_at
       - l.attribute :stopped_at
       - l.attribute :acceptance_status
-      - if resource.custom_fields.any?
-        - l.custom_fields
+
   -# TODO Details results based on XML structure with points results
   - c.cobble :points do
     = cobble_list :points

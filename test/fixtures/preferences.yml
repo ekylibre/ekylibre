@@ -3652,3 +3652,14 @@ preferences_313:
   updated_at: 2016-02-07 21:55:27.376248000 Z
   updater_id: 1
   user_id: 1
+preferences_314:
+  created_at: 2016-02-08 09:48:37.678303000 Z
+  creator_id: 1
+  id: 315
+  lock_version: 0
+  name: list._products_list_intervention_product_parameters_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-02-08 09:48:37.678303000 Z
+  updater_id: 1
+  user_id: 1

@@ -15,7 +15,6 @@
     - l.attribute :closed
     - l.attribute :code
     - l.attribute :last_journal_entry, url: true
-    - l.custom_fields
 
 = cobbles do |c|
   - c.cobble(resource.closed ? :balance : :last_computed_balance) do

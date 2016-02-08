@@ -18,7 +18,7 @@
 
 module Backend
   class CustomFieldsController < Backend::BaseController
-    manage_restfully active: true
+    manage_restfully active: true, nature: :text
     manage_restfully_list
     unroll
 
@@ -48,7 +48,7 @@ module Backend
     def sort
       return unless @custom_field = find_and_check
       @custom_field.sort_choices!
-      redirect_to_back
+      redirect_to params[:redirect] || { action: :index }
     end
   end
 end

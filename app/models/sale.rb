@@ -188,7 +188,7 @@ class Sale < Ekylibre::Record::Base
   before_update do
     if old_record.invoice?
       self.class.columns_definition.keys.each do |attr|
-        send(attr + '=', old.send(attr))
+        send(attr + '=', old_record.send(attr))
       end
     end
   end

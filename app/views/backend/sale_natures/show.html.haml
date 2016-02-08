@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  = t.edit @sale_nature
+  = t.edit resource
 = attributes_list do |l|
   - l.attribute :name
   - l.attribute :active
@@ -7,11 +7,9 @@
   - l.attribute :expiration_delay
   - l.attribute :payment_delay
   - l.attribute :downpayment
-  - if @sale_nature.downpayment?
+  - if resource.downpayment?
     - l.attribute :downpayment_minimum
     - l.attribute :downpayment_percentage
   - l.attribute :with_accounting
-  - if @sale_nature.with_accounting?
+  - if resource.with_accounting?
     - l.attribute :journal
-  - if resource.custom_fields.any?
-    - l.custom_fields
