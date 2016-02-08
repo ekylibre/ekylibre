@@ -144,10 +144,6 @@ module Ekylibre
         end
         files_count = files.keys.count
         mimefile = working_path.join('mimetype')
-        if options[:mimetype]
-          File.write(mimefile, options[:mimetype])
-          files['mimetype'] = mimefile
-        end
         FileUtils.rm_rf(target_path) if target_path.exist?
         not_found = files.values.select { |source| !source.exist? }
         if not_found.any?
@@ -157,6 +153,11 @@ module Ekylibre
             return false
           end
         else
+          if options[:mimetype]
+            FileUtils.mkdir_p(mimefile.dirname)
+            File.write(mimefile, options[:mimetype])
+            files['mimetype'] = mimefile
+          end
           begin
             Zip::File.open(target_path, Zip::File::CREATE) do |zile|
               files.each do |dest, source|
@@ -168,10 +169,10 @@ module Ekylibre
             puts "Cannot create #{target_path}".red
             puts "Caused by: #{e.to_s.force_encoding('utf-8')}".blue
             ::Kernel.exit 1
+          ensure
+            FileUtils.rm_rf(mimefile) if options[:mimetype]
           end
         end
-        FileUtils.rm_rf(mimefile) if options[:mimetype]
-        # end
         target_path
       end
 

@@ -10,7 +10,7 @@ class Ekylibre::FirstRunTest < ActiveSupport::TestCase
     tenant = 'test_default'
     Ekylibre::Tenant.drop(tenant) if Ekylibre::Tenant.exist?(tenant)
     Rake::Task['first_run:default:generate'].invoke
-    Ekylibre::FirstRun.launch(name: tenant, path: Rails.root.join('db', 'first_runs', 'default'), verbose: false)
+    Ekylibre::FirstRun.launch(name: tenant, path: Ekylibre::FirstRun.path.join('default'), verbose: false)
   end
 
   # test "launch of test first run" do
