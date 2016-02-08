@@ -65,7 +65,7 @@ fra:
         treat: "Traiter"
         uncompact: "Décompacter"
         uncover: "Découvrir"
-        wrap: "Couvrir"
+        wrap: "Envelopper"
       name: "Compétences"
       property_natures:
         parameters: "Paramètres"
