@@ -1,5 +1,5 @@
 - main_toolbar do |t|
-  = t.export :stocks, key: Time.zone.now.strftime('%Y%m%d%H%M%S')
+  = t.export :stocks
   = t.new if Product.any?
 
 = main_list

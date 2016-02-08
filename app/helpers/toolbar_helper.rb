@@ -33,7 +33,7 @@ module ToolbarHelper
     def export(*natures)
       options = natures.extract_options!
       record = options[:resource] || @template.resource
-      options[:key] ||= :number
+      options[:key] ||= (record ? :number : Time.zone.now.strftime('%Y%m%d%H%M%S'))
       key = (options[:key].is_a?(Symbol) ? record.send(options[:key]) : options[:key]).to_s
       @template.dropdown_menu_button(:print) do |menu|
         natures.each do |nature_name|
