@@ -1,7 +1,7 @@
 require 'test_helper'
 module Backend
   class ActivityBudgetsControllerTest < ActionController::TestCase
-    test_restfully_all_actions except: :show
+    test_restfully_all_actions duplicate: { params: { activity_id: 1, campaign_id: 6 } }, except: :show
 
     test 'show action' do
       get :show, id: 'NaID', redirect: root_url, locale: @locale
