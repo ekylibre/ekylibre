@@ -319,9 +319,9 @@ class Activity < Ekylibre::Record::Base
         end
       elsif activity_family <= :animal_farming
         colors[:brown]
-      elsif activity_family <= :exploitation
+      elsif activity_family <= :administering
         colors[:brown]
-      elsif activity_family <= :maintenance
+      elsif activity_family <= :tool_maintaining
         colors[:blue]
       else
         colors[:gray]
