@@ -39,6 +39,7 @@ module Ekylibre
 
       # Load global preferences of the instance
       def load_preferences
+        @preferences[:map_measure_srs] ||= 'WGS84'
         @preferences.each do |key, value|
           if Preference.reference[key]
             Preference.set!(key, value)
