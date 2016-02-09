@@ -18,8 +18,16 @@
 
 module Backend
   class SubscriptionsController < Backend::BaseController
-    manage_restfully except: [:index], address_id: 'EntityAddress.find_by(entity_id: params[:subscriber_id]).id rescue 0'.c, nature_id: 'SubscriptionNature.first.id rescue 0'.c, t3e: { nature: '@subscription.nature.name'.c, start: '@subscription.start'.c, finish: '@subscription.finish'.c }
-
+    manage_restfully(
+      except: [:index],
+      address_id: 'EntityAddress.find_by(entity_id: params[:subscriber_id]).id rescue 0'.c,
+      # nature_id: 'SubscriptionNature.first.id rescue 0'.c,
+      t3e: {
+        nature: '@subscription.nature.name'.c,
+        start: '@subscription.start'.c,
+        finish: '@subscription.finish'.c
+      }
+    )
     unroll
 
     def self.subscriptions_conditions(_options = {})
