@@ -103,7 +103,9 @@ module Ekylibre
             password: '12345678',
             administrator: true
           }
-          User.create!(defaults.merge(attributes))
+          unless User.find_by(email: email)
+            User.create!(defaults.merge(attributes))
+          end
         end
       end
 
