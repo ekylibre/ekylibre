@@ -91,7 +91,7 @@ module Backend
       t.column :human_working_zone_area
       # t.status
       t.column :issue, url: true
-      t.column :casting
+      # t.column :casting
       # t.column :human_target_names, hidden: true
     end
 
