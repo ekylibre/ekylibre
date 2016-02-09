@@ -191,7 +191,10 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def human_working_duration(unit = :hour)
-    working_duration.in(:second).convert(unit).round(2).l
+    if working_duration
+      working_duration.in(:second).convert(unit).round(2).l
+    end
+    return nil
   end
 
   # Update temporality informations in intervention
