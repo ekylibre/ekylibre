@@ -37,10 +37,6 @@ module Backend
 
     def show
       return unless @activity = find_and_check
-      if @activity.plant_farming?
-        redirect_to(controller: :vegetal_activities, action: :show, id: @activity.id)
-        return
-      end
       t3e @activity
     end
 

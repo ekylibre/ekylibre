@@ -1397,7 +1397,7 @@ fra:
     places: "Lieux"
     planned_at: "Date prévisionnelle" #?
     plant: "Culture"
-    plant_productions: "Productions végétales"
+    plant_productions: "Productions végétales" #?
     plantation_density: "Densité de plantation"
     plants: "Plantes"
     please_wait: "Merci de patienter…"

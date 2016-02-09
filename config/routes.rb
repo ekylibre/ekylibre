@@ -799,8 +799,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :vegetal_activities, concerns: [:activities], path: 'vegetal-activities'
-
     resources :visuals, only: [] do
       match 'picture(/:style)', via: :get, action: :picture, as: :picture
     end

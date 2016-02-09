@@ -20,6 +20,11 @@
         - l.attribute :support_variety
       - l.attribute :production_cycle
 
+  - if resource.plant_farming? && current_campaign && resource.productions.of_campaign(current_campaign).any?
+
+    - c.cobble :map do
+      = model_map(resource.productions.of_campaign(current_campaign), shape_method: :support_shape, color: resource.color)
+
   - c.cobble(:productions) do
     = render 'productions'
 

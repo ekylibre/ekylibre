@@ -105,7 +105,6 @@
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
 #     - "backend/taxes#load"
-#     - "backend/vegetal_activities#family"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
@@ -213,12 +212,6 @@ activities:
     - "backend/activities#unroll"
     - "backend/activity_budgets#index"
     - "backend/activity_budgets#show"
-    - "backend/vegetal_activities#index"
-    - "backend/vegetal_activities#list"
-    - "backend/vegetal_activities#list_distributions"
-    - "backend/vegetal_activities#list_productions"
-    - "backend/vegetal_activities#show"
-    - "backend/vegetal_activities#unroll"
   write:
     dependencies:
     - read-activities
@@ -236,12 +229,6 @@ activities:
     - "backend/activity_budgets#new"
     - "backend/activity_budgets#update"
     - "backend/campaigns#open"
-    - "backend/vegetal_activities#create"
-    - "backend/vegetal_activities#destroy"
-    - "backend/vegetal_activities#duplicate"
-    - "backend/vegetal_activities#edit"
-    - "backend/vegetal_activities#new"
-    - "backend/vegetal_activities#update"
 
 affairs:
   read:
