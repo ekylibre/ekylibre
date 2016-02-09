@@ -266,11 +266,14 @@ class Activity < Ekylibre::Record::Base
                  teal: '#008080', fuchsia: '#FF00FF', brown: '#6A2B1A' }
       activity_family = Nomen::ActivityFamily.find(family)
       variety = Nomen::Variety.find(variety)
-      crop_sets = Nomen::CropSet.select do |i|
-        i.varieties.detect { |v| variety <= v }
-      end.map { |i| i.name.to_sym }
+      # if there no variety (no land cases)
+      if variety
+        crop_sets = Nomen::CropSet.select do |i|
+          i.varieties.detect { |v| variety <= v }
+        end.map { |i| i.name.to_sym }
+      end
       return colors[:gray] unless activity_family
-      if activity_family <= :plant_farming && variety
+      if activity_family <= :plant_farming && variety && crop_sets.any?
         # MEADOW
         if crop_sets.include?(:meadow)
           colors[:dark_green]
