@@ -10,6 +10,7 @@
         </handler>
       </target>
       <output name="grains" derivative-of="variety: cultivation" filter="is grain and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
+      	<attribute name="new_name"/>
       	<handler name="population"/>
       	<handler indicator="net_mass" unit="quintal"
       		     if="VARIANT? and VARIANT.net_mass?"
@@ -25,6 +26,7 @@
         	     forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / VARIANT.net_mass(quintal)"/>
       </output>
       <output name="straws" derivative-of="variety: cultivation" filter="is straw and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})" cardinality="*">
+      	<attribute name="new_name"/>
       	<handler name="population"/>
       	<handler indicator="net_mass" unit="ton"
       		     if="VARIANT? and VARIANT.net_mass?"
