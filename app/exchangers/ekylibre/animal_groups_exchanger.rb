@@ -15,23 +15,24 @@ module Ekylibre
         line_number = index + 2
         prompt = "L#{line_number.to_s.yellow}"
         next if row[0].blank?
-        r = OpenStruct.new(name: row[0],
-                           nature: row[1].to_s,
-                           member_nature: (row[2].blank? ? nil : row[2].to_s),
-                           code: row[3],
-                           minimum_age: (row[4].blank? ? nil : row[4].to_i),
-                           maximum_age: (row[5].blank? ? nil : row[5].to_i),
-                           sex: (row[6].blank? ? nil : row[6].to_sym),
-                           place: (row[7].blank? ? nil : row[7].to_s),
-                           indicators_at: (row[8].blank? ? Time.zone.today : row[8]).to_datetime,
-                           indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
-                             h[i.first.strip.downcase.to_sym] = i.second
-                             h
-                           end,
-                           activity_family_name: row[10].to_s,
-                           activity_name: row[11].to_s,
-                           campaign_year: row[12].to_i
-                          )
+        r = OpenStruct.new(
+          name: row[0],
+          nature: row[1].to_s,
+          member_nature: (row[2].blank? ? nil : row[2].to_s),
+          code: row[3],
+          minimum_age: (row[4].blank? ? nil : row[4].to_i),
+          maximum_age: (row[5].blank? ? nil : row[5].to_i),
+          sex: (row[6].blank? ? nil : row[6].to_sym),
+          place: (row[7].blank? ? nil : row[7].to_s),
+          indicators_at: (row[8].blank? ? Time.zone.today : row[8]).to_datetime,
+          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+            h[i.first.strip.downcase.to_sym] = i.second
+            h
+          end,
+          activity_family_name: row[10].to_s,
+          activity_name: row[11].to_s,
+          campaign_year: row[12].to_i
+        )
 
         unless variant = ProductNatureVariant.find_by_number(r.nature)
           unless variant = ProductNatureVariant.import_from_nomenclature(r.nature.to_sym)
@@ -66,23 +67,24 @@ module Ekylibre
       w.count = rows.size
 
       rows.each do |row|
-        r = OpenStruct.new(name: row[0],
-                           nature: row[1].to_s,
-                           member_nature: (row[2].blank? ? nil : row[2].to_s),
-                           code: row[3],
-                           minimum_age: (row[4].blank? ? nil : row[4].to_i),
-                           maximum_age: (row[5].blank? ? nil : row[5].to_i),
-                           sex: (row[6].blank? ? nil : row[6].to_sym),
-                           place: (row[7].blank? ? nil : row[7].to_s),
-                           indicators_at: (row[8].blank? ? Time.zone.today : row[8]).to_datetime,
-                           indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
-                             h[i.first.strip.downcase.to_sym] = i.second
-                             h
-                           end,
-                           activity_family_name: row[10].to_s,
-                           activity_name: row[11].to_s,
-                           campaign_year: row[12].to_i
-                          )
+        r = OpenStruct.new(
+          name: row[0],
+          nature: row[1].to_s,
+          member_nature: (row[2].blank? ? nil : row[2].to_s),
+          code: row[3],
+          minimum_age: (row[4].blank? ? nil : row[4].to_i),
+          maximum_age: (row[5].blank? ? nil : row[5].to_i),
+          sex: (row[6].blank? ? nil : row[6].to_sym),
+          place: (row[7].blank? ? nil : row[7].to_s),
+          indicators_at: (row[8].blank? ? Time.zone.today : row[8]).to_datetime,
+          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+            h[i.first.strip.downcase.to_sym] = i.second
+            h
+          end,
+          activity_family_name: row[10].to_s,
+          activity_name: row[11].to_s,
+          campaign_year: row[12].to_i
+        )
 
         unless variant = ProductNatureVariant.find_by_number(r.nature)
           variant = ProductNatureVariant.import_from_nomenclature(r.nature.to_sym)

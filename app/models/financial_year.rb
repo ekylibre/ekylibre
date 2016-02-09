@@ -67,20 +67,25 @@ class FinancialYear < Ekylibre::Record::Base
     # Find or create if possible the requested financial year for the searched date
     def at(searched_at = Time.zone.now)
       searched_on = searched_at.to_date
-      unless year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).limit(1).first
-        # First
-        unless first = first_of_all
-          started_on = Time.zone.today
-          first = create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
-        end
-        return nil if first.started_on > searched_on
-
-        # Next years
-        other = first
-        other = other.find_or_create_next! while searched_on > other.stopped_on
-        return other
+      year = where('? BETWEEN started_on AND stopped_on', searched_on).order(started_on: :desc).first
+      return year if year
+      # First
+      unless (first = first_of_all)
+        started_on = Time.zone.today
+        first = create!(started_on: started_on, stopped_on: (started_on >> 11).end_of_month)
       end
-      year
+      if first.stopped_on == (first.started_on >> 12) - 1
+        other = first
+        other = other.find_or_create_previous! while other.started_on > searched_on
+        return other
+      elsif first.started_on > searched_on
+        return nil
+      end
+
+      # Next years
+      other = first
+      other = other.find_or_create_next! while searched_on > other.stopped_on
+      other
     end
 
     def first_of_all
@@ -230,8 +235,16 @@ class FinancialYear < Ekylibre::Record::Base
 
   # Find or create the next financial year based on the date of the current
   def find_or_create_next!
-    unless year = self.next
+    unless (year = self.next)
       year = self.class.create!(started_on: stopped_on + 1, stopped_on: stopped_on >> 12, currency: self.currency)
+    end
+    year
+  end
+
+  # Find or create the previous financial year based on the date of the current
+  def find_or_create_previous!
+    unless (year = self.previous)
+      year = self.class.create!(started_on: started_on << 12, stopped_on: started_on - 1, currency: self.currency)
     end
     year
   end

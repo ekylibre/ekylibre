@@ -102,6 +102,7 @@ module LaGraineInformatique
             person.client_account.save!
           end
 
+          puts custom_fields.inspect.red
           custom_fields.each do |f|
             val = r.send(f.name).to_s.strip.gsub(/[[:space:]\_]+/, '-')
             person[f.field.column_name] = val unless val.blank?

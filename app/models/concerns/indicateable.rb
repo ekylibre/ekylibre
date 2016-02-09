@@ -40,7 +40,7 @@ module Indicateable
 
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
+    unless indicator.present? && (indicator.is_a?(Nomen::Item) || (indicator = Nomen::Indicator.find(indicator)))
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
     raise ArgumentError, 'Value must be given' if value.nil?

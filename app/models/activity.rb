@@ -69,13 +69,11 @@ class Activity < Ekylibre::Record::Base
   validates_inclusion_of :suspended, :with_cultivation, :with_supports, in: [true, false]
   validates_presence_of :family, :name, :nature, :production_cycle
   # ]VALIDATORS]
-  validates_inclusion_of :family, in: family.values, allow_nil: true
-  validates_presence_of :family
+  validates_inclusion_of :family, in: family.values
   validates_presence_of :cultivation_variety, if: :with_cultivation
   validates_presence_of :support_variety, if: :with_supports
   validates_uniqueness_of :name
   # validates_associated :productions
-  validates_presence_of :production_cycle
   validates_presence_of :production_campaign, if: :perennial?
 
   scope :actives, -> { availables.where(id: ActivityProduction.opened) }
@@ -119,21 +117,17 @@ class Activity < Ekylibre::Record::Base
   before_validation do
     family = Nomen::ActivityFamily.find(self.family)
     if family
-      if with_supports.nil?
-        if family.support_variety
-          self.with_supports = true
-          self.support_variety = family.support_variety
-        else
-          self.with_supports = false
-        end
+      if with_supports || family.support_variety
+        self.with_supports = true
+        self.support_variety = family.support_variety
+      else
+        self.with_supports = false
       end
-      if with_cultivation.nil?
-        if family.cultivation_variety
-          self.with_cultivation = true
-          self.cultivation_variety = family.cultivation_variety
-        else
-          self.with_cultivation = false
-        end
+      if with_cultivation || family.cultivation_variety
+        self.with_cultivation = true
+        self.cultivation_variety = family.cultivation_variety
+      else
+        self.with_cultivation = false
       end
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?

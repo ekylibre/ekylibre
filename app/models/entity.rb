@@ -205,17 +205,37 @@ class Entity < Ekylibre::Record::Base
   class << self
     # Auto-cast entity to best matching class with type column
     def new_with_cast(*attributes, &block)
-      if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && type.length > 0 && (klass = type.constantize) != self
+      if (h = attributes.first).is_a?(Hash) && !h.nil? &&
+         (type = h[:type] || h['type']) && type.length > 0 &&
+         (klass = type.constantize) != self
         raise "Can not cast #{name} to #{klass.name}" unless klass <= self
         return klass.new(*attributes, &block)
       end
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
-  end
 
-  def self.exportable_columns
-    content_columns.delete_if { |c| [:active, :lock_version, :deliveries_conditions].include?(c.name.to_sym) }
+    def exportable_columns
+      content_columns.delete_if do |c|
+        [:active, :lock_version, :deliveries_conditions].include?(c.name.to_sym)
+      end
+    end
+
+    # Returns a default company entity.
+    # TODO: Externalizes these informations to prevent export/overwriting errors
+    def of_company
+      company = find_by(of_company: true)
+      unless company
+        user = User.order(:id).first
+        company = Entity.create!(
+          nature: :organization,
+          last_name: user ? user.last_name : 'COMPANY',
+          of_company: true
+        )
+      end
+      return company
+    end
+
   end
 
   # Returns an entity scope for.all other entities

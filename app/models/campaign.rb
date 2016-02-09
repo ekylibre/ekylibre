@@ -64,8 +64,17 @@ class Campaign < Ekylibre::Record::Base
     self.name = harvest_year.to_s
   end
 
-  def self.first_of_all
-    Campaign.reorder(:started_on, :harvest_year, :id).first
+  class << self
+
+    def of(year)
+      fail 'Invalid year: ' + year.inspect unless year.to_s =~ /\A\d+\z/
+      find_or_create_by!(harvest_year: year)
+    end
+
+    def first_of_all
+      Campaign.reorder(:started_on, :harvest_year, :id).first
+    end
+
   end
 
   def activity_productions

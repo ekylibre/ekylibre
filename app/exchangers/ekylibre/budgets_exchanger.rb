@@ -31,7 +31,8 @@ module Ekylibre
         if cultivation_variant_reference_name
           if cultivation_variety = Nomen::Variety.find(cultivation_variant_reference_name.to_sym)
             w.info 'cultivation_variant_reference_name is a variety'
-          elsif cultivation_variant = ProductNatureVariant.find_by(number: cultivation_variant_reference_name) || ProductNatureVariant.find_by(reference_name: cultivation_variant_reference_name)
+          elsif cultivation_variant = ProductNatureVariant.find_by(number: cultivation_variant_reference_name) ||
+                                      ProductNatureVariant.find_by(reference_name: cultivation_variant_reference_name)
             w.info 'cultivation_variant_reference_name is an existing variant in DB'
           elsif cultivation_variant = ProductNatureVariant.import_from_nomenclature(cultivation_variant_reference_name)
             w.info 'cultivation_variant_reference_name is an existing variant in NOMENCLATURE and will be imported'
@@ -43,7 +44,8 @@ module Ekylibre
         cultivation_variety ||= cultivation_variant.variety if cultivation_variant
 
         if support_variant_reference_name
-          unless support_variant = ProductNatureVariant.find_by(number: support_variant_reference_name) || ProductNatureVariant.find_by(reference_name: support_variant_reference_name)
+          unless support_variant = ProductNatureVariant.find_by(number: support_variant_reference_name) ||
+                                   ProductNatureVariant.find_by(reference_name: support_variant_reference_name)
             support_variant = ProductNatureVariant.import_from_nomenclature(support_variant_reference_name)
           end
         end
@@ -53,7 +55,7 @@ module Ekylibre
           family = if activity_name[1]
                      Nomen::ActivityFamily[activity_name[1].strip]
                    else
-                     Activity.find_best_family((cultivation_variety ? cultivation_variety : nil), (support_variant ? support_variant.variety : nil))
+                     Activity.find_best_family((cultivation_variety.blank? ? nil : cultivation_variety), (support_variant ? support_variant.variety : nil))
                    end
           unless family
             w.error 'Cannot determine activity'
