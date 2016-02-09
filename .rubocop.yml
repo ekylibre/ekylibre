@@ -1,4 +1,5 @@
 AllCops:
+  TargetRubyVersion: 2.2
   Exclude:
     - 'lib/generators/*/templates/**/*'
     - 'vendor/**/*'
@@ -7,6 +8,7 @@ AllCops:
     - 'plugins-*/**/*'
     - 'lib/procedo/formula/language.rb'
     - 'lib/working_set/query_language.rb'
+    - 'db/first_runs/**/*'
     - 'db/schema.rb'
 
 Rails:

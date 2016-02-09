@@ -1,6 +1,14 @@
 # coding: utf-8
 module Ekylibre
   class BudgetsExchanger < ActiveExchanger::Base
+    ACTIVITIES = {
+      tool_maintaining: [:maintenance, :equipment_management],
+      administering: [:accountancy, :sales, :purchases, :stocks, :exploitation],
+      service_delivering: [:animal_housing, :catering, :lodging, :renting, :agricultural_works, :building_works, :works],
+      animal_farming: [:beekeeping, :cattle_farming, :bison_farming, :goat_farming, :ostrich_farming, :oyster_farming, :palmiped_farming, :pig_farming, :poultry_farming, :rabbit_farming, :salmon_farming, :scallop_farming, :sheep_farming, :snail_farming, :sturgeon_farming, :mussel_farming],
+      plant_farming: [:beekeeping, :cattle_farming, :bison_farming, :goat_farming, :ostrich_farming, :oyster_farming, :palmiped_farming, :pig_farming, :poultry_farming, :rabbit_farming, :salmon_farming, :scallop_farming, :sheep_farming, :snail_farming, :sturgeon_farming, :mussel_farming, :vegetal_crops, :alfalfa_crops, :almond_orchards, :apple_orchards, :arboriculture, :aromatic_and_medicinal_plants, :artichoke_crops, :asparagus_crops, :avocado_crops, :barley_crops, :bean_crops, :beet_crops, :bere_crops, :black_mustard_crops, :blackcurrant_crops, :cabbage_crops, :canary_grass_crops, :carob_orchards, :carrot_crops, :celery_crops, :cereal_crops, :chestnut_orchards, :chickpea_crops, :chicory_crops, :cichorium_crops, :citrus_orchards, :cocoa_crops, :common_wheat_crops, :cotton_crops, :durum_wheat_crops, :eggplant_crops, :fallow_land, :field_crops, :flax_crops, :flower_crops, :fodder_crops, :fruits_crops, :garden_pea_crops, :garlic_crops, :hazel_orchards, :hemp_crops, :hop_crops, :horsebean_crops, :lavender_crops, :leek_crops, :leguminous_crops, :lentil_crops, :lettuce_crops, :lupin_crops, :maize_crops, :market_garden_crops, :meadow, :muskmelon_crops, :oat_crops, :oilseed_crops, :olive_groves, :olive_orchards, :onion_crops, :parsley_crops, :pea_crops, :peach_orchards, :peanut_crops, :pear_orchards, :pineapple_crops, :pistachio_orchards, :plum_orchards, :poaceae_crops, :potato_crops, :protein_crops, :radish_crops, :rapeseed_crops, :raspberry_crops, :redcurrant_crops, :rice_crops, :rye_crops, :saffron_crops, :sorghum_crops, :soybean_crops, :strawberry_crops, :sunflower_crops, :tobacco_crops, :tomato_crops, :triticale_crops, :turnip_crops, :vetch_crops, :vines, :walnut_orchards, :watermelon_crops]
+    }.freeze
+
     def import
       s = Roo::OpenOffice.new(file)
       w.count = s.sheets.count
@@ -25,8 +33,6 @@ module Ekylibre
 
         # get budget concerning production (activty / given campaign)
         campaign = Campaign.find_or_create_by!(harvest_year: campaign_harvest_year)
-        cultivation_variant = nil
-        cultivation_variety = nil
 
         if cultivation_variant_reference_name
           if cultivation_variety = Nomen::Variety.find(cultivation_variant_reference_name.to_sym)
@@ -41,7 +47,7 @@ module Ekylibre
           end
         end
 
-        cultivation_variety ||= cultivation_variant.variety if cultivation_variant
+        cultivation_variety ||= Nomen::Variety.find(cultivation_variant.variety) if cultivation_variant
 
         if support_variant_reference_name
           unless support_variant = ProductNatureVariant.find_by(number: support_variant_reference_name) ||
@@ -52,10 +58,11 @@ module Ekylibre
 
         # find or create activity
         unless activity = Activity.find_by(name: activity_name[0].strip)
-          family = if activity_name[1]
-                     Nomen::ActivityFamily[Activity.transcode_activity_family(activity_name[1].strip)]
+          family_name = activity_name[1].strip.to_sym if activity_name[1].present?
+          family = if family_name
+                     Nomen::ActivityFamily.find(transcode_activity_family(family_name) || family_name)
                    else
-                     Activity.find_best_family((cultivation_variety.blank? ? nil : cultivation_variety), (support_variant ? support_variant.variety : nil))
+                     Activity.find_best_family(cultivation_variety)
                    end
           unless family
             w.error 'Cannot determine activity'
@@ -74,7 +81,7 @@ module Ekylibre
             activity.support_variety = (Nomen::Variety.find(support_variant.variety) == :cultivable_zone ? :land_parcel : (Nomen::Variety.find(support_variant.variety) <= :building_division ? :building_division : :product))
             activity.with_cultivation = (Nomen::Variety.find(activity.support_variety) <= :land_parcel ? true : false)
           end
-          activity.cultivation_variety = cultivation_variety if cultivation_variant
+          activity.cultivation_variety = cultivation_variety if cultivation_variety
           activity.save!
         end
 
@@ -90,7 +97,9 @@ module Ekylibre
           production_support_number = arr[0]
           production_support_quantity = arr[1]
 
-          if product = Product.find_by(number: production_support_number) || Product.find_by(identification_number: production_support_number) || Product.find_by(work_number: production_support_number)
+          if product = Product.find_by(number: production_support_number) ||
+                       Product.find_by(identification_number: production_support_number) ||
+                       Product.find_by(work_number: production_support_number)
             # puts 'Product exist'.inspect.yellow
             if product.shape
               cz = CultivableZone.shape_covering(product.shape, 0.02).first
@@ -100,12 +109,10 @@ module Ekylibre
             unless product
               lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
               product = LandParcel.create!(variant: lp_variant, work_number: cz.work_number,
-                                           name: cz.work_number, initial_born_at: Time.now, initial_owner: Entity.of_company, initial_shape: cz.shape)
+                                           name: cz.work_number, initial_born_at: Time.now,
+                                           initial_owner: Entity.of_company, initial_shape: cz.shape)
             end
-          # puts product.inspect.red
-          # puts 'Cultivable zone exist'.inspect.yellow
-          else
-            puts "Cannot find support with number: #{number.inspect}".inspect.yellow
+            # w.error "Cannot find support with number: #{number.inspect}"
           end
 
           w.info 'No Product given for ' unless product
@@ -119,13 +126,13 @@ module Ekylibre
             campaign_id: campaign.id
           }
 
-          if activity.with_supports && cz && product && product.shape && Nomen::ActivityFamily[activity.family] <= :plant_farming
+          if activity.with_supports && cz && Nomen::ActivityFamily[activity.family] <= :plant_farming
             attributes[:cultivable_zone] = cz
-            attributes[:support_shape] = product.shape
-            attributes[:size] = ::Charta.new_geometry(product.shape).area.in(:hectare)
+            attributes[:support_shape] = product.shape if product && product.shape
             attributes[:usage] = :grain
-          elsif activity.with_supports && Nomen::Variety.find(:animal_group) == support_variant.variety.to_sym
+          elsif activity.with_supports && Nomen::ActivityFamily[activity.family] <= :animal_farming
             attributes[:size_value] = 1.0
+            attributes[:size_unit] = :unity
             attributes[:usage] = :meat
           else
             attributes[:size_indicator] = 'net_surface_area'
@@ -225,6 +232,15 @@ module Ekylibre
         end
         w.check_point
       end
+    end
+
+    protected
+
+    def transcode_activity_family(activity_family)
+      results = ACTIVITIES.select do |_k, v|
+        v.include?(activity_family)
+      end
+      results.keys.first
     end
   end
 end

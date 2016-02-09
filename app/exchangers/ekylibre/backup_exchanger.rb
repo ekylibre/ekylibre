@@ -188,8 +188,8 @@ module Ekylibre
           end
           record.attributes = attributes
           unless record.valid?
-            puts attributes.inspect.yellow
-            puts record.errors.inspect.red
+            w.error attributes.inspect
+            w.error record.errors.inspect
           end
           record.save!
           record.id

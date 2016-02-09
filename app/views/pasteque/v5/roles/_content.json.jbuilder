@@ -5,10 +5,10 @@ if resource.administrator
   permissions = all_permissions
 else
   matching = {
-    'cash_sessions-open': 'button.openmoney',
-    'cash_sessions-close': 'fr.pasteque.pos.panels.JPanelCloseMoney',
-    'sales-write': 'fr.pasteque.pos.sales.JPanelTicketEdits',
-    'sales-read': 'fr.pasteque.pos.sales.JPanelTicketSales'
+    'cash_sessions-open' => 'button.openmoney',
+    'cash_sessions-close' => 'fr.pasteque.pos.panels.JPanelCloseMoney',
+    'sales-write' => 'fr.pasteque.pos.sales.JPanelTicketEdits',
+    'sales-read' => 'fr.pasteque.pos.sales.JPanelTicketSales'
   }.with_indifferent_access
   permissions = resource.rights_array.inject([]) do |array, right|
     array << matching[right] if matching[right]

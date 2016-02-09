@@ -32,8 +32,9 @@ module Ekylibre
             default_storage: BuildingDivision.find_by(work_number: r.place)
           )
           # create indicators linked to animal
-          r.indicators.each do |indicator, value|
-            animal.read!(indicator, value, at: r.born_at, force: true)
+          r.indicators.each do |indicator_name, value|
+            next if indicator_name == :population
+            animal.read!(indicator_name, value, at: r.born_at, force: true)
           end
           animal.initial_population = animal.population
           animal.variety = r.variety if r.variety

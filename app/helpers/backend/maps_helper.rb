@@ -55,8 +55,7 @@ module Backend
     end
 
     def importer_form(imports = [])
-      html = ''
-      html += form_tag({ controller: '/backend/map_editors', action: :upload }, method: :post, multipart: true, remote: true, authenticity_token: true, data: { 'importer-form': true }) do
+      form_tag({ controller: '/backend/map_editors', action: :upload }, method: :post, multipart: true, remote: true, authenticity_token: true, data: { importer_form: 'true' }) do
         content_tag(:div, class: 'row') do
           imports.collect do |k|
             content_tag(:div, class: 'choice-padding') do
@@ -64,10 +63,9 @@ module Backend
             end
           end.join.html_safe
         end + content_tag(:div, class: 'row') do
-          file_field_tag(:import_file) + content_tag(:span, content_tag(:i), class: 'spinner-loading', data: { 'importer-spinner': true })
+          file_field_tag(:import_file) + content_tag(:span, content_tag(:i), class: 'spinner-loading', data: { importer_spinner: 'true' })
         end
       end
-      html
     end
 
     def shape_field_tag(name, value = nil, options = {})

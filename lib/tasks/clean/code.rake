@@ -3,27 +3,15 @@ namespace :clean do
   task :code do
     print ' - White spaces: '
     files = []
-    dirs = '{app,bin,config,db,doc,lib,plugins,public,test,vendor}'
+    dirs = '{app,config,db,doc,lib,plugins,public,test,vendor}'
+    extensions = '{ru,rb,rake,treetop,yml,xml,txt,rdoc,md,haml,erb,rjs,js,coffee,scss,sass,css}'
     Dir.chdir(Rails.root) do
       files += Dir['Gemfile*']
       files += Dir['Rakefile']
       files += Dir['bin/*']
-      files += Dir["#{dirs}/**/*.ru"]
-      files += Dir["#{dirs}/**/*.rb"]
-      files += Dir["#{dirs}/**/*.rake"]
-      files += Dir["#{dirs}/**/*.treetop"]
-      files += Dir["#{dirs}/**/*.yml"]
-      files += Dir["#{dirs}/**/*.xml"]
-      files += Dir["#{dirs}/**/*.txt"]
-      files += Dir["#{dirs}/**/*.rdoc"]
-      files += Dir["#{dirs}/**/*.haml"]
-      files += Dir["#{dirs}/**/*.erb"]
-      files += Dir["#{dirs}/**/*.rjs"]
-      files += Dir["#{dirs}/**/*.js"]
-      files += Dir["#{dirs}/**/*.coffee"]
-      files += Dir["#{dirs}/**/*.scss"]
-      files += Dir["#{dirs}/**/*.sass"]
-      files += Dir["#{dirs}/**/*.css"]
+      files += Dir["#{dirs}/**/*.#{extensions}"].delete_if do |p|
+        p =~ /\Adb\/first_runs\// || p =~ /\Atest\/fixture-files\//
+      end
     end
     log = File.open(Rails.root.join('log', 'clean-code.log'), 'wb')
     log.write "White spaces:\n"

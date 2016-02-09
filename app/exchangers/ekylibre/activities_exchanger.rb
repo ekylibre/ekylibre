@@ -40,6 +40,7 @@ module Ekylibre
           family: r.family,
           cultivation_variety: r.variety,
           with_cultivation: true,
+          production_cycle: :annual,
           nature: :main
         }
         if family <= :plant_farming

@@ -92,7 +92,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
       attributes[:language] ||= language
       for ref in [:role, :team]
         attributes[ref] ||= :default
-        attributes[ref] = get_record(ref.to_s.pluralize, attributes[ref])
+        attributes[ref] = find_record(ref.to_s.pluralize, attributes[ref])
       end
       unless attributes[:password]
         if Rails.env.development?
@@ -265,19 +265,19 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
       unless data.is_a?(Hash)
         raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
       end
-      for identifier, attributes in data
+      data.each do |identifier, attributes|
         attributes = attributes.with_indifferent_access
         attributes[main_column] ||= identifier.to_s
-        for reflection in model.reflect_on_all_associations
+        model.reflect_on_all_associations.each do |reflection|
           if attributes[reflection.name] && (not attributes[reflection.name].class < ActiveRecord::Base)
-            attributes[reflection.name] = get_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
+            attributes[reflection.name] = find_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
           end
         end
         record = model.new(attributes)
         if record.save(attributes)
           @records[records][identifier.to_s] = record
         else
-          puts "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"
+          w.error "\nError on #{record.inspect.red}: #{record.errors.full_messages.to_sentence}"
           raise ActiveRecord::RecordInvalid, record
         end
       end
@@ -285,7 +285,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
   end
 
   # Returns the record corresponding to the identifier
-  def get_record(records, identifier)
+  def find_record(records, identifier)
     @records ||= {}.with_indifferent_access
     return @records[records][identifier] if @records[records]
     nil
