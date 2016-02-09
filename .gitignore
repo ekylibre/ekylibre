@@ -74,8 +74,12 @@ capybara*.html
 *.jrtx
 
 /.ruby-version
+/.ruby-gemset
 
 Gemfile.local
 Gemfile.local.lock
 
 Procfile.*
+
+# Vim
+*.sw?
