@@ -53,7 +53,7 @@ module Ekylibre
         # find or create activity
         unless activity = Activity.find_by(name: activity_name[0].strip)
           family = if activity_name[1]
-                     Nomen::ActivityFamily[activity_name[1].strip]
+                     Nomen::ActivityFamily[Activity.transcode_activity_family(activity_name[1].strip)]
                    else
                      Activity.find_best_family((cultivation_variety.blank? ? nil : cultivation_variety), (support_variant ? support_variant.variety : nil))
                    end

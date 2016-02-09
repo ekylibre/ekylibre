@@ -351,33 +351,25 @@ class Activity < Ekylibre::Record::Base
 
     # Find nearest family on cultivation variety and support variety
     def find_best_family(cultivation_variety, support_variety)
-      rankings = Nomen::ActivityFamily.list.inject({}) do |hash, item|
-        valid = true
-        valid = false unless !cultivation_variety == !item.cultivation_variety
-        distance = 0
-        if valid && cultivation_variety
-          if Nomen::Variety[cultivation_variety] <= item.cultivation_variety
-            distance += Nomen::Variety[cultivation_variety].depth - Nomen::Variety[item.cultivation_variety].depth
-          else
-            valid = false
-          end
-        end
-        if valid && support_variety
-          if Nomen::Variety[support_variety] <= item.support_variety
-            distance += Nomen::Variety[support_variety].depth - Nomen::Variety[item.support_variety].depth
-          else
-            valid = false
-          end
-        end
-        hash[item.name] = distance if valid
-        hash
-      end.sort { |a, b| a.second <=> b.second }
-      if best_choice = rankings.first
-        return Nomen::ActivityFamily.find(best_choice.first)
+      return Nomen::ActivityFamily[:plant_farming] if [:cultivable_zone].include?(support_variety.to_sym)
+      return Nomen::ActivityFamily[:animal_farming] if [:animal_group].include?(support_variety.to_sym)
+      Nomen::ActivityFamily[:tool_maintaining]
+    end
+
+    def transcode_activity_family(activity_name)
+      transcode_table = { tool_maintaining: [:maintenance, :equipment_management],
+        administering: [:accountancy, :sales, :purchases, :stocks, :exploitation],
+        service_delivering: [:animal_housing, :catering, :lodging, :renting, :agricultural_works, :building_works, :works],
+        animal_farming: [:beekeeping, :cattle_farming, :bison_farming, :goat_farming, :ostrich_farming, :oyster_farming, :palmiped_farming, :pig_farming, :poultry_farming, :rabbit_farming, :salmon_farming, :scallop_farming, :sheep_farming, :snail_farming, :sturgeon_farming, :mussel_farming],
+          plant_farming: [:beekeeping, :cattle_farming, :bison_farming, :goat_farming, :ostrich_farming, :oyster_farming, :palmiped_farming, :pig_farming, :poultry_farming, :rabbit_farming, :salmon_farming, :scallop_farming, :sheep_farming, :snail_farming, :sturgeon_farming, :mussel_farming, :vegetal_crops, :alfalfa_crops, :almond_orchards, :apple_orchards, :arboriculture, :aromatic_and_medicinal_plants, :artichoke_crops, :asparagus_crops, :avocado_crops, :barley_crops, :bean_crops, :beet_crops, :bere_crops, :black_mustard_crops, :blackcurrant_crops, :cabbage_crops, :canary_grass_crops, :carob_orchards, :carrot_crops, :celery_crops, :cereal_crops, :chestnut_orchards, :chickpea_crops, :chicory_crops, :cichorium_crops, :citrus_orchards, :cocoa_crops, :common_wheat_crops, :cotton_crops, :durum_wheat_crops, :eggplant_crops, :fallow_land, :field_crops, :flax_crops, :flower_crops, :fodder_crops, :fruits_crops, :garden_pea_crops, :garlic_crops, :hazel_orchards, :hemp_crops, :hop_crops, :horsebean_crops, :lavender_crops, :leek_crops, :leguminous_crops, :lentil_crops, :lettuce_crops, :lupin_crops, :maize_crops, :market_garden_crops, :meadow, :muskmelon_crops, :oat_crops, :oilseed_crops, :olive_groves, :olive_orchards, :onion_crops, :parsley_crops, :pea_crops, :peach_orchards, :peanut_crops, :pear_orchards, :pineapple_crops, :pistachio_orchards, :plum_orchards, :poaceae_crops, :potato_crops, :protein_crops, :radish_crops, :rapeseed_crops, :raspberry_crops, :redcurrant_crops, :rice_crops, :rye_crops, :saffron_crops, :sorghum_crops, :soybean_crops, :strawberry_crops, :sunflower_crops, :tobacco_crops, :tomato_crops, :triticale_crops, :turnip_crops, :vetch_crops, :vines, :walnut_orchards, :watermelon_crops] }
+
+      transcode_table.select do |k, v|
+        v.include?(activity_name.to_sym)
       end
-      nil
+      transcode_table.keys.first
     end
   end
+
 
   def support_shape_area(*campaigns)
     options = campaigns.extract_options!
