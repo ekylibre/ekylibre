@@ -233,9 +233,8 @@ class Entity < Ekylibre::Record::Base
           of_company: true
         )
       end
-      return company
+      company
     end
-
   end
 
   # Returns an entity scope for.all other entities

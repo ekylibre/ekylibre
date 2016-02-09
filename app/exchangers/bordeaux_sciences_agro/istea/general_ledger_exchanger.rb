@@ -51,7 +51,7 @@ module BordeauxSciencesAgro
         rows.collect! do |row|
           year = FinancialYear.at(Date.parse(row[3]))
           unless year
-            raise 'Cannot find financial year for: ' + Date.parse(row[3]).inspect + ' (' + row[3].inspect + '). Expecting one of: ' + FinancialYear.pluck(&:code).to_sentence
+            raise 'Cannot find financial year for: ' + Date.parse(row[3]).inspect + ' (' + row[3].inspect + '). Expecting one of: ' + FinancialYear.all.pluck(:code).to_sentence
           end
           row << year.code
         end

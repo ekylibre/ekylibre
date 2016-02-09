@@ -79,9 +79,7 @@ module Ekylibre
           mail.mail_line_6 = @company[:mail_line_6]
           mail.save!
         end
-        if @company[:users]
-          load_users(@company[:users])
-        end
+        load_users(@company[:users]) if @company[:users]
       end
 
       # Load all given imports directly (to ensure given order)

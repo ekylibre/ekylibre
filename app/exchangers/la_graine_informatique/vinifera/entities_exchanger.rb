@@ -80,14 +80,15 @@ module LaGraineInformatique
           if person = Entity.where('full_name ILIKE ?', r.full_name.strip).first
             person.country = r.country if person.country.blank?
           elsif
-            person = Entity.new(number: r.number,
-                                title: r.title,
-                                last_name: r.last_name,
-                                full_name: r.full_name,
-                                country: r.country,
-                                nature: nature,
-                                description: r.number
-                               )
+            person = Entity.new(
+              number: r.number,
+              title: r.title,
+              last_name: r.last_name,
+              full_name: r.full_name,
+              country: r.country,
+              nature: nature,
+              description: r.number
+            )
           end
 
           if r.client_type
@@ -102,10 +103,9 @@ module LaGraineInformatique
             person.client_account.save!
           end
 
-          puts custom_fields.inspect.red
-          custom_fields.each do |f|
-            val = r.send(f.name).to_s.strip.gsub(/[[:space:]\_]+/, '-')
-            person[f.field.column_name] = val unless val.blank?
+          custom_fields.each do |cf|
+            val = r.send(cf.name).to_s.strip.gsub(/[[:space:]\_]+/, '-')
+            person.set_custom_value(cf.field, val) unless val.blank?
           end
 
           person.save!
@@ -164,7 +164,8 @@ module LaGraineInformatique
           elsif nature == :choice
             w.warn 'No path found for choices'
           end
-          r.field = create_custom_field(r.label, r.customized_type, choices: r.choices, nature: r.nature, column_name: r.name)
+          r.field = create_custom_field(r.label, r.customized_type,
+                                        choices: r.choices, nature: r.nature, column_name: r.name)
           list << r
         end
         list
@@ -174,10 +175,12 @@ module LaGraineInformatique
         # create custom field if not exist
         unless cf = CustomField.find_by_name(name)
           # create custom field
-          cf = CustomField.create!(name: name, customized_type: customized_type, nature: options[:nature] || :string, column_name: options[:column_name])
+          cf = CustomField.create!(name: name, customized_type: customized_type,
+                                   nature: options[:nature] || :string,
+                                   column_name: options[:column_name])
           # create custom field choice if nature is choice
           if cf.choice? && options[:choices]
-            for value, label in options[:choices]
+            options[:choices].each do |value, label|
               cf.choices.create!(name: label, value: value)
             end
           end

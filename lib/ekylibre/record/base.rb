@@ -139,7 +139,7 @@ module Ekylibre
           options = args.extract_options!
           scope = args.shift
           Rails.logger.warn 'Cannot support Proc scope' unless scope.nil?
-          column = ["#{name}_name".to_sym, name].detect { |c| columns_definition[c] }
+          column = ["#{name}_tid".to_sym, "#{name}_name".to_sym, name].detect { |c| columns_definition[c] }
           options[:foreign_key] ||= column
           reflection = Nomen::Reflection.new(self, name, options)
           @nomenclature_reflections ||= {}.with_indifferent_access

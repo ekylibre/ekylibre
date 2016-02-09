@@ -23,12 +23,13 @@ module Telepac
 
             pacage_number = record.attributes['PACAGE'].to_s
 
+            company = Entity.of_company
             cap_statement_attributes = {
               campaign: campaign,
-              declarant: Entity.of_company,
-              farm_name: Entity.of_company.full_name,
+              declarant: company,
+              farm_name: company ? company.full_name : 'No declarant',
               pacage_number: pacage_number,
-              siret_number: Entity.of_company.siret_number
+              siret_number: Entity.of_company.siret_number || '000000000000018'
             }
             ## find or create cap statement
             cap_statement = CapStatement.find_or_initialize_by(campaign: campaign, pacage_number: pacage_number)

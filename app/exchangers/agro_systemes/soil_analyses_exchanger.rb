@@ -5,7 +5,7 @@ module AgroSystemes
       'ARGILO CALCAIRE MOYEN' => :clay_limestone_soil,
       'ARGILO CALCAIRE PROFOND' => :clay_limestone_soil,
       'ARGILO CALCAIRE SUPERFICIEL' => :clay_limestone_soil
-    }
+    }.freeze
 
     def import
       here = Pathname.new(__FILE__).dirname
@@ -87,8 +87,7 @@ module AgroSystemes
           end
         end
       end
-      return zones.first
+      zones.first
     end
-
   end
 end

@@ -243,7 +243,7 @@ class FinancialYear < Ekylibre::Record::Base
 
   # Find or create the previous financial year based on the date of the current
   def find_or_create_previous!
-    unless (year = self.previous)
+    unless (year = previous)
       year = self.class.create!(started_on: started_on << 12, stopped_on: started_on - 1, currency: self.currency)
     end
     year

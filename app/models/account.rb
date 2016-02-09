@@ -209,6 +209,7 @@ class Account < Ekylibre::Record::Base
         raise ArgumentError, "The usage #{usage.inspect} is unknown"
       end
     end
+    alias import_from_nomenclature find_or_import_from_nomenclature
 
     # Returns the name of the used accounting system
     # It takes the information in preferences

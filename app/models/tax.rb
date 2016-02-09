@@ -87,11 +87,11 @@ class Tax < Ekylibre::Record::Base
           name: item.human_name,
           reference_name: item.name
         }
-        for account in [:deduction, :collect]
+        [:deduction, :collect].each do |account|
           next unless name = nature.send("#{account}_account")
           tax_radical = Account.find_or_import_from_nomenclature(name)
           # find if already account tax  by number was created
-          tax_account = Account.find_or_create_by!(number: "#{tax_radical.number}#{nature.suffix}") do |a|
+          tax_account = Account.find_or_create_by_number("#{tax_radical.number}#{nature.suffix}") do |a|
             a.name = "#{tax_radical.name} - #{item.human_name}"
             a.usages = tax_radical.usages
           end

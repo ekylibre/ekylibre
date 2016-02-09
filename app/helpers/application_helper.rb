@@ -364,7 +364,7 @@ module ApplicationHelper
     end
 
     def custom_fields
-      fail 'Cannot show custom fields on ' + @object.class.name unless @object.customizable?
+      raise 'Cannot show custom fields on ' + @object.class.name unless @object.customizable?
       @object.class.custom_fields.each do |custom_field|
         value = @object.custom_value(custom_field)
         custom(custom_field.name, value) unless value.blank?
