@@ -169,11 +169,6 @@ module Ekylibre
         end
         alias_method_chain :human_attribute_name, :id
 
-        def has_human_attribute_name?(name)
-          # TODO: don't use hardtranslate
-          I18n.hardtranslate("attributes.#{name}").present?
-        end
-
         # Permits to add conditions on attr_readonly
         def attr_readonly_with_conditions(*args)
           options = args.extract_options!
