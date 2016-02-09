@@ -79,13 +79,31 @@ module Ekylibre
           mail.mail_line_6 = @company[:mail_line_6]
           mail.save!
         end
+        if @company[:users]
+          load_users(@company[:users])
+        end
       end
 
       # Load all given imports directly (to ensure given order)
       def load_imports
-        @imports.each do |_name, import|
+        @imports.each do |name, import|
+          import[:nature] ||= name
           puts "Import #{import[:nature].to_s.yellow} from #{import[:file].to_s.blue}"
           Import.launch!(import[:nature], path.join('imports', import[:file]))
+        end
+      end
+
+      # Load (administrator) users
+      def load_users(users = {})
+        users.each do |email, attributes|
+          defaults = {
+            email: email,
+            first_name: 'John',
+            last_name: 'Doe',
+            password: '12345678',
+            administrator: true
+          }
+          User.create!(defaults.merge(attributes))
         end
       end
 
