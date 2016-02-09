@@ -65,7 +65,7 @@ module BordeauxSciencesAgro
         rows.each_with_index do |row, index|
           entry_number = row[4].to_s
           entry_number.gsub!(/[^0-9a-z]/i, '')
-          accounts[row[0]] ||= Account.find_or_create_by(number: row[0])
+          accounts[row[0]] ||= Account.find_or_create_by_number(row[0])
           journals[row[1].to_s] ||= Journal.create_with(name: "Journal #{row[1]}", currency: 'EUR').find_or_create_by!(code: row[1].to_s)
           r = {
             account: accounts[row[0]],
