@@ -6,7 +6,7 @@
   - family = Nomen::ActivityFamily[f.object.family]
   = f.input :with_cultivation, as: :hidden
   = f.input :cultivation_variety, collection: ((family and family.cultivation_variety) ? Nomen::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety) ? 'block' : 'none'}"}
-  = f.input :with_supports, as: :hidden
+  -#= f.input :with_supports, as: :hidden
   -# = f.input :support_variety, collection: ((family and family.support_variety) ? Nomen::Variety.selection(family.support_variety) : []), wrapper_html: {style: "display: #{(family and family.support_variety) ? 'block' : 'none'}"}
   = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
   .perennial-production-cycle-options
