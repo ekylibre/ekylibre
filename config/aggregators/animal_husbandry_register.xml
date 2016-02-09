@@ -32,8 +32,8 @@
           <variable name="animal_activities" value="Activity.of_families(:animal_farming)"/>
           <sections for="production" in="ActivityProduction.of_activities(animal_activities).of_campaign(campaign)" of-type="record">
             <title name="name" of="production"/>
-            <property name="started_at" of="production" type="datetime"/>
-            <property name="stopped_at" of="production" type="datetime"/>
+            <property name="started_on" of="production" type="datetime"/>
+            <property name="stopped_on" of="production" type="datetime"/>
             <property name="variant_name" value="production.variant.name" if="production.variant"/>
             <sections for="animal" in="Animal.of_nature(production.variant.nature)" of-type="record" if="production.variant">
               <title name="name" of="animal"/>

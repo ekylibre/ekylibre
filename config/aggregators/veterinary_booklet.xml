@@ -12,7 +12,7 @@
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
-        <sections for="intervention" in="campaign.interventions.of_nature(:animal_illness_treatment)">
+        <sections for="intervention" in="campaign.interventions.of_category(:animal_treating)">
           <variable name="target" if="intervention.targets" value="intervention.targets.first.actor"/>
           <variable name="worker" if="intervention.doers" value="intervention.doers.first.actor"/>
           <title name="name" of="intervention"/>

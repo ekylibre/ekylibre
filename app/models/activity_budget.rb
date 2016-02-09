@@ -74,6 +74,7 @@ class ActivityBudget < Ekylibre::Record::Base
   end
 
   def productions
+    return ActivityProduction.none if activity.nil?
     activity.productions.of_campaign(campaign)
   end
 
