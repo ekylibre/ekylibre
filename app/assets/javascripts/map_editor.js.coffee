@@ -539,7 +539,7 @@
       unless this.options.controls.measure.show is false
         this.controls.measure = new L.Control.Measure(this.options.controls.measure)
         this.map.addControl this.controls.measure
-      unless this.options.controls.importers is false
+      unless this.options.controls.importers.gml is false and this.options.controls.importers.geojson is false and this.options.controls.importers.kml is false
 
         this.controls.importers_ctrl = new L.Control.EasyButton '<i class="leaflet-importer-ctrl"></i>', (btn, map) =>
           args =
