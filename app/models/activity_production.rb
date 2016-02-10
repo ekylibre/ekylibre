@@ -138,7 +138,8 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.started_on ||= Time.zone.now
+    self.started_on ||= Date.today
+    self.stopped_on ||= self.started_on + 1.year - 1.day if self.annual?
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
