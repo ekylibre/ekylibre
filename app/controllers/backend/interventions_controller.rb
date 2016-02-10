@@ -101,7 +101,7 @@ module Backend
       t.column :name, sort: :reference_name
       t.column :product, url: true
       # t.column :human_roles, sort: :roles, label: :roles
-      t.column :population
+      t.column :quantity_population
       t.column :unit_name, through: :variant
       t.column :shape, hidden: true
       t.column :variant, url: true
