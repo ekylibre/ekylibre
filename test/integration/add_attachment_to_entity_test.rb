@@ -18,12 +18,12 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
 
     visit(backend_entity_path(entity))
 
-    assert find('#title').text.include? entity.full_name
+    assert find(:css, '#title').text.include? entity.full_name
 
     assert fixture_file('sample_image.png').exist?, 'No image to attach'
 
-    assert find('.attachment-files')
-    assert_not find('.attachment-files').has_selector?('.file')
+    assert find(:css, '.attachment-files')
+    assert_not find(:css, '.attachment-files').has_selector?('.file')
 
     # Input file is hidden to user
     script = "$('#attachments').css({position: 'relative', opacity: 1});"
@@ -36,16 +36,9 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
 
     wait_for_ajax
 
-    puts ""
-    puts "### Attachment"
-    puts page.html
-    puts find('.attachment-files').inspect.yellow
-    puts find('.attachment-files .file').inspect.magenta
-    puts find('.attachment-files').find('.file').inspect.green
+    assert find(:css, '.attachment-files').find(:css, '.file')
 
-    assert find('.attachment-files').find('.file')
-
-    assert find('.attachment-files').find('.file').find('.file-name').text.include? 'sample_image.png'
+    assert find(:css, '.attachment-files').find(:css, '.file').find(:css, '.file-name').text.include? 'sample_image.png'
 
     shoot_screen 'attachments/uploaded_file'
   end
