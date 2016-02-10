@@ -139,9 +139,9 @@ class ActivityProduction < Ekylibre::Record::Base
 
   before_validation do
     self.started_on ||= Date.today
-    self.stopped_on ||= self.started_on + 1.year - 1.day if self.annual?
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
+      self.stopped_on ||= self.started_on + 1.year - 1.day if self.annual?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
