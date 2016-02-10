@@ -365,35 +365,37 @@ namespace :clean do
     ::I18n.translate('attributes').collect { |k, v| attributes[k.to_s] = [v, :unused] }
     ::I18n.translate('activerecord.models').collect { |k, v| models[k.to_s] = [v, :unused] }
     ::I18n.translate('models').collect { |k, v| models[k.to_s] ||= []; models[k.to_s][2] = v }
-    models_files = Dir[Rails.root.join('app', 'models', '*.rb')].collect { |m| m.split(/[\\\/\.]+/)[-2] }.sort
-    for model_file in models_files
-      model_name = model_file.sub(/\.rb$/, '')
-      model = model_name.camelize.constantize
-      next unless model < ActiveRecord::Base && !model.abstract_class?
+    Clean::Support.models_in_file.each do |model|
+      model_name = model.name.underscore
       if models[model_name]
         models[model_name][1] = :used
       else
         models[model_name] = [model_name.humanize, :undefined]
-              end
-      for column in model.columns.collect { |c| c.name.to_s }
-        if attributes[column]
-          attributes[column][1] = :used
-        elsif !column.match(/_id$/)
-          attributes[column] = [column.humanize, :undefined]
+      end
+      model.columns.each do |column|
+        column_name = column.name.to_s
+        if attributes[column_name]
+          attributes[column_name][1] = :used
+        elsif !column_name.match(/_id$/)
+          attributes[column_name] = [column_name.humanize, :undefined]
         end
       end
-      for column in model.instance_methods
-        attributes[column][1] = :used if attributes[column]
+      model.instance_methods.each do |method_name|
+        attributes[method_name][1] = :used if attributes[method_name]
       end
-      for column in model.reflect_on_all_associations.map(&:name)
-        attributes[column] = [column.to_s.humanize, :undefined] unless attributes[column]
+      model.reflect_on_all_associations.each do |reflection|
+        reflection_name = reflection.name.to_s
+        unless attributes[reflection_name]
+          attributes[reflection_name] = [reflection_name.to_s.humanize, :undefined]
+        end
       end
     end
-    for k, v in models
+    models.each do |_k, v|
       to_translate += 1 # if v[1]!=:unused
       untranslated += 1 if v[1] == :undefined
     end
-    for k, v in attributes.delete_if { |k, _v| k.to_s.match(/^\_/) }
+    attributes.each do |k, v|
+      next if k.to_s =~ /^\_/
       to_translate += 1 # if v[1]!=:unused
       untranslated += 1 if v[1] == :undefined
     end
@@ -405,7 +407,7 @@ namespace :clean do
     to_translate += Clean::Support.hash_count(::I18n.translate('activerecord.errors'))
     translation << '    errors:' + Clean::Support.hash_to_yaml(::I18n.translate('activerecord.errors'), 3) + "\n"
     translation << "    models:\n"
-    for model, definition in models.sort
+    models.sort.each do |model, definition|
       translation << '      '
       translation << missing_prompt if definition[1] == :undefined
       translation << "#{model}: " + Clean::Support.yaml_value(definition[0])
@@ -413,7 +415,7 @@ namespace :clean do
       translation << "\n"
     end
     translation << "  attributes:\n"
-    for attribute, definition in attributes.sort
+    attributes.sort.each do |attribute, definition|
       # unless attribute.to_s.match(/_id$/)
       translation << '    '
       translation << missing_prompt if definition[1] == :undefined
@@ -427,7 +429,7 @@ namespace :clean do
     # translation << "  enumerize:" + Clean::Support.hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
 
     translation << "  models:\n"
-    for model, definition in models.sort
+    models.sort.each do |model, definition|
       next unless definition[2]
       to_translate += Clean::Support.hash_count(definition[2])
       translation << "    #{model}:" + Clean::Support.yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n")) + "\n"

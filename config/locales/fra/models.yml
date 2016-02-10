@@ -341,7 +341,7 @@ fra:
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
       product_reading: "Valeur d’indicateur"
-      production: "Production"
+      production: "Production" #?
       purchase: "Achat"
       purchase_item: "Ligne d’achat"
       purchase_nature: "Type d’achat"
@@ -365,7 +365,7 @@ fra:
       team: "Service"
       tracking: "Lot traçable"
       user: "Utilisateur"
-      vegetal_activity: "Activité végétale"
+      vegetal_activity: "Activité végétale" #?
       version: "Version"
       worker: "Travailleur"
       zone: "Zone"
@@ -1387,6 +1387,14 @@ fra:
       label: "%{number} - %{name}"
     activity_budget:
       name: "%{activity_name} %{campaign_name}"
+    activity_production:
+      bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
+      name: "%{variant}/%{activity} %{campaign} (%{state})"
+      name_without_variant: "%{activity} %{campaign} (%{state})"
+      states:
+        aborted: "Annulée"
+        closed: "Fermée"
+        opened: "Ouverte"
     affair:
       bookkeep: "[%{resource} %{number}] De %{third}"
     cash_transfer:
@@ -1555,14 +1563,6 @@ fra:
         purchases: "Achat"
         rent: "Location"
         sales: "Vente"
-    production:
-      bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
-      name: "%{variant}/%{activity} %{campaign} (%{state})"
-      name_without_variant: "%{activity} %{campaign} (%{state})"
-      states:
-        aborted: "Annulée"
-        closed: "Fermée"
-        opened: "Ouverte"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
       label: "%{supplier} à %{address}"

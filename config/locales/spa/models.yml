@@ -139,9 +139,9 @@ spa:
       # building: "Building"
       # building_division: "Room / Zone"
       # campaign: "Campaign"
-      # cap_islet: "Cap islet"
-      # cap_land_parcel: "Cap land parcel"
-      # cap_statement: "Cap statement"
+      # cap_islet: "CAP islet"
+      # cap_land_parcel: "CAP land parcel"
+      # cap_statement: "CAP statement"
       # cash: "Cash"
       # cash_session: "Cash session"
       # cash_transfer: "Cash transfer"
@@ -234,7 +234,6 @@ spa:
       # product_ownership: "Product ownership"
       # product_phase: "Product phase"
       # product_reading: "Product reading"
-      # production: ""
       # purchase: "Purchase"
       # purchase_item: "Purchase item"
       # purchase_nature: "Purchase type"
@@ -258,7 +257,6 @@ spa:
       # team: "Team"
       # tracking: "Tracking"
       # user: "User"
-      # vegetal_activity: "Vegetal activity"
       # version: "Version"
       # worker: "Worker"
       # zone: "Zone"
@@ -1138,6 +1136,14 @@ spa:
       # label: "%{number} - %{name}"
     activity_budget:
       # name: "%{activity_name} %{campaign_name}"
+    activity_production:
+      # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      # name: "%{variant}/%{activity} %{campaign} (%{state})"
+      # name_without_variant: "%{activity} %{campaign} (%{state})"
+      states:
+        # aborted: "Aborted"
+        # closed: "Closed"
+        # opened: "Opened"
     affair:
       # bookkeep: "[%{resource} %{number}] From %{third}"
     cash_transfer:
@@ -1296,14 +1302,6 @@ spa:
         # purchases: "Purchases"
         # rent: "Location"
         # sales: "Sales"
-    production:
-      # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
-      # name: "%{variant}/%{activity} %{campaign} (%{state})"
-      # name_without_variant: "%{activity} %{campaign} (%{state})"
-      states:
-        # aborted: "Aborted"
-        # closed: "Closed"
-        # opened: "Opened"
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
       # label: "%{supplier} at %{address}"

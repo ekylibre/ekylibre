@@ -33,9 +33,9 @@ module Clean
 
         complement = { enumerize: {} }
         enumerize = complement[:enumerize]
-        for model, enumerizes in ENUMERIZES
+        ENUMERIZES.each do |model, enumerizes|
           enumerize[model] = {}
-          for name, source in enumerizes
+          enumerizes.each do |name, source|
             if source.first == :nomen
               if n = hash[locale][:nomenclatures][source[1]]
                 if (n = n[source[2]]) && n.is_a?(Hash)

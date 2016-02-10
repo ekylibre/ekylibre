@@ -741,9 +741,9 @@ arb:
       building: "موقع التخزين"
       # building_division: "Room / Zone"
       # campaign: "Campaign"
-      # cap_islet: "Cap islet"
-      # cap_land_parcel: "Cap land parcel"
-      # cap_statement: "Cap statement"
+      # cap_islet: "CAP islet"
+      # cap_land_parcel: "CAP land parcel"
+      # cap_statement: "CAP statement"
       cash: "الخزينة"
       # cash_session: "Cash session"
       # cash_transfer: "Cash transfer"
@@ -872,7 +872,6 @@ arb:
       product_stock: "سهم الانتاج" #?
       product_stock_move: "حركة السهم" #?
       product_transfer: "تحول او ضياع السهم" #?
-      # production: ""
       products_nature: "الانتاج" #?
       profession: "المهنة" #?
       purchase: "الشراء"
@@ -907,7 +906,6 @@ arb:
       transfer: "التحويل" #?
       unit: "الوحدة" #?
       user: "المستخدم"
-      # vegetal_activity: "Vegetal activity"
       # version: "Version"
       # worker: "Worker"
       # zone: "Zone"
@@ -2137,6 +2135,14 @@ arb:
       label: "%{number} - %{name}"
     activity_budget:
       # name: "%{activity_name} %{campaign_name}"
+    activity_production:
+      # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      # name: "%{variant}/%{activity} %{campaign} (%{state})"
+      # name_without_variant: "%{activity} %{campaign} (%{state})"
+      states:
+        # aborted: "Aborted"
+        # closed: "Closed"
+        # opened: "Opened"
     affair:
       # bookkeep: "[%{resource} %{number}] From %{third}"
     bank_statement:  #?
@@ -2612,14 +2618,6 @@ arb:
       natures: #?
         transfer: "التحويل" #?
         waste: "الضائع" #?
-    production:
-      # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
-      # name: "%{variant}/%{activity} %{campaign} (%{state})"
-      # name_without_variant: "%{activity} %{campaign} (%{state})"
-      states:
-        # aborted: "Aborted"
-        # closed: "Closed"
-        # opened: "Opened"
     products_nature:  #?
       informations: #?
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)" #?
