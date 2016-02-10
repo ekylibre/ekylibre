@@ -170,7 +170,7 @@
 
         if already_exist is true
           # Don't change the name if a different layer use this name
-          $(e.currentTarget).closest('.leaflet-popup-content').find('.warning').removeClass 'hide'
+          $(e.currentTarget).closest('.leaflet-popup-content').find('.leaflet-popup-warning').removeClass 'hide'
 
 
         else
@@ -252,7 +252,7 @@
       popup += "<div class='popup-header'>"
       id = if feature.properties.id? then "#{feature.properties.id}: " else ''
       popup += "<span class='popup-block-content' data-internal-id='#{feature.properties.internal_id}'>#{id}#{feature.properties.name || this.options.defaultLabel}</span>"
-      popup += "<span class='warning right hide'></span>"
+      popup += "<span class='leaflet-popup-warning right hide'></span>"
       popup += "</div>"
       popup += "<div class='popup-content'>"
       popup += "<input type='text' value='#{feature.properties.name || this.options.defaultLabel}'/>"
@@ -380,7 +380,7 @@
           this.ghost = L.geoJson(this.options.ghost, {
             onEachFeature: (feature, layer) =>
 
-              label = new L.Label({direction: 'bottom', className:'ghostLabel', offset: [0, -50], opacity: 0.6})
+              label = new L.Label({direction: 'bottom', className: 'leaflet-ghost-label', offset: [0, -50], opacity: 0.6})
               label.setContent(feature.properties.name || feature.properties.id)
               label.setLatLng(layer.getBounds().getCenter())
               this.map.showLabel(label)
@@ -403,7 +403,7 @@
       this.counter += 1
       feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
 
-      layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className:'referenceLabel'})
+      layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className: 'leaflet-reference-label'})
 
       $(this.element).trigger('mapeditor:feature_add', feature)
 
@@ -607,14 +607,14 @@
         @map.on "overlayadd", (event) =>
           if event.name == @options.overlaySelector.ghostLayer
             @map.eachLayer (layer) =>
-              if layer.options? and layer.options.className == "ghostLabel"
+              if layer.options? and layer.options.className == "leaflet-ghost-label"
                 label = $(layer._container)
                 label.show()
 
         @map.on "overlayremove", (event) =>
           if event.name == @options.overlaySelector.ghostLayer
             @map.eachLayer (layer) =>
-              if layer.options? and layer.options.className == "ghostLabel"
+              if layer.options? and layer.options.className == "leaflet-ghost-label"
                 label = $(layer._container)
                 label.hide()
 

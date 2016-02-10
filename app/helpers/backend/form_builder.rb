@@ -82,7 +82,7 @@ module Backend
 
             if custom_field.nature.to_sym == :number
               options[:as] = :string
-              options[:input_html] = { pattern: "[0-9]+([\.][0-9]+)?" }
+              options[:input_html] = { pattern: '[0-9]+([.][0-9]+)?' }
             end
 
             cff.input(custom_field.column_name, options)
@@ -425,11 +425,11 @@ module Backend
         end
 
         # Add form body
-        html << if block_given?
+        html += if block_given?
                   @template.capture(&block)
                 else
                   @template.render(partial: 'backend/shared/default_product_form', locals: { f: self })
-      end
+                end
 
         # Add first indicators
 
@@ -489,10 +489,10 @@ module Backend
           end
         end
 
-    end
+      end
 
       html
-  end
+    end
 
     def variety(options = {})
       scope = options[:scope]
@@ -555,15 +555,15 @@ module Backend
       @template.form_actions do
         html = ''.html_safe
         for action in @actions
-          html << if action[:type] == :block
+          html += if action[:type] == :block
                     action[:content].html_safe
                   else
                     @template.send(action[:type], *action[:args])
+                  end
         end
-      end
         html
       end
-  end
+    end
 
     def add(type = :block, *args, &block)
       @actions ||= []
@@ -626,7 +626,7 @@ module Backend
       options[:reflection] = reflection
       options
     end
-end
+  end
 end
 
 # This hack permits to change default presentation of the DateTime input

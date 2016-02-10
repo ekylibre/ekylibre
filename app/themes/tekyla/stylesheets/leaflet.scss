@@ -88,7 +88,7 @@
 
 .lvml {
   behavior: url(#default#VML);
-  display: inline-block;
+  @include inline-block;
   position: absolute;
 }
 
@@ -598,19 +598,18 @@
     border-left: none;
   }
   &:last-child a {
-    -webkit-border-radius: 0 4px 4px 0;
-    border-radius: 0 4px 4px 0;
+    -webkit-border-radius: 0 $default-border-radius $default-border-radius 0;
+    border-radius: 0 $default-border-radius $default-border-radius 0;
   }
 }
 
 .leaflet-right .leaflet-draw-actions li {
   &:last-child a {
-    -webkit-border-radius: 0;
-    border-radius: 0;
+    @include border-radius(0);
   }
   &:first-child a {
-    -webkit-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px;
+    -webkit-border-radius: $default-border-radius 0 0 $default-border-radius;
+    border-radius: $default-border-radius 0 0 $default-border-radius;
   }
 }
 
@@ -826,9 +825,10 @@
     display: block;
     min-width: 15 * $lh-normal;
     max-width: 18 * $lh-normal;
-    &.first, &:first-child {
-               border-top: none;
-             }
+    &.first,
+    &:first-child {
+      border-top: none;
+    }
     h3 {
       color: $text-color;
       font-size: $fs-normal;
@@ -939,7 +939,7 @@ i.leaflet-importer-ctrl, button.leaflet-importer-ctrl {
 }
 
 span.leaflet-importer-geojson, span.leaflet-importer-gml {
-  font-size: 8px;
+  font-size: $default-gap;
 }
 
 .leaflet-multilevel-legend {
@@ -961,14 +961,14 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
   }
 }
 
-.referenceLabel {
+.leaflet-reference-label {
   //background-color: #fff;
 }
 
-.ghostLabel {
+.leaflet-ghost-label {
   color: white;
   text-shadow: 0 0 2px black;
-  font-size: 13px;
+  font-size: $fs-normal;
   background-color: transparent;
   box-shadow: none;
   border: none;
@@ -979,20 +979,19 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
   }
 }
 
-.warning {
+.leaflet-popup-warning {
   @include is-icon;
   @include use-icon(warning);
   &.hide {
     display: none;
   }
-
   &.right {
-    float: right;
+    @include float(right);
   }
 }
 
 .choice-padding {
-  display: inline-block;
+  @include inline-block;
   margin-right: 15px;
 
   input[type=radio] {

@@ -132,12 +132,8 @@ module Ekylibre
               activity = Activity.create!(
                 name: r.activity_name,
                 family: family.name,
-                size_indicator: 'members_count',
-                support_variety: :animal_group,
                 nature: family.nature,
-                production_cycle: :annual,
-                with_cultivation: false,
-                with_supports: true
+                production_cycle: :perennial
               )
             end
             if animals.any?

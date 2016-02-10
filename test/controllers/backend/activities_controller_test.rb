@@ -15,6 +15,5 @@ module Backend
         assert_not_nil assigns(:activity)
       end
     end
-
   end
 end

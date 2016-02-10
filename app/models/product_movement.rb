@@ -50,8 +50,8 @@ class ProductMovement < Ekylibre::Record::Base
 
   before_validation do
     # errors.add(:delta, :invalid) if delta == 0.0
-    if self.delta
-      self.population = self.delta
+    if delta
+      self.population = delta
       self.population += previous.population if previous
     end
   end

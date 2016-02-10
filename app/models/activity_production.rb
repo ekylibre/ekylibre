@@ -141,7 +141,7 @@ class ActivityProduction < Ekylibre::Record::Base
     self.started_on ||= Date.today
     self.usage = Nomen::ProductionUsage.first unless usage
     if self.activity
-      self.stopped_on ||= self.started_on + 1.year - 1.day if self.annual?
+      self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
@@ -334,7 +334,7 @@ class ActivityProduction < Ekylibre::Record::Base
   # Returns all plants concerning by this activity production
   def inside_plants
     c = ::Charta.new_geometry(support_shape)
-    plants = Plant.of_campaign(self.campaign).shape_within(c)
+    plants = Plant.of_campaign(campaign).shape_within(c)
   end
 
   # Returns the started_at attribute of the intervention of nature sowing if
