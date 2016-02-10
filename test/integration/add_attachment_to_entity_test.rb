@@ -38,9 +38,10 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
 
     puts ""
     puts "### Attachment"
+    puts page.html
     puts find('.attachment-files').inspect.yellow
-    puts find('.attachment-files').find('.file').inspect.green
     puts find('.attachment-files .file').inspect.magenta
+    puts find('.attachment-files').find('.file').inspect.green
 
     assert find('.attachment-files').find('.file')
 
