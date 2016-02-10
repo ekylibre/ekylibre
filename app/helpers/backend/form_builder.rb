@@ -79,6 +79,12 @@ module Backend
             if custom_field.choice?
               options[:collection] = custom_field.choices.collect { |c| [c.name, c.value] }
             end
+
+            if custom_field.nature.to_sym == :number
+              options[:as] = :string
+              options[:input_html] = { pattern: "[0-9]+([\.][0-9]+)?" }
+            end
+
             cff.input(custom_field.column_name, options)
           end.join.html_safe
         end

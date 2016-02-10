@@ -1,7 +1,7 @@
 = field_set do
   = f.referenced_association :payer
   = f.referenced_association :mode
-  = f.input :amount
+  = f.input :amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
   = f.input :to_bank_at
   = f.input :received
   = f.custom_fields

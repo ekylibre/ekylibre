@@ -1,6 +1,6 @@
 = field_set do
   -# = f.input :nature
-  = f.input :amount
+  = f.input :amount, as: :string, input_html: { pattern: "[0-9]+([\.][0-9]+)?" }
   = f.input :name
   = f.referenced_association :collect_account, :source => {scope: {of_usage: :collected_vat}}, :new => {:number => Account.find_or_import_from_nomenclature(:collected_vat).number}
   = f.referenced_association :deduction_account, :source => {scope: {of_usage: :deductible_vat}}, :new => {:number => Account.find_or_import_from_nomenclature(:deductible_vat).number}

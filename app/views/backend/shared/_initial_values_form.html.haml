@@ -10,7 +10,7 @@
 
 - if f.object.indicators_list.include? :net_mass
   = f.input(:initial_population, wrapper: :append, class: :inline, label: Product.human_attribute_name(:population)) do
-    = f.input_field(:initial_population)
+    = f.input_field(:initial_population, as: :string)
     %span.add-on= f.object.variant.unit_name
 - if f.object.indicators_list.include? :shape
   = f.shape(:initial_shape, label: Product.human_attribute_name(:shape))
