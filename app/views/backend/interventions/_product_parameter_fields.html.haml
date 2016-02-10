@@ -23,4 +23,5 @@
         - f.object.readings.new(indicator_name: reading.name)
     = f.simple_fields_for(:readings, f.object.readings) do |r|
       - ref = reference.reading(r.object.indicator_name)
+      - next unless ref
       = r.reading as: (ref.accessible? ? nil : :hidden), input_html: { data: { intervention_updater: prefix + 'readings' }}
