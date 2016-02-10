@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160207171458) do
+ActiveRecord::Schema.define(version: 20160210083955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1413,8 +1413,8 @@ ActiveRecord::Schema.define(version: 20160207171458) do
     t.integer  "event_id"
     t.string   "number"
     t.text     "description"
-    t.integer  "working_duration"
-    t.integer  "whole_duration"
+    t.integer  "working_duration", default: 0, null: false
+    t.integer  "whole_duration",   default: 0, null: false
     t.string   "actions"
     t.jsonb    "custom_fields"
   end

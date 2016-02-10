@@ -39,8 +39,8 @@
 #  stopped_at       :datetime
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  whole_duration   :integer
-#  working_duration :integer
+#  whole_duration   :integer          default(0), not null
+#  working_duration :integer          default(0), not null
 #
 #
 # == Fixture: interventions
@@ -50,6 +50,8 @@
 #   procedure_name: "Lorem ipsum"
 #   state: "Lorem ipsum"
 #   updater: users_001
+#   whole_duration: 0
+#   working_duration: 0
 #
 ---
 interventions_001:
