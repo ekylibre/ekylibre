@@ -35,18 +35,6 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: observations
-#
-# observations_001:
-#   author: authors_001
-#   content: "Lorem ipsum"
-#   creator: users_001
-#   importance: "Lorem ipsum"
-#   observed_at: 2015-00-00 08:36:06 +02:00
-#   subject: subjects_001 (Model)
-#   updater: users_001
-#
 ---
 observations_001:
   author_id: 1

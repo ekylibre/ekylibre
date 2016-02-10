@@ -37,16 +37,6 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-#
-# == Fixture: notifications
-#
-# notifications_001:
-#   creator: users_001
-#   level: "Lorem ipsum"
-#   message: "Lorem ipsum"
-#   recipient: recipients_001
-#   updater: users_001
-#
 ---
 notifications_001:
   created_at: 2015-09-20 14:55:02.575255000 Z

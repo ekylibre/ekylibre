@@ -36,19 +36,6 @@
 #  updater_id         :integer
 #  usage              :string           not null
 #
-#
-# == Fixture: catalogs
-#
-# catalogs_001:
-#   all_taxes_included: true
-#   by_default: true
-#   code: "Lorem ipsum"
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   name: "Lorem ipsum"
-#   updater: users_001
-#   usage: "Lorem ipsum"
-#
 ---
 catalogs_001:
   all_taxes_included: false

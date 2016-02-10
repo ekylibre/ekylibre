@@ -40,24 +40,6 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-#
-# == Fixture: account_balances
-#
-# account_balances_001:
-#   account: accounts_001
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   financial_year: financial_years_001
-#   global_balance: 0
-#   global_count: 0
-#   global_credit: 0
-#   global_debit: 0
-#   local_balance: 0
-#   local_count: 0
-#   local_credit: 0
-#   local_debit: 0
-#   updater: users_001
-#
 ---
 account_balances_001:
   account_id: 1

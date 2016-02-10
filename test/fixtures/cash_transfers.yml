@@ -43,22 +43,6 @@
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
 #
-#
-# == Fixture: cash_transfers
-#
-# cash_transfers_001:
-#   creator: users_001
-#   currency_rate: 0
-#   emission_amount: 0
-#   emission_cash: emission_cashes_001
-#   emission_currency: "Lorem ipsum"
-#   number: "Lorem ipsum"
-#   reception_amount: 0
-#   reception_cash: reception_cashes_001
-#   reception_currency: "Lorem ipsum"
-#   transfered_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 cash_transfers_001:
   accounted_at: 2014-11-07 10:42:11.512064000 Z

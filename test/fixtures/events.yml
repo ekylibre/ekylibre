@@ -39,17 +39,6 @@
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
-#
-# == Fixture: events
-#
-# events_001:
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   restricted: true
-#   started_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 events_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

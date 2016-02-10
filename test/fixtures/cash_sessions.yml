@@ -37,15 +37,6 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
-#
-# == Fixture: cash_sessions
-#
-# cash_sessions_001:
-#   cash: cashes_001
-#   creator: users_001
-#   started_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 cash_sessions_001:
   cash_id: 1

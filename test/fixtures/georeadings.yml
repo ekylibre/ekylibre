@@ -34,16 +34,6 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: georeadings
-#
-# georeadings_001:
-#   content: "Lorem ipsum"
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 georeadings_001:
   content: SRID=4326;POLYGON((-0.66741943359371 45.619800720955,-0.78002929687592

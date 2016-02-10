@@ -39,18 +39,6 @@
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
 #
-#
-# == Fixture: guides
-#
-# guides_001:
-#   active: true
-#   creator: users_001
-#   external: true
-#   frequency: "Lorem ipsum"
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 guides_001:
   active: true

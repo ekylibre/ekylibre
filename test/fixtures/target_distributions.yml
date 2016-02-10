@@ -34,16 +34,6 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-#
-# == Fixture: target_distributions
-#
-# target_distributions_001:
-#   activity: activities_001
-#   activity_production: activity_productions_001
-#   creator: users_001
-#   target: targets_001
-#   updater: users_001
-#
 ---
 target_distributions_001:
   activity_id: 8

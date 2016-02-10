@@ -38,18 +38,6 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
-#
-# == Fixture: tasks
-#
-# tasks_001:
-#   creator: users_001
-#   due_at: 2015-00-00 08:36:06 +02:00
-#   entity: entities_001
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   state: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 tasks_001:
   created_at: 2015-06-06 22:22:24.435582000 Z

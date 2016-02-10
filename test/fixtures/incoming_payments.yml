@@ -51,21 +51,6 @@
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
-#
-# == Fixture: incoming_payments
-#
-# incoming_payments_001:
-#   amount: 0
-#   commission_amount: 0
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   downpayment: true
-#   mode: modes_001
-#   received: true
-#   scheduled: true
-#   to_bank_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 incoming_payments_001:
   accounted_at: 2014-11-05 14:07:53.334739000 Z

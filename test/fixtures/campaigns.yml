@@ -34,15 +34,6 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: campaigns
-#
-# campaigns_001:
-#   closed: true
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 campaigns_001:
   closed: false

@@ -52,23 +52,6 @@
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #
-#
-# == Fixture: fixed_assets
-#
-# fixed_assets_001:
-#   allocation_account: allocation_accounts_001
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   depreciable_amount: 0
-#   depreciated_amount: 0
-#   depreciation_method: "Lorem ipsum"
-#   journal: journals_001
-#   name: "Lorem ipsum"
-#   number: "Lorem ipsum"
-#   started_on: 2015-00-00
-#   stopped_on: 2015-00-00
-#   updater: users_001
-#
 ---
 fixed_assets_001:
   allocation_account_id: 500

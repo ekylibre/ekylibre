@@ -39,19 +39,6 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: entity_links
-#
-# entity_links_001:
-#   creator: users_001
-#   entity: entities_001
-#   entity_role: "Lorem ipsum"
-#   linked: linkeds_001
-#   linked_role: "Lorem ipsum"
-#   main: true
-#   nature: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 entity_links_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

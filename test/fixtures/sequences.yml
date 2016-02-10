@@ -39,18 +39,6 @@
 #  updater_id       :integer
 #  usage            :string
 #
-#
-# == Fixture: sequences
-#
-# sequences_001:
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   number_format: "Lorem ipsum"
-#   number_increment: 0
-#   number_start: 0
-#   period: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 sequences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

@@ -37,15 +37,6 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-#
-# == Fixture: product_ownerships
-#
-# product_ownerships_001:
-#   creator: users_001
-#   nature: "Lorem ipsum"
-#   product: products_001
-#   updater: users_001
-#
 ---
 product_ownerships_001:
   created_at: 2014-10-31 20:12:30.917322000 Z

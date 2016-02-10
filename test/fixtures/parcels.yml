@@ -50,18 +50,6 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-#
-# == Fixture: parcels
-#
-# parcels_001:
-#   creator: users_001
-#   nature: "Lorem ipsum"
-#   number: "Lorem ipsum"
-#   planned_at: 2015-00-00 08:36:06 +02:00
-#   remain_owner: true
-#   state: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 parcels_001:
   address_id: 12

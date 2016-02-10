@@ -41,19 +41,6 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-#
-# == Fixture: fixed_asset_depreciations
-#
-# fixed_asset_depreciations_001:
-#   accountable: true
-#   amount: 0
-#   creator: users_001
-#   fixed_asset: fixed_assets_001
-#   locked: true
-#   started_on: 2015-00-00
-#   stopped_on: 2015-00-00
-#   updater: users_001
-#
 ---
 fixed_asset_depreciations_001:
   accountable: false

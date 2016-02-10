@@ -38,19 +38,6 @@
 #  updater_id             :integer
 #  variant_id             :integer          not null
 #
-#
-# == Fixture: catalog_items
-#
-# catalog_items_001:
-#   all_taxes_included: true
-#   amount: 0
-#   catalog: catalogs_001
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   name: "Lorem ipsum"
-#   updater: users_001
-#   variant: variants_001
-#
 ---
 catalog_items_001:
   all_taxes_included: false

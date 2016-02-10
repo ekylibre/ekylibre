@@ -42,17 +42,6 @@
 #  whole_duration   :integer          default(0), not null
 #  working_duration :integer          default(0), not null
 #
-#
-# == Fixture: interventions
-#
-# interventions_001:
-#   creator: users_001
-#   procedure_name: "Lorem ipsum"
-#   state: "Lorem ipsum"
-#   updater: users_001
-#   whole_duration: 0
-#   working_duration: 0
-#
 ---
 interventions_001:
   actions: plowing, loosening

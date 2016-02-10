@@ -36,16 +36,6 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: postal_zones
-#
-# postal_zones_001:
-#   country: "Lorem ipsum"
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   postal_code: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 postal_zones_001:
   country: us

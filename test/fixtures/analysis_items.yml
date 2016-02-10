@@ -46,17 +46,6 @@
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
-#
-# == Fixture: analysis_items
-#
-# analysis_items_001:
-#   analysis: analyses_001
-#   boolean_value: true
-#   creator: users_001
-#   indicator_datatype: "Lorem ipsum"
-#   indicator_name: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 analysis_items_001:
   absolute_measure_value_unit: mass_percent

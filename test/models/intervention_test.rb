@@ -39,8 +39,8 @@
 #  stopped_at       :datetime
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  whole_duration   :integer
-#  working_duration :integer
+#  whole_duration   :integer          default(0), not null
+#  working_duration :integer          default(0), not null
 #
 require 'test_helper'
 

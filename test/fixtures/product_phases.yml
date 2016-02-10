@@ -38,17 +38,6 @@
 #  updater_id      :integer
 #  variant_id      :integer          not null
 #
-#
-# == Fixture: product_phases
-#
-# product_phases_001:
-#   category: categories_001
-#   creator: users_001
-#   nature: natures_001
-#   product: products_001
-#   updater: users_001
-#   variant: variants_001
-#
 ---
 product_phases_001:
   category_id: 1

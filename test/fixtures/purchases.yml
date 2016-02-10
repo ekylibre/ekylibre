@@ -47,18 +47,6 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
-#
-# == Fixture: purchases
-#
-# purchases_001:
-#   amount: 0
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   number: "Lorem ipsum"
-#   pretax_amount: 0
-#   supplier: suppliers_001
-#   updater: users_001
-#
 ---
 purchases_001:
   accounted_at: 2014-11-05 13:40:18.878913000 Z

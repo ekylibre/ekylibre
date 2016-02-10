@@ -45,22 +45,6 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-#
-# == Fixture: outgoing_payments
-#
-# outgoing_payments_001:
-#   amount: 0
-#   cash: cashes_001
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   delivered: true
-#   downpayment: true
-#   mode: modes_001
-#   payee: payees_001
-#   responsible: responsibles_001
-#   to_bank_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 outgoing_payments_001:
   accounted_at: 2014-11-07 13:58:25.752963000 Z

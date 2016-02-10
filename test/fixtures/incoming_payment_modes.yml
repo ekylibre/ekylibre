@@ -42,20 +42,6 @@
 #  with_commission         :boolean          default(FALSE), not null
 #  with_deposit            :boolean          default(FALSE), not null
 #
-#
-# == Fixture: incoming_payment_modes
-#
-# incoming_payment_modes_001:
-#   commission_base_amount: 0
-#   commission_percentage: 0
-#   creator: users_001
-#   detail_payments: true
-#   name: "Lorem ipsum"
-#   updater: users_001
-#   with_accounting: true
-#   with_commission: true
-#   with_deposit: true
-#
 ---
 incoming_payment_modes_001:
   active: false

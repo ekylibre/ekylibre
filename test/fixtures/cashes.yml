@@ -49,19 +49,6 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
-#
-# == Fixture: cashes
-#
-# cashes_001:
-#   account: accounts_001
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   journal: journals_001
-#   mode: "Lorem ipsum"
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 cashes_001:
   account_id: 212

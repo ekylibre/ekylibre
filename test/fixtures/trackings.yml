@@ -37,15 +37,6 @@
 #  usage_limit_nature :string
 #  usage_limit_on     :date
 #
-#
-# == Fixture: trackings
-#
-# trackings_001:
-#   active: true
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 trackings_001:
   active: true

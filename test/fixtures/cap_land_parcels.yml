@@ -37,19 +37,6 @@
 #  updated_at                  :datetime         not null
 #  updater_id                  :integer
 #
-#
-# == Fixture: cap_land_parcels
-#
-# cap_land_parcels_001:
-#   cap_islet: cap_islets_001
-#   creator: users_001
-#   land_parcel_number: "Lorem ipsum"
-#   main_crop_code: "Lorem ipsum"
-#   main_crop_commercialisation: true
-#   main_crop_seed_production: true
-#   shape: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 cap_land_parcels_001:
   cap_islet_id: 1

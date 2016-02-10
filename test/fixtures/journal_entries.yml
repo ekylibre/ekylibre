@@ -48,29 +48,6 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-#
-# == Fixture: journal_entries
-#
-# journal_entries_001:
-#   absolute_credit: 0
-#   absolute_currency: "Lorem ipsum"
-#   absolute_debit: 0
-#   balance: 0
-#   creator: users_001
-#   credit: 0
-#   currency: "Lorem ipsum"
-#   debit: 0
-#   journal: journals_001
-#   number: "Lorem ipsum"
-#   printed_on: 2015-00-00
-#   real_balance: 0
-#   real_credit: 0
-#   real_currency: "Lorem ipsum"
-#   real_currency_rate: 0
-#   real_debit: 0
-#   state: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 journal_entries_001:
   absolute_credit: 150.0

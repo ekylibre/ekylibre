@@ -32,16 +32,6 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: activity_budgets
-#
-# activity_budgets_001:
-#   activity: activities_001
-#   campaign: campaigns_001
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 activity_budgets_001:
   activity_id: 5

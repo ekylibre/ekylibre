@@ -33,16 +33,6 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
-#
-# == Fixture: cap_islets
-#
-# cap_islets_001:
-#   cap_statement: cap_statements_001
-#   creator: users_001
-#   islet_number: "Lorem ipsum"
-#   shape: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 cap_islets_001:
   cap_statement_id: 2

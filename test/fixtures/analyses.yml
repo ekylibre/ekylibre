@@ -46,18 +46,6 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-#
-# == Fixture: analyses
-#
-# analyses_001:
-#   creator: users_001
-#   nature: "Lorem ipsum"
-#   number: "Lorem ipsum"
-#   retrieval_status: "Lorem ipsum"
-#   sampled_at: 2015-00-00 08:36:06 +02:00
-#   sampling_temporal_mode: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 analyses_001:
   analysed_at: 2013-10-27 15:34:00.000000000 Z

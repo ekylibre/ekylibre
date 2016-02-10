@@ -44,14 +44,6 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-#
-# == Fixture: subscriptions
-#
-# subscriptions_001:
-#   creator: users_001
-#   suspended: true
-#   updater: users_001
-#
 ---
 subscriptions_001:
   address_id: 3

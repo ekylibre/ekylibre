@@ -33,16 +33,6 @@
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
-#
-# == Fixture: guide_analysis_points
-#
-# guide_analysis_points_001:
-#   acceptance_status: "Lorem ipsum"
-#   analysis: analyses_001
-#   creator: users_001
-#   reference_name: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 guide_analysis_points_001:
   acceptance_status: passed

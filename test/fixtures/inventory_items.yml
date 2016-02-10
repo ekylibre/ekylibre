@@ -34,17 +34,6 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
-#
-# == Fixture: inventory_items
-#
-# inventory_items_001:
-#   actual_population: 0
-#   creator: users_001
-#   expected_population: 0
-#   inventory: inventories_001
-#   product: products_001
-#   updater: users_001
-#
 ---
 inventory_items_001:
   actual_population: 10.0

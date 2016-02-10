@@ -37,20 +37,6 @@
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
-#
-# == Fixture: bank_statements
-#
-# bank_statements_001:
-#   cash: cashes_001
-#   creator: users_001
-#   credit: 0
-#   currency: "Lorem ipsum"
-#   debit: 0
-#   number: "Lorem ipsum"
-#   started_at: 2015-00-00 08:36:06 +02:00
-#   stopped_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 bank_statements_001:
   cash_id: 1

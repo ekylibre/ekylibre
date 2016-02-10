@@ -52,22 +52,6 @@
 #  updated_at                          :datetime         not null
 #  updater_id                          :integer
 #
-#
-# == Fixture: product_nature_categories
-#
-# product_nature_categories_001:
-#   active: true
-#   creator: users_001
-#   depreciable: true
-#   name: "Lorem ipsum"
-#   number: "Lorem ipsum"
-#   purchasable: true
-#   reductible: true
-#   saleable: true
-#   storable: true
-#   subscribing: true
-#   updater: users_001
-#
 ---
 product_nature_categories_001:
   active: true

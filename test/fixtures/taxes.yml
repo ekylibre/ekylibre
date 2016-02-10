@@ -35,15 +35,6 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
-#
-# == Fixture: taxes
-#
-# taxes_001:
-#   amount: 0
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 taxes_001:
   amount: 19.6

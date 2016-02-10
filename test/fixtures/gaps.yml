@@ -40,21 +40,6 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
-#
-# == Fixture: gaps
-#
-# gaps_001:
-#   amount: 0
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   direction: "Lorem ipsum"
-#   entity: entities_001
-#   entity_role: "Lorem ipsum"
-#   number: "Lorem ipsum"
-#   pretax_amount: 0
-#   printed_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 gaps_001:
   accounted_at: 2014-11-05 13:35:14.587933000 Z

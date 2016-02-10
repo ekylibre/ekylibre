@@ -44,17 +44,6 @@
 #  updater_id                   :integer
 #  variant_id                   :integer          not null
 #
-#
-# == Fixture: product_nature_variant_readings
-#
-# product_nature_variant_readings_001:
-#   boolean_value: true
-#   creator: users_001
-#   indicator_datatype: "Lorem ipsum"
-#   indicator_name: "Lorem ipsum"
-#   updater: users_001
-#   variant: variants_001
-#
 ---
 product_nature_variant_readings_001:
   boolean_value: false

@@ -39,21 +39,6 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
-#
-# == Fixture: loan_repayments
-#
-# loan_repayments_001:
-#   amount: 0
-#   base_amount: 0
-#   creator: users_001
-#   due_on: 2015-00-00
-#   insurance_amount: 0
-#   interest_amount: 0
-#   loan: loans_001
-#   position: 0
-#   remaining_amount: 0
-#   updater: users_001
-#
 ---
 loan_repayments_001:
   accounted_at: 2015-05-07 23:15:03.765813000 Z

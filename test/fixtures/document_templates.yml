@@ -37,20 +37,6 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: document_templates
-#
-# document_templates_001:
-#   active: true
-#   archiving: "Lorem ipsum"
-#   by_default: true
-#   creator: users_001
-#   language: "Lorem ipsum"
-#   managed: true
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 document_templates_001:
   active: true

@@ -49,20 +49,6 @@
 #  variable_indicators_list :text
 #  variety                  :string           not null
 #
-#
-# == Fixture: product_natures
-#
-# product_natures_001:
-#   active: true
-#   category: categories_001
-#   creator: users_001
-#   evolvable: true
-#   name: "Lorem ipsum"
-#   number: "Lorem ipsum"
-#   population_counting: "Lorem ipsum"
-#   updater: users_001
-#   variety: "Lorem ipsum"
-#
 ---
 product_natures_001:
   active: true

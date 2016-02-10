@@ -36,17 +36,6 @@
 #  updater_id      :integer
 #  with_accounting :boolean          default(FALSE), not null
 #
-#
-# == Fixture: purchase_natures
-#
-# purchase_natures_001:
-#   active: true
-#   by_default: true
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   updater: users_001
-#   with_accounting: true
-#
 ---
 purchase_natures_001:
   active: true

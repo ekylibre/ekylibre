@@ -37,15 +37,6 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-#
-# == Fixture: product_localizations
-#
-# product_localizations_001:
-#   creator: users_001
-#   nature: "Lorem ipsum"
-#   product: products_001
-#   updater: users_001
-#
 ---
 product_localizations_001:
   container_id: 20

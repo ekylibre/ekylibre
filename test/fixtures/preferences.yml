@@ -38,15 +38,6 @@
 #  updater_id        :integer
 #  user_id           :integer
 #
-#
-# == Fixture: preferences
-#
-# preferences_001:
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 preferences_001:
   boolean_value: true

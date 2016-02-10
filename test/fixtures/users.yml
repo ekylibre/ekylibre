@@ -61,23 +61,6 @@
 #  updated_at                             :datetime         not null
 #  updater_id                             :integer
 #
-#
-# == Fixture: users
-#
-# users_001:
-#   administrator: true
-#   commercial: true
-#   creator: users_001
-#   email: "Lorem ipsum"
-#   employed: true
-#   encrypted_password: "Lorem ipsum"
-#   first_name: "Lorem ipsum"
-#   language: "Lorem ipsum"
-#   last_name: "Lorem ipsum"
-#   locked: true
-#   maximal_grantable_reduction_percentage: 0
-#   updater: users_001
-#
 ---
 users_001:
   administrator: true

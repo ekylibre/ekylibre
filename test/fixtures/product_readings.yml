@@ -47,18 +47,6 @@
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
-#
-# == Fixture: product_readings
-#
-# product_readings_001:
-#   boolean_value: true
-#   creator: users_001
-#   indicator_datatype: "Lorem ipsum"
-#   indicator_name: "Lorem ipsum"
-#   product: products_001
-#   read_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 product_readings_001:
   boolean_value: false

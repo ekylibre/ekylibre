@@ -65,19 +65,6 @@
 #  variety               :string           not null
 #  work_number           :string
 #
-#
-# == Fixture: products
-#
-# products_001:
-#   category: categories_001
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   nature: natures_001
-#   number: "Lorem ipsum"
-#   updater: users_001
-#   variant: variants_001
-#   variety: "Lorem ipsum"
-#
 ---
 animals_001:
   born_at: 1997-01-16 23:00:00.000000000 Z

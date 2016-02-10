@@ -46,18 +46,6 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
-#
-# == Fixture: entity_addresses
-#
-# entity_addresses_001:
-#   by_default: true
-#   canal: "Lorem ipsum"
-#   coordinate: "Lorem ipsum"
-#   creator: users_001
-#   entity: entities_001
-#   mail_auto_update: true
-#   updater: users_001
-#
 ---
 entity_addresses_001:
   by_default: true

@@ -37,18 +37,6 @@
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
-#
-# == Fixture: financial_years
-#
-# financial_years_001:
-#   closed: true
-#   code: "Lorem ipsum"
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   started_on: 2015-00-00
-#   stopped_on: 2015-00-00
-#   updater: users_001
-#
 ---
 financial_years_001:
   closed: false

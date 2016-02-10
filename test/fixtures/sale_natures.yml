@@ -45,22 +45,6 @@
 #  updater_id              :integer
 #  with_accounting         :boolean          default(FALSE), not null
 #
-#
-# == Fixture: sale_natures
-#
-# sale_natures_001:
-#   active: true
-#   by_default: true
-#   catalog: catalogs_001
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   downpayment: true
-#   expiration_delay: "Lorem ipsum"
-#   name: "Lorem ipsum"
-#   payment_delay: "Lorem ipsum"
-#   updater: users_001
-#   with_accounting: true
-#
 ---
 sale_natures_001:
   active: true

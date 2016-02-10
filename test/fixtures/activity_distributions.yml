@@ -32,14 +32,4 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-#
-# == Fixture: activity_distributions
-#
-# activity_distributions_001:
-#   activity: activities_001
-#   affectation_percentage: 0
-#   creator: users_001
-#   main_activity: main_activities_001
-#   updater: users_001
-#
 --- {}

@@ -40,19 +40,6 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-#
-# == Fixture: custom_fields
-#
-# custom_fields_001:
-#   active: true
-#   column_name: "Lorem ipsum"
-#   creator: users_001
-#   customized_type: "Lorem ipsum"
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   required: true
-#   updater: users_001
-#
 ---
 custom_fields_001:
   active: true

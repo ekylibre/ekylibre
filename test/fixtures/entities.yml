@@ -66,27 +66,6 @@
 #  vat_number                :string
 #  vat_subjected             :boolean          default(TRUE), not null
 #
-#
-# == Fixture: entities
-#
-# entities_001:
-#   active: true
-#   client: true
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   full_name: "Lorem ipsum"
-#   language: "Lorem ipsum"
-#   last_name: "Lorem ipsum"
-#   locked: true
-#   nature: "Lorem ipsum"
-#   of_company: true
-#   prospect: true
-#   reminder_submissive: true
-#   supplier: true
-#   transporter: true
-#   updater: users_001
-#   vat_subjected: true
-#
 ---
 entities_001:
   active: true

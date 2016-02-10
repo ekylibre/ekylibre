@@ -43,20 +43,6 @@
 #  with_cultivation    :boolean          not null
 #  with_supports       :boolean          not null
 #
-#
-# == Fixture: activities
-#
-# activities_001:
-#   creator: users_001
-#   family: "Lorem ipsum"
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   production_cycle: "Lorem ipsum"
-#   suspended: true
-#   updater: users_001
-#   with_cultivation: true
-#   with_supports: true
-#
 ---
 activities_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

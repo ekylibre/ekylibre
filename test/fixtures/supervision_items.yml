@@ -32,15 +32,6 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-#
-# == Fixture: supervision_items
-#
-# supervision_items_001:
-#   creator: users_001
-#   sensor: sensors_001
-#   supervision: supervisions_001
-#   updater: users_001
-#
 ---
 supervision_items_001:
   color: "#000000"

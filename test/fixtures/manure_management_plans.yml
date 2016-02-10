@@ -37,20 +37,6 @@
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
 #
-#
-# == Fixture: manure_management_plans
-#
-# manure_management_plans_001:
-#   campaign: campaigns_001
-#   creator: users_001
-#   default_computation_method: "Lorem ipsum"
-#   locked: true
-#   name: "Lorem ipsum"
-#   opened_at: 2015-00-00 08:36:06 +02:00
-#   recommender: recommenders_001
-#   selected: true
-#   updater: users_001
-#
 ---
 manure_management_plans_001:
   annotation: ''

@@ -49,16 +49,6 @@
 #  updated_at                                      :datetime         not null
 #  updater_id                                      :integer
 #
-#
-# == Fixture: manure_management_plan_zones
-#
-# manure_management_plan_zones_001:
-#   activity_production: activity_productions_001
-#   computation_method: "Lorem ipsum"
-#   creator: users_001
-#   plan: plans_001
-#   updater: users_001
-#
 ---
 manure_management_plan_zones_001:
   absorbed_nitrogen_at_opening: 10.0

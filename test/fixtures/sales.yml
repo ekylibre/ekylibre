@@ -64,24 +64,6 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
-#
-# == Fixture: sales
-#
-# sales_001:
-#   amount: 0
-#   client: clients_001
-#   creator: users_001
-#   credit: true
-#   currency: "Lorem ipsum"
-#   downpayment_amount: 0
-#   has_downpayment: true
-#   letter_format: true
-#   number: "Lorem ipsum"
-#   payment_delay: "Lorem ipsum"
-#   pretax_amount: 0
-#   state: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 sales_001:
   accounted_at: 2014-11-05 09:58:26.783812000 Z

@@ -37,20 +37,6 @@
 #  used_for_affairs :boolean          default(FALSE), not null
 #  used_for_gaps    :boolean          default(FALSE), not null
 #
-#
-# == Fixture: journals
-#
-# journals_001:
-#   closed_on: 2015-00-00
-#   code: "Lorem ipsum"
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   updater: users_001
-#   used_for_affairs: true
-#   used_for_gaps: true
-#
 ---
 journals_001:
   closed_on: 2007-06-30

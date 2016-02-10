@@ -32,16 +32,6 @@
 #  updater_id                 :integer
 #  usage                      :string           not null
 #
-#
-# == Fixture: product_nature_category_taxations
-#
-# product_nature_category_taxations_001:
-#   creator: users_001
-#   product_nature_category: product_nature_categories_001
-#   tax: taxes_001
-#   updater: users_001
-#   usage: "Lorem ipsum"
-#
 ---
 product_nature_category_taxations_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

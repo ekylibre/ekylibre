@@ -32,15 +32,6 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-#
-# == Fixture: event_participations
-#
-# event_participations_001:
-#   creator: users_001
-#   event: events_001
-#   participant: participants_001
-#   updater: users_001
-#
 ---
 event_participations_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

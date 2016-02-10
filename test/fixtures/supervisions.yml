@@ -33,14 +33,6 @@
 #  updater_id      :integer
 #  view_parameters :json
 #
-#
-# == Fixture: supervisions
-#
-# supervisions_001:
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 supervisions_001:
   created_at: 2016-01-25 13:37:25.068107000 Z

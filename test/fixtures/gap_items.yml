@@ -34,17 +34,6 @@
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
-#
-# == Fixture: gap_items
-#
-# gap_items_001:
-#   amount: 0
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   gap: gaps_001
-#   pretax_amount: 0
-#   updater: users_001
-#
 ---
 gap_items_001:
   amount: -11.23

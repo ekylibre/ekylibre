@@ -36,15 +36,6 @@
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
-#
-# == Fixture: subscription_natures
-#
-# subscription_natures_001:
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 subscription_natures_001:
   actual_number: 25

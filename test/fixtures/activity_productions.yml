@@ -46,21 +46,6 @@
 #  updater_id          :integer
 #  usage               :string           not null
 #
-#
-# == Fixture: activity_productions
-#
-# activity_productions_001:
-#   activity: activities_001
-#   creator: users_001
-#   irrigated: true
-#   nitrate_fixing: true
-#   rank_number: 0
-#   size_indicator_name: "Lorem ipsum"
-#   size_value: 0
-#   support: supports_001
-#   updater: users_001
-#   usage: "Lorem ipsum"
-#
 ---
 activity_productions_001:
   activity_id: 1

@@ -35,19 +35,6 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-#
-# == Fixture: guide_analyses
-#
-# guide_analyses_001:
-#   acceptance_status: "Lorem ipsum"
-#   creator: users_001
-#   execution_number: 0
-#   guide: guides_001
-#   latest: true
-#   started_at: 2015-00-00 08:36:06 +02:00
-#   stopped_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 guide_analyses_001:
   acceptance_status: passed

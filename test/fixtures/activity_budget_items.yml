@@ -41,18 +41,6 @@
 #  variant_indicator  :string
 #  variant_unit       :string
 #
-#
-# == Fixture: activity_budget_items
-#
-# activity_budget_items_001:
-#   activity_budget: activity_budgets_001
-#   computation_method: "Lorem ipsum"
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   direction: "Lorem ipsum"
-#   unit_currency: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 activity_budget_items_001:
   activity_budget_id: 2

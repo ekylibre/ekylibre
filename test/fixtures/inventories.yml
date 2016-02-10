@@ -38,15 +38,6 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
-#
-# == Fixture: inventories
-#
-# inventories_001:
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   reflected: true
-#   updater: users_001
-#
 ---
 inventories_001:
   achieved_at: 2009-07-19 10:00:00.000000000 Z

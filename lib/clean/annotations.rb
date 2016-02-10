@@ -70,43 +70,6 @@ module Clean
         info << "#\n"
       end
 
-      # Use the column information in an ActiveRecord class
-      # to create a comment block containing a line for
-      # each column. The line contains the column name,
-      # the type (and length), and any optional attributes
-      def default_fixture(klass)
-        info  = "#\n# == Fixture: #{klass.table_name}\n#\n"
-        info += "# #{klass.table_name}_001:\n"
-        klass.columns.sort { |a, b| a.name <=> b.name }.each do |col|
-          next if [:created_at, :updated_at, :id, :lock_version].include? col.name.to_sym
-          next if col.name.start_with?('_') # Custom fields
-          next if col.name =~ /\_type$/ && klass.columns_hash[col.name.gsub(/\_type$/, '_id')]
-          next unless !col.null || [:creator_id, :updater_id].include?(col.name.to_sym)
-          if col.name =~ /_id$/
-            name = col.name.gsub(/_id$/, '')
-            model = { 'creator' => 'user', 'updater' => 'user' }[name] || name
-            info << "#   #{name}: #{model.pluralize}_001"
-            info << ' (Model)' if klass.columns_hash["#{name}_type"]
-          else
-            info << "#   #{col.name}: "
-            info += if col.name =~ /_at$/
-                      "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')} #{(Time.zone.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(60).to_s.rjust(2, '0')}:#{Time.zone.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
-                    elsif col.name =~ /_on$/
-                      "#{Time.zone.today.year - 1}-#{Time.zone.today.year.modulo(12).to_s.rjust(2, '0')}-#{Time.zone.today.year.modulo(28).to_s.rjust(2, '0')}"
-                    elsif col.type == :boolean
-                      'true'
-                    elsif col.type == :decimal || col.type == :integer
-                      '0'
-                    else
-                      '"Lorem ipsum"'
-                    end
-          end
-          info << "\n"
-        end
-        info << "#\n"
-        info
-      end
-
       # Add a schema block to a file. If the file already contains
       # a schema info block (a comment starting
       # with "Schema as of ..."), remove it first.
@@ -136,7 +99,7 @@ module Clean
 
         if types.include?(:fixtures)
           fixture_file_name = FIXTURES_DIR.join(klass.table_name + '.yml')
-          annotate_one_file(fixture_file_name, info + default_fixture(klass))
+          annotate_one_file(fixture_file_name, info)
         end
 
         if types.include?(:model_tests)

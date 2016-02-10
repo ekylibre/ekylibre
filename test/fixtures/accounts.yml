@@ -38,18 +38,6 @@
 #  updater_id    :integer
 #  usages        :text
 #
-#
-# == Fixture: accounts
-#
-# accounts_001:
-#   creator: users_001
-#   debtor: true
-#   label: "Lorem ipsum"
-#   name: "Lorem ipsum"
-#   number: "Lorem ipsum"
-#   reconcilable: true
-#   updater: users_001
-#
 ---
 accounts_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

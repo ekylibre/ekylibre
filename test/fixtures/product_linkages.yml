@@ -38,14 +38,4 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-#
-# == Fixture: product_linkages
-#
-# product_linkages_001:
-#   carrier: carriers_001
-#   creator: users_001
-#   nature: "Lorem ipsum"
-#   point: "Lorem ipsum"
-#   updater: users_001
-#
 --- {}

@@ -45,21 +45,6 @@
 #  updater_id           :integer
 #  variant_id           :integer          not null
 #
-#
-# == Fixture: sale_items
-#
-# sale_items_001:
-#   amount: 0
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   pretax_amount: 0
-#   quantity: 0
-#   reduction_percentage: 0
-#   sale: sales_001
-#   unit_amount: 0
-#   updater: users_001
-#   variant: variants_001
-#
 ---
 sale_items_001:
   account_id: 5

@@ -34,14 +34,6 @@
 #  updated_at    :datetime         not null
 #  updater_id    :integer
 #
-#
-# == Fixture: cap_statements
-#
-# cap_statements_001:
-#   campaign: campaigns_001
-#   creator: users_001
-#   updater: users_001
-#
 ---
 cap_statements_001:
   campaign_id: 4

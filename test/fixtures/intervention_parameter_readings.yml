@@ -44,17 +44,6 @@
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
-#
-# == Fixture: intervention_parameter_readings
-#
-# intervention_parameter_readings_001:
-#   boolean_value: true
-#   creator: users_001
-#   indicator_datatype: "Lorem ipsum"
-#   indicator_name: "Lorem ipsum"
-#   parameter: parameters_001
-#   updater: users_001
-#
 ---
 intervention_parameter_readings_001:
   boolean_value: false

@@ -50,21 +50,6 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-#
-# == Fixture: affairs
-#
-# affairs_001:
-#   closed: true
-#   creator: users_001
-#   credit: 0
-#   currency: "Lorem ipsum"
-#   deals_count: 0
-#   debit: 0
-#   number: "Lorem ipsum"
-#   third: thirds_001
-#   third_role: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 affairs_001:
   accounted_at: 2014-11-05 09:30:00.003467000 Z

@@ -45,25 +45,6 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
-#
-# == Fixture: loans
-#
-# loans_001:
-#   amount: 0
-#   cash: cashes_001
-#   creator: users_001
-#   currency: "Lorem ipsum"
-#   insurance_percentage: 0
-#   interest_percentage: 0
-#   lender: lenders_001
-#   name: "Lorem ipsum"
-#   repayment_duration: 0
-#   repayment_method: "Lorem ipsum"
-#   repayment_period: "Lorem ipsum"
-#   shift_duration: 0
-#   started_on: 2015-00-00
-#   updater: users_001
-#
 ---
 loans_001:
   accounted_at: 2015-05-07 23:15:03.742367000 Z

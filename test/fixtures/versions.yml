@@ -32,13 +32,6 @@
 #  item_object  :text
 #  item_type    :string
 #
-#
-# == Fixture: versions
-#
-# versions_001:
-#   creator: users_001
-#   event: "Lorem ipsum"
-#
 ---
 versions_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

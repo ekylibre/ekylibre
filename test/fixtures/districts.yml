@@ -31,14 +31,6 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: districts
-#
-# districts_001:
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 districts_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

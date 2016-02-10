@@ -40,19 +40,6 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
-#
-# == Fixture: deposits
-#
-# deposits_001:
-#   amount: 0
-#   cash: cashes_001
-#   creator: users_001
-#   locked: true
-#   mode: modes_001
-#   number: "Lorem ipsum"
-#   payments_count: 0
-#   updater: users_001
-#
 ---
 deposits_001:
   accounted_at: 2014-11-05 12:45:58.006119000 Z

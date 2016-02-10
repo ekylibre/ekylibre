@@ -34,16 +34,6 @@
 #  updater_id      :integer
 #  with_accounting :boolean          default(FALSE), not null
 #
-#
-# == Fixture: outgoing_payment_modes
-#
-# outgoing_payment_modes_001:
-#   active: true
-#   creator: users_001
-#   name: "Lorem ipsum"
-#   updater: users_001
-#   with_accounting: true
-#
 ---
 outgoing_payment_modes_001:
   active: false

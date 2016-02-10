@@ -37,18 +37,6 @@
 #  updater_id                :integer
 #  user_id                   :integer
 #
-#
-# == Fixture: crumbs
-#
-# crumbs_001:
-#   accuracy: 0
-#   creator: users_001
-#   device_uid: "Lorem ipsum"
-#   geolocation: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   read_at: 2015-00-00 08:36:06 +02:00
-#   updater: users_001
-#
 ---
 crumbs_001:
   accuracy: 0.0

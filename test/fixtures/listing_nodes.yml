@@ -48,19 +48,6 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
-#
-# == Fixture: listing_nodes
-#
-# listing_nodes_001:
-#   creator: users_001
-#   depth: 0
-#   exportable: true
-#   label: "Lorem ipsum"
-#   listing: listings_001
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   updater: users_001
-#
 ---
 listing_nodes_001:
   created_at: 2014-10-31 17:19:32.000000000 Z

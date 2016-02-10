@@ -43,18 +43,6 @@
 #  updater_id           :integer
 #  variety              :string           not null
 #
-#
-# == Fixture: product_nature_variants
-#
-# product_nature_variants_001:
-#   active: true
-#   category: categories_001
-#   creator: users_001
-#   nature: natures_001
-#   unit_name: "Lorem ipsum"
-#   updater: users_001
-#   variety: "Lorem ipsum"
-#
 ---
 product_nature_variants_001:
   active: true
