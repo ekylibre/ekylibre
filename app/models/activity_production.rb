@@ -329,7 +329,14 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     0.0
   end
-
+  
+  
+  # Returns all plants concerning by this activity production
+  def inside_plants
+    c = ::Charta.new_geometry(support_shape)
+    plants = Plant.of_campaign(self.campaign).shape_within(c)
+  end
+  
   # Returns the started_at attribute of the intervention of nature sowing if
   # exist and if it's a vegetal activity
   def implanted_at
@@ -366,15 +373,17 @@ class ActivityProduction < Ekylibre::Record::Base
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
     total_quantity = 0.0.in(size_unit_name)
-    harvest_interventions = interventions.real.of_category(procedure_category)
+    # harvest_interventions = interventions.real.of_category(procedure_category).with_targets(inside_plants)
+    harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(inside_plants)
     if harvest_interventions.any?
       harvest_interventions.find_each do |harvest|
         harvest.outputs.each do |cast|
-          actor = cast.actor
+          actor = cast.product
           next unless actor && actor.variety
           variety = Nomen::Variety.find(actor.variety)
           if variety && variety <= harvest_variety
-            total_quantity += actor.get(size_indicator_name, cast)
+            quantity = cast.quantity_population.in(actor.variant.send(size_indicator_name).unit)
+            total_quantity += quantity.convert(size_unit_name) if quantity
           end
         end
       end
