@@ -163,8 +163,12 @@
         @element.val JSON.stringify(@marker.toGeoJSON())
       true
 
-  $(document).ready ->
-    $("input[data-map-marker]").each ->
+  $.loadMapMarker = ->
+    $("*[data-map-marker]").each ->
       $(this).mapmarker()
+    return
+
+  $(document).ready $.loadMapMarker
+  $(document).on "page:load cocoon:after-insert cell:load dialog:show", $.loadMapMarker
 
 ) jQuery
