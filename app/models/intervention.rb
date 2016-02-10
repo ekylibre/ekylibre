@@ -39,8 +39,8 @@
 #  stopped_at       :datetime
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  whole_duration   :integer
-#  working_duration :integer
+#  whole_duration   :integer          default(0), not null
+#  working_duration :integer          default(0), not null
 #
 
 class Intervention < Ekylibre::Record::Base
@@ -67,7 +67,7 @@ class Intervention < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
   validates_numericality_of :whole_duration, :working_duration, allow_nil: true, only_integer: true
-  validates_presence_of :procedure_name, :state
+  validates_presence_of :procedure_name, :state, :whole_duration, :working_duration
   # ]VALIDATORS]
   validates_presence_of :actions
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods

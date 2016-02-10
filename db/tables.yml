@@ -2716,8 +2716,10 @@ interventions:
     references: user
   whole_duration:
     type: integer
+    required: true
   working_duration:
     type: integer
+    required: true
 inventories:
   accounted_at:
     type: datetime

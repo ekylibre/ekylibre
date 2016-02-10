@@ -329,14 +329,13 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     0.0
   end
-  
-  
+
   # Returns all plants concerning by this activity production
   def inside_plants
     c = ::Charta.new_geometry(support_shape)
     plants = Plant.of_campaign(self.campaign).shape_within(c)
   end
-  
+
   # Returns the started_at attribute of the intervention of nature sowing if
   # exist and if it's a vegetal activity
   def implanted_at
