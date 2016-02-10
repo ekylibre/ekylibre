@@ -117,18 +117,6 @@ class Activity < Ekylibre::Record::Base
   before_validation do
     family = Nomen::ActivityFamily.find(self.family)
     if family
-      if with_supports || family.support_variety
-        self.with_supports = true
-        self.support_variety ||= family.support_variety
-      else
-        self.with_supports = false
-      end
-      if with_cultivation || family.cultivation_variety
-        self.with_cultivation = true
-        self.cultivation_variety ||= family.cultivation_variety
-      else
-        self.with_cultivation = false
-      end
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
         self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
