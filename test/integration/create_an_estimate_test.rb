@@ -69,7 +69,7 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     puts find('.tl-sales').inspect.green
     # puts find('.timeline-tool').inspect.yellow
     puts find('.timeline-tool.tl-sales').inspect.magenta
-    
+
     within(:css, '.timeline-tool.tl-sales') do
       click_on 'actions.backend/sales.new'.t
     end

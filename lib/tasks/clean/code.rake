@@ -17,7 +17,7 @@ namespace :clean do
     log.write "White spaces:\n"
     count = 0
     files.sort!
-    for file in files
+    files.each do |file|
       next if File.directory?(file) || File.symlink?(file)
       original = File.read(file)
       source = original.dup
