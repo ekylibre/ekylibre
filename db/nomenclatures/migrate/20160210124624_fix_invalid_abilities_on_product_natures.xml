@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix invalid abilities on product natures">
+  <item-change item="product_natures#foliar_spray" abilities="care(plant), fertilize, kill(insecta), kill(fungus)"/>
+  <item-change item="product_natures#picker" abilities="pick(fruit)"/>
+</migration>
