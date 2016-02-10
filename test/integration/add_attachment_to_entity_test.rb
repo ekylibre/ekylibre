@@ -36,6 +36,12 @@ class AddAttachmentToEntity < CapybaraIntegrationTest
 
     wait_for_ajax
 
+    puts ""
+    puts "### Attachment"
+    puts find('.attachment-files').inspect.yellow
+    puts find('.attachment-files').find('.file').inspect.green
+    puts find('.attachment-files .file').inspect.magenta
+
     assert find('.attachment-files').find('.file')
 
     assert find('.attachment-files').find('.file').find('.file-name').text.include? 'sample_image.png'

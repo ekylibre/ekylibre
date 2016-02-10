@@ -64,7 +64,13 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     # click_link :timeline.tl
     page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
     sleep(1)
-    within('.timeline-tool.tl-sales') do
+    puts ""
+    puts "### Create an estimate"
+    puts find('.tl-sales').inspect.green
+    # puts find('.timeline-tool').inspect.yellow
+    puts find('.timeline-tool.tl-sales').inspect.magenta
+    
+    within(:css, '.timeline-tool.tl-sales') do
       click_on 'actions.backend/sales.new'.t
     end
     click_on :add_item.tl
