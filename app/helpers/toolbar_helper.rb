@@ -65,7 +65,9 @@ module ToolbarHelper
       end
     end
 
-    def action(name, record = nil, options = {})
+    def action(name, *args)
+      options = args.extract_options!
+      record = args.shift
       url = {}
       url.update(options.delete(:params)) if options[:params].is_a? Hash
       url[:controller] ||= @template.controller_path
