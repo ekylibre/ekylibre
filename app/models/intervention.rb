@@ -84,6 +84,11 @@ class Intervention < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
   }
+  
+  scope :of_civil_year, lambda { |year|
+    where("EXTRACT(YEAR FROM started_at) = ?", year)
+  }
+  
   scope :of_nature, ->(reference_name) { where(reference_name: reference_name) }
   scope :of_category, lambda { |category|
     where(procedure_name: Procedo.procedures_of_category(category).map(&:name))

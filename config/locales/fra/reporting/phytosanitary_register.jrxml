@@ -2,8 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="phytosanitary_register_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.2100000000000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="487"/>
-	<template><![CDATA["/home/djoulin/projects/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
+	<property name="ireport.y" value="457"/>
+	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
@@ -134,6 +134,12 @@
 		<groupExpression><![CDATA[$F{plant_id}]]></groupExpression>
 		<groupHeader>
 			<band height="244">
+				<rectangle radius="10">
+					<reportElement style="title" x="277" y="59" width="258" height="81" uuid="286af448-36cb-4abe-8109-e0e8fad9cf3b"/>
+				</rectangle>
+				<rectangle radius="10">
+					<reportElement style="title" x="0" y="59" width="250" height="81" uuid="ed954d71-6d69-4db5-8a9f-dcbaeaf81679"/>
+				</rectangle>
 				<textField>
 					<reportElement style="sub-title" x="2" y="0" width="304" height="24" uuid="767321ef-0cb0-45b7-9d28-e511bc11c4d2"/>
 					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
@@ -261,12 +267,6 @@
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{plant_cultivable_zone}]]></textFieldExpression>
 				</textField>
-				<rectangle radius="10">
-					<reportElement style="title" x="277" y="59" width="258" height="81" uuid="286af448-36cb-4abe-8109-e0e8fad9cf3b"/>
-				</rectangle>
-				<rectangle radius="10">
-					<reportElement style="title" x="0" y="59" width="250" height="81" uuid="ed954d71-6d69-4db5-8a9f-dcbaeaf81679"/>
-				</rectangle>
 				<staticText>
 					<reportElement style="strong" x="0" y="171" width="785" height="20" uuid="1c5f55c2-fc3c-4d41-b2ce-16e830a94d1d"/>
 					<text><![CDATA[Interventions]]></text>

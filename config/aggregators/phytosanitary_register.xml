@@ -15,23 +15,23 @@
         <!-- looking for all CultivableZone -->
         <sections for="zone" in="CultivableZone.all.reorder(:work_number)" of-type="record">
           <title name="name" of="zone"/>
-          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).shape_matching(zone.shape)"/>
+          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).shape_overlapping(zone.shape)"/>
           <property name="work_number" of="zone"/>
           <property name="uuid" of="zone"/>
-          <property name="islet_number" if="CapIslet.shape_matching(zone.shape).of_campaign(campaign).first" value="CapIslet.shape_matching(zone.shape).of_campaign(campaign).first.islet_number"/>
+          <property name="islet_number" if="CapIslet.of_campaign(campaign).shape_overlapping(zone.shape).first" value="CapIslet.of_campaign(campaign).shape_overlapping(zone.shape).first.islet_number"/>
           <property name="net_surface_area" value="zone.net_surface_area(:hectare).round(3).l" type="measure"/>
           <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
           <property name="shape_svg" value="zone.shape.to_svg(srid: 2154)" type="svg" level="api"/>
           <!-- looking for all Production in current cultivable_zone and campaign ## add real.where(state: 'done') when ready-->
-	          <sections for="intervention" in="Intervention.of_campaign(campaign).of_category(:crop_protection).with_targets(targets).reorder(:started_at)" of-type="record">
+	          <sections for="intervention" in="Intervention.of_civil_year(campaign.harvest_year).of_category(:crop_protection).with_targets(targets).reorder(:started_at)" of-type="record">
 	            <title name="name" of="intervention"/>
 	            <property name="id" of="intervention" level="api"/>
 	            <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
 	            <property name="started_at" of="intervention" type="datetime"/>
 	            <property name="stopped_at" of="intervention" type="datetime"/>
 	            <property name="working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
-	            <property name="working_area" value="intervention.working_zone_area(:hectare, 2).l" type="measure"/>
+	            <property name="working_area" if="intervention.targets.of_actors(targets)" value="intervention.targets.of_actors(targets).first.working_zone.intersection(zone.shape).area.convert(:hectare).round(2).l" type="measure"/>
 	            <variable name="doer" value="intervention.doers.first"/>
 	            <property name="doer_name" if="doer and doer.product" value="doer.product.name"/>
 	            <section name="issue" of="intervention.issue">
