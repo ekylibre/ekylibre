@@ -170,6 +170,10 @@ class Activity < Ekylibre::Record::Base
   end
 
   after_save do
+    self.productions.each(&:update_names)
+  end
+
+  after_save do
     if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)
       if total != 100

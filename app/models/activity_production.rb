@@ -211,6 +211,15 @@ class ActivityProduction < Ekylibre::Record::Base
     list.join(' ')
   end
 
+  def update_names
+    if support
+      new_support_name = computed_support_name
+      if support.name != new_support_name
+        self.update_column(:name, new_support_name)
+      end
+    end
+  end
+
   def active?
     activity.family.to_s != 'fallow_land'
   end
