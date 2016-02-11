@@ -170,7 +170,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   after_save do
-    self.productions.each(&:update_names)
+    productions.each(&:update_names)
   end
 
   after_save do

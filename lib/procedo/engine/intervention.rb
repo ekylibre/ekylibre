@@ -77,7 +77,7 @@ module Procedo
           else
             @root_group.impact_with(steps)
           end
-        else
+        elsif steps.size > 0
           field = steps.first
           send(field + '=', send(field))
         end

@@ -34,9 +34,9 @@ module Backend
     #   :support_id
     def self.list_conditions
       code = ''
-      # , productions: [:name], activities: [:name]
+      # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
 
-      code = search_conditions(interventions: [:state, :number], campaigns: [:name], products: [:name]) + " ||= []\n"
+      code = search_conditions(interventions: [:state, :number]) + " ||= []\n"
       code << "unless params[:state].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
       code << "  c << params[:state].flatten\n"
@@ -103,7 +103,7 @@ module Backend
       # t.column :human_roles, sort: :roles, label: :roles
       t.column :quantity_population
       t.column :unit_name, through: :variant
-      t.column :shape, hidden: true
+      # t.column :working_zone, hidden: true
       t.column :variant, url: true
     end
 

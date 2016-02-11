@@ -215,7 +215,7 @@ class ActivityProduction < Ekylibre::Record::Base
     if support
       new_support_name = computed_support_name
       if support.name != new_support_name
-        self.update_column(:name, new_support_name)
+        support.update_column(:name, new_support_name)
       end
     end
   end
