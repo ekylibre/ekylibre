@@ -52,7 +52,7 @@ private/test/tmp
 
 # Ignore plugins
 /plugins
-/plugins-available
+/plugins-*
 
 # Ignore local database config
 /config/database.yml

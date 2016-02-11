@@ -27,7 +27,7 @@ module Ekylibre
       def run
         ActiveRecord::Base.transaction do
           puts 'Set locale...'
-          I18n.locale = @preferences[:language] || :eng
+          ::I18n.locale = @preferences[:language] || :eng
           puts 'Load preferences...'
           load_preferences
           puts 'Load defaults...'
