@@ -22,7 +22,6 @@ module Backend
   class ProductsController < Backend::BaseController
     manage_restfully t3e: { nature: :nature_name }, subclass_inheritance: true, multipart: true
     manage_restfully_picture
-    manage_restfully_attachments
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -189,7 +188,7 @@ module Backend
 
     def check_variant_availability
       unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
-        redirect_to new_backend_product_nature_url
+        redirect_to new_backend_product_nature_path
         return false
       end
     end

@@ -1,7 +1,7 @@
 = main_informations do
   - if @document.file.exists?
     .picture
-      = link_to(backend_document_url(@document, format: :pdf)) do
+      = link_to(backend_document_path(@document, format: :pdf)) do
         = image_tag(backend_document_path(@document, format: :jpg))
       .archived-at= @document.created_at.l
       - if @document.template

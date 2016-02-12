@@ -19,7 +19,6 @@
 module Backend
   class FixedAssetsController < Backend::BaseController
     manage_restfully currency: 'Preference[:currency]'.c, depreciation_method: 'linear'
-    manage_restfully_attachments
 
     unroll
 
@@ -60,7 +59,7 @@ module Backend
     # def depreciate
     #   return unless @fixed_asset = find_and_check
     #   @fixed_asset.depreciate!
-    #   redirect_to fixed_asset_url(@fixed_asset)
+    #   redirect_to fixed_asset_path(@fixed_asset)
     # end
   end
 end

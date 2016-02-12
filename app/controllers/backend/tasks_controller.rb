@@ -20,8 +20,6 @@ module Backend
   class TasksController < Backend::BaseController
     manage_restfully nature: 'params[:nature]'.c, due_at: '(params[:due_at] || Time.zone.now)'.c
 
-    manage_restfully_attachments
-
     # unroll
 
     list(line_class: 'RECORD.state'.c) do |t|

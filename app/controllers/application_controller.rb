@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     if Ekylibre::Plugin.redirect_after_login?
       path = Ekylibre::Plugin.after_login_path(resource)
     end
-    path || backend_root_url(locale: (params[:locale] || resource.language || I18n.default_locale))
+    path || backend_root_path(locale: (params[:locale] || resource.language || I18n.default_locale))
   end
 
   def self.human_action_name(action, options = {})

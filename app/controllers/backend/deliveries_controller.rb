@@ -19,7 +19,6 @@
 module Backend
   class DeliveriesController < Backend::BaseController
     manage_restfully parcel_ids: '(params[:parcel_ids] || [])'.c
-    manage_restfully_attachments
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 

@@ -19,14 +19,14 @@
 module Backend
   class LoanRepaymentsController < Backend::BaseController
     def index
-      redirect_to backend_loans_url
+      redirect_to backend_loans_path
     end
 
     def show
       if @loan_repayment = LoanRepayment.find_by(id: params[:id])
-        redirect_to backend_loan_url(@loan_repayment.loan_id)
+        redirect_to backend_loan_path(@loan_repayment.loan_id)
       else
-        redirect_to backend_root_url
+        redirect_to backend_root_path
       end
     end
   end

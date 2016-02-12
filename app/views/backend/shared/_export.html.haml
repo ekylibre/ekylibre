@@ -7,9 +7,9 @@
     .modal-body.thumbs
       - Document.of(nature.name, key).each do |document|
         .thumb
-          = link_to(backend_document_url(document, format: :pdf)) do
+          = link_to(backend_document_path(document, format: :pdf)) do
             = image_tag(backend_document_path(document, format: :jpg))
-          = link_to(backend_document_url(document)) do
+          = link_to(backend_document_path(document)) do
             .archived-at= document.updated_at.l
             .template-name= document.template_name
   - else

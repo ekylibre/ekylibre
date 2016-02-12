@@ -19,9 +19,9 @@
 class PublicController < BaseController
   def index
     if current_user
-      redirect_to(backend_root_url)
+      redirect_to(backend_root_path)
     else
-      redirect_to(new_user_session_url)
+      redirect_to(new_user_session_path)
     end
   end
 end

@@ -19,7 +19,6 @@
 module Backend
   class AffairsController < Backend::BaseController
     manage_restfully only: [:index, :show], subclass_inheritance: true
-    manage_restfully_attachments
 
     unroll
 

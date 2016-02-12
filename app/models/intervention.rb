@@ -86,7 +86,7 @@ class Intervention < Ekylibre::Record::Base
   }
 
   scope :of_civil_year, lambda { |year|
-    where("EXTRACT(YEAR FROM started_at) = ?", year)
+    where('EXTRACT(YEAR FROM started_at) = ?', year)
   }
 
   scope :of_nature, ->(reference_name) { where(reference_name: reference_name) }

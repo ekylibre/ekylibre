@@ -19,7 +19,6 @@
 module Backend
   class InventoriesController < Backend::BaseController
     manage_restfully except: [:index, :show]
-    manage_restfully_attachments
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 

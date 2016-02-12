@@ -176,7 +176,7 @@ module Backend
     def authorize_user!
       unless authorized?(controller: controller_path, action: action_name)
         notify_error(:access_denied, reason: 'RESTRICTED', url: request.url.inspect)
-        redirect_to root_url
+        redirect_to root_path
         return false
       end
       true
@@ -207,7 +207,7 @@ module Backend
       elsif request.referer && request.referer != request.fullpath
         redirect_to request.referer, options
       else
-        redirect_to(root_url)
+        redirect_to(root_path)
       end
     end
 

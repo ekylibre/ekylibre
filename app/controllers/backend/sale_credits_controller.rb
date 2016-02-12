@@ -59,8 +59,8 @@ module Backend
     end
 
     def render_form
-      @form_url = backend_sale_credits_url(credited_sale_id: @credited_sale.id)
-      # render locals: {cancel_url: backend_sales_url}
+      @form_url = backend_sale_credits_path(credited_sale_id: @credited_sale.id)
+      # render locals: {cancel_url: backend_sales_path}
     end
   end
 end

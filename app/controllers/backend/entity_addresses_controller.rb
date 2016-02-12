@@ -23,9 +23,9 @@ module Backend
 
     def show
       if @entity_address = EntityAddress.find_by(id: params[:id])
-        redirect_to backend_entity_url(@entity_address.entity_id)
+        redirect_to backend_entity_path(@entity_address.entity_id)
       else
-        redirect_to backend_entities_url
+        redirect_to backend_entities_path
       end
     end
 

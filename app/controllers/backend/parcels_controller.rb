@@ -19,7 +19,6 @@
 module Backend
   class ParcelsController < Backend::BaseController
     manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, planned_at: 'Time.zone.now'.c
-    manage_restfully_attachments
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -145,10 +144,10 @@ module Backend
       parcel = parcels.first
       if parcels.all? { |p| p.incoming? && p.third_id == parcel.third_id && p.invoiceable? }
         purchase = Parcel.convert_to_purchase(parcels)
-        redirect_to backend_purchase_url(purchase)
+        redirect_to backend_purchase_path(purchase)
       elsif parcels.all? { |p| p.outgoing? && p.third_id == parcel.third_id && p.invoiceable? }
         sale = Parcel.convert_to_sale(parcels)
-        redirect_to backend_sale_url(sale)
+        redirect_to backend_sale_path(sale)
       else
         notify_error(:all_parcels_must_be_invoiceable_and_of_same_nature_and_third)
         redirect_to(params[:redirect] || { action: :index })

@@ -1,6 +1,6 @@
 = form_tag do
   = field_set do
-    = field ProductMembership.human_attribute_name(:group), selector_tag(:group_id, {controller: :animal_groups, action: :unroll}, value: params[:group_id], new: backend_animal_group_url)
+    = field ProductMembership.human_attribute_name(:group), selector_tag(:group_id, {controller: :animal_groups, action: :unroll}, value: params[:group_id], new: backend_animal_group_path)
     = field ProductMembership.human_attribute_name(:started_at), datetime_field_tag(:started_at)
     = field Intervention.human_attribute_name(:production), selector_tag(:production_id, {controller: :productions, action: :unroll, scope: {of_current_campaigns: true} }, value: params[:production_id])
     = field Intervention.human_attribute_name(:production_support), selector_tag(:production_support_id, {controller: :production_supports, action: :unroll, scope: {of_current_campaigns: true} }, value: params[:production_support_id])

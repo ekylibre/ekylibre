@@ -19,7 +19,6 @@
 module Backend
   class CultivableZonesController < Backend::BaseController
     manage_restfully(t3e: { name: :name })
-    manage_restfully_attachments
 
     unroll
 

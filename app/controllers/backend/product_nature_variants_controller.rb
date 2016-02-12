@@ -21,7 +21,6 @@ module Backend
     manage_restfully active: true
 
     manage_restfully_incorporation
-    manage_restfully_attachments
 
     unroll :name, :unit_name, :number
 

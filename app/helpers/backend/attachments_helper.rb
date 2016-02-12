@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple agricultural ERP
 # Copyright (C) 2015 Brice Texier
@@ -18,7 +17,7 @@
 #
 
 module Backend::AttachmentsHelper
-  def attachments_of(resource, _options = {})
+  def attachments_of(resource)
     render '/backend/attachments/thumbs', attachments: resource.attachments
   end
 end

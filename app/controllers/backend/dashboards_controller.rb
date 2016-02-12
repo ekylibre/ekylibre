@@ -19,7 +19,7 @@
 
 module Backend
   class DashboardsController < Backend::BaseController
-    manage_restfully destroy_to: :root_url
+    manage_restfully destroy_to: :root_path
 
     list do |t|
       t.action :edit

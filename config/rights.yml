@@ -12,6 +12,9 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/animals#take"
+#     - "backend/attachments#create"
+#     - "backend/attachments#destroy"
+#     - "backend/attachments#show"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
@@ -244,13 +247,11 @@ affairs:
     - read-affairs
     actions:
     - "backend/affairs#attach"
-    - "backend/affairs#attachments"
     - "backend/affairs#detach"
     - "backend/affairs#finish"
     - "backend/affairs#select"
     - "backend/affairs#unroll"
     - "backend/sale_tickets#attach"
-    - "backend/sale_tickets#attachments"
     - "backend/sale_tickets#detach"
     - "backend/sale_tickets#finish"
     - "backend/sale_tickets#select"
@@ -268,7 +269,6 @@ analyses:
     dependencies:
     - read-analyses
     actions:
-    - "backend/analyses#attachments"
     - "backend/analyses#create"
     - "backend/analyses#destroy"
     - "backend/analyses#edit"
@@ -321,7 +321,6 @@ animals:
     - "backend/animals#add_to_container"
     - "backend/animals#add_to_group"
     - "backend/animals#add_to_variant"
-    - "backend/animals#attachments"
     - "backend/animals#change"
     - "backend/animals#create"
     - "backend/animals#destroy"
@@ -346,7 +345,6 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
-    - "backend/bank_statements#attachments"
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
@@ -376,7 +374,6 @@ building_divisions:
     dependencies:
     - read-building_divisions
     actions:
-    - "backend/building_divisions#attachments"
     - "backend/building_divisions#create"
     - "backend/building_divisions#destroy"
     - "backend/building_divisions#edit"
@@ -405,7 +402,6 @@ buildings:
     dependencies:
     - read-buildings
     actions:
-    - "backend/buildings#attachments"
     - "backend/buildings#create"
     - "backend/buildings#destroy"
     - "backend/buildings#edit"
@@ -497,7 +493,6 @@ cashes:
     dependencies:
     - read-cashes
     actions:
-    - "backend/cashes#attachments"
     - "backend/cashes#create"
     - "backend/cashes#destroy"
     - "backend/cashes#edit"
@@ -542,7 +537,6 @@ cultivable_zones:
     dependencies:
     - read-cultivable_zones
     actions:
-    - "backend/cultivable_zones#attachments"
     - "backend/cultivable_zones#create"
     - "backend/cultivable_zones#destroy"
     - "backend/cultivable_zones#edit"
@@ -679,7 +673,6 @@ entities:
     dependencies:
     - read-entities
     actions:
-    - "backend/entities#attachments"
     - "backend/entities#autocomplete_for_origin"
     - "backend/entities#create"
     - "backend/entities#destroy"
@@ -725,7 +718,6 @@ equipments:
     dependencies:
     - read-equipments
     actions:
-    - "backend/equipments#attachments"
     - "backend/equipments#create"
     - "backend/equipments#destroy"
     - "backend/equipments#edit"
@@ -751,7 +743,6 @@ events:
     - "backend/event_participations#edit"
     - "backend/event_participations#new"
     - "backend/event_participations#update"
-    - "backend/events#attachments"
     - "backend/events#autocomplete_for_place"
     - "backend/events#change_minutes"
     - "backend/events#create"
@@ -781,7 +772,6 @@ financial_years:
     dependencies:
     - read-financial_years
     actions:
-    - "backend/financial_years#attachments"
     - "backend/financial_years#create"
     - "backend/financial_years#destroy"
     - "backend/financial_years#edit"
@@ -819,7 +809,6 @@ fixed_assets:
     dependencies:
     - read-fixed_assets
     actions:
-    - "backend/fixed_assets#attachments"
     - "backend/fixed_assets#create"
     - "backend/fixed_assets#destroy"
     - "backend/fixed_assets#edit"
@@ -847,7 +836,6 @@ fungi:
     dependencies:
     - read-fungi
     actions:
-    - "backend/fungi#attachments"
     - "backend/fungi#create"
     - "backend/fungi#destroy"
     - "backend/fungi#edit"
@@ -965,7 +953,6 @@ incoming_deliveries:
     dependencies:
     - read-incoming_deliveries
     actions:
-    - "backend/parcels#attachments"
     - "backend/parcels#cancel"
     - "backend/parcels#check"
     - "backend/parcels#create"
@@ -1008,7 +995,6 @@ incoming_payments:
     dependencies:
     - read-incoming_payments
     actions:
-    - "backend/incoming_payments#attachments"
     - "backend/incoming_payments#create"
     - "backend/incoming_payments#destroy"
     - "backend/incoming_payments#edit"
@@ -1050,7 +1036,6 @@ inventories:
     dependencies:
     - read-inventories
     actions:
-    - "backend/inventories#attachments"
     - "backend/inventories#create"
     - "backend/inventories#destroy"
     - "backend/inventories#edit"
@@ -1073,7 +1058,6 @@ issues:
     - read-issues
     actions:
     - "backend/issues#abort"
-    - "backend/issues#attachments"
     - "backend/issues#close"
     - "backend/issues#create"
     - "backend/issues#destroy"
@@ -1107,7 +1091,6 @@ journal_entries:
     dependencies:
     - read-journal_entries
     actions:
-    - "backend/journal_entries#attachments"
     - "backend/journal_entries#create"
     - "backend/journal_entries#destroy"
     - "backend/journal_entries#edit"
@@ -1170,7 +1153,6 @@ land_parcels:
     dependencies:
     - read-land_parcels
     actions:
-    - "backend/land_parcels#attachments"
     - "backend/land_parcels#create"
     - "backend/land_parcels#destroy"
     - "backend/land_parcels#edit"
@@ -1219,7 +1201,6 @@ loans:
     dependencies:
     - read-loans
     actions:
-    - "backend/loans#attachments"
     - "backend/loans#create"
     - "backend/loans#destroy"
     - "backend/loans#edit"
@@ -1238,7 +1219,6 @@ manure_management_plans:
     dependencies:
     - read-manure_management_plans
     actions:
-    - "backend/manure_management_plans#attachments"
     - "backend/manure_management_plans#create"
     - "backend/manure_management_plans#destroy"
     - "backend/manure_management_plans#edit"
@@ -1266,7 +1246,6 @@ matters:
     dependencies:
     - read-matters
     actions:
-    - "backend/matters#attachments"
     - "backend/matters#create"
     - "backend/matters#destroy"
     - "backend/matters#edit"
@@ -1324,7 +1303,6 @@ outgoing_deliveries:
     dependencies:
     - read-outgoing_deliveries
     actions:
-    - "backend/parcels#attachments"
     - "backend/parcels#cancel"
     - "backend/parcels#check"
     - "backend/parcels#create"
@@ -1366,7 +1344,6 @@ outgoing_payments:
     dependencies:
     - read-outgoing_payments
     actions:
-    - "backend/outgoing_payments#attachments"
     - "backend/outgoing_payments#create"
     - "backend/outgoing_payments#destroy"
     - "backend/outgoing_payments#edit"
@@ -1394,7 +1371,6 @@ plants:
     dependencies:
     - read-plants
     actions:
-    - "backend/plants#attachments"
     - "backend/plants#create"
     - "backend/plants#destroy"
     - "backend/plants#edit"
@@ -1431,7 +1407,6 @@ prescriptions:
     dependencies:
     - read-prescriptions
     actions:
-    - "backend/prescriptions#attachments"
     - "backend/prescriptions#create"
     - "backend/prescriptions#destroy"
     - "backend/prescriptions#edit"
@@ -1459,7 +1434,6 @@ product_groups:
     dependencies:
     - read-product_groups
     actions:
-    - "backend/product_groups#attachments"
     - "backend/product_groups#create"
     - "backend/product_groups#destroy"
     - "backend/product_groups#edit"
@@ -1502,7 +1476,6 @@ product_nature_variants:
     dependencies:
     - read-product_nature_variants
     actions:
-    - "backend/product_nature_variants#attachments"
     - "backend/product_nature_variants#create"
     - "backend/product_nature_variants#destroy"
     - "backend/product_nature_variants#edit"
@@ -1569,7 +1542,6 @@ products:
     dependencies:
     - read-products
     actions:
-    - "backend/products#attachments"
     - "backend/products#create"
     - "backend/products#destroy"
     - "backend/products#edit"
@@ -1608,7 +1580,6 @@ purchases:
     actions:
     - "backend/parcels#invoice"
     - "backend/purchases#abort"
-    - "backend/purchases#attachments"
     - "backend/purchases#confirm"
     - "backend/purchases#correct"
     - "backend/purchases#create"
@@ -1680,7 +1651,6 @@ sales:
     actions:
     - "backend/parcels#invoice"
     - "backend/sale_opportunities#attach"
-    - "backend/sale_opportunities#attachments"
     - "backend/sale_opportunities#create"
     - "backend/sale_opportunities#destroy"
     - "backend/sale_opportunities#detach"
@@ -1698,7 +1668,6 @@ sales:
     - "backend/sale_opportunities#update"
     - "backend/sale_opportunities#win"
     - "backend/sales#abort"
-    - "backend/sales#attachments"
     - "backend/sales#confirm"
     - "backend/sales#contacts"
     - "backend/sales#correct"
@@ -1735,7 +1704,6 @@ sensors:
     dependencies:
     - read-sensors
     actions:
-    - "backend/sensors#attachments"
     - "backend/sensors#create"
     - "backend/sensors#destroy"
     - "backend/sensors#edit"
@@ -1793,7 +1761,6 @@ settlements:
     dependencies:
     - read-settlements
     actions:
-    - "backend/settlements#attachments"
     - "backend/settlements#create"
     - "backend/settlements#destroy"
     - "backend/settlements#edit"
@@ -1863,7 +1830,6 @@ tasks:
     dependencies:
     - read-tasks
     actions:
-    - "backend/tasks#attachments"
     - "backend/tasks#create"
     - "backend/tasks#destroy"
     - "backend/tasks#edit"
@@ -1938,7 +1904,6 @@ transports:
     - read-outgoing_deliveries
     - read-transports
     actions:
-    - "backend/deliveries#attachments"
     - "backend/deliveries#cancel"
     - "backend/deliveries#check"
     - "backend/deliveries#create"
@@ -2002,7 +1967,6 @@ workers:
     dependencies:
     - read-workers
     actions:
-    - "backend/workers#attachments"
     - "backend/workers#create"
     - "backend/workers#destroy"
     - "backend/workers#edit"

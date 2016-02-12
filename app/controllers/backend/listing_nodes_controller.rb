@@ -39,7 +39,7 @@ module Backend
       if request.xhr?
         render(partial: 'backend/listings/reflection', object: @listing_node)
       else
-        redirect_to backend_listing_url(@listing_node.listing)
+        redirect_to backend_listing_path(@listing_node.listing)
       end
     end
 
@@ -85,7 +85,7 @@ module Backend
         end
         @listing_node.save
       else
-        redirect_to backend_listings_url
+        redirect_to backend_listings_path
       end
     end
 
@@ -108,7 +108,7 @@ module Backend
         end
         @listing_node.save
       else
-        redirect_to backend_listings_url
+        redirect_to backend_listings_path
       end
     end
 

@@ -50,9 +50,9 @@ module Backend
 
     def show
       if @journal_entry_item = JournalEntryItem.find_by(id: params[:id])
-        redirect_to backend_journal_entry_url(@journal_entry_item.entry_id)
+        redirect_to backend_journal_entry_path(@journal_entry_item.entry_id)
       else
-        redirect_to backend_root_url
+        redirect_to backend_root_path
       end
     end
   end

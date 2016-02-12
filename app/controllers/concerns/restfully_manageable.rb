@@ -312,55 +312,5 @@ module RestfullyManageable
       code << "end\n"
       class_eval(code)
     end
-
-    # TODO: Convert this as resource
-    def manage_restfully_attachments
-      name = controller_name
-      record_name = name.to_s.singularize
-      code = ''
-      code << "def attachments\n"
-      code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-      code << "  if request.post?\n"
-      code << "    attachment = @#{record_name}.attachments.create!(params['attachments'].deep_symbolize_keys)\n"
-      code << "    respond_to do |format|\n"
-      code << "      if @#{record_name}.save(params)\n"
-      code << "        options = {}\n"
-      code << "        if request.ssl?\n"
-      code << "           options.merge!(only_path: false, protocol: 'https')\n"
-      code << "        end\n"
-      code << "        format.json { render json: { attachment: attachment.document, attachment_path: url_for([:attachment, :backend, @#{record_name}, {attachment_id: attachment.id}.merge(options)]), thumb: backend_document_url(attachment.document, options.merge(format: :jpg))}, status: :created }\n"
-      code << "      else\n"
-      code << "        format.json { render json: @#{record_name}.errors.full_messages, status: :unprocessable_entity }\n"
-      code << "      end\n"
-      code << "      format.html\n"
-      code << "    end\n"
-      code << "  elsif request.get?\n"
-      code << "    if params[:attachment_id]\n"
-      code << "      attachment = @#{record_name}.attachments.find(params[:attachment_id])\n"
-      code << "      if attachment.document.file?\n"
-      code << "        options = {format: :pdf}\n"
-      code << "        if request.ssl?\n"
-      code << "           options.merge(only_path: false, protocol: 'https')\n"
-      code << "        end\n"
-      code << "        render json: { url: backend_document_url(attachment.document, options), name: attachment.name }\n"
-      code << "      end\n"
-      code << "    end\n"
-      code << "  elsif request.delete?\n"
-      code << "    if params[:attachment_id]\n"
-      code << "      attachment = @#{record_name}.attachments.find(params[:attachment_id])\n"
-      # Or use dependencies
-      code << "      doc = Document.find(attachment.document.id)\n"
-      code << "      attachment.destroy\n"
-      code << "      doc.destroy\n"
-      code << "      if doc.destroyed? and attachment.destroyed?\n"
-      code << "        render json: { attachment: 'deleted', status: :ok}\n"
-      code << "      else\n"
-      code << "        render json: 'error', status: :unprocessable_entity\n"
-      code << "      end\n"
-      code << "    end\n"
-      code << "  end\n"
-      code << "end\n"
-      class_eval(code)
-    end
   end
 end

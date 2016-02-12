@@ -2,17 +2,19 @@
   .attachments-body
     %span.attachments-upload
       %i
-      = file_field_tag(:attachments, name: 'attachments[document_attributes][file]', multiple: true, data: { url: url_for([:attachments, :backend, resource]), attachment: true })
+      = file_field_tag(:attachments, name: 'attachments[document_attributes][file]', multiple: true, data: { attach: backend_attachments_path(subject_id: resource.id, subject_type: resource_model.name) })
     .attachment-files
       .attachment-files-placeholder= :no_attachments.tl
       - resource.attachments.each do |attachment|
-        .file{data: { attachment_thumblink: url_for([:attachment, :backend, resource, attachment_id: attachment.id])}}
-          .file-body{style: "background-image: url(#{backend_document_url(attachment.document, format: :jpg)})"}
+        .file{ data: { attachment_preview: backend_attachment_path(attachment, format: :pdf) } }
+          .file-body{style: "background-image: url(#{backend_document_path(attachment.document, format: :jpg)})"}
             .file-actions
-              = link_to(url_for([:attachment, :backend, resource, attachment_id: attachment.id]), data: {attachment_destroy: true }) do
+              = link_to(backend_attachment_path(attachment), data: { attachment_destroy: true }) do
                 %i
             .file-name= attachment.document.name
-      .attachment-files-bitrate
     .attachment-btns
+      %span.attachment-files-bitrate
       = button_tag(data: { attachments_expand: true }) do
         %i
+    .file-progress-bar
+      .file-progress

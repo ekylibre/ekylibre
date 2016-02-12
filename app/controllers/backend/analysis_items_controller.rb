@@ -30,7 +30,7 @@ module Backend
         @analysis.items.build(indicator_name: indicator.name)
         render partial: 'nested_form'
       else
-        redirect_to backend_root_url
+        redirect_to backend_root_path
       end
     end
   end

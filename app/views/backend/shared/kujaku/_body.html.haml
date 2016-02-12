@@ -1,5 +1,5 @@
 - if kujaku.feathers.count > 1
-  = link_to(toggle_backend_kujaku_url(kujaku.uid), data: {toggle: "kujaku"}) do
+  = link_to(toggle_backend_kujaku_path(kujaku.uid), data: {toggle: "kujaku"}) do
     %i
 .feathers
   - kujaku.feathers.each_with_index do |feather, index|

@@ -3,13 +3,13 @@
   = f.input :name
   = f.input :active
   = f.input :retrieval_mode, as: :radio_buttons, show: "\#{{value}}-options"
-  -# = f.input :vendor_euid, collection: ActiveSensor::Equipment.vendors, selected: @vendor_euid, include_blank: true, input_html: {data: {sensor_vendor: true, sensor_url: models_backend_sensors_url, sensor_target: '*[data-sensor-model]'}}
+  -# = f.input :vendor_euid, collection: ActiveSensor::Equipment.vendors, selected: @vendor_euid, include_blank: true, input_html: {data: {sensor_vendor: true, sensor_url: models_backend_sensors_path, sensor_target: '*[data-sensor-model]'}}
   #requesting-options
-    = f.input :vendor_euid, collection: ActiveSensor::Equipment.vendors, input_html: {data: {sensor_vendor: true, sensor_url: models_backend_sensors_url, sensor_target: '*[data-sensor-model]'}}
+    = f.input :vendor_euid, collection: ActiveSensor::Equipment.vendors, input_html: {data: {sensor_vendor: true, sensor_url: models_backend_sensors_path, sensor_target: '*[data-sensor-model]'}}
     = f.input :model_euid do
       - models_selection = sensor.vendor_euid.blank? ? [] : ActiveSensor::Equipment.equipments_of(sensor.vendor_euid).map do |equipment|
         - [equipment.label, equipment.model]
-      = f.input_field :model_euid, collection: models_selection, data: {sensor_model: true, sensor_url: detail_backend_sensors_url, sensor_parent: '*[data-sensor-vendor]', sensor_id: resource.id}, disabled: true
+      = f.input_field :model_euid, collection: models_selection, data: {sensor_model: true, sensor_url: detail_backend_sensors_path, sensor_parent: '*[data-sensor-vendor]', sensor_id: resource.id}, disabled: true
       #sensor-details
   = f.referenced_association :product
   = f.input :embedded, show: :'sensor-host'

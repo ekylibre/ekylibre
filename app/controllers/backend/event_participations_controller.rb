@@ -19,14 +19,14 @@
 module Backend
   class EventParticipationsController < Backend::BaseController
     def index
-      redirect_to backend_events_url
+      redirect_to backend_events_path
     end
 
     def show
       if @event_participation = EventParticipation.find_by(id: params[:id])
-        redirect_to backend_event_url(@event_participation.event_id)
+        redirect_to backend_event_path(@event_participation.event_id)
       else
-        redirect_to backend_root_url
+        redirect_to backend_root_path
       end
     end
 

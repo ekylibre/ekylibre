@@ -168,6 +168,15 @@ $attachments-overlay: rgba(white, 0.7);
             text-shadow: 0 0 2px #FFF;
             cursor: pointer;
           }
+          .file-progress-bar {
+            height: 3px;
+            width: 100%;
+            .file-progress {
+              height: inherit;
+              background: $active-color;
+              width: 0%;
+            }
+          }
         }
 
         &.loading {
@@ -176,6 +185,7 @@ $attachments-overlay: rgba(white, 0.7);
               i {
                 @include use-icon(spinner);
                 @include animation(spin 1s infinite steps(8));
+                @include inline-block;
               }
             }
           }

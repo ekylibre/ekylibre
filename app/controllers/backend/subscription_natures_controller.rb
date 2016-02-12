@@ -35,7 +35,7 @@ module Backend
 
     def show
       return unless subscription_nature = find_and_check
-      redirect_to backend_subscriptions_url(nature_id: subscription_nature.id)
+      redirect_to backend_subscriptions_path(nature_id: subscription_nature.id)
     end
 
     def decrement

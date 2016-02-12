@@ -19,7 +19,6 @@
 module Backend
   class PrescriptionsController < Backend::BaseController
     manage_restfully
-    manage_restfully_attachments
 
     unroll
 

@@ -19,7 +19,6 @@
 module Backend
   class OutgoingPaymentsController < Backend::BaseController
     manage_restfully to_bank_at: 'Time.zone.today'.c, paid_at: 'Time.zone.today'.c, responsible_id: 'current_user.id'.c, amount: 'params[:amount].to_f'.c, t3e: { payee: 'RECORD.payee.full_name'.c }
-    manage_restfully_attachments
 
     unroll :amount, :bank_check_number, :number, :currency, mode: :name, payee: :full_name
 

@@ -24,8 +24,6 @@ module Backend
       redirect_to: '{action: :point, id: "id".c}'.c
     )
 
-    manage_restfully_attachments
-
     unroll
 
     list(order: { started_at: :desc }) do |t|
@@ -42,7 +40,7 @@ module Backend
 
     # Displays the main page with the list of bank statements
     def index
-      redirect_to backend_cashes_url
+      redirect_to backend_cashes_path
     end
 
     list(:items, model: :journal_entry_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :entry_id) do |t|

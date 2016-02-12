@@ -21,8 +21,6 @@ module Backend
     manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c, active: true, t3e: { nature: 'RECORD.nature.text'.c }
     manage_restfully_picture
 
-    manage_restfully_attachments
-
     unroll
 
     autocomplete_for :origin

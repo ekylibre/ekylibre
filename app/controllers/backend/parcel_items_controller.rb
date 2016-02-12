@@ -28,7 +28,7 @@ module Backend
         @parcel.items.build(product_nature_variant_id: variant.id) # (id: rand(1_000_000_000))
         render partial: 'nested_form'
       else
-        redirect_to backend_root_url
+        redirect_to backend_root_path
       end
     end
   end

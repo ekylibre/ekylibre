@@ -225,7 +225,7 @@ module Backend
         group = AnimalGroup.find(params[:group_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
         group.add_animals(@ids, at: params[:started_at], activity_production: activity_production)
-        redirect_to params[:redirect] || backend_animal_group_url(group)
+        redirect_to params[:redirect] || backend_animal_group_path(group)
       else
         params[:started_at] ||= Time.zone.now
       end
@@ -237,7 +237,7 @@ module Backend
         variant = ProductNatureVariant.find(params[:variant_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
         variant.add_products(@ids, at: params[:started_at], activity_production: activity_production)
-        redirect_to params[:redirect] || backend_product_nature_variant_url(variant)
+        redirect_to params[:redirect] || backend_product_nature_variant_path(variant)
       else
         params[:started_at] ||= Time.zone.now
       end
@@ -249,7 +249,7 @@ module Backend
         container = Product.find(params[:container_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
         container.add_content_products(@ids, at: params[:started_at], activity_production: activity_production)
-        redirect_to params[:redirect] || backend_product_url(container)
+        redirect_to params[:redirect] || backend_product_path(container)
       else
         params[:started_at] ||= Time.zone.now
       end
