@@ -36,6 +36,8 @@ module Ekylibre
           load_company
           puts 'Load imports...'
           load_imports
+          puts 'Save state...'
+          ::Preference.set!('first_run.executed', false, :boolean)
         end
       end
 
