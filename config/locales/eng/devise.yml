@@ -14,6 +14,7 @@ eng:
       timeout: "Your session expired, please sign in again to continue."
       unauthenticated: "You need to sign in or sign up before continuing."
       unconfirmed: "You have to confirm your account before continuing."
+      invited: "You have a pending invitation, accept it to finish creating your account."
     mailer:
       confirmation_instructions:
         subject: "Confirmation instructions"
@@ -21,6 +22,13 @@ eng:
         subject: "Reset password instructions"
       unlock_instructions:
         subject: "Unlock Instructions"
+      invitation_instructions:
+        subject: "Invitation instructions"
+        hello: "Hello %{email}"
+        someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
+        accept: "Accept invitation"
+        accept_until: "This invitation will be due in %{due_date}."
+        ignore: "If you don't want to accept the invitation, please ignore this email.<br />Your account won't be created until you access the link above and set your password."
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because “%{reason}”."
       success: "Successfully authenticated from %{kind} account."
@@ -45,6 +53,19 @@ eng:
       send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions about how to unlock it in a few minutes."
       unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+    invitations:
+      send_instructions: "An invitation email has been sent to %{email}."
+      invitation_token_invalid: "The invitation token provided is not valid!"
+      updated: "Your password was set successfully. You are now signed in."
+      updated_not_active: "Your password was set successfully."
+      no_invitations_remaining: "No invitations remaining"
+      invitation_removed: "Your invitation was removed."
+      new:
+        header: "Send invitation"
+        submit_button: "Send an invitation"
+      edit:
+        header: "Set your password"
+        submit_button: "Set my password"
   errors:
     messages:
       already_confirmed: "was already confirmed, please try signing in"
@@ -55,3 +76,9 @@ eng:
       not_saved:
         one: "1 error prohibited this %{resource} from being saved:"
         other: "%{count} errors prohibited this %{resource} from being saved:"
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "%B %d, %Y %I:%M %p"

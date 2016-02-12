@@ -87,7 +87,8 @@ gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
 
 # Authentication & Authorization
-gem 'devise'
+gem 'devise', '~> 3.5.2'
+gem 'devise_invitable', '~> 1.5.2'
 gem 'devise-i18n-views'
 
 # Attachments
@@ -159,8 +160,8 @@ group :development do
   # Webservers
   gem 'thin'
 
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'pry-rails'
+  gem 'pry-byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 3.0'
