@@ -30,9 +30,9 @@ module Ekylibre
         support_variant_reference_name = s.cell('F', 2).to_s.strip
         support_variant_reference_name = nil if support_variant_reference_name.blank?
         production_indicator = (s.cell('G', 2).blank? ? [] : s.cell('G', 2).to_s.strip.downcase.delete(' ').split('/'))
-        
+
         # puts "#{activity_name.to_s} #{campaign_harvest_year.to_s}".inspect.red
-        
+
         # get budget concerning production (activty / given campaign)
         campaign = Campaign.find_or_create_by!(harvest_year: campaign_harvest_year)
 
@@ -95,14 +95,14 @@ module Ekylibre
           # get quantity and number given
           # get CultivableZone, LandParcel, Product or Georeading for this number
           # build shape
-          
+
           arr = nil
           arr = number.to_s.strip.delete(' ').split(':')
 
           production_support_number = arr[0]
           production_support_quantity = arr[1]
           production_support_shape = nil
-          
+
           # Product
           if product = Product.find_by(number: production_support_number) ||
                        Product.find_by(identification_number: production_support_number) ||
@@ -129,7 +129,7 @@ module Ekylibre
             #find corresponding cultivable zone
             cz = CultivableZone.shape_covering(g.content, 0.02).first
             production_support_shape = g.content
-            product = LandParcel.shape_covering(production_support_shape, 0.02).first    
+            product = LandParcel.shape_covering(production_support_shape, 0.02).first
           end
 
           w.info 'No Product given for ' unless product
@@ -142,7 +142,7 @@ module Ekylibre
             state: :opened,
             campaign_id: campaign.id
           }
-          
+
           # PLANT FARMING
           if activity.with_supports && cz && production_support_shape && Nomen::ActivityFamily[activity.family] <= :plant_farming
             attributes[:cultivable_zone] = cz
@@ -150,7 +150,7 @@ module Ekylibre
             attributes[:usage] = :grain
             # find or create AP (support = land_parcel) and TD (target = land_parcel/plant)
             aps = ActivityProduction.where(activity: activity, campaign: campaign)
-            ap = aps.support_shape_matching(production_support_shape, 0.02).first if aps  
+            ap = aps.support_shape_matching(production_support_shape, 0.02).first if aps
             unless ap
               ap = ActivityProduction.create!(attributes)
               td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: ap.support)
