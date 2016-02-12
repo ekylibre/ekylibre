@@ -1,7 +1,7 @@
 require 'sidekiq/api'
 
 namespace :job do
-  task :clear do
+  task clear: :environment do
     Sidekiq::Queue.all.each do |queue|
       puts "Clear #{queue.name}"
       queue.clear
@@ -10,7 +10,7 @@ namespace :job do
     Sidekiq::ScheduledSet.new.clear
   end
 
-  task :status do
+  task status: :environment do
     puts 'Queues:'
     Sidekiq::Queue.all.each do |queue|
       puts " #{queue.name}:"
