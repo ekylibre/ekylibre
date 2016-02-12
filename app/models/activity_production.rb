@@ -206,6 +206,7 @@ class ActivityProduction < Ekylibre::Record::Base
     list = []
     list << cultivable_zone.name if cultivable_zone
     list << activity.name
+    list << campaign.name if campaign
     list << :rank.t(number: rank_number)
     list.reverse! if 'i18n.dir'.t == 'rtl'
     list.join(' ')

@@ -121,9 +121,10 @@ module Telepac
             end
 
             # import into georeadings
+            label = 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' +  cap_land_parcel.cap_islet.cap_statement.campaign.harvest_year.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s
             georeadings_attributes = {
-              name: 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s,
-              number: 'P' + '-' + cap_land_parcel.islet.cap_statement.pacage_number.to_s + '-' + cap_land_parcel.islet_number.to_s + '-' + cap_land_parcel.land_parcel_number.to_s,
+              name: label,
+              number: label,
               nature: :polygon,
               content: cap_land_parcel.shape
             }

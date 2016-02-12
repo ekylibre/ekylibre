@@ -48,6 +48,19 @@ module Telepac
             cap_islet = CapIslet.find_or_initialize_by(islet_attributes.slice(:islet_number, :cap_statement))
             cap_islet.attributes = islet_attributes
             cap_islet.save!
+            
+            # import into georeadings
+            label = 'I' + '-' + cap_islet.cap_statement.pacage_number.to_s + '-' +  cap_islet.cap_statement.campaign.harvest_year.to_s + '-' + cap_islet.islet_number.to_s
+            georeadings_attributes = {
+              name: label,
+              number: label,
+              nature: :polygon,
+              content: cap_islet.shape
+            }
+            unless georeading = Georeading.find_by(georeadings_attributes.slice(:number))
+              georeading = Georeading.create!(georeadings_attributes)
+            end
+            
             w.check_point
           end
         end

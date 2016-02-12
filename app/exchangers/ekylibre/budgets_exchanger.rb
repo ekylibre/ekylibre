@@ -6,7 +6,7 @@ module Ekylibre
       administering: [:accountancy, :sales, :purchases, :stocks, :exploitation],
       service_delivering: [:animal_housing, :catering, :lodging, :renting, :agricultural_works, :building_works, :works],
       animal_farming: [:beekeeping, :cattle_farming, :bison_farming, :goat_farming, :ostrich_farming, :oyster_farming, :palmiped_farming, :pig_farming, :poultry_farming, :rabbit_farming, :salmon_farming, :scallop_farming, :sheep_farming, :snail_farming, :sturgeon_farming, :mussel_farming],
-      plant_farming: [:beekeeping, :cattle_farming, :bison_farming, :goat_farming, :ostrich_farming, :oyster_farming, :palmiped_farming, :pig_farming, :poultry_farming, :rabbit_farming, :salmon_farming, :scallop_farming, :sheep_farming, :snail_farming, :sturgeon_farming, :mussel_farming, :vegetal_crops, :alfalfa_crops, :almond_orchards, :apple_orchards, :arboriculture, :aromatic_and_medicinal_plants, :artichoke_crops, :asparagus_crops, :avocado_crops, :barley_crops, :bean_crops, :beet_crops, :bere_crops, :black_mustard_crops, :blackcurrant_crops, :cabbage_crops, :canary_grass_crops, :carob_orchards, :carrot_crops, :celery_crops, :cereal_crops, :chestnut_orchards, :chickpea_crops, :chicory_crops, :cichorium_crops, :citrus_orchards, :cocoa_crops, :common_wheat_crops, :cotton_crops, :durum_wheat_crops, :eggplant_crops, :fallow_land, :field_crops, :flax_crops, :flower_crops, :fodder_crops, :fruits_crops, :garden_pea_crops, :garlic_crops, :hazel_orchards, :hemp_crops, :hop_crops, :horsebean_crops, :lavender_crops, :leek_crops, :leguminous_crops, :lentil_crops, :lettuce_crops, :lupin_crops, :maize_crops, :market_garden_crops, :meadow, :muskmelon_crops, :oat_crops, :oilseed_crops, :olive_groves, :olive_orchards, :onion_crops, :parsley_crops, :pea_crops, :peach_orchards, :peanut_crops, :pear_orchards, :pineapple_crops, :pistachio_orchards, :plum_orchards, :poaceae_crops, :potato_crops, :protein_crops, :radish_crops, :rapeseed_crops, :raspberry_crops, :redcurrant_crops, :rice_crops, :rye_crops, :saffron_crops, :sorghum_crops, :soybean_crops, :strawberry_crops, :sunflower_crops, :tobacco_crops, :tomato_crops, :triticale_crops, :turnip_crops, :vetch_crops, :vines, :walnut_orchards, :watermelon_crops]
+      plant_farming: [:vegetal_crops, :alfalfa_crops, :almond_orchards, :apple_orchards, :arboriculture, :aromatic_and_medicinal_plants, :artichoke_crops, :asparagus_crops, :avocado_crops, :barley_crops, :bean_crops, :beet_crops, :bere_crops, :black_mustard_crops, :blackcurrant_crops, :cabbage_crops, :canary_grass_crops, :carob_orchards, :carrot_crops, :celery_crops, :cereal_crops, :chestnut_orchards, :chickpea_crops, :chicory_crops, :cichorium_crops, :citrus_orchards, :cocoa_crops, :common_wheat_crops, :cotton_crops, :durum_wheat_crops, :eggplant_crops, :fallow_land, :field_crops, :flax_crops, :flower_crops, :fodder_crops, :fruits_crops, :garden_pea_crops, :garlic_crops, :hazel_orchards, :hemp_crops, :hop_crops, :horsebean_crops, :lavender_crops, :leek_crops, :leguminous_crops, :lentil_crops, :lettuce_crops, :lupin_crops, :maize_crops, :market_garden_crops, :meadow, :muskmelon_crops, :oat_crops, :oilseed_crops, :olive_groves, :olive_orchards, :onion_crops, :parsley_crops, :pea_crops, :peach_orchards, :peanut_crops, :pear_orchards, :pineapple_crops, :pistachio_orchards, :plum_orchards, :poaceae_crops, :potato_crops, :protein_crops, :radish_crops, :rapeseed_crops, :raspberry_crops, :redcurrant_crops, :rice_crops, :rye_crops, :saffron_crops, :sorghum_crops, :soybean_crops, :strawberry_crops, :sunflower_crops, :tobacco_crops, :tomato_crops, :triticale_crops, :turnip_crops, :vetch_crops, :vines, :walnut_orchards, :watermelon_crops]
     }.freeze
 
     def import
@@ -30,7 +30,9 @@ module Ekylibre
         support_variant_reference_name = s.cell('F', 2).to_s.strip
         support_variant_reference_name = nil if support_variant_reference_name.blank?
         production_indicator = (s.cell('G', 2).blank? ? [] : s.cell('G', 2).to_s.strip.downcase.delete(' ').split('/'))
-
+        
+        # puts "#{activity_name.to_s} #{campaign_harvest_year.to_s}".inspect.red
+        
         # get budget concerning production (activty / given campaign)
         campaign = Campaign.find_or_create_by!(harvest_year: campaign_harvest_year)
 
@@ -91,28 +93,43 @@ module Ekylibre
 
         production_support_numbers.each do |number|
           # get quantity and number given
+          # get CultivableZone, LandParcel, Product or Georeading for this number
+          # build shape
+          
           arr = nil
           arr = number.to_s.strip.delete(' ').split(':')
 
           production_support_number = arr[0]
           production_support_quantity = arr[1]
-
+          production_support_shape = nil
+          
+          # Product
           if product = Product.find_by(number: production_support_number) ||
                        Product.find_by(identification_number: production_support_number) ||
                        Product.find_by(work_number: production_support_number)
             # puts 'Product exist'.inspect.yellow
             if product.shape
               cz = CultivableZone.shape_covering(product.shape, 0.02).first
+              production_support_shape = product.shape
             end
+          # Existing CultivableZone
           elsif cz = CultivableZone.find_by(work_number: production_support_number)
+            production_support_shape = cz.shape
             product = LandParcel.shape_covering(cz.shape, 0.02).first
-            unless product
-              lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
-              product = LandParcel.create!(variant: lp_variant, work_number: cz.work_number,
-                                           name: cz.work_number, initial_born_at: Time.now,
-                                           initial_owner: Entity.of_company, initial_shape: cz.shape)
-            end
+            #unless product
+            #  lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+            #  product = LandParcel.create!(variant: lp_variant, work_number: cz.work_number,
+            #                              name: cz.work_number, initial_born_at: Time.now,
+            #                               initial_owner: Entity.of_company, initial_shape: cz.shape)
+            #  production_support_shape = product.shape
+            #end
             # w.error "Cannot find support with number: #{number.inspect}"
+          # Existing Georeading in an existing cultivable zone
+          elsif g = Georeading.find_by(number: production_support_number)
+            #find corresponding cultivable zone
+            cz = CultivableZone.shape_covering(g.content, 0.02).first
+            production_support_shape = g.content
+            product = LandParcel.shape_covering(production_support_shape, 0.02).first    
           end
 
           w.info 'No Product given for ' unless product
@@ -125,23 +142,33 @@ module Ekylibre
             state: :opened,
             campaign_id: campaign.id
           }
-
-          if activity.with_supports && cz && Nomen::ActivityFamily[activity.family] <= :plant_farming
+          
+          # PLANT FARMING
+          if activity.with_supports && cz && production_support_shape && Nomen::ActivityFamily[activity.family] <= :plant_farming
             attributes[:cultivable_zone] = cz
-            attributes[:support_shape] = product.shape if product && product.shape
+            attributes[:support_shape] = production_support_shape
             attributes[:usage] = :grain
+            # find or create AP (support = land_parcel) and TD (target = land_parcel/plant)
+            aps = ActivityProduction.where(activity: activity, campaign: campaign)
+            ap = aps.support_shape_matching(production_support_shape, 0.02).first if aps  
+            unless ap
+              ap = ActivityProduction.create!(attributes)
+              td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: ap.support)
+            end
+          # ANIMAL FARMING
           elsif activity.with_supports && Nomen::ActivityFamily[activity.family] <= :animal_farming
             attributes[:size_value] = 1.0
             attributes[:size_unit] = :unity
             attributes[:usage] = :meat
+            # find or create AP (support = animal_group) and TD (target = animal)
+            unless (ap = ActivityProduction.find_by(activity: activity, campaign: campaign))
+              ap = ActivityProduction.create!(attributes)
+              td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: ap.support)
+            end
           else
             attributes[:size_indicator] = 'net_surface_area'
             attributes[:size_value] = 1.0
             attributes[:usage] = :grain
-          end
-          unless (ap = ActivityProduction.find_by(activity: activity, support: product))
-            ap = ActivityProduction.create!(attributes)
-            td = TargetDistribution.find_or_create_by!(activity: activity, activity_production: ap, target: product) if Nomen::ActivityFamily[activity.family] <= :plant_farming
           end
         end
 
