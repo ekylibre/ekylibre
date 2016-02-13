@@ -60,7 +60,7 @@ module Backend
     list(:cap_islets, conditions: { cap_statement_id: 'params[:id]'.c }, order: { islet_number: :desc }) do |t|
       t.column :islet_number, url: true
       t.column :town_number
-      t.column :net_surface_area
+      t.column :human_shape_area, datatype: :measure
     end
 
     list(:cap_land_parcels, conditions: cap_land_parcel_conditions, joins: :cap_statement, order: { land_parcel_number: :desc }) do |t|
@@ -70,7 +70,7 @@ module Backend
       t.column :main_crop_commercialisation
       t.column :main_crop_seed_production
       t.column :main_crop_precision
-      t.column :net_surface_area
+      t.column :human_shape_area, datatype: :measure
     end
   end
 end
