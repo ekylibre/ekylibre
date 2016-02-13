@@ -6,30 +6,30 @@ por:
         main: "Principal"
         standalone: "Standalone"
       production_campaign:
-        # at_cycle_end: "At cycle end"
-        # at_cycle_start: "At cycle start"
+        at_cycle_end: "No final do ciclo"
+        at_cycle_start: "No início do ciclo"
       production_cycle:
-        # annual: "Annual"
-        # perennial: "Perennial"
+        annual: "Anual"
+        perennial: "Perene"
     activity_budget_item:
       computation_method:
-        # per_campaign: "Per campaign"
+        per_campaign: "Por campanha"
         per_production: "Por produção"
         per_production_support: "Por suporte de produção" #?
         per_working_unit: "Por unidade de trabalho"
     activity_production:
       support_nature:
-        # border: "Border"
-        # buffer: "Buffer"
-        # cultivation: "Cultivation"
-        # fallow_land: "Fallow land"
-        # none: "None"
+        border: "Fronteira"
+        buffer: "Amortecedor"
+        cultivation: "Cultivo"
+        fallow_land: "Os pousios"
+        none: "Nenhum"
     cash:
       mode:
         bban: "Número básico contas bancárias (BBAN)"
         iban: "Número internacional de conta bancária (IBAN)"
       nature:
-        # associate_account: "Associate account"
+        associate_account: "Conta de associado"
         associated_account: "Conta associada" #?
         bank_account: "Conta bancária"
         cash_box: "Caixa de dinheiro"
@@ -49,9 +49,9 @@ por:
         text: "Texto"
     delivery:
       mode:
-        # third: "Third"
-        # transporter: "By transporter"
-        # us: "By us"
+        third: "Terceiro"
+        transporter: "Pelo transportador"
+        us: "Por nós"
     document_template:
       archiving:
         all: "Todos do tipo"
@@ -87,9 +87,9 @@ por:
         simplified_linear: "Linear simplificado"
     georeading:
       nature:
-        # line: "Line"
-        # point: "Point"
-        # polygon: "Polygon"
+        line: "Linha"
+        point: "Ponto"
+        polygon: "Polígono"
     guide_analysis:
       status:
         errored: "Com erros"
@@ -127,20 +127,20 @@ por:
         notice: "Aviso"
     parcel:
       delivery_mode:
-        # indifferent: "Indifferent"
-        # third: "Transported by recipient"
-        # transporter: "Transported by transporter"
-        # us: "Transported by us"
+        indifferent: "Indiferente"
+        third: "Transportado por destinatário"
+        transporter: "Transportado por transporter"
+        us: "Transportadas por nós"
       nature:
-        # incoming: "Incoming"
-        # internal: "Internal"
-        # outgoing: "Outgoing"
+        incoming: "Entrada"
+        internal: "Interno"
+        outgoing: "Extrovertido"
       state:
-        # draft: "Draft"
-        # given: "Given"
-        # in_preparation: "In preparation"
-        # ordered: "Ordered"
-        # prepared: "Prepared"
+        draft: "Esboço"
+        given: "Dado"
+        in_preparation: "Em preparação"
+        ordered: "Pedido"
+        prepared: "Preparado"
     purchase:  #?
       computation_method: #?
         adaptative: "Adaptativo" #?
@@ -154,8 +154,8 @@ por:
         tax_quantity: "Imposto-Quantidade" #?
     sensor:
       retrieval_mode:
-        # listening: "Listening"
-        # requesting: "Requesting"
+        listening: "Ouvindo"
+        requesting: "Solicitando"
     sequence:
       period:
         cweek: "Semana comercial"
@@ -212,9 +212,9 @@ por:
         percentage: "Percentagem"
     tracking:
       usage_limit_nature:
-        # best_before: "Best before date"
-        # no_limit: "No limit"
-        # used_by: "Used by date"
+        best_before: "Melhor antes da data"
+        no_limit: "Não há limite"
+        used_by: "Usado por data"
   simple_form:
     hints:
       purchase:

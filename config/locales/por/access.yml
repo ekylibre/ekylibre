@@ -45,7 +45,7 @@ por:
       guides: "Guias"
       identifiers: "Identificadores"
       imports: "Importação"
-      # incoming_deliveries: "Incoming deliveries"
+      incoming_deliveries: "Entregas de entrada"
       incoming_parcels: "Entregas a receber" #?
       incoming_payment_modes: "Modos de pagamento a receber"
       incoming_payments: "Pagamentos a receber"
@@ -83,7 +83,7 @@ por:
       roles: "Regras"
       sale_natures: "Natureza de Venda"
       sales: "Vendas"
-      # sensors: "Sensors"
+      sensors: "Sensores"
       sequences: "Sequencias"
       settings: "Configurações"
       settlements: "Liquidação"

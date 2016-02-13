@@ -17,7 +17,7 @@ por:
       default: "%d/%m/%Y"
       legal: "%d %B %Y"
       long: "%d de %B de %Y"
-      # month: "%B %Y"
+      month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%d %b"
     month_names: ["", "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
@@ -63,7 +63,7 @@ por:
   http:
     errors:
       internal_server_error:
-        # hint: "The application encounters problems. Administrators have been notified for this problem."
+        hint: "A aplicação encontra problemas. Os administradores foram notificados para este problema."
         title: "Nos desculpamos, mas alguma coisa aconteceu de errado"
       not_found:
         hint: "Você deve ter digitado alguma valor errado ou a página não existe mais."
@@ -76,7 +76,7 @@ por:
       format:
         delimiter: "."
         format: "%u %n"
-        # negative_format: "-%u%n"
+        negative_format: "-%un"
         precision: 2
         separator: ","
         unit: "R$"
@@ -87,7 +87,7 @@ por:
     human:
       format:
         # delimiter: ""
-        # precision: 1
+        precision: 1
     percentage:
       format:
         delimiter: "."
@@ -95,7 +95,7 @@ por:
     precision:
       format:
         delimiter: "."
-  # rank: "#%{number}"
+  rank: "#%{number}"
   support:
     array:
       last_word_connector: " e "
