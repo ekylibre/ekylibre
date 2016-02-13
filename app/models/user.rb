@@ -143,6 +143,18 @@ class User < Ekylibre::Record::Base
     name
   end
 
+  def invitation_status
+    if created_by_invite?
+      if invitation_accepted?
+        :accepted
+      else
+        :pending
+      end
+    else
+      :not_invited
+    end
+  end
+
   def name
     # TODO: I18nize the method User#name !
     "#{first_name} #{last_name}"

@@ -22,10 +22,12 @@ module Backend
     list(model: :users,
          conditions: ["#{User.table_name}.invitation_created_at IS NOT NULL"],
          order: 'users.last_name') do |t|
+      t.action :destroy, if: 'RECORD.invitation_accepted_at.nil?'.c
       t.column :first_name
       t.column :last_name
       t.column :email
       t.column :role, url: true
+      t.column :invitation_status
     end
   end
 end
