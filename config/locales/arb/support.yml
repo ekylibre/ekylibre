@@ -16,7 +16,7 @@ arb:
       default: "%m/%d/%Y"
       legal: "%d %B %Y"
       long: "%B %d, %Y"
-      # month: "%B %Y"
+      month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%b %d"
     month_names: ["", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
@@ -106,14 +106,14 @@ arb:
   http:
     errors:
       internal_server_error:
-        # hint: "The application encounters problems. Administrators have been notified for this problem."
-        # title: "We're sorry, but something went wrong"
+        hint: "واجه تطبيق المشاكل. تم إخطار المسؤولين عن هذه المشكلة."
+        title: "نحن نعتذر، ولكن حدث خطأ ما"
       not_found:
-        # hint: "You may have mistyped the address or the page may have moved."
-        # title: "The page you were looking for doesn't exist"
+        hint: "كنت قد أخطأت في كتابة عنوان أو الصفحة قد تحركت."
+        title: "الصفحة التي تبحث عنها غير موجودة"
       unprocessable_entity:
-        # hint: "Maybe you tried to change something you didn't have access to."
-        # title: "The change you wanted was rejected"
+        hint: "ربما حاولت تغيير شيء ما لم يكن لديك الوصول إليها."
+        title: "ورفض التغيير الذي أراد"
   number:
     currency:
       format:

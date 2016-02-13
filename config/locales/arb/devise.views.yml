@@ -2,57 +2,57 @@ arb:
   devise:
     confirmations:
       new:
-        # resend_confirmation_instructions: "Resend confirmation instructions"
+        resend_confirmation_instructions: "إعادة إرسال تعليمات تأكيدا"
     mailer:
       confirmation_instructions:
-        # action: "Confirm my account"
+        action: "تأكيد حسابي"
         # greeting: "Welcome %{recipient}!"
-        # instruction: "You can confirm your account email through the link below:"
-        # subject: "Confirmation instructions"
+        instruction: "يمكنك التأكد من البريد الإلكتروني حسابك من خلال الرابط أدناه:"
+        subject: "تعليمات تأكيد"
       reset_password_instructions:
-        # action: "Change my password"
+        action: "تغيير كلمة المرور الخاصة بي"
         # greeting: "Hello %{recipient}!"
-        # instruction: "Someone has requested a link to change your password, and you can do this through the link below."
-        # instruction_2: "If you didn't request this, please ignore this email."
-        # instruction_3: "Your password won't change until you access the link above and create a new one."
-        # subject: "Reset password instructions"
+        instruction: "وقد طلبت شخص رابطا لتغيير كلمة المرور الخاصة بك، ويمكنك القيام بذلك من خلال الرابط أدناه."
+        instruction_2: "إذا كنت لم تطلب هذا، الرجاء تجاهل هذا البريد الإلكتروني."
+        instruction_3: "لن تغيير كلمة المرور الخاصة بك حتى يمكنك وصول إلى الرابط أعلاه وإنشاء واحدة جديدة."
+        subject: "إعادة تعيين كلمة المرور تعليمات"
       unlock_instructions:
-        # action: "Unlock my account"
+        action: "فتح حسابي"
         # greeting: "Hello %{recipient}!"
-        # instruction: "Click the link below to unlock your account:"
-        # message: "Your account has been locked due to an excessive amount of unsuccessful sign in attempts."
-        # subject: "Unlock Instructions"
+        instruction: "اضغط على الرابط أدناه لفتح حسابك:"
+        message: "تم تأمين حسابك بسبب كمية زائدة من علامة ناجحة في المحاولات."
+        subject: "فتح تعليمات"
     passwords:
       edit:
-        # change_my_password: "Change my password"
-        # change_your_password: "Change your password"
-        # confirm_new_password: "Confirm new password"
-        # new_password: "New password"
+        change_my_password: "تغيير كلمة المرور الخاصة بي"
+        change_your_password: "تغيير كلمة المرور الخاصة بك"
+        confirm_new_password: "تأكيد كلمة المرور الجديدة"
+        new_password: "كلمة السر الجديدة"
       new:
-        # forgot_your_password: "Forgot your password?"
-        # send_me_reset_password_instructions: "Send me reset password instructions"
+        forgot_your_password: "نسيت رقمك السري؟"
+        send_me_reset_password_instructions: "أرسل لي إعادة تعيين كلمة المرور تعليمات"
     registrations:
       edit:
-        # are_you_sure: "Are you sure?"
-        # cancel_my_account: "Cancel my account"
-        # leave_blank_if_you_don_t_want_to_change_it: "Leave blank if you dont want to change it"
+        are_you_sure: "هل أنت واثق؟"
+        cancel_my_account: "إلغاء حسابي"
+        leave_blank_if_you_don_t_want_to_change_it: "ترك فارغا إذا كنت لا تريد لتغييره"
         # title: "Edit %{resource}"
-        # unhappy: "Unhappy"
-        # update: "Update"
-        # we_need_your_current_password_to_confirm_your_changes: "we need your current password to confirm your changes"
+        unhappy: "تعيس"
+        update: "تحديث"
+        we_need_your_current_password_to_confirm_your_changes: "نحن بحاجة إلى كلمة المرور الحالية لتأكيد التغييرات"
       new:
-        # sign_up: "Sign up"
+        sign_up: "سجل"
     sessions:
       new:
-        # sign_in: "Sign in"
+        sign_in: "تسجيل الدخول"
     shared:
       links:
-        # didn_t_receive_confirmation_instructions: "Didn't receive confirmation instructions?"
-        # didn_t_receive_unlock_instructions: "Didn't receive unlock instructions?"
-        # forgot_your_password: "Forgot your password?"
-        # sign_in: "Sign in"
+        didn_t_receive_confirmation_instructions: "لم تتلق تعليمات التأكيد؟"
+        didn_t_receive_unlock_instructions: "لم تتلق تعليمات فتح؟"
+        forgot_your_password: "نسيت رقمك السري؟"
+        sign_in: "تسجيل الدخول"
         # sign_in_with_provider: "Sign in with %{provider}"
-        # sign_up: "Sign up"
+        sign_up: "سجل"
     unlocks:
       new:
-        # resend_unlock_instructions: "Resend unlock instructions"
+        resend_unlock_instructions: "إعادة فتح تعليمات"

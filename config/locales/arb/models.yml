@@ -15,7 +15,7 @@ arb:
         financial_year: "مهنة" #?
         lock_version: "الاصدار المحلي" #?
       animal_group:
-        # born_at: "Created at"
+        born_at: "أنشئت في"
       area:  #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشائه في" #?
@@ -25,7 +25,7 @@ arb:
         started_at: "من" #?
         stopped_at: "الى" #?
       building:
-        # born_at: "Built at"
+        born_at: "بنيت في"
       cash:  #?
         account: "كاتب الحسابات المشار اليه" #?
         account_id: "كاتب الحسابات المشار اليه" #?
@@ -120,12 +120,12 @@ arb:
         created_at: "انشأت في " #?
         postal_zones: "المناطق البريدية" #?
       document:
-        # filename: "File"
+        filename: "ملف"
         updater_id: "تحديث" #?
       document_template:
         created_at: "انشأ في" #?
         filename: "اسم الملف" #?
-        # managed: "Managed by the system"
+        managed: "تدار من قبل النظام"
         nature: "طبيعية" #?
         nature_label: "طبيعة" #?
       entity:  #?
@@ -168,7 +168,7 @@ arb:
       entity_nature:  #?
         description: "المواصفات" #?
       equipment:
-        # born_at: "Put in service at"
+        born_at: "وضع في الخدمة في"
         consumption: "(الاستهلاك (لتر / ساعة " #?
         text_nature: "طبيغة النص" #?
         uses: "استخدامات الادوات" #?
@@ -193,7 +193,7 @@ arb:
         started_on: "بدأ ب" #?
         stopped_on: "تاريخ الاغلاق"
       fixed_asset_depreciation:
-        # asset_amount: "Accountable value"
+        asset_amount: "قيمة للمساءلة"
       incoming_payment:  #?
         accounted_at: "تمت محاسبته في" #?
         amount: "القيمة" #?
@@ -239,12 +239,12 @@ arb:
         created_at: "انشأت ففي" #?
         real_credit: "ائتمان" #?
       land_parcel:
-        # born_at: "Created at"
+        born_at: "أنشئت في"
         children: "شبه كتل" #?
         number: "رقم المساحة او رقم الحزمة" #?
         updated_at: "تم تحديثه" #?
       land_parcel_group:
-        # born_at: "Created at"
+        born_at: "أنشئت في"
       listing:  #?
         created_at: "أنشأت في" #?
       listing_node:  #?
@@ -319,7 +319,7 @@ arb:
       parameter:  #?
         updated_at: "تم تحديثها في" #?
       plant:
-        # born_at: "Planted at"
+        born_at: "زرعت في"
       postal_zone:  #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشائه في" #?
@@ -670,7 +670,7 @@ arb:
               # end_of_month: "%{attribute} must be an end of month (%{closed_on})"
         journal_entry:
           closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_at} تم اغلاق الدفتر اليومي في"
-          # out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
+          out_of_existing_financial_year: "يجب تسجيل الدخول للمجلة في الفترة المقابلة لعام المالي الحالي."
           out_of_financial_year: "يجب اغتنام السجل خلال السنة المالية" #?
           unbalanced: "ان السجل غير متعادل"
         journal_entry_item:
@@ -724,53 +724,53 @@ arb:
     models:
       account: "الحساب"
       account_balance: "رصيد الحساب"
-      # activity: "Activity"
-      # activity_budget: "Activity budget"
-      # activity_budget_item: "Activity budget item"
-      # activity_distribution: "Activity distribution"
-      # activity_production: "Production support"
-      # affair: "Affair"
-      # analysis: "Analysis"
-      # analysis_item: "Analysis item"
-      # animal: "Animal"
-      # animal_group: "Animal group"
+      activity: "نشاط"
+      activity_budget: "ميزانية النشاط"
+      activity_budget_item: "آخر بند الميزانية"
+      activity_distribution: "توزيع النشاط"
+      activity_production: "دعم الإنتاج"
+      affair: "قضية"
+      analysis: "تحليل"
+      analysis_item: "البند تحليل"
+      animal: "حيوان"
+      animal_group: "مجموعة الحيوانات"
       area: "المنطقة البريدية" #?
-      # attachment: "Attachment"
+      attachment: "مرفق"
       bank_statement: "بيان الحساب المصرفي"
-      # bioproduct: "Living product"
+      bioproduct: "المنتج تعيش"
       building: "موقع التخزين"
-      # building_division: "Room / Zone"
-      # campaign: "Campaign"
-      # cap_islet: "CAP islet"
-      # cap_land_parcel: "CAP land parcel"
-      # cap_statement: "CAP statement"
+      building_division: "غرفة / المنطقة"
+      campaign: "حملة"
+      cap_islet: "CAP جزيرة"
+      cap_land_parcel: "CAP قطعة أرض"
+      cap_statement: "بيان CAP"
       cash: "الخزينة"
-      # cash_session: "Cash session"
-      # cash_transfer: "Cash transfer"
+      cash_session: "جلسة نقدية"
+      cash_transfer: "التحويلات النقدية"
       catalog: "فئة الفرد"
-      # catalog_item: "Catalog price"
+      catalog_item: "سعر كتالوج"
       company: "الشركة" #?
       contact: "الاتصالات" #?
-      # crumb: "Crumb"
-      # cultivable_zone: "Cultivable zone"
+      crumb: "كسرة خبز"
+      cultivable_zone: "منطقة القابلة للزراعة"
       currency: "العملة" #?
       custom_field: "الحقول التكميلية"
       custom_field_choice: "اختيار الحقل التكميلي"
       custom_field_datum: "بيانات الملف التكميلية" #?
-      # dashboard: "Dashboard"
+      dashboard: "لوحة القيادة"
       delay: "التأجيل" #?
       delivery: "وسيلة النقل"
       delivery_item: "خط التسليم" #?
       delivery_mode: "نمط التسليم" #?
-      # delivery_tool: "Delivery tool"
+      delivery_tool: "أداة التوصيل"
       department: "الخجمة" #?
       deposit: "الاقتطاع المصرفي"
       district: "مقاطعة"
       document: "الوثيقة"
       document_template: "نموذج الوثيقة"
-      # easement: "Easement"
+      easement: "سكون"
       entity: "الفرد"
-      # entity_address: "Address"
+      entity_address: "عنوان"
       entity_category: "فئة الفرد" #?
       entity_event: "الحدث" #?
       entity_event_nature: "نوع الحدث" #?
@@ -781,55 +781,55 @@ arb:
       establishment: "المؤسسة" #?
       event: "الحدث"
       event_nature: "نوع الحدث" #?
-      # event_participation: "Event participation"
+      event_participation: "مشاركة الحدث"
       financial_year: "السنة المالية"
-      # fixed_asset: "Fixed asset"
-      # fixed_asset_depreciation: "Fixed asset depreciation"
-      # fungus: "Fungus"
-      # gap: "Gap"
-      # gap_item: "Gap item"
+      fixed_asset: "الأصول الثابتة"
+      fixed_asset_depreciation: "انخفاض قيمة الأصول الثابتة"
+      fungus: "فطر"
+      gap: "فراغ"
+      gap_item: "البند الفجوة"
       # georeading: "Georeading"
-      # guide: "Guide"
-      # guide_analysis: "Guide analysis"
-      # guide_analysis_point: "Guide analysis point"
-      # identifier: "Identifier"
-      # import: "Import"
+      guide: "دليل"
+      guide_analysis: "تحليل دليل"
+      guide_analysis_point: "نقطة تحليل دليل"
+      identifier: "المعرف"
+      import: "استيراد"
       incoming_payment: "الدفعة"
       incoming_payment_mode: "نوع الدفعة"
       incoming_payment_use: "تأثير الدفعة" #?
-      # intervention: "Intervention"
-      # intervention_agent: "Intervention agent"
-      # intervention_doer: "Intervention doer"
-      # intervention_group_parameter: "Intervention group parameter"
-      # intervention_input: "Intervention input"
-      # intervention_output: "Intervention output"
-      # intervention_parameter: "Intervention parameter"
-      # intervention_parameter_reading: "Product reading task"
-      # intervention_product_parameter: "Intervention cast"
-      # intervention_target: "Intervention target"
-      # intervention_tool: "Intervention tool"
-      # intervention_working_period: "Intervention working period"
+      intervention: "تدخل"
+      intervention_agent: "وكيل تدخل"
+      intervention_doer: "التدخل الفاعل"
+      intervention_group_parameter: "المعلمة مجموعة التدخل"
+      intervention_input: "المدخلات تدخل"
+      intervention_output: "الناتج تدخل"
+      intervention_parameter: "معلمة تدخل"
+      intervention_parameter_reading: "مهمة القراءة المنتج"
+      intervention_product_parameter: "تدخل الزهر"
+      intervention_target: "هدف التدخل"
+      intervention_tool: "أداة تدخل"
+      intervention_working_period: "فترة العمل تدخل"
       inventory: "عملية الجرد"
       inventory_item: "طريقة عملية الجرد"
-      # issue: "Issue"
+      issue: "القضية"
       journal: "الدفتر اليومي"
       journal_entry: "المدخلات"
-      # journal_entry_item: "Journal entry item"
+      journal_entry_item: "مجلة البند دخول"
       journal_record: "سجل المحاسبة" #?
       land_parcel: "الكتلة"
       listing: "الاستخراج"
       listing_node: "عقدة الاستخراج"
       listing_node_item: "عنصر غقدة الاستخراج"
-      # loan: "Loan"
-      # loan_repayment: "Loan repayment"
+      loan: "قرض"
+      loan_repayment: "سد الدين"
       mandate: "التفويض" #?
-      # manure_management_plan: "Manure management plan"
-      # manure_management_plan_zone: "Manure management plan zone"
-      # matter: "Matter"
+      manure_management_plan: "خطة إدارة السماد"
+      manure_management_plan_zone: "السماد منطقة خطة الإدارة"
+      matter: "مسألة"
       meeting: "الحدث" #?
       meeting_nature: "نوع الحدث" #?
-      # net_service: "Net service"
-      # notification: "Notification"
+      net_service: "خدمة صافي"
+      notification: "إعلام"
       observation: "ملاحظة"
       operation: "العمل" #?
       operation_item: "الواردات/الصادرات" #?
@@ -839,36 +839,36 @@ arb:
       outgoing_payment_mode: "نوع الدفعة"
       outgoing_payment_use: "تأثير الدفعة" #?
       parameter: "الاعدادات" #?
-      # parcel: "Parcel"
-      # parcel_item: "Parcel item"
-      # plant: "Plant"
+      parcel: "جزء"
+      parcel_item: "البند لا يتجزأ"
+      plant: "نبات"
       postal_zone: "المنطقة البريدية"
-      # preference: "Preference"
-      # prescription: "Prescription"
+      preference: "تفضيل"
+      prescription: "وصفة طبية"
       price: "الاسعار" #?
       product: "الانتاج"
       product_category: "فئة الانتاج" #?
       product_component: "عنصر الانتاج" #?
-      # product_enjoyment: "Product enjoyment"
-      # product_group: "Product group"
-      # product_link: "Product link"
-      # product_linkage: "Product linkage"
-      # product_localization: "Product localization"
-      # product_membership: "Product membership"
+      product_enjoyment: "تمتع المنتج"
+      product_group: "مجموعة المنتجات"
+      product_link: "رابط المنتج"
+      product_linkage: "الربط المنتج"
+      product_localization: "توطين المنتج"
+      product_membership: "عضوية المنتج"
       product_move: "حركة السهم" #?
-      # product_movement: "Product movement"
+      product_movement: "حركة المنتج"
       product_nature: "الانتاج"
       product_nature_category: "فئة الانتاج"
-      # product_nature_category_taxation: "Product type category taxation"
+      product_nature_category_taxation: "نوع المنتج فئة الضرائب"
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
-      # product_nature_variant: "Product type variant"
-      # product_nature_variant_reading: "Product type variant reading"
-      # product_ownership: "Product ownership"
-      # product_phase: "Product phase"
+      product_nature_variant: "نوع المنتج البديل"
+      product_nature_variant_reading: "نوع المنتج البديل القراءة"
+      product_ownership: "ملكية المنتج"
+      product_phase: "مرحلة المنتج"
       product_price_listing: "فئة الفرد" #?
       product_price_template: "الاسعار" #?
-      # product_reading: "Product reading"
+      product_reading: "قراءة المنتج"
       product_stock: "سهم الانتاج" #?
       product_stock_move: "حركة السهم" #?
       product_transfer: "تحول او ضياع السهم" #?
@@ -876,28 +876,28 @@ arb:
       profession: "المهنة" #?
       purchase: "الشراء"
       purchase_item: "طريقة طلب الشراء"
-      # purchase_nature: "Purchase type"
+      purchase_nature: "نوع شراء"
       role: "الدور"
       sale: "البيع"
       sale_item: "طريقة طلب البيع"
       sale_nature: "نوع طلب البيع"
-      # sale_opportunity: "Sale opportunity"
-      # sale_ticket: "Sale ticket"
+      sale_opportunity: "فرصة بيع"
+      sale_ticket: "بيع التذاكر"
       sales_invoice: "الفاتورة" #?
       sales_invoice_item: "طريقة تسديد الفاتورة" #?
-      # sensor: "Sensor"
+      sensor: "الاستشعار"
       sequence: "التسلسل"
-      # settlement: "Settlement"
+      settlement: "مستوطنة"
       stock: "سهم الانتاج" #?
       stock_move: "حركة السهم" #?
       stock_transfer: "تحول او ضياع السهم" #?
-      # sub_zone: "Sub-zone"
+      sub_zone: "منطقة جنوب"
       subscription: "الاشتراك"
       subscription_nature: "نوع الاشتراك"
-      # supervision: "Supervision"
-      # supervision_item: "Supervision item"
-      # target_distribution: "Target distribution"
-      # task: "Task"
+      supervision: "إشراف"
+      supervision_item: "البند إشراف"
+      target_distribution: "توزيع هدف"
+      task: "مهمة"
       tax: "الضريبة"
       tax_declaration: "تصريح الضرائب" #?
       team: "الخجمة"
@@ -906,98 +906,98 @@ arb:
       transfer: "التحويل" #?
       unit: "الوحدة" #?
       user: "المستخدم"
-      # version: "Version"
-      # worker: "Worker"
-      # zone: "Zone"
+      version: "الإصدار"
+      worker: "عامل"
+      zone: "منطقة"
   attributes:
-    # abilities_list: "Abilities list"
-    # absolute_credit: "Absolute credit"
-    # absolute_currency: "Absolute currency"
-    # absolute_debit: "Absolute debit"
-    # absolute_measure_value: "Absolute measure value"
-    # absolute_measure_value_unit: "Absolute measure value unit"
-    # absolute_measure_value_value: "Absolute measure value value"
-    # absorbed_nitrogen_at_opening: "Absorbed nitrogen at opening"
-    # absorber: "Absorber"
-    # acceptance_status: "Acceptance status"
-    # access_parameters: "Access parameters"
+    abilities_list: "قائمة قدراتهم"
+    absolute_credit: "الائتمان المطلق"
+    absolute_currency: "العملة المطلقة"
+    absolute_debit: "الخصم المطلق"
+    absolute_measure_value: "قيمة مقياس المطلقة"
+    absolute_measure_value_unit: "وحدة قياس القيمة المطلقة"
+    absolute_measure_value_value: "قيمة قيمة مقياس المطلقة"
+    absorbed_nitrogen_at_opening: "النيتروجين الممتصة في افتتاح"
+    absorber: "امتصاص"
+    acceptance_status: "وضع القبول"
+    access_parameters: "المعلمات وصول"
     account: "الحساب"
     account_balances: "ارصدة الحسابات"
     account_id: "حساب" #?
     account_name: "حسابات المحاسب"
     account_number: "رقم الحساب"
-    # accountable: "Accountable"
+    accountable: "مسؤول"
     accounted_at: "تمت محاسبته يوم"
     accounts: "الحسابات" #?
-    # accuracy: "Accuracy"
-    # achieved_at: "Achieved at"
+    accuracy: "دقة"
+    achieved_at: "تحقق في"
     acquisition_amount: "قيمة الاقتناء" #?
-    # actions: "Actions"
+    actions: "الإجراءات"
     active: "فعال"
-    # activities: "Activities"
-    # activity: "Activity"
-    # activity_budget: "Activity budget"
-    # activity_budgets: "Activity budgets"
+    activities: "أنشطة"
+    activity: "نشاط"
+    activity_budget: "ميزانية النشاط"
+    activity_budgets: "ميزانيات النشاط"
     activity_code: "APE/NAF رمز"
-    # activity_distributions: "Activity distributions"
-    # activity_production: "Activity production"
-    # activity_productions: "Activity productions"
-    # actor: "Actor"
+    activity_distributions: "التوزيعات آخر"
+    activity_production: "إنتاج النشاط"
+    activity_productions: "إنتاجات آخر"
+    actor: "الممثل"
     actual_number: "الرقم الحالي"
-    # actual_population: "Actual population"
-    # actual_shape: "Actual shape"
+    actual_population: "عدد السكان الفعلي"
+    actual_shape: "الشكل الفعلي"
     address: "العنوان"
-    # addresses: "Addresses"
+    addresses: "عناوين"
     admin: "مسؤول النظام" #?
-    # administrative_area: "Administrative area"
+    administrative_area: "منطقة إدارية"
     administrator: "مسؤول النظام"
-    # advice_reference_name: "Advice reference"
-    # affair: "Affair"
-    # affairs: "Affairs"
-    # affectation_percentage: "Affectation percentage"
-    # affected_at: "Affected at"
-    # age: "Age"
+    advice_reference_name: "نصيحة المرجعية"
+    affair: "قضية"
+    affairs: "شئون"
+    affectation_percentage: "نسبة التكلف"
+    affected_at: "أثرت في"
+    age: "عمر"
     agency_code: "رمز الوكالة" #?
-    # all_taxes_included: "All taxes included"
-    # allocation_account: "Allocation account"
+    all_taxes_included: "وتشمل جميع الضرائب"
+    allocation_account: "حساب توزيع"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
-    # analysed_at: "Analysed at"
-    # analyser: "Analyser"
-    # analyses: "Analyses"
-    # analysis: "Analysis"
-    # analysis_items: "Analysis items"
+    analysed_at: "تم تحليل المعلومات في"
+    analyser: "محلل"
+    analyses: "تحليلات"
+    analysis: "تحليل"
+    analysis_items: "عناصر التحليل"
     annotation: "ملاحظة"
-    # archive: "Archive"
-    # archiving: "Archiving"
+    archive: "أرشيف"
+    archiving: "أرشفة"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
     area_unit_id: "وحدة مساحة" #?
     arrived_at: "وصل يوم" #?
     assimilated_taxes_amount: "قيمة الضرائب المماثلة" #?
-    # attachments: "Attachments"
+    attachments: "مرفقات"
     attorney: "الوكيل" #?
     attorney_account: "حساب مساعد الوكيل" #?
     attorney_account_id: "حساب مساعد الوكيل" #?
     attorney_accounts: "وكلاء الحسابات" #?
     attribute_name: "اسم الصفة المميزة"
-    # authentication_token: "Authentication token"
-    # author: "Author"
+    authentication_token: "رمز المصادقة"
+    author: "مؤلف"
     authorized_payments_count: "عدد الدفعات المصرحة بها"
-    # auto_updateable_addresses: "Auto updateable addresses"
+    auto_updateable_addresses: "السيارات عناوين للتحديث"
     available_prices: "الاسعار المتوفرة" #?
     available_products: "المنتجات المتوفرة" #?
-    # balance: "Balance"
+    balance: "توازن"
     balance_amount: "الرصيد" #?
     balances: "ارصدة الحساب"
     bank: "البنك" #?
-    # bank_account_key: "Bank account key"
-    # bank_account_number: "Bank account number"
-    # bank_agency_address: "Bank agency address"
-    # bank_agency_code: "Bank agency code"
-    # bank_check_number: "Bank check number"
+    bank_account_key: "مفتاح الحساب المصرفي"
+    bank_account_number: "رقم الحساب المصرفي"
+    bank_agency_address: "عنوان وكالة البنك"
+    bank_agency_code: "كود كالة البنك"
+    bank_check_number: "عدد شيك مصرفي"
     bank_code: "الرمز المصرفي"
-    # bank_identifier_code: "Bank identifier code"
+    bank_identifier_code: "الرمز التعريفي للبنك"
     bank_journals: "دفاتر يومية مصرفية" #?
     bank_name: "اسم البنك"
     bank_statement: "بيانات الحساب المصرفي"
@@ -1005,44 +1005,44 @@ arb:
     bank_statements: "بيانات الحساب المصرفي"
     banks_accounts: "كتاب الحسابات المصرفية" #?
     base: "القاعدة" #?
-    # base_amount: "Base amount"
+    base_amount: "كمية قاعدة"
     bban: "RIB" #?
     bic: "BIC" #?
     boolean_value: "القيمة المنطقية"
     born_at: "تاريخ الميلاد"
-    # budgets: "Budgets"
+    budgets: "الميزانيات"
     building: "موقع التخزين" #?
     building_id: "موقع التخزين" #?
     buildings: "مواقع التخزين"
     by_default: "افتراضيا"
     cache: "مخبأ" #?
-    # campaign: "Campaign"
-    # canal: "Canal"
-    # cap_islet: "Cap islet"
-    # cap_islets: "Cap islets"
-    # cap_land_parcel: "Cap land parcel"
-    # cap_land_parcels: "Cap land parcels"
-    # cap_statement: "Cap statement"
-    # cap_statements: "Cap statements"
-    # carried: "Carried"
-    # carrier: "Carrier"
-    # carrier_linkages: "Carrier linkages"
+    campaign: "حملة"
+    canal: "قناة"
+    cap_islet: "كاب جزيرة"
+    cap_islets: "الجزر كاب"
+    cap_land_parcel: "كاب قطعة أرض"
+    cap_land_parcels: "قطع الأراضي كاب"
+    cap_statement: "بيان كاب"
+    cap_statements: "البيانات كاب"
+    carried: "حمل"
+    carrier: "الناقل"
+    carrier_linkages: "الروابط الناقل"
     cash: "الحسابات المصرفية المستخدمة"
     cash_id: "الحسابات المصرفية المستخدمة" #?
     cash_journals: "الدفاتر اليومية للصناديق النقدية" #?
-    # cash_session: "Cash session"
+    cash_session: "جلسة نقدية"
     cashes: "الحسابات المصرفية"
     cashes_accounts: "حسابات الصندوق النقدي" #?
-    # catalog: "Catalog"
+    catalog: "فهرس"
     catalog_description: "مواصفات للدليل" #?
-    # catalog_items: "Catalog items"
+    catalog_items: "العناصر كتالوج"
     catalog_name: "اسم للدليل" #?
     category: "الفئة"
     category_id: "الفئة" #?
-    # ceded: "Ceded"
-    # ceded_on: "Ceded on"
-    # charge_account: "Charge account"
-    # charges_categories: "Charges categories"
+    ceded: "تنازلت"
+    ceded_on: "تنازلت عن"
+    charge_account: "حساب المسؤول"
+    charges_categories: "فئات الرسوم"
     check_number: "رقم الشيك" #?
     children: "مواقع فرعية للتخزين"
     choice_custom_fields: "«قائمة الخيارات»" #?
@@ -1060,126 +1060,126 @@ arb:
     clients: "العملاء"
     closed: "تم اغلاقه"
     closed_at: "تاريخ الاغلاق"
-    # closed_on: "Closed on"
-    # clusters_work_number: "Clusters work number"
+    closed_on: "تم إغلاقه"
+    clusters_work_number: "مجموعات العمل رقم"
     code: "الرمز"
     code2: "الرمز الثاني" #?
     coefficient: "الدرجة"
-    # collect_account: "Collect account"
+    collect_account: "جمع الحساب"
     collected_account: "جمع قيمة الضريبة الاضافية" #?
     collected_account_id: "جمع قيمة الضريبة الاضافية" #?
     collected_amount: "قيمة الضريبة الاضافية الاجمالية" #?
-    # collected_taxes: "Collected taxes"
-    # color: "Color"
-    # column_name: "Column name"
-    # columns: "Columns"
+    collected_taxes: "الضرائب التي تم جمعها"
+    color: "اللون"
+    column_name: "اسم العمود"
+    columns: "الأعمدة"
     comment: "التعليق" #?
     commercial: "نشاط تجاري"
-    # commercial_description: "Commercial description"
-    # commercial_name: "Commercial name"
+    commercial_description: "وصف التجاري"
+    commercial_name: "الاسم التجاري"
     commission_account: "حساب مستخدم للعمولة"
     commission_account_id: "الحساب المستخدم للعمولة" #?
     commission_amount: "القيمة الثابتة للعمولة"
-    # commission_base_amount: "Base amount of the commission"
+    commission_base_amount: "المبلغ الأساسي الذي جنة"
     commission_percent: "نسبة العمولة" #?
-    # commission_percentage: "Commission percentage"
-    # commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
+    commission_percentage: "نسبة العمولة"
+    commissioned_incoming_payment_modes: "بتكليف وسائل الدفع واردة"
     company: "الشركة" #?
     company_id: "شركة" #?
     component: "محتوى العبوة" #?
     component_id: "محتوى العبوة" #?
     components: "مكونات المنتج" #?
-    # computation_method: "Computation method"
+    computation_method: "طريقة حساب"
     compute: "القيمة الاخيرة"
     conclusion: "الاستنتاج"
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
     conditions: "(SQL) شروط"
-    # confirmation_sent_at: "Confirmation sent at"
-    # confirmation_token: "Confirmation token"
+    confirmation_sent_at: "التأكيد المرسلة في"
+    confirmation_token: "رمز التأكيد"
     confirmed_at: "تم التأكيد عليه يوم"
     connected_at: "سجل الدخول في" #?
-    # consumer: "Consumer"
+    consumer: "مستهلك"
     consumption: "الاستهلاك" #?
     contact: "العنوان" #?
     contact_id: "العنوان" #?
     contacts: "الاتصالات" #?
-    # container: "Container"
-    # content: "Content"
-    # content_localizations: "Content localizations"
-    # contents: "Contents"
-    # coordinate: "Coordinate"
-    # coordinate_columns: "Coordinate columns"
+    container: "وعاء"
+    content: "محتوى"
+    content_localizations: "تعريب المحتوى"
+    contents: "محتويات"
+    coordinate: "تنسيق"
+    coordinate_columns: "تنسيق الأعمدة"
     counterpart: "النسخة المطابقة" #?
     counterpart_id: "النسخة المطالقة" #?
     country: "البلد"
     created_at: "انشأ يوم"
     creator: "المنتج"
     creator_id: "المنتج" #?
-    # creator_name: "Creator name"
+    creator_name: "اسم الخالق"
     credit: "الائتمان"
     credit_items: "اساليب الائتمانات" #?
-    # credited_item: "Credited item"
+    credited_item: "البند الفضل"
     credited_quantity: "كمية الائتمان "
-    # credited_sale: "Credited sale"
+    credited_sale: "بيع الفضل"
     credits: "الائتمانات"
     critic_quantity_min: "الكمية المنتفدة كحد ادنى" #?
-    # crumbs: "Crumbs"
+    crumbs: "فتات"
     crypt_key: "مفتاح التشفير" #?
     crypt_mode: "طؤيقة التشفير" #?
-    # cultivable_zone: "Cultivable zone"
-    # cultivable_zones: "Cultivable zones"
-    # cultivation_variant: "Cultivation variant"
-    # cultivation_variety: "Cultivation variety"
-    # cumulated_absolute_credit: "Cumulated absolute credit"
-    # cumulated_absolute_debit: "Cumulated absolute debit"
+    cultivable_zone: "منطقة القابلة للزراعة"
+    cultivable_zones: "المناطق الصالحة للزراعة"
+    cultivation_variant: "زراعة البديل"
+    cultivation_variety: "زراعة متنوعة"
+    cumulated_absolute_credit: "الائتمان المطلق المتراكمة"
+    cumulated_absolute_debit: "المتراكمة الخصم المطلق"
     currencies: "العملات" #?
     currency: "عملة"
-    # currency_precision: "Currency precision"
+    currency_precision: "الدقة العملة"
     currency_rate: "سعر الصرف"
-    # current_activity_productions: "Current activity productions"
-    # current_amount: "Current amount"
-    # current_enjoyment: "Current enjoyment"
-    # current_father_link: "Current father link"
+    current_activity_productions: "إنتاجات النشاط الحالية"
+    current_amount: "المبلغ الحالي"
+    current_enjoyment: "تمتع الحالي"
+    current_father_link: "رابط الد الحالي"
     current_financial_year: "الفترة المحاسبية الحالية" #?
-    # current_localization: "Current localization"
-    # current_memberships: "Current memberships"
-    # current_mother_link: "Current mother link"
-    # current_ownership: "Current ownership"
-    # current_password: "Current password"
-    # current_phase: "Current phase"
-    # current_quantity: "Current quantity"
-    # current_sign_in_at: "Current sign in at"
-    # current_sign_in_ip: "Current sign in ip"
-    # current_supports: "Current supports"
+    current_localization: "التعريب الحالي"
+    current_memberships: "عضوية الحالية"
+    current_mother_link: "رابط الأم الحالي"
+    current_ownership: "الملكية الحالية"
+    current_password: "كلمة السر الحالية"
+    current_phase: "المرحلة الحالية"
+    current_quantity: "الكمية الحالية"
+    current_sign_in_at: "علامة الحالي في في"
+    current_sign_in_ip: "علامة الحالي في الملكية الفكرية"
+    current_supports: "الدعم الحالية"
     custom_field: "حقول اضافية"
     custom_field_choices: "اختيارات الحقول الاضافية" #?
     custom_field_data: "تكملة بيانات الملف" #?
     custom_field_id: "حقول اضافية" #?
     custom_fields: "الحقول الاضافية"
-    # customized_type: "Customized type"
-    # daily_nitrogen_production: "Daily nitrogen production"
-    # dashboards: "Dashboards"
+    customized_type: "نوع مرغوب"
+    daily_nitrogen_production: "إنتاج النيتروجين اليومي"
+    dashboards: "لوحات"
     data: "بيانات اضافية" #?
     date_value: "قيمة التاريخ" #?
     datetime_value: "قيمة التاريخ/الساعة" #?
     dead_at: "تاريغ الوفاة"
-    # dead_line_at: "Dead line at"
-    # deals_count: "Deals count"
+    dead_line_at: "خط الموتى في"
+    deals_count: "عد عروض"
     debit: "الدين"
-    # debtor: "Debtor"
+    debtor: "مدين"
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
     decimal_value: "القيمة العشرية"
-    # declarant: "Declarant"
+    declarant: "الإقرار"
     declared_at: "صرح يوم" #?
-    # deduction_account: "Deduction account"
-    # default_computation_method: "Default computation method"
+    deduction_account: "حساب خصم"
+    default_computation_method: "افتراضي طريقة حساب"
     default_contact: "الشخص المتوقع الاتصال به" #?
     default_currency: "العملة الافتراضية" #?
-    # default_mail_address: "Default mail address"
-    # default_storage: "Default storage"
-    # default_variant: "Default variant"
+    default_mail_address: "عنوان البريد الإلكتروني الافتراضي"
+    default_storage: "التخزين الافتراضي"
+    default_variant: "الافتراضي البديل"
     deferred_payment: "ائتمان معلق" #?
     delays: "تأخير" #?
     deleted_at: "الغيه في"
@@ -1188,15 +1188,15 @@ arb:
     deliveries: "التسليم"
     deliveries_conditions: "شروط التسليم"
     delivery: "التسليم"
-    # delivery_address: "Delivery address"
+    delivery_address: "عنوان التسليم"
     delivery_contact: "عنوان للتسليم" #?
     delivery_contact_id: "عنوان للتسليم" #?
     delivery_id: "وسيلة النقل" #?
     delivery_items: "طرق التسليم"
-    # delivery_mode: "Delivery mode"
+    delivery_mode: "وضع الولادة"
     delivery_modes: "اسلوب التسليم" #?
-    # delivery_products: "Delivery products"
-    # delta: "Delta"
+    delivery_products: "تسليم المنتجات"
+    delta: "دلتا"
     density_label: "الكثافة" #?
     departed_at: "نقل يوم"
     department: "المبنى" #?
@@ -1207,25 +1207,25 @@ arb:
     depositable_payments: "تسديد الدفعات نقدا"
     depositables_account: "حساب معلق للدفعات النقدية"
     depositables_account_id: "الحساب المعلق اادفعات النقدية" #?
-    # depositables_incoming_payment_modes: "Depositables incoming payment modes"
-    # depositables_journal: "Depositables journal"
+    depositables_incoming_payment_modes: "Depositables وسائل الدفع واردة"
+    depositables_journal: "مجلة Depositables"
     depositer: "الجابي" #?
     depositer_id: "الجابي" #?
     deposits: "اقتطاعات البنك"
-    # depreciable: "Depreciable"
-    # depreciable_amount: "Depreciable amount"
-    # depreciated_amount: "Depreciated amount"
-    # depreciation_method: "Depreciation method"
-    # depreciation_percentage: "Depreciation percentage"
-    # depreciations: "Depreciations"
-    # depth: "Depth"
-    # derivative_of: "Derivative of"
-    # derivatives_list: "Derivatives list"
+    depreciable: "للاستهلاك"
+    depreciable_amount: "قيمة الاستهلاك"
+    depreciated_amount: "كمية المستهلكة"
+    depreciation_method: "طريقة الاستهلاك"
+    depreciation_percentage: "نسبة الاستهلاك"
+    depreciations: "انخفاض قيمة"
+    depth: "عمق"
+    derivative_of: "مشتق من"
+    derivatives_list: "قائمة المشتقات"
     description: "الوصف"
     dest_contact: "عنوان التسليم" #?
     dest_contact_id: "عنوان التسليم" #?
-    # detail_payments: "Detail payments"
-    # device_uid: "Device UID"
+    detail_payments: "المدفوعات التفاصيل"
+    device_uid: "UID جهاز"
     diff_less: "حقوق الازالة" #?
     diff_more: "حقوق الاضافة" #?
     direct_links: "روابط مباشرة"
@@ -1233,264 +1233,264 @@ arb:
     direction_label: "النوع" #?
     discount: "(%خصم (بنسبة  " #?
     discount_rate: "سعر الخصم" #?
-    # distributions: "Distributions"
+    distributions: "التوزيعات"
     district: "المنطقة"
     district_id: "المنطقة الادارية" #?
     districts: "المناطق الادارية" #?
     division: "X الوضع" #?
-    # document: "Document"
+    document: "وثيقة"
     document_templates: "نماذج الوثائق" #?
     documents: "الوثائق"
-    # doers: "Doers"
+    doers: "الفاعلون"
     downpayment: "القسط"
     downpayment_amount: "قيمة القسط"
     downpayment_minimum: "الحد الادنى للمجموع"
-    # downpayment_percentage: "Downpayment percentage"
+    downpayment_percentage: "نسبة الدفعة المقدمة"
     downpayment_rate: "معدل القسط" #?
     draft: "المسودة" #?
     draft_mode: "نمط المسودة" #?
-    # driver: "Driver"
-    # due_at: "Due at"
-    # due_on: "Due on"
+    driver: "سائق"
+    due_at: "بسبب في"
+    due_on: "نظرا ل"
     duration: "المدة"
     ean13: "Ean13" #?
     email: "عنوان البريد الالكتروني"
-    # emails: "Emails"
-    # embedded: "Embedded"
-    # emission_amount: "Emission amount"
-    # emission_cash: "Emission cash"
-    # emission_currency: "Emission currency"
-    # emission_journal_entry: "Emission journal entry"
+    emails: "رسائل البريد الإلكتروني"
+    embedded: "المضمنة"
+    emission_amount: "كمية الانبعاثات"
+    emission_cash: "النقد الانبعاثات"
+    emission_currency: "العملة الانبعاثات"
+    emission_journal_entry: "دخول مجلة الانبعاثات"
     employed: "وظف من قبل الشركة"
     employees: "الموظفين"
     employment: "الوظيفة"
-    # encrypted_password: "Encrypted password"
+    encrypted_password: "كلمة المرور المشفرة"
     # enjoyer: "Enjoyer"
-    # enjoyments: "Enjoyments"
+    enjoyments: "المتعة"
     entities: "الافراد" #?
     entity: "الملف الاول"
     entity_categories: "فئة الفرد" #?
     entity_id: "الفرد" #?
-    # entity_link_direction: "Entity link direction"
+    entity_link_direction: "كيان الاتجاه صلة"
     entity_link_nature: "نوع رابط تمديد الاشتراك"
     entity_link_nature_id: "نوع الرابط لتمديد الاشتراك" #?
     entity_link_natures: "طبيعة الرابط بين الافراد" #?
     entity_links: "روابط الفرد" #?
     entity_name: "اسم المشترك" #?
     entity_natures: "انماط الفرد" #?
-    # entity_role: "Entity role"
+    entity_role: "دور كيان"
     entries: "السجلات المحاسبية"
     entry: "سجل المحاسبة"
     entry_id: "سجا المحاسبة" #?
-    # entry_items: "Entry items"
-    # entry_number: "Entry number"
+    entry_items: "البنود دخول"
+    entry_number: "رقم الدخول"
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
-    # event: "Event"
+    event: "حدث"
     event_natures: "نوع الحدث" #?
-    # event_participation: "Event participation"
+    event_participation: "مشاركة الحدث"
     events: "الاحداث"
     # evolvable: "Evolvable"
     excise: "عدد رسوم الدفع" #?
-    # execution_number: "Execution number"
-    # executor: "Executor"
-    # expected_population: "Expected population"
-    # expected_shape: "Expected shape"
-    # expected_stop_amount: "Expected stop amount"
-    # expected_yield: "Expected yield"
+    execution_number: "عدد التنفيذ"
+    executor: "المنفذ"
+    expected_population: "السكان المتوقع"
+    expected_shape: "الشكل المتوقع"
+    expected_stop_amount: "يتوقع كمية توقف"
+    expected_yield: "العائد المتوقع"
     expense: "التكلفة" #?
     expense_id: "انفاق" #?
     expense_type: "نوع التكلفة" #?
-    # expenses: "Expenses"
-    # expenses_account: "Charges account"
+    expenses: "مصاريف"
+    expenses_account: "حساب الرسوم"
     expenses_accounts: "حسابات الحمولة" #?
     expiration: "تأخير المهلة" #?
-    # expiration_delay: "Expiration delay"
+    expiration_delay: "تأخير انتهاء"
     expiration_id: "تأخير مهلة" #?
     expired_at: "انتهى يوم"
-    # exploitation_name: "Exploitation name"
+    exploitation_name: "اسم الاستغلال"
     exportable: "قبل للتصدير"
-    # exportable_columns: "Exportable columns"
+    exportable_columns: "أعمدة للتصدير"
     expression: "اسلوب للتعبير" #?
     extension: "التوسع" #?
-    # external: "External"
-    # failed_attempts: "Failed attempts"
+    external: "خارجي"
+    failed_attempts: "محاولات فاشلة"
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
-    # farm_name: "Farm name"
-    # father: "Father"
+    farm_name: "اسم مزرعة"
+    father: "الآب"
     fax: "فاكس" #?
-    # faxes: "Faxes"
-    # fifth_producer: "Fifth producer"
+    faxes: "الفاكسات"
+    fifth_producer: "منتج الخامس"
     filename: "الملف" #?
     filesize: "حجم الملف" #?
-    # filtered_columns: "Filtered columns"
+    filtered_columns: "الأعمدة التي تمت تصفيتها"
     financial_year: "السنوات المالية"
-    # financial_year_as_last: "Financial year (as last journal entry)"
+    financial_year_as_last: "السنة المالية (كآخر إدخال دفتر اليومية)"
     financial_year_id: "مهنة" #?
     financial_years: "المهن" #?
     finish: "النهاية"
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
-    # first_producer: "First producer"
-    # fixed: "Fixed"
-    # fixed_asset: "Fixed asset"
-    # fixed_asset_account: "Fixed asset account"
-    # fixed_asset_allocation_account: "Fixed asset depreciations account"
-    # fixed_asset_depreciation_method: "Fixed asset depreciation method"
-    # fixed_asset_depreciation_percentage: "Fixed asset depreciation percentage"
-    # fixed_asset_depreciations: "Fixed asset depreciations"
-    # fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
-    # fixed_assets: "Fixed assets"
+    first_producer: "أول منتج"
+    fixed: "ثابت"
+    fixed_asset: "الأصول الثابتة"
+    fixed_asset_account: "حساب الأصول الثابتة"
+    fixed_asset_allocation_account: "ثابت حساب انخفاض قيمة الأصول"
+    fixed_asset_depreciation_method: "الأصول الثابتة طريقة الاستهلاك"
+    fixed_asset_depreciation_percentage: "نسبة انخفاض قيمة الأصول الثابتة"
+    fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
+    fixed_asset_expenses_account: "حساب نفقات انخفاض قيمة الأصول الثابتة inputations"
+    fixed_assets: "أصول ثابتة"
     for_immobilizations: "منتجات ساكنة" #?
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
     for_sales: "منتجات البيع" #?
     format: "التصميم" #?
-    # formats: "Formats"
-    # fourth_producer: "Fourth producer"
-    # frequency: "Frequency"
-    # frozen_indicators_list: "Frozen indicators list"
+    formats: "صيغ"
+    fourth_producer: "رابع منتج"
+    frequency: "تردد"
+    frozen_indicators_list: "قائمة مؤشرات المجمدة"
     full_name: "الاسم بالكامل"
     full_name_format: "التصميم" #?
     function_title: "الكياسة"
     future_events: "احداث المستقبل" #?
-    # gap: "Gap"
-    # gaps: "Gaps"
+    gap: "فراغ"
+    gaps: "ثغرات"
     generated: "ولدت" #?
-    # geolocation: "Geolocation"
-    # geometry_value: "Geometry value"
-    # given_at: "Given at"
+    geolocation: "تحديد الموقع الجغرافي"
+    geometry_value: "قيمة هندسة"
+    given_at: "وبالنظر في"
     global_balance: "الرصيد العالمي"
     global_count: "مجموع السكان"
     global_credit: "الائتمان العالمي"
     global_debit: "الانتاجية الاجمالية"
-    # godchildren: "Godchildren"
-    # gravity: "Gravity"
-    # group: "Group"
-    # group_parameters: "Group parameters"
-    # groups: "Groups"
-    # guide: "Guide"
-    # harvest_year: "Harvest year"
+    godchildren: "أبناء معمدين"
+    gravity: "الجاذبية"
+    group: "مجموعة"
+    group_parameters: "معلمات مجموعة"
+    groups: "المجموعات"
+    guide: "دليل"
+    harvest_year: "حصاد العام"
     has_downpayment: "لديه عربون واحد"
     hashed_password: "تشفير كلمة المرور" #?
-    # host: "Host"
+    host: "مضيف"
     hour_duration: "(ساعة (ساعات" #?
-    # human_target_names: "Target names"
-    # human_working_duration: "Working duration"
-    # human_working_zone_area: "Working zone area"
-    # humus_mineralization: "Humus mineralization"
+    human_target_names: "أسماء المستهدفة"
+    human_working_duration: "مدة العمل"
+    human_working_zone_area: "منطقة منطقة العمل"
+    humus_mineralization: "الدبال تمعدن"
     iban: "IBAN"
     iban_label: "IBAN" #?
     id: "ID"
-    # identification_number: "Identification number"
-    # identifiers: "Identifiers"
+    identification_number: "رقم الهوية"
+    identifiers: "معرفات"
     immobilizations_account_id: "الحساب الساكن" #?
     importance: "ذو شأن"
-    # imported_at: "Imported at"
-    # importer: "Importer"
+    imported_at: "المستوردة في"
+    importer: "المستورد"
     in_name: "الاختصارات تشمل اسم الملف" #?
-    # in_preparation_at: "In preparation at"
+    in_preparation_at: "في إطار التحضير في"
     included: "تضمنت"
-    # incoming_parcel_item: "Incoming delivery item"
-    # incoming_parcels: "Incoming deliveries"
+    incoming_parcel_item: "واردة بند التسليم"
+    incoming_parcels: "شحنات واردة"
     incoming_payment_modes: "طرق تسديد الدفعات"
     incoming_payment_uses: "اجزاء الدفعات" #?
     incoming_payments: "الدفعات"
-    # indicator: "Indicator"
-    # indicator_datatype: "Indicator datatype"
-    # indicator_name: "Indicator name"
-    # indicators: "Indicators"
+    indicator: "مؤشر"
+    indicator_datatype: "مؤشر نوع البيانات"
+    indicator_name: "اسم المؤشر"
+    indicators: "مؤشرات"
     indirect_links: "روابط مباشرة"
-    # initial_born_at: "Initial born at"
-    # initial_container: "Initial container"
-    # initial_dead_at: "Initial dead at"
-    # initial_enjoyer: "Initial enjoyer"
-    # initial_father: "Initial father"
-    # initial_geolocation: "Initial geolocation"
-    # initial_mother: "Initial mother"
-    # initial_movement: "Initial movement"
-    # initial_number: "Initial number"
-    # initial_owner: "Initial owner"
-    # initial_population: "Initial population"
-    # initial_shape: "Initial shape"
-    # inputs: "Inputs"
-    # insurance_amount: "Insurance amount"
-    # insurance_percentage: "Insurance percentage"
+    initial_born_at: "الأولي ولد في"
+    initial_container: "حاوية الأولية"
+    initial_dead_at: "قتلى الأولي في"
+    initial_enjoyer: "enjoyer الأولي"
+    initial_father: "والد الأولي"
+    initial_geolocation: "تحديد الموقع الجغرافي الأولي"
+    initial_mother: "أم الأولية"
+    initial_movement: "حركة أولية"
+    initial_number: "العدد الأولي"
+    initial_owner: "صاحب الأولي"
+    initial_population: "السكان الأولي"
+    initial_shape: "الشكل الأولي"
+    inputs: "المدخلات"
+    insurance_amount: "مبلغ التأمين"
+    insurance_percentage: "نسبة التأمين"
     integer_value: "قيمة العدد الصحيح"
-    # interest_amount: "Interest amount"
-    # interest_percentage: "Interest percentage"
-    # intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
-    # interpolations: "Interpolations"
-    # intervention: "Intervention"
-    # intervention_cast: "Intervention cast"
-    # intervention_parameter: "Intervention parameter"
-    # intervention_product_parameters: "Intervention casts"
-    # interventions: "Interventions"
+    interest_amount: "مبلغ الفائدة"
+    interest_percentage: "نسبة الفائدة"
+    intermediate_cultivation_residue_mineralization: "زراعة المتوسطة بقايا تمعدن"
+    interpolations: "الزيادات"
+    intervention: "تدخل"
+    intervention_cast: "تدخل الزهر"
+    intervention_parameter: "معلمة تدخل"
+    intervention_product_parameters: "يلقي تدخل"
+    interventions: "التدخلات"
     introduction: "المقدمة"
     inventories: "عمليات الجرد" #?
     inventory: "عملية الجرد"
     inventory_id: "عملية جرد" #?
     inventory_items: "طرق الجرد" #?
-    # invoice_address: "Invoice address"
+    invoice_address: "عنوان الفاتورة"
     invoice_contact: "العنوان للفاتورة" #?
     invoice_contact_id: "العنوان للفاتورة" #?
     invoiced: "مفوتر" #?
-    # invoiced_at: "Invoiced on"
-    # irrigated: "Irrigated"
-    # irrigation_water_nitrogen: "Irrigation water nitrogen"
+    invoiced_at: "فواتير على"
+    irrigated: "المروية"
+    irrigation_water_nitrogen: "الري النيتروجين المياه"
     is_debit: "مدين" #?
-    # islet: "Islet"
-    # islet_number: "Islet number"
-    # islets: "Islets"
-    # issue: "Issue"
-    # issues: "Issues"
-    # issues_count: "Issues count"
-    # item: "Item"
-    # item_changes: "Item changes"
+    islet: "جزيرة"
+    islet_number: "عدد جزيرة"
+    islets: "الجزر"
+    issue: "القضية"
+    issues: "مسائل"
+    issues_count: "عد قضايا"
+    item: "بند"
+    item_changes: "تغييرات البند"
     item_listing: "عقد الاستخراج"
     item_listing_id: "عقد استخراج" #?
     item_listing_node: "عقد البند"
     item_listing_node_id: "عقد البند" #?
     item_nature: "طبيعة البند"
-    # item_object: "Item object"
-    # item_type: "Item type"
+    item_object: "كائن البند"
+    item_type: "نوع العنصر"
     item_value: "قيمة البند"
     items: "بنود عقد الاستخراج"
     journal: "الدفتر اليومي"
     journal_entries: "سجلات المحاسبة"
     journal_entry: "سجل المحاسبة"
     journal_entry_id: "سجل المحاسبة" #?
-    # journal_entry_item: "Journal entry item"
+    journal_entry_item: "مجلة البند دخول"
     journal_entry_items: "المدخلات"
     journal_id: "الدفتر اليومي" #?
     journals: "الدفاتر اليومية" #?
     key: "المفتاح"
     label: "الملصق"
-    # land_parcel_number: "Land parcel number"
+    land_parcel_number: "عدد قطعة أرض"
     land_parcels: "الكتل"
     language: "اللغة"
-    # last_analysis: "Last analysis"
+    last_analysis: "التحليل الأخير"
     last_bank_statement: "(((LAST_BANK_STATEMENT)))"
     last_cweek: "الاسبوع السابق"
-    # last_journal_entry: "Journal entry of end of year"
+    last_journal_entry: "دخول مجلة نهاية العام"
     last_letter: "الرسالة الاخيرة"
     last_month: "الشهر السابق"
     last_name: "اسم العائلة"
     last_number: "الرقم الاخير"
-    # last_sign_in_at: "Last sign in at"
-    # last_sign_in_ip: "Last sign in IP"
+    last_sign_in_at: "علامة الماضي في في"
+    last_sign_in_ip: "علامة الماضي في مجال الملكية الفكرية"
     last_year: "السنة السابقة"
-    # latest: "Latest"
+    latest: "آخر"
     latitude: "خطوط العرض" #?
-    # lender: "Lender"
+    lender: "المقرض"
     length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
     letter_format: "مقتبس على شكل خطاب"
-    # level: "Level"
-    # lft: "Left"
+    level: "مستوى"
+    lft: "اليسار"
     line_2: "خدمة - المستلم" #?
     line_3: "Bأ¢t. - Rأ©s. - ZI..." #?
     line_4: "رقم واسم الطريق" #?
@@ -1499,85 +1499,85 @@ arb:
     line_6_city: "المدينة" #?
     line_6_code: "الرمز البريدي" #?
     lines: "طرق تسديد الفاتورة" #?
-    # linkage_points_list: "Linkage points list"
-    # linkages: "Linkages"
+    linkage_points_list: "قائمة نقطة الربط"
+    linkages: "الروابط"
     linked: "الملف الثاني"
     linked_id: "الملف الثاني" #?
-    # linked_role: "Entity 2 role"
-    # links: "Links"
+    linked_role: "كيان 2 دور"
+    links: "الروابط"
     listing: "الاستخراج"
     listing_id: "استخاج" #?
     listing_node_items: "عناصر العقدة المستخرجة" #?
     listing_nodes: "العقد المستخرجة" #?
     listings: "الاستخراج" #?
-    # loan: "Loan"
+    loan: "قرض"
     local_balance: "الرصيد"
     local_count: "عدد السكان المحليين"
     local_credit: "الائتمان"
     local_debit: "الدين المحلي"
-    # localizations: "Localizations"
+    localizations: "تعريب"
     lock_version: "الاصدار"
     locked: "مقفل"
-    # locked_at: "Locked at"
+    locked_at: "مغلق في"
     longitude: "خطوط الطول" #?
     lost: "الضائع" #?
     mail: "البريد الالكتروني"
-    # mail_addresses: "Mail addresses"
-    # mail_auto_update: "Mail auto update"
-    # mail_country: "Mail country"
-    # mail_geolocation: "Mail geolocation"
-    # mail_line_1: "Addressee, department"
-    # mail_line_2: "Appartment, floor"
-    # mail_line_3: "Building, residence"
-    # mail_line_4: "Number and Street"
-    # mail_line_5: "Special mentions, place name"
-    # mail_line_6: "Postal code and city"
-    # mail_postal_zone: "Mail postal_zone"
-    # mails: "Mails"
-    # main: "Main"
-    # main_activity: "Main activity"
-    # main_crop_code: "Main crop code"
-    # main_crop_commercialisation: "Main crop commercialisation"
-    # main_crop_precision: "Main crop precision"
-    # main_crop_seed_production: "Main crop seed production"
-    # main_production: "Main production"
+    mail_addresses: "عناوين البريد"
+    mail_auto_update: "التحديث التلقائي الإلكتروني"
+    mail_country: "بلد الإلكتروني"
+    mail_geolocation: "تحديد الموقع الجغرافي الإلكتروني"
+    mail_line_1: "المرسل إليه، قسم"
+    mail_line_2: "شقة، الدور"
+    mail_line_3: "بناء والإقامة"
+    mail_line_4: "عدد وشارع"
+    mail_line_5: "يذكر الخاصة، اسم مكان"
+    mail_line_6: "الرمز البريدي والمدينة"
+    mail_postal_zone: "postal_zone الإلكتروني"
+    mails: "رسائل"
+    main: "رئيسي"
+    main_activity: "النشاط الرئيسي"
+    main_crop_code: "كود المحصول الرئيسي"
+    main_crop_commercialisation: "تسويق المحصول الرئيسي"
+    main_crop_precision: "الدقة المحاصيل الرئيسية"
+    main_crop_seed_production: "الرئيسي إنتاج بذور المحاصيل"
+    main_production: "الإنتاج الرئيسية"
     major_accounts: "الحسابات الئيسية" #?
-    # managed: "Managed"
-    # managed_sales: "Managed sales"
+    managed: "تمكنت"
+    managed_sales: "مبيعات المدارة"
     mandates: "تفويضات" #?
-    # manure_management_plan_zones: "Manure management plan zones"
+    manure_management_plan_zones: "مناطق خطة إدارة السماد"
     mass: "الوزن"
     master: "كتلة رئيسية" #?
     max_reduction_rate: "سعر التخفيض" #?
-    # maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
-    # maximal_length: "Maximal length"
-    # maximal_value: "Maximal value"
-    # maximum_nitrogen_input: "Maximum nitrogen input"
-    # meadow_humus_mineralization: "Meadow humus mineralization"
-    # measure_value: "Measure value"
-    # measure_value_unit: "Measure value unit"
-    # measure_value_value: "Measure value value"
-    # meeting_origin: "Meeting origin"
-    # member: "Member"
-    # members: "Members"
-    # members_count: "Members count"
-    # memberships: "Memberships"
-    # message: "Message"
-    # metadata: "Metadata"
+    maximal_grantable_reduction_percentage: "القصوى نسبة تخفيض grantable"
+    maximal_length: "طول القصوى"
+    maximal_value: "القيمة القصوى"
+    maximum_nitrogen_input: "إدخال النيتروجين الأقصى"
+    meadow_humus_mineralization: "مرج تمعدن الدبال"
+    measure_value: "قياس القيمة"
+    measure_value_unit: "وحدة قياس القيمة"
+    measure_value_value: "قيمة قياس القيمة"
+    meeting_origin: "أصل لقاء"
+    member: "عضو"
+    members: "أعضاء"
+    members_count: "عد الأعضاء"
+    memberships: "عضوية"
+    message: "الرسالة"
+    metadata: "البيانات الوصفية"
     min_duration: "(دقيقة (دقائق" #?
-    # mineral_nitrogen_at_opening: "Mineral nitrogen at opening"
-    # minimal_length: "Minimal length"
-    # minimal_value: "Minimal value"
+    mineral_nitrogen_at_opening: "النيتروجين المعدنية في افتتاح"
+    minimal_length: "طول الحد الأدنى"
+    minimal_value: "قيمة الحد الأدنى"
     mobile: "الهاتف النقال" #?
-    # mobiles: "Mobile phones"
+    mobiles: "هواتف محمولة"
     mode: "نمط الدفعة"
     mode_id: "طريقة تسديد دفعة" #?
-    # model_euid: "Model"
-    # mother: "Mother"
+    model_euid: "نموذج"
+    mother: "أم"
     moved_at: "انجز يوم" #?
-    # movements: "Movements"
-    # moves: "Moves"
-    # multi_polygon_value: "Multi polygon value"
+    movements: "الحركات"
+    moves: "التحركات"
+    multi_polygon_value: "قيمة مضلع متعددة"
     name: "الاسم"
     name_1_to_2: "الملف الاول الى الثاني" #?
     name_2_to_1: "الملف الثاني الى الاول" #?
@@ -1585,35 +1585,35 @@ arb:
     nature_code: "الرمز" #?
     nature_id: "نوع" #?
     nature_label: "طبيعة الملصق" #?
-    # nature_name: "Type name"
-    # natures: "Types"
-    # net_mass: "Net mass"
-    # net_service: "Net service"
-    # new_container: "New container"
-    # new_group: "New group"
-    # new_name: "New name"
-    # new_variant: "New variant"
+    nature_name: "اسم نوع"
+    natures: "أنواع"
+    net_mass: "الكتلة الصافية"
+    net_service: "خدمة صافي"
+    new_container: "حاويات جديدة"
+    new_group: "مجموعة جديدة"
+    new_name: "اسم جديد"
+    new_variant: "متغير جديد"
     nic: "واجهة بطاقة الشبكة" #?
-    # nitrate_fixing: "Nitrate fixing"
-    # nitrogen_at_closing: "Nitrogen at closing"
-    # nitrogen_input: "Nitrogen input"
-    # nitrogen_need: "Nitrogen need"
+    nitrate_fixing: "تحديد النترات"
+    nitrogen_at_closing: "النيتروجين عند الإغلاق"
+    nitrogen_input: "إدخال النيتروجين"
+    nitrogen_need: "الحاجة النيتروجين"
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
-    # noticed_start_amount: "Noticed start amount"
-    # noticed_stop_amount: "Noticed stop amount"
-    # notifications: "Notifications"
+    noticed_start_amount: "كمية بداية لاحظت"
+    noticed_stop_amount: "لاحظت كمية توقف"
+    notifications: "الإشعارات"
     number: "الرقم"
     number_format: "التصميم"
     number_increment: "الاضافة"
     number_start: "بدأ الترقيم"
     observations: "ملاحظات"
-    # observed_at: "Observed at"
-    # of_company: "Of the company"
+    observed_at: "لوحظ في"
+    of_company: "الشركة"
     office: "المكتب/الاستديو" #?
     old_password: "كلمة المرور الحالية"
-    # opened_at: "Opened at"
+    opened_at: "افتتح في"
     operation: "العمل"
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
@@ -1624,46 +1624,46 @@ arb:
     order_id: "طلب شراء" #?
     order_item: "طريقة البيع" #?
     order_item_id: "طريقة البيع" #?
-    # ordered_at: "Ordered at"
-    # organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
+    ordered_at: "أمر في"
+    organic_fertilizer_mineral_fraction: "جزء المعدنية الأسمدة العضوية"
     organization: "المنظمة" #?
     origin: "المنشأ"
     origin_id: "المنشأ" #?
     origin_type: "نوع المنشأ" #?
     original_name: "الاسم الاصلي" #?
-    # originator: "Originator"
-    # originator_type: "Originator type"
-    # outcoming_product: "Outcoming product"
-    # outgoing_parcel_item: "Outgoing parcel item"
-    # outgoing_parcel_items: "Outgoing parcel items"
-    # outgoing_parcels: "Outgoing parcels"
+    originator: "منشئ"
+    originator_type: "نوع المنشئ"
+    outcoming_product: "المنتج Outcoming"
+    outgoing_parcel_item: "المنتهية ولايته البند لا يتجزأ"
+    outgoing_parcel_items: "عناصر لا يتجزأ الصادرة"
+    outgoing_parcels: "الطرود الصادرة"
     outgoing_payment_modes: "اساليب المصروفات"
     outgoing_payment_uses: "ازاء المصروفات" #?
     outgoing_payments: "المصروفات"
-    # outputs: "Outputs"
+    outputs: "المخرجات"
     owner: "المالك"
     owner_id: "مالك" #?
     owner_type: "طبيعة المالك" #?
-    # ownerships: "Ownerships"
-    # pacage_number: "Pacage number"
+    ownerships: "الملكيات"
+    pacage_number: "عدد Pacage"
     paid: "سددت" #?
     paid_account: "سددت القيمة الضريبية الاضافية" #?
     paid_account_id: "سددت القيمة الضريبية الاضافية" #?
     paid_amount: "خصمة من قيمة الضريبة الاضافية" #?
     paid_at: "سددت يوم"
-    # paid_taxes: "Paid taxes"
-    # parameter_name: "Parameter name"
-    # parameters: "Parameters"
-    # parcel: "Parcel"
-    # parcel_items: "Parcel items"
-    # parcels: "Parcels"
+    paid_taxes: "الضرائب المدفوعة"
+    parameter_name: "اسم المعلمة"
+    parameters: "المعلمات"
+    parcel: "جزء"
+    parcel_items: "عناصر لا يتجزأ"
+    parcels: "الطرود"
     parent: "النسب"
     parent_id: "نسب" #?
-    # parted: "Parted"
-    # parted_product: "Parted product"
-    # participant: "Participant"
-    # participants: "Participants"
-    # participations: "Participations"
+    parted: "افترقنا"
+    parted_product: "المنتج افترقنا"
+    participant: "مشارك"
+    participants: "مشتركين"
+    participations: "بالمشاركات"
     parts: "الاجزاء" #?
     parts_amount: "القيمة المستخدمة" #?
     password: "كلمة المرور"
@@ -1689,144 +1689,144 @@ arb:
     payments_to_deposit_accounts: "حساب دفعات الصندوق النقدي" #?
     period: "الفترة"
     period_name: "تواتري" #?
-    # person: "Person"
-    # phases: "Phases"
+    person: "شخص"
+    phases: "مراحل"
     phone: "هاتف" #?
-    # phones: "Phones"
+    phones: "الهواتف"
     photo: "صورة" #?
     physical: "الفرد الطبيعي" #?
-    # pictogram: "Pictogram"
-    # picture: "Picture"
-    # picture_content_type: "Picture content type"
-    # picture_file_name: "Picture file name"
-    # picture_file_size: "Picture file size"
-    # picture_updated_at: "Picture updated at"
-    # place: "Place"
-    # plan: "Plan"
+    pictogram: "الرسم التخطيطي لل"
+    picture: "صورة"
+    picture_content_type: "الصورة نوع المحتوى"
+    picture_file_name: "اسم ملف الصورة"
+    picture_file_size: "حجم ملف الصورة"
+    picture_updated_at: "الصورة المحدثة في"
+    place: "مكان"
+    plan: "خطة"
     planned_at: "قرر يوم"
-    # planned_depreciations: "Planned depreciations"
-    # point: "Point"
-    # point_value: "Point value"
-    # points: "Points"
+    planned_depreciations: "انخفاض قيمة المخطط"
+    point: "نقطة"
+    point_value: "قيمة النقطة"
+    points: "نقاط"
     polygon: "متناسقين" #?
-    # population: "Population"
-    # population_counting: "Population counting"
+    population: "عدد السكان"
+    population_counting: "عد السكان"
     position: "الوضع"
-    # post: "Post"
-    # postal_code: "Postal code"
+    post: "بريد"
+    postal_code: "الكود البريدى"
     postal_zone: "المنطقة البريدية" #?
     postal_zone_id: "العنوان البريدي" #?
     postal_zones: "الرموز البريدية"
     postcode: "الرمز البريدي" #?
     preferences: "الاعدادات"
-    # prepared_at: "Prepared at"
-    # prescription: "Prescription"
+    prepared_at: "أعدت بناء"
+    prescription: "وصفة طبية"
     # prescriptor: "Prescriptor"
-    # pretax_amount: "Pre-tax amount"
-    # previous_cultivation_residue_mineralization: "Previous cultivation residue mineralization"
+    pretax_amount: "كمية ما قبل الضريبة"
+    previous_cultivation_residue_mineralization: "زراعة السابقة بقايا تمعدن"
     price: "سعر الكلفة"
     price_amount: "القيمة دون الضرائب" #?
     price_id: "سعر الوحدة" #?
     prices: "الاسعار" #?
-    # printed_at: "Printed at"
+    printed_at: "طبع في"
     printed_on: "طبع يوم"
-    # priority: "Priority"
-    # probability_percentage: "Probability percentage"
-    # procedure_name: "Procedure name"
+    priority: "أفضلية"
+    probability_percentage: "نسبة احتمال"
+    procedure_name: "اسم الإجراء"
     producer: "المنتج"
     producer_id: "المنتج" #?
     product: "الانتاج"
-    # product_account: "Product account"
+    product_account: "حساب المنتج"
     product_categories: "فئات المنتج" #?
     product_category: "الفئة" #?
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
-    # product_enjoyments: "Product enjoyments"
+    product_enjoyments: "المتعة المنتج"
     product_id: "المنتج" #?
-    # product_linkages: "Product linkages"
-    # product_localization: "Product localization"
-    # product_localizations: "Product localizations"
-    # product_memberships: "Product memberships"
-    # product_movement: "Product movement"
-    # product_nature: "Product type"
-    # product_nature_categories: "Product type categories"
-    # product_nature_category: "Product type category"
-    # product_nature_category_taxations: "Product type category taxations"
-    # product_ownership: "Product ownership"
-    # product_ownerships: "Product ownerships"
-    # product_parameters: "Product parameters"
-    # product_phases: "Product phases"
-    # product_reading: "Product reading"
-    # product_reading_tasks: "Product reading tasks"
-    # product_readings: "Product readings"
+    product_linkages: "الروابط المنتج"
+    product_localization: "توطين المنتج"
+    product_localizations: "تعريب المنتج"
+    product_memberships: "عضوية المنتج"
+    product_movement: "حركة المنتج"
+    product_nature: "نوع المنتج"
+    product_nature_categories: "فئات نوع المنتج"
+    product_nature_category: "فئة نوع المنتج"
+    product_nature_category_taxations: "الأنظمة الضريبية فئة نوع المنتج"
+    product_ownership: "ملكية المنتج"
+    product_ownerships: "الملكيات المنتج"
+    product_parameters: "المنتج المعلمات"
+    product_phases: "مراحل المنتج"
+    product_reading: "قراءة المنتج"
+    product_reading_tasks: "مهام القراءة المنتج"
+    product_readings: "قراءات المنتج"
     productable_products: "المنتجات الممكن انتاجها" #?
-    # production: "Production"
-    # production_campaign: "Production campaign"
-    # production_cycle: "Production cycle"
-    # production_support: "Production support"
-    # production_supports: "Production supports"
-    # production_usage: "Production usage"
-    # productions: "Productions"
+    production: "الإنتاج"
+    production_campaign: "حملة إنتاج"
+    production_cycle: "دورة الإنتاج"
+    production_support: "دعم الإنتاج"
+    production_supports: "يدعم الانتاج"
+    production_usage: "استخدام الانتاج"
+    productions: "إنتاجات"
     products: "المنتجات"
     products_accounts: "حسابات المنتجات" #?
-    # products_categories: "Products categories"
+    products_categories: "فئات المنتجات"
     profession: "المهنة" #?
     profession_id: "مهنة" #?
     professions: "مهن" #?
-    # progression_percentage: "Progression (%)"
+    progression_percentage: "تقدم (٪)"
     propagate_contacts: "تعميم الافراد" #?
     proposer: "الكفيل"
     proposer_id: "الكفيل" #?
     prospect: "الراعي"
-    # provisional: "Provisional"
-    # provisional_intervention: "Provisional intervention"
+    provisional: "مؤقت"
+    provisional_intervention: "تدخل المؤقت"
     published: "تم نشره" #?
-    # purchasable: "Purchasable"
-    # purchase: "Purchase"
-    # purchase_amount: "Purchase amount"
-    # purchase_invoices: "Purchase invoices"
-    # purchase_item: "Purchase item"
+    purchasable: "للشراء"
+    purchase: "شراء"
+    purchase_amount: "مبلغ الشراء"
+    purchase_invoices: "فواتير الشراء"
+    purchase_item: "البند شراء"
     purchase_items: "طرق طلب الشراء"
-    # purchase_taxations: "Purchase taxations"
-    # purchase_taxes: "Purchase taxes"
-    # purchased_on: "Purchased on"
+    purchase_taxations: "الأنظمة الضريبية شراء"
+    purchase_taxes: "ضرائب الشراء"
+    purchased_on: "شراء على"
     purchases: "المشتريات"
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
     quantity: "الكمية"
-    # quantity_handler: "Quantity handler"
-    # quantity_indicator: "Quantity indicator"
-    # quantity_indicator_name: "Quantity indicator name"
+    quantity_handler: "كمية معالج"
+    quantity_indicator: "مؤشر الكمية"
+    quantity_indicator_name: "الكمية اسم المؤشر"
     quantity_max: "الكمية كحد اقصى" #?
     quantity_min: "الكمية كحد ادنى" #?
-    # quantity_population: "Quantity population"
-    # quantity_unit: "Quantity unit"
-    # quantity_unit_name: "Quantity unit name"
-    # quantity_value: "Quantity value"
+    quantity_population: "السكان الكمية"
+    quantity_unit: "وحدة الكمية"
+    quantity_unit_name: "الكمية اسم الوحدة"
+    quantity_value: "قيمة الكمية"
     query: "التساؤل"
     range: "فترة فاصلة" #?
-    # rank_number: "Rank number"
+    rank_number: "عدد رتبة"
     rate: "معدل سعر الصرف" #?
-    # read_at: "Read at"
-    # reading_tasks: "Reading tasks"
-    # readings: "Readings"
-    # real_balance: "Real balance"
+    read_at: "قراءة في"
+    reading_tasks: "مهام القراءة"
+    readings: "قراءات"
+    real_balance: "التوازن الحقيقي"
     real_credit: "الائتمان"
-    # real_currency: "Original currency"
-    # real_currency_rate: "Original currency rate"
+    real_currency: "العملة الأصلية"
+    real_currency_rate: "سعر العملة الأصلي"
     real_debit: "الدين المطلوب"
     reason: "الدافع" #?
     receipt: "استلام الكتروني"
     received: "مستلم"
-    # received_at: "Received at"
-    # reception_amount: "Reception amount"
-    # reception_cash: "Reception cash"
-    # reception_currency: "Reception currency"
-    # reception_journal_entry: "Reception journal entry"
-    # recipient: "Recipient"
-    # recommended: "Recommended"
-    # recommender: "Recommender"
-    # reconcilable: "Reconcilable"
+    received_at: "تلقى في"
+    reception_amount: "كمية الاستقبال"
+    reception_cash: "استقبال النقدية"
+    reception_currency: "العملة الاستقبال"
+    reception_journal_entry: "دخول مجلة الاستقبال"
+    recipient: "مستلم"
+    recommended: "موصى به"
+    recommender: "المزكي"
+    reconcilable: "مصالحتها"
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?
     record_value_type: "نوع التسجيل"
@@ -1835,45 +1835,45 @@ arb:
     reduction_origin: "طرق قابلة للخصم" #?
     reduction_origin_id: "الطررق القابلة للخصم" #?
     reduction_percent: "(%)معدل الخصم المسموح" #?
-    # reduction_percentage: "Reduction percentage"
+    reduction_percentage: "نسبة التخفيض"
     reduction_rate: "معدل الخصم" #?
     reduction_submissive: "خاضع للتخفيض" #?
     reductions: "طرق الخصومات" #?
-    # reference_name: "Reference name"
-    # reference_number: "Reference number"
-    # reference_tax: "Reference tax"
-    # reference_value: "Reference value"
+    reference_name: "اسم الإشارة"
+    reference_number: "الرقم المرجعي"
+    reference_tax: "الضرائب المرجعية"
+    reference_value: "قيمة مرجعية"
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
     reflected: "انعكاس التغييرات"
-    # reflected_at: "Reflected at"
-    # reflection_nodes: "Reflection nodes"
-    # reflections: "Reflections"
-    # remain_owner: "Remain owner"
-    # remaining_amount: "Remaining amount"
+    reflected_at: "ينعكس في"
+    reflection_nodes: "العقد انعكاس"
+    reflections: "خواطر"
+    remain_owner: "تبقى مالك"
+    remaining_amount: "المبلغ المتبقي"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
-    # remember_created_at: "Remember created at"
-    # remember_me: "Remember me"
-    # reminder_submissive: "Reminder submissive"
-    # repayment_duration: "Repayment duration"
-    # repayment_method: "Repayment method"
-    # repayment_period: "Repayment period"
-    # repayments: "Repayments"
-    # reporter: "Reporter"
+    remember_created_at: "أتذكر إنشاؤها في"
+    remember_me: "تذكرنى"
+    reminder_submissive: "تذكير منقاد"
+    repayment_duration: "مدة السداد"
+    repayment_method: "طريقة السداد"
+    repayment_period: "فترة السداد"
+    repayments: "تسديد"
+    reporter: "صحافي"
     required: "الزامي"
     reservoir: "المخزن" #?
-    # reset_password_sent_at: "Reset password sent at"
-    # reset_password_token: "Reset password token"
+    reset_password_sent_at: "إعادة تعيين كلمة المرور أرسلت في"
+    reset_password_token: "رمز إعادة تعيين كلمة المرور"
     resource: "المصدر الاصلي"
     resource_id: "المصدر الاصلي" #?
     resource_type: "نوع المصدر"
     responsible: "المسؤول"
     responsible_id: "المسؤول" #?
-    # restricted: "Restricted"
-    # retrieval_message: "Retrieval message"
-    # retrieval_mode: "Retrieval mode"
-    # retrieval_status: "Retrieval status"
-    # revenues: "Revenues"
-    # rgt: "Right"
+    restricted: "مقيد"
+    retrieval_message: "رسالة استرجاع"
+    retrieval_mode: "وضع استرجاع"
+    retrieval_status: "وضع استرجاع"
+    revenues: "إيرادات"
+    rgt: "حق"
     rights: "الحقوق"
     role: "الدور الاساسي"
     role_id: "الدور الاساسي" #?
@@ -1881,21 +1881,21 @@ arb:
     rome: "رمز الروم" #?
     root_model: "الجذر"
     root_model_name: "جذر"
-    # root_node: "Root node"
-    # root_parameters: "Root parameters"
+    root_node: "عقدة الجذر"
+    root_parameters: "المعلمات الجذر"
     sale: "طلب البيع"
-    # sale_credit: "Sale credit"
+    sale_credit: "الائتمان بيع"
     sale_id: "طلب بيع" #?
-    # sale_item: "Sale item"
+    sale_item: "السلعة المعروضة للبيع"
     sale_item_id: "طرق طلب البيع" #?
     sale_items: "طرق طلب البيع"
-    # sale_nature: "Sale nature"
+    sale_nature: "بيع الطبيعة"
     sale_natures: "انواع البيع" #?
-    # sale_opportunities: "Sale opportunities"
-    # sale_opportunity: "Sale opportunity"
-    # sale_taxations: "Sale taxations"
-    # sale_taxes: "Sale taxes"
-    # saleable: "Saleable"
+    sale_opportunities: "فرص بيع"
+    sale_opportunity: "فرصة بيع"
+    sale_taxations: "الأنظمة الضريبية بيع"
+    sale_taxes: "الضرائب بيع"
+    saleable: "رائج"
     sales: "المبيعات"
     sales_account: "حساب المنتجات" #?
     sales_account_id: "حساب المنتجات" #?
@@ -1907,49 +1907,49 @@ arb:
     sales_invoices: "الفواتير"
     sales_invoices_count: "عدد الفواتير" #?
     salt: "الملح" #?
-    # sampled_at: "Sampled at"
-    # sampler: "Sampler"
-    # sampling_temporal_mode: "Sampling temporal mode"
+    sampled_at: "عينات في"
+    sampler: "العينات"
+    sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scheduled: "الدفعة المبرمجة"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
     second_move_id: "الحركة الثانية" #?
-    # second_producer: "Second producer"
-    # selected: "Selected"
-    # selected_manure_management_plan: "Selected manure management plan"
-    # selected_manure_management_plan_zone: "Selected manure management plan zone"
+    second_producer: "منتج الثاني"
+    selected: "مختار"
+    selected_manure_management_plan: "خطة إدارة السماد مختارة"
+    selected_manure_management_plan_zone: "منطقة خطة إدارة السماد مختارة"
     self_bank_accounts: "الحسابات المصرفية الخاصة" #?
     self_cashes: "الصناديق النقدية الخاصة" #?
     self_contacts: "الاتصالات الخاصة" #?
-    # sender: "Sender"
-    # sensor: "Sensor"
-    # sensors: "Sensors"
-    # sent_at: "Sent at"
+    sender: "مرسل"
+    sensor: "الاستشعار"
+    sensors: "أجهزة الاستشعار"
+    sent_at: "أرسلت في"
     sequences: "التسلسلات" #?
     serial: "عدد الحصص"
-    # serial_number: "Serial number"
+    serial_number: "رقم سري"
     service_coeff: "معامل كمية الخدمة" #?
-    # sessions: "Sessions"
+    sessions: "جلسات"
     sha256: "SHA256" #?
-    # shape: "Shape"
-    # shift_duration: "Shift duration"
-    # shift_method: "Shift method"
+    shape: "شكل"
+    shift_duration: "مدة التحول"
+    shift_method: "طريقة التحول"
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
-    # sign_in_count: "Sign in count"
+    sign_in_count: "تسجيل الدخول العد"
     siren: "رقم صفارة الانذار"
     siret_number: "SIRET رقم"
-    # size_indicator: "Size indicator"
-    # size_indicator_name: "Size indicator name"
-    # size_unit: "Size unit"
-    # size_unit_name: "Size unit name"
-    # size_value: "Size value"
-    # soil_nature: "Soil type"
-    # soil_production: "Soil production"
+    size_indicator: "مؤشر حجم"
+    size_indicator_name: "حجم اسم المؤشر"
+    size_unit: "حجم وحدة"
+    size_unit_name: "حجم اسم الوحدة"
+    size_value: "قيمة حجم"
+    soil_nature: "نوع التربة"
+    soil_production: "إنتاج التربة"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
-    # source_product: "Source product"
-    # spaced_iban: "Spaced IBAN"
+    source_product: "مصدر المنتج"
+    spaced_iban: "متباعدة IBAN"
     sql_type: "SQL نوع"
     start: "البداية"
     started_at: "ابتدأ يوم"
@@ -1957,29 +1957,29 @@ arb:
     started_sec: "(التاريخ والوقت (بالثواني" #?
     state: "الحالة"
     state_label: "حالة النص"
-    # status: "Status"
+    status: "الحالة"
     stock: "انتاج السهم" #?
-    # stock_account: "Stock account"
+    stock_account: "حساب الأسهم"
     stock_id: "انتاج سهم" #?
     stock_moves: "حركات الاسهم" #?
     stock_transfers: "تحويل او ضياع السهم" #?
     stockable: "ادارة الاسهم" #?
     stockable_products: "منتجات للتخزين" #?
     stocks: "اسهم الانتاج" #?
-    # stocks_categories: "Stocks categories"
+    stocks_categories: "فئات الأسهم"
     stopped_at: "توقف يوم"
     stopped_on: "توقف يوم"
-    # storable: "Storable"
-    # storage: "Storage"
-    # storages: "Storages"
+    storable: "القابل للتخزين"
+    storage: "تخزين"
+    storages: "المخازن"
     story: "واقع"
     string_value: "القيمة النصية"
     subdir: "المرجع الفرعي" #?
     subdivision: "Y الوضع" #?
     subject: "الموضوع"
-    # subject_type: "Subject type"
-    # subscriber: "Subscriber"
-    # subscribing: "Subscribing"
+    subject_type: "نوع يخضع"
+    subscriber: "مكتتب"
+    subscribing: "الاشتراك"
     subscription_duration: "الفترة"
     subscription_nature: "النوع"
     subscription_nature_id: "النوع" #?
@@ -1988,22 +1988,22 @@ arb:
     subscriptions: "الاشتراك"
     subsubdivision: "Z الوضع" #?
     sum_method: "اسلوب الاحصاء" #?
-    # supervision: "Supervision"
+    supervision: "إشراف"
     supplier: "الممول"
     supplier_account: "حساب مساعد الممول"
     supplier_account_id: "حساب مساعد الممول" #?
     supplier_accounts: "حسابات المموليين" #?
-    # supplier_address: "Supplier address"
+    supplier_address: "عنوان المورد"
     supplier_id: "ممول" #?
     suppliers: "الممولين"
-    # support: "Support"
-    # support_nature: "Support type"
-    # support_shape: "Support shape"
-    # support_variant: "Support variant"
-    # support_variant_indicator: "Working indicator"
-    # support_variant_unit: "Support variant unit"
-    # support_variety: "Support variety"
-    # supports: "Supports"
+    support: "الدعم"
+    support_nature: "نوع الدعم"
+    support_shape: "شكل الدعم"
+    support_variant: "الدعم البديل"
+    support_variant_indicator: "مؤشر العمل"
+    support_variant_unit: "وحدة الدعم البديل"
+    support_variety: "دعم متنوعة"
+    supports: "الدعم"
     surface_units: "وحدات المظهر الخارجي" #?
     suspended: "معطل"
     symbol: "نموذج" #?
@@ -2011,82 +2011,82 @@ arb:
     target: "الهدف"
     target_id: "الهدف" #?
     target_type: "نوع الهدف"
-    # target_url: "Target url"
-    # targets: "Targets"
-    # tasks: "Tasks"
+    target_url: "الهدف رابط"
+    targets: "أهداف"
+    tasks: "المهام"
     tax: "الضريبة"
     tax_declarations: "الاعلان عن الضرائب" #?
     tax_id: "الضريبة" #?
-    # taxations: "Taxations"
+    taxations: "الأنظمة الضريبية"
     taxes: "الضرائب" #?
-    # team: "Team"
+    team: "الفريق"
     template: "نموذج"
     template_id: "نموذج" #?
     text_importance: "ذو شأن" #?
     text_nature: "النوع" #?
     theoric_quantity: "الكمية النظرية" #?
-    # third: "Third"
-    # third_producer: "Third producer"
-    # third_role: "Third role"
-    # thread: "Thread"
-    # time_window: "Time window (in seconds)"
+    third: "ثلث"
+    third_producer: "ثالث منتج"
+    third_role: "دور الثالث"
+    thread: "خيط"
+    time_window: "نافذة الوقت (بالثواني)"
     title: "اللقب"
     to: "ل"
     to_archive: "وثائق للارشفة" #?
     to_bank_at: "يسدد يوم"
-    # to_deposit: "To deposit"
-    # token: "Token"
+    to_deposit: "لإيداع"
+    token: "رمز"
     tool: "الاداة"
     tool_id: "اداة" #?
     tools: "الادوات"
     tools_list: "معدات" #?
-    # town_number: "Town number"
+    town_number: "عدد تاون"
     tracking: "الحصة"
     tracking_id: "الحصة" #?
     tracking_serial: "رقم الحصة" #?
     trackings: "الحصص"
-    # transfered_at: "Transfered at"
+    transfered_at: "نقلها في"
     transfers: "التحويلات" #?
     transport: "وسيلة النقل"
     transporter: "الناقلة"
     transporter_id: "ناقل" #?
-    # transporter_purchase: "Transporter purchase"
-    # transporter_sales: "Transporter sales"
+    transporter_purchase: "شراء نقل"
+    transporter_sales: "مبيعات نقل"
     transporters: "ناقلات الشحن" #?
     transports: "وسائل النقل"
     type: "النوع"
-    # unconfirmed_email: "Unconfirmed email"
+    unconfirmed_email: "البريد الإلكتروني غير مؤكد"
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة" #?
-    # unit_amount: "Unit amount"
-    # unit_currency: "Unit currency"
+    unit_amount: "كمية وحدة"
+    unit_currency: "العملة وحدة"
     unit_id: "وحدة" #?
-    # unit_name: "Unit name"
-    # unit_population: "Unit population"
-    # unit_pretax_amount: "Unit pre-tax amount"
+    unit_name: "إسم الوحدة"
+    unit_population: "السكان وحدة"
+    unit_pretax_amount: "وحدة الكمية قبل الضريبة"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
-    # unlock_token: "Unlock token"
-    # unlocked_payments: "Unlocked payments"
-    # unpaid_sales: "Unpaid sales"
-    # unpointed_journal_entry_items: "Unpointed journal entry items"
+    unlock_token: "فتح رمز"
+    unlocked_payments: "المدفوعات مقفلة"
+    unpaid_sales: "مبيعات غير المدفوعة"
+    unpointed_journal_entry_items: "البنود دخول مجلة مهمل"
     unquantifiable: "غير قابل للقياس" #?
-    # unread_notifications: "Unread notifications"
+    unread_notifications: "الإخطارات غير مقروءة"
     updated_at: "تم تحديثه في"
     updater: "التحديث"
     updater_id: "التحديث" #?
-    # uploaded: "Uploaded"
+    uploaded: "تم تحميلها"
     usable_incoming_payments: "دفعات ممكن استخدامها"
     usable_outgoing_payments: "مصروفات ممكن استخدامها" #?
     usage: "الاستخدام"
     usage_duration: "(مدة الاستخدام (ساعات" #?
-    # usage_limit_nature: "Used by type"
-    # usage_limit_on: "Used by on"
-    # usages: "Usages"
+    usage_limit_nature: "المستخدمة من قبل نوع"
+    usage_limit_on: "التي يستخدمها على"
+    usages: "الأعراف"
     use_range: "استخدام الكمية الفاصلة" #?
-    # used_for_affairs: "Used for affairs"
-    # used_for_gaps: "Used for gaps"
-    # useful_items: "Useful items"
+    used_for_affairs: "تستخدم للشؤون"
+    used_for_gaps: "تستخدم لالثغرات"
+    useful_items: "المواد المفيدة"
     user: "المستخدم"
     user_id: "المستخدم" #?
     users: "المستخدمين"
@@ -2094,40 +2094,40 @@ arb:
     # uuid: "UUID"
     value: "القيمة"
     value_format: "التصميم" #?
-    # variable_indicators_list: "Variable indicators list"
-    # variant: "Variant"
-    # variant_indicator: "Variant indicator"
-    # variant_unit: "Variant unit"
-    # variants: "Variants"
-    # variety: "Variety"
+    variable_indicators_list: "قائمة مؤشرات متغيرة"
+    variant: "مختلف"
+    variant_indicator: "مؤشر البديل"
+    variant_unit: "وحدة متغير"
+    variants: "المتغيرات"
+    variety: "تشكيلة"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
-    # vat_subjected: "VAT subjected"
+    vat_subjected: "ضريبة القيمة المضافة تعرض"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
-    # vendor_euid: "Vendor"
-    # versions: "Versions"
-    # view_parameters: "View parameters"
+    vendor_euid: "بائع"
+    versions: "إصدارات"
+    view_parameters: "مشاهدة المعلمات"
     virtual: "عملي" #?
     virtual_quantity: "الاسهم العملية" #?
-    # waiting_deliveries: "Waiting deliveries"
+    waiting_deliveries: "انتظار التسليم"
     webpass: "كلمة مرور الموقع الااكتروني" #?
     website: "الموقع الالكتروني" #?
-    # websites: "Websites"
-    # whole_duration: "Whole duration"
+    websites: "المواقع"
+    whole_duration: "مدة كل"
     with_accounting: "سجل الدفعات"
     with_commission: "تشمل عمولة"
-    # with_cultivation: "With cultivation"
+    with_cultivation: "مع زراعة"
     with_deposit: "استخدام الاقتطاعات المصرفية"
-    # with_supports: "With supports"
+    with_supports: "مع الدعم"
     with_tracking: "مع التتبع" #?
-    # with_transport: "With transport"
-    # work_number: "Work number"
-    # worker: "Worker"
-    # working_duration: "Working duration"
-    # working_periods: "Working periods"
-    # working_shape: "Working shape"
-    # working_zone: "Working zone"
-    # zone_memberships: "Zone memberships"
-    # zones: "Zones"
+    with_transport: "مع النقل"
+    work_number: "رقم العمل"
+    worker: "عامل"
+    working_duration: "مدة العمل"
+    working_periods: "فترات العمل"
+    working_shape: "شكل العمل"
+    working_zone: "منطقة العمل"
+    zone_memberships: "عضوية منطقة"
+    zones: "المناطق"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?
@@ -2140,9 +2140,9 @@ arb:
       # name: "%{variant}/%{activity} %{campaign} (%{state})"
       # name_without_variant: "%{activity} %{campaign} (%{state})"
       states:
-        # aborted: "Aborted"
-        # closed: "Closed"
-        # opened: "Opened"
+        aborted: "أجهض"
+        closed: "مغلق"
+        opened: "افتتح"
     affair:
       # bookkeep: "[%{resource} %{number}] From %{third}"
     bank_statement:  #?
@@ -2161,13 +2161,13 @@ arb:
       # bookkeep: "[%{resource} %{number}] From %{emission} to %{reception} %{description}"
     catalog:
       cost:
-        # name: "Use cost prices catalog"
+        name: "استخدام أسعار تكلفة الخدمات"
       default:
-        # name: "Default"
+        name: "افتراضي"
       purchase:
-        # name: "Purchase prices catalog"
+        name: "أسعار الشراء كتالوج"
       sale:
-        # name: "Sales prices catalog"
+        name: "أسعار كتالوج المبيعات"
     catalog_item:
       name: "%{product} / %{amount} %{currency}"
       no_range: "ليس هناك من فترة استراحة" #?
@@ -2356,12 +2356,12 @@ arb:
     delivery:
       state_machine:
         states:
-          # draft: "Draft"
-          # finished: "Finished"
-          # in_preparation: "In preparation"
-          # ordered: "Ordered"
-          # prepared: "Prepared"
-          # started: "Started"
+          draft: "مسودة"
+          finished: "تم الانتهاء من"
+          in_preparation: "قيد التحضير"
+          ordered: "أمر"
+          prepared: "أعدت"
+          started: "بدأت"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} دفعة %{mode} %{comment}"
@@ -2401,7 +2401,7 @@ arb:
     entity:
       client: "العميل"
       # no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
-      # no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
+      no_right_defined_for_this_part_of_the_application_and_this_user: "لا يمكنك الوصول إلى هذه الصفحة"
       supplier: "الممول"
     entity_event_nature:  #?
       usages: #?
@@ -2437,7 +2437,7 @@ arb:
         cash:
           # name: "Espèces"
         check:
-          # name: "Chèque"
+          name: "الاختيار"
         transfer:
           # name: "Virement"
     incoming_payment_use:  #?
@@ -2461,9 +2461,9 @@ arb:
       # entry_cancel: "Cancel of entry %{number}: %{name}"
       record_cancel: "الانعكاس السلبي للقطعة %{number} : %{name}" #?
       states:
-        # closed: "Closed"
-        # confirmed: "Confirmed"
-        # draft: "Draft"
+        closed: "مغلق"
+        confirmed: "مؤكد"
+        draft: "مسودة"
     listing_node:
       add_filter: " اضافة تصفية"
       all_columns: "-- جميع الاعمدة --"
@@ -2537,21 +2537,21 @@ arb:
     outgoing_payment_mode:
       default:
         cash:
-          # name: "Cash"
+          name: "السيولة النقدية"
         check:
-          # name: "Check"
+          name: "الاختيار"
         transfer:
-          # name: "Transfer"
+          name: "نقل"
     outgoing_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})" #?
     parcel:
       state_machine:
         states:
-          # draft: "Draft"
-          # given: "Given"
-          # in_preparation: "In preparation"
-          # ordered: "Ordered"
-          # prepared: "Prepared"
+          draft: "مسودة"
+          given: "معطى"
+          in_preparation: "قيد التحضير"
+          ordered: "أمر"
+          prepared: "أعدت"
     product:
       informations:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"
@@ -2646,23 +2646,23 @@ arb:
       label: "%{supplier} الى %{address}"
       purchase: "Achat"
       states:
-        # aborted: "Aborted"
-        # draft: "Draft estimate"
-        # estimate: "Sent estimate"
-        # invoice: "Invoice"
-        # order: "Order"
-        # refused: "Refused order"
+        aborted: "أجهض"
+        draft: "مشروع تقدير"
+        estimate: "تقدير أرسلت"
+        invoice: "فاتورة"
+        order: "طلب"
+        refused: "أجل رفض"
     purchase_item:
       name: "%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
       tracking: "رقم الحصة : %{serial}"
     purchase_nature:
       default:
-        # name: "Standard purchase"
+        name: "شراء قياسي"
     role:
       default:
-        # administrator: "Administrator"
-        # public: "Public"
+        administrator: "مدير"
+        public: "عامة"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       label:
@@ -2689,33 +2689,33 @@ arb:
         A: "الجاري" #?
         C: "منتهي" #?
         E: "مقدر" #?
-        # aborted: "Aborted"
-        # draft: "Draft estimate"
-        # estimate: "Sent estimate"
-        # invoice: "Invoice"
-        # order: "Order"
-        # refused: "Refused estimate"
+        aborted: "أجهض"
+        draft: "مشروع تقدير"
+        estimate: "تقدير أرسلت"
+        invoice: "فاتورة"
+        order: "طلب"
+        refused: "تقدير رفض"
     sale_item:
       building_can_not_transfer_product: "المنتج %{product} لا يأخذ خارج الخزينة %{building}, هذا ويحتوي %{contained_product} "
       can_not_use_this_tracking: "لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة "
       currency_is_not_sale_currency: "لا يتطابق سعر المنتج مع العملة المحددة للبيع"
       error_no_found_price: "لم يتم العثور على اي سعر لهذا المنتج من قائمة الرسوم الجمركية" #?
-      # no_product: "[No product]"
+      no_product: "[أي منتج]"
       reduction_at: "تخفيض بنسبة %{percent}% على : %{product}"
       tracking: "رقم الحصة : %{serial}"
     sale_nature:
       default:
-        # name: "Standard sale"
+        name: "بيع قياسية"
     sale_opportunity:
       state_machine:
         states:
-          # lost: "Lost"
-          # negociation: "Negociation"
-          # price_quote: "Price quote"
-          # prospecting: "Prospecting"
-          # qualification: "Qualification"
-          # value_proposition: "Value proposition"
-          # won: "Won"
+          lost: "ضائع"
+          negociation: "مفاوضات"
+          price_quote: "سعر الاقتباس"
+          prospecting: "تنقيب"
+          qualification: "المؤهل العلمي"
+          value_proposition: "قيمة العرض"
+          won: "وون"
     sales_invoice:  #?
       bookkeep: "[%{resource} %{number}] %{products} لاجل %{client} (%{sale})" #?
       label: #?
@@ -2725,28 +2725,28 @@ arb:
       no_product: "[لا لاي منتج]" #?
     sequence:
       default:
-        # affairs: "A[number|12]"
-        # animals: "ANI[year|4][number|4]"
-        # campaigns: "CAMP[number|4]"
-        # cash_transfers: "CT[year|4][number|4]"
-        # deliveries: "DL[year|4][number|8]"
-        # deposits: "D[year|4][number|4]"
-        # entities: "[number|8]"
-        # fixed_assets: "FA[number|7]"
-        # gaps: "G[number|12]"
-        # incoming_parcels: "REC[year|4][number|4]"
-        # incoming_payments: "IP[year|4][number|6]"
-        # interventions: "[number]"
-        # opportunities: "OP[year|4][number|6]"
-        # outgoing_parcels: "EXP[year|4][number|6]"
-        # outgoing_payments: "D[year|4][number|4]"
-        # plants: "PLANT[year|4][number|4]"
-        # products: "PR[number|11]"
-        # purchases: "PU[year|4][month|2][number|6]"
-        # sales: "SA[year|4][month|2][number|6]"
-        # sales_invoices: "SI[year|4][number|6]"
-        # subscriptions: "SUB[number|8]"
-        # transports: "TR[number|8]"
+        affairs: "A[number|12]"
+        animals: "ANI[year|4][number|4]"
+        campaigns: "CAMP[number|4]"
+        cash_transfers: "CT[year|4][number|4]"
+        deliveries: "DL[year|4][number|8]"
+        deposits: "D[year|4][number|4]"
+        entities: "[number|8]"
+        fixed_assets: "FA[number|7]"
+        gaps: "G[number|12]"
+        incoming_parcels: "REC[year|4][number|4]"
+        incoming_payments: "IP[year|4][number|6]"
+        interventions: "[number]"
+        opportunities: "OP[year|4][number|6]"
+        outgoing_parcels: "EXP[year|4][number|6]"
+        outgoing_payments: "D[year|4][number|4]"
+        plants: "PLANT[year|4][number|4]"
+        products: "PR[number|11]"
+        purchases: "PU[year|4][month|2][number|6]"
+        sales: "SA[year|4][month|2][number|6]"
+        sales_invoices: "SI[year|4][number|6]"
+        subscriptions: "SUB[number|8]"
+        transports: "TR[number|8]"
       periods:  #?
         cweek: "اسبوع" #?
         month: "شهر" #?
@@ -2767,9 +2767,9 @@ arb:
     task:
       state_machine:
         states:
-          # doing: "Doing"
-          # done: "Done"
-          # todo: "To do"
+          doing: "فعل"
+          done: "فعله"
+          todo: "لكى يفعل"
     tax:  #?
       amount_must_be_included_between_0_and_1: "يجب ان يكون مشتمل بين 1 و 0" #?
       natures: #?
@@ -2785,7 +2785,7 @@ arb:
       simplified: "مبسط" #?
       yearly: "سنوي" #?
     team:
-      # default: "Main team"
+      default: "فريق الرئيسي"
     tool:  #?
       natures: #?
         other: "اخرى" #?
