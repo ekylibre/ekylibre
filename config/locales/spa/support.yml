@@ -62,14 +62,14 @@ spa:
   http:
     errors:
       internal_server_error:
-        # hint: "The application encounters problems. Administrators have been notified for this problem."
-        # title: "We're sorry, but something went wrong"
+        hint: "La aplicación se encuentra con problemas. Los administradores han sido notificados para este problema."
+        title: "Lo lamentamos, pero algo salió mal"
       not_found:
-        # hint: "You may have mistyped the address or the page may have moved."
-        # title: "The page you were looking for doesn't exist"
+        hint: "Es posible que haya escrito mal la dirección o la página puede haber movido."
+        title: "La página que estás buscando no existe"
       unprocessable_entity:
-        # hint: "Maybe you tried to change something you didn't have access to."
-        # title: "The change you wanted was rejected"
+        hint: "Tal vez ha intentado cambiar algo que no tiene acceso."
+        title: "El cambio que quería fue rechazada"
   number:
     currency:
       format:
