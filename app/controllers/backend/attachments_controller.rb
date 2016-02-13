@@ -5,6 +5,10 @@ module Backend
 
     def create
       subject = params[:subject_type].constantize.find(params[:subject_id])
+      unless params[:attachments]
+        head :unprocessable_entity
+        return
+      end
       @attachment = subject.attachments.create!(params[:attachments].permit!)
       respond_to do |format|
         if @attachment.save(params)
@@ -28,7 +32,7 @@ module Backend
     end
 
     def show
-      @attachment = find_and_check
+      return unless (@attachment = find_and_check)
       if @attachment.document.file?
         render json: {
           document: {
@@ -42,7 +46,7 @@ module Backend
     end
 
     def destroy
-      @attachment = find_and_check
+      return unless (@attachment = find_and_check)
       document = @attachment.document
       @attachment.destroy
       document.destroy

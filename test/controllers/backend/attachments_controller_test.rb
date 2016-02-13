@@ -1,6 +1,6 @@
 require 'test_helper'
 module Backend
   class AttachmentsControllerTest < ActionController::TestCase
-    test_restfully_all_actions
+    test_restfully_all_actions create: { params: { subject_type: 'Entity', subject_id: 2 } }
   end
 end

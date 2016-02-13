@@ -34,7 +34,7 @@
               <property name="shape_svg" if="support.storage.shape" value="support.storage.shape_svg(srid: 2154)" type="svg" level="api"/>
               <property name="work_number" value="support.storage.work_number"/>
               <property name="variant_name" value="support.production.variant_name"/>
-              <property name="variant_variety" value="support.production.variant_variety"/>
+              <property name="variant_variety" value="support.production.cultivation_variety"/>
               <property name="implanted_at" if="support.implanted_at" value="support.implanted_at" type="datetime"/>
               <property name="harvested_at" if="support.harvested_at" value="support.harvested_at" type="datetime"/>
               <property name="grains_yield" if="support.grains_yield(:quintal)" value="support.grains_yield(:quintal).round(2)" type="measure"/>

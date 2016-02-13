@@ -94,7 +94,7 @@ class ActivityProduction < Ekylibre::Record::Base
     where('campaign_id = ?' \
           ' OR campaign_id IS NULL AND (' \
           "activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_start' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year >= EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) <= c.harvest_year AND c.harvest_year < EXTRACT(YEAR FROM ap.stopped_on))))" \
-            " OR activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_end' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year > EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) < c.harvest_year AND c.harvest_year <= EXTRACT(YEAR FROM ap.stopped_on))))" \
+          " OR activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_end' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year > EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) < c.harvest_year AND c.harvest_year <= EXTRACT(YEAR FROM ap.stopped_on))))" \
           ')', campaign.id, campaign.id, campaign.id)
   }
 
@@ -145,36 +145,36 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
-    end
-    if plant_farming?
-      self.support_shape ||= cultivable_zone.shape if cultivable_zone
-      if support_shape && !support
-        land_parcels = LandParcel.shape_matching(support_shape)
-                                 .where.not(id: ActivityProduction.select(:support_id))
-                                 .order(:id)
-        self.support = land_parcels.any? ? land_parcels.first : LandParcel.new
-        support.name = computed_support_name
-        support.initial_shape = support_shape
-        support.initial_born_at = started_on
-        support.variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
-        support.save!
+      if plant_farming?
+        self.support_shape ||= cultivable_zone.shape if cultivable_zone
+        if support_shape && !support
+          land_parcels = LandParcel.shape_matching(support_shape)
+                                   .where.not(id: ActivityProduction.select(:support_id))
+                                   .order(:id)
+          self.support = land_parcels.any? ? land_parcels.first : LandParcel.new
+          support.name = computed_support_name
+          support.initial_shape = support_shape
+          support.initial_born_at = started_on
+          support.variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+          support.save!
+        end
+        self.size = support_shape_area.in(size_unit_name)
+      elsif animal_farming?
+        unless support
+          self.support = AnimalGroup.new
+          support.name = computed_support_name
+          # FIXME: Need to find better category and population_counting...
+          nature = ProductNature.find_or_create_by!(variety: :animal_group, derivative_of: :animal, name: AnimalGroup.model_name.human, category: ProductNatureCategory.import_from_nomenclature(:cattle_herd), population_counting: :unitary)
+          variant = ProductNatureVariant.find_or_initialize_by(nature: nature, variety: :animal_group, derivative_of: :animal)
+          variant.name ||= nature.name
+          variant.unit_name ||= :unit.tl
+          variant.save! if variant.new_record?
+          support.variant = variant
+          support.derivative_of = self.activity.cultivation_variety
+          support.save!
+        end
+        self.size = size_value.in(size_unit_name)
       end
-      self.size = support_shape_area.in(size_unit_name)
-    elsif animal_farming?
-      unless support
-        self.support = AnimalGroup.new
-        support.name = computed_support_name
-        # FIXME: Need to find better category and population_counting...
-        nature = ProductNature.find_or_create_by!(variety: :animal_group, derivative_of: :animal, name: AnimalGroup.model_name.human, category: ProductNatureCategory.import_from_nomenclature(:cattle_herd), population_counting: :unitary)
-        variant = ProductNatureVariant.find_or_initialize_by(nature: nature, variety: :animal_group, derivative_of: :animal)
-        variant.name ||= nature.name
-        variant.unit_name ||= :unit.tl
-        variant.save! if variant.new_record?
-        support.variant = variant
-        support.derivative_of = self.activity.cultivation_variety
-        support.save!
-      end
-      self.size = size_value.in(size_unit_name)
     end
   end
 

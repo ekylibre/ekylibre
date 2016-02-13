@@ -775,7 +775,7 @@ Rails.application.routes.draw do
 
     resources :taxes, concerns: [:list, :unroll] do
       collection do
-        get :load
+        post :load
       end
     end
 

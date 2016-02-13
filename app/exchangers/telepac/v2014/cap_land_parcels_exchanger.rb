@@ -50,7 +50,7 @@ module Telepac
             cap_islet.save!
 
             # import into georeadings
-            label = 'I' + '-' + cap_islet.cap_statement.pacage_number.to_s + '-' +  cap_islet.cap_statement.campaign.harvest_year.to_s + '-' + cap_islet.islet_number.to_s
+            label = 'I' + '-' + cap_islet.cap_statement.pacage_number.to_s + '-' + cap_islet.cap_statement.campaign.harvest_year.to_s + '-' + cap_islet.islet_number.to_s
             georeadings_attributes = {
               name: label,
               number: label,

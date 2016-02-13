@@ -116,17 +116,17 @@ module Ekylibre
           elsif cz = CultivableZone.find_by(work_number: production_support_number)
             production_support_shape = cz.shape
             product = LandParcel.shape_covering(cz.shape, 0.02).first
-            #unless product
-            #  lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
-            #  product = LandParcel.create!(variant: lp_variant, work_number: cz.work_number,
-            #                              name: cz.work_number, initial_born_at: Time.now,
-            #                               initial_owner: Entity.of_company, initial_shape: cz.shape)
-            #  production_support_shape = product.shape
-            #end
-            # w.error "Cannot find support with number: #{number.inspect}"
+          # unless product
+          #  lp_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+          #  product = LandParcel.create!(variant: lp_variant, work_number: cz.work_number,
+          #                              name: cz.work_number, initial_born_at: Time.now,
+          #                               initial_owner: Entity.of_company, initial_shape: cz.shape)
+          #  production_support_shape = product.shape
+          # end
+          # w.error "Cannot find support with number: #{number.inspect}"
           # Existing Georeading in an existing cultivable zone
           elsif g = Georeading.find_by(number: production_support_number)
-            #find corresponding cultivable zone
+            # find corresponding cultivable zone
             cz = CultivableZone.shape_covering(g.content, 0.02).first
             production_support_shape = g.content
             product = LandParcel.shape_covering(production_support_shape, 0.02).first

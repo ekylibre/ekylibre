@@ -19,7 +19,6 @@
 #     - "backend/beehives#update"
 #     - "backend/building_divisions#take"
 #     - "backend/buildings#take"
-#     - "backend/cap_statements#list_cap_land_parcels"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
 #     - "backend/cells/cashes_balance_cells#show"
@@ -107,7 +106,6 @@
 #     - "backend/products#take"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
-#     - "backend/taxes#load"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
@@ -440,6 +438,7 @@ cap_statements:
     - "backend/cap_statements#index"
     - "backend/cap_statements#list"
     - "backend/cap_statements#list_cap_islets"
+    - "backend/cap_statements#list_cap_land_parcels"
     - "backend/cap_statements#show"
     - "backend/cap_statements#unroll"
   write:
@@ -1853,6 +1852,7 @@ taxes:
     - "backend/taxes#create"
     - "backend/taxes#destroy"
     - "backend/taxes#edit"
+    - "backend/taxes#load"
     - "backend/taxes#new"
     - "backend/taxes#update"
 
