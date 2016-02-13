@@ -1,8 +1,8 @@
-= main_toolbar do |t|
+- main_toolbar do |t|
   = t.edit resource
 
 = janus do |j|
-  = j.face :list do
+  - j.face :list do
     = cobbles do |c|
       - c.cobble :general_informations do
         = infos do
@@ -36,7 +36,7 @@
         = cobble_list(:cap_land_parcels)
 
   - if resource.cap_land_parcels.any?
-    = j.face :map do
+    - j.face :map do
       :ruby
         land_parcels = resource.cap_land_parcels.collect do |p|
           next unless p.shape
