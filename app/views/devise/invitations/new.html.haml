@@ -1,5 +1,3 @@
-%h2= t "devise.invitations.new.header"
-
 = simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post} do |f|
   = devise_error_messages!
   = f.input :first_name
@@ -9,4 +7,5 @@
   = f.input :email
 
   = f.submit t("devise.invitations.new.submit_button")
+  = link_to t("cancel"), :back, { class: 'btn' }
 

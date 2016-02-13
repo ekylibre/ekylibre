@@ -808,6 +808,9 @@ Rails.application.routes.draw do
     get :search, controller: :dashboards, as: :search
 
     root to: 'dashboards#home'
+
+    get :invitations, to: 'invitations#index'
+    get 'invitations/list', to: 'invitations#list'
   end
 
   root to: 'public#index'

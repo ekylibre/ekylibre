@@ -8,6 +8,8 @@ eng:
     authentication/sessions:
       destroy: "Log out" #?
       new: "New session"
+    authentication/invitations:
+      new: "New invitation"
     backend/accounts:
       edit: "Edit account: %{number} - %{name}"
       index: "Plan of accounts"
@@ -379,6 +381,8 @@ eng:
       index: "Incoming payments"
       new: "New incoming payment"
       show: "Incoming payment %{number} of %{entity}"
+    backend/invitations:
+      index: "Invitations"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
