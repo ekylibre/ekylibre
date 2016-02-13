@@ -16,7 +16,7 @@ jpn:
       default: "%Y/%m/%d"
       legal: "%d %B %Y"
       long: "%Y年%m月%d日(%a)"
-      # month: "%B %Y"
+      month: "％のBの％Y"
       month_letter: "%d %B %Y"
       short: "%m/%d"
     month_names: ["", "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
@@ -62,25 +62,25 @@ jpn:
   http:
     errors:
       internal_server_error:
-        # hint: "The application encounters problems. Administrators have been notified for this problem."
-        # title: "We're sorry, but something went wrong"
+        hint: "アプリケーションでは、問題が発生しました。管理者は、この問題のために通知されています。"
+        title: "申し訳ございません。不具合が発生しました"
       not_found:
-        # hint: "You may have mistyped the address or the page may have moved."
-        # title: "The page you were looking for doesn't exist"
+        hint: "あなたは、アドレスが間違って入力されているか、ページが移動した可能性があります。"
+        title: "あなたが探していたページは存在しません。"
       unprocessable_entity:
-        # hint: "Maybe you tried to change something you didn't have access to."
-        # title: "The change you wanted was rejected"
+        hint: "たぶん、あなたはあなたがアクセス権を持っていなかった何かを変更しようとしました。"
+        title: "あなたが望んでいた変更が拒否されました"
   number:
     currency:
       format:
-        delimiter: ""
+        delimiter: "、"
         format: "%u%n"
         negative_format: "-%u%n"
         precision: 2
         separator: "."
         unit: "⁈"
     format:
-      delimiter: " "
+      delimiter: "、"
       precision: 3
       separator: "."
     formats:  #?

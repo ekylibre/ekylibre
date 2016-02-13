@@ -2,57 +2,57 @@ jpn:
   devise:
     confirmations:
       new:
-        # resend_confirmation_instructions: "Resend confirmation instructions"
+        resend_confirmation_instructions: "確認の指示を再送信"
     mailer:
       confirmation_instructions:
-        # action: "Confirm my account"
+        action: "アカウントの確認"
         # greeting: "Welcome %{recipient}!"
-        # instruction: "You can confirm your account email through the link below:"
-        # subject: "Confirmation instructions"
+        instruction: "あなたは、以下のリンクからアカウントのメールを確認することができます。"
+        subject: "確認命令"
       reset_password_instructions:
-        # action: "Change my password"
+        action: "私のパスワードを変更"
         # greeting: "Hello %{recipient}!"
-        # instruction: "Someone has requested a link to change your password, and you can do this through the link below."
-        # instruction_2: "If you didn't request this, please ignore this email."
-        # instruction_3: "Your password won't change until you access the link above and create a new one."
-        # subject: "Reset password instructions"
+        instruction: "誰かがパスワードを変更するためのリンクを要求している、とあなたは下のリンクを介してこれを行うことができます。"
+        instruction_2: "あなたがこれを要求していない場合は、このメールを無視してください。"
+        instruction_3: "あなたのパスワードは、上記のリンクにアクセスするまで変更し、新しいものを作成しません。"
+        subject: "パスワード命令をリセット"
       unlock_instructions:
-        # action: "Unlock my account"
+        action: "アカウントのロックを解除"
         # greeting: "Hello %{recipient}!"
-        # instruction: "Click the link below to unlock your account:"
-        # message: "Your account has been locked due to an excessive amount of unsuccessful sign in attempts."
-        # subject: "Unlock Instructions"
+        instruction: "アカウントのロックを解除するには、以下のリンクをクリックしてください："
+        message: "アカウントが原因の試みに失敗記号の過剰にロックされています。"
+        subject: "命令のロックを解除"
     passwords:
       edit:
-        # change_my_password: "Change my password"
-        # change_your_password: "Change your password"
-        # confirm_new_password: "Confirm new password"
-        # new_password: "New password"
+        change_my_password: "私のパスワードを変更"
+        change_your_password: "パスワードを変更してください"
+        confirm_new_password: "新しいパスワードを確認"
+        new_password: "新しいパスワード"
       new:
-        # forgot_your_password: "Forgot your password?"
-        # send_me_reset_password_instructions: "Send me reset password instructions"
+        forgot_your_password: "パスワードをお忘れですか？"
+        send_me_reset_password_instructions: "パスワードのリセット手順を私に送ります"
     registrations:
       edit:
-        # are_you_sure: "Are you sure?"
-        # cancel_my_account: "Cancel my account"
-        # leave_blank_if_you_don_t_want_to_change_it: "Leave blank if you dont want to change it"
+        are_you_sure: "本気ですか？"
+        cancel_my_account: "アカウントをキャンセル"
+        leave_blank_if_you_don_t_want_to_change_it: "あなたはそれを変更したくない場合は空白のまま"
         # title: "Edit %{resource}"
-        # unhappy: "Unhappy"
-        # update: "Update"
-        # we_need_your_current_password_to_confirm_your_changes: "we need your current password to confirm your changes"
+        unhappy: "不幸"
+        update: "更新"
+        we_need_your_current_password_to_confirm_your_changes: "私たちはあなたの変更を確認するために現在のパスワードを必要とします"
       new:
-        # sign_up: "Sign up"
+        sign_up: "サインアップ"
     sessions:
       new:
-        # sign_in: "Sign in"
+        sign_in: "サインイン"
     shared:
       links:
-        # didn_t_receive_confirmation_instructions: "Didn't receive confirmation instructions?"
-        # didn_t_receive_unlock_instructions: "Didn't receive unlock instructions?"
-        # forgot_your_password: "Forgot your password?"
-        # sign_in: "Sign in"
+        didn_t_receive_confirmation_instructions: "確認メールがまだ届きませんか？"
+        didn_t_receive_unlock_instructions: "ロック解除命令を受信しませんでしたか？"
+        forgot_your_password: "パスワードをお忘れですか？"
+        sign_in: "サインイン"
         # sign_in_with_provider: "Sign in with %{provider}"
-        # sign_up: "Sign up"
+        sign_up: "サインアップ"
     unlocks:
       new:
-        # resend_unlock_instructions: "Resend unlock instructions"
+        resend_unlock_instructions: "ロック解除命令を再送信"
