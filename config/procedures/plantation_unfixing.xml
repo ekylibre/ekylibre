@@ -2,15 +2,12 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plantation_unfixing" categories="crop_maintenance, harvesting" actions="plantation_unfixing">
     <parameters>
-      <parameter name="driver" type="doer" filter="can move"/>
-      <parameter name="cultivation" type="target" default-shape=":cultivation" default-actor="variant_localized_in_storage">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, cultivation.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
-      <parameter name="tractor" type="tool" filter="is equipment and can tow(equipment)"/>
-      <parameter name="compressor" type="tool" filter="is equipment and can blow"/>
+      <target name="cultivation" filter="is plant and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <tool name="compressor" filter="is equipment and can blow" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
+      <doer name="driver"  filter="is worker and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

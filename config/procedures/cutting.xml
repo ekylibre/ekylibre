@@ -2,10 +2,12 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="cutting" categories="crop_maintenance" actions="cutting">
     <parameters>
-      <parameter name="tractor" type="tool" filter="can catch(equipment)"/>
-      <parameter name="cutter" type="tool" filter="can cut"/>
-      <parameter name="cultivation" type="target" filter="is plant"/>
-      <parameter name="driver" type="doer" filter="can drive(tractor)"/>
+      <target name="cultivation" filter="is plant and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <tool name="cutter" filter="is equipment and can cut" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can catch(equipment)" cardinality="*"/>
+      <doer name="driver"  filter="is worker and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
