@@ -15,10 +15,10 @@
         <!-- looking for all CultivableZone -->
         <sections for="zone" in="CultivableZone.all.reorder(:work_number)" of-type="record">
           <title name="name" of="zone"/>
-          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).shape_overlapping(zone.shape)"/>
+          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).shape_within(zone.shape)"/>
           <property name="work_number" of="zone"/>
           <property name="uuid" of="zone"/>
-          <property name="islet_number" if="CapIslet.of_campaign(campaign).shape_overlapping(zone.shape).first" value="CapIslet.of_campaign(campaign).shape_overlapping(zone.shape).first.islet_number"/>
+          <property name="islet_number" if="CapIslet.of_campaign(campaign).shape_intersecting(zone.shape)" value="CapIslet.of_campaign(campaign).shape_intersecting(zone.shape).pluck(:islet_number).to_sentence"/>
           <property name="net_surface_area" value="zone.net_surface_area(:hectare).round(3).l" type="measure"/>
           <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
