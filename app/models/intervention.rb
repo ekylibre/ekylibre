@@ -181,9 +181,19 @@ class Intervention < Ekylibre::Record::Base
     procedure
   end
 
-  # Returns parameter names
+  # Returns human target names
   def human_target_names
     targets.map(&:product).compact.map(&:work_name).sort.to_sentence
+  end
+
+  # Returns human doer names
+  def human_doer_names
+    doers.map(&:product).compact.map(&:work_name).sort.to_sentence
+  end
+
+  # Returns human tool names
+  def human_tool_names
+    tools.map(&:product).compact.map(&:work_name).sort.to_sentence
   end
 
   def name
