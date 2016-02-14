@@ -11,60 +11,62 @@
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
-        <!-- looking for all CultivableLandParcel in current campaign -->
-        <sections for="zone" in="CultivableZone.of_campaign(campaign)" of-type="record">
+        <!-- looking for all CultivableZone in current campaign -->
+        <sections for="zone" in="CultivableZone.all.reorder(:work_number)" of-type="record">
           <title name="name" of="zone"/>
+          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).shape_within(zone.shape)"/>
           <property name="work_number" of="zone"/>
-          <property name="clusters_work_number" of="zone" value="cap_number"/>
-          <property name="soil_varieties" of="zone"/>
-          <property name="net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure"/>
+          <property name="uuid" of="zone"/>
+          <property name="islet_number" if="CapIslet.of_campaign(campaign).shape_intersecting(zone.shape)" value="CapIslet.of_campaign(campaign).shape_intersecting(zone.shape).pluck(:islet_number).to_sentence"/>
+          <property name="net_surface_area" value="zone.net_surface_area(:hectare).round(3).l" type="measure"/>
           <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
-          <property name="shape_svg" value="zone.shape_svg(srid: 2154)" type="svg" level="api"/>
-          <!-- looking for all Production in current zone and campaign -->
-          <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
-            <title name="storage_name" of="support"/>
-            <property name="variant_name" value="support.production.variant_name"/>
-            <property name="variant_variety" value="support.production.variant_variety"/>
+          <property name="shape_svg" value="zone.shape.to_svg(srid: 2154)" type="svg" level="api"/>
+          <!-- looking for all ActivityProduction in current zone and campaign -->
+          <sections for="support" in="zone.activity_productions.of_campaign(campaign)" of-type="record">
+            <title name="support_name" of="support"/>
+            <property name="support_irrigated" value="support.irrigated"/>
+            <property name="support_nitrate_fixing" value="support.nitrate_fixing"/>
+            <property name="support_nature" value="support.support_nature.l"/>
+            <property name="support_variety" value="support.cultivation_variety.l"/>
             <property name="implanted_at" if="support.implanted_at" value="support.implanted_at" type="datetime"/>
             <property name="harvested_at" if="support.harvested_at" value="support.harvested_at" type="datetime"/>
             <property name="grains_yield" if="support.grains_yield(:quintal)" value="support.grains_yield(:quintal).round(2)" type="measure"/>
             <property name="vine_yield" if="support.vine_yield(:hectoliter)" value="support.vine_yield(:hectoliter).round(2)" type="measure"/>
             <property name="provisional_yield" if="support.get(:mass_area_yield)" value="support.get(:mass_area_yield).l" type="measure"/>
-
-            <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="intervention" in="support.interventions.real.done.reorder(:started_at)" of-type="record">
-              <variable name="target_cast" value="intervention.targets.first"/>
-              <variable name="target" value="target_cast.actor"/>
-              <title name="name" of="intervention"/>
-              <property name="id" of="intervention" level="api"/>
-              <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
-              <property name="status" of="intervention"/>
-              <property name="casting" of="intervention" level="api"/>
-              <title name="target_name" value="target.name"/>
-              <property name="started_at" of="intervention" type="datetime"/>
-              <property name="stopped_at" of="intervention" type="datetime"/>
-              <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
-              <section name="issue" of="intervention.issue">
-                <property name="id" level="api"/>
-                <property name="name"/>
-                <property name="observed_at"/>
-                <property name="state" level="api"/>
-                <property name="description"/>
-              </section>
-              <matrix name="inputs" for="input" in="intervention.inputs">
-                <cell name="id" of="input" level="api"/>
-                <within of="input.actor">
-                  <cell name="name"/>
-                  <cell name="nature_name"/>
-                  <cell name="variety" level="api"/>
-                </within>
-                <cell name="population" of="input" />
-                <cell name="unit_name" value="input.actor.unit_name" />
-              </matrix>
-            </sections>
-            <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
           </sections>
+          <!-- looking for all interventions with cultivable zone and targets -->
+          <sections for="intervention" in="Intervention.real.done.with_targets(targets).reorder(:started_at)" of-type="record">
+            <title name="name" of="intervention"/>
+		    <property name="id" of="intervention" level="api"/>
+		    <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
+		    <property name="started_at" value="intervention.started_at" type="datetime"/>
+		    <property name="stopped_at" value="intervention.stopped_at" type="datetime"/>
+		    <property name="working_duration" if="intervention.working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
+		    <property name="working_zone_area" if="intervention.working_zone_area" value="intervention.working_zone_area.round(2).l" type="measure"/>
+	        <property name="targets_name" value="intervention.human_target_names"/>
+	        <property name="doers_name" value="intervention.human_doer_names"/>
+	        <property name="tools_name" value="intervention.human_tool_names"/>
+	        <section name="issue" of="intervention.issue">
+	          <property name="id" level="api"/>
+	          <property name="nature"/>
+	          <property name="observed_at"/>
+	          <property name="state" level="api"/>
+	          <property name="description"/>
+	        </section>
+            <matrix name="actors" for="actor" in="intervention.parameters">
+              <cell name="id" of="actor" level="api" />
+              <cell name="quantity" if="actor.quantity_population" value="actor.quantity.l" type="measure" />
+              <cell name="working_zone" if="actor.working_zone" value="actor.working_zone.area.convert(:hectare).round(2).l" type="measure" />
+	          <within of="actor.product">
+	            <cell name="name"/>
+	            <cell name="variant_name"/>
+	            <cell name="variety" level="api"/>
+	          </within>
+	          <!-- <cell name="quantity" if="input.quantity" value="input.quantity.l" type="measure" /> -->
+            </matrix>
+          </sections>
+          <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
         </sections>
       </sections>
     </section>
