@@ -64,7 +64,7 @@ Rails.application.routes.draw do
   end
 
   # No namespace because authentication is for all sides
-  devise_for :users, path: 'authentication', module: :authentication
+  devise_for :users, path: 'authentication', module: :authentication, skip: [:invitations]
 
   namespace :pasteque do
     # namespace :v6 do
@@ -811,6 +811,8 @@ Rails.application.routes.draw do
 
     get :invitations, to: 'invitations#index'
     get 'invitations/list', to: 'invitations#list'
+    get 'invitations/new', to: 'invitations#new'
+    post 'invitations', to: 'invitations#create'
   end
 
   root to: 'public#index'

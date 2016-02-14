@@ -29,5 +29,26 @@ module Backend
       t.column :role, url: true
       t.column :invitation_status
     end
+
+    def new
+      @invitation = User.new
+      @form_url = backend_invitations_path
+    end
+
+    def create
+      @invitation = User.invite!(invite_params, current_user)
+
+      if @invitation.errors.empty?
+        redirect_to backend_invitations_path
+      else
+        render :new
+      end
+    end
+
+    private
+
+    def invite_params
+      params.require(:user).permit(:first_name, :last_name, :language, :role_id, :email)
+    end
   end
 end
