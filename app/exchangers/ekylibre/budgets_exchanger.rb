@@ -50,6 +50,8 @@ module Ekylibre
         end
 
         cultivation_variety ||= Nomen::Variety.find(cultivation_variant.variety) if cultivation_variant
+        
+        # puts cultivation_variety.inspect.red
 
         if support_variant_reference_name
           unless support_variant = ProductNatureVariant.find_by(number: support_variant_reference_name) ||
@@ -57,9 +59,16 @@ module Ekylibre
             support_variant = ProductNatureVariant.import_from_nomenclature(support_variant_reference_name)
           end
         end
-
-        # find or create activity
+        
+        # get activity by name or variety
         unless activity = Activity.find_by(name: activity_name[0].strip)
+          activity = Activity.find_by(cultivation_variety: cultivation_variety.name.to_s) if cultivation_variety
+        end
+        
+        # puts activity.inspect.green
+        
+        # find or create activity
+        unless activity
           family_name = activity_name[1].strip.to_sym if activity_name[1].present?
           family = if family_name
                      Nomen::ActivityFamily.find(transcode_activity_family(family_name) || family_name)
