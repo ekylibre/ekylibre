@@ -7,6 +7,7 @@ class visualization.Simple
     group = []
     for zone in @data
       zoneLayer = new L.GeoJSON(zone.shape, globalStyle)
+      zoneLayer.bindLabel(zone.name, globalStyle)
       widget._bindPopup(zoneLayer, zone)
       group.push(zoneLayer)
     group
