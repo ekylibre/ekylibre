@@ -73,14 +73,14 @@ jpn:
   number:
     currency:
       format:
-        delimiter: "、"
+        delimiter: ","
         format: "%u%n"
         negative_format: "-%u%n"
         precision: 2
         separator: "."
         unit: "⁈"
     format:
-      delimiter: "、"
+      delimiter: ","
       precision: 3
       separator: "."
     formats:  #?
@@ -104,9 +104,9 @@ jpn:
       two_words_connector: "と"
       words_connector: "と"
   time:
-    am: "am"
+    am: "午前"
     formats:
       default: "%Y/%m/%d %H:%M:%S"
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
-    pm: "pm"
+    pm: "午後"
