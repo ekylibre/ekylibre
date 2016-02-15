@@ -34,7 +34,7 @@ arb:
     financial_year_name: "اسم السنة المالية"
     financial_years: "السنوات المالية"
     grains_yield: "العائد الحبوب"
-    human_roles: "أدوار الإنسان"
+    human_roles: "أدوار الإنسان" #?
     intervention_durations: "مدد تدخل"
     loss_balance: "ميزان الخسارة"
     losses: "خسائر"
@@ -60,13 +60,13 @@ arb:
     raw_matters_stocks_variation: "يهم الخام الأسهم الاختلاف"
     sex: "جنس"
     social_expenses: "النفقات الاجتماعية"
-    soil_varieties: "أصناف التربة"
+    soil_varieties: "أصناف التربة" #?
     stock_production: "إنتاج الأوراق المالية"
     stocks_variation: "الأسهم الاختلاف"
     subsidies: "الدعم"
-    target_name: "اسم الهدف"
-    variable_name: "اسم المتغير"
+    target_name: "اسم الهدف" #?
+    variable_name: "اسم المتغير" #?
     variant_name: "اسم البديل"
-    variant_variety: "متنوعة متفاوتة"
+    variant_variety: "متنوعة متفاوتة" #?
     vine_yield: "العائد كرمة"
     wages: "أجور"

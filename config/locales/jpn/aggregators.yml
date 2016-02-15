@@ -34,7 +34,7 @@ jpn:
     financial_year_name: "会計年度の名前"
     financial_years: "ファイナンシャル年"
     grains_yield: "穀物収量"
-    human_roles: "人間の役割"
+    human_roles: "人間の役割" #?
     intervention_durations: "介入期間"
     loss_balance: "損失残高"
     losses: "損失"
@@ -60,13 +60,13 @@ jpn:
     raw_matters_stocks_variation: "生は、株式の変動を重要"
     sex: "セックス"
     social_expenses: "交際費"
-    soil_varieties: "土壌の品種"
+    soil_varieties: "土壌の品種" #?
     stock_production: "在庫生産"
     stocks_variation: "株式の変動"
     subsidies: "補助金"
-    target_name: "ターゲット名"
-    variable_name: "変数名"
+    target_name: "ターゲット名" #?
+    variable_name: "変数名" #?
     variant_name: "バリアント名"
-    variant_variety: "バリアント多様"
+    variant_variety: "バリアント多様" #?
     vine_yield: "バイン収量"
     wages: "賃金"

@@ -39,7 +39,7 @@ fra:
     financial_year_name: "Exercice comptable"
     financial_years: "Exercices comptables"
     grains_yield: "Rendement en grains"
-    human_roles: "Roles"
+    human_roles: "Roles" #?
     intervention_durations: "Durées d'intervention"
     loss_balance: "Solde de perte"
     losses: "Pertes"
@@ -80,15 +80,15 @@ fra:
     recommender_mail_coordinate: "Adresse du préconisateur" #?
     sex: "Sexe"
     social_expenses: "Charges sociales"
-    soil_varieties: "Variétés de sol"
+    soil_varieties: "Variétés de sol" #?
     sowed_at: "Semé le" #?
     stock_production: "Production de stock"
     stocks_variation: "Variation de stocks"
     subsidies: "Subventions"
-    target_name: "Cible"
-    variable_name: "Variable"
+    target_name: "Cible" #?
+    variable_name: "Variable" #?
     variant_name: "Variante"
-    variant_variety: "Variété de la variante"
+    variant_variety: "Variété de la variante" #?
     vine_yield: "Rendement en vin"
     wages: "Salaires"
   aggregators:  #?

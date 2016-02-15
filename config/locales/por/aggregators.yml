@@ -40,7 +40,7 @@ por:
     financial_year_name: "Nome ano fiscal"
     financial_years: "Anos fiscais"
     grains_yield: "Rendimento de grãos"
-    human_roles: "Regras de pessoa"
+    human_roles: "Regras de pessoa" #?
     incoming_quantity: "Quantidade a receber" #?
     input_quantity: "Quantidade de entrada" #?
     input_unit_name: "Nome unidade de entrada" #?
@@ -85,16 +85,16 @@ por:
     sender_address: "Endereço emitente" #?
     sex: "Sexo"
     social_expenses: "Despesas sociais"
-    soil_varieties: "Variedades de solo"
+    soil_varieties: "Variedades de solo" #?
     sowed_at: "Semeado em" #?
     stock_production: "Produção em estoque"
     stocks_variation: "Variação de estoque"
     subsidies: "Subsidios"
-    target_name: "Nome alvo"
+    target_name: "Nome alvo" #?
     unitary_quantity: "Quantidade unitária" #?
-    variable_name: "Nome variável"
+    variable_name: "Nome variável" #?
     variant_name: "Nome da variante"
-    variant_variety: "Variedade de variantes"
+    variant_variety: "Variedade de variantes" #?
     vine_yield: "Produção por planta"
     wages: "Salários"
     working_area: "Área de trabalho" #?

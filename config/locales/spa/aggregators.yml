@@ -34,7 +34,7 @@ spa:
     financial_year_name: "Nombre del ejercicio"
     financial_years: "Ejercicios"
     grains_yield: "Rendimiento de granos"
-    human_roles: "Papeles humanos"
+    human_roles: "Papeles humanos" #?
     intervention_durations: "Duraciones de intervención"
     loss_balance: "Pérdida de equilibrio"
     losses: "Pérdidas"
@@ -60,13 +60,13 @@ spa:
     raw_matters_stocks_variation: "Prima importa variación de existencias"
     sex: "Sexo"
     social_expenses: "Los gastos sociales"
-    soil_varieties: "Variedades de suelos"
+    soil_varieties: "Variedades de suelos" #?
     stock_production: "De la producción"
     stocks_variation: "Variación de las existencias"
     subsidies: "Subsidios"
-    target_name: "Nombre del Destinatario"
-    variable_name: "Nombre de la variable"
+    target_name: "Nombre del Destinatario" #?
+    variable_name: "Nombre de la variable" #?
     variant_name: "Nombre variante"
-    variant_variety: "Variedad variante"
+    variant_variety: "Variedad variante" #?
     vine_yield: "El rendimiento de la vid"
     wages: "Salario"

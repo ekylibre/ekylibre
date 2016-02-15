@@ -34,7 +34,7 @@ cmn:
     financial_year_name: "会计年度名称"
     financial_years: "财政年度"
     grains_yield: "谷物产量"
-    human_roles: "人的角色"
+    human_roles: "人的角色" #?
     intervention_durations: "干预的持续时间"
     loss_balance: "盈亏平衡"
     losses: "损失"
@@ -60,13 +60,13 @@ cmn:
     raw_matters_stocks_variation: "原材料股重要变化"
     sex: "性别"
     social_expenses: "社会性支出"
-    soil_varieties: "土品种"
+    soil_varieties: "土品种" #?
     stock_production: "按库存生产"
     stocks_variation: "库存变化"
     subsidies: "补贴"
-    target_name: "指标名称"
-    variable_name: "变量名"
+    target_name: "指标名称" #?
+    variable_name: "变量名" #?
     variant_name: "版本名称"
-    variant_variety: "变异品种"
+    variant_variety: "变异品种" #?
     vine_yield: "葡萄产量"
     wages: "工资"
