@@ -59,6 +59,7 @@ fra:
     net_mass_in_ton: "Masse nette en tonnes" #?
     net_volume: "Volume" #?
     net_volume_in_liter: "Volume net en litre" #?
+    nitrogen: "Unités d’azote par surface" #?
     nitrogen_unities_density: "Unités d’azote par surface" #?
     phosphorus_unities_density: "Unités de phosphore par surface" #?
     plants_count: "Nombre de plantes" #?
@@ -69,7 +70,7 @@ fra:
     sulfur_dioxide_density: "Dioxyde de soufre par volume" #?
     surface_area_percentage: "% de surface couverte" #?
     volume_area_density: "Densité surfacique" #?
-    volume_area_density_in_liter_per_square_meter: "Densité volumoqie en litres par mètre carré" #?
+    volume_area_density_in_liter_per_square_meter: "Densité volumique en litres par mètre carré" #?
     volume_density: "Densité volumique" #?
   procedure_parameters:
     adding_wine: "Vin (mineur)"
