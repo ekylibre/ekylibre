@@ -7,6 +7,18 @@ module Procedo
         def population_counting_is(product, expected)
           ((product && product.population_counting.to_sym) == expected ? 1 : 0)
         end
+        
+        # return a sum of population
+        def population_count(set)
+          list = set.map do |parameter|
+            unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
+              raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
+            end
+            (parameter.product ? parameter.product.population : nil)
+          end
+          return 0.0 if list.empty?
+          list.compact.sum
+        end
 
         # Sums indicator values for a set of product
         def sum(set, indicator_name, unit = nil)
