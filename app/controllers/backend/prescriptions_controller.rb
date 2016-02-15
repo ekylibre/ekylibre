@@ -19,7 +19,8 @@
 module Backend
   class PrescriptionsController < Backend::BaseController
     manage_restfully
-
+    manage_restfully_picture
+    
     unroll
 
     list do |t|
