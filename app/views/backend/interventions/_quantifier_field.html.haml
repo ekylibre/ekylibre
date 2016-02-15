@@ -5,7 +5,7 @@
       - [Nomen::Unit.find(:unity).human_name, handler.name]
     - elsif handler.widget == :number
       - unit = handler.unit? ? handler.unit : Nomen::Unit.find(:unity)
-      - ["#{unit.symbol} (#{handler.indicator.human_name})", handler.name]
+      - ["#{unit.symbol} (#{handler.human_name})", handler.name]
     - else
       - fail "Cannot handler #{handler.widget} handlers"
   = f.input(:quantity, wrapper: :append) do
