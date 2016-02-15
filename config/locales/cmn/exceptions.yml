@@ -1,0 +1,3 @@
+cmn:
+  exceptions:
+    pg/undefined_table: "未定义的表"

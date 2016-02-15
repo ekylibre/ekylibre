@@ -1,0 +1,12 @@
+cmn:
+  formats:
+    csv: "CSV文本"
+    doc: "Microsoft Word 97中/ 2000 / XP / 2003"
+    docx: "微软的Word 2007/2010"
+    # json: "JSON"
+    ods: "ODF电子表格"
+    odt: "ODF文本"
+    pdf: "PDF文件"
+    xls: "Microsoft Excel 97中/ 2000 / XP / 2003"
+    xlsx: "Microsoft Excel中2007/2010"
+    # xml: "XML"

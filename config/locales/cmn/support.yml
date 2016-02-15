@@ -1,0 +1,116 @@
+cmn:
+  about:
+    authors: ["Brice Texier"]
+    dir: "ltr"
+    iso2: "zn"
+    name: "官話"
+  boolean:
+    human:
+      false_class: "假"
+      true_class: "真正"
+  date:
+    abbr_day_names: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
+    abbr_month_names: ["", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+    day_names: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+    formats:
+      default: "%Y-%m-%d"
+      legal: "%d %B %Y"
+      long: "%Y年%b%d日"
+      month: "%B %Y"
+      month_letter: "%d %B %Y"
+      short: "%b%d日"
+    month_names: ["", "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: "大约一小时"
+        other: "大约 %{count} 小时"
+      about_x_months:
+        one: "大约一个月"
+        other: "大约 %{count} 个月"
+      about_x_years:
+        one: "大约一年"
+        other: "大约 %{count} 年"
+      almost_x_years:
+        one: "接近一年"
+        other: "接近 %{count} 年"
+      half_a_minute: "半分钟"
+      less_than_x_minutes:
+        one: "不到一分钟"
+        other: "不到 %{count} 分钟"
+      less_than_x_seconds:
+        one: "不到一秒"
+        other: "不到 %{count} 秒"
+      over_x_years:
+        one: "一年多"
+        other: "%{count} 年多"
+      x_days:
+        one: "一天"
+        other: "%{count} 天"
+      x_minutes:
+        one: "一分钟"
+        other: "%{count} 分钟"
+      x_months:
+        one: "一个月"
+        other: "%{count} 个月"
+      x_seconds:
+        one: "一秒"
+        other: "%{count} 秒"
+    prompts:  #?
+      day: "日" #?
+      hour: "时" #?
+      minute: "分" #?
+      month: "月" #?
+      second: "秒" #?
+      year: "年" #?
+    relative_distance_in_words:
+      # in_sometime: "in %{distance}"
+      # sometime_ago: "%{distance} ago"
+  http:
+    errors:
+      internal_server_error:
+        hint: "应用程序遇到问题。管理员已经被告知了这个问题。"
+        title: "我们很抱歉，但是出现了一些问题"
+      not_found:
+        hint: "您可能输入了错误的地址或网页可能已移动。"
+        title: "您正在寻找不存在的页面"
+      unprocessable_entity:
+        hint: "也许你想改变的东西你没有访问。"
+        title: "你想改变被拒绝"
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u %n"
+        negative_format: "-％联合国"
+        precision: 2
+        separator: "."
+        unit: "CN¥"
+    format:
+      delimiter: ","
+      precision: 3
+      separator: "."
+    human:
+      format:
+        delimiter: ""
+        precision: 1
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+  rank: "#%{number}"
+  support:
+    array:
+      last_word_connector: ", 和 "
+      sentence_connector: "和"
+      two_words_connector: " 和 "
+      words_connector: ", "
+  time:
+    am: "上午"
+    formats:
+      default: "%Y年%b%d日 %A %H:%M:%S %Z"
+      long: "%Y年%b%d日 %H:%M"
+      short: "%b%d日 %H:%M"
+    pm: "下午"

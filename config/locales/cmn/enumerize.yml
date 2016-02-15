@@ -1,0 +1,208 @@
+cmn:
+  enumerize:
+    activity:
+      nature:
+        auxiliary: "辅"
+        main: "主要"
+        standalone: "独立"
+      production_campaign:
+        at_cycle_end: "在周期结束"
+        at_cycle_start: "在周期开始"
+      production_cycle:
+        annual: "全年"
+        perennial: "多年生"
+    activity_budget_item:
+      computation_method:
+        per_campaign: "每个广告系列"
+        per_production: "每生产"
+        per_working_unit: "每工作单位"
+    activity_production:
+      support_nature:
+        border: "边境"
+        buffer: "缓冲"
+        cultivation: "养殖"
+        fallow_land: "熟荒"
+        none: "无"
+    cash:
+      mode:
+        bban: "基本银行帐户号码（BBAN）"
+        iban: "国际银行账户号码（IBAN）"
+      nature:
+        associate_account: "关联帐户"
+        bank_account: "银行账户"
+        cash_box: "钱箱"
+    catalog:
+      usage:
+        cost: "成本"
+        purchase: "采购"
+        sale: "拍卖"
+        stock: "股票"
+    custom_field:
+      nature:
+        boolean: "复选框"
+        choice: "选择列表"
+        date: "日期"
+        datetime: "日期和时间"
+        decimal: "十进制"
+        text: "文本"
+    delivery:
+      mode:
+        third: "第三"
+        transporter: "通过转运"
+        us: "被我们"
+    document_template:
+      archiving:
+        all: "所有类型"
+        all_of_template: "所有模板"
+        first: "第一种类型的"
+        first_of_template: "首先模板"
+        last: "最后一种类型"
+        last_of_template: "最后模板"
+        none: "类型的无"
+        none_of_template: "模板的无"
+    entity:
+      nature:
+        contact: "联系"
+        organization: "组织"
+    entity_address:
+      canal:
+        email: "电子邮件"
+        fax: "传真"
+        mail: "邮件"
+        mobile: "移动电话"
+        phone: "电话"
+        website: "网站"
+    event_participation:
+      state:
+        accepted: "公认"
+        informative: "信息化"
+        refused: "拒绝"
+        waiting: "等候"
+    fixed_asset:
+      depreciation_method:
+        graduated: "毕业"
+        linear: "线性"
+        simplified_linear: "线性简化"
+    georeading:
+      nature:
+        line: "线"
+        point: "点"
+        polygon: "多边形"
+    guide_analysis:
+      status:
+        errored: "误码"
+        failed: "失败"
+        passed: "通过"
+        passed_with_warnings: "有警告传递"
+    intervention:
+      state:
+        done: "做"
+        in_progress: "进行中"
+        squeezed: "挤压"
+        undone: "未完成"
+    journal:
+      nature:
+        bank: "银行"
+        cash: "现金"
+        forward: "结转"
+        purchases: "购买"
+        sales: "销售"
+        various: "各种操作"
+    loan:
+      repayment_method:
+        constant_amount: "恒量"
+        constant_rate: "恒定速率"
+      repayment_period:
+        month: "月"
+        year: "年"
+      shift_method:
+        # anatocism: "anatocism"
+        immediate_payment: "立即付款"
+    observation:
+      importance:
+        important: "重要"
+        normal: "正常"
+        notice: "注意"
+    parcel:
+      delivery_mode:
+        indifferent: "冷漠"
+        third: "受援国运"
+        transporter: "通过转运运输"
+        us: "美国运输"
+      nature:
+        incoming: "来"
+        internal: "内部"
+        outgoing: "传出"
+      state:
+        draft: "草案"
+        given: "特定"
+        in_preparation: "在准备"
+        ordered: "有序"
+        prepared: "准备"
+    sensor:
+      retrieval_mode:
+        listening: "听力"
+        requesting: "请求"
+    sequence:
+      period:
+        cweek: "商业周"
+        month: "月"
+        number: "无周期性"
+        year: "年"
+      usage:
+        affairs: "事务记数"
+        analyses: "分析计算法"
+        animals: "动物记数"
+        campaigns: "活动的记数"
+        cash_transfers: "现金转移的记数"
+        deposits: "存款记数"
+        documents: "文档记数"
+        entities: "人的记数"
+        fixed_assets: "固定资产记数"
+        gaps: "空白的记数"
+        incoming_parcels: "传入交付记数"
+        incoming_payments: "支付记数"
+        interventions: "干预的记数"
+        outgoing_deliveries: "即将离任的交货记数"
+        outgoing_payments: "支付记数"
+        plants: "植物的记数"
+        product_nature_categories: "产品性质类别的记数"
+        product_nature_variants: "产品性质的记数变种"
+        product_natures: "产品性质的记数"
+        products: "产品记数"
+        purchases: "购买记数"
+        sales: "销售的记数"
+        sales_invoices: "销售发票的记数"
+        subscriptions: "订阅记数"
+        transports: "运输的记数"
+    subscription_nature:
+      entity_link_direction:
+        all: "双向"
+        direct: "直接"
+        indirect: "间接"
+      nature:
+        period: "认购日期"
+        quantity: "认购按编号"
+    task:
+      nature:
+        document: "写作"
+        incoming_call: "来电"
+        incoming_email: "收到的电子邮件"
+        incoming_mail: "接收邮件"
+        outgoing_call: "呼出"
+        outgoing_email: "传出的电子邮件"
+        outgoing_mail: "外发邮件"
+        quote: "引用"
+    tax:
+      nature:
+        amount: "量"
+        percentage: "百分比"
+    tracking:
+      usage_limit_nature:
+        best_before: "日期前最佳"
+        no_limit: "没有限制"
+        used_by: "按日期使用"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "供应商发票号"

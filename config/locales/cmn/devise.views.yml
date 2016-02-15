@@ -1,0 +1,58 @@
+cmn:
+  devise:
+    confirmations:
+      new:
+        resend_confirmation_instructions: "重发确认指令"
+    mailer:
+      confirmation_instructions:
+        action: "确认我的帐户"
+        # greeting: "Welcome %{recipient}!"
+        instruction: "您可以通过确认以下链接您的帐户电子邮件："
+        subject: "确认指令"
+      reset_password_instructions:
+        action: "更改我的密码"
+        # greeting: "Hello %{recipient}!"
+        instruction: "有人要求一个链接更改您的密码，您可以通过下面的链接做到这一点。"
+        instruction_2: "如果您没有这个要求，请忽略此电子邮件。"
+        instruction_3: "您的密码将不会改变，直到您访问上面的链接，并创建一个新的。"
+        subject: "重置密码的说明"
+      unlock_instructions:
+        action: "解锁我的帐户"
+        # greeting: "Hello %{recipient}!"
+        instruction: "点击下面的链接到您的帐户解锁："
+        message: "您的帐户已被锁定因尝试不成功的登录过量。"
+        subject: "解锁指令"
+    passwords:
+      edit:
+        change_my_password: "更改我的密码"
+        change_your_password: "更改您的密码"
+        confirm_new_password: "确认新密码"
+        new_password: "新密码"
+      new:
+        forgot_your_password: "忘记密码了吗？"
+        send_me_reset_password_instructions: "给我重置密码的说明"
+    registrations:
+      edit:
+        are_you_sure: "你确定？"
+        cancel_my_account: "取消我的帐户"
+        leave_blank_if_you_don_t_want_to_change_it: "留空，如果你不想改变它"
+        # title: "Edit %{resource}"
+        unhappy: "不快乐"
+        update: "更新"
+        we_need_your_current_password_to_confirm_your_changes: "我们需要您的当前密码，以确认您的更改"
+      new:
+        sign_up: "注册"
+    sessions:
+      new:
+        sign_in: "签到"
+    shared:
+      links:
+        didn_t_receive_confirmation_instructions: "未收到确认指令？"
+        didn_t_receive_unlock_instructions: "没有收到解锁指令？"
+        forgot_your_password: "忘记密码了吗？"
+        sign_in: "签到"
+        # sign_in_with_provider: "Sign in with %{provider}"
+        sign_up: "注册"
+    unlocks:
+      new:
+        resend_unlock_instructions: "重新发送指令解锁"

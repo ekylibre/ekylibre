@@ -1,0 +1,57 @@
+cmn:
+  devise:
+    confirmations:
+      confirmed: "您的帐户已成功确认。您现在登录。"
+      send_instructions: "您将收到一封电子邮件，其中包含有关如何确认您的帐户在几分钟内说明。"
+      send_paranoid_instructions: "如果您的电子邮件地址，在我们的数据库中存在，您将收到一封电子邮件，了解如何确认您的帐户在几分钟内说明。"
+    failure:
+      already_authenticated: "您已经登录。"
+      inactive: "您的帐户尚未激活。"
+      invalid: "无效的电子邮件或密码。"
+      invalid_token: "无效的身份验证令牌。"
+      locked: "您的帐户被锁定。"
+      not_found_in_database: "无效的电子邮件或密码。"
+      timeout: "您的会话过期，请重新登录才能继续。"
+      unauthenticated: "您需要登录或继续之前注册。"
+      unconfirmed: "你必须继续前确认您的帐户。"
+    mailer:
+      confirmation_instructions:
+        subject: "确认指令"
+      reset_password_instructions:
+        subject: "重置密码的说明"
+      unlock_instructions:
+        subject: "解锁指令"
+    omniauth_callbacks:
+      # failure: "Could not authenticate you from %{kind} because “%{reason}”."
+      # success: "Successfully authenticated from %{kind} account."
+    passwords:
+      no_token: "未经密码重置邮件来了，你不能访问这个页面。如果你来自一个密码重置邮件，请确保您使用所提供的完整的URL。"
+      send_instructions: "您将收到一封电子邮件，了解如何在几分钟内重置密码。"
+      send_paranoid_instructions: "如果您的电子邮件地址，在我们的数据库中，您将收到在几分钟内您的电子邮件地址的密码恢复链接。"
+      updated: "您的密码已更改成功。您现在登录。"
+      updated_not_active: "您的密码已更改成功。"
+    registrations:
+      destroyed: "再见！您的帐户已成功取消。我们希望很快再见到你。"
+      signed_up: "欢迎！您已成功签约。"
+      signed_up_but_inactive: "您已成功签约。但是，由于您的帐户尚未激活，我们不能签你进去。"
+      signed_up_but_locked: "您已成功签约。但是，由于您的帐户被锁定，我们不能签你进去。"
+      signed_up_but_unconfirmed: "一个确认链接的邮件已发送到您的电子邮件地址。请打开激活帐户的链接。"
+      update_needs_confirmation: "您已成功更新您的帐户，但我们需要验证您的新电子邮件地址。请检查您的电子邮件，并点击确认链接来完成确认新的电子邮件地址。"
+      updated: "您已成功更新您的帐户。"
+    sessions:
+      signed_in: "签名成功。"
+      signed_out: "成功退出。"
+    unlocks:
+      send_instructions: "您将收到一封电子邮件，了解如何解除您的帐户在几分钟内说明。"
+      send_paranoid_instructions: "如果您的帐户存在，您会收到一封电子邮件，了解如何解锁几分钟的说明。"
+      unlocked: "您的帐户已经成功解锁。请登入继续。"
+  errors:
+    messages:
+      already_confirmed: "已经证实，请尝试在签约"
+      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      expired: "已过期，请申请一个新的"
+      not_found: "未找到"
+      not_locked: "没有锁"
+      not_saved:
+        # one: "1 error prohibited this %{resource} from being saved:"
+        # other: "%{count} errors prohibited this %{resource} from being saved:"

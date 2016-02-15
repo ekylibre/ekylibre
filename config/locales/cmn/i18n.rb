@@ -1,15 +1,17 @@
-{ eng: {
+# coding: utf-8
+{ cmn: {
     i18n: {
       dir: 'ltr',
-      iso2: 'en',
-      name: 'English',
+      iso2: 'zh',
+      ietf: 'zh-CN',
+      name: '官話',
       plural: {
         keys: [:one, :other],
         rule: ->(n) { n == 1 ? :one : :other }
       }
     },
     date: {
-      order: [:month, :day, :year]
+      order: [:year, :month, :day]
     }
   }
 }
