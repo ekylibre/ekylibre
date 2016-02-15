@@ -18,32 +18,6 @@
 
 module Authentication
   class InvitationsController < ::Devise::InvitationsController
-    before_filter :configure_permitted_parameters, if: :devise_controller?
-
-    layout :resolve_layout
-
-    protected
-
-    def configure_permitted_parameters
-      # Only add some parameters
-      devise_parameter_sanitizer.for(:invite).concat [:first_name, :last_name, :language, :role_id]
-
-      # Override accepted parameters
-      devise_parameter_sanitizer.for(:invite) do |u|
-        u.permit(:first_name, :last_name, :language, :role_id, :email)
-      end
-    end
-
-    private
-
-    def resolve_layout
-      action = params[:action]
-
-      if action == 'new'
-        'backend'
-      else
-        'authentication'
-      end
-    end
+    layout 'authentication'
   end
 end
