@@ -14,7 +14,7 @@
         <!-- looking for all CultivableZone in current campaign -->
         <sections for="zone" in="CultivableZone.all.reorder(:work_number)" of-type="record">
           <title name="name" of="zone"/>
-          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).shape_within(zone.shape)"/>
+          <variable name="targets" value="Product.of_variety(:plant, :land_parcel).shape_intersecting(zone.shape)"/>
           <property name="work_number" of="zone"/>
           <property name="uuid" of="zone"/>
           <property name="islet_number" if="CapIslet.of_campaign(campaign).shape_intersecting(zone.shape)" value="CapIslet.of_campaign(campaign).shape_intersecting(zone.shape).pluck(:islet_number).to_sentence"/>
