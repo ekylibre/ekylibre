@@ -2,19 +2,26 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="direct_silage" categories="harvesting" actions="harvest">
     <parameters>
-      <parameter name="forager" type="tool" filter="can harvest(plant)"/>
-      <parameter name="forager_driver" type="doer" filter="can move and can drive(forager)"/>
-      <parameter name="cultivation" type="target" filter="is plant" default-actor="variant_localized_in_storage">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, cultivation.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / cultivation..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
-      <parameter name="silage" type="output" variety="silage" derivative-of="variety: cultivation" filter="is silage and derives from plant" default-name="{{variant}} {{birth_year}} ({{container}})">
-        <handler indicator="net_mass" unit="ton" to="population" backward="POPULATION * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>
-        <handler indicator="net_volume" unit="cubic_meter" to="population" backward="POPULATION * PRODUCT..net_volume(cubic_meter)" forward="VALUE / PRODUCT..net_volume(cubic_meter)"/>
-        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare" to="population" backward="(POPULATION * PRODUCT..net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)" forward="(VALUE * sum(cultivation, :net_surface_area, :hectare) / PRODUCT..net_mass(ton))"/>
-      </parameter>
+      <target name="cultivation" filter="is plant and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <output name="silage" filter="is silage and derives from plant">
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="ton"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(ton)"
+                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+        <handler indicator="net_volume" unit="cubic_meter"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
+                 backward="POPULATION * PRODUCT..net_volume(cubic_meter)"
+                 forward="VALUE / PRODUCT..net_volume(cubic_meter)"/>
+        <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(ton)"/>
+      </output>
+      <tool name="forager" filter="is equipment and can harvest(plant)" cardinality="*"/>
+      <doer name="forager_driver"  filter="is worker and can move and can drive(forager)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
