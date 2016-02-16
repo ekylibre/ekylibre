@@ -2,14 +2,14 @@ eng:
   actions:
     api/v1/crumbs:
       # index: "Crumbs"
+    authentication/invitations:
+      edit: "Accept invitation"
     authentication/passwords:
       edit: "Edit password: %{name}"
       new: "New password"
     authentication/sessions:
       destroy: "Log out" #?
       new: "New session"
-    authentication/invitations:
-      new: "New invitation"
     backend/accounts:
       edit: "Edit account: %{number} - %{name}"
       index: "Plan of accounts"
@@ -383,6 +383,7 @@ eng:
       show: "Incoming payment %{number} of %{entity}"
     backend/invitations:
       index: "Invitations"
+      new: "New invitation"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"

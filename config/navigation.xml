@@ -904,6 +904,12 @@
         <page to="backend/users#unroll"/>
         <page to="backend/users#update"/>
       </item>
+      <item name="invitations">
+        <page to="backend/invitations#index"/>
+        <page to="backend/invitations#list"/>
+        <page to="backend/invitations#new"/>
+        <page to="backend/invitations#create"/>
+      </item>
       <item name="teams">
         <page to="backend/teams#index"/>
         <page to="backend/teams#create"/>
