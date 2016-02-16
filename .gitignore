@@ -45,6 +45,7 @@ config/locales/*/reporting/*.pdf
 private/*
 !private/test/
 private/test/tmp
+private/test/reporting
 
 # Ignore compiled assets
 /public/assets
