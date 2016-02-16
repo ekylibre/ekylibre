@@ -46,6 +46,7 @@ private/*
 !private/test/
 private/test/tmp
 private/test/reporting
+private/test/attachments
 
 # Ignore compiled assets
 /public/assets
