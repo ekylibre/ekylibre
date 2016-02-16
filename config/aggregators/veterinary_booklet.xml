@@ -5,41 +5,39 @@
       <parameter name="campaigns" type="record-list" of="campaign" default="current"/>
     </parameters>
     <section name="campaigns">
-      <variable name="company" value="Entity.of_company"/>
-      <property name="entity_name" value="company.full_name"/>
-      <property name="address" value="company.default_mail_address.coordinate"/>
+      <variable name="company" if="Entity.of_company" value="Entity.of_company"/>
+      <property name="entity_name" if="company" value="company.full_name"/>
+      <property name="address" if="company" value="company.default_mail_address.coordinate"/>
       <property name="breeding_number" if="Identifier.find_by_nature(:cattling_number)" value="Identifier.find_by_nature(:cattling_number).value" />
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
-        <sections for="intervention" in="campaign.interventions.of_category(:animal_treating)">
-          <variable name="target" if="intervention.targets" value="intervention.targets.first.actor"/>
-          <variable name="worker" if="intervention.doers" value="intervention.doers.first.actor"/>
+        <variable name="targets" value="Animal.available"/>
+        <sections for="intervention" in="Intervention.of_civil_year(campaign.harvest_year).of_category(:animal_treating).with_targets(targets).reorder(:started_at)" of-type="record">
           <title name="name" of="intervention"/>
           <property name="id" of="intervention" level="api"/>
+          <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
           <property name="started_at" of="intervention" type="datetime"/>
           <property name="stopped_at" of="intervention" type="datetime"/>
-          <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)" type="decimal"/>
-          <section name="target" of="target">
-            <property name="identification_number"/>
-            <title name="name" of-type="record"/>
-            <property name="id" level="api"/>
-            <property name="type" level="api"/>
-            <property name="url" value="id" level="api" type="url"/>
-          </section>
-          <section name="worker" of="worker">
-            <property name="identification_number"/>
-            <title name="name" of-type="record"/>
-            <property name="id" level="api"/>
-            <property name="person_id" level="api"/>
-          </section>
+          <property name="working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
+          <property name="targets_product_name" value="intervention.human_target_names" level="api"/>
+          <matrix name="target" for="target" in="intervention.targets">
+            <cell name="name" value="target.product.name"/>
+            <cell name="identification_number" value="target.product.identification_number"/>
+            <cell name="id" value="target.product.id" level="api"/>
+          </matrix>
+          <property name="doers_product_name" value="intervention.human_doer_names" level="api"/>
+          <matrix name="worker" for="worker" in="intervention.doers">
+          	<cell name="name" value="worker.product.name"/>
+            <cell name="identification_number" value="worker.product.identification_number"/>
+          </matrix>
           <section name="issue" of="intervention.issue" of-type="record">
             <property name="id" level="api"/>
             <title name="nature"/>
+            <property name="name"/>
             <property name="observed_at" type="datetime"/>
             <property name="state" level="api"/>
             <property name="interventions_count" level="api"/>
-            <!-- <property name="nature" level="api"/> -->
             <property name="description"/>
             <property name="picture_path"/>
           </section>
@@ -48,15 +46,14 @@
             <title name="reference_number"/>
             <property name="name"/>
           </section>
-          <matrix name="inputs" for="input" in="intervention.inputs.with_actor">
-            <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
-            <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
-
+          <matrix name="inputs" for="input" in="intervention.inputs">
+            <variable name="meat_withdrawal_period" value="input.product.meat_withdrawal_period"/>
+            <variable name="milk_withdrawal_period" value="input.product.milk_withdrawal_period"/>
             <cell name="id" of="input" level="api"/>
-            <cell name="variant_name" value="input.actor.variant_name"/>
-            <cell name="population" of="input"/>
-            <cell name="variety" value="input.actor.variety" level="api"/>
-            <cell name="unit_name" value="input.actor.unit_name" level="api"/>
+            <cell name="variant_name" value="input.product.variant_name"/>
+            <cell name="quantity" value="input.quantity.l" type="measure"/>
+            <cell name="variety" value="input.product.variety" level="api"/>
+            <cell name="unit_name" value="input.product.unit_name" level="api"/>
             <matrix name="withdrawal_periods">
               <cell name="meat_withdrawal_period" value="meat_withdrawal_period" type="measure"/>
               <cell name="milk_withdrawal_period" value="milk_withdrawal_period" type="measure"/>
@@ -65,7 +62,6 @@
               <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period.to_d.send(meat_withdrawal_period.unit)).to_time" type="datetime"/>
               <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period.to_d.send(milk_withdrawal_period.unit)).to_time" type="datetime"/>
             </matrix>
-
           </matrix>
         </sections>
       </sections>
