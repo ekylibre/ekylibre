@@ -71,7 +71,7 @@ class Campaign < Ekylibre::Record::Base
     end
 
     def first_of_all
-      Campaign.reorder(:started_on, :harvest_year, :id).first
+      Campaign.reorder(:harvest_year, :id).first
     end
   end
 

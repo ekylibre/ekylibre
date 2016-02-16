@@ -355,6 +355,13 @@ class Product < Ekylibre::Record::Base
       phase = phases.first_of_all || phases.build
       phase.variant = variant
       phase.save!
+      # set indicators from variant in products readings
+      for f_v_indicator in variant.readings
+        reading = readings.new(indicator_name: f_v_indicator.indicator_name)
+        reading.value = f_v_indicator.value
+        reading.read_at = born_at
+        reading.save!
+      end
     end
   end
 

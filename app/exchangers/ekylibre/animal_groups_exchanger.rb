@@ -102,7 +102,7 @@ module Ekylibre
             variant: variant,
             default_storage: BuildingDivision.find_by(work_number: r.place)
           )
-          # create indicators linked to equipment
+          # create indicators linked to animal group
           r.indicators.each do |indicator, value|
             if indicator.to_sym == :population
               animal_group.move!(value, at: r.indicators_at)
@@ -136,13 +136,15 @@ module Ekylibre
                 production_cycle: :perennial
               )
             end
+            # get first harvest_year of first campaign
+            first_year_of_campaign = Campaign.first_of_all.harvest_year if Campaign.first_of_all
             if animals.any?
               ap = ActivityProduction.create!(
                 activity: activity,
                 support_id: animal_group.id,
                 size_value: animals.count,
-                started_on: Campaign.first_of_all ? Campaign.first_of_all.started_on : Date.civil(1970, 1, 1),
-                usage: :meat
+                started_on: first_year_of_campaign ? Date.civil(first_year_of_campaign, 1, 1) : Date.civil(1970, 1, 1),
+                usage: :milk
               )
             end
           end
