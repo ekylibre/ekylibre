@@ -2,9 +2,19 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="parturition" categories="animal_breeding" actions="parturition">
     <parameters>
-      <parameter name="mother" type="target" filter="is bos and can produce(bos)"/>
-      <parameter name="child" type="output" variety="bos" filter="is bos"/>
-      <parameter name="caregiver" type="doer" filter="can administer_care(bos)"/>
+      <target name="mother" filter="is bos and can produce(bos)" cardinality="1"/>
+      <output name="child" filter="is bos" cardinality="*">
+        <attribute name="new_name"/>
+        <!-- <attribute name="new_group"/>
+        <attribute name="new_container"/> -->
+        <handler name="population"/>
+        <reading name="sex"/>
+        <reading name="net_mass"/>
+        <reading name="animal_life_state"/>
+        <reading name="healthy"/>
+        <reading name="mammalia_birth_condition"/>
+      </output>	
+      <doer name="caregiver" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

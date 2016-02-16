@@ -2,11 +2,13 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="animal_artificial_insemination" categories="animal_breeding" actions="animal_artificial_insemination">
     <parameters>
-      <parameter name="animal" type="target" filter="is animal and can produce(animal)"/>
-      <parameter name="vial" type="input" filter="is vial and derives from animal and can inseminate(animal)" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-        <handler name="population"/>
-      </parameter>
-      <parameter name="inseminator" type="doer" filter="can administer_inseminate(animal)"/>
+      <group name="insemination">	
+    	<target name="animal" filter="is animal and can produce(animal)" cardinality="1"/>
+        <input name="vial" filter="is vial and derives from animal and can inseminate(animal)" cardinality="1">
+          <handler name="population"/>
+        </input>
+      </group>
+      <doer name="inseminator" filter="is worker and can administer_care(bos)"/>
     </parameters>
   </procedure>
 </procedures>

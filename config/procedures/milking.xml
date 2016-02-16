@@ -2,9 +2,20 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="milking" categories="animal_production" actions="milking">
     <parameters>
-      <parameter name="mammal_to_milk" type="target" filter="is mammalia and can produce(milk)"/>
-      <parameter name="milk" type="output" variety="milk" derivative-of="variety: mammal_to_milk" filter="is milk and derives from mammalia" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}"/>
-      <parameter name="caregiver" type="doer" filter="can milk(mammalia)"/>
+      <target name="mammal_to_milk" filter="is mammalia and can produce(milk)"/>
+      <output name="milk" variety="milk" derivative-of="variety: mammal_to_milk" filter="is milk and derives from mammalia" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
+        <attribute name="new_name"/>
+      	<handler name="population"/>
+        <handler indicator="net_mass" unit="kilogram"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler name="kilogram_per_animal" indicator="net_mass" unit="kilogram"
+                 if="PRODUCT..net_mass? and population_count(mammal_to_milk) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / population_count(mammal_to_milk)"
+                 forward="(VALUE * population_count(mammal_to_milk)) / PRODUCT..net_mass(kilogram)"/>
+      </output>
+      <doer name="caregiver"  filter="can milk(mammalia)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
