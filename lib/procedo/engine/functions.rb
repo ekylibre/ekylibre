@@ -7,7 +7,7 @@ module Procedo
         def population_counting_is(product, expected)
           ((product && product.population_counting.to_sym) == expected ? 1 : 0)
         end
-        
+
         # return a sum of population
         def population_count(set)
           list = set.map do |parameter|

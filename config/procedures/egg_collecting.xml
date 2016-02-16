@@ -6,7 +6,7 @@
       <output name="eggs" variety="egg" derivative-of="variety:bird_band" filter="is egg and derives from aves" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
         <attribute name="new_name"/>
       	<handler name="population"/>/>
-      </output>     
+      </output>
       <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>

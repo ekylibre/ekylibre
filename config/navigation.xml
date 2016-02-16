@@ -1733,6 +1733,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="prescriptions">
+        <page to="backend/prescriptions#picture"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

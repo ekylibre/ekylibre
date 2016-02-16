@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="animal_artificial_insemination" categories="animal_breeding" actions="animal_artificial_insemination">
     <parameters>
-      <group name="insemination">	
+      <group name="insemination">
     	<target name="animal" filter="is animal and can produce(animal)" cardinality="1"/>
         <input name="vial" filter="is vial and derives from animal and can inseminate(animal)" cardinality="1">
           <handler name="population"/>

@@ -1,6 +1,8 @@
 por:
   aggregator_parameters:
     campaigns: "Campanhas"
+    # started_on: "Started on"
+    # stopped_on: "Stopped on"
   aggregator_properties:
     activity_family: "Família de atividades" #?
     actor_name: "Nome ator" #?
@@ -9,14 +11,18 @@ por:
     animal_husbandry_register: "Registro de pecuária" #?
     area: "Área"
     area_in_hectare: "Área em hectares"
+    # born_at: "Born at"
     breeding_number: "Número de reprodução"
     campaigns: "Campanhas"
     capitalised_production: "Produção capitalizada"
     cluster_pac_number: "Número do aglomerado" #?
+    # company: "Company"
     container_name: "Nome container"
     current_result_before_taxes: "Resultado atual sem impostos"
     depreciations_inputations_expenses: "Despesas de depreciação"
+    # doer_cost: "Doer cost"
     doer_name: "Nome executor"
+    # doers_name: "Doers name"
     duration_in_hour: "Duração em horas"
     ede_cattling_number: "Número cattling Ede"
     ede_owner_number: "Número proprietário Ede"
@@ -32,6 +38,7 @@ por:
     exploitation_expenses_total: "Total de despesas de exploração"
     exploitation_products_total: "Total de produtos de exploração"
     exploitation_result: "Resultado das explorações"
+    # family: "Family"
     financial_expenses: "Despesas financeiras"
     financial_expenses_total: "Total despesas financeiras"
     financial_products: "Produtos financeiros"
@@ -40,7 +47,10 @@ por:
     financial_year_name: "Nome ano fiscal"
     financial_years: "Anos fiscais"
     grains_yield: "Rendimento de grãos"
+    # harvest_year: "Harvest year"
+    # harvested_at: "Harvested at"
     human_roles: "Regras de pessoa" #?
+    # implanted_at: "Implanted at"
     incoming_quantity: "Quantidade a receber" #?
     input_quantity: "Quantidade de entrada" #?
     input_unit_name: "Nome unidade de entrada" #?
@@ -54,20 +64,35 @@ por:
     meat_withdrawal_period: "Intervalo de segurança da carne"
     milk_saleable_on: "Leite vendável em"
     milk_withdrawal_period: "Intervalo de segurança do leite"
+    # name: "Name"
+    # nature: "Type"
     net_revenue: "Receita liquida"
     net_surface_area: "Net surface area"
     nitrogen_balance: "Nitrogen balance" #?
     nitrogen_input_prev: "Nitrogen input prev" #?
+    # number: "Number"
+    # observed_at: "Observed at"
     original_input_name: "Original input name" #?
     original_input_unit_name: "Original input unit name" #?
     original_input_variant_name: "Original input variant name" #?
     other_expenses: "Other expenses"
     other_products: "Outros produtos"
     other_purchases: "Outras compras"
+    # owner_name: "Owner name"
     pasturing_period: "Período de pastoreio" #?
     pasturing_working_area: "Área de pastorio trabalhável" #?
+    # payment_ratio: "Payment ratio"
+    # pictogram: "Pictogram"
+    # picture_path: "Picture path"
+    # plan: "Plan"
+    # population: "Population"
+    # prescription: "Prescription"
+    # pretax_amount: "Pre-tax amount"
     previous_production_name: "Nome produção anterior" #?
+    # printed_on: "Printed on"
+    # product_account_label: "Product account label"
     product_nature_name: "Nome Natureza do produto" #?
+    # production_support: "Production support"
     productions_sales: "Venda de produção"
     products_purchases: "Compra de produtos"
     products_sales: "Vendas de produtos"
@@ -78,6 +103,7 @@ por:
     provisional_grains_yield: "Provisões produção de grãos" #?
     provisional_yield: "Provisões de rendimento"
     provisions_revenues: "Provisões de receita"
+    # quantity: "Quantity"
     raw_matters_purchases: "Compra de matérias primas"
     raw_matters_stocks_variation: "Variação de estoque de matérias primas"
     recommender_full_name: "Nome completo recomendado" #?
@@ -97,6 +123,6 @@ por:
     variant_variety: "Variedade de variantes" #?
     vine_yield: "Produção por planta"
     wages: "Salários"
-    working_area: "Área de trabalho" #?
+    working_area: "Área de trabalho"
   aggregators:  #?
     vat_register: "Registro de imposto" #?

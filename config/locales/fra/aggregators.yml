@@ -1,6 +1,8 @@
 fra:
   aggregator_parameters:
     campaigns: "Campagnes"
+    started_on: "Débuté le"
+    stopped_on: "Arrếté on"
   aggregator_properties:
     activity_family: "Famille d'activité" #?
     actor_name: "Nom de l'acteur" #?
@@ -9,13 +11,17 @@ fra:
     animal_husbandry_register: "Registre d'élevage" #?
     area: "Surface"
     area_in_hectare: "Surface (ha)"
+    born_at: "Né(e) à"
     breeding_number: "Numéro d'élevage"
     campaigns: "Campagnes"
     capitalised_production: "Production capitalisée"
+    company: "Entreprise"
     container_name: "Nom de l'emplacement"
     current_result_before_taxes: "Résultat en cours avant taxes"
     depreciations_inputations_expenses: "Charges des imputations des dépréciations"
+    doer_cost: "Cout de main d'oeuvre"
     doer_name: "Acteur"
+    doers_name: "Nom des acteurs"
     duration_in_hour: "Durée (heures)"
     ede_cattling_number: "Numéro d'élevage EDE"
     ede_owner_number: "Numéro de propriétaire EDE"
@@ -31,6 +37,7 @@ fra:
     exploitation_expenses_total: "Total des charges d'exploitation"
     exploitation_products_total: "Total des produits d'exploitation"
     exploitation_result: "Résultat d'exploitation"
+    family: "Famille"
     financial_expenses: "Charges financières"
     financial_expenses_total: "Total des charges financières"
     financial_products: "Produits financiers"
@@ -39,7 +46,10 @@ fra:
     financial_year_name: "Exercice comptable"
     financial_years: "Exercices comptables"
     grains_yield: "Rendement en grains"
+    harvest_year: "Année de récolte"
+    harvested_at: "Récolté à"
     human_roles: "Roles" #?
+    implanted_at: "Implanté à"
     intervention_durations: "Durées d'intervention"
     loss_balance: "Solde de perte"
     losses: "Pertes"
@@ -50,20 +60,35 @@ fra:
     meat_withdrawal_period: "Période de retrait de la viande"
     milk_saleable_on: "Lait vendable le"
     milk_withdrawal_period: "Période de retrait du lait"
+    name: "Nom"
+    nature: "Type"
     net_revenue: "Revenu net"
     net_surface_area: "Surface nette"
     nitrogen_balance: "Balance azotée" #?
     nitrogen_input_prev: "Apport d'azote prev" #?
+    number: "Numéro"
+    observed_at: "Obervé à"
     original_input_name: "Stock de l'intrant" #?
     original_input_unit_name: "Unité du stocks de l'intrant" #?
     original_input_variant_name: "Type du stock de l'intrant" #?
     other_expenses: "Autres charges"
     other_products: "Autres produits"
     other_purchases: "Autres achats"
+    owner_name: "Nom du propriétaire"
     pasturing_period: "Période pâturage" #?
     pasturing_working_area: "Zone de pâturage" #?
+    # payment_ratio: "Payment ratio"
+    # pictogram: "Pictogram"
+    # picture_path: "Picture path"
+    # plan: "Plan"
+    # population: "Population"
+    # prescription: "Prescription"
+    # pretax_amount: "Pre-tax amount"
     previous_production_name: "Précédente production" #?
+    printed_on: "Imprimé le"
+    # product_account_label: "Product account label"
     product_nature_name: "Type de produit" #?
+    # production_support: "Production support"
     productions_sales: "Ventes de productions"
     products_purchases: "Achats de produits"
     products_sales: "Ventes de produits"
@@ -74,6 +99,7 @@ fra:
     provisional_grains_yield: "Rendement prévisionnel en grains" #?
     provisional_yield: "Rendement prévisionnel"
     provisions_revenues: "Revenus de provisions"
+    quantity: "Quantité"
     raw_matters_purchases: "Achats de matières brutes"
     raw_matters_stocks_variation: "Variation de stocks de matières brutes"
     recommender_full_name: "Nom du préconisateur" #?
@@ -91,5 +117,6 @@ fra:
     variant_variety: "Variété de la variante" #?
     vine_yield: "Rendement en vin"
     wages: "Salaires"
+    working_area: "Superficie travaillée"
   aggregators:  #?
     vat_register: "Registre de TVA" #?

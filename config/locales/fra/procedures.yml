@@ -156,6 +156,7 @@ fra:
     implanter_tool: "Équipement de plantation"
     insecticide: "Insecticide" #?
     insecticide_to_input: "Insecticide à distribuer" #?
+    # insemination: "Insemination"
     inseminator: "Inséminateur"
     item: "Pièce"
     item_to_change: "Pièce changée" #?

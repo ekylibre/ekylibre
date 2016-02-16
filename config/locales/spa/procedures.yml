@@ -49,6 +49,7 @@ spa:
     implanter: "Implantador"
     implanter_man: "Hombre implantador"
     implanter_tool: "Herramienta implantador"
+    # insemination: "Insemination"
     inseminator: "Inseminador"
     item: "Ítem"
     juice: "Jugo"
