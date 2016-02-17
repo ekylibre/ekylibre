@@ -2,20 +2,28 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="mechanical_planting" categories="planting" actions="planting">
     <parameters>
-      <parameter name="plants" type="input" filter="is seedling and derives from plant and can grow" default-name="{{variant}} - [{{derivative_of}}]">
-        <handler indicator="plants_count" unit="unity_per_hectare" to="population" backward="POPULATION / sum(cultivation, :net_surface_area, :hectare)" forward="sum(cultivation, :net_surface_area, :hectare) * VALUE"/>
-      </parameter>
-      <parameter name="implanter_tool" type="tool" filter="can implant"/>
-      <parameter name="driver" type="doer" filter="can drive(tractor) and can move"/>
-      <parameter name="implanter_man" type="doer" filter="can drive(equipment) and can move"/>
-      <parameter name="tractor" type="tool" filter="can tow(equipment) and can move"/>
-      <parameter name="land_parcel" type="target" filter="can store(plant)" default-actor="storage"/>
-      <parameter name="cultivation" type="output" variety="derivative-of: plants" filter="is plant" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-shape=":land_parcel" default-variant="production">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, land_parcel.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / PRODUCT..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
+      <group name="zone">
+        <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
+          <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+        </target>
+        <output name="cultivation" filter="is plant" cardinality="1">
+          <attribute name="new_name"/>
+          <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
+            <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT?" to="population"/>
+          </reading>
+        </output>
+      </group>
+      <input name="plants" filter="is seedling and derives from plant and can grow">
+        <handler name="population"/>
+        <handler indicator="plants_count" unit="unity_per_hectare"
+                 if="population_counting_is(PRODUCT, :decimal) > 0"
+                 backward="POPULATION / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="sum_working_zone_areas(cultivation, :hectare) * VALUE"/>
+      </input>	
+      <tool name="implanter_tool"   filter="can implant" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="implanter_man"  filter="can drive(equipment) and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
