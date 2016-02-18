@@ -201,8 +201,8 @@ class User < Ekylibre::Record::Base
     message
   end
 
-  def can?(right)
-    administrator? || self.rights.match(/(^|\s)#{right}(\s|$)/)
+  def can?(action, resource)
+    administrator? || self.right_exist?(action, resource)
   end
 
   def can_access?(url)
