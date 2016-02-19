@@ -1,0 +1,58 @@
+deu:
+  devise:
+    confirmations:
+      new:
+        resend_confirmation_instructions: "Erneut senden Bestätigungs"
+    mailer:
+      confirmation_instructions:
+        action: "Bestätigen Sie Ihr Konto"
+        # greeting: "Welcome %{recipient}!"
+        instruction: "Sie können Ihr Konto E-Mail über den unten stehenden Link bestätigen:"
+        subject: "Bestätigungs"
+      reset_password_instructions:
+        action: "Ändere mein Passwort"
+        # greeting: "Hello %{recipient}!"
+        instruction: "Jemand hat eine Verbindung angefordert, Ihr Passwort zu ändern, und Sie können dies unten durch den Link tun."
+        instruction_2: "Wenn Sie diese nicht angefordert haben, ignorieren Sie diese E-Mail."
+        instruction_3: "Das Passwort wird nicht ändern, bis Sie auf den Link oben und schaffen Zugang ein neues."
+        subject: "Passwort zurücksetzen Anweisungen"
+      unlock_instructions:
+        action: "Setzen Sie mein Konto"
+        # greeting: "Hello %{recipient}!"
+        instruction: "Klicken Sie auf den Link unten, Ihr Konto zu entsperren:"
+        message: "Ihr Konto wurde aufgrund einer übermäßigen Menge von erfolglosen Zeichen in Versuchen gesperrt."
+        subject: "Schalte Anleitung"
+    passwords:
+      edit:
+        change_my_password: "Ändere mein Passwort"
+        change_your_password: "Ändern Sie Ihr Passwort"
+        confirm_new_password: "Bestätige neues Passwort"
+        new_password: "Neues Kennwort"
+      new:
+        forgot_your_password: "Haben Sie Ihr Passwort vergessen?"
+        send_me_reset_password_instructions: "Senden Reset Passwort Anweisungen"
+    registrations:
+      edit:
+        are_you_sure: "Bist du sicher?"
+        cancel_my_account: "Abbrechen Ihr Konto"
+        leave_blank_if_you_don_t_want_to_change_it: "Freilassen, wenn Sie nicht wollen, es zu ändern"
+        # title: "Edit %{resource}"
+        unhappy: "Unzufrieden"
+        update: "Aktualisieren"
+        we_need_your_current_password_to_confirm_your_changes: "Wir brauchen Ihr aktuelles Passwort, um die Änderungen zu bestätigen"
+      new:
+        sign_up: "Anmelden"
+    sessions:
+      new:
+        sign_in: "Anmelden"
+    shared:
+      links:
+        didn_t_receive_confirmation_instructions: "Nicht Bestätigung Anweisungen erhalten?"
+        didn_t_receive_unlock_instructions: "Erhielten keine Unlock-Anweisungen?"
+        forgot_your_password: "Haben Sie Ihr Passwort vergessen?"
+        sign_in: "Anmelden"
+        # sign_in_with_provider: "Sign in with %{provider}"
+        sign_up: "Anmelden"
+    unlocks:
+      new:
+        resend_unlock_instructions: "Erneut senden entsperren Anweisungen"
