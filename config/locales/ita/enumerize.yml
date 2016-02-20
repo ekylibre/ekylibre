@@ -1,0 +1,208 @@
+ita:
+  enumerize:
+    activity:
+      nature:
+        auxiliary: "Ausiliario"
+        main: "Principale"
+        standalone: "Indipendente, autonomo"
+      production_campaign:
+        at_cycle_end: "A fine ciclo"
+        at_cycle_start: "A inizio ciclo"
+      production_cycle:
+        annual: "Annuale"
+        perennial: "Perenne"
+    activity_budget_item:
+      computation_method:
+        per_campaign: "per campagna"
+        per_production: "per la produzione"
+        per_working_unit: "Per unità di lavoro"
+    activity_production:
+      support_nature:
+        border: "Confine"
+        # buffer: "Buffer"
+        cultivation: "Coltivazione"
+        fallow_land: "terreni a riposo"
+        none: "Nessuna"
+    cash:
+      mode:
+        bban: "Bank Account Number di base (BBAN)"
+        # iban: "International Bank Account Number (IBAN)"
+      nature:
+        associate_account: "conto Associate"
+        bank_account: "conto bancario"
+        cash_box: "Cassa"
+    catalog:
+      usage:
+        cost: "Costo"
+        purchase: "Acquista"
+        sale: "Vendita"
+        stock: "Azione"
+    custom_field:
+      nature:
+        boolean: "casella di controllo"
+        choice: "lista scelta"
+        date: "Data"
+        datetime: "Data e ora"
+        decimal: "Decimale"
+        text: "Testo"
+    delivery:
+      mode:
+        third: "Terzo"
+        transporter: "Con transporter"
+        us: "Da noi"
+    document_template:
+      archiving:
+        all: "Tutti di tipo"
+        all_of_template: "Tutti i template"
+        first: "Prima di tipo"
+        first_of_template: "Prima di template"
+        last: "Ultimo di tipo"
+        last_of_template: "Ultimo di template"
+        none: "Nessuno di tipo"
+        none_of_template: "Nessuno dei template"
+    entity:
+      nature:
+        contact: "contatto"
+        organization: "Organizzazione"
+    entity_address:
+      canal:
+        email: "E-mail"
+        # fax: "Fax"
+        mail: "posta"
+        mobile: "Cellulare"
+        phone: "Telefono"
+        website: "Sito web"
+    event_participation:
+      state:
+        accepted: "Accettato"
+        informative: "Informativo"
+        refused: "rifiutato"
+        waiting: "In attesa"
+    fixed_asset:
+      depreciation_method:
+        graduated: "Laureato"
+        linear: "Lineare"
+        simplified_linear: "lineari semplificato"
+    georeading:
+      nature:
+        line: "linea"
+        point: "Punto"
+        polygon: "Poligono"
+    guide_analysis:
+      status:
+        errored: "errored"
+        failed: "fallito"
+        passed: "Passato"
+        passed_with_warnings: "Superato con avvisi"
+    intervention:
+      state:
+        done: "Fatto"
+        in_progress: "In corso"
+        squeezed: "spremuto"
+        undone: "disfatto"
+    journal:
+      nature:
+        bank: "Banca"
+        cash: "Contanti"
+        forward: "Portato avanti"
+        purchases: "acquisti"
+        sales: "Vendite"
+        various: "varie operazioni"
+    loan:
+      repayment_method:
+        constant_amount: "quantità costante"
+        constant_rate: "Tasso costante"
+      repayment_period:
+        month: "Mese"
+        year: "Anno"
+      shift_method:
+        anatocism: "anatocismo"
+        immediate_payment: "Pagamento immediato"
+    observation:
+      importance:
+        important: "Importante"
+        normal: "Normale"
+        notice: "Avviso"
+    parcel:
+      delivery_mode:
+        indifferent: "Indifferente"
+        third: "Trasportato da destinatario"
+        transporter: "Trasportato da transporter"
+        us: "Trasportato da noi"
+      nature:
+        incoming: "in arrivo"
+        internal: "Interno"
+        outgoing: "Estroverso"
+      state:
+        draft: "Bozza"
+        given: "Dato"
+        in_preparation: "In preparazione"
+        ordered: "Ordinato"
+        prepared: "Preparato"
+    sensor:
+      retrieval_mode:
+        listening: "Ascolto"
+        requesting: "Richiesta"
+    sequence:
+      period:
+        cweek: "settimana commerciale"
+        month: "Mese"
+        number: "No periodicità"
+        year: "Anno"
+      usage:
+        affairs: "Numerazione degli affari"
+        analyses: "Numerazione di analisi"
+        animals: "Numerazione degli animali"
+        campaigns: "Numerazione di campagne"
+        cash_transfers: "Numerazione dei trasferimenti di denaro"
+        deposits: "Numerazione dei depositi"
+        documents: "Numerazione dei documenti"
+        entities: "Numerazione di persone"
+        fixed_assets: "Numerazione delle immobilizzazioni"
+        gaps: "Numerazione di lacune"
+        incoming_parcels: "Numerazione delle consegne in entrata"
+        incoming_payments: "Numerazione dei pagamenti"
+        interventions: "Numerazione degli interventi"
+        outgoing_deliveries: "Numerazione delle consegne in uscita"
+        outgoing_payments: "Numerazione dei pagamenti"
+        plants: "Numerazione delle piante"
+        product_nature_categories: "Numerazione di categorie di prodotti naturali"
+        product_nature_variants: "Numerazione della natura del prodotto varianti"
+        product_natures: "Numerazione delle nature prodotti"
+        products: "Numerazione dei prodotti"
+        purchases: "Numerazione degli acquisti"
+        sales: "Numerazione delle vendite"
+        sales_invoices: "Numerazione di fatture di vendita"
+        subscriptions: "Numerazione degli abbonamenti"
+        transports: "Numerazione dei trasporti"
+    subscription_nature:
+      entity_link_direction:
+        all: "bidirezionale"
+        direct: "Diretto"
+        indirect: "indiretto"
+      nature:
+        period: "Abbonamento per data"
+        quantity: "Abbonamento per numero"
+    task:
+      nature:
+        document: "scrittura"
+        incoming_call: "Chiamata in arrivo"
+        incoming_email: "e-mail in arrivo"
+        incoming_mail: "Posta in arrivo"
+        outgoing_call: "Chiamata in uscita"
+        outgoing_email: "e-mail in uscita"
+        outgoing_mail: "Posta in uscita"
+        quote: "Citazione"
+    tax:
+      nature:
+        amount: "Quantità"
+        percentage: "Percentuale"
+    tracking:
+      usage_limit_nature:
+        best_before: "Data di scadenza"
+        no_limit: "Senza limite"
+        used_by: "Usato per data"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "numero di fattura del fornitore"

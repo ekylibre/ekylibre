@@ -1,0 +1,12 @@
+ita:
+  formats:
+    csv: "Testo CSV"
+    doc: "Microsoft Word 97/2000 / XP / 2003"
+    # docx: "Microsoft Word 2007/2010"
+    # json: "JSON"
+    ods: "ODF foglio di calcolo"
+    # odt: "ODF Text"
+    pdf: "documento PDF"
+    xls: "Microsoft Excel 97/2000 / XP / 2003"
+    # xlsx: "Microsoft Excel 2007/2010"
+    # xml: "XML"

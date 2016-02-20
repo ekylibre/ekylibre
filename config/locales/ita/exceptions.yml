@@ -1,0 +1,3 @@
+ita:
+  exceptions:
+    pg/undefined_table: "tavolo non definita"

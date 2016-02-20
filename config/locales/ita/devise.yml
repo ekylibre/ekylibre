@@ -1,0 +1,57 @@
+ita:
+  devise:
+    confirmations:
+      confirmed: "Il tuo account è stato correttamente confermato. Ora si è effettuato l&#39;accesso."
+      send_instructions: "Riceverai una mail con le istruzioni su come confermare il tuo account in pochi minuti."
+      send_paranoid_instructions: "Se il tuo indirizzo e-mail esiste nel nostro database, si riceverà una e-mail con le istruzioni per confermare il tuo account in pochi minuti."
+    failure:
+      already_authenticated: "È già effettuato l&#39;accesso."
+      inactive: "Il tuo account non è stato ancora attivato."
+      invalid: "E-mail o password non validi."
+      invalid_token: "token di autenticazione non valido."
+      locked: "Il tuo account è bloccato."
+      not_found_in_database: "E-mail o password non validi."
+      timeout: "La sessione scaduto, si prega di firmare nuovamente per continuare."
+      unauthenticated: "È necessario accedere o registrarsi prima di continuare."
+      unconfirmed: "È necessario confermare il tuo account prima di continuare."
+    mailer:
+      confirmation_instructions:
+        subject: "istruzioni di conferma"
+      reset_password_instructions:
+        subject: "Ripristinare le istruzioni di password"
+      unlock_instructions:
+        subject: "Sblocca Istruzioni"
+    omniauth_callbacks:
+      # failure: "Could not authenticate you from %{kind} because “%{reason}”."
+      # success: "Successfully authenticated from %{kind} account."
+    passwords:
+      no_token: "Non è possibile accedere a questa pagina senza proveniente da un email di reimpostazione password. Se venite da una email di reimpostazione password, si prega di assicurarsi che si è utilizzato l&#39;URL completo fornito."
+      send_instructions: "Riceverai una mail con le istruzioni su come reimpostare la password in pochi minuti."
+      send_paranoid_instructions: "Se il tuo indirizzo e-mail esiste nel nostro database, si riceverà un link di recupero della password al tuo indirizzo e-mail in pochi minuti."
+      updated: "La password è stata modificata correttamente. Ora si è effettuato l&#39;accesso."
+      updated_not_active: "La password è stata modificata correttamente."
+    registrations:
+      destroyed: "Ciao! Il tuo account è stato cancellato con successo. Speriamo di rivedervi presto."
+      signed_up: "Benvenuto! Ti sei registrato con successo."
+      signed_up_but_inactive: "Ti sei registrato con successo. Tuttavia, non siamo riusciti a voi accedere perché il tuo account non è ancora attivato."
+      signed_up_but_locked: "Ti sei registrato con successo. Tuttavia, non siamo riusciti a voi accedere perché il tuo account è bloccato."
+      signed_up_but_unconfirmed: "Un messaggio con un link di conferma è stato inviato al tuo indirizzo email. Si prega di aprire il link per attivare l&#39;account."
+      update_needs_confirmation: "È stato aggiornato il tuo account con successo, ma abbiamo bisogno di verificare il tuo nuovo indirizzo email. Controlla la tua email e clicca sul link di conferma per finalizzare confermare il nuovo indirizzo email."
+      updated: "È stato aggiornato il tuo account con successo."
+    sessions:
+      signed_in: "Firmato a successo."
+      signed_out: "Firmato con successo."
+    unlocks:
+      send_instructions: "Riceverai una mail con le istruzioni su come sbloccare il tuo account in pochi minuti."
+      send_paranoid_instructions: "Se esiste l&#39;account, si riceverà una e-mail con le istruzioni su come sbloccare in pochi minuti."
+      unlocked: "Il tuo account è stato sbloccato con successo. Entra per continuare."
+  errors:
+    messages:
+      already_confirmed: "è stato già confermato, prova ad accedere a"
+      # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
+      expired: "è scaduto, si prega di richiedere uno nuovo"
+      not_found: "non trovato"
+      not_locked: "non è stato bloccato"
+      not_saved:
+        # one: "1 error prohibited this %{resource} from being saved:"
+        # other: "%{count} errors prohibited this %{resource} from being saved:"

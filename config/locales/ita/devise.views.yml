@@ -1,0 +1,58 @@
+ita:
+  devise:
+    confirmations:
+      new:
+        resend_confirmation_instructions: "Inviare nuovamente istruzioni di conferma"
+    mailer:
+      confirmation_instructions:
+        action: "Confermare il mio conto"
+        # greeting: "Welcome %{recipient}!"
+        instruction: "È possibile confermare il tuo account e-mail tramite il link sottostante:"
+        subject: "istruzioni di conferma"
+      reset_password_instructions:
+        action: "Cambia la mia password"
+        # greeting: "Hello %{recipient}!"
+        instruction: "Qualcuno ha chiesto un link per cambiare la tua password, e si può farlo attraverso il link sottostante."
+        instruction_2: "Se non hai richiesto questo, ignora questa email."
+        instruction_3: "La password non cambierà fino a quando si accede al link qui sopra e crearne uno nuovo."
+        subject: "Ripristinare le istruzioni di password"
+      unlock_instructions:
+        action: "Sbloccare il mio conto"
+        # greeting: "Hello %{recipient}!"
+        instruction: "Clicca sul link sottostante per sbloccare il conto:"
+        message: "Il tuo account è stato bloccato a causa di una quantità eccessiva di segno successo nei tentativi."
+        subject: "Sblocca Istruzioni"
+    passwords:
+      edit:
+        change_my_password: "Cambia la mia password"
+        change_your_password: "Cambia la tua password"
+        confirm_new_password: "Conferma la nuova password"
+        new_password: "Nuova password"
+      new:
+        forgot_your_password: "Hai dimenticato la password?"
+        send_me_reset_password_instructions: "Inviami ripristinare istruzioni di password"
+    registrations:
+      edit:
+        are_you_sure: "Sei sicuro?"
+        cancel_my_account: "Cancella il mio account"
+        leave_blank_if_you_don_t_want_to_change_it: "Lasciare vuoto se non volete cambiarlo"
+        # title: "Edit %{resource}"
+        unhappy: "Infelice"
+        update: "Aggiornare"
+        we_need_your_current_password_to_confirm_your_changes: "abbiamo bisogno della vostra password corrente per confermare le modifiche"
+      new:
+        sign_up: "Registrazione"
+    sessions:
+      new:
+        sign_in: "registrati"
+    shared:
+      links:
+        didn_t_receive_confirmation_instructions: "Non ha ricevuto istruzioni di conferma?"
+        didn_t_receive_unlock_instructions: "Non ha ricevuto istruzioni di sblocco?"
+        forgot_your_password: "Hai dimenticato la password?"
+        sign_in: "registrati"
+        # sign_in_with_provider: "Sign in with %{provider}"
+        sign_up: "Registrazione"
+    unlocks:
+      new:
+        resend_unlock_instructions: "Invia di nuovo sbloccare le istruzioni"

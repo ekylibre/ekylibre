@@ -1,0 +1,157 @@
+ita:
+  about:
+    # authors: ["Brice Texier", "Jean-Jacques Vangramberen"]
+    dir: "ltr"
+    iso2: "it"
+    name: "Italiano"
+  activerecord:  #?
+    errors: #?
+      messages: #?
+        record_invalid: "Validazione fallita: %{errors}" #?
+        restrict_dependent_destroy: #?
+          has_many: "Il record non può essere cancellato perchè esistono %{record} dipendenti" #?
+          has_one: "Il record non può essere cancellato perchè esiste un %{record} dipendente" #?
+  boolean:
+    human:
+      false_class: "Falso"
+      true_class: "Vero"
+  date:
+    abbr_day_names: ["dom", "lun", "mar", "mer", "gio", "ven", "sab"]
+    abbr_month_names: ["", "gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"]
+    day_names: ["domenica", "lunedì", "martedì", "mercoledì", "giovedì", "venerdì", "sabato"]
+    formats:
+      default: "%d/%m/%Y"
+      legal: "% D% B% Y"
+      long: "%d %B %Y"
+      month: "% B% Y"
+      month_letter: "% D% B% Y"
+      short: "%d %b"
+    month_names: ["", "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"]
+    order: [:day, :month, :year] #?
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: "circa un'ora"
+        other: "circa %{count} ore"
+      about_x_months:
+        one: "circa un mese"
+        other: "circa %{count} mesi"
+      about_x_years:
+        one: "circa un anno"
+        other: "circa %{count} anni"
+      almost_x_years:
+        one: "circa 1 anno"
+        other: "circa %{count} anni"
+      half_a_minute: "mezzo minuto"
+      less_than_x_minutes:
+        one: "meno di un minuto"
+        other: "meno di %{count} minuti"
+      less_than_x_seconds:
+        one: "meno di un secondo"
+        other: "meno di %{count} secondi"
+      over_x_years:
+        one: "oltre un anno"
+        other: "oltre %{count} anni"
+      x_days:
+        one: "1 giorno"
+        other: "%{count} giorni"
+      x_minutes:
+        one: "1 minuto"
+        other: "%{count} minuti"
+      x_months:
+        one: "1 mese"
+        other: "%{count} mesi"
+      x_seconds:
+        one: "1 secondo"
+        other: "%{count} secondi"
+    prompts:  #?
+      day: "Giorno" #?
+      hour: "Ora" #?
+      minute: "Minuto" #?
+      month: "Mese" #?
+      second: "Secondi" #?
+      year: "Anno" #?
+    relative_distance_in_words:
+      # in_sometime: "in %{distance}"
+      # sometime_ago: "%{distance} ago"
+  helpers:  #?
+    select: #?
+      prompt: "Seleziona..." #?
+    submit: #?
+      create: "Crea %{model}" #?
+      submit: "Invia %{model}" #?
+      update: "Aggiorna %{model}" #?
+  http:
+    errors:
+      internal_server_error:
+        hint: "L&#39;applicazione incontra problemi. Gli amministratori sono stati notificati per questo problema."
+        title: "Siamo spiacenti, ma qualcosa è andato storto"
+      not_found:
+        hint: "Potreste aver digitato in modo errato l&#39;indirizzo o la pagina potrebbe essere spostato."
+        title: "La pagina che stavi cercando non esiste"
+      unprocessable_entity:
+        hint: "Forse si è tentato di cambiare qualcosa che non ha accesso."
+        title: "Il cambiamento si voleva è stata respinta"
+  number:
+    currency:
+      format:
+        delimiter: "."
+        format: "%n %u"
+        negative_format: "-% U% n"
+        precision: 2
+        separator: ","
+        significant: #?
+        strip_insignificant_zeros: #?
+        unit: "€"
+    format:
+      delimiter: "."
+      precision: 2
+      separator: ","
+      significant: #?
+      strip_insignificant_zeros: #?
+    human:
+      decimal_units:  #?
+        format: "%n %u" #?
+        units: #?
+          billion: "Miliardi" #?
+          million: "Milioni" #?
+          quadrillion: "Biliardi" #?
+          thousand: "Mila" #?
+          trillion: "Bilioni" #?
+          unit: "" #?
+      format:
+        delimiter: ""
+        precision: 3
+        significant: "true" #?
+        strip_insignificant_zeros: "true" #?
+      storage_units:  #?
+        format: "%n %u" #?
+        units: #?
+          byte: #?
+            one: "Byte" #?
+            other: "Byte" #?
+          gb: "GB" #?
+          kb: "KB" #?
+          mb: "MB" #?
+          tb: "TB" #?
+    percentage:
+      format:
+        delimiter: ""
+        format: "%n%" #?
+    precision:
+      format:
+        delimiter: ""
+  # rank: "#%{number}"
+  support:
+    array:
+      last_word_connector: " e "
+      sentence_connector: "e"
+      two_words_connector: " e "
+      words_connector: ", "
+  time:
+    am: "am"
+    formats:
+      default: "%a %d %b %Y, %H:%M:%S %z"
+      long: "%d %B %Y %H:%M"
+      short: "%d %b %H:%M"
+    pm: "pm"
