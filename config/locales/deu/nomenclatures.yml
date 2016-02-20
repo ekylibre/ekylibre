@@ -805,7 +805,6 @@ deu:
         # er: "Eritrea"
         es: "Spanien"
         et: "Äthiopien"
-        no: "Norwegen" #?
         fi: "Finnland"
         fj: "Fidschi"
         fk: "Falklandinseln (Malvinas)"
@@ -903,7 +902,7 @@ deu:
         # ng: "Nigeria"
         # ni: "Nicaragua"
         nl: "Niederlande"
-        # no: "Norway"
+        no: "Norwegen"
         # np: "Nepal"
         # nr: "Nauru"
         # nu: "Niue"

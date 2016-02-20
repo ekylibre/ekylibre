@@ -30,43 +30,54 @@ ita:
         downpayment: "richiesta acconto"
       tax:
         amount: "Valore"
-  errors:  #?
-    format: "%{attribute} %{message}" #?
-    messages: #?
-      accepted: "deve essere accettata" #?
-      blank: "non può essere lasciato in bianco" #?
-      confirmation: "non coincide con %{attribute}" #?
-      empty: "non può essere vuoto" #?
-      equal_to: "deve essere uguale a %{count}" #?
-      even: "deve essere pari" #?
-      exclusion: "è riservato" #?
-      greater_than: "deve essere maggiore di %{count}" #?
-      greater_than_or_equal_to: "deve essere maggiore o uguale a %{count}" #?
-      inclusion: "non è compreso tra le opzioni disponibili" #?
-      invalid: "non è valido" #?
-      less_than: "deve essere minore di %{count}" #?
-      less_than_or_equal_to: "deve essere minore o uguale a %{count}" #?
-      not_a_number: "non è un numero" #?
-      not_an_integer: "non è un numero intero" #?
-      odd: "deve essere dispari" #?
-      other_than: "devono essere di numero diverso da %{count}" #?
-      present: "deve essere lasciato in bianco" #?
-      taken: "è già presente" #?
-      too_long: #?
-        one: "è troppo lungo (il massimo è 1 carattere)" #?
-        other: "è troppo lungo (il massimo è %{count} caratteri)" #?
-      too_short: #?
-        one: "è troppo corto (il minimo è 1 carattere)" #?
-        other: "è troppo corto (il minimo è %{count} caratteri)" #?
-      wrong_length: #?
-        one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #?
-        other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #?
-    template: #?
-      body: "Ricontrolla i seguenti campi:" #?
-      header: #?
-        one: "Non posso salvare questo %{model}: 1 errore" #?
-        other: "Non posso salvare questo %{model}: %{count} errori." #?
-        nothing_to_pay: "Niente da pagare. Se si desidera registrare un acconto, non dimenticate di notare che."
+    errors:
+      format: "%{attribute} %{message}" #?
+      messages:
+        accepted: "deve essere accettata"
+        # after: "%{attribute} must be after %{restriction}"
+        # before: "%{attribute} must be before %{restriction}"
+        blank: "non può essere lasciato in bianco"
+        confirmation: "non coincide con %{attribute}"
+        # currency_does_not_match: "The currency of the %{attribute} is different from %{currency}"
+        empty: "non può essere vuoto"
+        equal_to: "deve essere uguale a %{count}"
+        even: "deve essere pari"
+        exclusion: "è riservato"
+        greater_than: "deve essere maggiore di %{count}"
+        greater_than_or_equal_to: "deve essere maggiore o uguale a %{count}"
+        # included_in: "The value of %{attribute} must be included between %{minimum} and %{maximum}"
+        inclusion: "non è compreso tra le opzioni disponibili"
+        invalid: "non è valido"
+        # invalid_at: "%{attribute} is_invalid. Error near %{error}"
+        # invalid_date: "%{attribute} is not a valid date"
+        # invalid_datetime: "%{attribute} is not a valid datetime"
+        # invalid_time: "%{attribute} is not a valid time"
+        # invalid_token: "%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}."
+        # is_at: "%{attribute} must be at %{restriction}"
+        less_than: "deve essere minore di %{count}"
+        less_than_or_equal_to: "deve essere minore o uguale a %{count}"
+        # must_be_a_mail_address: "%{attribute} must be a mail address"
+        not_a_number: "non è un numero"
+        # not_an_end_of_month: "%{attribute} must be an end of month"
+        not_an_integer: "non è un numero intero"
+        # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+        odd: "deve essere dispari"
+        # on_or_after: "%{attribute} must be on or after %{restriction}"
+        # on_or_before: "%{attribute} must be on or before %{restriction}"
+        other_than: "devono essere di numero diverso da %{count}" #?
+        # posterior: "The date %{attribute} must be posterior to %{to}"
+        present: "deve essere lasciato in bianco" #?
+        # record_invalid: "Validations failed: %{errors}"
+        taken: "è già presente"
+        too_long:  #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
+          one: "è troppo lungo (il massimo è 1 carattere)" #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
+          other: "è troppo lungo (il massimo è %{count} caratteri)" #? String excepted (Hash:{:one=>"è troppo lungo (il massimo è 1 carattere)", :other=>"è troppo lungo (il massimo è %{count} caratteri)"})
+        too_short:  #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
+          one: "è troppo corto (il minimo è 1 carattere)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
+          other: "è troppo corto (il minimo è %{count} caratteri)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
+        wrong_length:  #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
+          one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
+          other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
       models:
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
@@ -114,10 +125,32 @@ ita:
         subscription:
           entity_must_be_the_same_as_the_contact_entity: "Persona deve essere la stessa persona di contatto"
       template:
-        body: "Ci sono stati problemi con i seguenti campi:"
+        body: "Ricontrolla i seguenti campi:"
         header:
-          # one: "1 error prohibited this %{model} from being saved"
-          # other: "%{count} errors prohibited this %{model} from being saved"
+          nothing_to_pay: "Niente da pagare. Se si desidera registrare un acconto, non dimenticate di notare che." #?
+          one: "Non posso salvare questo %{model}: 1 errore"
+          other: "Non posso salvare questo %{model}: %{count} errori."
+        models:  #?
+          cash: #?
+            unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti." #?
+          financial_year: #?
+            attributes: #?
+              started_on: #?
+                consecutive: "Gli esercizi devono essere consecutivi. Si deve iniziare dopo la fine del precedente." #?
+          journal_entry: #?
+            out_of_existing_financial_year: "La voce di diario deve essere registrato in un periodo corrispondente a un esercizio esistente." #?
+            unbalanced: "La voce di diario è sbilanciato" #?
+          journal_entry_item: #?
+            closed_entry: "La voce di diario è bloccato. Non è possibile aggiornarlo." #?
+            empty_amounts: "La voce di diario deve essere compilato o di debito o di credito" #?
+            unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo." #?
+          sale_item: #?
+            currency_is_not_sale_currency: "Valuta non è identica alla valuta vendita" #?
+            error_no_found_price: "Nessun prezzo trovato" #?
+          subscription: #?
+            entity_must_be_the_same_as_the_contact_entity: "Persona deve essere la stessa persona di contatto" #?
+        template:  #?
+          body: "Ci sono stati problemi con i seguenti campi:" #?
     models:
       account: "account"
       account_balance: "saldo del conto"

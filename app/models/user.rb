@@ -202,7 +202,7 @@ class User < Ekylibre::Record::Base
   end
 
   def can?(action, resource)
-    administrator? || self.right_exist?(action, resource)
+    administrator? || right_exist?(action, resource)
   end
 
   def can_access?(url)

@@ -19,7 +19,7 @@
                  if="population_counting_is(PRODUCT, :decimal) > 0"
                  backward="POPULATION / sum_working_zone_areas(cultivation, :hectare)"
                  forward="sum_working_zone_areas(cultivation, :hectare) * VALUE"/>
-      </input>	
+      </input>
       <tool name="implanter_tool"   filter="can implant" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
       <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>

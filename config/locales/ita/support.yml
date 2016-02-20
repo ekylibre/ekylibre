@@ -4,13 +4,6 @@ ita:
     dir: "ltr"
     iso2: "it"
     name: "Italiano"
-  activerecord:  #?
-    errors: #?
-      messages: #?
-        record_invalid: "Validazione fallita: %{errors}" #?
-        restrict_dependent_destroy: #?
-          has_many: "Il record non può essere cancellato perchè esistono %{record} dipendenti" #?
-          has_one: "Il record non può essere cancellato perchè esiste un %{record} dipendente" #?
   boolean:
     human:
       false_class: "Falso"
@@ -27,7 +20,6 @@ ita:
       month_letter: "% D% B% Y"
       short: "%d %b"
     month_names: ["", "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"]
-    order: [:day, :month, :year] #?
   datetime:
     distance_in_words:
       about_x_hours:
@@ -100,15 +92,11 @@ ita:
         negative_format: "-% U% n"
         precision: 2
         separator: ","
-        significant: #?
-        strip_insignificant_zeros: #?
         unit: "€"
     format:
       delimiter: "."
       precision: 2
       separator: ","
-      significant: #?
-      strip_insignificant_zeros: #?
     human:
       decimal_units:  #?
         format: "%n %u" #?

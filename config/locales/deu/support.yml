@@ -128,15 +128,11 @@ deu:
         negative_format: "-%un"
         precision: 2
         separator: ","
-        significant: #?
-        strip_insignificant_zeros: #?
         unit: "€"
     format:
       delimiter: "."
       precision: 2
       separator: ","
-      significant: #?
-      strip_insignificant_zeros: #?
     human:
       decimal_units:  #?
         format: "%n %u" #?

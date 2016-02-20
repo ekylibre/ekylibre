@@ -1,4 +1,5 @@
-{ ita: {
+{
+  ita: {
     i18n: {
       dir: 'ltr',
       iso2: 'it',
@@ -9,7 +10,7 @@
       }
     },
     date: {
-      order: [:month, :day, :year]
+      order: [:day, :month, :year] # ?
     }
   }
 }

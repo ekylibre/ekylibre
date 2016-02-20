@@ -39,6 +39,6 @@ module Rightable
 
   def right_exist?(action, resource)
     return false unless rights && rights[resource.to_s]
-    return rights[resource.to_s].include?(action.to_s)
+    rights[resource.to_s].include?(action.to_s)
   end
 end
