@@ -3,6 +3,8 @@
 #     - "api/v1/crumbs#index"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
+#     - "authentication/invitations#edit"
+#     - "authentication/invitations#update"
 #     - "authentication/passwords#create"
 #     - "authentication/passwords#edit"
 #     - "authentication/passwords#new"
@@ -1922,6 +1924,8 @@ transports:
 users:
   read:
     actions:
+    - "backend/invitations#index"
+    - "backend/invitations#list"
     - "backend/users#index"
     - "backend/users#list"
     - "backend/users#show"
@@ -1930,6 +1934,8 @@ users:
     dependencies:
     - read-users
     actions:
+    - "backend/invitations#new"
+    - "backend/invitations#create"
     - "backend/users#create"
     - "backend/users#destroy"
     - "backend/users#edit"
