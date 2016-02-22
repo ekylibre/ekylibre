@@ -224,6 +224,7 @@ module Backend
       if request.post?
         group = AnimalGroup.find(params[:group_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
+        # TODO: fix intervention
         group.add_animals(@ids, at: params[:started_at], activity_production: activity_production)
         redirect_to params[:redirect] || backend_animal_group_path(group)
       else
@@ -236,6 +237,7 @@ module Backend
       if request.post?
         variant = ProductNatureVariant.find(params[:variant_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
+        # TODO: fix intervention
         variant.add_products(@ids, at: params[:started_at], activity_production: activity_production)
         redirect_to params[:redirect] || backend_product_nature_variant_path(variant)
       else
@@ -248,6 +250,7 @@ module Backend
       if request.post?
         container = Product.find(params[:container_id])
         activity_production = ActivityProduction.find(params[:activity_production_id])
+        # TODO: fix intervention
         container.add_content_products(@ids, at: params[:started_at], activity_production: activity_production)
         redirect_to params[:redirect] || backend_product_path(container)
       else
