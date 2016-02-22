@@ -67,7 +67,6 @@ Rails.application.routes.draw do
   devise_for :users, path: 'authentication', module: :authentication, skip: [:invitations]
   as :user do
     get 'authentication/invitation/accept' => 'authentication/invitations#edit', as: :accept_user_invitation
-    get 'authentication/invitation/remove' => 'authentication/invitations#destroy', as: :remove_user_invitation
     put 'authentication/invitation' => 'authentication/invitations#update', as: :user_invitation
     patch 'authentication/invitation' => 'authentication/invitations#update'
   end
