@@ -179,3 +179,11 @@ group :test do
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
 end
+
+# Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
+gemfiles = Dir.glob File.expand_path('../{Gemfile.local,Gemfile.plugins,lib/plugins/*/Gemfile}', __FILE__)
+gemfiles << ENV['CUSTOM_PLUGIN_GEMFILE'] unless ENV['CUSTOM_PLUGIN_GEMFILE'].nil?
+gemfiles.each do |file|
+  next unless File.readable?(file)
+  eval_gemfile(file)
+end
