@@ -28,7 +28,7 @@
           %th.with-some-supports
             %span= ActivityBudgetItem.human_attribute_name(:amount)
             %span= "/"
-            - unit = f.object.size_unit
+            - unit = f.object.size_unit unless f.object.activity.nil?
             %span.working-unit= (unit ? unit.symbol : "?")
           %th
       %tfoot
