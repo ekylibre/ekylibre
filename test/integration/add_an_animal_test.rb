@@ -28,6 +28,7 @@ class AddAnAnimalTest < CapybaraIntegrationTest
     fill_in('animal[name]', with: 'Linette')
     fill_in('animal[work_number]', with: '9253')
     fill_in('animal[identification_number]', with: 'FR17129253')
+    fill_in('animal[initial_population]', with: '1')
     fill_unroll('animal_initial_mother_id', with: 'isa', select: 'Isabelle', name: :animals)
     attach_file('animal[picture]', fixture_files_path.join('cow_picture.jpg'))
     shoot_screen 'animals/new-before_create'
