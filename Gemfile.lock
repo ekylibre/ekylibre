@@ -56,6 +56,7 @@ GEM
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
+    ansi (1.5.0)
     apartment (1.0.2)
       activerecord (>= 3.1.2, < 5.0)
       rack (>= 1.3.6)
@@ -224,6 +225,11 @@ GEM
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
+    minitest-reporters (1.1.8)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     multi_json (1.11.2)
     multipart-post (2.0.0)
     net-http-digest_auth (1.4)
@@ -487,6 +493,7 @@ DEPENDENCIES
   jquery-ui-rails
   luhn
   mechanize
+  minitest-reporters
   nokogiri (~> 1.6.0)
   paperclip
   paperclip-document (> 0.0.8)

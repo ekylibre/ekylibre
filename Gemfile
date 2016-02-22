@@ -160,14 +160,16 @@ group :development do
   # Webservers
   gem 'thin'
 
-  gem 'pry-rails'
-  gem 'pry-byebug'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 3.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+end
+
+group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :test do
@@ -179,6 +181,7 @@ group :test do
 
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
+  gem 'minitest-reporters'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles
