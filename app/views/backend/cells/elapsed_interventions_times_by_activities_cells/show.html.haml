@@ -1,8 +1,8 @@
 - series = []
-- if @campaign && Intervention.of_campaign(@campaign).any?
+- if @campaign && Intervention.of_civil_year(@campaign.harvest_year).any?
   :ruby
-    started_at = Intervention.of_campaign(@campaign).reorder(:started_at).first.started_at.to_date
-    stopped_at = Intervention.of_campaign(@campaign).reorder(:started_at).last.stopped_at.to_date
+    started_at = Intervention.of_civil_year(@campaign.harvest_year).reorder(:started_at).first.started_at.to_date
+    stopped_at = Intervention.of_civil_year(@campaign.harvest_year).reorder(:started_at).last.stopped_at.to_date
 
     unit = Nomen::Unit[:hour]
 
@@ -16,8 +16,11 @@
     end
 
     # data for bar chart times by activities and by month
-    Activity.of_campaign(@campaign).find_each do |activity|
-      interventions = Intervention.of_activity(activity).of_campaign(@campaign).reorder(:started_at)
+    Activity.actives.find_each do |activity|
+    puts activity.inspect.red
+      activity_target_id = activity.productions.pluck(:support_id)
+      targets = Product.find(activity_target_id)
+      interventions = Intervention.with_targets(targets).of_civil_year(@campaign.harvest_year).reorder(:started_at)
       if interventions.any?
         sums = interventions.sums_of_periods.sort.inject({}) do |hash, period|
           hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
@@ -30,27 +33,6 @@
         series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }, color: activity.color}
       end
     end
-
-    # # data for spline sum revenues by month
-    # operations = Operation.of_campaign(@campaign).order(:started_at)
-    # if operations.count > 0
-    #     sums = operations.sums_of_periods.sort.inject({}) do |hash, pair|
-    #       hash[pair.expr.to_i.to_s] = pair.sum.in_second.convert(:hour).round(2).to_s.to_f
-    #       hash
-    #     end
-    #  series << {type: 'spline', name: :total.tl, data: normalize_serie(sums, categories.keys), marker: {line_width: 2}}
-    # end
-
-    # # data for elapsed time pie by activity
-    # data = []
-    # Activity.of_campaign(@campaign).find_each do |activity|
-    #   operations = Operation.of_activities(activity).of_campaign(@campaign).order(:started_at)
-    #   if operations.count > 0
-    #     sum_revenues = operations.sum(:duration).in_second.convert(:hour).round(2)
-    #     data << {name: activity.name, y: sum_revenues.to_s.to_f, url: backend_activity_path(activity)}
-    #   end
-    # end
-    # series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
 
 - if series.any?
   = column_highcharts(series, y_axis: {title: {text: :duration.tl}, stack_labels: {enabled: true, format: "{total} #{unit.symbol}"}, labels: { format: "{value} #{unit.symbol}" }}, x_axis: { categories: categories.values}, legend: true, plot_options: { column: {stacking: 'normal'}})
