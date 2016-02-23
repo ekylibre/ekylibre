@@ -21,10 +21,8 @@ module Backend
     manage_restfully
 
     before_action only: :show do
-      if params[:id] == 'preceding'
-        campaign = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year - 1)
-      elsif params[:id] == 'following'
-        campaign = Campaign.find_or_create_by!(harvest_year: current_campaign.harvest_year + 1)
+      if params[:current_campaign]
+        campaign = Campaign.find_or_create_by!(harvest_year: params[:current_campaign])
       end
       if campaign
         redirect_to action: :show, id: campaign.id

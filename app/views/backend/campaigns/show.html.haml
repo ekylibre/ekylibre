@@ -13,7 +13,7 @@
     = tool_to :manage_activities.tl, { controller: :activities, action: :index }
 
 - content_for :heading_toolbar do
-  = campaign_selector(resource, param_name: :id)
+  = campaign_selector(resource)
 
 -#= cobbles do |c|
   - c.cobble :general_informations do
