@@ -105,7 +105,8 @@ module Charta
 
     # Returns area in square meter
     def area
-      value = if srid = find_srid(Preference[:map_measure_srs])
+      srid = find_srid(Preference[:map_measure_srs])
+      value = if srid && srid != 4326
                 select_value("SELECT ST_Area(ST_Transform(#{geom}, #{srid}))")
               else
                 select_value("SELECT ST_Area(#{geom}::geography)")
