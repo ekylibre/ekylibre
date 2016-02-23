@@ -1,4 +1,4 @@
 .btn-group.campaign-selector
-  = link_to('', { param_name => :preceding }, class: 'btn btn-previous icn icn-only')
+  = link_to('', { param_name => campaign.harvest_year - 1 }, class: 'btn btn-previous icn icn-only')
   = link_to(campaign.harvest_year.to_s, { controller: '/backend/campaigns', action: :show, id: campaign }, class: 'btn campaign')
-  = link_to('', { param_name => :following }, class: 'btn btn-next icn icn-only')
+  = link_to('', { param_name => campaign.harvest_year + 1 }, class: 'btn btn-next icn icn-only')

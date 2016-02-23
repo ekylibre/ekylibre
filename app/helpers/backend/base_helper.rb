@@ -215,7 +215,7 @@ module Backend
         current_user.current_campaign = @current_campaign
       end
       campaign ||= current_campaign
-      render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign_id
+      render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
     end
 
     def lights(status, html_options = {})
