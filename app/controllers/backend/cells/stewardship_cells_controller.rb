@@ -6,6 +6,8 @@ module Backend
                        [Campaign.find(params[:campaign_id])]
                      elsif params[:current_campaign_id]
                        [Campaign.find(params[:current_campaign_id])]
+                     elsif current_campaign
+                       [current_campaign]
                      else
                        [Campaign.current.last]
                      end
