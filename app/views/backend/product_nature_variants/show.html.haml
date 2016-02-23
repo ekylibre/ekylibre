@@ -32,7 +32,7 @@
   - c.cobble(:sale_items) do
     = cobble_list(:sale_items)
 
-  - if resource.products.any?
+  -# if resource.products.any?
     - c.cobble(:stocks) do
       :ruby
           dataset = resource.products
