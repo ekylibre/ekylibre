@@ -19,9 +19,9 @@ class Ekylibre::BuildingsJsonExchanger < ActiveExchanger::Base
         building = Building.create!(properties.slice('name').merge(initial_shape: shape, variant: variant))
         divisions = properties['divisions']
         next unless divisions && divisions.any?
-        divisions['features'].each do |_division|
-          properties = feature['properties']
-          shape = ::Charta.from_geojson(feature)
+        divisions['features'].each do |division|
+          properties = division['properties']
+          shape = ::Charta.from_geojson(division)
           variant = ProductNatureVariant.import_from_nomenclature(:building_division)
           div = BuildingDivision.create!(properties.slice('name').merge(initial_shape: shape, variant: variant))
           # FIXME: We lose level (storey) and building information on division recording
