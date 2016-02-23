@@ -76,7 +76,7 @@ class Activity < Ekylibre::Record::Base
   # validates_associated :productions
   validates_presence_of :production_campaign, if: :perennial?
 
-  scope :actives, -> { availables.where(id: ActivityProduction.opened) }
+  scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
   scope :of_intervention, lambda { |intervention|
