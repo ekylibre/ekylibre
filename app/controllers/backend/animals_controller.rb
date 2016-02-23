@@ -25,7 +25,7 @@ module Backend
     #   :variant_id
     def self.list_conditions
       code = ''
-      code = search_conditions(product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(product_nature_variants: [:name], products: [:name, :work_number]) + " ||= []\n"
       code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
       code << "  if params[:period] != 'all'\n"
       code << "    interval = params[:period].split('_')\n"
