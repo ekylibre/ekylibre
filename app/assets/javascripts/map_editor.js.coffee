@@ -74,9 +74,9 @@
           completedColor: '#C8F2BE'
           localization: 'en'
         importers:
-          gml: false
-          geojson: false
-          kml: false
+          gml: true
+          geojson: true
+          kml: true
           title: ''
           content: ''
           template: '<div class="modal-header"><i class="leaflet-importer-ctrl"></i><span>{title}</span></div>
