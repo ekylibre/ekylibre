@@ -656,7 +656,7 @@ fra:
     account_value_current: "Brut" #?
     account_value_previous: "Brut N-1" #?
     accountancy: "Comptabilité"
-    accountancy_balance: "Soldes comptables"
+    accountancy_balance: "Soldes intermédiaires de gestion et ratios"
     accounting_balance: "Balance comptable" #?
     accounts: "Comptes comptables"
     accounts_only_used_at: "Comptes utilisés seulement sur"
@@ -920,7 +920,7 @@ fra:
     dates: "Saisissez les dates de début et de fin de la période"
     deals: "Transactions"
     debit: "Débit"
-    debts_on_assets: "Taux d'endettement (Dettes / Actifs)"
+    debts_on_assets: "Taux d'endettement (Dettes / Actifs) %{financial_year}"
     decimal_case: "Options pour un décimal" #?
     decision_making: "Décision"
     default_letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
@@ -1188,7 +1188,7 @@ fra:
     linear_options: "Options du linéaire"
     link: "Lien"
     lipolysis: "Lipolyse" #?
-    liquid_assets_on_turnover: "Taux de liquidités / CA (Disponibilités / Chiffre d'affaire HT)"
+    liquid_assets_on_turnover: "Taux de liquidités / CA (Disponibilités / Chiffre d'affaire HT) %{financial_year}"
     list: "Liste"
     listing_extract: "Éxécuter l’extraction" #?
     listing_mail: "Envoyer un courriel" #?
@@ -1344,8 +1344,9 @@ fra:
     open_a_campaign: "Ouvrir une campagne de production"
     open_a_production: "Créer une production"
     open_an_activity: "Créer une activité"
-    operating_margin: "EBE (Excédent Brut d'Exploitation)"
-    operating_margin_on_turnover: "EBE / CA (Excédent Brut d'Exploitation / Chiffre d'affaire HT)"
+    operating_margin: "EBE (Excédent Brut d'Exploitation) %{financial_year}"
+    operating_margin_on_turnover: "EBE / CA (Excédent Brut d'Exploitation / Chiffre d'affaire HT) %{financial_year}"
+    operating_profit: "Résultat d'exploitation %{financial_year}"
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
     options: "Options"
@@ -1440,6 +1441,7 @@ fra:
     product_natures: "Types de produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
+    product_value: "Chiffre d'affaire de l'exercice %{financial_year}"
     production: "Production"
     production_cost: "Coût de production"
     production_distribution: "Répartition de la production"

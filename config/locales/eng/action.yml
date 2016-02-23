@@ -983,7 +983,7 @@ eng:
     dates: "Select period start date and Period end date" #?
     deals: "Deals"
     debit: "Debit" #?
-    debts_on_assets: "Debts on assets"
+    debts_on_assets: "Debts on assets %{financial_year}"
     decision_making: "Decision-making"
     default_letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
     default_letter_function_title: "Dear madam, dear sir"
@@ -1163,7 +1163,7 @@ eng:
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
-    liquid_assets_on_turnover: "Liquid assets on turnover"
+    liquid_assets_on_turnover: "Liquid assets on turnover %{financial_year}"
     list: "List" #?
     load: "Load"
     locale: "Language"
@@ -1262,8 +1262,9 @@ eng:
     open_a_campaign: "Open a campaign"
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
-    operating_margin: "Operating margin"
-    operating_margin_on_turnover: "Operating margin on turnover"
+    operating_margin: "Operating margin %{financial_year}"
+    operating_margin_on_turnover: "Operating margin on turnover %{financial_year}"
+    operating_profit: "Operating profit %{financial_year}"
     operations: "Operations" #?
     options: "Options"
     organic_matter_concentration: "Organic matter concentration" #?
@@ -1325,6 +1326,7 @@ eng:
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
+    product_value: "Product value %{financial_year}"
     production: "Production"
     production_cost: "Production cost"
     production_distribution: "Production distribution" #?

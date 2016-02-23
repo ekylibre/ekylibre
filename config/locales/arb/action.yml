@@ -1489,6 +1489,7 @@ arb:
     open_an_activity: "فتح النشاط"
     operating_margin: "هامش التشغيل"
     operating_margin_on_turnover: "هامش تعمل على دوران"
+    # operating_profit: "Operating profit %{financial_year}"
     operation: "" #?
     operation_create: "اضافة عمل" #?
     operation_nature_create: "انشاء نوع عمل جديد" #?
@@ -1591,6 +1592,7 @@ arb:
     product_name: "المنتج"
     product_natures: "أنواع المنتجات"
     product_update: "تعديل تفاصيل المنتج" #?
+    # product_value: "Product value %{financial_year}"
     production: "ادارة الانتاج"
     production_cost: "تكلفة الانتاج"
     production_distribution: "توزيع الانتاج"

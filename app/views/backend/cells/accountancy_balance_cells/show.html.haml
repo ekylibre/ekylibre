@@ -7,7 +7,7 @@
     operating_margin =  ( - product_value - charge_value ) if product_value && charge_value
     operating_profit = operating_margin - @financial_year.sum_entry_items('781 791 751 752 753 754 755 758') - @financial_year.sum_entry_items('681 651 653 654 655 658')
     operating_margin_on_turnover = ( operating_margin / - turnover_value) * 100 if operating_margin && turnover_value && turnover_value != 0.0
-    
+
     # debts_on_assets = (debts / assets) * 100
     financial_debt = @financial_year.sum_entry_items('1641 1642 1643 4553 4554 519, 512 514 517 C, 5186 161 163 165 166 1675 168 17 426, 451 456 458 C')
     other_debt = @financial_year.sum_entry_items('401 4031 4081 4088 402 4032 4082, 445 C, 421 422 424 427 4282 4284 4286 431 437 4382 4386 442, 443 444 C, 446 447 4482 4486 457, 4551 4552 C, 269 279 404 405 4084 4196 4197 4198 4419, 452 453 454 461 C, 464, 467 C, 4686, 478 C, 509')
@@ -41,7 +41,7 @@
     - if operating_profit
       .big-info
         %span.title= :operating_profit.tl(financial_year: @financial_year.name)
-        %span.value= operating_profit.l(currency: Preference[:currency])    
+        %span.value= operating_profit.l(currency: Preference[:currency])
     - if bank
       .big-info{class: (debts_on_assets > 0 ? :positive : debts_on_assets < 0 ? :negative : :caution)}
         %span.title= :debts_on_assets.tl(financial_year: @financial_year.name)

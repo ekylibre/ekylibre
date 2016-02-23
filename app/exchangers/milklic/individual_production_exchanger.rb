@@ -5,7 +5,7 @@ class Milklic::IndividualProductionExchanger < ActiveExchanger::Base
     unless analyser = Entity.find_by(siret_number: analyser_attributes[:siret_number])
       analyser = Entity.create!(analyser_attributes)
     end
-    
+
     cattling_number = Identifier.find_by_nature(:cattling_number).value if Identifier.find_by_nature(:cattling_number)
 
     begin
@@ -29,7 +29,7 @@ class Milklic::IndividualProductionExchanger < ActiveExchanger::Base
           milk_daily_production_measure = row[i].tr(',', '.').to_d.in_kilogram_per_day
           milk_daily_production_at = Date.strptime(row.headers[i], '%d/%m/%y').to_time
           reference_number = cattling_number + '-L' + r.animal_lactation_number.to_s + '-C' + r.animal_lactation_started_on.month.to_s
-          
+
           unless analysis = Analysis.where(reference_number: reference_number, analyser: analyser).first
             analysis = Analysis.create!(reference_number: reference_number, nature: 'unitary_cow_milk_analysis',
                                         analyser: analyser, sampled_at: milk_daily_production_at, analysed_at: milk_daily_production_at
