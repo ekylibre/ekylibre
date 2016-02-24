@@ -167,7 +167,13 @@
       @valueField.trigger "selector:set"
       @element.trigger "selector:set"
       if (redirect = @element.data("redirect-on-change-url")) && (param = @element.attr('id')) && id
-        window.location = redirect + "?" + param + "="+ id
+        if @element.closest('form').data('dialog') is undefined
+          window.location = redirect + "?" + param + "="+ id
+        else
+          # open it in a new dialog
+          url = redirect + "?" + param + "="+ id
+          E.dialog.open url
+
       this
 
     _openMenu: (search) ->

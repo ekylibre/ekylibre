@@ -105,6 +105,7 @@
         success: (data, status, request) ->
           returnCode = request.getResponseHeader(settings.header)
           returns = settings.returns
+          console.log returns
           unknownReturnCode = true
           for code of returns
             if returns.hasOwnProperty(code) and returnCode is code and $.isFunction(returns[code])
