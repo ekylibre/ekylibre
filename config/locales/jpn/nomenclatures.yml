@@ -2244,6 +2244,7 @@ jpn:
         raking: "速いです"
         # remontage: "Remontage"
         seed_mixing: "種子混合"
+        # seedling_sorting: "Seedling sorting"
         silage: "サイレージ"
         soil_cleaning: "土壌洗浄"
         soil_enrichment: "土壌濃縮"

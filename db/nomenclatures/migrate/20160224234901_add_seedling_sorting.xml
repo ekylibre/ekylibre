@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add seedling sorting">
+  <item-creation item="procedure_natures#seedling_sorting" parent="transformation" roles="input, output, doer, tool" activity_families="processing" />
+</migration>

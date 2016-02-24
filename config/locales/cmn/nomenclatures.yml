@@ -2233,6 +2233,7 @@ cmn:
         raking: "耙"
         # remontage: "Remontage"
         seed_mixing: "种子混合"
+        # seedling_sorting: "Seedling sorting"
         silage: "青贮饲料"
         soil_cleaning: "土壤清洗"
         soil_enrichment: "富集土壤"

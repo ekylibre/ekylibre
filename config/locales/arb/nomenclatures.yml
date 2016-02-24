@@ -2242,6 +2242,7 @@ arb:
         raking: "نبش"
         # remontage: "Remontage"
         seed_mixing: "البذور الاختلاط"
+        # seedling_sorting: "Seedling sorting"
         silage: "علف مخزون"
         soil_cleaning: "تنظيف التربة"
         soil_enrichment: "تخصيب التربة"

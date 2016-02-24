@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160210124624">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160224234901">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2230,6 +2230,7 @@
       <item name="raking" parent="tillage" roles="target, doer, tool" activity_families="plant_farming"/>
       <item name="remontage" parent="transformation" roles="target, doer" activity_families="processing"/>
       <item name="seed_mixing" parent="implantation" roles="input, output, doer" activity_families="plant_farming, plant_farming, plant_farming, plant_farming, plant_farming, plant_farming"/>
+      <item name="seedling_sorting" parent="transformation" roles="input, output, doer, tool" activity_families="processing"/>
       <item name="silage" parent="harvest" roles="target, output, doer, tool" activity_families="plant_farming, plant_farming, plant_farming, plant_farming"/>
       <item name="soil_cleaning" roles="target" activity_families="animal_farming"/>
       <item name="soil_enrichment" roles="input, target, tool, input_origin" activity_families="plant_farming"/>

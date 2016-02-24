@@ -2239,6 +2239,7 @@ spa:
         raking: "Rastrillar"
         remontage: "Remontage"
         seed_mixing: "La mezcla de semillas"
+        # seedling_sorting: "Seedling sorting"
         silage: "Ensilaje"
         soil_cleaning: "La limpieza de suelos"
         soil_enrichment: "El enriquecimiento del suelo"

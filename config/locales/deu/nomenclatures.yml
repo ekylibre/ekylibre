@@ -2232,6 +2232,7 @@ deu:
         raking: "Rechen"
         # remontage: "Remontage"
         seed_mixing: "Seed Misch"
+        # seedling_sorting: "Seedling sorting"
         # silage: "Silage"
         soil_cleaning: "Bodenreinigung"
         soil_enrichment: "Bodenverbesserung"

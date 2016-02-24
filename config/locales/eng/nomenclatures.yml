@@ -2236,6 +2236,7 @@ eng:
         raking: "Raking"                                   #< tillage
         remontage: "Remontage"                             #< transformation
         seed_mixing: "Seed mixing"                         #< implantation
+        seedling_sorting: "Seedling sorting"               #< transformation
         silage: "Silage"                                   #< harvest
         soil_cleaning: "Soil cleaning"
         soil_enrichment: "Soil enrichment"

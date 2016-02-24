@@ -2233,6 +2233,7 @@ ita:
         raking: "rastrellando"
         remontage: "rimontaggi"
         seed_mixing: "Seed miscelazione"
+        # seedling_sorting: "Seedling sorting"
         silage: "silaggio"
         soil_cleaning: "la pulizia del suolo"
         soil_enrichment: "arricchimento del suolo"
