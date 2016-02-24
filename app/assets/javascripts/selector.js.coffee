@@ -188,10 +188,11 @@
         url: url
         dataType: "html"
         data: data
-        success: (data, status, request) ->
+        success: (data, status, request) =>
           menu.html data
           if data.length > 0
             menu.show()
+            @element.trigger('selector:menu-opened')
           else
             menu.hide()
         error: (request, status, error) ->
@@ -214,6 +215,7 @@
       @element.val search
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
+      @element.trigger('selector:menu-closed')
       true
 
     _choose: (selected) ->

@@ -52,6 +52,15 @@
           E.dialog.initialize frame
           frame.dialog "open"
           frame.trigger('dialog:show')
+
+          $("##{frame_id}").on 'selector:menu-opened', (e) ->
+            $el = $(this).find('.form-fields')
+            pad = parseInt($el.css('padding-top').replace('px','')) + parseInt($el.css('padding-bottom').replace('px',''))
+            $el.height($el[0].scrollHeight-pad) if $el[0].scrollHeight > $el.height() + pad
+
+          $("##{frame_id}").on 'selector:menu-closed', (e) ->
+            $(this).find('.form-fields').height('auto')
+
           return
 
         error: (request, status, error) ->
