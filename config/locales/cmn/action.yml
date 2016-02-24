@@ -1062,6 +1062,7 @@ cmn:
     provisionnal_budget: "Provisionnal预算"
     purchase: "采购"
     purchase_items: "购买物品"
+    # purchase_number: "Purchase number"
     purchases: "购买"
     quantity: "数量"
     quantity_rest: "剩余数量"

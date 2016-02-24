@@ -1249,6 +1249,7 @@ spa:
     provisionnal_budget: "Presupuesto Provisionnal"
     purchase: "Compra"
     purchase_items: "Artículos de la compra"
+    # purchase_number: "Purchase number"
     purchase_steps:  #?
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?

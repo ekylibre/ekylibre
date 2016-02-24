@@ -1456,6 +1456,7 @@ fra:
     provisionnal_budget: "Budget prévisionnel"
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
+    purchase_number: "N° d'achat"
     purchase_steps:  #?
       deliveries: "Livraisons" #?
       products: "Création de l’achat" #?

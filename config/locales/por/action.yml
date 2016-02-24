@@ -1067,6 +1067,7 @@ por:
     provisionnal_budget: "Orçamento Provisionnal"
     purchase: "Compra"
     purchase_items: "Itens de compra"
+    # purchase_number: "Purchase number"
     purchases: "Compras"
     quantity: "Quantidade"
     quantity_rest: "Quantidade restante"

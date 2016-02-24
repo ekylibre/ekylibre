@@ -1029,7 +1029,7 @@ eng:
     edit: "Edit"
     edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org" #?
-    elapsed_interventions_times_by_activities: "Elapsed interventions times by activities"
+    elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
     email: "Email:" #?
     end: "to" #?
     entities: "Entities"
@@ -1337,6 +1337,7 @@ eng:
     provisionnal_budget: "Provisionnal budget" #?!
     purchase: "Purchase" #?
     purchase_items: "Purchase items" #?
+    purchase_number: "Purchase number" #?
     purchases: "Purchases"
     quantity: "Quantity" #?
     quantity_rest: "Remaining quantity" #?!
@@ -1420,7 +1421,7 @@ eng:
     start_new_intervention_here: "Start new intervention here"
     state: "State"
     statistics: "Statistics" #?
-    stewardship: "Stewardship" #?
+    stewardship: "Stewardship"
     stock: "Stock" #?
     stock_container_map: "Stock map"
     stock_of_x: "Stock of %{x}"

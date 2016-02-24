@@ -1062,6 +1062,7 @@ deu:
     provisionnal_budget: "Provisionnal Budget"
     purchase: "Kauf"
     purchase_items: "Kauf von Gegenständen"
+    # purchase_number: "Purchase number"
     purchases: "Käufe"
     quantity: "Menge"
     quantity_rest: "Verbleibende Menge"

@@ -100,7 +100,6 @@
 #     - "backend/notifications#show"
 #     - "backend/notifications#unread"
 #     - "backend/plants#take"
-#     - "backend/prescriptions#picture"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#detail"
 #     - "backend/product_nature_variants#quantifiers"

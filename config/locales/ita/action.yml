@@ -1062,6 +1062,7 @@ ita:
     provisionnal_budget: "budget Provisionnal"
     purchase: "Acquista"
     purchase_items: "articoli di acquisto"
+    # purchase_number: "Purchase number"
     purchases: "acquisti"
     quantity: "Quantità"
     quantity_rest: "Quantità rimanente"

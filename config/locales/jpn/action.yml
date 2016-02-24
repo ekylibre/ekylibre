@@ -1069,6 +1069,7 @@ jpn:
     provisionnal_budget: "Provisionnal予算"
     purchase: "購入"
     purchase_items: "アイテムを購入します"
+    # purchase_number: "Purchase number"
     purchases: "購入"
     quantity: "量"
     quantity_rest: "残量"

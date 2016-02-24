@@ -1605,6 +1605,7 @@ arb:
     purchase_create: "اضافة شراء جديد" #?
     purchase_item_create: "اضافة طلب للمنتج" #?
     purchase_items: "تعديل تصميم الشراء"
+    # purchase_number: "Purchase number"
     purchase_price_create: "انشاء سعر الشراء" #?
     purchase_print: "طباعة الطلب للممول" #?
     purchase_steps:  #?

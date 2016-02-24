@@ -144,6 +144,15 @@ class Affair < Ekylibre::Record::Base
     number.to_s
   end
 
+  # return the first deal number for the given type
+  def deal_work_name(type = Purchase)
+    d = deals_of_type(type)
+    if d.count > 0
+      return d.first.number
+    end
+    nil
+  end
+
   class << self
     # Find or create journal for affairs
     def journal
