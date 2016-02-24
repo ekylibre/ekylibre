@@ -268,6 +268,9 @@ module Backend
       editor[:controls] ||= {}
       editor[:controls][:draw] ||= {}
       editor[:controls][:draw][:draw] = options[:draw] || {}
+      editor[:controls][:importers] ||= {formats: [:gml,:kml, :geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl}
+      editor[:controls][:importers][:content] ||= @template.importer_form(editor[:controls][:importers][:formats])
+
       if geom = @object.send(attribute_name)
         editor[:edit] = Charta.new_geometry(geom).to_json_object
         editor[:view] = { center: Charta.new_geometry(geom).centroid, zoom: 16 }

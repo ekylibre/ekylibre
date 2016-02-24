@@ -82,6 +82,8 @@ module Backend
       end
       # FIXME: map_editors options cannot be in data/map_editors because it's pleonastic
       options[:data][:map_editor][:controls] ||= {}
+      options[:data][:map_editor][:controls][:importers] ||= {formats: [:gml,:kml, :geojson]}
+
       if options[:data][:map_editor][:controls].key? :importers
         options.deep_merge!(data: { map_editor: { controls: { importers: { content: importer_form(options[:data][:map_editor][:controls][:importers][:formats]) } } } })
       end
