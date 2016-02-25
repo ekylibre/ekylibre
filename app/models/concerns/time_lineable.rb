@@ -65,12 +65,12 @@ module TimeLineable
 
   def previous
     return nil unless self.started_at
-    @previous ||= siblings.find_by(stopped_at: self.started_at)
+    siblings.before(self.started_at).order(started_at: :desc).first
   end
 
   def following
     return nil unless stopped_at
-    @following ||= siblings.find_by(started_at: stopped_at)
+    siblings.after(self.started_at).order(started_at: :asc).first
   end
 
   def followings

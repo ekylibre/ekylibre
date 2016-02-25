@@ -178,7 +178,7 @@ module Backend
       content_for(:aside, html.html_safe)
       nil
     end
-    
+
     # chart for variables readings
     def variable_readings(resource)
       indicators = resource.variable_indicators.delete_if { |i| ![:measure, :decimal].include?(i.datatype) }
@@ -203,14 +203,14 @@ module Backend
 
       line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
     end
-    
+
     # chart for product movements
     def movements_chart(resource)
       movements = resource.movements.reorder(:started_at)
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
-      min = (resource.born_at ? resource.born_at : now - window)
+      min = (resource.born_at ? resource.born_at : now - window) - 7.days
       min = now - window if (now - min) < window
       if movements.any?
         data = []

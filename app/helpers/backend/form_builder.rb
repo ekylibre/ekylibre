@@ -268,7 +268,7 @@ module Backend
       editor[:controls] ||= {}
       editor[:controls][:draw] ||= {}
       editor[:controls][:draw][:draw] = options[:draw] || {}
-      editor[:controls][:importers] ||= {formats: [:gml,:kml, :geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl}
+      editor[:controls][:importers] ||= { formats: [:gml, :kml, :geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
       editor[:controls][:importers][:content] ||= @template.importer_form(editor[:controls][:importers][:formats])
 
       if geom = @object.send(attribute_name)

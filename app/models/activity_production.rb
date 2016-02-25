@@ -342,9 +342,18 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   # Returns all plants concerning by this activity production
+  # TODO: No plant here, a more generic method should be largely preferable
   def inside_plants
-    c = ::Charta.new_geometry(support_shape)
-    plants = Plant.of_campaign(campaign).shape_within(c)
+    inside_products(Plant)
+  end
+
+  def inside_products(products = Product)
+    products = if campaign
+                 products.of_campaign(campaign)
+               else
+                 products.where(born_at: started_on..(stopped_on || Time.zone.now.to_date))
+             end
+    products.shape_within(support_shape)
   end
 
   # Returns the started_at attribute of the intervention of nature sowing if

@@ -147,9 +147,7 @@ class Affair < Ekylibre::Record::Base
   # return the first deal number for the given type
   def deal_work_name(type = Purchase)
     d = deals_of_type(type)
-    if d.count > 0
-      return d.first.number
-    end
+    return d.first.number if d.count > 0
     nil
   end
 

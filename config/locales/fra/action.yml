@@ -1206,7 +1206,7 @@ fra:
       other: "%{count} courriels"
       zero: "Aucun courriels"
     main_settings: "Principaux paramètres"
-    make_your_production_support: "Faite votre assolement ou prévisionnel de production"
+    make_your_production_support: "Faire l'assolement ou le prévisionnel de production"
     mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère" #?
     mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère" #?
     manage_activities: "Gérer les activités"
