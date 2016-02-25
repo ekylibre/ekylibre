@@ -63,13 +63,14 @@ class InterventionInput < InterventionProductParameter
   end
 
   after_save do
-    # if product
-    #   movement = product_movement
-    #   movement = product.movements.build unless movement
-    #   movement.delta = -1 * quantity_population
-    #   movement.started_at = intervention.started_at
-    #   update_columns(movement_id: movement.id)
-    # end
+    if product
+      movement = product_movement
+      movement = build_product_movement(product: product) unless movement
+      movement.delta = -1 * quantity_population
+      movement.started_at = intervention.started_at || Time.zone.now - 1.hour
+      movement.stopped_at = intervention.stopped_at || movement.started_at + 1.hour
+      movement.save!      
+    end
   end
 
   def cost_amount_computation
