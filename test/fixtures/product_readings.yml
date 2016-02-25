@@ -67,7 +67,7 @@ product_readings_002:
   created_at: 2014-10-31 20:15:14.819292000 Z
   creator_id: 1
   id: 11
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 1
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.796326398849487 45.8263246730165,-0.796270072460175
@@ -130,7 +130,7 @@ product_readings_006:
   created_at: 2014-10-31 20:18:12.255848000 Z
   creator_id: 1
   id: 16
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 1
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.813031777761353 45.5987083844552,-0.812880232952011
@@ -194,7 +194,7 @@ product_readings_010:
   created_at: 2014-10-31 20:23:26.799863000 Z
   creator_id: 1
   id: 21
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.836898654742981 45.5974477061239,-0.835784196897293
@@ -242,7 +242,7 @@ product_readings_013:
   created_at: 2014-10-31 20:25:41.486554000 Z
   creator_id: 1
   id: 26
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 1
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.813218951225281 45.5985699786537,-0.813113003969193
@@ -926,7 +926,7 @@ product_readings_060:
   created_at: 2014-11-04 17:12:23.422452000 Z
   creator_id: 1
   id: 102
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
@@ -971,7 +971,7 @@ product_readings_063:
   created_at: 2014-11-04 17:15:04.644741000 Z
   creator_id: 1
   id: 106
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.799569189548492 45.8210648929617,-0.800676941871643
@@ -1016,7 +1016,7 @@ product_readings_066:
   created_at: 2014-11-04 17:17:04.710877000 Z
   creator_id: 1
   id: 110
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.801068544387817 45.825154629884,-0.801712274551391
@@ -1060,7 +1060,7 @@ product_readings_069:
   created_at: 2014-11-04 17:19:31.276006000 Z
   creator_id: 1
   id: 114
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
@@ -1106,7 +1106,7 @@ product_readings_072:
   created_at: 2014-11-04 17:22:31.714466000 Z
   creator_id: 1
   id: 118
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
@@ -1243,7 +1243,7 @@ product_readings_081:
   created_at: 2014-11-05 15:40:16.291363000 Z
   creator_id: 1
   id: 132
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.796809196472168 45.8269227686334,-0.79651951789856
@@ -1347,7 +1347,7 @@ product_readings_088:
   created_at: 2014-11-06 17:50:07.294840000 Z
   creator_id: 1
   id: 143
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.796213746070862 45.8235247524565,-0.796149373054504
@@ -1755,7 +1755,7 @@ product_readings_114:
   created_at: 2014-11-07 15:45:46.022749000 Z
   creator_id: 1
   id: 184
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
@@ -1842,7 +1842,7 @@ product_readings_120:
   created_at: 2014-11-07 16:26:53.233581000 Z
   creator_id: 1
   id: 195
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
@@ -1906,7 +1906,7 @@ product_readings_124:
   created_at: 2014-11-07 16:50:07.410204000 Z
   creator_id: 1
   id: 204
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
@@ -2066,7 +2066,7 @@ product_readings_134:
   created_at: 2014-11-07 17:18:26.074996000 Z
   creator_id: 1
   id: 223
-  indicator_datatype: geometry
+  indicator_datatype: multi_polygon
   indicator_name: shape
   lock_version: 0
   multi_polygon_value: SRID=4326;MULTIPOLYGON(((-0.796345174312592 45.8269171615169,-0.795996487140656
