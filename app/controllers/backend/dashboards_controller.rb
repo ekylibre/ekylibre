@@ -157,7 +157,7 @@ module Backend
         columns = model.columns_definition.values.delete_if do |c|
           [:created_at, :creator_id, :depth, :id, :lft, :lock_version,
            :position, :rights, :rgt, :type, :updated_at, :updater_id].include?(c[:name]) ||
-            [:boolean, :spatial, :geometry].include?(c[:type]) ||
+            [:boolean, :spatial, :geometry, :json, :jsonb].include?(c[:type]) ||
             c[:name].to_s =~ /\_file_size$/ ||
             c[:name].to_s =~ /\_type$/ ||
             c[:name].to_s =~ /\_id$/
