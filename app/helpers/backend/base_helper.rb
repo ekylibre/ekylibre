@@ -178,7 +178,8 @@ module Backend
       content_for(:aside, html.html_safe)
       nil
     end
-
+    
+    # chart for variables readings
     def variable_readings(resource)
       indicators = resource.variable_indicators.delete_if { |i| ![:measure, :decimal].include?(i.datatype) }
       series = []
@@ -200,6 +201,28 @@ module Backend
       end
       return no_data if series.empty?
 
+      line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
+    end
+    
+    # chart for product movements
+    def movements_chart(resource)
+      movements = resource.movements.reorder(:started_at)
+      series = []
+      now = (Time.zone.now + 7.days)
+      window = 1.day
+      min = (resource.born_at ? resource.born_at : now - window)
+      min = now - window if (now - min) < window
+      if movements.any?
+        data = []
+        data << [min.to_usec, resource.initial_population.to_d.to_s.to_f]
+        data += movements.inject({}) do |hash, pair|
+          hash[pair.started_at.to_usec] = pair.population.to_d
+          hash
+        end.collect { |k, v| [k, v.to_s.to_f] }
+        data << [now.to_usec, resource.population.to_d.to_s.to_f]
+        series << { name: resource.name, data: data, step: 'left' }
+      end
+      return no_data if series.empty?
       line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
     end
 
