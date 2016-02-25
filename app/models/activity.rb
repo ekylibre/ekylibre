@@ -288,7 +288,7 @@ class Activity < Ekylibre::Record::Base
         end.map { |i| i.name.to_sym }
       end
       return colors[:gray] unless activity_family
-      if activity_family <= :plant_farming && variety && crop_sets.any?
+      if activity_family <= :plant_farming && (variety || crop_sets.any?)
         # MEADOW
         if crop_sets.include?(:meadow)
           colors[:dark_green]
