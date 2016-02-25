@@ -65,3 +65,6 @@ var calcul = {};
 $.rails.href = function (element) {
   return $(element).attr('href');
 }
+
+Turbolinks.enableTransitionCache();
+Turbolinks.enableProgressBar();
