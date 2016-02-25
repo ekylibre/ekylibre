@@ -4,6 +4,8 @@
   - natures = Nomen::IssueNature.list
   - if variety = Nomen::Variety[params[:target_type].underscore]
     - natures = natures.select{|i| i.target and i.target.detect{|t| variety.include?(t)}}
+  - if natures.empty?
+    - natures = Nomen::IssueNature.list
   = f.input :nature, collection: natures.collect{|i| [i.human_name, i.name]}.sort{|a,b| a.first.ascii <=> b.first.ascii}
   = f.input :observed_at
   = f.input :target_id, as: :hidden
