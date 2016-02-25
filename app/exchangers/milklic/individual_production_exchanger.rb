@@ -19,7 +19,7 @@ class Milklic::IndividualProductionExchanger < ActiveExchanger::Base
       r = OpenStruct.new(animal_name: row[0],
                          animal_work_number: row[1],
                          animal_lactation_number: row[2],
-                         animal_lactation_started_on: row[3]
+                         animal_lactation_started_on: Date.strptime(row[3], '%d/%m/%y')
                         )
 
       # if an animal exist
