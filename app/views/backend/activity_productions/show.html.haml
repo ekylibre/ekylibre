@@ -13,9 +13,11 @@
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:support_nature)
           %span.value= resource.support_nature.text
-        .med-info
-          %span.title= ActivityProduction.human_attribute_name(:usage)
-          %span.value= Nomen::ProductionUsage.find(resource.usage).human_name
+        - usage = Nomen::ProductionUsage.find(resource.usage)
+        - if usage
+          .med-info
+            %span.title= ActivityProduction.human_attribute_name(:usage)
+            %span.value= usage.human_name
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:irrigated)
           %span.value
