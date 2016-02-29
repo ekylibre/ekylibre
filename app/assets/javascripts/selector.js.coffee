@@ -51,13 +51,20 @@
       this._on @element,
         keypress: "_keypress"
         keyup: "_keyup"
-        focusout: "_focusOut"
+#        focusout: "_focusOut"
       this._on @dropDownButton,
         click: "_buttonClick"
-        focusout: "_focusOut"
+#        focusout: "_focusOut"
       this._on @dropDownMenu,
         "click ul li.item": "_menuItemClick"
         "mouseenter ul li.item": "_menuMouseEnter"
+
+      $(document).on 'mousedown',(e) =>
+        if $(e.target).hasClass('items-list') or $(e.target).hasClass('selector-dropdown')
+          e.stopPropagation()
+        else
+          @_focusOut(e)
+
       @initializing = true
       if @valueField.val()? and @valueField.val().length > 0
         this._set @valueField.val()
