@@ -21,14 +21,16 @@ module Backend
       geometry = file.read
       feature = nil
       geojson_features = nil
-      geojson_features_collection = {}
+      geojson_features_collection = ::Charta.empty_geometry().to_json_object
 
       case format
       when 'gml'
         geometry = ::Charta.from_gml(geometry).transform(:WGS84).to_json_object if ::Charta::GML.valid?(geometry)
 
       when 'kml'
-        geometry = Charta.from_kml(geometry).transform(:WGS84).to_json_object if ::Charta::KML.valid?(geometry)
+        # geometry = Charta.from_kml(geometry).transform(:WGS84).to_json_object if ::Charta::KML.valid?(geometry)
+        import = Charta::KmlImport.new(geometry)
+        geometry = Charta.from_kml(import.shapes).transform(:WGS84).to_json_object if ::Charta::KML.valid?(import.shapes)
 
       when 'geojson'
       # DO Nothing
@@ -49,8 +51,17 @@ module Backend
           if geoarray.is_a?(Array) && geoarray.count > 0
             geojson_features = geoarray.collect do |feature|
               geofeature = nil
-              gfeature = feature || {}
-              gfeature['geometry'] = feature if single_geometry
+              gfeature = {}
+
+              single_geometry ? gfeature['geometry'] = feature : gfeature = feature
+
+              # force to reject z axis (kml). Postgis and leaflet can handle z, but shape can't be saved.
+              gfeature['geometry']['coordinates'] = gfeature['geometry']['coordinates'].collect do |line|
+                line.collect do |coord|
+                  [coord[0], coord[1]]
+                end
+              end
+
 
               if gfeature.key? 'geometry'
                 if ::Charta::GeoJSON.valid?(gfeature['geometry'])
@@ -66,12 +77,9 @@ module Backend
                   }.reject { |_, v| v.nil? }
                 end
               end
-              p gfeature
-              p gfeature.try(:[], 'properties').try(:[], 'name')
               geofeature
             end
 
-            p 'geofe', geojson_features
           end
         end
       end
