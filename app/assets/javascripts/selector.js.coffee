@@ -179,7 +179,15 @@
         else
           # open it in a new dialog
           url = redirect + "?" + param + "="+ id
-          E.dialog.open url
+          E.dialog.open url,
+            returns:
+              success: (frame, data, status, request) ->
+                frame.dialog "close"
+                return
+
+              invalid: (frame, data, status, request) ->
+                frame.html request.responseText
+                return
 
       this
 
