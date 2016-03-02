@@ -214,11 +214,17 @@ module Backend
       min = now - window if (now - min) < window
       if movements.any?
         data = []
-        data << [min.to_usec, resource.initial_population.to_d.to_s.to_f]
+        # initial population
+        if resource.initial_movement
+          data << [min.to_usec, resource.initial_movement.population.to_d.to_s.to_f]
+        elsif resource.initial_population
+          data << [min.to_usec, resource.initial_population.to_d.to_s.to_f]
+        end
         data += movements.inject({}) do |hash, pair|
           hash[pair.started_at.to_usec] = pair.population.to_d
           hash
         end.collect { |k, v| [k, v.to_s.to_f] }
+        # current population
         data << [now.to_usec, resource.population.to_d.to_s.to_f]
         series << { name: resource.name, data: data, step: 'left' }
       end

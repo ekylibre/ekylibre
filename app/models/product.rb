@@ -494,7 +494,12 @@ class Product < Ekylibre::Record::Base
 
   def population(options = {})
     movements = self.movements.at(options[:at] || Time.zone.now)
-    (movements.any? ? movements.first.population : 0.0)
+    if movements.any?
+      return movements.last.population
+    else
+      return 0.0
+    end
+    
   end
 
   # Moves population with given quantity

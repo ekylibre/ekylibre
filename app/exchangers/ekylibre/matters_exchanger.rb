@@ -104,10 +104,26 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
         unless container = Product.find_by_work_number(r.place_code)
           container = building_division
         end
+        
+        # get population indicators linked to matters
+        population = 0
+        r.indicators.each do |indicator, value|
+          if indicator.to_sym == :population
+            population = value.to_f
+          end
+        end
 
         # create the product
-        matter = pmodel.create!(variant: variant, work_number: r.work_number,
-                                name: r.name, initial_born_at: r.born_at, initial_owner: owner, variety: r.variety, derivative_of: r.derivative_of, initial_container: container, default_storage: container)
+        matter = pmodel.create!(variant: variant,
+                                work_number: r.work_number,
+                                name: r.name,
+                                initial_born_at: r.born_at,
+                                initial_population: population,
+                                initial_owner: owner,
+                                variety: r.variety,
+                                derivative_of: r.derivative_of,
+                                initial_container: container,
+                                default_storage: container)
 
         if r.work_number
           matter.work_number = r.work_number
@@ -116,9 +132,7 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
 
         # create indicators linked to matters
         r.indicators.each do |indicator, value|
-          if indicator.to_sym == :population
-            matter.move!(value.to_f, at: r.born_at)
-          else
+          if indicator.to_sym != :population
             matter.read!(indicator, value, at: r.born_at, force: true)
           end
         end
