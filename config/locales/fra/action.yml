@@ -124,6 +124,8 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
+    backend/cells/last_movements_cells:
+      # show: "Last movements cell: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Assistant: %{name}" #?
     backend/contacts:  #?
@@ -1167,6 +1169,7 @@ fra:
     last_intervention: "Dernière intervention"
     last_issue: "Dernier incident"
     last_issues: "Derniers incidents"
+    last_movements: "Derniers mouvements de stock"
     last_outgoing_parcels: "Futurs colis à expédier"
     last_payment_amount: "Montant du dernier encaissement" #?
     last_payment_date: "Date du dernier encaissement" #?

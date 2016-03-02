@@ -118,6 +118,8 @@ spa:
       index: "Catálogos"
       new: "Nuevo catálogo"
       # show: "Catalog: %{name}"
+    backend/cells/last_movements_cells:
+      # show: "Last movements cell: %{name}"
     backend/company:  #?
       about: "A propocito de Ekylibre" #?
       backups: "Salvaguardia" #?
@@ -1025,6 +1027,7 @@ spa:
     last_intervention: "Última intervención"
     last_issue: "Última edición"
     last_issues: "Últimos temas"
+    # last_movements: "Last movements"
     last_outgoing_parcels: "Últimos paquetes salientes"
     last_products: "Últimos productos"
     last_purchases: "Últimas compras"

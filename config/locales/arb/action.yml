@@ -118,6 +118,8 @@ arb:
       index: "كتالوجات"
       new: "الكتالوج الجديد"
       # show: "Catalog: %{name}"
+    backend/cells/last_movements_cells:
+      # show: "Last movements cell: %{name}"
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -1295,6 +1297,7 @@ arb:
     last_intervention: "تدخل الماضي"
     last_issue: "المسألة الأخيرة"
     last_issues: "مشاركة القضايا"
+    # last_movements: "Last movements"
     last_outgoing_parcels: "مشاركة الطرود الصادرة"
     last_products: "آخر المنتجات"
     last_purchases: "مشاركة مشتريات"

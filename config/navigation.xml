@@ -1733,6 +1733,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="last_movements_cells">
+        <page to="backend/cells/last_movements_cells#list"/>
+        <page to="backend/cells/last_movements_cells#show"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

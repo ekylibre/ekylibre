@@ -112,6 +112,8 @@ deu:
       index: "Kataloge"
       new: "Neuer Katalog"
       # show: "Catalog: %{name}"
+    backend/cells/last_movements_cells:
+      # show: "Last movements cell: %{name}"
     backend/crumbs:
       # index: "Crumbs"
     backend/cultivable_zones:
@@ -881,6 +883,7 @@ deu:
     last_intervention: "zuletzt Intervention"
     last_issue: "Letzte Ausgabe"
     last_issues: "Letzte Fragen"
+    # last_movements: "Last movements"
     last_outgoing_parcels: "Last ausgehende Pakete"
     last_products: "Letzte Artikel"
     last_purchases: "Letzte Einkäufe"

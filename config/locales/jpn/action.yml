@@ -112,6 +112,8 @@ jpn:
       index: "カタログ"
       new: "新カタログ"
       # show: "Catalog: %{name}"
+    backend/cells/last_movements_cells:
+      # show: "Last movements cell: %{name}"
     backend/crumbs:
       index: "パン粉"
     backend/cultivable_zones:
@@ -884,6 +886,7 @@ jpn:
     last_intervention: "最後の介入"
     last_issue: "最後の問題"
     last_issues: "最後の問題"
+    # last_movements: "Last movements"
     last_outgoing_parcels: "最終発信小包"
     last_products: "最終製品"
     last_purchases: "最終購入"

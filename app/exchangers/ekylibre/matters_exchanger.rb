@@ -104,7 +104,7 @@ class Ekylibre::MattersExchanger < ActiveExchanger::Base
         unless container = Product.find_by_work_number(r.place_code)
           container = building_division
         end
-        
+
         # get population indicators linked to matters
         population = 0
         r.indicators.each do |indicator, value|

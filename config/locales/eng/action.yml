@@ -168,6 +168,8 @@ eng:
       # show: "Last intervention cell: %{name}"
     backend/cells/last_issues_cells:
       # show: "Last issues cell: %{name}"
+    backend/cells/last_movements_cells:
+      show: "Last movements cell: %{name}"
     backend/cells/last_outgoing_parcels_cells:
       # show: "Last outgoing parcels cell: %{name}"
     backend/cells/last_products_cells:
@@ -1155,6 +1157,7 @@ eng:
     last_intervention: "Last intervention"
     last_issue: "Last issue"
     last_issues: "Last issues" #?
+    last_movements: "Last movements"
     last_outgoing_parcels: "Last outgoing parcels" #?
     last_products: "Last products" #?
     last_purchases: "Last purchases"
@@ -1423,7 +1426,7 @@ eng:
     statistics: "Statistics" #?
     stewardship: "Stewardship"
     stock: "Stock" #?
-    stock_container_map: "Stock map"
+    stock_container_map: "Stock map" #?
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
     stop: "Stop" #?

@@ -499,7 +499,7 @@ class Product < Ekylibre::Record::Base
     else
       return 0.0
     end
-    
+
   end
 
   # Moves population with given quantity

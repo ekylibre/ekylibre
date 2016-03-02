@@ -115,6 +115,8 @@ por:
       index: "Catalogos"
       new: "Novo catalogo"
       show: "Catalogo: %{name}"
+    backend/cells/last_movements_cells:
+      # show: "Last movements cell: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Células de administração: %{name}" #?
     backend/crumbs:
@@ -886,6 +888,7 @@ por:
     last_intervention: "Última intervenção"
     last_issue: "Última edição"
     last_issues: "Últimos problemas"
+    # last_movements: "Last movements"
     last_outgoing_parcels: "Parcelas últimos saída"
     last_products: "Últimos produtos"
     last_purchases: "Últimas compras"

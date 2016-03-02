@@ -42,6 +42,8 @@
 #     - "backend/cells/last_intervention_cells#show"
 #     - "backend/cells/last_issues_cells#list"
 #     - "backend/cells/last_issues_cells#show"
+#     - "backend/cells/last_movements_cells#list"
+#     - "backend/cells/last_movements_cells#show"
 #     - "backend/cells/last_outgoing_parcels_cells#list"
 #     - "backend/cells/last_outgoing_parcels_cells#show"
 #     - "backend/cells/last_products_cells#list"
