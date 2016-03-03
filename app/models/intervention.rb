@@ -196,6 +196,15 @@ class Intervention < Ekylibre::Record::Base
     tools.map(&:product).compact.map(&:work_name).sort.to_sentence
   end
 
+  # Returns human actions names
+  def human_actions_names
+    arr_human_actions_names = []
+    actions.each do |action|
+      arr_human_actions_names << Nomen::ProcedureAction.find(action.to_sym).l
+    end
+    return arr_human_actions_names.to_sentence
+  end
+
   def name
     # raise self.inspect if self.procedure_name.blank?
     tc(:name, intervention: (procedure ? procedure.human_name : "procedures.#{procedure_name}".t(default: procedure_name.humanize)), number: number)

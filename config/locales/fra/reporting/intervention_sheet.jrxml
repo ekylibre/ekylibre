@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.zoom" value="1.6105100000000014"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<template><![CDATA["/home/djoulin/ekylibre/config/corporate_identity/reporting_style.jrtx"]]></template>
+	<property name="ireport.y" value="187"/>
+	<template><![CDATA["../../../corporate_identity/reporting_style.xml"]]></template>
 	<style name="state" mode="Opaque">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{state} == "done" && $F{status} == "go"]]></conditionExpression>
@@ -25,7 +25,7 @@
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
-		<![CDATA[/intervention/casts/cast]]>
+		<![CDATA[/intervention/parameters/parameter]]>
 	</queryString>
 	<field name="description" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/description]]></fieldDescription>
@@ -61,7 +61,7 @@
 		<fieldDescription><![CDATA[ancestor::intervention/prescription/delivered-at]]></fieldDescription>
 	</field>
 	<field name="recommender_full_name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/recommender/full-name]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::intervention/prescription/prescriptor/full-name]]></fieldDescription>
 	</field>
 	<field name="status" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/status]]></fieldDescription>
@@ -70,57 +70,69 @@
 		<fieldDescription><![CDATA[id]]></fieldDescription>
 	</field>
 	<field name="cast_actor_picture_path" class="java.lang.String">
-		<fieldDescription><![CDATA[actor/picture-path]]></fieldDescription>
+		<fieldDescription><![CDATA[product/picture-path]]></fieldDescription>
 	</field>
 	<field name="cast_actor_work_number" class="java.lang.String">
-		<fieldDescription><![CDATA[actor/work-number]]></fieldDescription>
+		<fieldDescription><![CDATA[product/work-number]]></fieldDescription>
 	</field>
 	<field name="cast_variable_name" class="java.lang.String">
-		<fieldDescription><![CDATA[variable-name]]></fieldDescription>
+		<fieldDescription><![CDATA[product/name]]></fieldDescription>
 	</field>
-	<field name="cast_actor_name" class="java.lang.String">
-		<fieldDescription><![CDATA[actor/name]]></fieldDescription>
+	<field name="cast_actor_nature_name" class="java.lang.String">
+		<fieldDescription><![CDATA[product/nature-name]]></fieldDescription>
 	</field>
-	<field name="cast_actor_unit_name" class="java.lang.String">
-		<fieldDescription><![CDATA[actor/unit-name]]></fieldDescription>
+	<field name="cast_product_unit_name" class="java.lang.String">
+		<fieldDescription><![CDATA[product/unit-name]]></fieldDescription>
 	</field>
-	<field name="cast_population" class="java.lang.Double">
-		<fieldDescription><![CDATA[population]]></fieldDescription>
+	<field name="cast_quantity_name" class="java.lang.String">
+		<fieldDescription><![CDATA[human-quantity-name]]></fieldDescription>
+	</field>
+	<field name="prescription_description" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/prescription/description]]></fieldDescription>
+	</field>
+	<field name="actions" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/human-actions-names]]></fieldDescription>
+	</field>
+	<field name="svg_path" class="java.lang.String">
+		<fieldDescription><![CDATA[working-zone-svg]]></fieldDescription>
+	</field>
+	<field name="cast_global_quantity" class="java.lang.String">
+		<fieldDescription><![CDATA[quantity-population]]></fieldDescription>
+	</field>
+	<field name="human_working_zone_area" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/human-working-zone-area]]></fieldDescription>
+	</field>
+	<field name="cast_actor_human_working_zone_area" class="java.lang.String">
+		<fieldDescription><![CDATA[human-working-zone-area]]></fieldDescription>
+	</field>
+	<field name="cast_reference_name" class="java.lang.String">
+		<fieldDescription><![CDATA[reference-name]]></fieldDescription>
 	</field>
 	<title>
-		<band height="380" splitType="Stretch">
+		<band height="244" splitType="Stretch">
 			<textField>
-				<reportElement style="title" x="35" y="0" width="436" height="77" forecolor="#7C9DDD" uuid="662de52c-0c71-4d48-aa52-88a284773ba8"/>
+				<reportElement style="title" x="1" y="0" width="379" height="28" forecolor="#7C9DDD" uuid="662de52c-0c71-4d48-aa52-88a284773ba8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="16" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="label-strong" x="0" y="122" width="128" height="22" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement style="label" x="17" y="122" width="33" height="22" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Début]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label-strong" x="1" y="183" width="249" height="22" uuid="52d5043d-384e-4840-a3c3-eb48a3871d11">
-					<printWhenExpression><![CDATA[$F{description} != null]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="10"/>
-				</textElement>
-				<text><![CDATA[Description]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="label-strong" x="128" y="122" width="123" height="22" uuid="a61a145c-a8e3-48f9-a60c-4961c43e4692"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement style="label" x="17" y="144" width="33" height="22" uuid="a61a145c-a8e3-48f9-a60c-4961c43e4692"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Fin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="strong" mode="Opaque" x="1" y="113" width="553" height="2" backcolor="#7C9DDD" uuid="6b3b0803-00f0-48c7-b822-16a58f7bba05"/>
+				<reportElement style="strong" mode="Opaque" x="1" y="110" width="553" height="2" backcolor="#7C9DDD" uuid="6b3b0803-00f0-48c7-b822-16a58f7bba05"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
@@ -135,43 +147,32 @@
 				</jr:DataMatrix>
 			</componentElement>
 			<textField isBlankWhenNull="true">
-				<reportElement style="strong" x="1" y="205" width="249" height="111" uuid="4e56200c-b2aa-4e0d-b954-b8ea0db34e30"/>
+				<reportElement style="strong" x="1" y="28" width="470" height="61" uuid="4e56200c-b2aa-4e0d-b954-b8ea0db34e30"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
-				<reportElement style="strong" x="0" y="144" width="128" height="39" uuid="f477133a-3380-4393-815f-e602bbe2f604"/>
+				<reportElement style="strong" x="50" y="122" width="92" height="23" uuid="f477133a-3380-4393-815f-e602bbe2f604"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{started-at}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
-				<reportElement style="strong" x="128" y="144" width="123" height="39" uuid="a7a62433-20ad-447c-b4e9-3f164ac56978"/>
+				<reportElement style="strong" x="50" y="144" width="92" height="22" uuid="a7a62433-20ad-447c-b4e9-3f164ac56978"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{stopped-at}]]></textFieldExpression>
 			</textField>
-			<rectangle radius="10">
-				<reportElement style="state" x="7" y="28" width="20" height="20" uuid="d751c512-fa19-4e6b-a71d-547b96c264bb"/>
-			</rectangle>
 			<textField pattern="###0.00 H" isBlankWhenNull="true">
-				<reportElement style="strong" x="102" y="122" width="47" height="22" uuid="0878d4e5-4b68-46da-b649-80260abd0d57"/>
+				<reportElement style="strong" x="194" y="122" width="67" height="23" uuid="0878d4e5-4b68-46da-b649-80260abd0d57"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{duration} / 3600]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement style="label-strong" x="-1" y="316" width="129" height="22" uuid="36e008a2-412b-4133-96ad-d4c6f94d39bd">
-					<printWhenExpression><![CDATA[$F{recommender_full_name} != null]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="10"/>
-				</textElement>
-				<text><![CDATA[Prescripteur]]></text>
-			</staticText>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement style="strong" x="0" y="338" width="128" height="39" uuid="a6011e1f-76c2-448b-b9e4-e5f8c4427b6d"/>
+				<reportElement style="strong" x="356" y="165" width="198" height="21" uuid="a6011e1f-76c2-448b-b9e4-e5f8c4427b6d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{recommender_full_name}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="label-strong" x="128" y="316" width="122" height="22" uuid="c77b9438-8150-4275-b157-daa171210583">
+				<reportElement style="label" x="272" y="125" width="84" height="39" uuid="c77b9438-8150-4275-b157-daa171210583">
 					<printWhenExpression><![CDATA[$F{prescription_reference_number} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -180,35 +181,84 @@
 				<text><![CDATA[Prescription]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement style="strong" x="128" y="338" width="122" height="20" uuid="da20f077-c405-4220-94cb-41ae80500c74"/>
+				<reportElement style="strong" x="356" y="125" width="198" height="20" uuid="da20f077-c405-4220-94cb-41ae80500c74"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{prescription_reference_number}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement style="strong" x="128" y="357" width="122" height="20" uuid="65ac82f6-197a-4b96-8d63-be82f9be4c64"/>
+				<reportElement style="strong" x="356" y="145" width="198" height="19" uuid="65ac82f6-197a-4b96-8d63-be82f9be4c64"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{prescription_delivered_at}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="strong" mode="Opaque" x="254" y="122" width="2" height="255" backcolor="#7C9DDD" uuid="5446f02e-b1ba-4370-89d9-104c834bdfc0"/>
-				<textElement verticalAlignment="Top" rotation="Right">
-					<font isStrikeThrough="false" pdfFontName="Open Sans"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="label-strong" x="-1" y="89" width="255" height="22" uuid="23179653-8859-4e15-b61e-207324049bcf"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement style="label-strong" x="-1" y="89" width="555" height="22" uuid="23179653-8859-4e15-b61e-207324049bcf"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="12"/>
+					<paragraph leftIndent="10"/>
 				</textElement>
 				<text><![CDATA[Informations]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label-strong" x="256" y="89" width="298" height="22" uuid="318ed8e2-0997-40ce-840a-4dac3a1d05b1"/>
+				<reportElement style="label" x="272" y="165" width="84" height="21" uuid="6dba3f50-4da1-410e-843a-66b2f96054f4">
+					<printWhenExpression><![CDATA[$F{prescription_reference_number} != null]]></printWhenExpression>
+				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="12"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
-				<text><![CDATA[Zone cible]]></text>
+				<text><![CDATA[Prescripteur]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="356" y="186" width="198" height="48" uuid="c7727b73-50d6-4afc-b38d-f9ac4b2fe84a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prescription_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="176" width="177" height="48" uuid="f2c014a4-36ad-43dc-9581-70f88d4ff673"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{actions}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="label" x="17" y="176" width="47" height="48" uuid="116d8e21-34f6-4363-b4df-711ce84666d5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Actions]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="label" x="142" y="122" width="50" height="22" uuid="137f768a-7fc6-4285-957f-2994fd567ff6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Durée]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="label" x="272" y="186" width="84" height="48" uuid="b0d9691b-c594-4d0e-98a2-ebbd2a704ede">
+					<printWhenExpression><![CDATA[$F{prescription_reference_number} != null]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<rectangle radius="10">
+				<reportElement style="title" mode="Transparent" x="1" y="122" width="260" height="112" uuid="40d83b03-46f0-4fc2-bfb6-281b296774a7"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement style="title" mode="Transparent" x="272" y="122" width="282" height="112" uuid="0a9be048-c033-4dfa-a50a-041a47a0d1e4">
+					<printWhenExpression><![CDATA[$F{prescription_reference_number} != null]]></printWhenExpression>
+				</reportElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement style="strong" x="194" y="144" width="67" height="23" uuid="c52702ca-2db1-46dd-b680-b06f79a4b386"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{human_working_zone_area}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="label" x="142" y="145" width="50" height="22" uuid="fb118218-8729-4d9a-9741-007176dc2644"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Zone]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -216,87 +266,93 @@
 		<band height="12" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="58" splitType="Stretch">
+		<band height="26" splitType="Stretch">
 			<staticText>
-				<reportElement style="strong" mode="Opaque" x="0" y="56" width="555" height="2" backcolor="#7C9DDD" uuid="50cdfb71-4302-415d-a0f8-4c2ef407bc85"/>
+				<reportElement style="strong" mode="Opaque" x="0" y="22" width="555" height="2" backcolor="#7C9DDD" uuid="50cdfb71-4302-415d-a0f8-4c2ef407bc85"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label-strong" x="0" y="0" width="554" height="28" uuid="b31d605f-5be6-4211-974e-cb1900fa51f0"/>
+				<reportElement style="label-strong" x="1" y="0" width="401" height="22" uuid="dcd6aaca-a1d0-4aa5-8ea4-611f939489fe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="12"/>
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<text><![CDATA[Acteurs et description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="label-strong" x="284" y="0" width="271" height="22" uuid="bae761c9-d4d4-4606-9578-97d4c0a0856e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="12"/>
 				</textElement>
-				<text><![CDATA[Acteurs]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="success" mode="Transparent" x="400" y="28" width="154" height="28" uuid="4bf0bd79-60ae-465a-b55f-515fb8c58eca">
-					<printWhenExpression><![CDATA[$F{state} == "done" && $F{status} == "go"]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[UTILISES]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="warning" mode="Transparent" x="220" y="28" width="180" height="28" uuid="531c659e-5662-463e-a9c1-84d43c1abfcc">
-					<printWhenExpression><![CDATA[$F{state} == "undone" && $F{status} == "caution"]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[PREVUS]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="error" mode="Transparent" x="1" y="28" width="219" height="28" uuid="444821e6-af4f-4198-9612-61e9f2b62943">
-					<printWhenExpression><![CDATA[$F{state} == "undone" && $F{status} == "stop"]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[EN ATTENTE]]></text>
+				<text><![CDATA[Zone travaillée / Quantité utilisée]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="75" splitType="Stretch">
+		<band height="65" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement style="strong" x="-1" y="0" width="173" height="20" uuid="ed89b301-983f-4ed5-8395-301002b780d1"/>
+				<reportElement style="strong" x="106" y="0" width="178" height="20" uuid="ed89b301-983f-4ed5-8395-301002b780d1"/>
+				<textElement>
+					<paragraph leftIndent="10"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{cast_variable_name}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement style="address" x="0" y="20" width="172" height="20" uuid="e2c0d586-0c4d-4f6b-84f7-fd54e96e9cac"/>
-				<textFieldExpression><![CDATA[$F{cast_actor_work_number}]]></textFieldExpression>
-			</textField>
 			<image onErrorType="Blank">
-				<reportElement x="172" y="5" width="89" height="64" isRemoveLineWhenBlank="true" uuid="47ab4e4f-df21-4b48-be64-38bcbcb3e62a"/>
+				<reportElement x="0" y="0" width="106" height="63" isRemoveLineWhenBlank="true" uuid="47ab4e4f-df21-4b48-be64-38bcbcb3e62a">
+					<printWhenExpression><![CDATA[!$F{cast_actor_picture_path}.isEmpty()]]></printWhenExpression>
+				</reportElement>
 				<imageExpression><![CDATA[$F{cast_actor_picture_path}]]></imageExpression>
 			</image>
+			<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="284" y="0" width="112" height="63" isRemoveLineWhenBlank="true" uuid="1fa34e21-151d-4053-915f-04ecc80682d7">
+					<printWhenExpression><![CDATA[!$F{svg_path}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{svg_path})]]></imageExpression>
+			</image>
 			<textField isBlankWhenNull="true">
-				<reportElement style="address" x="0" y="40" width="172" height="22" uuid="3d01a950-b1b8-4318-ba94-48707e595ac0"/>
-				<textFieldExpression><![CDATA[$F{cast_actor_name}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement style="emphasis" x="455" y="5" width="100" height="20" uuid="bfacb250-6829-4a0c-b992-edac61f46119"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{cast_actor_unit_name}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement style="emphasis" x="356" y="5" width="99" height="20" uuid="511a8bab-1fd9-4479-8213-fe9b68cd0287"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<paragraph rightIndent="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{cast_population}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement style="strong" mode="Opaque" x="1" y="73" width="553" height="1" backcolor="#7C9DDD" uuid="be752907-fbc7-40f1-a0f1-12329fccf6b0"/>
+				<reportElement x="106" y="20" width="178" height="20" uuid="442f7566-2915-46c7-8ccb-cd08d2766626"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Open Sans"/>
+					<paragraph leftIndent="10"/>
 				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$F{cast_actor_work_number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="40" width="178" height="20" uuid="2fa7250e-625a-4a1b-8a9f-f5e86bdf7ddc"/>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cast_actor_nature_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="406" y="10" width="74" height="20" uuid="ac0d1db4-3b03-4d9e-96c7-66ef8c2df655"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cast_quantity_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="406" y="29" width="35" height="20" uuid="a43373b2-30f2-4a42-b0b1-fbb09bd85d1d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cast_global_quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="29" width="40" height="20" uuid="1b5dfa5f-9c90-4fe9-bad0-fb01f98cbaaf">
+					<printWhenExpression><![CDATA[!$F{cast_global_quantity}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cast_product_unit_name}]]></textFieldExpression>
+			</textField>
+			<rectangle radius="5">
+				<reportElement style="title" mode="Transparent" x="0" y="0" width="555" height="63" uuid="13c95afa-825c-4518-a306-8e5bd13f8fa0"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="406" y="10" width="74" height="20" uuid="aab382a6-572d-47e7-9690-2492bdd49e4d">
+					<printWhenExpression><![CDATA[$F{cast_reference_name}.equalsIgnoreCase( "cultivation" ) || $F{cast_reference_name}.equalsIgnoreCase( "land_parcel" )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cast_actor_human_working_zone_area}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>

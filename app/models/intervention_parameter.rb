@@ -114,4 +114,17 @@ class InterventionParameter < Ekylibre::Record::Base
   def earn
     earn_amount_computation.amount
   end
+
+  def working_zone_svg
+    working_zone.to_svg if working_zone
+  end
+
+  def human_working_zone_area(unit = :hectare)
+    working_zone_area.in(unit) if working_zone
+  end
+
+  def human_quantity_name
+    quantity.l if quantity
+  end
+
 end
