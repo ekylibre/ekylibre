@@ -34,8 +34,8 @@
             <title name="name" of="production"/>
             <property name="started_on" of="production" type="datetime"/>
             <property name="stopped_on" of="production" type="datetime"/>
-            <property name="variant_name" value="production.variant.name" if="production.variant"/>
-            <sections for="animal" in="Animal.of_nature(production.variant.nature)" of-type="record" if="production.variant">
+            <variable name="animal_ids" value="production.targets.pluck(:target_id)"/>
+            <sections for="animal" in="Animal.where(id: animal_ids)" of-type="record">
               <title name="name" of="animal"/>
               <property name="born_at" of="animal" if="animal.born_at" type="datetime"/>
               <property name="dead_at" of="animal" if="animal.dead_at" type="datetime"/>
@@ -53,23 +53,23 @@
                 <cell name="started_at" of="localization" if="localization.started_at" type="datetime"/>
                 <cell name="stopped_at" of="localization" if="localization.stopped_at" type="datetime"/>
               </matrix>
-              <matrix name="animal_treatments" for="intervention" in="Intervention.real.of_nature(:animal_illness_treatment).with_cast('animal_illness_treatment-target', animal)">
+              <matrix name="animal_treatments" for="intervention" in="Intervention.real.of_category(:animal_treating).with_generic_cast('target', animal)">
                 <cell name="id" of="intervention" level="api"/>
                 <section name="prescription" of="intervention.prescription">
                   <property name="id" level="api"/>
                   <title name="reference_number"/>
                   <property name="name"/>
                 </section>
-                <matrix name="inputs" for="input" in="intervention.casts.of_role('animal_illness_treatment-input').with_actor">
-                  <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
-                  <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
+                <matrix name="inputs" for="input" in="intervention.inputs">
+                  <variable name="meat_withdrawal_period" value="input.product.meat_withdrawal_period"/>
+                  <variable name="milk_withdrawal_period" value="input.product.milk_withdrawal_period"/>
                   <cell name="id" of="input" level="api"/>
-                  <within of="input.actor">
+                  <within of="input.product">
                     <cell name="name"/>
                     <cell name="variety" level="api"/>
                   </within>
-                  <cell name="population" of="input" />
-                  <cell name="unit_name" of="input.actor"/>
+                  <cell name="quantity" value="input.quantity.l" type="measure" />
+                  <cell name="unit_name" value="input.product.unit_name"/>
                   <matrix name="withdrawal_periods">
                     <cell name="meat_withdrawal_period" value="meat_withdrawal_period" type="measure"/>
                     <cell name="milk_withdrawal_period" value="milk_withdrawal_period" type="measure"/>
