@@ -2,25 +2,23 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="standard_enclosing" categories="installations_modification" optional-actions="animal_penning, game_protection">
     <parameters>
-      <parameter name="land_parcel" type="target" filter="is cultivable_zone" default-shape=":land_parcel" default-actor="storage">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, land_parcel.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / land_parcel..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
-      <parameter name="doer" type="doer" filter="is worker and can move"/>
-      <input name="stakes" filter="is stake and can enclose">
+      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="stakes" filter="is stake and can enclose" cardinality="*">
         <handler indicator="stakes_count" unit="unity_per_hectare"
                  if="sum(land_parcel, :net_surface_area, :hectare) != 0"
                  backward="(POPULATION / sum(land_parcel, :net_surface_area, :hectare))"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare))"/>
       </input>
-      <input name="wire_fence" filter="is wire and can enclose">
+      <input name="wire_fence" filter="is wire and can enclose" cardinality="*">
         <handler indicator="length" unit="meter"
                  if="PRODUCT..length?"
                  backward="(POPULATION * PRODUCT..length(meter))"
                  forward="(VALUE / PRODUCT..length(meter))"/>
       </input>
+      <doer name="doer"  filter="is worker and can move" cardinality="*"/>
+      <tool name="equipment" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
