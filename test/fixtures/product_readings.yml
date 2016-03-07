@@ -59,7 +59,7 @@ product_readings_001:
   measure_value_unit: kilogram
   measure_value_value: 250.0
   product_id: 1
-  read_at: 1995-01-19 16:13:59.000000000 Z
+  read_at: 1997-01-19 16:13:59.000000000 Z
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 product_readings_002:
@@ -218,7 +218,7 @@ product_readings_011:
   measure_value_unit: gram
   measure_value_value: 42.0
   product_id: 53
-  read_at: 2014-10-31 20:09:00.000000000 Z
+  read_at: 2014-10-31 20:24:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.059847000 Z
   updater_id: 1
 product_readings_012:
@@ -234,7 +234,7 @@ product_readings_012:
   measure_value_unit: kilogram
   measure_value_value: 25.0
   product_id: 53
-  read_at: 2014-10-31 20:09:00.000000000 Z
+  read_at: 2014-10-31 20:24:00.000000000 Z
   updated_at: 2014-10-31 20:23:37.064202000 Z
   updater_id: 1
 product_readings_013:
@@ -265,7 +265,7 @@ product_readings_014:
   measure_value_unit: gram
   measure_value_value: 35.0
   product_id: 54
-  read_at: 2014-10-31 20:31:00.000000000 Z
+  read_at: 2014-11-01 16:01:08.252054000 Z
   updated_at: 2014-11-01 16:00:08.252054000 Z
   updater_id: 1
 product_readings_015:
@@ -281,7 +281,7 @@ product_readings_015:
   measure_value_unit: kilogram
   measure_value_value: 25.0
   product_id: 54
-  read_at: 2014-10-31 20:31:00.000000000 Z
+  read_at: 2014-11-01 16:01:08.252054000 Z
   updated_at: 2014-11-01 16:00:08.255966000 Z
   updater_id: 1
 product_readings_016:
@@ -297,7 +297,7 @@ product_readings_016:
   measure_value_unit: cubic_meter
   measure_value_value: 1.87
   product_id: 55
-  read_at: 2014-10-31 20:31:00.000000000 Z
+  read_at: 2014-11-01 16:01:08.252054000 Z
   updated_at: 2014-11-01 16:00:08.365742000 Z
   updater_id: 1
 product_readings_017:
@@ -313,7 +313,7 @@ product_readings_017:
   measure_value_unit: kilogram
   measure_value_value: 150.0
   product_id: 55
-  read_at: 2014-10-31 20:31:00.000000000 Z
+  read_at: 2014-11-01 16:01:08.252054000 Z
   updated_at: 2014-11-01 16:00:08.368519000 Z
   updater_id: 1
 product_readings_018:
@@ -649,7 +649,7 @@ product_readings_042:
   measure_value_unit: kilogram
   measure_value_value: 1.0
   product_id: 57
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:19:35.433284000 Z
   updater_id: 1
 product_readings_043:
@@ -665,7 +665,7 @@ product_readings_043:
   measure_value_unit: liter
   measure_value_value: 1.0
   product_id: 57
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:19:35.436647000 Z
   updater_id: 1
 product_readings_044:
@@ -681,7 +681,7 @@ product_readings_044:
   measure_value_unit: day
   measure_value_value: 6.0
   product_id: 58
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:23:55.197094000 Z
   updater_id: 1
 product_readings_045:
@@ -697,7 +697,7 @@ product_readings_045:
   measure_value_unit: day
   measure_value_value: 5.0
   product_id: 58
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:23:55.201049000 Z
   updater_id: 1
 product_readings_046:
@@ -713,7 +713,7 @@ product_readings_046:
   measure_value_unit: milliliter
   measure_value_value: 10.0
   product_id: 58
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:23:55.206318000 Z
   updater_id: 1
 product_readings_047:
@@ -729,7 +729,7 @@ product_readings_047:
   measure_value_unit: gram
   measure_value_value: 10.0
   product_id: 58
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:23:55.210376000 Z
   updater_id: 1
 product_readings_048:
@@ -745,7 +745,7 @@ product_readings_048:
   measure_value_unit: day
   measure_value_value: 0.0
   product_id: 59
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:23:55.273935000 Z
   updater_id: 1
 product_readings_049:
@@ -761,7 +761,7 @@ product_readings_049:
   measure_value_unit: day
   measure_value_value: 0.0
   product_id: 59
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:23:55.277802000 Z
   updater_id: 1
 product_readings_050:
@@ -777,7 +777,7 @@ product_readings_050:
   measure_value_unit: kilogram
   measure_value_value: 1.0
   product_id: 59
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:23:55.281288000 Z
   updater_id: 1
 product_readings_051:
@@ -793,7 +793,7 @@ product_readings_051:
   measure_value_unit: liter
   measure_value_value: 1.0
   product_id: 59
-  read_at: 2013-08-01 00:50:00.000000000 Z
+  read_at: 2014-11-01 20:19:35.433284000 Z
   updated_at: 2014-11-01 20:23:55.285126000 Z
   updater_id: 1
 product_readings_052:
@@ -873,7 +873,7 @@ product_readings_056:
   measure_value_unit: gram
   measure_value_value: 42.0
   product_id: 60
-  read_at: 2014-11-02 11:06:30.000000000 Z
+  read_at: 2014-11-02 18:38:47.229707000 Z
   updated_at: 2014-11-02 18:38:47.229707000 Z
   updater_id: 1
 product_readings_057:
@@ -889,7 +889,7 @@ product_readings_057:
   measure_value_unit: kilogram
   measure_value_value: 25.0
   product_id: 60
-  read_at: 2014-11-02 11:06:30.000000000 Z
+  read_at: 2014-11-02 18:38:47.229707000 Z
   updated_at: 2014-11-02 18:38:47.234786000 Z
   updater_id: 1
 product_readings_058:
@@ -1555,7 +1555,7 @@ product_readings_101:
   measure_value_unit: cubic_meter
   measure_value_value: 1.0
   product_id: 98
-  read_at: 2012-11-03 15:24:00.000000000 Z
+  read_at: 2014-11-07 15:25:51.244925000 Z
   updated_at: 2014-11-07 15:25:51.244925000 Z
   updater_id: 1
 product_readings_102:
@@ -1571,7 +1571,7 @@ product_readings_102:
   measure_value_unit: ton
   measure_value_value: 1.0
   product_id: 98
-  read_at: 2012-11-03 15:24:00.000000000 Z
+  read_at: 2014-11-07 15:25:51.244925000 Z
   updated_at: 2014-11-07 15:25:51.249493000 Z
   updater_id: 1
 product_readings_103:
@@ -1587,7 +1587,7 @@ product_readings_103:
   measure_value_unit: percent
   measure_value_value: 33.5
   product_id: 98
-  read_at: 2012-11-03 15:24:00.000000000 Z
+  read_at: 2014-11-07 15:25:51.244925000 Z
   updated_at: 2014-11-07 15:25:51.253571000 Z
   updater_id: 1
 product_readings_104:
@@ -1651,7 +1651,7 @@ product_readings_107:
   measure_value_unit: kilogram
   measure_value_value: 10.0
   product_id: 100
-  read_at: 2014-11-07 15:41:00.000000000 Z
+  read_at: 2014-11-07 15:44:20.506534000 Z
   updated_at: 2014-11-07 15:44:20.506534000 Z
   updater_id: 1
 product_readings_108:
@@ -1667,7 +1667,7 @@ product_readings_108:
   measure_value_unit: gram
   measure_value_value: 2.0
   product_id: 100
-  read_at: 2014-11-07 15:41:00.000000000 Z
+  read_at: 2014-11-07 15:44:20.506534000 Z
   updated_at: 2014-11-07 15:44:20.547706000 Z
   updater_id: 1
 product_readings_109:
@@ -1683,7 +1683,7 @@ product_readings_109:
   measure_value_unit: kilogram
   measure_value_value: 1.0
   product_id: 101
-  read_at: 2014-11-07 15:41:00.000000000 Z
+  read_at: 2014-11-07 15:44:20.506534000 Z
   updated_at: 2014-11-07 15:44:20.628230000 Z
   updater_id: 1
 product_readings_110:
@@ -1699,7 +1699,7 @@ product_readings_110:
   measure_value_unit: gram
   measure_value_value: 50.0
   product_id: 101
-  read_at: 2014-11-07 15:41:00.000000000 Z
+  read_at: 2014-11-07 15:44:20.506534000 Z
   updated_at: 2014-11-07 15:44:20.632372000 Z
   updater_id: 1
 product_readings_111:
@@ -1869,7 +1869,7 @@ product_readings_121:
   indicator_name: woodstock_variety
   lock_version: 0
   product_id: 107
-  read_at: 2008-03-05 09:00:00.000000000 Z
+  read_at: 2014-11-07 16:47:34.907912000 Z
   updated_at: 2014-11-07 16:47:34.907912000 Z
   updater_id: 1
 product_readings_122:
@@ -2138,7 +2138,7 @@ product_readings_138:
   measure_value_unit: kilogram
   measure_value_value: 1.0
   product_id: 120
-  read_at: 2013-10-01 07:30:00.000000000 Z
+  read_at: 2014-11-07 18:53:58.125032000 Z
   updated_at: 2014-11-07 18:53:58.125032000 Z
   updater_id: 1
 product_readings_139:
@@ -2154,7 +2154,7 @@ product_readings_139:
   measure_value_unit: liter
   measure_value_value: 1.0
   product_id: 120
-  read_at: 2013-10-01 07:30:00.000000000 Z
+  read_at: 2014-11-07 18:53:58.128656000 Z
   updated_at: 2014-11-07 18:53:58.128656000 Z
   updater_id: 1
 product_readings_140:
@@ -2170,7 +2170,7 @@ product_readings_140:
   measure_value_unit: kilogram
   measure_value_value: 1.0
   product_id: 121
-  read_at: 2013-10-01 07:30:00.000000000 Z
+  read_at: 2014-11-07 18:53:58.179989000 Z
   updated_at: 2014-11-07 18:53:58.179989000 Z
   updater_id: 1
 product_readings_141:
@@ -2186,7 +2186,7 @@ product_readings_141:
   measure_value_unit: liter
   measure_value_value: 1.0
   product_id: 121
-  read_at: 2013-10-01 07:30:00.000000000 Z
+  read_at: 2014-11-07 18:53:58.183136000 Z
   updated_at: 2014-11-07 18:53:58.183136000 Z
   updater_id: 1
 product_readings_142:
@@ -2202,7 +2202,7 @@ product_readings_142:
   measure_value_unit: kilogram
   measure_value_value: 1.0
   product_id: 122
-  read_at: 2013-10-01 07:30:00.000000000 Z
+  read_at: 2014-11-07 18:53:58.218350000 Z
   updated_at: 2014-11-07 18:53:58.218350000 Z
   updater_id: 1
 product_readings_143:
@@ -2218,7 +2218,7 @@ product_readings_143:
   measure_value_unit: liter
   measure_value_value: 1.0
   product_id: 122
-  read_at: 2013-10-01 07:30:00.000000000 Z
+  read_at: 2014-11-07 18:53:58.221482000 Z
   updated_at: 2014-11-07 18:53:58.221482000 Z
   updater_id: 1
 product_readings_144:
@@ -2330,7 +2330,7 @@ product_readings_150:
   measure_value_unit: kilogram
   measure_value_value: 25.0
   product_id: 126
-  read_at: 2014-11-07 19:04:00.000000000 Z
+  read_at: 2014-11-07 19:05:46.929744000 Z
   updated_at: 2014-11-07 19:05:46.929744000 Z
   updater_id: 1
 product_readings_151:
@@ -2346,7 +2346,7 @@ product_readings_151:
   measure_value_unit: kilogram
   measure_value_value: 25.0
   product_id: 127
-  read_at: 2014-11-07 19:04:00.000000000 Z
+  read_at: 2014-11-07 19:05:47.005554000 Z
   updated_at: 2014-11-07 19:05:47.005554000 Z
   updater_id: 1
 product_readings_152:
@@ -2362,7 +2362,7 @@ product_readings_152:
   measure_value_unit: gram
   measure_value_value: 500.0
   product_id: 128
-  read_at: 2014-11-07 19:04:00.000000000 Z
+  read_at: 2014-11-07 19:05:47.074351000 Z
   updated_at: 2014-11-07 19:05:47.074351000 Z
   updater_id: 1
 product_readings_153:
@@ -2378,7 +2378,7 @@ product_readings_153:
   measure_value_unit: billion_per_gram
   measure_value_value: 10.0
   product_id: 128
-  read_at: 2014-11-07 19:04:00.000000000 Z
+  read_at: 2014-11-07 19:05:47.078329000 Z
   updated_at: 2014-11-07 19:05:47.078329000 Z
   updater_id: 1
 product_readings_154:
@@ -2458,7 +2458,7 @@ product_readings_158:
   measure_value_unit: kilogram
   measure_value_value: 25.0
   product_id: 131
-  read_at: 2013-10-01 18:10:00.000000000 Z
+  read_at: 2014-11-07 19:12:04.981385000 Z
   updated_at: 2014-11-07 19:12:04.981385000 Z
   updater_id: 1
 product_readings_159:
@@ -2490,7 +2490,7 @@ product_readings_160:
   measure_value_unit: liter
   measure_value_value: 1.0
   product_id: 133
-  read_at: 2013-10-03 18:18:00.000000000 Z
+  read_at: 2014-11-07 19:22:38.333841000 Z
   updated_at: 2014-11-07 19:22:38.333841000 Z
   updater_id: 1
 product_readings_161:
@@ -2506,7 +2506,7 @@ product_readings_161:
   measure_value_unit: kilogram
   measure_value_value: 1.0
   product_id: 133
-  read_at: 2013-10-03 18:18:00.000000000 Z
+  read_at: 2014-11-07 19:22:38.338563000 Z
   updated_at: 2014-11-07 19:22:38.338563000 Z
   updater_id: 1
 product_readings_162:
@@ -2522,7 +2522,7 @@ product_readings_162:
   measure_value_unit: percent
   measure_value_value: 10.0
   product_id: 133
-  read_at: 2013-10-03 18:18:00.000000000 Z
+  read_at: 2014-11-07 19:22:38.342528000 Z
   updated_at: 2014-11-07 19:22:38.342528000 Z
   updater_id: 1
 product_readings_163:
@@ -2810,7 +2810,7 @@ product_readings_180:
   measure_value_unit: ton
   measure_value_value: 1.0
   product_id: 144
-  read_at: 2015-07-15 11:45:00.000000000 Z
+  read_at: 2015-09-17 13:35:36.308965000 Z
   updated_at: 2015-09-17 13:35:36.308965000 Z
   updater_id: 1
 product_readings_181:

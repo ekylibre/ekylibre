@@ -17,7 +17,7 @@ module Calculus
       delegate :campaign, to: :production
 
       def production
-        @support.production
+        @support.activity
       end
 
       def soil_natures

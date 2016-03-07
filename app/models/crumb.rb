@@ -123,7 +123,7 @@ class Crumb < Ekylibre::Record::Base
       options = crumbs.extract_options!
       options[:campaigns] ||= Campaign.current
       ActivityProduction.of_campaign(options[:campaigns].first).distinct
-                        .joins(:storage)
+                        .joins(:support)
                         .where('products.id IN (?)', Crumb.products(*crumbs, no_contents: true).map(&:id))
     end
 
