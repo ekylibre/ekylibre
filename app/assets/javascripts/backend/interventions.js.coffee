@@ -73,12 +73,15 @@
       unless computing.length > 0
         console.error 'Cannot procedure element where compute URL is defined'
         return false
+      console.log 'in refreshing'
       if computing.prop('state') isnt 'waiting'
+        console.log 'in ajax'
         $.ajax
           url: computing.data('procedure')
           type: "PATCH"
           data: form.serialize()
           beforeSend: ->
+            console.log 'waiting'
             computing.prop 'state', 'waiting'
           error: (request, status, error) ->
             computing.prop 'state', 'ready'
@@ -92,6 +95,8 @@
             #   E.interventions.refresh updaterElement
             computing.prop 'state', 'ready'
             console.groupEnd()
+          complete: () ->
+            console.log 'ready'
 
 
   ##############################################################################
@@ -101,7 +106,7 @@
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
 
-  $(document).on 'keyup mapchange', '*[data-intervention-updater]', ->
+  $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
 
@@ -110,7 +115,7 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup change', 'select[data-intervention-updater], input[data-intervention-updater]', ->
+  $(document).on 'keyup', 'input[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
 
