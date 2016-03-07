@@ -63,6 +63,7 @@ class ActivityProduction < Ekylibre::Record::Base
                                           inverse_of: :activity_production
   has_one :selected_manure_management_plan_zone, -> { selecteds },
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
+  has_one :cap_land_parcel, class_name: 'CapLandParcel', inverse_of: :activity_production, foreign_key: :support_id
 
   has_geometry :support_shape
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]

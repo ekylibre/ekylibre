@@ -26,6 +26,11 @@
           %span.title= ActivityProduction.human_attribute_name(:nitrate_fixing)
           %span.value
             %i.picto{class: "picto-#{resource.nitrate_fixing ? :done : :clear}"}
+        - if resource.plant_farming? && resource.cap_land_parcel
+          .med-info
+            %span.title= CapLandParcel.human_attribute_name(:land_parcel_number)
+            %span.value= link_to(resource.cap_land_parcel.land_parcel_number, {controller: :cap_land_parcels, action: :show, id: resource.cap_land_parcel.id})
+            
         -# if resource.estimate_yield.to_d > 0.0
           .med-info
             %span.title= :estimate_yield.tl

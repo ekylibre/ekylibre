@@ -119,9 +119,9 @@ class Activity < Ekylibre::Record::Base
     if family
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
-        self.with_supports = true
-        self.support_variety = :land_parcel
-        self.with_cultivation = true
+        self.with_supports ||= true
+        self.support_variety ||= :land_parcel
+        self.with_cultivation ||= true
         self.cultivation_variety ||= :plant
         self.size_indicator_name = 'net_surface_area' if size_indicator_name.blank?
         self.size_unit_name = 'hectare' if size_unit_name.blank?
