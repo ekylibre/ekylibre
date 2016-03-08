@@ -130,6 +130,14 @@ class InterventionProductParameter < InterventionParameter
     self.class.role
   end
 
+  def human_quantity
+    quantity.l if quantity
+  end
+
+  def working_zone_svg
+    working_zone.to_svg if working_zone
+  end
+
   def quantity_handler_reference
     reference.handler(quantity_handler)
   end

@@ -34,7 +34,7 @@
             <title name="name" of="production"/>
             <property name="started_on" of="production" type="datetime"/>
             <property name="stopped_on" of="production" type="datetime"/>
-            <variable name="animal_ids" value="production.targets.pluck(:target_id)"/>
+            <variable name="animal_ids" value="production.distributions.pluck(:target_id)"/>
             <sections for="animal" in="Animal.where(id: animal_ids)" of-type="record">
               <title name="name" of="animal"/>
               <property name="born_at" of="animal" if="animal.born_at" type="datetime"/>

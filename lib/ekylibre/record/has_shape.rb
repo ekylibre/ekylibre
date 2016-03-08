@@ -45,7 +45,7 @@ module Ekylibre
               end
 
               define_method "human_#{col}_area" do |mode = :metric|
-                area = send(col + '_area')
+                area = (send(col) ? send(col + '_area') : 0.in_square_meter)
                 if mode == :imperial
                   area.in(:acre).round(3).l
                 else # metric

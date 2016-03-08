@@ -267,11 +267,7 @@ class Measure
   # Localize a measure
   # FIXME: Measure l10n must be configurable in translation files.
   def localize(options = {})
-    if @@units.items[unit]
-      return "#{value.to_f.localize(options)} #{@@units.items[unit].symbol}"
-    else
-      return nil
-    end
+    "#{value.to_f.localize(options)} #{@@units.items[unit].symbol}"
   end
   alias l localize
 

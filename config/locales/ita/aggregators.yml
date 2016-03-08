@@ -65,7 +65,7 @@ ita:
     pictogram: "pittogramma"
     picture_path: "percorso Picture"
     plan: "Piano"
-    population: "Popolazione"
+    population: "Popolazione" #?
     prescription: "Prescrizione"
     pretax_amount: "importo prima delle imposte"
     printed_on: "stampato su"

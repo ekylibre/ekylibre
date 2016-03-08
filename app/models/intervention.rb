@@ -198,11 +198,8 @@ class Intervention < Ekylibre::Record::Base
 
   # Returns human actions names
   def human_actions_names
-    arr_human_actions_names = []
-    actions.each do |action|
-      arr_human_actions_names << Nomen::ProcedureAction.find(action.to_sym).l
-    end
-    return arr_human_actions_names.to_sentence
+    actions.map { |action| Nomen::ProcedureAction.find(action).human_name }
+           .to_sentence
   end
 
   def name

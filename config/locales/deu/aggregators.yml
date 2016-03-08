@@ -65,7 +65,7 @@ deu:
     pictogram: "Piktogramm"
     picture_path: "Bildpfad"
     plan: "Planen"
-    population: "Bevölkerung"
+    population: "Bevölkerung" #?
     prescription: "Rezept"
     pretax_amount: "Der Vorsteuerbetrag"
     printed_on: "gedruckt auf"

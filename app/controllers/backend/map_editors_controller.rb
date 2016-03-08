@@ -21,7 +21,7 @@ module Backend
       geometry = file.read
       feature = nil
       geojson_features = nil
-      geojson_features_collection = ::Charta.empty_geometry().to_json_object
+      geojson_features_collection = ::Charta.empty_geometry.to_json_object
 
       case format
       when 'gml'
@@ -61,7 +61,6 @@ module Backend
                   [coord[0], coord[1]]
                 end
               end
-
 
               if gfeature.key? 'geometry'
                 if ::Charta::GeoJSON.valid?(gfeature['geometry'])

@@ -32,43 +32,34 @@ module Backend
     # params:
     #   :q Text search
     #   :working_set
-    def self.working_set_conditions
+    def self.list_conditions
       code = search_conditions(products: [:name, :number], product_nature_variants: [:name]) + " ||= []\n"
       code << "unless params[:working_set].blank?\n"
       code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
-      code << "  puts item.expression.red\n"
       code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
       code << "end\n"
-      code << "    unless params[:s].blank?\n"
-      code << "      if params[:s] != 'all'\n"
-      code << "        if params[:s] == 'available'\n"
-      code << "          c[0] << \" AND #{Product.table_name}.dead_at IS NULL\"\n"
-      code << "        end\n"
-      code << "      end\n"
-      code << "    end\n"
-      code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
-      code << "  if params[:period] != 'all' and params[:period] != 'interval'\n"
-      code << "    first_date = params[:started_at]\n"
-      code << "    last_date = params[:stopped_at]\n"
-      code << "    c[0] << \" AND #{Product.table_name}.born_at BETWEEN ? AND ?\"\n"
-      code << "    c << first_date\n"
-      code << "    c << last_date\n"
-      code << "    unless params[:s].blank?\n"
-      code << "      if params[:s] != 'all'\n"
-      code << "        if params[:s] == 'consume'\n"
-      code << "          c[0] << \" AND #{Product.table_name}.dead_at BETWEEN ? AND ?\"\n"
-      code << "          c << first_date\n"
-      code << "          c << last_date\n"
-      code << "        end\n"
-      code << "      end\n"
-      code << "    end\n"
-      code << "  end\n "
-      code << "end\n "
+      code << "if params[:s] == 'available'\n"
+      code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NULL'\n"
+      code << "elsif params[:s] == 'consume'\n"
+      code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NOT NULL'\n"
+      code << "end\n"
+      code << "if params[:period] != 'all'\n"
+      code << "  started_on = params[:started_at]\n"
+      code << "  stopped_on = params[:stopped_at]\n"
+      code << "  c[0] << ' AND #{Product.table_name}.born_at BETWEEN ? AND ?'\n"
+      code << "  c << started_on\n"
+      code << "  c << stopped_on\n"
+      code << "  if params[:s] == 'consume'\n"
+      code << "    c[0] << ' AND #{Product.table_name}.dead_at BETWEEN ? AND ?'\n"
+      code << "    c << started_on\n"
+      code << "    c << stopped_on\n"
+      code << "  end\n"
+      code << "end\n"
       code << "c\n"
       code.c
     end
 
-    list(conditions: working_set_conditions) do |t|
+    list(conditions: list_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
