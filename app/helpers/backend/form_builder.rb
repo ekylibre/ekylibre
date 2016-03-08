@@ -622,6 +622,7 @@ module Backend
         new_url[:controller] ||= choices[:controller]
         new_url[:action] ||= :new
         options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
+        options[:input_html][:data][:selector_new_item_default_values] = options[:new] if options[:new].is_a? Hash
       end
       # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
       options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s

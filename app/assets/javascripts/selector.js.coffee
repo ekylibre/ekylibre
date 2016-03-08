@@ -247,6 +247,8 @@
           this._select(selected.data("item-id"), selected.data("item-label"), true)
         else if selected.is("[data-new-item]")
           parameters = {}
+          if default_values = @element.data('selector-new-item-default-values')
+            parameters.defaults = default_values
           if selected.data("new-item").length > 0
             parameters.name = selected.data("new-item")
           E.dialog.open @element.data("selector-new-item"),
