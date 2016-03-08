@@ -108,6 +108,7 @@
 
 .leaflet-top {
   top: 0;
+  z-index: 11;
 }
 
 .leaflet-right {
@@ -842,6 +843,13 @@
         line-height: $lh-small;
         font-weight: bold;
       }
+    }
+
+    &.minified {
+      height: 0;
+      padding: 0;
+      overflow: hidden;
+      transition: 1s ease;
     }
   }
 

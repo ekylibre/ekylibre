@@ -248,6 +248,10 @@
         L.DomUtil.create('div', 'leaflet-legend-control')
       @map.addControl legendControl
 
+      $('.leaflet-legend-control').on 'click', () ->
+        $(this).find('#legend-activity').toggleClass('minified')
+
+
       for layer in @options.layers
         if console.group isnt undefined
           console.group "Add layer #{layer.name} (#{layer.type})..."
