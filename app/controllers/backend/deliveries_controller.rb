@@ -30,7 +30,8 @@ module Backend
       t.column :number, url: true
       t.column :annotation
       t.status
-      t.column :state
+      t.column :mode
+      t.column :responsible
       t.column :started_at
       t.column :transporter, label_method: :full_name, url: true
       # t.column :net_mass
@@ -52,6 +53,7 @@ module Backend
 
     # Displays details of one sale selected with +params[:id]+
     def show
+      @entity_of_company_picture_path = Entity.of_company.picture_path
       return unless @delivery = find_and_check
       respond_with(@delivery, methods: [:all_parcels_prepared, :human_delivery_mode],
                               include: {
