@@ -385,7 +385,7 @@ class Intervention < Ekylibre::Record::Base
       denominator += 3.0 if provisional.present? # if provisional is empty, it's pointless using it for relevance calculation
 
       result = []
-      Procedo.list.map do |procedure_key, procedure|
+      Procedo.procedures do |procedure_key, procedure|
         coeff[procedure_key] = 1.0 + 2.0 * (history[procedure_key].to_f / history_size) + 3.0 * provisional.count(procedure_key).to_f
         matched_parameters = procedure.matching_parameters_for(actors)
         if matched_parameters.any?
