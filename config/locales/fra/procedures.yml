@@ -173,6 +173,7 @@ fra:
     mammal_to_milk: "Animal à traire"
     manure: "Fumier" #?
     manure_to_spread: "Fumier à épandre" #?
+    matters: "Matières"
     mechanic: "Mécanicien"
     medicine: "Traitement" #?
     medicine_to_give: "Traitement à donner" #?
@@ -331,6 +332,7 @@ fra:
     group_inclusion: "Inclusion de groupe" #?
     hand_weeding: "Désherbage manuel"
     harvest_helping: "Aide à la récolte" #?
+    harvesting: "Récolte"
     hazelnuts_harvest: "Récolte de noisettes" #?
     hazelnuts_transport: "Transport de noisettes" #?
     hilling: "Buttage"
@@ -366,6 +368,7 @@ fra:
     plant_mulching: "Paillage/Mulching"
     plant_uncovering: "Débâchage"
     plant_watering: "Arrosage des plants"
+    plant_watering_installation: "Installation de l'irrigation"
     plantation_unfixing: "Déchaussage"
     plants_harvest: "Récolte de plante" #?
     plastic_mulching: "Paillage plastique" #?
