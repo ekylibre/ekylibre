@@ -1027,7 +1027,7 @@ spa:
     last_intervention: "Última intervención"
     last_issue: "Última edición"
     last_issues: "Últimos temas"
-    # last_movements: "Last movements"
+    last_movements: "Últimos movimientos"
     last_outgoing_parcels: "Últimos paquetes salientes"
     last_products: "Últimos productos"
     last_purchases: "Últimas compras"
@@ -1252,7 +1252,7 @@ spa:
     provisionnal_budget: "Presupuesto Provisionnal"
     purchase: "Compra"
     purchase_items: "Artículos de la compra"
-    # purchase_number: "Purchase number"
+    purchase_number: "Número de compra"
     purchase_steps:  #?
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?

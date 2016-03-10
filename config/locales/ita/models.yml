@@ -60,7 +60,7 @@ ita:
         not_a_number: "non è un numero"
         # not_an_end_of_month: "%{attribute} must be an end of month"
         not_an_integer: "non è un numero intero"
-        # nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
+        nothing_to_pay: "Niente da pagare. Se si desidera registrare un acconto, non dimenticate di notare che."
         odd: "deve essere dispari"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"

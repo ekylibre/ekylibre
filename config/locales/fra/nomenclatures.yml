@@ -930,6 +930,7 @@ fra:
         er: "Érythrée"
         es: "Espagne"
         et: "Éthiopie"
+        false: "Norvège" #?
         fi: "Finlande"
         fj: "Fidji"
         fk: "Falkland, Îles (Malvinas)"
@@ -1027,7 +1028,7 @@ fra:
         ng: "Nigéria"
         ni: "Nicaragua"
         nl: "Pays-Bas"
-        no: "Norvège"
+        # no: "Norway"
         np: "Népal"
         nr: "Nauru"
         nu: "Niué"

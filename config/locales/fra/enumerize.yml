@@ -92,9 +92,9 @@ fra:
         simplified_linear: "Linéaire simplifiée"
     georeading:
       nature:
-        # line: "Line"
+        line: "Ligne"
         # point: "Point"
-        # polygon: "Polygon"
+        polygon: "Polygone"
     guide_analysis:
       status:
         errored: "Erroné"

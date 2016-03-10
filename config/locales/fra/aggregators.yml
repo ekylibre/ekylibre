@@ -77,17 +77,17 @@ fra:
     owner_name: "Nom du propriétaire"
     pasturing_period: "Période pâturage" #?
     pasturing_working_area: "Zone de pâturage" #?
-    # payment_ratio: "Payment ratio"
-    # pictogram: "Pictogram"
-    # picture_path: "Picture path"
+    payment_ratio: "Ratio de paiement"
+    pictogram: "Pictogramme"
+    picture_path: "Chemin d&#39;image"
     # plan: "Plan"
-    # prescription: "Prescription"
-    # pretax_amount: "Pre-tax amount"
+    prescription: "Ordonnance"
+    pretax_amount: "Montant avant impôt"
     previous_production_name: "Précédente production" #?
     printed_on: "Imprimé le"
-    # product_account_label: "Product account label"
+    product_account_label: "Compte du produit Label"
     product_nature_name: "Type de produit" #?
-    # production_support: "Production support"
+    production_support: "Support à la production"
     productions_sales: "Ventes de productions"
     products_purchases: "Achats de produits"
     products_sales: "Ventes de produits"
