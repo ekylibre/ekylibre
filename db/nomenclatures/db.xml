@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160224234901">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160310145038">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -4145,6 +4145,8 @@
       <item name="chenopodium" parent="amaranthaceae" itis_tsn="20589"/>
       <item name="chenopodium_album" parent="chenopodium" itis_tsn="20592"/>
       <item name="chenopodium_quinoa" parent="chenopodium" itis_tsn="506567"/>
+      <item name="chloris" parent="poaceae"/>
+      <item name="chloris_gayana" parent="chloris" itis_tsn="41565"/>
       <item name="chrysopogon" parent="poaceae" itis_tsn="41576"/>
       <item name="chrysopogon_zizanioides" parent="chrysopogon" itis_tsn="782799"/>
       <item name="cicer" parent="fabaceae" itis_tsn="26536"/>

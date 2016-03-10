@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add rhodes grass">
+  <item-creation item="varieties#chloris" parent="poaceae"/>
+  <item-creation item="varieties#chloris_gayana" parent="chloris" itis_tsn="41565"/>
+</migration>

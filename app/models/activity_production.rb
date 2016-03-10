@@ -238,7 +238,11 @@ class ActivityProduction < Ekylibre::Record::Base
 
   def started_on_for(campaign)
     return self.started_on if annual?
-    on = Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day) rescue Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day - 1)
+    on = begin
+           Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day)
+         rescue
+           Date.civil(campaign.harvest_year, self.started_on.month, self.started_on.day - 1)
+         end
     on -= 1.year if at_cycle_end?
     on
   end

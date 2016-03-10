@@ -4128,6 +4128,8 @@ eng:
         chenopodium: "Chenopodium"                         #< amaranthaceae
         chenopodium_album: "Chenopodium album"             #< chenopodium
         chenopodium_quinoa: "Chenopodium quinoa"           #< chenopodium
+        chloris: "Chloris"                                 #< poaceae
+        chloris_gayana: "Rhodes grass"                     #< chloris
         chrysopogon: "Chrysopogon"                         #< poaceae
         chrysopogon_zizanioides: "Chrysopogon zizanioides" #< chrysopogon
         cicer: "Cicer"                                     #< fabaceae
