@@ -21,10 +21,10 @@ module Backend
     manage_restfully only: [:update, :destroy]
 
     def index
-      @worked_on = unless params[:worked_on].blank?
-                     params[:worked_on].to_date
-                   else
+      @worked_on = if params[:worked_on].blank?
                      current_user.unconverted_crumb_days.first
+                   else
+                     params[:worked_on].to_date
                    end
     end
 

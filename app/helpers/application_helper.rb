@@ -751,7 +751,9 @@ module ApplicationHelper
   def error_messages(object)
     object = instance_variable_get("@#{object}") unless object.respond_to?(:errors)
     return unless object.respond_to?(:errors)
-    unless (count = object.errors.size).zero?
+    if (count = object.errors.size).zero?
+      ''
+    else
       I18n.with_options scope: [:errors, :template] do |locale|
         header_message = locale.t :header, count: count, model: object.class.model_name.human
         introduction = locale.t(:body)
@@ -769,8 +771,6 @@ module ApplicationHelper
         html << content_tag(:div, '', class: :end)
         return content_tag(:div, html.html_safe, class: 'flash error')
       end
-    else
-      ''
     end
   end
 

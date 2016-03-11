@@ -115,8 +115,8 @@ module Backend::KujakuHelper
           html << @template.content_tag(:span, class: 'radio') do
             @template.content_tag(:label, for: "#{@name}_#{value}") do
               @template.radio_button_tag(@name, value, @template.params[@name] == value.to_s) <<
-              ' '.html_safe <<
-              label
+                ' '.html_safe <<
+                label
             end
           end
         end
@@ -138,7 +138,7 @@ module Backend::KujakuHelper
           html << @template.content_tag(:span, class: 'radio') do
             @template.content_tag(:label, for: "#{@name}_#{choice}") do
               @template.check_box_tag("#{@name}[]", choice, @template.params[@name].include?(choice.to_s), id: "#{@name}_#{choice}") <<
-              ' '.html_safe << human_name
+                ' '.html_safe << human_name
             end
           end
         end

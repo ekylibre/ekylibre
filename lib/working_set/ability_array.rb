@@ -11,7 +11,7 @@ module WorkingSet
         rescue WorkingSet::SyntaxError => e
           Rails.logger.warn("Cannot parse invalid ability array: #{string.inspect}")
         end
-        if tree && list = tree.list and list.present?
+        if tree && list = tree.list && list.present?
           array << list.first_ability.text_value
           if (other_abilities = list.other_abilities) && other_abilities.present?
             other_abilities.elements.each do |other_ability|

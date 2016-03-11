@@ -164,7 +164,7 @@ module Backend
         end.collect do |c|
           name = c[:name]
           name = "#{model.table_name}.#{name}" if main_model
-          if model.respond_to?(name) && model.send(name).respond_to?(:options) && options = model.send(name).send(:options) and options.any?
+          if model.respond_to?(name) && model.send(name).respond_to?(:options) && options = model.send(name).send(:options) && options.any?
             'CASE ' + options.collect { |l, v| "WHEN #{name} = '#{v}' THEN '" + l.to_s.gsub("'", "''") + " '" }.join(' ') + " ELSE '' END"
           else
             "COALESCE(#{name} || ' ', '')"

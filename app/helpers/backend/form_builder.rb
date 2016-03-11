@@ -485,9 +485,9 @@ module Backend
             html_options[:data] ||= {}
             @template.content_tag(:div, class: 'control-group') do
               @template.content_tag(:label, Product.human_attribute_name(:variant), class: 'control-label') +
-              @template.content_tag(:div, class: 'controls') do
-                input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
-              end
+                @template.content_tag(:div, class: 'controls') do
+                  input_field(:variant, html_options.deep_merge(as: :string, id: input_id, data: { selector: @template.url_for(choices), redirect_on_change_url: @template.url_for(new_url) }))
+                end
             end
           end
         end
@@ -530,20 +530,20 @@ module Backend
           @template.content_tag(:label, class: 'control-label') do
             Ekylibre::Access.human_resource_name(resource)
           end +
-          @template.content_tag(:div, class: 'controls') do
-            rights.collect do |interaction, right|
-              checked = resource_reference.include?(interaction.to_s)
-              attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}" } }
-              if right.dependencies
-                attributes[:data][:need_accesses] = right.dependencies.join(' ')
-              end
-              attributes[:class] << ' active' if checked
-              @template.content_tag(:label, attributes) do
-                @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
-                ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
-              end
-            end.join.html_safe
-          end
+            @template.content_tag(:div, class: 'controls') do
+              rights.collect do |interaction, right|
+                checked = resource_reference.include?(interaction.to_s)
+                attributes = { class: "chk-access chk-access-#{interaction}", data: { access: "#{interaction}-#{resource}" } }
+                if right.dependencies
+                  attributes[:data][:need_accesses] = right.dependencies.join(' ')
+                end
+                attributes[:class] << ' active' if checked
+                @template.content_tag(:label, attributes) do
+                  @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", interaction, checked) +
+                    ERB::Util.h(Ekylibre::Access.human_interaction_name(interaction).strip)
+                end
+              end.join.html_safe
+            end
         end
       end
       html

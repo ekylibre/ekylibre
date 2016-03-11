@@ -130,7 +130,7 @@ module Unrollable
       end.join(' OR ').inspect + "\n"
       code << '      conditions += [' + searchable_filters.collect do |column|
         column[:pattern].inspect.gsub('X', '" + key + "')
-                                        .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
+                        .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
       end.join(', ') + "]\n"
       code << "    end\n"
       code << "    conditions[0] << ')'\n"
