@@ -89,7 +89,8 @@ module Ekylibre
           pmodel = variant.nature.matching_model
 
           # create a price
-          if r.unit_pretax_amount && catalog = Catalog.where(usage: :cost).first && variant.catalog_items.where(catalog_id: catalog.id).empty?
+          catalog = Catalog.find_by(usage: :cost)
+          if r.unit_pretax_amount && catalog && catalog.items.where(variant: variant).empty?
             variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: r.unit_pretax_amount, currency: 'EUR')
           end
 

@@ -269,7 +269,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
         attributes = attributes.with_indifferent_access
         attributes[main_column] ||= identifier.to_s
         model.reflect_on_all_associations.each do |reflection|
-          if attributes[reflection.name] && (attributes[reflection.name].class >= ActiveRecord::Base)
+          if attributes[reflection.name] && !attributes[reflection.name].is_a?(ActiveRecord::Base)
             attributes[reflection.name] = find_record(reflection.class_name.tableize, attributes[reflection.name].to_s)
           end
         end
