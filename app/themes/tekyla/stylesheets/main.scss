@@ -2450,7 +2450,8 @@ a[data-annotate] {
     padding: 0 2 * $default-gap;
     .cobble {
       margin: 2 * $default-gap 0;
-      border: 1px solid #EEE;
+      // border: 1px solid #EEE;
+      @include normal-shadow;
       padding: 0 $default-gap $default-gap;
       background: white;
       .cobble-heading {
@@ -2518,8 +2519,9 @@ a[data-annotate] {
         }
       }
       &.cobble-placeholder {
-        background: rgba($success-color, 0.2);
+        background: rgba($success-color, 0.1);
         height: 4 * $lh-large;
+        @include box-shadow(none);
       }
       @include transition(box-shadow 0.4s);
       &.ui-sortable-helper {

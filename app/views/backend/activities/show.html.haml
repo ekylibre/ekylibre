@@ -25,8 +25,9 @@
     - c.cobble :map do
       = model_map(resource.productions.of_campaign(current_campaign), shape_method: :support_shape, color: resource.color)
 
-  - c.cobble(:productions) do
-    = render 'productions'
+  - if resource.with_supports
+    - c.cobble(:productions) do
+      = render 'productions'
 
   - if resource.auxiliary?
     - c.cobble(:distributions, title: Activity.human_attribute_name(:distributions)) do

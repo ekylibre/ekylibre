@@ -39,7 +39,7 @@ $configuring-min-height: 400px;
         border: $cell-border;
         margin: $spacing;
         @include border-radius($default-border-radius);
-        @include box-shadow(0 0 $default-border-radius rgba(black, 0.16));
+        @include normal-shadow;
         @include transition(box-shadow 0.4s);
 
         .cell-title {

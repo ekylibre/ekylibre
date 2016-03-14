@@ -410,7 +410,7 @@
 }
 
 @mixin normal-shadow {
-  @include box-shadow(0 0 $default-gap rgba(black, 0.32));
+  @include box-shadow(0.5px 0.5px $default-gap*0.6 rgba(black, 0.2));
 }
 
 @mixin incrust-shadow {

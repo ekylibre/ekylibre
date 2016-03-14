@@ -87,6 +87,19 @@ class Campaign < Ekylibre::Record::Base
     Intervention.of_campaign(self)
   end
 
+  # Returns all CampaignProduction. These productions always last the campaign
+  # duration
+  def productions
+    CampaignProduction.of(self)
+  end
+
+  # Returns the cost of production for the given campaign. It's the sum of all
+  # "campaign production" production cost
+  def productions_cost_amount
+    productions.map(:cost_amount).sum
+  end
+
+  # FIXME: Not generic. Some activities have no shape
   def net_surface_area
     activity_productions.map(&:support_shape_area).sum
   end

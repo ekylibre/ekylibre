@@ -17,7 +17,7 @@ $activity_border_size: 5px;
 }
 
 .activity {
-  @include incrust-shadow();
+  @include normal-shadow();
   @include box-sizing(border-box);
   margin: 2 * $default-gap;
   background: #FFF;
