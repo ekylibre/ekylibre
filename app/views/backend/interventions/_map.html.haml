@@ -1,16 +1,39 @@
 - count = 0
+:ruby
+  data = []
+  data_crumbs = []
+  resource.product_parameters.each do |cast|
+    shape = cast.working_zone
+    shape ||= cast.product.shape(at: resource.started_at) if cast.product
+    if shape
+      activity_production = ActivityProduction.where(support: cast.product).first if cast.product.is_a?(LandParcel)
+      if activity_production
+        item = {
+          name: cast.product.name,
+          shape: shape,
+          activity: activity_production.activity.name,
+          shape_color: activity_production.activity.color
+        }
+      else
+        item = {
+          name: cast.product.name,
+          shape: shape,
+          activity: :activity.tl,
+          shape_color: cycle(theme_colors)
+        }
+      end
+      data << item
+      count += 1
+    end
+  end
 - map = visualization do |v|
   - v.background "OpenStreetMap.HOT"
   - v.background "OpenStreetMap.Mapnik"
   - v.background "Thunderforest.Landscape"
   - v.background "Esri.WorldImagery"
-  - resource.product_parameters.each do |cast|
-    - shape = cast.working_zone
-    - shape ||= cast.product.shape(at: resource.started_at) if cast.product
-    - if shape
-      - v.serie cast.id, [{name: cast.name, shape: shape}]
-      - v.simple (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), cast.id, fill_color: cycle(theme_colors)
-      - count += 1
+  - if data.any?
+    - v.serie :main, data
+    - v.categories :activity, :main
   - resource.product_parameters.each do |cast|
     - if cast.crumbs.any?
       - v.serie "path_#{cast.id}", cast.crumbs.reorder(:read_at).collect{|c| {name: cast.name, shape: c.geolocation}}
