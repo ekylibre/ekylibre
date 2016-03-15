@@ -387,8 +387,9 @@ class Activity < Ekylibre::Record::Base
 
   alias net_surface_area support_shape_area
 
-  def interventions_duration(*campaigns)
-    productions.of_campaign(campaigns).map(&:duration).compact.sum
+  def interventions_duration(campaign)
+    # productions.of_campaign(campaign).map(&:duration).compact.sum
+    productions.of_campaign(campaign).collect {|p| p.interventions.map(&:working_duration)}.flatten.compact.sum
   end
 
   def is_of_family?(family)
