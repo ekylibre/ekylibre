@@ -14,6 +14,9 @@ arb:
         company: "شركة" #?
         financial_year: "مهنة" #?
         lock_version: "الاصدار المحلي" #?
+      activity_budget:
+        # expenses_amount: "Expenses amount"
+        # revenues_amount: "Revenues amount"
       animal_group:
         born_at: "أنشئت في"
       area:  #?
