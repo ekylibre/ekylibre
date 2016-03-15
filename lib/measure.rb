@@ -79,7 +79,7 @@ class Measure
         raise AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
       elsif units.size.zero?
         # fail ArgumentError, "Unknown unit: #{unit.inspect}"
-        unit = 'unity'
+        @unit = 'unity'
       else
         @unit = units.first.name.to_s
       end
