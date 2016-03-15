@@ -6,6 +6,9 @@ fra:
         net_margin: "Marge nette" #?
         parent: "Activité parente" #?
         work_unit: "Unité d’œuvre" #?
+      activity_budget:
+        expenses_amount: "Montant des dépenses"
+        revenues_amount: "Montant des recettes"
       activity_production:  #?
         production_usage: "Usage futur" #?
         storage: "Support" #?
