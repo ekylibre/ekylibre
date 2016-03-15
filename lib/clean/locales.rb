@@ -3,7 +3,7 @@ module Clean
 
     class Scrutator
       attr_reader :to_translate, :untranslated
-      
+
       def initialize
         @to_translate = 0
         @untranslated = 0
@@ -30,9 +30,9 @@ module Clean
         end
         nil
       end
-      
+
     end
-    
+
     class Translation
 
       attr_reader :locale
@@ -87,7 +87,7 @@ module Clean
           Ekylibre::Access.interactions.each do |interaction|
             translation << s.exp(ref, :access, :interactions, interaction).dig(3)
           end
-          
+
           translation << "    resources:\n"
           ref[:access][:resources] ||= {}
           Ekylibre::Access.resources.keys.each do |resource|
@@ -358,7 +358,7 @@ module Clean
         end
       end
 
-      
+
 
       def clean_models!
         # Models
@@ -455,7 +455,7 @@ module Clean
             nomenclature = Nomen[name]
             translation << "    #{nomenclature.name}:\n"
             trl = {}
-            
+
             trl[:name] = s.exp(ref, nomenclature.name, :name, default: name.humanize).dig(3)
             if nomenclature.translateable?
               choices = ''
@@ -515,7 +515,7 @@ module Clean
                 end
               end
             end
-              
+
             translation << trl[:choi] if trl[:choi]
             translation << trl[:item]
             translation << trl[:name]
@@ -588,7 +588,7 @@ module Clean
           end
         end
 
-        # Finishing... 
+        # Finishing...
         write(file, translation, to_translate, untranslated)
       end
 
@@ -651,7 +651,7 @@ module Clean
       def write(file, translation, total, untranslated = 0)
         file = locale_dir.join(file) if file.is_a?(String)
         File.write(file, translation.strip)
-        log "  * #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"        
+        log "  * #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
         @total += total
         @count += total - untranslated
       end
@@ -669,7 +669,7 @@ module Clean
         scrutator = scrut do |s|
           yield(ref, translation, s)
         end
-        write(file, translation, scrutator.to_translate, scrutator.untranslated)        
+        write(file, translation, scrutator.to_translate, scrutator.untranslated)
       end
 
       def watched_files
@@ -694,7 +694,7 @@ module Clean
 
     end
 
-    
+
     def self.run!(reference = nil)
       Clean::Support.set_search_path!
       reference ||= I18n.default_locale

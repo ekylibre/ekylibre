@@ -139,7 +139,7 @@ module Clean
         list += Ekylibre::Navigation.parts.map(&:name).map(&:to_s)
 
         # list += actions_hash.delete_if{|k,v| k == "backend/dashboards" }.values.flatten.uniq.delete_if{|a| a =~ /\Alist\_/ }
-        list.delete_if { |l| l == '*' || l.underscore != l }.uniq.sort
+        list.delete_if { |l| l == '*' || l.underscore != l || l =~ /\n/ }.uniq.sort
       end
 
       def look_for_rest_actions
