@@ -26,7 +26,6 @@ module Backend
       end
       if campaign
         redirect_to action: :show, id: campaign.id
-        false
       end
     end
 

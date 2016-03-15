@@ -146,7 +146,7 @@ GEM
     enumerize (1.1.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    eventmachine (1.0.9.1)
+    eventmachine (1.2.0)
     exception_notification (4.1.4)
       actionmailer (~> 4.0)
       activesupport (~> 4.0)

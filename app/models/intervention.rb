@@ -298,7 +298,7 @@ class Intervention < Ekylibre::Record::Base
     def used_procedures
       select(:procedure_name).distinct.pluck(:procedure_name).map do |name|
         Procedo.find(name)
-      end
+      end.compact
     end
 
     # Create and run intervention
