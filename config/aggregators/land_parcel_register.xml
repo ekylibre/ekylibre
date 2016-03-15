@@ -58,11 +58,11 @@
               <cell name="id" of="actor" level="api" />
               <cell name="quantity" if="actor.quantity_population" value="actor.quantity.l" type="measure" />
               <cell name="working_zone" if="actor.working_zone" value="actor.working_zone.area.convert(:hectare).round(2).l" type="measure" />
-	          <within of="actor.product">
-	            <cell name="name"/>
-	            <cell name="variant_name"/>
-	            <cell name="variety" level="api"/>
-	          </within>
+	          <!--<within of="actor.product">-->
+	            <!--<cell name="name"/>-->
+	            <!--<cell name="variant_name"/>-->
+	            <!--<cell name="variety" level="api"/>-->
+	          <!--</within>-->
 	          <!-- <cell name="quantity" if="input.quantity" value="input.quantity.l" type="measure" /> -->
             </matrix>
           </sections>
