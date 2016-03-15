@@ -1,5 +1,7 @@
 # Ekylibre
 
+[![Join the chat at https://gitter.im/ekylibre/ekylibre](https://badges.gitter.im/ekylibre/ekylibre.svg)](https://gitter.im/ekylibre/ekylibre?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Ekylibre is a simple enterprise management web application for farmers and small enterprises.
 Ekylibre is written with Ruby on Rails framework and use PostgreSQL/PostGIS stack.
 More details can be found on the official website http://ekylibre.org.
