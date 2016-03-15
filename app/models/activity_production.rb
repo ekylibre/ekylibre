@@ -204,6 +204,10 @@ class ActivityProduction < Ekylibre::Record::Base
     Ekylibre::Hook.publish(:activity_production_change, activity_production_id: id)
   end
 
+  after_destroy do
+    Ekylibre::Hook.publish(:activity_production_change, activity_production_id: id)
+  end
+  
   def computed_support_name
     list = []
     list << cultivable_zone.name if cultivable_zone
