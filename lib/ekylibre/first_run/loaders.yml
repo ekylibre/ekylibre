@@ -11,13 +11,6 @@ base:
   ekylibre_variants:
     path: 'alamano/variants.ods'
 
-# General ledger
-general_ledger:
-  bordeaux_sciences_agro_istea_general_ledger:
-    path: 'istea/general_ledger.txt'
-  bordeaux_sciences_agro_istea_journals:
-    path: 'istea/journals.csv'
-
 # Entities
 entities:
   ekylibre_entities:

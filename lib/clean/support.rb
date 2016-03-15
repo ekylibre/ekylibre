@@ -5,25 +5,6 @@ module Clean
         Ekylibre::Tenant.reset_search_path!
       end
 
-      def exp(hash, *keys)
-        options = keys.extract_options!
-        name = keys.last
-        if value = rec(hash, *keys)
-          return "#{name}: " + yaml_value(value)
-        else
-          return "# #{name}: " + yaml_value(options[:default] || name.to_s.humanize)
-        end
-      end
-
-      def rec(hash, *keys)
-        key = keys.first
-        if hash.is_a?(Hash)
-          return rec(hash[key], *keys[1..-1]) if keys.count > 1
-          return hash[key]
-        end
-        nil
-      end
-
       def hash_to_yaml(hash, depth = 0)
         code = "\n"
         x = hash.to_a.sort { |a, b| a[0].to_s.tr('_', ' ').strip <=> b[0].to_s.tr('_', ' ').strip }
@@ -63,18 +44,6 @@ module Clean
           count += (value.is_a?(Hash) ? hash_count(value) : 1)
         end
         count
-      end
-
-      def sort_yaml_file(filename, log = nil)
-        yaml_file = Rails.root.join('config', 'locales', ::I18n.locale.to_s, "#{filename}.yml")
-        # translation = hash_to_yaml(yaml_to_hash(file)).strip
-        translation, total = hash_sort_and_count(yaml_to_hash(yaml_file))
-        File.open(yaml_file, 'wb') do |file|
-          file.write translation.strip
-        end
-        count = 0
-        log.write "  - #{(filename.to_s + '.yml:').ljust(20)} #{(100 * (total - count) / total).round.to_s.rjust(3)}% (#{total - count}/#{total})\n" if log
-        total
       end
 
       def deep_symbolize_keys(hash)

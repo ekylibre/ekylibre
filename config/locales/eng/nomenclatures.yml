@@ -1,9 +1,6 @@
 eng:
   nomenclatures:
     abilities:
-      name: "Abilities"
-      property_natures:
-        parameters: "Parameters"
       items:
         acidify: "Acidify"
         administer_care: "Administer care"
@@ -69,17 +66,15 @@ eng:
         uncompact: "Uncompact"
         uncover: "Uncover"
         wrap: "Wrap"
+      name: "Abilities"
+      property_natures:
+        parameters: "Parameters"
     accounting_systems:
-      name: "Accounting systems"
       items:
         fr_pcg82: "French PCG82"
         fr_pcga: "French PCGA"
+      name: "Accounting systems"
     accounts:
-      name: "Accounts"
-      property_natures:
-        debtor: "Debtor"
-        fr_pcg82: "French PCG82"
-        fr_pcga: "French PCGA"
       items:
         accrued_bank_interests: "Accrued bank interests"
         accrued_interests: "Accrued interests"
@@ -384,12 +379,12 @@ eng:
         young_animal_assets: "Young animal assets"
         young_animal_expenses: "Young animal expenses"
         young_animal_revenues: "Young animal revenues"
-    activity_families:
-      name: "Activity families"
+      name: "Accounts"
       property_natures:
-        cultivation_variety: "Cultivation variety"
-        nature: "Nature"
-        support_variety: "Support variety"
+        debtor: "Debtor"
+        fr_pcg82: "French PCG82"
+        fr_pcga: "French PCGA"
+    activity_families:
       choices:
         nature:
           auxiliary: "Auxiliary"
@@ -403,21 +398,21 @@ eng:
         service_delivering: "Service delivering"
         tool_maintaining: "Tool maintaining"
         wine_making: "Wine making"                         #< processing
-    administrative_area_natures:
-      name: "Administrative area natures"
+      name: "Activity families"
       property_natures:
-        country: "Country"
-        parent: "Parent"
+        cultivation_variety: "Cultivation variety"
+        nature: "Nature"
+        support_variety: "Support variety"
+    administrative_area_natures:
       items:
         france_commune: "France commune"                   #< france_department
         france_department: "France department"             #< france_region
         france_region: "France region"
-    administrative_areas:
-      name: "Administrative areas"
+      name: "Administrative area natures"
       property_natures:
-        code: "Code"
-        nature: "Nature"
-        parent_area: "Parent area"
+        country: "Country"
+        parent: "Parent"
+    administrative_areas:
       items:
         france_department_ain: "France department ain"
         france_department_aisne: "France department aisne"
@@ -547,12 +542,12 @@ eng:
         france_region_provence_alpes_cote_d_azur: "France region provence alpes cote d azur"
         france_region_reunion: "France region reunion"
         france_region_rhone_alpes: "France region rhone alpes"
-    analysis_natures:
-      name: "Analysis natures"
+      name: "Administrative areas"
       property_natures:
-        items: "Items"
-        target_derivative_of: "Target derivative of"
-        target_variety: "Target variety"
+        code: "Code"
+        nature: "Nature"
+        parent_area: "Parent area"
+    analysis_natures:
       items:
         cow_milk_analysis: "Cow milk analysis"
         grain_analysis: "Grain analysis"
@@ -562,20 +557,24 @@ eng:
         soil_analysis: "Soil analysis"
         unitary_cow_milk_analysis: "Unitary cow milk analysis"
         water_analysis: "Water analysis"
+      name: "Analysis natures"
+      property_natures:
+        items: "Items"
+        target_derivative_of: "Target derivative of"
+        target_variety: "Target variety"
     animal_life_states:
-      name: "Animal life states"
       items:
         aging: "Aging"
         first_growth: "First growth"
         second_growth: "Second growth"
         senescence: "Senescence"
+      name: "Animal life states"
     cation_exchange_capacity_analysis_methods:
-      name: "Cation exchange capacity analysis methods"
       items:
         cobaltihexamine: "Cobaltihexamine"
         metson: "Metson"
+      name: "Cation exchange capacity analysis methods"
     certification_labels:
-      name: "Certification labels"
       items:
         aoc: "AOC"
         aop: "AOP"
@@ -584,11 +583,8 @@ eng:
         ig: "IG"
         igp: "IGP"
         label_rouge: "Label Rouge"
+      name: "Certification labels"
     certifications:
-      name: "Certifications"
-      property_natures:
-        labels: "Labels"
-        land: "Land"
       items:
         bordeaux_blanc: "Bordeaux blanc"
         bordeaux_blanc_avec_sucres: "Bordeaux blanc avec sucres"
@@ -603,19 +599,11 @@ eng:
         cognac: "Cognac"
         eau_de_vie_de_cognac: "Eau de vie de cognac"
         eau_de_vie_des_charentes: "Eau de vie des charentes"
-    chemical_elements:
-      name: "Chemical elements"
+      name: "Certifications"
       property_natures:
-        atomic_number: "Atomic number"
-        atomic_weight: "Atomic weight"
-        boil_temperature: "Boil temperature"
-        electro_negativity: "Electro negativity"
-        group: "Group"
-        mass_density: "Mass density"
-        melt_temperature: "Melt temperature"
-        period: "Period"
-        specific_heat_capacity: "Specific heat capacity"
-        symbol: "Symbol"
+        labels: "Labels"
+        land: "Land"
+    chemical_elements:
       items:
         actinium: "Actinium"
         aluminium: "Aluminium"
@@ -735,10 +723,19 @@ eng:
         yttrium: "Yttrium"
         zinc: "Zinc"
         zirconium: "Zirconium"
-    countries:
-      name: "Countries"
+      name: "Chemical elements"
       property_natures:
-        number: "Number"
+        atomic_number: "Atomic number"
+        atomic_weight: "Atomic weight"
+        boil_temperature: "Boil temperature"
+        electro_negativity: "Electro negativity"
+        group: "Group"
+        mass_density: "Mass density"
+        melt_temperature: "Melt temperature"
+        period: "Period"
+        specific_heat_capacity: "Specific heat capacity"
+        symbol: "Symbol"
+    countries:
       items:
         ad: "Andorra"
         ae: "United Arab Emirates"
@@ -987,10 +984,10 @@ eng:
         za: "South Africa"
         zm: "Zambia"
         zw: "Zimbabwe"
-    crop_sets:
-      name: "Crop sets"
+      name: "Countries"
       property_natures:
-        varieties: "Varieties"
+        number: "Number"
+    crop_sets:
       items:
         alfalfa: "Alfalfa"
         arboricultural: "Arboricultural"
@@ -1029,15 +1026,10 @@ eng:
         vetch: "Vetch"
         wheat: "Wheat"
         winter_straw_cereal: "Winter straw cereal"
-    currencies:
-      name: "Currencies"
+      name: "Crop sets"
       property_natures:
-        active: "Active"
-        cash: "Cash"
-        countries: "Countries"
-        number: "Number"
-        precision: "Precision"
-        symbol: "Symbol"
+        varieties: "Varieties"
+    currencies:
       items:
         AED: "UAE Dirham"
         AFN: "Afghani"
@@ -1208,10 +1200,15 @@ eng:
         ZAR: "Rand"
         ZMK: "Zambian Kwacha"
         ZWL: "Zimbabwe Dollar"
-    delivery_modes:
-      name: "Delivery modes"
+      name: "Currencies"
       property_natures:
-        incoterm: "Incoterm"
+        active: "Active"
+        cash: "Cash"
+        countries: "Countries"
+        number: "Number"
+        precision: "Precision"
+        symbol: "Symbol"
+    delivery_modes:
       choices:
         incoterm:
           CFR: "CFR"
@@ -1231,10 +1228,10 @@ eng:
         delivered_duty_paid: "Delivered duty paid"
         ex_works: "Ex works"
         free_carrier: "Free carrier"
-    dimensions:
-      name: "Dimensions"
+      name: "Delivery modes"
       property_natures:
-        symbol: "Symbol"
+        incoterm: "Incoterm"
+    dimensions:
       items:
         amount_of_substance: "Amount of substance"
         amount_of_substance_density: "Amount of substance density"
@@ -1263,10 +1260,10 @@ eng:
         volume_area_density: "Volume area density"
         volume_concentration: "Volume concentration"
         volume_flow: "Volume flow"
-    document_categories:
-      name: "Document categories"
+      name: "Dimensions"
       property_natures:
-        acta_category: "Acta category"
+        symbol: "Symbol"
+    document_categories:
       items:
         accountancy: "Accountancy"
         animal_farming: "Animal farming"
@@ -1283,10 +1280,10 @@ eng:
         reproduction: "Reproduction"
         stock_management: "Stock management"
         wine_making: "Wine making"
-    document_natures:
-      name: "Document natures"
+      name: "Document categories"
       property_natures:
-        category: "Category"
+        acta_category: "Acta category"
+    document_natures:
       items:
         activity_cost: "Activity cost"
         animal_husbandry_register: "Animal husbandry register"
@@ -1333,12 +1330,10 @@ eng:
         wine_bottling_register: "Wine bottling register"
         wine_detention_register: "Wine detention register"
         wine_manipulation_register: "Wine manipulation register"
-    entity_link_natures:
-      name: "Entity link natures"
+      name: "Document natures"
       property_natures:
-        entity: "Entity"
-        linked: "Linked"
-        symmetric: "Symmetric"
+        category: "Category"
+    entity_link_natures:
       items:
         collaboration: "Collaboration"
         direct_kinship: "Direct kinship"
@@ -1347,6 +1342,7 @@ eng:
         sibling_kinship: "Sibling kinship"
         transform: "Transform"
         undefined: "Undefined"
+      name: "Entity link natures"
       notions:
         entity:
           collaboration: "Collaborator"
@@ -1364,10 +1360,11 @@ eng:
           sibling_kinship: "Sibling"
           transform: "New organization"
           undefined: "Acquaintance"
-    event_natures:
-      name: "Event natures"
       property_natures:
-        default_duration: "Default duration"
+        entity: "Entity"
+        linked: "Linked"
+        symmetric: "Symmetric"
+    event_natures:
       items:
         absence: "Absence"
         administrative_intervention: "Administrative intervention"
@@ -1392,81 +1389,18 @@ eng:
         unpaid_leave: "Unpaid leave"                       #< leave
         working_group: "Working group"                     #< meeting
         working_time_recovery: "Working time recovery"     #< leave
-    exchange_natures:
-      name: "Exchange types"
-      items:
-        agro_systemes_soil_analyses: "AGRO Systèmes soil analyses"
-        agro_systemes_water_analyses: "AGRO Systèmes water analyses"
-        bordeaux_sciences_agro_istea_general_ledger: "Bordeaux Sciences Agro ISTEA general ledger"
-        bordeaux_sciences_agro_istea_journals: "Bordeaux Sciences Agro ISTEA journals"
-        bovins_croissance_cattle_performance_controls: "Bovins Croissance cattle performance controls"
-        charentes_alliance_incoming_deliveries: "Charentes Alliance incoming deliveries"
-        charentes_alliance_outgoing_deliveries: "Charentes Alliance outgoing deliveries"
-        ebp_edi: "EBP EDI"
-        ekylibre_activities: "Ekylibre activities"
-        ekylibre_animal_groups: "Ekylibre animal groups"
-        ekylibre_animals: "Ekylibre animals"
-        ekylibre_backup: "Ekylibre backup"
-        ekylibre_bank_statements: "Ekylibre bank statements"
-        ekylibre_budgets: "Ekylibre budgets"
-        ekylibre_buildings_json: "Ekylibre buildings JSON"
-        ekylibre_cap_land_parcel_clusters_json: "Ekylibre cap land parcel clusters JSON"
-        ekylibre_cap_land_parcels_json: "Ekylibre cap land parcels JSON"
-        ekylibre_crumbs: "Ekylibre Crumbs"
-        ekylibre_cultivable_zones: "Ekylibre Cultivable zones"
-        ekylibre_cultivable_zones_json: "Ekylibre cultivable zones JSON"
-        ekylibre_entities: "Ekylibre Entities"
-        ekylibre_equipments: "Ekylibre equipments"
-        ekylibre_equipments_json: "Ekylibre equipments JSON"
-        ekylibre_georeadings: "Ekylibre Georeadings"
-        ekylibre_incoming_payments: "Ekylibre incoming payments"
-        ekylibre_interventions: "Ekylibre interventions"
-        ekylibre_land_parcels: "Ekylibre Land parcels"
-        ekylibre_matters: "Ekylibre matters"
-        ekylibre_original_purchase_files: "Ekylibre original purchase files"
-        ekylibre_outgoing_payments: "Ekylibre outgoing payments"
-        ekylibre_pictures: "Ekylibre pictures"
-        ekylibre_plants: "Ekylibre Plants"
-        ekylibre_purchases: "Ekylibre purchases"
-        ekylibre_sales: "Ekylibre sales"
-        ekylibre_settings: "Ekylibre Settings"
-        ekylibre_storages_json: "Ekylibre storages json"
-        ekylibre_variants: "Ekylibre variants"
-        ekylibre_visuals: "Ekylibre Visuals"
-        ekylibre_workers: "Ekylibre workers"
-        ekylibre_zones: "Ekylibre zones"
-        fiea_galactea: "FIEA galactea"
-        isagri_isacompta_export: "Isagri isacompta export"
-        isagri_isaculture_csv_import: "Isagri isaculture csv import"
-        la_graine_informatique_vinifera_entities: "La graine informatique vinifera entities"
-        la_graine_informatique_vinifera_products: "La graine informatique vinifera products"
-        la_graine_informatique_vinifera_sales: "La graine informatique vinifera sales"
-        legrain_epicea_accounts: "Legrain epicea accounts"
-        legrain_epicea_journals: "Legrain epicea journals"
-        lilco_milk_analyses: "Lilco milk analyses"
-        milklic_individual_production: "Milklic individual production"
-        synel_animals: "Synel animals"
-        synel_inventory: "Synel inventory"
-        telepac_v2014_cap_land_parcels: "Telepac v2014 cap land parcels"
-        telepac_v2014_land_parcels: "Telepac v2014 land parcels"
-        telepac_v2015_cap_land_parcels: "Telepac v2015 cap land parcels"
-        telepac_v2015_cap_statements: "Telepac v2015 cap statements"
-        telepac_v2015_land_parcels: "Telepac v2015 land parcels"
-        unicoque_outgoing_deliveries: "Unicoque outgoing deliveries"
-        unicoque_plant_zones: "Unicoque plant zones"
-        upra_reproductors: "Upra reproductors"
-        viniteca_interventions: "Viniteca interventions"
-        viniteca_plant_zones: "Viniteca plant zones"
+      name: "Event natures"
+      property_natures:
+        default_duration: "Default duration"
     fence_perimeters:
-      name: "Fence perimeters"
       items:
         barbed_wire_fences: "Barbed wire fences"
         electric_wire_fences: "Electric wire fences"
         hedge_fences: "Hedge fences"
         mesh_wire_fences: "Mesh wire fences"
         opened: "Opened"
+      name: "Fence perimeters"
     figures:
-      name: "Figures"
       items:
         biped: "Biped"
         building: "Building"
@@ -1476,17 +1410,14 @@ eng:
         quadruped: "Quadruped"
         spheroid: "Spheroid"
         vehicle: "Vehicle"
+      name: "Figures"
     guide_natures:
-      name: "Guide natures"
       items:
         best_practices: "Best practices"
         regulations: "Regulations"
         specifications: "Specifications"
+      name: "Guide natures"
     identifier_natures:
-      name: "Identifier natures"
-      property_natures:
-        fallbacks: "Fallbacks"
-        password: "Password"
       items:
         cartodb_api_key: "Cartodb api key"
         cartodb_login: "Cartodb login"
@@ -1508,19 +1439,11 @@ eng:
         password: "Password"
         quandl_token: "Quandl token"
         synel_username: "Synel username"
-    indicators:
-      name: "Indicators"
+      name: "Identifier natures"
       property_natures:
-        choices: "Choices"
-        curve: "Curve"
-        datatype: "Datatype"
-        gathering: "Gathering"
-        individual_identifier: "Individual identifier"
-        interpolation: "Interpolation"
-        probe: "Probe"
-        related_to: "Related to"
-        sampling_temporal_mode: "Sampling temporal mode"
-        unit: "Unit"
+        fallbacks: "Fallbacks"
+        password: "Password"
+    indicators:
       choices:
         curve:
           bar: "Bar"
@@ -1706,12 +1629,19 @@ eng:
         wind_speed: "Wind speed"
         woodstock_variety: "Woodstock variety"
         zinc_concentration: "Zinc concentration"
-    issue_natures:
-      name: "Issue natures"
+      name: "Indicators"
       property_natures:
-        cause: "Cause"
-        target: "Target"
-        treatments: "Treatments"
+        choices: "Choices"
+        curve: "Curve"
+        datatype: "Datatype"
+        gathering: "Gathering"
+        individual_identifier: "Individual identifier"
+        interpolation: "Interpolation"
+        probe: "Probe"
+        related_to: "Related to"
+        sampling_temporal_mode: "Sampling temporal mode"
+        unit: "Unit"
+    issue_natures:
       items:
         acarine_gall_mite: "Acarine gall mite"             #< insecta_disease
         accident: "Accident"                               #< issue
@@ -1771,16 +1701,20 @@ eng:
         wood_leopard_moth: "Wood leopard moth"             #< insecta_disease
         yellow_acarine: "Yellow acarine"                   #< insecta_disease
         yellow_rust: "Yellow rust"                         #< fungus_disease
+      name: "Issue natures"
+      property_natures:
+        cause: "Cause"
+        target: "Target"
+        treatments: "Treatments"
     lands:
-      name: "Lands"
       items:
         blaye: "Blaye"
         bordeaux: "Bordeaux"
         bordeaux_haut_benauge: "Bordeaux haut benauge"
         bordeaux_superieur: "Bordeaux superieur"
         cognac: "Cognac"
+      name: "Lands"
     languages:
-      name: "Languages"
       items:
         afr: "Afrikaans"
         amh: "Amharic"
@@ -1886,24 +1820,22 @@ eng:
         urd: "Urdu"
         uzb: "Uzbek"
         vie: "Vietnamese"
+      name: "Languages"
     mammalia_birth_conditions:
-      name: "Mammalia birth conditions"
       items:
         caesarean: "Caesarean"
         few_help: "Few help"
         great_help: "Great help"
         newborn_cutting: "Newborn cutting"
         without_help: "Without help"
+      name: "Mammalia birth conditions"
     mammalia_reproduction_states:
-      name: "Mammalia reproduction states"
       items:
         back_heat: "Back heat"
         heat: "Heat"
         pregnancy: "Pregnancy"
+      name: "Mammalia reproduction states"
     molecules:
-      name: "Molecules"
-      property_natures:
-        formula: "Formula"
       items:
         ammonia: "Ammonia"
         ammonium: "Ammonium"
@@ -1926,13 +1858,10 @@ eng:
         sulfur_dioxide: "Sulfur dioxide"
         tetraphosphorus_decaoxide: "Tetraphosphorus decaoxide"
         water: "Water"
-    net_services:
-      name: "Net services"
+      name: "Molecules"
       property_natures:
-        approach: "Approach"
-        identifiers: "Identifiers"
-        nature: "Nature"
-        url: "Url"
+        formula: "Formula"
+    net_services:
       choices:
         approach:
           email: "Email"
@@ -1951,8 +1880,13 @@ eng:
         synel: "Synel"
         synest: "Synest"
         telepac: "Telepac"
+      name: "Net services"
+      property_natures:
+        approach: "Approach"
+        identifiers: "Identifiers"
+        nature: "Nature"
+        url: "Url"
     opportunity_origins:
-      name: "Opportunity origins"
       items:
         advertisement: "Advertisement"
         employee_referral: "Employee referral"
@@ -1961,16 +1895,14 @@ eng:
         public_relations: "Public relations"
         trade_show: "Trade show"
         web: "Web"
+      name: "Opportunity origins"
     phosphorus_analysis_methods:
-      name: "Phosphorus analysis methods"
       items:
         dyer: "Dyer"
         joret_hebert: "Joret hebert"
         olsen: "Olsen"
+      name: "Phosphorus analysis methods"
     plant_life_states:
-      name: "Plant life states"
-      property_natures:
-        order: "Order"
       items:
         booting: "Booting"
         development_of_fruit: "Development of fruit"
@@ -1982,21 +1914,23 @@ eng:
         senescence: "Senescence"
         stem_elongation: "Stem elongation"
         tillering: "Tillering"
+      name: "Plant life states"
+      property_natures:
+        order: "Order"
     plant_reproduction_states:
-      name: "Plant reproduction states"
       items:
         flowering: "Flowering"
         grain_maturity: "Grain maturity"
         grain_senescence: "Grain senescence"
         heading: "Heading"
         swelling: "Swelling"
+      name: "Plant reproduction states"
     plants_growth_levels:
-      name: "Plants growth levels"
       items:
         high: "High"
         low: "Low"
+      name: "Plants growth levels"
     procedure_actions:
-      name: "Procedure actions"
       items:
         acaricide: "Acaricide"
         animal_artificial_insemination: "Animal artificial insemination"
@@ -2124,10 +2058,8 @@ eng:
         wine_bottling: "Wine bottling"
         wood_collecting: "Wood collecting"
         wood_refilling: "Wood refilling"
+      name: "Procedure actions"
     procedure_categories:
-      name: "Procedure categories"
-      property_natures:
-        activity_family: "Activity family"
       items:
         animal_breeding: "Animal breeding"
         animal_feeding: "Animal feeding"
@@ -2155,11 +2087,10 @@ eng:
         troubleshooting: "Troubleshooting"
         viticulture_transformation: "Viticulture transformation"
         washing_packaging_transformation: "Washing packaging transformation"
-    procedure_natures:
-      name: "Procedure natures"
+      name: "Procedure categories"
       property_natures:
-        activity_families: "Activity families"
-        roles: "Roles"
+        activity_family: "Activity family"
+    procedure_natures:
       items:
         addition: "Addition"                               #< transformation
         administrative_task: "Administrative task"
@@ -2251,8 +2182,11 @@ eng:
         transport: "Transport"
         viviparous_birth: "Viviparous birth"
         weed_killing: "Weed killing"
+      name: "Procedure natures"
+      property_natures:
+        activity_families: "Activity families"
+        roles: "Roles"
     procedure_roles:
-      name: "Procedure roles"
       items:
         container: "Container"
         doer: "Doer"
@@ -2263,22 +2197,8 @@ eng:
         target: "Target"
         tool: "Tool"
         variant: "Variant"
+      name: "Procedure roles"
     product_nature_categories:
-      name: "Product nature categories"
-      property_natures:
-        charge_account: "Charge account"
-        depreciable: "Depreciable"
-        depreciation_percentage: "Depreciation percentage"
-        fixed_asset_account: "Fixed asset account"
-        fixed_asset_allocation_account: "Fixed asset depreciations account"
-        fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
-        pictogram: "Pictogram"
-        product_account: "Product account"
-        purchasable: "Purchasable"
-        reductible: "Reductible"
-        saleable: "Saleable"
-        stock_account: "Stock account"
-        storable: "Storable"
       choices:
         pictogram:
           bank: "Bank"
@@ -2433,14 +2353,22 @@ eng:
         wine: "Wine"
         wine_package_consumable: "Wine package consumable"
         worker: "Worker"
-    product_nature_variants:
-      name: "Product nature variants"
+      name: "Product nature categories"
       property_natures:
-        derivative_of: "Derivative of"
-        frozen_indicators_values: "Frozen indicators values"
-        nature: "Nature"
-        unit_name: "Unit name"
-        variety: "Variety"
+        charge_account: "Charge account"
+        depreciable: "Depreciable"
+        depreciation_percentage: "Depreciation percentage"
+        fixed_asset_account: "Fixed asset account"
+        fixed_asset_allocation_account: "Fixed asset depreciations account"
+        fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
+        pictogram: "Pictogram"
+        product_account: "Product account"
+        purchasable: "Purchasable"
+        reductible: "Reductible"
+        saleable: "Saleable"
+        stock_account: "Stock account"
+        storable: "Storable"
+    product_nature_variants:
       choices:
         unit_name:
           100cl_bottle: "100cl bottle"
@@ -3159,19 +3087,14 @@ eng:
         young_pig_band: "Young pig band"
         young_rabbit: "Young rabbit"
         zea_herbicide: "Zea herbicide"
-    product_natures:
-      name: "Product natures"
+      name: "Product nature variants"
       property_natures:
-        abilities: "Abilities"
-        category: "Category"
         derivative_of: "Derivative of"
-        derivatives: "Derivatives"
-        frozen_indicators: "Frozen indicators"
-        linkage_points: "Linkage points"
-        population_counting: "Population counting"
-        reductible: "Reductible"
-        variable_indicators: "Variable indicators"
+        frozen_indicators_values: "Frozen indicators values"
+        nature: "Nature"
+        unit_name: "Unit name"
         variety: "Variety"
+    product_natures:
       choices:
         population_counting:
           decimal: "Decimal"
@@ -3447,12 +3370,119 @@ eng:
         wine_tank: "Wine tank"
         wire: "Wire"
         young_rabbit: "Young rabbit"
+      name: "Product natures"
+      property_natures:
+        abilities: "Abilities"
+        category: "Category"
+        derivative_of: "Derivative of"
+        derivatives: "Derivatives"
+        frozen_indicators: "Frozen indicators"
+        linkage_points: "Linkage points"
+        population_counting: "Population counting"
+        reductible: "Reductible"
+        variable_indicators: "Variable indicators"
+        variety: "Variety"
     production_natures:
+      items:
+        # administrative: "Administrative"
+        # annual_frost_fallow_land: "Annual frost fallow land"
+        # apple: "Apple"
+        # asparagus: "Asparagus"
+        # bean: "Bean"
+        # beet: "Beet"
+        # building: "Building"
+        # calf: "Calf"
+        # carrot: "Carrot"
+        # chicken: "Chicken"
+        # duck: "Duck"
+        # escourgeon_barley: "Escourgeon barley"
+        # exploitation: "Exploitation"
+        # five_years_temporary_meadow: "Five years temporary meadow"
+        # fixed_frost_fallow_land: "Fixed frost fallow land"
+        # flax: "Flax"
+        # forager_lupin: "Forager lupin"
+        # forager_soy: "Forager soy"
+        # fruit_processing: "Fruit processing"
+        # garden_center: "Garden center"
+        # garlic: "Garlic"
+        # goat: "Goat"
+        # gooseberry: "Gooseberry"
+        # grain_corn: "Grain corn"
+        # green_fallow_land: "Green fallow land"
+        # hazel: "Hazel"
+        # horsebean: "Horsebean"
+        # lavender: "Lavender"
+        # laying_hen: "Laying hen"
+        # lentil: "Lentil"
+        # maintenance: "Maintenance"
+        # market_gardening: "Market gardening"
+        # market_gardening_under_greenhouse: "Market gardening under greenhouse"
+        # marketable_bean: "Marketable bean"
+        # marketable_flax: "Marketable flax"
+        # marketable_forager_lupin: "Marketable forager lupin"
+        # marketable_forager_soy: "Marketable forager soy"
+        # marketable_garden_center: "Marketable garden center"
+        # marketable_hazel: "Marketable hazel"
+        # marketable_lentil: "Marketable lentil"
+        # marketable_soy: "Marketable soy"
+        # marketable_sunflower: "Marketable sunflower"
+        # marketable_walnut: "Marketable walnut"
+        # meat_cattle: "Meat cattle"
+        # melon: "Melon"
+        # milk_bull_calf: "Milk bull calf"
+        # milk_cattle: "Milk cattle"
+        # other_crop: "Other crop"
+        # other_gardening: "Other gardening"
+        # others_usages: "Others usages"
+        # oyster: "Oyster"
+        # peach: "Peach"
+        # pear: "Pear"
+        # permanent_meadow: "Permanent meadow"
+        # pig: "Pig"
+        # plum: "Plum"
+        # potato: "Potato"
+        # raspberry: "Raspberry"
+        # rose: "Rose"
+        # rye: "Rye"
+        # saffron: "Saffron"
+        # salmon: "Salmon"
+        # seed_bean: "Seed bean"
+        # seed_corn: "Seed corn"
+        # seed_pea: "Seed pea"
+        # services: "Services"
+        # silage_corn: "Silage corn"
+        # sorghum: "Sorghum"
+        # soy: "Soy"
+        # specific_fallow_land: "Specific fallow land"
+        # spring_barley: "Spring barley"
+        # spring_hard_wheat: "Spring hard wheat"
+        # spring_oat: "Spring oat"
+        # spring_pea: "Spring pea"
+        # spring_rapeseed: "Spring rapeseed"
+        # spring_soft_wheat: "Spring soft wheat"
+        # strawberry: "Strawberry"
+        # sunflower: "Sunflower"
+        # table_grape_vine: "Table grape vine"
+        # temporary_meadow: "Temporary meadow"
+        # thicket: "Thicket"
+        # tobacco: "Tobacco"
+        # trade: "Trade"
+        # triticale: "Triticale"
+        # unexploited_cultivable_zone: "Unexploited cultivable zone"
+        # vine: "Vine"
+        # vine_restructuration: "Vine restructuration"
+        # walnut: "Walnut"
+        # wine_storehouse: "Wine storehouse"
+        # winery: "Winery"
+        # winter_barley: "Winter barley"
+        # winter_hard_wheat: "Winter hard wheat"
+        # winter_oat: "Winter oat"
+        # winter_pea: "Winter pea"
+        # winter_rapeseed: "Winter rapeseed"
+        # winter_soft_wheat: "Winter soft wheat"
+        # without_crop: "Without crop"
       name: "Production natures"
     production_usages:
-      name: "Production usages"
-      property_natures:
-        crop_sets: "Crop sets"
       items:
         fallow_land: "Fallow land"
         fiber: "Fiber"
@@ -3464,16 +3494,16 @@ eng:
         milk: "Milk"
         seed: "Seed"
         vegetable: "Vegetable"
+      name: "Production usages"
+      property_natures:
+        crop_sets: "Crop sets"
     residue_elimination_methods:
-      name: "Residue elimination methods"
       items:
         burning: "Burning"
         burying: "Burying"
         evacuation: "Evacuation"
+      name: "Residue elimination methods"
     roles:
-      name: "Roles"
-      property_natures:
-        accesses: "Accesses"
       items:
         accountant: "Accountant"
         agricultural_advisor: "Agricultural advisor"
@@ -3481,7 +3511,18 @@ eng:
         farm_manager: "Farm manager"
         farm_worker: "Farm worker"
         veterinary: "Veterinary"
+      name: "Roles"
+      property_natures:
+        accesses: "Accesses"
     running_costs:
+      choices:
+        origin:
+          french_cooperation_scale: "French cooperation scale"
+      items:
+        2014_small_tractor_56_to_64_fhp: "2014 small tractor 56 to 64 fhp"
+        2014_small_tractor_66_to_75_fhp: "2014 small tractor 66 to 75 fhp"
+        2014_small_tractor_75_to_85_fhp: "2014 small tractor 75 to 85 fhp"
+        2014_small_tractor_85_to_95_fhp: "2014 small tractor 85 to 95 fhp"
       name: "Running costs"
       property_natures:
         average_purchase_price: "Average purchase price"
@@ -3493,31 +3534,22 @@ eng:
         power_unit: "Power unit"
         variant: "Variant"
         year: "Year"
-      choices:
-        origin:
-          french_cooperation_scale: "French cooperation scale"
-      items:
-        2014_small_tractor_56_to_64_fhp: "2014 small tractor 56 to 64 fhp"
-        2014_small_tractor_66_to_75_fhp: "2014 small tractor 66 to 75 fhp"
-        2014_small_tractor_75_to_85_fhp: "2014 small tractor 75 to 85 fhp"
-        2014_small_tractor_85_to_95_fhp: "2014 small tractor 85 to 95 fhp"
     sexes:
-      name: "Sexes"
       items:
         female: "Female"
         hermaphrodite: "Hermaphrodite"
         male: "Male"
         undefined: "Undefined"
+      name: "Sexes"
     soil_cultural_states:
-      name: "Soil cultural states"
       items:
         covered: "Covered"
         grown: "Grown"
         nude: "Nude"
         plowed: "Plowed"
         raw: "Raw"
+      name: "Soil cultural states"
     soil_natures:
-      name: "Soil natures"
       items:
         aubues_soil: "Aubues soil"
         black_valley_soil: "Black valley soil"
@@ -3539,15 +3571,14 @@ eng:
         swamp_peaty_soil: "Swamp peaty soil"
         touyas_soil: "Touyas soil"
         valley_terrace_soil: "Valley terrace soil"
+      name: "Soil natures"
     spatial_reference_systems:
+      items:
+        # EPSG_3857: "Epsg 3857"
+        # RGF93: "Rgf93"
+        # WGS84: "Wgs84"
       name: "Spatial reference systems"
     tax_natures:
-      name: "Tax natures"
-      property_natures:
-        collect_account: "Collect account"
-        computation_method: "Computation method"
-        deduction_account: "Deduction account"
-        suffix: "Suffix"
       choices:
         computation_method:
           amount: "Amount"
@@ -3560,14 +3591,13 @@ eng:
         null_vat: "Null VAT"
         particular_vat: "Particular VAT"
         reduced_vat: "Reduced VAT"
-    taxes:
-      name: "Taxes"
+      name: "Tax natures"
       property_natures:
-        amount: "Amount"
-        country: "Country"
-        nature: "Nature"
-        started_on: "Started on"
-        stopped_on: "Stopped on"
+        collect_account: "Collect account"
+        computation_method: "Computation method"
+        deduction_account: "Deduction account"
+        suffix: "Suffix"
+    taxes:
       items:
         french_vat_intermediate_2012: "French vat intermediate 2012"
         french_vat_intermediate_2014: "French vat intermediate 2014"
@@ -3592,14 +3622,14 @@ eng:
         swiss_vat_null_2011: "Swiss vat null 2011"
         swiss_vat_particular_2011: "Swiss vat particular 2011"
         swiss_vat_reduced_2011: "Swiss vat reduced 2011"
-    units:
-      name: "Units"
+      name: "Taxes"
       property_natures:
-        a: "A"
-        b: "B"
-        d: "D"
-        dimension: "Dimension"
-        symbol: "Symbol"
+        amount: "Amount"
+        country: "Country"
+        nature: "Nature"
+        started_on: "Started on"
+        stopped_on: "Stopped on"
+    units:
       items:
         acre: "Acre"
         ampere: "Ampere"
@@ -3704,13 +3734,14 @@ eng:
         unity_per_square_meter: "Unity per square meter"
         watt: "Watt"
         watt_per_square_meter: "Watt per square meter"
-    varieties:
-      name: "Varieties"
+      name: "Units"
       property_natures:
-        derivative_of: "Derivative of"
-        europa_tsn: "Europa number id"
-        french_race_code: "French race code"
-        itis_tsn: "Itis number id"
+        a: "A"
+        b: "B"
+        d: "D"
+        dimension: "Dimension"
+        symbol: "Symbol"
+    varieties:
       items:
         acer: "Acer"                                       #< sapindaceae
         acer_buergerianum: "Acer buergerianum"             #< acer
@@ -6250,10 +6281,13 @@ eng:
         zingiberaceae: "Zingiberaceae"                     #< plant
         zone: "Zone"                                       #< product
         zone_property_title: "Zone property title"         #< property_title
-    working_sets:
-      name: "Working sets"
+      name: "Varieties"
       property_natures:
-        expression: "Expression"
+        derivative_of: "Derivative of"
+        europa_tsn: "Europa number id"
+        french_race_code: "French race code"
+        itis_tsn: "Itis number id"
+    working_sets:
       items:
         animal_foods: "Animal foods"
         animal_medicines: "Animal medicines"
@@ -6268,3 +6302,6 @@ eng:
         transformed_products: "Transformed products"
         wine_tanks: "Wine tanks"
         wine_transformers: "Wine transformers"
+      name: "Working sets"
+      property_natures:
+        expression: "Expression"

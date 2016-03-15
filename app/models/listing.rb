@@ -40,7 +40,7 @@
 
 class Listing < Ekylibre::Record::Base
   attr_readonly :root_model
-  enumerize :root_model, in: Ekylibre::Schema.models
+  enumerize :root_model, in: Ekylibre::Schema.models, i18n_scope: ['activerecord.models']
   has_many :columns, -> { where('nature = ?', 'column') }, class_name: 'ListingNode'
   has_many :exportable_columns, -> { where(nature: 'column', exportable: true).order('position') }, class_name: 'ListingNode'
   has_many :filtered_columns, -> { where("nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", 'column', 'any') }, class_name: 'ListingNode'

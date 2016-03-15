@@ -26,6 +26,7 @@ fra:
       building_divisions: "Salles/zones de bâtiment"
       buildings: "Bâtiments"
       campaigns: "Campagnes"
+      cap_statements: "Déclarations de Cap"
       cash_transfers: "Virements internes"
       cashes: "Trésoreries"
       catalog_prices: "Prix" #?
@@ -96,6 +97,7 @@ fra:
       settlements: "Installations"
       subscription_natures: "Type d’abonnements"
       subscriptions: "Abonnements"
+      # supervisions: "Supervisions"
       tasks: "Tâches"
       taxes: "Taxes"
       teams: "Équipes"

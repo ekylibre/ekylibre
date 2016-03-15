@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160310145038">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160315152217">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1393,72 +1393,6 @@
       <item name="unpaid_leave" parent="leave"/>
       <item name="working_group" parent="meeting"/>
       <item name="working_time_recovery" parent="leave"/>
-    </items>
-  </nomenclature>
-  <nomenclature name="exchange_natures" translateable="true">
-    <items>
-      <item name="agro_systemes_soil_analyses"/>
-      <item name="agro_systemes_water_analyses"/>
-      <item name="bordeaux_sciences_agro_istea_general_ledger"/>
-      <item name="bordeaux_sciences_agro_istea_journals"/>
-      <item name="bovins_croissance_cattle_performance_controls"/>
-      <item name="charentes_alliance_incoming_deliveries"/>
-      <item name="charentes_alliance_outgoing_deliveries"/>
-      <item name="ebp_edi"/>
-      <item name="ekylibre_activities"/>
-      <item name="ekylibre_animal_groups"/>
-      <item name="ekylibre_animals"/>
-      <item name="ekylibre_backup"/>
-      <item name="ekylibre_bank_statements"/>
-      <item name="ekylibre_budgets"/>
-      <item name="ekylibre_buildings_json"/>
-      <item name="ekylibre_cap_land_parcel_clusters_json"/>
-      <item name="ekylibre_cap_land_parcels_json"/>
-      <item name="ekylibre_crumbs"/>
-      <item name="ekylibre_cultivable_zones"/>
-      <item name="ekylibre_cultivable_zones_json"/>
-      <item name="ekylibre_entities"/>
-      <item name="ekylibre_equipments"/>
-      <item name="ekylibre_equipments_json"/>
-      <item name="ekylibre_georeadings"/>
-      <item name="ekylibre_incoming_payments"/>
-      <item name="ekylibre_interventions"/>
-      <item name="ekylibre_land_parcels"/>
-      <item name="ekylibre_matters"/>
-      <item name="ekylibre_original_purchase_files"/>
-      <item name="ekylibre_outgoing_payments"/>
-      <item name="ekylibre_pictures"/>
-      <item name="ekylibre_plants"/>
-      <item name="ekylibre_purchases"/>
-      <item name="ekylibre_sales"/>
-      <item name="ekylibre_settings"/>
-      <item name="ekylibre_storages_json"/>
-      <item name="ekylibre_variants"/>
-      <item name="ekylibre_visuals"/>
-      <item name="ekylibre_workers"/>
-      <item name="ekylibre_zones"/>
-      <item name="fiea_galactea"/>
-      <item name="isagri_isacompta_export"/>
-      <item name="isagri_isaculture_csv_import"/>
-      <item name="la_graine_informatique_vinifera_entities"/>
-      <item name="la_graine_informatique_vinifera_products"/>
-      <item name="la_graine_informatique_vinifera_sales"/>
-      <item name="legrain_epicea_accounts"/>
-      <item name="legrain_epicea_journals"/>
-      <item name="lilco_milk_analyses"/>
-      <item name="milklic_individual_production"/>
-      <item name="synel_animals"/>
-      <item name="synel_inventory"/>
-      <item name="telepac_v2014_cap_land_parcels"/>
-      <item name="telepac_v2014_land_parcels"/>
-      <item name="telepac_v2015_cap_land_parcels"/>
-      <item name="telepac_v2015_cap_statements"/>
-      <item name="telepac_v2015_land_parcels"/>
-      <item name="unicoque_outgoing_deliveries"/>
-      <item name="unicoque_plant_zones"/>
-      <item name="upra_reproductors"/>
-      <item name="viniteca_interventions"/>
-      <item name="viniteca_plant_zones"/>
     </items>
   </nomenclature>
   <nomenclature name="fence_perimeters" translateable="true">

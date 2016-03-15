@@ -41,7 +41,7 @@
 
 class Import < Ekylibre::Record::Base
   belongs_to :importer, class_name: 'User'
-  # refers_to :nature, class_name: 'ExchangeNature'
+  enumerize :nature, in: ActiveExchanger::Base.importers.keys, i18n_scope: ['exchangers']
   enumerize :state, in: [:undone, :in_progress, :errored, :aborted, :finished], predicates: true, default: :undone
   has_attached_file :archive, path: ':tenant/:class/:id/:style.:extension'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -7,9 +7,6 @@ module ActiveExchanger
     class << self
       def inherited(subclass)
         name = subclass.exchanger_name
-        unless Nomen.find(:exchange_natures, name)
-          Rails.logger.warn "Unknown exchange: #{name}"
-        end
         ActiveExchanger::Base.register_exchanger(subclass)
         super
       end
@@ -18,16 +15,20 @@ module ActiveExchanger
         name.to_s.underscore.gsub(/_exchanger$/, '').tr('/', '_').to_sym
       end
 
+      def human_name
+        "exchangers.#{exchanger_name}".t
+      end
+
       def register_exchanger(klass)
         @@exchangers[klass.exchanger_name] = klass
       end
 
       def importers
-        @@exchangers.select { |_k, v| v.method_defined?(:import) }.keys
+        @@exchangers.select { |_k, v| v.method_defined?(:import) }
       end
 
       def exporters
-        @@exchangers.select { |_k, v| v.method_defined?(:export) }.keys
+        @@exchangers.select { |_k, v| v.method_defined?(:export) }
       end
 
       # Import file without check
@@ -98,6 +99,7 @@ module ActiveExchanger
     end
 
     alias w supervisor
+
 
     # def import
     #   raise NotImplementedError

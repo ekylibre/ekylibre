@@ -35,21 +35,17 @@ class ActiveExchanger::BaseTest < ActiveSupport::TestCase
     ActiveExchanger::Base.import(:legrain_epicea_journals, FIRST_RUN_V1.join('epicea', 'ExportationDesEcritures.Txt'))
   end
 
-  Nomen::ExchangeNature.find_each do |item|
-    if !ActiveExchanger::Base.importers.include?(item.name.to_sym)
-      puts "No #{item.name.to_s.yellow} exchanger to test."
-    else
-      path = fixture_files_path.join('imports', "#{item.name}.*")
-      list = Dir.glob(path)
-      if list.any?
-        list.each do |file|
-          test "#{item.name} import with #{File.basename(file)}" do
-            ActiveExchanger::Base.import(item.name, file)
-          end
+  ActiveExchanger::Base.importers.each do |_, item|
+    path = fixture_files_path.join('imports', "#{item.exchanger_name}.*")
+    list = Dir.glob(path)
+    if list.any?
+      list.each do |file|
+        test "#{item.exchanger_name} import with #{File.basename(file)}" do
+          ActiveExchanger::Base.import(item.exchanger_name, file)
         end
-      else
-        puts "Cannot test #{item.name.to_s.yellow} import. No sample file given."
       end
+    else
+      puts "Cannot test #{item.exchanger_name.to_s.yellow} import. No sample file given."
     end
   end
 end
