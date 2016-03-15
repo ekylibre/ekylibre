@@ -31,11 +31,11 @@
             %i
     = timeline(resource, id: :entity) do |l|
       - l.side :observations, at: :observed_at
-      - l.side :sale_opportunities, new: resource.client?, if: Proc.new {|r| r.sale_opportunities.any? or r.client?}
-      - l.side :sales, new: resource.client?, if: Proc.new {|r| r.sales.any? or r.client? }
-      - l.side :purchases, new: resource.supplier?, if: Proc.new {|r| r.purchases.any? or r.supplier? }
-      - l.side :incoming_payments, new: false, if: Proc.new {|r| r.incoming_payments.any? or r.client? }
-      - l.side :outgoing_payments, new: false, if: Proc.new {|r| r.outgoing_payments.any? or r.supplier? }
+      - l.side :sale_opportunities, new: resource.client?, if: Proc.new {|r| r.sale_opportunities.any? || r.client?}
+      - l.side :sales, new: resource.client?, if: Proc.new {|r| r.sales.any? || r.client? }
+      - l.side :purchases, new: resource.supplier?, if: Proc.new {|r| r.purchases.any? || r.supplier? }
+      - l.side :incoming_payments, new: false, if: Proc.new {|r| r.incoming_payments.any? || r.client? }
+      - l.side :outgoing_payments, new: false, if: Proc.new {|r| r.outgoing_payments.any? || r.supplier? }
       - l.side :tasks, at: :due_at, new: false
       - l.side :direct_links, at: :started_at
       - l.side :indirect_links, new: false

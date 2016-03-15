@@ -5,15 +5,11 @@ module WorkingSet
       # "sow, treat(thing, other_thing), care" => ["sow", "treat(thing, other_thing)", "care"]
       def load(string)
         array = new
-        tree = nil
-        begin
-          tree = WorkingSet.parse(string, root: :abilities_list)
-        rescue WorkingSet::SyntaxError => e
-          Rails.logger.warn("Cannot parse invalid ability array: #{string.inspect}")
-        end
-        if tree && list = tree.list && list.present?
-          array << list.first_ability.text_value
-          if (other_abilities = list.other_abilities) && other_abilities.present?
+        return array if string.blank?
+        tree = WorkingSet.parse(string, root: :abilities_list)
+        if tree && tree.list
+          array << tree.list.first_ability.text_value
+          if (other_abilities = tree.list.other_abilities) && other_abilities.present?
             other_abilities.elements.each do |other_ability|
               array << other_ability.ability.text_value
             end

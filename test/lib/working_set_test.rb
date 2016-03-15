@@ -61,4 +61,26 @@ class WorkingSetsTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test 'abilities array' do
+    assert_raise WorkingSet::SyntaxError do
+      WorkingSet::AbilityArray.load('consume(pla')
+    end
+
+    assert_raise WorkingSet::SyntaxError do
+      WorkingSet::AbilityArray.load('consume plant')
+    end
+
+    WorkingSet::AbilityArray.load('')
+
+    array = WorkingSet::AbilityArray.load('consume(plant)')
+    assert array.any?
+    assert_equal 1, array.size
+
+    array = WorkingSet::AbilityArray.load('consume(plant), treat(diarrhea, bison), move')
+    assert array.any?
+    assert_equal 3, array.size
+
+    assert array.check!
+  end
 end
