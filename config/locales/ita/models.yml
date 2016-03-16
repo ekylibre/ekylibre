@@ -2,8 +2,8 @@ ita:
   activerecord:
     attributes:
       activity_budget:
-        # expenses_amount: "Expenses amount"
-        # revenues_amount: "Revenues amount"
+        expenses_amount: "Le spese importo"
+        revenues_amount: "I ricavi sono pari"
       animal_group:
         born_at: "creato a"
       building:

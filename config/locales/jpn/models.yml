@@ -2,8 +2,8 @@ jpn:
   activerecord:
     attributes:
       activity_budget:
-        # expenses_amount: "Expenses amount"
-        # revenues_amount: "Revenues amount"
+        expenses_amount: "費用額"
+        revenues_amount: "収益額"
       animal_group:
         born_at: "で作成されました"
       building:

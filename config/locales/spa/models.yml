@@ -2,8 +2,8 @@ spa:
   activerecord:
     attributes:
       activity_budget:
-        # expenses_amount: "Expenses amount"
-        # revenues_amount: "Revenues amount"
+        expenses_amount: "Importe los gastos"
+        revenues_amount: "Monto de los ingresos"
       animal_group:
         born_at: "Creado en"
       building:

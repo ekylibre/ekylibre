@@ -2,8 +2,8 @@ deu:
   activerecord:
     attributes:
       activity_budget:
-        # expenses_amount: "Expenses amount"
-        # revenues_amount: "Revenues amount"
+        expenses_amount: "Die Aufwendungen Menge"
+        revenues_amount: "Der Umsatz Betrag"
       animal_group:
         born_at: "Hergestellt in"
       building:

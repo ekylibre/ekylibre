@@ -15,8 +15,8 @@ arb:
         financial_year: "مهنة" #?
         lock_version: "الاصدار المحلي" #?
       activity_budget:
-        # expenses_amount: "Expenses amount"
-        # revenues_amount: "Revenues amount"
+        expenses_amount: "مبلغ النفقات"
+        revenues_amount: "مبلغ الإيرادات"
       animal_group:
         born_at: "أنشئت في"
       area:  #?

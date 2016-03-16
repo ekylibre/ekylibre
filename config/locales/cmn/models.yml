@@ -2,8 +2,8 @@ cmn:
   activerecord:
     attributes:
       activity_budget:
-        # expenses_amount: "Expenses amount"
-        # revenues_amount: "Revenues amount"
+        expenses_amount: "支出金额"
+        revenues_amount: "收入金额"
       animal_group:
         born_at: "创建时间"
       building:
