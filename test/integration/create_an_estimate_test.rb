@@ -127,9 +127,9 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     end
     click_on 'Yuey LTD'
     sleep(1)
-    # click_link :timeline.tl
-    page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
-    sleep(1)
+    click_link :timeline.tl
+    # page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
+    # sleep(1)
 
     assert page.has_css?('#face-timeline.face.active')
     find('.timeline-tools', visible: :all)
