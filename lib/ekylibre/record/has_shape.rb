@@ -91,7 +91,7 @@ module Ekylibre
             }
 
             scope col + '_matching', lambda { |shape, margin = 0.05|
-              ewkt = ::Charta::Geometry.new(shape).to_ewkt
+              ewkt = ::Charta.new_geometry(shape).to_ewkt
               common = 1 - margin
               where('ST_Equals(' + col + ', ST_GeomFromEWKT(?)) OR (ST_Overlaps(' + col + ', ST_GeomFromEWKT(?)) AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(?))) / ST_Area(' + col + ') >= ? AND ST_Area(ST_Intersection(' + col + ', ST_GeomFromEWKT(?))) / ST_Area(ST_GeomFromEWKT(?)) >= ?)', ewkt, ewkt, ewkt, common, ewkt, ewkt, common)
             }

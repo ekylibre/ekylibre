@@ -184,6 +184,12 @@ class ActivityProduction < Ekylibre::Record::Base
     self.state ||= :opened
   end
 
+  validate do
+    if plant_farming?
+      errors.add(:support_shape, :empty) if self.support_shape && self.support_shape.empty?
+    end
+  end
+
   before_update do
     # self.support.name = computed_support_name
     support.initial_born_at = started_on
