@@ -1136,6 +1136,7 @@ fra:
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
+    invitation_status: "État"
     invoiced_amount: "Montant facturé"
     invoices: "Factures"
     invoices_only: "Utiliser seulement les factures" #?

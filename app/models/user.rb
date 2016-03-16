@@ -146,12 +146,12 @@ class User < Ekylibre::Record::Base
   def invitation_status
     if created_by_invite?
       if invitation_accepted?
-        :accepted
+        tc('invitation.accepted')
       else
-        :pending
+        tc('invitation.pending')
       end
     else
-      :not_invited
+      tc('invitation.not_invited')
     end
   end
 

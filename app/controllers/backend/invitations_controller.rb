@@ -27,7 +27,7 @@ module Backend
       t.column :last_name
       t.column :email
       t.column :role, url: true
-      t.column :invitation_status
+      t.column :invitation_status, label: :invitation_status
     end
 
     def new

@@ -1132,6 +1132,7 @@ eng:
     interventions_paths: "Interventions paths" #?
     inventories: "Inventories" #?
     inventory: "Inventory" #?
+    invitation_status: "Status"
     invoiced_amount: "Sales invoiced amount" #??
     invoices: "Invoices" #?
     is: "Is" #?

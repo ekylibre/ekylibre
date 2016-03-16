@@ -9,7 +9,7 @@ class BackendInvitations < CapybaraIntegrationTest
     fill_in('user[email]', with: 'invitee@ekylibre.org')
     click_on(:create.tl)
     assert has_content?('Robert'), 'Robert must appear in list after creation'
-    assert has_content?('pending'), 'Invitation created should be pending'
+    assert has_content?('Pending'), 'Invitation created should be pending'
   end
 
   setup do

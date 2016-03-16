@@ -1421,3 +1421,8 @@ eng:
           todo: "To do"
     team:
       default: "Main team"
+    user:
+      invitation:
+        accepted: "Accepted"
+        pending: "Pending"
+        not_invited: "Not invited"
