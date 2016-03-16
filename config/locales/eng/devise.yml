@@ -24,7 +24,7 @@ eng:
         subject: "Unlock Instructions"
       invitation_instructions:
         subject: "Invitation instructions"
-        hello: "Hello %{email}"
+        hello: "Hello %{first_name} %{last_name},"
         someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         accept: "Accept invitation"
         accept_until: "This invitation will be due in %{due_date}."

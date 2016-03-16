@@ -24,7 +24,7 @@ fra:
         subject: "Instructions pour déverrouiller le compte"
       invitation_instructions:
         subject: "Invitation de création de compte"
-        hello: "Bonjour %{email},"
+        hello: "Bonjour %{first_name} %{last_name},"
         someone_invited_you: "Quelqu'un vous a invité à créer un compte sur  %{url}, vous pouvez accepter cette invitation en cliquant sur le lien ci-dessous."
         accept: "Accepter l'invitation"
         accept_until: "Cette invitation est valable jusqu'au %{due_date}."
