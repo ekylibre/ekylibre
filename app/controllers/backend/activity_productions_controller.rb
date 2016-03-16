@@ -26,6 +26,10 @@ module Backend
       @activities = Activity.of_campaign(current_campaign).order(name: :asc) || []
     end
 
+    before_action only: :new do
+      redirect_to backend_activity_productions_path if params[:activity_id].nil? or params[:campaign_id].nil?
+    end
+
     # List interventions for one production support
     list(:interventions, conditions: "['interventions.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))', params[:id]]".c, order: { created_at: :desc }, line_class: :status) do |t|
       t.column :name, url: true
