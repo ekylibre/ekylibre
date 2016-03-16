@@ -26,6 +26,10 @@ module ActiveExchanger
       def importers
         @@exchangers.select { |_k, v| v.method_defined?(:import) }
       end
+      
+      def importers_selection
+        importers.collect{ |i, e| [e.human_name, i] }.sort{|a, b| a.first <=> b.first }
+      end
 
       def exporters
         @@exchangers.select { |_k, v| v.method_defined?(:export) }
