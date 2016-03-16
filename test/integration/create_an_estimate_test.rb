@@ -131,6 +131,11 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
     sleep(1)
 
+    assert page.has_css?('#face-timeline.face.active')
+    find('.timeline-tools', visible: :all)
+    find('.timeline-tools')
+
+    find('.timeline-tool.tl-direct_links', visible: :all)
     find('.tl-direct_links').click_link('actions.backend/entity_links.new'.t)
 
     # within(:css, '.timeline-tool.tl-direct_links') do
