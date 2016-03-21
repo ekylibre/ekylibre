@@ -107,7 +107,7 @@ class PurchaseItem < Ekylibre::Record::Base
       if pretax_amount.zero? || pretax_amount.nil?
         self.pretax_amount = (unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
       end
-      if amount.zero? || amount.nil?
+      if amount.nil? || amount.zero?
         self.amount = (pretax_amount * (100.0 + tax_amount) / 100.0).round(precision)
       end
     end
