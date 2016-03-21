@@ -281,6 +281,7 @@ class Activity < Ekylibre::Record::Base
                  teal: '#008080', fuchsia: '#FF00FF', brown: '#6A2B1A' }
       activity_family = Nomen::ActivityFamily.find(family)
       variety = Nomen::Variety.find(variety)
+      crop_sets = []
       # if there no variety (no land cases)
       if variety
         crop_sets = Nomen::CropSet.select do |i|
