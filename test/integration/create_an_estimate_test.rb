@@ -68,7 +68,7 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     #   click_on 'actions.backend/sales.new'.t
     # end
     # seems timeline face isn't active
-    find('.tl-sales', visible: :all).click_link('actions.backend/sales.new'.t)
+    find('.tl-sales', visible: :all).click_link('actions.backend/sales.new'.t, visible: :all)
     click_on :add_item.tl
     within('#items tr.nested-fields:nth-child(1)') do
       fill_unroll('sale_item_variant_id', with: 'big bag')
