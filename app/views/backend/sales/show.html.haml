@@ -52,7 +52,7 @@
       - if resource.draft?
         = cobble_toolbar do |t|
           - for item in resource.items.includes(:product, :reduction_origin)
-            - if item.product.nature.subscribing? and not item.reduction_origin
+            - if item.product.method_defined? :nature and item.product.nature.subscribing? and not item.reduction_origin
               = t.link :add_subscription_for_sale_item, {action: :new, controller: :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
       = cobble_list :subscriptions
 
