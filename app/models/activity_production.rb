@@ -175,7 +175,11 @@ class ActivityProduction < Ekylibre::Record::Base
           support.derivative_of = self.activity.cultivation_variety
           support.save!
         end
-        self.size = size_value.in(size_unit_name)
+        if size_value.nil?
+          errors.add(:size_value, :empty)
+        else
+          self.size = size_value.in(size_unit_name)
+        end
       end
     end
   end
