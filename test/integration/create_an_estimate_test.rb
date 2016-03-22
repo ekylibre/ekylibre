@@ -62,7 +62,7 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     click_on 'Yuey LTD'
     sleep(1)
     # click_link :timeline.tl
-    page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
+    page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").trigger('click');")
     sleep(1)
     # within(:css, '.timeline-tool.tl-sales') do
     #   click_on 'actions.backend/sales.new'.t
