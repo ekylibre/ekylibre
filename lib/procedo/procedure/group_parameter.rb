@@ -22,6 +22,11 @@ module Procedo
       def product_parameters(recursively = false)
         parameters(recursively).select { |i| i.is_a?(Procedo::Procedure::ProductParameter) }
       end
+      
+      def parameters_of_type(type, recursively = false)
+        parameters(recursively).select { |i| (i.is_a?(Procedo::Procedure::ProductParameter) && i.type == type) || 
+                                             (i.is_a?(Procedo::Procedure::GroupParameter) && :group == type) }
+      end
 
       # Returns an parameter with its name
       def fetch(name)

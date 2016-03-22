@@ -10,7 +10,7 @@ module Procedo
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,
              :each_product_parameter, :each_group_parameter, :each_parameter,
              :product_parameters, :group_parameters, :parameters,
-             :position_of, to: :root_group
+             :position_of, :parameters_of_type, to: :root_group
 
     def initialize(name, options = {})
       @name = name.to_sym

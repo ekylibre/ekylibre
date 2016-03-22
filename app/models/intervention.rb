@@ -327,7 +327,32 @@ class Intervention < Ekylibre::Record::Base
         recorder.write!
       end
     end
-
+    
+    # Find a product with given options
+    #  - started_at
+    #  - work_number
+    #  - can
+    #  - variety
+    #  - derivative_of
+    #  - filter: WSQL expression
+    # Options for product creation only:
+    #  - default_storage
+    # Special options for worker creation only:
+    #  - first_name
+    #  - last_name
+    #  - born_at
+    #  - default_storage
+    def find_products(model, options = {})
+      relation = model
+      relation = relation.where('COALESCE(born_at, ?) <= ? ', options[:started_at], options[:started_at]) if options[:started_at]
+      relation = relation.of_expression(options[:filter]) if options[:filter]
+      relation = relation.of_work_numbers(options[:work_number]) if options[:work_number]
+      relation = relation.can(options[:can]) if options[:can]
+      relation = relation.of_variety(options[:variety]) if options[:variety]
+      relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]
+      return relation.all if relation.any?
+    end
+    
     # Returns an array of procedures matching the given actors ordered by relevance
     # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], ...]
     # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float,
