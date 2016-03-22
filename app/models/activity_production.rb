@@ -215,7 +215,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_destroy do
-    Ekylibre::Hook.publish(:activity_production_change, activity_production_id: id)
+    Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end
 
   def computed_support_name
