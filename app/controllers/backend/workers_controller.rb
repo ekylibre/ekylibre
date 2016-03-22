@@ -18,5 +18,17 @@
 
 module Backend
   class WorkersController < Backend::ProductsController
+
+    list do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :number, url: true
+      t.column :work_number
+      t.column :name, url: true
+      t.column :variant, url: true
+      t.column :variety
+      t.column :container, url: true
+      t.column :description
+    end
   end
 end
