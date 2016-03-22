@@ -44,7 +44,7 @@ module WorkingSet
         if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
           ps = ability.ability_parameters.parameters
           parameters << ps.first_parameter
-          for other_parameter in ps.other_parameters.elements
+          ps.other_parameters.elements.each do |other_parameter|
             parameters << other_parameter.parameter
           end if ps.other_parameters
         end
@@ -79,7 +79,7 @@ module WorkingSet
 
     def find_nomenclature_item(nomenclature, name)
       unless item = Nomen[nomenclature].find(name)
-        raise "Unknown item in #{nomenclature} nomenclature: #{name}"
+        raise InvalidExpression, "Unknown item in #{nomenclature} nomenclature: #{name}"
       end
       item
     end

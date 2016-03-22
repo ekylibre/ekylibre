@@ -52,9 +52,34 @@
 require 'test_helper'
 
 class ProductNatureTest < ActiveSupport::TestCase
-  test 'working sets' do
+  test 'working sets scope' do
     Nomen::WorkingSet.list.each do |item|
       assert ProductNature.of_working_set(item.name).count >= 0
+    end
+  end
+
+  test 'working sets expression' do
+    expressions = ProductNature.all.map do |n|
+      expr = "is #{n.variety}"
+      expr << " and derives from #{n.derivative_of}" if n.derivative_of?
+      if n.abilities_list.any?
+        begin
+          n.abilities_list.check!
+        rescue WorkingSet::InvalidExpression => e
+          puts "Invalid abilities list: #{e.message}".red
+          next
+        end
+        expr << ' and (' + n.abilities_list.map { |a| "can #{a}" }.join(' and ') + ')'
+      end
+      expr
+    end.compact.uniq
+    assert_operator expressions.count, :>, 10, 'More than 10 expressions are expected in product natures'
+    expressions.each do |expression|
+      scope_count = ProductNature.of_expression(expression).count
+      direct_count = ProductNature.all.count { |n| n.of_expression(expression) }
+      assert_operator scope_count, :>, 0
+      assert_operator direct_count, :>, 0
+      assert_equal scope_count, direct_count
     end
   end
 

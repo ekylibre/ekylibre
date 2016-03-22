@@ -34,7 +34,7 @@ module WorkingSet
 
     def compute(object, record)
       if object.is_a?(WorkingSet::QueryLanguage::BooleanExpression)
-        '(' + compute(object.boolean_expression, record) + ')'
+        compute(object.boolean_expression, record)
       elsif object.is_a?(WorkingSet::QueryLanguage::Conjunction)
         compute(object.head, record) && compute(object.operand, record)
       elsif object.is_a?(WorkingSet::QueryLanguage::Disjunction)
@@ -43,7 +43,8 @@ module WorkingSet
         !compute(object.negated_test, record)
       elsif object.is_a?(WorkingSet::QueryLanguage::EssenceTest) || object.is_a?(WorkingSet::QueryLanguage::DerivativeTest)
         column = object.is_a?(WorkingSet::QueryLanguage::EssenceTest) ? :variety : :derivative_of
-        find_nomenclature_item(:varieties, object.variety_name.text_value) >= record.send(column)
+        value = record.send(column)
+        value.present? && find_nomenclature_item(:varieties, object.variety_name.text_value) >= value
       elsif object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) || object.is_a?(WorkingSet::QueryLanguage::NonDerivativeTest)
         column = object.is_a?(WorkingSet::QueryLanguage::NonEssenceTest) ? :variety : :derivative_of
         !(find_nomenclature_item(:varieties, object.variety_name.text_value) >= record.send(column))
@@ -56,7 +57,7 @@ module WorkingSet
         if ability.ability_parameters.present? && ability.ability_parameters.parameters.present?
           ps = ability.ability_parameters.parameters
           parameters << ps.first_parameter
-          for other_parameter in ps.other_parameters.elements
+          ps.other_parameters.elements.each do |other_parameter|
             parameters << other_parameter.parameter
           end if ps.other_parameters
         end
