@@ -69,7 +69,7 @@ class ActivityProduction < Ekylibre::Record::Base
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
+  validates_date :started_on, :stopped_on, allow_blank: true, before: Date.today + 30.years
   validates_numericality_of :rank_number, allow_nil: true, only_integer: true
   validates_numericality_of :size_value, allow_nil: true
   validates_inclusion_of :irrigated, :nitrate_fixing, in: [true, false]
