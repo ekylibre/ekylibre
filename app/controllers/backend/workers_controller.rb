@@ -18,7 +18,6 @@
 
 module Backend
   class WorkersController < Backend::ProductsController
-
     list do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?

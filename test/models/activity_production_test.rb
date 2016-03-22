@@ -49,5 +49,15 @@
 require 'test_helper'
 
 class ActivityProductionTest < ActiveSupport::TestCase
-  # Add tests here...
+  test 'create' do
+    activity = Activity.find_by(production_cycle: :annual, family: 'plant_farming')
+    p = activity.productions.new(started_on: '2015-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
+    assert p.save, p.errors.inspect
+    p = activity.productions.new(started_on: '2015-07-01', stopped_on: '72016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
+    assert !p.save, p.errors.inspect
+    p = activity.productions.new(started_on: '15-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
+    assert !p.save, p.errors.inspect
+    p = activity.productions.new(started_on: '2017-07-01', stopped_on: '2016-01-15', campaign: Campaign.of(2016), cultivable_zone: CultivableZone.first)
+    assert !p.save, p.errors.inspect
+  end
 end
