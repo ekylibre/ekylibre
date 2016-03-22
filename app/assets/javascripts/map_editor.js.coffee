@@ -240,7 +240,7 @@
       return containerLayer
 
     navigateToLayer: (layer) ->
-      this.map.fitBounds layer.getBounds()
+      this.map.panInsideBounds layer.getBounds(), animate: true
 
 
     removeLayer: (layer) ->
