@@ -19,7 +19,7 @@
         height: 400
         width: null
       customClass: ''
-      back: "Esri.WorldImagery"
+      back: ['Esri.WorldImagery','OpenStreetMap.HOT','OpenStreetMap.Mapnik','Thunderforest.Landscape']
       show: null
       edit: null
       change: null
