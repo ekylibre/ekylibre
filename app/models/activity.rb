@@ -390,7 +390,7 @@ class Activity < Ekylibre::Record::Base
 
   def interventions_duration(campaign)
     # productions.of_campaign(campaign).map(&:duration).compact.sum
-    productions.of_campaign(campaign).collect {|p| p.interventions.map(&:working_duration)}.flatten.compact.sum
+    productions.of_campaign(campaign).collect { |p| p.interventions.map(&:working_duration) }.flatten.compact.sum
   end
 
   def is_of_family?(family)

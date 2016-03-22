@@ -27,7 +27,7 @@ module Backend
     end
 
     before_action only: :new do
-      redirect_to backend_activity_productions_path if params[:activity_id].nil? or params[:campaign_id].nil?
+      redirect_to backend_activity_productions_path if params[:activity_id].nil? || params[:campaign_id].nil?
     end
 
     # List interventions for one production support

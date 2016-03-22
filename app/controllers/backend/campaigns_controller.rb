@@ -24,9 +24,7 @@ module Backend
       if params[:current_campaign]
         campaign = Campaign.find_or_create_by!(harvest_year: params[:current_campaign])
       end
-      if campaign
-        redirect_to action: :show, id: campaign.id
-      end
+      redirect_to action: :show, id: campaign.id if campaign
     end
 
     after_action only: :show do

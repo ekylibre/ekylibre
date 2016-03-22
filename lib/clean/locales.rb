@@ -1,6 +1,5 @@
 module Clean
   module Locales
-
     class Scrutator
       attr_reader :to_translate, :untranslated
 
@@ -30,18 +29,15 @@ module Clean
         end
         nil
       end
-
     end
 
     class Translation
-
       attr_reader :locale
 
       def initialize(locale, options = {})
         @locale = locale.to_sym
         @log = options[:log] if options[:log]
       end
-
 
       def clean!
         log("Locale #{::I18n.locale_label}:\n")
@@ -76,7 +72,6 @@ module Clean
         puts " - Locale: #{(100 * @count / @total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated"
       end
 
-
       def clean_access!
         translate('access.yml') do |ref, translation, s|
           translation << "  access:\n"
@@ -95,7 +90,6 @@ module Clean
           end
         end
       end
-
 
       def clean_action!
         untranslated = to_translate = translated = 0
@@ -269,7 +263,6 @@ module Clean
         write('action.yml', translation, to_translate, untranslated)
       end
 
-
       def clean_aggregators!
         # Aggregators
         file = locale_dir.join('aggregators.yml')
@@ -345,20 +338,17 @@ module Clean
         write(file, translation, to_translate, untranslated)
       end
 
-
       def clean_exchangers!
         translate('exchangers.yml') do |ref, translation, s|
           translation << "  exchangers:\n"
           ref[:exchangers] ||= {}
-          ActiveExchanger::Base.exchangers.values.sort { |a,b|
+          ActiveExchanger::Base.exchangers.values.sort do |a, b|
             a.exchanger_name.to_s <=> b.exchanger_name.to_s
-          }.each do |e|
+          end.each do |e|
             translation << s.exp(ref, :exchangers, e.exchanger_name).dig(2)
           end
         end
       end
-
-
 
       def clean_models!
         # Models
@@ -443,7 +433,6 @@ module Clean
         write('models.yml', translation, to_translate, untranslated)
       end
 
-
       # Nomenclatures
       def clean_nomenclatures!
         file = locale_dir.join('nomenclatures.yml')
@@ -511,7 +500,7 @@ module Clean
                 trl[:noti] << "        #{notion}:\n"
                 nomenclature.list.sort { |a, b| a.name.to_s <=> b.name.to_s }.each do |item|
                   line = s.exp(ref, nomenclature.name, :notions, notion, item.name.to_sym, default: "#{notion.to_s.humanize} of #{item.name.to_s.humanize}")
-                trl[:noti] << line.dig(5)
+                  trl[:noti] << line.dig(5)
                 end
               end
             end
@@ -526,7 +515,6 @@ module Clean
 
         write(file, translation, scrutator.to_translate, scrutator.untranslated)
       end
-
 
       # Procedures
       def clean_procedures!
@@ -659,13 +647,13 @@ module Clean
       def scrut
         s = Scrutator.new
         yield s
-        return s
+        s
       end
 
       def translate(basename)
         file = locale_dir.join(basename)
         ref = load_file(file)
-        translation  = "#{locale}:\n"
+        translation = "#{locale}:\n"
         scrutator = scrut do |s|
           yield(ref, translation, s)
         end
@@ -691,22 +679,19 @@ module Clean
       rescue
         {}
       end
-
     end
-
 
     def self.run!(reference = nil)
       Clean::Support.set_search_path!
       reference ||= I18n.default_locale
       log = File.open(Rails.root.join('log', 'clean-locales.log'), 'wb')
       Translation.new(reference, log: log).clean!
-      locales = ::I18n.available_locales.delete_if { |l|
+      locales = ::I18n.available_locales.delete_if do |l|
         l == reference || l.to_s.size != 3
-      }.sort { |a, b| a.to_s <=> b.to_s }
+      end.sort { |a, b| a.to_s <=> b.to_s }
       locales.each do |locale|
         Translation.new(locale, log: log).clean_from!(reference)
       end
     end
-
   end
 end

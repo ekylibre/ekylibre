@@ -1124,7 +1124,7 @@ fra:
     purchased_on: "Acheté le"
     purchases: "Achats"
     quantity: "Quantité"
-    quantity_handler: "Quantité gestionnaire"
+    quantity_handler: "Macro-unité Quantité"
     quantity_indicator: "Indicateur Quantité"
     quantity_indicator_name: "Quantité nom de l’indicateur"
     quantity_population: "Quantité population"
