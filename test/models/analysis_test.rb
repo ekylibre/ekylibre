@@ -49,5 +49,5 @@
 require 'test_helper'
 
 class AnalysisTest < ActiveSupport::TestCase
-  # Add tests here...
+  test_unit_creation
 end

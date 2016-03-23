@@ -96,6 +96,29 @@ class ActiveSupport::TestCase
   def self.fixture_files_path
     Rails.root.join('test', 'fixture-files')
   end
+
+  def self.test_unit_creation(options = {}, &block)
+
+    model = self.to_s.slice(0..-5).constantize
+    record = model.model_name.to_s.underscore
+    fixtures_to_use = FixtureRetriever.new(model)
+    code = ''
+
+    code << "test 'create' do\n"
+    code << "  #{record} = #{fixtures_to_use.retrieve(:first)}\n"
+    code << "  assert #{record}.save!\n"
+    code << "end"
+
+    #TODO: retrieve date and datetime columns and assert validations with invalid dates.
+
+    file = Rails.root.join('tmp', 'code', 'test', "#{record.downcase}.rb")
+    FileUtils.mkdir_p(file.dirname)
+    File.open(file, 'wb') do |f|
+      f.write(code)
+    end
+    class_eval(code, "(test) #{model.model_name}") # :#{__LINE__}
+
+  end
 end
 
 class HashCollector
