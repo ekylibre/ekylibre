@@ -122,7 +122,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     w.count = rows.size
 
     information_import_context = "Import Ekylibre interventions on #{Time.zone.now.l}"
-    
+
     # Load hash to transcode old procedure
     # transcode procedure_name from old procedure
     here = Pathname.new(__FILE__).dirname
@@ -130,11 +130,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     CSV.foreach(here.join('procedures.csv'), headers: true) do |row|
       procedures_transcode[row[0]] = row[1].to_sym
     end
-    
+
     rows.each_with_index do |row, _index|
       line_number = _index + 2
       r = parse_row(row)
-      
+
       # Check duration
       if r.intervention_duration_in_hour.hours
         r.intervention_stopped_at = r.intervention_started_at + r.intervention_duration_in_hour.hours
@@ -188,7 +188,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       # case 1 supports exists
       if supports.any?
-        
+
             # w.info r.to_h.to_yaml
             w.info "----------- L#{line_number.to_s.yellow} : #{r.intervention_number} / #{supports.map(&:name).to_sentence} -----------".blue
             w.info ' procedure : ' + r.procedure_name.inspect.green
@@ -205,15 +205,15 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             # plants = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
             # w.info ' #{plants.count} plants : ' + plants.map(&:name).inspect.yellow if plants
             targets = supports
-            
+
             intervention = record_default_intervention(r, targets)
             #intervention = send("record_#{r.procedure_name}", r, targets)
 
       else
         w.warn "Cannot add intervention #{r.intervention_number} without support"
       end
-      
-      
+
+
       if intervention
         intervention.description ||= ''
         intervention.description += ' - ' + information_import_context + ' - N° : ' + r.intervention_number.to_s
@@ -222,13 +222,13 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       else
         w.warn 'Intervention is in a black hole'.red
       end
-      
+
       w.check_point
     end
   end
 
   protected
-  
+
   # convert measure to variant unit and divide by variant_indicator
   def measure_conversion(product, population, unit, unit_target_dose)
     value = population
@@ -257,8 +257,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       return nil
     end
   end
-  
-  
+
+
   # convert measure to variant unit and divide by variant_indicator
   # ex : for a wheat_seed_25kg
   # 182.25 kilogram (converting in kilogram) / 25.00 kilogram
@@ -332,7 +332,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   def actor_population_conversion(actor, working_measure)
     population_conversion((actor.product.present? ? actor.product : actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose, working_measure)
   end
-  
+
   # shortcut to call population_conversion function
   def actor_measure_conversion(actor)
     measure_conversion((actor.product.present? ? actor.product : actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose)
@@ -521,22 +521,22 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       nature.save!
     end
   end
-  
-  
+
+
 
   ##################################
   #### INTERVENTIONS       ####
   ##################################
-  
+
   def record_default_intervention(r, targets)
 
     # retrieve procedure from its name and set basics attributes
     procedure = Procedo.find(procedures_transcode[r.procedure_name])
     attributes = {procedure_name: procedure.name, actions: procedure.mandatory_actions, description: r.description}
-    
+
     ## working_periods
     attributes[:working_periods_attributes] = {"0" => {started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M')}}
-    
+
     ## targets
     targets.each_with_index do |target, index|
       procedure.parameters_of_type(:target).each do |support|
@@ -550,10 +550,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
       end
     end
-    
+
     ## inputs
     updaters = []
-    
+
     [r.first, r.second, r.third].each_with_index do |actor, index|
       next if actor.product.nil?
       procedure.parameters_of_type(:input).each do |input|
@@ -571,7 +571,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
       end
     end
-    
+
     ## tools
     r.equipments.each do |equipment, index|
       procedure.parameters_of_type(:tool).each do |tool|
@@ -585,8 +585,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
       end
     end
-    
-    
+
+
     ## doers
     r.workers.each do |worker, index|
       procedure.parameters_of_type(:doer).each do |doer|
@@ -597,24 +597,24 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
       end
     end
-    
+
     ## impact
     intervention = Procedo::Engine.new_intervention(attributes)
     updaters.each do |updater|
       intervention.impact_with!(updater)
     end
-    
+
     ## save
     ::Intervention.create!(intervention.to_hash)
-    
+
   end
-  
+
 
   ###############################
   ####  SOWING / IMPLANTING  ####
   ###############################
 
-  
+
 
 
   #################################

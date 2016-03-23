@@ -327,7 +327,7 @@ class Intervention < Ekylibre::Record::Base
         recorder.write!
       end
     end
-    
+
     # Find a product with given options
     #  - started_at
     #  - work_number
@@ -352,7 +352,7 @@ class Intervention < Ekylibre::Record::Base
       relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]
       return relation.all if relation.any?
     end
-    
+
     # Returns an array of procedures matching the given actors ordered by relevance
     # whose structure is [[procedure, relevance, arity], [procedure, relevance, arity], ...]
     # where 'procedure' is a Procedo::Procedure object, 'relevance' is a float,

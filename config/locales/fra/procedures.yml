@@ -97,7 +97,7 @@ fra:
     cover_implanter: "Plastifieuse"
     cropper: "Moissonneuse batteuse"
     cropper_driver: "Conducteur de moissonneuse batteuse"
-    cultivation: "Culture"
+    cultivation: "Parcelle / Culture"
     cultivator: "Cultivateur"
     cutter: "Outil de taille"
     destination_tank: "Cuve de destination"
