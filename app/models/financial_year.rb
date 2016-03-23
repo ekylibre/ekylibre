@@ -47,7 +47,8 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
+  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1900, 1, 1), on_or_before: -> { Date.today + 50.years }
+  validates_datetime :stopped_on, allow_blank: true, on_or_after: Proc.new { |a| a.started_on }, if: Proc.new { |a| a.started_on && a.stopped_on }
   validates_numericality_of :currency_precision, allow_nil: true, only_integer: true
   validates_inclusion_of :closed, in: [true, false]
   validates_presence_of :code, :currency, :started_on, :stopped_on

@@ -45,7 +45,8 @@ class EntityLink < Ekylibre::Record::Base
   belongs_to :linked, class_name: 'Entity'
   refers_to :nature, class_name: 'EntityLinkNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
+  validates_datetime :stopped_at, allow_blank: true, on_or_after: Proc.new { |a| a.started_at }, if: Proc.new { |a| a.started_at && a.stopped_at }
   validates_inclusion_of :main, in: [true, false]
   validates_presence_of :entity, :entity_role, :linked, :linked_role, :nature
   # ]VALIDATORS]

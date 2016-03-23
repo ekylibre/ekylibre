@@ -62,7 +62,7 @@ class Analysis < Ekylibre::Record::Base
   has_geometry :geolocation, type: :point
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :analysed_at, :sampled_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :analysed_at, :sampled_at, :stopped_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
   validates_presence_of :nature, :number, :retrieval_status, :sampled_at, :sampling_temporal_mode
   # ]VALIDATORS]
 

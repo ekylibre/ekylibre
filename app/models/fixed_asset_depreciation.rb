@@ -47,8 +47,9 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   belongs_to :financial_year
   belongs_to :journal_entry
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
-  validates_datetime :accounted_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1900, 1, 1), on_or_before: -> { Date.today + 50.years }
+  validates_datetime :accounted_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
+  validates_datetime :stopped_on, allow_blank: true, on_or_after: Proc.new { |a| a.started_on }, if: Proc.new { |a| a.started_on && a.stopped_on }
   validates_numericality_of :amount, :depreciable_amount, :depreciated_amount, allow_nil: true
   validates_inclusion_of :accountable, :locked, in: [true, false]
   validates_presence_of :amount, :fixed_asset, :started_on, :stopped_on

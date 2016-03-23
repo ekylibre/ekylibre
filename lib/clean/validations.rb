@@ -15,10 +15,19 @@ module Clean
         columns = model.content_columns.delete_if { |c| !validable_column?(c) }.sort { |a, b| a.name.to_s <=> b.name.to_s }
 
         cs = columns.select { |c| c.type == :date }
-        code << '  validates_date ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_blank: true, on_or_after: Date.civil(1, 1, 1)\n" if cs.any?
+        code << '  validates_date ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_blank: true, on_or_after: Date.civil(1900, 1, 1), on_or_before: -> { Date.today + 50.years }\n" if cs.any?
 
         cs = columns.select { |c| c.type == :datetime || c.type == :timestamp }
-        code << '  validates_datetime ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')\n" if cs.any?
+        code << '  validates_datetime ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }\n" if cs.any?
+
+        columns.each do |c|
+          if [:stopped_at, :stopped_on].include?(c.name.to_sym)
+            p "started#{c.name.scan(/_.{2}/).first}", columns.collect(&:name)
+            if !c.name.scan(/_.{2}/).empty? && columns.collect(&:name).include?("started#{c.name.scan(/_.{2}/).first}")
+              code << "  validates_datetime :#{c.name}, allow_blank: true, on_or_after: Proc.new { |a| a.started#{c.name.scan(/_.{2}/).first} }, if: Proc.new { |a| a.started#{c.name.scan(/_.{2}/).first} && a.#{c.name} }\n"
+            end
+          end
+        end
 
         cs = columns.select { |c| c.type == :integer }
         code << '  validates_numericality_of ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_nil: true, only_integer: true\n" if cs.any?

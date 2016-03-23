@@ -213,7 +213,7 @@ class Product < Ekylibre::Record::Base
   scope :storage, -> { can('store(product)') } #-> { of_variety([:building_division, :equipment]) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :initial_population, allow_nil: true
   validates_presence_of :category, :name, :nature, :number, :variant, :variety

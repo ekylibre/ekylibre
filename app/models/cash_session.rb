@@ -42,7 +42,8 @@ class CashSession < Ekylibre::Record::Base
   has_many :affairs
   refers_to :currency
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
+  validates_datetime :stopped_at, allow_blank: true, on_or_after: Proc.new { |a| a.started_at }, if: Proc.new { |a| a.started_at && a.stopped_at }
   validates_numericality_of :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, allow_nil: true
   validates_presence_of :cash, :started_at
   # ]VALIDATORS]

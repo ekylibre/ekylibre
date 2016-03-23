@@ -40,7 +40,8 @@ class GuideAnalysis < Ekylibre::Record::Base
   has_many :points, class_name: 'GuideAnalysisPoint', inverse_of: :analysis, foreign_key: :analysis_id
   enumerize :acceptance_status, in: [:passed, :passed_with_warnings, :failed, :errored], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
+  validates_datetime :stopped_at, allow_blank: true, on_or_after: Proc.new { |a| a.started_at }, if: Proc.new { |a| a.started_at && a.stopped_at }
   validates_numericality_of :execution_number, allow_nil: true, only_integer: true
   validates_inclusion_of :latest, in: [true, false]
   validates_presence_of :acceptance_status, :execution_number, :guide, :started_at, :stopped_at

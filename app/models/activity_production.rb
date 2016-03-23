@@ -69,7 +69,8 @@ class ActivityProduction < Ekylibre::Record::Base
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
+  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1900, 1, 1), on_or_before: -> { Date.today + 50.years }
+  validates_datetime :stopped_on, allow_blank: true, on_or_after: Proc.new { |a| a.started_on }, if: Proc.new { |a| a.started_on && a.stopped_on }
   validates_numericality_of :rank_number, allow_nil: true, only_integer: true
   validates_numericality_of :size_value, allow_nil: true
   validates_inclusion_of :irrigated, :nitrate_fixing, in: [true, false]
@@ -189,19 +190,6 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   validate do
-    min = Date.civil(1900, 1, 1)
-    max = Date.today >> (50 * 12)
-    if self.started_on
-      errors.add(:started_on, :anterior, to: max) if self.started_on > max
-      errors.add(:started_on, :posterior, to: min) if self.started_on < min
-    end
-    if self.stopped_on
-      errors.add(:stopped_on, :anterior, to: max) if self.stopped_on > max
-      errors.add(:stopped_on, :posterior, to: min) if self.stopped_on < min
-    end
-    if self.started_on && self.stopped_on
-      errors.add(:stopped_on, :posterior, to: self.started_on) if self.stopped_on < self.started_on
-    end
     if plant_farming?
       errors.add(:support_shape, :empty) if self.support_shape && self.support_shape.empty?
     end

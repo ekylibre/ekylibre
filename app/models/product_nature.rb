@@ -74,7 +74,7 @@ class ProductNature < Ekylibre::Record::Base
   serialize :linkage_points_list, SymbolArray
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :picture_updated_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :picture_updated_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_inclusion_of :active, :evolvable, in: [true, false]
   validates_presence_of :category, :name, :number, :population_counting, :variety

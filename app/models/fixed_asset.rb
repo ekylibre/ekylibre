@@ -71,7 +71,8 @@ class FixedAsset < Ekylibre::Record::Base
   has_many :planned_depreciations, -> { order(:position).where('NOT locked OR accounted_at IS NULL') }, class_name: 'FixedAssetDepreciation', dependent: :destroy
   has_one :tool, class_name: 'Equipment'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :ceded_on, :purchased_on, :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1, 1, 1)
+  validates_date :ceded_on, :purchased_on, :started_on, :stopped_on, allow_blank: true, on_or_after: Date.civil(1900, 1, 1), on_or_before: -> { Date.today + 50.years }
+  validates_datetime :stopped_on, allow_blank: true, on_or_after: Proc.new { |a| a.started_on }, if: Proc.new { |a| a.started_on && a.stopped_on }
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, allow_nil: true
   validates_presence_of :allocation_account, :currency, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
   # ]VALIDATORS]

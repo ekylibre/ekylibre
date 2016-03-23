@@ -55,7 +55,7 @@ class CashTransfer < Ekylibre::Record::Base
   belongs_to :reception_cash, class_name: 'Cash'
   belongs_to :reception_journal_entry, class_name: 'JournalEntry'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :transfered_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :accounted_at, :transfered_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
   validates_numericality_of :currency_rate, :emission_amount, :reception_amount, allow_nil: true
   validates_presence_of :currency_rate, :emission_amount, :emission_cash, :emission_currency, :number, :reception_amount, :reception_cash, :reception_currency, :transfered_at
   # ]VALIDATORS]

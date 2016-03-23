@@ -69,7 +69,7 @@ class Parcel < Ekylibre::Record::Base
   # has_many :interventions, class_name: 'Intervention', as: :resource
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :given_at, :in_preparation_at, :ordered_at, :planned_at, :prepared_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :given_at, :in_preparation_at, :ordered_at, :planned_at, :prepared_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
   validates_inclusion_of :remain_owner, in: [true, false]
   validates_presence_of :nature, :number, :planned_at, :state
   # ]VALIDATORS]

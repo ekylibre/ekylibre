@@ -88,7 +88,7 @@ class Sale < Ekylibre::Record::Base
   has_many :journal_entries, as: :resource
   has_many :subscriptions, class_name: 'Subscription'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
   validates_numericality_of :amount, :downpayment_amount, :pretax_amount, allow_nil: true
   validates_inclusion_of :credit, :has_downpayment, :letter_format, in: [true, false]
   validates_presence_of :amount, :client, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
