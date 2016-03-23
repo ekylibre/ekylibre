@@ -24,13 +24,41 @@ module Backend
 
     unroll :name, :unit_name, :number
 
-    list do |t|
+    # params:
+    #   :q Text search
+    #   :working_set
+    #   :nature_id
+    #   :category_id
+    def self.variants_conditions
+      code = search_conditions(product_nature_variants: [:name, :number]) + " ||= []\n"
+      code << "unless params[:working_set].blank?\n"
+      code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
+      code << "  c[0] << \" AND product_nature_variants.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
+      code << "end\n"
+      code << "if params[:nature_id].to_i > 0\n"
+      code << "  c[0] << \" AND product_nature_variants.nature_id = ?\"\n"
+      code << "  c << params[:nature_id].to_i\n"
+      code << "end\n"
+      code << "if params[:category_id].to_i > 0\n"
+      code << "  c[0] << \" AND product_nature_variants.category_id = ?\"\n"
+      code << "  c << params[:category_id].to_i\n"
+      code << "end\n"
+      code << "c\n"
+      code.c
+    end
+
+    list(conditions: variants_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :number
       t.column :nature, url: true
+      t.column :current_stock
+      t.column :current_outgoing_stock_ordered_not_delivered
       t.column :unit_name
+      t.column :variety
+      t.column :derivative_of
+      t.column :active
     end
 
     list(:catalog_items, conditions: { variant_id: 'params[:id]'.c }) do |t|
