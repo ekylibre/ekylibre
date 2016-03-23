@@ -462,13 +462,7 @@
       .popup-content {
         .popup-block-label {
           display: block;
-          &, * {
-            color: $neutral-color;
-            text-transform: uppercase;
-            font-size: $fs-small;
-            line-height: $lh-small;
-            font-weight: bold;
-          }
+          @include legend-label;
         }
         &:last-child {
           padding-bottom: 2*$default-gap;

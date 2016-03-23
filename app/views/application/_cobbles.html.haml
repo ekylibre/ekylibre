@@ -3,6 +3,7 @@
     - cobbler.each do |cobble|
       .cobble{id: cobble.id, class: "cobble-#{cobble.id.to_s.singularize}"}
         .cobble-heading
+          = cobble_toolbar_tag(cobble, :meta)
           %h3.cobble-title
             %i
             = cobble.title
@@ -10,7 +11,6 @@
             - cobble.others.each do |item|
               = link_to(item.title, "##{item.id}")
         .cobble-body
-          = cobble_toolbar_tag(cobble, :meta)
           = cobble_toolbar_tag(cobble, :main)
           .cobble-content= cobble.content
           .cobble-end

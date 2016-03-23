@@ -726,22 +726,20 @@ form.search {
 }
 
 .big-info, .med-info {
-  padding: $default-gap 2 * $default-gap;
+  padding: $default-gap 3 * $default-gap;
   @include box-sizing(border-box);
-  border: 1px solid #DDD;
-  margin: 0 $default-gap $default-gap;
+  // border: 1px solid #DDD;
+  // margin: 0 $default-gap $default-gap;
 
   .title {
     display: block;
-    color: $neutral-color;
-    font-size: $fs-normal;
-    line-height: $lh-normal;
-    // @include text-align(center);
+    @include legend-label;
   }
   .value {
     white-space: nowrap;
     @include ellipsis;
     display: block;
+    height: $lh-very-huge;
     &, * {
       font-family: $awesome-font-family;
       font-size: $fs-very-huge;
@@ -774,14 +772,17 @@ form.search {
   &.caution .value {
     color: $caution-color;
   }
+  &:hover {
+    background: rgba(black, 0.02);
+  }
 }
 
 .big-infos {
   @include respond-to-bigger-than(medium) {
     @include clearfix;
     .med-info, .big-info {
-      width: 31.33%;
-      margin: 0 1% $default-gap;
+      width: 33.33%;
+      // margin: 0 1% $default-gap;
       @include float(left);
     }
   }
@@ -797,6 +798,7 @@ form.search {
 
 .info {
   @include ellipsis;
+  padding: 2 * $default-gap;
   &, & * {
     font-size: $fs-large;
     line-height: $lh-large;
@@ -846,10 +848,7 @@ form.search {
     }
   }
   $attribute-label-width: 40%;
-  margin: 0 $default-gap 1em;
-  &:last-child {
-    margin-bottom: 0;
-  }
+  padding: $default-gap 2*$default-gap;
   dl {
     @include inline-block;
     @include clearfix;
@@ -1936,13 +1935,16 @@ ul.tree {
   }
 }
 
-ul.desc-list {
+.desc-list-group {
   @include description-list;
 }
 
 ul.casts, ul.parameters, ul.product-parameters, ul.product_parameters {
   @include description-list;
   li.cast {
+    .picture {
+      @include margin-left(0);
+    }
     .details {
       h3 {
         &, * {
@@ -2035,6 +2037,9 @@ svg.map {
 }
 
 
+.cell-content > *[data-highcharts] {
+  margin: $default-gap;
+}
 #demo-pie, #demo-map, #product-bar-chart, #bank-chart, #expense-chart {
   text-align: center;
   > *, embed {
@@ -2045,6 +2050,10 @@ svg.map {
 }
 
 /* Pop overs */
+
+.help-panel {
+  padding: 2 * $default-gap;
+}
 
 .help-message {
   margin-bottom: $default-gap;
@@ -2146,15 +2155,18 @@ svg.map {
   @include text-shadow(0 -1px round($fs-small*0.2) rgba(black,0.25));
   font-size: $fs-small;
   font-weight: bold;
-  padding: 0 round(0.45*$fs-small) ($fs-normal - $fs-small);
+  padding: ($fs-normal - $fs-small) round(0.45*$fs-small);
   vertical-align: baseline;
   line-height: $fs-normal;
-  height: $fs-small;
+  height: $fs-normal;
   color: white !important;
   white-space: nowrap;
-  a:not([disabled]) > & {
-    background-color: $active-link-color;
-  }
+  margin-top: 0.5*($lh-normal - $lh-small);
+  min-width: 2ex;
+  text-align: center;
+  /* a:not([disabled]) > & { */
+  /*   background-color: $active-link-color; */
+  /* } */
 }
 
 .aggregator {
@@ -2452,10 +2464,10 @@ a[data-annotate] {
       margin: 2 * $default-gap 0;
       // border: 1px solid #EEE;
       @include normal-shadow;
-      padding: 0 $default-gap $default-gap;
+      // padding: 0 $default-gap $default-gap;
       background: white;
       .cobble-heading {
-        padding: $default-gap;
+        padding: $default-gap 2 * $default-gap;
         border-bottom: 1px solid #DDD;
         .cobble-title {
           font-size: $fs-large;
@@ -2501,14 +2513,17 @@ a[data-annotate] {
         }
       }
       .cobble-body {
-        padding: $default-gap;
+        // padding: $default-gap;
         .cobble-toolbar {
-          margin: 0 0 $default-gap;
           .list-pagination {
             float: none;
           }
           &.cobble-meta-toolbar {
             @include float(right);
+            margin: $default-gap 0;
+          }
+          &.cobble-main-toolbar {
+            padding: $default-gap;
           }
         }
         .cobble-content {

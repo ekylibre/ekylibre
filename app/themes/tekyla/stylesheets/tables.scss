@@ -19,7 +19,7 @@ table {
   margin: 0;
   th, td {
     background: white;
-    padding: round($default-gap * 0.7);
+    padding: $default-gap;
     font-size: $fs-normal;
     line-height: $lh-normal;
     min-height: $lh-normal;

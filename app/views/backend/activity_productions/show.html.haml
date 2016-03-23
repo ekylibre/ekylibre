@@ -2,47 +2,49 @@
   = t.edit resource
   = t.destroy
 
-= cobbles do |c|
-  - c.cobble :general_informations do
-    - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
-      = mini_map(resource.support)
-      = infos do
-        .med-info.important
-          %span.title= LandParcel.human_attribute_name(:net_surface_area)
-          %span.value= resource.human_support_shape_area
+= main_informations do
+  - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
+    = mini_map(resource.support)
+    = infos do
+      .med-info.important
+        %span.title= LandParcel.human_attribute_name(:net_surface_area)
+        %span.value= resource.human_support_shape_area
+      .med-info
+        %span.title= ActivityProduction.human_attribute_name(:support_nature)
+        %span.value= resource.support_nature.text
+      - usage = Nomen::ProductionUsage.find(resource.usage)
+      - if usage
         .med-info
-          %span.title= ActivityProduction.human_attribute_name(:support_nature)
-          %span.value= resource.support_nature.text
-        - usage = Nomen::ProductionUsage.find(resource.usage)
-        - if usage
-          .med-info
-            %span.title= ActivityProduction.human_attribute_name(:usage)
-            %span.value= usage.human_name
+          %span.title= ActivityProduction.human_attribute_name(:usage)
+          %span.value= usage.human_name
+      .med-info
+        %span.title= ActivityProduction.human_attribute_name(:irrigated)
+        %span.value
+          %i.picto{class: "picto-#{resource.irrigated ? :done : :clear}"}
+      .med-info
+        %span.title= ActivityProduction.human_attribute_name(:nitrate_fixing)
+        %span.value
+          %i.picto{class: "picto-#{resource.nitrate_fixing ? :done : :clear}"}
+      - if resource.plant_farming? && resource.cap_land_parcel
         .med-info
-          %span.title= ActivityProduction.human_attribute_name(:irrigated)
-          %span.value
-            %i.picto{class: "picto-#{resource.irrigated ? :done : :clear}"}
-        .med-info
-          %span.title= ActivityProduction.human_attribute_name(:nitrate_fixing)
-          %span.value
-            %i.picto{class: "picto-#{resource.nitrate_fixing ? :done : :clear}"}
-        - if resource.plant_farming? && resource.cap_land_parcel
-          .med-info
-            %span.title= CapLandParcel.human_attribute_name(:land_parcel_number)
-            %span.value= link_to(resource.cap_land_parcel.land_parcel_number, {controller: :cap_land_parcels, action: :show, id: resource.cap_land_parcel.id})
+          %span.title= CapLandParcel.human_attribute_name(:land_parcel_number)
+          %span.value= link_to(resource.cap_land_parcel.land_parcel_number, {controller: :cap_land_parcels, action: :show, id: resource.cap_land_parcel.id})
 
-        -# if resource.estimate_yield.to_d > 0.0
-          .med-info
-            %span.title= :estimate_yield.tl
-            %span.value= resource.estimate_yield.l
-        - if resource.implanted_at
-          .med-info
-            %span.title= :implanted_at.tl
-            %span.value= resource.implanted_at.l
-        - if resource.harvested_at
-          .med-info
-            %span.title= :harvested_at.tl
-            %span.value= resource.harvested_at.l
+      -# if resource.estimate_yield.to_d > 0.0
+        .med-info
+          %span.title= :estimate_yield.tl
+          %span.value= resource.estimate_yield.l
+      - if resource.implanted_at
+        .med-info
+          %span.title= :implanted_at.tl
+          %span.value= resource.implanted_at.l
+      - if resource.harvested_at
+        .med-info
+          %span.title= :harvested_at.tl
+          %span.value= resource.harvested_at.l
+
+
+= cobbles do |c|
 
   - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
     - c.cobble :weather do
@@ -170,4 +172,5 @@
   - c.cobble(:interventions) do
     = cobble_toolbar do |t|
       = t.new(params: {controller: :interventions, production_support_id: resource.id})
-    = cobble_list(:interventions)
+    - if resource.interventions.any?
+      = cobble_list(:interventions)

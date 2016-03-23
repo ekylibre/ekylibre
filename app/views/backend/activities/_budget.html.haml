@@ -1,6 +1,6 @@
-= infos do
-  - budget = resource.budgets.find_by(campaign: current_campaign)
-  - if budget && budget.items.any?
+- budget = resource.budgets.find_by(campaign: current_campaign)
+- if budget && budget.items.any?
+  = infos do
     - balance = budget.revenues_amount.round(budget.currency_precision) - budget.expenses_amount.round(budget.currency_precision)
     = link_to(controller: :activity_budgets, action: :edit, id: budget.id, redirect: request.fullpath) do
       = info ActivityBudget.human_attribute_name(:revenues_amount), budget.revenues_amount.round(budget.currency_precision).l(currency: budget.currency)
@@ -9,7 +9,8 @@
     .big-info{class: (balance > 0 ? :positive : balance <= 0 ? :negative : :caution)}
       %span.title= :balance.tl
       %span.value= balance.round(budget.currency_precision).l(currency: budget.currency)
-  - else
+- else
+  .help-panel
     %p.help-message= :no_budget_defined_for_current_campaign.tn
     - if current_campaign.preceding && resource.budgets.find_by(campaign: current_campaign.preceding)
       - source = resource.budgets.find_by(campaign: current_campaign.preceding)

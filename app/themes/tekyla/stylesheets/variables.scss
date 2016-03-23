@@ -50,8 +50,8 @@ $brand-info: $neutral-color;
 $brand-warning: $caution-color;
 $brand-danger: $invalid-color;
 
-$hover-transparency: 0.75 !default;
-$hover-mask: transparentize($base-color, $hover-transparency);
+$hover-transparency: 0.92 !default;
+$hover-mask: transparentize($neutral-color, $hover-transparency);
 
 $neutral-background: change-color($neutral-color, $lightness: 94%) !default;
 $input-background:   $desktop-background;

@@ -409,8 +409,18 @@
   }
 }
 
+@mixin legend-label {
+  &, * {
+    color: $neutral-color;
+    text-transform: uppercase;
+    font-size: $fs-small;
+    line-height: $lh-small;
+    font-weight: bold;
+  }
+}
+
 @mixin normal-shadow {
-  @include box-shadow(0.5px 0.5px $default-gap*0.6 rgba(black, 0.2));
+  @include box-shadow(0 0.5px $default-gap*0.7 rgba(black, 0.3));
 }
 
 @mixin incrust-shadow {
@@ -544,46 +554,23 @@
 }
 
 @mixin description-list {
-  padding: round($default-gap * 0.3);
-  & > li {
+  padding: 0;
+  @include clearfix;
+  & > li, & > a, & > .desc-list-group-item {
     display: block;
-    border: 1px solid transparent;
-    padding: round($default-gap / 2) $default-gap;
-    margin-top: $default-gap;
+    padding: $default-gap $default-gap * 2;
     @include clearfix;
+    border-top: $menu-border;
     &:first-child {
-      margin-top: 0;
+      border-top: none;
     }
-    & > h3, & > a > h3 {
-      small {
-        color: #AAA;
-      }
-      i.lock {
-        @include is-icon(12px);
-        @include use-icon(lock);
-      }
-      &, *, a, i, small {
-        display: inline;
-        line-height: $lh-ratio * $fs-normal;
-        vertical-align: middle;
-      }
+    &:link:hover {
+      // border-color: #DDD;
+      // @include box-shadow(0 0 round($default-gap * 0.3) rgba(#000, 0.25));
+      background: background-hover(white);
     }
-    & > p, & > a > p {
-      line-height: $lh-ratio * 1em;
-      color: #777;
-      text-align: justify;
-    }
-    &.link {
-      padding: 0;
-      & > a {
-        display: block;
-        padding: round($default-gap / 2) $default-gap;
-        &:hover {
-          border-color: #DDD;
-          @include box-shadow(0 0 round($default-gap * 0.3) rgba(#000, 0.25));
-          background: white;
-        }
-      }
+    span.badge {
+      @include float(right);
     }
   }
   .cell-content & {

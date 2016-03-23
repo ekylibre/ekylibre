@@ -1,8 +1,6 @@
-%ul.desc-list
+.desc-list-group
   - [User, Team, Account, FinancialYear, ProductNatureCategory, ProductNature, ProductNatureVariant, Campaign, Worker, Building, LandParcel, Settlement].each do |model|
-    %li.link
-      - collection = model.name.underscore.pluralize
-      = link_to(controller: "/backend/#{collection}", action: :index) do
-        %h3
-          = "actions.backend/#{collection}.index".t
-          %span.badge= model.count
+    - collection = model.name.underscore.pluralize
+    = link_to({controller: "/backend/#{collection}", action: :index}, class: 'desc-list-group-item') do
+      %span.badge= model.count
+      = "actions.backend/#{collection}.index".t

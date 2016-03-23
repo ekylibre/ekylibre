@@ -130,11 +130,8 @@ $chronology-background-color: #EEE;
 }
 
 .activity-productions {
+  @include clearfix;
   .activity-production {
-    margin-top: 2*$default-gap;
+    margin: 2*$default-gap;
   }
-}
-
-.productions-list {
-  padding: 0 2 * $fs-normal 2 * $fs-normal;
 }
