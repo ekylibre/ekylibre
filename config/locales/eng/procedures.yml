@@ -26,6 +26,7 @@ eng:
     #~ stakes_count: "Stakes count"
     # sulfur_dioxide_density: "Sulfur dioxide density"
     #~ surface_area_percentage: "Surface area percentage"
+    # ton: "Ton"
     #~ volume_area_density: "Volume area density"
     #~ volume_density: "Volume density"
   procedure_parameters:

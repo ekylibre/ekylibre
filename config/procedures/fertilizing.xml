@@ -15,6 +15,10 @@
                  if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
                  backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+        <handler name="ton" indicator="mass_area_density" unit="ton_per_hectare"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum_working_zone_areas(land_parcel, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(ton)"/>
         <handler name="nitrogen" indicator="mass_area_density" unit="kilogram_per_hectare"
                  if="PRODUCT..net_mass? and PRODUCT..nitrogen_concentration? and sum_working_zone_areas(land_parcel) != 0"
                  backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(land_parcel, :hectare)"

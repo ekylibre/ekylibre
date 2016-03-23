@@ -18,7 +18,7 @@
 
 module Backend
   class LandParcelsController < Backend::MattersController
-    
+
     # params:
     #   :q Text search
     def self.land_parcels_conditions
@@ -27,7 +27,7 @@ module Backend
       code << "c\n"
       code.c
     end
-    
+
     list(conditions: land_parcels_conditions) do |t|
       t.action :edit
       t.action :destroy

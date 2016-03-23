@@ -156,12 +156,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           # case A1 : CZ
           if product.is_a?(CultivableZone)
             ap = nil
-            ap = if r.target_variety && r.target_variant
-                   ActivityProduction.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).of_cultivation_variants(r.target_variant).where(cultivable_zone: product)
-                 elsif r.target_variety
-                   ActivityProduction.of_campaign(r.campaign).of_cultivation_varieties(r.target_variety).where(cultivable_zone: product)
-                 elsif r.target_variant
-                   ActivityProduction.of_campaign(r.campaign).of_cultivation_variants(r.target_variant).where(cultivable_zone: product)
+            ap = if r.target_variety
+                   ActivityProduction.of_campaign(r.campaign).of_cultivation_variety(r.target_variety).where(cultivable_zone: product)
                  else
                    ActivityProduction.of_campaign(r.campaign).where(cultivable_zone: product)
                  end
@@ -206,7 +202,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
             # w.info ' #{plants.count} plants : ' + plants.map(&:name).inspect.yellow if plants
             targets = supports
 
-            intervention = record_default_intervention(r, targets)
+            intervention = record_default_intervention(r, targets, procedures_transcode)
             #intervention = send("record_#{r.procedure_name}", r, targets)
 
       else
@@ -528,11 +524,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #### INTERVENTIONS       ####
   ##################################
 
-  def record_default_intervention(r, targets)
+  def record_default_intervention(r, targets, procedures_transcode)
 
     # retrieve procedure from its name and set basics attributes
     procedure = Procedo.find(procedures_transcode[r.procedure_name])
-    attributes = {procedure_name: procedure.name, actions: procedure.mandatory_actions, description: r.description}
+    attributes = {procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description}
 
     ## working_periods
     attributes[:working_periods_attributes] = {"0" => {started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M')}}
@@ -558,11 +554,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       next if actor.product.nil?
       procedure.parameters_of_type(:input).each do |input|
         # find measure from quantity
-        puts actor.inspect.red
+        puts actor.inspect.green
         product_measure = actor_measure_conversion(actor)
-        puts product_measure.value.inspect.red
+        puts product_measure.inspect.green
         # find best handler for product measure
-        handler = input.best_handler_for(product_measure).name
+        i = input.best_handler_for(product_measure)
+        if i.kind_of?(Array)
+          handler = input.best_handler_for(product_measure).first.name
+        else
+          handler = input.best_handler_for(product_measure).name
+        end
+        puts handler.inspect.green
         if actor.product.of_expression(input.filter)
           attributes[:inputs_attributes] ||= {}
           attributes[:inputs_attributes][index.to_s] = {reference_name: input.name, product_id: actor.product.id, quantity_handler: handler, quantity_value: product_measure.to_f}
@@ -573,11 +575,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
 
     ## tools
-    r.equipments.each do |equipment, index|
+    r.equipments.each_with_index do |equipment, index|
       procedure.parameters_of_type(:tool).each do |tool|
-        puts tool.inspect.green
-        puts tool.filter.inspect.green
-        puts equipment.of_expression(tool.filter).inspect.green
+        puts tool.inspect.yellow
+        puts tool.filter.inspect.yellow
+        puts equipment.of_expression(tool.filter).inspect.yellow
         if equipment.of_expression(tool.filter)
           attributes[:tools_attributes] ||= {}
           attributes[:tools_attributes][index.to_s] = {reference_name: tool.name, product_id: equipment.id}
@@ -585,10 +587,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
       end
     end
+    puts attributes[:tools_attributes].inspect.yellow
 
 
     ## doers
-    r.workers.each do |worker, index|
+    r.workers.each_with_index do |worker, index|
       procedure.parameters_of_type(:doer).each do |doer|
         if worker.of_expression(doer.filter)
           attributes[:doers_attributes] ||= {}
