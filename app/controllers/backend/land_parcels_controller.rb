@@ -18,12 +18,22 @@
 
 module Backend
   class LandParcelsController < Backend::MattersController
-    list do |t|
+    
+    # params:
+    #   :q Text search
+    def self.land_parcels_conditions
+      code = ''
+      code = search_conditions(products: [:name, :number]) + " ||= []\n"
+      code << "c\n"
+      code.c
+    end
+    
+    list(conditions: land_parcels_conditions) do |t|
       t.action :edit
       t.action :destroy
       t.column :name, url: true
-      t.column :identification_number
       t.column :work_number
+      t.column :identification_number
       t.column :net_surface_area, datatype: :measure
     end
   end
