@@ -654,6 +654,7 @@ Rails.application.routes.draw do
       member do
         get :detail
         get :list_catalog_items
+        get :list_parcel_items
         get :list_products
         get :list_sale_items
         get :quantifiers
