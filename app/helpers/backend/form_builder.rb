@@ -406,6 +406,8 @@ module Backend
           fs = input(:variant_id, value: variant.id, as: :hidden)
           # Add name
           fs << input(:name)
+          # Add work number
+          fs << input(:work_number)
           # Add variant selector
           fs << variety(scope: variant)
 
