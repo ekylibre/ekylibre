@@ -119,33 +119,4 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     click_on :create.tl
   end
 
-  test 'create an empty direct link' do
-    visit('/backend')
-    first('#top').click_on(:relationship.tl)
-    click_link('actions.backend/entities.index'.t, href: backend_entities_path)
-    within('#core .kujaku') do
-      fill_in('q', with: 'yue')
-      click_on :search.tl
-    end
-    click_on 'Yuey LTD'
-    sleep(1)
-    click_link :timeline.tl
-    wait_for_ajax
-    page.execute_script("console.log($(\"*[data-toggle='face'][href='timeline']\").html());")
-    page.execute_script('console.log($("#face-timeline").html())')
-    pp page.driver.console_messages
-    # page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
-    # sleep(1)
-
-    assert page.has_css?('#face-timeline.face.active')
-    find('.timeline-tools', visible: :all)
-    find('.timeline-tools')
-
-    find('.timeline-tool.tl-direct_links', visible: :all)
-    find('.tl-direct_links').click_link('actions.backend/entity_links.new'.t)
-
-    # within(:css, '.timeline-tool.tl-direct_links') do
-    #   click_on 'actions.backend/entity_links.new'.t
-    # end
-  end
 end
