@@ -122,6 +122,15 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     w.count = rows.size
 
     information_import_context = "Import Ekylibre interventions on #{Time.zone.now.l}"
+    
+    # Load hash to transcode old procedure
+    # transcode procedure_name from old procedure
+    here = Pathname.new(__FILE__).dirname
+    procedures_transcode = {}.with_indifferent_access
+    CSV.foreach(here.join('procedures.csv'), headers: true) do |row|
+      procedures_transcode[row[0]] = row[1].to_sym
+    end
+    
     rows.each_with_index do |row, _index|
       line_number = _index + 2
       r = parse_row(row)
@@ -206,6 +215,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       
       
       if intervention
+        intervention.description ||= ''
         intervention.description += ' - ' + information_import_context + ' - N° : ' + r.intervention_number.to_s
         intervention.save!
         w.info "Intervention n°#{intervention.id} - #{intervention.name} has been created".green
@@ -220,8 +230,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   protected
   
   # convert measure to variant unit and divide by variant_indicator
-  def measure_convertion(product, population, unit, unit_target_dose)
+  def measure_conversion(product, population, unit, unit_target_dose)
     value = population
+    puts value.inspect.yellow
     nomen_unit = nil
     # concat units if needed
     if unit.present? && unit_target_dose.present?
@@ -242,8 +253,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     if value >= 0.0 && nomen_unit
       measure = Measure.new(value, u)
       return measure
+    else
+      return nil
     end
-    return nil
   end
   
   
@@ -322,8 +334,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
   
   # shortcut to call population_conversion function
-  def actor_measure_convertion(actor)
-    measure_convertion((actor.product.present? ? actor.product : actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose)
+  def actor_measure_conversion(actor)
+    measure_conversion((actor.product.present? ? actor.product : actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose)
   end
 
   # Parse a row of the current file using this reference:
@@ -509,58 +521,66 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       nature.save!
     end
   end
+  
+  
 
   ##################################
-  #### SPRAYING / CUTTING       ####
+  #### INTERVENTIONS       ####
   ##################################
   
-  
   def record_default_intervention(r, targets)
-    
-    # transcode procedure_name from old procedure
-    
+
     # retrieve procedure from its name and set basics attributes
-    procedure = Procedo.find(r.procedure_name)
-    attributes = {procedure_nature: procedure.name, actions: procedure.mandatory_actions, description: r.description}
+    procedure = Procedo.find(procedures_transcode[r.procedure_name])
+    attributes = {procedure_name: procedure.name, actions: procedure.mandatory_actions, description: r.description}
     
     ## working_periods
-    attributes[:working_periods_attributes] = [{started_at: r.intervention_started_at, stopped_at: r.intervention_stopped_at}]
+    attributes[:working_periods_attributes] = {"0" => {started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M')}}
     
     ## targets
-    for target in targets
+    targets.each_with_index do |target, index|
       procedure.parameters_of_type(:target).each do |support|
         puts support.inspect.red
-        puts support.filter.inspect.green
-        puts target.of_expression(support.filter).inspect.yellow
+        puts support.filter.inspect.red
+        puts target.of_expression(support.filter).inspect.red
         if target.of_expression(support.filter)
-          attributes[:targets_attributes] ||= []
-          attributes[:targets_attributes] << {reference_name: support.name, product_id: target.id, working_zone: target.shape}
+          attributes[:targets_attributes] ||= {}
+          attributes[:targets_attributes][index.to_s] = {reference_name: support.name, product_id: target.id, working_zone: target.shape.to_geojson}
           break
         end
       end
     end
     
     ## inputs
-    for product in [r.first, r.second, r.third]
+    updaters = []
+    
+    [r.first, r.second, r.third].each_with_index do |actor, index|
+      next if actor.product.nil?
       procedure.parameters_of_type(:input).each do |input|
         # find measure from quantity
-        product_measure = actor_measure_convertion(product)
+        puts actor.inspect.red
+        product_measure = actor_measure_conversion(actor)
+        puts product_measure.value.inspect.red
         # find best handler for product measure
         handler = input.best_handler_for(product_measure).name
-        if product.of_expression(input.filter)
-          attributes[:inputs_attributes] ||= []
-          attributes[:inputs_attributes] << {reference_name: input.name, product_id: product.product.id, quantity_handler: handler, quantity: product_measure}
+        if actor.product.of_expression(input.filter)
+          attributes[:inputs_attributes] ||= {}
+          attributes[:inputs_attributes][index.to_s] = {reference_name: input.name, product_id: actor.product.id, quantity_handler: handler, quantity_value: product_measure.to_f}
+          updaters << "inputs[#{index}]quantity_value"
           break
         end
       end
     end
     
     ## tools
-    r.equipments.each do |equipment|
+    r.equipments.each do |equipment, index|
       procedure.parameters_of_type(:tool).each do |tool|
+        puts tool.inspect.green
+        puts tool.filter.inspect.green
+        puts equipment.of_expression(tool.filter).inspect.green
         if equipment.of_expression(tool.filter)
-          attributes[:tools_attributes] ||= []
-          attributes[:tools_attributes] << {reference_name: tool.name, product_id: equipment.id}
+          attributes[:tools_attributes] ||= {}
+          attributes[:tools_attributes][index.to_s] = {reference_name: tool.name, product_id: equipment.id}
           break
         end
       end
@@ -568,11 +588,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     
     
     ## doers
-    r.workers.each do |worker|
+    r.workers.each do |worker, index|
       procedure.parameters_of_type(:doer).each do |doer|
         if worker.of_expression(doer.filter)
-          attributes[:doers_attributes] ||= []
-          attributes[:doers_attributes] << {reference_name: doer.name, product_id: worker.id}
+          attributes[:doers_attributes] ||= {}
+          attributes[:doers_attributes][index.to_s] = {reference_name: doer.name, product_id: worker.id}
           break
         end
       end
@@ -580,72 +600,15 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     
     ## impact
     intervention = Procedo::Engine.new_intervention(attributes)
-    intervention.impact_with!(handler)
+    updaters.each do |updater|
+      intervention.impact_with!(updater)
+    end
     
     ## save
-    Intervention.create!(attributes)
+    ::Intervention.create!(intervention.to_hash)
     
   end
   
-  def record_spraying_on_cultivation(r, targets)
-    record_spraying(r, targets)
-  end
-  
-  def record_spraying(r, targets)
-    
-    return nil unless targets && r.first.product
-
-    # create intervention and working period
-    puts "record_spraying".inspect.red
-    intervention = Intervention.create!(procedure_name: :spraying, actions: "herbicide, fungicide, insecticide" ,description: r.procedure_description, started_at: r.intervention_started_at, stopped_at: r.intervention_stopped_at, state: :done)
-    intervention.add_working_period!(r.intervention_started_at, r.intervention_stopped_at)
-    
-    # create actors
-    ## cultivation
-    for target in targets
-      intervention.targets.create!(product: target, reference_name: 'cultivation', working_zone: target.shape)
-    end
-    
-    ## plant_medicine
-    if r.first.product
-      product_measure = actor_measure_convertion(r.first)
-      if product_measure.unit == :kilogram
-        intervention.inputs.create!(product: r.first.product, reference_name: 'plant_medicine', quantity_handler: 'net_mass', quantity: product_measure)
-      elsif product_measure.unit == :kilogram_per_hectare
-        intervention.inputs.create!(product: r.first.product, reference_name: 'plant_medicine', quantity_handler: 'mass_area_density', quantity: product_measure)
-      elsif product_measure.unit == :liter_per_hectare
-        intervention.inputs.create!(product: r.first.product, reference_name: 'plant_medicine', quantity_handler: 'volume_area_density', quantity: product_measure)
-      end
-    end
-    
-    ## sprayer
-    if r.equipments.present?
-      actors = Intervention.find_products(Equipment, work_number: r.equipment_codes, can: 'spray')
-      for actor in actors
-        intervention.tools.create!(product: actor, reference_name: 'sprayer')
-      end
-    end
-    
-    ## tractor
-    if r.equipments.present?
-      actors = Intervention.find_products(Equipment, work_number: r.equipment_codes, can: 'catch(sprayer)')
-      for actor in actors
-        intervention.tools.create!(product: actor, reference_name: 'tractor')
-      end
-    end
-    
-    ## driver
-    if r.workers.present?
-      actors = Intervention.find_products(Worker, work_number: r.worker_codes, can: 'drive(tractor)')
-      for actor in actors
-        intervention.doers.create!(product: actor, reference_name: 'driver')
-      end
-    end
-    
-    intervention
-  end
-
-
 
   ###############################
   ####  SOWING / IMPLANTING  ####
