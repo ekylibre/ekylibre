@@ -48,7 +48,7 @@ class Task < Ekylibre::Record::Base
   belongs_to :sale_opportunity
   belongs_to :executor, -> { responsibles }, class_name: 'Entity'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :due_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
+  validates_datetime :due_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_presence_of :due_at, :entity, :name, :nature, :state
   # ]VALIDATORS]
   versionize

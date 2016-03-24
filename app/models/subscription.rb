@@ -56,8 +56,8 @@ class Subscription < Ekylibre::Record::Base
   belongs_to :sale
   belongs_to :sale_item, class_name: 'SaleItem'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: Proc.new { |a| a.started_at }, if: Proc.new { |a| a.started_at && a.stopped_at }
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(subscription) { subscription.stopped_at && subscription.started_at }
   validates_numericality_of :first_number, :last_number, allow_nil: true, only_integer: true
   validates_numericality_of :quantity, allow_nil: true
   validates_inclusion_of :suspended, in: [true, false]

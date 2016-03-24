@@ -45,8 +45,8 @@ class ProductLinkage < Ekylibre::Record::Base
   enumerize :nature, in: [:available, :unavailable, :occupied], default: :available, predicates: true
   enumerize :point, in: [:rear, :front]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: Proc.new { |a| a.started_at }, if: Proc.new { |a| a.started_at && a.stopped_at }
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(product_linkage) { product_linkage.stopped_at && product_linkage.started_at }
   validates_presence_of :carrier, :nature, :point
   # ]VALIDATORS]
   validates_presence_of :carried, if: :occupied?

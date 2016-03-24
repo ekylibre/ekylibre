@@ -1531,6 +1531,10 @@
       <item name="last_analyses_cells">
         <page to="backend/cells/last_analyses_cells#show"/>
       </item>
+      <item name="last_movements_cells">
+        <page to="backend/cells/last_movements_cells#list"/>
+        <page to="backend/cells/last_movements_cells#show"/>
+      </item>
       <item name="last_outgoing_parcels_cells">
         <page to="backend/cells/last_outgoing_parcels_cells#list"/>
         <page to="backend/cells/last_outgoing_parcels_cells#show"/>
@@ -1733,11 +1737,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="last_movements_cells">
-        <page to="backend/cells/last_movements_cells#list"/>
-        <page to="backend/cells/last_movements_cells#show"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

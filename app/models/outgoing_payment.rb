@@ -57,7 +57,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   belongs_to :payee, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
+  validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :amount, allow_nil: true
   validates_inclusion_of :delivered, :downpayment, in: [true, false]
   validates_presence_of :amount, :cash, :currency, :mode, :payee, :responsible, :to_bank_at

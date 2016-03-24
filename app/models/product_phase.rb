@@ -45,8 +45,8 @@ class ProductPhase < Ekylibre::Record::Base
   belongs_to :nature,   class_name: 'ProductNature'
   belongs_to :category, class_name: 'ProductNatureCategory'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: Proc.new { |a| a.started_at }, if: Proc.new { |a| a.started_at && a.stopped_at }
+  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(product_phase) { product_phase.stopped_at && product_phase.started_at }
   validates_presence_of :category, :nature, :product, :variant
   # ]VALIDATORS]
 

@@ -79,7 +79,7 @@ class Affair < Ekylibre::Record::Base
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :closed_at, :dead_line_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
+  validates_datetime :accounted_at, :closed_at, :dead_line_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :credit, :debit, :pretax_amount, :probability_percentage, allow_nil: true
   validates_inclusion_of :closed, in: [true, false]
   validates_presence_of :credit, :currency, :debit, :number, :third, :third_role

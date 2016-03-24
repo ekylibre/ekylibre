@@ -45,8 +45,8 @@ class LoanRepayment < Ekylibre::Record::Base
   has_one :cash, through: :loan
   has_one :journal, through: :cash
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :due_on, allow_blank: true, on_or_after: Date.civil(1900, 1, 1), on_or_before: -> { Date.today + 50.years }
-  validates_datetime :accounted_at, allow_blank: true, on_or_after: DateTime.civil(1900, 1, 1), on_or_before: -> { DateTime.now + 50.years }
+  validates_date :due_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
+  validates_datetime :accounted_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :amount, :base_amount, :insurance_amount, :interest_amount, :remaining_amount, allow_nil: true
   validates_presence_of :amount, :base_amount, :due_on, :insurance_amount, :interest_amount, :loan, :remaining_amount
   # ]VALIDATORS]

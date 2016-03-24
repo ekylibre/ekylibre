@@ -42,7 +42,7 @@ class Tracking < Ekylibre::Record::Base
   belongs_to :producer, class_name: 'Entity'
   belongs_to :product
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :usage_limit_on, allow_blank: true, on_or_after: Date.civil(1900, 1, 1), on_or_before: -> { Date.today + 50.years }
+  validates_date :usage_limit_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
   validates_inclusion_of :active, in: [true, false]
   validates_presence_of :name
   # ]VALIDATORS]
