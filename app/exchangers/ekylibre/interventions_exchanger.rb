@@ -184,27 +184,25 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       # case 1 supports exists
       if supports.any?
+            # w.info r.to_h.to_yaml
+            w.info "----------- L#{line_number.to_s.yellow} : #{r.intervention_number} / #{supports.map(&:name).to_sentence} -----------".blue
+            w.info ' procedure : ' + r.procedure_name.inspect.green
+            w.info ' started_at : ' + r.intervention_started_at.inspect.yellow if r.intervention_started_at
+            w.info ' first product : ' + r.first.product.name.inspect.red if r.first.product
+            w.info ' first product quantity : ' + r.first.product.input_population.to_s + ' ' + r.first.product.input_unit_name.to_s.inspect.red if r.first.product_input_population
+            w.info ' second product : ' + r.second.product.name.inspect.red if r.second.product
+            w.info ' third product : ' + r.third.product.name.inspect.red if r.third.product
+            w.info ' target variety : ' + r.target_variety.inspect.yellow if r.target_variety
+            w.info ' supports : ' + supports.map(&:name).to_sentence.inspect.yellow if supports
+            w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
+            w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
 
-        # w.info r.to_h.to_yaml
-        w.info "----------- L#{line_number.to_s.yellow} : #{r.intervention_number} / #{supports.map(&:name).to_sentence} -----------".blue
-        w.info ' procedure : ' + r.procedure_name.inspect.green
-        w.info ' started_at : ' + r.intervention_started_at.inspect.yellow if r.intervention_started_at
-        w.info ' first product : ' + r.first.product.name.inspect.red if r.first.product
-        w.info ' first product quantity : ' + r.first.product.input_population.to_s + ' ' + r.first.product.input_unit_name.to_s.inspect.red if r.first.product_input_population
-        w.info ' second product : ' + r.second.product.name.inspect.red if r.second.product
-        w.info ' third product : ' + r.third.product.name.inspect.red if r.third.product
-        w.info ' target variety : ' + r.target_variety.inspect.yellow if r.target_variety
-        w.info ' supports : ' + supports.map(&:name).to_sentence.inspect.yellow if supports
-        w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
-        w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
+            # plants = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
+            # w.info ' #{plants.count} plants : ' + plants.map(&:name).inspect.yellow if plants
+            targets = supports
 
-        # plants = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
-        # w.info ' #{plants.count} plants : ' + plants.map(&:name).inspect.yellow if plants
-        targets = supports
-
-        intervention = record_default_intervention(r, targets, procedures_transcode)
-      # intervention = send("record_#{r.procedure_name}", r, targets)
-
+            intervention = qualify_intervention(r, targets, procedures_transcode)
+            #intervention = send("record_#{r.procedure_name}", r, targets)
       else
         w.warn "Cannot add intervention #{r.intervention_number} without support"
       end
@@ -520,10 +518,33 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #### INTERVENTIONS       ####
   ##################################
 
-  def record_default_intervention(r, targets, procedures_transcode)
+  def qualify_intervention(r, targets, procedures_transcode)
+    
     # retrieve procedure from its name and set basics attributes
     procedure = Procedo.find(procedures_transcode[r.procedure_name])
-    attributes = { procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description }
+    
+    # check if procedure is simple or not (with group parameter)
+    simple = true
+    procedure.parameters.each do |parameter|
+      if parameter == "group_parameter"
+        simple = false 
+        break
+      end
+    end
+    
+    if simple
+      return record_default_intervention(r, targets, procedure)
+    else
+      return record_complex_intervention(r, targets, procedure)
+    end
+    
+  end
+  
+  
+  def record_default_intervention(r, targets, procedure)
+
+    # build base procedure
+    attributes = {procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description}
 
     ## working_periods
     attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
@@ -600,12 +621,20 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     ## save
     ::Intervention.create!(intervention.to_hash)
   end
-
+  
+  
+  def record_complex_intervention(r, targets, procedure)
+    
   ###############################
   ####  SOWING / IMPLANTING  ####
   ###############################
 
   #################################
-  ####  HARVESTING             ####
+  ####  ANIMAL             ####
   #################################
+  
+   return nil
+   
+  end
+
 end
