@@ -1281,6 +1281,7 @@ eng:
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?
     parameters: "Parameters"
+    # parcel_items: "Parcel items"
     parcels: "Parcels"
     participants: "Participants"
     participations: "Participations"

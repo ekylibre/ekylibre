@@ -88,7 +88,7 @@ module Backend
       t.column :reduction_percentage
       t.column :unit_pretax_amount
     end
-    
+
     list(:parcel_items, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :number, through: :parcel, url: true
       t.column :planned_at, through: :parcel, datatype: :datetime
