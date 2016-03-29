@@ -35,10 +35,9 @@ class FixtureRetriever
     end
   end
 
-
   def invoke(role = :first, default_value = nil)
     if @model
-      ["#{@table}", normalize(@options[role] || default_value || role)]
+      [@table.to_s, normalize(@options[role] || default_value || role)]
     else
       raise 'No valid model given, cannot retrieve fixture from that'
     end
@@ -106,30 +105,26 @@ class ActiveSupport::TestCase
     Rails.root.join('test', 'fixture-files')
   end
 
-  def self.test_model_actions(options = {}, &block)
-
-    model = self.to_s.slice(0..-5).constantize
+  def self.test_model_actions(_options = {})
+    model = to_s.slice(0..-5).constantize
     fixtures_to_use = FixtureRetriever.new(model)
 
-=begin
-    test 'create' do
-      fixture = fixtures_to_use.invoke(:first)
-      object = send(fixture[0], fixture[1])
-      assert object.save!
-    end
-
-    # TODO: improve date validations
-    test 'dates validations' do
-      fixture = fixtures_to_use.invoke(:first)
-      object = send(fixture[0], fixture[1])
-      columns = model.content_columns.select{ |c| c.type == :datetime || c.type == :date || c.type == :timestamp }
-      columns.each do |c|
-        object[c.name] = DateTime.new(72016, 1, 1)
-      end
-      assert !object.save, object.errors.inspect
-    end
-=end
-
+    #     test 'create' do
+    #       fixture = fixtures_to_use.invoke(:first)
+    #       object = send(fixture[0], fixture[1])
+    #       assert object.save!
+    #     end
+    #
+    #     # TODO: improve date validations
+    #     test 'dates validations' do
+    #       fixture = fixtures_to_use.invoke(:first)
+    #       object = send(fixture[0], fixture[1])
+    #       columns = model.content_columns.select{ |c| c.type == :datetime || c.type == :date || c.type == :timestamp }
+    #       columns.each do |c|
+    #         object[c.name] = DateTime.new(72016, 1, 1)
+    #       end
+    #       assert !object.save, object.errors.inspect
+    #     end
   end
 end
 
