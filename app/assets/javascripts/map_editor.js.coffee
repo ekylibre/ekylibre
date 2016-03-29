@@ -393,17 +393,18 @@
       this
 
     onEachFeature: (feature, layer) ->
-      if not feature.properties.internal_id?
-        feature.properties['internal_id'] = new Date().getTime()
-        feature.properties['removable'] = true
+      if feature.properties?
+        if not feature.properties.internal_id?
+          feature.properties['internal_id'] = new Date().getTime()
+          feature.properties['removable'] = true
 
-      if not feature.properties.name?
-        feature.properties.name = if feature.properties.id? then "#{this.counter}-  #{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else "#{this.counter}-  #{this.options.defaultLabel}"
+        if not feature.properties.name?
+          feature.properties.name = if feature.properties.id? then "#{this.counter}-  #{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else "#{this.counter}-  #{this.options.defaultLabel}"
 
-      this.counter += 1
-      feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
+        this.counter += 1
+        feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
 
-      layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className: 'leaflet-reference-label'})
+        layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className: 'leaflet-reference-label'})
 
       $(this.element).trigger('mapeditor:feature_add', feature)
 

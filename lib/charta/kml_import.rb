@@ -29,6 +29,8 @@ module Charta
       else
         @shapes
       end
+    rescue
+      nil
     end
   end
 end
