@@ -125,7 +125,7 @@ module Backend
         results = full_results.select { |c| !c[listing_coordinate_column.label].blank? }
         @mails = results.collect { |c| c[listing_coordinate_column.label] }
         # @mails.uniq! ### CHECK ????????
-        @columns = (full_results.size > 0 ? full_results[0].keys.sort : [])
+        @columns = (!full_results.empty? ? full_results[0].keys.sort : [])
         session[:mail] ||= {}
       end
       if request.post?

@@ -115,11 +115,11 @@ module Ekylibre
 
             File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_races.to_yaml) }
 
-            if out_exception_races.size > 0
+            unless out_exception_races.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_races.to_yaml) }
             end
 
-            if in_exception_races.size > 0
+            unless in_exception_races.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_races.to_yaml) }
             end
 
@@ -249,11 +249,11 @@ module Ekylibre
 
             File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_sexes.to_yaml) }
 
-            if out_exception_sexes.size > 0
+            unless out_exception_sexes.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_sexes.to_yaml) }
             end
 
-            if in_exception_sexes.size > 0
+            unless in_exception_sexes.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_sexes.to_yaml) }
             end
 
@@ -390,19 +390,19 @@ module Ekylibre
             ## RESULTS
             #
 
-            if out_matched_mammalia_birth_conditions.size > 0
+            unless out_matched_mammalia_birth_conditions.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_filename, 'w') { |f| f.write(out_matched_mammalia_birth_conditions.to_yaml) }
             end
 
-            if in_matched_mammalia_birth_conditions.size > 0
+            unless in_matched_mammalia_birth_conditions.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_mammalia_birth_conditions.to_yaml) }
             end
 
-            if out_exception_mammalia_birth_conditions.size > 0
+            unless out_exception_mammalia_birth_conditions.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_mammalia_birth_conditions.to_yaml) }
             end
 
-            if in_exception_mammalia_birth_conditions.size > 0
+            unless in_exception_mammalia_birth_conditions.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_mammalia_birth_conditions.to_yaml) }
             end
 
@@ -521,19 +521,19 @@ module Ekylibre
             ## RESULTS
             #
 
-            if out_matched_entry_reason.size > 0
+            unless out_matched_entry_reason.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_filename, 'w') { |f| f.write(out_matched_entry_reason.to_yaml) }
             end
 
-            if in_matched_entry_reason.size > 0
+            unless in_matched_entry_reason.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_entry_reason.to_yaml) }
             end
 
-            if out_exception_entry_reason.size > 0
+            unless out_exception_entry_reason.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_entry_reason.to_yaml) }
             end
 
-            if in_exception_entry_reason.size > 0
+            unless in_exception_entry_reason.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_entry_reason.to_yaml) }
             end
 
@@ -663,19 +663,19 @@ module Ekylibre
             ## RESULTS
             #
 
-            if out_matched_exit_reason.size > 0
+            unless out_matched_exit_reason.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_filename, 'w') { |f| f.write(out_matched_exit_reason.to_yaml) }
             end
 
-            if in_matched_exit_reason.size > 0
+            unless in_matched_exit_reason.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_exit_reason.to_yaml) }
             end
 
-            if out_exception_exit_reason.size > 0
+            unless out_exception_exit_reason.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_exit_reason.to_yaml) }
             end
 
-            if in_exception_exit_reason.size > 0
+            unless in_exception_exit_reason.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_exit_reason.to_yaml) }
             end
 
@@ -795,19 +795,19 @@ module Ekylibre
             ## RESULTS
             #
 
-            if out_matched_temoin_completude.size > 0
+            unless out_matched_temoin_completude.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_filename, 'w') { |f| f.write(out_matched_temoin_completude.to_yaml) }
             end
 
-            if in_matched_temoin_completude.size > 0
+            unless in_matched_temoin_completude.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_temoin_completude.to_yaml) }
             end
 
-            if out_exception_temoin_completude.size > 0
+            unless out_exception_temoin_completude.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_temoin_completude.to_yaml) }
             end
 
-            if in_exception_temoin_completude.size > 0
+            unless in_exception_temoin_completude.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_temoin_completude.to_yaml) }
             end
 
@@ -928,19 +928,19 @@ module Ekylibre
             ## RESULTS
             #
 
-            if out_matched_temoin_fin_de_vie.size > 0
+            unless out_matched_temoin_fin_de_vie.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_filename, 'w') { |f| f.write(out_matched_temoin_fin_de_vie.to_yaml) }
             end
 
-            if in_matched_temoin_fin_de_vie.size > 0
+            unless in_matched_temoin_fin_de_vie.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_temoin_fin_de_vie.to_yaml) }
             end
 
-            if out_exception_temoin_fin_de_vie.size > 0
+            unless out_exception_temoin_fin_de_vie.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_temoin_fin_de_vie.to_yaml) }
             end
 
-            if in_exception_temoin_fin_de_vie.size > 0
+            unless in_exception_temoin_fin_de_vie.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_temoin_fin_de_vie.to_yaml) }
             end
 
@@ -1065,19 +1065,19 @@ module Ekylibre
             ## RESULTS
             #
 
-            if out_matched_cause_remplacement.size > 0
+            unless out_matched_cause_remplacement.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_filename, 'w') { |f| f.write(out_matched_cause_remplacement.to_yaml) }
             end
 
-            if in_matched_cause_remplacement.size > 0
+            unless in_matched_cause_remplacement.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_cause_remplacement.to_yaml) }
             end
 
-            if out_exception_cause_remplacement.size > 0
+            unless out_exception_cause_remplacement.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_cause_remplacement.to_yaml) }
             end
 
-            if in_exception_cause_remplacement.size > 0
+            unless in_exception_cause_remplacement.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_cause_remplacement.to_yaml) }
             end
 
@@ -1196,19 +1196,19 @@ module Ekylibre
             ## RESULTS
             #
 
-            if out_matched_mode_insemination.size > 0
+            unless out_matched_mode_insemination.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_filename, 'w') { |f| f.write(out_matched_mode_insemination.to_yaml) }
             end
 
-            if in_matched_mode_insemination.size > 0
+            unless in_matched_mode_insemination.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_mode_insemination.to_yaml) }
             end
 
-            if out_exception_mode_insemination.size > 0
+            unless out_exception_mode_insemination.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_mode_insemination.to_yaml) }
             end
 
-            if in_exception_mode_insemination.size > 0
+            unless in_exception_mode_insemination.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_mode_insemination.to_yaml) }
             end
 
@@ -1333,19 +1333,19 @@ module Ekylibre
             ## RESULTS
             #
 
-            if out_matched_paillette_fractionnee.size > 0
+            unless out_matched_paillette_fractionnee.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_filename, 'w') { |f| f.write(out_matched_paillette_fractionnee.to_yaml) }
             end
 
-            if in_matched_paillette_fractionnee.size > 0
+            unless in_matched_paillette_fractionnee.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_paillette_fractionnee.to_yaml) }
             end
 
-            if out_exception_paillette_fractionnee.size > 0
+            unless out_exception_paillette_fractionnee.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_paillette_fractionnee.to_yaml) }
             end
 
-            if in_exception_paillette_fractionnee.size > 0
+            unless in_exception_paillette_fractionnee.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_paillette_fractionnee.to_yaml) }
             end
 
@@ -1465,19 +1465,19 @@ module Ekylibre
             ## RESULTS
             #
 
-            if out_matched_semence_sexee.size > 0
+            unless out_matched_semence_sexee.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_filename, 'w') { |f| f.write(out_matched_semence_sexee.to_yaml) }
             end
 
-            if in_matched_semence_sexee.size > 0
+            unless in_matched_semence_sexee.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_filename, 'w') { |f| f.write(in_matched_semence_sexee.to_yaml) }
             end
 
-            if out_exception_semence_sexee.size > 0
+            unless out_exception_semence_sexee.empty?
               File.open(@transcoding_dir + @out_dir + transcoding_exception_filename, 'a+') { |f| f.write(out_exception_semence_sexee.to_yaml) }
             end
 
-            if in_exception_semence_sexee.size > 0
+            unless in_exception_semence_sexee.empty?
               File.open(@transcoding_dir + @in_dir + transcoding_exception_filename, 'a+') { |f| f.write(in_exception_semence_sexee.to_yaml) }
             end
 

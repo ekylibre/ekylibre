@@ -28,7 +28,7 @@ module SVF
 
     def inspect
       i = "#{name}(#{key}) #{@cells.inspect}"
-      i << "\n" + @children.collect { |c| c.inspect.gsub(/^/, '  ') }.join("\n") if @children.size > 0
+      i << "\n" + @children.collect { |c| c.inspect.gsub(/^/, '  ') }.join("\n") unless @children.empty?
       i
     end
 

@@ -21,7 +21,7 @@ module Tele
                 attributes[node.attributes[key].name.to_sym] = node.attributes[key].value
               end
             end
-            if node.children.size > 0
+            if !node.children.empty?
               node.children.each do |child|
                 result = xml_node_to_hash(child)
 

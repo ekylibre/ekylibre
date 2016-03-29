@@ -23,11 +23,10 @@ module Clean
         code << '  validates_datetime ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }\n" if cs.any?
 
         columns.each do |c|
-          if [:stopped_at, :stopped_on].include?(c.name.to_sym)
-            # p "started#{c.name.scan(/_.{2}/).first}", columns.collect(&:name)
-            if !c.name.scan(/_.{2}/).empty? && columns.collect(&:name).include?("started#{c.name.scan(/_.{2}/).first}")
-              code << "  validates_datetime :#{c.name}, allow_blank: true, on_or_after: :started#{c.name.scan(/_.{2}/).first}, if: ->(#{record}) { #{record}.#{c.name} && #{record}.started#{c.name.scan(/_.{2}/).first} }\n"
-            end
+          next unless [:stopped_at, :stopped_on].include?(c.name.to_sym)
+          # p "started#{c.name.scan(/_.{2}/).first}", columns.collect(&:name)
+          if !c.name.scan(/_.{2}/).empty? && columns.collect(&:name).include?("started#{c.name.scan(/_.{2}/).first}")
+            code << "  validates_datetime :#{c.name}, allow_blank: true, on_or_after: :started#{c.name.scan(/_.{2}/).first}, if: ->(#{record}) { #{record}.#{c.name} && #{record}.started#{c.name.scan(/_.{2}/).first} }\n"
           end
         end
 

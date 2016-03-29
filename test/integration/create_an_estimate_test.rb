@@ -118,5 +118,4 @@ class CreateAnEstimateTest < CapybaraIntegrationTest
     end
     click_on :create.tl
   end
-
 end

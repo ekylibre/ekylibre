@@ -227,7 +227,7 @@ module Backend
                        if nature = SubscriptionNature.find_by_id(preferences[:nature])
                          subn = preferences[preferences[:nature]]
                          products = (subn[:products] || {}).select { |_k, v| v.to_i == 1 }.collect { |k, _v| k }
-                         products = "product_id IN (#{products.join(', ')})" if products.size > 0
+                         products = "product_id IN (#{products.join(', ')})" unless products.empty?
                          products = "#{products + ' OR ' if products.is_a?(String) && subn[:no_products]}#{'product_id IS NULL' if subn[:no_products]}"
                          products = " AND (#{products})" unless products.blank?
                          subscribed_at = ''

@@ -6,7 +6,7 @@ class ActiveSensorTest < ActiveSupport::TestCase
     assert path.exist?, "Sensors file doesn't exist"
     ActiveSensor::Equipment.register_many(path)
 
-    assert ActiveSensor::Equipment.list.size > 0, 'No Equipment loaded'
+    assert !ActiveSensor::Equipment.list.empty?, 'No Equipment loaded'
     assert ActiveSensor::Equipment.list.first.is_a?(ActiveSensor::Equipment), 'Is not a ActiveSensor::Equipment instance'
 
     assert ActiveSensor::Equipment.vendors.include?(:vendor1), 'Vendor not found'

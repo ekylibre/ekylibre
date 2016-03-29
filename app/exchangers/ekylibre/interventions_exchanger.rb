@@ -21,12 +21,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         w.error "#{prompt} No procedure given"
         valid = false
       end
-      #procedure_long_name = 'base-' + r.procedure_name.to_s + '-0'
-      #procedure_nomen = Procedo[procedure_long_name]
-      #unless procedure_nomen
+      # procedure_long_name = 'base-' + r.procedure_name.to_s + '-0'
+      # procedure_nomen = Procedo[procedure_long_name]
+      # unless procedure_nomen
       #  w.error "#{prompt} Invalid procedure name (#{r.procedure_name})"
       #  valid = false
-      #end
+      # end
 
       # PROCEDURE HAVE A DURATION
       #
@@ -171,7 +171,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           end
         end
         supports = Product.find(p_ids)
-        #r.production_supports = ActivityProduction.of_campaign(r.campaign).find(ps_ids)
+      # r.production_supports = ActivityProduction.of_campaign(r.campaign).find(ps_ids)
       # Case B
       elsif r.support_codes.present?
         activity = Activity.where(family: r.support_codes.flatten.first.downcase.to_sym).first
@@ -185,30 +185,29 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       # case 1 supports exists
       if supports.any?
 
-            # w.info r.to_h.to_yaml
-            w.info "----------- L#{line_number.to_s.yellow} : #{r.intervention_number} / #{supports.map(&:name).to_sentence} -----------".blue
-            w.info ' procedure : ' + r.procedure_name.inspect.green
-            w.info ' started_at : ' + r.intervention_started_at.inspect.yellow if r.intervention_started_at
-            w.info ' first product : ' + r.first.product.name.inspect.red if r.first.product
-            w.info ' first product quantity : ' + r.first.product.input_population.to_s + ' ' + r.first.product.input_unit_name.to_s.inspect.red if r.first.product_input_population
-            w.info ' second product : ' + r.second.product.name.inspect.red if r.second.product
-            w.info ' third product : ' + r.third.product.name.inspect.red if r.third.product
-            w.info ' target variety : ' + r.target_variety.inspect.yellow if r.target_variety
-            w.info ' supports : ' + supports.map(&:name).to_sentence.inspect.yellow if supports
-            w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
-            w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
+        # w.info r.to_h.to_yaml
+        w.info "----------- L#{line_number.to_s.yellow} : #{r.intervention_number} / #{supports.map(&:name).to_sentence} -----------".blue
+        w.info ' procedure : ' + r.procedure_name.inspect.green
+        w.info ' started_at : ' + r.intervention_started_at.inspect.yellow if r.intervention_started_at
+        w.info ' first product : ' + r.first.product.name.inspect.red if r.first.product
+        w.info ' first product quantity : ' + r.first.product.input_population.to_s + ' ' + r.first.product.input_unit_name.to_s.inspect.red if r.first.product_input_population
+        w.info ' second product : ' + r.second.product.name.inspect.red if r.second.product
+        w.info ' third product : ' + r.third.product.name.inspect.red if r.third.product
+        w.info ' target variety : ' + r.target_variety.inspect.yellow if r.target_variety
+        w.info ' supports : ' + supports.map(&:name).to_sentence.inspect.yellow if supports
+        w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
+        w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
 
-            # plants = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
-            # w.info ' #{plants.count} plants : ' + plants.map(&:name).inspect.yellow if plants
-            targets = supports
+        # plants = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
+        # w.info ' #{plants.count} plants : ' + plants.map(&:name).inspect.yellow if plants
+        targets = supports
 
-            intervention = record_default_intervention(r, targets, procedures_transcode)
-            #intervention = send("record_#{r.procedure_name}", r, targets)
+        intervention = record_default_intervention(r, targets, procedures_transcode)
+      # intervention = send("record_#{r.procedure_name}", r, targets)
 
       else
         w.warn "Cannot add intervention #{r.intervention_number} without support"
       end
-
 
       if intervention
         intervention.description ||= ''
@@ -226,7 +225,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   protected
 
   # convert measure to variant unit and divide by variant_indicator
-  def measure_conversion(product, population, unit, unit_target_dose)
+  def measure_conversion(_product, population, unit, unit_target_dose)
     value = population
     puts value.inspect.yellow
     nomen_unit = nil
@@ -253,7 +252,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       return nil
     end
   end
-
 
   # convert measure to variant unit and divide by variant_indicator
   # ex : for a wheat_seed_25kg
@@ -518,20 +516,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
   end
 
-
-
   ##################################
   #### INTERVENTIONS       ####
   ##################################
 
   def record_default_intervention(r, targets, procedures_transcode)
-
     # retrieve procedure from its name and set basics attributes
     procedure = Procedo.find(procedures_transcode[r.procedure_name])
-    attributes = {procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description}
+    attributes = { procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description }
 
     ## working_periods
-    attributes[:working_periods_attributes] = {"0" => {started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M')}}
+    attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
 
     ## targets
     targets.each_with_index do |target, index|
@@ -539,11 +534,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         puts support.inspect.red
         puts support.filter.inspect.red
         puts target.of_expression(support.filter).inspect.red
-        if target.of_expression(support.filter)
-          attributes[:targets_attributes] ||= {}
-          attributes[:targets_attributes][index.to_s] = {reference_name: support.name, product_id: target.id, working_zone: target.shape.to_geojson}
-          break
-        end
+        next unless target.of_expression(support.filter)
+        attributes[:targets_attributes] ||= {}
+        attributes[:targets_attributes][index.to_s] = { reference_name: support.name, product_id: target.id, working_zone: target.shape.to_geojson }
+        break
       end
     end
 
@@ -559,18 +553,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         puts product_measure.inspect.green
         # find best handler for product measure
         i = input.best_handler_for(product_measure)
-        if i.kind_of?(Array)
-          handler = input.best_handler_for(product_measure).first.name
-        else
-          handler = input.best_handler_for(product_measure).name
-        end
+        handler = if i.is_a?(Array)
+                    input.best_handler_for(product_measure).first.name
+                  else
+                    input.best_handler_for(product_measure).name
+                  end
         puts handler.inspect.green
-        if actor.product.of_expression(input.filter)
-          attributes[:inputs_attributes] ||= {}
-          attributes[:inputs_attributes][index.to_s] = {reference_name: input.name, product_id: actor.product.id, quantity_handler: handler, quantity_value: product_measure.to_f}
-          updaters << "inputs[#{index}]quantity_value"
-          break
-        end
+        next unless actor.product.of_expression(input.filter)
+        attributes[:inputs_attributes] ||= {}
+        attributes[:inputs_attributes][index.to_s] = { reference_name: input.name, product_id: actor.product.id, quantity_handler: handler, quantity_value: product_measure.to_f }
+        updaters << "inputs[#{index}]quantity_value"
+        break
       end
     end
 
@@ -580,28 +573,25 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         puts tool.inspect.yellow
         puts tool.filter.inspect.yellow
         puts equipment.of_expression(tool.filter).inspect.yellow
-        if equipment.of_expression(tool.filter)
-          attributes[:tools_attributes] ||= {}
-          attributes[:tools_attributes][index.to_s] = {reference_name: tool.name, product_id: equipment.id}
-          break
-        end
+        next unless equipment.of_expression(tool.filter)
+        attributes[:tools_attributes] ||= {}
+        attributes[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
+        break
       end
     end
     puts attributes[:tools_attributes].inspect.yellow
 
-
     ## doers
     r.workers.each_with_index do |worker, index|
       procedure.parameters_of_type(:doer).each do |doer|
-        if worker.of_expression(doer.filter)
-          attributes[:doers_attributes] ||= {}
-          attributes[:doers_attributes][index.to_s] = {reference_name: doer.name, product_id: worker.id}
-          break
-        end
+        next unless worker.of_expression(doer.filter)
+        attributes[:doers_attributes] ||= {}
+        attributes[:doers_attributes][index.to_s] = { reference_name: doer.name, product_id: worker.id }
+        break
       end
     end
 
-    ## impact
+    # # impact
     intervention = Procedo::Engine.new_intervention(attributes)
     updaters.each do |updater|
       intervention.impact_with!(updater)
@@ -609,21 +599,13 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
     ## save
     ::Intervention.create!(intervention.to_hash)
-
   end
-
 
   ###############################
   ####  SOWING / IMPLANTING  ####
   ###############################
 
-
-
-
   #################################
   ####  HARVESTING             ####
   #################################
-
-
-
 end

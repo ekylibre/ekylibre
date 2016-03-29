@@ -284,7 +284,7 @@ class Product < Ekylibre::Record::Base
   class << self
     # Auto-cast product to best matching class with type column
     def new_with_cast(*attributes, &block)
-      if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && type.length > 0 && (klass = type.constantize) != self
+      if (h = attributes.first).is_a?(Hash) && !h.nil? && (type = h[:type] || h['type']) && !type.empty? && (klass = type.constantize) != self
         raise "Can not cast #{name} to #{klass.name}" unless klass <= self
         return klass.new(*attributes, &block)
       end

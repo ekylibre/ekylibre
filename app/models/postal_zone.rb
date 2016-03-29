@@ -53,7 +53,7 @@ class PostalZone < Ekylibre::Record::Base
     self.postal_code = ''
     self.city = ''
     self.city_name = ''
-    if words && words.size > 0
+    if words && !words.empty?
       self.postal_code = (words[0..start - 1] || []).join(' ')
       self.city = (words[start..-1] || []).join(' ')
       self.city_name = city

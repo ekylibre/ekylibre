@@ -471,7 +471,7 @@ class Account < Ekylibre::Record::Base
 
       journal_entry_items = account.journal_entry_items.where('r.created_at' => from..to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order('r.number ASC')
 
-      next unless journal_entry_items.size > 0
+      next if journal_entry_items.empty?
       entries = []
       compute << account.number.to_i
       compute << account.name.to_s

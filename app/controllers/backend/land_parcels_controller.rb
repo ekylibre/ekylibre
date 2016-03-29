@@ -18,7 +18,6 @@
 
 module Backend
   class LandParcelsController < Backend::MattersController
-
     # params:
     #   :q Text search
     def self.land_parcels_conditions
