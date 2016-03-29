@@ -1,6 +1,8 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
 #     - "api/v1/crumbs#create"
 #     - "api/v1/crumbs#index"
+#     - "api/v1/issues#create"
+#     - "api/v1/issues#index"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
 #     - "authentication/passwords#create"

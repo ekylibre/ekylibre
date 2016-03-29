@@ -1621,6 +1621,10 @@
         <page to="api/v1/crumbs#index"/>
         <page to="api/v1/crumbs#create"/>
       </item>
+      <item name="issues">
+        <page to="api/v1/issues#index"/>
+        <page to="api/v1/issues#create"/>
+      </item>
       <item name="tokens">
         <page to="api/v1/tokens#create"/>
         <page to="api/v1/tokens#destroy"/>
