@@ -50,6 +50,7 @@
 require 'test_helper'
 
 class EntityAddressTest < ActiveSupport::TestCase
+  test_model_actions
   test 'presence of canal scopes' do
     for canal in EntityAddress.canal.values
       scope_name = canal.to_s.pluralize.to_sym

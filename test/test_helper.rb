@@ -35,6 +35,15 @@ class FixtureRetriever
     end
   end
 
+
+  def invoke(role = :first, default_value = nil)
+    if @model
+      ["#{@table}", normalize(@options[role] || default_value || role)]
+    else
+      raise 'No valid model given, cannot retrieve fixture from that'
+    end
+  end
+
   protected
 
   def normalize(value)
@@ -97,25 +106,30 @@ class ActiveSupport::TestCase
     Rails.root.join('test', 'fixture-files')
   end
 
-  def self.test_unit_creation(_options = {})
-    model = to_s.slice(0..-5).constantize
-    record = model.model_name.to_s.underscore
+  def self.test_model_actions(options = {}, &block)
+
+    model = self.to_s.slice(0..-5).constantize
     fixtures_to_use = FixtureRetriever.new(model)
-    code = ''
 
-    code << "test 'create' do\n"
-    code << "  #{record} = #{fixtures_to_use.retrieve(:first)}\n"
-    code << "  assert #{record}.save!\n"
-    code << 'end'
-
-    # TODO: retrieve date and datetime columns and assert validations with invalid dates.
-
-    file = Rails.root.join('tmp', 'code', 'test', "#{record.downcase}.rb")
-    FileUtils.mkdir_p(file.dirname)
-    File.open(file, 'wb') do |f|
-      f.write(code)
+=begin
+    test 'create' do
+      fixture = fixtures_to_use.invoke(:first)
+      object = send(fixture[0], fixture[1])
+      assert object.save!
     end
-    class_eval(code, "(test) #{model.model_name}") # :#{__LINE__}
+
+    # TODO: improve date validations
+    test 'dates validations' do
+      fixture = fixtures_to_use.invoke(:first)
+      object = send(fixture[0], fixture[1])
+      columns = model.content_columns.select{ |c| c.type == :datetime || c.type == :date || c.type == :timestamp }
+      columns.each do |c|
+        object[c.name] = DateTime.new(72016, 1, 1)
+      end
+      assert !object.save, object.errors.inspect
+    end
+=end
+
   end
 end
 

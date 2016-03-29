@@ -51,5 +51,6 @@
 require 'test_helper'
 
 class InterventionOutputTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

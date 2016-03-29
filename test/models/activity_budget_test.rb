@@ -35,6 +35,7 @@
 require 'test_helper'
 
 class ActivityBudgetTest < ActiveSupport::TestCase
+  test_model_actions
   test 'unicity' do
     budget = ActivityBudget.first
     assert_raise do

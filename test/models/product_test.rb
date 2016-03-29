@@ -68,6 +68,7 @@
 require 'test_helper'
 
 class ProductTest < ActiveSupport::TestCase
+  test_model_actions
   test 'working sets' do
     assert Product.of_expression('is product').any?
     assert Product.of_expression('can move()').any?

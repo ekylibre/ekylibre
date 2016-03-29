@@ -38,5 +38,6 @@
 require 'test_helper'
 
 class InventoryItemTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

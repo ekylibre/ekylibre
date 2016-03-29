@@ -36,5 +36,6 @@
 require 'test_helper'
 
 class SupervisionTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

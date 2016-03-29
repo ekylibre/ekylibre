@@ -53,6 +53,7 @@
 require 'test_helper'
 
 class AffairTest < ActiveSupport::TestCase
+  test_model_actions
   # check that every model that can be affairable
   test 'affairables classes' do
     for type in Affair.affairable_types

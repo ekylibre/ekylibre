@@ -36,6 +36,7 @@
 require 'test_helper'
 
 class RoleTest < ActiveSupport::TestCase
+  test_model_actions
   test 'rights changes echo' do
     manager = Role.create!(name: 'Manager')
 

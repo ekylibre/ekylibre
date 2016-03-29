@@ -59,6 +59,7 @@
 require 'test_helper'
 
 class JournalEntryItemTest < ActiveSupport::TestCase
+  test_model_actions
   test 'the validity of entries' do
     item = journal_entry_items(:journal_entry_items_001)
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence

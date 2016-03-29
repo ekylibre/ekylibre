@@ -44,4 +44,5 @@
 require 'test_helper'
 
 class ActivityBudgetItemTest < ActiveSupport::TestCase
+  test_model_actions
 end

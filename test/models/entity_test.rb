@@ -70,6 +70,7 @@
 require 'test_helper'
 
 class EntityTest < ActiveSupport::TestCase
+  test_model_actions
   test 'nature' do
     entity = Entity.create(nature: :zarb)
     assert entity.errors.include?(:nature), 'Entity must not accept invalid nature'

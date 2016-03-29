@@ -51,6 +51,7 @@
 require 'test_helper'
 
 class PurchaseTest < ActiveSupport::TestCase
+  test_model_actions
   test 'simple creation' do
     nature = PurchaseNature.first
     assert nature

@@ -50,5 +50,6 @@
 require 'test_helper'
 
 class ProductReadingTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

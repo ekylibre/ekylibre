@@ -42,6 +42,7 @@
 require 'test_helper'
 
 class PreferenceTest < ActiveSupport::TestCase
+  test_model_actions
   test 'creating boolean preference' do
     p = Preference.set!('my.boolean.preference', true)
     assert p

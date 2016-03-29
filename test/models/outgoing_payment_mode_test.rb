@@ -38,5 +38,6 @@
 require 'test_helper'
 
 class OutgoingPaymentModeTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

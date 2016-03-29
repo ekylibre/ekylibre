@@ -37,5 +37,6 @@
 require 'test_helper'
 
 class GeoreadingTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

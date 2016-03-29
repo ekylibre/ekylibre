@@ -52,5 +52,6 @@
 require 'test_helper'
 
 class ListingNodeTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

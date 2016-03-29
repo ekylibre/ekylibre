@@ -41,6 +41,7 @@
 require 'test_helper'
 
 class DocumentTemplateTest < ActiveSupport::TestCase
+  test_model_actions
   # Tests all templates
   test 'compile all templates' do
     # Load all templates

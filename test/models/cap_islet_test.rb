@@ -36,5 +36,6 @@
 require 'test_helper'
 
 class CapIsletTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

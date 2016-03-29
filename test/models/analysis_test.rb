@@ -49,5 +49,5 @@
 require 'test_helper'
 
 class AnalysisTest < ActiveSupport::TestCase
-  test_unit_creation
+  test_model_actions
 end

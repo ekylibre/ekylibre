@@ -42,5 +42,6 @@
 require 'test_helper'
 
 class GuideTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

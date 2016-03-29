@@ -45,6 +45,7 @@
 require 'test_helper'
 
 class CustomFieldTest < ActiveSupport::TestCase
+  test_model_actions
   STATIC_VALUES = {
     text: 'Lorem ipsum',
     decimal: 3.14159,

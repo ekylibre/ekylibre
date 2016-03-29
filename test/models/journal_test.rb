@@ -41,6 +41,7 @@
 require 'test_helper'
 
 class JournalTest < ActiveSupport::TestCase
+  test_model_actions
   test 'presence of nature scopes' do
     for nature in Journal.nature.values
       scope_name = nature.to_s.pluralize.to_sym

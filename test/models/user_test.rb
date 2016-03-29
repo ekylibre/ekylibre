@@ -64,6 +64,7 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  test_model_actions
   test 'preferences' do
     user = User.first
     user.prefer!('something', 'foo')

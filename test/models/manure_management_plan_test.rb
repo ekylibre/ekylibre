@@ -40,5 +40,6 @@
 require 'test_helper'
 
 class ManureManagementPlanTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

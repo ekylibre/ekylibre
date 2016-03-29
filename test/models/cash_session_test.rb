@@ -40,5 +40,6 @@
 require 'test_helper'
 
 class CashSessionTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

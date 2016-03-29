@@ -69,5 +69,6 @@
 require 'test_helper'
 
 class LandParcelTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

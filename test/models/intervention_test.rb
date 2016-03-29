@@ -45,6 +45,7 @@
 require 'test_helper'
 
 class InterventionTest < ActiveSupport::TestCase
+  test_model_actions
   test 'scopes' do
     parameter = InterventionProductParameter.first # intervention_parameters(:intervention_parameters_001)
     actor = parameter.product

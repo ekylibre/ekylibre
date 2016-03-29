@@ -55,6 +55,7 @@
 require 'test_helper'
 
 class IncomingPaymentTest < ActiveSupport::TestCase
+  test_model_actions
   test 'the bookkeeping of a payment' do
     payment = incoming_payments(:incoming_payments_001)
     payment.bookkeep(:create)

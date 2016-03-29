@@ -68,5 +68,6 @@
 require 'test_helper'
 
 class MatterTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

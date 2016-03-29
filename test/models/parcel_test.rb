@@ -54,6 +54,7 @@
 require 'test_helper'
 
 class ParcelTest < ActiveSupport::TestCase
+  test_model_actions
   test 'ship giving a transporter' do
     Parcel.ship(Parcel.all, transporter_id: entities(:entities_001).id)
   end

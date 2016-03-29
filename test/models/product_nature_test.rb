@@ -52,6 +52,7 @@
 require 'test_helper'
 
 class ProductNatureTest < ActiveSupport::TestCase
+  test_model_actions
   test 'working sets scope' do
     Nomen::WorkingSet.list.each do |item|
       assert ProductNature.of_working_set(item.name).count >= 0

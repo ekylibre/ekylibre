@@ -68,5 +68,6 @@
 require 'test_helper'
 
 class ZoneTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

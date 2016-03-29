@@ -40,5 +40,6 @@
 require 'test_helper'
 
 class CapLandParcelTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

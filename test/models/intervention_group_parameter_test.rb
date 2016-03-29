@@ -51,5 +51,6 @@
 require 'test_helper'
 
 class InterventionGroupParameterTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

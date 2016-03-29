@@ -33,5 +33,6 @@
 require 'test_helper'
 
 class NetServiceTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

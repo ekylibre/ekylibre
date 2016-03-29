@@ -46,5 +46,6 @@
 require 'test_helper'
 
 class DocumentTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

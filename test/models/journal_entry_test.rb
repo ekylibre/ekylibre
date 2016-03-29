@@ -52,6 +52,7 @@
 require 'test_helper'
 
 class JournalEntryTest < ActiveSupport::TestCase
+  test_model_actions
   test 'a journal forbids to write records before its closure date' do
     journal = journals(:journals_001)
     assert_raise ActiveRecord::RecordInvalid do

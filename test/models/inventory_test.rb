@@ -42,6 +42,7 @@
 require 'test_helper'
 
 class InventoryTest < ActiveSupport::TestCase
+  test_model_actions
   test 'refresh' do
     inventory = Inventory.create!(name: '2015', achieved_at: Date.civil(2015, 12, 15))
     inventory.refresh!

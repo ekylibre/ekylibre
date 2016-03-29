@@ -44,5 +44,6 @@
 require 'test_helper'
 
 class FixedAssetDepreciationTest < ActiveSupport::TestCase
+  test_model_actions
   # Add tests here...
 end

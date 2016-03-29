@@ -68,6 +68,7 @@
 require 'test_helper'
 
 class SaleTest < ActiveSupport::TestCase
+  test_model_actions
   test 'duplicatablity' do
     count = 0
     Sale.find_each do |sale|
