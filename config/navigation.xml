@@ -921,6 +921,12 @@
         <page to="backend/teams#unroll"/>
         <page to="backend/teams#update"/>
       </item>
+      <item name="registrations">
+        <page to="backend/registrations#index"/>
+        <page to="backend/registrations#list"/>
+        <page to="backend/registrations#edit"/>
+        <page to="backend/registrations#update"/>
+      </item>
       <item name="roles">
         <page to="backend/roles#index"/>
         <page to="backend/roles#create"/>

@@ -571,6 +571,9 @@ eng:
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      index: "Registrations"
+      edit: "Edit registration"
     backend/roles:
       edit: "Edit role: %{name}"
       # incorporate: "Incorporate role: %{name}"

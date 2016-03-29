@@ -14,6 +14,8 @@
 #     - "authentication/passwords#edit"
 #     - "authentication/passwords#new"
 #     - "authentication/passwords#update"
+#     - "authentication/registrations#new"
+#     - "authentication/registrations#create"
 #     - "authentication/sessions#create"
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
@@ -1937,6 +1939,8 @@ users:
     actions:
     - "backend/invitations#index"
     - "backend/invitations#list"
+    - "backend/registrations#index"
+    - "backend/registrations#list"
     - "backend/users#index"
     - "backend/users#list"
     - "backend/users#show"
@@ -1947,6 +1951,8 @@ users:
     actions:
     - "backend/invitations#create"
     - "backend/invitations#new"
+    - "backend/registrations#edit"
+    - "backend/registrations#update"
     - "backend/users#create"
     - "backend/users#destroy"
     - "backend/users#edit"

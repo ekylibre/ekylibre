@@ -825,6 +825,8 @@ Rails.application.routes.draw do
     get 'invitations/list', to: 'invitations#list'
     get 'invitations/new', to: 'invitations#new'
     post 'invitations', to: 'invitations#create'
+
+    resources :registrations, only: [:index, :edit, :update, :destroy], concerns: [:list]
   end
 
   root to: 'public#index'

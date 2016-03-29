@@ -11,6 +11,7 @@ class Authentication::RegistrationsControllerTest < ActionController::TestCase
     user = User.where(first_name: "Robert", last_name: "Tee", email: "robert.tee@gmail.com", language: "eng").first
     assert_not_nil user
     assert_not_nil user.signup_at
+    assert !user.active_for_authentication?
     assert_response :redirect
     assert_equal(flash[:notice], 'You have signed up successfully but your account has not been approved by your administrator yet')
   end
