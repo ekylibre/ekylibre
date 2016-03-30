@@ -515,7 +515,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   end
 
   ##################################
-  #### INTERVENTIONS       ####
+  #### INTERVENTIONS            ####
   ##################################
 
   def qualify_intervention(r, targets, procedures_transcode)
@@ -526,7 +526,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     # check if procedure is simple or not (with group parameter)
     simple = true
     procedure.parameters.each do |parameter|
-      if parameter == "group_parameter"
+      if parameter == "group_parameter" || parameter == "output"
         simple = false 
         break
       end
