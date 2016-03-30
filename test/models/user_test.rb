@@ -22,7 +22,7 @@
 #
 # == Table: users
 #
-#  administrator                          :boolean          default(TRUE), not null
+#  administrator                          :boolean          default(FALSE), not null
 #  authentication_token                   :string
 #  commercial                             :boolean          default(FALSE), not null
 #  confirmation_sent_at                   :datetime
@@ -40,6 +40,13 @@
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string           not null
 #  id                                     :integer          not null, primary key
+#  invitation_accepted_at                 :datetime
+#  invitation_created_at                  :datetime
+#  invitation_limit                       :integer
+#  invitation_sent_at                     :datetime
+#  invitation_token                       :string
+#  invitations_count                      :integer          default(0)
+#  invited_by_id                          :integer
 #  language                               :string           not null
 #  last_name                              :string           not null
 #  last_sign_in_at                        :datetime

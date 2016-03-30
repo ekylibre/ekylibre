@@ -23,7 +23,7 @@
 #
 # == Table: users
 #
-#  administrator                          :boolean          default(TRUE), not null
+#  administrator                          :boolean          default(FALSE), not null
 #  authentication_token                   :string
 #  commercial                             :boolean          default(FALSE), not null
 #  confirmation_sent_at                   :datetime
@@ -41,6 +41,13 @@
 #  failed_attempts                        :integer          default(0)
 #  first_name                             :string           not null
 #  id                                     :integer          not null, primary key
+#  invitation_accepted_at                 :datetime
+#  invitation_created_at                  :datetime
+#  invitation_limit                       :integer
+#  invitation_sent_at                     :datetime
+#  invitation_token                       :string
+#  invitations_count                      :integer          default(0)
+#  invited_by_id                          :integer
 #  language                               :string           not null
 #  last_name                              :string           not null
 #  last_sign_in_at                        :datetime
@@ -84,8 +91,8 @@ class User < Ekylibre::Record::Base
   scope :administrators, -> { where(administrator: true) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :failed_attempts, allow_nil: true, only_integer: true
+  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates_numericality_of :failed_attempts, :invitation_limit, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
   validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
   validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage

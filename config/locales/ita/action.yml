@@ -1,5 +1,7 @@
 ita:
   actions:
+    authentication/invitations:
+      edit: "Accetta l&#39;invito"
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "Nuova password"
@@ -273,6 +275,9 @@ ita:
       index: "rimanenze"
       new: "nuovo inventario"
       # show: "Inventory: %{name}"
+    backend/invitations:
+      index: "Inviti"
+      new: "Nuovo invito"
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -853,6 +858,7 @@ ita:
     interventions_paths: "percorsi interventi"
     inventories: "rimanenze"
     inventory: "Inventario"
+    invitation_status: "Stato"
     invoiced_amount: "Vendite importo fatturato"
     invoices: "Fatture"
     is: "È"

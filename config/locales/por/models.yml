@@ -432,14 +432,14 @@ por:
     current_localization: "Localização atual"
     current_memberships: "Sociedades atuais"
     current_mother_link: "Ligação mãe atual"
-    # current_outgoing_stock_ordered_not_delivered: "Outgoing stock not delivered"
+    current_outgoing_stock_ordered_not_delivered: "As saídas de stock não entregues"
     current_ownership: "Posse atual"
     current_password: "Senha atual"
     current_phase: "Fase atual"
     current_quantity: "Quantidade atual"
     current_sign_in_at: "Atual sinal em pelo"
     current_sign_in_ip: "Atual sinal no ip"
-    # current_stock: "Current stock"
+    current_stock: "Estoque atual"
     current_supports: "Suportes atuais"
     custom_field: "Campo customizado"
     custom_fields: "Os campos personalizados"
@@ -638,6 +638,7 @@ por:
     interventions: "Intervenções"
     introduction: "Introdução"
     inventory: "Inventário"
+    invitation_limit: "Limite de convite"
     invoice_address: "Endereço de fatura"
     invoiced_at: "Facturado"
     irrigated: "Irrigada"
@@ -1402,3 +1403,8 @@ por:
           todo: "Façam"
     team:
       default: "Equipa principal"
+    user:
+      invitation:
+        accepted: "Aceitaram"
+        not_invited: "Não foi convidada"
+        pending: "Pendente"

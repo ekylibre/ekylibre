@@ -1,5 +1,7 @@
 deu:
   actions:
+    authentication/invitations:
+      edit: "Die Einladung annehmen"
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "Neues Kennwort"
@@ -273,6 +275,9 @@ deu:
       index: "Die Vorräte"
       new: "New Inventar"
       # show: "Inventory: %{name}"
+    backend/invitations:
+      index: "Einladungen"
+      new: "Neue Einladung"
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -853,6 +858,7 @@ deu:
     interventions_paths: "Interventionen Pfade"
     inventories: "Die Vorräte"
     inventory: "Inventar"
+    # invitation_status: "Status"
     invoiced_amount: "Der Umsatz Rechnungsbetrag"
     invoices: "Rechnungen"
     is: "ist"

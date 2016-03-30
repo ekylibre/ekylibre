@@ -9,14 +9,35 @@ arb:
       inactive: "لم تنشيط حسابك بعد."
       invalid: "البريد الإلكتروني أو كلمة السر خاطئة."
       invalid_token: "رمز مصادقة صالح."
+      invited: "لديك دعوة معلقة، استعرض للانتهاء من إنشاء حسابك."
       locked: "تم تأمين حسابك."
       not_found_in_database: "البريد الإلكتروني أو كلمة السر خاطئة."
       timeout: "جلسة العمل الخاصة بك منتهية الصلاحية، الرجاء تسجيل الدخول مرة أخرى للمتابعة."
       unauthenticated: "تحتاج لتسجيل الدخول أو الاشتراك قبل المتابعة."
       unconfirmed: "لديك لتأكيد حسابك قبل المتابعة."
+    invitations:
+      edit:
+        header: "ضع كلمة مرور"
+        submit_button: "تعيين كلمة المرور الخاصة بي"
+      invitation_removed: "تمت إزالة دعوتك."
+      invitation_token_invalid: "الرمز المميز دعوة المقدمة غير صالح!"
+      new:
+        header: "إرسال دعوة"
+        submit_button: "ارسل دعوة"
+      no_invitations_remaining: "لا الدعوات المتبقية"
+      # send_instructions: "An invitation email has been sent to %{email}."
+      updated: "تم تعيين كلمة المرور الخاصة بك بنجاح. قمت بتسجيل الآن في."
+      updated_not_active: "تم تعيين كلمة المرور الخاصة بك بنجاح."
     mailer:
       confirmation_instructions:
         subject: "تعليمات تأكيد"
+      invitation_instructions:
+        accept: "قبول دعوة"
+        # accept_until: "This invitation will be due in %{due_date}."
+        # hello: "Hello %{first_name} %{last_name},"
+        ignore: "إذا كنت لا ترغب في قبول الدعوة، الرجاء تجاهل هذا البريد الإلكتروني. <br /> لن يتم إنشاء حسابك حتى وصول إلى الرابط أعلاه وتعيين كلمة المرور الخاصة بك."
+        # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
+        subject: "تعليمات دعوة"
       reset_password_instructions:
         subject: "إعادة تعيين كلمة المرور تعليمات"
       unlock_instructions:
@@ -55,3 +76,9 @@ arb:
       not_saved:
         # one: "1 error prohibited this %{resource} from being saved:"
         # other: "%{count} errors prohibited this %{resource} from being saved:"
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "٪ B٪ د٪ Y٪ I:٪ M٪ ع"

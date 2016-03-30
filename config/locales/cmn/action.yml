@@ -1,5 +1,7 @@
 cmn:
   actions:
+    authentication/invitations:
+      edit: "接受邀请"
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "新密码"
@@ -273,6 +275,9 @@ cmn:
       index: "存货"
       new: "新的库存"
       # show: "Inventory: %{name}"
+    backend/invitations:
+      index: "邀请"
+      new: "新邀请"
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -853,6 +858,7 @@ cmn:
     interventions_paths: "干预路径"
     inventories: "存货"
     inventory: "库存"
+    invitation_status: "状态"
     invoiced_amount: "销售发票金额"
     invoices: "发票"
     is: "是"

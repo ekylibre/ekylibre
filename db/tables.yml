@@ -5768,7 +5768,7 @@ users:
   administrator:
     type: boolean
     required: true
-    default: true
+    default: false
   authentication_token:
     type: string
   commercial:
@@ -5814,6 +5814,21 @@ users:
   id:
     type: integer
     required: true
+  invitation_accepted_at:
+    type: datetime
+  invitation_created_at:
+    type: datetime
+  invitation_limit:
+    type: integer
+  invitation_sent_at:
+    type: datetime
+  invitation_token:
+    type: string
+  invitations_count:
+    type: integer
+  invited_by_id:
+    type: integer
+    references: user
   language:
     type: string
     required: true

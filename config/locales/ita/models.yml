@@ -463,14 +463,14 @@ ita:
     current_localization: "localizzazione corrente"
     current_memberships: "appartenenze di corrente"
     current_mother_link: "Link madre corrente"
-    # current_outgoing_stock_ordered_not_delivered: "Outgoing stock not delivered"
+    current_outgoing_stock_ordered_not_delivered: "In uscita magazzino non consegnati"
     current_ownership: "proprietà corrente"
     current_password: "Password attuale"
     current_phase: "corrente fase"
     current_quantity: "quantità di corrente"
     current_sign_in_at: "segno di corrente in a"
     current_sign_in_ip: "segno di corrente in ip"
-    # current_stock: "Current stock"
+    current_stock: "Scorta attuale"
     current_supports: "supporti attuali"
     custom_field: "Campo personalizzato"
     custom_fields: "Campi personalizzati"
@@ -669,6 +669,7 @@ ita:
     interventions: "interventi"
     introduction: "Introduzione"
     inventory: "Inventario"
+    invitation_limit: "Invito limite"
     invoice_address: "Indirizzo di fatturazione"
     invoiced_at: "fatturato su"
     irrigated: "Irrigato"
@@ -1433,3 +1434,8 @@ ita:
           todo: "Fare"
     team:
       default: "squadra principale"
+    user:
+      invitation:
+        accepted: "Accettato"
+        not_invited: "Non invitato"
+        pending: "In attesa di"

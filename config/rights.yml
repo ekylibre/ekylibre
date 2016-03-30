@@ -5,7 +5,10 @@
 #     - "api/v1/issues#index"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
+#     - "authentication/invitations#create"
+#     - "authentication/invitations#destroy"
 #     - "authentication/invitations#edit"
+#     - "authentication/invitations#new"
 #     - "authentication/invitations#update"
 #     - "authentication/passwords#create"
 #     - "authentication/passwords#edit"
@@ -117,6 +120,11 @@
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
 #     - "devise/confirmations#show"
+#     - "devise/invitations#create"
+#     - "devise/invitations#destroy"
+#     - "devise/invitations#edit"
+#     - "devise/invitations#new"
+#     - "devise/invitations#update"
 #     - "devise/passwords#create"
 #     - "devise/passwords#edit"
 #     - "devise/passwords#new"
@@ -1937,8 +1945,8 @@ users:
     dependencies:
     - read-users
     actions:
-    - "backend/invitations#new"
     - "backend/invitations#create"
+    - "backend/invitations#new"
     - "backend/users#create"
     - "backend/users#destroy"
     - "backend/users#edit"

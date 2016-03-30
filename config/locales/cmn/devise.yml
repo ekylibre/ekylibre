@@ -9,14 +9,35 @@ cmn:
       inactive: "您的帐户尚未激活。"
       invalid: "无效的电子邮件或密码。"
       invalid_token: "无效的身份验证令牌。"
+      invited: "你有一个未决的邀请，接受它完成创建您的帐户。"
       locked: "您的帐户被锁定。"
       not_found_in_database: "无效的电子邮件或密码。"
       timeout: "您的会话过期，请重新登录才能继续。"
       unauthenticated: "您需要登录或继续之前注册。"
       unconfirmed: "你必须继续前确认您的帐户。"
+    invitations:
+      edit:
+        header: "设置密码"
+        submit_button: "设置密码"
+      invitation_removed: "辗转您的邀请。"
+      invitation_token_invalid: "提供的邀请令牌是无效的！"
+      new:
+        header: "发送邀请"
+        submit_button: "发送邀请"
+      no_invitations_remaining: "没有剩余邀请"
+      # send_instructions: "An invitation email has been sent to %{email}."
+      updated: "您的密码设置成功。您现在登录。"
+      updated_not_active: "您的密码设置成功。"
     mailer:
       confirmation_instructions:
         subject: "确认指令"
+      invitation_instructions:
+        accept: "接受邀请"
+        # accept_until: "This invitation will be due in %{due_date}."
+        # hello: "Hello %{first_name} %{last_name},"
+        ignore: "如果你不想接受邀请，请忽略此电子邮件。 <br />您的帐户将不会创建，直到你进入上面的链接，并设置密码。"
+        # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
+        subject: "邀请说明"
       reset_password_instructions:
         subject: "重置密码的说明"
       unlock_instructions:
@@ -55,3 +76,9 @@ cmn:
       not_saved:
         # one: "1 error prohibited this %{resource} from being saved:"
         # other: "%{count} errors prohibited this %{resource} from being saved:"
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "％A％D，％Y％I：％M％P"

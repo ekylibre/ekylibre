@@ -9,14 +9,35 @@ deu:
       inactive: "Ihr Konto wurde noch nicht aktiviert."
       invalid: "Ungültige E-Mail oder Passwort."
       invalid_token: "Ungültige Authentifizierungstoken."
+      invited: "Sie haben eine offene Einladung akzeptieren es Ihrem Konto um den Vorgang abzuschließen."
       locked: "Ihr Konto ist gesperrt."
       not_found_in_database: "Ungültige E-Mail oder Passwort."
       timeout: "Ihre Sitzung ist abgelaufen, bitte melden Sie sich erneut, um fortzufahren."
       unauthenticated: "Sie müssen sich anmelden oder registrieren, bevor Sie fortfahren."
       unconfirmed: "Sie müssen Ihr Konto bestätigen, bevor Sie fortfahren."
+    invitations:
+      edit:
+        header: "Lege ein Passwort fest"
+        submit_button: "Stellen Sie mein Passwort"
+      invitation_removed: "Ihre Einladung wurde entfernt."
+      invitation_token_invalid: "Die Einladung Token ist ungültig!"
+      new:
+        header: "Einladung senden"
+        submit_button: "Schicken Sie eine Einladung"
+      no_invitations_remaining: "Keine Einladungen Rest"
+      # send_instructions: "An invitation email has been sent to %{email}."
+      updated: "Ihr Passwort wurde erfolgreich gesetzt. Sie sind jetzt angemeldet."
+      updated_not_active: "Ihr Passwort wurde erfolgreich gesetzt."
     mailer:
       confirmation_instructions:
         subject: "Bestätigungs"
+      invitation_instructions:
+        accept: "Die Einladung annehmen"
+        # accept_until: "This invitation will be due in %{due_date}."
+        # hello: "Hello %{first_name} %{last_name},"
+        ignore: "Wenn Sie möchten, um die Einladung nicht annehmen, ignorieren Sie diese E-Mail. <br /> Ihr Konto wird nicht erstellt werden, bis Sie auf den Link oben zuzugreifen und setzen Ihr Passwort ein."
+        # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
+        subject: "Einladung Anweisungen"
       reset_password_instructions:
         subject: "Passwort zurücksetzen Anweisungen"
       unlock_instructions:
@@ -55,3 +76,9 @@ deu:
       not_saved:
         # one: "1 error prohibited this %{resource} from being saved:"
         # other: "%{count} errors prohibited this %{resource} from being saved:"
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "% B% d,% Y% H:% M% p"

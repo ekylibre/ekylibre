@@ -1,5 +1,7 @@
 por:
   actions:
+    authentication/invitations:
+      edit: "Aceitar o convite"
     authentication/passwords:
       edit: "Editar senha: %{name}"
       new: "Nova senha"
@@ -278,6 +280,9 @@ por:
       index: "Os estoques"
       new: "Novo inventário"
       # show: "Inventory: %{name}"
+    backend/invitations:
+      index: "Convites"
+      new: "Novo convite"
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -858,6 +863,7 @@ por:
     interventions_paths: "Intervenções caminhos"
     inventories: "Os estoques"
     inventory: "Inventário"
+    invitation_status: "Estado"
     invoiced_amount: "Vendas montante facturado"
     invoices: "Notas fiscais"
     is: "É"

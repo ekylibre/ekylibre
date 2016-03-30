@@ -1453,10 +1453,24 @@
         <page to="authentication/sessions#destroy"/>
         <page to="authentication/sessions#new"/>
       </item>
+      <item name="invitations">
+        <page to="authentication/invitations#create"/>
+        <page to="authentication/invitations#destroy"/>
+        <page to="authentication/invitations#edit"/>
+        <page to="authentication/invitations#new"/>
+        <page to="authentication/invitations#update"/>
+      </item>
       <item name="confirmations">
         <page to="devise/confirmations#create"/>
         <page to="devise/confirmations#new"/>
         <page to="devise/confirmations#show"/>
+      </item>
+      <item name="invitations">
+        <page to="devise/invitations#create"/>
+        <page to="devise/invitations#destroy"/>
+        <page to="devise/invitations#edit"/>
+        <page to="devise/invitations#new"/>
+        <page to="devise/invitations#update"/>
       </item>
       <item name="passwords">
         <page to="devise/passwords#create"/>

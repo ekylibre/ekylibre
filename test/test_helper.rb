@@ -1,13 +1,11 @@
 require 'coveralls'
-unless ENV['COVERALL'] == 'off'
-  Coveralls.wear!('rails')
-end
+Coveralls.wear!('rails') unless ENV['COVERALL'] == 'off'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
 
-require "minitest/reporters"
+require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
 
 # Permits to test locales

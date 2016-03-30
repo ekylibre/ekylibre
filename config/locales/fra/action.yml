@@ -307,9 +307,6 @@ fra:
       index: "Encaissements"
       new: "Nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
-    backend/invitations:
-      index: "Invitations"
-      new: "Nouvelle invitation"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       index: "Interventions"
@@ -322,6 +319,9 @@ fra:
       index: "Inventaires"
       new: "Nouvel inventaire"
       show: "Inventaire %{number}"
+    backend/invitations:
+      index: "Invitations"
+      new: "Nouvelle invitation"
     backend/issues:
       abort: "Annuler"
       close: "Fermer"

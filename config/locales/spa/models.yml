@@ -435,14 +435,14 @@ spa:
     current_localization: "La localización actual"
     current_memberships: "Membresías actuales"
     current_mother_link: "Enlace de la madre actual"
-    # current_outgoing_stock_ordered_not_delivered: "Outgoing stock not delivered"
+    current_outgoing_stock_ordered_not_delivered: "Stock saliente no entregado"
     current_ownership: "Propiedad actual"
     current_password: "Contraseña actual"
     current_phase: "Fase actual"
     current_quantity: "La cantidad actual"
     current_sign_in_at: "Señal de corriente en por lo"
     current_sign_in_ip: "Signo actual en IP"
-    # current_stock: "Current stock"
+    current_stock: "Actual de las acciones"
     current_supports: "Soportes actuales"
     custom_field: "Campo personalizado"
     custom_fields: "Campos Personalizados"
@@ -642,6 +642,7 @@ spa:
     interventions: "Intervenciones"
     introduction: "Introducción"
     inventory: "Inventario"
+    invitation_limit: "Límite de la invitación"
     invoice_address: "Dirección de facturación"
     invoiced_at: "Facturado sobre"
     irrigated: "Regadío"
@@ -1406,3 +1407,8 @@ spa:
           todo: "Que hacer"
     team:
       default: "Equipo principal"
+    user:
+      invitation:
+        accepted: "Aceptado"
+        not_invited: "No es invitado"
+        pending: "Pendiente"

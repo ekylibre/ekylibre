@@ -651,6 +651,13 @@ eng:
     interventions: "Interventions"
     introduction: "Introduction"
     inventory: "Inventory"
+    # invitation_accepted_at: "Invitation accepted at"
+    # invitation_created_at: "Invitation created at"
+    invitation_limit: "Invitation limit"
+    # invitation_sent_at: "Invitation sent at"
+    # invitation_token: "Invitation token"
+    # invitations_count: "Invitations count"
+    # invited_by: "Invited by"
     invoice_address: "Invoice address"
     invoiced_at: "Invoiced on"
     irrigated: "Irrigated"
@@ -1426,5 +1433,5 @@ eng:
     user:
       invitation:
         accepted: "Accepted"
-        pending: "Pending"
         not_invited: "Not invited"
+        pending: "Pending"

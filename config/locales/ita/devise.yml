@@ -9,14 +9,35 @@ ita:
       inactive: "Il tuo account non è stato ancora attivato."
       invalid: "E-mail o password non validi."
       invalid_token: "token di autenticazione non valido."
+      invited: "Si dispone di un invito in sospeso, lo accetta per completare la creazione del tuo account."
       locked: "Il tuo account è bloccato."
       not_found_in_database: "E-mail o password non validi."
       timeout: "La sessione scaduto, si prega di firmare nuovamente per continuare."
       unauthenticated: "È necessario accedere o registrarsi prima di continuare."
       unconfirmed: "È necessario confermare il tuo account prima di continuare."
+    invitations:
+      edit:
+        header: "Imposta la tua password"
+        submit_button: "Impostare la password"
+      invitation_removed: "Il tuo invito è stato rimosso."
+      invitation_token_invalid: "Il token invito fornito non è valido!"
+      new:
+        header: "Spedire un invito"
+        submit_button: "Invia un invito"
+      no_invitations_remaining: "Non ci sono inviti rimanenti"
+      # send_instructions: "An invitation email has been sent to %{email}."
+      updated: "La password è stata impostata correttamente. Ora si è effettuato l&#39;accesso."
+      updated_not_active: "La password è stata impostata correttamente."
     mailer:
       confirmation_instructions:
         subject: "istruzioni di conferma"
+      invitation_instructions:
+        accept: "Accetta l&#39;invito"
+        # accept_until: "This invitation will be due in %{due_date}."
+        # hello: "Hello %{first_name} %{last_name},"
+        ignore: "Se non si desidera accettare l&#39;invito, ignora questa email. <br /> Il tuo account non verrà creato fino a quando si accede al link qui sopra e impostare la password."
+        # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
+        subject: "Istruzioni invito"
       reset_password_instructions:
         subject: "Ripristinare le istruzioni di password"
       unlock_instructions:
@@ -55,3 +76,9 @@ ita:
       not_saved:
         # one: "1 error prohibited this %{resource} from being saved:"
         # other: "%{count} errors prohibited this %{resource} from being saved:"
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "% B% d,% Y% H:% M% p"

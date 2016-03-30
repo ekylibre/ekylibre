@@ -1148,14 +1148,14 @@ arb:
     current_localization: "التعريب الحالي"
     current_memberships: "عضوية الحالية"
     current_mother_link: "رابط الأم الحالي"
-    # current_outgoing_stock_ordered_not_delivered: "Outgoing stock not delivered"
+    current_outgoing_stock_ordered_not_delivered: "الأسهم المنتهية ولايته لم يتم تسليمها"
     current_ownership: "الملكية الحالية"
     current_password: "كلمة السر الحالية"
     current_phase: "المرحلة الحالية"
     current_quantity: "الكمية الحالية"
     current_sign_in_at: "علامة الحالي في في"
     current_sign_in_ip: "علامة الحالي في الملكية الفكرية"
-    # current_stock: "Current stock"
+    current_stock: "الرصيد الحالي"
     current_supports: "الدعم الحالية"
     custom_field: "حقول اضافية"
     custom_field_choices: "اختيارات الحقول الاضافية" #?
@@ -1439,6 +1439,7 @@ arb:
     inventory: "عملية الجرد"
     inventory_id: "عملية جرد" #?
     inventory_items: "طرق الجرد" #?
+    invitation_limit: "حد دعوة"
     invoice_address: "عنوان الفاتورة"
     invoice_contact: "العنوان للفاتورة" #?
     invoice_contact_id: "العنوان للفاتورة" #?
@@ -2796,6 +2797,10 @@ arb:
         other: "اخرى" #?
         towed: "اقتران" #?
         tractor: "تراكتور" #?
-    user:  #?
+    user:
+      invitation:
+        accepted: "قبلت"
+        not_invited: "لم يدع"
+        pending: "ريثما"
       no_right_defined_for_this_part_of_the_application: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب : %{controller}/%{action}" #?
       no_right_defined_for_this_part_of_the_application_and_this_user: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب ولهذا المستخدم" #?

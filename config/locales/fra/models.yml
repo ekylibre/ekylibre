@@ -822,6 +822,7 @@ fra:
     interventions: "Interventions"
     introduction: "Introduction"
     inventory: "Inventaire"
+    invitation_limit: "Limite d&#39;invitation"
     invoice_address: "Adresse pour la facture"
     invoiced: "Facturée" #?
     invoiced_at: "Facturée le"
@@ -1670,5 +1671,5 @@ fra:
     user:
       invitation:
         accepted: "Acceptée"
-        pending: "En cours"
         not_invited: "Non invité"
+        pending: "En cours"

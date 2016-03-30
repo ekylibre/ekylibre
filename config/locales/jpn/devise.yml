@@ -9,14 +9,35 @@ jpn:
       inactive: "あなたのアカウントはまだ活性化されませんでした。"
       invalid: "無効なメールアドレスまたはパスワード。"
       invalid_token: "無効な認証トークン。"
+      invited: "あなたは保留中の招待状を持って、アカウントの作成を完了するためにそれを受け入れます。"
       locked: "あなたのアカウントがロックされています。"
       not_found_in_database: "無効なメールアドレスまたはパスワード。"
       timeout: "セッションが継続するには、もう一度ログインしてください、期限が切れて。"
       unauthenticated: "あなたはログインまたは継続する前にサインアップする必要があります。"
       unconfirmed: "続行する前にアカウントを確認する必要があります。"
+    invitations:
+      edit:
+        header: "あなたのパスワードを設定"
+        submit_button: "私のパスワードを設定"
+      invitation_removed: "あなたの招待状を除去しました。"
+      invitation_token_invalid: "提供招待トークンが有効ではありません！"
+      new:
+        header: "招待状を送信"
+        submit_button: "招待状を送信"
+      no_invitations_remaining: "残りませ招待状はありません"
+      # send_instructions: "An invitation email has been sent to %{email}."
+      updated: "パスワードが正常に設定されました。あなたは今で署名されます。"
+      updated_not_active: "パスワードが正常に設定されました。"
     mailer:
       confirmation_instructions:
         subject: "確認命令"
+      invitation_instructions:
+        accept: "招待に応じます"
+        # accept_until: "This invitation will be due in %{due_date}."
+        # hello: "Hello %{first_name} %{last_name},"
+        ignore: "あなたが招待を受諾しない場合は、このメールを無視してください。 <br />あなたのアカウントには、上記のリンクにアクセスするまで作成し、パスワードを設定されません。"
+        # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
+        subject: "招待命令"
       reset_password_instructions:
         subject: "パスワード命令をリセット"
       unlock_instructions:
@@ -55,3 +76,9 @@ jpn:
       not_saved:
         # one: "1 error prohibited this %{resource} from being saved:"
         # other: "%{count} errors prohibited this %{resource} from being saved:"
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "％のB％dの、％Yの％I：％Mを％P"

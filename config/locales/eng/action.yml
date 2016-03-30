@@ -6,6 +6,7 @@ eng:
       # index: "Issues"
     authentication/invitations:
       edit: "Accept invitation"
+      # new: "New invitation"
     authentication/passwords:
       edit: "Edit password: %{name}"
       new: "New password"
@@ -383,9 +384,6 @@ eng:
       index: "Incoming payments"
       new: "New incoming payment"
       show: "Incoming payment %{number} of %{entity}"
-    backend/invitations:
-      index: "Invitations"
-      new: "New invitation"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
@@ -398,6 +396,9 @@ eng:
       new: "New inventory"
       # refresh: "Refresh inventory: %{name}"
       show: "Inventory: %{name}"
+    backend/invitations:
+      index: "Invitations"
+      new: "New invitation"
     backend/issues:
       abort: "Abort issue: %{name}"
       close: "Close issue: %{name}"
@@ -709,6 +710,9 @@ eng:
     devise/confirmations:
       # new: "New confirmation"
       # show: "Confirmation: %{name}"
+    devise/invitations:
+      # edit: "Edit invitation: %{name}"
+      # new: "New invitation"
     devise/passwords:
       # edit: "Edit password: %{name}"
       # new: "New password"
@@ -1134,7 +1138,7 @@ eng:
     interventions_paths: "Interventions paths" #?
     inventories: "Inventories" #?
     inventory: "Inventory" #?
-    invitation_status: "Status"
+    invitation_status: "Status" #?
     invoiced_amount: "Sales invoiced amount" #??
     invoices: "Invoices" #?
     is: "Is" #?

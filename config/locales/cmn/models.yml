@@ -432,14 +432,14 @@ cmn:
     current_localization: "目前国产化"
     current_memberships: "当前成员"
     current_mother_link: "目前母亲链接"
-    # current_outgoing_stock_ordered_not_delivered: "Outgoing stock not delivered"
+    current_outgoing_stock_ordered_not_delivered: "即将离任的股票未交付"
     current_ownership: "目前的所有权"
     current_password: "当前密码"
     current_phase: "当前阶段"
     current_quantity: "当前数量"
     current_sign_in_at: "目前在标志"
     current_sign_in_ip: "目前在IP标志"
-    # current_stock: "Current stock"
+    current_stock: "目前的股票"
     current_supports: "当前支持"
     custom_field: "自定义字段"
     custom_fields: "自定义字段"
@@ -638,6 +638,7 @@ cmn:
     interventions: "干预"
     introduction: "介绍"
     inventory: "库存"
+    invitation_limit: "邀请极限"
     invoice_address: "发票地址"
     invoiced_at: "开具发票的上"
     irrigated: "灌溉"
@@ -1402,3 +1403,8 @@ cmn:
           todo: "去做"
     team:
       default: "主队"
+    user:
+      invitation:
+        accepted: "公认"
+        not_invited: "未被邀请"
+        pending: "有待"

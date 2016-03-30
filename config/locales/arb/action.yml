@@ -1,5 +1,7 @@
 arb:
   actions:
+    authentication/invitations:
+      edit: "قبول دعوة"
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "كلمة السر الجديدة"
@@ -334,6 +336,9 @@ arb:
       index: "الجرد"
       new: "الجرد"
       # show: "Inventory: %{name}"
+    backend/invitations:
+      index: "دعوات"
+      new: "دعوة جديدة"
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -1257,6 +1262,7 @@ arb:
     inventory: "عدل الجرد"
     inventory_create: "تأدية عملية جرد جديدة" #?
     inventory_print: "طباعة الجرد" #?
+    invitation_status: "الحالة"
     invoiced_amount: "قيمة الفاتورة"
     invoices: "الفواتير"
     is: "هل"

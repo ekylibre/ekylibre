@@ -1,5 +1,7 @@
 spa:
   actions:
+    authentication/invitations:
+      edit: "Aceptar la invitacion"
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "Nueva contraseña"
@@ -299,6 +301,9 @@ spa:
       index: "Inventarios"
       new: "Inventario"
       # show: "Inventory: %{name}"
+    backend/invitations:
+      index: "Invitaciones"
+      new: "Nueva invitación"
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -992,6 +997,7 @@ spa:
     inventory: "Completar el inventario"
     inventory_create: "Hacer un nuevo inventario" #?
     inventory_print: "Imprimir el inventario" #?
+    invitation_status: "Estado"
     invoiced_amount: "Ventas importe facturado"
     invoices: "Facturas"
     is: "Es"

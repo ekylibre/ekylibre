@@ -1,5 +1,7 @@
 jpn:
   actions:
+    authentication/invitations:
+      edit: "招待に応じます"
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "新しいパスワード"
@@ -273,6 +275,9 @@ jpn:
       index: "棚卸"
       new: "新しい在庫"
       # show: "Inventory: %{name}"
+    backend/invitations:
+      index: "招待状"
+      new: "新しい招待状"
     backend/issues:
       # abort: "Abort issue: %{name}"
       # close: "Close issue: %{name}"
@@ -856,6 +861,7 @@ jpn:
     interventions_paths: "介入パス"
     inventories: "棚卸"
     inventory: "インベントリ"
+    invitation_status: "状態"
     invoiced_amount: "売上請求額"
     invoices: "請求書"
     is: "あります"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160323151501) do
+ActiveRecord::Schema.define(version: 20160330074338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3050,7 +3050,7 @@ ActiveRecord::Schema.define(version: 20160323151501) do
     t.integer  "person_id"
     t.integer  "role_id"
     t.decimal  "maximal_grantable_reduction_percentage", precision: 19, scale: 4, default: 5.0,   null: false
-    t.boolean  "administrator",                                                   default: true,  null: false
+    t.boolean  "administrator",                                                   default: false, null: false
     t.text     "rights"
     t.text     "description"
     t.boolean  "commercial",                                                      default: false, null: false

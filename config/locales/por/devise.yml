@@ -9,14 +9,35 @@ por:
       inactive: "Sua conta ainda não foi ativada."
       invalid: "Senha ou e-mail inválidos."
       invalid_token: "Chave de autenticação inválida."
+      invited: "Você tem um convite pendente, aceito-o para terminar de criar sua conta."
       locked: "Sua conta foi bloqueada."
       not_found_in_database: "E-mail ou senha inválidos."
       timeout: "Sua sessão expirou, entre novamente para continuar."
       unauthenticated: "Você precisa entrar ou se inscrever para continuar."
       unconfirmed: "Você deve confirmar sua conta antes de continuar."
+    invitations:
+      edit:
+        header: "Coloque sua senha"
+        submit_button: "Definir minha senha"
+      invitation_removed: "O seu convite foi removido."
+      invitation_token_invalid: "O token convite fornecido não é válido!"
+      new:
+        header: "Enviar convite"
+        submit_button: "Envie um convite"
+      no_invitations_remaining: "Nenhum convite restantes"
+      # send_instructions: "An invitation email has been sent to %{email}."
+      updated: "Sua senha foi definida com êxito. Agora você está conectado."
+      updated_not_active: "Sua senha foi definida com êxito."
     mailer:
       confirmation_instructions:
         subject: "Instruções de confirmação"
+      invitation_instructions:
+        accept: "Aceitar o convite"
+        # accept_until: "This invitation will be due in %{due_date}."
+        # hello: "Hello %{first_name} %{last_name},"
+        ignore: "Se você não quiser aceitar o convite, por favor ignore este e-mail. <br /> A sua conta não será criada até que você acessar o link acima e definir a sua senha."
+        # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
+        subject: "Instruções do convite"
       reset_password_instructions:
         subject: "Instruções para resetar sua senha"
       unlock_instructions:
@@ -55,3 +76,9 @@ por:
       not_saved:
         one: "1 erro está proibindo este %{resource} de ser salvo:"
         other: "%{count} erros proibindo este %{resource} de ser salvo:"
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "% B% d,% Y% I:% M% p"

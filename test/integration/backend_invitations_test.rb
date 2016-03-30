@@ -26,5 +26,4 @@ class BackendInvitations < CapybaraIntegrationTest
   test 'create invitation' do
     create_invitation
   end
-
 end

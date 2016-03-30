@@ -18,7 +18,6 @@
 
 module Backend
   class InvitationsController < Backend::BaseController
-
     list(model: :users,
          conditions: ["#{User.table_name}.invitation_created_at IS NOT NULL"],
          order: 'users.last_name') do |t|
@@ -28,6 +27,9 @@ module Backend
       t.column :email
       t.column :role, url: true
       t.column :invitation_status, label: :invitation_status
+    end
+
+    def index
     end
 
     def new
