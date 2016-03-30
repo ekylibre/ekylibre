@@ -205,6 +205,10 @@ GEM
       railties (>= 3.2.16)
     json (1.8.3)
     kgio (2.10.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     libv8 (3.16.14.13)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -491,6 +495,7 @@ DEPENDENCIES
   jquery-scrollto-rails
   jquery-turbolinks
   jquery-ui-rails
+  letter_opener
   luhn
   mechanize
   minitest-reporters
