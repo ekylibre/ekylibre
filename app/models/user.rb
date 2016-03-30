@@ -102,7 +102,7 @@ class User < Ekylibre::Record::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :invitable
   model_stamper # Needed to stamp.all records
   delegate :picture, :participations, to: :person
   delegate :name, to: :role, prefix: true
@@ -141,6 +141,18 @@ class User < Ekylibre::Record::Base
 
   def full_name
     name
+  end
+
+  def invitation_status
+    if created_by_invite?
+      if invitation_accepted?
+        tc('invitation.accepted')
+      else
+        tc('invitation.pending')
+      end
+    else
+      tc('invitation.not_invited')
+    end
   end
 
   def name

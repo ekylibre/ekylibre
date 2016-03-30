@@ -1667,3 +1667,8 @@ fra:
           todo: "À faire"
     team:
       default: "Général"
+    user:
+      invitation:
+        accepted: "Acceptée"
+        pending: "En cours"
+        not_invited: "Non invité"

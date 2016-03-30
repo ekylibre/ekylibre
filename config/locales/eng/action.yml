@@ -4,6 +4,8 @@ eng:
       # index: "Crumbs"
     api/v1/issues:
       # index: "Issues"
+    authentication/invitations:
+      edit: "Accept invitation"
     authentication/passwords:
       edit: "Edit password: %{name}"
       new: "New password"
@@ -381,6 +383,9 @@ eng:
       index: "Incoming payments"
       new: "New incoming payment"
       show: "Incoming payment %{number} of %{entity}"
+    backend/invitations:
+      index: "Invitations"
+      new: "New invitation"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
@@ -1129,6 +1134,7 @@ eng:
     interventions_paths: "Interventions paths" #?
     inventories: "Inventories" #?
     inventory: "Inventory" #?
+    invitation_status: "Status"
     invoiced_amount: "Sales invoiced amount" #??
     invoices: "Invoices" #?
     is: "Is" #?

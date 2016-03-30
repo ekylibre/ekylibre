@@ -3080,6 +3080,13 @@ ActiveRecord::Schema.define(version: 20160323151501) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                    default: 0,     null: false
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.integer  "invitations_count",                                               default: 0
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
@@ -3087,6 +3094,9 @@ ActiveRecord::Schema.define(version: 20160323151501) do
   add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
   add_index "users", ["creator_id"], name: "index_users_on_creator_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree

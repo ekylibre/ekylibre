@@ -87,7 +87,8 @@ gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
 
 # Authentication & Authorization
-gem 'devise'
+gem 'devise', '~> 3.5.2'
+gem 'devise_invitable', '~> 1.5.2'
 gem 'devise-i18n-views'
 
 # Attachments
@@ -159,14 +160,18 @@ group :development do
   # Webservers
   gem 'thin'
 
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 3.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'letter_opener'
+end
+
+group :development, :test do
+  gem 'pry-rails'
+  gem 'pry-byebug'
 end
 
 group :test do
@@ -178,6 +183,7 @@ group :test do
 
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
+  gem 'minitest-reporters'
 end
 
 # Load Gemfile.local, Gemfile.plugins, plugins', and custom Gemfiles

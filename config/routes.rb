@@ -64,7 +64,12 @@ Rails.application.routes.draw do
   end
 
   # No namespace because authentication is for all sides
-  devise_for :users, path: 'authentication', module: :authentication
+  devise_for :users, path: 'authentication', module: :authentication, skip: [:invitations]
+  as :user do
+    get 'authentication/invitation/accept' => 'authentication/invitations#edit', as: :accept_user_invitation
+    put 'authentication/invitation' => 'authentication/invitations#update', as: :user_invitation
+    patch 'authentication/invitation' => 'authentication/invitations#update'
+  end
 
   namespace :pasteque do
     # namespace :v6 do
@@ -809,6 +814,11 @@ Rails.application.routes.draw do
     get :search, controller: :dashboards, as: :search
 
     root to: 'dashboards#home'
+
+    get :invitations, to: 'invitations#index'
+    get 'invitations/list', to: 'invitations#list'
+    get 'invitations/new', to: 'invitations#new'
+    post 'invitations', to: 'invitations#create'
   end
 
   root to: 'public#index'
