@@ -14,53 +14,52 @@
       <property name="financial_year_name" value="financial_year.code"/>
       <section name="profits" legend="profits">
         <section name="products_sales" legend="products_sales">
-          <matrix name="items" for="item" in="Account.find_with_regexp('707X, 7086X, 7087X, 7088X, 7097X').order(:label)">
+          <matrix name="items" for="item" in="Account.find_with_regexp('707X, 7086X, 7087X, 7088X, 7097X').reorder(:number, :label)">
             <cell name="id" of="item" level="api"/>
             <cell name="label" of="item"/>
-            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
           </matrix>
         </section>
         <section name="productions_sales" legend="productions_sales">
-          <matrix name="items" for="item" in="Account.find_with_regexp('70X, ^707, ^7086, ^7087, ^7088, ^7097').order(:label)">
+          <matrix name="items" for="item" in="Account.find_with_regexp('70X, ^707, ^7086, ^7087, ^7088, ^7097').reorder(:number, :label)">
             <cell name="id" of="item" level="api"/>
             <cell name="label" of="item"/>
-            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
           </matrix>
         </section>
-        <property name="net_revenue" legend="net_revenue" value="financial_year.credit_balance('70X')"/>
         <section name="stock_production" legend="stock_production">
-          <matrix name="items" for="item" in="Account.find_with_regexp('71X').order(:label)">
+          <matrix name="items" for="item" in="Account.find_with_regexp('71X').reorder(:number, :label)">
             <cell name="id" of="item" level="api"/>
             <cell name="label" of="item"/>
-            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
           </matrix>
         </section>
         <section name="capitalised_production" legend="capitalised_production">
-          <matrix name="items" for="item" in="Account.find_with_regexp('72X').order(:label)">
+          <matrix name="items" for="item" in="Account.find_with_regexp('72X').reorder(:number, :label)">
             <cell name="id" of="item" level="api"/>
             <cell name="label" of="item"/>
-            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
           </matrix>
         </section>
         <section name="subsidies" legend="subsidies">
-          <matrix name="items" for="item" in="Account.find_with_regexp('74X').order(:label)">
+          <matrix name="items" for="item" in="Account.find_with_regexp('74X').reorder(:number, :label)">
             <cell name="id" of="item" level="api"/>
             <cell name="label" of="item"/>
-            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
           </matrix>
         </section>
         <section name="provisions_revenues" legend="provisions_revenues">
-          <matrix name="items" for="item" in="Account.find_with_regexp('781X, 791X').order(:label)">
+          <matrix name="items" for="item" in="Account.find_with_regexp('781X, 791X').reorder(:number, :label)">
             <cell name="id" of="item" level="api"/>
             <cell name="label" of="item"/>
-            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * 1" />
           </matrix>
         </section>
         <section name="other_products" legend="other_products">
-          <matrix name="items" for="item" in="Account.find_with_regexp('75X, ^755').order(:label)">
+          <matrix name="items" for="item" in="Account.find_with_regexp('75X, ^755').reorder(:number, :label)">
             <cell name="id" of="item" level="api"/>
             <cell name="label" of="item"/>
-            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
+            <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum) * -1" />
           </matrix>
         </section>
         <property name="exploitation_products_total" legend="exploitation_products_total" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755')"/>
