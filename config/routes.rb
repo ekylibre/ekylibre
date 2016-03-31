@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :tokens, only: [:create, :destroy]
       resources :crumbs
+      resources :issues
     end
   end
 
