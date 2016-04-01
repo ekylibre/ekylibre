@@ -77,10 +77,10 @@ class ProductNatureTest < ActiveSupport::TestCase
     assert_operator expressions.count, :>, 10, 'More than 10 expressions are expected in product natures'
     expressions.each do |expression|
       scope_count = ProductNature.of_expression(expression).count
-      direct_count = ProductNature.all.count { |n| n.of_expression(expression) }
+      direct_count = ProductNature.select { |n| n.of_expression(expression) }.count
       assert_operator scope_count, :>, 0
       assert_operator direct_count, :>, 0
-      assert_equal scope_count, direct_count
+      assert_equal scope_count, direct_count, "Expression '#{expression}' doesn't permit to find same natures (scope: #{scope_count} [#{ProductNature.of_expression(expression).pluck(:id).to_sentence}], direct: #{direct_count}  [#{ProductNature.select { |n| n.of_expression(expression) }.map(&:id).to_sentence}])"
     end
   end
 

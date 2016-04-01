@@ -39,8 +39,8 @@
 #  picture_updated_at   :datetime
 #  priority             :integer
 #  state                :string
-#  target_id            :integer          not null
-#  target_type          :string           not null
+#  target_id            :integer
+#  target_type          :string
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
@@ -58,12 +58,11 @@ class Issue < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :observed_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
-  validates_presence_of :name, :nature, :observed_at, :target, :target_type
+  validates_presence_of :name, :nature, :observed_at
   # ]VALIDATORS]
   validates_inclusion_of :priority, :gravity, in: 0..5
   validates_attachment_content_type :picture, content_type: /image/
 
-  delegate :name, to: :target, prefix: true
   delegate :count, to: :interventions, prefix: true
 
   scope :of_campaign, lambda { |campaign|
@@ -140,5 +139,9 @@ class Issue < Ekylibre::Record::Base
 
   def picture_path(style = :original)
     picture.path(style)
+  end
+
+  def target_name
+    target ? target.name : :none.tl
   end
 end

@@ -329,7 +329,7 @@ fra:
       index: "Incidents"
       new: "Nouvel incident"
       reopen: "Réouvrir"
-      show: "Incident %{name} (%{nature})"
+      show: "Incident %{name}"
     backend/journal_entries:
       edit: "Modifier l’écriture\_: %{number}"
       index: "Écritures comptables"

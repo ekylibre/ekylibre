@@ -18,11 +18,18 @@
     .med-info.important
       %span.title= Issue.human_attribute_name(:state)
       %span.value= lights(resource.status)
-    .med-info.important
-      %span.title= Issue.human_attribute_name(:target)
-      %span.value= link_to resource.target.name, {controller: resource.target.class.base_class.name.tableize, action: :show, id: resource.target_id}
+    .med-info
+      %span.title= Issue.human_attribute_name(:gravity)
+      %span.value= resource.gravity.to_s + "/4"
+    .med-info
+      %span.title= Issue.human_attribute_name(:priority)
+      %span.value= resource.priority.to_s + "/4"
+    - if resource.target
+      .med-info.important
+        %span.title= Issue.human_attribute_name(:target)
+        %span.value= link_to resource.target.name, {controller: resource.target.class.base_class.name.tableize, action: :show, id: resource.target_id}
   - if resource.description?
-    .description= resource.description
+    .med-info= resource.description
 
 = janus do |j|
   - j.face :cobbles do

@@ -2850,10 +2850,8 @@ issues:
   target_id:
     type: integer
     references: "~target_type"
-    required: true
   target_type:
     type: string
-    required: true
   updated_at:
     type: datetime
     required: true

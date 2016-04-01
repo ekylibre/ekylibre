@@ -39,8 +39,8 @@
 #  picture_updated_at   :datetime
 #  priority             :integer
 #  state                :string
-#  target_id            :integer          not null
-#  target_type          :string           not null
+#  target_id            :integer
+#  target_type          :string
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #

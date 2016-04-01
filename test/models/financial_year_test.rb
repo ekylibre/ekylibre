@@ -53,6 +53,6 @@ class FinancialYearTest < ActiveSupport::TestCase
     assert_not_nil first_year.next.previous
     assert_equal first_year, first_year.next.previous
 
-    assert_not_nil FinancialYear.at(Time.now + 50.years)
+    assert_not_nil FinancialYear.at(Time.now + 49.years)
   end
 end

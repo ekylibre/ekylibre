@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160330074338) do
+ActiveRecord::Schema.define(version: 20160331142401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1476,8 +1476,8 @@ ActiveRecord::Schema.define(version: 20160330074338) do
   add_index "inventory_items", ["updater_id"], name: "index_inventory_items_on_updater_id", using: :btree
 
   create_table "issues", force: :cascade do |t|
-    t.integer  "target_id",                                                              null: false
-    t.string   "target_type",                                                            null: false
+    t.integer  "target_id"
+    t.string   "target_type"
     t.string   "nature",                                                                 null: false
     t.datetime "observed_at",                                                            null: false
     t.integer  "priority"
