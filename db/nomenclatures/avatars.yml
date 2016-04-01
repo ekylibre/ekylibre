@@ -1,8 +1,12 @@
 ---
 activity_families:
+  administering: activity_families/administering.jpg
   animal_farming: activity_families/animal_farming.jpg
   plant_farming: activity_families/plant_farming.jpg
+  processing: activity_families/processing.jpg
+  service_delivering: activity_families/service_delivering.jpg
   tool_maintaining: activity_families/tool_maintaining.jpg
+  wine_making: activity_families/wine_making.jpg
 countries:
   ad: countries/ad.png
   ae: countries/ae.png

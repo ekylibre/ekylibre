@@ -85,6 +85,7 @@ users_001:
   failed_attempts: 0
   first_name: Gendo
   id: 1
+  invitations_count: 0
   language: jpn
   last_name: IKARI
   last_sign_in_at: 2015-09-20 14:51:20.274880000 Z
@@ -115,6 +116,7 @@ users_002:
   failed_attempts: 0
   first_name: Kōzō
   id: 2
+  invitations_count: 0
   language: fra
   last_name: " FUYUTSUKI"
   lock_version: 3
@@ -182,6 +184,7 @@ users_003:
   failed_attempts: 0
   first_name: Yui
   id: 3
+  invitations_count: 0
   language: jpn
   last_name: IKARI
   lock_version: 1
