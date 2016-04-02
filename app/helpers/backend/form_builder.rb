@@ -300,10 +300,14 @@ module Backend
       input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
     end
 
-    def geolocation(attribute_name = :geolocation, _options = {})
-      point(attribute_name, options = {})
+    def geolocation(attribute_name = :geolocation, options = {})
+      point(attribute_name, options)
     end
 
+    def geolocation_field(attribute_name = :geolocation, options = {})
+      point_field(attribute_name, options)
+    end
+    
     def point(attribute_name, options = {})
       marker = {}
       if geom = @object.send(attribute_name)
@@ -318,6 +322,22 @@ module Backend
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
       input(attribute_name, options.merge(input_html: { data: { map_marker: marker } }))
+    end
+
+    def point_field(attribute_name, options = {})
+      marker = {}
+      if geom = @object.send(attribute_name)
+        marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
+        marker[:view] = { center: marker[:marker] }
+      else
+        if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
+          marker[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
+        elsif zone = CultivableZone.first
+          marker[:view] = { center: zone.shape_centroid }
+        end
+        marker[:marker] = marker[:view][:center] if marker[:view]
+      end
+      input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 
     def money(attribute_name, *args)
