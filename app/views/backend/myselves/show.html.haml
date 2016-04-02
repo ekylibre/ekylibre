@@ -3,7 +3,7 @@
     = simple_form_for([:backend, @user], url: backend_myself_path, method: :patch) do |f|
       = f.input :first_name
       = f.input :last_name
-      = f.input :language, collection: languages
+      = f.input :language, collection: available_languages
       = form_actions do
         = f.submit :update.ta, class: 'primary'
 

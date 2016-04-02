@@ -213,6 +213,13 @@ module ApplicationHelper
     nomenclature_as_options(:languages)
   end
 
+  def available_languages
+    I18n.available_locales.map do |l|
+      [I18n.t('i18n.name', locale: l), l]
+    end.sort { |a, b| a.second <=> b.second }
+  end
+
+
   # Returns a selection from names list
   def nomenclature_as_options(nomenclature_name, *args)
     options = args.extract_options!
