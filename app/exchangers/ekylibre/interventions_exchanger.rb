@@ -519,28 +519,28 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   ##################################
 
   def qualify_intervention(r, targets, procedures_transcode)
-    
+
     # retrieve procedure from its name and set basics attributes
     procedure = Procedo.find(procedures_transcode[r.procedure_name])
-    
+
     # check if procedure is simple or not (with group parameter)
     simple = true
     procedure.parameters.each do |parameter|
       if parameter == "group_parameter" || parameter == "output"
-        simple = false 
+        simple = false
         break
       end
     end
-    
+
     if simple
       return record_default_intervention(r, targets, procedure)
     else
       return record_complex_intervention(r, targets, procedure)
     end
-    
+
   end
-  
-  
+
+
   def record_default_intervention(r, targets, procedure)
 
     # build base procedure
@@ -621,10 +621,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     ## save
     ::Intervention.create!(intervention.to_hash)
   end
-  
-  
+
+
   def record_complex_intervention(r, targets, procedure)
-    
+
   ###############################
   ####  SOWING / IMPLANTING  ####
   ###############################
@@ -632,9 +632,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   #################################
   ####  ANIMAL             ####
   #################################
-  
+
    return nil
-   
+
   end
 
 end

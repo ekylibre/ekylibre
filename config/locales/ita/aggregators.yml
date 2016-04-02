@@ -53,7 +53,7 @@ ita:
     milk_withdrawal_period: "periodo di sospensione Latte"
     name: "Nome"
     nature: "Digitare"
-    net_revenue: "Guadagno netto"
+    net_revenue: "Guadagno netto" #?
     net_surface_area: "superficie netta"
     number: "Numero"
     observed_at: "osservata alle"

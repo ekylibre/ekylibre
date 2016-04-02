@@ -54,7 +54,7 @@ cmn:
     milk_withdrawal_period: "牛奶停药期"
     name: "名称"
     nature: "类型"
-    net_revenue: "净收入"
+    net_revenue: "净收入" #?
     net_surface_area: "净面积"
     number: "数"
     observed_at: "在观察"

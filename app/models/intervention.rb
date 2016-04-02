@@ -163,7 +163,18 @@ class Intervention < Ekylibre::Record::Base
 
   # Returns activities of intervention through TargetDistribution
   def activities
-    Activity.of_intervention(self)
+    # re active when Target Distribution works
+    # Activity.of_intervention(self)
+    a = []
+    self.targets.each do |target|
+      a << target.activity if target.activity
+    end
+    return a
+  end
+
+  # Returns human tool names
+  def human_activities_names
+    activities.map(&:name).sort.to_sentence
   end
 
   def product_parameters

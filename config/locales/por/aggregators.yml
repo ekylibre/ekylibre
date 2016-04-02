@@ -66,7 +66,7 @@ por:
     milk_withdrawal_period: "Intervalo de segurança do leite"
     name: "Nome"
     nature: "Digitar"
-    net_revenue: "Receita liquida"
+    net_revenue: "Receita liquida" #?
     net_surface_area: "Net surface area"
     nitrogen_balance: "Nitrogen balance" #?
     nitrogen_input_prev: "Nitrogen input prev" #?

@@ -1386,6 +1386,7 @@ arb:
     hashed_password: "تشفير كلمة المرور" #?
     host: "مضيف"
     hour_duration: "(ساعة (ساعات" #?
+    # human_activities_names: "Activities names"
     human_shape_area: "منطقة الشكل"
     human_target_names: "أسماء المستهدفة"
     human_working_duration: "مدة العمل"

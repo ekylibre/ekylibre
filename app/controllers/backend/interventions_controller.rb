@@ -79,10 +79,10 @@ module Backend
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
       t.column :name, sort: :procedure_name, url: true
-      t.column :procedure_name
+      t.column :procedure_name, hidden: true
       # t.column :production, url: true, hidden: true
       # t.column :campaign, url: true
-      # t.column :activity, url: true, hidden: true
+      t.column :human_activities_names
       t.column :state, hidden: true
       t.column :started_at
       t.column :stopped_at, hidden: true

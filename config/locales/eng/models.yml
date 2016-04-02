@@ -605,6 +605,7 @@ eng:
     harvest_year: "Harvest year"
     has_downpayment: "Has downpayment"
     host: "Host"
+    human_activities_names: "Activities names"
     human_shape_area: "Surface area"
     human_target_names: "Target names"
     human_working_duration: "Working duration"

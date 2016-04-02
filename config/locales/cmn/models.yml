@@ -592,6 +592,7 @@ cmn:
     harvest_year: "丰收年"
     has_downpayment: "有首付"
     host: "主办"
+    # human_activities_names: "Activities names"
     human_shape_area: "形状区域"
     human_target_names: "目标名称"
     human_working_duration: "工作时间"

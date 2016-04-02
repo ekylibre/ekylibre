@@ -53,7 +53,7 @@ deu:
     milk_withdrawal_period: "Milch Wartezeit"
     # name: "Name"
     nature: "Art"
-    net_revenue: "Nettoumsatz"
+    net_revenue: "Nettoumsatz" #?
     net_surface_area: "Nettofläche"
     number: "Nummer"
     observed_at: "Beobachtung:"
