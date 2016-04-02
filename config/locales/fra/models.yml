@@ -772,6 +772,7 @@ fra:
     harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"
     host: "Hôte"
+    human_shape_area: "Superficie"
     human_target_names: "Nom des cibles"
     human_working_duration: "Temps de travail"
     human_working_zone_area: "Zone travaillée"

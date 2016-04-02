@@ -623,6 +623,7 @@ ita:
     harvest_year: "anno Harvest"
     has_downpayment: "ha acconto"
     host: "Ospite"
+    human_shape_area: "Zona forma"
     human_target_names: "nomi di destinazione"
     human_working_duration: "durata di funzionamento"
     human_working_zone_area: "zona zona di lavoro"

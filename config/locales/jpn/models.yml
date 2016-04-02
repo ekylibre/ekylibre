@@ -593,6 +593,7 @@ jpn:
     harvest_year: "収穫年"
     has_downpayment: "頭金を持っています"
     host: "ホスト"
+    human_shape_area: "形状領域"
     human_target_names: "ターゲット名"
     human_working_duration: "作業期間"
     human_working_zone_area: "ワーキングゾーン領域"
