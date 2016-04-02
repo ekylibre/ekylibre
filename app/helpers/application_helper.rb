@@ -219,7 +219,6 @@ module ApplicationHelper
     end.sort { |a, b| a.second <=> b.second }
   end
 
-
   # Returns a selection from names list
   def nomenclature_as_options(nomenclature_name, *args)
     options = args.extract_options!
