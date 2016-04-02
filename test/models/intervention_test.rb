@@ -74,7 +74,7 @@ class InterventionTest < ActiveSupport::TestCase
     end
   end
 
-  test 'creation' do
+  test 'creation and destruction' do
     intervention = Intervention.create!(procedure_name: :sowing) # , actions: [:game_repellent, :fungicide]
     Worker.of_expression('can drive(equipment) and can move').limit(2) do |bob|
       intervention.add_parameter!(:driver, bob)
@@ -90,6 +90,8 @@ class InterventionTest < ActiveSupport::TestCase
       end
     end
     assert intervention.runnable?, 'Intervention should be runnable'
+
+    intervention.destroy!
   end
 
   test 'run!' do

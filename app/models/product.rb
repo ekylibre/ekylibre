@@ -367,24 +367,23 @@ class Product < Ekylibre::Record::Base
 
   # Try to find the best name for the new products
   def choose_default_name
-    if name.blank?
-      if variant
-        if last = variant.products.reorder(id: :desc).first
-          self.name = last.name
-          array = name.split(/\s+/)
-          if array.last =~ /^\(+\d+\)+?$/
-            self.name = array[0..-2].join(' ') + ' (' + array.last.gsub(/(^\(+|\)+$)/, '').to_i.succ.to_s + ')'
-          else
-            name << ' (1)'
-          end
+    return unless name.blank?
+    if variant
+      if last = variant.products.reorder(id: :desc).first
+        self.name = last.name
+        array = name.split(/\s+/)
+        if array.last =~ /^\(+\d+\)+?$/
+          self.name = array[0..-2].join(' ') + ' (' + array.last.gsub(/(^\(+|\)+$)/, '').to_i.succ.to_s + ')'
         else
-          self.name = variant_name
+          name << ' (1)'
         end
+      else
+        self.name = variant_name
       end
-      if name.blank?
-        # By default, choose a random name
-        self.name = ::FFaker::Name.first_name
-      end
+    end
+    if name.blank?
+      # By default, choose a random name
+      self.name = ::FFaker::Name.first_name
     end
   end
 

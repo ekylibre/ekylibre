@@ -798,7 +798,7 @@ form.search {
 
 .info {
   @include ellipsis;
-  padding: 2 * $default-gap;
+  margin: $default-gap 2 * $default-gap;
   &, & * {
     font-size: $fs-large;
     line-height: $lh-large;
