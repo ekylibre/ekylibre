@@ -55,8 +55,8 @@ class CustomFieldChoice < Ekylibre::Record::Base
 
   before_update do
     old = old_record
-    if self.value != old.value && custom_field.column_exists?
-      custom_field.customized_model.where(custom_field.column_name => old.value).update_all(custom_field.column_name => self.value)
+    if self.value != old.value
+      custom_field.customized_model.where("custom_fields->>'#{custom_field.column_name}' = ?", old.value).update_all("custom_fields = jsonb_set(custom_fields, '{#{custom_field.column_name}}', to_jsonb(#{self.class.connection.quote(self.value)}::VARCHAR))")
     end
   end
 
@@ -67,6 +67,6 @@ class CustomFieldChoice < Ekylibre::Record::Base
 
   # Returns all linked records for the given model
   def records
-    custom_field.customized_model.where(custom_field.column_name => self.value)
+    custom_field.customized_model.where("custom_fields->>'#{custom_field.column_name}' = ?", self.value)
   end
 end

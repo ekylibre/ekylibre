@@ -2,73 +2,29 @@
 
 This a short explanation on installation steps for developers.
 
+If you are on Debian Jessie, please take a look at {detailed installation guide}[https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.rdoc].
+
 == 1. Dependencies
 
-* Before all, install all distribution dependencies:
+* Before all, install all database. See http://www.postgresql.org/download/ to install PostgreSQL on your system. PostgreSQL 9.5 is required at least with PostGIS 2.2 and PostgreSQL contrib for its +uuid-ossp+ extension.
 
-    sudo apt-get install postgresql-9.3 postgresql-server-dev-9.3 libpq-dev libqtwebkit-dev libmagic-dev libxml2-dev libxslt1-dev libgdal1-dev libjson0-dev zlib1g-dev build-essential wget openjdk-7-jdk graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript libicu52 libcurl4-openssl-dev libicu-dev redis-server
+* Then, install all dependencies. Command and package can differ between distributions or OS:
 
-* Install PostGIS (≥ 2.1) from source:
-  * Download and install Geos (≥ 3.4) from http://trac.osgeo.org/geos:
-      wget http://download.osgeo.org/geos/geos-3.4.2.tar.bz2
-      tar xjvf geos-3.4.2.tar.bz2
-      cd geos-3.4.2
-      ./configure
-      make
-      sudo make install
-    Or in one line:
-      wget http://download.osgeo.org/geos/geos-3.4.2.tar.bz2 && tar xjvf geos-3.4.2.tar.bz2 && cd geos-3.4.2 && ./configure && make && sudo make install
-  * Download and install Proj4 (≥ 4.8) from http://trac.osgeo.org/proj:
-      wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz
-      tar xzvf proj-4.8.0.tar.gz
-      cd proj-4.8.0
-      ./configure
-      make
-      sudo make install
-    Or in one line:
-      wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz && tar xzvf proj-4.8.0.tar.gz && cd proj-4.8.0 && ./configure && make && sudo make install
-  * Download and install PostGIS (≥ 2.1) from http://postgis.net:
-      wget http://download.osgeo.org/postgis/source/postgis-2.1.4.tar.gz
-      tar xzvf postgis-2.1.4.tar.gz
-      cd postgis-2.1.4
-      ./configure
-      make
-      sudo make install
-    Or in one line:
-      wget http://download.osgeo.org/postgis/source/postgis-2.1.4.tar.gz && tar xzvf postgis-2.1.4.tar.gz && cd postgis-2.1.4 && ./configure && make && sudo make install
-
-=== Ubuntu 14.04
-
-You can install postgresql-9.3-postgis-2.1 and libgeos-dev packages to get all directly. But you need to ensure that libgeos.so exist, by default you'll need to link the existing lib:
-
-  ln -s /usr/lib/libgeos-3.4.2.so /usr/lib/libgeos.so
+    sudo apt-get imagemagick graphicsmagick tesseract-ocr tesseract-ocr-ara tesseract-ocr-jpn tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript openjdk-7-jdk libicu52 redis-server postgresql-9.5-postgis-2.2 postgresql-contrib-9.5 libcurl4-openssl-dev openjdk-7-jdk libgeos-dev libgeos++-dev libproj-dev libpq-dev libxml2-dev libxslt1-dev zlib1g-dev libicu-dev libqtwebkit-dev
 
 == 2. Ruby
 
-* Install Ruby 2.0 or later. If your distribution isn't up-to-date, see {RVM}[https://rvm.io] or {RbEnv}[https://github.com/sstephenson/rbenv] to install the good version, else:
-    sudo apt-get install ruby2.0 ruby2.0-dev ruby-dev
+* Install Ruby 2.2 or later. If your distribution isn't up-to-date, see {RVM}[https://rvm.io] or {RbEnv}[https://github.com/sstephenson/rbenv] to install the good version.
 
-  Or compile it from source. In one line:
-    wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p481.tar.gz && tar xzvf ruby-2.0.0-p481.tar.gz && cd ruby-2.0.0-p481 && ./configure && make && sudo make install
+== 3. Get sources
 
-  NOTE : we advise you to take the RBENV method
+* Clone sources from repository
+    git clone https://github.com/ekylibre/ekylibre.git /path/to/ekylibre
 
-== 3. Configuration
+== 4. Configure Database
 
 * Configure a DB superuser as default user in your +config/database.yml+.
   In production mode, you'll need to use a normal user without SUPERUSER not CREATEDB right.
-
-* Install bundler with rubygems:
-    gem install bundler
-
-* Move to Ekylibre directory root and install gems with bundler:
-    cd /path/to/ekylibre
-    JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
-
-  Or you can add the following lines in your +~/.bash_profile+ in your home directory and run +bundle install+ after:
-
-    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk
-    export NOKOGIRI_USE_SYSTEM_LIBRARIES=1
 
 * Create your +database.yml+ in +config/+
 
@@ -86,16 +42,45 @@ You can install postgresql-9.3-postgis-2.1 and libgeos-dev packages to get all d
       <<: *default
       database: ekylibre_development
 
+== 5. Configure ruby dependencies
+
+* Install bundler with rubygems:
+    gem install bundler
+
+* Move to Ekylibre directory root and install gems with bundler:
+    cd /path/to/ekylibre
+    JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
+
+  Or you can add the following lines in your +~/.bash_profile+ in your home directory and run +bundle install+ after:
+
+    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk
+    export NOKOGIRI_USE_SYSTEM_LIBRARIES=1
+
+
+== 6. Initialize database
+
 * Create and migrate database:
     rake db:create db:migrate
 
-* Optionally, it's possible to load anonymized data of a real (french polycultural-cattling) farm, just replace 'instance' by 'demo':
-    rake first_run max=50 name=instance
+See {rails guide}[http://guides.rubyonrails.org/active_record_migrations.html#running-migrations] for more informations on migrations.
 
-* Add in +/etc/hosts+ a line to configure a factive subdomain corresponding to your instance:
-     127.0.0.1 instance.ekylibre.lan
+== 7. Create an empty farm
+
+* Execute command:
+    rake tenant:init TENANT=my-little-farm
+
+* Add in +/etc/hosts+ a line to configure an artificial subdomain corresponding to your instance:
+     echo '127.0.0.1 my-little-farm.ekylibre.lan' | sudo tee --append /etc/hosts
+
+Optionally, it's possible to load anonymized data of a real (french polycultural-cattling) farm. Install data from https://github.com/ekylibre/first_run-demo in +/path/to/ekylibre/db/first_runs/demo+, and run:
+
+    rake first_run TENANT=demo
+
+Don't forget to update your +/etc/hosts+ file.
+
+== 8. Try it
 
 * Launch server:
-    rails server
+    foreman start
 
-* Open your web browser and go to http://instance.ekylibre.lan:3000
+* Open your web browser and go to http://my-farm.ekylibre.lan:8080
