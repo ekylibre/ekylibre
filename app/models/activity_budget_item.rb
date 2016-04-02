@@ -91,9 +91,9 @@ class ActivityBudgetItem < Ekylibre::Record::Base
   def coefficient
     return 0 unless activity_budget
     if per_production?
-      return activity_budget.productions_count
+      return activity_budget.productions_count || 0
     elsif per_working_unit?
-      return activity_budget.productions_size
+      return activity_budget.productions_size || 0
     end
     1
   end
