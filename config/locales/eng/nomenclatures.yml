@@ -2458,6 +2458,7 @@ eng:
         ascott_wheat_seed_25: "Ascott wheat seed 25"
         asparagus_crop: "Asparagus crop"
         associate_social_contribution: "Associate social contribution"
+        bale_collector: "Bale collector"
         baler: "Baler"
         bank_service: "Bank service"
         barley_grain: "Barley grain"
@@ -3039,6 +3040,7 @@ eng:
         tangerine_crop: "Tangerine crop"
         taxe: "Taxe"
         technician: "Technician"
+        telescopic_handler: "Telescopic handler"
         temporary_meadow_crop: "Temporary meadow crop"
         thicket_crop: "Thicket crop"
         tobacco_crop: "Tobacco crop"
@@ -3072,6 +3074,7 @@ eng:
         wheat_straw_big_rectangular_bales: "Wheat straw big rectangular bales"
         wheat_straw_round_bales: "Wheat straw round bales"
         wheat_straw_small_rectangular_bales: "Wheat straw small rectangular bales"
+        wheel_loader: "Wheel loader"
         white_sugar_25kg: "White sugar 25kg"
         wine: "Wine"
         wine_press: "Wine press"
@@ -3114,6 +3117,7 @@ eng:
         animal_medicine_tank: "Animal medicine tank"
         animals_making_services: "Animals making services"
         associate_social_contribution: "Associate social contribution"
+        bale_collector: "Bale collector"
         baler: "Baler"
         bank_service: "Bank service"
         bee_band: "Bee band"
@@ -3342,6 +3346,7 @@ eng:
         superficial_plow: "Superficial plow"
         taxe: "Taxe"
         technician: "Technician"
+        telescopic_handler: "Telescopic handler"
         topper: "Topper"
         tractor: "Tractor"
         trade_show: "Trade show"
@@ -3361,6 +3366,7 @@ eng:
         water_spreader: "Water spreader"
         water_tank: "Water tank"
         weeder: "Weeder"
+        wheel_loader: "Wheel loader"
         wine: "Wine"
         wine_acidifying: "Wine acidifying"
         wine_alkalinizing: "Wine alkalinizing"
@@ -3383,104 +3389,6 @@ eng:
         variable_indicators: "Variable indicators"
         variety: "Variety"
     production_natures:
-      items:
-        # administrative: "Administrative"
-        # annual_frost_fallow_land: "Annual frost fallow land"
-        # apple: "Apple"
-        # asparagus: "Asparagus"
-        # bean: "Bean"
-        # beet: "Beet"
-        # building: "Building"
-        # calf: "Calf"
-        # carrot: "Carrot"
-        # chicken: "Chicken"
-        # duck: "Duck"
-        # escourgeon_barley: "Escourgeon barley"
-        # exploitation: "Exploitation"
-        # five_years_temporary_meadow: "Five years temporary meadow"
-        # fixed_frost_fallow_land: "Fixed frost fallow land"
-        # flax: "Flax"
-        # forager_lupin: "Forager lupin"
-        # forager_soy: "Forager soy"
-        # fruit_processing: "Fruit processing"
-        # garden_center: "Garden center"
-        # garlic: "Garlic"
-        # goat: "Goat"
-        # gooseberry: "Gooseberry"
-        # grain_corn: "Grain corn"
-        # green_fallow_land: "Green fallow land"
-        # hazel: "Hazel"
-        # horsebean: "Horsebean"
-        # lavender: "Lavender"
-        # laying_hen: "Laying hen"
-        # lentil: "Lentil"
-        # maintenance: "Maintenance"
-        # market_gardening: "Market gardening"
-        # market_gardening_under_greenhouse: "Market gardening under greenhouse"
-        # marketable_bean: "Marketable bean"
-        # marketable_flax: "Marketable flax"
-        # marketable_forager_lupin: "Marketable forager lupin"
-        # marketable_forager_soy: "Marketable forager soy"
-        # marketable_garden_center: "Marketable garden center"
-        # marketable_hazel: "Marketable hazel"
-        # marketable_lentil: "Marketable lentil"
-        # marketable_soy: "Marketable soy"
-        # marketable_sunflower: "Marketable sunflower"
-        # marketable_walnut: "Marketable walnut"
-        # meat_cattle: "Meat cattle"
-        # melon: "Melon"
-        # milk_bull_calf: "Milk bull calf"
-        # milk_cattle: "Milk cattle"
-        # other_crop: "Other crop"
-        # other_gardening: "Other gardening"
-        # others_usages: "Others usages"
-        # oyster: "Oyster"
-        # peach: "Peach"
-        # pear: "Pear"
-        # permanent_meadow: "Permanent meadow"
-        # pig: "Pig"
-        # plum: "Plum"
-        # potato: "Potato"
-        # raspberry: "Raspberry"
-        # rose: "Rose"
-        # rye: "Rye"
-        # saffron: "Saffron"
-        # salmon: "Salmon"
-        # seed_bean: "Seed bean"
-        # seed_corn: "Seed corn"
-        # seed_pea: "Seed pea"
-        # services: "Services"
-        # silage_corn: "Silage corn"
-        # sorghum: "Sorghum"
-        # soy: "Soy"
-        # specific_fallow_land: "Specific fallow land"
-        # spring_barley: "Spring barley"
-        # spring_hard_wheat: "Spring hard wheat"
-        # spring_oat: "Spring oat"
-        # spring_pea: "Spring pea"
-        # spring_rapeseed: "Spring rapeseed"
-        # spring_soft_wheat: "Spring soft wheat"
-        # strawberry: "Strawberry"
-        # sunflower: "Sunflower"
-        # table_grape_vine: "Table grape vine"
-        # temporary_meadow: "Temporary meadow"
-        # thicket: "Thicket"
-        # tobacco: "Tobacco"
-        # trade: "Trade"
-        # triticale: "Triticale"
-        # unexploited_cultivable_zone: "Unexploited cultivable zone"
-        # vine: "Vine"
-        # vine_restructuration: "Vine restructuration"
-        # walnut: "Walnut"
-        # wine_storehouse: "Wine storehouse"
-        # winery: "Winery"
-        # winter_barley: "Winter barley"
-        # winter_hard_wheat: "Winter hard wheat"
-        # winter_oat: "Winter oat"
-        # winter_pea: "Winter pea"
-        # winter_rapeseed: "Winter rapeseed"
-        # winter_soft_wheat: "Winter soft wheat"
-        # without_crop: "Without crop"
       name: "Production natures"
     production_usages:
       items:
@@ -3573,10 +3481,6 @@ eng:
         valley_terrace_soil: "Valley terrace soil"
       name: "Soil natures"
     spatial_reference_systems:
-      items:
-        # EPSG_3857: "Epsg 3857"
-        # RGF93: "Rgf93"
-        # WGS84: "Wgs84"
       name: "Spatial reference systems"
     tax_natures:
       choices:
@@ -3861,6 +3765,7 @@ eng:
         avena_sativa_une_de_mai: "Oat une de mai"          #< avena_sativa
         aves: "Bird"                                       #< animal
         bacteria: "Bacteria"                               #< bioproduct
+        # bale_collector: "Bale collector"                 #< equipment
         baler: "Baler"                                     #< equipment
         bambusa: "Bamboo"                                  #< poaceae
         bellis: "Bellis"                                   #< asteraceae
@@ -5887,6 +5792,7 @@ eng:
         sus_scrofa_x70: "Domestic pig X70"                 #< sus_scrofa
         sus_scrofa_x80: "Domestic pig X80"                 #< sus_scrofa
         tank: "Tank"                                       #< equipment
+        # telescopic_handler: "Telescopic handler"         #< equipment
         theobroma: "Theobroma"                             #< malvaceae
         theobroma_cacao: "Cocoa tree"                      #< theobroma
         theobroma_grandiflorum: "Theobroma grandiflorum"   #< theobroma
@@ -6208,6 +6114,7 @@ eng:
         water: "Water"                                     #< matter
         weigela: "Weigela"                                 #< diervillaceae
         weigela_floribunda: "Weigela floribunda"           #< weigela
+        # wheel_loader: "Wheel loader"                     #< equipment
         wine: "Wine"                                       #< fermented_juice
         wire: "Wire"                                       #< packaged_matter
         worker: "Worker"                                   #< product

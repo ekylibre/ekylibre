@@ -450,9 +450,9 @@ module Clean
               choices = ''
               item_lists = []
               if nomenclature.property_natures.any?
-                trl[:prop] = "      property_natures:\n"
+                trl[:properties] = "      property_natures:\n"
                 nomenclature.property_natures.sort { |a, b| a.first.to_s <=> b.first.to_s }.each do |name, property_nature|
-                  trl[:prop] << s.exp(ref, nomenclature.name, :property_natures, name.to_sym).dig(4)
+                  trl[:properties] << s.exp(ref, nomenclature.name, :property_natures, name.to_sym).dig(4)
                   if property_nature.type == :choice
                     if property_nature.inline_choices?
                       choices << "#{name}:\n"
@@ -467,49 +467,47 @@ module Clean
               end
               unless choices.blank?
                 choices = "choices:\n" + choices.dig
-                trl[:choi] = choices.dig(3)
+                trl[:choices] = choices.dig(3)
               end
-            end
 
-            # if item_lists.any?
-            #   lists = "item_lists:\n"
-            #   for item in nomenclature.list.sort{|a,b| a.name.to_s <=> b.name.to_s}
-            #     liss = ""
-            #     for item_list in item_lists.sort{|a,b| a.to_s <=> b.to_s}
-            #       iss = ""
-            #       if is = item.send(item_list)
-            #         iss << "#{item_list}:\n"
-            #         for i in is
-            #           iss << s.exp(ref, nomenclature.name, :item_lists, item.name.to_sym, item_list, i.to_sym).dig
-            #         end
-            #       end
-            #       liss << iss unless iss.blank?
-            #     end
-            #     lists << "  #{item.name}:\n" + liss.dig(2) unless liss.blank?
-            #   end
-            #   translation << lists.dig(3)
-            # end
-            trl[:item] = "      items:\n"
-            nomenclature.list.sort { |a, b| a.name.to_s <=> b.name.to_s }.each do |item|
-              line = s.exp(ref, nomenclature.name, :items, item.name.to_sym)
-              trl[:item] << (item.root? ? line : line.ljust(50) + " #< #{item.parent.name}").dig(4)
-            end
-            if nomenclature.notions.any?
-              trl[:noti] = "      notions:\n"
-              nomenclature.notions.each do |notion|
-                trl[:noti] << "        #{notion}:\n"
-                nomenclature.list.sort { |a, b| a.name.to_s <=> b.name.to_s }.each do |item|
-                  line = s.exp(ref, nomenclature.name, :notions, notion, item.name.to_sym, default: "#{notion.to_s.humanize} of #{item.name.to_s.humanize}")
-                  trl[:noti] << line.dig(5)
+              # if item_lists.any?
+              #   lists = "item_lists:\n"
+              #   for item in nomenclature.list.sort{|a,b| a.name.to_s <=> b.name.to_s}
+              #     liss = ""
+              #     for item_list in item_lists.sort{|a,b| a.to_s <=> b.to_s}
+              #       iss = ""
+              #       if is = item.send(item_list)
+              #         iss << "#{item_list}:\n"
+              #         for i in is
+              #           iss << s.exp(ref, nomenclature.name, :item_lists, item.name.to_sym, item_list, i.to_sym).dig
+              #         end
+              #       end
+              #       liss << iss unless iss.blank?
+              #     end
+              #     lists << "  #{item.name}:\n" + liss.dig(2) unless liss.blank?
+              #   end
+              #   translation << lists.dig(3)
+              # end
+              trl[:items] = "      items:\n"
+              nomenclature.list.sort { |a, b| a.name.to_s <=> b.name.to_s }.each do |item|
+                line = s.exp(ref, nomenclature.name, :items, item.name.to_sym)
+                trl[:items] << (item.root? ? line : line.ljust(50) + " #< #{item.parent.name}").dig(4)
+              end
+              if nomenclature.notions.any?
+                trl[:notions] = "      notions:\n"
+                nomenclature.notions.each do |notion|
+                  trl[:notions] << "        #{notion}:\n"
+                  nomenclature.list.sort { |a, b| a.name.to_s <=> b.name.to_s }.each do |item|
+                    line = s.exp(ref, nomenclature.name, :notions, notion, item.name.to_sym, default: "#{notion.to_s.humanize} of #{item.name.to_s.humanize}")
+                    trl[:notions] << line.dig(5)
+                  end
                 end
               end
             end
 
-            translation << trl[:choi] if trl[:choi]
-            translation << trl[:item]
-            translation << trl[:name]
-            translation << trl[:noti] if trl[:noti]
-            translation << trl[:prop] if trl[:prop]
+            [:choices, :items, :name, :notions, :properties].each do |info|
+              translation << trl[info] if trl[info]
+            end
           end
         end
 

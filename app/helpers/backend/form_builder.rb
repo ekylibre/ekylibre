@@ -307,7 +307,7 @@ module Backend
     def geolocation_field(attribute_name = :geolocation, options = {})
       point_field(attribute_name, options)
     end
-    
+
     def point(attribute_name, options = {})
       marker = {}
       if geom = @object.send(attribute_name)

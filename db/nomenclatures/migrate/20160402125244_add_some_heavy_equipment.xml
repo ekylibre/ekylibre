@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add some heavy equipment">
+  <item-creation item="varieties#bale_collector" parent="equipment"/>
+  <item-creation item="varieties#telescopic_handler" parent="equipment"/>
+  <item-creation item="varieties#wheel_loader" parent="equipment"/>
+
+  <item-creation item="product_natures#bale_collector" category="equipment" variety="bale_collector" population_counting="unitary" variable_indicators="geolocation" abilities="catch(straw), store(straw)"/>
+  <item-creation item="product_natures#telescopic_handler" category="equipment" variety="telescopic_handler" population_counting="unitary" variable_indicators="geolocation" abilities="catch(product)"/>
+  <item-creation item="product_natures#wheel_loader" category="equipment" variety="wheel_loader" population_counting="unitary" variable_indicators="geolocation" abilities="catch(product)"/>
+
+  <item-creation item="product_nature_variants#bale_collector" nature="bale_collector"/>
+  <item-creation item="product_nature_variants#telescopic_handler" nature="telescopic_handler"/>
+  <item-creation item="product_nature_variants#wheel_loader" nature="wheel_loader"/>
+</migration>

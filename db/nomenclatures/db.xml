@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160315152217">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160402125244">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2358,6 +2358,7 @@
       <item name="ascott_wheat_seed_25" nature="seed" derivative_of="triticum_aestivum_ascott" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="asparagus_crop" nature="vegetable_crop" variety="asparagus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="associate_social_contribution" nature="associate_social_contribution"/>
+      <item name="bale_collector" nature="bale_collector"/>
       <item name="baler" nature="baler" frozen_indicators_values="" unit_name="equipment"/>
       <item name="bank_service" nature="bank_service"/>
       <item name="barley_grain" nature="grain" derivative_of="hordeum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
@@ -2939,6 +2940,7 @@
       <item name="tangerine_crop" nature="fruit_crop" variety="citrus_reticulata" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
       <item name="taxe" nature="taxe"/>
       <item name="technician" nature="technician" frozen_indicators_values="" unit_name="person"/>
+      <item name="telescopic_handler" nature="telescopic_handler"/>
       <item name="temporary_meadow_crop" nature="crop" variety="poa" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="thicket_crop" nature="crop" variety="plant" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
       <item name="tobacco_crop" nature="crop" variety="nicotiana" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
@@ -2972,6 +2974,7 @@
       <item name="wheat_straw_big_rectangular_bales" nature="straw" derivative_of="triticum" frozen_indicators_values="net_mass: 219.00kilogram, net_volume: 2.30cubic_meter" unit_name="big_rectangular_bale"/>
       <item name="wheat_straw_round_bales" nature="straw" derivative_of="triticum" frozen_indicators_values="net_mass: 150.00kilogram, net_volume: 1.87cubic_meter" unit_name="round_bale"/>
       <item name="wheat_straw_small_rectangular_bales" nature="straw" derivative_of="triticum" frozen_indicators_values="net_mass: 12.50kilogram, net_volume: 0.16cubic_meter" unit_name="small_rectangular_bale"/>
+      <item name="wheel_loader" nature="wheel_loader"/>
       <item name="white_sugar_25kg" nature="sugar" frozen_indicators_values="net_mass: 25.00kilogram" unit_name="25kg_bag"/>
       <item name="wine" nature="wine" frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter" unit_name="hectoliter"/>
       <item name="wine_press" nature="wine_press" frozen_indicators_values="" unit_name="equipment"/>
@@ -3016,6 +3019,7 @@
       <item name="animal_medicine_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(preparation)" variable_indicators="nominal_storable_net_volume" frozen_indicators=""/>
       <item name="animals_making_services" category="animals_making_services" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="associate_social_contribution" category="associate_social_contribution" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="bale_collector" category="equipment" variety="bale_collector" population_counting="unitary" variable_indicators="geolocation" abilities="catch(straw), store(straw)"/>
       <item name="baler" category="equipment" variety="harvester" population_counting="unitary" abilities="bunch" variable_indicators="application_width, geolocation" frozen_indicators=""/>
       <item name="bank_service" category="bank_service" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="bee_band" category="bee_band" variety="apis" population_counting="integer" abilities="move, pollinate(plant), produce(honey)" variable_indicators="healthy"/>
@@ -3244,6 +3248,7 @@
       <item name="superficial_plow" category="equipment" variety="plower" population_counting="unitary" abilities="plow_superficially" variable_indicators="application_width, geolocation" frozen_indicators=""/>
       <item name="taxe" category="taxe" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="technician" category="worker" variety="worker" population_counting="unitary" abilities="drive(equipment), move, milk(mammalia), repair(equipment), administer_care(animal)" variable_indicators="geolocation" frozen_indicators=""/>
+      <item name="telescopic_handler" category="equipment" variety="telescopic_handler" population_counting="unitary" variable_indicators="geolocation" abilities="catch(product)"/>
       <item name="topper" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators="" variable_indicators="application_width, geolocation"/>
       <item name="tractor" category="equipment" variety="tractor" population_counting="unitary" abilities="catch(matter), move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="" linkage_points="rear, front"/>
       <item name="trade_show" category="trade_show" variety="service" population_counting="integer" variable_indicators=""/>
@@ -3263,6 +3268,7 @@
       <item name="water_spreader" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(water)" variable_indicators="application_width" frozen_indicators=""/>
       <item name="water_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store_liquid, store(water)" frozen_indicators="" variable_indicators="nominal_storable_net_volume, geolocation"/>
       <item name="weeder" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant)" frozen_indicators="" variable_indicators="application_width, geolocation"/>
+      <item name="wheel_loader" category="equipment" variety="wheel_loader" population_counting="unitary" variable_indicators="geolocation" abilities="catch(product)"/>
       <item name="wine" category="wine" variety="wine" derivative_of="grape" population_counting="decimal" variable_indicators="certification, reference_year, temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="wine_acidifying" category="oenological_product" variety="preparation" population_counting="decimal" abilities="acidify(fermented_juice), acidify(wine)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="wine_alkalinizing" category="oenological_product" variety="preparation" population_counting="decimal" abilities="alkalinize(fermented_juice), alkalinize(wine)" variable_indicators="" frozen_indicators="net_mass"/>
@@ -3781,6 +3787,7 @@
       <item name="avena_sativa_une_de_mai" parent="avena_sativa" itis_tsn="12345"/>
       <item name="aves" parent="animal" itis_tsn="174371"/>
       <item name="bacteria" parent="bioproduct"/>
+      <item name="bale_collector" parent="equipment"/>
       <item name="baler" parent="equipment"/>
       <item name="bambusa" parent="poaceae" itis_tsn="193439"/>
       <item name="bellis" parent="asteraceae" itis_tsn="36825"/>
@@ -5807,6 +5814,7 @@
       <item name="sus_scrofa_x70" parent="sus_scrofa" itis_tsn="0"/>
       <item name="sus_scrofa_x80" parent="sus_scrofa" itis_tsn="0"/>
       <item name="tank" parent="equipment"/>
+      <item name="telescopic_handler" parent="equipment"/>
       <item name="theobroma" parent="malvaceae" itis_tsn="21556"/>
       <item name="theobroma_cacao" parent="theobroma" itis_tsn="505487"/>
       <item name="theobroma_grandiflorum" parent="theobroma" itis_tsn="506108"/>
@@ -6128,6 +6136,7 @@
       <item name="water" parent="matter"/>
       <item name="weigela" parent="diervillaceae" itis_tsn="500613"/>
       <item name="weigela_floribunda" parent="weigela" itis_tsn="505744"/>
+      <item name="wheel_loader" parent="equipment"/>
       <item name="wine" parent="fermented_juice" derivative_of="fruit"/>
       <item name="wire" parent="packaged_matter"/>
       <item name="worker" parent="product"/>
