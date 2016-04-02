@@ -2440,7 +2440,7 @@ eng:
         actilact: "Actilact"
         additive: "Additive"
         air_compressor: "Air compressor"
-        all_inclusive_corn_sower: "All inclusive corn sower"
+        all_inclusive_corn_sower: "All inclusive corn seeder"
         animal_building: "Animal building"
         animal_division: "Animal division"
         animal_fence: "Animal fence"
@@ -3009,7 +3009,7 @@ eng:
         soil_loosener: "Soil loosener"
         sorghum_crop: "Sorghum crop"
         sorghum_seed_25: "Sorghum seed 25"
-        sower: "Sower"
+        sower: "Seeder"
         soy_crop: "Soy crop"
         soy_grain: "Soy grain"
         spelt_grain: "Spelt grain"
@@ -3135,7 +3135,7 @@ eng:
         clarification_solution: "Clarification solution"
         common_consumable: "Common consumable"
         common_package: "Common package"
-        complete_sower: "Complete sower"
+        complete_sower: "Complete seeder"
         computer: "Computer"
         computer_device: "Computer device"
         congress: "Congress"
@@ -3328,7 +3328,7 @@ eng:
         so2_solution: "SO₂ solution"
         software_engineering: "Software engineering"
         soil_loosener: "Soil loosener"
-        sower: "Sower"
+        sower: "Seeder"
         species: "Species"
         sprayer: "Sprayer"
         spread_renting: "Spread renting"
@@ -5830,7 +5830,7 @@ eng:
         solanum_tuberosum_yukon_gold: "Potato Yukon Gold"  #< solanum_tuberosum
         solanum_tuberosum_zuzzna: "Potato Zuzzna"          #< solanum_tuberosum
         sorghum: "Sorghum"                                 #< poaceae
-        sower: "Sower"                                     #< equipment
+        sower: "Seeder"                                    #< equipment
         spinacia: "Spinacia"                               #< amaranthaceae
         spinacia_oleracea: "Spinach"                       #< spinacia
         spinacia_oleracea_el_grinta: "Spinach El Grinta"   #< spinacia_oleracea
