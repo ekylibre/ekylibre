@@ -169,7 +169,7 @@ class Intervention < Ekylibre::Record::Base
     self.targets.each do |target|
       a << target.activity if target.activity
     end
-    return a
+    return a.uniq
   end
 
   # Returns human tool names
