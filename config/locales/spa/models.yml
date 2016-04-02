@@ -14,6 +14,9 @@ spa:
         managed: "Gestionado por el sistema"
       equipment:
         born_at: "Puesto en servicio en"
+        dead_at: "Desechado en"
+        initial_born_at: "Construido a"
+        initial_dead_at: "Desechado en"
       financial_year:
         stopped_on: "Fecha de cierre"
       fixed_asset_depreciation:

@@ -14,6 +14,9 @@ cmn:
         managed: "由系统管理"
       equipment:
         born_at: "把服务于"
+        dead_at: "在瞎折腾"
+        initial_born_at: "建于"
+        initial_dead_at: "在瞎折腾"
       financial_year:
         stopped_on: "关闭日期"
       fixed_asset_depreciation:

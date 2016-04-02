@@ -14,6 +14,9 @@ deu:
         managed: "Verwaltet vom System"
       equipment:
         born_at: "Setzen Sie im Dienst der"
+        dead_at: "Verschrottet bei"
+        initial_born_at: "Erbaut an"
+        initial_dead_at: "Verschrottet bei"
       financial_year:
         stopped_on: "Datum der Schließung"
       fixed_asset_depreciation:

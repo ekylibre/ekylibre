@@ -14,6 +14,9 @@ por:
         managed: "Dirigido pelo sistema"
       equipment:
         born_at: "Coloque em serviço no"
+        dead_at: "Desfeito em"
+        initial_born_at: "Construído no"
+        initial_dead_at: "Desfeito em"
       financial_year:
         stopped_on: "Data de encerramento"
       fixed_asset_depreciation:

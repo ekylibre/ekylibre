@@ -13,7 +13,10 @@ eng:
       document_template:
         managed: "Managed by the system"
       equipment:
-        born_at: "Put in service at"
+        born_at: "Built at"
+        dead_at: "Scrapped at"
+        initial_born_at: "Built at"
+        initial_dead_at: "Scrapped at"
       financial_year:
         stopped_on: "Date of closure"
       fixed_asset_depreciation:

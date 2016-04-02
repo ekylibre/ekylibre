@@ -36,7 +36,9 @@ fra:
         content_indicator_unit: "Unité de mesure de l’indicateur" #?
         content_maximal_quantity: "Capacité maximale" #?
         content_nature: "Type de produit contenu" #?
-        dead_at: "Mis au rebut le" #?
+        dead_at: "Mis au rebut le"
+        initial_born_at: "Construit à"
+        initial_dead_at: "Demantelé au"
         parent_place: "Lieu de parking" #?
         variety: "Marque" #?
       event:  #?

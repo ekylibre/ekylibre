@@ -14,6 +14,9 @@ jpn:
         managed: "システムによって管理"
       equipment:
         born_at: "で、サービスに入れ"
+        dead_at: "で廃車"
+        initial_born_at: "で構築されました"
+        initial_dead_at: "で廃車"
       financial_year:
         stopped_on: "閉鎖の日"
       fixed_asset_depreciation:

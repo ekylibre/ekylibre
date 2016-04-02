@@ -173,6 +173,9 @@ arb:
       equipment:
         born_at: "وضع في الخدمة في"
         consumption: "(الاستهلاك (لتر / ساعة " #?
+        dead_at: "ألغت في"
+        initial_born_at: "بنيت في"
+        initial_dead_at: "ألغت في"
         text_nature: "طبيغة النص" #?
         uses: "استخدامات الادوات" #?
       establishment:  #?
