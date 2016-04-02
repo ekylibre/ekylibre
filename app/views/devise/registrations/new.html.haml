@@ -1,0 +1,35 @@
+%h2
+  Sign up
+
+= form_for(resource, as: resource_name, url: user_registration_path) do |f|
+  = devise_error_messages!
+
+  .field
+    = f.label :first_name
+    = f.text_field :first_name
+
+  .field
+    = f.label :last_name
+    = f.text_field :last_name
+
+  .field
+    = f.label :language
+    = f.select :language, collection: languages
+
+  .field
+    = f.label :email
+    = f.email_field :email
+
+  .field
+    = f.label :password
+    = f.password_field :password
+
+  .field
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+
+  .field
+    = f.submit "Sign up"
+
+= render "devise/shared/links"
+

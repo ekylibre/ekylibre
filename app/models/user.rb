@@ -102,14 +102,14 @@ class User < Ekylibre::Record::Base
   validates_confirmation_of :password
   validates_numericality_of :maximal_grantable_reduction_percentage, greater_than_or_equal_to: 0, less_than_or_equal_to: 100
   validates_uniqueness_of :email, :person_id
-  validates_presence_of :role, unless: :administrator?
+  validates_presence_of :role, unless: :administrator_or_unapproved?
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :invitable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :invitable
   model_stamper # Needed to stamp.all records
   delegate :picture, :participations, to: :person
   delegate :name, to: :role, prefix: true
@@ -301,6 +301,10 @@ class User < Ekylibre::Record::Base
   end
 
   private
+
+  def administrator_or_unapproved?
+    administrator? || !approved?
+  end
 
   def self.generate_password(password_length = 8, mode = :normal)
     return '' if password_length.blank? || password_length < 1

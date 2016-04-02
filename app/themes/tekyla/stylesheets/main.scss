@@ -438,7 +438,7 @@ html.authentication, html.exception {
             line-height: $lh-normal;
             margin-bottom: round($default-gap * 0.5);
           }
-          input[type="email"], input[type="password"], select {
+          input[type="email"], input[type="password"], input[type="text"], select {
             display: inline;
             width: 100%;
             @include box-sizing(border-box);
