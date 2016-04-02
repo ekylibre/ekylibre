@@ -20,9 +20,20 @@ sudo apt-cache search postgis
 echo ""
 echo "--------------------------------------------------------------------------------"
 echo "Install packages:"
+
+# Force stop to prevent conflict with existing PostgreSQL
 sudo /etc/init.d/postgresql stop
+
+# Install needed packages including PostgreSQL
 sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.5-postgis-2.2 graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript postgresql-contrib-9.5
+# sudo apt-get install -qq qtbase5-dev qtdeclarative5-dev qt5-default qt5-qmake libqt5webkit5-dev libxcb-glx0-dev
+
+# Configure PostgreSQL port to 5432
 sudo sed -i -r 's/port\s*=\s*[0-9]+/port = 5432/g' /etc/postgresql/9.5/main/postgresql.conf
+
+# Grant access to all
+sudo sed -i '1i local all all trust' /etc/postgresql/9.5/main/pg_hba.conf
+
+# Force PostgreSQL restart
 sudo /etc/init.d/postgresql stop
 sudo /etc/init.d/postgresql start 9.5
-# sudo apt-get install -qq qtbase5-dev qtdeclarative5-dev qt5-default qt5-qmake libqt5webkit5-dev libxcb-glx0-dev
