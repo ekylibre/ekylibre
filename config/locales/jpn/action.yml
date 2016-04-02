@@ -1387,6 +1387,9 @@ jpn:
       one: "1年"
       # other: "%{count} years"
     zones: "ゾーン"
+  list:  #?
+    pagination: #?
+      x_to_y_of_total: "%{x}-%{y}/%{total}" #?
   notifications:
     levels:
       error: "エラー！"

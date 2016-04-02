@@ -16,10 +16,10 @@ jpn:
       default: "%Y/%m/%d"
       legal: "%d %B %Y"
       long: "%Y年%m月%d日(%a)"
-      month: "％のBの％Y"
+      month: "%Y年%m月"
       month_letter: "%d %B %Y"
       short: "%m/%d"
-    month_names: ["", "一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+    month_names: ["", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
   datetime:
     distance_in_words:
       about_x_hours:
@@ -96,7 +96,7 @@ jpn:
     precision:
       format:
         delimiter: ""
-  # rank: "#%{number}"
+  rank: "#%{number}"
   support:
     array:
       last_word_connector: "と"
