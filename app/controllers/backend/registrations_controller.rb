@@ -38,6 +38,7 @@ module Backend
     def update
       @user = User.find(params[:id])
       if @user.update(approved_params)
+        RegistrationMailer.approved(@user).deliver_now
         redirect_to backend_registrations_path
       else
         render :edit
