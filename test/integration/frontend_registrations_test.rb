@@ -20,9 +20,7 @@ class FrontendRegistrations < CapybaraIntegrationTest
 
   test 'sign_up as not approved' do
     register
-    shoot_screen('registrations/after_sign_up')
-    assert has_content?('Home dashboard'), 'User should be logged and redirected to backend'
-    # assert has_content?('Sign in'), 'User should be redirected to sign in'
-    # assert has_content?(/Information.+account.+not.+approved/), 'User should read the pending approval message'
+    assert has_content?('Sign in'), 'User should be redirected to sign in'
+    assert has_content?(/Information.+account.+not.+approved/), 'User should read the pending approval message'
   end
 end

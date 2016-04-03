@@ -207,6 +207,22 @@ class User < Ekylibre::Record::Base
     end
   end
 
+  def approved?
+    !signup_at.present?
+  end
+
+  def active_for_authentication?
+    super && approved?
+  end
+
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super
+    end
+  end
+
   def authorization(controller_name, action_name, rights_list = nil)
     rights_list = rights_array if rights_list.blank?
     message = nil
