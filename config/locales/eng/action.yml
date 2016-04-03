@@ -10,6 +10,8 @@ eng:
     authentication/passwords:
       edit: "Edit password: %{name}"
       new: "New password"
+    authentication/registrations:
+      new: "Sign up"
     authentication/sessions:
       destroy: "Log out" #?
       new: "New session"
