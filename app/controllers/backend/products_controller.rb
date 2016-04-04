@@ -43,7 +43,7 @@ module Backend
       code << "elsif params[:s] == 'consume'\n"
       code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NOT NULL'\n"
       code << "end\n"
-      code << "if params[:period] != 'all'\n"
+      code << "if params[:period].to_s != 'all'\n"
       code << "  started_on = params[:started_at]\n"
       code << "  stopped_on = params[:stopped_at]\n"
       code << "  c[0] << ' AND #{Product.table_name}.born_at BETWEEN ? AND ?'\n"
