@@ -41,9 +41,11 @@ eng:
         subject: "Invitation instructions"
       registrations:
         approved:
+          hello: "Hello %{first_name} %{last_name},"
           accepted: "An administrator has approved your registration on %{url}, you can now sign in through the link below."
           hello: "Hello %{first_name} %{last_name},"
           sign_in: "Sign in here."
+          subject: "Your account has been approved!"
       reset_password_instructions:
         subject: "Reset password instructions"
       unlock_instructions:

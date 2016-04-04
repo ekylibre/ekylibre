@@ -6,6 +6,6 @@ class RegistrationMailer < ActionMailer::Base
   def approved(approved_user)
     @resource = approved_user
     mail(to: @resource.email,
-         subject: "Your account has been approved!")
+         subject: t("devise.mailer.registrations.approved.subject"))
   end
 end

@@ -11,6 +11,7 @@ fra:
       invalid_token: "Jeton d’authentification incorrect."
       invited: "Vous avez une invitation en attente, veullez l'accepter afin de finaliser la création de votre compte."
       locked: "Votre compte est verrouillé."
+      not_approved: "Votre compte est en attente de validation par un administrateur."
       not_found_in_database: "Nom d’utilisateur ou mot de passe invalide."
       timeout: "Votre session est expirée, veuillez vous reconnecter pour continuer."
       unauthenticated: "Vous devez vous connecter ou vous inscrire pour continuer."
@@ -31,6 +32,9 @@ fra:
     mailer:
       confirmation_instructions:
         subject: "Instructions de confirmation"
+    mailer:
+      confirmation_instructions:
+        subject: "Instructions de confirmation"
       invitation_instructions:
         accept: "Accepter l'invitation"
         accept_until: "Cette invitation est valable jusqu'au %{due_date}."
@@ -38,6 +42,16 @@ fra:
         ignore: "Si vous ne voulez pas accepter cette invitation, merci d'ignorer cet email.<br />Votre compte ne sera pas créé tant que vous ne suivez pas le lien ci-dessus et renseigner un nouveau mot de passe."
         someone_invited_you: "Quelqu'un vous a invité à créer un compte sur  %{url}, vous pouvez accepter cette invitation en cliquant sur le lien ci-dessous."
         subject: "Invitation de création de compte"
+      registrations:
+        approved:
+          accepted: "Un administrateur vient d'approuver votre inscription sur %{url}. Vous pouvez maintenant vous connecter en cliquant sur le lien ci-dessous."
+          hello: "Bonjour %{first_name} %{last_name},"
+          sign_in: "Connexion."
+          subject: "Votre compte vient d'être approuvé"
+      reset_password_instructions:
+        subject: "Instructions pour changer le mot de passe"
+      unlock_instructions:
+        subject: "Instructions pour déverrouiller le compte"
       reset_password_instructions:
         subject: "Instructions pour changer le mot de passe"
       unlock_instructions:
