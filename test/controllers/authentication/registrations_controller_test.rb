@@ -13,6 +13,6 @@ class Authentication::RegistrationsControllerTest < ActionController::TestCase
     assert_not_nil user.signup_at
     assert !user.active_for_authentication?
     assert_response :redirect
-    assert_equal(flash[:notice], 'You have signed up successfully but your account has not been approved by your administrator yet')
+    assert_equal(flash[:notice], "You have signed up successfully but your account has not been approved by your administrator yet")
   end
 end
