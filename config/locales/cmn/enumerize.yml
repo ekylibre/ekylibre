@@ -206,3 +206,5 @@ cmn:
     hints:
       purchase:
         reference_number: "供应商发票号"
+    required:
+       text: "需要"

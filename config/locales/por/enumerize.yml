@@ -219,3 +219,5 @@ por:
     hints:
       purchase:
         reference_number: "Número fatura fornecedor"
+    required:
+       text: "requeridos"

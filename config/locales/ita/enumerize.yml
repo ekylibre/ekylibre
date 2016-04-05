@@ -206,3 +206,5 @@ ita:
     hints:
       purchase:
         reference_number: "numero di fattura del fornitore"
+    required:
+       text: "richiesto"

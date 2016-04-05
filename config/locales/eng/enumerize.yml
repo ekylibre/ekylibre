@@ -206,3 +206,5 @@ eng:
     hints:
       purchase:
         reference_number: "Supplier invoice number"
+    required:
+      text: "required"

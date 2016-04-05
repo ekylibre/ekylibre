@@ -206,3 +206,5 @@ jpn:
     hints:
       purchase:
         reference_number: "サプライヤーの請求書番号"
+    required:
+      text: "必須"

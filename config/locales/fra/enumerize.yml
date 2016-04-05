@@ -213,3 +213,5 @@ fra:
     hints:
       purchase:
         reference_number: "Numéro de la facture du fournisseur"
+    required:
+      text: "requis"
