@@ -1,4 +1,10 @@
 =kujaku
 - main_toolbar do |t|
   = t.new
+  = dropdown_menu_button(:import, icon: false) do |l|
+    - %w(csv ods geojson shpz xls xlsx).each do |format|
+      - l.item format.upcase, '#', data: { import: '#upload', import_format: format }
+  = form_tag({ action: :import, step: 'upload' }, multipart: true,  method: :post) do
+    = hidden_field_tag(:format)
+    = file_field_tag(:upload, style: 'display: none', id: 'upload')
 = main_list

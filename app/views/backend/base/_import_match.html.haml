@@ -1,0 +1,23 @@
+= form_tag({ action: :import, file_id: params[:file_id], step: :check }) do
+  = field_set :columns do
+    %table.table
+      %thead
+        %tr
+          %th= :column.tl
+          %th= :type.tl
+          %th= :destination.tl
+          %th= :example.tl
+      %tbody
+        - @headers.each_with_index do |header, index|
+          %tr
+            %td
+              - if header['name'].blank?
+                %em= t('.empty')
+              - else
+                = header['name']
+            %td= header['type'].tl
+            %td= select_tag(:name, options_for_select(@selection))
+            %td
+              - unless header['type'] == 'geometry'
+                = @row[index]
+      

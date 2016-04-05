@@ -11,6 +11,12 @@ Rails.application.routes.draw do
     match 'picture(/:style)', via: :get, action: :picture, as: :picture, on: :member
   end
 
+  concern :import do
+    collection do
+      match 'import/:step(/:file_id)', via: [:get, :post], action: :import, as: :import
+    end
+  end
+
   concern :list do
     get :list, on: :collection
   end
@@ -626,7 +632,7 @@ Rails.application.routes.draw do
 
     resources :plants, concerns: :products
 
-    resources :postal_zones, concerns: [:list, :unroll] do
+    resources :postal_zones, concerns: [:import, :list, :unroll] do
       collection do
         get :autocomplete_for_name
       end
