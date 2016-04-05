@@ -1,0 +1,7 @@
+fra:
+  javascripts:
+    leaflet:
+      zoomInTitle: 'Zoomer'
+      zoomOutTitle: 'Dézoomer'
+      fullscreenTitle: 'Plein écran'
+      importerButtonTitle: 'Importer'

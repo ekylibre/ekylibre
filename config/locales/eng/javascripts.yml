@@ -1,0 +1,7 @@
+eng:
+  javascripts:
+    leaflet:
+      zoomInTitle: 'Zoom in'
+      zoomOutTitle: 'Zoom out'
+      fullscreenTitle: 'Full Screen'
+      importerButtonTitle: 'Import'
