@@ -146,6 +146,11 @@ fra:
         in_preparation: "En préparation"
         ordered: "Lancé"
         prepared: "Préparé"
+    product_nature:
+      population_counting:
+        unitary: 'Unitaire'
+        integer: 'Entier'
+        decimal: 'Décimal'
     sensor:
       retrieval_mode:
         listening: "Serveur"
