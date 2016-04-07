@@ -62,6 +62,10 @@ class InterventionTarget < InterventionProductParameter
       lp = LandParcel.shape_intersecting(self.product.shape).first
       activity = ActivityProduction.find_by(support: lp).activity
       return activity
+    elsif self.product && self.product.is_a?(Animal)
+      groups = self.product.groups_at(self.intervention.started_at)
+      ap = ActivityProduction.find_by(support: groups.first)
+      return activity if ap && ap.activity
     end
   end
 
