@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160402125244">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160408223901">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1018,8 +1018,8 @@
       <item name="carrot" varieties="daucus"/>
       <item name="cereals" varieties="avena, fagopyrum, hordeum, oryza, panicum, phalaris, poaceae, secale, setaria, sorghum, triticosecale, triticum, zea"/>
       <item name="chicory" varieties="cichorium"/>
-      <item name="corn" varieties="zea"/>
-      <item name="corn_sorghum" varieties="zea, sorghum"/>
+      <item name="corn" varieties="zea_mays"/>
+      <item name="corn_sorghum" varieties="zea_mays, sorghum"/>
       <item name="crucifers" varieties="brassicaceae"/>
       <item name="flax" varieties="linum"/>
       <item name="gardening_vegetables" varieties="allium, cynara, asparagus, solanum_melongena, beta_vulgaris, daucus_carota, apium_graveolens, cichorium_endivia, brassica_oleracea, cucumis, cucurbita, spinacia, fragaria, phaseolus, lactuca, valerianella_locusta"/>
@@ -2487,7 +2487,7 @@
       <item name="coop:ceando_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:chardex_5_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:chlorure_60_gr_vr" nature="chemical_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, potassium_concentration: 60percent" unit_name="ton"/>
-      <item name="coop:class_a_corn_grain" nature="grain" derivative_of="zea" frozen_indicators_values="net_mass: 1.00ton"/>
+      <item name="coop:class_a_corn_grain" nature="grain" derivative_of="zea_mays" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="coop:da_lazuly_10kg" nature="seed" derivative_of="dactylis_lazuly" frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 1.2gram" unit_name="10kg_bag"/>
       <item name="coop:eca_excel_pack_protor_b_vrac" nature="animal_food" variety="mix" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="coop:eca_pack_tonus_b_vrac" nature="animal_food" variety="mix" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
@@ -2552,14 +2552,14 @@
       <item name="coop:yellow_pea_grain" nature="grain" derivative_of="pisum" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="corabel_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_corabel" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="corker" nature="corker" frozen_indicators_values="" unit_name="equipment"/>
-      <item name="corn_crop" nature="cereal_crop" variety="zea" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="corn_grain" nature="grain" derivative_of="zea" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
-      <item name="corn_grain_crop" nature="grain_crop" variety="zea" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="corn_seed_25" nature="seed" derivative_of="zea" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
-      <item name="corn_seed_50tg" nature="seed" derivative_of="zea" frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram" unit_name="50tg_bag"/>
-      <item name="corn_seed_crop" nature="crop" variety="zea" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
-      <item name="corn_silage" nature="silage" derivative_of="zea" frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.666cubic_meter" unit_name="ton"/>
-      <item name="corn_silage_crop" nature="crop" variety="zea" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="corn_crop" nature="cereal_crop" variety="zea_mays" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="corn_grain" nature="grain" derivative_of="zea_mays" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+      <item name="corn_grain_crop" nature="grain_crop" variety="zea_mays" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="corn_seed_25" nature="seed" derivative_of="zea_mays" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
+      <item name="corn_seed_50tg" nature="seed" derivative_of="zea_mays" frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram" unit_name="50tg_bag"/>
+      <item name="corn_seed_crop" nature="crop" variety="zea_mays" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="corn_silage" nature="silage" derivative_of="zea_mays" frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.666cubic_meter" unit_name="ton"/>
+      <item name="corn_silage_crop" nature="crop" variety="zea_mays" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="cover_crop" nature="crop"/>
       <item name="cover_implanter" nature="cover_implanter" frozen_indicators_values="" unit_name="equipment"/>
       <item name="cow_milk" nature="milk" derivative_of="bos" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.03kilogram" unit_name="liter"/>
