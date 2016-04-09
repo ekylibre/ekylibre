@@ -1098,6 +1098,7 @@ por:
     updated_at: "Atualizada às"
     # updater: "Updater"
     uploaded: "Carregado"
+    # url: "Url"
     usable_incoming_payments: "Pagamentos recebidos utilizáveis"
     usage: "Uso"
     usage_limit_nature: "Usado por tipo"

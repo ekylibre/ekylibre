@@ -1098,6 +1098,7 @@ deu:
     updated_at: "Aktualisiert am"
     # updater: "Updater"
     uploaded: "hochgeladen"
+    # url: "Url"
     usable_incoming_payments: "Verwendbar Zahlungseingänge"
     usage: "Verwendung"
     usage_limit_nature: "Wird von Typ"

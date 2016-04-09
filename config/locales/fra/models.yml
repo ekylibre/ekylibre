@@ -1348,6 +1348,7 @@ fra:
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     uploaded: "Téléversé"
+    # url: "Url"
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     usage_limit_nature: "Type de date limite de consommation"

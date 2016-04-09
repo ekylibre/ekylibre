@@ -1129,6 +1129,7 @@ ita:
     updated_at: "aggiornati alle"
     # updater: "Updater"
     uploaded: "caricati"
+    # url: "Url"
     usable_incoming_payments: "pagamenti in entrata utilizzabili"
     usage: "uso"
     usage_limit_nature: "Usato per tipo"
