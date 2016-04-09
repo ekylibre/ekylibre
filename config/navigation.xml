@@ -919,6 +919,14 @@
         <page to="backend/invitations#new"/>
         <page to="backend/invitations#create"/>
       </item>
+      <item name="map_backgrounds">
+        <page to="backend/map_backgrounds#index"/>
+        <page to="backend/map_backgrounds#create"/>
+        <page to="backend/map_backgrounds#destroy"/>
+        <page to="backend/map_backgrounds#new"/>
+        <page to="backend/map_backgrounds#update"/>
+        <page to="backend/map_backgrounds#load_defaults"/>
+      </item>
       <item name="teams">
         <page to="backend/teams#index"/>
         <page to="backend/teams#create"/>
