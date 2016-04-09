@@ -1,0 +1,6 @@
+-main_toolbar do |t|
+  = t.new
+  = t.action :load_defaults, method: :post
+
+%div
+  = render @map_backgrounds
