@@ -1102,6 +1102,7 @@ cmn:
     updated_at: "更新时间"
     updater: "更新"
     uploaded: "上传"
+    # url: "Url"
     usable_incoming_payments: "可用收款"
     usage: "用法"
     usage_limit_nature: "按类型使用"
