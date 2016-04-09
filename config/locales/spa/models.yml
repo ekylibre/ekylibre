@@ -1106,6 +1106,7 @@ spa:
     updated_at: "Actualizada a las"
     updater: "Actualizador"
     uploaded: "Subida"
+    # url: "Url"
     usable_incoming_payments: "Pagos entrantes utilizables"
     usage: "Uso"
     usage_limit_nature: "Usado por Tipo"

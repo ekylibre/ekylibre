@@ -2091,6 +2091,7 @@ arb:
     updater: "التحديث"
     updater_id: "التحديث" #?
     uploaded: "تم تحميلها"
+    # url: "Url"
     usable_incoming_payments: "دفعات ممكن استخدامها"
     usable_outgoing_payments: "مصروفات ممكن استخدامها" #?
     usage: "الاستخدام"

@@ -1103,6 +1103,7 @@ jpn:
     updated_at: "で更新"
     updater: "修正の人"
     uploaded: "アップロード"
+    # url: "Url"
     usable_incoming_payments: "使用可能な入金"
     usage: "使用法"
     usage_limit_nature: "種類によって使用されます"
