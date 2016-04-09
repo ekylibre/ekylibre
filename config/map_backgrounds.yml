@@ -1,24 +1,27 @@
 open_street_map:
-  url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   options:
     attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
   variants:
-    default:
+    mapnik:
+      url: 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      enabled: yes
     black_and_white:
       url: 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png'
     de:
       url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png'
     hot:
       url: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
+      enabled: yes
       options:
         attribution: '{attribution.OpenStreetMap}, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
 
 thunderforest:
-  url: 'https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png'
   options:
     attribution: 'Maps © <a href="http://www.thunderforest.com">Thunderforest</a>, Data © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     subdomains: 'abc'
   variants:
+    outdoors:
+      url: 'https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png'
     cycle:
       url: 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png'
     transport:
@@ -26,6 +29,7 @@ thunderforest:
     transport_dark:
       url: 'https://{s}.tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png'
     landscape:
+      enabled: yes
       url: 'https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
 
 open_sea_map:
@@ -64,7 +68,6 @@ map_box:
     subdomains: 'abcd'
 
 stamen:
-  url: 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png'
   options:
     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data {attribution.OpenStreetMap}'
     subdomains: 'abcd'
@@ -72,6 +75,7 @@ stamen:
     max_zoom: 20
   variants:
     toner:
+     url: 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png'
     toner_background:
       url: 'http://{s}.tile.stamen.com/toner-background/{z}/{x}/{y}.png'
     toner_hybrid:
@@ -120,6 +124,7 @@ esri:
           '{attribution.Esri} &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
     world_imagery:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+      enabled: yes
       options:
         attribution:
           '{attribution.Esri} &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
