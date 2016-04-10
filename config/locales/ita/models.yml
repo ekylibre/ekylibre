@@ -601,6 +601,7 @@ ita:
     fixed_assets: "immobilizzazioni"
     formats: "formati"
     fourth_producer: "quarto produttore"
+    # france_maaid: "France maaid"
     frequency: "Frequenza"
     frozen_indicators_list: "Lista indicatori congelati"
     full_name: "Nome e cognome"

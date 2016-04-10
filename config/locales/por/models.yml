@@ -570,6 +570,7 @@ por:
     fixed_assets: "Ativo permanente"
     formats: "Formatos"
     fourth_producer: "Quarto produtor"
+    # france_maaid: "France maaid"
     frequency: "Freqüência"
     frozen_indicators_list: "Lista de indicadores congelados"
     full_name: "Nome completo"

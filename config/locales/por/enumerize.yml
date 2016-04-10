@@ -220,4 +220,4 @@ por:
       purchase:
         reference_number: "Número fatura fornecedor"
     required:
-       text: "requeridos"
+      text: "requeridos"

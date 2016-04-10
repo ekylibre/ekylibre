@@ -207,4 +207,4 @@ cmn:
       purchase:
         reference_number: "供应商发票号"
     required:
-       text: "需要"
+      text: "需要"

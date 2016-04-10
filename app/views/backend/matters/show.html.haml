@@ -18,6 +18,10 @@
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(age, display: 2)
+    - if resource.variant.france_maaid
+      = resource_info(:france_maaid) do |france_maaid|
+        %i.picto{class: "picto-flask"}
+        = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}")
     - unless resource.population_counting_unitary?
       = resource_info :population, important: true do |population|
         = population.l + " " + resource.unit_name
@@ -41,16 +45,7 @@
 
 = cobbles do |c|
 
-  - c.cobble :details do
-    = attributes_list do |l| # liste des champs à afficher
-      - l.attribute :name
-      - l.attribute :variant, url: true
-      - l.attribute :variety
-      -#l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
-      - l.attribute :born_at
-      - l.attribute :dead_at
-      - l.attribute :identification_number
-      - l.attribute :description
+
 
 
   - c.cobble(:movements) do
@@ -69,5 +64,17 @@
 
   -# c.cobble(:groups) do
     = cobble_list(:groups)
+
+  - c.cobble :details do
+    = attributes_list do |l| # liste des champs à afficher
+      - l.attribute :name
+      - l.attribute :variant, url: true
+      - l.attribute :variety
+      -#l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
+      - l.attribute :born_at
+      - l.attribute :dead_at
+      - l.attribute :identification_number
+      - l.attribute :description
+
 = render "timeline"
 

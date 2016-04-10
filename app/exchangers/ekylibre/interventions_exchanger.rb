@@ -482,7 +482,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     end
     if plants && options[:variety] && options[:at]
       plants = plants.where(variety: options[:variety]).availables
-    elsif options[:variant] && options[:at] 
+    elsif options[:variant] && options[:at]
       plants = plants.where(variant: options[:variant]).availables
     end
     plants
@@ -552,9 +552,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
     ## working_periods
     attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
-    
+
     puts "targets : #{targets.map(&:name)}".inspect.yellow
-    
+
     ## targets
     targets.each_with_index do |target, index|
       procedure.parameters_of_type(:target).each do |support|
@@ -693,9 +693,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     updaters.each do |updater|
       intervention.impact_with!(updater)
     end
-    
+
     puts 'SOWING : #{intervention.to_hash}'.inspect.red
-    
+
     ## save
     ::Intervention.create!(intervention.to_hash)
 
@@ -712,10 +712,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
     ## working_periods
     attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
-    
+
     # find all plants in the current target
     targets = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
-    
+
     ## targets
     targets.each_with_index do |target, index|
       procedure.parameters_of_type(:target).each do |support|
@@ -775,7 +775,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     updaters.each do |updater|
       intervention.impact_with!(updater)
     end
-    
+
     puts 'HARVESTING : #{intervention.to_hash}'.inspect.red
 
     ## save

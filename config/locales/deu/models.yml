@@ -570,6 +570,7 @@ deu:
     fixed_assets: "Anlagevermögen"
     formats: "Formate"
     fourth_producer: "vierte Produzent"
+    # france_maaid: "France maaid"
     frequency: "Frequenz"
     frozen_indicators_list: "Gefrorene Indikatoren Liste"
     full_name: "Vollständiger Name"

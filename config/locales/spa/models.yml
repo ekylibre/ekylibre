@@ -574,6 +574,7 @@ spa:
     fixed_assets: "Los activos fijos"
     formats: "Formatos"
     fourth_producer: "Cuarto productor"
+    # france_maaid: "France maaid"
     frequency: "Frecuencia"
     frozen_indicators_list: "Lista de indicadores congelados"
     full_name: "Nombre completo"

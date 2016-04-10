@@ -4450,6 +4450,8 @@ product_nature_variants:
     type: jsonb
   derivative_of:
     type: string
+  france_maaid:
+    type: string
   id:
     type: integer
     required: true

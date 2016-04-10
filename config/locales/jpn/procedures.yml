@@ -61,6 +61,7 @@ jpn:
     mechanic: "メカニック"
     milk: "牛乳"
     mother: "母"
+    # movement: "Movement"
     mower: "芝刈り機"
     mower_driver: "芝刈り機のドライバ"
     net_implanter: "ネット注入"

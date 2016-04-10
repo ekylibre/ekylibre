@@ -748,6 +748,7 @@ fra:
     formats: "Formats"
     fourth_producer: "Quatrième producteur"
     fourth_producer_way: "Voie du quatrième producteur" #?
+    france_maaid: "N° AMM"
     frequency: "Fréquence"
     frozen_indicators: "Indicateurs gelés" #?
     frozen_indicators_list: "Liste des indicateurs fixes"

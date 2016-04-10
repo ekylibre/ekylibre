@@ -37,7 +37,8 @@ module Ekylibre
             indicators: s.cell('J', row).blank? ? {} : s.cell('J', row).to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
               h[i.first.strip.downcase.to_sym] = i.second
               h
-            end
+            end,
+            france_maaid: s.cell('K', row).blank? ? nil : s.cell('K', row).to_s.strip
           }.to_struct
 
           unless r.reference_name
@@ -56,6 +57,7 @@ module Ekylibre
           # update variant with attributes in the current row
           variant.name = r.name if r.name
           variant.number = r.work_number if r.work_number
+          variant.france_maaid = r.france_maaid if r.france_maaid
           variant.save!
 
           if r.price_unity

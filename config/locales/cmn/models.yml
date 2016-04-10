@@ -570,6 +570,7 @@ cmn:
     fixed_assets: "固定资产"
     formats: "格式"
     fourth_producer: "四制片人"
+    # france_maaid: "France maaid"
     frequency: "频率"
     frozen_indicators_list: "冰冻指标清单"
     full_name: "全名"

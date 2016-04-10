@@ -28,6 +28,7 @@
 #  creator_id           :integer
 #  custom_fields        :jsonb
 #  derivative_of        :string
+#  france_maaid         :string
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
 #  name                 :string

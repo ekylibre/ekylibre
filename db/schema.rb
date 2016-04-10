@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408225701) do
+ActiveRecord::Schema.define(version: 20160410100101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2350,6 +2350,7 @@ ActiveRecord::Schema.define(version: 20160408225701) do
     t.integer  "updater_id"
     t.integer  "lock_version",         default: 0,     null: false
     t.jsonb    "custom_fields"
+    t.string   "france_maaid"
   end
 
   add_index "product_nature_variants", ["category_id"], name: "index_product_nature_variants_on_category_id", using: :btree

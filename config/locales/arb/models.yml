@@ -1359,6 +1359,7 @@ arb:
     format: "التصميم" #?
     formats: "صيغ"
     fourth_producer: "رابع منتج"
+    # france_maaid: "France maaid"
     frequency: "تردد"
     frozen_indicators_list: "قائمة مؤشرات المجمدة"
     full_name: "الاسم بالكامل"

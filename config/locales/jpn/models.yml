@@ -571,6 +571,7 @@ jpn:
     fixed_assets: "固定資産"
     formats: "フォーマット"
     fourth_producer: "第四プロデューサー"
+    # france_maaid: "France maaid"
     frequency: "周波数"
     frozen_indicators_list: "冷凍指標一覧"
     full_name: "フルネーム"

@@ -16,6 +16,10 @@
         %span.value
           %i.picto{class: "picto-stock"}
           = resource.current_stock.to_s + " " + resource.unit_name
+    - if resource.france_maaid
+      = resource_info(:france_maaid) do |france_maaid|
+        %i.picto{class: "picto-flask"}
+        = link_to(france_maaid, "https://ephy.anses.fr/resultats_recherche/ppp?search_api_aggregation_3=#{france_maaid}")
   -# .info
     %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
     %span.value= resource.products.map(&:net_mass).compact.sum

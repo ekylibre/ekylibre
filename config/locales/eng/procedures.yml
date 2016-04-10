@@ -91,6 +91,7 @@ eng:
     mechanic: "Mechanic"
     milk: "Milk"
     mother: "Mother"
+    movement: "Movement"
     mower: "Mower"
     mower_driver: "Mower driver"
     net_implanter: "Net implanter"

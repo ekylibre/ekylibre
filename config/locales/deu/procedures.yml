@@ -61,6 +61,7 @@ deu:
     mechanic: "Mechaniker"
     milk: "Milch"
     mother: "Mutter"
+    # movement: "Movement"
     mower: "Mäher"
     mower_driver: "Mäher Fahrer"
     # net_implanter: "Net implanter"

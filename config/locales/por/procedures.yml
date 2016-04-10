@@ -61,6 +61,7 @@ por:
     mechanic: "Mecânico"
     milk: "Leite"
     mother: "Mãe"
+    # movement: "Movement"
     mower: "Segador"
     mower_driver: "Motorista mower"
     net_implanter: "Implanter net"
