@@ -61,7 +61,7 @@ spa:
     mechanic: "Mecánico"
     milk: "Leche"
     mother: "Madre"
-    # movement: "Movement"
+    movement: "Movimiento"
     mower: "Cortacésped"
     mower_driver: "Conductor del cortacésped"
     net_implanter: "Implantador neta"

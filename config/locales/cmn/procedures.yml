@@ -61,7 +61,7 @@ cmn:
     mechanic: "机械"
     milk: "牛奶"
     mother: "母亲"
-    # movement: "Movement"
+    movement: "运动"
     mower: "割草机"
     mower_driver: "割草机司机"
     net_implanter: "净注入"

@@ -5,63 +5,63 @@ arb:
         handlers:
           circle:
             tooltip:
-              # start: "Click and drag to draw circle."
+              start: "انقر واسحب لرسم دائرة."
           marker:
             tooltip:
-              # start: "Click map to place marker."
+              start: "انقر الخريطة لوضع علامة."
           polygon:
             tooltip:
-              # cont: "Click to continue drawing shape."
-              # end: "Click first point to close this shape."
-              # start: "Click to start drawing shape."
+              cont: "انقر لمتابعة رسم الشكل."
+              end: "انقر النقطة الأولى لإغلاق هذا الشكل."
+              start: "انقر لبدء رسم الشكل."
           polyline:
-            # error: "<strong>Error:</strong> shape edges cannot cross!"
+            error: "<strong>خطأ:</strong> حواف الشكل لا يمكن أن تعبر!"
             tooltip:
-              # cont: "Click to continue drawing line."
-              # end: "Click last point to finish line."
-              # start: "Click to start drawing line."
+              cont: "انقر على مواصلة خط الرسم."
+              end: "انقر النقطة الأخيرة لإنهاء الخط."
+              start: "انقر لبدء رسم الخط."
           rectangle:
             tooltip:
-              # start: "Click and drag to draw rectangle."
+              start: "انقر واسحب لرسم مستطيل."
           simpleshape:
             tooltip:
-              # end: "Release mouse to finish drawing."
+              end: "الماوس الإصدار لإنهاء الرسم."
         toolbar:
           actions:
-            # text: "Cancel"
-            # title: "Cancel drawing"
+            text: "إلغاء"
+            title: "إلغاء الرسم"
           buttons:
-            # circle: "Draw a circle"
-            # marker: "Draw a marker"
-            # polygon: "Draw a polygon"
-            # polyline: "Draw a polyline"
-            # rectangle: "Draw a rectangle"
+            circle: "أرسم دائرة"
+            marker: "رسم علامة"
+            polygon: "رسم مضلع"
+            polyline: "رسم شكل متعدد الخطوط"
+            rectangle: "رسم مستطيل"
           undo:
-            # text: "Delete last point"
-            # title: "Delete last point drawn"
+            text: "حذف النقطة الأخيرة"
+            title: "حذف النقطة الأخيرة رسمها"
       edit:
         handlers:
           edit:
             tooltip:
-              # subtext: "Click cancel to undo changes."
-              # text: "Drag handles, or marker to edit feature."
+              subtext: "انقر فوق إلغاء الأمر للتراجع عن التغييرات."
+              text: "مقابض السحب، أو علامة لتحرير الميزة."
           remove:
             tooltip:
-              # text: "Click on a feature to remove"
+              text: "انقر على ميزة لإزالة"
         toolbar:
           actions:
             cancel:
-              # text: "Cancel"
-              # title: "Cancel editing, discards all changes."
+              text: "إلغاء"
+              title: "إلغاء التحرير، ويتجاهل كل التغييرات."
             save:
-              # text: "Save"
-              # title: "Save changes."
+              text: "حفظ"
+              title: "حفظ التغيرات."
           buttons:
-            # edit: "Edit layers."
-            # editDisabled: "No layers to edit."
-            # remove: "Delete layers."
-            # removeDisabled: "No layers to delete."
-      # fullscreenTitle: "Full Screen"
-      # importerButtonTitle: "Import"
-      # zoomInTitle: "Zoom in"
-      # zoomOutTitle: "Zoom out"
+            edit: "تحرير طبقات."
+            editDisabled: "عدم وجود طبقات لتحرير."
+            remove: "حذف طبقات."
+            removeDisabled: "لا طبقات حذف."
+      fullscreenTitle: "تكبير الشاشة"
+      importerButtonTitle: "استيراد"
+      zoomInTitle: "تكبير"
+      zoomOutTitle: "تصغير"

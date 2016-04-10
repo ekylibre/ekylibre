@@ -583,7 +583,7 @@ eng:
     fixed_assets: "Fixed assets"
     formats: "Formats"
     fourth_producer: "Fourth producer" #?
-    france_maaid: "France maaid"
+    france_maaid: "France Market Authorization Access Number"
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"
     full_name: "Full name"

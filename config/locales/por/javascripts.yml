@@ -5,63 +5,63 @@ por:
         handlers:
           circle:
             tooltip:
-              # start: "Click and drag to draw circle."
+              start: "Clique e arraste para desenhar círculo."
           marker:
             tooltip:
-              # start: "Click map to place marker."
+              start: "Clique no mapa para colocar marcador."
           polygon:
             tooltip:
-              # cont: "Click to continue drawing shape."
-              # end: "Click first point to close this shape."
-              # start: "Click to start drawing shape."
+              cont: "Clique para continuar a desenhar a forma."
+              end: "Clique primeiro ponto para fechar esta forma."
+              start: "Clique para começar a desenhar a forma."
           polyline:
-            # error: "<strong>Error:</strong> shape edges cannot cross!"
+            error: "<strong>Erro:</strong> forma bordas não pode cruzar!"
             tooltip:
-              # cont: "Click to continue drawing line."
-              # end: "Click last point to finish line."
-              # start: "Click to start drawing line."
+              cont: "Clique para continuar a linha de desenho."
+              end: "Clique último ponto para terminar linha."
+              start: "Clique para iniciar a linha de desenho."
           rectangle:
             tooltip:
-              # start: "Click and drag to draw rectangle."
+              start: "Clique e arraste para desenhar um retângulo."
           simpleshape:
             tooltip:
-              # end: "Release mouse to finish drawing."
+              end: "Rato de liberação para finalizar o desenho."
         toolbar:
           actions:
-            # text: "Cancel"
-            # title: "Cancel drawing"
+            text: "Cancelar"
+            title: "Anular desenho"
           buttons:
-            # circle: "Draw a circle"
-            # marker: "Draw a marker"
-            # polygon: "Draw a polygon"
-            # polyline: "Draw a polyline"
-            # rectangle: "Draw a rectangle"
+            circle: "Desenhar um círculo"
+            marker: "Desenhe um marcador"
+            polygon: "Desenhar um polígono"
+            polyline: "Desenhar um polígono"
+            rectangle: "Desenhe um retângulo"
           undo:
-            # text: "Delete last point"
-            # title: "Delete last point drawn"
+            text: "Excluir último ponto"
+            title: "Excluir último ponto desenhado"
       edit:
         handlers:
           edit:
             tooltip:
-              # subtext: "Click cancel to undo changes."
-              # text: "Drag handles, or marker to edit feature."
+              subtext: "Cancele para desfazer as alterações."
+              text: "Alças de arrasto, ou marcador para editar recurso."
           remove:
             tooltip:
-              # text: "Click on a feature to remove"
+              text: "Clique em um recurso para remover"
         toolbar:
           actions:
             cancel:
-              # text: "Cancel"
-              # title: "Cancel editing, discards all changes."
+              text: "Cancelar"
+              title: "Cancelar a edição, descarta todas as alterações."
             save:
-              # text: "Save"
-              # title: "Save changes."
+              text: "Salvar"
+              title: "Salvar alterações."
           buttons:
-            # edit: "Edit layers."
-            # editDisabled: "No layers to edit."
-            # remove: "Delete layers."
-            # removeDisabled: "No layers to delete."
-      # fullscreenTitle: "Full Screen"
-      # importerButtonTitle: "Import"
-      # zoomInTitle: "Zoom in"
-      # zoomOutTitle: "Zoom out"
+            edit: "Editar camadas."
+            editDisabled: "Não há camadas para editar."
+            remove: "Excluir camadas."
+            removeDisabled: "Nenhuma camada excluir."
+      fullscreenTitle: "Tela cheia"
+      importerButtonTitle: "Importar"
+      zoomInTitle: "Mais Zoom"
+      zoomOutTitle: "Zoom out"

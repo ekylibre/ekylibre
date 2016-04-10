@@ -5,63 +5,63 @@ ita:
         handlers:
           circle:
             tooltip:
-              # start: "Click and drag to draw circle."
+              start: "Fare clic e trascinare per disegnare cerchio."
           marker:
             tooltip:
-              # start: "Click map to place marker."
+              start: "Clicca sulla mappa per posizionare marker."
           polygon:
             tooltip:
-              # cont: "Click to continue drawing shape."
-              # end: "Click first point to close this shape."
-              # start: "Click to start drawing shape."
+              cont: "Clicca per continuare a disegnare la forma."
+              end: "Clicca primo punto per chiudere questa forma."
+              start: "Fare clic per iniziare a disegnare la forma."
           polyline:
-            # error: "<strong>Error:</strong> shape edges cannot cross!"
+            error: "<strong>Errore:</strong> bordi di forma non possono attraversare!"
             tooltip:
-              # cont: "Click to continue drawing line."
-              # end: "Click last point to finish line."
-              # start: "Click to start drawing line."
+              cont: "Clicca qui per continuare la linea di disegno."
+              end: "Clicca ultimo punto al traguardo."
+              start: "Fare clic per avviare la linea di disegno."
           rectangle:
             tooltip:
-              # start: "Click and drag to draw rectangle."
+              start: "Fare clic e trascinare per disegnare rettangolo."
           simpleshape:
             tooltip:
-              # end: "Release mouse to finish drawing."
+              end: "Il mouse di rilascio per terminare il disegno."
         toolbar:
           actions:
-            # text: "Cancel"
-            # title: "Cancel drawing"
+            text: "Annulla"
+            title: "Annulla disegno"
           buttons:
-            # circle: "Draw a circle"
-            # marker: "Draw a marker"
-            # polygon: "Draw a polygon"
-            # polyline: "Draw a polyline"
-            # rectangle: "Draw a rectangle"
+            circle: "Disegnare un cerchio"
+            marker: "Disegnare un marker"
+            polygon: "Disegnare un poligono"
+            polyline: "Disegnare una polilinea"
+            rectangle: "Disegnare un rettangolo"
           undo:
-            # text: "Delete last point"
-            # title: "Delete last point drawn"
+            text: "Cancellare l&#39;ultimo punto"
+            title: "Cancellare l&#39;ultimo punto disegnato"
       edit:
         handlers:
           edit:
             tooltip:
-              # subtext: "Click cancel to undo changes."
-              # text: "Drag handles, or marker to edit feature."
+              subtext: "Scegliere Annulla per annullare le modifiche."
+              text: "Maniglie di trascinamento, o marcatore di Modifica funzione."
           remove:
             tooltip:
-              # text: "Click on a feature to remove"
+              text: "Fare clic su una funzione per rimuovere"
         toolbar:
           actions:
             cancel:
-              # text: "Cancel"
-              # title: "Cancel editing, discards all changes."
+              text: "Annulla"
+              title: "Annullare la modifica, scarta tutte le modifiche."
             save:
-              # text: "Save"
-              # title: "Save changes."
+              text: "Salvare"
+              title: "Salva I Cambiamenti."
           buttons:
-            # edit: "Edit layers."
-            # editDisabled: "No layers to edit."
-            # remove: "Delete layers."
-            # removeDisabled: "No layers to delete."
-      # fullscreenTitle: "Full Screen"
-      # importerButtonTitle: "Import"
-      # zoomInTitle: "Zoom in"
-      # zoomOutTitle: "Zoom out"
+            edit: "Modificare i livelli."
+            editDisabled: "Non ci sono strati di modificare."
+            remove: "Eliminare i livelli."
+            removeDisabled: "Non ci sono livelli da eliminare."
+      fullscreenTitle: "A schermo intero"
+      importerButtonTitle: "Importare"
+      zoomInTitle: "Ingrandire"
+      zoomOutTitle: "Zoom indietro"

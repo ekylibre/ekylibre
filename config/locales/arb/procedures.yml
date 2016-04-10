@@ -61,7 +61,7 @@ arb:
     mechanic: "ميكانيكي"
     milk: "حليب"
     mother: "أم"
-    # movement: "Movement"
+    movement: "حركة"
     mower: "جزازة"
     mower_driver: "سائق جزازة"
     net_implanter: "صافي implanter"

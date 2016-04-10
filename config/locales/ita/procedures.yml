@@ -61,7 +61,7 @@ ita:
     mechanic: "Meccanico"
     milk: "Latte"
     mother: "Madre"
-    # movement: "Movement"
+    movement: "Movimento"
     mower: "falciatore"
     mower_driver: "autista Mower"
     net_implanter: "implanter net"

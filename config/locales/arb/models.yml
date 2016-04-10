@@ -1359,7 +1359,7 @@ arb:
     format: "التصميم" #?
     formats: "صيغ"
     fourth_producer: "رابع منتج"
-    # france_maaid: "France maaid"
+    france_maaid: "فرنسا maaid"
     frequency: "تردد"
     frozen_indicators_list: "قائمة مؤشرات المجمدة"
     full_name: "الاسم بالكامل"
@@ -1387,7 +1387,7 @@ arb:
     hashed_password: "تشفير كلمة المرور" #?
     host: "مضيف"
     hour_duration: "(ساعة (ساعات" #?
-    # human_activities_names: "Activities names"
+    human_activities_names: "أسماء الأنشطة"
     human_shape_area: "منطقة الشكل"
     human_target_names: "أسماء المستهدفة"
     human_working_duration: "مدة العمل"
