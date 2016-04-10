@@ -386,6 +386,10 @@ fra:
       index: "Plans de fumure"
       new: "Nouveau plan de fumure"
       show: "Plan de fumure\_: %{name}"
+    backend/map_backgrounds:
+      index: "Fonds de cartes"
+      load: "Charger les fonds de cartes: %{name}"
+      new: "Nouveau fond de carte"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       index: "Matières"
