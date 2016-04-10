@@ -158,9 +158,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           # case A1 : CZ
           if product.is_a?(CultivableZone)
             ap = ActivityProduction.of_campaign(r.campaign).where(cultivable_zone: product)
-            if r.target_variety
-              ap = ap.of_cultivation_variety(r.target_variety)
-            end
+            ap = ap.of_cultivation_variety(r.target_variety) if r.target_variety
             ps = ap.map(&:support)
           # case A2 : Product
           elsif product.is_a?(Product)
@@ -187,25 +185,25 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       # case 1 supports exists
       if supports.any?
-            # w.info r.to_h.to_yaml
-            w.info "----------- L#{line_number.to_s.yellow} : #{r.intervention_number} / #{supports.map(&:name).to_sentence} -----------".blue
-            w.info ' procedure : ' + r.procedure_name.inspect.green
-            w.info ' started_at : ' + r.intervention_started_at.inspect.yellow if r.intervention_started_at
-            w.info ' first product : ' + r.first.product.name.inspect.red if r.first.product
-            w.info ' first product quantity : ' + r.first.product.input_population.to_s + ' ' + r.first.product.input_unit_name.to_s.inspect.red if r.first.product_input_population
-            w.info ' second product : ' + r.second.product.name.inspect.red if r.second.product
-            w.info ' third product : ' + r.third.product.name.inspect.red if r.third.product
-            w.info ' target variety : ' + r.target_variety.inspect.yellow if r.target_variety
-            w.info ' supports : ' + supports.map(&:name).to_sentence.inspect.yellow if supports
-            w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
-            w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
+        # w.info r.to_h.to_yaml
+        w.info "----------- L#{line_number.to_s.yellow} : #{r.intervention_number} / #{supports.map(&:name).to_sentence} -----------".blue
+        w.info ' procedure : ' + r.procedure_name.inspect.green
+        w.info ' started_at : ' + r.intervention_started_at.inspect.yellow if r.intervention_started_at
+        w.info ' first product : ' + r.first.product.name.inspect.red if r.first.product
+        w.info ' first product quantity : ' + r.first.product.input_population.to_s + ' ' + r.first.product.input_unit_name.to_s.inspect.red if r.first.product_input_population
+        w.info ' second product : ' + r.second.product.name.inspect.red if r.second.product
+        w.info ' third product : ' + r.third.product.name.inspect.red if r.third.product
+        w.info ' target variety : ' + r.target_variety.inspect.yellow if r.target_variety
+        w.info ' supports : ' + supports.map(&:name).to_sentence.inspect.yellow if supports
+        w.info ' workers_name : ' + r.workers.map(&:name).inspect.yellow if r.workers
+        w.info ' equipments_name : ' + r.equipments.map(&:name).inspect.yellow if r.equipments
 
-            # plants = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
-            # w.info ' #{plants.count} plants : ' + plants.map(&:name).inspect.yellow if plants
-            targets = supports
+        # plants = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
+        # w.info ' #{plants.count} plants : ' + plants.map(&:name).inspect.yellow if plants
+        targets = supports
 
-            intervention = qualify_intervention(r, targets, procedures_transcode)
-            #intervention = send("record_#{r.procedure_name}", r, targets)
+        intervention = qualify_intervention(r, targets, procedures_transcode)
+      # intervention = send("record_#{r.procedure_name}", r, targets)
       else
         w.warn "Cannot add intervention #{r.intervention_number} without support"
       end
@@ -522,7 +520,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   ##################################
 
   def qualify_intervention(r, targets, procedures_transcode)
-
     # retrieve procedure from its name and set basics attributes
     procedure = Procedo.find(procedures_transcode[r.procedure_name])
     procedure ||= Procedo.find(r.procedure_name)
@@ -530,7 +527,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     # check if procedure is simple or not (with group parameter or output)
     simple = true
     procedure.parameters.each do |parameter|
-      if parameter == "group_parameter" || parameter == "output"
+      if parameter == 'group_parameter' || parameter == 'output'
         simple = false
         break
       end
@@ -541,14 +538,11 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     else
       return record_complex_intervention(r, targets, procedure)
     end
-
   end
 
-
   def record_default_intervention(r, targets, procedure)
-
     # build base procedure
-    attributes = {procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description}
+    attributes = { procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description }
 
     ## working_periods
     attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
@@ -558,10 +552,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     ## targets
     targets.each_with_index do |target, index|
       procedure.parameters_of_type(:target).each do |support|
-        #next unless target.of_expression(support.filter)
+        # next unless target.of_expression(support.filter)
         attributes[:targets_attributes] ||= {}
         attributes[:targets_attributes][index.to_s] = { reference_name: support.name, product_id: target.id, working_zone: target.shape.to_geojson }
-        #break
+        # break
       end
     end
 
@@ -617,178 +611,174 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     ## save
     ::Intervention.create!(intervention.to_hash)
   end
-
 
   def record_complex_intervention(r, targets, procedure)
+    ###############################
+    ####  SOWING / IMPLANTING  ####
+    ###############################
 
-  ###############################
-  ####  SOWING / IMPLANTING  ####
-  ###############################
+    if procedure.name == 'sowing'
+      # build base procedure
+      attributes = { procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description }
 
-  if procedure.name == "sowing"
-    # build base procedure
-    attributes = {procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description}
+      ## working_periods
+      attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
 
-    ## working_periods
-    attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
+      ## inputs
+      updaters = []
 
-    ## inputs
-    updaters = []
-
-    [r.first, r.second, r.third].each_with_index do |actor, index|
-      next if actor.product.nil?
-      procedure.parameters_of_type(:input).each do |input|
-        # find measure from quantity
-        product_measure = actor_measure_conversion(actor)
-        # find best handler for product measure
-        i = input.best_handler_for(product_measure)
-        handler = if i.is_a?(Array)
-                    input.best_handler_for(product_measure).first.name
-                  else
-                    input.best_handler_for(product_measure).name
-                  end
-        next unless actor.product.of_expression(input.filter)
-        attributes[:inputs_attributes] ||= {}
-        attributes[:inputs_attributes][index.to_s] = { reference_name: input.name, product_id: actor.product.id, quantity_handler: handler, quantity_value: product_measure.to_f }
-        updaters << "inputs[#{index}]quantity_value"
-        break
+      [r.first, r.second, r.third].each_with_index do |actor, index|
+        next if actor.product.nil?
+        procedure.parameters_of_type(:input).each do |input|
+          # find measure from quantity
+          product_measure = actor_measure_conversion(actor)
+          # find best handler for product measure
+          i = input.best_handler_for(product_measure)
+          handler = if i.is_a?(Array)
+                      input.best_handler_for(product_measure).first.name
+                    else
+                      input.best_handler_for(product_measure).name
+                    end
+          next unless actor.product.of_expression(input.filter)
+          attributes[:inputs_attributes] ||= {}
+          attributes[:inputs_attributes][index.to_s] = { reference_name: input.name, product_id: actor.product.id, quantity_handler: handler, quantity_value: product_measure.to_f }
+          updaters << "inputs[#{index}]quantity_value"
+          break
+        end
       end
-    end
 
-    ## group (zone)
-    # target
-    # output r.target_variant
-    targets.each_with_index do |target, index|
-      procedure.parameters_of_type(:group).each do |group|
-        attributes[:groups_attributes] ||= {}
-        attributes[:groups_attributes][index.to_s][:targets_attributes] ||= {}
-        attributes[:groups_attributes][index.to_s][:targets_attributes][0] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson }
-        attributes[:groups_attributes][index.to_s][:outputs_attributes] ||= {}
-        attributes[:groups_attributes][index.to_s][:outputs_attributes][0] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: r.target_variant, new_name: r.target_variant.name, working_zone: target.shape.to_geojson }
+      ## group (zone)
+      # target
+      # output r.target_variant
+      targets.each_with_index do |target, index|
+        procedure.parameters_of_type(:group).each do |group|
+          attributes[:groups_attributes] ||= {}
+          attributes[:groups_attributes][index.to_s][:targets_attributes] ||= {}
+          attributes[:groups_attributes][index.to_s][:targets_attributes][0] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson }
+          attributes[:groups_attributes][index.to_s][:outputs_attributes] ||= {}
+          attributes[:groups_attributes][index.to_s][:outputs_attributes][0] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: r.target_variant, new_name: r.target_variant.name, working_zone: target.shape.to_geojson }
+        end
       end
-    end
 
-    ## tools
-    r.equipments.each_with_index do |equipment, index|
-      procedure.parameters_of_type(:tool).each do |tool|
-        next unless equipment.of_expression(tool.filter)
-        attributes[:tools_attributes] ||= {}
-        attributes[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
-        break
+      ## tools
+      r.equipments.each_with_index do |equipment, index|
+        procedure.parameters_of_type(:tool).each do |tool|
+          next unless equipment.of_expression(tool.filter)
+          attributes[:tools_attributes] ||= {}
+          attributes[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
+          break
+        end
       end
-    end
 
-    ## doers
-    r.workers.each_with_index do |worker, index|
-      procedure.parameters_of_type(:doer).each do |doer|
-        next unless worker.of_expression(doer.filter)
-        attributes[:doers_attributes] ||= {}
-        attributes[:doers_attributes][index.to_s] = { reference_name: doer.name, product_id: worker.id }
-        break
+      ## doers
+      r.workers.each_with_index do |worker, index|
+        procedure.parameters_of_type(:doer).each do |doer|
+          next unless worker.of_expression(doer.filter)
+          attributes[:doers_attributes] ||= {}
+          attributes[:doers_attributes][index.to_s] = { reference_name: doer.name, product_id: worker.id }
+          break
+        end
       end
+
+      # # impact
+      intervention = Procedo::Engine.new_intervention(attributes)
+      updaters.each do |updater|
+        intervention.impact_with!(updater)
+      end
+
+      puts 'SOWING : #{intervention.to_hash}'.inspect.red
+
+      ## save
+      ::Intervention.create!(intervention.to_hash)
+
     end
 
-    # # impact
-    intervention = Procedo::Engine.new_intervention(attributes)
-    updaters.each do |updater|
-      intervention.impact_with!(updater)
+    ###############################
+    ####  HARVESTING           ####
+    ###############################
+
+    if procedure.name == 'harvesting'
+
+      # build base procedure
+      attributes = { procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description }
+
+      ## working_periods
+      attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
+
+      # find all plants in the current target
+      targets = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
+
+      ## targets
+      targets.each_with_index do |target, index|
+        procedure.parameters_of_type(:target).each do |support|
+          # next unless target.of_expression(support.filter)
+          attributes[:targets_attributes] ||= {}
+          attributes[:targets_attributes][index.to_s] = { reference_name: support.name, product_id: target.id, working_zone: target.shape.to_geojson }
+          # break
+        end
+      end
+
+      ## outputs
+      updaters = []
+
+      [r.first, r.second, r.third].each_with_index do |actor, index|
+        puts 'actor : #{actor}'.inspect.red
+        next if actor.variant.nil?
+        procedure.parameters_of_type(:output).each do |output|
+          # find measure from quantity
+          product_measure = actor_measure_conversion(actor)
+          # find best handler for product measure
+          i = output.best_handler_for(product_measure)
+          handler = if i.is_a?(Array)
+                      output.best_handler_for(product_measure).first.name
+                    else
+                      output.best_handler_for(product_measure).name
+                    end
+          next unless actor.product.of_expression(output.filter)
+          attributes[:outputs_attributes] ||= {}
+          attributes[:outputs_attributes][index.to_s] = { reference_name: output.name, variant_id: actor.variant.id, new_name: actor.name, quantity_handler: handler, quantity_value: product_measure.to_f }
+          updaters << "outputs[#{index}]quantity_value"
+          break
+        end
+      end
+
+      ## tools
+      r.equipments.each_with_index do |equipment, index|
+        procedure.parameters_of_type(:tool).each do |tool|
+          next unless equipment.of_expression(tool.filter)
+          attributes[:tools_attributes] ||= {}
+          attributes[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
+          break
+        end
+      end
+
+      ## doers
+      r.workers.each_with_index do |worker, index|
+        procedure.parameters_of_type(:doer).each do |doer|
+          next unless worker.of_expression(doer.filter)
+          attributes[:doers_attributes] ||= {}
+          attributes[:doers_attributes][index.to_s] = { reference_name: doer.name, product_id: worker.id }
+          break
+        end
+      end
+
+      # # impact
+      intervention = Procedo::Engine.new_intervention(attributes)
+      updaters.each do |updater|
+        intervention.impact_with!(updater)
+      end
+
+      puts 'HARVESTING : #{intervention.to_hash}'.inspect.red
+
+      ## save
+      ::Intervention.create!(intervention.to_hash)
+
     end
 
-    puts 'SOWING : #{intervention.to_hash}'.inspect.red
+    #################################
+    ####  ANIMAL                 ####
+    #################################
 
-    ## save
-    ::Intervention.create!(intervention.to_hash)
-
+    nil
   end
-
-  ###############################
-  ####  HARVESTING           ####
-  ###############################
-
-  if procedure.name == "harvesting"
-
-    # build base procedure
-    attributes = {procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description}
-
-    ## working_periods
-    attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
-
-    # find all plants in the current target
-    targets = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
-
-    ## targets
-    targets.each_with_index do |target, index|
-      procedure.parameters_of_type(:target).each do |support|
-        #next unless target.of_expression(support.filter)
-        attributes[:targets_attributes] ||= {}
-        attributes[:targets_attributes][index.to_s] = { reference_name: support.name, product_id: target.id, working_zone: target.shape.to_geojson }
-        #break
-      end
-    end
-
-    ## outputs
-    updaters = []
-
-    [r.first, r.second, r.third].each_with_index do |actor, index|
-      puts 'actor : #{actor}'.inspect.red
-      next if actor.variant.nil?
-      procedure.parameters_of_type(:output).each do |output|
-        # find measure from quantity
-        product_measure = actor_measure_conversion(actor)
-        # find best handler for product measure
-        i = output.best_handler_for(product_measure)
-        handler = if i.is_a?(Array)
-                    output.best_handler_for(product_measure).first.name
-                  else
-                    output.best_handler_for(product_measure).name
-                  end
-        next unless actor.product.of_expression(output.filter)
-        attributes[:outputs_attributes] ||= {}
-        attributes[:outputs_attributes][index.to_s] = { reference_name: output.name, variant_id: actor.variant.id, new_name: actor.name, quantity_handler: handler, quantity_value: product_measure.to_f }
-        updaters << "outputs[#{index}]quantity_value"
-        break
-      end
-    end
-
-    ## tools
-    r.equipments.each_with_index do |equipment, index|
-      procedure.parameters_of_type(:tool).each do |tool|
-        next unless equipment.of_expression(tool.filter)
-        attributes[:tools_attributes] ||= {}
-        attributes[:tools_attributes][index.to_s] = { reference_name: tool.name, product_id: equipment.id }
-        break
-      end
-    end
-
-    ## doers
-    r.workers.each_with_index do |worker, index|
-      procedure.parameters_of_type(:doer).each do |doer|
-        next unless worker.of_expression(doer.filter)
-        attributes[:doers_attributes] ||= {}
-        attributes[:doers_attributes][index.to_s] = { reference_name: doer.name, product_id: worker.id }
-        break
-      end
-    end
-
-    # # impact
-    intervention = Procedo::Engine.new_intervention(attributes)
-    updaters.each do |updater|
-      intervention.impact_with!(updater)
-    end
-
-    puts 'HARVESTING : #{intervention.to_hash}'.inspect.red
-
-    ## save
-    ::Intervention.create!(intervention.to_hash)
-
-  end
-
-  #################################
-  ####  ANIMAL                 ####
-  #################################
-
-   return nil
-
-  end
-
 end

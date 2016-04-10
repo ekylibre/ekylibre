@@ -11,6 +11,7 @@ class FixZeaVarietyChanging < ActiveRecord::Migration
     execute "UPDATE product_nature_variants v SET derivative_of = 'zea_mays' WHERE v.derivative_of = 'zea' and v.reference_name = 'corn_silage'"
     execute "UPDATE product_nature_variants v SET variety = 'zea_mays' WHERE v.variety = 'zea' and v.reference_name = 'corn_silage_crop'"
   end
+
   def down
     execute "UPDATE product_nature_variants v SET derivative_of = 'zea' WHERE v.derivative_of = 'zea_mays' and v.reference_name = 'coop:class_a_corn_grain'"
     execute "UPDATE product_nature_variants v SET variety = 'zea' WHERE v.variety = 'zea_mays' and v.reference_name = 'corn_crop'"
