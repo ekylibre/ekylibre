@@ -461,6 +461,10 @@ eng:
       index: "Manure management plans"
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
+    backend/map_backgrounds:
+      index: "Map backgrounds"
+      load: "Load map background: %{name}"
+      new: "New map background"
     backend/map_editors:
       # upload: "Upload map editor: %{name}"
     backend/matters:
