@@ -3,7 +3,7 @@
 
 $sort-mask: rgba(0, 18, 132, 0.05);
 
-$list-line-backgrounds:      ("&" rgba(#FFF, 1)) ("&.error, &.critic" rgba($invalid-color, 0.12)) ("&.warning, &.waiting, &.undone" rgba($caution-color, 0.12)) ("&.selected, &.in_progress" rgba($active-color, 0.12)) ("&.done, &.disabled" rgba($neutral-color, 0.09)) ("&.success, &.finished" rgba($success-color, 0.12)) ("&.focus" rgba($highlight-color, 0.8));
+$list-line-backgrounds:      ("&" rgba(#FFF, 1)) ("&.error, &.critic" rgba($invalid-color, 0.12)) ("&.warning, &.waiting, &.undone" rgba($caution-color, 0.12)) ("&.selected, &.in_progress, &.active" rgba($active-color, 0.12)) ("&.done, &.disabled" rgba($neutral-color, 0.09)) ("&.success, &.finished" rgba($success-color, 0.12)) ("&.focus" rgba($highlight-color, 0.8));
 $list-column-backgrounds:    ("&" rgba(#FFF, 0)) ("&.sor" $sort-mask);
 $list-selection-backgrounds: ("&" rgba(#FFF, 0)) ("&.selected" rgba($selection-color, 0.22));
 $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
@@ -90,6 +90,22 @@ table {
         }
       }
 
+    }
+    @include list-colors($desktop-background);
+    tr {
+      &.squeezed, &.aborted, &.refused {
+        td.col {
+          text-decoration: line-through;
+        }
+      }
+      &.disabled {
+        td {
+          opacity: 0.66;
+          &, * {
+            @include text-shadow(1px 1px 0px rgba(#FFF, 0.5));
+          }
+        }
+      }
     }
   }
   tr.total {
@@ -222,19 +238,6 @@ table {
             border-top-color: $invalid-color;
           }
         }
-        &.squeezed, &.aborted, &.refused {
-          td.col {
-            text-decoration: line-through;
-          }
-        }
-        &.disabled {
-          td {
-            &, * {
-              opacity: 0.76;
-              @include text-shadow(1px 1px 0px rgba(#FFF, 0.5));
-            }
-          }
-        }
         &.child {
           td {
             &:first-child {
@@ -257,7 +260,6 @@ table {
         /*   } */
         /* } */
       }
-      @include list-colors($desktop-background);
     }
 
   }

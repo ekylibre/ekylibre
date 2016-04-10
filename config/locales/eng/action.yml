@@ -1314,6 +1314,7 @@ eng:
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
     phosphorus_concentration: "Phosphorus concentration" #?
+    # phyto_data: "Phyto data"
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"

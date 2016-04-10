@@ -1560,6 +1560,7 @@ arb:
     manure_management_plan_zones: "مناطق خطة إدارة السماد"
     mass: "الوزن"
     master: "كتلة رئيسية" #?
+    # max_inputs_count: "Maximum inputs count"
     max_reduction_rate: "سعر التخفيض" #?
     maximal_grantable_reduction_percentage: "القصوى نسبة تخفيض grantable"
     maximal_length: "طول القصوى"
@@ -1730,6 +1731,7 @@ arb:
     postal_zone_id: "العنوان البريدي" #?
     postal_zones: "الرموز البريدية"
     postcode: "الرمز البريدي" #?
+    # pre_harvest_interval: "Pre-harvest interval"
     preferences: "الاعدادات"
     prepared_at: "أعدت بناء"
     prescription: "وصفة طبية"
@@ -2084,6 +2086,7 @@ arb:
     unpointed_journal_entry_items: "البنود دخول مجلة مهمل"
     unquantifiable: "غير قابل للقياس" #?
     unread_notifications: "الإخطارات غير مقروءة"
+    # untreated_zone_margin: "Untreated zone margin"
     updated_at: "تم تحديثه في"
     updater: "التحديث"
     updater_id: "التحديث" #?

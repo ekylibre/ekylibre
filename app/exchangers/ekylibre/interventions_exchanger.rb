@@ -143,7 +143,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         raise "Need a duration for intervention ##{r.intervention_number}"
       end
 
-      puts r.supports.inspect.red
+      w.debug r.supports.inspect.red
 
       # Get supports
       # Supports are Product : LandParcel, Plant, Animal...link to Campaign and ActivityProduction
@@ -166,7 +166,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           end
           p_ids << ps.map(&:id)
         end
-        puts p_ids.inspect.blue
+        w.debug p_ids.inspect.blue
         supports = Product.find(p_ids)
       # r.production_supports = ActivityProduction.of_campaign(r.campaign).find(ps_ids)
       # Case B
@@ -179,7 +179,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         production = Production.where(activity: activity, campaign: r.campaign).first if activity && r.campaign
       end
 
-      puts supports.inspect.yellow
+      w.debug supports.inspect.yellow
 
       raise "stop #{r.target_variety}" unless supports.any?
 
@@ -226,7 +226,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   # convert measure to variant unit and divide by variant_indicator
   def measure_conversion(_product, population, unit, unit_target_dose)
     value = population
-    puts value.inspect.yellow
+    w.debug value.inspect.yellow
     nomen_unit = nil
     # concat units if needed
     if unit.present? && unit_target_dose.present?
@@ -395,10 +395,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       r.campaign = Campaign.create!(name: r.campaign_code, harvest_year: r.campaign_code)
     end
     # Get supports
-    puts "Support code in method parse_row #{r.support_codes}".inspect.green
+    w.debug "Support code in method parse_row #{r.support_codes}".inspect.green
     r.supports = parse_record_list(r.support_codes, CultivableZone, :work_number)
     r.supports ||= parse_record_list(r.support_codes.delete_if { |s| %w(EXPLOITATION).include?(s) }, Product, :work_number)
-    puts "Support code in method parse_record list #{r.supports.map(&:name)}".inspect.green
+    w.debug "Support code in method parse_record list #{r.supports.map(&:name)}".inspect.green
     # Get equipments
     r.equipments = parse_record_list(r.equipment_codes, Equipment, :work_number)
     # Get workers
@@ -547,7 +547,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     ## working_periods
     attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
 
-    puts "targets : #{targets.map(&:name)}".inspect.yellow
+    w.debug "targets : #{targets.map(&:name)}".inspect.yellow
 
     ## targets
     targets.each_with_index do |target, index|
@@ -686,7 +686,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         intervention.impact_with!(updater)
       end
 
-      puts 'SOWING : #{intervention.to_hash}'.inspect.red
+      w.debug 'SOWING : #{intervention.to_hash}'.inspect.red
 
       ## save
       ::Intervention.create!(intervention.to_hash)
@@ -722,7 +722,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       updaters = []
 
       [r.first, r.second, r.third].each_with_index do |actor, index|
-        puts 'actor : #{actor}'.inspect.red
+        w.debug 'actor : #{actor}'.inspect.red
         next if actor.variant.nil?
         procedure.parameters_of_type(:output).each do |output|
           # find measure from quantity
@@ -768,7 +768,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         intervention.impact_with!(updater)
       end
 
-      puts 'HARVESTING : #{intervention.to_hash}'.inspect.red
+      w.debug 'HARVESTING : #{intervention.to_hash}'.inspect.red
 
       ## save
       ::Intervention.create!(intervention.to_hash)

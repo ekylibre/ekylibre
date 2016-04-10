@@ -7,6 +7,26 @@ activity_families:
   service_delivering: activity_families/service_delivering.jpg
   tool_maintaining: activity_families/tool_maintaining.jpg
   wine_making: activity_families/wine_making.jpg
+chemical_classifications:
+  dsd_corrosive: chemical_classifications/dsd_corrosive.png
+  dsd_environmental_hazard: chemical_classifications/dsd_environmental_hazard.png
+  dsd_explosive: chemical_classifications/dsd_explosive.png
+  dsd_extremely_flammable: chemical_classifications/dsd_extremely_flammable.png
+  dsd_harmful: chemical_classifications/dsd_harmful.png
+  dsd_highly_flammable: chemical_classifications/dsd_highly_flammable.png
+  dsd_irritant: chemical_classifications/dsd_irritant.png
+  dsd_oxidizing: chemical_classifications/dsd_oxidizing.png
+  dsd_toxic: chemical_classifications/dsd_toxic.png
+  dsd_very_toxic: chemical_classifications/dsd_very_toxic.png
+  ghs_compressed_gas: chemical_classifications/ghs_compressed_gas.png
+  ghs_corrosive: chemical_classifications/ghs_corrosive.png
+  ghs_environmental_hazard: chemical_classifications/ghs_environmental_hazard.png
+  ghs_explosive: chemical_classifications/ghs_explosive.png
+  ghs_flammable: chemical_classifications/ghs_flammable.png
+  ghs_harmful: chemical_classifications/ghs_harmful.png
+  ghs_health_hazard: chemical_classifications/ghs_health_hazard.png
+  ghs_oxidizing: chemical_classifications/ghs_oxidizing.png
+  ghs_toxic: chemical_classifications/ghs_toxic.png
 countries:
   ad: countries/ad.png
   ae: countries/ae.png

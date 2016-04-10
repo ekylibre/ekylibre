@@ -749,6 +749,7 @@ eng:
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
     mass: "Mass (kg)" #?
+    max_inputs_count: "Maximum inputs count" #?
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
     maximal_value: "Maximal value"
@@ -865,6 +866,7 @@ eng:
     post: "Post"
     postal_code: "Postal code"
     postal_zones: "Postal zones"
+    pre_harvest_interval: "Pre-harvest interval" #?
     preferences: "Preferences"
     prepared_at: "Prepared at"
     prescription: "Prescription"
@@ -1123,6 +1125,7 @@ eng:
     unpaid_sales: "Unpaid sales"
     unpointed_journal_entry_items: "Unpointed journal entry items"
     unread_notifications: "Unread notifications"
+    untreated_zone_margin: "Untreated zone margin" #?
     updated_at: "Updated at"
     updater: "Updater"
     uploaded: "Uploaded"
