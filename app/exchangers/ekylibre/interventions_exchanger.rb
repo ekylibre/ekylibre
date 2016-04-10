@@ -473,19 +473,17 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   # find all plants for the current support and cultivable zone by variety or variant
   def find_plants(options = {})
     plants = nil
-    if options[:support] && options[:support].storage && options[:support].storage.shape
+    if options[:support] && options[:support].shape
       # try to find the current plants on cultivable zone if exists
-      cultivable_zone_shape = Charta.new_geometry(options[:support].storage.shape)
+      cultivable_zone_shape = Charta.new_geometry(options[:support].shape)
       if cultivable_zone_shape && product_around = Plant.within_shape(cultivable_zone_shape)
         plants = Plant.where(id: product_around.map(&:id)).availables
       end
     end
-    if options[:variety] && options[:at]
-      members = options[:support].storage.contains(options[:variety], options[:at])
-      plants = Plant.where(id: members.map(&:product_id)).availables if members
-    elsif options[:variant] && options[:at]
-      members = options[:support].storage.localized_variants(options[:variant], at: options[:at])
-      plants = Plant.where(id: members.map(&:product_id)).availables if members
+    if plants && options[:variety] && options[:at]
+      plants = plants.where(variety: options[:variety]).availables
+    elsif options[:variant] && options[:at] 
+      plants = plants.where(variant: options[:variant]).availables
     end
     plants
   end
@@ -695,7 +693,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     updaters.each do |updater|
       intervention.impact_with!(updater)
     end
-
+    
+    puts 'SOWING : #{intervention.to_hash}'.inspect.red
+    
     ## save
     ::Intervention.create!(intervention.to_hash)
 
@@ -712,7 +712,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
     ## working_periods
     attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
-
+    
+    # find all plants in the current target
+    targets = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
+    
     ## targets
     targets.each_with_index do |target, index|
       procedure.parameters_of_type(:target).each do |support|
@@ -772,6 +775,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     updaters.each do |updater|
       intervention.impact_with!(updater)
     end
+    
+    puts 'HARVESTING : #{intervention.to_hash}'.inspect.red
 
     ## save
     ::Intervention.create!(intervention.to_hash)
