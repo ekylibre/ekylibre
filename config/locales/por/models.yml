@@ -592,7 +592,7 @@ por:
     harvest_year: "Ano de colheita"
     has_downpayment: "Tem downpayment"
     host: "Anfitrião"
-    # human_activities_names: "Activities names"
+    human_activities_names: "Nomes de Actividades"
     human_shape_area: "Área da forma"
     human_target_names: "Nomes de destino"
     human_working_duration: "Duração de trabalho"

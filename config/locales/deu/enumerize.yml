@@ -207,4 +207,4 @@ deu:
       purchase:
         reference_number: "Lieferant Rechnungsnummer"
     required:
-      # text: "required"
+      text: "Erforderlich"

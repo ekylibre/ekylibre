@@ -207,4 +207,4 @@ arb:
       purchase:
         reference_number: "رقم الفاتورة المورد"
     required:
-       text: "مطلوب"
+      text: "مطلوب"

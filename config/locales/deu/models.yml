@@ -592,7 +592,7 @@ deu:
     harvest_year: "Erntejahr"
     has_downpayment: "hat Anzahlung"
     host: "Gastgeber"
-    # human_activities_names: "Activities names"
+    human_activities_names: "Aktivitäten Namen"
     human_shape_area: "Formbereich"
     human_target_names: "Zielnamen"
     human_working_duration: "Arbeitsdauer"

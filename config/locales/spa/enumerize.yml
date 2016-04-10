@@ -207,4 +207,4 @@ spa:
       purchase:
         reference_number: "Número de factura del proveedor"
     required:
-       text: "necesario"
+      text: "necesario"
