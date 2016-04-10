@@ -42,4 +42,18 @@ class MapBackground < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_format_of :url, :with => URI::regexp(%w(http https))
 
+  def self.import_all
+
+    MapBackgrounds::Layer.items.each do |item|
+      attrs = {
+        enabled: item.enabled,
+        name: item.label,
+        by_default: true,
+        url: item.url
+      }
+      MapBackground.where(base_layer: item.provider_name, base_variant: item.name).first_or_create(attrs)
+    end
+
+  end
+
 end
