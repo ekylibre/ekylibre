@@ -1,3 +1,7 @@
-%div
-  .map
-  .name=map_background.name
+.map-background-container
+  .map-background
+    .map-background-header
+      .map-background-name=link_to map_background.name, backend_map_background_path(map_background)
+      =link_to '', edit_backend_map_background_path(map_background), title: :valid.tl, class: "map-background-selector #{map_background.enabled ? 'active': ''}", remote: true
+      =link_to '', edit_backend_map_background_path(map_background), title: :edit.tl, class: 'map-background-edit'
+    .map-view=map(CultivableZone.first, box: {height: 200})

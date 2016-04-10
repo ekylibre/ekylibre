@@ -1,0 +1,56 @@
+// Place all the styles related to the Backend::MapBackgrounds controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$map-height: 200px;
+
+.map-backgrounds-viewport {
+  .map-background-container {
+    @include make-xs-column(12, $gutter: 0);
+    @include make-sm-column(6, $gutter: 0);
+    @include make-md-column(4, $gutter: 0);
+    .map-background {
+
+      @include normal-shadow();
+      @include box-sizing(border-box);
+      margin: 2 * $default-gap;
+      background: #FFF;
+      @include calc('height', "#{$map-height} + #{$lh-large} + 2*#{$default-gap}" );
+
+      .map-background-header {
+        padding: $default-gap;
+
+        @include box-sizing(border-box);
+        width: 100%;
+
+        &, * {
+          line-height: $lh-large;
+          font-size: $fs-large;
+          float: left;
+        }
+
+        .map-background-name {
+          @include ellipsis;
+          width: 80%;
+          margin-right: 2%;
+        }
+        .map-background-selector {
+          @include icon-before(square-o, $font-size: $fs-large);
+          width: 8%;
+          margin-right: 2%;
+
+          &:active {
+            @include icon-before(check-square-o, $font-size: $fs-large);
+          }
+        }
+        .map-background-edit {
+          @include icon-before(pencil, $font-size: $fs-large);
+          width: 8%;
+        }
+      }
+      .map-view {
+        clear: both;
+      }
+    }
+  }
+}
