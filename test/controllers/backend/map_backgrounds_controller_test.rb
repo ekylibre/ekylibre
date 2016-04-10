@@ -10,7 +10,7 @@ class Backend::MapBackgroundsControllerTest < ActionController::TestCase
 
   test 'loading defaults' do
     assert_difference 'MapBackground.count', MapBackgrounds::Layer.items.count do
-      post :load_defaults
+      post :load
     end
     assert_redirected_to backend_map_backgrounds_path
   end

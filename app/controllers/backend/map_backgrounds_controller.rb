@@ -3,7 +3,6 @@ module Backend
 
     def index
 
-      # TMP
       @map_backgrounds = MapBackground.all
 
     end
@@ -24,7 +23,7 @@ module Backend
 
     end
 
-    def load_defaults
+    def load
       MapBackground.import_all
       redirect_to params[:redirect] || { action: :index }
     end

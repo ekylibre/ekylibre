@@ -581,7 +581,7 @@ Rails.application.routes.draw do
 
     resources :map_backgrounds do
       collection do
-        post :load_defaults
+        post :load
       end
     end
 
