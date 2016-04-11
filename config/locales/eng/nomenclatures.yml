@@ -3099,6 +3099,9 @@ eng:
         variety: "Variety"
     product_natures:
       choices:
+        linkage_points:
+          front: "front"
+          rear: "rear"
         population_counting:
           decimal: "Decimal"
           integer: "Integer"

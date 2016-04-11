@@ -74,7 +74,7 @@ module Nomen
     def selection
       if inline_choices?
         return choices.collect do |c|
-          [c, c]
+          ["nomenclatures.#{@nomenclature.name}.choices.#{name}.#{c}".t, c]
         end
       elsif item_reference?
         return @nomenclature.sibling(@source).selection
