@@ -6,6 +6,15 @@ $indicator_item_height: $indicators_height / 2;
 $activity_border_size: 5px;
 
 .activities-index {
+  .activity-family-group {
+    @include make-row($gutter: 0);
+  }
+  .activity-family-heading {
+    border-bottom: 1px solid $text-color;
+    color: $text-color;
+    padding: $default-gap;
+    font-size: $fs-large;
+  }
   .activity-container {
     @include float(left);
     @include make-xs-column(12);
