@@ -805,10 +805,13 @@ module ApplicationHelper
   end
 
   # Wraps a label and its input in a standard wrapper
-  def field(label, input, _options = {}, &block)
+  def field(label, input, options = {}, &block)
+    options[:label] ||= {}
+    options[:controls] ||= {}
+
     content_tag(:div,
-                content_tag(:label, label, class: 'control-label') +
-                content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), class: 'controls'),
+                content_tag(:label, label, class: "control-label #{options[:label].key?(:class)? options[:label][:class]: ''}") +
+                content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), class: "controls #{options[:controls].key?(:class)? options[:controls][:class]: ''}"),
                 class: 'control-group')
   end
 

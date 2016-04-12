@@ -162,6 +162,7 @@ input, textarea, select {
 
 
 $controls-margin-left: round($label-width * 1.1);
+$large-controls-margin-left: round($large-label-width * 1.1);
 
 .control-group {
   margin: round($fs-normal/4) 0;
@@ -182,6 +183,9 @@ $controls-margin-left: round($label-width * 1.1);
         float: right;
       }
     }
+    &.large-control-label {
+      max-width: $large-label-width;
+    }
   }
   width: auto;
   .controls {
@@ -196,6 +200,10 @@ $controls-margin-left: round($label-width * 1.1);
     .preview.picture {
       margin-bottom: $spacing;
       @include margin-left(0);
+    }
+    &.large-controls {
+      @include margin-left($large-controls-margin-left);
+      max-width: 100% - $large-controls-margin-left;
     }
   }
   //  &.selector .controls .input {

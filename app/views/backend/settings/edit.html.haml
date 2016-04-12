@@ -1,7 +1,7 @@
 = form_tag({action: :update}, {method: :put}) do
   = field_set :general do
     - for preference in Preference.global.where.not(name: [:accounting_system, :currency]).order(:name)
-      = field "preferences.#{preference.name}".t, {datatype: preference.nature.to_sym, value: preference.value, name: "preferences[#{preference.name}][value]"}
+      = field "preferences.#{preference.name}".t, {datatype: preference.nature.to_sym, value: preference.value, name: "preferences[#{preference.name}][value]"}, {label: {class: 'large-control-label'}, controls: {class: 'large-controls'}}
 
   = form_actions do
     = submit_tag :update.tl, class: 'primary'

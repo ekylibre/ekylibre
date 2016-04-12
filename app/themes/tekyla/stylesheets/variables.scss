@@ -85,6 +85,7 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
 // Forms
 $input-border: $menu-border-width solid mix($desktop-background, $neutral-color, 60%);
 $label-width: 25% !default;
+$large-label-width: 55% !default;
 
 // Tables
 $row-border: $menu-border-width solid darken($menu-background, 2 * $default-lightness-variation);
