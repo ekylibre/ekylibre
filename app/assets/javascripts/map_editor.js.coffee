@@ -59,8 +59,8 @@
           position: "topleft"
           zoomInText: ""
           zoomOutText: ""
-          zoomInTitle: I18n.t('javascripts.leaflet.zoomInTitle')
-          zoomOutTitle: I18n.t('javascripts.leaflet.zoomOutTitle')
+          zoomInTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomInTitle")
+          zoomOutTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomOutTitle")
         scale:
           position: "bottomright"
           imperial: false
@@ -77,14 +77,14 @@
           localization: 'en'
         fullscreen:
           position: 'topleft'
-          title: I18n.t('javascripts.leaflet.fullscreenTitle')
+          title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
         importers:
           gml: true
           geojson: true
           kml: true
           title: ''
           content: ''
-          buttonTitle: I18n.t('javascripts.leaflet.importerButtonTitle')
+          buttonTitle: I18n.t("#{I18n.rootKey}.leaflet.importerButtonTitle")
           template: '<div class="modal-header"><i class="leaflet-importer-ctrl"></i><span>{title}</span></div>
                      <div class="modal-body">{content}</div>
                      <div class="modal-footer">

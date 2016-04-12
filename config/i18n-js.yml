@@ -28,4 +28,4 @@
 export_i18n_js: "app/assets/javascripts/i18n"
 translations:
   - file: "app/assets/javascripts/i18n/%{locale}.js"
-    only: '*.javascripts.*'
+    only: '*.front-end.*'
