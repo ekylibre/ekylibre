@@ -10,8 +10,8 @@ $activity_border_size: 5px;
     @include float(left);
     @include make-xs-column(12);
     @include make-sm-column(6);
-    @include make-md-column(4);
-    @include make-lg-column(3);
+    @include make-md-column(6);
+    @include make-lg-column(4);
     padding: 0;
   }
 }
@@ -58,11 +58,15 @@ $activity_border_size: 5px;
 
       .activity-indicator {
         @include ellipsis;
-        @include make-md-column(6, $gutter: 0);
+        @include make-md-column(4, $gutter: 0);
         // height: 100%;
         text-align: center;
         font-size: $fs-normal;
         // line-height: $indicators_height;
+        &.cash {
+          @include make-md-column(12, $gutter: 0);
+          @include icon-before(money, $font-size: 14px);
+        }
       }
     }
   }
@@ -73,11 +77,6 @@ $activity_border_size: 5px;
       opacity: 1;
       background: white;
     }
-  }
-
-
-  .cash {
-    @include icon-before(money, $font-size: 14px);
   }
 
   .cumulated-time {
