@@ -48,7 +48,7 @@ class MapBackground < Ekylibre::Record::Base
       attrs = {
         enabled: item.enabled,
         name: item.label,
-        by_default: true,
+        by_default: item.by_default,
         url: item.url
       }
       MapBackground.where(base_layer: item.provider_name, base_variant: item.name).first_or_create(attrs)

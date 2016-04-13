@@ -578,6 +578,9 @@ Rails.application.routes.draw do
       collection do
         post :load
       end
+      member do
+        patch :toggle_enabled
+      end
     end
 
     resources :map_editors, only: [] do

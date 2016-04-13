@@ -31,21 +31,27 @@ $map-height: 200px;
 
         .map-background-name {
           @include ellipsis;
+
           width: 80%;
           margin-right: 2%;
         }
-        .map-background-selector {
-          @include icon-before(square-o, $font-size: $fs-large);
+
+        .map-background-icon {
           width: 8%;
           margin-right: 2%;
+          &:nth-last-child(1) {
+            margin-right: 0;
+          }
+        }
+        .map-background-display {
+          @include icon-before(eye-slash, $font-size: $fs-large);
 
-          &:active {
-            @include icon-before(check-square-o, $font-size: $fs-large);
+          &.enable {
+            @include icon-before(eye, $font-size: $fs-large);
           }
         }
         .map-background-edit {
           @include icon-before(pencil, $font-size: $fs-large);
-          width: 8%;
         }
       }
       .map-view {
