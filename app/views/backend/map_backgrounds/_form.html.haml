@@ -1,0 +1,6 @@
+= field_set do
+  = f.input :name
+  = f.input :url
+  = f.input :base_variant, collection: MapBackgrounds::Layer.items
+  = f.input :enabled
+  = f.input :by_default
