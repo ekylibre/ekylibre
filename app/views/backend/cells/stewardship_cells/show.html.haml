@@ -20,20 +20,20 @@
 
 - if activity_productions.any?
   .info
-    %span.title= :activity_production.tl
+    %span.title= :activity_productions.tl
     %span.value= link_to(activity_productions.count.to_s, controller: "/backend/activity_productions", action: :index)
 -# else
   .info
-    %span.title= :activity_production.tl
+    %span.title= :activity_productions.tl
     %span.value= link_to(:open_a_production.tl, controller: "/backend/activity_productions", action: :new)
 
 - if cultivable_zones_ready_for_production.any?
   .info
-    %span.title= :cultivable_zone.tl
+    %span.title= :cultivable_zones.tl
     %span.value= link_to(cultivable_zones_ready_for_production.count.to_s, controller: "/backend/cultivable_zones", action: :index)
 -# else
   .info
-    %span.title= :cultivable_zone.tl
+    %span.title= :cultivable_zones.tl
     %span.value= link_to(:make_your_production_support.tl, controller: "/backend/activity_productions", action: :new)
 
 - if interventions.any?

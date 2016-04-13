@@ -3255,9 +3255,9 @@ fra:
         variety: "Variété"
     product_natures:
       choices:
-        linkage_points:
-          front: "avant"
-          rear: "arrière"
+        linkage_points:  #?
+          front: "avant" #?
+          rear: "arrière" #?
         population_counting:
           decimal: "Décimal"
           integer: "Entier"
