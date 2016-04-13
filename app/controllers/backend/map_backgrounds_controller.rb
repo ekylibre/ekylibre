@@ -24,7 +24,7 @@ module Backend
     end
 
     def load
-      MapBackground.import_all
+      MapBackground.load_defaults
       redirect_to params[:redirect] || { action: :index }
     end
   end
