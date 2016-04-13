@@ -7,13 +7,15 @@ module MapBackgrounds
     attr_reader :label
     attr_reader :url
     attr_reader :enabled
+    attr_reader :by_default
     attr_reader :attribution
 
-    def initialize(name, url, enabled, attribution, provider)
+    def initialize(name, url, enabled, attribution, by_default, provider)
       @name = name
       @url = url || provider.url
       @enabled = enabled.nil? ? false : enabled
       @attribution = attribution || provider.attribution
+      @by_default = by_default.nil? ? false : by_default
       @provider = provider
     end
 
@@ -37,10 +39,10 @@ module MapBackgrounds
           # A layer can be represented by a variant or by the provider itself
           if attributes.key?(:variants) and attributes[:variants].is_a? Hash
             attributes[:variants].each do |k, v|
-              items << ::MapBackgrounds::Layer.new(k, v.try(:[], :url), v.try(:[], :enabled), v.try(:[], :attribution), provider)
+              items << ::MapBackgrounds::Layer.new(k, v.try(:[], :url), v.try(:[], :enabled), v.try(:[], :attribution), v.try(:[], :by_default), provider)
             end
           else
-            items << ::MapBackgrounds::Layer.new(:default, provider.url, provider.enabled, provider.attribution, provider)
+            items << ::MapBackgrounds::Layer.new(:default, provider.url, provider.enabled, provider.attribution, provider.by_default,provider)
           end
         end
       end
@@ -76,6 +78,10 @@ module MapBackgrounds
 
     def enabled
       @options.try(:[], :enabled)
+      end
+
+    def by_default
+      @options.try(:[], :by_default)
     end
   end
 end
