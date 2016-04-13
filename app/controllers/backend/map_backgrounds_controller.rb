@@ -1,27 +1,11 @@
 module Backend
   class MapBackgroundsController < Backend::BaseController
+    manage_restfully
 
-    respond_to :json, only: [:toggle_enabled, :toggle_by_default]
+    respond_to :json, only: [:toggle_enabled]
+
     def index
-
       @map_backgrounds = MapBackground.order(enabled: :desc)
-
-    end
-
-    def new
-
-    end
-
-    def create
-
-    end
-
-    def update
-
-    end
-
-    def destroy
-
     end
 
     def load
