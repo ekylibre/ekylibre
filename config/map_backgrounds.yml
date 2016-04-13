@@ -12,6 +12,7 @@ open_street_map:
     hot:
       url: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
       enabled: yes
+      by_default: yes
       options:
         attribution: '{attribution.OpenStreetMap}, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
 
