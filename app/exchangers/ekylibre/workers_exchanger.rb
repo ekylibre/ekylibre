@@ -1,5 +1,40 @@
 module Ekylibre
   class WorkersExchanger < ActiveExchanger::Base
+    def check
+      valid = true
+      
+      rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
+      w.count = rows.size
+      
+      rows.each_with_index do |row, index|
+        line_number = index + 2
+        prompt = "L#{line_number.to_s.yellow}"
+        next if row[0].blank?
+        r = {
+          name: row[0].blank? ? nil : row[0].to_s,
+          first_name: row[1],
+          last_name: row[2],
+          variant_reference_name: row[3].blank? ? nil : row[3].to_s,
+          work_number: row[4],
+          place_code: row[5],
+          born_at: (row[6].blank? ? Date.civil(1980, 2, 2) : Date.parse(row[6]).to_datetime),
+          notes: row[7].to_s,
+          unit_pretax_amount: row[8].blank? ? nil : row[8].to_d,
+          price_indicator: row[9].blank? ? nil : row[9].to_sym,
+          email: row[10]
+        }.to_struct
+        
+        next unless r.variant_reference_name
+        next if variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+        unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+          w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
+          valid = false
+        end
+        
+      end
+      
+    end
+    
     def import
       building_division = BuildingDivision.first
 
@@ -11,7 +46,7 @@ module Ekylibre
           name: row[0].blank? ? nil : row[0].to_s,
           first_name: row[1],
           last_name: row[2],
-          variant_reference_name: row[3].downcase.to_sym,
+          variant_reference_name: row[3].blank? ? nil : row[3].to_s,
           work_number: row[4],
           place_code: row[5],
           born_at: (row[6].blank? ? Date.civil(1980, 2, 2) : Date.parse(row[6]).to_datetime),
@@ -21,9 +56,12 @@ module Ekylibre
           email: row[10]
         }.to_struct
 
-        # Find or import from variant reference_name the correct ProductNatureVariant
-        unless variant = ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
-          variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
+        unless variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+          if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
+            variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
+          else
+            raise "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
+          end
         end
         pmodel = variant.matching_model
 
