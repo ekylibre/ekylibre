@@ -810,8 +810,8 @@ module ApplicationHelper
     options[:controls] ||= {}
 
     content_tag(:div,
-                content_tag(:label, label, class: "control-label #{options[:label].key?(:class)? options[:label][:class]: ''}") +
-                content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), class: "controls #{options[:controls].key?(:class)? options[:controls][:class]: ''}"),
+                content_tag(:label, label, class: "control-label #{options[:label].key?(:class) ? options[:label][:class] : ''}") +
+                content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), class: "controls #{options[:controls].key?(:class) ? options[:controls][:class] : ''}"),
                 class: 'control-group')
   end
 

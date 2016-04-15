@@ -123,6 +123,10 @@ module Clean
         to_translate += Clean::Support.hash_count(::I18n.translate('errors'))
         translation << '  errors:' + Clean::Support.hash_to_yaml(::I18n.translate('errors'), 2) + "\n"
 
+        # Front end
+        to_translate += Clean::Support.hash_count(::I18n.translate('front-end'))
+        translation << '  front-end:' + Clean::Support.hash_to_yaml(::I18n.translate('front-end'), 2) + "\n"
+
         # Labels
         translation << "  labels:\n"
         labels = ::I18n.t('labels')

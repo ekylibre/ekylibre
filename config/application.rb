@@ -45,8 +45,6 @@ module Ekylibre
     #   end
     # end
 
-    config.middleware.use I18n::JS::Middleware
-
     config.middleware.insert_after ActionDispatch::ParamsParser, ActionDispatch::XmlParamsParser
 
     # Configure layouts for devise
