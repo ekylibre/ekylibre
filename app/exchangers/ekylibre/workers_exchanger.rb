@@ -2,10 +2,10 @@ module Ekylibre
   class WorkersExchanger < ActiveExchanger::Base
     def check
       valid = true
-      
+
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
-      
+
       rows.each_with_index do |row, index|
         line_number = index + 2
         prompt = "L#{line_number.to_s.yellow}"
@@ -23,18 +23,18 @@ module Ekylibre
           price_indicator: row[9].blank? ? nil : row[9].to_sym,
           email: row[10]
         }.to_struct
-        
+
         next unless r.variant_reference_name
         next if variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
         unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
         end
-        
+
       end
-      
+
     end
-    
+
     def import
       building_division = BuildingDivision.first
 

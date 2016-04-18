@@ -33,7 +33,7 @@ class Releaser
     # TODO: Check schema and table presences
 
     desc 'Execute demo first run'
-    exec 'RAILS_ENV=production rake first_run max=50 name=release folder=demo'
+    exec 'RAILS_ENV=production rake first_run max=80 name=release folder=demo'
 
     # TODO: Check schema and table presences
     # TODO: Check data presence
