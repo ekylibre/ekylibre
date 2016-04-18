@@ -216,6 +216,7 @@ class ActionController::TestCase
       unless options[:sign_in].is_a?(FalseClass)
         # Connect user
         code << "  @user = users(:users_001)\n"
+        code << "  @user.update_column(:language, @locale)\n"
         code << "  sign_in(@user)\n"
       end
       # Setup finished!
