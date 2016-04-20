@@ -34,18 +34,11 @@
   = janus do |j|
     - j.face :cobbles do
       .activities-index
-        -#- family_header = nil
-        -#- activities.order(:family).each do |activity|
-        -#  - if activity.family != family_header
-        -#    - family_header = activity.family
-        -#    .div.header= family_header.pluralize
-        -#  .activity-container
-        -#    = render 'backend/activities/card', activity: activity, campaign: resource
-        -# quick & dirty
         - families = activities.order(:family).collect(&:family).uniq
         - families.each do |family|
-          %div.activity-family-group
-            %div.activity-family-heading= family.l
+          .activity-family-group
+            - if families.count > 1
+              .activity-family-heading= family.l
             - activities.where(family: family).order(:name).each do |activity|
               .activity-container
                 = render 'backend/activities/card', activity: activity, campaign: resource

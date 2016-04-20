@@ -10,8 +10,8 @@ $activity_border_size: 5px;
     @include make-row($gutter: 0);
   }
   .activity-family-heading {
-    border-bottom: 1px solid $text-color;
-    color: $text-color;
+    border-bottom: $menu-border;
+    color: $neutral-color;
     padding: $default-gap;
     font-size: $fs-large;
   }
