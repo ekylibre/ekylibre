@@ -46,7 +46,7 @@
         - families.each do |family|
           %div.activity-family-group
             %div.activity-family-heading= family.l
-            - activities.where(family: family).each do |activity|
+            - activities.where(family: family).order(:name).each do |activity|
               .activity-container
                 = render 'backend/activities/card', activity: activity, campaign: resource
     - j.face :list do
