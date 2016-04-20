@@ -158,6 +158,10 @@ activities:
   updater_id:
     type: integer
     references: user
+  use_countings:
+    type: boolean
+    required: true
+    default: false
   with_cultivation:
     type: boolean
     required: true
@@ -3868,6 +3872,136 @@ parcels:
   transporter_id:
     type: integer
     references: entity
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+plant_counting_items:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  plant_counting_id:
+    type: integer
+    references: plant_counting
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  value:
+    type: integer
+    required: true
+plant_countings:
+  average_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  comment:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  plant_density_abacus_id:
+    type: integer
+    references: plant_density_abacus
+    required: true
+  plant_density_abacus_item_id:
+    type: integer
+    references: plant_density_abacus_item
+    required: true
+  plant_id:
+    type: integer
+    references: plant
+    required: true
+  read_at:
+    type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+plant_density_abaci:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  germination_percentage:
+    type: decimal
+    precision: 19
+    scale: 4
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  sampling_length_unit:
+    type: string
+    required: true
+  seeding_density_unit:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  variety_name:
+    type: string
+    required: true
+plant_density_abacus_items:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  plant_density_abacus_id:
+    type: integer
+    references: plant_density_abacus
+    required: true
+  plants_count:
+    type: integer
+  seeding_density_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   updated_at:
     type: datetime
     required: true

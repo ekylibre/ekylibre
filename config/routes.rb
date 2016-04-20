@@ -624,6 +624,8 @@ Rails.application.routes.draw do
 
     resources :parcel_items, only: [:new], path: 'parcel-items'
 
+    resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
+
     resources :plants, concerns: :products
 
     resources :postal_zones, concerns: [:list, :unroll] do

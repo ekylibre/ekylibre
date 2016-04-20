@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160408225701) do
+ActiveRecord::Schema.define(version: 20160420121330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20160408225701) do
     t.string   "production_cycle",                    null: false
     t.string   "production_campaign"
     t.jsonb    "custom_fields"
+    t.boolean  "use_countings",       default: false, null: false
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -2006,6 +2007,81 @@ ActiveRecord::Schema.define(version: 20160408225701) do
   add_index "parcels", ["transporter_id"], name: "index_parcels_on_transporter_id", using: :btree
   add_index "parcels", ["updated_at"], name: "index_parcels_on_updated_at", using: :btree
   add_index "parcels", ["updater_id"], name: "index_parcels_on_updater_id", using: :btree
+
+  create_table "plant_counting_items", force: :cascade do |t|
+    t.integer  "plant_counting_id",             null: false
+    t.integer  "value",                         null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      default: 0, null: false
+  end
+
+  add_index "plant_counting_items", ["created_at"], name: "index_plant_counting_items_on_created_at", using: :btree
+  add_index "plant_counting_items", ["creator_id"], name: "index_plant_counting_items_on_creator_id", using: :btree
+  add_index "plant_counting_items", ["plant_counting_id"], name: "index_plant_counting_items_on_plant_counting_id", using: :btree
+  add_index "plant_counting_items", ["updated_at"], name: "index_plant_counting_items_on_updated_at", using: :btree
+  add_index "plant_counting_items", ["updater_id"], name: "index_plant_counting_items_on_updater_id", using: :btree
+
+  create_table "plant_countings", force: :cascade do |t|
+    t.integer  "plant_id",                                                          null: false
+    t.integer  "plant_density_abacus_id",                                           null: false
+    t.integer  "plant_density_abacus_item_id",                                      null: false
+    t.decimal  "average_value",                precision: 19, scale: 4
+    t.datetime "read_at"
+    t.text     "comment"
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                          default: 0, null: false
+  end
+
+  add_index "plant_countings", ["created_at"], name: "index_plant_countings_on_created_at", using: :btree
+  add_index "plant_countings", ["creator_id"], name: "index_plant_countings_on_creator_id", using: :btree
+  add_index "plant_countings", ["plant_density_abacus_id"], name: "index_plant_countings_on_plant_density_abacus_id", using: :btree
+  add_index "plant_countings", ["plant_density_abacus_item_id"], name: "index_plant_countings_on_plant_density_abacus_item_id", using: :btree
+  add_index "plant_countings", ["plant_id"], name: "index_plant_countings_on_plant_id", using: :btree
+  add_index "plant_countings", ["updated_at"], name: "index_plant_countings_on_updated_at", using: :btree
+  add_index "plant_countings", ["updater_id"], name: "index_plant_countings_on_updater_id", using: :btree
+
+  create_table "plant_density_abaci", force: :cascade do |t|
+    t.string   "name",                                                        null: false
+    t.string   "variety_name",                                                null: false
+    t.decimal  "germination_percentage", precision: 19, scale: 4
+    t.string   "seeding_density_unit",                                        null: false
+    t.string   "sampling_length_unit",                                        null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                    default: 0, null: false
+  end
+
+  add_index "plant_density_abaci", ["created_at"], name: "index_plant_density_abaci_on_created_at", using: :btree
+  add_index "plant_density_abaci", ["creator_id"], name: "index_plant_density_abaci_on_creator_id", using: :btree
+  add_index "plant_density_abaci", ["name"], name: "index_plant_density_abaci_on_name", unique: true, using: :btree
+  add_index "plant_density_abaci", ["updated_at"], name: "index_plant_density_abaci_on_updated_at", using: :btree
+  add_index "plant_density_abaci", ["updater_id"], name: "index_plant_density_abaci_on_updater_id", using: :btree
+  add_index "plant_density_abaci", ["variety_name"], name: "index_plant_density_abaci_on_variety_name", using: :btree
+
+  create_table "plant_density_abacus_items", force: :cascade do |t|
+    t.integer  "plant_density_abacus_id",                                      null: false
+    t.decimal  "seeding_density_value",   precision: 19, scale: 4,             null: false
+    t.integer  "plants_count"
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                     default: 0, null: false
+  end
+
+  add_index "plant_density_abacus_items", ["created_at"], name: "index_plant_density_abacus_items_on_created_at", using: :btree
+  add_index "plant_density_abacus_items", ["creator_id"], name: "index_plant_density_abacus_items_on_creator_id", using: :btree
+  add_index "plant_density_abacus_items", ["plant_density_abacus_id"], name: "index_plant_density_abacus_items_on_plant_density_abacus_id", using: :btree
+  add_index "plant_density_abacus_items", ["updated_at"], name: "index_plant_density_abacus_items_on_updated_at", using: :btree
+  add_index "plant_density_abacus_items", ["updater_id"], name: "index_plant_density_abacus_items_on_updater_id", using: :btree
 
   create_table "postal_zones", force: :cascade do |t|
     t.string   "postal_code",              null: false

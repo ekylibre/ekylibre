@@ -621,6 +621,14 @@
         <page to="backend/plants#take"/>
         <page to="backend/plants#unroll"/>
         <page to="backend/plants#update"/>
+        <page to="backend/plant_density_abaci#index"/>
+        <page to="backend/plant_density_abaci#create"/>
+        <page to="backend/plant_density_abaci#destroy"/>
+        <page to="backend/plant_density_abaci#edit"/>
+        <page to="backend/plant_density_abaci#list"/>
+        <page to="backend/plant_density_abaci#new"/>
+        <page to="backend/plant_density_abaci#show"/>
+        <page to="backend/plant_density_abaci#update"/>
         <page to="backend/wine_tanks#index"/>
         <page to="backend/wine_tanks#list"/>
         <page to="backend/fungi#index"/>
@@ -1762,6 +1770,9 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="plant_density_abaci">
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

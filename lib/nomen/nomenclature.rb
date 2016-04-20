@@ -421,7 +421,7 @@ module Nomen
 
     # Returns list of items as an Array
     def list
-      Nomen::Relation.new(@items.values)
+      Nomen::Relation.new(self, @items.values)
     end
 
     # Iterates on items

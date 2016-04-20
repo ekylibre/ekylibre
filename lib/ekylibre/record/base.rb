@@ -151,7 +151,17 @@ module Ekylibre
             define_method name do
               reflection.klass.find(self[reflection.foreign_key])
             end
+          else
+            define_method "#{name}_name" do
+              item = reflection.klass.find(self[reflection.foreign_key])
+              item ? item.name : nil
+            end            
           end
+
+          define_method "human_#{name}_name" do
+            item = reflection.klass.find(self[reflection.foreign_key])
+            item ? item.human_name : nil
+          end            
 
           define_method "#{name}=" do |value|
             self[reflection.foreign_key] = value.is_a?(Nomen::Item) ? value.name : value

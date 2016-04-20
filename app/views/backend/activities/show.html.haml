@@ -3,6 +3,8 @@
   - budget = resource.budget_of(current_campaign)
   - if budget && budget.items.any?
     = t.edit params: {controller: :activity_budgets, id: budget.id}, label: :edit_budget.tl
+  - if resource.use_countings?
+    = link_to(PlantDensityAbacus.model_name.human, { controller: :plant_density_abaci, action: :index}, class: 'btn btn-default')
 
 - main_campaign_selector
 

@@ -40,6 +40,7 @@
 #  suspended           :boolean          default(FALSE), not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
+#  use_countings       :boolean          default(FALSE), not null
 #  with_cultivation    :boolean          not null
 #  with_supports       :boolean          not null
 #

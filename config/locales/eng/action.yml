@@ -502,6 +502,11 @@ eng:
       # prepare: "Prepare parcel: %{name}"
       ship: "Ship parcels"
       show: "%{nature} parcel: %{number}"
+    backend/plant_density_abaci:
+      # edit: "Edit plant density abacus: %{name}"
+      # index: "Plant density abaci"
+      # new: "New plant density abacus"
+      # show: "Plant density abacus: %{name}"
     backend/plants:
       edit: "Edit plant: %{name}"
       index: "Plants"
