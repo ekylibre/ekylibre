@@ -31,25 +31,4 @@
 #  updater_id        :integer
 #  value             :integer          not null
 #
-
-class PlantCountingItem < Ekylibre::Record::Base
-  belongs_to :plant_counting, inverse_of: :items
-
-  after_save :update_average_value
-  after_destroy :update_average_value
-
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :value, allow_nil: true, only_integer: true
-  validates_presence_of :plant_counting, :value
-  # ]VALIDATORS]
-
-  def update_average_value
-    items = plant_counting.items
-    average_value = items.any? ? items.average(:value) : nil
-    plant_counting.update_column(:average_value, average_value)
-  end
-
-  def siblings
-    plant_counting.items
-  end
-end
+--- {}

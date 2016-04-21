@@ -162,6 +162,21 @@ class ActionController::TestCase
       # test_restfully_all_actions({strictness: :api, params: {format: :json, user: "admin@ekylibre.org", password: "12345678"}, sign_in: false}.deep_merge(options))
     end
 
+    def connect_with_token
+      class_eval do
+        setup do
+          @user = User.find_by(email: 'admin@ekylibre.org')
+          if @user.authentication_token.blank?
+            @user.update_column(:authentication_token, User.generate_authentication_token)
+          end
+          @token = @user.authentication_token
+        end
+        def add_auth_header
+          @request.headers['Authorization'] = 'simple-token admin@ekylibre.org ' + @token
+        end
+      end
+    end
+
     def test_restfully_all_actions(options = {}, &_block)
       controller_name = controller_class.controller_name
       controller_path = controller_class.controller_path

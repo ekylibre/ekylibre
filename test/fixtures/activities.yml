@@ -62,6 +62,7 @@ activities_001:
   suspended: false
   updated_at: 2015-03-08 16:28:24.934621000 Z
   updater_id: 1
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_002:
@@ -80,6 +81,7 @@ activities_002:
   suspended: false
   updated_at: 2015-03-08 16:28:50.905947000 Z
   updater_id: 1
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_003:
@@ -94,6 +96,7 @@ activities_003:
   suspended: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  use_countings: false
   with_cultivation: false
   with_supports: false
 activities_004:
@@ -113,6 +116,7 @@ activities_004:
   suspended: false
   updated_at: 2015-03-08 16:30:59.380202000 Z
   updater_id: 1
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_005:
@@ -132,6 +136,7 @@ activities_005:
   suspended: false
   updated_at: 2015-03-08 16:33:20.709599000 Z
   updater_id: 1
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_006:
@@ -147,6 +152,7 @@ activities_006:
   suspended: false
   updated_at: 2015-03-08 16:33:39.397458000 Z
   updater_id: 1
+  use_countings: false
   with_cultivation: false
   with_supports: false
 activities_007:
@@ -164,6 +170,7 @@ activities_007:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:46.351081000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_008:
@@ -181,6 +188,7 @@ activities_008:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:47.480362000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_009:
@@ -198,6 +206,7 @@ activities_009:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:47.774103000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_010:
@@ -216,6 +225,7 @@ activities_010:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:48.250016000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_011:
@@ -233,6 +243,7 @@ activities_011:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:48.385508000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_012:
@@ -250,6 +261,7 @@ activities_012:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:48.519822000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_013:
@@ -267,6 +279,7 @@ activities_013:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:48.672465000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_014:
@@ -285,6 +298,7 @@ activities_014:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:48.816582000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_015:
@@ -302,6 +316,7 @@ activities_015:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:49.164349000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_016:
@@ -319,6 +334,7 @@ activities_016:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:49.338114000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_017:
@@ -336,14 +352,16 @@ activities_017:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:49.554454000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_018:
   created_at: 2016-01-21 14:05:50.038313000 Z
   cultivation_variety: zea_mays
+  description: ''
   family: plant_farming
   id: 19
-  lock_version: 0
+  lock_version: 1
   name: Maïs ensilage
   nature: main
   production_campaign: at_cycle_end
@@ -352,7 +370,9 @@ activities_018:
   size_unit_name: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2016-01-21 14:05:50.038313000 Z
+  updated_at: 2016-04-20 13:23:42.068608000 Z
+  updater_id: 1
+  use_countings: true
   with_cultivation: true
   with_supports: true
 activities_019:
@@ -371,6 +391,7 @@ activities_019:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:51.294978000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true
 activities_020:
@@ -388,5 +409,6 @@ activities_020:
   support_variety: cultivable_zone
   suspended: false
   updated_at: 2016-01-21 14:05:51.718311000 Z
+  use_countings: false
   with_cultivation: true
   with_supports: true

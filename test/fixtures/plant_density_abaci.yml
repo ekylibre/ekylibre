@@ -34,22 +34,16 @@
 #  updater_id             :integer
 #  variety_name           :string           not null
 #
-
-class PlantDensityAbacus < Ekylibre::Record::Base
-  has_many :items, class_name: 'PlantDensityAbacusItem', dependent: :delete_all, inverse_of: :plant_density_abacus
-  has_many :plant_countings
-  refers_to :variety
-  refers_to :seeding_density_unit, class_name: 'Unit'
-  refers_to :sampling_length_unit, class_name: 'Unit'
-
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :germination_percentage, allow_nil: true
-  validates_presence_of :name, :sampling_length_unit, :seeding_density_unit, :variety_name
-  # ]VALIDATORS]
-
-  accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
-
-  protect on: :destroy do
-    plant_countings.any?
-  end
-end
+---
+plant_density_abaci_001:
+  created_at: 2016-04-20 15:44:32.950188000 Z
+  creator_id: 1
+  germination_percentage: 80.0
+  id: 1
+  lock_version: 2
+  name: " Carotte 3 rangs"
+  sampling_length_unit: meter
+  seeding_density_unit: thousand_per_hectare
+  updated_at: 2016-04-20 16:45:34.528688000 Z
+  updater_id: 1
+  variety_name: daucus_carota

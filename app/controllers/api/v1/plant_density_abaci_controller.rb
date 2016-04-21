@@ -1,6 +1,6 @@
 module Api
   module V1
-    # PlantDensityAbaci API permits to access plant_density_abacuss
+    # PlantDensityAbaci API permits to access plant_density_abaci
     class PlantDensityAbaciController < Api::V1::BaseController
       def index
         render json: PlantDensityAbacus.order(id: :desc).limit(25), status: :ok
@@ -8,12 +8,12 @@ module Api
 
       def show
         @plant_density_abacus = PlantDensityAbacus.find_by(id: params[:id])
-        unless abacus
+        unless @plant_density_abacus
           render json: { message: 'Not found' }, status: :not_found
-          return
+          return false
         end
       end
-      
+
       protected
 
       def permitted_params

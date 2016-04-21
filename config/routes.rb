@@ -80,11 +80,14 @@ Rails.application.routes.draw do
     end
   end
 
+  # No '-' in API paths for now, only '_'
   namespace :api do
-    namespace :v1 do
+    namespace :v1, defaults: { format: 'json' } do
       resources :tokens, only: [:create, :destroy]
       resources :crumbs
       resources :issues
+      resources :plant_density_abaci
+      resources :plant_countings
     end
   end
 

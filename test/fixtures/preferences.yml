@@ -3654,3 +3654,36 @@ preferences_314:
   updated_at: 2016-02-08 09:48:37.678303000 Z
   updater_id: 1
   user_id: 1
+preferences_315:
+  created_at: 2016-04-20 13:11:03.929065000 Z
+  creator_id: 1
+  id: 316
+  lock_version: 0
+  name: cobbler.activities-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-04-20 13:11:03.929065000 Z
+  updater_id: 1
+  user_id: 1
+preferences_316:
+  created_at: 2016-04-20 14:12:59.800375000 Z
+  creator_id: 1
+  id: 317
+  lock_version: 0
+  name: list._plant_density_abaci_list_plant_density_abaci_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-04-20 14:12:59.800375000 Z
+  updater_id: 1
+  user_id: 1
+preferences_317:
+  created_at: 2016-04-20 17:00:30.546018000 Z
+  creator_id: 1
+  id: 318
+  lock_version: 0
+  name: cobbler.activity_productions-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-04-20 17:00:30.546018000 Z
+  updater_id: 1
+  user_id: 1

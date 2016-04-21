@@ -1,8 +1,6 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
 #     - "api/v1/crumbs#create"
 #     - "api/v1/crumbs#index"
-#     - "api/v1/issues#create"
-#     - "api/v1/issues#index"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
 #     - "authentication/invitations#create"
@@ -108,14 +106,6 @@
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
 #     - "backend/notifications#unread"
-#     - "backend/plant_density_abaci#create"
-#     - "backend/plant_density_abaci#destroy"
-#     - "backend/plant_density_abaci#edit"
-#     - "backend/plant_density_abaci#index"
-#     - "backend/plant_density_abaci#list"
-#     - "backend/plant_density_abaci#new"
-#     - "backend/plant_density_abaci#show"
-#     - "backend/plant_density_abaci#update"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#detail"
@@ -227,6 +217,8 @@ accounts:
 activities:
   read:
     actions:
+    - "api/v1/plant_density_abaci#index"
+    - "api/v1/plant_density_abaci#show"
     - "backend/activities#index"
     - "backend/activities#list"
     - "backend/activities#list_distributions"
@@ -235,10 +227,14 @@ activities:
     - "backend/activities#unroll"
     - "backend/activity_budgets#index"
     - "backend/activity_budgets#show"
+    - "backend/plant_density_abaci#index"
+    - "backend/plant_density_abaci#list"
+    - "backend/plant_density_abaci#show"
   write:
     dependencies:
     - read-activities
     actions:
+    - "api/v1/plant_countings#create"
     - "backend/activities#create"
     - "backend/activities#destroy"
     - "backend/activities#duplicate"
@@ -251,7 +247,13 @@ activities:
     - "backend/activity_budgets#edit"
     - "backend/activity_budgets#new"
     - "backend/activity_budgets#update"
+    - "backend/campaigns#close"
     - "backend/campaigns#open"
+    - "backend/plant_density_abaci#create"
+    - "backend/plant_density_abaci#destroy"
+    - "backend/plant_density_abaci#edit"
+    - "backend/plant_density_abaci#new"
+    - "backend/plant_density_abaci#update"
 
 affairs:
   read:
@@ -1068,6 +1070,7 @@ inventories:
 issues:
   read:
     actions:
+    - "api/v1/issues#index"
     - "backend/issues#index"
     - "backend/issues#list"
     - "backend/issues#list_interventions"
@@ -1078,6 +1081,7 @@ issues:
     dependencies:
     - read-issues
     actions:
+    - "api/v1/issues#create"
     - "backend/issues#abort"
     - "backend/issues#close"
     - "backend/issues#create"

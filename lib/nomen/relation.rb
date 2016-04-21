@@ -1,7 +1,7 @@
 module Nomen
   class Relation < Array
     attr_reader :nomenclature
-    
+
     alias find_each each
 
     def initialize(nomenclature, *args)

@@ -1,5 +1,4 @@
 module Backend
-
   # Manage PlantDensityAbacus records
   class PlantDensityAbaciController < Backend::BaseController
     manage_restfully
@@ -10,7 +9,5 @@ module Backend
       t.column :name, url: { action: :edit }
       t.column :variety_name
     end
-
-
   end
 end

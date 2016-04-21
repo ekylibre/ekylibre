@@ -1,6 +1,5 @@
 class AddPlantCountings < ActiveRecord::Migration
   def change
-
     add_column :activities, :use_countings, :boolean, null: false, default: false
 
     create_table :plant_density_abaci do |t|
@@ -37,6 +36,5 @@ class AddPlantCountings < ActiveRecord::Migration
       t.integer :value, null: false
       t.stamps
     end
-
   end
 end

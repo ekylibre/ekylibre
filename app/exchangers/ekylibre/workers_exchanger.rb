@@ -30,9 +30,7 @@ module Ekylibre
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
         end
-
       end
-
     end
 
     def import

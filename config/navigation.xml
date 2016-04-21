@@ -538,6 +538,7 @@
         <page to="backend/campaigns#list"/>
         <page to="backend/campaigns#new"/>
         <page to="backend/campaigns#open"/>
+        <page to="backend/campaigns#close"/>
         <page to="backend/campaigns#update"/>
         <page to="backend/campaigns#unroll"/>
         <page to="backend/activity_productions#index"/>
@@ -1657,6 +1658,13 @@
         <page to="api/v1/tokens#create"/>
         <page to="api/v1/tokens#destroy"/>
       </item>
+      <item name="plant_countings">
+        <page to="api/v1/plant_countings#create"/>
+      </item>
+      <item name="plant_density_abaci">
+        <page to="api/v1/plant_density_abaci#index"/>
+        <page to="api/v1/plant_density_abaci#show"/>
+      </item>
     </group>
     <group>
       <item name="attributes">
@@ -1770,9 +1778,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="plant_density_abaci">
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

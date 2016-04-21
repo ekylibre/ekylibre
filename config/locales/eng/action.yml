@@ -4,6 +4,9 @@ eng:
       # index: "Crumbs"
     api/v1/issues:
       # index: "Issues"
+    api/v1/plant_density_abaci:
+      # index: "Plant density abaci"
+      # show: "Plant density abacus: %{name}"
     authentication/invitations:
       edit: "Accept invitation"
       # new: "New invitation"
@@ -96,6 +99,7 @@ eng:
       show: "Building: %{name}"
       # take: "Take building: %{name}"
     backend/campaigns:
+      # close: "Close campaign: %{name}"
       current: "Campaign"
       edit: "Edit campaign: %{name}"
       index: "Campaigns"

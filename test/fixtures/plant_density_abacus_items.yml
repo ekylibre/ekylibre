@@ -32,17 +32,54 @@
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #
-
-class PlantDensityAbacusItem < Ekylibre::Record::Base
-  belongs_to :plant_density_abacus, inverse_of: :items
-  has_many :plant_countings
-
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :seeding_density_value, allow_nil: true
-  validates_presence_of :plant_density_abacus, :seeding_density_value
-  # ]VALIDATORS]
-
-  protect on: :destroy do
-    plant_countings.any?
-  end
-end
+---
+plant_density_abacus_items_001:
+  created_at: 2016-04-20 15:44:32.951924000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  plant_density_abacus_id: 1
+  plants_count: 75
+  seeding_density_value: 1.5
+  updated_at: 2016-04-20 15:44:32.951924000 Z
+  updater_id: 1
+plant_density_abacus_items_002:
+  created_at: 2016-04-20 16:07:44.933257000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  plant_density_abacus_id: 1
+  plants_count: 80
+  seeding_density_value: 1.6
+  updated_at: 2016-04-20 16:07:44.933257000 Z
+  updater_id: 1
+plant_density_abacus_items_003:
+  created_at: 2016-04-20 16:07:44.934697000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  plant_density_abacus_id: 1
+  plants_count: 90
+  seeding_density_value: 1.7
+  updated_at: 2016-04-20 16:07:44.934697000 Z
+  updater_id: 1
+plant_density_abacus_items_004:
+  created_at: 2016-04-20 16:09:07.409521000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  plant_density_abacus_id: 1
+  plants_count: 100
+  seeding_density_value: 1.8
+  updated_at: 2016-04-20 16:09:07.409521000 Z
+  updater_id: 1
+plant_density_abacus_items_005:
+  created_at: 2016-04-20 16:40:05.289229000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  plant_density_abacus_id: 1
+  plants_count: 25
+  seeding_density_value: 2.0
+  updated_at: 2016-04-20 16:40:05.289229000 Z
+  updater_id: 1
