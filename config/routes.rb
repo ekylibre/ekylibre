@@ -88,6 +88,7 @@ Rails.application.routes.draw do
       resources :issues
       resources :plant_density_abaci
       resources :plant_countings
+      resources :plants
     end
   end
 

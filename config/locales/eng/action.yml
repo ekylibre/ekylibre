@@ -7,6 +7,8 @@ eng:
     api/v1/plant_density_abaci:
       # index: "Plant density abaci"
       # show: "Plant density abacus: %{name}"
+    api/v1/plants:
+      # index: "Plants"
     authentication/invitations:
       edit: "Accept invitation"
       # new: "New invitation"

@@ -1378,6 +1378,7 @@ outgoing_payments:
 plants:
   read:
     actions:
+    - "api/v1/plants#index"
     - "backend/plants#index"
     - "backend/plants#list"
     - "backend/plants#list_carried_linkages"
