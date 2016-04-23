@@ -88,6 +88,8 @@ module Backend
         options.deep_merge!(data: { map_editor: { controls: { importers: { content: importer_form(options[:data][:map_editor][:controls][:importers][:formats]) } } } })
       end
 
+      options[:data][:map_editor][:back] ||= MapBackground.availables
+
       options.deep_merge!(data: { map_editor: { edit: geometry.to_json_object } }) unless value.nil?
       text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys } }))
     end
@@ -138,7 +140,7 @@ module Backend
     # Build a map with a given list of object
     def collection_map(data, options = {}, &_block)
       return nil unless data.any?
-      backgrounds = options.delete(:backgrounds) || ['OpenStreetMap.HOT', 'OpenStreetMap.Mapnik', 'Thunderforest.Landscape', 'Esri.WorldImagery']
+      backgrounds = options.delete(:backgrounds) || []
       options = {
         controls: {
           zoom: true,
