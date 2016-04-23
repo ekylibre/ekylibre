@@ -3,12 +3,14 @@ module Visualization
     def initialize(config = {})
       @config = config
       @categories_colors = @config.delete(:categories_colors)
+      @config[:backgrounds] = MapBackground.availables
     end
 
-    def background(name, options = {})
-      options[:name] = name
-      options[:provider] ||= options[:name]
-      options[:label] ||= options[:name].tr('.', ' ')
+    def background(layer, options = {})
+      # allow to add custom background
+      options[:name] = layer.name if layer.name?
+      options[:url] = layer.url if layer.url?
+      options[:by_default] = layer.by_default if layer.by_default?
       @config[:backgrounds] ||= []
       @config[:backgrounds] << options
     end
