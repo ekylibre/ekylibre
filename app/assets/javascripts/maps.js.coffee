@@ -21,9 +21,12 @@
           attributionControl: true
         )
         mapElement.prop("map", map)
+        if options.background?
+          L.tileLayer(options.background.url).addTo map
+        else
+          # Add an OpenStreetMap tile layer
+          L.tileLayer.provider("OpenStreetMap.HOT").addTo map
 
-        # Add an OpenStreetMap tile layer
-        L.tileLayer.provider("OpenStreetMap.HOT").addTo map
         $.each options.geometries, (index, value) ->
           layer = undefined
           if value.shape
