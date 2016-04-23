@@ -572,6 +572,16 @@ Capybara::Webkit.configure do |config|
   config.allow_url 'c.tile.openstreetmap.fr'
   config.allow_url 'server.arcgisonline.com'
   config.allow_url 'secure.gravatar.com'
+  config.allow_url 'a.tile.thunderforest.com'
+  config.allow_url 'b.tile.thunderforest.com'
+  config.allow_url 'c.tile.thunderforest.com'
+  config.allow_url 'tiles.openseamap.org'
+  config.allow_url 'openmapsurfer.uni-hd.de'
+  config.allow_url 'otilea.mqcdn.com'
+  config.allow_url 'otileb.mqcdn.com'
+  config.allow_url 'otilec.mqcdn.com'
+  config.allow_url '129.206.74.245'
+  config.allow_url ''
 end
 
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
