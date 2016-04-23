@@ -19,7 +19,7 @@
         height: 400
         width: null
       customClass: ''
-      back: ['Esri.WorldImagery','OpenStreetMap.HOT','OpenStreetMap.Mapnik','Thunderforest.Landscape']
+      back: []
       show: null
       edit: null
       change: null
@@ -341,15 +341,12 @@
       if this.backgroundLayer?
         this.map.removeLayer(this.backgroundLayer)
       if this.options.back?
-        if this.options.back.constructor.name is "String"
-          this.backgroundLayer = L.tileLayer.provider(this.options.back)
-          this.backgroundLayer.addTo this.map
-        else if this.options.back.constructor.name is "Array"
+        if this.options.back.constructor.name is "Array"
           baseLayers = {}
           for layer, index in @options.back
-            backgroundLayer = L.tileLayer.provider(layer)
-            baseLayers[layer] = backgroundLayer
-            this.map.addLayer(backgroundLayer) if index == 0
+            backgroundLayer = L.tileLayer(layer.url)
+            baseLayers[layer.name] = backgroundLayer
+            @map.addLayer(backgroundLayer) if index == 0
 
           @layerSelector = new L.Control.Layers(baseLayers)
           @map.addControl  @layerSelector
