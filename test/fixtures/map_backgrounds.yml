@@ -35,15 +35,15 @@
 #  updater_id   :integer
 #  url          :string           not null
 #
-
-one:
-  name: MyString
-  url: MyString
-  enabled: false
-  by_default: false
-
-two:
-  name: MyString
-  url: MyString
-  enabled: false
-  by_default: false
+# TODO
+#one:
+#  name: MyString
+#  url: MyString
+#  enabled: false
+#  by_default: false
+#
+#two:
+#  name: MyString
+#  url: MyString
+#  enabled: false
+#  by_default: false
