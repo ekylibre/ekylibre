@@ -12,6 +12,7 @@ open_street_map:
     hot:
       url: 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png'
       enabled: yes
+      by_default: yes
       options:
         attribution: '{attribution.OpenStreetMap}, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
 
@@ -38,18 +39,18 @@ open_sea_map:
     attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
 
 open_map_surfer:
-  url: 'http://openmapsurfer.uni-hd.de/tiles/roads/x={x}&y={y}&z={z}'
+  url: 'http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}'
   options:
     attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data {attribution.OpenStreetMap}'
   variants:
     roads:
     admin_bounds:
-      url: 'http://openmapsurfer.uni-hd.de/tiles/adminb/x={x}&y={y}&z={z}'
+      url: 'http://korona.geog.uni-heidelberg.de/tiles/adminb/x={x}&y={y}&z={z}'
     grayscale:
-      url: 'http://openmapsurfer.uni-hd.de/tiles/roadsg/x={x}&y={y}&z={z}'
+      url: 'http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}'
 
 map_quest_open:
-  url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg'
+  url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
   options:
     attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data {attribution.OpenStreetMap}'
     subdomains: '1234'
