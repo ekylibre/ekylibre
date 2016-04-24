@@ -24,7 +24,8 @@ class MapBackgroundsTest < ActiveSupport::TestCase
         assert_not_nil layer.label
 
         assert [true, false].include?(layer.enabled)
-        assert_not_nil layer.attribution
+        assert [true, false].include?(layer.by_default)
+        assert_not_nil layer.options[:attribution]
       end
     end
   end
