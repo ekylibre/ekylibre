@@ -59,6 +59,6 @@ class MapBackground < Ekylibre::Record::Base
   end
 
   def to_json_object
-    JSON.parse(to_json)
+    JSON.parse(to_json).merge(options: MapBackgrounds::Layer.find(base_layer, base_variant).options).jsonize_keys
   end
 end

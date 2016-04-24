@@ -4,4 +4,4 @@
       .map-background-name=link_to map_background.name, edit_backend_map_background_path(map_background)
       =link_to '', toggle_enabled_backend_map_background_path(map_background), title: :show.tl, class: "map-background-icon map-background-display #{map_background.enabled ? 'enable': ''}", remote: true, "data-type" => "json", method: :patch
       =link_to '', edit_backend_map_background_path(map_background), title: :edit.tl, class: 'map-background-icon map-background-edit'
-    .map-view=map(CultivableZone.first, box: {height: 200}, background: { url: map_background.url } )
+    .map-view=map(CultivableZone.first, box: {height: 200}, background: map_background.to_json_object )
