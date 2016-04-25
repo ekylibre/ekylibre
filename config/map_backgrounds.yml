@@ -62,12 +62,6 @@ map_quest_open:
       options:
         attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
 
-map_box:
-  url: 'http://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-  options:
-    attribution: 'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Map data {attribution.OpenStreetMap}'
-    subdomains: 'abcd'
-
 stamen:
   options:
     attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data {attribution.OpenStreetMap}'
@@ -189,24 +183,6 @@ open_weather_map:
     snow:
       url: 'http://{s}.tile.openweathermap.org/map/snow/{z}/{x}/{y}.png'
 
-nokia:
-  options:
-    attribution: 'Map &copy; <a href="http://developer.here.com">Nokia</a>, Data &copy; NAVTEQ 2012'
-    subdomains: '1234'
-    devID: 'xyz'  # These basemaps are free and you can sign up here:  http://developer.here.com/plans
-    appID: 'abc'
-  variants:
-    normal_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
-    normal_grey_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
-    satellite_no_labels_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/satellite.day/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
-    satellite_yes_labels_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
-    terrain_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/terrain.day/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
-
 acetate:
   url: 'http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png'
   options:
@@ -229,17 +205,3 @@ acetate:
       url: 'http://a{s}.acetate.geoiq.com/tiles/acetate-labels/{z}/{x}/{y}.png'
     hillshading:
       url: 'http://a{s}.acetate.geoiq.com/tiles/hillshading/{z}/{x}/{y}.png'
-
-cloud_made:
-  url: 'http://{s}.tile.cloudmade.com/{apiKey}/{styleID}/256/{z}/{x}/{y}.png'
-  options:
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Map tile imagery © <a href="http://cloudmade.com">CloudMade</a>'
-    min_zoom: 0
-    apiKey: 'abc'  # Sign up for an API key at http://cloudmade.com/ - first 500,000 tile requests are free
-    styleID: '1'
-  variants:
-    standard_resolution:
-      max_zoom: 18
-    high_resolution:
-      url: 'http://{s}.tile.cloudmade.com/{apiKey}/{styleID}@2x/256/{z}/{x}/{y}.png'
-      max_zoom: 19
