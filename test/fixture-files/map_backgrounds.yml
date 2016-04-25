@@ -14,7 +14,7 @@ open_street_map:
       enabled: yes
       by_default: yes
       options:
-        attribution: '{attribution.OpenStreetMap}, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+        attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
 
 thunderforest:
   options:
@@ -33,15 +33,10 @@ thunderforest:
       enabled: yes
       url: 'https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png'
 
-open_sea_map:
-  url: 'http://tiles.openseamap.org/seamark/{z}/{x}/{y}.png'
-  options:
-    attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
-
 open_map_surfer:
   url: 'http://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}'
   options:
-    attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data {attribution.OpenStreetMap}'
+    attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
   variants:
     roads:
     admin_bounds:
@@ -52,7 +47,7 @@ open_map_surfer:
 map_quest_open:
   url: 'http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpg'
   options:
-    attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data {attribution.OpenStreetMap}'
+    attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     subdomains: '1234'
 
   variants:
@@ -62,15 +57,9 @@ map_quest_open:
       options:
         attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
 
-map_box:
-  url: 'http://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png'
-  options:
-    attribution: 'Imagery from <a href="http://mapbox.com/about/maps/">MapBox</a> &mdash; Map data {attribution.OpenStreetMap}'
-    subdomains: 'abcd'
-
 stamen:
   options:
-    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data {attribution.OpenStreetMap}'
+    attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
     subdomains: 'abcd'
     min_zoom: 0
     max_zoom: 20
@@ -111,101 +100,55 @@ esri:
   variants:
     world_street_map:
       options:
-        attribution: '{attribution.Esri} &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
     de_lorme:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/Specialty/DeLorme_World_Base_Map/MapServer/tile/{z}/{y}/{x}'
       options:
         min_zoom: 1
         max_zoom: 11
-        attribution: '{attribution.Esri} &mdash; Copyright: &copy;2012 DeLorme'
+        attribution: 'Tiles &copy; Esri &mdash; Copyright: &copy;2012 DeLorme'
     world_topo_map:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
       options:
         attribution:
-          '{attribution.Esri} &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+          'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
     world_imagery:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
       enabled: yes
       options:
         attribution:
-          '{attribution.Esri} &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+          'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     world_terrain:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}'
       options:
         max_zoom: 13
         attribution:
-          '{attribution.Esri} &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS'
+          'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS'
     world_shaded_relief:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}'
       options:
         max_zoom: 13
-        attribution: '{attribution.Esri} &mdash; Source: Esri'
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri'
     world_physical:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}'
       options:
         max_zoom: 8
-        attribution: '{attribution.Esri} &mdash; Source: US National Park Service'
+        attribution: 'Tiles &copy; Esri &mdash; Source: US National Park Service'
     ocean_base_map:
       url: 'http://services.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer/tile/{z}/{y}/{x}'
       options:
         max_zoom: 13
-        attribution: '{attribution.Esri} &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
+        attribution: 'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
     nat_geo_world_map:
       url: 'http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}'
       options:
         max_zoom: 16
-        attribution: '{attribution.Esri} &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC'
+        attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC'
     world_gray_canvas:
       url: 'http://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}'
       options:
         max_zoom: 16
-        attribution: '{attribution.Esri} &mdash; Esri, DeLorme, NAVTEQ'
-
-open_weather_map:
-  options:
-    attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>'
-    opacity: 0.5
-  variants:
-    clouds:
-      url: 'http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png'
-    clouds_classic:
-      url: 'http://{s}.tile.openweathermap.org/map/clouds_cls/{z}/{x}/{y}.png'
-    precipitation:
-      url: 'http://{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png'
-    precipitation_classic:
-      url: 'http://{s}.tile.openweathermap.org/map/precipitation_cls/{z}/{x}/{y}.png'
-    rain:
-      url: 'http://{s}.tile.openweathermap.org/map/rain/{z}/{x}/{y}.png'
-    rain_classic:
-      url: 'http://{s}.tile.openweathermap.org/map/rain_cls/{z}/{x}/{y}.png'
-    pressure:
-      url: 'http://{s}.tile.openweathermap.org/map/pressure/{z}/{x}/{y}.png'
-    pressure_contour:
-      url: 'http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png'
-    wind:
-      url: 'http://{s}.tile.openweathermap.org/map/wind/{z}/{x}/{y}.png'
-    temperature:
-      url: 'http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.png'
-    snow:
-      url: 'http://{s}.tile.openweathermap.org/map/snow/{z}/{x}/{y}.png'
-
-nokia:
-  options:
-    attribution: 'Map &copy; <a href="http://developer.here.com">Nokia</a>, Data &copy; NAVTEQ 2012'
-    subdomains: '1234'
-    devID: 'xyz'  # These basemaps are free and you can sign up here:  http://developer.here.com/plans
-    appID: 'abc'
-  variants:
-    normal_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/normal.day/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
-    normal_grey_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
-    satellite_no_labels_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/satellite.day/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
-    satellite_yes_labels_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/hybrid.day/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
-    terrain_day:
-      url: 'http://{s}.maptile.lbs.ovi.com/maptiler/v2/maptile/newest/terrain.day/{z}/{x}/{y}/256/png8?token={devID}&app_id={appID}'
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
 
 acetate:
   url: 'http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png'
@@ -229,17 +172,3 @@ acetate:
       url: 'http://a{s}.acetate.geoiq.com/tiles/acetate-labels/{z}/{x}/{y}.png'
     hillshading:
       url: 'http://a{s}.acetate.geoiq.com/tiles/hillshading/{z}/{x}/{y}.png'
-
-cloud_made:
-  url: 'http://{s}.tile.cloudmade.com/{apiKey}/{styleID}/256/{z}/{x}/{y}.png'
-  options:
-    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Map tile imagery © <a href="http://cloudmade.com">CloudMade</a>'
-    min_zoom: 0
-    apiKey: 'abc'  # Sign up for an API key at http://cloudmade.com/ - first 500,000 tile requests are free
-    styleID: '1'
-  variants:
-    standard_resolution:
-      max_zoom: 18
-    high_resolution:
-      url: 'http://{s}.tile.cloudmade.com/{apiKey}/{styleID}@2x/256/{z}/{x}/{y}.png'
-      max_zoom: 19
