@@ -41,7 +41,7 @@ class MapBackground < Ekylibre::Record::Base
   validates_presence_of :name, :url
   # ]VALIDATORS]
   validates_format_of :url, :with => URI::regexp(%w(http https))
-  scope :availables, -> { where(enabled: true).select(:name, :url, :by_default).order(by_default: :desc) }
+  scope :availables, -> { where(enabled: true).order(by_default: :desc) }
   scope :by_default, -> { availables.first }
 
   def self.load_defaults
