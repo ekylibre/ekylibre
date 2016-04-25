@@ -22,7 +22,6 @@
         )
         mapElement.prop("map", map)
         if options.background?
-          console.log options.background.options
           L.tileLayer(options.background.url, options.background.options).addTo map
         else
           # Add an OpenStreetMap tile layer

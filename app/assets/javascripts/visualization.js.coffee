@@ -236,7 +236,7 @@
       overlays = {}
 
       for layer, index in @options.backgrounds
-        backgroundLayer = L.tileLayer(layer.url)
+        backgroundLayer = L.tileLayer(layer.url, layer.options)
         baseLayers[layer.name] = backgroundLayer
         @map.addLayer(backgroundLayer) if index == 0
 
