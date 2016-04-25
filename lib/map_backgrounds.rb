@@ -4,11 +4,9 @@ module MapBackgrounds
       []
     end
     attr_reader :name
-    attr_reader :label
     attr_reader :url
     attr_reader :enabled
     attr_reader :by_default
-    attr_reader :attribution
     attr_reader :options
 
     def initialize(name, url, enabled, by_default, options, provider)
@@ -22,11 +20,11 @@ module MapBackgrounds
     end
 
     def label
-      @name == :default ? @provider.label : "#{@provider.label}.#{@name.to_s.camelize}"
+      @name == :default ? @provider.label : "#{@provider.label} #{@name.to_s.split('_').join(' ').camelize}"
     end
 
-    def provider_name
-      @provider.name
+    def reference_name
+      @reference_name ||="#{@provider.name.to_s}.#{@name.to_s}"
     end
 
     class << self
@@ -53,10 +51,10 @@ module MapBackgrounds
         items.collect(&:provider_name).uniq
       end
 
-      def find(provider, layer_name)
-        return nil unless provider && layer_name
+      def find(reference_name)
+        return nil unless reference_name
         items.detect do |layer|
-          layer.provider_name == provider.to_sym && layer.name == layer_name.to_sym
+          layer.reference_name == reference_name
         end
       end
     end
