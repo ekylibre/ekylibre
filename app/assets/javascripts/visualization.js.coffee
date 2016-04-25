@@ -146,6 +146,7 @@
         scrollWheelZoom: false
         zoomControl: false
         attributionControl: true
+        set_default_background: false
       view:
         center:[]
         zoom : 13
@@ -155,6 +156,16 @@
       $.extend(true, @options, @element.data("visualization"))
       @mapElement = $("<div>", class: "map").insertAfter(@element)
       @map = L.map(@mapElement[0], @options.map)
+
+      if @options.map.set_default_background
+        opts = {
+          attribution: @options.backgrounds.attribution if @options.backgrounds.attribution?
+          minZoom: @options.backgrounds.minZoom if @options.backgrounds.minZoom?
+          maxZoom: @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
+        }
+        backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
+        backgroundLayer.addTo @map
+
       this._resize()
       this._refreshView()
       this._refreshControls()
@@ -236,7 +247,12 @@
       overlays = {}
 
       for layer, index in @options.backgrounds
-        backgroundLayer = L.tileLayer(layer.url, layer.options)
+        opts = {
+          attribution: layer.attribution if layer.attribution?
+          minZoom: layer.minZoom if layer.minZoom?
+          maxZoom: layer.maxZoom if layer.maxZoom?
+        }
+        backgroundLayer = L.tileLayer(layer.url, opts)
         baseLayers[layer.name] = backgroundLayer
         @map.addLayer(backgroundLayer) if index == 0
 
@@ -341,14 +357,8 @@
 
     _refreshView: (view) ->
       this._setDefaultView()
-      # else if view.center?
-      #   if @options.layers?
-
-      #   if view.zoom?
-      #     @map.setView(center, view.zoom)
-      #   else
-      #     @map.setView(center, zoom)
-      # this
+      if @options.view.center?
+        @map.setView(@options.view.center, @options.view.zoom)
 
     _setDefaultView: ->
       @map.fitWorld()
