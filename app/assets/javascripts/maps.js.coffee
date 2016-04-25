@@ -22,7 +22,13 @@
         )
         mapElement.prop("map", map)
         if options.background?
-          L.tileLayer(options.background.url, options.background.options).addTo map
+          opts = {
+            attribution: options.background.attribution if options.background.attribution?
+            minZoom: options.background.minZoom if options.background.minZoom?
+            maxZoom: options.background.maxZoom if options.background.maxZoom?
+          }
+          opts['bounds'] = options.view.boundingBox if options.view.boundingBox
+          L.tileLayer(options.background.url, opts).addTo map
         else
           # Add an OpenStreetMap tile layer
           L.tileLayer.provider("OpenStreetMap.HOT").addTo map
@@ -51,11 +57,8 @@
           maxWidth: 200
         )
 
-        #Fixme: handle bad url
-        try
-          # Bounding box
-          map.fitBounds L.latLngBounds(options.view.boundingBox)  if options.view and options.view.boundingBox
-        catch e then console.log e
+        # Bounding box
+        map.fitBounds L.latLngBounds(options.view.boundingBox)  if options.view and options.view.boundingBox
 
         mapElement.prop "mapLoaded", true
       return
