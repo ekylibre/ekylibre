@@ -155,34 +155,6 @@ esri:
         max_zoom: 16
         attribution: '{attribution.Esri} &mdash; Esri, DeLorme, NAVTEQ'
 
-open_weather_map:
-  options:
-    attribution: 'Map data &copy; <a href="http://openweathermap.org">OpenWeatherMap</a>'
-    opacity: 0.5
-  variants:
-    clouds:
-      url: 'http://{s}.tile.openweathermap.org/map/clouds/{z}/{x}/{y}.png'
-    clouds_classic:
-      url: 'http://{s}.tile.openweathermap.org/map/clouds_cls/{z}/{x}/{y}.png'
-    precipitation:
-      url: 'http://{s}.tile.openweathermap.org/map/precipitation/{z}/{x}/{y}.png'
-    precipitation_classic:
-      url: 'http://{s}.tile.openweathermap.org/map/precipitation_cls/{z}/{x}/{y}.png'
-    rain:
-      url: 'http://{s}.tile.openweathermap.org/map/rain/{z}/{x}/{y}.png'
-    rain_classic:
-      url: 'http://{s}.tile.openweathermap.org/map/rain_cls/{z}/{x}/{y}.png'
-    pressure:
-      url: 'http://{s}.tile.openweathermap.org/map/pressure/{z}/{x}/{y}.png'
-    pressure_contour:
-      url: 'http://{s}.tile.openweathermap.org/map/pressure_cntr/{z}/{x}/{y}.png'
-    wind:
-      url: 'http://{s}.tile.openweathermap.org/map/wind/{z}/{x}/{y}.png'
-    temperature:
-      url: 'http://{s}.tile.openweathermap.org/map/temp/{z}/{x}/{y}.png'
-    snow:
-      url: 'http://{s}.tile.openweathermap.org/map/snow/{z}/{x}/{y}.png'
-
 acetate:
   url: 'http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png'
   options:
