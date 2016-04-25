@@ -1805,17 +1805,20 @@ ActiveRecord::Schema.define(version: 20160420121330) do
   add_index "manure_management_plans", ["updater_id"], name: "index_manure_management_plans_on_updater_id", using: :btree
 
   create_table "map_backgrounds", force: :cascade do |t|
-    t.string   "name",                         null: false
-    t.string   "url",                          null: false
-    t.string   "base_layer"
-    t.string   "base_variant"
-    t.boolean  "enabled",      default: false, null: false
-    t.boolean  "by_default",   default: false, null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "name",                           null: false
+    t.string   "url",                            null: false
+    t.string   "reference_name"
+    t.string   "attribution"
+    t.integer  "min_zoom"
+    t.integer  "max_zoom"
+    t.boolean  "managed",        default: false, null: false
+    t.boolean  "enabled",        default: false, null: false
+    t.boolean  "by_default",     default: false, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0,     null: false
+    t.integer  "lock_version",   default: 0,     null: false
   end
 
   add_index "map_backgrounds", ["created_at"], name: "index_map_backgrounds_on_created_at", using: :btree
