@@ -88,7 +88,7 @@ module Backend
         options.deep_merge!(data: { map_editor: { controls: { importers: { content: importer_form(options[:data][:map_editor][:controls][:importers][:formats]) } } } })
       end
 
-      options[:data][:map_editor][:back] ||= MapBackground.availables
+      options[:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
 
       options.deep_merge!(data: { map_editor: { edit: geometry.to_json_object } }) unless value.nil?
       text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys } }))
