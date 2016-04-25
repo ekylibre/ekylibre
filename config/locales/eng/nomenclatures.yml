@@ -10,6 +10,7 @@ eng:
         bunch: "Bunch"
         bury: "Bury"
         care: "Care"
+        castrate: "Castrate"
         catalyze: "Catalyze"
         catch: "Catch"
         chaptelise: "Chaptelise"
@@ -2660,6 +2661,7 @@ eng:
         corn_seed_crop: "Corn seed crop"
         corn_silage: "Corn silage"
         corn_silage_crop: "Corn silage crop"
+        corn_topper: "Corn topper"
         cover_crop: "Cover crop"
         cover_implanter: "Cover implanter"
         cow_milk: "Cow milk"
@@ -3147,6 +3149,7 @@ eng:
         consumer_goods_office_item: "Consumer goods office item"
         cork: "Cork"
         corker: "Corker"
+        corn_topper: "Corn topper"
         cover_implanter: "Cover implanter"
         crop: "Crop"
         crop_protective_item: "Crop protective item"
@@ -3765,7 +3768,7 @@ eng:
         avena_sativa_une_de_mai: "Oat une de mai"          #< avena_sativa
         aves: "Bird"                                       #< animal
         bacteria: "Bacteria"                               #< bioproduct
-        # bale_collector: "Bale collector"                 #< equipment
+        bale_collector: "Bale collector"                   #< equipment
         baler: "Baler"                                     #< equipment
         bambusa: "Bamboo"                                  #< poaceae
         bellis: "Bellis"                                   #< asteraceae
@@ -5792,7 +5795,7 @@ eng:
         sus_scrofa_x70: "Domestic pig X70"                 #< sus_scrofa
         sus_scrofa_x80: "Domestic pig X80"                 #< sus_scrofa
         tank: "Tank"                                       #< equipment
-        # telescopic_handler: "Telescopic handler"         #< equipment
+        telescopic_handler: "Telescopic handler"           #< equipment
         theobroma: "Theobroma"                             #< malvaceae
         theobroma_cacao: "Cocoa tree"                      #< theobroma
         theobroma_grandiflorum: "Theobroma grandiflorum"   #< theobroma
@@ -6114,7 +6117,7 @@ eng:
         water: "Water"                                     #< matter
         weigela: "Weigela"                                 #< diervillaceae
         weigela_floribunda: "Weigela floribunda"           #< weigela
-        # wheel_loader: "Wheel loader"                     #< equipment
+        wheel_loader: "Wheel loader"                       #< equipment
         wine: "Wine"                                       #< fermented_juice
         wire: "Wire"                                       #< packaged_matter
         worker: "Worker"                                   #< product

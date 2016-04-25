@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160408223901">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160425100840">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -13,6 +13,7 @@
       <item name="bunch"/>
       <item name="bury" parameters="variety"/>
       <item name="care" parameters="variety"/>
+      <item name="castrate" parameters="variety"/>
       <item name="catalyze" parameters="variety"/>
       <item name="catch" parameters="variety"/>
       <item name="chaptelise" parameters="variety"/>
@@ -2560,6 +2561,7 @@
       <item name="corn_seed_crop" nature="crop" variety="zea_mays" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="corn_silage" nature="silage" derivative_of="zea_mays" frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.666cubic_meter" unit_name="ton"/>
       <item name="corn_silage_crop" nature="crop" variety="zea_mays" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="corn_topper" nature="corn_topper"/>
       <item name="cover_crop" nature="crop"/>
       <item name="cover_implanter" nature="cover_implanter" frozen_indicators_values="" unit_name="equipment"/>
       <item name="cow_milk" nature="milk" derivative_of="bos" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.03kilogram" unit_name="liter"/>
@@ -3049,6 +3051,7 @@
       <item name="consumer_goods_office_item" category="consumer_goods_office_item" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="cork" category="wine_package_consumable" variety="cork" population_counting="integer" abilities="close(cork_bottle)" variable_indicators="length, width"/>
       <item name="corker" category="equipment" variety="equipment" population_counting="unitary" abilities="close(bottle)" frozen_indicators=""/>
+      <item name="corn_topper" category="small_equipment" variety="matter" population_counting="unitary" abilities="castrate(plant), move" frozen_indicators="length, application_width" variable_indicators="geolocation"/>
       <item name="cover_implanter" category="equipment" variety="implanter" population_counting="unitary" abilities="cover(plant)" variable_indicators="application_width, geolocation" frozen_indicators=""/>
       <item name="crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(straw)" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count" frozen_indicators="net_surface_area" derivatives="straw"/>
       <item name="crop_protective_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="care(plant)" variable_indicators="length, width"/>
