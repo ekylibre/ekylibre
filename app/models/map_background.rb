@@ -44,21 +44,33 @@ class MapBackground < Ekylibre::Record::Base
   scope :availables, -> { where(enabled: true).order(by_default: :desc) }
   scope :by_default, -> { availables.first }
 
+  selects_among_all
+
   def self.load_defaults
 
     MapBackgrounds::Layer.items.each do |item|
       attrs = {
-        enabled: item.enabled,
         name: item.label,
+        reference_name: item.reference_name,
+        enabled: item.enabled,
         by_default: item.by_default,
-        url: item.url
+        url: item.url,
+        attribution: item.options.try(:[], :attribution),
+        min_zoom: item.options.try(:[], :min_zoom),
+        max_zoom: item.options.try(:[], :max_zoom),
+        managed: true
       }
-      MapBackground.where(base_layer: item.provider_name, base_variant: item.name).first_or_create(attrs)
+      MapBackground.where(reference_name: item.reference_name).first_or_create(attrs)
     end
 
+    default = MapBackgrounds::Layer.items.select{ |layer| layer.by_default }
+
+    if default.size >= 1 && default.first.reference_name
+      MapBackground.where(reference_name: default.first.reference_name).first.update!(by_default: true)
+    end
   end
 
   def to_json_object
-    JSON.parse(to_json).merge(options: MapBackgrounds::Layer.find(base_layer, base_variant).options).jsonize_keys
+    JSON.parse(to_json).compact
   end
 end
