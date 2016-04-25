@@ -87,8 +87,8 @@ gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
 
 # Authentication & Authorization
-gem 'devise', '~> 3.5.2'
-gem 'devise_invitable', '~> 1.5.2'
+gem 'devise'
+gem 'devise_invitable'
 gem 'devise-i18n-views'
 
 # Attachments
