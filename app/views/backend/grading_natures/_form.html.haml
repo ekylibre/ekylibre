@@ -1,0 +1,11 @@
+= field_set do
+  = f.input :name
+  = f.input :grade_indicator_name
+  = f.input :grade_unit
+  = f.input :extremum_indicator_name
+  = f.input :extremum_unit
+  = f.referenced_association :activity
+  = f.custom_fields
+
+= field_set :qualities do
+  = f.association :product_qualities, as: :check_boxes

@@ -162,6 +162,10 @@ activities:
     type: boolean
     required: true
     default: false
+  use_gradings:
+    type: boolean
+    required: true
+    default: false
   with_cultivation:
     type: boolean
     required: true
@@ -2152,6 +2156,124 @@ georeadings:
     required: true
   number:
     type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+grading_items:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  grading_id:
+    type: integer
+    references: grading
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  maximum_grade_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  minimum_grade_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  net_mass_unit:
+    type: string
+  net_mass_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  population:
+    type: integer
+  product_grade_id:
+    type: integer
+    references: product_grade
+  product_quality_id:
+    type: integer
+    references: product_quality
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+grading_natures:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  extremum_indicator_name:
+    type: string
+  extremum_unit:
+    type: string
+    required: true
+  grade_indicator_name:
+    type: string
+  grade_unit:
+    type: string
+    required: true
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+gradings:
+  comment:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  implanter_lines_gap:
+    type: decimal
+    precision: 19
+    scale: 4
+  implanter_lines_number:
+    type: integer
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  sampled_at:
+    type: datetime
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -4160,6 +4282,47 @@ product_enjoyments:
   updater_id:
     type: integer
     references: user
+product_grades:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  grade_unit:
+    type: string
+    required: true
+  grading_nature_id:
+    type: integer
+    references: grading_nature
+    required: true
+  id:
+    type: integer
+    required: true
+  indicator_datatype:
+    type: string
+  indicator_name:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  maximum_grade_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  minimum_grade_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 product_linkages:
   carried_id:
     type: integer
@@ -4777,6 +4940,39 @@ product_phases:
     type: integer
     references: product_nature_variant
     required: true
+product_qualities:
+  category:
+    type: string
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  reference_name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+product_qualities_grading_natures:
+  grading_quality_id:
+    type: integer
+    references: ''
+  product_grade_id:
+    type: integer
+    references: product_grade
 product_readings:
   absolute_measure_value_unit:
     type: string

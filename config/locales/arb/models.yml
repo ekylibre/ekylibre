@@ -1079,7 +1079,7 @@ arb:
     color: "اللون"
     column_name: "اسم العمود"
     columns: "الأعمدة"
-    comment: "التعليق" #?
+    comment: "التعليق"
     commercial: "نشاط تجاري"
     commercial_description: "وصف التجاري"
     commercial_name: "الاسم التجاري"
@@ -1323,6 +1323,8 @@ arb:
     expression: "اسلوب للتعبير" #?
     extension: "التوسع" #?
     external: "خارجي"
+    # extremum_indicator_name: "Extremum indicator name"
+    # extremum_unit: "Extremum unit"
     failed_attempts: "محاولات فاشلة"
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
@@ -1376,6 +1378,8 @@ arb:
     global_credit: "الائتمان العالمي"
     global_debit: "الانتاجية الاجمالية"
     godchildren: "أبناء معمدين"
+    # grade_indicator_name: "Grade indicator name"
+    # grade_unit: "Grade unit"
     gravity: "الجاذبية"
     group: "مجموعة"
     group_parameters: "معلمات مجموعة"
@@ -1563,6 +1567,7 @@ arb:
     maximal_grantable_reduction_percentage: "القصوى نسبة تخفيض grantable"
     maximal_length: "طول القصوى"
     maximal_value: "القيمة القصوى"
+    # maximum_grade_value: "Maximum grade value"
     maximum_nitrogen_input: "إدخال النيتروجين الأقصى"
     meadow_humus_mineralization: "مرج تمعدن الدبال"
     measure_value: "قياس القيمة"
@@ -1579,6 +1584,7 @@ arb:
     mineral_nitrogen_at_opening: "النيتروجين المعدنية في افتتاح"
     minimal_length: "طول الحد الأدنى"
     minimal_value: "قيمة الحد الأدنى"
+    # minimum_grade_value: "Minimum grade value"
     mobile: "الهاتف النقال" #?
     mobiles: "هواتف محمولة"
     mode: "نمط الدفعة"

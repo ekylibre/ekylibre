@@ -703,6 +703,35 @@
         <page to="backend/analyses#update"/>
         <page to="backend/analysis_items#new"/>
       </item>
+      <item name="grading_natures" icon="beaker">
+        <page to="backend/grading_natures#index"/>
+        <page to="backend/grading_natures#create"/>
+        <page to="backend/grading_natures#destroy"/>
+        <page to="backend/grading_natures#edit"/>
+        <page to="backend/grading_natures#list"/>
+        <page to="backend/grading_natures#new"/>
+        <page to="backend/grading_natures#show"/>
+        <page to="backend/grading_natures#unroll"/>
+        <page to="backend/grading_natures#update"/>
+        <page to="backend/product_grades#index"/>
+        <page to="backend/product_grades#create"/>
+        <page to="backend/product_grades#destroy"/>
+        <page to="backend/product_grades#edit"/>
+        <page to="backend/product_grades#list"/>
+        <page to="backend/product_grades#new"/>
+        <page to="backend/product_grades#show"/>
+        <page to="backend/product_grades#unroll"/>
+        <page to="backend/product_grades#update"/>
+        <page to="backend/product_qualities#index"/>
+        <page to="backend/product_qualities#create"/>
+        <page to="backend/product_qualities#destroy"/>
+        <page to="backend/product_qualities#edit"/>
+        <page to="backend/product_qualities#list"/>
+        <page to="backend/product_qualities#new"/>
+        <page to="backend/product_qualities#show"/>
+        <page to="backend/product_qualities#unroll"/>
+        <page to="backend/product_qualities#update"/>
+      </item>
     </group>
     <group name="land_parcels" icon="land-parcels">
       <item name="cultivable_zones">

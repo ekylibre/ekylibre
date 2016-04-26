@@ -20,34 +20,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: activities
+# == Table: grading_items
 #
 #  created_at          :datetime         not null
 #  creator_id          :integer
-#  cultivation_variety :string
-#  custom_fields       :jsonb
-#  description         :text
-#  family              :string           not null
+#  grading_id          :integer          not null
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
-#  name                :string           not null
-#  nature              :string           not null
-#  production_campaign :string
-#  production_cycle    :string           not null
-#  size_indicator_name :string
-#  size_unit_name      :string
-#  support_variety     :string
-#  suspended           :boolean          default(FALSE), not null
+#  maximum_grade_value :decimal(19, 4)
+#  minimum_grade_value :decimal(19, 4)
+#  net_mass_unit       :string
+#  net_mass_value      :decimal(19, 4)
+#  population          :integer
+#  product_grade_id    :integer
+#  product_quality_id  :integer
 #  updated_at          :datetime         not null
 #  updater_id          :integer
-#  use_countings       :boolean          default(FALSE), not null
-#  use_gradings        :boolean          default(FALSE), not null
-#  with_cultivation    :boolean          not null
-#  with_supports       :boolean          not null
 #
 require 'test_helper'
 
-class ActivityTest < ActiveSupport::TestCase
-  test_model_actions
+class GradingItemTest < ActiveSupport::TestCase
   # Add tests here...
 end

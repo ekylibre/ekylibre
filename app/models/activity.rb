@@ -41,6 +41,7 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  use_countings       :boolean          default(FALSE), not null
+#  use_gradings        :boolean          default(FALSE), not null
 #  with_cultivation    :boolean          not null
 #  with_supports       :boolean          not null
 #
@@ -67,7 +68,7 @@ class Activity < Ekylibre::Record::Base
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :suspended, :use_countings, :with_cultivation, :with_supports, in: [true, false]
+  validates_inclusion_of :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, in: [true, false]
   validates_presence_of :family, :name, :nature, :production_cycle
   # ]VALIDATORS]
   validates_inclusion_of :family, in: family.values

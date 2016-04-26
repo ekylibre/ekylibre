@@ -266,6 +266,11 @@ fra:
       index: "Relevés topographiques"
       new: "Nouveau relevé topographique"
       show: "Relevé topographique: %{name}"
+    backend/grading_natures:
+      edit: "Modifier le type d'agréage: %{name}"
+      index: "Type d'agréage"
+      new: "Nouveau type d'agréage"
+      show: "Type d'agréage: %{name}"
     backend/guide_analyses:
       show: "Analyse N°%{execution_number} du %{guide}"
     backend/guides:
