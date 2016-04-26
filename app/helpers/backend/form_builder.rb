@@ -327,7 +327,8 @@ module Backend
     def point_field(attribute_name, options = {})
       marker = {}
       if geom = @object.send(attribute_name)
-        marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
+        coordinates = Charta.new_geometry(geom).to_json_object['coordinates']
+        marker[:marker] = coordinates.reverse if coordinates
         marker[:view] = { center: marker[:marker] }
       else
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
