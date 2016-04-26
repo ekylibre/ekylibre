@@ -121,17 +121,24 @@ module Backend
     # Computes reverberation of a updated value in an intervention input context
     # Converts handlers and updates others things in cascade
     def compute
-      head(:unprocessable_entity) && return unless params[:intervention]
+      unless params[:intervention]
+        head(:unprocessable_entity)
+        return
+      end
       intervention_params = params[:intervention].deep_symbolize_keys
       procedure = Procedo.find(intervention_params[:procedure_name])
-      head(:not_found) && return unless procedure
+      unless procedure
+        head(:not_found)
+        return
+      end
       intervention = Procedo::Engine.new_intervention(intervention_params)
       begin
         intervention.impact_with!(params[:updater])
+        updater_id = 'intervention_' + params[:updater].gsub('[', '_attributes_').tr(']', '_')
         # raise intervention.to_hash.inspect
         respond_to do |format|
           # format.xml  { render xml: intervention.to_xml }
-          format.json { render json: intervention.to_json }
+          format.json { render json: { updater_id: updater_id, intervention: intervention }.to_json }
         end
       rescue Procedo::Error => e
         respond_to do |format|
