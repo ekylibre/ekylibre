@@ -16,6 +16,15 @@ $map-height: 250px;
       margin: 2 * $default-gap;
       background: #FFF;
       height: $map-height;
+      @include opacity(0.5);
+
+      &:hover > * {
+        cursor: pointer;
+      }
+
+      &.active {
+        @include opacity(1);
+      }
 
       .map-background-header {
         padding: $default-gap;
@@ -39,7 +48,7 @@ $map-height: 250px;
         .map-background-name {
           @include ellipsis;
 
-          width: 80%;
+          width: 90%;
           margin-right: 2%;
         }
 
@@ -50,15 +59,12 @@ $map-height: 250px;
             margin-right: 0;
           }
         }
-        .map-background-display {
-          @include icon-before(eye-slash, $font-size: $fs-normal);
-
-          &.enable {
-            @include icon-before(eye, $font-size: $fs-normal);
+        .map-background-by-default {
+          @include icon-before(star-o, $font-size: $fs-normal);
+          text-align: right;
+          &.active {
+            @include icon-before(star, $font-size: $fs-normal);
           }
-        }
-        .map-background-edit {
-          @include icon-before(pencil, $font-size: $fs-normal);
         }
       }
       .map-view {

@@ -4,8 +4,21 @@
 
 (($) ->
   "use strict"
-  $(document).on 'ajax:success', ".map-background-display", () ->
-    $(@).toggleClass 'enable'
+  $(document).on 'click', '[data-enable-url]', () ->
+    $.ajax(
+      url: $(@).data('enable-url')
+      method: 'PUT'
+      dataType: 'json'
+      success: () =>
+        $(@).toggleClass 'active'
+
+    )
+
+  $(document).on 'ajax:success', ".map-background-by-default", () ->
+    console.log @
+    $('.map-background-by-default.active').removeClass('active')
+    $(@).toggleClass 'active'
+
 
   return
 ) jQuery
