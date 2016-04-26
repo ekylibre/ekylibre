@@ -1840,8 +1840,6 @@ eng:
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
-    # force_intervention_started_at: "Force intervention started at"
-    # force_intervention_stopped_at: "Force intervention stopped at"
     host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
