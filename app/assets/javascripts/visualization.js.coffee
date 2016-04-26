@@ -146,7 +146,7 @@
         scrollWheelZoom: false
         zoomControl: false
         attributionControl: true
-        set_default_background: false
+        setDefaultBackground: false
       view:
         center:[]
         zoom : 13
@@ -157,12 +157,13 @@
       @mapElement = $("<div>", class: "map").insertAfter(@element)
       @map = L.map(@mapElement[0], @options.map)
 
-      if @options.map.set_default_background
-        opts = {
-          attribution: @options.backgrounds.attribution if @options.backgrounds.attribution?
-          minZoom: @options.backgrounds.minZoom if @options.backgrounds.minZoom?
-          maxZoom: @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
-        }
+      if @options.map.setDefaultBackground
+        opts = {}
+        opts['attribution'] = @options.backgrounds.attribution if @options.backgrounds.attribution?
+        opts['minZoom'] = @options.backgrounds.minZoom if @options.backgrounds.minZoom?
+        opts['maxZoom'] = @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
+        opts['subdomains'] = @options.backgrounds.subdomains if @options.backgrounds.subdomains?
+
         backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
         backgroundLayer.addTo @map
 
@@ -247,11 +248,12 @@
       overlays = {}
 
       for layer, index in @options.backgrounds
-        opts = {
-          attribution: layer.attribution if layer.attribution?
-          minZoom: layer.minZoom if layer.minZoom?
-          maxZoom: layer.maxZoom if layer.maxZoom?
-        }
+        opts = {}
+        opts['attribution'] = layer.attribution if layer.attribution?
+        opts['minZoom'] = layer.minZoom if layer.minZoom?
+        opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+        opts['subdomains'] = layer.subdomains if layer.subdomains?
+
         backgroundLayer = L.tileLayer(layer.url, opts)
         baseLayers[layer.name] = backgroundLayer
         @map.addLayer(backgroundLayer) if index == 0
@@ -357,7 +359,7 @@
 
     _refreshView: (view) ->
       this._setDefaultView()
-      if @options.view.center?
+      if @options.view.center.length > 0
         @map.setView(@options.view.center, @options.view.zoom)
 
     _setDefaultView: ->

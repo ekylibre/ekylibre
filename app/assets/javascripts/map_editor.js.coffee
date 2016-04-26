@@ -344,7 +344,13 @@
         if this.options.back.constructor.name is "Array"
           baseLayers = {}
           for layer, index in @options.back
-            backgroundLayer = L.tileLayer(layer.url, layer.options)
+            opts = {}
+            opts['attribution'] = layer.attribution if layer.attribution?
+            opts['minZoom'] = layer.minZoom if layer.minZoom?
+            opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+            opts['subdomains'] = layer.subdomains if layer.subdomains?
+
+            backgroundLayer = L.tileLayer(layer.url, opts)
             baseLayers[layer.name] = backgroundLayer
             @map.addLayer(backgroundLayer) if index == 0
 

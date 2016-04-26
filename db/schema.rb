@@ -1809,6 +1809,7 @@ ActiveRecord::Schema.define(version: 20160420121330) do
     t.string   "url",                            null: false
     t.string   "reference_name"
     t.string   "attribution"
+    t.string   "subdomains"
     t.integer  "min_zoom"
     t.integer  "max_zoom"
     t.boolean  "managed",        default: false, null: false

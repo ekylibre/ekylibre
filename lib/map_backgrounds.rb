@@ -17,6 +17,7 @@ module MapBackgrounds
       @provider = provider
       @options = options || provider.options
       @options[:attribution] ||= provider.options[:attribution]
+      @options[:subdomains] ||= provider.options[:subdomains]
     end
 
     def label

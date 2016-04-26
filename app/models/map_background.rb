@@ -22,18 +22,22 @@
 #
 # == Table: map_backgrounds
 #
-#  base_layer   :string
-#  base_variant :string
-#  by_default   :boolean          default(FALSE), not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  enabled      :boolean          default(FALSE), not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
-#  url          :string           not null
+#  attribution    :string
+#  by_default     :boolean          default(FALSE), not null
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  enabled        :boolean          default(FALSE), not null
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  managed        :boolean          default(FALSE), not null
+#  max_zoom       :integer
+#  min_zoom       :integer
+#  name           :string           not null
+#  reference_name :string
+#  subdomains     :string
+#  updated_at     :datetime         not null
+#  updater_id     :integer
+#  url            :string           not null
 #
 class MapBackground < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -56,6 +60,7 @@ class MapBackground < Ekylibre::Record::Base
         by_default: item.by_default,
         url: item.url,
         attribution: item.options.try(:[], :attribution),
+        subdomains: item.options.try(:[], :subdomains),
         min_zoom: item.options.try(:[], :min_zoom),
         max_zoom: item.options.try(:[], :max_zoom),
         managed: true
@@ -71,6 +76,6 @@ class MapBackground < Ekylibre::Record::Base
   end
 
   def to_json_object
-    JSON.parse(to_json).compact
+    JSON.parse(to_json).compact.deep_transform_keys{ |key| key.to_s.camelize(:lower) }
   end
 end
