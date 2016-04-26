@@ -123,6 +123,10 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
+  $(document).on 'keyup change', 'select[data-intervention-updater]', ->
+    $(this).each ->
+      E.interventions.refresh $(this)
+
   # $(document).on 'change', '*[data-procedure-global="at"]', ->
   #   $(this).each ->
   #     E.interventions.refresh $(this)
