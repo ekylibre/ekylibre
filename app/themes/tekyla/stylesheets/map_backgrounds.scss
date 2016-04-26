@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$map-height: 200px;
+$map-height: 250px;
 
 .map-backgrounds-viewport {
   .map-background-container {
@@ -15,17 +15,24 @@ $map-height: 200px;
       @include box-sizing(border-box);
       margin: 2 * $default-gap;
       background: #FFF;
-      @include calc('height', "#{$map-height} + #{$lh-large} + 2*#{$default-gap}" );
+      height: $map-height;
 
       .map-background-header {
         padding: $default-gap;
 
+        position: absolute;
+        left: 2 * $default-gap;
+        right: 2 * $default-gap;
+        top: 2 * $default-gap;
+
+        z-index: 1;
+        background-color: transparentize($menu-background,0.3);
+
         @include box-sizing(border-box);
-        width: 100%;
 
         &, * {
-          line-height: $lh-large;
-          font-size: $fs-large;
+          line-height: $lh-normal;
+          font-size: $fs-normal;
           float: left;
         }
 
@@ -44,14 +51,14 @@ $map-height: 200px;
           }
         }
         .map-background-display {
-          @include icon-before(eye-slash, $font-size: $fs-large);
+          @include icon-before(eye-slash, $font-size: $fs-normal);
 
           &.enable {
-            @include icon-before(eye, $font-size: $fs-large);
+            @include icon-before(eye, $font-size: $fs-normal);
           }
         }
         .map-background-edit {
-          @include icon-before(pencil, $font-size: $fs-large);
+          @include icon-before(pencil, $font-size: $fs-normal);
         }
       }
       .map-view {

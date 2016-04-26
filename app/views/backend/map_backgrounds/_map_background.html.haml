@@ -8,4 +8,4 @@
       bg = map_background.to_json_object
       zoom = bg.try(:[], 'maxZoom')
 
-    .map-view{data: {visualization: {box: {height: 200}, backgrounds: bg, view: {center: CultivableZone.first.shape_centroid, zoom: zoom}.compact, map: {attributionControl: false, setDefaultBackground: true}}.to_json}}
+    .map-view{data: {visualization: {box: {height: 250}, backgrounds: bg, view: {center: CultivableZone.first.shape_centroid, zoom: zoom}.compact, map: {attributionControl: false, setDefaultBackground: true}}.to_json}}
