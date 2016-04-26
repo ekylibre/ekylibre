@@ -147,6 +147,11 @@
         zoomControl: false
         attributionControl: true
         setDefaultBackground: false
+        dragging: true
+        touchZoom: true
+        doubleClickZoom: true
+        boxZoom: true
+        tap: true
       view:
         center:[]
         zoom : 13
