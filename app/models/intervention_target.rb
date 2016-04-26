@@ -65,6 +65,6 @@ class InterventionTarget < InterventionProductParameter
       groups = product.groups_at(intervention.started_at)
       ap = ActivityProduction.find_by(support: groups.first)
     end
-    return ap ? ap.activity : nil
+    ap ? ap.activity : nil
   end
 end
