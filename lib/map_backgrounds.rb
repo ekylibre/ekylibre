@@ -27,6 +27,10 @@ module MapBackgrounds
       @reference_name ||="#{@provider.name.to_s}.#{@name.to_s}"
     end
 
+    def provider_name
+      @provider.name
+    end
+
     class << self
       # Load backgrounds from config_path parameter (if any) or from config/map_backgrounds.yml
       def load(path=nil)

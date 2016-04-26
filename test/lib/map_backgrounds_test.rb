@@ -17,7 +17,7 @@ class MapBackgroundsTest < ActiveSupport::TestCase
 
       v[:variants] = {default: nil} unless v.key?(:variants)
       v[:variants].keys.uniq.each do |variant|
-        layer = MapBackgrounds::Layer.find(k, variant)
+        layer = MapBackgrounds::Layer.find("#{k.to_s}.#{variant.to_s}")
         assert layer.present?
         assert layer.name == variant
         assert_not_nil layer.url
