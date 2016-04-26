@@ -15,7 +15,7 @@ module Backend
 
     def toggle_enabled
       return unless m = MapBackground.find(params[:id])
-      m.update_attribute(:enabled, !m.enabled)
+      m.update(enabled: !m.enabled)
       respond_with m.to_json
       end
 

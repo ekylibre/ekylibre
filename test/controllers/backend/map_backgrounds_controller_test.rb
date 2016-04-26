@@ -15,6 +15,13 @@ class Backend::MapBackgroundsControllerTest < ActionController::TestCase
     assert_redirected_to backend_map_backgrounds_path
   end
 
+  test 'toggling activation' do
+    m = MapBackground.first
+    state = m.enabled
+    put :toggle_enabled, {id: m.id}
+    assert !state, m.enabled
+  end
+
   teardown do
     sign_out(@user)
   end
