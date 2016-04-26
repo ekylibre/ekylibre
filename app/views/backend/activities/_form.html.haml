@@ -15,6 +15,20 @@
     = f.input :size_indicator_name
     = f.input :size_unit_name
   = f.input :use_countings
+  = f.input :use_gradings, show: '#gradings'
+  #gradings
+    = f.input :use_grading_calibre, show: '#grading_calibre'
+    #grading_calibre
+      = f.input :grading_calibre_indicator_name
+      = f.input :grading_calibre_unit_name
+    = f.input :measure_grading_items_count
+    = f.input :measure_grading_net_mass, show: '#grading_net_mass'
+    #grading_net_mass
+      = f.input :grading_net_mass_unit_name
+    = f.input :measure_grading_sizes, show: '#grading_sizes'
+    #grading_sizes
+      = f.input :grading_sizes_indicator_name
+      = f.input :grading_sizes_unit_name
   = f.input :description
   = f.custom_fields
 

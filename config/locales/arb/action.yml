@@ -291,11 +291,6 @@ arb:
       # index: "Georeadings"
       new: "georeading جديدة"
       # show: "Georeading: %{name}"
-    backend/grading_natures:
-      # edit: "Edit grading nature: %{name}"
-      # index: "Grading natures"
-      # new: "New grading nature"
-      # show: "Grading nature: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:

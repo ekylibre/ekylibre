@@ -20,32 +20,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: grading_items
+# == Table: activity_grading_checks
 #
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  grading_id          :integer          not null
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  maximum_grade_value :decimal(19, 4)
-#  minimum_grade_value :decimal(19, 4)
-#  net_mass_unit       :string
-#  net_mass_value      :decimal(19, 4)
-#  population          :integer
-#  product_grade_id    :integer
-#  product_quality_id  :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  activity_id           :integer          not null
+#  created_at            :datetime         not null
+#  creator_id            :integer
+#  id                    :integer          not null, primary key
+#  lock_version          :integer          default(0), not null
+#  maximal_calibre_value :decimal(19, 4)
+#  minimal_calibre_value :decimal(19, 4)
+#  nature                :string           not null
+#  position              :integer
+#  quality_criterion_id  :integer          not null
+#  updated_at            :datetime         not null
+#  updater_id            :integer
 #
 
-class GradingItem < Ekylibre::Record::Base
-  belongs_to :grading
-  belongs_to :product_grade
-  belongs_to :product_quality
+class ActivityGradingCheck < Ekylibre::Record::Base
+  belongs_to :activity
+  belongs_to :quality_criterion, class_name: 'GradingQualityCriterion'
+  enumerize :nature, in: [:calibre, :quality]
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :population, allow_nil: true, only_integer: true
-  validates_numericality_of :maximum_grade_value, :minimum_grade_value, :net_mass_value, allow_nil: true
-  validates_presence_of :grading
+  validates_numericality_of :maximal_calibre_value, :minimal_calibre_value, allow_nil: true
+  validates_presence_of :activity, :nature, :quality_criterion
   # ]VALIDATORS]
-
 end

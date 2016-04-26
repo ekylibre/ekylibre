@@ -133,6 +133,7 @@ eng:
       activity_budget: "Activity budget"
       activity_budget_item: "Activity budget item"
       activity_distribution: "Activity distribution"
+      # activity_grading_check: "Activity grading check"
       activity_production: "Production support"
       affair: "Affair"
       analysis: "Analysis"
@@ -178,9 +179,7 @@ eng:
       gap: "Gap"
       gap_item: "Gap item"
       georeading: "Georeading"
-      # grading: "Grading"
-      # grading_item: "Grading item"
-      # grading_nature: "Grading nature"
+      # grading_quality_criterion: "Grading quality criterion"
       guide: "Guide"
       guide_analysis: "Guide analysis"
       guide_analysis_point: "Guide analysis point"
@@ -232,7 +231,8 @@ eng:
       prescription: "Prescription"
       product: "Product"
       product_enjoyment: "Product enjoyment"
-      # product_grade: "Product grade"
+      # product_grading: "Product grading"
+      # product_grading_check: "Product grading check"
       product_group: "Product group"
       product_link: "Product link"
       product_linkage: "Product linkage"
@@ -246,7 +246,6 @@ eng:
       product_nature_variant_reading: "Product type variant reading"
       product_ownership: "Product ownership"
       product_phase: "Product phase"
-      # product_quality: "Product quality"
       product_reading: "Product reading"
       purchase: "Purchase"
       purchase_item: "Purchase item"
@@ -303,6 +302,7 @@ eng:
     activity_budgets: "Activity budgets"
     activity_code: "Activity code"
     activity_distributions: "Activity distributions" #?
+    # activity_grading_check: "Activity grading check"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     actor: "Actor" #?
@@ -562,8 +562,8 @@ eng:
     exportable: "Exportable"
     exportable_columns: "Exportable columns"
     external: "External"
-    extremum_indicator_name: "Extremum indicator name"
-    extremum_unit: "Extremum unit"
+    extremum_indicator_name: "Extremum indicator name" #?
+    extremum_unit: "Extremum unit" #?
     failed_attempts: "Failed attempts"
     family: "Family"
     farm_name: "Farm name"
@@ -611,11 +611,13 @@ eng:
     global_credit: "Global credit"
     global_debit: "Global debit"
     godchildren: "Godchildren"
-    grade_indicator_name: "Grade indicator name"
-    grade_unit: "Grade unit"
-    # grading: "Grading"
-    # grading_nature: "Grading nature"
-    # grading_natures: "Grading natures"
+    grade_indicator_name: "Grade indicator name" #?
+    grade_unit: "Grade unit" #?
+    # grading_calibre_indicator_name: "Grading calibre indicator name"
+    # grading_calibre_unit_name: "Grading calibre unit name"
+    # grading_net_mass_unit_name: "Grading net mass unit name"
+    # grading_sizes_indicator_name: "Grading sizes indicator name"
+    # grading_sizes_unit_name: "Grading sizes unit name"
     gravity: "Gravity"
     group: "Group"
     group_parameters: "Group parameters"
@@ -634,8 +636,8 @@ eng:
     id: "ID"
     identification_number: "Identification number"
     identifiers: "Identifiers"
-    # implanter_lines_gap: "Implanter lines gap"
-    # implanter_lines_number: "Implanter lines number"
+    # implanter_rows_number: "Implanter rows number"
+    # implanter_working_width: "Implanter working width"
     importance: "Importance"
     imported_at: "Imported at"
     importer: "Importer"
@@ -703,6 +705,7 @@ eng:
     item_type: "Item type"
     item_value: "Item value"
     items: "Items"
+    # items_count: "Items count"
     journal: "Journal"
     journal_entries: "Journal entries"
     journal_entry: "Journal entry"
@@ -769,12 +772,17 @@ eng:
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
     mass: "Mass (kg)" #?
+    # maximal_calibre_value: "Maximal calibre value"
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
+    # maximal_size_value: "Maximal size value"
     maximal_value: "Maximal value"
-    maximum_grade_value: "Maximum grade value"
+    maximum_grade_value: "Maximum grade value" #?
     maximum_nitrogen_input: "Maximum nitrogen input"
     meadow_humus_mineralization: "Meadow humus mineralization"
+    # measure_grading_items_count: "Measure grading items count"
+    # measure_grading_net_mass: "Measure grading net mass"
+    # measure_grading_sizes: "Measure grading sizes"
     measure_value: "Measure value"
     measure_value_unit: "Measure value unit"
     measure_value_value: "Measure value value"
@@ -786,9 +794,11 @@ eng:
     message: "Message"
     metadata: "Metadata"
     mineral_nitrogen_at_opening: "Mineral nitrogen at opening"
+    # minimal_calibre_value: "Minimal calibre value"
     minimal_length: "Minimal length"
+    # minimal_size_value: "Minimal size value"
     minimal_value: "Minimal value"
-    minimum_grade_value: "Minimum grade value"
+    minimum_grade_value: "Minimum grade value" #?
     mobiles: "Mobile phones"
     mode: "Mode"
     model_euid: "Model"
@@ -801,7 +811,6 @@ eng:
     nature_name: "Type name"
     natures: "Types"
     net_mass: "Net mass" #?
-    # net_mass_unit: "Net mass unit"
     # net_mass_value: "Net mass value"
     net_service: "Net service"
     new_container: "New container"
@@ -912,7 +921,7 @@ eng:
     product_account: "Product account"
     # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Product enjoyments" #?
-    # product_grade: "Product grade"
+    # product_grading: "Product grading"
     product_linkages: "Product linkages" #?
     product_localization: "Product localization"
     product_localizations: "Product localizations" #?
@@ -926,8 +935,6 @@ eng:
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
     product_phases: "Product phases" #?
-    # product_qualities: "Product qualities"
-    # product_quality: "Product quality"
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
     product_readings: "Product readings" #?
@@ -956,6 +963,7 @@ eng:
     purchase_taxes: "Purchase taxes"
     purchased_on: "Purchased on"
     purchases: "Purchase orders"
+    # quality_criterion: "Quality criterion"
     quantity: "Quantity"
     quantity_handler: "Quantity handler"
     quantity_indicator: "Quantity indicator" #?
@@ -1168,6 +1176,7 @@ eng:
     usage_limit_on: "Used by on"
     usages: "Usages"
     use_countings: "Use countings"
+    # use_grading_calibre: "Use grading calibre"
     # use_gradings: "Use gradings"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"

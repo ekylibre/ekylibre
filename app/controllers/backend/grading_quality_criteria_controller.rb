@@ -17,7 +17,7 @@
 #
 
 module Backend
-  class GradingNaturesController < Backend::BaseController
+  class GradingQualityCriteriaController < Backend::BaseController
     manage_restfully
 
     unroll
@@ -26,8 +26,6 @@ module Backend
       t.action :edit
       t.action :destroy
       t.column :name, url: true
-      t.column :activity, url: true
     end
-
   end
 end

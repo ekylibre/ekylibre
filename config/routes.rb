@@ -461,7 +461,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :grading_natures, concerns: [:list, :unroll]
+    resources :grading_quality_criteria, concerns: [:list, :unroll], path: 'grading-quality-criteria'
 
     resources :guide_analyses, only: [:show], path: 'guide-analyses' do
       member do
@@ -649,8 +649,6 @@ Rails.application.routes.draw do
 
     resources :products, concerns: [:products]
 
-    resources :product_grades, concerns: [:list, :unroll]
-
     resources :product_groups, concerns: :products
 
     resources :product_natures, concerns: [:incorporate, :list, :unroll] do
@@ -677,8 +675,6 @@ Rails.application.routes.draw do
         get :quantifiers
       end
     end
-
-    resources :product_qualities, concerns: [:list, :unroll]
 
     resources :purchase_natures, concerns: [:list, :unroll]
 

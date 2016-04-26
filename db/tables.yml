@@ -125,12 +125,34 @@ activities:
   family:
     type: string
     required: true
+  grading_calibre_indicator_name:
+    type: string
+  grading_calibre_unit_name:
+    type: string
+  grading_net_mass_unit_name:
+    type: string
+  grading_sizes_indicator_name:
+    type: string
+  grading_sizes_unit_name:
+    type: string
   id:
     type: integer
     required: true
   lock_version:
     type: integer
     required: true
+  measure_grading_items_count:
+    type: boolean
+    required: true
+    default: false
+  measure_grading_net_mass:
+    type: boolean
+    required: true
+    default: false
+  measure_grading_sizes:
+    type: boolean
+    required: true
+    default: false
   name:
     type: string
     required: true
@@ -159,6 +181,10 @@ activities:
     type: integer
     references: user
   use_countings:
+    type: boolean
+    required: true
+    default: false
+  use_grading_calibre:
     type: boolean
     required: true
     default: false
@@ -285,6 +311,46 @@ activity_distributions:
   main_activity_id:
     type: integer
     references: activity
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+activity_grading_checks:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  maximal_calibre_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  minimal_calibre_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  nature:
+    type: string
+    required: true
+  position:
+    type: integer
+  quality_criterion_id:
+    type: integer
+    references: grading_quality_criterion
     required: true
   updated_at:
     type: datetime
@@ -2162,72 +2228,13 @@ georeadings:
   updater_id:
     type: integer
     references: user
-grading_items:
+grading_quality_criteria:
   created_at:
     type: datetime
     required: true
   creator_id:
     type: integer
     references: user
-  grading_id:
-    type: integer
-    references: grading
-    required: true
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  maximum_grade_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  minimum_grade_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  net_mass_unit:
-    type: string
-  net_mass_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  population:
-    type: integer
-  product_grade_id:
-    type: integer
-    references: product_grade
-  product_quality_id:
-    type: integer
-    references: product_quality
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-grading_natures:
-  activity_id:
-    type: integer
-    references: activity
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  extremum_indicator_name:
-    type: string
-  extremum_unit:
-    type: string
-    required: true
-  grade_indicator_name:
-    type: string
-  grade_unit:
-    type: string
-    required: true
   id:
     type: integer
     required: true
@@ -2236,43 +2243,6 @@ grading_natures:
     required: true
   name:
     type: string
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-gradings:
-  comment:
-    type: text
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  implanter_lines_gap:
-    type: decimal
-    precision: 19
-    scale: 4
-  implanter_lines_number:
-    type: integer
-  lock_version:
-    type: integer
-    required: true
-  number:
-    type: string
-    required: true
-  product_id:
-    type: integer
-    references: product
-    required: true
-  sampled_at:
-    type: datetime
     required: true
   updated_at:
     type: datetime
@@ -4282,40 +4252,81 @@ product_enjoyments:
   updater_id:
     type: integer
     references: user
-product_grades:
+product_grading_checks:
+  activity_grading_check_id:
+    type: integer
+    references: activity_grading_check
+    required: true
   created_at:
     type: datetime
     required: true
   creator_id:
     type: integer
     references: user
-  grade_unit:
-    type: string
-    required: true
-  grading_nature_id:
-    type: integer
-    references: grading_nature
-    required: true
   id:
     type: integer
     required: true
-  indicator_datatype:
-    type: string
-  indicator_name:
-    type: string
+  items_count:
+    type: integer
   lock_version:
     type: integer
     required: true
-  maximum_grade_value:
+  maximal_size_value:
     type: decimal
     precision: 19
     scale: 4
-  minimum_grade_value:
+  minimal_size_value:
     type: decimal
     precision: 19
     scale: 4
-  name:
+  net_mass_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  product_grading_id:
+    type: integer
+    references: product_grading
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+product_gradings:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  comment:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  implanter_rows_number:
+    type: integer
+  implanter_working_width:
+    type: decimal
+    precision: 19
+    scale: 4
+  lock_version:
+    type: integer
+    required: true
+  number:
     type: string
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  sampled_at:
+    type: datetime
     required: true
   updated_at:
     type: datetime
@@ -4940,39 +4951,6 @@ product_phases:
     type: integer
     references: product_nature_variant
     required: true
-product_qualities:
-  category:
-    type: string
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-    required: true
-  reference_name:
-    type: string
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-product_qualities_grading_natures:
-  grading_quality_id:
-    type: integer
-    references: ''
-  product_grade_id:
-    type: integer
-    references: product_grade
 product_readings:
   absolute_measure_value_unit:
     type: string

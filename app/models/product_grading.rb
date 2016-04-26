@@ -20,30 +20,30 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: grading_natures
+# == Table: product_gradings
 #
 #  activity_id             :integer          not null
+#  comment                 :text
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  extremum_indicator_name :string
-#  extremum_unit           :string           not null
-#  grade_indicator_name    :string
-#  grade_unit              :string           not null
 #  id                      :integer          not null, primary key
+#  implanter_rows_number   :integer
+#  implanter_working_width :decimal(19, 4)
 #  lock_version            :integer          default(0), not null
-#  name                    :string           not null
+#  number                  :string           not null
+#  product_id              :integer          not null
+#  sampled_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #
 
-class GradingNature < Ekylibre::Record::Base
-  refers_to :extremum_indicator_name, class_name: 'Indicator'
-  refers_to :extremum_unit, class_name: 'Unit'
-  refers_to :grade_indicator_name, class_name: 'Indicator'
-  refers_to :grade_unit, class_name: 'Unit'
+class ProductGrading < Ekylibre::Record::Base
   belongs_to :activity
-  has_and_belongs_to_many :product_qualities
+  belongs_to :product
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :activity, :extremum_unit, :grade_unit, :name
+  validates_datetime :sampled_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates_numericality_of :implanter_rows_number, allow_nil: true, only_integer: true
+  validates_numericality_of :implanter_working_width, allow_nil: true
+  validates_presence_of :activity, :number, :product, :sampled_at
   # ]VALIDATORS]
 end

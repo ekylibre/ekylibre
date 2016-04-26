@@ -355,11 +355,11 @@ eng:
     backend/golumns:
       # reset: "Reset golumn: %{name}"
       # show: "Golumn: %{name}"
-    backend/grading_natures:
-      edit: "Edit grading nature: %{name}"
-      index: "Grading natures"
-      new: "New grading nature"
-      show: "Grading nature: %{name}"
+    backend/grading_quality_criteria:
+      # edit: "Edit grading quality criterion: %{name}"
+      # index: "Grading quality criteria"
+      # new: "New grading quality criterion"
+      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -535,11 +535,6 @@ eng:
       index: "Prescriptions"
       new: "New prescription"
       show: "Prescription: %{reference_number}"
-    backend/product_grades:
-      # edit: "Edit product grade: %{name}"
-      # index: "Product grades"
-      # new: "New product grade"
-      # show: "Product grade: %{name}"
     backend/product_groups:
       edit: "Edit group: %{name}"
       index: "Product groups"
@@ -569,11 +564,6 @@ eng:
       new: "New product type"
       pick: "Pick product type"
       show: "Product type: %{name}"
-    backend/product_qualities:
-      # edit: "Edit product quality: %{name}"
-      # index: "Product qualities"
-      # new: "New product quality"
-      # show: "Product quality: %{name}"
     backend/products:
       edit: "Edit product: %{name}"
       index: "Products"
@@ -1448,7 +1438,6 @@ eng:
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
-    # qualities: "Qualities"
     quantity: "Quantity" #?
     quantity_rest: "Remaining quantity" #?!
     query: "Query:" #?

@@ -20,24 +20,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_grades
+# == Table: grading_quality_criteria
 #
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  grade_unit          :string           not null
-#  grading_nature_id   :integer          not null
-#  id                  :integer          not null, primary key
-#  indicator_datatype  :string
-#  indicator_name      :string
-#  lock_version        :integer          default(0), not null
-#  maximum_grade_value :decimal(19, 4)
-#  minimum_grade_value :decimal(19, 4)
-#  name                :string           not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
-require 'test_helper'
 
-class ProductGradeTest < ActiveSupport::TestCase
-  # Add tests here...
+class GradingQualityCriterion < Ekylibre::Record::Base
+  # enumerize :nature, in: [:disease_presence, :waste]
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :name
+  # ]VALIDATORS]
 end

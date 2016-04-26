@@ -20,23 +20,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: grading_natures
+# == Table: grading_quality_criteria
 #
-#  activity_id             :integer          not null
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  extremum_indicator_name :string
-#  extremum_unit           :string           not null
-#  grade_indicator_name    :string
-#  grade_unit              :string           not null
-#  id                      :integer          not null, primary key
-#  lock_version            :integer          default(0), not null
-#  name                    :string           not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 require 'test_helper'
 
-class GradingNatureTest < ActiveSupport::TestCase
+class GradingQualityCriterionTest < ActiveSupport::TestCase
   # Add tests here...
 end

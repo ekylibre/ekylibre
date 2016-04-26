@@ -20,25 +20,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: grading_items
+# == Table: product_grading_checks
 #
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  grading_id          :integer          not null
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  maximum_grade_value :decimal(19, 4)
-#  minimum_grade_value :decimal(19, 4)
-#  net_mass_unit       :string
-#  net_mass_value      :decimal(19, 4)
-#  population          :integer
-#  product_grade_id    :integer
-#  product_quality_id  :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  activity_grading_check_id :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  id                        :integer          not null, primary key
+#  items_count               :integer
+#  lock_version              :integer          default(0), not null
+#  maximal_size_value        :decimal(19, 4)
+#  minimal_size_value        :decimal(19, 4)
+#  net_mass_value            :decimal(19, 4)
+#  product_grading_id        :integer          not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 require 'test_helper'
 
-class GradingItemTest < ActiveSupport::TestCase
+class ProductGradingCheckTest < ActiveSupport::TestCase
   # Add tests here...
 end

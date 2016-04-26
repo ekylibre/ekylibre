@@ -20,30 +20,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_grades
+# == Table: product_grading_checks
 #
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  grade_unit          :string           not null
-#  grading_nature_id   :integer          not null
-#  id                  :integer          not null, primary key
-#  indicator_datatype  :string
-#  indicator_name      :string
-#  lock_version        :integer          default(0), not null
-#  maximum_grade_value :decimal(19, 4)
-#  minimum_grade_value :decimal(19, 4)
-#  name                :string           not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  activity_grading_check_id :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  id                        :integer          not null, primary key
+#  items_count               :integer
+#  lock_version              :integer          default(0), not null
+#  maximal_size_value        :decimal(19, 4)
+#  minimal_size_value        :decimal(19, 4)
+#  net_mass_value            :decimal(19, 4)
+#  product_grading_id        :integer          not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
 #
 
-class ProductGrade < Ekylibre::Record::Base
-  refers_to :indicator_name, class_name: 'Indicator'
-  refers_to :grade_unit, class_name: 'Unit'
-  belongs_to :grading_nature
+class ProductGradingCheck < Ekylibre::Record::Base
+  belongs_to :activity_grading_check
+  belongs_to :product_grading
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :maximum_grade_value, :minimum_grade_value, allow_nil: true
-  validates_presence_of :grade_unit, :grading_nature, :name
+  validates_numericality_of :maximal_size_value, :minimal_size_value, :net_mass_value, allow_nil: true
+  validates_presence_of :activity_grading_check, :product_grading
   # ]VALIDATORS]
-
 end
