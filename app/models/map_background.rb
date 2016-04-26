@@ -65,13 +65,13 @@ class MapBackground < Ekylibre::Record::Base
         max_zoom: item.options.try(:[], :max_zoom),
         managed: true
       }
-      MapBackground.where(reference_name: item.reference_name).first_or_create(attrs)
+      where(reference_name: item.reference_name).first_or_create(attrs)
     end
 
     default = MapBackgrounds::Layer.items.select{ |layer| layer.by_default }
 
     if default.size >= 1 && default.first.reference_name
-      MapBackground.where(reference_name: default.first.reference_name).first.update!(by_default: true)
+      where(reference_name: default.first.reference_name).first.update!(by_default: true)
     end
   end
 
