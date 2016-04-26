@@ -89,7 +89,7 @@ module Procedo
             # next unless value.blank?
             value = compute_attribute(attribute)
             next if value.blank? || value == send(attribute.name)
-            puts "Update #{attribute.name}"
+            # puts "Update #{attribute.name}"
             value = Charta.new_geometry(value) if value && attribute.name == :working_zone
             send(attribute.name.to_s + '=', value)
           end
@@ -105,7 +105,7 @@ module Procedo
             # next unless ir.value.blank?
             value = compute_reading(ref_reading)
             if value != ir.value
-              puts "Update reading #{ref_reading.name}"
+              # puts "Update reading #{ref_reading.name}"
               ir.value = value
             end
             ir.impact_dependencies!
@@ -121,7 +121,7 @@ module Procedo
               if parameter.quantified? && ip.quantity_handler
                 handler = parameter.handler(ip.quantity_handler)
                 if handler && handler.depend_on?(reference_name)
-                  puts "Impact #{parameter.name} #{handler.name} quantity_value"
+                  # puts "Impact #{parameter.name} #{handler.name} quantity_value"
                   ip.quantity_value = ip.quantity_value
                 end
               end
@@ -131,7 +131,7 @@ module Procedo
                 next unless ip.usable_attribute?(attribute)
                 value = ip.compute_attribute(attribute)
                 if value != ip.send(attribute.name)
-                  puts "Impact #{parameter.name} #{attribute.name} attribute"
+                  # puts "Impact #{parameter.name} #{attribute.name} attribute"
                   ip.impact(attribute.name)
                 end
               end
@@ -141,10 +141,10 @@ module Procedo
                 next unless ip.usable_reading?(reading)
                 value = ip.compute_reading(reading)
                 ir = ip.reading(reading.name)
-                puts value.inspect.green
-                puts ir.value.inspect.blue
+                # puts value.inspect.green
+                # puts ir.value.inspect.blue
                 if value != ir.value
-                  puts "Impact #{parameter.name} #{reading.name} reading: #{ir.value.inspect}"
+                  # puts "Impact #{parameter.name} #{reading.name} reading: #{ir.value.inspect}"
                   ir.value = value
                 end
               end
