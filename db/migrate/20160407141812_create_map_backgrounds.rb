@@ -5,6 +5,7 @@ class CreateMapBackgrounds < ActiveRecord::Migration
       t.string :url, null: false
       t.string :reference_name, null: true
       t.string :attribution, null: true
+      t.string :subdomains, null: true
       t.integer :min_zoom, null: true
       t.integer :max_zoom, null: true
       t.boolean :managed, default: false, null: false

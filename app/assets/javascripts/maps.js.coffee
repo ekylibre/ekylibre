@@ -22,12 +22,10 @@
         )
         mapElement.prop("map", map)
         if options.background?
-          opts = {
-            attribution: options.background.attribution if options.background.attribution?
-            minZoom: options.background.minZoom if options.background.minZoom?
-            maxZoom: options.background.maxZoom if options.background.maxZoom?
-          }
-          opts['bounds'] = options.view.boundingBox if options.view.boundingBox
+          opts['attribution'] = options.background.attribution if options.background.attribution?
+          opts['minZoom'] = options.background.minZoom if options.background.minZoom?
+          opts['maxZoom'] = options.background.maxZoom if options.background.maxZoom?
+          opts['subdomains'] = options.background.subdomains if options.background.subdomains?
           L.tileLayer(options.background.url, opts).addTo map
         else
           # Add an OpenStreetMap tile layer
