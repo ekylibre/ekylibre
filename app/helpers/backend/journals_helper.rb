@@ -58,17 +58,17 @@ module Backend::JournalsHelper
     custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
     toggle_method = "toggle#{custom_id.camelcase}"
     if configuration[:custom]
-      params[:started_at] = begin
-                              params[:started_at].to_date
+      params[:started_on] = begin
+                              params[:started_on].to_date
                             rescue
                               (fy ? fy.started_on : Time.zone.today)
                             end
-      params[:stopped_at] = begin
-                              params[:stopped_at].to_date
+      params[:stopped_on] = begin
+                              params[:stopped_on].to_date
                             rescue
                               (fy ? fy.stopped_on : Time.zone.today)
                             end
-      params[:stopped_at] = params[:started_at] if params[:started_at] > params[:stopped_at]
+      params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
       list.insert(0, [configuration[:custom].tl, configuration[:custom]])
     end
 
@@ -79,7 +79,7 @@ module Backend::JournalsHelper
     code << select_tag(name, options_for_select(list, value), :id => configuration[:id], 'data-show-value' => "##{configuration[:id]}_")
 
     if configuration[:custom]
-      code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_at, params[:started_at], size: 10), finish: date_field_tag(:stopped_at, params[:stopped_at], size: 10)).html_safe, id: custom_id)
+      code << ' ' << content_tag(:span, :manual_period.tl(start: date_field_tag(:started_on, params[:started_on], size: 10), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 10)).html_safe, id: custom_id)
     end
     code.html_safe
   end

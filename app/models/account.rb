@@ -50,9 +50,9 @@ class Account < Ekylibre::Record::Base
   has_many :clients,             class_name: 'Entity', foreign_key: :client_account_id
   has_many :collected_taxes,     class_name: 'Tax', foreign_key: :collect_account_id
   has_many :commissioned_incoming_payment_modes, class_name: 'IncomingPaymentMode',
-           foreign_key: :commission_account_id
+                                                 foreign_key: :commission_account_id
   has_many :depositables_incoming_payment_modes, class_name: 'IncomingPaymentMode',
-           foreign_key: :depositables_account_id
+                                                 foreign_key: :depositables_account_id
   has_many :journal_entry_items,  class_name: 'JournalEntryItem'
   has_many :paid_taxes,           class_name: 'Tax', foreign_key: :deduction_account_id
   has_many :charges_categories,   class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
