@@ -946,6 +946,7 @@ arb:
     activity_budgets: "ميزانيات النشاط"
     activity_code: "APE/NAF رمز"
     activity_distributions: "التوزيعات آخر"
+    # activity_grading_check: "Activity grading check"
     activity_production: "إنتاج النشاط"
     activity_productions: "إنتاجات آخر"
     actor: "الممثل"
@@ -993,6 +994,7 @@ arb:
     auto_updateable_addresses: "السيارات عناوين للتحديث"
     available_prices: "الاسعار المتوفرة" #?
     available_products: "المنتجات المتوفرة" #?
+    # average_value: "Average value"
     balance: "توازن"
     balance_amount: "الرصيد" #?
     balances: "ارصدة الحساب"
@@ -1372,6 +1374,7 @@ arb:
     generated: "ولدت" #?
     geolocation: "تحديد الموقع الجغرافي"
     geometry_value: "قيمة هندسة"
+    # germination_percentage: "Germination percentage"
     given_at: "وبالنظر في"
     global_balance: "الرصيد العالمي"
     global_count: "مجموع السكان"
@@ -1380,6 +1383,10 @@ arb:
     godchildren: "أبناء معمدين"
     # grade_indicator_name: "Grade indicator name"
     # grade_unit: "Grade unit"
+    # grading_calibre_indicator_name: "Grading calibre indicator name"
+    # grading_net_mass_unit_name: "Grading net mass unit name"
+    # grading_sizes_indicator_name: "Grading sizes indicator name"
+    # grading_sizes_unit_name: "Grading sizes unit name"
     gravity: "الجاذبية"
     group: "مجموعة"
     group_parameters: "معلمات مجموعة"
@@ -1402,6 +1409,8 @@ arb:
     identification_number: "رقم الهوية"
     identifiers: "معرفات"
     immobilizations_account_id: "الحساب الساكن" #?
+    # implanter_rows_number: "Implanter rows number"
+    # implanter_working_width: "Implanter working width"
     importance: "ذو شأن"
     imported_at: "المستوردة في"
     importer: "المستورد"
@@ -1474,6 +1483,7 @@ arb:
     item_type: "نوع العنصر"
     item_value: "قيمة البند"
     items: "بنود عقد الاستخراج"
+    # items_count: "Items count"
     journal: "الدفتر اليومي"
     journal_entries: "سجلات المحاسبة"
     journal_entry: "سجل المحاسبة"
@@ -1564,12 +1574,17 @@ arb:
     mass: "الوزن"
     master: "كتلة رئيسية" #?
     max_reduction_rate: "سعر التخفيض" #?
+    # maximal_calibre_value: "Maximal calibre value"
     maximal_grantable_reduction_percentage: "القصوى نسبة تخفيض grantable"
     maximal_length: "طول القصوى"
+    # maximal_size_value: "Maximal size value"
     maximal_value: "القيمة القصوى"
     # maximum_grade_value: "Maximum grade value"
     maximum_nitrogen_input: "إدخال النيتروجين الأقصى"
     meadow_humus_mineralization: "مرج تمعدن الدبال"
+    # measure_grading_items_count: "Measure grading items count"
+    # measure_grading_net_mass: "Measure grading net mass"
+    # measure_grading_sizes: "Measure grading sizes"
     measure_value: "قياس القيمة"
     measure_value_unit: "وحدة قياس القيمة"
     measure_value_value: "قيمة قياس القيمة"
@@ -1582,7 +1597,9 @@ arb:
     metadata: "البيانات الوصفية"
     min_duration: "(دقيقة (دقائق" #?
     mineral_nitrogen_at_opening: "النيتروجين المعدنية في افتتاح"
+    # minimal_calibre_value: "Minimal calibre value"
     minimal_length: "طول الحد الأدنى"
+    # minimal_size_value: "Minimal size value"
     minimal_value: "قيمة الحد الأدنى"
     # minimum_grade_value: "Minimum grade value"
     mobile: "الهاتف النقال" #?
@@ -1605,6 +1622,7 @@ arb:
     nature_name: "اسم نوع"
     natures: "أنواع"
     net_mass: "الكتلة الصافية"
+    # net_mass_value: "Net mass value"
     net_service: "خدمة صافي"
     new_container: "حاويات جديدة"
     new_group: "مجموعة جديدة"
@@ -1722,8 +1740,12 @@ arb:
     plan: "خطة"
     planned_at: "قرر يوم"
     planned_depreciations: "انخفاض قيمة المخطط"
+    # plant: "Plant"
+    # plant_counting: "Plant counting"
     # plant_countings: "Plant countings"
     # plant_density_abacus: "Plant density abacus"
+    # plant_density_abacus_item: "Plant density abacus item"
+    # plants_count: "Plants count"
     point: "نقطة"
     point_value: "قيمة النقطة"
     points: "نقاط"
@@ -1761,6 +1783,7 @@ arb:
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
     product_enjoyments: "المتعة المنتج"
+    # product_grading: "Product grading"
     product_id: "المنتج" #?
     product_linkages: "الروابط المنتج"
     product_localization: "توطين المنتج"
@@ -1812,6 +1835,7 @@ arb:
     purchases: "المشتريات"
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
+    # quality_criterion: "Quality criterion"
     quantity: "الكمية"
     quantity_handler: "كمية معالج"
     quantity_indicator: "مؤشر الكمية"
@@ -2105,6 +2129,8 @@ arb:
     usage_limit_on: "التي يستخدمها على"
     usages: "الأعراف"
     # use_countings: "Use countings"
+    # use_grading_calibre: "Use grading calibre"
+    # use_gradings: "Use gradings"
     use_range: "استخدام الكمية الفاصلة" #?
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"

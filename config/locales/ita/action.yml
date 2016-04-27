@@ -232,6 +232,11 @@ ita:
       # index: "Georeadings"
       new: "Nuovo georeading"
       # show: "Georeading: %{name}"
+    backend/grading_quality_criteria:
+      # edit: "Edit grading quality criterion: %{name}"
+      # index: "Grading quality criteria"
+      # new: "New grading quality criterion"
+      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:

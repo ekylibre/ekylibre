@@ -66,6 +66,11 @@ class Activity < Ekylibre::Record::Base
   refers_to :support_variety, class_name: 'Variety'
   refers_to :size_unit, class_name: 'Unit'
   refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
+  refers_to :grading_calibre_indicator_name, -> { where(datatype: :measure) }, class_name: 'Indicator'
+  refers_to :grading_calibre_unit_name, -> { where(dimension: :distance) }, class_name: 'Unit'
+  refers_to :grading_net_mass_unit_name, -> { where(dimension: :distance) }, class_name: 'Unit'
+  refers_to :grading_sizes_indicator_name, -> { where(datatype: :measure) }, class_name: 'Indicator'
+  refers_to :grading_sizes_unit_name, -> { where(dimension: :distance) }, class_name: 'Unit'
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
   enumerize :production_cycle, in: [:annual, :perennial], predicates: true
   enumerize :production_campaign, in: [:at_cycle_start, :at_cycle_end], default: :at_cycle_end, predicates: true
