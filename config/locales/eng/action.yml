@@ -1789,7 +1789,7 @@ eng:
       journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
-      need_a_production_support: "Need a production support"
+      need_a_production_support: "Need a production support" #?
       need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
