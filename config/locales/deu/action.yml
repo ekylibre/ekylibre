@@ -377,6 +377,16 @@ deu:
       index: "Rezepte"
       new: "New Rezept"
       # show: "Prescription: %{reference_number}"
+    backend/product_grading_checks:
+      # edit: "Edit product grading check: %{name}"
+      # index: "Product grading checks"
+      # new: "New product grading check"
+      # show: "Product grading check: %{name}"
+    backend/product_gradings:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "Produktgruppen"

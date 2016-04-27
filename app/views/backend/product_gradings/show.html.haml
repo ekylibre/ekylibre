@@ -1,0 +1,50 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy
+
+= cobbles do |c|
+  - c.cobble :details do
+    = attributes_list do |l|
+      - l.attribute :number
+      - l.attribute :sampled_at
+      - l.attribute :implanter_rows_number
+      - l.attribute :implanter_working_width
+      - l.attribute :product, url: true
+      - l.attribute :activity, url: true
+      - l.attribute :comment
+
+  - c.cobble :gradings do
+    = infos do
+      .med-info
+        %span.title= Product.human_attribute_name(:net_mass)
+        %span.value
+          %i.picto{class: "picto-network-wifi"}
+          = resource.net_mass.l
+      .med-info
+        %span.title= Product.human_attribute_name(:population)
+        %span.value
+          %i.picto{class: "picto-blur-on"}
+          = resource.item_count
+      - if resource.product_stock_in_ground
+        .med-info
+          %span.title= Product.human_attribute_name(:product_stock_in_ground)
+          %span.value
+            %i.picto{class: "picto-grain"}
+            = resource.product_stock_in_ground.round(3).l
+
+  - c.cobble :charts do
+    :ruby
+      data = []
+      resource.items.of_nature(:calibre).find_each do |item|
+        y = item.items_count.to_s.to_f
+        data << {name: item.activity_grading_check.name, y: y }
+      end
+
+      series = [{type: 'pie', name: resource.number, data: data}]
+
+    = pie_highcharts(series, legend: true)
+
+  - c.cobble(:items) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: :product_grading_checks, product_grading_id: resource.id})
+    = cobble_list(:items)

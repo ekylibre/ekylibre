@@ -40,10 +40,60 @@
 class ProductGrading < Ekylibre::Record::Base
   belongs_to :activity
   belongs_to :product
+  has_many :items, class_name: 'ProductGradingCheck', foreign_key: :product_grading_id, inverse_of: :product_grading, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :sampled_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :implanter_rows_number, allow_nil: true, only_integer: true
   validates_numericality_of :implanter_working_width, allow_nil: true
   validates_presence_of :activity, :number, :product, :sampled_at
   # ]VALIDATORS]
+
+  # return a measure of total net mass of all product grading checks of type :calibre
+  def net_mass(unit = :kilogram)
+    total = items.of_nature(:calibre).map(&:net_mass_value).compact.sum
+    total = total.in(unit) if unit
+    total
+  end
+
+  # return total count of all product grading checks of type :calibre
+  def item_count
+    total = items.of_nature(:calibre).map(&:items_count).compact.sum
+    total
+  end
+
+  # return the current stock in ground
+  # unit could be :ton or :thousand
+  # n : number of product or net mass of product
+  # m : sampling distance value in meter (see abacus)
+  # c : coefficient (see abacus)
+  # total : n * (c/m)
+  def product_stock_in_ground(unit = :ton, surface_unit = :hectare)
+    # area unit
+    area_unit = unit.to_s + '_per_' + surface_unit.to_s
+
+    # n
+    if unit == :ton
+      n = net_mass.convert(unit)
+    elsif unit == :thousand
+      n = item_count
+    else
+      n = net_mass.to_d(:ton)
+    end
+
+    # m
+    m = 3
+
+    # c
+    c = 10000 / implanter_working_width
+
+    # total
+    if n
+      current_stock = n * (c / m) / 1000
+      return current_stock.to_d.in(area_unit.to_sym)
+    else
+      return nil
+    end
+
+  end
+
 end

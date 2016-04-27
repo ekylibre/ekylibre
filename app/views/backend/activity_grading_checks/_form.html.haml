@@ -1,0 +1,8 @@
+= field_set do
+  = f.referenced_association :activity, as: :hidden
+  = f.referenced_association :quality_criterion
+  = f.input :position
+  = f.input :nature, as: :radio_buttons, show: '#{{value}}-options'
+  #calibre-options
+    = f.input :minimal_calibre_value
+    = f.input :maximal_calibre_value

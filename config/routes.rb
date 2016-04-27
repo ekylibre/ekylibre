@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       get :list_carried_linkages
       get :list_carrier_linkages
       get :list_contained_products
+      get :list_gradings
       get :list_groups
       get :list_issues
       get :list_readings
@@ -186,13 +187,19 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :activities, concerns: [:activities]
+    resources :activities, concerns: [:activities] do
+      member do
+        get :list_activity_grading_checks
+      end
+    end
 
     resources :activity_budgets do
       member do
         post :duplicate
       end
     end
+
+    resources :activity_grading_checks, concerns: [:unroll]
 
     resources :activity_productions, concerns: [:unroll] do
       member do
@@ -648,6 +655,14 @@ Rails.application.routes.draw do
     end
 
     resources :products, concerns: [:products]
+
+    resources :product_gradings, concerns: [:list, :unroll] do
+      member do
+        get :list_items
+      end
+    end
+
+    resources :product_grading_checks, concerns: [:list, :unroll]
 
     resources :product_groups, concerns: :products
 

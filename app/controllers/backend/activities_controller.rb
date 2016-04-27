@@ -113,5 +113,16 @@ module Backend
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
     end
+
+    # List of activity grading check for one activity
+    list(:activity_grading_checks, conditions: { activity_id: 'params[:id]'.c }, order: { position: :asc }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :position
+      t.column :quality_criterion, url: true
+      t.column :nature
+      t.column :minimal_calibre_value
+      t.column :maximal_calibre_value
+    end
   end
 end

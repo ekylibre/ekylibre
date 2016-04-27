@@ -43,4 +43,11 @@ class ProductGradingCheck < Ekylibre::Record::Base
   validates_numericality_of :maximal_size_value, :minimal_size_value, :net_mass_value, allow_nil: true
   validates_presence_of :activity_grading_check, :product_grading
   # ]VALIDATORS]
+
+  delegate :nature, to: :activity_grading_check
+
+  scope :of_nature, lambda { |nature|
+    where(activity_grading_check_id: ActivityGradingCheck.select(:id).where(nature: nature))
+  }
+
 end

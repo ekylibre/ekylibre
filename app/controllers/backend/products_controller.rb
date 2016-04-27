@@ -82,15 +82,6 @@ module Backend
       t.column :stopped_at, hidden: true
     end
 
-    # Lists localizations of the current product
-    list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
-      t.column :nature
-      t.column :container, url: true
-      t.column :intervention, url: true
-      t.column :started_at
-      t.column :stopped_at, hidden: true
-    end
-
     # Lists carried linkages of the current product
     list(:carried_linkages, model: :product_linkages, conditions: { carrier_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.column :carried, url: true
@@ -112,26 +103,19 @@ module Backend
     end
 
     # Lists groups of the current product
+    list(:gradings, model: :product_gradings, conditions: { product_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
+      t.column :number, url: true
+      t.column :sampled_at
+      t.column :item_count
+      t.column :net_mass, datatype: :measure
+    end
+
+    # Lists groups of the current product
     list(:groups, model: :product_memberships, conditions: { member_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.column :group, url: true
       t.column :intervention, url: true
       t.column :started_at
       t.column :stopped_at
-    end
-
-    # Lists members of the current product
-    list(:members, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
-      t.column :member, url: true
-      t.column :intervention, url: true
-      t.column :started_at
-      t.column :stopped_at
-    end
-
-    # Lists readings of the current product
-    list(:readings, model: :product_readings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
-      t.column :indicator_name
-      t.column :read_at
-      t.column :value
     end
 
     # Lists issues of the current product
@@ -154,6 +138,32 @@ module Backend
       t.column :human_working_duration, through: :intervention
       t.column :human_working_zone_area, through: :intervention
     end
+
+    # Lists members of the current product
+    list(:members, model: :product_memberships, conditions: { group_id: 'params[:id]'.c }, order: :started_at) do |t|
+      t.column :member, url: true
+      t.column :intervention, url: true
+      t.column :started_at
+      t.column :stopped_at
+    end
+
+    # Lists localizations of the current product
+    list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+      t.column :nature
+      t.column :container, url: true
+      t.column :intervention, url: true
+      t.column :started_at
+      t.column :stopped_at, hidden: true
+    end
+
+    # Lists readings of the current product
+    list(:readings, model: :product_readings, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :indicator_name
+      t.column :read_at
+      t.column :value
+    end
+
+
 
     # Returns value of an indicator
     def take

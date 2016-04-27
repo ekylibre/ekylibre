@@ -45,4 +45,8 @@ class ActivityGradingCheck < Ekylibre::Record::Base
   validates_numericality_of :maximal_calibre_value, :minimal_calibre_value, allow_nil: true
   validates_presence_of :activity, :nature, :quality_criterion
   # ]VALIDATORS]
+
+  def name
+    "#{activity.name} - #{quality_criterion.name}"
+  end
 end

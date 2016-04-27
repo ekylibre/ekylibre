@@ -303,6 +303,7 @@ eng:
     activity_code: "Activity code"
     activity_distributions: "Activity distributions" #?
     activity_grading_check: "Activity grading check"
+    # activity_grading_checks: "Activity grading checks"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     actor: "Actor" #?
@@ -618,6 +619,7 @@ eng:
     grading_net_mass_unit_name: "Grading net mass unit name"
     grading_sizes_indicator_name: "Grading sizes indicator name"
     grading_sizes_unit_name: "Grading sizes unit name"
+    gradings: "Gradings"
     gravity: "Gravity"
     group: "Group"
     group_parameters: "Group parameters"
@@ -810,7 +812,7 @@ eng:
     nature: "Type"
     nature_name: "Type name"
     natures: "Types"
-    net_mass: "Net mass" #?
+    net_mass: "Net mass"
     net_mass_value: "Net mass value"
     net_service: "Net service"
     new_container: "New container"

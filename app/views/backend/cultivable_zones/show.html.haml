@@ -8,9 +8,10 @@
     .med-info
       %span.title= CultivableZone.human_attribute_name(:work_number)
       %span.value= resource.work_number
-    .med-info
-      %span.title= CultivableZone.human_attribute_name(:production_system_reference_name)
-      %span.value= resource.production_system_reference_name.l
+    - if resource.production_system_reference_name
+      .med-info
+        %span.title= CultivableZone.human_attribute_name(:production_system_reference_name)
+        %span.value= resource.production_system_reference_name.l
     .med-info
       %span.title= CultivableZone.human_attribute_name(:net_surface_area)
       %span.value= resource.human_shape_area

@@ -776,6 +776,7 @@ fra:
     grading_net_mass_unit_name: "Unité utilisée pour la masse nette"
     grading_sizes_indicator_name: "Indicateur utilisé pour la mesure de la taille"
     grading_sizes_unit_name: "Unité utilisée pour la mesure de la taille"
+    # gradings: "Gradings"
     gravity: "Gravité"
     group: "Groupe"
     group_parameters: "Paramètres de groupe"

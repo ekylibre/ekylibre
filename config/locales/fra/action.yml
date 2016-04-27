@@ -456,6 +456,16 @@ fra:
       index: "Prescriptions"
       new: "Nouvelle prescription"
       show: "Prescription\_: %{reference_number}"
+    backend/product_grading_checks:
+      # edit: "Edit product grading check: %{name}"
+      # index: "Product grading checks"
+      # new: "New product grading check"
+      # show: "Product grading check: %{name}"
+    backend/product_gradings:
+      edit: "Modifier l'agréage\_: %{number}"
+      index: "Agréages"
+      new: "Nouvel agréage"
+      show: "Agréage\_: %{number}"
     backend/product_groups:
       edit: "Modifier le groupe\_: %{name}"
       index: "Groupes de produits"
@@ -1911,6 +1921,10 @@ fra:
       one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
       zero: " Aucun événement de type %{nature}"
+    x_gradings:  #?
+      one: "%{count} agréage" #?
+      other: "%{count} agréages" #?
+      zero: "Aucun agréage" #?
     x_has_been_cleared: "%{x} a été effacé (anciennement %{a})"
     x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}"
     x_has_been_updated_to_a: "%{x} a été mis à jour avec %{a}"
@@ -2255,6 +2269,7 @@ fra:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
+    backend/activity_grading_checks: "%{activity_name} - %{quality_criterion_name}" #?
     backend/activity_productions: "%{activity_name} %{support_name} n°%{rank_number}"
     backend/animals: "%{name} ‒ %{work_number}"
     backend/campaigns: "%{name}"

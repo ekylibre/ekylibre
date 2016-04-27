@@ -628,6 +628,7 @@ ita:
     # grading_net_mass_unit_name: "Grading net mass unit name"
     # grading_sizes_indicator_name: "Grading sizes indicator name"
     # grading_sizes_unit_name: "Grading sizes unit name"
+    # gradings: "Gradings"
     gravity: "Gravità"
     group: "Gruppo"
     group_parameters: "parametri del Gruppo"
