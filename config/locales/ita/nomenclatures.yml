@@ -3392,6 +3392,14 @@ ita:
         variety: "Varietà"
     production_natures:
       name: "nature produzione"
+    production_systems:
+      items:
+        # extensive_farming: "Extensive farming"
+        # intensive_farming: "Intensive farming"
+        # organic_farming: "Organic farming"
+        # permaculture: "Permaculture"
+        # sustainable_agriculture: "Sustainable agriculture"
+      # name: "Production systems"
     production_usages:
       items:
         fallow_land: "terreni a riposo"

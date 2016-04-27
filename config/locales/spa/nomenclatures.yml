@@ -3398,6 +3398,14 @@ spa:
         variety: "Variedad"
     production_natures:
       name: "Naturalezas de producción"
+    production_systems:
+      items:
+        # extensive_farming: "Extensive farming"
+        # intensive_farming: "Intensive farming"
+        # organic_farming: "Organic farming"
+        # permaculture: "Permaculture"
+        # sustainable_agriculture: "Sustainable agriculture"
+      # name: "Production systems"
     production_usages:
       items:
         fallow_land: "Las tierras en barbecho"
