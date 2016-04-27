@@ -3393,6 +3393,12 @@ eng:
         variety: "Variety"
     production_natures:
       name: "Production natures"
+    production_systems:
+      items:
+        conventional_farming: "Conventional farming"
+        organic_farming: "Organic farming"
+        sustainable_farming: "Sustainable farming"
+      name: "Production systems"
     production_usages:
       items:
         fallow_land: "Fallow land"

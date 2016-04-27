@@ -3392,6 +3392,12 @@ cmn:
         variety: "品种"
     production_natures:
       name: "生产性质"
+    production_systems:
+      items:
+        # conventional_farming: "Conventional farming"
+        # organic_farming: "Organic farming"
+        # sustainable_farming: "Sustainable farming"
+      # name: "Production systems"
     production_usages:
       items:
         fallow_land: "熟荒"

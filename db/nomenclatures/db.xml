@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160425100840">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160427133801">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3388,6 +3388,13 @@
       <item name="winter_rapeseed" production_code="2320" activity="plant_farming" telepac_crop_code="CS" variant_support="rape_crop"/>
       <item name="winter_soft_wheat" production_code="1100" activity="plant_farming" telepac_crop_code="BH" variant_support="wheat_crop"/>
       <item name="without_crop" production_code="3900" activity="plant_farming" telepac_crop_code="HC" variant_support="fallow_crop"/>
+    </items>
+  </nomenclature>
+  <nomenclature name="production_systems" translateable="true">
+    <items>
+      <item name="conventional_farming"/>
+      <item name="organic_farming"/>
+      <item name="sustainable_farming"/>
     </items>
   </nomenclature>
   <nomenclature name="production_usages" translateable="true">

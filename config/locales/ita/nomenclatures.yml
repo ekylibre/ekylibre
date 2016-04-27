@@ -3392,6 +3392,12 @@ ita:
         variety: "Varietà"
     production_natures:
       name: "nature produzione"
+    production_systems:
+      items:
+        # conventional_farming: "Conventional farming"
+        # organic_farming: "Organic farming"
+        # sustainable_farming: "Sustainable farming"
+      # name: "Production systems"
     production_usages:
       items:
         fallow_land: "terreni a riposo"

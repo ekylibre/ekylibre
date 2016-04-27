@@ -22,37 +22,38 @@
 #
 # == Table: activities
 #
-#  created_at                     :datetime         not null
-#  creator_id                     :integer
-#  cultivation_variety            :string
-#  custom_fields                  :jsonb
-#  description                    :text
-#  family                         :string           not null
-#  grading_calibre_indicator_name :string
-#  grading_calibre_unit_name      :string
-#  grading_net_mass_unit_name     :string
-#  grading_sizes_indicator_name   :string
-#  grading_sizes_unit_name        :string
-#  id                             :integer          not null, primary key
-#  lock_version                   :integer          default(0), not null
-#  measure_grading_items_count    :boolean          default(FALSE), not null
-#  measure_grading_net_mass       :boolean          default(FALSE), not null
-#  measure_grading_sizes          :boolean          default(FALSE), not null
-#  name                           :string           not null
-#  nature                         :string           not null
-#  production_campaign            :string
-#  production_cycle               :string           not null
-#  size_indicator_name            :string
-#  size_unit_name                 :string
-#  support_variety                :string
-#  suspended                      :boolean          default(FALSE), not null
-#  updated_at                     :datetime         not null
-#  updater_id                     :integer
-#  use_countings                  :boolean          default(FALSE), not null
-#  use_grading_calibre            :boolean          default(FALSE), not null
-#  use_gradings                   :boolean          default(FALSE), not null
-#  with_cultivation               :boolean          not null
-#  with_supports                  :boolean          not null
+#  created_at                       :datetime         not null
+#  creator_id                       :integer
+#  cultivation_variety              :string
+#  custom_fields                    :jsonb
+#  description                      :text
+#  family                           :string           not null
+#  grading_calibre_indicator_name   :string
+#  grading_calibre_unit_name        :string
+#  grading_net_mass_unit_name       :string
+#  grading_sizes_indicator_name     :string
+#  grading_sizes_unit_name          :string
+#  id                               :integer          not null, primary key
+#  lock_version                     :integer          default(0), not null
+#  measure_grading_items_count      :boolean          default(FALSE), not null
+#  measure_grading_net_mass         :boolean          default(FALSE), not null
+#  measure_grading_sizes            :boolean          default(FALSE), not null
+#  name                             :string           not null
+#  nature                           :string           not null
+#  production_campaign              :string
+#  production_cycle                 :string           not null
+#  production_system_reference_name :string
+#  size_indicator_name              :string
+#  size_unit_name                   :string
+#  support_variety                  :string
+#  suspended                        :boolean          default(FALSE), not null
+#  updated_at                       :datetime         not null
+#  updater_id                       :integer
+#  use_countings                    :boolean          default(FALSE), not null
+#  use_grading_calibre              :boolean          default(FALSE), not null
+#  use_gradings                     :boolean          default(FALSE), not null
+#  with_cultivation                 :boolean          not null
+#  with_supports                    :boolean          not null
 #
 require 'test_helper'
 

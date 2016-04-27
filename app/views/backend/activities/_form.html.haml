@@ -2,6 +2,7 @@
 = field_set do
   = f.input :name
   = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
+  = f.input :production_system_reference_name
   = f.input :family, collection: Nomen::ActivityFamily.selection, input_html: {data: {activity_family: true}}
   - family = Nomen::ActivityFamily[f.object.family]
   = f.input :with_cultivation, as: :hidden

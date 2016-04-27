@@ -614,7 +614,7 @@ eng:
     grade_indicator_name: "Grade indicator name" #?
     grade_unit: "Grade unit" #?
     grading_calibre_indicator_name: "Grading calibre indicator name"
-    # grading_calibre_unit_name: "Grading calibre unit name"
+    grading_calibre_unit_name: "Grading calibre unit name"
     grading_net_mass_unit_name: "Grading net mass unit name"
     grading_sizes_indicator_name: "Grading sizes indicator name"
     grading_sizes_unit_name: "Grading sizes unit name"
@@ -944,6 +944,7 @@ eng:
     production_cycle: "Production cycle"
     production_support: "Production support" #?
     production_supports: "Production supports" #?
+    production_system_reference_name: "Production system reference name"
     production_usage: "Production usage" #?
     productions: "Productions"
     products: "Products"

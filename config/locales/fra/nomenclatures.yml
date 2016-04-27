@@ -3657,6 +3657,12 @@ fra:
         production_code: "Code" #?
         telepac_crop_code: "Code de type de culture TéléPAC" #?
         variant_support: "Variant" #?
+    production_systems:
+      items:
+        conventional_farming: "Agriculture conventionnelle"
+        organic_farming: "Agriculture biologique"
+        sustainable_farming: "Agriculture durable"
+      name: "Production systems"
     production_usages:
       items:
         fallow_land: "Jachère"

@@ -164,6 +164,8 @@ activities:
   production_cycle:
     type: string
     required: true
+  production_system_reference_name:
+    type: string
   size_indicator_name:
     type: string
   size_unit_name:
@@ -1220,6 +1222,8 @@ cultivable_zones:
   name:
     type: string
     required: true
+  production_system_reference_name:
+    type: string
   shape:
     type: geometry
     limit:

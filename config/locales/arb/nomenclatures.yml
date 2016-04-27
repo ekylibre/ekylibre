@@ -3401,6 +3401,12 @@ arb:
         variety: "تشكيلة"
     production_natures:
       name: "طبائع إنتاج"
+    production_systems:
+      items:
+        # conventional_farming: "Conventional farming"
+        # organic_farming: "Organic farming"
+        # sustainable_farming: "Sustainable farming"
+      # name: "Production systems"
     production_usages:
       items:
         fallow_land: "الأراضي البور"

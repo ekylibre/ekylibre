@@ -3392,6 +3392,12 @@ por:
         variety: "Variedade"
     production_natures:
       name: "Naturezas de produção"
+    production_systems:
+      items:
+        # conventional_farming: "Conventional farming"
+        # organic_farming: "Organic farming"
+        # sustainable_farming: "Sustainable farming"
+      # name: "Production systems"
     production_usages:
       items:
         fallow_land: "Os pousios"

@@ -11,7 +11,7 @@
 - main_campaign_selector
 
 = cobbles do |c|
-  
+
   - c.cobble :general_informations do
     = infos do
       .med-info
@@ -22,7 +22,7 @@
         %span.title= Activity.human_attribute_name(:use_gradings)
         %span.value
           %i.picto{class: "picto-#{resource.use_gradings ? :done : :clear}"}
-  
+
   - if resource.use_gradings
     - c.cobble :gradings do
       = infos do
@@ -41,9 +41,9 @@
         .med-info
           %span.title= Activity.human_attribute_name(:grading_sizes_unit_name)
           %span.value= resource.grading_sizes_unit_name.l
-          
-          
-  
+
+
+
   - if current_campaign
     - c.cobble :budget do
       = render 'budget'
@@ -51,6 +51,7 @@
     = attributes_list do |l|
       - l.attribute :nature
       - l.attribute :family
+      - l.attribute :production_system_reference_name
       - if resource.with_cultivation
         - l.attribute :cultivation_variety
       - if resource.with_supports
