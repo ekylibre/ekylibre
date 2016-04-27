@@ -13,10 +13,7 @@ class BackendInvitations < CapybaraIntegrationTest
   end
 
   setup do
-    I18n.locale = @locale = ENV['LOCALE'] || I18n.default_locale
-    visit("/authentication/sign_in?locale=#{@locale}")
-    login_as(users(:users_001), scope: :user) # , run_callbacks: false
-    visit('/backend')
+    login_with_user('/backend')
   end
 
   teardown do

@@ -580,6 +580,19 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Warden::Test::Helpers
   Warden.test_mode!
 
+  def login_with_user(options = {})
+    # Need to go on page to set tenant
+    I18n.locale = ENV['LOCALE'] || I18n.default_locale
+    user = users(:users_001)
+    user.language = I18n.locale
+    visit("/authentication/sign_in?locale=#{I18n.locale}")
+    resize_window(1366, 768)
+    # shoot_screen 'authentication/sign_in'
+    login_as(user, scope: :user) # , run_callbacks: false
+    visit(options[:after_login_path]) if options[:after_login_path]
+    # shoot_screen 'backend'
+  end
+
   def wait_for_ajax
     sleep(Capybara.default_max_wait_time * 0.5)
     # Timeout.timeout(Capybara.default_wait_time) do

@@ -411,7 +411,7 @@ module Backend
     end
 
     # Build a frame for all product _forms
-    def product_form_frame(_options = {}, &block)
+    def product_form_frame(options = {}, &block)
       html = ''.html_safe
 
       variant = @object.variant
@@ -428,7 +428,7 @@ module Backend
           # Add name
           fs << input(:name)
           # Add work number
-          fs << input(:work_number)
+          fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
           # Add variant selector
           fs << variety(scope: variant)
 
