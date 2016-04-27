@@ -6,7 +6,7 @@ module SVF
       @name = name
       source = YAML.load_file(file)
       @lines = {}
-      for name, line in source['lines']
+      source['lines'].each do |name, line|
         @lines[name.to_sym] = Line.new(name, line['key'], line['cells'], line['children'], line['to'])
       end
       @root = SVF.occurrencify(source['root'])
@@ -16,7 +16,7 @@ module SVF
       code = "module #{@name.to_s.classify}\n"
 
       code << "\n  module Lines\n\n"
-      for element in @lines.values
+      @lines.values.each do |element|
         code << compile_element(element).gsub(/^/, '    ')
       end
       code << "  end\n\n"
@@ -28,7 +28,7 @@ module SVF
       code << "    def self.parse_line(line)\n"
       code << "      return nil if line.nil?\n"
       code << '      '
-      for line in @lines.values
+      @lines.values.each do |line|
         code << "if line.match(/^#{line.key.gsub(' ', '\\ ')}/)\n"
         code << "        #{line.class_name(@name)}.new(" + line.cells.collect(&:parse_value).join(', ') + ")\n"
         # code << "        #{line.class_name(@name)}.parse(line)\n"
@@ -72,7 +72,7 @@ module SVF
       code << '  attr_accessor ' + element.cells.collect { |c| ":#{c.name}" }.join(', ') + "\n" if element.has_cells?
       code << '  attr_accessor ' + element.children.collect { |c| ":#{c.name}" }.join(', ') + "\n" if element.has_children?
       code << "  attr_accessor :text\n" if element.to
-      for bool in element.cells.select { |c| c.type == :boolean }
+      element.cells.select { |c| c.type == :boolean }.each do |bool|
         code << "  alias :#{bool.name}? :#{bool.name}\n"
       end
       code << '  def initialize(' + element.cells.collect(&:name).join(', ') + ")\n"
@@ -82,8 +82,7 @@ module SVF
       code << "    @text = ''\n" if element.to
       code << "  end\n"
       code << "  def to_s\n"
-      if element.to
-      else
+      unless element.to
         code << "    '#{element.key}'+" + element.cells.collect { |c| c.format_value("@#{c.name}") }.join('+') + "+\"\\r\\n\"\n"
       end
       code << "  end\n"
@@ -103,13 +102,13 @@ module SVF
       code << "line_number += 1\n"
       code << "while (line)\n"
       code << '  '
-      for sibling in siblings
+      siblings.each do |sibling|
         line = @lines[sibling.line]
         full_name = "#{options[:root].to_s + '.' if options[:root]}#{sibling.name}"
         code << "if line.is_a?(#{line.class_name(@name)})\n"
         new_line = (line.has_children? ? sibling.line : 'line')
         code << "    #{sibling.line} = line\n" if line.has_children?
-        code << sibling.range.max == 1 ? "    #{full_name} = #{new_line}\n" : "    #{full_name} << #{new_line}\n"
+        code << ((sibling.range.max == 1) ? "    #{full_name} = #{new_line}\n" : "    #{full_name} << #{new_line}\n")
         if line.to
           code << "    line = #{options[:file]}.gets\n"
           code << "    line_number += 1\n"
@@ -150,7 +149,7 @@ module SVF
       var = options[:variable]
       root = options[:root].to_s
       # code << "_string )\n"
-      for sibling in siblings
+      siblings.each do |sibling|
         line = @lines[sibling.line]
         full_name = "#{root + '.' if options[:root]}#{sibling.name}"
         code << "if #{sibling.name} = #{full_name}\n"
@@ -158,7 +157,7 @@ module SVF
           code << "  #{var} << #{sibling.name}.to_s\n"
           code << build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '  ') + "\n" if line.has_children?
         else
-          code << "  for #{sibling.line} in #{sibling.name}\n"
+          code << "  #{sibling.name}.each do |#{sibling.line}|\n"
           code << "    #{var} << #{sibling.line}.to_s\n"
           code << build_code(line.children, variable: var, root: sibling.line).strip.gsub(/^/, '    ') + "\n" if line.has_children?
           code << "  end\n"
