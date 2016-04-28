@@ -87,7 +87,31 @@ module ApplicationHelper
     number.l
   end
 
-  def human_age(seconds, options = {})
+  def human_age(born_at, options = {})
+    options[:default] ||= '&ndash;'.html_safe
+    return options[:default] if born_at.nil?
+    at = options[:at] || Time.zone.now
+    sign = ''
+    if born_at > at
+      sign = '-'
+      at, born_at = born_at, at
+    end
+    vals = []
+    remaining_at = born_at + 0.seconds
+    %w(year month day hour minute second).each do |magnitude|
+      count = 0
+      while remaining_at + 1.send(magnitude) < at
+        remaining_at += 1.send(magnitude)
+        count += 1
+      end
+      if count > 0 && (!options[:display] || vals.size < options[:display])
+        vals << "x_#{magnitude.pluralize}".tl(count: count)
+      end
+    end
+    sign + vals.to_sentence
+  end
+
+  def human_interval(seconds, options = {})
     return options[:default] || '&ndash;'.html_safe if seconds.nil?
     vals = []
     if (seconds.to_f / 1.year).floor > 0.0 && (!options[:display] || vals.size < options[:display])
