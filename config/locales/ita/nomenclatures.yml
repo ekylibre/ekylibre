@@ -1596,6 +1596,7 @@ ita:
         relative_humidity: "Umidità relativa"
         reproductor: "riproduttore"
         residue_elimination_method: "metodo di eliminazione dei residui"
+        # rows_count: "Rows count"
         rows_interval: "intervallo di righe"
         rows_orientation: "Orientamento Righe"
         sex: "Sesso"

@@ -1596,6 +1596,7 @@ deu:
         relative_humidity: "Relative Luftfeuchtigkeit"
         reproductor: "reproductor"
         residue_elimination_method: "Rückstandseliminierungsverfahren"
+        # rows_count: "Rows count"
         rows_interval: "Reihenabstand"
         rows_orientation: "Zeilen Orientierung"
         # sex: "Sex"

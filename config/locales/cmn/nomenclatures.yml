@@ -1596,6 +1596,7 @@ cmn:
         relative_humidity: "相对湿度"
         reproductor: "REPRODUCTOR"
         residue_elimination_method: "残渣排除方法"
+        # rows_count: "Rows count"
         rows_interval: "行间隔"
         rows_orientation: "行方向"
         sex: "性别"

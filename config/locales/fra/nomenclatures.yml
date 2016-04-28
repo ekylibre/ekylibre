@@ -1744,6 +1744,7 @@ fra:
         relative_humidity: "Humidité relative"
         reproductor: "Reproducteur"
         residue_elimination_method: "Méthode d’élimination des résidus"
+        rows_count: "Nombre de rangs"
         rows_interval: "Intervalle inter-rangs"
         rows_orientation: "Orientation des rangs"
         sex: "Sexe"

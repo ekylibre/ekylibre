@@ -1595,6 +1595,7 @@ eng:
         relative_humidity: "Relative humidity"
         reproductor: "Reproductor"
         residue_elimination_method: "Residue elimination method"
+        rows_count: "Rows count"
         rows_interval: "Rows interval"
         rows_orientation: "Rows orientation"
         sex: "Sex"

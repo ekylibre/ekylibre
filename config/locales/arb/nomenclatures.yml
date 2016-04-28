@@ -1605,6 +1605,7 @@ arb:
         relative_humidity: "الرطوبة النسبية"
         reproductor: "REPRODUCTOR"
         residue_elimination_method: "طريقة إزالة بقايا"
+        # rows_count: "Rows count"
         rows_interval: "فاصل الصفوف"
         rows_orientation: "التوجه الصفوف"
         sex: "جنس"

@@ -1607,6 +1607,7 @@ jpn:
         relative_humidity: "相対湿度"
         reproductor: "REPRODUCTOR"
         residue_elimination_method: "残渣除去方法"
+        # rows_count: "Rows count"
         rows_interval: "行間隔"
         rows_orientation: "行の向き"
         sex: "セックス"
