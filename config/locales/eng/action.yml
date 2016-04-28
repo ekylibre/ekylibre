@@ -1625,36 +1625,36 @@ eng:
     workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
-    x_cashes: #?
-      one: "%{count} cash" #?
-      other: "%{count} cashes" #?
-    x_contacts: #??
-      one: "%{count} contact" #??
-      other: "%{count} contacts" #??
+    x_cashes:
+      one: "%{count} cash"
+      other: "%{count} cashes"
+    x_contacts:
+      one: "%{count} contact"
+      other: "%{count} contacts"
     x_days:
       one: "%{count} day"
       other: "%{count} days"
-    x_depositable_payments: #?!
-      one: "1 incoming payment to deposit" #?!
-      other: "%{count} incoming payments to deposit" #?!
-      zero: "No incoming payments to deposit" #?!
-    x_deposits_to_validate: #?!
-      one: "%{count} deposit to validate" #?!
-      other: "%{count} deposits to validate" #?!
-      zero: "No deposits to validate" #?!
-    x_entities: #?
-      one: "%{count} person" #?
-      other: "%{count} people" #?
+    x_depositable_payments:
+      one: "1 incoming payment to deposit"
+      other: "%{count} incoming payments to deposit"
+      zero: "No incoming payments to deposit"
+    x_deposits_to_validate:
+      one: "%{count} deposit to validate"
+      other: "%{count} deposits to validate"
+      zero: "No deposits to validate"
+    x_entities:
+      one: "%{count} person"
+      other: "%{count} people"
     x_entity_links:
       one: "%{count} link"
       other: "%{count} links"
     x_events:
       one: "1 event"
       other: "%{count} events"
-    x_events_of_nature_y: #?!
-      one: "One event %{nature} for a total duration of %{duration} minutes" #?!
-      other: "%{count} events %{nature} for a total duration of %{duration} minutes" #?!
-      zero: "No events %{nature}" #?!
+    x_events_of_nature_y:
+      one: "One event %{nature} for a total duration of %{duration} minutes"
+      other: "%{count} events %{nature} for a total duration of %{duration} minutes"
+      zero: "No events %{nature}"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1679,18 +1679,18 @@ eng:
     x_items_remain:
       one: "%{count} item remains"
       other: "%{count} items remain"
-    x_journal_entries: #?
-      one: "%{count} journal entries" #?
-      other: "%{count} journal entries" #?
+    x_journal_entries:
+      one: "%{count} journal entries"
+      other: "%{count} journal entries"
     x_months:
       one: "%{count} month"
       other: "%{count} months"
     x_notifications:
       one: "%{count} notification"
       other: "%{count} notifications"
-    x_observations: #?
-      one: "%{count} observation" #?
-      other: "%{count} observations" #?
+    x_observations:
+      one: "%{count} observation"
+      other: "%{count} observations"
     x_of_y: "%{x} of %{y}"
     x_outgoing_payments:
       one: "%{count} disbursement"
@@ -1711,9 +1711,9 @@ eng:
     x_sales:
       one: "%{count} sale"
       other: "%{count} sales"
-    x_sales_invoices: #??
-      one: "%{count} sales invoice" #??
-      other: "%{count} sales invoices" #??
+    x_sales_invoices:
+      one: "%{count} sales invoice"
+      other: "%{count} sales invoices"
     x_subscriptions:
       one: "%{count} subscription"
       other: "%{count} subscriptions"
@@ -1722,21 +1722,21 @@ eng:
       other: "%{count} tasks"
     x_thing: "%{x} %{thing}"
     x_unit: "%{quantity}%{unit}"
-    x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}" #?!
-    x_unit_per_second: "Flow: %{quantity}%{unit}/s" #?!
-    x_units_of_product_y: "%{quantity}%{unit} of %{product}" #?!
+    x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
+    x_unit_per_second: "Flow: %{quantity}%{unit}/s"
+    x_units_of_product_y: "%{quantity}%{unit} of %{product}"
     x_unpaid_purchases:
       one: "%{count} unpaid purchase"
       other: "%{count} unpaid purchases"
     x_unpaid_sales:
       one: "%{count} unpaid sale"
       other: "%{count} unpaid sales"
-    x_waiting_incoming_parcels: #?!
-      one: "%{count} waiting incoming parcel" #?!
-      other: "%{count} waiting incoming parcels" #?!
-    x_waiting_outgoing_deliveries: #?!
-      one: "%{count} waiting outgoing parcel" #?!
-      other: "%{count} waiting outgoing parcels" #?!
+    x_waiting_incoming_parcels:
+      one: "%{count} waiting incoming parcel"
+      other: "%{count} waiting incoming parcels"
+    x_waiting_outgoing_deliveries:
+      one: "%{count} waiting outgoing parcel"
+      other: "%{count} waiting outgoing parcels"
     x_years:
       one: "1 year"
       other: "%{count} years"
