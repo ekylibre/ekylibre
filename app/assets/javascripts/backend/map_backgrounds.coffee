@@ -15,9 +15,12 @@
     )
 
   $(document).on 'ajax:success', ".map-background-by-default", () ->
-    console.log @
     $('.map-background-by-default.active').removeClass('active')
     $(@).toggleClass 'active'
+
+  $(document).on 'ajax:success', ".map-background-delete a", () ->
+    console.log @
+    $(@).closest('.map-background-container').remove()
 
 
   return

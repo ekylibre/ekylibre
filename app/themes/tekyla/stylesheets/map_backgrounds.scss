@@ -59,7 +59,7 @@ $map-height: 250px;
           width: 90%;
           margin-right: 2%;
 
-          &:hover a {
+          &:hover a.map-background-edit {
             @include icon-after(pencil, $font-size: $fs-normal);
           }
         }
@@ -76,6 +76,13 @@ $map-height: 250px;
           text-align: right;
           &.active {
             @include icon-before(star, $font-size: $fs-normal);
+          }
+        }
+
+        .map-background-delete {
+          float: right;
+          & > a {
+            @include icon-before(times, $font-size: $fs-normal);
           }
         }
       }
