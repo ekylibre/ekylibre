@@ -76,6 +76,6 @@ class MapBackground < Ekylibre::Record::Base
   end
 
   def to_json_object
-    JSON.parse(to_json).compact.deep_transform_keys{ |key| key.to_s.camelize(:lower) }
+    JSON.parse(to_json).compact.select{ |_, value| value != '' }.deep_transform_keys{ |key| key.to_s.camelize(:lower) }
   end
 end
