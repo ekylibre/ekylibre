@@ -42,7 +42,5 @@
 require 'test_helper'
 
 class MapBackgroundTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test_model_actions
 end

@@ -3523,9 +3523,7 @@ manure_management_plans:
     type: integer
     references: user
 map_backgrounds:
-  base_layer:
-    type: string
-  base_variant:
+  attribution:
     type: string
   by_default:
     type: boolean
@@ -3547,9 +3545,21 @@ map_backgrounds:
   lock_version:
     type: integer
     required: true
+  managed:
+    type: boolean
+    required: true
+    default: false
+  max_zoom:
+    type: integer
+  min_zoom:
+    type: integer
   name:
     type: string
     required: true
+  reference_name:
+    type: string
+  subdomains:
+    type: string
   updated_at:
     type: datetime
     required: true
