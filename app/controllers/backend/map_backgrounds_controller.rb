@@ -24,5 +24,11 @@ module Backend
       m.update(by_default: !m.by_default)
       head :no_content
     end
+
+    def delete
+      return unless m = MapBackground.find_by_id(params[:id])
+      m.destroy
+      head :no_content
+    end
   end
 end
