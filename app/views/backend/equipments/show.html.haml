@@ -17,7 +17,7 @@
     - if resource.born_at and resource.age >= 1.day
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
-        = human_age(born_at, display: 2)
+        = human_age(resource.born_at, display: 2)
     - if resource.fixed_asset
       = resource_info :fixed_asset do |fixed_asset|
         %i.picto{class: "picto-money"}
