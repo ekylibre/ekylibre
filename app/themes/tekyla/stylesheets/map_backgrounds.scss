@@ -18,6 +18,14 @@ $map-height: 250px;
       height: $map-height;
       @include opacity(0.5);
 
+      &:not(.active):hover {
+        @include opacity(0.8);
+        transition: opacity 500ms;
+
+        & > * {
+          cursor: pointer;
+        }
+      }
       &:hover > * {
         cursor: pointer;
       }
@@ -50,6 +58,10 @@ $map-height: 250px;
 
           width: 90%;
           margin-right: 2%;
+
+          &:hover a {
+            @include icon-after(pencil, $font-size: $fs-normal);
+          }
         }
 
         .map-background-icon {
