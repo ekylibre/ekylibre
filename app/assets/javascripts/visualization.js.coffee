@@ -261,7 +261,7 @@
 
         backgroundLayer = L.tileLayer(layer.url, opts)
         baseLayers[layer.name] = backgroundLayer
-        @map.addLayer(backgroundLayer) if index == 0
+        @map.addLayer(backgroundLayer) if layer.byDefault
 
 
       for layer in @options.overlays
