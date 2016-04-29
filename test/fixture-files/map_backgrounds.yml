@@ -73,7 +73,7 @@ stamen:
       url: 'http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg'
       options:
         min_zoom: 3
-        max_zoom: 16
+        max_zoom: 15
 
 esri:
   url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
