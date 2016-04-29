@@ -352,7 +352,7 @@
 
             backgroundLayer = L.tileLayer(layer.url, opts)
             baseLayers[layer.name] = backgroundLayer
-            @map.addLayer(backgroundLayer) if index == 0
+            @map.addLayer(backgroundLayer) if layer.byDefault
 
           @layerSelector = new L.Control.Layers(baseLayers)
           @map.addControl  @layerSelector
