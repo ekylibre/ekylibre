@@ -1,10 +1,11 @@
 .map-background-container
   .map-background{data: {enable: {url: toggle_enabled_backend_map_background_path(map_background)}}, class: "#{map_background.enabled ? 'active': ''}"}
     .map-background-header
-      .map-background-name=link_to map_background.name, edit_backend_map_background_path(map_background)
+      .map-background-name= map_background.managed ? map_background.name : link_to(map_background.name, edit_backend_map_background_path(map_background))
       =link_to '', toggle_by_default_backend_map_background_path(map_background), title: :by_default.tl, class: "map-background-icon map-background-by-default #{map_background.by_default ? 'active': ''}", remote: true, "data-type" => "json", method: :put
     :ruby
       bg = map_background.to_json_object
       zoom = bg.try(:[], 'maxZoom')
+      bounds = CultivableZone.first ? CultivableZone.first.shape_centroid : [44.8423142,-0.5988415]
 
-    .map-view{data: {visualization: {box: {height: 250}, backgrounds: bg, view: {center: CultivableZone.first.shape_centroid, zoom: zoom}.compact, map: {attributionControl: false, setDefaultBackground: true, dragging: false, touchZoom: false, doubleClickZoom: false, boxZoom: false, tap: false}}.to_json}}
+    .map-view{data: {visualization: {box: {height: 250}, backgrounds: bg, view: {center: bounds, zoom: zoom}.compact, map: {attributionControl: false, setDefaultBackground: true, dragging: false, touchZoom: false, doubleClickZoom: false, boxZoom: false, tap: false}}.to_json}}
