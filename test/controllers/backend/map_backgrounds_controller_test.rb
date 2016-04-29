@@ -9,6 +9,7 @@ class Backend::MapBackgroundsControllerTest < ActionController::TestCase
   end
 
   test 'loading defaults' do
+    MapBackground.destroy_all
     assert_difference 'MapBackground.count', MapBackgrounds::Layer.items.count do
       post :load
     end
@@ -19,7 +20,14 @@ class Backend::MapBackgroundsControllerTest < ActionController::TestCase
     m = MapBackground.first
     state = m.enabled
     put :toggle_enabled, {id: m.id}
-    assert !state, m.enabled
+    assert_equal !state, m.reload.enabled
+  end
+
+  test 'toggling by_default' do
+    m = MapBackground.first
+    state = m.by_default
+    put :toggle_by_default, {id: m.id}
+    assert_equal !state, m.reload.by_default
   end
 
   teardown do

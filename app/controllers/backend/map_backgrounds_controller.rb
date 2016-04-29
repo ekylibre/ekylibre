@@ -14,15 +14,15 @@ module Backend
     end
 
     def toggle_enabled
-      return unless m = MapBackground.find(params[:id])
+      return unless m = MapBackground.find_by_id(params[:id])
       m.update(enabled: !m.enabled)
-      respond_with m.to_json
-      end
+      head :no_content
+    end
 
     def toggle_by_default
-      return unless m = MapBackground.find(params[:id])
+      return unless m = MapBackground.find_by_id(params[:id])
       m.update(by_default: !m.by_default)
-      respond_with m.to_json
+      head :no_content
     end
   end
 end
