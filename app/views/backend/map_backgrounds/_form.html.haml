@@ -1,6 +1,9 @@
 = field_set do
   = f.input :name
   = f.input :url
-  = f.input :base_variant, collection: MapBackgrounds::Layer.items
+  = f.input :attribution
+  = f.input :min_zoom
+  = f.input :max_zoom
+  = f.input :subdomains
   = f.input :enabled
   = f.input :by_default
