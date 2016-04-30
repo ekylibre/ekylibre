@@ -153,13 +153,18 @@ class User < Ekylibre::Record::Base
   def invitation_status
     if created_by_invite?
       if invitation_accepted?
-        tc('invitation.accepted')
+        tc("invitation.accepted")
       else
-        tc('invitation.pending')
+        tc("invitation.pending")
       end
     else
-      tc('invitation.not_invited')
+      tc("invitation.not_invited")
     end
+  end
+
+  def status
+    return tc("status.invitation.pending") if created_by_invite? && !invitation_accepted?
+    return tc("status.registration.pending") if pending_approval?
   end
 
   def name
@@ -207,8 +212,12 @@ class User < Ekylibre::Record::Base
     end
   end
 
+  def pending_approval?
+    signup_at.present?
+  end
+
   def approved?
-    !signup_at.present?
+    !pending_approval?
   end
 
   def active_for_authentication?

@@ -1535,6 +1535,7 @@ eng:
     upload: "Upload"
     uploaded_file: "Uploaded file" #?
     usage: "Usage" #?
+    user_status: "Status" #?
     users: "Users"
     valid: "Valid" #?
     validate: "Validate"
