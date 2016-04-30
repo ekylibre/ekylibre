@@ -48,6 +48,10 @@ fra:
           hello: "Bonjour %{first_name} %{last_name},"
           sign_in: "Connexion."
           subject: "Votre compte vient d'être approuvé"
+        signed_up:
+          subject: "Nouvelle inscription"
+          details: "%{first_name} %{last_name} identifié par l'email %{email} vient juste de s'inscrire."
+          confirm: "Veuillez confirmer son inscription dans l'interfacce d'administration."
       reset_password_instructions:
         subject: "Instructions pour changer le mot de passe"
       unlock_instructions:

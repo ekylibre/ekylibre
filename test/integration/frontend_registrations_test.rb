@@ -2,12 +2,16 @@
 require "test_helper"
 
 class FrontendRegistrations < CapybaraIntegrationTest
+  setup do
+    @locale = "eng"
+  end
+
   teardown do
     Warden.test_reset!
   end
 
   def register
-    visit("/authentication/sign_up")
+    visit("/authentication/sign_up?locale=#{@locale}")
     fill_in "First name", with: "Robert"
     fill_in "Last name", with: "Tee"
     select("English", from: "Language")

@@ -9,9 +9,10 @@ module Authentication
     # end
 
     # POST /resource
-    # def create
-    #   super
-    # end
+    def create
+      super
+      RegistrationMailer.signed_up(resource).deliver_now
+    end
 
     # GET /resource/edit
     # def edit
