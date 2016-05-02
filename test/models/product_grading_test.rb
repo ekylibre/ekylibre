@@ -22,19 +22,21 @@
 #
 # == Table: product_gradings
 #
-#  activity_id             :integer          not null
-#  comment                 :text
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  id                      :integer          not null, primary key
-#  implanter_rows_number   :integer
-#  implanter_working_width :decimal(19, 4)
-#  lock_version            :integer          default(0), not null
-#  number                  :string           not null
-#  product_id              :integer          not null
-#  sampled_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
+#  activity_id                 :integer          not null
+#  comment                     :text
+#  created_at                  :datetime         not null
+#  creator_id                  :integer
+#  id                          :integer          not null, primary key
+#  implanter_application_width :decimal(19, 4)
+#  implanter_rows_number       :integer
+#  implanter_working_width     :decimal(19, 4)
+#  lock_version                :integer          default(0), not null
+#  number                      :string           not null
+#  product_id                  :integer          not null
+#  sampled_at                  :datetime         not null
+#  sampling_distance           :decimal(19, 4)
+#  updated_at                  :datetime         not null
+#  updater_id                  :integer
 #
 require 'test_helper'
 

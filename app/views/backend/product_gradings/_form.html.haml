@@ -1,8 +1,8 @@
 = field_set do
-  = f.input :number
   = f.input :sampled_at
   = f.referenced_association :activity
-  = f.referenced_association :product
+  = f.referenced_association :product, source: :plants
+  = f.input :implanter_application_width
   = f.input :implanter_rows_number
-  = f.input :implanter_working_width
+  = f.input :sampling_distance
   = f.input :comment, as: :text

@@ -16,7 +16,7 @@
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(age, display: 2)
-    - if resource.gradings.any?
+    - if resource.gradings.any? && resource.gradings.reorder(:sampled_at).last.product_stock_in_ground
       .med-info
         %span.title= Product.human_attribute_name(:product_stock_in_ground)
         %span.value

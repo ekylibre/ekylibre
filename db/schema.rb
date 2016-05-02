@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160427133601) do
+ActiveRecord::Schema.define(version: 20160502125101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2247,18 +2247,20 @@ ActiveRecord::Schema.define(version: 20160427133601) do
   add_index "product_grading_checks", ["updater_id"], name: "index_product_grading_checks_on_updater_id", using: :btree
 
   create_table "product_gradings", force: :cascade do |t|
-    t.integer  "activity_id",                                                  null: false
-    t.integer  "product_id",                                                   null: false
-    t.string   "number",                                                       null: false
-    t.datetime "sampled_at",                                                   null: false
+    t.integer  "activity_id",                                                      null: false
+    t.integer  "product_id",                                                       null: false
+    t.string   "number",                                                           null: false
+    t.datetime "sampled_at",                                                       null: false
     t.integer  "implanter_rows_number"
-    t.decimal  "implanter_working_width", precision: 19, scale: 4
+    t.decimal  "implanter_working_width",     precision: 19, scale: 4
     t.text     "comment"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     default: 0, null: false
+    t.integer  "lock_version",                                         default: 0, null: false
+    t.decimal  "implanter_application_width", precision: 19, scale: 4
+    t.decimal  "sampling_distance",           precision: 19, scale: 4
   end
 
   add_index "product_gradings", ["activity_id"], name: "index_product_gradings_on_activity_id", using: :btree

@@ -22,19 +22,21 @@
 #
 # == Table: product_gradings
 #
-#  activity_id             :integer          not null
-#  comment                 :text
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  id                      :integer          not null, primary key
-#  implanter_rows_number   :integer
-#  implanter_working_width :decimal(19, 4)
-#  lock_version            :integer          default(0), not null
-#  number                  :string           not null
-#  product_id              :integer          not null
-#  sampled_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  updater_id              :integer
+#  activity_id                 :integer          not null
+#  comment                     :text
+#  created_at                  :datetime         not null
+#  creator_id                  :integer
+#  id                          :integer          not null, primary key
+#  implanter_application_width :decimal(19, 4)
+#  implanter_rows_number       :integer
+#  implanter_working_width     :decimal(19, 4)
+#  lock_version                :integer          default(0), not null
+#  number                      :string           not null
+#  product_id                  :integer          not null
+#  sampled_at                  :datetime         not null
+#  sampling_distance           :decimal(19, 4)
+#  updated_at                  :datetime         not null
+#  updater_id                  :integer
 #
 
 class ProductGrading < Ekylibre::Record::Base
@@ -44,9 +46,57 @@ class ProductGrading < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :sampled_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :implanter_rows_number, allow_nil: true, only_integer: true
-  validates_numericality_of :implanter_working_width, allow_nil: true
+  validates_numericality_of :implanter_application_width, :implanter_working_width, :sampling_distance, allow_nil: true
   validates_presence_of :activity, :number, :product, :sampled_at
   # ]VALIDATORS]
+
+  acts_as_numbered :number
+
+  before_validation :set_implanter_values, on: :create
+
+  before_validation do
+    if self.implanter_rows_number and self.implanter_rows_number != 0
+      self.implanter_working_width = self.implanter_application_width / self.implanter_rows_number
+    end
+  end
+
+  def set_implanter_values
+
+    # get sowing intervention of current plant
+    intervention = Intervention.with_generic_cast(:output, product)
+
+    intervention = nil
+
+    if intervention
+      # get abilities of each tool to grab sower or implanter
+      intervention.first.tools.each do |tool|
+        if tool.product.can("sow") || tool.product.can("implant")
+          equipement = tool.product
+        end
+      end
+
+      if equipement
+        # get rows_count and application_width of sower or implanter
+        rows_count = nil
+        #rows_count = equipement.rows_count(self.sampled_at)
+        application_width = equipement.application_width(self.sampled_at)
+        # set rows_count to implanter_application_width
+        self.implanter_rows_number ||= rows_count if rows_count
+        self.implanter_application_width ||= application_width if application_width
+      end
+
+    end
+  end
+
+  # return the order of the grading relative to product
+  def grading_numbered
+    a = self.product.gradings.reorder(:sampled_at).pluck(:id)
+    a.each.with_index(1) do |value, index|
+      if self.id == value
+        return index
+      end
+    end
+  end
 
   # return a measure of total net mass of all product grading checks of type :calibre
   def net_mass(unit = :kilogram)
@@ -66,30 +116,35 @@ class ProductGrading < Ekylibre::Record::Base
   # n : number of product or net mass of product
   # m : sampling distance value in meter (see abacus)
   # c : coefficient (see abacus)
-  # total : n * (c/m)
+  # total : n * ( plant_surface_area / m ) * c
   def product_stock_in_ground(unit = :ton, surface_unit = :hectare)
     # area unit
     area_unit = unit.to_s + '_per_' + surface_unit.to_s
 
     # n
-    if unit == :ton
+    if unit == :ton || unit == :kilogram
       n = net_mass.convert(unit)
-    elsif unit == :thousand
+    elsif unit == :unity
       n = item_count
     else
       n = net_mass.to_d(:ton)
     end
 
+    # plant_surface_area
+    if self.product && self.product.is_a?(Plant)
+      plant_surface_area = self.product.net_surface_area.convert(surface_unit)
+    end
+
     # m
-    m = 3
+    m = sampling_distance if sampling_distance
 
     # c
-    c = 10000 / implanter_working_width
+    c = 10000 / implanter_working_width if implanter_working_width
 
     # total
-    if n
-      current_stock = n * (c / m) / 1000
-      return current_stock.to_d.in(area_unit.to_sym)
+    if n && c
+      current_stock = n * (plant_surface_area.to_d / m) * c
+      return current_stock.to_d.in(unit.to_sym)
     else
       return nil
     end

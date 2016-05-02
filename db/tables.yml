@@ -4313,6 +4313,10 @@ product_gradings:
   id:
     type: integer
     required: true
+  implanter_application_width:
+    type: decimal
+    precision: 19
+    scale: 4
   implanter_rows_number:
     type: integer
   implanter_working_width:
@@ -4332,6 +4336,10 @@ product_gradings:
   sampled_at:
     type: datetime
     required: true
+  sampling_distance:
+    type: decimal
+    precision: 19
+    scale: 4
   updated_at:
     type: datetime
     required: true

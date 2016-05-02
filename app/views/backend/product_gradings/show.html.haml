@@ -15,22 +15,17 @@
 
   - c.cobble :gradings do
     = infos do
-      .med-info
-        %span.title= Product.human_attribute_name(:net_mass)
-        %span.value
-          %i.picto{class: "picto-network-wifi"}
-          = resource.net_mass.l
-      .med-info
-        %span.title= Product.human_attribute_name(:population)
-        %span.value
-          %i.picto{class: "picto-blur-on"}
-          = resource.item_count
       - if resource.product_stock_in_ground
         .med-info
           %span.title= Product.human_attribute_name(:product_stock_in_ground)
           %span.value
             %i.picto{class: "picto-grain"}
             = resource.product_stock_in_ground.round(3).l
+        .med-info
+          %span.title= Product.human_attribute_name(:product_stock_in_ground)
+          %span.value
+            %i.picto{class: "picto-grain"}
+            = resource.product_stock_in_ground(unit = :unity).to_d.to_i
 
   - c.cobble :charts do
     :ruby
