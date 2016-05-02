@@ -1633,7 +1633,7 @@ por:
       # unvalidateds: "Unvalidateds"
       up: "Acima"
       update: "Atualizar"
-      update_password: "Password atualização"
+      update_password: "Password atualização" #?
       win: "Ganhar"
   unrolls:
     # backend/accounts: "%{number}. %{name}"

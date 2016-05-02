@@ -1694,7 +1694,7 @@ ita:
       # unvalidateds: "Unvalidateds"
       up: "Su"
       update: "Aggiornare"
-      update_password: "Aggiornamento della password"
+      update_password: "Aggiornamento della password" #?
       win: "Vincere"
   unrolls:
     # backend/accounts: "%{number}. %{name}"

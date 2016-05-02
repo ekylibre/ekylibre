@@ -158,10 +158,6 @@ class ActionController::TestCase
   end
 
   class << self
-    def test_restfully_pasteque_actions(_options = {})
-      # test_restfully_all_actions({strictness: :api, params: {format: :json, user: "admin@ekylibre.org", password: "12345678"}, sign_in: false}.deep_merge(options))
-    end
-
     def connect_with_token
       class_eval do
         setup do

@@ -1628,7 +1628,7 @@ deu:
       # unvalidateds: "Unvalidateds"
       up: "Oben"
       update: "Aktualisieren"
-      update_password: "Update-Passwort"
+      update_password: "Update-Passwort" #?
       win: "Gewinnen"
   unrolls:
     # backend/accounts: "%{number}. %{name}"

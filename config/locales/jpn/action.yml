@@ -1705,7 +1705,7 @@ jpn:
       # unvalidateds: "Unvalidateds"
       up: "アップ"
       update: "更新"
-      update_password: "パスワードを更新します"
+      update_password: "パスワードを更新します" #?
       win: "勝つ"
   unrolls:
     # backend/accounts: "%{number}. %{name}"

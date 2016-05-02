@@ -1930,7 +1930,7 @@ spa:
       # unvalidateds: "Unvalidateds"
       up: "Arriba"
       update: "Actualizar"
-      update_password: "Actualiza contraseña"
+      update_password: "Actualiza contraseña" #?
       win: "Ganar"
   unrolls:
     # backend/accounts: "%{number}. %{name}"

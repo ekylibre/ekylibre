@@ -2408,7 +2408,7 @@ arb:
       # unvalidateds: "Unvalidateds"
       up: "فوق"
       update: "تحديث"
-      update_password: "تحديث كلمة المرور"
+      update_password: "تحديث كلمة المرور" #?
       win: "انتصر"
   unrolls:
     # backend/accounts: "%{number}. %{name}"

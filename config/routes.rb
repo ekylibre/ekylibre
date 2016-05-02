@@ -71,15 +71,6 @@ Rails.application.routes.draw do
     patch 'authentication/invitation' => 'authentication/invitations#update'
   end
 
-  namespace :pasteque do
-    # namespace :v6 do
-    #   pasteque_v6
-    # end
-    namespace :v5 do
-      pasteque_v5
-    end
-  end
-
   # No '-' in API paths for now, only '_'
   namespace :api do
     namespace :v1, defaults: { format: 'json' } do

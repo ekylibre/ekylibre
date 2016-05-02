@@ -736,72 +736,6 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
-    pasteque/v5/attributes:
-      # index: "Attributes"
-    pasteque/v5/cash_mvts:
-      # move: "Move cash mvt: %{name}"
-    pasteque/v5/cash_registers:
-      # index: "Cash registers"
-      # show: "Cash register: %{name}"
-    pasteque/v5/cashes:
-      # search: "Search cash: %{name}"
-      # show: "Cash: %{name}"
-      # zticket: "Zticket cash: %{name}"
-    pasteque/v5/categories:
-      # children: "Children category: %{name}"
-      # index: "Categories"
-      # show: "Category: %{name}"
-    pasteque/v5/compositions:
-      # index: "Compositions"
-    pasteque/v5/currencies:
-      # index: "Currencies"
-      # main: "Main currency: %{name}"
-      # show: "Currency: %{name}"
-    pasteque/v5/customers:
-      # index: "Customers"
-      # show: "Customer: %{name}"
-      # top: "Top customer: %{name}"
-    pasteque/v5/discount_profiles:
-      # index: "Discount profiles"
-    pasteque/v5/images:
-      # category: "Category image: %{name}"
-      # payment_method: "Payment method image: %{name}"
-      # product: "Product image: %{name}"
-      # resource: "Resource image: %{name}"
-    pasteque/v5/locations:
-      # index: "Locations"
-      # show: "Location: %{name}"
-    pasteque/v5/places:
-      # index: "Places"
-      # show: "Place: %{name}"
-    pasteque/v5/products:
-      # category: "Category product: %{name}"
-      # index: "Products"
-      # show: "Product: %{name}"
-    pasteque/v5/resources:
-      # show: "Resource: %{name}"
-    pasteque/v5/roles:
-      # index: "Roles"
-      # show: "Role: %{name}"
-    pasteque/v5/stocks:
-      # index: "Stocks"
-    pasteque/v5/tariff_areas:
-      # index: "Tariff areas"
-    pasteque/v5/taxes:
-      # index: "Taxes"
-      # show: "Tax: %{name}"
-    pasteque/v5/tickets:
-      # index: "Tickets"
-      # open: "Open ticket: %{name}"
-      # save: "Save ticket: %{name}"
-      # search: "Search ticket: %{name}"
-      # show: "Ticket: %{name}"
-    pasteque/v5/users:
-      # index: "Users"
-      # show: "User: %{name}"
-      # update_password: "Update password user: %{name}"
-    pasteque/v5/version:
-      # index: "Version"
     public:
       index: "Home"
   errors:
@@ -1859,12 +1793,12 @@ eng:
       # autocomplete_for_place: "Autocomplete for place"
       bookkeep: "Bookkeep"
       cancel: "Cancel"
-      category: "Category"
+      category: "Category" #?
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_password: "Change password"
       # check: "Check"
-      children: "Children"
+      children: "Children" #?
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"
@@ -1904,21 +1838,18 @@ eng:
       lock: "Lock"
       lose: "Lose"
       mail: "Mail"
-      # main: "Main"
       mark: "Mark"
       merge: "Merge"
       # models: "Models"
-      move: "Move"
+      move: "Move" #?
       negociate: "Negociate"
       new: "New"
       open: "Open"
       # order: "Order"
-      # payment_method: "Payment method"
       pick: "Pick"
       picture: "Picture"
       point: "Point"
       # prepare: "Prepare"
-      # product: "Product"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
@@ -1932,11 +1863,9 @@ eng:
       refuse: "Refuse"
       reopen: "Reopen"
       reset: "Reset"
-      # resource: "Resource"
       retrieve: "Retrieve"
       run: "Run"
-      # save: "Save"
-      search: "Search"
+      search: "Search" #?
       select: "Select"
       ship: "Ship"
       show: "Show"
@@ -1945,7 +1874,6 @@ eng:
       stop: "Stop" #?
       take: "Take"
       toggle: "Toggle"
-      # top: "Top"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"
@@ -1953,10 +1881,8 @@ eng:
       unvalidateds: "Unvalidateds"
       up: "Up"
       update: "Update"
-      update_password: "Update password"
       # upload: "Upload"
       win: "Win"
-      # zticket: "Zticket"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
