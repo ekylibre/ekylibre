@@ -1028,6 +1028,7 @@ eng:
     shift_duration: "Shift duration"
     shift_method: "Shift method"
     sign_in_count: "Sign in count"
+    # signup_at: "Signup at"
     siren: "SIREN"
     siret_number: "SIRET number"
     size_indicator: "Size indicator"
@@ -1445,4 +1446,3 @@ eng:
           pending: "Pending invitation"
         registration:
           pending: "Pending approval"
-

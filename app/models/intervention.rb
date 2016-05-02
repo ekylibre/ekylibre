@@ -166,10 +166,10 @@ class Intervention < Ekylibre::Record::Base
     # re active when Target Distribution works
     # Activity.of_intervention(self)
     a = []
-    self.targets.each do |target|
+    targets.each do |target|
       a << target.activity if target.activity
     end
-    return a.uniq
+    a.uniq
   end
 
   # Returns human tool names

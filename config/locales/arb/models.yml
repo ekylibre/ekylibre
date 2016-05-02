@@ -1386,7 +1386,7 @@ arb:
     hashed_password: "تشفير كلمة المرور" #?
     host: "مضيف"
     hour_duration: "(ساعة (ساعات" #?
-    # human_activities_names: "Activities names"
+    human_activities_names: "أسماء الأنشطة"
     human_shape_area: "منطقة الشكل"
     human_target_names: "أسماء المستهدفة"
     human_working_duration: "مدة العمل"
@@ -2809,3 +2809,8 @@ arb:
         pending: "ريثما"
       no_right_defined_for_this_part_of_the_application: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب : %{controller}/%{action}" #?
       no_right_defined_for_this_part_of_the_application_and_this_user: "ليس هنالك من حقوق محددة لهذا الجزء من الطلب ولهذا المستخدم" #?
+      status:
+        invitation:
+          pending: "دعوة معلقة"
+        registration:
+          pending: "في انتظار الموافقة"

@@ -55,14 +55,13 @@ class InterventionTarget < InterventionProductParameter
   scope :of_activity_production, ->(activity_production) { where(product_id: TargetDistribution.select(:target_id).where(activity_production_id: activity_production)) }
 
   def activity
-    if self.product && self.product.is_a?(LandParcel)
-      activity = ActivityProduction.find_by(support: self.product).activity
+    if product && product.is_a?(LandParcel)
+      activity = ActivityProduction.find_by(support: product).activity
       return activity
-    elsif self.product && self.product.is_a?(Plant) && self.product.shape
-      lp = LandParcel.shape_intersecting(self.product.shape).first
+    elsif product && product.is_a?(Plant) && product.shape
+      lp = LandParcel.shape_intersecting(product.shape).first
       activity = ActivityProduction.find_by(support: lp).activity
       return activity
     end
   end
-
 end

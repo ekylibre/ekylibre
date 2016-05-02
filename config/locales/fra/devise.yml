@@ -32,9 +32,6 @@ fra:
     mailer:
       confirmation_instructions:
         subject: "Instructions de confirmation"
-    mailer:
-      confirmation_instructions:
-        subject: "Instructions de confirmation"
       invitation_instructions:
         accept: "Accepter l'invitation"
         accept_until: "Cette invitation est valable jusqu'au %{due_date}."
@@ -49,13 +46,9 @@ fra:
           sign_in: "Connexion."
           subject: "Votre compte vient d'être approuvé"
         signed_up:
-          subject: "Nouvelle inscription"
+          confirm: "Veuillez confirmer son inscription dans l'interface d'administration."
           details: "%{first_name} %{last_name} identifié par l'email %{email} vient juste de s'inscrire."
-          confirm: "Veuillez confirmer son inscription dans l'interfacce d'administration."
-      reset_password_instructions:
-        subject: "Instructions pour changer le mot de passe"
-      unlock_instructions:
-        subject: "Instructions pour déverrouiller le compte"
+          subject: "Nouvelle inscription"
       reset_password_instructions:
         subject: "Instructions pour changer le mot de passe"
       unlock_instructions:
@@ -77,6 +70,8 @@ fra:
       signed_up_but_unconfirmed: "Un message contenant un lien de confirmation a été envoyé à votre adresse email. Ouvrez ce lien pour activer votre compte."
       update_needs_confirmation: "Votre compte a bien été mis à jour mais nous devons vérifier votre nouvelle adresse email. Merci de vérifier vos emails et de cliquer sur le lien de confirmation pour finaliser la validation de votre nouvelle adresse."
       updated: "Votre compte a été modifié avec succès."
+      user:
+        signed_up_but_not_approved: "Vous avez signé avec succès, mais votre compte n&#39;a pas encore été approuvé par votre administrateur"
     sessions:
       signed_in: "Connecté."
       signed_out: "Déconnecté."

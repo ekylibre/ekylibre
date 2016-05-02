@@ -5,6 +5,8 @@ cmn:
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "新密码"
+    authentication/registrations:
+      new: "注册"
     authentication/sessions:
       destroy: "登出"
       new: "新会话"
@@ -417,6 +419,9 @@ cmn:
       propose_and_invoice: "直接发票"
       refuse: "为了拒绝"
       # show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "编辑注册"
+      index: "注册"
     backend/roles:
       # edit: "Edit role: %{name}"
       index: "角色"
@@ -1246,6 +1251,7 @@ cmn:
     upload: "上传"
     uploaded_file: "上传的文件"
     usage: "用法"
+    user_status: "状态"
     users: "用户"
     valid: "有效"
     validate: "验证"

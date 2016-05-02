@@ -596,7 +596,7 @@ spa:
     harvest_year: "Año de la cosecha"
     has_downpayment: "Tiene el pago inicial"
     host: "Anfitrión"
-    # human_activities_names: "Activities names"
+    human_activities_names: "Actividades nombres"
     human_shape_area: "Superficie"
     human_target_names: "Los nombres de destino"
     human_working_duration: "Duración de trabajo"
@@ -1417,3 +1417,8 @@ spa:
         accepted: "Aceptado"
         not_invited: "No es invitado"
         pending: "Pendiente"
+      status:
+        invitation:
+          pending: "Invitación pendiente"
+        registration:
+          pending: "Pendiente de aprobacion"

@@ -508,8 +508,8 @@ fra:
       refuse: "Commande refusée"
       show: "Achat\_: %{number} au fournisseur %{supplier}"
     backend/registrations:
-      index: "Inscriptions"
       edit: "Modifier inscription"
+      index: "Inscriptions"
     backend/roles:
       edit: "Modifier le rôle\_: %{name}"
       index: "Rôles"

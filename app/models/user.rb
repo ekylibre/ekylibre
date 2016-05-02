@@ -63,6 +63,7 @@
 #  rights                                 :text
 #  role_id                                :integer
 #  sign_in_count                          :integer          default(0)
+#  signup_at                              :datetime
 #  team_id                                :integer
 #  unconfirmed_email                      :string
 #  unlock_token                           :string
@@ -91,7 +92,7 @@ class User < Ekylibre::Record::Base
   scope :administrators, -> { where(administrator: true) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, :signup_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :failed_attempts, :invitation_limit, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
   validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
@@ -153,18 +154,18 @@ class User < Ekylibre::Record::Base
   def invitation_status
     if created_by_invite?
       if invitation_accepted?
-        tc("invitation.accepted")
+        tc('invitation.accepted')
       else
-        tc("invitation.pending")
+        tc('invitation.pending')
       end
     else
-      tc("invitation.not_invited")
+      tc('invitation.not_invited')
     end
   end
 
   def status
-    return tc("status.invitation.pending") if created_by_invite? && !invitation_accepted?
-    return tc("status.registration.pending") if pending_approval?
+    return tc('status.invitation.pending') if created_by_invite? && !invitation_accepted?
+    return tc('status.registration.pending') if pending_approval?
   end
 
   def name

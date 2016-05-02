@@ -5,6 +5,8 @@ ita:
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "Nuova password"
+    authentication/registrations:
+      new: "Registrazione"
     authentication/sessions:
       destroy: "Disconnettersi"
       new: "nuova sessione"
@@ -417,6 +419,9 @@ ita:
       propose_and_invoice: "fatturare direttamente"
       refuse: "ordine Refused"
       # show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "Modifica registrazione"
+      index: "Iscrizioni"
     backend/roles:
       # edit: "Edit role: %{name}"
       index: "ruoli"
@@ -1246,6 +1251,7 @@ ita:
     upload: "Caricare"
     uploaded_file: "Il file caricato"
     usage: "uso"
+    user_status: "Stato"
     users: "utenti"
     valid: "Valido"
     validate: "Convalidare"

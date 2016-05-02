@@ -62,6 +62,7 @@
 #  rights                                 :text
 #  role_id                                :integer
 #  sign_in_count                          :integer          default(0)
+#  signup_at                              :datetime
 #  team_id                                :integer
 #  unconfirmed_email                      :string
 #  unlock_token                           :string

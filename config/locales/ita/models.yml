@@ -623,7 +623,7 @@ ita:
     harvest_year: "anno Harvest"
     has_downpayment: "ha acconto"
     host: "Ospite"
-    # human_activities_names: "Activities names"
+    human_activities_names: "Attività nomi"
     human_shape_area: "Zona forma"
     human_target_names: "nomi di destinazione"
     human_working_duration: "durata di funzionamento"
@@ -1444,3 +1444,8 @@ ita:
         accepted: "Accettato"
         not_invited: "Non invitato"
         pending: "In attesa di"
+      status:
+        invitation:
+          pending: "Invito in sospeso"
+        registration:
+          pending: "In attesa di approvazione"

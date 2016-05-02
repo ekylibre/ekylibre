@@ -11,6 +11,8 @@ eng:
       edit: "Edit password: %{name}"
       new: "New password"
     authentication/registrations:
+      # cancel: "Cancel registration: %{name}"
+      # edit: "Edit registration: %{name}"
       new: "Sign up"
     authentication/sessions:
       destroy: "Log out" #?
@@ -574,8 +576,8 @@ eng:
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
     backend/registrations:
-      index: "Registrations"
       edit: "Edit registration"
+      index: "Registrations" #?
     backend/roles:
       edit: "Edit role: %{name}"
       # incorporate: "Incorporate role: %{name}"

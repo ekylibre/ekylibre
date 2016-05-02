@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require "test_helper"
+require 'test_helper'
 
 module Backend
   class RegistrationsControllerTest < ActionController::TestCase
@@ -33,19 +33,19 @@ module Backend
 
     def update_request(user)
       patch :update,
-        id: user.id,
-        user: { first_name: user.first_name,
-                last_name: user.last_name,
-                language: user.language,
-                role_id: user.role.id,
-                email: user.email }
+            id: user.id,
+            user: { first_name: user.first_name,
+                    last_name: user.last_name,
+                    language: user.language,
+                    role_id: user.role.id,
+                    email: user.email }
     end
 
     setup do
       sign_in(users(:users_001))
     end
 
-    test "approves user" do
+    test 'approves user' do
       unapproved_user = set_unapproved_user
 
       assert !unapproved_user.active_for_authentication?
@@ -59,9 +59,9 @@ module Backend
       assert_redirected_to backend_registrations_path
     end
 
-    test "notifies approved user by email" do
+    test 'notifies approved user by email' do
       unapproved_user = set_unapproved_user
-      assert_difference "ActionMailer::Base.deliveries.size", +1 do
+      assert_difference 'ActionMailer::Base.deliveries.size', +1 do
         update_request(unapproved_user)
       end
 
