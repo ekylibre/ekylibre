@@ -462,9 +462,14 @@ eng:
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
     backend/map_backgrounds:
+      delete: "Delete map background: %{name}"
+      edit: "Edit map background: %{name}"
       index: "Map backgrounds"
       load: "Load map background: %{name}"
       new: "New map background"
+      show: "Map background: %{name}"
+      toggle_by_default: "Toggle by default map background: %{name}"
+      toggle_enabled: "Toggle enabled map background: %{name}"
     backend/map_editors:
       # upload: "Upload map editor: %{name}"
     backend/matters:
@@ -808,6 +813,11 @@ eng:
       # index: "Version"
     public:
       index: "Home"
+    teaspoon/suite:
+      # fixtures: "Fixtures suite: %{name}"
+      # hook: "Hook suite: %{name}"
+      # index: "Suite"
+      # show: "Suite: %{name}"
   errors:
     format: "%{message}"
     messages:
@@ -900,7 +910,10 @@ eng:
     accounts_to_load: "Accounts to load"
     active: "Active" #?
     activities: "Activities" #?
+    activities_step: "activities" #?!
     activity: "Activity"
+    activity_family: "Family activities" #?
+    activity_name: "Activity" #?
     activity_production: "Activity production" #?
     activity_productions: "Activity productions"
     add: "Add"
@@ -915,6 +928,7 @@ eng:
     add_distribution: "Add distribution"
     add_email: "Add email"
     add_entry: "Add entry"
+    add_equipment: "Adding equipment"
     add_expense: "Add expense"
     add_fax: "Add fax"
     add_filter: "Add filter"
@@ -940,6 +954,8 @@ eng:
     add_website: "Add website"
     add_working_period: "Add working_period"
     add_x: "Add “%{x}”"
+    add_your_activities: "Add the activities you need. The activities are deducted from your import TELEPAC appropriate."
+    add_your_equipment: "Add Your Equipment. You can also associate a location that you have previously defined (cultivable area or building area)."
     affair: "Affair"
     affair_number: "Affair number" #?
     affairs: "Affairs" #?
@@ -989,6 +1005,11 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
+    building: "Building" #?
+    building_divisions: "building areas" #?
+    building_divisions_and_parcels: "building areas and plots" #?!
+    buildings: "buildings" #?
+    # by_default: "By default"
     by_year: "By year"
     calculate: "Calculate" #?
     calculators: "Calculators" #?
@@ -997,8 +1018,13 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
+    cap_cluster_prefix: "CAP island No." #?!
+    cap_clusters: "CAP islands" #?!
     cap_islets: "Cap islets"
-    cap_land_parcels: "Cap land parcels"
+    cap_land_parcel_clusters: "CAP islands" #?!
+    cap_land_parcels: "PAC plots"
+    cap_parcel_prefix: "PAC plot No." #?!
+    cap_parcels: "PAC plots" #??
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
@@ -1030,10 +1056,12 @@ eng:
     column: "Column"
     columns: "Columns to import"
     commission: "Commission"
+    company: "Society" #?
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
     configure: "Configure"
+    confirm_sentence: "Are you sure?" #?!
     consume: "Consume" #?
     contained_products: "Contained products"
     container: "Container"
@@ -1052,6 +1080,7 @@ eng:
     counts: "Counts" #?
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
+    create_a_new_division: "Create a new zone. Click on the map to add a point and close the drawing to create the zone." #?!
     create_journal: "— Create journal —"
     create_or_import_equipments: "Create or import equipments"
     create_or_import_incoming_parcels: "Create or import incoming parcels"
@@ -1069,7 +1098,8 @@ eng:
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone"
     cultivable_zone_abbreviation: "CZ" #?!
-    cultivable_zones: "Cultivable zones"
+    cultivable_zone_prefix: "cultivable area No." #?!
+    cultivable_zones: "arable areas"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
     current: "Current" #?
     current_cultivation: "Current cultivation"
@@ -1086,6 +1116,8 @@ eng:
     default_subject: "[%{company}]"
     definition: "Definition"
     delete: "Delete"
+    delete_an_existing_division: "Delete an existing zone. Click the box to remove it." #?!
+    delete_shape: "Delete form" #??
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
@@ -1116,13 +1148,18 @@ eng:
     down: "Down" #?
     downpayment: "Downpayment"
     draft: "Draft" #?
+    draw_your_building_divisions: "Draw your building areas. By default, a main area for your building is created." #?!
+    draw_your_buildings: "Draw your buildings, which ye shall divide area in the next step." #?!
+    draw_your_cultivable_zones: "Draw the areas where you have crops. These are deducted from your PAC import if necessary." #?!
     duplicate: "Duplicate" #?
     duration: "Duration"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "During"
     earns: "Earns" #?!
     edit: "Edit"
+    edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it." #?!
     edit_budget: "Edit budget"
+    edited_cap_clusters: "Islands modified PAC" #?!
     ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
     email: "Email:" #?
@@ -1134,7 +1171,11 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
     entry_items: "Entry items"
-    equipments: "Equipments"
+    equipment: "Equipment" #?
+    equipment_name: "Name of equipment" #?
+    equipment_type: "Type of equipment" #??
+    equipment_zone: "Location" #??
+    equipments: "amenities"
     error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
@@ -1153,6 +1194,7 @@ eng:
     expedier: "Expedier"
     expenses: "Expenses"
     export: "Export documents"
+    file_imports: "Import files" #??
     file_nature: "File type"
     file_preview: "Preview" #?
     file_to_upload: "File to upload"
@@ -1192,7 +1234,9 @@ eng:
     illness: "Illness"
     implanted_at: "Implanted at"
     import: "Import"
+    import_zones_from_third_party_softwares: "Import zones from third party software, the GeoJSON format GML and KML." #?!
     importation_explanation: "Importation explanation"
+    imported_file: "Your file has been imported" #?!
     inactive: "Inactive" #?
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
@@ -1200,6 +1244,7 @@ eng:
     incoming_payment: "Incoming payment" #?
     incoming_payments: "Incoming payments"
     incoming_payments_to_deposit: "Incoming payments to deposit" #?
+    increase_map_on_fullscreen: "Enlarge map in full screen." #?!
     indicator: "Indicators"
     indicator_value: "Indicator value"
     indicators: "Indicators"
@@ -1256,7 +1301,10 @@ eng:
     last_products: "Last products" #?
     last_purchases: "Last purchases"
     last_sales: "Last sales" #?
+    layers_management: "layers of management, to change the base map and refine the visual representations to show." #?!
     letter: "Letter" #?
+    level: "Level" #?
+    levels: "levels" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
@@ -1273,21 +1321,28 @@ eng:
       other: "%{count} emails"
       zero: "No emails"
     main_settings: "Main settings" #?
+    main_zone_of: "main area of ​​%{zone}" #?!
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
     manual: "Manual" #?
     manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "Manure management plan chart"
     map: "Map"
+    map_editor_explanation: "Question of the map grip" #?!
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
+    max_level: "max level" #?!
     maximal_temperature: "Maximal temperature"
+    measurement_tools: "measurement tool, for calculations of distances and areas." #?!
     members: "Members"
     menus: "Menus"
     merge: "Merge"
     method: "Method" #?
+    min_level: "level min" #??
     minimal_temperature: "Minimal temperature"
+    missing: "Missing" #?
     missing_attributes: "Some attributes are missing"
+    missing_buildings: "You have not saved building for now. You can return to the previous step to declare your buildings or ignore this message by clicking Next." #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
     mode: "Mode" #?
@@ -1306,6 +1361,7 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
+    new_activity: "new activity"
     new_animal: "New animal"
     new_attachment: "New attachment"
     new_box: "New box"
@@ -1324,6 +1380,7 @@ eng:
       other: "Make a deposit %{mode}: %{count} available payments"
       zero: "Make a deposit %{mode}: no available payments"
     new_email: "New email"
+    new_equipment: "new equipment"
     new_group: "New group"
     new_issue: "New issue"
     new_organization: "New organization"
@@ -1354,6 +1411,7 @@ eng:
     number_of_cap_land_parcels: "Number of cap land parcels"
     number_options: "Options Numbers"
     numbers: "Numbers" #?
+    ok: "OK" #?
     on_account: "On account" #?
     one_condition: "One condition"
     open_a_campaign: "Open a campaign" #??
@@ -1369,6 +1427,7 @@ eng:
     # outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
+    pacage_number: "No. GRAZING" #?
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1376,7 +1435,7 @@ eng:
     paid_at: "Paid at" #?
     parameters: "Parameters"
     # parcel_items: "Parcel items"
-    parcels: "Parcels"
+    parcels: "plots"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules" #?
@@ -1445,6 +1504,7 @@ eng:
     readings: "Readings"
     received: "Received" #?
     recent_events: "Recent events"
+    reference_cap_clusters: "Islets reference CAP" #?!
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
@@ -1459,7 +1519,9 @@ eng:
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
+    request_building_levels: "buildings levels" #?!
     reset: "Reset"
+    reset_all_data: "Delete and start over" #?!
     resource: "View original document: %{resource} %{number}" #?
     # resource_map: "Resource map"
     resources: "Resources management" #?
@@ -1470,6 +1532,7 @@ eng:
       one: "1 result" #?
       other: "%{count} results" #?
       zero: "No results" #?
+    retrieve_my_telepac_file: "Retrieve TELEPAC file." #?!
     revenues: "Revenues" #?
     revenues_by_product_nature: "Revenues by product type" #?
     reverse: "Reverse condition"
@@ -1510,6 +1573,7 @@ eng:
     sex: "Sex"
     shape: "Shape" #?
     ship: "Ship" #?
+    short_level_label: "Lv." #?!
     show: "Show"
     sign_out: "Sign out" #?
     simplified: "Simplified Accounting" #?
@@ -1526,6 +1590,7 @@ eng:
     stocks: "Stocks"
     stop: "Stop" #?
     storage: "Storage" #?
+    storages: "Silos and tanks" #?!
     subject: "Subject"
     submit: "Submit" #?
     subscriber_period: "Subscribed on %{subscribed_at}"
@@ -1546,6 +1611,9 @@ eng:
     tasks: "Tasks"
     taxations: "Taxations"
     taxes: "Taxes" #?
+    telepac_files: "Import TELEPAC" #?!
+    telepac_upload_your_xml_file: "You can import your statement in XML format that you have previously exported to TELEPAC." #?!
+    the_file_is_invalid: "The file is invalid!" #?!
     thumb: "Thumb" #?
     time_cost: "Time cost" #?
     time_spent_by_activity: "Time spent by activity"
@@ -1599,18 +1667,20 @@ eng:
     unknown_variant: "Unknown variant"
     unlock: "Unlock" #?
     unmark: "Unmark" #?
+    unnamed: "Nameless" #?!
     unpaid: "Unpaid" #?
     unpaid_amount: "Unpaid amount" #??
     unpaid_days: "Unpaid since (in days)" #?
     unpaid_purchases: "Unpaid purchases" #?
     unpaid_sales: "Unpaid sales" #?
     unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
+    unzoom_map: "Zoom out the map." #?!
     up: "Up" #?
     update: "Update"
     updated_at_by: "Updated at %{at} by %{author}"
     updated_by_ago: "Updated by %{author} %{when}"
     upload: "Upload"
-    uploaded_file: "Uploaded file" #?
+    uploaded_file: "imported file" #?
     usage: "Usage" #?
     users: "Users"
     valid: "Valid" #?
@@ -1619,11 +1689,14 @@ eng:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validate selected entries"
+    validations: "Finalisation" #?
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants"
+    variety: "Variety" #?
     view: "View"
     weather: "Weather"
+    welcome_on_first_run_wizard: "Welcome to the Startup Wizard" #?!
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
@@ -1744,7 +1817,10 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
+    you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions." #?!
+    you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:" #?!
     zones: "Zones"
+    zoom_on_map: "Zoom on the map." #?!
   notifications:
     levels:
       error: "Error!"
@@ -1755,6 +1831,7 @@ eng:
       a_campaign_must_be_opened: "A campaign must be opened" #?
       a_production_must_be_opened: "A production must be opened" #?
       access_denied: "Access denied. %{reason} (%{url})"
+      all_data_import_finished: "All of your data was imported" #?
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "All parcels must be invoiceable and of same nature and third"
       an_activity_must_be_defined: "An activity must be defined" #?
       bookkeeping_is_finished: "The commercial data transfer is finished."
@@ -1836,6 +1913,7 @@ eng:
         zero: "There are no entries to point at the moment"
       you_must_have_an_email_column: "You must have an email address in your extraction"
       you_need_to_review_your_application_configuration: "You need to review your application configuration"
+      your_data_are_being_imported: "Your data is being imported" #?
   preferences:
     accounting_system: "Chart of accounts"
     bookkeep_automatically: "Activate the automatic bookkeeping"
@@ -1881,6 +1959,7 @@ eng:
       create: "Create"
       # current: "Current"
       decrement: "Decrement"
+      # delete: "Delete"
       destroy: "Destroy"
       detach: "Detach"
       detail: "Detail"
@@ -1892,9 +1971,11 @@ eng:
       extract: "Extract"
       family: "Family"
       finish: "Finish"
+      # fixtures: "Fixtures"
       generate_last_journal_entry: "Generate last journal entry"
       generate_parcel: "Generate parcel"
       # give: "Give"
+      # hook: "Hook"
       import: "Import"
       incorporate: "Incorporate"
       increment: "Increment"
@@ -1951,6 +2032,8 @@ eng:
       stop: "Stop" #?
       take: "Take"
       toggle: "Toggle"
+      toggle_by_default: "Toggle by default"
+      toggle_enabled: "Toggle enabled"
       # top: "Top"
       unlock: "Unlock"
       unmark: "Unmark"
