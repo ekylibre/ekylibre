@@ -432,7 +432,11 @@ GEM
       unf_ext
     unf_ext (0.0.7.2)
     unicode (0.4.4.2)
+<<<<<<< HEAD
     unicode-display_width (1.0.5)
+=======
+    unicode-display_width (1.0.3)
+>>>>>>> 47d4381d34e6f3584542c15f4c4d35637528c60a
     unicorn (5.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
