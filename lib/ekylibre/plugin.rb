@@ -39,9 +39,9 @@ module Ekylibre
             $LOAD_PATH.unshift lib
             ActiveSupport::Dependencies.autoload_paths += [lib]
           end
-          initializer = File.join(directory, 'Plugfile')
-          if File.file?(initializer)
-            plugin = new(initializer)
+          plugfile = File.join(directory, 'Plugfile')
+          if File.file?(plugfile)
+            plugin = new(plugfile)
             registered_plugins[plugin.name] = plugin
             Rails.logger.info "Load #{plugin.name} plugin"
           else
@@ -113,8 +113,13 @@ module Ekylibre
       def run_initializers
         each do |plugin|
           plugin.initializers.each do |name, block|
-            Rails.logger.info "Run initialize #{name}"
-            block.call(Rails.application)
+            if block.is_a?(Pathname)
+              Rails.logger.info "Require initializer #{name}"
+              require block
+            else
+              Rails.logger.info "Run initialize #{name}"
+              block.call(Rails.application)
+            end
           end
         end
       end
@@ -165,6 +170,15 @@ module Ekylibre
       @aggregators_path = @root.join('config', 'aggregators')
       if @aggregators_path.exist?
         Aggeratio.load_path += Dir.glob(@aggregators_path.join('**', '*.xml'))
+      end
+
+      # Adds initializers
+      @initializers_path = @root.join('config', 'initializers')
+      if @initializers_path.exist?
+        Dir.glob(@initializers_path.join('**', '*.rb')).each do |file|
+          path = Pathname.new(file)
+          @initializers[path.relative_path_from(@initializers_path).to_s] = path
+        end
       end
 
       # Adds locales (translation and reporting)
