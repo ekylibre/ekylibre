@@ -582,6 +582,8 @@ eng:
     fixed_asset: "Fixed asset"
     fixed_asset_account: "Fixed asset account"
     fixed_asset_allocation_account: "Fixed asset depreciations account"
+    # fixed_asset_collect_account: "Fixed asset collect account"
+    # fixed_asset_deduction_account: "Fixed asset deduction account"
     fixed_asset_depreciation_method: "Fixed asset depreciation method"
     fixed_asset_depreciation_percentage: "Fixed asset depreciation percentage"
     fixed_asset_depreciations: "Fixed asset depreciations"

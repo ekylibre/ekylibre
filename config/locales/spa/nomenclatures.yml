@@ -3505,7 +3505,7 @@ spa:
           amount: "Cantidad"
           percentage: "Porcentaje"
       items:
-        asset_vat: "Cuba de activos"
+        asset_vat: "Cuba de activos" #?
         inflated_vat: "IVA inflado"
         intermediate_vat: "IVA intermedio"
         normal_vat: "Normal de IVA"
@@ -3527,11 +3527,11 @@ spa:
         french_vat_normal_1995: "IVA francés normal de 1995"
         french_vat_normal_2000: "IVA francés normal de 2000"
         french_vat_normal_2014: "IVA francés normal de 2014"
-        french_vat_normal_asset_1966: "IVA francés activo normal de 1966"
-        french_vat_normal_asset_1982: "IVA francés activo normal de 1982"
-        french_vat_normal_asset_1995: "IVA francés activo normal de 1995"
-        french_vat_normal_asset_2000: "IVA francés activo normal de 2000"
-        french_vat_normal_asset_2014: "IVA francés activo normal de 2014"
+        french_vat_normal_asset_1966: "IVA francés activo normal de 1966" #?
+        french_vat_normal_asset_1982: "IVA francés activo normal de 1982" #?
+        french_vat_normal_asset_1995: "IVA francés activo normal de 1995" #?
+        french_vat_normal_asset_2000: "IVA francés activo normal de 2000" #?
+        french_vat_normal_asset_2014: "IVA francés activo normal de 2014" #?
         french_vat_null: "Nula cuba francés"
         french_vat_particular_1982: "IVA francés especial 1982"
         french_vat_particular_1989: "IVA francés especial 1989"

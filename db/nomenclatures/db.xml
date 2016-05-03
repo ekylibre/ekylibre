@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160428085808">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160503155351">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3514,13 +3514,14 @@
       <property name="collect_account" type="item" choices="accounts" required="true"/>
       <property name="computation_method" type="choice" choices="percentage, amount" required="true" default="percentage"/>
       <property name="deduction_account" type="item" choices="accounts" required="true"/>
+      <property name="fixed_asset_collect_account" type="item" choices="accounts"/>
+      <property name="fixed_asset_deduction_account" type="item" choices="accounts"/>
       <property name="suffix" type="string"/>
     </properties>
     <items>
-      <item name="asset_vat" computation_method="percentage" deduction_account="deductible_asset_vat" collect_account="collected_vat" suffix="7"/>
       <item name="inflated_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="8"/>
       <item name="intermediate_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="3"/>
-      <item name="normal_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="4"/>
+      <item name="normal_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="4" fixed_asset_deduction_account="deductible_asset_vat"/>
       <item name="null_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="9"/>
       <item name="particular_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="1"/>
       <item name="reduced_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="2"/>
@@ -3542,11 +3543,6 @@
       <item name="french_vat_normal_1995" country="fr" nature="normal_vat" amount="20.6" started_on="1995-08-01" stopped_on="2000-03-31"/>
       <item name="french_vat_normal_2000" country="fr" nature="normal_vat" amount="19.6" started_on="2000-04-01" stopped_on="2013-12-31"/>
       <item name="french_vat_normal_2014" country="fr" nature="normal_vat" amount="20.0" started_on="2014-01-01"/>
-      <item name="french_vat_normal_asset_1966" country="fr" nature="asset_vat" amount="17.6" started_on="1966-01-01" stopped_on="1982-03-31"/>
-      <item name="french_vat_normal_asset_1982" country="fr" nature="asset_vat" amount="18.6" started_on="1982-04-01" stopped_on="1995-07-31"/>
-      <item name="french_vat_normal_asset_1995" country="fr" nature="asset_vat" amount="20.6" started_on="1995-08-01" stopped_on="2000-03-31"/>
-      <item name="french_vat_normal_asset_2000" country="fr" nature="asset_vat" amount="19.6" started_on="2000-04-01" stopped_on="2013-12-31"/>
-      <item name="french_vat_normal_asset_2014" country="fr" nature="asset_vat" amount="20.0" started_on="2014-01-01"/>
       <item name="french_vat_null" country="fr" nature="null_vat" started_on="1954-04-10" amount="0.0"/>
       <item name="french_vat_particular_1982" country="fr" nature="particular_vat" amount="5.5" started_on="1982-04-01" stopped_on="1989-12-28"/>
       <item name="french_vat_particular_1989" country="fr" nature="particular_vat" amount="2.1" started_on="1989-12-29"/>

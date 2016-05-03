@@ -3499,7 +3499,7 @@ por:
           amount: "Quantidade"
           percentage: "Percentagem"
       items:
-        asset_vat: "IVA de ativos"
+        asset_vat: "IVA de ativos" #?
         inflated_vat: "IVA inflado"
         intermediate_vat: "IVA Intermediate"
         normal_vat: "Normal do IVA,"
@@ -3521,11 +3521,11 @@ por:
         french_vat_normal_1995: "IVA francês normais 1995"
         french_vat_normal_2000: "IVA francês normais 2000"
         french_vat_normal_2014: "IVA francês normais 2014"
-        french_vat_normal_asset_1966: "IVA francês ativo normal de 1966"
-        french_vat_normal_asset_1982: "IVA francês ativo normal de 1982"
-        french_vat_normal_asset_1995: "IVA francês ativo normal de 1995"
-        french_vat_normal_asset_2000: "IVA francês ativo normal de 2000"
-        french_vat_normal_asset_2014: "IVA francês ativo normal de 2014"
+        french_vat_normal_asset_1966: "IVA francês ativo normal de 1966" #?
+        french_vat_normal_asset_1982: "IVA francês ativo normal de 1982" #?
+        french_vat_normal_asset_1995: "IVA francês ativo normal de 1995" #?
+        french_vat_normal_asset_2000: "IVA francês ativo normal de 2000" #?
+        french_vat_normal_asset_2014: "IVA francês ativo normal de 2014" #?
         french_vat_null: "Nula IVA francês"
         french_vat_particular_1982: "IVA francês especial 1982"
         french_vat_particular_1989: "IVA francês especial 1989"

@@ -3510,7 +3510,7 @@ jpn:
           amount: "量"
           percentage: "パーセンテージ"
       items:
-        asset_vat: "資産バット"
+        asset_vat: "資産バット" #?
         inflated_vat: "膨張した付加価値税（VAT）"
         intermediate_vat: "中間付加価値税（VAT）"
         normal_vat: "通常の付加価値税（VAT）"
@@ -3532,11 +3532,11 @@ jpn:
         french_vat_normal_1995: "フランスのバット通常の1995"
         french_vat_normal_2000: "フランスのバット通常の2000"
         french_vat_normal_2014: "フランスのバット通常の2014"
-        french_vat_normal_asset_1966: "フランスのバット正常資産1966"
-        french_vat_normal_asset_1982: "フランスのバット正常資産1982"
-        french_vat_normal_asset_1995: "フランスのバット正常資産1995"
-        french_vat_normal_asset_2000: "フランスのバット正常資産2000"
-        french_vat_normal_asset_2014: "フランスのバット正常資産2014"
+        french_vat_normal_asset_1966: "フランスのバット正常資産1966" #?
+        french_vat_normal_asset_1982: "フランスのバット正常資産1982" #?
+        french_vat_normal_asset_1995: "フランスのバット正常資産1995" #?
+        french_vat_normal_asset_2000: "フランスのバット正常資産2000" #?
+        french_vat_normal_asset_2014: "フランスのバット正常資産2014" #?
         french_vat_null: "フランスのバットはnull"
         french_vat_particular_1982: "1982特にフランスのバット"
         french_vat_particular_1989: "1989特にフランスのバット"

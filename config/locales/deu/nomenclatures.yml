@@ -3499,7 +3499,7 @@ deu:
           amount: "Menge"
           percentage: "Prozentsatz"
       items:
-        asset_vat: "Vermögens vat"
+        asset_vat: "Vermögens vat" #?
         inflated_vat: "aufgeblasenen Mehrwertsteuer"
         intermediate_vat: "Zwischen Mehrwertsteuer"
         normal_vat: "normalen Mehrwertsteuer"
@@ -3521,11 +3521,11 @@ deu:
         french_vat_normal_1995: "Französisch Bottich Normal 1995"
         french_vat_normal_2000: "Französisch Bottich Normal 2000"
         french_vat_normal_2014: "Französisch Bottich Normal 2014"
-        french_vat_normal_asset_1966: "Französisch Bottich normalen Vermögens 1966"
-        french_vat_normal_asset_1982: "Französisch Bottich normalen Vermögens 1982"
-        french_vat_normal_asset_1995: "Französisch Bottich normalen Vermögens 1995"
-        french_vat_normal_asset_2000: "Französisch Bottich normalen Vermögens 2000"
-        french_vat_normal_asset_2014: "Französisch Bottich normalen Vermögens 2014"
+        french_vat_normal_asset_1966: "Französisch Bottich normalen Vermögens 1966" #?
+        french_vat_normal_asset_1982: "Französisch Bottich normalen Vermögens 1982" #?
+        french_vat_normal_asset_1995: "Französisch Bottich normalen Vermögens 1995" #?
+        french_vat_normal_asset_2000: "Französisch Bottich normalen Vermögens 2000" #?
+        french_vat_normal_asset_2014: "Französisch Bottich normalen Vermögens 2014" #?
         french_vat_null: "Französisch Bottich null"
         french_vat_particular_1982: "Französisch Bottich insbesondere 1982"
         french_vat_particular_1989: "Französisch Bottich insbesondere 1989"

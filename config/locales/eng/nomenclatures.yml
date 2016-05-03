@@ -3500,7 +3500,6 @@ eng:
           amount: "Amount"
           percentage: "Percentage"
       items:
-        asset_vat: "Asset vat"
         inflated_vat: "Inflated VAT"
         intermediate_vat: "Intermediate VAT"
         normal_vat: "Normal VAT"
@@ -3512,6 +3511,8 @@ eng:
         collect_account: "Collect account"
         computation_method: "Computation method"
         deduction_account: "Deduction account"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         suffix: "Suffix"
     taxes:
       items:
@@ -3522,11 +3523,6 @@ eng:
         french_vat_normal_1995: "French vat normal 1995"
         french_vat_normal_2000: "French vat normal 2000"
         french_vat_normal_2014: "French vat normal 2014"
-        french_vat_normal_asset_1966: "French vat normal asset 1966"
-        french_vat_normal_asset_1982: "French vat normal asset 1982"
-        french_vat_normal_asset_1995: "French vat normal asset 1995"
-        french_vat_normal_asset_2000: "French vat normal asset 2000"
-        french_vat_normal_asset_2014: "French vat normal asset 2014"
         french_vat_null: "French vat null"
         french_vat_particular_1982: "French vat particular 1982"
         french_vat_particular_1989: "French vat particular 1989"

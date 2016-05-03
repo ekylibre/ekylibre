@@ -3764,7 +3764,7 @@ fra:
           amount: "Montant fixe"
           percentage: "Pourcentage"
       items:
-        asset_vat: "TVA sur immobilisations"
+        asset_vat: "TVA sur immobilisations" #?
         inflated_vat: "TVA augmentée"
         intermediate_vat: "TVA intermédiaire"
         normal_vat: "TVA normale"
@@ -3795,11 +3795,11 @@ fra:
         french_vat_normal_1995: "TVA française normale 1995"
         french_vat_normal_2000: "TVA française normale 2000"
         french_vat_normal_2014: "TVA française normale 2014"
-        french_vat_normal_asset_1966: "TVA française normale (immo.) 1966"
-        french_vat_normal_asset_1982: "TVA française normale (immo.) 1982"
-        french_vat_normal_asset_1995: "TVA française normale (immo.) 1995"
-        french_vat_normal_asset_2000: "TVA française normale (immo.) 2000"
-        french_vat_normal_asset_2014: "TVA française normale (immo.) 2014"
+        french_vat_normal_asset_1966: "TVA française normale (immo.) 1966" #?
+        french_vat_normal_asset_1982: "TVA française normale (immo.) 1982" #?
+        french_vat_normal_asset_1995: "TVA française normale (immo.) 1995" #?
+        french_vat_normal_asset_2000: "TVA française normale (immo.) 2000" #?
+        french_vat_normal_asset_2014: "TVA française normale (immo.) 2014" #?
         french_vat_null: "TVA française non-applicable"
         french_vat_particular_1982: "TVA française particulière 1982"
         french_vat_particular_1989: "TVA française particulière 1989"

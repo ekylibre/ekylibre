@@ -46,7 +46,7 @@ module Ekylibre
           end
           # force import variant from reference_nomenclature and update his attributes.
           if r.reference_name.to_s.start_with? '>'
-            reference_name=r.reference_name[1..-1]
+            reference_name = r.reference_name[1..-1]
             if Nomen::ProductNature.find(reference_name)
               nature = ProductNature.import_from_nomenclature(reference_name)
               variant = nature.variants.new(name: r.name, active: true)

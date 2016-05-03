@@ -3499,7 +3499,7 @@ cmn:
           amount: "量"
           percentage: "百分比"
       items:
-        asset_vat: "资产增值税"
+        asset_vat: "资产增值税" #?
         inflated_vat: "充气增值税"
         intermediate_vat: "中间增值税"
         normal_vat: "增值税一般"
@@ -3521,11 +3521,11 @@ cmn:
         french_vat_normal_1995: "法国增值税1995年正常"
         french_vat_normal_2000: "法国增值税普通2000"
         french_vat_normal_2014: "法国增值税普通2014"
-        french_vat_normal_asset_1966: "法国增值税正常的资产1966年"
-        french_vat_normal_asset_1982: "法国增值税一般资产1982"
-        french_vat_normal_asset_1995: "法国增值税正常的资产1995年"
-        french_vat_normal_asset_2000: "法国增值税一般资产2000"
-        french_vat_normal_asset_2014: "法国增值税一般资产2014"
+        french_vat_normal_asset_1966: "法国增值税正常的资产1966年" #?
+        french_vat_normal_asset_1982: "法国增值税一般资产1982" #?
+        french_vat_normal_asset_1995: "法国增值税正常的资产1995年" #?
+        french_vat_normal_asset_2000: "法国增值税一般资产2000" #?
+        french_vat_normal_asset_2014: "法国增值税一般资产2014" #?
         french_vat_null: "法国增值税空"
         french_vat_particular_1982: "法国增值税尤其1982年"
         french_vat_particular_1989: "法国增值税尤其是1989"
