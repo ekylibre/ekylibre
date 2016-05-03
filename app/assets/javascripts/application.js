@@ -44,6 +44,7 @@
 //= require jstz
 //= require heatmap
 //= require i18n/translations
+//= require geographiclib
 //= require leaflet
 //= require leaflet/draw
 //= require leaflet/fullscreen
