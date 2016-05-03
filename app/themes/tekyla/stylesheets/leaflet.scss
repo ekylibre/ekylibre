@@ -741,6 +741,43 @@
   height: 5px;
 }
 
+.leaflet-draw-tooltip-top {
+  background: rgb(54, 54, 54);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid transparent;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  color: #fff;
+  font: 12px/18px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  margin-left: -93px;
+  margin-top: -38px;
+  padding: 4px 8px;
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  z-index: 6;
+  &:before {
+    border-top: 6px solid black;
+    border-top-color: rgba(0, 0, 0, 0.5);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    content: "";
+    position: absolute;
+    top: 30px;
+    left: 93px;
+  }
+
+}
+
+.leaflet-draw-tooltip-measure {
+  &.perimeter {
+    @include icon-before(square-o)
+  }
+  &.area {
+    @include icon-before(square)
+  }
+}
+
 /* ================================================================== */
 /* Edit styles
 /* ================================================================== */
