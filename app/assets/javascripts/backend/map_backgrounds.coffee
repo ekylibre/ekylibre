@@ -19,7 +19,6 @@
     $(@).toggleClass 'active'
 
   $(document).on 'ajax:success', ".map-background-delete a", () ->
-    console.log @
     $(@).closest('.map-background-container').remove()
 
 
