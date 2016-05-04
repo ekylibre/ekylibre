@@ -1256,6 +1256,7 @@ cmn:
         specific_volume: "比容"
         surface_area: "表面积"
         surface_area_density: "表面积密度"
+        # surface_area_flow: "Surface area flow"
         temperature: "温度"
         time: "时间"
         volume: "卷"
@@ -3513,6 +3514,8 @@ cmn:
         collect_account: "收集帐户"
         computation_method: "计算方法"
         deduction_account: "扣除账户"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         suffix: "后缀"
     taxes:
       items:
@@ -3579,6 +3582,7 @@ cmn:
         gram_per_liter: "每升克"
         gram_per_square_meter: "每平方米克"
         hectare: "公顷"
+        # hectare_per_hour: "Hectare per hour"
         hectoliter: "公石"
         hectoliter_per_hectare: "公石每公顷"
         hectopascal: "百帕"
@@ -3620,6 +3624,7 @@ cmn:
         millimeter: "毫米"
         millimeter_per_hour: "每小时毫米"
         million: "百万"
+        # million_per_hectare: "Million per hectare"
         million_per_liter: "百万每升"
         millionth: "百万分之一"
         millisecond: "毫秒"

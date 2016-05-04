@@ -1256,6 +1256,7 @@ por:
         specific_volume: "Volume específico"
         surface_area: "Área de superfície"
         surface_area_density: "Densidade de área de superfície"
+        # surface_area_flow: "Surface area flow"
         temperature: "Temperatura"
         time: "Tempo"
         # volume: "Volume"
@@ -3513,6 +3514,8 @@ por:
         collect_account: "Recolha conta"
         computation_method: "Método de cálculo"
         deduction_account: "Conta de dedução"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         suffix: "Sufixo"
     taxes:
       items:
@@ -3579,6 +3582,7 @@ por:
         gram_per_liter: "Gramas por litro"
         gram_per_square_meter: "Gramas por metro quadrado"
         # hectare: "Hectare"
+        # hectare_per_hour: "Hectare per hour"
         hectoliter: "Hectolitro"
         hectoliter_per_hectare: "Hectolitro por hectare"
         hectopascal: "Hectopascal"
@@ -3620,6 +3624,7 @@ por:
         millimeter: "Milímetro"
         millimeter_per_hour: "Milímetro por hora"
         million: "Milhão"
+        # million_per_hectare: "Million per hectare"
         million_per_liter: "Milhões por litro"
         millionth: "Milionésimo"
         millisecond: "Milisegundo"

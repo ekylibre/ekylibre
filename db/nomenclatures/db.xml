@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160503131928">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160504143733">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1268,6 +1268,7 @@
       <item name="specific_volume" symbol="m&#xB3;/kg"/>
       <item name="surface_area" symbol="m&#xB2;"/>
       <item name="surface_area_density" symbol="./m&#xB2;"/>
+      <item name="surface_area_flow" symbol="m&#xB2;/s"/>
       <item name="temperature" symbol="K"/>
       <item name="time" symbol="s"/>
       <item name="volume" symbol="m&#xB3;"/>
@@ -3598,6 +3599,7 @@
       <item name="gram_per_liter" dimension="mass_concentration" symbol="g/l" a="0.01" d="0.001"/>
       <item name="gram_per_square_meter" dimension="mass_area_density" symbol="g/m&#xB2;" a="0.001"/>
       <item name="hectare" dimension="surface_area" symbol="ha" a="10000.0"/>
+      <item name="hectare_per_hour" dimension="surface_area_flow" symbol="ha/h" a="10000.0" d="3600.0"/>
       <item name="hectoliter" dimension="volume" symbol="hl" a="0.1"/>
       <item name="hectoliter_per_hectare" dimension="volume_area_density" symbol="hl/ha" a="0.1" d="10000.0"/>
       <item name="hectopascal" dimension="pressure" symbol="hPa" a="100.0"/>
@@ -3639,6 +3641,7 @@
       <item name="millimeter" dimension="distance" symbol="mm" a="0.001"/>
       <item name="millimeter_per_hour" dimension="distance_speed" symbol="mm/h" a="0.001" d="3600.0"/>
       <item name="million" dimension="none" symbol="M." a="1000000.0"/>
+      <item name="million_per_hectare" dimension="surface_area_density" symbol="M./ha" a="1000000.0" d="10000.0"/>
       <item name="million_per_liter" dimension="concentration" symbol="M./l" a="1000000.0" d="0.001"/>
       <item name="millionth" dimension="none" symbol="&#xB5;." a="1.0e-06"/>
       <item name="millisecond" dimension="time" symbol="ms" a="0.001"/>
