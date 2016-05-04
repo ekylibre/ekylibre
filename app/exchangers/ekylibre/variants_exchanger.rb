@@ -8,9 +8,10 @@ module Ekylibre
   # D: Variety CF NOMENCLATURE
   # E: Derivative CF NOMENCLATURE
   # F: Purchase pretax amount price
-  # G: Sale pretax amount price
-  # H: Price unity
-  # I: Indicators - HASH
+  # G: Stock pretax amount price
+  # H: Sale pretax amount price
+  # I: Price unity
+  # J: Indicators - HASH
   class VariantsExchanger < ActiveExchanger::Base
     # Create or updates variants
     def import
@@ -66,6 +67,12 @@ module Ekylibre
           variant.number = r.work_number if r.work_number
           variant.unit_name ||= :unit.tl
           variant.save!
+
+        if r.indicators.any?
+          r.indicators.each do |indicator_name, value|
+          variant.read! indicator_name, value
+          end
+        end
 
           if r.price_unity
             # Find unit and matching indicator
