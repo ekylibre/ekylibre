@@ -1731,6 +1731,7 @@ fra:
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         plants_count: "Nombre de plantes"
         plants_interval: "Intervalle inter-pieds"
+        plowshare_count: "Nombre de socs"
         population: "Population" #?
         potash_concentration: "Teneur en potasse (K₂O)"
         potassium_concentration: "Teneur en potassium"
@@ -1763,6 +1764,7 @@ fra:
         sulfur_trioxide_concentration: "Teneur en trioxyde de soufre (SO₃)"
         surface_area_percentage: "Pourcentage de surface couverte"
         temperature: "Température"
+        theoretical_working_speed: "Vitesse de travail théorique"
         thousand_grains_mass: "Poids de mille grains"
         tiller_count: "Nombre de talles"
         total_bacteria_concentration: "Dénombrement des germes totaux"
