@@ -196,12 +196,28 @@ L.LatLng.prototype.toArray = ->
 
 L.Tooltip.include
   __initialize: L.Tooltip.prototype.initialize
+  __dispose: L.Tooltip.prototype.dispose
 
   initialize: (map,options = {}) ->
     @__initialize.apply this, arguments
 
     if options.onTop
       L.DomUtil.addClass(@_container, 'leaflet-draw-tooltip-top')
+      L.DomEvent.on this._container, 'mouseenter', this.__onMouseEnter, this
+      L.DomEvent.on this._container, 'mouseleave', this.__onMouseLeave, this
+
+  dispose: ->
+    @_map.off 'mouseover'
+    L.DomEvent.off this._container, 'mouseenter', this.__onMouseEnter, this
+    L.DomEvent.off this._container, 'mouseleave', this.__onMouseLeave, this
+    @__dispose.apply this, arguments
+
+  __onMouseEnter: ->
+    L.DomUtil.removeClass(@_container, 'leaflet-draw-tooltip-top')
+
+
+  __onMouseLeave: ->
+    L.DomUtil.addClass(@_container, 'leaflet-draw-tooltip-top')
 
   __updateTooltipMeasure: (latLng, measure = {}, options = {}) ->
     labelText =

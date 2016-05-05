@@ -749,7 +749,7 @@
   border-radius: 4px;
   color: #fff;
   font: 12px/18px "Helvetica Neue", Arial, Helvetica, sans-serif;
-  margin-left: -40px;
+  margin-left: -93px;
   margin-top: -38px;
   padding: 4px 8px;
   position: absolute;
@@ -766,6 +766,8 @@
     top: 30px;
     @include calc('left','50% - 3px');
   }
+
+  transition: margin-left 1s ease;
 
 }
 
