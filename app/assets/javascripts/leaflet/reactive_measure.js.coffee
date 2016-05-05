@@ -174,14 +174,14 @@ L.Edit.Poly.include
       perimeter: g.perimeter()
       area: g.area()
 
-    @__tooltipMeasure.__updateTooltipMeasure center, measure, @options
+    @__tooltipMeasure.__updateTooltipMeasure center, measure, L.Draw.Polyline.prototype.options
 
 
   addHooks: () ->
     @__addHooks.apply this, arguments
     if L.EditToolbar.reactiveMeasure
       @__tooltipMeasure = new L.Tooltip @_poly._map, onTop: true
-      this._poly.on 'editdrag', @__onHandlerDrag
+      this._poly.on 'editdrag', @__onHandlerDrag, this
 
   removeHooks: () ->
     if L.EditToolbar.reactiveMeasure
