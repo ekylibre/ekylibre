@@ -144,7 +144,7 @@ L.Draw.Polyline.include
       perimeter: g.perimeter()
       area: g.area()
 
-    @__updateTooltipMeasure center, measure
+    @__tooltipMeasure.__updateTooltipMeasure center, measure, @options
 
 
   addHooks: () ->
@@ -161,46 +161,33 @@ L.Draw.Polyline.include
     @__removeHooks.apply this, arguments
     return
 
-  __updateTooltipMeasure: (latLng, measure = {}) ->
-    labelText =
-      text: ''
-    #TODO: use L.drawLocal to i18n tooltip
-    if measure['perimeter']
-      labelText['text'] += "<span class='leaflet-draw-tooltip-measure perimeter'>#{L.GeometryUtil.readableDistance(measure['perimeter'], @options.metric, @options.feet)}</span>"
-
-    if measure['area']
-      labelText['text']  += "<span class='leaflet-draw-tooltip-measure area'>#{L.GeometryUtil.readableArea(measure['area'], @options.metric)}</span>"
-
-    if latLng
-      @__tooltipMeasure.updateContent labelText
-      @__tooltipMeasure.updatePosition latLng
-
-    return
-
 L.Edit.Poly.include
   __addHooks: L.Edit.Poly.prototype.addHooks
   __removeHooks: L.Edit.Poly.prototype.removeHooks
 
-  __onHandlerDrag: (e) ->
-    new_poly = e.target
-    latLngs = new_poly.getLatLngs()
-    geod = GeographicLib.Geodesic.WGS84
+  __onHandlerDrag: ->
+    center = @_poly.__getCenter()
 
-    poly = geod.Polygon(false)
-    for latlng in latLngs
-      poly.AddPoint latlng['lat'], latlng['lng']
+    g = new L.GeographicUtil.Polygon @_poly.getLatLngsAsArray()
 
-    poly = poly.Compute(false, true)
-    console.log 'Perimeter/area of polygon are ' + poly.perimeter.toFixed(3) + ' m / ' + poly.area.toFixed(1) + ' m^2.'
+    measure =
+      perimeter: g.perimeter()
+      area: g.area()
+
+    @__tooltipMeasure.__updateTooltipMeasure center, measure, @options
+
 
   addHooks: () ->
     @__addHooks.apply this, arguments
     if L.EditToolbar.reactiveMeasure
-      this._poly.on 'editdrag', @__onHandlerDrag, this
+      @__tooltipMeasure = new L.Tooltip @_poly._map, onTop: true
+      this._poly.on 'editdrag', @__onHandlerDrag
 
   removeHooks: () ->
     if L.EditToolbar.reactiveMeasure
       this._poly.off 'editdrag'
+      @__tooltipMeasure.dispose()
+
     @__removeHooks.apply this, arguments
 
 
@@ -215,6 +202,22 @@ L.Tooltip.include
 
     if options.onTop
       L.DomUtil.addClass(@_container, 'leaflet-draw-tooltip-top')
+
+  __updateTooltipMeasure: (latLng, measure = {}, options = {}) ->
+    labelText =
+      text: ''
+    #TODO: use L.drawLocal to i18n tooltip
+    if measure['perimeter']
+      labelText['text'] += "<span class='leaflet-draw-tooltip-measure perimeter'>#{L.GeometryUtil.readableDistance(measure.perimeter, !!options.metric, !!options.feet)}</span>"
+
+    if measure['area']
+      labelText['text']  += "<span class='leaflet-draw-tooltip-measure area'>#{L.GeometryUtil.readableArea(measure.area, !!options.metric)}</span>"
+
+    if latLng
+      @updateContent labelText
+      @updatePosition latLng
+
+    return
 
 ###
 #Add Configuration options
