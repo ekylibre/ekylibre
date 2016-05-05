@@ -5,8 +5,6 @@ L.Polygon.include
   # @return {number} polygon centroid
    ###
   __getCenter: ->
-
-    @projectLatlngs()
     @__project()
     points = @_rings[0]
     len = points.length
@@ -51,7 +49,6 @@ L.Polyline.include
   # @return {number} polyline center
    ###
   __getCenter: ->
-    @projectLatlngs()
     @__project()
     i = undefined
     halfDist = undefined
@@ -93,12 +90,6 @@ L.Polyline.include
     pxBounds = new (L.Bounds)
     @_rings = []
     @__projectLatlngs @_latlngs, @_rings, pxBounds
-    w = @__clickTolerance()
-    p = new (L.Point)(w, w)
-    if @getBounds().isValid() and pxBounds.isValid()
-      pxBounds.min._subtract p
-      pxBounds.max._add p
-      @_pxBounds = pxBounds
     return
 
   # recursively turns latlngs into a set of rings with projected coordinates
@@ -121,10 +112,6 @@ L.Polyline.include
         @__projectLatlngs latlngs[i], result, projectedBounds
         i++
     return
-
-  __clickTolerance: ->
-    # used when doing hit detection for Canvas layers
-    (@options.stroke ? @options.weight / 2 : 0) + (L.Browser.touch ? 10 : 0)
 
 L.Draw.Polyline.include
   __addHooks: L.Draw.Polyline.prototype.addHooks
@@ -208,9 +195,6 @@ L.Edit.Poly.include
     if @options.reactiveMeasure
       this._poly.on 'editdrag', @__onHandlerDrag, this
 
-
-L.Edit.Poly.mergeOptions
-  reactiveMeasure: true
 
 L.LatLng.prototype.toArray = ->
   [@lat, @lng]
