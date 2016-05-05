@@ -149,13 +149,15 @@ L.Draw.Polyline.include
 
   addHooks: () ->
     @__addHooks.apply this, arguments
-    @__tooltipMeasure = new L.Tooltip @_map, onTop: true
-    @_map.on 'mousemove', @__onMouseMove, this
+    if L.DrawToolbar.reactiveMeasure
+      @__tooltipMeasure = new L.Tooltip @_map, onTop: true
+      @_map.on 'mousemove', @__onMouseMove, this
     return
 
   removeHooks: () ->
-    @_map.off 'mousemove'
-    @__tooltipMeasure.dispose()
+    if L.DrawToolbar.reactiveMeasure
+      @_map.off 'mousemove'
+      @__tooltipMeasure.dispose()
     @__removeHooks.apply this, arguments
     return
 
@@ -177,6 +179,7 @@ L.Draw.Polyline.include
 
 L.Edit.Poly.include
   __addHooks: L.Edit.Poly.prototype.addHooks
+  __removeHooks: L.Edit.Poly.prototype.removeHooks
 
   __onHandlerDrag: (e) ->
     new_poly = e.target
@@ -192,8 +195,13 @@ L.Edit.Poly.include
 
   addHooks: () ->
     @__addHooks.apply this, arguments
-    if @options.reactiveMeasure
+    if L.EditToolbar.reactiveMeasure
       this._poly.on 'editdrag', @__onHandlerDrag, this
+
+  removeHooks: () ->
+    if L.EditToolbar.reactiveMeasure
+      this._poly.off 'editdrag'
+    @__removeHooks.apply this, arguments
 
 
 L.LatLng.prototype.toArray = ->
@@ -207,3 +215,23 @@ L.Tooltip.include
 
     if options.onTop
       L.DomUtil.addClass(@_container, 'leaflet-draw-tooltip-top')
+
+###
+#Add Configuration options
+###
+
+L.DrawToolbar.include
+  __initialize: L.DrawToolbar.prototype.initialize
+
+  initialize: (options) ->
+    L.DrawToolbar.reactiveMeasure = !!options.reactiveMeasure
+    @__initialize.apply this, arguments
+    return
+
+L.EditToolbar.include
+  __initialize: L.EditToolbar.prototype.initialize
+
+  initialize: (options) ->
+    L.EditToolbar.reactiveMeasure = !!options.reactiveMeasure
+    @__initialize.apply this, arguments
+    return

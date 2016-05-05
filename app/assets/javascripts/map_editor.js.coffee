@@ -48,6 +48,7 @@
             edit:
               color: "#A40"
               popup: false
+            reactiveMeasure: true
           draw:
             marker: false
             polyline: false
@@ -56,6 +57,7 @@
             polygon:
               allowIntersection: false
               showArea: false
+            reactiveMeasure: true
         zoom:
           position: "topleft"
           zoomInText: ""
@@ -535,7 +537,6 @@
         this.map.fitBounds(view.bounds)
       else
         console.log "How to set view with #{view}?"
-        console.log view
       this
 
     _setDefaultView: ->
@@ -558,7 +559,6 @@
         this.controls.fullscreen = new L.Control.FullScreen(this.options.controls.fullscreen)
         this.map.addControl this.controls.fullscreen
       if this.edition?
-        console.log this.options.controls.draw
         this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
         this.map.addControl this.controls.draw
       unless this.options.controls.scale is false
