@@ -168,6 +168,7 @@ L.Draw.Polyline.include
 
   removeHooks: () ->
     @_map.off 'mousemove'
+    @__tooltipMeasure.dispose()
     @__removeHooks.apply this, arguments
     return
 
