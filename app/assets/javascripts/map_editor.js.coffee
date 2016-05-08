@@ -288,7 +288,7 @@
       popup += "<input class='updateAttributesInPopup' type='button' value='ok'/>"
       popup += "</div>"
 
-      layer.bindPopup popup, keepInView: true, maxWidth: 600
+      layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
 
     colorize: (level) ->
       #levels rane is set to [-3,3]
