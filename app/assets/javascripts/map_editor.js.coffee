@@ -420,9 +420,8 @@
         feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
 
         label = new L.GhostLabel(className: 'leaflet-ghost-label').setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
-        # To be updated when feature name change
-        layer.bindGhostLabel label
-        @ghostLabelCluster.addLayer label
+
+        @ghostLabelCluster.bind label, layer
 
       $(this.element).trigger('mapeditor:feature_add', feature)
 
