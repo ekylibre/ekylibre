@@ -167,6 +167,7 @@ L.Edit.Poly.include
 
   __onHandlerDrag: ->
     center = @_poly.__getCenter()
+    console.log 'handler drag'
 
     g = new L.GeographicUtil.Polygon @_poly.getLatLngsAsArray()
 
@@ -189,6 +190,13 @@ L.Edit.Poly.include
       @__tooltipMeasure.dispose()
 
     @__removeHooks.apply this, arguments
+
+L.Edit.PolyVerticesEdit.include
+  __onTouchMove: L.Edit.PolyVerticesEdit::_onTouchMove
+
+  _onTouchMove: (e) ->
+    @__onTouchMove.apply @, arguments
+    @_poly.fire 'editdrag'
 
 
 L.LatLng.prototype.toArray = ->
