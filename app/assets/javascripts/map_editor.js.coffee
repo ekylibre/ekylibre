@@ -120,7 +120,8 @@
 
       this.counter = 1
 
-      @geod = GeographicLib.Geodesic.WGS84
+      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
+      @ghostLabelCluster.addTo @map
 
       this.map.on "draw:created", (e) =>
         #Attempt to add a geojson feature
@@ -145,19 +146,6 @@
           widget.element.trigger 'mapeditor:feature_delete', layer.feature
 
         widget.update()
-
-      this.map.on "draw:drawvertex", (e) =>
-        console.log 'draw', e.layers.getLayers()
-        poly = @geod.Polygon(false)
-        e.layers.eachLayer (layer) =>
-          latlng = layer.getLatLng()
-          poly.AddPoint latlng['lat'], latlng['lng']
-
-        poly = poly.Compute(false, true)
-        console.log 'Perimeter/area of polygon are ' + poly.perimeter.toFixed(3) + ' m / ' + poly.area.toFixed(1) + ' m^2.'
-
-      this.map.on "draw:editvertex", (e) ->
-        console.log 'edit', e.layers
 
       this._resize()
       # console.log "resized"
@@ -408,9 +396,8 @@
           this.ghost = L.geoJson(this.options.ghost, {
             onEachFeature: (feature, layer) =>
 
-              label = new L.Label({direction: 'bottom', className: 'leaflet-ghost-label', offset: [0, -50], opacity: 0.6})
-              label.setContent(feature.properties.name || feature.properties.id)
-              label.setLatLng(layer.getBounds().getCenter())
+              label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: true).setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
+              # As static label. Avoid unnecessary events
               this.map.showLabel(label)
           })
         else
@@ -432,7 +419,10 @@
         this.counter += 1
         feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
 
-        layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className: 'leaflet-reference-label'})
+        label = new L.GhostLabel(className: 'leaflet-ghost-label').setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
+        # To be updated when feature name change
+        layer.bindGhostLabel label
+        @ghostLabelCluster.addLayer label
 
       $(this.element).trigger('mapeditor:feature_add', feature)
 

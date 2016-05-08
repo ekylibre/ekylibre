@@ -1017,11 +1017,23 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
   background-color: transparent;
   box-shadow: none;
   border: none;
+  opacity: 0.6;
   &:before, &:after {
     box-shadow: none;
     border: none;
     background: transparent;
   }
+}
+
+.leaflet-ghost-label-collapsed {
+  color: black;
+  text-shadow: none;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: white;
+  text-align: center;
 }
 
 .leaflet-popup-warning {
