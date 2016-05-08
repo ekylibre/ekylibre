@@ -38,16 +38,27 @@ L.GhostLabelCluster = L.LayerGroup.extend
       @__addClusteredLayer layer
     return
 
-  removeLayer: (layer) ->
-    @_rbush.remove @_cachedRelativeBoxes[layer._leaflet_id]
-    delete @_cachedRelativeBoxes[layer._leaflet_id]
-    @__removeLayer.call @, layer
+  bind: (layer, parent) ->
+    @addLayer layer
 
     if @_originalLayers.indexOf(layer) != -1
+      # To be updated when feature name change
+      parent.bindGhostLabel layer
+      parent.on 'remove', @removeLayer, @
+
+
+  removeLayer: (e) ->
+    layer = e.target.label
+    @_rbush.remove @_cachedRelativeBoxes[layer._leaflet_id]
+    delete @_cachedRelativeBoxes[layer._leaflet_id]
+
+    i = @_originalLayers.indexOf(layer)
+    if i != -1
       @_originalLayers.splice i, 1
 
-    if @_visibleLayers.indexOf(layer) != -1
-      @_visibleLayers.splice i, 1
+    delete @_visibleLayers[layer._leaflet_id]
+    @__removeLayer.call @, layer
+
     return
 
   clearLayers: ->
