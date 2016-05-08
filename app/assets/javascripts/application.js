@@ -54,6 +54,7 @@
 //= require leaflet/easy-button
 //= require leaflet/modal
 //= require leaflet/label
+//= require rbush
 //= require autosize
 //= require plugins
 //= require_tree .
