@@ -57,7 +57,6 @@ L.GhostLabel = L.Label.extend
   _setPosition: (pos) ->
     map = @_map
     container = @_container
-    labelPoint = map.layerPointToContainerPoint(pos)
     labelWidth = @_labelWidth
     labelHeight = @_labelHeight || 0
 
