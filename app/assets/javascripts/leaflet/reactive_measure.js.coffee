@@ -167,7 +167,6 @@ L.Edit.Poly.include
 
   __onHandlerDrag: ->
     center = @_poly.__getCenter()
-    console.log 'handler drag'
 
     g = new L.GeographicUtil.Polygon @_poly.getLatLngsAsArray()
 
@@ -239,9 +238,19 @@ L.Tooltip.include
 
     if latLng
       @updateContent labelText
-      @updatePosition latLng
+      @__updatePosition latLng
 
     return
+
+  __updatePosition: (latlng) ->
+    pos = @_map.latLngToLayerPoint(latlng)
+    labelWidth = @_container.offsetWidth
+
+    if @_container
+      pos = pos.add(L.point(-labelWidth/2, 0))
+      @_container.style.visibility = 'inherit'
+      L.DomUtil.setPosition(@_container, pos)
+
 
 ###
 #Add Configuration options
