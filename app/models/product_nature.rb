@@ -267,7 +267,8 @@ class ProductNature < Ekylibre::Record::Base
           Nomen::Variety.find(item.variety),
           Nomen::Variety.find(item.derivative_of),
           WorkingSet::AbilityArray.load(item.abilities),
-          f + v, f, v)
+          f + v, f, v
+        )
       end
     end
 

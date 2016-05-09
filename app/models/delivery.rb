@@ -49,7 +49,6 @@ class Delivery < Ekylibre::Record::Base
   enumerize :mode, in: [:transporter, :us, :third], predicates: true, default: :us
   belongs_to :driver, -> { contacts }, class_name: 'Entity'
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
-  # belongs_to :storage, class_name: 'Product'
   belongs_to :transporter, class_name: 'Entity'
   belongs_to :transporter_purchase, class_name: 'Purchase'
   has_many :parcels, dependent: :nullify

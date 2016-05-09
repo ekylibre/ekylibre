@@ -109,9 +109,7 @@ module Backend
                                          supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] } } },
                                          parcels: { include: :items },
                                          affair: { methods: [:balance], include: [outgoing_payments: { include: :mode }] },
-                                         items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant] }
-                            }
-                  ) do |format|
+                                         items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant] } }) do |format|
         format.html do
           t3e @purchase.attributes, supplier: @purchase.supplier.full_name, state: @purchase.state_label, label: @purchase.label
         end

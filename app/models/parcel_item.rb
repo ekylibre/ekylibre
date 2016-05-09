@@ -75,8 +75,12 @@ class ParcelItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_presence_of :source_product, if: :parcel_prepared?
   validates_presence_of :product, if: :parcel_prepared?
+  validates_presence_of :population
+  validates_numericality_of :population, greater_than: 0
 
   scope :with_nature, ->(nature) { joins(:parcel).merge(Parcel.with_nature(nature)) }
+
+  alias_attribute :quantity, :population
 
   accepts_nested_attributes_for :product
   delegate :name, to: :product, prefix: true
@@ -87,6 +91,8 @@ class ParcelItem < Ekylibre::Record::Base
 
   before_validation do
     read_at = parcel ? parcel_prepared_at : Time.zone.now
+    self.population ||= 0
+    next if parcel_incoming?
     if product
       self.population ||= product.population(at: read_at)
       self.shape ||= product.shape(at: read_at) if product.has_indicator?(:shape)
@@ -113,8 +119,13 @@ class ParcelItem < Ekylibre::Record::Base
     true
   end
 
+  protect do
+    parcel_prepared? || parcel_given?
+  end
+
   def prepared?
-    source_product.present?
+    (!parcel_incoming? && source_product.present?) ||
+      (parcel_incoming? && variant.present?)
   end
 
   def status
@@ -125,18 +136,31 @@ class ParcelItem < Ekylibre::Record::Base
   # It takes product in stock
   def check
     checked_at = parcel_prepared_at
-    if source_product
+    if parcel_incoming?
+      if product
+        product.update_attributes!(initial_population: quantity)
+      else
+        self.product = variant.create_product!(
+          name: "#{variant.name} (#{parcel.planned_at.to_date.l})",
+          initial_population: quantity,
+          initial_container: parcel.storage,
+          initial_born_at: checked_at
+        )
+      end
+    else
       if self.population != source_product.population(at: checked_at)
         update_attribute(:parted, true)
       end
+      if parted
+        divide_source_product(checked_at)
+      else
+        self.product = source_product
+        self.population = product.population(at: checked_at)
+        self.shape = product.shape(at: checked_at)
+      end
     end
-    if parted
-      divide_source_product(checked_at)
-    else
-      self.product = source_product
-      self.population = product.population(at: checked_at)
-      self.shape = product.shape(at: checked_at)
-    end
+    save!
+    puts "Yeah! #{product}".yellow
   end
 
   # Mark items as given, and so change enjoyer and ownership if needed at

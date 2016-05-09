@@ -70,8 +70,7 @@ module Backend
                                 },
                                 transporter: {},
                                 responsible: {}
-                              }
-                  ) do |format|
+                              }) do |format|
         format.html do
           t3e @delivery.attributes
         end
