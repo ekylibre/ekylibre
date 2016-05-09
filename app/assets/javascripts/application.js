@@ -71,3 +71,8 @@ $.rails.href = function (element) {
 
 Turbolinks.enableTransitionCache();
 Turbolinks.enableProgressBar();
+
+$(document).ready(function()
+{
+    L.Icon.Default.imagePath = '/assets';
+});
