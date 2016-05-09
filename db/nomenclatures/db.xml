@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160504143733">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160509100749">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3055,7 +3055,7 @@
       <item name="consumer_goods_office_item" category="consumer_goods_office_item" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="cork" category="wine_package_consumable" variety="cork" population_counting="integer" abilities="close(cork_bottle)" variable_indicators="length, width"/>
       <item name="corker" category="equipment" variety="equipment" population_counting="unitary" abilities="close(bottle)" frozen_indicators=""/>
-      <item name="corn_topper" category="small_equipment" variety="matter" population_counting="unitary" abilities="castrate(plant), move" frozen_indicators="length, application_width" variable_indicators="geolocation"/>
+      <item name="corn_topper" category="equipment" variety="equipment" population_counting="unitary" abilities="castrate(plant), move" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="cover_implanter" category="equipment" variety="implanter" population_counting="unitary" abilities="cover(plant)" variable_indicators="geolocation" frozen_indicators="application_width, theoretical_working_speed"/>
       <item name="crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(straw)" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count" frozen_indicators="net_surface_area" derivatives="straw"/>
       <item name="crop_protective_item" category="small_equipment" derivative_of="equipment" variety="matter" population_counting="integer" abilities="care(plant)" variable_indicators="length, width"/>
