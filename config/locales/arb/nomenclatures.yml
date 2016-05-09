@@ -3403,9 +3403,11 @@ arb:
       name: "طبائع إنتاج"
     production_systems:
       items:
-        # conventional_farming: "Conventional farming"
+        # extensive_farming: "Extensive farming"
+        # intensive_farming: "Intensive farming"
         # organic_farming: "Organic farming"
-        # sustainable_farming: "Sustainable farming"
+        # permaculture: "Permaculture"
+        # sustainable_agriculture: "Sustainable agriculture"
       # name: "Production systems"
     production_usages:
       items:

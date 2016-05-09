@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160427133801">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160427115742">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3392,9 +3392,11 @@
   </nomenclature>
   <nomenclature name="production_systems" translateable="true">
     <items>
-      <item name="conventional_farming"/>
       <item name="organic_farming"/>
-      <item name="sustainable_farming"/>
+      <item name="intensive_farming"/>
+      <item name="extensive_farming"/>
+      <item name="sustainable_agriculture"/>
+      <item name="permaculture"/>
     </items>
   </nomenclature>
   <nomenclature name="production_usages" translateable="true">

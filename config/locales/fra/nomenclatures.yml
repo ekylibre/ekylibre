@@ -3659,10 +3659,12 @@ fra:
         variant_support: "Variant" #?
     production_systems:
       items:
-        conventional_farming: "Agriculture conventionnelle"
+        extensive_farming: "Agriculture extensive"
+        intensive_farming: "Agriculture conventionnelle"
         organic_farming: "Agriculture biologique"
-        sustainable_farming: "Agriculture durable"
-      name: "Production systems"
+        permaculture: "Permaculture"
+        sustainable_agriculture: "Agriculture durable"
+      name: "Systèmes de production"
     production_usages:
       items:
         fallow_land: "Jachère"
