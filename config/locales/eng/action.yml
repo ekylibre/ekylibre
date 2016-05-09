@@ -140,7 +140,7 @@ eng:
       show: "Catalog item: %{name}"
     backend/catalogs:
       edit: "Edit catalog: %{name}"
-      index: "Catalogs"
+      index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
     backend/cells/accountancy_balance_cells:
