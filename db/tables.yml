@@ -4187,6 +4187,10 @@ parcels:
   updater_id:
     type: integer
     references: user
+  with_delivery:
+    type: boolean
+    required: true
+    default: false
 plant_counting_items:
   created_at:
     type: datetime

@@ -75,7 +75,6 @@ module Backend
     end
 
     list(conditions: parcels_conditions, order: { planned_at: :desc }) do |t|
-      t.action :new,     on: :none
       t.action :invoice, on: :both, method: :post, if: :invoiceable?
       t.action :ship,    on: :both, method: :post, if: :shippable?
       t.action :edit
@@ -133,6 +132,10 @@ module Backend
           t3e @parcel.attributes.merge(nature: @parcel.nature.text)
         end
       end
+    end
+
+    before_action only: :new do
+      params[:nature] ||= 'incoming'
     end
 
     # Converts parcel to trade

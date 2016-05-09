@@ -1,6 +1,8 @@
 - item ||= f.object
-%tr.nested-fields.delivery-item
-  %td.act= link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+%tr.nested-fields.delivery-item.outgoing-parcel-item
+  %td.act
+    - if f.object.destroyable?
+      = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
   %td
     - scopes = {deliverables: true}
     - scopes[:of_variant] = item.variant if item.variant && item.source_product.blank?
@@ -17,13 +19,4 @@
           = f.input_field :population, class: "item-population", placeholder: (item.source_product ? item.source_product.population.to_s : nil)
           %span.add-on.item-population-unit-name= item.variant ? item.variant.unit_name : '#'
     -# .errors= item.errors.inspect
-  -# %td
-    .item-quantifier{class: quantifier_classes}
-      - classes = nil
-      - if item.source_product && item.source_product.has_indicator?(:shape)
-        - item.population ||= item.source_product.population
-      - else
-        - classes = 'hidden'
-      .item-quantifier-shape{class: classes}
-        = f.shape :shape, wrapper: :nested, input_html: {class: "item-shape"}
   %td= f.referenced_association(:analysis, wrapper: :nested)

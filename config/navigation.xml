@@ -505,24 +505,6 @@
 -->
     </group>
     <group name="movements" icon="truck">
-      <item name="deliveries">
-        <page to="backend/deliveries#index"/>
-        <page to="backend/deliveries#create"/>
-        <page to="backend/deliveries#destroy"/>
-        <page to="backend/deliveries#edit"/>
-        <page to="backend/deliveries#list"/>
-        <page to="backend/deliveries#list_parcels"/>
-        <page to="backend/deliveries#new"/>
-        <page to="backend/deliveries#show"/>
-        <page to="backend/deliveries#unroll"/>
-        <page to="backend/deliveries#update"/>
-        <page to="backend/deliveries#cancel"/>
-        <page to="backend/deliveries#check"/>
-        <page to="backend/deliveries#finish"/>
-        <page to="backend/deliveries#order"/>
-        <page to="backend/deliveries#prepare"/>
-        <page to="backend/deliveries#start"/>
-      </item>
       <item name="parcels">
         <page to="backend/parcels#index"/>
         <page to="backend/parcels#create"/>
@@ -542,6 +524,24 @@
         <page to="backend/parcels#order"/>
         <page to="backend/parcels#prepare"/>
         <page to="backend/parcel_items#new"/>
+      </item>
+      <item name="deliveries">
+        <page to="backend/deliveries#index"/>
+        <page to="backend/deliveries#create"/>
+        <page to="backend/deliveries#destroy"/>
+        <page to="backend/deliveries#edit"/>
+        <page to="backend/deliveries#list"/>
+        <page to="backend/deliveries#list_parcels"/>
+        <page to="backend/deliveries#new"/>
+        <page to="backend/deliveries#show"/>
+        <page to="backend/deliveries#unroll"/>
+        <page to="backend/deliveries#update"/>
+        <page to="backend/deliveries#cancel"/>
+        <page to="backend/deliveries#check"/>
+        <page to="backend/deliveries#finish"/>
+        <page to="backend/deliveries#order"/>
+        <page to="backend/deliveries#prepare"/>
+        <page to="backend/deliveries#start"/>
       </item>
     </group>
   </part>

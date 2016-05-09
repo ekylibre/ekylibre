@@ -2144,6 +2144,7 @@ ActiveRecord::Schema.define(version: 20160518061327) do
     t.integer  "updater_id"
     t.integer  "lock_version",      default: 0,     null: false
     t.jsonb    "custom_fields"
+    t.boolean  "with_delivery",     default: false, null: false
   end
 
   add_index "parcels", ["address_id"], name: "index_parcels_on_address_id", using: :btree
