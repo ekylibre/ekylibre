@@ -925,7 +925,12 @@
         <page to="backend/map_backgrounds#destroy"/>
         <page to="backend/map_backgrounds#new"/>
         <page to="backend/map_backgrounds#update"/>
-        <page to="backend/map_backgrounds#load_defaults" nonexistent="true"/>
+        <page to="backend/map_backgrounds#delete"/>
+        <page to="backend/map_backgrounds#edit"/>
+        <page to="backend/map_backgrounds#load"/>
+        <page to="backend/map_backgrounds#show"/>
+        <page to="backend/map_backgrounds#toggle_by_default"/>
+        <page to="backend/map_backgrounds#toggle_enabled"/>
       </item>
       <item name="teams">
         <page to="backend/teams#index"/>
@@ -1697,15 +1702,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="map_backgrounds">
-        <page to="backend/map_backgrounds#delete"/>
-        <page to="backend/map_backgrounds#edit"/>
-        <page to="backend/map_backgrounds#load"/>
-        <page to="backend/map_backgrounds#show"/>
-        <page to="backend/map_backgrounds#toggle_by_default"/>
-        <page to="backend/map_backgrounds#toggle_enabled"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
