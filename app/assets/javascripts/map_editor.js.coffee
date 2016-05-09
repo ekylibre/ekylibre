@@ -123,6 +123,9 @@
       @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
       @ghostLabelCluster.addTo @map
 
+      @ghostLayerLabelCluster = L.ghostLabelCluster(type: 'hidden')
+      @ghostLayerLabelCluster.addTo @map
+
       this.map.on "draw:created", (e) =>
         #Attempt to add a geojson feature
         try
@@ -393,8 +396,8 @@
             onEachFeature: (feature, layer) =>
 
               label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: true).setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
-              # As static label. Avoid unnecessary events
-              this.map.showLabel(label)
+              @ghostLayerLabelCluster.bind label, layer
+
           })
         else
           this.ghost = L.GeoJSON.geometryToLayer(this.options.ghost)
@@ -419,6 +422,7 @@
 
         @ghostLabelCluster.bind label, layer
 
+
       $(this.element).trigger('mapeditor:feature_add', feature)
 
       if feature.properties?
@@ -437,6 +441,7 @@
         this.map.removeLayer this.edition
       if this.options.edit?
         if this.options.useFeatures
+
           this.edition = L.geoJson(this.options.edit, {
             onEachFeature: (feature, layer) =>
               #nested function cause geojson doesn't seem to pass binding context
