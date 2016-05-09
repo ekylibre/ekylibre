@@ -29,9 +29,9 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
         # Find or create financial year
         unless fy = FinancialYear.find_by_started_on_and_stopped_on(isa_fy.started_on, isa_fy.stopped_on)
           if FinancialYear.where('? BETWEEN started_on AND stopped_on OR ? BETWEEN started_on AND stopped_on', isa_fy.started_on, isa_fy.stopped_on).count > 0
-            raise ActiveExchanger::IncompatibleDataError.new('Financial year dates overlaps existing financial years')
+            raise ActiveExchanger::IncompatibleDataError, 'Financial year dates overlaps existing financial years'
           else
-            raise ActiveExchanger::IncompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'") if isa_fy.currency != 'EUR'
+            raise ActiveExchanger::IncompatibleDataError, "Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'" if isa_fy.currency != 'EUR'
             fy = FinancialYear.create!(started_on: isa_fy.started_on, stopped_on: isa_fy.stopped_on)
           end
         end
@@ -154,10 +154,10 @@ class Isagri::Isacompta::ExportExchanger < ActiveExchanger::Base
         # Check all lines line-per-line
         found = fy.journal_entries.size
         expected = isa_fy.entries.size
-        raise StandardError.new("The count of entries is different: #{found} in database and #{expected} in file") if found != expected
+        raise StandardError, "The count of entries is different: #{found} in database and #{expected} in file" if found != expected
         found = JournalEntryLine.between(fy.started_on, fy.stopped_on).count
         expected = isa_fy.entries.inject(0) { |s, e| s += e.lines.size }
-        raise StandardError.new("The count of entry lines is different: #{found} in database and #{expected} in file") if found != expected
+        raise StandardError, "The count of entry lines is different: #{found} in database and #{expected} in file" if found != expected
         for entry in fy.journal_entries
         end
 

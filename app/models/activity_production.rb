@@ -479,7 +479,8 @@ class ActivityProduction < Ekylibre::Record::Base
     new_attributes = [
       :activity, :campaign, :cultivable_zone, :irrigated, :nitrate_fixing,
       :size_indicator_name, :size_unit_name, :size_value, :started_on,
-      :support_nature, :support_shape, :usage].each_with_object({}) do |attr, h|
+      :support_nature, :support_shape, :usage
+    ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h
     end.merge(updates)

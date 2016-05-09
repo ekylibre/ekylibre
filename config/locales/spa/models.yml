@@ -920,7 +920,7 @@ spa:
     production_cycle: "Ciclo productivo"
     production_support: "Soporte de producción"
     production_supports: "Soportes de producción"
-    # production_system_reference_name: "Production system reference name"
+    # production_system_name: "Production system reference name"
     production_usage: "El uso de Producción"
     productions: "Producciones"
     products: "Productos"

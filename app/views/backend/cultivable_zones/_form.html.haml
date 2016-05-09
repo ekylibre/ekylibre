@@ -1,7 +1,7 @@
 = field_set do
   = f.input :name
   = f.input :work_number
-  = f.input :production_system_reference_name
+  = f.referenced_nomenclature :production_system
   = f.input :description
   -# = f.input :uuid
   = f.shape :shape

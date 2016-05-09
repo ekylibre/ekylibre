@@ -116,8 +116,7 @@ class Ekylibre::OutgoingPaymentsExchanger < ActiveExchanger::Base
                                                      to_bank_at: paid_at,
                                                      amount: r.amount,
                                                      payee: entity,
-                                                     responsible: responsible
-                                                    )
+                                                     responsible: responsible)
           w.info "Outgoing payment was created with #{outgoing_payment.id}"
         end
       end

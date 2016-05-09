@@ -49,5 +49,4 @@ class ProductGradingCheck < Ekylibre::Record::Base
   scope :of_nature, lambda { |nature|
     where(activity_grading_check_id: ActivityGradingCheck.select(:id).where(nature: nature))
   }
-
 end

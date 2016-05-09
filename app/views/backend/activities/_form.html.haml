@@ -2,11 +2,11 @@
 = field_set do
   = f.input :name
   = f.input :nature, as: :radio_buttons, show: '.{{value}}-nature-options'
-  = f.input :production_system_reference_name
-  = f.input :family, collection: Nomen::ActivityFamily.selection, input_html: {data: {activity_family: true}}
+  = f.referenced_nomenclature :production_system
+  = f.referenced_nomenclature :family, input_html: {data: {activity_family: true}}
   - family = Nomen::ActivityFamily[f.object.family]
   = f.input :with_cultivation, as: :hidden
-  = f.input :cultivation_variety, collection: ((family and family.cultivation_variety) ? Nomen::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety) ? 'block' : 'none'}"}
+  = f.referenced_nomenclature :cultivation_variety, collection: ((family and family.cultivation_variety) ? Nomen::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety) ? 'block' : 'none'}"}
   -#= f.input :with_supports, as: :hidden
   -# = f.input :support_variety, collection: ((family and family.support_variety) ? Nomen::Variety.selection(family.support_variety) : []), wrapper_html: {style: "display: #{(family and family.support_variety) ? 'block' : 'none'}"}
   = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'
@@ -20,16 +20,16 @@
   #gradings
     = f.input :use_grading_calibre, show: '#grading_calibre'
     #grading_calibre
-      = f.input :grading_calibre_indicator_name
-      = f.input :grading_calibre_unit_name
+      = f.referenced_nomenclature :grading_calibre_indicator
+      = f.referenced_nomenclature :grading_calibre_unit
     = f.input :measure_grading_items_count
     = f.input :measure_grading_net_mass, show: '#grading_net_mass'
     #grading_net_mass
-      = f.input :grading_net_mass_unit_name
+      = f.referenced_nomenclature :grading_net_mass_unit, collection: Nomen::Unit.where(dimension: :mass).selection, include_blanks: false
     = f.input :measure_grading_sizes, show: '#grading_sizes'
     #grading_sizes
-      = f.input :grading_sizes_indicator_name
-      = f.input :grading_sizes_unit_name
+      = f.referenced_nomenclature :grading_sizes_indicator
+      = f.referenced_nomenclature :grading_sizes_unit
   = f.input :description
   = f.custom_fields
 

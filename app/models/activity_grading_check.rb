@@ -39,13 +39,14 @@
 class ActivityGradingCheck < Ekylibre::Record::Base
   belongs_to :activity
   belongs_to :quality_criterion, class_name: 'GradingQualityCriterion'
-  enumerize :nature, in: [:calibre, :quality]
+  enumerize :nature, in: [:calibre, :quality], default: :calibre
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_calibre_value, :minimal_calibre_value, allow_nil: true
   validates_presence_of :activity, :nature, :quality_criterion
   # ]VALIDATORS]
 
+  # FIXME: Not i18nized!
   def name
     "#{activity.name} - #{quality_criterion.name}"
   end

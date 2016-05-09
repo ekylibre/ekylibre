@@ -115,7 +115,7 @@ module Backend
     end
 
     # List of activity grading check for one activity
-    list(:activity_grading_checks, conditions: { activity_id: 'params[:id]'.c }, order: { position: :asc }) do |t|
+    list(:grading_checks, model: :activity_grading_checks, conditions: { activity_id: 'params[:id]'.c }, order: { position: :asc }) do |t|
       t.action :edit
       t.action :destroy
       t.column :position

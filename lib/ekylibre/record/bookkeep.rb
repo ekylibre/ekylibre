@@ -16,7 +16,7 @@ module Ekylibre::Record #:nodoc:
       end
 
       def initialize(resource, action, draft)
-        raise ArgumentError.new("Unvalid action #{action.inspect} (#{Ekylibre::Record::Bookkeep.actions.to_sentence} are accepted)") unless Ekylibre::Record::Bookkeep.actions.include? action
+        raise ArgumentError, "Unvalid action #{action.inspect} (#{Ekylibre::Record::Bookkeep.actions.to_sentence} are accepted)" unless Ekylibre::Record::Bookkeep.actions.include? action
         @resource = resource
         @action = action
         @draft = draft
@@ -72,8 +72,8 @@ module Ekylibre::Record #:nodoc:
 
     module ClassMethods
       def bookkeep(options = {}, &block)
-        raise ArgumentError.new('No given block') unless block_given?
-        raise ArgumentError.new("Wrong number of arguments (#{block.arity} for 1)") unless block.arity == 1
+        raise ArgumentError, 'No given block' unless block_given?
+        raise ArgumentError, "Wrong number of arguments (#{block.arity} for 1)" unless block.arity == 1
         configuration = { on: Ekylibre::Record::Bookkeep.actions, column: :accounted_at, method_name: __method__ }
         configuration.update(options) if options.is_a?(Hash)
         configuration[:column] = configuration[:column].to_s

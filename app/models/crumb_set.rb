@@ -47,7 +47,8 @@ class CrumbSet
   def human_name
     :intervention_at.tl(
       intervention: procedure_name,
-      at: @start.read_at.l)
+      at: @start.read_at.l
+    )
   end
 
   def id

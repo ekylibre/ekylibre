@@ -300,7 +300,7 @@ module Backend
       active_face ||= faces_names.first
 
       # Adds views
-      html = faces.map do |face|
+      html_code = faces.map do |face|
         face_name = face.args.first.to_s
         classes = ['face']
         classes << 'active' if active_face == face_name
@@ -323,7 +323,7 @@ module Backend
         end
       end
 
-      html
+      html_code
     end
 
     def resource_info(name, options = {}, &block)

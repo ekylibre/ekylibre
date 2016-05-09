@@ -67,37 +67,37 @@ ActiveRecord::Schema.define(version: 20160502125101) do
   add_index "accounts", ["updater_id"], name: "index_accounts_on_updater_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
-    t.string   "name",                                             null: false
+    t.string   "name",                                           null: false
     t.text     "description"
-    t.string   "family",                                           null: false
-    t.string   "nature",                                           null: false
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.string   "family",                                         null: false
+    t.string   "nature",                                         null: false
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                     default: 0,     null: false
-    t.boolean  "with_supports",                                    null: false
-    t.boolean  "with_cultivation",                                 null: false
+    t.integer  "lock_version",                   default: 0,     null: false
+    t.boolean  "with_supports",                                  null: false
+    t.boolean  "with_cultivation",                               null: false
     t.string   "support_variety"
     t.string   "cultivation_variety"
     t.string   "size_indicator_name"
     t.string   "size_unit_name"
-    t.boolean  "suspended",                        default: false, null: false
-    t.string   "production_cycle",                                 null: false
+    t.boolean  "suspended",                      default: false, null: false
+    t.string   "production_cycle",                               null: false
     t.string   "production_campaign"
     t.jsonb    "custom_fields"
-    t.boolean  "use_countings",                    default: false, null: false
-    t.boolean  "use_gradings",                     default: false, null: false
-    t.boolean  "use_grading_calibre",              default: false, null: false
+    t.boolean  "use_countings",                  default: false, null: false
+    t.boolean  "use_gradings",                   default: false, null: false
+    t.boolean  "use_grading_calibre",            default: false, null: false
     t.string   "grading_calibre_indicator_name"
     t.string   "grading_calibre_unit_name"
-    t.boolean  "measure_grading_items_count",      default: false, null: false
-    t.boolean  "measure_grading_net_mass",         default: false, null: false
+    t.boolean  "measure_grading_items_count",    default: false, null: false
+    t.boolean  "measure_grading_net_mass",       default: false, null: false
     t.string   "grading_net_mass_unit_name"
-    t.boolean  "measure_grading_sizes",            default: false, null: false
+    t.boolean  "measure_grading_sizes",          default: false, null: false
     t.string   "grading_sizes_indicator_name"
     t.string   "grading_sizes_unit_name"
-    t.string   "production_system_reference_name"
+    t.string   "production_system_name"
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -621,18 +621,18 @@ ActiveRecord::Schema.define(version: 20160502125101) do
   add_index "crumbs", ["user_id"], name: "index_crumbs_on_user_id", using: :btree
 
   create_table "cultivable_zones", force: :cascade do |t|
-    t.string   "name",                                                                                       null: false
-    t.string   "work_number",                                                                                null: false
-    t.geometry "shape",                            limit: {:srid=>4326, :type=>"multi_polygon"},             null: false
+    t.string   "name",                                                                             null: false
+    t.string   "work_number",                                                                      null: false
+    t.geometry "shape",                  limit: {:srid=>4326, :type=>"multi_polygon"},             null: false
     t.text     "description"
     t.uuid     "uuid"
-    t.datetime "created_at",                                                                                 null: false
-    t.datetime "updated_at",                                                                                 null: false
+    t.datetime "created_at",                                                                       null: false
+    t.datetime "updated_at",                                                                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                   default: 0, null: false
+    t.integer  "lock_version",                                                         default: 0, null: false
     t.jsonb    "custom_fields"
-    t.string   "production_system_reference_name"
+    t.string   "production_system_name"
   end
 
   add_index "cultivable_zones", ["created_at"], name: "index_cultivable_zones_on_created_at", using: :btree

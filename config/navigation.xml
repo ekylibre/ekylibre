@@ -571,7 +571,7 @@
         <page to="backend/activity_budgets#new"/>
         <page to="backend/activity_budgets#show"/>
         <page to="backend/activity_budgets#update"/>
-        <page to="backend/activities#list_activity_grading_checks"/>
+        <page to="backend/activities#list_activity_grading_checks" nonexistent="true"/>
         <page to="backend/activity_grading_checks#index"/>
         <page to="backend/activity_grading_checks#create"/>
         <page to="backend/activity_grading_checks#destroy"/>
@@ -1823,6 +1823,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="activities">
+        <page to="backend/activities#list_grading_checks"/>
+      </item>
       <item name="animals">
         <page to="backend/animals#list_gradings"/>
       </item>

@@ -40,8 +40,7 @@ class Unicoque::OutgoingDeliveriesExchanger < ActiveExchanger::Base
                          harvest_area_sna: (row[6].blank? ? nil : row[6].tr(',', '.').to_d),
                          harvest_area_sea: (row[7].blank? ? nil : row[7].tr(',', '.').to_d),
                          total_quantity_in_kg: (row[8].blank? ? nil : row[8].tr(',', '.').to_d),
-                         total_value_in_euro: (row[10].blank? ? nil : row[10].tr(',', '.').to_d)
-                        )
+                         total_value_in_euro: (row[10].blank? ? nil : row[10].tr(',', '.').to_d))
 
       born_at = (row[0].to_s + '-09-01 00:00').to_datetime
       variant_reference = (r.variety_radical_code == '21' ? :hazelnut : :walnut)
@@ -63,9 +62,8 @@ class Unicoque::OutgoingDeliveriesExchanger < ActiveExchanger::Base
                                name: r.name,
                                initial_born_at: born_at,
                                initial_owner: Entity.of_company,
-                               derivative_of: r.variety
-                              # , :initial_container => container
-                              )
+                               derivative_of: r.variety)
+      # , :initial_container => container
 
       # create indicators linked to product
       product.read!(:population, r.total_quantity_in_kg, at: r.born_at) if r.total_quantity_in_kg
@@ -79,8 +77,7 @@ class Unicoque::OutgoingDeliveriesExchanger < ActiveExchanger::Base
         catalog.items.create!(variant_id: variant.id,
                               currency: 'EUR',
                               reference_tax_id: sale_price_template_tax.id,
-                              amount: sale_price_template_tax.amount_of(product_unit_price)
-                             )
+                              amount: sale_price_template_tax.amount_of(product_unit_price))
       end
 
       # create an outgoing_parcel from company to cooperative
@@ -88,8 +85,7 @@ class Unicoque::OutgoingDeliveriesExchanger < ActiveExchanger::Base
                                        delivery_mode: :indifferent,
                                        address: cooperative.default_mail_address,
                                        recipient: cooperative,
-                                       given_at: born_at
-                                      )
+                                       given_at: born_at)
       # link item to outgoing_parcel
       outgoing_parcel.items.create!(product: product)
 

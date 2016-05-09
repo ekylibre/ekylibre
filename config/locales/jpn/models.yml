@@ -916,7 +916,7 @@ jpn:
     production_cycle: "生産サイクル"
     production_support: "生産支援"
     production_supports: "プロダクションサポート"
-    # production_system_reference_name: "Production system reference name"
+    # production_system_name: "Production system reference name"
     production_usage: "生産の使用状況"
     productions: "プロダクション"
     products: "プロダクト"

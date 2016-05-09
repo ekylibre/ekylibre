@@ -55,13 +55,12 @@ class ProductGrading < Ekylibre::Record::Base
   before_validation :set_implanter_values, on: :create
 
   before_validation do
-    if self.implanter_rows_number and self.implanter_rows_number != 0
-      self.implanter_working_width = self.implanter_application_width / self.implanter_rows_number
+    if implanter_rows_number && implanter_rows_number != 0
+      self.implanter_working_width = implanter_application_width / implanter_rows_number
     end
   end
 
   def set_implanter_values
-
     # get sowing intervention of current plant
     intervention = Intervention.with_generic_cast(:output, product)
 
@@ -70,16 +69,16 @@ class ProductGrading < Ekylibre::Record::Base
     if intervention
       # get abilities of each tool to grab sower or implanter
       intervention.first.tools.each do |tool|
-        if tool.product.can("sow") || tool.product.can("implant")
-          equipement = tool.product
+        if tool.product.can('sow') || tool.product.can('implant')
+          equipment = tool.product
         end
       end
 
-      if equipement
+      if equipment
         # get rows_count and application_width of sower or implanter
         rows_count = nil
-        #rows_count = equipement.rows_count(self.sampled_at)
-        application_width = equipement.application_width(self.sampled_at)
+        # rows_count = equipment.rows_count(self.sampled_at)
+        application_width = equipment.application_width(sampled_at)
         # set rows_count to implanter_application_width
         self.implanter_rows_number ||= rows_count if rows_count
         self.implanter_application_width ||= application_width if application_width
@@ -89,12 +88,10 @@ class ProductGrading < Ekylibre::Record::Base
   end
 
   # return the order of the grading relative to product
-  def grading_numbered
-    a = self.product.gradings.reorder(:sampled_at).pluck(:id)
-    a.each.with_index(1) do |value, index|
-      if self.id == value
-        return index
-      end
+  def position
+    a = product.gradings.reorder(:sampled_at).pluck(:id)
+    a.each_with_index(1) do |value, index|
+      return index if id == value
     end
   end
 
@@ -122,24 +119,24 @@ class ProductGrading < Ekylibre::Record::Base
     area_unit = unit.to_s + '_per_' + surface_unit.to_s
 
     # n
-    if unit == :ton || unit == :kilogram
-      n = net_mass.convert(unit)
-    elsif unit == :unity
-      n = item_count
-    else
-      n = net_mass.to_d(:ton)
-    end
+    n = if unit == :ton || unit == :kilogram
+          net_mass.convert(unit)
+        elsif unit == :unity
+          item_count
+        else
+          net_mass.to_d(:ton)
+        end
 
     # plant_surface_area
-    if self.product && self.product.is_a?(Plant)
-      plant_surface_area = self.product.net_surface_area.convert(surface_unit)
+    if product && product.is_a?(Plant)
+      plant_surface_area = product.net_surface_area.convert(surface_unit)
     end
 
     # m
     m = sampling_distance if sampling_distance
 
     # c
-    c = 10000 / implanter_working_width if implanter_working_width
+    c = 10_000 / implanter_working_width if implanter_working_width
 
     # total
     if n && c
@@ -148,7 +145,5 @@ class ProductGrading < Ekylibre::Record::Base
     else
       return nil
     end
-
   end
-
 end

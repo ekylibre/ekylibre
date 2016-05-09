@@ -16,7 +16,7 @@
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
-#     - "backend/activities#list_activity_grading_checks"
+#     - "backend/activities#list_grading_checks"
 #     - "backend/activity_grading_checks#create"
 #     - "backend/activity_grading_checks#destroy"
 #     - "backend/activity_grading_checks#edit"

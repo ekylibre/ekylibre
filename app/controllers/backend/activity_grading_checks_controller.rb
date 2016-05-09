@@ -21,6 +21,5 @@ module Backend
     manage_restfully
 
     unroll activity: :name, quality_criterion: :name
-
   end
 end

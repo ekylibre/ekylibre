@@ -19,6 +19,15 @@
 
 module Backend
   class FormBuilder < SimpleForm::FormBuilder
+    def referenced_nomenclature(association, options = {})
+      klass = @object.class
+      reflection = klass.nomenclature_reflections[association]
+      raise ArgumentError, "Invalid nomenclature reflection: #{association}" unless reflection
+      options[:collection] ||= reflection.klass.selection
+      options[:label] ||= klass.human_attribute_name(association)
+      input(reflection.foreign_key, options)
+    end
+
     # Display a selector with "new" button
     def referenced_association(association, options = {})
       return self.association(association, options) if options[:as] == :hidden

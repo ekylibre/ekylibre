@@ -916,7 +916,7 @@ cmn:
     production_cycle: "生产周期"
     production_support: "生产支持"
     production_supports: "生产支持"
-    # production_system_reference_name: "Production system reference name"
+    # production_system_name: "Production system reference name"
     production_usage: "产品用途"
     productions: "制作"
     products: "制品"

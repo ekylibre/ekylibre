@@ -22,20 +22,6 @@ Rails.application.routes.draw do
     end
   end
 
-  concern :activities do
-    concerns :list, :unroll
-    collection do
-      get :family
-      post :duplicate
-    end
-    member do
-      get :list_budgets
-      get :list_distributions
-      get :list_interventions
-      get :list_productions
-    end
-  end
-
   concern :products do
     concerns :list, :unroll
     member do
@@ -187,9 +173,17 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :activities, concerns: [:activities] do
+    resources :activities, concerns: [:list, :unroll] do
+      collection do
+        get :family
+        post :duplicate
+      end
       member do
-        get :list_activity_grading_checks
+        get :list_budgets
+        get :list_distributions
+        get :list_grading_checks
+        get :list_interventions
+        get :list_productions
       end
     end
 

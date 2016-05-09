@@ -14,10 +14,10 @@
 
   - c.cobble :general_informations do
     = infos do
-      - if resource.production_system_reference_name
+      - if resource.production_system
         .med-info
-          %span.title= Activity.human_attribute_name(:production_system_reference_name)
-          %span.value= resource.production_system_reference_name.l
+          %span.title= Activity.human_attribute_name(:production_system)
+          %span.value= resource.human_production_system_name
       .med-info
         %span.title= Activity.human_attribute_name(:use_countings)
         %span.value
@@ -52,8 +52,8 @@
     - c.cobble :grading_checks do
       = cobble_toolbar do |t|
         = t.new params: {controller: :activity_grading_checks, activity_id: resource.id,action: :new }
-      - if resource.activity_grading_checks.any?
-        = cobble_list(:activity_grading_checks)
+      - if resource.grading_checks.any?
+        = cobble_list(:grading_checks)
 
 
 
@@ -64,7 +64,7 @@
     = attributes_list do |l|
       - l.attribute :nature
       - l.attribute :family
-      - l.attribute :production_system_reference_name
+      - l.attribute :production_system_name
       - if resource.with_cultivation
         - l.attribute :cultivation_variety
       - if resource.with_supports

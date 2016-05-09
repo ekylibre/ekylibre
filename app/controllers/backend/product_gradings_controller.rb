@@ -18,20 +18,19 @@
 
 module Backend
   class ProductGradingsController < Backend::BaseController
+    manage_restfully
 
-     manage_restfully
-
-     unroll
+    unroll
 
     list do |t|
       t.action :edit
       t.action :destroy
-      t.column :activity
-      t.column :product
       t.column :number, url: true
+      t.column :activity, url: true
+      t.column :product, url: true
       t.column :sampled_at, datatype: :datetime
-      t.column :implanter_rows_number
-      t.column :implanter_working_width
+      # t.column :implanter_rows_number
+      # t.column :implanter_working_width
     end
 
     list(:items, model: :product_grading_checks, conditions: { product_grading_id: 'params[:id]'.c }) do |t|
@@ -43,6 +42,5 @@ module Backend
       t.column :minimal_size_value
       t.column :maximal_size_value
     end
-
   end
 end
