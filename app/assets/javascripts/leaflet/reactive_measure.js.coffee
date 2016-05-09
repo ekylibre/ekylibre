@@ -165,7 +165,7 @@ L.Edit.Poly.include
   __addHooks: L.Edit.Poly.prototype.addHooks
   __removeHooks: L.Edit.Poly.prototype.removeHooks
 
-  __onHandlerDrag: ->
+  __onHandlerDrag: (e) ->
     center = @_poly.__getCenter()
 
     g = new L.GeographicUtil.Polygon @_poly.getLatLngsAsArray()
@@ -173,6 +173,9 @@ L.Edit.Poly.include
     measure =
       perimeter: g.perimeter()
       area: g.area()
+
+
+    L.extend(L.Draw.Polyline.prototype.options, target: e.marker.getLatLng())
 
     @__tooltipMeasure.__updateTooltipMeasure center, measure, L.Draw.Polyline.prototype.options
 
@@ -192,6 +195,18 @@ L.Edit.Poly.include
 
 L.Edit.PolyVerticesEdit.include
   __onTouchMove: L.Edit.PolyVerticesEdit::_onTouchMove
+
+  _onMarkerDrag: (e) ->
+    marker = e.target
+    L.extend marker._origLatLng, marker._latlng
+    if marker._middleLeft
+      marker._middleLeft.setLatLng @_getMiddleLatLng(marker._prev, marker)
+    if marker._middleRight
+      marker._middleRight.setLatLng @_getMiddleLatLng(marker, marker._next)
+    @_poly.redraw()
+    # Overrides to track mouse position
+    @_poly.fire 'editdrag', marker: e.target
+    return
 
   _onTouchMove: (e) ->
     @__onTouchMove.apply @, arguments
@@ -238,17 +253,23 @@ L.Tooltip.include
 
     if latLng
       @updateContent labelText
-      @__updatePosition latLng
+      @__updatePosition latLng, options
 
     return
 
-  __updatePosition: (latlng) ->
+  __updatePosition: (latlng, options = {}) ->
     pos = @_map.latLngToLayerPoint(latlng)
     labelWidth = @_container.offsetWidth
 
     if @_container
       pos = pos.add(L.point(-labelWidth/2, 0))
       @_container.style.visibility = 'inherit'
+      container = @_map.layerPointToContainerPoint pos
+
+      if (container.x < 0 || container.y < @_container.offsetHeight) and options.target?
+        pos = @_map.latLngToLayerPoint(options.target)
+        L.DomUtil.removeClass(@_container, 'leaflet-draw-tooltip-top')
+
       L.DomUtil.setPosition(@_container, pos)
 
 
