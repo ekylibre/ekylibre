@@ -9,6 +9,7 @@ class CreateMapBackgrounds < ActiveRecord::Migration
       t.integer :min_zoom, null: true
       t.integer :max_zoom, null: true
       t.boolean :managed, default: false, null: false
+      t.boolean :tms, default: false, null: false
       t.boolean :enabled, default: false, null: false
       t.boolean :by_default, default: false, null: false
 

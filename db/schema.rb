@@ -1813,6 +1813,7 @@ ActiveRecord::Schema.define(version: 20160420121330) do
     t.integer  "min_zoom"
     t.integer  "max_zoom"
     t.boolean  "managed",        default: false, null: false
+    t.boolean  "tms",            default: false, null: false
     t.boolean  "enabled",        default: false, null: false
     t.boolean  "by_default",     default: false, null: false
     t.datetime "created_at",                     null: false

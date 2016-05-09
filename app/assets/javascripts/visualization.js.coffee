@@ -168,6 +168,7 @@
         opts['minZoom'] = @options.backgrounds.minZoom if @options.backgrounds.minZoom?
         opts['maxZoom'] = @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
         opts['subdomains'] = @options.backgrounds.subdomains if @options.backgrounds.subdomains?
+        opts['tms'] = true if @options.backgrounds.tms
 
         backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
         backgroundLayer.addTo @map
@@ -258,6 +259,9 @@
         opts['minZoom'] = layer.minZoom if layer.minZoom?
         opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
         opts['subdomains'] = layer.subdomains if layer.subdomains?
+        opts['tms'] = true if layer.tms
+
+        console.log opts['tms']
 
         backgroundLayer = L.tileLayer(layer.url, opts)
         baseLayers[layer.name] = backgroundLayer

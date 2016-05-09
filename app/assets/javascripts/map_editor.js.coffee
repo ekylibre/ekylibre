@@ -349,6 +349,7 @@
             opts['minZoom'] = layer.minZoom if layer.minZoom?
             opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
             opts['subdomains'] = layer.subdomains if layer.subdomains?
+            opts['tms'] = true if layer.tms
 
             backgroundLayer = L.tileLayer(layer.url, opts)
             baseLayers[layer.name] = backgroundLayer
