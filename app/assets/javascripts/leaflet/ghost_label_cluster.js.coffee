@@ -2,7 +2,7 @@
 # Provides clustering for GhostLabels
 
 # options:
-#   type {string} ('number') if number, display count of collapsed items inside a group
+#   type {string} ('number' || 'hidden') if number, display count of collapsed items inside a group. If hide, collapsed items are hidden.
 #   className {string} Overrides container class name. By default, it inherits from layer
 #   innerClassName {string} Set a custom inner class name
 #   margin: {number (as px)} Wrap labels in a margin box, considering as the clustering limits. Default: 0
@@ -18,15 +18,15 @@ L.GhostLabelCluster = L.LayerGroup.extend
   __addLayer: L.LayerGroup::addLayer
   __removeLayer: L.LayerGroup::removeLayer
   __clearLayers: L.LayerGroup::clearLayers
-  _clusterIndex: []
-  _originalLayers: []
-  _visibleLayers: {}
-  _rbush: []
-  _cachedRelativeBoxes: []
-  _margin: 0
 
   initialize: (options) ->
     L.setOptions @, options
+    @_originalLayers =  []
+    @_clusterIndex = []
+    @_visibleLayers = {}
+    @_rbush = []
+    @_cachedRelativeBoxes = []
+    @_margin = 0
     @__initialize.call @, options
     @_margin = options.margin or 0
     @_rbush = null
@@ -154,7 +154,7 @@ L.GhostLabelCluster = L.LayerGroup.extend
         count = @_clusterIndex.filter((i) -> i == collapsedLayer._leaflet_id).length
         collapsedLayer.setContent("<span class='#{innerClass}'>#{count}</span>")
 
-      collapsedLayer.setLatLng latLngBounds.getCenter()
+        collapsedLayer.setLatLng latLngBounds.getCenter()
 
 
     return
