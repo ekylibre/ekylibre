@@ -35,23 +35,24 @@
 #  name           :string           not null
 #  reference_name :string
 #  subdomains     :string
+#  tms            :boolean          default(FALSE), not null
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #  url            :string           not null
 #
 class MapBackground < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :by_default, :enabled, in: [true, false]
+  validates_numericality_of :max_zoom, :min_zoom, allow_nil: true, only_integer: true
+  validates_inclusion_of :by_default, :enabled, :managed, :tms, in: [true, false]
   validates_presence_of :name, :url
   # ]VALIDATORS]
-  validates_format_of :url, :with => URI::regexp(%w(http https))
+  validates_format_of :url, with: URI.regexp(%w(http https))
   scope :availables, -> { where(enabled: true).order(by_default: :desc) }
   scope :by_default, -> { availables.first }
 
   selects_among_all
 
   def self.load_defaults
-
     MapBackgrounds::Layer.items.each do |item|
       attrs = {
         name: item.label,
@@ -68,7 +69,7 @@ class MapBackground < Ekylibre::Record::Base
       where(reference_name: item.reference_name).first_or_create(attrs)
     end
 
-    default = MapBackgrounds::Layer.items.select{ |layer| layer.by_default }
+    default = MapBackgrounds::Layer.items.select(&:by_default)
 
     if default.size >= 1 && default.first.reference_name
       where(reference_name: default.first.reference_name).first.update!(by_default: true)
@@ -76,6 +77,6 @@ class MapBackground < Ekylibre::Record::Base
   end
 
   def to_json_object
-    JSON.parse(to_json).compact.select{ |_, value| value != '' }.deep_transform_keys{ |key| key.to_s.camelize(:lower) }
+    JSON.parse(to_json).compact.select { |_, value| value != '' }.deep_transform_keys { |key| key.to_s.camelize(:lower) }
   end
 end

@@ -19,8 +19,7 @@ module Ekylibre::FirstRun::Faker
                           nature: record.attributes['nature'].to_sym,
                           read_at: read_at + record.attributes['id'].to_i * 15,
                           user_id: user.id,
-                          device_uid: record.attributes['device_uid'] || 'demo:123854'
-                         )
+                          device_uid: record.attributes['device_uid'] || 'demo:123854')
             # w.check_point
           end
         end
@@ -192,8 +191,7 @@ module Ekylibre::FirstRun::Faker
                             read_at: read_at + record.attributes['id'].to_i,
                             user_id: user.id,
                             device_uid: record.attributes['device_uid'] || 'demo:123854',
-                            intervention_cast: sprayer
-                           )
+                            intervention_cast: sprayer)
               # w.check_point
             end
           end

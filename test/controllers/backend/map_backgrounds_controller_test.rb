@@ -19,19 +19,18 @@ class Backend::MapBackgroundsControllerTest < ActionController::TestCase
   test 'toggling activation' do
     m = MapBackground.first
     state = m.enabled
-    put :toggle_enabled, {id: m.id}
+    put :toggle_enabled, id: m.id
     assert_equal !state, m.reload.enabled
   end
 
   test 'toggling by_default' do
     m = MapBackground.first
     state = m.by_default
-    put :toggle_by_default, {id: m.id}
+    put :toggle_by_default, id: m.id
     assert_equal !state, m.reload.by_default
   end
 
   teardown do
     sign_out(@user)
   end
-
 end

@@ -15,8 +15,7 @@ class Ekylibre::LandParcelsExchanger < ActiveExchanger::Base
                          place_code: (row[5].blank? ? nil : row[5].to_s),
                          soil_nature: (row[6].blank? ? nil : row[6].to_s),
                          available_water_capacity: (row[7].blank? ? nil : row[7].to_d),
-                         soil_depth: (row[8].blank? ? nil : row[8].to_d)
-                        )
+                         soil_depth: (row[8].blank? ? nil : row[8].to_d))
 
       zone = nil
 

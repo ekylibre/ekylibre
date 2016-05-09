@@ -47,8 +47,7 @@ class Unicoque::PlantZonesExchanger < ActiveExchanger::Base
 
         # Create the plant
         plant = pmodel.create!(variant_id: variant.id, work_number: 'PLANT_' + attributes[:bloc],
-                               name: attributes[:name], initial_born_at: attributes[:born_at], initial_owner: Entity.of_company, variety: attributes[:variety] # , :initial_container => container
-                              )
+                               name: attributes[:name], initial_born_at: attributes[:born_at], initial_owner: Entity.of_company, variety: attributes[:variety]) # , :initial_container => container
 
         plant.read!(:population, attributes[:surface_area], at: attributes[:measured_at]) if attributes[:surface_area]
         plant.read!(:rows_interval, attributes[:rows_interval].in_meter, at: attributes[:measured_at]) if attributes[:rows_interval]

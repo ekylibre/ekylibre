@@ -104,7 +104,8 @@ class ActivityBudgetItem < Ekylibre::Record::Base
     new_attributes = [
       :activity_budget, :amount, :computation_method, :currency, :direction,
       :quantity, :unit_amount, :unit_currency, :unit_population, :variant,
-      :variant_indicator, :variant_unit].each_with_object({}) do |attr, h|
+      :variant_indicator, :variant_unit
+    ].each_with_object({}) do |attr, h|
       h[attr] = send(attr)
       h
     end.merge(updates)

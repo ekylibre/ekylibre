@@ -128,9 +128,7 @@ module Backend
                                        recipient: {},
                                        sender: {},
                                        transporter: {},
-                                       items: { methods: [:status, :prepared], include: [:product, :variant] }
-                            }
-                  ) do |format|
+                                       items: { methods: [:status, :prepared], include: [:product, :variant] } }) do |format|
         format.html do
           t3e @parcel.attributes.merge(nature: @parcel.nature.text)
         end

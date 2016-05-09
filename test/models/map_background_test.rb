@@ -35,6 +35,7 @@
 #  name           :string           not null
 #  reference_name :string
 #  subdomains     :string
+#  tms            :boolean          default(FALSE), not null
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #  url            :string           not null

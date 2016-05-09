@@ -36,7 +36,6 @@
 - district
 - document
 - document_template
-- document_template
 - easement
 - entity
 - entity_address
@@ -139,8 +138,6 @@
 - tax
 - team
 - tracking
-- user
-- user
 - user
 - version
 - worker

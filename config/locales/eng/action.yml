@@ -747,11 +747,6 @@ eng:
       # show: "Unlock: %{name}"
     public:
       index: "Home"
-    teaspoon/suite:
-      # fixtures: "Fixtures suite: %{name}"
-      # hook: "Hook suite: %{name}"
-      # index: "Suite"
-      # show: "Suite: %{name}"
   errors:
     format: "%{message}"
     messages:
@@ -1903,11 +1898,9 @@ eng:
       extract: "Extract"
       family: "Family"
       finish: "Finish"
-      # fixtures: "Fixtures"
       generate_last_journal_entry: "Generate last journal entry"
       generate_parcel: "Generate parcel"
       # give: "Give"
-      # hook: "Hook"
       import: "Import"
       incorporate: "Incorporate"
       increment: "Increment"
@@ -1961,7 +1954,6 @@ eng:
       toggle: "Toggle"
       toggle_by_default: "Toggle by default"
       toggle_enabled: "Toggle enabled"
-      # top: "Top"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"

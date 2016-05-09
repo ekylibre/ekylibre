@@ -82,13 +82,13 @@ module Tele
           if result == 'false' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -97,7 +97,7 @@ module Tele
             customs = doc.at_xpath('//wsdl-guichet/child::text()')
 
             if business.nil? || customs.nil?
-              raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: 'WSRW0', message: 'Missing WSDL urls in xml from Reswel get url')
+              raise Tele::Idele::Ednotif::Errors::ParsingError, code: 'WSRW0', message: 'Missing WSDL urls in xml from Reswel get url'
             end
 
             @business_wsdl = business.to_s
@@ -140,14 +140,14 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -156,7 +156,7 @@ module Tele
 
             if token.nil?
 
-              raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: 'WSRW1', message: 'Missing token in xml from Reswel get token')
+              raise Tele::Idele::Ednotif::Errors::ParsingError, code: 'WSRW1', message: 'Missing token in xml from Reswel get token'
 
             end
 
@@ -220,13 +220,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -290,13 +290,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -397,13 +397,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -487,13 +487,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -595,13 +595,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -646,13 +646,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -757,13 +757,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -807,13 +807,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -856,13 +856,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -912,13 +912,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -978,13 +978,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -1038,13 +1038,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -1103,13 +1103,13 @@ module Tele
 
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # error level 2: could be sweet error or info notice
           elsif result == 'true' && err
             code = err.at_xpath('//code/child::text()').to_s
             message = err.at_xpath('//message/child::text()').to_s
-            raise ::Tele::Idele::Ednotif::Errors::ParsingError.new(code: code, message: message)
+            raise Tele::Idele::Ednotif::Errors::ParsingError, code: code, message: message
 
           # everything is good
           elsif result == 'true'
@@ -1179,11 +1179,11 @@ module Tele
           results = yield client
 
         rescue Savon::Error => error
-          raise ::Tele::Idele::Ednotif::Errors::SOAPError.new(code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s)
+          raise Tele::Idele::Ednotif::Errors::SOAPError, code: error.to_hash[:fault][:faultcode].to_s, message: error.to_hash[:fault][:faultstring].to_s
         rescue Curl::Err::CurlError => error
-          raise ::Tele::Idele::Ednotif::Errors::CurlError.new(message: error.to_s)
+          raise Tele::Idele::Ednotif::Errors::CurlError, message: error.to_s
         rescue Nokogiri::XML::SyntaxError => error
-          raise ::Tele::Idele::Ednotif::Errors::NokogiriError.new(message: error.to_s)
+          raise Tele::Idele::Ednotif::Errors::NokogiriError, message: error.to_s
         end
         results
       end

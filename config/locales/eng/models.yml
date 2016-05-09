@@ -1116,6 +1116,7 @@ eng:
     thread: "Thread"
     time_window: "Time window (in seconds)"
     title: "Title"
+    # tms: "Tms"
     to: "To"
     to_bank_at: "To bank at"
     to_deposit: "To deposit" #?

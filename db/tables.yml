@@ -3560,6 +3560,10 @@ map_backgrounds:
     type: string
   subdomains:
     type: string
+  tms:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true
