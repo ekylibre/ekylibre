@@ -100,7 +100,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     where(printed_on: started_at..stopped_at)
   }
   scope :opened, -> { where.not(state: 'closed') }
-  scope :unpointed, -> { where(bank_statement: nil) }
+  scope :unpointed, -> { where(bank_statement_letter: nil) }
 
   state_machine :state, initial: :draft do
     state :draft

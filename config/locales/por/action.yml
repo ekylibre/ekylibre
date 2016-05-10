@@ -62,7 +62,6 @@ por:
       edit: "Editar extrato bancário %{number}"
       index: "Extratos bancários"
       new: "Novo extrato bancário"
-      point: "Ponto extrato bancário %{number}"
       show: "Extrato bancário N°%{number}"
     backend/beehives:
       reset: "Redefinir colméia: %{name}"
@@ -1585,7 +1584,6 @@ por:
       need_a_valid_sale_nature_to_start_new_sale: "Precisa de um tipo de venda válido para iniciar nova venda"
       need_building_to_record_stock_moves: "Você deve criar um edifício para ser capaz de gerir os recursos."
       need_cash_to_record_statements: "Você deve ser, pelo menos, criar uma conta bancária para entrar em um comunicado."
-      need_entries_to_point: "Nenhuma entrada foi encontrada para o período do extrato bancário."
       need_payment_mode_to_create_deposit: "Você deve especificar um modo de pagamento, a fim de fazer depósitos"
       need_quantities_to_cancel_an_sale: "Você deve especificar uma quantidade, a fim de cancelar a nota fiscal de venda"
       need_stocks_to_create_inventories: "Você tem que gerir algumas ações a fim de gerir inventários"
@@ -1686,7 +1684,6 @@ por:
       open: "Aberto"
       pick: "Escolher"
       picture: "Fotografia"
-      point: "Ponto"
       propose: "Propor"
       propose_and_invoice: "Propor e fatura"
       prospect: "Prospecto"

@@ -86,17 +86,4 @@ class BankStatement < Ekylibre::Record::Base
   def next
     self.class.where('started_at >= ?', stopped_at).reorder(started_at: :asc).first
   end
-
-  def eligible_items
-    JournalEntryItem.where('bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_at BETWEEN ? AND ?))', id, cash_account_id, started_at, stopped_at).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryItem.table_name}.position")
-  end
-
-  def point(item_ids)
-    return false if new_record?
-    JournalEntryItem.where(bank_statement_id: id).update_all(bank_statement_id: nil)
-    JournalEntryItem.where(bank_statement_id: nil, id: item_ids).update_all(bank_statement_id: id)
-    # Computes debit and credit
-    save!
-    true
-  end
 end
