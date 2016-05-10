@@ -85,7 +85,6 @@ L.GhostLabelCluster = L.LayerGroup.extend
     className = if @options.className? then @options.className else layer.options.className
     innerClass = if @options.innerClassName? then @options.innerClassName else ''
 
-    z = @_map.getZoom()
     bush = @_rbush
 
     box = @_cachedRelativeBoxes[layer._leaflet_id]
