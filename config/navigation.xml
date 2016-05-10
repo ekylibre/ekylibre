@@ -925,7 +925,6 @@
         <page to="backend/map_backgrounds#destroy"/>
         <page to="backend/map_backgrounds#new"/>
         <page to="backend/map_backgrounds#update"/>
-        <page to="backend/map_backgrounds#delete"/>
         <page to="backend/map_backgrounds#edit"/>
         <page to="backend/map_backgrounds#load"/>
         <page to="backend/map_backgrounds#show"/>

@@ -107,7 +107,6 @@
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
 #     - "backend/map_backgrounds#create"
-#     - "backend/map_backgrounds#delete"
 #     - "backend/map_backgrounds#destroy"
 #     - "backend/map_backgrounds#edit"
 #     - "backend/map_backgrounds#index"

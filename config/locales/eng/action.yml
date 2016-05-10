@@ -466,14 +466,13 @@ eng:
       new: "New manure management plan"
       show: "Manure management plan: %{name}"
     backend/map_backgrounds:
-      delete: "Delete map background: %{name}"
       edit: "Edit map background: %{name}"
       index: "Map backgrounds"
       load: "Load map background: %{name}"
       new: "New map background"
       show: "Map background: %{name}"
-      star: "Toggle by default map background: %{name}"
-      toggle: "Toggle enabled map background: %{name}"
+      star: "Star map background: %{name}"
+      toggle: "Toggle map background: %{name}"
     backend/map_editors:
       # upload: "Upload map editor: %{name}"
     backend/matters:
@@ -1894,7 +1893,6 @@ eng:
       create: "Create"
       # current: "Current"
       decrement: "Decrement"
-      # delete: "Delete"
       destroy: "Destroy"
       detach: "Detach"
       detail: "Detail"
@@ -1956,12 +1954,11 @@ eng:
       ship: "Ship"
       show: "Show"
       sort: "Sort"
+      star: "Star"
       start: "Start"
       stop: "Stop" #?
       take: "Take"
       toggle: "Toggle"
-      star: "Toggle by default"
-      toggle: "Toggle enabled"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"
