@@ -11,6 +11,45 @@
 - main_campaign_selector
 
 = cobbles do |c|
+
+  - c.cobble :general_informations do
+    = infos do
+      - if resource.production_system
+        .med-info
+          %span.title= Activity.human_attribute_name(:production_system)
+          %span.value= resource.human_production_system_name
+      .med-info
+        %span.title= Activity.human_attribute_name(:use_countings)
+        %span.value
+          %i.picto{class: "picto-#{resource.use_countings ? :done : :clear}"}
+      .med-info
+        %span.title= Activity.human_attribute_name(:use_gradings)
+        %span.value
+          %i.picto{class: "picto-#{resource.use_gradings ? :done : :clear}"}
+
+  - if resource.use_gradings
+    - c.cobble :gradings do
+      = infos do
+        - if resource.grading_calibre_indicator_name
+          .med-info
+            %span.title= Activity.human_attribute_name(:grading_calibre_indicator_name)
+            %span.value
+              %i.picto{class: "picto-ban"}
+              = "#{resource.grading_calibre_indicator_name.l} (#{Nomen::Unit[resource.grading_calibre_unit_name].symbol})"
+        - if resource.grading_net_mass_unit_name
+          .med-info
+            %span.title= Activity.human_attribute_name(:grading_net_mass_unit_name)
+            %span.value
+              %i.picto{class: "picto-network-wifi"}
+              = Nomen::Unit[resource.grading_net_mass_unit_name].symbol
+        - if resource.grading_sizes_indicator_name
+          .med-info
+            %span.title= Activity.human_attribute_name(:grading_sizes_indicator_name)
+            %span.value
+              %i.picto{class: "picto-arrows-v"}
+              = "#{resource.grading_sizes_indicator_name.l} (#{Nomen::Unit[resource.grading_sizes_unit_name].symbol})"
+
+
   - if current_campaign
     - c.cobble :budget do
       = render 'budget'
@@ -18,6 +57,7 @@
     = attributes_list do |l|
       - l.attribute :nature
       - l.attribute :family
+      - l.attribute :production_system_name
       - if resource.with_cultivation
         - l.attribute :cultivation_variety
       - if resource.with_supports

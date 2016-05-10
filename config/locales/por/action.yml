@@ -239,6 +239,11 @@ por:
       index: "Geo informações"
       new: "Nova geo informação"
       show: "Geo informação: %{name}"
+    backend/grading_quality_criteria:
+      # edit: "Edit grading quality criterion: %{name}"
+      # index: "Grading quality criteria"
+      # new: "New grading quality criterion"
+      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -387,6 +392,11 @@ por:
       index: "Prescrições"
       new: "Nova receita"
       # show: "Prescription: %{reference_number}"
+    backend/product_gradings:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "Grupos de produtos"
@@ -928,6 +938,7 @@ por:
     generate_last_journal_entry: "Gerar última entrada do diário"
     # geolocation: "Geolocation"
     go: "Ir"
+    # gradings: "Gradings"
     grain_yield: "O rendimento de grãos"
     gross_profit: "Lucro bruto"
     group: "Grupo"

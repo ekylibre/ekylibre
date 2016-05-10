@@ -1,7 +1,8 @@
 - main_toolbar do |t|
   = t.edit resource
   -# t.destroy
-  = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
+  -#= t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
+  -#= t.new(params: {controller: :product_gradings, product_id: resource.id}, tool: 'eyedropper')
 
 = main_informations attachment: true do
   = render 'picture'
@@ -15,6 +16,12 @@
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 2)
+    - if resource.gradings.any? && resource.gradings.reorder(:sampled_at).last.product_stock_in_ground
+      .med-info
+        %span.title= Product.human_attribute_name(:product_stock_in_ground)
+        %span.value
+          %i.picto{class: "picto-grain"}
+          = resource.gradings.reorder(:sampled_at).last.product_stock_in_ground.round(3).l
     = resource_info(:status, important: true) do |status|
       = lights(status)
     = resource_info :description
@@ -30,11 +37,12 @@
     - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.interventions.count)) do
       = cobble_list(:intervention_product_parameters)
 
-  - if resource.issues.any?
-    - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
-      = cobble_toolbar do |t|
-        = cobble_list(:issues)
+  - c.cobble(:issues, title: :x_issues.tl(count: resource.issues.count)) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
+    = cobble_list(:issues)
 
-  -# c.cobble(:readings, title: :x_readings.tl(count: resource.readings.count)) do
-    = cobble_list(:readings)
-
+  - c.cobble(:gradings, title: :x_gradings.tl(count: resource.gradings.count)) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: :product_gradings, product_id: resource.id})
+    = cobble_list(:gradings)

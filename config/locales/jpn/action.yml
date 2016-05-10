@@ -234,6 +234,11 @@ jpn:
       # index: "Georeadings"
       new: "新georeading"
       # show: "Georeading: %{name}"
+    backend/grading_quality_criteria:
+      # edit: "Edit grading quality criterion: %{name}"
+      # index: "Grading quality criteria"
+      # new: "New grading quality criterion"
+      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -382,6 +387,11 @@ jpn:
       index: "処方箋"
       new: "新しい処方箋"
       # show: "Prescription: %{reference_number}"
+    backend/product_gradings:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "商品のグループ"
@@ -992,6 +1002,7 @@ jpn:
     generate_last_journal_entry: "最後の仕訳を生成します"
     geolocation: "ジオロケーション"
     go: "行きます"
+    # gradings: "Gradings"
     grain_yield: "穀粒収量"
     gross_profit: "粗利益"
     group: "グループ"

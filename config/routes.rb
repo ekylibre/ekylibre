@@ -22,20 +22,6 @@ Rails.application.routes.draw do
     end
   end
 
-  concern :activities do
-    concerns :list, :unroll
-    collection do
-      get :family
-      post :duplicate
-    end
-    member do
-      get :list_budgets
-      get :list_distributions
-      get :list_interventions
-      get :list_productions
-    end
-  end
-
   concern :products do
     concerns :list, :unroll
     member do
@@ -43,6 +29,7 @@ Rails.application.routes.draw do
       get :list_carried_linkages
       get :list_carrier_linkages
       get :list_contained_products
+      get :list_gradings
       get :list_groups
       get :list_issues
       get :list_readings
@@ -182,7 +169,19 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :activities, concerns: [:activities]
+    resources :activities, concerns: [:list, :unroll] do
+      collection do
+        get :family
+        post :duplicate
+      end
+      member do
+        get :list_budgets
+        get :list_distributions
+        get :list_grading_checks
+        get :list_interventions
+        get :list_productions
+      end
+    end
 
     resources :activity_budgets do
       member do
@@ -457,6 +456,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :grading_quality_criteria, concerns: [:list, :unroll], path: 'grading-quality-criteria'
+
     resources :guide_analyses, only: [:show], path: 'guide-analyses' do
       member do
         get :list_points
@@ -653,6 +654,12 @@ Rails.application.routes.draw do
     end
 
     resources :products, concerns: [:products]
+
+    resources :product_gradings, concerns: [:list, :unroll], path: 'product-gradings' do
+      member do
+        get :list_checks
+      end
+    end
 
     resources :product_groups, concerns: :products
 

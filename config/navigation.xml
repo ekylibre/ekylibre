@@ -602,26 +602,6 @@
         <page to="backend/animals#load_containers"/>
         <page to="backend/animals#load_natures"/>
         <page to="backend/animals#load_workers"/>
-        <page to="backend/plants#index"/>
-        <page to="backend/plants#create"/>
-        <page to="backend/plants#destroy"/>
-        <page to="backend/plants#edit"/>
-        <page to="backend/plants#list"/>
-        <page to="backend/plants#list_carried_linkages"/>
-        <page to="backend/plants#list_carrier_linkages"/>
-        <page to="backend/plants#list_contained_products"/>
-        <page to="backend/plants#list_groups"/>
-        <page to="backend/plants#list_readings"/>
-        <page to="backend/plants#list_intervention_product_parameters"/>
-        <page to="backend/plants#list_issues"/>
-        <page to="backend/plants#list_members"/>
-        <page to="backend/plants#list_places"/>
-        <page to="backend/plants#picture"/>
-        <page to="backend/plants#new"/>
-        <page to="backend/plants#show"/>
-        <page to="backend/plants#take"/>
-        <page to="backend/plants#unroll"/>
-        <page to="backend/plants#update"/>
         <page to="backend/plant_density_abaci#index"/>
         <page to="backend/plant_density_abaci#create"/>
         <page to="backend/plant_density_abaci#destroy"/>
@@ -703,6 +683,18 @@
         <page to="backend/analyses#update"/>
         <page to="backend/analysis_items#new"/>
       </item>
+      <item name="product_gradings" icon="grain">
+        <page to="backend/product_gradings#index"/>
+        <page to="backend/product_gradings#create"/>
+        <page to="backend/product_gradings#destroy"/>
+        <page to="backend/product_gradings#edit"/>
+        <page to="backend/product_gradings#list"/>
+        <page to="backend/product_gradings#list_checks"/>
+        <page to="backend/product_gradings#new"/>
+        <page to="backend/product_gradings#show"/>
+        <page to="backend/product_gradings#unroll"/>
+        <page to="backend/product_gradings#update"/>
+      </item>
     </group>
     <group name="land_parcels" icon="land-parcels">
       <item name="cultivable_zones">
@@ -716,6 +708,28 @@
         <page to="backend/cultivable_zones#update"/>
         <page to="backend/cultivable_zones#list_productions"/>
         <page to="backend/cultivable_zones#unroll"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#index"/>
+        <page to="backend/plants#create"/>
+        <page to="backend/plants#destroy"/>
+        <page to="backend/plants#edit"/>
+        <page to="backend/plants#list"/>
+        <page to="backend/plants#list_carried_linkages"/>
+        <page to="backend/plants#list_carrier_linkages"/>
+        <page to="backend/plants#list_contained_products"/>
+        <page to="backend/plants#list_groups"/>
+        <page to="backend/plants#list_readings"/>
+        <page to="backend/plants#list_intervention_product_parameters"/>
+        <page to="backend/plants#list_issues"/>
+        <page to="backend/plants#list_members"/>
+        <page to="backend/plants#list_places"/>
+        <page to="backend/plants#picture"/>
+        <page to="backend/plants#new"/>
+        <page to="backend/plants#show"/>
+        <page to="backend/plants#take"/>
+        <page to="backend/plants#unroll"/>
+        <page to="backend/plants#update"/>
       </item>
     </group>
     <group name="supervision">
@@ -1240,6 +1254,17 @@
       </item>
     </group>
     <group name="production" icon="cogs">
+      <item name="grading_quality_criteria" icon="beaker">
+        <page to="backend/grading_quality_criteria#index"/>
+        <page to="backend/grading_quality_criteria#create"/>
+        <page to="backend/grading_quality_criteria#destroy"/>
+        <page to="backend/grading_quality_criteria#edit"/>
+        <page to="backend/grading_quality_criteria#list"/>
+        <page to="backend/grading_quality_criteria#new"/>
+        <page to="backend/grading_quality_criteria#show"/>
+        <page to="backend/grading_quality_criteria#unroll"/>
+        <page to="backend/grading_quality_criteria#update"/>
+      </item>
       <item name="workers">
         <page to="backend/workers#index"/>
         <page to="backend/workers#create"/>
@@ -1716,6 +1741,46 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="activities">
+        <page to="backend/activities#list_grading_checks"/>
+      </item>
+      <item name="animals">
+        <page to="backend/animals#list_gradings"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_gradings"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_gradings"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#list_gradings"/>
+      </item>
+      <item name="fungi">
+        <page to="backend/fungi#list_gradings"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#list_gradings"/>
+      </item>
+      <item name="matters">
+        <page to="backend/matters#list_gradings"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#list_gradings"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#list_gradings"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#list_gradings"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#list_gradings"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#list_gradings"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

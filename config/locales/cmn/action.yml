@@ -234,6 +234,11 @@ cmn:
       # index: "Georeadings"
       new: "新georeading"
       # show: "Georeading: %{name}"
+    backend/grading_quality_criteria:
+      # edit: "Edit grading quality criterion: %{name}"
+      # index: "Grading quality criteria"
+      # new: "New grading quality criterion"
+      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -382,6 +387,11 @@ cmn:
       index: "处方"
       new: "新的处方"
       # show: "Prescription: %{reference_number}"
+    backend/product_gradings:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "产品组"
@@ -923,6 +933,7 @@ cmn:
     generate_last_journal_entry: "最后生成日记帐分录"
     geolocation: "地理位置"
     go: "走"
+    # gradings: "Gradings"
     grain_yield: "籽粒产量"
     gross_profit: "毛利"
     group: "组"

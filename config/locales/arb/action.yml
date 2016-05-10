@@ -293,6 +293,11 @@ arb:
       # index: "Georeadings"
       new: "georeading جديدة"
       # show: "Georeading: %{name}"
+    backend/grading_quality_criteria:
+      # edit: "Edit grading quality criterion: %{name}"
+      # index: "Grading quality criteria"
+      # new: "New grading quality criterion"
+      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -488,6 +493,11 @@ arb:
     backend/product_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
+    backend/product_gradings:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "مجموعات المنتجات"
@@ -1308,6 +1318,7 @@ arb:
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
     go: "صلاحية"
+    # gradings: "Gradings"
     grain_yield: "محصول الحبوب"
     graph_statistics: "رسومات احصائية" #?
     gross_profit: "اجمالي الربح"

@@ -359,6 +359,11 @@ eng:
     backend/golumns:
       # reset: "Reset golumn: %{name}"
       # show: "Golumn: %{name}"
+    backend/grading_quality_criteria:
+      edit: "Edit grading quality criterion: %{name}"
+      index: "Grading quality criteria"
+      new: "New grading quality criterion"
+      show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -542,6 +547,11 @@ eng:
       index: "Prescriptions"
       new: "New prescription"
       show: "Prescription: %{reference_number}"
+    backend/product_gradings:
+      edit: "Edit product grading\_: %{number}"
+      index: "Product gradings"
+      new: "New product grading"
+      show: "Product grading\_: %{number}"
     backend/product_groups:
       edit: "Edit group: %{name}"
       index: "Product groups"
@@ -974,7 +984,9 @@ eng:
     centralized_account: "Centralized account %{name}"
     change_password: "Change password"
     chart: "Chart"
+    # charts: "Charts"
     check: "Check"
+    # checks: "Checks"
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -1151,6 +1163,7 @@ eng:
     generate_last_journal_entry: "Generate last journal entry"
     geolocation: "Geolocation" #?
     go: "Go" #?
+    gradings: "Gradings"
     grain_yield: "Grain yield"
     gross_profit: "Gross profit"
     group: "Group" #?
@@ -1668,6 +1681,7 @@ eng:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
       zero: "No events %{nature}"
+    # x_gradings: "X gradings"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"

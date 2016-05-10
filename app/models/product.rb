@@ -105,6 +105,7 @@ class Product < Ekylibre::Record::Base
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
   has_many :movements, class_name: 'ProductMovement', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
+  has_many :gradings, class_name: 'ProductGrading', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :sensors
@@ -211,6 +212,7 @@ class Product < Ekylibre::Record::Base
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { can('store(product)') } #-> { of_variety([:building_division, :equipment]) }
+  scope :plants, -> { where(type: 'Plant') }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }

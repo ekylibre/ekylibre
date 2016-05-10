@@ -268,6 +268,11 @@ fra:
       index: "Relevés topographiques"
       new: "Nouveau relevé topographique"
       show: "Relevé topographique: %{name}"
+    backend/grading_quality_criteria:
+      edit: "Modifier le critère qualité d'agréage: %{name}"
+      index: "Critère qualité d'agréage"
+      new: "Nouveau critère qualité d'agréage"
+      show: "Critère qualité d'agréage: %{name}"
     backend/guide_analyses:
       show: "Analyse N°%{execution_number} du %{guide}"
     backend/guides:
@@ -461,6 +466,11 @@ fra:
       index: "Prescriptions"
       new: "Nouvelle prescription"
       show: "Prescription\_: %{reference_number}"
+    backend/product_gradings:
+      edit: "Modifier l'agréage\_: %{number}"
+      index: "Agréages"
+      new: "Nouvel agréage"
+      show: "Agréage\_: %{number}"
     backend/product_groups:
       edit: "Modifier le groupe\_: %{name}"
       index: "Groupes de produits"
@@ -1174,6 +1184,7 @@ fra:
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
     go: "Valider"
+    gradings: "Agréages"
     grain_yield: "Rendement grain"
     grains_yield: "Rendement grains" #?
     graph_statistics: "Statistiques graphiques" #?
@@ -1984,6 +1995,10 @@ fra:
       one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
       zero: " Aucun événement de type %{nature}"
+    x_gradings:  #?
+      one: "%{count} agréage" #?
+      other: "%{count} agréages" #?
+      zero: "Aucun agréage" #?
     x_has_been_cleared: "%{x} a été effacé (anciennement %{a})"
     x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}"
     x_has_been_updated_to_a: "%{x} a été mis à jour avec %{a}"
@@ -2334,6 +2349,7 @@ fra:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
+    backend/activity_grading_checks: "%{activity_name} - %{quality_criterion_name}" #?
     backend/activity_productions: "%{activity_name} %{support_name} n°%{rank_number}"
     backend/animals: "%{name} ‒ %{work_number}"
     backend/campaigns: "%{name}"

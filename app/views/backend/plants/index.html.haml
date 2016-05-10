@@ -3,9 +3,9 @@
 
 - main_campaign_selector
 
-= janus do |v|
-  - if current_campaign and plants = Plant.of_campaign(current_campaign).any?
-    = v.face :map do
+= janus do |j|
+  - if current_campaign && Plant.of_campaign(current_campaign).any?
+    - j.face :map do
       :ruby
         data = Plant.of_campaign(current_campaign).collect do |p|
           next unless p.shape
@@ -18,12 +18,12 @@
 
           # for vine plant
           #if p.woodstock_variety
-           # popup_content << {label: Nomen::Indicator.find(:woodstock_variety).human_name, value: Nomen::Variety.find(p.woodstock_variety).human_name}
+            # popup_content << {label: Nomen::Indicator.find(:woodstock_variety).human_name, value: Nomen::Variety.find(p.woodstock_variety).human_name}
           #end
 
           # for indicators in list
           indicators = [:tiller_count, :plants_count, :rows_interval, :plants_interval, :rows_orientation]
-          for indicator in indicators
+          indicators.each do |indicator|
             if !p.send(indicator).blank? and (p.send(indicator).to_d > 0.0)
               popup_content << {label: Nomen::Indicator.find(indicator.to_sym).human_name, value: p.send(indicator).l }
             end
@@ -84,5 +84,5 @@
   - else
     = no_data
 
-  = v.face :list do
+  - j.face :list do
     = main_list

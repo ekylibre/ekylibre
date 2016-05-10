@@ -234,6 +234,11 @@ deu:
       # index: "Georeadings"
       # new: "New georeading"
       # show: "Georeading: %{name}"
+    backend/grading_quality_criteria:
+      # edit: "Edit grading quality criterion: %{name}"
+      # index: "Grading quality criteria"
+      # new: "New grading quality criterion"
+      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -382,6 +387,11 @@ deu:
       index: "Rezepte"
       new: "New Rezept"
       # show: "Prescription: %{reference_number}"
+    backend/product_gradings:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "Produktgruppen"
@@ -923,6 +933,7 @@ deu:
     generate_last_journal_entry: "Generieren letzten Tagebucheintrag"
     # geolocation: "Geolocation"
     go: "Gehen"
+    # gradings: "Gradings"
     grain_yield: "Kornertrag"
     gross_profit: "Bruttoertrag"
     group: "Gruppe"

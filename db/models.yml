@@ -5,6 +5,7 @@
 - activity_budget
 - activity_budget_item
 - activity_distribution
+- activity_grading_check
 - activity_production
 - affair
 - analysis
@@ -50,6 +51,7 @@
 - gap
 - gap_item
 - georeading
+- grading_quality_criterion
 - guide
 - guide_analysis
 - guide_analysis_point
@@ -102,6 +104,8 @@
 - prescription
 - product
 - product_enjoyment
+- product_grading
+- product_grading_check
 - product_group
 - product_link
 - product_linkage
