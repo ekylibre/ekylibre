@@ -294,7 +294,9 @@ L.EditToolbar.include
     return
 
 
-#Patch Leaflet.Draw
+###
+# Leaflet.Draw Patches
+ ###
 L.EditToolbar.Edit.include
   __removeHooks: L.EditToolbar.Edit::removeHooks
   __revertLayer: L.EditToolbar.Edit::_revertLayer
@@ -312,3 +314,10 @@ L.EditToolbar.Edit.include
     layer.editing.latlngs = this._uneditedLayerProps[id].latlngs
     layer.editing._poly._latlngs = this._uneditedLayerProps[id].latlngs
     layer.editing._verticesHandlers[0]._latlngs = this._uneditedLayerProps[id].latlngs
+
+L.EditToolbar.include
+  # Patch _activeMode is null
+  _save: ->
+    handler = this._activeMode.handler
+    handler.save()
+    handler.disable()
