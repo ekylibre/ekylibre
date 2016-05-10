@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160510102723) do
+ActiveRecord::Schema.define(version: 20160510105233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -351,19 +351,21 @@ ActiveRecord::Schema.define(version: 20160510102723) do
   add_index "bank_statement_items", ["updater_id"], name: "index_bank_statement_items_on_updater_id", using: :btree
 
   create_table "bank_statements", force: :cascade do |t|
-    t.integer  "cash_id",                                              null: false
-    t.datetime "started_at",                                           null: false
-    t.datetime "stopped_at",                                           null: false
-    t.string   "number",                                               null: false
-    t.decimal  "debit",         precision: 19, scale: 4, default: 0.0, null: false
-    t.decimal  "credit",        precision: 19, scale: 4, default: 0.0, null: false
-    t.string   "currency",                                             null: false
-    t.datetime "created_at",                                           null: false
-    t.datetime "updated_at",                                           null: false
+    t.integer  "cash_id",                                                       null: false
+    t.datetime "started_at",                                                    null: false
+    t.datetime "stopped_at",                                                    null: false
+    t.string   "number",                                                        null: false
+    t.decimal  "debit",                  precision: 19, scale: 4, default: 0.0, null: false
+    t.decimal  "credit",                 precision: 19, scale: 4, default: 0.0, null: false
+    t.string   "currency",                                                      null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                           default: 0,   null: false
+    t.integer  "lock_version",                                    default: 0,   null: false
     t.jsonb    "custom_fields"
+    t.decimal  "initial_balance_debit",  precision: 19, scale: 4, default: 0.0, null: false
+    t.decimal  "initial_balance_credit", precision: 19, scale: 4, default: 0.0, null: false
   end
 
   add_index "bank_statements", ["cash_id"], name: "index_bank_statements_on_cash_id", using: :btree
