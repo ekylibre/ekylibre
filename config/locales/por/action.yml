@@ -5,6 +5,8 @@ por:
     authentication/passwords:
       edit: "Editar senha: %{name}"
       new: "Nova senha"
+    authentication/registrations:
+      new: "Inscrever-se"
     authentication/sessions:
       destroy: "Sair"
       new: "Nova sessão"
@@ -422,6 +424,9 @@ por:
       propose_and_invoice: "Facturar directamente"
       refuse: "Fim recusou"
       # show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "Registro Editar"
+      index: "Inscrições"
     backend/roles:
       # edit: "Edit role: %{name}"
       # index: "Roles"
@@ -1318,6 +1323,7 @@ por:
     upload: "Envio"
     uploaded_file: "O arquivo enviado"
     usage: "Uso"
+    user_status: "Estado"
     users: "Usuários"
     valid: "Válido"
     validate: "Validar"

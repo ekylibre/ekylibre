@@ -5,6 +5,8 @@ spa:
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "Nueva contraseña"
+    authentication/registrations:
+      new: "Regístrate"
     authentication/sessions:
       destroy: "Cerrar sesión"
       new: "Conexión"
@@ -454,6 +456,9 @@ spa:
       propose_and_invoice: "Facturar directamente"
       refuse: "Para negado"
       # show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "Editar el registro"
+      index: "Las inscripciones"
     backend/roles:
       edit: "Modificación del papel\_: %{name}"
       index: "Papeles"
@@ -1556,6 +1561,7 @@ spa:
     used_accounts: "Cuentos utilozados unico" #?
     user_create: "Añadir un nuevo utilizador" #?
     user_name: "Nombre de usuario" #?
+    user_status: "Estado"
     user_update: "Modificar las informaciones del utilizador" #?
     users: "Usuarios"
     valid: "Válido"

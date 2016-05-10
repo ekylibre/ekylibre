@@ -13,8 +13,7 @@ class BovinsCroissance::CattlePerformanceControlsExchanger < ActiveExchanger::Ba
                          third_weighting_at: (row[58].blank? ? nil : Date.civil(*row[58].to_s.split(/\//).reverse.map(&:to_i))),
                          third_weighting_value: row[59].blank? ? nil : row[59].to_d.in_kilogram,
                          fourth_weighting_at: (row[61].blank? ? nil : Date.civil(*row[61].to_s.split(/\//).reverse.map(&:to_i))),
-                         fourth_weighting_value: row[62].blank? ? nil : row[62].to_d.in_kilogram
-                        )
+                         fourth_weighting_value: row[62].blank? ? nil : row[62].to_d.in_kilogram)
       # if an animal exist , link to weight
       if animal = Animal.find_by_work_number(r.animal_work_number)
         animal.read!(:net_mass, r.animal_weight_at_birth, at: animal.born_at, force: true) if r.animal_weight_at_birth

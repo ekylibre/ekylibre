@@ -115,8 +115,7 @@ class Ekylibre::IncomingPaymentsExchanger < ActiveExchanger::Base
                                                      amount: r.amount,
                                                      payer: entity,
                                                      received: true,
-                                                     responsible: responsible
-                                                    )
+                                                     responsible: responsible)
         end
       end
 

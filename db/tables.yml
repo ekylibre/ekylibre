@@ -6017,6 +6017,8 @@ users:
     references: role
   sign_in_count:
     type: integer
+  signup_at:
+    type: datetime
   team_id:
     type: integer
     references: team

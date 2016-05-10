@@ -19,8 +19,7 @@ class UPRA::ReproductorsExchanger < ActiveExchanger::Base
                          isu: row[5].to_i,
                          inel: row[9].to_i,
                          tp: row[10].to_f,
-                         tb: row[11].to_f
-                        )
+                         tb: row[11].to_f)
       animal = Animal.create!(variant: male_adult_cow,
                               name: r.name,
                               variety: 'bos_taurus',

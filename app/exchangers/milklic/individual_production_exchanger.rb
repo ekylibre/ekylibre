@@ -19,8 +19,7 @@ class Milklic::IndividualProductionExchanger < ActiveExchanger::Base
       r = OpenStruct.new(animal_name: row[0],
                          animal_work_number: row[1],
                          animal_lactation_number: row[2],
-                         animal_lactation_started_on: (row[3].present? ? Date.strptime(row[3], '%d/%m/%y') : nil)
-                        )
+                         animal_lactation_started_on: (row[3].present? ? Date.strptime(row[3], '%d/%m/%y') : nil))
 
       # if an animal exist
       if animal = Animal.find_by_work_number(r.animal_work_number)
@@ -32,8 +31,7 @@ class Milklic::IndividualProductionExchanger < ActiveExchanger::Base
 
           unless analysis = Analysis.where(reference_number: reference_number, analyser: analyser).first
             analysis = Analysis.create!(reference_number: reference_number, nature: 'unitary_cow_milk_analysis',
-                                        analyser: analyser, sampled_at: milk_daily_production_at, analysed_at: milk_daily_production_at
-                                       )
+                                        analyser: analyser, sampled_at: milk_daily_production_at, analysed_at: milk_daily_production_at)
             analysis.read!(:milk_daily_production, milk_daily_production_measure)
             analysis.product = animal
             analysis.save!

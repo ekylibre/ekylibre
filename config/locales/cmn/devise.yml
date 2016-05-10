@@ -11,6 +11,7 @@ cmn:
       invalid_token: "无效的身份验证令牌。"
       invited: "你有一个未决的邀请，接受它完成创建您的帐户。"
       locked: "您的帐户被锁定。"
+      not_approved: "您的帐户尚未批准管理员。"
       not_found_in_database: "无效的电子邮件或密码。"
       timeout: "您的会话过期，请重新登录才能继续。"
       unauthenticated: "您需要登录或继续之前注册。"
@@ -38,6 +39,16 @@ cmn:
         ignore: "如果你不想接受邀请，请忽略此电子邮件。 <br />您的帐户将不会创建，直到你进入上面的链接，并设置密码。"
         # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         subject: "邀请说明"
+      registrations:
+        approved:
+          # accepted: "An administrator has approved your registration on %{url}, you can now sign in through the link below."
+          # hello: "Hello %{first_name} %{last_name},"
+          sign_in: "在此登录。"
+          subject: "您的帐户已被批准！"
+        signed_up:
+          confirm: "请管理面板确认。"
+          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+          subject: "新注册"
       reset_password_instructions:
         subject: "重置密码的说明"
       unlock_instructions:
@@ -59,6 +70,8 @@ cmn:
       signed_up_but_unconfirmed: "一个确认链接的邮件已发送到您的电子邮件地址。请打开激活帐户的链接。"
       update_needs_confirmation: "您已成功更新您的帐户，但我们需要验证您的新电子邮件地址。请检查您的电子邮件，并点击确认链接来完成确认新的电子邮件地址。"
       updated: "您已成功更新您的帐户。"
+      user:
+        signed_up_but_not_approved: "您已成功签约了，但您的帐户尚未批准由管理员"
     sessions:
       signed_in: "签名成功。"
       signed_out: "成功退出。"

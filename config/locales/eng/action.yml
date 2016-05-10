@@ -15,6 +15,10 @@ eng:
     authentication/passwords:
       edit: "Edit password: %{name}"
       new: "New password"
+    authentication/registrations:
+      # cancel: "Cancel registration: %{name}"
+      # edit: "Edit registration: %{name}"
+      new: "Sign up"
     authentication/sessions:
       destroy: "Log out" #?
       new: "New session"
@@ -582,6 +586,9 @@ eng:
       propose_and_invoice: "Invoice directly"
       refuse: "Refused order"
       show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "Edit registration"
+      index: "Registrations"
     backend/roles:
       edit: "Edit role: %{name}"
       # incorporate: "Incorporate role: %{name}"
@@ -1542,6 +1549,7 @@ eng:
     upload: "Upload"
     uploaded_file: "Uploaded file" #?
     usage: "Usage" #?
+    user_status: "Status" #?
     users: "Users"
     valid: "Valid" #?
     validate: "Validate"

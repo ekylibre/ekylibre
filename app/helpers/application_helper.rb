@@ -237,9 +237,9 @@ module ApplicationHelper
     nomenclature_as_options(:languages)
   end
 
-  def available_languages
+  def available_languages(native_language = true)
     I18n.available_locales.map do |l|
-      [I18n.t('i18n.name', locale: l), l]
+      [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
     end.sort { |a, b| a.second <=> b.second }
   end
 
@@ -648,7 +648,7 @@ module ApplicationHelper
   end
 
   def subheading(i18n_key, options = {})
-    raise StandardError.new('A subheading has already been given.') if content_for?(:subheading)
+    raise StandardError, 'A subheading has already been given.' if content_for?(:subheading)
     if options[:here]
       return subheading_tag(tl(i18n_key, options))
     else
@@ -705,7 +705,7 @@ module ApplicationHelper
   # TOOLBAR
 
   def menu_to(name, url, options = {})
-    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+    raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
     icon = (options.key?(:menu) ? options.delete(:menu) : url.is_a?(Hash) ? url[:action] : nil)
     sprite = options.delete(:sprite) || 'icons-16'
     options[:class] = (options[:class].blank? ? 'mn' : options[:class] + ' mn')
@@ -730,7 +730,7 @@ module ApplicationHelper
   # end
 
   def tool_to(name, url, options = {})
-    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+    raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
     icon = options.delete(:tool)
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')

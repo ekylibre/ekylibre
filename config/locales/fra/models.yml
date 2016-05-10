@@ -1683,3 +1683,8 @@ fra:
         accepted: "Acceptée"
         not_invited: "Non invité"
         pending: "En cours"
+      status:
+        invitation:
+          pending: "Invitation en attente"
+        registration:
+          pending: "Confirmation en attente"

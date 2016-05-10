@@ -5,6 +5,8 @@ jpn:
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "新しいパスワード"
+    authentication/registrations:
+      new: "サインアップ"
     authentication/sessions:
       destroy: "ログアウト"
       new: "ログイン"
@@ -417,6 +419,9 @@ jpn:
       propose_and_invoice: "直接請求書"
       refuse: "拒否したため"
       # show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "編集登録"
+      index: "登録"
     backend/roles:
       # edit: "Edit role: %{name}"
       index: "役割"
@@ -1387,6 +1392,7 @@ jpn:
     uploaded_file: "アップロードされたファイル"
     usage: "使用法"
     user_name: "ユーザー名" #?
+    user_status: "状態"
     users: "ユーザー"
     valid: "有効な"
     validate: "検証"

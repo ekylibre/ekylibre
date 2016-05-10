@@ -39,8 +39,7 @@ class Ekylibre::EntitiesExchanger < ActiveExchanger::Base
                             country: r.country,
                             active: r.active,
                             prospect: r.prospect,
-                            transporter: r.transporter
-                           )
+                            transporter: r.transporter)
         person.save!
       end
       if r.client_account_number

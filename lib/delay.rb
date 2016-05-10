@@ -57,11 +57,11 @@ class Delay
       elsif step =~ /\A\d+\ (#{KEYS})(\ (avant|ago))?\z/
         words = step.split(/\s+/).map(&:to_s)
         if TRANSLATIONS[words[1]].nil?
-          raise InvalidDelayExpression.new("#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})")
+          raise InvalidDelayExpression, "#{words[1].inspect} is an undefined period (#{step.inspect} of #{base.inspect})"
         end
         [TRANSLATIONS[words[1]], (words[2].blank? ? 1 : -1) * words[0].to_i]
       elsif !step.blank?
-        raise InvalidDelayExpression.new("#{step.inspect} is an invalid step. (From #{base.inspect} => #{expression.inspect})")
+        raise InvalidDelayExpression, "#{step.inspect} is an invalid step. (From #{base.inspect} => #{expression.inspect})"
       end
     end
   end
@@ -125,7 +125,7 @@ class Delay
     elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit)
       Delay.new(to_s + ', ' + delay.value.to_s + ' ' + delay.unit.to_s)
     else
-      raise ArgumentError.new("Cannot sum #{delay.class.name} to a #{self.class.name}")
+      raise ArgumentError, "Cannot sum #{delay.class.name} to a #{self.class.name}"
     end
   end
 
@@ -140,7 +140,7 @@ class Delay
     elsif delay.is_a?(Measure) && delay.dimension == :time && [:second, :minute, :hour, :day, :month, :year].include?(delay.unit)
       Delay.new(to_s + ', ' + delay.value.to_s + ' ' + delay.unit.to_s + ' ago')
     else
-      raise ArgumentError.new("Cannot sum #{delay.class.name} to a #{self.class.name}")
+      raise ArgumentError, "Cannot sum #{delay.class.name} to a #{self.class.name}"
     end
   end
 

@@ -51,13 +51,11 @@ class FIEA::GalacteaExchanger < ActiveExchanger::Base
                          milk_production_from_calving_date: row[15],
                          tb_average_production: row[16],
                          tp_average_production: row[17],
-                         standard_milk_production_from_calving_date: row[18]
-                        )
+                         standard_milk_production_from_calving_date: row[18])
 
       unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
         analysis = Analysis.create!(reference_number: r.reference_number, nature: 'unitary_cow_milk_analysis',
-                                    analyser: analyser, sampled_at: r.at, analysed_at: r.at
-                                   )
+                                    analyser: analyser, sampled_at: r.at, analysed_at: r.at)
 
         analysis.read!(:fat_matters_concentration, r.tb_daily_production) unless r.tb_daily_production.nil?
         analysis.read!(:protein_matters_concentration, r.tp_daily_production) unless r.tp_daily_production.nil?

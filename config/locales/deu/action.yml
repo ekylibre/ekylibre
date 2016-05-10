@@ -5,6 +5,8 @@ deu:
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "Neues Kennwort"
+    authentication/registrations:
+      new: "Anmelden"
     authentication/sessions:
       destroy: "Ausloggen"
       new: "neue Sitzung"
@@ -417,6 +419,9 @@ deu:
       propose_and_invoice: "Rechnung direkt"
       refuse: "weigerte sich um"
       # show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "Bearbeiten Registrierung"
+      index: "Anmeldungen"
     backend/roles:
       # edit: "Edit role: %{name}"
       index: "Rollen"
@@ -1313,6 +1318,7 @@ deu:
     upload: "Hochladen"
     uploaded_file: "Die hochgeladene Datei"
     usage: "Verwendung"
+    # user_status: "Status"
     users: "Benutzer"
     valid: "Gültig"
     validate: "Bestätigen"
