@@ -1430,3 +1430,8 @@ jpn:
         accepted: "一般に認められました"
         not_invited: "招待されません"
         pending: "保留中"
+      status:
+        invitation:
+          pending: "保留中の招待"
+        registration:
+          pending: "承認待ちの"

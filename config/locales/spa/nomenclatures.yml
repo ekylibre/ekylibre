@@ -1262,6 +1262,7 @@ spa:
         specific_volume: "Volumen específico"
         surface_area: "Área de superficie"
         surface_area_density: "Densidad Superficie"
+        # surface_area_flow: "Surface area flow"
         temperature: "Temperatura"
         time: "Hora"
         volume: "Volumen"
@@ -1590,6 +1591,7 @@ spa:
         plant_reproduction_state: "Estado de reproducción de las plantas"
         plants_count: "Las plantas cuentan"
         plants_interval: "Las plantas de intervalo"
+        # plowshare_count: "Plowshare count"
         potash_concentration: "La concentración de potasio (K $ ₂ $)"
         potassium_concentration: "La concentración de potasio"
         potential_hydrogen: "Potencial de hidrógeno"
@@ -1621,6 +1623,7 @@ spa:
         sulfur_trioxide_concentration: "Concentración de trióxido de azufre (SO $ ₃ $)"
         surface_area_percentage: "Porcentaje Superficie"
         temperature: "Temperatura"
+        # theoretical_working_speed: "Theoretical working speed"
         thousand_grains_mass: "Mil granos de masas"
         tiller_count: "Recuento de timón"
         total_bacteria_concentration: "La concentración total de bacterias"
@@ -3505,7 +3508,7 @@ spa:
           amount: "Cantidad"
           percentage: "Porcentaje"
       items:
-        asset_vat: "Cuba de activos"
+        asset_vat: "Cuba de activos" #?
         inflated_vat: "IVA inflado"
         intermediate_vat: "IVA intermedio"
         normal_vat: "Normal de IVA"
@@ -3517,6 +3520,8 @@ spa:
         collect_account: "Recoger cuenta"
         computation_method: "Método de cálculo"
         deduction_account: "Deducción cuenta"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         suffix: "Sufijo"
     taxes:
       items:
@@ -3527,11 +3532,11 @@ spa:
         french_vat_normal_1995: "IVA francés normal de 1995"
         french_vat_normal_2000: "IVA francés normal de 2000"
         french_vat_normal_2014: "IVA francés normal de 2014"
-        french_vat_normal_asset_1966: "IVA francés activo normal de 1966"
-        french_vat_normal_asset_1982: "IVA francés activo normal de 1982"
-        french_vat_normal_asset_1995: "IVA francés activo normal de 1995"
-        french_vat_normal_asset_2000: "IVA francés activo normal de 2000"
-        french_vat_normal_asset_2014: "IVA francés activo normal de 2014"
+        french_vat_normal_asset_1966: "IVA francés activo normal de 1966" #?
+        french_vat_normal_asset_1982: "IVA francés activo normal de 1982" #?
+        french_vat_normal_asset_1995: "IVA francés activo normal de 1995" #?
+        french_vat_normal_asset_2000: "IVA francés activo normal de 2000" #?
+        french_vat_normal_asset_2014: "IVA francés activo normal de 2014" #?
         french_vat_null: "Nula cuba francés"
         french_vat_particular_1982: "IVA francés especial 1982"
         french_vat_particular_1989: "IVA francés especial 1989"
@@ -3583,6 +3588,7 @@ spa:
         gram_per_liter: "Gramo por litro"
         gram_per_square_meter: "Gramo por metro cuadrado"
         hectare: "Hectárea"
+        # hectare_per_hour: "Hectare per hour"
         hectoliter: "Hectolitro"
         hectoliter_per_hectare: "Hectolitro por hectárea"
         hectopascal: "Hectopascal"
@@ -3624,6 +3630,7 @@ spa:
         millimeter: "Milímetro"
         millimeter_per_hour: "Milímetro por hora"
         million: "Millón"
+        # million_per_hectare: "Million per hectare"
         million_per_liter: "Millones por litro"
         millionth: "Millonésimo"
         millisecond: "Milisegundo"

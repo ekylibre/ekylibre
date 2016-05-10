@@ -1256,6 +1256,7 @@ deu:
         specific_volume: "Bestimmtes Volumen"
         surface_area: "Oberfläche"
         surface_area_density: "Fläche Dichte"
+        # surface_area_flow: "Surface area flow"
         temperature: "Temperatur"
         time: "Zeit"
         volume: "Volumen"
@@ -1584,6 +1585,7 @@ deu:
         plant_reproduction_state: "Pflanzenwiedergabezustand"
         plants_count: "Pflanzen zählen"
         plants_interval: "Pflanzen Intervall"
+        # plowshare_count: "Plowshare count"
         potash_concentration: "Potash Konzentration (K₂O)"
         potassium_concentration: "Kaliumkonzentration"
         potential_hydrogen: "Potenzielle Wasserstoff"
@@ -1615,6 +1617,7 @@ deu:
         sulfur_trioxide_concentration: "Schwefeltrioxidkonzentration (SO₃)"
         surface_area_percentage: "Fläche Prozent"
         temperature: "Temperatur"
+        # theoretical_working_speed: "Theoretical working speed"
         thousand_grains_mass: "Tausend Körner Massen"
         tiller_count: "Tiller Zahl"
         total_bacteria_concentration: "Gesamtbakterienkonzentration"
@@ -3499,7 +3502,7 @@ deu:
           amount: "Menge"
           percentage: "Prozentsatz"
       items:
-        asset_vat: "Vermögens vat"
+        asset_vat: "Vermögens vat" #?
         inflated_vat: "aufgeblasenen Mehrwertsteuer"
         intermediate_vat: "Zwischen Mehrwertsteuer"
         normal_vat: "normalen Mehrwertsteuer"
@@ -3511,6 +3514,8 @@ deu:
         collect_account: "Sammeln Konto"
         computation_method: "Berechnungsverfahren"
         deduction_account: "Abzug Konto"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         # suffix: "Suffix"
     taxes:
       items:
@@ -3521,11 +3526,11 @@ deu:
         french_vat_normal_1995: "Französisch Bottich Normal 1995"
         french_vat_normal_2000: "Französisch Bottich Normal 2000"
         french_vat_normal_2014: "Französisch Bottich Normal 2014"
-        french_vat_normal_asset_1966: "Französisch Bottich normalen Vermögens 1966"
-        french_vat_normal_asset_1982: "Französisch Bottich normalen Vermögens 1982"
-        french_vat_normal_asset_1995: "Französisch Bottich normalen Vermögens 1995"
-        french_vat_normal_asset_2000: "Französisch Bottich normalen Vermögens 2000"
-        french_vat_normal_asset_2014: "Französisch Bottich normalen Vermögens 2014"
+        french_vat_normal_asset_1966: "Französisch Bottich normalen Vermögens 1966" #?
+        french_vat_normal_asset_1982: "Französisch Bottich normalen Vermögens 1982" #?
+        french_vat_normal_asset_1995: "Französisch Bottich normalen Vermögens 1995" #?
+        french_vat_normal_asset_2000: "Französisch Bottich normalen Vermögens 2000" #?
+        french_vat_normal_asset_2014: "Französisch Bottich normalen Vermögens 2014" #?
         french_vat_null: "Französisch Bottich null"
         french_vat_particular_1982: "Französisch Bottich insbesondere 1982"
         french_vat_particular_1989: "Französisch Bottich insbesondere 1989"
@@ -3577,6 +3582,7 @@ deu:
         gram_per_liter: "Gramm pro Liter"
         gram_per_square_meter: "Gram pro Quadratmeter"
         hectare: "Hektar"
+        # hectare_per_hour: "Hectare per hour"
         hectoliter: "Hektoliter"
         hectoliter_per_hectare: "Hektoliter pro Hektar"
         hectopascal: "Hektopascal"
@@ -3618,6 +3624,7 @@ deu:
         # millimeter: "Millimeter"
         millimeter_per_hour: "Millimeter pro Stunde"
         # million: "Million"
+        # million_per_hectare: "Million per hectare"
         million_per_liter: "Millionen pro Liter"
         millionth: "Millionste"
         millisecond: "Millisekunde"

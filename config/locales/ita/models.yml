@@ -1460,3 +1460,8 @@ ita:
         accepted: "Accettato"
         not_invited: "Non invitato"
         pending: "In attesa di"
+      status:
+        invitation:
+          pending: "Invito in sospeso"
+        registration:
+          pending: "In attesa di approvazione"

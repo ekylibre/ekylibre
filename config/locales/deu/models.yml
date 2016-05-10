@@ -1429,3 +1429,8 @@ deu:
         accepted: "Akzeptiert"
         not_invited: "Nicht eingeladen"
         pending: "Anstehend"
+      status:
+        invitation:
+          pending: "Ausstehende Einladung"
+        registration:
+          pending: "Schwebende Genehmigung"

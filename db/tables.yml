@@ -5837,6 +5837,10 @@ tasks:
     type: integer
     references: user
 taxes:
+  active:
+    type: boolean
+    required: true
+    default: false
   amount:
     type: decimal
     precision: 19
@@ -5845,6 +5849,9 @@ taxes:
   collect_account_id:
     type: integer
     references: account
+  country:
+    type: string
+    required: true
   created_at:
     type: datetime
     required: true
@@ -5856,6 +5863,12 @@ taxes:
     references: account
   description:
     type: text
+  fixed_asset_collect_account_id:
+    type: integer
+    references: account
+  fixed_asset_deduction_account_id:
+    type: integer
+    references: account
   id:
     type: integer
     required: true
@@ -5863,6 +5876,9 @@ taxes:
     type: integer
     required: true
   name:
+    type: string
+    required: true
+  nature:
     type: string
     required: true
   reference_name:
@@ -6052,6 +6068,8 @@ users:
     references: role
   sign_in_count:
     type: integer
+  signup_at:
+    type: datetime
   team_id:
     type: integer
     references: team

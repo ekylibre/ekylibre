@@ -1256,6 +1256,7 @@ ita:
         specific_volume: "Volume specifico"
         surface_area: "Superficie"
         surface_area_density: "Densità Superficie"
+        # surface_area_flow: "Surface area flow"
         temperature: "Temperatura"
         time: "Tempo"
         # volume: "Volume"
@@ -1584,6 +1585,7 @@ ita:
         plant_reproduction_state: "Stato riproduzione delle piante"
         plants_count: "contano piante"
         plants_interval: "piante intervallo"
+        # plowshare_count: "Plowshare count"
         potash_concentration: "concentrazione Potash (K₂O)"
         potassium_concentration: "concentrazione di potassio"
         potential_hydrogen: "idrogeno potenziale"
@@ -1615,6 +1617,7 @@ ita:
         sulfur_trioxide_concentration: "concentrazione di zolfo triossido (SO₃)"
         surface_area_percentage: "percentuale di superficie"
         temperature: "Temperatura"
+        # theoretical_working_speed: "Theoretical working speed"
         thousand_grains_mass: "Mille chicchi di massa"
         tiller_count: "conteggio Tiller"
         total_bacteria_concentration: "Concentrazione totale batteri"
@@ -3499,7 +3502,7 @@ ita:
           amount: "Quantità"
           percentage: "Percentuale"
       items:
-        asset_vat: "Asset iva"
+        asset_vat: "Asset iva" #?
         inflated_vat: "IVA gonfiato"
         intermediate_vat: "IVA Intermedio"
         normal_vat: "IVA normale"
@@ -3511,6 +3514,8 @@ ita:
         collect_account: "raccogliere conto"
         computation_method: "metodo di calcolo"
         deduction_account: "conto deduzione"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         suffix: "Suffisso"
     taxes:
       items:
@@ -3521,11 +3526,11 @@ ita:
         french_vat_normal_1995: "IVA francese normale 1995"
         french_vat_normal_2000: "IVA francese normale 2000"
         french_vat_normal_2014: "IVA francese normale 2014"
-        french_vat_normal_asset_1966: "IVA francese di asset normale 1966"
-        french_vat_normal_asset_1982: "IVA francese di asset normale 1982"
-        french_vat_normal_asset_1995: "IVA francese di asset normale 1995"
-        french_vat_normal_asset_2000: "IVA francese di asset normale 2000"
-        french_vat_normal_asset_2014: "IVA francese di asset normale 2014"
+        french_vat_normal_asset_1966: "IVA francese di asset normale 1966" #?
+        french_vat_normal_asset_1982: "IVA francese di asset normale 1982" #?
+        french_vat_normal_asset_1995: "IVA francese di asset normale 1995" #?
+        french_vat_normal_asset_2000: "IVA francese di asset normale 2000" #?
+        french_vat_normal_asset_2014: "IVA francese di asset normale 2014" #?
         french_vat_null: "iva nullo Francese"
         french_vat_particular_1982: "IVA francese particolare 1982"
         french_vat_particular_1989: "IVA francese particolare 1989"
@@ -3577,6 +3582,7 @@ ita:
         gram_per_liter: "Gram per litro"
         gram_per_square_meter: "Grammo per metro quadrato"
         hectare: "Ettaro"
+        # hectare_per_hour: "Hectare per hour"
         hectoliter: "Ettolitro"
         hectoliter_per_hectare: "Ettolitri per ettaro"
         hectopascal: "ettopascal"
@@ -3618,6 +3624,7 @@ ita:
         millimeter: "Millimetro"
         millimeter_per_hour: "Millimeter all&#39;ora"
         million: "milione"
+        # million_per_hectare: "Million per hectare"
         million_per_liter: "Milioni per litro"
         millionth: "Milionesimo"
         millisecond: "millisecondo"

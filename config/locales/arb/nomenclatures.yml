@@ -1265,6 +1265,7 @@ arb:
         specific_volume: "حجم معين"
         surface_area: "مساحة السطح"
         surface_area_density: "كثافة المساحة"
+        # surface_area_flow: "Surface area flow"
         temperature: "درجة الحرارة"
         time: "مرة"
         volume: "الصوت"
@@ -1593,6 +1594,7 @@ arb:
         plant_reproduction_state: "الدولة استنساخ النبات"
         plants_count: "عد النباتات"
         plants_interval: "النباتات الفاصلة"
+        # plowshare_count: "Plowshare count"
         potash_concentration: "تركيز البوتاس (K₂O)"
         potassium_concentration: "تركيز البوتاسيوم"
         potential_hydrogen: "الهيدروجين محتمل"
@@ -1624,6 +1626,7 @@ arb:
         sulfur_trioxide_concentration: "تركيز الكبريت ثالث أكسيد (SO₃)"
         surface_area_percentage: "نسبة المساحة السطحية"
         temperature: "درجة الحرارة"
+        # theoretical_working_speed: "Theoretical working speed"
         thousand_grains_mass: "ألف الحبوب كتلة"
         tiller_count: "عدد الحارث"
         total_bacteria_concentration: "التركيز الكلي للبكتيريا"
@@ -3508,7 +3511,7 @@ arb:
           amount: "كمية"
           percentage: "نسبة مئوية"
       items:
-        asset_vat: "الضريبة على القيمة المضافة الأصول"
+        asset_vat: "الضريبة على القيمة المضافة الأصول" #?
         inflated_vat: "ضريبة القيمة المضافة مضخمة"
         intermediate_vat: "ضريبة القيمة المضافة وسيطة"
         normal_vat: "ضريبة القيمة المضافة العادية"
@@ -3520,6 +3523,8 @@ arb:
         collect_account: "جمع الحساب"
         computation_method: "طريقة حساب"
         deduction_account: "حساب خصم"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         suffix: "لاحقة"
     taxes:
       items:
@@ -3530,11 +3535,11 @@ arb:
         french_vat_normal_1995: "ضريبة القيمة المضافة الفرنسية العادي 1995"
         french_vat_normal_2000: "ضريبة القيمة المضافة الفرنسية العادي 2000"
         french_vat_normal_2014: "ضريبة القيمة المضافة الفرنسية العادي 2014"
-        french_vat_normal_asset_1966: "ضريبة القيمة المضافة الفرنسية الأصول العادي 1966"
-        french_vat_normal_asset_1982: "ضريبة القيمة المضافة الفرنسية الأصول العادي 1982"
-        french_vat_normal_asset_1995: "ضريبة القيمة المضافة الفرنسية الأصول العادي 1995"
-        french_vat_normal_asset_2000: "ضريبة القيمة المضافة الفرنسية الأصول العادي 2000"
-        french_vat_normal_asset_2014: "ضريبة القيمة المضافة الفرنسية الأصول العادي 2014"
+        french_vat_normal_asset_1966: "ضريبة القيمة المضافة الفرنسية الأصول العادي 1966" #?
+        french_vat_normal_asset_1982: "ضريبة القيمة المضافة الفرنسية الأصول العادي 1982" #?
+        french_vat_normal_asset_1995: "ضريبة القيمة المضافة الفرنسية الأصول العادي 1995" #?
+        french_vat_normal_asset_2000: "ضريبة القيمة المضافة الفرنسية الأصول العادي 2000" #?
+        french_vat_normal_asset_2014: "ضريبة القيمة المضافة الفرنسية الأصول العادي 2014" #?
         french_vat_null: "الضريبة على القيمة المضافة لاغية الفرنسي"
         french_vat_particular_1982: "ضريبة القيمة المضافة الفرنسية معين 1982"
         french_vat_particular_1989: "ضريبة القيمة المضافة الفرنسية معين 1989"
@@ -3586,6 +3591,7 @@ arb:
         gram_per_liter: "غرام لكل لتر"
         gram_per_square_meter: "غرام لكل متر مربع"
         hectare: "الهكتار"
+        # hectare_per_hour: "Hectare per hour"
         hectoliter: "الهيكتوليتر"
         hectoliter_per_hectare: "الهيكتوليتر في الهكتار الواحد"
         hectopascal: "ناضح"
@@ -3627,6 +3633,7 @@ arb:
         millimeter: "ملليمتر"
         millimeter_per_hour: "ملليمتر كل ساعة"
         million: "مليون"
+        # million_per_hectare: "Million per hectare"
         million_per_liter: "مليون لتر الواحد"
         millionth: "مليون"
         millisecond: "ميلي ثانية واحدة"

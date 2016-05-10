@@ -1429,3 +1429,8 @@ por:
         accepted: "Aceitaram"
         not_invited: "Não foi convidada"
         pending: "Pendente"
+      status:
+        invitation:
+          pending: "Convite pendente"
+        registration:
+          pending: "Aprovação pendente"

@@ -1433,3 +1433,8 @@ spa:
         accepted: "Aceptado"
         not_invited: "No es invitado"
         pending: "Pendiente"
+      status:
+        invitation:
+          pending: "Invitación pendiente"
+        registration:
+          pending: "Pendiente de aprobacion"

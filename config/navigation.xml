@@ -943,6 +943,13 @@
         <page to="backend/teams#unroll"/>
         <page to="backend/teams#update"/>
       </item>
+      <item name="registrations">
+        <page to="backend/registrations#index"/>
+        <page to="backend/registrations#list"/>
+        <page to="backend/registrations#edit"/>
+        <page to="backend/registrations#update"/>
+        <page to="backend/registrations#destroy"/>
+      </item>
       <item name="roles">
         <page to="backend/roles#index"/>
         <page to="backend/roles#create"/>
@@ -1464,23 +1471,31 @@
       <item name="map_editors">
         <page to="backend/map_editors#upload"/>
       </item>
-      <item name="passwords">
-        <page to="authentication/passwords#create"/>
-        <page to="authentication/passwords#edit"/>
-        <page to="authentication/passwords#new"/>
-        <page to="authentication/passwords#update"/>
-      </item>
-      <item name="sessions">
-        <page to="authentication/sessions#create"/>
-        <page to="authentication/sessions#destroy"/>
-        <page to="authentication/sessions#new"/>
-      </item>
       <item name="invitations">
         <page to="authentication/invitations#create"/>
         <page to="authentication/invitations#destroy"/>
         <page to="authentication/invitations#edit"/>
         <page to="authentication/invitations#new"/>
         <page to="authentication/invitations#update"/>
+      </item>
+      <item name="passwords">
+        <page to="authentication/passwords#create"/>
+        <page to="authentication/passwords#edit"/>
+        <page to="authentication/passwords#new"/>
+        <page to="authentication/passwords#update"/>
+      </item>
+      <item name="registrations">
+        <page to="authentication/registrations#cancel"/>
+        <page to="authentication/registrations#create"/>
+        <page to="authentication/registrations#destroy"/>
+        <page to="authentication/registrations#edit"/>
+        <page to="authentication/registrations#new"/>
+        <page to="authentication/registrations#update"/>
+      </item>
+      <item name="sessions">
+        <page to="authentication/sessions#create"/>
+        <page to="authentication/sessions#destroy"/>
+        <page to="authentication/sessions#new"/>
       </item>
       <item name="confirmations">
         <page to="devise/confirmations#create"/>

@@ -1429,3 +1429,8 @@ cmn:
         accepted: "公认"
         not_invited: "未被邀请"
         pending: "有待"
+      status:
+        invitation:
+          pending: "待处理的邀请"
+        registration:
+          pending: "待审批"

@@ -5,6 +5,8 @@ arb:
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "كلمة السر الجديدة"
+    authentication/registrations:
+      new: "سجل"
     authentication/sessions:
       destroy: "الخروج"
       new: "الدخول"
@@ -564,6 +566,9 @@ arb:
       propose_and_invoice: "فاتورة مباشرة"
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
+    backend/registrations:
+      edit: "تسجيل تحرير"
+      index: "التسجيلات"
     backend/relations:  #?
       index: "ادارة علاقات العملاء والممولين" #?
     backend/roles:
@@ -2032,6 +2037,7 @@ arb:
     used_accounts: "الحسابات المستخدمة فقط" #?
     user_create: "اضافة مستخدم جديد" #?
     user_name: "اسم المستخدم" #?
+    user_status: "الحالة"
     user_update: "تعديل معلومات المستخدم" #?
     users: "المستخدمين"
     uses: "المادة" #?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421141812) do
+ActiveRecord::Schema.define(version: 20160503125501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3080,23 +3080,30 @@ ActiveRecord::Schema.define(version: 20160421141812) do
   add_index "tasks", ["updater_id"], name: "index_tasks_on_updater_id", using: :btree
 
   create_table "taxes", force: :cascade do |t|
-    t.string   "name",                                                        null: false
-    t.decimal  "amount",               precision: 19, scale: 4, default: 0.0, null: false
+    t.string   "name",                                                                      null: false
+    t.decimal  "amount",                           precision: 19, scale: 4, default: 0.0,   null: false
     t.text     "description"
     t.integer  "collect_account_id"
     t.integer  "deduction_account_id"
     t.string   "reference_name"
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.datetime "created_at",                                                                null: false
+    t.datetime "updated_at",                                                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                  default: 0,   null: false
+    t.integer  "lock_version",                                              default: 0,     null: false
+    t.boolean  "active",                                                    default: false, null: false
+    t.string   "nature",                                                                    null: false
+    t.string   "country",                                                                   null: false
+    t.integer  "fixed_asset_deduction_account_id"
+    t.integer  "fixed_asset_collect_account_id"
   end
 
   add_index "taxes", ["collect_account_id"], name: "index_taxes_on_collect_account_id", using: :btree
   add_index "taxes", ["created_at"], name: "index_taxes_on_created_at", using: :btree
   add_index "taxes", ["creator_id"], name: "index_taxes_on_creator_id", using: :btree
   add_index "taxes", ["deduction_account_id"], name: "index_taxes_on_deduction_account_id", using: :btree
+  add_index "taxes", ["fixed_asset_collect_account_id"], name: "index_taxes_on_fixed_asset_collect_account_id", using: :btree
+  add_index "taxes", ["fixed_asset_deduction_account_id"], name: "index_taxes_on_fixed_asset_deduction_account_id", using: :btree
   add_index "taxes", ["updated_at"], name: "index_taxes_on_updated_at", using: :btree
   add_index "taxes", ["updater_id"], name: "index_taxes_on_updater_id", using: :btree
 
@@ -3188,6 +3195,7 @@ ActiveRecord::Schema.define(version: 20160421141812) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.integer  "invitations_count",                                               default: 0
+    t.datetime "signup_at"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree

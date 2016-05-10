@@ -64,11 +64,16 @@ Rails.application.routes.draw do
   end
 
   # No namespace because authentication is for all sides
-  devise_for :users, path: 'authentication', module: :authentication, skip: [:invitations]
+  devise_for :users, path: 'authentication', module: :authentication, skip: [:invitations, :registrations]
   as :user do
+    # Invitations
     get 'authentication/invitation/accept' => 'authentication/invitations#edit', as: :accept_user_invitation
     put 'authentication/invitation' => 'authentication/invitations#update', as: :user_invitation
     patch 'authentication/invitation' => 'authentication/invitations#update'
+
+    # Registrations
+    get 'authentication/sign_up' => 'authentication/registrations#new', as: :new_user_registration
+    post 'authentication' => 'authentication/registrations#create', as: :user_registration
   end
 
   # No '-' in API paths for now, only '_'
@@ -829,6 +834,8 @@ Rails.application.routes.draw do
     get 'invitations/list', to: 'invitations#list'
     get 'invitations/new', to: 'invitations#new'
     post 'invitations', to: 'invitations#create'
+
+    resources :registrations, only: [:index, :edit, :update, :destroy], concerns: [:list]
   end
 
   root to: 'public#index'

@@ -1267,6 +1267,7 @@ jpn:
         specific_volume: "比体積"
         surface_area: "表面積"
         surface_area_density: "表面積密度"
+        # surface_area_flow: "Surface area flow"
         temperature: "温度"
         time: "時間"
         volume: "ボリューム"
@@ -1595,6 +1596,7 @@ jpn:
         plant_reproduction_state: "植物の再生状態"
         plants_count: "植物は数えます"
         plants_interval: "植物の間隔"
+        # plowshare_count: "Plowshare count"
         potash_concentration: "カリ濃度（K₂O）"
         potassium_concentration: "カリウム濃度"
         potential_hydrogen: "潜在的な水素"
@@ -1626,6 +1628,7 @@ jpn:
         sulfur_trioxide_concentration: "三酸化硫黄濃度（SO₃）"
         surface_area_percentage: "表面積の割合"
         temperature: "温度"
+        # theoretical_working_speed: "Theoretical working speed"
         thousand_grains_mass: "千粒塊"
         tiller_count: "ティラー数"
         total_bacteria_concentration: "総細菌濃度"
@@ -3510,7 +3513,7 @@ jpn:
           amount: "量"
           percentage: "パーセンテージ"
       items:
-        asset_vat: "資産バット"
+        asset_vat: "資産バット" #?
         inflated_vat: "膨張した付加価値税（VAT）"
         intermediate_vat: "中間付加価値税（VAT）"
         normal_vat: "通常の付加価値税（VAT）"
@@ -3522,6 +3525,8 @@ jpn:
         collect_account: "アカウントを収集"
         computation_method: "計算方法"
         deduction_account: "控除アカウント"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         suffix: "サフィックス"
     taxes:
       items:
@@ -3532,11 +3537,11 @@ jpn:
         french_vat_normal_1995: "フランスのバット通常の1995"
         french_vat_normal_2000: "フランスのバット通常の2000"
         french_vat_normal_2014: "フランスのバット通常の2014"
-        french_vat_normal_asset_1966: "フランスのバット正常資産1966"
-        french_vat_normal_asset_1982: "フランスのバット正常資産1982"
-        french_vat_normal_asset_1995: "フランスのバット正常資産1995"
-        french_vat_normal_asset_2000: "フランスのバット正常資産2000"
-        french_vat_normal_asset_2014: "フランスのバット正常資産2014"
+        french_vat_normal_asset_1966: "フランスのバット正常資産1966" #?
+        french_vat_normal_asset_1982: "フランスのバット正常資産1982" #?
+        french_vat_normal_asset_1995: "フランスのバット正常資産1995" #?
+        french_vat_normal_asset_2000: "フランスのバット正常資産2000" #?
+        french_vat_normal_asset_2014: "フランスのバット正常資産2014" #?
         french_vat_null: "フランスのバットはnull"
         french_vat_particular_1982: "1982特にフランスのバット"
         french_vat_particular_1989: "1989特にフランスのバット"
@@ -3588,6 +3593,7 @@ jpn:
         gram_per_liter: "リットル当たりのグラム"
         gram_per_square_meter: "平方メートルあたりのグラム"
         hectare: "ヘクタール"
+        # hectare_per_hour: "Hectare per hour"
         hectoliter: "ヘクトリットル"
         hectoliter_per_hectare: "ヘクトリットルあたりヘクタール"
         hectopascal: "ヘクトパスカル"
@@ -3629,6 +3635,7 @@ jpn:
         millimeter: "ミリメートル"
         millimeter_per_hour: "毎時ミリ"
         million: "百万"
+        # million_per_hectare: "Million per hectare"
         million_per_liter: "リットル当たり百万"
         millionth: "100万分の1"
         millisecond: "ミリ秒"

@@ -1381,6 +1381,7 @@ fra:
         specific_volume: "Volume spécifique"
         surface_area: "Superficie"
         surface_area_density: "Densité surfacique"
+        surface_area_flow: "Débit surfacique"
         temperature: "Température"
         time: "Temps"
         volume: "Volume"
@@ -1731,6 +1732,7 @@ fra:
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         plants_count: "Nombre de plantes"
         plants_interval: "Intervalle inter-pieds"
+        plowshare_count: "Nombre de socs"
         population: "Population" #?
         potash_concentration: "Teneur en potasse (K₂O)"
         potassium_concentration: "Teneur en potassium"
@@ -1763,6 +1765,7 @@ fra:
         sulfur_trioxide_concentration: "Teneur en trioxyde de soufre (SO₃)"
         surface_area_percentage: "Pourcentage de surface couverte"
         temperature: "Température"
+        theoretical_working_speed: "Vitesse de travail théorique"
         thousand_grains_mass: "Poids de mille grains"
         tiller_count: "Nombre de talles"
         total_bacteria_concentration: "Dénombrement des germes totaux"
@@ -3764,7 +3767,7 @@ fra:
           amount: "Montant fixe"
           percentage: "Pourcentage"
       items:
-        asset_vat: "TVA sur immobilisations"
+        asset_vat: "TVA sur immobilisations" #?
         inflated_vat: "TVA augmentée"
         intermediate_vat: "TVA intermédiaire"
         normal_vat: "TVA normale"
@@ -3776,6 +3779,8 @@ fra:
         collect_account: "Compte de collecte"
         computation_method: "Méthode de calcul"
         deduction_account: "Compte de déduction"
+        fixed_asset_collect_account: "Compte de collecte"
+        fixed_asset_deduction_account: "Compte de déduction pour les immobilisations"
         suffix: "Suffixe"
     taxes:
       choices:  #?
@@ -3795,11 +3800,11 @@ fra:
         french_vat_normal_1995: "TVA française normale 1995"
         french_vat_normal_2000: "TVA française normale 2000"
         french_vat_normal_2014: "TVA française normale 2014"
-        french_vat_normal_asset_1966: "TVA française normale (immo.) 1966"
-        french_vat_normal_asset_1982: "TVA française normale (immo.) 1982"
-        french_vat_normal_asset_1995: "TVA française normale (immo.) 1995"
-        french_vat_normal_asset_2000: "TVA française normale (immo.) 2000"
-        french_vat_normal_asset_2014: "TVA française normale (immo.) 2014"
+        french_vat_normal_asset_1966: "TVA française normale (immo.) 1966" #?
+        french_vat_normal_asset_1982: "TVA française normale (immo.) 1982" #?
+        french_vat_normal_asset_1995: "TVA française normale (immo.) 1995" #?
+        french_vat_normal_asset_2000: "TVA française normale (immo.) 2000" #?
+        french_vat_normal_asset_2014: "TVA française normale (immo.) 2014" #?
         french_vat_null: "TVA française non-applicable"
         french_vat_particular_1982: "TVA française particulière 1982"
         french_vat_particular_1989: "TVA française particulière 1989"
@@ -3856,6 +3861,7 @@ fra:
         gram_per_liter: "Gramme par litre"
         gram_per_square_meter: "Gramme par mètre carré"
         hectare: "Hectare"
+        hectare_per_hour: "Hectare par heure"
         hectoliter: "Hectolitre"
         hectoliter_per_hectare: "Hectolitre par hectare"
         hectopascal: "Hectopascal"
@@ -3897,6 +3903,7 @@ fra:
         millimeter: "Millimètre"
         millimeter_per_hour: "Millimètre par heure"
         million: "Million"
+        million_per_hectare: "Million par hectare"
         million_per_liter: "Million par litre"
         millionth: "Millionième"
         millisecond: "Milliseconde"

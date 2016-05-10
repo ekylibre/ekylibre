@@ -237,9 +237,9 @@ module ApplicationHelper
     nomenclature_as_options(:languages)
   end
 
-  def available_languages
+  def available_languages(native_language = true)
     I18n.available_locales.map do |l|
-      [I18n.t('i18n.name', locale: l), l]
+      [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
     end.sort { |a, b| a.second <=> b.second }
   end
 
