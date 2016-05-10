@@ -68,11 +68,11 @@ module Ekylibre
           variant.unit_name ||= :unit.tl
           variant.save!
 
-        if r.indicators.any?
-          r.indicators.each do |indicator_name, value|
-          variant.read! indicator_name, value
+          if r.indicators.any?
+            r.indicators.each do |indicator_name, value|
+              variant.read! indicator_name, value
+            end
           end
-        end
 
           if r.price_unity
             # Find unit and matching indicator
