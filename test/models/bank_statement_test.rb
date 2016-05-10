@@ -44,5 +44,15 @@ require 'test_helper'
 
 class BankStatementTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'debit, credit and currency are computed during validations' do
+    bank_statement = bank_statements(:bank_statements_001)
+    bank_statement.debit = 0
+    bank_statement.credit = 0
+    bank_statement.currency = nil
+    bank_statement.valid?
+    assert_equal bank_statement.items.sum(:debit), bank_statement.debit
+    assert_equal bank_statement.items.sum(:credit), bank_statement.credit
+    assert_equal bank_statement.cash.currency, bank_statement.currency
+  end
 end

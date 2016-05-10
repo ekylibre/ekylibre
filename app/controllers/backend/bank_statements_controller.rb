@@ -41,14 +41,13 @@ module Backend
       redirect_to backend_cashes_path
     end
 
-    list(:items, model: :journal_entry_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :entry_id) do |t|
+    list(:items, model: :bank_statement_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :id) do |t|
       t.column :journal, url: true
-      t.column :entry_number, url: true
-      t.column :printed_on
+      t.column :transfered_on
       t.column :name
       t.column :account, url: true
-      t.column :real_debit, currency: :real_currency
-      t.column :real_credit, currency: :real_currency
+      t.column :debit, currency: :currency
+      t.column :credit, currency: :currency
     end
   end
 end

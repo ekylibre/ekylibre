@@ -44,7 +44,7 @@ class BankStatement < Ekylibre::Record::Base
   include Attachable
   include Customizable
   belongs_to :cash
-  has_many :items, class_name: 'JournalEntryItem', dependent: :nullify
+  has_many :items, class_name: 'BankStatementItem', dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(bank_statement) { bank_statement.stopped_at && bank_statement.started_at }
@@ -58,8 +58,8 @@ class BankStatement < Ekylibre::Record::Base
 
   before_validation do
     self.currency = cash_currency if cash
-    self.debit  = items.sum(:real_debit)
-    self.credit = items.sum(:real_credit)
+    self.debit  = items.sum(:debit)
+    self.credit = items.sum(:credit)
   end
 
   # A bank account statement has to contain.all the planned records.
