@@ -1333,3 +1333,15 @@ product_phases_113:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2016-01-21 14:05:51.808820000 Z
   variant_id: 69
+product_phases_114:
+  category_id: 25
+  created_at: 2016-05-10 19:12:52.819913000 Z
+  creator_id: 1
+  id: 122
+  lock_version: 0
+  nature_id: 59
+  product_id: 176
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-05-10 19:12:52.819913000 Z
+  updater_id: 1
+  variant_id: 69

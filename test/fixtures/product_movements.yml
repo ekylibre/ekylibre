@@ -1791,3 +1791,14 @@ product_movements_163:
   product_id: 175
   started_at: 2015-01-01 00:00:00.000000000 Z
   updated_at: 2016-01-21 14:05:51.794926000 Z
+product_movements_164:
+  created_at: 2016-05-10 19:12:52.781402000 Z
+  creator_id: 1
+  delta: 3.9989
+  id: 164
+  lock_version: 0
+  population: 3.9989
+  product_id: 176
+  started_at: 2016-02-29 23:00:00.000000000 Z
+  updated_at: 2016-05-10 19:12:52.781402000 Z
+  updater_id: 1

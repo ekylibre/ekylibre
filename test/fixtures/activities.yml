@@ -64,6 +64,9 @@ activities_001:
   family: plant_farming
   id: 1
   lock_version: 2
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Blé tendre
   nature: main
   production_cycle: annual
@@ -74,6 +77,8 @@ activities_001:
   updated_at: 2015-03-08 16:28:24.934621000 Z
   updater_id: 1
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_002:
@@ -84,6 +89,9 @@ activities_002:
   family: animal_farming
   id: 3
   lock_version: 4
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Bovins
   nature: main
   production_cycle: annual
@@ -93,6 +101,8 @@ activities_002:
   updated_at: 2015-03-08 16:28:50.905947000 Z
   updater_id: 1
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_003:
@@ -101,6 +111,9 @@ activities_003:
   family: administering
   id: 4
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Maintenance
   nature: auxiliary
   production_cycle: annual
@@ -108,6 +121,8 @@ activities_003:
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: false
   with_supports: false
 activities_004:
@@ -118,6 +133,9 @@ activities_004:
   family: plant_farming
   id: 5
   lock_version: 1
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Maïs
   nature: main
   production_cycle: annual
@@ -128,6 +146,8 @@ activities_004:
   updated_at: 2015-03-08 16:30:59.380202000 Z
   updater_id: 1
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_005:
@@ -138,6 +158,9 @@ activities_005:
   family: plant_farming
   id: 6
   lock_version: 2
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Vignes
   nature: main
   production_cycle: annual
@@ -148,6 +171,8 @@ activities_005:
   updated_at: 2015-03-08 16:33:20.709599000 Z
   updater_id: 1
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_006:
@@ -157,6 +182,9 @@ activities_006:
   family: wine_making
   id: 7
   lock_version: 1
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Vin
   nature: main
   production_cycle: annual
@@ -164,6 +192,8 @@ activities_006:
   updated_at: 2015-03-08 16:33:39.397458000 Z
   updater_id: 1
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: false
   with_supports: false
 activities_007:
@@ -172,6 +202,9 @@ activities_007:
   family: plant_farming
   id: 8
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Luzerne implantée pour la récolte 2015
   nature: main
   production_campaign: at_cycle_end
@@ -182,6 +215,8 @@ activities_007:
   suspended: false
   updated_at: 2016-01-21 14:05:46.351081000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_008:
@@ -190,6 +225,9 @@ activities_008:
   family: plant_farming
   id: 9
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Maïs (zea_mays)
   nature: main
   production_campaign: at_cycle_end
@@ -200,6 +238,8 @@ activities_008:
   suspended: false
   updated_at: 2016-01-21 14:05:47.480362000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_009:
@@ -208,6 +248,9 @@ activities_009:
   family: plant_farming
   id: 10
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Blé tendre d’hiver
   nature: main
   production_campaign: at_cycle_end
@@ -218,6 +261,8 @@ activities_009:
   suspended: false
   updated_at: 2016-01-21 14:05:47.774103000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_010:
@@ -226,6 +271,9 @@ activities_010:
   family: plant_farming
   id: 11
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
     la récolte 2015 et de céréales
   nature: main
@@ -237,6 +285,8 @@ activities_010:
   suspended: false
   updated_at: 2016-01-21 14:05:48.250016000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_011:
@@ -245,6 +295,9 @@ activities_011:
   family: plant_farming
   id: 12
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Ray-grass de 5 ans ou moins
   nature: main
   production_campaign: at_cycle_end
@@ -255,6 +308,8 @@ activities_011:
   suspended: false
   updated_at: 2016-01-21 14:05:48.385508000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_012:
@@ -263,6 +318,9 @@ activities_012:
   family: plant_farming
   id: 13
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Autre prairie temporaire de 5 ans ou moins
   nature: main
   production_campaign: at_cycle_end
@@ -273,6 +331,8 @@ activities_012:
   suspended: false
   updated_at: 2016-01-21 14:05:48.519822000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_013:
@@ -281,6 +341,9 @@ activities_013:
   family: plant_farming
   id: 14
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Blé dur d’hiver
   nature: main
   production_campaign: at_cycle_end
@@ -291,6 +354,8 @@ activities_013:
   suspended: false
   updated_at: 2016-01-21 14:05:48.672465000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_014:
@@ -299,6 +364,9 @@ activities_014:
   family: plant_farming
   id: 15
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Mélange de légumineuses prépondérantes au semis et de graminées fourragères
     de 5 ans ou moins
   nature: main
@@ -310,6 +378,8 @@ activities_014:
   suspended: false
   updated_at: 2016-01-21 14:05:48.816582000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_015:
@@ -318,6 +388,9 @@ activities_015:
   family: plant_farming
   id: 16
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Dactyle de 5 ans ou moins
   nature: main
   production_campaign: at_cycle_end
@@ -328,14 +401,20 @@ activities_015:
   suspended: false
   updated_at: 2016-01-21 14:05:49.164349000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_016:
   created_at: 2016-01-21 14:05:49.338114000 Z
   cultivation_variety: sorghum
+  description: ''
   family: plant_farming
   id: 17
-  lock_version: 0
+  lock_version: 1
+  measure_grading_items_count: true
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Sorgho
   nature: main
   production_campaign: at_cycle_end
@@ -344,8 +423,11 @@ activities_016:
   size_unit_name: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2016-01-21 14:05:49.338114000 Z
+  updated_at: 2016-05-10 19:13:40.623489000 Z
+  updater_id: 1
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: true
   with_cultivation: true
   with_supports: true
 activities_017:
@@ -354,6 +436,9 @@ activities_017:
   family: plant_farming
   id: 18
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Orge d'hiver
   nature: main
   production_campaign: at_cycle_end
@@ -364,6 +449,8 @@ activities_017:
   suspended: false
   updated_at: 2016-01-21 14:05:49.554454000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_018:
@@ -373,6 +460,9 @@ activities_018:
   family: plant_farming
   id: 19
   lock_version: 1
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Maïs ensilage
   nature: main
   production_campaign: at_cycle_end
@@ -384,6 +474,8 @@ activities_018:
   updated_at: 2016-04-20 13:23:42.068608000 Z
   updater_id: 1
   use_countings: true
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_019:
@@ -392,6 +484,9 @@ activities_019:
   family: plant_farming
   id: 20
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Mélange de légumineuses fourragères prépondérantes au semis implantées pour
     la récolte 2015 et d’herbacées ou de graminées fourragères
   nature: main
@@ -403,6 +498,8 @@ activities_019:
   suspended: false
   updated_at: 2016-01-21 14:05:51.294978000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
   with_cultivation: true
   with_supports: true
 activities_020:
@@ -411,6 +508,9 @@ activities_020:
   family: plant_farming
   id: 21
   lock_version: 0
+  measure_grading_items_count: false
+  measure_grading_net_mass: false
+  measure_grading_sizes: false
   name: Pois de printemps semé avant le 31/05
   nature: main
   production_campaign: at_cycle_end
@@ -421,5 +521,39 @@ activities_020:
   suspended: false
   updated_at: 2016-01-21 14:05:51.718311000 Z
   use_countings: false
+  use_grading_calibre: false
+  use_gradings: false
+  with_cultivation: true
+  with_supports: true
+activities_021:
+  created_at: 2016-05-10 19:12:13.384484000 Z
+  creator_id: 1
+  cultivation_variety: daucus
+  description: ''
+  family: plant_farming
+  grading_calibre_indicator_name: diameter
+  grading_calibre_unit_name: millimeter
+  grading_net_mass_unit_name: kilogram
+  grading_sizes_indicator_name: length
+  grading_sizes_unit_name: centimeter
+  id: 22
+  lock_version: 0
+  measure_grading_items_count: true
+  measure_grading_net_mass: true
+  measure_grading_sizes: true
+  name: Carotte
+  nature: main
+  production_campaign: at_cycle_end
+  production_cycle: annual
+  production_system_name: organic_farming
+  size_indicator_name: net_surface_area
+  size_unit_name: hectare
+  support_variety: land_parcel
+  suspended: false
+  updated_at: 2016-05-10 19:12:13.384484000 Z
+  updater_id: 1
+  use_countings: true
+  use_grading_calibre: true
+  use_gradings: true
   with_cultivation: true
   with_supports: true
