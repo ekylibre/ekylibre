@@ -3,8 +3,7 @@ require 'test_helper'
 
 class FrontendInvitations < CapybaraIntegrationTest
   def create_invitation
-    visit("/authentication/sign_in?locale=#{@locale}")
-    login_as(users(:users_001), scope: :user) # , run_callbacks: false
+    login_with_user
     visit('/backend/invitations/new')
     fill_in('user[first_name]', with: 'Robert')
     fill_in('user[last_name]', with: 'Tee')

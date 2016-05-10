@@ -11,6 +11,7 @@ ita:
       invalid_token: "token di autenticazione non valido."
       invited: "Si dispone di un invito in sospeso, lo accetta per completare la creazione del tuo account."
       locked: "Il tuo account è bloccato."
+      not_approved: "Il tuo account non è stato approvato dall&#39;amministratore ancora."
       not_found_in_database: "E-mail o password non validi."
       timeout: "La sessione scaduto, si prega di firmare nuovamente per continuare."
       unauthenticated: "È necessario accedere o registrarsi prima di continuare."
@@ -38,6 +39,16 @@ ita:
         ignore: "Se non si desidera accettare l&#39;invito, ignora questa email. <br /> Il tuo account non verrà creato fino a quando si accede al link qui sopra e impostare la password."
         # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         subject: "Istruzioni invito"
+      registrations:
+        approved:
+          # accepted: "An administrator has approved your registration on %{url}, you can now sign in through the link below."
+          # hello: "Hello %{first_name} %{last_name},"
+          sign_in: "Accedi qui."
+          subject: "Il tuo account è stato approvato!"
+        signed_up:
+          confirm: "Si prega di confermare nel pannello di amministrazione."
+          # details: "%{first_name} %{last_name} with email %{email} has just signed up."
+          subject: "Nuova iscrizione"
       reset_password_instructions:
         subject: "Ripristinare le istruzioni di password"
       unlock_instructions:
@@ -59,6 +70,8 @@ ita:
       signed_up_but_unconfirmed: "Un messaggio con un link di conferma è stato inviato al tuo indirizzo email. Si prega di aprire il link per attivare l&#39;account."
       update_needs_confirmation: "È stato aggiornato il tuo account con successo, ma abbiamo bisogno di verificare il tuo nuovo indirizzo email. Controlla la tua email e clicca sul link di conferma per finalizzare confermare il nuovo indirizzo email."
       updated: "È stato aggiornato il tuo account con successo."
+      user:
+        signed_up_but_not_approved: "Ti sei registrato con successo ma il tuo account non è stata approvata dall&#39;amministratore ancora"
     sessions:
       signed_in: "Firmato a successo."
       signed_out: "Firmato con successo."

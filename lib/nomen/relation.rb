@@ -9,7 +9,7 @@ module Nomen
       @nomenclature = nomenclature
     end
 
-    %w(select collect detect).each do |meth|
+    %w(drop drop_while select reject reverse slice_after slice_before slice_when sort).each do |meth|
       define_method meth do |*args, &block|
         self.class.new(@nomenclature, super(*args, &block))
       end

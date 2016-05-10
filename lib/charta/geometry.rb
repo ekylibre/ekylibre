@@ -149,8 +149,12 @@ module Charta
     end
 
     # Produces buffer
-    def buffer(radius)
-      self.class.new(select_value("SELECT ST_AsEWKT(ST_Buffer(#{geom}, #{radius}))"))
+    def buffer(radius, as_geography = true)
+      if as_geography
+        self.class.new(select_value("SELECT ST_AsEWKT(ST_Buffer(#{geom}::geography, #{radius}))"))
+      else
+        self.class.new(select_value("SELECT ST_AsEWKT(ST_Buffer(#{geom}, #{radius}))"))
+      end
     end
 
     # def merge!(other_geometry)

@@ -21,9 +21,16 @@
           attributionControl: true
         )
         mapElement.prop("map", map)
+        if options.background?
+          opts['attribution'] = options.background.attribution if options.background.attribution?
+          opts['minZoom'] = options.background.minZoom if options.background.minZoom?
+          opts['maxZoom'] = options.background.maxZoom if options.background.maxZoom?
+          opts['subdomains'] = options.background.subdomains if options.background.subdomains?
+          L.tileLayer(options.background.url, opts).addTo map
+        else
+          # Add an OpenStreetMap tile layer
+          L.tileLayer.provider("OpenStreetMap.HOT").addTo map
 
-        # Add an OpenStreetMap tile layer
-        L.tileLayer.provider("OpenStreetMap.HOT").addTo map
         $.each options.geometries, (index, value) ->
           layer = undefined
           if value.shape
@@ -50,6 +57,7 @@
 
         # Bounding box
         map.fitBounds L.latLngBounds(options.view.boundingBox)  if options.view and options.view.boundingBox
+
         mapElement.prop "mapLoaded", true
       return
 

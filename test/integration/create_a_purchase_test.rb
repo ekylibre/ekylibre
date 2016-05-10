@@ -2,9 +2,7 @@ require 'test_helper'
 
 class CreateAPurchaseTest < CapybaraIntegrationTest
   setup do
-    I18n.locale = @locale = ENV['LOCALE'] || I18n.default_locale
-    visit("/authentication/sign_in?locale=#{@locale}")
-    login_as(users(:users_001), scope: :user)
+    login_with_user
   end
 
   teardown do

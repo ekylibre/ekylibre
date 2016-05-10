@@ -51,20 +51,16 @@ Rails.application.routes.draw do
   end
 
   # No namespace because authentication is for all sides
-  devise_for :users, path: 'authentication', module: :authentication, skip: [:invitations]
+  devise_for :users, path: 'authentication', module: :authentication, skip: [:invitations, :registrations]
   as :user do
+    # Invitations
     get 'authentication/invitation/accept' => 'authentication/invitations#edit', as: :accept_user_invitation
     put 'authentication/invitation' => 'authentication/invitations#update', as: :user_invitation
     patch 'authentication/invitation' => 'authentication/invitations#update'
-  end
 
-  namespace :pasteque do
-    # namespace :v6 do
-    #   pasteque_v6
-    # end
-    namespace :v5 do
-      pasteque_v5
-    end
+    # Registrations
+    get 'authentication/sign_up' => 'authentication/registrations#new', as: :new_user_registration
+    post 'authentication' => 'authentication/registrations#create', as: :user_registration
   end
 
   # No '-' in API paths for now, only '_'
@@ -582,6 +578,17 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :map_backgrounds do
+      collection do
+        post :load
+      end
+      member do
+        put :toggle
+        put :star
+        delete :destroy
+      end
+    end
+
     resources :map_editors, only: [] do
       collection do
         post :upload
@@ -838,6 +845,8 @@ Rails.application.routes.draw do
     get 'invitations/list', to: 'invitations#list'
     get 'invitations/new', to: 'invitations#new'
     post 'invitations', to: 'invitations#create'
+
+    resources :registrations, only: [:index, :edit, :update, :destroy], concerns: [:list]
   end
 
   root to: 'public#index'

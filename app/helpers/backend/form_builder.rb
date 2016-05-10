@@ -299,12 +299,20 @@ module Backend
           editor[:show] = union.to_json_object unless union.empty?
         end
       end
+      editor[:back] ||= MapBackground.availables.collect(&:to_json_object)
+
       input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
     end
 
     def shape_field(attribute_name = :shape, options = {})
       raise @object.send(attribute_name)
       geometry = Charta.new_geometry(@object.send(attribute_name) || Charta.empty_geometry)
+      options[:input_html] ||= {}
+      options[:input_html][:data] ||= {}
+      options[:input_html][:data][:map_editor] ||= {}
+      options[:input_html][:data][:map_editor] ||= {}
+      options[:input_html][:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
+
       # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_json_object}}))
       input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
     end
@@ -330,6 +338,7 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
+      marker[:background] ||= MapBackground.by_default.to_json_object
       input(attribute_name, options.merge(input_html: { data: { map_marker: marker } }))
     end
 
@@ -347,6 +356,7 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
+      marker[:background] ||= MapBackground.by_default.to_json_object
       input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 
@@ -420,7 +430,7 @@ module Backend
     end
 
     # Build a frame for all product _forms
-    def product_form_frame(_options = {}, &block)
+    def product_form_frame(options = {}, &block)
       html = ''.html_safe
 
       variant = @object.variant
@@ -437,7 +447,7 @@ module Backend
           # Add name
           fs << input(:name)
           # Add work number
-          fs << input(:work_number)
+          fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
           # Add variant selector
           fs << variety(scope: variant)
 

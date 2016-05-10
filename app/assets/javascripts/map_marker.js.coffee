@@ -6,7 +6,7 @@
       box:
         height: 400
         width: null
-      background: "Esri.WorldImagery"
+      background: {}
       marker: null
       view: 'auto'
       controls:
@@ -85,8 +85,8 @@
       if @backgroundLayer?
         @map.removeLayer(@backgroundLayer)
       if @options.background?
-        if @options.background.constructor.name is "String"
-          @backgroundLayer = L.tileLayer.provider(@options.background)
+        if @options.background.constructor.name is "Object"
+          @backgroundLayer = L.tileLayer(@options.background.url)
           @backgroundLayer.addTo @map
         else
           console.log "How to set background with #{@options.background}?"

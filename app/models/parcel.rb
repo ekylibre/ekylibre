@@ -85,7 +85,6 @@ class Parcel < Ekylibre::Record::Base
 
   acts_as_list scope: :delivery
   acts_as_numbered
-  accepts_nested_attributes_for :items
   delegate :draft?, :ordered?, :in_preparation?, :prepared?, :started?, :finished?, to: :delivery, prefix: true
 
   state_machine :state, initial: :draft do

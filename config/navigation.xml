@@ -949,6 +949,18 @@
         <page to="backend/invitations#new"/>
         <page to="backend/invitations#create"/>
       </item>
+      <item name="map_backgrounds">
+        <page to="backend/map_backgrounds#index"/>
+        <page to="backend/map_backgrounds#create"/>
+        <page to="backend/map_backgrounds#destroy"/>
+        <page to="backend/map_backgrounds#new"/>
+        <page to="backend/map_backgrounds#update"/>
+        <page to="backend/map_backgrounds#edit"/>
+        <page to="backend/map_backgrounds#load"/>
+        <page to="backend/map_backgrounds#show"/>
+        <page to="backend/map_backgrounds#star"/>
+        <page to="backend/map_backgrounds#toggle"/>
+      </item>
       <item name="teams">
         <page to="backend/teams#index"/>
         <page to="backend/teams#create"/>
@@ -959,6 +971,13 @@
         <page to="backend/teams#show"/>
         <page to="backend/teams#unroll"/>
         <page to="backend/teams#update"/>
+      </item>
+      <item name="registrations">
+        <page to="backend/registrations#index"/>
+        <page to="backend/registrations#list"/>
+        <page to="backend/registrations#edit"/>
+        <page to="backend/registrations#update"/>
+        <page to="backend/registrations#destroy"/>
       </item>
       <item name="roles">
         <page to="backend/roles#index"/>
@@ -1492,23 +1511,31 @@
       <item name="map_editors">
         <page to="backend/map_editors#upload"/>
       </item>
-      <item name="passwords">
-        <page to="authentication/passwords#create"/>
-        <page to="authentication/passwords#edit"/>
-        <page to="authentication/passwords#new"/>
-        <page to="authentication/passwords#update"/>
-      </item>
-      <item name="sessions">
-        <page to="authentication/sessions#create"/>
-        <page to="authentication/sessions#destroy"/>
-        <page to="authentication/sessions#new"/>
-      </item>
       <item name="invitations">
         <page to="authentication/invitations#create"/>
         <page to="authentication/invitations#destroy"/>
         <page to="authentication/invitations#edit"/>
         <page to="authentication/invitations#new"/>
         <page to="authentication/invitations#update"/>
+      </item>
+      <item name="passwords">
+        <page to="authentication/passwords#create"/>
+        <page to="authentication/passwords#edit"/>
+        <page to="authentication/passwords#new"/>
+        <page to="authentication/passwords#update"/>
+      </item>
+      <item name="registrations">
+        <page to="authentication/registrations#cancel"/>
+        <page to="authentication/registrations#create"/>
+        <page to="authentication/registrations#destroy"/>
+        <page to="authentication/registrations#edit"/>
+        <page to="authentication/registrations#new"/>
+        <page to="authentication/registrations#update"/>
+      </item>
+      <item name="sessions">
+        <page to="authentication/sessions#create"/>
+        <page to="authentication/sessions#destroy"/>
+        <page to="authentication/sessions#new"/>
       </item>
       <item name="confirmations">
         <page to="devise/confirmations#create"/>
@@ -1708,98 +1735,6 @@
       <item name="plant_density_abaci">
         <page to="api/v1/plant_density_abaci#index"/>
         <page to="api/v1/plant_density_abaci#show"/>
-      </item>
-    </group>
-    <group>
-      <item name="attributes">
-        <page to="pasteque/v5/attributes#index"/>
-      </item>
-      <item name="cash_mvts">
-        <page to="pasteque/v5/cash_mvts#move"/>
-      </item>
-      <item name="cash_registers">
-        <page to="pasteque/v5/cash_registers#index"/>
-        <page to="pasteque/v5/cash_registers#show"/>
-      </item>
-      <item name="cashes">
-        <page to="pasteque/v5/cashes#search"/>
-        <page to="pasteque/v5/cashes#show"/>
-        <page to="pasteque/v5/cashes#update"/>
-        <page to="pasteque/v5/cashes#zticket"/>
-      </item>
-      <item name="categories">
-        <page to="pasteque/v5/categories#index"/>
-        <page to="pasteque/v5/categories#children"/>
-        <page to="pasteque/v5/categories#show"/>
-      </item>
-      <item name="compositions">
-        <page to="pasteque/v5/compositions#index"/>
-      </item>
-      <item name="currencies">
-        <page to="pasteque/v5/currencies#index"/>
-        <page to="pasteque/v5/currencies#main"/>
-        <page to="pasteque/v5/currencies#show"/>
-      </item>
-      <item name="customers">
-        <page to="pasteque/v5/customers#index"/>
-        <page to="pasteque/v5/customers#show"/>
-        <page to="pasteque/v5/customers#top"/>
-      </item>
-      <item name="discount_profiles">
-        <page to="pasteque/v5/discount_profiles#index"/>
-      </item>
-      <item name="images">
-        <page to="pasteque/v5/images#category"/>
-        <page to="pasteque/v5/images#payment_method"/>
-        <page to="pasteque/v5/images#product"/>
-        <page to="pasteque/v5/images#resource"/>
-      </item>
-      <item name="locations">
-        <page to="pasteque/v5/locations#index"/>
-        <page to="pasteque/v5/locations#show"/>
-      </item>
-      <item name="places">
-        <page to="pasteque/v5/places#index"/>
-        <page to="pasteque/v5/places#show"/>
-      </item>
-      <item name="products">
-        <page to="pasteque/v5/products#index"/>
-        <page to="pasteque/v5/products#category"/>
-        <page to="pasteque/v5/products#show"/>
-      </item>
-      <item name="resources">
-        <page to="pasteque/v5/resources#show"/>
-      </item>
-      <item name="roles">
-        <page to="pasteque/v5/roles#index"/>
-        <page to="pasteque/v5/roles#show"/>
-      </item>
-      <item name="stocks">
-        <page to="pasteque/v5/stocks#index"/>
-      </item>
-      <item name="tariff_areas">
-        <page to="pasteque/v5/tariff_areas#index"/>
-      </item>
-      <item name="taxes">
-        <page to="pasteque/v5/taxes#index"/>
-        <page to="pasteque/v5/taxes#show"/>
-      </item>
-      <item name="tickets">
-        <page to="pasteque/v5/tickets#index"/>
-        <page to="pasteque/v5/tickets#create"/>
-        <page to="pasteque/v5/tickets#destroy"/>
-        <page to="pasteque/v5/tickets#open"/>
-        <page to="pasteque/v5/tickets#save"/>
-        <page to="pasteque/v5/tickets#search"/>
-        <page to="pasteque/v5/tickets#show"/>
-      </item>
-      <item name="users">
-        <page to="pasteque/v5/users#index"/>
-        <page to="pasteque/v5/users#show"/>
-        <page to="pasteque/v5/users#update_password"/>
-      </item>
-      <item name="version">
-        <page to="pasteque/v5/version#index"/>
       </item>
     </group>
     <group>

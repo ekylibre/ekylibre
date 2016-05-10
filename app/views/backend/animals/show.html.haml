@@ -25,12 +25,12 @@
         %i.picto{class: "picto-barcode"}
         = resource.identification_number
 
-  - if resource.born_at and resource.age >= 1.day
+  - if resource.born_at && resource.age >= 1.day
     .med-info
       %span.title= Animal.human_attribute_name(:age)
       %span.value
         %i.picto{class: "picto-clock-o"}
-        = human_age(resource.age, display: 2)
+        = human_age(resource.born_at, display: 3)
 
 = cobbles do |c|
 

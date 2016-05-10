@@ -33,7 +33,7 @@ module Backend
     #   :q Text search
     #   :working_set
     def self.list_conditions
-      code = search_conditions(products: [:name, :number], product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid], product_nature_variants: [:name]) + " ||= []\n"
       code << "unless params[:working_set].blank?\n"
       code << "  item = Nomen::WorkingSet.find(params[:working_set])\n"
       code << "  c[0] << \" AND products.nature_id IN (SELECT id FROM product_natures WHERE \#{WorkingSet.to_sql(item.expression)})\"\n"
@@ -44,8 +44,8 @@ module Backend
       code << "  c[0] << ' AND #{Product.table_name}.dead_at IS NOT NULL'\n"
       code << "end\n"
       code << "if params[:period].to_s != 'all'\n"
-      code << "  started_on = params[:started_at]\n"
-      code << "  stopped_on = params[:stopped_at]\n"
+      code << "  started_on = params[:started_on]\n"
+      code << "  stopped_on = params[:stopped_on]\n"
       code << "  c[0] << ' AND #{Product.table_name}.born_at BETWEEN ? AND ?'\n"
       code << "  c << started_on\n"
       code << "  c << stopped_on\n"

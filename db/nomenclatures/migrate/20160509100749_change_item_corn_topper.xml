@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Change item corn topper">
+  <item-change item="product_natures#corn_topper" category="equipment" variety="equipment" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+</migration>

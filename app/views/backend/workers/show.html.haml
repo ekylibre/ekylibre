@@ -19,7 +19,7 @@
     - if resource.born_at && resource.age >= 1.day
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
-        = human_age(age, display: 2)
+        = human_age(resource.born_at, display: 2)
     = resource_info(:working_duration) do |working_duration|
       %i.picto{class: "picto-timelapse"}
       = :x_hours.tl(count: resource.working_duration(as: :doer)/3600)
