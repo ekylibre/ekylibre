@@ -33,14 +33,12 @@ L.GhostLabel = L.Label.extend
     
     @_onAdd.apply this, arguments
 
+    map.on 'zoomend', @_onZoomEnd, @
+
     if @options.toBack
       # ZIndex 3 is default index of objectsPane
       @updateZIndex '3'
 
-    if @_latLngs
-      poly = L.polygon(@_latLngs)
-      poly._map = @_map
-      @_latlng = poly.__getCenter()
       @_updatePosition()
     return
 
@@ -50,6 +48,18 @@ L.GhostLabel = L.Label.extend
 
   getLatLng: ->
     @_latlng
+
+  _onZoomEnd: (e) ->
+    @getCenter(e.target)
+
+  getCenter: (map)->
+    if @_latLngs
+      poly = L.polygon(@_latLngs)
+      poly._map = @_map || map
+      @_latlng = poly.__getCenter()
+
+    @_latlng
+
 
   ###
   # Override to set position on pos, considering label center
