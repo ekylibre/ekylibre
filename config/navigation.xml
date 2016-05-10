@@ -926,6 +926,7 @@
         <page to="backend/registrations#list"/>
         <page to="backend/registrations#edit"/>
         <page to="backend/registrations#update"/>
+        <page to="backend/registrations#destroy"/>
       </item>
       <item name="roles">
         <page to="backend/roles#index"/>

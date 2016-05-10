@@ -1955,6 +1955,7 @@ users:
     actions:
     - "backend/invitations#create"
     - "backend/invitations#new"
+    - "backend/registrations#destroy"
     - "backend/registrations#edit"
     - "backend/registrations#update"
     - "backend/users#create"

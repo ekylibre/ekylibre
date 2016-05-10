@@ -9,7 +9,7 @@ fra:
       inactive: "Votre compte n’est pas encore activé."
       invalid: "Email ou mot de passe incorrect."
       invalid_token: "Jeton d’authentification incorrect."
-      invited: "Vous avez une invitation en attente, veullez l'accepter afin de finaliser la création de votre compte."
+      invited: "Vous avez une invitation en attente, veullez l’accepter afin de finaliser la création de votre compte."
       locked: "Votre compte est verrouillé."
       not_approved: "Votre compte est en attente de validation par un administrateur."
       not_found_in_database: "Nom d’utilisateur ou mot de passe invalide."
@@ -21,11 +21,11 @@ fra:
         header: "Enregistrer votre mot de passe"
         submit_button: "Enregistrer votre mot de passe"
       invitation_removed: "Votre invitation a été supprimée."
-      invitation_token_invalid: "Le jeton d'invitation fourni n'est pas valide !"
+      invitation_token_invalid: "Le jeton d’invitation fourni n’est pas valide !"
       new:
         header: "Envoyer une invitation"
         submit_button: "Envoyer une invitation"
-      no_invitations_remaining: "Pas d'invitations restantes."
+      no_invitations_remaining: "Pas d’invitations restantes."
       send_instructions: "Une invitation par email a été envoyée à %{email}."
       updated: "Votre mot de passe a été enregistré. Vous êtes maintenant connecté."
       updated_not_active: "Votre mot de passe a été enregistré."
@@ -33,21 +33,21 @@ fra:
       confirmation_instructions:
         subject: "Instructions de confirmation"
       invitation_instructions:
-        accept: "Accepter l'invitation"
-        accept_until: "Cette invitation est valable jusqu'au %{due_date}."
+        accept: "Accepter l’invitation"
+        accept_until: "Cette invitation est valable jusqu’au %{due_date}."
         hello: "Bonjour %{first_name} %{last_name},"
-        ignore: "Si vous ne voulez pas accepter cette invitation, merci d'ignorer cet email.<br />Votre compte ne sera pas créé tant que vous ne suivez pas le lien ci-dessus et renseigner un nouveau mot de passe."
-        someone_invited_you: "Quelqu'un vous a invité à créer un compte sur  %{url}, vous pouvez accepter cette invitation en cliquant sur le lien ci-dessous."
+        ignore: "Si vous ne voulez pas accepter cette invitation, merci d’ignorer cet email.<br />Votre compte ne sera pas créé tant que vous ne suivez pas le lien ci-dessus et renseigner un nouveau mot de passe."
+        someone_invited_you: "Quelqu’un vous a invité à créer un compte sur  %{url}, vous pouvez accepter cette invitation en cliquant sur le lien ci-dessous."
         subject: "Invitation de création de compte"
       registrations:
         approved:
-          accepted: "Un administrateur vient d'approuver votre inscription sur %{url}. Vous pouvez maintenant vous connecter en cliquant sur le lien ci-dessous."
+          accepted: "Un administrateur vient d’approuver votre inscription sur %{url}. Vous pouvez maintenant vous connecter en cliquant sur le lien ci-dessous."
           hello: "Bonjour %{first_name} %{last_name},"
           sign_in: "Connexion."
-          subject: "Votre compte vient d'être approuvé"
+          subject: "Votre compte vient d’être approuvé"
         signed_up:
-          confirm: "Veuillez confirmer son inscription dans l'interface d'administration."
-          details: "%{first_name} %{last_name} identifié par l'email %{email} vient juste de s'inscrire."
+          confirm: "Veuillez confirmer son inscription dans l’interface d’administration."
+          details: "%{first_name} %{last_name} identifié par l’email %{email} vient juste de s’inscrire."
           subject: "Nouvelle inscription"
       reset_password_instructions:
         subject: "Instructions pour changer le mot de passe"
@@ -71,7 +71,7 @@ fra:
       update_needs_confirmation: "Votre compte a bien été mis à jour mais nous devons vérifier votre nouvelle adresse email. Merci de vérifier vos emails et de cliquer sur le lien de confirmation pour finaliser la validation de votre nouvelle adresse."
       updated: "Votre compte a été modifié avec succès."
       user:
-        signed_up_but_not_approved: "Vous avez signé avec succès, mais votre compte n&#39;a pas encore été approuvé par votre administrateur"
+        signed_up_but_not_approved: "Vous avez signé avec succès, mais votre compte n’a pas encore été approuvé par votre administrateur"
     sessions:
       signed_in: "Connecté."
       signed_out: "Déconnecté."
