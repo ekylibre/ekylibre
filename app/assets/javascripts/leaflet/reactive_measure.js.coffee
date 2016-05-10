@@ -225,13 +225,13 @@ L.Tooltip.include
 
     if options.onTop
       L.DomUtil.addClass(@_container, 'leaflet-draw-tooltip-top')
-      L.DomEvent.on this._container, 'mouseenter', this.__onMouseEnter, this
-      L.DomEvent.on this._container, 'mouseleave', this.__onMouseLeave, this
+      L.DomEvent.on @_container, 'mouseenter', @__onMouseEnter, this
+      L.DomEvent.on @_container, 'mouseleave', @__onMouseLeave, this
 
   dispose: ->
     @_map.off 'mouseover'
-    L.DomEvent.off this._container, 'mouseenter', this.__onMouseEnter, this
-    L.DomEvent.off this._container, 'mouseleave', this.__onMouseLeave, this
+    L.DomEvent.off @_container, 'mouseenter', @__onMouseEnter, this
+    L.DomEvent.off @_container, 'mouseleave', @__onMouseLeave, this
     @__dispose.apply this, arguments
 
   __onMouseEnter: ->
@@ -292,3 +292,13 @@ L.EditToolbar.include
     L.EditToolbar.reactiveMeasure = !!options.reactiveMeasure
     @__initialize.apply this, arguments
     return
+
+
+#Patch Leaflet.Draw
+L.EditToolbar.Edit.include
+  __removeHooks: L.EditToolbar.Edit::removeHooks
+
+  removeHooks: ->
+    @__removeHooks.apply @, arguments
+    if @_map
+      @_map.off 'draw:editvertex', @_updateTooltip, @
