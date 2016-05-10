@@ -30,6 +30,10 @@ module Backend
            t.column :signup_at
          end
 
+    # Need to add explicitly action to detect it properly for now
+    def index
+    end
+
     def edit
       @registration = User.find(params[:id])
       @form_url = backend_registration_path(@registration)
@@ -43,6 +47,12 @@ module Backend
       else
         render :edit
       end
+    end
+
+    def destroy
+      @user = User.find(params[:id])
+      @user.destroy
+      redirect_to backend_registrations_path
     end
 
     private
