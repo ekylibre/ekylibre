@@ -94,6 +94,7 @@ fra:
     corker: "Boucheuse"
     corks: "Bouchons"
     corks_to_use: "Bouchons à utiliser" #?
+    corn_topper: "Castreuse"
     cover_implanter: "Plastifieuse"
     cropper: "Moissonneuse batteuse"
     cropper_driver: "Conducteur de moissonneuse batteuse"
@@ -184,6 +185,7 @@ fra:
     molluscicide_to_input: "Molluscicide à distribuer" #?
     mother: "Mère"
     mother_animal: "Mère" #?
+    # movement: "Movement"
     mower: "Faucheuse"
     mower_driver: "Conducteur de faucheuse"
     net_implanter: "Dérouleur de filet"

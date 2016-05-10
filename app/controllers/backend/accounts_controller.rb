@@ -30,7 +30,7 @@ module Backend
       code << "  c << params[:prefix].to_s+'%'\n"
       code << "end\n"
       code << "unless params[:period].blank? or params[:period]='all'\n"
-      code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_at], params[:stopped_at], 'je')+')'\n"
+      code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+')'\n"
       code << "end\n"
       code << "c\n"
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}

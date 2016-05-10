@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="phytosanitary_register_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
   <property name="ireport.zoom" value="1.2100000000000002"/>
   <property name="ireport.x" value="0"/>
-  <property name="ireport.y" value="465"/>
+  <property name="ireport.y" value="0"/>
   <template><![CDATA["../../corporate_identity/reporting_style.xml"]]></template>
   <style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
   <style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -106,8 +106,11 @@
   <field name="issue_observed_at" class="java.util.Date">
     <fieldDescription><![CDATA[ancestor::intervention/issue/@observed-at]]></fieldDescription>
   </field>
+  <field name="intervention_name" class="java.lang.String">
+    <fieldDescription><![CDATA[ancestor::intervention/@name]]></fieldDescription>
+  </field>
   <sortField name="campaign" order="Descending"/>
-  <sortField name="plant_cultivable_zone"/>
+  <sortField name="work_number"/>
   <variable name="bottom_img" class="java.lang.String">
     <variableExpression><![CDATA["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"]]></variableExpression>
   </variable>
@@ -126,9 +129,18 @@
     </groupHeader>
   </group>
   <group name="plant_group" isStartNewPage="true" keepTogether="true">
-    <groupExpression><![CDATA[$F{plant_id}]]></groupExpression>
+    <groupExpression><![CDATA[$F{work_number}]]></groupExpression>
     <groupHeader>
       <band height="244">
+        <rectangle radius="10">
+          <reportElement style="title" x="572" y="59" width="214" height="81" uuid="8b448998-7d17-4afc-84a6-8a6c09677f9c"/>
+        </rectangle>
+        <rectangle radius="10">
+          <reportElement style="title" x="282" y="59" width="258" height="81" uuid="286af448-36cb-4abe-8109-e0e8fad9cf3b"/>
+        </rectangle>
+        <rectangle radius="10">
+          <reportElement style="title" x="0" y="59" width="250" height="81" uuid="ed954d71-6d69-4db5-8a9f-dcbaeaf81679"/>
+        </rectangle>
         <textField>
           <reportElement style="sub-title" x="2" y="0" width="304" height="24" uuid="767321ef-0cb0-45b7-9d28-e511bc11c4d2"/>
           <textElement textAlignment="Justified" verticalAlignment="Middle"/>
@@ -142,132 +154,126 @@
           <text><![CDATA[]]></text>
         </staticText>
         <staticText>
-          <reportElement style="label" x="2" y="59" width="69" height="22" uuid="f13d06af-132b-4d03-b61b-84650403995b"/>
+          <reportElement style="label" x="2" y="113" width="69" height="22" uuid="f13d06af-132b-4d03-b61b-84650403995b"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Surface]]></text>
         </staticText>
         <staticText>
-          <reportElement style="label" x="2" y="81" width="69" height="22" uuid="d1b6c43b-248a-475e-9f13-df52ab37325f"/>
+          <reportElement style="label" x="286" y="59" width="46" height="22" uuid="d1b6c43b-248a-475e-9f13-df52ab37325f"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Culture]]></text>
         </staticText>
         <staticText>
-          <reportElement style="label" x="2" y="103" width="69" height="22" uuid="0f22a24e-779f-4c89-b703-44e223e147c5"/>
+          <reportElement style="label" x="286" y="81" width="46" height="22" uuid="0f22a24e-779f-4c89-b703-44e223e147c5"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Variété]]></text>
         </staticText>
         <textField evaluationTime="Group" evaluationGroup="plant_group" isBlankWhenNull="true">
-          <reportElement style="base" x="71" y="81" width="116" height="22" uuid="7ffc3808-a292-4169-9bac-7bf545fc238e"/>
+          <reportElement style="base" x="332" y="59" width="208" height="22" uuid="7ffc3808-a292-4169-9bac-7bf545fc238e"/>
           <textElement verticalAlignment="Middle"/>
           <textFieldExpression><![CDATA[$F{plant_variant_name}]]></textFieldExpression>
         </textField>
         <staticText>
-          <reportElement style="label" x="281" y="59" width="46" height="32" uuid="36931cf2-a5e2-44f0-acf1-45084b45ad25"/>
+          <reportElement style="label" x="2" y="59" width="68" height="22" uuid="36931cf2-a5e2-44f0-acf1-45084b45ad25"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[N° Ilot(s)]]></text>
         </staticText>
-        <textField pattern="###0.00 ha" isBlankWhenNull="true">
-          <reportElement style="base" x="71" y="59" width="116" height="22" uuid="b3834841-2c13-4098-90f2-dd5003f7e126"/>
+        <textField pattern="" isBlankWhenNull="true">
+          <reportElement style="base" x="70" y="113" width="162" height="22" uuid="b3834841-2c13-4098-90f2-dd5003f7e126"/>
           <textElement verticalAlignment="Middle"/>
           <textFieldExpression><![CDATA[$F{plant_area}]]></textFieldExpression>
         </textField>
-        <image onErrorType="Blank" evaluationTime="Group" evaluationGroup="plant_group">
-          <reportElement x="590" y="59" width="144" height="81" uuid="76a9af81-d2a1-4946-8f26-98bfb1e1fb3a">
+        <image hAlign="Center" vAlign="Middle" onErrorType="Blank" evaluationTime="Group" evaluationGroup="plant_group">
+          <reportElement x="587" y="59" width="196" height="81" uuid="76a9af81-d2a1-4946-8f26-98bfb1e1fb3a">
             <printWhenExpression><![CDATA[!$F{svg_path}.isEmpty()]]></printWhenExpression>
           </reportElement>
           <imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{svg_path})]]></imageExpression>
         </image>
         <textField evaluationTime="Group" evaluationGroup="plant_group" isBlankWhenNull="true">
-          <reportElement style="base" x="71" y="103" width="116" height="22" uuid="2904d403-2668-490f-908e-87c70866bd9c"/>
+          <reportElement style="base" x="332" y="81" width="208" height="22" uuid="2904d403-2668-490f-908e-87c70866bd9c"/>
           <textElement verticalAlignment="Middle"/>
           <textFieldExpression><![CDATA[$F{plant_variety}]]></textFieldExpression>
         </textField>
         <staticText>
-          <reportElement style="table-th" x="0" y="191" width="70" height="53" uuid="a7abb3d2-f689-49cd-8a09-f7a392353233"/>
+          <reportElement style="table-th" x="88" y="191" width="65" height="53" uuid="a7abb3d2-f689-49cd-8a09-f7a392353233"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Début]]></text>
         </staticText>
         <staticText>
-          <reportElement style="table-th" x="70" y="191" width="68" height="53" uuid="1b538556-a066-4e5d-838b-076f41bae267"/>
+          <reportElement style="table-th" x="153" y="191" width="65" height="53" uuid="1b538556-a066-4e5d-838b-076f41bae267"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Fin]]></text>
         </staticText>
         <staticText>
-          <reportElement style="table-th" x="138" y="191" width="59" height="53" uuid="904053d0-5030-49d6-93f2-1d9c22f92b19"/>
+          <reportElement style="table-th" x="218" y="191" width="59" height="53" uuid="904053d0-5030-49d6-93f2-1d9c22f92b19"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Surface travaillée]]></text>
         </staticText>
         <staticText>
-          <reportElement style="table-th" x="306" y="191" width="134" height="53" uuid="1802a171-77a4-49b9-9a5a-2f6ad77f2599"/>
+          <reportElement style="table-th" x="364" y="191" width="134" height="53" uuid="1802a171-77a4-49b9-9a5a-2f6ad77f2599"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Produits utilisés]]></text>
         </staticText>
         <staticText>
-          <reportElement style="table-th" x="489" y="191" width="121" height="30" uuid="db9ac3a4-49a9-4973-8943-d522f70ca10b"/>
+          <reportElement style="table-th" x="547" y="191" width="121" height="30" uuid="db9ac3a4-49a9-4973-8943-d522f70ca10b"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Cible]]></text>
         </staticText>
         <staticText>
-          <reportElement style="table-th" x="610" y="191" width="100" height="53" uuid="2854c438-a9cc-43df-b25a-55a5925df0c6"/>
+          <reportElement style="table-th" x="668" y="191" width="63" height="53" uuid="2854c438-a9cc-43df-b25a-55a5925df0c6"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Applicateur]]></text>
         </staticText>
         <staticText>
-          <reportElement style="table-th" x="197" y="191" width="109" height="53" uuid="b26948e4-82ea-46af-b24b-ba1b00065735"/>
+          <reportElement style="table-th" x="277" y="191" width="87" height="53" uuid="b26948e4-82ea-46af-b24b-ba1b00065735"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Type de produits]]></text>
         </staticText>
         <textField evaluationTime="Group" evaluationGroup="plant_group" isBlankWhenNull="true">
-          <reportElement style="base" x="327" y="59" width="35" height="32" uuid="8519eed4-bb43-45ad-bdf1-ecce2f5b4fb3"/>
+          <reportElement style="base" x="71" y="59" width="161" height="22" uuid="8519eed4-bb43-45ad-bdf1-ecce2f5b4fb3"/>
           <textElement verticalAlignment="Middle"/>
           <textFieldExpression><![CDATA[$F{plant_cluster_pac_number}]]></textFieldExpression>
         </textField>
         <staticText>
-          <reportElement style="label" x="367" y="59" width="90" height="32" uuid="4f8a5102-b697-4acc-98bd-976615a7d5ce"/>
+          <reportElement style="label" x="2" y="81" width="68" height="32" uuid="4f8a5102-b697-4acc-98bd-976615a7d5ce"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Parcelle culturale]]></text>
         </staticText>
         <textField evaluationTime="Group" evaluationGroup="plant_group" isBlankWhenNull="true">
-          <reportElement style="base" x="457" y="59" width="68" height="32" uuid="74c7d982-093d-4800-a44b-6804008111c7"/>
+          <reportElement style="base" x="71" y="81" width="161" height="32" uuid="74c7d982-093d-4800-a44b-6804008111c7"/>
           <textElement verticalAlignment="Middle"/>
           <textFieldExpression><![CDATA[$F{plant_cultivable_zone}]]></textFieldExpression>
         </textField>
-        <rectangle radius="10">
-          <reportElement style="title" x="277" y="59" width="258" height="81" uuid="286af448-36cb-4abe-8109-e0e8fad9cf3b"/>
-        </rectangle>
-        <rectangle radius="10">
-          <reportElement style="title" x="0" y="59" width="250" height="81" uuid="ed954d71-6d69-4db5-8a9f-dcbaeaf81679"/>
-        </rectangle>
         <staticText>
-          <reportElement style="strong" x="0" y="171" width="710" height="20" uuid="1c5f55c2-fc3c-4d41-b2ce-16e830a94d1d"/>
+          <reportElement style="strong" x="0" y="171" width="785" height="20" uuid="1c5f55c2-fc3c-4d41-b2ce-16e830a94d1d"/>
           <text><![CDATA[Interventions]]></text>
         </staticText>
         <staticText>
-          <reportElement style="table-th" x="440" y="191" width="49" height="53" uuid="0cb7b757-4d7c-4d9b-9014-301f24a9a992"/>
+          <reportElement style="table-th" x="498" y="191" width="49" height="53" uuid="0cb7b757-4d7c-4d9b-9014-301f24a9a992"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
@@ -286,39 +292,58 @@
           <textFieldExpression><![CDATA[$F{cultivable_zone_uuid}]]></textFieldExpression>
         </textField>
         <staticText>
-          <reportElement style="label" x="281" y="103" width="46" height="32" uuid="2f67ee0d-4946-46ee-8b19-3b940060a9aa"/>
+          <reportElement style="label" x="286" y="103" width="46" height="32" uuid="2f67ee0d-4946-46ee-8b19-3b940060a9aa"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Date de semis]]></text>
         </staticText>
         <staticText>
-          <reportElement style="label" x="394" y="103" width="46" height="32" uuid="9f7d8820-241f-4c2a-944d-7ff180dc441c"/>
+          <reportElement style="label" x="399" y="103" width="46" height="32" uuid="9f7d8820-241f-4c2a-944d-7ff180dc441c"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[Date de récolte]]></text>
         </staticText>
         <staticText>
-          <reportElement style="table-th" x="489" y="221" width="121" height="23" uuid="b8dd8c2e-cafb-4173-b3eb-d3501f2ccc76"/>
+          <reportElement style="table-th" x="547" y="221" width="121" height="23" uuid="b8dd8c2e-cafb-4173-b3eb-d3501f2ccc76"/>
           <textElement verticalAlignment="Middle">
             <font fontName="Open Sans" size="10"/>
           </textElement>
           <text><![CDATA[date d'observation]]></text>
         </staticText>
+        <staticText>
+          <reportElement style="table-th" x="0" y="191" width="88" height="53" uuid="ca2ab52c-3071-44fe-b5b9-26b1b0db104c"/>
+          <textElement verticalAlignment="Middle">
+            <font fontName="Open Sans" size="10"/>
+          </textElement>
+          <text><![CDATA[Nom]]></text>
+        </staticText>
       </band>
     </groupHeader>
     <groupFooter>
-      <band height="50"/>
+      <band height="36"/>
     </groupFooter>
   </group>
   <background>
     <band splitType="Stretch"/>
   </background>
   <title>
-    <band height="327" splitType="Stretch">
+    <band height="477" splitType="Stretch">
+      <rectangle radius="10">
+        <reportElement style="title" x="0" y="294" width="784" height="177" uuid="ffc907ef-2a98-40df-b645-1dd15a54f28e"/>
+        <graphicElement>
+          <pen lineStyle="Dotted"/>
+        </graphicElement>
+      </rectangle>
+      <rectangle radius="10">
+        <reportElement style="title" x="572" y="357" width="212" height="30" uuid="a2cec9fd-9597-4dc4-a5de-46898e2d779b"/>
+      </rectangle>
+      <rectangle radius="10">
+        <reportElement style="title" x="2" y="357" width="248" height="30" uuid="6153a3a4-599e-4f16-b1c2-37658fa8953b"/>
+      </rectangle>
       <staticText>
-        <reportElement style="strong" mode="Opaque" x="2" y="44" width="784" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
+        <reportElement style="strong" mode="Opaque" x="0" y="44" width="786" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
         <textElement verticalAlignment="Middle">
           <font pdfFontName="Open Sans"/>
         </textElement>
@@ -331,22 +356,81 @@
         </textElement>
         <text><![CDATA[Registre phytosanitaire]]></text>
       </staticText>
+      <image isLazy="true" evaluationTime="Report">
+        <reportElement x="746" y="0" width="40" height="40" uuid="0e91c123-24da-4ca0-a8a9-acfb341d1e49"/>
+        <imageExpression><![CDATA[new ByteArrayInputStream(new org.apache.commons.codec.binary.Base64().decodeBase64($V{bottom_img}.getBytes("UTF-8")))]]></imageExpression>
+      </image>
       <textField>
-        <reportElement x="2" y="161" width="786" height="40" uuid="d09492f4-a25a-4c31-b4ec-8b846e4b6968"/>
+        <reportElement x="0" y="94" width="786" height="40" uuid="590e4385-bc33-451c-ab89-9fbd4e89e899"/>
         <textElement textAlignment="Center" verticalAlignment="Middle">
           <font fontName="Open Sans" size="24" isBold="true"/>
         </textElement>
         <textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
       </textField>
       <textField isBlankWhenNull="true">
-        <reportElement style="address" x="2" y="241" width="786" height="20" uuid="0125d4d6-d61c-43cb-a5e3-d1b790b96ef8"/>
+        <reportElement style="address" x="0" y="174" width="786" height="20" uuid="98573cd9-dbe8-4380-a225-98c5f9d5c154"/>
         <textElement textAlignment="Center" verticalAlignment="Middle"/>
         <textFieldExpression><![CDATA[$F{entity_address}]]></textFieldExpression>
       </textField>
-      <image isLazy="true" evaluationTime="Report">
-        <reportElement x="746" y="0" width="40" height="40" uuid="0e91c123-24da-4ca0-a8a9-acfb341d1e49"/>
-        <imageExpression><![CDATA[new ByteArrayInputStream(new org.apache.commons.codec.binary.Base64().decodeBase64($V{bottom_img}.getBytes("UTF-8")))]]></imageExpression>
-      </image>
+      <staticText>
+        <reportElement style="strong" x="0" y="236" width="785" height="26" uuid="d8ef740c-f909-474e-933f-6cbf3e8d43ee"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle">
+          <paragraph leftIndent="30"/>
+        </textElement>
+        <text><![CDATA[Légende]]></text>
+      </staticText>
+      <rectangle radius="10">
+        <reportElement x="739" y="416" width="46" height="47" uuid="d8004f16-14d0-4da0-8f78-d64c75c2f790"/>
+      </rectangle>
+      <staticText>
+        <reportElement x="741" y="433" width="43" height="20" uuid="a91e5f2a-83de-488a-ada8-b7d15f10fc86"/>
+        <text><![CDATA[QR code]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="strong" x="2" y="416" width="733" height="47" uuid="5a2e94fb-f4c2-4e1b-85e2-73c70f7046ac"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <text><![CDATA[Détails des Interventions de type "protection des cultures"]]></text>
+      </staticText>
+      <rectangle radius="10">
+        <reportElement style="title" x="287" y="357" width="248" height="30" uuid="46fe04cd-479d-4fb1-a0aa-5b81a3183b2e"/>
+      </rectangle>
+      <staticText>
+        <reportElement x="287" y="357" width="253" height="30" uuid="54bea3fd-236a-4943-a99f-996a70b1d3b0"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <text><![CDATA[Infos culture]]></text>
+      </staticText>
+      <staticText>
+        <reportElement mode="Transparent" x="572" y="357" width="211" height="30" uuid="c43d2b1f-5e13-4be4-b83c-90d1e8871a1d"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <text><![CDATA[Contour de la parcelle culturale]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="2" y="357" width="248" height="30" uuid="c1dc9eb2-312e-451e-a69a-257b78408790"/>
+        <textElement textAlignment="Center" verticalAlignment="Middle"/>
+        <text><![CDATA[Infos parcelle]]></text>
+      </staticText>
+      <staticText>
+        <reportElement style="strong" mode="Opaque" x="0" y="324" width="784" height="2" backcolor="#7C9DDD" uuid="b42b1ae2-be63-4591-8806-85d8e922223c"/>
+        <textElement verticalAlignment="Middle">
+          <font pdfFontName="Open Sans"/>
+        </textElement>
+        <text><![CDATA[]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="422" y="327" width="364" height="16" uuid="bfb9dff2-d402-422a-a108-3b69c7517394"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle"/>
+        <text><![CDATA[identifiant unique d'interopérabilité de la parcelle culturale (uuid)]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="550" y="294" width="233" height="30" uuid="20208f91-d393-4bae-aebf-beeca6ca1ca9"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle"/>
+        <text><![CDATA[Numéro de travail de la parcelle culturale]]></text>
+      </staticText>
+      <staticText>
+        <reportElement x="0" y="294" width="163" height="30" uuid="c1a37d6d-cc84-42cb-98df-1054f9d36201"/>
+        <textElement textAlignment="Right" verticalAlignment="Middle"/>
+        <text><![CDATA[Nom de la parcelle culturale]]></text>
+      </staticText>
     </band>
   </title>
   <pageHeader>
@@ -355,90 +439,87 @@
   <detail>
     <band height="50" splitType="Stretch">
       <textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
-        <reportElement style="table-td" x="0" y="0" width="70" height="50" uuid="1e6653e4-ff27-4ed8-8e62-e3358c682bd2"/>
+        <reportElement style="table-td" x="88" y="0" width="65" height="50" uuid="1e6653e4-ff27-4ed8-8e62-e3358c682bd2"/>
         <textFieldExpression><![CDATA[$F{intervention_started_at}]]></textFieldExpression>
       </textField>
       <textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
-        <reportElement style="table-td" x="70" y="0" width="68" height="50" uuid="0045af3e-d7fe-4832-9420-5843e022bc4c"/>
+        <reportElement style="table-td" x="153" y="0" width="65" height="50" uuid="0045af3e-d7fe-4832-9420-5843e022bc4c"/>
         <textFieldExpression><![CDATA[$F{intervention_stopped_at}]]></textFieldExpression>
       </textField>
       <textField pattern="" isBlankWhenNull="true">
-        <reportElement style="table-td" x="138" y="0" width="59" height="50" uuid="9233a36c-8b51-43d9-9a30-3e561ac7a3e6"/>
+        <reportElement style="table-td" x="218" y="0" width="59" height="50" uuid="9233a36c-8b51-43d9-9a30-3e561ac7a3e6"/>
         <textFieldExpression><![CDATA[$F{intervention_working_area}]]></textFieldExpression>
       </textField>
       <textField isBlankWhenNull="true">
-        <reportElement style="table-td" x="306" y="0" width="134" height="50" uuid="8e9f3ff8-d719-4cf4-9a64-ad0fbf5af86c"/>
+        <reportElement style="table-td" x="364" y="0" width="134" height="50" uuid="8e9f3ff8-d719-4cf4-9a64-ad0fbf5af86c"/>
         <textFieldExpression><![CDATA[$F{input_name}]]></textFieldExpression>
       </textField>
       <textField pattern="" isBlankWhenNull="true">
-        <reportElement style="table-td" x="440" y="0" width="49" height="50" uuid="bf628837-cd2a-477d-a345-d9dc292f4d87"/>
+        <reportElement style="table-td" x="498" y="0" width="49" height="50" uuid="bf628837-cd2a-477d-a345-d9dc292f4d87"/>
         <textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
       </textField>
       <textField isBlankWhenNull="true">
-        <reportElement style="table-td" x="610" y="0" width="100" height="50" uuid="94b9254c-35d0-4f28-a592-00d743e7c6e9"/>
+        <reportElement style="table-td" x="668" y="0" width="63" height="50" uuid="94b9254c-35d0-4f28-a592-00d743e7c6e9"/>
         <textFieldExpression><![CDATA[$F{intervention_doer_name}]]></textFieldExpression>
       </textField>
       <textField pattern="" isBlankWhenNull="true">
-        <reportElement style="table-td" x="489" y="0" width="121" height="31" uuid="95c58b0d-8f95-497e-8345-5781b47ad27a"/>
+        <reportElement style="table-td" x="547" y="0" width="121" height="31" uuid="95c58b0d-8f95-497e-8345-5781b47ad27a"/>
         <textFieldExpression><![CDATA[$F{issue_name}]]></textFieldExpression>
       </textField>
       <textField isBlankWhenNull="true">
-        <reportElement style="table-td" x="197" y="0" width="109" height="50" uuid="db743646-04d7-4989-8ca2-e448925f0c48"/>
+        <reportElement style="table-td" x="277" y="0" width="87" height="50" uuid="db743646-04d7-4989-8ca2-e448925f0c48"/>
         <textFieldExpression><![CDATA[$F{input_variant_name}]]></textFieldExpression>
       </textField>
       <componentElement>
-        <reportElement x="721" y="0" width="54" height="50" uuid="587a49d2-0795-44cc-9899-32b301343f43"/>
+        <reportElement x="731" y="0" width="54" height="50" uuid="587a49d2-0795-44cc-9899-32b301343f43"/>
         <jr:DataMatrix xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
           <jr:codeExpression><![CDATA[$F{intervention_url}]]></jr:codeExpression>
         </jr:DataMatrix>
       </componentElement>
       <textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
-        <reportElement style="table-td" x="489" y="31" width="121" height="19" uuid="9a1687de-5bcb-47fc-a73d-40c4c06efdc0"/>
+        <reportElement style="table-td" x="547" y="31" width="121" height="19" uuid="9a1687de-5bcb-47fc-a73d-40c4c06efdc0"/>
         <textFieldExpression><![CDATA[$F{issue_observed_at}]]></textFieldExpression>
+      </textField>
+      <textField isBlankWhenNull="true">
+        <reportElement style="table-td" x="0" y="0" width="88" height="50" uuid="d9f2b5ba-bf01-4265-9314-551e833c19d1"/>
+        <textFieldExpression><![CDATA[$F{intervention_name}]]></textFieldExpression>
       </textField>
     </band>
   </detail>
   <pageFooter>
     <band height="26" splitType="Stretch">
       <textField evaluationTime="Report">
-        <reportElement style="base" x="751" y="3" width="35" height="22" forecolor="#000000" uuid="50272410-1b25-4669-88c3-3be64f156f82"/>
+        <reportElement style="base" x="751" y="2" width="35" height="22" forecolor="#000000" uuid="50272410-1b25-4669-88c3-3be64f156f82"/>
         <textElement verticalAlignment="Middle">
           <font fontName="Open Sans"/>
         </textElement>
         <textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
       </textField>
       <textField pattern="dd/MM/yyyy HH.mm.ss">
-        <reportElement style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000" uuid="ebf60a3b-b81b-4ee3-b94d-a83ae04dd811"/>
+        <reportElement style="base" mode="Transparent" x="2" y="3" width="115" height="22" forecolor="#000000" uuid="ebf60a3b-b81b-4ee3-b94d-a83ae04dd811"/>
         <textElement textAlignment="Center" verticalAlignment="Middle">
           <font fontName="Open Sans"/>
         </textElement>
         <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
       </textField>
       <textField>
-        <reportElement style="base" x="708" y="3" width="43" height="22" forecolor="#000000" uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed"/>
+        <reportElement style="base" x="708" y="2" width="43" height="22" forecolor="#000000" uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed"/>
         <textElement textAlignment="Right" verticalAlignment="Middle">
           <font fontName="Open Sans"/>
         </textElement>
         <textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
       </textField>
       <staticText>
-        <reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="3740387f-1656-45d4-b5a7-a671b9df52d6"/>
+        <reportElement style="strong" mode="Opaque" x="117" y="12" width="591" height="2" backcolor="#7C9DDD" uuid="3740387f-1656-45d4-b5a7-a671b9df52d6"/>
         <textElement verticalAlignment="Middle">
           <font pdfFontName="Open Sans"/>
         </textElement>
         <text><![CDATA[]]></text>
       </staticText>
       <textField>
-        <reportElement style="address" x="277" y="1" width="224" height="14" uuid="92ee893d-7bd3-4e16-a070-96522f1fc0e7"/>
+        <reportElement style="address" x="287" y="1" width="224" height="25" uuid="cbee1911-2dd5-41b0-a4e2-387d22320818"/>
         <textElement textAlignment="Center" verticalAlignment="Top"/>
-        <textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
-      </textField>
-      <textField isBlankWhenNull="true">
-        <reportElement style="address" x="279" y="15" width="224" height="11" uuid="b13b63d9-c06f-4234-91dc-f0f58d06ef56"/>
-        <textElement textAlignment="Center" verticalAlignment="Top">
-          <font size="8"/>
-        </textElement>
-        <textFieldExpression><![CDATA[$F{campaign}]]></textFieldExpression>
+        <textFieldExpression><![CDATA[$F{entity_name}+" - Campagne "+$F{campaign}]]></textFieldExpression>
       </textField>
     </band>
   </pageFooter>
@@ -471,6 +552,11 @@
           <font fontName="Open Sans"/>
         </textElement>
         <textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+      </textField>
+      <textField>
+        <reportElement style="address" x="287" y="0" width="224" height="25" uuid="58eccd80-24ba-48fe-973e-279cd93b7d4e"/>
+        <textElement textAlignment="Center" verticalAlignment="Top"/>
+        <textFieldExpression><![CDATA[$F{entity_name}+" - Campagne "+$F{campaign}]]></textFieldExpression>
       </textField>
     </band>
   </lastPageFooter>

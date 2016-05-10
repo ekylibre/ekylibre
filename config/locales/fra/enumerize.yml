@@ -146,6 +146,11 @@ fra:
         in_preparation: "En préparation"
         ordered: "Lancé"
         prepared: "Préparé"
+    product_nature:  #?
+      population_counting: #?
+        decimal: "Décimal" #?
+        integer: "Entier" #?
+        unitary: "Unitaire" #?
     sensor:
       retrieval_mode:
         listening: "Serveur"
@@ -213,3 +218,5 @@ fra:
     hints:
       purchase:
         reference_number: "Numéro de la facture du fournisseur"
+    required:
+      text: "requis"

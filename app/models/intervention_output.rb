@@ -54,32 +54,34 @@
 class InterventionOutput < InterventionProductParameter
   belongs_to :intervention, inverse_of: :outputs
   belongs_to :product, dependent: :destroy
-  has_one :product_movement, as: :originator
+  has_one :product_movement, as: :originator, dependent: :destroy
   validates :variant, :quantity_population, presence: true
 
   after_commit do
-    output = product
-    output ||= variant.products.new unless output
-    output.type = variant.matching_model.name
-    output.born_at = intervention.started_at
-    output.initial_born_at = output.born_at
-    output.name = new_name unless new_name.blank?
-    # output.attributes = product_attributes
-    reading = readings.find_by(indicator_name: :shape)
-    output.initial_shape = reading.value if reading
-    output.save!
+    unless destroyed?
+      output = product
+      output ||= variant.products.new unless output
+      output.type = variant.matching_model.name
+      output.born_at = intervention.started_at
+      output.initial_born_at = output.born_at
+      output.name = new_name unless new_name.blank?
+      # output.attributes = product_attributes
+      reading = readings.find_by(indicator_name: :shape)
+      output.initial_shape = reading.value if reading
+      output.save!
 
-    movement = product_movement
-    movement = build_product_movement(product: output) unless movement
-    movement.delta = quantity_population
-    movement.started_at = intervention.started_at if intervention
-    movement.started_at ||= Time.zone.now - 1.hour
-    movement.stopped_at = intervention.stopped_at if intervention
-    movement.stopped_at ||= movement.started_at + 1.hour
-    movement.save!
+      movement = product_movement
+      movement = build_product_movement(product: output) unless movement
+      movement.delta = quantity_population
+      movement.started_at = intervention.started_at if intervention
+      movement.started_at ||= Time.zone.now - 1.hour
+      movement.stopped_at = intervention.stopped_at if intervention
+      movement.stopped_at ||= movement.started_at + 1.hour
+      movement.save!
 
-    update_columns(product_id: output.id) # , movement_id: movement.id)
-    true
+      update_columns(product_id: output.id) # , movement_id: movement.id)
+      true
+    end
   end
 
   def earn_amount_computation

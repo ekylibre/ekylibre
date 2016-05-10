@@ -10,6 +10,7 @@ deu:
         bunch: "Bündel"
         bury: "Begraben"
         care: "Pflege"
+        # castrate: "Castrate"
         catalyze: "katalysieren"
         catch: "Fang"
         # chaptelise: "Chaptelise"
@@ -1255,6 +1256,7 @@ deu:
         specific_volume: "Bestimmtes Volumen"
         surface_area: "Oberfläche"
         surface_area_density: "Fläche Dichte"
+        # surface_area_flow: "Surface area flow"
         temperature: "Temperatur"
         time: "Zeit"
         volume: "Volumen"
@@ -1583,6 +1585,7 @@ deu:
         plant_reproduction_state: "Pflanzenwiedergabezustand"
         plants_count: "Pflanzen zählen"
         plants_interval: "Pflanzen Intervall"
+        # plowshare_count: "Plowshare count"
         potash_concentration: "Potash Konzentration (K₂O)"
         potassium_concentration: "Kaliumkonzentration"
         potential_hydrogen: "Potenzielle Wasserstoff"
@@ -1595,6 +1598,7 @@ deu:
         relative_humidity: "Relative Luftfeuchtigkeit"
         reproductor: "reproductor"
         residue_elimination_method: "Rückstandseliminierungsverfahren"
+        # rows_count: "Rows count"
         rows_interval: "Reihenabstand"
         rows_orientation: "Zeilen Orientierung"
         # sex: "Sex"
@@ -1613,6 +1617,7 @@ deu:
         sulfur_trioxide_concentration: "Schwefeltrioxidkonzentration (SO₃)"
         surface_area_percentage: "Fläche Prozent"
         temperature: "Temperatur"
+        # theoretical_working_speed: "Theoretical working speed"
         thousand_grains_mass: "Tausend Körner Massen"
         tiller_count: "Tiller Zahl"
         total_bacteria_concentration: "Gesamtbakterienkonzentration"
@@ -2659,6 +2664,7 @@ deu:
         corn_seed_crop: "Maissaatgut Ernte"
         corn_silage: "Maissilage"
         corn_silage_crop: "Maissilage Ernte"
+        # corn_topper: "Corn topper"
         cover_crop: "cover crop"
         cover_implanter: "Abdeckung implanter"
         cow_milk: "Kuhmilch"
@@ -3146,6 +3152,7 @@ deu:
         consumer_goods_office_item: "Konsumgüter Büro Artikel"
         cork: "Kork"
         # corker: "Corker"
+        # corn_topper: "Corn topper"
         cover_implanter: "Abdeckung implanter"
         crop: "Ernte"
         crop_protective_item: "Pflanzenschutz Artikel"
@@ -3389,6 +3396,14 @@ deu:
         variety: "Vielfalt"
     production_natures:
       name: "Produktion Naturen"
+    production_systems:
+      items:
+        # extensive_farming: "Extensive farming"
+        # intensive_farming: "Intensive farming"
+        # organic_farming: "Organic farming"
+        # permaculture: "Permaculture"
+        # sustainable_agriculture: "Sustainable agriculture"
+      # name: "Production systems"
     production_usages:
       items:
         fallow_land: "Brachland"
@@ -3487,7 +3502,7 @@ deu:
           amount: "Menge"
           percentage: "Prozentsatz"
       items:
-        asset_vat: "Vermögens vat"
+        asset_vat: "Vermögens vat" #?
         inflated_vat: "aufgeblasenen Mehrwertsteuer"
         intermediate_vat: "Zwischen Mehrwertsteuer"
         normal_vat: "normalen Mehrwertsteuer"
@@ -3499,6 +3514,8 @@ deu:
         collect_account: "Sammeln Konto"
         computation_method: "Berechnungsverfahren"
         deduction_account: "Abzug Konto"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         # suffix: "Suffix"
     taxes:
       items:
@@ -3509,11 +3526,11 @@ deu:
         french_vat_normal_1995: "Französisch Bottich Normal 1995"
         french_vat_normal_2000: "Französisch Bottich Normal 2000"
         french_vat_normal_2014: "Französisch Bottich Normal 2014"
-        french_vat_normal_asset_1966: "Französisch Bottich normalen Vermögens 1966"
-        french_vat_normal_asset_1982: "Französisch Bottich normalen Vermögens 1982"
-        french_vat_normal_asset_1995: "Französisch Bottich normalen Vermögens 1995"
-        french_vat_normal_asset_2000: "Französisch Bottich normalen Vermögens 2000"
-        french_vat_normal_asset_2014: "Französisch Bottich normalen Vermögens 2014"
+        french_vat_normal_asset_1966: "Französisch Bottich normalen Vermögens 1966" #?
+        french_vat_normal_asset_1982: "Französisch Bottich normalen Vermögens 1982" #?
+        french_vat_normal_asset_1995: "Französisch Bottich normalen Vermögens 1995" #?
+        french_vat_normal_asset_2000: "Französisch Bottich normalen Vermögens 2000" #?
+        french_vat_normal_asset_2014: "Französisch Bottich normalen Vermögens 2014" #?
         french_vat_null: "Französisch Bottich null"
         french_vat_particular_1982: "Französisch Bottich insbesondere 1982"
         french_vat_particular_1989: "Französisch Bottich insbesondere 1989"
@@ -3565,6 +3582,7 @@ deu:
         gram_per_liter: "Gramm pro Liter"
         gram_per_square_meter: "Gram pro Quadratmeter"
         hectare: "Hektar"
+        # hectare_per_hour: "Hectare per hour"
         hectoliter: "Hektoliter"
         hectoliter_per_hectare: "Hektoliter pro Hektar"
         hectopascal: "Hektopascal"
@@ -3606,6 +3624,7 @@ deu:
         # millimeter: "Millimeter"
         millimeter_per_hour: "Millimeter pro Stunde"
         # million: "Million"
+        # million_per_hectare: "Million per hectare"
         million_per_liter: "Millionen pro Liter"
         millionth: "Millionste"
         millisecond: "Millisekunde"
@@ -3764,6 +3783,7 @@ deu:
         avena_sativa_une_de_mai: "Hafer une de mai"
         aves: "Vogel"
         bacteria: "Bakterien"
+        # bale_collector: "Bale collector"
         baler: "Ballenpresse"
         bambusa: "Bambus"
         # bellis: "Bellis"
@@ -5790,6 +5810,7 @@ deu:
         sus_scrofa_x70: "Hausschwein X70"
         sus_scrofa_x80: "Hausschwein X80"
         tank: "Panzer"
+        # telescopic_handler: "Telescopic handler"
         # theobroma: "Theobroma"
         theobroma_cacao: "Kakaobaum"
         # theobroma_grandiflorum: "Theobroma grandiflorum"
@@ -6111,6 +6132,7 @@ deu:
         water: "Wasser"
         weigela: "Weigelie"
         # weigela_floribunda: "Weigela floribunda"
+        # wheel_loader: "Wheel loader"
         wine: "Wein"
         wire: "Draht"
         worker: "Arbeitnehmer"

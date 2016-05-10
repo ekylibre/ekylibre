@@ -15,11 +15,15 @@
   # other fields and on updater itself if necessary
   E.interventions =
 
-    unserializeRecord: (form, attributes, prefix = '') ->
+    unserializeRecord: (form, attributes, prefix = '', updater_id = null) ->
       for name, value of attributes
         subprefix = prefix + name
-        if /\w+_attributes$/.test(name)
-          E.interventions.unserializeList(form, value, subprefix + '_')
+        console.log "Test if '#{updater_id}' == '#{subprefix}'"
+        if subprefix is updater_id
+          # Nothing to update
+          console.warn "Nothing to do with #{subprefix}"
+        else if /\w+_attributes$/.test(name)
+          E.interventions.unserializeList(form, value, subprefix + '_', updater_id)
         else
           form.find("##{subprefix}").each (index) ->
             element = $(this)
@@ -49,9 +53,9 @@
                 console.log "Updates ##{subprefix} with: ", value
                 element.val(value)
 
-    unserializeList: (form, list, prefix = '') ->
+    unserializeList: (form, list, prefix = '', updater_id) ->
       for id, attributes of list
-        E.interventions.unserializeRecord(form, attributes, prefix + id + '_')
+        E.interventions.unserializeRecord(form, attributes, prefix + id + '_', updater_id)
 
     # Ask for a refresh of values depending on given field
     refresh: (origin) ->
@@ -90,7 +94,7 @@
             console.group('Unserialize intervention updated by ' + updaterId)
             console.log(data)
             # Updates elements with new values
-            E.interventions.unserializeRecord(form, data, 'intervention_')
+            E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
             # if updaterElement? and initialValue != E.value($("*[data-intervention-updater='#{intervention.updater}']").first())
             #   E.interventions.refresh updaterElement
             computing.prop 'state', 'ready'
@@ -116,6 +120,10 @@
       E.interventions.refresh $(this)
 
   $(document).on 'keyup', 'input[data-intervention-updater]', ->
+    $(this).each ->
+      E.interventions.refresh $(this)
+
+  $(document).on 'keyup change', 'select[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
 

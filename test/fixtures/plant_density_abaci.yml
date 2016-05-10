@@ -1,0 +1,49 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: plant_density_abaci
+#
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  germination_percentage :decimal(19, 4)
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  name                   :string           not null
+#  sampling_length_unit   :string           not null
+#  seeding_density_unit   :string           not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variety_name           :string           not null
+#
+---
+plant_density_abaci_001:
+  created_at: 2016-04-20 15:44:32.950188000 Z
+  creator_id: 1
+  germination_percentage: 80.0
+  id: 1
+  lock_version: 2
+  name: " Carotte 3 rangs"
+  sampling_length_unit: meter
+  seeding_density_unit: thousand_per_hectare
+  updated_at: 2016-04-20 16:45:34.528688000 Z
+  updater_id: 1
+  variety_name: daucus_carota

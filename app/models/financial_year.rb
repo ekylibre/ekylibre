@@ -136,7 +136,9 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def journal_entries(conditions = nil)
-    JournalEntry.where(printed_on: started_on..stopped_on).where(conditions.nil? ? true : conditions)
+    entries = JournalEntry.where(printed_on: started_on..stopped_on)
+    entries = entries.where(conditions) unless conditions.blank?
+    entries
   end
 
   def name

@@ -24,10 +24,10 @@ module Nomen
         options[:translateable] = !(element.attr('translateable').to_s == 'false')
         name = element.attr('name').to_s
         nomenclature = new(name, options)
-        for property in element.xpath('xmlns:properties/xmlns:property')
+        element.xpath('xmlns:properties/xmlns:property').each do |property|
           nomenclature.harvest_property(property)
         end
-        for item in element.xpath('xmlns:items/xmlns:item')
+        element.xpath('xmlns:items/xmlns:item').each do |item|
           nomenclature.harvest_item(item)
         end
         nomenclature.rebuild_tree!
@@ -242,7 +242,7 @@ module Nomen
 
     def check!
       # Check properties
-      for property in @properties.values
+      @properties.values.each do |property|
         if property.choices_nomenclature && !property.inline_choices? && !Nomen[property.choices_nomenclature.to_s]
           raise InvalidPropertyNature, "[#{name}] #{property.name} nomenclature property must refer to an existing nomenclature. Got #{property.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
         end
@@ -253,8 +253,8 @@ module Nomen
       end
 
       # Check items
-      for item in list
-        for property in @properties.values
+      list.each do |item|
+        @properties.values.each do |property|
           choices = property.choices
           if item.property(property.name) && property.type == :choice
             # Cleans for parametric reference
@@ -421,7 +421,7 @@ module Nomen
 
     # Returns list of items as an Array
     def list
-      Nomen::Relation.new(@items.values)
+      Nomen::Relation.new(self, @items.values)
     end
 
     # Iterates on items
@@ -506,6 +506,8 @@ module Nomen
           value = value.to_d
         elsif property.type == :integer
           value = value.to_i
+        elsif property.type == :date
+          value = (value.blank? ? nil : value.to_date)
         elsif property.type == :symbol
           unless value =~ /\A\w+\z/
             raise InvalidPropertyNature, "A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"

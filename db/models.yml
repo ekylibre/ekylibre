@@ -92,6 +92,10 @@
 - parcel
 - parcel_item
 - plant
+- plant_counting
+- plant_counting_item
+- plant_density_abacus
+- plant_density_abacus_item
 - postal_zone
 - preference
 - prescription

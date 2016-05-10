@@ -206,3 +206,5 @@ deu:
     hints:
       purchase:
         reference_number: "Lieferant Rechnungsnummer"
+    required:
+      text: "Erforderlich"

@@ -10,6 +10,7 @@ fra:
         bunch: "Boteller"
         bury: "Enfouir"
         care: "Soigner"
+        castrate: "Castrer"
         catalyze: "Catalyser"
         catch: "Atteler"
         chaptelise: "Chaptaliser"
@@ -1028,7 +1029,7 @@ fra:
         ng: "Nigéria"
         ni: "Nicaragua"
         nl: "Pays-Bas"
-        # no: "Norway"
+        no: "Norvège"
         np: "Népal"
         nr: "Nauru"
         nu: "Niué"
@@ -1380,6 +1381,7 @@ fra:
         specific_volume: "Volume spécifique"
         surface_area: "Superficie"
         surface_area_density: "Densité surfacique"
+        surface_area_flow: "Débit surfacique"
         temperature: "Température"
         time: "Temps"
         volume: "Volume"
@@ -1419,7 +1421,7 @@ fra:
         deposit: "Remise en banque" #?
         deposit_list: "Remise en banque"
         entity_sheet: "Fiche tiers"
-        equipment_certification: "Certification des equipements"
+        equipment_certification: "Certification des équipements"
         exchange_accountancy_file_fr: "Écritures comptables (FEC)"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
@@ -1730,6 +1732,7 @@ fra:
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         plants_count: "Nombre de plantes"
         plants_interval: "Intervalle inter-pieds"
+        plowshare_count: "Nombre de socs"
         population: "Population" #?
         potash_concentration: "Teneur en potasse (K₂O)"
         potassium_concentration: "Teneur en potassium"
@@ -1743,6 +1746,7 @@ fra:
         relative_humidity: "Humidité relative"
         reproductor: "Reproducteur"
         residue_elimination_method: "Méthode d’élimination des résidus"
+        rows_count: "Nombre de rangs"
         rows_interval: "Intervalle inter-rangs"
         rows_orientation: "Orientation des rangs"
         sex: "Sexe"
@@ -1761,6 +1765,7 @@ fra:
         sulfur_trioxide_concentration: "Teneur en trioxyde de soufre (SO₃)"
         surface_area_percentage: "Pourcentage de surface couverte"
         temperature: "Température"
+        theoretical_working_speed: "Vitesse de travail théorique"
         thousand_grains_mass: "Poids de mille grains"
         tiller_count: "Nombre de talles"
         total_bacteria_concentration: "Dénombrement des germes totaux"
@@ -2425,7 +2430,7 @@ fra:
         duty_and_taxe: "Frais et taxe"
         egg: "Œuf"
         electricity: "Électricité"
-        electronic_equipment: "Equipement électronique"
+        electronic_equipment: "Équipement électronique"
         equipment: "Équipement"
         equipment_rent: "Location d’équipement"
         equipment_repair_services: "Prestations de réparation d’équipements"
@@ -2468,7 +2473,7 @@ fra:
         milk: "Lait"
         natural_water: "Eau de pluie / puit"
         oenological_product: "Produit œnologique"
-        office_furniture_equipment: "Equipement de bureau"
+        office_furniture_equipment: "Équipement de bureau"
         other_consumable: "Autres consommables"
         oyster_band: "Huître"
         package_consumable: "Emballage"
@@ -2610,7 +2615,7 @@ fra:
         ascott_wheat_seed_25: "Semence de blé tendre Ascott"
         asparagus_crop: "Aspergeraie"
         associate_social_contribution: "Charges de sécurité sociale et de prévoyance des exploitants"
-        bale_collector: "Bale collecteur"
+        bale_collector: "Groupeur de balles"
         baler: "Botteleuse"
         bank_service: "Service bancaire"
         barley_grain: "Grain d’orge"
@@ -2813,6 +2818,7 @@ fra:
         corn_seed_crop: "Culture de maïs semence"
         corn_silage: "Ensilage de maïs"
         corn_silage_crop: "Culture de maïs ensilage"
+        corn_topper: "Castreuse"
         cover_crop: "Couverture végétale"
         cover_implanter: "Dérouleuse ‒ Plastifieuse"
         cow_milk: "Lait de vache"
@@ -3255,6 +3261,9 @@ fra:
         variety: "Variété"
     product_natures:
       choices:
+        linkage_points:  #?
+          front: "avant" #?
+          rear: "arrière" #?
         population_counting:
           decimal: "Décimal"
           integer: "Entier"
@@ -3273,7 +3282,7 @@ fra:
         animal_medicine_tank: "Reserve de médicaments"
         animals_making_services: "Prestation de service (production animale)"
         associate_social_contribution: "Charges de sécurité sociale et de prévoyance des exploitants"
-        bale_collector: "Bale collecteur"
+        bale_collector: "Groupeur de balles"
         baler: "Botteleuse"
         bank_service: "Service bancaire"
         bee_band: "Colonie d’abeille"
@@ -3303,6 +3312,7 @@ fra:
         consumer_goods_office_item: "Fourniture de bureau (consommable)"
         cork: "Bouchon"
         corker: "Boucheuse"
+        corn_topper: "Castreuse"
         cover_implanter: "Outil de pallisage et paillage"
         crop: "Culture"
         crop_protective_item: "Outil de protection des cultures"
@@ -3651,6 +3661,14 @@ fra:
         production_code: "Code" #?
         telepac_crop_code: "Code de type de culture TéléPAC" #?
         variant_support: "Variant" #?
+    production_systems:
+      items:
+        extensive_farming: "Agriculture extensive"
+        intensive_farming: "Agriculture conventionnelle"
+        organic_farming: "Agriculture biologique"
+        permaculture: "Permaculture"
+        sustainable_agriculture: "Agriculture durable"
+      name: "Systèmes de production"
     production_usages:
       items:
         fallow_land: "Jachère"
@@ -3749,7 +3767,7 @@ fra:
           amount: "Montant fixe"
           percentage: "Pourcentage"
       items:
-        asset_vat: "TVA sur immobilisations"
+        asset_vat: "TVA sur immobilisations" #?
         inflated_vat: "TVA augmentée"
         intermediate_vat: "TVA intermédiaire"
         normal_vat: "TVA normale"
@@ -3761,6 +3779,8 @@ fra:
         collect_account: "Compte de collecte"
         computation_method: "Méthode de calcul"
         deduction_account: "Compte de déduction"
+        fixed_asset_collect_account: "Compte de collecte"
+        fixed_asset_deduction_account: "Compte de déduction pour les immobilisations"
         suffix: "Suffixe"
     taxes:
       choices:  #?
@@ -3780,11 +3800,11 @@ fra:
         french_vat_normal_1995: "TVA française normale 1995"
         french_vat_normal_2000: "TVA française normale 2000"
         french_vat_normal_2014: "TVA française normale 2014"
-        french_vat_normal_asset_1966: "TVA française normale (immo.) 1966"
-        french_vat_normal_asset_1982: "TVA française normale (immo.) 1982"
-        french_vat_normal_asset_1995: "TVA française normale (immo.) 1995"
-        french_vat_normal_asset_2000: "TVA française normale (immo.) 2000"
-        french_vat_normal_asset_2014: "TVA française normale (immo.) 2014"
+        french_vat_normal_asset_1966: "TVA française normale (immo.) 1966" #?
+        french_vat_normal_asset_1982: "TVA française normale (immo.) 1982" #?
+        french_vat_normal_asset_1995: "TVA française normale (immo.) 1995" #?
+        french_vat_normal_asset_2000: "TVA française normale (immo.) 2000" #?
+        french_vat_normal_asset_2014: "TVA française normale (immo.) 2014" #?
         french_vat_null: "TVA française non-applicable"
         french_vat_particular_1982: "TVA française particulière 1982"
         french_vat_particular_1989: "TVA française particulière 1989"
@@ -3841,6 +3861,7 @@ fra:
         gram_per_liter: "Gramme par litre"
         gram_per_square_meter: "Gramme par mètre carré"
         hectare: "Hectare"
+        hectare_per_hour: "Hectare par heure"
         hectoliter: "Hectolitre"
         hectoliter_per_hectare: "Hectolitre par hectare"
         hectopascal: "Hectopascal"
@@ -3882,6 +3903,7 @@ fra:
         millimeter: "Millimètre"
         millimeter_per_hour: "Millimètre par heure"
         million: "Million"
+        million_per_hectare: "Million par hectare"
         million_per_liter: "Million par litre"
         millionth: "Millionième"
         millisecond: "Milliseconde"
@@ -4040,6 +4062,7 @@ fra:
         avena_sativa_une_de_mai: "Avoine cultivée Une de mai"
         aves: "Oiseau"
         bacteria: "Bacteria"
+        bale_collector: "Groupeur de balles"
         baler: "Botteleuse"
         bambusa: "Bambou"
         bellis: "Bellis"
@@ -6071,6 +6094,7 @@ fra:
         sus_scrofa_x70: "Porc domestique X70"
         sus_scrofa_x80: "Porc domestique X80"
         tank: "Réservoir"
+        telescopic_handler: "Téléscopique"
         theobroma: "Theobroma"
         theobroma_cacao: "Cacaoyer"
         theobroma_grandiflorum: "Capuaçu"
@@ -6392,6 +6416,7 @@ fra:
         water: "Eau"
         weigela: "Weigela"
         weigela_floribunda: "Weigela floribunda"
+        wheel_loader: "Chargeuse sur roues"
         wine: "Vin"
         wire: "Fil"
         worker: "Travailleur"

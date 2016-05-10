@@ -54,7 +54,7 @@
         - v.control :fullscreen
         - v.control :layer_selector
     = cobbles do |c|
-      - for intervention_path in interventions_paths
+      - interventions_paths.each do |intervention_path|
         - c.cobble "intervention_#{intervention_path.id}".to_sym, title: intervention_path.human_name do
           = render 'intervention', path: intervention_path
 - else

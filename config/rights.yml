@@ -1,8 +1,6 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
 #     - "api/v1/crumbs#create"
 #     - "api/v1/crumbs#index"
-#     - "api/v1/issues#create"
-#     - "api/v1/issues#index"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
 #     - "authentication/invitations#create"
@@ -148,54 +146,6 @@
 #     - "devise/unlocks#new"
 #     - "devise/unlocks#show"
 #     - "iot/analyses#create"
-#     - "pasteque/v5/attributes#index"
-#     - "pasteque/v5/cash_mvts#move"
-#     - "pasteque/v5/cash_registers#index"
-#     - "pasteque/v5/cash_registers#show"
-#     - "pasteque/v5/cashes#search"
-#     - "pasteque/v5/cashes#show"
-#     - "pasteque/v5/cashes#update"
-#     - "pasteque/v5/cashes#zticket"
-#     - "pasteque/v5/categories#children"
-#     - "pasteque/v5/categories#index"
-#     - "pasteque/v5/categories#show"
-#     - "pasteque/v5/compositions#index"
-#     - "pasteque/v5/currencies#index"
-#     - "pasteque/v5/currencies#main"
-#     - "pasteque/v5/currencies#show"
-#     - "pasteque/v5/customers#index"
-#     - "pasteque/v5/customers#show"
-#     - "pasteque/v5/customers#top"
-#     - "pasteque/v5/discount_profiles#index"
-#     - "pasteque/v5/images#category"
-#     - "pasteque/v5/images#payment_method"
-#     - "pasteque/v5/images#product"
-#     - "pasteque/v5/images#resource"
-#     - "pasteque/v5/locations#index"
-#     - "pasteque/v5/locations#show"
-#     - "pasteque/v5/places#index"
-#     - "pasteque/v5/places#show"
-#     - "pasteque/v5/products#category"
-#     - "pasteque/v5/products#index"
-#     - "pasteque/v5/products#show"
-#     - "pasteque/v5/resources#show"
-#     - "pasteque/v5/roles#index"
-#     - "pasteque/v5/roles#show"
-#     - "pasteque/v5/stocks#index"
-#     - "pasteque/v5/tariff_areas#index"
-#     - "pasteque/v5/taxes#index"
-#     - "pasteque/v5/taxes#show"
-#     - "pasteque/v5/tickets#create"
-#     - "pasteque/v5/tickets#destroy"
-#     - "pasteque/v5/tickets#index"
-#     - "pasteque/v5/tickets#open"
-#     - "pasteque/v5/tickets#save"
-#     - "pasteque/v5/tickets#search"
-#     - "pasteque/v5/tickets#show"
-#     - "pasteque/v5/users#index"
-#     - "pasteque/v5/users#show"
-#     - "pasteque/v5/users#update_password"
-#     - "pasteque/v5/version#index"
 #     - "public#index"
 
 accounts:
@@ -225,6 +175,8 @@ accounts:
 activities:
   read:
     actions:
+    - "api/v1/plant_density_abaci#index"
+    - "api/v1/plant_density_abaci#show"
     - "backend/activities#index"
     - "backend/activities#list"
     - "backend/activities#list_distributions"
@@ -233,10 +185,14 @@ activities:
     - "backend/activities#unroll"
     - "backend/activity_budgets#index"
     - "backend/activity_budgets#show"
+    - "backend/plant_density_abaci#index"
+    - "backend/plant_density_abaci#list"
+    - "backend/plant_density_abaci#show"
   write:
     dependencies:
     - read-activities
     actions:
+    - "api/v1/plant_countings#create"
     - "backend/activities#create"
     - "backend/activities#destroy"
     - "backend/activities#duplicate"
@@ -249,7 +205,13 @@ activities:
     - "backend/activity_budgets#edit"
     - "backend/activity_budgets#new"
     - "backend/activity_budgets#update"
+    - "backend/campaigns#close"
     - "backend/campaigns#open"
+    - "backend/plant_density_abaci#create"
+    - "backend/plant_density_abaci#destroy"
+    - "backend/plant_density_abaci#edit"
+    - "backend/plant_density_abaci#new"
+    - "backend/plant_density_abaci#update"
 
 affairs:
   read:
@@ -1066,6 +1028,7 @@ inventories:
 issues:
   read:
     actions:
+    - "api/v1/issues#index"
     - "backend/issues#index"
     - "backend/issues#list"
     - "backend/issues#list_interventions"
@@ -1076,6 +1039,7 @@ issues:
     dependencies:
     - read-issues
     actions:
+    - "api/v1/issues#create"
     - "backend/issues#abort"
     - "backend/issues#close"
     - "backend/issues#create"
@@ -1372,6 +1336,7 @@ outgoing_payments:
 plants:
   read:
     actions:
+    - "api/v1/plants#index"
     - "backend/plants#index"
     - "backend/plants#list"
     - "backend/plants#list_carried_linkages"

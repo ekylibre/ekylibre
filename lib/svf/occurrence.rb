@@ -5,7 +5,7 @@ module SVF
       @name = name.to_s
       @line = @name
       @range = definition
-      if definition.to_s =~ '-'
+      if definition.to_s =~ /\-/
         @line, @range = definition.split('-')[0..1]
         @line = @line.to_sym
       end

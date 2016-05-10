@@ -509,7 +509,7 @@ product_nature_variants_031:
   unit_name: Hectare
   updated_at: 2014-11-04 18:17:16.166463000 Z
   updater_id: 1
-  variety: zea
+  variety: zea_mays
 product_nature_variants_032:
   active: true
   category_id: 14

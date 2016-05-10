@@ -87,11 +87,11 @@ users_001:
   first_name: Gendo
   id: 1
   invitations_count: 0
-  language: jpn
+  language: fra
   last_name: IKARI
   last_sign_in_at: 2015-09-20 14:51:20.274880000 Z
   last_sign_in_ip: 127.0.0.1
-  lock_version: 22
+  lock_version: 23
   locked: false
   maximal_grantable_reduction_percentage: 5.0
   person_id: 9
@@ -101,7 +101,7 @@ users_001:
   role_id: 1
   sign_in_count: 18
   team_id: 1
-  updated_at: 2016-02-07 22:52:09.813713000 Z
+  updated_at: 2016-04-18 07:12:26.691054000 Z
   updater_id: 1
 users_002:
   administrator: false

@@ -76,20 +76,15 @@ Rails.application.routes.draw do
     post 'authentication' => 'authentication/registrations#create', as: :user_registration
   end
 
-  namespace :pasteque do
-    # namespace :v6 do
-    #   pasteque_v6
-    # end
-    namespace :v5 do
-      pasteque_v5
-    end
-  end
-
+  # No '-' in API paths for now, only '_'
   namespace :api do
-    namespace :v1 do
+    namespace :v1, defaults: { format: 'json' } do
       resources :tokens, only: [:create, :destroy]
       resources :crumbs
       resources :issues
+      resources :plant_density_abaci
+      resources :plant_countings
+      resources :plants
     end
   end
 
@@ -269,6 +264,7 @@ Rails.application.routes.draw do
       member do
         get :list_activity_productions
         post :open
+        delete :close
       end
     end
 
@@ -628,6 +624,8 @@ Rails.application.routes.draw do
     end
 
     resources :parcel_items, only: [:new], path: 'parcel-items'
+
+    resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
 
     resources :plants, concerns: :products
 

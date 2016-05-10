@@ -20,11 +20,22 @@ module Api
   module V1
     class BaseController < ActionController::Base
       include ActionController::Flash
-      before_action :authenticate_api_user!
 
-      after_action do
+      respond_to :json
+
+      before_action :authenticate_api_user!
+      before_action :force_json!
+      after_action :add_generic_headers!
+
+      hide_action :add_generic_headers!
+      def add_generic_headers!
         response.headers['X-Ekylibre-Media-Type'] = 'ekylibre.v1'
-        # response.headers["Access-Control-Allow-Origin"] = "*"
+        # response.headers['Access-Control-Allow-Origin'] = '*'
+      end
+
+      hide_action :force_json!
+      def force_json!
+        request.format = 'json'
       end
 
       hide_action :authenticate_api_user!

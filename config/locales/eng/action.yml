@@ -4,6 +4,11 @@ eng:
       # index: "Crumbs"
     api/v1/issues:
       # index: "Issues"
+    api/v1/plant_density_abaci:
+      # index: "Plant density abaci"
+      # show: "Plant density abacus: %{name}"
+    api/v1/plants:
+      # index: "Plants"
     authentication/invitations:
       edit: "Accept invitation"
       # new: "New invitation"
@@ -100,6 +105,7 @@ eng:
       show: "Building: %{name}"
       # take: "Take building: %{name}"
     backend/campaigns:
+      # close: "Close campaign: %{name}"
       current: "Campaign"
       edit: "Edit campaign: %{name}"
       index: "Campaigns"
@@ -138,7 +144,7 @@ eng:
       show: "Catalog item: %{name}"
     backend/catalogs:
       edit: "Edit catalog: %{name}"
-      index: "Catalogs"
+      index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
     backend/cells/accountancy_balance_cells:
@@ -506,6 +512,11 @@ eng:
       # prepare: "Prepare parcel: %{name}"
       ship: "Ship parcels"
       show: "%{nature} parcel: %{number}"
+    backend/plant_density_abaci:
+      # edit: "Edit plant density abacus: %{name}"
+      # index: "Plant density abaci"
+      # new: "New plant density abacus"
+      # show: "Plant density abacus: %{name}"
     backend/plants:
       edit: "Edit plant: %{name}"
       index: "Plants"
@@ -732,72 +743,6 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
-    pasteque/v5/attributes:
-      # index: "Attributes"
-    pasteque/v5/cash_mvts:
-      # move: "Move cash mvt: %{name}"
-    pasteque/v5/cash_registers:
-      # index: "Cash registers"
-      # show: "Cash register: %{name}"
-    pasteque/v5/cashes:
-      # search: "Search cash: %{name}"
-      # show: "Cash: %{name}"
-      # zticket: "Zticket cash: %{name}"
-    pasteque/v5/categories:
-      # children: "Children category: %{name}"
-      # index: "Categories"
-      # show: "Category: %{name}"
-    pasteque/v5/compositions:
-      # index: "Compositions"
-    pasteque/v5/currencies:
-      # index: "Currencies"
-      # main: "Main currency: %{name}"
-      # show: "Currency: %{name}"
-    pasteque/v5/customers:
-      # index: "Customers"
-      # show: "Customer: %{name}"
-      # top: "Top customer: %{name}"
-    pasteque/v5/discount_profiles:
-      # index: "Discount profiles"
-    pasteque/v5/images:
-      # category: "Category image: %{name}"
-      # payment_method: "Payment method image: %{name}"
-      # product: "Product image: %{name}"
-      # resource: "Resource image: %{name}"
-    pasteque/v5/locations:
-      # index: "Locations"
-      # show: "Location: %{name}"
-    pasteque/v5/places:
-      # index: "Places"
-      # show: "Place: %{name}"
-    pasteque/v5/products:
-      # category: "Category product: %{name}"
-      # index: "Products"
-      # show: "Product: %{name}"
-    pasteque/v5/resources:
-      # show: "Resource: %{name}"
-    pasteque/v5/roles:
-      # index: "Roles"
-      # show: "Role: %{name}"
-    pasteque/v5/stocks:
-      # index: "Stocks"
-    pasteque/v5/tariff_areas:
-      # index: "Tariff areas"
-    pasteque/v5/taxes:
-      # index: "Taxes"
-      # show: "Tax: %{name}"
-    pasteque/v5/tickets:
-      # index: "Tickets"
-      # open: "Open ticket: %{name}"
-      # save: "Save ticket: %{name}"
-      # search: "Search ticket: %{name}"
-      # show: "Ticket: %{name}"
-    pasteque/v5/users:
-      # index: "Users"
-      # show: "User: %{name}"
-      # update_password: "Update password user: %{name}"
-    pasteque/v5/version:
-      # index: "Version"
     public:
       index: "Home"
   errors:
@@ -816,6 +761,72 @@ eng:
       header:
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
+  front-end:
+    leaflet:
+      draw:
+        handlers:
+          circle:
+            tooltip:
+              start: "Click and drag to draw circle."
+          marker:
+            tooltip:
+              start: "Click map to place marker."
+          polygon:
+            tooltip:
+              cont: "Click to continue drawing shape."
+              end: "Click first point to close this shape."
+              start: "Click to start drawing shape."
+          polyline:
+            error: "<strong>Error:</strong> shape edges cannot cross!"
+            tooltip:
+              cont: "Click to continue drawing line."
+              end: "Click last point to finish line."
+              start: "Click to start drawing line."
+          rectangle:
+            tooltip:
+              start: "Click and drag to draw rectangle."
+          simpleshape:
+            tooltip:
+              end: "Release mouse to finish drawing."
+        toolbar:
+          actions:
+            text: "Cancel"
+            title: "Cancel drawing"
+          buttons:
+            circle: "Draw a circle"
+            marker: "Draw a marker"
+            polygon: "Draw a polygon"
+            polyline: "Draw a polyline"
+            rectangle: "Draw a rectangle"
+          undo:
+            text: "Delete last point"
+            title: "Delete last point drawn"
+      edit:
+        handlers:
+          edit:
+            tooltip:
+              subtext: "Click cancel to undo changes."
+              text: "Drag handles, or marker to edit feature."
+          remove:
+            tooltip:
+              text: "Click on a feature to remove"
+        toolbar:
+          actions:
+            cancel:
+              text: "Cancel"
+              title: "Cancel editing, discards all changes."
+            save:
+              text: "Save"
+              title: "Save changes."
+          buttons:
+            edit: "Edit layers."
+            editDisabled: "No layers to edit."
+            remove: "Delete layers."
+            removeDisabled: "No layers to delete."
+      fullscreenTitle: "Full Screen"
+      importerButtonTitle: "Import"
+      zoomInTitle: "Zoom in"
+      zoomOutTitle: "Zoom out"
   labels:
     access: "Access"
     access_parameters: "Access parameters"
@@ -827,7 +838,8 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
-    activity_production: "Activity production"
+    activity_production: "Activity production" #?
+    activity_productions: "Activity productions"
     add: "Add"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
@@ -994,7 +1006,7 @@ eng:
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone"
     cultivable_zone_abbreviation: "CZ" #?!
-    cultivable_zones: "Cultivable zones" #?
+    cultivable_zones: "Cultivable zones"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
     current: "Current" #?
     current_cultivation: "Current cultivation"
@@ -1555,36 +1567,36 @@ eng:
     workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
-    x_cashes: #?
-      one: "%{count} cash" #?
-      other: "%{count} cashes" #?
-    x_contacts: #??
-      one: "%{count} contact" #??
-      other: "%{count} contacts" #??
+    x_cashes:
+      one: "%{count} cash"
+      other: "%{count} cashes"
+    x_contacts:
+      one: "%{count} contact"
+      other: "%{count} contacts"
     x_days:
       one: "%{count} day"
       other: "%{count} days"
-    x_depositable_payments: #?!
-      one: "1 incoming payment to deposit" #?!
-      other: "%{count} incoming payments to deposit" #?!
-      zero: "No incoming payments to deposit" #?!
-    x_deposits_to_validate: #?!
-      one: "%{count} deposit to validate" #?!
-      other: "%{count} deposits to validate" #?!
-      zero: "No deposits to validate" #?!
-    x_entities: #?
-      one: "%{count} person" #?
-      other: "%{count} people" #?
+    x_depositable_payments:
+      one: "1 incoming payment to deposit"
+      other: "%{count} incoming payments to deposit"
+      zero: "No incoming payments to deposit"
+    x_deposits_to_validate:
+      one: "%{count} deposit to validate"
+      other: "%{count} deposits to validate"
+      zero: "No deposits to validate"
+    x_entities:
+      one: "%{count} person"
+      other: "%{count} people"
     x_entity_links:
       one: "%{count} link"
       other: "%{count} links"
     x_events:
       one: "1 event"
       other: "%{count} events"
-    x_events_of_nature_y: #?!
-      one: "One event %{nature} for a total duration of %{duration} minutes" #?!
-      other: "%{count} events %{nature} for a total duration of %{duration} minutes" #?!
-      zero: "No events %{nature}" #?!
+    x_events_of_nature_y:
+      one: "One event %{nature} for a total duration of %{duration} minutes"
+      other: "%{count} events %{nature} for a total duration of %{duration} minutes"
+      zero: "No events %{nature}"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1609,18 +1621,18 @@ eng:
     x_items_remain:
       one: "%{count} item remains"
       other: "%{count} items remain"
-    x_journal_entries: #?
-      one: "%{count} journal entries" #?
-      other: "%{count} journal entries" #?
+    x_journal_entries:
+      one: "%{count} journal entries"
+      other: "%{count} journal entries"
     x_months:
       one: "%{count} month"
       other: "%{count} months"
     x_notifications:
       one: "%{count} notification"
       other: "%{count} notifications"
-    x_observations: #?
-      one: "%{count} observation" #?
-      other: "%{count} observations" #?
+    x_observations:
+      one: "%{count} observation"
+      other: "%{count} observations"
     x_of_y: "%{x} of %{y}"
     x_outgoing_payments:
       one: "%{count} disbursement"
@@ -1641,9 +1653,9 @@ eng:
     x_sales:
       one: "%{count} sale"
       other: "%{count} sales"
-    x_sales_invoices: #??
-      one: "%{count} sales invoice" #??
-      other: "%{count} sales invoices" #??
+    x_sales_invoices:
+      one: "%{count} sales invoice"
+      other: "%{count} sales invoices"
     x_subscriptions:
       one: "%{count} subscription"
       other: "%{count} subscriptions"
@@ -1652,21 +1664,21 @@ eng:
       other: "%{count} tasks"
     x_thing: "%{x} %{thing}"
     x_unit: "%{quantity}%{unit}"
-    x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}" #?!
-    x_unit_per_second: "Flow: %{quantity}%{unit}/s" #?!
-    x_units_of_product_y: "%{quantity}%{unit} of %{product}" #?!
+    x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
+    x_unit_per_second: "Flow: %{quantity}%{unit}/s"
+    x_units_of_product_y: "%{quantity}%{unit} of %{product}"
     x_unpaid_purchases:
       one: "%{count} unpaid purchase"
       other: "%{count} unpaid purchases"
     x_unpaid_sales:
       one: "%{count} unpaid sale"
       other: "%{count} unpaid sales"
-    x_waiting_incoming_parcels: #?!
-      one: "%{count} waiting incoming parcel" #?!
-      other: "%{count} waiting incoming parcels" #?!
-    x_waiting_outgoing_deliveries: #?!
-      one: "%{count} waiting outgoing parcel" #?!
-      other: "%{count} waiting outgoing parcels" #?!
+    x_waiting_incoming_parcels:
+      one: "%{count} waiting incoming parcel"
+      other: "%{count} waiting incoming parcels"
+    x_waiting_outgoing_deliveries:
+      one: "%{count} waiting outgoing parcel"
+      other: "%{count} waiting outgoing parcels"
     x_years:
       one: "1 year"
       other: "%{count} years"
@@ -1719,7 +1731,7 @@ eng:
       journal_reopened_on: "The journal “%{journal}” has been re-opened on %{closed_on}."
       mails_are_sent: "The emails were sent"
       merge_is_done: "Merge is done"
-      need_a_production_support: "Need a production support"
+      need_a_production_support: "Need a production support" #?
       need_a_valid_purchase_nature_to_start_new_purchase: "Need a valid purchase type to start new purchase"
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
@@ -1770,8 +1782,6 @@ eng:
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
-    # force_intervention_started_at: "Force intervention started at"
-    # force_intervention_stopped_at: "Force intervention stopped at"
     host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
@@ -1791,12 +1801,12 @@ eng:
       # autocomplete_for_place: "Autocomplete for place"
       bookkeep: "Bookkeep"
       cancel: "Cancel"
-      category: "Category"
+      category: "Category" #?
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_password: "Change password"
       # check: "Check"
-      children: "Children"
+      children: "Children" #?
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"
@@ -1836,21 +1846,18 @@ eng:
       lock: "Lock"
       lose: "Lose"
       mail: "Mail"
-      # main: "Main"
       mark: "Mark"
       merge: "Merge"
       # models: "Models"
-      move: "Move"
+      move: "Move" #?
       negociate: "Negociate"
       new: "New"
       open: "Open"
       # order: "Order"
-      # payment_method: "Payment method"
       pick: "Pick"
       picture: "Picture"
       point: "Point"
       # prepare: "Prepare"
-      # product: "Product"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
@@ -1864,11 +1871,9 @@ eng:
       refuse: "Refuse"
       reopen: "Reopen"
       reset: "Reset"
-      # resource: "Resource"
       retrieve: "Retrieve"
       run: "Run"
-      # save: "Save"
-      search: "Search"
+      search: "Search" #?
       select: "Select"
       ship: "Ship"
       show: "Show"
@@ -1877,7 +1882,6 @@ eng:
       stop: "Stop" #?
       take: "Take"
       toggle: "Toggle"
-      # top: "Top"
       unlock: "Unlock"
       unmark: "Unmark"
       # unread: "Unread"
@@ -1885,10 +1889,8 @@ eng:
       unvalidateds: "Unvalidateds"
       up: "Up"
       update: "Update"
-      update_password: "Update password"
       # upload: "Upload"
       win: "Win"
-      # zticket: "Zticket"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"

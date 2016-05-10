@@ -327,7 +327,8 @@ module Backend
     def point_field(attribute_name, options = {})
       marker = {}
       if geom = @object.send(attribute_name)
-        marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
+        coordinates = Charta.new_geometry(geom).to_json_object['coordinates']
+        marker[:marker] = coordinates.reverse if coordinates
         marker[:view] = { center: marker[:marker] }
       else
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
@@ -410,7 +411,7 @@ module Backend
     end
 
     # Build a frame for all product _forms
-    def product_form_frame(_options = {}, &block)
+    def product_form_frame(options = {}, &block)
       html = ''.html_safe
 
       variant = @object.variant
@@ -427,7 +428,7 @@ module Backend
           # Add name
           fs << input(:name)
           # Add work number
-          fs << input(:work_number)
+          fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
           # Add variant selector
           fs << variety(scope: variant)
 

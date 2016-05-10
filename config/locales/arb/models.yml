@@ -1716,6 +1716,8 @@ arb:
     plan: "خطة"
     planned_at: "قرر يوم"
     planned_depreciations: "انخفاض قيمة المخطط"
+    # plant_countings: "Plant countings"
+    # plant_density_abacus: "Plant density abacus"
     point: "نقطة"
     point_value: "قيمة النقطة"
     points: "نقاط"
@@ -1920,12 +1922,14 @@ arb:
     salt: "الملح" #?
     sampled_at: "عينات في"
     sampler: "العينات"
+    # sampling_length_unit: "Sampling length unit"
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scheduled: "الدفعة المبرمجة"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
     second_move_id: "الحركة الثانية" #?
     second_producer: "منتج الثاني"
+    # seeding_density_unit: "Seeding density unit"
     selected: "مختار"
     selected_manure_management_plan: "خطة إدارة السماد مختارة"
     selected_manure_management_plan_zone: "منطقة خطة إدارة السماد مختارة"
@@ -2094,6 +2098,7 @@ arb:
     usage_limit_nature: "المستخدمة من قبل نوع"
     usage_limit_on: "التي يستخدمها على"
     usages: "الأعراف"
+    # use_countings: "Use countings"
     use_range: "استخدام الكمية الفاصلة" #?
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
@@ -2111,6 +2116,7 @@ arb:
     variant_unit: "وحدة متغير"
     variants: "المتغيرات"
     variety: "تشكيلة"
+    # variety_name: "Variety name"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     vat_subjected: "ضريبة القيمة المضافة تعرض"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?

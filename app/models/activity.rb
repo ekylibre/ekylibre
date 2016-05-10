@@ -40,6 +40,7 @@
 #  suspended           :boolean          default(FALSE), not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
+#  use_countings       :boolean          default(FALSE), not null
 #  with_cultivation    :boolean          not null
 #  with_supports       :boolean          not null
 #
@@ -66,7 +67,7 @@ class Activity < Ekylibre::Record::Base
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :suspended, :with_cultivation, :with_supports, in: [true, false]
+  validates_inclusion_of :suspended, :use_countings, :with_cultivation, :with_supports, in: [true, false]
   validates_presence_of :family, :name, :nature, :production_cycle
   # ]VALIDATORS]
   validates_inclusion_of :family, in: family.values
@@ -93,7 +94,7 @@ class Activity < Ekylibre::Record::Base
     end
   }
   scope :of_cultivation_variety, lambda { |variety|
-    where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_children)
+    where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_children.map(&:name))
   }
   scope :main_of_campaign, ->(campaign) { main.of_campaign(campaign) }
   scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.current) }

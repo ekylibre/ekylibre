@@ -44,6 +44,7 @@
       controlDefaults:
         fullscreen:
           position: 'topleft'
+          title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
         geocoder:
           collapsed: true,
           position: 'topright',
@@ -63,9 +64,9 @@
         zoom:
           position: 'topleft'
           zoomInText: ''
-          zoomInTitle: 'Zoom In'
+          zoomInTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomInTitle")
           zoomOutText: ''
-          zoomOutTitle: 'Zoom Out'
+          zoomOutTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomOutTitle")
       layers: {}
       layerDefaults:
         band:

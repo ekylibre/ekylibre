@@ -10,6 +10,7 @@ cmn:
         bunch: "束"
         bury: "埋葬"
         care: "关心"
+        # castrate: "Castrate"
         catalyze: "催化"
         catch: "抓住"
         # chaptelise: "Chaptelise"
@@ -1255,6 +1256,7 @@ cmn:
         specific_volume: "比容"
         surface_area: "表面积"
         surface_area_density: "表面积密度"
+        # surface_area_flow: "Surface area flow"
         temperature: "温度"
         time: "时间"
         volume: "卷"
@@ -1583,6 +1585,7 @@ cmn:
         plant_reproduction_state: "植物繁殖状态"
         plants_count: "植物计数"
         plants_interval: "植物间隔"
+        # plowshare_count: "Plowshare count"
         potash_concentration: "钾肥浓度（K 2 O）"
         potassium_concentration: "钾浓度"
         potential_hydrogen: "潜在的氢"
@@ -1595,6 +1598,7 @@ cmn:
         relative_humidity: "相对湿度"
         reproductor: "REPRODUCTOR"
         residue_elimination_method: "残渣排除方法"
+        # rows_count: "Rows count"
         rows_interval: "行间隔"
         rows_orientation: "行方向"
         sex: "性别"
@@ -1613,6 +1617,7 @@ cmn:
         sulfur_trioxide_concentration: "三氧化硫浓度（SO 3）"
         surface_area_percentage: "表面面积百分比"
         temperature: "温度"
+        # theoretical_working_speed: "Theoretical working speed"
         thousand_grains_mass: "千谷物质量"
         tiller_count: "分蘖数"
         total_bacteria_concentration: "总细菌浓度"
@@ -2659,6 +2664,7 @@ cmn:
         corn_seed_crop: "玉米种子的作物"
         corn_silage: "玉米青贮"
         corn_silage_crop: "青贮玉米作物"
+        # corn_topper: "Corn topper"
         cover_crop: "覆盖作物"
         cover_implanter: "封面注入"
         cow_milk: "牛奶"
@@ -3146,6 +3152,7 @@ cmn:
         consumer_goods_office_item: "消费品办公项目"
         cork: "软木"
         corker: "科克"
+        # corn_topper: "Corn topper"
         cover_implanter: "封面注入"
         crop: "作物"
         crop_protective_item: "作物保护项目"
@@ -3389,6 +3396,14 @@ cmn:
         variety: "品种"
     production_natures:
       name: "生产性质"
+    production_systems:
+      items:
+        # extensive_farming: "Extensive farming"
+        # intensive_farming: "Intensive farming"
+        # organic_farming: "Organic farming"
+        # permaculture: "Permaculture"
+        # sustainable_agriculture: "Sustainable agriculture"
+      # name: "Production systems"
     production_usages:
       items:
         fallow_land: "熟荒"
@@ -3487,7 +3502,7 @@ cmn:
           amount: "量"
           percentage: "百分比"
       items:
-        asset_vat: "资产增值税"
+        asset_vat: "资产增值税" #?
         inflated_vat: "充气增值税"
         intermediate_vat: "中间增值税"
         normal_vat: "增值税一般"
@@ -3499,6 +3514,8 @@ cmn:
         collect_account: "收集帐户"
         computation_method: "计算方法"
         deduction_account: "扣除账户"
+        # fixed_asset_collect_account: "Fixed asset collect account"
+        # fixed_asset_deduction_account: "Fixed asset deduction account"
         suffix: "后缀"
     taxes:
       items:
@@ -3509,11 +3526,11 @@ cmn:
         french_vat_normal_1995: "法国增值税1995年正常"
         french_vat_normal_2000: "法国增值税普通2000"
         french_vat_normal_2014: "法国增值税普通2014"
-        french_vat_normal_asset_1966: "法国增值税正常的资产1966年"
-        french_vat_normal_asset_1982: "法国增值税一般资产1982"
-        french_vat_normal_asset_1995: "法国增值税正常的资产1995年"
-        french_vat_normal_asset_2000: "法国增值税一般资产2000"
-        french_vat_normal_asset_2014: "法国增值税一般资产2014"
+        french_vat_normal_asset_1966: "法国增值税正常的资产1966年" #?
+        french_vat_normal_asset_1982: "法国增值税一般资产1982" #?
+        french_vat_normal_asset_1995: "法国增值税正常的资产1995年" #?
+        french_vat_normal_asset_2000: "法国增值税一般资产2000" #?
+        french_vat_normal_asset_2014: "法国增值税一般资产2014" #?
         french_vat_null: "法国增值税空"
         french_vat_particular_1982: "法国增值税尤其1982年"
         french_vat_particular_1989: "法国增值税尤其是1989"
@@ -3565,6 +3582,7 @@ cmn:
         gram_per_liter: "每升克"
         gram_per_square_meter: "每平方米克"
         hectare: "公顷"
+        # hectare_per_hour: "Hectare per hour"
         hectoliter: "公石"
         hectoliter_per_hectare: "公石每公顷"
         hectopascal: "百帕"
@@ -3606,6 +3624,7 @@ cmn:
         millimeter: "毫米"
         millimeter_per_hour: "每小时毫米"
         million: "百万"
+        # million_per_hectare: "Million per hectare"
         million_per_liter: "百万每升"
         millionth: "百万分之一"
         millisecond: "毫秒"
@@ -3764,6 +3783,7 @@ cmn:
         avena_sativa_une_de_mai: "燕麦UNE谷地"
         aves: "鸟"
         bacteria: "菌"
+        # bale_collector: "Bale collector"
         baler: "打包机"
         bambusa: "竹"
         bellis: "贝利斯"
@@ -5790,6 +5810,7 @@ cmn:
         sus_scrofa_x70: "国内生猪X70"
         sus_scrofa_x80: "国内生猪X80"
         tank: "坦克"
+        # telescopic_handler: "Telescopic handler"
         theobroma: "可可"
         theobroma_cacao: "可可树"
         theobroma_grandiflorum: "可可桔梗"
@@ -6111,6 +6132,7 @@ cmn:
         water: "水"
         weigela: "锦带"
         weigela_floribunda: "多花锦带"
+        # wheel_loader: "Wheel loader"
         wine: "葡萄酒"
         wire: "线"
         worker: "工人"

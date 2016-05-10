@@ -9,7 +9,7 @@ class Releaser
     # TODO: Check VERSION is not already tagged
 
     desc 'Compile HTTP error pages'
-    exec 'rake http:errors:compile nomen:avatar'
+    exec 'rake http:errors:compile i18n:js:export nomen:avatar'
 
     desc 'Fixtures restoration'
     exec 'rake db:fixtures:restore'
@@ -33,7 +33,7 @@ class Releaser
     # TODO: Check schema and table presences
 
     desc 'Execute demo first run'
-    exec 'RAILS_ENV=production rake first_run max=50 name=release folder=demo'
+    exec 'RAILS_ENV=production rake first_run max=80 name=release folder=demo'
 
     # TODO: Check schema and table presences
     # TODO: Check data presence

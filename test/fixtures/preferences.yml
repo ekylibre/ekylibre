@@ -1942,7 +1942,7 @@ preferences_163:
   created_at: 2014-11-01 19:44:31.632618000 Z
   creator_id: 1
   id: 163
-  lock_version: 1
+  lock_version: 3
   name: list._taxes_list_taxes_tag
   nature: string
   string_value:
@@ -1951,10 +1951,18 @@ preferences_163:
     only: content
     action: list
     controller: backend/taxes
-    hidden_columns: []
+    hidden_columns:
+    - :fixed_asset_deduction_account
+    - :fixed_asset_collect_account
     page: 1
     per_page: 20
-  updated_at: 2014-11-01 19:45:12.111817000 Z
+    content_for: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      actions: main_toolbar
+      pagination: meta_toolbar
+      settings: meta_toolbar
+    visibility: hidden
+    column: fixed_asset_collect_account
+  updated_at: 2016-05-03 17:00:54.000454000 Z
   updater_id: 1
   user_id: 1
 preferences_164:
@@ -3652,5 +3660,49 @@ preferences_314:
   nature: string
   string_value: {}
   updated_at: 2016-02-08 09:48:37.678303000 Z
+  updater_id: 1
+  user_id: 1
+preferences_315:
+  created_at: 2016-04-20 13:11:03.929065000 Z
+  creator_id: 1
+  id: 316
+  lock_version: 0
+  name: cobbler.activities-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-04-20 13:11:03.929065000 Z
+  updater_id: 1
+  user_id: 1
+preferences_316:
+  created_at: 2016-04-20 14:12:59.800375000 Z
+  creator_id: 1
+  id: 317
+  lock_version: 0
+  name: list._plant_density_abaci_list_plant_density_abaci_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-04-20 14:12:59.800375000 Z
+  updater_id: 1
+  user_id: 1
+preferences_317:
+  created_at: 2016-04-20 17:00:30.546018000 Z
+  creator_id: 1
+  id: 318
+  lock_version: 0
+  name: cobbler.activity_productions-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-04-20 17:00:30.546018000 Z
+  updater_id: 1
+  user_id: 1
+preferences_318:
+  created_at: 2016-05-03 17:01:02.511327000 Z
+  creator_id: 1
+  id: 319
+  lock_version: 0
+  name: cobbler.taxes-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-03 17:01:02.511327000 Z
   updater_id: 1
   user_id: 1
