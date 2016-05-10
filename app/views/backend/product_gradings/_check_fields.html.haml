@@ -1,11 +1,12 @@
 = f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
 %tr.nested-fields
+  %td= f.object.nature.l
   %td
     = f.object.name
     = f.association :activity_grading_check, as: :hidden
-  - if f.object.measure_grading_net_mass
-    %td.integer= f.input(:items_count, wrapper: :nested)
   - if f.object.measure_grading_items_count
+    %td.integer= f.input(:items_count, wrapper: :nested)
+  - if f.object.measure_grading_net_mass
     %td.decimal
       = f.input(:net_mass_value, wrapper: :nested_append) do
         = f.input_field(:net_mass_value)

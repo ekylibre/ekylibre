@@ -12,21 +12,25 @@
     %span.add-on= Nomen::Unit[:meter].l
   = f.input :comment, as: :text
 
-= field_set(:items) do
-  .items
-    %table
-      %thead
-        %tr
-          %th= ProductGradingCheck.human_attribute_name(:name)
-          %th= ProductGradingCheck.human_attribute_name(:items_count)
-          %th= ProductGradingCheck.human_attribute_name(:net_mass_value)
-          %th= ProductGradingCheck.human_attribute_name(:minimal_size_value)
-          %th= ProductGradingCheck.human_attribute_name(:maximal_size_value)
-          %th
-      %tbody#items
-        - activity = f.object.activity
-        - checks = []
-        - activity.grading_checks.order(:nature, :minimal_calibre_value, :quality_criterion_id).each do |activity_grading_check|
-          - checks << f.object.checks.find_or_initialize_by(activity_grading_check_id: activity_grading_check.id)
-        = f.simple_fields_for :checks, checks do |cf|
-          = render 'check_fields', f: cf
+- activity = f.object.activity
+- if activity.grading_checks.any?
+  - checks = []
+  - activity.grading_checks.order(:nature, :minimal_calibre_value, :quality_criterion_id).each do |activity_grading_check|
+    - checks << f.object.checks.find_or_initialize_by(activity_grading_check_id: activity_grading_check.id)
+  = field_set(:items) do
+    .items
+      %table
+        %thead
+          %tr
+            %th
+            %th= ProductGradingCheck.human_attribute_name(:name)
+            - if f.object.measure_grading_items_count
+              %th= ProductGradingCheck.human_attribute_name(:items_count)
+            - if f.object.measure_grading_net_mass
+              %th= ProductGradingCheck.human_attribute_name(:net_mass_value)
+            - if f.object.measure_grading_sizes
+              %th= ProductGradingCheck.human_attribute_name(:minimal_size_value)
+              %th= ProductGradingCheck.human_attribute_name(:maximal_size_value)
+        %tbody#items
+          = f.simple_fields_for :checks, checks do |cf|
+            = render 'check_fields', f: cf

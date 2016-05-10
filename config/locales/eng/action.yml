@@ -42,11 +42,6 @@ eng:
       # index: "Activity budgets"
       new: "New budget: %{name}"
       show: "Activity budget: %{name}"
-    backend/activity_grading_checks:
-      # edit: "Edit activity grading check: %{name}"
-      # index: "Activity grading checks"
-      # new: "New activity grading check"
-      # show: "Activity grading check: %{name}"
     backend/activity_productions:
       edit: "Edit activity production: %{name}"
       # index: "Activity productions"
@@ -552,11 +547,6 @@ eng:
       index: "Prescriptions"
       new: "New prescription"
       show: "Prescription: %{reference_number}"
-    backend/product_grading_checks:
-      edit: "Edit product grading check: %{name}"
-      index: "Product grading checks"
-      new: "New product grading check"
-      show: "Product grading check: %{name}"
     backend/product_gradings:
       edit: "Edit product grading\_: %{number}"
       index: "Product gradings"
@@ -996,6 +986,7 @@ eng:
     chart: "Chart"
     # charts: "Charts"
     check: "Check"
+    # checks: "Checks"
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"

@@ -387,11 +387,6 @@ ita:
       index: "prescrizioni"
       new: "nuova prescrizione"
       # show: "Prescription: %{reference_number}"
-    backend/product_grading_checks:
-      # edit: "Edit product grading check: %{name}"
-      # index: "Product grading checks"
-      # new: "New product grading check"
-      # show: "Product grading check: %{name}"
     backend/product_gradings:
       # edit: "Edit product grading\_: %{number}"
       # index: "Product gradings"

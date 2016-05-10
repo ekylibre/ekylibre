@@ -54,6 +54,9 @@ class ProductGrading < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :checks, allow_destroy: true
 
+  delegate :measure_grading_net_mass, :measure_grading_items_count,
+           :measure_grading_sizes, :use_grading_calibre, to: :activity
+
   before_validation :set_implanter_values, on: :create
 
   before_validation do

@@ -339,7 +339,7 @@ fra:
       product: "Produits"
       product_enjoyment: "Jouissances de produits"
       product_grading: "Agréage produit"
-      product_grading_check: "Elèment d'un agréage produit"
+      product_grading_check: "Élément d'un agréage produit"
       product_group: "Groupe de produit"
       product_link: "Lien entre produits"
       product_linkage: "Lien d’attache entre produits"
@@ -413,7 +413,7 @@ fra:
     activity_budgets: "Budgets"
     activity_code: "Code APE/NAF"
     activity_distributions: "Répartitions entre activités"
-    activity_grading_check: "Vérification de l'agréage sur l'activité"
+    activity_grading_check: "Point de contrôle d’agréage"
     activity_production: "Production"
     activity_productions: "Productions"
     actor: "Acteur"
@@ -474,7 +474,7 @@ fra:
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
     budget: "Budget" #?
-    budget_items: "Elèment de budget" #?
+    budget_items: "Élément de budget" #?
     budgets: "Budgets"
     building: "Bâtiment" #?
     buildings: "Bâtiments"
@@ -505,7 +505,7 @@ fra:
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?
-    checks: "Elèments"
+    checks: "Éléments"
     children: "Enfants"
     choice_value: "Valeur choix"
     choices: "Choix de champ complémentaire"
@@ -782,7 +782,7 @@ fra:
     grade_unit: "Unité de l'indicateur de l'agréage"
     grading_calibre_indicator_name: "Indicateur utilisé pour le calibrage"
     grading_calibre_unit_name: "Unité utilisée pour le calibrage"
-    grading_checks: "Elèments d'un agréage"
+    grading_checks: "Éléments d'un agréage"
     grading_net_mass_unit_name: "Unité utilisée pour la masse nette"
     grading_sizes_indicator_name: "Indicateur utilisé pour la mesure de la taille"
     grading_sizes_unit_name: "Unité utilisée pour la mesure de la taille"
@@ -880,7 +880,7 @@ fra:
     item_type: "Type de l’élément"
     item_value: "Valeur de l’élément"
     items: "Éléments"
-    # items_count: "Items count"
+    items_count: "Nombre d’éléments"
     journal: "Journal"
     journal_entries: "Écritures"
     journal_entry: "Écriture"
@@ -1002,7 +1002,7 @@ fra:
     nature_name: "Nom de la nature du produit"
     natures: "Natures"
     net_mass: "Masse nette"
-    net_mass_value: "Valeur de la masse"
+    net_mass_value: "Masse nette"
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?

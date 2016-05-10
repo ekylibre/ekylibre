@@ -18,7 +18,7 @@
 
 module Backend
   class ProductGradingsController < Backend::BaseController
-    manage_restfully
+    manage_restfully sampled_at: 'Time.zone.now'.c
 
     unroll
 
@@ -33,9 +33,7 @@ module Backend
       # t.column :implanter_working_width
     end
 
-    list(:items, model: :product_grading_checks, conditions: { product_grading_id: 'params[:id]'.c }) do |t|
-      t.action :edit
-      t.action :destroy
+    list(:checks, model: :product_grading_checks, conditions: { product_grading_id: 'params[:id]'.c }) do |t|
       t.column :activity_grading_check, label_method: :name
       t.column :items_count
       t.column :net_mass_value

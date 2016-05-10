@@ -493,11 +493,6 @@ arb:
     backend/product_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
-    backend/product_grading_checks:
-      # edit: "Edit product grading check: %{name}"
-      # index: "Product grading checks"
-      # new: "New product grading check"
-      # show: "Product grading check: %{name}"
     backend/product_gradings:
       # edit: "Edit product grading\_: %{number}"
       # index: "Product gradings"

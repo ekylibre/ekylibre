@@ -466,11 +466,6 @@ fra:
       index: "Prescriptions"
       new: "Nouvelle prescription"
       show: "Prescription\_: %{reference_number}"
-    backend/product_grading_checks:
-      # edit: "Edit product grading check: %{name}"
-      # index: "Product grading checks"
-      # new: "New product grading check"
-      # show: "Product grading check: %{name}"
     backend/product_gradings:
       edit: "Modifier l'agréage\_: %{number}"
       index: "Agréages"

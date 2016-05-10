@@ -571,15 +571,6 @@
         <page to="backend/activity_budgets#new"/>
         <page to="backend/activity_budgets#show"/>
         <page to="backend/activity_budgets#update"/>
-        <page to="backend/activities#list_activity_grading_checks" nonexistent="true"/>
-        <page to="backend/activity_grading_checks#index"/>
-        <page to="backend/activity_grading_checks#create"/>
-        <page to="backend/activity_grading_checks#destroy"/>
-        <page to="backend/activity_grading_checks#edit"/>
-        <page to="backend/activity_grading_checks#new"/>
-        <page to="backend/activity_grading_checks#show"/>
-        <page to="backend/activity_grading_checks#unroll"/>
-        <page to="backend/activity_grading_checks#update"/>
         <page to="backend/animals#index"/>
         <page to="backend/animals#add_to_group"/>
         <page to="backend/animals#add_to_container"/>
@@ -698,18 +689,11 @@
         <page to="backend/product_gradings#destroy"/>
         <page to="backend/product_gradings#edit"/>
         <page to="backend/product_gradings#list"/>
-        <page to="backend/product_gradings#list_items"/>
+        <page to="backend/product_gradings#list_checks"/>
         <page to="backend/product_gradings#new"/>
         <page to="backend/product_gradings#show"/>
         <page to="backend/product_gradings#unroll"/>
         <page to="backend/product_gradings#update"/>
-        <page to="backend/product_grading_checks#index"/>
-        <page to="backend/product_grading_checks#create"/>
-        <page to="backend/product_grading_checks#destroy"/>
-        <page to="backend/product_grading_checks#edit"/>
-        <page to="backend/product_grading_checks#new"/>
-        <page to="backend/product_grading_checks#show"/>
-        <page to="backend/product_grading_checks#update"/>
       </item>
     </group>
     <group name="land_parcels" icon="land-parcels">

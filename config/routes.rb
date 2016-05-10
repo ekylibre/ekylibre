@@ -189,8 +189,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :activity_grading_checks, concerns: [:unroll]
-
     resources :activity_productions, concerns: [:unroll] do
       member do
         get :list_interventions
@@ -657,13 +655,11 @@ Rails.application.routes.draw do
 
     resources :products, concerns: [:products]
 
-    resources :product_gradings, concerns: [:list, :unroll] do
+    resources :product_gradings, concerns: [:list, :unroll], path: 'product-gradings' do
       member do
-        get :list_items
+        get :list_checks
       end
     end
-
-    resources :product_grading_checks, concerns: [:list, :unroll]
 
     resources :product_groups, concerns: :products
 

@@ -1,3 +1,4 @@
+# coding: utf-8
 # = Informations
 #
 # == License
@@ -52,9 +53,9 @@ class ActivityGradingCheck < Ekylibre::Record::Base
   # FIXME: Not i18nized!
   def name
     if quality?
-      "#{nature.l} ‒ #{quality_criterion.name}"
+      quality_criterion.name
     else
-      "#{nature.l} ‒ #{minimal_calibre_value.in(grading_calibre_unit).l(precision: 0)}/#{maximal_calibre_value.in(grading_calibre_unit).l(precision: 0)}"
+      "#{minimal_calibre_value.in(grading_calibre_unit).l(precision: 0)} → #{maximal_calibre_value.in(grading_calibre_unit).l(precision: 0)}"
     end
   end
 end

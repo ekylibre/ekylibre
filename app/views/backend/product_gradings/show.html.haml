@@ -13,7 +13,7 @@
       - l.attribute :activity, url: true
       - l.attribute :comment
 
-  - if resource.product_stock_in_ground
+  - if resource.use_grading_calibre && resource.product_stock_in_ground
     - c.cobble :gradings do
       = infos do
         .med-info
@@ -27,15 +27,15 @@
             %i.picto{class: "picto-grain"}
             = resource.product_stock_in_ground(unit = :unity).to_d.to_i
 
-  :ruby
-    data = resource.checks.of_nature(:calibre).map do |check|
-      y = check.items_count.to_s.to_f
-      { name: check.activity_grading_check.name, y: y }
-    end
+    :ruby
+      data = resource.checks.of_nature(:calibre).map do |check|
+        y = check.items_count.to_s.to_f
+        { name: check.activity_grading_check.name, y: y }
+      end
 
-  - if data.any?
-    - c.cobble :charts do
-      = pie_highcharts([{type: 'pie', name: resource.number, data: data}], legend: true)
+    - if data.any?
+      - c.cobble :charts do
+        = pie_highcharts([{type: 'pie', name: resource.number, data: data}], legend: true)
 
-  - c.cobble(:items) do
-    = cobble_list(:items)
+  - c.cobble(:checks) do
+    = cobble_list(:checks)
