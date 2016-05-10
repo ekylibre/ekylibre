@@ -1444,7 +1444,13 @@ arb:
     inventory: "عملية الجرد"
     inventory_id: "عملية جرد" #?
     inventory_items: "طرق الجرد" #?
+    # invitation_accepted_at: "Invitation accepted at"
+    # invitation_created_at: "Invitation created at"
     invitation_limit: "حد دعوة"
+    # invitation_sent_at: "Invitation sent at"
+    # invitation_token: "Invitation token"
+    # invitations_count: "Invitations count"
+    # invited_by: "Invited by"
     invoice_address: "عنوان الفاتورة"
     invoice_contact: "العنوان للفاتورة" #?
     invoice_contact_id: "العنوان للفاتورة" #?
@@ -1560,6 +1566,7 @@ arb:
     mass: "الوزن"
     master: "كتلة رئيسية" #?
     max_reduction_rate: "سعر التخفيض" #?
+    # max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "القصوى نسبة تخفيض grantable"
     maximal_length: "طول القصوى"
     maximal_value: "القيمة القصوى"
@@ -1576,6 +1583,7 @@ arb:
     message: "الرسالة"
     metadata: "البيانات الوصفية"
     min_duration: "(دقيقة (دقائق" #?
+    # min_zoom: "Min zoom"
     mineral_nitrogen_at_opening: "النيتروجين المعدنية في افتتاح"
     minimal_length: "طول الحد الأدنى"
     minimal_value: "قيمة الحد الأدنى"
@@ -1991,6 +1999,7 @@ arb:
     string_value: "القيمة النصية"
     subdir: "المرجع الفرعي" #?
     subdivision: "Y الوضع" #?
+    # subdomains: "Subdomains"
     subject: "الموضوع"
     subject_type: "نوع يخضع"
     subscriber: "مكتتب"
@@ -2091,6 +2100,7 @@ arb:
     updater: "التحديث"
     updater_id: "التحديث" #?
     uploaded: "تم تحميلها"
+    # url: "Url"
     usable_incoming_payments: "دفعات ممكن استخدامها"
     usable_outgoing_payments: "مصروفات ممكن استخدامها" #?
     usage: "الاستخدام"

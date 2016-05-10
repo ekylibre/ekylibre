@@ -1804,6 +1804,31 @@ ActiveRecord::Schema.define(version: 20160503125501) do
   add_index "manure_management_plans", ["updated_at"], name: "index_manure_management_plans_on_updated_at", using: :btree
   add_index "manure_management_plans", ["updater_id"], name: "index_manure_management_plans_on_updater_id", using: :btree
 
+  create_table "map_backgrounds", force: :cascade do |t|
+    t.string   "name",                           null: false
+    t.string   "url",                            null: false
+    t.string   "reference_name"
+    t.string   "attribution"
+    t.string   "subdomains"
+    t.integer  "min_zoom"
+    t.integer  "max_zoom"
+    t.boolean  "managed",        default: false, null: false
+    t.boolean  "tms",            default: false, null: false
+    t.boolean  "enabled",        default: false, null: false
+    t.boolean  "by_default",     default: false, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",   default: 0,     null: false
+  end
+
+  add_index "map_backgrounds", ["created_at"], name: "index_map_backgrounds_on_created_at", using: :btree
+  add_index "map_backgrounds", ["creator_id"], name: "index_map_backgrounds_on_creator_id", using: :btree
+  add_index "map_backgrounds", ["name"], name: "index_map_backgrounds_on_name", using: :btree
+  add_index "map_backgrounds", ["updated_at"], name: "index_map_backgrounds_on_updated_at", using: :btree
+  add_index "map_backgrounds", ["updater_id"], name: "index_map_backgrounds_on_updater_id", using: :btree
+
   create_table "net_services", force: :cascade do |t|
     t.string   "reference_name",             null: false
     t.datetime "created_at",                 null: false

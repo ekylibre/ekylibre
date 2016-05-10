@@ -826,7 +826,13 @@ fra:
     interventions: "Interventions"
     introduction: "Introduction"
     inventory: "Inventaire"
+    # invitation_accepted_at: "Invitation accepted at"
+    # invitation_created_at: "Invitation created at"
     invitation_limit: "Limite d&#39;invitation"
+    # invitation_sent_at: "Invitation sent at"
+    # invitation_token: "Invitation token"
+    # invitations_count: "Invitations count"
+    # invited_by: "Invited by"
     invoice_address: "Adresse pour la facture"
     invoiced: "Facturée" #?
     invoiced_at: "Facturée le"
@@ -922,6 +928,7 @@ fra:
     manure_management_plan_zones: "Zones de plan de fumure"
     markers: "Repères" #?
     mass: "Poids (kg)"
+    # max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
     maximal_value: "Valeur maximale"
@@ -939,6 +946,7 @@ fra:
     message: "Message"
     metadata: "Méta-données"
     milk_withdrawal_period: "Délai d’attente (lait)" #?
+    # min_zoom: "Min zoom"
     mineral_nitrogen_at_opening: "Azote minéral dans le sol à l’ouverture du bilan (Ri)"
     minimal_length: "Longueur minimale"
     minimal_quantity: "Quantité minimale" #?
@@ -1276,6 +1284,7 @@ fra:
     storages: "Stockages"
     story: "Historique"
     string_value: "Valeur textuelle"
+    # subdomains: "Subdomains"
     subject: "Objet"
     subject_label: "Objet" #?
     subject_type: "Type de sujet"
@@ -1352,6 +1361,7 @@ fra:
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     uploaded: "Téléversé"
+    # url: "Url"
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     usage_limit_nature: "Type de date limite de consommation"

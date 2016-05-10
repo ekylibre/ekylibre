@@ -575,6 +575,17 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :map_backgrounds do
+      collection do
+        post :load
+      end
+      member do
+        put :toggle
+        put :star
+        delete :destroy
+      end
+    end
+
     resources :map_editors, only: [] do
       collection do
         post :upload

@@ -3522,6 +3522,57 @@ manure_management_plans:
   updater_id:
     type: integer
     references: user
+map_backgrounds:
+  attribution:
+    type: string
+  by_default:
+    type: boolean
+    required: true
+    default: false
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  enabled:
+    type: boolean
+    required: true
+    default: false
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  managed:
+    type: boolean
+    required: true
+    default: false
+  max_zoom:
+    type: integer
+  min_zoom:
+    type: integer
+  name:
+    type: string
+    required: true
+  reference_name:
+    type: string
+  subdomains:
+    type: string
+  tms:
+    type: boolean
+    required: true
+    default: false
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  url:
+    type: string
+    required: true
 net_services:
   created_at:
     type: datetime

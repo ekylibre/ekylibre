@@ -919,6 +919,19 @@
         <page to="backend/invitations#new"/>
         <page to="backend/invitations#create"/>
       </item>
+      <item name="map_backgrounds">
+        <page to="backend/map_backgrounds#index"/>
+        <page to="backend/map_backgrounds#create"/>
+        <page to="backend/map_backgrounds#destroy"/>
+        <page to="backend/map_backgrounds#new"/>
+        <page to="backend/map_backgrounds#update"/>
+        <page to="backend/map_backgrounds#delete"/>
+        <page to="backend/map_backgrounds#edit"/>
+        <page to="backend/map_backgrounds#load"/>
+        <page to="backend/map_backgrounds#show"/>
+        <page to="backend/map_backgrounds#star"/>
+        <page to="backend/map_backgrounds#toggle"/>
+      </item>
       <item name="teams">
         <page to="backend/teams#index"/>
         <page to="backend/teams#create"/>
