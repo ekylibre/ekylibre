@@ -963,6 +963,7 @@ jpn:
     generate_last_journal_entry: "最後の仕訳を生成します"
     geolocation: "ジオロケーション"
     go: "行きます"
+    # gradings: "Gradings"
     grain_yield: "穀粒収量"
     gross_profit: "粗利益"
     group: "グループ"

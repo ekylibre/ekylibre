@@ -28,9 +28,9 @@
             = resource.product_stock_in_ground(unit = :unity).to_d.to_i
 
   :ruby
-    data = resource.items.of_nature(:calibre).map do |item|
-      y = item.items_count.to_s.to_f
-      { name: item.activity_grading_check.name, y: y }
+    data = resource.checks.of_nature(:calibre).map do |check|
+      y = check.items_count.to_s.to_f
+      { name: check.activity_grading_check.name, y: y }
     end
 
   - if data.any?
@@ -38,6 +38,4 @@
       = pie_highcharts([{type: 'pie', name: resource.number, data: data}], legend: true)
 
   - c.cobble(:items) do
-    = cobble_toolbar do |t|
-      = t.new(params: {controller: :product_grading_checks, product_grading_id: resource.id})
     = cobble_list(:items)

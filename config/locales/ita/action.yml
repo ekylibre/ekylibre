@@ -960,6 +960,7 @@ ita:
     generate_last_journal_entry: "Generare ultima voce di diario"
     geolocation: "geolocalizzazione"
     go: "Partire"
+    # gradings: "Gradings"
     grain_yield: "La resa in granella"
     gross_profit: "Utile lordo"
     group: "Gruppo"

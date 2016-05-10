@@ -734,6 +734,7 @@ arb:
       activity_budget: "ميزانية النشاط"
       activity_budget_item: "آخر بند الميزانية"
       activity_distribution: "توزيع النشاط"
+      # activity_grading_check: "Activity grading check"
       activity_production: "دعم الإنتاج"
       affair: "قضية"
       analysis: "تحليل"
@@ -795,6 +796,7 @@ arb:
       gap: "فراغ"
       gap_item: "البند الفجوة"
       # georeading: "Georeading"
+      # grading_quality_criterion: "Grading quality criterion"
       guide: "دليل"
       guide_analysis: "تحليل دليل"
       guide_analysis_point: "نقطة تحليل دليل"
@@ -848,6 +850,10 @@ arb:
       parcel: "جزء"
       parcel_item: "البند لا يتجزأ"
       plant: "نبات"
+      # plant_counting: "Plant counting"
+      # plant_counting_item: "Plant counting item"
+      # plant_density_abacus: "Plant density abacus"
+      # plant_density_abacus_item: "Plant density abacus item"
       postal_zone: "المنطقة البريدية"
       preference: "تفضيل"
       prescription: "وصفة طبية"
@@ -856,6 +862,8 @@ arb:
       product_category: "فئة الانتاج" #?
       product_component: "عنصر الانتاج" #?
       product_enjoyment: "تمتع المنتج"
+      # product_grading: "Product grading"
+      # product_grading_check: "Product grading check"
       product_group: "مجموعة المنتجات"
       product_link: "رابط المنتج"
       product_linkage: "الربط المنتج"
@@ -1052,6 +1060,7 @@ arb:
     charge_account: "حساب المسؤول"
     charges_categories: "فئات الرسوم"
     check_number: "رقم الشيك" #?
+    # checks: "Checks"
     children: "مواقع فرعية للتخزين"
     choice_custom_fields: "«قائمة الخيارات»" #?
     choice_value: "اختيار القيمة"
@@ -1385,6 +1394,7 @@ arb:
     # grade_unit: "Grade unit"
     # grading_calibre_indicator_name: "Grading calibre indicator name"
     # grading_calibre_unit_name: "Grading calibre unit name"
+    # grading_checks: "Grading checks"
     # grading_net_mass_unit_name: "Grading net mass unit name"
     # grading_sizes_indicator_name: "Grading sizes indicator name"
     # grading_sizes_unit_name: "Grading sizes unit name"
@@ -1411,6 +1421,7 @@ arb:
     identification_number: "رقم الهوية"
     identifiers: "معرفات"
     immobilizations_account_id: "الحساب الساكن" #?
+    # implanter_application_width: "Implanter application width"
     # implanter_rows_number: "Implanter rows number"
     # implanter_working_width: "Implanter working width"
     importance: "ذو شأن"
@@ -1955,6 +1966,7 @@ arb:
     salt: "الملح" #?
     sampled_at: "عينات في"
     sampler: "العينات"
+    # sampling_distance: "Sampling distance"
     # sampling_length_unit: "Sampling length unit"
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scheduled: "الدفعة المبرمجة"

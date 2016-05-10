@@ -894,6 +894,7 @@ cmn:
     generate_last_journal_entry: "最后生成日记帐分录"
     geolocation: "地理位置"
     go: "走"
+    # gradings: "Gradings"
     grain_yield: "籽粒产量"
     gross_profit: "毛利"
     group: "组"

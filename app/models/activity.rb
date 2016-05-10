@@ -124,6 +124,7 @@ class Activity < Ekylibre::Record::Base
   }
 
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :grading_checks, allow_destroy: true
 
   # protect(on: :update) do
   #   productions.any?

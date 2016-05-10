@@ -894,6 +894,7 @@ deu:
     generate_last_journal_entry: "Generieren letzten Tagebucheintrag"
     # geolocation: "Geolocation"
     go: "Gehen"
+    # gradings: "Gradings"
     grain_yield: "Kornertrag"
     gross_profit: "Bruttoertrag"
     group: "Gruppe"

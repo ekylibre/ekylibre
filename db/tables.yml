@@ -353,7 +353,6 @@ activity_grading_checks:
   quality_criterion_id:
     type: integer
     references: grading_quality_criterion
-    required: true
   updated_at:
     type: datetime
     required: true

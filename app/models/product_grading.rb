@@ -42,7 +42,7 @@
 class ProductGrading < Ekylibre::Record::Base
   belongs_to :activity
   belongs_to :product
-  has_many :items, class_name: 'ProductGradingCheck', foreign_key: :product_grading_id, inverse_of: :product_grading, dependent: :destroy
+  has_many :checks, class_name: 'ProductGradingCheck', foreign_key: :product_grading_id, inverse_of: :product_grading, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :sampled_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :implanter_rows_number, allow_nil: true, only_integer: true
@@ -51,6 +51,8 @@ class ProductGrading < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   acts_as_numbered :number
+
+  accepts_nested_attributes_for :checks, allow_destroy: true
 
   before_validation :set_implanter_values, on: :create
 
@@ -90,21 +92,21 @@ class ProductGrading < Ekylibre::Record::Base
   # return the order of the grading relative to product
   def position
     a = product.gradings.reorder(:sampled_at).pluck(:id)
-    a.each_with_index(1) do |value, index|
-      return index if id == value
+    a.each_with_index do |value, index|
+      return index + 1 if id == value
     end
   end
 
   # return a measure of total net mass of all product grading checks of type :calibre
   def net_mass(unit = :kilogram)
-    total = items.of_nature(:calibre).map(&:net_mass_value).compact.sum
+    total = checks.of_nature(:calibre).map(&:net_mass_value).compact.sum
     total = total.in(unit) if unit
     total
   end
 
   # return total count of all product grading checks of type :calibre
   def item_count
-    total = items.of_nature(:calibre).map(&:items_count).compact.sum
+    total = checks.of_nature(:calibre).map(&:items_count).compact.sum
     total
   end
 

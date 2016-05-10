@@ -1143,6 +1143,7 @@ fra:
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
     go: "Valider"
+    gradings: "Agréages"
     grain_yield: "Rendement grain"
     grains_yield: "Rendement grains" #?
     graph_statistics: "Statistiques graphiques" #?

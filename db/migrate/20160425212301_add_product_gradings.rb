@@ -26,7 +26,7 @@ class AddProductGradings < ActiveRecord::Migration
       t.string :nature, null: false # => calibre, quality
       t.decimal :minimal_calibre_value, precision: 19, scale: 4
       t.decimal :maximal_calibre_value, precision: 19, scale: 4
-      t.references :quality_criterion, null: false, index: true
+      t.references :quality_criterion, index: true
       t.integer :position
       t.stamps
     end

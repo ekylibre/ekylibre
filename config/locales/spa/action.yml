@@ -1026,6 +1026,7 @@ spa:
     generate_last_journal_entry: "Generar última entrada en el diario"
     geolocation: "Geolocalización"
     go: "Ir"
+    # gradings: "Gradings"
     grain_yield: "El rendimiento de grano"
     gross_profit: "Beneficio bruto"
     group: "Grupo"

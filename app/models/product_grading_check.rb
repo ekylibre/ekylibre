@@ -38,13 +38,16 @@
 
 class ProductGradingCheck < Ekylibre::Record::Base
   belongs_to :activity_grading_check
-  belongs_to :product_grading
+  belongs_to :product_grading, inverse_of: :checks
+  has_one :activity, through: :activity_grading_check
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_size_value, :minimal_size_value, :net_mass_value, allow_nil: true
   validates_presence_of :activity_grading_check, :product_grading
   # ]VALIDATORS]
 
-  delegate :nature, to: :activity_grading_check
+  delegate :nature, :name, to: :activity_grading_check
+  delegate :human_grading_net_mass_unit_name, :human_grading_calibre_unit_name, :human_grading_sizes_unit_name, to: :activity
+  delegate :measure_grading_net_mass, :measure_grading_items_count, :measure_grading_sizes, to: :activity
 
   scope :of_nature, lambda { |nature|
     where(activity_grading_check_id: ActivityGradingCheck.select(:id).where(nature: nature))

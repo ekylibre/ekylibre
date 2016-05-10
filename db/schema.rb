@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 20160502125101) do
     t.string   "nature",                                                     null: false
     t.decimal  "minimal_calibre_value", precision: 19, scale: 4
     t.decimal  "maximal_calibre_value", precision: 19, scale: 4
-    t.integer  "quality_criterion_id",                                       null: false
+    t.integer  "quality_criterion_id"
     t.integer  "position"
     t.datetime "created_at",                                                 null: false
     t.datetime "updated_at",                                                 null: false

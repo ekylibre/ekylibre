@@ -1,0 +1,21 @@
+= f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
+%tr.nested-fields
+  %td
+    = f.object.name
+    = f.association :activity_grading_check, as: :hidden
+  - if f.object.measure_grading_net_mass
+    %td.integer= f.input(:items_count, wrapper: :nested)
+  - if f.object.measure_grading_items_count
+    %td.decimal
+      = f.input(:net_mass_value, wrapper: :nested_append) do
+        = f.input_field(:net_mass_value)
+        %span.add-on= f.object.human_grading_net_mass_unit_name
+  - if f.object.measure_grading_sizes
+    %td.decimal
+      = f.input(:minimal_size_value, wrapper: :nested_append) do
+        = f.input_field(:minimal_size_value)
+        %span.add-on= f.object.human_grading_sizes_unit_name
+    %td.decimal
+      = f.input(:maximal_size_value, wrapper: :nested_append) do
+        = f.input_field(:maximal_size_value)
+        %span.add-on= f.object.human_grading_sizes_unit_name

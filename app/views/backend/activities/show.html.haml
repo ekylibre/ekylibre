@@ -49,13 +49,6 @@
               %i.picto{class: "picto-arrows-v"}
               = "#{resource.grading_sizes_indicator_name.l} (#{Nomen::Unit[resource.grading_sizes_unit_name].symbol})"
 
-    - c.cobble :grading_checks do
-      = cobble_toolbar do |t|
-        = t.new params: {controller: :activity_grading_checks, activity_id: resource.id,action: :new }
-      - if resource.grading_checks.any?
-        = cobble_list(:grading_checks)
-
-
 
   - if current_campaign
     - c.cobble :budget do

@@ -31,7 +31,7 @@
 #  minimal_calibre_value :decimal(19, 4)
 #  nature                :string           not null
 #  position              :integer
-#  quality_criterion_id  :integer          not null
+#  quality_criterion_id  :integer
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #

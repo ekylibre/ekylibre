@@ -1281,6 +1281,7 @@ arb:
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
     go: "صلاحية"
+    # gradings: "Gradings"
     grain_yield: "محصول الحبوب"
     graph_statistics: "رسومات احصائية" #?
     gross_profit: "اجمالي الربح"

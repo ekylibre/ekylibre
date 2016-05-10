@@ -899,6 +899,7 @@ por:
     generate_last_journal_entry: "Gerar última entrada do diário"
     # geolocation: "Geolocation"
     go: "Ir"
+    # gradings: "Gradings"
     grain_yield: "O rendimento de grãos"
     gross_profit: "Lucro bruto"
     group: "Grupo"
