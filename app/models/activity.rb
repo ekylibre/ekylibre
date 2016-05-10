@@ -94,6 +94,9 @@ class Activity < Ekylibre::Record::Base
   validates_uniqueness_of :name
   # validates_associated :productions
   validates_presence_of :production_campaign, if: :perennial?
+  validates_presence_of :grading_calibre_indicator, :grading_calibre_unit, if: :use_grading_calibre
+  validates_presence_of :grading_net_mass_unit, if: :measure_grading_net_mass
+  validates_presence_of :grading_sizes_indicator, :grading_sizes_unit, if: :measure_grading_sizes
 
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
