@@ -299,8 +299,7 @@ module Ekylibre::FirstRun::Faker
             catalog_item ||= catalog.items.create!(currency: Preference[:currency],
                                                    amount: rand(130) + 850,
                                                    reference_tax: wine_taxes.sample,
-                                                   variant_id: wine.id
-                                                  )
+                                                   variant_id: wine.id)
 
             sale.items.create!(quantity: rand(25) + 10,
                                tax: wine_taxes.sample, unit_pretax_amount: catalog_item.amount, variant: catalog_item.variant)

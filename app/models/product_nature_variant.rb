@@ -351,7 +351,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
           Nomen::Variety.find(item.variety || nature.variety),
           Nomen::Variety.find(item.derivative_of || nature.derivative_of),
           WorkingSet::AbilityArray.load(nature.abilities),
-          f + v, f, v)
+          f + v, f, v
+        )
       end
     end
 

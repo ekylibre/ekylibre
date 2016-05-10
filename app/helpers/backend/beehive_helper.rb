@@ -45,8 +45,7 @@ module Backend::BeehiveHelper
                                cell_empty_message: :no_data.tl,
                                cell_error_message: :internal_error.tl
                              }
-    )
-               )
+    ))
   end
 
   class Beehive

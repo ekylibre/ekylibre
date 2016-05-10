@@ -577,7 +577,7 @@ eng:
       show: "Purchase: %{number} - %{state}"
     backend/registrations:
       edit: "Edit registration"
-      index: "Registrations" #?
+      index: "Registrations"
     backend/roles:
       edit: "Edit role: %{name}"
       # incorporate: "Incorporate role: %{name}"

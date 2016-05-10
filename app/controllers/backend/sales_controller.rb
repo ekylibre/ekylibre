@@ -145,9 +145,7 @@ module Backend
                                      } },
                                      affair: { methods: [:balance], include: [incoming_payments: { include: :mode }] },
                                      invoice_address: { methods: [:mail_coordinate] },
-                                     items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant, parcel_items: { include: [:product, :parcel] }] }
-                            }
-                  ) do |format|
+                                     items: { methods: [:taxes_amount, :tax_name, :tax_short_label], include: [:variant, parcel_items: { include: [:product, :parcel] }] } }) do |format|
         format.html do
           t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
         end

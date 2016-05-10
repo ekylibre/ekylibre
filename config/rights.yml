@@ -1943,7 +1943,7 @@ users:
     actions:
     - "backend/invitations#index"
     - "backend/invitations#list"
-    - "backend/registrations#index" #?
+    - "backend/registrations#index"
     - "backend/registrations#list"
     - "backend/users#index"
     - "backend/users#list"

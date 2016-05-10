@@ -922,7 +922,7 @@
         <page to="backend/teams#update"/>
       </item>
       <item name="registrations">
-        <page to="backend/registrations#index" nonexistent="true"/>
+        <page to="backend/registrations#index"/>
         <page to="backend/registrations#list"/>
         <page to="backend/registrations#edit"/>
         <page to="backend/registrations#update"/>
