@@ -1,9 +1,7 @@
 require 'test_helper'
 
-class MapBackgroundsTest < CapybaraIntegrationTest
+class UseMapBackgroundsTest < CapybaraIntegrationTest
   setup do
-    # FIXME: use locale param instead of user language
-    I18n.locale = @locale = ENV['LOCALE'] || I18n.default_locale
     login_with_user
   end
 
