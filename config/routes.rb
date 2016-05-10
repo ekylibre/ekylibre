@@ -575,9 +575,9 @@ Rails.application.routes.draw do
         post :load
       end
       member do
-        put :toggle_enabled
-        put :toggle_by_default
-        delete :delete
+        put :toggle
+        put :star
+        delete :destroy
       end
     end
 

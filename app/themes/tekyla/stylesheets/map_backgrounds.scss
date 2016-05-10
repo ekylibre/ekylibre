@@ -4,11 +4,20 @@
 
 $map-height: 250px;
 
+
 .map-backgrounds-viewport {
   .map-background-container {
     @include make-xs-column(12, $gutter: 0);
-    @include make-sm-column(6, $gutter: 0);
-    @include make-md-column(4, $gutter: 0);
+
+    @media (min-width: $screen-sm-min) {
+      float: left;
+      width: auto;
+      position: relative;
+      min-height: 1px;
+      padding-left:  0;
+      padding-right: 0;
+    }
+
     .map-background {
 
       @include normal-shadow();
@@ -16,6 +25,11 @@ $map-height: 250px;
       margin: 2 * $default-gap;
       background: #FFF;
       height: $map-height;
+
+      @media (min-width: $screen-sm-min) {
+        float: left;
+        width: $map-height;
+      }
       @include opacity(0.5);
 
       &:not(.active):hover {
@@ -32,6 +46,7 @@ $map-height: 250px;
 
       &.active {
         @include opacity(1);
+        outline: 3px solid $base-color;
       }
 
       .map-background-header {

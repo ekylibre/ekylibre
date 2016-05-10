@@ -2,7 +2,7 @@ module Backend
   class MapBackgroundsController < Backend::BaseController
     manage_restfully
 
-    respond_to :json, only: [:toggle_enabled, :toggle_by_default]
+    respond_to :json, only: [:toggle, :star]
 
     def index
       @map_backgrounds = MapBackground.order('by_default DESC, enabled DESC, name')
@@ -13,19 +13,19 @@ module Backend
       redirect_to params[:redirect] || { action: :index }
     end
 
-    def toggle_enabled
+    def toggle
       return unless m = MapBackground.find_by_id(params[:id])
       m.update(enabled: !m.enabled)
       head :no_content
     end
 
-    def toggle_by_default
+    def star
       return unless m = MapBackground.find_by_id(params[:id])
       m.update(by_default: !m.by_default)
       head :no_content
     end
 
-    def delete
+    def destroy
       return unless m = MapBackground.find_by_id(params[:id])
       m.destroy
       head :no_content

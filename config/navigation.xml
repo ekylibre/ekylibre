@@ -929,8 +929,8 @@
         <page to="backend/map_backgrounds#edit"/>
         <page to="backend/map_backgrounds#load"/>
         <page to="backend/map_backgrounds#show"/>
-        <page to="backend/map_backgrounds#toggle_by_default"/>
-        <page to="backend/map_backgrounds#toggle_enabled"/>
+        <page to="backend/map_backgrounds#star"/>
+        <page to="backend/map_backgrounds#toggle"/>
       </item>
       <item name="teams">
         <page to="backend/teams#index"/>
