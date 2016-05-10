@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503125501) do
+ActiveRecord::Schema.define(version: 20160510102723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -323,6 +323,32 @@ ActiveRecord::Schema.define(version: 20160503125501) do
   add_index "attachments", ["resource_type", "resource_id"], name: "index_attachments_on_resource_type_and_resource_id", using: :btree
   add_index "attachments", ["updated_at"], name: "index_attachments_on_updated_at", using: :btree
   add_index "attachments", ["updater_id"], name: "index_attachments_on_updater_id", using: :btree
+
+  create_table "bank_statement_items", force: :cascade do |t|
+    t.integer  "bank_statement_id",                                        null: false
+    t.string   "name",                                                     null: false
+    t.decimal  "debit",             precision: 19, scale: 4, default: 0.0, null: false
+    t.decimal  "credit",            precision: 19, scale: 4, default: 0.0, null: false
+    t.string   "currency",                                                 null: false
+    t.date     "transfered_on",                                            null: false
+    t.date     "initiated_on"
+    t.string   "transaction_id"
+    t.string   "letter"
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                               default: 0,   null: false
+  end
+
+  add_index "bank_statement_items", ["bank_statement_id"], name: "index_bank_statement_items_on_bank_statement_id", using: :btree
+  add_index "bank_statement_items", ["created_at"], name: "index_bank_statement_items_on_created_at", using: :btree
+  add_index "bank_statement_items", ["creator_id"], name: "index_bank_statement_items_on_creator_id", using: :btree
+  add_index "bank_statement_items", ["letter"], name: "index_bank_statement_items_on_letter", using: :btree
+  add_index "bank_statement_items", ["name"], name: "index_bank_statement_items_on_name", using: :btree
+  add_index "bank_statement_items", ["transaction_id"], name: "index_bank_statement_items_on_transaction_id", using: :btree
+  add_index "bank_statement_items", ["updated_at"], name: "index_bank_statement_items_on_updated_at", using: :btree
+  add_index "bank_statement_items", ["updater_id"], name: "index_bank_statement_items_on_updater_id", using: :btree
 
   create_table "bank_statements", force: :cascade do |t|
     t.integer  "cash_id",                                              null: false
@@ -1575,10 +1601,12 @@ ActiveRecord::Schema.define(version: 20160503125501) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                        default: 0,   null: false
     t.decimal  "real_balance",              precision: 19, scale: 4,  default: 0.0, null: false
+    t.string   "bank_statement_letter"
   end
 
   add_index "journal_entry_items", ["account_id"], name: "index_journal_entry_items_on_account_id", using: :btree
   add_index "journal_entry_items", ["bank_statement_id"], name: "index_journal_entry_items_on_bank_statement_id", using: :btree
+  add_index "journal_entry_items", ["bank_statement_letter"], name: "index_journal_entry_items_on_bank_statement_letter", using: :btree
   add_index "journal_entry_items", ["created_at"], name: "index_journal_entry_items_on_created_at", using: :btree
   add_index "journal_entry_items", ["creator_id"], name: "index_journal_entry_items_on_creator_id", using: :btree
   add_index "journal_entry_items", ["entry_id"], name: "index_journal_entry_items_on_entry_id", using: :btree
