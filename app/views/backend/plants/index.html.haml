@@ -68,10 +68,6 @@
 
       = visualization(box: {height: "100%"}) do |v|
         - v.serie :main, data
-        - v.background "OpenStreetMap.HOT"
-        - v.background "OpenStreetMap.Mapnik"
-        - v.background "Thunderforest.Landscape"
-        - v.background "Esri.WorldImagery"
         - v.bubbles :age, :main
         - v.choropleth :interventions_count, :main, hidden: true
         - v.choropleth :plantation_density, :main
