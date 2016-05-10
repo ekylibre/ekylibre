@@ -1,4 +1,15 @@
 module Ekylibre
+  # CSV File with given columns:
+  # A: Full name
+  # B: First name (mandatory)
+  # C: Last name (mandatory)
+  # D: Variant nomen (mandatory)
+  # E: Work number (mandatory)
+  # F: Place code (optional)
+  # G: Born at (recommended)
+  # H: Notes (not used)
+  # I: Hourly cost (in EUR)
+  # J: E-mail, used to create user
   class WorkersExchanger < ActiveExchanger::Base
     def check
       valid = true
