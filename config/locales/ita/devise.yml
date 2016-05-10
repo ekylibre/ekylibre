@@ -1,17 +1,17 @@
 ita:
   devise:
     confirmations:
-      confirmed: "Il tuo account è stato correttamente confermato. Ora si è effettuato l&#39;accesso."
+      confirmed: "Il tuo account è stato correttamente confermato. Ora si è effettuato l'accesso."
       send_instructions: "Riceverai una mail con le istruzioni su come confermare il tuo account in pochi minuti."
       send_paranoid_instructions: "Se il tuo indirizzo e-mail esiste nel nostro database, si riceverà una e-mail con le istruzioni per confermare il tuo account in pochi minuti."
     failure:
-      already_authenticated: "È già effettuato l&#39;accesso."
+      already_authenticated: "È già effettuato l'accesso."
       inactive: "Il tuo account non è stato ancora attivato."
       invalid: "E-mail o password non validi."
       invalid_token: "token di autenticazione non valido."
       invited: "Si dispone di un invito in sospeso, lo accetta per completare la creazione del tuo account."
       locked: "Il tuo account è bloccato."
-      not_approved: "Il tuo account non è stato approvato dall&#39;amministratore ancora."
+      not_approved: "Il tuo account non è stato approvato dall'amministratore ancora."
       not_found_in_database: "E-mail o password non validi."
       timeout: "La sessione scaduto, si prega di firmare nuovamente per continuare."
       unauthenticated: "È necessario accedere o registrarsi prima di continuare."
@@ -27,16 +27,16 @@ ita:
         submit_button: "Invia un invito"
       no_invitations_remaining: "Non ci sono inviti rimanenti"
       # send_instructions: "An invitation email has been sent to %{email}."
-      updated: "La password è stata impostata correttamente. Ora si è effettuato l&#39;accesso."
+      updated: "La password è stata impostata correttamente. Ora si è effettuato l'accesso."
       updated_not_active: "La password è stata impostata correttamente."
     mailer:
       confirmation_instructions:
         subject: "istruzioni di conferma"
       invitation_instructions:
-        accept: "Accetta l&#39;invito"
+        accept: "Accetta l'invito"
         # accept_until: "This invitation will be due in %{due_date}."
         # hello: "Hello %{first_name} %{last_name},"
-        ignore: "Se non si desidera accettare l&#39;invito, ignora questa email. <br /> Il tuo account non verrà creato fino a quando si accede al link qui sopra e impostare la password."
+        ignore: "Se non si desidera accettare l'invito, ignora questa email. <br /> Il tuo account non verrà creato fino a quando si accede al link qui sopra e impostare la password."
         # someone_invited_you: "Someone has invited you to %{url}, you can accept it through the link below."
         subject: "Istruzioni invito"
       registrations:
@@ -57,27 +57,27 @@ ita:
       # failure: "Could not authenticate you from %{kind} because “%{reason}”."
       # success: "Successfully authenticated from %{kind} account."
     passwords:
-      no_token: "Non è possibile accedere a questa pagina senza proveniente da un email di reimpostazione password. Se venite da una email di reimpostazione password, si prega di assicurarsi che si è utilizzato l&#39;URL completo fornito."
+      no_token: "Non è possibile accedere a questa pagina senza proveniente da un email di reimpostazione password. Se venite da una email di reimpostazione password, si prega di assicurarsi che si è utilizzato l'URL completo fornito."
       send_instructions: "Riceverai una mail con le istruzioni su come reimpostare la password in pochi minuti."
       send_paranoid_instructions: "Se il tuo indirizzo e-mail esiste nel nostro database, si riceverà un link di recupero della password al tuo indirizzo e-mail in pochi minuti."
-      updated: "La password è stata modificata correttamente. Ora si è effettuato l&#39;accesso."
+      updated: "La password è stata modificata correttamente. Ora si è effettuato l'accesso."
       updated_not_active: "La password è stata modificata correttamente."
     registrations:
       destroyed: "Ciao! Il tuo account è stato cancellato con successo. Speriamo di rivedervi presto."
       signed_up: "Benvenuto! Ti sei registrato con successo."
       signed_up_but_inactive: "Ti sei registrato con successo. Tuttavia, non siamo riusciti a voi accedere perché il tuo account non è ancora attivato."
       signed_up_but_locked: "Ti sei registrato con successo. Tuttavia, non siamo riusciti a voi accedere perché il tuo account è bloccato."
-      signed_up_but_unconfirmed: "Un messaggio con un link di conferma è stato inviato al tuo indirizzo email. Si prega di aprire il link per attivare l&#39;account."
+      signed_up_but_unconfirmed: "Un messaggio con un link di conferma è stato inviato al tuo indirizzo email. Si prega di aprire il link per attivare l'account."
       update_needs_confirmation: "È stato aggiornato il tuo account con successo, ma abbiamo bisogno di verificare il tuo nuovo indirizzo email. Controlla la tua email e clicca sul link di conferma per finalizzare confermare il nuovo indirizzo email."
       updated: "È stato aggiornato il tuo account con successo."
       user:
-        signed_up_but_not_approved: "Ti sei registrato con successo ma il tuo account non è stata approvata dall&#39;amministratore ancora"
+        signed_up_but_not_approved: "Ti sei registrato con successo ma il tuo account non è stata approvata dall'amministratore ancora"
     sessions:
       signed_in: "Firmato a successo."
       signed_out: "Firmato con successo."
     unlocks:
       send_instructions: "Riceverai una mail con le istruzioni su come sbloccare il tuo account in pochi minuti."
-      send_paranoid_instructions: "Se esiste l&#39;account, si riceverà una e-mail con le istruzioni su come sbloccare in pochi minuti."
+      send_paranoid_instructions: "Se esiste l'account, si riceverà una e-mail con le istruzioni su come sbloccare in pochi minuti."
       unlocked: "Il tuo account è stato sbloccato con successo. Entra per continuare."
   errors:
     messages:

@@ -1,7 +1,7 @@
 ita:
   actions:
     authentication/invitations:
-      edit: "Accetta l&#39;invito"
+      edit: "Accetta l'invito"
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "Nuova password"
@@ -278,7 +278,7 @@ ita:
       new: "Nuovo intervento"
       # show: "%{procedure_name}"
     backend/inventories:
-      edit: "Modifica l&#39;inventario"
+      edit: "Modifica l'inventario"
       index: "rimanenze"
       new: "nuovo inventario"
       # show: "Inventory: %{name}"
@@ -427,7 +427,7 @@ ita:
       # show: "Purchase type: %{name}"
     backend/purchases:
       abort: "interrompe"
-      confirm: "Confermare l&#39;ordine e attendere per le consegne"
+      confirm: "Confermare l'ordine e attendere per le consegne"
       correct: "Giusto ordine"
       # edit: "Edit purchase: %{number}"
       index: "acquisti"
@@ -576,8 +576,8 @@ ita:
               polyline: "Disegnare una polilinea" #?
               rectangle: "Disegnare un rettangolo" #?
             undo: #?
-              text: "Cancellare l&#39;ultimo punto" #?
-              title: "Cancellare l&#39;ultimo punto disegnato" #?
+              text: "Cancellare l'ultimo punto" #?
+              title: "Cancellare l'ultimo punto disegnato" #?
         edit: #?
           handlers: #?
             edit: #?
@@ -656,8 +656,8 @@ ita:
             polyline: "Disegnare una polilinea"
             rectangle: "Disegnare un rettangolo"
           undo:
-            text: "Cancellare l&#39;ultimo punto"
-            title: "Cancellare l&#39;ultimo punto disegnato"
+            text: "Cancellare l'ultimo punto"
+            title: "Cancellare l'ultimo punto disegnato"
       edit:
         handlers:
           edit:
@@ -822,7 +822,7 @@ ita:
     # centralized_account: "Centralized account %{name}"
     change_password: "Cambia la password"
     chart: "Grafico"
-    check: "Dai un&#39;occhiata"
+    check: "Dai un'occhiata"
     children: "Bambini"
     choices: "scelte"
     choose_a_type_of_product: "Scegliere un tipo di prodotto"
@@ -852,7 +852,7 @@ ita:
     convert_balance_into_profit: "Convertire equilibrio in profitto"
     cooperative_cartodb: "Cooperativa cartodb"
     coordinates: "coordinate"
-    copy_from_another_activity: "Copiare da un&#39;altra attività"
+    copy_from_another_activity: "Copiare da un'altra attività"
     copy_from_previous_campaign: "Copia da precedente campagna"
     # copy_of: "Copy of %{source}"
     copy_previous_budget: "Copia bilancio precedente"
@@ -961,7 +961,7 @@ ita:
     equipments: "apparecchiature"
     error: "Scusate..."
     # error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
-    errors_explanation: "Ci sono errori nel file. Se non li corregge, le linee non corrette verranno ignorati durante l&#39;importazione."
+    errors_explanation: "Ci sono errori nel file. Se non li corregge, le linee non corrette verranno ignorati durante l'importazione."
     estimate_yield: "stima rendimento"
     evaluated_direct_margin: "margine diretto valutato"
     evaluated_doer_cost: "costo del lavoro Valutata"
@@ -1030,7 +1030,7 @@ ita:
     incoming_payments_to_deposit: "Pagamenti in entrata di depositare"
     # increase_map_on_fullscreen: "Enlarge map in full screen."
     indicator: "indicatori"
-    indicator_value: "valore dell&#39;indicatore"
+    indicator_value: "valore dell'indicatore"
     indicators: "indicatori"
     indicators_evolutions: "Indicatori evoluzioni"
     indirect_expenses: "oneri indiretti"
@@ -1200,7 +1200,7 @@ ita:
     one_condition: "Una condizione"
     open_a_campaign: "Aprire una campagna"
     open_a_production: "Aprire una produzione"
-    open_an_activity: "Aprire un&#39;attività"
+    open_an_activity: "Aprire un'attività"
     operating_margin: "Margine di operatività"
     operating_margin_on_turnover: "Il margine operativo sul fatturato"
     # operating_profit: "Operating profit %{financial_year}"
@@ -1221,7 +1221,7 @@ ita:
     participants: "I partecipanti"
     participations: "partecipazioni"
     parts: "moduli"
-    password: "parola d&#39;ordine"
+    password: "parola d'ordine"
     paths_to_convert: "Percorsi per convertire"
     payable_taxes: "Debiti tributari"
     payment_amount: "Importo del pagamento"
@@ -1241,7 +1241,7 @@ ita:
     placeholder: "segnaposto"
     places: "posti"
     plant: "pianta"
-    plantation_density: "densità d&#39;impianto"
+    plantation_density: "densità d'impianto"
     plants: "Piante"
     please_wait: "Attendere prego…"
     point: "Punto"
@@ -1614,18 +1614,18 @@ ita:
       # access_denied: "Access denied. %{reason} (%{url})"
       # all_data_import_finished: "All of your data was imported"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tutti i pacchi devono essere fatturabile e della stessa natura e terzo"
-      an_activity_must_be_defined: "Un&#39;attività deve essere definito"
+      an_activity_must_be_defined: "Un'attività deve essere definito"
       bookkeeping_is_finished: "Il trasferimento dei dati è terminata commerciale."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_find_deal_to_attach: "Non riesci a trovare trattare per attaccare"
       cannot_find_deal_to_detach: "Non riesci a trovare occuparsi di staccare"
       cannot_finish_affair: "Non può finire vicenda"
       cannot_mark_entry_items: "Non è possibile contrassegnare queste linee di ingresso"
-      cannot_merge_an_entity_with_itself: "E &#39;impossibile fondere una persona con se stessa"
-      cannot_merge_entities: "E &#39;impossibile per unire queste persone."
+      cannot_merge_an_entity_with_itself: "E 'impossibile fondere una persona con se stessa"
+      cannot_merge_entities: "E 'impossibile per unire queste persone."
       changes_have_been_reflected: "I cambiamenti si sono riflessi nello stato delle scorte"
       changes_have_not_been_reflected: "Le modifiche non si sono riflessi nello stato delle scorte"
-      closed_financial_years: "L&#39;esercizio è stato chiuso con successo"
+      closed_financial_years: "L'esercizio è stato chiuso con successo"
       columns_are_already_uses: "Una o molte colonne sono selezionati più volte"
       dashboard_is_being_developed: "Dashboard è in grande sviluppo"
       draft_journal_entries_have_been_validated:
@@ -1638,7 +1638,7 @@ ita:
       implemented_with_dummy_data: "Implementata con dati fittizi"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
-      importation_finished: "L&#39;importazione è completa."
+      importation_finished: "L'importazione è completa."
       impossible_to_add_items: "Non è possibile aggiungere altri prodotti al vostro vendita, la stima è passata al fine"
       impossible_to_add_items_to_purchase: "Non è possibile aggiungere prodotti al vostro acquisto"
       incompatible_browser: "come incompatibili"
@@ -1687,20 +1687,20 @@ ita:
       the_sales_invoice_is_not_cancellable: "La fattura di vendita non è cancellabile"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
-      update_is_done: "L&#39;aggiornamento è stato fatto"
+      update_is_done: "L'aggiornamento è stato fatto"
       x_unpointed_journal_entry_items:
-        one: "C&#39;è una voce per indicare"
+        one: "C'è una voce per indicare"
         # other: "There are %{count} entries to point"
         zero: "Non ci sono voci per puntare in questo momento"
       you_must_have_an_email_column: "È necessario disporre di un indirizzo email nella vostra estrazione"
-      you_need_to_review_your_application_configuration: "È necessario esaminare la configurazione dell&#39;applicazione"
+      you_need_to_review_your_application_configuration: "È necessario esaminare la configurazione dell'applicazione"
       # your_data_are_being_imported: "Your data is being imported"
   preferences:
     accounting_system: "Piano dei conti"
     bookkeep_automatically: "Attivare la contabilità automatica"
     bookkeep_in_draft: "Salva i record in modalità bozza durante contabilità"
     country: "Nazione"
-    create_activities_from_telepac: "Creare attività durante l&#39;importazione Telepac"
+    create_activities_from_telepac: "Creare attività durante l'importazione Telepac"
     currency: "Moneta"
     detail_payments_in_deposit_bookkeeping: "Dettaglio tutti i pagamenti in acconto contabilità"
     host: "Ospite"

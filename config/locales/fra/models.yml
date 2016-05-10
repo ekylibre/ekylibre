@@ -854,7 +854,7 @@ fra:
     inventory: "Inventaire"
     # invitation_accepted_at: "Invitation accepted at"
     # invitation_created_at: "Invitation created at"
-    invitation_limit: "Limite d&#39;invitation"
+    invitation_limit: "Limite d'invitation"
     # invitation_sent_at: "Invitation sent at"
     # invitation_token: "Invitation token"
     # invitations_count: "Invitations count"
