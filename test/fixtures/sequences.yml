@@ -473,14 +473,14 @@ sequences_028:
   id: 28
   last_cweek: 19
   last_month: 5
-  last_number: 1
+  last_number: 2
   last_year: 2016
-  lock_version: 1
+  lock_version: 2
   name: Agréage produit
   number_format: PG[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-05-10 19:19:24.864889000 Z
+  updated_at: 2016-05-10 21:09:18.950537000 Z
   updater_id: 1
   usage: product_gradings

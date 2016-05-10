@@ -65,15 +65,18 @@ class ProductGrading < Ekylibre::Record::Base
     end
   end
 
+  # FIXME: No use of that...
   def set_implanter_values
+    return unless product
+
     # get sowing intervention of current plant
-    intervention = Intervention.with_generic_cast(:output, product)
+    interventions = Intervention.with_generic_cast(:output, product)
 
-    intervention = nil
+    interventions = Intervention.none
 
-    if intervention
+    if interventions.any?
       # get abilities of each tool to grab sower or implanter
-      intervention.first.tools.each do |tool|
+      interventions.first.tools.each do |tool|
         if tool.product.can('sow') || tool.product.can('implant')
           equipment = tool.product
         end
@@ -88,7 +91,6 @@ class ProductGrading < Ekylibre::Record::Base
         self.implanter_rows_number ||= rows_count if rows_count
         self.implanter_application_width ||= application_width if application_width
       end
-
     end
   end
 

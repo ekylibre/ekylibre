@@ -55,3 +55,19 @@ product_gradings_001:
   sampling_distance: 3.0
   updated_at: 2016-05-10 19:19:24.866845000 Z
   updater_id: 1
+product_gradings_002:
+  activity_id: 17
+  comment: ''
+  created_at: 2016-05-10 21:09:18.953461000 Z
+  creator_id: 1
+  id: 2
+  implanter_application_width: 1.0
+  implanter_rows_number: 2
+  implanter_working_width: 0.5
+  lock_version: 0
+  number: PG000000000002
+  product_id: 90
+  sampled_at: 2016-05-10 21:09:00.000000000 Z
+  sampling_distance: 3.0
+  updated_at: 2016-05-10 21:09:18.953461000 Z
+  updater_id: 1
