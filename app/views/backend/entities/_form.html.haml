@@ -8,11 +8,11 @@
     = f.input :last_name
   - else
     = f.input :last_name, label: Entity.human_attribute_name(:full_name)
-  = f.input :active, :hide => :dead_at
+  = f.input :active, hide: :dead_at
   -# = f.input :number
   = f.input :prospect
-  = f.input :client, :show => :client_informations
-  = f.input :supplier, :show => :supplier_informations
+  = f.input :client, show: :client_informations
+  = f.input :supplier, show: :supplier_informations
   = f.input :transporter
   = f.custom_fields
 
@@ -26,23 +26,21 @@
   = f.input :born_at
   #dead_at= f.input :dead_at
   = f.picture
-  -# = f.input :ean13
-  -# = f.custom_fields
 
 = field_set(:client_informations) do
   - if nature == :contact
-    = f.input :meeting_origin, :autocomplete => true
+    = f.input :meeting_origin, autocomplete: true
     = f.input :first_met_at
     = f.referenced_association :proposer
-  = f.referenced_association :responsible, :source => :employees
+  = f.referenced_association :responsible, source: :employees
   = f.input :vat_subjected
-  = f.input :reminder_submissive, :show => :reduction_percentage
+  = f.input :reminder_submissive, show: :reduction_percentage
   = f.input :authorized_payments_count
-  = f.input :deliveries_conditions, :field => :text
-  = f.referenced_association :client_account, :source => :thirds, :buttons => {:new => {:number => Account.find_or_import_from_nomenclature(:clients).number}}
+  = f.input :deliveries_conditions, as: :text
+  = f.referenced_association :client_account, source: :thirds, :buttons => {:new => {:number => Account.find_or_import_from_nomenclature(:clients).number}}
 
 = field_set(:supplier_informations) do
-  = f.referenced_association :supplier_account, :source => :thirds, :buttons => {:new => {:number => Account.find_or_import_from_nomenclature(:suppliers).number}}
+  = f.referenced_association :supplier_account, source: :thirds, :buttons => {:new => {:number => Account.find_or_import_from_nomenclature(:suppliers).number}}
 
 = field_set(:coordinates, :major => true) do
   = f.nested_association(:emails)

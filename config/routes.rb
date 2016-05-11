@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     get :list, on: :collection
   end
 
+  concern :autocomplete do
+    get 'complete/:column', on: :collection, action: :autocomplete, as: :autocomplete
+  end
+
   concern :incorporate do
     collection do
       get :pick
@@ -371,9 +375,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :entities, concerns: [:list, :unroll] do
+    resources :entities, concerns: [:autocomplete, :list, :unroll] do
       collection do
-        get :autocomplete_for_origin
         match 'import', via: [:get, :post]
         match 'export', via: [:get, :post]
         match 'merge',  via: [:get, :post]
@@ -402,9 +405,8 @@ Rails.application.routes.draw do
 
     resources :event_participations
 
-    resources :events, concerns: [:list, :unroll] do
+    resources :events, concerns: [:autocomplete, :list, :unroll] do
       collection do
-        get :autocomplete_for_place
         get :change_minutes
       end
       member do
@@ -641,11 +643,7 @@ Rails.application.routes.draw do
 
     resources :plants, concerns: :products
 
-    resources :postal_zones, concerns: [:list, :unroll] do
-      collection do
-        get :autocomplete_for_name
-      end
-    end
+    resources :postal_zones, concerns: [:autocomplete, :list, :unroll]
 
     resources :prescriptions, concerns: [:list, :unroll] do
       member do

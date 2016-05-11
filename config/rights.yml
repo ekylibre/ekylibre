@@ -687,7 +687,7 @@ entities:
     dependencies:
     - read-entities
     actions:
-    - "backend/entities#autocomplete_for_origin"
+    - "backend/entities#autocomplete"
     - "backend/entities#create"
     - "backend/entities#destroy"
     - "backend/entities#edit"
@@ -758,7 +758,7 @@ events:
     - "backend/event_participations#edit"
     - "backend/event_participations#new"
     - "backend/event_participations#update"
-    - "backend/events#autocomplete_for_place"
+    - "backend/events#autocomplete"
     - "backend/events#change_minutes"
     - "backend/events#create"
     - "backend/events#destroy"
@@ -1410,7 +1410,7 @@ postal_zones:
     dependencies:
     - read-postal_zones
     actions:
-    - "backend/postal_zones#autocomplete_for_name"
+    - "backend/postal_zones#autocomplete"
     - "backend/postal_zones#create"
     - "backend/postal_zones#destroy"
     - "backend/postal_zones#edit"

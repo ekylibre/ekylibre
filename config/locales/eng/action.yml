@@ -288,7 +288,7 @@ eng:
       # confirm: "Confirm draft journal: %{name}"
       show: "Draft"
     backend/entities:
-      # autocomplete_for_origin: "Autocomplete for origin entity: %{name}"
+      # autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
       export: "Export people"
       import: "Import people"
@@ -318,7 +318,7 @@ eng:
       # new: "New event participation"
       # show: "Event participation: %{name}"
     backend/events:
-      # autocomplete_for_place: "Autocomplete for place event: %{name}"
+      # autocomplete: "Autocomplete event: %{name}"
       # change_minutes: "Change minutes event: %{name}"
       edit: "Edit event"
       index: "Events"
@@ -537,7 +537,7 @@ eng:
       show: "Plant: %{name}"
       # take: "Take plant: %{name}"
     backend/postal_zones:
-      # autocomplete_for_name: "Autocomplete for name postal zone: %{name}"
+      # autocomplete: "Autocomplete postal zone: %{name}"
       edit: "Edit postal zone: %{name}"
       index: "Postal zones"
       new: "New postal zone"
@@ -1887,9 +1887,7 @@ eng:
       # add_to_group: "Add to group"
       # add_to_variant: "Add to variant"
       attach: "Attach"
-      # autocomplete_for_name: "Autocomplete for name"
-      # autocomplete_for_origin: "Autocomplete for origin"
-      # autocomplete_for_place: "Autocomplete for place"
+      # autocomplete: "Autocomplete"
       bookkeep: "Bookkeep"
       cancel: "Cancel"
       category: "Category" #?

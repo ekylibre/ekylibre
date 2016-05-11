@@ -344,3 +344,35 @@ div.nested-fields {
     margin: $spacing;
   }
 }
+
+
+.tt-input,
+.tt-hint {
+  width: 30vh;
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-menu {
+  @include menu-box;
+
+  .tt-suggestion {
+    padding: $menu-item-vertical-padding $menu-item-horizontal-padding;
+    font-size: $fs-normal;
+    line-height: $menu-text-height;
+    height: $menu-text-height;
+    &:hover {
+      outline: none;
+      cursor: pointer;
+      background: background-hover($menu-background);
+    }
+    &.tt-cursor {
+      background: background-hover($menu-background);
+    }
+    p {
+      margin: 0;
+    }
+  }
+}

@@ -153,13 +153,20 @@ module Backend
 
     # Updates default input method
     def input(attribute_name, options = {}, &block)
-      if targets = options.delete(:show)
-        options[:input_html] ||= {}
-        options[:input_html]['data-show'] = clean_targets(targets)
+      options[:input_html] ||= {}
+      if options[:show]
+        options[:input_html]['data-show'] = clean_targets(options.delete(:show))
       end
-      if targets = options.delete(:hide)
-        options[:input_html] ||= {}
-        options[:input_html]['data-hide'] = clean_targets(targets)
+      if options[:hide]
+        options[:input_html]['data-hide'] = clean_targets(options.delete(:hide))
+      end
+      autocomplete = options[:autocomplete]
+      if autocomplete
+        autocomplete = {} if autocomplete.is_a?(TrueClass)
+        autocomplete[:column] ||= attribute_name.to_s
+        autocomplete[:action] ||= :autocomplete
+        autocomplete[:format] ||= :json
+        options[:input_html]['data-autocomplete'] = @template.url_for(autocomplete)
       end
       super(attribute_name, options, &block)
     end

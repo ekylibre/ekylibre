@@ -18,12 +18,14 @@
 
 module Backend
   class EntitiesController < Backend::BaseController
-    manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c, active: true, t3e: { nature: 'RECORD.nature.text'.c }
+    manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c,
+                     active: true,
+                     t3e: { nature: 'RECORD.nature.text'.c }
     manage_restfully_picture
 
     unroll
 
-    autocomplete_for :origin
+    autocomplete_for :meeting_origin
 
     # params:
     #   :q Text search

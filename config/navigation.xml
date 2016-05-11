@@ -6,7 +6,7 @@
       <item name="entities">
         <page to="backend/entities#index"/>
         <page to="backend/entities#create"/>
-        <page to="backend/entities#autocomplete_for_origin"/>
+        <page to="backend/entities#autocomplete"/>
         <page to="backend/entities#destroy"/>
         <page to="backend/entities#edit"/>
         <page to="backend/entities#export"/>
@@ -71,7 +71,7 @@
         <page to="backend/events#list"/>
         <page to="backend/events#new"/>
         <page to="backend/events#update"/>
-        <page to="backend/events#autocomplete_for_place"/>
+        <page to="backend/events#autocomplete"/>
         <page to="backend/events#change_minutes"/>
         <page to="backend/events#list_participations"/>
         <page to="backend/events#show"/>
@@ -1077,7 +1077,7 @@
         <page to="backend/postal_zones#edit"/>
         <page to="backend/postal_zones#list"/>
         <page to="backend/postal_zones#new"/>
-        <page to="backend/postal_zones#autocomplete_for_name"/>
+        <page to="backend/postal_zones#autocomplete"/>
         <page to="backend/postal_zones#update"/>
         <page to="backend/postal_zones#show"/>
         <page to="backend/postal_zones#unroll"/>
