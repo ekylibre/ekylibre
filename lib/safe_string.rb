@@ -60,5 +60,4 @@ class ::String
   def codeize
     upper_ascii.gsub(/[^A-Z0-9]/, '')
   end
-
 end
