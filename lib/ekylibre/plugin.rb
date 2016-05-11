@@ -34,19 +34,19 @@ module Ekylibre
       def load
         Dir.glob(File.join(directory, '*')).sort.each do |directory|
           next unless File.directory?(directory)
-          lib = File.join(directory, 'lib')
-          if File.directory?(lib)
-            $LOAD_PATH.unshift lib
-            ActiveSupport::Dependencies.autoload_paths += [lib]
-          end
-          plugfile = File.join(directory, 'Plugfile')
-          if File.file?(plugfile)
-            plugin = new(plugfile)
-            registered_plugins[plugin.name] = plugin
-            Rails.logger.info "Load #{plugin.name} plugin"
-          else
-            Rails.logger.warn "No Plugfile found in #{directory}"
-          end
+          load_plugin(directory)
+        end
+      end
+
+      # Load a given plugin
+      def load_plugin(_path)
+        plugfile = File.join(directory, 'Plugfile')
+        if File.file?(plugfile)
+          plugin = new(plugfile)
+          registered_plugins[plugin.name] = plugin
+          Rails.logger.info "Load #{plugin.name} plugin"
+        else
+          Rails.logger.warn "No Plugfile found in #{directory}"
         end
       end
 
@@ -145,6 +145,12 @@ module Ekylibre
       @themes_assets = {}.with_indifferent_access
       @javascripts = []
       @initializers = {}
+
+      lib = File.join(directory, 'lib')
+      if File.directory?(lib)
+        $LOAD_PATH.unshift lib
+        ActiveSupport::Dependencies.autoload_paths += [lib]
+      end
 
       instance_eval(File.read(plugfile_path), plugfile_path, 1)
 
