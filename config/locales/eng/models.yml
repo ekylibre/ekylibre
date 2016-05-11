@@ -645,6 +645,8 @@ eng:
     indicator_name: "Indicator name"
     indicators: "Indicators"
     indirect_links: "Indirect links"
+    # initial_balance_credit: "Initial balance credit"
+    # initial_balance_debit: "Initial balance debit"
     initial_born_at: "Initial born at"
     initial_container: "Initial container"
     initial_dead_at: "Initial dead at"

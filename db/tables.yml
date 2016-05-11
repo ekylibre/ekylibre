@@ -697,6 +697,16 @@ bank_statements:
   id:
     type: integer
     required: true
+  initial_balance_credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  initial_balance_debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   lock_version:
     type: integer
     required: true

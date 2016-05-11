@@ -22,20 +22,22 @@
 #
 # == Table: bank_statements
 #
-#  cash_id       :integer          not null
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  credit        :decimal(19, 4)   default(0.0), not null
-#  currency      :string           not null
-#  custom_fields :jsonb
-#  debit         :decimal(19, 4)   default(0.0), not null
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  number        :string           not null
-#  started_at    :datetime         not null
-#  stopped_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  cash_id                :integer          not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  credit                 :decimal(19, 4)   default(0.0), not null
+#  currency               :string           not null
+#  custom_fields          :jsonb
+#  debit                  :decimal(19, 4)   default(0.0), not null
+#  id                     :integer          not null, primary key
+#  initial_balance_credit :decimal(19, 4)   default(0.0), not null
+#  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  lock_version           :integer          default(0), not null
+#  number                 :string           not null
+#  started_at             :datetime         not null
+#  stopped_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 
 require 'test_helper'

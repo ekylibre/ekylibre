@@ -22,20 +22,22 @@
 #
 # == Table: bank_statements
 #
-#  cash_id       :integer          not null
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  credit        :decimal(19, 4)   default(0.0), not null
-#  currency      :string           not null
-#  custom_fields :jsonb
-#  debit         :decimal(19, 4)   default(0.0), not null
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  number        :string           not null
-#  started_at    :datetime         not null
-#  stopped_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  cash_id                :integer          not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  credit                 :decimal(19, 4)   default(0.0), not null
+#  currency               :string           not null
+#  custom_fields          :jsonb
+#  debit                  :decimal(19, 4)   default(0.0), not null
+#  id                     :integer          not null, primary key
+#  initial_balance_credit :decimal(19, 4)   default(0.0), not null
+#  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  lock_version           :integer          default(0), not null
+#  number                 :string           not null
+#  started_at             :datetime         not null
+#  stopped_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 
 class BankStatement < Ekylibre::Record::Base
@@ -46,8 +48,8 @@ class BankStatement < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(bank_statement) { bank_statement.stopped_at && bank_statement.started_at }
-  validates_numericality_of :credit, :debit, allow_nil: true
-  validates_presence_of :cash, :credit, :currency, :debit, :number, :started_at, :stopped_at
+  validates_numericality_of :credit, :debit, :initial_balance_credit, :initial_balance_debit, allow_nil: true
+  validates_presence_of :cash, :credit, :currency, :debit, :initial_balance_credit, :initial_balance_debit, :number, :started_at, :stopped_at
   # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_uniqueness_of :number, scope: :cash_id
