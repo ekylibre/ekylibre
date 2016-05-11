@@ -76,6 +76,8 @@ cmn:
         # too_short: "%{attribute} is too short (minimum is %{count} characters)"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        bank_statement_item:
+          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。"
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: "Unvalid BBAN。一个或多个元素是不正确的。"

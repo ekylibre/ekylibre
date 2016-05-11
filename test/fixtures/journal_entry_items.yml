@@ -28,6 +28,7 @@
 #  account_id                :integer          not null
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
+#  bank_statement_letter     :string
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  credit                    :decimal(19, 4)   default(0.0), not null
@@ -363,6 +364,7 @@ journal_entry_items_011:
   account_id: 212
   balance: 223.0
   bank_statement_id: 2
+  bank_statement_letter: A
   created_at: 2014-11-05 12:45:57.925799000 Z
   creator_id: 1
   credit: 0.0
@@ -454,6 +456,7 @@ journal_entry_items_014:
   account_id: 212
   balance: 150.0
   bank_statement_id: 2
+  bank_statement_letter: B
   created_at: 2014-11-05 12:46:06.342790000 Z
   creator_id: 1
   credit: 0.0
@@ -867,6 +870,7 @@ journal_entry_items_028:
   account_id: 212
   balance: 112.07
   bank_statement_id: 2
+  bank_statement_letter: C
   created_at: 2014-11-07 10:42:11.479791000 Z
   creator_id: 1
   credit: 0.0
@@ -958,6 +962,7 @@ journal_entry_items_031:
   account_id: 212
   balance: -28.3
   bank_statement_id: 2
+  bank_statement_letter: D
   created_at: 2014-11-07 10:42:27.849942000 Z
   creator_id: 1
   credit: 28.3
@@ -1135,6 +1140,7 @@ journal_entry_items_037:
   account_id: 212
   balance: -116.0
   bank_statement_id: 2
+  bank_statement_letter: E
   created_at: 2014-11-07 13:58:25.739075000 Z
   creator_id: 1
   credit: 116.0
@@ -1196,6 +1202,7 @@ journal_entry_items_039:
   account_id: 212
   balance: -156.0
   bank_statement_id: 1
+  bank_statement_letter: F
   created_at: 2014-11-07 13:58:35.179459000 Z
   creator_id: 1
   credit: 156.0
@@ -1617,6 +1624,7 @@ journal_entry_items_053:
   account_id: 212
   balance: 2000.0
   bank_statement_id: 1
+  bank_statement_letter: G
   created_at: 2015-05-07 23:15:03.694257000 Z
   creator_id: 1
   credit: 0.0
@@ -5907,7 +5915,8 @@ journal_entry_items_196:
   absolute_debit: 0.0
   account_id: 214
   balance: -685.33
-  bank_statement_id: 3
+  bank_statement_id: 1
+  bank_statement_letter: G
   created_at: 2015-05-07 23:17:31.975126000 Z
   creator_id: 1
   credit: 685.33
