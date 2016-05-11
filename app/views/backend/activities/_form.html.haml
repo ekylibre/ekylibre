@@ -24,8 +24,8 @@
   #gradings
     = f.input :use_grading_calibre, show: '#grading_calibre'
     #grading_calibre
-      = f.referenced_nomenclature :grading_calibre_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: :distance)).selection, include_blanks: false
-      = f.referenced_nomenclature :grading_calibre_unit, collection: Nomen::Unit.where(dimension: :distance).selection, include_blanks: false
+      = f.referenced_nomenclature :grading_calibre_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: [:distance, :mass])).selection, include_blanks: false
+      = f.referenced_nomenclature :grading_calibre_unit, collection: Nomen::Unit.where(dimension: [:distance, :mass]).selection, include_blanks: false
     = f.input :measure_grading_items_count
     = f.input :measure_grading_net_mass, show: '#grading_net_mass'
     #grading_net_mass
