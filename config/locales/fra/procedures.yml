@@ -391,8 +391,8 @@ fra:
     spraying_on_land_parcel: "Pulvérisation sur parcelle" #?
     standard_enclosing: "Pose de clôture standard"
     steam_weeding: "Désherbage vapeur"
-    straw_bunching: "Pressage de fourrages"
-    straw_transport: "Transport de fourrages" #?
+    straw_bunching: "Pressage de fourrage"
+    straw_transport: "Transport de fourrage" #?
     sulfur_addition: "Sulfitage"
     superficial_plowing: "Déchaumage"
     swathing: "Andainage"
