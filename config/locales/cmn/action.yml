@@ -650,6 +650,7 @@ cmn:
     add_expense: "添加费用"
     add_fax: "添加传真"
     add_filter: "添加过滤器"
+    # add_grading_check: "Add grading check"
     add_item: "新增项目"
     add_linestring: "添加线串"
     add_mail: "添加邮政ADRESS"

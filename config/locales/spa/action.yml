@@ -717,6 +717,7 @@ spa:
     add_expense: "Añadir expensas"
     add_fax: "Añadir fax"
     add_filter: "Añadir filtro"
+    # add_grading_check: "Add grading check"
     add_item: "Añadir artículo"
     add_linestring: "Añadir cadena de líneas"
     add_mail: "Añadir la dirección postal"

@@ -716,6 +716,7 @@ ita:
     add_expense: "Aggiungere spesa"
     add_fax: "Aggiungere fax"
     add_filter: "Aggiungi filtro"
+    # add_grading_check: "Add grading check"
     add_item: "Aggiungi articolo"
     add_linestring: "Aggiungere stringa lineare"
     add_mail: "Aggiungere indirizzo postale"

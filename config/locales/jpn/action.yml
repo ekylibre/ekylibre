@@ -716,6 +716,7 @@ jpn:
     add_expense: "費用を追加"
     add_fax: "ファックスを追加"
     add_filter: "フィルタを追加します。"
+    # add_grading_check: "Add grading check"
     add_item: "アイテムを追加"
     add_linestring: "ラインストリングを追加します。"
     add_mail: "郵便アドレスを追加します。"

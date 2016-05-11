@@ -788,6 +788,7 @@ fra:
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
+    add_grading_check: "Ajouter un critère d'agréage"
     add_item: "Ajouter un élément"
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"

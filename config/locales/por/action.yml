@@ -655,6 +655,7 @@ por:
     add_expense: "Adicionar despesa"
     add_fax: "Adicionar fax"
     add_filter: "Adicionar filtro"
+    # add_grading_check: "Add grading check"
     add_item: "Adicionar Item"
     add_linestring: "Adicionar linestring"
     add_mail: "Adicionar endereço postal"

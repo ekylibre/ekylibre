@@ -919,6 +919,7 @@ arb:
     add_expense: "إضافة حساب"
     add_fax: "إضافة الفاكس"
     add_filter: "إضافة فلتر"
+    # add_grading_check: "Add grading check"
     add_item: "إضافة البند"
     add_linestring: "إضافة تنسيقي"
     add_mail: "إضافة عنوان البريدي"

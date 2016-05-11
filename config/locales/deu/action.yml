@@ -650,6 +650,7 @@ deu:
     add_expense: "In Kosten"
     add_fax: "In Fax"
     add_filter: "Filter hinzufügen"
+    # add_grading_check: "Add grading check"
     add_item: "Artikel hinzufügen"
     add_linestring: "In Linienfolge"
     add_mail: "In Postanschrift"
