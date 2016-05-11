@@ -60,7 +60,7 @@ class ProductGrading < Ekylibre::Record::Base
   before_validation :set_implanter_values, on: :create
 
   before_validation do
-    if implanter_rows_number && implanter_rows_number != 0
+    if implanter_application_width && implanter_rows_number && implanter_rows_number != 0
       self.implanter_working_width = implanter_application_width / implanter_rows_number
     end
   end
@@ -70,23 +70,23 @@ class ProductGrading < Ekylibre::Record::Base
     return unless product
 
     # get sowing intervention of current plant
-    interventions = Intervention.with_generic_cast(:output, product)
-
-    interventions = Intervention.none
-
+    interventions = Intervention.with_outputs(product)
+    
+    equipment = nil
+    
     if interventions.any?
       # get abilities of each tool to grab sower or implanter
       interventions.first.tools.each do |tool|
-        if tool.product.can('sow') || tool.product.can('implant')
+        if tool.product.able_to?('sow') || tool.product.able_to?('implant')
           equipment = tool.product
         end
       end
 
       if equipment
         # get rows_count and application_width of sower or implanter
-        rows_count = nil
+        rows_count = equipment.rows_count(sampled_at)# if equipment.has_indicator?(rows_count)
         # rows_count = equipment.rows_count(self.sampled_at)
-        application_width = equipment.application_width(sampled_at)
+        application_width = equipment.application_width(sampled_at)# if equipment.has_indicator?(application_width)
         # set rows_count to implanter_application_width
         self.implanter_rows_number ||= rows_count if rows_count
         self.implanter_application_width ||= application_width if application_width
