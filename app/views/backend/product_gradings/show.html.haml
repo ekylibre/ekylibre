@@ -39,7 +39,7 @@
       # check global net mass of grading
       m = resource.net_mass.to_d
       # check global net mass of grading
-      net_surface_area = resource.product.population
+      net_surface_area = resource.net_surface_area_in_hectare
       stock_in_ground = resource.product_stock_in_ground.to_d
       resource.checks.of_nature(:calibre).map do |check|
         arr = []

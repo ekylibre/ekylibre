@@ -10,6 +10,9 @@
   = f.input(:sampling_distance, wrapper: :append) do
     = f.input_field(:sampling_distance)
     %span.add-on= Nomen::Unit[:meter].l
+  = f.input(:net_surface_area_in_hectare, wrapper: :append) do
+    = f.input_field(:net_surface_area_in_hectare)
+    %span.add-on= Nomen::Unit[:hectare].l
   = f.input :comment, as: :text
 
 - activity = f.object.activity

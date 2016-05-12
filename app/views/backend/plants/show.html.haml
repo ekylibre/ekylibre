@@ -32,6 +32,10 @@
             = (stock.to_d / resource.population).in(unit).round(3).l
     = resource_info(:status, important: true) do |status|
       = lights(status)
+    .med-info
+      %span.title= Product.human_attribute_name(:ready_to_harvest)
+      %span.value
+        %i.picto{class: "picto-#{resource.ready_to_harvest ? :done : :clear}"}
     = resource_info :description
     = resource_info :container do |container|
       %i.picto{class: "zone"}

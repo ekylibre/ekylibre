@@ -64,6 +64,7 @@ class ProductGrading < Ekylibre::Record::Base
   }
 
   before_validation :set_implanter_values, on: :create
+  after_validation :set_net_surface_area, on: :create
 
   before_validation do
     if implanter_application_width && implanter_rows_number && implanter_rows_number != 0
@@ -71,10 +72,19 @@ class ProductGrading < Ekylibre::Record::Base
     end
   end
 
-  # FIXME: No use of that...
+  
+  def set_net_surface_area
+    return unless product
+    if product.net_surface_area
+      self.net_surface_area_in_hectare = product.net_surface_area.to_d(:hectare)
+    elsif product.shape
+      self.net_surface_area_in_hectare = product.shape.area.to_d(:hectare)
+    end
+  end
+  
   def set_implanter_values
     return unless product
-
+    
     # get sowing intervention of current plant
     interventions = Intervention.with_outputs(product)
 
@@ -126,10 +136,10 @@ class ProductGrading < Ekylibre::Record::Base
   # n : number of product or net mass of product
   # m : sampling distance value in meter (see abacus)
   # c : coefficient (see abacus)
-  # total : n * ( plant_surface_area / m ) * c
-  def product_stock_in_ground(unit = :ton, surface_unit = :hectare)
+  # total : n * ( plant_surface_area_in_hectare / m ) * c
+  def product_stock_in_ground(unit = :ton)
     # area unit
-    area_unit = unit.to_s + '_per_' + surface_unit.to_s
+    area_unit = unit.to_s + '_per_hectare'
 
     # n
     n = if unit == :ton || unit == :kilogram
@@ -140,11 +150,6 @@ class ProductGrading < Ekylibre::Record::Base
           net_mass.to_d(:ton)
         end
 
-    # plant_surface_area
-    if product && product.is_a?(Plant)
-      plant_surface_area = product.net_surface_area.convert(surface_unit)
-    end
-
     # m
     m = sampling_distance if sampling_distance
 
@@ -153,7 +158,7 @@ class ProductGrading < Ekylibre::Record::Base
 
     # total
     if n && c
-      current_stock = n * (plant_surface_area.to_d / m) * c
+      current_stock = n * (net_surface_area_in_hectare / m) * c
       return current_stock.to_d.in(unit.to_sym)
     else
       return nil
