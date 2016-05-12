@@ -1912,6 +1912,7 @@ arb:
     stewardship: "إدارة"
     stock: "مخزون"
     stock_container_map: "خريطة الأسهم"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     stock_max: "الحد الاقصى للاسهم" #?
     stock_min: "الحد الادنى للاسهم" #?
     stock_move_create: "اضافة حركة جديدة للاسهم" #?

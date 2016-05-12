@@ -973,6 +973,7 @@ deu:
     read_at: "lesen Sie bei"
     reading_tasks: "Leseaufgaben"
     readings: "Lesungen"
+    # ready_to_harvest: "Ready to harvest"
     real_balance: "Echt Balance"
     real_credit: "ursprüngliche Kredit"
     real_currency: "Originalwährung"

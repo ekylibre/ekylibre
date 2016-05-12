@@ -1530,6 +1530,7 @@ spa:
     stewardship: "Administración"
     stock: "Valores"
     stock_container_map: "Foto mapa"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     stock_move_create: "Añadir un movimiento de deposito" #?
     # stock_of_x: "Stock of %{x}"
     stocks: "Cepo"

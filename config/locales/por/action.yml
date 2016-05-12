@@ -1307,6 +1307,7 @@ por:
     stewardship: "Mordomia"
     stock: "Estoque"
     stock_container_map: "Estoque mapa"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     # stock_of_x: "Stock of %{x}"
     stocks: "Estoque"
     stop: "Pare"

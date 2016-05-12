@@ -26,6 +26,10 @@
     #grading_calibre
       = f.referenced_nomenclature :grading_calibre_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: [:distance, :mass])).selection, include_blanks: false
       = f.referenced_nomenclature :grading_calibre_unit, collection: Nomen::Unit.where(dimension: [:distance, :mass]).selection, include_blanks: false
+    = f.input :use_second_grading_calibre, show: '#second_grading_calibre'
+    #second_grading_calibre
+      = f.referenced_nomenclature :second_grading_calibre_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: [:distance, :mass])).selection, include_blanks: false
+      = f.referenced_nomenclature :second_grading_calibre_unit, collection: Nomen::Unit.where(dimension: [:distance, :mass]).selection, include_blanks: false
     = f.input :measure_grading_items_count
     = f.input :measure_grading_net_mass, show: '#grading_net_mass'
     #grading_net_mass

@@ -1204,6 +1204,7 @@ fra:
     reading: "Relevé" #?
     reading_tasks: "Relevé de valeur"
     readings: "Relevés"
+    # ready_to_harvest: "Ready to harvest"
     real_balance: "Solde réel"
     real_credit: "Crédit réel"
     real_currency: "Monnaie réelle"

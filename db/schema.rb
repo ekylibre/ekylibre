@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160511224701) do
+ActiveRecord::Schema.define(version: 20160512182701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,37 +67,40 @@ ActiveRecord::Schema.define(version: 20160511224701) do
   add_index "accounts", ["updater_id"], name: "index_accounts_on_updater_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
-    t.string   "name",                                           null: false
+    t.string   "name",                                                  null: false
     t.text     "description"
-    t.string   "family",                                         null: false
-    t.string   "nature",                                         null: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.string   "family",                                                null: false
+    t.string   "nature",                                                null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                   default: 0,     null: false
-    t.boolean  "with_supports",                                  null: false
-    t.boolean  "with_cultivation",                               null: false
+    t.integer  "lock_version",                          default: 0,     null: false
+    t.boolean  "with_supports",                                         null: false
+    t.boolean  "with_cultivation",                                      null: false
     t.string   "support_variety"
     t.string   "cultivation_variety"
     t.string   "size_indicator_name"
     t.string   "size_unit_name"
-    t.boolean  "suspended",                      default: false, null: false
-    t.string   "production_cycle",                               null: false
+    t.boolean  "suspended",                             default: false, null: false
+    t.string   "production_cycle",                                      null: false
     t.string   "production_campaign"
     t.jsonb    "custom_fields"
-    t.boolean  "use_countings",                  default: false, null: false
-    t.boolean  "use_gradings",                   default: false, null: false
-    t.boolean  "use_grading_calibre",            default: false, null: false
+    t.boolean  "use_countings",                         default: false, null: false
+    t.boolean  "use_gradings",                          default: false, null: false
+    t.boolean  "use_grading_calibre",                   default: false, null: false
     t.string   "grading_calibre_indicator_name"
     t.string   "grading_calibre_unit_name"
-    t.boolean  "measure_grading_items_count",    default: false, null: false
-    t.boolean  "measure_grading_net_mass",       default: false, null: false
+    t.boolean  "measure_grading_items_count",           default: false, null: false
+    t.boolean  "measure_grading_net_mass",              default: false, null: false
     t.string   "grading_net_mass_unit_name"
-    t.boolean  "measure_grading_sizes",          default: false, null: false
+    t.boolean  "measure_grading_sizes",                 default: false, null: false
     t.string   "grading_sizes_indicator_name"
     t.string   "grading_sizes_unit_name"
     t.string   "production_system_name"
+    t.boolean  "use_second_grading_calibre",            default: false, null: false
+    t.string   "second_grading_calibre_indicator_name"
+    t.string   "second_grading_calibre_unit_name"
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -2287,6 +2290,7 @@ ActiveRecord::Schema.define(version: 20160511224701) do
     t.integer  "lock_version",                                         default: 0, null: false
     t.decimal  "implanter_application_width", precision: 19, scale: 4
     t.decimal  "sampling_distance",           precision: 19, scale: 4
+    t.decimal  "net_surface_area_in_hectare", precision: 19, scale: 4
   end
 
   add_index "product_gradings", ["activity_id"], name: "index_product_gradings_on_activity_id", using: :btree
@@ -2684,11 +2688,11 @@ ActiveRecord::Schema.define(version: 20160511224701) do
 
   create_table "products", force: :cascade do |t|
     t.string   "type"
-    t.string   "name",                                                                                                       null: false
-    t.string   "number",                                                                                                     null: false
-    t.integer  "variant_id",                                                                                                 null: false
-    t.integer  "nature_id",                                                                                                  null: false
-    t.integer  "category_id",                                                                                                null: false
+    t.string   "name",                                                                                                         null: false
+    t.string   "number",                                                                                                       null: false
+    t.integer  "variant_id",                                                                                                   null: false
+    t.integer  "nature_id",                                                                                                    null: false
+    t.integer  "category_id",                                                                                                  null: false
     t.datetime "initial_born_at"
     t.datetime "initial_dead_at"
     t.integer  "initial_container_id"
@@ -2698,7 +2702,7 @@ ActiveRecord::Schema.define(version: 20160511224701) do
     t.geometry "initial_shape",         limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "initial_father_id"
     t.integer  "initial_mother_id"
-    t.string   "variety",                                                                                                    null: false
+    t.string   "variety",                                                                                                      null: false
     t.string   "derivative_of"
     t.integer  "tracking_id"
     t.integer  "fixed_asset_id"
@@ -2714,16 +2718,17 @@ ActiveRecord::Schema.define(version: 20160511224701) do
     t.integer  "address_id"
     t.integer  "parent_id"
     t.integer  "default_storage_id"
-    t.datetime "created_at",                                                                                                 null: false
-    t.datetime "updated_at",                                                                                                 null: false
+    t.datetime "created_at",                                                                                                   null: false
+    t.datetime "updated_at",                                                                                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                 default: 0,   null: false
+    t.integer  "lock_version",                                                                                 default: 0,     null: false
     t.integer  "person_id"
     t.geometry "initial_geolocation",   limit: {:srid=>4326, :type=>"point"}
     t.uuid     "uuid"
     t.integer  "initial_movement_id"
     t.jsonb    "custom_fields"
+    t.boolean  "ready_to_harvest",                                                                             default: false, null: false
   end
 
   add_index "products", ["address_id"], name: "index_products_on_address_id", using: :btree

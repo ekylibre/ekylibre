@@ -1302,6 +1302,7 @@ cmn:
     stewardship: "管家"
     stock: "股票"
     stock_container_map: "股票地图"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     # stock_of_x: "Stock of %{x}"
     stocks: "股票"
     stop: "停止"

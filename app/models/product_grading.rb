@@ -31,6 +31,7 @@
 #  implanter_rows_number       :integer
 #  implanter_working_width     :decimal(19, 4)
 #  lock_version                :integer          default(0), not null
+#  net_surface_area_in_hectare :decimal(19, 4)
 #  number                      :string           not null
 #  product_id                  :integer          not null
 #  sampled_at                  :datetime         not null
@@ -46,7 +47,7 @@ class ProductGrading < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :sampled_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :implanter_rows_number, allow_nil: true, only_integer: true
-  validates_numericality_of :implanter_application_width, :implanter_working_width, :sampling_distance, allow_nil: true
+  validates_numericality_of :implanter_application_width, :implanter_working_width, :net_surface_area_in_hectare, :sampling_distance, allow_nil: true
   validates_presence_of :activity, :number, :product, :sampled_at
   # ]VALIDATORS]
 
@@ -56,7 +57,7 @@ class ProductGrading < Ekylibre::Record::Base
 
   delegate :measure_grading_net_mass, :measure_grading_items_count,
            :measure_grading_sizes, :use_grading_calibre, to: :activity
-           
+
   scope :of_products, lambda { |*products|
     products.flatten!
     where(product_id: products.map(&:id))

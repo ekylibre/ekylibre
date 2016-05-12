@@ -32,10 +32,10 @@
       categories = []
       categories << [resource.position, :yield]
       series = []
-      
+
       # build symbol
       symbol_measure = Nomen::Unit[resource.product_stock_in_ground.unit].symbol
-      
+
       # check global net mass of grading
       m = resource.net_mass.to_d
       # check global net mass of grading

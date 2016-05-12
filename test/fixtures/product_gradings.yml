@@ -31,6 +31,7 @@
 #  implanter_rows_number       :integer
 #  implanter_working_width     :decimal(19, 4)
 #  lock_version                :integer          default(0), not null
+#  net_surface_area_in_hectare :decimal(19, 4)
 #  number                      :string           not null
 #  product_id                  :integer          not null
 #  sampled_at                  :datetime         not null

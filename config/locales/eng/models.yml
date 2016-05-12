@@ -827,6 +827,7 @@ eng:
     net_mass: "Net mass"
     net_mass_value: "Net mass value"
     net_service: "Net service"
+    # net_surface_area_in_hectare: "Net surface area in hectare"
     new_container: "New container"
     new_group: "New group"
     new_name: "New name"
@@ -936,6 +937,7 @@ eng:
     # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Product enjoyments" #?
     product_grading: "Product grading"
+    # product_grading_checks: "Product grading checks"
     product_linkages: "Product linkages" #?
     product_localization: "Product localization"
     product_localizations: "Product localizations" #?
@@ -993,6 +995,7 @@ eng:
     read_at: "Read at"
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
+    ready_to_harvest: "Ready to harvest"
     real_balance: "Real balance"
     real_credit: "Original credit"
     real_currency: "Original currency"
@@ -1073,6 +1076,8 @@ eng:
     sampling_length_unit: "Sampling length unit"
     sampling_temporal_mode: "Sampling temporal mode"
     scheduled: "Scheduled"
+    # second_grading_calibre_indicator_name: "Second grading calibre indicator name"
+    # second_grading_calibre_unit_name: "Second grading calibre unit name"
     second_producer: "Second producer" #?
     seeding_density_unit: "Seeding density unit"
     # seeding_density_value: "Seeding density value"
@@ -1199,6 +1204,7 @@ eng:
     use_countings: "Use countings"
     use_grading_calibre: "Use grading calibre"
     use_gradings: "Use gradings"
+    # use_second_grading_calibre: "Use second grading calibre"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
     useful_items: "Useful items"

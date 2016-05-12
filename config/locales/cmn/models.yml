@@ -973,6 +973,7 @@ cmn:
     read_at: "在阅读"
     reading_tasks: "阅读任务"
     readings: "阅读"
+    # ready_to_harvest: "Ready to harvest"
     real_balance: "真正的平衡"
     real_credit: "原信用证"
     real_currency: "原币"

@@ -977,6 +977,7 @@ spa:
     read_at: "Lea por lo"
     reading_tasks: "Tareas de lectura"
     readings: "Lecturas"
+    # ready_to_harvest: "Ready to harvest"
     real_balance: "Equilibrio real"
     real_credit: "Crédito original"
     real_currency: "Moneda de origen"

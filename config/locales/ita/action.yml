@@ -1368,6 +1368,7 @@ ita:
     stewardship: "amministrazione"
     stock: "Azione"
     stock_container_map: "della mappa"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     # stock_of_x: "Stock of %{x}"
     stocks: "riserve"
     # stop: "Stop"

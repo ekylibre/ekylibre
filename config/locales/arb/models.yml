@@ -1879,6 +1879,7 @@ arb:
     read_at: "قراءة في"
     reading_tasks: "مهام القراءة"
     readings: "قراءات"
+    # ready_to_harvest: "Ready to harvest"
     real_balance: "التوازن الحقيقي"
     real_credit: "الائتمان"
     real_currency: "العملة الأصلية"

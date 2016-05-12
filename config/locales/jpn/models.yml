@@ -973,6 +973,7 @@ jpn:
     read_at: "読みます"
     reading_tasks: "読書のタスク"
     readings: "音読み"
+    # ready_to_harvest: "Ready to harvest"
     real_balance: "実質残高"
     real_credit: "オリジナルクレジット"
     real_currency: "オリジナル通貨"

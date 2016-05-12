@@ -1375,6 +1375,7 @@ jpn:
     stewardship: "管理"
     stock: "株式"
     stock_container_map: "ストックマップ"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     # stock_of_x: "Stock of %{x}"
     stocks: "ストック"
     stop: "やめる"

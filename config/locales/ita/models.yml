@@ -1004,6 +1004,7 @@ ita:
     read_at: "Leggi a"
     reading_tasks: "compiti di lettura"
     readings: "letture"
+    # ready_to_harvest: "Ready to harvest"
     real_balance: "equilibrio reale"
     real_credit: "di credito originale"
     real_currency: "moneta originale"

@@ -973,6 +973,7 @@ por:
     read_at: "Leia pelo"
     reading_tasks: "Tarefas de leitura"
     readings: "Leituras"
+    # ready_to_harvest: "Ready to harvest"
     real_balance: "SALDO"
     real_credit: "Crédito original"
     real_currency: "Moeda original"

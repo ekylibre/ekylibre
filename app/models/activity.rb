@@ -22,38 +22,41 @@
 #
 # == Table: activities
 #
-#  created_at                     :datetime         not null
-#  creator_id                     :integer
-#  cultivation_variety            :string
-#  custom_fields                  :jsonb
-#  description                    :text
-#  family                         :string           not null
-#  grading_calibre_indicator_name :string
-#  grading_calibre_unit_name      :string
-#  grading_net_mass_unit_name     :string
-#  grading_sizes_indicator_name   :string
-#  grading_sizes_unit_name        :string
-#  id                             :integer          not null, primary key
-#  lock_version                   :integer          default(0), not null
-#  measure_grading_items_count    :boolean          default(FALSE), not null
-#  measure_grading_net_mass       :boolean          default(FALSE), not null
-#  measure_grading_sizes          :boolean          default(FALSE), not null
-#  name                           :string           not null
-#  nature                         :string           not null
-#  production_campaign            :string
-#  production_cycle               :string           not null
-#  production_system_name         :string
-#  size_indicator_name            :string
-#  size_unit_name                 :string
-#  support_variety                :string
-#  suspended                      :boolean          default(FALSE), not null
-#  updated_at                     :datetime         not null
-#  updater_id                     :integer
-#  use_countings                  :boolean          default(FALSE), not null
-#  use_grading_calibre            :boolean          default(FALSE), not null
-#  use_gradings                   :boolean          default(FALSE), not null
-#  with_cultivation               :boolean          not null
-#  with_supports                  :boolean          not null
+#  created_at                            :datetime         not null
+#  creator_id                            :integer
+#  cultivation_variety                   :string
+#  custom_fields                         :jsonb
+#  description                           :text
+#  family                                :string           not null
+#  grading_calibre_indicator_name        :string
+#  grading_calibre_unit_name             :string
+#  grading_net_mass_unit_name            :string
+#  grading_sizes_indicator_name          :string
+#  grading_sizes_unit_name               :string
+#  id                                    :integer          not null, primary key
+#  lock_version                          :integer          default(0), not null
+#  measure_grading_items_count           :boolean          default(FALSE), not null
+#  measure_grading_net_mass              :boolean          default(FALSE), not null
+#  measure_grading_sizes                 :boolean          default(FALSE), not null
+#  name                                  :string           not null
+#  nature                                :string           not null
+#  production_campaign                   :string
+#  production_cycle                      :string           not null
+#  production_system_name                :string
+#  second_grading_calibre_indicator_name :string
+#  second_grading_calibre_unit_name      :string
+#  size_indicator_name                   :string
+#  size_unit_name                        :string
+#  support_variety                       :string
+#  suspended                             :boolean          default(FALSE), not null
+#  updated_at                            :datetime         not null
+#  updater_id                            :integer
+#  use_countings                         :boolean          default(FALSE), not null
+#  use_grading_calibre                   :boolean          default(FALSE), not null
+#  use_gradings                          :boolean          default(FALSE), not null
+#  use_second_grading_calibre            :boolean          default(FALSE), not null
+#  with_cultivation                      :boolean          not null
+#  with_supports                         :boolean          not null
 #
 
 # Activity represents a type of work in the farm like common wheats, pigs,
@@ -68,7 +71,7 @@ class Activity < Ekylibre::Record::Base
   refers_to :size_unit, class_name: 'Unit'
   refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
   refers_to :grading_calibre_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
-  refers_to :grading_calibre_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
+  refers_to :grading_calibre_unit, -> { where(dimension: [:distance, :mass]) }, class_name: 'Unit'
   refers_to :grading_net_mass_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
   refers_to :grading_sizes_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
   refers_to :grading_sizes_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
@@ -76,6 +79,8 @@ class Activity < Ekylibre::Record::Base
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
   enumerize :production_cycle, in: [:annual, :perennial], predicates: true
   enumerize :production_campaign, in: [:at_cycle_start, :at_cycle_end], default: :at_cycle_end, predicates: true
+  refers_to :second_grading_calibre_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
+  refers_to :second_grading_calibre_unit, -> { where(dimension: [:distance, :mass]) }, class_name: 'Unit'
   with_options dependent: :destroy, inverse_of: :activity do
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
@@ -85,7 +90,7 @@ class Activity < Ekylibre::Record::Base
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_grading_calibre, :use_gradings, :with_cultivation, :with_supports, in: [true, false]
+  validates_inclusion_of :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_grading_calibre, :use_gradings, :use_second_grading_calibre, :with_cultivation, :with_supports, in: [true, false]
   validates_presence_of :family, :name, :nature, :production_cycle
   # ]VALIDATORS]
   validates_inclusion_of :family, in: family.values

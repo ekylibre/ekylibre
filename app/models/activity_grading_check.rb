@@ -40,7 +40,7 @@
 class ActivityGradingCheck < Ekylibre::Record::Base
   belongs_to :activity
   belongs_to :quality_criterion, class_name: 'GradingQualityCriterion'
-  enumerize :nature, in: [:calibre, :quality], default: :calibre, predicates: true
+  enumerize :nature, in: [:calibre, :quality, :second_calibre], default: :calibre, predicates: true
   has_many :product_grading_checks, class_name: 'ProductGradingCheck', inverse_of: :activity_grading_check, foreign_key: :activity_grading_check_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_calibre_value, :minimal_calibre_value, allow_nil: true

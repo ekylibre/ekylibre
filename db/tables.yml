@@ -166,6 +166,10 @@ activities:
     required: true
   production_system_name:
     type: string
+  second_grading_calibre_indicator_name:
+    type: string
+  second_grading_calibre_unit_name:
+    type: string
   size_indicator_name:
     type: string
   size_unit_name:
@@ -191,6 +195,10 @@ activities:
     required: true
     default: false
   use_gradings:
+    type: boolean
+    required: true
+    default: false
+  use_second_grading_calibre:
     type: boolean
     required: true
     default: false
@@ -4378,6 +4386,10 @@ product_gradings:
   lock_version:
     type: integer
     required: true
+  net_surface_area_in_hectare:
+    type: decimal
+    precision: 19
+    scale: 4
   number:
     type: string
     required: true
@@ -5191,6 +5203,10 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
+  ready_to_harvest:
+    type: boolean
+    required: true
+    default: false
   tracking_id:
     type: integer
     references: tracking

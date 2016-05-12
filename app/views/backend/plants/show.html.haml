@@ -23,7 +23,7 @@
         %span.value
           %i.picto{class: "picto-grain"}
           = stock.round(3).l
-      - if resource.population && resource.population.to_d != 0.0 
+      - if resource.population && resource.population.to_d != 0.0
         .med-info
           %span.title= Product.human_attribute_name(:provisionnal_yield)
           %span.value
@@ -57,13 +57,13 @@
       dataset = resource.gradings.reorder(:sampled_at)
       categories << dataset.map(&:position).uniq
       series = []
-      
+
       # build symbol
       symbol_measure = Nomen::Unit[dataset.last.product_stock_in_ground.unit].symbol
-      
-      pgc = ProductGradingCheck.where(product_grading_id: dataset.pluck(:id)).of_nature(:calibre) 
+
+      pgc = ProductGradingCheck.where(product_grading_id: dataset.pluck(:id)).of_nature(:calibre)
       agc = ActivityGradingCheck.where(id: pgc.pluck(:activity_grading_check_id).compact.uniq).reorder(:minimal_calibre_value)
-      
+
       # for each calibre
       agc.each do |activity_calibre|
         chec = activity_calibre.product_grading_checks.of_products(resource).reorder(:minimal_size_value)
@@ -83,7 +83,7 @@
       - c.cobble(:stock_in_ground_by_calibres) do
         = column_highcharts(series, y_axis: {title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
 
-  
+
   - c.cobble(:gradings, title: :x_gradings.tl(count: resource.gradings.count)) do
     = cobble_toolbar do |t|
       = t.new(params: {controller: :product_gradings, product_id: resource.id})

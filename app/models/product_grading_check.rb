@@ -53,7 +53,7 @@ class ProductGradingCheck < Ekylibre::Record::Base
   scope :of_nature, lambda { |nature|
     where(activity_grading_check_id: ActivityGradingCheck.select(:id).where(nature: nature))
   }
-  
+
   scope :of_products, lambda { |*products|
     where(product_grading_id: ProductGrading.of_products(products).pluck(:id))
   }
