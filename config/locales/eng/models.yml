@@ -76,6 +76,8 @@ eng:
         too_short: "%{attribute} is too short (minimum is %{count} characters)"
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        bank_statement_item:
+          unvalid_amounts: "The journal entry must be filled either debit or credit but not at the same time."
         cash:
           currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
@@ -142,6 +144,7 @@ eng:
       animal_group: "Animal group"
       attachment: "Attachment"
       bank_statement: "Bank statement"
+      # bank_statement_item: "Bank statement item"
       bioproduct: "Living product"
       building: "Building"
       building_division: "Room / Zone"
@@ -355,6 +358,7 @@ eng:
     bank_identifier_code: "Bank identifier code"
     bank_name: "Bank name"
     bank_statement: "Bank statement"
+    # bank_statement_letter: "Bank statement letter"
     bank_statements: "Bank statements"
     base_amount: "Base amount"
     boolean_value: "Boolean value"
@@ -664,6 +668,8 @@ eng:
     indicator_name: "Indicator name"
     indicators: "Indicators"
     indirect_links: "Indirect links"
+    # initial_balance_credit: "Initial balance credit"
+    # initial_balance_debit: "Initial balance debit"
     initial_born_at: "Initial born at"
     initial_container: "Initial container"
     initial_dead_at: "Initial dead at"
@@ -676,6 +682,7 @@ eng:
     initial_owner: "Initial owner"
     initial_population: "Initial population"
     initial_shape: "Initial shape"
+    # initiated_on: "Initiated on"
     inputs: "Inputs"
     insurance_amount: "Insurance amount"
     insurance_percentage: "Insurance percentage"
@@ -1169,6 +1176,7 @@ eng:
     tracking: "Tracking"
     trackings: "Trackings"
     transfered_at: "Transfered at"
+    # transfered_on: "Transfered on"
     transport: "Transport" #?
     transporter: "Transporter"
     transporter_purchase: "Transporter purchase"

@@ -1,0 +1,157 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: bank_statement_items
+#
+#  bank_statement_id :integer          not null
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  credit            :decimal(19, 4)   default(0.0), not null
+#  currency          :string           not null
+#  debit             :decimal(19, 4)   default(0.0), not null
+#  id                :integer          not null, primary key
+#  initiated_on      :date
+#  letter            :string
+#  lock_version      :integer          default(0), not null
+#  name              :string           not null
+#  transaction_id    :string
+#  transfered_on     :date             not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer
+#
+bank_statement_items_001:
+  id: 1
+  bank_statement_id: 2
+  credit: 0.0
+  debit: 114.0
+  currency: EUR
+  transfered_on: 2016-05-10
+  name: "[Ligne 001] Virement ponctuel -114€"
+  created_at: 2016-05-11 09:14:10.608827000 Z
+  creator_id: 1
+  updated_at: 2016-05-11 09:14:10.608827000 Z
+  updater_id: 1
+  lock_version: 1
+bank_statement_items_002:
+  id: 2
+  bank_statement_id: 2
+  credit: 0.0
+  debit: 223.0
+  currency: EUR
+  transfered_on: 2014-11-05
+  letter: A
+  name: "Remise en banque B20140001"
+  created_at: 2016-05-11 09:16:10.608827000 Z
+  creator_id: 1
+  updated_at: 2016-05-11 09:16:10.608827000 Z
+  updater_id: 1
+  lock_version: 1
+bank_statement_items_003:
+  id: 3
+  bank_statement_id: 2
+  credit: 0.0
+  debit: 150.0
+  currency: EUR
+  transfered_on: 2014-11-05
+  letter: B
+  name: "Remise en banque B20140001"
+  initiated_on: 2014-11-04
+  transaction_id: "1234XABC"
+  created_at: 2016-05-11 09:16:10.608827000 Z
+  creator_id: 1
+  updated_at: 2016-05-11 09:16:10.608827000 Z
+  updater_id: 1
+  lock_version: 1
+bank_statement_items_004:
+  id: 4
+  bank_statement_id: 2
+  credit: 0.0
+  debit: 112.07
+  currency: EUR
+  transfered_on: 2014-11-07
+  letter: C
+  name: "[Virement interne 0001] De Caisse Accueil à GHB"
+  initiated_on: 2014-11-06
+  transaction_id: "1234XABC"
+  created_at: 2016-05-11 09:17:10.608827000 Z
+  creator_id: 1
+  updated_at: 2016-05-11 09:17:10.608827000 Z
+  updater_id: 1
+  lock_version: 1
+bank_statement_items_005:
+  id: 5
+  bank_statement_id: 2
+  credit: 28.3
+  debit: 0.0
+  currency: EUR
+  transfered_on: 2014-11-07
+  letter: C
+  name: "[Virement interne 0002] De GHB à Caisse Accueil"
+  initiated_on: 2014-11-06
+  transaction_id: "1234XABCD"
+  created_at: 2016-05-11 09:17:10.608827000 Z
+  creator_id: 1
+  updated_at: 2016-05-11 09:17:10.608827000 Z
+  updater_id: 1
+  lock_version: 1
+bank_statement_items_006:
+  id: 6
+  bank_statement_id: 2
+  credit: 116.0
+  debit: 0.0
+  currency: EUR
+  transfered_on: 2014-11-07
+  letter: E
+  name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
+  created_at: 2016-05-11 09:18:04.608827000 Z
+  creator_id: 1
+  updated_at: 2016-05-11 09:18:04.608827000 Z
+  updater_id: 1
+  lock_version: 1
+bank_statement_items_007:
+  id: 7
+  bank_statement_id: 1
+  credit: 156.0
+  debit: 0.0
+  currency: EUR
+  transfered_on: 2014-11-08
+  letter: F
+  name: "[Décaissement OP002] Par chèque  pour Busbest Andrew"
+  created_at: 2016-05-11 09:18:04.608827000 Z
+  creator_id: 1
+  updated_at: 2016-05-11 09:18:04.608827000 Z
+  updater_id: 1
+  lock_version: 1
+bank_statement_items_008:
+  id: 8
+  bank_statement_id: 1
+  credit: 0.0
+  debit: 1314.67
+  currency: EUR
+  transfered_on: 2014-11-09
+  letter: G
+  name: "[Décaissement OP002] Par chèque pour Busbest Andrew ET [Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
+  created_at: 2016-05-11 09:19:24.214827000 Z
+  creator_id: 1
+  updated_at: 2016-05-11 09:19:24.214827000 Z
+  updater_id: 1
+  lock_version: 1

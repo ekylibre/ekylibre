@@ -28,6 +28,7 @@
 #  account_id                :integer          not null
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
+#  bank_statement_letter     :string
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  credit                    :decimal(19, 4)   default(0.0), not null
@@ -99,7 +100,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     where(printed_on: started_at..stopped_at)
   }
   scope :opened, -> { where.not(state: 'closed') }
-  scope :unpointed, -> { where(bank_statement: nil) }
+  scope :unpointed, -> { where(bank_statement_letter: nil) }
 
   state_machine :state, initial: :draft do
     state :draft

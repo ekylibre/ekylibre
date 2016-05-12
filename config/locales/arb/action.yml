@@ -68,7 +68,6 @@ arb:
       edit: "تعديل الكشف المصرفي رقم%{number}"
       index: "بيان الحساب المصرفي"
       new: "الاشارة لكشف حساب جديد"
-      point: "رقم اعداد البيان%{number} من %{cash}"
       show: "رقم كشف الحساب%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -2289,7 +2288,6 @@ arb:
       need_cash_to_record_statements: "يجب عليك مشاء حساب مصرفي واحد كحد ادنى لاستلاء على بيانات الحساب"
       need_closed_financial_year_to_declaration: "يجب عليك اغلاق السنة المالية لانشاء تصريح لقيمة الضريبة المضافة" #?
       need_company_code_to_login: "يجب عليك اختيار شركتك لتتمكن من الاتصال باسم المستخدم" #?
-      need_entries_to_point: "لم يتم العثور على اي من المدخلات لمدة كشف الحساب المصرفي"
       need_journal_to_manage_tax_declaration: "يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب" #?
       need_payment_mode_to_create_deposit: "يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي"
       need_quantities_to_cancel_an_sale: "يجب تحديد كمية من أجل إلغاء فاتورة المبيعات"
@@ -2470,7 +2468,6 @@ arb:
       open: "فتح"
       pick: "اختيار"
       picture: "صورة"
-      point: "نقطة"
       propose: "اقترح"
       propose_and_invoice: "اقتراح وفاتورة"
       prospect: "احتمال"

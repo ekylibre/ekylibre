@@ -62,7 +62,6 @@ ita:
       # edit: "Edit bank statement %{number}"
       index: "estratti conto"
       new: "dichiarazione nuova banca"
-      # point: "Point bank statement %{number}"
       # show: "Account statement N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -1657,7 +1656,6 @@ ita:
       need_a_valid_sale_nature_to_start_new_sale: "Hai bisogno di un tipo di vendita valida per iniziare nuova vendita"
       need_building_to_record_stock_moves: "È necessario creare un edificio per essere in grado di gestire gli stock."
       need_cash_to_record_statements: "Tu devi essere almeno creare un conto bancario per entrare in un comunicato."
-      need_entries_to_point: "Nessun articolo è stato trovato per il periodo della dichiarazione della banca."
       need_payment_mode_to_create_deposit: "È necessario specificare una modalità di pagamento, al fine di effettuare depositi"
       need_quantities_to_cancel_an_sale: "È necessario specificare un quantitativo al fine di annullare la fattura di vendita"
       need_stocks_to_create_inventories: "È necessario gestire alcune azioni al fine di gestire le scorte"
@@ -1758,7 +1756,6 @@ ita:
       open: "aperto"
       pick: "scegliere"
       picture: "Immagine"
-      point: "Punto"
       propose: "Proporre"
       propose_and_invoice: "Proporre e fattura"
       prospect: "Prospettiva"

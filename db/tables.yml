@@ -690,6 +690,55 @@ attachments:
   updater_id:
     type: integer
     references: user
+bank_statement_items:
+  bank_statement_id:
+    type: integer
+    references: bank_statement
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  currency:
+    type: string
+    required: true
+  debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  id:
+    type: integer
+    required: true
+  initiated_on:
+    type: date
+  letter:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  transaction_id:
+    type: string
+    references: ''
+  transfered_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 bank_statements:
   cash_id:
     type: integer
@@ -718,6 +767,16 @@ bank_statements:
     required: true
   id:
     type: integer
+    required: true
+  initial_balance_credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  initial_balance_debit:
+    type: decimal
+    precision: 19
+    scale: 4
     required: true
   lock_version:
     type: integer
@@ -3077,6 +3136,8 @@ journal_entry_items:
   bank_statement_id:
     type: integer
     references: bank_statement
+  bank_statement_letter:
+    type: string
   created_at:
     type: datetime
     required: true

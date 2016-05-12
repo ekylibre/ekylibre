@@ -22,32 +22,34 @@
 #
 # == Table: bank_statements
 #
-#  cash_id       :integer          not null
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  credit        :decimal(19, 4)   default(0.0), not null
-#  currency      :string           not null
-#  custom_fields :jsonb
-#  debit         :decimal(19, 4)   default(0.0), not null
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  number        :string           not null
-#  started_at    :datetime         not null
-#  stopped_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  cash_id                :integer          not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  credit                 :decimal(19, 4)   default(0.0), not null
+#  currency               :string           not null
+#  custom_fields          :jsonb
+#  debit                  :decimal(19, 4)   default(0.0), not null
+#  id                     :integer          not null, primary key
+#  initial_balance_credit :decimal(19, 4)   default(0.0), not null
+#  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  lock_version           :integer          default(0), not null
+#  number                 :string           not null
+#  started_at             :datetime         not null
+#  stopped_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 
 class BankStatement < Ekylibre::Record::Base
   include Attachable
   include Customizable
   belongs_to :cash
-  has_many :items, class_name: 'JournalEntryItem', dependent: :nullify
+  has_many :items, class_name: 'BankStatementItem', dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(bank_statement) { bank_statement.stopped_at && bank_statement.started_at }
-  validates_numericality_of :credit, :debit, allow_nil: true
-  validates_presence_of :cash, :credit, :currency, :debit, :number, :started_at, :stopped_at
+  validates_numericality_of :credit, :debit, :initial_balance_credit, :initial_balance_debit, allow_nil: true
+  validates_presence_of :cash, :credit, :currency, :debit, :initial_balance_credit, :initial_balance_debit, :number, :started_at, :stopped_at
   # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_uniqueness_of :number, scope: :cash_id
@@ -56,8 +58,8 @@ class BankStatement < Ekylibre::Record::Base
 
   before_validation do
     self.currency = cash_currency if cash
-    self.debit  = items.sum(:real_debit)
-    self.credit = items.sum(:real_credit)
+    self.debit  = items.sum(:debit)
+    self.credit = items.sum(:credit)
   end
 
   # A bank account statement has to contain.all the planned records.
@@ -83,18 +85,5 @@ class BankStatement < Ekylibre::Record::Base
 
   def next
     self.class.where('started_at >= ?', stopped_at).reorder(started_at: :asc).first
-  end
-
-  def eligible_items
-    JournalEntryItem.where('bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_at BETWEEN ? AND ?))', id, cash_account_id, started_at, stopped_at).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryItem.table_name}.position")
-  end
-
-  def point(item_ids)
-    return false if new_record?
-    JournalEntryItem.where(bank_statement_id: id).update_all(bank_statement_id: nil)
-    JournalEntryItem.where(bank_statement_id: nil, id: item_ids).update_all(bank_statement_id: id)
-    # Computes debit and credit
-    save!
-    true
   end
 end
