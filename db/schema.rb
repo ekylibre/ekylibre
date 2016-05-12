@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503125501) do
+ActiveRecord::Schema.define(version: 20160511224701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1172,6 +1172,7 @@ ActiveRecord::Schema.define(version: 20160503125501) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version", default: 0, null: false
+    t.string   "nature"
   end
 
   add_index "grading_quality_criteria", ["created_at"], name: "index_grading_quality_criteria_on_created_at", using: :btree

@@ -2247,6 +2247,8 @@ grading_quality_criteria:
   name:
     type: string
     required: true
+  nature:
+    type: string
   updated_at:
     type: datetime
     required: true

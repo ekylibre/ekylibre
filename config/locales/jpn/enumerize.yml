@@ -88,6 +88,10 @@ jpn:
         line: "ライン"
         point: "ポイント"
         polygon: "ポリゴン"
+    grading_quality_criterion:
+      nature:
+        # disease_presence: "Disease presence"
+        # waste: "Waste"
     guide_analysis:
       status:
         errored: "エラーの発生しました"

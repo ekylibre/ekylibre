@@ -27,12 +27,13 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string           not null
+#  nature       :string
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 
 class GradingQualityCriterion < Ekylibre::Record::Base
-  # enumerize :nature, in: [:disease_presence, :waste]
+  enumerize :nature, in: [:disease_presence, :waste]
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :name
   # ]VALIDATORS]

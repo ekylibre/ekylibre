@@ -26,6 +26,7 @@ module Backend
       t.action :edit
       t.action :destroy
       t.column :name, url: true
+      t.column :nature
     end
   end
 end
