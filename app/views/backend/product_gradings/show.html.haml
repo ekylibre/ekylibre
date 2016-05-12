@@ -28,14 +28,30 @@
             = resource.product_stock_in_ground(unit = :unity).to_d.to_i
 
     :ruby
-      data = resource.checks.of_nature(:calibre).map do |check|
-        y = check.items_count.to_s.to_f
-        { name: check.activity_grading_check.name, y: y }
+      # build categories
+      categories = []
+      categories << [resource.position, :yield]
+      series = []
+      
+      # build symbol
+      symbol_measure = Nomen::Unit[resource.product_stock_in_ground.unit].symbol
+      
+      # check global net mass of grading
+      m = resource.net_mass.to_d
+      # check global net mass of grading
+      net_surface_area = resource.product.population
+      stock_in_ground = resource.product_stock_in_ground.to_d
+      resource.checks.of_nature(:calibre).map do |check|
+        arr = []
+        y = (check.net_mass_value.to_d / m) * stock_in_ground  if m != 0.0
+        arr << y.to_i.to_s.to_f
+        arr << (y.to_d / net_surface_area.to_d).round(2).to_s.to_f if net_surface_area != 0.0
+        series << { name: check.activity_grading_check.name, data: arr}
       end
 
-    - if data.any?
-      - c.cobble :charts do
-        = pie_highcharts([{type: 'pie', name: resource.number, data: data}], legend: true)
+    - if series.any?
+      - c.cobble(:stock_in_ground_by_calibres) do
+        = column_highcharts(series, y_axis: {title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
 
   - c.cobble(:checks) do
     = cobble_list(:checks)

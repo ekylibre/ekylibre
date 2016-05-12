@@ -115,7 +115,7 @@ class Intervention < Ekylibre::Record::Base
   scope :with_targets, lambda { |*targets|
     where(id: InterventionTarget.of_actors(targets).select(:intervention_id))
   }
-  
+
   scope :with_outputs, lambda { |*outputs|
     where(id: InterventionOutput.of_actors(outputs).select(:intervention_id))
   }

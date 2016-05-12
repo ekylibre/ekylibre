@@ -56,6 +56,11 @@ class ProductGrading < Ekylibre::Record::Base
 
   delegate :measure_grading_net_mass, :measure_grading_items_count,
            :measure_grading_sizes, :use_grading_calibre, to: :activity
+           
+  scope :of_products, lambda { |*products|
+    products.flatten!
+    where(product_id: products.map(&:id))
+  }
 
   before_validation :set_implanter_values, on: :create
 
@@ -71,9 +76,9 @@ class ProductGrading < Ekylibre::Record::Base
 
     # get sowing intervention of current plant
     interventions = Intervention.with_outputs(product)
-    
+
     equipment = nil
-    
+
     if interventions.any?
       # get abilities of each tool to grab sower or implanter
       interventions.first.tools.each do |tool|

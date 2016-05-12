@@ -1534,6 +1534,7 @@ eng:
     statistics: "Statistics" #?
     stewardship: "Stewardship"
     stock: "Stock" #?
+    stock_in_ground_by_calibres: "Stocks in ground by calibres"
     stock_container_map: "Stock map" #?
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"

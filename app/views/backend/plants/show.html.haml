@@ -9,19 +9,27 @@
   = infos do
     = resource_info(:work_number, important: true)
     = resource_info(:population, important: true) do |population|
-      = resource.population.round(3).l + " " + resource.unit_name
+      = resource.population.round(3).to_s + " " + Nomen::Unit[resource.net_surface_area.unit].symbol
     = resource_info(:variety, important: true, nomenclature: true)
     = resource_info(:born_at, important: true)
     - if resource.born_at && resource.age >= 1.day
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 2)
-    - if resource.gradings.any? && resource.gradings.reorder(:sampled_at).last.product_stock_in_ground
+    - stock = resource.gradings.reorder(:sampled_at).last.product_stock_in_ground
+    - if resource.gradings.any? && stock
       .med-info
         %span.title= Product.human_attribute_name(:product_stock_in_ground)
         %span.value
           %i.picto{class: "picto-grain"}
-          = resource.gradings.reorder(:sampled_at).last.product_stock_in_ground.round(3).l
+          = stock.round(3).l
+      - if resource.population && resource.population.to_d != 0.0 
+        .med-info
+          %span.title= Product.human_attribute_name(:provisionnal_yield)
+          %span.value
+            %i.picto{class: "picto-grain"}
+            - unit = stock.unit + "_per_" + resource.net_surface_area.unit
+            = (stock.to_d / resource.population).in(unit).round(3).l
     = resource_info(:status, important: true) do |status|
       = lights(status)
     = resource_info :description
@@ -42,6 +50,40 @@
       = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
     = cobble_list(:issues)
 
+  - if resource.gradings.any?
+    :ruby
+      # build categories
+      categories = []
+      dataset = resource.gradings.reorder(:sampled_at)
+      categories << dataset.map(&:position).uniq
+      series = []
+      
+      # build symbol
+      symbol_measure = Nomen::Unit[dataset.last.product_stock_in_ground.unit].symbol
+      
+      pgc = ProductGradingCheck.where(product_grading_id: dataset.pluck(:id)).of_nature(:calibre) 
+      agc = ActivityGradingCheck.where(id: pgc.pluck(:activity_grading_check_id).compact.uniq).reorder(:minimal_calibre_value)
+      
+      # for each calibre
+      agc.each do |activity_calibre|
+        chec = activity_calibre.product_grading_checks.of_products(resource).reorder(:minimal_size_value)
+        # check global net mass of grading
+        m = chec.first.product_grading.net_mass.to_d
+        stock_in_ground = chec.first.product_grading.product_stock_in_ground.to_d
+        arr = []
+        # for each check
+        chec.of_nature(:calibre).map do |check|
+          y = (check.net_mass_value.to_d / m) * stock_in_ground  if m != 0.0
+          arr << y.to_i.to_s.to_f
+        end
+        series << { name: activity_calibre.name, data: arr}
+      end
+
+    - if series.any?
+      - c.cobble(:stock_in_ground_by_calibres) do
+        = column_highcharts(series, y_axis: {title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+
+  
   - c.cobble(:gradings, title: :x_gradings.tl(count: resource.gradings.count)) do
     = cobble_toolbar do |t|
       = t.new(params: {controller: :product_gradings, product_id: resource.id})
