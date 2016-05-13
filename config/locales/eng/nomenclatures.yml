@@ -43,7 +43,7 @@ eng:
         move: "Move"
         mow: "Mow"
         pick: "Pick"
-        plow: "Plow"
+        plow: "Plough"
         plow_superficially: "Plow superficially"
         pollinate: "Pollinate"
         press: "Press"
@@ -2077,17 +2077,17 @@ eng:
         dairy_transformation: "Dairy transformation"
         energy_supplying: "Energy supplying"
         equipment_maintenance: "Equipment maintenance"
-        fertilizing: "Fertilizing"
+        fertilizing: "Fertilization"
         fish_transformation: "Fish transformation"
         habitat_maintenance: "Habitat maintenance"
         harvesting: "Harvesting"
-        installations_modification: "Installations modification"
-        irrigating: "Irrigating"
+        installations_modification: "Facilities modifications"
+        irrigating: "Irrigation"
         land_maintenance: "Land maintenance"
         meat_transformation: "Meat transformation"
-        planting: "Planting"
+        planting: "Plantation"
         plants_transformation: "Plants transformation"
-        soil_working: "Soil working"
+        soil_working: "Soil preparation"
         textile_transformation: "Textile transformation"
         troubleshooting: "Troubleshooting"
         viticulture_transformation: "Viticulture transformation"
@@ -2445,7 +2445,7 @@ eng:
         actilact: "Actilact"
         additive: "Additive"
         air_compressor: "Air compressor"
-        all_inclusive_corn_sower: "All inclusive corn seeder"
+        all_inclusive_corn_sower: "Precision seeder"
         animal_building: "Animal building"
         animal_division: "Animal division"
         animal_fence: "Animal fence"
@@ -2469,7 +2469,7 @@ eng:
         barley_grain: "Barley grain"
         battery: "Battery"
         bean_crop: "Bean crop"
-        bed_former: "Bed former"
+        bed_former: "Seedbed cultivator"
         bee_band: "Bee band"
         bee_band_pollinate_service: "Bee band pollinate service"
         beef_dried_sausage: "Beef dried sausage"
@@ -2724,7 +2724,7 @@ eng:
         fercoril_corabel_hazelnut: "Fercoril corabel hazelnut"
         feriale_hazelnut: "Feriale hazelnut"
         fernor_walnut: "Fernor walnut"
-        ferry: "Ferry"
+        ferry: "Grain cart"
         fertile_coutard_hazelnut: "Fertile coutard hazelnut"
         fertile_hazelnut: "Fertile hazelnut"
         fiberglass_tank: "Fiberglass tank"
@@ -2737,7 +2737,7 @@ eng:
         food_equipment_division: "Food equipment division"
         food_show: "Food show"
         food_tank: "Food tank"
-        forager: "Forager"
+        forager: "Silage harvester"
         forklift: "Forklift"
         forwarding_agent_fees_expense: "Forwarding agent fees expense"
         franquette_walnut: "Franquette walnut"
@@ -2807,7 +2807,7 @@ eng:
         howard_walnut: "Howard walnut"
         hydraulic_oil: "Hydraulic oil"
         ichn_subsidies: "Ichn subsidies"
-        implanter: "Implanter"
+        implanter: "Planter"
         infirmity_and_death_insurance: "Infirmity and death insurance"
         ink_cartridge: "Ink cartridge"
         insecticide: "Insecticide"
@@ -2865,7 +2865,7 @@ eng:
         male_young_sheep: "Male young sheep"
         malic_acid_25kg: "Malic acid 25kg"
         manager: "Manager"
-        manual_implanter: "Manual implanter"
+        manual_implanter: "Manual planter"
         manure_division: "Manure division"
         market_gardening_crop: "Market gardening crop"
         meadow_grass: "Meadow grass"
@@ -2892,7 +2892,7 @@ eng:
         motor_hoe: "Motor hoe"
         motor_oil: "Motor oil"
         moving_travel: "Moving travel"
-        mower: "Mower"
+        mower: "Windrower"
         mud: "Mud"
         muskmelon_crop: "Muskmelon crop"
         myrobalan_plum_crop: "Myrobalan plum crop"
@@ -2937,7 +2937,7 @@ eng:
         piglet_meat: "Piglet meat"
         plant_medicine_tank: "Plant medicine tank"
         plastic_cover_500m: "Plastic cover 500m"
-        plow: "Plow"
+        plow: "Plough"
         plum: "Plum"
         plum_crop: "Plum crop"
         plum_reaper: "Plum reaper"
@@ -2973,7 +2973,7 @@ eng:
         rape_seed: "Rape seed"
         raspberry_crop: "Raspberry crop"
         raspberry_seedling: "Raspberry seedling"
-        reaper: "Reaper"
+        reaper: "Combine harverster"
         rent: "Rent"
         representation_suit: "Representation suit"
         responsibility_insurance: "Responsibility insurance"
@@ -3024,8 +3024,8 @@ eng:
         spelt_wheat_crop: "Spelt wheat crop"
         sprayer: "Sprayer"
         spread_renting: "Spread renting"
-        spreader: "Spreader"
-        spreader_trailer: "Spreader trailer"
+        spreader: "Fertilizer spreader"
+        spreader_trailer: "Manure spreader
         spring_barley_crop: "Spring barley crop"
         spring_barley_seed_25: "Spring barley seed 25"
         spring_oat_crop: "Spring oat crop"
@@ -3035,12 +3035,12 @@ eng:
         strawberry_seedling: "Strawberry seedling"
         stubble_cultivator: "Stubble cultivator"
         subscription_professional_society: "Subscription professional society"
-        subsoil_plow: "Subsoil plow"
+        subsoil_plow: "Subsoiler"
         sugar_vinasse: "Sugar vinasse"
         sunflower_crop: "Sunflower crop"
         sunflower_grain: "Sunflower grain"
         sunflower_seed_150tg: "Sunflower seed 150tg"
-        superficial_plow: "Superficial plow"
+        superficial_plow: "Cultipacker"
         tablur_hard_wheat_crop: "Tablur hard wheat crop"
         tablur_hard_wheat_seed_25: "Tablur hard wheat seed 25"
         tangerine_crop: "Tangerine crop"
@@ -3062,7 +3062,7 @@ eng:
         urban_compost: "Urban compost"
         various_loan_interest: "Various loan interest"
         veal_meat: "Veal meat"
-        vibrocultivator: "Vibrocultivator"
+        vibrocultivator: "Cutivator"
         vine_grape_berry: "Vine grape berry"
         vine_grape_crop: "Vine grape crop"
         vine_grape_juice: "Vine grape juice"
@@ -3187,14 +3187,14 @@ eng:
         fence: "Fence"
         fermented_grape_juice: "Fermented grape juice"
         fermented_milk: "Fermented milk"
-        ferry: "Ferry"
+        ferry: "Grain cart"
         fiscal_fine: "Fiscal fine"
         flower_crop: "Flower crop"
         foliar_spray: "Foliar spray"
         food_distributor: "Food distributor"
         food_equipment_division: "Food equipment division"
         food_tank: "Food tank"
-        forager: "Forager"
+        forager: "Silage harvester"
         forklift: "Forklift"
         forwarding_agent_fees_expense: "Forwarding agent fees expense"
         freelance: "Freelance"
@@ -3233,7 +3233,7 @@ eng:
         honey: "Honey"
         horse_herd: "Horse herd"
         hydraulic_oil: "Hydraulic oil"
-        implanter: "Implanter"
+        implanter: "Planter"
         infirmity_and_death_insurance: "Infirmity and death insurance"
         insecticide: "Insecticide"
         inseminator: "Inseminator"
@@ -3279,7 +3279,7 @@ eng:
         molluscicide: "Molluscicide"
         motor_oil: "Motor oil"
         moving_travel: "Moving travel"
-        mower: "Mower"
+        mower: "Windrower"
         natural_water: "Natural water"
         nematicide: "Nematicide"
         numeric_hosting_rental: "Numeric hosting rental"
@@ -3296,7 +3296,7 @@ eng:
         piglet_band: "Piglet band"
         plant_medicine_tank: "Plant medicine tank"
         plastic_cover: "Plastic cover"
-        plow: "Plow"
+        plow: "Plough"
         plum: "Plum"
         plum_reaper: "Plum reaper"
         plum_seedling: "Plum seedling"
@@ -3318,7 +3318,7 @@ eng:
         rabbit_herd: "Rabbit herd"
         radio_subscription: "Radio subscription"
         raw_material: "Raw material"
-        reaper: "Reaper"
+        reaper: "Combine harverster"
         recycling_contribution: "Recycling contribution"
         rent: "Rent"
         representation_item: "Representation item"
@@ -3343,14 +3343,14 @@ eng:
         species: "Species"
         sprayer: "Sprayer"
         spread_renting: "Spread renting"
-        spreader: "Spreader"
-        spreader_trailer: "Spreader trailer"
+        spreader: "Fertilizer spreader"
+        spreader_trailer: "Manure spreader"
         stake: "Stake"
         steam_engine: "Steam engine"
         straw: "Straw"
         studies_and_research: "Studies and research"
         sugar: "Sugar"
-        superficial_plow: "Superficial plow"
+        superficial_plow: "Cultipacker"
         taxe: "Taxe"
         technician: "Technician"
         telescopic_handler: "Telescopic handler"
@@ -4332,7 +4332,7 @@ eng:
         foeniculum_vulgare_piperitum: "Pepper Fennel"      #< foeniculum_vulgare
         fomitiporia: "Fomitiporia"                         #< hymenochaetaceae
         food_deliver: "Food deliver"                       #< equipment
-        forager: "Forager"                                 #< equipment
+        forager: "Silage harvester"                                 #< equipment
         forsythia: "Forsythia"                             #< oleaceae
         forsythia_europaea: "Forsythia europaea"           #< forsythia
         forsythia_x_intermedia: "Forsythia x intermedia"   #< forsythia
@@ -4573,7 +4573,7 @@ eng:
         hypericaceae: "Hypericaceae"                       #< plant
         hypericum: "Hypericum"                             #< hypericaceae
         immatter: "Immatter"                               #< product
-        implanter: "Implanter"                             #< equipment
+        implanter: "Planter"                             #< equipment
         insecta: "Insecta"                                 #< animal
         ipomoea: "Ipomoea"                                 #< convolvulaceae
         ipomoea_batatas: "Sweet potato"                    #< ipomoea
@@ -4928,7 +4928,7 @@ eng:
         morus_microphylla: "Morus microphylla"             #< morus
         morus_nigra: "Morus nigra"                         #< morus
         morus_rubra: "Morus rubra"                         #< morus
-        mower: "Mower"                                     #< equipment
+        mower: "Windrower"                                     #< equipment
         musa: "Musa"                                       #< musaceae
         musa_acuminata: "Musa acuminata"                   #< musa
         musa_balbisiana: "Musa balbisiana"                 #< musa
@@ -5308,7 +5308,7 @@ eng:
         raphanus_sativus_oleiformis_compass: "Forage Radish Compass" #< raphanus_sativus_oleiformis
         raspberry: "Raspberry"                             #< fruit
         raw_matter: "Raw matter"                           #< preparation
-        reaper: "Reaper"                                   #< equipment
+        reaper: "Combine harverster"                                   #< equipment
         rhagoletis_completa: "Rhagoletis completa"         #< insecta
         ribes: "Ribes"                                     #< grossulariaceae
         ribes_nigrum: "Blackcurrant"                       #< ribes
@@ -5756,7 +5756,7 @@ eng:
         spiraea: "Spiraea"                                 #< rosaceae
         spiraea_x_billiardii: "Spiraea x billiardii"       #< spiraea
         sprayer: "Sprayer"                                 #< equipment
-        spreader: "Spreader"                               #< equipment
+        spreader: "Fertilizer spreader"                               #< equipment
         stake: "Stake"                                     #< packaged_matter
         straw: "Straw"                                     #< grass
         strawberry: "Strawberry"                           #< fruit
