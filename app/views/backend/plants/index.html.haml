@@ -28,25 +28,23 @@
               popup_content << {label: Nomen::Indicator.find(indicator.to_sym).human_name, value: p.send(indicator).l }
             end
           end
+          
+          interventions = Intervention.with_generic_cast(:target, p).reorder(:started_at)
 
-          if container = p.container
-            popup_content << {label: :cultivable_zone.tl, value: link_to(container.work_name, backend_product_path(container)) }
-          end
-
-          if interventions = Intervention.with_generic_cast(:target, p).reorder(:started_at)
-            popup_content << {label: :interventions_count.tl, value: interventions.count }
-          end
-
-          if interventions.count > 0 and last_intervention = interventions.last
-            popup_content << {label: :last_intervention.tl, value: link_to( "N°" + last_intervention.number, backend_intervention_path(last_intervention)) }
-          end
-
-          if issues = Issue.where(target_id: p.id, target_type: 'Product' ).reorder(:observed_at)
+          issues = Issue.where(target_id: p.id, target_type: 'Plant' ).reorder(:observed_at)
+          
+          if issues.any?
             popup_content << {label: :issues_count.tl, value: issues.count }
           end
 
           if issues.any? and last_issue = issues.last
             popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
+          end
+          
+          gradings = p.gradings.reorder(:sampled_at)
+          
+          if gradings.any?
+            popup_content << {label: :last_grading.tl, value: link_to( gradings.last.position, backend_product_grading_path(gradings.last)) }
           end
 
           popup_content << render('popup', plant: p)
@@ -68,10 +66,10 @@
 
       = visualization(box: {height: "100%"}) do |v|
         - v.serie :main, data
-        - v.bubbles :age, :main
-        - v.choropleth :interventions_count, :main, hidden: true
+        -# v.bubbles :age, :main
+        -# v.choropleth :interventions_count, :main, hidden: true
         - v.choropleth :plantation_density, :main
-        -# v.categories :variety, :main
+        - v.categories :variety, :main
         - v.choropleth :watering_concentration, :main, stop_color: "#1122DD", hidden: true
         - v.control :zoom
         - v.control :scale
