@@ -1789,6 +1789,7 @@ subscription_natures:
     actions:
     - "backend/subscription_natures#index"
     - "backend/subscription_natures#list"
+    - "backend/subscription_natures#list_subscriptions"
     - "backend/subscription_natures#show"
     - "backend/subscription_natures#unroll"
   write:
@@ -1796,10 +1797,8 @@ subscription_natures:
     - read-subscription_natures
     actions:
     - "backend/subscription_natures#create"
-    - "backend/subscription_natures#decrement"
     - "backend/subscription_natures#destroy"
     - "backend/subscription_natures#edit"
-    - "backend/subscription_natures#increment"
     - "backend/subscription_natures#new"
     - "backend/subscription_natures#update"
 
@@ -1818,6 +1817,7 @@ subscriptions:
     - "backend/subscriptions#destroy"
     - "backend/subscriptions#edit"
     - "backend/subscriptions#new"
+    - "backend/subscriptions#renew"
     - "backend/subscriptions#update"
 
 supervisions:

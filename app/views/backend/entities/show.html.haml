@@ -129,7 +129,7 @@
 
       - c.cobble(:subscriptions, title: :x_subscriptions.tl(count: resource.subscriptions.count)) do
         = cobble_toolbar do |t|
-          = t.new(params: {controller: :subscriptions, entity_id: resource.id})
+          = t.new(params: {controller: :subscriptions, subscriber_id: resource.id, address_id: resource.default_mail_address_id})
         - if resource.subscriptions.any?
           = cobble_list(:subscriptions)
 

@@ -10,6 +10,9 @@
       - l.attribute :number
       - l.attribute :active
       - l.attribute :category, url: true
+      - l.attribute :subscribing
+      - if resource.subscribing
+        - l.attribute :subscription_duration
       - l.attribute :description
 
   - c.cobble :variants, title: ProductNature.human_attribute_name(:variants) do

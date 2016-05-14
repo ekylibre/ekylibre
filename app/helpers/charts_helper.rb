@@ -73,11 +73,9 @@ module ChartsHelper
   end
 
   def normalize_serie(values, x_values, default = 0.0)
-    data = []
-    for x in x_values
-      data << (values[x] || default).to_s.to_f
+    x_values.map do |x|
+      (values[x] || default).to_s.to_f
     end
-    data
   end
 
   # Permit to produce pie or gauge

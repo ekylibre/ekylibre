@@ -1427,6 +1427,7 @@ spa:
     remove: "Retirar"
     remove_item: "Remover el artículo"
     remove_subscription: "Retirar la suscripción"
+    # renewed: "Renewed"
     reopen: "Volver a abrir el periodico" #?
     repayments: "Reembolsos"
     repayments_graph: "Reembolsos gráfico"
@@ -1526,6 +1527,7 @@ spa:
     source: "Fuente de datos"
     start: "Del"
     start_new_intervention_here: "Comenzar una nueva intervención aquí"
+    # started: "Started"
     state: "Estado"
     statistics: "Estadística"
     stewardship: "Administración"
@@ -1536,6 +1538,7 @@ spa:
     # stock_of_x: "Stock of %{x}"
     stocks: "Cepo"
     stop: "Detener"
+    # stopped: "Stopped"
     storage: "Almacenamiento"
     # storages: "Silos and tanks"
     subject: "Tema"

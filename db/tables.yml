@@ -4763,11 +4763,6 @@ product_nature_categories:
     type: boolean
     required: true
     default: false
-  subscription_duration:
-    type: string
-  subscription_nature_id:
-    type: integer
-    references: subscription_nature
   updated_at:
     type: datetime
     required: true
@@ -4987,6 +4982,22 @@ product_natures:
     required: true
   reference_name:
     type: string
+  subscribing:
+    type: boolean
+    required: true
+    default: false
+  subscription_days_count:
+    type: integer
+    required: true
+  subscription_months_count:
+    type: integer
+    required: true
+  subscription_nature_id:
+    type: integer
+    references: subscription_nature
+  subscription_years_count:
+    type: integer
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -5862,8 +5873,6 @@ sequences:
   usage:
     type: string
 subscription_natures:
-  actual_number:
-    type: integer
   created_at:
     type: datetime
     required: true
@@ -5872,10 +5881,6 @@ subscription_natures:
     references: user
   description:
     type: text
-  entity_link_direction:
-    type: string
-  entity_link_nature:
-    type: string
   id:
     type: integer
     required: true
@@ -5885,13 +5890,6 @@ subscription_natures:
   name:
     type: string
     required: true
-  nature:
-    type: string
-    required: true
-  reduction_percentage:
-    type: decimal
-    precision: 19
-    scale: 4
   updated_at:
     type: datetime
     required: true
@@ -5912,13 +5910,9 @@ subscriptions:
     type: jsonb
   description:
     type: text
-  first_number:
-    type: integer
   id:
     type: integer
     required: true
-  last_number:
-    type: integer
   lock_version:
     type: integer
     required: true
@@ -5927,23 +5921,21 @@ subscriptions:
     references: subscription_nature
   number:
     type: string
-  product_nature_id:
+  parent_id:
     type: integer
-    references: product_nature
+    references: subscription
   quantity:
-    type: decimal
-    precision: 19
-    scale: 4
-  sale_id:
     type: integer
-    references: sale
+    required: true
   sale_item_id:
     type: integer
     references: sale_item
-  started_at:
-    type: datetime
-  stopped_at:
-    type: datetime
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
   subscriber_id:
     type: integer
     references: entity
@@ -5951,6 +5943,9 @@ subscriptions:
     type: boolean
     required: true
     default: false
+  swim_lane_uuid:
+    type: uuid
+    required: true
   updated_at:
     type: datetime
     required: true

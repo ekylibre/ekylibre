@@ -1656,6 +1656,7 @@ fra:
     remove_subscription: "Supprimer l’abonnement"
     remove_treatment: "Supprimer un traitement" #?
     remove_watching: "Supprimer un produit de référence" #?
+    renewed: "Renouvellés"
     reopen: "Déclôturer" #?
     reopen_journal: "Déclôturer le journal" #?
     repayments: "Remboursements"
@@ -1783,6 +1784,7 @@ fra:
     spraying_map: "Carte de pulvérisation" #?
     start: "Du"
     start_new_intervention_here: "Commencer une nouvelle intervention ici"
+    started: "Nouveaux"
     state: "État"
     statistics: "Statistiques"
     status: "État" #?
@@ -1796,6 +1798,7 @@ fra:
     stocks: "Stocks"
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
+    stopped: "Arrêtés"
     storage: "Support"
     # storages: "Silos and tanks"
     string_case: "Options pour le texte" #?

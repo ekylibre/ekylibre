@@ -330,22 +330,32 @@ class Sale < Ekylibre::Record::Base
     !credit
   end
 
-  # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions
+  # Duplicates a +sale+ in estimate state with its items and its active
+  # subscriptions
   def duplicate(attributes = {})
     raise StandardError, 'Uncancelable sale' unless duplicatable?
-    hash = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description, :currency].inject({}) do |h, field|
+    hash = [:client_id, :nature_id, :currency, :letter_format, :annotation,
+            :subject, :function_title, :introduction, :conclusion,
+            :description, :currency].inject({}) do |h, field|
       h[field] = send(field)
       h
     end.merge(attributes)
     # Items
     items_attributes = {}
     items.each_with_index do |item, index|
-      items_attributes[index] = [:variant_id, :quantity, :amount, :currency, :label, :position, :pretax_amount, :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount].inject({}) do |h, field|
+      items_attributes[index] = [
+        :variant_id, :quantity, :amount, :currency, :label, :position,
+        :pretax_amount, :reduction_percentage, :tax_id, :unit_amount,
+        :unit_pretax_amount
+      ].inject({}) do |h, field|
         h[field] = item.send(field)
         # Subscriptions
         h[:subscriptions_attributes] = {}
         subscriptions.where(suspended: false).each_with_index do |subscription, j|
-          h[:subscriptions_attributes][j] = [:subscriber_id, :address_id, :quantity_id, :nature_id, :product_nature_id].inject({}) do |sh, field|
+          h[:subscriptions_attributes][j] = [
+            :subscriber_id, :address_id, :quantity_id, :nature_id,
+            :product_nature_id
+          ].inject({}) do |sh, field|
             sh[field] = subscription.send(field)
             sh
           end

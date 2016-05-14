@@ -609,6 +609,7 @@ eng:
       edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Subscriptions"
       new: "New subscription"
+      # renew: "Renew subscription: %{name}"
       # show: "Subscription: %{name}"
     backend/supervisions:
       edit: "Edit supervision: %{name}"
@@ -943,6 +944,7 @@ eng:
     costs: "Costs"
     costs_map: "Costs map" #?!
     costs_per_hectare: "Costs per hectare"
+    # count: "Count"
     counts: "Counts" #?
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
@@ -1125,7 +1127,7 @@ eng:
     inputs: "Inputs"
     # inspections: "Inspections"
     internal_error: "Oops, something happened."
-    interval: "Personalized Interval"
+    interval: "Personalized Interval" #?
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
     intervention_product_parameters: "Intervention casts"
@@ -1227,7 +1229,7 @@ eng:
     name: "Name" #?
     nature: "Type"
     nature_changed: "Le type des animaux a changé"
-    natures: "Types"
+    natures: "Types" #?
     net_margin: "Net margin" #?!
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
@@ -1282,7 +1284,7 @@ eng:
     number: "Number" #?
     number_of_cap_islets: "Number of cap islets"
     number_of_cap_land_parcels: "Number of cap land parcels"
-    number_options: "Options Numbers"
+    number_options: "Options Numbers" #??
     numbers: "Numbers" #?
     ok: "OK" #?
     on_account: "On account" #?
@@ -1391,6 +1393,7 @@ eng:
     remove: "Remove"
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
+    renewed: "Renewed"
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
@@ -1435,7 +1438,7 @@ eng:
     select_date_generation: "Limit date for generation"
     select_file_to_upload: "Select file to upload"
     select_forward_journal: "Selected Journal to renew"
-    select_number: "Select number"
+    select_number: "Select number" #??
     selection: "Selection" #?
     send_mail: "Send mail"
     send_test_mail: "Send test mail"
@@ -1456,6 +1459,7 @@ eng:
     source: "Source" #?
     start: "From" #?
     start_new_intervention_here: "Start new intervention here"
+    started: "Started"
     state: "State"
     statistics: "Statistics" #?
     stewardship: "Stewardship"
@@ -1465,6 +1469,7 @@ eng:
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
     stop: "Stop" #?
+    stopped: "Stopped"
     storage: "Storage" #?
     storages: "Silos and tanks" #?!
     subject: "Subject"
@@ -1761,8 +1766,8 @@ eng:
       need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice" #?
       need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
       need_to_create_productions: "Need to create productions" #?
-      need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
-      new_actual_number: "The new number is being %{actual_number}"
+      need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions" #?
+      new_actual_number: "The new number is being %{actual_number}" #?
       no_archived_prints: "No archived prints"
       no_authenticated: "You could not be identified. The user name or password must be incorrect." #?
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
@@ -1784,6 +1789,7 @@ eng:
       sensor_is_out_of_service: "Sensor %{name} is out of service: %{message}"
       sensor_reading_failed: "Sensor %{name} reading failed: %{message}"
       some_parcels_are_not_shippable: "Some parcels are not shippable"
+      # subscription_is_not_renewable: "Subscription is not renewable"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unexpected_resource_type: "Unexpected resource type: %{type}"
@@ -1835,7 +1841,7 @@ eng:
       correct: "Correct"
       create: "Create"
       # current: "Current"
-      decrement: "Decrement"
+      decrement: "Decrement" #?
       destroy: "Destroy"
       detach: "Detach"
       detail: "Detail"
@@ -1852,7 +1858,7 @@ eng:
       # give: "Give"
       import: "Import"
       incorporate: "Incorporate"
-      increment: "Increment"
+      increment: "Increment" #?
       index: "Index"
       invoice: "Invoice"
       list: "List"
@@ -1888,6 +1894,7 @@ eng:
       reflect: "Reflect"
       refresh: "Refresh"
       refuse: "Refuse"
+      # renew: "Renew"
       reopen: "Reopen"
       reset: "Reset"
       retrieve: "Retrieve"

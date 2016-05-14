@@ -3,10 +3,16 @@
   = f.input :name
   = f.input :number
   = f.input :active
-  = f.input :variety
-  = f.input :derivative_of
+  = f.referenced_nomenclature :variety
+  = f.referenced_nomenclature :derivative_of
   = f.input :population_counting, as: :radio_buttons
   = f.picture
+  = f.input :subscribing, show: '#subscribing-options'
+  #subscribing-options
+    = f.referenced_association :subscription_nature
+    = f.input :subscription_years_count
+    = f.input :subscription_months_count
+    = f.input :subscription_days_count
   = f.input :description
   = f.custom_fields
 

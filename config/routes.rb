@@ -779,8 +779,7 @@ Rails.application.routes.draw do
 
     resources :subscription_natures, concerns: [:list, :unroll], path: 'subscription-natures' do
       member do
-        post :increment
-        post :decrement
+        get :list_subscriptions
       end
     end
 
