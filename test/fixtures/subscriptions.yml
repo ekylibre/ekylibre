@@ -22,32 +22,30 @@
 #
 # == Table: subscriptions
 #
-#  address_id        :integer
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  custom_fields     :jsonb
-#  description       :text
-#  first_number      :integer
-#  id                :integer          not null, primary key
-#  last_number       :integer
-#  lock_version      :integer          default(0), not null
-#  nature_id         :integer
-#  number            :string
-#  product_nature_id :integer
-#  quantity          :decimal(19, 4)
-#  sale_id           :integer
-#  sale_item_id      :integer
-#  started_at        :datetime
-#  stopped_at        :datetime
-#  subscriber_id     :integer
-#  suspended         :boolean          default(FALSE), not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  address_id     :integer
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  custom_fields  :jsonb
+#  description    :text
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  nature_id      :integer
+#  number         :string
+#  parent_id      :integer
+#  quantity       :integer          not null
+#  sale_item_id   :integer
+#  started_on     :date             not null
+#  stopped_on     :date             not null
+#  subscriber_id  :integer
+#  suspended      :boolean          default(FALSE), not null
+#  swim_lane_uuid :uuid             not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 ---
 subscriptions_001:
   address_id: 3
-  created_at: 2014-10-31 17:19:32.000000000 Z
+  created_at: 2013-10-31 17:19:32.000000000 Z
   creator_id: 1
   first_number: 1
   id: 1
@@ -57,7 +55,7 @@ subscriptions_001:
   number: SUB0001
   subscriber_id: 6
   suspended: true
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  updated_at: 2013-10-31 17:19:32.000000000 Z
   updater_id: 1
 subscriptions_002:
   address_id: 3
@@ -86,4 +84,18 @@ subscriptions_003:
   subscriber_id: 6
   suspended: true
   updated_at: 2014-10-31 17:19:32.000000000 Z
+  updater_id: 1
+subscriptions_004:
+  address_id: 3
+  created_at: 2015-10-31 17:19:32.000000000 Z
+  creator_id: 1
+  first_number: 1
+  id: 4
+  last_number: 50
+  lock_version: 0
+  nature_id: 1
+  number: SUB0004
+  subscriber_id: 6
+  suspended: true
+  updated_at: 2015-10-31 17:19:32.000000000 Z
   updater_id: 1

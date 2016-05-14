@@ -1788,6 +1788,7 @@ arb:
     remove: "إزالة"
     remove_item: "إزالة بند"
     remove_subscription: "إزالة الاشتراك"
+    # renewed: "Renewed"
     reopen: "فتح الدفتر اليومي" #?
     repayments: "تسديد"
     repayments_graph: "تسديد الرسم البياني"
@@ -1907,6 +1908,7 @@ arb:
     source: "مصدر البيانات"
     start: "ابتداء من"
     start_new_intervention_here: "بدء التدخل الجديد هنا"
+    # started: "Started"
     state: "الحالة"
     statistics: "إحصائيات"
     stewardship: "إدارة"
@@ -1919,6 +1921,7 @@ arb:
     stock_transfer_create: "اضافة عملية نقل ام خسارة الاسهم" #?
     stocks: "ادارة الاسهم"
     stop: "لغاية"
+    # stopped: "Stopped"
     storage: "تخزين"
     # storages: "Silos and tanks"
     string_case: "خيارات للنص" #?

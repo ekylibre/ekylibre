@@ -3,9 +3,9 @@
 = field_set do
   = f.input :nature, as: :hidden
   - if nature == :contact
-    = f.input :title
-    = f.input :first_name
-    = f.input :last_name
+    = f.input :title, autocomplete: true
+    = f.input :first_name, autocomplete: true
+    = f.input :last_name, autocomplete: true
   - else
     = f.input :last_name, label: Entity.human_attribute_name(:full_name)
   = f.input :active, hide: :dead_at

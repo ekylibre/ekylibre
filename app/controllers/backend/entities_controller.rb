@@ -25,7 +25,7 @@ module Backend
 
     unroll
 
-    autocomplete_for :meeting_origin
+    autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
     # params:
     #   :q Text search
@@ -162,16 +162,17 @@ module Backend
       t.column :pretax_amount, currency: true
     end
 
-    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: 'stopped_at DESC, first_number DESC', line_class: "(RECORD.active? ? 'enough' : '')".c) do |t|
+    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: { stopped_on: :desc }, line_class: "(RECORD.active? ? 'enough' : '')".c) do |t|
       t.action :edit
+      t.action :renew, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
       t.action :destroy
-      t.column :number
-      t.column :nature
-      t.column :start
-      t.column :finish
-      t.column :sale, url: true, hidden: true
+      t.column :number, url: true
+      t.column :nature, url: true
       t.column :address, hidden: true
-      t.column :quantity, datatype: :decimal, hidden: true
+      t.column :started_on
+      t.column :stopped_on
+      t.column :sale, url: true, hidden: true
+      t.column :quantity, hidden: true
       t.column :suspended, hidden: true
     end
 

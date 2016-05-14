@@ -307,7 +307,7 @@ eng:
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     actor: "Actor" #?
-    actual_number: "Actual number"
+    actual_number: "Actual number" #?
     actual_population: "Actual population"
     actual_shape: "Actual shape" #?
     address: "Address"
@@ -541,8 +541,8 @@ eng:
     enjoyer: "Enjoyer"
     enjoyments: "Enjoyments"
     entity: "Person 1"
-    entity_link_direction: "Entity link direction"
-    entity_link_nature: "Person link type"
+    entity_link_direction: "Entity link direction" #?
+    entity_link_nature: "Person link type" #?
     entity_role: "Entity role"
     entries: "Entries"
     entry: "Entry"
@@ -587,7 +587,7 @@ eng:
     finish: "Finish"
     first_met_at: "First met on"
     first_name: "First name"
-    first_number: "First number"
+    first_number: "First number" #?
     first_producer: "First producer" #?
     fixed: "Fixed"
     fixed_asset: "Fixed asset"
@@ -942,9 +942,10 @@ eng:
     product_memberships: "Product memberships" #?
     product_movement: "Product movement"
     product_nature: "Product type"
-    product_nature_categories: "Product type categories"
+    product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"
     product_nature_category_taxations: "Product type category taxations"
+    # product_natures: "Product natures"
     product_ownership: "Product ownership"
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
@@ -1126,8 +1127,11 @@ eng:
     subject_type: "Subject type"
     subscriber: "Subscriber"
     subscribing: "Subscribing"
+    # subscription_days_count: "Subscription days count"
     subscription_duration: "Subscription duration"
+    # subscription_months_count: "Subscription months count"
     subscription_nature: "Subscription type"
+    # subscription_years_count: "Subscription years count"
     subscriptions: "Subscriptions"
     supervision: "Supervision"
     supplier: "Supplier"
@@ -1143,6 +1147,7 @@ eng:
     support_variety: "Support variety"
     supports: "Supports"
     suspended: "Suspended"
+    # swim_lane_uuid: "Swim lane uuid"
     target: "Target"
     target_type: "Target type"
     target_url: "Target url"

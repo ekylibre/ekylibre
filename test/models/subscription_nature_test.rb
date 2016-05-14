@@ -22,19 +22,14 @@
 #
 # == Table: subscription_natures
 #
-#  actual_number         :integer
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  description           :text
-#  entity_link_direction :string
-#  entity_link_nature    :string
-#  id                    :integer          not null, primary key
-#  lock_version          :integer          default(0), not null
-#  name                  :string           not null
-#  nature                :string           not null
-#  reduction_percentage  :decimal(19, 4)
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 
 require 'test_helper'

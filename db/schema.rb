@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160503125501) do
+ActiveRecord::Schema.define(version: 20160512061327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2443,8 +2443,6 @@ ActiveRecord::Schema.define(version: 20160503125501) do
     t.boolean  "storable",                                                     default: false, null: false
     t.boolean  "reductible",                                                   default: false, null: false
     t.boolean  "subscribing",                                                  default: false, null: false
-    t.integer  "subscription_nature_id"
-    t.string   "subscription_duration"
     t.integer  "charge_account_id"
     t.integer  "product_account_id"
     t.integer  "fixed_asset_account_id"
@@ -2471,7 +2469,6 @@ ActiveRecord::Schema.define(version: 20160503125501) do
   add_index "product_nature_categories", ["number"], name: "index_product_nature_categories_on_number", unique: true, using: :btree
   add_index "product_nature_categories", ["product_account_id"], name: "index_product_nature_categories_on_product_account_id", using: :btree
   add_index "product_nature_categories", ["stock_account_id"], name: "index_product_nature_categories_on_stock_account_id", using: :btree
-  add_index "product_nature_categories", ["subscription_nature_id"], name: "index_product_nature_categories_on_subscription_nature_id", using: :btree
   add_index "product_nature_categories", ["updated_at"], name: "index_product_nature_categories_on_updated_at", using: :btree
   add_index "product_nature_categories", ["updater_id"], name: "index_product_nature_categories_on_updater_id", using: :btree
 
@@ -2554,15 +2551,15 @@ ActiveRecord::Schema.define(version: 20160503125501) do
   add_index "product_nature_variants", ["updater_id"], name: "index_product_nature_variants_on_updater_id", using: :btree
 
   create_table "product_natures", force: :cascade do |t|
-    t.integer  "category_id",                              null: false
-    t.string   "name",                                     null: false
-    t.string   "number",                                   null: false
-    t.string   "variety",                                  null: false
+    t.integer  "category_id",                               null: false
+    t.string   "name",                                      null: false
+    t.string   "number",                                    null: false
+    t.string   "variety",                                   null: false
     t.string   "derivative_of"
     t.string   "reference_name"
-    t.boolean  "active",                   default: false, null: false
-    t.boolean  "evolvable",                default: false, null: false
-    t.string   "population_counting",                      null: false
+    t.boolean  "active",                    default: false, null: false
+    t.boolean  "evolvable",                 default: false, null: false
+    t.string   "population_counting",                       null: false
     t.text     "abilities_list"
     t.text     "variable_indicators_list"
     t.text     "frozen_indicators_list"
@@ -2573,12 +2570,17 @@ ActiveRecord::Schema.define(version: 20160503125501) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.text     "description"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",             default: 0,     null: false
+    t.integer  "lock_version",              default: 0,     null: false
     t.jsonb    "custom_fields"
+    t.boolean  "subscribing",               default: false, null: false
+    t.integer  "subscription_nature_id"
+    t.integer  "subscription_years_count",  default: 0,     null: false
+    t.integer  "subscription_months_count", default: 0,     null: false
+    t.integer  "subscription_days_count",   default: 0,     null: false
   end
 
   add_index "product_natures", ["category_id"], name: "index_product_natures_on_category_id", using: :btree
@@ -2586,6 +2588,7 @@ ActiveRecord::Schema.define(version: 20160503125501) do
   add_index "product_natures", ["creator_id"], name: "index_product_natures_on_creator_id", using: :btree
   add_index "product_natures", ["name"], name: "index_product_natures_on_name", using: :btree
   add_index "product_natures", ["number"], name: "index_product_natures_on_number", unique: true, using: :btree
+  add_index "product_natures", ["subscription_nature_id"], name: "index_product_natures_on_subscription_nature_id", using: :btree
   add_index "product_natures", ["updated_at"], name: "index_product_natures_on_updated_at", using: :btree
   add_index "product_natures", ["updater_id"], name: "index_product_natures_on_updater_id", using: :btree
 
@@ -3037,18 +3040,13 @@ ActiveRecord::Schema.define(version: 20160503125501) do
   add_index "sequences", ["updater_id"], name: "index_sequences_on_updater_id", using: :btree
 
   create_table "subscription_natures", force: :cascade do |t|
-    t.string   "name",                                                       null: false
-    t.integer  "actual_number"
-    t.string   "nature",                                                     null: false
+    t.string   "name",                     null: false
     t.text     "description"
-    t.decimal  "reduction_percentage",  precision: 19, scale: 4
-    t.string   "entity_link_nature"
-    t.string   "entity_link_direction"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                   default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "subscription_natures", ["created_at"], name: "index_subscription_natures_on_created_at", using: :btree
@@ -3057,35 +3055,34 @@ ActiveRecord::Schema.define(version: 20160503125501) do
   add_index "subscription_natures", ["updater_id"], name: "index_subscription_natures_on_updater_id", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.integer  "first_number"
-    t.integer  "last_number"
-    t.integer  "sale_id"
-    t.integer  "product_nature_id"
+    t.date     "started_on",                     null: false
+    t.date     "stopped_on",                     null: false
     t.integer  "address_id"
-    t.decimal  "quantity",          precision: 19, scale: 4
-    t.boolean  "suspended",                                  default: false, null: false
+    t.integer  "quantity",                       null: false
+    t.boolean  "suspended",      default: false, null: false
     t.integer  "nature_id"
     t.integer  "subscriber_id"
     t.text     "description"
     t.string   "number"
     t.integer  "sale_item_id"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                               default: 0,     null: false
+    t.integer  "lock_version",   default: 0,     null: false
     t.jsonb    "custom_fields"
+    t.integer  "parent_id"
+    t.uuid     "swim_lane_uuid",                 null: false
   end
 
   add_index "subscriptions", ["address_id"], name: "index_subscriptions_on_address_id", using: :btree
   add_index "subscriptions", ["created_at"], name: "index_subscriptions_on_created_at", using: :btree
   add_index "subscriptions", ["creator_id"], name: "index_subscriptions_on_creator_id", using: :btree
   add_index "subscriptions", ["nature_id"], name: "index_subscriptions_on_nature_id", using: :btree
-  add_index "subscriptions", ["product_nature_id"], name: "index_subscriptions_on_product_nature_id", using: :btree
-  add_index "subscriptions", ["sale_id"], name: "index_subscriptions_on_sale_id", using: :btree
+  add_index "subscriptions", ["parent_id"], name: "index_subscriptions_on_parent_id", using: :btree
   add_index "subscriptions", ["sale_item_id"], name: "index_subscriptions_on_sale_item_id", using: :btree
+  add_index "subscriptions", ["started_on"], name: "index_subscriptions_on_started_on", using: :btree
+  add_index "subscriptions", ["stopped_on"], name: "index_subscriptions_on_stopped_on", using: :btree
   add_index "subscriptions", ["subscriber_id"], name: "index_subscriptions_on_subscriber_id", using: :btree
   add_index "subscriptions", ["updated_at"], name: "index_subscriptions_on_updated_at", using: :btree
   add_index "subscriptions", ["updater_id"], name: "index_subscriptions_on_updater_id", using: :btree

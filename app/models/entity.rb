@@ -321,7 +321,11 @@ class Entity < Ekylibre::Record::Base
   end
 
   def default_mail_coordinate
-    default_address ? default_address.coordinate : '[NoDefaultEntityAddressError]'
+    default_mail_address ? default_mail_address.coordinate : nil
+  end
+
+  def default_mail_address_id
+    default_mail_address ? default_mail_address.id : nil
   end
 
   def link_to!(entity, options = {})

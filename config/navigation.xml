@@ -1060,11 +1060,10 @@
       <item name="subscription_natures">
         <page to="backend/subscription_natures#index"/>
         <page to="backend/subscription_natures#create"/>
-        <page to="backend/subscription_natures#decrement"/>
         <page to="backend/subscription_natures#destroy"/>
         <page to="backend/subscription_natures#edit"/>
-        <page to="backend/subscription_natures#increment"/>
         <page to="backend/subscription_natures#list"/>
+        <page to="backend/subscription_natures#list_subscriptions"/>
         <page to="backend/subscription_natures#new"/>
         <page to="backend/subscription_natures#update"/>
         <page to="backend/subscription_natures#show"/>
@@ -1435,6 +1434,7 @@
         <page to="backend/subscriptions#edit"/>
         <page to="backend/subscriptions#list"/>
         <page to="backend/subscriptions#new"/>
+        <page to="backend/subscriptions#renew"/>
         <page to="backend/subscriptions#show"/>
         <page to="backend/subscriptions#unroll"/>
         <page to="backend/subscriptions#update"/>

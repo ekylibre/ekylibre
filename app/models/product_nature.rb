@@ -22,32 +22,37 @@
 #
 # == Table: product_natures
 #
-#  abilities_list           :text
-#  active                   :boolean          default(FALSE), not null
-#  category_id              :integer          not null
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  custom_fields            :jsonb
-#  derivative_of            :string
-#  derivatives_list         :text
-#  description              :text
-#  evolvable                :boolean          default(FALSE), not null
-#  frozen_indicators_list   :text
-#  id                       :integer          not null, primary key
-#  linkage_points_list      :text
-#  lock_version             :integer          default(0), not null
-#  name                     :string           not null
-#  number                   :string           not null
-#  picture_content_type     :string
-#  picture_file_name        :string
-#  picture_file_size        :integer
-#  picture_updated_at       :datetime
-#  population_counting      :string           not null
-#  reference_name           :string
-#  updated_at               :datetime         not null
-#  updater_id               :integer
-#  variable_indicators_list :text
-#  variety                  :string           not null
+#  abilities_list            :text
+#  active                    :boolean          default(FALSE), not null
+#  category_id               :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  derivative_of             :string
+#  derivatives_list          :text
+#  description               :text
+#  evolvable                 :boolean          default(FALSE), not null
+#  frozen_indicators_list    :text
+#  id                        :integer          not null, primary key
+#  linkage_points_list       :text
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  number                    :string           not null
+#  picture_content_type      :string
+#  picture_file_name         :string
+#  picture_file_size         :integer
+#  picture_updated_at        :datetime
+#  population_counting       :string           not null
+#  reference_name            :string
+#  subscribing               :boolean          default(FALSE), not null
+#  subscription_days_count   :integer          default(0), not null
+#  subscription_months_count :integer          default(0), not null
+#  subscription_nature_id    :integer
+#  subscription_years_count  :integer          default(0), not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  variable_indicators_list  :text
+#  variety                   :string           not null
 #
 
 class ProductNature < Ekylibre::Record::Base
@@ -55,10 +60,10 @@ class ProductNature < Ekylibre::Record::Base
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   refers_to :reference_name, class_name: 'ProductNature'
-  # Be careful with the fact that it depends directly on the nomenclature definition
-  # refers_to :population_counting, class_name: 'ProductNature::PopulationCounting'
   enumerize :population_counting, in: [:unitary, :integer, :decimal], predicates: { prefix: true }
   belongs_to :category, class_name: 'ProductNatureCategory'
+  belongs_to :subscription_nature
+  has_many :subscriptions, through: :subscription_nature
   has_many :products, foreign_key: :nature_id, dependent: :restrict_with_exception
   has_many :variants, class_name: 'ProductNatureVariant', foreign_key: :nature_id, inverse_of: :nature, dependent: :restrict_with_exception
   has_one :default_variant, -> { order(:id) }, class_name: 'ProductNatureVariant', foreign_key: :nature_id
@@ -74,7 +79,7 @@ class ProductNature < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_inclusion_of :active, :evolvable, in: [true, false]
+  validates_inclusion_of :active, :evolvable, :subscribing, in: [true, false]
   validates_presence_of :category, :name, :number, :population_counting, :variety
   # ]VALIDATORS]
   validates_length_of :number, allow_nil: true, maximum: 30
@@ -82,11 +87,12 @@ class ProductNature < Ekylibre::Record::Base
   validates_uniqueness_of :number
   validates_uniqueness_of :name
   validates_attachment_content_type :picture, content_type: /image/
+  validates_presence_of :subscription_nature, if: :subscribing?
 
   accepts_nested_attributes_for :variants, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: false
 
-  delegate :subscribing?, :deliverable?, :purchasable?, :to, to: :category
+  delegate :deliverable?, :purchasable?, :to, to: :category
   delegate :fixed_asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   scope :availables, -> { where(active: true).order(:name) }
@@ -134,6 +140,17 @@ class ProductNature < Ekylibre::Record::Base
     # end
     # self.indicators = self.indicators_array.map(&:name).sort.join(", ")
     # self.abilities_list = self.abilities_list.sort.join(", ")
+    self.subscription_years_count ||= 0
+    self.subscription_months_count ||= 0
+    self.subscription_days_count ||= 0
+  end
+
+  validate do
+    if subscribing
+      if self.subscription_years_count.zero? && self.subscription_months_count.zero? && self.subscription_days_count.zero?
+        errors.add(:subscription_months_count, :invalid)
+      end
+    end
   end
 
   def has_indicator?(indicator)
@@ -251,6 +268,15 @@ class ProductNature < Ekylibre::Record::Base
 
   def picture_path(style = :original)
     picture.path(style)
+  end
+
+  # Return humanized duration
+  def subscription_duration
+    l = []
+    l << 'x_years'.tl(count: self.subscription_years_count) if self.subscription_years_count > 0
+    l << 'x_months'.tl(count: self.subscription_months_count) if self.subscription_months_count > 0
+    l << 'x_days'.tl(count: self.subscription_days_count) if self.subscription_days_count > 0
+    l.to_sentence
   end
 
   class << self
