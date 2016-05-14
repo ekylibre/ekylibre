@@ -268,11 +268,11 @@ fra:
       index: "Relevés topographiques"
       new: "Nouveau relevé topographique"
       show: "Relevé topographique\_: %{name}"
-    backend/grading_quality_criteria:
-      edit: "Modifier le critère qualité d’agréage\_: %{name}"
-      index: "Critères qualité d’agréage"
-      new: "Nouveau critère qualité d’agréage"
-      show: "Critère qualité d’agréage\_: %{name}"
+    backend/grading_quality_criteria:  #?
+      edit: "Modifier le critère qualité d’agréage\_: %{name}" #?
+      index: "Critères qualité d’agréage" #?
+      new: "Nouveau critère qualité d’agréage" #?
+      show: "Critère qualité d’agréage\_: %{name}" #?
     backend/guide_analyses:
       show: "Analyse N°%{execution_number} du %{guide}"
     backend/guides:
@@ -314,6 +314,11 @@ fra:
       index: "Encaissements"
       new: "Nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
+    backend/inspections:
+      edit: "Modifier l’agréage\_: %{number}"
+      index: "Agréages"
+      new: "Nouvel agréage"
+      show: "Agréage\_: %{number}"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       index: "Interventions"
@@ -466,11 +471,6 @@ fra:
       index: "Prescriptions"
       new: "Nouvelle prescription"
       show: "Prescription\_: %{reference_number}"
-    backend/product_gradings:
-      edit: "Modifier l’agréage\_: %{number}"
-      index: "Agréages"
-      new: "Nouvel agréage"
-      show: "Agréage\_: %{number}"
     backend/product_groups:
       edit: "Modifier le groupe\_: %{name}"
       index: "Groupes de produits"
@@ -1868,7 +1868,7 @@ fra:
     total_pretax_revenues: "Revenus (HT)"
     total_quantity: "Quantité totale"
     total_unpaid_amount: "Montant total impayé"
-    totals: "Totaux (pièces validées et brouillard)"
+    totals: "Totaux"
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"
@@ -1997,10 +1997,6 @@ fra:
       one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
       zero: " Aucun événement de type %{nature}"
-    x_gradings:  #?
-      one: "%{count} agréage" #?
-      other: "%{count} agréages" #?
-      zero: "Aucun agréage" #?
     x_has_been_cleared: "%{x} a été effacé (anciennement %{a})"
     x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}"
     x_has_been_updated_to_a: "%{x} a été mis à jour avec %{a}"
@@ -2013,6 +2009,9 @@ fra:
     x_incoming_payments_to_deposit:
       one: "%{count} encaissement à déposer"
       other: "%{count} encaissements à déposer"
+    x_inspections:
+      one: "%{count} agréage"
+      other: "%{count} agréages"
     x_intervention_product_parameters:
       one: "%{count} intervention"
       other: "%{count} interventions"
@@ -2351,7 +2350,7 @@ fra:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
-    backend/activity_grading_checks: "%{activity_name} - %{quality_criterion_name}" #?
+    backend/activity_inspection_point_natures: "%{activity_name} - %{quality_criterion_name}" #?
     backend/activity_productions: "%{activity_name} %{support_name} n°%{rank_number}"
     backend/animals: "%{name} ‒ %{work_number}"
     backend/campaigns: "%{name}"

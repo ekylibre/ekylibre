@@ -125,10 +125,6 @@ activities:
   family:
     type: string
     required: true
-  grading_calibre_indicator_name:
-    type: string
-  grading_calibre_unit_name:
-    type: string
   grading_net_mass_unit_name:
     type: string
   grading_sizes_indicator_name:
@@ -166,10 +162,6 @@ activities:
     required: true
   production_system_name:
     type: string
-  second_grading_calibre_indicator_name:
-    type: string
-  second_grading_calibre_unit_name:
-    type: string
   size_indicator_name:
     type: string
   size_unit_name:
@@ -190,15 +182,7 @@ activities:
     type: boolean
     required: true
     default: false
-  use_grading_calibre:
-    type: boolean
-    required: true
-    default: false
   use_gradings:
-    type: boolean
-    required: true
-    default: false
-  use_second_grading_calibre:
     type: boolean
     required: true
     default: false
@@ -328,7 +312,44 @@ activity_distributions:
   updater_id:
     type: integer
     references: user
-activity_grading_checks:
+activity_inspection_calibration_natures:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  marketable:
+    type: boolean
+    required: true
+    default: false
+  maximal_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  minimal_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  scale_id:
+    type: integer
+    references: activity_inspection_calibration_scale
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+activity_inspection_calibration_scales:
   activity_id:
     type: integer
     references: activity
@@ -345,22 +366,41 @@ activity_grading_checks:
   lock_version:
     type: integer
     required: true
-  maximal_calibre_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  minimal_calibre_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  nature:
+  size_indicator_name:
     type: string
     required: true
-  position:
+  size_unit_name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
     type: integer
-  quality_criterion_id:
+    references: user
+activity_inspection_point_natures:
+  activity_id:
     type: integer
-    references: grading_quality_criterion
+    references: activity
+    required: true
+  category:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -2239,30 +2279,6 @@ georeadings:
   updater_id:
     type: integer
     references: user
-grading_quality_criteria:
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  name:
-    type: string
-    required: true
-  nature:
-    type: string
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 guide_analyses:
   acceptance_status:
     type: string
@@ -2593,6 +2609,143 @@ incoming_payments:
   to_bank_at:
     type: datetime
     required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+inspection_calibrations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  inspection_id:
+    type: integer
+    references: inspection
+    required: true
+  items_count:
+    type: integer
+  lock_version:
+    type: integer
+    required: true
+  maximal_size_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  minimal_size_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  nature_id:
+    type: integer
+    references: activity_inspection_calibration_nature
+    required: true
+  net_mass_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+inspection_points:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  inspection_id:
+    type: integer
+    references: inspection
+    required: true
+  items_count:
+    type: integer
+  lock_version:
+    type: integer
+    required: true
+  maximal_size_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  minimal_size_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  nature_id:
+    type: integer
+    references: activity_inspection_point_nature
+    required: true
+  net_mass_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+inspections:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  comment:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  implanter_application_width:
+    type: decimal
+    precision: 19
+    scale: 4
+  implanter_rows_number:
+    type: integer
+  implanter_working_width:
+    type: decimal
+    precision: 19
+    scale: 4
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  product_net_surface_area_unit:
+    type: string
+  product_net_surface_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  sampled_at:
+    type: datetime
+    required: true
+  sampling_distance:
+    type: decimal
+    precision: 19
+    scale: 4
   updated_at:
     type: datetime
     required: true
@@ -4316,100 +4469,6 @@ product_enjoyments:
   updater_id:
     type: integer
     references: user
-product_grading_checks:
-  activity_grading_check_id:
-    type: integer
-    references: activity_grading_check
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  items_count:
-    type: integer
-  lock_version:
-    type: integer
-    required: true
-  maximal_size_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  minimal_size_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  net_mass_value:
-    type: decimal
-    precision: 19
-    scale: 4
-  product_grading_id:
-    type: integer
-    references: product_grading
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-product_gradings:
-  activity_id:
-    type: integer
-    references: activity
-    required: true
-  comment:
-    type: text
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  implanter_application_width:
-    type: decimal
-    precision: 19
-    scale: 4
-  implanter_rows_number:
-    type: integer
-  implanter_working_width:
-    type: decimal
-    precision: 19
-    scale: 4
-  lock_version:
-    type: integer
-    required: true
-  net_surface_area_in_hectare:
-    type: decimal
-    precision: 19
-    scale: 4
-  number:
-    type: string
-    required: true
-  product_id:
-    type: integer
-    references: product
-    required: true
-  sampled_at:
-    type: datetime
-    required: true
-  sampling_distance:
-    type: decimal
-    precision: 19
-    scale: 4
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 product_linkages:
   carried_id:
     type: integer
@@ -5203,10 +5262,6 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
-  ready_to_harvest:
-    type: boolean
-    required: true
-    default: false
   tracking_id:
     type: integer
     references: tracking

@@ -5,7 +5,9 @@
 - activity_budget
 - activity_budget_item
 - activity_distribution
-- activity_grading_check
+- activity_inspection_calibration_nature
+- activity_inspection_calibration_scale
+- activity_inspection_point_nature
 - activity_production
 - affair
 - analysis
@@ -51,7 +53,6 @@
 - gap
 - gap_item
 - georeading
-- grading_quality_criterion
 - guide
 - guide_analysis
 - guide_analysis_point
@@ -59,6 +60,9 @@
 - import
 - incoming_payment
 - incoming_payment_mode
+- inspection
+- inspection_calibration
+- inspection_point
 - intervention
 - intervention_agent
 - intervention_doer
@@ -104,8 +108,6 @@
 - prescription
 - product
 - product_enjoyment
-- product_grading
-- product_grading_check
 - product_group
 - product_link
 - product_linkage

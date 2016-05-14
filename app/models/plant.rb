@@ -56,7 +56,6 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
-#  ready_to_harvest      :boolean          default(FALSE), not null
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null

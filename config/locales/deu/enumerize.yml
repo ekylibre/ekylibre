@@ -16,6 +16,11 @@ deu:
         per_campaign: "pro Kampagne"
         per_production: "per Produktion"
         per_working_unit: "Je Arbeitseinheit"
+    activity_inspection_point_nature:
+      category:
+        # deformity: "Deformity"
+        # disease: "Disease"
+        # none: "None"
     activity_production:
       support_nature:
         border: "Rand"

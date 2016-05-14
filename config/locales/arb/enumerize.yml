@@ -16,6 +16,11 @@ arb:
         per_campaign: "في حملة"
         per_production: "في الانتاج"
         per_working_unit: "لكل وحدة العمل"
+    activity_inspection_point_nature:
+      category:
+        # deformity: "Deformity"
+        # disease: "Disease"
+        # none: "None"
     activity_production:
       support_nature:
         border: "الحدود"

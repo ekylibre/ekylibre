@@ -20,31 +20,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: grading_quality_criteria
+# == Table: activity_inspection_calibration_scales
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string           not null
-#  nature       :string
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  activity_id         :integer          not null
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  size_indicator_name :string           not null
+#  size_unit_name      :string           not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
----
-grading_quality_criteria_001:
-  created_at: 2016-05-10 19:12:00.661600000 Z
-  creator_id: 1
-  id: 1
-  lock_version: 0
-  name: Défaut de couleur
-  updated_at: 2016-05-10 19:12:00.661600000 Z
-  updater_id: 1
-grading_quality_criteria_002:
-  created_at: 2016-05-10 19:12:11.404544000 Z
-  creator_id: 1
-  id: 2
-  lock_version: 0
-  name: Défaut de forme
-  updated_at: 2016-05-10 19:12:11.404544000 Z
-  updater_id: 1
+require 'test_helper'
+
+class ActivityInspectionCalibrationScaleTest < ActiveSupport::TestCase
+  # Add tests here...
+end

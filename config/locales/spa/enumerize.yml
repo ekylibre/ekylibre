@@ -16,6 +16,11 @@ spa:
         per_campaign: "Por campaña"
         per_production: "Por la producción"
         per_working_unit: "Por unidad de trabajo"
+    activity_inspection_point_nature:
+      category:
+        # deformity: "Deformity"
+        # disease: "Disease"
+        # none: "None"
     activity_production:
       support_nature:
         border: "Frontera"

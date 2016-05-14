@@ -16,6 +16,11 @@ jpn:
         per_campaign: "キャンペーンごと"
         per_production: "生産あたり"
         per_working_unit: "作業単位当たり"
+    activity_inspection_point_nature:
+      category:
+        # deformity: "Deformity"
+        # disease: "Disease"
+        # none: "None"
     activity_production:
       support_nature:
         border: "境界"

@@ -42,6 +42,8 @@ eng:
       # index: "Activity budgets"
       new: "New budget: %{name}"
       show: "Activity budget: %{name}"
+    backend/activity_inspection_point_natures:
+      # autocomplete: "Autocomplete activity inspection point nature: %{name}"
     backend/activity_productions:
       edit: "Edit activity production: %{name}"
       # index: "Activity productions"
@@ -359,11 +361,6 @@ eng:
     backend/golumns:
       # reset: "Reset golumn: %{name}"
       # show: "Golumn: %{name}"
-    backend/grading_quality_criteria:
-      edit: "Edit grading quality criterion: %{name}"
-      index: "Grading quality criteria"
-      new: "New grading quality criterion"
-      show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -399,6 +396,11 @@ eng:
       index: "Incoming payments"
       new: "New incoming payment"
       show: "Incoming payment %{number} of %{entity}"
+    backend/inspections:
+      edit: "Edit product grading\_: %{number}"
+      index: "Product gradings"
+      new: "New product grading"
+      show: "Product grading\_: %{number}"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
@@ -547,11 +549,6 @@ eng:
       index: "Prescriptions"
       new: "New prescription"
       show: "Prescription: %{reference_number}"
-    backend/product_gradings:
-      edit: "Edit product grading\_: %{number}"
-      index: "Product gradings"
-      new: "New product grading"
-      show: "Product grading\_: %{number}"
     backend/product_groups:
       edit: "Edit group: %{name}"
       index: "Product groups"
@@ -878,6 +875,7 @@ eng:
     add_fax: "Add fax"
     add_filter: "Add filter"
     add_grading_check: "Add grading check"
+    # add_inspection_calibration_nature: "Add inspection calibration nature"
     add_item: "Add item"
     add_linestring: "Add linestring"
     add_mail: "Add postal adress"
@@ -960,6 +958,7 @@ eng:
     calculate: "Calculate" #?
     calculators: "Calculators" #?
     calendar: "Calendar" #?
+    # calibrations: "Calibrations"
     campaign: "Campaign"
     canals: "Canals" #?
     cancel: "Cancel"
@@ -986,7 +985,6 @@ eng:
     change_password: "Change password"
     chart: "Chart"
     check: "Check"
-    # checks: "Checks"
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -1052,6 +1050,7 @@ eng:
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
     custom_fields: "Custom fields"
+    # data: "Data"
     dates: "Select period start date and Period end date" #?
     deals: "Deals"
     debit: "Debit" #?
@@ -1163,7 +1162,7 @@ eng:
     generate_last_journal_entry: "Generate last journal entry"
     geolocation: "Geolocation" #?
     go: "Go" #?
-    gradings: "Gradings"
+    gradings: "Gradings" #?
     grain_yield: "Grain yield"
     gross_profit: "Gross profit"
     group: "Group" #?
@@ -1203,6 +1202,7 @@ eng:
     input_cost: "Input cost"
     input_cost_per_hectare: "Input cost per hectare" #?!
     inputs: "Inputs"
+    # inspections: "Inspections"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval"
     intervention: "Intervention"
@@ -1683,7 +1683,6 @@ eng:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
       zero: "No events %{nature}"
-    # x_gradings: "X gradings"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1696,6 +1695,9 @@ eng:
     x_incoming_payments_to_deposit:
       one: "%{count} incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
+    x_inspections:
+      one: "%{count} inspection"
+      other: "%{count} inspections"
     x_intervention_product_parameters:
       one: "%{count} intervention cast"
       other: "%{count} intervention casts"
@@ -1769,6 +1771,7 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
+    # yield: "Yield"
     you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions." #?!
     you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:" #?!
     zones: "Zones"

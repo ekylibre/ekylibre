@@ -56,7 +56,6 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
-#  ready_to_harvest      :boolean          default(FALSE), not null
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -106,7 +105,7 @@ class Product < Ekylibre::Record::Base
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
   has_many :movements, class_name: 'ProductMovement', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
-  has_many :gradings, class_name: 'ProductGrading', foreign_key: :product_id, dependent: :destroy
+  has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :sensors
@@ -219,7 +218,6 @@ class Product < Ekylibre::Record::Base
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :initial_population, allow_nil: true
-  validates_inclusion_of :ready_to_harvest, in: [true, false]
   validates_presence_of :category, :name, :nature, :number, :variant, :variety
   # ]VALIDATORS]
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120

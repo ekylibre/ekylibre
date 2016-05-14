@@ -17,7 +17,7 @@
 #
 
 module Backend
-  class ProductGradingsController < Backend::BaseController
+  class InspectionsController < Backend::BaseController
     manage_restfully sampled_at: 'Time.zone.now'.c
 
     unroll
@@ -31,14 +31,6 @@ module Backend
       t.column :sampled_at, datatype: :datetime
       # t.column :implanter_rows_number
       # t.column :implanter_working_width
-    end
-
-    list(:checks, model: :product_grading_checks, conditions: { product_grading_id: 'params[:id]'.c }) do |t|
-      t.column :activity_grading_check, label_method: :name
-      t.column :items_count
-      t.column :net_mass_value
-      t.column :minimal_size_value
-      t.column :maximal_size_value
     end
   end
 end

@@ -20,43 +20,46 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_gradings
+# == Table: inspections
 #
-#  activity_id                 :integer          not null
-#  comment                     :text
-#  created_at                  :datetime         not null
-#  creator_id                  :integer
-#  id                          :integer          not null, primary key
-#  implanter_application_width :decimal(19, 4)
-#  implanter_rows_number       :integer
-#  implanter_working_width     :decimal(19, 4)
-#  lock_version                :integer          default(0), not null
-#  net_surface_area_in_hectare :decimal(19, 4)
-#  number                      :string           not null
-#  product_id                  :integer          not null
-#  sampled_at                  :datetime         not null
-#  sampling_distance           :decimal(19, 4)
-#  updated_at                  :datetime         not null
-#  updater_id                  :integer
+#  activity_id                    :integer          not null
+#  comment                        :text
+#  created_at                     :datetime         not null
+#  creator_id                     :integer
+#  id                             :integer          not null, primary key
+#  implanter_application_width    :decimal(19, 4)
+#  implanter_rows_number          :integer
+#  implanter_working_width        :decimal(19, 4)
+#  lock_version                   :integer          default(0), not null
+#  number                         :string           not null
+#  product_id                     :integer          not null
+#  product_net_surface_area_unit  :string
+#  product_net_surface_area_value :decimal(19, 4)
+#  sampled_at                     :datetime         not null
+#  sampling_distance              :decimal(19, 4)
+#  updated_at                     :datetime         not null
+#  updater_id                     :integer
 #
 ---
-product_gradings_001:
+inspections_001:
   activity_id: 22
   comment: ''
   created_at: 2016-05-10 19:19:24.866845000 Z
   creator_id: 1
   id: 1
-  implanter_application_width: 1.0
-  implanter_rows_number: 2
-  implanter_working_width: 0.5
-  lock_version: 0
+  implanter_application_width: 2.6
+  implanter_rows_number: 3
+  implanter_working_width: 0.8667
+  lock_version: 2
   number: PG000000000001
   product_id: 110
+  product_net_surface_area_unit: hectare
+  product_net_surface_area_value: 14.2
   sampled_at: 2016-05-10 19:18:00.000000000 Z
   sampling_distance: 3.0
-  updated_at: 2016-05-10 19:19:24.866845000 Z
+  updated_at: 2016-05-14 19:43:21.769982000 Z
   updater_id: 1
-product_gradings_002:
+inspections_002:
   activity_id: 17
   comment: ''
   created_at: 2016-05-10 21:09:18.953461000 Z
