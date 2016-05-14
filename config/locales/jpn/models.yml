@@ -1050,6 +1050,8 @@ jpn:
     # sampling_length_unit: "Sampling length unit"
     sampling_temporal_mode: "サンプリング時間的モード"
     scheduled: "予定の"
+    # second_grading_calibre_indicator_name: "Second grading calibre indicator name"
+    # second_grading_calibre_unit_name: "Second grading calibre unit name"
     second_producer: "セカンドプロデューサー"
     # seeding_density_unit: "Seeding density unit"
     selected: "選択しました"

@@ -28,11 +28,11 @@
               popup_content << {label: Nomen::Indicator.find(indicator.to_sym).human_name, value: p.send(indicator).l }
             end
           end
-          
+
           interventions = Intervention.with_generic_cast(:target, p).reorder(:started_at)
 
           issues = Issue.where(target_id: p.id, target_type: 'Plant' ).reorder(:observed_at)
-          
+
           if issues.any?
             popup_content << {label: :issues_count.tl, value: issues.count }
           end
@@ -40,9 +40,9 @@
           if issues.any? and last_issue = issues.last
             popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
           end
-          
+
           gradings = p.gradings.reorder(:sampled_at)
-          
+
           if gradings.any?
             popup_content << {label: :last_grading.tl, value: link_to( gradings.last.position, backend_product_grading_path(gradings.last)) }
           end

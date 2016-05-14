@@ -1288,6 +1288,8 @@ fra:
     # sampling_length_unit: "Sampling length unit"
     sampling_temporal_mode: "Type d’échantillonnage"
     scheduled: "Encaissement programmé"
+    # second_grading_calibre_indicator_name: "Second grading calibre indicator name"
+    # second_grading_calibre_unit_name: "Second grading calibre unit name"
     second_producer: "Second producteur"
     second_producer_way: "Voie du second producteur" #?
     # seeding_density_unit: "Seeding density unit"

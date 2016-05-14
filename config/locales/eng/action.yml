@@ -1043,7 +1043,7 @@ eng:
     cropping_plan: "Cropping plan" #?
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs" #?
-    cultivable_zone: "Cultivable zone"
+    cultivable_zone: "Cultivable zone" #?
     cultivable_zone_abbreviation: "CZ" #?!
     cultivable_zone_prefix: "cultivable area No." #?!
     cultivable_zones: "arable areas"
@@ -1240,6 +1240,7 @@ eng:
     last_computed_balance: "Last computed balance" #?
     last_entities: "Last entities" #?
     last_events: "Last events" #?
+    # last_grading: "Last grading"
     last_incoming_parcels: "Last incoming parcels" #?
     last_intervention: "Last intervention"
     last_issue: "Last issue"

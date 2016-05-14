@@ -72,7 +72,7 @@ class ProductGrading < Ekylibre::Record::Base
     end
   end
 
-  
+
   def set_net_surface_area
     return unless product
     if product.net_surface_area
@@ -81,10 +81,10 @@ class ProductGrading < Ekylibre::Record::Base
       self.net_surface_area_in_hectare = product.shape.area.to_d(:hectare)
     end
   end
-  
+
   def set_implanter_values
     return unless product
-    
+
     # get sowing intervention of current plant
     interventions = Intervention.with_outputs(product)
 

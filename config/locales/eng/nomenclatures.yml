@@ -3025,7 +3025,7 @@ eng:
         sprayer: "Sprayer"
         spread_renting: "Spread renting"
         spreader: "Fertilizer spreader"
-        spreader_trailer: "Manure spreader
+        spreader_trailer: "Manure spreader"
         spring_barley_crop: "Spring barley crop"
         spring_barley_seed_25: "Spring barley seed 25"
         spring_oat_crop: "Spring oat crop"
@@ -4332,7 +4332,7 @@ eng:
         foeniculum_vulgare_piperitum: "Pepper Fennel"      #< foeniculum_vulgare
         fomitiporia: "Fomitiporia"                         #< hymenochaetaceae
         food_deliver: "Food deliver"                       #< equipment
-        forager: "Silage harvester"                                 #< equipment
+        forager: "Silage harvester"                        #< equipment
         forsythia: "Forsythia"                             #< oleaceae
         forsythia_europaea: "Forsythia europaea"           #< forsythia
         forsythia_x_intermedia: "Forsythia x intermedia"   #< forsythia
@@ -4573,7 +4573,7 @@ eng:
         hypericaceae: "Hypericaceae"                       #< plant
         hypericum: "Hypericum"                             #< hypericaceae
         immatter: "Immatter"                               #< product
-        implanter: "Planter"                             #< equipment
+        implanter: "Planter"                               #< equipment
         insecta: "Insecta"                                 #< animal
         ipomoea: "Ipomoea"                                 #< convolvulaceae
         ipomoea_batatas: "Sweet potato"                    #< ipomoea
@@ -4928,7 +4928,7 @@ eng:
         morus_microphylla: "Morus microphylla"             #< morus
         morus_nigra: "Morus nigra"                         #< morus
         morus_rubra: "Morus rubra"                         #< morus
-        mower: "Windrower"                                     #< equipment
+        mower: "Windrower"                                 #< equipment
         musa: "Musa"                                       #< musaceae
         musa_acuminata: "Musa acuminata"                   #< musa
         musa_balbisiana: "Musa balbisiana"                 #< musa
@@ -5308,7 +5308,7 @@ eng:
         raphanus_sativus_oleiformis_compass: "Forage Radish Compass" #< raphanus_sativus_oleiformis
         raspberry: "Raspberry"                             #< fruit
         raw_matter: "Raw matter"                           #< preparation
-        reaper: "Combine harverster"                                   #< equipment
+        reaper: "Combine harverster"                       #< equipment
         rhagoletis_completa: "Rhagoletis completa"         #< insecta
         ribes: "Ribes"                                     #< grossulariaceae
         ribes_nigrum: "Blackcurrant"                       #< ribes
@@ -5756,7 +5756,7 @@ eng:
         spiraea: "Spiraea"                                 #< rosaceae
         spiraea_x_billiardii: "Spiraea x billiardii"       #< spiraea
         sprayer: "Sprayer"                                 #< equipment
-        spreader: "Fertilizer spreader"                               #< equipment
+        spreader: "Fertilizer spreader"                    #< equipment
         stake: "Stake"                                     #< packaged_matter
         straw: "Straw"                                     #< grass
         strawberry: "Strawberry"                           #< fruit
