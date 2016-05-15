@@ -111,11 +111,11 @@
               %th.decimal= resource.net_mass_yield(scale).l(precision: 0)
               %th.decimal= resource.marketable_net_mass(scale).l(precision: 0)
 
-  -# if resource.inspection_calibration_scales.any? && resource.calibrations.sum(:net_mass_value) > 0
+  -if resource.calibrations.any? && resource.calibrations.sum(:net_mass_value) > 0
     - c.cobble(:calibrations) do
       %table
         %tr
-          - resource.inspection_calibration_scales.each do |scale|
+          - resource.scales.each do |scale|
             :ruby
               # build categories
               categories = []
@@ -123,19 +123,21 @@
               series = []
 
               # build symbol
-              symbol_measure = Nomen::Unit[resource.product_stock_in_ground.unit].symbol
+              unit = Nomen::Unit[resource.net_mass(scale).unit]
+              symbol_measure = unit.symbol
 
+              # check global net mass of inspection for the current scale
+              m = resource.total_net_mass(scale).to_d
+              puts m.inspect.blue
               # check global net mass of grading
-              m = resource.net_mass.to_d
-              # check global net mass of grading
-              net_surface_area = resource.net_surface_area_in_hectare
-              stock_in_ground = resource.product_stock_in_ground.to_d
-              resource.checks.of_nature(:calibre).map do |check|
+              net_surface_area = resource.product_net_surface_area_value
+              stock_in_ground = resource.total_net_mass(scale).to_d
+              resource.calibrations.of_scale(scale).map do |check|
                 arr = []
-                y = (check.net_mass_value.to_d / m) * stock_in_ground  if m != 0.0
-                arr << y.to_i.to_s.to_f
+                y = check.total_net_mass.to_d(unit)
+                arr << y.to_s.to_f
                 arr << (y.to_d / net_surface_area.to_d).round(2).to_s.to_f if net_surface_area != 0.0
-                series << { name: check.activity_grading_check.name, data: arr}
+                series << { name: check.nature.name, data: arr}
               end
 
             %td= column_highcharts(series, y_axis: {title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})

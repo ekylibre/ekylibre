@@ -85,9 +85,11 @@ class Inspection < Ekylibre::Record::Base
   def set_net_surface_area
     return unless product
     if product.net_surface_area
-      self.net_surface_area_in_hectare = product.net_surface_area.to_d(:hectare)
+      self.product_net_surface_area_value = product.net_surface_area.to_d(:hectare)
+      self.product_net_surface_area_unit = 'hectare'
     elsif product.shape
-      self.net_surface_area_in_hectare = product.shape.area.to_d(:hectare)
+      self.product_net_surface_area_value = product.shape.area.to_d(:hectare)
+      self.product_net_surface_area_unit = 'hectare'
     end
   end
 
@@ -219,7 +221,7 @@ class Inspection < Ekylibre::Record::Base
   end
 
   def total_net_mass(scale)
-    calibrations.of_scale(scale).map(&:total_net_mass).sum.round(0)
+    calibrations.of_scale(scale).map(&:total_net_mass).sum
   end
 
   def net_mass_yield(scale)
