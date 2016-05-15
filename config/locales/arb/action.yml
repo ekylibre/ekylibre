@@ -1419,6 +1419,7 @@ arb:
     last_entities: "مشاركة الكيانات"
     last_events: "مشاركة الأحداث"
     last_incoming_parcels: "مشاركة الطرود الواردة"
+    # last_inspection: "Last inspection"
     last_intervention: "تدخل الماضي"
     last_issue: "المسألة الأخيرة"
     last_issues: "مشاركة القضايا"

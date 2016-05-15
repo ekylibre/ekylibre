@@ -1979,8 +1979,6 @@ arb:
     scheduled: "الدفعة المبرمجة"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
-    # second_grading_calibre_indicator_name: "Second grading calibre indicator name"
-    # second_grading_calibre_unit_name: "Second grading calibre unit name"
     second_move_id: "الحركة الثانية" #?
     second_producer: "منتج الثاني" #?
     # seeding_density_unit: "Seeding density unit"

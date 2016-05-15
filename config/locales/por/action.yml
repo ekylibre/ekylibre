@@ -1012,6 +1012,7 @@ por:
     last_entities: "Últimos entidades"
     last_events: "Últimos eventos"
     last_incoming_parcels: "Parcelas últimos entrantes"
+    # last_inspection: "Last inspection"
     last_intervention: "Última intervenção"
     last_issue: "Última edição"
     last_issues: "Últimos problemas"

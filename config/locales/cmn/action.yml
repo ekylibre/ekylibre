@@ -1007,6 +1007,7 @@ cmn:
     last_entities: "最后实体"
     last_events: "上次事件"
     last_incoming_parcels: "最后进来的包裹"
+    # last_inspection: "Last inspection"
     last_intervention: "上次干预"
     last_issue: "最后一个问题"
     last_issues: "最后的问题"

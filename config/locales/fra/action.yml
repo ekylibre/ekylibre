@@ -1300,6 +1300,7 @@ fra:
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
     last_incoming_parcels: "Futurs colis à réceptionner"
+    last_inspection: "Dernier agréage"
     last_intervention: "Dernière intervention"
     last_issue: "Dernier incident"
     last_issues: "Derniers incidents"

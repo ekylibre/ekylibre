@@ -41,10 +41,10 @@
             popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
           end
 
-          gradings = p.gradings.reorder(:sampled_at)
+          inspections = p.inspections.reorder(:sampled_at)
 
-          if gradings.any?
-            popup_content << {label: :last_grading.tl, value: link_to( gradings.last.position, backend_product_grading_path(gradings.last)) }
+          if inspections.any?
+            popup_content << { label: :last_inspection.tl, value: link_to(inspections.last.position.to_s, backend_inspection_path(inspections.last)) }
           end
 
           popup_content << render('popup', plant: p)

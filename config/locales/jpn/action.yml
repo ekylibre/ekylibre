@@ -1076,6 +1076,7 @@ jpn:
     last_entities: "最後のエンティティ"
     last_events: "最後のイベント"
     last_incoming_parcels: "最終着信小包"
+    # last_inspection: "Last inspection"
     last_intervention: "最後の介入"
     last_issue: "最後の問題"
     last_issues: "最後の問題"

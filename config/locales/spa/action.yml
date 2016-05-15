@@ -1150,6 +1150,7 @@ spa:
     last_entities: "Últimos entidades"
     last_events: "Últimos eventos"
     last_incoming_parcels: "Últimos paquetes entrantes"
+    # last_inspection: "Last inspection"
     last_intervention: "Última intervención"
     last_issue: "Última edición"
     last_issues: "Últimos temas"

@@ -1007,6 +1007,7 @@ deu:
     last_entities: "Letzte Einheiten"
     last_events: "Letzte Veranstaltungen"
     last_incoming_parcels: "Zuletzt eingehenden Pakete"
+    # last_inspection: "Last inspection"
     last_intervention: "zuletzt Intervention"
     last_issue: "Letzte Ausgabe"
     last_issues: "Letzte Fragen"

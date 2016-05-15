@@ -1073,6 +1073,7 @@ ita:
     last_entities: "ultimi entità"
     last_events: "ultimi eventi"
     last_incoming_parcels: "Ultimi pacchi in arrivo"
+    # last_inspection: "Last inspection"
     last_intervention: "Ultimo intervento"
     last_issue: "Ultimo numero"
     last_issues: "ultimi problemi"

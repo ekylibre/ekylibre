@@ -1240,8 +1240,8 @@ eng:
     last_computed_balance: "Last computed balance" #?
     last_entities: "Last entities" #?
     last_events: "Last events" #?
-    # last_grading: "Last grading"
     last_incoming_parcels: "Last incoming parcels" #?
+    last_inspection: "Last inspection"
     last_intervention: "Last intervention"
     last_issue: "Last issue"
     last_issues: "Last issues" #?
