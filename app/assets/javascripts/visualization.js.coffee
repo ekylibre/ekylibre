@@ -162,16 +162,18 @@
       @mapElement = $("<div>", class: "map").insertAfter(@element)
       @map = L.map(@mapElement[0], @options.map)
 
-      if @options.map.setDefaultBackground
-        opts = {}
-        opts['attribution'] = @options.backgrounds.attribution if @options.backgrounds.attribution?
-        opts['minZoom'] = @options.backgrounds.minZoom if @options.backgrounds.minZoom?
-        opts['maxZoom'] = @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
-        opts['subdomains'] = @options.backgrounds.subdomains if @options.backgrounds.subdomains?
-        opts['tms'] = true if @options.backgrounds.tms
+      # if @options.map.setDefaultBackground
+      #   opts = {}
+      #   opts['attribution'] = @options.backgrounds.attribution if @options.backgrounds.attribution?
+      #   opts['minZoom'] = @options.backgrounds.minZoom if @options.backgrounds.minZoom?
+      #   opts['maxZoom'] = @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
+      #   opts['subdomains'] = @options.backgrounds.subdomains if @options.backgrounds.subdomains?
+      #   opts['tms'] = true if @options.backgrounds.tms
 
-        backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
-        backgroundLayer.addTo @map
+      #   backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
+      #   backgroundLayer.addTo @map
+      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
+      @ghostLabelCluster.addTo @map
 
       this._resize()
       this._refreshView()
