@@ -282,6 +282,7 @@
 					.on('mouseout', this._onMouseOut, this)
 					.on('mouseup', this._onMouseUp, this) // Necessary for 0.8 compatibility
 					.on('mousemove', this._onMouseMove, this) // Necessary to prevent 0.8 stutter
+					.on('click', this._onTouch, this)
 					.addTo(this._map);
 
 				this._map
