@@ -673,6 +673,7 @@ eng:
     inputs: "Inputs"
     inspection: "Inspection"
     # inspection_calibration_scales: "Inspection calibration scales"
+    # inspection_calibrations: "Inspection calibrations"
     # inspection_point_natures: "Inspection point natures"
     inspections: "Inspections"
     # inspections_items: "Inspections items"

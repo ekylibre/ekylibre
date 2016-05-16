@@ -61,7 +61,7 @@
       :ruby
         # build categories
         categories = []
-        
+
         series = []
 
         curves = {}
@@ -75,7 +75,7 @@
           end
         end
         curves.each do |nature, data|
-          series << { name: nature.name, data: data} 
+          series << { name: nature.name, data: data}
         end
       - if series.any?
         - c.cobble(:stock_in_ground_by_calibres) do
