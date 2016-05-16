@@ -63,8 +63,7 @@ class LaGraineInformatique::Vinifera::SalesExchanger < ActiveExchanger::Base
           sale = Sale.create!(invoiced_at: sale_invoiced_at,
                               reference_number: r.sale_number,
                               client_id: entity.id,
-                              nature: SaleNature.actives.first
-                             )
+                              nature: SaleNature.actives.first)
         end
       end
 

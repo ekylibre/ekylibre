@@ -39,16 +39,14 @@ class Lilco::MilkAnalysesExchanger < ActiveExchanger::Base
                          staph: row[15],
                          coli: row[16],
                          pseudo: row[17],
-                         ecoli: row[18]
-                        )
+                         ecoli: row[18])
 
       unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
         analysis = Analysis.create!(reference_number: r.reference_number,
                                     nature: 'cow_milk_analysis',
                                     analyser: analyser,
                                     analysed_at: r.at,
-                                    sampled_at: r.at
-                                   )
+                                    sampled_at: r.at)
 
         analysis.read!(:total_bacteria_concentration, r.germes) if r.germes.to_f > 0
         analysis.read!(:inhibitors_presence, r.inhib)

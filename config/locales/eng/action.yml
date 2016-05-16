@@ -511,6 +511,7 @@ eng:
     backend/postal_zones:
       # autocomplete_for_name: "Autocomplete for name postal zone: %{name}"
       edit: "Edit postal zone: %{name}"
+      # import: "Import postal zones"
       index: "Postal zones"
       new: "New postal zone"
       # show: "Postal zone: %{name}"
@@ -1013,6 +1014,7 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     description: "Description" #?
+    # destination: "Destination"
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{when}"
@@ -1064,7 +1066,7 @@ eng:
     evaluated_tool_cost: "Evaluated tool cost"
     events: "Events"
     evolution: "Evolution"
-    example: "Example: %{value}" #?
+    example: "Example: %{value}"
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     expected_quantity_is_x: "Expected quantity: %{x}"
@@ -1506,6 +1508,7 @@ eng:
     transfer: "Transfer" #?
     transformations: "Transformations" #?!
     transport: "Transport" #?
+    # type: "Type"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     undone: "Undone" #?
@@ -1733,6 +1736,7 @@ eng:
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_reopenable_journal: "You can not re-open this journal."
+      # please_select_a_file_to_upload: "Please select a file to upload"
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"
       record_has_been_correctly_removed: "The record has been removed successfully"

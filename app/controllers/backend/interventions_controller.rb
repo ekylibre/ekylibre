@@ -114,8 +114,7 @@ module Backend
       respond_with(@intervention, methods: [:cost, :earn, :status, :name, :duration, :human_working_zone_area, :human_actions_names],
                                   include: [{ parameters: { methods: [:reference_name, :default_name, :working_zone_svg, :human_quantity, :human_working_zone_area], include: { product: { methods: [:picture_path, :nature_name, :unit_name] } } } },
                                             { prescription: { include: [:prescriptor, :attachments] } }],
-                                  procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) }
-                  )
+                                  procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) })
     end
 
     # Computes reverberation of a updated value in an intervention input context

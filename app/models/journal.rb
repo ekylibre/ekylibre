@@ -114,7 +114,7 @@ class Journal < Ekylibre::Record::Base
     def get(name)
       name = name.to_s
       pref_name = "#{name}_journal"
-      raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.key? pref_name
+      raise ArgumentError, "Unvalid journal name: #{name.inspect}" unless self.class.preferences_reference.key? pref_name
       unless journal = preferred(pref_name)
         journal = journals.find_by_nature(name)
         journal = journals.create!(name: tc("default.journals.#{name}"), nature: name, currency: default_currency) unless journal

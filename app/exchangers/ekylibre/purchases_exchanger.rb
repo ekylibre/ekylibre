@@ -150,8 +150,7 @@ class Ekylibre::PurchasesExchanger < ActiveExchanger::Base
                                     reference_number: r.reference_number,
                                     supplier: supplier,
                                     nature: PurchaseNature.actives.first,
-                                    description: r.description
-                                   )
+                                    description: r.description)
         purchase_ids << purchase.id
       end
 

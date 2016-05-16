@@ -1109,6 +1109,7 @@ fra:
     production_cycle: "Cycle de production"
     production_support: "Support de production"
     production_supports: "Supports de production"
+    # production_system_name: "Production system name"
     production_usage: "Usage de la production"
     productions: "Productions"
     products: "Produits"

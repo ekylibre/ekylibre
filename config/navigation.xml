@@ -1762,6 +1762,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="postal_zones">
+        <page to="backend/postal_zones#import"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

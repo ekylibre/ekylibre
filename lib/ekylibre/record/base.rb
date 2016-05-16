@@ -117,8 +117,7 @@ module Ekylibre
                                             "`scope :red, -> { where(color: 'red') }`. There are numerous gotchas " \
                                             'in the former usage and it makes the implementation more complicated ' \
                                             'and buggy. (If you prefer, you can just define a class method named ' \
-                                            "`self.red`.)\n" + caller.join("\n")
-                                           )
+                                            "`self.red`.)\n" + caller.join("\n"))
           end
           arity = begin
                     body.arity
