@@ -476,7 +476,7 @@ sale_opportunities_002:
   creator_id: 1
   credit: 0.0
   currency: EUR
-  dead_line_at: 2999-12-31 23:00:00.000000000 Z
+  dead_line_at: 2064-12-31 23:00:00.000000000 Z
   deals_count: 0
   debit: 0.0
   description: ''

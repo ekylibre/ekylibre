@@ -2086,3 +2086,13 @@ product_localizations_179:
   product_id: 175
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2016-01-21 14:05:51.789423000 Z
+product_localizations_180:
+  created_at: 2016-05-10 19:12:52.760729000 Z
+  creator_id: 1
+  id: 214
+  lock_version: 0
+  nature: exterior
+  product_id: 176
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-05-10 19:12:52.760729000 Z
+  updater_id: 1

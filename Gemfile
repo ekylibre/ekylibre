@@ -137,8 +137,9 @@ gem 'feedjira', require: false
 # Adds colors in terminal
 gem 'colored' # , require: false
 
-# Compass
+# S/CSS Framework
 gem 'bootstrap-sass', '~> 3.1'
+gem 'twitter-typeahead-rails'
 
 # Iconic font
 gem 'agric'

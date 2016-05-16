@@ -1,0 +1,10 @@
+.nested-fields
+  = link_to_remove_nested_association(:nature, f)
+  - scale = f.object.scale
+  = f.input :minimal_value, wrapper: :append do
+    = f.input_field :minimal_value
+    %span.add-on.scale-unit= (scale ? scale.human_size_unit_name : '#')
+  = f.input :maximal_value, wrapper: :append do
+    = f.input_field :maximal_value
+    %span.add-on.scale-unit= (scale ? scale.human_size_unit_name : '#')
+  = f.input :marketable

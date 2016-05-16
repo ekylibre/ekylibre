@@ -43,7 +43,7 @@ eng:
         move: "Move"
         mow: "Mow"
         pick: "Pick"
-        plow: "Plow"
+        plow: "Plough"
         plow_superficially: "Plow superficially"
         pollinate: "Pollinate"
         press: "Press"
@@ -553,6 +553,7 @@ eng:
         cow_milk_analysis: "Cow milk analysis"
         grain_analysis: "Grain analysis"
         meteorological_analysis: "Meteorological analysis"
+        plant_analysis: "Plant analysis"
         sensor_analysis: "Sensor analysis"
         silage_analysis: "Silage analysis"
         soil_analysis: "Soil analysis"
@@ -781,7 +782,7 @@ eng:
         cf: "Central African Republic"
         cg: "Congo"
         ch: "Switzerland"
-        ci: "Côte d'Ivoire"
+        ci: "Côte d’Ivoire"
         ck: "Cook Islands"
         cl: "Chile"
         cm: "Cameroon"
@@ -857,12 +858,12 @@ eng:
         ki: "Kiribati"
         km: "Comoros"
         kn: "Saint Kitts and Nevis"
-        kp: "Korea, Democratic People's Republic of"
+        kp: "Korea, Democratic People’s Republic of"
         kr: "Korea, Republic of"
         kw: "Kuwait"
         ky: "Cayman Islands"
         kz: "Kazakhstan"
-        la: "Lao People's Democratic Republic"
+        la: "Lao People’s Democratic Republic"
         lb: "Lebanon"
         lc: "Saint Lucia"
         li: "Liechtenstein"
@@ -1255,6 +1256,7 @@ eng:
         specific_volume: "Specific volume"
         surface_area: "Surface area"
         surface_area_density: "Surface area density"
+        surface_area_flow: "Surface area flow"
         temperature: "Temperature"
         time: "Time"
         volume: "Volume"
@@ -1583,6 +1585,7 @@ eng:
         plant_reproduction_state: "Plant reproduction state"
         plants_count: "Plants count"
         plants_interval: "Plants interval"
+        plowshare_count: "Plowshare count"
         potash_concentration: "Potash concentration (K₂O)"
         potassium_concentration: "Potassium concentration"
         potential_hydrogen: "Potential hydrogen"
@@ -1614,6 +1617,7 @@ eng:
         sulfur_trioxide_concentration: "Sulfur trioxide concentration (SO₃)"
         surface_area_percentage: "Surface area percentage"
         temperature: "Temperature"
+        theoretical_working_speed: "Theoretical working speed"
         thousand_grains_mass: "Thousand grains mass"
         tiller_count: "Tiller count"
         total_bacteria_concentration: "Total bacteria concentration"
@@ -2042,7 +2046,7 @@ eng:
         sowing: "Sowing"
         sowing_burying: "Sowing burying"
         sterilization: "Sterilization"
-        straw_bunching: "Straw bunching"
+        straw_bunching: "Baling"
         sulfur_addition: "Sulfur addition"
         sun_protection: "Sun protection"
         swathing: "Swathing"
@@ -2074,17 +2078,17 @@ eng:
         dairy_transformation: "Dairy transformation"
         energy_supplying: "Energy supplying"
         equipment_maintenance: "Equipment maintenance"
-        fertilizing: "Fertilizing"
+        fertilizing: "Fertilization"
         fish_transformation: "Fish transformation"
         habitat_maintenance: "Habitat maintenance"
         harvesting: "Harvesting"
-        installations_modification: "Installations modification"
-        irrigating: "Irrigating"
+        installations_modification: "Facilities modifications"
+        irrigating: "Irrigation"
         land_maintenance: "Land maintenance"
         meat_transformation: "Meat transformation"
-        planting: "Planting"
+        planting: "Plantation"
         plants_transformation: "Plants transformation"
-        soil_working: "Soil working"
+        soil_working: "Soil preparation"
         textile_transformation: "Textile transformation"
         troubleshooting: "Troubleshooting"
         viticulture_transformation: "Viticulture transformation"
@@ -2442,7 +2446,7 @@ eng:
         actilact: "Actilact"
         additive: "Additive"
         air_compressor: "Air compressor"
-        all_inclusive_corn_sower: "All inclusive corn seeder"
+        all_inclusive_corn_sower: "Precision seeder"
         animal_building: "Animal building"
         animal_division: "Animal division"
         animal_fence: "Animal fence"
@@ -2466,7 +2470,7 @@ eng:
         barley_grain: "Barley grain"
         battery: "Battery"
         bean_crop: "Bean crop"
-        bed_former: "Bed former"
+        bed_former: "Seedbed cultivator"
         bee_band: "Bee band"
         bee_band_pollinate_service: "Bee band pollinate service"
         beef_dried_sausage: "Beef dried sausage"
@@ -2674,7 +2678,7 @@ eng:
         daily_training_course: "Daily training course"
         dairy_equipment_cleaner: "Dairy equipment cleaner"
         diesel: "Diesel"
-        disc_harrow: "Disc horrow"
+        disc_harrow: "Disc harrow"
         discount_and_reduction: "Discount and reduction"
         domain_name_subscription: "Domain name subscription"
         drain: "Drain"
@@ -2721,7 +2725,7 @@ eng:
         fercoril_corabel_hazelnut: "Fercoril corabel hazelnut"
         feriale_hazelnut: "Feriale hazelnut"
         fernor_walnut: "Fernor walnut"
-        ferry: "Ferry"
+        ferry: "Grain cart"
         fertile_coutard_hazelnut: "Fertile coutard hazelnut"
         fertile_hazelnut: "Fertile hazelnut"
         fiberglass_tank: "Fiberglass tank"
@@ -2734,7 +2738,7 @@ eng:
         food_equipment_division: "Food equipment division"
         food_show: "Food show"
         food_tank: "Food tank"
-        forager: "Forager"
+        forager: "Silage harvester"
         forklift: "Forklift"
         forwarding_agent_fees_expense: "Forwarding agent fees expense"
         franquette_walnut: "Franquette walnut"
@@ -2804,7 +2808,7 @@ eng:
         howard_walnut: "Howard walnut"
         hydraulic_oil: "Hydraulic oil"
         ichn_subsidies: "Ichn subsidies"
-        implanter: "Implanter"
+        implanter: "Planter"
         infirmity_and_death_insurance: "Infirmity and death insurance"
         ink_cartridge: "Ink cartridge"
         insecticide: "Insecticide"
@@ -2862,7 +2866,7 @@ eng:
         male_young_sheep: "Male young sheep"
         malic_acid_25kg: "Malic acid 25kg"
         manager: "Manager"
-        manual_implanter: "Manual implanter"
+        manual_implanter: "Manual planter"
         manure_division: "Manure division"
         market_gardening_crop: "Market gardening crop"
         meadow_grass: "Meadow grass"
@@ -2889,7 +2893,7 @@ eng:
         motor_hoe: "Motor hoe"
         motor_oil: "Motor oil"
         moving_travel: "Moving travel"
-        mower: "Mower"
+        mower: "Windrower"
         mud: "Mud"
         muskmelon_crop: "Muskmelon crop"
         myrobalan_plum_crop: "Myrobalan plum crop"
@@ -2934,7 +2938,7 @@ eng:
         piglet_meat: "Piglet meat"
         plant_medicine_tank: "Plant medicine tank"
         plastic_cover_500m: "Plastic cover 500m"
-        plow: "Plow"
+        plow: "Plough"
         plum: "Plum"
         plum_crop: "Plum crop"
         plum_reaper: "Plum reaper"
@@ -2970,7 +2974,7 @@ eng:
         rape_seed: "Rape seed"
         raspberry_crop: "Raspberry crop"
         raspberry_seedling: "Raspberry seedling"
-        reaper: "Reaper"
+        reaper: "Combine harverster"
         rent: "Rent"
         representation_suit: "Representation suit"
         responsibility_insurance: "Responsibility insurance"
@@ -3021,8 +3025,8 @@ eng:
         spelt_wheat_crop: "Spelt wheat crop"
         sprayer: "Sprayer"
         spread_renting: "Spread renting"
-        spreader: "Spreader"
-        spreader_trailer: "Spreader trailer"
+        spreader: "Fertilizer spreader"
+        spreader_trailer: "Manure spreader"
         spring_barley_crop: "Spring barley crop"
         spring_barley_seed_25: "Spring barley seed 25"
         spring_oat_crop: "Spring oat crop"
@@ -3032,12 +3036,12 @@ eng:
         strawberry_seedling: "Strawberry seedling"
         stubble_cultivator: "Stubble cultivator"
         subscription_professional_society: "Subscription professional society"
-        subsoil_plow: "Subsoil plow"
+        subsoil_plow: "Subsoiler"
         sugar_vinasse: "Sugar vinasse"
         sunflower_crop: "Sunflower crop"
         sunflower_grain: "Sunflower grain"
         sunflower_seed_150tg: "Sunflower seed 150tg"
-        superficial_plow: "Superficial plow"
+        superficial_plow: "Cultipacker"
         tablur_hard_wheat_crop: "Tablur hard wheat crop"
         tablur_hard_wheat_seed_25: "Tablur hard wheat seed 25"
         tangerine_crop: "Tangerine crop"
@@ -3059,7 +3063,7 @@ eng:
         urban_compost: "Urban compost"
         various_loan_interest: "Various loan interest"
         veal_meat: "Veal meat"
-        vibrocultivator: "Vibrocultivator"
+        vibrocultivator: "Cutivator"
         vine_grape_berry: "Vine grape berry"
         vine_grape_crop: "Vine grape crop"
         vine_grape_juice: "Vine grape juice"
@@ -3184,14 +3188,14 @@ eng:
         fence: "Fence"
         fermented_grape_juice: "Fermented grape juice"
         fermented_milk: "Fermented milk"
-        ferry: "Ferry"
+        ferry: "Grain cart"
         fiscal_fine: "Fiscal fine"
         flower_crop: "Flower crop"
         foliar_spray: "Foliar spray"
         food_distributor: "Food distributor"
         food_equipment_division: "Food equipment division"
         food_tank: "Food tank"
-        forager: "Forager"
+        forager: "Silage harvester"
         forklift: "Forklift"
         forwarding_agent_fees_expense: "Forwarding agent fees expense"
         freelance: "Freelance"
@@ -3230,7 +3234,7 @@ eng:
         honey: "Honey"
         horse_herd: "Horse herd"
         hydraulic_oil: "Hydraulic oil"
-        implanter: "Implanter"
+        implanter: "Planter"
         infirmity_and_death_insurance: "Infirmity and death insurance"
         insecticide: "Insecticide"
         inseminator: "Inseminator"
@@ -3276,7 +3280,7 @@ eng:
         molluscicide: "Molluscicide"
         motor_oil: "Motor oil"
         moving_travel: "Moving travel"
-        mower: "Mower"
+        mower: "Windrower"
         natural_water: "Natural water"
         nematicide: "Nematicide"
         numeric_hosting_rental: "Numeric hosting rental"
@@ -3293,7 +3297,7 @@ eng:
         piglet_band: "Piglet band"
         plant_medicine_tank: "Plant medicine tank"
         plastic_cover: "Plastic cover"
-        plow: "Plow"
+        plow: "Plough"
         plum: "Plum"
         plum_reaper: "Plum reaper"
         plum_seedling: "Plum seedling"
@@ -3315,7 +3319,7 @@ eng:
         rabbit_herd: "Rabbit herd"
         radio_subscription: "Radio subscription"
         raw_material: "Raw material"
-        reaper: "Reaper"
+        reaper: "Combine harverster"
         recycling_contribution: "Recycling contribution"
         rent: "Rent"
         representation_item: "Representation item"
@@ -3340,14 +3344,14 @@ eng:
         species: "Species"
         sprayer: "Sprayer"
         spread_renting: "Spread renting"
-        spreader: "Spreader"
-        spreader_trailer: "Spreader trailer"
+        spreader: "Fertilizer spreader"
+        spreader_trailer: "Manure spreader"
         stake: "Stake"
         steam_engine: "Steam engine"
         straw: "Straw"
         studies_and_research: "Studies and research"
         sugar: "Sugar"
-        superficial_plow: "Superficial plow"
+        superficial_plow: "Cultipacker"
         taxe: "Taxe"
         technician: "Technician"
         telescopic_handler: "Telescopic handler"
@@ -3500,7 +3504,6 @@ eng:
           amount: "Amount"
           percentage: "Percentage"
       items:
-        asset_vat: "Asset vat"
         inflated_vat: "Inflated VAT"
         intermediate_vat: "Intermediate VAT"
         normal_vat: "Normal VAT"
@@ -3512,6 +3515,8 @@ eng:
         collect_account: "Collect account"
         computation_method: "Computation method"
         deduction_account: "Deduction account"
+        fixed_asset_collect_account: "Fixed asset collect account"
+        fixed_asset_deduction_account: "Fixed asset deduction account"
         suffix: "Suffix"
     taxes:
       items:
@@ -3522,11 +3527,6 @@ eng:
         french_vat_normal_1995: "French vat normal 1995"
         french_vat_normal_2000: "French vat normal 2000"
         french_vat_normal_2014: "French vat normal 2014"
-        french_vat_normal_asset_1966: "French vat normal asset 1966"
-        french_vat_normal_asset_1982: "French vat normal asset 1982"
-        french_vat_normal_asset_1995: "French vat normal asset 1995"
-        french_vat_normal_asset_2000: "French vat normal asset 2000"
-        french_vat_normal_asset_2014: "French vat normal asset 2014"
         french_vat_null: "French vat null"
         french_vat_particular_1982: "French vat particular 1982"
         french_vat_particular_1989: "French vat particular 1989"
@@ -3578,6 +3578,7 @@ eng:
         gram_per_liter: "Gram per liter"
         gram_per_square_meter: "Gram per square meter"
         hectare: "Hectare"
+        hectare_per_hour: "Hectare per hour"
         hectoliter: "Hectoliter"
         hectoliter_per_hectare: "Hectoliter per hectare"
         hectopascal: "Hectopascal"
@@ -3619,6 +3620,7 @@ eng:
         millimeter: "Millimeter"
         millimeter_per_hour: "Millimeter per hour"
         million: "Million"
+        million_per_hectare: "Million per hectare"
         million_per_liter: "Million per liter"
         millionth: "Millionth"
         millisecond: "Millisecond"
@@ -3943,7 +3945,7 @@ eng:
         brassica_rapa_rapa_aramis: "Turnip Aramis"         #< brassica_rapa_rapa
         brassica_rapa_rapa_armand: "Turnip Armand"         #< brassica_rapa_rapa
         brassica_rapa_rapa_atlantic: "Turnip Atlantic"     #< brassica_rapa_rapa
-        brassica_rapa_rapa_boule_d_or: "Turnip Boule d'or" #< brassica_rapa_rapa
+        brassica_rapa_rapa_boule_d_or: "Turnip Boule d’or" #< brassica_rapa_rapa
         brassica_rapa_rapa_petrowsky: "Turnip Petrowsky"   #< brassica_rapa_rapa
         brassica_rapa_rapa_purple_top: "Turnip Purple Top" #< brassica_rapa_rapa
         brassica_rapa_rapa_richelieu: "Turnip Richelieu"   #< brassica_rapa_rapa
@@ -4090,7 +4092,7 @@ eng:
         cichorium_endivia_latifolium: "Endive Scarole"     #< cichorium_endivia
         cichorium_endivia_mona: "Endive Mona"              #< cichorium_endivia
         cichorium_intybus: "Chicory Intybus"               #< cichorium
-        cichorium_tete_d_anguille: "Chicory Tête d'anguille" #< cichorium
+        cichorium_tete_d_anguille: "Chicory Tête d’anguille" #< cichorium
         citrullus: "Watermelon"                            #< cucurbitaceae
         citrullus_colocynthis: "Colocynth"                 #< citrullus
         citrullus_lanatus: "Watermelon Common"             #< citrullus
@@ -4168,7 +4170,7 @@ eng:
         cucurbita_maxima_dalencon: "Alencon Gourd"         #< cucurbita_maxima
         cucurbita_maxima_de_lohio: "Ohio squash"           #< cucurbita_maxima
         cucurbita_maxima_du_chili: "Chilian Gourd"         #< cucurbita_maxima
-        cucurbita_maxima_galeuse_deysines: "Galeux d'Eysines squash" #< cucurbita_maxima
+        cucurbita_maxima_galeuse_deysines: "Galeux d’Eysines squash" #< cucurbita_maxima
         cucurbita_maxima_green_hubbard: "Green Hubbard squash" #< cucurbita_maxima
         cucurbita_maxima_gros_jaune_de_paris: "Yellow Gourd" #< cucurbita_maxima
         cucurbita_maxima_honshu: "Squash Honshu"           #< cucurbita_maxima
@@ -4195,7 +4197,7 @@ eng:
         cucurbita_moschata_naples: "Pleine de Naple Gourd" #< cucurbita_moschata
         cucurbita_moschata_nice: "Nice Long Gourd"         #< cucurbita_moschata
         cucurbita_moschata_tennessee: "Tennessee sweet potato" #< cucurbita_moschata
-        cucurbita_moschata_trombolino: "Trombolino d'Albenga" #< cucurbita_moschata
+        cucurbita_moschata_trombolino: "Trombolino d’Albenga" #< cucurbita_moschata
         cucurbita_moschata_yokohama: "Yokohama"            #< cucurbita_moschata
         cucurbita_moschata_zuckerkurbis: "Zuckerkürbis aus dem Berry" #< cucurbita_moschata
         cucurbita_pepo: "Field Pumpkin"                    #< cucurbita
@@ -4331,7 +4333,7 @@ eng:
         foeniculum_vulgare_piperitum: "Pepper Fennel"      #< foeniculum_vulgare
         fomitiporia: "Fomitiporia"                         #< hymenochaetaceae
         food_deliver: "Food deliver"                       #< equipment
-        forager: "Forager"                                 #< equipment
+        forager: "Silage harvester"                        #< equipment
         forsythia: "Forsythia"                             #< oleaceae
         forsythia_europaea: "Forsythia europaea"           #< forsythia
         forsythia_x_intermedia: "Forsythia x intermedia"   #< forsythia
@@ -4572,7 +4574,7 @@ eng:
         hypericaceae: "Hypericaceae"                       #< plant
         hypericum: "Hypericum"                             #< hypericaceae
         immatter: "Immatter"                               #< product
-        implanter: "Implanter"                             #< equipment
+        implanter: "Planter"                               #< equipment
         insecta: "Insecta"                                 #< animal
         ipomoea: "Ipomoea"                                 #< convolvulaceae
         ipomoea_batatas: "Sweet potato"                    #< ipomoea
@@ -4646,8 +4648,8 @@ eng:
         malus_pumila_amere_nouvelle: "Apple-tree Amère nouvelle" #< malus_pumila
         malus_pumila_ameres_de_bernieulles: "Cider apple-tree Amères de Bernieulles" #< malus_pumila
         malus_pumila_anixa_antze_sagarra: "Cider apple-tree Anixa Antze sagarra" #< malus_pumila
-        malus_pumila_api_d_ete: "Apple-tree Api d'été"     #< malus_pumila
-        malus_pumila_api_d_orange: "Apple-tree Api d'orange" #< malus_pumila
+        malus_pumila_api_d_ete: "Apple-tree Api d’été"     #< malus_pumila
+        malus_pumila_api_d_orange: "Apple-tree Api d’orange" #< malus_pumila
         malus_pumila_api_double_rose_ou_api_rouge: "Apple-tree Api double rose or Api rouge" #< malus_pumila
         malus_pumila_api_etoile: "Apple-tree Api étoilé"   #< malus_pumila
         malus_pumila_argiliere_ou_dimoutiere: "Apple-tree Argilière or Dimoutière" #< malus_pumila
@@ -4655,24 +4657,24 @@ eng:
         malus_pumila_ascahire: "Apple-tree Ascahire"       #< malus_pumila
         malus_pumila_azaou_sagarra: "Cider apple-tree Azaou sagarra" #< malus_pumila
         malus_pumila_azeroli_anise_mazoreli: "Apple-tree Azéroli anisé (Mazoreli)" #< malus_pumila
-        malus_pumila_baguette_d_hiver: "Apple-tree Baguette d'hiver" #< malus_pumila
+        malus_pumila_baguette_d_hiver: "Apple-tree Baguette d’hiver" #< malus_pumila
         malus_pumila_baguette_violette: "Apple-tree Baguette Violette" #< malus_pumila
         malus_pumila_bailly_ou_belle_fleur_de_st_benoit: "Apple-tree Bailly or Belle-Fleur de St-Benoit" #< malus_pumila
         malus_pumila_barbarie: "Apple-tree Barbarie"       #< malus_pumila
         malus_pumila_beaurichard: "Apple-tree Beaurichard" #< malus_pumila
-        malus_pumila_bec_d_oie_du_cher: "Apple-tree Bec d'oie du Cher" #< malus_pumila
+        malus_pumila_bec_d_oie_du_cher: "Apple-tree Bec d’oie du Cher" #< malus_pumila
         malus_pumila_belle-fille_de_la_creuse: "Apple-tree Belle-Fille de la Creuse" #< malus_pumila
         malus_pumila_belle_de_juillet: "Apple-tree Belle de juillet" #< malus_pumila
         malus_pumila_belle_de_linards: "Apple-tree Belle de Linards" #< malus_pumila
         malus_pumila_belle_de_pontoise: "Apple-tree Belle de Pontoise" #< malus_pumila
         malus_pumila_belle_du_bois: "Apple-tree Belle du Bois" #< malus_pumila
-        malus_pumila_belle_fille_de_l_indre: "Apple-tree Belle-Fille de l'Indre" #< malus_pumila
+        malus_pumila_belle_fille_de_l_indre: "Apple-tree Belle-Fille de l’Indre" #< malus_pumila
         malus_pumila_belle_fille_de_la_creuse: "Apple-tree Belle Fille de la Creuse" #< malus_pumila
         malus_pumila_belle_fleur_double: "Apple-tree Belle fleur double" #< malus_pumila
         malus_pumila_belle_fleur_simple_petit_bon_ente: "Apple-tree Belle fleur simple - Petit bon ente" #< malus_pumila
         malus_pumila_belle_louronnaise_nez_de_veau: "Apple-tree Belle Louronnaise - Nez de veau" #< malus_pumila
         malus_pumila_beurriere: "Apple-tree Beurrière"     #< malus_pumila
-        malus_pumila_blanc_d_espagne: "Apple-tree Blanc d'Espagne" #< malus_pumila
+        malus_pumila_blanc_d_espagne: "Apple-tree Blanc d’Espagne" #< malus_pumila
         malus_pumila_blanquette: "Cider apple-tree Blanquette" #< malus_pumila
         malus_pumila_bon_ente_belge: "Apple-tree Bon ente Belge" #< malus_pumila
         malus_pumila_bon_ente_charbonnier: "Apple-tree Bon ente Charbonnier" #< malus_pumila
@@ -4697,18 +4699,18 @@ eng:
         malus_pumila_clairefontaine: "Apple-tree Clairefontaine" #< malus_pumila
         malus_pumila_coing: "Apple-tree Coing"             #< malus_pumila
         malus_pumila_colapuis: "Apple-tree Colapuis"       #< malus_pumila
-        malus_pumila_coquette_d_auvergne: "Apple-tree Coquette d'Auvergne" #< malus_pumila
-        malus_pumila_court_pendu_d_espagne: "Apple-tree Court pendu d'Espagne" #< malus_pumila
+        malus_pumila_coquette_d_auvergne: "Apple-tree Coquette d’Auvergne" #< malus_pumila
+        malus_pumila_court_pendu_d_espagne: "Apple-tree Court pendu d’Espagne" #< malus_pumila
         malus_pumila_court_pendu_gris: "Apple-tree Court-pendu gris" #< malus_pumila
         malus_pumila_court_pendu_gris_du_limousin: "Apple-tree Court pendu gris du Limousin" #< malus_pumila
         malus_pumila_court_pendu_rouge: "Apple-tree Court pendu rouge" #< malus_pumila
         malus_pumila_court_pendu_rouge_du_lot_et_garonne: "Apple-tree Court pendu rouge du Lot et Garonne" #< malus_pumila
         malus_pumila_coutras: "Apple-tree Coutras"         #< malus_pumila
-        malus_pumila_coxs_rouge_des_flandres: "Apple-tree Cox's rouge des Flandres" #< malus_pumila
+        malus_pumila_coxs_rouge_des_flandres: "Apple-tree Cox’s rouge des Flandres" #< malus_pumila
         malus_pumila_crarouge: "Apple-tree Crarouge"       #< malus_pumila
         malus_pumila_cravert: "Apple-tree Cravert"         #< malus_pumila
         malus_pumila_de_bonde: "Apple-tree De Bonde"       #< malus_pumila
-        malus_pumila_de_estre_ou_sainte_germaine: "Apple-tree de l'Estre or Sainte-Germaine" #< malus_pumila
+        malus_pumila_de_estre_ou_sainte_germaine: "Apple-tree de l’Estre or Sainte-Germaine" #< malus_pumila
         malus_pumila_de_jeu: "Apple-tree De Jeu"           #< malus_pumila
         malus_pumila_de_tendre: "Apple-tree de Tendre"     #< malus_pumila
         malus_pumila_demie_double: "Apple-tree Demie double" #< malus_pumila
@@ -4719,13 +4721,13 @@ eng:
         malus_pumila_doux_corier: "Apple-tree Doux corier" #< malus_pumila
         malus_pumila_douzandin: "Apple-tree Douzandin"     #< malus_pumila
         malus_pumila_douzandin_cidre: "Cider apple-tree Douzandin" #< malus_pumila
-        malus_pumila_drap_d_or_de_la_creuse: "Apple-tree Drap d'or de la Creuse" #< malus_pumila
+        malus_pumila_drap_d_or_de_la_creuse: "Apple-tree Drap d’or de la Creuse" #< malus_pumila
         malus_pumila_du_verger: "Apple-tree du Verger"     #< malus_pumila
         malus_pumila_entzea_sagarra: "Cider apple-tree Entzea sagarra" #< malus_pumila
         malus_pumila_eri_sagarra: "Apple-tree Eri sagarra" #< malus_pumila
         malus_pumila_eri_sagarra_cidre: "Cider apple-tree Eri sagarra" #< malus_pumila
         malus_pumila_errezila_sagarra: "Cider apple-tree Errezila sagarra" #< malus_pumila
-        malus_pumila_espagne: "Apple-tree d'Espagne"       #< malus_pumila
+        malus_pumila_espagne: "Apple-tree d’Espagne"       #< malus_pumila
         malus_pumila_estirochia_sagarra: "Cider apple-tree Estirochia sagarra" #< malus_pumila
         malus_pumila_eztica: "Apple-tree Eztica"           #< malus_pumila
         malus_pumila_fer_du_cher: "Apple-tree Fer du Cher" #< malus_pumila
@@ -4787,13 +4789,13 @@ eng:
         malus_pumila_pigeonnette: "Apple-tree Pigeonnette" #< malus_pumila
         malus_pumila_pineau: "Apple-tree Pineau"           #< malus_pumila
         malus_pumila_pomme_cloche: "Apple-tree Pomme Cloche" #< malus_pumila
-        malus_pumila_pomme_d_albret: "Apple-tree Pomme d'Albret" #< malus_pumila
-        malus_pumila_pomme_d_anis_rosalie: "Apple-tree Pomme d'anis Rosalie" #< malus_pumila
-        malus_pumila_pomme_d_anis_tardive: "Apple-tree Pomme d'anis Tardive" #< malus_pumila
-        malus_pumila_pomme_d_arengosse: "Apple-tree Pomme d'Arengosse" #< malus_pumila
-        malus_pumila_pomme_d_argent: "Apple-tree Pomme d'Argent" #< malus_pumila
-        malus_pumila_pomme_d_enfer_bordes: "Apple-tree Pomme d'Enfer - Bordes" #< malus_pumila
-        malus_pumila_pomme_d_ile: "Apple-tree Pomme d'Ile" #< malus_pumila
+        malus_pumila_pomme_d_albret: "Apple-tree Pomme d’Albret" #< malus_pumila
+        malus_pumila_pomme_d_anis_rosalie: "Apple-tree Pomme d’anis Rosalie" #< malus_pumila
+        malus_pumila_pomme_d_anis_tardive: "Apple-tree Pomme d’anis Tardive" #< malus_pumila
+        malus_pumila_pomme_d_arengosse: "Apple-tree Pomme d’Arengosse" #< malus_pumila
+        malus_pumila_pomme_d_argent: "Apple-tree Pomme d’Argent" #< malus_pumila
+        malus_pumila_pomme_d_enfer_bordes: "Apple-tree Pomme d’Enfer - Bordes" #< malus_pumila
+        malus_pumila_pomme_d_ile: "Apple-tree Pomme d’Ile" #< malus_pumila
         malus_pumila_pomme_de_bedeau: "Apple-tree Pomme de Bedeau" #< malus_pumila
         malus_pumila_pomme_de_behier: "Apple-tree Pomme de Béhier" #< malus_pumila
         malus_pumila_pomme_de_beurre: "Apple-tree Pomme de Beurre" #< malus_pumila
@@ -4825,17 +4827,17 @@ eng:
         malus_pumila_pouzac: "Apple-tree Pouzac"           #< malus_pumila
         malus_pumila_pouzaraque: "Apple-tree Pouzaraque"   #< malus_pumila
         malus_pumila_precoce_de_wirwignes: "Apple-tree Précoce de Wirwignes" #< malus_pumila
-        malus_pumila_quarantaine_d_hiver: "Apple-tree Quarantaine d'hiver" #< malus_pumila
+        malus_pumila_quarantaine_d_hiver: "Apple-tree Quarantaine d’hiver" #< malus_pumila
         malus_pumila_rador: "Apple-tree Rador"             #< malus_pumila
-        malus_pumila_rambour_d_hiver: "Apple-tree Rambour d'hiver" #< malus_pumila
+        malus_pumila_rambour_d_hiver: "Apple-tree Rambour d’hiver" #< malus_pumila
         malus_pumila_razot: "Apple-tree Razot"             #< malus_pumila
-        malus_pumila_reale_d_entraygue: "Apple-tree Réale d'Entraygue" #< malus_pumila
+        malus_pumila_reale_d_entraygue: "Apple-tree Réale d’Entraygue" #< malus_pumila
         malus_pumila_redondelle_blandureau: "Apple-tree Redondelle - Blandureau" #< malus_pumila
         malus_pumila_reinette_baumann: "Apple-tree Reinette Baumann" #< malus_pumila
         malus_pumila_reinette_bure: "Apple-tree Reinette Bure" #< malus_pumila
         malus_pumila_reinette_clochard: "Apple-tree Reinette Clochard" #< malus_pumila
-        malus_pumila_reinette_d_angleterre: "Apple-tree Reinette d'Angleterre" #< malus_pumila
-        malus_pumila_reinette_de_brive_de_l_estre: "Apple-tree Reinette de Brive - de l'Estre" #< malus_pumila
+        malus_pumila_reinette_d_angleterre: "Apple-tree Reinette d’Angleterre" #< malus_pumila
+        malus_pumila_reinette_de_brive_de_l_estre: "Apple-tree Reinette de Brive - de l’Estre" #< malus_pumila
         malus_pumila_reinette_de_correze: "Apple-tree Reinette de Corrèze" #< malus_pumila
         malus_pumila_reinette_de_flandre: "Apple-tree Reinette de Flandre" #< malus_pumila
         malus_pumila_reinette_de_france: "Apple-tree Reinette de France" #< malus_pumila
@@ -4847,27 +4849,27 @@ eng:
         malus_pumila_reinette_des_capucins: "Apple-tree Reinette des Capucins" #< malus_pumila
         malus_pumila_reinette_des_chatres: "Apple-tree Reinette des Châtres" #< malus_pumila
         malus_pumila_reinette_descardre: "Apple-tree Reinette Descardre" #< malus_pumila
-        malus_pumila_reinette_doree_de_l_indre: "Apple-tree Reinette Dorée de l'Indre" #< malus_pumila
-        malus_pumila_reinette_doree_reinette_d_or: "Apple-tree Reinette Dorée - Reinette d'or" #< malus_pumila
+        malus_pumila_reinette_doree_de_l_indre: "Apple-tree Reinette Dorée de l’Indre" #< malus_pumila
+        malus_pumila_reinette_doree_reinette_d_or: "Apple-tree Reinette Dorée - Reinette d’or" #< malus_pumila
         malus_pumila_reinette_du_mans: "Apple-tree Reinette du Mans" #< malus_pumila
         malus_pumila_reinette_etoilee: "Apple-tree Reinette étoilée" #< malus_pumila
         malus_pumila_reinette_grise_avancee: "Apple-tree Reinette grise avancée" #< malus_pumila
         malus_pumila_reinette_hernaut: "Apple-tree Reinette Hernaut" #< malus_pumila
         malus_pumila_reinette_jaune: "Apple-tree Reinette jaune" #< malus_pumila
-        malus_pumila_reinette_marbree_d_auvergne: "Apple-tree Reinette Marbrée d'Auvergne" #< malus_pumila
+        malus_pumila_reinette_marbree_d_auvergne: "Apple-tree Reinette Marbrée d’Auvergne" #< malus_pumila
         malus_pumila_reinette_marbree_de_la_creuse: "Apple-tree Reinette Marbrée de la Creuse" #< malus_pumila
         malus_pumila_reinette_rouge_de_la_creuse: "Apple-tree Reinette Rouge de la Creuse" #< malus_pumila
         malus_pumila_reinette_sans_pepin: "Apple-tree Reinette sans pépin" #< malus_pumila
-        malus_pumila_reinette_tardive_d_englefontaine_la_clermontoise: "Apple-tree Reinette tardive d'Englefontaine (La Clermontoise)" #< malus_pumila
+        malus_pumila_reinette_tardive_d_englefontaine_la_clermontoise: "Apple-tree Reinette tardive d’Englefontaine (La Clermontoise)" #< malus_pumila
         malus_pumila_rene_vert_reina_verte: "Apple-tree René vert - Reina verte" #< malus_pumila
         malus_pumila_roquet_rouge: "Apple-tree Roquet rouge" #< malus_pumila
         malus_pumila_roquet_rouge_cidre: "Cider apple-tree Roquet rouge" #< malus_pumila
         malus_pumila_rose_de_benauge: "Apple-tree Rose de Benauge" #< malus_pumila
         malus_pumila_rose_de_hollande: "Apple-tree Rose de Hollande" #< malus_pumila
         malus_pumila_rose_de_saint_yrieix: "Apple-tree Rose de Saint-Yrieix" #< malus_pumila
-        malus_pumila_rose_de_virginie_ou_rose_d_ete: "Apple-tree Rose de Virginie or Rose d'été" #< malus_pumila
+        malus_pumila_rose_de_virginie_ou_rose_d_ete: "Apple-tree Rose de Virginie or Rose d’été" #< malus_pumila
         malus_pumila_rose_du_perche: "Apple-tree Rose du Perche" #< malus_pumila
-        malus_pumila_rouge_d_automne: "Apple-tree Rouge d'automne" #< malus_pumila
+        malus_pumila_rouge_d_automne: "Apple-tree Rouge d’automne" #< malus_pumila
         malus_pumila_rouge_extra_tres_tardive: "Cider apple-tree Rouge extra très tardive" #< malus_pumila
         malus_pumila_rouillaud: "Apple-tree Rouillaud"     #< malus_pumila
         malus_pumila_ruban_1: "Apple-tree Ruban n°1"       #< malus_pumila
@@ -4880,7 +4882,7 @@ eng:
         malus_pumila_sans_pareille_de_peasgood: "Apple-tree Sans pareille de Peasgood" #< malus_pumila
         malus_pumila_six_cotes: "Apple-tree Six côtes"     #< malus_pumila
         malus_pumila_suzette: "Apple-tree Suzette"         #< malus_pumila
-        malus_pumila_tardive_de_bouvignies_rambour_hiver: "Apple-tree Tardive de Bouvignies (Rambour d'hiver)" #< malus_pumila
+        malus_pumila_tardive_de_bouvignies_rambour_hiver: "Apple-tree Tardive de Bouvignies (Rambour d’hiver)" #< malus_pumila
         malus_pumila_transparente_de_croncels: "Apple-tree Transparente de Croncels" #< malus_pumila
         malus_pumila_trelage: "Apple-tree Trélage"         #< malus_pumila
         malus_pumila_trompe_gelees: "Apple-tree Trompe gelées" #< malus_pumila
@@ -4890,9 +4892,9 @@ eng:
         malus_pumila_vechter: "Apple-tree Vechter"         #< malus_pumila
         malus_pumila_vedette_du_bearn: "Apple-tree Vedette du Béarn" #< malus_pumila
         malus_pumila_verdale: "Apple-tree Verdale"         #< malus_pumila
-        malus_pumila_verdin_d_automne: "Apple-tree Verdin d'automne" #< malus_pumila
-        malus_pumila_verdin_d_hiver: "Apple-tree Verdin d'hiver" #< malus_pumila
-        malus_pumila_vermillon_d_espagne: "Apple-tree Vermillon d'Espagne" #< malus_pumila
+        malus_pumila_verdin_d_automne: "Apple-tree Verdin d’automne" #< malus_pumila
+        malus_pumila_verdin_d_hiver: "Apple-tree Verdin d’hiver" #< malus_pumila
+        malus_pumila_vermillon_d_espagne: "Apple-tree Vermillon d’Espagne" #< malus_pumila
         malus_pumila_vernade: "Apple-tree Vernade"         #< malus_pumila
         malus_pumila_vernajoux: "Apple-tree Vernajoux"     #< malus_pumila
         malus_pumila_vol_au_vent: "Apple-tree Vol au vent" #< malus_pumila
@@ -4927,7 +4929,7 @@ eng:
         morus_microphylla: "Morus microphylla"             #< morus
         morus_nigra: "Morus nigra"                         #< morus
         morus_rubra: "Morus rubra"                         #< morus
-        mower: "Mower"                                     #< equipment
+        mower: "Windrower"                                 #< equipment
         musa: "Musa"                                       #< musaceae
         musa_acuminata: "Musa acuminata"                   #< musa
         musa_balbisiana: "Musa balbisiana"                 #< musa
@@ -4996,7 +4998,7 @@ eng:
         olea_europaea_rapiere: "Olive tree Rapière"        #< olea_europaea
         olea_europaea_rascasset: "Olive tree Rascasset"    #< olea_europaea
         olea_europaea_reymet: "Olive tree Reymet"          #< olea_europaea
-        olea_europaea_rosee_du_mont_or: "Olive tree Rosée du Mont d'Or" #< olea_europaea
+        olea_europaea_rosee_du_mont_or: "Olive tree Rosée du Mont d’Or" #< olea_europaea
         olea_europaea_rougeonne: "Olive tree Rougeonne"    #< olea_europaea
         olea_europaea_rousset_du_var: "Olive tree Rousset(te) du Var" #< olea_europaea
         olea_europaea_sanguin: "Olive tree Sanguin"        #< olea_europaea
@@ -5134,16 +5136,16 @@ eng:
         prunus_avium_blanc_chere: "Wild cherry tree Blanc Chère" #< prunus_avium
         prunus_avium_brune_de_romeries: "Wild cherry tree Brune de Romeries" #< prunus_avium
         prunus_avium_cerise_blanc_nez: "Wild cherry tree Blanc nez" #< prunus_avium
-        prunus_avium_cerise_blanche_d_harsigny: "Wild cherry tree Blanche d'Harsigny" #< prunus_avium
-        prunus_avium_cerise_blanche_de_wavrans_sur_l_aa: "Wild cherry tree Blanche de Wavrans sur l'Aa" #< prunus_avium
-        prunus_avium_cerise_d_enguinegatte: "Wild cherry tree d'Enguinegatte" #< prunus_avium
+        prunus_avium_cerise_blanche_d_harsigny: "Wild cherry tree Blanche d’Harsigny" #< prunus_avium
+        prunus_avium_cerise_blanche_de_wavrans_sur_l_aa: "Wild cherry tree Blanche de Wavrans sur l’Aa" #< prunus_avium
+        prunus_avium_cerise_d_enguinegatte: "Wild cherry tree d’Enguinegatte" #< prunus_avium
         prunus_avium_cerise_de_moncheaux: "Wild cherry tree De Moncheaux" #< prunus_avium
         prunus_avium_cerise_du_quesnoy: "Wild cherry tree Du Quesnoy" #< prunus_avium
         prunus_avium_cerise_du_sars: "Wild cherry tree Du Sars" #< prunus_avium
         prunus_avium_cerise_peloa: "Wild cherry tree Peloa" #< prunus_avium
         prunus_avium_coeur_de_pigeon_noir: "Wild cherry tree Cœur de pigeon noir" #< prunus_avium
         prunus_avium_gascogne_tardive_de_seninghem: "Wild cherry tree Gascogne tardive de Seninghem" #< prunus_avium
-        prunus_avium_gros_bigarreau_d_eperlecques: "Wild cherry tree Gros bigarreau d'Eperlecques" #< prunus_avium
+        prunus_avium_gros_bigarreau_d_eperlecques: "Wild cherry tree Gros bigarreau d’Eperlecques" #< prunus_avium
         prunus_avium_gros_bigarreau_de_la_groise: "Wild cherry tree Gros Bigarreau de la Groise" #< prunus_avium
         prunus_avium_grosse_cerise_blanche_de_verchocq: "Wild cherry tree Grosse cerise blanche de Verchocq" #< prunus_avium
         prunus_avium_grosse_cerise_tardive: "Wild cherry tree Grosse cerise tardive" #< prunus_avium
@@ -5154,7 +5156,7 @@ eng:
         prunus_avium_merisier: "Wild cherry tree Merisier" #< prunus_avium
         prunus_avium_mourette_amourette: "Wild cherry tree Mourette - Amourette" #< prunus_avium
         prunus_avium_muant: "Wild cherry tree Muant"       #< prunus_avium
-        prunus_avium_noire_d_itxassou_geresi_belxa: "Wild cherry tree Noire d'Itxassou - Geresi belxa" #< prunus_avium
+        prunus_avium_noire_d_itxassou_geresi_belxa: "Wild cherry tree Noire d’Itxassou - Geresi belxa" #< prunus_avium
         prunus_avium_noire_tardive_a_longue_queue: "Wild cherry tree Noire tardive à longue queue" #< prunus_avium
         prunus_avium_petite_noire: "Wild cherry tree Petite noire" #< prunus_avium
         prunus_avium_precoce_de_la_marche: "Wild cherry tree Précoce de la marche" #< prunus_avium
@@ -5165,7 +5167,7 @@ eng:
         prunus_cerasus: "Sour cherry tree"                 #< prunus
         prunus_cerasus_griotte_de_leme: "Sour cherry tree Griotte de Lemé" #< prunus_cerasus
         prunus_cerasus_griotte_du_vieux_conde: "Sour cherry tree Griotte du Vieux-Condé" #< prunus_cerasus
-        prunus_cerasus_griotte_jaune_d_oullins: "Sour cherry tree Griotte jaune d'Oullins" #< prunus_cerasus
+        prunus_cerasus_griotte_jaune_d_oullins: "Sour cherry tree Griotte jaune d’Oullins" #< prunus_cerasus
         prunus_cerasus_griotte_precoce_de_samer: "Sour cherry tree Griotte Précoce de Samer" #< prunus_cerasus
         prunus_domestica: "Plum tree"                      #< prunus
         prunus_domestica_abricotee_jaune: "Plum tree Abricotée jaune" #< prunus_domestica
@@ -5178,10 +5180,10 @@ eng:
         prunus_domestica_carpatin: "Plum tree Carpatin"    #< prunus_domestica
         prunus_domestica_coe_violette: "Plum tree Coe violette" #< prunus_domestica
         prunus_domestica_datil: "Plum tree Datil"          #< prunus_domestica
-        prunus_domestica_ente_jaune_ou_p_d_agen_blanche: "Plum tree Ente jaune ou P.d'Agen blanche" #< prunus_domestica
+        prunus_domestica_ente_jaune_ou_p_d_agen_blanche: "Plum tree Ente jaune ou P.d’Agen blanche" #< prunus_domestica
         prunus_domestica_floyon: "Plum tree Floyon"        #< prunus_domestica
         prunus_domestica_genre_reine_claude_verte_tardive: "Plum tree Genre reine Claude verte tardive" #< prunus_domestica
-        prunus_domestica_goutte_d_or_de_coe: "Plum tree Goutte d'or de Coe" #< prunus_domestica
+        prunus_domestica_goutte_d_or_de_coe: "Plum tree Goutte d’or de Coe" #< prunus_domestica
         prunus_domestica_grosse_bleue_de_fin_septembre: "Plum tree Grosse bleue de fin septembre" #< prunus_domestica
         prunus_domestica_madeleine: "Plum tree Madeleine"  #< prunus_domestica
         prunus_domestica_marcarriere_ou_datte: "Plum tree Marcarrière or Datte" #< prunus_domestica
@@ -5193,9 +5195,9 @@ eng:
         prunus_domestica_perdrigon: "Plum tree Perdrigon"  #< prunus_domestica
         prunus_domestica_prune_de_saint_antonin: "Plum tree Prune de Saint-Antonin" #< prunus_domestica
         prunus_domestica_reine_claude_brune: "Plum tree Reine Claude brune" #< prunus_domestica
-        prunus_domestica_reine_claude_d_althan_conducta: "Plum tree Reine Claude d'Althan (Conducta)" #< prunus_domestica
-        prunus_domestica_reine_claude_d_oulins: "Plum tree Reine Claude d'Oulins" #< prunus_domestica
-        prunus_domestica_reine_claude_d_oullins: "Plum tree Reine Claude d'Oullins" #< prunus_domestica
+        prunus_domestica_reine_claude_d_althan_conducta: "Plum tree Reine Claude d’Althan (Conducta)" #< prunus_domestica
+        prunus_domestica_reine_claude_d_oulins: "Plum tree Reine Claude d’Oulins" #< prunus_domestica
+        prunus_domestica_reine_claude_d_oullins: "Plum tree Reine Claude d’Oullins" #< prunus_domestica
         prunus_domestica_reine_claude_de_bavay: "Plum tree Reine Claude de Bavay" #< prunus_domestica
         prunus_domestica_reine_claude_doree: "Plum tree Reine Claude dorée" #< prunus_domestica
         prunus_domestica_reine_claude_rouge: "Plum tree Reine Claude rouge" #< prunus_domestica
@@ -5220,8 +5222,8 @@ eng:
         prunus_salicina_beauty: "Prunus salicina Beauty"   #< prunus_salicina
         pyrus: "Pyrus"                                     #< rosaceae
         pyrus_communis: "Pear tree"                        #< pyrus
-        pyrus_communis_beurre_d_anjou: "Pear tree Beurée d'Anjou" #< pyrus_communis
-        pyrus_communis_beurre_de_l_assomption: "Pear tree Beurée de l'Assomption" #< pyrus_communis
+        pyrus_communis_beurre_d_anjou: "Pear tree Beurée d’Anjou" #< pyrus_communis
+        pyrus_communis_beurre_de_l_assomption: "Pear tree Beurée de l’Assomption" #< pyrus_communis
         pyrus_communis_beurre_hardy: "Pear tree Beurée Hardy" #< pyrus_communis
         pyrus_communis_beurre_lebrun: "Pear tree Beurée Lebrun" #< pyrus_communis
         pyrus_communis_beurre_surperfin: "Pear tree Beurée Surperfin" #< pyrus_communis
@@ -5243,16 +5245,16 @@ eng:
         pyrus_communis_nipe_nime: "Pear tree Nipé Nimé"    #< pyrus_communis
         pyrus_communis_plovinne: "Pear tree Plovinne"      #< pyrus_communis
         pyrus_communis_poire_a_clement: "Pear tree Poire à Clément" #< pyrus_communis
-        pyrus_communis_poire_a_cote_d_or: "Pear tree Poire à côte d'or" #< pyrus_communis
+        pyrus_communis_poire_a_cote_d_or: "Pear tree Poire à côte d’or" #< pyrus_communis
         pyrus_communis_poire_a_cuire_grise_de_wierre_au_bois: "Pear tree Poire à cuire grise de Wierre au bois" #< pyrus_communis
         pyrus_communis_poire_blanquette: "Pear tree Poire Blanquette" #< pyrus_communis
-        pyrus_communis_poire_boutoc_poire_d_ange: "Pear tree Poire Boutoc - Poire d'ange" #< pyrus_communis
+        pyrus_communis_poire_boutoc_poire_d_ange: "Pear tree Poire Boutoc - Poire d’ange" #< pyrus_communis
         pyrus_communis_poire_caillaou_rosat: "Pear tree Poire Caillaou Rosat" #< pyrus_communis
         pyrus_communis_poire_catillac: "Pear tree Poire Catillac" #< pyrus_communis
         pyrus_communis_poire_citron: "Pear tree Poire Citron" #< pyrus_communis
         pyrus_communis_poire_cure: "Pear tree Poire Curé"  #< pyrus_communis
-        pyrus_communis_poire_d_anis: "Pear tree Poire d'anis" #< pyrus_communis
-        pyrus_communis_poire_d_aout_de_seninghem: "Pear tree Poire d'août de Seninghem" #< pyrus_communis
+        pyrus_communis_poire_d_anis: "Pear tree Poire d’anis" #< pyrus_communis
+        pyrus_communis_poire_d_aout_de_seninghem: "Pear tree Poire d’août de Seninghem" #< pyrus_communis
         pyrus_communis_poire_de_beton: "Pear tree Poire de Béton" #< pyrus_communis
         pyrus_communis_poire_de_beurre: "Pear tree Poire de Beurre" #< pyrus_communis
         pyrus_communis_poire_de_blanc: "Pear tree Poirede Blanc" #< pyrus_communis
@@ -5275,14 +5277,14 @@ eng:
         pyrus_communis_poire_de_saint_antoine: "Pear tree Poire de Saint Antoine" #< pyrus_communis
         pyrus_communis_poire_de_sang: "Pear tree Poire de Sang" #< pyrus_communis
         pyrus_communis_poire_de_vierge: "Pear tree Poire de Vierge" #< pyrus_communis
-        pyrus_communis_poire_duchesse_d_angouleme: "Pear tree Poire Duchesse d'Angoulême" #< pyrus_communis
+        pyrus_communis_poire_duchesse_d_angouleme: "Pear tree Poire Duchesse d’Angoulême" #< pyrus_communis
         pyrus_communis_poire_epargne_cuisse_madame: "Pear tree Poire Epargne - Cuisse madame" #< pyrus_communis
         pyrus_communis_poire_marguerite_marillat: "Pear tree Poire Marguerite Marillat" #< pyrus_communis
-        pyrus_communis_poire_monsallard_epine_d_ete: "Pear tree Poire Monsallard épine d'été" #< pyrus_communis
+        pyrus_communis_poire_monsallard_epine_d_ete: "Pear tree Poire Monsallard épine d’été" #< pyrus_communis
         pyrus_communis_poire_mouille_bouche_jansemine: "Pear tree Poire Mouille Bouche - Jansemine" #< pyrus_communis
         pyrus_communis_poire_notre_dame: "Pear tree Poire Notre-Dame" #< pyrus_communis
         pyrus_communis_poire_orange: "Pear tree Poire Orange" #< pyrus_communis
-        pyrus_communis_poire_perou_d_argent: "Pear tree Poire Pérou d'Argent" #< pyrus_communis
+        pyrus_communis_poire_perou_d_argent: "Pear tree Poire Pérou d’Argent" #< pyrus_communis
         pyrus_communis_poire_reinette: "Pear tree Poire Reinette" #< pyrus_communis
         pyrus_communis_poire_saint_jean: "Pear tree Poire Saint Jean" #< pyrus_communis
         pyrus_communis_poire_sucre_vert: "Pear tree Poire Sucré vert" #< pyrus_communis
@@ -5302,12 +5304,12 @@ eng:
         raphanus_sativus_flamboyant2: "Radish Flamboyant 2" #< raphanus_sativus
         raphanus_sativus_fluo: "Radish Fluo"               #< raphanus_sativus
         raphanus_sativus_niger: "Horseradish"              #< raphanus_sativus
-        raphanus_sativus_niger_poids_d_horloge: "Horseradish Poids d'horloge" #< raphanus_sativus_niger
+        raphanus_sativus_niger_poids_d_horloge: "Horseradish Poids d’horloge" #< raphanus_sativus_niger
         raphanus_sativus_oleiformis: "Forage Radish"       #< raphanus_sativus
         raphanus_sativus_oleiformis_compass: "Forage Radish Compass" #< raphanus_sativus_oleiformis
         raspberry: "Raspberry"                             #< fruit
         raw_matter: "Raw matter"                           #< preparation
-        reaper: "Reaper"                                   #< equipment
+        reaper: "Combine harverster"                       #< equipment
         rhagoletis_completa: "Rhagoletis completa"         #< insecta
         ribes: "Ribes"                                     #< grossulariaceae
         ribes_nigrum: "Blackcurrant"                       #< ribes
@@ -5476,10 +5478,10 @@ eng:
         solanum_lycopersicum_potiron_ecarlate: "Pumpkin Tomato scarlet" #< solanum_lycopersicum
         solanum_lycopersicum_principe: "Principe Tomato"   #< solanum_lycopersicum
         solanum_lycopersicum_pritchard: "Pritchard Tomato" #< solanum_lycopersicum
-        solanum_lycopersicum_prudent_s_purple: "Prudent's Purple Tomato" #< solanum_lycopersicum
+        solanum_lycopersicum_prudent_s_purple: "Prudent’s Purple Tomato" #< solanum_lycopersicum
         solanum_lycopersicum_prune_noire: "Black Plum Tomato" #< solanum_lycopersicum
         solanum_lycopersicum_prune_rouge: "Plum Tomato red" #< solanum_lycopersicum
-        solanum_lycopersicum_r_trophee: "r'Trophée Tomato" #< solanum_lycopersicum
+        solanum_lycopersicum_r_trophee: "r’Trophée Tomato" #< solanum_lycopersicum
         solanum_lycopersicum_raisin_vert: "Green Grape Tomato" #< solanum_lycopersicum
         solanum_lycopersicum_reinsen_traube: "Tomato Reinsen Traube" #< solanum_lycopersicum
         solanum_lycopersicum_roma: "Roma Tomato"           #< solanum_lycopersicum
@@ -5539,7 +5541,7 @@ eng:
         solanum_melongena_violetta_di_firenze: "Violetta di Firenze Eggplant" #< solanum_melongena
         solanum_muricatum: "Pepino dulce"                  #< solanum
         solanum_quitoense: "Naranjilla"                    #< solanum
-        solanum_torvum: "Devil's Fig"                      #< solanum
+        solanum_torvum: "Devil’s Fig"                      #< solanum
         solanum_tuberosum: "Potato"                        #< solanum
         solanum_tuberosum_accord: "Potato Accord"          #< solanum_tuberosum
         solanum_tuberosum_adirondack_blue: "Potato Adirondack Blue" #< solanum_tuberosum
@@ -5755,7 +5757,7 @@ eng:
         spiraea: "Spiraea"                                 #< rosaceae
         spiraea_x_billiardii: "Spiraea x billiardii"       #< spiraea
         sprayer: "Sprayer"                                 #< equipment
-        spreader: "Spreader"                               #< equipment
+        spreader: "Fertilizer spreader"                    #< equipment
         stake: "Stake"                                     #< packaged_matter
         straw: "Straw"                                     #< grass
         strawberry: "Strawberry"                           #< fruit
@@ -5878,14 +5880,14 @@ eng:
         triticum_aestivum_caphorn: "Common wheat Caphorn"  #< triticum_aestivum
         triticum_aestivum_champ_joli: "Common wheat Champ joli" #< triticum_aestivum
         triticum_aestivum_chanteclair: "Common wheat Chanteclair" #< triticum_aestivum
-        triticum_aestivum_chiddam_d_automne_blanc: "Common wheat Chiddam d'automne blanc" #< triticum_aestivum
-        triticum_aestivum_chiddam_d_automne_rouge: "Common wheat Chiddam d'automne rouge" #< triticum_aestivum
-        triticum_aestivum_cote_d_or: "Common wheat Côte d'or" #< triticum_aestivum
+        triticum_aestivum_chiddam_d_automne_blanc: "Common wheat Chiddam d’automne blanc" #< triticum_aestivum
+        triticum_aestivum_chiddam_d_automne_rouge: "Common wheat Chiddam d’automne rouge" #< triticum_aestivum
+        triticum_aestivum_cote_d_or: "Common wheat Côte d’or" #< triticum_aestivum
         triticum_aestivum_courtot: "Common wheat Courtot"  #< triticum_aestivum
         triticum_aestivum_dattel: "Common wheat Dattel"    #< triticum_aestivum
         triticum_aestivum_esperia: "Common wheat Esperia"  #< triticum_aestivum
         triticum_aestivum_euclide: "Common wheat Euclide"  #< triticum_aestivum
-        triticum_aestivum_fleche_d_or: "Common wheat Flèche d'or" #< triticum_aestivum
+        triticum_aestivum_fleche_d_or: "Common wheat Flèche d’or" #< triticum_aestivum
         triticum_aestivum_galibier: "Common wheat Galibier" #< triticum_aestivum
         triticum_aestivum_gerbor: "Common wheat Gerbor"    #< triticum_aestivum
         triticum_aestivum_goldentrop: "Common wheat Goldentrop" #< triticum_aestivum
@@ -5910,7 +5912,7 @@ eng:
         triticum_aestivum_nord_desprez: "Common wheat Nord-Desprez" #< triticum_aestivum
         triticum_aestivum_oratorio: "Common wheat Oratorio" #< triticum_aestivum
         triticum_aestivum_picardie_desprez: "Common wheat Picardie-Desprez" #< triticum_aestivum
-        triticum_aestivum_poulard_d_australie: "Common wheat Poulard d'Australie" #< triticum_aestivum
+        triticum_aestivum_poulard_d_australie: "Common wheat Poulard d’Australie" #< triticum_aestivum
         triticum_aestivum_premio: "Common wheat Premio"    #< triticum_aestivum
         triticum_aestivum_preparateur_etienne: "Common wheat Préparateur Etienne" #< triticum_aestivum
         triticum_aestivum_prince_albert: "Common wheat Prince Albert" #< triticum_aestivum
@@ -5921,7 +5923,7 @@ eng:
         triticum_aestivum_quebon: "Common wheat Quebon"    #< triticum_aestivum
         triticum_aestivum_recital: "Common wheat Recital"  #< triticum_aestivum
         triticum_aestivum_renan: "Common wheat Renan"      #< triticum_aestivum
-        triticum_aestivum_rouge_d_alsace: "Common wheat Rouge d'Alsace (synonyme Rouge d’Altkirch)" #< triticum_aestivum
+        triticum_aestivum_rouge_d_alsace: "Common wheat Rouge d’Alsace (synonyme Rouge d’Altkirch)" #< triticum_aestivum
         triticum_aestivum_rouge_de_bordeaux: "Common wheat Rouge de Bordeaux" #< triticum_aestivum
         triticum_aestivum_roux_des_ardennes: "Common wheat Roux des Ardennes" #< triticum_aestivum
         triticum_aestivum_rubisko: "Common wheat Rubisko"  #< triticum_aestivum

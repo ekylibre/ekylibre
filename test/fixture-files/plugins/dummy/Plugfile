@@ -1,0 +1,6 @@
+name 'dummy'
+version '0.0.1'
+
+add_routes do
+  resources :dummies
+end

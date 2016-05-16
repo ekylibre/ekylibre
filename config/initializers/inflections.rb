@@ -25,6 +25,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'fungus', 'fungi'
   inflect.irregular 'maximum', 'maxima'
   inflect.irregular 'minimum', 'minima'
+  inflect.irregular 'criterion', 'criteria'
 end
 
 # Set pluralization active with the algorithms defined in [locale]/i18n.rb

@@ -54,6 +54,8 @@ fra:
         depreciable_amount: "Valeur nette comptable (VNC)" #?
       incoming_payment:  #?
         to_bank_at: "À encaisser le" #?
+      inspection:  #?
+        points: "Points de contrôle" #?
       intervention:  #?
         production_support: "Support de production" #?
         storage: "Support" #?
@@ -240,6 +242,8 @@ fra:
       activity_budget: "Budget de l’activité"
       activity_budget_item: "Budget"
       activity_distribution: "Distribution entre activité"
+      activity_inspection_calibration_nature: "Type de calibre"
+      activity_inspection_point_nature: "Type de point de contrôle d'agréage"
       activity_production: "Support de production"
       affair: "Affaire"
       analysis: "Analyse"
@@ -285,6 +289,7 @@ fra:
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
       georeading: "Relevé topographique"
+      grading_quality_criterion: "Critère qualité d'un agréage"
       guide: "Référentiel"
       guide_analysis: "Analyse d’un référentiel"
       guide_analysis_point: "Point d’analyse d’un référentiel"
@@ -292,6 +297,8 @@ fra:
       import: "Import"
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
+      inspection: "Agréage produit"
+      inspection_point: "Point de contrôle"
       intervention: "Intervention"
       intervention_agent: "Agent d’intervention"
       intervention_doer: "Opérateur d’intervention"
@@ -327,6 +334,10 @@ fra:
       parcel: "Colis"
       parcel_item: "Élément de colis"
       plant: "Plante"
+      # plant_counting: "Plant counting"
+      # plant_counting_item: "Plant counting item"
+      # plant_density_abacus: "Plant density abacus"
+      # plant_density_abacus_item: "Plant density abacus item"
       postal_zone: "Zone postale"
       preference: "Préférence"
       prescription: "Prescription"
@@ -405,6 +416,7 @@ fra:
     activity_budgets: "Budgets"
     activity_code: "Code APE/NAF"
     activity_distributions: "Répartitions entre activités"
+    activity_grading_check: "Point de contrôle d’agréage"
     activity_production: "Production"
     activity_productions: "Productions"
     actor: "Acteur"
@@ -446,6 +458,7 @@ fra:
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
+    average_value: "Valeur moyenne"
     balance: "Solde"
     balance_amount: "Solde" #?
     balances: "Balances de compte"
@@ -464,7 +477,7 @@ fra:
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
     budget: "Budget" #?
-    budget_items: "Elèment de budget" #?
+    budget_items: "Élément de budget" #?
     budgets: "Budgets"
     building: "Bâtiment" #?
     buildings: "Bâtiments"
@@ -495,6 +508,7 @@ fra:
     charge_account: "Compte d’achat"
     charges_categories: "Catégories de produits avec charge"
     check_state: "Vérifier l’état" #?
+    checks: "Éléments"
     children: "Enfants"
     choice_value: "Valeur choix"
     choices: "Choix de champ complémentaire"
@@ -519,7 +533,7 @@ fra:
     color: "Couleur"
     column_name: "Nom de colonne"
     columns: "Colonnes"
-    comment: "Commentaire" #?
+    comment: "Commentaire"
     commercial: "Activité commerciale"
     commercial_description: "Description Catalogue"
     commercial_name: "Nom Catalogue"
@@ -720,7 +734,7 @@ fra:
     farm_name: "Nom de la ferme"
     father: "Père"
     faxes: "Fax"
-    fifth_producer: "Cinquième producteur"
+    fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
@@ -731,7 +745,7 @@ fra:
     first_met_at: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
-    first_producer: "Premier producteur"
+    first_producer: "Premier producteur" #?
     first_producer_way: "Voie du premier producteur" #?
     fixed: "Immobilisé"
     fixed_asset: "Immobilisation"
@@ -746,7 +760,7 @@ fra:
     fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
     formats: "Formats"
-    fourth_producer: "Quatrième producteur"
+    fourth_producer: "Quatrième producteur" #?
     fourth_producer_way: "Voie du quatrième producteur" #?
     frequency: "Fréquence"
     frozen_indicators: "Indicateurs gelés" #?
@@ -757,6 +771,7 @@ fra:
     gaps: "Écarts"
     geolocation: "Géolocalisation"
     geometry_value: "Valeur géométrique"
+    # germination_percentage: "Germination percentage"
     given_at: "Donné à"
     global_amount: "Montant global" #?
     global_balance: "Solde global"
@@ -764,6 +779,18 @@ fra:
     global_credit: "Crédit global"
     global_debit: "Débit global"
     godchildren: "Filleul"
+    grade_indicator_name: "Indicateur d'un agréage" #?
+    grade_unit: "Unité de l'indicateur de l'agréage" #?
+    grading_calibre_indicator: "Indicateur utilisé pour le calibrage" #?
+    grading_calibre_unit: "Unité utilisée pour le calibrage" #?
+    grading_checks: "Éléments d'un agréage" #?
+    grading_net_mass_unit: "Unité utilisée pour la masse nette"
+    # grading_net_mass_unit_name: "Grading net mass unit name"
+    grading_sizes_indicator: "Indicateur utilisé pour la mesure des extrema"
+    # grading_sizes_indicator_name: "Grading sizes indicator name"
+    grading_sizes_unit: "Unité utilisée pour la mesure des extrema"
+    # grading_sizes_unit_name: "Grading sizes unit name"
+    gradings: "Agréages"
     gravity: "Gravité"
     group: "Groupe"
     group_parameters: "Paramètres de groupe"
@@ -782,6 +809,9 @@ fra:
     id: "ID"
     identification_number: "Numéro d’identification"
     identifiers: "Identifiants"
+    implanter_application_width: "Largeur de l'outil de semis ou de plantation"
+    implanter_rows_number: "Nombre de rangs lors de l'implantation"
+    implanter_working_width: "Largeur inter-rangs"
     importance: "Importance"
     imported_at: "Importé le"
     importer: "Importateur"
@@ -812,6 +842,8 @@ fra:
     initial_population: "Population initiale"
     initial_shape: "Forme initiale"
     inputs: "Intrants"
+    # inspection: "Inspection"
+    # inspections: "Inspections"
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
     integer_value: "Valeur entière"
@@ -826,7 +858,13 @@ fra:
     interventions: "Interventions"
     introduction: "Introduction"
     inventory: "Inventaire"
-    invitation_limit: "Limite d&#39;invitation"
+    # invitation_accepted_at: "Invitation accepted at"
+    # invitation_created_at: "Invitation created at"
+    invitation_limit: "Limite d'invitation"
+    # invitation_sent_at: "Invitation sent at"
+    # invitation_token: "Invitation token"
+    # invitations_count: "Invitations count"
+    # invited_by: "Invited by"
     invoice_address: "Adresse pour la facture"
     invoiced: "Facturée" #?
     invoiced_at: "Facturée le"
@@ -848,6 +886,7 @@ fra:
     item_type: "Type de l’élément"
     item_value: "Valeur de l’élément"
     items: "Éléments"
+    items_count: "Nombre d’éléments"
     journal: "Journal"
     journal_entries: "Écritures"
     journal_entry: "Écriture"
@@ -921,12 +960,19 @@ fra:
     mandates: "Responsabilités" #?
     manure_management_plan_zones: "Zones de plan de fumure"
     markers: "Repères" #?
+    marketable: "Commercialisable"
     mass: "Poids (kg)"
+    # max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
+    maximal_size: "Taille maximale"
+    # maximal_size_value: "Maximal size value"
     maximal_value: "Valeur maximale"
     maximum_nitrogen_input: "Apport maximum d’azote"
     meadow_humus_mineralization: "Minéralisation nette due à un retournement de prairie (Mhp)"
+    measure_grading_items_count: "Mesurer la population de l'échantillon"
+    measure_grading_net_mass: "Mesurer la masse nette de l'échantillon"
+    measure_grading_sizes: "Mesurer les extrema de l'échantillon"
     measure_value: "Valeur de la mesure"
     measure_value_unit: "Unité de la mesure"
     measure_value_value: "Valeur de la mesure"
@@ -939,9 +985,12 @@ fra:
     message: "Message"
     metadata: "Méta-données"
     milk_withdrawal_period: "Délai d’attente (lait)" #?
+    # min_zoom: "Min zoom"
     mineral_nitrogen_at_opening: "Azote minéral dans le sol à l’ouverture du bilan (Ri)"
     minimal_length: "Longueur minimale"
     minimal_quantity: "Quantité minimale" #?
+    minimal_size: "Taille minimale"
+    # minimal_size_value: "Minimal size value"
     minimal_value: "Valeur minimale"
     mobiles: "Portables"
     mode: "Mode"
@@ -958,6 +1007,7 @@ fra:
     nature_name: "Nom de la nature du produit"
     natures: "Natures"
     net_mass: "Masse nette"
+    net_mass_value: "Masse nette"
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
@@ -985,8 +1035,8 @@ fra:
     office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
     opened_at: "Ouvert le"
-    operation: "Travail"
-    operations: "Travaux"
+    operation: "Travail" #?
+    operations: "Travaux" #?
     ordered_at: "Commandé à"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
     organization: "Organisation" #?
@@ -1042,8 +1092,12 @@ fra:
     plan: "Plan"
     planned_at: "Prévu le"
     planned_depreciations: "Amortissements prévus"
+    plant: "Plante"
+    # plant_counting: "Plant counting"
     # plant_countings: "Plant countings"
     # plant_density_abacus: "Plant density abacus"
+    # plant_density_abacus_item: "Plant density abacus item"
+    # plants_count: "Plants count"
     point: "Point"
     point_value: "Point value"
     points: "Points"
@@ -1083,6 +1137,7 @@ fra:
     product_deaths: "Morts de produit" #?
     product_divisions: "Divisions de produit" #?
     product_enjoyments: "Usufruit de produit"
+    product_grading: "Agréage produit" #?
     product_junctions: "Product junctions" #?
     product_linkages: "Attelages de produit"
     product_localization: "Localisation de produit"
@@ -1096,6 +1151,7 @@ fra:
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
+    product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
     product_parameters: "Paramètres du produit"
@@ -1112,7 +1168,8 @@ fra:
     production_cycle: "Cycle de production"
     production_support: "Support de production"
     production_supports: "Supports de production"
-    # production_system_name: "Production system name"
+    production_system: "Système de production"
+    # production_system_name: "Production system reference name"
     production_usage: "Usage de la production"
     productions: "Productions"
     products: "Produits"
@@ -1133,6 +1190,7 @@ fra:
     purchase_taxes: "Taxes à l’achat"
     purchased_on: "Acheté le"
     purchases: "Achats"
+    quality_criterion: "Critère qualité" #?
     quantity: "Quantité"
     quantity_handler: "Macro-unité Quantité"
     quantity_indicator: "Indicateur Quantité"
@@ -1226,10 +1284,13 @@ fra:
     sales_invoices: "Factures"
     sampled_at: "Prélevé le"
     sampler: "Préleveur"
+    sampling_area: "Surface d'échantillonnage"
+    sampling_distance: "Distance de prélèvement"
     # sampling_length_unit: "Sampling length unit"
     sampling_temporal_mode: "Type d’échantillonnage"
+    # scale: "Scale"
     scheduled: "Encaissement programmé"
-    second_producer: "Second producteur"
+    second_producer: "Second producteur" #?
     second_producer_way: "Voie du second producteur" #?
     # seeding_density_unit: "Seeding density unit"
     selected: "Sélectionné"
@@ -1277,6 +1338,7 @@ fra:
     storages: "Stockages"
     story: "Historique"
     string_value: "Valeur textuelle"
+    # subdomains: "Subdomains"
     subject: "Objet"
     subject_label: "Objet" #?
     subject_type: "Type de sujet"
@@ -1311,7 +1373,7 @@ fra:
     template: "Modèle"
     theoric_quantity: "Quantité théorique" #?
     third: "Tiers"
-    third_producer: "Producteur tiers"
+    third_producer: "Producteur tiers" #?
     third_producer_way: "Voie du producteur tiers" #?
     third_role: "Rôle tiers"
     thread: "Fil"
@@ -1353,12 +1415,15 @@ fra:
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     uploaded: "Téléversé"
+    # url: "Url"
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     usage_limit_nature: "Type de date limite de consommation"
     usage_limit_on: "Date limite de consommation"
     usages: "Usages"
     use_countings: "Utiliser les comptages"
+    use_grading_calibre: "Utiliser un calibre d'agréage"
+    use_gradings: "Utiliser les agréages"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
     useful_items: "Lignes utiles"
@@ -1394,7 +1459,7 @@ fra:
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"
     working_periods: "Périodes de travail"
-    working_shape: "Forme de travail"
+    working_shape: "Forme de travail" #?
     working_unit: "Unité d’œuvre" #?
     working_zone: "Zone travaillée"
     zone_memberships: "Appartenances de zone"
@@ -1404,6 +1469,8 @@ fra:
       label: "%{number} - %{name}"
     activity_budget:
       name: "%{activity_name} %{campaign_name}"
+    activity_inspection_calibration_nature:
+      name: "%{minimum} → %{maximum}"
     activity_production:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       name: "%{variant}/%{activity} %{campaign} (%{state})"
@@ -1684,3 +1751,8 @@ fra:
         accepted: "Acceptée"
         not_invited: "Non invité"
         pending: "En cours"
+      status:
+        invitation:
+          pending: "Invitation en attente"
+        registration:
+          pending: "Confirmation en attente"

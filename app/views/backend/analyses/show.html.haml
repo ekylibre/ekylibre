@@ -14,8 +14,6 @@
 
   - if resource.geolocation
     = visualization do |v|
-      - v.background 'OpenStreetMap.HOT'
-      - v.background "Esri.WorldImagery"
       - v.serie :data, [{name: resource.number, shape: resource.geolocation}]
       - v.path "#{resource.number}", :data
       - v.control :zoom

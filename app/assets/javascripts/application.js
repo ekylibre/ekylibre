@@ -36,7 +36,6 @@
 //= require form/dependents
 //= require form/toggle
 //= require form/dates
-//= require formize/autocomplete
 //= require cocoon
 //= require jquery/ext
 //= require selector

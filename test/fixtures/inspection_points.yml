@@ -1,0 +1,87 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: inspection_points
+#
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  id                 :integer          not null, primary key
+#  inspection_id      :integer          not null
+#  items_count        :integer
+#  lock_version       :integer          default(0), not null
+#  maximal_size_value :decimal(19, 4)
+#  minimal_size_value :decimal(19, 4)
+#  nature_id          :integer          not null
+#  net_mass_value     :decimal(19, 4)
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#
+---
+inspection_points_001:
+  created_at: 2016-05-10 19:19:24.874645000 Z
+  creator_id: 1
+  id: 5
+  inspection_id: 1
+  items_count: 1
+  lock_version: 1
+  maximal_size_value: 10.0
+  minimal_size_value: 8.0
+  nature_id: 5
+  net_mass_value: 0.6
+  updated_at: 2016-05-14 19:37:24.584725000 Z
+  updater_id: 1
+inspection_points_002:
+  created_at: 2016-05-10 19:19:24.875983000 Z
+  creator_id: 1
+  id: 6
+  inspection_id: 1
+  items_count: 3
+  lock_version: 0
+  maximal_size_value: 12.0
+  minimal_size_value: 3.0
+  nature_id: 6
+  net_mass_value: 0.9
+  updated_at: 2016-05-10 19:19:24.875983000 Z
+  updater_id: 1
+inspection_points_003:
+  created_at: 2016-05-10 21:09:18.955612000 Z
+  creator_id: 1
+  id: 7
+  inspection_id: 2
+  items_count: 25
+  lock_version: 0
+  nature_id: 7
+  updated_at: 2016-05-10 21:09:18.955612000 Z
+  updater_id: 1
+inspection_points_004:
+  created_at: 2016-05-14 19:15:46.957204000 Z
+  creator_id: 1
+  id: 8
+  inspection_id: 1
+  items_count: 1
+  lock_version: 2
+  maximal_size_value: 4.0
+  minimal_size_value: 5.0
+  nature_id: 8
+  net_mass_value: 0.13
+  updated_at: 2016-05-14 19:38:00.811791000 Z
+  updater_id: 1

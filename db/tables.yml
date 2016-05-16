@@ -125,12 +125,30 @@ activities:
   family:
     type: string
     required: true
+  grading_net_mass_unit_name:
+    type: string
+  grading_sizes_indicator_name:
+    type: string
+  grading_sizes_unit_name:
+    type: string
   id:
     type: integer
     required: true
   lock_version:
     type: integer
     required: true
+  measure_grading_items_count:
+    type: boolean
+    required: true
+    default: false
+  measure_grading_net_mass:
+    type: boolean
+    required: true
+    default: false
+  measure_grading_sizes:
+    type: boolean
+    required: true
+    default: false
   name:
     type: string
     required: true
@@ -142,6 +160,8 @@ activities:
   production_cycle:
     type: string
     required: true
+  production_system_name:
+    type: string
   size_indicator_name:
     type: string
   size_unit_name:
@@ -159,6 +179,10 @@ activities:
     type: integer
     references: user
   use_countings:
+    type: boolean
+    required: true
+    default: false
+  use_gradings:
     type: boolean
     required: true
     default: false
@@ -281,6 +305,101 @@ activity_distributions:
   main_activity_id:
     type: integer
     references: activity
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+activity_inspection_calibration_natures:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  marketable:
+    type: boolean
+    required: true
+    default: false
+  maximal_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  minimal_value:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  scale_id:
+    type: integer
+    references: activity_inspection_calibration_scale
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+activity_inspection_calibration_scales:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  size_indicator_name:
+    type: string
+    required: true
+  size_unit_name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+activity_inspection_point_natures:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  category:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
     required: true
   updated_at:
     type: datetime
@@ -1150,6 +1269,8 @@ cultivable_zones:
   name:
     type: string
     required: true
+  production_system_name:
+    type: string
   shape:
     type: geometry
     limit:
@@ -2494,6 +2615,143 @@ incoming_payments:
   updater_id:
     type: integer
     references: user
+inspection_calibrations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  inspection_id:
+    type: integer
+    references: inspection
+    required: true
+  items_count:
+    type: integer
+  lock_version:
+    type: integer
+    required: true
+  maximal_size_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  minimal_size_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  nature_id:
+    type: integer
+    references: activity_inspection_calibration_nature
+    required: true
+  net_mass_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+inspection_points:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  inspection_id:
+    type: integer
+    references: inspection
+    required: true
+  items_count:
+    type: integer
+  lock_version:
+    type: integer
+    required: true
+  maximal_size_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  minimal_size_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  nature_id:
+    type: integer
+    references: activity_inspection_point_nature
+    required: true
+  net_mass_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+inspections:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  comment:
+    type: text
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  implanter_application_width:
+    type: decimal
+    precision: 19
+    scale: 4
+  implanter_rows_number:
+    type: integer
+  implanter_working_width:
+    type: decimal
+    precision: 19
+    scale: 4
+  lock_version:
+    type: integer
+    required: true
+  number:
+    type: string
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
+  product_net_surface_area_unit:
+    type: string
+  product_net_surface_area_value:
+    type: decimal
+    precision: 19
+    scale: 4
+  sampled_at:
+    type: datetime
+    required: true
+  sampling_distance:
+    type: decimal
+    precision: 19
+    scale: 4
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_parameter_readings:
   absolute_measure_value_unit:
     type: string
@@ -3522,6 +3780,57 @@ manure_management_plans:
   updater_id:
     type: integer
     references: user
+map_backgrounds:
+  attribution:
+    type: string
+  by_default:
+    type: boolean
+    required: true
+    default: false
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  enabled:
+    type: boolean
+    required: true
+    default: false
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  managed:
+    type: boolean
+    required: true
+    default: false
+  max_zoom:
+    type: integer
+  min_zoom:
+    type: integer
+  name:
+    type: string
+    required: true
+  reference_name:
+    type: string
+  subdomains:
+    type: string
+  tms:
+    type: boolean
+    required: true
+    default: false
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  url:
+    type: string
+    required: true
 net_services:
   created_at:
     type: datetime
@@ -5786,6 +6095,10 @@ tasks:
     type: integer
     references: user
 taxes:
+  active:
+    type: boolean
+    required: true
+    default: false
   amount:
     type: decimal
     precision: 19
@@ -5794,6 +6107,9 @@ taxes:
   collect_account_id:
     type: integer
     references: account
+  country:
+    type: string
+    required: true
   created_at:
     type: datetime
     required: true
@@ -5805,6 +6121,12 @@ taxes:
     references: account
   description:
     type: text
+  fixed_asset_collect_account_id:
+    type: integer
+    references: account
+  fixed_asset_deduction_account_id:
+    type: integer
+    references: account
   id:
     type: integer
     required: true
@@ -5812,6 +6134,9 @@ taxes:
     type: integer
     required: true
   name:
+    type: string
+    required: true
+  nature:
     type: string
     required: true
   reference_name:
@@ -6001,6 +6326,8 @@ users:
     references: role
   sign_in_count:
     type: integer
+  signup_at:
+    type: datetime
   team_id:
     type: integer
     references: team

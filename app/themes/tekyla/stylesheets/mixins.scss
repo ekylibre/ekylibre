@@ -330,6 +330,7 @@
   @include transition(background 0.2s, box-shadow 0.2s);
   &:hover > a {
     outline: none;
+    cursor: pointer;
     background: background-hover($menu-background);
   }
   &.disabled, &[disabled] {
@@ -341,10 +342,8 @@
     @include menu-separator;
   }
   a {
-    $vertical-padding: ($menu-height - $menu-text-height)/2;
-    $horizontal-padding: round($default-ratio * $vertical-padding);
+    padding: $menu-item-vertical-padding $menu-item-horizontal-padding;
     display: block;
-    padding: $vertical-padding $horizontal-padding;
     font-size: $fs-normal;
     line-height: $menu-text-height;
     height: $menu-text-height;
@@ -359,7 +358,7 @@
       height: $menu-text-height;
       vertical-align: middle;
       @include margin-left(0);
-      @include margin-right($horizontal-padding);
+      @include margin-right($menu-item-horizontal-padding);
     }
     &:focus,
     &:active {

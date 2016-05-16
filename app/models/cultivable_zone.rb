@@ -22,30 +22,31 @@
 #
 # == Table: cultivable_zones
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  custom_fields :jsonb
-#  description   :text
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  name          :string           not null
-#  shape         :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
-#  uuid          :uuid
-#  work_number   :string           not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  custom_fields          :jsonb
+#  description            :text
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  name                   :string           not null
+#  production_system_name :string
+#  shape                  :geometry({:srid=>4326, :type=>"multi_polygon"}) not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  uuid                   :uuid
+#  work_number            :string           not null
 #
 
 class CultivableZone < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  refers_to :production_system
   has_many :activity_productions, foreign_key: :cultivable_zone_id
   has_many :activities, through: :activity_productions
   has_many :current_activity_productions, -> { current }, foreign_key: :cultivable_zone_id, class_name: 'ActivityProduction'
   has_many :current_supports, through: :current_activity_productions, source: :support
   has_many :supports, through: :activity_productions
   has_geometry :shape, type: :multi_polygon
-
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :name, :shape, :work_number
   # ]VALIDATORS]
