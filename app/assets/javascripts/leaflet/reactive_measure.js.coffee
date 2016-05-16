@@ -116,8 +116,15 @@ L.Polyline.include
 L.Draw.Polyline.include
   __addHooks: L.Draw.Polyline.prototype.addHooks
   __removeHooks: L.Draw.Polyline.prototype.removeHooks
+  __vertexChanged: L.Draw.Polyline.prototype._vertexChanged
+
+  _vertexChanged: () ->
+    @__vertexChanged.apply this, arguments
+    @_tooltip.hide()
+
 
   __onMouseMove: (e) ->
+    @_tooltip.hide()
     return unless @_markers.length > 0
     newPos = @_map.mouseEventToLayerPoint(e.originalEvent)
     mouseLatLng = @_map.layerPointToLatLng(newPos)
@@ -144,20 +151,19 @@ L.Draw.Polyline.include
       perimeter: g.perimeter()
       area: g.area()
 
-    @__tooltipMeasure.__updateTooltipMeasure center, measure, @options
+    @_tooltip.__updateTooltipMeasure center, measure, @options
 
 
   addHooks: () ->
     @__addHooks.apply this, arguments
     if L.DrawToolbar.reactiveMeasure
-      @__tooltipMeasure = new L.Tooltip @_map, onTop: true
+      @_tooltip = new L.Tooltip @_map, onTop: true
       @_map.on 'mousemove', @__onMouseMove, this
     return
 
   removeHooks: () ->
     if L.DrawToolbar.reactiveMeasure
       @_map.off 'mousemove'
-      @__tooltipMeasure.dispose()
     @__removeHooks.apply this, arguments
     return
 
@@ -271,6 +277,9 @@ L.Tooltip.include
         L.DomUtil.removeClass(@_container, 'leaflet-draw-tooltip-top')
 
       L.DomUtil.setPosition(@_container, pos)
+
+  hide: ->
+    @_container.style.visibility = 'hidden'
 
 
 ###
