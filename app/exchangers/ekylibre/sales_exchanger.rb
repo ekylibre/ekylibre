@@ -43,8 +43,7 @@ class Ekylibre::SalesExchanger < ActiveExchanger::Base
                               reference_number: r.reference_number,
                               client_id: entity.id,
                               nature: SaleNature.actives.first,
-                              description: r.description
-                             )
+                              description: r.description)
           sale_ids << sale.id
         end
       end

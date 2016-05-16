@@ -30,7 +30,7 @@ L.GhostLabel = L.Label.extend
 
     if @options.toBack
       @options.pane = 'objectsPane'
-    
+
     @_onAdd.apply this, arguments
 
     map.on 'zoomend', @_onZoomEnd, @

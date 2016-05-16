@@ -192,7 +192,7 @@ module Clean
       def actions_hash
         controllers = controllers_in_file
         ref = HashWithIndifferentAccess.new
-        for controller in controllers_in_file
+        controllers_in_file.each do |controller|
           ref[controller.controller_path] = controller.action_methods.to_a.sort.delete_if { |a| a.to_s.start_with?('_') }
         end
         ref
@@ -214,7 +214,7 @@ module Clean
         Dir.glob(Rails.root.join('app', 'controllers', '**', '*.rb')).each { |file| require file }
         ObjectSpace
           .each_object(Class)
-          .select { |klass| klass < ActionController::Base }
+          .select { |klass| klass <= ApplicationController }
           .sort { |a, b| a.name <=> b.name }
       end
 

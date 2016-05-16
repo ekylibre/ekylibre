@@ -884,6 +884,7 @@ deu:
     production_cycle: "Der Produktionszyklus"
     production_support: "Produktionsunterstützung"
     production_supports: "Produktion Stützen"
+    # production_system_name: "Production system name"
     production_usage: "Produktionseinsatz"
     # productions: "Productions"
     products: "Produkte"

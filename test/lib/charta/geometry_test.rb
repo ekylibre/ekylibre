@@ -13,8 +13,7 @@ class Charta::GeometryTest < ActiveSupport::TestCase
                'POINT ZM (1 1 5 60)',
                'POINT M (1 1 80)',
                'POINT EMPTY',
-               'MULTIPOLYGON EMPTY'
-              ]
+               'MULTIPOLYGON EMPTY']
 
     samples.each_with_index do |sample, index|
       geom1 = Charta.new_geometry(sample, :WGS84)
@@ -138,8 +137,7 @@ class Charta::GeometryTest < ActiveSupport::TestCase
                'MULTIPOLYGON(((7.40679681301117 48.1167274678089,7.40882456302643 48.1158768860692,7.40882456302643 48.1158679325024,7.40678608417511 48.1167220957579,7.40679681301117 48.1167274678089)))',
                'GEOMETRYCOLLECTION(POLYGON((7.40882456302643 48.1158768860692,7.40679681301117 48.1167274678089,7.40678608417511 48.1167220957579,7.40882456302643 48.1158679325024,7.40882456302643 48.1158768860692)),POINT(4 6),LINESTRING(4 6,7 10))',
                'POINT EMPTY',
-               'MULTIPOLYGON EMPTY'
-              ].collect do |ewkt|
+               'MULTIPOLYGON EMPTY'].collect do |ewkt|
       Charta.new_geometry("SRID=4326;#{ewkt}")
     end
     last = samples.count - 1

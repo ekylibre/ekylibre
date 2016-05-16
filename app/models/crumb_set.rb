@@ -140,8 +140,7 @@ class CrumbSet
                   { reference_name: target_parameter.name,
                     # working_zone: target.shape,
                     working_zone: intersection,
-                    product_id: target.id
-                  }
+                    product_id: target.id }
                 ]
               }
             end

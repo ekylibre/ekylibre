@@ -884,6 +884,7 @@ por:
     production_cycle: "Ciclo de produção"
     production_support: "Apoio à produção"
     production_supports: "Suportes de produção"
+    # production_system_name: "Production system name"
     production_usage: "O uso de produção"
     # productions: "Productions"
     products: "Produtos"

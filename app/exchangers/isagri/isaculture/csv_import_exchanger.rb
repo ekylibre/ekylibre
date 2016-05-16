@@ -136,8 +136,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
                              extrants_population: (buffer[24].blank? ? nil : buffer[24].split(';').reject(&:empty?)), #
                              extrants_population_unit: (buffer[25].blank? ? nil : buffer[25].split(';').reject(&:empty?)),
                              equipments_name: (buffer[26].blank? ? nil : buffer[26].split(';').reject(&:empty?)),
-                             workers_name: (buffer[28].blank? ? nil : buffer[28].split(';').reject(&:empty?))
-                            )
+                             workers_name: (buffer[28].blank? ? nil : buffer[28].split(';').reject(&:empty?)))
 
           # for intrants
           products_array = []

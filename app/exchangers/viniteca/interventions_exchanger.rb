@@ -57,9 +57,7 @@ class Viniteca::InterventionsExchanger < ActiveExchanger::Base
                            product_input_dose_per_hectare: (row[10].blank? ? nil : row[10].tr(',', '.').to_d), # for legal quantity ?
                            issue_description: (row[11].blank? ? nil : row[11].to_s), # to transcode
                            dar: (row[12].blank? ? nil : row[12].to_i), # indicator on product for delay_before_harvest in day
-                           product_input_approved_dose_per_hectare: (row[13].blank? ? nil : row[13].tr(',', '.').to_d) # legal quantity in liter per hectare
-
-                          )
+                           product_input_approved_dose_per_hectare: (row[13].blank? ? nil : row[13].tr(',', '.').to_d)) # legal quantity in liter per hectare
 
         intervention_started_at = r.intervention_started_at + 9.hours
         intervention_year = intervention_started_at.year

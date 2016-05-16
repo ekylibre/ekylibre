@@ -222,7 +222,7 @@ module RestfullyManageable
       record_name = name.to_s.singularize
       model = name.to_s.singularize.classify.constantize
       records = model.name.underscore.pluralize
-      raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_definition[order_by]
+      raise ArgumentError, "Unknown column for #{model.name}" unless model.columns_definition[order_by]
       code = ''
 
       sort = ''

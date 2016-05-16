@@ -1778,6 +1778,7 @@ arb:
     production_cycle: "دورة الإنتاج"
     production_support: "دعم الإنتاج"
     production_supports: "يدعم الانتاج"
+    # production_system_name: "Production system name"
     production_usage: "استخدام الانتاج"
     productions: "إنتاجات"
     products: "المنتجات"

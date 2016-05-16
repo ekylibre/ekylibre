@@ -352,11 +352,11 @@ class Entity < Ekylibre::Record::Base
   # Merge given entity into record. Alls related records of given entity will point on
   # self.
   def merge_with(entity, author = nil)
-    raise StandardError.new('Company entity is not mergeable') if entity.of_company?
+    raise StandardError, 'Company entity is not mergeable' if entity.of_company?
     Ekylibre::Record::Base.transaction do
       # EntityAddress
-      threads = EntityAddress.unscoped.where(entity_id: id).pluck(:thread).uniq
-      other_threads = EntityAddress.unscoped.where(entity_id: entity.id).pluck(:thread).uniq
+      threads = EntityAddress.unscoped.where(entity_id: id).uniq.pluck(:thread)
+      other_threads = EntityAddress.unscoped.where(entity_id: entity.id).uniq.pluck(:thread)
       other_threads.each do |thread|
         thread.succ! while threads.include?(thread)
         threads << thread
