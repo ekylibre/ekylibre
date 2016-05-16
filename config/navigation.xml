@@ -285,6 +285,18 @@
         <page to="backend/sale_tickets#show"/>
         <page to="backend/sale_tickets#unroll"/>
       </item>
+      <item name="subscriptions">
+        <page to="backend/subscriptions#index"/>
+        <page to="backend/subscriptions#create"/>
+        <page to="backend/subscriptions#destroy"/>
+        <page to="backend/subscriptions#edit"/>
+        <page to="backend/subscriptions#list"/>
+        <page to="backend/subscriptions#new"/>
+        <page to="backend/subscriptions#renew"/>
+        <page to="backend/subscriptions#show"/>
+        <page to="backend/subscriptions#unroll"/>
+        <page to="backend/subscriptions#update"/>
+      </item>
     </group>
     <group name="purchases" icon="shopping-cart">
       <item name="purchases">
@@ -1057,18 +1069,6 @@
       </item>
     </group>
     <group name="people" icon="group">
-      <item name="subscription_natures">
-        <page to="backend/subscription_natures#index"/>
-        <page to="backend/subscription_natures#create"/>
-        <page to="backend/subscription_natures#destroy"/>
-        <page to="backend/subscription_natures#edit"/>
-        <page to="backend/subscription_natures#list"/>
-        <page to="backend/subscription_natures#list_subscriptions"/>
-        <page to="backend/subscription_natures#new"/>
-        <page to="backend/subscription_natures#update"/>
-        <page to="backend/subscription_natures#show"/>
-        <page to="backend/subscription_natures#unroll"/>
-      </item>
       <item name="postal_zones">
         <page to="backend/postal_zones#index"/>
         <page to="backend/postal_zones#create"/>
@@ -1159,6 +1159,18 @@
         <page to="backend/purchase_natures#show"/>
         <page to="backend/purchase_natures#update"/>
         <page to="backend/purchase_natures#unroll"/>
+      </item>
+      <item name="subscription_natures">
+        <page to="backend/subscription_natures#index"/>
+        <page to="backend/subscription_natures#create"/>
+        <page to="backend/subscription_natures#destroy"/>
+        <page to="backend/subscription_natures#edit"/>
+        <page to="backend/subscription_natures#list"/>
+        <page to="backend/subscription_natures#list_subscriptions"/>
+        <page to="backend/subscription_natures#new"/>
+        <page to="backend/subscription_natures#update"/>
+        <page to="backend/subscription_natures#show"/>
+        <page to="backend/subscription_natures#unroll"/>
       </item>
       <item name="incoming_payment_modes">
         <page to="backend/incoming_payment_modes#index"/>
@@ -1426,20 +1438,6 @@
     </group>
   </part>
   <inaccessible-actions>
-    <group name="subscriptions" icon="tags">
-      <item name="subscriptions">
-        <page to="backend/subscriptions#index"/>
-        <page to="backend/subscriptions#create"/>
-        <page to="backend/subscriptions#destroy"/>
-        <page to="backend/subscriptions#edit"/>
-        <page to="backend/subscriptions#list"/>
-        <page to="backend/subscriptions#new"/>
-        <page to="backend/subscriptions#renew"/>
-        <page to="backend/subscriptions#show"/>
-        <page to="backend/subscriptions#unroll"/>
-        <page to="backend/subscriptions#update"/>
-      </item>
-    </group>
     <group>
       <item name="georeadings">
         <page to="backend/georeadings#index"/>
