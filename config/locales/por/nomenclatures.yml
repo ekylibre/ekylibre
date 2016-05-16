@@ -553,6 +553,7 @@ por:
         cow_milk_analysis: "Análise de leite de vaca"
         grain_analysis: "Análise de grãos"
         meteorological_analysis: "Análise meteorológica"
+        # plant_analysis: "Plant analysis"
         sensor_analysis: "Análise Sensor"
         silage_analysis: "Análise de silagem"
         soil_analysis: "Análises de solo"

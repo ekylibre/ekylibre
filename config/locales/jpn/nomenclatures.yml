@@ -553,6 +553,7 @@ jpn:
         cow_milk_analysis: "牛乳分析"
         grain_analysis: "穀物分析"
         meteorological_analysis: "気象解析"
+        # plant_analysis: "Plant analysis"
         sensor_analysis: "センサー分析"
         silage_analysis: "サイレージ分析"
         soil_analysis: "土壌分析"

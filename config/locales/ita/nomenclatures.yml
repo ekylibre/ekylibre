@@ -553,6 +553,7 @@ ita:
         cow_milk_analysis: "analisi del latte di mucca"
         grain_analysis: "analisi dei cereali"
         meteorological_analysis: "analisi meteorologica"
+        # plant_analysis: "Plant analysis"
         sensor_analysis: "analisi del sensore"
         silage_analysis: "analisi insilato"
         soil_analysis: "analisi del suolo"

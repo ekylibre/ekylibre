@@ -678,6 +678,7 @@ fra:
         cow_milk_analysis: "Analyse de lait de vache"
         grain_analysis: "Analyse de grain"
         meteorological_analysis: "Analyse météorologique"
+        plant_analysis: "Analyse d'une culture"
         sensor_analysis: "Analyse capteur"
         silage_analysis: "Analyse d’ensilage"
         soil_analysis: "Analyse de sol"

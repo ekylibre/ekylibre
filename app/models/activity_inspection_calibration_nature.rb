@@ -37,7 +37,7 @@
 class ActivityInspectionCalibrationNature < Ekylibre::Record::Base
   belongs_to :scale, class_name: 'ActivityInspectionCalibrationScale', inverse_of: :natures
   has_one :activity, through: :scale
-
+  has_many :inspection_calibrations, class_name: 'InspectionCalibration', inverse_of: :nature, foreign_key: :nature_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_value, :minimal_value, allow_nil: true
   validates_inclusion_of :marketable, in: [true, false]

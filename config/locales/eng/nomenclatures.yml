@@ -553,6 +553,7 @@ eng:
         cow_milk_analysis: "Cow milk analysis"
         grain_analysis: "Grain analysis"
         meteorological_analysis: "Meteorological analysis"
+        plant_analysis: "Plant analysis"
         sensor_analysis: "Sensor analysis"
         silage_analysis: "Silage analysis"
         soil_analysis: "Soil analysis"

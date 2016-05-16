@@ -553,6 +553,7 @@ cmn:
         cow_milk_analysis: "牛奶分析"
         grain_analysis: "谷物分析"
         meteorological_analysis: "气象分析"
+        # plant_analysis: "Plant analysis"
         sensor_analysis: "传感器分析"
         silage_analysis: "青贮分析"
         soil_analysis: "土壤分析"

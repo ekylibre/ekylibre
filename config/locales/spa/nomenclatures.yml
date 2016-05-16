@@ -553,6 +553,7 @@ spa:
         cow_milk_analysis: "Análisis de la leche de vaca"
         grain_analysis: "Análisis del grano"
         meteorological_analysis: "Análisis meteorológico"
+        # plant_analysis: "Plant analysis"
         sensor_analysis: "El análisis del sensor"
         silage_analysis: "Análisis de ensilado"
         soil_analysis: "El análisis del suelo"

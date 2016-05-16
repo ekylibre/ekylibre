@@ -37,8 +37,9 @@
 #
 class InspectionCalibration < Ekylibre::Record::Base
   include Inspectable
-  belongs_to :nature, class_name: 'ActivityInspectionCalibrationNature'
+  belongs_to :nature, class_name: 'ActivityInspectionCalibrationNature', inverse_of: :inspection_calibrations
   belongs_to :inspection, inverse_of: :calibrations
+  has_one :product, through: :inspection
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_size_value, :minimal_size_value, :net_mass_value, allow_nil: true
   validates_presence_of :inspection, :nature
@@ -46,6 +47,7 @@ class InspectionCalibration < Ekylibre::Record::Base
 
   scope :of_scale, ->(scale) { joins(:nature).where(activity_inspection_calibration_natures: { scale_id: scale }).order('minimal_size_value', 'maximal_size_value') }
   scope :marketable, -> { where(nature: ActivityInspectionCalibrationNature.marketable) }
+  scope :of_products, ->(*products) { joins(:inspection).where(inspections: { product_id: products.map(&:id) }) }
 
   def marketable?
     nature.marketable

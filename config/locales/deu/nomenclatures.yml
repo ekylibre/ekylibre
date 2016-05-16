@@ -553,6 +553,7 @@ deu:
         cow_milk_analysis: "Kuhmilch Analyse"
         grain_analysis: "Grain Analyse"
         meteorological_analysis: "meteorologische Analyse"
+        # plant_analysis: "Plant analysis"
         sensor_analysis: "Sensor-Analyse"
         silage_analysis: "Silage Analyse"
         soil_analysis: "Bodenanalysen"

@@ -54,38 +54,32 @@
       = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
     = cobble_list(:issues)
 
-  -# if resource.inspections.any?
-    -:ruby
-      # build categories
-      categories = []
-      dataset = resource.inspections.reorder(:sampled_at)
-      categories << dataset.map(&:position).uniq
-      series = []
+  -if resource.inspections.any?
+    - inspections = resource.inspections.reorder(:sampled_at)
+    - activity = inspections.first.activity
+    - activity.inspection_calibration_scales.each do |scale|
+      :ruby
+        # build categories
+        categories = []
+        
+        series = []
 
-      # build symbol
-      symbol_measure = Nomen::Unit[dataset.last.product_stock_in_ground.unit].symbol
-
-      pgc = InspectionPoint.where(inspection_id: dataset.pluck(:id)).of_nature(:calibre)
-      agc = ActivityInspectionPointNature.where(id: pgc.pluck(:activity_grading_check_id).compact.uniq).reorder(:minimal_calibre_value)
-
-      # for each calibre
-      agc.each do |activity_calibre|
-        chec = activity_calibre.inspection_checks.of_products(resource).reorder(:minimal_size_value)
-        # check global net mass of inspection
-        m = chec.first.inspection.net_mass.to_d
-        stock_in_ground = chec.first.inspection.product_stock_in_ground.to_d
-        arr = []
-        # for each check
-        chec.of_nature(:calibre).map do |check|
-          y = (check.net_mass_value.to_d / m) * stock_in_ground  if m != 0.0
-          arr << y.to_i.to_s.to_f
+        curves = {}
+        inspections.each do |i|
+          categories << i.position.to_s
+          # for each calibre
+          scale.natures.reorder(:minimal_value).each do |nature|
+            calibration = i.calibrations.find_by(nature: nature)
+            curves[nature] ||= []
+            curves[nature] << (calibration ? calibration.total_net_mass : 0).to_f
+          end
         end
-        series << { name: activity_calibre.name, data: arr}
-      end
-
-    - if series.any?
-      - c.cobble(:stock_in_ground_by_calibres) do
-        = column_highcharts(series, y_axis: {title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+        curves.each do |nature, data|
+          series << { name: nature.name, data: data} 
+        end
+      - if series.any?
+        - c.cobble(:stock_in_ground_by_calibres) do
+          = column_highcharts(series, y_axis: {title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
 
 
   - c.cobble(:inspections, title: :x_inspections.tl(count: resource.inspections.count)) do

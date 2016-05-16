@@ -553,6 +553,7 @@ arb:
         cow_milk_analysis: "تحليل حليب البقر"
         grain_analysis: "تحليل الحبوب"
         meteorological_analysis: "تحليل الأرصاد الجوية"
+        # plant_analysis: "Plant analysis"
         sensor_analysis: "تحليل الاستشعار"
         silage_analysis: "تحليل الأعلاف"
         soil_analysis: "تحليل التربة"
