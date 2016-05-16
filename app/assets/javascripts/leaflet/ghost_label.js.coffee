@@ -82,7 +82,7 @@ L.GhostLabel = L.Label.extend
     @_labelHeight = @_container.offsetHeight if @_container
 
 
-L.Polygon.include
+L.extendedMethods =
   # Allow to be updated
   bindGhostLabel: (object, options) ->
 
@@ -94,3 +94,7 @@ L.Polygon.include
 
     @_showLabelAdded = true
     return
+
+L.Polygon.include L.extendedMethods
+L.FeatureGroup.include L.extendedMethods
+

@@ -155,6 +155,10 @@
       $.extend(true, @options, @element.data("visualization"))
       @mapElement = $("<div>", class: "map").insertAfter(@element)
       @map = L.map(@mapElement[0], @options.map)
+
+      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
+      @ghostLabelCluster.addTo @map
+
       this._resize()
       this._refreshView()
       this._refreshControls()
