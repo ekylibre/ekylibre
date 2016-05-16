@@ -651,7 +651,7 @@ Rails.application.routes.draw do
 
     resources :plants, concerns: :products
 
-    resources :postal_zones, concerns: [:autocomplete, :list, :unroll]
+    resources :postal_zones, concerns: [:autocomplete, :import, :list, :unroll]
 
     resources :prescriptions, concerns: [:list, :unroll] do
       member do

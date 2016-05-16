@@ -3,10 +3,10 @@
     %table.table
       %thead
         %tr
-          %th= :column.tl
-          %th= :type.tl
-          %th= :destination.tl
-          %th= :example.tl
+          %th= t('.column')
+          %th= t('.type')
+          %th= t('.destination')
+          %th= t('.example')
       %tbody
         - @headers.each_with_index do |header, index|
           %tr
@@ -15,9 +15,17 @@
                 %em= t('.empty')
               - else
                 = header['name']
-            %td= header['type'].tl
-            %td= select_tag(:name, options_for_select(@selection))
+            %td= t('.' + header['type'])
+            %td= select_tag("columns[#{index}]", options_for_select(@selection))
             %td
               - unless header['type'] == 'geometry'
                 = @row[index]
-
+  - if @errors.any?
+    = field_set :errors do
+      %ul
+        - @errors.each do |line_index, error|
+          %li= :line_number.tl(index: line_index) + ' ' + error.message
+      - if @too_many_errors
+        %p= :too_many_errors_to_show_all_of_them
+  = form_actions do
+    = button_tag 'Go!'

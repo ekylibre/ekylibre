@@ -1074,7 +1074,6 @@ eng:
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     description: "Description" #?
-    # destination: "Destination"
     destroy: "Destroy"
     destroyed_at_by: "Destroyed at %{at} by %{author}"
     destroyed_by_ago: "Destroyed by %{author} %{when}"
@@ -1126,6 +1125,7 @@ eng:
     equipments: "amenities"
     error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
+    # errors: "Errors"
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
     estimate_yield: "Estimate yield"
     evaluated_direct_margin: "Evaluated direct margin" #?!
@@ -1135,7 +1135,7 @@ eng:
     evaluated_tool_cost: "Evaluated tool cost"
     events: "Events"
     evolution: "Evolution"
-    example: "Example: %{value}"
+    example: "Example: %{value}" #?
     exchange: "Exchange"
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     expected_quantity_is_x: "Expected quantity: %{x}"
@@ -1608,7 +1608,6 @@ eng:
     transfer: "Transfer" #?
     transformations: "Transformations" #?!
     transport: "Transport" #?
-    # type: "Type"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     undone: "Undone" #?

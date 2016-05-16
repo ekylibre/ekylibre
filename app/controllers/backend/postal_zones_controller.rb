@@ -61,6 +61,14 @@ module Backend
             { 'name' => h, 'type' => 'string' }
           end
           table.rows = rows
+        elsif format == :xcsv
+          # string.encode!('utf-8', 'utf-8')
+          rows = CSV.parse(string, col_sep: ';', encoding: 'CP1252')
+          headers = rows.shift
+          table.headers = headers.map do |h|
+            { 'name' => h, 'type' => 'string' }
+          end
+          table.rows = rows
         elsif format == :geojson
           hash = JSON.parse(string)
           if hash.is_a?(Array)
@@ -125,17 +133,8 @@ module Backend
     end
 
     def import_match
-      unless params[:file_id]
-        notify_error :please_select_a_file_to_upload
-        redirect_to action: :import, step: :select
-        return
-      end
-      file = @tmp.join(params[:file_id])
-      unless file.exist?
-        notify_error :please_select_a_file_to_upload
-        redirect_to action: :import, step: :select
-        return
-      end
+      file = find_import_file
+      return false unless file
       table = FlatTable.open(file)
       @headers = table.headers
       @row = table.rows.first
@@ -148,15 +147,18 @@ module Backend
       end
       PostalZone.reflect_on_all_associations(:belongs_to).each do |r|
         next if [:creator, :updater].include?(r.name)
+        next unless PostalZone.instance_methods.include?("#{r.name}_attributes=".to_sym)
         linked = r.class_name.constantize
         linked.columns.each do |c|
           next if c.type == :boolean ||
                   [:id, :lock_version, :created_at, :updated_at].include?(c.name.to_sym) ||
                   c.name.to_s =~ /\_(id|type)\z/
-          @selection << [PostalZone.human_attribute_name(r.name) + '/' + linked.human_attribute_name(c.name), "#{r.name}#attr:#{c.name}"]
+          @selection << [PostalZone.human_attribute_name(r.name) + '/' +
+                         linked.human_attribute_name(c.name), "#{r.name}#attr:#{c.name}"]
         end
         if linked.columns_hash['custom_fields']
-          @selection << [PostalZone.human_attribute_name(r.name) + '/' + t('.create_custom_field'), "#{r.name}#custom"]
+          @selection << [PostalZone.human_attribute_name(r.name) + '/' +
+                         t('.create_custom_field'), "#{r.name}#custom"]
         end
       end
       @selection.sort! { |a, b| a.first <=> b.first }
@@ -167,7 +169,48 @@ module Backend
     end
 
     def import_check
-      import_match
+      file = find_import_file
+      return false unless file
+      table = FlatTable.open(file)
+      @headers = table.headers
+      @row = table.rows.first
+
+      @errors = {}
+      table.rows.each_with_index do |_row, index|
+        begin
+          attributes = {}
+          PostalZone.create!(attributes)
+        rescue ActiveRecord::RecordInvalid => e
+          @errors[index + 1] = e
+          if @errors.size > 200
+            @too_many_errors = true
+            break
+          end
+        end
+      end
+
+      if @errors.any?
+        params[:step] = 'match'
+        import
+        return false
+      else
+        redirect_to action: :index
+      end
+    end
+
+    def find_import_file
+      unless params[:file_id]
+        notify_error :please_select_a_file_to_upload
+        redirect_to action: :import, step: :select
+        return false
+      end
+      file = @tmp.join(params[:file_id])
+      unless file.exist?
+        notify_error :please_select_a_file_to_upload
+        redirect_to action: :import, step: :select
+        return false
+      end
+      file
     end
   end
 end
