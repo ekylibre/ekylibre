@@ -18,7 +18,7 @@
 
 module Api
   module V1
-    class BaseController < ActionController::Base
+    class BaseController < ::ApplicationController
       include ActionController::Flash
 
       respond_to :json
