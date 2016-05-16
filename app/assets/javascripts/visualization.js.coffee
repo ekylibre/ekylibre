@@ -162,8 +162,6 @@
       @mapElement = $("<div>", class: "map").insertAfter(@element)
       @map = L.map(@mapElement[0], @options.map)
 
-      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
-      @ghostLabelCluster.addTo @map
       # if @options.map.setDefaultBackground
       #   opts = {}
       #   opts['attribution'] = @options.backgrounds.attribution if @options.backgrounds.attribution?
@@ -174,6 +172,8 @@
 
       #   backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
       #   backgroundLayer.addTo @map
+      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
+      @ghostLabelCluster.addTo @map
 
       this._resize()
       this._refreshView()
