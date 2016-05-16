@@ -24,10 +24,9 @@ module Backend
 
     unroll
 
-    # management -> product_conditions
     def self.product_natures_conditions(_options = {})
-      code = ''
-      code = search_conditions(product_natures: [:number, :name, :description]) + "\n"
+      code = search_conditions(product_natures: [:number, :name, :description],
+                               product_nature_categories: [:name]) + "\n"
       code << "if params[:s] == 'active'\n"
       code << "  c[0] += ' AND active = ?'\n"
       code << "  c << true\n"
@@ -39,18 +38,18 @@ module Backend
       code.c
     end
 
-    list do |t|
+    list(conditions: product_natures_conditions) do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
       t.column :category, url: true
-      t.column :reference_name
       t.column :active
       t.column :variety
       t.column :derivative_of
     end
 
-    list(:variants, model: :product_nature_variants, conditions: { nature_id: 'params[:id]'.c }, order: :name) do |t|
+    list(:variants, model: :product_nature_variants,
+                    conditions: { nature_id: 'params[:id]'.c }, order: :name) do |t|
       t.action :new, on: :none, url: { nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c }
       t.action :edit
       t.action :destroy

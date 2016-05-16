@@ -45,16 +45,12 @@
           - v.categories :activity, :production_supports
         - v.serie :crumbs, crumbs
         - v.paths :name, :crumbs, label: Intervention.model_name.human
-        - v.background 'OpenStreetMap.HOT'
-        - v.background 'Thunderforest.Transport'
-        - v.background 'Thunderforest.Outdoors'
-        - v.background 'Esri.WorldImagery'
         - v.control :zoom
         - v.control :scale
         - v.control :fullscreen
         - v.control :layer_selector
     = cobbles do |c|
-      - for intervention_path in interventions_paths
+      - interventions_paths.each do |intervention_path|
         - c.cobble "intervention_#{intervention_path.id}".to_sym, title: intervention_path.human_name do
           = render 'intervention', path: intervention_path
 - else

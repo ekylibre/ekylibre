@@ -19,7 +19,7 @@
         height: 400
         width: null
       customClass: ''
-      back: ['Esri.WorldImagery','OpenStreetMap.HOT','OpenStreetMap.Mapnik','Thunderforest.Landscape']
+      back: []
       show: null
       edit: null
       change: null
@@ -59,6 +59,8 @@
           position: "topleft"
           zoomInText: ""
           zoomOutText: ""
+          zoomInTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomInTitle")
+          zoomOutTitle: I18n.t("#{I18n.rootKey}.leaflet.zoomOutTitle")
         scale:
           position: "bottomright"
           imperial: false
@@ -73,12 +75,16 @@
           activeColor: '#ABE67E'
           completedColor: '#C8F2BE'
           localization: 'en'
+        fullscreen:
+          position: 'topleft'
+          title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
         importers:
           gml: true
           geojson: true
           kml: true
           title: ''
           content: ''
+          buttonTitle: I18n.t("#{I18n.rootKey}.leaflet.importerButtonTitle")
           template: '<div class="modal-header"><i class="leaflet-importer-ctrl"></i><span>{title}</span></div>
                      <div class="modal-body">{content}</div>
                      <div class="modal-footer">
@@ -335,15 +341,19 @@
       if this.backgroundLayer?
         this.map.removeLayer(this.backgroundLayer)
       if this.options.back?
-        if this.options.back.constructor.name is "String"
-          this.backgroundLayer = L.tileLayer.provider(this.options.back)
-          this.backgroundLayer.addTo this.map
-        else if this.options.back.constructor.name is "Array"
+        if this.options.back.constructor.name is "Array"
           baseLayers = {}
           for layer, index in @options.back
-            backgroundLayer = L.tileLayer.provider(layer)
-            baseLayers[layer] = backgroundLayer
-            this.map.addLayer(backgroundLayer) if index == 0
+            opts = {}
+            opts['attribution'] = layer.attribution if layer.attribution?
+            opts['minZoom'] = layer.minZoom if layer.minZoom?
+            opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+            opts['subdomains'] = layer.subdomains if layer.subdomains?
+            opts['tms'] = true if layer.tms
+
+            backgroundLayer = L.tileLayer(layer.url, opts)
+            baseLayers[layer.name] = backgroundLayer
+            @map.addLayer(backgroundLayer) if layer.byDefault
 
           @layerSelector = new L.Control.Layers(baseLayers)
           @map.addControl  @layerSelector
@@ -542,7 +552,7 @@
         this.map.addControl this.controls.measure
       unless this.options.controls.importers.gml is false and this.options.controls.importers.geojson is false and this.options.controls.importers.kml is false
 
-        this.controls.importers_ctrl = new L.Control.EasyButton '<i class="leaflet-importer-ctrl"></i>', (btn, map) =>
+        this.controls.importers_ctrl = new L.Control.EasyButton "<i class='leaflet-importer-ctrl' title='#{this.options.controls.importers.buttonTitle}'></i>", (btn, map) =>
           args =
             title: this.options.controls.importers.title
             onShow: (evt) =>

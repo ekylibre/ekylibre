@@ -62,7 +62,7 @@ fra:
     milk_withdrawal_period: "Période de retrait du lait"
     name: "Nom"
     nature: "Type"
-    net_revenue: "Revenu net"
+    net_revenue: "Revenu net" #?
     net_surface_area: "Surface nette"
     nitrogen_balance: "Balance azotée" #?
     nitrogen_input_prev: "Apport d'azote prev" #?
@@ -79,7 +79,7 @@ fra:
     pasturing_working_area: "Zone de pâturage" #?
     payment_ratio: "Ratio de paiement"
     pictogram: "Pictogramme"
-    picture_path: "Chemin d&#39;image"
+    picture_path: "Chemin d'image"
     # plan: "Plan"
     prescription: "Ordonnance"
     pretax_amount: "Montant avant impôt"

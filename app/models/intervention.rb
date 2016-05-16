@@ -116,6 +116,10 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionTarget.of_actors(targets).select(:intervention_id))
   }
 
+  scope :with_outputs, lambda { |*outputs|
+    where(id: InterventionOutput.of_actors(outputs).select(:intervention_id))
+  }
+
   scope :done, -> {}
 
   before_validation do
@@ -163,7 +167,18 @@ class Intervention < Ekylibre::Record::Base
 
   # Returns activities of intervention through TargetDistribution
   def activities
-    Activity.of_intervention(self)
+    # re active when Target Distribution works
+    # Activity.of_intervention(self)
+    a = []
+    targets.each do |target|
+      a << target.activity if target.activity
+    end
+    a.uniq
+  end
+
+  # Returns human tool names
+  def human_activities_names
+    activities.map(&:name).sort.to_sentence
   end
 
   def product_parameters

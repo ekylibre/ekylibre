@@ -16,6 +16,11 @@ fra:
         per_campaign: "Par campagne"
         per_production: "Par production"
         per_working_unit: "Par unité d’œuvre"
+    activity_inspection_point_nature:
+      category:
+        deformity: "Déformité"
+        disease: "Madadie"
+        none: "Aucune"
     activity_production:
       support_nature:
         border: "Bordure"
@@ -93,8 +98,12 @@ fra:
     georeading:
       nature:
         line: "Ligne"
-        # point: "Point"
+        point: "Point"
         polygon: "Polygone"
+    grading_quality_criterion:
+      nature:
+        disease_presence: "Présence de maladie"
+        waste: "Déchet"
     guide_analysis:
       status:
         errored: "Erroné"
@@ -146,6 +155,11 @@ fra:
         in_preparation: "En préparation"
         ordered: "Lancé"
         prepared: "Préparé"
+    product_nature:  #?
+      population_counting: #?
+        decimal: "Décimal" #?
+        integer: "Entier" #?
+        unitary: "Unitaire" #?
     sensor:
       retrieval_mode:
         listening: "Serveur"
@@ -213,3 +227,5 @@ fra:
     hints:
       purchase:
         reference_number: "Numéro de la facture du fournisseur"
+    required:
+      text: "requis"

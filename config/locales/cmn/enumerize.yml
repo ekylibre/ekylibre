@@ -16,6 +16,11 @@ cmn:
         per_campaign: "每个广告系列"
         per_production: "每生产"
         per_working_unit: "每工作单位"
+    activity_inspection_point_nature:
+      category:
+        # deformity: "Deformity"
+        # disease: "Disease"
+        # none: "None"
     activity_production:
       support_nature:
         border: "边境"
@@ -88,6 +93,10 @@ cmn:
         line: "线"
         point: "点"
         polygon: "多边形"
+    grading_quality_criterion:
+      nature:
+        # disease_presence: "Disease presence"
+        # waste: "Waste"
     guide_analysis:
       status:
         errored: "误码"
@@ -206,3 +215,5 @@ cmn:
     hints:
       purchase:
         reference_number: "供应商发票号"
+    required:
+      text: "需要"

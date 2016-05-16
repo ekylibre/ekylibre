@@ -96,7 +96,6 @@ eng:
     milk_withdrawal_period: "Milk withdrawal period"
     name: "Name"
     nature: "Type"
-    net_revenue: "Net revenue"
     net_surface_area: "Net surface area"
     number: "Number"
     observed_at: "Observed at"

@@ -113,5 +113,15 @@ module Backend
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
     end
+
+    # List of inspections
+    list(:inspections, conditions: { activity_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :sampled_at
+      t.column :product, url: true
+      t.column :comment
+    end
   end
 end

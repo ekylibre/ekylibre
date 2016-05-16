@@ -32,8 +32,9 @@ module Backend
     # the newly created intervention.
     def convert
       return unless crumb = find_and_check
+      intervention_path = crumb.intervention_path
       begin
-        if intervention = crumb.convert!(params.slice(:procedure_name, :support_id, :actors_ids, :relevance, :limit, :history, :provisional, :max_arity))
+        if intervention = intervention_path.convert!(params.slice(:procedure_name, :working_width))
           redirect_to edit_backend_intervention_path(intervention)
         elsif current_user.unconverted_crumb_days.any?
           redirect_to backend_crumbs_path(worked_on: params[:worked_on])
@@ -42,7 +43,7 @@ module Backend
         end
       rescue StandardError => e
         notify_error(e.message)
-        redirect_to backend_crumbs_path
+        redirect_to backend_crumbs_path(worked_on: params[:worked_on])
       end
     end
   end

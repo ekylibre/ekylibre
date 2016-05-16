@@ -4,6 +4,11 @@ namespace :test do
     t.pattern = 'test/lib/**/*_test.rb'
   end
 
+  desc 'Run tests for exchangers'
+  Rails::TestTask.new(exchangers: 'test:prepare') do |t|
+    t.pattern = 'test/exchangers/**/*_test.rb'
+  end
+
   task core: ['test:units', 'test:functionals', 'test:lib']
 
   # Append test for lib

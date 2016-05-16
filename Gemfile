@@ -87,8 +87,8 @@ gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
 
 # Authentication & Authorization
-gem 'devise', '~> 3.5.2'
-gem 'devise_invitable', '~> 1.5.2'
+gem 'devise'
+gem 'devise_invitable'
 gem 'devise-i18n-views'
 
 # Attachments
@@ -103,6 +103,7 @@ gem 'remotipart', '~> 1.2'
 # I18n and localeapp
 gem 'i18n-complements', '>= 0.0.14'
 gem 'http_accept_language'
+gem 'i18n-js', '>= 3.0.0.rc12'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.6.0'
@@ -136,8 +137,9 @@ gem 'feedjira', require: false
 # Adds colors in terminal
 gem 'colored' # , require: false
 
-# Compass
+# S/CSS Framework
 gem 'bootstrap-sass', '~> 3.1'
+gem 'twitter-typeahead-rails'
 
 # Iconic font
 gem 'agric'

@@ -143,7 +143,7 @@ class Entity < Ekylibre::Record::Base
 
   alias_attribute :name, :full_name
 
-  scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{Parcel.table_name} WHERE state != 'sent' OR delivery_id IS NULL)").order(:last_name, :first_name) }
+  scope :necessary_transporters, -> { where("transporter OR id IN (SELECT transporter_id FROM #{Parcel.table_name} WHERE state != 'sent' OR delivery_id IS NULL)").order(:last_name, :first_name) }
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
@@ -167,6 +167,7 @@ class Entity < Ekylibre::Record::Base
 
   before_validation do
     self.first_name = first_name.to_s.strip
+    self.first_name = nil if organization?
     self.last_name  = last_name.to_s.strip
     # FIXME: I18nize full name computation
     self.full_name = (title.to_s + ' ' + first_name.to_s + ' ' + last_name.to_s).strip
@@ -390,10 +391,13 @@ class Entity < Ekylibre::Record::Base
       end
 
       # Update custom fields
-      custom_fields = CustomField.where(customized_type: models_set.map(&:name))
-      custom_fields.each do |custom_field|
+      self.custom_fields ||= {}
+      entity.custom_fields ||= {}
+      Entity.custom_fields.each do |custom_field|
         attr = custom_field.column_name
-        send("#{attr}=", entity.send(attr)) if send(attr).blank?
+        if self.custom_fields[attr].blank? && entity.custom_fields[attr].present?
+          self.custom_fields[attr] = entity.custom_fields[attr]
+        end
       end
 
       save!
@@ -404,8 +408,8 @@ class Entity < Ekylibre::Record::Base
         value = entity.send(attr).to_s
         content << "  - #{Entity.human_attribute_name(attr)} : #{value}\n" unless value.blank?
       end
-      custom_fields.each do |custom_field|
-        value = entity.send(custom_field.column_name).to_s
+      Entity.custom_fields.each do |custom_field|
+        value = entity.custom_fields[custom_field.column_name].to_s
         content << "  - #{custom_field.name} : #{value}\n" unless value.blank?
       end
 

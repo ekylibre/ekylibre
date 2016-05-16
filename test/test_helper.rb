@@ -158,8 +158,19 @@ class ActionController::TestCase
   end
 
   class << self
-    def test_restfully_pasteque_actions(_options = {})
-      # test_restfully_all_actions({strictness: :api, params: {format: :json, user: "admin@ekylibre.org", password: "12345678"}, sign_in: false}.deep_merge(options))
+    def connect_with_token
+      class_eval do
+        setup do
+          @user = User.find_by(email: 'admin@ekylibre.org')
+          if @user.authentication_token.blank?
+            @user.update_column(:authentication_token, User.generate_authentication_token)
+          end
+          @token = @user.authentication_token
+        end
+        def add_auth_header
+          @request.headers['Authorization'] = 'simple-token admin@ekylibre.org ' + @token
+        end
+      end
     end
 
     def test_restfully_all_actions(options = {}, &_block)
@@ -216,6 +227,7 @@ class ActionController::TestCase
       unless options[:sign_in].is_a?(FalseClass)
         # Connect user
         code << "  @user = users(:users_001)\n"
+        code << "  @user.update_column(:language, @locale)\n"
         code << "  sign_in(@user)\n"
       end
       # Setup finished!
@@ -556,6 +568,16 @@ Capybara::Webkit.configure do |config|
   config.allow_url 'c.tile.openstreetmap.fr'
   config.allow_url 'server.arcgisonline.com'
   config.allow_url 'secure.gravatar.com'
+  config.allow_url 'a.tile.thunderforest.com'
+  config.allow_url 'b.tile.thunderforest.com'
+  config.allow_url 'c.tile.thunderforest.com'
+  config.allow_url 'tiles.openseamap.org'
+  config.allow_url 'openmapsurfer.uni-hd.de'
+  config.allow_url 'otilea.mqcdn.com'
+  config.allow_url 'otileb.mqcdn.com'
+  config.allow_url 'otilec.mqcdn.com'
+  config.allow_url '129.206.74.245'
+  config.allow_url ''
 end
 
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
@@ -563,6 +585,19 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   # include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
+
+  def login_with_user(options = {})
+    # Need to go on page to set tenant
+    I18n.locale = ENV['LOCALE'] || I18n.default_locale
+    user = users(:users_001)
+    user.language = I18n.locale
+    visit("/authentication/sign_in?locale=#{I18n.locale}")
+    resize_window(1366, 768)
+    # shoot_screen 'authentication/sign_in'
+    login_as(user, scope: :user) # , run_callbacks: false
+    visit(options[:after_login_path]) if options[:after_login_path]
+    # shoot_screen 'backend'
+  end
 
   def wait_for_ajax
     sleep(Capybara.default_max_wait_time * 0.5)

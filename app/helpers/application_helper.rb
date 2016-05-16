@@ -87,7 +87,31 @@ module ApplicationHelper
     number.l
   end
 
-  def human_age(seconds, options = {})
+  def human_age(born_at, options = {})
+    options[:default] ||= '&ndash;'.html_safe
+    return options[:default] if born_at.nil?
+    at = options[:at] || Time.zone.now
+    sign = ''
+    if born_at > at
+      sign = '-'
+      at, born_at = born_at, at
+    end
+    vals = []
+    remaining_at = born_at + 0.seconds
+    %w(year month day hour minute second).each do |magnitude|
+      count = 0
+      while remaining_at + 1.send(magnitude) < at
+        remaining_at += 1.send(magnitude)
+        count += 1
+      end
+      if count > 0 && (!options[:display] || vals.size < options[:display])
+        vals << "x_#{magnitude.pluralize}".tl(count: count)
+      end
+    end
+    sign + vals.to_sentence
+  end
+
+  def human_interval(seconds, options = {})
     return options[:default] || '&ndash;'.html_safe if seconds.nil?
     vals = []
     if (seconds.to_f / 1.year).floor > 0.0 && (!options[:display] || vals.size < options[:display])
@@ -213,9 +237,9 @@ module ApplicationHelper
     nomenclature_as_options(:languages)
   end
 
-  def available_languages
+  def available_languages(native_language = true)
     I18n.available_locales.map do |l|
-      [I18n.t('i18n.name', locale: l), l]
+      [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
     end.sort { |a, b| a.second <=> b.second }
   end
 
@@ -274,6 +298,8 @@ module ApplicationHelper
           #  raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
           options[:url][:controller] ||= record.class.name.underscore.pluralize
         end
+      elsif value.is_a? Nomen::Item
+        value = value.human_name
       else
         options[:url] = { action: :show } if options[:url].is_a? TrueClass
         if options[:url].is_a? Hash
@@ -292,7 +318,7 @@ module ApplicationHelper
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
-    elsif value.respond_to?(:strftime) || value.is_a?(Numeric)
+    elsif value.respond_to?(:strftime) || value.respond_to?(:l) || value.is_a?(Numeric)
       value = value.l
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif options[:duration]
@@ -805,10 +831,13 @@ module ApplicationHelper
   end
 
   # Wraps a label and its input in a standard wrapper
-  def field(label, input, _options = {}, &block)
+  def field(label, input, options = {}, &block)
+    options[:label] ||= {}
+    options[:controls] ||= {}
+
     content_tag(:div,
-                content_tag(:label, label, class: 'control-label') +
-                content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), class: 'controls'),
+                content_tag(:label, label, class: "control-label #{options[:label].key?(:class) ? options[:label][:class] : ''}") +
+                content_tag(:div, (block_given? ? capture(&block) : input.is_a?(Hash) ? field_tag(input) : input), class: "controls #{options[:controls].key?(:class) ? options[:controls][:class] : ''}"),
                 class: 'control-group')
   end
 

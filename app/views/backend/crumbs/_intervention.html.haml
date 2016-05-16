@@ -3,13 +3,7 @@
     = link_to "rest.actions.show".t, backend_intervention_path(path.intervention), class: "btn btn-default"
   - else
     = form_tag(convert_backend_crumb_path(path.start, worked_on: @worked_on), method: :post, class: "inline-form") do
-      :ruby
-        procedures = path.possible_procedures_matching
-        selected = nil
-        if path.procedure_nature and nature = path.procedure_nature.name.to_sym
-          selected = procedures.detect{|p| p.natures.include?(nature)}
-        end
-      = select_tag :procedure_name, options_for_select(procedures.collect{|procedure| [procedure.human_name, procedure.name]}.sort{|a,b| a.first.ascii <=> b.first.ascii}, (selected ? selected.name : nil))
+      = select_tag :procedure_name, options_for_select(Procedo.selection, path.procedure.name)
       = submit_tag "rest.actions.convert".t, name: nil
   = link_to(backend_crumb_path(path.start, redirect: url_for(worked_on: @worked_on)), action: :destroy, method: :delete, data: {confirm: :are_you_sure.tl}, class: "btn btn-default btn-destroy") do
     %i

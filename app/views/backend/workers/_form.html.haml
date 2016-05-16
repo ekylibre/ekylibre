@@ -1,5 +1,4 @@
 = f.product_form_frame do
   = field_set do
-    = f.input :name
     = f.referenced_association :default_storage
-    = f.referenced_association :person
+    = f.referenced_association :person, new: { nature: :contact }

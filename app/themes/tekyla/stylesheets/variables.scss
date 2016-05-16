@@ -73,6 +73,8 @@ $menu-width: $fs-normal * 15;
 $menu-padding: 3 * $menu-border-width;
 $menu-height:  $fingertip-height;
 $menu-text-height: 2 * round($default-ratio * $fs-normal / 2);
+$menu-item-vertical-padding: ($menu-height - $menu-text-height)/2;
+$menu-item-horizontal-padding: round($default-ratio * $menu-item-vertical-padding);
 
 
 $default-border-radius: round($fs-normal * 0.2);
@@ -85,6 +87,7 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
 // Forms
 $input-border: $menu-border-width solid mix($desktop-background, $neutral-color, 60%);
 $label-width: 25% !default;
+$large-label-width: 55% !default;
 
 // Tables
 $row-border: $menu-border-width solid darken($menu-background, 2 * $default-lightness-variation);

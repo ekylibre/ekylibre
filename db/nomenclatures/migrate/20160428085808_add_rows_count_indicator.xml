@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add rows count indicator">
+  <item-creation item="indicators#rows_count" datatype="integer"/>
+</migration>

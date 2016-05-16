@@ -16,6 +16,11 @@ arb:
         per_campaign: "في حملة"
         per_production: "في الانتاج"
         per_working_unit: "لكل وحدة العمل"
+    activity_inspection_point_nature:
+      category:
+        # deformity: "Deformity"
+        # disease: "Disease"
+        # none: "None"
     activity_production:
       support_nature:
         border: "الحدود"
@@ -88,6 +93,10 @@ arb:
         line: "خط"
         point: "نقطة"
         polygon: "المضلع"
+    grading_quality_criterion:
+      nature:
+        # disease_presence: "Disease presence"
+        # waste: "Waste"
     guide_analysis:
       status:
         # errored: "Errored"
@@ -206,3 +215,5 @@ arb:
     hints:
       purchase:
         reference_number: "رقم الفاتورة المورد"
+    required:
+      text: "مطلوب"

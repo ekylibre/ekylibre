@@ -22,50 +22,109 @@
 #
 # == Table: taxes
 #
-#  amount               :decimal(19, 4)   default(0.0), not null
-#  collect_account_id   :integer
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  deduction_account_id :integer
-#  description          :text
-#  id                   :integer          not null, primary key
-#  lock_version         :integer          default(0), not null
-#  name                 :string           not null
-#  reference_name       :string
-#  updated_at           :datetime         not null
-#  updater_id           :integer
+#  active                           :boolean          default(FALSE), not null
+#  amount                           :decimal(19, 4)   default(0.0), not null
+#  collect_account_id               :integer
+#  country                          :string           not null
+#  created_at                       :datetime         not null
+#  creator_id                       :integer
+#  deduction_account_id             :integer
+#  description                      :text
+#  fixed_asset_collect_account_id   :integer
+#  fixed_asset_deduction_account_id :integer
+#  id                               :integer          not null, primary key
+#  lock_version                     :integer          default(0), not null
+#  name                             :string           not null
+#  nature                           :string           not null
+#  reference_name                   :string
+#  updated_at                       :datetime         not null
+#  updater_id                       :integer
 #
 ---
 taxes_001:
+  active: false
   amount: 19.6
   collect_account_id: 33
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   deduction_account_id: 39
   id: 1
   lock_version: 2
   name: 19.6% VAT
+  nature: normal_vat
   updated_at: 2014-11-01 19:45:09.073583000 Z
   updater_id: 1
 taxes_002:
+  active: true
   amount: 0.0
   collect_account_id: 33
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   deduction_account_id: 39
   id: 2
-  lock_version: 1
+  lock_version: 3
   name: 0% VAT
-  updated_at: 2014-11-01 19:45:25.159903000 Z
+  nature: null_vat
+  updated_at: 2016-05-10 19:21:37.165894000 Z
   updater_id: 1
 taxes_003:
+  active: true
   amount: 20.0
   collect_account_id: 33
+  country: fr
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   deduction_account_id: 39
   id: 3
-  lock_version: 1
+  lock_version: 2
   name: 20% VAT
-  updated_at: 2014-11-01 19:45:34.090342000 Z
+  nature: normal_vat
+  updated_at: 2016-05-10 19:20:53.765809000 Z
+  updater_id: 1
+taxes_004:
+  active: true
+  amount: 10.0
+  collect_account_id: 578
+  country: fr
+  created_at: 2016-05-10 19:21:37.154673000 Z
+  creator_id: 1
+  deduction_account_id: 577
+  id: 8
+  lock_version: 0
+  name: TVA française intermédiaire 2014
+  nature: intermediate_vat
+  reference_name: french_vat_intermediate_2014
+  updated_at: 2016-05-10 19:21:37.154673000 Z
+  updater_id: 1
+taxes_005:
+  active: true
+  amount: 2.1
+  collect_account_id: 582
+  country: fr
+  created_at: 2016-05-10 19:21:37.351341000 Z
+  creator_id: 1
+  deduction_account_id: 581
+  id: 9
+  lock_version: 0
+  name: TVA française particulière 1989
+  nature: particular_vat
+  reference_name: french_vat_particular_1989
+  updated_at: 2016-05-10 19:21:37.351341000 Z
+  updater_id: 1
+taxes_006:
+  active: true
+  amount: 5.5
+  collect_account_id: 584
+  country: fr
+  created_at: 2016-05-10 19:21:37.582543000 Z
+  creator_id: 1
+  deduction_account_id: 583
+  id: 10
+  lock_version: 0
+  name: TVA française réduite
+  nature: reduced_vat
+  reference_name: french_vat_reduced
+  updated_at: 2016-05-10 19:21:37.582543000 Z
   updater_id: 1

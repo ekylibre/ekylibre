@@ -1,4 +1,3 @@
--# Generated automatically. Don't edit this file.
 - entity_address ||= f.object
 .nested-fields
   = link_to_remove_nested_association(:mail, f)
@@ -8,5 +7,5 @@
   = f.input(:mail_line_3, wrapper_html: {id: 'mail-line-3-field'})
   = f.input(:mail_line_4, wrapper_html: {id: 'mail-line-4-field'})
   = f.input(:mail_line_5, wrapper_html: {id: 'mail-line-5-field'})
-  = f.input(:mail_line_6, wrapper_html: {id: 'mail-line-6-field'})
+  = f.input(:mail_line_6, autocomplete: { controller: :postal_zones, column: :name }, wrapper_html: {id: 'mail-line-6-field'})
   = f.input(:mail_country, :collection => countries, wrapper_html: {id: 'mail-country-field'})

@@ -36,13 +36,13 @@
 //= require form/dependents
 //= require form/toggle
 //= require form/dates
-//= require formize/autocomplete
 //= require cocoon
 //= require jquery/ext
 //= require selector
 //= require ui
 //= require jstz
 //= require heatmap
+//= require i18n/translations
 //= require leaflet
 //= require leaflet/draw
 //= require leaflet/fullscreen

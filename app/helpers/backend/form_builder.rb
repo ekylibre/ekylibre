@@ -19,6 +19,15 @@
 
 module Backend
   class FormBuilder < SimpleForm::FormBuilder
+    def referenced_nomenclature(association, options = {})
+      klass = @object.class
+      reflection = klass.nomenclature_reflections[association]
+      raise ArgumentError, "Invalid nomenclature reflection: #{association}" unless reflection
+      options[:collection] ||= reflection.klass.selection
+      options[:label] ||= klass.human_attribute_name(association)
+      input(reflection.foreign_key, options)
+    end
+
     # Display a selector with "new" button
     def referenced_association(association, options = {})
       return self.association(association, options) if options[:as] == :hidden
@@ -44,15 +53,16 @@ module Backend
       end
       # raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
       item = association.to_s.singularize
+      partial = options[:partial] || item + '_fields'
       options[:locals] ||= {}
       html = simple_fields_for(association) do |nested|
-        @template.render(item + '_fields', options[:locals].merge(f: nested))
+        @template.render(partial, options[:locals].merge(f: nested))
       end
       html_options = { id: "#{association}-field", class: "nested-#{association} nested-association" }
       if reflection.macro == :has_many
         unless options[:new].is_a?(FalseClass)
           html << @template.content_tag(:div, class: 'links') do
-            @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}")
+            @template.link_to_add_association(options[:button_label] || "labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, partial: partial, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}")
           end
         end
         if options[:minimum]
@@ -144,13 +154,20 @@ module Backend
 
     # Updates default input method
     def input(attribute_name, options = {}, &block)
-      if targets = options.delete(:show)
-        options[:input_html] ||= {}
-        options[:input_html]['data-show'] = clean_targets(targets)
+      options[:input_html] ||= {}
+      if options[:show]
+        options[:input_html]['data-show'] = clean_targets(options.delete(:show))
       end
-      if targets = options.delete(:hide)
-        options[:input_html] ||= {}
-        options[:input_html]['data-hide'] = clean_targets(targets)
+      if options[:hide]
+        options[:input_html]['data-hide'] = clean_targets(options.delete(:hide))
+      end
+      autocomplete = options[:autocomplete]
+      if autocomplete
+        autocomplete = {} if autocomplete.is_a?(TrueClass)
+        autocomplete[:column] ||= attribute_name.to_s
+        autocomplete[:action] ||= :autocomplete
+        autocomplete[:format] ||= :json
+        options[:input_html]['data-autocomplete'] = @template.url_for(autocomplete)
       end
       super(attribute_name, options, &block)
     end
@@ -290,12 +307,20 @@ module Backend
           editor[:show] = union.to_json_object unless union.empty?
         end
       end
+      editor[:back] ||= MapBackground.availables.collect(&:to_json_object)
+
       input(attribute_name, options.deep_merge(input_html: { data: { map_editor: editor } }))
     end
 
     def shape_field(attribute_name = :shape, options = {})
       raise @object.send(attribute_name)
       geometry = Charta.new_geometry(@object.send(attribute_name) || Charta.empty_geometry)
+      options[:input_html] ||= {}
+      options[:input_html][:data] ||= {}
+      options[:input_html][:data][:map_editor] ||= {}
+      options[:input_html][:data][:map_editor] ||= {}
+      options[:input_html][:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
+
       # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_json_object}}))
       input_field(attribute_name, options.merge(input_html: { data: { map_editor: { edit: geometry.to_json_object } } }))
     end
@@ -321,13 +346,15 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
+      marker[:background] ||= MapBackground.by_default.to_json_object
       input(attribute_name, options.merge(input_html: { data: { map_marker: marker } }))
     end
 
     def point_field(attribute_name, options = {})
       marker = {}
       if geom = @object.send(attribute_name)
-        marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
+        coordinates = Charta.new_geometry(geom).to_json_object['coordinates']
+        marker[:marker] = coordinates.reverse if coordinates
         marker[:view] = { center: marker[:marker] }
       else
         if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
@@ -337,6 +364,7 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
+      marker[:background] ||= MapBackground.by_default.to_json_object
       input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 
@@ -410,7 +438,7 @@ module Backend
     end
 
     # Build a frame for all product _forms
-    def product_form_frame(_options = {}, &block)
+    def product_form_frame(options = {}, &block)
       html = ''.html_safe
 
       variant = @object.variant
@@ -427,7 +455,7 @@ module Backend
           # Add name
           fs << input(:name)
           # Add work number
-          fs << input(:work_number)
+          fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
           # Add variant selector
           fs << variety(scope: variant)
 

@@ -54,7 +54,7 @@ spa:
     milk_withdrawal_period: "Tiempo de espera de la leche"
     name: "Nombre"
     nature: "Tipo"
-    net_revenue: "Ingresos netos"
+    net_revenue: "Ingresos netos" #?
     net_surface_area: "Área de superficie Net"
     number: "Número"
     observed_at: "Observado a las"

@@ -231,7 +231,7 @@ module Nomen
       value = @attributes[name]
       if property
         if value.nil? && property.fallbacks
-          for fallback in property.fallbacks
+          property.fallbacks.each do |fallback|
             value ||= @attributes[fallback]
             break if value
           end

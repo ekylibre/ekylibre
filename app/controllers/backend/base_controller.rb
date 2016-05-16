@@ -18,7 +18,7 @@
 
 module Backend
   class BaseController < ::BaseController
-    include Unrollable, RestfullyManageable
+    include Unrollable, RestfullyManageable, Autocomplete
     protect_from_forgery
 
     layout :dialog_or_not
@@ -218,27 +218,6 @@ module Backend
     end
 
     class << self
-      # Autocomplete helper
-      def autocomplete_for(column, options = {})
-        model = (options.delete(:model) || controller_name).to_s.classify.constantize
-        item =  model.name.underscore.to_s
-        items = item.pluralize
-        items = "many_#{items}" if items == item
-        code =  "def #{__method__}_#{column}\n"
-        code << "  if params[:term]\n"
-        code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
-        code << "    @#{items} = #{model.name}.select('DISTINCT #{column}').where('LOWER(#{column}) LIKE ?', pattern).order('#{column} ASC').limit(80)\n"
-        code << "    respond_to do |format|\n"
-        code << "      format.html { render :inline => \"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{column})) }.join.html_safe)%>\" }\n"
-        code << "      format.json { render :json => @#{items}.collect{|#{item}| #{item}.#{column}}.to_json }\n"
-        code << "    end\n"
-        code << "  else\n"
-        code << "    render :text => '', :layout => true\n"
-        code << "  end\n"
-        code << "end\n"
-        class_eval(code, "#{__FILE__}:#{__LINE__}")
-      end
-
       # search is a hash like {table: [columns...]}
       def search_conditions(search = {}, options = {})
         conditions = options[:conditions] || 'c'
@@ -304,7 +283,7 @@ module Backend
       def journal_period_crit(variable, conditions = 'c')
         variable = "params[:#{variable}]" unless variable.is_a? String
         code = ''
-        code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_at], #{variable}[:stopped_at])\n"
+        code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
         code.c
       end
 

@@ -67,6 +67,13 @@ module Charta
       Point.new("SRID=#{srid};POINT(#{lon} #{lat})")
     end
 
+    def make_line(points, options = {})
+      options[:srid] ||= new_geometry(points.first).srid if points.any?
+      options[:srid] ||= 4326
+      list = points.map { |p| new_geometry(p).geom }
+      new_geometry(select_value("SELECT ST_AsEWKT(ST_MakeLine(ARRAY[#{list.join(', ')}]))"))
+    end
+
     def empty_geometry(srid = :WGS84)
       GeometryCollection.empty(srid)
     end

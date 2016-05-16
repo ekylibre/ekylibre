@@ -45,7 +45,8 @@ class SupervisionItem < Ekylibre::Record::Base
   delegate :time_window, to: :supervision
 
   def indicator_names
-    analysis_items.uniq.pluck(:indicator_name)
+    list = analysis_items.pluck(:indicator_name)
+    list.uniq
   end
 
   def historic_of(indicator_name)

@@ -3,10 +3,30 @@
   - budget = resource.budget_of(current_campaign)
   - if budget && budget.items.any?
     = t.edit params: {controller: :activity_budgets, id: budget.id}, label: :edit_budget.tl
+  - if resource.use_countings?
+    = link_to(PlantDensityAbacus.model_name.human, { controller: :plant_density_abaci, action: :index}, class: 'btn btn-default')
+  - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
+    = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
 
 - main_campaign_selector
 
+
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :production_system
+    - l.attribute :use_countings
+    - l.attribute :use_gradings
+    - if resource.use_gradings
+      - l.attribute :measure_grading_net_mass
+      - if resource.measure_grading_net_mass
+        - l.attribute :grading_net_mass_unit
+      - l.attribute :measure_grading_sizes
+      - if resource.measure_grading_sizes
+        - l.attribute :grading_sizes_indicator
+        - l.attribute :grading_sizes_unit
+
 = cobbles do |c|
+
   - if current_campaign
     - c.cobble :budget do
       = render 'budget'
@@ -14,6 +34,7 @@
     = attributes_list do |l|
       - l.attribute :nature
       - l.attribute :family
+      - l.attribute :production_system_name
       - if resource.with_cultivation
         - l.attribute :cultivation_variety
       - if resource.with_supports
@@ -40,3 +61,8 @@
         series = [{type: 'pie', name: Activity.human_attribute_name(:distributions), data: data}]
 
       = pie_highcharts(series, legend: true)
+
+  - if resource.use_gradings
+    - c.cobble(:inspections) do
+      = cobble_list :inspections
+

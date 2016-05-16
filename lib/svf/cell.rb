@@ -11,7 +11,7 @@ module SVF
       else
         return nil
       end
-      if definition[:type] =~ '-'
+      if definition[:type] =~ /\-/
         type, format = definition[:type].split('-')[0..1]
         definition = { type: type.to_sym }
         if format =~ /^\d+$/

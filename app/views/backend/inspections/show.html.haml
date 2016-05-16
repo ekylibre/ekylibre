@@ -1,0 +1,141 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy
+
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :sampled_at
+    - l.attribute :sampling_area
+    - l.attribute :product_net_surface_area
+    - l.attribute :product, url: true
+    - l.attribute :activity, url: true
+    - l.attribute :comment
+
+= cobbles do |c|
+
+  - c.cobble(:data) do
+    - colspan = 3
+    %table
+      %thead
+        %tr
+          %th= InspectionPoint.human_attribute_name(:name)
+          - if resource.measure_grading_items_count
+            %th= InspectionPoint.human_attribute_name(:items_count)
+            - colspan += 1
+          - if resource.measure_grading_net_mass
+            %th= InspectionPoint.human_attribute_name(:net_mass)
+            - colspan += 1
+          - if resource.measure_grading_sizes
+            %th= InspectionPoint.human_attribute_name(:minimal_size)
+            %th= InspectionPoint.human_attribute_name(:maximal_size)
+            - colspan += 2
+          - if resource.mass_statable?
+            %th= :total.tl
+            %th= :yield.tl
+            %th= InspectionPoint.human_attribute_name(:marketable)
+            - colspan += 2
+      %tbody
+        - if resource.points.any?
+          %tr.title
+            %th{ colspan: colspan }= Inspection.human_attribute_name(:points)
+          - resource.points.joins(:nature).order('name').each do |point|
+            %tr
+              %td= point.nature_name
+              - if resource.measure_grading_items_count
+                %td.decimal= point.items_count
+              - if resource.measure_grading_net_mass
+                %td.decimal= point.net_mass.l(precision: 0)
+              - if resource.measure_grading_sizes
+                %td.decimal= point.minimal_size.l(precision: 0)
+                %td.decimal= point.maximal_size.l(precision: 0)
+              - if resource.mass_statable?
+                %td.decimal= point.total_net_mass.l(precision: 0)
+                %td.decimal= point.net_mass_yield.l(precision: 0)
+                %td.decimal &ndash;
+          - (ActivityInspectionPointNature.category.values - ['none']).each do |category|
+            %tr.subtotal
+              %th= "enumerize.activity_inspection_point_nature.category.#{category}".t
+              - if resource.measure_grading_items_count
+                %td.decimal= resource.points_items_count(category)
+              - if resource.measure_grading_net_mass
+                %td.decimal= resource.points_net_mass(category).l(precision: 0)
+              - if resource.measure_grading_sizes
+                %td.decimal &ndash;
+                %td.decimal &ndash;
+              - if resource.mass_statable?
+                %td.decimal= resource.total_points_net_mass(category).l(precision: 0)
+                %td.decimal= resource.points_net_mass_yield(category).l(precision: 0)
+                %td.decimal &ndash;
+          %tr.total
+            %th= :totals.tl
+            - if resource.measure_grading_items_count
+              %th.decimal= resource.points_items_count
+            - if resource.measure_grading_net_mass
+              %th.decimal= resource.points_net_mass.l(precision: 0)
+            - if resource.measure_grading_sizes
+              %th.decimal &ndash;
+              %th.decimal &ndash;
+            - if resource.mass_statable?
+              %th.decimal= resource.total_points_net_mass.l(precision: 0)
+              %th.decimal= resource.points_net_mass_yield.l(precision: 0)
+              %th.decimal &ndash;
+        - resource.scales.order(:id).each do |scale|
+          %tr.title
+            %th{ colspan: colspan }= scale.size_indicator.human_name
+          - resource.calibrations.of_scale(scale).each do |calibration|
+            %tr
+              %td= calibration.nature_name
+              - if resource.measure_grading_items_count
+                %td.decimal= calibration.items_count
+              - if resource.measure_grading_net_mass
+                %td.decimal= calibration.net_mass.l(precision: 0)
+              - if resource.measure_grading_sizes
+                %td.decimal= calibration.minimal_size.l(precision: 0)
+                %td.decimal= calibration.maximal_size.l(precision: 0)
+              - if resource.mass_statable?
+                %td.decimal= calibration.total_net_mass.l(precision: 0)
+                %td.decimal= calibration.net_mass_yield.l(precision: 0)
+                %td.decimal= calibration.marketable? ? calibration.total_net_mass.l(precision: 0) : '&ndash;'.html_safe
+          %tr.total
+            %th= :totals.tl
+            - if resource.measure_grading_items_count
+              %th.decimal= resource.items_count(scale)
+            - if resource.measure_grading_net_mass
+              %th.decimal= resource.net_mass(scale).l(precision: 0)
+            - if resource.measure_grading_sizes
+              %th.decimal &ndash;
+              %th.decimal &ndash;
+            - if resource.mass_statable?
+              %th.decimal= resource.total_net_mass(scale).l(precision: 0)
+              %th.decimal= resource.net_mass_yield(scale).l(precision: 0)
+              %th.decimal= resource.marketable_net_mass(scale).l(precision: 0)
+
+  -# if resource.inspection_calibration_scales.any? && resource.calibrations.sum(:net_mass_value) > 0
+    - c.cobble(:calibrations) do
+      %table
+        %tr
+          - resource.inspection_calibration_scales.each do |scale|
+            :ruby
+              # build categories
+              categories = []
+              categories << [resource.position, :yield]
+              series = []
+
+              # build symbol
+              symbol_measure = Nomen::Unit[resource.product_stock_in_ground.unit].symbol
+
+              # check global net mass of grading
+              m = resource.net_mass.to_d
+              # check global net mass of grading
+              net_surface_area = resource.net_surface_area_in_hectare
+              stock_in_ground = resource.product_stock_in_ground.to_d
+              resource.checks.of_nature(:calibre).map do |check|
+                arr = []
+                y = (check.net_mass_value.to_d / m) * stock_in_ground  if m != 0.0
+                arr << y.to_i.to_s.to_f
+                arr << (y.to_d / net_surface_area.to_d).round(2).to_s.to_f if net_surface_area != 0.0
+                series << { name: check.activity_grading_check.name, data: arr}
+              end
+
+            %td= column_highcharts(series, y_axis: {title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})

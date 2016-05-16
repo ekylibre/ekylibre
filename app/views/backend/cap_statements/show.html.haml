@@ -60,10 +60,6 @@
       = visualization(box: {height: "100%"}) do |v|
         - v.serie :land_parcels, land_parcels
         - v.serie :islets, islets
-        - v.background "OpenStreetMap.HOT"
-        - v.background "OpenStreetMap.Mapnik"
-        - v.background "Thunderforest.Landscape"
-        - v.background "Esri.WorldImagery"
         - v.simple :cap_islets, :islets
         - v.categories :main_crop_code, :land_parcels
         - v.control :zoom

@@ -9,13 +9,13 @@
     .activity-name= link_to(activity.name, {controller: :activities, action: :show, id: activity.id }, title: activity.name)
     - if active
       .activity-indicators
-        .activity-indicator.size
-          = activity.size_during(campaign).round(3).l rescue nil
         .activity-indicator.cash
           = activity.real_expense_amount(campaign).l(currency: Preference[:currency])
           = '/'
           = activity.budget_expenses_amount(campaign).l(currency: Preference[:currency])
       .activity-indicators
+        .activity-indicator.size
+          = activity.size_during(campaign).round(3).l rescue nil
         .activity-indicator.cumulated-time
           - intervention = Intervention.of_campaign(campaign).of_activity(activity)
           - if intervention.any?

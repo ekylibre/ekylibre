@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix taxes">
+  <item-removal item="taxes#french_vat_normal_asset_1966"/>
+  <item-removal item="taxes#french_vat_normal_asset_1982"/>
+  <item-removal item="taxes#french_vat_normal_asset_1995"/>
+  <item-removal item="taxes#french_vat_normal_asset_2000"/>
+  <item-removal item="taxes#french_vat_normal_asset_2014"/>
+
+  <property-creation property="tax_natures.fixed_asset_deduction_account" type="item" choices="accounts"/>
+  <property-creation property="tax_natures.fixed_asset_collect_account" type="item" choices="accounts"/>
+
+  <item-change item="tax_natures#normal_vat" fixed_asset_deduction_account="deductible_asset_vat"/>
+
+  <item-removal item="tax_natures#asset_vat"/>
+</migration>

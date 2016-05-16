@@ -54,7 +54,7 @@ arb:
     milk_withdrawal_period: "فترة الانسحاب الحليب"
     name: "اسم"
     nature: "اكتب"
-    net_revenue: "صافي الإيرادات"
+    net_revenue: "صافي الإيرادات" #?
     net_surface_area: "مساحة صافية"
     number: "عدد"
     observed_at: "لوحظ في"

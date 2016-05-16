@@ -53,4 +53,18 @@ class InterventionTarget < InterventionProductParameter
   validates :product, presence: true
   scope :of_activity, ->(activity) { where(product_id: TargetDistribution.select(:target_id).where(activity_id: activity)) }
   scope :of_activity_production, ->(activity_production) { where(product_id: TargetDistribution.select(:target_id).where(activity_production_id: activity_production)) }
+
+  def activity
+    return nil unless product
+    if product.is_a?(LandParcel)
+      ap = ActivityProduction.find_by(support: product)
+    elsif product && product.is_a?(Plant) && product.shape
+      lp = LandParcel.shape_intersecting(product.shape).first
+      ap = ActivityProduction.find_by(support: lp)
+    elsif product && product.is_a?(Animal)
+      groups = product.groups_at(intervention.started_at)
+      ap = ActivityProduction.find_by(support: groups.first)
+    end
+    ap ? ap.activity : nil
+  end
 end

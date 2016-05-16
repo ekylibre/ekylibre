@@ -16,6 +16,11 @@ jpn:
         per_campaign: "キャンペーンごと"
         per_production: "生産あたり"
         per_working_unit: "作業単位当たり"
+    activity_inspection_point_nature:
+      category:
+        # deformity: "Deformity"
+        # disease: "Disease"
+        # none: "None"
     activity_production:
       support_nature:
         border: "境界"
@@ -88,6 +93,10 @@ jpn:
         line: "ライン"
         point: "ポイント"
         polygon: "ポリゴン"
+    grading_quality_criterion:
+      nature:
+        # disease_presence: "Disease presence"
+        # waste: "Waste"
     guide_analysis:
       status:
         errored: "エラーの発生しました"
@@ -206,3 +215,5 @@ jpn:
     hints:
       purchase:
         reference_number: "サプライヤーの請求書番号"
+    required:
+      text: "必須"

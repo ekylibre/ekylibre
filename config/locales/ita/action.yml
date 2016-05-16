@@ -1,10 +1,12 @@
 ita:
   actions:
     authentication/invitations:
-      edit: "Accetta l&#39;invito"
+      edit: "Accetta l'invito"
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "Nuova password"
+    authentication/registrations:
+      new: "Registrazione"
     authentication/sessions:
       destroy: "Disconnettersi"
       new: "nuova sessione"
@@ -265,13 +267,18 @@ ita:
       index: "pagamenti in entrata"
       new: "Nuovo pagamento in entrata"
       # show: "Incoming payment %{number} of %{entity}"
+    backend/inspections:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       index: "interventi"
       new: "Nuovo intervento"
       # show: "%{procedure_name}"
     backend/inventories:
-      edit: "Modifica l&#39;inventario"
+      edit: "Modifica l'inventario"
       index: "rimanenze"
       new: "nuovo inventario"
       # show: "Inventory: %{name}"
@@ -326,6 +333,14 @@ ita:
       index: "piani di gestione del letame"
       new: "Nuovo piano di gestione del letame"
       # show: "Manure management plan: %{name}"
+    backend/map_backgrounds:
+      # edit: "Edit map background: %{name}"
+      # index: "Map backgrounds"
+      # load: "Load map background: %{name}"
+      # new: "New map background"
+      # show: "Map background: %{name}"
+      # star: "Star map background: %{name}"
+      # toggle: "Toggle map background: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       # index: "Matters"
@@ -407,7 +422,7 @@ ita:
       # show: "Purchase type: %{name}"
     backend/purchases:
       abort: "interrompe"
-      confirm: "Confermare l&#39;ordine e attendere per le consegne"
+      confirm: "Confermare l'ordine e attendere per le consegne"
       correct: "Giusto ordine"
       # edit: "Edit purchase: %{number}"
       index: "acquisti"
@@ -417,6 +432,9 @@ ita:
       propose_and_invoice: "fatturare direttamente"
       refuse: "ordine Refused"
       # show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "Modifica registrazione"
+      index: "Iscrizioni"
     backend/roles:
       # edit: "Edit role: %{name}"
       index: "ruoli"
@@ -515,6 +533,72 @@ ita:
       index: "Casa"
   errors:
     # format: "%{message}"
+    front-end:  #?
+      leaflet: #?
+        draw: #?
+          handlers: #?
+            circle: #?
+              tooltip: #?
+                start: "Fare clic e trascinare per disegnare cerchio." #?
+            marker: #?
+              tooltip: #?
+                start: "Clicca sulla mappa per posizionare marker." #?
+            polygon: #?
+              tooltip: #?
+                cont: "Clicca per continuare a disegnare la forma." #?
+                end: "Clicca primo punto per chiudere questa forma." #?
+                start: "Fare clic per iniziare a disegnare la forma." #?
+            polyline: #?
+              error: "<strong>Errore:</strong> bordi di forma non possono attraversare!" #?
+              tooltip: #?
+                cont: "Clicca qui per continuare la linea di disegno." #?
+                end: "Clicca ultimo punto al traguardo." #?
+                start: "Fare clic per avviare la linea di disegno." #?
+            rectangle: #?
+              tooltip: #?
+                start: "Fare clic e trascinare per disegnare rettangolo." #?
+            simpleshape: #?
+              tooltip: #?
+                end: "Il mouse di rilascio per terminare il disegno." #?
+          toolbar: #?
+            actions: #?
+              text: "Annulla" #?
+              title: "Annulla disegno" #?
+            buttons: #?
+              circle: "Disegnare un cerchio" #?
+              marker: "Disegnare un marker" #?
+              polygon: "Disegnare un poligono" #?
+              polyline: "Disegnare una polilinea" #?
+              rectangle: "Disegnare un rettangolo" #?
+            undo: #?
+              text: "Cancellare l'ultimo punto" #?
+              title: "Cancellare l'ultimo punto disegnato" #?
+        edit: #?
+          handlers: #?
+            edit: #?
+              tooltip: #?
+                subtext: "Scegliere Annulla per annullare le modifiche." #?
+                text: "Maniglie di trascinamento, o marcatore di Modifica funzione." #?
+            remove: #?
+              tooltip: #?
+                text: "Fare clic su una funzione per rimuovere" #?
+          toolbar: #?
+            actions: #?
+              cancel: #?
+                text: "Annulla" #?
+                title: "Annullare la modifica, scarta tutte le modifiche." #?
+              save: #?
+                text: "Salvare" #?
+                title: "Salva I Cambiamenti." #?
+            buttons: #?
+              edit: "Modificare i livelli." #?
+              editDisabled: "Non ci sono strati di modificare." #?
+              remove: "Eliminare i livelli." #?
+              removeDisabled: "Non ci sono livelli da eliminare." #?
+        fullscreenTitle: "A schermo intero" #?
+        importerButtonTitle: "Importare" #?
+        zoomInTitle: "Ingrandire" #?
+        zoomOutTitle: "Zoom indietro" #?
     messages:
       already_confirmed: "è stato già confermato, prova ad accedere a"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
@@ -529,6 +613,72 @@ ita:
       header:
         # one: "1 error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
+  front-end:
+    leaflet:
+      draw:
+        handlers:
+          circle:
+            tooltip:
+              start: "Fare clic e trascinare per disegnare cerchio."
+          marker:
+            tooltip:
+              start: "Clicca sulla mappa per posizionare marker."
+          polygon:
+            tooltip:
+              cont: "Clicca per continuare a disegnare la forma."
+              end: "Clicca primo punto per chiudere questa forma."
+              start: "Fare clic per iniziare a disegnare la forma."
+          polyline:
+            error: "<strong>Errore:</strong> bordi di forma non possono attraversare!"
+            tooltip:
+              cont: "Clicca qui per continuare la linea di disegno."
+              end: "Clicca ultimo punto al traguardo."
+              start: "Fare clic per avviare la linea di disegno."
+          rectangle:
+            tooltip:
+              start: "Fare clic e trascinare per disegnare rettangolo."
+          simpleshape:
+            tooltip:
+              end: "Il mouse di rilascio per terminare il disegno."
+        toolbar:
+          actions:
+            text: "Annulla"
+            title: "Annulla disegno"
+          buttons:
+            circle: "Disegnare un cerchio"
+            marker: "Disegnare un marker"
+            polygon: "Disegnare un poligono"
+            polyline: "Disegnare una polilinea"
+            rectangle: "Disegnare un rettangolo"
+          undo:
+            text: "Cancellare l'ultimo punto"
+            title: "Cancellare l'ultimo punto disegnato"
+      edit:
+        handlers:
+          edit:
+            tooltip:
+              subtext: "Scegliere Annulla per annullare le modifiche."
+              text: "Maniglie di trascinamento, o marcatore di Modifica funzione."
+          remove:
+            tooltip:
+              text: "Fare clic su una funzione per rimuovere"
+        toolbar:
+          actions:
+            cancel:
+              text: "Annulla"
+              title: "Annullare la modifica, scarta tutte le modifiche."
+            save:
+              text: "Salvare"
+              title: "Salva I Cambiamenti."
+          buttons:
+            edit: "Modificare i livelli."
+            editDisabled: "Non ci sono strati di modificare."
+            remove: "Eliminare i livelli."
+            removeDisabled: "Non ci sono livelli da eliminare."
+      fullscreenTitle: "A schermo intero"
+      importerButtonTitle: "Importare"
+      zoomInTitle: "Ingrandire"
+      zoomOutTitle: "Zoom indietro"
   labels:
     access: "Accesso"
     access_parameters: "parametri di accesso"
@@ -539,8 +689,12 @@ ita:
     accounts_to_load: "Conti per caricare"
     active: "Attivo"
     activities: "attività"
+    # activities_step: "activities"
     activity: "Attività"
+    # activity_family: "Family activities"
+    # activity_name: "Activity"
     activity_production: "Attività Produttive"
+    activity_productions: "Produzioni di attività"
     add: "Aggiungere"
     add_annotation: "Aggiungere annotazioni"
     add_attachment: "Aggiungi allegato"
@@ -553,9 +707,11 @@ ita:
     add_distribution: "Aggiungere la distribuzione"
     add_email: "Aggiungere e-mail"
     add_entry: "Aggiungere una voce"
+    # add_equipment: "Adding equipment"
     add_expense: "Aggiungere spesa"
     add_fax: "Aggiungere fax"
     add_filter: "Aggiungi filtro"
+    # add_grading_check: "Add grading check"
     add_item: "Aggiungi articolo"
     add_linestring: "Aggiungere stringa lineare"
     add_mail: "Aggiungere indirizzo postale"
@@ -578,6 +734,8 @@ ita:
     add_website: "Aggiungere sito"
     add_working_period: "Aggiungere working_period"
     # add_x: "Add “%{x}”"
+    # add_your_activities: "Add the activities you need. The activities are deducted from your import TELEPAC appropriate."
+    # add_your_equipment: "Add Your Equipment. You can also associate a location that you have previously defined (cultivable area or building area)."
     affair: "Affare"
     affair_number: "numero Affair"
     affairs: "Affari"
@@ -627,6 +785,10 @@ ita:
     budget: "bilancio"
     budget_per_working_indicator: "Budget per indicatore di funzionamento"
     budgets: "i bilanci"
+    # building: "Building"
+    # building_divisions: "building areas"
+    # building_divisions_and_parcels: "building areas and plots"
+    # buildings: "buildings"
     by_year: "Per anno"
     calculate: "Calcolare"
     calculators: "Calcolatrici"
@@ -635,8 +797,13 @@ ita:
     # canals: "Canals"
     cancel: "Annulla"
     cancelation: "cancellazione"
+    # cap_cluster_prefix: "CAP island No."
+    # cap_clusters: "CAP islands"
     cap_islets: "isolotti Cap"
+    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "appezzamenti Cap"
+    # cap_parcel_prefix: "PAC plot No."
+    # cap_parcels: "PAC plots"
     cartography: "Cartografia"
     cash: "Contanti"
     cash_balance: "saldo di cassa"
@@ -651,7 +818,7 @@ ita:
     # centralized_account: "Centralized account %{name}"
     change_password: "Cambia la password"
     chart: "Grafico"
-    check: "Dai un&#39;occhiata"
+    check: "Dai un'occhiata"
     children: "Bambini"
     choices: "scelte"
     choose_a_type_of_product: "Scegliere un tipo di prodotto"
@@ -668,10 +835,12 @@ ita:
     column: "Colonna"
     columns: "Colonne di importare"
     commission: "Commissione"
+    # company: "Society"
     conditions:
       filter_on_attribute_of_class: "Filtro su attributo della classe"
       special-subscriber: "Special-abbonato"
     configure: "Configurazione"
+    # confirm_sentence: "Are you sure?"
     consume: "Consumare"
     contained_products: "prodotti contenuti"
     container: "Contenitore"
@@ -679,7 +848,7 @@ ita:
     convert_balance_into_profit: "Convertire equilibrio in profitto"
     cooperative_cartodb: "Cooperativa cartodb"
     coordinates: "coordinate"
-    copy_from_another_activity: "Copiare da un&#39;altra attività"
+    copy_from_another_activity: "Copiare da un'altra attività"
     copy_from_previous_campaign: "Copia da precedente campagna"
     # copy_of: "Copy of %{source}"
     copy_previous_budget: "Copia bilancio precedente"
@@ -690,6 +859,7 @@ ita:
     counts: "Conti"
     counts_by_nature: "Numero di documenti per conto per tipo"
     create: "Creare"
+    # create_a_new_division: "Create a new zone. Click on the map to add a point and close the drawing to create the zone."
     create_journal: "- Creare Journal -"
     create_or_import_equipments: "Creare o apparecchiature di importazione"
     create_or_import_incoming_parcels: "Creare o importare i pacchi in arrivo"
@@ -707,6 +877,7 @@ ita:
     crumbs: "briciole"
     cultivable_zone: "zone coltivabili"
     # cultivable_zone_abbreviation: "CZ"
+    # cultivable_zone_prefix: "cultivable area No."
     cultivable_zones: "zone coltivabili"
     # cumul: "Accumulation of tattle and previous balance N°%{number}"
     current: "corrente"
@@ -724,6 +895,8 @@ ita:
     # default_subject: "[%{company}]"
     definition: "Definizione"
     delete: "cancellare"
+    # delete_an_existing_division: "Delete an existing zone. Click the box to remove it."
+    # delete_shape: "Delete form"
     deliver: "consegnato su"
     deliveries: "Le consegne"
     delivery: "Consegna"
@@ -754,13 +927,18 @@ ita:
     down: "Giù"
     downpayment: "Acconto"
     draft: "Bozza"
+    # draw_your_building_divisions: "Draw your building areas. By default, a main area for your building is created."
+    # draw_your_buildings: "Draw your buildings, which ye shall divide area in the next step."
+    # draw_your_cultivable_zones: "Draw the areas where you have crops. These are deducted from your PAC import if necessary."
     duplicate: "Duplicare"
     duration: "Durata"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Durante"
     earns: "guadagna"
     edit: "Modifica"
+    # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "Modifica budget"
+    # edited_cap_clusters: "Islands modified PAC"
     # ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "interventi trascorsi i tempi di attività"
     email: "E-mail:"
@@ -772,10 +950,14 @@ ita:
     # entries: "Entries"
     entries_to_point: "Voci che puntano a"
     entry_items: "articoli di ingresso"
+    # equipment: "Equipment"
+    # equipment_name: "Name of equipment"
+    # equipment_type: "Type of equipment"
+    # equipment_zone: "Location"
     equipments: "apparecchiature"
     error: "Scusate..."
     # error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
-    errors_explanation: "Ci sono errori nel file. Se non li corregge, le linee non corrette verranno ignorati durante l&#39;importazione."
+    errors_explanation: "Ci sono errori nel file. Se non li corregge, le linee non corrette verranno ignorati durante l'importazione."
     estimate_yield: "stima rendimento"
     evaluated_direct_margin: "margine diretto valutato"
     evaluated_doer_cost: "costo del lavoro Valutata"
@@ -791,6 +973,7 @@ ita:
     # expedier: "Expedier"
     expenses: "Spese"
     export: "documenti di esportazione"
+    # file_imports: "Import files"
     file_nature: "Tipo di file"
     file_preview: "Anteprima"
     file_to_upload: "File da caricare"
@@ -812,6 +995,7 @@ ita:
     generate_last_journal_entry: "Generare ultima voce di diario"
     geolocation: "geolocalizzazione"
     go: "Partire"
+    # gradings: "Gradings"
     grain_yield: "La resa in granella"
     gross_profit: "Utile lordo"
     group: "Gruppo"
@@ -830,7 +1014,9 @@ ita:
     illness: "Malattia"
     implanted_at: "impiantato a"
     import: "Importare"
+    # import_zones_from_third_party_softwares: "Import zones from third party software, the GeoJSON format GML and KML."
     importation_explanation: "importazione spiegazione"
+    # imported_file: "Your file has been imported"
     inactive: "Inattivo"
     include_blank: "Includi vuoto"
     income_statement: "Conto economico"
@@ -838,8 +1024,9 @@ ita:
     incoming_payment: "pagamento in entrata"
     incoming_payments: "pagamenti in entrata"
     incoming_payments_to_deposit: "Pagamenti in entrata di depositare"
+    # increase_map_on_fullscreen: "Enlarge map in full screen."
     indicator: "indicatori"
-    indicator_value: "valore dell&#39;indicatore"
+    indicator_value: "valore dell'indicatore"
     indicators: "indicatori"
     indicators_evolutions: "Indicatori evoluzioni"
     indirect_expenses: "oneri indiretti"
@@ -886,6 +1073,7 @@ ita:
     last_entities: "ultimi entità"
     last_events: "ultimi eventi"
     last_incoming_parcels: "Ultimi pacchi in arrivo"
+    # last_inspection: "Last inspection"
     last_intervention: "Ultimo intervento"
     last_issue: "Ultimo numero"
     last_issues: "ultimi problemi"
@@ -894,7 +1082,10 @@ ita:
     last_products: "ultimi prodotti"
     last_purchases: "ultimi acquisti"
     last_sales: "ultimi vendite"
+    # layers_management: "layers of management, to change the base map and refine the visual representations to show."
     letter: "Lettera"
+    # level: "Level"
+    # levels: "levels"
     # line_number: "Line #%{number}"
     linear_options: "opzioni lineari"
     link: "collegamento"
@@ -911,21 +1102,28 @@ ita:
       # other: "%{count} emails"
       zero: "Non ci sono messaggi di posta elettronica"
     main_settings: "impostazioni principali"
+    # main_zone_of: "main area of ​​%{zone}"
     make_your_production_support: "Fai la tua supporto alla produzione"
     manage_activities: "gestire le attività"
     manual: "Manuale"
     # manual_period: "from %{start} to %{finish}"
     manure_management_plan_chart: "chart piano di gestione del letame"
     map: "Carta geografica"
+    # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "Segna tutti come letti"
     mark_as_read: "segna come letto"
+    # max_level: "max level"
     maximal_temperature: "temperatura massima"
+    # measurement_tools: "measurement tool, for calculations of distances and areas."
     members: "Utenti"
     menus: "Menu"
     merge: "Fondersi"
     method: "metodo"
+    # min_level: "level min"
     minimal_temperature: "temperatura minima"
+    # missing: "Missing"
     missing_attributes: "Alcuni attributi mancano"
+    # missing_buildings: "You have not saved building for now. You can return to the previous step to declare your buildings or ignore this message by clicking Next."
     missing_help: "pagina mancante"
     # mobile: "Mobile"
     mode: "modo"
@@ -944,6 +1142,7 @@ ita:
     net_mass: "massa netta"
     net_surface_area: "superficie netta"
     new: "Nuovo"
+    # new_activity: "new activity"
     new_animal: "nuovo animale"
     new_attachment: "Nuovo attacco"
     new_box: "nuova scatola"
@@ -962,6 +1161,7 @@ ita:
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Nuova email"
+    # new_equipment: "new equipment"
     new_group: "Nuovo gruppo"
     new_issue: "Nuovo problema"
     new_organization: "nuova organizzazione"
@@ -992,11 +1192,12 @@ ita:
     number_of_cap_land_parcels: "Numero di cap appezzamenti"
     number_options: "Opzioni Numbers"
     numbers: "Numeri"
+    # ok: "OK"
     on_account: "Sul conto"
     one_condition: "Una condizione"
     open_a_campaign: "Aprire una campagna"
     open_a_production: "Aprire una produzione"
-    open_an_activity: "Aprire un&#39;attività"
+    open_an_activity: "Aprire un'attività"
     operating_margin: "Margine di operatività"
     operating_margin_on_turnover: "Il margine operativo sul fatturato"
     # operating_profit: "Operating profit %{financial_year}"
@@ -1006,6 +1207,7 @@ ita:
     others: "Altri"
     outgoing_payment: "pagamento in uscita"
     outgoing_payments: "pagamenti in uscita"
+    # pacage_number: "No. GRAZING"
     # page_title: "%{company_code} · %{menu} · %{action}"
     # page_title_by_default: "Ekylibre · %{action}"
     # page_title_special: "%{company_code} · %{action}"
@@ -1016,7 +1218,7 @@ ita:
     participants: "I partecipanti"
     participations: "partecipazioni"
     parts: "moduli"
-    password: "parola d&#39;ordine"
+    password: "parola d'ordine"
     paths_to_convert: "Percorsi per convertire"
     payable_taxes: "Debiti tributari"
     payment_amount: "Importo del pagamento"
@@ -1036,7 +1238,7 @@ ita:
     placeholder: "segnaposto"
     places: "posti"
     plant: "pianta"
-    plantation_density: "densità d&#39;impianto"
+    plantation_density: "densità d'impianto"
     plants: "Piante"
     please_wait: "Attendere prego…"
     point: "Punto"
@@ -1081,6 +1283,7 @@ ita:
     readings: "letture"
     received: "ricevuto"
     recent_events: "Eventi recenti"
+    # reference_cap_clusters: "Islets reference CAP"
     reflect: "Riflettere"
     reflected: "modifiche riflessa"
     reflections: "Riflessi"
@@ -1095,7 +1298,9 @@ ita:
     repayments: "rimborsi"
     repayments_graph: "grafico rimborsi"
     report: "rapporto"
+    # request_building_levels: "buildings levels"
     reset: "Azzerare"
+    # reset_all_data: "Delete and start over"
     # resource: "View original document: %{resource} %{number}"
     resources: "Gestione delle risorse"
     rest: "riposo"
@@ -1105,6 +1310,7 @@ ita:
       one: "1 risultato"
       # other: "%{count} results"
       zero: "Nessun risultato"
+    # retrieve_my_telepac_file: "Retrieve TELEPAC file."
     revenues: "ricavi"
     revenues_by_product_nature: "Ricavi per tipologia di prodotto"
     reverse: "condizione di inversione"
@@ -1145,6 +1351,7 @@ ita:
     sex: "Sesso"
     shape: "Forma"
     ship: "Nave"
+    # short_level_label: "Lv."
     show: "Mostrare"
     sign_out: "disconnessione"
     simplified: "contabilità semplificata"
@@ -1157,10 +1364,12 @@ ita:
     stewardship: "amministrazione"
     stock: "Azione"
     stock_container_map: "della mappa"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     # stock_of_x: "Stock of %{x}"
     stocks: "riserve"
     # stop: "Stop"
     storage: "Conservazione"
+    # storages: "Silos and tanks"
     subject: "Soggetto"
     submit: "invio"
     # subscriber_period: "Subscribed on %{subscribed_at}"
@@ -1180,6 +1389,9 @@ ita:
     tasks: "Compiti"
     taxations: "tassazioni"
     taxes: "Le tasse"
+    # telepac_files: "Import TELEPAC"
+    # telepac_upload_your_xml_file: "You can import your statement in XML format that you have previously exported to TELEPAC."
+    # the_file_is_invalid: "The file is invalid!"
     thumb: "Pollice"
     time_cost: "tempo costo"
     time_spent_by_activity: "Il tempo speso per attività"
@@ -1233,12 +1445,14 @@ ita:
     unknown_variant: "variante sconosciuta"
     unlock: "Sbloccare"
     unmark: "Deselez"
+    # unnamed: "Nameless"
     unpaid: "non pagato"
     unpaid_amount: "importo non pagato"
     unpaid_days: "Non pagata da (in giorni)"
     unpaid_purchases: "gli acquisti non pagati"
     unpaid_sales: "vendite non pagate"
     unset_reconcilable_old_third_accounts: "Unset conciliabili conti terzo vecchi (clienti, fornitori e avvocati)"
+    # unzoom_map: "Zoom out the map."
     up: "Su"
     update: "Aggiornare"
     # updated_at_by: "Updated at %{at} by %{author}"
@@ -1246,6 +1460,7 @@ ita:
     upload: "Caricare"
     uploaded_file: "Il file caricato"
     usage: "uso"
+    user_status: "Stato"
     users: "utenti"
     valid: "Valido"
     validate: "Convalidare"
@@ -1253,11 +1468,14 @@ ita:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Convalida voci selezionate"
+    # validations: "Finalisation"
     values: "Valori"
     variable_indicators: "indicatori variabili"
     variants: "varianti"
+    # variety: "Variety"
     view: "vista"
     weather: "Tempo"
+    # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Velocità del vento"
     with_fixed_assets_depreciations: "Con un patrimonio ammortamenti fisse"
     workers: "Lavoratori"
@@ -1305,6 +1523,9 @@ ita:
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
+    x_inspections:
+      # one: "%{count} inspection"
+      # other: "%{count} inspections"
     x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"
@@ -1378,7 +1599,10 @@ ita:
     x_years:
       one: "1 anno"
       # other: "%{count} years"
+    # you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions."
+    # you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:"
     zones: "zone"
+    # zoom_on_map: "Zoom on the map."
   notifications:
     levels:
       error: "Errore!"
@@ -1389,19 +1613,20 @@ ita:
       a_campaign_must_be_opened: "Una campagna deve essere aperto"
       a_production_must_be_opened: "Una produzione deve essere aperto"
       # access_denied: "Access denied. %{reason} (%{url})"
+      # all_data_import_finished: "All of your data was imported"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tutti i pacchi devono essere fatturabile e della stessa natura e terzo"
-      an_activity_must_be_defined: "Un&#39;attività deve essere definito"
+      an_activity_must_be_defined: "Un'attività deve essere definito"
       bookkeeping_is_finished: "Il trasferimento dei dati è terminata commerciale."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
       cannot_find_deal_to_attach: "Non riesci a trovare trattare per attaccare"
       cannot_find_deal_to_detach: "Non riesci a trovare occuparsi di staccare"
       cannot_finish_affair: "Non può finire vicenda"
       cannot_mark_entry_items: "Non è possibile contrassegnare queste linee di ingresso"
-      cannot_merge_an_entity_with_itself: "E &#39;impossibile fondere una persona con se stessa"
-      cannot_merge_entities: "E &#39;impossibile per unire queste persone."
+      cannot_merge_an_entity_with_itself: "E 'impossibile fondere una persona con se stessa"
+      cannot_merge_entities: "E 'impossibile per unire queste persone."
       changes_have_been_reflected: "I cambiamenti si sono riflessi nello stato delle scorte"
       changes_have_not_been_reflected: "Le modifiche non si sono riflessi nello stato delle scorte"
-      closed_financial_years: "L&#39;esercizio è stato chiuso con successo"
+      closed_financial_years: "L'esercizio è stato chiuso con successo"
       columns_are_already_uses: "Una o molte colonne sono selezionati più volte"
       dashboard_is_being_developed: "Dashboard è in grande sviluppo"
       draft_journal_entries_have_been_validated:
@@ -1414,7 +1639,7 @@ ita:
       implemented_with_dummy_data: "Implementata con dati fittizi"
       # import_failed: "Import %{name} failed: %{message}"
       # import_finished_successfully: "Import %{name} finished successfully"
-      importation_finished: "L&#39;importazione è completa."
+      importation_finished: "L'importazione è completa."
       impossible_to_add_items: "Non è possibile aggiungere altri prodotti al vostro vendita, la stima è passata al fine"
       impossible_to_add_items_to_purchase: "Non è possibile aggiungere prodotti al vostro acquisto"
       incompatible_browser: "come incompatibili"
@@ -1463,19 +1688,20 @@ ita:
       the_sales_invoice_is_not_cancellable: "La fattura di vendita non è cancellabile"
       # unavailable_resource: "Nonexistent %{type} #%{id}"
       # unexpected_resource_type: "Unexpected resource type: %{type}"
-      update_is_done: "L&#39;aggiornamento è stato fatto"
+      update_is_done: "L'aggiornamento è stato fatto"
       x_unpointed_journal_entry_items:
-        one: "C&#39;è una voce per indicare"
+        one: "C'è una voce per indicare"
         # other: "There are %{count} entries to point"
         zero: "Non ci sono voci per puntare in questo momento"
       you_must_have_an_email_column: "È necessario disporre di un indirizzo email nella vostra estrazione"
-      you_need_to_review_your_application_configuration: "È necessario esaminare la configurazione dell&#39;applicazione"
+      you_need_to_review_your_application_configuration: "È necessario esaminare la configurazione dell'applicazione"
+      # your_data_are_being_imported: "Your data is being imported"
   preferences:
     accounting_system: "Piano dei conti"
     bookkeep_automatically: "Attivare la contabilità automatica"
     bookkeep_in_draft: "Salva i record in modalità bozza durante contabilità"
     country: "Nazione"
-    create_activities_from_telepac: "Creare attività durante l&#39;importazione Telepac"
+    create_activities_from_telepac: "Creare attività durante l'importazione Telepac"
     currency: "Moneta"
     detail_payments_in_deposit_bookkeeping: "Dettaglio tutti i pagamenti in acconto contabilità"
     host: "Ospite"
@@ -1551,6 +1777,7 @@ ita:
       ship: "Nave"
       show: "Mostrare"
       sort: "Ordinare"
+      # star: "Star"
       start: "Inizio"
       # stop: "Stop"
       take: "Prendere"
@@ -1561,7 +1788,7 @@ ita:
       # unvalidateds: "Unvalidateds"
       up: "Su"
       update: "Aggiornare"
-      update_password: "Aggiornamento della password"
+      update_password: "Aggiornamento della password" #?
       win: "Vincere"
   unrolls:
     # backend/accounts: "%{number}. %{name}"

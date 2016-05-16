@@ -6,7 +6,7 @@
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
           <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
-        <output name="cultivation" filter="is plant" cardinality="1">
+        <output name="cultivation" filter="is plant" cardinality="1" distribution="target">
           <attribute name="new_name"/>
           <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
             <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT?" to="population"/>

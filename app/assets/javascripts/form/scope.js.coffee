@@ -5,7 +5,7 @@
     formScopedSelect: (selection) ->
       reference = $(this)
       if reference.length == 1
-        scoper = reference.closest(reference.data("scoper") || "form")
+        scoper = reference.closest(reference.data("closest") || reference.data("scoper") || "form")
         if scoper.size() > 0
           return scoper.find(selection)
         else

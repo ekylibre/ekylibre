@@ -17,7 +17,7 @@
     - if resource.born_at && resource.age && resource.age >= 1.day
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
-        = human_age(age, display: 2)
+        = human_age(resource.born_at, display: 3)
     - unless resource.population_counting_unitary?
       = resource_info :population, important: true do |population|
         = population.l + " " + resource.unit_name

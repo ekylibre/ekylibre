@@ -6,8 +6,8 @@ module SVF
       @name = name.to_sym
       @key = key
       @cells = [] # ActiveSupport::OrderedHash.new
-      for cell in cells
-        for name, definition in cell
+      cells.each do |cell|
+        cell.each do |name, definition|
           unless c = Cell.new(name, definition, @key.length + @cells.inject(0) { |s, c| s += c.length })
             raise "Element #{@name} has an cell #{name} with no definition"
           end

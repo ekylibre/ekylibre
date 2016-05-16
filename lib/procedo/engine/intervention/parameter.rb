@@ -44,12 +44,12 @@ module Procedo
         end
 
         def impact(field)
-          puts "Impact #{field}".magenta
+          # puts "Impact #{field}".magenta
           send(field + '=', send(field))
         end
 
         def impact_dependencies!(field)
-          puts "Impact dependencies from #{field}!".red
+          # puts "Impact dependencies from #{field}!".red
         end
 
         def env

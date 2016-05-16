@@ -22,26 +22,35 @@
 #
 # == Table: activities
 #
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  cultivation_variety :string
-#  custom_fields       :jsonb
-#  description         :text
-#  family              :string           not null
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string           not null
-#  nature              :string           not null
-#  production_campaign :string
-#  production_cycle    :string           not null
-#  size_indicator_name :string
-#  size_unit_name      :string
-#  support_variety     :string
-#  suspended           :boolean          default(FALSE), not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  with_cultivation    :boolean          not null
-#  with_supports       :boolean          not null
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  cultivation_variety          :string
+#  custom_fields                :jsonb
+#  description                  :text
+#  family                       :string           not null
+#  grading_net_mass_unit_name   :string
+#  grading_sizes_indicator_name :string
+#  grading_sizes_unit_name      :string
+#  id                           :integer          not null, primary key
+#  lock_version                 :integer          default(0), not null
+#  measure_grading_items_count  :boolean          default(FALSE), not null
+#  measure_grading_net_mass     :boolean          default(FALSE), not null
+#  measure_grading_sizes        :boolean          default(FALSE), not null
+#  name                         :string           not null
+#  nature                       :string           not null
+#  production_campaign          :string
+#  production_cycle             :string           not null
+#  production_system_name       :string
+#  size_indicator_name          :string
+#  size_unit_name               :string
+#  support_variety              :string
+#  suspended                    :boolean          default(FALSE), not null
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  use_countings                :boolean          default(FALSE), not null
+#  use_gradings                 :boolean          default(FALSE), not null
+#  with_cultivation             :boolean          not null
+#  with_supports                :boolean          not null
 #
 
 # Activity represents a type of work in the farm like common wheats, pigs,
@@ -55,6 +64,10 @@ class Activity < Ekylibre::Record::Base
   refers_to :support_variety, class_name: 'Variety'
   refers_to :size_unit, class_name: 'Unit'
   refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator' # [:population, :working_duration]
+  refers_to :grading_net_mass_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
+  refers_to :grading_sizes_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
+  refers_to :grading_sizes_unit, -> { where(dimension: :distance) }, class_name: 'Unit'
+  refers_to :production_system
   enumerize :nature, in: [:main, :auxiliary, :standalone], default: :main, predicates: true
   enumerize :production_cycle, in: [:annual, :perennial], predicates: true
   enumerize :production_campaign, in: [:at_cycle_start, :at_cycle_end], default: :at_cycle_end, predicates: true
@@ -62,11 +75,13 @@ class Activity < Ekylibre::Record::Base
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
+    has_many :inspection_point_natures, class_name: 'ActivityInspectionPointNature'
+    has_many :inspection_calibration_scales, class_name: 'ActivityInspectionCalibrationScale'
   end
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :suspended, :with_cultivation, :with_supports, in: [true, false]
+  validates_inclusion_of :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, in: [true, false]
   validates_presence_of :family, :name, :nature, :production_cycle
   # ]VALIDATORS]
   validates_inclusion_of :family, in: family.values
@@ -75,6 +90,8 @@ class Activity < Ekylibre::Record::Base
   validates_uniqueness_of :name
   # validates_associated :productions
   validates_presence_of :production_campaign, if: :perennial?
+  validates_presence_of :grading_net_mass_unit, if: :measure_grading_net_mass
+  validates_presence_of :grading_sizes_indicator, :grading_sizes_unit, if: :measure_grading_sizes
 
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
@@ -93,7 +110,7 @@ class Activity < Ekylibre::Record::Base
     end
   }
   scope :of_cultivation_variety, lambda { |variety|
-    where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_children)
+    where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_children.map(&:name))
   }
   scope :main_of_campaign, ->(campaign) { main.of_campaign(campaign) }
   scope :of_current_campaigns, -> { joins(:campaign).merge(Campaign.current) }
@@ -105,6 +122,8 @@ class Activity < Ekylibre::Record::Base
   }
 
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
+  accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
 
   # protect(on: :update) do
   #   productions.any?

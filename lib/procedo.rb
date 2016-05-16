@@ -33,6 +33,11 @@ module Procedo
       @@list.keys
     end
 
+    # Returns an array of couple human_name/name sorted by human name.
+    def selection
+      procedures.map { |p| [p.human_name, p.name.to_s] }.sort { |a, b| I18n.transliterate(a.first) <=> I18n.transliterate(b.first) }
+    end
+
     # Give access to named procedures
     def find(name)
       @@list[name]

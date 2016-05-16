@@ -5,6 +5,8 @@ spa:
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "Nueva contraseña"
+    authentication/registrations:
+      new: "Regístrate"
     authentication/sessions:
       destroy: "Cerrar sesión"
       new: "Conexión"
@@ -291,6 +293,11 @@ spa:
       index: "Pagos recibidos"
       new: "Nuevo pagos recibido"
       # show: "Incoming payment %{number} of %{entity}"
+    backend/inspections:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       index: "Intervenciones"
@@ -356,6 +363,14 @@ spa:
       index: "Planes de manejo de estiércol"
       new: "Nuevo plan de manejo del estiércol"
       # show: "Manure management plan: %{name}"
+    backend/map_backgrounds:
+      # edit: "Edit map background: %{name}"
+      # index: "Map backgrounds"
+      # load: "Load map background: %{name}"
+      # new: "New map background"
+      # show: "Map background: %{name}"
+      # star: "Star map background: %{name}"
+      # toggle: "Toggle map background: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "Cuestiones"
@@ -454,6 +469,9 @@ spa:
       propose_and_invoice: "Facturar directamente"
       refuse: "Para negado"
       # show: "Purchase: %{number} - %{state}"
+    backend/registrations:
+      edit: "Editar el registro"
+      index: "Las inscripciones"
     backend/roles:
       edit: "Modificación del papel\_: %{name}"
       index: "Papeles"
@@ -570,6 +588,72 @@ spa:
       header:
         # one: "1 error prohibited this %{model} from being saved"
         # other: "%{count} errors prohibited this %{model} from being saved"
+  front-end:
+    leaflet:
+      draw:
+        handlers:
+          circle:
+            tooltip:
+              start: "Haga clic y arrastre para dibujar el círculo."
+          marker:
+            tooltip:
+              start: "Haga clic en el mapa para colocar el marcador."
+          polygon:
+            tooltip:
+              cont: "Haga clic para continuar el dibujo de la forma."
+              end: "Haga clic en el primer punto para cerrar esta forma."
+              start: "Haga clic para empezar a dibujar la forma."
+          polyline:
+            error: "<strong>Error:</strong> bordes de la forma no pueden cruzar!"
+            tooltip:
+              cont: "Clic para continuar la línea de dibujo."
+              end: "Haga clic último punto de la línea de meta."
+              start: "Haga clic para iniciar la línea de dibujo."
+          rectangle:
+            tooltip:
+              start: "Haga clic y arrastre para dibujar un rectángulo."
+          simpleshape:
+            tooltip:
+              end: "Ratón de liberación para terminar de dibujar."
+        toolbar:
+          actions:
+            text: "Cancelar"
+            title: "Cancelar dibujo"
+          buttons:
+            circle: "Dibuja un circulo"
+            marker: "Dibuje un marcador"
+            polygon: "Dibujar un polígono"
+            polyline: "Dibuje una polilínea"
+            rectangle: "Dibujar un rectángulo"
+          undo:
+            text: "Eliminar último punto"
+            title: "Eliminar último punto dibujado"
+      edit:
+        handlers:
+          edit:
+            tooltip:
+              subtext: "Haga clic en Cancelar para deshacer los cambios."
+              text: "Control de arrastre, o marcador para editar función."
+          remove:
+            tooltip:
+              text: "Haga clic en una función para eliminar"
+        toolbar:
+          actions:
+            cancel:
+              text: "Cancelar"
+              title: "Cancelar la edición, descarta todos los cambios."
+            save:
+              text: "Salvar"
+              title: "Guardar cambios."
+          buttons:
+            edit: "Editar las capas."
+            editDisabled: "No hay capas para editar."
+            remove: "Eliminar capas."
+            removeDisabled: "No hay capas que desea eliminar."
+      fullscreenTitle: "Pantalla completa"
+      importerButtonTitle: "Importar"
+      zoomInTitle: "Acercarse"
+      zoomOutTitle: "Disminuir el zoom"
   labels:
     access: "Acceso"
     access_parameters: "Parámetros de acceso"
@@ -606,8 +690,12 @@ spa:
     active_fixed_sum: "Total activos inmobilisados" #?
     active_sum: "Total activos" #?
     activities: "Ocupaciones"
+    # activities_step: "activities"
     activity: "Actividad"
+    # activity_family: "Family activities"
+    # activity_name: "Activity"
     activity_production: "La producción de la actividad"
+    activity_productions: "Producciones de actividad"
     add: "Añadir"
     add_annotation: "Añadir anotación"
     add_attachment: "Añadir un adjunto"
@@ -620,9 +708,11 @@ spa:
     add_distribution: "Añadir la distribución"
     add_email: "Añadir correo electrónico"
     add_entry: "Añadir entrada"
+    # add_equipment: "Adding equipment"
     add_expense: "Añadir expensas"
     add_fax: "Añadir fax"
     add_filter: "Añadir filtro"
+    # add_grading_check: "Add grading check"
     add_item: "Añadir artículo"
     add_linestring: "Añadir cadena de líneas"
     add_mail: "Añadir la dirección postal"
@@ -645,6 +735,8 @@ spa:
     add_website: "Añadir página web"
     add_working_period: "Añadir working_period"
     # add_x: "Add “%{x}”"
+    # add_your_activities: "Add the activities you need. The activities are deducted from your import TELEPAC appropriate."
+    # add_your_equipment: "Add Your Equipment. You can also associate a location that you have previously defined (cultivable area or building area)."
     affair: "Asunto"
     affair_number: "Número asunto"
     affairs: "Asuntos"
@@ -714,9 +806,12 @@ spa:
     budget: "Presupuesto"
     budget_per_working_indicator: "Presupuesto por indicador de trabajo"
     budgets: "Presupuestos"
+    # building: "Building"
     building_create: "Añadir un lugar de deposito" #?
+    # building_divisions: "building areas"
+    # building_divisions_and_parcels: "building areas and plots"
     building_update: "Modifiar el lugar de deposito" #?
-    buildings: "Ver la lista de los lugares de deposito" #?
+    buildings: "Ver la lista de los lugares de deposito"
     by_year: "Por año"
     calculate: "Calcular"
     calculators: "Calculadoras"
@@ -726,8 +821,13 @@ spa:
     cancel: "Cancelar"
     cancelation: "Cancelación"
     cancelled: "Pasar en activos" #?
+    # cap_cluster_prefix: "CAP island No."
+    # cap_clusters: "CAP islands"
     cap_islets: "Islotes Cap"
+    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "Parcelas Cap"
+    # cap_parcel_prefix: "PAC plot No."
+    # cap_parcels: "PAC plots"
     cartography: "Cartografía"
     cash: "Efectivo"
     cash_balance: "Saldo en efectivo"
@@ -764,10 +864,12 @@ spa:
     column: "Columna"
     columns: "Columnas para importar"
     commission: "Comisión"
+    # company: "Society"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
     configure: "Configurar"
+    # confirm_sentence: "Are you sure?"
     confirmed: "Confirmadas" #?
     connect: "Entrar" #?
     consume: "Consumir"
@@ -790,6 +892,7 @@ spa:
     counts: "Conteos"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     create: "Crear"
+    # create_a_new_division: "Create a new zone. Click on the map to add a point and close the drawing to create the zone."
     create_journal: "-- Crear el periodico --"
     create_or_import_equipments: "Crear o equipos de importación"
     create_or_import_incoming_parcels: "Crear o importar los paquetes entrantes"
@@ -809,6 +912,7 @@ spa:
     csv_statistics: "Statisticas a exportar al formato CSV" #?
     cultivable_zone: "Zona cultivable"
     # cultivable_zone_abbreviation: "CZ"
+    # cultivable_zone_prefix: "cultivable area No."
     cultivable_zones: "Zonas cultivables"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     current: "Corriente"
@@ -831,6 +935,8 @@ spa:
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     delete: "Borrar"
+    # delete_an_existing_division: "Delete an existing zone. Click the box to remove it."
+    # delete_shape: "Delete form"
     deliver: "Entregado en"
     deliveries: "Entregas"
     delivery: "Entrega"
@@ -874,13 +980,18 @@ spa:
     downpayment: "Pago inicial"
     draft: "Niebla"
     draft_entries: "niebla" #?
+    # draw_your_building_divisions: "Draw your building areas. By default, a main area for your building is created."
+    # draw_your_buildings: "Draw your buildings, which ye shall divide area in the next step."
+    # draw_your_cultivable_zones: "Draw the areas where you have crops. These are deducted from your PAC import if necessary."
     duplicate: "Duplicar"
     duration: "Duración"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Durante"
     earns: "Gana"
     edit: "Editar"
+    # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "Editar presupuesto"
+    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades"
     # email: "Email:"
@@ -892,6 +1003,10 @@ spa:
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
     entry_items: "Elementos de entrada"
+    # equipment: "Equipment"
+    # equipment_name: "Name of equipment"
+    # equipment_type: "Type of equipment"
+    # equipment_zone: "Location"
     equipments: "Equipamientos"
     error: "Lo siento..."
     error_no_file: "Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones."
@@ -916,6 +1031,7 @@ spa:
     expedier: "Expédier"
     expenses: "Gastos"
     export: "Exportación de un fichero de salvaguardia"
+    # file_imports: "Import files"
     file_nature: "Tipo de fichero"
     file_preview: "Avance"
     file_to_import: "Fichero a importar" #?
@@ -944,6 +1060,7 @@ spa:
     generate_last_journal_entry: "Generar última entrada en el diario"
     geolocation: "Geolocalización"
     go: "Ir"
+    # gradings: "Gradings"
     grain_yield: "El rendimiento de grano"
     gross_profit: "Beneficio bruto"
     group: "Grupo"
@@ -962,7 +1079,9 @@ spa:
     illness: "Enfermedad"
     implanted_at: "Implantado en"
     import: "Importación de un  fichero de salvaguardia"
+    # import_zones_from_third_party_softwares: "Import zones from third party software, the GeoJSON format GML and KML."
     importation_explanation: "Explicación importación"
+    # imported_file: "Your file has been imported"
     inactive: "Inactivo"
     include_blank: "Incluir en blanco"
     income_statement: "cuentos de résultos"
@@ -970,6 +1089,7 @@ spa:
     incoming_payment: "Pago recibido"
     incoming_payments: "Pagos recibidos"
     incoming_payments_to_deposit: "Pagos recibidos para depositar"
+    # increase_map_on_fullscreen: "Enlarge map in full screen."
     indicator: "Indicadores"
     indicator_value: "Valor del indicador"
     indicators: "Indicadores"
@@ -1030,6 +1150,7 @@ spa:
     last_entities: "Últimos entidades"
     last_events: "Últimos eventos"
     last_incoming_parcels: "Últimos paquetes entrantes"
+    # last_inspection: "Last inspection"
     last_intervention: "Última intervención"
     last_issue: "Última edición"
     last_issues: "Últimos temas"
@@ -1038,6 +1159,7 @@ spa:
     last_products: "Últimos productos"
     last_purchases: "Últimas compras"
     last_sales: "Última oferta de venta"
+    # layers_management: "layers of management, to change the base map and refine the visual representations to show."
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     letter: "Carta"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
@@ -1047,6 +1169,8 @@ spa:
       clients: "Clientes" #?
       suppliers: "abastecedores" #?
       title: "Catégorias de tercios" #?
+    # level: "Level"
+    # levels: "levels"
     # line_number: "Line #%{number}"
     linear_options: "Opciones lineales"
     link: "Enlazar"
@@ -1068,6 +1192,7 @@ spa:
       other: "%{count} correos electronicos"
       zero: "Ningun correo electronico"
     main_settings: "Ajustes principales"
+    # main_zone_of: "main area of ​​%{zone}"
     make_your_production_support: "Haga su apoyo a la producción"
     manage_activities: "Gestionar las actividades"
     management: "Administración comercial" #?
@@ -1075,15 +1200,21 @@ spa:
     manual_period: "del %{start} al %{finish}"
     manure_management_plan_chart: "Gráfico de plan de manejo del estiércol"
     map: "Mapa"
+    # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
+    # max_level: "max level"
     maximal_temperature: "La temperatura máxima"
+    # measurement_tools: "measurement tool, for calculations of distances and areas."
     members: "Miembros"
     menus: "Menús"
     merge: "Unir"
     method: "Método"
+    # min_level: "level min"
     minimal_temperature: "Temperatura mínima"
+    # missing: "Missing"
     missing_attributes: "Algunos atributos faltan"
+    # missing_buildings: "You have not saved building for now. You can return to the previous step to declare your buildings or ignore this message by clicking Next."
     missing_help: "La página no existe"
     mobile: "Móvil"
     mode: "Modo"
@@ -1114,6 +1245,7 @@ spa:
     net_surface_area: "Área de superficie Net"
     net_vat_amount: "TVA neta deuda" #?
     new: "Nuevo"
+    # new_activity: "new activity"
     new_animal: "Nuevo animal"
     new_attachment: "Nuevo archivo adjunto"
     new_box: "Nuevo cuadro"
@@ -1132,6 +1264,7 @@ spa:
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Nuevo Email"
+    # new_equipment: "new equipment"
     new_group: "Nuevo grupo"
     new_issue: "Nueva edición"
     new_organization: "Nueva organización"
@@ -1164,6 +1297,7 @@ spa:
     number_of_cap_land_parcels: "Número de parcelas de tapa"
     number_options: "Opciones números"
     numbers: "Números"
+    # ok: "OK"
     on_account: "Volver a poner sobre la cuenta"
     one_condition: "Una condición"
     open_a_campaign: "Abrir una campaña"
@@ -1184,6 +1318,7 @@ spa:
     outgoing_payment: "Salida de pagos"
     outgoing_payments: "Pagos salientes"
     overflow: "CREDITO O ECCEDENTE" #?
+    # pacage_number: "No. GRAZING"
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
@@ -1273,6 +1408,7 @@ spa:
     readings: "Lecturas"
     received: "Recibido"
     recent_events: "Eventos recientes"
+    # reference_cap_clusters: "Islets reference CAP"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
     reflections: "Reflexiones"
@@ -1291,10 +1427,12 @@ spa:
     repayments_graph: "Reembolsos gráfico"
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
+    # request_building_levels: "buildings levels"
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
     reset: "Restablecer"
+    # reset_all_data: "Delete and start over"
     resource: "Consultar la pieza de origen\_: %{resource} %{number}"
     resources: "Administración de los recursos humanos"
     rest: "Descanso"
@@ -1304,6 +1442,7 @@ spa:
       one: "1 resultado"
       other: "%{count} resultado"
       zero: "Ningun resultado"
+    # retrieve_my_telepac_file: "Retrieve TELEPAC file."
     revenues: "Los ingresos"
     revenues_by_product_nature: "Los ingresos por tipo de producto"
     reverse: "Condición inversa"
@@ -1374,6 +1513,7 @@ spa:
     shape: "Forma"
     shelf: "Categoria" #?
     ship: "Enviar"
+    # short_level_label: "Lv."
     show: "Espectáculo"
     sign_out: "Desconectar"
     simplified: "Regimen del real simplificado"
@@ -1386,11 +1526,13 @@ spa:
     stewardship: "Administración"
     stock: "Valores"
     stock_container_map: "Foto mapa"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     stock_move_create: "Añadir un movimiento de deposito" #?
     # stock_of_x: "Stock of %{x}"
     stocks: "Cepo"
     stop: "Detener"
     storage: "Almacenamiento"
+    # storages: "Silos and tanks"
     subject: "Tema"
     submit: "Enviar"
     # subscriber_period: "Subscribed on %{subscribed_at}"
@@ -1413,6 +1555,9 @@ spa:
     tax_declaration_create: "Añadir una nueva declaración" #?
     taxations: "Tasaciones"
     taxes: "Impuestos"
+    # telepac_files: "Import TELEPAC"
+    # telepac_upload_your_xml_file: "You can import your statement in XML format that you have previously exported to TELEPAC."
+    # the_file_is_invalid: "The file is invalid!"
     theoric_quantity: "cantidad teorica" #?
     thumb: "Pulgar"
     time_cost: "Costo de tiempo"
@@ -1472,12 +1617,14 @@ spa:
     unknown_variant: "Variante desconocida"
     unlock: "Desbloquear"
     unmark: "Desmarcar"
+    # unnamed: "Nameless"
     unpaid: "No pagado"
     unpaid_amount: "Cantidad no pagada"
     unpaid_days: "Sin pagar ya que (en días)"
     unpaid_purchases: "Compra sin pagar"
     unpaid_sales: "Ventas no pagadas"
     unset_reconcilable_old_third_accounts: "Viejos terceros cuentas conciliables no definidas (clientes, proveedores y abogados)"
+    # unzoom_map: "Zoom out the map."
     up: "Arriba"
     update: "Actualizar"
     # updated_at_by: "Updated at %{at} by %{author}"
@@ -1489,6 +1636,7 @@ spa:
     used_accounts: "Cuentos utilozados unico" #?
     user_create: "Añadir un nuevo utilizador" #?
     user_name: "Nombre de usuario" #?
+    user_status: "Estado"
     user_update: "Modificar las informaciones del utilizador" #?
     users: "Usuarios"
     valid: "Válido"
@@ -1497,11 +1645,14 @@ spa:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validar la escrituras seleccionadas"
+    # validations: "Finalisation"
     values: "Valores"
     variable_indicators: "Indicadores variables"
     variants: "Variantes"
+    # variety: "Variety"
     view: "Ver"
     weather: "Clima"
+    # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
@@ -1550,6 +1701,9 @@ spa:
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
+    x_inspections:
+      # one: "%{count} inspection"
+      # other: "%{count} inspections"
     x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"
@@ -1626,7 +1780,10 @@ spa:
       # other: "%{count} years"
     yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico" #?
+    # you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions."
+    # you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:"
     zones: "Zonas"
+    # zoom_on_map: "Zoom on the map."
   notifications:
     levels:
       error: "Error"
@@ -1637,6 +1794,7 @@ spa:
       a_campaign_must_be_opened: "Una campaña se debe abrir"
       a_production_must_be_opened: "Una producción se debe abrir"
       access_denied: "No tiene drecho de acceso para esta pagina. %{reason} (%{url})"
+      # all_data_import_finished: "All of your data was imported"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Todos los paquetes deben ser facturable y de la misma naturaleza y el tercer"
       an_activity_must_be_defined: "Una actividad se debe definir"
       bad_file: "El fichero no parece corresponder" #?
@@ -1772,6 +1930,7 @@ spa:
       you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar" #?
       you_need_to_review_your_application_configuration: "Es necesario revisar la configuración de su aplicación"
       you_will_lose_all_your_current_data: "Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?" #?
+      # your_data_are_being_imported: "Your data is being imported"
   preferences:
     accounting_system: "Catálogo de cuentas"
     bookkeep_automatically: "Active la contabilidad automática"
@@ -1853,6 +2012,7 @@ spa:
       ship: "Enviar"
       show: "Espectáculo"
       sort: "Ordenar"
+      # star: "Star"
       start: "Comienzo"
       stop: "Detener"
       take: "Tomar"
@@ -1863,7 +2023,7 @@ spa:
       # unvalidateds: "Unvalidateds"
       up: "Arriba"
       update: "Actualizar"
-      update_password: "Actualiza contraseña"
+      update_password: "Actualiza contraseña" #?
       win: "Ganar"
   unrolls:
     # backend/accounts: "%{number}. %{name}"

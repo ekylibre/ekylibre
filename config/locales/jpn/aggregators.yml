@@ -54,7 +54,7 @@ jpn:
     milk_withdrawal_period: "ミルク休薬期間"
     name: "名"
     nature: "タイプ"
-    net_revenue: "純収入"
+    net_revenue: "純収入" #?
     net_surface_area: "正味の表面積"
     number: "数"
     observed_at: "で観測"

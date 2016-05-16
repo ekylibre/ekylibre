@@ -44,10 +44,10 @@ preferences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
-  lock_version: 28
+  lock_version: 32
   name: interface.helps.collapsed
   nature: boolean
-  updated_at: 2015-09-18 10:20:02.960808000 Z
+  updated_at: 2016-05-14 19:42:53.920501000 Z
   updater_id: 1
   user_id: 1
 preferences_002:
@@ -2914,11 +2914,11 @@ preferences_247:
   created_at: 2015-06-02 20:35:20.100688000 Z
   creator_id: 1
   id: 248
-  integer_value: 5
-  lock_version: 62
+  integer_value: 6
+  lock_version: 65
   name: current_campaign.id
   nature: integer
-  updated_at: 2016-01-25 13:27:47.995723000 Z
+  updated_at: 2016-05-14 18:07:41.572245000 Z
   updater_id: 1
   user_id: 1
 preferences_248:
@@ -3652,5 +3652,115 @@ preferences_314:
   nature: string
   string_value: {}
   updated_at: 2016-02-08 09:48:37.678303000 Z
+  updater_id: 1
+  user_id: 1
+preferences_315:
+  created_at: 2016-04-20 13:11:03.929065000 Z
+  creator_id: 1
+  id: 316
+  lock_version: 0
+  name: cobbler.activities-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-04-20 13:11:03.929065000 Z
+  updater_id: 1
+  user_id: 1
+preferences_316:
+  created_at: 2016-04-20 14:12:59.800375000 Z
+  creator_id: 1
+  id: 317
+  lock_version: 0
+  name: list._plant_density_abaci_list_plant_density_abaci_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-04-20 14:12:59.800375000 Z
+  updater_id: 1
+  user_id: 1
+preferences_317:
+  created_at: 2016-04-20 17:00:30.546018000 Z
+  creator_id: 1
+  id: 318
+  lock_version: 0
+  name: cobbler.activity_productions-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-04-20 17:00:30.546018000 Z
+  updater_id: 1
+  user_id: 1
+preferences_318:
+  created_at: 2016-05-10 19:13:10.486373000 Z
+  creator_id: 1
+  id: 319
+  lock_version: 0
+  name: list._product_gradings_list_product_gradings_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-10 19:13:10.486373000 Z
+  updater_id: 1
+  user_id: 1
+preferences_319:
+  created_at: 2016-05-10 19:19:24.910265000 Z
+  creator_id: 1
+  id: 320
+  lock_version: 0
+  name: cobbler.product_gradings-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-10 19:19:24.910265000 Z
+  updater_id: 1
+  user_id: 1
+preferences_320:
+  created_at: 2016-05-10 19:19:24.981639000 Z
+  creator_id: 1
+  id: 321
+  lock_version: 0
+  name: list._product_gradings_list_checks_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-10 19:19:24.981639000 Z
+  updater_id: 1
+  user_id: 1
+preferences_321:
+  created_at: 2016-05-10 21:08:41.005211000 Z
+  creator_id: 1
+  id: 322
+  lock_version: 0
+  name: cobbler.supervisions-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-10 21:08:41.005211000 Z
+  updater_id: 1
+  user_id: 1
+preferences_322:
+  created_at: 2016-05-14 17:59:36.372006000 Z
+  creator_id: 1
+  id: 323
+  lock_version: 0
+  name: cobbler.inspections-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-14 17:59:36.372006000 Z
+  updater_id: 1
+  user_id: 1
+preferences_323:
+  created_at: 2016-05-14 18:07:31.887271000 Z
+  creator_id: 1
+  id: 324
+  lock_version: 0
+  name: list._inspections_list_inspections_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-14 18:07:31.887271000 Z
+  updater_id: 1
+  user_id: 1
+preferences_324:
+  created_at: 2016-05-14 18:07:43.203769000 Z
+  creator_id: 1
+  id: 325
+  lock_version: 0
+  name: list._activities_list_inspections_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-14 18:07:43.203769000 Z
   updater_id: 1
   user_id: 1

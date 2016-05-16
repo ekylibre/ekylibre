@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Change zea variety">
+  <item-change item="crop_sets#corn" varieties="zea_mays"/>
+  <item-change item="crop_sets#corn_sorghum" varieties="zea_mays, sorghum"/>
+  <item-change item="product_nature_variants#coop:class_a_corn_grain" derivative_of="zea_mays"/>
+  <item-change item="product_nature_variants#corn_crop" variety="zea_mays"/>
+  <item-change item="product_nature_variants#corn_grain" derivative_of="zea_mays"/>
+  <item-change item="product_nature_variants#corn_grain_crop" variety="zea_mays"/>
+  <item-change item="product_nature_variants#corn_seed_25" derivative_of="zea_mays"/>
+  <item-change item="product_nature_variants#corn_seed_50tg" derivative_of="zea_mays"/>
+  <item-change item="product_nature_variants#corn_seed_crop" variety="zea_mays"/>
+  <item-change item="product_nature_variants#corn_silage" derivative_of="zea_mays"/>
+  <item-change item="product_nature_variants#corn_silage_crop" variety="zea_mays"/>
+</migration>

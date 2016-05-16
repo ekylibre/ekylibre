@@ -6,13 +6,13 @@
     shape = cast.working_zone
     shape ||= cast.product.shape(at: resource.started_at) if cast.product
     if shape
-      activity_production = ActivityProduction.where(support: cast.product).first if cast.product.is_a?(LandParcel)
-      if activity_production
+      activity = cast.activity if cast.is_a?(InterventionTarget)
+      if activity
         item = {
           name: cast.product.name,
           shape: shape,
-          activity: activity_production.activity.name,
-          shape_color: activity_production.activity.color
+          activity: activity.name,
+          shape_color: activity.color
         }
       else
         item = {
@@ -27,10 +27,6 @@
     end
   end
 - map = visualization do |v|
-  - v.background "OpenStreetMap.HOT"
-  - v.background "OpenStreetMap.Mapnik"
-  - v.background "Thunderforest.Landscape"
-  - v.background "Esri.WorldImagery"
   - if data.any?
     - v.serie :main, data
     - v.categories :activity, :main
