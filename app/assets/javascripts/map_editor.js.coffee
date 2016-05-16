@@ -68,16 +68,6 @@
           position: "bottomright"
           imperial: false
           maxWidth: 200
-        measure:
-          show :false
-          position: 'bottomleft'
-          primaryLengthUnit: 'meters',
-          secondaryLengthUnit: 'kilometers'
-          primaryAreaUnit: 'hectares',
-          secondaryAreaUnit: undefined
-          activeColor: '#ABE67E'
-          completedColor: '#C8F2BE'
-          localization: 'en'
         fullscreen:
           position: 'topleft'
           title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
@@ -558,9 +548,6 @@
       unless this.options.controls.scale is false
         this.controls.scale = new L.Control.Scale(this.options.controls.scale)
         this.map.addControl this.controls.scale
-      unless this.options.controls.measure.show is false
-        this.controls.measure = new L.Control.Measure(this.options.controls.measure)
-        this.map.addControl this.controls.measure
       unless this.options.controls.importers.gml is false and this.options.controls.importers.geojson is false and this.options.controls.importers.kml is false
 
         this.controls.importers_ctrl = new L.Control.EasyButton "<i class='leaflet-importer-ctrl' title='#{this.options.controls.importers.buttonTitle}'></i>", (btn, map) =>
