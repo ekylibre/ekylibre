@@ -1,5 +1,5 @@
 // External dependencies
-@import "leaflet/measure";
+// @import "leaflet/measure";
 @import "leaflet/modal";
 @import "leaflet/easy-button";
 @import "leaflet/label";
@@ -446,6 +446,7 @@
 
 .leaflet-popup {
   position: absolute;
+  z-index: 2;
   @include text-align(center);
   .leaflet-popup-content-wrapper {
     @include text-align(left);
@@ -1011,30 +1012,26 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
 }
 
 .leaflet-ghost-label {
-  color: white;
-  text-shadow: 0 0 2px black;
-  font-size: $fs-normal;
-  background-color: transparent;
-  box-shadow: none;
-  border: none;
-  opacity: 0.6;
   &:before, &:after {
     box-shadow: none;
     border: none;
     background: transparent;
   }
+  .leaflet-ghost-label-collapsed {
+    color: $active-color;
+    background: white;
+    font-weight: bold;
+    /* text-shadow: none; */
+    display: block;
+    min-width: $lh-normal;
+    /* height: 20px; */
+    border-radius: 50%;
+    border: $menu-border;
+    /* background-color: white; */
+    text-align: center;
+  }
 }
 
-.leaflet-ghost-label-collapsed {
-  color: black;
-  text-shadow: none;
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 10px;
-  background-color: white;
-  text-align: center;
-}
 
 .leaflet-popup-warning {
   @include is-icon;
