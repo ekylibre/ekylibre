@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<migration name="Add equipements indicators">
+<migration name="Add equipment indicators">
   <item-creation item="indicators#theoretical_working_speed" datatype="decimal"/>
   <item-creation item="indicators#plowshare_count" datatype="integer"/>
   <item-change item="product_natures#cover_implanter" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
