@@ -39,14 +39,14 @@ module Ekylibre
       end
 
       # Load a given plugin
-      def load_plugin(_path)
-        plugfile = File.join(directory, 'Plugfile')
+      def load_plugin(path)
+        plugfile = File.join(path, 'Plugfile')
         if File.file?(plugfile)
           plugin = new(plugfile)
           registered_plugins[plugin.name] = plugin
           Rails.logger.info "Load #{plugin.name} plugin"
         else
-          Rails.logger.warn "No Plugfile found in #{directory}"
+          Rails.logger.warn "No Plugfile found in #{path}"
         end
       end
 

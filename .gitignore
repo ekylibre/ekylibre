@@ -83,3 +83,5 @@ Procfile.*
 
 # Vim
 *.sw?
+
+.byebug_history
