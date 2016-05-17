@@ -1,8 +1,3 @@
-- main_toolbar do |t|
-  = t.new
-
-- main_campaign_selector
-
 = janus do |j|
   - if current_campaign && Plant.of_campaign(current_campaign).any?
     - j.face :map do

@@ -230,7 +230,7 @@ GEM
     mime-types (2.99.1)
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
-    minitest (5.8.4)
+    minitest (5.9.0)
     minitest-reporters (1.1.9)
       ansi
       builder
@@ -267,9 +267,6 @@ GEM
     pry-byebug (3.4.0)
       byebug (~> 9.0)
       pry (~> 0.10)
-    pry-inline (1.0.2)
-      pry (~> 0.10.0)
-      unicode (~> 0.4.4)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     quiet_assets (1.1.0)
@@ -439,7 +436,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    unicode (0.4.4.2)
     unicode-display_width (1.0.5)
     unicorn (5.1.0)
       kgio (~> 2.6)
@@ -517,7 +513,6 @@ DEPENDENCIES
   paperclip-document (> 0.0.8)
   pg
   pry-byebug
-  pry-inline
   pry-rails
   quiet_assets
   rails (= 4.2.6)
@@ -551,6 +546,9 @@ DEPENDENCIES
   unicorn
   uuidtools
   web-console (~> 3.0)
+
+RUBY VERSION
+   ruby 2.2.3p173
 
 BUNDLED WITH
    1.12.1
