@@ -281,6 +281,13 @@ L.Tooltip.include
   hide: ->
     @_container.style.visibility = 'hidden'
 
+L.EditToolbar.Edit.include
+  _onMouseMove: (e) ->
+    return
+
+L.EditToolbar.Delete.include
+  _onMouseMove: (e) ->
+    return
 
 ###
 #Add Configuration options
