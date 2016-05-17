@@ -29,20 +29,12 @@ describe 'L.Draw.Polyline.ReactiveMeasure', ->
     latlngs = @poly._poly.getLatLngsAsArray()
     r = L.GeographicUtil.distance(latlngs[1], latlngs[0])
 
+
   # test if a polygon is drawn and if perimeter and area match
-  # TODO it should add polygon to edit featureGroup
   it 'should draw a polygon', ->
     # generate a square coordinates
     square = window.Tools.squareFrom([44.93042508, -0.58050000], 10e3)
 
-    g = new L.GeographicUtil.Polygon(square)
-    console.log g.perimeter().toFixed(3) + " " + g.area().toFixed(1)
-#    console.log @drawnItems.getLayers()
-#    expect(@drawnItems.getLayers().length).toBe 1
-
-#    @drawnItems.addLayer poly
-
-#    @edit.enable()
     poly = new L.Draw.Polygon @map
     poly.addHooks()
 
@@ -53,6 +45,29 @@ describe 'L.Draw.Polyline.ReactiveMeasure', ->
 
 
     expect(poly.type).toBe('polygon')
+
+
+    latlngs = []
+    for latlng in square
+      latlng = L.latLng latlng
+      latlngs.push latlng
+
+
+    @edit.enable()
+    poly = new L.Polygon latlngs
+    @drawnItems.addLayer poly
+    console.log poly, @drawnItems
+    expect(@drawnItems.getLayer(poly._leaflet_id)).not.toBe(undefined)
+
+
+
+    g = new L.GeographicUtil.Polygon(square)
+    console.log g.perimeter().toFixed(3) + " " + g.area().toFixed(1)
+
+#    @drawnItems.addLayer poly
+
+#    @edit.enable()
+
 
     polygon = @geod.Polygon(false)
     for marker in poly._markers
