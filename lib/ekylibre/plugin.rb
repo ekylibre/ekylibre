@@ -146,7 +146,7 @@ module Ekylibre
       @javascripts = []
       @initializers = {}
 
-      lib = File.join(directory, 'lib')
+      lib = @root.join('lib')
       if File.directory?(lib)
         $LOAD_PATH.unshift lib
         ActiveSupport::Dependencies.autoload_paths += [lib]
