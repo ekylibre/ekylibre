@@ -20,7 +20,7 @@ module Backend
   class BankStatementsController < Backend::BaseController
     manage_restfully(
       started_at: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_at+1 rescue (Time.zone.today-1.month-2.days)'.c,
-      stopped_at: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_at>>1 rescue (Time.zone.today-2.days)'.c
+      stopped_at: "Cash.find(params[:cash_id]).last_bank_statement.stopped_at>>1 rescue (Time.zone.today-2.days)".c
     )
 
     unroll
@@ -41,7 +41,7 @@ module Backend
       redirect_to backend_cashes_path
     end
 
-    list(:items, model: :bank_statement_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :id) do |t|
+    list(:items, model: :bank_statement_items, conditions: { bank_statement_id: "params[:id]".c }, order: :id) do |t|
       t.column :journal, url: true
       t.column :transfered_on
       t.column :name
