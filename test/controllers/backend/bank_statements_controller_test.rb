@@ -19,13 +19,6 @@
 require 'test_helper'
 module Backend
   class BankStatementsControllerTest < ActionController::TestCase
-    test_restfully_all_actions point: :get_and_post, index: :redirect
-
-    test 'empty pointing' do
-      bs = bank_statements(:bank_statements_001)
-      assert bs.items.any?
-      post :point, id: bs.id
-      assert bs.items.empty?
-    end
+    test_restfully_all_actions index: :redirect
   end
 end
