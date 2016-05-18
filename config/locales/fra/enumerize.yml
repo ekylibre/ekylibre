@@ -18,8 +18,8 @@ fra:
         per_working_unit: "Par unité d’œuvre"
     activity_inspection_point_nature:
       category:
-        deformity: "Déformité"
-        disease: "Madadie"
+        deformity: "Malformation"
+        disease: "Maladie"
         none: "Aucune"
     activity_production:
       support_nature:
