@@ -40,12 +40,12 @@
 #  updater_id             :integer
 #
 
-require 'test_helper'
+require "test_helper"
 
 class BankStatementTest < ActiveSupport::TestCase
   test_model_actions
 
-  test 'debit, credit and currency are computed during validations' do
+  test "debit, credit and currency are computed during validations" do
     bank_statement = bank_statements(:bank_statements_001)
     bank_statement.debit = 0
     bank_statement.credit = 0

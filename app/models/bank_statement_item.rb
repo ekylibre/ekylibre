@@ -38,7 +38,7 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-class BankStatementItem  < Ekylibre::Record::Base
+class BankStatementItem < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :bank_statement
   has_one :cash, through: :bank_statement

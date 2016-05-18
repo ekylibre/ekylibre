@@ -38,12 +38,12 @@
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-require 'test_helper'
+require "test_helper"
 
 class BankStatementItemTest < ActiveSupport::TestCase
   test_model_actions
 
-  test 'the validity of bank statement items' do
+  test "the validity of bank statement items" do
     item = bank_statement_items(:bank_statement_items_001)
     assert item.valid?, inspect_errors(item)
     item.debit = 5

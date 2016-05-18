@@ -1,7 +1,7 @@
 class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord::Migration
   def up
-    each_pointed_journal_entry_items_by_cash_id do |cash_id, journal_entry_items|
-      bank_statement_letter = 'A'
+    each_pointed_journal_entry_items_by_cash_id do |_, journal_entry_items|
+      bank_statement_letter = "A"
       journal_entry_items.each do |journal_entry_item|
         create_bank_statement_item journal_entry_item, bank_statement_letter
         update_journal_entry_item_letter journal_entry_item, bank_statement_letter
@@ -38,7 +38,7 @@ class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord
   end
 
   def each_pointed_journal_entry_items_by_cash_id(&block)
-    pointed_journal_entry_items.group_by { |i| i['cash_id'] }.each(&block)
+    pointed_journal_entry_items.group_by { |i| i["cash_id"] }.each(&block)
   end
 
   def create_bank_statement_item(entry_item, bank_statement_letter)
