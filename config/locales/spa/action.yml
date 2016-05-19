@@ -68,7 +68,6 @@ spa:
       edit: "Modificar el leventar N°%{number}"
       index: "Levantar de cuntos bancarios"
       new: "Despuntar un nuevo leventar de cuento"
-      point: "Despuntar el leventar N°%{number}"
       show: "Leventard de cuento N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -1385,7 +1384,6 @@ spa:
     prescriptions: "Prescripciones"
     pretax_amount: "Cantidad antes de impuestos"
     previous: "Anterior"
-    previous_bank_statement: "Saldo del leventar precedente N°%{number}"
     price: "Precio"
     price_amount: "Precio HT" #?
     price_amount_with_taxes: "PrecioTTC" #?
@@ -1890,7 +1888,6 @@ spa:
       need_cash_to_record_statements: "Debe por lo menos crear una cuenta bancaria para poder coger un extracto de cuenta ."
       need_closed_financial_year_to_declaration: "Debe terner un ejercicio cerrado para crear una declaración de TVA." #?
       need_company_code_to_login: "Se debe selecciónar su sociedad para poder conectarse con su nombre de utilizador" #?
-      need_entries_to_point: "Ninguna escritura ha sido encontrada por el periodo de la lista bancaria."
       need_journal_to_manage_tax_declaration: "Se debe tener pôr lo menos un periodico de las operaciones diversas y un periodico de venta o de compra para poder registrar declaraciones de tasa." #?
       need_payment_mode_to_create_deposit: "Se debe especifiar una forma de pago para hacer une entrega en banco"
       need_quantities_to_cancel_an_sale: "Debe especificar una cantidad con el fin de cancelar la factura de venta"
@@ -2028,7 +2025,6 @@ spa:
       open: "Abierto"
       pick: "Recoger"
       picture: "Imagen"
-      point: "Punto"
       propose: "Proponer"
       propose_and_invoice: "Proponer y factura"
       prospect: "Perspectiva"

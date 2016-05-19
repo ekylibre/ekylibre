@@ -73,7 +73,6 @@ fra:
       edit: "Modifier le relevé N°%{number}"
       index: "Relevés de compte bancaire"
       new: "Pointer un nouveau relevé de compte"
-      point: "Pointer le relevé N°%{number}"
       show: "Relevé de compte N°%{number}"
     backend/beehives:
       reset: "Ré-initialiser la cellule: %{name}"
@@ -1581,7 +1580,6 @@ fra:
     prescriptions: "Prescriptions"
     pretax_amount: "Montant HT"
     previous: "Précédent"
-    previous_bank_statement: "Solde du relevé précédent N°%{number}"
     previous_plant_name: "Nom de la culture précédente" #?
     previous_production_name: "Nom de la production précédente" #?
     price: "Prix"
@@ -2209,7 +2207,6 @@ fra:
       need_cash_to_record_statements: "Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte."
       need_closed_financial_year_to_declaration: "Vous devez avoir un exercice clôturé pour créer une déclaration de TVA." #?
       need_company_code_to_login: "Vous devez sélectionner votre société pour pouvoir vous connecter avec ce nom d’utilisateur" #?
-      need_entries_to_point: "Aucune écriture n’a été trouvé pour la période du relevé bancaire."
       need_journal_to_manage_tax_declaration: "Vous devez avoir au moins un journal des opérations diverses et un journal de vente ou d’achat pour pouvoir enregistrer des déclarations de taxes." #?
       need_payment_mode_to_create_deposit: "Vous devez spécifier un mode de réglement pour effectuer une remise en banque"
       need_quantities_to_cancel_an_sale: "Vous devez spécifier une quantité pour pouvoir faire un avoir"
@@ -2348,7 +2345,6 @@ fra:
       open: "Ouvrir"
       pick: "Piocher"
       picture: "Image"
-      point: "Pointer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"

@@ -1,0 +1,5 @@
+- date = defined?(date) && date || "tmpl-date"
+%tr.date-separator{ class: date, data: { date: date }}
+  %th{colspan: 9, scope: "col"}
+    = date
+    = tool_to("Ajouter une ligne", { controller: :bank_statement_items, action: :new, transfered_on: date, bank_statement_id: @bank_statement.id, reconciliation: true }, remote: true, tabindex: -1, method: :get, data: { update: ".#{date}", update_at: :after, type: :html })

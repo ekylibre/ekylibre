@@ -241,6 +241,10 @@ class JournalEntry < Ekylibre::Record::Base
     JournalEntryItem.where(entry_id: id).update_all(state: self.state, journal_id: journal_id, financial_year_id: financial_year_id, printed_on: printed_on, entry_number: self.number, real_currency: real_currency, real_currency_rate: real_currency_rate)
   end
 
+  before_destroy do
+    items.each(&:clear_bank_statement_reconciliation)
+  end
+
   protect do
     printed_on <= journal.closed_on || old_record.closed?
   end
@@ -291,7 +295,10 @@ class JournalEntry < Ekylibre::Record::Base
   def save_with_items(entry_items)
     ActiveRecord::Base.transaction do
       saved = save
+
+      items.each(&:clear_bank_statement_reconciliation)
       items.clear
+
       entry_items.each_index do |index|
         entry_items[index] = items.build(entry_items[index])
         keep_it_safe = !entry_items[index].save

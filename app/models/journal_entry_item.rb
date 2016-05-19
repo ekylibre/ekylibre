@@ -28,6 +28,7 @@
 #  account_id                :integer          not null
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
+#  bank_statement_letter     :string
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  credit                    :decimal(19, 4)   default(0.0), not null
@@ -99,7 +100,13 @@ class JournalEntryItem < Ekylibre::Record::Base
     where(printed_on: started_at..stopped_at)
   }
   scope :opened, -> { where.not(state: 'closed') }
-  scope :unpointed, -> { where(bank_statement: nil) }
+  scope :unpointed, -> { where(bank_statement_letter: nil) }
+  scope :pointed_by, lambda { |bank_statement|
+    where("bank_statement_letter IS NOT NULL").where(bank_statement_id: bank_statement.id)
+  }
+  scope :pointed_by_with_letter, lambda { |bank_statement, letter|
+    where(bank_statement_letter: letter).where(bank_statement_id: bank_statement.id)
+  }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -111,6 +118,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   before_validation do
     self.name = name.to_s[0..254]
     self.letter = nil if letter.blank?
+    self.bank_statement_letter = nil if bank_statement_letter.blank?
     # computes the values depending on currency rate
     # for debit and credit.
     self.debit ||= 0
@@ -170,6 +178,13 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   after_save do
     followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{absolute_credit}")
+  end
+
+  before_destroy :clear_bank_statement_reconciliation
+
+  def clear_bank_statement_reconciliation
+    return unless bank_statement && bank_statement_letter
+    bank_statement.items.where(letter: bank_statement_letter).update_all(letter: nil)
   end
 
   protect do

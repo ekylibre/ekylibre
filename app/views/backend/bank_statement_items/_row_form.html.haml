@@ -1,0 +1,24 @@
+:ruby
+  item = row_form || {}
+  @@item_count = 0 unless defined?(@@item_count)
+  id = "e" + @@item_count.to_s(36)
+  @@item_count += 1
+
+- if item.errors.any?
+  %tr.inline-errors{id: "#{id}-errors", class: "#{id}-item"}
+    %td{colspan: 7}= error_messages(item)
+
+%tr{id: id, class: "#{id}-item"}
+  %td.hidden= hidden_field_tag "items[#{id}][transaction_number]", item.transaction_number
+  %td.hidden= hidden_field_tag "items[#{id}][initiated_on]", item.initiated_on
+  %td.hidden= hidden_field_tag "items[#{id}][letter]", item.letter, class: "letter"
+  %td= text_field_tag("items[#{id}][name]", item.name, id: "items_#{id}_name", data: {parameter_name: "name", autofocus: (controller_name.to_s == "backend/bank_statements" ? "false" : "true")})
+  %td= date_field_tag "items[#{id}][transfered_on]", item.transfered_on
+  %td.dec= text_field_tag "items[#{id}][debit]", (item.debit||0.0), size: 10, id: "items_#{id}_debit", class: "debit", data: { exclusive_nullify: "#items_#{id}_credit" }
+  %td= item.bank_statement.currency
+  %td.dec= text_field_tag "items[#{id}][credit]", (item.credit||0.0), size: 10, id: "items_#{id}_credit", class: "credit", data: { exclusive_nullify: "#items_#{id}_debit" }
+  %td= item.bank_statement.currency
+  %td.act
+    = link_to("#", data: {remove: ".#{id}-item"}, class: "destroy") do
+      %i
+      = :destroy.ta
