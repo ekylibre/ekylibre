@@ -72,7 +72,7 @@ class Cash < Ekylibre::Record::Base
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
   has_many :sessions, class_name: 'CashSession'
-  has_many :unpointed_journal_entry_items, -> { where(bank_statement_id: nil) }, through: :account, source: :journal_entry_items
+  has_many :unpointed_journal_entry_items, -> { where(bank_statement_letter: nil) }, through: :account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order('stopped_at DESC') }, class_name: 'BankStatement'
 
   enumerize :nature, in: [:bank_account, :cash_box, :associate_account], default: :bank_account, predicates: true
@@ -220,6 +220,19 @@ class Cash < Ekylibre::Record::Base
     account.journal_entry_items.between(started_at, stopped_at).group('EXTRACT(YEAR FROM printed_on)*100 + EXTRACT(MONTH FROM printed_on)').sum(expr).sort.inject({}) do |hash, pair|
       hash[pair[0].to_i.to_s] = pair[1].to_d
       hash
+    end
+  end
+
+  def next_reconciliation_letters
+    Enumerator.new do |yielder|
+      letter_column = "#{BankStatementItem.table_name}.letter"
+      letter = "A"
+      loop do
+        if bank_statements.joins(:items).where(letter_column => letter).blank?
+          yielder << letter
+        end
+        letter = letter.succ
+      end
     end
   end
 

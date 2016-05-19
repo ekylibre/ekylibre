@@ -28,6 +28,7 @@
 #  account_id                :integer          not null
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
+#  bank_statement_letter     :string
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  credit                    :decimal(19, 4)   default(0.0), not null
@@ -69,5 +70,32 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     assert !item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
     item.real_debit = 0
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
+  end
+  test "journal entry items pointed by a bank statement" do
+    bank_statement = bank_statements(:bank_statements_001)
+    pointed_ids_by_bank_statement = [
+      journal_entry_items(:journal_entry_items_037),
+      journal_entry_items(:journal_entry_items_039),
+      journal_entry_items(:journal_entry_items_053),
+      journal_entry_items(:journal_entry_items_196)
+    ].map(&:id)
+    assert_equal pointed_ids_by_bank_statement.to_set, JournalEntryItem.pointed_by(bank_statement).map(&:id).to_set
+  end
+  test "destroy clears the bank statement items associated" do
+    item = journal_entry_items(:journal_entry_items_011)
+    bank_statement = item.bank_statement
+    bank_statement_letter = item.bank_statement_letter
+    assert bank_statement.present? && bank_statement_letter.present?
+    associated_bank_statement_items = bank_statement.items.where(letter: bank_statement_letter).to_a
+    assert associated_bank_statement_items.any?
+    item.destroy
+    associated_bank_statement_items.map &:reload
+    assert associated_bank_statement_items.all? { |bsi| bsi.letter.nil? }
+  end
+  test "bank statement letter is set to nil on validations when blank" do
+    item = journal_entry_items(:journal_entry_items_001)
+    item.bank_statement_letter = " "
+    assert item.valid?
+    assert_nil item.bank_statement_letter
   end
 end
