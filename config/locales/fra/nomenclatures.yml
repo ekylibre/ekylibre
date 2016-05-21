@@ -1742,6 +1742,7 @@ fra:
         protein_concentration_index: "Taux protéique (TP)"
         protein_matters_concentration: "Teneur en matières protéiques"
         rainfall: "Pluviométrie"
+        ready_to_harvest: "Prêt à être récolté"
         reference_year: "Millésime"
         relative_humidity: "Humidité relative"
         reproductor: "Reproducteur"

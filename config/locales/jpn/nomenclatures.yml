@@ -1606,6 +1606,7 @@ jpn:
         protein_concentration_index: "タンパク質濃度指数"
         protein_matters_concentration: "タンパク質事項濃度"
         rainfall: "降雨"
+        # ready_to_harvest: "Ready to harvest"
         reference_year: "基準年"
         relative_humidity: "相対湿度"
         reproductor: "REPRODUCTOR"

@@ -1595,6 +1595,7 @@ ita:
         protein_concentration_index: "indice di concentrazione di proteine"
         protein_matters_concentration: "la concentrazione di proteine ​​questioni"
         rainfall: "Piovosità"
+        # ready_to_harvest: "Ready to harvest"
         reference_year: "anno di riferimento"
         relative_humidity: "Umidità relativa"
         reproductor: "riproduttore"

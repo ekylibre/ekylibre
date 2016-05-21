@@ -1601,6 +1601,7 @@ spa:
         protein_concentration_index: "Índice de concentración de proteínas"
         protein_matters_concentration: "La concentración de materias proteicas"
         rainfall: "Lluvia"
+        # ready_to_harvest: "Ready to harvest"
         reference_year: "Año de referencia"
         relative_humidity: "Humedad relativa"
         # reproductor: "Reproductor"

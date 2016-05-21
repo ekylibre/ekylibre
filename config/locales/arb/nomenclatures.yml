@@ -1604,6 +1604,7 @@ arb:
         protein_concentration_index: "مؤشر تركيز البروتين"
         protein_matters_concentration: "تركيز المسائل البروتين"
         rainfall: "هطول الأمطار"
+        # ready_to_harvest: "Ready to harvest"
         reference_year: "السنة المرجعية"
         relative_humidity: "الرطوبة النسبية"
         reproductor: "REPRODUCTOR"

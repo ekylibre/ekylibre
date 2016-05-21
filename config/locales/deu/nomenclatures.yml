@@ -1595,6 +1595,7 @@ deu:
         protein_concentration_index: "Die Proteinkonzentration Index"
         protein_matters_concentration: "Protein Angelegenheiten Konzentration"
         rainfall: "Niederschlagsmenge"
+        # ready_to_harvest: "Ready to harvest"
         reference_year: "Bezugsjahr"
         relative_humidity: "Relative Luftfeuchtigkeit"
         reproductor: "reproductor"

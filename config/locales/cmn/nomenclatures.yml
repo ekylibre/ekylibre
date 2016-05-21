@@ -1595,6 +1595,7 @@ cmn:
         protein_concentration_index: "蛋白质浓度指数"
         protein_matters_concentration: "蛋白质浓度的事项"
         rainfall: "雨量"
+        # ready_to_harvest: "Ready to harvest"
         reference_year: "基准年"
         relative_humidity: "相对湿度"
         reproductor: "REPRODUCTOR"

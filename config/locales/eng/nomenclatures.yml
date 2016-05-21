@@ -1594,6 +1594,7 @@ eng:
         protein_concentration_index: "Protein concentration index"
         protein_matters_concentration: "Protein matters concentration"
         rainfall: "Rainfall"
+        ready_to_harvest: "Ready to harvest"
         reference_year: "Reference year"
         relative_humidity: "Relative humidity"
         reproductor: "Reproductor"

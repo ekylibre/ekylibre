@@ -1595,6 +1595,7 @@ por:
         protein_concentration_index: "A concentração de proteína índice"
         protein_matters_concentration: "Concentração de matérias proteicas"
         rainfall: "Chuva"
+        # ready_to_harvest: "Ready to harvest"
         reference_year: "Ano de referência"
         relative_humidity: "Humidade relativa"
         reproductor: "Reproductor"
