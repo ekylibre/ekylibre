@@ -137,6 +137,7 @@ module Backend
                           include: { address: { methods: [:mail_coordinate] },
                                      nature: { include: { payment_mode: { include: :cash } } },
                                      supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
+                                     responsible: {},
                                      credits: {},
                                      parcels: { methods: [:human_delivery_mode, :human_delivery_nature, :items_quantity], include: {
                                        address: {},
