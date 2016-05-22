@@ -1282,6 +1282,7 @@ eng:
     map_editor_explanation: "Question of the map grip" #?!
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
+    marketable_net_mass: "Marketable net mass"
     max_level: "max level" #?!
     maximal_temperature: "Maximal temperature"
     measurement_tools: "measurement tool, for calculations of distances and areas." #?!
@@ -1355,6 +1356,7 @@ eng:
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
+    not_ready: "Not ready"
     not_received: "Not received" #?
     now: "Now" #?
     number: "Number" #?
@@ -1453,6 +1455,8 @@ eng:
     raw_margin: "Raw margin" #?!
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
+    ready: "Ready"
+    ready_to_harvest: "Ready to harvest"
     received: "Received" #?
     recent_events: "Recent events"
     reference_cap_clusters: "Islets reference CAP" #?!

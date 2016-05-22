@@ -1369,8 +1369,9 @@ fra:
     mark_all_as_read: "Tout marquer comme lu"
     mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
+    marketable_net_mass: "Masse nette commercialisable"
     mass: "Masse" #?
-    # max_level: "max level"
+    max_level: "Niveau maximum"
     maximal_temperature: "Température maximale"
     measure_options: "Indicateur de type mesure" #?
     # measurement_tools: "measurement tool, for calculations of distances and areas."
@@ -1385,7 +1386,7 @@ fra:
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
-    # min_level: "level min"
+    min_level: "Niveau minimum"
     minimal_temperature: "Température minimale"
     # missing: "Missing"
     missing_attributes: "Des champs sont manquants"
@@ -1485,6 +1486,7 @@ fra:
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
     not_is: "N’est pas" #?
+    not_ready: "Pas prêt(e)"
     not_received: "Non reçu"
     now: "Maintenant"
     number: "Numéro"
@@ -1492,7 +1494,7 @@ fra:
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_options: "Options de numérotations"
     numbers: "Numéros"
-    # ok: "OK"
+    ok: "OK"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
     open_a_campaign: "Ouvrir une campagne de production"
@@ -1517,7 +1519,7 @@ fra:
       undelivered: "Non délivrés" #?
       unparted: "Non affectés" #?
       waiting: "À décaisser plus tard" #?
-    # pacage_number: "No. GRAZING"
+    pacage_number: "No. PACAGE"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1633,6 +1635,8 @@ fra:
     raw_margin: "Marge brute"
     reading_tasks: "Relevés d’indicateur"
     readings: "Relevés d’indicateur"
+    ready: "Prêt(e)"
+    ready_to_harvest: "Prêt(e) à être récolté(e)"
     received: "Reçue"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
@@ -1946,7 +1950,7 @@ fra:
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
-    # variety: "Variety"
+    variety: "Variété"
     vat: "Taxe à payer" #?
     vat_acquisitions: "Acquisitions intracommunautaires" #?
     vat_amount: "Taxe due" #?

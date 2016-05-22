@@ -14,6 +14,17 @@
 
 = cobbles do |c|
 
+  - c.cobble(:analyses) do
+    - analysis = Analysis.where(product: resource.product, nature: 'plant_analysis').reorder(:sampled_at).last
+    - if analysis
+      .med-info
+        %span.title= Analysis.human_attribute_name(:number)
+        %span.value
+          %i.picto{class: "picto-flask"}
+          = link_to(analysis.number, {controller: :analyses, action: :show, id: analysis.id})
+    .med-info
+      = link_to(:new_analysis, {controller: :analyses, action: :new, nature: 'plant_analysis', product_id: resource.product.id, sampled_at: Time.now}, class: 'btn btn-default')
+
   - c.cobble(:data) do
     - colspan = 3
     %table

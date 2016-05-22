@@ -36,13 +36,24 @@
             popup_content << {label: :last_issue.tl, value: link_to( last_issue.name, backend_issue_path(last_issue)) }
           end
 
+          # for inspection and marketable_net_mass
           inspections = p.inspections.reorder(:sampled_at)
-
           if inspections.any?
+            activity = inspections.first.activity
+            scale = activity.inspection_calibration_scales.first
+            marketable_net_mass = inspections.last.marketable_net_mass(scale).l(precision: 0)
             popup_content << { label: :last_inspection.tl, value: link_to(inspections.last.position.to_s, backend_inspection_path(inspections.last)) }
+            popup_content << { label: :marketable_net_mass.tl, value: marketable_net_mass }
           end
 
-          popup_content << render('popup', plant: p)
+          # for ready to harvest plant
+          if p.harvest? == true
+            ready = :ready.tl
+          elsif p.harvest? == false
+            ready = :not_ready.tl
+          else
+            ready = :unknown.tl
+          end
 
           # for irrigation management
           water_concentration = []
@@ -55,14 +66,27 @@
             end
           end
 
-          {name: p.name, shape: p.shape, age: (Time.zone.now - p.born_at) / (3600 * 24 * 30), plantation_density: (p.plants_count.to_d / p.net_surface_area.to_d).to_s.to_f, interventions_count: interventions.count, issues_count: issues.count, watering_concentration: water_concentration.compact.sum.to_s.to_f, variety: Nomen::Variety[p.variety].human_name, popup: {header: true, content: popup_content} }
+          popup_content << render('popup', plant: p)
+
+          {name: p.name,
+          shape: p.shape,
+          marketable_net_mass: marketable_net_mass.to_s.to_f,
+          ready_to_harvest: ready,
+          age: (Time.zone.now - p.born_at) / (3600 * 24 * 30),
+          plantation_density: (p.plants_count.to_d / p.net_surface_area.to_d).to_s.to_f,
+          interventions_count: interventions.count,
+          issues_count: issues.count,
+          watering_concentration: water_concentration.compact.sum.to_s.to_f,
+          variety: Nomen::Variety[p.variety].human_name,
+          popup: {header: true, content: popup_content} }
+
         end
 
 
       = visualization(box: {height: "100%"}) do |v|
         - v.serie :main, data
-        -# v.bubbles :age, :main
-        -# v.choropleth :interventions_count, :main, hidden: true
+        - v.bubbles :marketable_net_mass, :main
+        - v.categories :ready_to_harvest, :main
         - v.choropleth :plantation_density, :main
         - v.categories :variety, :main
         - v.choropleth :watering_concentration, :main, stop_color: "#1122DD", hidden: true

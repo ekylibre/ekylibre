@@ -101,4 +101,19 @@ class Plant < Bioproduct
       return :go
     end
   end
+
+
+  def harvest?
+    ready_to_harvest_analyse = self.analyses.where(nature: 'plant_analysis').reorder(:sampled_at).last
+    if ready_to_harvest_analyse
+      item = ready_to_harvest_analyse.items.where(indicator_name: 'ready_to_harvest').first
+      if item
+        return item.value
+      else
+        return false
+      end
+    end
+    return false
+  end
+
 end

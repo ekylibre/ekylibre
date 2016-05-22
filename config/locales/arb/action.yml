@@ -1482,6 +1482,7 @@ arb:
     # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
+    # marketable_net_mass: "Marketable net mass"
     mass: "الوزن" #?
     # max_level: "max level"
     maximal_temperature: "درجة الحرارة القصوى"
@@ -1613,6 +1614,7 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
+    # not_ready: "Not ready"
     not_received: "لم تتلق"
     notifications:  #?
       error: "خطأ" #?
@@ -1769,6 +1771,8 @@ arb:
     raw_margin: "هامش الخام"
     reading_tasks: "مهام القراءة"
     readings: "قراءات"
+    # ready: "Ready"
+    # ready_to_harvest: "Ready to harvest"
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
