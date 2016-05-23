@@ -17,7 +17,7 @@
 #
 
 module Iot
-  class BaseController < ::ApplicationController
+  class BaseController < ActionController::Base
     include ActionController::Flash
     before_action :authenticate_thing!
 
