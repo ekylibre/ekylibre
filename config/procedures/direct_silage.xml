@@ -8,17 +8,17 @@
       <output name="silage" filter="is silage and derives from plant">
         <handler name="population"/>
         <handler indicator="net_mass" unit="ton"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
-                 backward="POPULATION * PRODUCT..net_mass(ton)"
-                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+                 if="VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(ton)"
+                 forward="VALUE / VARIANT.net_mass(ton)"/>
         <handler indicator="net_volume" unit="cubic_meter"
-                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
-                 backward="POPULATION * PRODUCT..net_volume(cubic_meter)"
-                 forward="VALUE / PRODUCT..net_volume(cubic_meter)"/>
+                 if="VARIANT.net_volume?"
+                 backward="POPULATION * VARIANT.net_volume(cubic_meter)"
+                 forward="VALUE / VARIANT.net_volume(cubic_meter)"/>
         <handler name="dry_matter_mass_area_density" indicator="mass_area_density" unit="ton_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum_working_zone_areas(cultivation, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(ton)"/>
+                 if="VARIANT.net_mass? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * VARIANT.net_mass(ton)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / VARIANT.net_mass(ton)"/>
       </output>
       <tool name="forager" filter="is equipment and can harvest(plant)" cardinality="*"/>
       <doer name="forager_driver"  filter="is worker and can move and can drive(forager)" cardinality="*"/>
