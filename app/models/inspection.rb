@@ -212,23 +212,61 @@ class Inspection < Ekylibre::Record::Base
     points_of_category(category).map(&:net_mass_yield).sum.round(0)
   end
 
+  def points_net_mass_percentage(category = nil)
+    points_of_category(category).map(&:net_mass_percentage).sum
+  end
+
   def items_count(scale)
     calibrations.of_scale(scale).sum(:items_count)
   end
 
-  def net_mass(scale)
-    calibrations.of_scale(scale).sum(:net_mass_value).in(activity.grading_net_mass_unit)
+  def net_mass(scale = nil)
+    if scale.nil?
+      (scales.map { |s| net_mass(s) }.sum / scales.count).round(0)
+    else
+      calibrations.of_scale(scale).sum(:net_mass_value).in(activity.grading_net_mass_unit)
+    end
   end
 
-  def total_net_mass(scale)
-    calibrations.of_scale(scale).map(&:total_net_mass).sum
+  def total_net_mass(scale = nil)
+    if scale.nil?
+      (scales.map { |s| total_net_mass(s) }.sum / scales.count).round(0)
+    else
+      calibrations.of_scale(scale).map(&:total_net_mass).sum
+    end
   end
 
-  def net_mass_yield(scale)
-    calibrations.of_scale(scale).map(&:net_mass_yield).sum.round(0)
+  def net_mass_yield(scale = nil)
+    if scale.nil?
+      (scales.map { |s| net_mass_yield(s) }.sum / scales.count).round(0)
+    else
+      calibrations.of_scale(scale).map(&:net_mass_yield).sum.round(0)
+    end
   end
 
-  def marketable_net_mass(scale)
-    calibrations.of_scale(scale).marketable.map(&:total_net_mass).sum.round(0)
+  def marketable_net_mass(scale = nil)
+    if scale.nil?
+      (scales.map { |s| marketable_net_mass(s) }.sum / scales.count).round(0)
+    else
+      calibrations.of_scale(scale).marketable.map(&:marketable_net_mass).sum.round(0)
+    end
   end
+
+  def marketable_yield(scale = nil)
+    if scale.nil?
+      (scales.map { |s| marketable_yield(s) }.sum / scales.count).round(0)
+    else
+      calibrations.of_scale(scale).marketable.map(&:marketable_yield).sum.round(0)
+    end
+  end
+
+  def unmarketable_rate
+    # raise [unmarketable_net_mass.to_s, total_net_mass.to_s].to_sentence
+    unmarketable_net_mass / net_mass
+  end
+
+  def unmarketable_net_mass
+    points.unmarketable.sum(:net_mass_value).in(activity.grading_net_mass_unit)
+  end
+  
 end

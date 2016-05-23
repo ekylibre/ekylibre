@@ -54,4 +54,11 @@ class InspectionPoint < Ekylibre::Record::Base
   }
 
   scope :of_category, ->(category) { where(nature_id: ActivityInspectionPointNature.where(category: category)) }
+
+  scope :unmarketable, -> { where(nature_id: ActivityInspectionPointNature.unmarketable) }
+
+
+  def net_mass_percentage
+    (100 * (net_mass / inspection.net_mass))
+  end
 end

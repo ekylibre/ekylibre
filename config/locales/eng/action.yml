@@ -1,14 +1,5 @@
 eng:
   actions:
-    api/v1/crumbs:
-      # index: "Crumbs"
-    api/v1/issues:
-      # index: "Issues"
-    api/v1/plant_density_abaci:
-      # index: "Plant density abaci"
-      # show: "Plant density abacus: %{name}"
-    api/v1/plants:
-      # index: "Plants"
     authentication/invitations:
       edit: "Accept invitation"
       # new: "New invitation"
