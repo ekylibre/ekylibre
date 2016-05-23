@@ -285,7 +285,7 @@
                     .addTo(this._map);
 
                 this._map
-                    .on('mouseup', this._onMouseUp, this) // Necessary for 0.7 compatibility
+                    // .on('mouseup', this._onMouseUp, this) // Necessary for 0.7 compatibility
                     .on('mousemove', this._onMouseMove, this)
                     .on('zoomlevelschange', this._onZoomEnd, this)
                     .on('click', this._onTouch, this)
@@ -1158,7 +1158,7 @@
             if (!icon) {
                 return;
             }
-
+            
             // This is quite naughty, but I don't see another way of doing it. (short of setting a new icon)
             icon.style.display = 'none';
 
@@ -1276,7 +1276,7 @@
             }
 
             this._latlngs = latlngs;
-
+            
             L.setOptions(this, options);
         },
 
@@ -1800,7 +1800,7 @@
                 var corners = this._getCorners(),
                     marker = e.target,
                     currentCornerIndex = marker._cornerIndex;
-
+                
                 marker.setOpacity(0);
 
                 // Copyed from Edit.Rectangle.js line 23 _onMarkerDragStart()
@@ -1808,7 +1808,7 @@
                 this._oppositeCorner = corners[(currentCornerIndex + 2) % 4];
                 this._toggleCornerMarkers(0, currentCornerIndex);
             }
-
+            
             this._shape.fire('editstart');
         },
 
@@ -1824,7 +1824,7 @@
             }
 
             this._shape.redraw();
-
+            
             // prevent touchcancel in IOS
             // e.preventDefault();
             return false;
