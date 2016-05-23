@@ -66,7 +66,7 @@ class InterventionParameter < Ekylibre::Record::Base
     end
 
     def item
-      send("#{@origin}_item")
+      @origin ? send("#{@origin}_item") : nil
     end
 
     def unit_amount?
