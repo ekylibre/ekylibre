@@ -341,18 +341,30 @@
         this.map.removeLayer(this.backgroundLayer)
       if this.options.back?
         if this.options.back.constructor.name is "Array"
-          baseLayers = {}
-          for layer, index in @options.back
-            opts = {}
-            opts['attribution'] = layer.attribution if layer.attribution?
-            opts['minZoom'] = layer.minZoom if layer.minZoom?
-            opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
-            opts['subdomains'] = layer.subdomains if layer.subdomains?
-            opts['tms'] = true if layer.tms
 
-            backgroundLayer = L.tileLayer(layer.url, opts)
-            baseLayers[layer.name] = backgroundLayer
-            @map.addLayer(backgroundLayer) if layer.byDefault
+          if @options.back.length > 0
+            baseLayers = {}
+            for layer, index in @options.back
+              opts = {}
+              opts['attribution'] = layer.attribution if layer.attribution?
+              opts['minZoom'] = layer.minZoom if layer.minZoom?
+              opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+              opts['subdomains'] = layer.subdomains if layer.subdomains?
+              opts['tms'] = true if layer.tms
+
+              backgroundLayer = L.tileLayer(layer.url, opts)
+              baseLayers[layer.name] = backgroundLayer
+              @map.addLayer(backgroundLayer) if layer.byDefault
+
+          else
+            # no backgrounds, set defaults
+            @options.back = ['OpenStreetMap.HOT',"OpenStreetMap.Mapnik", "Thunderforest.Landscape", "Esri.WorldImagery"]
+
+            baseLayers = {}
+            for layer, index in @options.back
+              backgroundLayer = L.tileLayer.provider(layer)
+              baseLayers[layer] = backgroundLayer
+              @map.addLayer(backgroundLayer) if index == 0
 
           @layerSelector = new L.Control.Layers(baseLayers)
           @map.addControl  @layerSelector
