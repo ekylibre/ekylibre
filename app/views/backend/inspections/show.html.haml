@@ -47,10 +47,40 @@
             %th= InspectionPoint.human_attribute_name(:marketable)
             - colspan += 2
       %tbody
+        - resource.scales.order(:id).each do |scale|
+          %tr.title
+            %th{ colspan: colspan }= scale.size_indicator.human_name
+          - resource.calibrations.of_scale(scale).each do |calibration|
+            %tr
+              %td= calibration.nature_name
+              - if resource.measure_grading_items_count
+                %td.decimal= calibration.items_count
+              - if resource.measure_grading_net_mass
+                %td.decimal= calibration.net_mass.l(precision: 0)
+              - if resource.measure_grading_sizes
+                %td.decimal= calibration.minimal_size.l(precision: 0)
+                %td.decimal= calibration.maximal_size.l(precision: 0)
+              - if resource.mass_statable?
+                %td.decimal= calibration.total_net_mass.l(precision: 0)
+                %td.decimal= calibration.net_mass_yield.l(precision: 0)
+                %td.decimal= calibration.marketable? ? calibration.total_net_mass.l(precision: 0) : '&ndash;'.html_safe
+          %tr.total
+            %th= :totals.tl
+            - if resource.measure_grading_items_count
+              %th.decimal= resource.items_count(scale)
+            - if resource.measure_grading_net_mass
+              %th.decimal= resource.net_mass(scale).l(precision: 0)
+            - if resource.measure_grading_sizes
+              %th.decimal &ndash;
+              %th.decimal &ndash;
+            - if resource.mass_statable?
+              %th.decimal= resource.total_net_mass(scale).l(precision: 0)
+              %th.decimal= resource.net_mass_yield(scale).l(precision: 0)
+              %th.decimal= resource.marketable_net_mass(scale).l(precision: 0)
         - if resource.points.any?
           %tr.title
             %th{ colspan: colspan }= Inspection.human_attribute_name(:points)
-          - resource.points.joins(:nature).order('name').each do |point|
+          - resource.points.joins(:nature).order('category, name').each do |point|
             %tr
               %td= point.nature_name
               - if resource.measure_grading_items_count
@@ -91,38 +121,8 @@
               %th.decimal= resource.total_points_net_mass.l(precision: 0)
               %th.decimal= resource.points_net_mass_yield.l(precision: 0)
               %th.decimal &ndash;
-        - resource.scales.order(:id).each do |scale|
-          %tr.title
-            %th{ colspan: colspan }= scale.size_indicator.human_name
-          - resource.calibrations.of_scale(scale).each do |calibration|
-            %tr
-              %td= calibration.nature_name
-              - if resource.measure_grading_items_count
-                %td.decimal= calibration.items_count
-              - if resource.measure_grading_net_mass
-                %td.decimal= calibration.net_mass.l(precision: 0)
-              - if resource.measure_grading_sizes
-                %td.decimal= calibration.minimal_size.l(precision: 0)
-                %td.decimal= calibration.maximal_size.l(precision: 0)
-              - if resource.mass_statable?
-                %td.decimal= calibration.total_net_mass.l(precision: 0)
-                %td.decimal= calibration.net_mass_yield.l(precision: 0)
-                %td.decimal= calibration.marketable? ? calibration.total_net_mass.l(precision: 0) : '&ndash;'.html_safe
-          %tr.total
-            %th= :totals.tl
-            - if resource.measure_grading_items_count
-              %th.decimal= resource.items_count(scale)
-            - if resource.measure_grading_net_mass
-              %th.decimal= resource.net_mass(scale).l(precision: 0)
-            - if resource.measure_grading_sizes
-              %th.decimal &ndash;
-              %th.decimal &ndash;
-            - if resource.mass_statable?
-              %th.decimal= resource.total_net_mass(scale).l(precision: 0)
-              %th.decimal= resource.net_mass_yield(scale).l(precision: 0)
-              %th.decimal= resource.marketable_net_mass(scale).l(precision: 0)
 
-  -if resource.calibrations.any? && resource.calibrations.sum(:net_mass_value) > 0
+  - if resource.calibrations.any? && resource.calibrations.sum(:net_mass_value) > 0
     - c.cobble(:calibrations) do
       %table
         %tr
