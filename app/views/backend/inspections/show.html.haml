@@ -130,7 +130,8 @@
             :ruby
               # build categories
               categories = []
-              categories << [resource.position, :yield]
+              categories << resource.position.to_s
+              categories << :yield.tl
               series = []
 
               # build symbol
