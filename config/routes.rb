@@ -585,7 +585,7 @@ Rails.application.routes.draw do
         post :load
       end
       member do
-        put :toggle
+        post :toggle
         put :star
         delete :destroy
       end

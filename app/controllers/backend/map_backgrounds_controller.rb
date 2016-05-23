@@ -14,9 +14,31 @@ module Backend
     end
 
     def toggle
-      return unless m = MapBackground.find_by_id(params[:id])
-      m.update(enabled: !m.enabled)
-      head :no_content
+      if m = MapBackground.find_by_id(params[:id])
+
+        if !!m.enabled  and MapBackground.availables.length == 1
+          return head :forbidden
+        end
+        toggle = !m.enabled
+        m.update(enabled: toggle)
+
+        id = nil
+
+        # if map background is disabling but is by default
+        if !toggle and m.by_default
+          mb = MapBackground.availables.first
+          unless mb.nil?
+            mb.update(by_default: true)
+            id = mb.id
+          end
+        end
+
+        respond_to do |format|
+          format.json { render json: {new_default: id} }
+        end
+      else
+        head :forbidden
+      end
     end
 
     def star

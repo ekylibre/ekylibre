@@ -7,10 +7,15 @@
   $(document).on 'click', '[data-enable-url]', () ->
     $.ajax(
       url: $(@).data('enable-url')
-      method: 'PUT'
+      method: 'POST'
       dataType: 'json'
-      success: () =>
+      success: (data) =>
         $(@).toggleClass 'active'
+        $(@).find('.map-background-by-default').toggleClass('hide')
+
+        if data.new_default?
+          $(@).find('.map-background-by-default.active').removeClass('active')
+          $('.map-backgrounds-viewport').find("[data-id=#{data.new_default}]").find('.map-background-by-default').addClass('active')
 
     )
 
