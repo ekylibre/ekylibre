@@ -45,4 +45,8 @@ class ActivityInspectionCalibrationScale < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   accepts_nested_attributes_for :natures, reject_if: :all_blank, allow_destroy: true
+
+  def name
+    self.size_indicator.human_name
+  end
 end

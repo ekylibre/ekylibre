@@ -50,6 +50,15 @@
         %span.title= :total_cost.tl
         %span.value= total.l(currency: Preference[:currency])
 
+      - if resource.working_zone_area != 0.0
+        .big-info
+          %span.title= :working_zone.tl
+          %span.value= resource.human_working_zone_area
+
+        .big-info
+          %span.title= :costs_per_hectare.tl
+          %span.value= resource.cost_per_working_zone.to_s + Nomen::Currency.find(Preference[:currency]).symbol + "/" + Nomen::Unit.find(:hectare).symbol
+
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do
       %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters

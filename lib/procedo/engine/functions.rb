@@ -16,8 +16,9 @@ module Procedo
             end
             (parameter.product ? parameter.product.population : nil)
           end
+          list.compact!
           return 0.0 if list.empty?
-          list.compact.sum
+          list.sum
         end
 
         # Sums indicator values for a set of product
@@ -30,8 +31,9 @@ module Procedo
             end
             (parameter.product ? parameter.product.get(indicator.name) : nil)
           end
+          list.compact!
           return 0.0 if list.empty?
-          list.compact.sum.to_d(unit ? unit : indicator.unit)
+          list.sum.to_d(unit ? unit : indicator.unit)
         end
 
         def sum_working_zone_areas(set, unit = nil)
@@ -41,13 +43,14 @@ module Procedo
             end
             parameter.working_zone ? parameter.working_zone.area : nil
           end
+          list.compact!
           return 0.0 if list.empty?
-          list.compact.sum.to_d(unit || :square_meter)
+          list.sum.to_d(unit || :square_meter)
         end
 
         def merge_working_zones(set)
           zone = nil
-          list = set.map do |parameter|
+          set.each do |parameter|
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end

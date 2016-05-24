@@ -42,4 +42,10 @@ class ActivityInspectionPointNature < Ekylibre::Record::Base
   validates_presence_of :activity, :category, :name
   # ]VALIDATORS]
   validates_uniqueness_of :name, scope: :activity_id
+
+  scope :unmarketable, -> { where.not(category: 'none') }
+
+  def self.unmarketable_categories
+    self.category.values - ['none']
+  end
 end

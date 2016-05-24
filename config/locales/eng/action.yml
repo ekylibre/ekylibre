@@ -1,14 +1,5 @@
 eng:
   actions:
-    api/v1/crumbs:
-      # index: "Crumbs"
-    api/v1/issues:
-      # index: "Issues"
-    api/v1/plant_density_abaci:
-      # index: "Plant density abaci"
-      # show: "Plant density abacus: %{name}"
-    api/v1/plants:
-      # index: "Plants"
     authentication/invitations:
       edit: "Accept invitation"
       # new: "New invitation"
@@ -1314,6 +1305,7 @@ eng:
     net_surface_area: "Net surface area"
     new: "New" #?
     new_activity: "new activity"
+    # new_analysis: "New analysis"
     new_animal: "New animal"
     new_attachment: "New attachment"
     new_box: "New box"
@@ -1659,6 +1651,7 @@ eng:
     workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
+    # working_zone: "Working zone"
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"

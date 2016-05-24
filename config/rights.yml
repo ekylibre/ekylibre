@@ -1,8 +1,4 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
-#     - "api/v1/crumbs#create"
-#     - "api/v1/crumbs#index"
-#     - "api/v1/tokens#create"
-#     - "api/v1/tokens#destroy"
 #     - "authentication/invitations#create"
 #     - "authentication/invitations#destroy"
 #     - "authentication/invitations#edit"
@@ -157,7 +153,6 @@
 #     - "devise/unlocks#create"
 #     - "devise/unlocks#new"
 #     - "devise/unlocks#show"
-#     - "iot/analyses#create"
 #     - "public#index"
 
 accounts:
@@ -187,8 +182,8 @@ accounts:
 activities:
   read:
     actions:
-    - "api/v1/plant_density_abaci#index"
-    - "api/v1/plant_density_abaci#show"
+    - "api/v1/plant_density_abaci#index" #?
+    - "api/v1/plant_density_abaci#show" #?
     - "backend/activities#index"
     - "backend/activities#list"
     - "backend/activities#list_distributions"
@@ -208,7 +203,7 @@ activities:
     dependencies:
     - read-activities
     actions:
-    - "api/v1/plant_countings#create"
+    - "api/v1/plant_countings#create" #?
     - "backend/activities#create"
     - "backend/activities#destroy"
     - "backend/activities#duplicate"
@@ -1054,7 +1049,7 @@ inventories:
 issues:
   read:
     actions:
-    - "api/v1/issues#index"
+    - "api/v1/issues#index" #?
     - "backend/issues#index"
     - "backend/issues#list"
     - "backend/issues#list_interventions"
@@ -1065,7 +1060,7 @@ issues:
     dependencies:
     - read-issues
     actions:
-    - "api/v1/issues#create"
+    - "api/v1/issues#create" #?
     - "backend/issues#abort"
     - "backend/issues#close"
     - "backend/issues#create"
@@ -1364,7 +1359,7 @@ outgoing_payments:
 plants:
   read:
     actions:
-    - "api/v1/plants#index"
+    - "api/v1/plants#index" #?
     - "backend/plants#index"
     - "backend/plants#list"
     - "backend/plants#list_carried_linkages"

@@ -45,11 +45,24 @@ class InspectionCalibration < Ekylibre::Record::Base
   validates_presence_of :inspection, :nature
   # ]VALIDATORS]
 
+  delegate :name, to: :nature
+
   scope :of_scale, ->(scale) { joins(:nature).where(activity_inspection_calibration_natures: { scale_id: scale }).order('minimal_size_value', 'maximal_size_value') }
   scope :marketable, -> { where(nature: ActivityInspectionCalibrationNature.marketable) }
   scope :of_products, ->(*products) { joins(:inspection).where(inspections: { product_id: products.map(&:id) }) }
 
   def marketable?
     nature.marketable
+  end
+
+  def marketable_net_mass
+    total_net_mass * (1 - inspection.unmarketable_rate)
+  end
+
+  def marketable_yield
+    unit_name = "#{grading_net_mass_unit.name}_per_#{product_net_surface_area.unit}"
+    unit_name = :kilogram_per_hectare unless Nomen::Unit.find(unit_name)
+    y = (marketable_net_mass.to_d(:kilogram) / product_net_surface_area.to_d(:square_meter)).in(:kilogram_per_square_meter)
+    y.in(unit_name).round(0)
   end
 end

@@ -102,9 +102,8 @@ class Plant < Bioproduct
     end
   end
 
-
   def harvest?
-    ready_to_harvest_analyse = self.analyses.where(nature: 'plant_analysis').reorder(:sampled_at).last
+    ready_to_harvest_analyse = analyses.where(nature: 'plant_analysis').reorder(:sampled_at).last
     if ready_to_harvest_analyse
       item = ready_to_harvest_analyse.items.where(indicator_name: 'ready_to_harvest').first
       if item
@@ -113,7 +112,6 @@ class Plant < Bioproduct
         return false
       end
     end
-    return false
+    false
   end
-
 end
