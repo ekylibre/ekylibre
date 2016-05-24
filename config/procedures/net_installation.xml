@@ -8,9 +8,9 @@
       <input name="protective_net" filter="can care(plant) and can cover(plant)">
         <handler name="population"/>
       </input>
-      <tool name="net_implanter"  filter="can cover(plant)" cardinality="*"/>
+      <tool name="net_implanter"  filter="is equipment and can cover(plant)" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <doer name="worker"  filter="is worker"/>
+      <doer name="worker"  filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
