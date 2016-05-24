@@ -107,7 +107,7 @@ module Procedo
           product = run(node.object)
           unless product.is_a?(Product)
             Rails.logger.warn 'Invalid product. Got: ' + product.inspect + ' ' + node.text_value
-            raise 'Invalid product: Got: ' + product.inspect + ' ' + node.text_value
+            # raise 'Invalid product: Got: ' + product.inspect + ' ' + node.text_value
           end
           if node.is_a?(Procedo::Formula::Language::IndividualReading)
             product = product.variant
