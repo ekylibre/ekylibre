@@ -250,7 +250,7 @@ class Intervention < Ekylibre::Record::Base
     return params.map(&:cost).compact.sum if params.any?
     nil
   end
-  
+
   def cost_per_working_zone(unit = :hectare)
     total_cost = 0.0
     [:input, :tool, :doer].each do |type|
