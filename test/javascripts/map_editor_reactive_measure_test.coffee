@@ -52,12 +52,12 @@ describe 'L.Draw.Polyline.ReactiveMeasure', ->
       latlng = L.latLng latlng
       latlngs.push latlng
 
-
-    @edit.enable()
-    poly = new L.Polygon latlngs
-    @drawnItems.addLayer poly
-    console.log poly, @drawnItems
-    expect(@drawnItems.getLayer(poly._leaflet_id)).not.toBe(undefined)
+#
+#    @edit.enable()
+#    poly = new L.Polygon latlngs
+#    @drawnItems.addLayer poly
+#    console.log poly, @drawnItems
+#    expect(@drawnItems.getLayer(poly._leaflet_id)).not.toBe(undefined)
 
 
 

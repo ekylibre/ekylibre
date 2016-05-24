@@ -184,3 +184,5 @@ Teaspoon.configure do |config|
     # coverage.lines = nil
   end
 end
+
+Teaspoon::Driver.register(:webkit, "Teaspoon::Driver::CapybaraWebkit", "teaspoon/driver/capybara_webkit")
