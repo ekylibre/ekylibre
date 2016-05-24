@@ -566,6 +566,7 @@ fra:
     contour: "Silhouette" #?
     coordinate: "Coordonnée"
     coordinate_columns: "Colonnes de coordonnées"
+    costs_per_unit: "Coût par %{unit}"
     country: "Pays"
     created_at: "Date de création"
     creator: "Créateur"
@@ -1462,6 +1463,7 @@ fra:
     working_shape: "Forme de travail" #?
     working_unit: "Unité d’œuvre" #?
     working_zone: "Zone travaillée"
+    working_zone_area: "Surface de la zone travaillée"
     zone_memberships: "Appartenances de zone"
     zones: "Zones"
   models:

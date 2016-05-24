@@ -268,5 +268,4 @@ class Inspection < Ekylibre::Record::Base
   def unmarketable_net_mass
     points.unmarketable.sum(:net_mass_value).in(activity.grading_net_mass_unit)
   end
-
 end

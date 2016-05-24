@@ -1651,7 +1651,6 @@ eng:
     workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
-    # working_zone: "Working zone"
     x_cashes:
       one: "%{count} cash"
       other: "%{count} cashes"

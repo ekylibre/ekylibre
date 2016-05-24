@@ -50,18 +50,19 @@
         %span.title= :total_cost.tl
         %span.value= total.l(currency: Preference[:currency])
 
-      - if resource.working_zone_area != 0.0
+      - if resource.working_zone_area > 0.0.in_square_meter
         .big-info
-          %span.title= :working_zone.tl
-          %span.value= resource.human_working_zone_area
+          %span.title= Intervention.human_attribute_name(:working_zone_area)
+          %span.value= resource.human_working_zone_area(precision: 2)
 
         .big-info
-          %span.title= :costs_per_hectare.tl
-          %span.value= resource.cost_per_working_zone.to_s + Nomen::Currency.find(Preference[:currency]).symbol + "/" + Nomen::Unit.find(:hectare).symbol
+          - unit = Nomen::Unit.find(:hectare)
+          %span.title= Intervention.human_attribute_name(:costs_per_unit, unit: unit.human_name)
+          %span.value= resource.cost_per_area(unit).round(2).l(currency: Preference[:currency]) + "/" + unit.symbol
 
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do
-      %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters
+      %ul.product_parameters= render partial: 'product_parameter', collection: resource.product_parameters.order(:type)
 
   - c.cobble(:general_informations) do
     = infos do

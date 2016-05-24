@@ -422,6 +422,7 @@ deu:
     contents: "Inhalt"
     coordinate: "Koordinieren"
     coordinate_columns: "Koordinaten Spalten"
+    # costs_per_unit: "Costs per %{unit}"
     country: "Land"
     created_at: "Hergestellt in"
     creator: "Schöpfer"
@@ -1199,6 +1200,7 @@ deu:
     working_periods: "Arbeitszeiten"
     working_shape: "Arbeitsform" #?
     working_zone: "Arbeitszone"
+    # working_zone_area: "Working zone area"
     zone_memberships: "Zone Mitgliedschaften"
     # zones: "Zones"
   models:

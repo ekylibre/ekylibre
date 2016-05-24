@@ -422,6 +422,7 @@ jpn:
     contents: "コンテンツ"
     coordinate: "座標"
     coordinate_columns: "列の座標"
+    # costs_per_unit: "Costs per %{unit}"
     country: "国"
     created_at: "で作成されました"
     creator: "創始者"
@@ -1199,6 +1200,7 @@ jpn:
     working_periods: "作業期間"
     working_shape: "作業形状" #?
     working_zone: "ワーキングゾーン"
+    # working_zone_area: "Working zone area"
     zone_memberships: "ゾーンメンバーシップ"
     zones: "ゾーン"
   models:

@@ -1128,6 +1128,7 @@ arb:
     contents: "محتويات"
     coordinate: "تنسيق"
     coordinate_columns: "تنسيق الأعمدة"
+    # costs_per_unit: "Costs per %{unit}"
     counterpart: "النسخة المطابقة" #?
     counterpart_id: "النسخة المطالقة" #?
     country: "البلد"
@@ -2199,6 +2200,7 @@ arb:
     working_periods: "فترات العمل"
     working_shape: "شكل العمل" #?
     working_zone: "منطقة العمل"
+    # working_zone_area: "Working zone area"
     zone_memberships: "عضوية منطقة"
     zones: "المناطق"
   models:

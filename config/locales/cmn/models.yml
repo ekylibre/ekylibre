@@ -422,6 +422,7 @@ cmn:
     contents: "内容"
     coordinate: "坐标"
     coordinate_columns: "坐标列"
+    # costs_per_unit: "Costs per %{unit}"
     country: "国家"
     created_at: "创建时间"
     creator: "创造者"
@@ -1199,6 +1200,7 @@ cmn:
     working_periods: "工作周期"
     working_shape: "工作形状" #?
     working_zone: "工作区"
+    # working_zone_area: "Working zone area"
     zone_memberships: "会员区"
     zones: "区"
   models:

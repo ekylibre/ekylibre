@@ -54,7 +54,7 @@
     data << { name: :total_pretax_revenues.tl, y: sale_items_pretax_amount.to_s.to_f}
     purchases_items_pretax_amount = PurchaseItem.between(@started_at, @stopped_at).sum(:pretax_amount)
     data << { name: :total_pretax_expenses.tl, y: purchases_items_pretax_amount.to_s.to_f}
-    unless purchases_items_pretax_amount.zero! && sale_items_pretax_amount.zero?
+    unless purchases_items_pretax_amount.zero? && sale_items_pretax_amount.zero?
       series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}
     end
   = column_highcharts(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: true)

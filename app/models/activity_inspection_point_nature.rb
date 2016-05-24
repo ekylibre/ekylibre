@@ -46,6 +46,6 @@ class ActivityInspectionPointNature < Ekylibre::Record::Base
   scope :unmarketable, -> { where.not(category: 'none') }
 
   def self.unmarketable_categories
-    self.category.values - ['none']
+    category.values - ['none']
   end
 end

@@ -433,6 +433,7 @@ eng:
     contents: "Contents"
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
+    costs_per_unit: "Costs per %{unit}" #?
     country: "Country"
     created_at: "Created at"
     creator: "Creator"
@@ -1230,6 +1231,7 @@ eng:
     working_duration: "Working duration"
     working_periods: "Working periods"
     working_zone: "Working zone"
+    working_zone_area: "Working zone area"
     zone_memberships: "Zone memberships" #?
     zones: "Zones"
   models:

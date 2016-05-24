@@ -453,6 +453,7 @@ ita:
     contents: "Contenuto"
     coordinate: "Coordinata"
     coordinate_columns: "coordinare le colonne"
+    # costs_per_unit: "Costs per %{unit}"
     country: "Nazione"
     created_at: "creato a"
     creator: "Creatore"
@@ -1230,6 +1231,7 @@ ita:
     working_periods: "periodi di lavoro"
     working_shape: "forma di lavoro" #?
     working_zone: "zona di lavoro"
+    # working_zone_area: "Working zone area"
     zone_memberships: "appartenenze Zone"
     zones: "zone"
   models:

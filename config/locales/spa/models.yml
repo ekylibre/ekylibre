@@ -425,6 +425,7 @@ spa:
     contents: "Contenido"
     coordinate: "Coordinar"
     coordinate_columns: "Coordinar columnas"
+    # costs_per_unit: "Costs per %{unit}"
     country: "País"
     created_at: "Creado en"
     creator: "Creador"
@@ -1203,6 +1204,7 @@ spa:
     working_periods: "Periodos de trabajo"
     working_shape: "La forma de trabajar" #?
     working_zone: "Zona de trabajo"
+    # working_zone_area: "Working zone area"
     zone_memberships: "Zona de miembro"
     zones: "Zonas"
   models:

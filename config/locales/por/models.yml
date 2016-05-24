@@ -422,6 +422,7 @@ por:
     contents: "Conteúdo"
     coordinate: "Coordenada"
     coordinate_columns: "Coordenar colunas"
+    # costs_per_unit: "Costs per %{unit}"
     country: "País"
     created_at: "Criado em"
     creator: "Criador"
@@ -1199,6 +1200,7 @@ por:
     working_periods: "Períodos de trabalho"
     working_shape: "Forma de trabalho" #?
     working_zone: "Zona de trabalho"
+    # working_zone_area: "Working zone area"
     zone_memberships: "Associações da zona"
     zones: "Zonas"
   models:

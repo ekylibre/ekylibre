@@ -185,4 +185,4 @@ Teaspoon.configure do |config|
   end
 end
 
-Teaspoon::Driver.register(:webkit, "Teaspoon::Driver::CapybaraWebkit", "teaspoon/driver/capybara_webkit")
+Teaspoon::Driver.register(:webkit, 'Teaspoon::Driver::CapybaraWebkit', 'teaspoon/driver/capybara_webkit')
