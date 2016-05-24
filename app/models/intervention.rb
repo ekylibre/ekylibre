@@ -250,6 +250,19 @@ class Intervention < Ekylibre::Record::Base
     return params.map(&:cost).compact.sum if params.any?
     nil
   end
+  
+  def cost_per_working_zone(unit = :hectare)
+    total_cost = 0.0
+    [:input, :tool, :doer].each do |type|
+      cost = (cost(type) || 0.0).to_d.round(2)
+      total_cost += cost
+    end
+    if working_zone_area != 0.0
+      return (total_cost / working_zone_area(unit).to_d).round(2)
+    else
+      return nil
+    end
+  end
 
   def earn(role = :output)
     params = product_parameters.of_generic_role(role)
@@ -265,7 +278,7 @@ class Intervention < Ekylibre::Record::Base
     area
   end
 
-  def human_working_zone_area(unit = :hectare, precision = 3)
+  def human_working_zone_area(unit = :hectare, precision = 2)
     working_zone_area(unit).round(precision).l
   end
 
