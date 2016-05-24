@@ -6,7 +6,7 @@ module Procedo
       attr_reader :parameter
 
       delegate :name, to: :parameter, prefix: true
-      delegate :map, :collect, to: :parameters
+      delegate :map, :collect, :each, to: :parameters
 
       def initialize(intervention, parameter, list = nil)
         raise 'Invalid intervention' unless intervention.is_a?(Procedo::Engine::Intervention)
