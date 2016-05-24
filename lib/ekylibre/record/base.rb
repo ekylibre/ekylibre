@@ -192,7 +192,7 @@ module Ekylibre
           code << "before_update do\n"
           code << "  if self.#{method_name}\n"
           code << "    old = #{name}.find(self.id)\n"
-          for attribute in args
+          args.each do |attribute|
             code << "  self['#{attribute}'] = old['#{attribute}']\n"
           end
           code << "  end\n"
