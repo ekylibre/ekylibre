@@ -32,7 +32,7 @@
       .med-info
         %span.title= Inspection.human_attribute_name(:net_mass_yield)
         %span.value= resource.net_mass_yield.round(0).l(precision: 0)
-    
+
   - if resource.calibrations.any? && resource.calibrations.sum(:net_mass_value) > 0
     - c.cobble(:calibrations) do
       %table
@@ -40,7 +40,7 @@
           - resource.scales.each do |scale|
             :ruby
               unit = Nomen::Unit[resource.net_mass(scale).unit]
-              symbol_measure = unit.symbol              
+              symbol_measure = unit.symbol
             %tr
               :ruby
                 # check global net mass of grading

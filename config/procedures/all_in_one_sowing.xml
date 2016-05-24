@@ -45,7 +45,7 @@
        <handler indicator="net_volume" unit="liter"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
                  backward="POPULATION * PRODUCT..net_volume(liter)"
-                 forward="VALUE / PRODUCT..net_volume(liter)"/>          
+                 forward="VALUE / PRODUCT..net_volume(liter)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
                  if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
                  backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(cultivation, :hectare)"

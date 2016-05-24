@@ -41,7 +41,7 @@ module Procedo
             unless parameter.is_a?(Procedo::Engine::Intervention::ProductParameter)
               raise 'Invalid parameter. Only product_parameter wanted. Got: ' + parameter.class.name
             end
-            parameter.working_zone ? parameter.working_zone_area : nil
+            parameter.working_zone ? parameter.working_zone.area : nil
           end
           list.compact!
           return 0.0 if list.empty?

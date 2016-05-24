@@ -46,7 +46,7 @@ class InspectionCalibration < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   delegate :name, to: :nature
-  
+
   scope :of_scale, ->(scale) { joins(:nature).where(activity_inspection_calibration_natures: { scale_id: scale }).order('minimal_size_value', 'maximal_size_value') }
   scope :marketable, -> { where(nature: ActivityInspectionCalibrationNature.marketable) }
   scope :of_products, ->(*products) { joins(:inspection).where(inspections: { product_id: products.map(&:id) }) }
