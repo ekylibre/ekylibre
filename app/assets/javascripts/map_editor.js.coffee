@@ -37,6 +37,7 @@
         fillOpacity: 0
       defaultLabel: 'Unnamed'
       defaultLevelLabel: 'Level'
+      allowAttributesPopup: false
       editStyle:
         weight: 2
         color: "#33A"
@@ -431,7 +432,7 @@
 
       $(this.element).trigger('mapeditor:feature_add', feature)
 
-      if feature.properties?
+      if feature.properties? and !!this.options.allowAttributesPopup
         this.popupize(feature, layer)
 
     featureStyling: (feature) ->
