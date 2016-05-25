@@ -79,7 +79,7 @@ module Backend
       visualization(box: { height: '100%' }) do |v|
         v.serie :main, data
         v.bubbles :marketable_net_mass, :main
-        v.categories :ready_to_harvest, :main
+        v.categories :ready_to_harvest, :main, without_ghost_label: true
         v.choropleth :plantation_density, :main
         v.categories :variety, :main
         v.choropleth :watering_concentration, :main, stop_color: '#1122DD', hidden: true

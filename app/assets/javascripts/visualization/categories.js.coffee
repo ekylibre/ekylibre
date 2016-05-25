@@ -34,8 +34,9 @@ class visualization.Categories
         fillColor: this.itemFor(zone[@layer.reference]).fillColor
       zoneLayer = new L.GeoJSON(zone.shape, $.extend(true, {}, globalStyle, zoneStyle))
       widget._bindPopup(zoneLayer, zone)
-      label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: false).setContent(zone.name).toCentroidOfBounds(zoneLayer.getLayers()[0].getLatLngs())
-      widget.ghostLabelCluster.bind label, zoneLayer.getLayers()[0]
+      unless @layer.withoutGhostLabel
+        label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: false).setContent(zone.name).toCentroidOfBounds(zoneLayer.getLayers()[0].getLatLngs())
+        widget.ghostLabelCluster.bind label, zoneLayer.getLayers()[0]
       group.push(zoneLayer)
     group
 
