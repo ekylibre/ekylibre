@@ -8,13 +8,17 @@ module Procedo
 
         def initialize(id, attributes = {})
           @id = id.to_s
-          if attributes[:started_at] =~ /\A[012]\d\d\d(\D+\d\d?){4,5}\D+/
-            @started_at = Time.new(*attributes[:started_at].split(/\D+/))
-          end
+          @started_at = begin
+                          Time.new(*attributes[:started_at].split(/\D+/))
+                        rescue
+                          nil
+                        end
           @started_at ||= (Time.zone.now - DEFAULT_DURATION)
-          if attributes[:stopped_at] =~ /\A[012]\d\d\d(\D+\d\d?){4,5}\D+/
-            @stopped_at = Time.new(*attributes[:stopped_at].split(/\D+/))
-          end
+          @stopped_at = begin
+                          Time.new(*attributes[:stopped_at].split(/\D+/))
+                        rescue
+                          nil
+                        end
           @stopped_at ||= (@started_at + DEFAULT_DURATION)
         end
 

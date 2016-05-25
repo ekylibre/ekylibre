@@ -89,7 +89,10 @@ module Procedo
         elsif node.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(node.indicator.text_value)
           product = run(node.object)
-          Rails.logger.warn 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product)
+          unless product.is_a?(Product)
+            Rails.logger.warn 'Invalid product. Got: ' + product.inspect
+            return false
+          end
           # puts indicator.datatype
           # puts product.get(indicator.name).to_f
           # puts product.get(indicator.name).inspect

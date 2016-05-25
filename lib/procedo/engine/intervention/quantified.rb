@@ -19,6 +19,12 @@ module Procedo
           hash
         end
 
+        def handlers_states
+          reference.handlers.each_with_object({}) do |handler, hash|
+            hash[handler.name] = usable_handler?(handler)
+          end
+        end
+
         def quantity_handler_reference
           @quantity_handler ? reference.handler(@quantity_handler) : nil
         end
@@ -67,11 +73,13 @@ module Procedo
 
         # Checks that handler is always valid and fix it if possible
         def impact_on_handlers(_field)
-          rh = reference.handler(@quantity_handler)
+          rh = reference.handler(@quantity_handler) unless @quantity_handler.blank?
           unless @quantity_handler && usable_handler?(rh)
             rh = reference.handlers.detect { |h| usable_handler?(h) }
-            puts "[#{name}] Change handler to #{rh.name} from #{@quantity_handler}".green
-            self.quantity_handler = rh.name.to_s if rh
+            if rh
+              puts "[#{name}] Change handler to #{rh.name} from #{@quantity_handler}".green
+              self.quantity_handler = rh.name.to_s
+            end
           end
         end
 
