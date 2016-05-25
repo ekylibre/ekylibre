@@ -65,7 +65,7 @@ module Ekylibre
           email: row[10]
         }.to_struct
 
-        unless variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+        unless (variant = ProductNatureVariant.find_by(number: r.variant_reference_name))
           if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
             variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
           else
