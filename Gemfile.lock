@@ -381,7 +381,7 @@ GEM
       redis-namespace (>= 1.5.2)
       rufus-scheduler (>= 2.0.24)
       sidekiq (>= 4.0.0)
-    simple_calendar (2.1.2)
+    simple_calendar (2.1.4)
       rails (>= 3.0)
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
