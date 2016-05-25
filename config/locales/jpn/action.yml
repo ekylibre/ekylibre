@@ -116,8 +116,6 @@ jpn:
       index: "カタログ"
       new: "新カタログ"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/crumbs:
       index: "パン粉"
     backend/cultivable_zones:

@@ -119,8 +119,6 @@ por:
       index: "Catalogos"
       new: "Novo catalogo"
       show: "Catalogo: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Células de administração: %{name}" #?
     backend/crumbs:

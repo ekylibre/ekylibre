@@ -99,7 +99,7 @@ module Clean
         # Actions
         translation << "  actions:\n"
         # raise controllers_hash.inspect
-        for controller_path, actions in Clean::Support.actions_hash
+        Clean::Support.actions_hash(except: [::ApiController, ::Backend::Cells::BaseController]).each do |controller_path, actions|
           existing_actions = begin
                                ::I18n.translate("actions.#{controller_path}").stringify_keys.keys
                              rescue
@@ -109,7 +109,7 @@ module Clean
           translateable_actions += (actions.delete_if { |a| [:update, :create, :picture, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
           next unless translateable_actions.any?
           translation << '    ' + controller_path + ":\n"
-          for action_name in translateable_actions
+          translateable_actions.each do |action_name|
             name = ::I18n.hardtranslate("actions.#{controller_path}.#{action_name}")
             to_translate += 1
             untranslated += 1 if actions.include?(action_name) && name.blank?

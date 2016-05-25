@@ -122,8 +122,6 @@ arb:
       index: "كتالوجات"
       new: "الكتالوج الجديد"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?

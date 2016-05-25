@@ -1690,31 +1690,31 @@
     </group>
     <group>
       <item name="crumbs">
-        <page to="api/v1/crumbs#index" nonexistent="true"/>
-        <page to="api/v1/crumbs#create" nonexistent="true"/>
+        <page to="api/v1/crumbs#index"/>
+        <page to="api/v1/crumbs#create"/>
       </item>
       <item name="issues">
-        <page to="api/v1/issues#index" nonexistent="true"/>
-        <page to="api/v1/issues#create" nonexistent="true"/>
+        <page to="api/v1/issues#index"/>
+        <page to="api/v1/issues#create"/>
       </item>
       <item name="tokens">
-        <page to="api/v1/tokens#create" nonexistent="true"/>
-        <page to="api/v1/tokens#destroy" nonexistent="true"/>
+        <page to="api/v1/tokens#create"/>
+        <page to="api/v1/tokens#destroy"/>
       </item>
       <item name="plants">
-        <page to="api/v1/plants#index" nonexistent="true"/>
+        <page to="api/v1/plants#index"/>
       </item>
       <item name="plant_countings">
-        <page to="api/v1/plant_countings#create" nonexistent="true"/>
+        <page to="api/v1/plant_countings#create"/>
       </item>
       <item name="plant_density_abaci">
-        <page to="api/v1/plant_density_abaci#index" nonexistent="true"/>
-        <page to="api/v1/plant_density_abaci#show" nonexistent="true"/>
+        <page to="api/v1/plant_density_abaci#index"/>
+        <page to="api/v1/plant_density_abaci#show"/>
       </item>
     </group>
     <group>
       <item name="analyses">
-        <page to="iot/analyses#create" nonexistent="true"/>
+        <page to="iot/analyses#create"/>
       </item>
     </group>
     <group>

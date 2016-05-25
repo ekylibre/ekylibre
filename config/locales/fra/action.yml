@@ -128,8 +128,6 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Assistant: %{name}" #?
     backend/contacts:  #?

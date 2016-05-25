@@ -189,10 +189,14 @@ module Clean
       end
 
       # Lists all actions of all controller by loading them and list action_methods
-      def actions_hash
+      def actions_hash(options = {})
         controllers = controllers_in_file
+        if options[:except]
+          options[:except] = [options[:except]] unless options[:except].is_a?(Array)
+          controllers.reject! { |c| options[:except].any? { |e| c <= e } }
+        end
         ref = HashWithIndifferentAccess.new
-        controllers_in_file.each do |controller|
+        controllers.each do |controller|
           ref[controller.controller_path] = controller.action_methods.to_a.sort.delete_if { |a| a.to_s.start_with?('_') }
         end
         ref
@@ -214,7 +218,7 @@ module Clean
         Dir.glob(Rails.root.join('app', 'controllers', '**', '*.rb')).each { |file| require file }
         ObjectSpace
           .each_object(Class)
-          .select { |klass| klass <= ApplicationController }
+          .select { |klass| klass <= ::ApplicationController || klass <= ::ApiController }
           .sort { |a, b| a.name <=> b.name }
       end
 

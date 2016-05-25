@@ -116,8 +116,6 @@ cmn:
       index: "目录"
       new: "新目录"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/crumbs:
       index: "屑"
     backend/cultivable_zones:
