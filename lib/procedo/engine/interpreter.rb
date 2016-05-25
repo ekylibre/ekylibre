@@ -105,6 +105,7 @@ module Procedo
             raise 'Invalid indicator: ' + node.indicator.text_value.inspect
           end
           product = run(node.object)
+          # TODO: Manage when no product...
           unless product.is_a?(Product)
             Rails.logger.warn 'Invalid product. Got: ' + product.inspect + ' ' + node.text_value
             # raise 'Invalid product: Got: ' + product.inspect + ' ' + node.text_value

@@ -40,6 +40,10 @@ module Procedo
         hash
       end
 
+      def handlers_states
+        {}
+      end
+
       delegate :to_json, to: :to_hash
 
       def add_working_period(id, attributes = {})

@@ -18,10 +18,9 @@
     unserializeRecord: (form, attributes, prefix = '', updater_id = null) ->
       for name, value of attributes
         subprefix = prefix + name
-        console.log "Test if '#{updater_id}' == '#{subprefix}'"
         if subprefix is updater_id
           # Nothing to update
-          console.warn "Nothing to do with #{subprefix}"
+          # console.warn "Nothing to do with #{subprefix}"
         else if /\w+_attributes$/.test(name)
           E.interventions.unserializeList(form, value, subprefix + '_', updater_id)
         else
@@ -41,6 +40,10 @@
               element.mapeditor "edit", value
               try
                 element.mapeditor "view", "edit"
+            else if element.is('select')
+              console.log element.find("option[value='#{value}']")
+              console.log element.find("option[value='#{value}']")[0]
+              element.find("option[value='#{value}']")[0].selected = true
             else
               valueType = typeof value
               update = true

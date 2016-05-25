@@ -29,9 +29,8 @@ module Procedo
           rh = reference.handler(handler)
           raise 'Invalid handler: ' + handler.inspect unless rh
           unless usable_handler?(rh)
-            # fail 'Unusable handler: ' + rh.name.inspect
             rh = reference.handlers.detect { |h| usable_handler?(h) }
-            handler = rh.name if rh
+            handler = rh.name.to_s if rh
           end
           @quantity_handler = handler
           return unless @quantity_population
@@ -58,6 +57,21 @@ module Procedo
             return if @quantity_population == population
             @quantity_population = population
             impact_dependencies! :population
+          end
+        end
+
+        def impact_dependencies!(field)
+          super(field)
+          impact_on_handlers(field)
+        end
+
+        # Checks that handler is always valid and fix it if possible
+        def impact_on_handlers(_field)
+          rh = reference.handler(@quantity_handler)
+          unless @quantity_handler && usable_handler?(rh)
+            rh = reference.handlers.detect { |h| usable_handler?(h) }
+            puts "[#{name}] Change handler to #{rh.name} from #{@quantity_handler}".green
+            self.quantity_handler = rh.name.to_s if rh
           end
         end
 
