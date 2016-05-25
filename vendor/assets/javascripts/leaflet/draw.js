@@ -284,6 +284,10 @@
                     .on('mousemove', this._onMouseMove, this) // Necessary to prevent 0.8 stutter
                     .addTo(this._map);
 
+                if(!L.Browser.touch){
+                    this._map.on('mouseup', this._onMouseUp, this); // Necessary for 0.7 compatibility
+                }
+
                 this._map
                     // .on('mouseup', this._onMouseUp, this) // Necessary for 0.7 compatibility
                     .on('mousemove', this._onMouseMove, this)
