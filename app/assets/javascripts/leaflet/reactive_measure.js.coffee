@@ -151,7 +151,7 @@ L.Draw.Polyline.include
       perimeter: g.perimeter()
       area: g.area()
 
-    @_tooltip.__updateTooltipMeasure center, measure, @options
+    @_tooltip.__updateTooltipMeasure mouseLatLng, measure, @options
 
 
   addHooks: () ->
@@ -180,16 +180,19 @@ L.Edit.Poly.include
       perimeter: g.perimeter()
       area: g.area()
 
+    for tooltip in L.EditToolbar.tooltipMeasurePointers
+      tooltip.hide()
 
     L.extend(L.Draw.Polyline.prototype.options, target: e.marker.getLatLng())
 
-    @__tooltipMeasure.__updateTooltipMeasure center, measure, L.Draw.Polyline.prototype.options
+    @__tooltipMeasure.__updateTooltipMeasure e.marker.getLatLng(), measure, L.Draw.Polyline.prototype.options
 
 
   addHooks: () ->
     @__addHooks.apply this, arguments
     if L.EditToolbar.reactiveMeasure
       @__tooltipMeasure = new L.Tooltip @_poly._map, onTop: true
+      L.EditToolbar.tooltipMeasurePointers.push @__tooltipMeasure
       this._poly.on 'editdrag', @__onHandlerDrag, this
 
   removeHooks: () ->
@@ -229,23 +232,9 @@ L.Tooltip.include
   initialize: (map,options = {}) ->
     @__initialize.apply this, arguments
 
-    if options.onTop
-      L.DomUtil.addClass(@_container, 'leaflet-draw-tooltip-top')
-      L.DomEvent.on @_container, 'mouseenter', @__onMouseEnter, this
-      L.DomEvent.on @_container, 'mouseleave', @__onMouseLeave, this
-
   dispose: ->
     @_map.off 'mouseover'
-    L.DomEvent.off @_container, 'mouseenter', @__onMouseEnter, this
-    L.DomEvent.off @_container, 'mouseleave', @__onMouseLeave, this
     @__dispose.apply this, arguments
-
-  __onMouseEnter: ->
-    L.DomUtil.removeClass(@_container, 'leaflet-draw-tooltip-top')
-
-
-  __onMouseLeave: ->
-    L.DomUtil.addClass(@_container, 'leaflet-draw-tooltip-top')
 
   __updateTooltipMeasure: (latLng, measure = {}, options = {}) ->
     labelText =
@@ -267,14 +256,20 @@ L.Tooltip.include
     pos = @_map.latLngToLayerPoint(latlng)
     labelWidth = @_container.offsetWidth
 
+    map_width =  @_map.getContainer().offsetWidth
+    L.DomUtil.removeClass(@_container, 'leaflet-draw-tooltip-left')
+
     if @_container
-      pos = pos.add(L.point(-labelWidth/2, 0))
       @_container.style.visibility = 'inherit'
       container = @_map.layerPointToContainerPoint pos
+      styles = window.getComputedStyle(@_container)
 
-      if (container.x < 0 || container.y < @_container.offsetHeight) and options.target?
-        pos = @_map.latLngToLayerPoint(options.target)
-        L.DomUtil.removeClass(@_container, 'leaflet-draw-tooltip-top')
+      container_width = @_container.offsetWidth + parseInt(styles.paddingLeft) + parseInt(styles.paddingRight) + parseInt(styles.marginLeft) + parseInt(styles.marginRight)
+
+
+      if (container.x < 0 || container.x > (map_width - container_width) || container.y < @_container.offsetHeight)
+        pos = pos.add(L.point(-container_width, 0))
+        L.DomUtil.addClass(@_container, 'leaflet-draw-tooltip-left')
 
       L.DomUtil.setPosition(@_container, pos)
 
@@ -306,6 +301,7 @@ L.EditToolbar.include
 
   initialize: (options) ->
     L.EditToolbar.reactiveMeasure = !!options.reactiveMeasure
+    L.EditToolbar.tooltipMeasurePointers = []
     @__initialize.apply this, arguments
     return
 
