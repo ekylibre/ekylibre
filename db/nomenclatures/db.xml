@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160526075245">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160526092246">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2320,6 +2320,7 @@
       <item name="trade_show" charge_account="trade_show_expenses" purchasable="true" pictogram="cc"/>
       <item name="travel" charge_account="travels_expenses" product_account="merchandising_accessory_revenues" purchasable="true" saleable="true" pictogram="plane"/>
       <item name="various_loan_interest" charge_account="other_various_interests_expenses" purchasable="true" pictogram="bank"/>
+      <item name="vegetable" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf"/>
       <item name="vegetals_making_services" charge_account="vegetals_making_services_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="tractor"/>
       <item name="wine" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="drop"/>
       <item name="wine_package_consumable" charge_account="packaging" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter"/>
@@ -2370,6 +2371,7 @@
       <item name="bank_service" nature="bank_service"/>
       <item name="barley_grain" nature="grain" derivative_of="hordeum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="battery" nature="office_furniture"/>
+      <item name="bean" nature="bean" derivative_of="phaseolus_vulgaris" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="bean_crop" nature="grain_crop" variety="phaseolus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="bed_former" nature="seedbed_preparator" frozen_indicators_values=""/>
       <item name="bee_band" nature="bee_band" unit_name="subject"/>
@@ -2377,6 +2379,7 @@
       <item name="beef_dried_sausage" nature="processed_beef_meat" frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter" unit_name="kilogram"/>
       <item name="beef_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="beef_sausage" nature="processed_beef_meat" frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter" unit_name="kilogram"/>
+      <item name="beet" nature="beet" derivative_of="beta_vulgaris" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="beet_crop" nature="crop" variety="beta" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="big_sticker" nature="catalog_and_print"/>
       <item name="blackcurrant_crop" nature="fruit_crop" variety="ribes_nigrum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
@@ -2419,6 +2422,7 @@
       <item name="bumblebee_band" nature="bumblebee_band" unit_name="subject"/>
       <item name="burdock_crop" nature="crop" variety="arctium" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="butler_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_butler" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="cabbage" nature="cabbage" derivative_of="brassica_oleracea" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="cabbage_crop" nature="vegetable_crop" variety="brassica_oleracea" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="calcium_carbonate_25kg" nature="wine_alkalinizing" frozen_indicators_values="net_mass: 25.00kilogram" unit_name="25kg_bag"/>
       <item name="calf" nature="calf" frozen_indicators_values="livestock_unit: 0.4, reproductor: false" unit_name="head"/>
@@ -2430,6 +2434,7 @@
       <item name="car_moving_travel" nature="moving_travel" unit_name="kilometer"/>
       <item name="card" nature="catalog_and_print"/>
       <item name="carriage" nature="carriage"/>
+      <item name="carrot" nature="carrot" derivative_of="daucus_carota" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="carrot_crop" nature="vegetable_crop" variety="daucus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="cattle_compost" nature="organic_fertilizer" variety="compost" derivative_of="bos" frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 0.8percent" unit_name="ton"/>
       <item name="cattle_herd" nature="cattle_herd" derivative_of="bos" frozen_indicators_values="sex: undefined" unit_name="band"/>
@@ -2440,6 +2445,7 @@
       <item name="cereals_harvest_insurance" nature="harvest_insurance"/>
       <item name="chainsaw" nature="chainsaw" frozen_indicators_values="" unit_name="equipment"/>
       <item name="chandler_walnut" nature="walnut" derivative_of="juglans_regia_chandler" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="chard" nature="chard" derivative_of="beta_vulgaris_cicla" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="chemical_fertilizer_division" nature="preparation_division" frozen_indicators_values="" unit_name="room"/>
       <item name="cherry_laurel_crop" nature="fruit_crop" variety="prunus_laurocerasus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="chick_hen_band" nature="hen_band" frozen_indicators_values="sex: undefined, reproductor: false" unit_name="subject"/>
@@ -2720,6 +2726,7 @@
       <item name="ip_address_subscription" nature="numeric_subscription" unit_name="domain"/>
       <item name="irrigation_water" nature="irrigation_water" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="cubic_meter"/>
       <item name="jemstegaard_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_jemstegaard" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="jerusalem_artichoke" nature="jerusalem_artichoke" derivative_of="helianthus_tuberosus" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="lactic_acid_25kg" nature="wine_acidifying" frozen_indicators_values="net_mass: 25.00kilogram" unit_name="25kg_bag"/>
       <item name="lamb" nature="lamb" frozen_indicators_values="livestock_unit: 0.05, reproductor: false" unit_name="head"/>
       <item name="lamb_meat" nature="lamb_meat" derivative_of="ovis" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
@@ -2730,10 +2737,12 @@
       <item name="lara_walnut" nature="walnut" derivative_of="juglans_regia_lara" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="lavender_crop" nature="crop" variety="lavandula" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="leasing" nature="leasing"/>
+      <item name="leek" nature="leek" derivative_of="allium_porrum" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="leek_crop" nature="vegetable_crop" variety="allium_porrum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="legal_registration" nature="legal_registration"/>
       <item name="lentil_crop" nature="grain_crop" variety="lens" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="lentil_grain" nature="grain" derivative_of="lens" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+      <item name="lettuce" nature="lettuce" derivative_of="lactuca_sativa" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="lettuce_crop" nature="vegetable_crop" variety="lactuca" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="lewis_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_lewis" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="lifter" nature="harvester" frozen_indicators_values=""/>
@@ -2808,6 +2817,7 @@
       <item name="office_building" nature="building" frozen_indicators_values="" unit_name="building"/>
       <item name="office_building_division" nature="administrative_division" frozen_indicators_values="" unit_name="room"/>
       <item name="oilrape_grain" nature="grain" derivative_of="brassica_napus" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
+      <item name="onion" nature="onion" derivative_of="allium_cepa" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="orchards_harvest_insurance" nature="harvest_insurance"/>
       <item name="other_herbicide" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="ovis_compost" nature="organic_fertilizer" variety="compost" derivative_of="ovis" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.15percent" unit_name="ton"/>
@@ -2818,7 +2828,9 @@
       <item name="packed_ox_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="packed_veal_meat" nature="beef_meat" derivative_of="bos_taurus" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="pallet" nature="common_package"/>
+      <item name="parsnip" nature="parsnip" derivative_of="pastinaca_sativa" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="pauetet_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_pauetet" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
+      <item name="pea" nature="pea" derivative_of="pisum" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="pea_crop" nature="grain_crop" variety="pisum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="pea_grain" nature="grain" derivative_of="pisum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="pea_seed" nature="seed" derivative_of="pisum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
@@ -2857,6 +2869,7 @@
       <item name="postal_stamp" nature="mail_subscription"/>
       <item name="potassium_bicarbonate_25kg" nature="wine_alkalinizing" frozen_indicators_values="net_mass: 25.00kilogram" unit_name="25kg_bag"/>
       <item name="potassium_ferrocyanide_25kg" nature="clarification_solution" variety="potassium_ferrocyanide" frozen_indicators_values="net_mass: 25.00kilogram" unit_name="25kg_bag"/>
+      <item name="potato" nature="potato" derivative_of="solanum_tuberosum" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="potato_crop" nature="crop" variety="solanum_tuberosum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="poultry_sausage" nature="processed_poultry_meat" frozen_indicators_values="net_mass: 1000gram, net_volume: 100.00centiliter" unit_name="kilogram"/>
       <item name="preparation_division" nature="preparation_division" frozen_indicators_values="" unit_name="room"/>
@@ -2871,6 +2884,7 @@
       <item name="quinoa_crop" nature="crop" variety="chenopodium_quinoa" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="rabbit_herd" nature="rabbit_herd" frozen_indicators_values="" unit_name="band"/>
       <item name="rabbit_manure" nature="organic_fertilizer" variety="manure" derivative_of="lepus" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.85percent" unit_name="ton"/>
+      <item name="radish" nature="radish" derivative_of="raphanus_sativus" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="rape_crop" nature="grain_crop" variety="brassica_napus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="rape_seed" nature="seed" derivative_of="brassica_napus" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 5gram" unit_name="25kg_bag"/>
       <item name="raspberry_crop" nature="fruit_crop" variety="rubus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
@@ -2924,6 +2938,7 @@
       <item name="spelt_grain" nature="grain" derivative_of="triticum_spelta" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="spelt_seed_25" nature="seed" derivative_of="triticum_spelta" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
       <item name="spelt_wheat_crop" nature="cereal_crop" variety="triticum_spelta" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="spinach" nature="spinach" derivative_of="spinacia_oleracea" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="sprayer" nature="sprayer" frozen_indicators_values="" unit_name="equipment"/>
       <item name="spread_renting" nature="spread_renting" frozen_indicators_values="usage_duration: 1hour" unit_name="hour"/>
       <item name="spreader" nature="spreader" frozen_indicators_values="" unit_name="equipment"/>
@@ -2931,6 +2946,7 @@
       <item name="spring_barley_crop" nature="cereal_crop" variety="hordeum_distichum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="spring_barley_seed_25" nature="seed" derivative_of="hordeum_distichum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram" unit_name="25kg_bag"/>
       <item name="spring_oat_crop" nature="cereal_crop" variety="avena" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
+      <item name="squash" nature="squash" derivative_of="cucurbita" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="stainless_steel_tank" nature="wine_tank" frozen_indicators_values="" unit_name="equipment"/>
       <item name="steam_engine" nature="steam_engine" frozen_indicators_values=""/>
       <item name="strawberry_crop" nature="fruit_crop" variety="fragaria" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="plant"/>
@@ -2960,6 +2976,7 @@
       <item name="triticale_crop" nature="cereal_crop" variety="triticosecale" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="triticale_grain" nature="grain" derivative_of="triticosecale" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="truck" nature="truck" frozen_indicators_values="" unit_name="equipment"/>
+      <item name="turnip" nature="turnip" derivative_of="brassica_rapa_rapa" frozen_indicators_values="net_mass: 1.00ton"/>
       <item name="uncover" nature="uncover" frozen_indicators_values=""/>
       <item name="urban_compost" nature="organic_fertilizer" variety="compost" derivative_of="animal" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.00percent" unit_name="ton"/>
       <item name="various_loan_interest" nature="various_loan_interest"/>
@@ -3030,20 +3047,25 @@
       <item name="bale_collector" category="equipment" variety="bale_collector" population_counting="unitary" variable_indicators="geolocation" abilities="catch(straw), store(straw)"/>
       <item name="baler" category="equipment" variety="harvester" population_counting="unitary" abilities="bunch" variable_indicators="application_width, geolocation" frozen_indicators=""/>
       <item name="bank_service" category="bank_service" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="bean" category="vegetable" variety="vegetable" derivative_of="phaseolus_vulgaris" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="bee_band" category="bee_band" variety="apis" population_counting="integer" abilities="move, pollinate(plant), produce(honey)" variable_indicators="healthy"/>
       <item name="beef_meat" category="meat" variety="meat" derivative_of="bos" population_counting="decimal" variable_indicators="temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
+      <item name="beet" category="vegetable" variety="vegetable" derivative_of="beta_vulgaris" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="bonus_staff_expense" category="bonus_staff_expense" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="bottle" category="wine_package_consumable" variety="bottle" population_counting="integer" abilities="store(wine), store(juice)" variable_indicators="length, net_mass" frozen_indicators="net_volume"/>
       <item name="building" category="building" variety="building" population_counting="unitary" abilities="store(building_division)" variable_indicators="net_surface_area, shape" frozen_indicators=""/>
       <item name="building_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(product)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>
       <item name="bumblebee_band" category="biological_auxiliary" variety="bombus" population_counting="integer" abilities="move, pollinate(plant)" variable_indicators=""/>
+      <item name="cabbage" category="vegetable" variety="vegetable" derivative_of="brassica_oleracea" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="calf" category="calf" variety="bos" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="livestock_unit, reproductor" derivatives="meat"/>
       <item name="car" category="equipment" variety="tractor" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="" linkage_points="rear"/>
       <item name="carriage" category="carriage" variety="service" population_counting="integer" variable_indicators=""/>
+      <item name="carrot" category="vegetable" variety="vegetable" derivative_of="daucus_carota" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="catalog_and_print" category="catalog_and_print" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="cattle_herd" category="cattle_herd" variety="animal_group" derivative_of="bos" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" frozen_indicators="sex"/>
       <item name="cereal_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(grain), produce(straw)" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count" frozen_indicators="net_surface_area" derivatives="grain, straw"/>
       <item name="chainsaw" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators=""/>
+      <item name="chard" category="vegetable" variety="vegetable" derivative_of="beta_vulgaris_cicla" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="cheese" category="processed_milk" variety="cheese" derivative_of="milk" population_counting="decimal" variable_indicators="temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="chemical_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="" frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration, sulfur_concentration, sulfur_trioxide_concentration"/>
       <item name="clarification_solution" category="oenological_product" variety="preparation" population_counting="decimal" abilities="clarify(fermented_juice), clarify(wine)" variable_indicators="" frozen_indicators="net_mass"/>
@@ -3144,6 +3166,7 @@
       <item name="installing_charge" category="installing_charge" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="insurance" category="insurance" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="irrigation_water" category="irrigation_water" variety="water" population_counting="decimal" variable_indicators="nitrogen_concentration, potential_hydrogen" frozen_indicators="net_volume, net_mass"/>
+      <item name="jerusalem_artichoke" category="vegetable" variety="vegetable" derivative_of="helianthus_tuberosus" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="lamb" category="calf" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="livestock_unit, reproductor" derivatives="meat"/>
       <item name="lamb_meat" category="meat" variety="meat" derivative_of="ovis" population_counting="decimal" variable_indicators="temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="land_parcel" category="land_parcel" variety="land_parcel" population_counting="decimal" variable_indicators="aluminium_concentration, available_water_capacity_per_area, boron_concentration, calcium_concentration, cation_exchange_capacity, cation_exchange_capacity_analysis_method, copper_concentration, iron_concentration, magnesium_concentration, manganese_concentration, molybdenum_concentration, nitrogen_concentration, organic_matter_concentration, phosphorus_analysis_method, phosphorus_concentration, potassium_concentration, potential_hydrogen, shape, soil_depth, soil_nature, sulfur_concentration, zinc_concentration" frozen_indicators="net_surface_area"/>
@@ -3151,7 +3174,9 @@
       <item name="land_parcel_construction" category="land_parcel_construction" variety="raw_matter" population_counting="decimal" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="land_parcel_locative_charge" category="land_parcel_locative_charge" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="leasing" category="leasing" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="leek" category="vegetable" variety="vegetable" derivative_of="allium_porrum" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="legal_registration" category="duty_and_taxe" variety="service" population_counting="integer" variable_indicators=""/>
+      <item name="lettuce" category="vegetable" variety="vegetable" derivative_of="lactuca_sativa" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="little_office_item" category="little_office_item" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="loan_interest" category="loan_interest" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="mail_subscription" category="telecommunication" variety="service" population_counting="decimal" variable_indicators=""/>
@@ -3190,9 +3215,12 @@
       <item name="numeric_subscription" category="licence" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="oenological_yeast" category="oenological_product" variety="yeast" derivative_of="fungus" population_counting="decimal" abilities="fermentize(wine)" variable_indicators="" frozen_indicators="net_mass, cells_mass_concentration"/>
       <item name="office_furniture" category="office_furniture_equipment" variety="equipment" population_counting="integer" variable_indicators=""/>
+      <item name="onion" category="vegetable" variety="vegetable" derivative_of="allium_cepa" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="organic_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="" frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration"/>
       <item name="oyster_band" category="oyster_band" variety="ostreidae" population_counting="integer" abilities="move, consume(water)" variable_indicators=""/>
       <item name="packaged_process_food" category="fruit" variety="mix" derivative_of="fruit" population_counting="integer" variable_indicators="best_before_period" frozen_indicators="net_mass, net_volume"/>
+      <item name="parsnip" category="vegetable" variety="vegetable" derivative_of="pastinaca_sativa" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
+      <item name="pea" category="vegetable" variety="vegetable" derivative_of="pisum" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="peanut" category="fruit" variety="peanut" derivative_of="arachis" population_counting="decimal" variable_indicators="impurity_concentration, water_content_rate" frozen_indicators="net_mass"/>
       <item name="picker" category="equipment" variety="equipment" population_counting="unitary" abilities="pick(fruit)" frozen_indicators="application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="pig_band" category="pig_band" variety="sus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" variable_indicators="healthy" frozen_indicators="sex, reproductor" derivatives="meat"/>
@@ -3205,6 +3233,7 @@
       <item name="plum_reaper" category="equipment" variety="reaper" population_counting="unitary" abilities="harvest(plum), consume(oil), consume(fuel)" variable_indicators="application_width" frozen_indicators=""/>
       <item name="plum_seedling" category="plant" variety="seedling" derivative_of="prunus" population_counting="integer" abilities="grow" variable_indicators=""/>
       <item name="pork_meat" category="meat" variety="meat" derivative_of="sus" population_counting="decimal" variable_indicators="temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
+      <item name="potato" category="vegetable" variety="vegetable" derivative_of="solanum_tuberosum" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="poultry_meat" category="meat" variety="meat" derivative_of="phasianidae" population_counting="decimal" variable_indicators="temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="preparation_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(preparation)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>
       <item name="process_food" category="fruit" variety="mix" derivative_of="fruit" population_counting="integer" variable_indicators="net_mass, net_volume"/>
@@ -3221,6 +3250,7 @@
       <item name="pruning_platform" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators=""/>
       <item name="rabbit_herd" category="cattle_herd" variety="animal_group" derivative_of="oryctolagus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" frozen_indicators=""/>
       <item name="radio_subscription" category="telecommunication" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="radish" category="vegetable" variety="vegetable" derivative_of="raphanus_sativus" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="raw_material" category="raw_materials" variety="raw_matter" population_counting="decimal" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="reaper" category="equipment" variety="reaper" population_counting="unitary" abilities="harvest(plant), consume(oil), consume(fuel)" variable_indicators="geolocation" frozen_indicators="application_width, theoretical_working_speed"/>
       <item name="recycling_contribution" category="subcontracting" variety="service" population_counting="integer" variable_indicators=""/>
@@ -3245,10 +3275,12 @@
       <item name="soil_loosener" category="equipment" variety="equipment" population_counting="unitary" abilities="uncompact" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="sower" category="equipment" variety="sower" population_counting="unitary" abilities="sow" variable_indicators="geolocation" frozen_indicators="nominal_storable_net_volume, application_width, rows_count, theoretical_working_speed"/>
       <item name="species" category="fruit" variety="pollen" derivative_of="plant" population_counting="decimal" variable_indicators="reference_year" frozen_indicators="net_mass, net_volume"/>
+      <item name="spinach" category="vegetable" variety="vegetable" derivative_of="spinacia_oleracea" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="sprayer" category="equipment" variety="sprayer" population_counting="unitary" abilities="spray" variable_indicators="geolocation" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed"/>
       <item name="spread_renting" category="equipment_rent" variety="service" population_counting="decimal" abilities="spread(preparation)" variable_indicators="" frozen_indicators="usage_duration"/>
       <item name="spreader" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(preparation)" variable_indicators="geolocation" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed"/>
       <item name="spreader_trailer" category="equipment" variety="spreader" population_counting="unitary" abilities="store(excrement), move, spread(excrement), store(raw_matter), store_fluid, spread(preparation)" variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume, geolocation" frozen_indicators=""/>
+      <item name="squash" category="vegetable" variety="vegetable" derivative_of="cucurbita" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="stake" category="small_equipment" variety="stake" population_counting="integer" abilities="enclose" variable_indicators="" frozen_indicators="height, diameter"/>
       <item name="steam_engine" category="equipment" variety="equipment" population_counting="unitary" abilities="store_liquid, kill(plant)" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="straw" category="straw" variety="straw" derivative_of="poaceae" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
@@ -3265,10 +3297,12 @@
       <item name="training_course" category="service" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
       <item name="trimmer" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="truck" category="equipment" variety="tractor" population_counting="unitary" abilities="move, tow(matter), consume(oil), consume(fuel)" variable_indicators="net_surface_area, motor_power, geolocation, fuel_consumption" frozen_indicators="" linkage_points="rear"/>
+      <item name="turnip" category="vegetable" variety="vegetable" derivative_of="brassica_rapa_rapa" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="uncover" category="equipment" variety="equipment" population_counting="unitary" abilities="uncover(plant)" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="user_support" category="service" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
       <item name="usual_vine_seedling" category="plant" variety="seedling" derivative_of="vitis" population_counting="integer" abilities="grow" variable_indicators="" frozen_indicators="woodstock_variety"/>
       <item name="various_loan_interest" category="various_loan_interest" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="vegetable" category="vegetable" variety="vegetable" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
       <item name="vegetable_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(vegetable)" variable_indicators="fresh_mass, plant_life_state, plant_reproduction_state, plants_count, shape, tiller_count" frozen_indicators="net_surface_area" derivatives="vegetable"/>
       <item name="vegetals_making_services" category="vegetals_making_services" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="vial" category="animal_reproduction" variety="vial" derivative_of="animal" population_counting="integer" abilities="inseminate(animal)" variable_indicators="economical_milk_index, sex, unique_synthesis_index"/>
