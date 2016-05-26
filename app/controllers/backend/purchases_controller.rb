@@ -52,6 +52,10 @@ module Backend
       code << "    c[0] << \" AND #{Affair.table_name}.closed = FALSE\"\n"
       code << "  end\n "
       code << "end\n "
+      code << "if params[:responsible_id].to_i > 0\n"
+      code << "  c[0] += \" AND \#{Purchase.table_name}.responsible_id = ?\"\n"
+      code << "  c << params[:responsible_id]\n"
+      code << "end\n"
       code << "c\n "
       code.c
     end

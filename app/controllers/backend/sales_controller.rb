@@ -28,15 +28,27 @@ module Backend
     def self.sales_conditions
       code = ''
       code = search_conditions(sales: [:pretax_amount, :amount, :number, :initial_number, :description], entities: [:number, :full_name]) + " ||= []\n"
-
-      code << "unless params[:s].blank?\n"
-      code << "  if params[:s] == 'current'\n"
-      code << "    c[0] += \" AND affair_id IN (SELECT id FROM affairs WHERE NOT closed AND credit > 0 AND debit > 0)\"\n"
-      code << "  elsif params[:s] == 'unpaid'\n"
-      code << "    c[0] += \" AND state IN ('order', 'invoice') AND (payment_at IS NULL OR payment_at <= CURRENT_TIMESTAMP) AND affair_id NOT IN (SELECT id FROM affairs WHERE closed)\"\n"
+      code << "unless (params[:period].blank? or params[:period].is_a? Symbol)\n"
+      code << "  if params[:period] != 'all'\n"
+      code << "    interval = params[:period].split('_')\n"
+      code << "    first_date = interval.first\n"
+      code << "    last_date = interval.last\n"
+      code << "    c[0] << \" AND #{Sale.table_name}.invoiced_at BETWEEN ? AND ?\"\n"
+      code << "    c << first_date\n"
+      code << "    c << last_date\n"
       code << "  end\n "
-      code << "end\n"
-
+      code << "end\n "
+      code << "unless (params[:state].blank? or params[:state].is_a? Symbol)\n"
+      code << "  if params[:state] != 'all'\n"
+      code << "    c[0] << \" AND #{Sale.table_name}.state IN (?)\"\n"
+      code << "    c << params[:state].flatten\n"
+      code << "  end\n "
+      code << "end\n "
+      code << "unless (params[:nature].blank? or params[:nature].is_a? Symbol)\n"
+      code << "  if params[:nature].flatten.first == 'unpaid'\n"
+      code << "    c[0] << \" AND #{Affair.table_name}.closed = FALSE\"\n"
+      code << "  end\n "
+      code << "end\n "
       code << "if params[:responsible_id].to_i > 0\n"
       code << "  c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
       code << "  c << params[:responsible_id]\n"
@@ -45,7 +57,7 @@ module Backend
       code.c
     end
 
-    list(conditions: sales_conditions, joins: :client, order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
+    list(conditions: sales_conditions, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
