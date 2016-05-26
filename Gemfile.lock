@@ -57,7 +57,7 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     ansi (1.5.0)
-    apartment (1.0.2)
+    apartment (1.1.0)
       activerecord (>= 3.1.2, < 5.0)
       rack (>= 1.3.6)
     apartment-sidekiq (1.0.0)
