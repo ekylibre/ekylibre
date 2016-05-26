@@ -887,7 +887,6 @@ fra:
     budgets: "Budgets"
     building: "Lieu de stockage"
     # building_divisions: "building areas"
-    # building_divisions_and_parcels: "building areas and land parcels"
     building_name: "Sortie de" #?
     # buildings: "buildings"
     buildings_map: "Carte des bâtiments" #?
@@ -902,8 +901,6 @@ fra:
     cancelled: "Passées en avoir" #?
     cap_islets: "Ilots PAC"
     cap_land_parcels: "Parcelles PAC"
-    # cap_parcel_prefix: "CAP land parcel No."
-    # cap_parcels: "CAP land parcels"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"

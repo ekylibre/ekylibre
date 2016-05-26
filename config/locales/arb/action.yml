@@ -1017,7 +1017,6 @@ arb:
     building: "مكان التخزين"
     building_create: "اضافة موقع تخزين" #?
     # building_divisions: "building areas"
-    # building_divisions_and_parcels: "building areas and land parcels"
     building_name: "انتاج" #?
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين"
@@ -1032,8 +1031,6 @@ arb:
     cancelled: "تم الالغاء" #?
     cap_islets: "الجزر كاب"
     cap_land_parcels: "قطع الأراضي كاب"
-    # cap_parcel_prefix: "CAP land parcel No."
-    # cap_parcels: "CAP land parcels"
     cartography: "خرائطية"
     cash: "حسابات بنكية"
     cash_balance: "الرصيد النقدي"

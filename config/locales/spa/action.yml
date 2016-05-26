@@ -807,7 +807,6 @@ spa:
     # building: "Building"
     building_create: "Añadir un lugar de deposito" #?
     # building_divisions: "building areas"
-    # building_divisions_and_parcels: "building areas and land parcels"
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito"
     by_year: "Por año"
@@ -821,8 +820,6 @@ spa:
     cancelled: "Pasar en activos" #?
     cap_islets: "Islotes Cap"
     cap_land_parcels: "Parcelas Cap"
-    # cap_parcel_prefix: "CAP land parcel No."
-    # cap_parcels: "CAP land parcels"
     cartography: "Cartografía"
     cash: "Efectivo"
     cash_balance: "Saldo en efectivo"
