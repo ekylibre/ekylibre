@@ -39,6 +39,7 @@
       - l.side :tasks, at: :due_at, new: false
       - l.side :direct_links, at: :started_at
       - l.side :indirect_links, new: false
+      - l.side :subscriptions, new: false
       - l.side :events, at: :started_at, params: {controller: :events, nature: :meeting, participations: {"0" => {participant_id: resource.id, state: :accepted}, "1" => {participant_id: current_user.person_id, state: :accepted}}}
       - l.side :issues, params: {target_type: "Entity", nature: "issue", gravity: 2, priority: 2, without_geolocation: 1}, at: :observed_at
       - l.side :attachments, new: false
