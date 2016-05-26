@@ -3,6 +3,9 @@
  (c) 2010-2013, Vladimir Agafonkin
  (c) 2010-2011, CloudMade
  */
+//= depend_on_asset "map/marker/icon-2x.png"
+//= depend_on_asset "map/marker/icon.png"
+//= depend_on_asset "map/marker/shadow.png"
 (function (window, document, undefined) {
 	var oldL = window.L,
 			L = {};
@@ -3409,11 +3412,15 @@
 				name += '-2x';
 			}
 
-			var path = L.Icon.Default.imagePath;
-
-			if (!path) {
-				throw new Error('Couldn\'t autodetect L.Icon.Default.imagePath, set it manually.');
+			if (L.Browser.retina && name === 'icon') {
+				return "<%= asset_path('map/marker/icon-2x.png') %>";
 			}
+			if (name === 'shadow') {
+				return "<%= asset_path('map/marker/shadow.png') %>";
+			} else {
+				return "<%= asset_path('map/marker/icon.png') %>";
+			}
+
 
 			return path + '/marker-' + name + '.png';
 		}
