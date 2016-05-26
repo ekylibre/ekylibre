@@ -440,16 +440,17 @@ product_natures_022:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, theoretical_working_speed
   id: 22
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Broyeur
   number: BUILDINV
   population_counting: unitary
   reference_name: grinder
   updated_at: 2014-11-02 18:19:51.679190000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: plower
 product_natures_023:
   abilities_list: plow
@@ -459,16 +460,17 @@ product_natures_023:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, plowshare_count, theoretical_working_speed
   id: 23
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Charrue
   number: BUILDINW
   population_counting: unitary
   reference_name: plow
   updated_at: 2014-11-02 18:29:03.417542000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: plower
 product_natures_024:
   abilities_list: consume(seed), consume(water), produce(plant), store(animal), store(fungus),
@@ -499,16 +501,18 @@ product_natures_025:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: nominal_storable_net_volume, application_width, rows_count,
+    theoretical_working_speed
   id: 25
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Semoir
   number: BUILDINY
   population_counting: unitary
   reference_name: sower
   updated_at: 2014-11-02 18:36:36.365485000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation, nominal_storable_net_volume
+  variable_indicators_list: geolocation
   variety: sower
 product_natures_026:
   abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
@@ -560,16 +564,17 @@ product_natures_028:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, theoretical_working_speed
   id: 28
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Déchaumeuse
   number: BUILDIOB
   population_counting: unitary
   reference_name: superficial_plow
   updated_at: 2014-11-04 18:38:32.184660000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: plower
 product_natures_029:
   abilities_list: hoe, plow_superficially
@@ -579,16 +584,17 @@ product_natures_029:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, rows_count, theoretical_working_speed
   id: 29
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Bineuse
   number: BUILDIOC
   population_counting: unitary
   reference_name: hoe
   updated_at: 2014-11-04 18:40:21.555218000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: plower
 product_natures_030:
   abilities_list: spray
@@ -598,16 +604,17 @@ product_natures_030:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: nominal_storable_net_volume, application_width, theoretical_working_speed
   id: 30
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Pulvérisateur
   number: BUILDIOD
   population_counting: unitary
   reference_name: sprayer
   updated_at: 2014-11-07 15:00:45.263080000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: sprayer
 product_natures_031:
   abilities_list: spread(preparation)
@@ -617,16 +624,17 @@ product_natures_031:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: nominal_storable_net_volume, application_width, theoretical_working_speed
   id: 31
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: "Épandeur à engrais"
   number: BUILDIOE
   population_counting: unitary
   reference_name: spreader
   updated_at: 2014-11-07 15:22:23.946771000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation, nominal_storable_net_volume
+  variable_indicators_list: geolocation
   variety: spreader
 product_natures_032:
   abilities_list: move, spread(excrement), store(excrement), store_fluid
@@ -758,16 +766,17 @@ product_natures_038:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, rows_count, theoretical_working_speed
   id: 38
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Planteuse
   number: BUILDIOL
   population_counting: unitary
   reference_name: implanter
   updated_at: 2014-11-07 16:48:34.917965000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: implanter
 product_natures_039:
   abilities_list: consume(fuel), consume(oil), harvest(grape)
@@ -838,16 +847,17 @@ product_natures_042:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: nominal_storable_net_volume
   id: 42
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Cuve à vin
   number: BUILDIOP
   population_counting: unitary
   reference_name: wine_tank
   updated_at: 2014-11-07 17:14:18.201534000 Z
   updater_id: 1
-  variable_indicators_list: nominal_storable_net_volume
+  variable_indicators_list: geolocation
   variety: tank
 product_natures_043:
   abilities_list: press(grape), press(grape_juice), press(wine)

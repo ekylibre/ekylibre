@@ -1,9 +1,10 @@
 // External dependencies
-@import "leaflet/measure";
+// @import "leaflet/measure";
 @import "leaflet/modal";
 @import "leaflet/easy-button";
 @import "leaflet/label";
 @import "leaflet/fullscreen";
+// @import "leaflet/tooltip";
 
 /* required styles */
 
@@ -446,6 +447,7 @@
 
 .leaflet-popup {
   position: absolute;
+  z-index: 2;
   @include text-align(center);
   .leaflet-popup-content-wrapper {
     @include text-align(left);
@@ -741,6 +743,46 @@
   height: 5px;
 }
 
+.leaflet-draw-tooltip-top {
+  background: rgb(54, 54, 54);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid transparent;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  color: #fff;
+  font: 12px/18px "Helvetica Neue", Arial, Helvetica, sans-serif;
+  margin-left: 0;
+  margin-top: -38px;
+  padding: 4px 8px;
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  z-index: 6;
+  &:before {
+    border-top: 6px solid black;
+    border-top-color: rgba(0, 0, 0, 0.5);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    content: "";
+    position: absolute;
+    top: 30px;
+    @include calc('left','50% - 3px');
+  }
+
+  transition: margin-left 1s ease;
+
+}
+
+.leaflet-draw-tooltip-measure {
+  &.perimeter {
+    @include icon-before(square-o)
+  }
+  &.area {
+    @include icon-before(square);
+    padding-left: 10px
+  }
+}
+
 /* ================================================================== */
 /* Edit styles
 /* ================================================================== */
@@ -971,18 +1013,26 @@ span.leaflet-importer-geojson, span.leaflet-importer-gml {
 }
 
 .leaflet-ghost-label {
-  color: white;
-  text-shadow: 0 0 2px black;
-  font-size: $fs-normal;
-  background-color: transparent;
-  box-shadow: none;
-  border: none;
   &:before, &:after {
     box-shadow: none;
     border: none;
     background: transparent;
   }
+  .leaflet-ghost-label-collapsed {
+    color: $active-color;
+    background: white;
+    font-weight: bold;
+    /* text-shadow: none; */
+    display: block;
+    min-width: $lh-normal;
+    /* height: 20px; */
+    border-radius: 50%;
+    border: $menu-border;
+    /* background-color: white; */
+    text-align: center;
+  }
 }
+
 
 .leaflet-popup-warning {
   @include is-icon;

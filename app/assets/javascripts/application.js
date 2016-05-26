@@ -43,6 +43,7 @@
 //= require jstz
 //= require heatmap
 //= require i18n/translations
+//= require geographiclib
 //= require leaflet
 //= require leaflet/draw
 //= require leaflet/fullscreen
@@ -52,6 +53,7 @@
 //= require leaflet/easy-button
 //= require leaflet/modal
 //= require leaflet/label
+//= require rbush
 //= require autosize
 //= require plugins
 //= require_tree .
@@ -68,3 +70,8 @@ $.rails.href = function (element) {
 
 Turbolinks.enableTransitionCache();
 Turbolinks.enableProgressBar();
+
+$(document).ready(function()
+{
+    L.Icon.Default.imagePath = '/assets';
+});

@@ -18,14 +18,10 @@
   = f.input :description
   = f.custom_fields
   = f.input :use_countings
-  = f.input :use_gradings, show: '#gradings'
+  = f.input :use_gradings, show: '#inspections'
 
-= field_set(:gradings) do
-  #gradings
-    = f.input :use_grading_calibre, show: '#grading_calibre'
-    #grading_calibre
-      = f.referenced_nomenclature :grading_calibre_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: [:distance, :mass])).selection, include_blanks: false
-      = f.referenced_nomenclature :grading_calibre_unit, collection: Nomen::Unit.where(dimension: [:distance, :mass]).selection, include_blanks: false
+= field_set(:inspections) do
+  #inspections
     = f.input :measure_grading_items_count
     = f.input :measure_grading_net_mass, show: '#grading_net_mass'
     #grading_net_mass
@@ -35,7 +31,9 @@
       = f.referenced_nomenclature :grading_sizes_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: :distance)).selection, include_blanks: false
       = f.referenced_nomenclature :grading_sizes_unit, collection: Nomen::Unit.where(dimension: :distance).selection, include_blanks: false
 
-    = f.nested_association(:grading_checks)
+    = f.nested_association(:inspection_point_natures)
+
+    = f.nested_association(:inspection_calibration_scales)
 
 .auxiliary-nature-options
   = field_set(Activity.human_attribute_name(:distributions)) do

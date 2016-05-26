@@ -40,6 +40,19 @@ module Procedo
         hash
       end
 
+      def handlers_states
+        hash = {}
+        @root_group.each_member do |parameter|
+          param_name = parameter.param_name
+          next unless parameter.respond_to? :handlers_states
+          states = parameter.handlers_states
+          next if states.empty?
+          hash[param_name] ||= {}
+          hash[param_name][parameter.id.to_s] = states
+        end
+        hash
+      end
+
       delegate :to_json, to: :to_hash
 
       def add_working_period(id, attributes = {})

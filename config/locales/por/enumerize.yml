@@ -17,6 +17,11 @@ por:
         per_production: "Por produção"
         per_production_support: "Por suporte de produção" #?
         per_working_unit: "Por unidade de trabalho"
+    activity_inspection_point_nature:
+      category:
+        # deformity: "Deformity"
+        # disease: "Disease"
+        # none: "None"
     activity_production:
       support_nature:
         border: "Fronteira"
@@ -90,6 +95,10 @@ por:
         line: "Linha"
         point: "Ponto"
         polygon: "Polígono"
+    grading_quality_criterion:
+      nature:
+        # disease_presence: "Disease presence"
+        # waste: "Waste"
     guide_analysis:
       status:
         errored: "Com erros"

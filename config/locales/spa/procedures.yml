@@ -72,7 +72,7 @@ spa:
     plant_medicine: "Planta medicina"
     plants: "Plantas"
     plastic: "El plastico"
-    plastic_sheet: "Lámina de plástico"
+    plastic_sheet: "Lámina de plástico" #?
     plow: "Arado"
     press: "Prensa"
     protective_canvas: "Lona protectora"
@@ -181,6 +181,6 @@ spa:
     # topkilling: "Topkilling"
     tunnel_installation: "La instalación del túnel"
     tunnel_removing: "Túnel de la eliminación"
-    # uncompacting: "Uncompacting"
+    # uncompacting: "Subsoiling"
     wine_blending: "Combinación de vinos"
     wine_bottling: "Embotellado de vinos"

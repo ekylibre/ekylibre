@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160512061327) do
+ActiveRecord::Schema.define(version: 20160517074938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,34 +67,31 @@ ActiveRecord::Schema.define(version: 20160512061327) do
   add_index "accounts", ["updater_id"], name: "index_accounts_on_updater_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
-    t.string   "name",                                           null: false
+    t.string   "name",                                         null: false
     t.text     "description"
-    t.string   "family",                                         null: false
-    t.string   "nature",                                         null: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.string   "family",                                       null: false
+    t.string   "nature",                                       null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                   default: 0,     null: false
-    t.boolean  "with_supports",                                  null: false
-    t.boolean  "with_cultivation",                               null: false
+    t.integer  "lock_version",                 default: 0,     null: false
+    t.boolean  "with_supports",                                null: false
+    t.boolean  "with_cultivation",                             null: false
     t.string   "support_variety"
     t.string   "cultivation_variety"
     t.string   "size_indicator_name"
     t.string   "size_unit_name"
-    t.boolean  "suspended",                      default: false, null: false
-    t.string   "production_cycle",                               null: false
+    t.boolean  "suspended",                    default: false, null: false
+    t.string   "production_cycle",                             null: false
     t.string   "production_campaign"
     t.jsonb    "custom_fields"
-    t.boolean  "use_countings",                  default: false, null: false
-    t.boolean  "use_gradings",                   default: false, null: false
-    t.boolean  "use_grading_calibre",            default: false, null: false
-    t.string   "grading_calibre_indicator_name"
-    t.string   "grading_calibre_unit_name"
-    t.boolean  "measure_grading_items_count",    default: false, null: false
-    t.boolean  "measure_grading_net_mass",       default: false, null: false
+    t.boolean  "use_countings",                default: false, null: false
+    t.boolean  "use_gradings",                 default: false, null: false
+    t.boolean  "measure_grading_items_count",  default: false, null: false
+    t.boolean  "measure_grading_net_mass",     default: false, null: false
     t.string   "grading_net_mass_unit_name"
-    t.boolean  "measure_grading_sizes",          default: false, null: false
+    t.boolean  "measure_grading_sizes",        default: false, null: false
     t.string   "grading_sizes_indicator_name"
     t.string   "grading_sizes_unit_name"
     t.string   "production_system_name"
@@ -170,26 +167,57 @@ ActiveRecord::Schema.define(version: 20160512061327) do
   add_index "activity_distributions", ["updated_at"], name: "index_activity_distributions_on_updated_at", using: :btree
   add_index "activity_distributions", ["updater_id"], name: "index_activity_distributions_on_updater_id", using: :btree
 
-  create_table "activity_grading_checks", force: :cascade do |t|
-    t.integer  "activity_id",                                                null: false
-    t.string   "nature",                                                     null: false
-    t.decimal  "minimal_calibre_value", precision: 19, scale: 4
-    t.decimal  "maximal_calibre_value", precision: 19, scale: 4
-    t.integer  "quality_criterion_id"
-    t.integer  "position"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+  create_table "activity_inspection_calibration_natures", force: :cascade do |t|
+    t.integer  "scale_id",                                               null: false
+    t.boolean  "marketable",                             default: false, null: false
+    t.decimal  "minimal_value", precision: 19, scale: 4,                 null: false
+    t.decimal  "maximal_value", precision: 19, scale: 4,                 null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                   default: 0, null: false
+    t.integer  "lock_version",                           default: 0,     null: false
   end
 
-  add_index "activity_grading_checks", ["activity_id"], name: "index_activity_grading_checks_on_activity_id", using: :btree
-  add_index "activity_grading_checks", ["created_at"], name: "index_activity_grading_checks_on_created_at", using: :btree
-  add_index "activity_grading_checks", ["creator_id"], name: "index_activity_grading_checks_on_creator_id", using: :btree
-  add_index "activity_grading_checks", ["quality_criterion_id"], name: "index_activity_grading_checks_on_quality_criterion_id", using: :btree
-  add_index "activity_grading_checks", ["updated_at"], name: "index_activity_grading_checks_on_updated_at", using: :btree
-  add_index "activity_grading_checks", ["updater_id"], name: "index_activity_grading_checks_on_updater_id", using: :btree
+  add_index "activity_inspection_calibration_natures", ["created_at"], name: "index_activity_inspection_calibration_natures_on_created_at", using: :btree
+  add_index "activity_inspection_calibration_natures", ["creator_id"], name: "index_activity_inspection_calibration_natures_on_creator_id", using: :btree
+  add_index "activity_inspection_calibration_natures", ["scale_id"], name: "index_activity_inspection_calibration_natures_on_scale_id", using: :btree
+  add_index "activity_inspection_calibration_natures", ["updated_at"], name: "index_activity_inspection_calibration_natures_on_updated_at", using: :btree
+  add_index "activity_inspection_calibration_natures", ["updater_id"], name: "index_activity_inspection_calibration_natures_on_updater_id", using: :btree
+
+  create_table "activity_inspection_calibration_scales", force: :cascade do |t|
+    t.integer  "activity_id",                     null: false
+    t.string   "size_indicator_name",             null: false
+    t.string   "size_unit_name",                  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",        default: 0, null: false
+  end
+
+  add_index "activity_inspection_calibration_scales", ["activity_id"], name: "index_activity_inspection_calibration_scales_on_activity_id", using: :btree
+  add_index "activity_inspection_calibration_scales", ["created_at"], name: "index_activity_inspection_calibration_scales_on_created_at", using: :btree
+  add_index "activity_inspection_calibration_scales", ["creator_id"], name: "index_activity_inspection_calibration_scales_on_creator_id", using: :btree
+  add_index "activity_inspection_calibration_scales", ["updated_at"], name: "index_activity_inspection_calibration_scales_on_updated_at", using: :btree
+  add_index "activity_inspection_calibration_scales", ["updater_id"], name: "index_activity_inspection_calibration_scales_on_updater_id", using: :btree
+
+  create_table "activity_inspection_point_natures", force: :cascade do |t|
+    t.integer  "activity_id",              null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+    t.string   "name",                     null: false
+    t.string   "category",                 null: false
+  end
+
+  add_index "activity_inspection_point_natures", ["activity_id"], name: "index_activity_inspection_point_natures_on_activity_id", using: :btree
+  add_index "activity_inspection_point_natures", ["created_at"], name: "index_activity_inspection_point_natures_on_created_at", using: :btree
+  add_index "activity_inspection_point_natures", ["creator_id"], name: "index_activity_inspection_point_natures_on_creator_id", using: :btree
+  add_index "activity_inspection_point_natures", ["updated_at"], name: "index_activity_inspection_point_natures_on_updated_at", using: :btree
+  add_index "activity_inspection_point_natures", ["updater_id"], name: "index_activity_inspection_point_natures_on_updater_id", using: :btree
 
   create_table "activity_productions", force: :cascade do |t|
     t.integer  "support_id",                                                                                                 null: false
@@ -1165,21 +1193,6 @@ ActiveRecord::Schema.define(version: 20160512061327) do
   add_index "georeadings", ["updated_at"], name: "index_georeadings_on_updated_at", using: :btree
   add_index "georeadings", ["updater_id"], name: "index_georeadings_on_updater_id", using: :btree
 
-  create_table "grading_quality_criteria", force: :cascade do |t|
-    t.string   "name",                     null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
-  end
-
-  add_index "grading_quality_criteria", ["created_at"], name: "index_grading_quality_criteria_on_created_at", using: :btree
-  add_index "grading_quality_criteria", ["creator_id"], name: "index_grading_quality_criteria_on_creator_id", using: :btree
-  add_index "grading_quality_criteria", ["name"], name: "index_grading_quality_criteria_on_name", using: :btree
-  add_index "grading_quality_criteria", ["updated_at"], name: "index_grading_quality_criteria_on_updated_at", using: :btree
-  add_index "grading_quality_criteria", ["updater_id"], name: "index_grading_quality_criteria_on_updater_id", using: :btree
-
   create_table "guide_analyses", force: :cascade do |t|
     t.integer  "guide_id",                          null: false
     t.integer  "execution_number",                  null: false
@@ -1355,6 +1368,74 @@ ActiveRecord::Schema.define(version: 20160512061327) do
   add_index "incoming_payments", ["responsible_id"], name: "index_incoming_payments_on_responsible_id", using: :btree
   add_index "incoming_payments", ["updated_at"], name: "index_incoming_payments_on_updated_at", using: :btree
   add_index "incoming_payments", ["updater_id"], name: "index_incoming_payments_on_updater_id", using: :btree
+
+  create_table "inspection_calibrations", force: :cascade do |t|
+    t.integer  "inspection_id",                                           null: false
+    t.integer  "nature_id",                                               null: false
+    t.integer  "items_count"
+    t.decimal  "net_mass_value",     precision: 19, scale: 4
+    t.decimal  "minimal_size_value", precision: 19, scale: 4
+    t.decimal  "maximal_size_value", precision: 19, scale: 4
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                default: 0, null: false
+  end
+
+  add_index "inspection_calibrations", ["created_at"], name: "index_inspection_calibrations_on_created_at", using: :btree
+  add_index "inspection_calibrations", ["creator_id"], name: "index_inspection_calibrations_on_creator_id", using: :btree
+  add_index "inspection_calibrations", ["inspection_id"], name: "index_inspection_calibrations_on_inspection_id", using: :btree
+  add_index "inspection_calibrations", ["nature_id"], name: "index_inspection_calibrations_on_nature_id", using: :btree
+  add_index "inspection_calibrations", ["updated_at"], name: "index_inspection_calibrations_on_updated_at", using: :btree
+  add_index "inspection_calibrations", ["updater_id"], name: "index_inspection_calibrations_on_updater_id", using: :btree
+
+  create_table "inspection_points", force: :cascade do |t|
+    t.integer  "inspection_id",                                           null: false
+    t.integer  "nature_id",                                               null: false
+    t.integer  "items_count"
+    t.decimal  "net_mass_value",     precision: 19, scale: 4
+    t.decimal  "minimal_size_value", precision: 19, scale: 4
+    t.decimal  "maximal_size_value", precision: 19, scale: 4
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                default: 0, null: false
+  end
+
+  add_index "inspection_points", ["created_at"], name: "index_inspection_points_on_created_at", using: :btree
+  add_index "inspection_points", ["creator_id"], name: "index_inspection_points_on_creator_id", using: :btree
+  add_index "inspection_points", ["inspection_id"], name: "index_inspection_points_on_inspection_id", using: :btree
+  add_index "inspection_points", ["nature_id"], name: "index_inspection_points_on_nature_id", using: :btree
+  add_index "inspection_points", ["updated_at"], name: "index_inspection_points_on_updated_at", using: :btree
+  add_index "inspection_points", ["updater_id"], name: "index_inspection_points_on_updater_id", using: :btree
+
+  create_table "inspections", force: :cascade do |t|
+    t.integer  "activity_id",                                                         null: false
+    t.integer  "product_id",                                                          null: false
+    t.string   "number",                                                              null: false
+    t.datetime "sampled_at",                                                          null: false
+    t.integer  "implanter_rows_number"
+    t.decimal  "implanter_working_width",        precision: 19, scale: 4
+    t.text     "comment"
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                            default: 0, null: false
+    t.decimal  "implanter_application_width",    precision: 19, scale: 4
+    t.decimal  "sampling_distance",              precision: 19, scale: 4
+    t.decimal  "product_net_surface_area_value", precision: 19, scale: 4
+    t.string   "product_net_surface_area_unit"
+  end
+
+  add_index "inspections", ["activity_id"], name: "index_inspections_on_activity_id", using: :btree
+  add_index "inspections", ["created_at"], name: "index_inspections_on_created_at", using: :btree
+  add_index "inspections", ["creator_id"], name: "index_inspections_on_creator_id", using: :btree
+  add_index "inspections", ["product_id"], name: "index_inspections_on_product_id", using: :btree
+  add_index "inspections", ["updated_at"], name: "index_inspections_on_updated_at", using: :btree
+  add_index "inspections", ["updater_id"], name: "index_inspections_on_updater_id", using: :btree
 
   create_table "intervention_parameter_readings", force: :cascade do |t|
     t.string   "indicator_name",                                                                                                      null: false
@@ -2249,51 +2330,6 @@ ActiveRecord::Schema.define(version: 20160512061327) do
   add_index "product_enjoyments", ["stopped_at"], name: "index_product_enjoyments_on_stopped_at", using: :btree
   add_index "product_enjoyments", ["updated_at"], name: "index_product_enjoyments_on_updated_at", using: :btree
   add_index "product_enjoyments", ["updater_id"], name: "index_product_enjoyments_on_updater_id", using: :btree
-
-  create_table "product_grading_checks", force: :cascade do |t|
-    t.integer  "product_grading_id",                                             null: false
-    t.integer  "activity_grading_check_id",                                      null: false
-    t.integer  "items_count"
-    t.decimal  "net_mass_value",            precision: 19, scale: 4
-    t.decimal  "minimal_size_value",        precision: 19, scale: 4
-    t.decimal  "maximal_size_value",        precision: 19, scale: 4
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                       default: 0, null: false
-  end
-
-  add_index "product_grading_checks", ["activity_grading_check_id"], name: "index_product_grading_checks_on_activity_grading_check_id", using: :btree
-  add_index "product_grading_checks", ["created_at"], name: "index_product_grading_checks_on_created_at", using: :btree
-  add_index "product_grading_checks", ["creator_id"], name: "index_product_grading_checks_on_creator_id", using: :btree
-  add_index "product_grading_checks", ["product_grading_id"], name: "index_product_grading_checks_on_product_grading_id", using: :btree
-  add_index "product_grading_checks", ["updated_at"], name: "index_product_grading_checks_on_updated_at", using: :btree
-  add_index "product_grading_checks", ["updater_id"], name: "index_product_grading_checks_on_updater_id", using: :btree
-
-  create_table "product_gradings", force: :cascade do |t|
-    t.integer  "activity_id",                                                      null: false
-    t.integer  "product_id",                                                       null: false
-    t.string   "number",                                                           null: false
-    t.datetime "sampled_at",                                                       null: false
-    t.integer  "implanter_rows_number"
-    t.decimal  "implanter_working_width",     precision: 19, scale: 4
-    t.text     "comment"
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                         default: 0, null: false
-    t.decimal  "implanter_application_width", precision: 19, scale: 4
-    t.decimal  "sampling_distance",           precision: 19, scale: 4
-  end
-
-  add_index "product_gradings", ["activity_id"], name: "index_product_gradings_on_activity_id", using: :btree
-  add_index "product_gradings", ["created_at"], name: "index_product_gradings_on_created_at", using: :btree
-  add_index "product_gradings", ["creator_id"], name: "index_product_gradings_on_creator_id", using: :btree
-  add_index "product_gradings", ["product_id"], name: "index_product_gradings_on_product_id", using: :btree
-  add_index "product_gradings", ["updated_at"], name: "index_product_gradings_on_updated_at", using: :btree
-  add_index "product_gradings", ["updater_id"], name: "index_product_gradings_on_updater_id", using: :btree
 
   create_table "product_linkages", force: :cascade do |t|
     t.integer  "originator_id"

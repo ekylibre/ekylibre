@@ -114,15 +114,14 @@ module Backend
       t.column :main_activity, url: true
     end
 
-    # List of activity grading check for one activity
-    list(:grading_checks, model: :activity_grading_checks, conditions: { activity_id: 'params[:id]'.c }, order: { position: :asc }) do |t|
+    # List of inspections
+    list(:inspections, conditions: { activity_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
       t.action :edit
       t.action :destroy
-      t.column :position
-      t.column :quality_criterion, url: true
-      t.column :nature
-      t.column :minimal_calibre_value
-      t.column :maximal_calibre_value
+      t.column :number, url: true
+      t.column :sampled_at
+      t.column :product, url: true
+      t.column :comment
     end
   end
 end

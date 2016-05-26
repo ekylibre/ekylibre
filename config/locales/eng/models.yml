@@ -133,7 +133,9 @@ eng:
       activity_budget: "Activity budget"
       activity_budget_item: "Activity budget item"
       activity_distribution: "Activity distribution"
-      activity_grading_check: "Activity grading check"
+      activity_inspection_calibration_nature: ""
+      # activity_inspection_calibration_scale: "Activity inspection calibration scale"
+      activity_inspection_point_nature: "Activity grading check"
       activity_production: "Production support"
       affair: "Affair"
       analysis: "Analysis"
@@ -179,7 +181,7 @@ eng:
       gap: "Gap"
       gap_item: "Gap item"
       georeading: "Georeading"
-      grading_quality_criterion: "Grading quality criterion"
+      grading_quality_criterion: "Grading quality criterion" #?
       guide: "Guide"
       guide_analysis: "Guide analysis"
       guide_analysis_point: "Guide analysis point"
@@ -187,6 +189,9 @@ eng:
       import: "Import"
       incoming_payment: "Incoming payment"
       incoming_payment_mode: "Incoming payment mode"
+      inspection: "Product grading"
+      # inspection_calibration: "Inspection calibration"
+      inspection_point: "Product grading check"
       intervention: "Intervention"
       intervention_agent: "Intervention agent"
       intervention_doer: "Intervention doer"
@@ -232,8 +237,6 @@ eng:
       prescription: "Prescription"
       product: "Product"
       product_enjoyment: "Product enjoyment"
-      product_grading: "Product grading"
-      product_grading_check: "Product grading check"
       product_group: "Product group"
       product_link: "Product link"
       product_linkage: "Product linkage"
@@ -303,7 +306,7 @@ eng:
     activity_budgets: "Activity budgets"
     activity_code: "Activity code"
     activity_distributions: "Activity distributions" #?
-    activity_grading_check: "Activity grading check"
+    activity_grading_check: "Activity grading check" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     actor: "Actor" #?
@@ -362,6 +365,7 @@ eng:
     budgets: "Budgets"
     buildings: "Buildings"
     by_default: "By default"
+    # calibrations: "Calibrations"
     campaign: "Campaign"
     canal: "Canal"
     cap_islet: "Cap islet"
@@ -383,7 +387,7 @@ eng:
     ceded_on: "Ceded on"
     charge_account: "Charge account"
     charges_categories: "Charges categories"
-    checks: "Checks"
+    checks: "Checks" #?
     children: "Children"
     choice_value: "Choice value"
     choices: "Choices"
@@ -429,6 +433,7 @@ eng:
     contents: "Contents"
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
+    costs_per_unit: "Costs per %{unit}" #?
     country: "Country"
     created_at: "Created at"
     creator: "Creator"
@@ -566,14 +571,11 @@ eng:
     exportable: "Exportable"
     exportable_columns: "Exportable columns"
     external: "External"
-    extremum_indicator_name: "Extremum indicator name" #?
-    extremum_unit: "Extremum unit" #?
     failed_attempts: "Failed attempts"
     family: "Family"
     farm_name: "Farm name"
     father: "Father"
     faxes: "Faxes"
-    fifth_producer: "Fifth producer" #?
     # file_content_text: "File content text"
     # file_content_type: "File content type"
     # file_file_name: "File file name"
@@ -588,7 +590,6 @@ eng:
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number" #?
-    first_producer: "First producer" #?
     fixed: "Fixed"
     fixed_asset: "Fixed asset"
     fixed_asset_account: "Fixed asset account"
@@ -601,7 +602,6 @@ eng:
     fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
     fixed_assets: "Fixed assets"
     formats: "Formats"
-    fourth_producer: "Fourth producer" #?
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"
     full_name: "Full name"
@@ -617,18 +617,13 @@ eng:
     global_credit: "Global credit"
     global_debit: "Global debit"
     godchildren: "Godchildren"
-    grading_calibre_indicator: "Grading calibre indicator"
-    grading_calibre_indicator_name: "Grading calibre indicator name"
-    grading_calibre_unit: "Grading calibre unit"
-    grading_calibre_unit_name: "Grading calibre unit name"
-    grading_checks: "Grading checks"
     grading_net_mass_unit: "Grading net mass unit"
     grading_net_mass_unit_name: "Grading net mass unit name"
     grading_sizes_indicator: "Grading sizes indicator"
     grading_sizes_indicator_name: "Grading sizes indicator name"
     grading_sizes_unit: "Grading sizes unit"
     grading_sizes_unit_name: "Grading sizes unit name"
-    gradings: "Gradings"
+    gradings: "Gradings" #?
     gravity: "Gravity"
     group: "Group"
     group_parameters: "Group parameters"
@@ -677,6 +672,12 @@ eng:
     initial_population: "Initial population"
     initial_shape: "Initial shape"
     inputs: "Inputs"
+    inspection: "Inspection"
+    # inspection_calibration_scales: "Inspection calibration scales"
+    # inspection_calibrations: "Inspection calibrations"
+    # inspection_point_natures: "Inspection point natures"
+    inspections: "Inspections"
+    # inspections_items: "Inspections items"
     insurance_amount: "Insurance amount"
     insurance_percentage: "Insurance percentage"
     integer_value: "Integer value"
@@ -783,14 +784,14 @@ eng:
     managed: "Managed"
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
+    marketable: "Marketable"
     mass: "Mass (kg)" #?
     max_zoom: "Max zoom"
-    maximal_calibre_value: "Maximal calibre value"
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
+    maximal_size: "Maximal size"
     maximal_size_value: "Maximal size value"
     maximal_value: "Maximal value"
-    maximum_grade_value: "Maximum grade value" #?
     maximum_nitrogen_input: "Maximum nitrogen input"
     meadow_humus_mineralization: "Meadow humus mineralization"
     measure_grading_items_count: "Measure grading items count"
@@ -808,11 +809,10 @@ eng:
     metadata: "Metadata"
     min_zoom: "Min zoom"
     mineral_nitrogen_at_opening: "Mineral nitrogen at opening"
-    minimal_calibre_value: "Minimal calibre value"
     minimal_length: "Minimal length"
+    minimal_size: "Minimal size"
     minimal_size_value: "Minimal size value"
     minimal_value: "Minimal value"
-    minimum_grade_value: "Minimum grade value" #?
     mobiles: "Mobile phones"
     mode: "Mode"
     model_euid: "Model"
@@ -849,8 +849,6 @@ eng:
     of_company: "Of the company"
     old_password: "Old password"
     opened_at: "Opened at"
-    operation: "Operation" #?
-    operations: "Operations" #?
     ordered_at: "Ordered at"
     organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
     origin: "Origin"
@@ -935,7 +933,6 @@ eng:
     product_account: "Product account"
     # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Product enjoyments" #?
-    product_grading: "Product grading"
     product_linkages: "Product linkages" #?
     product_localization: "Product localization"
     product_localizations: "Product localizations" #?
@@ -945,7 +942,8 @@ eng:
     product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"
     product_nature_category_taxations: "Product type category taxations"
-    # product_natures: "Product natures"
+    # product_net_surface_area_unit: "Product net surface area unit"
+    # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "Product ownership"
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
@@ -980,7 +978,6 @@ eng:
     purchase_taxes: "Purchase taxes"
     purchased_on: "Purchased on"
     purchases: "Purchase orders"
-    quality_criterion: "Quality criterion"
     quantity: "Quantity"
     quantity_handler: "Quantity handler"
     quantity_indicator: "Quantity indicator" #?
@@ -1070,11 +1067,13 @@ eng:
     sales_invoices: "Sales invoices"
     sampled_at: "Sampled at"
     sampler: "Sampler"
+    sampling_area: "Sampling area"
     sampling_distance: "Sampling distance"
     sampling_length_unit: "Sampling length unit"
     sampling_temporal_mode: "Sampling temporal mode"
+    scale: "Scale"
+    # scales: "Scales"
     scheduled: "Scheduled"
-    second_producer: "Second producer" #?
     seeding_density_unit: "Seeding density unit"
     # seeding_density_value: "Seeding density value"
     selected: "Selected"
@@ -1158,7 +1157,6 @@ eng:
     team: "Team"
     template: "Template"
     third: "Third"
-    third_producer: "Third producer" #?
     third_role: "Third role"
     thread: "Thread"
     time_window: "Time window (in seconds)"
@@ -1202,7 +1200,7 @@ eng:
     usage_limit_on: "Used by on"
     usages: "Usages"
     use_countings: "Use countings"
-    use_grading_calibre: "Use grading calibre"
+    use_grading_calibre: "Use grading calibre" #?
     use_gradings: "Use gradings"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
@@ -1236,8 +1234,8 @@ eng:
     worker: "Worker"
     working_duration: "Working duration"
     working_periods: "Working periods"
-    working_shape: "Working shape" #?
     working_zone: "Working zone"
+    working_zone_area: "Working zone area"
     zone_memberships: "Zone memberships" #?
     zones: "Zones"
   models:
@@ -1245,6 +1243,8 @@ eng:
       label: "%{number} - %{name}"
     activity_budget:
       name: "%{activity_name} %{campaign_name}"
+    activity_inspection_calibration_nature:
+      name: "%{minimum} → %{maximum}"
     activity_production:
       bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       name: "%{variant}/%{activity} %{campaign} (%{state})"

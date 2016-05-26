@@ -52,6 +52,7 @@ class CatalogItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_uniqueness_of :variant_id, scope: :catalog_id
+  validates_presence_of :reference_tax, if: :all_taxes_included
 
   # delegate :product_nature_id, :product_nature, to: :template
   delegate :name, to: :variant, prefix: true
@@ -82,7 +83,11 @@ class CatalogItem < Ekylibre::Record::Base
 
   # Compute a pre-tax amount
   def pretax_amount
-    (all_taxes_included? ? reference_tax.pretax_amount_of(amount) : amount)
+    if all_taxes_included && reference_tax
+      reference_tax.pretax_amount_of(amount)
+    else
+      amount
+    end
   end
   alias unit_pretax_amount pretax_amount
 end

@@ -72,7 +72,7 @@ por:
     plant_medicine: "Planta medicina"
     plants: "Plantas"
     plastic: "Plástico"
-    plastic_sheet: "Folha de plástico"
+    plastic_sheet: "Folha de plástico" #?
     plow: "Arado"
     press: "Pressione"
     protective_canvas: "Tela de proteção"
@@ -181,6 +181,6 @@ por:
     # topkilling: "Topkilling"
     tunnel_installation: "Instalação de túnel"
     tunnel_removing: "Túnel removendo"
-    # uncompacting: "Uncompacting"
+    # uncompacting: "Subsoiling"
     wine_blending: "Mistura de vinhos"
     wine_bottling: "Engarrafamento de vinhos"

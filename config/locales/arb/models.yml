@@ -734,7 +734,8 @@ arb:
       activity_budget: "ميزانية النشاط"
       activity_budget_item: "آخر بند الميزانية"
       activity_distribution: "توزيع النشاط"
-      # activity_grading_check: "Activity grading check"
+      # activity_inspection_calibration_nature: ""
+      # activity_inspection_point_nature: "Activity grading check"
       activity_production: "دعم الإنتاج"
       affair: "قضية"
       analysis: "تحليل"
@@ -805,6 +806,8 @@ arb:
       incoming_payment: "الدفعة"
       incoming_payment_mode: "نوع الدفعة"
       incoming_payment_use: "تأثير الدفعة" #?
+      # inspection: "Product grading"
+      # inspection_point: "Product grading check"
       intervention: "تدخل"
       intervention_agent: "وكيل تدخل"
       intervention_doer: "التدخل الفاعل"
@@ -862,8 +865,6 @@ arb:
       product_category: "فئة الانتاج" #?
       product_component: "عنصر الانتاج" #?
       product_enjoyment: "تمتع المنتج"
-      # product_grading: "Product grading"
-      # product_grading_check: "Product grading check"
       product_group: "مجموعة المنتجات"
       product_link: "رابط المنتج"
       product_linkage: "الربط المنتج"
@@ -1127,6 +1128,7 @@ arb:
     contents: "محتويات"
     coordinate: "تنسيق"
     coordinate_columns: "تنسيق الأعمدة"
+    # costs_per_unit: "Costs per %{unit}"
     counterpart: "النسخة المطابقة" #?
     counterpart_id: "النسخة المطالقة" #?
     country: "البلد"
@@ -1334,8 +1336,6 @@ arb:
     expression: "اسلوب للتعبير" #?
     extension: "التوسع" #?
     external: "خارجي"
-    # extremum_indicator_name: "Extremum indicator name"
-    # extremum_unit: "Extremum unit"
     failed_attempts: "محاولات فاشلة"
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
@@ -1343,7 +1343,7 @@ arb:
     father: "الآب"
     fax: "فاكس" #?
     faxes: "الفاكسات"
-    fifth_producer: "منتج الخامس"
+    fifth_producer: "منتج الخامس" #?
     filename: "الملف" #?
     filesize: "حجم الملف" #?
     filtered_columns: "الأعمدة التي تمت تصفيتها"
@@ -1355,7 +1355,7 @@ arb:
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
-    first_producer: "أول منتج"
+    first_producer: "أول منتج" #?
     fixed: "ثابت"
     fixed_asset: "الأصول الثابتة"
     fixed_asset_account: "حساب الأصول الثابتة"
@@ -1371,7 +1371,7 @@ arb:
     for_sales: "منتجات البيع" #?
     format: "التصميم" #?
     formats: "صيغ"
-    fourth_producer: "رابع منتج"
+    fourth_producer: "رابع منتج" #?
     frequency: "تردد"
     frozen_indicators_list: "قائمة مؤشرات المجمدة"
     full_name: "الاسم بالكامل"
@@ -1390,11 +1390,6 @@ arb:
     global_credit: "الائتمان العالمي"
     global_debit: "الانتاجية الاجمالية"
     godchildren: "أبناء معمدين"
-    # grading_calibre_indicator: "Grading calibre indicator"
-    # grading_calibre_indicator_name: "Grading calibre indicator name"
-    # grading_calibre_unit: "Grading calibre unit"
-    # grading_calibre_unit_name: "Grading calibre unit name"
-    # grading_checks: "Grading checks"
     # grading_net_mass_unit: "Grading net mass unit"
     # grading_net_mass_unit_name: "Grading net mass unit name"
     # grading_sizes_indicator: "Grading sizes indicator"
@@ -1456,6 +1451,8 @@ arb:
     initial_population: "السكان الأولي"
     initial_shape: "الشكل الأولي"
     inputs: "المدخلات"
+    # inspection: "Inspection"
+    # inspections: "Inspections"
     insurance_amount: "مبلغ التأمين"
     insurance_percentage: "نسبة التأمين"
     integer_value: "قيمة العدد الصحيح"
@@ -1593,16 +1590,16 @@ arb:
     managed_sales: "مبيعات المدارة"
     mandates: "تفويضات" #?
     manure_management_plan_zones: "مناطق خطة إدارة السماد"
+    # marketable: "Marketable"
     mass: "الوزن"
     master: "كتلة رئيسية" #?
     max_reduction_rate: "سعر التخفيض" #?
     # max_zoom: "Max zoom"
-    # maximal_calibre_value: "Maximal calibre value"
     maximal_grantable_reduction_percentage: "القصوى نسبة تخفيض grantable"
     maximal_length: "طول القصوى"
+    # maximal_size: "Maximal size"
     # maximal_size_value: "Maximal size value"
     maximal_value: "القيمة القصوى"
-    # maximum_grade_value: "Maximum grade value"
     maximum_nitrogen_input: "إدخال النيتروجين الأقصى"
     meadow_humus_mineralization: "مرج تمعدن الدبال"
     # measure_grading_items_count: "Measure grading items count"
@@ -1621,11 +1618,10 @@ arb:
     min_duration: "(دقيقة (دقائق" #?
     # min_zoom: "Min zoom"
     mineral_nitrogen_at_opening: "النيتروجين المعدنية في افتتاح"
-    # minimal_calibre_value: "Minimal calibre value"
     minimal_length: "طول الحد الأدنى"
+    # minimal_size: "Minimal size"
     # minimal_size_value: "Minimal size value"
     minimal_value: "قيمة الحد الأدنى"
-    # minimum_grade_value: "Minimum grade value"
     mobile: "الهاتف النقال" #?
     mobiles: "هواتف محمولة"
     mode: "نمط الدفعة"
@@ -1673,12 +1669,12 @@ arb:
     office: "المكتب/الاستديو" #?
     old_password: "كلمة المرور الحالية"
     opened_at: "افتتح في"
-    operation: "العمل"
+    operation: "العمل" #?
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
     operation_natures: "انواع العمل" #?
     operation_uses: "استخدامات الاداة" #?
-    operations: "الاعمال"
+    operations: "الاعمال" #?
     order: "طلب البيع" #?
     order_id: "طلب شراء" #?
     order_item: "طريقة البيع" #?
@@ -1807,7 +1803,6 @@ arb:
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
     product_enjoyments: "المتعة المنتج"
-    # product_grading: "Product grading"
     product_id: "المنتج" #?
     product_linkages: "الروابط المنتج"
     product_localization: "توطين المنتج"
@@ -1861,7 +1856,6 @@ arb:
     purchases: "المشتريات"
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
-    # quality_criterion: "Quality criterion"
     quantity: "الكمية"
     quantity_handler: "كمية معالج"
     quantity_indicator: "مؤشر الكمية"
@@ -1978,14 +1972,16 @@ arb:
     salt: "الملح" #?
     sampled_at: "عينات في"
     sampler: "العينات"
+    # sampling_area: "Sampling area"
     # sampling_distance: "Sampling distance"
     # sampling_length_unit: "Sampling length unit"
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
+    # scale: "Scale"
     scheduled: "الدفعة المبرمجة"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
     second_move_id: "الحركة الثانية" #?
-    second_producer: "منتج الثاني"
+    second_producer: "منتج الثاني" #?
     # seeding_density_unit: "Seeding density unit"
     selected: "مختار"
     selected_manure_management_plan: "خطة إدارة السماد مختارة"
@@ -2099,7 +2095,7 @@ arb:
     text_nature: "النوع" #?
     theoric_quantity: "الكمية النظرية" #?
     third: "ثلث"
-    third_producer: "ثالث منتج"
+    third_producer: "ثالث منتج" #?
     third_role: "دور الثالث"
     thread: "خيط"
     time_window: "نافذة الوقت (بالثواني)"
@@ -2202,8 +2198,9 @@ arb:
     worker: "عامل"
     working_duration: "مدة العمل"
     working_periods: "فترات العمل"
-    working_shape: "شكل العمل"
+    working_shape: "شكل العمل" #?
     working_zone: "منطقة العمل"
+    # working_zone_area: "Working zone area"
     zone_memberships: "عضوية منطقة"
     zones: "المناطق"
   models:
@@ -2213,6 +2210,8 @@ arb:
       label: "%{number} - %{name}"
     activity_budget:
       # name: "%{activity_name} %{campaign_name}"
+    activity_inspection_calibration_nature:
+      # name: "%{minimum} → %{maximum}"
     activity_production:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       # name: "%{variant}/%{activity} %{campaign} (%{state})"

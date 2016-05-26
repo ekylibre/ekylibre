@@ -372,7 +372,7 @@
         <page to="backend/matters#list_carried_linkages"/>
         <page to="backend/matters#list_carrier_linkages"/>
         <page to="backend/matters#list_contained_products"/>
-        <page to="backend/matters#list_gradings"/>
+        <page to="backend/matters#list_inspections"/>
         <page to="backend/matters#list_groups"/>
         <page to="backend/matters#list_readings"/>
         <page to="backend/matters#list_intervention_product_parameters"/>
@@ -396,7 +396,7 @@
         <page to="backend/products#unroll"/>
         <page to="backend/products#update"/>
         <page to="backend/products#list_contained_products"/>
-        <page to="backend/products#list_gradings"/>
+        <page to="backend/products#list_inspections"/>
         <page to="backend/products#list_groups"/>
         <page to="backend/products#list_issues"/>
         <page to="backend/products#list_readings"/>
@@ -414,7 +414,7 @@
         <page to="backend/product_groups#list_carried_linkages"/>
         <page to="backend/product_groups#list_carrier_linkages"/>
         <page to="backend/product_groups#list_contained_products"/>
-        <page to="backend/product_groups#list_gradings"/>
+        <page to="backend/product_groups#list_inspections"/>
         <page to="backend/product_groups#list_groups"/>
         <page to="backend/product_groups#list_readings"/>
         <page to="backend/product_groups#list_intervention_product_parameters"/>
@@ -565,6 +565,7 @@
         <page to="backend/activity_productions#edit"/>
         <page to="backend/activity_productions#new"/>
         <page to="backend/activity_productions#update"/>
+        <page to="backend/activity_inspection_point_natures#autocomplete"/>
         <page to="backend/activities#index"/>
         <page to="backend/activities#create"/>
         <page to="backend/activities#destroy"/>
@@ -573,7 +574,7 @@
         <page to="backend/activities#family"/>
         <page to="backend/activities#list"/>
         <page to="backend/activities#list_distributions"/>
-        <page to="backend/activities#list_grading_checks"/>
+        <page to="backend/activities#list_inspections"/>
         <page to="backend/activities#list_productions"/>
         <page to="backend/activities#new"/>
         <page to="backend/activities#show"/>
@@ -603,7 +604,7 @@
         <page to="backend/animals#update"/>
         <page to="backend/animals#picture"/>
         <page to="backend/animals#list_contained_products"/>
-        <page to="backend/animals#list_gradings"/>
+        <page to="backend/animals#list_inspections"/>
         <page to="backend/animals#list_groups"/>
         <page to="backend/animals#list_issues"/>
         <page to="backend/animals#list_readings"/>
@@ -634,7 +635,7 @@
         <page to="backend/fungi#destroy"/>
         <page to="backend/fungi#edit"/>
         <page to="backend/fungi#list"/>
-        <page to="backend/fungi#list_gradings"/>
+        <page to="backend/fungi#list_inspections"/>
         <page to="backend/fungi#list_carried_linkages"/>
         <page to="backend/fungi#list_carrier_linkages"/>
         <page to="backend/fungi#list_contained_products"/>
@@ -701,17 +702,16 @@
         <page to="backend/analyses#update"/>
         <page to="backend/analysis_items#new"/>
       </item>
-      <item name="product_gradings" icon="grain">
-        <page to="backend/product_gradings#index"/>
-        <page to="backend/product_gradings#create"/>
-        <page to="backend/product_gradings#destroy"/>
-        <page to="backend/product_gradings#edit"/>
-        <page to="backend/product_gradings#list"/>
-        <page to="backend/product_gradings#list_checks"/>
-        <page to="backend/product_gradings#new"/>
-        <page to="backend/product_gradings#show"/>
-        <page to="backend/product_gradings#unroll"/>
-        <page to="backend/product_gradings#update"/>
+      <item name="inspections" icon="grain">
+        <page to="backend/inspections#index"/>
+        <page to="backend/inspections#create"/>
+        <page to="backend/inspections#destroy"/>
+        <page to="backend/inspections#edit"/>
+        <page to="backend/inspections#list"/>
+        <page to="backend/inspections#new"/>
+        <page to="backend/inspections#show"/>
+        <page to="backend/inspections#unroll"/>
+        <page to="backend/inspections#update"/>
       </item>
     </group>
     <group name="land_parcels" icon="land-parcels">
@@ -736,7 +736,7 @@
         <page to="backend/plants#list_carried_linkages"/>
         <page to="backend/plants#list_carrier_linkages"/>
         <page to="backend/plants#list_contained_products"/>
-        <page to="backend/plants#list_gradings"/>
+        <page to="backend/plants#list_inspections"/>
         <page to="backend/plants#list_groups"/>
         <page to="backend/plants#list_readings"/>
         <page to="backend/plants#list_intervention_product_parameters"/>
@@ -1272,17 +1272,6 @@
       </item>
     </group>
     <group name="production" icon="cogs">
-      <item name="grading_quality_criteria" icon="beaker">
-        <page to="backend/grading_quality_criteria#index"/>
-        <page to="backend/grading_quality_criteria#create"/>
-        <page to="backend/grading_quality_criteria#destroy"/>
-        <page to="backend/grading_quality_criteria#edit"/>
-        <page to="backend/grading_quality_criteria#list"/>
-        <page to="backend/grading_quality_criteria#new"/>
-        <page to="backend/grading_quality_criteria#show"/>
-        <page to="backend/grading_quality_criteria#unroll"/>
-        <page to="backend/grading_quality_criteria#update"/>
-      </item>
       <item name="workers">
         <page to="backend/workers#index"/>
         <page to="backend/workers#create"/>
@@ -1295,7 +1284,7 @@
         <page to="backend/workers#list_carried_linkages"/>
         <page to="backend/workers#list_carrier_linkages"/>
         <page to="backend/workers#list_contained_products"/>
-        <page to="backend/workers#list_gradings"/>
+        <page to="backend/workers#list_inspections"/>
         <page to="backend/workers#list_groups"/>
         <page to="backend/workers#list_readings"/>
         <page to="backend/workers#list_intervention_product_parameters"/>
@@ -1319,7 +1308,7 @@
         <page to="backend/equipments#unroll"/>
         <page to="backend/equipments#update"/>
         <page to="backend/equipments#list_contained_products"/>
-        <page to="backend/equipments#list_gradings"/>
+        <page to="backend/equipments#list_inspections"/>
         <page to="backend/equipments#list_groups"/>
         <page to="backend/equipments#list_issues"/>
         <page to="backend/equipments#list_readings"/>
@@ -1342,7 +1331,7 @@
         <page to="backend/buildings#take"/>
         <page to="backend/buildings#unroll"/>
         <page to="backend/buildings#list_contained_products"/>
-        <page to="backend/buildings#list_gradings"/>
+        <page to="backend/buildings#list_inspections"/>
         <page to="backend/buildings#list_groups"/>
         <page to="backend/buildings#list_issues"/>
         <page to="backend/buildings#list_readings"/>
@@ -1365,7 +1354,7 @@
         <page to="backend/building_divisions#take"/>
         <page to="backend/building_divisions#unroll"/>
         <page to="backend/building_divisions#update"/>
-        <page to="backend/building_divisions#list_gradings"/>
+        <page to="backend/building_divisions#list_inspections"/>
         <page to="backend/building_divisions#list_groups"/>
         <page to="backend/building_divisions#list_issues"/>
         <page to="backend/building_divisions#list_readings"/>
@@ -1398,7 +1387,7 @@
         <page to="backend/land_parcels#list_carried_linkages"/>
         <page to="backend/land_parcels#list_carrier_linkages"/>
         <page to="backend/land_parcels#list_contained_products"/>
-        <page to="backend/land_parcels#list_gradings"/>
+        <page to="backend/land_parcels#list_inspections"/>
         <page to="backend/land_parcels#list_groups"/>
         <page to="backend/land_parcels#list_readings"/>
         <page to="backend/land_parcels#list_intervention_product_parameters"/>
@@ -1421,7 +1410,7 @@
         <page to="backend/settlements#list_carried_linkages"/>
         <page to="backend/settlements#list_carrier_linkages"/>
         <page to="backend/settlements#list_contained_products"/>
-        <page to="backend/settlements#list_gradings"/>
+        <page to="backend/settlements#list_inspections"/>
         <page to="backend/settlements#list_groups"/>
         <page to="backend/settlements#list_readings"/>
         <page to="backend/settlements#list_intervention_product_parameters"/>

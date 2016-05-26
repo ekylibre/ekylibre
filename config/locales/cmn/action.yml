@@ -116,8 +116,6 @@ cmn:
       index: "目录"
       new: "新目录"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/crumbs:
       index: "屑"
     backend/cultivable_zones:
@@ -234,11 +232,6 @@ cmn:
       # index: "Georeadings"
       new: "新georeading"
       # show: "Georeading: %{name}"
-    backend/grading_quality_criteria:
-      # edit: "Edit grading quality criterion: %{name}"
-      # index: "Grading quality criteria"
-      # new: "New grading quality criterion"
-      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -272,6 +265,11 @@ cmn:
       index: "收款"
       new: "新的收款"
       # show: "Incoming payment %{number} of %{entity}"
+    backend/inspections:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       index: "干预"
@@ -387,11 +385,6 @@ cmn:
       index: "处方"
       new: "新的处方"
       # show: "Prescription: %{reference_number}"
-    backend/product_gradings:
-      # edit: "Edit product grading\_: %{number}"
-      # index: "Product gradings"
-      # new: "New product grading"
-      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "产品组"
@@ -651,6 +644,9 @@ cmn:
     add_fax: "添加传真"
     add_filter: "添加过滤器"
     # add_grading_check: "Add grading check"
+    # add_inspection_calibration_nature: "Add inspection calibration nature"
+    # add_inspection_calibration_scale: "Add inspection calibration scale"
+    # add_inspection_point_nature: "Add inspection point nature"
     add_item: "新增项目"
     add_linestring: "添加线串"
     add_mail: "添加邮政ADRESS"
@@ -1012,6 +1008,7 @@ cmn:
     last_entities: "最后实体"
     last_events: "上次事件"
     last_incoming_parcels: "最后进来的包裹"
+    # last_inspection: "Last inspection"
     last_intervention: "上次干预"
     last_issue: "最后一个问题"
     last_issues: "最后的问题"
@@ -1050,6 +1047,7 @@ cmn:
     # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "标记为已读"
     mark_as_read: "标记为已读"
+    # marketable_net_mass: "Marketable net mass"
     # max_level: "max level"
     maximal_temperature: "最高温度"
     # measurement_tools: "measurement tool, for calculations of distances and areas."
@@ -1123,6 +1121,7 @@ cmn:
     none: "无"
     normal: "正常"
     not_delivered: "没送到"
+    # not_ready: "Not ready"
     not_received: "没收到"
     now: "现在"
     number: "数"
@@ -1219,6 +1218,8 @@ cmn:
     raw_margin: "原始保证金"
     reading_tasks: "阅读任务"
     readings: "阅读"
+    # ready: "Ready"
+    # ready_to_harvest: "Ready to harvest"
     received: "收到"
     recent_events: "最近发生的事件"
     # reference_cap_clusters: "Islets reference CAP"
@@ -1304,6 +1305,7 @@ cmn:
     stewardship: "管家"
     stock: "股票"
     stock_container_map: "股票地图"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     # stock_of_x: "Stock of %{x}"
     stocks: "股票"
     stop: "停止"
@@ -1463,6 +1465,9 @@ cmn:
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
+    x_inspections:
+      # one: "%{count} inspection"
+      # other: "%{count} inspections"
     x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"

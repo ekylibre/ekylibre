@@ -103,12 +103,12 @@ module Backend
     end
 
     # Lists groups of the current product
-    list(:gradings, model: :product_gradings, conditions: { product_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
+    list(:inspections, conditions: { product_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
       t.column :number, url: true
       t.column :position
       t.column :sampled_at
-      t.column :item_count
-      t.column :net_mass, datatype: :measure
+      # t.column :item_count
+      # t.column :net_mass, datatype: :measure
     end
 
     # Lists groups of the current product

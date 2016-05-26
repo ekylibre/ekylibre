@@ -116,8 +116,6 @@ ita:
       index: "cataloghi"
       new: "Nuovo catalogo"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/crumbs:
       index: "briciole"
     backend/cultivable_zones:
@@ -234,11 +232,6 @@ ita:
       # index: "Georeadings"
       new: "Nuovo georeading"
       # show: "Georeading: %{name}"
-    backend/grading_quality_criteria:
-      # edit: "Edit grading quality criterion: %{name}"
-      # index: "Grading quality criteria"
-      # new: "New grading quality criterion"
-      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -272,6 +265,11 @@ ita:
       index: "pagamenti in entrata"
       new: "Nuovo pagamento in entrata"
       # show: "Incoming payment %{number} of %{entity}"
+    backend/inspections:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       index: "interventi"
@@ -387,11 +385,6 @@ ita:
       index: "prescrizioni"
       new: "nuova prescrizione"
       # show: "Prescription: %{reference_number}"
-    backend/product_gradings:
-      # edit: "Edit product grading\_: %{number}"
-      # index: "Product gradings"
-      # new: "New product grading"
-      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "gruppi di prodotti"
@@ -717,6 +710,9 @@ ita:
     add_fax: "Aggiungere fax"
     add_filter: "Aggiungi filtro"
     # add_grading_check: "Add grading check"
+    # add_inspection_calibration_nature: "Add inspection calibration nature"
+    # add_inspection_calibration_scale: "Add inspection calibration scale"
+    # add_inspection_point_nature: "Add inspection point nature"
     add_item: "Aggiungi articolo"
     add_linestring: "Aggiungere stringa lineare"
     add_mail: "Aggiungere indirizzo postale"
@@ -1078,6 +1074,7 @@ ita:
     last_entities: "ultimi entità"
     last_events: "ultimi eventi"
     last_incoming_parcels: "Ultimi pacchi in arrivo"
+    # last_inspection: "Last inspection"
     last_intervention: "Ultimo intervento"
     last_issue: "Ultimo numero"
     last_issues: "ultimi problemi"
@@ -1116,6 +1113,7 @@ ita:
     # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "Segna tutti come letti"
     mark_as_read: "segna come letto"
+    # marketable_net_mass: "Marketable net mass"
     # max_level: "max level"
     maximal_temperature: "temperatura massima"
     # measurement_tools: "measurement tool, for calculations of distances and areas."
@@ -1189,6 +1187,7 @@ ita:
     none: "Nessuna"
     normal: "Normale"
     not_delivered: "Non consegnato"
+    # not_ready: "Not ready"
     not_received: "Non ricevuto"
     now: "Adesso"
     number: "Numero"
@@ -1285,6 +1284,8 @@ ita:
     raw_margin: "margine di Raw"
     reading_tasks: "compiti di lettura"
     readings: "letture"
+    # ready: "Ready"
+    # ready_to_harvest: "Ready to harvest"
     received: "ricevuto"
     recent_events: "Eventi recenti"
     # reference_cap_clusters: "Islets reference CAP"
@@ -1370,6 +1371,7 @@ ita:
     stewardship: "amministrazione"
     stock: "Azione"
     stock_container_map: "della mappa"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     # stock_of_x: "Stock of %{x}"
     stocks: "riserve"
     # stop: "Stop"
@@ -1529,6 +1531,9 @@ ita:
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
+    x_inspections:
+      # one: "%{count} inspection"
+      # other: "%{count} inspections"
     x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"

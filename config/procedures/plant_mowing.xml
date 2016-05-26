@@ -2,26 +2,27 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_mowing" categories="harvesting" actions="harvest">
     <parameters>
-      <tool name="tractor" filter="is equipment and can tow(mower)"/>
-      <doer name="mower_driver" filter="can drive(tractor)"/>
-      <tool name="mower" filter="can mow"/>
-      <target name="cultivation" filter="is plant">
+      <target name="cultivation" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?">
           <compute expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)" if="VARIANT?" to="population"/>
         </attribute>
       </target>
-      <output name="straw" filter="is grass and derives from plant">
+      <output name="straw" filter="is grass and derives from plant" cardinality="*">
         <attribute name="new_name"/><!--  value="'{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})'" -->
+        <handler name="population"/>
         <handler indicator="net_mass" unit="ton"
-                 backward="POPULATION * PRODUCT..net_mass(ton)"
-                 forward="VALUE / PRODUCT..net_mass(ton)"/>
+                 backward="POPULATION * VARIANT.net_mass(ton)"
+                 forward="VALUE / VARIANT.net_mass(ton)"/>
         <handler indicator="mass_area_density" unit="quintal_per_hectare"
-                 backward="(POPULATION * PRODUCT..net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(quintal)"/>
+                 backward="(POPULATION * VARIANT.net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)"
+                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / VARIANT.net_mass(quintal)"/>
         <handler name="mass_area_density_in_ton_per_hectare" indicator="mass_area_density" unit="ton_per_hectare"
-                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum(cultivation, :net_surface_area, hectare)"
-                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / PRODUCT..net_mass(ton)"/>
+                 backward="(POPULATION * VARIANT.net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)"
+                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / VARIANT.net_mass(ton)"/>
       </output>
+      <tool name="tractor" filter="is equipment and (can tow(mower) or can mow)" cardinality="*"/>
+      <tool name="mower" filter="can mow" cardinality="*"/>
+      <doer name="mower_driver" filter="can drive(tractor)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

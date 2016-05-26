@@ -5,14 +5,15 @@
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="water" filter="is water">
+      <input name="water" filter="is water" cardinality="*">
         <handler name="population"/>
+        <handler indicator="net_volume" unit="liter"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
+                 backward="POPULATION * PRODUCT..net_volume(liter)"
+                 forward="VALUE / PRODUCT..net_volume(liter)"/>
       </input>
-      <input name="plastic_sheet" filter="can cover(plant)" cardinality="*">
-        <handler name="population"/>
-      </input>
-      <tool name="steam_engine" filter="can store_liquid and can kill(plant)"/>
-      <doer name="worker" filter="is worker"/>
+      <tool name="steam_engine" filter="can store_liquid and can kill(plant)" cardinality="*"/>
+      <doer name="worker" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

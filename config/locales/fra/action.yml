@@ -128,8 +128,6 @@ fra:
       index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/cells/stewardship_cells:  #?
       show: "Assistant: %{name}" #?
     backend/contacts:  #?
@@ -268,11 +266,11 @@ fra:
       index: "Relevés topographiques"
       new: "Nouveau relevé topographique"
       show: "Relevé topographique\_: %{name}"
-    backend/grading_quality_criteria:
-      edit: "Modifier le critère qualité d’agréage\_: %{name}"
-      index: "Critères qualité d’agréage"
-      new: "Nouveau critère qualité d’agréage"
-      show: "Critère qualité d’agréage\_: %{name}"
+    backend/grading_quality_criteria:  #?
+      edit: "Modifier le critère qualité d’agréage\_: %{name}" #?
+      index: "Critères qualité d’agréage" #?
+      new: "Nouveau critère qualité d’agréage" #?
+      show: "Critère qualité d’agréage\_: %{name}" #?
     backend/guide_analyses:
       show: "Analyse N°%{execution_number} du %{guide}"
     backend/guides:
@@ -314,6 +312,11 @@ fra:
       index: "Encaissements"
       new: "Nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
+    backend/inspections:
+      edit: "Modifier l’agréage\_: %{number}"
+      index: "Agréages"
+      new: "Nouvel agréage"
+      show: "Agréage\_: %{number}"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       index: "Interventions"
@@ -466,11 +469,6 @@ fra:
       index: "Prescriptions"
       new: "Nouvelle prescription"
       show: "Prescription\_: %{reference_number}"
-    backend/product_gradings:
-      edit: "Modifier l’agréage\_: %{number}"
-      index: "Agréages"
-      new: "Nouvel agréage"
-      show: "Agréage\_: %{number}"
     backend/product_groups:
       edit: "Modifier le groupe\_: %{name}"
       index: "Groupes de produits"
@@ -789,6 +787,9 @@ fra:
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
     add_grading_check: "Ajouter un critère d'agréage"
+    add_inspection_calibration_nature: "Ajouter un intervalle du calibre"
+    add_inspection_calibration_scale: "Ajouter une échelle de calibre"
+    add_inspection_point_nature: "Ajouter un critère de qualité"
     add_item: "Ajouter un élément"
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
@@ -1300,6 +1301,7 @@ fra:
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
     last_incoming_parcels: "Futurs colis à réceptionner"
+    last_inspection: "Dernier agréage"
     last_intervention: "Dernière intervention"
     last_issue: "Dernier incident"
     last_issues: "Derniers incidents"
@@ -1365,8 +1367,9 @@ fra:
     mark_all_as_read: "Tout marquer comme lu"
     mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
+    marketable_net_mass: "Masse nette commercialisable"
     mass: "Masse" #?
-    # max_level: "max level"
+    max_level: "Niveau maximum"
     maximal_temperature: "Température maximale"
     measure_options: "Indicateur de type mesure" #?
     # measurement_tools: "measurement tool, for calculations of distances and areas."
@@ -1381,7 +1384,7 @@ fra:
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
-    # min_level: "level min"
+    min_level: "Niveau minimum"
     minimal_temperature: "Température minimale"
     # missing: "Missing"
     missing_attributes: "Des champs sont manquants"
@@ -1481,6 +1484,7 @@ fra:
     not_delivered: "Non délivré"
     not_finishes: "Ne termine pas par" #?
     not_is: "N’est pas" #?
+    not_ready: "Pas prêt(e)"
     not_received: "Non reçu"
     now: "Maintenant"
     number: "Numéro"
@@ -1488,7 +1492,7 @@ fra:
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_options: "Options de numérotations"
     numbers: "Numéros"
-    # ok: "OK"
+    ok: "OK"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
     open_a_campaign: "Ouvrir une campagne de production"
@@ -1513,7 +1517,7 @@ fra:
       undelivered: "Non délivrés" #?
       unparted: "Non affectés" #?
       waiting: "À décaisser plus tard" #?
-    # pacage_number: "No. GRAZING"
+    pacage_number: "No. PACAGE"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1629,6 +1633,8 @@ fra:
     raw_margin: "Marge brute"
     reading_tasks: "Relevés d’indicateur"
     readings: "Relevés d’indicateur"
+    ready: "Prêt(e)"
+    ready_to_harvest: "Prêt(e) à être récolté(e)"
     received: "Reçue"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
@@ -1785,6 +1791,7 @@ fra:
     stewardship: "Assistant"
     stock: "Stock"
     stock_container_map: "Carte des lieux de stockage"
+    stock_in_ground_by_calibres: "Stocks en terre par calibres"
     stock_max: "Stock maximum" #?
     stock_min: "Stock minimum" #?
     stock_of_x: "Stock de %{x}"
@@ -1870,7 +1877,7 @@ fra:
     total_pretax_revenues: "Revenus (HT)"
     total_quantity: "Quantité totale"
     total_unpaid_amount: "Montant total impayé"
-    totals: "Totaux (pièces validées et brouillard)"
+    totals: "Totaux"
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"
@@ -1944,7 +1951,7 @@ fra:
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
-    # variety: "Variety"
+    variety: "Variété"
     vat: "Taxe à payer" #?
     vat_acquisitions: "Acquisitions intracommunautaires" #?
     vat_amount: "Taxe due" #?
@@ -1999,10 +2006,6 @@ fra:
       one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
       zero: " Aucun événement de type %{nature}"
-    x_gradings:  #?
-      one: "%{count} agréage" #?
-      other: "%{count} agréages" #?
-      zero: "Aucun agréage" #?
     x_has_been_cleared: "%{x} a été effacé (anciennement %{a})"
     x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}"
     x_has_been_updated_to_a: "%{x} a été mis à jour avec %{a}"
@@ -2015,6 +2018,9 @@ fra:
     x_incoming_payments_to_deposit:
       one: "%{count} encaissement à déposer"
       other: "%{count} encaissements à déposer"
+    x_inspections:
+      one: "%{count} agréage"
+      other: "%{count} agréages"
     x_intervention_product_parameters:
       one: "%{count} intervention"
       other: "%{count} interventions"
@@ -2353,7 +2359,7 @@ fra:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
-    backend/activity_grading_checks: "%{activity_name} - %{quality_criterion_name}" #?
+    backend/activity_inspection_point_natures: "%{activity_name} - %{quality_criterion_name}" #?
     backend/activity_productions: "%{activity_name} %{support_name} n°%{rank_number}"
     backend/animals: "%{name} ‒ %{work_number}"
     backend/campaigns: "%{name}"

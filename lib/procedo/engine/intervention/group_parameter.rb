@@ -38,6 +38,19 @@ module Procedo
           hash
         end
 
+        def handlers_states
+          hash = {}
+          each_member do |parameter|
+            param_name = parameter.param_name
+            next unless parameter.respond_to? :handlers_states
+            states = parameter.handlers_states
+            next if states.empty?
+            hash[param_name] ||= {}
+            hash[param_name][parameter.id.to_s] = states
+          end
+          hash
+        end
+
         def each_member(&_block)
           @members.each do |_reflection, children|
             children.each do |_id, member|

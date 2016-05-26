@@ -13,6 +13,7 @@
     this.update()
 
 
+
   $.widget "ui.mapeditor",
     options:
       box:
@@ -36,6 +37,7 @@
         fillOpacity: 0
       defaultLabel: 'Unnamed'
       defaultLevelLabel: 'Level'
+      allowAttributesPopup: false
       editStyle:
         weight: 2
         color: "#33A"
@@ -47,6 +49,7 @@
             edit:
               color: "#A40"
               popup: false
+            reactiveMeasure: true
           draw:
             marker: false
             polyline: false
@@ -54,7 +57,8 @@
             circle: false
             polygon:
               allowIntersection: false
-              showArea: true
+              showArea: false
+            reactiveMeasure: true
         zoom:
           position: "topleft"
           zoomInText: ""
@@ -65,16 +69,6 @@
           position: "bottomright"
           imperial: false
           maxWidth: 200
-        measure:
-          show :false
-          position: 'bottomleft'
-          primaryLengthUnit: 'meters',
-          secondaryLengthUnit: 'kilometers'
-          primaryAreaUnit: 'hectares',
-          secondaryAreaUnit: undefined
-          activeColor: '#ABE67E'
-          completedColor: '#C8F2BE'
-          localization: 'en'
         fullscreen:
           position: 'topleft'
           title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
@@ -116,6 +110,12 @@
       widget = this
 
       this.counter = 1
+
+      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
+      @ghostLabelCluster.addTo @map
+
+      @ghostLayerLabelCluster = L.ghostLabelCluster(type: 'hidden')
+      @ghostLayerLabelCluster.addTo @map
 
       this.map.on "draw:created", (e) =>
         #Attempt to add a geojson feature
@@ -282,7 +282,7 @@
       popup += "<input class='updateAttributesInPopup' type='button' value='ok'/>"
       popup += "</div>"
 
-      layer.bindPopup popup, keepInView: true, maxWidth: 600
+      layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
 
     colorize: (level) ->
       #levels rane is set to [-3,3]
@@ -342,18 +342,30 @@
         this.map.removeLayer(this.backgroundLayer)
       if this.options.back?
         if this.options.back.constructor.name is "Array"
-          baseLayers = {}
-          for layer, index in @options.back
-            opts = {}
-            opts['attribution'] = layer.attribution if layer.attribution?
-            opts['minZoom'] = layer.minZoom if layer.minZoom?
-            opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
-            opts['subdomains'] = layer.subdomains if layer.subdomains?
-            opts['tms'] = true if layer.tms
 
-            backgroundLayer = L.tileLayer(layer.url, opts)
-            baseLayers[layer.name] = backgroundLayer
-            @map.addLayer(backgroundLayer) if layer.byDefault
+          if @options.back.length > 0
+            baseLayers = {}
+            for layer, index in @options.back
+              opts = {}
+              opts['attribution'] = layer.attribution if layer.attribution?
+              opts['minZoom'] = layer.minZoom if layer.minZoom?
+              opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+              opts['subdomains'] = layer.subdomains if layer.subdomains?
+              opts['tms'] = true if layer.tms
+
+              backgroundLayer = L.tileLayer(layer.url, opts)
+              baseLayers[layer.name] = backgroundLayer
+              @map.addLayer(backgroundLayer) if layer.byDefault
+
+          else
+            # no backgrounds, set defaults
+            @options.back = ['OpenStreetMap.HOT',"OpenStreetMap.Mapnik", "Thunderforest.Landscape", "Esri.WorldImagery"]
+
+            baseLayers = {}
+            for layer, index in @options.back
+              backgroundLayer = L.tileLayer.provider(layer)
+              baseLayers[layer] = backgroundLayer
+              @map.addLayer(backgroundLayer) if index == 0
 
           @layerSelector = new L.Control.Layers(baseLayers)
           @map.addControl  @layerSelector
@@ -390,10 +402,9 @@
           this.ghost = L.geoJson(this.options.ghost, {
             onEachFeature: (feature, layer) =>
 
-              label = new L.Label({direction: 'bottom', className: 'leaflet-ghost-label', offset: [0, -50], opacity: 0.6})
-              label.setContent(feature.properties.name || feature.properties.id)
-              label.setLatLng(layer.getBounds().getCenter())
-              this.map.showLabel(label)
+              label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: true).setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
+              @ghostLayerLabelCluster.bind label, layer
+
           })
         else
           this.ghost = L.GeoJSON.geometryToLayer(this.options.ghost)
@@ -414,11 +425,14 @@
         this.counter += 1
         feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
 
-        layer.bindLabel(feature.properties.name || feature.properties.id, {direction: 'auto', className: 'leaflet-reference-label'})
+        label = new L.GhostLabel(className: 'leaflet-ghost-label').setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
+
+        @ghostLabelCluster.bind label, layer
+
 
       $(this.element).trigger('mapeditor:feature_add', feature)
 
-      if feature.properties?
+      if feature.properties? and !!this.options.allowAttributesPopup
         this.popupize(feature, layer)
 
     featureStyling: (feature) ->
@@ -434,6 +448,7 @@
         this.map.removeLayer this.edition
       if this.options.edit?
         if this.options.useFeatures
+
           this.edition = L.geoJson(this.options.edit, {
             onEachFeature: (feature, layer) =>
               #nested function cause geojson doesn't seem to pass binding context
@@ -519,7 +534,6 @@
         this.map.fitBounds(view.bounds)
       else
         console.log "How to set view with #{view}?"
-        console.log view
       this
 
     _setDefaultView: ->
@@ -547,9 +561,6 @@
       unless this.options.controls.scale is false
         this.controls.scale = new L.Control.Scale(this.options.controls.scale)
         this.map.addControl this.controls.scale
-      unless this.options.controls.measure.show is false
-        this.controls.measure = new L.Control.Measure(this.options.controls.measure)
-        this.map.addControl this.controls.measure
       unless this.options.controls.importers.gml is false and this.options.controls.importers.geojson is false and this.options.controls.importers.kml is false
 
         this.controls.importers_ctrl = new L.Control.EasyButton "<i class='leaflet-importer-ctrl' title='#{this.options.controls.importers.buttonTitle}'></i>", (btn, map) =>

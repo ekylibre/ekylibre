@@ -53,15 +53,16 @@ module Backend
       end
       # raise ArgumentError.new("Reflection #{reflection.name} must be a has_many") if reflection.macro != :has_many
       item = association.to_s.singularize
+      partial = options[:partial] || item + '_fields'
       options[:locals] ||= {}
       html = simple_fields_for(association) do |nested|
-        @template.render(item + '_fields', options[:locals].merge(f: nested))
+        @template.render(partial, options[:locals].merge(f: nested))
       end
       html_options = { id: "#{association}-field", class: "nested-#{association} nested-association" }
       if reflection.macro == :has_many
         unless options[:new].is_a?(FalseClass)
           html << @template.content_tag(:div, class: 'links') do
-            @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}")
+            @template.link_to_add_association(options[:button_label] || "labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, partial: partial, render_options: { locals: options[:locals] }, class: "nested-add add-#{item}")
           end
         end
         if options[:minimum]
@@ -345,7 +346,7 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.by_default.to_json_object
+      marker[:background] ||= MapBackground.availables.collect(&:to_json_object)
       input(attribute_name, options.merge(input_html: { data: { map_marker: marker } }))
     end
 

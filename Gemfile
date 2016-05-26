@@ -174,6 +174,7 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'teaspoon-jasmine'
 end
 
 group :test do

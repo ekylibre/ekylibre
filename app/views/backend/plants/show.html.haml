@@ -2,28 +2,40 @@
   = t.edit resource
   -# t.destroy
   -#= t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
-  -#= t.new(params: {controller: :product_gradings, product_id: resource.id}, tool: 'eyedropper')
+  -#= t.new(params: {controller: :inspections, product_id: resource.id}, tool: 'eyedropper')
 
 = main_informations attachment: true do
   = render 'picture'
   = infos do
     = resource_info(:work_number, important: true)
-    = resource_info(:population, important: true) do |population|
-      = resource.population.round(3).l + " " + resource.unit_name
+    = resource_info(:net_surface_area, important: true) do |population|
+      = resource.net_surface_area.round(3).l
     = resource_info(:variety, important: true, nomenclature: true)
     = resource_info(:born_at, important: true)
     - if resource.born_at && resource.age >= 1.day
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 2)
-    - if resource.gradings.any? && resource.gradings.reorder(:sampled_at).last.product_stock_in_ground
+    -# stock = resource.inspections.reorder(:sampled_at).last.product_stock_in_ground
+    -# if resource.inspections.any? && stock
       .med-info
         %span.title= Product.human_attribute_name(:product_stock_in_ground)
         %span.value
           %i.picto{class: "picto-grain"}
-          = resource.gradings.reorder(:sampled_at).last.product_stock_in_ground.round(3).l
+          = stock.round(3).l
+      - if resource.population && resource.population.to_d != 0.0
+        .med-info
+          %span.title= Product.human_attribute_name(:provisionnal_yield)
+          %span.value
+            %i.picto{class: "picto-grain"}
+            - unit = stock.unit + "_per_" + resource.net_surface_area.unit
+            = (stock.to_d / resource.population).in(unit).round(3).l
     = resource_info(:status, important: true) do |status|
       = lights(status)
+    .med-info
+      %span.title= :ready_to_harvest.tl
+      %span.value
+        %i.picto{class: "picto-#{resource.ready_to_harvest? ? :done : :clear}"}
     = resource_info :description
     = resource_info :container do |container|
       %i.picto{class: "zone"}
@@ -42,7 +54,36 @@
       = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
     = cobble_list(:issues)
 
-  - c.cobble(:gradings, title: :x_gradings.tl(count: resource.gradings.count)) do
-    = cobble_toolbar do |t|
-      = t.new(params: {controller: :product_gradings, product_id: resource.id})
-    = cobble_list(:gradings)
+  -if resource.inspections.any?
+    - inspections = resource.inspections.reorder(:sampled_at)
+    - activity = inspections.first.activity
+    - activity.inspection_calibration_scales.each do |scale|
+      :ruby
+        # build categories
+        categories = []
+
+        series = []
+
+        curves = {}
+        inspections.each do |i|
+          categories << i.position.to_s
+          # for each calibre
+          scale.natures.reorder(:minimal_value).each do |nature|
+            calibration = i.calibrations.find_by(nature: nature)
+            curves[nature] ||= []
+            curves[nature] << (calibration ? calibration.total_net_mass : 0).to_f
+          end
+        end
+        curves.each do |nature, data|
+          series << { name: nature.name, data: data}
+        end
+      - if series.any?
+        - c.cobble(:stock_in_ground_by_calibres) do
+          = column_highcharts(series, y_axis: {title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+
+
+  - c.cobble(:inspections, title: :x_inspections.tl(count: resource.inspections.count)) do
+    -# FIXME Add activity in URL to get link working
+    -# = cobble_toolbar do |t|
+      = t.new(params: { controller: :inspections, product_id: resource.id })
+    = cobble_list(:inspections)

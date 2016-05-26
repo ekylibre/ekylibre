@@ -116,8 +116,6 @@ jpn:
       index: "カタログ"
       new: "新カタログ"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/crumbs:
       index: "パン粉"
     backend/cultivable_zones:
@@ -234,11 +232,6 @@ jpn:
       # index: "Georeadings"
       new: "新georeading"
       # show: "Georeading: %{name}"
-    backend/grading_quality_criteria:
-      # edit: "Edit grading quality criterion: %{name}"
-      # index: "Grading quality criteria"
-      # new: "New grading quality criterion"
-      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -272,6 +265,11 @@ jpn:
       index: "入金"
       new: "新入金"
       # show: "Incoming payment %{number} of %{entity}"
+    backend/inspections:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       index: "介入"
@@ -387,11 +385,6 @@ jpn:
       index: "処方箋"
       new: "新しい処方箋"
       # show: "Prescription: %{reference_number}"
-    backend/product_gradings:
-      # edit: "Edit product grading\_: %{number}"
-      # index: "Product gradings"
-      # new: "New product grading"
-      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "商品のグループ"
@@ -717,6 +710,9 @@ jpn:
     add_fax: "ファックスを追加"
     add_filter: "フィルタを追加します。"
     # add_grading_check: "Add grading check"
+    # add_inspection_calibration_nature: "Add inspection calibration nature"
+    # add_inspection_calibration_scale: "Add inspection calibration scale"
+    # add_inspection_point_nature: "Add inspection point nature"
     add_item: "アイテムを追加"
     add_linestring: "ラインストリングを追加します。"
     add_mail: "郵便アドレスを追加します。"
@@ -1081,6 +1077,7 @@ jpn:
     last_entities: "最後のエンティティ"
     last_events: "最後のイベント"
     last_incoming_parcels: "最終着信小包"
+    # last_inspection: "Last inspection"
     last_intervention: "最後の介入"
     last_issue: "最後の問題"
     last_issues: "最後の問題"
@@ -1119,6 +1116,7 @@ jpn:
     # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "すべての読み取りとしてマーク"
     mark_as_read: "既読にする"
+    # marketable_net_mass: "Marketable net mass"
     # max_level: "max level"
     maximal_temperature: "最高温度"
     # measurement_tools: "measurement tool, for calculations of distances and areas."
@@ -1196,6 +1194,7 @@ jpn:
     none: "なし"
     normal: "ノーマル"
     not_delivered: "配信されません"
+    # not_ready: "Not ready"
     not_received: "受信していない"
     now: "今"
     number: "数"
@@ -1292,6 +1291,8 @@ jpn:
     raw_margin: "生のマージン"
     reading_tasks: "読書のタスク"
     readings: "音読み"
+    # ready: "Ready"
+    # ready_to_harvest: "Ready to harvest"
     received: "受け"
     recent_events: "最近のイベント"
     # reference_cap_clusters: "Islets reference CAP"
@@ -1377,6 +1378,7 @@ jpn:
     stewardship: "管理"
     stock: "株式"
     stock_container_map: "ストックマップ"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     # stock_of_x: "Stock of %{x}"
     stocks: "ストック"
     stop: "やめる"
@@ -1537,6 +1539,9 @@ jpn:
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
+    x_inspections:
+      # one: "%{count} inspection"
+      # other: "%{count} inspections"
     x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"

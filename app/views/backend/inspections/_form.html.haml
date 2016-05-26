@@ -1,0 +1,50 @@
+= f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
+= field_set do
+  = f.input :sampled_at
+  = f.referenced_association :activity, as: :hidden
+  = f.referenced_association :product, source: :plants
+  = f.input(:implanter_application_width, wrapper: :append) do
+    = f.input_field(:implanter_application_width)
+    %span.add-on= Nomen::Unit[:meter].l
+  = f.input :implanter_rows_number
+  = f.input(:sampling_distance, wrapper: :append) do
+    = f.input_field(:sampling_distance)
+    %span.add-on= Nomen::Unit[:meter].l
+  = f.input(:product_net_surface_area, wrapper: :append) do
+    = f.input_field(:product_net_surface_area_value)
+    = f.input_field(:product_net_surface_area_unit, collection: Nomen::Unit.where(dimension: :surface_area).selection)
+  = f.input :comment, as: :text
+
+- activity = f.object.activity
+- if activity
+
+  - if activity.inspection_point_natures.any? || activity.inspection_calibration_scales.any?
+    = field_set(:data) do
+      %table
+        %thead
+          %tr
+            %th= InspectionPoint.human_attribute_name(:name)
+            - if f.object.measure_grading_items_count
+              %th= InspectionPoint.human_attribute_name(:items_count)
+            - if f.object.measure_grading_net_mass
+              %th= InspectionPoint.human_attribute_name(:net_mass_value)
+            - if f.object.measure_grading_sizes
+              %th= InspectionPoint.human_attribute_name(:minimal_size_value)
+              %th= InspectionPoint.human_attribute_name(:maximal_size_value)
+        %tbody
+          - activity.inspection_calibration_scales.each do |scale|
+            - calibrations = []
+            - scale.natures.each do |nature|
+              - calibrations << f.object.calibrations.find_or_initialize_by(nature_id: nature.id)
+            %tr
+              %th{ colspan: 5 }= scale.size_indicator.human_name
+            = f.simple_fields_for :calibrations, calibrations do |cf|
+              = render 'calibration_fields', f: cf
+          - if activity.inspection_point_natures.any?
+            - points = []
+            - activity.inspection_point_natures.order('category, name').each do |nature|
+              - points << f.object.points.find_or_initialize_by(nature_id: nature.id)
+            %tr
+              %th{ colspan: 5 }= InspectionPoint.model_name.human
+            = f.simple_fields_for :points, points do |cf|
+              = render 'point_fields', f: cf

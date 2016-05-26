@@ -54,6 +54,7 @@ class CultivableZone < Ekylibre::Record::Base
 
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
   scope :of_campaign, ->(campaign) { where(id: ActivityProduction.select(:cultivable_zone_id).of_campaign(campaign)) }
+  scope :of_production_system, ->(production_system) { where('production_system_name IS NULL OR production_system_name = ? OR production_system_name = ?', '', production_system) }
 
   before_validation do
     self.uuid ||= UUIDTools::UUID.random_create.to_s

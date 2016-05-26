@@ -162,7 +162,7 @@ eng:
     working_area: "Working area"
     #~ working_duration: "Working duration"
     #~ working_zone: "Working zone"
-    # working_zone_area: "Working zone area"
+    #~ working_zone_area: "Working zone area"
   aggregators:
     #~ activity_cost: "Activity cost"
     #~ animal_husbandry_register: "Animal husbandry register"

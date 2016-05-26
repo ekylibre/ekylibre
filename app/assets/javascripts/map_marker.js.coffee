@@ -88,6 +88,22 @@
         if @options.background.constructor.name is "Object"
           @backgroundLayer = L.tileLayer(@options.background.url)
           @backgroundLayer.addTo @map
+        if this.options.background.constructor.name is "Array"
+          baseLayers = {}
+          for layer, index in @options.background
+            opts = {}
+            opts['attribution'] = layer.attribution if layer.attribution?
+            opts['minZoom'] = layer.minZoom if layer.minZoom?
+            opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+            opts['subdomains'] = layer.subdomains if layer.subdomains?
+            opts['tms'] = true if layer.tms
+
+            backgroundLayer = L.tileLayer(layer.url, opts)
+            baseLayers[layer.name] = backgroundLayer
+            @map.addLayer(backgroundLayer) if layer.byDefault
+
+          @layerSelector = new L.Control.Layers(baseLayers)
+          @map.addControl  @layerSelector
         else
           console.log "How to set background with #{@options.background}?"
           console.log @options.background

@@ -1,14 +1,5 @@
 eng:
   actions:
-    api/v1/crumbs:
-      # index: "Crumbs"
-    api/v1/issues:
-      # index: "Issues"
-    api/v1/plant_density_abaci:
-      # index: "Plant density abaci"
-      # show: "Plant density abacus: %{name}"
-    api/v1/plants:
-      # index: "Plants"
     authentication/invitations:
       edit: "Accept invitation"
       # new: "New invitation"
@@ -42,6 +33,8 @@ eng:
       # index: "Activity budgets"
       new: "New budget: %{name}"
       show: "Activity budget: %{name}"
+    backend/activity_inspection_point_natures:
+      # autocomplete: "Autocomplete activity inspection point nature: %{name}"
     backend/activity_productions:
       edit: "Edit activity production: %{name}"
       # index: "Activity productions"
@@ -147,78 +140,6 @@ eng:
       index: "Price catalogs"
       new: "New catalog"
       show: "Catalog: %{name}"
-    backend/cells/accountancy_balance_cells:
-      # show: "Accountancy balance cell: %{name}"
-    backend/cells/calendar_cells:
-      # show: "Calendar cell: %{name}"
-    backend/cells/cashes_balance_cells:
-      # show: "Cashes balance cell: %{name}"
-    backend/cells/cashes_balance_evolution_cells:
-      # show: "Cashes balance evolution cell: %{name}"
-    backend/cells/cropping_plan_cells:
-      # show: "Cropping plan cell: %{name}"
-    backend/cells/cropping_plan_on_cultivable_zones_cells:
-      # show: "Cropping plan on cultivable zones cell: %{name}"
-    backend/cells/current_stocks_by_variety_cells:
-      # show: "Current stocks by variety cell: %{name}"
-    backend/cells/elapsed_interventions_times_by_activities_cells:
-      # show: "Elapsed interventions times by activities cell: %{name}"
-    backend/cells/events_cells:
-      # show: "Events cell: %{name}"
-    backend/cells/expenses_by_product_nature_category_cells:
-      # show: "Expenses by product nature category cell: %{name}"
-    backend/cells/guide_evolution_cells:
-      # show: "Guide evolution cell: %{name}"
-    backend/cells/last_analyses_cells:
-      # show: "Last analyses cell: %{name}"
-    backend/cells/last_documents_cells:
-      # show: "Last documents cell: %{name}"
-    backend/cells/last_entities_cells:
-      # show: "Last entities cell: %{name}"
-    backend/cells/last_events_cells:
-      # show: "Last events cell: %{name}"
-    backend/cells/last_incoming_parcels_cells:
-      # show: "Last incoming parcels cell: %{name}"
-    backend/cells/last_intervention_cells:
-      # show: "Last intervention cell: %{name}"
-    backend/cells/last_issues_cells:
-      # show: "Last issues cell: %{name}"
-    backend/cells/last_movements_cells:
-      show: "Last movements cell: %{name}"
-    backend/cells/last_outgoing_parcels_cells:
-      # show: "Last outgoing parcels cell: %{name}"
-    backend/cells/last_products_cells:
-      # show: "Last products cell: %{name}"
-    backend/cells/last_purchases_cells:
-      # show: "Last purchases cell: %{name}"
-    backend/cells/last_sales_cells:
-      # show: "Last sales cell: %{name}"
-    backend/cells/main_settings_cells:
-      # show: "Main settings cell: %{name}"
-    backend/cells/map_cells:
-      # show: "Map cell: %{name}"
-    backend/cells/parts_cells:
-      # show: "Parts cell: %{name}"
-    backend/cells/payable_taxes_cells:
-      # show: "Payable taxes cell: %{name}"
-    backend/cells/quandl_cells:
-      # show: "Quandl cell: %{name}"
-    backend/cells/revenues_by_product_nature_cells:
-      # show: "Revenues by product nature cell: %{name}"
-    backend/cells/rss_cells:
-      # show: "Rss cell: %{name}"
-    backend/cells/settings_statistics_cells:
-      # show: "Settings statistics cell: %{name}"
-    backend/cells/stewardship_cells:
-      # show: "Stewardship cell: %{name}"
-    backend/cells/stock_container_map_cells:
-      # show: "Stock container map cell: %{name}"
-    backend/cells/trade_counts_cells:
-      # show: "Trade counts cell: %{name}"
-    backend/cells/weather_cells:
-      # show: "Weather cell: %{name}"
-    backend/cells/working_sets_stocks_cells:
-      # show: "Working sets stocks cell: %{name}"
     backend/crumbs:
       # convert: "Convert crumb: %{name}"
       index: "Crumbs"
@@ -359,11 +280,6 @@ eng:
     backend/golumns:
       # reset: "Reset golumn: %{name}"
       # show: "Golumn: %{name}"
-    backend/grading_quality_criteria:
-      edit: "Edit grading quality criterion: %{name}"
-      index: "Grading quality criteria"
-      new: "New grading quality criterion"
-      show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -399,6 +315,11 @@ eng:
       index: "Incoming payments"
       new: "New incoming payment"
       show: "Incoming payment %{number} of %{entity}"
+    backend/inspections:
+      edit: "Edit product grading\_: %{number}"
+      index: "Product gradings"
+      new: "New product grading"
+      show: "Product grading\_: %{number}"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
@@ -547,11 +468,6 @@ eng:
       index: "Prescriptions"
       new: "New prescription"
       show: "Prescription: %{reference_number}"
-    backend/product_gradings:
-      edit: "Edit product grading\_: %{number}"
-      index: "Product gradings"
-      new: "New product grading"
-      show: "Product grading\_: %{number}"
     backend/product_groups:
       edit: "Edit group: %{name}"
       index: "Product groups"
@@ -879,6 +795,9 @@ eng:
     add_fax: "Add fax"
     add_filter: "Add filter"
     add_grading_check: "Add grading check"
+    add_inspection_calibration_nature: "Add inspection calibration nature"
+    add_inspection_calibration_scale: "Add inspection calibration scale"
+    add_inspection_point_nature: "Add inspection point nature"
     add_item: "Add item"
     add_linestring: "Add linestring"
     add_mail: "Add postal adress"
@@ -961,6 +880,7 @@ eng:
     calculate: "Calculate" #?
     calculators: "Calculators" #?
     calendar: "Calendar" #?
+    # calibrations: "Calibrations"
     campaign: "Campaign"
     canals: "Canals" #?
     cancel: "Cancel"
@@ -986,9 +906,7 @@ eng:
     centralized_account: "Centralized account %{name}"
     change_password: "Change password"
     chart: "Chart"
-    # charts: "Charts"
     check: "Check"
-    # checks: "Checks"
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -1046,7 +964,7 @@ eng:
     cropping_plan: "Cropping plan" #?
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs" #?
-    cultivable_zone: "Cultivable zone"
+    cultivable_zone: "Cultivable zone" #?
     cultivable_zone_abbreviation: "CZ" #?!
     cultivable_zone_prefix: "cultivable area No." #?!
     cultivable_zones: "arable areas"
@@ -1055,6 +973,7 @@ eng:
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
     custom_fields: "Custom fields"
+    # data: "Data"
     dates: "Select period start date and Period end date" #?
     deals: "Deals"
     debit: "Debit" #?
@@ -1166,7 +1085,7 @@ eng:
     generate_last_journal_entry: "Generate last journal entry"
     geolocation: "Geolocation" #?
     go: "Go" #?
-    gradings: "Gradings"
+    gradings: "Gradings" #?
     grain_yield: "Grain yield"
     gross_profit: "Gross profit"
     group: "Group" #?
@@ -1206,6 +1125,7 @@ eng:
     input_cost: "Input cost"
     input_cost_per_hectare: "Input cost per hectare" #?!
     inputs: "Inputs"
+    # inspections: "Inspections"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
     intervention: "Intervention"
@@ -1244,6 +1164,7 @@ eng:
     last_entities: "Last entities" #?
     last_events: "Last events" #?
     last_incoming_parcels: "Last incoming parcels" #?
+    last_inspection: "Last inspection"
     last_intervention: "Last intervention"
     last_issue: "Last issue"
     last_issues: "Last issues" #?
@@ -1282,6 +1203,7 @@ eng:
     map_editor_explanation: "Question of the map grip" #?!
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
+    marketable_net_mass: "Marketable net mass"
     max_level: "max level" #?!
     maximal_temperature: "Maximal temperature"
     measurement_tools: "measurement tool, for calculations of distances and areas." #?!
@@ -1313,6 +1235,7 @@ eng:
     net_surface_area: "Net surface area"
     new: "New" #?
     new_activity: "new activity"
+    # new_analysis: "New analysis"
     new_animal: "New animal"
     new_attachment: "New attachment"
     new_box: "New box"
@@ -1355,6 +1278,7 @@ eng:
     none: "None"
     normal: "Normal" #?
     not_delivered: "Not delivered" #?
+    not_ready: "Not ready"
     not_received: "Not received" #?
     now: "Now" #?
     number: "Number" #?
@@ -1453,6 +1377,8 @@ eng:
     raw_margin: "Raw margin" #?!
     reading_tasks: "Reading tasks" #?
     readings: "Readings"
+    ready: "Ready"
+    ready_to_harvest: "Ready to harvest"
     received: "Received" #?
     recent_events: "Recent events"
     reference_cap_clusters: "Islets reference CAP" #?!
@@ -1539,6 +1465,7 @@ eng:
     stewardship: "Stewardship"
     stock: "Stock" #?
     stock_container_map: "Stock map" #?
+    stock_in_ground_by_calibres: "Stocks in ground by calibres"
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
     stop: "Stop" #?
@@ -1687,7 +1614,6 @@ eng:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
       zero: "No events %{nature}"
-    # x_gradings: "X gradings"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
@@ -1700,6 +1626,9 @@ eng:
     x_incoming_payments_to_deposit:
       one: "%{count} incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
+    x_inspections:
+      one: "%{count} inspection"
+      other: "%{count} inspections"
     x_intervention_product_parameters:
       one: "%{count} intervention cast"
       other: "%{count} intervention casts"
@@ -1773,6 +1702,7 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
+    # yield: "Yield"
     you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions." #?!
     you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:" #?!
     zones: "Zones"

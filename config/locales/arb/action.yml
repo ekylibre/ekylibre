@@ -122,8 +122,6 @@ arb:
       index: "كتالوجات"
       new: "الكتالوج الجديد"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -293,11 +291,6 @@ arb:
       # index: "Georeadings"
       new: "georeading جديدة"
       # show: "Georeading: %{name}"
-    backend/grading_quality_criteria:
-      # edit: "Edit grading quality criterion: %{name}"
-      # index: "Grading quality criteria"
-      # new: "New grading quality criterion"
-      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -333,6 +326,11 @@ arb:
       index: "الدفعات"
       new: "اضافة دفعة جديدة"
       show: "دفعة رقم%{number} من %{entity}"
+    backend/inspections:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       index: "التدخلات"
@@ -493,11 +491,6 @@ arb:
     backend/product_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
-    backend/product_gradings:
-      # edit: "Edit product grading\_: %{number}"
-      # index: "Product gradings"
-      # new: "New product grading"
-      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "مجموعات المنتجات"
@@ -920,6 +913,9 @@ arb:
     add_fax: "إضافة الفاكس"
     add_filter: "إضافة فلتر"
     # add_grading_check: "Add grading check"
+    # add_inspection_calibration_nature: "Add inspection calibration nature"
+    # add_inspection_calibration_scale: "Add inspection calibration scale"
+    # add_inspection_point_nature: "Add inspection point nature"
     add_item: "إضافة البند"
     add_linestring: "إضافة تنسيقي"
     add_mail: "إضافة عنوان البريدي"
@@ -1424,6 +1420,7 @@ arb:
     last_entities: "مشاركة الكيانات"
     last_events: "مشاركة الأحداث"
     last_incoming_parcels: "مشاركة الطرود الواردة"
+    # last_inspection: "Last inspection"
     last_intervention: "تدخل الماضي"
     last_issue: "المسألة الأخيرة"
     last_issues: "مشاركة القضايا"
@@ -1483,6 +1480,7 @@ arb:
     # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
+    # marketable_net_mass: "Marketable net mass"
     mass: "الوزن" #?
     # max_level: "max level"
     maximal_temperature: "درجة الحرارة القصوى"
@@ -1614,6 +1612,7 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
+    # not_ready: "Not ready"
     not_received: "لم تتلق"
     notifications:  #?
       error: "خطأ" #?
@@ -1770,6 +1769,8 @@ arb:
     raw_margin: "هامش الخام"
     reading_tasks: "مهام القراءة"
     readings: "قراءات"
+    # ready: "Ready"
+    # ready_to_harvest: "Ready to harvest"
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
@@ -1914,6 +1915,7 @@ arb:
     stewardship: "إدارة"
     stock: "مخزون"
     stock_container_map: "خريطة الأسهم"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     stock_max: "الحد الاقصى للاسهم" #?
     stock_min: "الحد الادنى للاسهم" #?
     stock_move_create: "اضافة حركة جديدة للاسهم" #?
@@ -2129,6 +2131,9 @@ arb:
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
+    x_inspections:
+      # one: "%{count} inspection"
+      # other: "%{count} inspections"
     x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"

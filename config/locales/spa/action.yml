@@ -122,8 +122,6 @@ spa:
       index: "Catálogos"
       new: "Nuevo catálogo"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/company:  #?
       about: "A propocito de Ekylibre" #?
       backups: "Salvaguardia" #?
@@ -260,11 +258,6 @@ spa:
       # index: "Georeadings"
       new: "Nueva georeading"
       # show: "Georeading: %{name}"
-    backend/grading_quality_criteria:
-      # edit: "Edit grading quality criterion: %{name}"
-      # index: "Grading quality criteria"
-      # new: "New grading quality criterion"
-      # show: "Grading quality criterion: %{name}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
     backend/guides:
@@ -298,6 +291,11 @@ spa:
       index: "Pagos recibidos"
       new: "Nuevo pagos recibido"
       # show: "Incoming payment %{number} of %{entity}"
+    backend/inspections:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       index: "Intervenciones"
@@ -424,11 +422,6 @@ spa:
       index: "Prescripciones"
       new: "Nueva prescripción"
       # show: "Prescription: %{reference_number}"
-    backend/product_gradings:
-      # edit: "Edit product grading\_: %{number}"
-      # index: "Product gradings"
-      # new: "New product grading"
-      # show: "Product grading\_: %{number}"
     backend/product_groups:
       # edit: "Edit group: %{name}"
       index: "Grupos de productos"
@@ -718,6 +711,9 @@ spa:
     add_fax: "Añadir fax"
     add_filter: "Añadir filtro"
     # add_grading_check: "Add grading check"
+    # add_inspection_calibration_nature: "Add inspection calibration nature"
+    # add_inspection_calibration_scale: "Add inspection calibration scale"
+    # add_inspection_point_nature: "Add inspection point nature"
     add_item: "Añadir artículo"
     add_linestring: "Añadir cadena de líneas"
     add_mail: "Añadir la dirección postal"
@@ -1155,6 +1151,7 @@ spa:
     last_entities: "Últimos entidades"
     last_events: "Últimos eventos"
     last_incoming_parcels: "Últimos paquetes entrantes"
+    # last_inspection: "Last inspection"
     last_intervention: "Última intervención"
     last_issue: "Última edición"
     last_issues: "Últimos temas"
@@ -1207,6 +1204,7 @@ spa:
     # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
+    # marketable_net_mass: "Marketable net mass"
     # max_level: "max level"
     maximal_temperature: "La temperatura máxima"
     # measurement_tools: "measurement tool, for calculations of distances and areas."
@@ -1294,6 +1292,7 @@ spa:
     normal: "Regimen del real normal"
     not_assessable_operations: "Opéraciones no imposnibles" #?
     not_delivered: "No entregado"
+    # not_ready: "Not ready"
     not_received: "No recibido"
     now: "Ahora"
     number: "Número"
@@ -1410,6 +1409,8 @@ spa:
     raw_margin: "Margen en bruto"
     reading_tasks: "Tareas de lectura"
     readings: "Lecturas"
+    # ready: "Ready"
+    # ready_to_harvest: "Ready to harvest"
     received: "Recibido"
     recent_events: "Eventos recientes"
     # reference_cap_clusters: "Islets reference CAP"
@@ -1532,6 +1533,7 @@ spa:
     stewardship: "Administración"
     stock: "Valores"
     stock_container_map: "Foto mapa"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     stock_move_create: "Añadir un movimiento de deposito" #?
     # stock_of_x: "Stock of %{x}"
     stocks: "Cepo"
@@ -1707,6 +1709,9 @@ spa:
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
+    x_inspections:
+      # one: "%{count} inspection"
+      # other: "%{count} inspections"
     x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"
