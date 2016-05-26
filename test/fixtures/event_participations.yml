@@ -511,3 +511,43 @@ event_participations_048:
   state: accepted
   updated_at: 2015-09-17 13:25:40.499742000 Z
   updater_id: 1
+event_participations_049:
+  created_at: 2016-05-26 21:26:07.851965000 Z
+  creator_id: 1
+  event_id: 45
+  id: 55
+  lock_version: 0
+  participant_id: 14
+  state: informative
+  updated_at: 2016-05-26 21:26:07.851965000 Z
+  updater_id: 1
+event_participations_050:
+  created_at: 2016-05-26 21:26:07.853208000 Z
+  creator_id: 1
+  event_id: 45
+  id: 56
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2016-05-26 21:26:07.853208000 Z
+  updater_id: 1
+event_participations_051:
+  created_at: 2016-05-26 21:26:57.774148000 Z
+  creator_id: 1
+  event_id: 46
+  id: 57
+  lock_version: 0
+  participant_id: 14
+  state: informative
+  updated_at: 2016-05-26 21:26:57.774148000 Z
+  updater_id: 1
+event_participations_052:
+  created_at: 2016-05-26 21:26:57.775097000 Z
+  creator_id: 1
+  event_id: 46
+  id: 58
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2016-05-26 21:26:57.775097000 Z
+  updater_id: 1

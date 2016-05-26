@@ -44,7 +44,7 @@
 //= require heatmap
 //= require i18n/translations
 //= require geographiclib
-//= require leaflet
+//= require leaflet.js.erb
 //= require leaflet/draw
 //= require leaflet/fullscreen
 //= require leaflet/providers

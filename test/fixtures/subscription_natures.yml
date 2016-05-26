@@ -33,14 +33,13 @@
 #
 ---
 subscription_natures_001:
-  actual_number: 25
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
+  description: ''
   id: 1
-  lock_version: 0
-  name: Lorem ipsum
-  nature: quantity
-  updated_at: 2014-10-31 17:19:32.000000000 Z
+  lock_version: 1
+  name: Newsletter
+  updated_at: 2016-05-26 21:22:13.707198000 Z
   updater_id: 1
 subscription_natures_002:
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -48,7 +47,6 @@ subscription_natures_002:
   id: 2
   lock_version: 0
   name: Lorem ipsum 2
-  nature: period
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 subscription_natures_003:
@@ -57,6 +55,5 @@ subscription_natures_003:
   id: 3
   lock_version: 0
   name: Not By Quantity
-  nature: period
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1

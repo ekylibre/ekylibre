@@ -16,7 +16,7 @@
     :ruby
       data_product = []
       product = resource.product
-      if product.shape
+      if product && product.shape
         data_product << {name: product.name, shape: product.shape}
       end
     = visualization do |v|
