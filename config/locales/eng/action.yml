@@ -872,7 +872,7 @@ eng:
     budgets: "Budgets" #?
     building: "Building" #?
     building_divisions: "building areas" #?
-    building_divisions_and_parcels: "building areas and plots" #?!
+    building_divisions_and_parcels: "building areas and land parcels" #?!
     buildings: "buildings" #?
     # by_default: "By default"
     by_year: "By year"
@@ -888,9 +888,9 @@ eng:
     cap_clusters: "CAP islands" #?!
     cap_islets: "Cap islets"
     cap_land_parcel_clusters: "CAP islands" #?!
-    cap_land_parcels: "PAC plots"
-    cap_parcel_prefix: "PAC plot No." #?!
-    cap_parcels: "PAC plots" #??
+    cap_land_parcels: "CAP land parcels"
+    cap_parcel_prefix: "CAP land parcel No." #?!
+    cap_parcels: "CAP land parcels" #??
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
