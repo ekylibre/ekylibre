@@ -113,7 +113,7 @@ class Sale < Ekylibre::Record::Base
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).joins(:affair).where('NOT closed') }
+  scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
     state :draft

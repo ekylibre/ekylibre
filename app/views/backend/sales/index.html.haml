@@ -3,9 +3,9 @@
   - sm = Sale.state_machine.states
   - k.multi_choice :state, [:draft, :estimate, :aborted, :refused, :order, :invoice].map{|s| [sm[s].human_name, s] }, label: Sale.human_attribute_name(:state)
   - k.helper :journal_period_crit
-  - k.multi_choice :nature, [:unpaid].map{ |s| [s.tl, s] }
+  - k.choice :all, :unpaid, name: :nature
   - k.helper do
-    - responsible_ids = Sale.all.pluck(:responsible_id).uniq.compact
+    - responsible_ids = Sale.uniq.pluck(:responsible_id)
     %label= Sale.human_attribute_name(:responsible)
     = select_tag(:responsible_id, options_for_select([[]] + Entity.contacts.find(responsible_ids).collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
