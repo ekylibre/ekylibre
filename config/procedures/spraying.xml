@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="spraying" categories="crop_protection" optional-actions="herbicide, fungicide, insecticide, growth_regulator, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent, virucide, desiccation, fireproofing">
+  <procedure name="spraying" categories="crop_protection" optional-actions="herbicide, fungicide, insecticide, growth_regulator, biostimulation, molluscicide, nematicide, acaricide, bactericide, rodenticide, talpicide, corvicide, game_repellent, virucide, desiccation, fireproofing">
     <parameters>
       <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
