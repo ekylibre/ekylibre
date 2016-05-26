@@ -488,6 +488,7 @@ por:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Assinaturas"
       new: "Nova assinatura"
+      # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
       index: "Supervisões"

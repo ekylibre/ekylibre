@@ -595,6 +595,7 @@ fra:
       edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       index: "Abonnements"
       new: "Nouvel abonnement"
+      show: "Abonnement N°%{number}"
     backend/supervisions:
       edit: "Modifier la supervision\_: %{name}"
       index: "Supervisions"

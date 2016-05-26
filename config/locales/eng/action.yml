@@ -610,7 +610,7 @@ eng:
       index: "Subscriptions"
       new: "New subscription"
       # renew: "Renew subscription: %{name}"
-      # show: "Subscription: %{name}"
+      show: "Subscription %{number}"
     backend/supervisions:
       edit: "Edit supervision: %{name}"
       index: "Supervisions"

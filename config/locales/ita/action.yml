@@ -483,6 +483,7 @@ ita:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Sottoscrizioni"
       new: "nuovo abbonamento"
+      # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
       index: "supervisioni"
