@@ -20,18 +20,19 @@
         .med-info
           %span.title= category.l
           %span.value= resource.points_net_mass_percentage(category).round(2).l(precision: 2) + '%'
-      .med-info
-        %span.title= Inspection.human_attribute_name(:marketable_net_mass)
-        %span.value= resource.marketable_net_mass.round(0).l(precision: 0)
-      .med-info
-        %span.title= Inspection.human_attribute_name(:marketable_yield)
-        %span.value= resource.marketable_yield.round(0).l(precision: 0)
-      .med-info
-        %span.title= Inspection.human_attribute_name(:total_net_mass)
-        %span.value= resource.total_net_mass.round(0).l(precision: 0)
-      .med-info
-        %span.title= Inspection.human_attribute_name(:net_mass_yield)
-        %span.value= resource.net_mass_yield.round(0).l(precision: 0)
+      - if resource.activity.inspection_calibration_scales.any?
+        .med-info
+          %span.title= Inspection.human_attribute_name(:marketable_net_mass)
+          %span.value= resource.marketable_net_mass.round(0).l(precision: 0)
+        .med-info
+          %span.title= Inspection.human_attribute_name(:marketable_yield)
+          %span.value= resource.marketable_yield.round(0).l(precision: 0)
+        .med-info
+          %span.title= Inspection.human_attribute_name(:total_net_mass)
+          %span.value= resource.total_net_mass.round(0).l(precision: 0)
+        .med-info
+          %span.title= Inspection.human_attribute_name(:net_mass_yield)
+          %span.value= resource.net_mass_yield.round(0).l(precision: 0)
 
   - if resource.calibrations.any? && resource.calibrations.sum(:net_mass_value) > 0
     - c.cobble(:calibrations) do
@@ -67,7 +68,8 @@
         %span.value
           %i.picto{class: "picto-flask"}
           = link_to(analysis.number, {controller: :analyses, action: :show, id: analysis.id})
-    = link_to(:new_analysis.tl, {controller: :analyses, action: :new, nature: 'plant_analysis', product_id: resource.product.id, sampled_at: Time.now}, class: 'btn btn-default')
+    .help-panel
+      = link_to(:new.ta, {controller: :analyses, action: :new, nature: 'plant_analysis', product_id: resource.product.id, sampled_at: Time.now}, class: 'btn btn-default')
 
   - c.cobble(:data) do
     - colspan = 3
