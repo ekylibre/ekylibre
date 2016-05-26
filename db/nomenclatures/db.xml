@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160520144901">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160526075245">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3248,7 +3248,7 @@
       <item name="sprayer" category="equipment" variety="sprayer" population_counting="unitary" abilities="spray" variable_indicators="geolocation" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed"/>
       <item name="spread_renting" category="equipment_rent" variety="service" population_counting="decimal" abilities="spread(preparation)" variable_indicators="" frozen_indicators="usage_duration"/>
       <item name="spreader" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(preparation)" variable_indicators="geolocation" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed"/>
-      <item name="spreader_trailer" category="equipment" variety="trailer" population_counting="unitary" abilities="store(excrement), move, spread(excrement), store(raw_matter), store_fluid" variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume, geolocation" frozen_indicators=""/>
+      <item name="spreader_trailer" category="equipment" variety="spreader" population_counting="unitary" abilities="store(excrement), move, spread(excrement), store(raw_matter), store_fluid, spread(preparation)" variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume, geolocation" frozen_indicators=""/>
       <item name="stake" category="small_equipment" variety="stake" population_counting="integer" abilities="enclose" variable_indicators="" frozen_indicators="height, diameter"/>
       <item name="steam_engine" category="equipment" variety="equipment" population_counting="unitary" abilities="store_liquid, kill(plant)" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="straw" category="straw" variety="straw" derivative_of="poaceae" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass, net_volume"/>
