@@ -91,15 +91,15 @@ module Backend
       t.action :destroy, if: :destroyable?
     end
 
-    list(:subscriptions, conditions: { sale_id: 'params[:id]'.c }) do |t|
+    list(:subscriptions, joins: :sale, conditions: ['sales.id = ?', 'params[:id]'.c]) do |t|
       t.action :edit
       t.action :destroy
-      t.column :number
-      t.column :nature
+      t.column :number, url: true
+      t.column :nature, url: true
       t.column :subscriber, url: true
       t.column :address
-      t.column :start
-      t.column :finish
+      t.column :started_on
+      t.column :stopped_on
       t.column :quantity
     end
 

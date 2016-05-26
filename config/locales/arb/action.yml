@@ -89,20 +89,20 @@ arb:
       new: "حملة جديدة"
       # show: "Campaign %{name}"
     backend/cap_islets:
-      # edit: "Edit cap islet: %{islet_number}"
+      # edit: "Edit CAP islet: %{islet_number}"
       index: "الجزر كاب"
       new: "جزيرة كاب جديدة"
-      # show: "Cap islet: %{islet_number}"
+      # show: "CAP islet: %{islet_number}"
     backend/cap_land_parcels:
-      # edit: "Edit cap land parcel: %{land_parcel_number}"
+      # edit: "Edit CAP land parcel: %{land_parcel_number}"
       index: "قطع الأراضي كاب"
       new: "جديد لا يتجزأ غطاء الأرض"
-      # show: "Cap land parcel: %{land_parcel_number}"
+      # show: "CAP land parcel: %{land_parcel_number}"
     backend/cap_statements:
-      # edit: "Edit cap statement: %{id}"
+      # edit: "Edit CAP statement: %{id}"
       index: "البيانات كاب"
       new: "بيان الحد الأقصى الجديد"
-      # show: "Cap statement: %{id}"
+      # show: "CAP statement: %{id}"
     backend/cash_transfers:
       # edit: "Edit cash transfer: %{number}"
       index: "التحويلات النقدية"
@@ -408,11 +408,7 @@ arb:
     backend/map_backgrounds:
       # edit: "Edit map background: %{name}"
       # index: "Map backgrounds"
-      # load: "Load map background: %{name}"
       # new: "New map background"
-      # show: "Map background: %{name}"
-      # star: "Star map background: %{name}"
-      # toggle: "Toggle map background: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "المسائل"
@@ -891,7 +887,6 @@ arb:
     active_fixed_sum: "مجموع الموجودات الثابتة" #?
     active_sum: "مجموع الموجودات" #?
     activities: "أنشطة"
-    # activities_step: "activities"
     activity: "نشاط"
     # activity_family: "Family activities"
     # activity_name: "Activity"
@@ -983,6 +978,7 @@ arb:
     area_x: "%{name} (%{postcode})" #?
     assessable_operations: "الاجراءات الضريبية (H.T)" #?
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم" #?
+    # at_the_address: "At the address"
     attach_deal: "إضافة الى اتفاق"
     attachment: "المرفق"
     attachments: "مرفقات"
@@ -1021,7 +1017,6 @@ arb:
     building: "مكان التخزين"
     building_create: "اضافة موقع تخزين" #?
     # building_divisions: "building areas"
-    # building_divisions_and_parcels: "building areas and plots"
     building_name: "انتاج" #?
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين"
@@ -1034,13 +1029,8 @@ arb:
     cancel: "الغاء"
     cancelation: "إلغاء"
     cancelled: "تم الالغاء" #?
-    # cap_cluster_prefix: "CAP island No."
-    # cap_clusters: "CAP islands"
     cap_islets: "الجزر كاب"
-    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "قطع الأراضي كاب"
-    # cap_parcel_prefix: "PAC plot No."
-    # cap_parcels: "PAC plots"
     cartography: "خرائطية"
     cash: "حسابات بنكية"
     cash_balance: "الرصيد النقدي"
@@ -1223,7 +1213,6 @@ arb:
     edit: "تعديل"
     # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "تحرير الميزانية"
-    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة"
     email: "البريد الإلكتروني:"
@@ -1776,7 +1765,6 @@ arb:
     recent_events: "الاحداث الاخيرة"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
-    # reference_cap_clusters: "Islets reference CAP"
     reflect: "يعكس"
     reflected: "التغييرات تنعكس"
     reflections: "خواطر"
@@ -1938,6 +1926,7 @@ arb:
     subscription_natures_down: "(-1) انقاص العدد الحالي" #?
     subscription_natures_up: "(+1) زيادة العدد الحالي" #?
     subscriptions: "الاشتراكات"
+    # subscriptions_evolution: "Subscriptions evolution"
     subtitle: "معرفة المعلومات المتعلقة بالاستخلاص" #?
     subtotal: "المجموع الاجمالي %{name}"
     subtotals_at_level: "المبلغ الاجمالي على مستوى"
@@ -2350,6 +2339,7 @@ arb:
       some_parcels_are_not_shippable: "بعض الطرود ليست الممكن شحنها"
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
       specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
+      # subscription_is_not_renewable: "Subscription is not renewable"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
@@ -2437,8 +2427,8 @@ arb:
       attach: "يرفق"
       # bookkeep: "Bookkeep"
       cancel: "إلغاء"
-      category: "فئة"
-      children: "الأطفال"
+      category: "فئة" #?
+      children: "الأطفال" #?
       close: "قريب"
       compute: "حساب"
       compute_balances: "أرصدة حساب"
@@ -2447,7 +2437,7 @@ arb:
       convert: "تحول"
       correct: "صحيح"
       create: "خلق"
-      decrement: "إنقاص"
+      decrement: "إنقاص" #?
       destroy: "هدم"
       detach: "فصل"
       detail: "التفاصيل"
@@ -2463,7 +2453,7 @@ arb:
       generate_parcel: "تولد لا يتجزأ"
       import: "استيراد"
       incorporate: "دمج"
-      increment: "زيادة"
+      increment: "زيادة" #?
       index: "فهرس"
       invoice: "فاتورة"
       list: "قائمة"
@@ -2473,7 +2463,7 @@ arb:
       mail: "بريد"
       mark: "علامة"
       merge: "دمج"
-      move: "خطوة"
+      move: "خطوة" #?
       # negociate: "Negociate"
       new: "جديد"
       open: "فتح"
@@ -2489,6 +2479,7 @@ arb:
       reflect: "تعكس"
       refresh: "اعادة تنشيط"
       refuse: "رفض"
+      # renew: "Renew"
       reopen: "إعادة فتح"
       reset: "إعادة تعيين"
       retrieve: "استرداد"
@@ -2501,7 +2492,9 @@ arb:
       # star: "Star"
       start: "بداية"
       stop: "توقف"
+      # suspend: "Suspend"
       take: "أخذ"
+      # takeover: "Take over"
       toggle: "تبديل"
       unlock: "فتح"
       unmark: "غير علامة"

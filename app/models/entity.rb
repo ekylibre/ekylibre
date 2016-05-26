@@ -342,6 +342,10 @@ class Entity < Ekylibre::Record::Base
       .maximum(:reduction_percentage).to_f || 0.0
   end
 
+  def last_subscription(nature)
+    subscriptions.where(nature: nature).order(stopped_on: :desc).first
+  end
+
   def picture_path(style = :original)
     picture.path(style)
   end

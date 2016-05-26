@@ -397,13 +397,9 @@ fra:
       new: "Nouveau plan de fumure"
       show: "Plan de fumure\_: %{name}"
     backend/map_backgrounds:
-      # edit: "Edit map background: %{name}"
-      index: "Fonds de cartes"
-      load: "Charger les fonds de cartes: %{name}"
+      edit: "Modifier le fond de carte\_: %{name}"
+      index: "Fonds de carte"
       new: "Nouveau fond de carte"
-      # show: "Map background: %{name}"
-      # star: "Star map background: %{name}"
-      # toggle: "Toggle map background: %{name}"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       index: "Matières"
@@ -765,7 +761,6 @@ fra:
     active_fixed_sum: "Total actifs immobilisés" #?
     active_sum: "Total actifs" #?
     activities: "Activités"
-    # activities_step: "activities"
     activity: "Activités"
     # activity_family: "Family activities"
     # activity_name: "Activity"
@@ -864,6 +859,7 @@ fra:
     area_measure: "Superficie" #?
     assessable_operations: "Opérations imposables (H.T)" #?
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A" #?
+    at_the_address: "À l'adresse"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}" #?
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}" #?
     attach_deal: "Ajouter une transaction"
@@ -891,7 +887,6 @@ fra:
     budgets: "Budgets"
     building: "Lieu de stockage"
     # building_divisions: "building areas"
-    # building_divisions_and_parcels: "building areas and plots"
     building_name: "Sortie de" #?
     # buildings: "buildings"
     buildings_map: "Carte des bâtiments" #?
@@ -904,13 +899,8 @@ fra:
     cancel: "Annuler"
     cancelation: "Annulation"
     cancelled: "Passées en avoir" #?
-    # cap_cluster_prefix: "CAP island No."
-    # cap_clusters: "CAP islands"
     cap_islets: "Ilots PAC"
-    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "Parcelles PAC"
-    # cap_parcel_prefix: "PAC plot No."
-    # cap_parcels: "PAC plots"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
@@ -1099,7 +1089,6 @@ fra:
     edit: "Modifier"
     # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "Modifier le budget"
-    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité"
     email: "Email:"
@@ -1641,7 +1630,6 @@ fra:
     recent_historic: "Historique récent" #?
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
-    # reference_cap_clusters: "Islets reference CAP"
     reflect: "Refléter"
     reflected: "Changements répercutés"
     reflections: "Réflections"
@@ -1811,6 +1799,7 @@ fra:
     subscription_natures_down: "Décrémenter le numéro actuel (-1)" #?
     subscription_natures_up: "Incrémenter le numéro actuel (+1)" #?
     subscriptions: "Abonnements"
+    subscriptions_evolution: "Évolution des abonnements"
     subtitle: "Informations générales" #?
     subtotal: "Sous-total %{name}"
     subtotals_at_level: "Sous-totaux aux niveaux"
@@ -2241,6 +2230,7 @@ fra:
       some_parcels_are_not_shippable: "Certains colis ne sont pas transportables"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
+      # subscription_is_not_renewable: "Subscription is not renewable"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
@@ -2280,8 +2270,8 @@ fra:
       balance: "Balance" #?
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
-      category: "Categorie"
-      children: "Enfant"
+      category: "Categorie" #?
+      children: "Enfant" #?
       close: "Fermer"
       compute: "Calculer"
       compute_balances: "Calculer la balance"
@@ -2290,7 +2280,7 @@ fra:
       convert: "Convertir"
       correct: "Corriger"
       create: "Créer"
-      decrement: "Décrementer"
+      decrement: "Décrementer" #?
       destroy: "Supprimer"
       detach: "Détacher"
       detail: "Détail"
@@ -2308,7 +2298,7 @@ fra:
       generate_parcel: "Générer bon de préparation"
       import: "Importer"
       incorporate: "Incorporer"
-      increment: "Incrémenter"
+      increment: "Incrémenter" #?
       index: "Index"
       invoice: "Facturer"
       list: "Lister"
@@ -2318,7 +2308,7 @@ fra:
       mail: "Écrire un courriel"
       mark: "Marquer"
       merge: "Fusionner"
-      move: "Déplacer"
+      move: "Déplacer" #?
       negociate: "Négocier"
       new: "Nouveau"
       open: "Ouvrir"
@@ -2334,6 +2324,7 @@ fra:
       reflect: "Refléter"
       refresh: "Rafraîchir"
       refuse: "Refuser"
+      renew: "Renouveller"
       reopen: "Réouvrir"
       reset: "Ré-initialiser"
       retrieve: "Relever"
@@ -2347,7 +2338,9 @@ fra:
       # star: "Star"
       start: "Commencer"
       stop: "Arrêter"
+      suspend: "Suspendre"
       take: "Prendre"
+      takeover: "Reprendre"
       toggle: "Basculer"
       unlock: "Déverrouiller"
       unmark: "Dé-marquer"

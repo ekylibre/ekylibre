@@ -1818,6 +1818,8 @@ subscriptions:
     - "backend/subscriptions#edit"
     - "backend/subscriptions#new"
     - "backend/subscriptions#renew"
+    - "backend/subscriptions#suspend"
+    - "backend/subscriptions#takeover"
     - "backend/subscriptions#update"
 
 supervisions:

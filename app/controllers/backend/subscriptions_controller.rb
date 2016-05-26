@@ -48,16 +48,18 @@ module Backend
       code.c
     end
 
-    list(conditions: subscriptions_conditions, order: { started_on: :desc }) do |t|
+    list(conditions: subscriptions_conditions, order: { started_on: :desc }, line_class: "(RECORD.disabled? ? 'disabled' : RECORD.active? ? 'success' : '') + (RECORD.suspended ? ' squeezed' : '')".c) do |t|
       t.action :edit
-      t.action :renew, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
+      t.action :renew, method: :post, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
+      t.action :suspend, method: :post, if: :suspendable?
+      t.action :takeover, method: :post, if: :suspended
       t.action :destroy
       t.column :number, url: true
       t.column :subscriber, url: true
       t.column :coordinate, through: :address, url: true
       # t.column :product_nature
       t.column :quantity
-      t.column :sale
+      t.column :sale, url: true
       t.column :started_on
       t.column :stopped_on
     end
@@ -75,7 +77,19 @@ module Backend
         return
       end
       sale = @subscription.renew!
-      redirect_to params[:redirect] || { controller: :sales, action: :edit, id: sale.id }
+      redirect_to(controller: :sales, action: :edit, id: sale.id)
+    end
+
+    def suspend
+      @subscription = find_and_check
+      @subscription.suspend
+      redirect_to params[:redirect] || { action: :show, id: @subscription.id }
+    end
+
+    def takeover
+      @subscription = find_and_check
+      @subscription.takeover
+      redirect_to params[:redirect] || { action: :show, id: @subscription.id }
     end
   end
 end

@@ -783,7 +783,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :subscriptions, concerns: [:list, :unroll]
+    resources :subscriptions, concerns: [:list, :unroll] do
+      member do
+        post :renew
+        post :suspend
+        post :takeover
+      end
+    end
 
     resources :supervisions, concerns: [:list, :unroll]
 

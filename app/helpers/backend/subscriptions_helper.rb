@@ -37,11 +37,11 @@ module Backend
 
       return nil unless options[:blank].is_a?(FalseClass) || series.any?
 
-      html = column_highcharts(series, y_axis: { allow_decimals: false, title: { text: :count.tl } }, x_axis: { categories: categories.map(&:third) }, legend: true)
+      html = column_highcharts(series, y_axis: { allow_decimals: false, title: { text: :counts.tl } }, x_axis: { categories: categories.map(&:third) }, legend: true)
 
       return html unless options[:cobbler]
 
-      options[:cobbler].cobble(options[:title] || :subscriptions_in_time) do
+      options[:cobbler].cobble(options[:title] || :subscriptions_evolution) do
         html
       end
       nil
