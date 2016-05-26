@@ -483,6 +483,7 @@ jpn:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "サブスクリプション"
       new: "新しいサブスクリプション"
+      # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
       # index: "Supervisions"

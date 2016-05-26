@@ -483,6 +483,7 @@ cmn:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "订阅"
       new: "新的订阅"
+      # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
       index: "监督"

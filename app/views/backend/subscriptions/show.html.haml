@@ -1,0 +1,19 @@
+- main_toolbar do |t|
+  = t.edit resource
+  = t.destroy
+
+= main_informations do
+  = infos do
+    = resource_info :nature do |nature|
+      = link_to(nature.name, {controller: :subscription_natures, action: :show, id: nature.id})
+    = resource_info :started_on
+    = resource_info :stopped_on
+  = attributes_list(resource) do |l|
+    - l.attribute :subscriber, url: true
+    - l.attribute :address
+    - l.attribute :suspended
+    - l.attribute :parent, url: true if resource.parent
+    -# if resource.children.any?
+      %dl
+        %dt= resource.human_attribute_name(:children)
+        %dd= resource.children.map { |s| link_to(s.number, { id: s.id }) }.to_sentence.html_safe

@@ -524,6 +524,7 @@ spa:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Suscripciones"
       new: "Nueva suscripción"
+      # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
       index: "Supervisiones"

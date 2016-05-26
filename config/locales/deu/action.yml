@@ -483,6 +483,7 @@ deu:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Abonnements"
       new: "neues Abonnement"
+      # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
       # index: "Supervisions"
