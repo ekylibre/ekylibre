@@ -1,0 +1,25 @@
+.leaflet-draw-tooltip-left {
+  background: rgb(54, 54, 54);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid transparent;
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  z-index: 6;
+  &:before {
+    border: none !important;
+  }
+  &:after {
+    border-left: 6px solid black;
+    border-left-color: rgba(0, 0, 0, 0.5);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 100%;
+  }
+  span {
+    color: inherit;
+  }
+}
