@@ -10,7 +10,7 @@ gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 
 # Multi-tenancy
-gem 'apartment', '>= 1.0.0', '< 2.0'
+gem 'apartment', '~> 1.0.0', '< 2.0'
 gem 'apartment-sidekiq'
 
 # Code manipulation

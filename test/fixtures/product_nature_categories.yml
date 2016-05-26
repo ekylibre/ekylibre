@@ -609,6 +609,7 @@ product_nature_categories_026:
   depreciable: false
   description: ''
   fixed_asset_depreciation_method: ''
+  fixed_asset_depreciation_percentage: 0.0
   id: 26
   lock_version: 0
   name: Abonnement
