@@ -106,20 +106,20 @@ eng:
       # open: "Open campaign: %{name}"
       show: "Campaign %{name}"
     backend/cap_islets:
-      edit: "Edit cap islet: %{islet_number}"
-      index: "Cap islets"
-      new: "New cap islet"
-      show: "Cap islet: %{islet_number}"
+      edit: "Edit CAP islet: %{islet_number}"
+      index: "CAP islets"
+      new: "New CAP islet"
+      show: "CAP islet: %{islet_number}"
     backend/cap_land_parcels:
-      edit: "Edit cap land parcel: %{land_parcel_number}"
-      index: "Cap land parcels"
-      new: "New cap land parcel"
-      show: "Cap land parcel: %{land_parcel_number}"
+      edit: "Edit CAP land parcel: %{land_parcel_number}"
+      index: "CAP land parcels"
+      new: "New CAP land parcel"
+      show: "CAP land parcel: %{land_parcel_number}"
     backend/cap_statements:
-      edit: "Edit cap statement: %{id}"
-      index: "Cap statements"
-      new: "New cap statement"
-      show: "Cap statement: %{id}"
+      edit: "Edit CAP statement: %{id}"
+      index: "CAP statements"
+      new: "New CAP statement"
+      show: "CAP statement: %{id}"
     backend/cash_transfers:
       edit: "Edit cash transfer: %{number}"
       index: "Cash transfers"
@@ -394,11 +394,11 @@ eng:
     backend/map_backgrounds:
       edit: "Edit map background: %{name}"
       index: "Map backgrounds"
-      load: "Load map background: %{name}"
+      # load: "Load map background: %{name}"
       new: "New map background"
-      show: "Map background: %{name}"
-      star: "Star map background: %{name}"
-      toggle: "Toggle map background: %{name}"
+      # show: "Map background: %{name}"
+      # star: "Star map background: %{name}"
+      # toggle: "Toggle map background: %{name}"
     backend/map_editors:
       # upload: "Upload map editor: %{name}"
     backend/matters:
@@ -611,6 +611,8 @@ eng:
       new: "New subscription"
       # renew: "Renew subscription: %{name}"
       show: "Subscription %{number}"
+      # suspend: "Suspend subscription: %{name}"
+      # takeover: "Takeover subscription: %{name}"
     backend/supervisions:
       edit: "Edit supervision: %{name}"
       index: "Supervisions"
@@ -772,7 +774,6 @@ eng:
     accounts_to_load: "Accounts to load"
     active: "Active" #?
     activities: "Activities" #?
-    activities_step: "activities" #?!
     activity: "Activity"
     activity_family: "Family activities" #?
     activity_name: "Activity" #?
@@ -852,6 +853,7 @@ eng:
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
+    at_the_address: "At the address"
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
@@ -873,7 +875,6 @@ eng:
     budgets: "Budgets" #?
     building: "Building" #?
     building_divisions: "building areas" #?
-    building_divisions_and_parcels: "building areas and land parcels" #?!
     buildings: "buildings" #?
     # by_default: "By default"
     by_year: "By year"
@@ -885,13 +886,8 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
-    cap_cluster_prefix: "CAP island No." #?!
-    cap_clusters: "CAP islands" #?!
-    cap_islets: "Cap islets"
-    cap_land_parcel_clusters: "CAP islands" #?!
+    cap_islets: "CAP islets"
     cap_land_parcels: "CAP land parcels"
-    cap_parcel_prefix: "CAP land parcel No." #?!
-    cap_parcels: "CAP land parcels" #??
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
@@ -944,8 +940,7 @@ eng:
     costs: "Costs"
     costs_map: "Costs map" #?!
     costs_per_hectare: "Costs per hectare"
-    # count: "Count"
-    counts: "Counts" #?
+    counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
     create_a_new_division: "Create a new zone. Click on the map to add a point and close the drawing to create the zone." #?!
@@ -1028,7 +1023,6 @@ eng:
     edit: "Edit"
     edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it." #?!
     edit_budget: "Edit budget"
-    edited_cap_clusters: "Islands modified PAC" #?!
     ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
     email: "Email:" #?
@@ -1282,8 +1276,8 @@ eng:
     not_received: "Not received" #?
     now: "Now" #?
     number: "Number" #?
-    number_of_cap_islets: "Number of cap islets"
-    number_of_cap_land_parcels: "Number of cap land parcels"
+    number_of_cap_islets: "Number of CAP islets"
+    number_of_cap_land_parcels: "Number of CAP land parcels"
     number_options: "Options Numbers" #??
     numbers: "Numbers" #?
     ok: "OK" #?
@@ -1310,7 +1304,7 @@ eng:
     paid_at: "Paid at" #?
     parameters: "Parameters"
     # parcel_items: "Parcel items"
-    parcels: "plots"
+    parcels: "Parcels"
     participants: "Participants"
     participations: "Participations"
     parts: "Modules" #?
@@ -1381,7 +1375,6 @@ eng:
     ready_to_harvest: "Ready to harvest"
     received: "Received" #?
     recent_events: "Recent events"
-    reference_cap_clusters: "Islets reference CAP" #?!
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
@@ -1478,6 +1471,7 @@ eng:
     subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     subscription_nature: "Subscription type" #?
     subscriptions: "Subscriptions"
+    subscriptions_evolution: "Subscriptions evolution" #?
     subtotal: "Sub-total %{name}"
     subtotals_at_level: "Sub-total at level"
     # supervision: "Supervision"
@@ -1789,7 +1783,7 @@ eng:
       sensor_is_out_of_service: "Sensor %{name} is out of service: %{message}"
       sensor_reading_failed: "Sensor %{name} reading failed: %{message}"
       some_parcels_are_not_shippable: "Some parcels are not shippable"
-      # subscription_is_not_renewable: "Subscription is not renewable"
+      subscription_is_not_renewable: "Subscription is not renewable"
       the_sales_invoice_is_not_cancellable: "The sales invoice is not cancellable"
       unavailable_resource: "Nonexistent %{type} #%{id}"
       unexpected_resource_type: "Unexpected resource type: %{type}"
@@ -1826,12 +1820,10 @@ eng:
       # autocomplete: "Autocomplete"
       bookkeep: "Bookkeep"
       cancel: "Cancel"
-      category: "Category" #?
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_password: "Change password"
       # check: "Check"
-      children: "Children" #?
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"
@@ -1841,7 +1833,6 @@ eng:
       correct: "Correct"
       create: "Create"
       # current: "Current"
-      decrement: "Decrement" #?
       destroy: "Destroy"
       detach: "Detach"
       detail: "Detail"
@@ -1858,7 +1849,6 @@ eng:
       # give: "Give"
       import: "Import"
       incorporate: "Incorporate"
-      increment: "Increment" #?
       index: "Index"
       invoice: "Invoice"
       list: "List"
@@ -1874,7 +1864,6 @@ eng:
       mark: "Mark"
       merge: "Merge"
       # models: "Models"
-      move: "Move" #?
       negociate: "Negociate"
       new: "New"
       open: "Open"
@@ -1894,7 +1883,7 @@ eng:
       reflect: "Reflect"
       refresh: "Refresh"
       refuse: "Refuse"
-      # renew: "Renew"
+      renew: "Renew"
       reopen: "Reopen"
       reset: "Reset"
       retrieve: "Retrieve"
@@ -1907,7 +1896,9 @@ eng:
       star: "Star"
       start: "Start"
       stop: "Stop" #?
+      suspend: "Suspend"
       take: "Take"
+      takeover: "Take over"
       toggle: "Toggle"
       unlock: "Unlock"
       unmark: "Unmark"

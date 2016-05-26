@@ -162,16 +162,18 @@ module Backend
       t.column :pretax_amount, currency: true
     end
 
-    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: { stopped_on: :desc }, line_class: "(RECORD.active? ? 'enough' : '')".c) do |t|
+    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: { stopped_on: :desc }, line_class: "(RECORD.suspended ? 'squeezed' : '')".c) do |t|
       t.action :edit
-      t.action :renew, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
+      t.action :renew, method: :post, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
+      t.action :suspend, method: :post, if: :suspendable?
+      t.action :takeover, method: :post, if: :suspended
       t.action :destroy
       t.column :number, url: true
       t.column :nature, url: true
       t.column :address, hidden: true
       t.column :started_on
       t.column :stopped_on
-      t.column :sale, url: true, hidden: true
+      t.column :sale, url: true
       t.column :quantity, hidden: true
       t.column :suspended, hidden: true
     end

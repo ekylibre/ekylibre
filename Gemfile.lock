@@ -467,7 +467,7 @@ DEPENDENCIES
   active_list (>= 6.5.0)
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
-  agric
+  agric (~> 3.0)
   apartment (>= 1.0.0, < 2.0)
   apartment-sidekiq
   awesome_nested_set (~> 3.0.0)

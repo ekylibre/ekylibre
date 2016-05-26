@@ -11,7 +11,7 @@
 
 = field_set Purchase.human_attribute_name(:items) do
   .items
-    %table
+    %table#items-table
       %thead
         %tr
           %th= PurchaseItem.human_attribute_name(:variant)
@@ -23,17 +23,16 @@
           %th= PurchaseItem.human_attribute_name(:amount)
           %th= PurchaseItem.human_attribute_name(:currency)
           %th
-      %tbody#items
-        = f.simple_fields_for :items, resource.items do |item|
-          = render 'item_fields', f: item
       - precision = Nomen::Currency[resource.currency].precision
       %tfoot
         %tr.total
-          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: {association_insertion_node: '#items', association_insertion_method: :append}, class: "btn primary"
+          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
           %th{colspan: 4}= :total.tl
           %td#pta.decimal{data:{use: ".pta", calculate: "sum", calculate_round: precision}}= resource.pretax_amount
           %td#wta.decimal{data:{use: ".wta", calculate: "sum", calculate_round: precision}}= resource.amount
           %td= resource.currency
           %th
+      = f.simple_fields_for :items, resource.items do |item|
+        = render 'item_fields', f: item
 
 = f.attachments_field_set

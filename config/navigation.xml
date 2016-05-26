@@ -296,6 +296,8 @@
         <page to="backend/subscriptions#show"/>
         <page to="backend/subscriptions#unroll"/>
         <page to="backend/subscriptions#update"/>
+        <page to="backend/subscriptions#suspend"/>
+        <page to="backend/subscriptions#takeover"/>
       </item>
     </group>
     <group name="purchases" icon="shopping-cart">

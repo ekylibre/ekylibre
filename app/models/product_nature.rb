@@ -279,6 +279,16 @@ class ProductNature < Ekylibre::Record::Base
     l.to_sentence
   end
 
+  # Compute stopped_on date from a started_on date for subsrbing product nature
+  def subscription_stopped_on(started_on)
+    stopped_on = started_on
+    stopped_on += self.subscription_years_count.years
+    stopped_on += self.subscription_months_count.months
+    stopped_on += self.subscription_days_count.months
+    stopped_on -= 1.day
+    stopped_on
+  end
+
   class << self
     Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
 

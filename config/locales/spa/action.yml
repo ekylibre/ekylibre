@@ -89,20 +89,20 @@ spa:
       new: "Nueva campaña"
       # show: "Campaign %{name}"
     backend/cap_islets:
-      # edit: "Edit cap islet: %{islet_number}"
+      # edit: "Edit CAP islet: %{islet_number}"
       index: "Islotes Cap"
       new: "Nueva islote casquillo"
-      # show: "Cap islet: %{islet_number}"
+      # show: "CAP islet: %{islet_number}"
     backend/cap_land_parcels:
-      # edit: "Edit cap land parcel: %{land_parcel_number}"
+      # edit: "Edit CAP land parcel: %{land_parcel_number}"
       index: "Parcelas Cap"
       new: "Parcela nueva tapa de la tierra"
-      # show: "Cap land parcel: %{land_parcel_number}"
+      # show: "CAP land parcel: %{land_parcel_number}"
     backend/cap_statements:
-      # edit: "Edit cap statement: %{id}"
+      # edit: "Edit CAP statement: %{id}"
       index: "Declaraciones Cap"
       new: "Declaración nueva tapa"
-      # show: "Cap statement: %{id}"
+      # show: "CAP statement: %{id}"
     backend/cash_transfers:
       # edit: "Edit cash transfer: %{number}"
       index: "Transferencias de dinero"
@@ -364,11 +364,7 @@ spa:
     backend/map_backgrounds:
       # edit: "Edit map background: %{name}"
       # index: "Map backgrounds"
-      # load: "Load map background: %{name}"
       # new: "New map background"
-      # show: "Map background: %{name}"
-      # star: "Star map background: %{name}"
-      # toggle: "Toggle map background: %{name}"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "Cuestiones"
@@ -689,7 +685,6 @@ spa:
     active_fixed_sum: "Total activos inmobilisados" #?
     active_sum: "Total activos" #?
     activities: "Ocupaciones"
-    # activities_step: "activities"
     activity: "Actividad"
     # activity_family: "Family activities"
     # activity_name: "Activity"
@@ -775,6 +770,7 @@ spa:
     area: "Zona"
     assessable_operations: "Operaciones imponibles (H.T)" #?
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A" #?
+    # at_the_address: "At the address"
     attach_deal: "Añadir un acuerdo"
     attachment: "Pieza juntada"
     attachments: "Archivos adjuntos"
@@ -823,10 +819,7 @@ spa:
     cancel: "Cancelar"
     cancelation: "Cancelación"
     cancelled: "Pasar en activos" #?
-    # cap_cluster_prefix: "CAP island No."
-    # cap_clusters: "CAP islands"
     cap_islets: "Islotes Cap"
-    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "Parcelas Cap"
     # cap_parcel_prefix: "CAP land parcel No."
     # cap_parcels: "CAP land parcels"
@@ -993,7 +986,6 @@ spa:
     edit: "Editar"
     # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "Editar presupuesto"
-    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades"
     # email: "Email:"
@@ -1414,7 +1406,6 @@ spa:
     # ready_to_harvest: "Ready to harvest"
     received: "Recibido"
     recent_events: "Eventos recientes"
-    # reference_cap_clusters: "Islets reference CAP"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
     reflections: "Reflexiones"
@@ -1548,6 +1539,7 @@ spa:
     # subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     subscription_nature: "Tipo de suscripción"
     subscriptions: "Suscripciones"
+    # subscriptions_evolution: "Subscriptions evolution"
     subtitle: "Informar la diferentes caracteristicas del nuevo utilizador" #?
     subtotal: "Subtotal %{name}"
     subtotals_at_level: "Subtotales al nivel"
@@ -1918,6 +1910,7 @@ spa:
       some_parcels_are_not_shippable: "Algunos paquetes no son fáciles de enviar"
       specify_filter: "Se debe escoger aplicar a lo menos un filtro de busqueda" #?
       specify_updates: "Se debe especifiar a la menos un campo a modifiar" #?
+      # subscription_is_not_renewable: "Subscription is not renewable"
       the_sales_invoice_is_not_cancellable: "La factura de venta no se puede cancelar"
       unavailable_model: "%{model} indisponible o inexistente (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
@@ -1960,8 +1953,8 @@ spa:
       attach: "Adjuntar"
       # bookkeep: "Bookkeep"
       cancel: "Cancelar"
-      category: "Categoría"
-      children: "Niños"
+      category: "Categoría" #?
+      children: "Niños" #?
       close: "Cerca"
       compute: "Calcular"
       compute_balances: "Saldos de cómputo"
@@ -1970,7 +1963,7 @@ spa:
       convert: "Convertir"
       correct: "Correcto"
       create: "Crear"
-      decrement: "Decremento"
+      decrement: "Decremento" #?
       destroy: "Destruir"
       detach: "Despegar"
       detail: "Detalle"
@@ -1986,7 +1979,7 @@ spa:
       generate_parcel: "Generar parcela"
       import: "Importar"
       incorporate: "Incorporar"
-      increment: "Incremento"
+      increment: "Incremento" #?
       index: "Índice"
       invoice: "Factura"
       list: "Lista"
@@ -1996,7 +1989,7 @@ spa:
       mail: "Correo"
       mark: "Marca"
       merge: "Unir"
-      move: "Movimiento"
+      move: "Movimiento" #?
       negociate: "Negociate"
       new: "Nuevo"
       open: "Abierto"
@@ -2012,6 +2005,7 @@ spa:
       reflect: "Reflejar"
       refresh: "Refrescar"
       refuse: "Desperdicios"
+      # renew: "Renew"
       reopen: "Reabrir"
       reset: "Restablecer"
       retrieve: "Recuperar"
@@ -2024,7 +2018,9 @@ spa:
       # star: "Star"
       start: "Comienzo"
       stop: "Detener"
+      # suspend: "Suspend"
       take: "Tomar"
+      # takeover: "Take over"
       toggle: "Palanca"
       unlock: "Desbloquear"
       unmark: "Desmarcar"

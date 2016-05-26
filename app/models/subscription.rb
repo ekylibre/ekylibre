@@ -49,7 +49,7 @@ class Subscription < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :nature, class_name: 'SubscriptionNature', inverse_of: :subscriptions
   belongs_to :parent, class_name: 'Subscription'
-  belongs_to :sale_item, class_name: 'SaleItem'
+  belongs_to :sale_item, class_name: 'SaleItem', inverse_of: :subscription
   belongs_to :subscriber, class_name: 'Entity'
   has_one :sale, through: :sale_item
   has_one :variant, through: :sale_item, class_name: 'ProductNatureVariant'
@@ -79,6 +79,10 @@ class Subscription < Ekylibre::Record::Base
     else
       self.swim_lane_uuid ||= UUIDTools::UUID.random_create.to_s
     end
+    if sale_item
+      self.nature ||= sale_item.subscription_nature
+      self.quantity = sale_item.quantity.to_i
+    end
     self.address_id ||= sale.delivery_address_id if sale
     self.subscriber_id = address.entity_id if address
   end
@@ -87,18 +91,20 @@ class Subscription < Ekylibre::Record::Base
     self.started_on ||= Time.zone.today
     if product_nature
       unless self.stopped_on
-        self.stopped_on = self.started_on
-        self.stopped_on += product_nature.subscription_years_count.years
-        self.stopped_on += product_nature.subscription_months_count.months
-        self.stopped_on += product_nature.subscription_days_count.months
-        self.stopped_on -= 1.day
+        self.stopped_on = product_nature.subscription_stopped_on(self.started_on)
       end
     end
   end
 
   validate do
-    errors.add(:stopped_on, :posterior, to: started_on.l) unless started_on <= stopped_on
+    if self.started_on && self.stopped_on
+      errors.add(:stopped_on, :posterior, to: started_on.l) unless started_on <= stopped_on
+    end
     errors.add(:address_id, :invalid) if address && !address.mail?
+  end
+
+  protect on: :destroy do
+    sale_item
   end
 
   def subscriber_name
@@ -107,7 +113,7 @@ class Subscription < Ekylibre::Record::Base
 
   def active?(instant = nil)
     instant ||= Time.zone.today
-    self.started_on <= instant && instant <= self.stopped_on
+    self.started_on <= instant && instant <= stopped_on
   end
 
   def renewable?
@@ -115,7 +121,72 @@ class Subscription < Ekylibre::Record::Base
   end
 
   # Create a Sale, a SaleItem and a Subscription linked to current subscription
-  def renew
-    raise NotImplementedError
+  # Inspired by Sale#duplicate
+  def renew!(attributes = {})
+    hash = {
+      client_id: sale.client_id,
+      nature_id: sale.nature_id,
+      letter_format: false
+    }
+    # Items
+    attrs = [
+      :variant_id, :quantity, :amount, :label, :pretax_amount, :annotation,
+      :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount
+    ].each_with_object({}) do |field, h|
+      h[field] = sale_item.send(field)
+    end
+    attrs[:subscription_attributes] = following_attributes
+    hash[:items_attributes] = { '0' => attrs }
+    Sale.create!(hash.with_indifferent_access.deep_merge(attributes))
+  end
+
+  def following_attributes
+    attributes = {
+      nature_id: nature_id,
+      address_id: self.address_id,
+      subscriber_id: subscriber_id
+    }
+    last_subscription = subscriber.last_subscription(self.nature)
+    if last_subscription
+      attributes[:parent_id] = last_subscription.id
+      attributes[:started_on] = last_subscription.stopped_on + 1
+    else
+      attributes[:started_on] = Time.zone.today
+    end
+    product_nature = self.product_nature || last_subscription.product_nature
+    attributes[:stopped_on] = if product_nature
+                                product_nature.subscription_stopped_on(attributes[:started_on])
+                              else
+                                attributes[:started_on] + 1.year - 1.day
+                              end
+    attributes
+  end
+
+  def suspendable?
+    !suspended
+  end
+
+  def active?
+    !(past? || future?)
+  end
+
+  def disabled?
+    past? || suspended
+  end
+
+  def future?
+    self.started_on > Time.zone.today
+  end
+
+  def past?
+    stopped_on < Time.zone.today
+  end
+
+  def suspend
+    update_attribute(:suspended, true)
+  end
+
+  def takeover
+    update_attribute(:suspended, false)
   end
 end

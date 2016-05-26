@@ -55,6 +55,7 @@ class PurchaseItem < Ekylibre::Record::Base
   has_many :parcel_items
   has_many :products, through: :parcel_items
   has_one :fixed_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
+  has_one :product_nature_category, through: :variant, source: :category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
   validates_inclusion_of :fixed, in: [true, false]
@@ -122,8 +123,8 @@ class PurchaseItem < Ekylibre::Record::Base
             currency: currency,
             started_on: purchase.invoiced_at.to_date,
             depreciable_amount: pretax_amount,
-            depreciation_method: variant.fixed_asset_depreciation_method,
-            depreciation_percentage: variant.fixed_asset_depreciation_percentage,
+            depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
+            depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
             journal: Journal.find_by(nature: :various),
             allocation_account: variant.fixed_asset_allocation_account, # 28
             expenses_account: variant.fixed_asset_expenses_account # 68

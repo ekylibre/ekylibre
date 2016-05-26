@@ -1,5 +1,10 @@
 - main_toolbar do |t|
   = t.edit resource
+  = t.renew(resource) if current_user.can?(:write, :sales) && resource.renewable?
+  - if resource.suspendable?
+    = t.suspend resource, method: :post
+  - elsif resource.suspended
+    = t.takeover resource, method: :post
   = t.destroy
 
 = main_informations do
@@ -11,6 +16,8 @@
   = attributes_list(resource) do |l|
     - l.attribute :subscriber, url: true
     - l.attribute :address
+    - l.attribute :sale, url: true if resource.sale
+    - l.attribute :quantity
     - l.attribute :suspended
     - l.attribute :parent, url: true if resource.parent
     -# if resource.children.any?
