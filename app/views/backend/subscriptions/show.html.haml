@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource
-  = t.renew(resource) if current_user.can?(:write, :sales) && resource.renewable?
+  = t.renew(resource, method: :post) if current_user.can?(:write, :sales) && resource.renewable?
   - if resource.suspendable?
     = t.suspend resource, method: :post
   - elsif resource.suspended
