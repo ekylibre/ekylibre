@@ -485,8 +485,9 @@ module Backend
                 end
 
         # Add first indicators
-
-        indicators = variant.variable_indicators.delete_if { |i| whole_indicators.include?(i) }
+        indicators = variant.variable_indicators.delete_if do |i|
+          whole_indicators.include?(i) || [:geolocation, :shape].include?(i.name.to_sym)
+        end
         if object.new_record? && indicators.any?
 
           indicators.each do |indicator|

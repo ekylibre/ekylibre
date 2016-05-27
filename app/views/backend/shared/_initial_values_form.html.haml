@@ -8,10 +8,11 @@
   = f.referenced_association(:initial_owner)
   = f.referenced_association(:initial_container, label: Product.human_attribute_name(:container), source: {scope: {can: "store(#{f.object.variety})"}})
 
-- if f.object.indicators_list.include? :net_mass
+- unless f.object.population_counting_unitary?
   = f.input(:initial_population, wrapper: :append, class: :inline, label: Product.human_attribute_name(:population)) do
     = f.input_field(:initial_population, as: :string)
     %span.add-on= f.object.variant.unit_name
+
 - if f.object.indicators_list.include? :shape
   = f.shape(:initial_shape, label: Product.human_attribute_name(:shape))
 
