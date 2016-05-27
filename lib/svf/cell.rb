@@ -53,15 +53,19 @@ module SVF
       elsif type == :date
         value = "(#{value}.blank? ? nil : Date.civil(#{line}[#{start + 4}..#{start + 7}].to_i, #{line}[#{start + 2}..#{start + 3}].to_i, #{line}[#{start + 0}..#{start + 1}].to_i))"
       elsif type == :integer
-        value = "#{value}.strip.to_i"
+        value = "#{value}.to_s.strip.to_i"
       elsif type == :float
         # size = self.format.split(".")[0].to_i
         # value = "(#{line}[#{start}..#{start+size-1}]+'.'+#{line}[#{start+size+1}..#{start+self.length-1}]).to_d"
-        value = "#{value}.gsub(',', '.').to_d"
+        value = "#{value}.to_s.tr(',', '.').to_d"
       elsif type == :string
-        value = "#{value}.strip.encode('UTF-8')"
+        value = "#{value}.to_s.strip.encode('UTF-8')"
       end
       value
+    end
+
+    def stop
+      @start + length - 1
     end
 
     def format_value(variable)
@@ -73,7 +77,7 @@ module SVF
         value = "#{variable}.to_i.to_s.rjust(#{length})[0..#{length - 1}]"
       elsif type == :float
         size = format.split('.')
-        value = "(#{variable}.to_i.to_s+','+((#{variable}-#{variable}.to_i)*#{10**size[1].to_i}).to_i.abs.to_s.rjust(#{size[1].to_i}, '0')).rjust(#{length})[0..#{length - 1}]"
+        value = "(#{variable}.to_i.to_s + ',' + ((#{variable} - #{variable}.to_i)*#{10**size[1].to_i}).to_i.abs.to_s.rjust(#{size[1].to_i}, '0')).rjust(#{length})[0..#{length - 1}]"
       elsif type == :string
         value = "#{variable}.to_s.rjust(#{length})[0..#{length - 1}]"
       end
