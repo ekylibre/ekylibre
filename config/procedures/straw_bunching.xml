@@ -8,7 +8,7 @@
         </attribute>
       </target>
       <input name="straw_to_bunch" filter="is grass and derives from plant" cardinality="*">
-      	<handler name="population"/>
+        <handler name="population"/>
       </input>
       <output name="straw_bales" filter="is grass and derives from plant" cardinality="*">
         <attribute name="new_name"/><!--  value="'{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})'" -->
