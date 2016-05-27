@@ -4,10 +4,11 @@
   - k.multi_choice :state, [:draft, :estimate, :aborted, :refused, :order, :invoice].map{|s| [sm[s].human_name, s] }, label: Sale.human_attribute_name(:state)
   - k.helper :journal_period_crit
   - k.choice :all, :unpaid, name: :nature
-  - k.helper do
-    - responsible_ids = Sale.uniq.pluck(:responsible_id)
-    %label= Sale.human_attribute_name(:responsible)
-    = select_tag(:responsible_id, options_for_select([[]] + Entity.contacts.find(responsible_ids).collect{|u| [u.label, u.id]}, params[:responsible_id]))
+  - responsible_ids = Sale.uniq.pluck(:responsible_id)
+  - if responsible_ids.any?
+    - k.helper do
+      %label= Sale.human_attribute_name(:responsible)
+      = select_tag(:responsible_id, options_for_select([[]] + Entity.contacts.find(responsible_ids).collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
 - main_toolbar do |t|
   = t.new variants: SaleNature.actives.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }
