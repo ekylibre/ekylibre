@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160526092246">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160527090330">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2911,7 +2911,7 @@
       <item name="salary_social_contribution" nature="salary_social_contribution"/>
       <item name="salmon_band" nature="salmon_band" unit_name="subject"/>
       <item name="screed_building" nature="building" frozen_indicators_values="" unit_name="building"/>
-      <item name="seed" nature="seed" derivative_of="plant" frozen_indicators_values="net_mass: 1.00kilogram, thousand_grains_mass: 45gram" unit_name="kilogram"/>
+      <item name="seed" nature="seed" derivative_of="plant" frozen_indicators_values="net_mass: 1.00kilogram, thousand_grains_mass: 45gram, grains_count: 1.00thousand" unit_name="kilogram"/>
       <item name="seedling" nature="seedling" derivative_of="plant"/>
       <item name="segorbe_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_segorbe" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="server_certificate_subscription" nature="numeric_subscription" unit_name="domain"/>
@@ -3260,7 +3260,7 @@
       <item name="running_water" category="running_water" variety="water" population_counting="decimal" variable_indicators="nitrogen_concentration, potential_hydrogen" frozen_indicators="net_volume, net_mass"/>
       <item name="salary_social_contribution" category="salary_social_contribution" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="salmon_band" category="fish_band" variety="salmo" population_counting="integer" abilities="move, consume(water), consume(mix)" variable_indicators=""/>
-      <item name="seed" category="seed" variety="seed" derivative_of="plant" population_counting="decimal" abilities="grow" variable_indicators="" frozen_indicators="net_mass, thousand_grains_mass"/>
+      <item name="seed" category="seed" variety="seed" derivative_of="plant" population_counting="decimal" abilities="grow" variable_indicators="" frozen_indicators="net_mass, thousand_grains_mass, grains_count"/>
       <item name="seedbed_preparator" category="equipment" variety="equipment" population_counting="unitary" abilities="plow_superficially, implant" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="seedling" category="plant" variety="seedling" population_counting="integer" abilities="grow" variable_indicators=""/>
       <item name="settlement" category="settlement" variety="settlement" population_counting="unitary" abilities="store(building), store(building_division)" variable_indicators="net_surface_area, shape" frozen_indicators=""/>
