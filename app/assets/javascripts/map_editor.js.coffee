@@ -609,6 +609,8 @@
 
           map.fire 'modal', $.extend(true, {}, this.options.controls.importers, args )
 
+        this.controls.importers_ctrl.button['type'] = 'button'
+
         this.map.addControl this.controls.importers_ctrl
         this.map.addControl this.controls.reactiveMeasureControl
 
