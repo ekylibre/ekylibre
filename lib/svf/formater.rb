@@ -40,7 +40,7 @@ module SVF
           line.cells.each do |c|
             line_code << "  puts '#{c.start.to_s.rjust(3)}:#{c.stop.to_s.rjust(3)}:#{c.name.to_s.rjust(20)}: ' + line[#{c.start}..#{c.stop}].to_s.inspect.cyan\n"
           end
-          line_code << "  raise e\n"
+          line_code << "  raise SVF::InvalidSyntax, e.message\n"
           line_code << "end\n"
         else
           line_code = "#{line.class_name(@name)}.new\n"
@@ -51,8 +51,6 @@ module SVF
       code << "e\n"
       code << "        return nil\n"
       code << "      end\n"
-      code << "    rescue Exception => e\n"
-      code << "      raise e\n"
       code << "    end\n\n"
 
       code << "    def self.parse(file)\n"

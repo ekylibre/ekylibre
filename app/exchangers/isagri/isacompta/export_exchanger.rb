@@ -4,6 +4,12 @@ module Isagri
   module Isacompta
     # Exchanger to import COFTW.isa files from IsaCompta software
     class ExportExchanger < ActiveExchanger::Base
+      def check
+        SVF::Isacompta8550.parse(file)
+      rescue SVF::InvalidSyntax
+        return false
+      end
+
       def import
         default_journal_natures = {
           'ac' => :purchases,
@@ -25,7 +31,11 @@ module Isagri
         version = used_versions.select { |x| x <= version }.sort[-1]
 
         if version == 8550
-          isa = SVF::Isacompta8550.parse(file)
+          begin
+            isa = SVF::Isacompta8550.parse(file)
+          rescue SVF::InvalidSyntax
+            raise NotWellFormedFileError
+          end
 
           raise NotWellFormedFileError unless isa.folder.financial_year
 

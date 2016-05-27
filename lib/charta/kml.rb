@@ -28,12 +28,10 @@ module Charta
 
       coordinates.each do |coord|
         coordArray = coord.content.split /\r\n|\n| /
-        coordArray.collect!{|c|c.split ','}.collect!{|dimension| [dimension.first, dimension.second, '0']}
-        coord.content = coordArray.collect{|coord| coord.join(',')}.join(' ')
-
+        coordArray.collect! { |c| c.split ',' }.collect! { |dimension| [dimension.first, dimension.second, '0'] }
+        coord.content = coordArray.collect { |coord| coord.join(',') }.join(' ')
       end
       @kml = xml.to_xml
-
     end
 
     def valid?
