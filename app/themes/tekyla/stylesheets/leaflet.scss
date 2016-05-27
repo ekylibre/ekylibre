@@ -773,16 +773,6 @@
 
 }
 
-.leaflet-draw-tooltip-measure {
-  &.perimeter {
-    @include icon-before(square-o)
-  }
-  &.area {
-    @include icon-before(square);
-    padding-left: 10px
-  }
-}
-
 /* ================================================================== */
 /* Edit styles
 /* ================================================================== */

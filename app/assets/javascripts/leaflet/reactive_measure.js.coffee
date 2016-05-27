@@ -113,6 +113,16 @@ L.Polyline.include
         i++
     return
 
+  getMeasure: () ->
+    g = new L.GeographicUtil.Polygon @getLatLngsAsArray()
+
+    measure =
+      perimeter: g.perimeter()
+      area: g.area()
+
+    measure
+
+
 L.Draw.Polyline.include
   __addHooks: L.Draw.Polyline.prototype.addHooks
   __removeHooks: L.Draw.Polyline.prototype.removeHooks
@@ -151,18 +161,18 @@ L.Draw.Polyline.include
       perimeter: g.perimeter()
       area: g.area()
 
-    @_tooltip.__updateTooltipMeasure mouseLatLng, measure, @options
+    @_reactiveMeasureControl.updateContent measure, {selection: true}
+
 
 
   addHooks: () ->
     @__addHooks.apply this, arguments
-    if L.DrawToolbar.reactiveMeasure
-      @_tooltip = new L.Tooltip @_map, onTop: true
-      @_map.on 'mousemove', @__onMouseMove, this
+    @_reactiveMeasureControl = L.EditToolbar.reactiveMeasureControl
+    @_map.on 'mousemove', @__onMouseMove, this
     return
 
   removeHooks: () ->
-    if L.DrawToolbar.reactiveMeasure
+    if @_reactiveMeasureControl
       @_map.off 'mousemove'
     @__removeHooks.apply this, arguments
     return
@@ -180,25 +190,20 @@ L.Edit.Poly.include
       perimeter: g.perimeter()
       area: g.area()
 
-    for tooltip in L.EditToolbar.tooltipMeasurePointers
-      tooltip.hide()
-
     L.extend(L.Draw.Polyline.prototype.options, target: e.marker.getLatLng())
 
-    @__tooltipMeasure.__updateTooltipMeasure e.marker.getLatLng(), measure, L.Draw.Polyline.prototype.options
+    @_reactiveMeasureControl.updateContent measure, {selection: true}
 
 
   addHooks: () ->
     @__addHooks.apply this, arguments
-    if L.EditToolbar.reactiveMeasure
-      @__tooltipMeasure = new L.Tooltip @_poly._map, onTop: true
-      L.EditToolbar.tooltipMeasurePointers.push @__tooltipMeasure
+    if L.EditToolbar.reactiveMeasureControl
+      @_reactiveMeasureControl = L.EditToolbar.reactiveMeasureControl
       this._poly.on 'editdrag', @__onHandlerDrag, this
 
   removeHooks: () ->
     if L.EditToolbar.reactiveMeasure
       this._poly.off 'editdrag'
-      @__tooltipMeasure.dispose()
 
     @__removeHooks.apply this, arguments
 
@@ -292,7 +297,6 @@ L.DrawToolbar.include
   __initialize: L.DrawToolbar.prototype.initialize
 
   initialize: (options) ->
-    L.DrawToolbar.reactiveMeasure = !!options.reactiveMeasure
     @__initialize.apply this, arguments
     return
 
@@ -300,8 +304,7 @@ L.EditToolbar.include
   __initialize: L.EditToolbar.prototype.initialize
 
   initialize: (options) ->
-    L.EditToolbar.reactiveMeasure = !!options.reactiveMeasure
-    L.EditToolbar.tooltipMeasurePointers = []
+    L.EditToolbar.reactiveMeasureControl = options.reactiveMeasureControl || new L.ReactiveMeasureControl()
     @__initialize.apply this, arguments
     return
 
@@ -333,3 +336,46 @@ L.EditToolbar.include
     handler = this._activeMode.handler
     handler.save()
     handler.disable()
+
+L.ReactiveMeasureControl = L.Control.extend
+  options:
+    position: 'bottomright'
+    metric: true
+    feet: false
+    measure:
+      perimeter: 0
+      area: 0
+
+  initialize: (layers, options = {}) ->
+    L.Util.setOptions @, options
+    # Be sure to reset
+    @options.measure.perimeter = 0
+    @options.measure.area = 0
+
+    if layers.getLayers().length > 0
+      layers.eachLayer (layer) =>
+        m = layer.getMeasure()
+        @options.measure.perimeter += m.perimeter
+        @options.measure.area += m.area
+
+  onAdd: (map) ->
+    @_container = L.DomUtil.create('div', 'reactive-measure-control')
+    if map and @_container
+      @updateContent(@options.measure)
+    @_container
+
+  updateContent: (measure = {}, options = {}) ->
+    text = ''
+    if measure['perimeter']
+      text += "<span class='leaflet-draw-tooltip-measure perimeter'>#{L.GeometryUtil.readableDistance(measure.perimeter, !!@options.metric, !!options.feet)}</span>"
+    if measure['area']
+      text += "<span class='leaflet-draw-tooltip-measure area'>#{L.GeometryUtil.readableArea(measure.area, !!@options.metric)}</span>"
+
+    if options.selection?
+      L.DomUtil.addClass @_container, 'selection'
+    else
+      L.DomUtil.removeClass @_container, 'selection'
+
+    @_container.innerHTML = text
+
+    return

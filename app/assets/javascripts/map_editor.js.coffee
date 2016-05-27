@@ -49,7 +49,6 @@
             edit:
               color: "#A40"
               popup: false
-            reactiveMeasure: true
           draw:
             marker: false
             polyline: false
@@ -72,6 +71,9 @@
         fullscreen:
           position: 'topleft'
           title: I18n.t("#{I18n.rootKey}.leaflet.fullscreenTitle")
+        reactiveMeasure:
+          metric: true
+          feet: false
         importers:
           gml: true
           geojson: true
@@ -556,7 +558,9 @@
         this.controls.fullscreen = new L.Control.FullScreen(this.options.controls.fullscreen)
         this.map.addControl this.controls.fullscreen
       if this.edition?
-        this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
+        unless this.options.controls.reactiveMeasure is false
+          this.controls.reactiveMeasureControl = new L.ReactiveMeasureControl(this.edition, this.options.controls.reactiveMeasure)
+        this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}, {edit:{reactiveMeasureControl: this.controls.reactiveMeasureControl}}))
         this.map.addControl this.controls.draw
       unless this.options.controls.scale is false
         this.controls.scale = new L.Control.Scale(this.options.controls.scale)
@@ -606,6 +610,8 @@
           map.fire 'modal', $.extend(true, {}, this.options.controls.importers, args )
 
         this.map.addControl this.controls.importers_ctrl
+        this.map.addControl this.controls.reactiveMeasureControl
+
 
 
 

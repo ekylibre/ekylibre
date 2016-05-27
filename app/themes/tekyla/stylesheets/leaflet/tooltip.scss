@@ -23,3 +23,22 @@
     color: inherit;
   }
 }
+
+.leaflet-draw-tooltip-measure {
+  &.perimeter {
+    @include icon-before(square-o)
+  }
+  &.area {
+    @include icon-before(square);
+    padding-left: 10px
+  }
+}
+
+.reactive-measure-control {
+  background: rgba(255,255,255, 0.6);
+  padding: 0 $default-gap;
+
+  &.selection {
+    background: rgba(mix(white, $caution-color), 0.5);
+  }
+}
