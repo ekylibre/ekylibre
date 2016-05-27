@@ -158,7 +158,8 @@
       this._refreshControls()
       # console.log "controlled"
 
-      $(this.mapElement).on 'click', '.updateAttributesInPopup', (e) =>
+      @updateAttributes = (e) =>
+        return unless e.which == 1 || e.which == 13
         e.preventDefault()
         featureId = $(e.currentTarget).closest('.leaflet-popup-content').find('*[data-internal-id]').data('internal-id')
         newName = $(e.currentTarget).closest('.popup-content').find('input[type="text"]').val()
@@ -199,6 +200,10 @@
           $(this.element).trigger('mapeditor:feature_update', layer.feature)
 
         false
+
+      $(this.mapElement).on 'keypress', '.updateAttributesLabelInput', @updateAttributes
+      $(this.mapElement).on 'click', '.updateAttributesInPopup', @updateAttributes
+
 
       widget.element.trigger "mapeditor:loaded"
 
@@ -263,7 +268,7 @@
       popup += "<span class='leaflet-popup-warning right hide'></span>"
       popup += "</div>"
       popup += "<div class='popup-content'>"
-      popup += "<input type='text' value='#{feature.properties.name || this.options.defaultLabel}'/>"
+      popup += "<input type='text' class='updateAttributesLabelInput' value='#{feature.properties.name || this.options.defaultLabel}'/>"
 
       if this.options.multiLevels?
         popup += "<select>"
