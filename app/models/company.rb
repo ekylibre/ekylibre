@@ -520,30 +520,41 @@ class Company < Ekylibre::Record::Base
     temporary_dir = Rails.root.join("tmp", "backups")
     FileUtils.mkdir_p(temporary_dir)
     file = temporary_dir.join("backup-#{self.code.lower}-#{Time.now.strftime('%Y%m%d-%H%M%S')}.zip")
-    doc = LibXML::XML::Document.new
-    doc.root = backup = LibXML::XML::Node.new('backup')
-    {'version'=>version, 'creation-date'=>Date.today, 'creator'=>creator}.each{|k,v| backup[k]=v.to_s}
-    backup << root = LibXML::XML::Node.new('company')
-    self.attributes.each{|k,v| root[k] = v.to_s}
-    n = 0
-    start = Time.now.to_i
-    models = Ekylibre.models.delete_if{|x| x==:company}
-    for model in models
-      rows = model.to_s.classify.constantize.find(:all, :conditions=>{:company_id=>self.id}, :order=>:id)
-      rows_count = rows.size
-      n += rows_count
-      root << table = LibXML::XML::Node.new('rows')
-      {'model'=>model.to_s, 'records-count'=>rows_count.to_s}.each{|k,v| table[k]=v}
-      rows_count.times do |i|
-        table << row = LibXML::XML::Node.new('row')
-        rows[i].attributes.each{|k,v| row[k] = v.to_s}
-      end
-    end
-    # backup.add_attributes('records-count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
-    stream = doc.to_s
-
     Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
-      zile.get_output_stream("backup.xml") { |f| f.puts(stream) }
+      zile.get_output_stream("backup.xml") do |xml|
+        xml.puts "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        xml.puts "<company version=\"#{version}\" creation-date=\"#{Date.today}\" creator=\"Ekylibre\">"
+        start = Time.now.to_i
+        models = Ekylibre.models.delete_if{|x| x==:company}
+        models.each_with_index do |model, m|
+          klass = model.to_s.classify.constantize
+          records = klass.where(:company_id => self.id).order(:id)
+          rows_count = records.count
+          Kernel.print "[#{m + 1}/#{models.size}] Model #{model} (#{rows_count}): "
+          xml.puts "  <rows model=\"#{model}\" records-count=\"#{rows_count}\">"
+          i = 0
+          step = rows_count / 70
+          records.find_each do |record|
+            xml.write "    <row"
+            record.attributes.each do |k,v|
+              nv = v.to_s.gsub('"', '&#34;').gsub('&', '&#38;').gsub("'", '&#39;').gsub('<', '&#60;').gsub('>', '&#62;')
+              xml.write " #{k}=\"#{nv}\""
+            end
+            xml.puts "/>"
+            i += 1
+            if i > step
+              Kernel.print "."
+              i = 0
+            end
+          end
+          puts "#"
+          xml.puts "  </rows>"
+          xml.flush
+        end
+        xml.puts "</company>"
+        puts " -> Done in #{Time.now.to_i-start}s"
+      end
+
       files_dir = self.private_directory
       if with_files and File.exist?(files_dir)
         Dir.chdir(files_dir) do
