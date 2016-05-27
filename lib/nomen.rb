@@ -3,16 +3,22 @@ module Nomen
   NS_SEPARATOR = '-'.freeze
   PROPERTY_TYPES = [:boolean, :item, :item_list, :choice, :choice_list, :string_list, :date, :decimal, :integer, :nomenclature, :string, :symbol].freeze
 
-  class MissingNomenclature < StandardError
+  class Error < ::StandardError
   end
 
-  class MissingChoices < StandardError
+  class MissingNomenclature < Error
   end
 
-  class InvalidPropertyNature < StandardError
+  class ItemNotFound < Error
   end
 
-  class InvalidProperty < StandardError
+  class MissingChoices < Error
+  end
+
+  class InvalidPropertyNature < Error
+  end
+
+  class InvalidProperty < Error
   end
 
   autoload :Item,                'nomen/item'
