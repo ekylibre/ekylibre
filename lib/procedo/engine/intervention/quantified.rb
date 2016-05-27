@@ -76,10 +76,7 @@ module Procedo
           rh = reference.handler(@quantity_handler) unless @quantity_handler.blank?
           unless @quantity_handler && usable_handler?(rh)
             rh = reference.handlers.detect { |h| usable_handler?(h) }
-            if rh
-              puts "[#{name}] Change handler to #{rh.name} from #{@quantity_handler}".green
-              self.quantity_handler = rh.name.to_s
-            end
+            self.quantity_handler = rh.name.to_s if rh
           end
         end
 
