@@ -19,7 +19,7 @@ class Backend::MapBackgroundsControllerTest < ActionController::TestCase
   test 'toggling activation' do
     m = MapBackground.first
     state = m.enabled
-    put :toggle, id: m.id
+    post :toggle, id: m.id, format: :json
     assert_equal !state, m.reload.enabled
   end
 
