@@ -31,7 +31,7 @@
             <property name="started_at" of="intervention" type="datetime"/>
             <property name="stopped_at" of="intervention" type="datetime"/>
             <property name="working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
-            <property name="working_area" if="intervention.targets.of_actors(targets).any?" value="intervention.targets.of_actors(targets).first.working_zone.intersection(zone.shape).area.convert(:hectare).round(2).l" type="measure"/>
+            <property name="working_area" if="intervention.targets.of_actors(targets).first and intervention.targets.of_actors(targets).first.working_zone" value="intervention.targets.of_actors(targets).first.working_zone.intersection(zone.shape).area.convert(:hectare).round(2).l" type="measure"/>
             <variable name="doer" value="intervention.doers.first"/>
             <property name="doer_name" if="doer and doer.product" value="doer.product.name"/>
             <section name="issue" of="intervention.issue">
