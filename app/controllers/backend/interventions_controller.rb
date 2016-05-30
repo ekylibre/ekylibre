@@ -83,7 +83,6 @@ module Backend
       # t.column :production, url: true, hidden: true
       # t.column :campaign, url: true
       t.column :human_activities_names
-      t.column :state, hidden: true
       t.column :started_at
       t.column :stopped_at, hidden: true
       t.column :human_working_duration
