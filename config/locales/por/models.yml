@@ -1061,6 +1061,7 @@ por:
     shift_duration: "Duração turno"
     shift_method: "Método shift"
     sign_in_count: "Entre contagem"
+    # signup_at: "Signup at"
     # siren: "SIREN"
     siret_number: "Número SIRET"
     size_indicator: "Indicador de tamanho"

@@ -1065,6 +1065,7 @@ spa:
     shift_duration: "Duración Shift"
     shift_method: "Método de desplazamiento"
     sign_in_count: "Iniciar sesión en la cuenta"
+    # signup_at: "Signup at"
     siren: "SIRENA"
     siret_number: "SIRET"
     size_indicator: "Indicador de tamaño"

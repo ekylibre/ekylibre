@@ -2005,6 +2005,7 @@ arb:
     shipped: "المستلم" #?
     shipped_at: "شحنها يوم" #?
     sign_in_count: "تسجيل الدخول العد"
+    # signup_at: "Signup at"
     siren: "رقم صفارة الانذار"
     siret_number: "SIRET رقم"
     size_indicator: "مؤشر حجم"

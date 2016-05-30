@@ -1092,6 +1092,7 @@ ita:
     shift_duration: "durata spostamento"
     shift_method: "metodo di spostamento"
     sign_in_count: "Entra conteggio"
+    # signup_at: "Signup at"
     siren: "SIRENA"
     siret_number: "numero SIRET"
     size_indicator: "indicatore dimensioni"

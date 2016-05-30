@@ -1061,6 +1061,7 @@ deu:
     shift_duration: "Schichtdauer"
     shift_method: "Shift-Verfahren"
     sign_in_count: "Anmeldung Zahl"
+    # signup_at: "Signup at"
     siren: "SIRENE"
     siret_number: "SIRET Nummer"
     size_indicator: "Größenanzeige"

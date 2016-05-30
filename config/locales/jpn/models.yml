@@ -1061,6 +1061,7 @@ jpn:
     shift_duration: "シフト期間"
     shift_method: "シフト法"
     sign_in_count: "カウントログイン"
+    # signup_at: "Signup at"
     siren: "サイレン"
     siret_number: "シレト番号"
     size_indicator: "サイズ表示"

@@ -887,6 +887,7 @@ arb:
     active_fixed_sum: "مجموع الموجودات الثابتة" #?
     active_sum: "مجموع الموجودات" #?
     activities: "أنشطة"
+    # activities_step: "activities"
     activity: "نشاط"
     # activity_family: "Family activities"
     # activity_name: "Activity"
@@ -1017,6 +1018,7 @@ arb:
     building: "مكان التخزين"
     building_create: "اضافة موقع تخزين" #?
     # building_divisions: "building areas"
+    # building_divisions_and_parcels: "building areas and land parcels"
     building_name: "انتاج" #?
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين"
@@ -1029,8 +1031,13 @@ arb:
     cancel: "الغاء"
     cancelation: "إلغاء"
     cancelled: "تم الالغاء" #?
+    # cap_cluster_prefix: "CAP island No."
+    # cap_clusters: "CAP islands"
     cap_islets: "الجزر كاب"
+    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "قطع الأراضي كاب"
+    # cap_parcel_prefix: "CAP land parcel No."
+    # cap_parcels: "CAP land parcels"
     cartography: "خرائطية"
     cash: "حسابات بنكية"
     cash_balance: "الرصيد النقدي"
@@ -1213,6 +1220,7 @@ arb:
     edit: "تعديل"
     # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "تحرير الميزانية"
+    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة"
     email: "البريد الإلكتروني:"
@@ -1765,6 +1773,7 @@ arb:
     recent_events: "الاحداث الاخيرة"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
+    # reference_cap_clusters: "Islets reference CAP"
     reflect: "يعكس"
     reflected: "التغييرات تنعكس"
     reflections: "خواطر"
@@ -2066,6 +2075,7 @@ arb:
     view: "معاينة"
     virtual_quantity: "الكمية العملية" #?
     waiting: "أ€ التسدسد لاحقا" #?
+    # watering_concentration: "Watering concentration"
     weather: "طقس"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "سرعة الرياح"

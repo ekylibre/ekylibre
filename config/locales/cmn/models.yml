@@ -1061,6 +1061,7 @@ cmn:
     shift_duration: "转变时间"
     shift_method: "移法"
     sign_in_count: "登录计数"
+    # signup_at: "Signup at"
     siren: "警笛"
     siret_number: "SIRET号"
     size_indicator: "尺寸指示"

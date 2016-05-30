@@ -774,6 +774,7 @@ eng:
     accounts_to_load: "Accounts to load"
     active: "Active" #?
     activities: "Activities" #?
+    activities_step: "activities" #?!
     activity: "Activity"
     activity_family: "Family activities" #?
     activity_name: "Activity" #?
@@ -875,6 +876,7 @@ eng:
     budgets: "Budgets" #?
     building: "Building" #?
     building_divisions: "building areas" #?
+    building_divisions_and_parcels: "building areas and land parcels" #?!
     buildings: "buildings" #?
     # by_default: "By default"
     by_year: "By year"
@@ -886,8 +888,13 @@ eng:
     canals: "Canals" #?
     cancel: "Cancel"
     cancelation: "Cancelation"
+    cap_cluster_prefix: "CAP island No." #?!
+    cap_clusters: "CAP islands" #?!
     cap_islets: "CAP islets"
+    cap_land_parcel_clusters: "CAP islands" #?!
     cap_land_parcels: "CAP land parcels"
+    cap_parcel_prefix: "CAP land parcel No." #?!
+    cap_parcels: "CAP land parcels" #??
     cartography: "Cartography"
     cash: "Cash"
     cash_balance: "Cash balance"
@@ -1023,6 +1030,7 @@ eng:
     edit: "Edit"
     edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it." #?!
     edit_budget: "Edit budget"
+    edited_cap_clusters: "Islands modified PAC" #?!
     ekylibre: "www.ekylibre.org" #?
     elapsed_interventions_times_by_activities: "Elapsed interventions times by activities" #?
     email: "Email:" #?
@@ -1374,6 +1382,7 @@ eng:
     ready_to_harvest: "Ready to harvest"
     received: "Received" #?
     recent_events: "Recent events"
+    reference_cap_clusters: "Islets reference CAP" #?!
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
@@ -1570,6 +1579,7 @@ eng:
     variants: "Variants"
     variety: "Variety" #?
     view: "View"
+    watering_concentration: "Watering concentration" #?
     weather: "Weather"
     welcome_on_first_run_wizard: "Welcome to the Startup Wizard" #?!
     wind_speed: "Wind speed"

@@ -685,6 +685,7 @@ spa:
     active_fixed_sum: "Total activos inmobilisados" #?
     active_sum: "Total activos" #?
     activities: "Ocupaciones"
+    # activities_step: "activities"
     activity: "Actividad"
     # activity_family: "Family activities"
     # activity_name: "Activity"
@@ -807,6 +808,7 @@ spa:
     # building: "Building"
     building_create: "Añadir un lugar de deposito" #?
     # building_divisions: "building areas"
+    # building_divisions_and_parcels: "building areas and land parcels"
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito"
     by_year: "Por año"
@@ -818,8 +820,13 @@ spa:
     cancel: "Cancelar"
     cancelation: "Cancelación"
     cancelled: "Pasar en activos" #?
+    # cap_cluster_prefix: "CAP island No."
+    # cap_clusters: "CAP islands"
     cap_islets: "Islotes Cap"
+    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "Parcelas Cap"
+    # cap_parcel_prefix: "CAP land parcel No."
+    # cap_parcels: "CAP land parcels"
     cartography: "Cartografía"
     cash: "Efectivo"
     cash_balance: "Saldo en efectivo"
@@ -983,6 +990,7 @@ spa:
     edit: "Editar"
     # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "Editar presupuesto"
+    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades"
     # email: "Email:"
@@ -1403,6 +1411,7 @@ spa:
     # ready_to_harvest: "Ready to harvest"
     received: "Recibido"
     recent_events: "Eventos recientes"
+    # reference_cap_clusters: "Islets reference CAP"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
     reflections: "Reflexiones"
@@ -1649,6 +1658,7 @@ spa:
     variants: "Variantes"
     # variety: "Variety"
     view: "Ver"
+    # watering_concentration: "Watering concentration"
     weather: "Clima"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Velocidad del viento"

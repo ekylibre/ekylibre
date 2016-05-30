@@ -1308,6 +1308,7 @@ fra:
     shift_duration: "Durée du différé"
     shift_method: "Méthode de différé"
     sign_in_count: "Nombre de connexions"
+    # signup_at: "Signup at"
     siren: "N° SIREN"
     siret_number: "N° SIRET"
     size_indicator: "Indicateur de taille"
