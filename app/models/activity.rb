@@ -211,6 +211,24 @@ class Activity < Ekylibre::Record::Base
       distributions.clear
     end
   end
+  
+  # return estimate yield from first budget in revenus item for given variety
+  def estimate_yield_from_budget_of(options = {})
+    options[:unit] ||= :quintal
+    options[:variety] ||= 'grain'
+    selected_budget = budget_of(options[:campaign])
+    if selected_budget
+      r = []
+      selected_budget.revenues.each do |item|
+        if item.variant && item.variant.variety == options[:variety]
+          r << item.quantity.in(item.variant.unit).convert(options[:unit]) if item.variant.unit && item.quantity
+        end
+        return r.compact.sum
+      end
+    else
+      return nil
+    end
+  end
 
   def interventions
     Intervention.of_activity(self)

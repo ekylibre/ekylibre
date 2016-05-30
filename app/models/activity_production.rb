@@ -450,8 +450,8 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # call method in production for instance
   def estimate_yield(options = {})
-    raise 'Not possible anymore'
-    production.estimate_yield(options)
+    options[:campaign] ||= campaign
+    activity.estimate_yield_from_budget_of(options)
   end
 
   def current_cultivation
