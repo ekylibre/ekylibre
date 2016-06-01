@@ -94,22 +94,18 @@
       unless computing.length > 0
         console.error 'Cannot procedure element where compute URL is defined'
         return false
-      console.log 'in refreshing'
       if computing.prop('state') isnt 'waiting'
-        console.log 'in ajax'
         $.ajax
           url: computing.data('procedure')
           type: "PATCH"
           data: form.serialize()
           beforeSend: ->
-            console.log 'waiting'
             computing.prop 'state', 'waiting'
           error: (request, status, error) ->
             computing.prop 'state', 'ready'
             false
           success: (data, status, request) ->
             console.group('Unserialize intervention updated by ' + updaterId)
-            console.log(data)
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
@@ -117,8 +113,6 @@
             #   E.interventions.refresh updaterElement
             computing.prop 'state', 'ready'
             console.groupEnd()
-          complete: () ->
-            console.log 'ready'
 
 
   ##############################################################################
