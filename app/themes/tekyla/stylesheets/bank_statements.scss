@@ -2,19 +2,24 @@
   tbody tr {
     cursor: pointer;
   }
+
   tfoot tr, tfoot tr td {
     font-weight: bold;
   }
+
   .center {
     text-align: center;
   }
+
   input.error {
     border-color: $invalid-color;
     border-width: 2px;
   }
+
   .tmpl-date {
     display: none;
   }
+
   .date-separator {
     border-top: 1px solid red;
 
@@ -26,6 +31,7 @@
       }
     }
   }
+
   .del {
     font-weight: bold;
     i {
@@ -33,11 +39,13 @@
       @include use-icon(clear);
     }
   }
+
   .bank-statement-item-type, .journal-entry-item-type {
     &.selected {
       background-color: $active-color;
     }
   }
+
   .bank-statement-item-type {
     font-style: italic;
     .name {
@@ -51,19 +59,23 @@
       @include use-icon(university);
     }
   }
+
   .journal-entry-item-type {
     .type-icon i {
       @include is-icon;
       @include use-icon(book);
     }
   }
+
   .add-bank-statement-item-cont .ui-datepicker-trigger {
     float: left;
   }
+
   .bank-statement-letter {
     font-style: normal;
     font-weight: bold;
   }
+
   .clear {
     a {
       display: none;
@@ -73,7 +85,9 @@
       @include use-icon(eraser);
     }
   }
+
   .complete a {
     display: none;
   }
+
 }
