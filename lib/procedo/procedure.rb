@@ -34,7 +34,7 @@ module Procedo
     # Adds category to procedure
     def add_category(name)
       category = Nomen::ProcedureCategory.find(name)
-      raise "Invalid category: #{name.inspect}" unless category
+      raise "Invalid category: #{name.inspect}".red unless category
       @categories << category unless @categories.include?(category)
     end
 
@@ -51,7 +51,7 @@ module Procedo
     # Adds action to procedure
     def add_action(name, optional = false)
       action = Nomen::ProcedureAction.find(name)
-      raise "Invalid action: #{name.inspect}" unless action
+      raise "Invalid action: #{name.inspect}".red unless action
       actions = optional ? @optional_actions : @mandatory_actions
       actions << action unless actions.include?(action)
     end
