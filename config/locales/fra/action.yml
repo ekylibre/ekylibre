@@ -1143,7 +1143,7 @@ fra:
     expedier: "Expéditeur"
     expense_chart: "Évolution des dépenses" #?
     expenses: "Dépenses"
-    expenses_by_product_nature_category: "Achats par catégories de produit" #?
+    expenses_by_product_nature_category: "Achats par catégories de produit"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
@@ -1295,7 +1295,7 @@ fra:
     last_animals: "Dernières naissances" #?
     last_clients: "Derniers clients" #?
     last_computed_balance: "Dernière balance calculée"
-    last_documents: "Derniers archivages" #?
+    last_documents: "Derniers archivages"
     last_entities: "Derniers tiers"
     last_events: "Derniers évènements"
     last_incoming_parcels: "Futurs colis à réceptionner"
@@ -1624,6 +1624,7 @@ fra:
       invoice: "Facture" #?
       order: "Commande" #?
       refused: "Refusée" #?
+    quandl: "Quandl"
     quantity: "Quantité"
     quantity_rest: "Quantité restante"
     quarterly: "Trimestrielle" #?

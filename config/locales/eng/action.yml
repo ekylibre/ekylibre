@@ -1064,6 +1064,7 @@ eng:
     expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expedier"
     expenses: "Expenses"
+    expenses_by_product_nature_category: "Expenses by product nature category" #?
     export: "Export documents"
     file_imports: "Import files" #??
     file_nature: "File type"
@@ -1163,6 +1164,7 @@ eng:
     land_parcels: "Land parcels"
     last_analyses: "Last milk analysis"
     last_computed_balance: "Last computed balance" #?
+    last_documents: "Last documents" #?
     last_entities: "Last entities" #?
     last_events: "Last events" #?
     last_incoming_parcels: "Last incoming parcels" #?
@@ -1372,6 +1374,7 @@ eng:
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
+    quandl: "Quandl" #?
     quantity: "Quantity" #?
     quantity_rest: "Remaining quantity" #?!
     query: "Query:" #?

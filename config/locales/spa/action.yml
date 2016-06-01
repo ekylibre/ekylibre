@@ -1029,6 +1029,7 @@ spa:
     # expected_quantity_is_x: "Expected quantity: %{x}"
     expedier: "Expédier"
     expenses: "Gastos"
+    # expenses_by_product_nature_category: "Expenses by product nature category"
     export: "Exportación de un fichero de salvaguardia"
     # file_imports: "Import files"
     file_nature: "Tipo de fichero"
@@ -1146,6 +1147,7 @@ spa:
     land_parcels: "Parcelas"
     last_analyses: "Análisis Última leche"
     last_computed_balance: "Último balance computarizada"
+    # last_documents: "Last documents"
     last_entities: "Últimos entidades"
     last_events: "Últimos eventos"
     last_incoming_parcels: "Últimos paquetes entrantes"
@@ -1399,6 +1401,7 @@ spa:
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
     purchases: "Compras"
+    # quandl: "Quandl"
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante"
     quantity_to_credit: "Cantidad a pasar en activo" #?

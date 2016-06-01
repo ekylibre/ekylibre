@@ -1276,6 +1276,7 @@ arb:
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "مصاريف"
+    # expenses_by_product_nature_category: "Expenses by product nature category"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
     # file_imports: "Import files"
@@ -1415,6 +1416,7 @@ arb:
     land_parcels: "قائمة بالنظام"
     last_analyses: "تحليل الحليب الماضي"
     last_computed_balance: "ميزان حسابها الماضي"
+    # last_documents: "Last documents"
     last_entities: "مشاركة الكيانات"
     last_events: "مشاركة الأحداث"
     last_incoming_parcels: "مشاركة الطرود الواردة"
@@ -1759,6 +1761,7 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
+    # quandl: "Quandl"
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية"
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
