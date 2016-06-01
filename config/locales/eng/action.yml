@@ -202,7 +202,7 @@ eng:
       show: "Document template: %{name}"
     backend/documents:
       edit: "Edit document: %{name}"
-      index: "Documents management"
+      index: "Document management system"
       new: "New document"
       show: "Document: %{name}"
     backend/draft_journals:
