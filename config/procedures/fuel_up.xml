@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="fuel_up" categories="energy_supplying" actions="fuel_up">
+  <procedure name="fuel_up" categories="energy_supplying" actions="fuel_up" maintenance="true">
     <parameters>
       <target name="equipment" filter="is equipment and can consume(fuel)" />
       <input name="fuel" filter="is fuel" >

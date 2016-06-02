@@ -22,25 +22,28 @@
 #
 # == Table: interventions
 #
-#  actions          :string
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  custom_fields    :jsonb
-#  description      :text
-#  event_id         :integer
-#  id               :integer          not null, primary key
-#  issue_id         :integer
-#  lock_version     :integer          default(0), not null
-#  number           :string
-#  prescription_id  :integer
-#  procedure_name   :string           not null
-#  started_at       :datetime
-#  state            :string           not null
-#  stopped_at       :datetime
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  whole_duration   :integer          default(0), not null
-#  working_duration :integer          default(0), not null
+#  actions             :string
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  custom_fields       :jsonb
+#  description         :text
+#  event_id            :integer
+#  id                  :integer          not null, primary key
+#  issue_id            :integer
+#  lock_version        :integer          default(0), not null
+#  maintenance_nature  :string
+#  number              :string
+#  prescription_id     :integer
+#  procedure_name      :string           not null
+#  started_at          :datetime
+#  state               :string           not null
+#  stopped_at          :datetime
+#  trouble_description :string
+#  trouble_encountered :boolean          default(FALSE), not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer
+#  whole_duration      :integer          default(0), not null
+#  working_duration    :integer          default(0), not null
 #
 
 class Intervention < Ekylibre::Record::Base
@@ -64,14 +67,20 @@ class Intervention < Ekylibre::Record::Base
   end
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
+  enumerize :maintenance_nature, in: [:curative, :preventive, :ameliorative], predicates: true, default: :curative
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(intervention) { intervention.stopped_at && intervention.started_at }
   validates_numericality_of :whole_duration, :working_duration, allow_nil: true, only_integer: true
+  validates_inclusion_of :trouble_encountered, in: [true, false]
   validates_presence_of :procedure_name, :state, :whole_duration, :working_duration
   # ]VALIDATORS]
+  validates_presence_of :maintenance_nature, if: :maintenance?
   validates_presence_of :actions
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
+
+  delegate :maintenance?, to: :procedure
 
   serialize :actions, SymbolArray
 

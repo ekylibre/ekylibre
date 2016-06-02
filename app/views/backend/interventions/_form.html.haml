@@ -11,6 +11,12 @@
       = hidden_field_tag('intervention[actions][]', a.name)
     - if procedure.optional_actions.any?
       = f.items_list(:actions, selection: procedure.optional_actions_selection)
+    -#Add booleab and field
+    = f.input :trouble_encountered, show: '#problem-description'
+    #problem-description
+      = f.input :trouble_description, as: :text
+    - if procedure.maintenance?
+      = f.input :maintenance_nature, as: :radio_buttons
 
     = f.custom_fields
     #prescriptions

@@ -68,6 +68,7 @@ module Procedo
         options[:categories] = element.attr('categories').to_s.split(/[\s\,]+/).map(&:to_sym)
         options[:mandatory_actions] = element.attr('actions').to_s.split(/[\s\,]+/).map(&:to_sym)
         options[:optional_actions] = element.attr('optional-actions').to_s.split(/[\s\,]+/).map(&:to_sym)
+        options[:maintenance] = true if element.attr('maintenance').to_s == 'true'
 
         procedure = Procedo::Procedure.new(name, options)
 

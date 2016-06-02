@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518061327) do
+ActiveRecord::Schema.define(version: 20160602123611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1531,22 +1531,25 @@ ActiveRecord::Schema.define(version: 20160518061327) do
   create_table "interventions", force: :cascade do |t|
     t.integer  "issue_id"
     t.integer  "prescription_id"
-    t.string   "procedure_name",               null: false
-    t.string   "state",                        null: false
+    t.string   "procedure_name",                      null: false
+    t.string   "state",                               null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0, null: false
+    t.integer  "lock_version",        default: 0,     null: false
     t.integer  "event_id"
     t.string   "number"
     t.text     "description"
-    t.integer  "working_duration", default: 0, null: false
-    t.integer  "whole_duration",   default: 0, null: false
+    t.integer  "working_duration",    default: 0,     null: false
+    t.integer  "whole_duration",      default: 0,     null: false
     t.string   "actions"
     t.jsonb    "custom_fields"
+    t.string   "maintenance_nature"
+    t.boolean  "trouble_encountered", default: false, null: false
+    t.string   "trouble_description"
   end
 
   add_index "interventions", ["created_at"], name: "index_interventions_on_created_at", using: :btree

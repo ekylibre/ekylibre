@@ -2955,6 +2955,8 @@ interventions:
   lock_version:
     type: integer
     required: true
+  maintenance_nature:
+    type: string
   number:
     type: string
   prescription_id:
@@ -2970,6 +2972,12 @@ interventions:
     required: true
   stopped_at:
     type: datetime
+  trouble_description:
+    type: string
+  trouble_encountered:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true

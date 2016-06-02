@@ -1585,6 +1585,7 @@ arb:
     main_crop_precision: "الدقة المحاصيل الرئيسية"
     main_crop_seed_production: "الرئيسي إنتاج بذور المحاصيل"
     main_production: "الإنتاج الرئيسية"
+    # maintenance_nature: "Maintenance nature"
     major_accounts: "الحسابات الئيسية" #?
     managed: "تمكنت"
     managed_sales: "مبيعات المدارة"
@@ -2124,6 +2125,8 @@ arb:
     transporter_sales: "مبيعات نقل"
     transporters: "ناقلات الشحن" #?
     transports: "وسائل النقل"
+    # trouble_description: "Trouble description"
+    # trouble_encountered: "Trouble encountered"
     type: "النوع"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
     undelivered_quantity: "يبقى للتسليم"

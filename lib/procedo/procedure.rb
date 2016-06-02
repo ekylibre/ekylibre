@@ -18,6 +18,7 @@ module Procedo
       @mandatory_actions = []
       @optional_actions = []
       @root_group = Procedo::Procedure::GroupParameter.new(self, ROOT_NAME, cardinality: 1)
+      @maintenance = !!options[:maintenance]
       # Adds categories & action
       options[:categories].each { |c| add_category(c) } if options[:categories]
       options[:mandatory_actions].each { |c| add_action(c) } if options[:mandatory_actions]
@@ -29,6 +30,10 @@ module Procedo
     # All actions (mandatory and optional)
     def actions
       @mandatory_actions + @optional_actions
+    end
+
+    def maintenance?
+      @maintenance
     end
 
     # Adds category to procedure

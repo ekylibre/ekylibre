@@ -781,6 +781,7 @@ eng:
     main_crop_precision: "Main crop precision"
     main_crop_seed_production: "Main crop seed production"
     main_production: "Main production" #?
+    maintenance_nature: "Maintenance nature"
     managed: "Managed"
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
@@ -1179,6 +1180,8 @@ eng:
     transporter_purchase: "Transporter purchase"
     transporter_sales: "Transporter sales"
     transports: "Transports"
+    trouble_description: "Trouble description"
+    trouble_encountered: "Trouble encountered"
     type: "Type"
     unconfirmed_email: "Unconfirmed email"
     undelivered_quantity: "Undelivered quantity"

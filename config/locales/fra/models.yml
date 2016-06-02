@@ -956,6 +956,7 @@ fra:
     main_crop_precision: "Code précision de la culture principale"
     main_crop_seed_production: "Production de semence"
     main_production: "Production principale"
+    maintenance_nature: "Nature de la maintenance"
     managed: "Géré par le système"
     managed_sales: "Ventes gérées"
     mandates: "Responsabilités" #?
@@ -1399,6 +1400,8 @@ fra:
     transporter_purchase: "Achat du transporteur"
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports"
+    trouble_description: "Description des difficultés"
+    trouble_encountered: "Difficultés rencontrées"
     type: "Type"
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"
