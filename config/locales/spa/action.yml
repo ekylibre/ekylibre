@@ -1731,6 +1731,9 @@ spa:
       one: "La escritura"
       other: "%{count} escrituras"
       zero: "Ninguna escrituras" #?
+    x_minutes:
+      # one: "%{count} minute"
+      # other: "%{count} minutes"
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"

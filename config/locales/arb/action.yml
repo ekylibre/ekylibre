@@ -2157,6 +2157,9 @@ arb:
       one: "تفويض واحد" #?
       other: "%{count} تفويض اخر" #?
       zero: "ولا اية تفويض" #?
+    x_minutes:
+      # one: "%{count} minute"
+      # other: "%{count} minutes"
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"

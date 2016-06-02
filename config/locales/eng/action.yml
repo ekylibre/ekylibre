@@ -1650,6 +1650,9 @@ eng:
     x_journal_entries:
       one: "%{count} journal entries"
       other: "%{count} journal entries"
+    x_minutes:
+      one: "%{count} minute"
+      other: "%{count} minutes"
     x_months:
       one: "%{count} month"
       other: "%{count} months"

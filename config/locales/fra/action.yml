@@ -2039,6 +2039,9 @@ fra:
     x_mandates:  #?
       one: "%{count} responsabilité" #?
       other: "%{count} responsabilités" #?
+    x_minutes:
+      one: "%{count} minute"
+      other: "%{count} minutes"
     x_months:
       one: "%{count} mois"
       other: "%{count} mois"
