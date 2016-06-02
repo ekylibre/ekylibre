@@ -471,19 +471,24 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   # find all plants for the current support and cultivable zone by variety or variant
   def find_plants(options = {})
     plants = nil
-    if options[:support] && options[:support].shape
-      # try to find the current plants on cultivable zone if exists
-      cultivable_zone_shape = Charta.new_geometry(options[:support].shape)
-      if cultivable_zone_shape && product_around = Plant.within_shape(cultivable_zone_shape)
-        plants = Plant.where(id: product_around.map(&:id)).availables
+    if options[:support]
+      plant_ids = []
+      options[:support].each do |support|
+        # try to find the current plants on cultivable zone if exists
+        support_shape = Charta.new_geometry(support.shape)
+        product_around = Plant.shape_within(support_shape)
+        if product_around.any?
+          plant_ids << Plant.where(id: product_around.map(&:id)).availables.pluck(:id)
+        end
       end
+      plants = Plant.where(id: plant_ids.compact)
     end
     if plants && options[:variety] && options[:at]
       plants = plants.where(variety: options[:variety]).availables
     elsif options[:variant] && options[:at]
       plants = plants.where(variant: options[:variant]).availables
     end
-    plants
+    return plants
   end
 
   # find the working area by finding plant area for the current support and cultivable zone by variety or variant
@@ -525,18 +530,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     procedure ||= Procedo.find(r.procedure_name)
 
     # check if procedure is simple or not (with group parameter or output)
-    simple = true
-    procedure.parameters.each do |parameter|
-      if parameter == 'group_parameter' || parameter == 'output'
-        simple = false
-        break
-      end
-    end
-
-    if simple
-      return record_default_intervention(r, targets, procedure)
-    else
+    if procedure.parameters.detect { |parameter| parameter.is_a?(Procedo::Procedure::GroupParameter) || (parameter.is_a?(Procedo::Procedure::ProductParameter) && parameter.output?) }
       return record_complex_intervention(r, targets, procedure)
+    else
+      return record_default_intervention(r, targets, procedure)
     end
   end
 
@@ -617,7 +614,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     ####  SOWING / IMPLANTING  ####
     ###############################
 
-    if procedure.name == 'sowing'
+    if procedure.name.to_s == 'sowing'
       # build base procedure
       attributes = { procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description }
 
@@ -650,9 +647,13 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       ## group (zone)
       # target
       # output r.target_variant
+      puts targets.inspect
+        puts procedure.parameters_of_type(:group).inspect.red
       targets.each_with_index do |target, index|
+      
         procedure.parameters_of_type(:group).each do |group|
-          attributes[:groups_attributes] ||= {}
+          attributes[:groups_attributes] = {}
+          attributes[:groups_attributes][index.to_s] = { reference_name: group.name }
           attributes[:groups_attributes][index.to_s][:targets_attributes] ||= {}
           attributes[:groups_attributes][index.to_s][:targets_attributes][0] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson }
           attributes[:groups_attributes][index.to_s][:outputs_attributes] ||= {}
@@ -691,13 +692,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       ## save
       ::Intervention.create!(intervention.to_hash)
 
-    end
 
     ###############################
     ####  HARVESTING           ####
     ###############################
 
-    if procedure.name == 'harvesting'
+    elsif procedure.name.to_s == 'harvesting'
 
       # build base procedure
       attributes = { procedure_name: procedure.name, actions: procedure.mandatory_actions.map(&:name), description: r.description }
@@ -706,7 +706,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       attributes[:working_periods_attributes] = { '0' => { started_at: r.intervention_started_at.strftime('%Y-%m-%d %H:%M'), stopped_at: r.intervention_stopped_at.strftime('%Y-%m-%d %H:%M') } }
 
       # find all plants in the current target
-      targets = find_plants(support: support, variety: r.target_variety, at: r.intervention_started_at)
+      targets = find_plants(support: targets, variety: r.target_variety, at: r.intervention_started_at)
 
       ## targets
       targets.each_with_index do |target, index|
@@ -772,7 +772,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       ## save
       ::Intervention.create!(intervention.to_hash)
-
+    else
+      w.debug 'ffffffffffffffffffffffffffffff: ' + procedure.name.inspect
     end
 
     #################################
