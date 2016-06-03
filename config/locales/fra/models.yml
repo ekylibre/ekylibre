@@ -482,6 +482,7 @@ fra:
     building: "Bâtiment" #?
     buildings: "Bâtiments"
     by_default: "Par défaut"
+    calibrations: "Stock en terre par calibre"
     campaign: "Campagne"
     canal: "Canal"
     cap_islet: "Ilot PAC"
@@ -962,12 +963,14 @@ fra:
     manure_management_plan_zones: "Zones de plan de fumure"
     markers: "Repères" #?
     marketable: "Commercialisable"
+    marketable_net_mass: "Masse nette commercialisable"
+    marketable_yield: "Rendement commercialisable"
     mass: "Poids (kg)"
     # max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
     maximal_size: "Taille maximale"
-    # maximal_size_value: "Maximal size value"
+    maximal_size_value: "Taille maximale"
     maximal_value: "Valeur maximale"
     maximum_nitrogen_input: "Apport maximum d’azote"
     meadow_humus_mineralization: "Minéralisation nette due à un retournement de prairie (Mhp)"
@@ -991,7 +994,7 @@ fra:
     minimal_length: "Longueur minimale"
     minimal_quantity: "Quantité minimale" #?
     minimal_size: "Taille minimale"
-    # minimal_size_value: "Minimal size value"
+    minimal_size_value: "Taille minimale"
     minimal_value: "Valeur minimale"
     mobiles: "Portables"
     mode: "Mode"
@@ -1008,7 +1011,9 @@ fra:
     nature_name: "Nom de la nature du produit"
     natures: "Natures"
     net_mass: "Masse nette"
+    net_mass_percentage: "Pourcentage"
     net_mass_value: "Masse nette"
+    net_mass_yield: "Rendement net"
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
@@ -1388,6 +1393,7 @@ fra:
     token: "Jeton"
     tool: "Outil"
     tools: "Outils"
+    total_net_mass: "Masse nette totale"
     town_number: "Numéro de commune"
     tracking: "Lot"
     tracking_serial: "Numéro de lot" #?

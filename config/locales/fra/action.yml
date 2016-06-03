@@ -1790,7 +1790,7 @@ fra:
     stewardship: "Assistant"
     stock: "Stock"
     stock_container_map: "Carte des lieux de stockage"
-    stock_in_ground_by_calibres: "Stocks en terre par calibres"
+    stock_in_ground_by_calibres: "Stocks en terre par calibre"
     stock_max: "Stock maximum" #?
     stock_min: "Stock minimum" #?
     stock_of_x: "Stock de %{x}"

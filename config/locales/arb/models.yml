@@ -1033,6 +1033,7 @@ arb:
     buildings: "مواقع التخزين"
     by_default: "افتراضيا"
     cache: "مخبأ" #?
+    # calibrations: "Calibrations"
     campaign: "حملة"
     canal: "قناة"
     cap_islet: "كاب جزيرة"
@@ -1591,6 +1592,8 @@ arb:
     mandates: "تفويضات" #?
     manure_management_plan_zones: "مناطق خطة إدارة السماد"
     # marketable: "Marketable"
+    # marketable_net_mass: "Marketable net mass"
+    # marketable_yield: "Marketable yield"
     mass: "الوزن"
     master: "كتلة رئيسية" #?
     max_reduction_rate: "سعر التخفيض" #?
@@ -1642,7 +1645,9 @@ arb:
     nature_name: "اسم نوع"
     natures: "أنواع"
     net_mass: "الكتلة الصافية"
+    # net_mass_percentage: "Net mass percentage"
     # net_mass_value: "Net mass value"
+    # net_mass_yield: "Net mass yield"
     net_service: "خدمة صافي"
     new_container: "حاويات جديدة"
     new_group: "مجموعة جديدة"
@@ -2110,6 +2115,7 @@ arb:
     tool_id: "اداة" #?
     tools: "الادوات"
     tools_list: "معدات" #?
+    # total_net_mass: "Total net mass"
     town_number: "عدد تاون"
     tracking: "الحصة"
     tracking_id: "الحصة" #?
