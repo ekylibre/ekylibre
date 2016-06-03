@@ -160,9 +160,18 @@ class Intervention < Ekylibre::Record::Base
     true
   end
 
+  def protected?
+    outputs.collect(&:product).each do |product|
+      %w(doer input target tool).each do |role|
+        return true if Intervention.with_generic_cast(role, product).length > 0
+      end
+    end
+    false
+  end
+
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
-    done?
+    protected?
   end
 
   # Returns activities of intervention through TargetDistribution
