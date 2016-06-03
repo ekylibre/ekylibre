@@ -47,6 +47,8 @@
             <property name="targets_name" value="intervention.human_target_names"/>
             <property name="doers_name" value="intervention.human_doer_names"/>
             <property name="tools_name" value="intervention.human_tool_names"/>
+            <property name="total_cost" value="intervention.total_cost"/>
+            <property name="total_cost_per_area" if="intervention.cost_per_area" value="intervention.cost_per_area"/>
             <section name="issue" of="intervention.issue">
               <property name="id" level="api"/>
               <property name="nature"/>
@@ -54,8 +56,11 @@
               <property name="state" level="api"/>
               <property name="description"/>
             </section>
-            <matrix name="actors" for="actor" in="intervention.parameters">
+            <matrix name="actors" for="actor" in="intervention.product_parameters">
               <cell name="id" of="actor" level="api" />
+              <cell name="name" of="actor" />
+              <cell name="product_name" of="actor" />
+              <cell name="variant_name" of="actor" />
               <cell name="quantity" if="actor.quantity_population" value="actor.quantity.l" type="measure" />
               <cell name="working_zone" if="actor.working_zone" value="actor.working_zone.area.convert(:hectare).round(2).l" type="measure" />
               <!--<within of="actor.product">-->
