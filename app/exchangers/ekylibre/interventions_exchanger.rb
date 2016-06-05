@@ -649,14 +649,15 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       # output r.target_variant
       w.debug targets.inspect
       w.debug procedure.parameters_of_type(:group).inspect.red
+
       targets.each_with_index do |target, index|
         procedure.parameters_of_type(:group).each do |group|
-          attributes[:groups_attributes] = {}
-          attributes[:groups_attributes][index.to_s] = { reference_name: group.name }
-          attributes[:groups_attributes][index.to_s][:targets_attributes] ||= {}
-          attributes[:groups_attributes][index.to_s][:targets_attributes][0] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson }
-          attributes[:groups_attributes][index.to_s][:outputs_attributes] ||= {}
-          attributes[:groups_attributes][index.to_s][:outputs_attributes][0] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: r.target_variant, new_name: r.target_variant.name, working_zone: target.shape.to_geojson }
+          attributes[:group_parameters_attributes] ||= {}
+          attributes[:group_parameters_attributes][index.to_s] = { reference_name: group.name }
+          attributes[:group_parameters_attributes][index.to_s][:targets_attributes] ||= {}
+          attributes[:group_parameters_attributes][index.to_s][:targets_attributes]["0"] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson }
+          attributes[:group_parameters_attributes][index.to_s][:outputs_attributes] ||= {}
+          attributes[:group_parameters_attributes][index.to_s][:outputs_attributes]["0"] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: r.target_variant, new_name: "#{r.target_variant.name} #{target.name}", quantity_population: target.shape.area.in(:hectare).to_f }
         end
       end
 
@@ -680,13 +681,15 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
       end
 
+      puts attributes.inspect.yellow
+
       # # impact
       intervention = Procedo::Engine.new_intervention(attributes)
       updaters.each do |updater|
         intervention.impact_with!(updater)
       end
 
-      w.debug 'SOWING : #{intervention.to_hash}'.inspect.red
+      w.debug 'SOWING'.inspect.red
 
       ## save
       ::Intervention.create!(intervention.to_hash)
@@ -766,12 +769,12 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         intervention.impact_with!(updater)
       end
 
-      w.debug 'HARVESTING : #{intervention.to_hash}'.inspect.red
+      w.debug 'HARVESTING'.inspect.red
 
       ## save
       ::Intervention.create!(intervention.to_hash)
     else
-      w.debug 'ffffffffffffffffffffffffffffff: ' + procedure.name.inspect
+      w.debug 'Problem to recognize intervention and create it ' + procedure.name.inspect
     end
 
     #################################
