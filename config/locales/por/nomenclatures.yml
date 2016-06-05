@@ -1334,6 +1334,7 @@ por:
         wine_bottling_register: "Wine registo de engarrafamento"
         wine_detention_register: "Cadastro vitícola detenção"
         wine_manipulation_register: "Wine registo manipulação"
+        # worker_register: "Worker register"
       name: "Naturezas de documentos"
       property_natures:
         category: "Categoria"

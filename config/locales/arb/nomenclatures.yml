@@ -1343,6 +1343,7 @@ arb:
         wine_bottling_register: "النبيذ تعبئة السجل"
         wine_detention_register: "سجل المحتجزين النبيذ"
         wine_manipulation_register: "النبيذ التلاعب بسجل"
+        # worker_register: "Worker register"
       name: "الطبيعة وثيقة"
       property_natures:
         category: "فئة"

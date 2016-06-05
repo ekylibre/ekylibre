@@ -105,6 +105,7 @@ eng:
     other_purchases: "Other purchases"
     owner_name: "Owner name"
     payment_ratio: "Payment ratio"
+    # person_name: "Person name"
     pictogram: "Pictogram"
     picture_path: "Picture path"
     plan: "Plan"
@@ -165,6 +166,7 @@ eng:
     #~ work_number: "Work number"
     working_area: "Working area"
     #~ working_duration: "Working duration"
+    # working_duration_in_hours: "Working duration in hours"
     #~ working_zone: "Working zone"
     #~ working_zone_area: "Working zone area"
   aggregators:
@@ -179,3 +181,4 @@ eng:
     #~ income_statement: "Profit and loss statement"
     #~ vat_register: "VAT register"
     #~ veterinary_booklet: "Veterinary booklet"
+    #~ worker_register: "Worker register"

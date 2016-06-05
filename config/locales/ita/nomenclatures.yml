@@ -1334,6 +1334,7 @@ ita:
         wine_bottling_register: "Vino registro di imbottigliamento"
         wine_detention_register: "registro di detenzione vino"
         wine_manipulation_register: "Vino registro manipolazione"
+        # worker_register: "Worker register"
       name: "nature documento"
       property_natures:
         category: "Categoria"

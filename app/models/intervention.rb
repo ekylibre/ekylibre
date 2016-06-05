@@ -120,6 +120,10 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionOutput.of_actors(outputs).select(:intervention_id))
   }
 
+  scope :with_doers, lambda { |*doers|
+    where(id: InterventionDoer.of_actors(doers).select(:intervention_id))
+  }
+
   scope :done, -> {}
 
   before_validation do

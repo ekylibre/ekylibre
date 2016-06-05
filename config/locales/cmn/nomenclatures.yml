@@ -1334,6 +1334,7 @@ cmn:
         wine_bottling_register: "葡萄酒装瓶寄存器"
         wine_detention_register: "葡萄酒拘留寄存器"
         wine_manipulation_register: "葡萄酒操纵寄存器"
+        # worker_register: "Worker register"
       name: "文档性质"
       property_natures:
         category: "类别"

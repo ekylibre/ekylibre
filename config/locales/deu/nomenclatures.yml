@@ -1334,6 +1334,7 @@ deu:
         wine_bottling_register: "Weinflaschenabfüllung Register"
         wine_detention_register: "Weinhaftregister"
         wine_manipulation_register: "Wein Manipulation Register"
+        # worker_register: "Worker register"
       name: "Document Naturen"
       property_natures:
         category: "Kategorie"

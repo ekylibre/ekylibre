@@ -1340,6 +1340,7 @@ spa:
         wine_bottling_register: "Vino embotellado registro"
         wine_detention_register: "Registro de la detención del vino"
         wine_manipulation_register: "Vino registro manipulación"
+        # worker_register: "Worker register"
       name: "Naturalezas de documentos"
       property_natures:
         category: "Categoría"

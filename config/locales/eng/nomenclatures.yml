@@ -1333,6 +1333,7 @@ eng:
         wine_bottling_register: "Wine bottling register"
         wine_detention_register: "Wine detention register"
         wine_manipulation_register: "Wine manipulation register"
+        worker_register: "Worker register"
       name: "Document natures"
       property_natures:
         category: "Category"

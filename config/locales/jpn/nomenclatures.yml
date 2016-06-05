@@ -1345,6 +1345,7 @@ jpn:
         wine_bottling_register: "ワイン瓶詰めレジスタ"
         wine_detention_register: "ワイン拘留レジスタ"
         wine_manipulation_register: "ワイン操作レジスタ"
+        # worker_register: "Worker register"
       name: "文書の性質"
       property_natures:
         category: "カテゴリ"

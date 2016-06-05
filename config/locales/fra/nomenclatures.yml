@@ -1459,6 +1459,7 @@ fra:
         wine_bottling_register: "Registre de conditionnement ‒ Vin"
         wine_detention_register: "Registre de détention ‒ Vin"
         wine_manipulation_register: "Registre de manipulation ‒ Vin"
+        worker_register: "Registre horaire des opérateurs"
       name: "Types de documents"
       property_natures:
         category: "Catégories"
