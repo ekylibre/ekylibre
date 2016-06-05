@@ -158,7 +158,7 @@
     <fieldDescription><![CDATA[taxes-amount]]></fieldDescription>
   </field>
   <field name="currency" class="java.lang.String">
-    <fieldDescription><![CDATA[currency]]></fieldDescription>
+    <fieldDescription><![CDATA[currency/@name]]></fieldDescription>
   </field>
   <field name="amount" class="java.math.BigDecimal">
     <fieldDescription><![CDATA[amount]]></fieldDescription>
