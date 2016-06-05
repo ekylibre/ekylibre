@@ -21,6 +21,8 @@ module Backend
     respond_to :pdf, :odt, :ods, :docx, :xlsx, :xml, :json, :html, :csv
 
     def index
+      # FIXME: It should not be necessary to do that
+      DocumentTemplate.load_defaults unless DocumentTemplate.any?
     end
 
     def show

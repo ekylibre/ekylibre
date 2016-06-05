@@ -488,7 +488,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     elsif options[:variant] && options[:at]
       plants = plants.where(variant: options[:variant]).availables
     end
-    return plants
+    plants
   end
 
   # find the working area by finding plant area for the current support and cultivable zone by variety or variant
@@ -647,10 +647,9 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       ## group (zone)
       # target
       # output r.target_variant
-      puts targets.inspect
-        puts procedure.parameters_of_type(:group).inspect.red
+      w.debug targets.inspect
+      w.debug procedure.parameters_of_type(:group).inspect.red
       targets.each_with_index do |target, index|
-      
         procedure.parameters_of_type(:group).each do |group|
           attributes[:groups_attributes] = {}
           attributes[:groups_attributes][index.to_s] = { reference_name: group.name }
@@ -691,7 +690,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       ## save
       ::Intervention.create!(intervention.to_hash)
-
 
     ###############################
     ####  HARVESTING           ####

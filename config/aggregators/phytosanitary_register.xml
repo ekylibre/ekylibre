@@ -7,7 +7,7 @@
     <section name="campaigns">
       <variable name="company" value="Entity.of_company"/>
       <property name="entity_name" value="company.full_name"/>
-      <property name="address" value="company.default_mail_address.coordinate"/>
+      <property name="address" value="company.default_mail_address.coordinate" if="company and company.default_mail_address"/>
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>

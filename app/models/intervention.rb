@@ -163,7 +163,7 @@ class Intervention < Ekylibre::Record::Base
   def protected?
     outputs.collect(&:product).each do |product|
       %w(doer input target tool).each do |role|
-        return true if Intervention.with_generic_cast(role, product).length > 0
+        return true unless Intervention.with_generic_cast(role, product).empty?
       end
     end
     false

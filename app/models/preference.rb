@@ -151,12 +151,13 @@ class Preference < Ekylibre::Record::Base
     def set!(name, value, nature = nil)
       name = name.to_s
       preference = Preference.find_by(name: name)
-      unless preference
+      if preference
+        preference.reload
+      else
         attributes = { name: name, nature: nature }
         attributes[:nature] = reference[name][:nature] if reference.key?(name)
         preference = new(attributes)
       end
-      preference.reload unless preference.new_record?
       preference.value = value
       preference.save!
       preference

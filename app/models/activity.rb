@@ -211,7 +211,7 @@ class Activity < Ekylibre::Record::Base
       distributions.clear
     end
   end
-  
+
   # return estimate yield from first budget in revenus item for given variety
   def estimate_yield_from_budget_of(options = {})
     options[:unit] ||= :quintal
