@@ -269,10 +269,10 @@
           @map.addLayer(backgroundLayer) if layer.byDefault
       else
         # no backgrounds, set defaults
-        @options.backgrounds = ['OpenStreetMap.HOT',"OpenStreetMap.Mapnik", "Thunderforest.Landscape", "Esri.WorldImagery"]
+        backgrounds = ['OpenStreetMap.HOT',"OpenStreetMap.Mapnik", "Thunderforest.Landscape", "Esri.WorldImagery"]
 
         baseLayers = {}
-        for layer, index in @options.backgrounds
+        for layer, index in backgrounds
           backgroundLayer = L.tileLayer.provider(layer)
           baseLayers[layer] = backgroundLayer
           @map.addLayer(backgroundLayer) if index == 0
