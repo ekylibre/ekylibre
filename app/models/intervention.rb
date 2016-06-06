@@ -257,7 +257,14 @@ class Intervention < Ekylibre::Record::Base
     self.event.update_columns(
       started_at: self.started_at,
       stopped_at: self.stopped_at,
-    )
+    ) if self.event
+    self.outputs.find_each do |output|
+      product = output.product
+      next unless product
+      product.born_at = self.started_at
+      product.initial_born_at = product.born_at
+      product.save!
+    end
   end
 
   # Sums all intervention product parameter total_cost of a particular role

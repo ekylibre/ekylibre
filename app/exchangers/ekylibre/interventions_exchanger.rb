@@ -472,22 +472,28 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
   def find_plants(options = {})
     plants = nil
     if options[:support]
+      w.debug "supports for finding plant : #{options[:support]}".inspect.blue
       plant_ids = []
       options[:support].each do |support|
         # try to find the current plants on cultivable zone if exists
         support_shape = Charta.new_geometry(support.shape)
+        w.debug "support_shape : #{support_shape.to_geojson}".to_s.red
+        w.debug "plant count : #{Plant.count.to_s}".red
+        w.debug "plant count : #{Plant.pluck(:name).to_sentence}".white
         product_around = Plant.shape_within(support_shape)
+        w.debug "product_around : #{product_around}".inspect.blue
         if product_around.any?
-          plant_ids << Plant.where(id: product_around.map(&:id)).availables.pluck(:id)
+          plant_ids << Plant.where(id: product_around.map(&:id)).pluck(:id)
         end
       end
       plants = Plant.where(id: plant_ids.compact)
     end
     if plants && options[:variety] && options[:at]
-      plants = plants.where(variety: options[:variety]).availables
+      plants = plants.of_variety(options[:variety])
     elsif options[:variant] && options[:at]
-      plants = plants.where(variant: options[:variant]).availables
+      plants = plants.where(variant: options[:variant])
     end
+    puts plants.inspect.blue
     plants
   end
 
@@ -655,9 +661,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           attributes[:group_parameters_attributes] ||= {}
           attributes[:group_parameters_attributes][index.to_s] = { reference_name: group.name }
           attributes[:group_parameters_attributes][index.to_s][:targets_attributes] ||= {}
-          attributes[:group_parameters_attributes][index.to_s][:targets_attributes]["0"] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson }
+          attributes[:group_parameters_attributes][index.to_s][:targets_attributes]["0"] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson.to_s }
           attributes[:group_parameters_attributes][index.to_s][:outputs_attributes] ||= {}
-          attributes[:group_parameters_attributes][index.to_s][:outputs_attributes]["0"] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: r.target_variant, new_name: "#{r.target_variant.name} #{target.name}", quantity_population: target.shape.area.in(:hectare).to_f }
+          attributes[:group_parameters_attributes][index.to_s][:outputs_attributes]["0"] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: r.target_variant, new_name: "#{r.target_variant.name} #{target.name}", readings_attributes: {shape: {indicator_name: :shape}}}
+          updaters << "group_parameters[#{index}]targets[0]working_zone"
         end
       end
 
@@ -685,7 +692,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       # # impact
       intervention = Procedo::Engine.new_intervention(attributes)
-      updaters.each do |updater|
+      updaters.reverse.each do |updater|
         intervention.impact_with!(updater)
       end
 
@@ -693,6 +700,8 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
 
       ## save
       ::Intervention.create!(intervention.to_hash)
+      w.debug "############################# #{Plant.count}".blue
+      w.debug ""
 
     ###############################
     ####  HARVESTING           ####
