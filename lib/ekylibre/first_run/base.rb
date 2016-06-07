@@ -196,7 +196,7 @@ module Ekylibre
             if l > 0
               status.insert(1, '|' * l)
             elsif l < 0
-              status[0] = basename[0..(l - 4)] + '...'
+              status[0] = ' + ' + basename[0..(l - 4)] + '...'
             end
             line = status.join
             done = (progress * @term_width / 100.0).round.to_i
