@@ -10,7 +10,7 @@
 /.sass-cache
 .rspec
 .settings
- 
+
 # Ignore IDE files
 .project
 .idea
@@ -29,6 +29,7 @@ db/first_runs
 
 # Ignore generated doc
 /doc/app
+/doc/diagrams
 
 # Ignore backup files
 /backup
