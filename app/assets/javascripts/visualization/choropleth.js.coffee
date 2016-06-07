@@ -36,7 +36,7 @@ class visualization.Choropleth extends visualization.Gradient
   # Build HTML legend for given choropleth computed layer
   buildLegend: () ->
     html  = "<div class='leaflet-legend-item' id='legend-#{@layer.name}'>"
-    html += "<h3>#{@layer.label}</h3>"
+    html += "<h3>#{@layer.label}"+ if @layer.unit then " (#{@layer.unit})" else "" +"</h3>"
     html += "<div class='leaflet-legend-body leaflet-choropleth-scale'>"
     html += "<span class='min-value'>#{@grades[0].minLabel}</span>"
     html += "<span class='max-value'>#{@grades[@levelNumber - 1].maxLabel}</span>"
