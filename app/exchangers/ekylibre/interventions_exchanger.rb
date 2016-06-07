@@ -493,7 +493,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     elsif options[:variant] && options[:at]
       plants = plants.where(variant: options[:variant])
     end
-    puts plants.inspect.blue
     plants
   end
 
@@ -688,7 +687,6 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         end
       end
 
-      puts attributes.inspect.yellow
 
       # # impact
       intervention = Procedo::Engine.new_intervention(attributes)
