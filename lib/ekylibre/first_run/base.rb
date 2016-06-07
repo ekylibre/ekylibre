@@ -220,7 +220,7 @@ module Ekylibre
             status[2 + n] = status[2 + n].green
             status[4 + n] = status[4 + n].green
           elsif l < 0
-            status[0 + n] = basename[0..(l - 4)] + '...'
+            status[0] = status[0][0..(l - 4)] + '...'
             status[1 + n] = status[1 + n].green
             status[3 + n] = status[3 + n].green
           end
