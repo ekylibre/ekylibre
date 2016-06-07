@@ -238,6 +238,7 @@ fra:
     silage_to_give: "Ensilage à donner" #?
     silage_unloader: "Désileuse"
     silo: "Silo" #?
+    soil_loosener: "Décompacteur"
     sortable: "Produit à trier"
     sorted_seedlings: "Plants triés"
     sower: "Semoir"
@@ -252,6 +253,7 @@ fra:
     straw_to_deliver: "Fourrage à livrer" #?
     straw_to_mulch: "Paille à pailler" #?
     straws: "Paille"
+    stubble_cultivator: "Déchaumeur"
     tank: "Cuve"
     tank_for_residue: "Cuve pour les résidus"
     tank_for_wine: "Cuve pour le vin"
