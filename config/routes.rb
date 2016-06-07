@@ -246,9 +246,12 @@ Rails.application.routes.draw do
         get :list_items
       end
       member do
-        match 'point', via: [:get, :post]
+        match :edit_items, via: [:get, :post]
+        match :reconciliation, via: [:get, :post]
       end
     end
+
+    resources :bank_statement_items, only: [:new]
 
     resources :beehives, only: [:update] do
       member do
@@ -292,7 +295,6 @@ Rails.application.routes.draw do
 
     resources :cashes, concerns: [:list, :unroll] do
       member do
-        get :point
         get :list_deposits
         get :list_bank_statements
         get :list_sessions
