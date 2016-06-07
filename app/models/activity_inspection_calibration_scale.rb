@@ -36,7 +36,7 @@ class ActivityInspectionCalibrationScale < Ekylibre::Record::Base
   belongs_to :activity
   has_many :natures, -> { order(:minimal_value, :maximal_value) },
            class_name: 'ActivityInspectionCalibrationNature',
-           foreign_key: :scale_id, inverse_of: :scale
+           foreign_key: :scale_id, inverse_of: :scale, dependent: :destroy
   refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
   refers_to :size_unit, -> { where(dimension: [:distance, :mass]) }, class_name: 'Unit'
 

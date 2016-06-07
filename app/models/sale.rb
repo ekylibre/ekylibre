@@ -83,7 +83,6 @@ class Sale < Ekylibre::Record::Base
   belongs_to :transporter, class_name: 'Entity'
   has_many :credits, class_name: 'Sale', foreign_key: :credited_sale_id
   has_many :parcels, dependent: :destroy, inverse_of: :sale
-  has_many :documents, as: :owner
   has_many :items, -> { order('position, id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
   has_many :subscriptions, through: :items, class_name: 'Subscription'

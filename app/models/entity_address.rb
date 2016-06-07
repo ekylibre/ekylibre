@@ -51,11 +51,11 @@ class EntityAddress < Ekylibre::Record::Base
   attr_readonly :entity_id
   belongs_to :mail_postal_zone, class_name: 'PostalZone'
   belongs_to :entity, inverse_of: :addresses
-  has_many :buildings
-  has_many :parcels
-  has_many :purchases
-  has_many :sales
-  has_many :subscriptions
+  has_many :buildings, foreign_key: :address_id
+  has_many :parcels, foreign_key: :address_id
+  has_many :purchases, foreign_key: :delivery_address_id
+  has_many :sales, foreign_key: :address_id
+  has_many :subscriptions, foreign_key: :address_id
   enumerize :canal, in: [:mail, :email, :phone, :mobile, :fax, :website], default: :email, predicates: true
   refers_to :mail_country, class_name: 'Country'
 

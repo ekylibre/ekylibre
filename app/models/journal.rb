@@ -41,9 +41,9 @@
 class Journal < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency
-  has_many :cashes
-  has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal
-  has_many :entries, class_name: 'JournalEntry', inverse_of: :journal
+  has_many :cashes, dependent: :restrict_with_exception
+  has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal, dependent: :destroy
+  has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
   enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_date :closed_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }

@@ -66,7 +66,6 @@ class Cash < Ekylibre::Record::Base
   belongs_to :owner, class_name: 'Entity'
   has_many :active_sessions, -> { actives }, class_name: 'CashSession'
   has_many :bank_statements, dependent: :destroy
-  has_many :cashes
   has_many :deposits
   has_many :journal_entry_items, through: :account
   has_many :outgoing_payment_modes

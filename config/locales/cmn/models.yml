@@ -1132,6 +1132,7 @@ cmn:
     thread: "线"
     time_window: "时间窗口（以秒为单位）"
     title: "标题"
+    # tms: "TMS"
     to: "至"
     to_bank_at: "在银行"
     to_deposit: "存款"
@@ -1143,11 +1144,11 @@ cmn:
     tracking: "跟踪"
     trackings: "漏电痕迹"
     transfered_at: "在转移"
-    transport: "运输"
+    transport: "运输" #?
     transporter: "运输车"
     transporter_purchase: "购买运输车"
     transporter_sales: "运输车销售"
-    transports: "传输"
+    transports: "传输" #?
     type: "类型"
     unconfirmed_email: "未经证实的邮件"
     undelivered_quantity: "未交付数量"

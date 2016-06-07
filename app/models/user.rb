@@ -84,7 +84,7 @@ class User < Ekylibre::Record::Base
   has_many :preferences, dependent: :destroy, foreign_key: :user_id
   has_many :sales_invoices, -> { where(state: 'invoice') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_many :sales, through: :person, source: :managed_sales
-  has_many :transports, foreign_key: :responsible_id
+  has_many :deliveries, foreign_key: :responsible_id
   has_many :unpaid_sales, -> { order(:created_at).where(state: %w(order invoice)).where(lost: false).where('paid_amount < amount') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_one :worker, through: :person
 

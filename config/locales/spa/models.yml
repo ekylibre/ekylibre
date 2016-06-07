@@ -1136,6 +1136,7 @@ spa:
     thread: "Hilo"
     time_window: "Ventana de tiempo (en segundos)"
     title: "Título"
+    # tms: "TMS"
     to: "A"
     to_bank_at: "Para realizar operaciones bancarias en"
     to_deposit: "Depositar"
@@ -1147,11 +1148,11 @@ spa:
     tracking: "Rastreo"
     trackings: "Trackings"
     transfered_at: "Transferido a"
-    transport: "Transporte"
+    transport: "Transporte" #?
     transporter: "Transportador"
     transporter_purchase: "Transportador de compra"
     transporter_sales: "Ventas Transporter"
-    transports: "Transportes"
+    transports: "Transportes" #?
     type: "Tipo"
     unconfirmed_email: "Correo electrónico sin confirmar"
     undelivered_quantity: "Cantidad no entregada"

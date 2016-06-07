@@ -1163,6 +1163,7 @@ ita:
     thread: "Filo"
     time_window: "finestra di tempo (in secondi)"
     title: "Titolo"
+    # tms: "TMS"
     to: "A"
     to_bank_at: "Per bancari a"
     to_deposit: "Depositare"
@@ -1174,11 +1175,11 @@ ita:
     tracking: "puntamento"
     trackings: "tracking"
     transfered_at: "trasferito a"
-    transport: "Trasporto"
+    transport: "Trasporto" #?
     transporter: "Trasportatore"
     transporter_purchase: "acquisto Transporter"
     transporter_sales: "vendite Transporter"
-    transports: "Trasporti"
+    transports: "Trasporti" #?
     type: "Digitare"
     unconfirmed_email: "e-mail non confermato"
     undelivered_quantity: "quantità mancante"

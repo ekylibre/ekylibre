@@ -37,7 +37,7 @@
 #
 
 class Team < Ekylibre::Record::Base
-  has_many :employees, class_name: 'Entity'
+  has_many :employees, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
   validates_presence_of :depth, :name

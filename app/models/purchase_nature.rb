@@ -39,7 +39,7 @@
 class PurchaseNature < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :journal
-  has_many :purchases
+  has_many :purchases, foreign_key: :nature_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :by_default, :with_accounting, in: [true, false]
   validates_presence_of :currency

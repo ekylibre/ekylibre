@@ -35,7 +35,7 @@
 
 class PlantDensityAbacusItem < Ekylibre::Record::Base
   belongs_to :plant_density_abacus, inverse_of: :items
-  has_many :plant_countings
+  has_many :plant_countings, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :seeding_density_value, allow_nil: true

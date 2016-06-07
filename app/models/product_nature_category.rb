@@ -61,10 +61,10 @@ class ProductNatureCategory < Ekylibre::Record::Base
   belongs_to :charge_account,    class_name: 'Account'
   belongs_to :product_account,   class_name: 'Account'
   belongs_to :stock_account,     class_name: 'Account'
-  has_many :natures, class_name: 'ProductNature', foreign_key: :category_id, inverse_of: :category
-  has_many :products, foreign_key: :category_id
-  has_many :taxations, class_name: 'ProductNatureCategoryTaxation'
-  has_many :variants, class_name: 'ProductNatureVariant', foreign_key: :category_id, inverse_of: :category
+  has_many :natures, class_name: 'ProductNature', foreign_key: :category_id, inverse_of: :category, dependent: :restrict_with_exception
+  has_many :products, foreign_key: :category_id, dependent: :restrict_with_exception
+  has_many :taxations, class_name: 'ProductNatureCategoryTaxation', dependent: :destroy
+  has_many :variants, class_name: 'ProductNatureVariant', foreign_key: :category_id, inverse_of: :category, dependent: :restrict_with_exception
   has_many :sale_taxations, -> { where(usage: 'sale') }, class_name: 'ProductNatureCategoryTaxation', inverse_of: :product_nature_category
   has_many :sale_taxes, class_name: 'Tax', through: :sale_taxations, source: :tax
   has_many :purchase_taxations, -> { where(usage: 'purchase') }, class_name: 'ProductNatureCategoryTaxation', inverse_of: :product_nature_category

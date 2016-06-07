@@ -51,7 +51,7 @@ class SaleNature < Ekylibre::Record::Base
   belongs_to :catalog
   belongs_to :journal
   belongs_to :payment_mode, class_name: 'IncomingPaymentMode'
-  has_many :sales
+  has_many :sales, foreign_key: :nature_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :downpayment_minimum, :downpayment_percentage, allow_nil: true

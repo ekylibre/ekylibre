@@ -176,7 +176,6 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-
   # Returns activities of intervention through TargetDistribution
   def activities
     # re active when Target Distribution works

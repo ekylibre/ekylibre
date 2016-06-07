@@ -27,7 +27,7 @@ module Backend
     # params:
     #   :q Text search
     #   :state State search
-    #   :period Two Dates with _ separator
+    #   :period Two dates with "_" separator
     def self.purchases_conditions
       code = ''
       code = search_conditions(purchases: [:created_at, :pretax_amount, :amount, :number, :reference_number, :description, :state], entities: [:number, :full_name]) + " ||= []\n"

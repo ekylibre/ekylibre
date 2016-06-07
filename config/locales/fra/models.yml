@@ -1387,6 +1387,7 @@ fra:
     ticket: "Ticket" #?
     time_window: "Fenêtre de temps (en secondes)"
     title: "Titre"
+    # tms: "TMS"
     to: "Pour"
     to_bank_at: "À décaisser le"
     to_deposit: "À déposer"
@@ -1400,11 +1401,11 @@ fra:
     trackings: "Lots traçables"
     transfered_at: "Transféré à"
     transfers: "Transferts" #?
-    transport: "Transport"
+    transport: "Transport" #?
     transporter: "Transporteur"
     transporter_purchase: "Achat du transporteur"
     transporter_sales: "Ventes de transporteurs"
-    transports: "Transports"
+    transports: "Transports" #?
     type: "Type"
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"

@@ -57,7 +57,7 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :campaign
   belongs_to :cultivable_zone
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
-  has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production
+  has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :restrict_with_exception
   has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
                                           inverse_of: :activity_production

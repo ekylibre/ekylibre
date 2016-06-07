@@ -2106,6 +2106,7 @@ arb:
     thread: "خيط"
     time_window: "نافذة الوقت (بالثواني)"
     title: "اللقب"
+    # tms: "TMS"
     to: "ل"
     to_archive: "وثائق للارشفة" #?
     to_bank_at: "يسدد يوم"
@@ -2123,13 +2124,13 @@ arb:
     trackings: "الحصص"
     transfered_at: "نقلها في"
     transfers: "التحويلات" #?
-    transport: "وسيلة النقل"
+    transport: "وسيلة النقل" #?
     transporter: "الناقلة"
     transporter_id: "ناقل" #?
     transporter_purchase: "شراء نقل"
     transporter_sales: "مبيعات نقل"
     transporters: "ناقلات الشحن" #?
-    transports: "وسائل النقل"
+    transports: "وسائل النقل" #?
     type: "النوع"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
     undelivered_quantity: "يبقى للتسليم"

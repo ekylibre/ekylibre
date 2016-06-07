@@ -38,7 +38,7 @@
 class OutgoingPaymentMode < Ekylibre::Record::Base
   acts_as_list
   belongs_to :cash
-  has_many :payments, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode
+  has_many :payments, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode, dependent: :restrict_with_error
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :active, :with_accounting, in: [true, false]
   validates_presence_of :name

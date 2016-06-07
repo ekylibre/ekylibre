@@ -37,7 +37,7 @@
 class ActivityInspectionPointNature < Ekylibre::Record::Base
   belongs_to :activity
   enumerize :category, in: [:disease, :deformity, :none], default: :none, predicates: true
-  has_many :inspections_items, inverse_of: :nature, foreign_key: :nature_id
+  has_many :inspection_points, inverse_of: :nature, foreign_key: :nature_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :activity, :category, :name
   # ]VALIDATORS]

@@ -1132,6 +1132,7 @@ por:
     thread: "Fio"
     time_window: "Janela de tempo (em segundos)"
     title: "Título"
+    # tms: "TMS"
     to: "Para"
     to_bank_at: "Para banco em"
     to_deposit: "Depositar"
@@ -1143,11 +1144,11 @@ por:
     tracking: "Rastreamento"
     trackings: "Rastreamentos"
     transfered_at: "Transferidos pelo"
-    transport: "Transporte"
+    transport: "Transporte" #?
     transporter: "Transportador"
     transporter_purchase: "Compra Transporter"
     transporter_sales: "Vendas Transporter"
-    transports: "Transportes"
+    transports: "Transportes" #?
     type: "Digitar"
     unconfirmed_email: "Email não confirmado"
     undelivered_quantity: "Quantidade não entregue"

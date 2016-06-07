@@ -1132,6 +1132,7 @@ jpn:
     thread: "糸"
     time_window: "（秒）の時間窓"
     title: "タイトル"
+    # tms: "TMS"
     to: "に"
     to_bank_at: "で銀行に"
     to_deposit: "預金へ"
@@ -1143,11 +1144,11 @@ jpn:
     tracking: "追跡"
     # trackings: "Trackings"
     transfered_at: "移し"
-    transport: "輸送"
+    transport: "輸送" #?
     transporter: "トランスポーター"
     transporter_purchase: "トランスポーター購入"
     transporter_sales: "トランスポーターの販売"
-    transports: "トランスポート"
+    transports: "トランスポート" #?
     type: "タイプ"
     unconfirmed_email: "未確認メール"
     undelivered_quantity: "未配信量"

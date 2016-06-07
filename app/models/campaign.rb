@@ -35,8 +35,8 @@
 #  updater_id   :integer
 #
 class Campaign < Ekylibre::Record::Base
-  has_many :cap_statements
-  has_many :activity_budgets, inverse_of: :campaign
+  has_many :cap_statements, dependent: :restrict_with_exception
+  has_many :activity_budgets, inverse_of: :campaign, dependent: :restrict_with_exception
   has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :closed_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }

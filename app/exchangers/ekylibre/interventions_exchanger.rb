@@ -663,7 +663,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
           attributes[:group_parameters_attributes][index.to_s][:targets_attributes] ||= {}
           attributes[:group_parameters_attributes][index.to_s][:targets_attributes]["0"] = { reference_name: group.parameters_of_type(:target).first.name, product_id: target.id, working_zone: target.shape.to_geojson.to_s }
           attributes[:group_parameters_attributes][index.to_s][:outputs_attributes] ||= {}
-          attributes[:group_parameters_attributes][index.to_s][:outputs_attributes]["0"] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: r.target_variant, new_name: "#{r.target_variant.name} #{target.name}", readings_attributes: {shape: {indicator_name: :shape}}}
+          attributes[:group_parameters_attributes][index.to_s][:outputs_attributes]["0"] = { reference_name: group.parameters_of_type(:output).first.name, variant_id: r.target_variant, new_name: "#{r.target_variant.name} #{target.name}", readings_attributes: { shape: { indicator_name: :shape } } }
           updaters << "group_parameters[#{index}]targets[0]working_zone"
         end
       end
