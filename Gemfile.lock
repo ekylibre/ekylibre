@@ -229,7 +229,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.99.2)
     mimemagic (0.3.0)
-    mini_portile2 (2.0.0)
+    mini_portile2 (2.1.0)
     minitest (5.9.0)
     minitest-reporters (1.1.9)
       ansi
@@ -241,8 +241,9 @@ GEM
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
     netrc (0.11.0)
-    nokogiri (1.6.7.2)
-      mini_portile2 (~> 2.0.0.rc2)
+    nokogiri (1.6.8)
+      mini_portile2 (~> 2.1.0)
+      pkg-config (~> 1.1.7)
     nori (2.6.0)
     ntlm-http (0.1.1)
     orm_adapter (0.5.0)
@@ -258,6 +259,7 @@ GEM
     parser (2.3.1.2)
       ast (~> 2.2)
     pg (0.18.4)
+    pkg-config (1.1.7)
     polyglot (0.3.5)
     powerpack (0.1.1)
     pry (0.10.3)
@@ -384,7 +386,7 @@ GEM
       redis-namespace (>= 1.5.2)
       rufus-scheduler (>= 2.0.24)
       sidekiq (>= 4.0.0)
-    simple_calendar (2.1.4)
+    simple_calendar (2.1.5)
       rails (>= 3.0)
     simple_form (3.2.1)
       actionpack (> 4, < 5.1)
@@ -450,7 +452,7 @@ GEM
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
-    web-console (3.1.1)
+    web-console (3.2.0)
       activemodel (>= 4.2)
       debug_inspector
       railties (>= 4.2)
@@ -556,4 +558,4 @@ RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.12.1
+   1.12.5
