@@ -967,7 +967,7 @@ fra:
     markers: "Repères" #?
     marketable: "Commercialisable"
     marketable_net_mass: "Masse nette commercialisable"
-    marketable_yield: "Rendement commercialisable"
+    marketable_yield: "Rendement net commercialisable"
     mass: "Poids (kg)"
     # max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
@@ -1016,7 +1016,7 @@ fra:
     net_mass: "Masse nette"
     net_mass_percentage: "Pourcentage"
     net_mass_value: "Masse nette"
-    net_mass_yield: "Rendement net"
+    net_mass_yield: "Rendement brut"
     net_service: "Service web"
     net_surface_area: "Surface" #?
     net_volume: "Volume net" #?
@@ -1397,7 +1397,7 @@ fra:
     token: "Jeton"
     tool: "Outil"
     tools: "Outils"
-    total_net_mass: "Masse nette totale"
+    total_net_mass: "Masse brute"
     town_number: "Numéro de commune"
     tracking: "Lot"
     tracking_serial: "Numéro de lot" #?
