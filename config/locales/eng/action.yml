@@ -1811,7 +1811,7 @@ eng:
       you_need_to_review_your_application_configuration: "You need to review your application configuration"
       your_data_are_being_imported: "Your data is being imported" #?
   preferences:
-    accounting_system: "Chart of accounts"
+    accounting_system: "Accounting plan"
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
     country: "Country"
