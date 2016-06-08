@@ -21,25 +21,27 @@ module Backend
       geometry = file.read
       feature = nil
       geojson_features = nil
+      srid = nil
       geojson_features_collection = ::Charta.empty_geometry.to_json_object
 
-      case format
+      case format.to_s
       when 'gml'
         geometry = ::Charta.from_gml(geometry).transform(:WGS84).to_json_object if ::Charta::GML.valid?(geometry)
 
       when 'kml'
-        # geometry = Charta.from_kml(geometry).transform(:WGS84).to_json_object if ::Charta::KML.valid?(geometry)
-        import = Charta::KmlImport.new(geometry)
-        geometry = Charta.from_kml(import.shapes).transform(:WGS84).to_json_object if ::Charta::KML.valid?(import.shapes)
+        geometry = Charta.from_kml(geometry).transform(:WGS84).to_json_object if ::Charta::KML.valid?(geometry)
+
 
       when 'geojson'
-      # DO Nothing
+        # DO Nothing
+        geo = (geometry.is_a?(Hash) ? geometry : JSON.parse(geometry)) || {}
+        srid = geo.try(:[], 'crs').try(:[],'properties').try(:[], 'name')
 
       else
         raise 'Invalid format'
       end
 
-      if ::Charta::GeoJSON.valid?(geometry)
+      if ::Charta::GeoJSON.valid?(geometry,srid)
         geojson = (geometry.is_a?(Hash) ? geometry : JSON.parse(geometry)) || {}
 
         single_feature = [geojson] if geojson.key? 'feature'
@@ -72,7 +74,7 @@ module Backend
                       id: gfeature.try(:[], 'properties').try(:[], 'id'),
                       removable: true
                     }.reject { |_, v| v.nil? },
-                    geometry: Charta.from_geojson(gfeature['geometry']).transform(:WGS84).to_json_object
+                    geometry: Charta.from_geojson(gfeature['geometry'],srid).transform(:WGS84).to_json_object
                   }.reject { |_, v| v.nil? }
                 end
               end

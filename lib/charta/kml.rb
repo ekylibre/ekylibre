@@ -4,11 +4,14 @@ module Charta
     attr_reader :srid
 
     def initialize(data, srid = :WGS84)
-      @kml = if data.is_a? Nokogiri::XML::Document
-               data.root.to_xml
-             elsif data.is_a?(Nokogiri::XML::NodeSet) || data.is_a?(Nokogiri::XML::Element)
-               data.to_xml
+      @kml = if data.is_a? String
+
+                Nokogiri::XML(data.to_s.squish) do |config|
+                  config.options = Nokogiri::XML::ParseOptions::NOBLANKS
+                end
+
              else
+               # Nokogiri::XML::Document expected
                data
              end
       sanitize!
@@ -16,22 +19,19 @@ module Charta
     end
 
     def to_ewkt
-      Charta.select_value("SELECT ST_AsEWKT(ST_GeomFromKML('#{@kml}'))")
+      Charta.select_value("SELECT ST_AsEWKT(ST_GeomFromKML('#{@kml.css('Polygon').to_xml}'))")
     end
 
     def sanitize!
-      xml = Nokogiri::XML(@kml) do |config|
-        config.options = Nokogiri::XML::ParseOptions::NOBLANKS
-      end
+      return nil unless @kml.is_a? Nokogiri::XML::Document
 
-      coordinates = xml.css('coordinates')
+      shapes = @kml.css('Polygon')
 
-      coordinates.each do |coord|
+      shapes.css('coordinates').each do |coord|
         coordArray = coord.content.split /\r\n|\n| /
         coordArray.collect! { |c| c.split ',' }.collect! { |dimension| [dimension.first, dimension.second, '0'] }
         coord.content = coordArray.collect { |coord| coord.join(',') }.join(' ')
       end
-      @kml = xml.to_xml
     end
 
     def valid?
