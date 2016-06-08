@@ -820,7 +820,7 @@ eng:
     add_support: "Add support"
     add_tool: "Add tool"
     add_website: "Add website"
-    add_working_period: "Add working_period"
+    add_working_period: "Add working period"
     add_x: "Add “%{x}”"
     add_your_activities: "Add the activities you need. The activities are deducted from your import TELEPAC appropriate."
     add_your_equipment: "Add Your Equipment. You can also associate a location that you have previously defined (cultivable area or building area)."
