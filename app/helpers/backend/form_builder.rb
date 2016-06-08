@@ -364,7 +364,8 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.by_default.to_json_object
+      marker[:background] ||= MapBackground.availables.collect(&:to_json_object).first
+      marker[:background] &&= MapBackground.by_default.to_json_object
       input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 
