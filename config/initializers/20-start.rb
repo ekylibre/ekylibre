@@ -60,4 +60,6 @@ Ekylibre::Plugin.plug
 Aggeratio.load_path += Dir.glob(Rails.root.join('config', 'aggregators', '**', '*.xml'))
 Aggeratio.load
 
+# MapBackgrounds
+autoload :MapBackgrounds, 'map_backgrounds'
 MapBackgrounds::Layer.load

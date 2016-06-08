@@ -54,6 +54,9 @@ class MapBackground < Ekylibre::Record::Base
   selects_among_all
 
   def self.load_defaults
+    if MapBackgrounds::Layer.items.empty? && Rails.env.development?
+      fail "MapBackground: Layers array is empty."
+    end
     MapBackgrounds::Layer.items.each do |item|
       attrs = {
         name: item.label,
