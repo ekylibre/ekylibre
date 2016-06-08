@@ -2078,7 +2078,7 @@ arb:
     view: "معاينة"
     virtual_quantity: "الكمية العملية" #?
     waiting: "أ€ التسدسد لاحقا" #?
-    # watering_concentration: "Watering concentration"
+    # watering_concentration: "Water use"
     weather: "طقس"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "سرعة الرياح"

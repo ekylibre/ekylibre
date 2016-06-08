@@ -100,7 +100,24 @@ module Charta
     # Check and returns the SRID matching with srname or SRID.
     def find_srid(srname_or_srid)
       item = if srname_or_srid.is_a?(Symbol) || srname_or_srid.is_a?(String)
-               systems.items[srname_or_srid]
+               if srname_or_srid =~ /\Aurn:ogc:def:crs:.*\z/
+                 # first, find full-defined urn
+                 found = systems.find_by(urn: srname_or_srid)
+
+                 # or, match with authority reference
+                 unless found
+                   auth_ref = /\Aurn:ogc:def:crs:(.*)\z/.match(srname_or_srid)
+                   if auth_ref.present?
+                     srid = /\AEPSG::?(\d{4,5})\z/.match(auth_ref[1])
+                     if srid.present?
+                       found = systems.find_by(srid: srid[1].to_i)
+                     end
+                   end
+                 end
+                 found
+               else
+                 systems.items[srname_or_srid]
+               end
              else
                systems.find_by(srid: srname_or_srid)
              end
@@ -132,8 +149,8 @@ module Charta
       new_geometry(::Charta::KML.new(data).to_ewkt)
     end
 
-    def from_geojson(data)
-      new_geometry(::Charta::GeoJSON.new(data).to_ewkt)
+    def from_geojson(data, srid = nil)
+      new_geometry(::Charta::GeoJSON.new(data, srid).to_ewkt)
     end
   end
 end

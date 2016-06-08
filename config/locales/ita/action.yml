@@ -1484,7 +1484,7 @@ ita:
     variants: "varianti"
     # variety: "Variety"
     view: "vista"
-    # watering_concentration: "Watering concentration"
+    # watering_concentration: "Water use"
     weather: "Tempo"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Velocità del vento"

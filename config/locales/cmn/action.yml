@@ -1418,7 +1418,7 @@ cmn:
     variants: "变种"
     # variety: "Variety"
     view: "视图"
-    # watering_concentration: "Watering concentration"
+    # watering_concentration: "Water use"
     weather: "天气"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "风速"

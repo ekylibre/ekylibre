@@ -1423,7 +1423,7 @@ por:
     variants: "Variantes"
     # variety: "Variety"
     view: "Visão"
-    # watering_concentration: "Watering concentration"
+    # watering_concentration: "Water use"
     weather: "Clima"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Velocidade do vento"

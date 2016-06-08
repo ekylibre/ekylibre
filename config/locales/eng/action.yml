@@ -1582,7 +1582,7 @@ eng:
     variants: "Variants"
     variety: "Variety" #?
     view: "View"
-    watering_concentration: "Water use"
+    watering_concentration: "Water use" #?
     weather: "Weather"
     welcome_on_first_run_wizard: "Welcome to the Startup Wizard" #?!
     wind_speed: "Wind speed"

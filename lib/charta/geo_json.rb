@@ -4,8 +4,10 @@ module Charta
     attr_reader :srid
 
     def initialize(data, srid = :WGS84)
+      srid ||= :WGS84
       @json = (data.is_a?(Hash) ? data : JSON.parse(data))
-      @srid = Charta.find_srid(srid)
+      lsrid = @json.try(:[], 'crs').try(:[],'properties').try(:[], 'name') || srid
+      @srid = Charta.find_srid(lsrid)
     end
 
     def to_ewkt

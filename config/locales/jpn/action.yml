@@ -1492,7 +1492,7 @@ jpn:
     variants: "バリアント"
     # variety: "Variety"
     view: "ビュー"
-    # watering_concentration: "Watering concentration"
+    # watering_concentration: "Water use"
     weather: "天気"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "風速"

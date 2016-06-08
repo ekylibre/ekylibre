@@ -1418,7 +1418,7 @@ deu:
     variants: "Varianten"
     # variety: "Variety"
     view: "Aussicht"
-    # watering_concentration: "Watering concentration"
+    # watering_concentration: "Water use"
     weather: "Wetter"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Windgeschwindigkeit"
