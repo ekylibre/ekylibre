@@ -64,7 +64,7 @@ eng:
       outgoing_deliveries: "Outgoing deliveries"
       outgoing_payment_modes: "Outgoing payment modes"
       outgoing_payments: "Outgoing payments"
-      plants: "Plants"
+      plants: "Crops"
       postal_zones: "Postal zones"
       prescriptions: "Prescriptions"
       product_groups: "Product groups"
