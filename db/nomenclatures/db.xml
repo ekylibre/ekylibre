@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160605122001">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160608202134">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2010,6 +2010,7 @@
       <item name="molluscicide"/>
       <item name="natural_mating"/>
       <item name="nematicide"/>
+      <item name="net_removal"/>
       <item name="net_removing"/>
       <item name="oil_replacement"/>
       <item name="organic_fertilization"/>
@@ -2049,6 +2050,8 @@
       <item name="topkilling"/>
       <item name="tractor_troubleshooting"/>
       <item name="troubleshooting"/>
+      <item name="tunnel_installation"/>
+      <item name="tunnel_removal"/>
       <item name="tunnel_removing"/>
       <item name="virucide"/>
       <item name="water_flow_improvement"/>
