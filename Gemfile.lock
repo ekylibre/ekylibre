@@ -64,7 +64,7 @@ GEM
       apartment (~> 1.0)
       sidekiq (>= 2.11)
     arel (6.0.3)
-    ast (2.2.0)
+    ast (2.3.0)
     autoprefixer-rails (6.3.6.2)
       execjs
     awesome_nested_set (3.0.3)
