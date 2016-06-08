@@ -76,9 +76,9 @@ module Backend
           }
         }
       end
-      crops = "nomenclatures.indicators.property_natures.unit".t(default: :u)
-      water = "nomenclatures.units.items.liter".t(default: :l)
-      area = "nomenclatures.units.items.square_meter".t(default: :ha)
+      crops = Nomen::Unit[:unity].human_name
+      water = Nomen::Unit[:liter].human_name
+      area = Nomen::Unit[:square_meter].human_name
       plantation_density_unit =  "#{crops}/#{area}".downcase
       water_concentration_unit =  "#{water}/#{area}".downcase
       visualization(box: { height: '100%' }) do |v|
