@@ -15,8 +15,8 @@ eng:
       new: "New session"
     backend/accounts:
       edit: "Edit account: %{number} - %{name}"
-      index: "Plan of accounts"
-      load: "Load a plan of accounts"
+      index: "Accounting plans"
+      load: "Load an accounting plan"
       mark: "Reconciliate account: %{number} - %{name}"
       new: "New account"
       reconciliation: "Account reconciliation"
