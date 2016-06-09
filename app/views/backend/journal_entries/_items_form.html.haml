@@ -18,9 +18,9 @@
         %th{colspan: 2}
           = tool_to(:new.ta, {controller: :journal_entry_items, action: :new, printed_on: @journal_entry.printed_on, journal_id: @journal.id}, remote: true, tabindex: -1, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
           %span= :total.tl
-        %td#entry-real-debit.decimal{ data: {use: "input.real-debit"}}=  @journal_entry.real_debit
+        %td#entry-real-debit.decimal{ data: {use: "input.real-debit", calculate_round: Nomen::Currency[@journal.currency].precision}}=  @journal_entry.real_debit
         %td.txt= @journal.currency
-        %td#entry-real-credit.decimal{data: {use: "input.real-credit"}}= @journal_entry.real_credit
+        %td#entry-real-credit.decimal{data: {use: "input.real-credit", calculate_round: Nomen::Currency[@journal.currency].precision}}= @journal_entry.real_credit
         %td.txt= @journal.currency
         %th.act
 
