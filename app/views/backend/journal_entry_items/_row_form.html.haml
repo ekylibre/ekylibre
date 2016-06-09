@@ -24,7 +24,9 @@
   %tr{id: "#{id}-real-values", class: "#{id}-item"}
     %td.dec{colspan: 2}
     %td.dec.debit{data: {use: "#items_#{id}_real_debit,#journal_entry_real_currency_rate", calculate: "mul", calculate_round: Nomen::Currency[@financial_year.currency].precision}}
+    %td.hidden.actual-debit{data: {use: "#items_#{id}_real_debit,#journal_entry_real_currency_rate", calculate: "mul"}}
     %td= @financial_year.currency
     %td.dec.credit{data: {use: "#items_#{id}_real_credit,#journal_entry_real_currency_rate", calculate: "mul", calculate_round: Nomen::Currency[@financial_year.currency].precision}}
+    %td.hidden.actual-credit{data: {use: "#items_#{id}_real_debit,#journal_entry_real_currency_rate", calculate: "mul"}}
     %td= @financial_year.currency
     %td.act
