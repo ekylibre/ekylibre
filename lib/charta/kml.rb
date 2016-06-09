@@ -3,6 +3,8 @@ module Charta
   class KML
     attr_reader :srid
 
+    TAGS = %w[Point LineString Polygon MultiGeometry].freeze
+
     def initialize(data, srid = :WGS84)
       @kml = if data.is_a? String
 
@@ -14,24 +16,11 @@ module Charta
                # Nokogiri::XML::Document expected
                data
              end
-      sanitize!
       @srid = Charta.find_srid(srid)
     end
 
     def to_ewkt
-      Charta.select_value("SELECT ST_AsEWKT(ST_GeomFromKML('#{@kml.css('Polygon').to_xml}'))")
-    end
-
-    def sanitize!
-      return nil unless @kml.is_a? Nokogiri::XML::Document
-
-      shapes = @kml.css('Polygon')
-
-      shapes.css('coordinates').each do |coord|
-        coordArray = coord.content.split /\r\n|\n| /
-        coordArray.collect! { |c| c.split ',' }.collect! { |dimension| [dimension.first, dimension.second, '0'] }
-        coord.content = coordArray.collect { |coord| coord.join(',') }.join(' ')
-      end
+      "SRID=#{@srid};" + self.class.document_to_ewkt(@kml)
     end
 
     def valid?
@@ -48,6 +37,57 @@ module Charta
       rescue
         false
       end
+
+      def object_to_ewkt(fragment)
+        send("#{fragment.name.snakecase}_to_ewkt", fragment)
+      end
+
+      def document_to_ewkt(kml)
+        return 'GEOMETRYCOLLECTION EMPTY' if kml.css('Document').blank?
+        'GEOMETRYCOLLECTION(' + kml.css('Placemark').collect do |placemark|
+          TAGS.collect do |tag|
+            next if placemark.css(tag).empty?
+            placemark.css(tag).collect do |fragment|
+              object_to_ewkt(fragment)
+            end.compact.join(', ')
+          end.compact.join(', ')
+        end.compact.join(', ') + ')'
+      end
+      alias geometry_collection_to_ewkt document_to_ewkt
+
+      def feature_to_ewkt(hash)
+        object_to_ewkt(hash['geometry'])
+      end
+
+      def point_to_ewkt(kml)
+        return 'POINT EMPTY' if kml.css('coordinates').blank?
+        'POINT(' + kml.css('coordinates').collect{|coords| coords.content.split ','}.flatten.join(' ') + ')'
+      end
+
+      def line_string_to_ewkt(kml)
+        return 'LINESTRING EMPTY' if kml.css('coordinates').blank?
+
+        'LINESTRING(' + kml.css('coordinates').collect{|coords| coords.content.split(/\r\n|\n| /)}.flatten.reject{|a| a.length == 0}.collect { |c| c.split ',' }.collect { |dimension| %Q{#{dimension.first} #{dimension.second}} }.join(', ') + ')'
+
+      end
+
+      def polygon_to_ewkt(kml)
+        return 'POLYGON EMPTY' if kml.css('coordinates').blank?
+
+        'POLYGON(' + %w[outerBoundaryIs innerBoundaryIs].collect do |boundary|
+          next if kml.css(boundary).empty?
+
+         '(' + kml.css(boundary).collect do |hole|
+           hole.css('coordinates').collect{|coords| coords.content.split(/\r\n|\n| /)}.flatten.reject{|a| a.length == 0}.collect { |c| c.split ',' }.collect { |dimension| %Q{#{dimension.first} #{dimension.second}} }
+         end.join(', ') + ')'
+
+        end.compact.join(', ') + ')'
+      end
+
+      def multigeometry_to_ewkt(kml)
+        fail :not_implemented
+      end
+
     end
   end
 end
