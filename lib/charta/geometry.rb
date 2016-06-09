@@ -83,6 +83,17 @@ module Charta
       JSON.parse(to_json)
     end
 
+    def to_feature_collection
+      return nil if collection?.nil?
+      json = to_json_object
+      feature_collection = {}
+      feature_collection[:type] = 'FeatureCollection'
+      feature_collection[:features] = json['geometries'].collect do |geometry|
+        { type: 'Feature', properties: {}, geometry: geometry }
+      end
+      feature_collection.deep_symbolize_keys
+    end
+
     # Test if the other measure is equal to self
     def ==(other_geometry)
       other = Charta.new_geometry(other_geometry).transform(srid)
