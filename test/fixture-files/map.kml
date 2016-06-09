@@ -32,5 +32,13 @@
         </outerBoundaryIs>
       </Polygon>
     </Placemark>
+    <Placemark>
+      <ExtendedData></ExtendedData>
+      <LineString>
+        <coordinates>-1.111164093017578,45.04660186083195 -1.1130523681640625,45.028830972425794
+          -1.1083316802978516,45.01863903155083
+        </coordinates>
+      </LineString>
+    </Placemark>
   </Document>
 </kml>
