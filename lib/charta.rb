@@ -11,7 +11,7 @@ require 'charta/geo_json'
 
 module Charta
   class << self
-    def new_geometry(coordinates, srs = nil, format = nil)
+    def new_geometry(coordinates, srs = nil, format = nil, flatten_collection = true)
       geom_ewkt = nil
       if coordinates.blank?
         geom_ewkt = empty_geometry(srs).to_ewkt
@@ -56,10 +56,11 @@ module Charta
              when 'MULTIPOLYGON' then
                MultiPolygon.new(geom_ewkt)
              when 'GEOMETRYCOLLECTION' then
-               GeometryCollection.new(geom_ewkt)
+               GeometryCollection.new(geom_ewkt, flatten_collection)
              else
                Geometry.new(geom_ewkt)
              end
+
       geom
     end
 
@@ -145,8 +146,8 @@ module Charta
       new_geometry(::Charta::GML.new(data, srid).to_ewkt)
     end
 
-    def from_kml(data)
-      new_geometry(::Charta::KML.new(data).to_ewkt)
+    def from_kml(data, flatten_collection = false)
+      new_geometry(::Charta::KML.new(data).to_ewkt, nil, nil, flatten_collection)
     end
 
     def from_geojson(data, srid = nil)
