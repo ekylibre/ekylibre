@@ -55,8 +55,8 @@ module Charta
       end
       alias geometry_collection_to_ewkt document_to_ewkt
 
-      def feature_to_ewkt(hash)
-        object_to_ewkt(hash['geometry'])
+      def feature_to_ewkt(kml)
+        object_to_ewkt(kml)
       end
 
       def point_to_ewkt(kml)

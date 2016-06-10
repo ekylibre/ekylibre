@@ -117,7 +117,12 @@ module Charta
                  end
                  found
                else
-                 systems.items[srname_or_srid]
+                 srid = /\AEPSG::?(\d{4,5})\z/.match(srname_or_srid)
+                 if srid.present?
+                   systems.find_by(srid: srid[1].to_i)
+                 else
+                   systems.items[srname_or_srid]
+                 end
                end
              else
                systems.find_by(srid: srname_or_srid)
@@ -142,8 +147,8 @@ module Charta
       send("from_#{format}", data)
     end
 
-    def from_gml(data, srid = nil)
-      new_geometry(::Charta::GML.new(data, srid).to_ewkt)
+    def from_gml(data, srid = nil, flatten_collection = false)
+      new_geometry(::Charta::GML.new(data, srid).to_ewkt, nil, nil, flatten_collection)
     end
 
     def from_kml(data, flatten_collection = false)
