@@ -74,25 +74,26 @@ module Charta
       select_value("SELECT ST_AsSVG(#{geom})")
     end
 
-    def to_geojson
-      select_value("SELECT ST_AsGeoJSON(#{geom})")
+    def to_geojson(feature_collection = false)
+      json = select_value("SELECT ST_AsGeoJSON(#{geom})")
+
+      if feature_collection && !collection?.nil?
+        feature_collection = {}
+        feature_collection[:type] = 'FeatureCollection'
+        feature_collection[:features] = JSON.parse(json).fetch('geometries', []).collect do |geometry|
+          { type: 'Feature', properties: {}, geometry: geometry }
+        end
+        json = feature_collection.to_json
+      end
+
+      json
     end
     alias to_json to_geojson
 
-    def to_json_object
-      JSON.parse(to_json)
+    def to_json_object(feature_collection = false)
+      JSON.parse(to_json(feature_collection))
     end
 
-    def to_feature_collection
-      return nil if collection?.nil?
-      json = to_json_object
-      feature_collection = {}
-      feature_collection[:type] = 'FeatureCollection'
-      feature_collection[:features] = json['geometries'].collect do |geometry|
-        { type: 'Feature', properties: {}, geometry: geometry }
-      end
-      feature_collection.deep_symbolize_keys
-    end
 
     # Test if the other measure is equal to self
     def ==(other_geometry)
