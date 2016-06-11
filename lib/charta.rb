@@ -31,7 +31,7 @@ module Charta
                       # required format 'cause kml geometries return empty instead of failing
                       ::Charta::GML.new(coordinates, srid).to_ewkt
                     elsif format == 'kml' && ::Charta::KML.valid?(coordinates)
-                      ::Charta::KML.new(coordinates, srid).to_ewkt
+                      ::Charta::KML.new(coordinates).to_ewkt
                     else # WKT expected
                       if srs && srid = find_srid(srs)
                         select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates}', #{srid}))")
