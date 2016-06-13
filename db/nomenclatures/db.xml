@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160608202134">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160613154204">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1609,7 +1609,7 @@
       <item name="sulfur_trioxide_concentration" datatype="measure" unit="mass_percent"/>
       <item name="surface_area_percentage" datatype="measure" unit="percent"/>
       <item name="temperature" datatype="measure" unit="celsius"/>
-      <item name="theoretical_working_speed" datatype="decimal"/>
+      <item name="theoretical_working_speed" datatype="decimal" unit="hectare_per_hour"/>
       <item name="thousand_grains_mass" datatype="measure" unit="gram"/>
       <item name="tiller_count" datatype="integer"/>
       <item name="total_bacteria_concentration" datatype="measure" unit="thousand_per_milliliter"/>
@@ -2712,6 +2712,7 @@
       <item name="hiller" nature="hiller" frozen_indicators_values=""/>
       <item name="hive" nature="hive"/>
       <item name="hoe" nature="hoe" frozen_indicators_values="" unit_name="equipment"/>
+      <item name="hoe_weeder" nature="hoe_weeder" frozen_indicators_values="theoretical_working_speed: 9.00hectare_per_hour"/>
       <item name="horse_compost" nature="organic_fertilizer" variety="manure" derivative_of="equus" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1percent" unit_name="ton"/>
       <item name="horse_herd" nature="horse_herd" unit_name="band"/>
       <item name="horse_manure" nature="organic_fertilizer" variety="manure" derivative_of="equus" frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.82percent" unit_name="ton"/>
@@ -3167,6 +3168,7 @@
       <item name="hiller" category="equipment" variety="equipment" population_counting="unitary" abilities="earth_up" frozen_indicators="application_width, rows_count, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="hive" category="equipment" variety="equipment" population_counting="unitary" abilities="store(apis), store(honey)"/>
       <item name="hoe" category="equipment" variety="plower" population_counting="unitary" abilities="plow_superficially, hoe" variable_indicators="geolocation" frozen_indicators="application_width, rows_count, theoretical_working_speed"/>
+      <item name="hoe_weeder" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant), spray" frozen_indicators="nominal_storable_net_volume, application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="honey" category="honey" variety="honey" derivative_of="apis" population_counting="decimal" variable_indicators="sucrose_concentration, temperature" frozen_indicators="net_volume, net_mass"/>
       <item name="horse_herd" category="cattle_herd" variety="animal_group" derivative_of="equus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix), consume(silage)" variable_indicators=""/>
       <item name="hydraulic_oil" category="fuel" variety="oil" population_counting="decimal" abilities="lubricate(equipment)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
