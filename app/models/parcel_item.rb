@@ -75,8 +75,6 @@ class ParcelItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_presence_of :source_product, if: :parcel_prepared?
   validates_presence_of :product, if: :parcel_prepared?
-  validates_presence_of :population
-  validates_numericality_of :population, greater_than: 0
 
   scope :with_nature, ->(nature) { joins(:parcel).merge(Parcel.with_nature(nature)) }
 
