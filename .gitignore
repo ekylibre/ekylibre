@@ -10,7 +10,7 @@
 /.sass-cache
 .rspec
 .settings
- 
+
 # Ignore IDE files
 .project
 .idea
@@ -29,6 +29,7 @@ db/first_runs
 
 # Ignore generated doc
 /doc/app
+/doc/diagrams
 
 # Ignore backup files
 /backup
@@ -47,6 +48,7 @@ private/*
 private/test/tmp
 private/test/reporting
 private/test/attachments
+private/test/plugins
 
 # Ignore compiled assets
 /public/assets
@@ -83,3 +85,5 @@ Procfile.*
 
 # Vim
 *.sw?
+
+.byebug_history

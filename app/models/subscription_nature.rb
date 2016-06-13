@@ -22,65 +22,26 @@
 #
 # == Table: subscription_natures
 #
-#  actual_number         :integer
-#  created_at            :datetime         not null
-#  creator_id            :integer
-#  description           :text
-#  entity_link_direction :string
-#  entity_link_nature    :string
-#  id                    :integer          not null, primary key
-#  lock_version          :integer          default(0), not null
-#  name                  :string           not null
-#  nature                :string           not null
-#  reduction_percentage  :decimal(19, 4)
-#  updated_at            :datetime         not null
-#  updater_id            :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  description  :text
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 
 class SubscriptionNature < Ekylibre::Record::Base
-  attr_readonly :nature
-  enumerize :nature, in: [:period, :quantity], default: :period, predicates: true
-  refers_to :entity_link_nature, class_name: 'EntityLinkNature'
-  enumerize :entity_link_direction, in: [:direct, :indirect, :all], default: :all, predicates: { prefix: true }
-  has_many :product_nature_categories
-  has_many :subscriptions, foreign_key: :nature_id
+  has_many :product_natures
+  has_many :subscriptions, foreign_key: :nature_id, inverse_of: :nature
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :actual_number, allow_nil: true, only_integer: true
-  validates_numericality_of :reduction_percentage, allow_nil: true
-  validates_presence_of :name, :nature
+  validates_presence_of :name
   # ]VALIDATORS]
-  validates_length_of :entity_link_direction, allow_nil: true, maximum: 30
-  validates_length_of :entity_link_nature, allow_nil: true, maximum: 120
-  validates_numericality_of :reduction_percentage, greater_than_or_equal_to: 0, less_than_or_equal_to: 100
-
-  # default_scope -> { order(:name) }
-
-  before_validation do
-    self.reduction_percentage ||= 0
-  end
+  validates_uniqueness_of :name
 
   protect(on: :destroy) do
-    subscriptions.any? || product_nature_categories.any?
-  end
-
-  def now
-    (period? ? Time.zone.today : actual_number)
-  end
-
-  def fields
-    if period?
-      return :started_at, :stopped_at
-    else
-      return :first_number, :last_number
-    end
-  end
-
-  def start
-    fields.first
-  end
-
-  def finish
-    fields.second
+    subscriptions.any? || product_natures.any?
   end
 end

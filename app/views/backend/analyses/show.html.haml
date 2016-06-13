@@ -13,10 +13,17 @@
     - l.attribute :analysed_at
 
   - if resource.geolocation
+    :ruby
+      data_product = []
+      product = resource.product
+      if product && product.shape
+        data_product << {name: product.name, shape: product.shape}
+      end
     = visualization do |v|
-      - v.background 'OpenStreetMap.HOT'
-      - v.background "Esri.WorldImagery"
       - v.serie :data, [{name: resource.number, shape: resource.geolocation}]
+      - if data_product.any?
+        - v.serie :data_product, data_product
+        - v.categories :activity, :data_product
       - v.path "#{resource.number}", :data
       - v.control :zoom
       - v.control :scale

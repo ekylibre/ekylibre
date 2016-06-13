@@ -1,6 +1,6 @@
 namespace :clean do
   task views: :environment do
-    log = File.open(Rails.root.join('log', 'clean-code.log'), 'wb')
+    log = File.open(Rails.root.join('log', 'clean-views.log'), 'wb')
     log.write "Views:\n"
 
     controllers = Clean::Support.controllers_in_file.map(&:controller_path)

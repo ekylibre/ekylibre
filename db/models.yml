@@ -5,6 +5,9 @@
 - activity_budget
 - activity_budget_item
 - activity_distribution
+- activity_inspection_calibration_nature
+- activity_inspection_calibration_scale
+- activity_inspection_point_nature
 - activity_production
 - affair
 - analysis
@@ -57,6 +60,9 @@
 - import
 - incoming_payment
 - incoming_payment_mode
+- inspection
+- inspection_calibration
+- inspection_point
 - intervention
 - intervention_agent
 - intervention_doer
@@ -83,6 +89,7 @@
 - loan_repayment
 - manure_management_plan
 - manure_management_plan_zone
+- map_background
 - matter
 - net_service
 - notification
@@ -137,6 +144,7 @@
 - tax
 - team
 - tracking
+- user
 - user
 - version
 - worker

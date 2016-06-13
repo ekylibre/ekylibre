@@ -27,10 +27,6 @@
     end
   end
 - map = visualization do |v|
-  - v.background "OpenStreetMap.HOT"
-  - v.background "OpenStreetMap.Mapnik"
-  - v.background "Thunderforest.Landscape"
-  - v.background "Esri.WorldImagery"
   - if data.any?
     - v.serie :main, data
     - v.categories :activity, :main

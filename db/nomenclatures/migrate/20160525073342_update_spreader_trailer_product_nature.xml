@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update spreader trailer product nature">
+  <item-change item="product_natures#spreader_trailer" variety="spreader"/>
+</migration>

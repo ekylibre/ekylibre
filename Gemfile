@@ -10,7 +10,7 @@ gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 
 # Multi-tenancy
-gem 'apartment', '>= 1.0.0', '< 2.0'
+gem 'apartment', '~> 1.0.0', '< 2.0'
 gem 'apartment-sidekiq'
 
 # Code manipulation
@@ -137,11 +137,12 @@ gem 'feedjira', require: false
 # Adds colors in terminal
 gem 'colored' # , require: false
 
-# Compass
+# S/CSS Framework
 gem 'bootstrap-sass', '~> 3.1'
+gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric'
+gem 'agric', '~> 3.0'
 
 # Web services
 gem 'mechanize'
@@ -173,6 +174,8 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'pry-inline'
+  gem 'teaspoon-jasmine'
 end
 
 group :test do

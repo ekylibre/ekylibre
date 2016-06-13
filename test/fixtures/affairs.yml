@@ -442,6 +442,42 @@ affairs_020:
   third_role: client
   updated_at: 2015-09-17 13:25:40.531173000 Z
   updater_id: 1
+affairs_021:
+  accounted_at: 2016-05-26 21:26:19.642104000 Z
+  closed: false
+  created_at: 2016-05-26 21:26:07.880426000 Z
+  creator_id: 1
+  credit: 142.94
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 39
+  lock_version: 0
+  number: A000000000032
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  third_role: client
+  updated_at: 2016-05-26 21:26:07.880426000 Z
+  updater_id: 1
+affairs_022:
+  accounted_at: 2016-05-26 21:27:13.884165000 Z
+  closed: false
+  created_at: 2016-05-26 21:26:57.791625000 Z
+  creator_id: 1
+  credit: 71.47
+  currency: EUR
+  deals_count: 1
+  debit: 0.0
+  id: 40
+  lock_version: 1
+  number: A000000000033
+  pretax_amount: 0.0
+  probability_percentage: 0.0
+  third_id: 14
+  third_role: client
+  updated_at: 2016-05-26 21:27:06.164102000 Z
+  updater_id: 1
 sale_opportunities_001:
   accounted_at: 2015-04-20 21:54:28.932522000 Z
   closed: true
@@ -476,7 +512,7 @@ sale_opportunities_002:
   creator_id: 1
   credit: 0.0
   currency: EUR
-  dead_line_at: 2999-12-31 23:00:00.000000000 Z
+  dead_line_at: 2064-12-31 23:00:00.000000000 Z
   deals_count: 0
   debit: 0.0
   description: ''

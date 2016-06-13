@@ -3,7 +3,12 @@
   - sm = Purchase.state_machine.states
   - k.multi_choice :state, [:draft, :estimate, :aborted, :refused, :order, :invoice].map{|s| [sm[s].human_name, s] }, label: Purchase.human_attribute_name(:state)
   - k.helper :journal_period_crit
-  - k.multi_choice :nature, [:unpaid].map{ |s| [s.tl, s] }
+  - k.choice :all, :unpaid, name: :nature
+  - responsible_ids = Purchase.uniq.pluck(:responsible_id)
+  - if responsible_ids.any?
+    - k.helper do
+      %label= Purchase.human_attribute_name(:responsible)
+      = select_tag(:responsible_id, options_for_select([[]] + User.find(responsible_ids).map{|u| [u.label, u.id]}, params[:responsible_id]))
 - main_toolbar do |t|
   = t.new variants: PurchaseNature.reorder(:name).to_a.map{ |n| [n.name, {nature_id: n.id}, {by_default: n.by_default}] }
 = main_list

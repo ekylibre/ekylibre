@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update plant analysis">
+  <item-creation item="indicators#ready_to_harvest" datatype="boolean" />
+  <item-change item="analysis_natures#plant_analysis" items="ready_to_harvest, fresh_mass, healthy, plant_growth_level, plant_life_state, plant_reproduction_state, plants_interval, plants_count"/>
+</migration>

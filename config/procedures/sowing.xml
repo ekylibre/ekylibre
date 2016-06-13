@@ -36,9 +36,9 @@
                  backward="(POPULATION * PRODUCT..net_mass(gram)) / PRODUCT..thousand_grains_mass(gram)"
                  forward="(VALUE * PRODUCT..thousand_grains_mass(gram)) / PRODUCT..net_mass(gram)"/>
       </input>
-      <tool name="sower"   filter="can sow"/>
-      <tool name="tractor" filter="can tow(equipment) and can move"/>
-      <doer name="driver"  filter="can drive(equipment) and can move"/>
+      <tool name="sower"   filter="can sow" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

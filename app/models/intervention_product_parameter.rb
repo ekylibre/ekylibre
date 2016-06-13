@@ -69,6 +69,7 @@ class InterventionProductParameter < InterventionParameter
   validates_presence_of :quantity_indicator_name, :quantity_unit_name, if: :measurable?
 
   delegate :name, to: :product, prefix: true
+  delegate :name, to: :variant, prefix: true
   delegate :work_name, to: :product, prefix: true
   delegate :name, to: :product_nature, prefix: true
   delegate :evaluated_price, to: :product

@@ -1,0 +1,80 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: activity_inspection_calibration_natures
+#
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  marketable    :boolean          default(FALSE), not null
+#  maximal_value :decimal(19, 4)   not null
+#  minimal_value :decimal(19, 4)   not null
+#  scale_id      :integer          not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer
+#
+---
+activity_inspection_calibration_natures_001:
+  created_at: 2016-05-10 19:12:13.392222000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  marketable: false
+  maximal_value: 60.0
+  minimal_value: 40.0
+  scale_id: 1
+  updated_at: 2016-05-10 19:12:13.392222000 Z
+  updater_id: 1
+activity_inspection_calibration_natures_002:
+  created_at: 2016-05-10 19:12:13.391102000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 1
+  marketable: true
+  maximal_value: 40.0
+  minimal_value: 25.0
+  scale_id: 1
+  updated_at: 2016-05-14 19:09:46.297264000 Z
+  updater_id: 1
+activity_inspection_calibration_natures_003:
+  created_at: 2016-05-10 19:12:13.389428000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 1
+  marketable: true
+  maximal_value: 25.0
+  minimal_value: 10.0
+  scale_id: 1
+  updated_at: 2016-05-14 19:09:46.295647000 Z
+  updater_id: 1
+activity_inspection_calibration_natures_004:
+  created_at: 2016-05-10 19:12:13.386958000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  marketable: false
+  maximal_value: 10.0
+  minimal_value: 0.0
+  scale_id: 1
+  updated_at: 2016-05-10 19:12:13.386958000 Z
+  updater_id: 1

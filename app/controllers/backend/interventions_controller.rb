@@ -83,7 +83,6 @@ module Backend
       # t.column :production, url: true, hidden: true
       # t.column :campaign, url: true
       t.column :human_activities_names
-      t.column :state, hidden: true
       t.column :started_at
       t.column :stopped_at, hidden: true
       t.column :human_working_duration
@@ -117,8 +116,7 @@ module Backend
                                   procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) })
     end
 
-    # Computes reverberation of a updated value in an intervention input context
-    # Converts handlers and updates others things in cascade
+    # Computes impacts of a updated value in an intervention input context
     def compute
       unless params[:intervention]
         head(:unprocessable_entity)
@@ -137,7 +135,7 @@ module Backend
         # raise intervention.to_hash.inspect
         respond_to do |format|
           # format.xml  { render xml: intervention.to_xml }
-          format.json { render json: { updater_id: updater_id, intervention: intervention }.to_json }
+          format.json { render json: { updater_id: updater_id, intervention: intervention, handlers: intervention.handlers_states }.to_json }
         end
       rescue Procedo::Error => e
         respond_to do |format|

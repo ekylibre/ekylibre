@@ -63,6 +63,7 @@
 #  rights                                 :text
 #  role_id                                :integer
 #  sign_in_count                          :integer          default(0)
+#  signup_at                              :datetime
 #  team_id                                :integer
 #  unconfirmed_email                      :string
 #  unlock_token                           :string
@@ -83,7 +84,7 @@ class User < Ekylibre::Record::Base
   has_many :preferences, dependent: :destroy, foreign_key: :user_id
   has_many :sales_invoices, -> { where(state: 'invoice') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_many :sales, through: :person, source: :managed_sales
-  has_many :transports, foreign_key: :responsible_id
+  has_many :deliveries, foreign_key: :responsible_id
   has_many :unpaid_sales, -> { order(:created_at).where(state: %w(order invoice)).where(lost: false).where('paid_amount < amount') }, through: :person, source: :managed_sales, class_name: 'Sale'
   has_one :worker, through: :person
 
@@ -91,7 +92,7 @@ class User < Ekylibre::Record::Base
   scope :administrators, -> { where(administrator: true) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, :signup_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :failed_attempts, :invitation_limit, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
   validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
@@ -102,14 +103,14 @@ class User < Ekylibre::Record::Base
   validates_confirmation_of :password
   validates_numericality_of :maximal_grantable_reduction_percentage, greater_than_or_equal_to: 0, less_than_or_equal_to: 100
   validates_uniqueness_of :email, :person_id
-  validates_presence_of :role, unless: :administrator?
+  validates_presence_of :role, unless: :administrator_or_unapproved?
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :invitable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :invitable
   model_stamper # Needed to stamp.all records
   delegate :picture, :participations, to: :person
   delegate :name, to: :role, prefix: true
@@ -162,6 +163,11 @@ class User < Ekylibre::Record::Base
     end
   end
 
+  def status
+    return tc('status.invitation.pending') if created_by_invite? && !invitation_accepted?
+    return tc('status.registration.pending') if pending_approval?
+  end
+
   def name
     # TODO: I18nize the method User#name !
     "#{first_name} #{last_name}"
@@ -204,6 +210,26 @@ class User < Ekylibre::Record::Base
   def self.notify_administrators(*args)
     User.administrators.each do |user|
       user.notify(*args)
+    end
+  end
+
+  def pending_approval?
+    signup_at.present?
+  end
+
+  def approved?
+    !pending_approval?
+  end
+
+  def active_for_authentication?
+    super && approved?
+  end
+
+  def inactive_message
+    if !approved?
+      :not_approved
+    else
+      super
     end
   end
 
@@ -301,6 +327,10 @@ class User < Ekylibre::Record::Base
   end
 
   private
+
+  def administrator_or_unapproved?
+    administrator? || !approved?
+  end
 
   def self.generate_password(password_length = 8, mode = :normal)
     return '' if password_length.blank? || password_length < 1

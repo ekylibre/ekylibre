@@ -1,9 +1,5 @@
 - count = 0
 - map = visualization do |v|
-  - v.background "OpenStreetMap.HOT"
-  - v.background "OpenStreetMap.Mapnik"
-  - v.background "Thunderforest.Landscape"
-  - v.background "Esri.WorldImagery"
   - for cast in resource.product_parameters
     - shape = cast.shape
     - shape ||= cast.actor.shape(at: resource.started_at) if cast.actor

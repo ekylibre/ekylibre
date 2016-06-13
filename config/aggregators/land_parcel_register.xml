@@ -38,32 +38,37 @@
           <!-- looking for all interventions with cultivable zone and targets -->
           <sections for="intervention" in="Intervention.real.done.with_targets(targets).reorder(:started_at)" of-type="record">
             <title name="name" of="intervention"/>
-		    <property name="id" of="intervention" level="api"/>
-		    <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
-		    <property name="started_at" value="intervention.started_at" type="datetime"/>
-		    <property name="stopped_at" value="intervention.stopped_at" type="datetime"/>
-		    <property name="working_duration" if="intervention.working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
-		    <property name="working_zone_area" if="intervention.working_zone_area" value="intervention.working_zone_area.round(2).l" type="measure"/>
-	        <property name="targets_name" value="intervention.human_target_names"/>
-	        <property name="doers_name" value="intervention.human_doer_names"/>
-	        <property name="tools_name" value="intervention.human_tool_names"/>
-	        <section name="issue" of="intervention.issue">
-	          <property name="id" level="api"/>
-	          <property name="nature"/>
-	          <property name="observed_at"/>
-	          <property name="state" level="api"/>
-	          <property name="description"/>
-	        </section>
-            <matrix name="actors" for="actor" in="intervention.parameters">
+            <property name="id" of="intervention" level="api"/>
+            <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
+            <property name="started_at" value="intervention.started_at" type="datetime"/>
+            <property name="stopped_at" value="intervention.stopped_at" type="datetime"/>
+            <property name="working_duration" if="intervention.working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
+            <property name="working_zone_area" if="intervention.working_zone_area" value="intervention.working_zone_area.round(2).l" type="measure"/>
+            <property name="targets_name" value="intervention.human_target_names"/>
+            <property name="doers_name" value="intervention.human_doer_names"/>
+            <property name="tools_name" value="intervention.human_tool_names"/>
+            <property name="total_cost" value="intervention.total_cost"/>
+            <property name="total_cost_per_area" if="intervention.cost_per_area" value="intervention.cost_per_area"/>
+            <section name="issue" of="intervention.issue">
+              <property name="id" level="api"/>
+              <property name="nature"/>
+              <property name="observed_at"/>
+              <property name="state" level="api"/>
+              <property name="description"/>
+            </section>
+            <matrix name="actors" for="actor" in="intervention.product_parameters">
               <cell name="id" of="actor" level="api" />
+              <cell name="name" of="actor" />
+              <cell name="product_name" of="actor" />
+              <cell name="variant_name" of="actor" />
               <cell name="quantity" if="actor.quantity_population" value="actor.quantity.l" type="measure" />
               <cell name="working_zone" if="actor.working_zone" value="actor.working_zone.area.convert(:hectare).round(2).l" type="measure" />
-	          <!--<within of="actor.product">-->
-	            <!--<cell name="name"/>-->
-	            <!--<cell name="variant_name"/>-->
-	            <!--<cell name="variety" level="api"/>-->
-	          <!--</within>-->
-	          <!-- <cell name="quantity" if="input.quantity" value="input.quantity.l" type="measure" /> -->
+              <!--<within of="actor.product">-->
+              <!--<cell name="name"/>-->
+              <!--<cell name="variant_name"/>-->
+              <!--<cell name="variety" level="api"/>-->
+              <!--</within>-->
+              <!-- <cell name="quantity" if="input.quantity" value="input.quantity.l" type="measure" /> -->
             </matrix>
           </sections>
           <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->

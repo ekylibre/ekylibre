@@ -96,13 +96,13 @@ fra:
     corks_to_use: "Bouchons à utiliser" #?
     corn_topper: "Castreuse"
     cover_implanter: "Plastifieuse"
-    cropper: "Moissonneuse batteuse"
-    cropper_driver: "Conducteur de moissonneuse batteuse"
+    cropper: "Outil de récolte"
+    cropper_driver: "Conducteur de l'outil de récolte"
     cultivation: "Parcelle / Culture"
     cultivator: "Cultivateur"
     cutter: "Outil de taille"
     destination_tank: "Cuve de destination"
-    doer: "Faiseur"
+    doer: "Opérateur"
     driver: "Conducteur"
     eggs: "Œufs"
     energy: "Energie"
@@ -152,6 +152,7 @@ fra:
     herbicide: "Herbicide"
     herd: "Troupeau"
     hiller: "Butteuse"
+    hive: "Ruche"
     implanter: "Planteuse"
     implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
@@ -176,6 +177,7 @@ fra:
     manure_to_spread: "Fumier à épandre" #?
     matters: "Matières"
     mechanic: "Mécanicien"
+    mechanical_pollinator: "Pollinisateur artificiel"
     medicine: "Traitement" #?
     medicine_to_give: "Traitement à donner" #?
     medicine_to_spray: "Traitement à pulvériser" #?
@@ -185,7 +187,7 @@ fra:
     molluscicide_to_input: "Molluscicide à distribuer" #?
     mother: "Mère"
     mother_animal: "Mère" #?
-    # movement: "Movement"
+    movement: "Mouvement"
     mower: "Faucheuse"
     mower_driver: "Conducteur de faucheuse"
     net_implanter: "Dérouleur de filet"
@@ -204,9 +206,11 @@ fra:
     plants: "Plants"
     plants_to_fix: "Plants à implanter" #?
     plastic: "Plastique"
-    plastic_sheet: "Bâche plastique"
+    plastic_sheet: "Bâche plastique" #?
     plastic_to_mulch: "Plastique à poser" #?
     plow: "Charrue"
+    pollinating_insects: "Insectes pollinisateurs"
+    pollination_tool: "Outil de pollinisation"
     press: "Presse"
     product: "Produit" #?
     protective_canvas: "Bâche de protection"
@@ -234,6 +238,7 @@ fra:
     silage_to_give: "Ensilage à donner" #?
     silage_unloader: "Désileuse"
     silo: "Silo" #?
+    soil_loosener: "Décompacteur"
     sortable: "Produit à trier"
     sorted_seedlings: "Plants triés"
     sower: "Semoir"
@@ -248,6 +253,7 @@ fra:
     straw_to_deliver: "Fourrage à livrer" #?
     straw_to_mulch: "Paille à pailler" #?
     straws: "Paille"
+    stubble_cultivator: "Déchaumeur"
     tank: "Cuve"
     tank_for_residue: "Cuve pour les résidus"
     tank_for_wine: "Cuve pour le vin"
@@ -376,6 +382,7 @@ fra:
     plastic_mulching: "Paillage plastique" #?
     plowing: "Labour"
     plums_harvest: "Récolte de prunes" #?
+    pollination: "Pollinisation"
     product_evolution: "Evolution d'un produit" #?
     product_moving: "Mouvement d'un produit" #?
     raking: "Hersage"
@@ -391,13 +398,14 @@ fra:
     spraying_on_land_parcel: "Pulvérisation sur parcelle" #?
     standard_enclosing: "Pose de clôture standard"
     steam_weeding: "Désherbage vapeur"
-    straw_bunching: "Pressage de fourrages"
-    straw_transport: "Transport de fourrages" #?
+    straw_bunching: "Pressage de fourrage"
+    straw_transport: "Transport de fourrage" #?
     sulfur_addition: "Sulfitage"
     superficial_plowing: "Déchaumage"
     swathing: "Andainage"
     technical_task: "Tâche technique générale" #?
     topkilling: "Défanage"
+    trellising: "Palissage"
     triple_food_mixing: "Mélange alimentaire avec trois ingrédients" #?
     triple_seed_mixing: "Mélange de semences avec trois semences" #?
     triple_spraying_on_cultivation: "Pulvérisation sur culture (trois spécialités)" #?

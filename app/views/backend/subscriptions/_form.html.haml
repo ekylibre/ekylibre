@@ -1,17 +1,11 @@
--# TODO Check
 = field_set do
   = f.referenced_association :sale_item, as: :hidden
-  = f.referenced_association :nature, as: :hidden
-  = f.input :quantity
-  -# input :suspended
-  = f.referenced_association :address
+  - unless f.object.sale_item
+    = f.referenced_association :nature
+  = f.referenced_association :address, source: { scope: :mails }
+  = f.input :started_on
+  = f.input :stopped_on
+  - unless f.object.sale_item
+    = f.input :quantity
   = f.input :description
   = f.custom_fields
-
-= field_set :interval do
-  .date-subscription
-    = f.input :started_at
-    = f.input :stopped_at
-  .number-subscription
-    = f.input :first_number
-    = f.input :last_number

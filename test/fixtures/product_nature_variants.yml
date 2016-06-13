@@ -1073,3 +1073,17 @@ product_nature_variants_068:
   unit_name: Hectare
   updated_at: 2016-01-21 14:05:46.964632000 Z
   variety: land_parcel
+product_nature_variants_069:
+  active: true
+  category_id: 26
+  created_at: 2016-05-26 21:24:33.024053000 Z
+  creator_id: 1
+  id: 70
+  lock_version: 0
+  name: Abonnement 1AN News!
+  nature_id: 60
+  number: A1
+  unit_name: Abonnement
+  updated_at: 2016-05-26 21:24:33.024053000 Z
+  updater_id: 1
+  variety: immatter

@@ -4,7 +4,7 @@
     <parameters>
       <target name="equipment" filter="is equipment and can consume(oil)" />
       <input name="oil" filter="is preparation and can lubricate(tractor)" >
-      	<handler name="population"/>
+        <handler name="population"/>
         <handler indicator="net_volume" unit="liter"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_volume?"
                  backward="POPULATION * PRODUCT..net_volume(liter)"

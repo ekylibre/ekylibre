@@ -88,6 +88,8 @@ module Backend
         options.deep_merge!(data: { map_editor: { controls: { importers: { content: importer_form(options[:data][:map_editor][:controls][:importers][:formats]) } } } })
       end
 
+      options[:data][:map_editor][:back] ||= MapBackground.availables.collect(&:to_json_object)
+
       options.deep_merge!(data: { map_editor: { edit: geometry.to_json_object } }) unless value.nil?
       text_field_tag(name, value, options.deep_merge(data: { map_editor: { box: box.jsonize_keys } }))
     end
@@ -125,7 +127,10 @@ module Backend
           # content << { label: klass.human_attribute_name(label_method), value: record.send(label_method) }
           content << { label: Nomen::Indicator.find(:net_surface_area).human_name,
                        value: record.net_surface_area.in(area_unit).round(3).l }
-          content << link_to(:show.tl, { controller: controller, action: :show, id: record.id }, class: 'btn btn-default')
+          content << content_tag(:div, class: 'btn-group') do
+            link_to(:show.tl, { controller: controller, action: :show, id: record.id }, class: 'btn btn-default') +
+              link_to(:edit.tl, { controller: controller, action: :edit, id: record.id }, class: 'btn btn-default')
+          end
           feature = { popup: { content: content, header: true } }
         end
         feature[:name] ||= record.send(label_method)
@@ -138,7 +143,7 @@ module Backend
     # Build a map with a given list of object
     def collection_map(data, options = {}, &_block)
       return nil unless data.any?
-      backgrounds = options.delete(:backgrounds) || ['OpenStreetMap.HOT', 'OpenStreetMap.Mapnik', 'Thunderforest.Landscape', 'Esri.WorldImagery']
+      backgrounds = options.delete(:backgrounds) || []
       options = {
         controls: {
           zoom: true,

@@ -46,7 +46,6 @@ module Unicoque
           total_quantity_in_kg: (row[8].blank? ? nil : row[8].tr(',', '.').to_d),
           total_value_in_euro: (row[10].blank? ? nil : row[10].tr(',', '.').to_d)
         )
-
         born_at = (row[0].to_s + '-09-01 00:00').to_datetime
         variant_reference = (r.variety_radical_code == '21' ? :hazelnut : :walnut)
 

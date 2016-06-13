@@ -16,6 +16,11 @@ ita:
         per_campaign: "per campagna"
         per_production: "per la produzione"
         per_working_unit: "Per unità di lavoro"
+    activity_inspection_point_nature:
+      category:
+        # deformity: "Deformity"
+        # disease: "Disease"
+        # none: "None"
     activity_production:
       support_nature:
         border: "Confine"
@@ -88,6 +93,10 @@ ita:
         line: "linea"
         point: "Punto"
         polygon: "Poligono"
+    grading_quality_criterion:
+      nature:
+        # disease_presence: "Disease presence"
+        # waste: "Waste"
     guide_analysis:
       status:
         errored: "errored"

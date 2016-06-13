@@ -86,10 +86,10 @@ module Backend
         label: family.human_name,
         name: family.name
       }
-      if family.cultivation_variety
+      unless family.cultivation_variety.blank?
         data[:cultivation_varieties] = Nomen::Variety.selection_hash(family.cultivation_variety)
       end
-      if family.support_variety
+      unless family.support_variety.blank?
         data[:support_varieties] = Nomen::Variety.selection_hash(family.support_variety)
       end
       render json: data
@@ -112,6 +112,16 @@ module Backend
     list(:distributions, model: :activity_distributions, conditions: { activity_id: 'params[:id]'.c }) do |t|
       t.column :affectation_percentage, percentage: true
       t.column :main_activity, url: true
+    end
+
+    # List of inspections
+    list(:inspections, conditions: { activity_id: 'params[:id]'.c }, order: { sampled_at: :desc }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :sampled_at
+      t.column :product, url: true
+      t.column :comment
     end
   end
 end

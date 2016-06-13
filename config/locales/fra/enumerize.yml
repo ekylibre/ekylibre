@@ -16,6 +16,11 @@ fra:
         per_campaign: "Par campagne"
         per_production: "Par production"
         per_working_unit: "Par unité d’œuvre"
+    activity_inspection_point_nature:
+      category:
+        deformity: "Malformation"
+        disease: "Maladie"
+        none: "Aucune"
     activity_production:
       support_nature:
         border: "Bordure"
@@ -93,8 +98,12 @@ fra:
     georeading:
       nature:
         line: "Ligne"
-        # point: "Point"
+        point: "Point"
         polygon: "Polygone"
+    grading_quality_criterion:
+      nature:
+        disease_presence: "Présence de maladie"
+        waste: "Déchet"
     guide_analysis:
       status:
         errored: "Erroné"

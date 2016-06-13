@@ -438,7 +438,7 @@ html.authentication, html.exception {
             line-height: $lh-normal;
             margin-bottom: round($default-gap * 0.5);
           }
-          input[type="email"], input[type="password"], select {
+          input[type="email"], input[type="password"], input[type="text"], select {
             display: inline;
             width: 100%;
             @include box-sizing(border-box);
@@ -2360,10 +2360,15 @@ a[data-annotate] {
 }
 
 .nested-fields {
+  tr.tr-add-on {
+    td {
+      border-top: none;
+    }
+  }
   .annotate {
     textarea {
       @include box-sizing(border-box);
-      margin: $default-gap 0 0;
+      // margin: $default-gap 0 0;
       width: 100%;
     }
   }

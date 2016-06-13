@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160509155843) do
+ActiveRecord::Schema.define(version: 20160518061327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,26 +67,34 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "accounts", ["updater_id"], name: "index_accounts_on_updater_id", using: :btree
 
   create_table "activities", force: :cascade do |t|
-    t.string   "name",                                null: false
+    t.string   "name",                                         null: false
     t.text     "description"
-    t.string   "family",                              null: false
-    t.string   "nature",                              null: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.string   "family",                                       null: false
+    t.string   "nature",                                       null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",        default: 0,     null: false
-    t.boolean  "with_supports",                       null: false
-    t.boolean  "with_cultivation",                    null: false
+    t.integer  "lock_version",                 default: 0,     null: false
+    t.boolean  "with_supports",                                null: false
+    t.boolean  "with_cultivation",                             null: false
     t.string   "support_variety"
     t.string   "cultivation_variety"
     t.string   "size_indicator_name"
     t.string   "size_unit_name"
-    t.boolean  "suspended",           default: false, null: false
-    t.string   "production_cycle",                    null: false
+    t.boolean  "suspended",                    default: false, null: false
+    t.string   "production_cycle",                             null: false
     t.string   "production_campaign"
     t.jsonb    "custom_fields"
-    t.boolean  "use_countings",       default: false, null: false
+    t.boolean  "use_countings",                default: false, null: false
+    t.boolean  "use_gradings",                 default: false, null: false
+    t.boolean  "measure_grading_items_count",  default: false, null: false
+    t.boolean  "measure_grading_net_mass",     default: false, null: false
+    t.string   "grading_net_mass_unit_name"
+    t.boolean  "measure_grading_sizes",        default: false, null: false
+    t.string   "grading_sizes_indicator_name"
+    t.string   "grading_sizes_unit_name"
+    t.string   "production_system_name"
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -158,6 +166,58 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "activity_distributions", ["main_activity_id"], name: "index_activity_distributions_on_main_activity_id", using: :btree
   add_index "activity_distributions", ["updated_at"], name: "index_activity_distributions_on_updated_at", using: :btree
   add_index "activity_distributions", ["updater_id"], name: "index_activity_distributions_on_updater_id", using: :btree
+
+  create_table "activity_inspection_calibration_natures", force: :cascade do |t|
+    t.integer  "scale_id",                                               null: false
+    t.boolean  "marketable",                             default: false, null: false
+    t.decimal  "minimal_value", precision: 19, scale: 4,                 null: false
+    t.decimal  "maximal_value", precision: 19, scale: 4,                 null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                           default: 0,     null: false
+  end
+
+  add_index "activity_inspection_calibration_natures", ["created_at"], name: "index_activity_inspection_calibration_natures_on_created_at", using: :btree
+  add_index "activity_inspection_calibration_natures", ["creator_id"], name: "index_activity_inspection_calibration_natures_on_creator_id", using: :btree
+  add_index "activity_inspection_calibration_natures", ["scale_id"], name: "index_activity_inspection_calibration_natures_on_scale_id", using: :btree
+  add_index "activity_inspection_calibration_natures", ["updated_at"], name: "index_activity_inspection_calibration_natures_on_updated_at", using: :btree
+  add_index "activity_inspection_calibration_natures", ["updater_id"], name: "index_activity_inspection_calibration_natures_on_updater_id", using: :btree
+
+  create_table "activity_inspection_calibration_scales", force: :cascade do |t|
+    t.integer  "activity_id",                     null: false
+    t.string   "size_indicator_name",             null: false
+    t.string   "size_unit_name",                  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",        default: 0, null: false
+  end
+
+  add_index "activity_inspection_calibration_scales", ["activity_id"], name: "index_activity_inspection_calibration_scales_on_activity_id", using: :btree
+  add_index "activity_inspection_calibration_scales", ["created_at"], name: "index_activity_inspection_calibration_scales_on_created_at", using: :btree
+  add_index "activity_inspection_calibration_scales", ["creator_id"], name: "index_activity_inspection_calibration_scales_on_creator_id", using: :btree
+  add_index "activity_inspection_calibration_scales", ["updated_at"], name: "index_activity_inspection_calibration_scales_on_updated_at", using: :btree
+  add_index "activity_inspection_calibration_scales", ["updater_id"], name: "index_activity_inspection_calibration_scales_on_updater_id", using: :btree
+
+  create_table "activity_inspection_point_natures", force: :cascade do |t|
+    t.integer  "activity_id",              null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+    t.string   "name",                     null: false
+    t.string   "category",                 null: false
+  end
+
+  add_index "activity_inspection_point_natures", ["activity_id"], name: "index_activity_inspection_point_natures_on_activity_id", using: :btree
+  add_index "activity_inspection_point_natures", ["created_at"], name: "index_activity_inspection_point_natures_on_created_at", using: :btree
+  add_index "activity_inspection_point_natures", ["creator_id"], name: "index_activity_inspection_point_natures_on_creator_id", using: :btree
+  add_index "activity_inspection_point_natures", ["updated_at"], name: "index_activity_inspection_point_natures_on_updated_at", using: :btree
+  add_index "activity_inspection_point_natures", ["updater_id"], name: "index_activity_inspection_point_natures_on_updater_id", using: :btree
 
   create_table "activity_productions", force: :cascade do |t|
     t.integer  "support_id",                                                                                                 null: false
@@ -589,17 +649,18 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "crumbs", ["user_id"], name: "index_crumbs_on_user_id", using: :btree
 
   create_table "cultivable_zones", force: :cascade do |t|
-    t.string   "name",                                                                    null: false
-    t.string   "work_number",                                                             null: false
-    t.geometry "shape",         limit: {:srid=>4326, :type=>"multi_polygon"},             null: false
+    t.string   "name",                                                                             null: false
+    t.string   "work_number",                                                                      null: false
+    t.geometry "shape",                  limit: {:srid=>4326, :type=>"multi_polygon"},             null: false
     t.text     "description"
     t.uuid     "uuid"
-    t.datetime "created_at",                                                              null: false
-    t.datetime "updated_at",                                                              null: false
+    t.datetime "created_at",                                                                       null: false
+    t.datetime "updated_at",                                                                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                default: 0, null: false
+    t.integer  "lock_version",                                                         default: 0, null: false
     t.jsonb    "custom_fields"
+    t.string   "production_system_name"
   end
 
   add_index "cultivable_zones", ["created_at"], name: "index_cultivable_zones_on_created_at", using: :btree
@@ -1308,6 +1369,74 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "incoming_payments", ["updated_at"], name: "index_incoming_payments_on_updated_at", using: :btree
   add_index "incoming_payments", ["updater_id"], name: "index_incoming_payments_on_updater_id", using: :btree
 
+  create_table "inspection_calibrations", force: :cascade do |t|
+    t.integer  "inspection_id",                                           null: false
+    t.integer  "nature_id",                                               null: false
+    t.integer  "items_count"
+    t.decimal  "net_mass_value",     precision: 19, scale: 4
+    t.decimal  "minimal_size_value", precision: 19, scale: 4
+    t.decimal  "maximal_size_value", precision: 19, scale: 4
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                default: 0, null: false
+  end
+
+  add_index "inspection_calibrations", ["created_at"], name: "index_inspection_calibrations_on_created_at", using: :btree
+  add_index "inspection_calibrations", ["creator_id"], name: "index_inspection_calibrations_on_creator_id", using: :btree
+  add_index "inspection_calibrations", ["inspection_id"], name: "index_inspection_calibrations_on_inspection_id", using: :btree
+  add_index "inspection_calibrations", ["nature_id"], name: "index_inspection_calibrations_on_nature_id", using: :btree
+  add_index "inspection_calibrations", ["updated_at"], name: "index_inspection_calibrations_on_updated_at", using: :btree
+  add_index "inspection_calibrations", ["updater_id"], name: "index_inspection_calibrations_on_updater_id", using: :btree
+
+  create_table "inspection_points", force: :cascade do |t|
+    t.integer  "inspection_id",                                           null: false
+    t.integer  "nature_id",                                               null: false
+    t.integer  "items_count"
+    t.decimal  "net_mass_value",     precision: 19, scale: 4
+    t.decimal  "minimal_size_value", precision: 19, scale: 4
+    t.decimal  "maximal_size_value", precision: 19, scale: 4
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                default: 0, null: false
+  end
+
+  add_index "inspection_points", ["created_at"], name: "index_inspection_points_on_created_at", using: :btree
+  add_index "inspection_points", ["creator_id"], name: "index_inspection_points_on_creator_id", using: :btree
+  add_index "inspection_points", ["inspection_id"], name: "index_inspection_points_on_inspection_id", using: :btree
+  add_index "inspection_points", ["nature_id"], name: "index_inspection_points_on_nature_id", using: :btree
+  add_index "inspection_points", ["updated_at"], name: "index_inspection_points_on_updated_at", using: :btree
+  add_index "inspection_points", ["updater_id"], name: "index_inspection_points_on_updater_id", using: :btree
+
+  create_table "inspections", force: :cascade do |t|
+    t.integer  "activity_id",                                                         null: false
+    t.integer  "product_id",                                                          null: false
+    t.string   "number",                                                              null: false
+    t.datetime "sampled_at",                                                          null: false
+    t.integer  "implanter_rows_number"
+    t.decimal  "implanter_working_width",        precision: 19, scale: 4
+    t.text     "comment"
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                            default: 0, null: false
+    t.decimal  "implanter_application_width",    precision: 19, scale: 4
+    t.decimal  "sampling_distance",              precision: 19, scale: 4
+    t.decimal  "product_net_surface_area_value", precision: 19, scale: 4
+    t.string   "product_net_surface_area_unit"
+  end
+
+  add_index "inspections", ["activity_id"], name: "index_inspections_on_activity_id", using: :btree
+  add_index "inspections", ["created_at"], name: "index_inspections_on_created_at", using: :btree
+  add_index "inspections", ["creator_id"], name: "index_inspections_on_creator_id", using: :btree
+  add_index "inspections", ["product_id"], name: "index_inspections_on_product_id", using: :btree
+  add_index "inspections", ["updated_at"], name: "index_inspections_on_updated_at", using: :btree
+  add_index "inspections", ["updater_id"], name: "index_inspections_on_updater_id", using: :btree
+
   create_table "intervention_parameter_readings", force: :cascade do |t|
     t.string   "indicator_name",                                                                                                      null: false
     t.string   "indicator_datatype",                                                                                                  null: false
@@ -1803,6 +1932,31 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "manure_management_plans", ["recommender_id"], name: "index_manure_management_plans_on_recommender_id", using: :btree
   add_index "manure_management_plans", ["updated_at"], name: "index_manure_management_plans_on_updated_at", using: :btree
   add_index "manure_management_plans", ["updater_id"], name: "index_manure_management_plans_on_updater_id", using: :btree
+
+  create_table "map_backgrounds", force: :cascade do |t|
+    t.string   "name",                           null: false
+    t.string   "url",                            null: false
+    t.string   "reference_name"
+    t.string   "attribution"
+    t.string   "subdomains"
+    t.integer  "min_zoom"
+    t.integer  "max_zoom"
+    t.boolean  "managed",        default: false, null: false
+    t.boolean  "tms",            default: false, null: false
+    t.boolean  "enabled",        default: false, null: false
+    t.boolean  "by_default",     default: false, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",   default: 0,     null: false
+  end
+
+  add_index "map_backgrounds", ["created_at"], name: "index_map_backgrounds_on_created_at", using: :btree
+  add_index "map_backgrounds", ["creator_id"], name: "index_map_backgrounds_on_creator_id", using: :btree
+  add_index "map_backgrounds", ["name"], name: "index_map_backgrounds_on_name", using: :btree
+  add_index "map_backgrounds", ["updated_at"], name: "index_map_backgrounds_on_updated_at", using: :btree
+  add_index "map_backgrounds", ["updater_id"], name: "index_map_backgrounds_on_updater_id", using: :btree
 
   create_table "net_services", force: :cascade do |t|
     t.string   "reference_name",             null: false
@@ -2326,8 +2480,6 @@ ActiveRecord::Schema.define(version: 20160509155843) do
     t.boolean  "storable",                                                     default: false, null: false
     t.boolean  "reductible",                                                   default: false, null: false
     t.boolean  "subscribing",                                                  default: false, null: false
-    t.integer  "subscription_nature_id"
-    t.string   "subscription_duration"
     t.integer  "charge_account_id"
     t.integer  "product_account_id"
     t.integer  "fixed_asset_account_id"
@@ -2354,7 +2506,6 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "product_nature_categories", ["number"], name: "index_product_nature_categories_on_number", unique: true, using: :btree
   add_index "product_nature_categories", ["product_account_id"], name: "index_product_nature_categories_on_product_account_id", using: :btree
   add_index "product_nature_categories", ["stock_account_id"], name: "index_product_nature_categories_on_stock_account_id", using: :btree
-  add_index "product_nature_categories", ["subscription_nature_id"], name: "index_product_nature_categories_on_subscription_nature_id", using: :btree
   add_index "product_nature_categories", ["updated_at"], name: "index_product_nature_categories_on_updated_at", using: :btree
   add_index "product_nature_categories", ["updater_id"], name: "index_product_nature_categories_on_updater_id", using: :btree
 
@@ -2437,15 +2588,15 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "product_nature_variants", ["updater_id"], name: "index_product_nature_variants_on_updater_id", using: :btree
 
   create_table "product_natures", force: :cascade do |t|
-    t.integer  "category_id",                              null: false
-    t.string   "name",                                     null: false
-    t.string   "number",                                   null: false
-    t.string   "variety",                                  null: false
+    t.integer  "category_id",                               null: false
+    t.string   "name",                                      null: false
+    t.string   "number",                                    null: false
+    t.string   "variety",                                   null: false
     t.string   "derivative_of"
     t.string   "reference_name"
-    t.boolean  "active",                   default: false, null: false
-    t.boolean  "evolvable",                default: false, null: false
-    t.string   "population_counting",                      null: false
+    t.boolean  "active",                    default: false, null: false
+    t.boolean  "evolvable",                 default: false, null: false
+    t.string   "population_counting",                       null: false
     t.text     "abilities_list"
     t.text     "variable_indicators_list"
     t.text     "frozen_indicators_list"
@@ -2456,12 +2607,17 @@ ActiveRecord::Schema.define(version: 20160509155843) do
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.text     "description"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",             default: 0,     null: false
+    t.integer  "lock_version",              default: 0,     null: false
     t.jsonb    "custom_fields"
+    t.boolean  "subscribing",               default: false, null: false
+    t.integer  "subscription_nature_id"
+    t.integer  "subscription_years_count",  default: 0,     null: false
+    t.integer  "subscription_months_count", default: 0,     null: false
+    t.integer  "subscription_days_count",   default: 0,     null: false
   end
 
   add_index "product_natures", ["category_id"], name: "index_product_natures_on_category_id", using: :btree
@@ -2469,6 +2625,7 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "product_natures", ["creator_id"], name: "index_product_natures_on_creator_id", using: :btree
   add_index "product_natures", ["name"], name: "index_product_natures_on_name", using: :btree
   add_index "product_natures", ["number"], name: "index_product_natures_on_number", unique: true, using: :btree
+  add_index "product_natures", ["subscription_nature_id"], name: "index_product_natures_on_subscription_nature_id", using: :btree
   add_index "product_natures", ["updated_at"], name: "index_product_natures_on_updated_at", using: :btree
   add_index "product_natures", ["updater_id"], name: "index_product_natures_on_updater_id", using: :btree
 
@@ -2920,18 +3077,13 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "sequences", ["updater_id"], name: "index_sequences_on_updater_id", using: :btree
 
   create_table "subscription_natures", force: :cascade do |t|
-    t.string   "name",                                                       null: false
-    t.integer  "actual_number"
-    t.string   "nature",                                                     null: false
+    t.string   "name",                     null: false
     t.text     "description"
-    t.decimal  "reduction_percentage",  precision: 19, scale: 4
-    t.string   "entity_link_nature"
-    t.string   "entity_link_direction"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                   default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "subscription_natures", ["created_at"], name: "index_subscription_natures_on_created_at", using: :btree
@@ -2940,35 +3092,34 @@ ActiveRecord::Schema.define(version: 20160509155843) do
   add_index "subscription_natures", ["updater_id"], name: "index_subscription_natures_on_updater_id", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.integer  "first_number"
-    t.integer  "last_number"
-    t.integer  "sale_id"
-    t.integer  "product_nature_id"
+    t.date     "started_on",                     null: false
+    t.date     "stopped_on",                     null: false
     t.integer  "address_id"
-    t.decimal  "quantity",          precision: 19, scale: 4
-    t.boolean  "suspended",                                  default: false, null: false
+    t.integer  "quantity",                       null: false
+    t.boolean  "suspended",      default: false, null: false
     t.integer  "nature_id"
     t.integer  "subscriber_id"
     t.text     "description"
     t.string   "number"
     t.integer  "sale_item_id"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                               default: 0,     null: false
+    t.integer  "lock_version",   default: 0,     null: false
     t.jsonb    "custom_fields"
+    t.integer  "parent_id"
+    t.uuid     "swim_lane_uuid",                 null: false
   end
 
   add_index "subscriptions", ["address_id"], name: "index_subscriptions_on_address_id", using: :btree
   add_index "subscriptions", ["created_at"], name: "index_subscriptions_on_created_at", using: :btree
   add_index "subscriptions", ["creator_id"], name: "index_subscriptions_on_creator_id", using: :btree
   add_index "subscriptions", ["nature_id"], name: "index_subscriptions_on_nature_id", using: :btree
-  add_index "subscriptions", ["product_nature_id"], name: "index_subscriptions_on_product_nature_id", using: :btree
-  add_index "subscriptions", ["sale_id"], name: "index_subscriptions_on_sale_id", using: :btree
+  add_index "subscriptions", ["parent_id"], name: "index_subscriptions_on_parent_id", using: :btree
   add_index "subscriptions", ["sale_item_id"], name: "index_subscriptions_on_sale_item_id", using: :btree
+  add_index "subscriptions", ["started_on"], name: "index_subscriptions_on_started_on", using: :btree
+  add_index "subscriptions", ["stopped_on"], name: "index_subscriptions_on_stopped_on", using: :btree
   add_index "subscriptions", ["subscriber_id"], name: "index_subscriptions_on_subscriber_id", using: :btree
   add_index "subscriptions", ["updated_at"], name: "index_subscriptions_on_updated_at", using: :btree
   add_index "subscriptions", ["updater_id"], name: "index_subscriptions_on_updater_id", using: :btree
@@ -3171,6 +3322,7 @@ ActiveRecord::Schema.define(version: 20160509155843) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.integer  "invitations_count",                                               default: 0
+    t.datetime "signup_at"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree

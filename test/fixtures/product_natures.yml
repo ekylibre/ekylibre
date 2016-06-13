@@ -22,32 +22,37 @@
 #
 # == Table: product_natures
 #
-#  abilities_list           :text
-#  active                   :boolean          default(FALSE), not null
-#  category_id              :integer          not null
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  custom_fields            :jsonb
-#  derivative_of            :string
-#  derivatives_list         :text
-#  description              :text
-#  evolvable                :boolean          default(FALSE), not null
-#  frozen_indicators_list   :text
-#  id                       :integer          not null, primary key
-#  linkage_points_list      :text
-#  lock_version             :integer          default(0), not null
-#  name                     :string           not null
-#  number                   :string           not null
-#  picture_content_type     :string
-#  picture_file_name        :string
-#  picture_file_size        :integer
-#  picture_updated_at       :datetime
-#  population_counting      :string           not null
-#  reference_name           :string
-#  updated_at               :datetime         not null
-#  updater_id               :integer
-#  variable_indicators_list :text
-#  variety                  :string           not null
+#  abilities_list            :text
+#  active                    :boolean          default(FALSE), not null
+#  category_id               :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  derivative_of             :string
+#  derivatives_list          :text
+#  description               :text
+#  evolvable                 :boolean          default(FALSE), not null
+#  frozen_indicators_list    :text
+#  id                        :integer          not null, primary key
+#  linkage_points_list       :text
+#  lock_version              :integer          default(0), not null
+#  name                      :string           not null
+#  number                    :string           not null
+#  picture_content_type      :string
+#  picture_file_name         :string
+#  picture_file_size         :integer
+#  picture_updated_at        :datetime
+#  population_counting       :string           not null
+#  reference_name            :string
+#  subscribing               :boolean          default(FALSE), not null
+#  subscription_days_count   :integer          default(0), not null
+#  subscription_months_count :integer          default(0), not null
+#  subscription_nature_id    :integer
+#  subscription_years_count  :integer          default(0), not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  variable_indicators_list  :text
+#  variety                   :string           not null
 #
 ---
 product_natures_001:
@@ -62,6 +67,10 @@ product_natures_001:
   name: Generic Product Type
   number: PN001
   population_counting: decimal
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: product
@@ -76,6 +85,10 @@ product_natures_002:
   name: Lorem ipsum 2
   number: LI2
   population_counting: unitary
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 2
   variety: animal
@@ -90,6 +103,10 @@ product_natures_003:
   name: Lorem ipsum 3
   number: LI3
   population_counting: unitary
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: plant
@@ -104,6 +121,10 @@ product_natures_004:
   name: Building
   number: BUILDING
   population_counting: unitary
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: building
@@ -120,6 +141,10 @@ product_natures_005:
   name: Female cow
   number: FEMCOW
   population_counting: unitary
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: bos
@@ -135,6 +160,10 @@ product_natures_006:
   number: BUILDIV
   population_counting: unitary
   reference_name: animal_building_division
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: building_division
@@ -149,6 +178,10 @@ product_natures_007:
   name: Herd
   number: HERD
   population_counting: unitary
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: animal_group
@@ -166,6 +199,10 @@ product_natures_008:
   number: BUILDINH
   population_counting: decimal
   reference_name: fungicide
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 20:11:19.889621000 Z
   updater_id: 1
   variable_indicators_list: approved_input_dose, untreated_zone_length, wait_before_harvest_period
@@ -185,6 +222,10 @@ product_natures_009:
   number: BUILDINI
   population_counting: decimal
   reference_name: straw
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 20:11:30.472907000 Z
   updater_id: 1
   variety: straw
@@ -203,6 +244,10 @@ product_natures_010:
   number: BUILDINJ
   population_counting: decimal
   reference_name: seed
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 20:11:42.141258000 Z
   updater_id: 1
   variety: seed
@@ -219,6 +264,10 @@ product_natures_011:
   number: BUILDINK
   population_counting: unitary
   reference_name: building
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 20:13:23.322567000 Z
   updater_id: 1
   variable_indicators_list: net_surface_area, shape
@@ -236,6 +285,10 @@ product_natures_012:
   number: BUILDINL
   population_counting: unitary
   reference_name: equipment_building_division
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 20:13:55.104377000 Z
   updater_id: 1
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
@@ -254,6 +307,10 @@ product_natures_013:
   number: BUILDINM
   population_counting: unitary
   reference_name: food_equipment_division
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 20:21:52.482591000 Z
   updater_id: 1
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
@@ -272,6 +329,10 @@ product_natures_014:
   number: BUILDINN
   population_counting: unitary
   reference_name: building_division
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-10-31 20:25:22.969151000 Z
   updater_id: 1
   variable_indicators_list: net_surface_area, nominal_storable_easement_area, nominal_storable_net_volume,
@@ -293,6 +354,10 @@ product_natures_015:
   number: BUILDINO
   population_counting: decimal
   reference_name: cereal_crop
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-01 19:06:50.030010000 Z
   updater_id: 1
   variable_indicators_list: fresh_mass, plant_life_state, plant_reproduction_state,
@@ -315,6 +380,10 @@ product_natures_016:
   number: BUILDINP
   population_counting: unitary
   reference_name: female_adult_cow
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-01 19:08:36.219671000 Z
   updater_id: 1
   variable_indicators_list: animal_life_state, economical_milk_index, fat_matter_concentration_index,
@@ -339,6 +408,10 @@ product_natures_017:
   number: BUILDINQ
   population_counting: decimal
   reference_name: milk
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-01 19:09:20.935423000 Z
   updater_id: 1
   variable_indicators_list: clostridial_spores_concentration, fat_matters_concentration,
@@ -363,6 +436,10 @@ product_natures_018:
   number: BUILDINR
   population_counting: decimal
   reference_name: grain
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-01 19:10:35.067432000 Z
   updater_id: 1
   variable_indicators_list: hagberg_falling_number, impurity_concentration, protein_concentration,
@@ -385,6 +462,10 @@ product_natures_019:
   number: BUILDINS
   population_counting: decimal
   reference_name: animal_medicine
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-01 20:20:57.132408000 Z
   updater_id: 1
   variety: preparation
@@ -404,6 +485,10 @@ product_natures_020:
   number: BUILDINT
   population_counting: unitary
   reference_name: technician
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-01 20:26:13.052907000 Z
   updater_id: 1
   variable_indicators_list: geolocation
@@ -423,6 +508,10 @@ product_natures_021:
   number: BUILDINU
   population_counting: unitary
   reference_name: tractor
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-02 18:19:37.955910000 Z
   updater_id: 1
   variable_indicators_list: geolocation, motor_power, net_surface_area
@@ -435,16 +524,21 @@ product_natures_022:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, theoretical_working_speed
   id: 22
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Broyeur
   number: BUILDINV
   population_counting: unitary
   reference_name: grinder
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-02 18:19:51.679190000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: plower
 product_natures_023:
   abilities_list: plow
@@ -454,16 +548,21 @@ product_natures_023:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, plowshare_count, theoretical_working_speed
   id: 23
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Charrue
   number: BUILDINW
   population_counting: unitary
   reference_name: plow
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-02 18:29:03.417542000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: plower
 product_natures_024:
   abilities_list: consume(seed), consume(water), produce(plant), store(animal), store(fungus),
@@ -482,6 +581,10 @@ product_natures_024:
   number: BUILDINX
   population_counting: decimal
   reference_name: cultivable_zone
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-02 18:31:53.731583000 Z
   updater_id: 1
   variable_indicators_list: shape, soil_cultural_state
@@ -494,16 +597,22 @@ product_natures_025:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: nominal_storable_net_volume, application_width, rows_count,
+    theoretical_working_speed
   id: 25
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Semoir
   number: BUILDINY
   population_counting: unitary
   reference_name: sower
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-02 18:36:36.365485000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation, nominal_storable_net_volume
+  variable_indicators_list: geolocation
   variety: sower
 product_natures_026:
   abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
@@ -523,6 +632,10 @@ product_natures_026:
   number: BUILDINZ
   population_counting: integer
   reference_name: female_adult_cattle_herd
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-04 17:27:32.647028000 Z
   updater_id: 1
   variety: animal_group
@@ -544,6 +657,10 @@ product_natures_027:
   number: BUILDIOA
   population_counting: integer
   reference_name: cattle_herd
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-04 17:27:59.301765000 Z
   updater_id: 1
   variety: animal_group
@@ -555,16 +672,21 @@ product_natures_028:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, theoretical_working_speed
   id: 28
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Déchaumeuse
   number: BUILDIOB
   population_counting: unitary
   reference_name: superficial_plow
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-04 18:38:32.184660000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: plower
 product_natures_029:
   abilities_list: hoe, plow_superficially
@@ -574,16 +696,21 @@ product_natures_029:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, rows_count, theoretical_working_speed
   id: 29
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Bineuse
   number: BUILDIOC
   population_counting: unitary
   reference_name: hoe
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-04 18:40:21.555218000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: plower
 product_natures_030:
   abilities_list: spray
@@ -593,16 +720,21 @@ product_natures_030:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: nominal_storable_net_volume, application_width, theoretical_working_speed
   id: 30
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Pulvérisateur
   number: BUILDIOD
   population_counting: unitary
   reference_name: sprayer
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 15:00:45.263080000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: sprayer
 product_natures_031:
   abilities_list: spread(preparation)
@@ -612,16 +744,21 @@ product_natures_031:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: nominal_storable_net_volume, application_width, theoretical_working_speed
   id: 31
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: "Épandeur à engrais"
   number: BUILDIOE
   population_counting: unitary
   reference_name: spreader
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 15:22:23.946771000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation, nominal_storable_net_volume
+  variable_indicators_list: geolocation
   variety: spreader
 product_natures_032:
   abilities_list: move, spread(excrement), store(excrement), store_fluid
@@ -638,6 +775,10 @@ product_natures_032:
   number: BUILDIOF
   population_counting: unitary
   reference_name: spreader_trailer
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 15:22:31.398219000 Z
   updater_id: 1
   variable_indicators_list: geolocation, nominal_storable_net_mass, nominal_storable_net_volume
@@ -659,6 +800,10 @@ product_natures_033:
   number: BUILDIOG
   population_counting: decimal
   reference_name: chemical_fertilizer
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 15:24:11.130698000 Z
   updater_id: 1
   variety: preparation
@@ -678,6 +823,10 @@ product_natures_034:
   number: BUILDIOH
   population_counting: decimal
   reference_name: crop
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 15:40:58.360188000 Z
   updater_id: 1
   variable_indicators_list: fresh_mass, plant_life_state, plant_reproduction_state,
@@ -700,6 +849,10 @@ product_natures_035:
   number: BUILDIOI
   population_counting: decimal
   reference_name: grass
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 15:46:45.135495000 Z
   updater_id: 1
   variable_indicators_list: dry_matter_rate
@@ -720,6 +873,10 @@ product_natures_036:
   number: BUILDIOJ
   population_counting: integer
   reference_name: wine_crop
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 16:33:48.598611000 Z
   updater_id: 1
   variable_indicators_list: certification, plant_life_state, plants_count, plants_interval,
@@ -742,6 +899,10 @@ product_natures_037:
   number: BUILDIOK
   population_counting: integer
   reference_name: usual_vine_seedling
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 16:33:59.251213000 Z
   updater_id: 1
   variety: seedling
@@ -753,16 +914,21 @@ product_natures_038:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: application_width, rows_count, theoretical_working_speed
   id: 38
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Planteuse
   number: BUILDIOL
   population_counting: unitary
   reference_name: implanter
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 16:48:34.917965000 Z
   updater_id: 1
-  variable_indicators_list: application_width, geolocation
+  variable_indicators_list: geolocation
   variety: implanter
 product_natures_039:
   abilities_list: consume(fuel), consume(oil), harvest(grape)
@@ -779,6 +945,10 @@ product_natures_039:
   number: BUILDIOM
   population_counting: unitary
   reference_name: grape_reaper
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 17:04:02.243262000 Z
   updater_id: 1
   variable_indicators_list: application_width, geolocation
@@ -800,6 +970,10 @@ product_natures_040:
   number: BUILDION
   population_counting: decimal
   reference_name: grape
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 17:05:38.068085000 Z
   updater_id: 1
   variable_indicators_list: sucrose_concentration
@@ -821,6 +995,10 @@ product_natures_041:
   number: BUILDIOO
   population_counting: decimal
   reference_name: wine
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 17:10:23.472125000 Z
   updater_id: 1
   variable_indicators_list: certification, reference_year, temperature, total_bacteria_concentration
@@ -833,16 +1011,21 @@ product_natures_042:
   creator_id: 1
   derivatives_list: ''
   evolvable: false
+  frozen_indicators_list: nominal_storable_net_volume
   id: 42
   linkage_points_list: ''
-  lock_version: 0
+  lock_version: 1
   name: Cuve à vin
   number: BUILDIOP
   population_counting: unitary
   reference_name: wine_tank
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 17:14:18.201534000 Z
   updater_id: 1
-  variable_indicators_list: nominal_storable_net_volume
+  variable_indicators_list: geolocation
   variety: tank
 product_natures_043:
   abilities_list: press(grape), press(grape_juice), press(wine)
@@ -859,6 +1042,10 @@ product_natures_043:
   number: BUILDIOQ
   population_counting: unitary
   reference_name: wine_press
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 17:23:08.046218000 Z
   updater_id: 1
   variable_indicators_list: nominal_storable_net_volume
@@ -880,6 +1067,10 @@ product_natures_044:
   number: BUILDIOR
   population_counting: decimal
   reference_name: organic_fertilizer
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 17:24:39.590466000 Z
   updater_id: 1
   variety: excrement
@@ -900,6 +1091,10 @@ product_natures_045:
   number: BUILDIOS
   population_counting: decimal
   reference_name: fermented_grape_juice
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 17:25:14.409838000 Z
   updater_id: 1
   variety: fermented_juice
@@ -920,6 +1115,10 @@ product_natures_046:
   number: BUILDIOT
   population_counting: decimal
   reference_name: crop_residue
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 17:25:46.188857000 Z
   updater_id: 1
   variety: straw
@@ -939,6 +1138,10 @@ product_natures_047:
   number: BUILDIOU
   population_counting: decimal
   reference_name: fruit_residu
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 17:27:02.354344000 Z
   updater_id: 1
   variety: pomace
@@ -959,6 +1162,10 @@ product_natures_048:
   number: BUILDIOV
   population_counting: decimal
   reference_name: grape_juice
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 18:58:14.603553000 Z
   updater_id: 1
   variable_indicators_list: sucrose_concentration
@@ -979,6 +1186,10 @@ product_natures_049:
   number: BUILDIOW
   population_counting: decimal
   reference_name: wine_acidifying
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 19:03:43.646789000 Z
   updater_id: 1
   variety: preparation
@@ -999,6 +1210,10 @@ product_natures_050:
   number: BUILDIOX
   population_counting: decimal
   reference_name: oenological_yeast
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 19:05:20.496080000 Z
   updater_id: 1
   variety: yeast
@@ -1018,6 +1233,10 @@ product_natures_051:
   number: BUILDIOY
   population_counting: decimal
   reference_name: sugar
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 19:10:37.806634000 Z
   updater_id: 1
   variety: saccharose
@@ -1037,6 +1256,10 @@ product_natures_052:
   number: BUILDIOZ
   population_counting: decimal
   reference_name: clarification_solution
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 19:16:38.602689000 Z
   updater_id: 1
   variety: preparation
@@ -1056,6 +1279,10 @@ product_natures_053:
   number: BUILDIPA
   population_counting: decimal
   reference_name: so2_solution
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 19:18:50.746985000 Z
   updater_id: 1
   variety: preparation
@@ -1075,6 +1302,10 @@ product_natures_054:
   number: BUILDIPB
   population_counting: integer
   reference_name: bottle
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 19:29:27.392215000 Z
   updater_id: 1
   variable_indicators_list: length, net_mass
@@ -1094,6 +1325,10 @@ product_natures_055:
   number: BUILDIPC
   population_counting: integer
   reference_name: cork
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 19:29:44.220259000 Z
   updater_id: 1
   variable_indicators_list: length, width
@@ -1113,6 +1348,10 @@ product_natures_056:
   number: BUILDIPD
   population_counting: unitary
   reference_name: hand_drawn
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 19:35:20.874359000 Z
   updater_id: 1
   variable_indicators_list: nominal_storable_net_volume
@@ -1132,6 +1371,10 @@ product_natures_057:
   number: BUILDIPE
   population_counting: unitary
   reference_name: corker
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2014-11-07 19:35:28.656403000 Z
   updater_id: 1
   variety: equipment
@@ -1148,6 +1391,10 @@ product_natures_058:
   name: Acétal
   number: BUILDIPF
   population_counting: decimal
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2015-04-26 12:49:09.845684000 Z
   updater_id: 1
   variable_indicators_list: net_mass
@@ -1164,6 +1411,10 @@ product_natures_059:
   number: BUILDIPG
   population_counting: decimal
   reference_name: land_parcel
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
   updated_at: 2016-01-21 14:05:46.953382000 Z
   variable_indicators_list: aluminium_concentration, available_water_capacity_per_area,
     boron_concentration, calcium_concentration, cation_exchange_capacity, cation_exchange_capacity_analysis_method,
@@ -1172,3 +1423,23 @@ product_natures_059:
     phosphorus_analysis_method, phosphorus_concentration, potassium_concentration,
     potential_hydrogen, shape, soil_depth, soil_nature, sulfur_concentration, zinc_concentration
   variety: land_parcel
+product_natures_060:
+  active: true
+  category_id: 26
+  created_at: 2016-05-26 21:23:56.026594000 Z
+  creator_id: 1
+  description: ''
+  evolvable: false
+  id: 60
+  lock_version: 0
+  name: Abonnement 1AN News!
+  number: A1ANL
+  population_counting: integer
+  subscribing: true
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_nature_id: 1
+  subscription_years_count: 1
+  updated_at: 2016-05-26 21:23:56.026594000 Z
+  updater_id: 1
+  variety: immatter

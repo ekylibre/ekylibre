@@ -1043,8 +1043,9 @@ product_nature_variant_readings_069:
   id: 93
   indicator_datatype: measure
   indicator_name: net_surface_area
-  lock_version: 0
+  lock_version: 1
   measure_value_unit: hectare
   measure_value_value: 1.0
-  updated_at: 2016-01-21 14:05:46.980792000 Z
+  updated_at: 2016-05-10 19:12:52.618977000 Z
+  updater_id: 1
   variant_id: 69

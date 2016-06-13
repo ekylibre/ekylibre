@@ -352,7 +352,7 @@ module Nomen
 
     # Returns a list for select as an array of pair (array)
     def selection(item_name = nil)
-      items = (item_name ? @items[item_name].self_and_children : @items.values)
+      items = (item_name ? find!(item_name).self_and_children : @items.values)
       items.collect do |item|
         [item.human_name, item.name.to_s]
       end.sort do |a, b|
@@ -362,21 +362,22 @@ module Nomen
 
     # Returns a list for select as an array of pair (hash)
     def selection_hash(item_name = nil)
-      @items[item_name].self_and_children.map do |item|
+      items = (item_name ? find!(item_name).self_and_children : @items.values)
+      items.collect do |item|
         { label: item.human_name, value: item.name }
       end.sort { |a, b| a[:label].lower_ascii <=> b[:label].lower_ascii }
     end
 
     # Returns a list for select, without specified items
     def select_without(already_imported)
-      selection = @items.values.collect do |item|
+      select_options = @items.values.collect do |item|
         [item.human_name, item.name.to_s] unless already_imported[item.name.to_s]
       end
-      selection.compact!
-      selection.sort! do |a, b|
+      select_options.compact!
+      select_options.sort! do |a, b|
         a.first <=> b.first
       end
-      selection
+      select_options
     end
 
     def degree_of_kinship(a, b)
@@ -393,11 +394,19 @@ module Nomen
       first(item_name)
     end
 
-    # Return the Item for the given name
+    # Return the Item for the given name. Returns nil if no item found
     def find(item_name)
       @items[item_name]
     end
     alias item find
+
+    # Return the Item for the given name. Raises Nomen::ItemNotFound if no item
+    # found in nomenclature
+    def find!(item_name)
+      i = find(item_name)
+      raise ItemNotFound, "Cannot find item #{item_name.inspect} in #{name}" unless i
+      i
+    end
 
     # Returns +true+ if an item exists in the nomenclature that matches the
     # name, or +false+ otherwise. The argument can take two forms:
@@ -410,13 +419,6 @@ module Nomen
 
     def property(property_name)
       @properties[property_name]
-    end
-
-    def find!(item_name)
-      unless i = @items[item_name]
-        raise "Cannot find item #{item_name} in #{name}"
-      end
-      i
     end
 
     # Returns list of items as an Array

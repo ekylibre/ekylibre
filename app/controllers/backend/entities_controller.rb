@@ -18,12 +18,14 @@
 
 module Backend
   class EntitiesController < Backend::BaseController
-    manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c, active: true, t3e: { nature: 'RECORD.nature.text'.c }
+    manage_restfully nature: "(params[:nature] == 'contact' ? :contact : :organization)".c,
+                     active: true,
+                     t3e: { nature: 'RECORD.nature.text'.c }
     manage_restfully_picture
 
     unroll
 
-    autocomplete_for :origin
+    autocomplete_for :title, :first_name, :last_name, :meeting_origin
 
     # params:
     #   :q Text search
@@ -160,16 +162,19 @@ module Backend
       t.column :pretax_amount, currency: true
     end
 
-    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: 'stopped_at DESC, first_number DESC', line_class: "(RECORD.active? ? 'enough' : '')".c) do |t|
+    list(:subscriptions, conditions: { subscriber_id: 'params[:id]'.c }, order: { stopped_on: :desc }, line_class: "(RECORD.suspended ? 'squeezed' : '')".c) do |t|
       t.action :edit
+      t.action :renew, method: :post, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
+      t.action :suspend, method: :post, if: :suspendable?
+      t.action :takeover, method: :post, if: :suspended
       t.action :destroy
-      t.column :number
-      t.column :nature
-      t.column :start
-      t.column :finish
-      t.column :sale, url: true, hidden: true
+      t.column :number, url: true
+      t.column :nature, url: true
       t.column :address, hidden: true
-      t.column :quantity, datatype: :decimal, hidden: true
+      t.column :started_on
+      t.column :stopped_on
+      t.column :sale, url: true
+      t.column :quantity, hidden: true
       t.column :suspended, hidden: true
     end
 

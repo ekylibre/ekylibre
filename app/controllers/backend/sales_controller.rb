@@ -28,15 +28,26 @@ module Backend
     def self.sales_conditions
       code = ''
       code = search_conditions(sales: [:pretax_amount, :amount, :number, :initial_number, :description], entities: [:number, :full_name]) + " ||= []\n"
-
-      code << "unless params[:s].blank?\n"
-      code << "  if params[:s] == 'current'\n"
-      code << "    c[0] += \" AND affair_id IN (SELECT id FROM affairs WHERE NOT closed AND credit > 0 AND debit > 0)\"\n"
-      code << "  elsif params[:s] == 'unpaid'\n"
-      code << "    c[0] += \" AND state IN ('order', 'invoice') AND (payment_at IS NULL OR payment_at <= CURRENT_TIMESTAMP) AND affair_id NOT IN (SELECT id FROM affairs WHERE closed)\"\n"
-      code << "  end\n "
+      code << "if params[:period].present? && params[:period].to_s != 'all'\n"
+      code << "  c[0] << ' AND #{Sale.table_name}.invoiced_at BETWEEN ? AND ?'\n"
+      code << "  if params[:period].to_s == 'interval'\n"
+      code << "    c << params[:started_on]\n"
+      code << "    c << params[:stopped_on]\n"
+      code << "  else\n"
+      code << "    interval = params[:period].to_s.split('_')\n"
+      code << "    c << interval.first\n"
+      code << "    c << interval.second\n"
+      code << "  end\n"
       code << "end\n"
-
+      code << "if params[:state].is_a?(Array) && !params[:state].empty?\n"
+      code << "  c[0] << ' AND #{Sale.table_name}.state IN (?)'\n"
+      code << "  c << params[:state]\n"
+      code << "end\n "
+      code << "if params[:nature].present? && params[:nature].to_s != 'all'\n"
+      code << "  if params[:nature] == 'unpaid'\n"
+      code << "    c[0] << ' AND NOT #{Affair.table_name}.closed'\n"
+      code << "  end\n"
+      code << "end\n"
       code << "if params[:responsible_id].to_i > 0\n"
       code << "  c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
       code << "  c << params[:responsible_id]\n"
@@ -45,7 +56,7 @@ module Backend
       code.c
     end
 
-    list(conditions: sales_conditions, joins: :client, order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
+    list(conditions: sales_conditions, joins: [:client, :affair], order: { created_at: :desc, number: :desc }) do |t| # , :line_class => 'RECORD.tags'
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
@@ -91,15 +102,15 @@ module Backend
       t.action :destroy, if: :destroyable?
     end
 
-    list(:subscriptions, conditions: { sale_id: 'params[:id]'.c }) do |t|
+    list(:subscriptions, joins: :sale, conditions: ['sales.id = ?', 'params[:id]'.c]) do |t|
       t.action :edit
       t.action :destroy
-      t.column :number
-      t.column :nature
+      t.column :number, url: true
+      t.column :nature, url: true
       t.column :subscriber, url: true
       t.column :address
-      t.column :start
-      t.column :finish
+      t.column :started_on
+      t.column :stopped_on
       t.column :quantity
     end
 
@@ -137,6 +148,7 @@ module Backend
                           include: { address: { methods: [:mail_coordinate] },
                                      nature: { include: { payment_mode: { include: :cash } } },
                                      supplier: { methods: [:picture_path], include: { default_mail_address: { methods: [:mail_coordinate] }, websites: {}, emails: {}, mobiles: {} } },
+                                     responsible: {},
                                      credits: {},
                                      parcels: { methods: [:human_delivery_mode, :human_delivery_nature, :items_quantity], include: {
                                        address: {},

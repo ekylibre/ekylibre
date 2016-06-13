@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="harvesting" categories="harvesting" actions="harvest">
     <parameters>
-      <target name="cultivation" filter="is plant" default-shape=":cultivation" default-actor="variant_localized_in_storage">
+      <target name="cultivation" filter="is plant and has indicator shape" default-shape=":cultivation" default-actor="variant_localized_in_storage">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         <handler indicator="shape">
           <converter to="shape" forward="intersection(VALUE, PRODUCT.shape)" backward="VALUE"/>
@@ -10,23 +10,24 @@
         </handler>
       </target>
       <output name="matters" derivative-of="variety: cultivation" filter="is matter and derives from plant" default-name="{{variant}} [{{birth_day}}/{{birth_month}}/{{birth_year}}] ({{container}})">
-      	<attribute name="new_name"/>
-      	<handler name="population"/>
-      	<handler indicator="net_mass" unit="quintal"
-      		     if="VARIANT? and VARIANT.net_mass?"
-      		     backward="POPULATION * VARIANT.net_mass(quintal)"
-      		     forward="VALUE / VARIANT.net_mass(quintal)"/>
+        <attribute name="new_name"/>
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="quintal"
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(quintal)"
+                 forward="VALUE / VARIANT.net_mass(quintal)"/>
         <handler name="net_mass_in_ton" indicator="net_mass" unit="ton"
-        	     if="VARIANT? and VARIANT.net_mass?"
-      		     backward="POPULATION * VARIANT.net_mass(ton)"
-      		     forward="VALUE / VARIANT.net_mass(ton)"/>
+                 if="VARIANT? and VARIANT.net_mass?"
+                 backward="POPULATION * VARIANT.net_mass(ton)"
+                 forward="VALUE / VARIANT.net_mass(ton)"/>
         <handler indicator="mass_area_density" unit="quintal_per_hectare"
-        	     if="sum_working_zone_areas(cultivation, :hectare) >= 0.1 and VARIANT? and VARIANT.net_mass?"
-        	     backward="(POPULATION * VARIANT.net_mass(quintal)) / sum_working_zone_areas(cultivation, :hectare)"
-        	     forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / VARIANT.net_mass(quintal)"/>
+                 if="sum_working_zone_areas(cultivation, :hectare) >= 0.1 and VARIANT? and VARIANT.net_mass?"
+                 backward="(POPULATION * VARIANT.net_mass(quintal)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / VARIANT.net_mass(quintal)"/>
       </output>
       <tool name="cropper" filter="can harvest(plant)" cardinality="*"/>
       <doer name="cropper_driver" filter="is worker and can drive(reaper)" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
       <tool name="equipment" filter="is equipment" cardinality="*"/>
       <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>

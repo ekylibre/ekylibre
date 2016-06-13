@@ -5,6 +5,8 @@ arb:
     authentication/passwords:
       # edit: "Edit password: %{name}"
       new: "كلمة السر الجديدة"
+    authentication/registrations:
+      new: "سجل"
     authentication/sessions:
       destroy: "الخروج"
       new: "الدخول"
@@ -87,20 +89,20 @@ arb:
       new: "حملة جديدة"
       # show: "Campaign %{name}"
     backend/cap_islets:
-      # edit: "Edit cap islet: %{islet_number}"
+      # edit: "Edit CAP islet: %{islet_number}"
       index: "الجزر كاب"
       new: "جزيرة كاب جديدة"
-      # show: "Cap islet: %{islet_number}"
+      # show: "CAP islet: %{islet_number}"
     backend/cap_land_parcels:
-      # edit: "Edit cap land parcel: %{land_parcel_number}"
+      # edit: "Edit CAP land parcel: %{land_parcel_number}"
       index: "قطع الأراضي كاب"
       new: "جديد لا يتجزأ غطاء الأرض"
-      # show: "Cap land parcel: %{land_parcel_number}"
+      # show: "CAP land parcel: %{land_parcel_number}"
     backend/cap_statements:
-      # edit: "Edit cap statement: %{id}"
+      # edit: "Edit CAP statement: %{id}"
       index: "البيانات كاب"
       new: "بيان الحد الأقصى الجديد"
-      # show: "Cap statement: %{id}"
+      # show: "CAP statement: %{id}"
     backend/cash_transfers:
       # edit: "Edit cash transfer: %{number}"
       index: "التحويلات النقدية"
@@ -120,8 +122,6 @@ arb:
       index: "كتالوجات"
       new: "الكتالوج الجديد"
       # show: "Catalog: %{name}"
-    backend/cells/last_movements_cells:
-      # show: "Last movements cell: %{name}"
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -326,6 +326,11 @@ arb:
       index: "الدفعات"
       new: "اضافة دفعة جديدة"
       show: "دفعة رقم%{number} من %{entity}"
+    backend/inspections:
+      # edit: "Edit product grading\_: %{number}"
+      # index: "Product gradings"
+      # new: "New product grading"
+      # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       index: "التدخلات"
@@ -400,6 +405,10 @@ arb:
       index: "خطط إدارة السماد"
       new: "خطة جديدة لإدارة السماد"
       # show: "Manure management plan: %{name}"
+    backend/map_backgrounds:
+      # edit: "Edit map background: %{name}"
+      # index: "Map backgrounds"
+      # new: "New map background"
     backend/matters:
       # edit: "Edit matter: %{name}"
       index: "المسائل"
@@ -555,6 +564,9 @@ arb:
       propose_and_invoice: "فاتورة مباشرة"
       refuse: "أجل رفض"
       show: "تفاصيل الشراء %{number} الى الممول %{supplier} "
+    backend/registrations:
+      edit: "تسجيل تحرير"
+      index: "التسجيلات"
     backend/relations:  #?
       index: "ادارة علاقات العملاء والممولين" #?
     backend/roles:
@@ -629,6 +641,7 @@ arb:
       edit: "تعديل الاشتراك:  %{number} من %{start} الى %{finish}"
       index: "الاشتراكات"
       new: "انشاء اشتراك جديد"
+      # show: "Subscription %{number}"
     backend/supervisions:
       # edit: "Edit supervision: %{name}"
       index: "الاشراف"
@@ -874,7 +887,10 @@ arb:
     active_fixed_sum: "مجموع الموجودات الثابتة" #?
     active_sum: "مجموع الموجودات" #?
     activities: "أنشطة"
+    # activities_step: "activities"
     activity: "نشاط"
+    # activity_family: "Family activities"
+    # activity_name: "Activity"
     activity_production: "إنتاج النشاط"
     activity_productions: "إنتاجات آخر"
     add: "اضافة"
@@ -889,9 +905,14 @@ arb:
     add_distribution: "إضافة التوزيع"
     add_email: "إضافة البريد الإلكتروني"
     add_entry: "إضافة إدخال"
+    # add_equipment: "Adding equipment"
     add_expense: "إضافة حساب"
     add_fax: "إضافة الفاكس"
     add_filter: "إضافة فلتر"
+    # add_grading_check: "Add grading check"
+    # add_inspection_calibration_nature: "Add inspection calibration nature"
+    # add_inspection_calibration_scale: "Add inspection calibration scale"
+    # add_inspection_point_nature: "Add inspection point nature"
     add_item: "إضافة البند"
     add_linestring: "إضافة تنسيقي"
     add_mail: "إضافة عنوان البريدي"
@@ -914,6 +935,8 @@ arb:
     add_website: "أضف موقعك"
     add_working_period: "إضافة working_period"
     # add_x: "Add “%{x}”"
+    # add_your_activities: "Add the activities you need. The activities are deducted from your import TELEPAC appropriate."
+    # add_your_equipment: "Add Your Equipment. You can also associate a location that you have previously defined (cultivable area or building area)."
     address: "العنوان" #?
     affair: "قضية"
     affair_number: "عدد غرامية"
@@ -956,6 +979,7 @@ arb:
     area_x: "%{name} (%{postcode})" #?
     assessable_operations: "الاجراءات الضريبية (H.T)" #?
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم" #?
+    # at_the_address: "At the address"
     attach_deal: "إضافة الى اتفاق"
     attachment: "المرفق"
     attachments: "مرفقات"
@@ -991,11 +1015,13 @@ arb:
     budget: "ميزانية"
     budget_per_working_indicator: "الميزانية في مؤشر العمل"
     budgets: "الميزانيات"
-    building: "مكان التخزين" #?
+    building: "مكان التخزين"
     building_create: "اضافة موقع تخزين" #?
+    # building_divisions: "building areas"
+    # building_divisions_and_parcels: "building areas and land parcels"
     building_name: "انتاج" #?
     building_update: "تعديل موقع التخزين" #?
-    buildings: "النظر بقائمة مواقع التخزين" #?
+    buildings: "النظر بقائمة مواقع التخزين"
     by_year: "وبحلول العام"
     calculate: "حساب"
     calculators: "الآلات الحاسبة"
@@ -1005,8 +1031,13 @@ arb:
     cancel: "الغاء"
     cancelation: "إلغاء"
     cancelled: "تم الالغاء" #?
+    # cap_cluster_prefix: "CAP island No."
+    # cap_clusters: "CAP islands"
     cap_islets: "الجزر كاب"
+    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "قطع الأراضي كاب"
+    # cap_parcel_prefix: "CAP land parcel No."
+    # cap_parcels: "CAP land parcels"
     cartography: "خرائطية"
     cash: "حسابات بنكية"
     cash_balance: "الرصيد النقدي"
@@ -1047,11 +1078,13 @@ arb:
     column_title: "العنوان" #?
     columns: "اعمدة الاستيراد"
     commission: "عمولة"
+    # company: "Society"
     components: "العناصر" #?
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
     configure: "تكوين"
+    # confirm_sentence: "Are you sure?"
     confirmed: "تأكيد" #?
     confirmed_at: "تم تأكيده في" #?
     connect: "الدخول" #?
@@ -1078,6 +1111,7 @@ arb:
     counts: "التهم"
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
+    # create_a_new_division: "Create a new zone. Click on the map to add a point and close the drawing to create the zone."
     create_journal: "-- انشاء دفتر يومي --"
     create_or_import_equipments: "إنشاء أو المعدات استيراد"
     create_or_import_incoming_parcels: "إنشاء أو استيراد الطرود الواردة"
@@ -1098,6 +1132,7 @@ arb:
     csv_statistics: "نموذج احصائيات القيمة النقدية" #?
     cultivable_zone: "منطقة القابلة للزراعة"
     # cultivable_zone_abbreviation: "CZ"
+    # cultivable_zone_prefix: "cultivable area No."
     cultivable_zones: "المناطق الصالحة للزراعة"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
     current: "الحالية"
@@ -1126,6 +1161,8 @@ arb:
     delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
     delete: "حذف"
+    # delete_an_existing_division: "Delete an existing zone. Click the box to remove it."
+    # delete_shape: "Delete form"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
     delivery: "خدمه توصيل"
@@ -1172,13 +1209,18 @@ arb:
     download_firefox: "تحميل موزيلا فاير فوكس" #?
     downpayment: "شروط العربون"
     draft: "المسودات"
+    # draw_your_building_divisions: "Draw your building areas. By default, a main area for your building is created."
+    # draw_your_buildings: "Draw your buildings, which ye shall divide area in the next step."
+    # draw_your_cultivable_zones: "Draw the areas where you have crops. These are deducted from your PAC import if necessary."
     duplicate: "تكرار"
     duration: "%{hours}ساعة %{minutes}دقيقة"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "أثناء"
     earns: "يكسب"
     edit: "تعديل"
+    # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "تحرير الميزانية"
+    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة"
     email: "البريد الإلكتروني:"
@@ -1202,6 +1244,10 @@ arb:
     entries: "السجلات"
     entries_to_point: "اعداد المدخلات"
     entry_items: "البنود دخول"
+    # equipment: "Equipment"
+    # equipment_name: "Name of equipment"
+    # equipment_type: "Type of equipment"
+    # equipment_zone: "Location"
     equipments: "المعدات"
     error: "آسف..."
     error_no_file: "عدم توفر المساعدة في هذا الجزء من الطلب (%{article}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار."
@@ -1230,8 +1276,10 @@ arb:
     # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     expenses: "مصاريف"
+    # expenses_by_product_nature_category: "Expenses by product nature category"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
+    # file_imports: "Import files"
     file_nature: "نوع الملف"
     file_preview: "معاينة"
     file_to_download: "ملف الاستيراد" #?
@@ -1266,6 +1314,7 @@ arb:
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
     go: "صلاحية"
+    # gradings: "Gradings"
     grain_yield: "محصول الحبوب"
     graph_statistics: "رسومات احصائية" #?
     gross_profit: "اجمالي الربح"
@@ -1289,7 +1338,9 @@ arb:
     illness: "مرض"
     implanted_at: "مزروع في"
     import: "استيراد"
+    # import_zones_from_third_party_softwares: "Import zones from third party software, the GeoJSON format GML and KML."
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
+    # imported_file: "Your file has been imported"
     in_line_create: "اضافة منتج وارد" #?
     inactive: "غير نشط"
     include_blank: "--- ولا اية منظمة ---"
@@ -1301,6 +1352,7 @@ arb:
     incoming_payment_use_create: "اضافة دفعة للشراء" #?
     incoming_payments: "المدفوعات الواردة"
     incoming_payments_to_deposit: "المدفوعات الواردة إلى الودائع"
+    # increase_map_on_fullscreen: "Enlarge map in full screen."
     index: "العودة الى دليل ادارة الاعمال" #?
     indicator: "لوحة التحكم"
     indicator_value: "قيمة مؤشر"
@@ -1364,9 +1416,11 @@ arb:
     land_parcels: "قائمة بالنظام"
     last_analyses: "تحليل الحليب الماضي"
     last_computed_balance: "ميزان حسابها الماضي"
+    # last_documents: "Last documents"
     last_entities: "مشاركة الكيانات"
     last_events: "مشاركة الأحداث"
     last_incoming_parcels: "مشاركة الطرود الواردة"
+    # last_inspection: "Last inspection"
     last_intervention: "تدخل الماضي"
     last_issue: "المسألة الأخيرة"
     last_issues: "مشاركة القضايا"
@@ -1375,6 +1429,7 @@ arb:
     last_products: "آخر المنتجات"
     last_purchases: "مشاركة مشتريات"
     last_sales: "مشاركة المبيعات"
+    # layers_management: "layers of management, to change the base map and refine the visual representations to show."
     left_balance_amount: "ارجاء الرصيد السابق غير معلق وغير مكلف" #?
     letter: "مراسلة"
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي" #?
@@ -1387,6 +1442,8 @@ arb:
       clients: "العملاء" #?
       suppliers: "الممولون" #?
       title: "العنصر الثالث" #?
+    # level: "Level"
+    # levels: "levels"
     line: "سطر رقم%{index} :" #?
     # line_number: "Line #%{number}"
     line_stock: "مكان التخزين: %{building}, الكمية المتوفرة: %{virtual_q}" #?
@@ -1410,6 +1467,7 @@ arb:
       other: "%{count} بريد الكتروني اخر"
       zero: "ولا بريد الكتروني "
     main_settings: "الضبط الرئيسي"
+    # main_zone_of: "main area of ​​%{zone}"
     make_your_production_support: "جعل دعم الإنتاج الخاص"
     manage_activities: "إدارة الأنشطة"
     management: "ادارة الاعمال" #?
@@ -1419,10 +1477,14 @@ arb:
     manual_period: "من %{start} الى %{finish}"
     manure_management_plan_chart: "السماد خطة إدارة التخطيط"
     map: "رسم خريطة"
+    # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
+    # marketable_net_mass: "Marketable net mass"
     mass: "الوزن" #?
+    # max_level: "max level"
     maximal_temperature: "درجة الحرارة القصوى"
+    # measurement_tools: "measurement tool, for calculations of distances and areas."
     meeting: "المقابلة(X)مكان" #?
     members: "أعضاء"
     menu:  #?
@@ -1450,8 +1512,11 @@ arb:
       trade: "التجارة" #? String excepted (Hash:{:accountancy=>"المحاسبة", :finances=>"المالية", :general=>"شركة", :home=>"إستقبال", :production=>"المنتج", :relations=>"العلاقات", :trade=>"التجارة"})
     merge: "دمج"
     method: "طريقة"
+    # min_level: "level min"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
+    # missing: "Missing"
     missing_attributes: "بعض سمات مفقودة"
+    # missing_buildings: "You have not saved building for now. You can return to the previous step to declare your buildings or ignore this message by clicking Next."
     missing_help: "صفحات مفقودة"
     mobile: "التليفون المحمول"
     mode: "طريقة"
@@ -1488,6 +1553,7 @@ arb:
     net_surface_area: "مساحة صافية"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
+    # new_activity: "new activity"
     new_animal: "حيوان جديد"
     new_attachment: "مرفق جديد"
     new_box: "صندوق جديد"
@@ -1506,6 +1572,7 @@ arb:
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "بريد إلكتروني جديد"
+    # new_equipment: "new equipment"
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
     new_issue: "مشكلة جديدة"
@@ -1545,6 +1612,7 @@ arb:
     normal: "نظام واقعي طبيعي"
     not_assessable_operations: "اجراءات غير ضريبية" #?
     not_delivered: "لم يتم تسليمها"
+    # not_ready: "Not ready"
     not_received: "لم تتلق"
     notifications:  #?
       error: "خطأ" #?
@@ -1558,6 +1626,7 @@ arb:
     number_options: "أرقام الخيارات"
     numbers: "أرقام"
     observation_create: "اضافة ملاحظة" #?
+    # ok: "OK"
     on_account: "أ€ يضع على الحساب"
     one_condition: "ما لا يقل عن شرط واحد"
     open_a_campaign: "فتح حملة"
@@ -1591,6 +1660,7 @@ arb:
     outgoing_payment_use_create: "تسديد سعر الشراء" #?
     outgoing_payments: "المدفوعات الصادرة"
     overflow: "فائض رصيد الدائن" #?
+    # pacage_number: "No. GRAZING"
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
@@ -1691,6 +1761,7 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
+    # quandl: "Quandl"
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية"
     quantity_to_credit: "شمولية الكمية بالائتمانات" #?
@@ -1699,10 +1770,13 @@ arb:
     raw_margin: "هامش الخام"
     reading_tasks: "مهام القراءة"
     readings: "قراءات"
+    # ready: "Ready"
+    # ready_to_harvest: "Ready to harvest"
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
+    # reference_cap_clusters: "Islets reference CAP"
     reflect: "يعكس"
     reflected: "التغييرات تنعكس"
     reflections: "خواطر"
@@ -1716,15 +1790,18 @@ arb:
     remove: "إزالة"
     remove_item: "إزالة بند"
     remove_subscription: "إزالة الاشتراك"
+    # renewed: "Renewed"
     reopen: "فتح الدفتر اليومي" #?
     repayments: "تسديد"
     repayments_graph: "تسديد الرسم البياني"
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
+    # request_building_levels: "buildings levels"
     reservoir: "الاحتياطي" #?
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
     reset: "إعادة تعيين"
+    # reset_all_data: "Delete and start over"
     resource: "مراجعة السجلات الاصلية : %{resource} %{number}"
     resources: "ادارة الموارد البشرية"
     rest: "راحة"
@@ -1735,6 +1812,7 @@ arb:
       one: "نتيجة واحدة"
       other: "%{count} نتائج"
       zero: "ولا نتيجة"
+    # retrieve_my_telepac_file: "Retrieve TELEPAC file."
     revenues: "إيرادات"
     revenues_by_product_nature: "الإيرادات حسب نوع المنتج"
     reverse: "تطبيق الحالة العكسية"
@@ -1824,6 +1902,7 @@ arb:
     sex: "جنس"
     shape: "شكل"
     ship: "بشريطة"
+    # short_level_label: "Lv."
     show: "تبين"
     sign_out: "خروج"
     simplified: "نظام واقعي مبسط"
@@ -1831,11 +1910,13 @@ arb:
     source: "مصدر البيانات"
     start: "ابتداء من"
     start_new_intervention_here: "بدء التدخل الجديد هنا"
+    # started: "Started"
     state: "الحالة"
     statistics: "إحصائيات"
     stewardship: "إدارة"
     stock: "مخزون"
     stock_container_map: "خريطة الأسهم"
+    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
     stock_max: "الحد الاقصى للاسهم" #?
     stock_min: "الحد الادنى للاسهم" #?
     stock_move_create: "اضافة حركة جديدة للاسهم" #?
@@ -1843,7 +1924,9 @@ arb:
     stock_transfer_create: "اضافة عملية نقل ام خسارة الاسهم" #?
     stocks: "ادارة الاسهم"
     stop: "لغاية"
+    # stopped: "Stopped"
     storage: "تخزين"
+    # storages: "Silos and tanks"
     string_case: "خيارات للنص" #?
     subject: "الموضوع"
     submit: "ارسال"
@@ -1855,6 +1938,7 @@ arb:
     subscription_natures_down: "(-1) انقاص العدد الحالي" #?
     subscription_natures_up: "(+1) زيادة العدد الحالي" #?
     subscriptions: "الاشتراكات"
+    # subscriptions_evolution: "Subscriptions evolution"
     subtitle: "معرفة المعلومات المتعلقة بالاستخلاص" #?
     subtotal: "المجموع الاجمالي %{name}"
     subtotals_at_level: "المبلغ الاجمالي على مستوى"
@@ -1871,6 +1955,9 @@ arb:
     tax_declaration_create: "اضافة تصريح جديد" #?
     taxations: "الأنظمة الضريبية"
     taxes: "الضرائب"
+    # telepac_files: "Import TELEPAC"
+    # telepac_upload_your_xml_file: "You can import your statement in XML format that you have previously exported to TELEPAC."
+    # the_file_is_invalid: "The file is invalid!"
     theoric_quantity: "الكمية النظرية" #?
     thumb: "اصبع الابهام"
     time_cost: "تكلفة الوقت"
@@ -1943,6 +2030,7 @@ arb:
     unknown_variant: "البديل غير معروف"
     unlock: "فتح القفل"
     unmark: "غير علامة"
+    # unnamed: "Nameless"
     unpaid: "غير مسدد"
     unpaid_amount: "القيمة المتبقية"
     unpaid_days: "بدون أجر منذ (بالأيام)"
@@ -1954,6 +2042,7 @@ arb:
     unset_reconcilable_old_third_accounts: "حسابات الثالثة القديمة للمصالحة ضبطه (العملاء والموردين والمحامين)"
     unused_payment: "دفعات غير مستخدمة" #?
     unvalidated_operations: "عمل غير صحيح" #?
+    # unzoom_map: "Zoom out the map."
     up: "يرتفع"
     update: "تعديل"
     update_params: "تعديل البحث" #?
@@ -1966,6 +2055,7 @@ arb:
     used_accounts: "الحسابات المستخدمة فقط" #?
     user_create: "اضافة مستخدم جديد" #?
     user_name: "اسم المستخدم" #?
+    user_status: "الحالة"
     user_update: "تعديل معلومات المستخدم" #?
     users: "المستخدمين"
     uses: "المادة" #?
@@ -1975,9 +2065,11 @@ arb:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "التحقق من المدخلات المختارة"
+    # validations: "Finalisation"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"
+    # variety: "Variety"
     vat: "الضريبة المستحقة" #?
     vat_acquisitions: "المكاسب الداخلية" #?
     vat_amount: "الضرائب المستحقة" #?
@@ -1986,7 +2078,9 @@ arb:
     view: "معاينة"
     virtual_quantity: "الكمية العملية" #?
     waiting: "أ€ التسدسد لاحقا" #?
+    # watering_concentration: "Water use"
     weather: "طقس"
+    # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "سرعة الرياح"
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
@@ -2040,6 +2134,9 @@ arb:
     x_incoming_payments_to_deposit:
       # one: "%{count} incoming payment to deposit"
       # other: "%{count} incoming payments to deposit"
+    x_inspections:
+      # one: "%{count} inspection"
+      # other: "%{count} inspections"
     x_intervention_product_parameters:
       # one: "%{count} intervention cast"
       # other: "%{count} intervention casts"
@@ -2060,6 +2157,9 @@ arb:
       one: "تفويض واحد" #?
       other: "%{count} تفويض اخر" #?
       zero: "ولا اية تفويض" #?
+    x_minutes:
+      # one: "%{count} minute"
+      # other: "%{count} minutes"
     x_months:
       # one: "%{count} month"
       # other: "%{count} months"
@@ -2132,7 +2232,10 @@ arb:
     y: "نعم" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?
+    # you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions."
+    # you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:"
     zones: "المناطق"
+    # zoom_on_map: "Zoom on the map."
   notifications:
     levels:
       error: "خطأ"
@@ -2143,6 +2246,7 @@ arb:
       a_campaign_must_be_opened: "يجب فتح حملة"
       a_production_must_be_opened: "يجب فتح الإنتاج"
       access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
+      # all_data_import_finished: "All of your data was imported"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "يجب أن تكون جميع الطرود invoiceable ومن نفس الطبيعة والثالث"
       an_activity_must_be_defined: "يجب تعريف النشاط"
       bad_file: "لا يبدو ان الملفات متطابقة" #?
@@ -2251,6 +2355,7 @@ arb:
       some_parcels_are_not_shippable: "بعض الطرود ليست الممكن شحنها"
       specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
       specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
+      # subscription_is_not_renewable: "Subscription is not renewable"
       the_sales_invoice_is_not_cancellable: "فاتورة المبيعات ليست للإلغاء"
       unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})" #?
       # unavailable_resource: "Nonexistent %{type} #%{id}"
@@ -2268,6 +2373,7 @@ arb:
       you_must_select_a_file_to_import: "يجب عليك اختيار ملف للاستيراد" #?
       you_need_to_review_your_application_configuration: "تحتاج إلى مراجعة تكوين التطبيق الخاص بك"
       you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟" #?
+      # your_data_are_being_imported: "Your data is being imported"
   preferences:
     accountancy:  #?
       accounts: #?
@@ -2337,8 +2443,8 @@ arb:
       attach: "يرفق"
       # bookkeep: "Bookkeep"
       cancel: "إلغاء"
-      category: "فئة"
-      children: "الأطفال"
+      category: "فئة" #?
+      children: "الأطفال" #?
       close: "قريب"
       compute: "حساب"
       compute_balances: "أرصدة حساب"
@@ -2347,7 +2453,7 @@ arb:
       convert: "تحول"
       correct: "صحيح"
       create: "خلق"
-      decrement: "إنقاص"
+      decrement: "إنقاص" #?
       destroy: "هدم"
       detach: "فصل"
       detail: "التفاصيل"
@@ -2363,7 +2469,7 @@ arb:
       generate_parcel: "تولد لا يتجزأ"
       import: "استيراد"
       incorporate: "دمج"
-      increment: "زيادة"
+      increment: "زيادة" #?
       index: "فهرس"
       invoice: "فاتورة"
       list: "قائمة"
@@ -2373,7 +2479,7 @@ arb:
       mail: "بريد"
       mark: "علامة"
       merge: "دمج"
-      move: "خطوة"
+      move: "خطوة" #?
       # negociate: "Negociate"
       new: "جديد"
       open: "فتح"
@@ -2389,6 +2495,7 @@ arb:
       reflect: "تعكس"
       refresh: "اعادة تنشيط"
       refuse: "رفض"
+      # renew: "Renew"
       reopen: "إعادة فتح"
       reset: "إعادة تعيين"
       retrieve: "استرداد"
@@ -2398,9 +2505,12 @@ arb:
       ship: "سفينة"
       show: "تبين"
       sort: "فرز"
+      # star: "Star"
       start: "بداية"
       stop: "توقف"
+      # suspend: "Suspend"
       take: "أخذ"
+      # takeover: "Take over"
       toggle: "تبديل"
       unlock: "فتح"
       unmark: "غير علامة"

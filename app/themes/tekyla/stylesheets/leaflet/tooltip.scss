@@ -1,0 +1,44 @@
+.leaflet-draw-tooltip-left {
+  background: rgb(54, 54, 54);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid transparent;
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  z-index: 6;
+  &:before {
+    border: none !important;
+  }
+  &:after {
+    border-left: 6px solid black;
+    border-left-color: rgba(0, 0, 0, 0.5);
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 100%;
+  }
+  span {
+    color: inherit;
+  }
+}
+
+.leaflet-draw-tooltip-measure {
+  &.perimeter {
+    @include icon-before(square-o)
+  }
+  &.area {
+    @include icon-before(square);
+    padding-left: 10px
+  }
+}
+
+.reactive-measure-control {
+  background: rgba(255,255,255, 0.6);
+  padding: 0 $default-gap;
+
+  &.selection {
+    background: rgba(mix(white, $caution-color), 0.5);
+  }
+}

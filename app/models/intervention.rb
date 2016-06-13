@@ -116,6 +116,14 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionTarget.of_actors(targets).select(:intervention_id))
   }
 
+  scope :with_outputs, lambda { |*outputs|
+    where(id: InterventionOutput.of_actors(outputs).select(:intervention_id))
+  }
+
+  scope :with_doers, lambda { |*doers|
+    where(id: InterventionDoer.of_actors(doers).select(:intervention_id))
+  }
+
   scope :done, -> {}
 
   before_validation do
@@ -158,7 +166,14 @@ class Intervention < Ekylibre::Record::Base
 
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
-    done?
+    with_undestroyable_products?
+  end
+
+  def with_undestroyable_products?
+    outputs.map(&:product).detect do |product|
+      next unless product
+      InterventionProductParameter.of_actor(product).where.not(type: 'InterventionOutput').any?
+    end
   end
 
   # Returns activities of intervention through TargetDistribution
@@ -238,6 +253,17 @@ class Intervention < Ekylibre::Record::Base
       working_duration: working_periods.sum(:duration),
       whole_duration: ((stopped_at && started_at) ? (stopped_at - started_at).to_i : 0)
     )
+    self.event.update_columns(
+      started_at: self.started_at,
+      stopped_at: self.stopped_at,
+    ) if self.event
+    self.outputs.find_each do |output|
+      product = output.product
+      next unless product
+      product.born_at = self.started_at
+      product.initial_born_at = product.born_at
+      product.save!
+    end
   end
 
   # Sums all intervention product parameter total_cost of a particular role
@@ -247,13 +273,29 @@ class Intervention < Ekylibre::Record::Base
     nil
   end
 
+  def total_cost
+    [:input, :tool, :doer].map do |type|
+      (cost(type) || 0.0).to_d.round(2)
+    end.sum
+  end
+
+  def cost_per_area(area_unit = :hectare)
+    if working_zone_area > 0.0.in_square_meter
+      return (total_cost / working_zone_area(area_unit).to_d)
+    else
+      return nil
+    end
+  end
+
   def earn(role = :output)
     params = product_parameters.of_generic_role(role)
     return params.map(&:earn).compact.sum if params.any?
     nil
   end
 
-  def working_zone_area(unit = :hectare)
+  def working_zone_area(*args)
+    options = args.extract_options!
+    unit = args.shift || options[:unit] || :hectare
     if targets.any?
       area = targets.with_working_zone.map(&:working_zone_area).sum.in(unit)
     end
@@ -261,8 +303,11 @@ class Intervention < Ekylibre::Record::Base
     area
   end
 
-  def human_working_zone_area(unit = :hectare, precision = 3)
-    working_zone_area(unit).round(precision).l
+  def human_working_zone_area(*args)
+    options = args.extract_options!
+    unit = args.shift || options[:unit] || :hectare
+    precision = args.shift || options[:precision] || 2
+    working_zone_area(unit: unit).round(precision).l(precision: precision)
   end
 
   def working_area(unit = :hectare)

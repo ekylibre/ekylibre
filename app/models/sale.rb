@@ -83,10 +83,9 @@ class Sale < Ekylibre::Record::Base
   belongs_to :transporter, class_name: 'Entity'
   has_many :credits, class_name: 'Sale', foreign_key: :credited_sale_id
   has_many :parcels, dependent: :destroy, inverse_of: :sale
-  has_many :documents, as: :owner
   has_many :items, -> { order('position, id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
-  has_many :subscriptions, class_name: 'Subscription'
+  has_many :subscriptions, through: :items, class_name: 'Subscription'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :amount, :downpayment_amount, :pretax_amount, allow_nil: true
@@ -113,7 +112,7 @@ class Sale < Ekylibre::Record::Base
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).where('payment_at IS NULL OR payment_at <= ?', Time.zone.now).where.not(affair: Affair.closeds) }
+  scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -330,31 +329,34 @@ class Sale < Ekylibre::Record::Base
     !credit
   end
 
-  # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions
+  # Duplicates a +sale+ in estimate state with its items and its active
+  # subscriptions
   def duplicate(attributes = {})
     raise StandardError, 'Uncancelable sale' unless duplicatable?
-    hash = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description, :currency].inject({}) do |h, field|
+    hash = [
+      :client_id, :nature_id, :letter_format, :annotation, :subject,
+      :function_title, :introduction, :conclusion, :description
+    ].each_with_object({}) do |field, h|
       h[field] = send(field)
-      h
-    end.merge(attributes)
+    end
     # Items
     items_attributes = {}
-    items.each_with_index do |item, index|
-      items_attributes[index] = [:variant_id, :quantity, :amount, :currency, :label, :position, :pretax_amount, :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount].inject({}) do |h, field|
+    items.order(:position).each_with_index do |item, index|
+      attrs = [
+        :variant_id, :quantity, :amount, :label, :pretax_amount, :annotation,
+        :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount
+      ].each_with_object({}) do |field, h|
         h[field] = item.send(field)
-        # Subscriptions
-        h[:subscriptions_attributes] = {}
-        subscriptions.where(suspended: false).each_with_index do |subscription, j|
-          h[:subscriptions_attributes][j] = [:subscriber_id, :address_id, :quantity_id, :nature_id, :product_nature_id].inject({}) do |sh, field|
-            sh[field] = subscription.send(field)
-            sh
-          end
-        end
-        h
       end
+      # Subscription
+      subscription = item.subscription
+      if subscription
+        attrs[:subscription_attributes] = subscription.following_attributes
+      end
+      items_attributes[index.to_s] = attrs
     end
     hash[:items_attributes] = items_attributes
-    self.class.create!(hash)
+    self.class.create!(hash.with_indifferent_access.deep_merge(attributes))
   end
 
   # Prints human name of current state

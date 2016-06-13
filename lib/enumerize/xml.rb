@@ -18,9 +18,7 @@ module Enumerize
 
       root = ActiveSupport::XmlMini.rename_key(options[:root].to_s, options)
 
-      builder.__send__(:method_missing, root, name: to_s) do
-        text.to_s
-      end
+      builder.__send__(:method_missing, root, localize, name: to_s)
     end
   end
 

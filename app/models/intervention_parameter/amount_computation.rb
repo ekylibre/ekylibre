@@ -62,11 +62,11 @@ class InterventionParameter < Ekylibre::Record::Base
     end
 
     def human_unit_amount(_options = {})
-      unit_amount.l(currency: currency.name)
+      unit_amount.round(currency.precision).l(currency: currency.name, precision: currency.precision)
     end
 
     def item
-      send("#{@origin}_item")
+      @origin ? send("#{@origin}_item") : nil
     end
 
     def unit_amount?
@@ -82,11 +82,11 @@ class InterventionParameter < Ekylibre::Record::Base
     end
 
     def amount
-      (unit_amount * quantity).round(currency.precision).to_i
+      (unit_amount * quantity).to_i
     end
 
     def human_amount
-      amount.l(currency: currency.name)
+      amount.round(0).l(currency: currency.name, precision: 0)
     end
 
     delegate :catalog, to: :catalog_item

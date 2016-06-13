@@ -1,6 +1,6 @@
 = field_set do
   = f.referenced_association :district
-  = f.input :name
+  = f.input :name, autocomplete: true
   = f.input :code
   = f.input :country, :collection => countries
   = f.custom_fields

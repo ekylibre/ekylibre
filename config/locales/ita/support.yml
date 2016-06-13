@@ -76,10 +76,10 @@ ita:
   http:
     errors:
       internal_server_error:
-        hint: "L&#39;applicazione incontra problemi. Gli amministratori sono stati notificati per questo problema."
+        hint: "L'applicazione incontra problemi. Gli amministratori sono stati notificati per questo problema."
         title: "Siamo spiacenti, ma qualcosa è andato storto"
       not_found:
-        hint: "Potreste aver digitato in modo errato l&#39;indirizzo o la pagina potrebbe essere spostato."
+        hint: "Potreste aver digitato in modo errato l'indirizzo o la pagina potrebbe essere spostato."
         title: "La pagina che stavi cercando non esiste"
       unprocessable_entity:
         hint: "Forse si è tentato di cambiare qualcosa che non ha accesso."

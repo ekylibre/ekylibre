@@ -11,7 +11,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Manual count of check points
     # $ grep -rin check_point app/exchangers/ekylibre/settings_exchanger.rb | wc -l
-    w.count = 21 - 1
+    w.count = 22 - 1
 
     # Global preferences
     language = I18n.locale = @manifest[:language]
@@ -242,6 +242,9 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     @manifest[:identifiers].each do |nature, value|
       Identifier.create!(nature: nature, value: value)
     end
+    w.check_point
+
+    MapBackground.load_defaults
     w.check_point
   end
 

@@ -22,132 +22,171 @@
 #
 # == Table: subscriptions
 #
-#  address_id        :integer
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  custom_fields     :jsonb
-#  description       :text
-#  first_number      :integer
-#  id                :integer          not null, primary key
-#  last_number       :integer
-#  lock_version      :integer          default(0), not null
-#  nature_id         :integer
-#  number            :string
-#  product_nature_id :integer
-#  quantity          :decimal(19, 4)
-#  sale_id           :integer
-#  sale_item_id      :integer
-#  started_at        :datetime
-#  stopped_at        :datetime
-#  subscriber_id     :integer
-#  suspended         :boolean          default(FALSE), not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  address_id     :integer
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  custom_fields  :jsonb
+#  description    :text
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  nature_id      :integer
+#  number         :string
+#  parent_id      :integer
+#  quantity       :integer          not null
+#  sale_item_id   :integer
+#  started_on     :date             not null
+#  stopped_on     :date             not null
+#  subscriber_id  :integer
+#  suspended      :boolean          default(FALSE), not null
+#  swim_lane_uuid :uuid             not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 
 class Subscription < Ekylibre::Record::Base
   include Customizable
   acts_as_numbered
-  # attr_accessible :address_id, :description, :first_number, :last_number, :started_at, :stopped_at, :suspended, :sale_item_id, :nature_id
   belongs_to :address, class_name: 'EntityAddress'
+  belongs_to :nature, class_name: 'SubscriptionNature', inverse_of: :subscriptions
+  belongs_to :parent, class_name: 'Subscription'
+  belongs_to :sale_item, class_name: 'SaleItem', inverse_of: :subscription
   belongs_to :subscriber, class_name: 'Entity'
-  belongs_to :nature, class_name: 'SubscriptionNature'
-  belongs_to :product_nature
-  belongs_to :sale
-  belongs_to :sale_item, class_name: 'SaleItem'
+  has_one :sale, through: :sale_item
+  has_one :variant, through: :sale_item, class_name: 'ProductNatureVariant'
+  has_one :product_nature, through: :variant, source: :nature
+  has_many :children, class_name: 'Subscription', foreign_key: :parent_id, dependent: :nullify
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(subscription) { subscription.stopped_at && subscription.started_at }
-  validates_numericality_of :first_number, :last_number, allow_nil: true, only_integer: true
-  validates_numericality_of :quantity, allow_nil: true
+  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
+  validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(subscription) { subscription.stopped_on && subscription.started_on }
+  validates_numericality_of :quantity, allow_nil: true, only_integer: true
   validates_inclusion_of :suspended, in: [true, false]
+  validates_presence_of :quantity, :started_on, :stopped_on, :swim_lane_uuid
   # ]VALIDATORS]
-  validates_presence_of :started_at, :stopped_at, if: proc { |u| u.nature && u.nature.period? }
-  validates_presence_of :first_number, :last_number, if: proc { |u| u.nature && u.nature.quantity? }
   validates_presence_of :nature, :subscriber
-  validates_presence_of :sale_item, if: proc { |s| !s.sale.nil? }, on: :create
+
+  # Look for subscriptions started without previous subscription
+  scope :started_between, ->(started_on, stopped_on) { where('started_on BETWEEN ? AND ? AND parent_id IS NULL', started_on, stopped_on) }
+  scope :stopped_between, ->(started_on, stopped_on) { where('stopped_on BETWEEN ? AND ? AND id NOT IN (SELECT parent_id FROM subscriptions WHERE parent_id IS NOT NULL)', started_on, stopped_on) }
+  scope :renewed_between, ->(started_on, stopped_on) { where('stopped_on BETWEEN ? AND ? AND id IN (SELECT parent_id FROM subscriptions WHERE parent_id IS NOT NULL)', started_on, stopped_on) }
+  scope :between, ->(started_on, stopped_on) { where('started_on BETWEEN ? AND ? OR stopped_on BETWEEN ? AND ? OR (started_on < ? AND ? < stopped_on)', started_on, stopped_on, started_on, stopped_on, started_on, stopped_on) }
+
+  delegate :name, to: :nature, prefix: true
 
   before_validation do
-    self.sale_id      = sale_item.sale_id if sale_item
+    if parent
+      self.swim_lane_uuid = parent.swim_lane_uuid
+    else
+      self.swim_lane_uuid ||= UUIDTools::UUID.random_create.to_s
+    end
+    if sale_item
+      self.nature ||= sale_item.subscription_nature
+      self.quantity = sale_item.quantity.to_i
+    end
     self.address_id ||= sale.delivery_address_id if sale
     self.subscriber_id = address.entity_id if address
-    self.nature_id = product_nature.subscription_nature_id if product_nature
-    true
   end
 
   before_validation(on: :create) do
-    if nature
-      if nature.period?
-        period = if product_nature
-                   (product_nature.subscription_duration.blank? ? '1 year' : product_nature.subscription_duration) || '1 year'
-                 else
-                   '1 year'
-                 end
-        # raise StandardError.new "ok"+period.inspect+self.product.subscription_duration.inspect
-        self.started_at ||= Time.zone.today
-        self.stopped_at ||= Delay.compute(period + ', 1 day ago', self.started_at)
-      elsif nature.quantity?
-        period = if product_nature
-                   (product_nature.subscription_quantity.blank? ? 1 : product_nature.subscription_quantity) || 1
-                 else
-                   1
-                 end
-        self.first_number ||= nature.actual_number
-        self.last_number ||= self.first_number + period - 1
+    self.started_on ||= Time.zone.today
+    if product_nature
+      unless self.stopped_on
+        self.stopped_on = product_nature.subscription_stopped_on(self.started_on)
       end
     end
   end
 
   validate do
-    if address && subscriber
-      errors.add(:subscriber_id, :entity_must_be_the_same_as_the_contact_entity) if address.entity_id != subscriber_id
+    if self.started_on && self.stopped_on
+      errors.add(:stopped_on, :posterior, to: started_on.l) unless started_on <= stopped_on
     end
     errors.add(:address_id, :invalid) if address && !address.mail?
+  end
+
+  protect on: :destroy do
+    sale_item
   end
 
   def subscriber_name
     address.mail_line_1
   end
 
-  # Initialize default preferences
-  def compute_period
-    # self.clean
-    self.nature_id ||= product_nature.subscription_nature_id if product_nature
-    valid? if new_record?
-    self
-  end
-
-  def start
-    if nature.quantity?
-      self.first_number
-    elsif nature.period?
-      if self.started_at.nil?
-        ''
-      else
-        ::I18n.localize(self.started_at)
-      end
-    end
-  end
-
-  def finish
-    if nature.quantity?
-      self.last_number
-    elsif nature.period?
-      if self.stopped_at.nil?
-        ''
-      else
-        ::I18n.localize(self.stopped_at)
-      end
-    end
-  end
-
   def active?(instant = nil)
-    if nature.quantity?
-      instant ||= nature.actual_number
-      self.first_number <= instant && instant <= self.last_number
-    elsif nature.period?
-      instant ||= Time.zone.today
-      self.started_at <= instant && instant <= self.stopped_at
+    instant ||= Time.zone.today
+    self.started_on <= instant && instant <= stopped_on
+  end
+
+  def renewable?
+    sale_item && children.empty?
+  end
+
+  # Create a Sale, a SaleItem and a Subscription linked to current subscription
+  # Inspired by Sale#duplicate
+  def renew!(attributes = {})
+    hash = {
+      client_id: sale.client_id,
+      nature_id: sale.nature_id,
+      letter_format: false
+    }
+    # Items
+    attrs = [
+      :variant_id, :quantity, :amount, :label, :pretax_amount, :annotation,
+      :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount
+    ].each_with_object({}) do |field, h|
+      h[field] = sale_item.send(field)
     end
+    attrs[:subscription_attributes] = following_attributes
+    hash[:items_attributes] = { '0' => attrs }
+    Sale.create!(hash.with_indifferent_access.deep_merge(attributes))
+  end
+
+  def following_attributes
+    attributes = {
+      nature_id: nature_id,
+      address_id: self.address_id,
+      subscriber_id: subscriber_id
+    }
+    last_subscription = subscriber.last_subscription(self.nature)
+    if last_subscription
+      attributes[:parent_id] = last_subscription.id
+      attributes[:started_on] = last_subscription.stopped_on + 1
+    else
+      attributes[:started_on] = Time.zone.today
+    end
+    product_nature = self.product_nature || last_subscription.product_nature
+    attributes[:stopped_on] = if product_nature
+                                product_nature.subscription_stopped_on(attributes[:started_on])
+                              else
+                                attributes[:started_on] + 1.year - 1.day
+                              end
+    attributes
+  end
+
+  def suspendable?
+    !suspended
+  end
+
+  def active?
+    !(past? || future?)
+  end
+
+  def disabled?
+    past? || suspended
+  end
+
+  def future?
+    self.started_on > Time.zone.today
+  end
+
+  def past?
+    stopped_on < Time.zone.today
+  end
+
+  def suspend
+    update_attribute(:suspended, true)
+  end
+
+  def takeover
+    update_attribute(:suspended, false)
   end
 end

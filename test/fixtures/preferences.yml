@@ -44,10 +44,10 @@ preferences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
-  lock_version: 28
+  lock_version: 32
   name: interface.helps.collapsed
   nature: boolean
-  updated_at: 2015-09-18 10:20:02.960808000 Z
+  updated_at: 2016-05-14 19:42:53.920501000 Z
   updater_id: 1
   user_id: 1
 preferences_002:
@@ -391,14 +391,14 @@ preferences_031:
   updated_at: 2014-10-31 18:36:11.733725000 Z
   updater_id: 1
 preferences_032:
-  boolean_value: false
+  boolean_value: true
   created_at: 2014-10-31 18:36:11.782573000 Z
   creator_id: 1
   id: 32
-  lock_version: 10
+  lock_version: 11
   name: interface.snippets.parameters.collapsed
   nature: boolean
-  updated_at: 2014-11-20 10:22:19.129845000 Z
+  updated_at: 2016-05-26 21:23:05.282767000 Z
   updater_id: 1
   user_id: 1
 preferences_033:
@@ -1942,7 +1942,7 @@ preferences_163:
   created_at: 2014-11-01 19:44:31.632618000 Z
   creator_id: 1
   id: 163
-  lock_version: 3
+  lock_version: 1
   name: list._taxes_list_taxes_tag
   nature: string
   string_value:
@@ -1951,18 +1951,10 @@ preferences_163:
     only: content
     action: list
     controller: backend/taxes
-    hidden_columns:
-    - :fixed_asset_deduction_account
-    - :fixed_asset_collect_account
+    hidden_columns: []
     page: 1
     per_page: 20
-    content_for: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
-      actions: main_toolbar
-      pagination: meta_toolbar
-      settings: meta_toolbar
-    visibility: hidden
-    column: fixed_asset_collect_account
-  updated_at: 2016-05-03 17:00:54.000454000 Z
+  updated_at: 2014-11-01 19:45:12.111817000 Z
   updater_id: 1
   user_id: 1
 preferences_164:
@@ -2605,11 +2597,24 @@ preferences_219:
   created_at: 2014-12-24 11:05:52.595411000 Z
   creator_id: 1
   id: 219
-  lock_version: 0
+  lock_version: 2
   name: list._product_nature_categories_list_product_nature_categories_tag
   nature: string
-  string_value: {}
-  updated_at: 2014-12-24 11:05:52.595411000 Z
+  string_value:
+    content_for: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      actions: main_toolbar
+      pagination: meta_toolbar
+      settings: meta_toolbar
+    page: 1
+    only: content
+    redirect: "/backend/product_nature_categories"
+    controller: backend/product_nature_categories
+    action: list
+    hidden_columns: []
+    dir: ''
+    per_page: 20
+    sort: ''
+  updated_at: 2016-05-26 21:22:27.526615000 Z
   updater_id: 1
   user_id: 1
 preferences_220:
@@ -2922,11 +2927,11 @@ preferences_247:
   created_at: 2015-06-02 20:35:20.100688000 Z
   creator_id: 1
   id: 248
-  integer_value: 5
-  lock_version: 62
+  integer_value: 6
+  lock_version: 65
   name: current_campaign.id
   nature: integer
-  updated_at: 2016-01-25 13:27:47.995723000 Z
+  updated_at: 2016-05-14 18:07:41.572245000 Z
   updater_id: 1
   user_id: 1
 preferences_248:
@@ -3696,13 +3701,156 @@ preferences_317:
   updater_id: 1
   user_id: 1
 preferences_318:
-  created_at: 2016-05-03 17:01:02.511327000 Z
+  created_at: 2016-05-10 19:13:10.486373000 Z
   creator_id: 1
   id: 319
   lock_version: 0
-  name: cobbler.taxes-show
+  name: list._product_gradings_list_product_gradings_tag
   nature: string
   string_value: {}
-  updated_at: 2016-05-03 17:01:02.511327000 Z
+  updated_at: 2016-05-10 19:13:10.486373000 Z
+  updater_id: 1
+  user_id: 1
+preferences_319:
+  created_at: 2016-05-10 19:19:24.910265000 Z
+  creator_id: 1
+  id: 320
+  lock_version: 0
+  name: cobbler.product_gradings-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-10 19:19:24.910265000 Z
+  updater_id: 1
+  user_id: 1
+preferences_320:
+  created_at: 2016-05-10 19:19:24.981639000 Z
+  creator_id: 1
+  id: 321
+  lock_version: 0
+  name: list._product_gradings_list_checks_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-10 19:19:24.981639000 Z
+  updater_id: 1
+  user_id: 1
+preferences_321:
+  created_at: 2016-05-10 21:08:41.005211000 Z
+  creator_id: 1
+  id: 322
+  lock_version: 0
+  name: cobbler.supervisions-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-10 21:08:41.005211000 Z
+  updater_id: 1
+  user_id: 1
+preferences_322:
+  created_at: 2016-05-14 17:59:36.372006000 Z
+  creator_id: 1
+  id: 323
+  lock_version: 0
+  name: cobbler.inspections-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-14 17:59:36.372006000 Z
+  updater_id: 1
+  user_id: 1
+preferences_323:
+  created_at: 2016-05-14 18:07:31.887271000 Z
+  creator_id: 1
+  id: 324
+  lock_version: 0
+  name: list._inspections_list_inspections_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-14 18:07:31.887271000 Z
+  updater_id: 1
+  user_id: 1
+preferences_324:
+  created_at: 2016-05-14 18:07:43.203769000 Z
+  creator_id: 1
+  id: 325
+  lock_version: 0
+  name: list._activities_list_inspections_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-14 18:07:43.203769000 Z
+  updater_id: 1
+  user_id: 1
+preferences_325:
+  created_at: 2016-05-26 21:22:59.439315000 Z
+  creator_id: 1
+  id: 326
+  lock_version: 0
+  name: cobbler.product_nature_categories-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-26 21:22:59.439315000 Z
+  updater_id: 1
+  user_id: 1
+preferences_326:
+  created_at: 2016-05-26 21:22:59.456886000 Z
+  creator_id: 1
+  id: 327
+  lock_version: 0
+  name: list._product_nature_categories_list_taxations_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-26 21:22:59.456886000 Z
+  updater_id: 1
+  user_id: 1
+preferences_327:
+  created_at: 2016-05-26 21:22:59.469486000 Z
+  creator_id: 1
+  id: 328
+  lock_version: 0
+  name: list._product_nature_categories_list_product_natures_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-26 21:22:59.469486000 Z
+  updater_id: 1
+  user_id: 1
+preferences_328:
+  created_at: 2016-05-26 21:23:59.135573000 Z
+  creator_id: 1
+  id: 329
+  lock_version: 0
+  name: cobbler.product_natures-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-26 21:23:59.135573000 Z
+  updater_id: 1
+  user_id: 1
+preferences_329:
+  created_at: 2016-05-26 21:26:11.941070000 Z
+  creator_id: 1
+  id: 330
+  lock_version: 0
+  name: list._sales_list_subscriptions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-26 21:26:11.941070000 Z
+  updater_id: 1
+  user_id: 1
+preferences_330:
+  created_at: 2016-05-26 21:27:16.937656000 Z
+  creator_id: 1
+  id: 331
+  lock_version: 0
+  name: cobbler.subscription_natures-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-26 21:27:16.937656000 Z
+  updater_id: 1
+  user_id: 1
+preferences_331:
+  created_at: 2016-05-26 21:27:17.050071000 Z
+  creator_id: 1
+  id: 332
+  lock_version: 0
+  name: list._subscription_natures_list_subscriptions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-05-26 21:27:17.050071000 Z
   updater_id: 1
   user_id: 1

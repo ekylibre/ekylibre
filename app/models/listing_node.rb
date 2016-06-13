@@ -57,7 +57,7 @@ class ListingNode < Ekylibre::Record::Base
   belongs_to :listing, inverse_of: :nodes
   belongs_to :item_listing, class_name: 'Listing'
   belongs_to :item_listing_node, class_name: 'ListingNode'
-  has_many :items, class_name: 'ListingNodeItem'
+  has_many :items, class_name: 'ListingNodeItem', foreign_key: :node_id, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
   validates_inclusion_of :exportable, in: [true, false]

@@ -237,9 +237,9 @@ module ApplicationHelper
     nomenclature_as_options(:languages)
   end
 
-  def available_languages
+  def available_languages(native_language = true)
     I18n.available_locales.map do |l|
-      [I18n.t('i18n.name', locale: l), l]
+      [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
     end.sort { |a, b| a.second <=> b.second }
   end
 
@@ -298,6 +298,8 @@ module ApplicationHelper
           #  raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
           options[:url][:controller] ||= record.class.name.underscore.pluralize
         end
+      elsif value.is_a? Nomen::Item
+        value = value.human_name
       else
         options[:url] = { action: :show } if options[:url].is_a? TrueClass
         if options[:url].is_a? Hash
@@ -316,7 +318,7 @@ module ApplicationHelper
     elsif options[:currency] && value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
-    elsif value.respond_to?(:strftime) || value.is_a?(Numeric)
+    elsif value.respond_to?(:strftime) || value.respond_to?(:l) || value.is_a?(Numeric)
       value = value.l
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif options[:duration]

@@ -60,7 +60,6 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :supplier, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   has_many :parcels
-  has_many :documents, as: :owner
   has_many :items, class_name: 'PurchaseItem', dependent: :destroy, inverse_of: :purchase
   has_many :journal_entries, as: :resource
   has_many :products, -> { uniq }, through: :items
@@ -85,7 +84,7 @@ class Purchase < Ekylibre::Record::Base
     where(invoiced_at: started_at..stopped_at)
   }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).joins(:affair).where('NOT closed') }
+  scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
   scope :of_supplier, ->(supplier) { where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }

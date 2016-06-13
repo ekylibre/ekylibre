@@ -15,13 +15,28 @@
   # other fields and on updater itself if necessary
   E.interventions =
 
+    toggleHandlers: (form, attributes, prefix = '') ->
+      for name, value of attributes
+        subprefix = prefix + name
+        if /\w+_attributes$/.test(name)
+          for id, attrs of value
+            E.interventions.toggleHandlers(form, attrs, subprefix + '_' + id + '_')
+        else
+          select = form.find("##{prefix}quantity_handler")
+          console.warn "Cannot find ##{prefix}quantity_handler <select>" unless select.length > 0
+          option = select.find("option[value='#{name}']")
+          console.warn "Cannot find option #{name} of ##{prefix}quantity_handler <select>" unless option.length > 0
+          if value && !option.is(':visible')
+            option.show()
+          else if !value && option.is(':visible')
+            option.hide()
+
     unserializeRecord: (form, attributes, prefix = '', updater_id = null) ->
       for name, value of attributes
         subprefix = prefix + name
-        console.log "Test if '#{updater_id}' == '#{subprefix}'"
         if subprefix is updater_id
           # Nothing to update
-          console.warn "Nothing to do with #{subprefix}"
+          # console.warn "Nothing to do with #{subprefix}"
         else if /\w+_attributes$/.test(name)
           E.interventions.unserializeList(form, value, subprefix + '_', updater_id)
         else
@@ -41,6 +56,8 @@
               element.mapeditor "edit", value
               try
                 element.mapeditor "view", "edit"
+            else if element.is('select')
+              element.find("option[value='#{value}']")[0].selected = true
             else
               valueType = typeof value
               update = true
@@ -77,30 +94,25 @@
       unless computing.length > 0
         console.error 'Cannot procedure element where compute URL is defined'
         return false
-      console.log 'in refreshing'
       if computing.prop('state') isnt 'waiting'
-        console.log 'in ajax'
         $.ajax
           url: computing.data('procedure')
           type: "PATCH"
           data: form.serialize()
           beforeSend: ->
-            console.log 'waiting'
             computing.prop 'state', 'waiting'
           error: (request, status, error) ->
             computing.prop 'state', 'ready'
             false
           success: (data, status, request) ->
             console.group('Unserialize intervention updated by ' + updaterId)
-            console.log(data)
             # Updates elements with new values
+            E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
             # if updaterElement? and initialValue != E.value($("*[data-intervention-updater='#{intervention.updater}']").first())
             #   E.interventions.refresh updaterElement
             computing.prop 'state', 'ready'
             console.groupEnd()
-          complete: () ->
-            console.log 'ready'
 
 
   ##############################################################################
@@ -119,7 +131,7 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup', 'input[data-intervention-updater]', ->
+  $(document).on 'keyup change', 'input[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
 

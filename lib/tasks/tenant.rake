@@ -37,6 +37,12 @@ namespace :tenant do
     raise 'Need TENANT variable' unless tenant
     Ekylibre::Tenant.create(tenant) unless Ekylibre::Tenant.exist?(tenant)
     Ekylibre::Tenant.switch(tenant) do
+      # Set basic preferences
+      Preference.set! :language, ENV['LANGUAGE'] || 'fra'
+      Preference.set! :country, ENV['COUNTRY'] || 'fr'
+      Preference.set! :currency, ENV['CURRENCY'] || 'EUR'
+      Preference.set! :map_measure_srs, ENV['MAP_MEASURE_SRS'] || ENV['SRS'] || 'WGS84'
+      # Add user
       email = ENV['EMAIL'] || 'admin@ekylibre.org'
       user = User.find_by(email: email)
       if user

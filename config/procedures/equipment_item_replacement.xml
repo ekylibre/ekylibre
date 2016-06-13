@@ -4,7 +4,7 @@
     <parameters>
       <target name="equipment" filter="is equipment" />
       <input name="item" filter="is matter and derives from equipment" cardinality="*">
-      	<handler name="population"/>
+        <handler name="population"/>
       </input>
       <doer name="mechanic" filter="is worker"/>
     </parameters>

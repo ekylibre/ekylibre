@@ -57,7 +57,7 @@ class InterventionOutput < InterventionProductParameter
   has_one :product_movement, as: :originator, dependent: :destroy
   validates :variant, :quantity_population, presence: true
 
-  after_commit do
+  after_save do
     unless destroyed?
       output = product
       output ||= variant.products.new unless output

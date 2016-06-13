@@ -28,17 +28,15 @@ table {
       display: block;
       @include text-align(center);
     }
-  }
-  th {
-    font-weight: bold;
-  }
-  td {
     &.decimal {
       @include text-align(right);
     }
     &.boolean {
       @include text-align(center);
     }
+  }
+  th {
+    font-weight: bold;
   }
   tbody {
     border-top: $menu-border;
@@ -92,7 +90,7 @@ table {
 
     }
   }
-  tr.total {
+  tr.total, tr.title {
     td, th {
       &, span {
         font-size: $fs-large;

@@ -146,6 +146,12 @@
         scrollWheelZoom: false
         zoomControl: false
         attributionControl: true
+        setDefaultBackground: false
+        dragging: true
+        touchZoom: true
+        doubleClickZoom: true
+        boxZoom: true
+        tap: true
       view:
         center:[]
         zoom : 13
@@ -155,6 +161,20 @@
       $.extend(true, @options, @element.data("visualization"))
       @mapElement = $("<div>", class: "map").insertAfter(@element)
       @map = L.map(@mapElement[0], @options.map)
+
+      if @options.map.setDefaultBackground
+        opts = {}
+        opts['attribution'] = @options.backgrounds.attribution if @options.backgrounds.attribution?
+        opts['minZoom'] = @options.backgrounds.minZoom if @options.backgrounds.minZoom?
+        opts['maxZoom'] = @options.backgrounds.maxZoom if @options.backgrounds.maxZoom?
+        opts['subdomains'] = @options.backgrounds.subdomains if @options.backgrounds.subdomains?
+        opts['tms'] = true if @options.backgrounds.tms
+
+        backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
+        backgroundLayer.addTo @map
+      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
+      @ghostLabelCluster.addTo @map
+
       this._resize()
       this._refreshView()
       this._refreshControls()
@@ -235,10 +255,28 @@
       baseLayers = {}
       overlays = {}
 
-      for layer, index in @options.backgrounds
-        backgroundLayer = L.tileLayer.provider(layer.provider)
-        baseLayers[layer.label] = backgroundLayer
-        @map.addLayer(backgroundLayer) if index == 0
+      if @options.backgrounds.length > 0
+        for layer, index in @options.backgrounds
+          opts = {}
+          opts['attribution'] = layer.attribution if layer.attribution?
+          opts['minZoom'] = layer.minZoom if layer.minZoom?
+          opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+          opts['subdomains'] = layer.subdomains if layer.subdomains?
+          opts['tms'] = true if layer.tms
+
+          backgroundLayer = L.tileLayer(layer.url, opts)
+          baseLayers[layer.name] = backgroundLayer
+          @map.addLayer(backgroundLayer) if layer.byDefault
+      else
+        # no backgrounds, set defaults
+        backgrounds = ['OpenStreetMap.HOT',"OpenStreetMap.Mapnik", "Thunderforest.Landscape", "Esri.WorldImagery"]
+
+        baseLayers = {}
+        for layer, index in backgrounds
+          backgroundLayer = L.tileLayer.provider(layer)
+          baseLayers[layer] = backgroundLayer
+          @map.addLayer(backgroundLayer) if index == 0
+
 
       for layer in @options.overlays
         overlayLayer = L.tileLayer.provider(layer.provider_name)
@@ -340,14 +378,8 @@
 
     _refreshView: (view) ->
       this._setDefaultView()
-      # else if view.center?
-      #   if @options.layers?
-
-      #   if view.zoom?
-      #     @map.setView(center, view.zoom)
-      #   else
-      #     @map.setView(center, zoom)
-      # this
+      if @options.view.center.length > 0
+        @map.setView(@options.view.center, @options.view.zoom)
 
     _setDefaultView: ->
       @map.fitWorld()

@@ -86,15 +86,17 @@ class Entity < Ekylibre::Record::Base
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
-  has_many :all_addresses, class_name: 'EntityAddress', inverse_of: :entity, dependent: :destroy
-  has_many :addresses, -> { actives }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :mails,     -> { actives.mails    }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :emails,    -> { actives.emails   }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :phones,    -> { actives.phones   }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :mobiles,   -> { actives.mobiles  }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :faxes,     -> { actives.faxes    }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :websites,  -> { actives.websites }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }, class_name: 'EntityAddress'
+  with_options class_name: 'EntityAddress', inverse_of: :entity do
+    has_many :all_addresses, dependent: :destroy
+    has_many :addresses, -> { actives }
+    has_many :mails,     -> { actives.mails    }
+    has_many :emails,    -> { actives.emails   }
+    has_many :phones,    -> { actives.phones   }
+    has_many :mobiles,   -> { actives.mobiles  }
+    has_many :faxes,     -> { actives.faxes    }
+    has_many :websites,  -> { actives.websites }
+    has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }
+  end
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
@@ -104,20 +106,22 @@ class Entity < Ekylibre::Record::Base
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id
   has_many :outgoing_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
-  has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id
-  has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) }, class_name: 'Purchase', foreign_key: :supplier_id
-  has_many :purchases, foreign_key: :supplier_id
+  has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
+  has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
+           class_name: 'Purchase', foreign_key: :supplier_id
+  has_many :purchases, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :purchase_items, through: :purchases, source: :items
   has_many :parcels, foreign_key: :transporter_id
-  has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) }, class_name: 'Sale', foreign_key: :client_id
-  has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id
-  has_many :sale_opportunities, -> { order(created_at: :desc) }, foreign_key: :third_id
+  has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
+           class_name: 'Sale', foreign_key: :client_id
+  has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id, dependent: :restrict_with_exception
+  has_many :sale_opportunities, -> { order(created_at: :desc) }, foreign_key: :third_id, dependent: :destroy
   has_many :managed_sales, -> { order(created_at: :desc) }, foreign_key: :responsible_id, class_name: 'Sale'
   has_many :sale_items, through: :sales, source: :items
-  has_many :subscriptions, foreign_key: :subscriber_id
+  has_many :subscriptions, foreign_key: :subscriber_id, dependent: :restrict_with_error
   has_many :tasks
   has_many :trackings, foreign_key: :producer_id
-  has_many :transports, foreign_key: :transporter_id
+  has_many :deliveries, foreign_key: :transporter_id, dependent: :restrict_with_error
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: 'Sale'
   has_many :usable_incoming_payments, -> { where('used_amount < amount') }, class_name: 'IncomingPayment', foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where(state: 'ready_to_send') }, class_name: 'Parcel', foreign_key: :transporter_id
@@ -321,7 +325,11 @@ class Entity < Ekylibre::Record::Base
   end
 
   def default_mail_coordinate
-    default_address ? default_address.coordinate : '[NoDefaultEntityAddressError]'
+    default_mail_address ? default_mail_address.coordinate : nil
+  end
+
+  def default_mail_address_id
+    default_mail_address ? default_mail_address.id : nil
   end
 
   def link_to!(entity, options = {})
@@ -336,6 +344,10 @@ class Entity < Ekylibre::Record::Base
       .joins("JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature = sn.entity_link_nature AND #{Subscription.table_name}.subscriber_id IN (entity_id, linked_id))")
       .where("? IN (#{Subscription.table_name}.subscriber_id, entity_id, linked_id) AND ? BETWEEN #{Subscription.table_name}.started_at AND #{Subscription.table_name}.stopped_at AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", id, computed_at)
       .maximum(:reduction_percentage).to_f || 0.0
+  end
+
+  def last_subscription(nature)
+    subscriptions.where(nature: nature).order(stopped_on: :desc).first
   end
 
   def picture_path(style = :original)

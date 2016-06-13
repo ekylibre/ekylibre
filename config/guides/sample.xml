@@ -4,13 +4,13 @@
     <section name="general_checkup">
       <test name="you_have_configured_your_own_email" test="current_user.email != 'admin@ekylibre.org'"/>
       <section name="trade_checkup">
-	<test name="you_have_clients" mandatory="false">
-	  <when test="Entity.clients.order(:id).first.created_at - Time.now &lt; 3.months" passed="false" advice="too_early_to_say"/>
-	  <when test="Entity.clients.count &lt; 15" passed="false" advice="review_your_marketing_strategy"/>
-	  <when test="Entity.clients.order(:id).first.created_at - Time.now &gt; 12.months and Entity.clients.count &lt; 100" passed="false" advice="review_your_marketing_strategy"/>
-	  <when test="Entity.clients.order(:id).first.created_at - Time.now &lt; 12.months and Entity.clients.count &lt; 100" passed="true" advice="clients_begins_to_come_so_continue"/>
-	  <otherwise passed="true"/>
-	</test>
+        <test name="you_have_clients" mandatory="false">
+          <when test="Entity.clients.order(:id).first.created_at - Time.now &lt; 3.months" passed="false" advice="too_early_to_say"/>
+          <when test="Entity.clients.count &lt; 15" passed="false" advice="review_your_marketing_strategy"/>
+          <when test="Entity.clients.order(:id).first.created_at - Time.now &gt; 12.months and Entity.clients.count &lt; 100" passed="false" advice="review_your_marketing_strategy"/>
+          <when test="Entity.clients.order(:id).first.created_at - Time.now &lt; 12.months and Entity.clients.count &lt; 100" passed="true" advice="clients_begins_to_come_so_continue"/>
+          <otherwise passed="true"/>
+        </test>
       </section>
     </section>
   </sections>
