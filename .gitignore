@@ -48,6 +48,7 @@ private/*
 private/test/tmp
 private/test/reporting
 private/test/attachments
+private/test/plugins
 
 # Ignore compiled assets
 /public/assets
