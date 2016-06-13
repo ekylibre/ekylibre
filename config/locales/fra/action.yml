@@ -601,6 +601,10 @@ fra:
       index: "Synchronisations"
       run: "Lancer une synchronization: %{name}"
       show: "Synchronisation: %{name}" #?
+    backend/target_distributions:
+      edit: "Modifier la répartition: %{name}"
+      index: "Répartitions"
+      new: "Nouvelle répartition"
     backend/tasks:
       edit: "Modifier la tâche\_: %{name}"
       index: "Tâches"

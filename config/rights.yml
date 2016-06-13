@@ -24,13 +24,16 @@
 #     - "backend/activities#family"
 #     - "backend/activities#list_inspections"
 #     - "backend/activity_inspection_point_natures#autocomplete"
+#     - "backend/animals#list_target_distributions"
 #     - "backend/animals#take"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
 #     - "backend/attachments#show"
 #     - "backend/beehives#reset"
 #     - "backend/beehives#update"
+#     - "backend/building_divisions#list_target_distributions"
 #     - "backend/building_divisions#take"
+#     - "backend/buildings#list_target_distributions"
 #     - "backend/buildings#take"
 #     - "backend/cells/accountancy_balance_cells#show"
 #     - "backend/cells/calendar_cells#show"
@@ -97,7 +100,9 @@
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
 #     - "backend/dashboards#update"
+#     - "backend/equipments#list_target_distributions"
 #     - "backend/equipments#take"
+#     - "backend/fungi#list_target_distributions"
 #     - "backend/fungi#take"
 #     - "backend/golumns#reset"
 #     - "backend/golumns#show"
@@ -107,6 +112,7 @@
 #     - "backend/helps#toggle"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
+#     - "backend/land_parcels#list_target_distributions"
 #     - "backend/land_parcels#take"
 #     - "backend/map_backgrounds#create"
 #     - "backend/map_backgrounds#destroy"
@@ -119,19 +125,32 @@
 #     - "backend/map_backgrounds#toggle"
 #     - "backend/map_backgrounds#update"
 #     - "backend/map_editors#upload"
+#     - "backend/matters#list_target_distributions"
 #     - "backend/matters#take"
 #     - "backend/notifications#destroy"
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
 #     - "backend/notifications#unread"
+#     - "backend/plants#list_target_distributions"
 #     - "backend/plants#take"
+#     - "backend/product_groups#list_target_distributions"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variants#detail"
 #     - "backend/product_nature_variants#quantifiers"
+#     - "backend/products#list_target_distributions"
 #     - "backend/products#take"
+#     - "backend/settlements#list_target_distributions"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
+#     - "backend/target_distributions#create"
+#     - "backend/target_distributions#destroy"
+#     - "backend/target_distributions#edit"
+#     - "backend/target_distributions#index"
+#     - "backend/target_distributions#list"
+#     - "backend/target_distributions#new"
+#     - "backend/target_distributions#update"
 #     - "backend/visuals#picture"
+#     - "backend/workers#list_target_distributions"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
 #     - "devise/confirmations#new"
@@ -801,6 +820,14 @@ financial_years:
     - "backend/financial_years#generate_last_journal_entry"
     - "backend/financial_years#new"
     - "backend/financial_years#update"
+
+first_run:
+  write:
+    dependencies:
+    - read-first_run
+  execute:
+    dependencies:
+    - read-first_run
 
 fixed_assets:
   read:

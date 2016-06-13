@@ -87,3 +87,8 @@
     -# = cobble_toolbar do |t|
       = t.new(params: { controller: :inspections, product_id: resource.id })
     = cobble_list(:inspections)
+
+  - c.cobble(:distributions) do
+    = cobble_toolbar do |t|
+      = t.new(params: {controller: :target_distributions, target_id: resource.id})
+    = cobble_list(:target_distributions)

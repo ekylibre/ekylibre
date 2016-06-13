@@ -164,6 +164,14 @@ module Backend
       t.column :value
     end
 
+    # Lists target distributions of the current product
+    list(:target_distributions, model: :target_distributions, conditions: { target_id: 'params[:id]'.c }, order: { started_at: :asc }) do |t|
+      t.column :activity
+      t.column :activity_production
+      t.column :started_at
+      t.column :stopped_at
+    end
+
     # Returns value of an indicator
     def take
       return unless @product = find_and_check

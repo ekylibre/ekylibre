@@ -690,6 +690,13 @@
         <page to="backend/prescriptions#show"/>
         <page to="backend/prescriptions#unroll"/>
         <page to="backend/prescriptions#update"/>
+        <page to="backend/target_distributions#index"/>
+        <page to="backend/target_distributions#create"/>
+        <page to="backend/target_distributions#destroy"/>
+        <page to="backend/target_distributions#edit"/>
+        <page to="backend/target_distributions#list"/>
+        <page to="backend/target_distributions#new"/>
+        <page to="backend/target_distributions#update"/>
       </item>
       <item name="analyses" icon="beaker">
         <page to="backend/analyses#index"/>
@@ -1732,6 +1739,43 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animals">
+        <page to="backend/animals#list_target_distributions"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_target_distributions"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_target_distributions"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#list_target_distributions"/>
+      </item>
+      <item name="fungi">
+        <page to="backend/fungi#list_target_distributions"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#list_target_distributions"/>
+      </item>
+      <item name="matters">
+        <page to="backend/matters#list_target_distributions"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#list_target_distributions"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#list_target_distributions"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#list_target_distributions"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#list_target_distributions"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#list_target_distributions"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get :list_readings
       get :list_members
       get :list_places
+      get :list_target_distributions
       get :take
     end
   end
@@ -798,6 +799,7 @@ Rails.application.routes.draw do
         post :run
       end
     end
+    resources :target_distributions, concerns: [:list]
 
     resources :tasks, concerns: [:list, :unroll] do
       member do

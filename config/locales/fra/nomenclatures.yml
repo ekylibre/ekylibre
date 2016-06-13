@@ -2964,7 +2964,7 @@ fra:
         hiller: "Butteuse"
         hive: "Ruche"
         hoe: "Bineuse"
-        hoe_weeder: "Désherbineuse"
+        hoe_weeder: "Désherbineuse" #?
         horse_compost: "Compost de cheval"
         horse_herd: "Troupeau de chevaux"
         horse_manure: "Fumier de cheval"
@@ -3425,7 +3425,7 @@ fra:
         hiller: "Butteuse"
         hive: "Ruche"
         hoe: "Bineuse"
-        hoe_weeder: "Désherbineuse"
+        hoe_weeder: "Désherbineuse" #?
         honey: "Miel"
         horse_herd: "Troupeau de chevaux"
         hydraulic_oil: "Huile hydraulique"

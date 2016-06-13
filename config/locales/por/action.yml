@@ -493,6 +493,10 @@ por:
     backend/synchronizations:
       index: "Sincronizações"
       # run: "Run synchronization: %{name}"
+    backend/target_distributions:
+      # edit: "Edit target distribution: %{name}"
+      # index: "Target distributions"
+      # new: "New target distribution"
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Tarefas"
