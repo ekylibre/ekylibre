@@ -153,6 +153,7 @@ fra:
     herd: "Troupeau"
     hiller: "Butteuse"
     hive: "Ruche"
+    hoeing_weeder: "Désherbineuse"
     implanter: "Planteuse"
     implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
@@ -307,6 +308,7 @@ fra:
     calving_one: "Vêlage unique" #?
     calving_twin: "Vêlage jumeaux" #?
     chaptalization: "Chaptalisation"
+    chemical_mechanical_weeding: "Désherbinage"
     chemical_weed_killing: "Désherbage chimique" #?
     complete_wine_transfer: "Transfert de vin (Complet)"
     crop_residues_grinding: "Broyage des résidus de culture"
