@@ -312,7 +312,7 @@ fra:
     chemical_weed_killing: "Désherbage chimique" #?
     complete_wine_transfer: "Transfert de vin (Complet)"
     crop_residues_grinding: "Broyage des résidus de culture"
-    cutting: "Taille"
+    cutting: "Taille/Effeuillage"
     detach: "Détellage" #?
     detasseling: "Castration"
     direct_silage: "Ensilage direct"
