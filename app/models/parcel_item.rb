@@ -117,7 +117,14 @@ class ParcelItem < Ekylibre::Record::Base
     true
   end
 
-  protect(allow_update_on: ["product_localization_id", "product_enjoyment_id", "product_ownership_id", "updated_at"]) do
+  allowed = [
+              "product_localization_id",
+              "product_enjoyment_id",
+              "product_ownership_id",
+              "purchase_item_id",
+              "updated_at",
+            ]
+  protect(allow_update_on: allowed) do
     parcel_prepared? || parcel_given?
   end
 
