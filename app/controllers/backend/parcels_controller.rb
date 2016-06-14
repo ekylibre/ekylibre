@@ -77,7 +77,7 @@ module Backend
     list(conditions: parcels_conditions, order: { planned_at: :desc }) do |t|
       t.action :invoice, on: :both, method: :post, if: :invoiceable?
       t.action :ship,    on: :both, method: :post, if: :shippable?
-      t.action :edit
+      t.action :edit,    on: :both, method: :get, if: :updateable?
       t.action :destroy
       t.column :number, url: true
       t.column :reference_number, hidden: true
