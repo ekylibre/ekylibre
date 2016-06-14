@@ -96,10 +96,11 @@ fra:
     corks_to_use: "Bouchons à utiliser" #?
     corn_topper: "Castreuse"
     cover_implanter: "Plastifieuse"
+    crop: "Culture"
     cropper: "Outil de récolte"
     cropper_driver: "Conducteur de l'outil de récolte"
     cultivation: "Parcelle / Culture"
-    cultivator: "Cultivateur"
+    cultivator: "Cultivateur" #?
     cutter: "Outil de taille"
     destination_tank: "Cuve de destination"
     doer: "Opérateur"
@@ -153,6 +154,7 @@ fra:
     herd: "Troupeau"
     hiller: "Butteuse"
     hive: "Ruche"
+    hoe: "Bineuse"
     hoeing_weeder: "Désherbineuse"
     implanter: "Planteuse"
     implanter_man: "Planteur"
@@ -351,6 +353,7 @@ fra:
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"
+    inter-row hoeing: "Binage inter-rangs"
     item_replacement: "Remplacement de pièce" #?
     land_parcel_grinding: "Broyage du sol"
     lifting: "Soulevage"

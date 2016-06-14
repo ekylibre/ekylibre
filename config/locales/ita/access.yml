@@ -36,6 +36,7 @@ ita:
       events: "eventi"
       exports: "esportazioni"
       financial_years: "esercizi"
+      # first_run: "First run"
       fixed_assets: "immobilizzazioni"
       fungi: "funghi"
       gaps: "lacune"

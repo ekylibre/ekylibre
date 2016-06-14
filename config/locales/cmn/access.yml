@@ -36,6 +36,7 @@ cmn:
       events: "活动"
       exports: "出口"
       financial_years: "财政年度"
+      # first_run: "First run"
       fixed_assets: "固定资产"
       fungi: "真菌"
       gaps: "差距"

@@ -36,6 +36,7 @@ arb:
       events: "أحداث"
       exports: "صادرات"
       financial_years: "السنوات المالية"
+      # first_run: "First run"
       fixed_assets: "أصول ثابتة"
       fungi: "الفطريات"
       gaps: "ثغرات"
