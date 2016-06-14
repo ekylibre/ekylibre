@@ -22,21 +22,24 @@
   = f.attachments
   -# = f.object.errors.inspect
 
-= field_set resource_model.human_attribute_name(:items) do
-  %table.list
-    %thead
-      %tr
-        %th.act
-        %th= ParcelItem.human_attribute_name(:product)
-        -# %th= ParcelItem.human_attribute_name(:parted)
-        %th= ParcelItem.human_attribute_name(:quantity)
-        -# %th= ParcelItem.human_attribute_name(:shape)
-        %th= ParcelItem.human_attribute_name(:analysis)
 
-    %tbody#items
-      = f.simple_fields_for :items, resource.items do |item|
-        = render item_partial, f: item
-    %tfoot
-      %tr.total
-        %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items, partial: item_partial, 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
+- if f.object.items.any?(&:updateable?)
+  = field_set resource_model.human_attribute_name(:items) do
+    %table.list
+      %thead
+        %tr
+          %th.act
+          %th= ParcelItem.human_attribute_name(:product)
+          -# %th= ParcelItem.human_attribute_name(:parted)
+          %th= ParcelItem.human_attribute_name(:quantity)
+          -# %th= ParcelItem.human_attribute_name(:shape)
+          %th= ParcelItem.human_attribute_name(:analysis)
+
+      %tbody#items
+        = f.simple_fields_for :items, resource.items do |item|
+          - if item.object.updateable?
+            = render item_partial, f: item
+      %tfoot
+        %tr.total
+          %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items, partial: item_partial, 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
 
