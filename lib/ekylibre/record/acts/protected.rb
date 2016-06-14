@@ -24,7 +24,6 @@ module Ekylibre::Record
             code << "def raise_exception_unless_#{callback}able?\n"
             code << "  unless self.#{callback}able?\n"
             if options[:"allow_#{callback}_on"]
-              puts options.to_s.yellow
               code << "  if self.changed.any? { |e| !"+options[:"allow_#{callback}_on"].to_s+".include? e }\n"
             end
             code << "      raise RecordNot#{callback.to_s.camelcase}able.new('Record cannot be #{callback}d', self)\n"
@@ -37,9 +36,7 @@ module Ekylibre::Record
             code << "def #{callback}able?\n"
             code << "  !#{method_name}\n"
             code << "end\n"
-            if options[:"allow_#{callback}_on"]
-              puts code.split("\n").map(&:yellow).join("\n")
-            end
+
             define_method(method_name, &block) if block_given?
           end
           class_eval code
