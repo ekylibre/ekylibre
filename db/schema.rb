@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602123611) do
+ActiveRecord::Schema.define(version: 20160607094539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2530,6 +2530,24 @@ ActiveRecord::Schema.define(version: 20160602123611) do
   add_index "product_nature_category_taxations", ["updater_id"], name: "index_product_nature_category_taxations_on_updater_id", using: :btree
   add_index "product_nature_category_taxations", ["usage"], name: "index_product_nature_category_taxations_on_usage", using: :btree
 
+  create_table "product_nature_variant_components", force: :cascade do |t|
+    t.integer  "variant_id",                   null: false
+    t.integer  "piece_variant_id",             null: false
+    t.string   "name",                         null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",     default: 0, null: false
+  end
+
+  add_index "product_nature_variant_components", ["created_at"], name: "index_product_nature_variant_components_on_created_at", using: :btree
+  add_index "product_nature_variant_components", ["creator_id"], name: "index_product_nature_variant_components_on_creator_id", using: :btree
+  add_index "product_nature_variant_components", ["piece_variant_id"], name: "index_product_nature_variant_components_on_piece_variant_id", using: :btree
+  add_index "product_nature_variant_components", ["updated_at"], name: "index_product_nature_variant_components_on_updated_at", using: :btree
+  add_index "product_nature_variant_components", ["updater_id"], name: "index_product_nature_variant_components_on_updater_id", using: :btree
+  add_index "product_nature_variant_components", ["variant_id"], name: "index_product_nature_variant_components_on_variant_id", using: :btree
+
   create_table "product_nature_variant_readings", force: :cascade do |t|
     t.integer  "variant_id",                                                                                                          null: false
     t.string   "indicator_name",                                                                                                      null: false
@@ -2561,25 +2579,27 @@ ActiveRecord::Schema.define(version: 20160602123611) do
   add_index "product_nature_variant_readings", ["variant_id"], name: "index_product_nature_variant_readings_on_variant_id", using: :btree
 
   create_table "product_nature_variants", force: :cascade do |t|
-    t.integer  "category_id",                          null: false
-    t.integer  "nature_id",                            null: false
+    t.integer  "category_id",                                                   null: false
+    t.integer  "nature_id",                                                     null: false
     t.string   "name"
     t.string   "number"
-    t.string   "variety",                              null: false
+    t.string   "variety",                                                       null: false
     t.string   "derivative_of"
     t.string   "reference_name"
-    t.string   "unit_name",                            null: false
-    t.boolean  "active",               default: false, null: false
+    t.string   "unit_name",                                                     null: false
+    t.boolean  "active",                                        default: false, null: false
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",         default: 0,     null: false
+    t.integer  "lock_version",                                  default: 0,     null: false
     t.jsonb    "custom_fields"
+    t.decimal  "lifespan",             precision: 19, scale: 4
+    t.decimal  "working_lifespan",     precision: 19, scale: 4
   end
 
   add_index "product_nature_variants", ["category_id"], name: "index_product_nature_variants_on_category_id", using: :btree

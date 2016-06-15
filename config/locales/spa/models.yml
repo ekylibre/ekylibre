@@ -245,6 +245,7 @@ spa:
       product_nature_category: "Categoria de producto"
       product_nature_category_taxation: "Tipo de producto categoría de los impuestos"
       product_nature_variant: "Tipo de producto variante"
+      # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "Variante de la lectura tipo de producto"
       product_ownership: "Propiedad del producto"
       product_phase: "Fase Producto"

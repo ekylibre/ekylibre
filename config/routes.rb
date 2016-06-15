@@ -677,10 +677,13 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :product_nature_variant_components, concerns: [:autocomplete], only: []
+
     resources :product_nature_variants, concerns: [:incorporate, :list, :picture, :unroll] do
       member do
         get :detail
         get :list_catalog_items
+        get :list_components
         get :list_parcel_items
         get :list_products
         get :list_sale_items

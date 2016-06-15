@@ -244,6 +244,7 @@ deu:
       product_nature_category: "Produktkategorie"
       product_nature_category_taxation: "Produkttyp Kategorie Besteuerung"
       product_nature_variant: "Produkttyp Variante"
+      # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "Produkttyp Variante Lesung"
       product_ownership: "Artikel Eigentum"
       product_phase: "Produktphase"

@@ -481,6 +481,8 @@ eng:
       new: "New product category"
       pick: "Pick product category"
       show: "Product category: %{name}"
+    backend/product_nature_variant_components:
+      # autocomplete: "Autocomplete product nature variant component: %{name}"
     backend/product_nature_variants:
       # detail: "Detail product nature variant: %{name}"
       edit: "Edit product variant: %{name}"
@@ -786,6 +788,7 @@ eng:
     add_bank_statement: "Add bank statement"
     add_catalog_price: "Add catalog price"
     add_choice: "Add choice"
+    add_component: "Add component"
     add_condition: "Add condition"
     add_conditions: "Add conditions"
     add_delivery: "Add delivery"
@@ -927,6 +930,7 @@ eng:
     columns: "Columns to import"
     commission: "Commission"
     company: "Society" #?
+    # components: "Components"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"

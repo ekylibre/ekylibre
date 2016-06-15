@@ -899,6 +899,7 @@ arb:
     add_bank_statement: "إضافة كشف حساب بنكي"
     add_catalog_price: "إضافة سعر كتالوج"
     add_choice: "إضافة خيار"
+    # add_component: "Add component"
     add_condition: "اضافة شرط"
     add_conditions: "اضف شروط"
     add_delivery: "اضافة وسيلة نقل"

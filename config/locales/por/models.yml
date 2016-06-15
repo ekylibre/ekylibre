@@ -244,6 +244,7 @@ por:
       product_nature_category: "Categoria de Produto"
       product_nature_category_taxation: "Tributação categoria tipo de produto"
       product_nature_variant: "Variante tipo de produto"
+      # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "Leitura variante tipo de produto"
       product_ownership: "Propriedade do produto"
       product_phase: "Produto fase"

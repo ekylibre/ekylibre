@@ -697,6 +697,7 @@ spa:
     add_bank_statement: "Añadir estado de cuenta bancaria"
     add_catalog_price: "Añadir precio de catálogo"
     add_choice: "Añadir elección"
+    # add_component: "Add component"
     add_condition: "Añadir condición"
     add_conditions: "Añadir condiciones"
     add_delivery: "Añadir la entrega"

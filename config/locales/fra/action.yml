@@ -773,6 +773,7 @@ fra:
     add_bank_statement: "Ajouter un relevé de compte"
     add_catalog_price: "Ajouter un prix catalogue"
     add_choice: "Ajouter un choix"
+    add_component: "Ajouter un composant"
     add_condition: "Ajouter la condition"
     add_conditions: "Ajoutez des conditions"
     add_delivery: "Ajouter une livraison"

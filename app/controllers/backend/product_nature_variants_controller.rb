@@ -95,6 +95,11 @@ module Backend
       t.column :population
     end
 
+    list(:components, model: :product_nature_variant_component, conditions: { variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :name
+      t.column :piece_variant, url: true
+    end
+
     # Returns quantifiers for a given variant
     def quantifiers
       return unless @product_nature_variant = find_and_check

@@ -696,6 +696,7 @@ ita:
     add_bank_statement: "Aggiungere estratto conto bancario"
     add_catalog_price: "Aggiungere prezzo di catalogo"
     add_choice: "Aggiungere scelta"
+    # add_component: "Add component"
     add_condition: "Aggiungere condizioni"
     add_conditions: "Aggiungere condizioni"
     add_delivery: "Aggiungere consegna"

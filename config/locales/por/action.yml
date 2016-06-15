@@ -635,6 +635,7 @@ por:
     add_bank_statement: "Adicionar extrato bancário"
     add_catalog_price: "Adicionar preço de catálogo"
     add_choice: "Adicionar escolha"
+    # add_component: "Add component"
     add_condition: "Adicionar condição"
     add_conditions: "Adicionar condições"
     add_delivery: "Adicionar entrega"

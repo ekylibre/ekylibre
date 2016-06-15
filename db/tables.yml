@@ -4807,6 +4807,36 @@ product_nature_category_taxations:
   usage:
     type: string
     required: true
+product_nature_variant_components:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  piece_variant_id:
+    type: integer
+    references: product_nature_variant
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  variant_id:
+    type: integer
+    references: product_nature_variant
+    required: true
 product_nature_variant_readings:
   absolute_measure_value_unit:
     type: string
@@ -4899,6 +4929,10 @@ product_nature_variants:
   id:
     type: integer
     required: true
+  lifespan:
+    type: decimal
+    precision: 19
+    scale: 4
   lock_version:
     type: integer
     required: true
@@ -4932,6 +4966,10 @@ product_nature_variants:
   variety:
     type: string
     required: true
+  working_lifespan:
+    type: decimal
+    precision: 19
+    scale: 4
 product_natures:
   abilities_list:
     type: text

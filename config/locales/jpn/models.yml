@@ -244,6 +244,7 @@ jpn:
       product_nature_category: "製品カテゴリ"
       product_nature_category_taxation: "製品タイプカテゴリの課税"
       product_nature_variant: "製品タイプバリアント"
+      # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "製品タイプバリアント読み取り"
       product_ownership: "製品の所有権"
       product_phase: "生成物相"

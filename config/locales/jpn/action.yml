@@ -696,6 +696,7 @@ jpn:
     add_bank_statement: "銀行のステートメントを追加"
     add_catalog_price: "カタログ価格を追加します。"
     add_choice: "選択肢を追加"
+    # add_component: "Add component"
     add_condition: "条件を追加します。"
     add_conditions: "条件を追加します。"
     add_delivery: "配達を追加"

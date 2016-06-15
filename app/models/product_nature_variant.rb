@@ -29,6 +29,7 @@
 #  custom_fields        :jsonb
 #  derivative_of        :string
 #  id                   :integer          not null, primary key
+#  lifespan             :decimal(19, 4)
 #  lock_version         :integer          default(0), not null
 #  name                 :string
 #  nature_id            :integer          not null
@@ -42,6 +43,7 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #  variety              :string           not null
+#  working_lifespan     :decimal(19, 4)
 #
 
 class ProductNatureVariant < Ekylibre::Record::Base
@@ -52,6 +54,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
+  has_many :components, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :variant, foreign_key: :variant_id
   has_many :products, foreign_key: :variant_id
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant
   has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant
@@ -61,6 +64,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
+  validates_numericality_of :lifespan, :working_lifespan, allow_nil: true
   validates_inclusion_of :active, in: [true, false]
   validates_presence_of :category, :nature, :unit_name, :variety
   # ]VALIDATORS]
@@ -74,6 +78,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   delegate :depreciable?, :depreciation_rate, :deliverable?, :purchasable?, :saleable?, :subscribing?, :fixed_asset_depreciation_method, :fixed_asset_depreciation_percentage, :fixed_asset_account, :fixed_asset_allocation_account, :fixed_asset_expenses_account, :product_account, :charge_account, :stock_account, to: :category
 
   accepts_nested_attributes_for :products, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :components, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :readings, reject_if: proc { |params| params['measure_value_value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :catalog_items, reject_if: :all_blank, allow_destroy: true
   # acts_as_numbered

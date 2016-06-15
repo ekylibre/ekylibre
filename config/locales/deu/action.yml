@@ -630,6 +630,7 @@ deu:
     add_bank_statement: "In Kontoauszug"
     add_catalog_price: "In Katalogpreis"
     add_choice: "In Wahl"
+    # add_component: "Add component"
     add_condition: "Bedingung hinzufügen"
     add_conditions: "In Bedingungen"
     add_delivery: "In Lieferung"

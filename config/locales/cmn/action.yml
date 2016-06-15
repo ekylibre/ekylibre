@@ -630,6 +630,7 @@ cmn:
     add_bank_statement: "添加银行对账单"
     add_catalog_price: "添加目录价格"
     add_choice: "选择添加"
+    # add_component: "Add component"
     add_condition: "添加条件"
     add_conditions: "添加条件"
     add_delivery: "添加交货"

@@ -244,6 +244,7 @@ cmn:
       product_nature_category: "产品分类"
       product_nature_category_taxation: "产品类型分类征税"
       product_nature_variant: "产品类型变种"
+      # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "产品类型变种阅读"
       product_ownership: "产品所有权"
       product_phase: "品相"

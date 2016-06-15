@@ -878,6 +878,7 @@ arb:
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
       product_nature_variant: "نوع المنتج البديل"
+      # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "نوع المنتج البديل القراءة"
       product_ownership: "ملكية المنتج"
       product_phase: "مرحلة المنتج"

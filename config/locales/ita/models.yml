@@ -275,6 +275,7 @@ ita:
       product_nature_category: "Categoria di prodotto"
       product_nature_category_taxation: "Tipo di prodotto categoria fiscale"
       product_nature_variant: "Tipo di prodotto variant"
+      # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "lettura variante del tipo di prodotto"
       product_ownership: "di proprietà del prodotto"
       product_phase: "fase di prodotto"
