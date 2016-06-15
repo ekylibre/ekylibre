@@ -4,7 +4,7 @@
     - if f.object.destroyable?
       = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
   %td
-    = f.referenced_association(:variant, wrapper: :nested, source: { deliverables: true })
+    = f.referenced_association(:variant, wrapper: :nested, source: { scope: :deliverables })
     -# .errors= item.errors.inspect
   %td
     .item-quantifier
