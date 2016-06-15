@@ -124,7 +124,7 @@ class ParcelItem < Ekylibre::Record::Base
               "purchase_item_id",
               "updated_at",
             ]
-  protect(allow_update_on: allowed) do
+  protect(allow_update_on: allowed, on: [:create, :destroy, :update]) do
     parcel_prepared? || parcel_given?
   end
 
