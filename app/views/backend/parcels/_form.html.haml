@@ -23,7 +23,7 @@
   -# = f.object.errors.inspect
 
 
-- if f.object.items.any?(&:updateable?)
+- if f.object.items.new.createable? || f.object.items.any?(&:updateable?)
   = field_set resource_model.human_attribute_name(:items) do
     %table.list
       %thead
@@ -39,7 +39,8 @@
         = f.simple_fields_for :items, resource.items do |item|
           - if item.object.updateable?
             = render item_partial, f: item
-      %tfoot
-        %tr.total
-          %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items, partial: item_partial, 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
+      - if f.object.items.new.createable?
+        %tfoot
+          %tr.total
+            %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items,   partial: item_partial, 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
 

@@ -5,6 +5,9 @@ module Ekylibre::Record
   class RecordNotDestroyable < ActiveRecord::RecordNotSaved
   end
 
+  class RecordNotCreateable < ActiveRecord::RecordNotSaved
+  end
+
   module Acts #:nodoc:
     module Protected #:nodoc:
       def self.included(base)
