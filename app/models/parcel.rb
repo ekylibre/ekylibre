@@ -156,6 +156,10 @@ class Parcel < Ekylibre::Record::Base
     prepared? || given?
   end
 
+  def separated_stock?
+    separated_stock
+  end
+
   def invoiced?
     purchase.present? || sale.present?
   end

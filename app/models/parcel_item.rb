@@ -83,7 +83,7 @@ class ParcelItem < Ekylibre::Record::Base
   accepts_nested_attributes_for :product
   delegate :name, to: :product, prefix: true
   # delegate :net_mass, to: :product
-  delegate :remain_owner, :planned_at, :draft?, :ordered_at, :in_preparation?, :in_preparation_at, :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?, :internal?, to: :parcel, prefix: true
+  delegate :remain_owner, :planned_at, :draft?, :ordered_at, :in_preparation?, :in_preparation_at, :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?, :internal?, :separated_stock?, to: :parcel, prefix: true
 
   # sums :parcel, :items, :net_mass, from: :measure
 
@@ -140,17 +140,29 @@ class ParcelItem < Ekylibre::Record::Base
   # Set started_at/stopped_at in tasks concerned by preparation of item
   # It takes product in stock
   def check
+    puts "Yeah?".blue
     checked_at = parcel_prepared_at
     if parcel_incoming?
       if product
         product.update_attributes!(initial_population: quantity)
       else
-        self.product = variant.create_product!(
-          name: "#{variant.name} (#{parcel.planned_at.to_date.l})",
-          initial_population: quantity,
-          initial_container: parcel.storage,
-          initial_born_at: checked_at
-        )
+        if self.parcel_separated_stock?
+          self.product = Product.where(variant: variant)
+                                .find do |p|
+                                  !ProductLocalization.where(
+                                    product_id: p.id,
+                                    container_id: parcel.storage_id
+                                  ).empty?
+                                end
+          self.product.movements.create! delta: population
+        else
+          self.product = variant.create_product!(
+            name: "#{variant.name} (#{parcel.planned_at.to_date.l})",
+            initial_population: quantity,
+            initial_container: parcel.storage,
+            initial_born_at: checked_at
+          )
+        end
       end
     else
       if self.population != source_product.population(at: checked_at)
