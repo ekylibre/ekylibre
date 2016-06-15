@@ -88,20 +88,18 @@ class Charta::GeometryTest < ActiveSupport::TestCase
     file = File.open(fixture_files_path.join('map.gml'))
     xml = file.read
 
-    assert ::Charta::GML.valid?(xml), "GML should be valid"
+    assert ::Charta::GML.valid?(xml), 'GML should be valid'
     geom = Charta.new_geometry(xml, nil, 'gml', false)
     assert_equal 4326, geom.srid
-
   end
 
   test 'different KML format input' do
     file = File.open(fixture_files_path.join('map.kml'))
     xml = file.read
 
-    assert ::Charta::KML.valid?(xml), "KML should be valid"
+    assert ::Charta::KML.valid?(xml), 'KML should be valid'
     geom = Charta.new_geometry(xml, nil, 'kml', false)
     assert_equal 4326, geom.srid
-
   end
 
   test 'comparison and methods between 2 geometries' do
@@ -151,11 +149,11 @@ class Charta::GeometryTest < ActiveSupport::TestCase
   test 'retrieval a GeometryCollection as a valid geojson feature collection' do
     sample = 'GEOMETRYCOLLECTION(POINT(4 6),LINESTRING(4 6,7 10))'
     exp_result = {
-        type: "FeatureCollection",
-        features: [
-            { type: "Feature", properties: {}, geometry: { type: "Point", coordinates: [4, 6] } },
-            { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: [[4, 6], [7, 10]] } }
-        ]
+      type: 'FeatureCollection',
+      features: [
+        { type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [4, 6] } },
+        { type: 'Feature', properties: {}, geometry: { type: 'LineString', coordinates: [[4, 6], [7, 10]] } }
+      ]
     }.with_indifferent_access
 
     geom = Charta.new_geometry(sample)
@@ -174,6 +172,5 @@ class Charta::GeometryTest < ActiveSupport::TestCase
     end
 
     assert_equal exp_result, json_object
-
   end
 end

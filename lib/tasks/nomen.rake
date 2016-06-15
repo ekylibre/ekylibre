@@ -144,7 +144,7 @@ namespace :nomen do
 
   task srs: :environment do
     OGC_CRS_URN = {
-        '4326': 'urn:ogc:def:crs:OGC:1.3:CRS84'
+      '4326': 'urn:ogc:def:crs:OGC:1.3:CRS84'
     }.with_indifferent_access.freeze
 
     # migration file generation
@@ -152,7 +152,7 @@ namespace :nomen do
     Rake::Task['nomen:migrate:generate'].invoke
 
     # filename
-    filename = %W[#{Nomen::missing_migrations.last.number} #{Nomen::missing_migrations.last.name.downcase.split(' ').join('_')}].join('_')
+    filename = %W(#{Nomen.missing_migrations.last.number} #{Nomen.missing_migrations.last.name.downcase.split(' ').join('_')}).join('_')
     file = Nomen.migrations_path.join("#{filename}.xml")
 
     # already existing nomenclature ?
@@ -162,7 +162,7 @@ namespace :nomen do
     table = ActiveRecord::Base.connection.execute('select * from spatial_ref_sys')
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.migration name: migration_name do
-        nomenclature_name = "spatial_reference_systems"
+        nomenclature_name = 'spatial_reference_systems'
 
         unless Nomen.find(nomenclature_name).present?
           attrs = { name: nomenclature_name }
@@ -171,8 +171,8 @@ namespace :nomen do
         end
 
         properties = []
-        properties << {name: 'authority_reference', type: 'string'}
-        properties << {name: 'srid', type: 'integer', required: 'true'}
+        properties << { name: 'authority_reference', type: 'string' }
+        properties << { name: 'srid', type: 'integer', required: 'true' }
 
         # add custom properties
         properties << { name: 'urn', type: 'string' }
@@ -185,7 +185,7 @@ namespace :nomen do
         end
 
         table.each do |row|
-          auth_ref = %W[#{row['auth_name']} #{row['auth_srid']}]
+          auth_ref = %W(#{row['auth_name']} #{row['auth_srid']})
           attrs = { item: "#{nomenclature_name}##{auth_ref.join('_')}" }.with_indifferent_access
           attrs[:authority_reference] = auth_ref.join(':')
           attrs[:srid] = row['srid']
@@ -196,7 +196,7 @@ namespace :nomen do
           item = systems.find_by(srid: row['auth_srid'].to_i)
           if systems && item
             # if properties are different
-            if item.properties.length != properties.length || properties.select{ |p| attrs[p[:name]] != item.property(p[:name]).to_s }.length > 0
+            if item.properties.length != properties.length || !properties.select { |p| attrs[p[:name]] != item.property(p[:name]).to_s }.empty?
               # be sure to keep current item name
               attrs[:item] = "#{nomenclature_name}##{item.name}"
               xml.send('item-change', attrs)
@@ -212,11 +212,9 @@ namespace :nomen do
         #   attrs = { item: "#{nomenclature_name}##{item.name}" }
         #   xml.send('item-remove', attrs)
         # end
-
       end
     end
 
     File.write file, builder.to_xml
-
   end
 end

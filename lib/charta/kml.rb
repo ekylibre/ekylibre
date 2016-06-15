@@ -3,14 +3,14 @@ module Charta
   class KML
     attr_reader :srid
 
-    TAGS = %w[Point LineString Polygon MultiGeometry].freeze
+    TAGS = %w(Point LineString Polygon MultiGeometry).freeze
 
     def initialize(data, srid = :WGS84)
       @kml = if data.is_a? String
 
-                Nokogiri::XML(data.to_s.squish) do |config|
-                  config.options = Nokogiri::XML::ParseOptions::NOBLANKS
-                end
+               Nokogiri::XML(data.to_s.squish) do |config|
+                 config.options = Nokogiri::XML::ParseOptions::NOBLANKS
+               end
 
              else
                # Nokogiri::XML::Document expected
@@ -61,33 +61,30 @@ module Charta
 
       def point_to_ewkt(kml)
         return 'POINT EMPTY' if kml.css('coordinates').blank?
-        'POINT(' + kml.css('coordinates').collect{|coords| coords.content.split ','}.flatten.join(' ') + ')'
+        'POINT(' + kml.css('coordinates').collect { |coords| coords.content.split ',' }.flatten.join(' ') + ')'
       end
 
       def line_string_to_ewkt(kml)
         return 'LINESTRING EMPTY' if kml.css('coordinates').blank?
 
-        'LINESTRING(' + kml.css('coordinates').collect{|coords| coords.content.split(/\r\n|\n| /)}.flatten.reject{|a| a.length == 0}.collect { |c| c.split ',' }.collect { |dimension| %Q{#{dimension.first} #{dimension.second}} }.join(', ') + ')'
-
+        'LINESTRING(' + kml.css('coordinates').collect { |coords| coords.content.split(/\r\n|\n| /) }.flatten.reject(&:empty?).collect { |c| c.split ',' }.collect { |dimension| %(#{dimension.first} #{dimension.second}) }.join(', ') + ')'
       end
 
       def polygon_to_ewkt(kml)
         return 'POLYGON EMPTY' if kml.css('coordinates').blank?
 
-        'POLYGON(' + %w[outerBoundaryIs innerBoundaryIs].collect do |boundary|
+        'POLYGON(' + %w(outerBoundaryIs innerBoundaryIs).collect do |boundary|
           next if kml.css(boundary).empty?
 
-         '(' + kml.css(boundary).collect do |hole|
-           hole.css('coordinates').collect{|coords| coords.content.split(/\r\n|\n| /)}.flatten.reject{|a| a.length == 0}.collect { |c| c.split ',' }.collect { |dimension| %Q{#{dimension.first} #{dimension.second}} }
-         end.join(', ') + ')'
-
+          '(' + kml.css(boundary).collect do |hole|
+            hole.css('coordinates').collect { |coords| coords.content.split(/\r\n|\n| /) }.flatten.reject(&:empty?).collect { |c| c.split ',' }.collect { |dimension| %(#{dimension.first} #{dimension.second}) }
+          end.join(', ') + ')'
         end.compact.join(', ') + ')'
       end
 
-      def multigeometry_to_ewkt(kml)
-        fail :not_implemented
+      def multigeometry_to_ewkt(_kml)
+        raise :not_implemented
       end
-
     end
   end
 end

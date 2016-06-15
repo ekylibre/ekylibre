@@ -79,8 +79,8 @@ module Backend
       crops = Nomen::Unit[:unity].human_name
       water = Nomen::Unit[:liter].human_name
       area = Nomen::Unit[:square_meter].human_name
-      plantation_density_unit =  "#{crops}/#{area}".downcase
-      water_concentration_unit =  "#{water}/#{area}".downcase
+      plantation_density_unit = "#{crops}/#{area}".downcase
+      water_concentration_unit = "#{water}/#{area}".downcase
       visualization(box: { height: '100%' }) do |v|
         v.serie :main, data
         v.bubbles :marketable_net_mass, :main

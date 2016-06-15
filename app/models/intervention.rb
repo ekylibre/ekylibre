@@ -253,11 +253,11 @@ class Intervention < Ekylibre::Record::Base
       working_duration: working_periods.sum(:duration),
       whole_duration: ((stopped_at && started_at) ? (stopped_at - started_at).to_i : 0)
     )
-    self.event.update_columns(
+    event.update_columns(
       started_at: self.started_at,
-      stopped_at: self.stopped_at,
-    ) if self.event
-    self.outputs.find_each do |output|
+      stopped_at: self.stopped_at
+    ) if event
+    outputs.find_each do |output|
       product = output.product
       next unless product
       product.born_at = self.started_at
