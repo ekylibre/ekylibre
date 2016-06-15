@@ -9,7 +9,8 @@
     #nature-outgoing
       = f.referenced_association :recipient
   = f.referenced_association :address, source: :mails
-  = f.referenced_association :storage, source: :storage
+  = f.referenced_association :storage
+  = f.input :separated_stock
   = f.input :with_delivery
   = f.input :delivery_mode, as: :radio_buttons
   #delivery-mode-transporter
