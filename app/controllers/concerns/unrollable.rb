@@ -60,7 +60,12 @@ module Unrollable
       haml << "  %ul.items-list\n"
       haml << "    - items.limit(items.count > #{(max * 1.5).round} ? #{max} : #{max * 2}).each do |item|\n"
       haml << "      - item_label = #{item_label}\n"
-      haml << "      %li.item{data: {item: {label: item_label, id: item.id}}}\n"
+      haml << "      - attributes = {"
+      filters.each do |f|
+        haml << "#{f[:name]}: #{f[:expression]}, "
+      end
+      haml << "}\n"
+      haml << "      %li.item{data: {item: {label: item_label, id: item.id}.merge(attributes.to_h)}}\n"
       haml << if options[:partial]
                 "        = render '#{partial}', item: item\n"
               else
