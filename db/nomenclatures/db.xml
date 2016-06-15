@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160613154204">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160615121350">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1600,6 +1600,7 @@
       <item name="soil_nature" datatype="choice" choices="soil_natures"/>
       <item name="solar_irradiance" datatype="measure" unit="watt_per_square_meter" sampling_temporal_mode="instant"/>
       <item name="somatic_cell_concentration" datatype="measure" unit="thousand_per_milliliter"/>
+      <item name="spans_count" datatype="integer"/>
       <item name="specific_weight" datatype="measure" unit="kilogram_per_hectoliter"/>
       <item name="stakes_count" datatype="integer" gathering="proportional_to_population"/>
       <item name="subsoil_nature" datatype="choice" choices="soil_natures"/>
@@ -1609,7 +1610,7 @@
       <item name="sulfur_trioxide_concentration" datatype="measure" unit="mass_percent"/>
       <item name="surface_area_percentage" datatype="measure" unit="percent"/>
       <item name="temperature" datatype="measure" unit="celsius"/>
-      <item name="theoretical_working_speed" datatype="decimal" unit="hectare_per_hour"/>
+      <item name="theoretical_working_speed" datatype="measure" unit="hectare_per_hour"/>
       <item name="thousand_grains_mass" datatype="measure" unit="gram"/>
       <item name="tiller_count" datatype="integer"/>
       <item name="total_bacteria_concentration" datatype="measure" unit="thousand_per_milliliter"/>
@@ -1619,6 +1620,7 @@
       <item name="usage_duration" datatype="measure" unit="hour"/>
       <item name="volume_area_density" datatype="measure" unit="liter_per_square_meter"/>
       <item name="volume_density" datatype="measure" unit="centiliter_per_hectoliter"/>
+      <item name="volume_flow" datatype="measure" unit="cubic_meter_per_hour"/>
       <item name="wait_before_entering_period" datatype="measure" unit="day"/>
       <item name="wait_before_harvest_period" datatype="measure" unit="day"/>
       <item name="water_content_rate" datatype="measure" unit="mass_percent"/>
@@ -2733,6 +2735,7 @@
       <item name="internet_line_subscription" nature="radio_subscription"/>
       <item name="intership" nature="bonus_staff_expense"/>
       <item name="ip_address_subscription" nature="numeric_subscription" unit_name="domain"/>
+      <item name="irrigation_pivot" nature="irrigation_pivot" frozen_indicators_values=""/>
       <item name="irrigation_water" nature="irrigation_water" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton" unit_name="cubic_meter"/>
       <item name="jemstegaard_hazelnut" nature="hazelnut" derivative_of="corylus_avellana_jemstegaard" frozen_indicators_values="net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="jerusalem_artichoke" nature="jerusalem_artichoke" derivative_of="helianthus_tuberosus" frozen_indicators_values="net_mass: 1.00ton"/>
@@ -3178,6 +3181,7 @@
       <item name="inseminator" category="worker" variety="worker" population_counting="unitary" abilities="move, administer_inseminate(animal)" variable_indicators="geolocation" frozen_indicators=""/>
       <item name="installing_charge" category="installing_charge" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="insurance" category="insurance" variety="service" population_counting="decimal" variable_indicators=""/>
+      <item name="irrigation_pivot" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(water)" frozen_indicators="length, diameter, volume_flow, spans_count" variable_indicators="geolocation"/>
       <item name="irrigation_water" category="irrigation_water" variety="water" population_counting="decimal" variable_indicators="nitrogen_concentration, potential_hydrogen" frozen_indicators="net_volume, net_mass"/>
       <item name="jerusalem_artichoke" category="vegetable" variety="vegetable" derivative_of="helianthus_tuberosus" population_counting="decimal" abilities="feed(animal)" variable_indicators="" frozen_indicators="net_mass"/>
       <item name="lamb" category="calf" variety="ovis" population_counting="unitary" abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)" variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition" frozen_indicators="livestock_unit, reproductor" derivatives="meat"/>
@@ -3323,7 +3327,7 @@
       <item name="vial" category="animal_reproduction" variety="vial" derivative_of="animal" population_counting="integer" abilities="inseminate(animal)" variable_indicators="economical_milk_index, sex, unique_synthesis_index"/>
       <item name="walnut" category="fruit" variety="walnut" derivative_of="juglans" population_counting="decimal" variable_indicators="impurity_concentration, water_content_rate" frozen_indicators="net_mass"/>
       <item name="walnut_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(fruit), produce(straw)" variable_indicators="plant_life_state, plants_count, plants_interval, rows_interval, shape" frozen_indicators="net_surface_area" derivatives="walnut, straw"/>
-      <item name="water_spreader" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(water)" variable_indicators="application_width" frozen_indicators=""/>
+      <item name="water_spreader" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(water)" variable_indicators="application_width" frozen_indicators="length, diameter"/>
       <item name="water_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store_liquid, store(water)" frozen_indicators="nominal_storable_net_volume" variable_indicators="geolocation"/>
       <item name="weeder" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant)" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
       <item name="wheel_loader" category="equipment" variety="wheel_loader" population_counting="unitary" variable_indicators="geolocation" abilities="catch(product)"/>
@@ -9069,6 +9073,7 @@
       <item name="cubic_centimeter" dimension="volume" symbol="cm&#xB3;" a="1.0e-06"/>
       <item name="cubic_meter" dimension="volume" symbol="m&#xB3;"/>
       <item name="cubic_meter_per_hectare" dimension="volume_area_density" symbol="cm&#xB3;/ha" a="1.0e-06" d="10000.0"/>
+      <item name="cubic_meter_per_hour" dimension="volume_flow" symbol="m&#xB3;/h" d="3600.0"/>
       <item name="day" dimension="time" symbol="d" a="86400.0"/>
       <item name="degree" dimension="angle" symbol="&#xB0;" a="3.141592653589793" d="180.0"/>
       <item name="dozen" dimension="none" symbol="dz" a="12.0"/>
@@ -9106,6 +9111,7 @@
       <item name="liter" dimension="volume" symbol="l" a="0.001"/>
       <item name="liter_per_hectare" dimension="volume_area_density" symbol="l/ha" a="0.001" d="10000.0"/>
       <item name="liter_per_hour" dimension="volume_flow" symbol="l/h" a="0.001" d="3600.0"/>
+      <item name="liter_per_minute" dimension="volume_flow" symbol="l/min" a="0.001" d="60.0"/>
       <item name="liter_per_square_meter" dimension="volume_area_density" symbol="l/m&#xB2;" a="0.001"/>
       <item name="mass_percent" dimension="none" symbol="%kg" d="100.0"/>
       <item name="megawatt" dimension="power" symbol="MW" a="1000000.0"/>

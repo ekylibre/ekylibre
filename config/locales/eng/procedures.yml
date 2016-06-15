@@ -16,6 +16,7 @@ eng:
     #~ net_mass: "Net mass"
     # net_mass_in_kilogram: "Net mass in kilogram"
     # net_mass_in_ton: "Net mass in ton"
+    #~ net_surface_area: "Net surface area"
     #~ net_volume: "Net volume"
     # net_volume_in_liter: "Net volume in liter"
     # nitrogen: "Nitrogen"

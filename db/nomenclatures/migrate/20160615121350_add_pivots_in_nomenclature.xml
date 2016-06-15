@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add pivots in nomenclature">
+  <item-creation item="units#liter_per_minute" dimension="volume_flow" symbol="l/min" a="0.001" d="60"/>
+  <item-creation item="units#cubic_meter_per_hour" dimension="volume_flow" symbol="m³/h" d="3600"/>
+  <item-creation item="indicators#volume_flow" datatype="measure" unit="cubic_meter_per_hour"/>
+  <item-creation item="indicators#spans_count" datatype="integer"/>
+  <item-change item="indicators#theoretical_working_speed" datatype="measure" unit="hectare_per_hour"/>
+  <item-change item="product_natures#water_spreader" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(water)" frozen_indicators="length, diameter"/>
+  <item-creation item="product_natures#irrigation_pivot" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(water)" frozen_indicators="length, diameter, volume_flow, spans_count" variable_indicators="geolocation"/>
+  <item-creation item="product_nature_variants#irrigation_pivot" nature="irrigation_pivot" frozen_indicators_values="" unit_name="equipment"/>
+</migration>
