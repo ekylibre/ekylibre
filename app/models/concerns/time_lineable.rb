@@ -12,14 +12,15 @@ module TimeLineable
     scope :current, -> { at(Time.zone.now) }
 
     before_validation do
-      following = begin
-                    siblings.after(started_at).order(:started_at).first
+      following_object = begin
+                    following
                   rescue
                     nil
                   end
-      if started_at && following
-        self.stopped_at = following.started_at
+      if started_at && following_object
+        self.stopped_at = following_object.started_at
       else
+        self.started_at ||= Time.zone.now if other_siblings.any?
         self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, '+00:00')
         self.stopped_at = nil
       end
@@ -41,7 +42,7 @@ module TimeLineable
     end
 
     after_save do
-      if previous = siblings.before(self.started_at).reorder('started_at DESC').first || siblings.find_by(started_at: nil)
+      if previous = other_siblings.before(self.started_at).reorder('started_at DESC').first || siblings.find_by(started_at: nil)
         previous.update_column(:stopped_at, self.started_at)
       end
     end
@@ -65,20 +66,20 @@ module TimeLineable
 
   def previous
     return nil unless self.started_at
-    siblings.before(self.started_at).order(started_at: :desc).first
+    other_siblings.before(self.started_at).order(started_at: :desc).first
   end
 
   def following
     return nil unless stopped_at
-    siblings.after(self.started_at).order(started_at: :asc).first
+    followings.order(started_at: :asc).first
   end
 
   def followings
-    siblings.after(self.started_at)
+    other_siblings.after(self.started_at)
   end
 
   def has_previous?
-    siblings.before(self.started_at).any?
+    other_siblings.before(self.started_at).any?
   rescue
     false
   end
@@ -97,5 +98,11 @@ module TimeLineable
 
   def siblings
     raise NotImplementedError, 'Private method :siblings must be implemented'
+  end
+
+  def other_siblings
+    safe_id = id
+    safe_id ||= 0
+    siblings.where.not(id: safe_id)
   end
 end
