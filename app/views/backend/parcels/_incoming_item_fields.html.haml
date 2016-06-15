@@ -11,5 +11,6 @@
       .item-quantifier-population
         = f.input :population, wrapper: :nested_append do
           = f.input_field :population, class: "item-population", placeholder: (item.source_product ? item.source_product.population.to_s : nil)
-          %span.add-on.item-population-unit-name= item.variant ? item.variant.unit_name : '#'
+          %span.add-on.item-population-unit-name{data: {selector: {update: "parcel_item_variant_id", update_with: "unit-name", "use-closest": "tr"} }}
+            = item.variant ? item.variant.unit_name : '#'
   %td= f.referenced_association(:analysis, wrapper: :nested)
