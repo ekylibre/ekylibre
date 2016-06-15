@@ -140,7 +140,6 @@ class ParcelItem < Ekylibre::Record::Base
   # Set started_at/stopped_at in tasks concerned by preparation of item
   # It takes product in stock
   def check
-    puts "Yeah?".blue
     checked_at = parcel_prepared_at
     if parcel_incoming?
       if product
@@ -177,7 +176,6 @@ class ParcelItem < Ekylibre::Record::Base
       end
     end
     save!
-    puts "Yeah! #{product}".yellow
   end
 
   # Mark items as given, and so change enjoyer and ownership if needed at
