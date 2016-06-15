@@ -9,6 +9,7 @@ require 'charta/multi_polygon'
 require 'charta/bounding_box'
 require 'charta/geo_json'
 
+# Charta aims to supply easy geom/geog tools
 module Charta
   class << self
     def new_geometry(coordinates, srs = nil, format = nil, flatten_collection = true)
@@ -132,12 +133,12 @@ module Charta
 
     def clean_for_active_record(value, options = {})
       return nil if value.blank?
-      value = if value.is_a?(String) && value =~ /\A\{.*\}\z/
+      value = if value.is_a?(Hash) || (value.is_a?(String) && value =~ /\A\{.*\}\z/)
                 from_geojson(value)
               else
                 new_geometry(value)
               end
-      value.convert_to(options[:type]).to_rgeo
+      value.flatten.convert_to(options[:type]).to_rgeo
     end
 
     def from(format, data)

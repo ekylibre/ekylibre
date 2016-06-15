@@ -6,8 +6,16 @@ module Charta
     def initialize(data, srid = :WGS84)
       srid ||= :WGS84
       @json = (data.is_a?(Hash) ? data : JSON.parse(data))
-      lsrid = @json.try(:[], 'crs').try(:[],'properties').try(:[], 'name') || srid
-      @srid = Charta.find_srid(lsrid)
+      lsrid = @json.try(:[], 'crs').try(:[], 'properties').try(:[], 'name') || srid
+      @srid = ::Charta.find_srid(lsrid)
+    end
+
+    def flatten
+      self.class.flatten(@json)
+    end
+
+    def geom
+      Charta.new_geometry(to_ewkt)
     end
 
     def to_ewkt
@@ -27,6 +35,51 @@ module Charta
         new(data, srid).valid?
       rescue
         false
+      end
+
+      def flatten(hash)
+        flattened =
+          if hash['type'] == 'FeatureCollection'
+            flatten_feature_collection(hash)
+          elsif hash['type'] == 'Feature'
+            flatten_feature(hash)
+          else
+            flatten_geometry(hash)
+          end
+        new(flattened)
+      end
+
+      def flatten_feature_collection(hash)
+        hash.except('features').merge('features' => hash['features'].map { |f| flatten_feature(f) })
+      end
+
+      def flatten_feature(hash)
+        hash.except('geometry').merge('geometry' => flatten_geometry(hash['geometry']))
+      end
+
+      def flatten_geometry(hash)
+        coordinates = hash['coordinates']
+        flattened =
+          case hash['type']
+          when 'Point' then
+            flatten_position(coordinates)
+          when 'MultiPoint', 'LineString'
+            coordinates.map { |p| flatten_position(p) }
+          when 'MultiLineString', 'Polygon'
+            coordinates.map { |l| l.map { |p| flatten_position(p) } }
+          when 'MultiPolygon'
+            coordinates.map { |m| m.map { |l| l.map { |p| flatten_position(p) } } }
+          when 'GeometryCollection' then
+            return hash.except('geometries').merge('geometries' => hash['geometries'].map { |g| flatten_geometry(g) })
+          else
+            raise StandardError, "Cannot handle: #{hash['type']}"
+          end
+
+        hash.except('coordinates').merge('coordinates' => flattened)
+      end
+
+      def flatten_position(position)
+        position[0..1]
       end
 
       def object_to_ewkt(hash)

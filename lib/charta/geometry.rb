@@ -63,7 +63,7 @@ module Charta
 
     def to_svg(options = {})
       svg = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"'
-      for attr, value in { preserve_aspect_ratio: 'xMidYMid meet', width: 180, height: 180, view_box: bounding_box.svg_view_box.join(' ') }.merge(options)
+      { preserve_aspect_ratio: 'xMidYMid meet', width: 180, height: 180, view_box: bounding_box.svg_view_box.join(' ') }.merge(options).each do |attr, value|
         svg << " #{attr.to_s.camelcase(:lower)}=\"#{value}\""
       end
       svg << "><path d=\"#{to_svg_path}\"/></svg>"
@@ -94,25 +94,24 @@ module Charta
       JSON.parse(to_json(feature_collection))
     end
 
-
     # Test if the other measure is equal to self
-    def ==(other_geometry)
-      other = Charta.new_geometry(other_geometry).transform(srid)
-      return true if empty? && other.empty?
-      # fail 'Cannot compare geometry collection' if collection? && other.collection?
-      return false if collection? && other.collection?
-      select_value("SELECT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
+    def ==(other)
+      other_geometry = Charta.new_geometry(other).transform(srid)
+      return true if empty? && other_geometry.empty?
+      # fail 'Cannot compare geometry collection' if collection? && other_geometry.collection?
+      return inspect == other_geometry.inspect if collection? && other_geometry.collection?
+      select_value("SELECT ST_Equals(#{geom}, #{other_geometry.geom})") =~ /\At(rue)?\z/
     end
 
     # Test if the other measure is equal to self
-    def !=(other_geometry)
-      other = Charta.new_geometry(other_geometry).transform(srid)
-      if collection? && other.collection?
-        return true if (empty? && !other.empty?) || (!empty? && other.empty?)
+    def !=(other)
+      other_geometry = Charta.new_geometry(other).transform(srid)
+      if collection? && other_geometry.collection?
+        return true if (empty? && !other_geometry.empty?) || (!empty? && other_geometry.empty?)
         # fail 'Cannot compare geometry collection'
         return false
       end
-      select_value("SELECT NOT ST_Equals(#{geom}, #{other.geom})") =~ /\At(rue)?\z/
+      select_value("SELECT NOT ST_Equals(#{geom}, #{other_geometry.geom})") =~ /\At(rue)?\z/
     end
 
     # Returns area in square meter
@@ -143,6 +142,11 @@ module Charta
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Transform(#{geom}, #{find_srid(srid)}))"))
     end
 
+    # Returns geometry into 2-dimensional mode
+    def flatten
+      self.class.new(select_value("SELECT ST_AsEWKT(ST_Force2D(#{geom}))"))
+    end
+
     def multi_polygon
       Charta.new_geometry select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(#{geom})), 3)))")
     end
@@ -169,24 +173,24 @@ module Charta
       end
     end
 
-    # def merge!(other_geometry)
-    #   @ewkt = self.merge(other_geometry).ewkt
+    # def merge!(other)
+    #   @ewkt = self.merge(other).ewkt
     # end
 
-    def merge(other_geometry)
-      other = Charta.new_geometry(other_geometry).transform(srid)
-      self.class.new(select_value("SELECT ST_AsEWKT(ST_Union(#{geom}, #{other.geom}))"))
+    def merge(other)
+      other_geometry = Charta.new_geometry(other).transform(srid)
+      self.class.new(select_value("SELECT ST_AsEWKT(ST_Union(#{geom}, #{other_geometry.geom}))"))
     end
     alias + merge
 
-    def intersection(other_geometry)
-      other = Charta.new_geometry(other_geometry).transform(srid)
-      self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Intersection(#{geom}, #{other.geom}))), 3)))"))
+    def intersection(other)
+      other_geometry = Charta.new_geometry(other).transform(srid)
+      self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Intersection(#{geom}, #{other_geometry.geom}))), 3)))"))
     end
 
-    def difference(other_geometry)
-      other = Charta.new_geometry(other_geometry).transform(srid)
-      self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Difference(#{geom}, #{other.geom}))), 3)))"))
+    def difference(other)
+      other_geometry = Charta.new_geometry(other).transform(srid)
+      self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Difference(#{geom}, #{other_geometry.geom}))), 3)))"))
     end
     alias - difference
 
