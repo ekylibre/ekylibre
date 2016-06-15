@@ -1091,6 +1091,7 @@ eng:
     sensor: "Sensor"
     sensors: "Sensors"
     sent_at: "Sent at" #?
+    separated_stock: "Separate stock"
     serial: "Serial"
     serial_number: "Serial number"
     sessions: "Sessions"
@@ -1235,7 +1236,7 @@ eng:
     with_accounting: "With accounting"
     with_commission: "With commission"
     with_cultivation: "With cultivation"
-    # with_delivery: "With delivery"
+    with_delivery: "WIth delivery"
     with_deposit: "With deposit"
     with_supports: "With supports"
     with_transport: "With transport" #?
