@@ -489,9 +489,11 @@ jpn:
       index: "同期の"
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
+      # distribute: "Distribute products"
       # edit: "Edit target distribution: %{name}"
       # index: "Target distributions"
       # new: "New target distribution"
+      # show: "Target distribution: %{name}"
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "タスク"
@@ -1760,6 +1762,7 @@ jpn:
       destroy: "破壊する"
       detach: "デタッチ"
       detail: "詳細"
+      # distribute: "Distribute"
       down: "ダウン"
       duplicate: "複製"
       edit: "編集"

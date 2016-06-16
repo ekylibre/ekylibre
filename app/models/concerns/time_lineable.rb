@@ -21,7 +21,7 @@ module TimeLineable
         self.stopped_at = following.started_at
       else
         self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-        self.stopped_at = nil
+        self.stopped_at ||= nil
       end
     end
 

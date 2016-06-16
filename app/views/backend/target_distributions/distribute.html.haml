@@ -1,0 +1,16 @@
+= backend_form_for @target_distribution, url: backend_target_distributions_path, html: {method: :post} do |f|
+  %table
+    %thead
+      %tr
+        %th= :product.tl
+        %th= :activity_production.tl
+    %tbody
+      - @targets.each do |target|
+        %tr
+          %td= link_to target.product.name, backend_product_path(target.product)
+          = simple_fields_for 'target_distribution[collection][]', target do |target_fields|
+            = target_fields.input :target_id, as: :hidden, input_html: { value: target_fields.object.product.id }
+            %td= target_fields.input_field :activity_production_id, collection: ActivityProduction.all, selected: target.activity_production.id
+  - f.add(:submit, :create.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
+  - f.add(:link, :cancel.tl, (params[:redirect] || local_assigns[:cancel_url] || {action: :index}), (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
+  = f.actions

@@ -489,9 +489,11 @@ cmn:
       index: "同步"
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
+      # distribute: "Distribute products"
       # edit: "Edit target distribution: %{name}"
       # index: "Target distributions"
       # new: "New target distribution"
+      # show: "Target distribution: %{name}"
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "任务"
@@ -1683,6 +1685,7 @@ cmn:
       destroy: "破坏"
       detach: "分离"
       detail: "详情"
+      # distribute: "Distribute"
       down: "下"
       duplicate: "重复"
       edit: "编辑"

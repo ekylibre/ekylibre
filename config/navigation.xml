@@ -698,6 +698,7 @@
         <page to="backend/target_distributions#index"/>
         <page to="backend/target_distributions#create"/>
         <page to="backend/target_distributions#destroy"/>
+        <page to="backend/target_distributions#distribute"/>
         <page to="backend/target_distributions#edit"/>
         <page to="backend/target_distributions#list"/>
         <page to="backend/target_distributions#new"/>

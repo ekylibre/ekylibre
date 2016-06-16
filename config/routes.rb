@@ -799,7 +799,12 @@ Rails.application.routes.draw do
         post :run
       end
     end
-    resources :target_distributions, concerns: [:list]
+    resources :target_distributions, concerns: [:list] do
+      collection do
+        get :distribute
+        get :list_intervention_product_parameters
+      end
+    end
 
     resources :tasks, concerns: [:list, :unroll] do
       member do

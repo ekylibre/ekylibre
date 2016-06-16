@@ -28,6 +28,8 @@
   - c.cobble :weather do
     = cell :weather, params: {id: resource.id}
 
+  = render partial: 'distributions', locals: {c: c}
+
   -# c.cobble(:productions) do
     = cobble_list(:productions)
   -# c.cobble(:contained_products) do

@@ -602,9 +602,11 @@ fra:
       run: "Lancer une synchronization: %{name}"
       show: "Synchronisation: %{name}" #?
     backend/target_distributions:
+      distribute: "Répartir les produits"
       edit: "Modifier la répartition: %{name}"
       index: "Répartitions"
       new: "Nouvelle répartition"
+      show: "Répartition"
     backend/tasks:
       edit: "Modifier la tâche\_: %{name}"
       index: "Tâches"
@@ -2301,6 +2303,7 @@ fra:
       destroy: "Supprimer"
       detach: "Détacher"
       detail: "Détail"
+      distribute: "Répartir les produits non affectés"
       down: "Descendre"
       draft: "Brouillon" #?
       duplicate: "Dupliquer"

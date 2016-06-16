@@ -1,0 +1,13 @@
+.target-distributions
+  .target-distribution
+    .target-distribution-chronology
+      .chronology
+        .grades
+          - grades.each_with_index do |grade, index|
+            .grade{style: "left: #{(100 * index.to_f / grades.count.to_f).round(4)}%", class: (grade.month == 1 ? 'grade-start' : 'grade-middle') + ' ' + ((index == 0 || grade.month == 1) ? 'grade-year' : 'grade-month')}= ((index == 0 || grade.month == 1) ? grade.year.to_s : I18n.t('date.abbr_month_names')[grade.month])
+        .periods
+          - distributions.each do |distribution|
+            :ruby
+              started_at = (distribution.started_on_for(distribution.target) - period_started_on).to_f / duration
+              width = (distribution.stopped_on_for(distribution.target) - distribution.started_on_for(distribution.target)).to_f / duration
+            = link_to('', { action: :show, controller: :target_distributions, id: distribution.id }, style: "left: #{100 * started_at.round(6)}%; width: #{100 * width.round(6)}%; background-color: #{distribution.activity_production.activity.color};", class: "period rounded #{'without-left' if started_at == 0}#{' without-right' if started_at + width >=1}", title: distribution.activity_production.name)

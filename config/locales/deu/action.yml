@@ -489,9 +489,11 @@ deu:
       index: "Synchronisationen"
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
+      # distribute: "Distribute products"
       # edit: "Edit target distribution: %{name}"
       # index: "Target distributions"
       # new: "New target distribution"
+      # show: "Target distribution: %{name}"
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Aufgaben"
@@ -1682,6 +1684,7 @@ deu:
       destroy: "Zerstören"
       detach: "ablösen"
       # detail: "Detail"
+      # distribute: "Distribute"
       down: "nach unten"
       duplicate: "Duplikat"
       edit: "Bearbeiten"

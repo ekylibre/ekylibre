@@ -622,9 +622,11 @@ eng:
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
     backend/target_distributions:
+      distribute: "Distribute products"
       edit: "Edit target distribution: %{name}"
       index: "Target distributions"
       new: "New target distribution"
+      show: "Target distribution: %{name}"
     backend/tasks:
       edit: "Edit task: %{name}"
       # finish: "Finish task: %{name}"
@@ -782,7 +784,7 @@ eng:
     activity: "Activity"
     activity_family: "Family activities" #?
     activity_name: "Activity" #?
-    activity_production: "Activity production" #?
+    activity_production: "Activity production"
     activity_productions: "Activity productions"
     add: "Add"
     add_annotation: "Add annotation"
@@ -1855,6 +1857,7 @@ eng:
       destroy: "Destroy"
       detach: "Detach"
       detail: "Detail"
+      distribute: "Distribute unaffected products"
       down: "Down"
       duplicate: "Duplicate"
       edit: "Edit"
