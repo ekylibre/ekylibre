@@ -452,10 +452,10 @@ eng:
       # new: "New plant density abacus"
       # show: "Plant density abacus: %{name}"
     backend/plants:
-      edit: "Edit plant: %{name}"
-      index: "Plants"
-      new: "New plant"
-      show: "Plant: %{name}"
+      edit: "Edit crop: %{name}"
+      index: "Crops"
+      new: "New crop"
+      show: "Crop: %{name}"
       # take: "Take plant: %{name}"
     backend/postal_zones:
       # autocomplete: "Autocomplete postal zone: %{name}"
@@ -1340,9 +1340,9 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
-    plant: "Plant" #?
+    plant: "Crop" #?
     plantation_density: "Plantation density" #?
-    plants: "Plants" #?
+    plants: "Crops" #?
     please_wait: "Please wait…"
     point: "Point" #?
     points: "Points"
