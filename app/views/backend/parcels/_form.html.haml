@@ -10,7 +10,8 @@
       = f.referenced_association :recipient, required: true
   = f.referenced_association :address, source: :mails
   = f.referenced_association :storage, required: f.object.incoming?
-  = f.input :separated_stock
+  - if f.object.incoming?
+    = f.input :separated_stock
   = f.input :with_delivery
   = f.input :delivery_mode, as: :radio_buttons
   #delivery-mode-transporter
