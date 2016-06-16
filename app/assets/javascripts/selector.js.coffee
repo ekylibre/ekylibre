@@ -343,13 +343,8 @@
         updateSource = $(this)
           .closest($(this).data("selector-use-closest"))
           .find("*[data-selector-id='"+$(this).data("selector-update")+"']")[0]
-        console.log updateSource
-        console.log changeEvent.target
         if updateSource == changeEvent.target
-          console.log(changeEvent)
           if value
-            console.log(value)
-            console.log($(value).data("item-"+$(this).data("selector-update-with")))
             $(this).html $(value).data("item-"+$(this).data("selector-update-with"))
   return
 ) ekylibre, jQuery
