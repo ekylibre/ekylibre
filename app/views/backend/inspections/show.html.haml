@@ -25,13 +25,13 @@
           %span.title= Inspection.human_attribute_name(:marketable_net_mass)
           %span.value= resource.marketable_net_mass.round(0).l(precision: 0)
         .med-info
-          %span.title= Inspection.human_attribute_name(:marketable_yield)
+          %span.title= Inspection.human_attribute_name(:marketable_net_yield)
           %span.value= resource.marketable_yield.round(0).l(precision: 0)
         .med-info
-          %span.title= Inspection.human_attribute_name(:total_net_mass)
+          %span.title= Inspection.human_attribute_name(:gross_mass)
           %span.value= resource.total_net_mass.round(0).l(precision: 0)
         .med-info
-          %span.title= Inspection.human_attribute_name(:net_mass_yield)
+          %span.title= Inspection.human_attribute_name(:gross_yield_value)
           %span.value= resource.net_mass_yield.round(0).l(precision: 0)
 
   - if resource.calibrations.any? && resource.calibrations.sum(:net_mass_value) > 0

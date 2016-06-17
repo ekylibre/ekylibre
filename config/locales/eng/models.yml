@@ -625,6 +625,8 @@ eng:
     grading_sizes_unit_name: "Grading sizes unit name"
     gradings: "Gradings" #?
     gravity: "Gravity"
+    gross_mass: "Gross mass" #?
+    gross_yield_value: "Gross yield value" #?
     group: "Group"
     group_parameters: "Group parameters"
     groups: "Groups"
@@ -786,6 +788,7 @@ eng:
     manure_management_plan_zones: "Manure management plan zones"
     marketable: "Marketable"
     marketable_net_mass: "Marketable net mass"
+    marketable_net_yield: "Marketable net yield" #?
     marketable_yield: "Marketable yield"
     mass: "Mass (kg)" #?
     max_zoom: "Max zoom"
