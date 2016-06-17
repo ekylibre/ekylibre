@@ -50,7 +50,7 @@
                   y = calibration.marketable_net_mass.round(0).to_d(unit)
                   data << { name: calibration.name, y: y.to_s.to_f }
                 end
-              %td{style: 'width: 50%' }= pie_highcharts({ name: scale.name, data: data }, y_axis: {title: {text: "#{symbol_measure}"}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"} ,plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+              %td{style: 'width: 50%' }= pie_highcharts({ name: scale.name, data: data }, y_axis: {title: {text: "#{symbol_measure}"}}, legend: true, tooltip: {point_format: "{point.y: 1f} : <b>{point.percentage:.1f}%</b>"} ,plot_options: { pie: {allow_point_select: true, data_labels: {enabled: true, format: "<b>{point.name}</b>: {point.percentage:.1f} %"}}})
               :ruby
                 net_surface_area = resource.product_net_surface_area_value
                 data = []
