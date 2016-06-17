@@ -694,6 +694,7 @@ Rails.application.routes.draw do
       member do
         get :list_items
         get :list_parcels
+        post :generate_parcel
         post :abort
         post :confirm
         post :correct
