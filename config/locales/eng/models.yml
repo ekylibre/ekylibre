@@ -40,6 +40,7 @@ eng:
       messages:
         accepted: "%{attribute} must be accepted"
         after: "%{attribute} must be after %{restriction}"
+        animals_in_parcel: "Animals should be sent one by one"
         before: "%{attribute} must be before %{restriction}"
         blank: "%{attribute} can't be blank"
         confirmation: "%{attribute} doesn't match confirmation"
