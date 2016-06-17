@@ -292,6 +292,20 @@ class ProductNatureVariant < Ekylibre::Record::Base
     matching_model.create!(attributes.merge(variant: self))
   end
 
+  def take(quantity)
+    products.mine.reduce({}) do |result, product|
+      reminder = quantity - result.values.sum
+      if reminder > 0
+        result[product] = [product.population, reminder].min
+      end
+      result
+    end
+  end
+
+  def take!(quantity)
+    raise "errors.not_enough".t if take(quantity).values.sum < quantity
+  end
+
   # Returns last purchase item for the variant
   # and a given supplier if any, or nil if there's
   # no purchase item matching criterias

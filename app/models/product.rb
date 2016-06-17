@@ -214,6 +214,8 @@ class Product < Ekylibre::Record::Base
   scope :storage, -> { can('store(product)') } #-> { of_variety([:building_division, :equipment]) }
   scope :plants, -> { where(type: 'Plant') }
 
+  scope :mine, -> { of_owner(Entity.of_company) }
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
