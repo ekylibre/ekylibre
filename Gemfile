@@ -13,6 +13,9 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'apartment', '~> 1.0.0', '< 2.0'
 gem 'apartment-sidekiq'
 
+# Ruby functionalities extension
+gem 'possibly'
+
 # Code manipulation
 gem 'code_string'
 gem 'charlock_holmes'
