@@ -263,6 +263,13 @@ class Intervention < Ekylibre::Record::Base
       product.born_at = self.started_at
       product.initial_born_at = product.born_at
       product.save!
+
+      movement = output.product_movement
+      next unless movement
+      movement.started_at = self.started_at
+      movement.stopped_at = self.stopped_at
+      movement.save!
+
     end
   end
 
