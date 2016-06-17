@@ -691,6 +691,7 @@ eng:
   errors:
     format: "%{message}"
     messages:
+      not_enough: "not enough %{resource} to complete task"
       already_confirmed: "was already confirmed, please try signing in"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
