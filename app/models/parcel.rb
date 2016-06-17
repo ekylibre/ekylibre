@@ -55,7 +55,7 @@
 class Parcel < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :nature, in: [:incoming, :outgoing, :internal], predicates: true, scope: true, default: :incoming
+  enumerize :nature, in: [:incoming, :outgoing], predicates: true, scope: true, default: :incoming
   enumerize :delivery_mode, in: [:transporter, :us, :third], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
@@ -178,6 +178,10 @@ class Parcel < Ekylibre::Record::Base
 
   def shippable?
     with_delivery && !delivery.present?
+  end
+
+  def allow_items_update?
+    !prepared? && !given?
   end
 
   def address_coordinate
