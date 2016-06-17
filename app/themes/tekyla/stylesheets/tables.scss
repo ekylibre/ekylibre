@@ -44,6 +44,11 @@ table {
     td {
       border-top: $row-border;
     }
+    tr.no-border{
+      td {
+        border: none;
+      }
+    }
     tr:first-child {
       td {
         border: none;
