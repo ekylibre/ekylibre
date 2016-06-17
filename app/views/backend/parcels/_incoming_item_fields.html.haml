@@ -1,4 +1,7 @@
 - item ||= f.object
+- source_product = Maybe(item.source_product)
+- variant = source_product.variant
+
 %tbody.nested-fields.delivery-item.incoming-parcel-item
   %tr
     %td.act
@@ -11,12 +14,12 @@
       .item-quantifier
         .item-quantifier-population
           = f.input :population, wrapper: :nested_append do
-            = f.input_field :population, class: "item-population", placeholder: (item.source_product ? item.source_product.population.to_s : nil), data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
+            = f.input_field :population, class: "item-population", placeholder: (source_product.population.or_else(nil).to_s), data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
             %span.add-on.item-population-unit-name{data: {selector: {update: "parcel_item_variant_id", update_with: "unit-name", "use-closest": "tr"} }}
-              = item.variant ? item.variant.unit_name : '#'
+              = variant.unit_name.or_else('#')
     %td= f.referenced_association(:analysis, wrapper: :nested)
 
-  - display = "display: none;" if !Maybe(f.object.variant).population_counting_unitary?.or_else(false)
+  - display = "display: none;" unless variant.population_counting_unitary?.or_else(false)
   %tr.no-border{style: display, data: {"when-item": "unitary", "when-display-value": 'true'}}
     %td
     %td
