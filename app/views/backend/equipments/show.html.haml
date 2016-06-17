@@ -29,10 +29,22 @@
       %span.title= Equipment.human_attribute_name(:working_duration)
       %span.value
         %i.picto{class: "picto-timelapse"}
-        = :x_hours.tl(count: resource.working_duration(as: :tool)/3600)
-    - if resource.description
-      %span.title= Equipment.human_attribute_name(:description)
-      %span.value= resource.description
+        = resource.working_time.in_hour.l precision: 1
+  - if resource.remaining_working_lifespan
+    .med-info
+      %span.title= Equipment.human_attribute_name(:remaining_working_lifespan)
+      %span.value
+        %i.picto{class: "picto-timelapse"}
+        = resource.remaining_working_lifespan.in_hour.l precision: 1
+  - if resource.remaining_lifespan
+    .med-info
+      %span.title= Equipment.human_attribute_name(:remaining_lifespan)
+      %span.value
+        %i.picto{class: "picto-timelapse"}
+        = resource.remaining_lifespan.in_hour.l precision: 1
+  - if resource.description
+    %span.title= Equipment.human_attribute_name(:description)
+    %span.value= resource.description
 
 = cobbles do |c|
 

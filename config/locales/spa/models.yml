@@ -1003,6 +1003,8 @@ spa:
     reflections: "Reflexiones"
     remain_owner: "Permanecer propietario"
     remaining_amount: "Cantidad restante"
+    # remaining_lifespan: "Remaining lifespan"
+    # remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "Recuerde creado el"
     remember_me: "Recuérdame"
     reminder_submissive: "Recordatorio sumisa"

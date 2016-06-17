@@ -1916,6 +1916,8 @@ arb:
     remain_owner: "تبقى مالك"
     remaining_amount: "المبلغ المتبقي"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
+    # remaining_lifespan: "Remaining lifespan"
+    # remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "أتذكر إنشاؤها في"
     remember_me: "تذكرنى"
     reminder_submissive: "تذكير منقاد"

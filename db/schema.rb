@@ -2579,27 +2579,25 @@ ActiveRecord::Schema.define(version: 20160607094539) do
   add_index "product_nature_variant_readings", ["variant_id"], name: "index_product_nature_variant_readings_on_variant_id", using: :btree
 
   create_table "product_nature_variants", force: :cascade do |t|
-    t.integer  "category_id",                                                   null: false
-    t.integer  "nature_id",                                                     null: false
+    t.integer  "category_id",                          null: false
+    t.integer  "nature_id",                            null: false
     t.string   "name"
     t.string   "number"
-    t.string   "variety",                                                       null: false
+    t.string   "variety",                              null: false
     t.string   "derivative_of"
     t.string   "reference_name"
-    t.string   "unit_name",                                                     null: false
-    t.boolean  "active",                                        default: false, null: false
+    t.string   "unit_name",                            null: false
+    t.boolean  "active",               default: false, null: false
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                  default: 0,     null: false
+    t.integer  "lock_version",         default: 0,     null: false
     t.jsonb    "custom_fields"
-    t.decimal  "lifespan",             precision: 19, scale: 4
-    t.decimal  "working_lifespan",     precision: 19, scale: 4
   end
 
   add_index "product_nature_variants", ["category_id"], name: "index_product_nature_variants_on_category_id", using: :btree

@@ -23,10 +23,10 @@
   = f.picture
   = f.custom_fields
 
+
 - if f.object.readings.any?
   = field_set(:indicators) do
     = f.nested_association(:readings, new: false)
 
 = field_set(:components) do
   = f.nested_association(:components)
-  

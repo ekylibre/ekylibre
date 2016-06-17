@@ -231,17 +231,17 @@ class Product < Ekylibre::Record::Base
   acts_as_numbered force: true
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
-           to: :variant, prefix: true
+  to: :variant, prefix: true
   delegate :unit_name, to: :variant
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
-           :deliverable?, :asset_account, :product_account, :charge_account,
-           :stock_account, :population_counting, :population_counting_unitary?,
-           to: :nature
+  :deliverable?, :asset_account, :product_account, :charge_account,
+  :stock_account, :population_counting, :population_counting_unitary?,
+  to: :nature
   delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list,
-           :abilities, :abilities_list, :indicators, :indicators_list,
-           :frozen_indicators, :frozen_indicators_list, :variable_indicators,
-           :variable_indicators_list, :linkage_points, :linkage_points_list,
-           to: :nature
+  :abilities, :abilities_list, :indicators, :indicators_list,
+  :frozen_indicators, :frozen_indicators_list, :variable_indicators,
+  :variable_indicators_list, :linkage_points, :linkage_points_list,
+  to: :nature
 
   after_initialize :choose_default_name
   after_save :set_initial_values, if: :initializeable?
@@ -469,12 +469,12 @@ class Product < Ekylibre::Record::Base
                 catalog_item.amount
               end
             end
-    price
-  end
+            price
+          end
 
-  def dead?
-    !finish_way.nil?
-  end
+          def dead?
+            !finish_way.nil?
+          end
 
   # Returns groups of the product at a given time (or now by default)
   def groups_at(viewed_at = nil)
@@ -632,11 +632,39 @@ class Product < Ekylibre::Record::Base
     list
   end
 
-  # Returns working duration of a product
+  # Returns working duration of a product from interventions in seconds
   def working_duration(options = {})
     role = options[:as] || :tool
     periods = InterventionWorkingPeriod.with_generic_cast(role, self)
     periods = periods.of_campaign(options[:campaign]) if options[:campaign]
     periods.sum(:duration)
   end
+
+  def working_time  #return the result of two different calcul to know the working time. Depending of a daily_average_working_time or the working_duration method
+    if has_indicator?(:daily_average_working_time)
+      variant.daily_average_working_time * (Time.zone.today - born_at.to_date)
+    else
+      working_duration.to_f.in_second
+    end
+  end
+
+  def remaining_lifespan
+    if has_indicator?(:lifespan)
+      duration = (Time.zone.today - born_at.to_date).in_day
+      variant.lifespan - duration
+    else
+      return nil
+    end
+  end
+
+  def remaining_working_lifespan
+    if has_indicator?(:working_lifespan)
+      if has_indicator?(:daily_average_working_time)
+        variant.working_lifespan - working_time.in_day
+      else
+        variant.working_lifespan - working_duration.to_f.in_second
+      end
+    end
+  end
+
 end

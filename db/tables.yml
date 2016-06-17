@@ -4929,10 +4929,6 @@ product_nature_variants:
   id:
     type: integer
     required: true
-  lifespan:
-    type: decimal
-    precision: 19
-    scale: 4
   lock_version:
     type: integer
     required: true
@@ -4966,10 +4962,6 @@ product_nature_variants:
   variety:
     type: string
     required: true
-  working_lifespan:
-    type: decimal
-    precision: 19
-    scale: 4
 product_natures:
   abilities_list:
     type: text

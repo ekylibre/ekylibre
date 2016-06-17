@@ -1504,6 +1504,7 @@ eng:
         consumption_period: "Consumption period"
         copper_concentration: "Copper concentration"
         cumulated_rainfall: "Cumulated rainfall"
+        daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "Daily nitrogen production"
         diameter: "Diameter"
         dry_matter_rate: "Dry matter rate"
@@ -1533,6 +1534,7 @@ eng:
         lactating: "Lactating"
         last_birth_children_count: "Last birth children count"
         length: "Length"
+        lifespan: "Lifespan"
         lipolysis: "Lipolysis"
         livestock_unit: "Livestock unit"
         magnesium_concentration: "Magnesium concentration"
@@ -1635,6 +1637,7 @@ eng:
         wind_direction: "Wind direction"
         wind_speed: "Wind speed"
         woodstock_variety: "Woodstock variety"
+        working_lifespan: "Working lifespan"
         zinc_concentration: "Zinc concentration"
       name: "Indicators"
       property_natures:

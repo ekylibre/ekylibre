@@ -999,6 +999,8 @@ jpn:
     reflections: "リフレクションズ"
     remain_owner: "所有者のまま"
     remaining_amount: "残量"
+    # remaining_lifespan: "Remaining lifespan"
+    # remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "で作成されたことを覚えておいてください"
     remember_me: "私を覚えてますか"
     reminder_submissive: "従順なリマインダー"

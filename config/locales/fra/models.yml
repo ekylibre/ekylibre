@@ -1244,6 +1244,8 @@ fra:
     reflections: "Réflexions"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
+    remaining_lifespan: "Esperance de vie restante"
+    remaining_working_lifespan: "Esperance de vie travaillée restante"
     remember_created_at: "Se souvenir de moi à"
     remember_me: "Se souvenir de moi"
     reminder_submissive: "Soumis à la relance"

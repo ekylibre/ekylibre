@@ -1505,6 +1505,7 @@ ita:
         consumption_period: "periodo di consumo"
         copper_concentration: "la concentrazione di rame"
         cumulated_rainfall: "precipitazioni cumulate"
+        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "produzione di azoto giornaliera"
         diameter: "Diametro"
         dry_matter_rate: "tasso di materia secca"
@@ -1534,6 +1535,7 @@ ita:
         # lactating: "Lactating"
         last_birth_children_count: "contano ultimi figli di nascita"
         length: "Lunghezza"
+        # lifespan: "Lifespan"
         lipolysis: "lipolisi"
         livestock_unit: "unità di bestiame"
         magnesium_concentration: "concentrazione di magnesio"
@@ -1636,6 +1638,7 @@ ita:
         wind_direction: "La direzione del vento"
         wind_speed: "Velocità del vento"
         woodstock_variety: "varietà Woodstock"
+        # working_lifespan: "Working lifespan"
         zinc_concentration: "la concentrazione di zinco"
       name: "indicatori"
       property_natures:

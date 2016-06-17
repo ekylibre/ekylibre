@@ -999,6 +999,8 @@ deu:
     reflections: "Reflexionen"
     remain_owner: "bleiben Eigentümer"
     remaining_amount: "Restbetrag"
+    # remaining_lifespan: "Remaining lifespan"
+    # remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "Denken Sie daran, aufgestellt"
     remember_me: "Erinnere dich an mich"
     reminder_submissive: "Erinnerung unterwürfig"

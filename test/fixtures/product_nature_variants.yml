@@ -29,7 +29,6 @@
 #  custom_fields        :jsonb
 #  derivative_of        :string
 #  id                   :integer          not null, primary key
-#  lifespan             :decimal(19, 4)
 #  lock_version         :integer          default(0), not null
 #  name                 :string
 #  nature_id            :integer          not null
@@ -43,7 +42,6 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #  variety              :string           not null
-#  working_lifespan     :decimal(19, 4)
 #
 ---
 product_nature_variants_001:

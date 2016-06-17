@@ -999,6 +999,8 @@ cmn:
     reflections: "思考"
     remain_owner: "保持所有者"
     remaining_amount: "剩余数量"
+    # remaining_lifespan: "Remaining lifespan"
+    # remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "在创建记得"
     remember_me: "记住我"
     reminder_submissive: "提醒柔顺"

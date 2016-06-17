@@ -999,6 +999,8 @@ por:
     reflections: "Reflexões"
     remain_owner: "Permanecem proprietário"
     remaining_amount: "Montante restante"
+    # remaining_lifespan: "Remaining lifespan"
+    # remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "Lembrar criado dia"
     remember_me: "Lembre de mim"
     reminder_submissive: "Lembrete submissa"

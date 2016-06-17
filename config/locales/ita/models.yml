@@ -1030,6 +1030,8 @@ ita:
     reflections: "Riflessi"
     remain_owner: "Rimangono proprietario"
     remaining_amount: "Importo residuo"
+    # remaining_lifespan: "Remaining lifespan"
+    # remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "Ricorda creato il"
     remember_me: "Ricordati di me"
     reminder_submissive: "Promemoria sottomesso"
