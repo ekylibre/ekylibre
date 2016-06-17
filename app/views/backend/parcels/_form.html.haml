@@ -37,7 +37,7 @@
         %th= ParcelItem.human_attribute_name(:analysis)
 
     = f.simple_fields_for :items, resource.items do |item|
-        = render item_partial, f: item
+      = render item_partial, f: item
     - if f.object.allow_items_update?
       %tfoot#items_anchor
         %tr.total

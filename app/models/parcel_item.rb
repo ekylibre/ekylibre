@@ -75,9 +75,12 @@ class ParcelItem < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_presence_of :source_product, if: :parcel_prepared?
   validates_presence_of :product, if: :parcel_prepared?
+
   validates_numericality_of :population, less_than_or_equal_to: 1,
-    if: Proc.new { |item| Maybe(item.variant).of_variety?(:animal).or_else false },
-    message: "activerecord.errors.messages.animals_in_parcel".t
+    if: :product_is_unitary?,
+    message: "activerecord.errors.messages.unitary_in_parcel".t
+  validates_presence_of :name, if: :product_is_unitary?
+  validates_presence_of :identification_number, if: :product_is_unitary?
 
   scope :with_nature, ->(nature) { joins(:parcel).merge(Parcel.with_nature(nature)) }
 
@@ -92,7 +95,7 @@ class ParcelItem < Ekylibre::Record::Base
 
   before_validation do
     read_at = parcel ? parcel_prepared_at : Time.zone.now
-    self.population ||= 0
+    self.population ||= product_is_unitary? ? 1 : 0
     next if parcel_incoming?
     if product
       self.population ||= product.population(at: read_at)
@@ -140,6 +143,10 @@ class ParcelItem < Ekylibre::Record::Base
     prepared? ? :go : variant.present? ? :caution : :stop
   end
 
+  def product_is_unitary?
+    Maybe(self.variant).population_counting_unitary?.or_else false
+  end
+
   # Set started_at/stopped_at in tasks concerned by preparation of item
   # It takes product in stock
   def check
@@ -148,7 +155,7 @@ class ParcelItem < Ekylibre::Record::Base
       if product
         product.update_attributes!(initial_population: quantity)
       else
-        unless self.parcel_separated_stock? || self.variant.population_counting_unitary?
+        unless self.parcel_separated_stock? || self.product_is_unitary?
           self.product = Product.where(variant: variant)
                                 .find do |p|
                                   !ProductLocalization.where(
@@ -156,17 +163,21 @@ class ParcelItem < Ekylibre::Record::Base
                                     container_id: parcel.storage_id
                                   ).empty?
                                 end
-        end
-        self.product ||= variant.create_product!(
-          name: "#{variant.name} (#{parcel.planned_at.to_date.l})",
-          initial_population: quantity,
-          initial_container: parcel.storage,
-          initial_born_at: checked_at,
-          name: name,
-          identification_number: identification_number
-        )
-        unless self.parcel_separated_stock? || self.variant.population_counting_unitary?
+          self.product ||= variant.create_product!(
+            name: "#{variant.name} (#{parcel.number})",
+            initial_population: quantity,
+            initial_container: parcel.storage,
+            initial_born_at: checked_at,
+          )
           self.product.movements.create! delta: population
+        else
+          self.product = variant.create_product!(
+            name: self.name,
+            initial_population: quantity,
+            initial_container: parcel.storage,
+            initial_born_at: checked_at,
+            identification_number: identification_number
+          )
         end
       end
     else
