@@ -55,7 +55,7 @@
                 net_surface_area = resource.product_net_surface_area_value
                 data = []
                 series = []
-                resource.calibrations.of_scale(scale).map do |calibration|
+                resource.calibrations.of_scale(scale).reorder(:id).map do |calibration|
                   series << { name: calibration.name, data: [calibration.marketable_net_mass.round(0).to_d(unit).to_s.to_f] }
                 end
               %td{style: 'width: 50%' }= column_highcharts(series, y_axis: {title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
@@ -96,7 +96,7 @@
               %th= :total.tl
               %th= :yield.tl
               %th= InspectionCalibration.human_attribute_name(:marketable)
-          - resource.calibrations.of_scale(scale).each do |calibration|
+          - resource.calibrations.of_scale(scale).reorder(:id).each do |calibration|
             %tr
               %td= calibration.nature_name
               - if resource.measure_grading_items_count
