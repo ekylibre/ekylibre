@@ -64,4 +64,9 @@ class ProductNatureVariantReading < Ekylibre::Record::Base
       end
     end
   end
+
+  def usable?
+    variant.frozen_indicators.include?(indicator)
+  end
+
 end
