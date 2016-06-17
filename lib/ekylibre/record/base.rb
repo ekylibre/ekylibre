@@ -170,6 +170,11 @@ module Ekylibre
           scope "of_#{name}".to_sym, proc { |*items|
             where(reflection.foreign_key => items.map { |i| reflection.klass.all(i) }.flatten.uniq)
           }
+
+          define_method "of_#{name}?" do |item_or_name|
+            item = item_or_name.is_a?(Nomen::Item) ? item_or_name : reflection.klass.find(item_or_name)
+            item >= self[reflection.foreign_key]
+          end
         end
 
         # Permits to consider something and something_id like the same
