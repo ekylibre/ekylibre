@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160615121350">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160617142409">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1506,6 +1506,7 @@
       <item name="fence_perimeter" datatype="choice" choices="fence_perimeters"/>
       <item name="fertility_index" datatype="measure" unit="unity"/>
       <item name="figure" datatype="choice" choices="figures"/>
+      <item name="fodder_bales_count" datatype="integer"/>
       <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
       <item name="fresh_mass" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
       <item name="fuel_consumption" datatype="measure" unit="liter_per_hour" sampling_temporal_mode="instant"/>
@@ -2695,10 +2696,10 @@
       <item name="harrow" nature="harrow" frozen_indicators_values=""/>
       <item name="harvester" nature="harvester" frozen_indicators_values=""/>
       <item name="harvesting_making_service" nature="vegetals_making_services"/>
-      <item name="hay_big_rectangular_bales" nature="grass" derivative_of="poaceae" frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter" unit_name="big_rectangular_bale"/>
+      <item name="hay_big_rectangular_bales" nature="fodder_bale" derivative_of="poaceae" frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter, fodder_bales_count: 1" unit_name="big_rectangular_bale"/>
       <item name="hay_rake" nature="hay_rake" frozen_indicators_values="" unit_name="equipment"/>
-      <item name="hay_round_bales" nature="grass" derivative_of="poaceae" frozen_indicators_values="net_mass: 300.00kilogram, net_volume: 1.87cubic_meter" unit_name="round_bale"/>
-      <item name="hay_small_rectangular_bales" nature="grass" derivative_of="poaceae" frozen_indicators_values="net_mass: 25.00kilogram, net_volume: 0.16cubic_meter" unit_name="small_rectangular_bale"/>
+      <item name="hay_round_bales" nature="fodder_bale" derivative_of="poaceae" frozen_indicators_values="net_mass: 300.00kilogram, net_volume: 1.87cubic_meter, fodder_bales_count: 1" unit_name="round_bale"/>
+      <item name="hay_small_rectangular_bales" nature="fodder_bale" derivative_of="poaceae" frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter, fodder_bales_count: 1" unit_name="small_rectangular_bale"/>
       <item name="hazel_crop" nature="walnut_crop" variety="corylus" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="hazel_reaper" nature="shell_fruit_reaper" frozen_indicators_values="" unit_name="equipment"/>
       <item name="hazel_seedling" nature="hazel_seedling" derivative_of="corylus"/>
@@ -3130,6 +3131,7 @@
       <item name="ferry" category="equipment" variety="equipment" population_counting="unitary" abilities="store(grain), store(plant)" frozen_indicators="nominal_storable_net_volume, nominal_storable_net_mass" variable_indicators="geolocation"/>
       <item name="fiscal_fine" category="fiscal_fine" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="flower_crop" category="crop" variety="plant" population_counting="decimal" abilities="consume(water), consume(preparation), produce(pollen), produce(flower), produce(straw), produce(grain)" variable_indicators="plant_life_state, plants_count, shape" frozen_indicators="net_surface_area" derivatives="pollen, flower, straw, grain"/>
+      <item name="fodder_bale" category="grass" variety="grass" derivative_of="plant" population_counting="decimal" abilities="feed(animal)" variable_indicators="dry_matter_rate" frozen_indicators="net_mass, net_volume, fodder_bales_count"/>
       <item name="foliar_spray" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="care(plant), fertilize, kill(insecta), kill(fungus)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
       <item name="food_distributor" category="equipment" variety="food_deliver" population_counting="unitary" abilities="deliver(silage),deliver(straw),deliver(hay)" variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass" frozen_indicators=""/>
       <item name="food_equipment_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(equipment), store(grass), store(mix), store(seed)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>

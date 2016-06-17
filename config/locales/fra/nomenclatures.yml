@@ -1663,6 +1663,7 @@ fra:
         fence_perimeter: "Type de clôture"
         fertility_index: "Index de fertilité"
         figure: "Forme"
+        fodder_bales_count: "Nombre de bottes de fourrage"
         freezing_point_temperature: "Point de solidification"
         fresh_mass: "Poids frais"
         fuel_consumption: "Consommation de carburant"
@@ -3387,6 +3388,7 @@ fra:
         fertilizer_division: "Zone de stockage des engrais" #?
         fiscal_fine: "Amende fiscale"
         flower_crop: "Culture florale"
+        fodder_bale: "Botte de fourrage"
         foliar_spray: "Pulvérisation foliaire"
         food_distributor: "Matériel de distribution d’aliments"
         food_equipment_division: "Zone de stockage des équipements et des aliments"
