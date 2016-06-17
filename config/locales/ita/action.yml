@@ -368,10 +368,10 @@ ita:
       ship: "pacchi nave"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "Piante"
       new: "Nuovo impianto"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       index: "zone postali"
@@ -1751,7 +1751,7 @@ ita:
       destroy: "Distruggere"
       detach: "distaccare"
       detail: "Dettaglio"
-      # distribute: "Distribute"
+      # distribute: "Distribute unaffected products"
       down: "Giù"
       duplicate: "Duplicare"
       edit: "Modifica"

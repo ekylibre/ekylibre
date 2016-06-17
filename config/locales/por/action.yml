@@ -373,10 +373,10 @@ por:
       ship: "Encomendas de navios"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "Plantas"
       new: "Nova fábrica"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       index: "Zonas postais"
@@ -1690,7 +1690,7 @@ por:
       destroy: "Destruir"
       detach: "Separar"
       detail: "Detalhe"
-      # distribute: "Distribute"
+      # distribute: "Distribute unaffected products"
       down: "Baixa"
       duplicate: "Duplicado"
       edit: "Editar"

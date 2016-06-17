@@ -462,10 +462,10 @@ arb:
       ship: "الطرود سفينة"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "النباتات"
       new: "مصنع جديد"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       edit: "تعديل العنوان البريدي : %{name}"
       index: "العناوين البريد"
@@ -2463,7 +2463,7 @@ arb:
       destroy: "هدم"
       detach: "فصل"
       detail: "التفاصيل"
-      # distribute: "Distribute"
+      # distribute: "Distribute unaffected products"
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"

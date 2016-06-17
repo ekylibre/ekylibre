@@ -77,13 +77,13 @@
         curves.each do |nature, data|
           series << { name: nature.name, data: data}
         end
-        
+
         # build second chart for disease
-        
+
         series_disease = []
-        
+
         curves_disease = {}
-        
+
         inspections.each do |i|
           ActivityInspectionPointNature.unmarketable_categories.each do |nature|
             calibration = i.points_net_mass_percentage(nature)
@@ -94,7 +94,7 @@
         curves_disease.each do |nature, data|
           series_disease << { name: nature.l, data: data}
         end
-        
+
       - if series.any?
         - c.cobble(:stock_in_ground_by_calibres) do
           = column_highcharts(series, y_axis: {reversed_stacks: false, title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})

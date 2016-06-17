@@ -368,10 +368,10 @@ jpn:
       ship: "船の小包"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "植物"
       new: "新工場"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       index: "郵便ゾーン"
@@ -1762,7 +1762,7 @@ jpn:
       destroy: "破壊する"
       detach: "デタッチ"
       detail: "詳細"
-      # distribute: "Distribute"
+      # distribute: "Distribute unaffected products"
       down: "ダウン"
       duplicate: "複製"
       edit: "編集"

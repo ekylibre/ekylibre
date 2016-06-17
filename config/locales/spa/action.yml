@@ -405,10 +405,10 @@ spa:
       ship: "Parcelas de la nave"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "Plantas"
       new: "Nueva planta"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       index: "Zonas postales"
@@ -1986,7 +1986,7 @@ spa:
       destroy: "Destruir"
       detach: "Despegar"
       detail: "Detalle"
-      # distribute: "Distribute"
+      # distribute: "Distribute unaffected products"
       down: "Abajo"
       duplicate: "Duplicar"
       edit: "Editar"

@@ -368,10 +368,10 @@ cmn:
       ship: "船舶包裹"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "植物"
       new: "新厂房"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       index: "邮政区"
@@ -1685,7 +1685,7 @@ cmn:
       destroy: "破坏"
       detach: "分离"
       detail: "详情"
-      # distribute: "Distribute"
+      # distribute: "Distribute unaffected products"
       down: "下"
       duplicate: "重复"
       edit: "编辑"

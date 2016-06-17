@@ -368,10 +368,10 @@ deu:
       ship: "Schiffs-Pakete"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "Pflanzen"
       new: "neues Werk"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       index: "Post Zonen"
@@ -1684,7 +1684,7 @@ deu:
       destroy: "Zerstören"
       detach: "ablösen"
       # detail: "Detail"
-      # distribute: "Distribute"
+      # distribute: "Distribute unaffected products"
       down: "nach unten"
       duplicate: "Duplikat"
       edit: "Bearbeiten"
