@@ -138,6 +138,24 @@ module Backend
       params[:nature] ||= 'incoming'
     end
 
+    def new
+      columns = Parcel.columns_definition.keys
+      columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+      values = columns.map(&:to_sym).uniq.reduce({}) do |hash, attr|
+        hash[attr] = params[:"#{attr}"] unless attr.blank? || attr.to_s.match(/_attributes$/)
+        hash
+      end
+      @parcel = Parcel.new(values)
+      if params[:sale_id]
+        sale = Sale.find(params[:sale_id]).items.each do |item|
+          item.variant.take(item.quantity).each do |product, quantity|
+            @parcel.items.new(source_product: product, quantity: quantity)
+          end
+        end
+      end
+      t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
+    end
+
     # Converts parcel to trade
     def invoice
       parcels = find_parcels
