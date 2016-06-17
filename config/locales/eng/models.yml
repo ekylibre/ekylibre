@@ -938,11 +938,13 @@ eng:
     product_account: "Product account"
     # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Product enjoyments" #?
+    product_identification_number: "Identification number"
     product_linkages: "Product linkages" #?
     product_localization: "Product localization"
     product_localizations: "Product localizations" #?
     product_memberships: "Product memberships" #?
     product_movement: "Product movement"
+    product_name: "Name"
     product_nature: "Product type"
     product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"

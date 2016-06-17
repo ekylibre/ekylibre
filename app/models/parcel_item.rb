@@ -56,12 +56,10 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :product_localization,       dependent: :destroy
   belongs_to :product_ownership,          dependent: :destroy
   belongs_to :product_movement,           dependent: :destroy
-  belongs_to :product_shape_reading,      class_name: 'ProductReading', dependent: :destroy
   belongs_to :purchase_item
   belongs_to :sale_item
   belongs_to :source_product, class_name: 'Product'
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
-  belongs_to :source_product_shape_reading, class_name: 'ProductReading', dependent: :destroy
   belongs_to :variant, -> { of_variety :matter }, class_name: 'ProductNatureVariant'
   has_one :category, through: :variant
   has_one :nature, through: :variant
@@ -79,43 +77,23 @@ class ParcelItem < Ekylibre::Record::Base
   validates_numericality_of :population, less_than_or_equal_to: 1,
     if: :product_is_unitary?,
     message: "activerecord.errors.messages.unitary_in_parcel".t
-  validates_presence_of :name, if: :product_is_unitary?
-  validates_presence_of :identification_number, if: :product_is_unitary?
+  validates_presence_of :product_name, if: -> { product_is_unitary? && parcel_incoming? }
+  validates_presence_of :product_identification_number, if: -> { product_is_unitary? && parcel_incoming? }
 
   scope :with_nature, ->(nature) { joins(:parcel).merge(Parcel.with_nature(nature)) }
 
   alias_attribute :quantity, :population
 
   accepts_nested_attributes_for :product
-  delegate :name, to: :product, prefix: true
   # delegate :net_mass, to: :product
-  delegate :allow_items_update?, :remain_owner, :planned_at, :draft?, :ordered_at, :in_preparation?, :in_preparation_at, :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?, :separated_stock?, to: :parcel, prefix: true
-
-  # sums :parcel, :items, :net_mass, from: :measure
+  delegate :allow_items_update?, :remain_owner, :planned_at, :draft?, :ordered_at, :recipient, :in_preparation?, :in_preparation_at, :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?, :separated_stock?, to: :parcel, prefix: true
 
   before_validation do
     read_at = parcel ? parcel_prepared_at : Time.zone.now
     self.population ||= product_is_unitary? ? 1 : 0
     next if parcel_incoming?
-    if product
-      self.population ||= product.population(at: read_at)
-      self.shape ||= product.shape(at: read_at) if product.has_indicator?(:shape)
-    elsif source_product
-      if source_product.population_counting_unitary?
-        self.parted = false
-        self.population = 1
-      else
-        self.population ||= source_product.population(at: read_at)
-      end
-      if source_product.has_indicator?(:shape)
-        self.shape ||= source_product.shape(at: read_at)
-      end
-    end
-    if product
-      self.variant = product.variant
-    elsif source_product
-      self.variant = source_product.variant
-    elsif sale_item
+
+    if sale_item
       self.variant = sale_item.variant
     elsif purchase_item
       self.variant = purchase_item.variant
@@ -144,54 +122,17 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def product_is_unitary?
-    Maybe(self.variant).population_counting_unitary?.or_else false
+    [self.variant, self.source_product].reduce(false) do |acc, product_input|
+      acc || Maybe(product_input).population_counting_unitary?.or_else(false)
+    end
   end
 
   # Set started_at/stopped_at in tasks concerned by preparation of item
   # It takes product in stock
   def check
     checked_at = parcel_prepared_at
-    if parcel_incoming?
-      if product
-        product.update_attributes!(initial_population: quantity)
-      else
-        unless self.parcel_separated_stock? || self.product_is_unitary?
-          self.product = Product.where(variant: variant)
-                                .find do |p|
-                                  !ProductLocalization.where(
-                                    product_id: p.id,
-                                    container_id: parcel.storage_id
-                                  ).empty?
-                                end
-          self.product ||= variant.create_product!(
-            name: "#{variant.name} (#{parcel.number})",
-            initial_population: quantity,
-            initial_container: parcel.storage,
-            initial_born_at: checked_at,
-          )
-          self.product.movements.create! delta: population
-        else
-          self.product = variant.create_product!(
-            name: self.name,
-            initial_population: quantity,
-            initial_container: parcel.storage,
-            initial_born_at: checked_at,
-            identification_number: identification_number
-          )
-        end
-      end
-    else
-      if self.population != source_product.population(at: checked_at)
-        update_attribute(:parted, true)
-      end
-      if parted
-        divide_source_product(checked_at)
-      else
-        self.product = source_product
-        self.population = product.population(at: checked_at)
-        self.shape = product.shape(at: checked_at)
-      end
-    end
+    check_incoming(checked_at) if parcel_incoming?
+    check_outgoing(checked_at) if parcel_outgoing?
     save!
   end
 
@@ -221,43 +162,41 @@ class ParcelItem < Ekylibre::Record::Base
 
   protected
 
-  def divide_source_product(divided_at)
-    if product
-      product.initial_population = population # (at: divided_at)
-      product.initial_shape = shape # (at: divided_at)
-      product.initial_born_at = divided_at
-      product.save!
+  def check_incoming(checked_at)
+    product_params = {}
+    no_fusing = self.parcel_separated_stock? || self.product_is_unitary?
+
+    unless no_fusing
+      self.product = existing_product_in_storage
+      product_params[:name] = "#{variant.name} (#{parcel.number})"
     else
-      self.product = source_product.part_with!(population, shape: shape, born_at: divided_at)
+      product_params[:name] = self.product_name
+      product_params[:identification_number] = self.product_identification_number
     end
-    update_division_readings(divided_at)
+
+    product_params[:initial_population] = quantity
+    product_params[:initial_container] = parcel.storage
+    product_params[:initial_born_at] = checked_at
+
+    self.product ||= variant.create_product!(product_params)
+    self.product.movements.create!(delta: population, started_at: checked_at) unless no_fusing
   end
 
-  # Create or update division readings
-  def update_division_readings(divided_at)
-    product.copy_readings_of!(source_product, at: divided_at, originator: self)
-    source_population = source_product.population(at: divided_at)
-    # Removes quantity from source product
-    build_source_product_movement unless source_product_movement
-    source_product_movement.attributes = {
-      product: source_product,
-      delta: -1 * population,
-      started_at: divided_at
-    }
-    source_product_movement.save!
-    # Adds quantity to product
-    build_product_movement unless product_movement
-    product_movement.attributes = {
-      product: product,
-      delta: population,
-      started_at: divided_at
-    }
-    product_movement.save!
-
-    if source_product.has_indicator?(:shape) && shape
-      source_shape = Charta.new_geometry(source_product.get!(:shape, at: divided_at))
-      self.source_product_shape_reading = source_product.read!(:shape, source_shape - shape, at: divided_at)
-      self.product_shape_reading = product.read!(:shape, shape, at: divided_at)
+  def check_outgoing(checked_at)
+    if self.population == source_product.population(at: checked_at)
+      source_product.ownerships.create!(owner: parcel_recipient, started_at: checked_at)
     end
+    update! product: source_product
+    source_product.movements.create!(delta: -1 * population, started_at: checked_at)
   end
+
+  def existing_product_in_storage
+    similar_products = Product.where(variant: self.variant)
+    product_in_storage = similar_products.find do |p|
+      location = p.localizations.last
+      location == self.storage
+    end
+    product_in_storage
+  end
+
 end
