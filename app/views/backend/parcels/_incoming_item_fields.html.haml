@@ -21,7 +21,7 @@
     %td
     %td
       = f.input :name, wrapper: :nested_append do
-        = f.input_field :name, placeholder: :name.tl
+        = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
     %td
       = f.input :identification_number, wrapper: :nested_append do
-        = f.input_field :identification_number, placeholder: "attributes.identification_number".t
+        = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)
