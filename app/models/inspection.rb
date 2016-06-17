@@ -85,11 +85,11 @@ class Inspection < Ekylibre::Record::Base
   def set_net_surface_area
     return unless product
     if product.net_surface_area
-      self.product_net_surface_area_value = product.net_surface_area.to_d(:hectare)
-      self.product_net_surface_area_unit = 'hectare'
+      self.product_net_surface_area_value ||= product.net_surface_area.to_d(:hectare)
+      self.product_net_surface_area_unit ||= 'hectare'
     elsif product.shape
-      self.product_net_surface_area_value = product.shape.area.to_d(:hectare)
-      self.product_net_surface_area_unit = 'hectare'
+      self.product_net_surface_area_value ||= product.shape.area.to_d(:hectare)
+      self.product_net_surface_area_unit ||= 'hectare'
     end
   end
 
@@ -113,10 +113,10 @@ class Inspection < Ekylibre::Record::Base
         # get rows_count and application_width of sower or implanter
         rows_count = equipment.rows_count(sampled_at) # if equipment.has_indicator?(rows_count)
         # rows_count = equipment.rows_count(self.sampled_at)
-        application_width = equipment.application_width(sampled_at) # if equipment.has_indicator?(application_width)
+        application_width = equipment.application_width(sampled_at).convert(:meter) # if equipment.has_indicator?(application_width)
         # set rows_count to implanter_application_width
         self.implanter_rows_number ||= rows_count if rows_count
-        self.implanter_application_width ||= application_width if application_width
+        self.implanter_application_width ||= application_width.to_d if application_width
       end
     end
   end
