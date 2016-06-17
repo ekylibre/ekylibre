@@ -9,7 +9,7 @@
     #nature-outgoing
       = f.referenced_association :recipient, required: true
   = f.referenced_association :address, source: :mails
-  = f.referenced_association :storage, required: f.object.incoming?
+  = f.referenced_association :storage, required: !f.object.outgoing?
   - if f.object.incoming?
     = f.input :separated_stock
   = f.input :with_delivery
@@ -25,25 +25,21 @@
   -# = f.object.errors.inspect
 
 
-- if f.object.items.new.createable? || f.object.items.any?(&:updateable?)
-  = field_set resource_model.human_attribute_name(:items) do
-    %table.list
-      %thead
-        %tr
-          %th.act
-          %th= ParcelItem.human_attribute_name(:product)
-          -# %th= ParcelItem.human_attribute_name(:parted)
-          %th= ParcelItem.human_attribute_name(:quantity)
-          -# %th= ParcelItem.human_attribute_name(:shape)
-          %th= ParcelItem.human_attribute_name(:analysis)
+= field_set resource_model.human_attribute_name(:items) do
+  %table.list
+    %thead
+      %tr
+        %th.act
+        %th= ParcelItem.human_attribute_name(:product)
+        -# %th= ParcelItem.human_attribute_name(:parted)
+        %th= ParcelItem.human_attribute_name(:quantity)
+        -# %th= ParcelItem.human_attribute_name(:shape)
+        %th= ParcelItem.human_attribute_name(:analysis)
 
-      %tbody#items
-        - resource.items.each { |i| resource.items.delete(i) if i.id.nil? }
-        = f.simple_fields_for :items, resource.items do |item|
-          - if item.object.updateable?
-            = render item_partial, f: item
-      - if f.object.items.new.createable?
-        %tfoot
-          %tr.total
-            %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items,   partial: item_partial, 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn primary"
+    = f.simple_fields_for :items, resource.items do |item|
+        = render item_partial, f: item
+    - if f.object.allow_items_update?
+      %tfoot#items_anchor
+        %tr.total
+          %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items,   partial: item_partial, 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
 
