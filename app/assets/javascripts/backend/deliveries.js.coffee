@@ -69,7 +69,6 @@
           item.find('*[data-when-item]').each ->
             if data[$(this).data('when-item')]
               if typeof $(this).data("when-set-value") != "undefined"
-                console.log($(this).data("when-set-value"))
                 this.value = $(this).data("when-set-value")
 
               if typeof $(this).data("when-prop-value") != "undefined"
