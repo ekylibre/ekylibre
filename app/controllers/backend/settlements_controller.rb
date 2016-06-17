@@ -18,5 +18,24 @@
 
 module Backend
   class SettlementsController < Backend::MattersController
+
+    def self.list_conditions
+      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid], product_nature_variants: [:name]) + " ||= []\n"
+      code.c
+    end
+    #
+    list(conditions: list_conditions) do |t|
+      t.action :edit
+      t.action :destroy, if: :destroyable?
+      t.column :number, url: true
+      t.column :work_number
+      t.column :name, url: true
+      t.column :variant, url: true
+      t.column :variety
+      t.column :population
+      t.column :unit_name
+      t.column :container, url: true
+      t.column :description
+    end
   end
 end
