@@ -271,23 +271,6 @@ class Sale < Ekylibre::Record::Base
     items.any? && delivery_address && (order? || invoice?)
   end
 
-  # Generate parcel for preparation
-  def generate_parcel
-    items_attributes = items.map do |item|
-      { sale_item: item, population: item.quantity, variant: item.variant }
-    end
-    attributes = {
-      sale: self,
-      recipient: client,
-      address: delivery_address,
-      nature: :outgoing,
-      delivery_mode: :us,
-      state: :ordered,
-      items_attributes: items_attributes
-    }
-    Parcel.create!(attributes)
-  end
-
   # Remove all bad dependencies and return at draft state with no parcels
   def correct
     return false unless can_correct?
