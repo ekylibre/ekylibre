@@ -145,19 +145,30 @@ module Backend
         hash[attr] = params[:"#{attr}"] unless attr.blank? || attr.to_s.match(/_attributes$/)
         hash
       end
+
       @parcel = Parcel.new(values)
       if params[:sale_id]
-        Sale.find(params[:sale_id]).items.each do |item|
+        sale = Sale.find(params[:sale_id])
+        @parcel.recipient = sale.client
+        @parcel.address = sale.address
+
+        sale.items.each do |item|
           item.variant.take(item.quantity).each do |product, quantity|
             @parcel.items.new(source_product: product, quantity: quantity)
           end
         end
       end
+
       if params[:purchase_id]
-        Purchase.find(params[:purchase_id]).items.each do |item|
+        purchase = Purchase.find(params[:purchase_id])
+        @parcel.sender = purchase.supplier
+        @parcel.address = purchase.delivery_address
+
+        purchase.items.each do |item|
           @parcel.items.new(quantity: item.quantity, variant: item.variant)
         end
       end
+
       t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
     end
 
