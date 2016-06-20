@@ -20,14 +20,12 @@ module Backend
   class BankStatementsController < Backend::BaseController
     manage_restfully(
       started_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on + 1 rescue (Time.zone.today-1.month-2.days)'.c,
-      stopped_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on >> 1 rescue (Time.zone.today-2.days)'.c,
-      redirect_to: "{action: :reconciliation, id: 'id'.c}".c
+      stopped_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on >> 1 rescue (Time.zone.today-2.days)'.c
     )
 
     unroll
 
     list(order: { started_on: :desc }) do |t|
-      t.action :edit_items
       t.action :reconciliation
       t.action :edit
       t.action :destroy
