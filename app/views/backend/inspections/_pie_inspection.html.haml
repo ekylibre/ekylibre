@@ -7,4 +7,4 @@
     y = calibration.marketable_net_mass.round(0).to_d(unit)
     data << { name: calibration.name, y: y.to_s.to_f }
   end
-%td{style: 'width: 33%' }= pie_highcharts({ name: scale.name, data: data }, title: {text: :stocks_by_calibrations.tl}, y_axis: {title: {text: "#{symbol_measure}"}}, legend: true, tooltip: {point_format: "{point.y: 1f} : <b>{point.percentage:.1f}%</b>"} ,plot_options: { pie: {allow_point_select: true, data_labels: {enabled: true, format: "<b>{point.name}</b>: {point.percentage:.1f} %"}}})
+%td{style: 'width: 33%' }= pie_highcharts({ name: scale.name, data: data }, title: {text: :percentage_by_calibration.tl}, y_axis: {title: {text: "#{symbol_measure}"}}, legend: true, tooltip: {point_format: "{point.y: 1f} : <b>{point.percentage:.1f}%</b>"} ,plot_options: { pie: {allow_point_select: true, data_labels: {enabled: true, format: "<b>{point.name}</b>: {point.percentage:.1f} %"}}})

@@ -39,7 +39,7 @@
           %span.value= resource.net_mass_yield.convert(yield_unit).round(2).l(precision: 0)
 
   - if resource.calibrations.any? && resource.calibrations.sum(:net_mass_value) > 0
-    - c.cobble(:stocks_by_calibrations) do
+    - c.cobble(:stock_in_ground) do
       %table
         %tbody
           - resource.scales.each do |scale|
@@ -55,7 +55,7 @@
                 dataset.map do |calibration|
                   series << { name: calibration.name, data: [calibration.marketable_net_mass.round(0).to_d(unit).to_s.to_f] }
                 end
-              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stocks_by_calibrations.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
               :ruby
                 net_surface_area = resource.product_net_surface_area_value
                 yield_symbol_measure = yield_unit.symbol
@@ -64,7 +64,7 @@
                 dataset.map do |calibration|
                   series << { name: calibration.name, data: [calibration.marketable_yield.round(0).to_d(yield_unit).to_s.to_f] }
                 end
-              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :yield_by_calibrations.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
   - c.cobble(:analyses) do
     - analysis = Analysis.where(product: resource.product, nature: 'plant_analysis').reorder(:sampled_at).last
     - if analysis

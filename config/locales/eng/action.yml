@@ -1010,7 +1010,7 @@ eng:
     details: "Details"
     direct_margin: "Direct margin" #?!
     discount: "Discount (%)" #?
-    # disease: "Disease"
+    disease_deformity_percentage: "Disease and deformity percentage"
     display: "Display" #?
     distributions: "Distributions"
     divide: "Divide"
@@ -1333,6 +1333,7 @@ eng:
     payments: "Payments"
     payments_count: "Payments count"
     people: "People"
+    percentage_by_calibration: "Percentage by calibration"
     period: "Period"
     periods: "Periods" #?
     permute: "Permute" #?
@@ -1340,7 +1341,6 @@ eng:
     pertinence: "%{value}%"
     phosphorus_concentration: "Phosphorus concentration" #?
     picture: "Picture" #?
-    # pie_chart: "Pie chart"
     placeholder: "Placeholder" #?
     places: "Places"
     plant: "Crop" #?
@@ -1476,10 +1476,12 @@ eng:
     stewardship: "Stewardship"
     stock: "Stock" #?
     stock_container_map: "Stock map" #?
-    stock_in_ground_by_calibres: "Stocks in ground by calibres"
+    stock_in_ground: "Stock in ground"
+    stock_in_ground_by_calibration: "Stocks in ground by calibration"
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
-    # stocks_by_calibrations: "Stocks by calibrations"
+    stocks_by_calibrations: "Stocks by calibrations"
+    stocks_in_ground: "Stock in ground" #?!
     stop: "Stop" #?
     stopped: "Stopped"
     storage: "Storage" #?
@@ -1719,8 +1721,8 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
-    # yield: "Yield"
-    # yield_by_calibrations: "Yield by calibrations"
+    yield: "Yield"
+    yield_by_calibration: "Yield by calibration"
     you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions." #?!
     you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:" #?!
     zones: "Zones"

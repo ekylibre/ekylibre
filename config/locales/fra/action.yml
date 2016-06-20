@@ -1072,6 +1072,7 @@ fra:
     details: "Informations complémentaires"
     direct_margin: "Marge directe"
     discount: "Réduc. (%)"
+    disease_deformity_percentage: "Pourcentage de maladies et malformations"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
     distributions: "Répartitions"
@@ -1544,6 +1545,7 @@ fra:
     payments: "Règlements"
     payments_count: "Nombre de %{mode}"
     people: "Personnes"
+    percentage_by_calibration: "Pourcentage de stock en terre par calibre"
     period: "Période prédéfinie"
     periods: "Périodes"
     permute: "Permuter les fiches"
@@ -1796,11 +1798,15 @@ fra:
     stewardship: "Assistant"
     stock: "Stock"
     stock_container_map: "Carte des lieux de stockage"
-    stock_in_ground_by_calibres: "Stocks en terre par calibre"
+    stock_in_ground: "Stock en terre"
+    stock_in_ground_by_calibration: "Stock en terre par calibre"
+    stock_in_ground_by_calibres: "Stocks en terre par calibre" #?
     stock_max: "Stock maximum" #?
     stock_min: "Stock minimum" #?
     stock_of_x: "Stock de %{x}"
     stocks: "Stocks"
+    stocks_by_calibrations: "Stock en terre par calibre"
+    stocks_in_ground: "Stock en terre"
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
@@ -2123,7 +2129,9 @@ fra:
     y: "Oui" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
-    yield: "Rendement" #?
+    yield: "Rendement"
+    yield_by_calibration: "Rendement par calibre"
+    yield_by_calibrations: "Rendement par calibre" #?
     # you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions."
     # you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:"
     zones: "Zones"

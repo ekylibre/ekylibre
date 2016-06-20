@@ -96,11 +96,11 @@
         end
 
       - if series.any?
-        - c.cobble(:stock_in_ground_by_calibres) do
+        - c.cobble(:stock_in_ground_by_calibration) do
           = column_highcharts(series, y_axis: {reversed_stacks: false, title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-        - c.cobble(:disease) do
+        - c.cobble(:disease_deformity_percentage) do
           = column_highcharts(series_disease, y_axis: {reversed_stacks: false, title: {text: "%"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} %"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-        - c.cobble(:pie_chart) do
+        - c.cobble(:percentage_by_calibration) do
           -# set unit for this view
           - unit = Nomen::Unit[:ton]
           - last_inspection = resource.inspections.reorder(:sampled_at).last
