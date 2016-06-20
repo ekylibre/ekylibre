@@ -16,6 +16,9 @@
         <handler indicator="net_mass" unit="ton"
                  backward="POPULATION * VARIANT.net_mass(ton)"
                  forward="VALUE / VARIANT.net_mass(ton)"/>
+        <handler indicator="fodder_bales_count" unit="unity"
+                 backward="POPULATION * VARIANT.fodder_bales_count(unity)"
+                 forward="VALUE / VARIANT.fodder_bales_count(unity)"/>
         <handler indicator="mass_area_density" unit="quintal_per_hectare"
                  backward="(POPULATION * VARIANT.net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)"
                  forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / VARIANT.net_mass(quintal)"/>

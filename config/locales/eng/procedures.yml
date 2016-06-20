@@ -3,6 +3,7 @@ eng:
   procedure_handlers:
     # dry_matter_mass: "Dry matter mass"
     # dry_matter_mass_area_density: "Dry matter mass area density"
+    #~ fodder_bales_count: "Fodder bales count"
     # food_mass_per_animal: "Food mass per animal"
     #~ grains_area_density: "Grains area density"
     # grains_area_density_in_thousand_per_hectare: "Grains area density in thousand per hectare"
