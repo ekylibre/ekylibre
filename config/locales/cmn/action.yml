@@ -984,6 +984,8 @@ cmn:
     interventions: "干预"
     interventions_count: "算上干预"
     interventions_paths: "干预路径"
+    # invalid_file: "Invalid file"
+    # invalid_format: "Invalid format"
     inventories: "存货"
     inventory: "库存"
     invitation_status: "状态"

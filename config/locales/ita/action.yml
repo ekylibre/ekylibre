@@ -1050,6 +1050,8 @@ ita:
     interventions: "interventi"
     interventions_count: "contano interventi"
     interventions_paths: "percorsi interventi"
+    # invalid_file: "Invalid file"
+    # invalid_format: "Invalid format"
     inventories: "rimanenze"
     inventory: "Inventario"
     invitation_status: "Stato"

@@ -1384,6 +1384,8 @@ arb:
     interventions: "التدخلات"
     interventions_count: "عد التدخلات"
     interventions_paths: "مسارات التدخلات"
+    # invalid_file: "Invalid file"
+    # invalid_format: "Invalid format"
     inventories: "المخزونات"
     inventory: "عدل الجرد"
     inventory_create: "تأدية عملية جرد جديدة" #?

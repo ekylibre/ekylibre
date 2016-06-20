@@ -984,6 +984,8 @@ deu:
     interventions: "Interventionen"
     interventions_count: "Interventionen zählen"
     interventions_paths: "Interventionen Pfade"
+    # invalid_file: "Invalid file"
+    # invalid_format: "Invalid format"
     inventories: "Die Vorräte"
     inventory: "Inventar"
     # invitation_status: "Status"

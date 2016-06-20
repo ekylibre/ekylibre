@@ -10,7 +10,14 @@ module Backend
         geometries = import_shapes(uploaded, format)
       end
 
+      if geometries.is_a? Hash and geometries.key? :error
+        flash.now[:alert] = geometries[:error].tl
+      end
+
       respond_to do |format|
+        unless flash.nil?
+          format.json { render json: {alert: flash.alert} }
+        end
         format.json { render json: geometries.to_json }
       end
     end
@@ -80,8 +87,13 @@ module Backend
         end
 
       else
-        raise 'Invalid format'
+        return {error: 'invalid_format'}
       end
+
+      if geojson_features_collection == ::Charta.empty_geometry.to_json_object
+        return {error: 'invalid_file'}
+      end
+
       geojson_features_collection
     end
   end

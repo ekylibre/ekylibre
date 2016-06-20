@@ -56,10 +56,11 @@ module Backend
 
     def importer_form(imports = [])
       form_tag({ controller: '/backend/map_editors', action: :upload }, method: :post, multipart: true, remote: true, authenticity_token: true, data: { importer_form: 'true' }) do
+        content_tag(:div, nil, id: 'alert', class: 'row alert-danger') +
         content_tag(:div, class: 'row') do
-          imports.collect do |k|
+          imports.collect.with_index do |k, i|
             content_tag(:div, class: 'choice-padding') do
-              radio_button_tag(:importer_format, k) + label_tag("importer_format_#{k}".to_sym, k)
+              radio_button_tag(:importer_format, k, (i == 0 ? true: false)) + label_tag("importer_format_#{k}".to_sym, k)
             end
           end.join.html_safe
         end + content_tag(:div, class: 'row') do

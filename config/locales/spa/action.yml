@@ -1120,6 +1120,8 @@ spa:
     interventions: "Intervenciones"
     interventions_count: "Intervenciones cuentan"
     interventions_paths: "Intervenciones caminos"
+    # invalid_file: "Invalid file"
+    # invalid_format: "Invalid format"
     inventories: "Los inventarios"
     inventory: "Completar el inventario"
     inventory_create: "Hacer un nuevo inventario" #?

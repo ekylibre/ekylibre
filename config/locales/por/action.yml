@@ -989,6 +989,8 @@ por:
     interventions: "Intervenções"
     interventions_count: "Intervenções contar"
     interventions_paths: "Intervenções caminhos"
+    # invalid_file: "Invalid file"
+    # invalid_format: "Invalid format"
     inventories: "Os estoques"
     inventory: "Inventário"
     invitation_status: "Estado"

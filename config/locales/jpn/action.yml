@@ -1053,6 +1053,8 @@ jpn:
     interventions: "介入"
     interventions_count: "介入は数えます"
     interventions_paths: "介入パス"
+    # invalid_file: "Invalid file"
+    # invalid_format: "Invalid format"
     inventories: "棚卸"
     inventory: "インベントリ"
     invitation_status: "状態"

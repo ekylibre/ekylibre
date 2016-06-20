@@ -596,14 +596,15 @@
               $(modal._container).on 'ajax:complete','form[data-importer-form]', (e,data) =>
 
                 feature = $.parseJSON(data.responseText)
-
-                this.edition.addData feature
-
-                this.update()
-
-                modal.hide()
-
                 $(e.currentTarget).find('[data-importer-spinner]').removeClass('active')
+
+                if feature.alert?
+                  $(modal._container).find('#alert').text(feature.alert)
+                else
+                  this.edition.addData feature
+                  this.update()
+                  modal.hide()
+
 
                 this.navigateToLayer this.edition
 

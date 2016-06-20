@@ -1143,6 +1143,8 @@ eng:
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths" #?
+    invalid_file: "Invalid file" #?!
+    invalid_format: "Invalid format" #?!
     inventories: "Inventories" #?
     inventory: "Inventory" #?
     invitation_status: "Status" #?

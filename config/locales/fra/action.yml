@@ -1267,6 +1267,8 @@ fra:
       provisional: "Prévisionnelle" #?
       recommended: "Préconisée" #?
       undone: "En attente" #?
+    invalid_file: "Fichier invalide"
+    invalid_format: "Format invalide"
     inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire" #?
