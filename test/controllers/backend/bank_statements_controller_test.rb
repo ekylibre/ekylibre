@@ -19,6 +19,6 @@
 require 'test_helper'
 module Backend
   class BankStatementsControllerTest < ActionController::TestCase
-    test_restfully_all_actions edit_items: :get_and_post, index: :redirect
+    test_restfully_all_actions
   end
 end

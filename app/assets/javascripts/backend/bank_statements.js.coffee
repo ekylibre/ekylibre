@@ -3,12 +3,13 @@
 
   ### Bank statement items edit ###
 
-  $(document).on "change keyup", ".bank-statement-items-form input.debit, .bank-statement-items-form input.credit", ->
-    letter = $(@).closest("tr").find("input.letter").val()
-    return unless letter
-    linesWithLetterToClear = $(".bank-statement-items-form tbody tr").filter ->
-      $(@).find("input.letter").val() is letter
-    linesWithLetterToClear.find("input.letter").val(null)
+  itemTableRowId = 0
+  $(document).on "cocoon:after-insert", "form.new_bank_statement,form.edit_bank_statement", (event, newItem) ->
+    # Add HTML to Clear debit/credit when the other one changes
+    className = "bank-statement-item-#{itemTableRowId++}"
+    newItem.find("tr").addClass(className)
+    newItem.find(".debit").data("exclusive-nullify", ".#{className} .credit")
+    newItem.find(".credit").data("exclusive-nullify", ".#{className} .debit")
 
   ### Bank reconciliation ###
 

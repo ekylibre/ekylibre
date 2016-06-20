@@ -1,15 +1,11 @@
 - item ||= f.object
 %tbody.nested-fields
-  %tr
-    %td
-      = f.input :name, wrapper: :nested
-      = f.input :transaction_number, as: :hidden
-      = f.input :initiated_on, as: :hidden
-      = f.input :letter, as: :hidden
+  - tableRowClassName = "e#{item.id}" if item.persisted?
+  %tr{ class: tableRowClassName }
+    %td= f.input :name, wrapper: :nested
     %td= f.input :transfered_on, wrapper: :nested
-    %td.decimal= f.input :debit, wrapper: :nested, input_html: { class: 'debit', data: { exclusive_nullify: '.credit', use_closest: 'tr' } }
-    %td.currency= item.currency
-    %td.decimal= f.input :credit, wrapper: :nested, input_html: { class: 'credit', data: { exclusive_nullify: '.debit', use_closest: 'tr' } }
-    %td.currency= item.currency
-    %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
-
+    %td.decimal= f.input :debit, wrapper: :nested, input_html: { data: { exclusive_nullify: (item.persisted? ? ".#{tableRowClassName} .credit" : 'filledbyjs') }, class: 'debit' }
+    %td.currency= item.cash_currency
+    %td.decimal= f.input(:credit, wrapper: :nested, input_html: { data: { exclusive_nullify: (item.persisted? ? ".e#{tableRowClassName} .debit" : 'filledbyjs') }, class: 'credit' })
+    %td.currency= item.cash_currency
+    %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'destroy')

@@ -244,7 +244,6 @@ Rails.application.routes.draw do
         get :list_items
       end
       member do
-        match :edit_items, via: [:get, :post]
         match :reconciliation, via: [:get, :post]
       end
     end
