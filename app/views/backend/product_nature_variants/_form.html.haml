@@ -4,7 +4,7 @@
     f.object.unit_name ||= Nomen::Variety[nature.variety].human_name
     nature.frozen_indicators.each do |indicator|
       unless f.object.readings.find_by(indicator_name: indicator.name)
-        f.object.readings.build(indicator_name: indicator.name)
+        f.object.readings.build(indicator_name: indicator.name, indicator_datatype: indicator.datatype)
       end
     end
   end
