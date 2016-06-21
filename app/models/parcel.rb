@@ -59,7 +59,7 @@ class Parcel < Ekylibre::Record::Base
   enumerize :delivery_mode, in: [:transporter, :us, :third], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
-  belongs_to :storage, class_name: 'BuildingDivision'
+  belongs_to :storage, class_name: 'Product'
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase
   belongs_to :recipient, class_name: 'Entity'
@@ -226,11 +226,11 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def third_id
-    (incoming? ? sender_id : outgoing? ? recipient_id : nil)
+    (incoming? ? sender_id : recipient_id)
   end
 
   def third
-    (incoming? ? sender : outgoing? ? recipient : nil)
+    (incoming? ? sender : recipient)
   end
 
   def order

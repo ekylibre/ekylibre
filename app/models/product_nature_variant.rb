@@ -288,7 +288,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     attributes[:initial_owner] ||= Entity.of_company
     attributes[:initial_born_at] ||= Time.zone.now
     attributes[:born_at] ||= attributes[:initial_born_at]
-    attributes[:name] ||= "#{variant} (#{attributes[:initial_born_at].to_date.l})"
+    attributes[:name] ||= "#{name} (#{attributes[:initial_born_at].to_date.l})"
     matching_model.create!(attributes.merge(variant: self))
   end
 
