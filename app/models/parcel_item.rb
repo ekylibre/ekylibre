@@ -168,11 +168,11 @@ class ParcelItem < Ekylibre::Record::Base
 
     unless no_fusing
       self.product = existing_product_in_storage
-      product_params[:name] = "#{variant.name} (#{parcel.number})"
     else
-      product_params[:name] = self.product_name
+      product_params[:name] = self.product_name if product_is_unitary?
       product_params[:identification_number] = self.product_identification_number
     end
+    product_params[:name] ||= "#{variant.name} (#{parcel.number})"
 
     product_params[:initial_population] = quantity
     product_params[:initial_container] = parcel.storage
@@ -193,7 +193,7 @@ class ParcelItem < Ekylibre::Record::Base
   def existing_product_in_storage
     similar_products = Product.where(variant: self.variant)
     product_in_storage = similar_products.find do |p|
-      location = p.localizations.last
+      location = p.localizations.last.container
       location == self.storage
     end
     product_in_storage
