@@ -44,7 +44,8 @@
             unit.html(data.unit_name)
           else
             unit.html('#')
-          item.find(".item-variant-name").html(data.variant.name)
+          if data.variant
+            item.find(".item-variant-name").html(data.variant.name)
           pop = item.find(".item-population")
           total = item.find(".item-population-total")
           if data.population
@@ -64,6 +65,35 @@
             pop.attr('step', 1)
           else if data.population_counting is 'decimal'
             pop.removeAttr('step')
+
+          item.find('*[data-when-item]').each ->
+            if typeof data[$(this).data('when-item')] != "undefined"
+              if typeof $(this).data("when-set-value") != "undefined"
+                if $(this).data("when-set-value") == "RECORD_VALUE"
+                  newVal = data[$(this).data("when-item")]
+                  newVal = newVal.toLowerCase() if typeof newVal == "string"
+                  $(this).val(newVal)
+                else
+                  $(this).val($(this).data("when-set-value"))
+
+              if typeof $(this).data("when-prop-value") != "undefined"
+                $(this).prop($(this).data("when-prop-value"), true)
+
+              if typeof $(this).data("when-display-value") != "undefined"
+                if $(this).data("when-display-value") == true
+                  $(this).show()
+                else
+                  $(this).hide()
+
+            else
+              if typeof $(this).data("when-prop-value") != "undefined"
+                $(this).prop($(this).data("when-prop-value"), false)
+
+              if typeof $(this).data("when-display-value") != "undefined"
+                if $(this).data("when-display-value") == true
+                  $(this).hide()
+                else
+                  $(this).show()
 
           # shape = item.find(options.population_field or ".item-shape")
           # if data.shape
