@@ -1,3 +1,7 @@
+-# set unit for this view
+- inspection_unit = Nomen::Unit[:ton]
+- inspection_yield_unit = Nomen::Unit[:ton_per_hectare]
+
 - main_toolbar do |t|
   = t.edit resource
   - budget = resource.budget_of(current_campaign)
@@ -63,6 +67,47 @@
       = pie_highcharts(series, legend: true)
 
   - if resource.use_gradings
+    - c.cobble(:stock_in_ground) do
+      %table
+        %tbody
+          - resource.inspection_calibration_scales.each do |scale|
+            :ruby
+              symbol_measure = inspection_unit.symbol
+              yield_symbol_measure = inspection_yield_unit.symbol
+
+              # get last calibration for each plant of the current activity
+              dataset_inspections = resource.inspections
+              
+              # get all plants in dataset
+              plants = Plant.find(dataset_inspections.pluck(:product_id).uniq)
+              
+              # get all inspections calibrations nature in activity
+              natures = resource.inspection_calibration_natures
+              
+              # get last inspection for each plant
+              dataset_last_inspections = []
+              plants.each do |plant|
+                dataset_last_inspections << dataset_inspections.where(product: plant).reorder(:sampled_at).last
+              end
+              
+              series = []
+              yield_series = []
+              
+              natures.each do |nature|
+                last_calibrations = []
+                last_calibrations_yield = []
+                dataset_last_inspections.each do |last_inspection|
+                  l = last_inspection.calibrations.of_scale(scale).where(nature_id: nature.id)
+                  last_calibrations << l.first.marketable_net_mass.round(0).to_d(inspection_unit)
+                  last_calibrations_yield << l.first.marketable_yield.round(0).to_d(inspection_yield_unit)
+                end
+                series << { name: nature.name, data: [last_calibrations.compact.sum.to_s.to_f] }
+                yield_series << { name: nature.name, data: [(last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f] }
+              end
+              
+            %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+            %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+
     - c.cobble(:inspections) do
       = cobble_list :inspections
 
