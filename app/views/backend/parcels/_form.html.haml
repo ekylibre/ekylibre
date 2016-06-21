@@ -17,7 +17,7 @@
   #delivery-mode-transporter
     = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
   -#= f.referenced_association :sale
-  = f.input :planned_at
+  = f.input :planned_at, required: false
   - if f.object.outgoing?
     = f.input :remain_owner
   = f.custom_fields
