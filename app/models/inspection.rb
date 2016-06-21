@@ -262,7 +262,7 @@ class Inspection < Ekylibre::Record::Base
 
   def unmarketable_rate
     # raise [unmarketable_net_mass.to_s, total_net_mass.to_s].to_sentence
-    unmarketable_net_mass / net_mass
+    net_mass.value != 0 ? unmarketable_net_mass / net_mass : nil
   end
 
   def unmarketable_net_mass

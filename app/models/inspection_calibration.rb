@@ -56,7 +56,11 @@ class InspectionCalibration < Ekylibre::Record::Base
   end
 
   def marketable_net_mass
-    total_net_mass * (1 - inspection.unmarketable_rate)
+    if inspection.unmarketable_rate
+      total_net_mass * (1 - inspection.unmarketable_rate)
+    else
+      nil
+    end
   end
 
   def marketable_yield
