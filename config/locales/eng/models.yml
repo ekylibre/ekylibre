@@ -675,6 +675,7 @@ eng:
     initial_shape: "Initial shape"
     inputs: "Inputs"
     inspection: "Inspection"
+    # inspection_calibration_natures: "Inspection calibration natures"
     # inspection_calibration_scales: "Inspection calibration scales"
     # inspection_calibrations: "Inspection calibrations"
     # inspection_point_natures: "Inspection point natures"

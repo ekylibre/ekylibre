@@ -1145,8 +1145,8 @@ eng:
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths" #?
-    invalid_file: "Invalid file" #?!
-    invalid_format: "Invalid format" #?!
+    invalid_file: "Invalid file" #?
+    invalid_format: "Invalid format" #?
     inventories: "Inventories" #?
     inventory: "Inventory" #?
     invitation_status: "Status" #?
@@ -1484,7 +1484,7 @@ eng:
     stock_in_ground_by_calibration: "Stocks in ground by calibration"
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
-    stocks_by_calibrations: "Stocks by calibrations"
+    stocks_by_calibrations: "Stocks by calibrations" #?!
     stocks_in_ground: "Stock in ground" #?!
     stop: "Stop" #?
     stopped: "Stopped"
@@ -1567,6 +1567,7 @@ eng:
     unknown_variant: "Unknown variant"
     unlock: "Unlock" #?
     unmark: "Unmark" #?
+    # unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
     unnamed: "Nameless" #?!
     unpaid: "Unpaid" #?
     unpaid_amount: "Unpaid amount" #??
