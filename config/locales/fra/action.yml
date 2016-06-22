@@ -470,6 +470,8 @@ fra:
       index: "Groupes de produits"
       new: "Créer un groupe"
       show: "Groupe\_: %{name}"
+    backend/product_localizations:
+      edit: "Editer la localisation du produit:"
     backend/product_nature_categories:
       edit: "Modifier la catégorie du produit\_: %{name}"
       index: "Catégories de produits"

@@ -664,6 +664,8 @@ Rails.application.routes.draw do
 
     resources :product_groups, concerns: :products
 
+    resources :product_localizations, concerns: [:list, :unroll], except: [:index, :show]
+
     resources :product_natures, concerns: [:incorporate, :list, :unroll] do
       member do
         get :list_variants
