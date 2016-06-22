@@ -447,11 +447,14 @@ module Backend
         variant_id = @template.params[:variant_id]
         variant = ProductNatureVariant.where(id: variant_id.to_i).first if variant_id
       end
+      options[:input_html] ||= {}
+      options[:input_html][:class] ||= ''
+
       if variant
         @object.nature ||= variant.nature
         whole_indicators = variant.whole_indicators
         # Add product type selector
-        html << @template.field_set do
+        form = @template.field_set options[:input_html][:class] do
           fs = input(:variant_id, value: variant.id, as: :hidden)
           # Add name
           fs << input(:name)
@@ -477,6 +480,7 @@ module Backend
 
           fs
         end
+        html << form
 
         # Add form body
         html += if block_given?
