@@ -454,7 +454,7 @@ module Backend
         @object.nature ||= variant.nature
         whole_indicators = variant.whole_indicators
         # Add product type selector
-        form = @template.field_set options[:input_html][:class] do
+        form = @template.field_set options[:input_html] do
           fs = input(:variant_id, value: variant.id, as: :hidden)
           # Add name
           fs << input(:name)
