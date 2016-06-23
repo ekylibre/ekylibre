@@ -44,7 +44,7 @@ module Backend
     end
 
     def create
-      @target_distributions = TargetDistribution.create!(permitted_params[:collection] || permitted_params)
+      @target_distributions = TargetDistribution.create!(permitted_params.key?(:collection) ? permitted_params[:collection].values : permitted_params)
 
       redirect_to params[:redirect] || backend_target_distributions_path if @target_distributions
     end
