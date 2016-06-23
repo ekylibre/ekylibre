@@ -1178,6 +1178,7 @@ eng:
     token: "Token"
     tool: "Tool"
     tools: "Tools"
+    total_cost: "Total cost"
     total_net_mass: "Total net mass"
     town_number: "Town number"
     tracking: "Tracking"

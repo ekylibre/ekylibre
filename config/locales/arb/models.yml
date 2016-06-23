@@ -2122,6 +2122,7 @@ arb:
     tool_id: "اداة" #?
     tools: "الادوات"
     tools_list: "معدات" #?
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "عدد تاون"
     tracking: "الحصة"

@@ -1176,6 +1176,7 @@ ita:
     token: "Gettone"
     tool: "Strumento"
     tools: "Utensili"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "numero di Città"
     tracking: "puntamento"

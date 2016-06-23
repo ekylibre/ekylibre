@@ -1149,6 +1149,7 @@ spa:
     token: "Simbólico"
     tool: "Herramienta"
     tools: "Instrumentos"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "Número ciudad"
     tracking: "Rastreo"

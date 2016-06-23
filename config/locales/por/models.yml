@@ -1145,6 +1145,7 @@ por:
     token: "Símbolo"
     tool: "Ferramenta"
     tools: "Ferramentas"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "Número cidade"
     tracking: "Rastreamento"

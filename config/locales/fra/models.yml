@@ -1400,6 +1400,7 @@ fra:
     token: "Jeton"
     tool: "Outil"
     tools: "Outils"
+    total_cost: "Coût total"
     total_net_mass: "Masse nette totale"
     town_number: "Numéro de commune"
     tracking: "Lot"

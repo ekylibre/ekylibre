@@ -1145,6 +1145,7 @@ cmn:
     token: "象征"
     tool: "工具"
     tools: "工具"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "镇号"
     tracking: "跟踪"

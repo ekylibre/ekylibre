@@ -1145,6 +1145,7 @@ deu:
     token: "Zeichen"
     tool: "Werkzeug"
     tools: "Werkzeuge"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "Stadt Zahl"
     tracking: "Verfolgung"

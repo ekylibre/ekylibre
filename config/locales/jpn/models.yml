@@ -1145,6 +1145,7 @@ jpn:
     token: "トークン"
     tool: "ツール"
     tools: "ツール"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "タウン番号"
     tracking: "追跡"

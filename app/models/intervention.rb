@@ -285,6 +285,10 @@ class Intervention < Ekylibre::Record::Base
     end.sum
   end
 
+  def currency
+    return Preference[:currency]
+  end
+
   def cost_per_area(area_unit = :hectare)
     if working_zone_area > 0.0.in_square_meter
       return (total_cost / working_zone_area(area_unit).to_d)
