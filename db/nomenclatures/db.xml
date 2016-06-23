@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160617142409">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160622121241">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1953,6 +1953,7 @@
       <item name="chaptalization"/>
       <item name="complete_wine_transfer"/>
       <item name="concrete_slab_pouring"/>
+      <item name="conservation_plowing"/>
       <item name="corvicide"/>
       <item name="cutting"/>
       <item name="dehorning"/>

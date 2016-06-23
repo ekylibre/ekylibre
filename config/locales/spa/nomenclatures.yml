@@ -1970,6 +1970,7 @@ spa:
         chaptalization: "Azucarado"
         complete_wine_transfer: "La transferencia completa del vino"
         concrete_slab_pouring: "Losa de hormigón vertido"
+        # conservation_plowing: "Conservation plowing"
         # corvicide: "Corvicide"
         cutting: "Corte"
         dehorning: "Dehorning"

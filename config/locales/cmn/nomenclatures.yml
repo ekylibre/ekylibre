@@ -1964,6 +1964,7 @@ cmn:
         chaptalization: "加糖"
         complete_wine_transfer: "完整的酒调"
         concrete_slab_pouring: "混凝土浇筑板"
+        # conservation_plowing: "Conservation plowing"
         # corvicide: "Corvicide"
         cutting: "切割"
         dehorning: "去角"

@@ -1964,6 +1964,7 @@ ita:
         chaptalization: "zuccheraggio"
         complete_wine_transfer: "trasferimento di vini completa"
         concrete_slab_pouring: "lastra di cemento versando"
+        # conservation_plowing: "Conservation plowing"
         # corvicide: "Corvicide"
         cutting: "Taglio"
         dehorning: "decornazione"
