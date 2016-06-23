@@ -113,6 +113,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.letter = nil if letter.blank?
     # computes the values depending on currency rate
     # for debit and credit.
+    self.debit ||= 0
+    self.credit ||= 0
     self.real_debit ||= 0
     self.real_credit ||= 0
     if entry

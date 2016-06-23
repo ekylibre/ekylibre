@@ -172,12 +172,40 @@ class JournalEntry < Ekylibre::Record::Base
     else
       self.real_currency_rate = 1
     end
-    self.real_debit   = items.sum(:real_debit)
-    self.real_credit  = items.sum(:real_credit)
+    self.real_debit   = self.items.sum(:real_debit)
+    self.real_credit  = self.items.sum(:real_credit)
     self.real_balance = real_debit - real_credit
-    self.debit   = items.sum(:debit)
-    self.credit  = items.sum(:credit)
+
+    self.debit   = self.items.sum(:debit)
+    self.credit  = self.items.sum(:credit)
+
     self.balance = debit - credit
+
+    if self.real_balance.zero? && !self.balance.zero?
+      error_sum = self.balance * 100
+      if error_sum > 0
+        column = :credit
+      else
+        column = :debit
+      end
+
+      error_sum = error_sum.abs
+
+      even_items = self.items.select { |item| !item.send(column).zero? }
+      proratas = even_items.map { |item| [item, item.send(column) / self.send(column)] }
+      proratas.reduce(error_sum) do |left, item|
+        error_to_update = [(error_sum * item[1]).ceil / 100.to_f, left].min
+        item[0].update_columns(column => item[0].send(column) + error_to_update)
+
+        left - error_to_update*100
+      end
+
+      self.debit   = self.items.sum(:debit)
+      self.credit  = self.items.sum(:credit)
+
+      self.balance = debit - credit
+    end
+
     self.absolute_currency = Preference[:currency]
     if absolute_currency == currency
       self.absolute_debit = debit

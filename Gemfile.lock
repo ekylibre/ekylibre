@@ -261,6 +261,7 @@ GEM
     pg (0.18.4)
     pkg-config (1.1.7)
     polyglot (0.3.5)
+    possibly (0.2.0)
     powerpack (0.1.1)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -518,6 +519,7 @@ DEPENDENCIES
   paperclip
   paperclip-document (> 0.0.8)
   pg
+  possibly
   pry-byebug
   pry-inline
   pry-rails
