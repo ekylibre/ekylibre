@@ -492,6 +492,8 @@ arb:
       index: "مجموعات المنتجات"
       new: "مجموعة جديدة"
       # show: "Group: %{name}"
+    backend/product_localizations:
+      # edit: "Edit product localization:"
     backend/product_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?

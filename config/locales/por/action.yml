@@ -391,6 +391,8 @@ por:
       index: "Grupos de produtos"
       new: "Novo grupo"
       # show: "Group: %{name}"
+    backend/product_localizations:
+      # edit: "Edit product localization:"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorias de Produtos"

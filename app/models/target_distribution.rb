@@ -65,24 +65,24 @@ class TargetDistribution < Ekylibre::Record::Base
     target.distributions
   end
 
-  def started_on_for(product)
-    return started_at.to_date unless started_at.nil? or started_at == Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  def started_on_for(_product)
+    return started_at.to_date unless started_at.nil? || started_at == Time.new(1, 1, 1, 0, 0, 0, '+00:00')
     on = begin
-      Date.civil(self.stopped_at.year, self.stopped_at.month, self.stopped_at.day)
+      Date.civil(stopped_at.year, stopped_at.month, stopped_at.day)
     rescue
-      Date.civil(self.stopped_at.year, self.stopped_at.month, self.stopped_at.day) - 1
+      Date.civil(stopped_at.year, stopped_at.month, stopped_at.day) - 1
     end
 
     on -= 1.year
     on.to_date.beginning_of_month
   end
 
-  def stopped_on_for(product)
+  def stopped_on_for(_product)
     return stopped_at.to_date unless stopped_at.nil?
     on = begin
-        Date.civil(self.started_at.year, self.started_at.month, self.started_at.day)
+      Date.civil(started_at.year, started_at.month, started_at.day)
     rescue
-        Date.civil(self.started_at.year, self.started_at.month, self.started_at.day) - 1
+      Date.civil(started_at.year, started_at.month, started_at.day) - 1
     end
 
     on += 1.year

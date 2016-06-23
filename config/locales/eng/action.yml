@@ -476,6 +476,7 @@ eng:
       # take: "Take product group: %{name}"
     backend/product_localizations:
       edit: "Edit product localization:"
+      # new: "New product localization"
     backend/product_nature_categories:
       edit: "Edit product category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"
@@ -1097,7 +1098,7 @@ eng:
     geolocation: "Geolocation" #?
     go: "Go" #?
     gradings: "Gradings" #?
-    grain_yield: "Grain yield"
+    grain_yield: "Grain yield" #?
     gross_profit: "Gross profit"
     group: "Group" #?
     groups: "Groups"

@@ -386,6 +386,8 @@ cmn:
       index: "产品组"
       new: "新建组"
       # show: "Group: %{name}"
+    backend/product_localizations:
+      # edit: "Edit product localization:"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "产品类别"

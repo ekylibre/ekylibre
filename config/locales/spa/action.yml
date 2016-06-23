@@ -423,6 +423,8 @@ spa:
       index: "Grupos de productos"
       new: "Nuevo grupo"
       # show: "Group: %{name}"
+    backend/product_localizations:
+      # edit: "Edit product localization:"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorías de Producto"

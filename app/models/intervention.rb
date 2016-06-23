@@ -269,7 +269,6 @@ class Intervention < Ekylibre::Record::Base
       movement.started_at = self.started_at
       movement.stopped_at = self.stopped_at
       movement.save!
-
     end
   end
 

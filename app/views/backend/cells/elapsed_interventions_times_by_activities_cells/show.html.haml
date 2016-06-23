@@ -5,7 +5,7 @@
     stopped_at = Intervention.of_civil_year(@campaign.harvest_year).reorder(:started_at).last.stopped_at.to_date
 
     unit = Nomen::Unit[:hour]
-    
+
     cost_unit = Nomen::Currency[Preference[:currency]]
 
     categories = {}

@@ -50,7 +50,7 @@
       #measure_unit = "#{mass_unit.to_s}_per_#{surface_unit.to_s}"
       #yield_symbol = Nomen::Unit[measure_unit.to_sym]
       surface_unit_name = :hectare
-      
+
       # case fodder (hay, grass) in ton per hectare
       if support.usage == 'fodder' || support.usage == 'fiber'
         matter = :grass
@@ -66,12 +66,12 @@
         label = :grass_yield
         mass_unit_name = :quintal
       end
-      
+
       harvest_yield = support.harvest_yield(matter, procedure_category: :harvesting,
                           size_indicator_name: :net_mass,
                           size_unit_name: mass_unit_name,
                           surface_unit_name: surface_unit_name)
-      
+
       if params[:visualization] == "grain_yield"
         popup_content << {label: label.tl, value: harvest_yield.round(2).l}
       end

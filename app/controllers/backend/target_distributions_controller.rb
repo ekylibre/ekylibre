@@ -20,7 +20,7 @@ module Backend
   class TargetDistributionsController < Backend::BaseController
     manage_restfully except: [:create]
 
-    list order: {started_at: :desc} do |t|
+    list order: { started_at: :desc } do |t|
       t.action :edit
       t.action :destroy
       t.column :target, url: true
@@ -53,6 +53,5 @@ module Backend
       @target_distribution = TargetDistribution.new
       @targets = InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct
     end
-
   end
 end
