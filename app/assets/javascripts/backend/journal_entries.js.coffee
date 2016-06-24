@@ -59,16 +59,36 @@
             else
               errorRepartition("debit", debit, error_sum)
 
+    convert = (item, column) ->
+      field = $(item).closest("tr").next("tr").find("td."+column)
+      precision = field.data("calculate-round")
+      new_val = parseFloat($("#journal_entry_real_currency_rate").val()) * parseFloat($(item).val())
+      new_val = Math.round(new_val * 10**precision) / 10**precision
+      field.html(new_val)
+      field.next("td."+column+"-without-error-correction").html(new_val)
+
+    convertAll = () ->
+      ['debit', 'credit'].forEach (column) ->
+          $(".real-"+column).each (index, item) ->
+            convert(item, column)
+
     if $("#subtotal").length > 0
       ['debit', 'credit'].forEach (column) ->
         $(document).behave "change keyup paste", '.real-'+column,  () ->
-          field = $(this).closest("tr").next("tr").find("td."+column)
-          precision = field.data("calculate-round")
-          new_val = parseFloat($("#journal_entry_real_currency_rate").val()) * parseFloat($(this).val())
-          new_val = Math.round(new_val * 10**precision) / 10**precision
-          field.html(new_val)
-          field.next("td."+column+"-without-error-correction").html(new_val)
+          convert(this, column)
           evening()
+
+      $(document).behave "change keyup paste", "#journal_entry_real_currency_rate", () ->
+        convertAll()
+        evening()
+
+      observer = new MutationObserver (mutations) ->
+        mutations.forEach (mutation) ->
+          if mutation.addedNodes.length > 0
+            convertAll()
+            evening()
+
+      observer.observe(document.getElementById("items"), childList: true)
 
       # to avoid autocalculate messing up our first error calculation.
       setTimeout(evening, 500)
