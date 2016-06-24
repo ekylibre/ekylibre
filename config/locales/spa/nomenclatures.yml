@@ -5006,6 +5006,8 @@ spa:
         # musa_textilis: "Musa textilis"
         # musa_velutina: "Musa velutina"
         musaceae: "Musáceas"
+        # musca: "Fly"
+        # musca_domestica: "House fly"
         # myocastoridae: "Myocastoridae"
         # myrtaceae: "Myrtaceae"
         # mytilidae: "Mytilidae"

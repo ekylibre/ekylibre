@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160622121241">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160624073237">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -10450,6 +10450,8 @@
       <item name="musa_textilis" parent="musa" itis_tsn="506500"/>
       <item name="musa_velutina" parent="musa" itis_tsn="503890"/>
       <item name="musaceae" parent="plant" itis_tsn="42385"/>
+      <item name="musca" parent="insecta" itis_tsn="150249"/>
+      <item name="musca_domestica" parent="musca" itis_tsn="150251"/>
       <item name="myocastoridae" parent="mammalia" itis_tsn="180400"/>
       <item name="myrtaceae" parent="plant" itis_tsn="27172"/>
       <item name="mytilidae" parent="bivalvia" itis_tsn="79451"/>

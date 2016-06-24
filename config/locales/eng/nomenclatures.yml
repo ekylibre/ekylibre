@@ -4995,6 +4995,8 @@ eng:
         musa_textilis: "Musa textilis"                     #< musa
         musa_velutina: "Musa velutina"                     #< musa
         musaceae: "Musaceae"                               #< plant
+        musca: "Fly"                                       #< insecta
+        musca_domestica: "House fly"                       #< musca
         myocastoridae: "Myocastoridae"                     #< mammalia
         myrtaceae: "Myrtaceae"                             #< plant
         mytilidae: "Mytilidae"                             #< bivalvia

@@ -5000,6 +5000,8 @@ cmn:
         musa_textilis: "穆萨青皮"
         musa_velutina: "绒毛穆萨"
         musaceae: "芭蕉科"
+        # musca: "Fly"
+        # musca_domestica: "House fly"
         # myocastoridae: "Myocastoridae"
         myrtaceae: "桃金娘科"
         mytilidae: "贻贝科"
