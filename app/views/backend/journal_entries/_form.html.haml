@@ -1,5 +1,4 @@
 = field_set do
-  = Maybe(f.object).errors.messages.or_else "{}"
   = hidden_field_tag :journal_id, (resource.new_record? ? params[:journal_id] : resource.journal_id)
   -# = f.referenced_association :journal, readonly: true, input_html: { data: { dependents: '#items-form' } }
   = f.input :number
