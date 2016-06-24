@@ -92,4 +92,12 @@ class TargetDistribution < Ekylibre::Record::Base
     on += 1.year
     on.to_date.end_of_month
   end
+
+  class << self
+
+    def distributed?
+      !InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct.any?
+    end
+
+  end
 end
