@@ -18,6 +18,3 @@
 
 - if f.object.indicators_list.include? :geolocation
   = f.geolocation(:initial_geolocation, label: Product.human_attribute_name(:geolocation))
-
-= f.input(:initial_born_at, label: Product.human_attribute_name(:born_at))
-= f.input(:initial_dead_at, label: Product.human_attribute_name(:dead_at))

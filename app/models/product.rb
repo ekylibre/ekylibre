@@ -224,6 +224,23 @@ class Product < Ekylibre::Record::Base
   validates_presence_of :nature, :variant, :name, :uuid
   validates_attachment_content_type :picture, content_type: /image/
 
+  validate :born_at_in_interventions, if: ->(product) { product.initial_born_at.present? && product.interventions.any? && product.interventions.collect(&:started_at).any? }
+  validate :dead_at_in_interventions, if: ->(product) { product.initial_dead_at.present? && product.interventions.any? && product.interventions.collect(&:stopped_at).any? }
+
+  def born_at_in_interventions
+    first_date = interventions.collect(&:stopped_at).sort.first
+    unless initial_born_at <= first_date
+      errors.add(:born_at, :invalid)
+    end
+  end
+
+  def dead_at_in_interventions
+    last_date = interventions.collect(&:stopped_at).sort.last
+    unless initial_dead_at >= self.initial_born_at and initial_dead_at >= last_date
+      errors.add(:dead_at, :invalid)
+    end
+  end
+
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
     !reading['indicator_name'] != 'population' && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
   }
