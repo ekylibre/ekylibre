@@ -1197,6 +1197,7 @@ arb:
     details: "معلومات اضافية"
     direct_margin: "هامش المباشر"
     discount: "الخصم (%)"
+    # disease: "Disease (%)"
     # disease_deformity_percentage: "Disease and deformity percentage"
     display: "عرض"
     display_help: "عرض المساعدة" #?
@@ -2045,6 +2046,7 @@ arb:
     unknown_variant: "البديل غير معروف"
     unlock: "فتح القفل"
     unmark: "غير علامة"
+    # unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
     # unnamed: "Nameless"
     unpaid: "غير مسدد"
     unpaid_amount: "القيمة المتبقية"

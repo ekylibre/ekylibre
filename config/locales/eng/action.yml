@@ -1013,6 +1013,7 @@ eng:
     details: "Details"
     direct_margin: "Direct margin" #?!
     discount: "Discount (%)" #?
+    disease: "Disease (%)" #?
     disease_deformity_percentage: "Disease and deformity percentage"
     display: "Display" #?
     distributions: "Distributions"
@@ -1568,7 +1569,7 @@ eng:
     unknown_variant: "Unknown variant"
     unlock: "Unlock" #?
     unmark: "Unmark" #?
-    # unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
+    unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
     unnamed: "Nameless" #?!
     unpaid: "Unpaid" #?
     unpaid_amount: "Unpaid amount" #??
