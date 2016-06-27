@@ -53,12 +53,12 @@ class AnalysisItem < Ekylibre::Record::Base
   belongs_to :product_reading, dependent: :destroy
   has_one :product, through: :analysis
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :integer_value, allow_nil: true, only_integer: true
-  validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
-  validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :analysis, :indicator_datatype, :indicator_name
+  validates :integer_value, numericality: { allow_nil: true, only_integer: true }
+  validates :absolute_measure_value_value, :decimal_value, :measure_value_value, numericality: { allow_nil: true }
+  validates :boolean_value, inclusion: { in: [true, false] }
+  validates :analysis, :indicator_datatype, :indicator_name, presence: true
   # ]VALIDATORS]
-  validates_uniqueness_of :indicator_name, scope: :analysis_id
+  validates :indicator_name, uniqueness: { scope: :analysis_id }
 
   delegate :sampled_at, to: :analysis
 

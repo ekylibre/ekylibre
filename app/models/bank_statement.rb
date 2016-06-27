@@ -44,13 +44,13 @@ class BankStatement < Ekylibre::Record::Base
   belongs_to :cash
   has_many :items, class_name: 'JournalEntryItem', dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(bank_statement) { bank_statement.stopped_at && bank_statement.started_at }
-  validates_numericality_of :credit, :debit, allow_nil: true
-  validates_presence_of :cash, :credit, :currency, :debit, :number, :started_at, :stopped_at
+  validates :credit, :debit, numericality: { allow_nil: true }
+  validates :cash, :credit, :currency, :debit, :number, :started_at, :stopped_at, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_uniqueness_of :number, scope: :cash_id
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :number, uniqueness: { scope: :cash_id }
 
   delegate :name, :currency, :account_id, to: :cash, prefix: true
 

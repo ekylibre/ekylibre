@@ -51,13 +51,13 @@ class Preference < Ekylibre::Record::Base
   belongs_to :record_value, polymorphic: true
   # cattr_reader :reference
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :integer_value, allow_nil: true, only_integer: true
-  validates_numericality_of :decimal_value, allow_nil: true
-  validates_presence_of :name, :nature
+  validates :integer_value, numericality: { allow_nil: true, only_integer: true }
+  validates :decimal_value, numericality: { allow_nil: true }
+  validates :name, :nature, presence: true
   # ]VALIDATORS]
-  validates_length_of :nature, allow_nil: true, maximum: 60
-  validates_inclusion_of :nature, in: nature.values
-  validates_uniqueness_of :name, scope: [:user_id]
+  validates :nature, length: { allow_nil: true, maximum: 60 }
+  validates :nature, inclusion: { in: nature.values }
+  validates :name, uniqueness: { scope: [:user_id] }
 
   alias_attribute :accounting_system_value, :string_value
   alias_attribute :country_value, :string_value

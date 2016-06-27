@@ -54,11 +54,11 @@ class ProductReading < Ekylibre::Record::Base
   belongs_to :originator, polymorphic: true
   has_one :variant, through: :product
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :read_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :integer_value, allow_nil: true, only_integer: true
-  validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
-  validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :indicator_datatype, :indicator_name, :product, :read_at
+  validates :read_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :integer_value, numericality: { allow_nil: true, only_integer: true }
+  validates :absolute_measure_value_value, :decimal_value, :measure_value_value, numericality: { allow_nil: true }
+  validates :boolean_value, inclusion: { in: [true, false] }
+  validates :indicator_datatype, :indicator_name, :product, :read_at, presence: true
   # ]VALIDATORS]
 
   scope :between, lambda { |started_at, stopped_at|

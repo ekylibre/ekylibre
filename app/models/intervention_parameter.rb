@@ -55,10 +55,10 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :parameters
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity_population, :quantity_value, allow_nil: true
-  validates_presence_of :intervention, :reference_name
+  validates :quantity_population, :quantity_value, numericality: { allow_nil: true }
+  validates :intervention, :reference_name, presence: true
   # ]VALIDATORS]
-  validates_presence_of :position
+  validates :position, presence: true
 
   scope :of_activity, lambda { |activity|
     where(intervention_id: InterventionTarget.select(:intervention_id).of_activity(activity))

@@ -37,9 +37,9 @@ class Role < Ekylibre::Record::Base
   include Rightable
   has_many :users
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :name
+  validates :name, presence: true
   # ]VALIDATORS]
-  validates_uniqueness_of :name
+  validates :name, uniqueness: true
 
   protect(on: :destroy) do
     users.any?

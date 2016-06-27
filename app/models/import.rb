@@ -45,12 +45,12 @@ class Import < Ekylibre::Record::Base
   enumerize :state, in: [:undone, :in_progress, :errored, :aborted, :finished], predicates: true, default: :undone
   has_attached_file :archive, path: ':tenant/:class/:id/:style.:extension'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :archive_updated_at, :imported_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :archive_file_size, allow_nil: true, only_integer: true
-  validates_numericality_of :progression_percentage, allow_nil: true
-  validates_presence_of :nature, :state
+  validates :archive_updated_at, :imported_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :archive_file_size, numericality: { allow_nil: true, only_integer: true }
+  validates :progression_percentage, numericality: { allow_nil: true }
+  validates :nature, :state, presence: true
   # ]VALIDATORS]
-  validates_inclusion_of :progression_percentage, in: 0..100, allow_blank: true
+  validates :progression_percentage, inclusion: { in: 0..100, allow_blank: true }
   do_not_validate_attachment_file_type :archive
 
   class InterruptRequest < StandardError

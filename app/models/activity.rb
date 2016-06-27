@@ -83,17 +83,17 @@ class Activity < Ekylibre::Record::Base
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, in: [true, false]
-  validates_presence_of :family, :name, :nature, :production_cycle
+  validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
+  validates :family, :name, :nature, :production_cycle, presence: true
   # ]VALIDATORS]
-  validates_inclusion_of :family, in: family.values
-  validates_presence_of :cultivation_variety, if: :with_cultivation
-  validates_presence_of :support_variety, if: :with_supports
-  validates_uniqueness_of :name
+  validates :family, inclusion: { in: family.values }
+  validates :cultivation_variety, presence: { if: :with_cultivation }
+  validates :support_variety, presence: { if: :with_supports }
+  validates :name, uniqueness: true
   # validates_associated :productions
-  validates_presence_of :production_campaign, if: :perennial?
-  validates_presence_of :grading_net_mass_unit, if: :measure_grading_net_mass
-  validates_presence_of :grading_sizes_indicator, :grading_sizes_unit, if: :measure_grading_sizes
+  validates :production_campaign, presence: { if: :perennial? }
+  validates :grading_net_mass_unit, presence: { if: :measure_grading_net_mass }
+  validates :grading_sizes_indicator, :grading_sizes_unit, presence: { if: :measure_grading_sizes }
 
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }

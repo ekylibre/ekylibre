@@ -58,11 +58,11 @@ class Loan < Ekylibre::Record::Base
   has_many :repayments, -> { order(:position) }, class_name: 'LoanRepayment', dependent: :destroy, counter_cache: false
   has_one :journal, through: :cash
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_datetime :accounted_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :repayment_duration, :shift_duration, allow_nil: true, only_integer: true
-  validates_numericality_of :amount, :insurance_percentage, :interest_percentage, allow_nil: true
-  validates_presence_of :amount, :cash, :currency, :insurance_percentage, :interest_percentage, :lender, :name, :repayment_duration, :repayment_method, :repayment_period, :shift_duration, :started_on
+  validates :started_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :accounted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :repayment_duration, :shift_duration, numericality: { allow_nil: true, only_integer: true }
+  validates :amount, :insurance_percentage, :interest_percentage, numericality: { allow_nil: true }
+  validates :amount, :cash, :currency, :insurance_percentage, :interest_percentage, :lender, :name, :repayment_duration, :repayment_method, :repayment_period, :shift_duration, :started_on, presence: true
   # ]VALIDATORS]
 
   before_validation do

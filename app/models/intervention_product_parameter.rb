@@ -66,7 +66,7 @@ class InterventionProductParameter < InterventionParameter
   has_geometry :working_zone, type: :multi_polygon
   composed_of :quantity, class_name: 'Measure', mapping: [%w(quantity_value to_d), %w(quantity_unit_name unit)]
 
-  validates_presence_of :quantity_indicator_name, :quantity_unit_name, if: :measurable?
+  validates :quantity_indicator_name, :quantity_unit_name, presence: { if: :measurable? }
 
   delegate :name, to: :product, prefix: true
   delegate :name, to: :variant, prefix: true

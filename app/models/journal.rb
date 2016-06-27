@@ -46,16 +46,16 @@ class Journal < Ekylibre::Record::Base
   has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
   enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :closed_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_inclusion_of :used_for_affairs, :used_for_gaps, in: [true, false]
-  validates_presence_of :closed_on, :code, :currency, :name, :nature
+  validates :closed_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :used_for_affairs, :used_for_gaps, inclusion: { in: [true, false] }
+  validates :closed_on, :code, :currency, :name, :nature, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :code, allow_nil: true, maximum: 4
-  validates_length_of :nature, allow_nil: true, maximum: 30
-  validates_uniqueness_of :code
-  validates_uniqueness_of :name
-  validates_format_of :code, with: /\A[\dA-Z]+\z/
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :code, length: { allow_nil: true, maximum: 4 }
+  validates :nature, length: { allow_nil: true, maximum: 30 }
+  validates :code, uniqueness: true
+  validates :name, uniqueness: true
+  validates :code, format: { with: /\A[\dA-Z]+\z/ }
 
   selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
 

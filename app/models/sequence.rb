@@ -45,13 +45,13 @@ class Sequence < Ekylibre::Record::Base
   enumerize :usage, in: [:affairs, :analyses, :animals, :campaigns, :cash_transfers, :deliveries, :deposits, :documents, :entities, :fixed_assets, :gaps, :incoming_payments, :inspections, :interventions, :opportunities, :outgoing_payments, :parcels, :plants, :products, :product_natures, :product_nature_categories, :product_nature_variants, :purchases, :sales, :sales_invoices, :subscriptions]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, allow_nil: true, only_integer: true
-  validates_presence_of :name, :number_format, :number_increment, :number_start, :period
+  validates :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, numericality: { allow_nil: true, only_integer: true }
+  validates :name, :number_format, :number_increment, :number_start, :period, presence: true
   # ]VALIDATORS]
-  validates_inclusion_of :period, in: period.values
-  validates_inclusion_of :usage, in: usage.values, allow_nil: true
-  validates_uniqueness_of :number_format
-  validates_uniqueness_of :usage, if: :used?
+  validates :period, inclusion: { in: period.values }
+  validates :usage, inclusion: { in: usage.values, allow_nil: true }
+  validates :number_format, uniqueness: true
+  validates :usage, uniqueness: { if: :used? }
 
   scope :of_usage, ->(usage) { where(usage: usage.to_s).order(:id) }
 

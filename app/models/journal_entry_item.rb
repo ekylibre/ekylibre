@@ -73,15 +73,15 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :bank_statement
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :printed_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
-  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
+  validates :printed_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, numericality: { allow_nil: true }
+  validates :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state, presence: true
   # ]VALIDATORS]
-  validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
-  validates_length_of :letter, allow_nil: true, maximum: 10
-  validates_length_of :state, allow_nil: true, maximum: 30
-  validates_numericality_of :debit, :credit, :real_debit, :real_credit, greater_than_or_equal_to: 0
-  validates_presence_of :account
+  validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
+  validates :letter, length: { allow_nil: true, maximum: 10 }
+  validates :state, length: { allow_nil: true, maximum: 30 }
+  validates :debit, :credit, :real_debit, :real_credit, numericality: { greater_than_or_equal_to: 0 }
+  validates :account, presence: true
   # validates_uniqueness_of :letter, :scope => :account_id, if: Proc.new{|x| !x.letter.blank?}
 
   delegate :balanced?, to: :entry, prefix: true

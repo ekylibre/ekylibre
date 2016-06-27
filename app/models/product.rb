@@ -214,13 +214,13 @@ class Product < Ekylibre::Record::Base
   scope :plants, -> { where(type: 'Plant') }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_numericality_of :initial_population, allow_nil: true
-  validates_presence_of :category, :name, :nature, :number, :variant, :variety
+  validates :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :picture_file_size, numericality: { allow_nil: true, only_integer: true }
+  validates :initial_population, numericality: { allow_nil: true }
+  validates :category, :name, :nature, :number, :variant, :variety, presence: true
   # ]VALIDATORS]
-  validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
-  validates_presence_of :nature, :variant, :name, :uuid
+  validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
+  validates :nature, :variant, :name, :uuid, presence: true
   validates_attachment_content_type :picture, content_type: /image/
 
   validate :born_at_in_interventions, if: ->(product) { product.initial_born_at.present? && product.interventions.any? && product.interventions.collect(&:started_at).any? }
@@ -228,14 +228,12 @@ class Product < Ekylibre::Record::Base
 
   def born_at_in_interventions
     first_date = interventions.collect(&:stopped_at).sort.first
-    unless initial_born_at <= first_date
-      errors.add(:born_at, :invalid)
-    end
+    errors.add(:born_at, :invalid) unless initial_born_at <= first_date
   end
 
   def dead_at_in_interventions
     last_date = interventions.collect(&:stopped_at).sort.last
-    unless initial_dead_at >= self.initial_born_at and initial_dead_at >= last_date
+    unless initial_dead_at >= initial_born_at && initial_dead_at >= last_date
       errors.add(:dead_at, :invalid)
     end
   end
@@ -278,10 +276,10 @@ class Product < Ekylibre::Record::Base
   end
 
   validate do
-    if self.nature && self.variant
-      errors.add(:nature_id, :invalid) if self.variant.nature_id != nature_id
+    if nature && variant
+      errors.add(:nature_id, :invalid) if variant.nature_id != nature_id
     end
-    if self.variant
+    if variant
       if variety
         unless Nomen::Variety.find(variant_variety) >= variety
           errors.add(:variety, :invalid)

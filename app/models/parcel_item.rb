@@ -69,12 +69,12 @@ class ParcelItem < Ekylibre::Record::Base
   has_one :storage, through: :parcel
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :population, allow_nil: true
-  validates_inclusion_of :parted, in: [true, false]
-  validates_presence_of :parcel
+  validates :population, numericality: { allow_nil: true }
+  validates :parted, inclusion: { in: [true, false] }
+  validates :parcel, presence: true
   # ]VALIDATORS]
-  validates_presence_of :source_product, if: :parcel_prepared?
-  validates_presence_of :product, if: :parcel_prepared?
+  validates :source_product, presence: { if: :parcel_prepared? }
+  validates :product, presence: { if: :parcel_prepared? }
 
   scope :with_nature, ->(nature) { joins(:parcel).merge(Parcel.with_nature(nature)) }
 

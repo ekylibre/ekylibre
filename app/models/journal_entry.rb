@@ -75,16 +75,16 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :bank_statement, through: :useful_items
   accepts_nested_attributes_for :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :printed_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
-  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :credit, :currency, :debit, :journal, :number, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
+  validates :printed_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, numericality: { allow_nil: true }
+  validates :absolute_credit, :absolute_currency, :absolute_debit, :balance, :credit, :currency, :debit, :journal, :number, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state, presence: true
   # ]VALIDATORS]
-  validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
-  validates_length_of :state, allow_nil: true, maximum: 30
-  validates_presence_of :real_currency
-  validates_format_of :number, with: /\A[\dA-Z]+\z/
-  validates_numericality_of :real_currency_rate, greater_than: 0
-  validates_uniqueness_of :number, scope: [:journal_id, :financial_year_id]
+  validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
+  validates :state, length: { allow_nil: true, maximum: 30 }
+  validates :real_currency, presence: true
+  validates :number, format: { with: /\A[\dA-Z]+\z/ }
+  validates :real_currency_rate, numericality: { greater_than: 0 }
+  validates :number, uniqueness: { scope: [:journal_id, :financial_year_id] }
 
   accepts_nested_attributes_for :items
 
@@ -172,36 +172,36 @@ class JournalEntry < Ekylibre::Record::Base
     else
       self.real_currency_rate = 1
     end
-    self.real_debit   = self.items.sum(:real_debit)
-    self.real_credit  = self.items.sum(:real_credit)
+    self.real_debit   = items.sum(:real_debit)
+    self.real_credit  = items.sum(:real_credit)
     self.real_balance = real_debit - real_credit
 
-    self.debit   = self.items.sum(:debit)
-    self.credit  = self.items.sum(:credit)
+    self.debit   = items.sum(:debit)
+    self.credit  = items.sum(:credit)
 
     self.balance = debit - credit
 
-    if self.real_balance.zero? && !self.balance.zero?
-      error_sum = self.balance * 100
-      if error_sum > 0
-        column = :credit
-      else
-        column = :debit
-      end
+    if real_balance.zero? && !balance.zero?
+      error_sum = balance * 100
+      column = if error_sum > 0
+                 :credit
+               else
+                 :debit
+               end
 
       error_sum = error_sum.abs
 
-      even_items = self.items.select { |item| !item.send(column).zero? }
-      proratas = even_items.map { |item| [item, item.send(column) / self.send(column)] }
+      even_items = items.select { |item| !item.send(column).zero? }
+      proratas = even_items.map { |item| [item, item.send(column) / send(column)] }
       proratas.reduce(error_sum) do |left, item|
         error_to_update = [(error_sum * item[1]).ceil / 100.to_f, left].min
         item[0].update_columns(column => item[0].send(column) + error_to_update)
 
-        left - error_to_update*100
+        left - error_to_update * 100
       end
 
-      self.debit   = self.items.sum(:debit)
-      self.credit  = self.items.sum(:credit)
+      self.debit   = items.sum(:debit)
+      self.credit  = items.sum(:credit)
 
       self.balance = debit - credit
     end

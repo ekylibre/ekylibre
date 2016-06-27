@@ -47,17 +47,17 @@ class CustomField < Ekylibre::Record::Base
   enumerize :customized_type, in: Ekylibre::Schema.model_names
   has_many :choices, -> { order(:position) }, class_name: 'CustomFieldChoice', dependent: :delete_all, inverse_of: :custom_field
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true
-  validates_numericality_of :maximal_value, :minimal_value, allow_nil: true
-  validates_inclusion_of :active, :required, in: [true, false]
-  validates_presence_of :column_name, :customized_type, :name, :nature
+  validates :maximal_length, :minimal_length, numericality: { allow_nil: true, only_integer: true }
+  validates :maximal_value, :minimal_value, numericality: { allow_nil: true }
+  validates :active, :required, inclusion: { in: [true, false] }
+  validates :column_name, :customized_type, :name, :nature, presence: true
   # ]VALIDATORS]
-  validates_length_of :nature, allow_nil: true, maximum: 20
-  validates_inclusion_of :nature, in: nature.values
-  validates_inclusion_of :customized_type, in: customized_type.values
-  validates_uniqueness_of :column_name, scope: [:customized_type]
-  validates_format_of :column_name, with: /\A([a-z]+(\_[a-z]+)*)+\z/
-  validates_exclusion_of :column_name, in: ['_destroy']
+  validates :nature, length: { allow_nil: true, maximum: 20 }
+  validates :nature, inclusion: { in: nature.values }
+  validates :customized_type, inclusion: { in: customized_type.values }
+  validates :column_name, uniqueness: { scope: [:customized_type] }
+  validates :column_name, format: { with: /\A([a-z]+(\_[a-z]+)*)+\z/ }
+  validates :column_name, exclusion: { in: ['_destroy'] }
 
   accepts_nested_attributes_for :choices
   acts_as_list scope: 'customized_type = \'#{customized_type}\''

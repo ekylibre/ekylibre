@@ -46,13 +46,13 @@ class CatalogItem < Ekylibre::Record::Base
   belongs_to :reference_tax, class_name: 'Tax'
   belongs_to :catalog
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, allow_nil: true
-  validates_inclusion_of :all_taxes_included, in: [true, false]
-  validates_presence_of :amount, :catalog, :currency, :name, :variant
+  validates :amount, numericality: { allow_nil: true }
+  validates :all_taxes_included, inclusion: { in: [true, false] }
+  validates :amount, :catalog, :currency, :name, :variant, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_uniqueness_of :variant_id, scope: :catalog_id
-  validates_presence_of :reference_tax, if: :all_taxes_included
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :variant_id, uniqueness: { scope: :catalog_id }
+  validates :reference_tax, presence: { if: :all_taxes_included }
 
   # delegate :product_nature_id, :product_nature, to: :template
   delegate :name, to: :variant, prefix: true

@@ -56,10 +56,10 @@ class ActivityBudgetItem < Ekylibre::Record::Base
   has_many :productions, through: :activity
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :quantity, :unit_amount, :unit_population, allow_nil: true
-  validates_presence_of :activity_budget, :computation_method, :currency, :direction, :unit_currency
+  validates :amount, :quantity, :unit_amount, :unit_population, numericality: { allow_nil: true }
+  validates :activity_budget, :computation_method, :currency, :direction, :unit_currency, presence: true
   # ]VALIDATORS]
-  validates_presence_of :variant
+  validates :variant, presence: true
 
   # delegate :supports_quantity, :supports_count, :support_indicator, :support_unit, to: :activity
   delegate :size_indicator, :size_unit, to: :activity

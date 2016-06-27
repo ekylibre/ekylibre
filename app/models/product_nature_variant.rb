@@ -59,12 +59,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_inclusion_of :active, in: [true, false]
-  validates_presence_of :category, :nature, :unit_name, :variety
+  validates :picture_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :picture_file_size, numericality: { allow_nil: true, only_integer: true }
+  validates :active, inclusion: { in: [true, false] }
+  validates :category, :nature, :unit_name, :variety, presence: true
   # ]VALIDATORS]
-  validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
+  validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :commercial_name, :name

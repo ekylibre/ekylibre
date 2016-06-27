@@ -47,16 +47,16 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
+  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(financial_year) { financial_year.stopped_on && financial_year.started_on }
-  validates_numericality_of :currency_precision, allow_nil: true, only_integer: true
-  validates_inclusion_of :closed, in: [true, false]
-  validates_presence_of :code, :currency, :started_on, :stopped_on
+  validates :currency_precision, numericality: { allow_nil: true, only_integer: true }
+  validates :closed, inclusion: { in: [true, false] }
+  validates :code, :currency, :started_on, :stopped_on, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :code, allow_nil: true, maximum: 20
-  validates_uniqueness_of :code
-  validates_presence_of :currency
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :code, length: { allow_nil: true, maximum: 20 }
+  validates :code, uniqueness: true
+  validates :currency, presence: true
 
   # This order must be the natural order
   # It permit to find the first and the last financial year

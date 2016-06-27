@@ -38,8 +38,8 @@ class PlantDensityAbacusItem < Ekylibre::Record::Base
   has_many :plant_countings, dependent: :restrict_with_exception
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :seeding_density_value, allow_nil: true
-  validates_presence_of :plant_density_abacus, :seeding_density_value
+  validates :seeding_density_value, numericality: { allow_nil: true }
+  validates :plant_density_abacus, :seeding_density_value, presence: true
   # ]VALIDATORS]
 
   protect on: :destroy do

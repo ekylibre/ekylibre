@@ -45,12 +45,12 @@ class Inventory < Ekylibre::Record::Base
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :achieved_at, :reflected_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_inclusion_of :reflected, in: [true, false]
-  validates_presence_of :name
+  validates :accounted_at, :achieved_at, :reflected_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :reflected, inclusion: { in: [true, false] }
+  validates :name, presence: true
   # ]VALIDATORS]
-  validates_length_of :number, allow_nil: true, maximum: 20
-  validates_presence_of :achieved_at
+  validates :number, length: { allow_nil: true, maximum: 20 }
+  validates :achieved_at, presence: true
 
   scope :unreflecteds, -> { where(reflected: false) }
   scope :before, ->(at) { where(arel_table[:achieved_at].lt(at)) }

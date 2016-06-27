@@ -38,10 +38,10 @@ class Georeading < Ekylibre::Record::Base
   enumerize :nature, in: [:point, :linestring, :polygon], predicates: true
   has_geometry :content
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :content, :name, :nature
+  validates :content, :name, :nature, presence: true
   # ]VALIDATORS]
-  validates_presence_of :number
-  validates_uniqueness_of :number
+  validates :number, presence: true
+  validates :number, uniqueness: true
 
   def net_surface_area
     return 0.0.in_square_meter unless polygon?

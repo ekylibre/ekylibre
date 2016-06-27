@@ -52,12 +52,12 @@ class InterventionParameterReading < Ekylibre::Record::Base
   has_one :product, through: :intervention_parameter
   has_one :product_reading, as: :originator
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :integer_value, allow_nil: true, only_integer: true
-  validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
-  validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :indicator_datatype, :indicator_name, :intervention_parameter
+  validates :integer_value, numericality: { allow_nil: true, only_integer: true }
+  validates :absolute_measure_value_value, :decimal_value, :measure_value_value, numericality: { allow_nil: true }
+  validates :boolean_value, inclusion: { in: [true, false] }
+  validates :indicator_datatype, :indicator_name, :intervention_parameter, presence: true
   # ]VALIDATORS]
-  validates_uniqueness_of :indicator_name, scope: :parameter_id
+  validates :indicator_name, uniqueness: { scope: :parameter_id }
 
   delegate :started_at, :stopped_at, to: :intervention
 

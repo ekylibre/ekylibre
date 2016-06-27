@@ -39,10 +39,10 @@ class GapItem < Ekylibre::Record::Base
   belongs_to :gap, inverse_of: :items
   belongs_to :tax
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, allow_nil: true
-  validates_presence_of :amount, :currency, :gap, :pretax_amount
+  validates :amount, :pretax_amount, numericality: { allow_nil: true }
+  validates :amount, :currency, :gap, :pretax_amount, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates :currency, length: { allow_nil: true, maximum: 3 }
   # validates_numericality_of :amount, :pretax_amount, greater_than_or_equal_to: 0
 
   sums :gap, :items, :pretax_amount, :amount

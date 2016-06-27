@@ -34,9 +34,9 @@ class NetService < Ekylibre::Record::Base
   refers_to :reference_name, class_name: 'NetService'
   has_many :identifiers, -> { order(:nature) }
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :reference_name
+  validates :reference_name, presence: true
   # ]VALIDATORS]
-  validates_uniqueness_of :reference_name
+  validates :reference_name, uniqueness: true
 
   accepts_nested_attributes_for :identifiers
 

@@ -45,10 +45,10 @@ class LoanRepayment < Ekylibre::Record::Base
   has_one :cash, through: :loan
   has_one :journal, through: :cash
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :due_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_datetime :accounted_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :amount, :base_amount, :insurance_amount, :interest_amount, :remaining_amount, allow_nil: true
-  validates_presence_of :amount, :base_amount, :due_on, :insurance_amount, :interest_amount, :loan, :remaining_amount
+  validates :due_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :accounted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :amount, :base_amount, :insurance_amount, :interest_amount, :remaining_amount, numericality: { allow_nil: true }
+  validates :amount, :base_amount, :due_on, :insurance_amount, :interest_amount, :loan, :remaining_amount, presence: true
   # ]VALIDATORS]
   delegate :currency, :name, to: :loan
 
