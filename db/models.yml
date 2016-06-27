@@ -20,7 +20,6 @@
 - building
 - building_division
 - campaign
-- campaign
 - cap_islet
 - cap_land_parcel
 - cap_statement
@@ -39,7 +38,6 @@
 - deposit
 - district
 - document
-- document_template
 - document_template
 - easement
 - entity
@@ -146,8 +144,6 @@
 - tax
 - team
 - tracking
-- user
-- user
 - user
 - version
 - worker
