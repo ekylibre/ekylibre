@@ -454,6 +454,13 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # call method in production for instance
   def estimate_yield(options = {})
+    # compute variety for estimate yield
+    if usage == 'grain' || usage == 'seed'
+      options[:variety] ||= "grain"
+    elsif usage == 'fodder' || usage == 'fiber'
+      options[:variety] ||= "grass"
+    end
+    # get current campaign
     options[:campaign] ||= campaign
     activity.estimate_yield_from_budget_of(options)
   end
