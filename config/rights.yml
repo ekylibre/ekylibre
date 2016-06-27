@@ -366,6 +366,7 @@ bank_statements:
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
+    - "backend/bank_statements#import_ofx"
     - "backend/bank_statements#new"
     - "backend/bank_statements#reconciliation"
     - "backend/bank_statements#update"

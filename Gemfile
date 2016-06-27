@@ -125,7 +125,7 @@ gem 'beardley-xml'
 gem 'beardley-open_sans'
 
 # Import/Export
-# gem 'ofx-parser'
+gem 'ofx-parser', github: "lcoq/ofx-parser", branch: "master"
 gem 'rgeo-shapefile'
 gem 'rgeo-geojson'
 gem 'rubyzip'

@@ -60,6 +60,7 @@ por:
       show: "%{nature}: %{name}"
     backend/bank_statements:
       edit: "Editar extrato bancário %{number}"
+      # import_ofx: "Import OFX file"
       index: "Extratos bancários"
       new: "Novo extrato bancário"
       # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
@@ -1684,6 +1685,7 @@ por:
       generate_last_journal_entry: "Gerar última entrada do diário"
       generate_parcel: "Gerar parcel"
       import: "Importar"
+      # import_ofx: "Import OFX file"
       incorporate: "Incorporar"
       increment: "Incremento" #?
       index: "Índice"

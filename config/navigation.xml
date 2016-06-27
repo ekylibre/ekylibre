@@ -181,6 +181,7 @@
         <page to="backend/bank_statements#unroll"/>
         <page to="backend/bank_statements#update"/>
         <page to="backend/bank_statements#reconciliation"/>
+        <page to="backend/bank_statements#import_ofx"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>

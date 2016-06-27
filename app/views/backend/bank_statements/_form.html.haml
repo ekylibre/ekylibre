@@ -1,5 +1,8 @@
 = field_set do
-  = f.referenced_association :cash, source: :pointables, disabled: true
+  - if @cash
+    = f.referenced_association :cash, source: :pointables, new: @cash.attributes.keep_if { |_,v| v.present? }
+  - else
+    = f.referenced_association :cash, source: :pointables, disabled: true
   = f.input :number
   = f.input :started_on
   = f.input :stopped_on

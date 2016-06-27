@@ -60,6 +60,7 @@ jpn:
       # show: "%{nature}: %{name}"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
+      # import_ofx: "Import OFX file"
       index: "銀行取引明細書"
       new: "新銀行取引明細書"
       # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
@@ -1756,6 +1757,7 @@ jpn:
       generate_last_journal_entry: "最後の仕訳を生成します"
       generate_parcel: "小包を生成します"
       import: "インポート"
+      # import_ofx: "Import OFX file"
       incorporate: "組み込みます"
       increment: "インクリメント" #?
       index: "インデックス"
