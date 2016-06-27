@@ -1,15 +1,15 @@
-- item_partial = 'item_fields'
+- item_partial = f.object.nature.to_s + '_item_fields'
 = field_set :general_informations do
   = f.input :nature, as: :hidden
   - if f.object.incoming?
-    - item_partial = 'incoming_item_fields'
     #nature-incoming
       = f.referenced_association :sender, required: true
   - elsif f.object.outgoing?
     #nature-outgoing
       = f.referenced_association :recipient, required: true
   = f.referenced_association :address, source: :mails
-  = f.referenced_association :storage, required: !f.object.outgoing?
+  - if f.object.incoming?
+    = f.referenced_association :storage, source: :storage, required: true
   - if f.object.incoming?
     = f.input :separated_stock
   = f.input :with_delivery

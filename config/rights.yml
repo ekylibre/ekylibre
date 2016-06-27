@@ -971,7 +971,8 @@ incoming_deliveries:
     - "backend/parcel_items#new"
     - "backend/parcels#index"
     - "backend/parcels#list"
-    - "backend/parcels#list_items"
+    - "backend/parcels#list_incoming_items"
+    - "backend/parcels#list_outgoing_items"
     - "backend/parcels#show"
     - "backend/parcels#unroll"
   write:
@@ -1326,7 +1327,8 @@ outgoing_deliveries:
     actions:
     - "backend/parcels#index"
     - "backend/parcels#list"
-    - "backend/parcels#list_items"
+    - "backend/parcels#list_incoming_items"
+    - "backend/parcels#list_outgoing_items"
     - "backend/parcels#show"
     - "backend/parcels#unroll"
   write:

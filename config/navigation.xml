@@ -513,7 +513,8 @@
         <page to="backend/parcels#edit"/>
         <page to="backend/parcels#invoice"/>
         <page to="backend/parcels#list"/>
-        <page to="backend/parcels#list_items"/>
+        <page to="backend/parcels#list_incoming_items"/>
+        <page to="backend/parcels#list_outgoing_items"/>
         <page to="backend/parcels#new"/>
         <page to="backend/parcels#ship"/>
         <page to="backend/parcels#show"/>

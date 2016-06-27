@@ -78,9 +78,8 @@ class Parcel < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates_presence_of :delivery_mode, :address
   validates_presence_of :recipient, if: :outgoing?
-  validates_presence_of :sender, if: :incoming?
+  validates_presence_of :sender, :storage, if: :incoming?
   validates_presence_of :transporter, if: :delivery_mode_transporter?
-  validates_presence_of :storage, unless: :outgoing?
 
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }
 

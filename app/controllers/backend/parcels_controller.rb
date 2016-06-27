@@ -96,16 +96,29 @@ module Backend
       t.column :purchase, url: true
     end
 
-    list(:items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
-      t.column :product, url: true
+    list(:outgoing_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+      t.column :source_product, url: true
+      t.column :product, url: true, hidden: true
       # t.column :product_work_number, through: :product, label_method: :work_number
       t.column :population
       t.column :unit_name, through: :variant
-      t.column :variant, url: true
+      # t.column :variant, url: true
       t.status
       # t.column :net_mass
       t.column :analysis, url: true
-      t.column :source_product, url: true, hidden: true
+    end
+
+    list(:incoming_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+      t.column :variant, url: true
+      # t.column :source_product, url: true
+      t.column :product_name
+      t.column :product_work_number
+      t.column :population
+      t.column :unit_name, through: :variant
+      t.status
+      # t.column :net_mass
+      t.column :product, url: true
+      t.column :analysis, url: true
     end
 
     # Displays the main page with the list of parcels

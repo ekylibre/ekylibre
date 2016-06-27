@@ -26,4 +26,7 @@
 = cobbles do |c|
 
   - c.cobble :items, title: resource_model.human_attribute_name(:items) do
-    = cobble_list :items
+    - if resource.incoming?
+      = cobble_list :incoming_items
+    - else
+      = cobble_list :outgoing_items

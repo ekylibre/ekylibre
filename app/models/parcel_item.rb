@@ -76,7 +76,7 @@ class ParcelItem < Ekylibre::Record::Base
 
   validates_numericality_of :population, less_than_or_equal_to: 1,
     if: :product_is_unitary?,
-    message: "activerecord.errors.messages.unitary_in_parcel".t
+    message: 'activerecord.errors.messages.unitary_in_parcel'.t
   validates_presence_of :product_name, if: -> { product_is_unitary? && parcel_incoming? }
   validates_presence_of :product_identification_number, if: -> { product_is_unitary? && parcel_incoming? }
 
@@ -100,16 +100,18 @@ class ParcelItem < Ekylibre::Record::Base
       self.variant = sale_item.variant
     elsif purchase_item
       self.variant = purchase_item.variant
+    elsif parcel_outgoing?
+      self.variant = self.source_product.variant if self.source_product
     end
     true
   end
 
   ALLOWED = [
-              "product_localization_id",
-              "product_enjoyment_id",
-              "product_ownership_id",
-              "purchase_item_id",
-              "updated_at",
+              'product_localization_id',
+              'product_enjoyment_id',
+              'product_ownership_id',
+              'purchase_item_id',
+              'updated_at',
             ]
   protect(allow_update_on: ALLOWED, on: [:create, :destroy, :update]) do
     !parcel_allow_items_update?
