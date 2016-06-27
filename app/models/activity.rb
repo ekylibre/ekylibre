@@ -230,7 +230,6 @@ class Activity < Ekylibre::Record::Base
         item_unit = "#{item.variant_unit}_per_#{activity_working_unit}" if activity_working_unit
         if item.variant && item.variant_unit && Nomen::Variety[item.variant.variety] <= target_variety
           r << item.quantity.in(item_unit).convert(options[:unit])
-          puts r.inspect.red
         end
       end
       return r.compact.sum

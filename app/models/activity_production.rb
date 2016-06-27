@@ -417,10 +417,22 @@ class ActivityProduction < Ekylibre::Record::Base
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
     total_quantity = 0.0.in(size_unit_name)
-    # harvest_interventions = interventions.real.of_category(procedure_category).with_targets(inside_plants)
-    harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(inside_plants)
+    
+    target_distribution_plants = Plant.where(id: distributions.pluck(:target_id).compact)
+    
+    # get harvest_interventions firstly by distributions and secondly by inside_plants method
+    harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(target_distribution_plants) if target_distribution_plants.any?
+    harvest_interventions ||= Intervention.real.of_category(procedure_category).with_targets(inside_plants)
+    
+    coef_area = []
+    global_coef_harvest_yield = []
+    
     if harvest_interventions.any?
       harvest_interventions.find_each do |harvest|
+        harvest_working_area = []
+        harvest.targets.each do |target|
+          harvest_working_area << ::Charta.new_geometry(target.working_zone).area.in(:square_meter)
+        end
         harvest.outputs.each do |cast|
           actor = cast.product
           next unless actor && actor.variety
@@ -430,10 +442,16 @@ class ActivityProduction < Ekylibre::Record::Base
             total_quantity += quantity.convert(size_unit_name) if quantity
           end
         end
+        h = harvest_working_area.compact.sum.to_d(surface_unit_name).to_f
+        if h && h > 0.0
+          global_coef_harvest_yield << (h * (total_quantity.to_f / h))
+          coef_area << h
+        end
       end
     end
-    harvest_yield = total_quantity.to_f / net_surface_area.to_d(surface_unit_name).to_f
-    Measure.new(harvest_yield, harvest_yield_unit_name)
+    
+    total_weighted_average_harvest_yield = global_coef_harvest_yield.compact.sum / coef_area.compact.sum if coef_area.compact.sum.to_d != 0.0
+    Measure.new(total_weighted_average_harvest_yield.to_f, harvest_yield_unit_name)
   end
 
   # Returns the yield of grain in mass per surface unit

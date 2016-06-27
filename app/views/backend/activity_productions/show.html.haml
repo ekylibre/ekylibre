@@ -42,6 +42,14 @@
         .med-info
           %span.title= :harvested_at.tl
           %span.value= resource.harvested_at.l
+        - if resource.grains_yield && resource.grains_yield.to_d > 0.0  
+          .med-info
+            %span.title= :grains_yield.tl
+            %span.value= resource.grains_yield.round(2).l
+        - if resource.vine_yield && resource.vine_yield.to_d > 0.0   
+          .med-info
+            %span.title= :vine_yield.tl
+            %span.value= resource.vine_yield.round(2).l
 
 
 = cobbles do |c|
