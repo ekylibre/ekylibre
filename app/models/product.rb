@@ -208,7 +208,6 @@ class Product < Ekylibre::Record::Base
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> { where(dead_at: nil) }
-  scope :availables, -> { available }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { can('store(product)') } #-> { of_variety([:building_division, :equipment]) }
@@ -310,7 +309,20 @@ class Product < Ekylibre::Record::Base
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
+
+    def availables(**args)
+      if args[:at]
+        available.where("dead_at >= ? OR dead_at IS NULL", DateTime.strptime(args[:at], '%Y-%m-%dT%H:%M:%S%z'))
+      else
+        available
+      end
+    end
+
+    def alive_at(date)
+      availables(at: date)
+    end
   end
+
 
   # TODO: Removes this ASAP
   def deliverable?
