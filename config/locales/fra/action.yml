@@ -1074,6 +1074,7 @@ fra:
     details: "Informations complémentaires"
     direct_margin: "Marge directe"
     discount: "Réduc. (%)"
+    disease: "Maladies (%)"
     disease_deformity_percentage: "Pourcentage de maladies et malformations"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
@@ -1925,6 +1926,7 @@ fra:
     unknown_variant: "Variante de produit inconnue"
     unlock: "Déverrouiller"
     unmark: "Délettrer"
+    unmarketable_inspection_categories_evolution: "Évolution du pourcentage de déchets et maladies"
     # unnamed: "Nameless"
     unpaid: "Impayées"
     unpaid_amount: "Montant restant à payer"

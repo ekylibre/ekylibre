@@ -922,6 +922,7 @@ jpn:
     details: "細部"
     direct_margin: "ダイレクトマージン"
     discount: "割引（％）"
+    # disease: "Disease (%)"
     # disease_deformity_percentage: "Disease and deformity percentage"
     display: "表示"
     display_help: "手伝い" #?
@@ -1477,6 +1478,7 @@ jpn:
     unknown_variant: "未知のバリアント"
     unlock: "アンロック"
     unmark: "マーク解除します"
+    # unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
     # unnamed: "Nameless"
     unpaid: "未払い"
     unpaid_amount: "未払金額"
