@@ -309,6 +309,7 @@
         <page to="backend/purchases#create"/>
         <page to="backend/purchases#destroy"/>
         <page to="backend/purchases#edit"/>
+        <page to="backend/purchases#generate_parcel"/>
         <page to="backend/purchases#invoice"/>
         <page to="backend/purchases#list"/>
         <page to="backend/purchases#list_parcels"/>

@@ -538,6 +538,7 @@ cmn:
       already_confirmed: "已经证实，请尝试在签约"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "已过期，请申请一个新的"
+      # not_enough: "not enough %{resource} to complete task"
       not_found: "未找到"
       not_locked: "没有锁"
       not_saved:

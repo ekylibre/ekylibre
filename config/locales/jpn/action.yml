@@ -604,6 +604,7 @@ jpn:
       already_confirmed: "すでに確認された、ログインしてみてください"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "有効期限が切れている、新しいものをリクエストしてください"
+      # not_enough: "not enough %{resource} to complete task"
       not_found: "見つかりません"
       not_locked: "ロックされていませんでした"
       not_saved:

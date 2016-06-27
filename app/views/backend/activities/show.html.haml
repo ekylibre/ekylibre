@@ -77,22 +77,22 @@
 
               # get last calibration for each plant of the current activity
               dataset_inspections = resource.inspections
-              
+
               # get all plants in dataset
               plants = Plant.find(dataset_inspections.pluck(:product_id).uniq)
-              
+
               # get all inspections calibrations nature in activity
               natures = resource.inspection_calibration_natures
-              
+
               # get last inspection for each plant
               dataset_last_inspections = []
               plants.each do |plant|
                 dataset_last_inspections << dataset_inspections.where(product: plant).reorder(:sampled_at).last
               end
-              
+
               series = []
               yield_series = []
-              
+
               natures.each do |nature|
                 last_calibrations = []
                 last_calibrations_yield = []
@@ -104,7 +104,7 @@
                 series << { name: nature.name, data: [last_calibrations.compact.sum.to_s.to_f] }
                 yield_series << { name: nature.name, data: [(last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f] }
               end
-              
+
             %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
             %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
 

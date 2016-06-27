@@ -988,6 +988,7 @@ incoming_deliveries:
     - "backend/parcels#order"
     - "backend/parcels#prepare"
     - "backend/parcels#update"
+    - "backend/purchases#generate_parcel"
 
 incoming_payment_modes:
   read:

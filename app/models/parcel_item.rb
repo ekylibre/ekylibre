@@ -22,29 +22,29 @@
 #
 # == Table: parcel_items
 #
-#  analysis_id                     :integer
-#  created_at                      :datetime         not null
-#  creator_id                      :integer
-#  id                              :integer          not null, primary key
-#  lock_version                    :integer          default(0), not null
-#  parcel_id                       :integer          not null
-#  parted                          :boolean          default(FALSE), not null
-#  population                      :decimal(19, 4)
-#  product_enjoyment_id            :integer
-#  product_id                      :integer
-#  product_localization_id         :integer
-#  product_movement_id             :integer
-#  product_ownership_id            :integer
-#  product_shape_reading_id        :integer
-#  purchase_item_id                :integer
-#  sale_item_id                    :integer
-#  shape                           :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  source_product_id               :integer
-#  source_product_movement_id      :integer
-#  source_product_shape_reading_id :integer
-#  updated_at                      :datetime         not null
-#  updater_id                      :integer
-#  variant_id                      :integer
+#  analysis_id                   :integer
+#  created_at                    :datetime         not null
+#  creator_id                    :integer
+#  id                            :integer          not null, primary key
+#  lock_version                  :integer          default(0), not null
+#  parcel_id                     :integer          not null
+#  parted                        :boolean          default(FALSE), not null
+#  population                    :decimal(19, 4)
+#  product_enjoyment_id          :integer
+#  product_id                    :integer
+#  product_identification_number :string
+#  product_localization_id       :integer
+#  product_movement_id           :integer
+#  product_name                  :string
+#  product_ownership_id          :integer
+#  purchase_item_id              :integer
+#  sale_item_id                  :integer
+#  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  source_product_id             :integer
+#  source_product_movement_id    :integer
+#  updated_at                    :datetime         not null
+#  updater_id                    :integer
+#  variant_id                    :integer
 #
 class ParcelItem < Ekylibre::Record::Base
   attr_readonly :parcel_id
@@ -86,7 +86,10 @@ class ParcelItem < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :product
   # delegate :net_mass, to: :product
-  delegate :allow_items_update?, :remain_owner, :planned_at, :draft?, :ordered_at, :recipient, :in_preparation?, :in_preparation_at, :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?, :separated_stock?, to: :parcel, prefix: true
+  delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,
+           :ordered_at, :recipient, :in_preparation?, :in_preparation_at,
+           :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?,
+           :separated_stock?, to: :parcel, prefix: true
 
   before_validation do
     read_at = parcel ? parcel_prepared_at : Time.zone.now
@@ -101,14 +104,14 @@ class ParcelItem < Ekylibre::Record::Base
     true
   end
 
-  allowed = [
+  ALLOWED = [
               "product_localization_id",
               "product_enjoyment_id",
               "product_ownership_id",
               "purchase_item_id",
               "updated_at",
             ]
-  protect(allow_update_on: allowed, on: [:create, :destroy, :update]) do
+  protect(allow_update_on: ALLOWED, on: [:create, :destroy, :update]) do
     !parcel_allow_items_update?
   end
 

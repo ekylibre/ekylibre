@@ -780,6 +780,7 @@ arb:
       already_confirmed: "وقد أكد بالفعل، من فضلك حاول تسجيل الدخول"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "انتهت، يرجى طلب كلمة مرور جديدة"
+      # not_enough: "not enough %{resource} to complete task"
       not_found: "غير معثور عليه"
       not_locked: "كان غير مؤمن"
       not_saved:

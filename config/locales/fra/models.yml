@@ -182,6 +182,7 @@ fra:
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
+        # unitary_in_parcel: "Unitary items can only be sent one by one"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
         cash:
@@ -1150,6 +1151,7 @@ fra:
     product_divisions: "Divisions de produit" #?
     product_enjoyments: "Usufruit de produit"
     product_grading: "Agréage produit" #?
+    # product_identification_number: "Identification number"
     product_junctions: "Product junctions" #?
     product_linkages: "Attelages de produit"
     product_localization: "Localisation de produit"
@@ -1159,6 +1161,7 @@ fra:
     product_mixings: "Mélanges de produit" #?
     product_movement: "Mouvement de produit"
     product_moves: "Mouvements de produit" #?
+    # product_name: "Name"
     product_nature: "Type de produit"
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
@@ -1467,8 +1470,8 @@ fra:
     with_accounting: "Passer en comptabilité"
     with_commission: "Inclure une commission"
     with_cultivation: "Avec une culture"
-    with_deposit: "Utiliser les remises en banque"
     with_delivery: "Avec livraison"
+    with_deposit: "Utiliser les remises en banque"
     with_supports: "Avec des supports"
     with_transport: "Avec transport"
     work_number: "Numéro de travail"

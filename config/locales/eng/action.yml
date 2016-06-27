@@ -513,6 +513,7 @@ eng:
       confirm: "Confirm order and wait for deliveries"
       correct: "Correct order"
       edit: "Edit purchase: %{number}"
+      # generate_parcel: "Generate parcel purchase: %{name}"
       index: "Purchases"
       invoice: "Receive invoice"
       new: "New purchase"
@@ -691,10 +692,10 @@ eng:
   errors:
     format: "%{message}"
     messages:
-      not_enough: "not enough %{resource} to complete task"
       already_confirmed: "was already confirmed, please try signing in"
       confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "has expired, please request a new one"
+      not_enough: "not enough %{resource} to complete task"
       not_found: "not found"
       not_locked: "was not locked"
       not_saved:
@@ -1481,7 +1482,7 @@ eng:
     stock_in_ground_by_calibration: "Stocks in ground by calibration"
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
-    stocks_by_calibrations: "Stocks by calibrations"
+    stocks_by_calibrations: "Stocks by calibrations" #?!
     stocks_in_ground: "Stock in ground" #?!
     stop: "Stop" #?
     stopped: "Stopped"

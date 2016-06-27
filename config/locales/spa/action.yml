@@ -579,6 +579,7 @@ spa:
       already_confirmed: "Ya se confirmó, intenta acceder"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "Ha caducado, por favor solicitar uno nuevo"
+      # not_enough: "not enough %{resource} to complete task"
       not_found: "Extraviado"
       not_locked: "No estaba cerrada con llave"
       not_saved:

@@ -604,6 +604,7 @@ ita:
       already_confirmed: "è stato già confermato, prova ad accedere a"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "è scaduto, si prega di richiedere uno nuovo"
+      # not_enough: "not enough %{resource} to complete task"
       not_found: "non trovato"
       not_locked: "non è stato bloccato"
       not_saved:

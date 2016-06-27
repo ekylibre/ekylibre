@@ -44,6 +44,7 @@
 #  remain_owner      :boolean          default(FALSE), not null
 #  sale_id           :integer
 #  sender_id         :integer
+#  separated_stock   :boolean
 #  state             :string           not null
 #  storage_id        :integer
 #  transporter_id    :integer
