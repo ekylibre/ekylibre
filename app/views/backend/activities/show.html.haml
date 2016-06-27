@@ -129,7 +129,7 @@
               dataset_inspections = resource.inspections
 
               # get all plants in dataset
-              plants = Plant.find(dataset_inspections.pluck(:product_id).uniq)
+              plants = Plant.alive_at(Time.now).find(dataset_inspections.pluck(:product_id).uniq)
 
               # get all inspections calibrations nature in activity
               natures = resource.inspection_calibration_natures
