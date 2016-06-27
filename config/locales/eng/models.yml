@@ -1094,7 +1094,7 @@ eng:
     sensor: "Sensor"
     sensors: "Sensors"
     sent_at: "Sent at" #?
-    separated_stock: "Separate stock"
+    separated_stock: "Do not merge with existing stocks"
     serial: "Serial"
     serial_number: "Serial number"
     sessions: "Sessions"

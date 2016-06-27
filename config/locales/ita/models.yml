@@ -1099,7 +1099,7 @@ ita:
     sensor: "Sensore"
     sensors: "sensori"
     sent_at: "Trasmesso a"
-    # separated_stock: "Separate stock"
+    # separated_stock: "Do not merge with existing stocks"
     serial: "Seriale"
     serial_number: "Numero di serie"
     sessions: "sessioni"

@@ -1315,7 +1315,7 @@ fra:
     sensor: "Capteur"
     sensors: "Capteurs"
     sent_at: "Expédié le"
-    separated_stock: "Séparer le stock"
+    separated_stock: "Ne pas fusionner avec les stocks existants"
     serial: "N°Lot"
     serial_number: "Serial number"
     sessions: "Sessions"

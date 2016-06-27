@@ -1072,7 +1072,7 @@ spa:
     # sensor: "Sensor"
     sensors: "Sensores"
     sent_at: "Enviado a las"
-    # separated_stock: "Separate stock"
+    # separated_stock: "Do not merge with existing stocks"
     serial: "De serie"
     serial_number: "Número de serie"
     sessions: "Sesiones"

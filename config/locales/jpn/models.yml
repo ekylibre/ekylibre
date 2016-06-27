@@ -1068,7 +1068,7 @@ jpn:
     sensor: "センサー"
     sensors: "センサー"
     sent_at: "で送信"
-    # separated_stock: "Separate stock"
+    # separated_stock: "Do not merge with existing stocks"
     serial: "シリアル"
     serial_number: "シリアルナンバー"
     sessions: "セッション"

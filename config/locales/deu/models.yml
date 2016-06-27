@@ -1068,7 +1068,7 @@ deu:
     # sensor: "Sensor"
     sensors: "Sensoren"
     sent_at: "Sent an"
-    # separated_stock: "Separate stock"
+    # separated_stock: "Do not merge with existing stocks"
     serial: "seriell"
     serial_number: "Ordnungsnummer"
     # sessions: "Sessions"

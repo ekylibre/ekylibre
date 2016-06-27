@@ -1068,7 +1068,7 @@ cmn:
     sensor: "传感器"
     sensors: "传感器"
     sent_at: "在发送"
-    # separated_stock: "Separate stock"
+    # separated_stock: "Do not merge with existing stocks"
     serial: "串行"
     serial_number: "序列号"
     sessions: "会议"

@@ -2007,7 +2007,7 @@ arb:
     sensor: "الاستشعار"
     sensors: "أجهزة الاستشعار"
     sent_at: "أرسلت في"
-    # separated_stock: "Separate stock"
+    # separated_stock: "Do not merge with existing stocks"
     sequences: "التسلسلات" #?
     serial: "عدد الحصص"
     serial_number: "رقم سري"

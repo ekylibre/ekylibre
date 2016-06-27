@@ -1068,7 +1068,7 @@ por:
     # sensor: "Sensor"
     sensors: "Sensores"
     sent_at: "Enviada pelo"
-    # separated_stock: "Separate stock"
+    # separated_stock: "Do not merge with existing stocks"
     # serial: "Serial"
     serial_number: "Número de série"
     sessions: "Sessões"
