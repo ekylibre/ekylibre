@@ -312,7 +312,12 @@ class Product < Ekylibre::Record::Base
 
     def availables(**args)
       if args[:at]
-        available.where("dead_at >= ? OR dead_at IS NULL", DateTime.strptime(args[:at], '%Y-%m-%dT%H:%M:%S%z'))
+        if args[:at].is_a? String
+          date = DateTime.strptime(args[:at], '%Y-%m-%dT%H:%M:%S%z')
+        elsif args[:at].is_a? Time
+          date = args[:at]
+        end
+        available.where("dead_at >= ? OR dead_at IS NULL", date)
       else
         available
       end
