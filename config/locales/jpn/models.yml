@@ -78,6 +78,10 @@ jpn:
         # unitary_in_parcel: "Unitary items can only be sent one by one"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        bank_statement:
+          # no_cash_match_ofx: "No cash found for the bank account number given in the file"
+          # ofx_file_has_multiple_bank_accounts: "OFX file with multiple bank accounts is not supported"
+          # ofx_file_invalid: "OFX file is invalid"
         bank_statement_item:
           unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。"
         cash:

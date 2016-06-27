@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/lcoq/ofx-parser.git
+  revision: 3be6cdb8a70cea4b54bc0b4456b00ad2addf7284
+  branch: master
+  specs:
+    ofx-parser (1.1.0.20121129105223)
+      hpricot (>= 0.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -178,6 +186,7 @@ GEM
       builder (>= 2.1.2)
     haml (4.0.7)
       tilt
+    hpricot (0.8.6)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
     http_accept_language (2.0.5)
@@ -516,6 +525,7 @@ DEPENDENCIES
   mechanize
   minitest-reporters
   nokogiri (~> 1.6.0)
+  ofx-parser!
   paperclip
   paperclip-document (> 0.0.8)
   pg
