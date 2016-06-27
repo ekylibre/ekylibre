@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160624073237">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160627095008">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3009,6 +3009,7 @@
       <item name="water_bowser" nature="water_tank" frozen_indicators_values=""/>
       <item name="water_spreader" nature="water_spreader" frozen_indicators_values="" unit_name="equipment"/>
       <item name="weeder" nature="weeder" frozen_indicators_values=""/>
+      <item name="weeding_kit" nature="weeding_kit"/>
       <item name="wheat_crop" nature="cereal_crop" variety="triticum_aestivum" frozen_indicators_values="net_surface_area: 1.00hectare" unit_name="hectare"/>
       <item name="wheat_grain" nature="grain" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 1.00ton" unit_name="ton"/>
       <item name="wheat_seed_25" nature="seed" derivative_of="triticum_aestivum" frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram" unit_name="25kg_bag"/>
@@ -3333,6 +3334,7 @@
       <item name="water_spreader" category="equipment" variety="spreader" population_counting="unitary" abilities="spread(water)" variable_indicators="application_width" frozen_indicators="length, diameter"/>
       <item name="water_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store_liquid, store(water)" frozen_indicators="nominal_storable_net_volume" variable_indicators="geolocation"/>
       <item name="weeder" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant)" frozen_indicators="application_width, theoretical_working_speed" variable_indicators="geolocation"/>
+      <item name="weeding_kit" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant), spray" frozen_indicators="nominal_storable_net_volume, rows_count" variable_indicators="geolocation"/>
       <item name="wheel_loader" category="equipment" variety="wheel_loader" population_counting="unitary" variable_indicators="geolocation" abilities="catch(product)"/>
       <item name="wine" category="wine" variety="wine" derivative_of="grape" population_counting="decimal" variable_indicators="certification, reference_year, temperature, total_bacteria_concentration" frozen_indicators="net_volume, net_mass"/>
       <item name="wine_acidifying" category="oenological_product" variety="preparation" population_counting="decimal" abilities="acidify(fermented_juice), acidify(wine)" variable_indicators="" frozen_indicators="net_mass"/>

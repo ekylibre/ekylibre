@@ -155,7 +155,7 @@ fra:
     hiller: "Butteuse"
     hive: "Ruche"
     hoe: "Bineuse"
-    hoeing_weeder: "Désherbineuse"
+    hoeing_weeder: "Désherbineuse" #?
     implanter: "Planteuse"
     implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
@@ -281,6 +281,7 @@ fra:
     walnuts: "Noix" #?
     water: "Eau"
     water_to_spread: "Eau à apporter" #?
+    weeding_kit: "Kit de désherbage"
     weedkiller: "Désherbant" #?
     weedkiller_to_spray: "Désherbant à pulvériser" #?
     wine: "Vin"
