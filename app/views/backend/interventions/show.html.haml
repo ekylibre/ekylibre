@@ -58,7 +58,7 @@
         .big-info
           - unit = Nomen::Unit.find(:hectare)
           %span.title= Intervention.human_attribute_name(:costs_per_unit, unit: unit.human_name)
-          %span.value= resource.cost_per_area(unit).round(2).l(currency: Preference[:currency]) + "/" + unit.symbol
+          %span.value= resource.total_cost_per_area(unit).round(2).l(currency: Preference[:currency]) + "/" + unit.symbol
 
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do
