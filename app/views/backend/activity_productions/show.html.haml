@@ -30,7 +30,7 @@
           %span.title= CapLandParcel.human_attribute_name(:land_parcel_number)
           %span.value= link_to(resource.cap_land_parcel.land_parcel_number, {controller: :cap_land_parcels, action: :show, id: resource.cap_land_parcel.id})
 
-      -# if resource.estimate_yield.to_d > 0.0
+      - if resource.estimate_yield && resource.estimate_yield.to_d > 0.0
         .med-info
           %span.title= :estimate_yield.tl
           %span.value= resource.estimate_yield.l
@@ -119,8 +119,10 @@
     - c.cobble :production_cost do
       :ruby
         # prepare an array of hash
-
-        unit = :hectare
+        
+        unit = resource.activity.size_unit_name.to_sym
+        unit ||= :hectare
+        
         unit_item = Nomen::Unit[unit]
 
         currency = Preference[:currency]
@@ -134,8 +136,8 @@
         resource.interventions.reorder(:started_at).find_each do |intervention|
           data = []
           for role in [:input, :doer, :tool]
-            if intervention.cost(role)
-              cost_per_hectare = intervention.cost(role) / (resource.support_shape_area.to_d(unit))
+            if intervention.cost_per_area(role, unit)
+              cost_per_hectare = intervention.cost_per_area(role, unit)
             else
               cost_per_hectare = 0.0
             end
@@ -149,8 +151,8 @@
         resource.interventions.reorder(:started_at).find_each do |intervention|
           cost = []
           for role in [:input, :doer, :tool]
-            if intervention.cost(role)
-              cost << intervention.cost(role) / (resource.support_shape_area.to_d(unit))
+            if intervention.cost_per_area(role, unit)
+              cost << intervention.cost_per_area(role, unit)
             end
           end
           data << {name: intervention.name, y: cost.compact.sum.round(2).to_s.to_f }
