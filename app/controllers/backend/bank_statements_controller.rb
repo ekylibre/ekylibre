@@ -51,6 +51,22 @@ module Backend
       t.column :credit, currency: :currency
     end
 
+    def import_ofx
+      @cash = Cash.find_by(id: params[:cash_id])
+      if request.post?
+        file = params[:upload]
+        @import = OfxImport.new(file, @cash)
+        if @import.run
+          redirect_to action: :show, id: @import.bank_statement.id
+        elsif @import.recoverable?
+          @cash = @import.cash
+          @bank_statement = @import.bank_statement
+          @bank_statement.errors.add(:cash, :no_cash_match_ofx) unless @cash.valid?
+          render :new
+        end
+      end
+    end
+
     def reconciliation
       return unless @bank_statement = find_and_check
       if request.post?

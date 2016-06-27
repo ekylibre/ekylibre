@@ -81,6 +81,7 @@ eng:
       # new: "New bank statement item"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
+      import_ofx: "Import OFX file"
       index: "Bank statements"
       new: "New bank statement"
       reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
@@ -1838,6 +1839,7 @@ eng:
       generate_parcel: "Generate parcel"
       # give: "Give"
       import: "Import"
+      import_ofx: "Import OFX file"
       incorporate: "Incorporate"
       index: "Index"
       invoice: "Invoice"
