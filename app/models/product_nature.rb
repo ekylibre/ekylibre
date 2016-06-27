@@ -143,9 +143,6 @@ class ProductNature < Ekylibre::Record::Base
     self.subscription_years_count ||= 0
     self.subscription_months_count ||= 0
     self.subscription_days_count ||= 0
-    if number.blank?
-      self.number = ProductNature.maximum(:id).next.to_s.rjust(8, '0')
-    end
   end
 
   validate do
