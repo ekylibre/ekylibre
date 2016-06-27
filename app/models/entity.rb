@@ -204,7 +204,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any?
+    destroyable?
   end
 
   class << self
@@ -430,6 +430,10 @@ class Entity < Ekylibre::Record::Base
       # Remove doublon
       entity.destroy
     end
+  end
+
+  def destroyable?
+    !(of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? )
   end
 
   def self.best_clients(limit = -1)

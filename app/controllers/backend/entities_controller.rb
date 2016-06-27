@@ -55,7 +55,7 @@ module Backend
 
     list(conditions: entities_conditions, order: 'entities.last_name, entities.first_name') do |t|
       t.action :edit
-      t.action :destroy
+      t.action :destroy, if: :destroyable?
       t.column :active, datatype: :boolean
       t.column :nature
       t.column :last_name, url: true
