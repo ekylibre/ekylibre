@@ -64,11 +64,12 @@ class BankStatementItem < Ekylibre::Record::Base
 
   before_destroy do
     journal_entry_items = associated_journal_entry_items
-    return unless journal_entry_items.any?
-    journal_entry_items.update_all(
-      bank_statement_id: nil,
-      bank_statement_letter: nil
-    )
+    if journal_entry_items.any?
+      journal_entry_items.update_all(
+        bank_statement_id: nil,
+        bank_statement_letter: nil
+      )
+    end
   end
 
   def associated_journal_entry_items
