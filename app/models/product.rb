@@ -207,7 +207,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { where(dead_at: nil) }
+  scope :available, -> { all }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { can('store(product)') } #-> { of_variety([:building_division, :equipment]) }
@@ -310,7 +310,11 @@ class Product < Ekylibre::Record::Base
 
     def availables(**args)
       if args[:at]
-        available.at(args[:at])
+        if args[:at].is_a? String
+          available.at(Time.strptime(args[:at], "%Y-%m-%d %H:%M"))
+        else
+          available.at(args[:at])
+        end
       else
         available
       end
