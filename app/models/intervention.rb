@@ -65,12 +65,12 @@ class Intervention < Ekylibre::Record::Base
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(intervention) { intervention.stopped_at && intervention.started_at }
-  validates_numericality_of :whole_duration, :working_duration, allow_nil: true, only_integer: true
-  validates_presence_of :procedure_name, :state, :whole_duration, :working_duration
+  validates :whole_duration, :working_duration, numericality: { allow_nil: true, only_integer: true }
+  validates :procedure_name, :state, :whole_duration, :working_duration, presence: true
   # ]VALIDATORS]
-  validates_presence_of :actions
+  validates :actions, presence: true
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
   serialize :actions, SymbolArray
@@ -253,16 +253,22 @@ class Intervention < Ekylibre::Record::Base
       working_duration: working_periods.sum(:duration),
       whole_duration: ((stopped_at && started_at) ? (stopped_at - started_at).to_i : 0)
     )
-    self.event.update_columns(
+    event.update_columns(
       started_at: self.started_at,
-      stopped_at: self.stopped_at,
-    ) if self.event
-    self.outputs.find_each do |output|
+      stopped_at: self.stopped_at
+    ) if event
+    outputs.find_each do |output|
       product = output.product
       next unless product
       product.born_at = self.started_at
       product.initial_born_at = product.born_at
       product.save!
+
+      movement = output.product_movement
+      next unless movement
+      movement.started_at = self.started_at
+      movement.stopped_at = self.stopped_at
+      movement.save!
     end
   end
 
@@ -277,6 +283,10 @@ class Intervention < Ekylibre::Record::Base
     [:input, :tool, :doer].map do |type|
       (cost(type) || 0.0).to_d.round(2)
     end.sum
+  end
+
+  def currency
+    Preference[:currency]
   end
 
   def cost_per_area(area_unit = :hectare)

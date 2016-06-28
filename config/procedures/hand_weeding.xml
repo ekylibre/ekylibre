@@ -8,7 +8,7 @@
       <input name="herbicide" filter="can kill(plant) and can care(plant)" cardinality="*">
         <handler name="population"/>
       </input>
-      <tool name="tool" filter="can kill(plant)" cardinality="*"/>
+      <tool name="tool" filter="is equipment and can kill(plant)" cardinality="*"/>
       <doer name="worker" filter="is worker"/>
     </parameters>
   </procedure>

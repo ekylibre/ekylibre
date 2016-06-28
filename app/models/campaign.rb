@@ -39,13 +39,13 @@ class Campaign < Ekylibre::Record::Base
   has_many :activity_budgets, inverse_of: :campaign, dependent: :restrict_with_exception
   has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :closed_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
-  validates_inclusion_of :closed, in: [true, false]
-  validates_presence_of :name
+  validates :closed_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :harvest_year, numericality: { allow_nil: true, only_integer: true }
+  validates :closed, inclusion: { in: [true, false] }
+  validates :name, presence: true
   # ]VALIDATORS]
   validates :harvest_year, length: { is: 4 }, allow_nil: true
-  validates_uniqueness_of :harvest_year
+  validates :harvest_year, uniqueness: true
 
   has_many :activity_productions
 

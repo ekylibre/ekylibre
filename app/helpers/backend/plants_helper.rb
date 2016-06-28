@@ -65,10 +65,10 @@ module Backend
           marketable_net_mass: marketable_net_mass.to_s.to_f,
           ready_to_harvest: (p.ready_to_harvest? ? :ready.tl : :not_ready.tl),
           age: (Time.zone.now - p.born_at) / (3600 * 24 * 30),
-          plantation_density: (p.plants_count.to_d / p.net_surface_area.to_d).to_s.to_f,
+          plantation_density: (p.plants_count.to_d / p.net_surface_area.in(:square_meter).to_d).to_s.to_f,
           interventions_count: interventions.count,
           issues_count: issues.count,
-          watering_concentration: water_concentration.compact.sum.to_s.to_f,
+          watering_concentration: water_concentration.compact.sum.in(:liters).to_s.to_f,
           variety: Nomen::Variety[p.variety].human_name,
           popup: {
             header: true,
@@ -76,13 +76,18 @@ module Backend
           }
         }
       end
+      crops = Nomen::Unit[:unity].human_name
+      water = Nomen::Unit[:liter].human_name
+      area = Nomen::Unit[:square_meter].human_name
+      plantation_density_unit = "#{crops}/#{area}".downcase
+      water_concentration_unit = "#{water}/#{area}".downcase
       visualization(box: { height: '100%' }) do |v|
         v.serie :main, data
         v.bubbles :marketable_net_mass, :main
         v.categories :ready_to_harvest, :main, without_ghost_label: true
-        v.choropleth :plantation_density, :main
+        v.choropleth :plantation_density, :main, unit: plantation_density_unit
         v.categories :variety, :main
-        v.choropleth :watering_concentration, :main, stop_color: '#1122DD', hidden: true
+        v.choropleth :watering_concentration, :main, unit: water_concentration_unit, stop_color: '#1122DD', hidden: true
         v.control :zoom
         v.control :scale
         v.control :fullscreen

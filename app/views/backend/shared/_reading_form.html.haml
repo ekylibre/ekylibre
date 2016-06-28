@@ -1,6 +1,6 @@
 - default_as = (hidden ? :hidden : nil)
 = f.input(:indicator_name, as: :hidden)
-= f.input(:indicator_datatype, as: :hidden)
+= f.input(:indicator_datatype, as: :hidden, input_html: {value: f.object.indicator_datatype || indicator.datatype})
 = f.input(indicator.datatype.to_s + '_value_value', as: default_as, wrapper: :append, value: 0, class: :inline, label: indicator.human_name) do
   - if indicator.datatype == :measure
     - f.object.measure_value_unit ||= indicator.unit

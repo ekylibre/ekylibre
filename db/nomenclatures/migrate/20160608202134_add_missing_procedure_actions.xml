@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing procedure actions">
+  <item-creation item="procedure_actions#net_removal"/>
+  <item-creation item="procedure_actions#tunnel_installation"/>
+  <item-creation item="procedure_actions#tunnel_removal"/>
+</migration>

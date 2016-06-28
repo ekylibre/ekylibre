@@ -128,7 +128,7 @@ module Backend
     end
 
     # Lists intervention product parameters of the current product
-    list(:intervention_product_parameters, conditions: { product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
+    list(:intervention_product_parameters, model: :intervention_parameters, conditions: { product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
       t.column :intervention, url: true
       # t.column :roles, hidden: true
       t.column :name, sort: :reference_name
@@ -150,11 +150,12 @@ module Backend
 
     # Lists localizations of the current product
     list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+      t.action :edit
       t.column :nature
       t.column :container, url: true
       t.column :intervention, url: true
       t.column :started_at
-      t.column :stopped_at, hidden: true
+      t.column :stopped_at
     end
 
     # Lists readings of the current product

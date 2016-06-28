@@ -10,7 +10,7 @@
     - procedure.mandatory_actions.each do |a|
       = hidden_field_tag('intervention[actions][]', a.name)
     - if procedure.optional_actions.any?
-      = f.items_list(:actions, selection: procedure.optional_actions_selection)
+      = f.items_list(:actions, selection: procedure.optional_actions_selection, required: procedure.mandatory_actions.empty?)
 
     = f.custom_fields
     #prescriptions

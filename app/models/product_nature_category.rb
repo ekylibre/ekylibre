@@ -70,20 +70,20 @@ class ProductNatureCategory < Ekylibre::Record::Base
   has_many :purchase_taxations, -> { where(usage: 'purchase') }, class_name: 'ProductNatureCategoryTaxation', inverse_of: :product_nature_category
   has_many :purchase_taxes, class_name: 'Tax', through: :purchase_taxations, source: :tax
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :fixed_asset_depreciation_percentage, allow_nil: true
-  validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, in: [true, false]
-  validates_presence_of :name, :number
+  validates :fixed_asset_depreciation_percentage, numericality: { allow_nil: true }
+  validates :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, inclusion: { in: [true, false] }
+  validates :name, :number, presence: true
   # ]VALIDATORS]
-  validates_length_of :number, allow_nil: true, maximum: 30
-  validates_length_of :pictogram, allow_nil: true, maximum: 120
-  validates_presence_of :product_account, if: :saleable?
-  validates_presence_of :charge_account,  if: :purchasable?
-  validates_presence_of :stock_account,   if: :storable?
-  validates_presence_of :fixed_asset_account, if: :depreciable?
-  validates_presence_of :fixed_asset_allocation_account, if: :depreciable?
-  validates_presence_of :fixed_asset_expenses_account, if: :depreciable?
-  validates_uniqueness_of :number
-  validates_uniqueness_of :name
+  validates :number, length: { allow_nil: true, maximum: 30 }
+  validates :pictogram, length: { allow_nil: true, maximum: 120 }
+  validates :product_account, presence: { if: :saleable? }
+  validates :charge_account,  presence: { if: :purchasable? }
+  validates :stock_account,   presence: { if: :storable? }
+  validates :fixed_asset_account, presence: { if: :depreciable? }
+  validates :fixed_asset_allocation_account, presence: { if: :depreciable? }
+  validates :fixed_asset_expenses_account, presence: { if: :depreciable? }
+  validates :number, uniqueness: true
+  validates :name, uniqueness: true
 
   accepts_nested_attributes_for :natures,            reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :sale_taxations,     reject_if: :all_blank, allow_destroy: true

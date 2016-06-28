@@ -3,8 +3,8 @@ module TimeLineable
 
   # Stopped_at is never included in the period because it is the started_at of the next period!
   included do
-    validates_presence_of :started_at # , :if => :has_previous?
-    validates_presence_of :stopped_at, if: :has_followings?
+    validates :started_at, presence: true # , :if => :has_previous?
+    validates :stopped_at, presence: { if: :has_followings? }
 
     scope :at,      ->(at) { where(arel_table[:started_at].lteq(at).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at)))) }
     scope :after,   ->(at) { where(arel_table[:started_at].gt(at)) }
@@ -21,7 +21,7 @@ module TimeLineable
         self.stopped_at = following.started_at
       else
         self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, '+00:00')
-        self.stopped_at = nil
+        self.stopped_at ||= nil
       end
     end
 

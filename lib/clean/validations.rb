@@ -17,10 +17,14 @@ module Clean
         columns = model.content_columns.delete_if { |c| !validable_column?(c) }.sort { |a, b| a.name.to_s <=> b.name.to_s }
 
         cs = columns.select { |c| c.type == :date }
-        code << '  validates_date ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }\n" if cs.any?
+        if cs.any?
+          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }\n"
+        end
 
         cs = columns.select { |c| c.type == :datetime || c.type == :timestamp }
-        code << '  validates_datetime ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }\n" if cs.any?
+        if cs.any?
+          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }\n"
+        end
 
         columns.each do |c|
           next unless [:stopped_at, :stopped_on].include?(c.name.to_sym)
@@ -31,20 +35,26 @@ module Clean
         end
 
         cs = columns.select { |c| c.type == :integer }
-        code << '  validates_numericality_of ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_nil: true, only_integer: true\n" if cs.any?
+        if cs.any?
+          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", numericality: { allow_nil: true, only_integer: true }\n"
+        end
 
         cs = columns.select { |c| c.number? && c.type != :integer }
-        code << '  validates_numericality_of ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_nil: true\n" if cs.any?
+        if cs.any?
+          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", numericality: { allow_nil: true }\n"
+        end
 
         cs = columns.select { |c| (c.type == :string || c.type == :text) && c.limit }
         limits = cs.map(&:limit).uniq.sort # .delete_if{|l| l == 255}
-        for limit in limits
+        limits.each do |limit|
           cs = columns.select { |c| c.limit == limit }
-          code << '  validates_length_of ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", allow_nil: true, maximum: #{limit}\n"
+          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", numericality: { allow_nil: true, maximum: #{limit} }\n"
         end
 
         cs = columns.select { |c| !c.null && c.type == :boolean }
-        code << '  validates_inclusion_of ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", in: [true, false]\n" if cs.any?
+        if cs.any?
+          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", inclusion: { in: [true, false] }\n"
+        end
 
         needed = columns.select { |c| !c.null && c.type != :boolean }.map { |c| ":#{c.name}" }
         needed += model.reflect_on_all_associations(:belongs_to).select do |association|
@@ -54,7 +64,7 @@ module Clean
           end
           !column.null && validable_column?(column)
         end.map { |r| ":#{r.name}" }
-        code << '  validates_presence_of ' + needed.sort.join(', ') + "\n" if needed.any?
+        code << '  validates ' + needed.sort.join(', ') + ", presence: true\n" if needed.any?
 
         code
       end

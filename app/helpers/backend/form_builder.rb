@@ -364,7 +364,8 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.by_default.to_json_object
+      marker[:background] ||= MapBackground.availables.collect(&:to_json_object).first
+      marker[:background] &&= MapBackground.by_default.to_json_object
       input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 
@@ -446,11 +447,14 @@ module Backend
         variant_id = @template.params[:variant_id]
         variant = ProductNatureVariant.where(id: variant_id.to_i).first if variant_id
       end
+      options[:input_html] ||= {}
+      options[:input_html][:class] ||= ''
+
       if variant
         @object.nature ||= variant.nature
         whole_indicators = variant.whole_indicators
         # Add product type selector
-        html << @template.field_set do
+        form = @template.field_set options[:input_html] do
           fs = input(:variant_id, value: variant.id, as: :hidden)
           # Add name
           fs << input(:name)
@@ -458,6 +462,9 @@ module Backend
           fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
           # Add variant selector
           fs << variety(scope: variant)
+
+          fs << input(:initial_born_at, label: Product.human_attribute_name(:born_at))
+          fs << input(:initial_dead_at, label: Product.human_attribute_name(:dead_at))
 
           # error message for indicators
           if Rails.env.development?
@@ -476,6 +483,7 @@ module Backend
 
           fs
         end
+        html << form
 
         # Add form body
         html += if block_given?

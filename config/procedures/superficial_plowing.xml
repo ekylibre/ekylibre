@@ -5,7 +5,7 @@
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <tool name="plow"   filter="can plow_superficially"/>
+      <tool name="stubble_cultivator"   filter="can plow_superficially"/>
       <tool name="tractor" filter="can tow(equipment) and can move"/>
       <doer name="driver"  filter="can drive(equipment) and can move"/>
     </parameters>

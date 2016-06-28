@@ -736,7 +736,8 @@ arb:
       activity_budget: "ميزانية النشاط"
       activity_budget_item: "آخر بند الميزانية"
       activity_distribution: "توزيع النشاط"
-      # activity_inspection_calibration_nature: ""
+      # activity_inspection_calibration_nature: "Calibre type"
+      # activity_inspection_calibration_scale: "Calibre"
       # activity_inspection_point_nature: "Activity grading check"
       activity_production: "دعم الإنتاج"
       affair: "قضية"
@@ -809,6 +810,7 @@ arb:
       incoming_payment_mode: "نوع الدفعة"
       incoming_payment_use: "تأثير الدفعة" #?
       # inspection: "Product grading"
+      # inspection_calibration: "Inspection calibre"
       # inspection_point: "Product grading check"
       intervention: "تدخل"
       intervention_agent: "وكيل تدخل"
@@ -838,6 +840,7 @@ arb:
       mandate: "التفويض" #?
       manure_management_plan: "خطة إدارة السماد"
       manure_management_plan_zone: "السماد منطقة خطة الإدارة"
+      # map_background: "Map background"
       matter: "مسألة"
       meeting: "الحدث" #?
       meeting_nature: "نوع الحدث" #?
@@ -855,10 +858,10 @@ arb:
       parcel: "جزء"
       parcel_item: "البند لا يتجزأ"
       plant: "نبات"
-      # plant_counting: "Plant counting"
-      # plant_counting_item: "Plant counting item"
+      # plant_counting: "Plant count"
+      # plant_counting_item: "Plant count entry"
       # plant_density_abacus: "Plant density abacus"
-      # plant_density_abacus_item: "Plant density abacus item"
+      # plant_density_abacus_item: "Plant density abacus entry"
       postal_zone: "المنطقة البريدية"
       preference: "تفضيل"
       prescription: "وصفة طبية"
@@ -1401,6 +1404,8 @@ arb:
     # grading_sizes_unit_name: "Grading sizes unit name"
     # gradings: "Gradings"
     gravity: "الجاذبية"
+    # gross_mass: "Gross mass"
+    # gross_yield_value: "Gross yield value"
     group: "مجموعة"
     group_parameters: "معلمات مجموعة"
     groups: "المجموعات"
@@ -1595,6 +1600,7 @@ arb:
     manure_management_plan_zones: "مناطق خطة إدارة السماد"
     # marketable: "Marketable"
     # marketable_net_mass: "Marketable net mass"
+    # marketable_net_yield: "Marketable net yield"
     # marketable_yield: "Marketable yield"
     mass: "الوزن"
     master: "كتلة رئيسية" #?
@@ -2118,6 +2124,7 @@ arb:
     tool_id: "اداة" #?
     tools: "الادوات"
     tools_list: "معدات" #?
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "عدد تاون"
     tracking: "الحصة"

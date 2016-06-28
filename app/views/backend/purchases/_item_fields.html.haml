@@ -4,7 +4,7 @@
     %td.annotable
       = f.referenced_association(:variant, wrapper: :nested, source: {scope: :purchaseables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", mode: :last_purchase_item)}}})
       - if f.object.annotation.blank?
-        = link_to("#", data: {annotate: ".annotate", use_closest: "td"}, title: :add_annotation.tl) do
+        = link_to("#", data: {annotate: ".annotate", use_closest: "tbody"}, title: :add_annotation.tl) do
           %i
     %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
     %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})

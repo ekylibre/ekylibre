@@ -65,16 +65,16 @@ class IncomingPayment < Ekylibre::Record::Base
   belongs_to :payer, class_name: 'Entity', inverse_of: :incoming_payments
   belongs_to :mode, class_name: 'IncomingPaymentMode', inverse_of: :payments
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :amount, :commission_amount, allow_nil: true
-  validates_inclusion_of :downpayment, :received, :scheduled, in: [true, false]
-  validates_presence_of :amount, :commission_amount, :currency, :mode, :to_bank_at
+  validates :accounted_at, :paid_at, :to_bank_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :amount, :commission_amount, numericality: { allow_nil: true }
+  validates :downpayment, :received, :scheduled, inclusion: { in: [true, false] }
+  validates :amount, :commission_amount, :currency, :mode, :to_bank_at, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_numericality_of :amount, greater_than: 0.0
-  validates_numericality_of :commission_amount, greater_than_or_equal_to: 0.0
-  validates_presence_of :payer
-  validates_presence_of :commission_account, if: :with_commission?
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :amount, numericality: { greater_than: 0.0 }
+  validates :commission_amount, numericality: { greater_than_or_equal_to: 0.0 }
+  validates :payer, presence: true
+  validates :commission_account, presence: { if: :with_commission? }
 
   delegate :status, to: :affair
 

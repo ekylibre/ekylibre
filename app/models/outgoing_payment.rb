@@ -57,14 +57,14 @@ class OutgoingPayment < Ekylibre::Record::Base
   belongs_to :payee, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :amount, allow_nil: true
-  validates_inclusion_of :delivered, :downpayment, in: [true, false]
-  validates_presence_of :amount, :cash, :currency, :mode, :payee, :responsible, :to_bank_at
+  validates :accounted_at, :paid_at, :to_bank_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :amount, numericality: { allow_nil: true }
+  validates :delivered, :downpayment, inclusion: { in: [true, false] }
+  validates :amount, :cash, :currency, :mode, :payee, :responsible, :to_bank_at, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_numericality_of :amount, greater_than: 0
-  validates_presence_of :to_bank_at
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :amount, numericality: { greater_than: 0 }
+  validates :to_bank_at, presence: true
 
   acts_as_numbered
   acts_as_affairable :payee, dealt_at: :to_bank_at, debit: false, role: 'supplier'

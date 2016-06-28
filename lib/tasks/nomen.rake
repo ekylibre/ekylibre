@@ -83,13 +83,6 @@ namespace :nomen do
       name = name.downcase.gsub(/[\s\-\_]+/, '_')
       full_name = Time.zone.now.l(format: '%Y%m%d%H%M%S') + "_#{name}"
       file = Rails.root.join('db', 'nomenclatures', 'migrate', "#{full_name}.xml")
-      found = Dir.glob(Nomen.migrations_path.join('*.xml')).detect do |file|
-        File.basename(file).to_s =~ /^\d+\_#{name}\.xml/
-      end
-      if found
-        puts "A migration with same name #{name} already exists: #{Pathname.new(found).relative_path_from(Rails.root)}"
-        exit 2
-      end
       xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n"
       xml << "<migration name=\"#{name.humanize}\">\n"
       xml << "  <!-- Add your changes here -->\n"
@@ -147,5 +140,81 @@ namespace :nomen do
       end
     end
     File.write(NomenHelper::AVATARS_INDEX, cache.to_yaml)
+  end
+
+  task srs: :environment do
+    OGC_CRS_URN = {
+      '4326': 'urn:ogc:def:crs:OGC:1.3:CRS84'
+    }.with_indifferent_access.freeze
+
+    # migration file generation
+    migration_name = ENV['NAME'] = 'update spatial reference systems'
+    Rake::Task['nomen:migrate:generate'].invoke
+
+    # filename
+    filename = %W(#{Nomen.missing_migrations.last.number} #{Nomen.missing_migrations.last.name.downcase.split(' ').join('_')}).join('_')
+    file = Nomen.migrations_path.join("#{filename}.xml")
+
+    # already existing nomenclature ?
+    systems = Nomen::SpatialReferenceSystem
+
+    # access to postgis and get reference systems
+    table = ActiveRecord::Base.connection.execute('select * from spatial_ref_sys')
+    builder = Nokogiri::XML::Builder.new do |xml|
+      xml.migration name: migration_name do
+        nomenclature_name = 'spatial_reference_systems'
+
+        unless Nomen.find(nomenclature_name).present?
+          attrs = { name: nomenclature_name }
+          attrs[:translateable] = 'false'
+          xml.send('nomenclature-creation', attrs)
+        end
+
+        properties = []
+        properties << { name: 'authority_reference', type: 'string' }
+        properties << { name: 'srid', type: 'integer', required: 'true' }
+
+        # add custom properties
+        properties << { name: 'urn', type: 'string' }
+
+        properties.each do |p|
+          next if systems.property(p[:name]).present?
+          attrs = { property: "#{nomenclature_name}.#{p[:name]}", type: p[:type] }
+          attrs[:required] = 'true' if p.key?(:required)
+          xml.send('property-creation', attrs)
+        end
+
+        table.each do |row|
+          auth_ref = %W(#{row['auth_name']} #{row['auth_srid']})
+          attrs = { item: "#{nomenclature_name}##{auth_ref.join('_')}" }.with_indifferent_access
+          attrs[:authority_reference] = auth_ref.join(':')
+          attrs[:srid] = row['srid']
+
+          attrs[:urn] = OGC_CRS_URN[row['srid']] if OGC_CRS_URN.keys.include?(row['srid'])
+
+          # if already exists.
+          item = systems.find_by(srid: row['auth_srid'].to_i)
+          if systems && item
+            # if properties are different
+            if item.properties.length != properties.length || !properties.select { |p| attrs[p[:name]] != item.property(p[:name]).to_s }.empty?
+              # be sure to keep current item name
+              attrs[:item] = "#{nomenclature_name}##{item.name}"
+              xml.send('item-change', attrs)
+            end
+          else
+            xml.send('item-creation', attrs)
+          end
+        end
+
+        # remove unexisting items from nomenclature
+        # systems.find_each do |item|
+        #   next if table.select{ |r| r['srid'].to_i == item.property(:srid) }.length > 0
+        #   attrs = { item: "#{nomenclature_name}##{item.name}" }
+        #   xml.send('item-remove', attrs)
+        # end
+      end
+    end
+
+    File.write file, builder.to_xml
   end
 end

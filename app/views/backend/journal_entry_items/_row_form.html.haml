@@ -11,9 +11,9 @@
 %tr{id: id, class: "#{id}-item"}
   %td= text_field_tag("items[#{id}][name]", item.name, id: "items_#{id}_name", data: {parameter_name: "name", autofocus: (controller_name.to_s == "backend/journal_entries" ? "false" : "true")})
   %td.with-selector= selector_tag "items[#{id}][account_id]", {controller: :accounts, action: :unroll}, value: item.account_id, new: {controller: :accounts, action: :new}
-  %td.dec= text_field_tag "items[#{id}][real_debit]", (item.real_debit||0.0), size: 10, id: "items_#{id}_real_debit", class: "real-debit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#items_#{id}_name,#entry-real-debit,#entry-real-credit,#journal_id,input[name='journal_entry[printed_on]']", exclusive_nullify: "#items_#{id}_real_credit"}
+  %td.dec= text_field_tag "items[#{id}][real_debit]", (item.real_debit||0.0), size: 10, id: "items_#{id}_real_debit", class: "real-debit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#items_#{id}_name,#journal_entry_real_currency_rate,#entry-real-debit,#entry-real-credit,#journal_id,input[name='journal_entry[printed_on]']", exclusive_nullify: "#items_#{id}_real_credit"}
   %td= @journal.currency
-  %td.dec= text_field_tag "items[#{id}][real_credit]", (item.real_credit||0.0), size: 10, id: "items_#{id}_real_credit", class: "real-credit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#items_#{id}_name,#entry-real-debit,#entry-real-credit,#journal_id,input[name='journal_entry[printed_on]']", exclusive_nullify: "#items_#{id}_real_debit"}
+  %td.dec= text_field_tag "items[#{id}][real_credit]", (item.real_credit||0.0), size: 10, id: "items_#{id}_real_credit", class: "real-credit", href: url_for(controller: :journal_entry_items, action: :new), data: {update: "#items", update_at: :bottom, type: :html, add_item_unless: "#total", with: "#journal_entry_real_currency_rate,#items_#{id}_name,#entry-real-debit,#entry-real-credit,#journal_id,input[name='journal_entry[printed_on]']", exclusive_nullify: "#items_#{id}_real_debit"}
   %td= @journal.currency
   %td.act
     = link_to("#", data: {remove: ".#{id}-item"}, class: "destroy") do
@@ -21,10 +21,15 @@
       = :destroy.ta
 
 - if @financial_year and @journal and @journal.currency != @financial_year.currency
+  - precision = Nomen::Currency[@financial_year.currency].precision
+  - rate = Maybe(item.entry).real_currency_rate.or_else(@real_rate)
+  - rate ||= 0
   %tr{id: "#{id}-real-values", class: "#{id}-item"}
     %td.dec{colspan: 2}
-    %td.dec.debit{data: {use: "#items_#{id}_real_debit,#journal_entry_real_currency_rate", calculate: "mul", calculate_round: Nomen::Currency[@financial_year.currency].precision}}
+    %td.dec.debit{data: {calculate_round: precision}}= (item.real_debit * rate).round(precision)
+    %td.debit-without-error-correction.hidden= (item.real_debit * rate).round(precision)
     %td= @financial_year.currency
-    %td.dec.credit{data: {use: "#items_#{id}_real_credit,#journal_entry_real_currency_rate", calculate: "mul", calculate_round: Nomen::Currency[@financial_year.currency].precision}}
+    %td.dec.credit{data: {calculate_round: precision}}= (item.real_credit * rate).round(precision)
+    %td.credit-without-error-correction.hidden= (item.real_credit * rate).round(precision)
     %td= @financial_year.currency
     %td.act

@@ -1,0 +1,16 @@
+= main_toolbar do |t|
+  = t.edit resource
+  = t.destroy resource
+
+= cobbles do |c|
+  - c.cobble :general_informations do
+    = attributes_list do |l|
+      - l.attribute :target
+      - l.attribute :activity, url: true
+      - l.attribute :activity_production, url: true
+      - l.attribute :started_at
+      - l.attribute :stopped_at
+
+  - if resource.target.intervention_product_parameters.any?
+    - c.cobble(:intervention_product_parameters, title: :x_interventions.tl(count: resource.target.interventions.count)) do
+      = cobble_list(:intervention_product_parameters)

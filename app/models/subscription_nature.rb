@@ -37,9 +37,9 @@ class SubscriptionNature < Ekylibre::Record::Base
   has_many :subscriptions, foreign_key: :nature_id, inverse_of: :nature
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :name
+  validates :name, presence: true
   # ]VALIDATORS]
-  validates_uniqueness_of :name
+  validates :name, uniqueness: true
 
   protect(on: :destroy) do
     subscriptions.any? || product_natures.any?

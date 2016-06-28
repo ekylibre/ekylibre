@@ -46,3 +46,9 @@
         = cobble_list(:issues)
 
   - time_spent_by_activity(resource, cobbler: c)
+
+  - c.cobble(:places) do
+    = cobble_toolbar do |t|
+      .toolbar
+        = tool_to :new.ta, {action: :new, controller: :product_localizations, product_id: resource.id }, tool: :new
+      = cobble_list(:places)

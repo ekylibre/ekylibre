@@ -69,19 +69,19 @@ class ActivityProduction < Ekylibre::Record::Base
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
+  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(activity_production) { activity_production.stopped_on && activity_production.started_on }
-  validates_numericality_of :rank_number, allow_nil: true, only_integer: true
-  validates_numericality_of :size_value, allow_nil: true
-  validates_inclusion_of :irrigated, :nitrate_fixing, in: [true, false]
-  validates_presence_of :activity, :rank_number, :size_indicator_name, :size_value, :support, :usage
+  validates :rank_number, numericality: { allow_nil: true, only_integer: true }
+  validates :size_value, numericality: { allow_nil: true }
+  validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
+  validates :activity, :rank_number, :size_indicator_name, :size_value, :support, :usage, presence: true
   # ]VALIDATORS]
-  validates_uniqueness_of :rank_number, scope: :activity_id
-  validates_presence_of :started_on
+  validates :rank_number, uniqueness: { scope: :activity_id }
+  validates :started_on, presence: true
   # validates_presence_of :cultivable_zone, :support_nature, if: :plant_farming?
-  validates_presence_of :support_nature, if: :plant_farming?
-  validates_presence_of :campaign, :stopped_on, if: :annual?
-  validates_presence_of :started_on
+  validates :support_nature, presence: { if: :plant_farming? }
+  validates :campaign, :stopped_on, presence: { if: :annual? }
+  validates :started_on, presence: true
   # validates_numericality_of :size_value, greater_than: 0
   # validates_presence_of :size_unit, if: :size_value?
 
@@ -218,6 +218,12 @@ class ActivityProduction < Ekylibre::Record::Base
   after_destroy do
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end
+
+
+  protect(on: :destroy) do
+    interventions.any?
+  end
+
 
   def computed_support_name
     list = []

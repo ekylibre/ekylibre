@@ -58,11 +58,11 @@ class Loan < Ekylibre::Record::Base
   has_many :repayments, -> { order(:position) }, class_name: 'LoanRepayment', dependent: :destroy, counter_cache: false
   has_one :journal, through: :cash
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_datetime :accounted_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :repayment_duration, :shift_duration, allow_nil: true, only_integer: true
-  validates_numericality_of :amount, :insurance_percentage, :interest_percentage, allow_nil: true
-  validates_presence_of :amount, :cash, :currency, :insurance_percentage, :interest_percentage, :lender, :name, :repayment_duration, :repayment_method, :repayment_period, :shift_duration, :started_on
+  validates :started_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :accounted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :repayment_duration, :shift_duration, numericality: { allow_nil: true, only_integer: true }
+  validates :amount, :insurance_percentage, :interest_percentage, numericality: { allow_nil: true }
+  validates :amount, :cash, :currency, :insurance_percentage, :interest_percentage, :lender, :name, :repayment_duration, :repayment_method, :repayment_period, :shift_duration, :started_on, presence: true
   # ]VALIDATORS]
 
   before_validation do
@@ -76,7 +76,7 @@ class Loan < Ekylibre::Record::Base
     end
   end
 
-  after_save do
+  after_commit do
     generate_repayments
   end
 
@@ -90,8 +90,9 @@ class Loan < Ekylibre::Record::Base
 
   def generate_repayments
     period = repayment_period_month? ? 12 : 1
+    length = repayment_period_month? ? :month : :year
     ids = []
-    Calculus::Loan.new(amount, repayment_duration, interests: { interest_amount: interest_percentage / 100.0 }, insurances: { insurance_amount: insurance_percentage / 100.0 }, period: period, shift: self.shift_duration, shift_method: shift_method.to_sym, started_on: started_on).compute_repayments(repayment_method).each do |repayment|
+    Calculus::Loan.new(amount, repayment_duration, interests: { interest_amount: interest_percentage / 100.0 }, insurances: { insurance_amount: insurance_percentage / 100.0 }, period: period, length: length, shift: self.shift_duration, shift_method: shift_method.to_sym, started_on: started_on).compute_repayments(repayment_method).each do |repayment|
       if r = repayments.find_by(position: repayment[:position])
         r.update_attributes!(repayment)
       else

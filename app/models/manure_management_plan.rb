@@ -43,9 +43,9 @@ class ManureManagementPlan < Ekylibre::Record::Base
   belongs_to :recommender, class_name: 'Entity'
   has_many :zones, class_name: 'ManureManagementPlanZone', dependent: :destroy, inverse_of: :plan, foreign_key: :plan_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :opened_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_inclusion_of :locked, :selected, in: [true, false]
-  validates_presence_of :campaign, :default_computation_method, :name, :opened_at, :recommender
+  validates :opened_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :locked, :selected, inclusion: { in: [true, false] }
+  validates :campaign, :default_computation_method, :name, :opened_at, :recommender, presence: true
   # ]VALIDATORS]
 
   accepts_nested_attributes_for :zones

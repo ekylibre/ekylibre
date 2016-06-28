@@ -1,7 +1,7 @@
 = field_set do
   = f.referenced_association :category
   = f.input :name
-  = f.input :number
+  = f.input :number, required: false
   = f.input :active
   = f.referenced_nomenclature :variety
   = f.referenced_nomenclature :derivative_of

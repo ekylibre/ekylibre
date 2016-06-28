@@ -1,0 +1,6 @@
+- if resource.distributions.any?
+  - c.cobble(:distributions) do
+    .toolbar
+      = tool_to :new.ta, {action: :new, controller: :target_distributions, target_id: resource.id }, tool: :new
+
+    = target_distributions_chronologies(resource.distributions.order(:started_at), resource)

@@ -22,7 +22,7 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_list (6.6.0)
+    active_list (6.6.1)
       arel (>= 5.0.0)
       code_string (>= 0.0.0)
       i18n-complements
@@ -60,11 +60,11 @@ GEM
     apartment (1.0.2)
       activerecord (>= 3.1.2, < 5.0)
       rack (>= 1.3.6)
-    apartment-sidekiq (1.0.0)
+    apartment-sidekiq (1.1.0)
       apartment (~> 1.0)
       sidekiq (>= 2.11)
     arel (6.0.3)
-    ast (2.2.0)
+    ast (2.3.0)
     autoprefixer-rails (6.3.6.2)
       execjs
     awesome_nested_set (3.0.3)
@@ -88,7 +88,7 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    browser (2.1.0)
+    browser (2.2.0)
     builder (3.2.2)
     burisu-docsplit (0.7.8)
     byebug (9.0.5)
@@ -145,7 +145,7 @@ GEM
       actionmailer (>= 3.2.6)
       devise (>= 3.2.0)
     docile (1.1.5)
-    domain_name (0.5.20160310)
+    domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
     enumerize (1.1.1)
       activesupport (>= 3.2)
@@ -261,6 +261,7 @@ GEM
     pg (0.18.4)
     pkg-config (1.1.7)
     polyglot (0.3.5)
+    possibly (0.2.0)
     powerpack (0.1.1)
     pry (0.10.3)
       coderay (~> 1.1.0)
@@ -313,7 +314,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     raindrops (0.16.0)
-    rake (11.1.2)
+    rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
     redis (3.3.0)
@@ -344,8 +345,8 @@ GEM
     roo (2.4.0)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
-    rubocop (0.40.0)
-      parser (>= 2.3.1.0, < 3.0)
+    rubocop (0.41.1)
+      parser (>= 2.3.1.1, < 3.0)
       powerpack (~> 0.1)
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.7)
@@ -372,7 +373,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    selenium-webdriver (2.53.0)
+    selenium-webdriver (2.53.3)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
@@ -399,7 +400,7 @@ GEM
     slop (3.6.0)
     socksify (1.7.0)
     spring (1.7.1)
-    sprockets (3.6.0)
+    sprockets (3.6.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.0.4)
@@ -442,7 +443,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.2)
     unicode (0.4.4.2)
-    unicode-display_width (1.0.5)
+    unicode-display_width (1.1.0)
     unicorn (5.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -452,7 +453,7 @@ GEM
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
-    web-console (3.2.0)
+    web-console (3.3.0)
       activemodel (>= 4.2)
       debug_inspector
       railties (>= 4.2)
@@ -518,6 +519,7 @@ DEPENDENCIES
   paperclip
   paperclip-document (> 0.0.8)
   pg
+  possibly
   pry-byebug
   pry-inline
   pry-rails
@@ -553,9 +555,6 @@ DEPENDENCIES
   unicorn
   uuidtools
   web-console (~> 3.0)
-
-RUBY VERSION
-   ruby 2.2.3p173
 
 BUNDLED WITH
    1.12.5

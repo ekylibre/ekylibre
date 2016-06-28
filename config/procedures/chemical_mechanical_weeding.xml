@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="chemical_mechanical_weeding" categories="crop_maintenance" actions="weeding">
+    <parameters>
+      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="herbicide" filter="is preparation and can kill(plant) and can care(plant)" cardinality="*">
+        <handler name="population"/>
+        <handler indicator="net_mass" unit="kilogram"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
+                 backward="POPULATION * PRODUCT..net_mass(kilogram)"
+                 forward="VALUE / PRODUCT..net_mass(kilogram)"/>
+        <handler indicator="mass_area_density" unit="kilogram_per_hectare"
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+        <handler indicator="volume_area_density" unit="liter_per_hectare"
+                 if="PRODUCT..net_volume? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
+      </input>
+      <tool name="hoe" filter="is equipment and can hoe"/>
+      <tool name="weeding_kit" filter="is equipment and can spray and can kill(plant)"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <doer name="driver"  filter="can drive(tractor) and can move"/>
+    </parameters>
+  </procedure>
+</procedures>

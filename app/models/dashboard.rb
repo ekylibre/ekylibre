@@ -35,7 +35,7 @@
 class Dashboard < Ekylibre::Record::Base
   belongs_to :owner, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :name, :owner
+  validates :name, :owner, presence: true
   # ]VALIDATORS]
 
   before_validation on: :create do

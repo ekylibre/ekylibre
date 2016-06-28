@@ -41,10 +41,10 @@ class Observation < Ekylibre::Record::Base
   belongs_to :subject, polymorphic: true
   belongs_to :author, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :observed_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_presence_of :author, :content, :importance, :observed_at, :subject, :subject_type
+  validates :observed_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :author, :content, :importance, :observed_at, :subject, :subject_type, presence: true
   # ]VALIDATORS]
-  validates_length_of :importance, allow_nil: true, maximum: 10
+  validates :importance, length: { allow_nil: true, maximum: 10 }
 
   before_validation do
     self.subject_type = subject.class.base_class.name if subject

@@ -404,10 +404,10 @@ spa:
       ship: "Parcelas de la nave"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "Plantas"
       new: "Nueva planta"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       index: "Zonas postales"
@@ -422,6 +422,8 @@ spa:
       index: "Grupos de productos"
       new: "Nuevo grupo"
       # show: "Group: %{name}"
+    backend/product_localizations:
+      # edit: "Edit product localization:"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorías de Producto"
@@ -528,6 +530,12 @@ spa:
     backend/synchronizations:
       index: "Sincronizaciones"
       # run: "Run synchronization: %{name}"
+    backend/target_distributions:
+      # distribute: "Distribute products"
+      # edit: "Edit target distribution: %{name}"
+      # index: "Target distributions"
+      # new: "New target distribution"
+      # show: "Target distribution: %{name}"
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Tareas"
@@ -960,6 +968,8 @@ spa:
     details: "Detalles"
     direct_margin: "Margen directo"
     discount: "Descuento (%)"
+    # disease: "Disease (%)"
+    # disease_deformity_percentage: "Disease and deformity percentage"
     display: "Monitor"
     distributions: "Distribuciones"
     divide: "Dividir"
@@ -1112,6 +1122,8 @@ spa:
     interventions: "Intervenciones"
     interventions_count: "Intervenciones cuentan"
     interventions_paths: "Intervenciones caminos"
+    # invalid_file: "Invalid file"
+    # invalid_format: "Invalid format"
     inventories: "Los inventarios"
     inventory: "Completar el inventario"
     inventory_create: "Hacer un nuevo inventario" #?
@@ -1347,6 +1359,7 @@ spa:
     payments: "Encajonamientos"
     payments_count: "Nombre de %{mode}"
     people: "Gente"
+    # percentage_by_calibration: "Percentage by calibration"
     period: "Intervalo de periodo"
     periods: "Periodos"
     permute: "Permutar"
@@ -1532,10 +1545,13 @@ spa:
     stewardship: "Administración"
     stock: "Valores"
     stock_container_map: "Foto mapa"
-    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
+    # stock_in_ground: "Stock in ground"
+    # stock_in_ground_by_calibration: "Stocks in ground by calibration"
     stock_move_create: "Añadir un movimiento de deposito" #?
     # stock_of_x: "Stock of %{x}"
     stocks: "Cepo"
+    # stocks_by_calibrations: "Stocks by calibrations"
+    # stocks_in_ground: "Stock in ground"
     stop: "Detener"
     # stopped: "Stopped"
     storage: "Almacenamiento"
@@ -1625,6 +1641,7 @@ spa:
     unknown_variant: "Variante desconocida"
     unlock: "Desbloquear"
     unmark: "Desmarcar"
+    # unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
     # unnamed: "Nameless"
     unpaid: "No pagado"
     unpaid_amount: "Cantidad no pagada"
@@ -1659,7 +1676,7 @@ spa:
     variants: "Variantes"
     # variety: "Variety"
     view: "Ver"
-    # watering_concentration: "Watering concentration"
+    # watering_concentration: "Water use"
     weather: "Clima"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Velocidad del viento"
@@ -1792,6 +1809,8 @@ spa:
       # other: "%{count} years"
     yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico" #?
+    # yield: "Yield"
+    # yield_by_calibration: "Yield by calibration"
     # you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions."
     # you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:"
     zones: "Zonas"
@@ -1977,6 +1996,7 @@ spa:
       destroy: "Destruir"
       detach: "Despegar"
       detail: "Detalle"
+      # distribute: "Distribute unaffected products"
       down: "Abajo"
       duplicate: "Duplicar"
       edit: "Editar"

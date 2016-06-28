@@ -36,6 +36,7 @@ deu:
       events: "Veranstaltungen"
       exports: "Ausfuhr"
       financial_years: "Geschäftsjahre"
+      # first_run: "First run"
       fixed_assets: "Anlagevermögen"
       # fungi: "Fungi"
       gaps: "Lücken"

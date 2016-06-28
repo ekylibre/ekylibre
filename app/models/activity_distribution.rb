@@ -36,10 +36,10 @@ class ActivityDistribution < Ekylibre::Record::Base
   belongs_to :activity, inverse_of: :distributions
   belongs_to :main_activity, class_name: 'Activity'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :affectation_percentage, allow_nil: true
-  validates_presence_of :activity, :affectation_percentage, :main_activity
+  validates :affectation_percentage, numericality: { allow_nil: true }
+  validates :activity, :affectation_percentage, :main_activity, presence: true
   # ]VALIDATORS]
-  validates_numericality_of :affectation_percentage, greater_than: 0
+  validates :affectation_percentage, numericality: { greater_than: 0 }
 
   delegate :name, to: :main_activity, prefix: true
 end

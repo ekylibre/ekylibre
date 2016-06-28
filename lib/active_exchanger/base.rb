@@ -86,7 +86,7 @@ module ActiveExchanger
       def find(nature)
         klass = @@exchangers[nature.to_sym]
         unless klass
-          raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.inspect})"
+          raise "Unable to find exchanger #{nature.inspect}. (#{@@exchangers.keys.to_sentence(locale: :eng)})"
         end
         klass
       end

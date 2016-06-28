@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get :list_readings
       get :list_members
       get :list_places
+      get :list_target_distributions
       get :take
     end
   end
@@ -665,6 +666,8 @@ Rails.application.routes.draw do
 
     resources :product_groups, concerns: :products
 
+    resources :product_localizations, concerns: [:list, :unroll], except: [:index, :show]
+
     resources :product_natures, concerns: [:incorporate, :list, :unroll] do
       member do
         get :list_variants
@@ -798,6 +801,12 @@ Rails.application.routes.draw do
     resources :synchronizations, only: [:index] do
       member do
         post :run
+      end
+    end
+    resources :target_distributions, concerns: [:list] do
+      collection do
+        get :distribute
+        get :list_intervention_product_parameters
       end
     end
 

@@ -42,11 +42,11 @@
 #
 class MapBackground < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :max_zoom, :min_zoom, allow_nil: true, only_integer: true
-  validates_inclusion_of :by_default, :enabled, :managed, :tms, in: [true, false]
-  validates_presence_of :name, :url
+  validates :max_zoom, :min_zoom, numericality: { allow_nil: true, only_integer: true }
+  validates :by_default, :enabled, :managed, :tms, inclusion: { in: [true, false] }
+  validates :name, :url, presence: true
   # ]VALIDATORS]
-  validates_format_of :url, with: URI.regexp(%w(http https))
+  validates :url, format: { with: URI.regexp(%w(http https)) }
 
   scope :availables, -> { where(enabled: true).order(by_default: :desc) }
   scope :by_default, -> { availables.first }
@@ -54,6 +54,9 @@ class MapBackground < Ekylibre::Record::Base
   selects_among_all
 
   def self.load_defaults
+    if MapBackgrounds::Layer.items.empty? && Rails.env.development?
+      raise 'MapBackground: Layers array is empty.'
+    end
     MapBackgrounds::Layer.items.each do |item|
       attrs = {
         name: item.label,

@@ -132,17 +132,17 @@ class Entity < Ekylibre::Record::Base
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :born_at, :dead_at, :first_met_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, in: [true, false]
-  validates_presence_of :currency, :full_name, :language, :last_name, :nature
+  validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :picture_file_size, numericality: { allow_nil: true, only_integer: true }
+  validates :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
+  validates :currency, :full_name, :language, :last_name, :nature, presence: true
   # ]VALIDATORS]
-  validates_length_of :country, allow_nil: true, maximum: 2
-  validates_length_of :language, allow_nil: true, maximum: 3
-  validates_length_of :siret_number, allow_nil: true, maximum: 14
-  validates_length_of :vat_number, allow_nil: true, maximum: 20
-  validates_length_of :activity_code, allow_nil: true, maximum: 30
-  validates_length_of :deliveries_conditions, :number, allow_nil: true, maximum: 60
+  validates :country, length: { allow_nil: true, maximum: 2 }
+  validates :language, length: { allow_nil: true, maximum: 3 }
+  validates :siret_number, length: { allow_nil: true, maximum: 14 }
+  validates :vat_number, length: { allow_nil: true, maximum: 20 }
+  validates :activity_code, length: { allow_nil: true, maximum: 30 }
+  validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :name, :full_name
@@ -204,7 +204,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any?
+    destroyable?
   end
 
   class << self
@@ -430,6 +430,10 @@ class Entity < Ekylibre::Record::Base
       # Remove doublon
       entity.destroy
     end
+  end
+
+  def destroyable?
+    !(of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? )
   end
 
   def self.best_clients(limit = -1)

@@ -6,6 +6,8 @@
 
     unit = Nomen::Unit[:hour]
 
+    cost_unit = Nomen::Currency[Preference[:currency]]
+
     categories = {}
 
     date = started_at
@@ -26,11 +28,12 @@
           hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
           hash
         end
-        #sums = interventions.sums_of_periods.sort.inject({}) do |hash, period|
-        #  hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
+        series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }, color: activity.color, stack: 'time'}
+        #cost_sums = interventions.inject({}) do |hash, i|
+        #  hash[i.started_at.year.to_s + '0' + i.started_at.month.to_s] = i.total_cost.to_s.to_f
         #  hash
         #end
-        series << { name: activity.name, data: normalize_serie(sums, categories.keys), tooltip: {value_suffix: unit.symbol }, color: activity.color}
+        #series << { name: activity.name, data: normalize_serie(cost_sums, categories.keys), tooltip: {value_suffix: cost_unit.symbol }, color: activity.color, stack: 'cost'}
       end
     end
 

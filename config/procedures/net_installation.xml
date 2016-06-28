@@ -7,6 +7,14 @@
       </target>
       <input name="protective_net" filter="can care(plant) and can cover(plant)">
         <handler name="population"/>
+        <handler indicator="length" unit="meter"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..length?"
+                 backward="POPULATION * PRODUCT..length(meter)"
+                 forward="VALUE / PRODUCT..length(meter)"/>
+        <handler indicator="net_surface_area" unit="square_meter"
+                 if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..length? and PRODUCT..width?"
+                 backward="POPULATION * (PRODUCT..length(meter) * PRODUCT..width(meter))"
+                 forward="VALUE / (PRODUCT..length(meter) * PRODUCT..width(meter))"/>
       </input>
       <tool name="net_implanter"  filter="is equipment and can cover(plant)" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>

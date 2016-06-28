@@ -9,9 +9,10 @@ require 'charta/multi_polygon'
 require 'charta/bounding_box'
 require 'charta/geo_json'
 
+# Charta aims to supply easy geom/geog tools
 module Charta
   class << self
-    def new_geometry(coordinates, srs = nil, format = nil)
+    def new_geometry(coordinates, srs = nil, format = nil, flatten_collection = true)
       geom_ewkt = nil
       if coordinates.blank?
         geom_ewkt = empty_geometry(srs).to_ewkt
@@ -31,7 +32,7 @@ module Charta
                       # required format 'cause kml geometries return empty instead of failing
                       ::Charta::GML.new(coordinates, srid).to_ewkt
                     elsif format == 'kml' && ::Charta::KML.valid?(coordinates)
-                      ::Charta::KML.new(coordinates, srid).to_ewkt
+                      ::Charta::KML.new(coordinates).to_ewkt
                     else # WKT expected
                       if srs && srid = find_srid(srs)
                         select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates}', #{srid}))")
@@ -56,10 +57,11 @@ module Charta
              when 'MULTIPOLYGON' then
                MultiPolygon.new(geom_ewkt)
              when 'GEOMETRYCOLLECTION' then
-               GeometryCollection.new(geom_ewkt)
+               GeometryCollection.new(geom_ewkt, flatten_collection)
              else
                Geometry.new(geom_ewkt)
              end
+
       geom
     end
 
@@ -100,7 +102,29 @@ module Charta
     # Check and returns the SRID matching with srname or SRID.
     def find_srid(srname_or_srid)
       item = if srname_or_srid.is_a?(Symbol) || srname_or_srid.is_a?(String)
-               systems.items[srname_or_srid]
+               if srname_or_srid =~ /\Aurn:ogc:def:crs:.*\z/
+                 # first, find full-defined urn
+                 found = systems.find_by(urn: srname_or_srid)
+
+                 # or, match with authority reference
+                 unless found
+                   auth_ref = /\Aurn:ogc:def:crs:(.*)\z/.match(srname_or_srid)
+                   if auth_ref.present?
+                     srid = /\AEPSG::?(\d{4,5})\z/.match(auth_ref[1])
+                     if srid.present?
+                       found = systems.find_by(srid: srid[1].to_i)
+                     end
+                   end
+                 end
+                 found
+               else
+                 srid = /\AEPSG::?(\d{4,5})\z/.match(srname_or_srid)
+                 if srid.present?
+                   systems.find_by(srid: srid[1].to_i)
+                 else
+                   systems.items[srname_or_srid]
+                 end
+               end
              else
                systems.find_by(srid: srname_or_srid)
              end
@@ -109,12 +133,12 @@ module Charta
 
     def clean_for_active_record(value, options = {})
       return nil if value.blank?
-      value = if value.is_a?(String) && value =~ /\A\{.*\}\z/
+      value = if value.is_a?(Hash) || (value.is_a?(String) && value =~ /\A\{.*\}\z/)
                 from_geojson(value)
               else
                 new_geometry(value)
               end
-      value.convert_to(options[:type]).to_rgeo
+      value.flatten.convert_to(options[:type]).to_rgeo
     end
 
     def from(format, data)
@@ -124,16 +148,16 @@ module Charta
       send("from_#{format}", data)
     end
 
-    def from_gml(data, srid = nil)
-      new_geometry(::Charta::GML.new(data, srid).to_ewkt)
+    def from_gml(data, srid = nil, flatten_collection = false)
+      new_geometry(::Charta::GML.new(data, srid).to_ewkt, nil, nil, flatten_collection)
     end
 
-    def from_kml(data)
-      new_geometry(::Charta::KML.new(data).to_ewkt)
+    def from_kml(data, flatten_collection = false)
+      new_geometry(::Charta::KML.new(data).to_ewkt, nil, nil, flatten_collection)
     end
 
-    def from_geojson(data)
-      new_geometry(::Charta::GeoJSON.new(data).to_ewkt)
+    def from_geojson(data, srid = nil)
+      new_geometry(::Charta::GeoJSON.new(data, srid).to_ewkt)
     end
   end
 end

@@ -11,6 +11,7 @@
       - menu.item :manage_activities.tl, { controller: :activities, action: :index }, as: 'main'
   - else
     = tool_to :manage_activities.tl, { controller: :activities, action: :index }
+  = tool_to :distribute.ta, { controller: :target_distributions, action: :distribute } unless TargetDistribution.distributed?
 
 - content_for :heading_toolbar do
   = campaign_selector(resource)

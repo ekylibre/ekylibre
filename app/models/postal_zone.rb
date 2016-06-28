@@ -42,9 +42,9 @@ class PostalZone < Ekylibre::Record::Base
   belongs_to :district
   has_many :mail_addresses, class_name: 'EntityAddress', foreign_key: :mail_postal_zone_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :country, :name, :postal_code
+  validates :country, :name, :postal_code, presence: true
   # ]VALIDATORS]
-  validates_length_of :country, allow_nil: true, maximum: 2
+  validates :country, length: { allow_nil: true, maximum: 2 }
 
   before_validation do
     self.name = name.gsub(/\s+/, ' ').strip

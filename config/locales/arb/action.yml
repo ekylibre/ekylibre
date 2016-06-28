@@ -461,10 +461,10 @@ arb:
       ship: "الطرود سفينة"
       # show: "%{nature} parcel: %{number}"
     backend/plants:
-      # edit: "Edit plant: %{name}"
+      # edit: "Edit crop: %{name}"
       index: "النباتات"
       new: "مصنع جديد"
-      # show: "Plant: %{name}"
+      # show: "Crop: %{name}"
     backend/postal_zones:
       edit: "تعديل العنوان البريدي : %{name}"
       index: "العناوين البريد"
@@ -491,6 +491,8 @@ arb:
       index: "مجموعات المنتجات"
       new: "مجموعة جديدة"
       # show: "Group: %{name}"
+    backend/product_localizations:
+      # edit: "Edit product localization:"
     backend/product_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
@@ -649,6 +651,12 @@ arb:
     backend/synchronizations:
       index: "تزامن"
       # run: "Run synchronization: %{name}"
+    backend/target_distributions:
+      # distribute: "Distribute products"
+      # edit: "Edit target distribution: %{name}"
+      # index: "Target distributions"
+      # new: "New target distribution"
+      # show: "Target distribution: %{name}"
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "المهام"
@@ -1188,6 +1196,8 @@ arb:
     details: "معلومات اضافية"
     direct_margin: "هامش المباشر"
     discount: "الخصم (%)"
+    # disease: "Disease (%)"
+    # disease_deformity_percentage: "Disease and deformity percentage"
     display: "عرض"
     display_help: "عرض المساعدة" #?
     distributions: "التوزيعات"
@@ -1376,6 +1386,8 @@ arb:
     interventions: "التدخلات"
     interventions_count: "عد التدخلات"
     interventions_paths: "مسارات التدخلات"
+    # invalid_file: "Invalid file"
+    # invalid_format: "Invalid format"
     inventories: "المخزونات"
     inventory: "عدل الجرد"
     inventory_create: "تأدية عملية جرد جديدة" #?
@@ -1691,6 +1703,7 @@ arb:
     payments_number: "عدد الدفعات" #?
     payments_total: "جميع الدفعات" #?
     people: "الناس"
+    # percentage_by_calibration: "Percentage by calibration"
     period: "المدة المحددة مسبقا"
     periods: "فترات"
     permute: "مقايضة الملفات"
@@ -1914,13 +1927,16 @@ arb:
     stewardship: "إدارة"
     stock: "مخزون"
     stock_container_map: "خريطة الأسهم"
-    # stock_in_ground_by_calibres: "Stocks in ground by calibres"
+    # stock_in_ground: "Stock in ground"
+    # stock_in_ground_by_calibration: "Stocks in ground by calibration"
     stock_max: "الحد الاقصى للاسهم" #?
     stock_min: "الحد الادنى للاسهم" #?
     stock_move_create: "اضافة حركة جديدة للاسهم" #?
     # stock_of_x: "Stock of %{x}"
     stock_transfer_create: "اضافة عملية نقل ام خسارة الاسهم" #?
     stocks: "ادارة الاسهم"
+    # stocks_by_calibrations: "Stocks by calibrations"
+    # stocks_in_ground: "Stock in ground"
     stop: "لغاية"
     # stopped: "Stopped"
     storage: "تخزين"
@@ -2028,6 +2044,7 @@ arb:
     unknown_variant: "البديل غير معروف"
     unlock: "فتح القفل"
     unmark: "غير علامة"
+    # unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
     # unnamed: "Nameless"
     unpaid: "غير مسدد"
     unpaid_amount: "القيمة المتبقية"
@@ -2076,7 +2093,7 @@ arb:
     view: "معاينة"
     virtual_quantity: "الكمية العملية" #?
     waiting: "أ€ التسدسد لاحقا" #?
-    # watering_concentration: "Watering concentration"
+    # watering_concentration: "Water use"
     weather: "طقس"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "سرعة الرياح"
@@ -2230,6 +2247,8 @@ arb:
     y: "نعم" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?
+    # yield: "Yield"
+    # yield_by_calibration: "Yield by calibration"
     # you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions."
     # you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:"
     zones: "المناطق"
@@ -2454,6 +2473,7 @@ arb:
       destroy: "هدم"
       detach: "فصل"
       detail: "التفاصيل"
+      # distribute: "Distribute unaffected products"
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"

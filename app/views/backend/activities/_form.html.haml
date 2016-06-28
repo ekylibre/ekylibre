@@ -6,7 +6,7 @@
   = f.referenced_nomenclature :family, input_html: {data: {activity_family: true}}
   - family = Nomen::ActivityFamily[f.object.family]
   = f.input :with_cultivation, as: :hidden
-  = f.referenced_nomenclature :cultivation_variety, collection: ((family and family.cultivation_variety) ? Nomen::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety) ? 'block' : 'none'}"}
+  = f.referenced_nomenclature :cultivation_variety, collection: ((family and family.cultivation_variety.present?) ? Nomen::Variety.selection(family.cultivation_variety) : []), wrapper_html: {style: "display: #{(family and family.cultivation_variety.present?) ? 'block' : 'none'}"}
   -#= f.input :with_supports, as: :hidden
   -# = f.input :support_variety, collection: ((family and family.support_variety) ? Nomen::Variety.selection(family.support_variety) : []), wrapper_html: {style: "display: #{(family and family.support_variety) ? 'block' : 'none'}"}
   = f.input :production_cycle, as: :radio_buttons, show: '.{{value}}-production-cycle-options'

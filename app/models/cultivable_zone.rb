@@ -48,9 +48,9 @@ class CultivableZone < Ekylibre::Record::Base
   has_many :supports, through: :activity_productions
   has_geometry :shape, type: :multi_polygon
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :name, :shape, :work_number
+  validates :name, :shape, :work_number, presence: true
   # ]VALIDATORS]
-  validates_presence_of :uuid
+  validates :uuid, presence: true
 
   scope :of_current_activity_productions, -> { where(id: ActivityProduction.select(:cultivable_zone_id).current) }
   scope :of_campaign, ->(campaign) { where(id: ActivityProduction.select(:cultivable_zone_id).of_campaign(campaign)) }

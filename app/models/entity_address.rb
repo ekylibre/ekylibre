@@ -60,16 +60,16 @@ class EntityAddress < Ekylibre::Record::Base
   refers_to :mail_country, class_name: 'Country'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :deleted_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_inclusion_of :by_default, :mail_auto_update, in: [true, false]
-  validates_presence_of :canal, :coordinate, :entity
+  validates :deleted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :by_default, :mail_auto_update, inclusion: { in: [true, false] }
+  validates :canal, :coordinate, :entity, presence: true
   # ]VALIDATORS]
-  validates_length_of :mail_country, allow_nil: true, maximum: 2
-  validates_length_of :canal, allow_nil: true, maximum: 20
-  validates_length_of :coordinate, allow_nil: true, maximum: 500
-  validates_format_of :coordinate, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: :email?
-  validates_inclusion_of :canal, in: canal.values
-  validates_presence_of :mail_country, if: :mail?
+  validates :mail_country, length: { allow_nil: true, maximum: 2 }
+  validates :canal, length: { allow_nil: true, maximum: 20 }
+  validates :coordinate, length: { allow_nil: true, maximum: 500 }
+  validates :coordinate, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: :email? }
+  validates :canal, inclusion: { in: canal.values }
+  validates :mail_country, presence: { if: :mail? }
 
   selects_among_all scope: [:entity_id, :canal], subset: :actives
 

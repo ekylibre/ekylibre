@@ -59,12 +59,12 @@ class ListingNode < Ekylibre::Record::Base
   belongs_to :item_listing_node, class_name: 'ListingNode'
   has_many :items, class_name: 'ListingNodeItem', foreign_key: :node_id, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
-  validates_inclusion_of :exportable, in: [true, false]
-  validates_presence_of :depth, :label, :listing, :name, :nature
+  validates :depth, :lft, :rgt, numericality: { allow_nil: true, only_integer: true }
+  validates :exportable, inclusion: { in: [true, false] }
+  validates :depth, :label, :listing, :name, :nature, presence: true
   # ]VALIDATORS]
-  validates_length_of :item_nature, allow_nil: true, maximum: 10
-  validates_uniqueness_of :key
+  validates :item_nature, length: { allow_nil: true, maximum: 10 }
+  validates :key, uniqueness: true
 
   autosave :listing
 

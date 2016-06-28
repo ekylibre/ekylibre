@@ -126,11 +126,26 @@
 #     - "backend/notifications#unread"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
+#     - "backend/product_localizations#create"
+#     - "backend/product_localizations#destroy"
+#     - "backend/product_localizations#edit"
+#     - "backend/product_localizations#new"
+#     - "backend/product_localizations#update"
 #     - "backend/product_nature_variants#detail"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
+#     - "backend/target_distributions#create"
+#     - "backend/target_distributions#destroy"
+#     - "backend/target_distributions#distribute"
+#     - "backend/target_distributions#edit"
+#     - "backend/target_distributions#index"
+#     - "backend/target_distributions#list"
+#     - "backend/target_distributions#list_intervention_product_parameters"
+#     - "backend/target_distributions#new"
+#     - "backend/target_distributions#show"
+#     - "backend/target_distributions#update"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
@@ -802,6 +817,14 @@ financial_years:
     - "backend/financial_years#generate_last_journal_entry"
     - "backend/financial_years#new"
     - "backend/financial_years#update"
+
+first_run:
+  write:
+    dependencies:
+    - read-first_run
+  execute:
+    dependencies:
+    - read-first_run
 
 fixed_assets:
   read:

@@ -133,6 +133,17 @@ $chronology-background-color: #EEE;
       height: inherit;
       background-color: $active-color;
       @include border-radius($default-border-radius);
+      &.rounded {
+        @include border-radius(3 * $default-border-radius);
+      }
+      &.without-left {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+      &.without-right {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
     }
   }
 }

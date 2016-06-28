@@ -57,13 +57,13 @@ class Subscription < Ekylibre::Record::Base
   has_many :children, class_name: 'Subscription', foreign_key: :parent_id, dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :started_on, :stopped_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
+  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(subscription) { subscription.stopped_on && subscription.started_on }
-  validates_numericality_of :quantity, allow_nil: true, only_integer: true
-  validates_inclusion_of :suspended, in: [true, false]
-  validates_presence_of :quantity, :started_on, :stopped_on, :swim_lane_uuid
+  validates :quantity, numericality: { allow_nil: true, only_integer: true }
+  validates :suspended, inclusion: { in: [true, false] }
+  validates :quantity, :started_on, :stopped_on, :swim_lane_uuid, presence: true
   # ]VALIDATORS]
-  validates_presence_of :nature, :subscriber
+  validates :nature, :subscriber, presence: true
 
   # Look for subscriptions started without previous subscription
   scope :started_between, ->(started_on, stopped_on) { where('started_on BETWEEN ? AND ? AND parent_id IS NULL', started_on, stopped_on) }

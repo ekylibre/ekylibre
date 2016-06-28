@@ -52,10 +52,11 @@
                   element.selector('value', value)
             else if element.is(":ui-mapeditor")
               value = $.parseJSON(value)
-              element.mapeditor "show", value
-              element.mapeditor "edit", value
-              try
-                element.mapeditor "view", "edit"
+              if (value.geometries? and value.geometries.length > 0) || (value.coordinates? and value.coordinates.length > 0)
+                element.mapeditor "show", value
+                element.mapeditor "edit", value
+                try
+                  element.mapeditor "view", "edit"
             else if element.is('select')
               element.find("option[value='#{value}']")[0].selected = true
             else
@@ -131,7 +132,7 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup', 'input[data-intervention-updater]', ->
+  $(document).on 'keyup change', 'input[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
 

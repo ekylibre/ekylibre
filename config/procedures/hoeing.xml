@@ -5,7 +5,7 @@
       <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <tool name="cultivator"   filter="is equipment and can hoe" cardinality="*"/>
+      <tool name="hoe"   filter="is equipment and can hoe" cardinality="*"/>
       <tool name="tractor" filter="is equipment and can catch(equipment) and can move" cardinality="*"/>
       <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
     </parameters>
