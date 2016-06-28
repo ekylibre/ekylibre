@@ -170,21 +170,17 @@
                 spline_data = []
                 # inspection level (compute progressive average for each inspection)
                 avg_arr = []
-                spline_dataset.each_with_index do |index, inspection|
+                spline_dataset.each_with_index do |inspection, index|
                   dataset = spline_dataset[0..index]
-                  dataset = dataset.group_by(&:plant_id).select do |plant, _|
+                  dataset = dataset.group_by(&:product_id).select do |plant, _|
                     curr_date = inspection.sampled_at
-                    Plant.alive_at?(curr_date).include? plant
+                    Plant.alive_at(curr_date).include? Plant.find(plant)
                   end
                   dataset = dataset.map do |_, inspections|
                     inspections.last.points_net_mass_percentage(category).round(2).to_s.to_f
                   end
-                  spline_data << dataset.compact.sum / dataset.compact.count
-
-
-                  i =
-                  avg_arr << i
-                  spline_data << (avg_arr.compact.sum / avg_arr.compact.count)
+                  p dataset
+                  spline_data << dataset.compact.sum / dataset.compact.count unless dataset.empty?
                 end
                 spline_series << {name: category.l, data: spline_data}
               end
