@@ -129,7 +129,7 @@
               dataset_inspections = resource.inspections
 
               # get all plants in dataset
-              plants = Plant.alive_at(Time.now).where(id: dataset_inspections.pluck(:product_id).uniq)
+              plants = Plant.at(Time.now).where(id: dataset_inspections.pluck(:product_id).uniq)
 
               # get all inspections calibrations nature in activity
               natures = resource.inspection_calibration_natures
@@ -174,7 +174,7 @@
                   dataset = spline_dataset[0..index]
                   dataset = dataset.group_by(&:product_id).select do |plant, _|
                     curr_date = inspection.sampled_at
-                    Plant.alive_at(curr_date).include? Plant.find(plant)
+                    Plant.at(curr_date).include? Plant.find(plant)
                   end
                   dataset = dataset.map do |_, inspections|
                     inspections.last.points_net_mass_percentage(category).round(2).to_s.to_f

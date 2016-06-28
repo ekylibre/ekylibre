@@ -159,7 +159,7 @@ class Product < Ekylibre::Record::Base
   scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
-  scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gt(at)))) }
+  scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gteq(at)))) }
   scope :of_owner, lambda { |owner|
     if owner.is_a?(Symbol)
       joins(:current_ownership).where(product_ownerships: { nature: owner })
@@ -310,22 +310,12 @@ class Product < Ekylibre::Record::Base
 
     def availables(**args)
       if args[:at]
-        if args[:at].is_a? String
-          date = DateTime.strptime(args[:at], '%Y-%m-%dT%H:%M:%S%z')
-        elsif args[:at].is_a? Time
-          date = args[:at]
-        end
-        available.where("dead_at >= ? OR dead_at IS NULL", date)
+        available.at(args[:at])
       else
         available
       end
     end
-
-    def alive_at(date)
-      availables(at: date)
-    end
   end
-
 
   # TODO: Removes this ASAP
   def deliverable?
