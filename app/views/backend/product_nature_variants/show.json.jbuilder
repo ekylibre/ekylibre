@@ -1,2 +1,2 @@
 json.extract! resource, :id, :name, :unit_name
-json.unitary resource.population_counting_unitary?
+json.unitary true if resource.population_counting_unitary?
