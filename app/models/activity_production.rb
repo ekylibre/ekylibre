@@ -48,7 +48,7 @@
 #
 
 class ActivityProduction < Ekylibre::Record::Base
-  include Customizable
+  include Customizable, Attachable
   enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
