@@ -355,7 +355,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def description
-    desc = number + '. ' + full_name
+    desc = (number.nil? ? '' : number) + '. ' + full_name
     c = default_mail_address
     desc += ' (' + c.mail_line_6.to_s + ')' unless c.nil?
     desc
