@@ -1202,6 +1202,7 @@ fra:
     gradings: "Agréages"
     grain_yield: "Rendement grain"
     grains_yield: "Rendement grains" #?
+    grass_yield: "Rendement fourrage"
     graph_statistics: "Statistiques graphiques" #?
     gross_profit: "Marge brute"
     gross_profit_per_working_unit: "Marge brute par unité d’œuvre" #?

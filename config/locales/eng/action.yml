@@ -1107,6 +1107,7 @@ eng:
     go: "Go" #?
     gradings: "Gradings" #?
     grain_yield: "Grain yield" #?
+    grass_yield: "Grass yield"
     gross_profit: "Gross profit"
     group: "Group" #?
     groups: "Groups"
