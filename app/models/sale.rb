@@ -85,7 +85,7 @@ class Sale < Ekylibre::Record::Base
   has_many :parcels, dependent: :destroy, inverse_of: :sale
   has_many :items, -> { order('position, id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
-  has_many :subscriptions, through: :items, class_name: 'Subscription'
+  has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :amount, :downpayment_amount, :pretax_amount, numericality: { allow_nil: true }
