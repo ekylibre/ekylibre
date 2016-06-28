@@ -73,7 +73,7 @@
           scale.natures.reorder(:minimal_value).each do |nature|
             calibration = i.calibrations.find_by(nature: nature)
             curves[nature] ||= []
-            curves[nature] << (calibration ? calibration.total_net_mass : 0).to_f
+            curves[nature] << (calibration ? calibration.marketable_net_mass.round(0).to_d(unit).to_s : 0).to_f
           end
         end
         curves.each do |nature, data|
