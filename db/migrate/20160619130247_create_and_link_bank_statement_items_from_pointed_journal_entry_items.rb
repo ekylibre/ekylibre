@@ -80,5 +80,7 @@ class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord
     SQL
   end
 
-  delegate :quote, to: :connection
+  def quote(*args)
+    connection.quote(*args)
+  end
 end

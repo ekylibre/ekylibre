@@ -311,7 +311,7 @@ class Product < Ekylibre::Record::Base
     def availables(**args)
       if args[:at]
         if args[:at].is_a? String
-          available.at(Time.strptime(args[:at], "%Y-%m-%d %H:%M"))
+          available.at(Time.strptime(args[:at], '%Y-%m-%d %H:%M'))
         else
           available.at(args[:at])
         end
