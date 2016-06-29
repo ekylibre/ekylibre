@@ -713,6 +713,7 @@ cmn:
     attach_deal: "添加一个交易"
     attachment: "附件"
     attachments: "附件"
+    # auto_reconciliate: "Auto reconciliate"
     automatic: "汽车"
     available: "可用的"
     # available_columns: "Available columns: %{columns}"

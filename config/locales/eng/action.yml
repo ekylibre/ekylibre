@@ -872,6 +872,7 @@ eng:
     attach_deal: "Add a deal"
     attachment: "Attachment"
     attachments: "Attachments"
+    auto_reconciliate: "Auto reconciliate"
     automatic: "Auto" #?
     available: "Available" #?
     available_columns: "Available columns: %{columns}"
