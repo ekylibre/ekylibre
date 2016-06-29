@@ -19,23 +19,22 @@
 module Backend
   class BankStatementsController < Backend::BaseController
     manage_restfully(
-      except: :update,
-      started_at: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_at+1 rescue (Time.zone.today-1.month-2.days)'.c,
-      stopped_at: "Cash.find(params[:cash_id]).last_bank_statement.stopped_at>>1 rescue (Time.zone.today-2.days)".c,
-      redirect_to: "{action: :edit_items, id: 'id'.c}".c
+      started_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Time.zone.today-1.month-2.days)'.c,
+      stopped_on: "Cash.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Time.zone.today-2.days)".c,
+      redirect_to: "{action: :reconciliation, id: 'id'.c}".c
     )
 
     unroll
 
-    list(order: { started_at: :desc }) do |t|
+    list(order: { started_on: :desc }) do |t|
       t.action :edit_items
       t.action :reconciliation
       t.action :edit
       t.action :destroy
       t.column :number, url: true
       t.column :cash,   url: true
-      t.column :started_at
-      t.column :stopped_at
+      t.column :started_on
+      t.column :stopped_on
       t.column :debit,  currency: true
       t.column :credit, currency: true
     end
@@ -52,28 +51,6 @@ module Backend
       t.column :account, url: true
       t.column :debit, currency: :currency
       t.column :credit, currency: :currency
-    end
-
-    def edit_items
-      return unless @bank_statement = find_and_check
-      if request.post?
-        items = (params[:items] || {}).values
-        if @bank_statement.save_with_items(items)
-          redirect_to params[:redirect] || { action: :show, id: @bank_statement.id }
-          return
-        end
-      end
-    end
-
-    def update
-      return unless @bank_statement = find_and_check
-      @bank_statement.attributes = permitted_params
-      items = (params[:items] || {}).values
-      if @bank_statement.save_with_items(items)
-        redirect_to params[:redirect] || { action: :show, id: @bank_statement.id }
-        return
-      end
-      t3e @bank_statement.attributes
     end
 
     def reconciliation
@@ -105,6 +82,7 @@ module Backend
       @items_grouped_by_date = @items.group_by do |item|
         BankStatementItem === item ? item.transfered_on : item.printed_on
       end.sort
+      t3e @bank_statement, cash: @bank_statement.cash_name, started_on: @bank_statement.started_on, stopped_on: @bank_statement.stopped_on
     end
   end
 end

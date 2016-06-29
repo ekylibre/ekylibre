@@ -2,11 +2,11 @@
   = button_tag(:reset.tl, type: :button, class: "btn btn-default", id: "reset_reconciliation")
 
 = form_tag({}, class: "reconciliation-form") do
-  = field_set(:details) do
+  -# = field_set(:details) do
     = attributes_list stamps: false do |l|
       - l.attribute(:number)
-      - l.attribute(:started_at)
-      - l.attribute(:stopped_at)
+      - l.attribute(:started_on)
+      - l.attribute(:stopped_on)
 
   = field_set(:entries_to_point) do
     .active-list
@@ -16,31 +16,31 @@
         %thead
           %tr
             %th{colspan: 4}
-            %th.center Débit
-            %th.center Crédit
+            %th.center= BankStatementItem.human_attribute_name(:debit)
+            %th.center= BankStatementItem.human_attribute_name(:credit)
           %tr
             %th{colspan: 3}
-            %th Solde initial du relevé
+            %th= :initial_balance_of_bank_statement.tl
             %th.center= text_field_tag("bank_statement[initial_balance_debit]", @bank_statement.initial_balance_debit || 0.0, id: "initial_balance_debit", class: "center", data: { exclusive_nullify: "#initial_balance_credit" })
             %th.center= text_field_tag("bank_statement[initial_balance_credit]", @bank_statement.initial_balance_credit || 0.0, id: "initial_balance_credit", class: "center", data: { exclusive_nullify: "#initial_balance_debit" })
 
         %tfoot
           %tr.total
             %th.add-bank-statement-item-cont{colspan: 4}
-              = date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { label: "Ajouter une ligne", classes: "btn btn-new icn" }
-              Total rapproché
+              = date_field_tag "add-bank-statement-item-date", nil, id: "add-bank-statement-item-date", data: { label: :add_line.tl, classes: "btn btn-new icn" }
+              = :reconciled_total.tl
             %td.center.reconciliated-debit 0.0
             %td.center.reconciliated-credit 0.0
             %th{colspan: 3}
           %tr.total.remaining-reconciliation-balance
             %th{colspan: 4}
-              Reste à rapprocher
+              = :remaining_amount_to_reconcile.tl
             %td.center.remaining-reconciliated-debit 0.0
             %td.center.remaining-reconciliated-credit 0.0
             %th{colspan: 3}
           %tr.total
             %th{colspan: 4}
-              Solde final
+              = :final_balance.tl
             %td.center{ data: { use: "#initial_balance_debit,.bank-statement-item-type .debit", calculate_round: 2 } } 0.0
             %td.center{ data: { use: "#initial_balance_credit,.bank-statement-item-type .credit", calculate_round: 2 } } 0.0
             %th{colspan: 3}
@@ -73,7 +73,7 @@
                   %td.clear
                     %a{ href: "#" }
                       %i
-                      Effacer
+                      = :clear.tl
                   %td
 
               - else
@@ -90,11 +90,11 @@
                   %td.clear
                     %a{ href: "#" }
                       %i
-                      Effacer
+                      = :clear.tl
                   %td.complete
                     %a{ href: "#" }
-                      Compléter
+                      = :complete.tl
 
   = form_actions do
-    = submit_tag :save.tl
+    = button_tag :save.tl, class: 'btn btn-primary'
     = link_to :cancel.tl, :back, class: "btn"

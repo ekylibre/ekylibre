@@ -38,30 +38,32 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-require "test_helper"
+require 'test_helper'
 
 class BankStatementItemTest < ActiveSupport::TestCase
   test_model_actions
 
-  test "the validity of bank statement items" do
+  test 'the validity of bank statement items' do
     item = bank_statement_items(:bank_statement_items_001)
     assert item.valid?, inspect_errors(item)
-    item.debit = 5
+    item.credit = 5
     assert item.valid?, inspect_errors(item)
-    item.credit = 17
+    item.debit = 17
     assert !item.valid?, inspect_errors(item)
     item.debit = 0
     assert item.valid?, inspect_errors(item)
+    item.credit = 0
+    assert !item.valid?, inspect_errors(item)
   end
 
-  test "currency is set on validations from the bank statement" do
+  test 'currency is set on validations from the bank statement' do
     item = bank_statement_items(:bank_statement_items_001)
     item.currency = nil
     assert item.valid?, inspect_errors(item)
     assert_equal item.bank_statement.currency, item.currency
   end
 
-  test "debit or credit is set to 0 on validations when nil" do
+  test 'debit or credit is set to 0 on validations when nil' do
     item = bank_statement_items(:bank_statement_items_001)
     item.credit = 15.3
     item.debit = nil
@@ -73,14 +75,14 @@ class BankStatementItemTest < ActiveSupport::TestCase
     assert_equal 0.0, item.credit
   end
 
-  test "letter is set to nil on validations when blank" do
+  test 'letter is set to nil on validations when blank' do
     item = bank_statement_items(:bank_statement_items_001)
-    item.letter = " "
+    item.letter = ' '
     assert item.valid?, inspect_errors(item)
     assert_nil item.letter
   end
 
-  test "destroy clears the journal entry items associated" do
+  test 'destroy clears the journal entry items associated' do
     bsi = bank_statement_items(:bank_statement_items_002)
     jeis = JournalEntryItem.pointed_by_with_letter(bsi.bank_statement, bsi.letter)
     assert jeis.any?

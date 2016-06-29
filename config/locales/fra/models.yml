@@ -176,6 +176,7 @@ fra:
         odd: "%{attribute} doit être pair"
         on_or_after: "%{attribute} doit être le ou après le %{restriction}"
         on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
+        overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "La date %{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
@@ -1409,6 +1410,7 @@ fra:
     tracking_serial: "Numéro de lot" #?
     trackings: "Lots traçables"
     transfered_at: "Transféré à"
+    transfered_on: "Transféré le" #?
     transfers: "Transferts" #?
     transport: "Transport" #?
     transporter: "Transporteur"

@@ -68,6 +68,7 @@ arb:
       edit: "تعديل الكشف المصرفي رقم%{number}"
       index: "بيان الحساب المصرفي"
       new: "الاشارة لكشف حساب جديد"
+      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "رقم كشف الحساب%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -921,6 +922,7 @@ arb:
     # add_inspection_calibration_scale: "Add inspection calibration scale"
     # add_inspection_point_nature: "Add inspection point nature"
     add_item: "إضافة البند"
+    # add_line: "Add line"
     add_linestring: "إضافة تنسيقي"
     add_mail: "إضافة عنوان البريدي"
     add_mobile: "إضافة رقم الهاتف المحمول"
@@ -1069,6 +1071,7 @@ arb:
     choose_creation_mode: "اختيار وضع إنشاء"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
     city_name: "المدينة" #?
+    # clear: "Clear"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
     client: "اختيار العميل"
     client_balance: "رصيد العميل" #?
@@ -1086,6 +1089,7 @@ arb:
     columns: "اعمدة الاستيراد"
     commission: "عمولة"
     # company: "Society"
+    # complete: "Complete"
     components: "العناصر" #?
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
@@ -1296,6 +1300,7 @@ arb:
     file_to_upload: "ملف لتحميل"
     filter: "تصفية"
     filter_entries_with: "تصفية الادخالات مع" #?
+    # final_balance: "Final balance"
     financial_state: "الوضع المالي" #?
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     financials_assets: "الأصول المالية"
@@ -1370,6 +1375,7 @@ arb:
     indirect_expenses: "الرسوم غير المباشرة"
     info: "معرفة المعلومات عن وسائل النقل"
     infos: "معرفة خصائص النظام"
+    # initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "تكلفة المدخلات"
     input_cost_per_hectare: "تكلفة المدخلات في الهكتار الواحد"
     inputs: "المدخلات"
@@ -1785,6 +1791,7 @@ arb:
     # ready_to_harvest: "Ready to harvest"
     received: "مستلم"
     recent_events: "الاحداث الاخيرة"
+    # reconciled_total: "Reconciled total"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
     # reference_cap_clusters: "Islets reference CAP"
@@ -1798,6 +1805,7 @@ arb:
     # relationship_of_entity: "%{relationship} of %{entity}"
     # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     # relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
+    # remaining_amount_to_reconcile: "Remaining amount to reconcile"
     remove: "إزالة"
     remove_item: "إزالة بند"
     remove_subscription: "إزالة الاشتراك"
@@ -2320,6 +2328,7 @@ arb:
       need_cash_to_record_statements: "يجب عليك مشاء حساب مصرفي واحد كحد ادنى لاستلاء على بيانات الحساب"
       need_closed_financial_year_to_declaration: "يجب عليك اغلاق السنة المالية لانشاء تصريح لقيمة الضريبة المضافة" #?
       need_company_code_to_login: "يجب عليك اختيار شركتك لتتمكن من الاتصال باسم المستخدم" #?
+      # need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
       need_journal_to_manage_tax_declaration: "يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب" #?
       need_payment_mode_to_create_deposit: "يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي"
       need_quantities_to_cancel_an_sale: "يجب تحديد كمية من أجل إلغاء فاتورة المبيعات"

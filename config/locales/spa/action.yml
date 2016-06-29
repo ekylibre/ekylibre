@@ -68,6 +68,7 @@ spa:
       edit: "Modificar el leventar N°%{number}"
       index: "Levantar de cuntos bancarios"
       new: "Despuntar un nuevo leventar de cuento"
+      # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Leventard de cuento N°%{number}"
     backend/beehives:
       # reset: "Reset beehive: %{name}"
@@ -719,6 +720,7 @@ spa:
     # add_inspection_calibration_scale: "Add inspection calibration scale"
     # add_inspection_point_nature: "Add inspection point nature"
     add_item: "Añadir artículo"
+    # add_line: "Add line"
     add_linestring: "Añadir cadena de líneas"
     add_mail: "Añadir la dirección postal"
     add_mobile: "Añadir número de teléfono móvil"
@@ -858,6 +860,7 @@ spa:
     choose_a_type_of_product: "Elija un tipo de producto"
     choose_creation_mode: "Elige el modo de creación"
     choose_mail_column: "Por favor escoge la columna a utilizar para el mailing"
+    # clear: "Clear"
     click_to_mail: "Escribe su mensaje con su propia mensajeria electronica"
     client: "Cliente"
     client_informations: "Informaciones Atención al cliente"
@@ -871,6 +874,7 @@ spa:
     columns: "Columnas para importar"
     commission: "Comisión"
     # company: "Society"
+    # complete: "Complete"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
@@ -1047,6 +1051,7 @@ spa:
     file_to_upload: "Un archivo para subir"
     filter: "Filtrar"
     filter_entries_with: "Flitrar las escrituras con" #?
+    # final_balance: "Final balance"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     financials_assets: "Activos Finanzas"
     finish: "Acabado"
@@ -1106,6 +1111,7 @@ spa:
     indirect_expenses: "Gastos indirectos"
     info: "Parámetros generales"
     infos: "Informar las caracteristicas de la entrega"
+    # initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Costos de los insumos"
     input_cost_per_hectare: "Costos de los insumos por hectárea"
     inputs: "Entradas"
@@ -1425,6 +1431,7 @@ spa:
     # ready_to_harvest: "Ready to harvest"
     received: "Recibido"
     recent_events: "Eventos recientes"
+    # reconciled_total: "Reconciled total"
     # reference_cap_clusters: "Islets reference CAP"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
@@ -1436,6 +1443,7 @@ spa:
     # relationship_of_entity: "%{relationship} of %{entity}"
     # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     # relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
+    # remaining_amount_to_reconcile: "Remaining amount to reconcile"
     remove: "Retirar"
     remove_item: "Remover el artículo"
     remove_subscription: "Retirar la suscripción"
@@ -1888,6 +1896,7 @@ spa:
       need_cash_to_record_statements: "Debe por lo menos crear una cuenta bancaria para poder coger un extracto de cuenta ."
       need_closed_financial_year_to_declaration: "Debe terner un ejercicio cerrado para crear una declaración de TVA." #?
       need_company_code_to_login: "Se debe selecciónar su sociedad para poder conectarse con su nombre de utilizador" #?
+      # need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
       need_journal_to_manage_tax_declaration: "Se debe tener pôr lo menos un periodico de las operaciones diversas y un periodico de venta o de compra para poder registrar declaraciones de tasa." #?
       need_payment_mode_to_create_deposit: "Se debe especifiar una forma de pago para hacer une entrega en banco"
       need_quantities_to_cancel_an_sale: "Debe especificar una cantidad con el fin de cancelar la factura de venta"

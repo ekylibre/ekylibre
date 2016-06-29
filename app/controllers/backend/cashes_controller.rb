@@ -41,13 +41,14 @@ module Backend
       t.column :journal, url: true
     end
 
-    list(:bank_statements, conditions: { cash_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+    list(:bank_statements, conditions: { cash_id: 'params[:id]'.c }, order: { started_on: :desc }) do |t|
       t.action :edit
+      t.action :reconciliation
       t.action :destroy
       t.action :new, on: :none, url: { cash_id: 'params[:id]'.c }
       t.column :number, url: true
-      t.column :started_at
-      t.column :stopped_at
+      t.column :started_on
+      t.column :stopped_on
       t.column :debit, currency: true
       t.column :credit, currency: true
     end

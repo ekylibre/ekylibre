@@ -1,6 +1,5 @@
 - main_toolbar do |t|
   = t.edit resource
-  = t.edit_items resource
   = t.reconciliation resource
 
 = main_informations attachment: true do
@@ -9,10 +8,10 @@
     - l.attribute(:cash, url: true)
     - l.attribute(:credit, currency: true)
     - l.attribute(:debit, currency: true)
-    - l.attribute(:started_at)
-    - l.attribute(:stopped_at)
+    - l.attribute(:started_on)
+    - l.attribute(:stopped_on)
 
 = cobbles do |c|
 
-  - c.cobble :items, label: BankStatement.human_attribute_name("items") do
+  - c.cobble :items, label: BankStatement.human_attribute_name('items') do
     = cobble_list(:items)
