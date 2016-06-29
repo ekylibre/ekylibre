@@ -295,15 +295,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
   def take(quantity)
     products.mine.reduce({}) do |result, product|
       reminder = quantity - result.values.sum
-      if reminder > 0
-        result[product] = [product.population, reminder].min
-      end
+      result[product] = [product.population, reminder].min if reminder > 0
       result
     end
   end
 
   def take!(quantity)
-    raise "errors.not_enough".t if take(quantity).values.sum < quantity
+    raise 'errors.not_enough'.t if take(quantity).values.sum < quantity
   end
 
   # Returns last purchase item for the variant

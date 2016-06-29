@@ -27,12 +27,10 @@ module Ekylibre::Record
             code << "def raise_exception_unless_#{callback}able?\n"
             code << "  unless self.#{callback}able?\n"
             if options[:"allow_#{callback}_on"]
-              code << "  if self.changed.any? { |e| !"+options[:"allow_#{callback}_on"].to_s+".include? e }\n"
+              code << '  if self.changed.any? { |e| !' + options[:"allow_#{callback}_on"].to_s + ".include? e }\n"
             end
             code << "      raise RecordNot#{callback.to_s.camelcase}able.new('Record cannot be #{callback}d', self)\n"
-            if options[:"allow_#{callback}_on"]
-              code << "  end\n"
-            end
+            code << "  end\n" if options[:"allow_#{callback}_on"]
             code << "  end\n"
             code << "end\n"
 

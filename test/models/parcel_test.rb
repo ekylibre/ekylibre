@@ -83,7 +83,7 @@ class ParcelTest < ActiveSupport::TestCase
       address: entity_addresses(:entity_addresses_016),
       sender: entities(:entities_001),
       storage: products(:building_divisions_003),
-      separated_stock: true,
+      separated_stock: true
     }
 
     parcel_items_attributes = {
@@ -111,10 +111,10 @@ class ParcelTest < ActiveSupport::TestCase
     \t - Last product:
     \t\t#{variant.products.last.name}
     \t - All products :
-    #{variant.products.map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+    #{variant.products.map(&:name).reduce('') { |a, s| a + "\t\t" + s.inspect + "\n" }}
 
     \tNew products that should be in it :
-    #{p.items.map(&:product).map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+    #{p.items.map(&:product).map(&:name).reduce('') { |a, s| a + "\t\t" + s.inspect + "\n" }}
     PRODUCT_NOT_IN_STOCK
 
     # The newly created product should have the population specified in the parcel.
@@ -125,7 +125,6 @@ class ParcelTest < ActiveSupport::TestCase
     \tPopulation that was in the parcel :
     \t\t#{p.items.first.population}
     WRONG_POPULATION
-
   end
 
   test 'incoming items with grouped stock' do
@@ -142,12 +141,12 @@ class ParcelTest < ActiveSupport::TestCase
       address: entity_addresses(:entity_addresses_016),
       sender: entities(:entities_001),
       storage: storage,
-      separated_stock: false,
+      separated_stock: false
     }
 
     parcel_items_attributes = {
       population: 20,
-      variant: variant,
+      variant: variant
     }
 
     p = Parcel.create!(parcel_attributes)
@@ -167,10 +166,10 @@ class ParcelTest < ActiveSupport::TestCase
 
     \tCurrently in stock :
     \t - All products :
-    #{variant.products.reduce("") { |a, p| a+"\t\t"+p.name.inspect+":\t"+p.population.to_s+"\n"}}
+    #{variant.products.reduce('') { |a, p| a + "\t\t" + p.name.inspect + ":\t" + p.population.to_s + "\n" }}
 
     \tProducts that should have gotten in through the Parcel :
-    #{p.items.map(&:product).reduce("") { |a, p| a+"\t\t"+p.name.inspect+":\t"+p.population.to_s+"\n"}}
+    #{p.items.map(&:product).reduce('') { |a, p| a + "\t\t" + p.name.inspect + ":\t" + p.population.to_s + "\n" }}
     WRONG_POPULATION
 
     # Should've grouped up and as such not incremented the number of products.
@@ -182,23 +181,23 @@ class ParcelTest < ActiveSupport::TestCase
     \t - Last product:
     \t\t#{variant.products.last.name}
     \t - All products :
-    #{variant.products.map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+    #{variant.products.map(&:name).reduce('') { |a, s| a + "\t\t" + s.inspect + "\n" }}
     TOO_MANY_PRODUCTS
   end
 
-  test "outgoing parcels" do
+  test 'outgoing parcels' do
     product = products(:matters_017)
 
     parcel_attributes = {
       nature: :outgoing,
       address: entity_addresses(:entity_addresses_016),
       recipient: entities(:entities_001),
-      delivery_mode: :third,
+      delivery_mode: :third
     }
 
     parcel_items_attributes = {
       population: 0.02,
-      source_product: products,
+      source_product: products
     }
 
     p = Parcel.create!(parcel_attributes)
@@ -213,11 +212,11 @@ class ParcelTest < ActiveSupport::TestCase
     assert_equal(0, product.population, <<-POPULATION_NOT_NULL)
 
     \tCurrent product population :
-    \t\t#{product.population.to_s}
+    \t\t#{product.population}
     POPULATION_NOT_NULL
   end
 
-  test "unitary items in parcels" do
+  test 'unitary items in parcels' do
     # Unitary items in incoming should always be handled like non-grouped items.
 
     variant = product_nature_variants(:product_nature_variants_005)
@@ -228,12 +227,12 @@ class ParcelTest < ActiveSupport::TestCase
       delivery_mode: :third,
       address: entity_addresses(:entity_addresses_016),
       sender: entities(:entities_001),
-      storage: products(:building_divisions_003),
+      storage: products(:building_divisions_003)
     }
 
     parcel_items_attributes = {
       population: 20,
-      variant: variant,
+      variant: variant
     }
 
     p = Parcel.create!(parcel_attributes)
@@ -256,10 +255,10 @@ class ParcelTest < ActiveSupport::TestCase
     \t - Last product:
     \t\t#{variant.products.last.name}
     \t - All products :
-    #{variant.products.map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+    #{variant.products.map(&:name).reduce('') { |a, s| a + "\t\t" + s.inspect + "\n" }}
 
     \tNew products that should be in it :
-    #{p.items.map(&:product).map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+    #{p.items.map(&:product).map(&:name).reduce('') { |a, s| a + "\t\t" + s.inspect + "\n" }}
     PRODUCT_NOT_IN_STOCK
 
     # The newly created product should have the population specified in the parcel.
@@ -270,6 +269,5 @@ class ParcelTest < ActiveSupport::TestCase
     \tPopulation that was in the parcel :
     \t\t#{p.items.first.population}
     WRONG_POPULATION
-
   end
 end

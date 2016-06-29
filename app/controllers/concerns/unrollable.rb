@@ -60,7 +60,7 @@ module Unrollable
       haml << "  %ul.items-list\n"
       haml << "    - items.limit(items.count > #{(max * 1.5).round} ? #{max} : #{max * 2}).each do |item|\n"
       haml << "      - item_label = #{item_label}\n"
-      haml << "      - attributes = {"
+      haml << '      - attributes = {'
       filters.each do |f|
         haml << "#{f[:name]}: #{f[:expression]}, "
       end

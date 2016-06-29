@@ -74,11 +74,11 @@ class ParcelItem < Ekylibre::Record::Base
   validates :source_product, presence: { if: :parcel_prepared? }
   validates :product, presence: { if: :parcel_prepared? }
 
-  validates_numericality_of :population, less_than_or_equal_to: 1,
-    if: :product_is_unitary?,
-    message: 'activerecord.errors.messages.unitary_in_parcel'.t
-  validates_presence_of :product_name, if: -> { product_is_unitary? && parcel_incoming? }
-  validates_presence_of :product_identification_number, if: -> { product_is_unitary? && parcel_incoming? }
+  validates :population, numericality: { less_than_or_equal_to: 1,
+                                         if: :product_is_unitary?,
+                                         message: 'activerecord.errors.messages.unitary_in_parcel'.t }
+  validates :product_name, presence: { if: -> { product_is_unitary? && parcel_incoming? } }
+  validates :product_identification_number, presence: { if: -> { product_is_unitary? && parcel_incoming? } }
 
   scope :with_nature, ->(nature) { joins(:parcel).merge(Parcel.with_nature(nature)) }
 
@@ -101,18 +101,18 @@ class ParcelItem < Ekylibre::Record::Base
     elsif purchase_item
       self.variant = purchase_item.variant
     elsif parcel_outgoing?
-      self.variant = self.source_product.variant if self.source_product
+      self.variant = source_product.variant if source_product
     end
     true
   end
 
-  ALLOWED = [
-              'product_localization_id',
-              'product_enjoyment_id',
-              'product_ownership_id',
-              'purchase_item_id',
-              'updated_at',
-            ]
+  ALLOWED = %w(
+    product_localization_id
+    product_enjoyment_id
+    product_ownership_id
+    purchase_item_id
+    updated_at
+  ).freeze
   protect(allow_update_on: ALLOWED, on: [:create, :destroy, :update]) do
     !parcel_allow_items_update?
   end
@@ -127,7 +127,7 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def product_is_unitary?
-    [self.variant, self.source_product].reduce(false) do |acc, product_input|
+    [variant, source_product].reduce(false) do |acc, product_input|
       acc || Maybe(product_input).population_counting_unitary?.or_else(false)
     end
   end
@@ -169,13 +169,13 @@ class ParcelItem < Ekylibre::Record::Base
 
   def check_incoming(checked_at)
     product_params = {}
-    no_fusing = self.parcel_separated_stock? || self.product_is_unitary?
+    no_fusing = parcel_separated_stock? || product_is_unitary?
 
-    unless no_fusing
-      self.product = existing_product_in_storage
+    if no_fusing
+      product_params[:name] = product_name if product_is_unitary?
+      product_params[:identification_number] = product_identification_number
     else
-      product_params[:name] = self.product_name if product_is_unitary?
-      product_params[:identification_number] = self.product_identification_number
+      self.product = existing_product_in_storage
     end
     product_params[:name] ||= "#{variant.name} (#{parcel.number})"
 
@@ -196,12 +196,11 @@ class ParcelItem < Ekylibre::Record::Base
   end
 
   def existing_product_in_storage
-    similar_products = Product.where(variant: self.variant)
+    similar_products = Product.where(variant: variant)
     product_in_storage = similar_products.find do |p|
       location = p.localizations.last.container
-      location == self.storage
+      location == storage
     end
     product_in_storage
   end
-
 end
