@@ -123,7 +123,6 @@ module Unrollable
       code << "    end\n"
       code << "  end\n"
 
-
       code << "  if excluded = params[:exclude]\n"
       code << "    items = items.where.not(id: params[:exclude])\n"
       code << "  end\n"

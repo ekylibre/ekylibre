@@ -6,9 +6,9 @@ module Backend
       @bank_statement_item.attributes = permitted_params
       if request.xhr?
         if params[:reconciliation]
-          render partial: "reconciliation_row_form", object: @bank_statement_item
+          render partial: 'reconciliation_row_form', object: @bank_statement_item
         else
-          render partial: "row_form", object: @bank_statement_item
+          render partial: 'row_form', object: @bank_statement_item
         end
       else
         redirect_to_back

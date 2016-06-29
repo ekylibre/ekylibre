@@ -219,11 +219,9 @@ class ActivityProduction < Ekylibre::Record::Base
     Ekylibre::Hook.publish(:activity_production_destroy, activity_production_id: id)
   end
 
-
   protect(on: :destroy) do
     interventions.any?
   end
-
 
   def computed_support_name
     list = []

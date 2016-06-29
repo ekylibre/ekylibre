@@ -102,7 +102,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   scope :opened, -> { where.not(state: 'closed') }
   scope :unpointed, -> { where(bank_statement_letter: nil) }
   scope :pointed_by, lambda { |bank_statement|
-    where("bank_statement_letter IS NOT NULL").where(bank_statement_id: bank_statement.id)
+    where('bank_statement_letter IS NOT NULL').where(bank_statement_id: bank_statement.id)
   }
   scope :pointed_by_with_letter, lambda { |bank_statement, letter|
     where(bank_statement_letter: letter).where(bank_statement_id: bank_statement.id)

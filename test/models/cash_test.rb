@@ -57,11 +57,11 @@ class CashTest < ActiveSupport::TestCase
 
   test "next reconciliation letters on a cash without bank statements starts from 'A'" do
     cash = cashes(:cashes_003)
-    assert_equal %w{ A B C }, cash.next_reconciliation_letters.take(3)
+    assert_equal %w(A B C), cash.next_reconciliation_letters.take(3)
   end
 
-  test "next reconciliation letters on a cash with bank statements starts from the letter succeeding the last reconciliation letter of the cash" do
+  test 'next reconciliation letters on a cash with bank statements starts from the letter succeeding the last reconciliation letter of the cash' do
     cash = cashes(:cashes_001)
-    assert_equal %w{ G H I }, cash.next_reconciliation_letters.take(3)
+    assert_equal %w(G H I), cash.next_reconciliation_letters.take(3)
   end
 end

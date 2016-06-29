@@ -225,7 +225,7 @@ class Cash < Ekylibre::Record::Base
   def next_reconciliation_letters
     Enumerator.new do |yielder|
       letter_column = "#{BankStatementItem.table_name}.letter"
-      letter = "A"
+      letter = 'A'
       loop do
         if bank_statements.joins(:items).where(letter_column => letter).blank?
           yielder << letter

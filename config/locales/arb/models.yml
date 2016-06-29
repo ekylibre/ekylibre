@@ -634,6 +634,7 @@ arb:
         odd: "%{attribute} يجب ان يكون فردي"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap_sibling: "%{attribute} overlaps sibling"
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
         record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
         record_invalid: "Validations failed : %{errors}"

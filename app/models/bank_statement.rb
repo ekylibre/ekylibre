@@ -44,7 +44,7 @@ class BankStatement < Ekylibre::Record::Base
   include Attachable
   include Customizable
   belongs_to :cash
-  has_many :items, class_name: "BankStatementItem", dependent: :destroy, inverse_of: :bank_statement
+  has_many :items, class_name: 'BankStatementItem', dependent: :destroy, inverse_of: :bank_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(bank_statement) { bank_statement.stopped_on && bank_statement.started_on }
@@ -97,9 +97,9 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def others
-    siblings.where.not(id: self.id || 0)
+    siblings.where.not(id: id || 0)
   end
-  
+
   def previous
     self.class.where('stopped_on <= ?', started_on).reorder(stopped_on: :desc).first
   end
@@ -130,13 +130,11 @@ class BankStatement < Ekylibre::Record::Base
 
       statement_items.each_index do |index|
         statement_items[index] = items.build(statement_items[index])
-        if saved && !statement_items[index].save
-          saved = false
-        end
+        saved = false if saved && !statement_items[index].save
       end
 
       previous_journal_entry_item_ids_by_letter.each do |letter, journal_entry_item_ids|
-        new_item_with_letter = items.detect { |item| item.letter == letter}
+        new_item_with_letter = items.detect { |item| item.letter == letter }
         if new_item_with_letter
           bank_statement_id = id
           bank_statement_letter = letter

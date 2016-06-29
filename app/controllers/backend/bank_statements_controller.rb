@@ -20,7 +20,7 @@ module Backend
   class BankStatementsController < Backend::BaseController
     manage_restfully(
       started_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Time.zone.today-1.month-2.days)'.c,
-      stopped_on: "Cash.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Time.zone.today-2.days)".c,
+      stopped_on: 'Cash.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Time.zone.today-2.days)'.c,
       redirect_to: "{action: :reconciliation, id: 'id'.c}".c
     )
 
@@ -44,7 +44,7 @@ module Backend
       redirect_to backend_cashes_path
     end
 
-    list(:items, model: :bank_statement_items, conditions: { bank_statement_id: "params[:id]".c }, order: :id) do |t|
+    list(:items, model: :bank_statement_items, conditions: { bank_statement_id: 'params[:id]'.c }, order: :id) do |t|
       t.column :journal, url: true
       t.column :transfered_on
       t.column :name
@@ -71,8 +71,8 @@ module Backend
           return
         end
       end
-      bank_statement_items = @bank_statement.items.order("ABS(debit-credit)")
-      journal_entry_items = @bank_statement.eligible_journal_entry_items.order("ABS(real_debit-real_credit)")
+      bank_statement_items = @bank_statement.items.order('ABS(debit-credit)')
+      journal_entry_items = @bank_statement.eligible_journal_entry_items.order('ABS(real_debit-real_credit)')
       unless journal_entry_items.any?
         notify_error :need_entries_to_reconciliate
         redirect_to params[:redirect] || { action: :show, id: @bank_statement.id }

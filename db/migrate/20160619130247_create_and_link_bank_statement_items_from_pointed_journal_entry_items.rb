@@ -1,7 +1,7 @@
 class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord::Migration
   def up
     each_pointed_journal_entry_items_by_cash_id do |_, journal_entry_items|
-      bank_statement_letter = "A"
+      bank_statement_letter = 'A'
       journal_entry_items.each do |journal_entry_item|
         create_bank_statement_item journal_entry_item, bank_statement_letter
         update_journal_entry_item_letter journal_entry_item, bank_statement_letter
@@ -14,7 +14,7 @@ class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord
     pointed_journal_entry_items.each do |journal_entry_item|
       update_journal_entry_item_letter journal_entry_item, nil
     end
-    execute "TRUNCATE TABLE bank_statement_items"
+    execute 'TRUNCATE TABLE bank_statement_items'
   end
 
   def pointed_journal_entry_items
@@ -38,7 +38,7 @@ class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord
   end
 
   def each_pointed_journal_entry_items_by_cash_id(&block)
-    pointed_journal_entry_items.group_by { |i| i["cash_id"] }.each(&block)
+    pointed_journal_entry_items.group_by { |i| i['cash_id'] }.each(&block)
   end
 
   def create_bank_statement_item(entry_item, bank_statement_letter)
@@ -57,12 +57,12 @@ class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord
       VALUES (
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP,
-        #{quote(entry_item["bank_statement_id"])},
-        #{quote(entry_item["name"])},
-        #{quote(entry_item["real_debit"])},
-        #{quote(entry_item["real_credit"])},
-        #{quote(entry_item["bank_statement_currency"])},
-        #{quote(entry_item["printed_on"])},
+        #{quote(entry_item['bank_statement_id'])},
+        #{quote(entry_item['name'])},
+        #{quote(entry_item['real_debit'])},
+        #{quote(entry_item['real_credit'])},
+        #{quote(entry_item['bank_statement_currency'])},
+        #{quote(entry_item['printed_on'])},
         #{quote(bank_statement_letter)}
       )
     SQL
@@ -76,11 +76,9 @@ class CreateAndLinkBankStatementItemsFromPointedJournalEntryItems < ActiveRecord
         updated_at = CURRENT_TIMESTAMP,
         bank_statement_letter = #{quote(bank_statement_letter)}
       WHERE
-        id = #{quote(entry_item["id"])}
+        id = #{quote(entry_item['id'])}
     SQL
   end
 
-  def quote(value)
-    connection.quote(value)
-  end
+  delegate :quote, to: :connection
 end

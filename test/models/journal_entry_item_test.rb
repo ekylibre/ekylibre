@@ -71,7 +71,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     item.real_debit = 0
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
   end
-  test "journal entry items pointed by a bank statement" do
+  test 'journal entry items pointed by a bank statement' do
     bank_statement = bank_statements(:bank_statements_001)
     pointed_ids_by_bank_statement = [
       journal_entry_items(:journal_entry_items_037),
@@ -81,7 +81,7 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     ].map(&:id)
     assert_equal pointed_ids_by_bank_statement.to_set, JournalEntryItem.pointed_by(bank_statement).map(&:id).to_set
   end
-  test "destroy clears the bank statement items associated" do
+  test 'destroy clears the bank statement items associated' do
     item = journal_entry_items(:journal_entry_items_011)
     bank_statement = item.bank_statement
     bank_statement_letter = item.bank_statement_letter
@@ -92,9 +92,9 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     associated_bank_statement_items.map(&:reload)
     assert associated_bank_statement_items.all? { |bsi| bsi.letter.nil? }
   end
-  test "bank statement letter is set to nil on validations when blank" do
+  test 'bank statement letter is set to nil on validations when blank' do
     item = journal_entry_items(:journal_entry_items_001)
-    item.bank_statement_letter = " "
+    item.bank_statement_letter = ' '
     assert item.valid?
     assert_nil item.bank_statement_letter
   end

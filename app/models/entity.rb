@@ -433,7 +433,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   def destroyable?
-    !(of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any? )
+    !(of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any?)
   end
 
   def self.best_clients(limit = -1)
