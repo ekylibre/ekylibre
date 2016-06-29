@@ -779,6 +779,7 @@ ita:
     attach_deal: "Aggiungere un accordo"
     attachment: "Allegati"
     attachments: "allegati"
+    # auto_reconciliate: "Auto reconciliate"
     # automatic: "Auto"
     available: "A disposizione"
     # available_columns: "Available columns: %{columns}"

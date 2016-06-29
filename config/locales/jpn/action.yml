@@ -780,6 +780,7 @@ jpn:
     attach_deal: "契約を追加"
     attachment: "アタッチメント"
     attachments: "添付ファイル"
+    # auto_reconciliate: "Auto reconciliate"
     automatic: "オート"
     available: "利用できます"
     # available_columns: "Available columns: %{columns}"

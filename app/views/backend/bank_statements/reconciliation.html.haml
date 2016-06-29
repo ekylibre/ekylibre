@@ -1,5 +1,6 @@
 - content_for(:main_toolbar) do
   = button_tag(:reset.tl, type: :button, class: "btn btn-default", id: "reset_reconciliation")
+  = button_tag(:auto_reconciliate.tl, type: :button, class: "btn btn-default", id: "auto_reconciliation")
 
 = form_tag({}, class: "reconciliation-form") do
   -# = field_set(:details) do
