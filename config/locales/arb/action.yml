@@ -995,6 +995,7 @@ arb:
     attachment: "المرفق"
     attachments: "مرفقات"
     attorney: "معلومات الوكيل" #?
+    # auto_reconciliate: "Auto reconciliate"
     automatic: "السيارات"
     available: "متاح"
     available_columns: "الحقول المتاحة : %{columns}"

@@ -713,6 +713,7 @@ deu:
     attach_deal: "In einen Deal"
     attachment: "Befestigung"
     attachments: "Zubehör"
+    # auto_reconciliate: "Auto reconciliate"
     # automatic: "Auto"
     available: "Erhältlich"
     # available_columns: "Available columns: %{columns}"

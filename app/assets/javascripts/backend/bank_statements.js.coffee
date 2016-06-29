@@ -70,6 +70,9 @@
     # Reset reconciliation
     bankReconciliation.clearAllReconciliationLetters()
 
+  $(document).on "click", "#auto_reconciliation", ->
+    # Automatic reconciliation
+    bankReconciliation.autoReconciliate()
 
   class DatePickerButton
     # Used to display a datepicker on a button click while the date input
@@ -97,6 +100,7 @@
     constructor: (@reconciliationLetters) ->
 
     initialize: ->
+      @autoReconciliate()
       @_uiUpdate()
 
     # Accessors
@@ -142,7 +146,7 @@
       else
         params.debit = -balance
 
-      date = clickedLine.prevAll(".date-separator:first").data("date")
+      date = @_dateForLine(clickedLine)
       buttonInDateSection = $(".#{date} a")
       buttonInDateSection.one "ajax:beforeSend", (event, xhr, settings) ->
         settings.url += "&#{$.param(params)}"
@@ -258,6 +262,23 @@
       @_clearLinesWithReconciliationLetter letter
       @_uiUpdate()
 
+    autoReconciliate: ->
+      notReconciliated = @_notReconciliatedLines()
+      bankItems = notReconciliated.filter(".bank-statement-item-type")
+      journalItems = notReconciliated.filter(".journal-entry-item-type")
+
+      bankItems.each (i, e) =>
+        date = @_dateForLine($(e))
+        credit = @_creditForLine($(e))
+        debit = @_debitForLine($(e))
+        similarBankItems = @_filterLinesBy(bankItems, date: date, credit: credit, debit: debit)
+        return if similarBankItems.length isnt 1
+        similarJournalItems = @_filterLinesBy(journalItems, date: date, credit: debit, debit: credit)
+        return if similarJournalItems.length isnt 1
+        reconciliationLetter = @_getNextReconciliationLetter()
+        @_reconciliateLines $(e).add(similarJournalItems), reconciliationLetter
+        @_uiUpdate()
+
     _reconciliateSelectedLinesIfValid: ->
       selected = @_lines().filter(".selected")
       return unless @_areLineValidForReconciliation(selected)
@@ -362,5 +383,26 @@
 
     _lines: ->
       $(".bank-statement-item-type,.journal-entry-item-type")
+
+    _filterLinesBy: (lines, filters) ->
+      { date, debit, credit } = filters
+      lines.filter (i, e) =>
+        return if @_dateForLine($(e)) isnt date
+        @_debitForLine($(e)) is debit && @_creditForLine($(e)) is credit
+
+    _dateForLine: (line) ->
+      line.prevAll(".date-separator:first").data("date")
+
+    _creditForLine: (line) ->
+      creditElement = line.find(".credit")
+      @_floatValueForTextOrInput(creditElement)
+
+    _debitForLine: (line) ->
+      debitElement = line.find(".debit")
+      @_floatValueForTextOrInput(debitElement)
+
+    _floatValueForTextOrInput: (element) ->
+      value = if element.is("input") then element.val() else element.text()
+      parseFloat(value || 0)
 
 ) ekylibre, jQuery

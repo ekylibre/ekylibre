@@ -718,6 +718,7 @@ por:
     attach_deal: "Adicionar um acordo"
     attachment: "Acessório"
     attachments: "Anexos"
+    # auto_reconciliate: "Auto reconciliate"
     # automatic: "Auto"
     available: "Disponível"
     # available_columns: "Available columns: %{columns}"
