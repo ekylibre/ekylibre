@@ -44,12 +44,12 @@ class ProductLocalization < Ekylibre::Record::Base
   belongs_to :product
   enumerize :nature, in: [:transfer, :interior, :exterior], predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(product_localization) { product_localization.stopped_at && product_localization.started_at }
-  validates_presence_of :nature, :product
+  validates :nature, :product, presence: true
   # ]VALIDATORS]
-  validates_inclusion_of :nature, in: nature.values
-  validates_presence_of :container, if: :interior?
+  validates :nature, inclusion: { in: nature.values }
+  validates :container, presence: { if: :interior? }
 
   scope :of_product_varieties, lambda { |*varieties|
     joins(:product).merge(Product.of_variety(*varieties))

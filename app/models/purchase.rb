@@ -65,13 +65,13 @@ class Purchase < Ekylibre::Record::Base
   has_many :products, -> { uniq }, through: :items
   has_many :fixed_assets, through: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :confirmed_at, :invoiced_at, :planned_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :amount, :pretax_amount, allow_nil: true
-  validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
+  validates :accounted_at, :confirmed_at, :invoiced_at, :planned_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :amount, :pretax_amount, numericality: { allow_nil: true }
+  validates :amount, :currency, :number, :payee, :pretax_amount, :supplier, presence: true
   # ]VALIDATORS]
-  validates_length_of :number, :state, allow_nil: true, maximum: 60
-  validates_presence_of :created_at, :state, :nature
-  validates_uniqueness_of :number
+  validates :number, :state, length: { allow_nil: true, maximum: 60 }
+  validates :created_at, :state, :nature, presence: true
+  validates :number, uniqueness: true
   validates_associated :items
 
   acts_as_numbered

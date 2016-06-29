@@ -166,10 +166,10 @@
         <page to="backend/cashes#list_deposits"/>
         <page to="backend/cashes#list_sessions"/>
         <page to="backend/cashes#new"/>
-        <page to="backend/cashes#point"/>
         <page to="backend/cashes#show"/>
         <page to="backend/cashes#unroll"/>
         <page to="backend/cashes#update"/>
+        <page to="backend/bank_statement_items#new"/>
         <page to="backend/bank_statements#index"/>
         <page to="backend/bank_statements#create"/>
         <page to="backend/bank_statements#destroy"/>
@@ -177,10 +177,11 @@
         <page to="backend/bank_statements#list"/>
         <page to="backend/bank_statements#list_items"/>
         <page to="backend/bank_statements#new"/>
-        <page to="backend/bank_statements#point"/>
         <page to="backend/bank_statements#show"/>
         <page to="backend/bank_statements#unroll"/>
         <page to="backend/bank_statements#update"/>
+        <page to="backend/bank_statements#edit_items" nonexistent="true"/>
+        <page to="backend/bank_statements#reconciliation"/>
       </item>
       <item name="loans">
         <page to="backend/loans#index"/>
@@ -1755,6 +1756,13 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="product_localizations">
+        <page to="backend/product_localizations#create"/>
+        <page to="backend/product_localizations#destroy"/>
+        <page to="backend/product_localizations#edit"/>
+        <page to="backend/product_localizations#new"/>
+        <page to="backend/product_localizations#update"/>
+      </item>
       <item name="target_distributions">
         <page to="backend/target_distributions#list_intervention_product_parameters"/>
         <page to="backend/target_distributions#show"/>

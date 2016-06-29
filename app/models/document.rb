@@ -55,13 +55,13 @@ class Document < Ekylibre::Record::Base
                            }
   refers_to :nature, class_name: 'DocumentNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :file_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :file_file_size, allow_nil: true, only_integer: true
-  validates_inclusion_of :uploaded, in: [true, false]
-  validates_presence_of :key, :name, :number
+  validates :file_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :file_file_size, numericality: { allow_nil: true, only_integer: true }
+  validates :uploaded, inclusion: { in: [true, false] }
+  validates :key, :name, :number, presence: true
   # ]VALIDATORS]
-  validates_length_of :number, allow_nil: true, maximum: 60
-  validates_length_of :nature, allow_nil: true, maximum: 120
+  validates :number, length: { allow_nil: true, maximum: 60 }
+  validates :nature, length: { allow_nil: true, maximum: 120 }
   # validates_inclusion_of :nature, in: nature.values
   # validates_attachment_presence :file
   validates_attachment_content_type :file, content_type: /(application|image|text)/

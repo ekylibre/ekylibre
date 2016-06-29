@@ -97,7 +97,7 @@ class Product < Ekylibre::Record::Base
   has_many :enjoyments, class_name: 'ProductEnjoyment', foreign_key: :product_id, dependent: :destroy
   # has_many :groups, :through => :memberships
   has_many :issues, as: :target, dependent: :destroy
-  has_many :intervention_product_parameters, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
+  has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
@@ -159,7 +159,7 @@ class Product < Ekylibre::Record::Base
   scope :of_variant, lambda { |variant, _at = Time.zone.now|
     where(variant_id: (variant.is_a?(ProductNatureVariant) ? variant.id : variant))
   }
-  scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gt(at)))) }
+  scope :at, ->(at) { where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gteq(at)))) }
   scope :of_owner, lambda { |owner|
     if owner.is_a?(Symbol)
       joins(:current_ownership).where(product_ownerships: { nature: owner })
@@ -207,8 +207,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { where(dead_at: nil) }
-  scope :availables, -> { available }
+  scope :available, -> { all }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { of_expression('is building or is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
@@ -217,14 +216,29 @@ class Product < Ekylibre::Record::Base
   scope :mine, -> { of_owner(Entity.of_company) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_numericality_of :initial_population, allow_nil: true
-  validates_presence_of :category, :name, :nature, :number, :variant, :variety
+  validates :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :picture_file_size, numericality: { allow_nil: true, only_integer: true }
+  validates :initial_population, numericality: { allow_nil: true }
+  validates :category, :name, :nature, :number, :variant, :variety, presence: true
   # ]VALIDATORS]
-  validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
-  validates_presence_of :nature, :variant, :name, :uuid
+  validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
+  validates :nature, :variant, :name, :uuid, presence: true
   validates_attachment_content_type :picture, content_type: /image/
+
+  validate :born_at_in_interventions, if: ->(product) { product.initial_born_at.present? && product.interventions.any? && product.interventions.collect(&:started_at).any? }
+  validate :dead_at_in_interventions, if: ->(product) { product.initial_dead_at.present? && product.interventions.any? && product.interventions.collect(&:stopped_at).any? }
+
+  def born_at_in_interventions
+    first_date = interventions.collect(&:stopped_at).sort.first
+    errors.add(:born_at, :invalid) unless initial_born_at <= first_date
+  end
+
+  def dead_at_in_interventions
+    last_date = interventions.collect(&:stopped_at).sort.last
+    unless initial_dead_at >= initial_born_at && initial_dead_at >= last_date
+      errors.add(:dead_at, :invalid)
+    end
+  end
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
     !reading['indicator_name'] != 'population' && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
@@ -264,10 +278,10 @@ class Product < Ekylibre::Record::Base
   end
 
   validate do
-    if self.nature && self.variant
-      errors.add(:nature_id, :invalid) if self.variant.nature_id != nature_id
+    if nature && variant
+      errors.add(:nature_id, :invalid) if variant.nature_id != nature_id
     end
-    if self.variant
+    if variant
       if variety
         unless Nomen::Variety.find(variant_variety) >= variety
           errors.add(:variety, :invalid)
@@ -295,6 +309,18 @@ class Product < Ekylibre::Record::Base
       new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
+
+    def availables(**args)
+      if args[:at]
+        if args[:at].is_a? String
+          available.at(Time.strptime(args[:at], '%Y-%m-%d %H:%M'))
+        else
+          available.at(args[:at])
+        end
+      else
+        available
+      end
+    end
   end
 
   # TODO: Removes this ASAP
@@ -611,7 +637,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def initializeable?
-    new_record? || !(parcel_items.any? || intervention_product_parameters.any? || fixed_asset.present?)
+    new_record? || !(parcel_items.any? || InterventionParameter.of_generic_roles([:input, :output, :target, :doer, :tool]).of_actor(self).any? || fixed_asset.present?)
   end
 
   # TODO: Doc

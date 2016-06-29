@@ -176,6 +176,7 @@ fra:
         odd: "%{attribute} doit être pair"
         on_or_after: "%{attribute} doit être le ou après le %{restriction}"
         on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
+        overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
         posterior: "La date %{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
@@ -185,6 +186,8 @@ fra:
         # unitary_in_parcel: "Unitary items can only be sent one by one"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
+        bank_statement_item:
+          unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
@@ -1184,7 +1187,7 @@ fra:
     production_support: "Support de production"
     production_supports: "Supports de production"
     production_system: "Système de production"
-    # production_system_name: "Production system reference name"
+    production_system_name: "Système de production"
     production_usage: "Usage de la production"
     productions: "Productions"
     products: "Produits"
@@ -1404,12 +1407,14 @@ fra:
     token: "Jeton"
     tool: "Outil"
     tools: "Outils"
+    total_cost: "Coût total"
     total_net_mass: "Masse nette totale"
     town_number: "Numéro de commune"
     tracking: "Lot"
     tracking_serial: "Numéro de lot" #?
     trackings: "Lots traçables"
     transfered_at: "Transféré à"
+    transfered_on: "Transféré le" #?
     transfers: "Transferts" #?
     transport: "Transport" #?
     transporter: "Transporteur"

@@ -22,50 +22,65 @@
 #
 # == Table: bank_statements
 #
-#  cash_id       :integer          not null
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  credit        :decimal(19, 4)   default(0.0), not null
-#  currency      :string           not null
-#  custom_fields :jsonb
-#  debit         :decimal(19, 4)   default(0.0), not null
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  number        :string           not null
-#  started_at    :datetime         not null
-#  stopped_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  cash_id                :integer          not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  credit                 :decimal(19, 4)   default(0.0), not null
+#  currency               :string           not null
+#  custom_fields          :jsonb
+#  debit                  :decimal(19, 4)   default(0.0), not null
+#  id                     :integer          not null, primary key
+#  initial_balance_credit :decimal(19, 4)   default(0.0), not null
+#  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
+#  lock_version           :integer          default(0), not null
+#  number                 :string           not null
+#  started_on             :date             not null
+#  stopped_on             :date             not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 
 class BankStatement < Ekylibre::Record::Base
   include Attachable
   include Customizable
   belongs_to :cash
-  has_many :items, class_name: 'JournalEntryItem', dependent: :nullify
+  has_many :items, class_name: 'BankStatementItem', dependent: :destroy, inverse_of: :bank_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(bank_statement) { bank_statement.stopped_at && bank_statement.started_at }
-  validates_numericality_of :credit, :debit, allow_nil: true
-  validates_presence_of :cash, :credit, :currency, :debit, :number, :started_at, :stopped_at
+  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(bank_statement) { bank_statement.stopped_on && bank_statement.started_on }
+  validates :credit, :debit, :initial_balance_credit, :initial_balance_debit, numericality: { allow_nil: true }
+  validates :cash, :credit, :currency, :debit, :initial_balance_credit, :initial_balance_debit, :number, :started_on, :stopped_on, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_uniqueness_of :number, scope: :cash_id
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :number, uniqueness: { scope: :cash_id }
 
-  delegate :name, :currency, :account_id, to: :cash, prefix: true
+  accepts_nested_attributes_for :items, reject_if: proc { |params| params['name'].blank? && params['transfered_on'].blank? && params['debit'].to_f.zero? && params['credit'].to_f.zero? }, allow_destroy: true
+
+  delegate :name, :currency, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
 
   before_validation do
     self.currency = cash_currency if cash
-    self.debit  = items.sum(:real_debit)
-    self.credit = items.sum(:real_credit)
+    self.debit  = items.sum(:debit)
+    self.credit = items.sum(:credit)
+    self.initial_balance_debit ||= 0
+    self.initial_balance_credit ||= 0
   end
 
-  # A bank account statement has to contain.all the planned records.
+  # A bank account statement has to contain all the planned records.
   validate do
-    if started_at && stopped_at
-      if started_at >= stopped_at
-        errors.add(:stopped_at, :posterior, to: started_at.l)
+    if started_on && others.where('? BETWEEN started_on AND stopped_on', started_on).any?
+      errors.add(:started_on, :overlap_sibling)
+    end
+    if stopped_on && others.where('? BETWEEN started_on AND stopped_on', stopped_on).any?
+      errors.add(:stopped_on, :overlap_sibling)
+    end
+    if started_on && stopped_on
+      if started_on >= stopped_on
+        errors.add(:stopped_on, :posterior, to: started_on.l)
       end
+    end
+    if initial_balance_debit != 0 && initial_balance_credit != 0
+      errors.add(:initial_balance_credit, :unvalid_amounts)
     end
   end
 
@@ -77,24 +92,65 @@ class BankStatement < Ekylibre::Record::Base
     (debit > credit ? debit - credit : 0.0)
   end
 
+  def siblings
+    self.class.where(cash_id: cash_id)
+  end
+
+  def others
+    siblings.where.not(id: id || 0)
+  end
+
   def previous
-    self.class.where('stopped_at <= ?', started_at).reorder(stopped_at: :desc).first
+    self.class.where('stopped_on <= ?', started_on).reorder(stopped_on: :desc).first
   end
 
   def next
-    self.class.where('started_at >= ?', stopped_at).reorder(started_at: :asc).first
+    self.class.where('started_on >= ?', stopped_on).reorder(started_on: :asc).first
   end
 
-  def eligible_items
-    JournalEntryItem.where('bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_at BETWEEN ? AND ?))', id, cash_account_id, started_at, stopped_at).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryItem.table_name}.position")
+  def eligible_journal_entry_items
+    margin = 20.days
+    unpointed = JournalEntryItem.where(account_id: cash_account_id).unpointed.between(started_on - margin, stopped_on + margin)
+    pointed = JournalEntryItem.pointed_by(self)
+    JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end
 
-  def point(item_ids)
-    return false if new_record?
-    JournalEntryItem.where(bank_statement_id: id).update_all(bank_statement_id: nil)
-    JournalEntryItem.where(bank_statement_id: nil, id: item_ids).update_all(bank_statement_id: id)
-    # Computes debit and credit
-    save!
-    true
+  def save_with_items(statement_items)
+    ActiveRecord::Base.transaction do
+      saved = save
+
+      previous_journal_entry_item_ids_by_letter = items.each_with_object({}) do |item, hash|
+        item.associated_journal_entry_items.each do |journal_entry_item|
+          ids = (hash[journal_entry_item.bank_statement_letter] ||= [])
+          ids << journal_entry_item.id
+        end
+      end
+
+      items.clear
+
+      statement_items.each_index do |index|
+        statement_items[index] = items.build(statement_items[index])
+        saved = false if saved && !statement_items[index].save
+      end
+
+      previous_journal_entry_item_ids_by_letter.each do |letter, journal_entry_item_ids|
+        new_item_with_letter = items.detect { |item| item.letter == letter }
+        if new_item_with_letter
+          bank_statement_id = id
+          bank_statement_letter = letter
+        end
+        JournalEntryItem.where(id: journal_entry_item_ids).update_all(
+          bank_statement_id: bank_statement_id,
+          bank_statement_letter: bank_statement_letter
+        )
+      end
+
+      if saved && reload.save
+        return true
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+    false
   end
 end

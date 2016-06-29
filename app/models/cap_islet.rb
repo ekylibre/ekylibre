@@ -40,9 +40,9 @@ class CapIslet < Ekylibre::Record::Base
   has_many :cap_land_parcels, dependent: :destroy
   has_geometry :shape, type: :multi_polygon
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :cap_statement, :islet_number, :shape
+  validates :cap_statement, :islet_number, :shape, presence: true
   # ]VALIDATORS]
-  validates_presence_of :town_number
+  validates :town_number, presence: true
   delegate :harvest_year, to: :cap_statement, prefix: false
   delegate :pacage_number, to: :cap_statement, prefix: false
 

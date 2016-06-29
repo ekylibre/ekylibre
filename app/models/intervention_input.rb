@@ -56,7 +56,7 @@ class InterventionInput < InterventionProductParameter
   belongs_to :intervention, inverse_of: :inputs
   belongs_to :outcoming_product, class_name: 'Product'
   has_one :product_movement, as: :originator, dependent: :destroy
-  validates_presence_of :quantity_population
+  validates :quantity_population, presence: true
 
   before_validation do
     self.variant = product.variant if product

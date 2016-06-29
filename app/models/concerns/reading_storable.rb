@@ -13,18 +13,18 @@ module ReadingStorable
     composed_of :measure_value, class_name: 'Measure', mapping: [%w(measure_value_value to_d), %w(measure_value_unit unit)]
     composed_of :absolute_measure_value, class_name: 'Measure', mapping: [%w(absolute_measure_value_value to_d), %w(absolute_measure_value_unit unit)]
 
-    validates_inclusion_of :indicator_name, in: indicator_name.values
-    validates_inclusion_of :indicator_datatype, in: indicator_datatype.values
+    validates :indicator_name, inclusion: { in: indicator_name.values }
+    validates :indicator_datatype, inclusion: { in: indicator_datatype.values }
 
-    validates_inclusion_of :boolean_value, in: [true, false], if: :indicator_datatype_boolean?
-    validates_presence_of :choice_value,   if: :indicator_datatype_choice?
-    validates_presence_of :decimal_value,  if: :indicator_datatype_decimal?
-    validates_presence_of :geometry_value, if: :indicator_datatype_geometry?
-    validates_presence_of :integer_value,  if: :indicator_datatype_integer?
-    validates_presence_of :measure_value, :absolute_measure_value, if: :indicator_datatype_measure?
-    validates_presence_of :multi_polygon_value, if: :indicator_datatype_multi_polygon?
-    validates_presence_of :point_value,    if: :indicator_datatype_point?
-    validates_presence_of :string_value,   if: :indicator_datatype_string?
+    validates :boolean_value, inclusion: { in: [true, false], if: :indicator_datatype_boolean? }
+    validates :choice_value,   presence: { if: :indicator_datatype_choice? }
+    validates :decimal_value,  presence: { if: :indicator_datatype_decimal? }
+    validates :geometry_value, presence: { if: :indicator_datatype_geometry? }
+    validates :integer_value,  presence: { if: :indicator_datatype_integer? }
+    validates :measure_value, :absolute_measure_value, presence: { if: :indicator_datatype_measure? }
+    validates :multi_polygon_value, presence: { if: :indicator_datatype_multi_polygon? }
+    validates :point_value,    presence: { if: :indicator_datatype_point? }
+    validates :string_value,   presence: { if: :indicator_datatype_string? }
 
     # Keep this format to ensure inheritance
     before_validation :set_datatype

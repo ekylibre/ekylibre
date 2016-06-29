@@ -31,7 +31,6 @@ module Backend
     end
 
     list(order: :name) do |t|
-      t.action :point, if: :unpointed_journal_entry_items?
       t.action :edit
       t.action :destroy
       t.column :name, url: true
@@ -42,14 +41,14 @@ module Backend
       t.column :journal, url: true
     end
 
-    list(:bank_statements, conditions: { cash_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
-      t.action :point
+    list(:bank_statements, conditions: { cash_id: 'params[:id]'.c }, order: { started_on: :desc }) do |t|
       t.action :edit
+      t.action :reconciliation
       t.action :destroy
       t.action :new, on: :none, url: { cash_id: 'params[:id]'.c }
       t.column :number, url: true
-      t.column :started_at
-      t.column :stopped_at
+      t.column :started_on
+      t.column :stopped_on
       t.column :debit, currency: true
       t.column :credit, currency: true
     end
@@ -70,13 +69,6 @@ module Backend
       t.column :expected_stop_amount, currency: true
       t.column :noticed_start_amount, currency: true
       t.column :noticed_stop_amount, currency: true
-    end
-
-    # Redirect to new bank statement
-    def point
-      @cash = find_and_check
-      return unless @cash
-      redirect_to(controller: :bank_statements, action: :new, cash_id: @cash.id, redirect: params[:redirect])
     end
   end
 end

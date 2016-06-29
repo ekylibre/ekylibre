@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add musca varieties">
+  <item-creation item="varieties#musca" parent="insecta" itis_tsn="150249"/>
+  <item-creation item="varieties#musca_domestica" parent="musca" itis_tsn="150251"/>
+</migration>

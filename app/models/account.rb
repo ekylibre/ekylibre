@@ -62,14 +62,14 @@ class Account < Ekylibre::Record::Base
   has_many :stocks_categories,    class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
   has_many :suppliers,            class_name: 'Entity', foreign_key: :supplier_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :debtor, :reconcilable, in: [true, false]
-  validates_presence_of :label, :name, :number
+  validates :debtor, :reconcilable, inclusion: { in: [true, false] }
+  validates :label, :name, :number, presence: true
   # ]VALIDATORS]
-  validates_length_of :last_letter, allow_nil: true, maximum: 10
-  validates_length_of :number, allow_nil: true, maximum: 20
-  validates_length_of :name, allow_nil: true, maximum: 200
-  validates_format_of :number, with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/
-  validates_uniqueness_of :number
+  validates :last_letter, length: { allow_nil: true, maximum: 10 }
+  validates :number, length: { allow_nil: true, maximum: 20 }
+  validates :name, length: { allow_nil: true, maximum: 200 }
+  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
+  validates :number, uniqueness: true
 
   # default_scope order(:number, :name)
   scope :majors, -> { where("number LIKE '_'").order(:number, :name) }

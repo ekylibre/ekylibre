@@ -1,18 +1,18 @@
 = f.object.errors.inspect if Rails.env.development? && f.object.errors.any?
-= field_set do
+= field_set class: "delivery-item" do
   = f.input :sampled_at
   = f.referenced_association :activity, as: :hidden
-  = f.referenced_association :product, source: :plants
+  = f.referenced_association :product, source: {controller: 'backend/plants'}, input_html: { data: {product_of_delivery_item: {url: backend_plant_path("RECORD_ID", format: :json)}}}
   = f.input(:implanter_application_width, wrapper: :append) do
-    = f.input_field(:implanter_application_width)
-    %span.add-on= Nomen::Unit[:meter].l
-  = f.input :implanter_rows_number
+    = f.input_field :implanter_application_width, data: { "when-item": :application_width, "when-set-value": "RECORD_VALUE" }
+    %span.add-on{data: { when: {item: :application_width_unit, "set-value": "RECORD_VALUE" } } }= Nomen::Unit[:meter].l
+  = f.input :implanter_rows_number, input_html: { data: { "when-item": :rows_count, "when-set-value": "RECORD_VALUE" } }
   = f.input(:sampling_distance, wrapper: :append) do
-    = f.input_field(:sampling_distance)
+    = f.input_field :sampling_distance
     %span.add-on= Nomen::Unit[:meter].l
   = f.input(:product_net_surface_area, wrapper: :append) do
     = f.input_field(:product_net_surface_area_value)
-    = f.input_field(:product_net_surface_area_unit, collection: Nomen::Unit.where(dimension: :surface_area).selection)
+    = f.input_field(:product_net_surface_area_unit, collection: Nomen::Unit.where(dimension: :surface_area).selection, data: { "when-item": :unit_name, "when-set-value": "RECORD_VALUE" })
   = f.input :comment, as: :text
 
 - activity = f.object.activity

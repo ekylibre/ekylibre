@@ -77,6 +77,23 @@
                     $(this).selector("value", newVal)
                   else
                     $(this).val(newVal)
+
+                  if typeof newVal == "string"
+                    element = $(@)
+                    element.is(":ui-mapeditor")
+                    try
+                      value = $.parseJSON(newVal)
+
+                      if (value.geometries? and value.geometries.length > 0) || (value.coordinates? and value.coordinates.length > 0)
+                        element.mapeditor "show", value
+                        element.mapeditor "edit", value
+                        try
+                          element.mapeditor "view", "edit"
+
+                    catch
+                      newVal = newVal.toLowerCase()
+
+                  $(this).val(newVal)
                 else
                   $(this).val($(this).data("when-set-value"))
 

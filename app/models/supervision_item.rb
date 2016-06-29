@@ -38,7 +38,7 @@ class SupervisionItem < Ekylibre::Record::Base
   has_many :analyses, through: :sensor
   has_many :analysis_items, through: :analyses, source: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :sensor, :supervision
+  validates :sensor, :supervision, presence: true
   # ]VALIDATORS]
 
   delegate :name, to: :sensor

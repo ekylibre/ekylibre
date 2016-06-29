@@ -88,6 +88,7 @@ module Backend
       t.column :human_working_duration
       t.column :human_target_names
       t.column :human_working_zone_area
+      t.column :total_cost, currency: true
       # t.status
       t.column :issue, url: true
       # t.column :casting

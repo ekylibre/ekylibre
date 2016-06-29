@@ -60,8 +60,8 @@ class SaleOpportunity < Affair
   has_many :tasks
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   # ]VALIDATORS]
-  validates_presence_of :client, :responsible
-  validates_numericality_of :probability_percentage, in: 0..100
+  validates :client, :responsible, presence: true
+  validates :probability_percentage, numericality: { in: 0..100 }
 
   state_machine :state, initial: :prospecting do
     state :prospecting

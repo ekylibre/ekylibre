@@ -38,10 +38,10 @@ class CustomFieldChoice < Ekylibre::Record::Base
   belongs_to :custom_field, inverse_of: :choices
   acts_as_list scope: :custom_field
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :custom_field, :name
+  validates :custom_field, :name, presence: true
   # ]VALIDATORS]
-  validates_presence_of :value
-  validates_uniqueness_of :value, :name, scope: :custom_field_id, case_sensitive: false
+  validates :value, presence: true
+  validates :value, :name, uniqueness: { scope: :custom_field_id, case_sensitive: false }
 
   before_validation do
     self.value ||= name.to_s.codeize # if self.value.blank?

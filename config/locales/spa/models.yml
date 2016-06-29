@@ -69,6 +69,7 @@ spa:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "The date %{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
@@ -77,6 +78,8 @@ spa:
         # unitary_in_parcel: "Unitary items can only be sent one by one"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        bank_statement_item:
+          unvalid_amounts: "El asiento debe ser llenado ya sea de débito o de crédito, pero no al mismo tiempo."
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: "Unvalid BBAN. Uno o más elementos son incorrectos."
@@ -1153,6 +1156,7 @@ spa:
     token: "Simbólico"
     tool: "Herramienta"
     tools: "Instrumentos"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "Número ciudad"
     tracking: "Rastreo"

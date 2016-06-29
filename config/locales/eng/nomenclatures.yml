@@ -1963,6 +1963,7 @@ eng:
         chaptalization: "Chaptalization"
         complete_wine_transfer: "Complete wine transfer"
         concrete_slab_pouring: "Concrete slab pouring"
+        conservation_plowing: "Conservation plowing"
         corvicide: "Corvicide"
         cutting: "Cutting"
         dehorning: "Dehorning"
@@ -3108,6 +3109,7 @@ eng:
         water_bowser: "Water bowser"
         water_spreader: "Water spreader"
         weeder: "Weeder"
+        weeding_kit: "Weeding kit"
         wheat_crop: "Wheat crop"
         wheat_grain: "Wheat grain"
         wheat_seed_25: "Wheat seed 25"
@@ -3430,6 +3432,7 @@ eng:
         water_spreader: "Water spreader"
         water_tank: "Water tank"
         weeder: "Weeder"
+        weeding_kit: "Weeding kit"
         wheel_loader: "Wheel loader"
         wine: "Wine"
         wine_acidifying: "Wine acidifying"
@@ -4994,6 +4997,8 @@ eng:
         musa_textilis: "Musa textilis"                     #< musa
         musa_velutina: "Musa velutina"                     #< musa
         musaceae: "Musaceae"                               #< plant
+        musca: "Fly"                                       #< insecta
+        musca_domestica: "House fly"                       #< musca
         myocastoridae: "Myocastoridae"                     #< mammalia
         myrtaceae: "Myrtaceae"                             #< plant
         mytilidae: "Mytilidae"                             #< bivalvia

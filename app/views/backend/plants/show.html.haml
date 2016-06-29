@@ -12,6 +12,8 @@
       = resource.net_surface_area.round(3).l
     = resource_info(:variety, important: true, nomenclature: true)
     = resource_info(:born_at, important: true)
+    - if resource.dead_at
+      = resource_info(:dead_at, important: true)
     - if resource.born_at && resource.age >= 1.day
       = resource_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
@@ -71,7 +73,7 @@
           scale.natures.reorder(:minimal_value).each do |nature|
             calibration = i.calibrations.find_by(nature: nature)
             curves[nature] ||= []
-            curves[nature] << (calibration ? calibration.total_net_mass : 0).to_f
+            curves[nature] << (calibration ? calibration.marketable_net_mass.round(0).to_d(Nomen::Unit[:ton]).to_s : 0).to_f
           end
         end
         curves.each do |nature, data|

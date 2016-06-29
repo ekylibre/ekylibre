@@ -41,11 +41,11 @@ class PurchaseNature < Ekylibre::Record::Base
   belongs_to :journal
   has_many :purchases, foreign_key: :nature_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :active, :by_default, :with_accounting, in: [true, false]
-  validates_presence_of :currency
+  validates :active, :by_default, :with_accounting, inclusion: { in: [true, false] }
+  validates :currency, presence: true
   # ]VALIDATORS]
-  validates_presence_of :journal, if: :with_accounting?
-  validates_uniqueness_of :name
+  validates :journal, presence: { if: :with_accounting? }
+  validates :name, uniqueness: true
 
   delegate :currency, to: :journal, prefix: true
 

@@ -45,8 +45,8 @@ class Notification < Ekylibre::Record::Base
   belongs_to :recipient, class_name: 'User'
   belongs_to :target, polymorphic: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :read_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_presence_of :level, :message, :recipient
+  validates :read_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :level, :message, :recipient, presence: true
   # ]VALIDATORS]
 
   def read!

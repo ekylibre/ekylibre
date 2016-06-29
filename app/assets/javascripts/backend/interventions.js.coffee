@@ -52,10 +52,11 @@
                   element.selector('value', value)
             else if element.is(":ui-mapeditor")
               value = $.parseJSON(value)
-              element.mapeditor "show", value
-              element.mapeditor "edit", value
-              try
-                element.mapeditor "view", "edit"
+              if (value.geometries? and value.geometries.length > 0) || (value.coordinates? and value.coordinates.length > 0)
+                element.mapeditor "show", value
+                element.mapeditor "edit", value
+                try
+                  element.mapeditor "view", "edit"
             else if element.is('select')
               element.find("option[value='#{value}']")[0].selected = true
             else
@@ -73,6 +74,17 @@
     unserializeList: (form, list, prefix = '', updater_id) ->
       for id, attributes of list
         E.interventions.unserializeRecord(form, attributes, prefix + id + '_', updater_id)
+
+    updateParcelsScopes: (newTime) ->
+      $("input.scoped-parameter").each (index, item) ->
+        console.log newTime
+        scopeUri = decodeURI($(item).data("selector"))
+        re =  /(scope\[availables\]\[\]\[at\]=)(.*)(&)/
+        console.log scopeUri
+        scopeUri = scopeUri.replace(re, "$1"+newTime+"$3")
+        console.log scopeUri
+        $(item).attr("data-selector", encodeURI(scopeUri))
+        console.log $(item).data('selector')
 
     # Ask for a refresh of values depending on given field
     refresh: (origin) ->
@@ -138,6 +150,10 @@
   $(document).on 'keyup change', 'select[data-intervention-updater]', ->
     $(this).each ->
       E.interventions.refresh $(this)
+
+  $(document).on "keyup change", "input.intervention-started-at", ->
+    $(this).each ->
+      E.interventions.updateParcelsScopes ($(this).data("datetimepicker").getFormattedDate())
 
   # $(document).on 'change', '*[data-procedure-global="at"]', ->
   #   $(this).each ->

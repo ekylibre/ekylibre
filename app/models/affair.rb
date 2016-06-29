@@ -79,12 +79,12 @@ class Affair < Ekylibre::Record::Base
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :closed_at, :dead_line_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :credit, :debit, :pretax_amount, :probability_percentage, allow_nil: true
-  validates_inclusion_of :closed, in: [true, false]
-  validates_presence_of :credit, :currency, :debit, :number, :third, :third_role
+  validates :accounted_at, :closed_at, :dead_line_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :credit, :debit, :pretax_amount, :probability_percentage, numericality: { allow_nil: true }
+  validates :closed, inclusion: { in: [true, false] }
+  validates :credit, :currency, :debit, :number, :third, :third_role, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates :currency, length: { allow_nil: true, maximum: 3 }
   # validates_inclusion_of :third_role, in: self.third_role.values
 
   acts_as_numbered

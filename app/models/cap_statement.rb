@@ -42,9 +42,9 @@ class CapStatement < Ekylibre::Record::Base
   has_many :cap_islets, dependent: :destroy
   has_many :cap_land_parcels, through: :cap_islets
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :campaign
+  validates :campaign, presence: true
   # ]VALIDATORS]
-  validates_presence_of :farm_name, :pacage_number, :siret_number
+  validates :farm_name, :pacage_number, :siret_number, presence: true
 
   alias_attribute :entity, :declarant
 

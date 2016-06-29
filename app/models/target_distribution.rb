@@ -40,9 +40,9 @@ class TargetDistribution < Ekylibre::Record::Base
   belongs_to :activity_production
   belongs_to :target, class_name: 'Product', inverse_of: :distributions
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(target_distribution) { target_distribution.stopped_at && target_distribution.started_at }
-  validates_presence_of :activity, :activity_production, :target
+  validates :activity, :activity_production, :target, presence: true
   # ]VALIDATORS]
 
   scope :of_campaign, lambda { |campaign|
@@ -65,27 +65,37 @@ class TargetDistribution < Ekylibre::Record::Base
     target.distributions
   end
 
-  def started_on_for(product)
-    return started_at.to_date unless started_at.nil? or started_at == Time.new(1, 1, 1, 0, 0, 0, '+00:00')
+  def started_on
+    return started_at.to_date unless started_at.nil? || started_at == Time.new(1, 1, 1, 0, 0, 0, '+00:00')
     on = begin
-      Date.civil(self.stopped_at.year, self.stopped_at.month, self.stopped_at.day)
+      Date.civil(stopped_at.year, stopped_at.month, stopped_at.day)
     rescue
-      Date.civil(self.stopped_at.year, self.stopped_at.month, self.stopped_at.day) - 1
+      begin
+        Date.civil(stopped_at.year, stopped_at.month, stopped_at.day) - 1
+      rescue
+        Date.today
+      end
     end
 
     on -= 1.year
     on.to_date.beginning_of_month
   end
 
-  def stopped_on_for(product)
+  def stopped_on
     return stopped_at.to_date unless stopped_at.nil?
     on = begin
-        Date.civil(self.started_at.year, self.started_at.month, self.started_at.day)
+      Date.civil(started_on.year, started_on.month, started_on.day)
     rescue
-        Date.civil(self.started_at.year, self.started_at.month, self.started_at.day) - 1
+      Date.civil(started_on.year, started_on.month, started_on.day) - 1
     end
 
     on += 1.year
     on.to_date.end_of_month
+  end
+
+  class << self
+    def distributed?
+      !InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct.any?
+    end
   end
 end

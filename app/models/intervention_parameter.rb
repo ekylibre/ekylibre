@@ -55,10 +55,10 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :parameters
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity_population, :quantity_value, allow_nil: true
-  validates_presence_of :intervention, :reference_name
+  validates :quantity_population, :quantity_value, numericality: { allow_nil: true }
+  validates :intervention, :reference_name, presence: true
   # ]VALIDATORS]
-  validates_presence_of :position
+  validates :position, presence: true
 
   scope :of_activity, lambda { |activity|
     where(intervention_id: InterventionTarget.select(:intervention_id).of_activity(activity))
@@ -73,6 +73,20 @@ class InterventionParameter < Ekylibre::Record::Base
     end
     where(type: "Intervention#{role.camelize}")
   }
+
+  scope :of_generic_roles, lambda { |roles|
+    roles.collect! do |role|
+      role = role.to_s
+      unless %w(doer input output target tool).include?(role)
+        raise ArgumentError, "Invalid role: #{role}"
+      end
+      "Intervention#{role.camelize}"
+    end
+
+    where(type: roles)
+  }
+
+  scope :of_actor, ->(actor) { where(product_id: actor.id) }
 
   before_validation do
     self.intervention ||= group.intervention if group

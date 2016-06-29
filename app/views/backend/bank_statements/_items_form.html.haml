@@ -1,0 +1,25 @@
+.active-list
+  %table.list
+
+    %thead
+      %tr
+        %th= BankStatementItem.human_attribute_name(:name)
+        %th= BankStatementItem.human_attribute_name(:transfered_on)
+        %th{colspan: 2}= BankStatementItem.human_attribute_name(:debit)
+        %th{colspan: 2}= BankStatementItem.human_attribute_name(:credit)
+        %th.act
+
+    %tfoot
+      %tr#total.total
+        %th{colspan: 2}
+          = tool_to(:new.ta, {controller: :bank_statement_items, action: :new, bank_statement_id: resource.id}, remote: true, tabindex: -1, method: :get, data: {update: "#items-table", update_at: :bottom, type: :html})
+          %span= :total.tl
+        %td#debit.decimal{data: {use: "input.debit", calculate_round: 2}}=  resource.debit
+        %td.txt= resource.currency
+        %td#credit.decimal{data: {use: "input.credit", calculate_round: 2}}= resource.credit
+        %td.txt= resource.currency
+        %th.act
+
+    %tbody#items-table.items
+      = render partial: "backend/bank_statement_items/row_form", collection: @bank_statement.items
+      = render partial: "backend/bank_statement_items/row_form", object: @bank_statement.items.new if @bank_statement.items.empty?

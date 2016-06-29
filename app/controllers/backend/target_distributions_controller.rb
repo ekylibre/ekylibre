@@ -20,7 +20,7 @@ module Backend
   class TargetDistributionsController < Backend::BaseController
     manage_restfully except: [:create]
 
-    list order: {started_at: :desc} do |t|
+    list order: { started_at: :desc } do |t|
       t.action :edit
       t.action :destroy
       t.column :target, url: true
@@ -44,7 +44,7 @@ module Backend
     end
 
     def create
-      @target_distributions = TargetDistribution.create!(permitted_params[:collection] || permitted_params)
+      @target_distributions = TargetDistribution.create!(permitted_params.key?(:collection) ? permitted_params[:collection].values : permitted_params)
 
       redirect_to params[:redirect] || backend_target_distributions_path if @target_distributions
     end
@@ -53,6 +53,5 @@ module Backend
       @target_distribution = TargetDistribution.new
       @targets = InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct
     end
-
   end
 end

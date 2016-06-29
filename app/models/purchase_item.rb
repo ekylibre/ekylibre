@@ -57,12 +57,12 @@ class PurchaseItem < Ekylibre::Record::Base
   has_one :fixed_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
   has_one :product_nature_category, through: :variant, source: :category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_inclusion_of :fixed, in: [true, false]
-  validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reduction_percentage, :tax, :unit_amount, :unit_pretax_amount, :variant
+  validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, numericality: { allow_nil: true }
+  validates :fixed, inclusion: { in: [true, false] }
+  validates :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reduction_percentage, :tax, :unit_amount, :unit_pretax_amount, :variant, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_presence_of :account, :tax, :reduction_percentage
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :account, :tax, :reduction_percentage, presence: true
   validates_associated :fixed_asset
 
   delegate :invoiced_at, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase

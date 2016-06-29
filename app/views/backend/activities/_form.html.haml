@@ -25,7 +25,8 @@
     = f.input :measure_grading_items_count
     = f.input :measure_grading_net_mass, show: '#grading_net_mass'
     #grading_net_mass
-      = f.referenced_nomenclature :grading_net_mass_unit, collection: Nomen::Unit.where(dimension: :mass).selection, include_blanks: false
+      - unit_collection = Nomen::Unit.where(dimension: :mass).sort { |one, two| one.a <=> two.a }
+      = f.referenced_nomenclature :grading_net_mass_unit, collection: unit_collection.selection(false), include_blanks: false
     = f.input :measure_grading_sizes, show: '#grading_sizes'
     #grading_sizes
       = f.referenced_nomenclature :grading_sizes_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: :distance)).selection, include_blanks: false

@@ -69,6 +69,7 @@ jpn:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "The date %{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
@@ -77,6 +78,8 @@ jpn:
         # unitary_in_parcel: "Unitary items can only be sent one by one"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        bank_statement_item:
+          unvalid_amounts: "ジャーナルエントリは、同時にデビットカードまたはクレジットではなく、どちらかを満たさなければなりません。"
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: "Unvalid BBAN。一つ以上の要素が間違っています。"
@@ -1149,6 +1152,7 @@ jpn:
     token: "トークン"
     tool: "ツール"
     tools: "ツール"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "タウン番号"
     tracking: "追跡"

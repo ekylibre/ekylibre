@@ -71,6 +71,7 @@ ita:
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
         other_than: "devono essere di numero diverso da %{count}" #?
+        # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "The date %{attribute} must be posterior to %{to}"
         present: "deve essere lasciato in bianco" #?
         # record_invalid: "Validations failed: %{errors}"
@@ -86,6 +87,8 @@ ita:
           one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
       models:
+        bank_statement_item:
+          unvalid_amounts: "La voce di diario deve essere compilato o di debito o di credito, ma non allo stesso tempo."
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: "Caduca BBAN. Uno o più elementi non sono corretti."
@@ -1180,6 +1183,7 @@ ita:
     token: "Gettone"
     tool: "Strumento"
     tools: "Utensili"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "numero di Città"
     tracking: "puntamento"

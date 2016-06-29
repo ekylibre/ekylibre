@@ -1,0 +1,222 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: bank_statement_items
+#
+#  bank_statement_id  :integer          not null
+#  created_at         :datetime         not null
+#  creator_id         :integer
+#  credit             :decimal(19, 4)   default(0.0), not null
+#  currency           :string           not null
+#  debit              :decimal(19, 4)   default(0.0), not null
+#  id                 :integer          not null, primary key
+#  initiated_on       :date
+#  letter             :string
+#  lock_version       :integer          default(0), not null
+#  name               :string           not null
+#  transaction_number :string
+#  transfered_on      :date             not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer
+#
+---
+bank_statement_items_001:
+  bank_statement_id: 2
+  created_at: 2016-06-29 05:49:23.204491000 Z
+  credit: 223.0
+  currency: EUR
+  debit: 0.0
+  id: 1
+  letter: A
+  lock_version: 2
+  name: "[Remise en banque B20140001] Aucun encaissement In cash! "
+  transaction_number: ''
+  transfered_on: 2009-08-05
+  updated_at: 2016-06-29 07:09:41.153940000 Z
+  updater_id: 1
+bank_statement_items_002:
+  bank_statement_id: 2
+  created_at: 2016-06-29 05:49:23.204491000 Z
+  credit: 150.0
+  currency: EUR
+  debit: 0.0
+  id: 2
+  letter: B
+  lock_version: 2
+  name: "[Remise en banque B20140002] Aucun encaissement In cash! "
+  transaction_number: ''
+  transfered_on: 2009-08-05
+  updated_at: 2016-06-29 07:09:41.155213000 Z
+  updater_id: 1
+bank_statement_items_003:
+  bank_statement_id: 2
+  created_at: 2016-06-29 05:49:23.204491000 Z
+  credit: 112.07
+  currency: EUR
+  debit: 0.0
+  id: 3
+  letter: C
+  lock_version: 2
+  name: "[Virement interne 0001] De Caisse Accueil à GHB "
+  transaction_number: ''
+  transfered_on: 2009-08-03
+  updated_at: 2016-06-29 07:09:41.156152000 Z
+  updater_id: 1
+bank_statement_items_004:
+  bank_statement_id: 2
+  created_at: 2016-06-29 05:49:23.204491000 Z
+  credit: 0.0
+  currency: EUR
+  debit: 28.3
+  id: 4
+  letter: D
+  lock_version: 2
+  name: "[Virement interne 0002] De GHB à Caisse Accueil "
+  transaction_number: ''
+  transfered_on: 2009-07-19
+  updated_at: 2016-06-29 07:09:41.157160000 Z
+  updater_id: 1
+bank_statement_items_005:
+  bank_statement_id: 2
+  created_at: 2016-06-29 05:49:23.204491000 Z
+  credit: 0.0
+  currency: EUR
+  debit: 116.0
+  id: 5
+  letter: E
+  lock_version: 2
+  name: "[Décaissement OP001] Par chèque  pour Busbest Andrew"
+  transaction_number: ''
+  transfered_on: 2009-08-18
+  updated_at: 2016-06-29 07:09:41.158114000 Z
+  updater_id: 1
+bank_statement_items_006:
+  bank_statement_id: 1
+  created_at: 2016-06-29 05:49:23.204491000 Z
+  credit: 0.0
+  currency: EUR
+  debit: 156.0
+  id: 6
+  letter: F
+  lock_version: 2
+  name: "[Décaissement OP002] Par chèque  pour Busbest Andrew"
+  transaction_number: ''
+  transfered_on: 2009-07-18
+  updated_at: 2016-06-29 07:08:41.573509000 Z
+  updater_id: 1
+bank_statement_items_007:
+  bank_statement_id: 1
+  created_at: 2016-06-29 05:49:23.204491000 Z
+  credit: 2000.0
+  currency: EUR
+  debit: 0.0
+  id: 7
+  letter: G
+  lock_version: 2
+  name: "[Emprunt Vélo] Réception des fonds"
+  transaction_number: ''
+  transfered_on: 2009-07-01
+  updated_at: 2016-06-29 07:08:41.575359000 Z
+  updater_id: 1
+bank_statement_items_008:
+  bank_statement_id: 3
+  created_at: 2016-06-29 05:49:23.204491000 Z
+  credit: 0.0
+  currency: USD
+  debit: 770.55
+  id: 8
+  letter: A
+  lock_version: 0
+  name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
+  transfered_on: 2015-04-24
+  updated_at: 2016-06-29 05:49:23.204491000 Z
+bank_statement_items_009:
+  bank_statement_id: 4
+  created_at: 2016-06-29 06:30:53.925513000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 14953.0
+  id: 23
+  letter: H
+  lock_version: 1
+  name: CHARGES 125354d
+  transaction_number: ''
+  transfered_on: 2009-11-07
+  updated_at: 2016-06-29 07:02:53.686371000 Z
+  updater_id: 1
+bank_statement_items_010:
+  bank_statement_id: 4
+  created_at: 2016-06-29 06:30:53.927441000 Z
+  creator_id: 1
+  credit: 1288.0
+  currency: EUR
+  debit: 0.0
+  id: 24
+  lock_version: 1
+  name: hjgjghjghj
+  transaction_number: ''
+  transfered_on: 2010-06-02
+  updated_at: 2016-06-29 07:02:53.687579000 Z
+  updater_id: 1
+bank_statement_items_011:
+  bank_statement_id: 4
+  created_at: 2016-06-29 06:30:53.929617000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 2.63
+  id: 25
+  lock_version: 1
+  name: TEST 123
+  transaction_number: ''
+  transfered_on: 2010-06-16
+  updated_at: 2016-06-29 07:02:53.688671000 Z
+  updater_id: 1
+bank_statement_items_012:
+  bank_statement_id: 4
+  created_at: 2016-06-29 06:30:53.932006000 Z
+  creator_id: 1
+  credit: 0.0
+  currency: EUR
+  debit: 10.5
+  id: 26
+  lock_version: 1
+  name: BLABLA
+  transaction_number: ''
+  transfered_on: 2010-06-16
+  updated_at: 2016-06-29 07:02:53.689740000 Z
+  updater_id: 1
+bank_statement_items_013:
+  bank_statement_id: 4
+  created_at: 2016-06-29 06:30:53.933924000 Z
+  creator_id: 1
+  credit: 123.0
+  currency: EUR
+  debit: 0.0
+  id: 27
+  lock_version: 1
+  name: VERY TEST
+  transaction_number: ''
+  transfered_on: 2010-06-16
+  updated_at: 2016-06-29 07:02:53.690729000 Z
+  updater_id: 1

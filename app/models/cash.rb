@@ -71,7 +71,7 @@ class Cash < Ekylibre::Record::Base
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
   has_many :sessions, class_name: 'CashSession'
-  has_many :unpointed_journal_entry_items, -> { where(bank_statement_id: nil) }, through: :account, source: :journal_entry_items
+  has_many :unpointed_journal_entry_items, -> { where(bank_statement_letter: nil) }, through: :account, source: :journal_entry_items
   has_one :last_bank_statement, -> { order('stopped_at DESC') }, class_name: 'BankStatement'
 
   enumerize :nature, in: [:bank_account, :cash_box, :associate_account], default: :bank_account, predicates: true
@@ -79,19 +79,19 @@ class Cash < Ekylibre::Record::Base
   # refers_to :currency
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :last_number, allow_nil: true, only_integer: true
-  validates_presence_of :account, :currency, :journal, :mode, :name, :nature
+  validates :last_number, numericality: { allow_nil: true, only_integer: true }
+  validates :account, :currency, :journal, :mode, :name, :nature, presence: true
   # ]VALIDATORS]
-  validates_length_of :country, allow_blank: true, maximum: 2
-  validates_length_of :currency, allow_blank: true, maximum: 3
-  validates_length_of :bank_identifier_code, allow_blank: true, maximum: 11
-  validates_length_of :nature, allow_blank: true, maximum: 20
-  validates_length_of :iban, allow_blank: true, maximum: 34
-  validates_length_of :spaced_iban, allow_blank: true, maximum: 42
-  validates_length_of :bank_name, allow_blank: true, maximum: 50
-  validates_inclusion_of :mode, in: mode.values
-  validates_inclusion_of :nature, in: nature.values
-  validates_uniqueness_of :account
+  validates :country, length: { allow_blank: true, maximum: 2 }
+  validates :currency, length: { allow_blank: true, maximum: 3 }
+  validates :bank_identifier_code, length: { allow_blank: true, maximum: 11 }
+  validates :nature, length: { allow_blank: true, maximum: 20 }
+  validates :iban, length: { allow_blank: true, maximum: 34 }
+  validates :spaced_iban, length: { allow_blank: true, maximum: 42 }
+  validates :bank_name, length: { allow_blank: true, maximum: 50 }
+  validates :mode, inclusion: { in: mode.values }
+  validates :nature, inclusion: { in: nature.values }
+  validates :account, uniqueness: true
   # validates_presence_of :owner, if: :associate_account?
 
   delegate :currency, to: :journal, prefix: true
@@ -219,6 +219,19 @@ class Cash < Ekylibre::Record::Base
     account.journal_entry_items.between(started_at, stopped_at).group('EXTRACT(YEAR FROM printed_on)*100 + EXTRACT(MONTH FROM printed_on)').sum(expr).sort.inject({}) do |hash, pair|
       hash[pair[0].to_i.to_s] = pair[1].to_d
       hash
+    end
+  end
+
+  def next_reconciliation_letters
+    Enumerator.new do |yielder|
+      letter_column = "#{BankStatementItem.table_name}.letter"
+      letter = 'A'
+      loop do
+        if bank_statements.joins(:items).where(letter_column => letter).blank?
+          yielder << letter
+        end
+        letter = letter.succ
+      end
     end
   end
 

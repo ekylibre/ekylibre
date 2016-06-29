@@ -41,8 +41,8 @@ class InspectionCalibration < Ekylibre::Record::Base
   belongs_to :inspection, inverse_of: :calibrations
   has_one :product, through: :inspection
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :maximal_size_value, :minimal_size_value, :net_mass_value, allow_nil: true
-  validates_presence_of :inspection, :nature
+  validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { allow_nil: true }
+  validates :inspection, :nature, presence: true
   # ]VALIDATORS]
 
   delegate :name, to: :nature
@@ -58,8 +58,6 @@ class InspectionCalibration < Ekylibre::Record::Base
   def marketable_net_mass
     if inspection.unmarketable_rate
       total_net_mass * (1 - inspection.unmarketable_rate)
-    else
-      nil
     end
   end
 

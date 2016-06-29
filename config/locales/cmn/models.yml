@@ -69,6 +69,7 @@ cmn:
         # odd: "%{attribute} must be odd"
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
+        # overlap_sibling: "%{attribute} overlaps sibling"
         # posterior: "The date %{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
@@ -77,6 +78,8 @@ cmn:
         # unitary_in_parcel: "Unitary items can only be sent one by one"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        bank_statement_item:
+          unvalid_amounts: "日记条目必须同时填写无论是借记卡还是信用卡，但并非如此。"
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: "Unvalid BBAN。一个或多个元素是不正确的。"
@@ -1149,6 +1152,7 @@ cmn:
     token: "象征"
     tool: "工具"
     tools: "工具"
+    # total_cost: "Total cost"
     # total_net_mass: "Total net mass"
     town_number: "镇号"
     tracking: "跟踪"

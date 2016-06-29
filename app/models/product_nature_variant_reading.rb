@@ -50,10 +50,10 @@ class ProductNatureVariantReading < Ekylibre::Record::Base
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :readings
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :integer_value, allow_nil: true, only_integer: true
-  validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
-  validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :indicator_datatype, :indicator_name, :variant
+  validates :integer_value, numericality: { allow_nil: true, only_integer: true }
+  validates :absolute_measure_value_value, :decimal_value, :measure_value_value, numericality: { allow_nil: true }
+  validates :boolean_value, inclusion: { in: [true, false] }
+  validates :indicator_datatype, :indicator_name, :variant, presence: true
   # ]VALIDATORS]
 
   validate do
@@ -68,5 +68,4 @@ class ProductNatureVariantReading < Ekylibre::Record::Base
   def usable?
     variant.frozen_indicators.include?(indicator)
   end
-
 end

@@ -18,29 +18,29 @@ class CreateAPurchaseTest < CapybaraIntegrationTest
     end
     fill_unroll('purchase_supplier_id', with: 'coop') # , select: "Gandhi Mohandas Karamchand, 196")
     click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(1)') do
+    within('#items-table tbody.nested-fields:nth-of-type(1)') do
       fill_unroll('purchase_item_variant_id', with: 'big bag')
       find(:css, '*[data-trade-component="unit_pretax_amount"]').set(100)
-      find(:css, '*[data-trade-component="tax"]').select(1)
+      find(:css, '*[data-trade-component="tax"]').find(:xpath, 'option[1]').select_option
       find(:css, '*[data-trade-component="quantity"]').set(15)
     end
     click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(2)') do
+    within('#items-table tbody.nested-fields:nth-of-type(2)') do
       fill_unroll('purchase_item_variant_id', with: 'big bag')
       find(:css, '*[data-trade-component="unit_pretax_amount"]').set(120)
-      find(:css, '*[data-trade-component="tax"]').select(1)
+      find(:css, '*[data-trade-component="tax"]').find(:xpath, 'option[1]').select_option
       find(:css, '*[data-trade-component="quantity"]').set(15)
       find(:css, '*[data-trade-component="reduction_percentage"]').set(15)
     end
     click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(3)') do
+    within('#items-table tbody.nested-fields:nth-of-type(3)') do
       fill_unroll('purchase_item_variant_id', with: 'big bag')
       find(:css, '*[data-trade-component="amount"]').set(500)
       find(:css, '*[data-trade-component="quantity"]').set(15)
     end
     sleep(1)
     click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(4)') do
+    within('#items-table tbody.nested-fields:nth-of-type(4)') do
       fill_unroll('purchase_item_variant_id', with: 'big bag')
       find(:css, '*[data-trade-component="quantity"]').set(15)
       find(:css, '*[data-trade-component="pretax_amount"]').set(500)
@@ -65,29 +65,29 @@ class CreateAPurchaseTest < CapybaraIntegrationTest
       click_on 'actions.backend/purchases.new'.t
     end
     click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(1)') do
+    within('#items-table tbody.nested-fields:nth-of-type(1)') do
       fill_unroll('purchase_item_variant_id', with: 'big bag')
       find(:css, '*[data-trade-component="unit_pretax_amount"]').set(100)
-      find(:css, '*[data-trade-component="tax"]').select(1)
+      find(:css, '*[data-trade-component="tax"]').find(:xpath, 'option[1]').select_option
       find(:css, '*[data-trade-component="quantity"]').set(15)
     end
     click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(2)') do
+    within('#items-table tbody.nested-fields:nth-of-type(2)') do
       fill_unroll('purchase_item_variant_id', with: 'aceta')
       find(:css, '*[data-trade-component="unit_pretax_amount"]').set(1.15)
-      find(:css, '*[data-trade-component="tax"]').select(1)
+      find(:css, '*[data-trade-component="tax"]').find(:xpath, 'option[1]').select_option
       find(:css, '*[data-trade-component="quantity"]').set(15)
       find(:css, '*[data-trade-component="reduction_percentage"]').set(15)
     end
     click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(3)') do
+    within('#items-table tbody.nested-fields:nth-of-type(3)') do
       fill_unroll('purchase_item_variant_id', with: 'mal')
       find(:css, '*[data-trade-component="amount"]').set(500)
       find(:css, '*[data-trade-component="quantity"]').set(15)
     end
     sleep(1)
     click_on :add_item.tl
-    within('#items tr.nested-fields:nth-child(4)') do
+    within('#items-table tbody.nested-fields:nth-of-type(4)') do
       fill_unroll('purchase_item_variant_id', with: 'pot')
       find(:css, '*[data-trade-component="quantity"]').set(15)
       find(:css, '*[data-trade-component="pretax_amount"]').set(500)

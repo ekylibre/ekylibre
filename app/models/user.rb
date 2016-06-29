@@ -92,18 +92,18 @@ class User < Ekylibre::Record::Base
   scope :administrators, -> { where(administrator: true) }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, :signup_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :failed_attempts, :invitation_limit, allow_nil: true, only_integer: true
-  validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
-  validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
-  validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage
+  validates :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, :signup_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :failed_attempts, :invitation_limit, numericality: { allow_nil: true, only_integer: true }
+  validates :maximal_grantable_reduction_percentage, numericality: { allow_nil: true }
+  validates :administrator, :commercial, :employed, :locked, inclusion: { in: [true, false] }
+  validates :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage, presence: true
   # ]VALIDATORS]
-  validates_length_of :language, allow_nil: true, maximum: 3
+  validates :language, length: { allow_nil: true, maximum: 3 }
   # validates_presence_of :password, :password_confirmation, if: Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
-  validates_confirmation_of :password
-  validates_numericality_of :maximal_grantable_reduction_percentage, greater_than_or_equal_to: 0, less_than_or_equal_to: 100
-  validates_uniqueness_of :email, :person_id
-  validates_presence_of :role, unless: :administrator_or_unapproved?
+  validates :password, confirmation: true
+  validates :maximal_grantable_reduction_percentage, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :email, :person_id, uniqueness: true
+  validates :role, presence: { unless: :administrator_or_unapproved? }
   # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 

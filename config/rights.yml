@@ -126,6 +126,11 @@
 #     - "backend/notifications#unread"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
+#     - "backend/product_localizations#create"
+#     - "backend/product_localizations#destroy"
+#     - "backend/product_localizations#edit"
+#     - "backend/product_localizations#new"
+#     - "backend/product_localizations#update"
 #     - "backend/product_nature_variants#detail"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
@@ -357,13 +362,14 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
+    - "backend/bank_statement_items#new"
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
+    - "backend/bank_statements#edit_items" #?
     - "backend/bank_statements#new"
-    - "backend/bank_statements#point"
+    - "backend/bank_statements#reconciliation"
     - "backend/bank_statements#update"
-    - "backend/cashes#point"
 
 building_divisions:
   read:

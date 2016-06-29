@@ -50,12 +50,12 @@ class Deposit < Ekylibre::Record::Base
   belongs_to :mode, class_name: 'IncomingPaymentMode'
   has_many :payments, class_name: 'IncomingPayment', dependent: :nullify, counter_cache: true, inverse_of: :deposit
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :amount, allow_nil: true
-  validates_inclusion_of :locked, in: [true, false]
-  validates_presence_of :amount, :cash, :mode, :number
+  validates :accounted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :amount, numericality: { allow_nil: true }
+  validates :locked, inclusion: { in: [true, false] }
+  validates :amount, :cash, :mode, :number, presence: true
   # ]VALIDATORS]
-  validates_presence_of :responsible, :cash
+  validates :responsible, :cash, presence: true
 
   delegate :currency, to: :cash
   delegate :detail_payments, to: :mode

@@ -50,13 +50,13 @@ class Inspection < Ekylibre::Record::Base
                     inverse_of: :inspection, dependent: :destroy
   has_many :scales, through: :activity, source: :inspection_calibration_scales
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :sampled_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :implanter_rows_number, allow_nil: true, only_integer: true
-  validates_numericality_of :implanter_application_width, :implanter_working_width, :product_net_surface_area_value, :sampling_distance, allow_nil: true
-  validates_presence_of :activity, :number, :product, :sampled_at
+  validates :sampled_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :implanter_rows_number, numericality: { allow_nil: true, only_integer: true }
+  validates :implanter_application_width, :implanter_working_width, :product_net_surface_area_value, :sampling_distance, numericality: { allow_nil: true }
+  validates :activity, :number, :product, :sampled_at, presence: true
   # ]VALIDATORS]
-  validates_numericality_of :implanter_application_width, :implanter_rows_number,
-                            :sampling_distance, greater_than: 0
+  validates :implanter_application_width, :implanter_rows_number,
+            :sampling_distance, numericality: { greater_than: 0 }
 
   # composed_of :product_net_surface_area, class_name: 'Measure', mapping: [%w(product_net_surface_area_value to_d), %w(product_net_surface_area_unit unit)]
 

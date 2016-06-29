@@ -50,9 +50,9 @@ class Listing < Ekylibre::Record::Base
   has_one :root_node, -> { where(parent_id: nil) }, class_name: 'ListingNode'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :name, :root_model
+  validates :name, :root_model, presence: true
   # ]VALIDATORS]
-  validates_format_of :query, :conditions, with: /\A[^\;]*\z/
+  validates :query, :conditions, format: { with: /\A[^\;]*\z/ }
 
   before_validation(on: :update) do
     self.query = generate

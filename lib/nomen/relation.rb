@@ -15,12 +15,17 @@ module Nomen
       end
     end
 
-    def selection
-      collect do |item|
+    def selection(sorted = true)
+      unit_selec = collect do |item|
         [item.human_name, item.name.to_s]
-      end.sort do |a, b|
-        a.first.lower_ascii <=> b.first.lower_ascii
       end
+      if sorted
+        unit_selec.sort! do |a, b|
+          a.first.lower_ascii <=> b.first.lower_ascii
+        end
+      end
+
+      unit_selec
     end
   end
 end

@@ -77,11 +77,13 @@ eng:
       # take: "Take animal: %{name}"
     backend/attachments:
       # show: "Attachment: %{name}"
+    backend/bank_statement_items:
+      # new: "New bank statement item"
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       index: "Bank statements"
       new: "New bank statement"
-      point: "Point bank statement %{number}"
+      reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
       show: "Account statement N°%{number}"
     backend/beehives:
       reset: "Reset beehive: %{name}"
@@ -129,7 +131,6 @@ eng:
       edit: "Edit cash: %{name}"
       index: "Cashes"
       new: "New cash"
-      # point: "Point cash: %{name}"
       show: "%{nature}: %{name}"
     backend/catalog_items:
       edit: "Edit catalog item: %{name}"
@@ -474,6 +475,9 @@ eng:
       new: "New group"
       show: "Group: %{name}"
       # take: "Take product group: %{name}"
+    backend/product_localizations:
+      edit: "Edit product localization:"
+      # new: "New product localization"
     backend/product_nature_categories:
       edit: "Edit product category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"
@@ -809,6 +813,7 @@ eng:
     add_inspection_calibration_scale: "Add inspection calibration scale"
     add_inspection_point_nature: "Add inspection point nature"
     add_item: "Add item"
+    add_line: "Add line"
     add_linestring: "Add linestring"
     add_mail: "Add postal adress"
     add_mobile: "Add mobile phone number"
@@ -922,6 +927,7 @@ eng:
     choose_a_type_of_product: "Choose a type of product"
     choose_creation_mode: "Choose creation mode"
     choose_mail_column: "Choose email column"
+    clear: "Clear"
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
     client_informations: "Client informations"
@@ -934,6 +940,7 @@ eng:
     columns: "Columns to import"
     commission: "Commission"
     company: "Society" #?
+    complete: "Complete"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -977,7 +984,7 @@ eng:
     cultivable_zone_abbreviation: "CZ" #?!
     cultivable_zone_prefix: "cultivable area No." #?!
     cultivable_zones: "arable areas"
-    cumul: "Accumulation of tattle and previous balance N°%{number}"
+    cumul: "Accumulation of tattle and previous balance N°%{number}" #?
     current: "Current" #?
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
@@ -1012,6 +1019,7 @@ eng:
     details: "Details"
     direct_margin: "Direct margin" #?!
     discount: "Discount (%)" #?
+    disease: "Disease (%)" #?
     disease_deformity_percentage: "Disease and deformity percentage"
     display: "Display" #?
     distributions: "Distributions"
@@ -1079,6 +1087,7 @@ eng:
     file_preview: "Preview" #?
     file_to_upload: "File to upload"
     filter: "Filter" #?
+    final_balance: "Final balance"
     financials_assets: "Financials assets"
     finish: "Finish" #?
     first_line_as_title: "First line as title"
@@ -1097,7 +1106,7 @@ eng:
     geolocation: "Geolocation" #?
     go: "Go" #?
     gradings: "Gradings" #?
-    grain_yield: "Grain yield"
+    grain_yield: "Grain yield" #?
     gross_profit: "Gross profit"
     group: "Group" #?
     groups: "Groups"
@@ -1133,6 +1142,7 @@ eng:
     indirect_expenses: "Indirect charges" #?!
     info: "General parameters" #?
     infos: "Product and quantity" #?
+    initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Input cost"
     input_cost_per_hectare: "Input cost per hectare" #?!
     inputs: "Inputs"
@@ -1145,6 +1155,8 @@ eng:
     interventions: "Interventions"
     interventions_count: "Interventions count"
     interventions_paths: "Interventions paths" #?
+    invalid_file: "Invalid file" #?
+    invalid_format: "Invalid format" #?
     inventories: "Inventories" #?
     inventory: "Inventory" #?
     invitation_status: "Status" #?
@@ -1360,7 +1372,6 @@ eng:
     prescriptions: "Prescriptions" #?
     pretax_amount: "Pre-tax amount"
     previous: "Previous"
-    previous_bank_statement: "Previous account statement N°%{number}"
     price: "Price" #?
     prices: "Prices" #?
     print: "Print" #?
@@ -1394,6 +1405,7 @@ eng:
     ready_to_harvest: "Ready to harvest"
     received: "Received" #?
     recent_events: "Recent events"
+    reconciled_total: "Reconciled total"
     reference_cap_clusters: "Islets reference CAP" #?!
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
@@ -1403,6 +1415,7 @@ eng:
     relationship_of_entity: "%{relationship} of %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
+    remaining_amount_to_reconcile: "Remaining amount to reconcile"
     remove: "Remove"
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
@@ -1565,6 +1578,7 @@ eng:
     unknown_variant: "Unknown variant"
     unlock: "Unlock" #?
     unmark: "Unmark" #?
+    unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
     unnamed: "Nameless" #?!
     unpaid: "Unpaid" #?
     unpaid_amount: "Unpaid amount" #??
@@ -1783,7 +1797,7 @@ eng:
       need_a_valid_sale_nature_to_start_new_sale: "Need a valid sale type to start new sale"
       need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
       need_cash_to_record_statements: "You must be at least create a bank account to enter a statement." #?
-      need_entries_to_point: "No entry was found for the period of the bank statement."
+      need_entries_to_reconciliate: "No entries to reconciliate on bank statement period"
       need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
       need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice" #?
       need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
@@ -1899,7 +1913,6 @@ eng:
       # order: "Order"
       pick: "Pick"
       picture: "Picture"
-      point: "Point"
       # prepare: "Prepare"
       # progress: "Progress"
       propose: "Propose"
@@ -1908,7 +1921,7 @@ eng:
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
-      reconciliation: "Reconciliation"
+      reconciliation: "Reconciliate"
       reflect: "Reflect"
       refresh: "Refresh"
       refuse: "Refuse"

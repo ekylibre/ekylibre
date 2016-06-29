@@ -80,11 +80,11 @@ class SaleItem < Ekylibre::Record::Base
   sums :sale, :items, :pretax_amount, :amount
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :credited_quantity, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduction_percentage, :sale, :unit_amount, :variant
+  validates :amount, :credited_quantity, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, numericality: { allow_nil: true }
+  validates :amount, :currency, :pretax_amount, :quantity, :reduction_percentage, :sale, :unit_amount, :variant, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_presence_of :tax
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :tax, presence: true
 
   # return all sale items  between two dates
   scope :between, lambda { |started_at, stopped_at|
