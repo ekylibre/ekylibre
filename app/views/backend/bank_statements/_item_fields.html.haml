@@ -1,0 +1,15 @@
+- item ||= f.object
+%tbody.nested-fields
+  %tr
+    %td
+      = f.input :name, wrapper: :nested
+      = f.input :transaction_number, as: :hidden
+      = f.input :initiated_on, as: :hidden
+      = f.input :letter, as: :hidden
+    %td= f.input :transfered_on, wrapper: :nested
+    %td.decimal= f.input :debit, wrapper: :nested, input_html: { class: 'debit', data: { exclusive_nullify: '.credit', use_closest: 'tr' } }
+    %td.currency= item.currency
+    %td.decimal= f.input :credit, wrapper: :nested, input_html: { class: 'credit', data: { exclusive_nullify: '.debit', use_closest: 'tr' } }
+    %td.currency= item.currency
+    %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
+

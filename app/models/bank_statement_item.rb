@@ -40,10 +40,18 @@
 #
 class BankStatementItem < Ekylibre::Record::Base
   refers_to :currency
-  belongs_to :bank_statement
+  belongs_to :bank_statement, inverse_of: :items
   has_one :cash, through: :bank_statement
   has_one :journal, through: :cash
   has_one :account, through: :cash
+
+  delegate :started_on, :stopped_on, to: :bank_statement
+
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :initiated_on, :transfered_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :credit, :debit, numericality: { allow_nil: true }
+  validates :bank_statement, :credit, :currency, :debit, :name, :transfered_on, presence: true
+  # ]VALIDATORS]
 
   before_validation do
     self.currency = bank_statement.currency if bank_statement
@@ -52,14 +60,15 @@ class BankStatementItem < Ekylibre::Record::Base
     self.letter = nil if letter.blank?
   end
 
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_date :initiated_on, :transfered_on, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }
-  validates_numericality_of :credit, :debit, allow_nil: true
-  validates_presence_of :bank_statement, :credit, :currency, :debit, :name, :transfered_on
-  # ]VALIDATORS]
-
   validate do
-    errors.add(:credit, :unvalid_amounts) if debit != 0 && credit != 0
+    if (debit != 0 && credit != 0) || (debit == 0 && credit == 0)
+      errors.add(:credit, :unvalid_amounts)
+    end
+    if self.bank_statement
+      unless started_on <= transfered_on && transfered_on <= stopped_on
+        errors.add(:transfered_on, :invalid)
+      end
+    end
   end
 
   before_destroy do

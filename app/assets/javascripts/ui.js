@@ -208,8 +208,12 @@
   // Nullify inputs if it filled
   $(document).on("keyup", "input[data-exclusive-nullify]", function () {
     var element = $(this);
+    var scope = $("html");
+    if (element.data("use-closest")) {
+      scope = element.closest(element.data("use-closest"));
+    }
     if (element.numericalValue() !== 0) {
-      $(element.data("exclusive-nullify")).val('');
+      scope.find(element.data("exclusive-nullify")).val('');
     }
   });
 

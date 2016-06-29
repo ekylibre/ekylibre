@@ -34,8 +34,8 @@
 #  initial_balance_debit  :decimal(19, 4)   default(0.0), not null
 #  lock_version           :integer          default(0), not null
 #  number                 :string           not null
-#  started_at             :datetime         not null
-#  stopped_at             :datetime         not null
+#  started_on             :date             not null
+#  stopped_on             :date             not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
@@ -44,15 +44,17 @@ class BankStatement < Ekylibre::Record::Base
   include Attachable
   include Customizable
   belongs_to :cash
-  has_many :items, class_name: "BankStatementItem", dependent: :destroy
+  has_many :items, class_name: "BankStatementItem", dependent: :destroy, inverse_of: :bank_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(bank_statement) { bank_statement.stopped_at && bank_statement.started_at }
+  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(bank_statement) { bank_statement.stopped_on && bank_statement.started_on }
   validates :credit, :debit, :initial_balance_credit, :initial_balance_debit, numericality: { allow_nil: true }
-  validates :cash, :credit, :currency, :debit, :initial_balance_credit, :initial_balance_debit, :number, :started_at, :stopped_at, presence: true
+  validates :cash, :credit, :currency, :debit, :initial_balance_credit, :initial_balance_debit, :number, :started_on, :stopped_on, presence: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :number, uniqueness: { scope: :cash_id }
+
+  accepts_nested_attributes_for :items, reject_if: proc { |params| params['name'].blank? && params['transfered_on'].blank? && params['debit'].to_f.zero? && params['credit'].to_f.zero? }, allow_destroy: true
 
   delegate :name, :currency, :account_id, :next_reconciliation_letters, to: :cash, prefix: true
 
@@ -64,11 +66,17 @@ class BankStatement < Ekylibre::Record::Base
     self.initial_balance_credit ||= 0
   end
 
-  # A bank account statement has to contain.all the planned records.
+  # A bank account statement has to contain all the planned records.
   validate do
-    if started_at && stopped_at
-      if started_at >= stopped_at
-        errors.add(:stopped_at, :posterior, to: started_at.l)
+    if started_on && others.where('? BETWEEN started_on AND stopped_on', started_on).any?
+      errors.add(:started_on, :overlap_sibling)
+    end
+    if stopped_on && others.where('? BETWEEN started_on AND stopped_on', stopped_on).any?
+      errors.add(:stopped_on, :overlap_sibling)
+    end
+    if started_on && stopped_on
+      if started_on >= stopped_on
+        errors.add(:stopped_on, :posterior, to: started_on.l)
       end
     end
     if initial_balance_debit != 0 && initial_balance_credit != 0
@@ -84,17 +92,25 @@ class BankStatement < Ekylibre::Record::Base
     (debit > credit ? debit - credit : 0.0)
   end
 
+  def siblings
+    self.class.where(cash_id: cash_id)
+  end
+
+  def others
+    siblings.where.not(id: self.id || 0)
+  end
+  
   def previous
-    self.class.where('stopped_at <= ?', started_at).reorder(stopped_at: :desc).first
+    self.class.where('stopped_on <= ?', started_on).reorder(stopped_on: :desc).first
   end
 
   def next
-    self.class.where('started_at >= ?', stopped_at).reorder(started_at: :asc).first
+    self.class.where('started_on >= ?', stopped_on).reorder(started_on: :asc).first
   end
 
   def eligible_journal_entry_items
     margin = 20.days
-    unpointed = JournalEntryItem.where(account_id: cash_account_id).unpointed.between(started_at - margin, stopped_at + margin)
+    unpointed = JournalEntryItem.where(account_id: cash_account_id).unpointed.between(started_on - margin, stopped_on + margin)
     pointed = JournalEntryItem.pointed_by(self)
     JournalEntryItem.where(id: unpointed.pluck(:id) + pointed.pluck(:id))
   end

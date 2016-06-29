@@ -73,6 +73,7 @@ fra:
       edit: "Modifier le relevé N°%{number}"
       index: "Relevés de compte bancaire"
       new: "Pointer un nouveau relevé de compte"
+      reconciliation: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
       show: "Relevé de compte N°%{number}"
     backend/beehives:
       reset: "Ré-initialiser la cellule: %{name}"
@@ -795,6 +796,7 @@ fra:
     add_inspection_calibration_scale: "Ajouter une échelle de calibre"
     add_inspection_point_nature: "Ajouter un critère de qualité"
     add_item: "Ajouter un élément"
+    add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
@@ -943,6 +945,7 @@ fra:
     choose_creation_mode: "Choisissez un mode de création"
     choose_mail_column: "Veuillez choisir la colonne à utiliser pour le mailing"
     city_name: "Ville" #?
+    clear: "Effacer"
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
     client: "Client"
     client_balance: "Solde du client" #?
@@ -965,6 +968,7 @@ fra:
     # company: "Society"
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
+    complete: "Compléter"
     components: "Composants" #?
     concentrations_map: "Carte des concentrations" #?
     conditions:
@@ -1168,6 +1172,7 @@ fra:
     file_to_upload: "Fichier à importer"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec" #?
+    final_balance: "Solde final"
     financial_state: "État financier" #?
     financials_assets: "Immobilisations"
     finish: "Terminer"
@@ -1251,6 +1256,7 @@ fra:
     inel_index: "Index génétique INEL" #?
     info: "Information\_: %{value}"
     infos: "Information générales"
+    initial_balance_of_bank_statement: "Solde initial du relevé de compte"
     input_cost: "Coût d’intrant"
     input_cost_per_hectare: "Coût des intrants par hectare"
     inputs: "Intrants"
@@ -1648,6 +1654,7 @@ fra:
     received: "Reçue"
     recent_events: "Derniers événements"
     recent_historic: "Historique récent" #?
+    reconciled_total: "Total rapproché"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
     # reference_cap_clusters: "Islets reference CAP"
@@ -1660,6 +1667,7 @@ fra:
     relationship_of_entity: "%{relationship} de %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} de %{entity} (%{inverse_post})"
     relationship_of_entity_as_post: "%{post} de %{entity}"
+    remaining_amount_to_reconcile: "Montant restant à rapprocher"
     remove: "Supprimer"
     remove_item: "Supprimer un élément"
     remove_reading: "Supprimer un relevé d’indicateur" #?
@@ -2207,6 +2215,7 @@ fra:
       need_cash_to_record_statements: "Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte."
       need_closed_financial_year_to_declaration: "Vous devez avoir un exercice clôturé pour créer une déclaration de TVA." #?
       need_company_code_to_login: "Vous devez sélectionner votre société pour pouvoir vous connecter avec ce nom d’utilisateur" #?
+      need_entries_to_reconciliate: "Aucune à pointer sur la période du relevé de compte"
       need_journal_to_manage_tax_declaration: "Vous devez avoir au moins un journal des opérations diverses et un journal de vente ou d’achat pour pouvoir enregistrer des déclarations de taxes." #?
       need_payment_mode_to_create_deposit: "Vous devez spécifier un mode de réglement pour effectuer une remise en banque"
       need_quantities_to_cancel_an_sale: "Vous devez spécifier une quantité pour pouvoir faire un avoir"
@@ -2350,7 +2359,7 @@ fra:
       prospect: "Prospecter"
       qualify: "Qualifier"
       quote: "Réaliser un devis"
-      reconciliation: "Reconciliation"
+      reconciliation: "Rapprocher"
       reflect: "Refléter"
       refresh: "Rafraîchir"
       refuse: "Refuser"

@@ -831,11 +831,11 @@ bank_statements:
   number:
     type: string
     required: true
-  started_at:
-    type: datetime
+  started_on:
+    type: date
     required: true
-  stopped_at:
-    type: datetime
+  stopped_on:
+    type: date
     required: true
   updated_at:
     type: datetime
