@@ -657,6 +657,7 @@ fra:
       already_confirmed: "a déjà été validé(e)"
       confirmation_period_expired: "doit être confirmé sous %{period}, refaites une nouvelle demande s’il vous plait"
       expired: "a expiré, merci d’en faire une nouvelle demande"
+      # not_enough: "not enough %{resource} to complete task"
       not_found: "n’a pas été trouvé(e)"
       not_locked: "n’était pas verrouillé(e)"
       not_saved:

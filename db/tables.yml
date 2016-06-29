@@ -4131,18 +4131,19 @@ parcel_items:
   product_id:
     type: integer
     references: product
+  product_identification_number:
+    type: string
   product_localization_id:
     type: integer
     references: product_localization
   product_movement_id:
     type: integer
     references: product_movement
+  product_name:
+    type: string
   product_ownership_id:
     type: integer
     references: product_ownership
-  product_shape_reading_id:
-    type: integer
-    references: product_reading
   purchase_item_id:
     type: integer
     references: purchase_item
@@ -4160,9 +4161,6 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
-  source_product_shape_reading_id:
-    type: integer
-    references: product_reading
   updated_at:
     type: datetime
     required: true
@@ -4232,6 +4230,8 @@ parcels:
   sender_id:
     type: integer
     references: entity
+  separated_stock:
+    type: boolean
   state:
     type: string
     required: true
@@ -4247,6 +4247,10 @@ parcels:
   updater_id:
     type: integer
     references: user
+  with_delivery:
+    type: boolean
+    required: true
+    default: false
 plant_counting_items:
   created_at:
     type: datetime

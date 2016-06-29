@@ -16,8 +16,17 @@
     - l.attribute :purchase, url: true
     - l.attribute :address
     - l.attribute :transporter, url: true
+    - l.attribute :planned_at
+    - l.attribute :ordered_at
+    - l.attribute :in_preparation_at
+    - l.attribute :prepared_at
+    - l.attribute :given_at
+
 
 = cobbles do |c|
 
   - c.cobble :items, title: resource_model.human_attribute_name(:items) do
-    = cobble_list :items
+    - if resource.incoming?
+      = cobble_list :incoming_items
+    - else
+      = cobble_list :outgoing_items

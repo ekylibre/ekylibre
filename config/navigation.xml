@@ -310,6 +310,7 @@
         <page to="backend/purchases#create"/>
         <page to="backend/purchases#destroy"/>
         <page to="backend/purchases#edit"/>
+        <page to="backend/purchases#generate_parcel"/>
         <page to="backend/purchases#invoice"/>
         <page to="backend/purchases#list"/>
         <page to="backend/purchases#list_parcels"/>
@@ -506,6 +507,27 @@
 -->
     </group>
     <group name="movements" icon="truck">
+      <item name="parcels">
+        <page to="backend/parcels#index"/>
+        <page to="backend/parcels#create"/>
+        <page to="backend/parcels#destroy"/>
+        <page to="backend/parcels#edit"/>
+        <page to="backend/parcels#invoice"/>
+        <page to="backend/parcels#list"/>
+        <page to="backend/parcels#list_incoming_items"/>
+        <page to="backend/parcels#list_outgoing_items"/>
+        <page to="backend/parcels#new"/>
+        <page to="backend/parcels#ship"/>
+        <page to="backend/parcels#show"/>
+        <page to="backend/parcels#unroll"/>
+        <page to="backend/parcels#update"/>
+        <page to="backend/parcels#cancel"/>
+        <page to="backend/parcels#check"/>
+        <page to="backend/parcels#give"/>
+        <page to="backend/parcels#order"/>
+        <page to="backend/parcels#prepare"/>
+        <page to="backend/parcel_items#new"/>
+      </item>
       <item name="deliveries">
         <page to="backend/deliveries#index"/>
         <page to="backend/deliveries#create"/>
@@ -523,26 +545,6 @@
         <page to="backend/deliveries#order"/>
         <page to="backend/deliveries#prepare"/>
         <page to="backend/deliveries#start"/>
-      </item>
-      <item name="parcels">
-        <page to="backend/parcels#index"/>
-        <page to="backend/parcels#create"/>
-        <page to="backend/parcels#destroy"/>
-        <page to="backend/parcels#edit"/>
-        <page to="backend/parcels#invoice"/>
-        <page to="backend/parcels#list"/>
-        <page to="backend/parcels#list_items"/>
-        <page to="backend/parcels#new"/>
-        <page to="backend/parcels#ship"/>
-        <page to="backend/parcels#show"/>
-        <page to="backend/parcels#unroll"/>
-        <page to="backend/parcels#update"/>
-        <page to="backend/parcels#cancel"/>
-        <page to="backend/parcels#check"/>
-        <page to="backend/parcels#give"/>
-        <page to="backend/parcels#order"/>
-        <page to="backend/parcels#prepare"/>
-        <page to="backend/parcel_items#new"/>
       </item>
     </group>
   </part>

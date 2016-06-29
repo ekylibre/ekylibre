@@ -153,7 +153,7 @@
         error: (request, status, error) ->
           console.error "Cannot get details of item on #{url} (#{request.status}/#{request.readyState}/#{request.statusCode()}) (#{status}): #{error}"
 
-    _select: (id, label, triggerEvents = false) ->
+    _select: (id, label, triggerEvents = false, selectedElement = null) ->
       # console.log "select"
       @lastSearch = label
       len = 4 * Math.round(Math.round(1.11 * label.length) / 4)
@@ -166,7 +166,7 @@
         @dropDownMenu.hide()
       if triggerEvents is true
         @valueField.trigger "selector:change"
-        @element.trigger "selector:change"
+        @element.trigger "selector:change", selectedElement
       if @initializing
         @valueField.trigger "selector:initialized"
         @element.trigger "selector:initialized"
@@ -244,7 +244,7 @@
       selected ?= @dropDownMenu.find("ul li.item.selected").first()
       if selected.length > 0
         if selected.is("[data-item-label][data-item-id]")
-          this._select(selected.data("item-id"), selected.data("item-label"), true)
+          this._select(selected.data("item-id"), selected.data("item-label"), true, selected)
         else if selected.is("[data-new-item]")
           parameters = {}
           if default_values = @element.data('selector-new-item-default-values')
@@ -338,6 +338,13 @@
   $(document).behave "load", "input[data-selector]", (event) ->
     $("input[data-selector]").each ->
       $(this).selector()
-
+  $(document).on "selector:change", (changeEvent, value) ->
+      $("*[data-selector-update]").each ->
+        updateSource = $(this)
+          .closest($(this).data("selector-use-closest"))
+          .find("*[data-selector-id='"+$(this).data("selector-update")+"']")[0]
+        if updateSource == changeEvent.target
+          if value
+            $(this).html $(value).data("item-"+$(this).data("selector-update-with"))
   return
 ) ekylibre, jQuery

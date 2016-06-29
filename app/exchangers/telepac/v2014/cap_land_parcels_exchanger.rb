@@ -32,7 +32,7 @@ module Telepac
               siret_number: Entity.of_company.siret_number || '000000000000018'
             }
             ## find or create cap statement
-            cap_statement = CapStatement.find_or_initialize_by(campaign: campaign, pacage_number: pacage_number)
+            cap_statement = ::CapStatement.find_or_initialize_by(campaign: campaign, pacage_number: pacage_number)
             cap_statement.attributes = cap_statement_attributes
             cap_statement.save!
             # end
@@ -45,7 +45,7 @@ module Telepac
             }
 
             # find or create islet according to cap statement
-            cap_islet = CapIslet.find_or_initialize_by(islet_attributes.slice(:islet_number, :cap_statement))
+            cap_islet = ::CapIslet.find_or_initialize_by(islet_attributes.slice(:islet_number, :cap_statement))
             cap_islet.attributes = islet_attributes
             cap_islet.save!
 
@@ -57,8 +57,8 @@ module Telepac
               nature: :polygon,
               content: cap_islet.shape
             }
-            unless georeading = Georeading.find_by(georeadings_attributes.slice(:number))
-              georeading = Georeading.create!(georeadings_attributes)
+            unless georeading = ::Georeading.find_by(georeadings_attributes.slice(:number))
+              georeading = ::Georeading.create!(georeadings_attributes)
             end
 
             w.check_point

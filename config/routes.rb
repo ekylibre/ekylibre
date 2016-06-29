@@ -631,7 +631,8 @@ Rails.application.routes.draw do
     resources :parcels, concerns: [:list, :unroll] do
       member do
         post :invoice
-        get :list_items
+        get :list_incoming_items
+        get :list_outgoing_items
         post :ship
 
         post :order
@@ -699,6 +700,7 @@ Rails.application.routes.draw do
       member do
         get :list_items
         get :list_parcels
+        post :generate_parcel
         post :abort
         post :confirm
         post :correct

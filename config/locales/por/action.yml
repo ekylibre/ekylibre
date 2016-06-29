@@ -545,6 +545,7 @@ por:
       already_confirmed: "Já foi confirmada, por favor tente fazer login"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "Expirou, por favor solicitar um novo"
+      # not_enough: "not enough %{resource} to complete task"
       not_found: "Não encontrado"
       not_locked: "Não estava trancada"
       not_saved:

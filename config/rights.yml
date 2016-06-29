@@ -977,7 +977,8 @@ incoming_deliveries:
     - "backend/parcel_items#new"
     - "backend/parcels#index"
     - "backend/parcels#list"
-    - "backend/parcels#list_items"
+    - "backend/parcels#list_incoming_items"
+    - "backend/parcels#list_outgoing_items"
     - "backend/parcels#show"
     - "backend/parcels#unroll"
   write:
@@ -994,6 +995,7 @@ incoming_deliveries:
     - "backend/parcels#order"
     - "backend/parcels#prepare"
     - "backend/parcels#update"
+    - "backend/purchases#generate_parcel"
 
 incoming_payment_modes:
   read:
@@ -1331,7 +1333,8 @@ outgoing_deliveries:
     actions:
     - "backend/parcels#index"
     - "backend/parcels#list"
-    - "backend/parcels#list_items"
+    - "backend/parcels#list_incoming_items"
+    - "backend/parcels#list_outgoing_items"
     - "backend/parcels#show"
     - "backend/parcels#unroll"
   write:

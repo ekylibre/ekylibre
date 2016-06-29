@@ -90,41 +90,40 @@ class Tax < Ekylibre::Record::Base
     end
 
     # Load a tax from tax nomenclature
-    def import_from_nomenclature(reference_name, active = false)
+    def import_from_nomenclature(reference_name, active = nil)
       unless item = Nomen::Tax.find(reference_name)
         raise ArgumentError, "The tax #{reference_name.inspect} is not known"
       end
       tax = Tax.find_by(amount: item.amount, nature: item.nature, country: item.country)
       tax ||= Tax.find_by(reference_name: reference_name)
+
       if tax
-        tax.active = active
-      else
-        nature = Nomen::TaxNature.find(item.nature)
-        if nature.computation_method != :percentage
-          raise StandardError, 'Can import only percentage computed taxes'
-        end
-        attributes = {
-          amount: item.amount,
-          name: item.human_name,
-          nature: item.nature,
-          country: item.country,
-          active: active,
-          reference_name: item.name
-        }
-        [:deduction, :collect, :fixed_asset_deduction, :fixed_asset_collect].each do |account|
-          next unless name = nature.send("#{account}_account")
-          tax_radical = Account.find_or_import_from_nomenclature(name)
-          # find if already account tax  by number was created
-          tax_account = Account.find_or_create_by_number("#{tax_radical.number}#{nature.suffix}") do |a|
-            a.name = "#{tax_radical.name} - #{item.human_name}"
-            a.usages = tax_radical.usages
-          end
-          attributes["#{account}_account_id"] = tax_account.id
-        end
-        tax = Tax.new(attributes)
+        tax.update_column(active: active) unless active.nil?
+        return tax
       end
-      tax.save!
-      tax
+      nature = Nomen::TaxNature.find(item.nature)
+      if nature.computation_method != :percentage
+        raise StandardError, 'Can import only percentage computed taxes'
+      end
+      attributes = {
+        amount: item.amount,
+        name: item.human_name,
+        nature: item.nature,
+        country: item.country,
+        active: active,
+        reference_name: item.name
+      }
+      [:deduction, :collect, :fixed_asset_deduction, :fixed_asset_collect].each do |account|
+        next unless name = nature.send("#{account}_account")
+        tax_radical = Account.find_or_import_from_nomenclature(name)
+        # find if already account tax  by number was created
+        tax_account = Account.find_or_create_by_number("#{tax_radical.number}#{nature.suffix}") do |a|
+          a.name = "#{tax_radical.name} - #{item.human_name}"
+          a.usages = tax_radical.usages
+        end
+        attributes["#{account}_account_id"] = tax_account.id
+      end
+      Tax.create!(attributes)
     end
 
     # Load all tax from tax nomenclature by country

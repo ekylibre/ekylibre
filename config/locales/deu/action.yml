@@ -540,6 +540,7 @@ deu:
       already_confirmed: "bereits bestätigt wurde, versuchen Sie es mit der Unterzeichnung"
       # confirmation_period_expired: "needs to be confirmed within %{period}, please request a new one"
       expired: "abgelaufen ist, fordern Sie bitte eine neue"
+      # not_enough: "not enough %{resource} to complete task"
       not_found: "nicht gefunden"
       not_locked: "nicht gesperrt wurde"
       not_saved:

@@ -283,6 +283,29 @@ class ProductNatureVariant < Ekylibre::Record::Base
     product_model.create!(variant: self, name: product_name + ' ' + born_at.l, initial_owner: Entity.of_company, initial_born_at: born_at, default_storage: default_storage)
   end
 
+  # Shortcut for creating a new product of the variant
+  def create_product!(attributes = {})
+    attributes[:initial_owner] ||= Entity.of_company
+    attributes[:initial_born_at] ||= Time.zone.now
+    attributes[:born_at] ||= attributes[:initial_born_at]
+    attributes[:name] ||= "#{name} (#{attributes[:initial_born_at].to_date.l})"
+    matching_model.create!(attributes.merge(variant: self))
+  end
+
+  def take(quantity)
+    products.mine.reduce({}) do |result, product|
+      reminder = quantity - result.values.sum
+      if reminder > 0
+        result[product] = [product.population, reminder].min
+      end
+      result
+    end
+  end
+
+  def take!(quantity)
+    raise "errors.not_enough".t if take(quantity).values.sum < quantity
+  end
+
   # Returns last purchase item for the variant
   # and a given supplier if any, or nil if there's
   # no purchase item matching criterias

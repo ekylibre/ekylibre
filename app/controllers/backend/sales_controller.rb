@@ -200,8 +200,7 @@ module Backend
 
     def generate_parcel
       return unless @sale = find_and_check
-      parcel = @sale.generate_parcel
-      redirect_to params[:redirect] || { controller: :parcels, action: :show, id: parcel.id }
+      redirect_to controller: :parcels, action: :new, sale_id: @sale.id, nature: :outgoing
     end
 
     def cancel

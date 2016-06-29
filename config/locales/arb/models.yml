@@ -641,6 +641,7 @@ arb:
         taken: "%{attribute} قد تم اتخاذه مسبقا"
         too_long: "%{attribute} طويل جدا (%{count}الحد الاقصى للاحرف)"
         too_short: "%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)"
+        # unitary_in_parcel: "Unitary items can only be sent one by one"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
         bank_statement_item:
@@ -1818,11 +1819,13 @@ arb:
     product_components: "مكونات المنتج" #?
     product_enjoyments: "المتعة المنتج"
     product_id: "المنتج" #?
+    # product_identification_number: "Identification number"
     product_linkages: "الروابط المنتج"
     product_localization: "توطين المنتج"
     product_localizations: "تعريب المنتج"
     product_memberships: "عضوية المنتج"
     product_movement: "حركة المنتج"
+    # product_name: "Name"
     product_nature: "نوع المنتج"
     product_nature_categories: "فئات نوع المنتج"
     product_nature_category: "فئة نوع المنتج"
@@ -2007,6 +2010,7 @@ arb:
     sensor: "الاستشعار"
     sensors: "أجهزة الاستشعار"
     sent_at: "أرسلت في"
+    # separated_stock: "Do not merge with existing stocks"
     sequences: "التسلسلات" #?
     serial: "عدد الحصص"
     serial_number: "رقم سري"
@@ -2208,6 +2212,7 @@ arb:
     with_accounting: "سجل الدفعات"
     with_commission: "تشمل عمولة"
     with_cultivation: "مع زراعة"
+    # with_delivery: "With delivery"
     with_deposit: "استخدام الاقتطاعات المصرفية"
     with_supports: "مع الدعم"
     with_tracking: "مع التتبع" #?

@@ -5,7 +5,7 @@ $sort-mask: rgba(0, 18, 132, 0.05);
 
 $list-line-backgrounds:      ("&" rgba(#FFF, 1)) ("&.error, &.critic" rgba($invalid-color, 0.12)) ("&.warning, &.waiting, &.undone" rgba($caution-color, 0.12)) ("&.selected, &.in_progress" rgba($active-color, 0.12)) ("&.done, &.disabled" rgba($neutral-color, 0.09)) ("&.success, &.finished" rgba($success-color, 0.12)) ("&.focus" rgba($highlight-color, 0.8));
 $list-column-backgrounds:    ("&" rgba(#FFF, 0)) ("&.sor" $sort-mask);
-$list-selection-backgrounds: ("&" rgba(#FFF, 0)) ("&.selected" rgba($selection-color, 0.22));
+$list-selection-backgrounds: ("&" rgba(#FFF, 0)) ("&.selected" rgba($selection-color, 0.08));
 $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 
 // $default-border-color: $menu-border-color;
@@ -43,6 +43,11 @@ table {
     border-bottom: $menu-border;
     td {
       border-top: $row-border;
+    }
+    tr.no-border{
+      td {
+        border: none;
+      }
     }
     tr:first-child {
       td {
@@ -286,6 +291,9 @@ table {
     &:last-child {
       @include margin-right(0);
     }
+  }
+  .main-toolbar & {
+    @include inline-block;
   }
 }
 

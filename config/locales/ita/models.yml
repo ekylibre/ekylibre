@@ -82,6 +82,7 @@ ita:
         too_short:  #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
           one: "è troppo corto (il minimo è 1 carattere)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
           other: "è troppo corto (il minimo è %{count} caratteri)" #? String excepted (Hash:{:one=>"è troppo corto (il minimo è 1 carattere)", :other=>"è troppo corto (il minimo è %{count} caratteri)"})
+        # unitary_in_parcel: "Unitary items can only be sent one by one"
         wrong_length:  #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
           one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
@@ -957,11 +958,13 @@ ita:
     product: "Prodotto"
     product_account: "conto del prodotto"
     product_enjoyments: "godimenti del prodotto"
+    # product_identification_number: "Identification number"
     product_linkages: "collegamenti del prodotto"
     product_localization: "la localizzazione del prodotto"
     product_localizations: "localizzazioni del prodotto"
     product_memberships: "appartenenze prodotto"
     product_movement: "il movimento del prodotto"
+    # product_name: "Name"
     product_nature: "Tipologia di prodotto"
     product_nature_categories: "categorie di tipi di prodotto"
     product_nature_category: "Categoria Tipo di prodotto"
@@ -1099,6 +1102,7 @@ ita:
     sensor: "Sensore"
     sensors: "sensori"
     sent_at: "Trasmesso a"
+    # separated_stock: "Do not merge with existing stocks"
     serial: "Seriale"
     serial_number: "Numero di serie"
     sessions: "sessioni"
@@ -1240,6 +1244,7 @@ ita:
     with_accounting: "con la contabilità"
     with_commission: "con commissione"
     with_cultivation: "con la coltivazione"
+    # with_delivery: "With delivery"
     with_deposit: "con deposito"
     with_supports: "Con supporti"
     with_transport: "con i trasporti"

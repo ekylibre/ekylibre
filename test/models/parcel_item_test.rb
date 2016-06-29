@@ -22,29 +22,29 @@
 #
 # == Table: parcel_items
 #
-#  analysis_id                     :integer
-#  created_at                      :datetime         not null
-#  creator_id                      :integer
-#  id                              :integer          not null, primary key
-#  lock_version                    :integer          default(0), not null
-#  parcel_id                       :integer          not null
-#  parted                          :boolean          default(FALSE), not null
-#  population                      :decimal(19, 4)
-#  product_enjoyment_id            :integer
-#  product_id                      :integer
-#  product_localization_id         :integer
-#  product_movement_id             :integer
-#  product_ownership_id            :integer
-#  product_shape_reading_id        :integer
-#  purchase_item_id                :integer
-#  sale_item_id                    :integer
-#  shape                           :geometry({:srid=>4326, :type=>"multi_polygon"})
-#  source_product_id               :integer
-#  source_product_movement_id      :integer
-#  source_product_shape_reading_id :integer
-#  updated_at                      :datetime         not null
-#  updater_id                      :integer
-#  variant_id                      :integer
+#  analysis_id                   :integer
+#  created_at                    :datetime         not null
+#  creator_id                    :integer
+#  id                            :integer          not null, primary key
+#  lock_version                  :integer          default(0), not null
+#  parcel_id                     :integer          not null
+#  parted                        :boolean          default(FALSE), not null
+#  population                    :decimal(19, 4)
+#  product_enjoyment_id          :integer
+#  product_id                    :integer
+#  product_identification_number :string
+#  product_localization_id       :integer
+#  product_movement_id           :integer
+#  product_name                  :string
+#  product_ownership_id          :integer
+#  purchase_item_id              :integer
+#  sale_item_id                  :integer
+#  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  source_product_id             :integer
+#  source_product_movement_id    :integer
+#  updated_at                    :datetime         not null
+#  updater_id                    :integer
+#  variant_id                    :integer
 #
 require 'test_helper'
 

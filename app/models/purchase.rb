@@ -254,4 +254,8 @@ class Purchase < Ekylibre::Record::Base
   def taxes_amount
     amount - pretax_amount
   end
+
+  def can_generate_parcel?
+    items.any? && delivery_address && (order? || invoice?)
+  end
 end

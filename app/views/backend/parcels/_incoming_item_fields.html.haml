@@ -1,0 +1,30 @@
+- item ||= f.object
+- source_product = Maybe(item.source_product)
+- variant = source_product.variant
+
+%tbody.nested-fields.delivery-item.incoming-parcel-item
+  %tr
+    %td.act
+      - if f.object.destroyable?
+        = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
+    %td
+      = f.referenced_association(:variant, wrapper: :nested, source: { scope: :deliverables }, input_html: {data: {product_of_delivery_item: {url: backend_product_nature_variant_path("RECORD_ID", format: :json)}}})
+      -# .errors= item.errors.inspect
+    %td
+      .item-quantifier
+        .item-quantifier-population
+          = f.input :population, wrapper: :nested_append do
+            = f.input_field :population, class: "item-population", placeholder: (source_product.population.or_else(nil).to_s), data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
+            %span.add-on.item-population-unit-name
+              = variant.unit_name.or_else('#')
+    %td= f.referenced_association(:analysis, wrapper: :nested)
+
+  - display = "display: none;" unless variant.population_counting_unitary?.or_else(false)
+  %tr.no-border{style: display, data: {"when-item": "unitary", "when-display-value": 'true'}}
+    %td
+    %td
+      = f.input :name, wrapper: :nested_append do
+        = f.input_field :product_name, placeholder: ParcelItem.human_attribute_name(:product_name)
+    %td
+      = f.input :identification_number, wrapper: :nested_append do
+        = f.input_field :product_identification_number, placeholder: ParcelItem.human_attribute_name(:product_identification_number)

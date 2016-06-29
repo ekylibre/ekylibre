@@ -75,6 +75,7 @@ eng:
         taken: "%{attribute} has already been taken"
         too_long: "%{attribute} is too long (maximum is %{count} characters)"
         too_short: "%{attribute} is too short (minimum is %{count} characters)"
+        unitary_in_parcel: "Unitary items can only be sent one by one"
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         bank_statement_item:
@@ -949,11 +950,13 @@ eng:
     product_account: "Product account"
     # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Product enjoyments" #?
+    product_identification_number: "Identification number"
     product_linkages: "Product linkages" #?
     product_localization: "Product localization"
     product_localizations: "Product localizations" #?
     product_memberships: "Product memberships" #?
     product_movement: "Product movement"
+    product_name: "Name"
     product_nature: "Product type"
     product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"
@@ -968,7 +971,6 @@ eng:
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
     product_readings: "Product readings" #?
-    # product_shape_reading: "Product shape reading"
     production: "Production" #?
     production_campaign: "Production campaign"
     production_cycle: "Production cycle"
@@ -1100,6 +1102,7 @@ eng:
     sensor: "Sensor"
     sensors: "Sensors"
     sent_at: "Sent at" #?
+    separated_stock: "Do not merge with existing stocks"
     serial: "Serial"
     serial_number: "Serial number"
     sessions: "Sessions"
@@ -1120,7 +1123,6 @@ eng:
     source: "Source"
     source_product: "Source product"
     # source_product_movement: "Source product movement"
-    # source_product_shape_reading: "Source product shape reading"
     spaced_iban: "Spaced IBAN"
     sql_type: "SQL type"
     start: "Start"
@@ -1247,6 +1249,7 @@ eng:
     with_accounting: "With accounting"
     with_commission: "With commission"
     with_cultivation: "With cultivation"
+    with_delivery: "With delivery"
     with_deposit: "With deposit"
     with_supports: "With supports"
     with_transport: "With transport" #?

@@ -44,11 +44,13 @@
 #  remain_owner      :boolean          default(FALSE), not null
 #  sale_id           :integer
 #  sender_id         :integer
+#  separated_stock   :boolean
 #  state             :string           not null
 #  storage_id        :integer
 #  transporter_id    :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
+#  with_delivery     :boolean          default(FALSE), not null
 #
 ---
 parcels_001:

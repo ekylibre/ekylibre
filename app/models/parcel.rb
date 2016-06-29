@@ -44,17 +44,20 @@
 #  remain_owner      :boolean          default(FALSE), not null
 #  sale_id           :integer
 #  sender_id         :integer
+#  separated_stock   :boolean
 #  state             :string           not null
 #  storage_id        :integer
 #  transporter_id    :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
+#  with_delivery     :boolean          default(FALSE), not null
 #
+
 class Parcel < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :nature, in: [:incoming, :outgoing, :internal], predicates: true, scope: true, default: :incoming
-  enumerize :delivery_mode, in: [:transporter, :us, :third, :indifferent], predicates: { prefix: true }, scope: true, default: :indifferent
+  enumerize :nature, in: [:incoming, :outgoing], predicates: true, scope: true, default: :incoming
+  enumerize :delivery_mode, in: [:transporter, :us, :third], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
   belongs_to :storage, class_name: 'Product'
@@ -87,7 +90,7 @@ class Parcel < Ekylibre::Record::Base
   acts_as_numbered
   delegate :draft?, :ordered?, :in_preparation?, :prepared?, :started?, :finished?, to: :delivery, prefix: true
 
-  state_machine :state, initial: :draft do
+  state_machine initial: :draft do
     state :draft
     state :ordered
     state :in_preparation
@@ -98,15 +101,16 @@ class Parcel < Ekylibre::Record::Base
       transition draft: :ordered, if: :items?
     end
     event :prepare do
+      transition draft: :in_preparation, if: :items?
       transition ordered: :in_preparation, if: :items?
     end
     event :check do
-      transition in_preparation: :prepared, if: :all_items_prepared?
-      transition ordered: :prepared, if: :all_items_prepared?
       transition draft: :prepared, if: :all_items_prepared?
+      transition ordered: :prepared, if: :all_items_prepared?
+      transition in_preparation: :prepared, if: :all_items_prepared?
     end
     event :give do
-      transition prepared: :given, if: :delivery_started?
+      transition prepared: :given, unless: :with_delivery?
     end
     event :cancel do
       transition ordered: :draft
@@ -144,13 +148,17 @@ class Parcel < Ekylibre::Record::Base
   end
 
   after_save do
-    if delivery
-      if prepared? && delivery_in_preparation?
-        delivery.check if delivery.parcels.all?(&:prepared?)
-        # elsif self.in_preparation? && self.delivery_ordered?
-        #   delivery.prepare
-      end
+    if delivery && prepared? && delivery_in_preparation?
+      delivery.check if delivery.parcels.all?(&:prepared?)
     end
+  end
+
+  protect on: :destroy do
+    prepared? || given?
+  end
+
+  def separated_stock?
+    separated_stock
   end
 
   def invoiced?
@@ -170,7 +178,11 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def shippable?
-    !delivery.present?
+    with_delivery && !delivery.present?
+  end
+
+  def allow_items_update?
+    !prepared? && !given?
   end
 
   def address_coordinate
@@ -215,11 +227,11 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def third_id
-    (incoming? ? sender_id : outgoing? ? recipient_id : nil)
+    (incoming? ? sender_id : recipient_id)
   end
 
   def third
-    (incoming? ? sender : outgoing? ? recipient : nil)
+    (incoming? ? sender : recipient)
   end
 
   def order
@@ -229,26 +241,32 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def prepare
+    order if can_order?
     return false unless can_prepare?
     now = Time.zone.now
     values = { in_preparation_at: now }
-    values[:ordered_at] = now unless ordered_at
+    # values[:ordered_at] = now unless ordered_at
     update_columns(values)
     super
   end
 
   def check
+    order if can_order?
+    prepare if can_prepare?
     return false unless can_check?
     now = Time.zone.now
     values = { prepared_at: now }
-    values[:ordered_at] = now unless ordered_at
-    values[:in_preparation_at] = now unless in_preparation_at
+    # values[:ordered_at] = now unless ordered_at
+    # values[:in_preparation_at] = now unless in_preparation_at
     update_columns(values)
     items.each(&:check)
     super
   end
 
   def give
+    order if can_order?
+    prepare if can_prepare?
+    check if can_check?
     return false unless can_give?
     update_column(:given_at, Time.zone.now)
     items.each(&:give)
@@ -315,12 +333,21 @@ class Parcel < Ekylibre::Record::Base
           unless journal = Journal.sales.opened_at(planned_at).first
             raise 'No sale journal'
           end
-          nature = SaleNature.create!(active: true, currency: Preference[:currency], with_accounting: true, journal: journal, by_default: true, name: SaleNature.tc('default.name', default: SaleNature.model_name.human))
+          nature = SaleNature.create!(
+            active: true,
+            currency: Preference[:currency],
+            with_accounting: true,
+            journal: journal,
+            by_default: true,
+            name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
+          )
         end
-        sale = Sale.create!(client: third,
-                            nature: nature,
-                            # created_at: planned_at,
-                            delivery_address: parcels.last.address)
+        sale = Sale.create!(
+          client: third,
+          nature: nature,
+          # created_at: planned_at,
+          delivery_address: parcels.last.address
+        )
 
         # Adds items
         parcels.each do |parcel|
@@ -333,14 +360,19 @@ class Parcel < Ekylibre::Record::Base
             next unless item.population && item.population > 0
             unless catalog_item = item.variant.catalog_items.first
               unless catalog = Catalog.of_usage(:sale).first
-                catalog = Catalog.create!(name: Catalog.enumerized_attributes[:usage].human_value_name(:sales), usage: :sales)
+                catalog = Catalog.create!(
+                  name: Catalog.enumerized_attributes[:usage].human_value_name(:sales),
+                  usage: :sales
+                )
               end
               catalog_item = catalog.items.create!(amount: 0, variant: item.variant)
             end
-            item.sale_item = sale.items.create!(variant: item.variant,
-                                                unit_pretax_amount: catalog_item.amount,
-                                                tax: item.variant.category.sale_taxes.first || Tax.first,
-                                                quantity: item.population)
+            item.sale_item = sale.items.create!(
+              variant: item.variant,
+              unit_pretax_amount: catalog_item.amount,
+              tax: item.variant.category.sale_taxes.first || Tax.first,
+              quantity: item.population
+            )
             item.save!
           end
           parcel.reload
@@ -377,19 +409,24 @@ class Parcel < Ekylibre::Record::Base
             name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human)
           )
         end
-        purchase = Purchase.create!(supplier: third,
-                                    nature: nature,
-                                    planned_at: planned_at,
-                                    delivery_address: parcels.last.address)
+        purchase = Purchase.create!(
+          supplier: third,
+          nature: nature,
+          planned_at: planned_at,
+          delivery_address: parcels.last.address
+        )
 
         # Adds items
         parcels.each do |parcel|
           parcel.items.each do |item|
             next unless item.population && item.population > 0
-            item.purchase_item = purchase.items.create!(variant: item.variant,
-                                                        unit_pretax_amount: (item.variant.catalog_items.any? ? item.variant.catalog_items.order(id: :desc).first.amount : 0.0),
-                                                        tax: item.variant.category.purchase_taxes.first || Tax.first,
-                                                        quantity: item.population)
+            catalog_item = item.variant.catalog_items.order(id: :desc).first
+            item.purchase_item = purchase.items.create!(
+              variant: item.variant,
+              unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
+              tax: item.variant.category.purchase_taxes.first || Tax.first,
+              quantity: item.population
+            )
             item.save!
           end
           parcel.reload

@@ -44,11 +44,13 @@
 #  remain_owner      :boolean          default(FALSE), not null
 #  sale_id           :integer
 #  sender_id         :integer
+#  separated_stock   :boolean
 #  state             :string           not null
 #  storage_id        :integer
 #  transporter_id    :integer
 #  updated_at        :datetime         not null
 #  updater_id        :integer
+#  with_delivery     :boolean          default(FALSE), not null
 #
 
 require 'test_helper'
@@ -71,87 +73,203 @@ class ParcelTest < ActiveSupport::TestCase
     # parcel.items.map(&:net_mass)
   end
 
-  test 'incoming items' do
-    assert_raise ActiveRecord::RecordInvalid do
-      Parcel.create!
-    end
-    assert_raise ActiveRecord::RecordInvalid do
-      Parcel.create!(nature: :incoming)
-    end
+  test 'incoming items with separated stock' do
+    variant = product_nature_variants(:product_nature_variants_009)
+    pre_num_of_products = variant.products.count
 
-    storage = products(:building_divisions_003)
-    parcel = Parcel.create!(nature: :incoming, sender: entities(:entities_016), storage: storage)
+    parcel_attributes = {
+      nature: :incoming,
+      delivery_mode: :third,
+      address: entity_addresses(:entity_addresses_016),
+      sender: entities(:entities_001),
+      storage: products(:building_divisions_003),
+      separated_stock: true,
+    }
 
-    source_product = products(:matters_007)
-    parcel.items.create!(source_product: source_product)
-    parcel.order!
-    parcel.prepare!
-    parcel.check!
-    assert_raise StateMachine::InvalidTransition do
-      parcel.give!
-    end
+    parcel_items_attributes = {
+      population: 20,
+      variant: variant
+    }
 
-    delivery = Delivery.create!(parcel_ids: [parcel.id])
+    p = Parcel.create!(parcel_attributes)
 
-    parcel.reload
-    product = parcel.items.first.product
-    assert_equal source_product, product
+    p.items.create!(parcel_items_attributes)
 
-    delivery.order!
-    delivery.prepare!
-    delivery.check!
-    delivery.start!
-    delivery.reload
-    delivery.finish!
-    product.reload
-    # assert_equal storage, product.current_localization.container, 'Container differs from expected'
-    assert_equal :own, product.current_enjoyment.nature.to_sym, 'All enjoyments: ' + product.enjoyments.order(:started_at).collect { |e| "#{e.started_at.l}: #{e.nature} (#{e.enjoyer_id})" }.join(', ')
-    assert_equal :own, product.current_ownership.nature.to_sym, 'All ownerships: ' + product.ownerships.order(:started_at).collect { |e| "#{e.started_at.l}: #{e.nature} (#{e.owner_id})" }.join(', ')
+    p.order
+    p.prepare
+    p.check
+
+    variant.reload
+    post_num_of_products = variant.products.count
+
+    # Should have created a new product.
+    assert_equal(pre_num_of_products + 1, post_num_of_products, <<-PRODUCT_NOT_IN_STOCK)
+
+    \tCurrently in stock :
+    \t - First product:
+    \t\t#{variant.products.first.name}
+    \t - Last product:
+    \t\t#{variant.products.last.name}
+    \t - All products :
+    #{variant.products.map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+
+    \tNew products that should be in it :
+    #{p.items.map(&:product).map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+    PRODUCT_NOT_IN_STOCK
+
+    # The newly created product should have the population specified in the parcel.
+    assert_equal(variant.products.last.population, p.items.first.population, <<-WRONG_POPULATION)
+
+    \tLast item in stock's population :
+    \t\t#{variant.products.last.population}
+    \tPopulation that was in the parcel :
+    \t\t#{p.items.first.population}
+    WRONG_POPULATION
+
   end
 
-  test 'parted outgoing items' do
-    assert_raise ActiveRecord::RecordInvalid do
-      Parcel.create!
-    end
-    assert_raise ActiveRecord::RecordInvalid do
-      Parcel.create!(nature: :outgoing)
-    end
+  test 'incoming items with grouped stock' do
+    variant = product_nature_variants(:product_nature_variants_048)
+    # Making sure we have someone to group up with.
+    storage = variant.products.first.localizations.last.container
 
-    storage = products(:building_divisions_003)
-    parcel = Parcel.create!(nature: :outgoing, recipient: entities(:entities_016), address: entity_addresses(:entity_addresses_016), remain_owner: true)
+    pre_stock = variant.products.first.population
+    pre_num_of_products = variant.products.count
 
-    source_product = products(:matters_007)
-    old_ownership_nature = source_product.current_ownership.nature.to_sym
-    taken_quantity = 153.23
+    parcel_attributes = {
+      nature: :incoming,
+      delivery_mode: :third,
+      address: entity_addresses(:entity_addresses_016),
+      sender: entities(:entities_001),
+      storage: storage,
+      separated_stock: false,
+    }
 
-    item = parcel.items.create!(source_product: source_product, population: taken_quantity)
-    parcel.order!
-    parcel.prepare!
-    parcel.check!
-    item.reload
-    assert item.product
-    assert_not_equal item.product, item.source_product
-    assert_equal taken_quantity, item.product.population
-    assert_raise StateMachine::InvalidTransition do
-      parcel.give!
-    end
+    parcel_items_attributes = {
+      population: 20,
+      variant: variant,
+    }
 
-    delivery = Delivery.create!(parcel_ids: [parcel.id])
+    p = Parcel.create!(parcel_attributes)
 
-    parcel.reload
-    product = item.product
-    assert_not_equal source_product, product
-    assert_equal source_product.variant, product.variant
+    p.items.create!(parcel_items_attributes)
 
-    delivery.order!
-    delivery.prepare!
-    delivery.check!
-    delivery.start!
-    delivery.reload
-    delivery.finish!
-    product.reload
-    assert_equal :exterior, product.current_localization.nature.to_sym, 'All localizations: ' + product.localizations.order(:started_at).collect { |e| "#{e.started_at.l}: #{e.nature} (#{e.container_id})" }.join(', ')
-    assert_equal :other, product.current_enjoyment.nature.to_sym, 'All enjoyments: ' + product.enjoyments.order(:started_at).collect { |e| "#{e.started_at.l}: #{e.nature} (#{e.enjoyer_id})" }.join(', ')
-    assert_equal old_ownership_nature, product.current_ownership.nature.to_sym, 'All ownerships: ' + product.ownerships.order(:started_at).collect { |e| "#{e.started_at.l}: #{e.nature} (#{e.owner_id})" }.join(', ')
+    p.order!
+    p.prepare!
+    p.check!
+
+    variant.reload
+    post_stock = p.items.first.product.population
+    post_num_of_products = variant.products.count
+
+    # Should have grouped up and as such incremented the existing product population.
+    assert_equal(pre_stock + 20, post_stock, <<-WRONG_POPULATION)
+
+    \tCurrently in stock :
+    \t - All products :
+    #{variant.products.reduce("") { |a, p| a+"\t\t"+p.name.inspect+":\t"+p.population.to_s+"\n"}}
+
+    \tProducts that should have gotten in through the Parcel :
+    #{p.items.map(&:product).reduce("") { |a, p| a+"\t\t"+p.name.inspect+":\t"+p.population.to_s+"\n"}}
+    WRONG_POPULATION
+
+    # Should've grouped up and as such not incremented the number of products.
+    assert_equal(pre_num_of_products, post_num_of_products, <<-TOO_MANY_PRODUCTS)
+
+    \tCurrently in stock :
+    \t - First product:
+    \t\t#{variant.products.first.name}
+    \t - Last product:
+    \t\t#{variant.products.last.name}
+    \t - All products :
+    #{variant.products.map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+    TOO_MANY_PRODUCTS
+  end
+
+  test "outgoing parcels" do
+    product = products(:matters_017)
+
+    parcel_attributes = {
+      nature: :outgoing,
+      address: entity_addresses(:entity_addresses_016),
+      recipient: entities(:entities_001),
+      delivery_mode: :third,
+    }
+
+    parcel_items_attributes = {
+      population: 0.02,
+      source_product: products,
+    }
+
+    p = Parcel.create!(parcel_attributes)
+
+    p.items.create!(parcel_items_attributes)
+
+    p.order!
+    p.prepare!
+    p.check!
+
+    # Should've sent all of them
+    assert_equal(0, product.population, <<-POPULATION_NOT_NULL)
+
+    \tCurrent product population :
+    \t\t#{product.population.to_s}
+    POPULATION_NOT_NULL
+  end
+
+  test "unitary items in parcels" do
+    # Unitary items in incoming should always be handled like non-grouped items.
+
+    variant = product_nature_variants(:product_nature_variants_005)
+    pre_num_of_products = variant.products.count
+
+    parcel_attributes = {
+      nature: :incoming,
+      delivery_mode: :third,
+      address: entity_addresses(:entity_addresses_016),
+      sender: entities(:entities_001),
+      storage: products(:building_divisions_003),
+    }
+
+    parcel_items_attributes = {
+      population: 20,
+      variant: variant,
+    }
+
+    p = Parcel.create!(parcel_attributes)
+
+    p.items.create!(parcel_items_attributes)
+
+    p.order
+    p.prepare
+    p.check
+
+    variant.reload
+    post_num_of_products = variant.products.count
+
+    # Should have created a new product cause we never group unitary items.
+    assert_equal(pre_num_of_products + 1, post_num_of_products, <<-PRODUCT_NOT_IN_STOCK)
+
+    \tCurrently in stock :
+    \t - First product:
+    \t\t#{variant.products.first.name}
+    \t - Last product:
+    \t\t#{variant.products.last.name}
+    \t - All products :
+    #{variant.products.map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+
+    \tNew products that should be in it :
+    #{p.items.map(&:product).map(&:name).reduce("") { |a, s| a+"\t\t"+s.inspect+"\n"}}
+    PRODUCT_NOT_IN_STOCK
+
+    # The newly created product should have the population specified in the parcel.
+    assert_equal(variant.products.last.population, p.items.first.population, <<-WRONG_POPULATION)
+
+    \tLast item in stock's population :
+    \t\t#{variant.products.last.population}
+    \tPopulation that was in the parcel :
+    \t\t#{p.items.first.population}
+    WRONG_POPULATION
+
   end
 end
