@@ -605,10 +605,10 @@ fra:
       show: "Synchronisation: %{name}" #?
     backend/target_distributions:
       distribute: "Répartir les produits"
-      edit: "Modifier la répartition: %{name}"
+      edit: "Modifier la répartition:"
       index: "Répartitions"
       new: "Nouvelle répartition"
-      show: "Répartition"
+      show: "Répartition:"
     backend/tasks:
       edit: "Modifier la tâche\_: %{name}"
       index: "Tâches"

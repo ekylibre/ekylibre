@@ -628,10 +628,10 @@ eng:
       run: "Run synchronization: %{name}"
     backend/target_distributions:
       distribute: "Distribute products"
-      edit: "Edit target distribution: %{name}"
+      edit: "Edit target distribution:"
       index: "Target distributions"
       new: "New target distribution"
-      show: "Target distribution: %{name}"
+      show: "Target distribution:"
     backend/tasks:
       edit: "Edit task: %{name}"
       # finish: "Finish task: %{name}"
