@@ -71,6 +71,7 @@ parcels_001:
   transporter_id: 4
   updated_at: 2014-11-05 15:14:00.950218000 Z
   updater_id: 1
+  with_delivery: true
 parcels_002:
   address_id: 7
   created_at: 2014-11-05 14:16:19.773131000 Z
@@ -89,6 +90,7 @@ parcels_002:
   transporter_id: 4
   updated_at: 2014-11-05 15:14:00.962449000 Z
   updater_id: 1
+  with_delivery: true
 parcels_003:
   address_id: 12
   created_at: 2014-11-05 14:16:48.643201000 Z
@@ -106,6 +108,7 @@ parcels_003:
   state: given
   updated_at: 2014-11-05 14:16:48.643201000 Z
   updater_id: 1
+  with_delivery: true
 parcels_004:
   address_id: 8
   created_at: 2014-11-07 14:13:05.515052000 Z
@@ -122,6 +125,7 @@ parcels_004:
   transporter_id: 9
   updated_at: 2014-11-07 14:13:05.515052000 Z
   updater_id: 1
+  with_delivery: true
 parcels_005:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -140,6 +144,7 @@ parcels_005:
   storage_id: 115
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  with_delivery: true
 parcels_006:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -159,6 +164,7 @@ parcels_006:
   storage_id: 21
   updated_at: 2014-11-01 16:01:24.150621000 Z
   updater_id: 1
+  with_delivery: true
 parcels_007:
   address_id: 3
   created_at: 2014-10-31 17:19:32.000000000 Z
@@ -177,6 +183,7 @@ parcels_007:
   storage_id: 115
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
+  with_delivery: true
 parcels_008:
   address_id: 3
   created_at: 2014-10-31 20:23:37.027824000 Z
@@ -196,6 +203,7 @@ parcels_008:
   storage_id: 20
   updated_at: 2014-10-31 20:23:37.027824000 Z
   updater_id: 1
+  with_delivery: true
 parcels_009:
   address_id: 3
   created_at: 2014-11-01 16:00:08.015634000 Z
@@ -215,6 +223,7 @@ parcels_009:
   storage_id: 20
   updated_at: 2014-11-01 16:00:08.015634000 Z
   updater_id: 1
+  with_delivery: true
 parcels_010:
   address_id: 3
   created_at: 2014-11-01 19:29:58.086427000 Z
@@ -234,6 +243,7 @@ parcels_010:
   storage_id: 21
   updated_at: 2014-11-01 19:29:58.086427000 Z
   updater_id: 1
+  with_delivery: true
 parcels_011:
   address_id: 3
   created_at: 2014-11-01 19:35:50.370591000 Z
@@ -253,6 +263,7 @@ parcels_011:
   storage_id: 21
   updated_at: 2014-11-01 19:35:50.370591000 Z
   updater_id: 1
+  with_delivery: true
 parcels_012:
   address_id: 3
   created_at: 2014-11-01 20:19:35.352913000 Z
@@ -272,6 +283,7 @@ parcels_012:
   storage_id: 21
   updated_at: 2014-11-01 20:23:54.910311000 Z
   updater_id: 1
+  with_delivery: true
 parcels_013:
   address_id: 9
   created_at: 2014-11-07 15:25:51.188992000 Z
@@ -291,6 +303,7 @@ parcels_013:
   storage_id: 21
   updated_at: 2014-11-07 15:25:51.188992000 Z
   updater_id: 1
+  with_delivery: true
 parcels_014:
   address_id: 9
   created_at: 2014-11-07 15:44:20.453162000 Z
@@ -310,6 +323,7 @@ parcels_014:
   storage_id: 21
   updated_at: 2014-11-07 15:44:20.453162000 Z
   updater_id: 1
+  with_delivery: true
 parcels_015:
   address_id: 9
   created_at: 2014-11-07 16:47:34.635509000 Z
@@ -330,6 +344,7 @@ parcels_015:
   storage_id: 21
   updated_at: 2014-11-07 16:52:05.914027000 Z
   updater_id: 1
+  with_delivery: true
 parcels_016:
   address_id: 9
   created_at: 2014-11-07 19:05:46.884082000 Z
@@ -348,6 +363,7 @@ parcels_016:
   storage_id: 21
   updated_at: 2014-11-07 19:05:46.884082000 Z
   updater_id: 1
+  with_delivery: true
 parcels_017:
   address_id: 9
   created_at: 2014-11-07 19:12:04.935666000 Z
@@ -366,6 +382,7 @@ parcels_017:
   storage_id: 21
   updated_at: 2014-11-07 19:12:04.935666000 Z
   updater_id: 1
+  with_delivery: true
 parcels_018:
   address_id: 9
   created_at: 2014-11-07 19:22:38.074904000 Z
@@ -384,6 +401,7 @@ parcels_018:
   storage_id: 21
   updated_at: 2014-11-07 19:22:38.074904000 Z
   updater_id: 1
+  with_delivery: true
 parcels_019:
   address_id: 9
   created_at: 2014-11-07 19:34:09.453724000 Z
@@ -402,11 +420,12 @@ parcels_019:
   storage_id: 21
   updated_at: 2014-11-07 19:34:09.453724000 Z
   updater_id: 1
+  with_delivery: true
 parcels_020:
   address_id: 9
   created_at: 2015-09-17 13:24:45.020171000 Z
   creator_id: 1
-  delivery_mode: indifferent
+  delivery_mode: us
   id: 20
   lock_version: 0
   nature: outgoing
@@ -419,6 +438,7 @@ parcels_020:
   storage_id: 118
   updated_at: 2015-09-17 13:24:45.020171000 Z
   updater_id: 1
+  with_delivery: true
 parcels_021:
   address_id: 12
   created_at: 2015-09-17 13:25:55.971246000 Z
@@ -440,3 +460,4 @@ parcels_021:
   state: given
   updated_at: 2015-09-17 13:40:58.255575000 Z
   updater_id: 1
+  with_delivery: true

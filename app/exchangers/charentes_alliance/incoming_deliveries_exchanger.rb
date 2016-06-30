@@ -8,7 +8,7 @@ module CharentesAlliance
       supplier_account = Account.find_or_import_from_nomenclature(:suppliers)
       # TODO: take care of no taxes present before
       Tax.load_defaults unless Tax.any?
-      appro_price_template_tax = Tax.first
+      default_tax = Tax.first
       building_division = BuildingDivision.first
       suppliers = Entity.where(of_company: false, supplier: true).reorder(:supplier_account_id, :last_name)
       suppliers ||= Entity.create!(
@@ -50,7 +50,7 @@ module CharentesAlliance
         r = OpenStruct.new(
           order_number: row[0],
           ordered_on: Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
-          product_nature_name: (variants_transcode[row[3].to_s] || 'small_equipment'),
+          product_nature_name: (variants_transcode[row[3].to_s] || 'common_consumable'),
           matter_name: row[4],
           coop_variant_reference_name: 'coop:' + row[4].downcase.gsub(/[\W\_]+/, '_'),
           coop_reference_name: row[4].to_s,
@@ -103,30 +103,21 @@ module CharentesAlliance
         end
         # find a price from current supplier for a consider variant
         # TODO: waiting for a product price capitalization method
-        product_nature_variant_price = catalog.items.find_by(variant_id: product_nature_variant.id)
-        product_nature_variant_price ||= catalog.items.create!(
+        catalog_item = catalog.items.find_by(variant_id: product_nature_variant.id)
+        catalog_item ||= catalog.items.create!(
           currency: 'EUR',
-          reference_tax_id: appro_price_template_tax.id,
-          amount: appro_price_template_tax.amount_of(r.product_unit_price),
+          reference_tax_id: default_tax.id,
+          amount: default_tax.amount_of(r.product_unit_price),
           variant_id: product_nature_variant.id
         )
-        product_model = product_nature_variant.nature.matching_model
-        incoming_item ||= product_model.create!(
-          variant: product_nature_variant,
-          work_number: r.ordered_on.to_s + '_' + r.matter_name,
-          name: r.matter_name + ' (' + r.ordered_on.to_s + ')',
-          initial_owner: Entity.of_company,
-          identification_number: r.ordered_on.to_s + '_' + r.order_number + '_' + r.matter_name,
-          initial_born_at: r.ordered_on,
-          created_at: r.ordered_on,
-          default_storage: building_division,
-          initial_population: r.quantity
-        )
 
-        # incoming_item.move!(r.quantity, at: r.ordered_on.to_datetime)
-
-        if incoming_item.present? && r.order_status == :order
-          order.items.create!(source_product: incoming_item, product: incoming_item)
+        if r.order_status == :order
+          order.items.create!(
+            variant: product_nature_variant,
+            product_name: r.matter_name + ' (' + r.ordered_on.to_s + ')',
+            product_identification_number: r.ordered_on.to_s + '_' + r.order_number + '_' + r.matter_name,
+            quantity: r.quantity
+          )
         end
         w.check_point
       end

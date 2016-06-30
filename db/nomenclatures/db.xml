@@ -2522,10 +2522,10 @@
       <item name="coop:extralugec_techn_o_15kg" nature="molluscicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="kilogram"/>
       <item name="coop:fandango_s_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:fertiactyl_starter" nature="chemical_fertilizer" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, nitrogen_concentration: 13percent, phosphorus_concentration: 5percent" unit_name="liter"/>
-      <item name="coop:ficelle_filogamm_350_bob_5kg" nature="small_equipment" frozen_indicators_values=""/>
-      <item name="coop:film_ensil_ensigamm_10m" nature="small_equipment" frozen_indicators_values=""/>
-      <item name="coop:film_ensil_ensigamm_14m" nature="small_equipment" frozen_indicators_values=""/>
-      <item name="coop:film_ensil_ensigamm_8m" nature="small_equipment" frozen_indicators_values=""/>
+      <item name="coop:ficelle_filogamm_350_bob_5kg" nature="wire" frozen_indicators_values=""/>
+      <item name="coop:film_ensil_ensigamm_10m" nature="protective_canvas" frozen_indicators_values=""/>
+      <item name="coop:film_ensil_ensigamm_14m" nature="protective_canvas" frozen_indicators_values=""/>
+      <item name="coop:film_ensil_ensigamm_8m" nature="protective_canvas" frozen_indicators_values=""/>
       <item name="coop:fongistop_fl_5_l" nature="fungicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
       <item name="coop:humistart_bb" nature="chemical_fertilizer" frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 4percent" unit_name="ton"/>
       <item name="coop:kalao_d_5_l" nature="herbicide" frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram" unit_name="liter"/>
@@ -3269,7 +3269,7 @@
       <item name="product_insurance" category="insurance" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="professional_subscription" category="professional_subscription" variety="service" population_counting="integer" variable_indicators=""/>
       <item name="project_management" category="service" variety="service" population_counting="decimal" variable_indicators="" frozen_indicators="usage_duration"/>
-      <item name="protective_canvas" category="small_equipment" variety="matter" population_counting="unitary" abilities="care(plant), cover(plant)" frozen_indicators="length, width"/>
+      <item name="protective_canvas" category="small_equipment" variety="matter" population_counting="decimal" abilities="care(plant), cover(plant)" frozen_indicators="length, width"/>
       <item name="pruning_platform" category="equipment" variety="equipment" population_counting="unitary" abilities="cut" frozen_indicators=""/>
       <item name="rabbit_herd" category="cattle_herd" variety="animal_group" derivative_of="oryctolagus" population_counting="integer" abilities="move, consume(water), consume(poaceae), produce(excrement), consume(mix)" frozen_indicators=""/>
       <item name="radio_subscription" category="telecommunication" variety="service" population_counting="decimal" variable_indicators=""/>
@@ -3343,7 +3343,7 @@
       <item name="wine_press" category="equipment" variety="press" population_counting="unitary" abilities="press(grape), press(juice), press(fermented_juice), press(wine)" variable_indicators="nominal_storable_net_volume" frozen_indicators=""/>
       <item name="wine_storage_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(wine)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>
       <item name="wine_tank" category="equipment" variety="tank" population_counting="unitary" abilities="store(wine), store(grape), store(fermented_juice), store(juice), store_liquid" variable_indicators="geolocation" frozen_indicators="nominal_storable_net_volume"/>
-      <item name="wire" category="small_equipment" variety="wire" population_counting="integer" abilities="enclose" variable_indicators="" frozen_indicators="diameter, length, net_length"/>
+      <item name="wire" category="small_equipment" variety="wire" population_counting="decimal" abilities="enclose" variable_indicators="" frozen_indicators="diameter, length, net_length"/>
       <item name="young_rabbit" category="short_time_animal" variety="oryctolagus" population_counting="integer" abilities="consume(water), consume(poaceae), consume(mix), produce(excrement), move" variable_indicators="healthy, net_mass"/>
     </items>
   </nomenclature>
