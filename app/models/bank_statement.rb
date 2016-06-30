@@ -62,8 +62,9 @@ class BankStatement < Ekylibre::Record::Base
 
   before_validation do
     self.currency = cash_currency if cash
-    self.debit  = items.map(&:debit).sum
-    self.credit = items.map(&:credit).sum
+    active_items = items.to_a.delete_if(&:marked_for_destruction?)
+    self.debit  = active_items.map(&:debit).compact.sum
+    self.credit = active_items.map(&:credit).compact.sum
     self.initial_balance_debit ||= 0
     self.initial_balance_credit ||= 0
   end
