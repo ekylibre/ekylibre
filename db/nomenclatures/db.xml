@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160627095008">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160630075849">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -3049,7 +3049,7 @@
     </properties>
     <items>
       <item name="accommodation_travel" category="travel" variety="service" population_counting="integer" variable_indicators=""/>
-      <item name="additive" category="plant_medicine" variety="preparation" population_counting="decimal" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
+      <item name="additive" category="plant_medicine" variety="preparation" population_counting="decimal" variable_indicators="" frozen_indicators="net_volume, net_mass" abilities="care(plant)"/>
       <item name="administrative_division" category="building_division" variety="building_division" population_counting="unitary" variable_indicators="net_surface_area, shape" frozen_indicators=""/>
       <item name="air_compressor" category="equipment" variety="tank" population_counting="unitary" abilities="blow" variable_indicators="motor_power" frozen_indicators=""/>
       <item name="animal_building_division" category="building_division" variety="building_division" population_counting="unitary" abilities="store(animal)" variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area" frozen_indicators=""/>
