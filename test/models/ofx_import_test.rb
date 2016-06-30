@@ -44,8 +44,8 @@ class OfxImportTest < ActiveSupport::TestCase
     assert bank_statement.persisted?
     assert_equal cash.id, bank_statement.cash_id
     assert_equal "2016040138", bank_statement.number
-    assert_equal "2016-04-01", bank_statement.started_at.to_date.to_s
-    assert_equal "2016-05-09", bank_statement.stopped_at.to_date.to_s
+    assert_equal "2016-04-01", bank_statement.started_on.to_s
+    assert_equal "2016-05-09", bank_statement.stopped_on.to_s
     assert_equal 1, bank_statement.items.length
 
     item = bank_statement.items.take

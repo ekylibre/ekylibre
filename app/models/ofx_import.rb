@@ -82,8 +82,8 @@ class OfxImport
     BankStatement.new.tap do |s|
       s.cash = cash
       s.number = generate_bank_statement_number
-      s.started_at = ofx_statement.start_date
-      s.stopped_at = ofx_statement.end_date
+      s.started_on = ofx_statement.start_date
+      s.stopped_on = ofx_statement.end_date
     end
   end
 
