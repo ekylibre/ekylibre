@@ -74,6 +74,7 @@ module Unrollable
       haml << "  - if items.count > #{(max * 1.5).round}\n"
       haml << "    %span.items-status.items-status-too-many-records\n"
       haml << "      = 'labels.x_items_remain'.t(count: (items.count - #{max}))\n"
+      haml << "  %li.item.special{data: {new_item: ''}}= 'labels.add_#{model.name.underscore}'.t(default: [:'labels.add_new_record'])\n"
       haml << "- elsif params[:insert].to_i > 0\n"
       haml << "  %ul.items-list\n"
       unless fill_in.nil?
