@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix coop variants">
+  <item-change item="product_natures#protective_canvas" population_counting="decimal"/>
+  <item-change item="product_natures#wire" population_counting="decimal"/>
+  <item-change item="product_nature_variants#coop:ficelle_filogamm_350_bob_5kg" nature="wire"/>
+  <item-change item="product_nature_variants#coop:film_ensil_ensigamm_8m" nature="protective_canvas"/>
+  <item-change item="product_nature_variants#coop:film_ensil_ensigamm_10m" nature="protective_canvas"/>
+  <item-change item="product_nature_variants#coop:film_ensil_ensigamm_14m" nature="protective_canvas"/>
+</migration>
