@@ -1,5 +1,5 @@
 = field_set do
-  = f.referenced_association :supplier, source: :suppliers
+  = f.referenced_association :supplier, source: :suppliers, new: {supplier: 1}
   = f.association :nature, as: :hidden
   = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
   = f.input :reference_number
