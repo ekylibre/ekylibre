@@ -296,11 +296,21 @@ class JournalEntry < Ekylibre::Record::Base
     ActiveRecord::Base.transaction do
       saved = save
 
+      comparison_items = items
       items.each(&:clear_bank_statement_reconciliation)
-      items.clear
+      items.each { |i| i.update(entry_id: nil) }
 
+      item_values = comparison_items.map { |i| [i.name, i.account_id, i.real_debit, i.real_credit] }
       entry_items.each_index do |index|
-        entry_items[index] = items.build(entry_items[index])
+        n = entry_items[index][:name]
+        a = entry_items[index][:account_id].to_i
+        d = entry_items[index][:real_debit].to_f
+        c = entry_items[index][:real_credit].to_f
+        if item_index = item_values.index([n, a, d, c])
+          entry_items[index] = comparison_items[item_index]
+        else
+          entry_items[index] = items.build(entry_items[index])
+        end
         keep_it_safe = !entry_items[index].save
         saved = false if saved && keep_it_safe
       end
