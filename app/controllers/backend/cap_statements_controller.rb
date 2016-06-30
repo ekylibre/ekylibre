@@ -54,7 +54,7 @@ module Backend
       t.column :pacage_number, url: true
       t.column :campaign, url: true
       t.column :declarant, url: true
-      t.column :net_surface_area
+      t.column :human_net_surface_area
     end
 
     list(:cap_islets, conditions: { cap_statement_id: 'params[:id]'.c }, order: { islet_number: :desc }) do |t|

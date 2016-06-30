@@ -63,4 +63,8 @@ class CapStatement < Ekylibre::Record::Base
   def net_surface_area(unit = :hectare)
     cap_islets.map(&:net_surface_area).sum.in(unit)
   end
+
+  def human_net_surface_area(unit = :hectare)
+    net_surface_area(unit).round(2)
+  end
 end
