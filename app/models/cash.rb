@@ -239,6 +239,6 @@ class Cash < Ekylibre::Record::Base
   def balance(at = Time.zone.now)
     closure = FinancialYear.last_closure || Date.civil(-1, 12, 31)
     closure += 1
-    journal_entry_items.where(printed_on: closure..at.to_date).sum('debit - credit') || 0.0
+    journal_entry_items.where(printed_on: closure..at.to_date).sum('real_debit - real_credit') || 0.0
   end
 end
