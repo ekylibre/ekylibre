@@ -27,7 +27,6 @@ module Backend
     unroll
 
     list(order: { started_on: :desc }) do |t|
-      t.action :edit_items
       t.action :reconciliation
       t.action :edit
       t.action :destroy
@@ -51,6 +50,22 @@ module Backend
       t.column :account, url: true
       t.column :debit, currency: :currency
       t.column :credit, currency: :currency
+    end
+
+    def import_ofx
+      @cash = Cash.find_by(id: params[:cash_id])
+      if request.post?
+        file = params[:upload]
+        @import = OfxImport.new(file, @cash)
+        if @import.run
+          redirect_to action: :show, id: @import.bank_statement.id
+        elsif @import.recoverable?
+          @cash = @import.cash
+          @bank_statement = @import.bank_statement
+          @bank_statement.errors.add(:cash, :no_cash_match_ofx) unless @cash.valid?
+          render :new
+        end
+      end
     end
 
     def reconciliation

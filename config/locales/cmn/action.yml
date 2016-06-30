@@ -60,6 +60,7 @@ cmn:
       # show: "%{nature}: %{name}"
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
+      # import_ofx: "Import OFX file"
       index: "银行对账单"
       new: "新的银行对账单"
       # reconciliation: "Reconciliate bank statement %{cash} #%{number} (from %{started_on} to %{stopped_on})"
@@ -712,6 +713,7 @@ cmn:
     attach_deal: "添加一个交易"
     attachment: "附件"
     attachments: "附件"
+    # auto_reconciliate: "Auto reconciliate"
     automatic: "汽车"
     available: "可用的"
     # available_columns: "Available columns: %{columns}"
@@ -1717,6 +1719,7 @@ cmn:
       generate_last_journal_entry: "最后生成日记帐分录"
       generate_parcel: "生成包裹"
       import: "进口"
+      # import_ofx: "Import OFX file"
       incorporate: "合并"
       increment: "增量" #?
       index: "指数"

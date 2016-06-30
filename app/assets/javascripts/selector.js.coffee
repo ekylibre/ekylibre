@@ -319,7 +319,7 @@
     _buttonClick: (event) ->
       if @dropDownMenu.is(":visible")
         @dropDownMenu.hide()
-      else
+      else if !@element.is(":disabled")
         this._openMenu()
       false
 
