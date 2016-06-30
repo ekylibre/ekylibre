@@ -10,16 +10,14 @@ class UseMapBackgroundsTest < CapybaraIntegrationTest
   end
 
   def load_defaults
-    MapBackground.destroy_all
     visit('/backend/map_backgrounds')
-    # assert has_no_selector?('.map-backgrounds-viewport .map-background-container')
-    click_on :load.ta
     assert_selector '.map-background-container', count: MapBackgrounds::Layer.items.count
   end
 
   def check_enabled_map_backgrounds
     visit('/backend/land_parcels')
-    assert_selector '[name=leaflet-base-layers]', count: MapBackground.availables.size
+    page.execute_script("$(\"*[data-toggle='face'][href='map']\").trigger('click');")
+    assert_selector '[name="leaflet-base-layers"]', visible: false, count: MapBackground.where(enabled: true).count
   end
 
   test 'loading defaults' do
@@ -28,12 +26,11 @@ class UseMapBackgroundsTest < CapybaraIntegrationTest
   end
 
   test 'enabling a map background' do
-    load_defaults
-
     count_before = MapBackground.availables.size
 
     visit('/backend/map_backgrounds')
-    first("a.map-background-display:not('.active')").click
+    first("div.map-background:not(.active)").click
+    sleep(1)
 
     assert_equal count_before + 1, MapBackground.availables.size
 
