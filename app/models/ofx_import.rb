@@ -10,8 +10,8 @@ class OfxImport
   end
 
   def run
-    read_and_parse_file or return false
-    ensure_file_has_a_single_account or return false
+    read_and_parse_file || (return false)
+    ensure_file_has_a_single_account || (return false)
     @cash = find_or_build_cash_from_ofx_bank_account unless cash
     @bank_statement = build_bank_statement_with_items
     save_bank_statement
@@ -22,23 +22,22 @@ class OfxImport
   end
 
   private
+
   attr_reader :file, :parsed
 
   def read_and_parse_file
-    begin
-      @parsed = OfxParser::OfxParser.parse(file.read)
-      true
-    rescue => error
-      message = I18n.translate("activerecord.errors.models.bank_statement.ofx_file_invalid")
-      @error = InvalidOfxFile.new(message)
-      @internal_error = error
-      false
-    end
+    @parsed = OfxParser::OfxParser.parse(file.read)
+    true
+  rescue => error
+    message = I18n.translate('activerecord.errors.models.bank_statement.ofx_file_invalid')
+    @error = InvalidOfxFile.new(message)
+    @internal_error = error
+    false
   end
 
   def ensure_file_has_a_single_account
     return true if parsed.bank_accounts.length == 1
-    message = I18n.translate("activerecord.errors.models.bank_statement.ofx_file_has_multiple_bank_accounts")
+    message = I18n.translate('activerecord.errors.models.bank_statement.ofx_file_has_multiple_bank_accounts')
     @error = OfxFileHasMultipleAccounts.new(message)
     false
   end
@@ -57,7 +56,7 @@ class OfxImport
 
   def find_cash_from_ofx_bank_account
     number = ofx_bank_account.number
-    Cash.pointables.where("iban LIKE ?", "%#{number}%").take
+    Cash.pointables.find_by('iban LIKE ?', "%#{number}%")
   end
 
   def build_cash_from_ofx_bank_account
@@ -100,18 +99,16 @@ class OfxImport
   def generate_bank_statement_number
     statement_duration_days = (ofx_statement.end_date - ofx_statement.start_date).to_i
     if statement_duration_days <= 99
-      formatted_duration = "%02i" % statement_duration_days
-      ofx_statement.start_date.strftime("%Y%m%d") + formatted_duration
+      formatted_duration = '%02i' % statement_duration_days
+      ofx_statement.start_date.strftime('%Y%m%d') + formatted_duration
     end
   end
 
   def save_bank_statement
-    begin
-      @bank_statement.save!
-      true
-    rescue => error
-      @error = error
-      false
-    end
+    @bank_statement.save!
+    true
+  rescue => error
+    @error = error
+    false
   end
 end
