@@ -959,25 +959,6 @@
         <page to="backend/settings#edit"/>
         <page to="backend/settings#update"/>
       </item>
-      <item name="users">
-        <page to="backend/users#index"/>
-        <page to="backend/users#create"/>
-        <page to="backend/users#destroy"/>
-        <page to="backend/users#edit"/>
-        <page to="backend/users#list"/>
-        <page to="backend/users#lock"/>
-        <page to="backend/users#new"/>
-        <page to="backend/users#show"/>
-        <page to="backend/users#unlock"/>
-        <page to="backend/users#unroll"/>
-        <page to="backend/users#update"/>
-      </item>
-      <item name="invitations">
-        <page to="backend/invitations#index"/>
-        <page to="backend/invitations#list"/>
-        <page to="backend/invitations#new"/>
-        <page to="backend/invitations#create"/>
-      </item>
       <item name="map_backgrounds">
         <page to="backend/map_backgrounds#index"/>
         <page to="backend/map_backgrounds#create"/>
@@ -1000,48 +981,6 @@
         <page to="backend/teams#show"/>
         <page to="backend/teams#unroll"/>
         <page to="backend/teams#update"/>
-      </item>
-      <item name="registrations">
-        <page to="backend/registrations#index"/>
-        <page to="backend/registrations#list"/>
-        <page to="backend/registrations#edit"/>
-        <page to="backend/registrations#update"/>
-        <page to="backend/registrations#destroy"/>
-      </item>
-      <item name="roles">
-        <page to="backend/roles#index"/>
-        <page to="backend/roles#create"/>
-        <page to="backend/roles#destroy"/>
-        <page to="backend/roles#edit"/>
-        <page to="backend/roles#incorporate"/>
-        <page to="backend/roles#list"/>
-        <page to="backend/roles#list_users"/>
-        <page to="backend/roles#pick"/>
-        <page to="backend/roles#new"/>
-        <page to="backend/roles#show"/>
-        <page to="backend/roles#unroll"/>
-        <page to="backend/roles#update"/>
-      </item>
-      <item name="net_services">
-        <page to="backend/net_services#index"/>
-        <page to="backend/net_services#create"/>
-        <page to="backend/net_services#destroy"/>
-        <page to="backend/net_services#edit"/>
-        <page to="backend/net_services#list"/>
-        <page to="backend/net_services#list_identifiers"/>
-        <page to="backend/net_services#new"/>
-        <page to="backend/net_services#show"/>
-        <page to="backend/net_services#update"/>
-      </item>
-      <item name="identifiers">
-        <page to="backend/identifiers#index"/>
-        <page to="backend/identifiers#create"/>
-        <page to="backend/identifiers#destroy"/>
-        <page to="backend/identifiers#edit"/>
-        <page to="backend/identifiers#list"/>
-        <page to="backend/identifiers#new"/>
-        <page to="backend/identifiers#show"/>
-        <page to="backend/identifiers#update"/>
       </item>
       <item name="custom_fields">
         <page to="backend/custom_fields#index"/>
@@ -1090,8 +1029,71 @@
         <page to="backend/sequences#unroll"/>
         <page to="backend/sequences#update"/>
       </item>
+      <item name="net_services">
+        <page to="backend/net_services#index"/>
+        <page to="backend/net_services#create"/>
+        <page to="backend/net_services#destroy"/>
+        <page to="backend/net_services#edit"/>
+        <page to="backend/net_services#list"/>
+        <page to="backend/net_services#list_identifiers"/>
+        <page to="backend/net_services#new"/>
+        <page to="backend/net_services#show"/>
+        <page to="backend/net_services#update"/>
+      </item>
+      <item name="identifiers">
+        <page to="backend/identifiers#index"/>
+        <page to="backend/identifiers#create"/>
+        <page to="backend/identifiers#destroy"/>
+        <page to="backend/identifiers#edit"/>
+        <page to="backend/identifiers#list"/>
+        <page to="backend/identifiers#new"/>
+        <page to="backend/identifiers#show"/>
+        <page to="backend/identifiers#update"/>
+      </item>
       <item name="about">
         <page to="backend/settings#about"/>
+      </item>
+    </group>
+    <group name="access" icon="shield">
+      <item name="roles">
+        <page to="backend/roles#index"/>
+        <page to="backend/roles#create"/>
+        <page to="backend/roles#destroy"/>
+        <page to="backend/roles#edit"/>
+        <page to="backend/roles#incorporate"/>
+        <page to="backend/roles#list"/>
+        <page to="backend/roles#list_users"/>
+        <page to="backend/roles#pick"/>
+        <page to="backend/roles#new"/>
+        <page to="backend/roles#show"/>
+        <page to="backend/roles#unroll"/>
+        <page to="backend/roles#update"/>
+      </item>
+      <item name="users">
+        <page to="backend/users#index"/>
+        <page to="backend/users#create"/>
+        <page to="backend/users#destroy"/>
+        <page to="backend/users#edit"/>
+        <page to="backend/users#list"/>
+        <page to="backend/users#lock"/>
+        <page to="backend/users#new"/>
+        <page to="backend/users#show"/>
+        <page to="backend/users#unlock"/>
+        <page to="backend/users#unroll"/>
+        <page to="backend/users#update"/>
+      </item>
+      <item name="invitations">
+        <page to="backend/invitations#index"/>
+        <page to="backend/invitations#list"/>
+        <page to="backend/invitations#new"/>
+        <page to="backend/invitations#create"/>
+      </item>
+      <item name="registrations">
+        <page to="backend/registrations#index"/>
+        <page to="backend/registrations#list"/>
+        <page to="backend/registrations#edit"/>
+        <page to="backend/registrations#update"/>
+        <page to="backend/registrations#destroy"/>
       </item>
     </group>
     <group name="people" icon="group">
