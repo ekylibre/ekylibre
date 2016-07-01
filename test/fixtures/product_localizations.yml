@@ -2149,3 +2149,24 @@ product_localizations_185:
   started_at: 2016-07-01 20:13:27.276170000 Z
   updated_at: 2016-07-01 20:13:27.322077000 Z
   updater_id: 1
+product_localizations_186:
+  created_at: 2016-07-01 20:23:21.091772000 Z
+  creator_id: 1
+  id: 220
+  lock_version: 0
+  nature: exterior
+  product_id: 179
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-07-01 20:23:25.072310000 Z
+  updated_at: 2016-07-01 20:23:21.091772000 Z
+  updater_id: 1
+product_localizations_187:
+  created_at: 2016-07-01 20:23:25.089386000 Z
+  creator_id: 1
+  id: 221
+  lock_version: 0
+  nature: exterior
+  product_id: 179
+  started_at: 2016-07-01 20:23:25.072310000 Z
+  updated_at: 2016-07-01 20:23:25.089386000 Z
+  updater_id: 1

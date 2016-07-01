@@ -2826,6 +2826,27 @@ matters_053:
   uuid: 4bd617ed-ed00-4657-8756-326882cecabe
   variant_id: 22
   variety: preparation
+matters_054:
+  born_at: 2016-07-01 20:23:20.986644000 Z
+  category_id: 17
+  created_at: 2016-07-01 20:23:21.033093000 Z
+  creator_id: 1
+  default_storage_id: 12
+  id: 179
+  initial_born_at: 2016-07-01 20:23:20.986644000 Z
+  initial_container_id: 12
+  initial_owner_id: 1
+  initial_population: 11.0
+  lock_version: 0
+  name: Ammonitre 33,5%  Big Bag (P000000000005)
+  nature_id: 33
+  number: PR00000000123
+  type: Matter
+  updated_at: 2016-07-01 20:23:21.033093000 Z
+  updater_id: 1
+  uuid: 165a7542-3292-4e3a-8ead-2bde5d8d0837
+  variant_id: 39
+  variety: preparation
 plants_001:
   born_at: 2013-11-10 12:01:30.000000000 Z
   category_id: 8

@@ -69,18 +69,18 @@ loans_001:
   updated_at: 2016-07-01 20:10:28.880207000 Z
   updater_id: 1
 loans_002:
-  accounted_at: 2015-05-07 23:16:54.051577000 Z
+  accounted_at: 2016-07-01 20:34:23.009427000 Z
   amount: 45700.0
   cash_id: 2
   created_at: 2015-05-07 23:16:52.854070000 Z
   creator_id: 1
   currency: USD
   id: 2
-  insurance_percentage: 0.75
+  insurance_percentage: 0.78
   interest_percentage: 2.1
   journal_entry_id: 31
   lender_id: 13
-  lock_version: 0
+  lock_version: 1
   name: Tracteur de folie
   repayment_duration: 64
   repayment_method: constant_amount
@@ -88,5 +88,5 @@ loans_002:
   shift_duration: 8
   shift_method: immediate_payment
   started_on: 2012-03-24
-  updated_at: 2015-05-07 23:16:52.854070000 Z
+  updated_at: 2016-07-01 20:34:22.917241000 Z
   updater_id: 1

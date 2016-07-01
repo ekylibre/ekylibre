@@ -330,3 +330,18 @@ analyses_021:
   sampling_temporal_mode: instant
   sensor_id: 3
   updated_at: 2015-09-20 15:00:01.821270000 Z
+analyses_022:
+  created_at: 2016-07-01 20:26:30.031475000 Z
+  creator_id: 1
+  id: 22
+  lock_version: 0
+  nature: sensor_analysis
+  number: A00000020
+  retrieval_message: Invalid API key. Please see http://openweathermap.org/faq#error401
+    for more info.
+  retrieval_status: error
+  sampled_at: 2016-07-01 20:26:30.025640000 Z
+  sampling_temporal_mode: instant
+  sensor_id: 2
+  updated_at: 2016-07-01 20:26:30.031475000 Z
+  updater_id: 1

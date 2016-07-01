@@ -1186,3 +1186,25 @@ product_enjoyments_120:
   started_at: 2016-07-01 20:13:27.276170000 Z
   updated_at: 2016-07-01 20:13:27.296111000 Z
   updater_id: 1
+product_enjoyments_121:
+  created_at: 2016-07-01 20:23:21.079829000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 128
+  lock_version: 0
+  nature: unknown
+  product_id: 179
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-07-01 20:23:25.072310000 Z
+  updated_at: 2016-07-01 20:23:21.079829000 Z
+  updater_id: 1
+product_enjoyments_122:
+  created_at: 2016-07-01 20:23:25.100248000 Z
+  creator_id: 1
+  id: 129
+  lock_version: 0
+  nature: own
+  product_id: 179
+  started_at: 2016-07-01 20:23:25.072310000 Z
+  updated_at: 2016-07-01 20:23:25.100248000 Z
+  updater_id: 1

@@ -505,3 +505,26 @@ parcels_023:
   updated_at: 2016-07-01 20:13:27.345557000 Z
   updater_id: 1
   with_delivery: false
+parcels_024:
+  address_id: 9
+  created_at: 2016-07-01 20:23:17.503085000 Z
+  creator_id: 1
+  delivery_mode: third
+  given_at: 2016-07-01 20:23:25.072310000 Z
+  id: 24
+  in_preparation_at: 2016-07-01 20:23:20.957531000 Z
+  lock_version: 4
+  nature: incoming
+  number: P000000000005
+  ordered_at: 2016-07-01 20:23:20.936798000 Z
+  planned_at: 2016-06-30 22:00:00.000000000 Z
+  position: 4
+  prepared_at: 2016-07-01 20:23:20.986644000 Z
+  remain_owner: false
+  sender_id: 8
+  separated_stock: false
+  state: given
+  storage_id: 12
+  updated_at: 2016-07-01 20:23:25.152288000 Z
+  updater_id: 1
+  with_delivery: false

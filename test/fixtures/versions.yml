@@ -14951,3 +14951,51 @@ versions_271:
       sdqdqsdq_sd_qsq: ''
       bla_dsfk_jioh_sdf: ''
   item_type: Entity
+versions_272:
+  created_at: 2016-07-01 20:23:21.038226000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 309
+  item_id: 179
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 179
+    type: Matter
+    name: Ammonitre 33,5%  Big Bag (P000000000005)
+    number: PR00000000123
+    variant_id: 39
+    nature_id: 33
+    category_id: 17
+    initial_born_at: 2016-07-01 20:23:20.986644000 Z
+    initial_dead_at:
+    initial_container_id: 12
+    initial_owner_id: 1
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.11E2
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-07-01 20:23:20.986644000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 12
+    created_at: 2016-07-01 20:23:21.033093000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: 165a7542-3292-4e3a-8ead-2bde5d8d0837
+    initial_movement_id:
+    custom_fields:
+  item_type: Product

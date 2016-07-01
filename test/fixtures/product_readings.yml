@@ -3555,3 +3555,51 @@ product_readings_220:
   read_at: 2016-07-01 19:23:47.522750000 Z
   updated_at: 2016-07-01 19:23:47.823203000 Z
   updater_id: 1
+product_readings_221:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2016-07-01 20:23:21.137640000 Z
+  creator_id: 1
+  id: 347
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: cubic_meter
+  measure_value_value: 1.0
+  product_id: 179
+  read_at: 2016-07-01 20:23:20.986644000 Z
+  updated_at: 2016-07-01 20:23:21.137640000 Z
+  updater_id: 1
+product_readings_222:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1000.0
+  boolean_value: false
+  created_at: 2016-07-01 20:23:21.140537000 Z
+  creator_id: 1
+  id: 348
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: ton
+  measure_value_value: 1.0
+  product_id: 179
+  read_at: 2016-07-01 20:23:20.986644000 Z
+  updated_at: 2016-07-01 20:23:21.140537000 Z
+  updater_id: 1
+product_readings_223:
+  absolute_measure_value_unit: mass_percent
+  absolute_measure_value_value: 33.5
+  boolean_value: false
+  created_at: 2016-07-01 20:23:21.142696000 Z
+  creator_id: 1
+  id: 349
+  indicator_datatype: measure
+  indicator_name: nitrogen_concentration
+  lock_version: 0
+  measure_value_unit: percent
+  measure_value_value: 33.5
+  product_id: 179
+  read_at: 2016-07-01 20:23:20.986644000 Z
+  updated_at: 2016-07-01 20:23:21.142696000 Z
+  updater_id: 1

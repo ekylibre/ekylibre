@@ -1858,3 +1858,25 @@ product_movements_169:
   started_at: 2016-07-01 20:13:23.808717000 Z
   updated_at: 2016-07-01 20:13:23.889444000 Z
   updater_id: 1
+product_movements_170:
+  created_at: 2016-07-01 20:23:21.103738000 Z
+  creator_id: 1
+  delta: 11.0
+  id: 170
+  lock_version: 0
+  population: 11.0
+  product_id: 179
+  started_at: 2016-07-01 20:23:20.986644000 Z
+  updated_at: 2016-07-01 20:23:21.103738000 Z
+  updater_id: 1
+product_movements_171:
+  created_at: 2016-07-01 20:23:21.155791000 Z
+  creator_id: 1
+  delta: 11.0
+  id: 171
+  lock_version: 0
+  population: 11.0
+  product_id: 179
+  started_at: 2016-07-01 20:23:20.986644000 Z
+  updated_at: 2016-07-01 20:23:21.155791000 Z
+  updater_id: 1
