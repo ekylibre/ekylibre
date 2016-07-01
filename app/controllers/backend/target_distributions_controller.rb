@@ -51,7 +51,7 @@ module Backend
 
     def distribute
       @target_distribution = TargetDistribution.new
-      @targets = InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).select(:product_id).distinct
+      @targets = InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id))
     end
   end
 end
