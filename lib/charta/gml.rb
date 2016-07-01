@@ -7,8 +7,8 @@ module Charta
     OGR_PREFIX = 'ogr'.freeze
     GML_PREFIX = 'gml'.freeze
     NS = {
-        gml: 'http://www.opengis.net/gml',
-        ogr: 'http://ogr.maptools.org/'
+      gml: 'http://www.opengis.net/gml',
+      ogr: 'http://ogr.maptools.org/'
     }.freeze
 
     def initialize(data, srid = :WGS84)
@@ -27,18 +27,16 @@ module Charta
       # ensure namespaces are defined
       begin
         NS.each do |k, v|
-            if @gml.xpath("//@*[xmlns:#{k.to_s}]").empty?
-              @gml.root.namespace_definitions << @gml.root.add_namespace_definition(k.to_s, v)
-              up = true
-            end
+          if @gml.xpath("//@*[xmlns:#{k}]").empty?
+            @gml.root.namespace_definitions << @gml.root.add_namespace_definition(k.to_s, v)
+            up = true
+          end
         end
       rescue
         false
       end
 
-      if up
-        @gml = Nokogiri::XML(@gml.to_xml)
-      end
+      @gml = Nokogiri::XML(@gml.to_xml) if up
 
       boundaries = @gml.css("#{GML_PREFIX}|boundedBy")
       unless boundaries.blank?
@@ -74,8 +72,15 @@ module Charta
       end
 
       def document_to_ewkt(gml, srid)
-        #whole document
-        unless gml.css("#{OGR_PREFIX}|FeatureCollection").blank? || gml.css("#{GML_PREFIX}|featureMember").blank?
+        # whole document
+        if gml.css("#{OGR_PREFIX}|FeatureCollection").blank? || gml.css("#{GML_PREFIX}|featureMember").blank?
+          # fragment
+          if gml.root.name && TAGS.include?(gml.root.name)
+            object_to_ewkt(gml.root, srid)
+          else
+            'GEOMETRYCOLLECTION EMPTY'
+          end
+        else
           'GEOMETRYCOLLECTION(' + gml.css("#{GML_PREFIX}|featureMember").collect do |feature|
             TAGS.collect do |tag|
               next if feature.css("#{GML_PREFIX}|#{tag}").empty?
@@ -84,13 +89,6 @@ module Charta
               end.compact.join(', ')
             end.compact.join(', ')
           end.compact.join(', ') + ')'
-        else
-          #fragment
-          if gml.root.name and TAGS.include?(gml.root.name)
-            object_to_ewkt(gml.root, srid)
-          else
-            'GEOMETRYCOLLECTION EMPTY'
-          end
         end
       end
       alias geometry_collection_to_ewkt document_to_ewkt

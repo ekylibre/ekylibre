@@ -138,6 +138,7 @@ class ActivityProduction < Ekylibre::Record::Base
     if self.activity
       self.rank_number = (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
     end
+    true
   end
 
   before_validation do
@@ -155,27 +156,44 @@ class ActivityProduction < Ekylibre::Record::Base
                                    .where.not(id: ActivityProduction.select(:support_id))
                                    .order(:id)
           self.support = land_parcels.any? ? land_parcels.first : LandParcel.new
-          support.name = computed_support_name
-          support.initial_shape = support_shape
-          support.initial_born_at = started_on
-          support.variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
-          support.save!
+        end
+        support.name = computed_support_name
+        support.initial_shape = support_shape
+        support.initial_born_at = started_on
+        support.variant ||= ProductNatureVariant.import_from_nomenclature(:land_parcel)
+        support.save!
+        reading = support.first_reading(:shape)
+        if reading
+          reading.value = support_shape
+          reading.save!
         end
         self.size = support_shape_area.in(size_unit_name)
       elsif animal_farming?
-        unless support
-          self.support = AnimalGroup.new
-          support.name = computed_support_name
-          # FIXME: Need to find better category and population_counting...
-          nature = ProductNature.find_or_create_by!(variety: :animal_group, derivative_of: :animal, name: AnimalGroup.model_name.human, category: ProductNatureCategory.import_from_nomenclature(:cattle_herd), population_counting: :unitary)
-          variant = ProductNatureVariant.find_or_initialize_by(nature: nature, variety: :animal_group, derivative_of: :animal)
+        self.support = AnimalGroup.new unless support
+        support.name = computed_support_name
+        # FIXME: Need to find better category and population_counting...
+        unless support.variant
+          nature = ProductNature.find_or_create_by!(
+            variety: :animal_group,
+            derivative_of: :animal,
+            name: AnimalGroup.model_name.human,
+            category: ProductNatureCategory.import_from_nomenclature(:cattle_herd),
+            population_counting: :unitary
+          )
+          variant = ProductNatureVariant.find_or_initialize_by(
+            nature: nature,
+            variety: :animal_group,
+            derivative_of: :animal
+          )
           variant.name ||= nature.name
           variant.unit_name ||= :unit.tl
           variant.save! if variant.new_record?
           support.variant = variant
-          support.derivative_of = self.activity.cultivation_variety
-          support.save!
         end
+        if self.activity.cultivation_variety
+          support.derivative_of ||= self.activity.cultivation_variety
+        end
+        support.save!
         if size_value.nil?
           errors.add(:size_value, :empty)
         else
@@ -183,29 +201,19 @@ class ActivityProduction < Ekylibre::Record::Base
         end
       end
     end
+    true
   end
 
   before_validation(on: :create) do
     self.state ||= :opened
+    true
   end
 
   validate do
     if plant_farming?
       errors.add(:support_shape, :empty) if self.support_shape && self.support_shape.empty?
     end
-  end
-
-  before_update do
-    # self.support.name = computed_support_name
-    support.initial_born_at = started_on
-    if old_record.support_shape != self.support_shape
-      support.initial_shape = support_shape
-      if self.support_shape
-        # TODO: Update only very first shape reading
-        support.read!(:shape, self.support_shape, at: started_on)
-      end
-    end
-    support.save!
+    true
   end
 
   after_commit do

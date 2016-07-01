@@ -74,4 +74,15 @@ class CultivableZone < Ekylibre::Record::Base
     return islets.first.islet_number if islets.any?
     nil
   end
+
+  after_commit do
+    activity_productions.each do |activity_production|
+      activity_production.update_names
+    end
+    Ekylibre::Hook.publish(:cultivable_zone_change, cultivable_zone_id: id)
+  end
+
+  after_destroy do
+    Ekylibre::Hook.publish(:cultivable_zone_destroy, cultivable_zone_id: id)
+  end
 end

@@ -102,7 +102,6 @@ class Charta::GeometryTest < ActiveSupport::TestCase
     geometries = ::Charta.from_gml(fragment, 2154)
     geom = Charta.new_geometry(geometries).transform(4326)
     assert_equal 4326, geom.srid
-
   end
 
   test 'different GML format input' do

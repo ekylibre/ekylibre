@@ -297,9 +297,9 @@ class JournalEntry < Ekylibre::Record::Base
       saved = save
 
       # Remove removed items and keep existings
-      items.where.not(id: entry_items.map{ |i| i[:id] }).find_each(&:destroy)
+      items.where.not(id: entry_items.map { |i| i[:id] }).find_each(&:destroy)
 
-      entry_items.each_with_index do |entry_item, index|
+      entry_items.each_with_index do |entry_item, _index|
         item = items.detect { |i| i.id == entry_item[:id].to_i }
         if item
           item.attributes = entry_item.except(:id)

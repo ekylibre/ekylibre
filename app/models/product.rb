@@ -225,19 +225,17 @@ class Product < Ekylibre::Record::Base
   validates :nature, :variant, :name, :uuid, presence: true
   validates_attachment_content_type :picture, content_type: /image/
 
-  validate :born_at_in_interventions, if: ->(product) { product.initial_born_at.present? && product.interventions.any? && product.interventions.collect(&:started_at).any? }
-  validate :dead_at_in_interventions, if: ->(product) { product.initial_dead_at.present? && product.interventions.any? && product.interventions.collect(&:stopped_at).any? }
+  validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions.pluck(:started_at).any? }
+  validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
   def born_at_in_interventions
-    first_date = interventions.collect(&:stopped_at).sort.first
-    errors.add(:born_at, :invalid) unless initial_born_at <= first_date
+    first_date = interventions.pluck(:stopped_at).sort.first
+    errors.add(:born_at, :invalid) unless born_at <= first_date
   end
 
   def dead_at_in_interventions
-    last_date = interventions.collect(&:stopped_at).sort.last
-    unless initial_dead_at >= initial_born_at && initial_dead_at >= last_date
-      errors.add(:dead_at, :invalid)
-    end
+    last_date = interventions.pluck(&:stopped_at).sort.last
+    errors.add(:dead_at, :invalid) unless dead_at >= last_date
   end
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
@@ -280,6 +278,9 @@ class Product < Ekylibre::Record::Base
   validate do
     if nature && variant
       errors.add(:nature_id, :invalid) if variant.nature_id != nature_id
+    end
+    if dead_at && born_at
+      errors.add(:dead_at, :invalid) if dead_at < born_at
     end
     if variant
       if variety
