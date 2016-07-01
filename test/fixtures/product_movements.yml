@@ -1323,6 +1323,7 @@ product_movements_115:
   population: 10.0
   product_id: 98
   started_at: 2014-11-07 15:25:51.233605000 Z
+  stopped_at: 2016-07-01 19:46:56.161420000 Z
   updated_at: 2014-11-07 15:25:51.192693000 Z
   updater_id: 1
 product_movements_116:
@@ -1879,4 +1880,18 @@ product_movements_171:
   product_id: 179
   started_at: 2016-07-01 20:23:20.986644000 Z
   updated_at: 2016-07-01 20:23:21.155791000 Z
+  updater_id: 1
+product_movements_172:
+  created_at: 2016-07-01 20:46:56.169394000 Z
+  creator_id: 1
+  delta: -0.9289
+  id: 172
+  lock_version: 0
+  originator_id: 158
+  originator_type: InterventionParameter
+  population: 9.0711
+  product_id: 98
+  started_at: 2016-07-01 19:46:56.161420000 Z
+  stopped_at: 2016-07-01 20:46:56.161420000 Z
+  updated_at: 2016-07-01 20:46:56.169394000 Z
   updater_id: 1

@@ -543,3 +543,16 @@ events_039:
   stopped_at: 2016-07-01 20:12:51.342313000 Z
   updated_at: 2016-07-01 20:12:41.362348000 Z
   updater_id: 1
+events_040:
+  created_at: 2016-07-01 20:46:56.124775000 Z
+  creator_id: 1
+  duration: 60
+  id: 48
+  lock_version: 0
+  name: Fertilisation n°30
+  nature: production_intervention
+  restricted: false
+  started_at: 2016-07-01 05:46:00.000000000 Z
+  stopped_at: 2016-07-01 20:47:00.000000000 Z
+  updated_at: 2016-07-01 20:46:56.124775000 Z
+  updater_id: 1

@@ -334,6 +334,20 @@ intervention_doers_019:
   updated_at: 2014-11-07 19:36:53.137218000 Z
   updater_id: 1
   variant_id: 23
+intervention_doers_020:
+  created_at: 2016-07-01 20:46:56.153024000 Z
+  creator_id: 1
+  event_participation_id: 61
+  id: 157
+  intervention_id: 30
+  lock_version: 0
+  position: 5
+  product_id: 79
+  reference_name: driver
+  type: InterventionDoer
+  updated_at: 2016-07-01 20:46:56.153024000 Z
+  updater_id: 1
+  variant_id: 23
 intervention_group_parameters_001:
   created_at: 2014-11-07 15:45:30.882661000 Z
   creator_id: 1
@@ -638,6 +652,24 @@ intervention_inputs_016:
   updated_at: 2014-11-07 19:36:59.212241000 Z
   updater_id: 1
   variant_id: 64
+intervention_inputs_017:
+  created_at: 2016-07-01 20:46:56.155381000 Z
+  creator_id: 1
+  id: 158
+  intervention_id: 30
+  lock_version: 0
+  position: 2
+  product_id: 98
+  quantity_handler: nitrogen
+  quantity_indicator_name: mass_area_density
+  quantity_population: 0.9289
+  quantity_unit_name: kilogram_per_hectare
+  quantity_value: 20.0
+  reference_name: fertilizer
+  type: InterventionInput
+  updated_at: 2016-07-01 20:46:56.155381000 Z
+  updater_id: 1
+  variant_id: 39
 intervention_outputs_001:
   created_at: 2014-11-05 15:39:35.633332000 Z
   creator_id: 1
@@ -1174,6 +1206,46 @@ intervention_targets_019:
   updated_at: 2014-11-07 19:23:41.911235000 Z
   updater_id: 1
   variant_id: 49
+intervention_targets_020:
+  created_at: 2016-07-01 20:46:56.175144000 Z
+  creator_id: 1
+  id: 159
+  intervention_id: 30
+  lock_version: 0
+  position: 1
+  product_id: 106
+  reference_name: land_parcel
+  type: InterventionTarget
+  updated_at: 2016-07-01 20:46:56.175144000 Z
+  updater_id: 1
+  variant_id: 28
+  working_zone: SRID=4326;MULTIPOLYGON(((-0.80186516046524 45.8255303173402,-0.80225944519043
+    45.8260181465222,-0.798313915729523 45.8273675980814,-0.798448026180267 45.826827447575,-0.798413157463074
+    45.8266480192574,-0.798273682594299 45.8265265310056,-0.798083245754242 45.8264592450906,-0.798193216323853
+    45.8262499106125,-0.798179805278778 45.8260106702451,-0.798863768577576 45.8257957268507,-0.799925923347473
+    45.8253677066629,-0.80037921667099 45.8252368701409,-0.801052451133728 45.8252088337034,-0.801709592342377
+    45.8251228552068,-0.80186516046524 45.8255303173402)),((-0.798354148864746 45.8268218404488,-0.798211991786957
+    45.8273993714774,-0.796734094619751 45.8278871842802,-0.796465873718262 45.8271171483253,-0.797152519226074
+    45.8269339828649,-0.797573626041412 45.8267975428955,-0.797871351242065 45.8266629716393,-0.798051059246063
+    45.8265171857445,-0.798220038414001 45.8265863406396,-0.798332691192627 45.8266984835302,-0.798354148864746
+    45.8268218404488)))
+intervention_targets_021:
+  created_at: 2016-07-01 20:46:56.179000000 Z
+  creator_id: 1
+  id: 160
+  intervention_id: 30
+  lock_version: 0
+  position: 1
+  product_id: 80
+  reference_name: land_parcel
+  type: InterventionTarget
+  updated_at: 2016-07-01 20:46:56.179000000 Z
+  updater_id: 1
+  variant_id: 28
+  working_zone: SRID=4326;MULTIPOLYGON(((-0.799287557601929 45.8255247100834,-0.798171758651733
+    45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
+    45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
+    45.8210985391894,-0.799287557601929 45.8255247100834)))
 intervention_tools_001:
   created_at: 2014-11-04 18:31:09.308816000 Z
   creator_id: 1
@@ -1636,3 +1708,29 @@ intervention_tools_033:
   updated_at: 2014-11-07 19:36:53.141079000 Z
   updater_id: 1
   variant_id: 67
+intervention_tools_034:
+  created_at: 2016-07-01 20:46:56.181474000 Z
+  creator_id: 1
+  id: 161
+  intervention_id: 30
+  lock_version: 0
+  position: 3
+  product_id: 97
+  reference_name: spreader
+  type: InterventionTool
+  updated_at: 2016-07-01 20:46:56.181474000 Z
+  updater_id: 1
+  variant_id: 37
+intervention_tools_035:
+  created_at: 2016-07-01 20:46:56.183226000 Z
+  creator_id: 1
+  id: 162
+  intervention_id: 30
+  lock_version: 0
+  position: 4
+  product_id: 29
+  reference_name: tractor
+  type: InterventionTool
+  updated_at: 2016-07-01 20:46:56.183226000 Z
+  updater_id: 1
+  variant_id: 26

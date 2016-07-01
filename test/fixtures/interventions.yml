@@ -368,3 +368,20 @@ interventions_020:
   updater_id: 1
   whole_duration: 25200
   working_duration: 25200
+interventions_021:
+  actions: fertilization
+  created_at: 2016-07-01 20:46:56.127570000 Z
+  creator_id: 1
+  description: ''
+  event_id: 48
+  id: 30
+  lock_version: 0
+  number: '30'
+  procedure_name: fertilizing
+  started_at: 2016-07-01 05:46:00.000000000 Z
+  state: undone
+  stopped_at: 2016-07-01 20:47:00.000000000 Z
+  updated_at: 2016-07-01 20:46:56.127570000 Z
+  updater_id: 1
+  whole_duration: 54060
+  working_duration: 39360

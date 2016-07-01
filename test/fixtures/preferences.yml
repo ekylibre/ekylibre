@@ -2929,11 +2929,11 @@ preferences_247:
   created_at: 2015-06-02 20:35:20.100688000 Z
   creator_id: 1
   id: 248
-  integer_value: 5
-  lock_version: 66
+  integer_value: 6
+  lock_version: 67
   name: current_campaign.id
   nature: integer
-  updated_at: 2016-07-01 20:17:49.370688000 Z
+  updated_at: 2016-07-01 20:46:59.769778000 Z
   updater_id: 1
   user_id: 1
 preferences_248:
@@ -4192,5 +4192,21 @@ preferences_361:
   nature: string
   string_value: {}
   updated_at: 2016-07-01 20:35:38.988664000 Z
+  updater_id: 1
+  user_id: 1
+preferences_362:
+  created_at: 2016-07-01 20:47:54.982899000 Z
+  creator_id: 1
+  id: 364
+  lock_version: 1
+  name: cobbler.interventions-show
+  nature: string
+  string_value:
+    order:
+    - resource-map
+    - costs
+    - general-informations
+    - parameters
+  updated_at: 2016-07-01 20:48:48.142879000 Z
   updater_id: 1
   user_id: 1
