@@ -1,3 +1,6 @@
+- user_pref = current_user.preference("activity_#{resource.activity.id}_inspection_view").value
+- user_pref ||= "mass"
+
 - main_toolbar do |t|
   = t.edit resource
   = t.destroy
@@ -16,16 +19,24 @@
 = cobbles do |c|
 
   - c.cobble(:totals) do
+    - cobble_meta_toolbar do
+      .btn-group{style: "float: right;"}
+        - classes = ["btn", "btn-default", ("active" if user_pref == "mass")]
+        = link_to(set_view_preference_backend_inspection_path(preference: "mass"),  class: classes) do
+          = "Mass"
+        - classes = ["btn", "btn-default", ("active" if user_pref == "items")]
+        = link_to(set_view_preference_backend_inspection_path(preference: "items"), class: classes) do
+          = "Items count"
+
     = infos do
       - ActivityInspectionPointNature.unmarketable_categories.each do |category|
         .med-info
           %span.title= category.l
           %span.value= resource.points_net_mass_percentage(category).round(2).l(precision: 2) + '%'
-
-    - if resource.activity.measure_grading_net_mass
-      - unit = Nomen::Unit[:ton]
-      - yield_unit = Nomen::Unit[:ton_per_hectare]
-      = infos do
+      - case user_pref
+      - when "mass"
+        - unit = Nomen::Unit[:ton]
+        - yield_unit = Nomen::Unit[:ton_per_hectare]
         - if resource.activity.inspection_calibration_scales.any?
           .med-info
             %span.title= Inspection.human_attribute_name(:marketable_net_mass)
@@ -39,45 +50,51 @@
           .med-info
             %span.title= Inspection.human_attribute_name(:gross_yield_value)
             %span.value= resource.net_mass_yield.convert(yield_unit).round(2).l(precision: 0)
-    - if resource.activity.measure_grading_items_count
-      - unit = Nomen::Unit[:thousand]
-      - yield_unit = Nomen::Unit[:unity_per_square_meter]
-      = infos do
-        - if resource.activity.inspection_calibration_scales.any?
-          .med-info
-            %span.title= Inspection.human_attribute_name(:marketable_items_count)
-            %span.value= resource.marketable_items_count.convert(unit).round(2).l(precision: 0)
-          .med-info
-            %span.title= Inspection.human_attribute_name(:marketable_net_yield)
-            %span.value= resource.marketable_items_yield.convert(yield_unit).round(2).l(precision: 0)
-          .med-info
-            %span.title= Inspection.human_attribute_name(:gross_items_count)
-            %span.value= resource.total_items_count.convert(unit).round(2).l(precision: 0)
-          .med-info
-            %span.title= Inspection.human_attribute_name(:gross_yield_value)
-            %span.value= resource.net_items_yield.convert(yield_unit).round(2).l(precision: 0)
+      - when "items"
+        - unit = Nomen::Unit[:thousand]
+        - yield_unit = Nomen::Unit[:unity_per_square_meter]
+        - if resource.activity.measure_grading_items_count
+          - if resource.activity.inspection_calibration_scales.any?
+            .med-info
+              %span.title= Inspection.human_attribute_name(:marketable_items_count)
+              %span.value= resource.marketable_items_count.convert(unit).round(2).l(precision: 0)
+            .med-info
+              %span.title= Inspection.human_attribute_name(:marketable_net_yield)
+              %span.value= resource.marketable_items_yield.convert(yield_unit).round(2).l(precision: 0)
+            .med-info
+              %span.title= Inspection.human_attribute_name(:gross_items_count)
+              %span.value= resource.total_items_count.convert(unit).round(2).l(precision: 0)
+            .med-info
+              %span.title= Inspection.human_attribute_name(:gross_yield_value)
+              %span.value= resource.net_items_yield.convert(yield_unit).round(2).l(precision: 0)
 
   - if resource.calibrations.any?
 
     - if resource.activity.measure_grading_net_mass && resource.calibrations.sum(:net_mass_value) > 0
 
-      - c.cobble(:stock_in_ground_mass) do
+      - c.cobble("stock_in_ground_#{user_pref}") do
+        - cobble_meta_toolbar do
+          .btn-group{style: "float: right;"}
+            - classes = ["btn", "btn-default", ("active" if user_pref == "mass")]
+            = link_to(set_view_preference_backend_inspection_path(preference: "mass"),  class: classes) do
+              = "Mass"
+            - classes = ["btn", "btn-default", ("active" if user_pref == "items")]
+            = link_to(set_view_preference_backend_inspection_path(preference: "items"), class: classes) do
+              = "Items count"
+
         %table
           %tbody
             - resource.scales.each do |scale|
               :ruby
                 dataset = resource.calibrations.of_scale(scale).reorder(:id)
-              = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
-
-    - if resource.activity.measure_grading_items_count && resource.calibrations.sum(:items_count) > 0
-
-      - c.cobble(:stock_in_ground_items) do
-        %table
-          %tbody
-            - resource.scales.each do |scale|
-              :ruby
-                dataset = resource.calibrations.of_scale(scale).reorder(:id)
-              = render "charts", to_graph: "items_count", dataset: dataset, resource: resource, scale: scale
+              - case user_pref
+              - when "mass"
+                = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
+              - when "items"
+                = render "charts", to_graph: "items_count", dataset: dataset, resource: resource, scale: scale
+              - else
+                = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
+                = render "charts", to_graph: "items_count", dataset: dataset, resource: resource, scale: scale
 
   - c.cobble(:analyses) do
     - analysis = Analysis.where(product: resource.product, nature: 'plant_analysis').reorder(:sampled_at).last
