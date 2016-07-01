@@ -73,6 +73,8 @@ class OutgoingPayment < Ekylibre::Record::Base
     where(paid_at: started_at..stopped_at)
   }
 
+  alias status affair_status
+
   calculable period: :month, column: :amount, at: :paid_at, name: :sum
 
   before_validation do

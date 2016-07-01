@@ -98,7 +98,7 @@ class Affair < Ekylibre::Record::Base
     self.debit = 0
     self.credit = 0
     self.deals_count = deals.count
-    for deal in deals
+    deals.each do |deal|
       self.debit += deal.deal_debit_amount
       self.credit += deal.deal_credit_amount
     end

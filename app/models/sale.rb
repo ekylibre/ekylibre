@@ -102,7 +102,6 @@ class Sale < Ekylibre::Record::Base
   acts_as_affairable :client, debit: :credit?
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? }, allow_destroy: true
 
-  delegate :closed, :balance, to: :affair, prefix: true
   delegate :with_accounting, to: :nature
 
   scope :invoiced_between, lambda { |started_at, stopped_at|

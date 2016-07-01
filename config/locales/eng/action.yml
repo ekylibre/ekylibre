@@ -983,7 +983,7 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zone_abbreviation: "CZ" #?!
     cultivable_zone_prefix: "cultivable area No." #?!
-    cultivable_zones: "Cultivable zones"
+    cultivable_zones: "Cultivable zones" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
     current: "Current" #?
     current_cultivation: "Current cultivation"

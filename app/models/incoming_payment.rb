@@ -76,10 +76,10 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :payer, presence: true
   validates :commission_account, presence: { if: :with_commission? }
 
-  delegate :status, to: :affair
-
   acts_as_numbered
   acts_as_affairable :payer, dealt_at: :to_bank_at, role: 'client'
+
+  alias status affair_status
 
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_at <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Time.zone.now, true) }
 
