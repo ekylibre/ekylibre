@@ -818,7 +818,6 @@ spa:
     # building: "Building"
     building_create: "Añadir un lugar de deposito" #?
     # building_divisions: "building areas"
-    # building_divisions_and_parcels: "building areas and land parcels"
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito"
     by_year: "Por año"
@@ -830,13 +829,8 @@ spa:
     cancel: "Cancelar"
     cancelation: "Cancelación"
     cancelled: "Pasar en activos" #?
-    # cap_cluster_prefix: "CAP island No."
-    # cap_clusters: "CAP islands"
     cap_islets: "Islotes Cap"
-    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "Parcelas Cap"
-    # cap_parcel_prefix: "CAP land parcel No."
-    # cap_parcels: "CAP land parcels"
     cartography: "Cartografía"
     cash: "Efectivo"
     cash_balance: "Saldo en efectivo"
@@ -880,7 +874,6 @@ spa:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
     configure: "Configurar"
-    # confirm_sentence: "Are you sure?"
     confirmed: "Confirmadas" #?
     connect: "Entrar" #?
     consume: "Consumir"
@@ -898,12 +891,11 @@ spa:
     cost_per_net_surface_area: "El costo por unidad de superficie neta"
     cost_sum: "Total cargas de explotación" #?
     costs: "Costos"
-    costs_map: "Mapa de costes"
+    costs_map: "Mapa de costes" #?
     costs_per_hectare: "Los costos por hectárea"
     counts: "Conteos"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
     create: "Crear"
-    # create_a_new_division: "Create a new zone. Click on the map to add a point and close the drawing to create the zone."
     create_journal: "-- Crear el periodico --"
     create_or_import_equipments: "Crear o equipos de importación"
     create_or_import_incoming_parcels: "Crear o importar los paquetes entrantes"
@@ -922,8 +914,6 @@ spa:
     crumbs: "Migas"
     csv_statistics: "Statisticas a exportar al formato CSV" #?
     cultivable_zone: "Zona cultivable"
-    # cultivable_zone_abbreviation: "CZ"
-    # cultivable_zone_prefix: "cultivable area No."
     cultivable_zones: "Zonas cultivables"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     current: "Corriente"
@@ -946,7 +936,6 @@ spa:
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     delete: "Borrar"
-    # delete_an_existing_division: "Delete an existing zone. Click the box to remove it."
     # delete_shape: "Delete form"
     deliver: "Entregado en"
     deliveries: "Entregas"
@@ -971,7 +960,7 @@ spa:
     # destroyed_by_ago: "Destroyed by %{author} %{when}"
     detail: "Detalle"
     details: "Detalles"
-    direct_margin: "Margen directo"
+    direct_margin: "Margen directo" #?
     discount: "Descuento (%)"
     # disease: "Disease (%)"
     # disease_deformity_percentage: "Disease and deformity percentage"
@@ -993,20 +982,15 @@ spa:
     downpayment: "Pago inicial"
     draft: "Niebla"
     draft_entries: "niebla" #?
-    # draw_your_building_divisions: "Draw your building areas. By default, a main area for your building is created."
-    # draw_your_buildings: "Draw your buildings, which ye shall divide area in the next step."
-    # draw_your_cultivable_zones: "Draw the areas where you have crops. These are deducted from your PAC import if necessary."
     duplicate: "Duplicar"
     duration: "Duración"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Durante"
     earns: "Gana"
     edit: "Editar"
-    # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "Editar presupuesto"
-    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
-    elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades"
+    elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades" #?
     # email: "Email:"
     end: "al"
     entities: "Entidades"
@@ -1017,9 +1001,6 @@ spa:
     entries_to_point: "Escrituras a despuntar"
     entry_items: "Elementos de entrada"
     # equipment: "Equipment"
-    # equipment_name: "Name of equipment"
-    # equipment_type: "Type of equipment"
-    # equipment_zone: "Location"
     equipments: "Equipamientos"
     error: "Lo siento..."
     error_no_file: "Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones."
@@ -1030,7 +1011,7 @@ spa:
     establishments: "Establecimiento" #?
     estimate_yield: "Rendimiento estimado"
     europe_out_export: "Exportaciones fuera de CC.EE" #?
-    evaluated_direct_margin: "Margen directo evaluado"
+    evaluated_direct_margin: "Margen directo evaluado" #?
     evaluated_doer_cost: "Coste laboral evaluado"
     evaluated_input_cost: "Costo de entrada evaluado"
     evaluated_other_cost: "Otro coste evaluado"
@@ -1045,7 +1026,6 @@ spa:
     expenses: "Gastos"
     # expenses_by_product_nature_category: "Expenses by product nature category"
     export: "Exportación de un fichero de salvaguardia"
-    # file_imports: "Import files"
     file_nature: "Tipo de fichero"
     file_preview: "Avance"
     file_to_import: "Fichero a importar" #?
@@ -1095,9 +1075,7 @@ spa:
     illness: "Enfermedad"
     implanted_at: "Implantado en"
     import: "Importación de un  fichero de salvaguardia"
-    # import_zones_from_third_party_softwares: "Import zones from third party software, the GeoJSON format GML and KML."
     importation_explanation: "Explicación importación"
-    # imported_file: "Your file has been imported"
     inactive: "Inactivo"
     include_blank: "Incluir en blanco"
     income_statement: "cuentos de résultos"
@@ -1105,7 +1083,6 @@ spa:
     incoming_payment: "Pago recibido"
     incoming_payments: "Pagos recibidos"
     incoming_payments_to_deposit: "Pagos recibidos para depositar"
-    # increase_map_on_fullscreen: "Enlarge map in full screen."
     indicator: "Indicadores"
     indicator_value: "Valor del indicador"
     indicators: "Indicadores"
@@ -1137,7 +1114,7 @@ spa:
     inventory_create: "Hacer un nuevo inventario" #?
     inventory_print: "Imprimir el inventario" #?
     invitation_status: "Estado"
-    invoiced_amount: "Ventas importe facturado"
+    invoiced_amount: "Ventas importe facturado" #?
     invoices: "Facturas"
     is: "Es"
     issue: "Problema"
@@ -1162,7 +1139,6 @@ spa:
     journals: "Periodico general"
     label: "Etiqueta"
     # label_value: "%{label}: %{value}"
-    # land_parcel_abbreviation: "LP"
     land_parcels: "Parcelas"
     last_analyses: "Análisis Última leche"
     last_computed_balance: "Último balance computarizada"
@@ -1179,7 +1155,6 @@ spa:
     last_products: "Últimos productos"
     last_purchases: "Últimas compras"
     last_sales: "Última oferta de venta"
-    # layers_management: "layers of management, to change the base map and refine the visual representations to show."
     left_balance_amount: "Aplazamiento del credito anterior sin imputar ni reembolsar" #?
     letter: "Carta"
     lettering_account_client: "marcar con lettras los cuentos clientos" #?
@@ -1212,7 +1187,6 @@ spa:
       other: "%{count} correos electronicos"
       zero: "Ningun correo electronico"
     main_settings: "Ajustes principales"
-    # main_zone_of: "main area of ​​%{zone}"
     make_your_production_support: "Haga su apoyo a la producción"
     manage_activities: "Gestionar las actividades"
     management: "Administración comercial" #?
@@ -1220,22 +1194,17 @@ spa:
     manual_period: "del %{start} al %{finish}"
     manure_management_plan_chart: "Gráfico de plan de manejo del estiércol"
     map: "Mapa"
-    # map_editor_explanation: "Question of the map grip"
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
     # marketable_net_mass: "Marketable net mass"
-    # max_level: "max level"
     maximal_temperature: "La temperatura máxima"
-    # measurement_tools: "measurement tool, for calculations of distances and areas."
     members: "Miembros"
     menus: "Menús"
     merge: "Unir"
     method: "Método"
-    # min_level: "level min"
     minimal_temperature: "Temperatura mínima"
     # missing: "Missing"
     missing_attributes: "Algunos atributos faltan"
-    # missing_buildings: "You have not saved building for now. You can return to the previous step to declare your buildings or ignore this message by clicking Next."
     missing_help: "La página no existe"
     mobile: "Móvil"
     mode: "Modo"
@@ -1317,12 +1286,12 @@ spa:
     number: "Número"
     number_of_cap_islets: "Número de islotes casquillo"
     number_of_cap_land_parcels: "Número de parcelas de tapa"
-    number_options: "Opciones números"
+    number_options: "Opciones números" #?
     numbers: "Números"
     # ok: "OK"
     on_account: "Volver a poner sobre la cuenta"
     one_condition: "Una condición"
-    open_a_campaign: "Abrir una campaña"
+    open_a_campaign: "Abrir una campaña" #?
     open_a_production: "Abrir una producción"
     open_an_activity: "Abra una actividad"
     operating_margin: "Margen operativo"
@@ -1412,7 +1381,7 @@ spa:
     productions: "Producciones"
     products: "Productos"
     profile: "Perfil"
-    provisionnal_budget: "Presupuesto Provisionnal"
+    provisionnal_budget: "Presupuesto Provisionnal" #?
     purchase: "Compra"
     purchase_items: "Artículos de la compra"
     purchase_number: "Número de compra"
@@ -1422,7 +1391,7 @@ spa:
     purchases: "Compras"
     # quandl: "Quandl"
     quantity: "Quantidades"
-    quantity_rest: "Quantidad restante"
+    quantity_rest: "Quantidad restante" #?
     quantity_to_credit: "Cantidad a pasar en activo" #?
     quarterly: "Trimestral" #?
     query: "Demanda:"
@@ -1434,7 +1403,6 @@ spa:
     received: "Recibido"
     recent_events: "Eventos recientes"
     # reconciled_total: "Reconciled total"
-    # reference_cap_clusters: "Islets reference CAP"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
     reflections: "Reflexiones"
@@ -1455,12 +1423,10 @@ spa:
     repayments_graph: "Reembolsos gráfico"
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
-    # request_building_levels: "buildings levels"
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
     reset: "Restablecer"
-    # reset_all_data: "Delete and start over"
     resource: "Consultar la pieza de origen\_: %{resource} %{number}"
     resources: "Administración de los recursos humanos"
     rest: "Descanso"
@@ -1470,7 +1436,6 @@ spa:
       one: "1 resultado"
       other: "%{count} resultado"
       zero: "Ningun resultado"
-    # retrieve_my_telepac_file: "Retrieve TELEPAC file."
     revenues: "Los ingresos"
     revenues_by_product_nature: "Los ingresos por tipo de producto"
     reverse: "Condición inversa"
@@ -1522,7 +1487,7 @@ spa:
     select_file_to_upload: "Seleccionar archivo para cargar"
     select_financial_year: "Ejercicio" #?
     select_forward_journal: "Periodico utilizado para los aplazamientos de nuevo"
-    select_number: "Seleccione el número de"
+    select_number: "Seleccione el número de" #?
     selection: "Selección"
     send: "Enviar un correro electronico" #?
     send_mail: "Enviar correo"
@@ -1541,7 +1506,6 @@ spa:
     shape: "Forma"
     shelf: "Categoria" #?
     ship: "Enviar"
-    # short_level_label: "Lv."
     show: "Espectáculo"
     sign_out: "Desconectar"
     simplified: "Regimen del real simplificado"
@@ -1565,7 +1529,6 @@ spa:
     stop: "Detener"
     # stopped: "Stopped"
     storage: "Almacenamiento"
-    # storages: "Silos and tanks"
     subject: "Tema"
     submit: "Enviar"
     # subscriber_period: "Subscribed on %{subscribed_at}"
@@ -1581,7 +1544,7 @@ spa:
     supply: "Suministro"
     support: "Apoyo"
     supports: "Soportes"
-    supports_chart: "Soporta gráfica"
+    supports_chart: "Soporta gráfica" #?
     synthesis: "Documentos de sintesis"
     target: "Objetivo"
     tasks: "Tareas"
@@ -1589,9 +1552,6 @@ spa:
     tax_declaration_create: "Añadir una nueva declaración" #?
     taxations: "Tasaciones"
     taxes: "Impuestos"
-    # telepac_files: "Import TELEPAC"
-    # telepac_upload_your_xml_file: "You can import your statement in XML format that you have previously exported to TELEPAC."
-    # the_file_is_invalid: "The file is invalid!"
     theoric_quantity: "cantidad teorica" #?
     thumb: "Pulgar"
     time_cost: "Costo de tiempo"
@@ -1623,18 +1583,18 @@ spa:
     total_earn: "Ganan total"
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total importe facturado" #?
-    total_paid_amount: "Cantidad pagada total"
+    total_paid_amount: "Cantidad pagada total" #?
     total_pretax_expenses: "Los gastos totales antes de impuestos"
     total_pretax_revenues: "Los ingresos totales antes de impuestos"
     total_quantity: "Quantidad total"
-    total_unpaid_amount: "Cantidad total no pagado"
+    total_unpaid_amount: "Cantidad total no pagado" #?
     totals: "Totales (piezas validas y niebla)"
     tracking: "Rastreo"
     trade: "Comercio"
     trade_counts: "Conteos comerciales"
     transactions_by_month: "Transacciones por mes"
     transfer: "Transferir"
-    transformations: "Transformaciones"
+    transformations: "Transformaciones" #?
     transport: "Transporte"
     undefined_container: "Indefinido de contenedores"
     undelivered: "No entregado"
@@ -1652,14 +1612,12 @@ spa:
     unlock: "Desbloquear"
     unmark: "Desmarcar"
     # unmarketable_inspection_categories_evolution: "Unmarketable inspection categories evolution"
-    # unnamed: "Nameless"
     unpaid: "No pagado"
-    unpaid_amount: "Cantidad no pagada"
+    unpaid_amount: "Cantidad no pagada" #?
     unpaid_days: "Sin pagar ya que (en días)"
     unpaid_purchases: "Compra sin pagar"
     unpaid_sales: "Ventas no pagadas"
     unset_reconcilable_old_third_accounts: "Viejos terceros cuentas conciliables no definidas (clientes, proveedores y abogados)"
-    # unzoom_map: "Zoom out the map."
     up: "Arriba"
     update: "Actualizar"
     # updated_at_by: "Updated at %{at} by %{author}"
@@ -1688,7 +1646,6 @@ spa:
     view: "Ver"
     # watering_concentration: "Water use"
     weather: "Clima"
-    # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
@@ -1821,10 +1778,7 @@ spa:
     years_count_in_historic: "Nombre de años en el historico" #?
     # yield: "Yield"
     # yield_by_calibration: "Yield by calibration"
-    # you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions."
-    # you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:"
     zones: "Zonas"
-    # zoom_on_map: "Zoom on the map."
   notifications:
     levels:
       error: "Error"
