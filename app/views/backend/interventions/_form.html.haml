@@ -36,7 +36,7 @@
       %h2.activity-family-name= family.human_name
       .activity-family-procedures
         - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
-          = dropdown_menu_button(category.human_name, class: 'btn-group-lg') do |menu|
+          = dropdown_menu_button(category.human_name, class: 'btn-group-lg', icon: false) do |menu|
             - Procedo.procedures_of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
               - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], action: :new }
 

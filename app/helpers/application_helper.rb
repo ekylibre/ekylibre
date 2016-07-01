@@ -451,12 +451,12 @@ module ApplicationHelper
     end
     raise 'Need a name or a default item' unless name || default_item
     if name.is_a?(Symbol)
-      options[:icon] ||= name unless options.key?(:icon)
+      options[:icon] ||= name unless options[:icon].is_a?(FalseClass)
       name = options[:label] || name.ta(default: ["labels.#{name}".to_sym])
     end
     item_options = default_item.args.third if default_item
     item_options ||= {}
-    item_options[:tool] = options[:icon] if options[:icon]
+    item_options[:tool] = options[:icon] if options.key?(:icon)
     content_tag(:div, class: 'btn-group' + (options[:class] ? ' ' + options[:class].to_s : '')) do
       if default_item
         html = tool_to(default_item.args.first, default_item.args.second,
