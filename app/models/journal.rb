@@ -316,18 +316,15 @@ class Journal < Ekylibre::Record::Base
     journal_entries = 'je'
     accounts = 'a'
 
-    journal_entries_states = ' AND ' + JournalEntry.state_condition(options[:states], journal_entries)
+    journal_entries_states = ' AND (' + JournalEntry.state_condition(options[:states], journal_entries) + ')'
 
-    # account_range = ' AND ' + Account.range_condition(options[:accounts], accounts)
-    account_range = ' AND ' + Account.range_condition(options[:accounts], accounts)
+    account_range = ' AND (' + Account.range_condition(options[:accounts], accounts) + ')'
 
-    # raise StandardError.new(options[:centralize].to_s.strip.split(/[^A-Z0-9]+/).inspect)
-    centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/) # .delete_if{|x| x.blank? or !expr.match(valid_expr)}
-    options[:centralize] = centralize.join(' ')
-    centralized = centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ')
+    centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/)
+    centralized = '(' + centralize.collect { |c| "#{accounts}.number LIKE #{conn.quote(c + '%')}" }.join(' OR ') + ')'
 
     from_where  = " FROM #{JournalEntryItem.table_name} AS #{journal_entry_items} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
-    from_where += ' WHERE ' + JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries)
+    from_where += ' WHERE (' + JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries) + ')'
 
     # Total
     items = []

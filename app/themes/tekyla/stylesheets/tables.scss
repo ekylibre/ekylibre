@@ -141,6 +141,9 @@ table {
     &.invalid td { color: $invalid-color; }
     &.valid   td { color: $success-color; }
   }
+  tr.centralize {
+    td, th { font-style: italic; }
+  }
   tr.first-line    td { border-top: 2px solid #F77; }
   tr.last-line     td { border-bottom: 2px solid #F77; }
   tr.inline-errors td { background: transparent; padding:8px 4px 0; border-left:none; border-right:none; }
