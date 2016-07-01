@@ -15,7 +15,7 @@ module Backend
       end
 
       respond_to do |format|
-        format.json { render json: { alert: flash.alert } } unless flash.nil?
+        format.json { render json: { alert: flash.alert } } unless flash.now[:alert].nil?
         format.json { render json: geometries.to_json }
       end
     end
