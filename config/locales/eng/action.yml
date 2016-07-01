@@ -983,7 +983,7 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zone_abbreviation: "CZ" #?!
     cultivable_zone_prefix: "cultivable area No." #?!
-    cultivable_zones: "arable areas"
+    cultivable_zones: "Cultivable zones"
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
     current: "Current" #?
     current_cultivation: "Current cultivation"
@@ -1062,7 +1062,7 @@ eng:
     equipment_name: "Name of equipment" #?
     equipment_type: "Type of equipment" #??
     equipment_zone: "Location" #??
-    equipments: "amenities"
+    equipments: "Equipments"
     error: "Sorry..."
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
