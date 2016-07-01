@@ -1660,8 +1660,8 @@ journal_entry_items_054:
   created_at: 2015-05-07 23:15:03.726183000 Z
   creator_id: 1
   credit: 2000.0
-  cumulated_absolute_credit: 42650.15
-  cumulated_absolute_debit: 17657.0
+  cumulated_absolute_credit: 40140.23
+  cumulated_absolute_debit: 28307.33
   currency: EUR
   debit: 0.0
   entry_id: 30
@@ -5833,23 +5833,23 @@ journal_entry_items_193:
   cumulated_absolute_credit: 40650.15
   cumulated_absolute_debit: 17657.0
   currency: EUR
-  debit: 629.23
+  debit: 629.24
   entry_id: 68
   entry_number: BCA000038
   financial_year_id: 24
   id: 249
   journal_id: 7
-  lock_version: 0
+  lock_version: 14
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
-  position: 1
-  printed_on: 2015-04-24
+  position: 2
+  printed_on: 2015-04-23
   real_balance: 707.48
   real_credit: 0.0
   real_currency: USD
   real_currency_rate: 0.8894
   real_debit: 707.48
   state: draft
-  updated_at: 2015-05-07 23:17:31.914784000 Z
+  updated_at: 2016-07-01 20:03:38.522129000 Z
   updater_id: 1
 journal_entry_items_194:
   absolute_credit: 0.0
@@ -5869,17 +5869,17 @@ journal_entry_items_194:
   financial_year_id: 24
   id: 250
   journal_id: 7
-  lock_version: 0
+  lock_version: 10
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
-  position: 2
-  printed_on: 2015-04-24
+  position: 1
+  printed_on: 2015-04-23
   real_balance: 46.47
   real_credit: 0.0
   real_currency: USD
   real_currency_rate: 0.8894
   real_debit: 46.47
   state: draft
-  updated_at: 2015-05-07 23:17:31.935453000 Z
+  updated_at: 2016-07-01 19:52:32.368990000 Z
   updater_id: 1
 journal_entry_items_195:
   absolute_credit: 0.0
@@ -5899,30 +5899,30 @@ journal_entry_items_195:
   financial_year_id: 24
   id: 251
   journal_id: 7
-  lock_version: 0
+  lock_version: 10
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
   position: 3
-  printed_on: 2015-04-24
+  printed_on: 2015-04-23
   real_balance: 16.6
   real_credit: 0.0
   real_currency: USD
   real_currency_rate: 0.8894
   real_debit: 16.6
   state: draft
-  updated_at: 2015-05-07 23:17:31.955737000 Z
+  updated_at: 2016-07-01 19:52:21.667671000 Z
   updater_id: 1
 journal_entry_items_196:
-  absolute_credit: 685.33
+  absolute_credit: 622.58
   absolute_currency: EUR
   absolute_debit: 0.0
   account_id: 214
-  balance: -685.33
+  balance: -622.58
   bank_statement_id: 3
   bank_statement_letter: A
   created_at: 2015-05-07 23:17:31.975126000 Z
   creator_id: 1
-  credit: 685.33
-  cumulated_absolute_credit: 20649.02
+  credit: 622.58
+  cumulated_absolute_credit: 20586.27
   cumulated_absolute_debit: 40650.15
   currency: EUR
   debit: 0.0
@@ -5931,15 +5931,45 @@ journal_entry_items_196:
   financial_year_id: 24
   id: 252
   journal_id: 7
-  lock_version: 0
+  lock_version: 12
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
   position: 4
-  printed_on: 2015-04-24
-  real_balance: -770.55
-  real_credit: 770.55
+  printed_on: 2015-04-23
+  real_balance: -700.0
+  real_credit: 700.0
   real_currency: USD
   real_currency_rate: 0.8894
   real_debit: 0.0
   state: draft
-  updated_at: 2016-06-29 05:49:23.204491000 Z
+  updated_at: 2016-07-01 20:03:38.575846000 Z
+  updater_id: 1
+journal_entry_items_197:
+  absolute_credit: 62.75
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 214
+  balance: -62.75
+  created_at: 2016-07-01 20:03:38.600185000 Z
+  creator_id: 1
+  credit: 62.75
+  cumulated_absolute_credit: 20649.02
+  cumulated_absolute_debit: 40650.15
+  currency: EUR
+  debit: 0.0
+  entry_id: 68
+  entry_number: BCA000038
+  financial_year_id: 24
+  id: 266
+  journal_id: 7
+  lock_version: 0
+  name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
+  position: 5
+  printed_on: 2015-04-23
+  real_balance: -70.55
+  real_credit: 70.55
+  real_currency: USD
+  real_currency_rate: 0.8894
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-07-01 20:03:38.600185000 Z
   updater_id: 1

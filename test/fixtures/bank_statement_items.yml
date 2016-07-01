@@ -144,7 +144,6 @@ bank_statement_items_008:
   currency: USD
   debit: 770.55
   id: 8
-  letter: A
   lock_version: 0
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
   transfered_on: 2015-04-24

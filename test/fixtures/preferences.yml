@@ -2643,23 +2643,16 @@ preferences_222:
   created_at: 2015-02-08 11:59:59.585172000 Z
   creator_id: 1
   id: 222
-  lock_version: 3
+  lock_version: 4
   name: beehive.dashboard_1
   nature: string
   string_value:
-    type: root
-    children:
-    - type: hbox
-      children:
-      - type: cell
-        name: cash_balances
-      - type: cell
-        name: weather
-    - type: hbox
-      children:
-      - type: cell
-        name: last_products
-  updated_at: 2015-02-08 12:00:17.499616000 Z
+    version: 2
+    boxes:
+    - cells:
+      - name: elapsed_interventions_times_by_activities_1
+        type: elapsed_interventions_times_by_activities
+  updated_at: 2016-07-01 19:21:30.966143000 Z
   updater_id: 1
   user_id: 1
 preferences_223:
@@ -2677,19 +2670,21 @@ preferences_224:
   created_at: 2015-02-08 12:39:45.991220000 Z
   creator_id: 1
   id: 224
-  lock_version: 1
+  lock_version: 5
   name: beehive.dashboard_2
   nature: string
   string_value:
-    type: root
-    children:
-    - type: hbox
-      children:
-      - type: cell
-        name: last_entities
-      - type: cell
-        name: calendar
-  updated_at: 2015-02-08 12:39:55.553677000 Z
+    version: 2
+    boxes:
+    - cells:
+      - name: last_entities_1
+        type: last_entities
+      - name: expenses_by_product_nature_category_1
+        type: expenses_by_product_nature_category
+    - cells:
+      - name: last_analyses_1
+        type: last_analyses
+  updated_at: 2016-07-01 19:20:25.459269000 Z
   updater_id: 1
   user_id: 1
 preferences_225:
@@ -3075,11 +3070,11 @@ preferences_261:
   created_at: 2015-06-06 22:21:33.379806000 Z
   creator_id: 1
   id: 262
-  lock_version: 1
+  lock_version: 2
   name: interface.janus.backend-entities-show-9.current_face
   nature: string
-  string_value: cobbles
-  updated_at: 2015-06-06 22:21:33.385587000 Z
+  string_value: timeline
+  updated_at: 2016-07-01 19:23:58.837023000 Z
   updater_id: 1
   user_id: 1
 preferences_262:
@@ -3108,11 +3103,23 @@ preferences_264:
   created_at: 2015-06-15 11:37:30.552710000 Z
   creator_id: 1
   id: 265
-  lock_version: 0
+  lock_version: 1
   name: cobbler.entities-show
   nature: string
-  string_value: {}
-  updated_at: 2015-06-15 11:37:30.552710000 Z
+  string_value:
+    order:
+    - general-informations
+    - events
+    - issues
+    - entity-links
+    - tasks
+    - sale-opportunities
+    - incoming-payments
+    - sales
+    - subscriptions
+    - purchases
+    - outgoing-payments
+  updated_at: 2016-07-01 19:22:59.842534000 Z
   updater_id: 1
   user_id: 1
 preferences_265:
@@ -3852,5 +3859,92 @@ preferences_331:
   nature: string
   string_value: {}
   updated_at: 2016-05-26 21:27:17.050071000 Z
+  updater_id: 1
+  user_id: 1
+preferences_332:
+  created_at: 2016-07-01 19:23:01.137941000 Z
+  creator_id: 1
+  id: 333
+  lock_version: 0
+  name: cobbler.incoming_payments-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 19:23:01.137941000 Z
+  updater_id: 1
+  user_id: 1
+preferences_333:
+  created_at: 2016-07-01 19:23:12.433064000 Z
+  creator_id: 1
+  id: 334
+  lock_version: 0
+  name: list._last_movements_cells_list_last_movements_cells_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 19:23:12.433064000 Z
+  updater_id: 1
+  user_id: 1
+preferences_334:
+  created_at: 2016-07-01 19:23:39.068473000 Z
+  creator_id: 1
+  id: 335
+  lock_version: 0
+  name: list._parcels_list_incoming_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 19:23:39.068473000 Z
+  updater_id: 1
+  user_id: 1
+preferences_335:
+  created_at: 2016-07-01 19:26:29.574285000 Z
+  creator_id: 1
+  id: 336
+  lock_version: 0
+  name: list._events_list_events_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 19:26:29.574285000 Z
+  updater_id: 1
+  user_id: 1
+preferences_336:
+  boolean_value: true
+  created_at: 2016-07-01 19:26:49.219416000 Z
+  creator_id: 1
+  id: 337
+  lock_version: 0
+  name: interface.kujakus.backend-journals-show-9.collapsed
+  nature: boolean
+  updated_at: 2016-07-01 19:26:49.219416000 Z
+  updater_id: 1
+  user_id: 1
+preferences_337:
+  created_at: 2016-07-01 19:26:49.231410000 Z
+  creator_id: 1
+  id: 338
+  lock_version: 0
+  name: kujaku.feathers.backend-journals-show-9:0.default
+  nature: string
+  updated_at: 2016-07-01 19:26:49.231410000 Z
+  updater_id: 1
+  user_id: 1
+preferences_338:
+  created_at: 2016-07-01 19:26:49.350227000 Z
+  creator_id: 1
+  id: 339
+  lock_version: 0
+  name: cobbler.journals-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 19:26:49.350227000 Z
+  updater_id: 1
+  user_id: 1
+preferences_339:
+  created_at: 2016-07-01 19:27:00.937712000 Z
+  creator_id: 1
+  id: 340
+  lock_version: 0
+  name: cobbler.journal_entries-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 19:27:00.937712000 Z
   updater_id: 1
   user_id: 1

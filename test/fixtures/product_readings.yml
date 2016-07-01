@@ -3459,3 +3459,99 @@ product_readings_214:
   read_at: 2016-02-29 23:00:00.000000000 Z
   updated_at: 2016-05-10 19:12:52.826480000 Z
   updater_id: 1
+product_readings_215:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2016-07-01 19:23:47.711398000 Z
+  creator_id: 1
+  id: 341
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 1.0
+  product_id: 177
+  read_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.711398000 Z
+  updater_id: 1
+product_readings_216:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2016-07-01 19:23:47.714169000 Z
+  creator_id: 1
+  id: 342
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: kilogram
+  measure_value_value: 1.0
+  product_id: 177
+  read_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.714169000 Z
+  updater_id: 1
+product_readings_217:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.01
+  boolean_value: false
+  created_at: 2016-07-01 19:23:47.816920000 Z
+  creator_id: 1
+  id: 343
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 10.0
+  product_id: 178
+  read_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.816920000 Z
+  updater_id: 1
+product_readings_218:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 0.01
+  boolean_value: false
+  created_at: 2016-07-01 19:23:47.819091000 Z
+  creator_id: 1
+  id: 344
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: milliliter
+  measure_value_value: 10.0
+  product_id: 178
+  read_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.819091000 Z
+  updater_id: 1
+product_readings_219:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 5.0
+  boolean_value: false
+  created_at: 2016-07-01 19:23:47.821156000 Z
+  creator_id: 1
+  id: 345
+  indicator_datatype: measure
+  indicator_name: meat_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 5.0
+  product_id: 178
+  read_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.821156000 Z
+  updater_id: 1
+product_readings_220:
+  absolute_measure_value_unit: day
+  absolute_measure_value_value: 6.0
+  boolean_value: false
+  created_at: 2016-07-01 19:23:47.823203000 Z
+  creator_id: 1
+  id: 346
+  indicator_datatype: measure
+  indicator_name: milk_withdrawal_period
+  lock_version: 0
+  measure_value_unit: day
+  measure_value_value: 6.0
+  product_id: 178
+  read_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.823203000 Z
+  updater_id: 1

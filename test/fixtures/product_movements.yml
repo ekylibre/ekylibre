@@ -1802,3 +1802,47 @@ product_movements_164:
   started_at: 2016-02-29 23:00:00.000000000 Z
   updated_at: 2016-05-10 19:12:52.781402000 Z
   updater_id: 1
+product_movements_165:
+  created_at: 2016-07-01 19:23:47.670523000 Z
+  creator_id: 1
+  delta: 25.0
+  id: 165
+  lock_version: 0
+  population: 25.0
+  product_id: 177
+  started_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.670523000 Z
+  updater_id: 1
+product_movements_166:
+  created_at: 2016-07-01 19:23:47.725206000 Z
+  creator_id: 1
+  delta: 25.0
+  id: 166
+  lock_version: 0
+  population: 25.0
+  product_id: 177
+  started_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.725206000 Z
+  updater_id: 1
+product_movements_167:
+  created_at: 2016-07-01 19:23:47.804518000 Z
+  creator_id: 1
+  delta: 35.0
+  id: 167
+  lock_version: 0
+  population: 35.0
+  product_id: 178
+  started_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.804518000 Z
+  updater_id: 1
+product_movements_168:
+  created_at: 2016-07-01 19:23:47.830886000 Z
+  creator_id: 1
+  delta: 35.0
+  id: 168
+  lock_version: 0
+  population: 35.0
+  product_id: 178
+  started_at: 2016-07-01 19:23:47.522750000 Z
+  updated_at: 2016-07-01 19:23:47.830886000 Z
+  updater_id: 1

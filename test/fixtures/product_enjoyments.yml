@@ -1130,3 +1130,47 @@ product_enjoyments_115:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2016-05-10 19:12:52.743368000 Z
   updater_id: 1
+product_enjoyments_116:
+  created_at: 2016-07-01 19:23:47.642166000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 123
+  lock_version: 0
+  nature: unknown
+  product_id: 177
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:47.642166000 Z
+  updater_id: 1
+product_enjoyments_117:
+  created_at: 2016-07-01 19:23:47.791778000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 124
+  lock_version: 0
+  nature: unknown
+  product_id: 178
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:47.791778000 Z
+  updater_id: 1
+product_enjoyments_118:
+  created_at: 2016-07-01 19:23:51.407735000 Z
+  creator_id: 1
+  id: 125
+  lock_version: 0
+  nature: own
+  product_id: 177
+  started_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:51.407735000 Z
+  updater_id: 1
+product_enjoyments_119:
+  created_at: 2016-07-01 19:23:51.439324000 Z
+  creator_id: 1
+  id: 126
+  lock_version: 0
+  nature: own
+  product_id: 178
+  started_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:51.439324000 Z
+  updater_id: 1

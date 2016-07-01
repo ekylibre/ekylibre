@@ -2096,3 +2096,45 @@ product_localizations_180:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2016-05-10 19:12:52.760729000 Z
   updater_id: 1
+product_localizations_181:
+  created_at: 2016-07-01 19:23:47.659259000 Z
+  creator_id: 1
+  id: 215
+  lock_version: 0
+  nature: exterior
+  product_id: 177
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:47.659259000 Z
+  updater_id: 1
+product_localizations_182:
+  created_at: 2016-07-01 19:23:47.798744000 Z
+  creator_id: 1
+  id: 216
+  lock_version: 0
+  nature: exterior
+  product_id: 178
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:47.798744000 Z
+  updater_id: 1
+product_localizations_183:
+  created_at: 2016-07-01 19:23:51.397140000 Z
+  creator_id: 1
+  id: 217
+  lock_version: 0
+  nature: exterior
+  product_id: 177
+  started_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:51.397140000 Z
+  updater_id: 1
+product_localizations_184:
+  created_at: 2016-07-01 19:23:51.430314000 Z
+  creator_id: 1
+  id: 218
+  lock_version: 0
+  nature: exterior
+  product_id: 178
+  started_at: 2016-07-01 19:23:51.381970000 Z
+  updated_at: 2016-07-01 19:23:51.430314000 Z
+  updater_id: 1

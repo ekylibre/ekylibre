@@ -14718,3 +14718,236 @@ versions_266:
     initial_movement_id:
     custom_fields:
   item_type: Product
+versions_267:
+  created_at: 2016-07-01 19:23:47.560821000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 304
+  item_id: 177
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 177
+    type: Matter
+    name: Adexar 5 l (P000000000003)
+    number: PR00000000121
+    variant_id: 8
+    nature_id: 8
+    category_id: 3
+    initial_born_at: 2016-07-01 19:23:47.522750000 Z
+    initial_dead_at:
+    initial_container_id: 11
+    initial_owner_id: 1
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.25E2
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-07-01 19:23:47.522750000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 11
+    created_at: 2016-07-01 19:23:47.556500000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: 84447166-89ff-40b6-83b9-230c3fb8fbf1
+    initial_movement_id:
+    custom_fields:
+  item_type: Product
+versions_268:
+  created_at: 2016-07-01 19:23:47.772767000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 305
+  item_id: 178
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 178
+    type: Matter
+    name: Riflexine (P000000000003)
+    number: PR00000000122
+    variant_id: 22
+    nature_id: 19
+    category_id: 12
+    initial_born_at: 2016-07-01 19:23:47.522750000 Z
+    initial_dead_at:
+    initial_container_id: 11
+    initial_owner_id: 1
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.35E2
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: preparation
+    derivative_of:
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-07-01 19:23:47.522750000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number:
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id: 11
+    created_at: 2016-07-01 19:23:47.769812000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: 4bd617ed-ed00-4657-8756-326882cecabe
+    initial_movement_id:
+    custom_fields:
+  item_type: Product
+versions_269:
+  created_at: 2016-07-01 19:24:45.243412000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 306
+  item_id: 3
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    name: Call for new Contract
+    state: done
+    nature: outgoing_call
+    entity_id: 14
+    executor_id: 9
+    sale_opportunity_id:
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+      posuere in purus at consequat. Duis sed ultrices risus. Etiam sodales quam non
+      enim aliquam porta. Donec nisi enim, pellentesque ac lorem et, consequat imperdiet
+      diam. Nunc eget velit tempus, maximus libero dignissim, ultrices nulla. Pellentesque
+      vel lacinia ligula. Duis vehicula erat velit, facilisis mollis sem egestas vitae.
+      Cras ac scelerisque sem. Vivamus et cursus dui. Morbi facilisis vel magna quis
+      ullamcorper. Maecenas et metus hendrerit, faucibus diam vitae, scelerisque urna.
+      Phasellus viverra ex vel odio suscipit, vel pellentesque velit lacinia. Sed
+      convallis arcu at ex gravida, sit amet blandit ex cursus. Fusce vestibulum eget
+      sapien nec ultrices. Sed eget auctor est. \r\n\r\n Morbi lectus justo, volutpat
+      vel nulla ac, sollicitudin condimentum magna. Donec suscipit leo justo. Sed
+      tristique ipsum a odio ornare suscipit. Aenean eu mi augue. Nullam accumsan
+      ex eget lectus tincidunt ultricies. Aliquam hendrerit, magna vel commodo molestie,
+      neque magna elementum odio, et cursus urna est in neque. Sed malesuada purus
+      sem, id auctor orci luctus molestie. "
+    due_at: 2016-07-01 19:24:00.000000000 Z
+    created_at: 2016-07-01 19:24:45.238427000 Z
+    creator_id: 1
+    custom_fields:
+  item_type: Task
+versions_270:
+  created_at: 2016-07-01 19:25:02.959939000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 307
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+      posuere in purus at consequat. Duis sed ultrices risus. Etiam sodales quam non
+      enim aliquam porta. Donec nisi enim, pellentesque ac lorem et, consequat imperdiet
+      diam. Nunc eget velit tempus, maximus libero dignissim, ultrices nulla. Pellentesque
+      vel lacinia ligula. Duis vehicula erat velit, facilisis mollis sem egestas vitae.
+      Cras ac scelerisque sem. Vivamus et cursus dui. Morbi facilisis vel magna quis
+      ullamcorper. Maecenas et metus hendrerit, faucibus diam vitae, scelerisque urna.
+      Phasellus viverra ex vel odio suscipit, vel pellentesque velit lacinia. Sed
+      convallis arcu at ex gravida, sit amet blandit ex cursus. Fusce vestibulum eget
+      sapien nec ultrices. Sed eget auctor est. \r\n\r\n Morbi lectus justo, volutpat
+      vel nulla ac, sollicitudin condimentum magna. Donec suscipit leo justo. Sed
+      tristique ipsum a odio ornare suscipit. Aenean eu mi augue. Nullam accumsan
+      ex eget lectus tincidunt ultricies. Aliquam hendrerit, magna vel commodo molestie,
+      neque magna elementum odio, et cursus urna est in neque. Sed malesuada purus
+      sem, id auctor orci luctus molestie. "
+  item_id: 3
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 3
+    name: Call for new Contract
+    state: done
+    nature: outgoing_call
+    entity_id: 14
+    executor_id: 9
+    sale_opportunity_id:
+    description: 'Morbi lectus justo, volutpat vel nulla ac, sollicitudin condimentum
+      magna. Donec suscipit leo justo. Sed tristique ipsum a odio ornare suscipit.
+      Aenean eu mi augue. Nullam accumsan ex eget lectus tincidunt ultricies. Aliquam
+      hendrerit, magna vel commodo molestie, neque magna elementum odio, et cursus
+      urna est in neque. Sed malesuada purus sem, id auctor orci luctus molestie. '
+    due_at: 2016-07-01 19:24:00.000000000 Z
+    created_at: 2016-07-01 19:24:45.238427000 Z
+    creator_id: 1
+    custom_fields:
+  item_type: Task
+versions_271:
+  created_at: 2016-07-01 19:26:02.107587000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: update
+  id: 308
+  item_changes: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    nature: sir
+    meeting_origin: ''
+    siren: ''
+    siret_number: ''
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+  item_id: 14
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 14
+    nature: contact
+    last_name: "Περικλῆς"
+    first_name: ''
+    number: P00000004
+    active: true
+    born_at:
+    dead_at:
+    client: true
+    client_account_id:
+    supplier: false
+    supplier_account_id:
+    transporter: false
+    prospect: false
+    vat_subjected: false
+    reminder_submissive: false
+    deliveries_conditions: ''
+    description:
+    language: fra
+    country: fr
+    currency: EUR
+    authorized_payments_count:
+    responsible_id:
+    proposer_id:
+    meeting_origin: Acropole inauguration
+    first_met_at:
+    activity_code: ''
+    vat_number: ''
+    siret_number: ''
+    locked: false
+    of_company: false
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    created_at: 2015-04-21 08:27:39.814863000 Z
+    creator_id: 1
+    title: M.
+    custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+      bpozesopdf: ''
+      sdqdqsdq_sd_qsq: ''
+      bla_dsfk_jioh_sdf: ''
+  item_type: Entity

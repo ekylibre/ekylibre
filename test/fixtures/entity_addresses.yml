@@ -269,23 +269,23 @@ entity_addresses_013:
 entity_addresses_014:
   by_default: true
   canal: mail
-  coordinate: "Περικλῆς, Ακρόπολη Αθηνών, Ἀθῆναι, Grèce"
+  coordinate: M. Περικλῆς, Ακρόπολη Αθηνών, Ἀθῆναι, Grèce
   created_at: 2015-04-21 08:27:39.829190000 Z
   creator_id: 1
   entity_id: 14
   id: 14
-  lock_version: 2
+  lock_version: 3
   mail_auto_update: true
   mail_country: gr
-  mail_line_1: "Περικλῆς"
+  mail_line_1: M.  Περικλῆς
   mail_line_2: ''
   mail_line_3: "Ακρόπολη Αθηνών"
   mail_line_4: ''
   mail_line_5: ''
   mail_line_6: "Ἀθῆναι"
-  mail_postal_zone_id: 11
+  mail_postal_zone_id: 13
   thread: AAAA
-  updated_at: 2015-04-21 08:28:44.830658000 Z
+  updated_at: 2016-07-01 19:26:02.131928000 Z
   updater_id: 1
 entity_addresses_015:
   by_default: true
