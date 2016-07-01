@@ -84,8 +84,8 @@
 
 
 
-      if params[:visualization] == "grain_yield"
-        popup_content << {label: label.tl, value: grain_yield.round(2).l}
+      if params[:visualization] == "grain_yield" && grain_yield && label
+        popup_content << { label: label.tl, value: grain_yield.round(2).l }
       end
 
       #if support.net_surface_area
@@ -95,10 +95,10 @@
       interventions = support.interventions
       if interventions.any?
         spent_time = interventions.map(&:working_duration).compact.sum
-        popup_content << {label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (spent_time/3600).round(2))}"}
+        popup_content << { label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (spent_time/3600).round(2))}" }
 
         last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
-        popup_content << {label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
+        popup_content << { label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
       end
 
       popup_content << render('popup', production: support)
