@@ -1934,7 +1934,7 @@ fra:
     unknown_variant: "Variante de produit inconnue"
     unlock: "Déverrouiller"
     unmark: "Délettrer"
-    unmarketable_inspection_categories_evolution: "Évolution du pourcentage de déchets et maladies"
+    unmarketable_inspection_categories_evolution: "Évolution du pourcentage de malformations et maladies"
     # unnamed: "Nameless"
     unpaid: "Impayées"
     unpaid_amount: "Montant restant à payer"
