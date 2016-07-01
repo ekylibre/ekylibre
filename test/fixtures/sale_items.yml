@@ -336,3 +336,24 @@ sale_items_014:
   updated_at: 2016-05-26 21:27:06.143915000 Z
   updater_id: 1
   variant_id: 70
+sale_items_015:
+  account_id: 152
+  amount: 148.8
+  annotation: wjbdkjxfs hdskfh gds
+  created_at: 2016-07-01 20:12:41.329080000 Z
+  creator_id: 1
+  currency: EUR
+  id: 22
+  label: Adexar 5 l
+  lock_version: 0
+  position: 1
+  pretax_amount: 124.0
+  quantity: 31.0
+  reduction_percentage: 0.0
+  sale_id: 19
+  tax_id: 3
+  unit_amount: 4.8
+  unit_pretax_amount: 4.0
+  updated_at: 2016-07-01 20:12:41.329080000 Z
+  updater_id: 1
+  variant_id: 8

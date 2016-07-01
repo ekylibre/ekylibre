@@ -314,3 +314,33 @@ documents_010:
   updated_at: 2016-01-22 14:06:38.102426000 Z
   updater_id: 1
   uploaded: false
+documents_011:
+  created_at: 2016-07-01 20:12:54.999223000 Z
+  creator_id: 1
+  file_content_text: "Ferstivall LTD\nLa Banquise\n4 rue Eugène et Marc Dulout\n33600
+    PESSAC\nFrance\nEmail : contact@ferstivall.com\n1-5-3\n100-8994\nJAPON\n\nFacture
+    F2016000003\nResponsable : M. Gendo IKARI\nCode\nPNV030\n\nDésignation\nAdexar
+    5 l\nwjbdkjxfs hdskfh gds\n\nDate\n\n-148,80\n\nPièces\n\nVersement(s)\n\nA000000000034\n\n0,00\n\n01/07/2016
+    22:12\n\nDate facturation :\n\n01 juillet 2016\n\nDate échéance :\n\n24 juillet
+    2016\n\nQté.\n\nPU HT\n\nRemise\n\nMontant\nHT\n\nMontant\nTVA\n\nTaux\nTVA\n\n31,00\n\n4,00\n\n0,00
+    %\n\n124,00\n\n24,80\n\n20% (fr)\n\nFacture\n\n148,80\n\nTotal HT\n\n124,00\n\nEUR\n\nTotal
+    TVA\n\n24,80\n\nEUR\n\nTotal TTC\n\n148,80\n\nEUR\n\n1/1\n\nN° TVA Intracommunautaire
+    : FR00123456789\n\nRéglement à transmettre à Ferstivall LTD, La Banquise, 4 rue
+    Eugène et Marc Dulout, 33600 PESSAC, France\n\nN° Pièce : F2016000003\n\nN° Client
+    : 194\n\nEchéance : 24/07/2016\n\nNet à payer :\n\n148,80 EUR\n\n\f"
+  file_content_type: application/pdf
+  file_file_name: beardley_o9nk5f_gnu85xr.pdf
+  file_file_size: 50701
+  file_fingerprint: 3049162f6b368f87cc0c0bef1450f6c8
+  file_pages_count: 1
+  file_updated_at: 2016-07-01 20:12:54.611981000 Z
+  id: 20
+  key: F2016000003
+  lock_version: 0
+  name: Facture de vente F2016000003
+  nature: sales_invoice
+  number: D000000000018
+  template_id: 3
+  updated_at: 2016-07-01 20:12:54.999223000 Z
+  updater_id: 1
+  uploaded: false

@@ -1811,6 +1811,7 @@ product_movements_165:
   population: 25.0
   product_id: 177
   started_at: 2016-07-01 19:23:47.522750000 Z
+  stopped_at: 2016-07-01 20:13:23.808717000 Z
   updated_at: 2016-07-01 19:23:47.670523000 Z
   updater_id: 1
 product_movements_166:
@@ -1845,4 +1846,15 @@ product_movements_168:
   product_id: 178
   started_at: 2016-07-01 19:23:47.522750000 Z
   updated_at: 2016-07-01 19:23:47.830886000 Z
+  updater_id: 1
+product_movements_169:
+  created_at: 2016-07-01 20:13:23.889444000 Z
+  creator_id: 1
+  delta: -25.0
+  id: 169
+  lock_version: 0
+  population: 0.0
+  product_id: 177
+  started_at: 2016-07-01 20:13:23.808717000 Z
+  updated_at: 2016-07-01 20:13:23.889444000 Z
   updater_id: 1

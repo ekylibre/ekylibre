@@ -130,7 +130,6 @@ bank_statement_items_007:
   currency: EUR
   debit: 0.0
   id: 7
-  letter: G
   lock_version: 2
   name: "[Emprunt Vélo] Réception des fonds"
   transaction_number: ''

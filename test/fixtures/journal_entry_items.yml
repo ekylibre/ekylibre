@@ -1622,68 +1622,6 @@ journal_entry_items_052:
 journal_entry_items_053:
   absolute_credit: 0.0
   absolute_currency: EUR
-  absolute_debit: 2000.0
-  account_id: 212
-  balance: 2000.0
-  bank_statement_id: 1
-  bank_statement_letter: G
-  created_at: 2015-05-07 23:15:03.694257000 Z
-  creator_id: 1
-  credit: 0.0
-  cumulated_absolute_credit: 30324.3
-  cumulated_absolute_debit: 2485.07
-  currency: EUR
-  debit: 2000.0
-  entry_id: 30
-  entry_number: BNK000007
-  financial_year_id: 24
-  id: 109
-  journal_id: 2
-  lock_version: 0
-  name: "[Emprunt Vélo] Réception des fonds"
-  position: 1
-  printed_on: 2015-05-01
-  real_balance: 2000.0
-  real_credit: 0.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 2000.0
-  state: draft
-  updated_at: 2016-06-29 05:49:23.204491000 Z
-  updater_id: 1
-journal_entry_items_054:
-  absolute_credit: 2000.0
-  absolute_currency: EUR
-  absolute_debit: 0.0
-  account_id: 574
-  balance: -2000.0
-  created_at: 2015-05-07 23:15:03.726183000 Z
-  creator_id: 1
-  credit: 2000.0
-  cumulated_absolute_credit: 40140.23
-  cumulated_absolute_debit: 28307.33
-  currency: EUR
-  debit: 0.0
-  entry_id: 30
-  entry_number: BNK000007
-  financial_year_id: 24
-  id: 110
-  journal_id: 2
-  lock_version: 0
-  name: "[Emprunt Vélo] Réception des fonds"
-  position: 2
-  printed_on: 2015-05-01
-  real_balance: -2000.0
-  real_credit: 2000.0
-  real_currency: EUR
-  real_currency_rate: 1.0
-  real_debit: 0.0
-  state: draft
-  updated_at: 2015-05-07 23:15:03.726183000 Z
-  updater_id: 1
-journal_entry_items_055:
-  absolute_credit: 0.0
-  absolute_currency: EUR
   absolute_debit: 40650.15
   account_id: 214
   balance: 40650.15
@@ -1711,7 +1649,7 @@ journal_entry_items_055:
   state: draft
   updated_at: 2015-05-07 23:16:53.999347000 Z
   updater_id: 1
-journal_entry_items_056:
+journal_entry_items_054:
   absolute_credit: 40650.15
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -1741,7 +1679,7 @@ journal_entry_items_056:
   state: draft
   updated_at: 2015-05-07 23:16:54.031946000 Z
   updater_id: 1
-journal_entry_items_057:
+journal_entry_items_055:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 71.14
@@ -1771,7 +1709,7 @@ journal_entry_items_057:
   state: draft
   updated_at: 2015-05-07 23:16:54.988747000 Z
   updater_id: 1
-journal_entry_items_058:
+journal_entry_items_056:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.4
@@ -1801,7 +1739,7 @@ journal_entry_items_058:
   state: draft
   updated_at: 2015-05-07 23:16:55.015893000 Z
   updater_id: 1
-journal_entry_items_059:
+journal_entry_items_057:
   absolute_credit: 96.55
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -1831,7 +1769,7 @@ journal_entry_items_059:
   state: draft
   updated_at: 2015-05-07 23:16:55.108649000 Z
   updater_id: 1
-journal_entry_items_060:
+journal_entry_items_058:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 71.14
@@ -1861,7 +1799,7 @@ journal_entry_items_060:
   state: draft
   updated_at: 2015-05-07 23:16:56.019970000 Z
   updater_id: 1
-journal_entry_items_061:
+journal_entry_items_059:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.4
@@ -1891,7 +1829,7 @@ journal_entry_items_061:
   state: draft
   updated_at: 2015-05-07 23:16:56.043952000 Z
   updater_id: 1
-journal_entry_items_062:
+journal_entry_items_060:
   absolute_credit: 96.55
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -1921,7 +1859,7 @@ journal_entry_items_062:
   state: draft
   updated_at: 2015-05-07 23:16:56.066997000 Z
   updater_id: 1
-journal_entry_items_063:
+journal_entry_items_061:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 71.14
@@ -1951,7 +1889,7 @@ journal_entry_items_063:
   state: draft
   updated_at: 2015-05-07 23:16:56.999826000 Z
   updater_id: 1
-journal_entry_items_064:
+journal_entry_items_062:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.4
@@ -1981,7 +1919,7 @@ journal_entry_items_064:
   state: draft
   updated_at: 2015-05-07 23:16:57.023696000 Z
   updater_id: 1
-journal_entry_items_065:
+journal_entry_items_063:
   absolute_credit: 96.55
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2011,7 +1949,7 @@ journal_entry_items_065:
   state: draft
   updated_at: 2015-05-07 23:16:57.046921000 Z
   updater_id: 1
-journal_entry_items_066:
+journal_entry_items_064:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 71.14
@@ -2041,7 +1979,7 @@ journal_entry_items_066:
   state: draft
   updated_at: 2015-05-07 23:16:57.949256000 Z
   updater_id: 1
-journal_entry_items_067:
+journal_entry_items_065:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.4
@@ -2071,7 +2009,7 @@ journal_entry_items_067:
   state: draft
   updated_at: 2015-05-07 23:16:57.972508000 Z
   updater_id: 1
-journal_entry_items_068:
+journal_entry_items_066:
   absolute_credit: 96.55
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2101,7 +2039,7 @@ journal_entry_items_068:
   state: draft
   updated_at: 2015-05-07 23:16:57.993625000 Z
   updater_id: 1
-journal_entry_items_069:
+journal_entry_items_067:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 71.14
@@ -2131,7 +2069,7 @@ journal_entry_items_069:
   state: draft
   updated_at: 2015-05-07 23:16:58.889418000 Z
   updater_id: 1
-journal_entry_items_070:
+journal_entry_items_068:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.4
@@ -2161,7 +2099,7 @@ journal_entry_items_070:
   state: draft
   updated_at: 2015-05-07 23:16:58.911997000 Z
   updater_id: 1
-journal_entry_items_071:
+journal_entry_items_069:
   absolute_credit: 96.55
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2191,7 +2129,7 @@ journal_entry_items_071:
   state: draft
   updated_at: 2015-05-07 23:16:58.933265000 Z
   updater_id: 1
-journal_entry_items_072:
+journal_entry_items_070:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 71.14
@@ -2221,7 +2159,7 @@ journal_entry_items_072:
   state: draft
   updated_at: 2015-05-07 23:16:59.848669000 Z
   updater_id: 1
-journal_entry_items_073:
+journal_entry_items_071:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.4
@@ -2251,7 +2189,7 @@ journal_entry_items_073:
   state: draft
   updated_at: 2015-05-07 23:16:59.869626000 Z
   updater_id: 1
-journal_entry_items_074:
+journal_entry_items_072:
   absolute_credit: 96.55
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2281,7 +2219,7 @@ journal_entry_items_074:
   state: draft
   updated_at: 2015-05-07 23:16:59.891541000 Z
   updater_id: 1
-journal_entry_items_075:
+journal_entry_items_073:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 71.14
@@ -2311,7 +2249,7 @@ journal_entry_items_075:
   state: draft
   updated_at: 2015-05-07 23:17:00.822905000 Z
   updater_id: 1
-journal_entry_items_076:
+journal_entry_items_074:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.4
@@ -2341,7 +2279,7 @@ journal_entry_items_076:
   state: draft
   updated_at: 2015-05-07 23:17:00.843883000 Z
   updater_id: 1
-journal_entry_items_077:
+journal_entry_items_075:
   absolute_credit: 96.55
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2371,7 +2309,7 @@ journal_entry_items_077:
   state: draft
   updated_at: 2015-05-07 23:17:00.864151000 Z
   updater_id: 1
-journal_entry_items_078:
+journal_entry_items_076:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 71.14
@@ -2401,7 +2339,7 @@ journal_entry_items_078:
   state: draft
   updated_at: 2015-05-07 23:17:01.786976000 Z
   updater_id: 1
-journal_entry_items_079:
+journal_entry_items_077:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.4
@@ -2431,7 +2369,7 @@ journal_entry_items_079:
   state: draft
   updated_at: 2015-05-07 23:17:01.808722000 Z
   updater_id: 1
-journal_entry_items_080:
+journal_entry_items_078:
   absolute_credit: 96.55
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2461,7 +2399,7 @@ journal_entry_items_080:
   state: draft
   updated_at: 2015-05-07 23:17:01.828576000 Z
   updater_id: 1
-journal_entry_items_081:
+journal_entry_items_079:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 588.92
@@ -2491,7 +2429,7 @@ journal_entry_items_081:
   state: draft
   updated_at: 2015-05-07 23:17:03.002833000 Z
   updater_id: 1
-journal_entry_items_082:
+journal_entry_items_080:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 71.15
@@ -2521,7 +2459,7 @@ journal_entry_items_082:
   state: draft
   updated_at: 2015-05-07 23:17:03.026107000 Z
   updater_id: 1
-journal_entry_items_083:
+journal_entry_items_081:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.41
@@ -2551,7 +2489,7 @@ journal_entry_items_083:
   state: draft
   updated_at: 2015-05-07 23:17:03.046430000 Z
   updater_id: 1
-journal_entry_items_084:
+journal_entry_items_082:
   absolute_credit: 685.48
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2581,7 +2519,7 @@ journal_entry_items_084:
   state: draft
   updated_at: 2015-05-07 23:17:03.070837000 Z
   updater_id: 1
-journal_entry_items_085:
+journal_entry_items_083:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 590.32
@@ -2611,7 +2549,7 @@ journal_entry_items_085:
   state: draft
   updated_at: 2015-05-07 23:17:04.000223000 Z
   updater_id: 1
-journal_entry_items_086:
+journal_entry_items_084:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 70.12
@@ -2641,7 +2579,7 @@ journal_entry_items_086:
   state: draft
   updated_at: 2015-05-07 23:17:04.022783000 Z
   updater_id: 1
-journal_entry_items_087:
+journal_entry_items_085:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 25.04
@@ -2671,7 +2609,7 @@ journal_entry_items_087:
   state: draft
   updated_at: 2015-05-07 23:17:04.045938000 Z
   updater_id: 1
-journal_entry_items_088:
+journal_entry_items_086:
   absolute_credit: 685.48
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2701,7 +2639,7 @@ journal_entry_items_088:
   state: draft
   updated_at: 2015-05-07 23:17:04.066976000 Z
   updater_id: 1
-journal_entry_items_089:
+journal_entry_items_087:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 591.73
@@ -2731,7 +2669,7 @@ journal_entry_items_089:
   state: draft
   updated_at: 2015-05-07 23:17:05.798191000 Z
   updater_id: 1
-journal_entry_items_090:
+journal_entry_items_088:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 69.09
@@ -2761,7 +2699,7 @@ journal_entry_items_090:
   state: draft
   updated_at: 2015-05-07 23:17:05.822729000 Z
   updater_id: 1
-journal_entry_items_091:
+journal_entry_items_089:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 24.67
@@ -2791,7 +2729,7 @@ journal_entry_items_091:
   state: draft
   updated_at: 2015-05-07 23:17:05.851687000 Z
   updater_id: 1
-journal_entry_items_092:
+journal_entry_items_090:
   absolute_credit: 685.48
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2821,7 +2759,7 @@ journal_entry_items_092:
   state: draft
   updated_at: 2015-05-07 23:17:05.880756000 Z
   updater_id: 1
-journal_entry_items_093:
+journal_entry_items_091:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 593.13
@@ -2851,7 +2789,7 @@ journal_entry_items_093:
   state: draft
   updated_at: 2015-05-07 23:17:06.831786000 Z
   updater_id: 1
-journal_entry_items_094:
+journal_entry_items_092:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 68.05
@@ -2881,7 +2819,7 @@ journal_entry_items_094:
   state: draft
   updated_at: 2015-05-07 23:17:06.853108000 Z
   updater_id: 1
-journal_entry_items_095:
+journal_entry_items_093:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 24.3
@@ -2911,7 +2849,7 @@ journal_entry_items_095:
   state: draft
   updated_at: 2015-05-07 23:17:06.873531000 Z
   updater_id: 1
-journal_entry_items_096:
+journal_entry_items_094:
   absolute_credit: 685.48
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -2941,7 +2879,7 @@ journal_entry_items_096:
   state: draft
   updated_at: 2015-05-07 23:17:06.893678000 Z
   updater_id: 1
-journal_entry_items_097:
+journal_entry_items_095:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 594.55
@@ -2971,7 +2909,7 @@ journal_entry_items_097:
   state: draft
   updated_at: 2015-05-07 23:17:07.801351000 Z
   updater_id: 1
-journal_entry_items_098:
+journal_entry_items_096:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 67.0
@@ -3001,7 +2939,7 @@ journal_entry_items_098:
   state: draft
   updated_at: 2015-05-07 23:17:07.824453000 Z
   updater_id: 1
-journal_entry_items_099:
+journal_entry_items_097:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 23.93
@@ -3031,7 +2969,7 @@ journal_entry_items_099:
   state: draft
   updated_at: 2015-05-07 23:17:07.844731000 Z
   updater_id: 1
-journal_entry_items_100:
+journal_entry_items_098:
   absolute_credit: 685.48
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -3061,7 +2999,7 @@ journal_entry_items_100:
   state: draft
   updated_at: 2015-05-07 23:17:07.866771000 Z
   updater_id: 1
-journal_entry_items_101:
+journal_entry_items_099:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 595.96
@@ -3091,7 +3029,7 @@ journal_entry_items_101:
   state: draft
   updated_at: 2015-05-07 23:17:08.763252000 Z
   updater_id: 1
-journal_entry_items_102:
+journal_entry_items_100:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 65.96
@@ -3121,7 +3059,7 @@ journal_entry_items_102:
   state: draft
   updated_at: 2015-05-07 23:17:08.787781000 Z
   updater_id: 1
-journal_entry_items_103:
+journal_entry_items_101:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 23.56
@@ -3151,7 +3089,7 @@ journal_entry_items_103:
   state: draft
   updated_at: 2015-05-07 23:17:08.810183000 Z
   updater_id: 1
-journal_entry_items_104:
+journal_entry_items_102:
   absolute_credit: 685.48
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -3181,7 +3119,7 @@ journal_entry_items_104:
   state: draft
   updated_at: 2015-05-07 23:17:08.833510000 Z
   updater_id: 1
-journal_entry_items_105:
+journal_entry_items_103:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 597.37
@@ -3211,7 +3149,7 @@ journal_entry_items_105:
   state: draft
   updated_at: 2015-05-07 23:17:09.770476000 Z
   updater_id: 1
-journal_entry_items_106:
+journal_entry_items_104:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 64.92
@@ -3241,7 +3179,7 @@ journal_entry_items_106:
   state: draft
   updated_at: 2015-05-07 23:17:09.796346000 Z
   updater_id: 1
-journal_entry_items_107:
+journal_entry_items_105:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 23.19
@@ -3271,7 +3209,7 @@ journal_entry_items_107:
   state: draft
   updated_at: 2015-05-07 23:17:09.868723000 Z
   updater_id: 1
-journal_entry_items_108:
+journal_entry_items_106:
   absolute_credit: 685.48
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -3301,7 +3239,7 @@ journal_entry_items_108:
   state: draft
   updated_at: 2015-05-07 23:17:09.889439000 Z
   updater_id: 1
-journal_entry_items_109:
+journal_entry_items_107:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 598.78
@@ -3331,7 +3269,7 @@ journal_entry_items_109:
   state: draft
   updated_at: 2015-05-07 23:17:10.815683000 Z
   updater_id: 1
-journal_entry_items_110:
+journal_entry_items_108:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 63.88
@@ -3361,7 +3299,7 @@ journal_entry_items_110:
   state: draft
   updated_at: 2015-05-07 23:17:10.837733000 Z
   updater_id: 1
-journal_entry_items_111:
+journal_entry_items_109:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 22.82
@@ -3391,7 +3329,7 @@ journal_entry_items_111:
   state: draft
   updated_at: 2015-05-07 23:17:10.859178000 Z
   updater_id: 1
-journal_entry_items_112:
+journal_entry_items_110:
   absolute_credit: 685.48
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -3421,7 +3359,7 @@ journal_entry_items_112:
   state: draft
   updated_at: 2015-05-07 23:17:10.882779000 Z
   updater_id: 1
-journal_entry_items_113:
+journal_entry_items_111:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 600.21
@@ -3451,7 +3389,7 @@ journal_entry_items_113:
   state: draft
   updated_at: 2015-05-07 23:17:11.776000000 Z
   updater_id: 1
-journal_entry_items_114:
+journal_entry_items_112:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 62.83
@@ -3481,7 +3419,7 @@ journal_entry_items_114:
   state: draft
   updated_at: 2015-05-07 23:17:11.799710000 Z
   updater_id: 1
-journal_entry_items_115:
+journal_entry_items_113:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 22.44
@@ -3511,7 +3449,7 @@ journal_entry_items_115:
   state: draft
   updated_at: 2015-05-07 23:17:11.822347000 Z
   updater_id: 1
-journal_entry_items_116:
+journal_entry_items_114:
   absolute_credit: 685.48
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -3541,7 +3479,7 @@ journal_entry_items_116:
   state: draft
   updated_at: 2015-05-07 23:17:11.841861000 Z
   updater_id: 1
-journal_entry_items_117:
+journal_entry_items_115:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 601.57
@@ -3571,7 +3509,7 @@ journal_entry_items_117:
   state: draft
   updated_at: 2015-05-07 23:17:12.735208000 Z
   updater_id: 1
-journal_entry_items_118:
+journal_entry_items_116:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 61.78
@@ -3601,7 +3539,7 @@ journal_entry_items_118:
   state: draft
   updated_at: 2015-05-07 23:17:12.757394000 Z
   updater_id: 1
-journal_entry_items_119:
+journal_entry_items_117:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 22.06
@@ -3631,7 +3569,7 @@ journal_entry_items_119:
   state: draft
   updated_at: 2015-05-07 23:17:12.778613000 Z
   updater_id: 1
-journal_entry_items_120:
+journal_entry_items_118:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -3661,7 +3599,7 @@ journal_entry_items_120:
   state: draft
   updated_at: 2015-05-07 23:17:12.799925000 Z
   updater_id: 1
-journal_entry_items_121:
+journal_entry_items_119:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 602.99
@@ -3691,7 +3629,7 @@ journal_entry_items_121:
   state: draft
   updated_at: 2015-05-07 23:17:13.712130000 Z
   updater_id: 1
-journal_entry_items_122:
+journal_entry_items_120:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 60.73
@@ -3721,7 +3659,7 @@ journal_entry_items_122:
   state: draft
   updated_at: 2015-05-07 23:17:13.732880000 Z
   updater_id: 1
-journal_entry_items_123:
+journal_entry_items_121:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 21.69
@@ -3751,7 +3689,7 @@ journal_entry_items_123:
   state: draft
   updated_at: 2015-05-07 23:17:13.756433000 Z
   updater_id: 1
-journal_entry_items_124:
+journal_entry_items_122:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -3781,7 +3719,7 @@ journal_entry_items_124:
   state: draft
   updated_at: 2015-05-07 23:17:13.778248000 Z
   updater_id: 1
-journal_entry_items_125:
+journal_entry_items_123:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 604.42
@@ -3811,7 +3749,7 @@ journal_entry_items_125:
   state: draft
   updated_at: 2015-05-07 23:17:14.741909000 Z
   updater_id: 1
-journal_entry_items_126:
+journal_entry_items_124:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 59.67
@@ -3841,7 +3779,7 @@ journal_entry_items_126:
   state: draft
   updated_at: 2015-05-07 23:17:14.765808000 Z
   updater_id: 1
-journal_entry_items_127:
+journal_entry_items_125:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 21.31
@@ -3871,7 +3809,7 @@ journal_entry_items_127:
   state: draft
   updated_at: 2015-05-07 23:17:14.787522000 Z
   updater_id: 1
-journal_entry_items_128:
+journal_entry_items_126:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -3901,7 +3839,7 @@ journal_entry_items_128:
   state: draft
   updated_at: 2015-05-07 23:17:14.812223000 Z
   updater_id: 1
-journal_entry_items_129:
+journal_entry_items_127:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 605.87
@@ -3931,7 +3869,7 @@ journal_entry_items_129:
   state: draft
   updated_at: 2015-05-07 23:17:15.729427000 Z
   updater_id: 1
-journal_entry_items_130:
+journal_entry_items_128:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 58.61
@@ -3961,7 +3899,7 @@ journal_entry_items_130:
   state: draft
   updated_at: 2015-05-07 23:17:15.753690000 Z
   updater_id: 1
-journal_entry_items_131:
+journal_entry_items_129:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 20.93
@@ -3991,7 +3929,7 @@ journal_entry_items_131:
   state: draft
   updated_at: 2015-05-07 23:17:15.776610000 Z
   updater_id: 1
-journal_entry_items_132:
+journal_entry_items_130:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -4021,7 +3959,7 @@ journal_entry_items_132:
   state: draft
   updated_at: 2015-05-07 23:17:15.798063000 Z
   updater_id: 1
-journal_entry_items_133:
+journal_entry_items_131:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 607.3
@@ -4051,7 +3989,7 @@ journal_entry_items_133:
   state: draft
   updated_at: 2015-05-07 23:17:16.702539000 Z
   updater_id: 1
-journal_entry_items_134:
+journal_entry_items_132:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 57.55
@@ -4081,7 +4019,7 @@ journal_entry_items_134:
   state: draft
   updated_at: 2015-05-07 23:17:16.725386000 Z
   updater_id: 1
-journal_entry_items_135:
+journal_entry_items_133:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 20.56
@@ -4111,7 +4049,7 @@ journal_entry_items_135:
   state: draft
   updated_at: 2015-05-07 23:17:16.745497000 Z
   updater_id: 1
-journal_entry_items_136:
+journal_entry_items_134:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -4141,7 +4079,7 @@ journal_entry_items_136:
   state: draft
   updated_at: 2015-05-07 23:17:16.766900000 Z
   updater_id: 1
-journal_entry_items_137:
+journal_entry_items_135:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 608.75
@@ -4171,7 +4109,7 @@ journal_entry_items_137:
   state: draft
   updated_at: 2015-05-07 23:17:17.691373000 Z
   updater_id: 1
-journal_entry_items_138:
+journal_entry_items_136:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 56.48
@@ -4201,7 +4139,7 @@ journal_entry_items_138:
   state: draft
   updated_at: 2015-05-07 23:17:17.714981000 Z
   updater_id: 1
-journal_entry_items_139:
+journal_entry_items_137:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 20.17
@@ -4231,7 +4169,7 @@ journal_entry_items_139:
   state: draft
   updated_at: 2015-05-07 23:17:17.738716000 Z
   updater_id: 1
-journal_entry_items_140:
+journal_entry_items_138:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -4261,7 +4199,7 @@ journal_entry_items_140:
   state: draft
   updated_at: 2015-05-07 23:17:17.758871000 Z
   updater_id: 1
-journal_entry_items_141:
+journal_entry_items_139:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 610.19
@@ -4291,7 +4229,7 @@ journal_entry_items_141:
   state: draft
   updated_at: 2015-05-07 23:17:18.673416000 Z
   updater_id: 1
-journal_entry_items_142:
+journal_entry_items_140:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 55.42
@@ -4321,7 +4259,7 @@ journal_entry_items_142:
   state: draft
   updated_at: 2015-05-07 23:17:18.697494000 Z
   updater_id: 1
-journal_entry_items_143:
+journal_entry_items_141:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 19.79
@@ -4351,7 +4289,7 @@ journal_entry_items_143:
   state: draft
   updated_at: 2015-05-07 23:17:18.719970000 Z
   updater_id: 1
-journal_entry_items_144:
+journal_entry_items_142:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -4381,7 +4319,7 @@ journal_entry_items_144:
   state: draft
   updated_at: 2015-05-07 23:17:18.741040000 Z
   updater_id: 1
-journal_entry_items_145:
+journal_entry_items_143:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 611.65
@@ -4411,7 +4349,7 @@ journal_entry_items_145:
   state: draft
   updated_at: 2015-05-07 23:17:19.706871000 Z
   updater_id: 1
-journal_entry_items_146:
+journal_entry_items_144:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 54.35
@@ -4441,7 +4379,7 @@ journal_entry_items_146:
   state: draft
   updated_at: 2015-05-07 23:17:19.729164000 Z
   updater_id: 1
-journal_entry_items_147:
+journal_entry_items_145:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 19.41
@@ -4471,7 +4409,7 @@ journal_entry_items_147:
   state: draft
   updated_at: 2015-05-07 23:17:19.750361000 Z
   updater_id: 1
-journal_entry_items_148:
+journal_entry_items_146:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -4501,7 +4439,7 @@ journal_entry_items_148:
   state: draft
   updated_at: 2015-05-07 23:17:19.769978000 Z
   updater_id: 1
-journal_entry_items_149:
+journal_entry_items_147:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 613.1
@@ -4531,7 +4469,7 @@ journal_entry_items_149:
   state: draft
   updated_at: 2015-05-07 23:17:20.714726000 Z
   updater_id: 1
-journal_entry_items_150:
+journal_entry_items_148:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 53.28
@@ -4561,7 +4499,7 @@ journal_entry_items_150:
   state: draft
   updated_at: 2015-05-07 23:17:20.737340000 Z
   updater_id: 1
-journal_entry_items_151:
+journal_entry_items_149:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 19.03
@@ -4591,7 +4529,7 @@ journal_entry_items_151:
   state: draft
   updated_at: 2015-05-07 23:17:20.758542000 Z
   updater_id: 1
-journal_entry_items_152:
+journal_entry_items_150:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -4621,7 +4559,7 @@ journal_entry_items_152:
   state: draft
   updated_at: 2015-05-07 23:17:20.778820000 Z
   updater_id: 1
-journal_entry_items_153:
+journal_entry_items_151:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 614.55
@@ -4651,7 +4589,7 @@ journal_entry_items_153:
   state: draft
   updated_at: 2015-05-07 23:17:21.667400000 Z
   updater_id: 1
-journal_entry_items_154:
+journal_entry_items_152:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 52.21
@@ -4681,7 +4619,7 @@ journal_entry_items_154:
   state: draft
   updated_at: 2015-05-07 23:17:21.689070000 Z
   updater_id: 1
-journal_entry_items_155:
+journal_entry_items_153:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 18.64
@@ -4711,7 +4649,7 @@ journal_entry_items_155:
   state: draft
   updated_at: 2015-05-07 23:17:21.710035000 Z
   updater_id: 1
-journal_entry_items_156:
+journal_entry_items_154:
   absolute_credit: 685.4
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -4741,7 +4679,7 @@ journal_entry_items_156:
   state: draft
   updated_at: 2015-05-07 23:17:21.783505000 Z
   updater_id: 1
-journal_entry_items_157:
+journal_entry_items_155:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 615.94
@@ -4771,7 +4709,7 @@ journal_entry_items_157:
   state: draft
   updated_at: 2015-05-07 23:17:22.792115000 Z
   updater_id: 1
-journal_entry_items_158:
+journal_entry_items_156:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 51.13
@@ -4801,7 +4739,7 @@ journal_entry_items_158:
   state: draft
   updated_at: 2015-05-07 23:17:22.814492000 Z
   updater_id: 1
-journal_entry_items_159:
+journal_entry_items_157:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 18.26
@@ -4831,7 +4769,7 @@ journal_entry_items_159:
   state: draft
   updated_at: 2015-05-07 23:17:22.835880000 Z
   updater_id: 1
-journal_entry_items_160:
+journal_entry_items_158:
   absolute_credit: 685.33
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -4861,7 +4799,7 @@ journal_entry_items_160:
   state: draft
   updated_at: 2015-05-07 23:17:22.856468000 Z
   updater_id: 1
-journal_entry_items_161:
+journal_entry_items_159:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 617.4
@@ -4891,7 +4829,7 @@ journal_entry_items_161:
   state: draft
   updated_at: 2015-05-07 23:17:23.764645000 Z
   updater_id: 1
-journal_entry_items_162:
+journal_entry_items_160:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 50.05
@@ -4921,7 +4859,7 @@ journal_entry_items_162:
   state: draft
   updated_at: 2015-05-07 23:17:23.786357000 Z
   updater_id: 1
-journal_entry_items_163:
+journal_entry_items_161:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 17.88
@@ -4951,7 +4889,7 @@ journal_entry_items_163:
   state: draft
   updated_at: 2015-05-07 23:17:23.808341000 Z
   updater_id: 1
-journal_entry_items_164:
+journal_entry_items_162:
   absolute_credit: 685.33
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -4981,7 +4919,7 @@ journal_entry_items_164:
   state: draft
   updated_at: 2015-05-07 23:17:23.829630000 Z
   updater_id: 1
-journal_entry_items_165:
+journal_entry_items_163:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 618.87
@@ -5011,7 +4949,7 @@ journal_entry_items_165:
   state: draft
   updated_at: 2015-05-07 23:17:24.822042000 Z
   updater_id: 1
-journal_entry_items_166:
+journal_entry_items_164:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 48.97
@@ -5041,7 +4979,7 @@ journal_entry_items_166:
   state: draft
   updated_at: 2015-05-07 23:17:24.845845000 Z
   updater_id: 1
-journal_entry_items_167:
+journal_entry_items_165:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 17.49
@@ -5071,7 +5009,7 @@ journal_entry_items_167:
   state: draft
   updated_at: 2015-05-07 23:17:24.869483000 Z
   updater_id: 1
-journal_entry_items_168:
+journal_entry_items_166:
   absolute_credit: 685.33
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -5101,7 +5039,7 @@ journal_entry_items_168:
   state: draft
   updated_at: 2015-05-07 23:17:24.889161000 Z
   updater_id: 1
-journal_entry_items_169:
+journal_entry_items_167:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 620.34
@@ -5131,7 +5069,7 @@ journal_entry_items_169:
   state: draft
   updated_at: 2015-05-07 23:17:25.798837000 Z
   updater_id: 1
-journal_entry_items_170:
+journal_entry_items_168:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 47.89
@@ -5161,7 +5099,7 @@ journal_entry_items_170:
   state: draft
   updated_at: 2015-05-07 23:17:25.826515000 Z
   updater_id: 1
-journal_entry_items_171:
+journal_entry_items_169:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 17.1
@@ -5191,7 +5129,7 @@ journal_entry_items_171:
   state: draft
   updated_at: 2015-05-07 23:17:25.849302000 Z
   updater_id: 1
-journal_entry_items_172:
+journal_entry_items_170:
   absolute_credit: 685.33
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -5221,7 +5159,7 @@ journal_entry_items_172:
   state: draft
   updated_at: 2015-05-07 23:17:25.872128000 Z
   updater_id: 1
-journal_entry_items_173:
+journal_entry_items_171:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 621.82
@@ -5251,7 +5189,7 @@ journal_entry_items_173:
   state: draft
   updated_at: 2015-05-07 23:17:26.798575000 Z
   updater_id: 1
-journal_entry_items_174:
+journal_entry_items_172:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 46.8
@@ -5281,7 +5219,7 @@ journal_entry_items_174:
   state: draft
   updated_at: 2015-05-07 23:17:26.820324000 Z
   updater_id: 1
-journal_entry_items_175:
+journal_entry_items_173:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 16.71
@@ -5311,7 +5249,7 @@ journal_entry_items_175:
   state: draft
   updated_at: 2015-05-07 23:17:26.842062000 Z
   updater_id: 1
-journal_entry_items_176:
+journal_entry_items_174:
   absolute_credit: 685.33
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -5341,7 +5279,7 @@ journal_entry_items_176:
   state: draft
   updated_at: 2015-05-07 23:17:26.864236000 Z
   updater_id: 1
-journal_entry_items_177:
+journal_entry_items_175:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 623.28
@@ -5371,7 +5309,7 @@ journal_entry_items_177:
   state: draft
   updated_at: 2015-05-07 23:17:27.809145000 Z
   updater_id: 1
-journal_entry_items_178:
+journal_entry_items_176:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 45.72
@@ -5401,7 +5339,7 @@ journal_entry_items_178:
   state: draft
   updated_at: 2015-05-07 23:17:27.831806000 Z
   updater_id: 1
-journal_entry_items_179:
+journal_entry_items_177:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 16.33
@@ -5431,7 +5369,7 @@ journal_entry_items_179:
   state: draft
   updated_at: 2015-05-07 23:17:27.854867000 Z
   updater_id: 1
-journal_entry_items_180:
+journal_entry_items_178:
   absolute_credit: 685.33
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -5461,7 +5399,7 @@ journal_entry_items_180:
   state: draft
   updated_at: 2015-05-07 23:17:27.875499000 Z
   updater_id: 1
-journal_entry_items_181:
+journal_entry_items_179:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 624.77
@@ -5491,7 +5429,7 @@ journal_entry_items_181:
   state: draft
   updated_at: 2015-05-07 23:17:28.802028000 Z
   updater_id: 1
-journal_entry_items_182:
+journal_entry_items_180:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 44.62
@@ -5521,7 +5459,7 @@ journal_entry_items_182:
   state: draft
   updated_at: 2015-05-07 23:17:28.823675000 Z
   updater_id: 1
-journal_entry_items_183:
+journal_entry_items_181:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 15.94
@@ -5551,7 +5489,7 @@ journal_entry_items_183:
   state: draft
   updated_at: 2015-05-07 23:17:28.845222000 Z
   updater_id: 1
-journal_entry_items_184:
+journal_entry_items_182:
   absolute_credit: 685.33
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -5581,7 +5519,7 @@ journal_entry_items_184:
   state: draft
   updated_at: 2015-05-07 23:17:28.868438000 Z
   updater_id: 1
-journal_entry_items_185:
+journal_entry_items_183:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 626.25
@@ -5611,7 +5549,7 @@ journal_entry_items_185:
   state: draft
   updated_at: 2015-05-07 23:17:29.849410000 Z
   updater_id: 1
-journal_entry_items_186:
+journal_entry_items_184:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 43.53
@@ -5641,7 +5579,7 @@ journal_entry_items_186:
   state: draft
   updated_at: 2015-05-07 23:17:29.877386000 Z
   updater_id: 1
-journal_entry_items_187:
+journal_entry_items_185:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 15.55
@@ -5671,7 +5609,7 @@ journal_entry_items_187:
   state: draft
   updated_at: 2015-05-07 23:17:29.899884000 Z
   updater_id: 1
-journal_entry_items_188:
+journal_entry_items_186:
   absolute_credit: 685.33
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -5701,7 +5639,7 @@ journal_entry_items_188:
   state: draft
   updated_at: 2015-05-07 23:17:29.918960000 Z
   updater_id: 1
-journal_entry_items_189:
+journal_entry_items_187:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 627.74
@@ -5731,7 +5669,7 @@ journal_entry_items_189:
   state: draft
   updated_at: 2015-05-07 23:17:30.941182000 Z
   updater_id: 1
-journal_entry_items_190:
+journal_entry_items_188:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 42.43
@@ -5761,7 +5699,7 @@ journal_entry_items_190:
   state: draft
   updated_at: 2015-05-07 23:17:30.961537000 Z
   updater_id: 1
-journal_entry_items_191:
+journal_entry_items_189:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 15.16
@@ -5791,7 +5729,7 @@ journal_entry_items_191:
   state: draft
   updated_at: 2015-05-07 23:17:30.981592000 Z
   updater_id: 1
-journal_entry_items_192:
+journal_entry_items_190:
   absolute_credit: 685.33
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -5821,7 +5759,7 @@ journal_entry_items_192:
   state: draft
   updated_at: 2015-05-07 23:17:31.001377000 Z
   updater_id: 1
-journal_entry_items_193:
+journal_entry_items_191:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 629.23
@@ -5839,7 +5777,7 @@ journal_entry_items_193:
   financial_year_id: 24
   id: 249
   journal_id: 7
-  lock_version: 14
+  lock_version: 15
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
   position: 2
   printed_on: 2015-04-23
@@ -5849,9 +5787,9 @@ journal_entry_items_193:
   real_currency_rate: 0.8894
   real_debit: 707.48
   state: draft
-  updated_at: 2016-07-01 20:03:38.522129000 Z
+  updated_at: 2016-07-01 20:06:04.821439000 Z
   updater_id: 1
-journal_entry_items_194:
+journal_entry_items_192:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 41.33
@@ -5881,7 +5819,7 @@ journal_entry_items_194:
   state: draft
   updated_at: 2016-07-01 19:52:32.368990000 Z
   updater_id: 1
-journal_entry_items_195:
+journal_entry_items_193:
   absolute_credit: 0.0
   absolute_currency: EUR
   absolute_debit: 14.76
@@ -5911,7 +5849,7 @@ journal_entry_items_195:
   state: draft
   updated_at: 2016-07-01 19:52:21.667671000 Z
   updater_id: 1
-journal_entry_items_196:
+journal_entry_items_194:
   absolute_credit: 622.58
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -5943,7 +5881,7 @@ journal_entry_items_196:
   state: draft
   updated_at: 2016-07-01 20:03:38.575846000 Z
   updater_id: 1
-journal_entry_items_197:
+journal_entry_items_195:
   absolute_credit: 62.75
   absolute_currency: EUR
   absolute_debit: 0.0
@@ -5961,7 +5899,7 @@ journal_entry_items_197:
   financial_year_id: 24
   id: 266
   journal_id: 7
-  lock_version: 0
+  lock_version: 1
   name: "[Remboursement d’emprunt Tracteur de folie] Remboursement n°37"
   position: 5
   printed_on: 2015-04-23
@@ -5971,5 +5909,245 @@ journal_entry_items_197:
   real_currency_rate: 0.8894
   real_debit: 0.0
   state: draft
-  updated_at: 2016-07-01 20:03:38.600185000 Z
+  updated_at: 2016-07-01 20:06:04.946871000 Z
+  updater_id: 1
+journal_entry_items_196:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 2000.0
+  account_id: 212
+  balance: 2000.0
+  created_at: 2016-07-01 20:10:29.017326000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 30324.3
+  cumulated_absolute_debit: 2485.07
+  currency: EUR
+  debit: 2000.0
+  entry_id: 30
+  entry_number: BNK000007
+  financial_year_id: 24
+  id: 267
+  journal_id: 2
+  lock_version: 0
+  name: "[Emprunt Vélo] Réception des fonds"
+  position: 1
+  printed_on: 2015-05-01
+  real_balance: 2000.0
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2000.0
+  state: draft
+  updated_at: 2016-07-01 20:10:29.017326000 Z
+  updater_id: 1
+journal_entry_items_197:
+  absolute_credit: 2000.0
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 574
+  balance: -2000.0
+  created_at: 2016-07-01 20:10:29.041157000 Z
+  creator_id: 1
+  credit: 2000.0
+  cumulated_absolute_credit: 42650.15
+  cumulated_absolute_debit: 17657.0
+  currency: EUR
+  debit: 0.0
+  entry_id: 30
+  entry_number: BNK000007
+  financial_year_id: 24
+  id: 268
+  journal_id: 2
+  lock_version: 0
+  name: "[Emprunt Vélo] Réception des fonds"
+  position: 2
+  printed_on: 2015-05-01
+  real_balance: -2000.0
+  real_credit: 2000.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-07-01 20:10:29.041157000 Z
+  updater_id: 1
+journal_entry_items_198:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 2.07
+  account_id: 457
+  balance: 2.07
+  created_at: 2016-07-01 20:10:29.092535000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 789.4
+  currency: EUR
+  debit: 2.07
+  entry_id: 69
+  entry_number: BNK000008
+  financial_year_id: 24
+  id: 269
+  journal_id: 2
+  lock_version: 0
+  name: "[Remboursement d’emprunt Vélo] Remboursement n°1"
+  position: 1
+  printed_on: 2015-06-01
+  real_balance: 2.07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2.07
+  state: draft
+  updated_at: 2016-07-01 20:10:29.092535000 Z
+  updater_id: 1
+journal_entry_items_199:
+  absolute_credit: 2.07
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 212
+  balance: -2.07
+  created_at: 2016-07-01 20:10:29.114138000 Z
+  creator_id: 1
+  credit: 2.07
+  cumulated_absolute_credit: 30326.37
+  cumulated_absolute_debit: 2485.07
+  currency: EUR
+  debit: 0.0
+  entry_id: 69
+  entry_number: BNK000008
+  financial_year_id: 24
+  id: 270
+  journal_id: 2
+  lock_version: 0
+  name: "[Remboursement d’emprunt Vélo] Remboursement n°1"
+  position: 2
+  printed_on: 2015-06-01
+  real_balance: -2.07
+  real_credit: 2.07
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-07-01 20:10:29.114138000 Z
+  updater_id: 1
+journal_entry_items_200:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 1016.22
+  account_id: 574
+  balance: 1016.22
+  created_at: 2016-07-01 20:10:29.154021000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 42650.15
+  cumulated_absolute_debit: 18673.22
+  currency: EUR
+  debit: 1016.22
+  entry_id: 70
+  entry_number: BNK000009
+  financial_year_id: 25
+  id: 271
+  journal_id: 2
+  lock_version: 0
+  name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
+  position: 1
+  printed_on: 2016-06-01
+  real_balance: 1016.22
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 1016.22
+  state: draft
+  updated_at: 2016-07-01 20:10:29.154021000 Z
+  updater_id: 1
+journal_entry_items_201:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 70.31
+  account_id: 575
+  balance: 70.31
+  created_at: 2016-07-01 20:10:29.174484000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 2274.98
+  currency: EUR
+  debit: 70.31
+  entry_id: 70
+  entry_number: BNK000009
+  financial_year_id: 25
+  id: 272
+  journal_id: 2
+  lock_version: 0
+  name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
+  position: 2
+  printed_on: 2016-06-01
+  real_balance: 70.31
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 70.31
+  state: draft
+  updated_at: 2016-07-01 20:10:29.174484000 Z
+  updater_id: 1
+journal_entry_items_202:
+  absolute_credit: 0.0
+  absolute_currency: EUR
+  absolute_debit: 2.07
+  account_id: 457
+  balance: 2.07
+  created_at: 2016-07-01 20:10:29.195478000 Z
+  creator_id: 1
+  credit: 0.0
+  cumulated_absolute_credit: 0.0
+  cumulated_absolute_debit: 791.47
+  currency: EUR
+  debit: 2.07
+  entry_id: 70
+  entry_number: BNK000009
+  financial_year_id: 25
+  id: 273
+  journal_id: 2
+  lock_version: 0
+  name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
+  position: 3
+  printed_on: 2016-06-01
+  real_balance: 2.07
+  real_credit: 0.0
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 2.07
+  state: draft
+  updated_at: 2016-07-01 20:10:29.195478000 Z
+  updater_id: 1
+journal_entry_items_203:
+  absolute_credit: 1088.6
+  absolute_currency: EUR
+  absolute_debit: 0.0
+  account_id: 212
+  balance: -1088.6
+  created_at: 2016-07-01 20:10:29.215001000 Z
+  creator_id: 1
+  credit: 1088.6
+  cumulated_absolute_credit: 31414.97
+  cumulated_absolute_debit: 2485.07
+  currency: EUR
+  debit: 0.0
+  entry_id: 70
+  entry_number: BNK000009
+  financial_year_id: 25
+  id: 274
+  journal_id: 2
+  lock_version: 0
+  name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
+  position: 4
+  printed_on: 2016-06-01
+  real_balance: -1088.6
+  real_credit: 1088.6
+  real_currency: EUR
+  real_currency_rate: 1.0
+  real_debit: 0.0
+  state: draft
+  updated_at: 2016-07-01 20:10:29.215001000 Z
   updater_id: 1

@@ -44,17 +44,17 @@ sequences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
-  last_cweek: 21
-  last_month: 5
-  last_number: 13
+  last_cweek: 26
+  last_month: 7
+  last_number: 14
   last_year: 2016
-  lock_version: 14
+  lock_version: 15
   name: Sales
   number_format: SO[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-05-26 21:26:57.755492000 Z
+  updated_at: 2016-07-01 20:12:41.325012000 Z
   updater_id: 1
   usage: sales
 sequences_002:
@@ -176,34 +176,34 @@ sequences_009:
   created_at: 2014-11-01 16:03:04.418996000 Z
   creator_id: 1
   id: 9
-  last_cweek: 3
-  last_month: 1
-  last_number: 17
+  last_cweek: 26
+  last_month: 7
+  last_number: 18
   last_year: 2016
-  lock_version: 19
+  lock_version: 20
   name: Document
   number_format: D[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-01-22 14:06:38.099683000 Z
+  updated_at: 2016-07-01 20:12:54.997405000 Z
   updater_id: 1
   usage: documents
 sequences_010:
   created_at: 2014-11-01 16:25:18.117267000 Z
   creator_id: 1
   id: 10
-  last_cweek: 21
-  last_month: 5
-  last_number: 33
+  last_cweek: 26
+  last_month: 7
+  last_number: 34
   last_year: 2016
-  lock_version: 36
+  lock_version: 37
   name: Affaire
   number_format: A[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-05-26 21:26:57.789996000 Z
+  updated_at: 2016-07-01 20:12:41.390895000 Z
   updater_id: 1
   usage: affairs
 sequences_011:
@@ -351,17 +351,17 @@ sequences_020:
   created_at: 2014-11-01 16:25:19.028014000 Z
   creator_id: 1
   id: 20
-  last_cweek: 21
-  last_month: 5
-  last_number: 2
+  last_cweek: 26
+  last_month: 7
+  last_number: 3
   last_year: 2016
-  lock_version: 6
+  lock_version: 7
   name: sales_invoices
   number_format: F[year|4][number|6]
   number_increment: 1
   number_start: 1
   period: year
-  updated_at: 2016-05-26 21:27:13.815434000 Z
+  updated_at: 2016-07-01 20:12:48.645211000 Z
   updater_id: 1
   usage: sales_invoices
 sequences_021:
@@ -460,15 +460,15 @@ sequences_027:
   id: 27
   last_cweek: 26
   last_month: 7
-  last_number: 3
+  last_number: 4
   last_year: 2016
-  lock_version: 3
+  lock_version: 4
   name: Colis
   number_format: P[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-07-01 19:23:38.960824000 Z
+  updated_at: 2016-07-01 20:13:19.525023000 Z
   updater_id: 1
   usage: parcels
 sequences_028:

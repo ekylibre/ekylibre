@@ -530,3 +530,16 @@ events_038:
   stopped_at: 2016-05-26 21:27:07.769058000 Z
   updated_at: 2016-05-26 21:26:57.773064000 Z
   updater_id: 1
+events_039:
+  created_at: 2016-07-01 20:12:41.362348000 Z
+  creator_id: 1
+  duration: 10
+  id: 47
+  lock_version: 0
+  name: Enregistrement d’une vente
+  nature: meeting
+  restricted: false
+  started_at: 2016-07-01 20:12:41.342313000 Z
+  stopped_at: 2016-07-01 20:12:51.342313000 Z
+  updated_at: 2016-07-01 20:12:41.362348000 Z
+  updater_id: 1

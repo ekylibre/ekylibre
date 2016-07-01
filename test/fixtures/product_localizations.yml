@@ -2126,6 +2126,7 @@ product_localizations_183:
   nature: exterior
   product_id: 177
   started_at: 2016-07-01 19:23:51.381970000 Z
+  stopped_at: 2016-07-01 20:13:27.276170000 Z
   updated_at: 2016-07-01 19:23:51.397140000 Z
   updater_id: 1
 product_localizations_184:
@@ -2137,4 +2138,14 @@ product_localizations_184:
   product_id: 178
   started_at: 2016-07-01 19:23:51.381970000 Z
   updated_at: 2016-07-01 19:23:51.430314000 Z
+  updater_id: 1
+product_localizations_185:
+  created_at: 2016-07-01 20:13:27.322077000 Z
+  creator_id: 1
+  id: 219
+  lock_version: 0
+  nature: exterior
+  product_id: 177
+  started_at: 2016-07-01 20:13:27.276170000 Z
+  updated_at: 2016-07-01 20:13:27.322077000 Z
   updater_id: 1

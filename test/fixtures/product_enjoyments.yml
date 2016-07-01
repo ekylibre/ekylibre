@@ -1162,6 +1162,7 @@ product_enjoyments_118:
   nature: own
   product_id: 177
   started_at: 2016-07-01 19:23:51.381970000 Z
+  stopped_at: 2016-07-01 20:13:27.276170000 Z
   updated_at: 2016-07-01 19:23:51.407735000 Z
   updater_id: 1
 product_enjoyments_119:
@@ -1173,4 +1174,15 @@ product_enjoyments_119:
   product_id: 178
   started_at: 2016-07-01 19:23:51.381970000 Z
   updated_at: 2016-07-01 19:23:51.439324000 Z
+  updater_id: 1
+product_enjoyments_120:
+  created_at: 2016-07-01 20:13:27.296111000 Z
+  creator_id: 1
+  enjoyer_id: 10
+  id: 127
+  lock_version: 0
+  nature: other
+  product_id: 177
+  started_at: 2016-07-01 20:13:27.276170000 Z
+  updated_at: 2016-07-01 20:13:27.296111000 Z
   updater_id: 1

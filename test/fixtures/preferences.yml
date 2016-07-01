@@ -2922,11 +2922,11 @@ preferences_247:
   created_at: 2015-06-02 20:35:20.100688000 Z
   creator_id: 1
   id: 248
-  integer_value: 6
-  lock_version: 65
+  integer_value: 5
+  lock_version: 66
   name: current_campaign.id
   nature: integer
-  updated_at: 2016-05-14 18:07:41.572245000 Z
+  updated_at: 2016-07-01 20:17:49.370688000 Z
   updater_id: 1
   user_id: 1
 preferences_248:
@@ -3946,5 +3946,114 @@ preferences_339:
   nature: string
   string_value: {}
   updated_at: 2016-07-01 19:27:00.937712000 Z
+  updater_id: 1
+  user_id: 1
+preferences_340:
+  created_at: 2016-07-01 20:09:57.435691000 Z
+  creator_id: 1
+  id: 341
+  lock_version: 0
+  name: cobbler.loans-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 20:09:57.435691000 Z
+  updater_id: 1
+  user_id: 1
+preferences_341:
+  created_at: 2016-07-01 20:13:19.599771000 Z
+  creator_id: 1
+  id: 342
+  lock_version: 0
+  name: list._parcels_list_outgoing_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 20:13:19.599771000 Z
+  updater_id: 1
+  user_id: 1
+preferences_342:
+  created_at: 2016-07-01 20:15:41.405955000 Z
+  creator_id: 1
+  id: 343
+  lock_version: 0
+  name: list._target_distributions_list_target_distributions_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 20:15:41.405955000 Z
+  updater_id: 1
+  user_id: 1
+preferences_343:
+  created_at: 2016-07-01 20:17:56.268645000 Z
+  creator_id: 1
+  id: 344
+  lock_version: 1
+  name: interface.janus.backend-cultivable_zones-index-4.current_face
+  nature: string
+  string_value: list
+  updated_at: 2016-07-01 20:17:56.276222000 Z
+  updater_id: 1
+  user_id: 1
+preferences_344:
+  created_at: 2016-07-01 20:18:29.307361000 Z
+  creator_id: 1
+  id: 345
+  lock_version: 0
+  name: cobbler.issues-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 20:18:29.307361000 Z
+  updater_id: 1
+  user_id: 1
+preferences_345:
+  boolean_value: true
+  created_at: 2016-07-01 20:18:42.101856000 Z
+  creator_id: 1
+  id: 346
+  lock_version: 0
+  name: interface.kujakus.backend-equipments-index-12.collapsed
+  nature: boolean
+  updated_at: 2016-07-01 20:18:42.101856000 Z
+  updater_id: 1
+  user_id: 1
+preferences_346:
+  created_at: 2016-07-01 20:18:42.112213000 Z
+  creator_id: 1
+  id: 347
+  lock_version: 0
+  name: kujaku.feathers.backend-equipments-index-12:0.default
+  nature: string
+  updated_at: 2016-07-01 20:18:42.112213000 Z
+  updater_id: 1
+  user_id: 1
+preferences_347:
+  created_at: 2016-07-01 20:18:42.135593000 Z
+  creator_id: 1
+  id: 348
+  lock_version: 0
+  name: list._equipments_list_equipments_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 20:18:42.135593000 Z
+  updater_id: 1
+  user_id: 1
+preferences_348:
+  created_at: 2016-07-01 20:18:44.583393000 Z
+  creator_id: 1
+  id: 349
+  lock_version: 1
+  name: interface.janus.backend-equipments-index-6.current_face
+  nature: string
+  string_value: list
+  updated_at: 2016-07-01 20:18:44.590688000 Z
+  updater_id: 1
+  user_id: 1
+preferences_349:
+  created_at: 2016-07-01 20:18:46.122906000 Z
+  creator_id: 1
+  id: 350
+  lock_version: 0
+  name: cobbler.equipments-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-07-01 20:18:46.122906000 Z
   updater_id: 1
   user_id: 1

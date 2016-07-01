@@ -438,3 +438,19 @@ parcel_items_029:
   updated_at: 2016-07-01 19:23:51.516467000 Z
   updater_id: 1
   variant_id: 22
+parcel_items_030:
+  created_at: 2016-07-01 20:13:19.530594000 Z
+  creator_id: 1
+  id: 30
+  lock_version: 2
+  parcel_id: 23
+  parted: false
+  population: 25.0
+  product_enjoyment_id: 127
+  product_id: 177
+  product_localization_id: 219
+  product_ownership_id: 128
+  source_product_id: 177
+  updated_at: 2016-07-01 20:13:27.353453000 Z
+  updater_id: 1
+  variant_id: 8

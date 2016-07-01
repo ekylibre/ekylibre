@@ -41,52 +41,54 @@
 #
 ---
 loan_repayments_001:
-  accounted_at: 2015-05-07 23:15:03.765813000 Z
-  amount: 694.86
-  base_amount: 652.86
+  accounted_at: 2016-07-01 20:10:29.128288000 Z
+  amount: 2.07
+  base_amount: 0.0
   created_at: 2015-05-07 23:15:03.756298000 Z
   creator_id: 1
   due_on: 2015-06-01
   id: 1
-  insurance_amount: 2.0
-  interest_amount: 40.0
+  insurance_amount: 2.07
+  interest_amount: 0.0
+  journal_entry_id: 69
   loan_id: 1
-  lock_version: 0
+  lock_version: 1
   position: 1
-  remaining_amount: 1347.14
-  updated_at: 2015-05-07 23:15:03.756298000 Z
+  remaining_amount: 2068.0
+  updated_at: 2016-07-01 20:10:29.067439000 Z
   updater_id: 1
 loan_repayments_002:
-  accounted_at: 2015-05-07 23:15:03.774270000 Z
-  amount: 694.86
-  base_amount: 666.57
+  accounted_at: 2016-07-01 20:10:29.229742000 Z
+  amount: 1088.6
+  base_amount: 1016.22
   created_at: 2015-05-07 23:15:03.769771000 Z
   creator_id: 1
-  due_on: 2015-07-01
+  due_on: 2016-06-01
   id: 2
-  insurance_amount: 1.35
-  interest_amount: 26.94
+  insurance_amount: 2.07
+  interest_amount: 70.31
+  journal_entry_id: 70
   loan_id: 1
-  lock_version: 0
+  lock_version: 1
   position: 2
-  remaining_amount: 680.57
-  updated_at: 2015-05-07 23:15:03.769771000 Z
+  remaining_amount: 1051.78
+  updated_at: 2016-07-01 20:10:29.134489000 Z
   updater_id: 1
 loan_repayments_003:
-  accounted_at: 2015-05-07 23:15:03.782379000 Z
-  amount: 694.86
-  base_amount: 680.57
+  accounted_at: 2016-07-01 20:10:29.240357000 Z
+  amount: 1088.59
+  base_amount: 1051.78
   created_at: 2015-05-07 23:15:03.778392000 Z
   creator_id: 1
-  due_on: 2015-08-01
+  due_on: 2017-06-01
   id: 3
-  insurance_amount: 0.68
-  interest_amount: 13.61
+  insurance_amount: 1.05
+  interest_amount: 35.76
   loan_id: 1
-  lock_version: 0
+  lock_version: 1
   position: 3
   remaining_amount: 0.0
-  updated_at: 2015-05-07 23:15:03.778392000 Z
+  updated_at: 2016-07-01 20:10:29.235866000 Z
   updater_id: 1
 loan_repayments_004:
   accounted_at: 2015-05-07 23:16:55.124970000 Z

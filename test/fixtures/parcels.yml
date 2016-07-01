@@ -484,3 +484,24 @@ parcels_022:
   updated_at: 2016-07-01 19:23:51.506082000 Z
   updater_id: 1
   with_delivery: false
+parcels_023:
+  address_id: 4
+  created_at: 2016-07-01 20:13:19.527044000 Z
+  creator_id: 1
+  delivery_mode: us
+  given_at: 2016-07-01 20:13:27.276170000 Z
+  id: 23
+  in_preparation_at: 2016-07-01 20:13:23.706054000 Z
+  lock_version: 4
+  nature: outgoing
+  number: P000000000004
+  ordered_at: 2016-07-01 20:13:23.689651000 Z
+  planned_at: 2016-06-30 22:00:00.000000000 Z
+  position: 3
+  prepared_at: 2016-07-01 20:13:23.808717000 Z
+  recipient_id: 10
+  remain_owner: false
+  state: given
+  updated_at: 2016-07-01 20:13:27.345557000 Z
+  updater_id: 1
+  with_delivery: false

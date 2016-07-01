@@ -551,3 +551,23 @@ event_participations_052:
   state: accepted
   updated_at: 2016-05-26 21:26:57.775097000 Z
   updater_id: 1
+event_participations_053:
+  created_at: 2016-07-01 20:12:41.364313000 Z
+  creator_id: 1
+  event_id: 47
+  id: 59
+  lock_version: 0
+  participant_id: 10
+  state: informative
+  updated_at: 2016-07-01 20:12:41.364313000 Z
+  updater_id: 1
+event_participations_054:
+  created_at: 2016-07-01 20:12:41.365619000 Z
+  creator_id: 1
+  event_id: 47
+  id: 60
+  lock_version: 0
+  participant_id: 9
+  state: accepted
+  updated_at: 2016-07-01 20:12:41.365619000 Z
+  updater_id: 1
