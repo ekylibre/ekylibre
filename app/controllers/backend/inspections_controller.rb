@@ -32,5 +32,10 @@ module Backend
       # t.column :implanter_rows_number
       # t.column :implanter_working_width
     end
+
+    def set_view_preference
+      current_user.prefer!("activity_#{Inspection.find(params[:id]).activity.id}_inspection_view", params[:preference])
+      redirect_to action: "show", id: params[:id]
+    end
   end
 end
