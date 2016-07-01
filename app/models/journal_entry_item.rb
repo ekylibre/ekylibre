@@ -83,7 +83,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates :state, length: { allow_nil: true, maximum: 30 }
   validates :debit, :credit, :real_debit, :real_credit, numericality: { greater_than_or_equal_to: 0 }
   validates :account, presence: true
-  # validates_uniqueness_of :letter, :scope => :account_id, if: Proc.new{|x| !x.letter.blank?}
+  # validates :letter, uniqueness: { scope: :account_id }, if: Proc.new {|x| !x.letter.blank? }
 
   delegate :balanced?, to: :entry, prefix: true
 
