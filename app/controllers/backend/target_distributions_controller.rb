@@ -44,9 +44,9 @@ module Backend
     end
 
     def create
-      @target_distributions = TargetDistribution.create!(permitted_params.key?(:collection) ? permitted_params[:collection].values : permitted_params)
+      @target_distributions = TargetDistribution.create! (permitted_params.key?(:collection) ? permitted_params[:collection].values : permitted_params).reject { |d| d['activity_production_id'].blank? }
 
-      redirect_to params[:redirect] || backend_target_distributions_path if @target_distributions
+      redirect_to params[:redirect] || backend_campaign_path('current') if @target_distributions
     end
 
     def distribute
