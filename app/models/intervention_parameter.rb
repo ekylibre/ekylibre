@@ -73,7 +73,6 @@ class InterventionParameter < Ekylibre::Record::Base
     end
     where(type: "Intervention#{role.camelize}")
   }
-
   scope :of_generic_roles, lambda { |roles|
     roles.collect! do |role|
       role = role.to_s

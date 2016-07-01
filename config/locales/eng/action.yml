@@ -628,10 +628,10 @@ eng:
       run: "Run synchronization: %{name}"
     backend/target_distributions:
       distribute: "Distribute products"
-      edit: "Edit target distribution:"
+      edit: "Edit target distribution"
       index: "Target distributions"
       new: "New target distribution"
-      show: "Target distribution:"
+      show: "Target distribution"
     backend/tasks:
       edit: "Edit task: %{name}"
       # finish: "Finish task: %{name}"
@@ -1107,7 +1107,8 @@ eng:
     go: "Go" #?
     gradings: "Gradings" #?
     grain_yield: "Grain yield" #?
-    grass_yield: "Grass yield"
+    # grains_yield: "Grains yield"
+    grass_yield: "Grass yield" #?
     gross_profit: "Gross profit"
     group: "Group" #?
     groups: "Groups"
@@ -1609,6 +1610,7 @@ eng:
     variants: "Variants"
     variety: "Variety" #?
     view: "View"
+    # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?
     weather: "Weather"
     welcome_on_first_run_wizard: "Welcome to the Startup Wizard" #?!

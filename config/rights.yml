@@ -22,7 +22,6 @@
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
-#     - "backend/activities#list_inspections"
 #     - "backend/activity_inspection_point_natures#autocomplete"
 #     - "backend/animals#take"
 #     - "backend/attachments#create"
@@ -136,16 +135,6 @@
 #     - "backend/products#take"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
-#     - "backend/target_distributions#create"
-#     - "backend/target_distributions#destroy"
-#     - "backend/target_distributions#distribute"
-#     - "backend/target_distributions#edit"
-#     - "backend/target_distributions#index"
-#     - "backend/target_distributions#list"
-#     - "backend/target_distributions#list_intervention_product_parameters"
-#     - "backend/target_distributions#new"
-#     - "backend/target_distributions#show"
-#     - "backend/target_distributions#update"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
@@ -207,6 +196,7 @@ activities:
     - "backend/activities#index"
     - "backend/activities#list"
     - "backend/activities#list_distributions"
+    - "backend/activities#list_inspections"
     - "backend/activities#list_productions"
     - "backend/activities#show"
     - "backend/activities#unroll"
@@ -219,6 +209,10 @@ activities:
     - "backend/plant_density_abaci#index"
     - "backend/plant_density_abaci#list"
     - "backend/plant_density_abaci#show"
+    - "backend/target_distributions#index"
+    - "backend/target_distributions#list"
+    - "backend/target_distributions#list_intervention_product_parameters"
+    - "backend/target_distributions#show"
   write:
     dependencies:
     - read-activities
@@ -248,6 +242,12 @@ activities:
     - "backend/plant_density_abaci#edit"
     - "backend/plant_density_abaci#new"
     - "backend/plant_density_abaci#update"
+    - "backend/target_distributions#create"
+    - "backend/target_distributions#destroy"
+    - "backend/target_distributions#distribute"
+    - "backend/target_distributions#edit"
+    - "backend/target_distributions#new"
+    - "backend/target_distributions#update"
 
 affairs:
   read:
@@ -366,7 +366,6 @@ bank_statements:
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
-    - "backend/bank_statements#edit_items" #?
     - "backend/bank_statements#new"
     - "backend/bank_statements#reconciliation"
     - "backend/bank_statements#update"

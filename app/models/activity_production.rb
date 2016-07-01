@@ -417,16 +417,16 @@ class ActivityProduction < Ekylibre::Record::Base
       raise "Harvest yield unit doesn't exist: #{harvest_yield_unit_name.inspect}"
     end
     total_quantity = 0.0.in(size_unit_name)
-    
+
     target_distribution_plants = Plant.where(id: distributions.pluck(:target_id).compact)
-    
+
     # get harvest_interventions firstly by distributions and secondly by inside_plants method
     harvest_interventions = Intervention.real.of_category(procedure_category).with_targets(target_distribution_plants) if target_distribution_plants.any?
     harvest_interventions ||= Intervention.real.of_category(procedure_category).with_targets(inside_plants)
-    
+
     coef_area = []
     global_coef_harvest_yield = []
-    
+
     if harvest_interventions.any?
       harvest_interventions.find_each do |harvest|
         harvest_working_area = []
@@ -449,7 +449,7 @@ class ActivityProduction < Ekylibre::Record::Base
         end
       end
     end
-    
+
     total_weighted_average_harvest_yield = global_coef_harvest_yield.compact.sum / coef_area.compact.sum if coef_area.compact.sum.to_d != 0.0
     Measure.new(total_weighted_average_harvest_yield.to_f, harvest_yield_unit_name)
   end
@@ -474,9 +474,9 @@ class ActivityProduction < Ekylibre::Record::Base
   def estimate_yield(options = {})
     # compute variety for estimate yield
     if usage == 'grain' || usage == 'seed'
-      options[:variety] ||= "grain"
+      options[:variety] ||= 'grain'
     elsif usage == 'fodder' || usage == 'fiber'
-      options[:variety] ||= "grass"
+      options[:variety] ||= 'grass'
     end
     # get current campaign
     options[:campaign] ||= campaign

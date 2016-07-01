@@ -218,11 +218,11 @@ class Activity < Ekylibre::Record::Base
   def estimate_yield_from_budget_of(options = {})
     # set default parameter if theres no one given
     options[:unit] ||= :quintal_per_hectare
-    options[:variety] ||= "grain"
-    
+    options[:variety] ||= 'grain'
+
     activity_working_unit = size_unit_name
     target_variety = Nomen::Variety[options[:variety]]
-    
+
     selected_budget = budget_of(options[:campaign])
     if selected_budget
       r = []

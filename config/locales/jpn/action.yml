@@ -492,10 +492,10 @@ jpn:
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
       # distribute: "Distribute products"
-      # edit: "Edit target distribution: %{name}"
+      # edit: "Edit target distribution"
       # index: "Target distributions"
       # new: "New target distribution"
-      # show: "Target distribution: %{name}"
+      # show: "Target distribution"
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "タスク"
@@ -1015,6 +1015,7 @@ jpn:
     go: "行きます"
     # gradings: "Gradings"
     grain_yield: "穀粒収量"
+    # grass_yield: "Grass yield"
     gross_profit: "粗利益"
     group: "グループ"
     groups: "グループ"

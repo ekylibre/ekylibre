@@ -7,10 +7,13 @@
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
   - else
-    - time = f.object.intervention.started_at
-    - time ||= f.object.intervention.working_periods.map(&:started_at).min
-    - time ||= Time.now
-    = f.referenced_association :product, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: [at: time.strftime("%Y-%m-%d %H:%M")])}, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' }}
+    - started_at = Time.now
+    - if f.object.intervention
+      - if f.object.intervention.started_at
+        - started_at = f.object.intervention.started_at
+      - else
+        - started_at = f.object.intervention.working_periods.map(&:started_at).min
+    = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
   - if reference.quantified?
     = render 'quantifier_field', f: f, reference: reference, prefix: prefix
   - if (attr = reference.attribute(:new_name))

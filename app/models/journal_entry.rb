@@ -306,11 +306,12 @@ class JournalEntry < Ekylibre::Record::Base
         a = entry_items[index][:account_id].to_i
         d = entry_items[index][:real_debit].to_f
         c = entry_items[index][:real_credit].to_f
-        if item_index = item_values.index([n, a, d, c])
-          entry_items[index] = comparison_items[item_index]
-        else
-          entry_items[index] = items.build(entry_items[index])
-        end
+        item_index = item_values.index([n, a, d, c])
+        entry_items[index] = if item_index
+                               comparison_items[item_index]
+                             else
+                               items.build(entry_items[index])
+                             end
         keep_it_safe = !entry_items[index].save
         saved = false if saved && keep_it_safe
       end

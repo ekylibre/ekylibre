@@ -152,9 +152,7 @@ module Ekylibre
             invoiced_at: r.invoiced_at,
             reference_number: r.reference_number
           )
-          if sale && sale.affair
-            sale.affair.attach(incoming_payment)
-          end
+          sale.affair.attach(incoming_payment) if sale && sale.affair
         end
 
         w.check_point

@@ -40,7 +40,6 @@ Rails.application.routes.draw do
       get :list_readings
       get :list_members
       get :list_places
-      get :list_target_distributions
       get :take
     end
   end
@@ -180,9 +179,7 @@ Rails.application.routes.draw do
         post :duplicate
       end
       member do
-        get :list_budgets
         get :list_distributions
-        get :list_inspection_point_natures
         get :list_inspections
         get :list_interventions
         get :list_productions
@@ -204,7 +201,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :affairs, concerns: [:list, :affairs]
+    resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
 
     resources :analyses, concerns: [:list, :unroll] do
       member do
@@ -478,7 +475,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :identifiers, concerns: [:list, :unroll]
+    resources :identifiers, concerns: [:list]
 
     resources :imports, concerns: [:list] do
       member do
@@ -602,7 +599,7 @@ Rails.application.routes.draw do
 
     resources :matters, concerns: :products
 
-    resources :net_services, concerns: [:list, :unroll] do
+    resources :net_services, concerns: [:list] do
       member do
         get :list_identifiers
       end
@@ -667,7 +664,7 @@ Rails.application.routes.draw do
 
     resources :product_groups, concerns: :products
 
-    resources :product_localizations, concerns: [:list, :unroll], except: [:index, :show]
+    resources :product_localizations, except: [:index, :show]
 
     resources :product_natures, concerns: [:incorporate, :list, :unroll] do
       member do
@@ -812,7 +809,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :tasks, concerns: [:list, :unroll] do
+    resources :tasks, concerns: [:list] do
       member do
         post :reset
         post :start

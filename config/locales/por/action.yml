@@ -497,10 +497,10 @@ por:
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
       # distribute: "Distribute products"
-      # edit: "Edit target distribution: %{name}"
+      # edit: "Edit target distribution"
       # index: "Target distributions"
       # new: "New target distribution"
-      # show: "Target distribution: %{name}"
+      # show: "Target distribution"
     backend/tasks:
       # edit: "Edit task: %{name}"
       index: "Tarefas"
@@ -951,6 +951,7 @@ por:
     go: "Ir"
     # gradings: "Gradings"
     grain_yield: "O rendimento de grãos"
+    # grass_yield: "Grass yield"
     gross_profit: "Lucro bruto"
     group: "Grupo"
     groups: "Grupos"

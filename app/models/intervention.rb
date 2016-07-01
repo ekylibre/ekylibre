@@ -278,11 +278,11 @@ class Intervention < Ekylibre::Record::Base
     return params.map(&:cost).compact.sum if params.any?
     nil
   end
-  
+
   def cost_per_area(role = :input, area_unit = :hectare)
     if working_zone_area > 0.0.in_square_meter
       params = product_parameters.of_generic_role(role)
-      return (params.map(&:cost).compact.sum / working_zone_area(area_unit).to_d ) if params.any?
+      return (params.map(&:cost).compact.sum / working_zone_area(area_unit).to_d) if params.any?
       nil
     end
     nil
@@ -301,9 +301,9 @@ class Intervention < Ekylibre::Record::Base
       return nil
     end
   end
-  
+
   def currency
-    return Preference[:currency]
+    Preference[:currency]
   end
 
   def earn(role = :output)

@@ -207,7 +207,7 @@ module Backend
     def ship
       parcels = find_parcels
       return unless parcels
-      parcel = parcels.detect { |p| p.shippable? }
+      parcel = parcels.detect(&:shippable?)
       options = { parcel_ids: parcels.map(&:id) }
       if !parcel
         redirect_to(options.merge(controller: :deliveries, action: :new))

@@ -412,6 +412,11 @@
         <page to="backend/products#list_carried_linkages"/>
         <page to="backend/products#list_carrier_linkages"/>
         <page to="backend/products#picture"/>
+        <page to="backend/product_localizations#create"/>
+        <page to="backend/product_localizations#destroy"/>
+        <page to="backend/product_localizations#edit"/>
+        <page to="backend/product_localizations#new"/>
+        <page to="backend/product_localizations#update"/>
         <page to="backend/product_groups#index"/>
         <page to="backend/product_groups#create"/>
         <page to="backend/product_groups#destroy"/>
@@ -671,6 +676,16 @@
         <page to="backend/manure_management_plans#show"/>
         <page to="backend/manure_management_plans#unroll"/>
         <page to="backend/manure_management_plans#update"/>
+        <page to="backend/target_distributions#index"/>
+        <page to="backend/target_distributions#create"/>
+        <page to="backend/target_distributions#destroy"/>
+        <page to="backend/target_distributions#distribute"/>
+        <page to="backend/target_distributions#edit"/>
+        <page to="backend/target_distributions#list"/>
+        <page to="backend/target_distributions#new"/>
+        <page to="backend/target_distributions#update"/>
+        <page to="backend/target_distributions#list_intervention_product_parameters"/>
+        <page to="backend/target_distributions#show"/>
       </item>
       <item name="interventions">
         <page to="backend/interventions#index"/>
@@ -698,14 +713,6 @@
         <page to="backend/prescriptions#show"/>
         <page to="backend/prescriptions#unroll"/>
         <page to="backend/prescriptions#update"/>
-        <page to="backend/target_distributions#index"/>
-        <page to="backend/target_distributions#create"/>
-        <page to="backend/target_distributions#destroy"/>
-        <page to="backend/target_distributions#distribute"/>
-        <page to="backend/target_distributions#edit"/>
-        <page to="backend/target_distributions#list"/>
-        <page to="backend/target_distributions#new"/>
-        <page to="backend/target_distributions#update"/>
       </item>
       <item name="analyses" icon="beaker">
         <page to="backend/analyses#index"/>
@@ -1755,18 +1762,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="product_localizations">
-        <page to="backend/product_localizations#create"/>
-        <page to="backend/product_localizations#destroy"/>
-        <page to="backend/product_localizations#edit"/>
-        <page to="backend/product_localizations#new"/>
-        <page to="backend/product_localizations#update"/>
-      </item>
-      <item name="target_distributions">
-        <page to="backend/target_distributions#list_intervention_product_parameters"/>
-        <page to="backend/target_distributions#show"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

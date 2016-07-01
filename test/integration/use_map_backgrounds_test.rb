@@ -29,7 +29,7 @@ class UseMapBackgroundsTest < CapybaraIntegrationTest
     count_before = MapBackground.availables.size
 
     visit('/backend/map_backgrounds')
-    first("div.map-background:not(.active)").click
+    first('div.map-background:not(.active)').click
     sleep(1)
 
     assert_equal count_before + 1, MapBackground.availables.size

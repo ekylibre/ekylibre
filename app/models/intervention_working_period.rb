@@ -56,6 +56,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
     where(intervention_id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
+  scope :with_intervention_parameter, lambda { |role, object|
+    where(intervention_id: InterventionParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
+  }
+
   delegate :update_temporality, to: :intervention
 
   before_validation do

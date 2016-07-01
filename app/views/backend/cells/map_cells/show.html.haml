@@ -50,10 +50,10 @@
       #measure_unit = "#{mass_unit.to_s}_per_#{surface_unit.to_s}"
       #yield_symbol = Nomen::Unit[measure_unit.to_sym]
       surface_unit_name = :hectare
-      
+
       grass_yield = nil
       grain_yield = nil
-      
+
       # case fodder (hay, grass) in ton per hectare
       if support.usage == 'fodder' || support.usage == 'fiber'
         matter = :grass
@@ -82,7 +82,7 @@
                           surface_unit_name: surface_unit_name)
       end
 
-      
+
 
       if params[:visualization] == "grain_yield"
         popup_content << {label: label.tl, value: grain_yield.round(2).l}
