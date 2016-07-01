@@ -6,6 +6,10 @@ module Charta
     TAGS = %w(Point LineString Polygon MultiGeometry).freeze
     OGR_PREFIX = 'ogr'.freeze
     GML_PREFIX = 'gml'.freeze
+    NS = {
+        gml: 'http://www.opengis.net/gml',
+        ogr: 'http://ogr.maptools.org/'
+    }.freeze
 
     def initialize(data, srid = :WGS84)
       srid ||= :WGS84
@@ -19,6 +23,22 @@ module Charta
                # Nokogiri::XML::Document expected
                data
              end
+      up = false
+      # ensure namespaces are defined
+      begin
+        NS.each do |k, v|
+            if @gml.xpath("//@*[xmlns:#{k.to_s}]").empty?
+              @gml.root.namespace_definitions << @gml.root.add_namespace_definition(k.to_s, v)
+              up = true
+            end
+        end
+      rescue
+        false
+      end
+
+      if up
+        @gml = Nokogiri::XML(@gml.to_xml)
+      end
 
       boundaries = @gml.css("#{GML_PREFIX}|boundedBy")
       unless boundaries.blank?
@@ -26,6 +46,7 @@ module Charta
           srid = Charta.find_srid(node['srsName']) unless node['srsName'].nil?
         end
       end
+
       @srid = Charta.find_srid(srid)
     end
 
@@ -53,15 +74,24 @@ module Charta
       end
 
       def document_to_ewkt(gml, srid)
-        return 'GEOMETRYCOLLECTION EMPTY' if gml.css("#{OGR_PREFIX}|FeatureCollection").blank?
-        'GEOMETRYCOLLECTION(' + gml.css("#{GML_PREFIX}|featureMember").collect do |feature|
-          TAGS.collect do |tag|
-            next if feature.css("#{GML_PREFIX}|#{tag}").empty?
-            feature.css("#{GML_PREFIX}|#{tag}").collect do |fragment|
-              object_to_ewkt(fragment, srid)
+        #whole document
+        unless gml.css("#{OGR_PREFIX}|FeatureCollection").blank? || gml.css("#{GML_PREFIX}|featureMember").blank?
+          'GEOMETRYCOLLECTION(' + gml.css("#{GML_PREFIX}|featureMember").collect do |feature|
+            TAGS.collect do |tag|
+              next if feature.css("#{GML_PREFIX}|#{tag}").empty?
+              feature.css("#{GML_PREFIX}|#{tag}").collect do |fragment|
+                object_to_ewkt(fragment, srid)
+              end.compact.join(', ')
             end.compact.join(', ')
-          end.compact.join(', ')
-        end.compact.join(', ') + ')'
+          end.compact.join(', ') + ')'
+        else
+          #fragment
+          if gml.root.name and TAGS.include?(gml.root.name)
+            object_to_ewkt(gml.root, srid)
+          else
+            'GEOMETRYCOLLECTION EMPTY'
+          end
+        end
       end
       alias geometry_collection_to_ewkt document_to_ewkt
 
