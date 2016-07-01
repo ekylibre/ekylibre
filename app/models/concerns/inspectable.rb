@@ -18,6 +18,10 @@ module Inspectable
     (net_mass_value || 0).in(grading_net_mass_unit)
   end
 
+  def net_items
+    (items_count || 0).in(Nomen::Unit.find(:unity))
+  end
+
   def minimal_size
     (minimal_size_value || 0).in(grading_sizes_unit)
   end
@@ -28,6 +32,23 @@ module Inspectable
 
   def total_net_mass
     (net_mass * (product_net_surface_area.to_d(:square_meter) / sampling_area.to_d(:square_meter))).round(0)
+  end
+
+  def total_items_count
+    (net_items * (product_net_surface_area.to_d(:square_meter) / sampling_area.to_d(:square_meter))).round(0)
+  end
+
+  def find_item_unit(value)
+    closest_round = 10 ** Math.log(value, 10).floor
+    units = Nomen::Unit.where(dimension: :none).select { |u| u.symbol.last == '.' }
+    units.min_by { |u| (u.a - closest_round).abs }
+  end
+
+  def net_items_yield
+    unit_name = "#{find_item_unit(total_items_count.to_f).name}_per_#{product_net_surface_area.unit}"
+    unit_name = :unity_per_square_meter unless Nomen::Unit.find(unit_name)
+    y = (net_items.to_d(:unity) / sampling_area.to_d(:square_meter)).in(:unity_per_square_meter)
+    y.in(unit_name).round(0)
   end
 
   def net_mass_yield

@@ -61,7 +61,20 @@ class InspectionCalibration < Ekylibre::Record::Base
     end
   end
 
-  def marketable_yield
+  def marketable_items_count
+    if inspection.unmarketable_rate
+      total_items_count * (1 - inspection.unmarketable_rate)
+    end
+  end
+
+  def marketable_items_yield
+    unit_name = "#{find_item_unit(total_items_count.to_f).name}_per_#{product_net_surface_area.unit}"
+    unit_name = :unity_per_square_meter unless Nomen::Unit.find(unit_name)
+    y = (marketable_items_count.to_d(:unity) / product_net_surface_area.to_d(:square_meter)).in(:unity_per_square_meter)
+    y.in(unit_name).round(0)
+  end
+
+  def marketable_mass_yield
     unit_name = "#{grading_net_mass_unit.name}_per_#{product_net_surface_area.unit}"
     unit_name = :kilogram_per_hectare unless Nomen::Unit.find(unit_name)
     y = (marketable_net_mass.to_d(:kilogram) / product_net_surface_area.to_d(:square_meter)).in(:kilogram_per_square_meter)

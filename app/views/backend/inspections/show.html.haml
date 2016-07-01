@@ -1,7 +1,3 @@
--# set unit for this view
-- unit = Nomen::Unit[:ton]
-- yield_unit = Nomen::Unit[:ton_per_hectare]
-
 - main_toolbar do |t|
   = t.edit resource
   = t.destroy
@@ -16,6 +12,7 @@
     - l.attribute :activity, url: true
     - l.attribute :comment
 
+
 = cobbles do |c|
 
   - c.cobble(:totals) do
@@ -24,47 +21,64 @@
         .med-info
           %span.title= category.l
           %span.value= resource.points_net_mass_percentage(category).round(2).l(precision: 2) + '%'
-      - if resource.activity.inspection_calibration_scales.any?
-        .med-info
-          %span.title= Inspection.human_attribute_name(:marketable_net_mass)
-          %span.value= resource.marketable_net_mass.convert(unit).round(2).l(precision: 0)
-        .med-info
-          %span.title= Inspection.human_attribute_name(:marketable_net_yield)
-          %span.value= resource.marketable_yield.convert(yield_unit).round(2).l(precision: 0)
-        .med-info
-          %span.title= Inspection.human_attribute_name(:gross_mass)
-          %span.value= resource.total_net_mass.convert(unit).round(2).l(precision: 0)
-        .med-info
-          %span.title= Inspection.human_attribute_name(:gross_yield_value)
-          %span.value= resource.net_mass_yield.convert(yield_unit).round(2).l(precision: 0)
 
-  - if resource.calibrations.any? && resource.calibrations.sum(:net_mass_value) > 0
-    - c.cobble(:stock_in_ground) do
-      %table
-        %tbody
-          - resource.scales.each do |scale|
-            :ruby
-              symbol_measure = unit.symbol
-              dataset = resource.calibrations.of_scale(scale).reorder(:id)
-            %tr
-              = render "pie_inspection", resource: resource, unit: unit, scale: scale
+    - if resource.activity.measure_grading_net_mass
+      - unit = Nomen::Unit[:ton]
+      - yield_unit = Nomen::Unit[:ton_per_hectare]
+      = infos do
+        - if resource.activity.inspection_calibration_scales.any?
+          .med-info
+            %span.title= Inspection.human_attribute_name(:marketable_net_mass)
+            %span.value= resource.marketable_net_mass.convert(unit).round(2).l(precision: 0)
+          .med-info
+            %span.title= Inspection.human_attribute_name(:marketable_net_yield)
+            %span.value= resource.marketable_mass_yield.convert(yield_unit).round(2).l(precision: 0)
+          .med-info
+            %span.title= Inspection.human_attribute_name(:gross_mass)
+            %span.value= resource.total_net_mass.convert(unit).round(2).l(precision: 0)
+          .med-info
+            %span.title= Inspection.human_attribute_name(:gross_yield_value)
+            %span.value= resource.net_mass_yield.convert(yield_unit).round(2).l(precision: 0)
+    - if resource.activity.measure_grading_items_count
+      - unit = Nomen::Unit[:thousand]
+      - yield_unit = Nomen::Unit[:unity_per_square_meter]
+      = infos do
+        - if resource.activity.inspection_calibration_scales.any?
+          .med-info
+            %span.title= Inspection.human_attribute_name(:marketable_items_count)
+            %span.value= resource.marketable_items_count.convert(unit).round(2).l(precision: 0)
+          .med-info
+            %span.title= Inspection.human_attribute_name(:marketable_net_yield)
+            %span.value= resource.marketable_items_yield.convert(yield_unit).round(2).l(precision: 0)
+          .med-info
+            %span.title= Inspection.human_attribute_name(:gross_items_count)
+            %span.value= resource.total_items_count.convert(unit).round(2).l(precision: 0)
+          .med-info
+            %span.title= Inspection.human_attribute_name(:gross_yield_value)
+            %span.value= resource.net_items_yield.convert(yield_unit).round(2).l(precision: 0)
+
+  - if resource.calibrations.any?
+
+    - if resource.activity.measure_grading_net_mass && resource.calibrations.sum(:net_mass_value) > 0
+
+      - c.cobble(:stock_in_ground_mass) do
+        %table
+          %tbody
+            - resource.scales.each do |scale|
               :ruby
-                net_surface_area = resource.product_net_surface_area_value
-                data = []
-                series = []
-                dataset.map do |calibration|
-                  series << { name: calibration.name, data: [calibration.marketable_net_mass.round(0).to_d(unit).to_s.to_f] }
-                end
-              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+                dataset = resource.calibrations.of_scale(scale).reorder(:id)
+              = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
+
+    - if resource.activity.measure_grading_items_count && resource.calibrations.sum(:items_count) > 0
+
+      - c.cobble(:stock_in_ground_items) do
+        %table
+          %tbody
+            - resource.scales.each do |scale|
               :ruby
-                net_surface_area = resource.product_net_surface_area_value
-                yield_symbol_measure = yield_unit.symbol
-                data = []
-                series = []
-                dataset.map do |calibration|
-                  series << { name: calibration.name, data: [calibration.marketable_yield.round(0).to_d(yield_unit).to_s.to_f] }
-                end
-              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+                dataset = resource.calibrations.of_scale(scale).reorder(:id)
+              = render "charts", to_graph: "items_count", dataset: dataset, resource: resource, scale: scale
+
   - c.cobble(:analyses) do
     - analysis = Analysis.where(product: resource.product, nature: 'plant_analysis').reorder(:sampled_at).last
     - if analysis
