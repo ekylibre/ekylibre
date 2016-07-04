@@ -34,7 +34,7 @@ module Backend
     end
 
     def set_view_preference
-      current_user.prefer!("activity_#{Inspection.find(params[:id]).activity.id}_inspection_view", params[:preference])
+      Inspection.find(params[:id]).unit_preference(current_user, params["preference"])
       redirect_to action: "show", id: params[:id]
     end
   end
