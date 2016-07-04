@@ -178,7 +178,7 @@
                 dataset_last_inspections.each do |last_inspection|
                   l = last_inspection.calibrations.of_scale(scale).where(nature_id: nature.id)
                   last_calibrations << l.first.marketable_net_mass.round(0).to_d(inspection_unit)
-                  last_calibrations_yield << l.first.marketable_yield.round(0).to_d(inspection_yield_unit)
+                  last_calibrations_yield << l.first.marketable_mass_yield.round(0).to_d(inspection_yield_unit)
                 end
                 series << { name: nature.name, data: [last_calibrations.compact.sum.to_s.to_f] }
                 yield_series << { name: nature.name, data: [ last_calibrations_yield.any? ? (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f : 0] }
