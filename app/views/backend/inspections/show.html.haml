@@ -43,9 +43,9 @@
               :ruby
                 dataset = resource.calibrations.of_scale(scale).reorder(:id)
               - case user_pref
-              - when "mass"
+              - when :mass
                 = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
-              - when "items"
+              - when :items
                 = render "charts", to_graph: "items_count", dataset: dataset, resource: resource, scale: scale
               - else
                 = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
