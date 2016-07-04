@@ -71,9 +71,6 @@
 
           disease_percentage = last_inspection.points_net_mass_percentage('disease').round(2) if last_inspection
 
-          # for plant analysis
-          last_plant_analysis = plant.analyses.where(nature: 'plant_analysis').reorder(:sampled_at).last
-          ready_to_harvest = last_plant_analysis.items.where(indicator_name: 'ready_to_harvest').boolean_value if last_plant_analysis
 
           disease_color = '#33FF39'
 
