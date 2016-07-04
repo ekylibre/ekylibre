@@ -1,9 +1,4 @@
-:ruby
-  symbol_measure = unit.symbol
-  dataset = resource.calibrations.of_scale(scale).reorder(:id)
-  data = []
-  dataset.map do |calibration|
-    y = calibration.send("marketable_#{to_graph}".to_sym).round(0).to_d(unit)
-    data << { name: calibration.name, y: y.to_s.to_f }
-  end
+- symbol_measure = unit.symbol
+- data = series(resource, :"marketable_#{to_graph}", dataset, unit) { |name, result| {name: name, y: result} }
+
 %td{style: 'width: 33%' }= pie_highcharts({ name: scale.name, data: data }, title: {text: :percentage_by_calibration.tl}, y_axis: {title: {text: "#{symbol_measure}"}}, legend: true, tooltip: {point_format: "{point.y: 1f} : <b>{point.percentage:.1f}%</b>"} ,plot_options: { pie: {allow_point_select: true, data_labels: {enabled: true, format: "<b>{point.name}</b>: {point.percentage:.1f} %"}}})
