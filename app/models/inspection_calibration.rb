@@ -55,29 +55,22 @@ class InspectionCalibration < Ekylibre::Record::Base
     nature.marketable
   end
 
-  def marketable_net_mass
-    if inspection.unmarketable_rate
-      total_net_mass * (1 - inspection.unmarketable_rate)
+  [[:items_count, :items, [:unity, :hectare, :unity_per_square_meter]], [:net_mass, :mass, [:kilogram, :square_meter, :kilogram_per_square_meter]]].each do |long_name, short_name, unit|
+    define_method "marketable_#{long_name}" do
+      if inspection.send("unmarketable_#{short_name}_rate")
+        send("total_#{long_name}") * (1 - inspection.send("unmarketable_#{short_name}_rate"))
+      end
     end
-  end
 
-  def marketable_items_count
-    if inspection.unmarketable_rate
-      total_items_count * (1 - inspection.unmarketable_rate)
+    define_method "marketable_#{short_name}_yield" do
+      if respond_to?("grading_#{long_name}_unit")
+        unit_name = send("grading_#{long_name}_unit").name + "_per_" + "#{product_net_surface_area.unit}"
+      else
+        unit_name = ""
+      end
+      unit_name = unit.last unless Nomen::Unit.find(unit_name)
+      y = (send("marketable_#{long_name}").to_d(unit.first) / product_net_surface_area.to_d(unit.second)).in(unit.last)
+      y.in(unit_name).round(0)
     end
-  end
-
-  def marketable_items_yield
-    unit_name = "#{find_item_unit(total_items_count.to_f).name}_per_#{product_net_surface_area.unit}"
-    unit_name = :unity_per_square_meter unless Nomen::Unit.find(unit_name)
-    y = (marketable_items_count.to_d(:unity) / product_net_surface_area.to_d(:square_meter)).in(:unity_per_square_meter)
-    y.in(unit_name).round(0)
-  end
-
-  def marketable_mass_yield
-    unit_name = "#{grading_net_mass_unit.name}_per_#{product_net_surface_area.unit}"
-    unit_name = :kilogram_per_hectare unless Nomen::Unit.find(unit_name)
-    y = (marketable_net_mass.to_d(:kilogram) / product_net_surface_area.to_d(:square_meter)).in(:kilogram_per_square_meter)
-    y.in(unit_name).round(0)
   end
 end

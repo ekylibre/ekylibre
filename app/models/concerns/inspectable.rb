@@ -48,7 +48,7 @@ module Inspectable
     units.min_by { |u| (u.a - closest_round).abs }
   end
 
-  def net_items_yield
+  def items_count_yield
     unit_name = "#{find_item_unit(total_items_count.to_f).name}_per_#{product_net_surface_area.unit}"
     unit_name = :unity_per_square_meter unless Nomen::Unit.find(unit_name)
     y = (net_items.to_d(:unity) / sampling_area.to_d(:square_meter)).in(:unity_per_square_meter)

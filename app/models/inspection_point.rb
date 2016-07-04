@@ -60,4 +60,8 @@ class InspectionPoint < Ekylibre::Record::Base
   def net_mass_percentage
     (100 * (net_mass / inspection.net_mass))
   end
+
+  def net_items_percentage
+    (100 * (items_count / inspection.items_count))
+  end
 end
