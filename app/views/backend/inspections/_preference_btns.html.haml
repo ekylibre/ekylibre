@@ -1,3 +1,6 @@
+- current = inspection.unit_preference(current_user)
+- choices = inspection.unit_choices.map { |e| [e, e.capitalize] }.to_h
+
 - if choices.length > 1
   - cobble_meta_toolbar do
     .btn-group{style: "float: right;"}
