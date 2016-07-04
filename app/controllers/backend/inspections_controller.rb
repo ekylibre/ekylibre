@@ -34,8 +34,12 @@ module Backend
     end
 
     def set_view_preference
-      Inspection.find(params[:id]).unit_preference(current_user, params["preference"])
-      redirect_to action: "show", id: params[:id]
+      id = params[:inspection_id]
+      id ||= params[:id]
+      Inspection.find(id).unit_preference(current_user, params["preference"])
+      destination = params["redirect"] if params["redirect"]
+      destination ||= { action: "show", id: params[:id] }
+      redirect_to destination
     end
   end
 end

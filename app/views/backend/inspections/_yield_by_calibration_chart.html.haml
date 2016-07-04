@@ -1,6 +1,6 @@
 - short_graph_name = {"items_count" => "items", "net_mass" => "mass" }[to_graph]
 
-- data = series(resource, :"marketable_#{short_graph_name}_yield", dataset, yield_unit) { |name, result| {name: name, data: [result]} }
+- data = data_series(resource, :"marketable_#{short_graph_name}_yield", dataset, yield_unit) { |name, result| {name: name, data: [result]} }
 
 - yield_symbol_measure = Maybe(yield_unit).symbol.or_else(nil)
 

@@ -6,5 +6,5 @@
     .btn-group{style: "float: right;"}
       - choices.each do |pref, name|
         - classes = ["btn", "btn-default", ("active" if current == pref)]
-        = link_to(set_view_preference_backend_inspection_path(preference: pref),  class: classes) do
+        = link_to(set_view_preference_backend_inspection_path(preference: pref, inspection_id: inspection.id, redirect: request.path), class: classes) do
           = name

@@ -61,26 +61,21 @@
     - activity = inspections.first.activity
     - activity.inspection_calibration_scales.each do |scale|
       :ruby
-        # build categories
-        categories = []
 
-        series = []
+        categories = inspections.map(&:position).map(&:to_s)
 
-        curves = {}
-        inspections.each do |i|
-          categories << i.position.to_s
-          # for each calibre
-          scale.natures.reorder(:minimal_value).each do |nature|
-            calibration = i.calibrations.find_by(nature: nature)
-            curves[nature] ||= []
-            curves[nature] << (calibration ? calibration.marketable_net_mass.round(0).to_d(Nomen::Unit[:ton]).to_s : 0).to_f
-          end
+        last_inspection = resource.inspections.reorder(:sampled_at).last
+        choices = last_inspection.unit_choices
+        user_pref = last_inspection.unit_preference(current_user)
+        if user_pref == :items
+          long_name = "items_count"
+          unit = Nomen::Unit[:thousand]
+          yield_unit = Nomen::Unit[:unity_per_square_meter]
+        elsif user_pref == :mass
+          long_name = "net_mass"
+          unit = Nomen::Unit[:ton]
+          yield_unit = Nomen::Unit[:ton_per_hectare]
         end
-        curves.each do |nature, data|
-          series << { name: nature.name, data: data}
-        end
-
-        # build second chart for disease
 
         series_disease = []
 
@@ -88,7 +83,7 @@
 
         inspections.each do |i|
           ActivityInspectionPointNature.unmarketable_categories.each do |nature|
-            calibration = i.points_net_mass_percentage(nature)
+            calibration = i.send("points_#{long_name}_percentage", nature)
             curves_disease[nature] ||= []
             curves_disease[nature] << (calibration ? calibration.round(2).to_s : 0).to_f
           end
@@ -97,17 +92,20 @@
           series_disease << { name: nature.l, data: data}
         end
 
-      - if series.any?
-        - c.cobble(:stock_in_ground_by_calibration) do
-          = column_highcharts(series, y_axis: {reversed_stacks: false, title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-        - c.cobble(:disease_deformity_percentage) do
-          = column_highcharts(series_disease, y_axis: {reversed_stacks: false, title: {text: "%"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} %"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-        - c.cobble(:percentage_by_calibration) do
-          -# set unit for this view
-          - unit = Nomen::Unit[:ton]
-          - last_inspection = resource.inspections.reorder(:sampled_at).last
-          - last_inspection.scales.each do |scale|
-            = render "backend/inspections/pie_inspection", resource: last_inspection, unit: unit, scale: scale
+      - c.cobble(:stock_in_ground_by_calibration) do
+        = render "backend/inspections/preference_btns", inspection: last_inspection
+        - dataset = last_inspection.calibrations.of_scale(scale).reorder(:id).reverse
+        = render "backend/inspections/stock_in_ground_chart", dataset: dataset, resource: last_inspection, to_graph: long_name, unit: unit, scale: scale
+
+      - c.cobble(:disease_deformity_percentage) do
+        = render "backend/inspections/preference_btns", inspection: last_inspection
+        = column_highcharts(series_disease, y_axis: {reversed_stacks: false, title: {text: "%"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} %"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+
+      - c.cobble(:percentage_by_calibration) do
+        = render "backend/inspections/preference_btns", inspection: last_inspection
+        - last_inspection.scales.each do |scale|
+          = render "backend/inspections/percentage_chart", resource: last_inspection, to_graph: long_name, unit: unit, scale: scale
+
   - c.cobble(:inspections, title: :x_inspections.tl(count: resource.inspections.count)) do
     -# FIXME Add activity in URL to get link working
     -# = cobble_toolbar do |t|
