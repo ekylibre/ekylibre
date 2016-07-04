@@ -76,9 +76,9 @@ module Charta
         'POLYGON(' + %w(outerBoundaryIs innerBoundaryIs).collect do |boundary|
           next if kml.css(boundary).empty?
 
-          '(' + kml.css(boundary).collect do |hole|
-            hole.css('coordinates').collect { |coords| coords.content.split(/\r\n|\n| /) }.flatten.reject(&:empty?).collect { |c| c.split ',' }.collect { |dimension| %(#{dimension.first} #{dimension.second}) }
-          end.join(', ') + ')'
+          kml.css(boundary).collect do |hole|
+            '(' + hole.css('coordinates').collect { |coords| coords.content.split(/\r\n|\n| /) }.flatten.reject(&:empty?).collect { |c| c.split ',' }.collect { |dimension| %(#{dimension.first} #{dimension.second}) }.join(', ') + ')'
+          end.join(', ')
         end.compact.join(', ') + ')'
       end
 

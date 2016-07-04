@@ -26,6 +26,7 @@ module Charta
       up = false
       # ensure namespaces are defined
       begin
+        @gml.root.add_namespace_definition('xmlns', '')
         NS.each do |k, v|
           if @gml.xpath("//@*[xmlns:#{k}]").empty?
             @gml.root.namespace_definitions << @gml.root.add_namespace_definition(k.to_s, v)
@@ -102,10 +103,9 @@ module Charta
 
         wkt = 'POLYGON(' + %w(outerBoundaryIs innerBoundaryIs).collect do |boundary|
           next if gml.css("#{GML_PREFIX}|#{boundary}").empty?
-
-          '(' + gml.css("#{GML_PREFIX}|#{boundary}").collect do |hole|
-            hole.css("#{GML_PREFIX}|coordinates").collect { |coords| coords.content.split(/\r\n|\n| /) }.flatten.reject(&:empty?).collect { |c| c.split ',' }.collect { |dimension| %(#{dimension.first} #{dimension.second}) }
-          end.join(', ') + ')'
+          gml.css("#{GML_PREFIX}|#{boundary}").collect do |hole|
+            '(' + hole.css("#{GML_PREFIX}|coordinates").collect { |coords| coords.content.split(/\r\n|\n| /) }.flatten.reject(&:empty?).collect { |c| c.split ',' }.collect { |dimension| %(#{dimension.first} #{dimension.second}) }.join(', ') + ')'
+          end.join(', ')
         end.compact.join(', ') + ')'
 
         unless gml['srsName'].nil? || Charta.find_srid(gml['srsName']).to_s == srid.to_s
