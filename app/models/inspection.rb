@@ -82,6 +82,19 @@ class Inspection < Ekylibre::Record::Base
     end
   end
 
+  def unit_choices
+    [:items, :mass]
+      .reject { |e| e == :items && !measure_grading_items_count }
+      .reject { |e| e == :mass && !measure_grading_net_mass }
+  end
+
+  def unit_preference(user, *args)
+    user.prefer!("activity_#{activity_id}_inspection_view", args[0].to_sym) if args.present?
+    user_pref = user.preference("activity_#{activity_id}_inspection_view").value
+    user_pref = unit_choices.find { |c| c.to_sym == user_pref.to_sym }
+    user_pref ||= unit_choices.first
+  end
+
   def set_net_surface_area
     return unless product
     if product.net_surface_area
