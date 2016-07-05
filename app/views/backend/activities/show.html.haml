@@ -65,6 +65,7 @@
         data_inspection = []
         plant_ids = resource.inspections.pluck(:product_id).uniq
         Plant.where(id: plant_ids).each do |plant|
+          popup_content = []
           next unless plant.shape
           # for inspections
           last_inspection = plant.inspections.reorder(:sampled_at).last
@@ -75,6 +76,8 @@
 
 
           disease_color = '#33FF39'
+          
+          popup_content << render('popup', plant: plant)
 
           item = {
             name:       plant.name,
@@ -82,6 +85,7 @@
             disease: disease_percentage,
             deformity: deformity_percentage,
             ready_to_harvest: (plant.ready_to_harvest? ? :ready.tl : :not_ready.tl),
+            popup: {header: true, content: popup_content}
           }
           data_inspection << item
         end
