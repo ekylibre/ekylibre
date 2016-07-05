@@ -1049,6 +1049,9 @@ fra:
     default_letter_introduction: "Suite à notre conversation, je vous communique les éléments du devis."
     default_subject: "[%{company}]"
     definition: "Définition"
+    # deformity: "Deformity"
+    deformity_percentage: "Malformations (%)"
+    deformity_percentage_evolution: "Evolution des malformations"
     delete: "Supprimer"
     # delete_shape: "Delete form"
     deliver: "Valider l’envoi des livraisons"
@@ -1068,8 +1071,10 @@ fra:
     details: "Informations complémentaires"
     direct_margin: "Marge directe" #?
     discount: "Réduc. (%)"
-    disease: "Maladies (%)"
+    disease: "Maladies"
     disease_deformity_percentage: "Pourcentage de maladies et malformations"
+    disease_percentage: "Maladies (%)"
+    disease_percentage_evolution: "Evolution des maladies"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
     distributions: "Répartitions"
@@ -1182,7 +1187,7 @@ fra:
     go: "Valider"
     gradings: "Agréages"
     grain_yield: "Rendement grain"
-    grains_yield: "Rendement grains" #?
+    grains_yield: "Rendement grains"
     graph_statistics: "Statistiques graphiques" #?
     grass_yield: "Rendement fourrage"
     gross_profit: "Marge brute"
@@ -1242,6 +1247,7 @@ fra:
     inputs: "Intrants"
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
+    # inspections: "Inspections"
     internal_error: "Oups, quelque chose s’est mal passé."
     interval: "Intervalle personnalisé"
     intervention: "Intervention"

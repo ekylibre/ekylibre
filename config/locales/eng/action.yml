@@ -989,6 +989,9 @@ eng:
     default_letter_introduction: "Following our conversation, I give you the elements of the estimate."
     default_subject: "[%{company}]"
     definition: "Definition"
+    deformity: "Deformity" #?
+    deformity_percentage: "Deformity (%)" #?
+    deformity_percentage_evolution: "Deformity percentage evolution"
     delete: "Delete"
     delete_shape: "Delete form" #??
     deliver: "Delivered on" #?
@@ -1006,8 +1009,10 @@ eng:
     detail: "Detail" #?
     details: "Details"
     discount: "Discount (%)" #?
-    disease: "Disease (%)" #?
+    disease: "Disease" #?
     disease_deformity_percentage: "Disease and deformity percentage"
+    disease_percentage: "Disease (%)" #?
+    disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
     distributions: "Distributions"
     divide: "Divide"
@@ -1083,7 +1088,7 @@ eng:
     go: "Go" #?
     gradings: "Gradings" #?
     grain_yield: "Grain yield" #?
-    # grains_yield: "Grains yield"
+    grains_yield: "Grains yield"
     grass_yield: "Grass yield" #?
     gross_profit: "Gross profit"
     group: "Group" #?
@@ -1121,7 +1126,7 @@ eng:
     input_cost: "Input cost"
     input_cost_per_hectare: "Input cost per hectare" #?!
     inputs: "Inputs"
-    # inspections: "Inspections"
+    inspections: "Inspections"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
     intervention: "Intervention"

@@ -933,6 +933,9 @@ spa:
     default_letter_introduction: "Después de nuestra conversación, te doy los elementos de la estimación."
     default_subject: "[%{company}]"
     definition: "Definición"
+    # deformity: "Deformity"
+    # deformity_percentage: "Deformity (%)"
+    # deformity_percentage_evolution: "Deformity percentage evolution"
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     delete: "Borrar"
@@ -962,8 +965,10 @@ spa:
     details: "Detalles"
     direct_margin: "Margen directo" #?
     discount: "Descuento (%)"
-    # disease: "Disease (%)"
+    # disease: "Disease"
     # disease_deformity_percentage: "Disease and deformity percentage"
+    # disease_percentage: "Disease (%)"
+    # disease_percentage_evolution: "Disease percentage evolution"
     display: "Monitor"
     distributions: "Distribuciones"
     divide: "Dividir"
@@ -1057,6 +1062,7 @@ spa:
     go: "Ir"
     # gradings: "Gradings"
     grain_yield: "El rendimiento de grano"
+    # grains_yield: "Grains yield"
     # grass_yield: "Grass yield"
     gross_profit: "Beneficio bruto"
     group: "Grupo"
@@ -1096,6 +1102,7 @@ spa:
     inputs: "Entradas"
     insert_actual_password: "Coja su contraseña actual" #?
     insert_password: "Coja su nueva contraseña" #?
+    # inspections: "Inspections"
     internal_error: "Vaya, algo sucedió."
     international_normal_vat_collected: "Tasa normal a 8,5%" #?
     international_reduce_vat_collected: "Tasa réducida a 2,1%" #?

@@ -67,23 +67,48 @@
         Plant.where(id: plant_ids).each do |plant|
           popup_content = []
           next unless plant.shape
+
           # for inspections
           last_inspection = plant.inspections.reorder(:sampled_at).last
+          last_before_inspection = plant.inspections.reorder(:sampled_at).reverse_order.limit(2).last
 
+          inspection_qualities_evolutions = []
+
+          # for disease between last and last-1
           disease_percentage = last_inspection.points_net_mass_percentage('disease').round(2) if last_inspection
-          
+          last_disease_percentage = last_before_inspection.points_net_mass_percentage('disease').round(2) if last_before_inspection
+          if disease_percentage && last_disease_percentage && last_disease_percentage.to_d != 0.0
+            disease_percentage_evolution =  (( disease_percentage - last_disease_percentage ) / last_disease_percentage) * 100
+            inspection_qualities_evolutions << { label: :disease_percentage_evolution.tl, value: disease_percentage_evolution.round(0).in(:percent).l } if disease_percentage_evolution
+          end
+
+          # for deformity between last and last-1
           deformity_percentage = last_inspection.points_net_mass_percentage('deformity').round(2) if last_inspection
+          last_deformity_percentage = last_before_inspection.points_net_mass_percentage('deformity').round(2) if last_before_inspection
+          if deformity_percentage && last_deformity_percentage && last_deformity_percentage.to_d != 0.0
+            deformity_percentage_evolution =  ((deformity_percentage - last_deformity_percentage) / last_deformity_percentage ) * 100
+            inspection_qualities_evolutions << { label: :deformity_percentage_evolution.tl, value: deformity_percentage_evolution.round(0).in(:percent).l } if deformity_percentage_evolution
+          end
 
+          inspections = []
+          # get last inspection for current plant
+          last_inspection = plant.inspections.reorder(:sampled_at).last
+          last_inspection.scales.each do |scale|
+            symbol_measure = inspection_unit.symbol
+            dataset = last_inspection.calibrations.of_scale(scale).reorder(:id)
+            dataset.map do |calibration|
+              inspections << {label: calibration.name, value: calibration.marketable_net_mass.round(0).convert(inspection_unit).l}
+            end
+          end
 
-          disease_color = '#33FF39'
-          
-          popup_content << render('popup', plant: plant)
+          popup_content << { label: Plant.human_attribute_name(:net_surface_area), value: plant.net_surface_area.round(3).l }
+          popup_content << render('popup', plant: plant, inspections: inspections, inspection_qualities_evolutions: inspection_qualities_evolutions)
 
           item = {
             name:       plant.name,
             shape:      plant.shape,
-            disease: disease_percentage,
-            deformity: deformity_percentage,
+            disease_percentage: disease_percentage,
+            deformity_percentage: deformity_percentage,
             ready_to_harvest: (plant.ready_to_harvest? ? :ready.tl : :not_ready.tl),
             popup: {header: true, content: popup_content}
           }
@@ -99,8 +124,8 @@
           - if !data_inspection.empty?
             - v.serie :second, data_inspection
             - v.categories :ready_to_harvest, :second, without_ghost_label: true
-            - v.choropleth :disease, :second, stop_color: "#FF0000"
-            - v.choropleth :deformity, :second, stop_color: "#FFB300"
+            - v.choropleth :disease_percentage, :second, stop_color: "#FF0000"
+            - v.choropleth :deformity_percentage, :second, stop_color: "#FFB300"
           - v.control :zoom
           - v.control :scale
           - v.control :fullscreen

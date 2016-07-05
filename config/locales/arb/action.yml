@@ -1159,6 +1159,9 @@ arb:
     default_letter_introduction: "بعد حديثنا، وأنا أعطيك عناصر التقدير."
     default_subject: "[%{company}]"
     definition: "تعريف"
+    # deformity: "Deformity"
+    # deformity_percentage: "Deformity (%)"
+    # deformity_percentage_evolution: "Deformity percentage evolution"
     delay_create: "اضافة مهلة جديدة" #?
     delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
@@ -1190,8 +1193,10 @@ arb:
     details: "معلومات اضافية"
     direct_margin: "هامش المباشر" #?
     discount: "الخصم (%)"
-    # disease: "Disease (%)"
+    # disease: "Disease"
     # disease_deformity_percentage: "Disease and deformity percentage"
+    # disease_percentage: "Disease (%)"
+    # disease_percentage_evolution: "Disease percentage evolution"
     display: "عرض"
     display_help: "عرض المساعدة" #?
     distributions: "التوزيعات"
@@ -1311,6 +1316,7 @@ arb:
     go: "صلاحية"
     # gradings: "Gradings"
     grain_yield: "محصول الحبوب"
+    # grains_yield: "Grains yield"
     graph_statistics: "رسومات احصائية" #?
     # grass_yield: "Grass yield"
     gross_profit: "اجمالي الربح"
@@ -1360,6 +1366,7 @@ arb:
     inputs: "المدخلات"
     insert_actual_password: "أدخل كلمة المرور الحالية" #?
     insert_password: "أدخل كلمة المرور الجديدة" #?
+    # inspections: "Inspections"
     internal_error: "عفوا، حدث شيء ما."
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5" #?
     international_reduce_vat_collected: "معدل ضريبة القيمة المضافة الدولية المخفضة %2.1" #?
