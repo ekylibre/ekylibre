@@ -70,6 +70,8 @@
           last_inspection = plant.inspections.reorder(:sampled_at).last
 
           disease_percentage = last_inspection.points_net_mass_percentage('disease').round(2) if last_inspection
+          
+          deformity_percentage = last_inspection.points_net_mass_percentage('deformity').round(2) if last_inspection
 
 
           disease_color = '#33FF39'
@@ -77,8 +79,9 @@
           item = {
             name:       plant.name,
             shape:      plant.shape,
-            shape_color: disease_color,
-            disease: disease_percentage
+            disease: disease_percentage,
+            deformity: deformity_percentage,
+            ready_to_harvest: (plant.ready_to_harvest? ? :ready.tl : :not_ready.tl),
           }
           data_inspection << item
         end
@@ -91,7 +94,9 @@
           - v.simple :support, :main
           - if !data_inspection.empty?
             - v.serie :second, data_inspection
-            - v.choropleth :disease, :second, stop_color: "#FF7733"
+            - v.categories :ready_to_harvest, :second, without_ghost_label: true
+            - v.choropleth :disease, :second, stop_color: "#FF0000"
+            - v.choropleth :deformity, :second, stop_color: "#FFB300"
           - v.control :zoom
           - v.control :scale
           - v.control :fullscreen
@@ -149,7 +154,7 @@
                   last_calibrations_yield << l.first.marketable_yield.round(0).to_d(inspection_yield_unit)
                 end
                 series << { name: nature.name, data: [last_calibrations.compact.sum.to_s.to_f] }
-                yield_series << { name: nature.name, data: [(last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f] }
+                yield_series << { name: nature.name, data: [ last_calibrations_yield.any? ? (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f : 0] }
               end
 
               # spline
