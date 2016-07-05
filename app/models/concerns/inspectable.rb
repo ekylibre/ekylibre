@@ -18,7 +18,7 @@ module Inspectable
     (net_mass_value || 0).in(grading_net_mass_unit)
   end
 
-  def net_items
+  def items_count
     (items_count || 0).in(Nomen::Unit.find(:unity))
   end
 
