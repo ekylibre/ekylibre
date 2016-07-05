@@ -77,8 +77,8 @@ class ParcelItem < Ekylibre::Record::Base
   validates :population, numericality: { less_than_or_equal_to: 1,
                                          if: :product_is_unitary?,
                                          message: 'activerecord.errors.messages.unitary_in_parcel'.t }
-  validates :product_name, presence: { if: -> { product_is_unitary? && parcel_incoming? } }
-  validates :product_identification_number, presence: { if: -> { product_is_unitary? && parcel_incoming? } }
+  validates :product_name, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
+  validates :product_identification_number, presence: { if: -> { product_is_identifiable? && parcel_incoming? } }
 
   scope :with_nature, ->(nature) { joins(:parcel).merge(Parcel.with_nature(nature)) }
 
@@ -93,7 +93,7 @@ class ParcelItem < Ekylibre::Record::Base
 
   before_validation do
     read_at = parcel ? parcel_prepared_at : Time.zone.now
-    self.population ||= product_is_unitary? ? 1 : 0
+    self.population ||= product_is_identifiable? ? 1 : 0
     next if parcel_incoming?
 
     if sale_item
@@ -124,6 +124,12 @@ class ParcelItem < Ekylibre::Record::Base
 
   def status
     prepared? ? :go : variant.present? ? :caution : :stop
+  end
+
+  def product_is_identifiable?
+    [variant, source_product].reduce(false) do |acc, product_input|
+      acc || Maybe(product_input).identifiable?.or_else(false)
+    end
   end
 
   def product_is_unitary?
