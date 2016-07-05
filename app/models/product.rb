@@ -208,6 +208,7 @@ class Product < Ekylibre::Record::Base
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> { all }
+  scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
   scope :storage, -> { of_expression('is building or is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
@@ -250,6 +251,7 @@ class Product < Ekylibre::Record::Base
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
            :deliverable?, :asset_account, :product_account, :charge_account,
            :stock_account, :population_counting, :population_counting_unitary?,
+           :identifiable?,
            to: :nature
   delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list,
            :abilities, :abilities_list, :indicators, :indicators_list,

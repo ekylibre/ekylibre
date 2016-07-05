@@ -101,7 +101,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables).order(:name) }
   scope :stockables_or_depreciables, -> { joins(:category).merge(ProductNatureCategory.stockables_or_depreciables).order(:name) }
   scope :storage, -> { of_expression('can store(matter) or can store_liquid or can store_fluid or can store_gaz') }
-
+  scope :identifiables, -> { of_variety(:animal) + select(&:population_counting_unitary?) }
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
@@ -151,6 +151,10 @@ class ProductNature < Ekylibre::Record::Base
         errors.add(:subscription_months_count, :invalid)
       end
     end
+  end
+
+  def identifiable?
+    of_variety?(:animal) || population_counting_unitary?
   end
 
   def has_indicator?(indicator)
