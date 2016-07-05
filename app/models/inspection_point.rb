@@ -58,10 +58,10 @@ class InspectionPoint < Ekylibre::Record::Base
   scope :unmarketable, -> { where(nature_id: ActivityInspectionPointNature.unmarketable) }
 
   def net_mass_percentage
-    (100 * (net_mass / inspection.net_mass))
+    (100 * (net_mass_in_unit / inspection.net_mass))
   end
 
   def items_count_percentage
-    (100 * (items_count / inspection.items_count))
+    (100 * (items_count_in_unit / inspection.items_count))
   end
 end

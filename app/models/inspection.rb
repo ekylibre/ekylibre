@@ -237,12 +237,12 @@ class Inspection < Ekylibre::Record::Base
       if activity.respond_to?(:"grading_#{long_name}_unit")
         point_sum.in(activity.send("grading_#{long_name}_unit"))
       else
-        point_sum
+        point_sum.in(:unity)
       end
     end
 
     define_method "#{long_name}" do |scale = nil|
-      calibration_values(:"#{long_name}", scale)
+      calibration_values(:"#{long_name}_in_unit", scale)
     end
 
     define_method "#{long_name}_yield" do |scale = nil|
@@ -261,7 +261,7 @@ class Inspection < Ekylibre::Record::Base
       calibration_values(:"total_#{long_name}", scale)
     end
 
-    define_method "unmarketable_#{short_name}_rate" do ||
+    define_method "unmarketable_#{short_name}_rate" do
       send(long_name).to_d != 0 ? send("unmarketable_#{long_name}") / send(long_name) : nil
     end
 

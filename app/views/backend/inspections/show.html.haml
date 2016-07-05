@@ -91,9 +91,9 @@
             %tr
               %td= calibration.nature_name
               - if resource.measure_grading_items_count
-                %td.decimal= calibration.items_count
+                %td.decimal= calibration.items_count_in_unit
               - if resource.measure_grading_net_mass
-                %td.decimal= calibration.net_mass.l(precision: 0)
+                %td.decimal= calibration.net_mass_in_unit.l(precision: 0)
               - if resource.measure_grading_sizes
                 %td.decimal= calibration.minimal_size.l(precision: 0)
                 %td.decimal= calibration.maximal_size.l(precision: 0)
@@ -134,9 +134,9 @@
             %tr
               %td= point.nature_name
               - if resource.measure_grading_items_count
-                %td.decimal= point.items_count
+                %td.decimal= point.items_count_in_unit
               - if resource.measure_grading_net_mass
-                %td.decimal= point.net_mass.l(precision: 0)
+                %td.decimal= point.net_mass_in_unit.l(precision: 0)
               - if resource.measure_grading_sizes
                 %td.decimal= point.minimal_size.l(precision: 0)
                 %td.decimal= point.maximal_size.l(precision: 0)

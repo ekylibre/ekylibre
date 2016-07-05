@@ -14,11 +14,11 @@ module Inspectable
     delegate :product_net_surface_area, :sampling_area, to: :inspection
   end
 
-  def net_mass
+  def net_mass_in_unit
     (net_mass_value || 0).in(grading_net_mass_unit)
   end
 
-  def items_count
+  def items_count_in_unit
     (items_count || 0).in(Nomen::Unit.find(:unity))
   end
 
@@ -31,11 +31,11 @@ module Inspectable
   end
 
   def total_net_mass
-    (net_mass * (product_net_surface_area.to_d(:square_meter) / sampling_area.to_d(:square_meter))).round(0)
+    (net_mass_in_unit * (product_net_surface_area.to_d(:square_meter) / sampling_area.to_d(:square_meter))).round(0)
   end
 
   def total_items_count
-    (net_items * (product_net_surface_area.to_d(:square_meter) / sampling_area.to_d(:square_meter))).round(0)
+    (items_count_in_unit * (product_net_surface_area.to_d(:square_meter) / sampling_area.to_d(:square_meter))).round(0)
   end
 
   def find_item_unit(value)
@@ -51,14 +51,14 @@ module Inspectable
   def items_count_yield
     unit_name = "#{find_item_unit(total_items_count.to_f).name}_per_#{product_net_surface_area.unit}"
     unit_name = :unity_per_square_meter unless Nomen::Unit.find(unit_name)
-    y = (net_items.to_d(:unity) / sampling_area.to_d(:square_meter)).in(:unity_per_square_meter)
+    y = (items_count_in_unit.to_d(:unity) / sampling_area.to_d(:square_meter)).in(:unity_per_square_meter)
     y.in(unit_name).round(0)
   end
 
   def net_mass_yield
     unit_name = "#{grading_net_mass_unit.name}_per_#{product_net_surface_area.unit}"
     unit_name = :kilogram_per_hectare unless Nomen::Unit.find(unit_name)
-    y = (net_mass.to_d(:kilogram) / sampling_area.to_d(:square_meter)).in(:kilogram_per_square_meter)
+    y = (net_mass_in_unit.to_d(:kilogram) / sampling_area.to_d(:square_meter)).in(:kilogram_per_square_meter)
     y.in(unit_name).round(0)
   end
 end
