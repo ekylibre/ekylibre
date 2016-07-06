@@ -281,7 +281,7 @@ class Intervention < Ekylibre::Record::Base
       movement.stopped_at = self.stopped_at
       movement.save!
 
-      #to be sure last
+      # to be sure last
       last_movement = product.movements.last_of_all
       last_movement.stopped_at = nil
       last_movement.save!

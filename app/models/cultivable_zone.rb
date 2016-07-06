@@ -76,9 +76,7 @@ class CultivableZone < Ekylibre::Record::Base
   end
 
   after_commit do
-    activity_productions.each do |activity_production|
-      activity_production.update_names
-    end
+    activity_productions.each(&:update_names)
     Ekylibre::Hook.publish(:cultivable_zone_change, cultivable_zone_id: id)
   end
 
