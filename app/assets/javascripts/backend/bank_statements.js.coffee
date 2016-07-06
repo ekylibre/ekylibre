@@ -130,7 +130,9 @@
 
     completeJournalEntryItems: (clickedLine) ->
       reconciliationLetter = @_getNextReconciliationLetter()
-      params = { letter: reconciliationLetter }
+      params =
+        letter: reconciliationLetter
+        name: clickedLine.find('.name').first().html()
 
       selectedJournalEntryItems = @_lines().filter(".journal-entry-item-type.selected")
       debit = selectedJournalEntryItems.find(".debit").sum()
