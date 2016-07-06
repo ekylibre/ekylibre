@@ -270,6 +270,22 @@ class Intervention < Ekylibre::Record::Base
       movement.stopped_at = self.stopped_at
       movement.save!
     end
+
+    inputs.find_each do |input|
+      product = input.product
+      next unless product
+
+      movement = input.product_movement
+      next unless movement
+      movement.started_at = self.started_at
+      movement.stopped_at = self.stopped_at
+      movement.save!
+
+      #to be sure last
+      last_movement = product.movements.last_of_all
+      last_movement.stopped_at = nil
+      last_movement.save!
+    end
   end
 
   # Sums all intervention product parameter total_cost of a particular role
