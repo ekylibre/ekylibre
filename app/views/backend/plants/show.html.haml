@@ -77,6 +77,21 @@
           yield_unit = Nomen::Unit[:ton_per_hectare]
         end
 
+        series = []
+        curves = {}
+        inspections.each do |i|
+          categories << i.position.to_s
+          # for each calibre
+          scale.natures.reorder(:minimal_value).each do |nature|
+            calibration = i.calibrations.find_by(nature: nature)
+            curves[nature] ||= []
+            curves[nature] << (calibration ? calibration.send("marketable_#{long_name}").round(0).to_d(unit).to_s : 0).to_f
+          end
+        end
+        curves.each do |nature, data|
+          series << { name: nature.name, data: data}
+        end
+
         series_disease = []
 
         curves_disease = {}
@@ -95,7 +110,7 @@
       - c.cobble(:stock_in_ground_by_calibration) do
         = render "backend/inspections/preference_btns", inspection: last_inspection
         - dataset = last_inspection.calibrations.of_scale(scale).reorder(:id).reverse
-        = render "backend/inspections/stock_in_ground_chart", dataset: dataset, resource: last_inspection, to_graph: long_name, unit: unit, scale: scale
+        = column_highcharts(series, y_axis: {reversed_stacks: false, title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
 
       - c.cobble(:disease_deformity_percentage) do
         = render "backend/inspections/preference_btns", inspection: last_inspection
