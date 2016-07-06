@@ -56,8 +56,7 @@ class Inspection < Ekylibre::Record::Base
   validates :activity, :number, :product, :sampled_at, presence: true
   # ]VALIDATORS]
   validates :implanter_application_width, :implanter_rows_number,
-            :sampling_distance, numericality: { greater_than: 0 }
-  validates :sampling_distance, presence: true
+            :sampling_distance, numericality: { greater_than: 0 }, presence: true
 
   # composed_of :product_net_surface_area, class_name: 'Measure', mapping: [%w(product_net_surface_area_value to_d), %w(product_net_surface_area_unit unit)]
 
