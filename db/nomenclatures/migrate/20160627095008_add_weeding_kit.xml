@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <migration name="Add weeding kit">
-  <item-creation item="product_natures#weeding_kit" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant), spray" frozen_indicators="nominal_storable_net_volume, rows_count" variable_indicators="geolocation"/>>
+  <item-creation item="product_natures#weeding_kit" category="equipment" variety="equipment" population_counting="unitary" abilities="kill(plant), spray" frozen_indicators="nominal_storable_net_volume, rows_count" variable_indicators="geolocation"/>
   <item-creation item="product_nature_variants#weeding_kit" nature="weeding_kit" unit_name="equipment"/>
 </migration>
