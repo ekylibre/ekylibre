@@ -1008,7 +1008,6 @@ por:
     journals: "Periodo geral"
     label: "Rótulo"
     # label_value: "%{label}: %{value}"
-    # land_parcel_abbreviation: "LP"
     land_parcels: "Parcelas"
     last_analyses: "Análise Última leite"
     last_computed_balance: "Último balanço computadorizada"
