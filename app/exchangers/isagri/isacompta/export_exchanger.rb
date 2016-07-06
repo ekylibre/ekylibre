@@ -41,7 +41,7 @@ module Isagri
 
           isa_fy = isa.folder.financial_year
           # Find or create financial year
-          fy = FinancialYear.find_by_started_on_and_stopped_on(isa_fy.started_on, isa_fy.stopped_on)
+          fy = FinancialYear.find_by(started_on: isa_fy.started_on, stopped_on: isa_fy.stopped_on)
           unless fy
             if FinancialYear.where('? BETWEEN started_on AND stopped_on OR ? BETWEEN started_on AND stopped_on', isa_fy.started_on, isa_fy.stopped_on).any?
               raise ActiveExchanger::IncompatibleDataError, 'Financial year dates overlaps existing financial years'
@@ -59,7 +59,7 @@ module Isagri
             # Adds missing accounts
             all_accounts = {}
             isa_fy.accounts.each do |isa_account|
-              unless account = Account.find_by_number(isa_account.number)
+              unless account = Account.find_by(number: isa_account.number)
                 account = Account.create!(name: (isa_account.label.blank? ? isa_account.number : isa_account.label), number: isa_account.number, reconcilable: isa_account.reconcilable, last_letter: isa_account.letter, debtor: (isa_account.input_direction == 'de' ? true : false), description: isa_account.to_s)
               end
               all_accounts[isa_account.number] = account.id
@@ -73,9 +73,9 @@ module Isagri
             used_journals = isa_fy.entries.collect(&:journal).uniq
             all_journals = {}
             isa_fy.journals.each do |isa_journal|
-              if used_journals.include?(j.code)
+              if used_journals.include?(isa_journal.code)
                 journal = nil
-                journals = Journal.find_all_by_code(isa_journal.code)
+                journals = Journal.where(code: isa_journal.code)
                 journal = journals[0] if journals.size == 1
                 unless journal
                   journals = Journal.where('LOWER(name) LIKE ? ', isa_journal.label.mb_chars.downcase)
@@ -94,11 +94,6 @@ module Isagri
             entries_to_import = isa_fy.entries
             total_count = entries_to_import.size
             unused_entries = fy.journal_entries.collect(&:id).uniq.sort
-            status = ''
-            start = Time.zone.now
-            count = 0
-            interval = 1.00
-            next_start = start + interval
 
             # Determine which search filter is the best
             # filters = {}
@@ -129,7 +124,7 @@ module Isagri
               end
               unless entry
                 number = "#{isa_entry.journal}#{isa_entry.code.to_s.rjust(6, '0')}"
-                entries = JournalEntry.find_all_by_number_and_journal_id_and_printed_on(number, journal_id, isa_entry.printed_on)
+                entries = JournalEntry.where(number: number, journal_id: journal_id, printed_on: isa_entry.printed_on)
                 if entries.size == 1
                   entry = entries.first
                 elsif entries.size > 1
@@ -137,28 +132,36 @@ module Isagri
                   number = number[0..255]
                 end
                 unless entry
-                  entry = JournalEntry.create(number: number, journal_id: all_journals[isa_entry.journal], printed_on: isa_entry.printed_on, created_on: isa_entry.created_on, updated_at: isa_entry.updated_on, lock_version: isa_entry.version_number) # , :state => (isa_entry.unupdateable? ? :confirmed : :draft)
+                  entry = JournalEntry.create(
+                    number: number,
+                    journal_id: all_journals[isa_entry.journal],
+                    printed_on: isa_entry.printed_on,
+                    created_at: isa_entry.created_on,
+                    updated_at: isa_entry.updated_on,
+                    lock_version: isa_entry.version_number
+                  ) # , :state => (isa_entry.unupdateable? ? :confirmed : :draft)
                   raise isa_entry.inspect + "\n" + entry.errors.full_messages.to_sentence unless entry.valid?
                 end
               end
 
               unused_entries.delete(entry.id)
 
-              entry.lines.clear
+              entry.items.clear
               isa_entry.lines.each do |isa_line|
                 if isa_line.debit < 0 || isa_line.credit < 0
                   debit = isa_line.debit
                   isa_line.debit = isa_line.credit.abs
                   isa_line.credit = debit.abs
                 end
-                line = entry.lines.create(account_id: all_accounts[isa_line.account], name: "#{isa_line.label} (#{isa_entry.label})", real_debit: isa_line.debit, real_credit: isa_line.credit, letter: (isa_line.lettering > 0 ? isa_line.letter : nil), comment: isa_line.to_s)
-                raise isa_line.to_s + "\n" + line.errors.full_messages.to_sentence unless line.valid?
-              end
-
-              count += 1
-              if Time.zone.now > next_start
-                status = print_jauge(count, total_count, replace: status, start: start)
-                next_start = Time.zone.now + interval
+                item = entry.items.create(
+                  account_id: all_accounts[isa_line.account],
+                  name: "#{isa_line.label} (#{isa_entry.label})",
+                  real_debit: isa_line.debit,
+                  real_credit: isa_line.credit,
+                  letter: (isa_line.lettering > 0 ? isa_line.letter : nil),
+                  description: isa_line.to_s
+                )
+                raise isa_line.to_s + "\n" + item.errors.full_messages.to_sentence unless item.valid?
               end
             end
 
@@ -167,7 +170,7 @@ module Isagri
               JournalEntry.destroy(unused_entries)
             end
 
-            # Check all lines line-per-line
+            # Check all items item-per-item
             found = fy.journal_entries.size
             expected = isa_fy.entries.size
             if found != expected
@@ -176,7 +179,7 @@ module Isagri
             found = JournalEntryItem.between(fy.started_on, fy.stopped_on).count
             expected = isa_fy.entries.inject(0) { |s, e| s += e.lines.size }
             if found != expected
-              raise StandardError, "The count of entry lines is different: #{found} in database and #{expected} in file"
+              raise StandardError, "The count of entry items is different: #{found} in database and #{expected} in file"
             end
             # fy.journal_entries.each do |entry|
             # end
