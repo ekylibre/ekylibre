@@ -55,7 +55,7 @@ class InspectionCalibration < Ekylibre::Record::Base
     nature.marketable
   end
 
-  [[:items_count, :items, [:unity, :hectare, :unity_per_square_meter]], [:net_mass, :mass, [:kilogram, :square_meter, :kilogram_per_square_meter]]].each do |long_name, short_name, unit|
+  [[:items_count, :items, [:unity, :hectare, :unity_per_hectare]], [:net_mass, :mass, [:kilogram, :square_meter, :kilogram_per_square_meter]]].each do |long_name, short_name, unit|
     define_method "marketable_#{long_name}" do
       if inspection.send("unmarketable_#{short_name}_rate")
         send("total_#{long_name}") * (1 - inspection.send("unmarketable_#{short_name}_rate"))
