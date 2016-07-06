@@ -52,7 +52,7 @@ cmn:
     implanter_tool: "注入工具"
     insemination: "授精"
     # inseminator: "Inseminator"
-    item: "项目"
+    item: "项目" #?
     juice: "汁"
     juice_to_ferment: "果汁发酵"
     land_parcel: "地块"
@@ -130,7 +130,7 @@ cmn:
     direct_silage: "直接青贮"
     egg_collecting: "鸡蛋收集"
     enzyme_addition: "加入酶"
-    equipment_item_replacement: "设备更换项目"
+    equipment_item_replacement: "设备更换项目" #?
     fermentation: "发酵"
     fertilizing: "施肥"
     field_plant_sorting: "现场分拣厂"

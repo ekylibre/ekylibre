@@ -104,11 +104,14 @@ cmn:
         passed: "通过"
         passed_with_warnings: "有警告传递"
     intervention:
-      state:
-        done: "做"
-        in_progress: "进行中"
-        squeezed: "挤压"
-        undone: "未完成"
+      nature:
+        # record: "record"
+        # request: "Request"
+      state:  #?
+        done: "做" #?
+        in_progress: "进行中" #?
+        squeezed: "挤压" #?
+        undone: "未完成" #?
     journal:
       nature:
         bank: "银行"

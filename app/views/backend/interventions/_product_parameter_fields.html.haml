@@ -1,5 +1,6 @@
 - prefix = namespace + "[#{f.index}]"
 - f.object.reference_name = reference.name
+
 .nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name } }
   = link_to_remove_nested_association(:destroy.ta, f)
   = f.input :reference_name, as: :hidden
@@ -8,7 +9,7 @@
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
   - else
     = f.referenced_association :product, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'product_id' }}
-  - if reference.quantified?
+  - if reference.quantified? && f.object.intervention.nature == :record
     = render 'quantifier_field', f: f, reference: reference, prefix: prefix
   - if (attr = reference.attribute(:new_name))
     - if attr.hidden?

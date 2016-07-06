@@ -250,6 +250,7 @@ eng:
       product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "Product type variant reading"
       product_ownership: "Product ownership"
+      # product_part_replacement: "Product part replacement"
       product_phase: "Product phase"
       product_reading: "Product reading"
       purchase: "Purchase"
@@ -418,7 +419,8 @@ eng:
     commission_base_amount: "Base amount of the commission"
     commission_percentage: "Commission percentage"
     commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
-    # components: "Components"
+    # component: "Component"
+    components: "Components"
     computation_method: "Computation method"
     compute: "Compute"
     conclusion: "Conclusion"
@@ -603,6 +605,7 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
     fixed_assets: "Fixed assets"
+    following: "Following"
     formats: "Formats"
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"
@@ -875,6 +878,8 @@ eng:
     parcel_items: "Parcel items"
     parcels: "Parcels"
     parent: "Parent"
+    # part_product_nature_variant: "Part product nature variant"
+    part_variant: "Part variant" #?
     parted: "Parted"
     parted_product: "Parted product" #?
     participant: "Participant"
@@ -900,7 +905,6 @@ eng:
     picture_file_name: "Picture file name"
     picture_file_size: "Picture file size"
     picture_updated_at: "Picture updated at"
-    # piece_variant: "Piece variant"
     place: "Place"
     plan: "Plan"
     planned_at: "Planned at"
@@ -920,6 +924,7 @@ eng:
     post: "Post"
     postal_code: "Postal code"
     postal_zones: "Postal zones"
+    # precedings: "Precedings"
     preferences: "Preferences"
     prepared_at: "Prepared at"
     prescription: "Prescription"
@@ -946,12 +951,17 @@ eng:
     product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"
     product_nature_category_taxations: "Product type category taxations"
+    product_nature_component: "Product nature component" #?
+    product_nature_variant: "Product nature variant"
+    product_nature_variant_component: "Product nature variant component" #?
+    product_nature_variant_id: "Product nature variant"
     # product_natures: "Product natures"
     # product_net_surface_area_unit: "Product net surface area unit"
     # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "Product ownership"
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
+    product_part_replacement: "Product part replacement"
     product_phases: "Product phases" #?
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
@@ -1040,6 +1050,7 @@ eng:
     repayment_period: "Repayment period"
     repayments: "Repayments"
     reporter: "Reporter" #?
+    # request_intervention: "Request intervention"
     required: "Required"
     reset_password_sent_at: "Reset password sent at"
     reset_password_token: "Reset password token"

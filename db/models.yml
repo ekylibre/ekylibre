@@ -121,6 +121,7 @@
 - product_nature_variant_component
 - product_nature_variant_reading
 - product_ownership
+- product_part_replacement
 - product_phase
 - product_reading
 - purchase

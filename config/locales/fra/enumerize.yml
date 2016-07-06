@@ -111,11 +111,9 @@ fra:
         passed: "Passé"
         passed_with_warnings: "Passé avec remarques"
     intervention:
-      state:
-        done: "Réalisée"
-        in_progress: "En cours"
-        squeezed: "Non réalisée"
-        undone: "Pas encore réalisée"
+      nature:
+        record: "Enregistrement"
+        request: "Demande"
     journal:
       nature:
         bank: "Banque"

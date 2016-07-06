@@ -1,0 +1,42 @@
+.global-component {
+	width: 100%;
+    height: auto;
+    border: 1px solid #555;
+    font: 1em Arial;
+}
+
+.component-block {
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+
+
+.component-tree{
+	padding-left: 10px;
+	padding-top: 10px;
+
+}
+
+.component-title {
+	flex:1;
+
+}
+.component-wear {
+	padding: 0 5px;
+}
+
+.component-alert {
+	padding-right: 5px;
+}
+
+
+.component > .component {
+	padding-left: 30px;
+}
+
+.component-button {
+	padding-left: 15px;
+	padding-right: 5px;
+}

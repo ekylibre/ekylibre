@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607094539) do
+ActiveRecord::Schema.define(version: 20160624070743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1531,24 +1531,25 @@ ActiveRecord::Schema.define(version: 20160607094539) do
   create_table "interventions", force: :cascade do |t|
     t.integer  "issue_id"
     t.integer  "prescription_id"
-    t.string   "procedure_name",                      null: false
-    t.string   "state",                               null: false
+    t.string   "procedure_name",                          null: false
+    t.string   "nature",                                  null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",        default: 0,     null: false
+    t.integer  "lock_version",            default: 0,     null: false
     t.integer  "event_id"
     t.string   "number"
     t.text     "description"
-    t.integer  "working_duration",    default: 0,     null: false
-    t.integer  "whole_duration",      default: 0,     null: false
+    t.integer  "working_duration",        default: 0,     null: false
+    t.integer  "whole_duration",          default: 0,     null: false
     t.string   "actions"
     t.jsonb    "custom_fields"
+    t.integer  "request_intervention_id"
     t.string   "maintenance_nature"
-    t.boolean  "trouble_encountered", default: false, null: false
+    t.boolean  "trouble_encountered",     default: false, null: false
     t.string   "trouble_description"
   end
 
@@ -1558,6 +1559,7 @@ ActiveRecord::Schema.define(version: 20160607094539) do
   add_index "interventions", ["issue_id"], name: "index_interventions_on_issue_id", using: :btree
   add_index "interventions", ["prescription_id"], name: "index_interventions_on_prescription_id", using: :btree
   add_index "interventions", ["procedure_name"], name: "index_interventions_on_procedure_name", using: :btree
+  add_index "interventions", ["request_intervention_id"], name: "index_interventions_on_request_intervention_id", using: :btree
   add_index "interventions", ["started_at"], name: "index_interventions_on_started_at", using: :btree
   add_index "interventions", ["stopped_at"], name: "index_interventions_on_stopped_at", using: :btree
   add_index "interventions", ["updated_at"], name: "index_interventions_on_updated_at", using: :btree
@@ -2531,22 +2533,22 @@ ActiveRecord::Schema.define(version: 20160607094539) do
   add_index "product_nature_category_taxations", ["usage"], name: "index_product_nature_category_taxations_on_usage", using: :btree
 
   create_table "product_nature_variant_components", force: :cascade do |t|
-    t.integer  "variant_id",                   null: false
-    t.integer  "piece_variant_id",             null: false
-    t.string   "name",                         null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "product_nature_variant_id",                  null: false
+    t.integer  "part_product_nature_variant_id",             null: false
+    t.string   "name",                                       null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0, null: false
+    t.integer  "lock_version",                   default: 0, null: false
   end
 
   add_index "product_nature_variant_components", ["created_at"], name: "index_product_nature_variant_components_on_created_at", using: :btree
   add_index "product_nature_variant_components", ["creator_id"], name: "index_product_nature_variant_components_on_creator_id", using: :btree
-  add_index "product_nature_variant_components", ["piece_variant_id"], name: "index_product_nature_variant_components_on_piece_variant_id", using: :btree
+  add_index "product_nature_variant_components", ["part_product_nature_variant_id"], name: "index_product_nature_variant_components_on_part_variant", using: :btree
+  add_index "product_nature_variant_components", ["product_nature_variant_id"], name: "index_product_nature_variant_components_on_variant", using: :btree
   add_index "product_nature_variant_components", ["updated_at"], name: "index_product_nature_variant_components_on_updated_at", using: :btree
   add_index "product_nature_variant_components", ["updater_id"], name: "index_product_nature_variant_components_on_updater_id", using: :btree
-  add_index "product_nature_variant_components", ["variant_id"], name: "index_product_nature_variant_components_on_variant_id", using: :btree
 
   create_table "product_nature_variant_readings", force: :cascade do |t|
     t.integer  "variant_id",                                                                                                          null: false
@@ -2675,6 +2677,27 @@ ActiveRecord::Schema.define(version: 20160607094539) do
   add_index "product_ownerships", ["stopped_at"], name: "index_product_ownerships_on_stopped_at", using: :btree
   add_index "product_ownerships", ["updated_at"], name: "index_product_ownerships_on_updated_at", using: :btree
   add_index "product_ownerships", ["updater_id"], name: "index_product_ownerships_on_updater_id", using: :btree
+
+  create_table "product_part_replacements", force: :cascade do |t|
+    t.integer  "component_id",                          null: false
+    t.integer  "following_id"
+    t.integer  "intervention_parameter_id",             null: false
+    t.integer  "product_id",                            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",              default: 0, null: false
+  end
+
+  add_index "product_part_replacements", ["component_id"], name: "index_product_part_replacements_on_component_id", using: :btree
+  add_index "product_part_replacements", ["created_at"], name: "index_product_part_replacements_on_created_at", using: :btree
+  add_index "product_part_replacements", ["creator_id"], name: "index_product_part_replacements_on_creator_id", using: :btree
+  add_index "product_part_replacements", ["following_id"], name: "index_product_part_replacements_on_following_id", using: :btree
+  add_index "product_part_replacements", ["intervention_parameter_id"], name: "index_product_part_replacements_on_intervention_parameter_id", using: :btree
+  add_index "product_part_replacements", ["product_id"], name: "index_product_part_replacements_on_product_id", using: :btree
+  add_index "product_part_replacements", ["updated_at"], name: "index_product_part_replacements_on_updated_at", using: :btree
+  add_index "product_part_replacements", ["updater_id"], name: "index_product_part_replacements_on_updater_id", using: :btree
 
   create_table "product_phases", force: :cascade do |t|
     t.integer  "originator_id"

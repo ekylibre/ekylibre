@@ -104,11 +104,14 @@ deu:
         passed: "Bestanden"
         passed_with_warnings: "Mit Warnungen bestanden"
     intervention:
-      state:
-        done: "Erledigt"
-        in_progress: "In Bearbeitung"
-        squeezed: "Eingezwängt"
-        undone: "unerledigt"
+      nature:
+        # record: "record"
+        # request: "Request"
+      state:  #?
+        done: "Erledigt" #?
+        in_progress: "In Bearbeitung" #?
+        squeezed: "Eingezwängt" #?
+        undone: "unerledigt" #?
     journal:
       nature:
         # bank: "Bank"

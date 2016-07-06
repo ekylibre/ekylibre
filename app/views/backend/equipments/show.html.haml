@@ -5,10 +5,10 @@
 - main_campaign_selector
 
 = main_informations attachment: true do
-  = render 'picture'
+  -# = render 'picture'
   = infos do
     = resource_info(:work_number, important: true)
-    .med-info.important
+    -# .med-info.important
       - icon = resource.category.pictogram
       %span.title= Equipment.human_attribute_name(:variant)
       %span.value
@@ -30,21 +30,21 @@
       %span.value
         %i.picto{class: "picto-timelapse"}
         = resource.working_time.in_hour.l precision: 1
-  - if resource.remaining_working_lifespan
-    .med-info
-      %span.title= Equipment.human_attribute_name(:remaining_working_lifespan)
-      %span.value
-        %i.picto{class: "picto-timelapse"}
-        = resource.remaining_working_lifespan.in_hour.l precision: 1
-  - if resource.remaining_lifespan
-    .med-info
-      %span.title= Equipment.human_attribute_name(:remaining_lifespan)
-      %span.value
-        %i.picto{class: "picto-timelapse"}
-        = resource.remaining_lifespan.in_hour.l precision: 1
-  - if resource.description
-    %span.title= Equipment.human_attribute_name(:description)
-    %span.value= resource.description
+    - if resource.remaining_working_lifespan
+      .med-info
+        %span.title= Equipment.human_attribute_name(:remaining_working_lifespan)
+        %span.value
+          %i.picto{class: "picto-timelapse"}
+          = resource.remaining_working_lifespan.in_hour.l precision: 1
+    - if resource.remaining_lifespan
+      .med-info
+        %span.title= Equipment.human_attribute_name(:remaining_lifespan)
+        %span.value
+          %i.picto{class: "picto-timelapse"}
+          = resource.remaining_lifespan.in_hour.l precision: 1
+    - if resource.description
+      %span.title= Equipment.human_attribute_name(:description)
+      %span.value= resource.description
 
 = cobbles do |c|
 
@@ -58,3 +58,8 @@
         = cobble_list(:issues)
 
   - time_spent_by_activity(resource, cobbler: c)
+  - if resource.nature.variants.collect(&:components).any?
+    - c.cobble(:components) do
+      .component-tree
+        = render "composition", product: resource, variant: resource.variant
+

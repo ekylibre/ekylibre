@@ -52,7 +52,7 @@ spa:
     implanter_tool: "Herramienta implantador"
     insemination: "Inseminación"
     inseminator: "Inseminador"
-    item: "Ítem"
+    item: "Ítem" #?
     juice: "Jugo"
     juice_to_ferment: "Jugo para fermentar"
     land_parcel: "Parcela de tierra"
@@ -130,7 +130,7 @@ spa:
     direct_silage: "Ensilado directa"
     egg_collecting: "La recolección de huevos"
     enzyme_addition: "Además Enzyme"
-    equipment_item_replacement: "Equipo de reemplazo del artículo"
+    equipment_item_replacement: "Equipo de reemplazo del artículo" #?
     fermentation: "Fermentación"
     fertilizing: "Fertilización"
     field_plant_sorting: "Campo de la planta de clasificación"

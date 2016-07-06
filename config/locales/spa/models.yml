@@ -410,6 +410,7 @@ spa:
     commissioned_incoming_payment_modes: "Modos de pagos recibidos por encargo"
     company: "Compañía" #?
     company_id: "Compañía" #?
+    # components: "Components"
     computation_method: "Método de cálculo"
     compute: "Calcular"
     conclusion: "Conclusión"
@@ -587,6 +588,7 @@ spa:
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
     fixed_asset_expenses_account: "Depreciaciones de bienes de uso inputations cuenta de gastos"
     fixed_assets: "Los activos fijos"
+    # following: "Following"
     formats: "Formatos"
     fourth_producer: "Cuarto productor" #?
     frequency: "Frecuencia"
@@ -858,6 +860,7 @@ spa:
     parcel_items: "Artículos de paquetería"
     parcels: "Parcelas"
     parent: "Padre"
+    # part_variant: "Part variant"
     parted: "Parted"
     parted_product: "Producto separado"
     participant: "Partícipe"
@@ -927,9 +930,14 @@ spa:
     product_nature_categories: "Categorías de tipos de producto"
     product_nature_category: "Tipo de producto categoría"
     product_nature_category_taxations: "Tasaciones categoría Tipo de producto"
+    # product_nature_component: "Product nature component"
+    # product_nature_variant: "Product nature variant"
+    # product_nature_variant_component: "Product nature variant component"
+    # product_nature_variant_id: "Product nature variant"
     product_ownership: "Propiedad del producto"
     product_ownerships: "Titularidades de productos"
     product_parameters: "Parámetros del producto"
+    # product_part_replacement: "Product part replacement"
     product_phases: "Fases de productos"
     product_reading: "Producto de lectura"
     product_reading_tasks: "Tareas de lectura del producto"

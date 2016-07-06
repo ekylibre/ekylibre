@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="equipment_maintenance" categories="equipment_maintenance" actions="preventive_maintenance, curative_maintenance, upgrading_maintenance" maintenance="true">
+    <parameters>
+      <group name="work" cardinality="+">
+        <target name="equipment" filter="is equipment" cardinality="1"/>
+        <input name="consumable_part" filter="is matter" cardinality="*"/> 
+        <input name="replacement_part" replacement="first(siblings(SELF, equipment))" filter="is matter and derives from equipment" cardinality="*">
+          <handler name="population"/>
+        </input>
+      </group>
+      <doer name="mechanic" filter="is worker"/>
+      <tool name="tool" filter="is equipment" />
+    </parameters>
+  </procedure>
+</procedures>

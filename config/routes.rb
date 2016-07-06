@@ -663,11 +663,13 @@ Rails.application.routes.draw do
 
     resources :product_groups, concerns: :products
 
+
     resources :product_natures, concerns: [:incorporate, :list, :unroll] do
       member do
         get :list_variants
       end
     end
+
 
     resources :product_nature_categories, concerns: [:incorporate, :list, :unroll] do
       member do
@@ -683,13 +685,15 @@ Rails.application.routes.draw do
       member do
         get :detail
         get :list_catalog_items
-        get :list_components
         get :list_parcel_items
         get :list_products
+        get :list_components
         get :list_sale_items
         get :quantifiers
       end
     end
+
+
 
     resources :purchase_natures, concerns: [:list, :unroll]
 

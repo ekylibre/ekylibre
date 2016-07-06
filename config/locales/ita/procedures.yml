@@ -52,7 +52,7 @@ ita:
     implanter_tool: "strumento implanter"
     insemination: "Inseminazione"
     inseminator: "inseminator"
-    item: "Articolo"
+    item: "Articolo" #?
     juice: "Succo"
     juice_to_ferment: "Juice a fermentare"
     land_parcel: "parcelle"
@@ -130,7 +130,7 @@ ita:
     direct_silage: "insilato diretta"
     egg_collecting: "raccolta delle uova"
     enzyme_addition: "Inoltre Enzyme"
-    equipment_item_replacement: "Attrezzature rimontaggio dell'articolo"
+    equipment_item_replacement: "Attrezzature rimontaggio dell'articolo" #?
     fermentation: "Fermentazione"
     fertilizing: "fertilizzante"
     field_plant_sorting: "impianto di Campo di smistamento"

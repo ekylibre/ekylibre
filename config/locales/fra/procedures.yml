@@ -159,7 +159,7 @@ fra:
     insecticide_to_input: "Insecticide à distribuer" #?
     insemination: "Insémination"
     inseminator: "Inséminateur"
-    item: "Pièce"
+    item: "Pièce" #?
     item_to_change: "Pièce changée" #?
     items: "Éléments" #?
     items_to_fill: "Éléments à remplir" #?
@@ -316,7 +316,7 @@ fra:
     egg_collecting: "Collecte d'œufs"
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
-    equipment_item_replacement: "Remplacement de pièces d'équipement"
+    equipment_part_replacement: "Remplacement de pièces d'équipement" #?
     fermentation: "Fermentation"
     fertilizing: "Fertilisation"
     field_plant_sorting: "Tri au champ"

@@ -36,10 +36,10 @@ module Backend
       code = ''
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
 
-      code = search_conditions(interventions: [:state, :number]) + " ||= []\n"
-      code << "unless params[:state].blank?\n"
-      code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
-      code << "  c << params[:state].flatten\n"
+      code = search_conditions(interventions: [:nature, :number]) + " ||= []\n"
+      code << "unless params[:nature].blank?\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.nature IN (?)'\n"
+      code << "  c << params[:nature].flatten\n"
       code << "end\n"
       code << "unless params[:procedure_name].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.procedure_name IN (?)'\n"

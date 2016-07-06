@@ -2,6 +2,8 @@
   = t.edit resource
   = t.export :intervention_sheet
   = t.destroy
+  =# t.new(nature: :record, label: :register_intervention_request.tl) devra servir à enregistrer une demande d'intervention en intervention fini
+
 
 = cobbles do |c|
   - if params[:mode] == 'spraying'
@@ -67,8 +69,8 @@
   - c.cobble(:general_informations) do
     = infos do
       .med-info.important
-        %span.title= Intervention.human_attribute_name(:state)
-        %span.value= lights(resource.status)
+        %span.title= Intervention.human_attribute_name(:nature)
+        %span.value= resource.nature.l #lights(resource.status)
       .med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value

@@ -1,0 +1,14 @@
+- variant.components.each  do |component|
+  .component
+    .component-block
+      .component-title
+        = "#{component.name}: "
+        = link_to component.part_product_nature_variant.name, backend_product_nature_variant_path(component.part_product_nature_variant)
+      .component-alert
+        %p ALERTE
+      .component-wear
+        %p ORIGINE 
+      .component-button
+        = tool_to 'Documentation', {}
+        = tool_to "Remplacer l'élément", {}
+    = render 'composition', variant: component.part_product_nature_variant

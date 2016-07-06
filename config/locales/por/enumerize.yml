@@ -106,11 +106,14 @@ por:
         passed: "Passou"
         passed_with_warnings: "Passou com avisos"
     intervention:
-      state:
-        done: "Finalizado"
-        in_progress: "Em progresso"
-        squeezed: "Apertado"
-        undone: "Desfeito"
+      nature:
+        # record: "record"
+        # request: "Request"
+      state:  #?
+        done: "Finalizado" #?
+        in_progress: "Em progresso" #?
+        squeezed: "Apertado" #?
+        undone: "Desfeito" #?
     journal:
       nature:
         bank: "Banco"

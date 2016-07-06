@@ -108,6 +108,7 @@ class Product < Ekylibre::Record::Base
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
+  has_many :product_part_replacement, inverse_of: :product
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
@@ -231,17 +232,17 @@ class Product < Ekylibre::Record::Base
   acts_as_numbered force: true
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
-  to: :variant, prefix: true
+           to: :variant, prefix: true
   delegate :unit_name, to: :variant
   delegate :able_to_each?, :able_to?, :of_expression, :subscribing?,
-  :deliverable?, :asset_account, :product_account, :charge_account,
-  :stock_account, :population_counting, :population_counting_unitary?,
-  to: :nature
+           :deliverable?, :asset_account, :product_account, :charge_account,
+           :stock_account, :population_counting, :population_counting_unitary?,
+           to: :nature
   delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list,
-  :abilities, :abilities_list, :indicators, :indicators_list,
-  :frozen_indicators, :frozen_indicators_list, :variable_indicators,
-  :variable_indicators_list, :linkage_points, :linkage_points_list,
-  to: :nature
+           :abilities, :abilities_list, :indicators, :indicators_list,
+           :frozen_indicators, :frozen_indicators_list, :variable_indicators,
+           :variable_indicators_list, :linkage_points, :linkage_points_list,
+           to: :nature
 
   after_initialize :choose_default_name
   after_save :set_initial_values, if: :initializeable?
@@ -469,12 +470,12 @@ class Product < Ekylibre::Record::Base
                 catalog_item.amount
               end
             end
-            price
+    price
           end
 
-          def dead?
-            !finish_way.nil?
-          end
+  def dead?
+    !finish_way.nil?
+  end
 
   # Returns groups of the product at a given time (or now by default)
   def groups_at(viewed_at = nil)
@@ -640,7 +641,7 @@ class Product < Ekylibre::Record::Base
     periods.sum(:duration)
   end
 
-  def working_time  #return the result of two different calcul to know the working time. Depending of a daily_average_working_time or the working_duration method
+  def working_time # return the result of two different calcul to know the working time. Depending of a daily_average_working_time or the working_duration method
     if has_indicator?(:daily_average_working_time)
       variant.daily_average_working_time * (Time.zone.today - born_at.to_date)
     else
@@ -666,5 +667,4 @@ class Product < Ekylibre::Record::Base
       end
     end
   end
-
 end

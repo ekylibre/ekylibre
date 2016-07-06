@@ -104,11 +104,14 @@ spa:
         passed: "Pasado"
         passed_with_warnings: "Ha superado con advertencias"
     intervention:
-      state:
-        done: "Hecho"
-        in_progress: "En progreso"
-        squeezed: "Exprimido"
-        undone: "Deshecho"
+      nature:
+        # record: "record"
+        # request: "Request"
+      state:  #?
+        done: "Hecho" #?
+        in_progress: "En progreso" #?
+        squeezed: "Exprimido" #?
+        undone: "Deshecho" #?
     journal:
       nature:
         bank: "Banco"

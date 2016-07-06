@@ -6,18 +6,20 @@
   = field_set do
     = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
     = f.referenced_association :issue, new: false
+    = f.referenced_association :request_intervention, new: false, as: :hidden
+    / = f.referenced_association :intervention_done, new: false
+
     = f.input :description
     - procedure.mandatory_actions.each do |a|
       = hidden_field_tag('intervention[actions][]', a.name)
     - if procedure.optional_actions.any?
       = f.items_list(:actions, selection: procedure.optional_actions_selection)
-    -#Add booleab and field
-    = f.input :trouble_encountered, show: '#problem-description'
-    #problem-description
-      = f.input :trouble_description, as: :text
+    - if params[:nature] == 'record'
+      = f.input :trouble_encountered, show: '#problem-description'
+      #problem-description
+        = f.input :trouble_description, as: :text
     - if procedure.maintenance?
       = f.input :maintenance_nature, as: :radio_buttons
-
     = f.custom_fields
     #prescriptions
       = f.referenced_association :prescription
@@ -36,6 +38,7 @@
 - else # Root Procedure Natures
   - main_campaign_selector
   - Nomen::ActivityFamily.find_each do |family|
+
     - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
     - next unless categories.any?
     .activity-family
@@ -44,6 +47,6 @@
         - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
           = dropdown_menu_button(category.human_name, class: 'btn-group-lg') do |menu|
             - Procedo.procedures_of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-              - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect] }
+              - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
 
   - f.clear_actions!

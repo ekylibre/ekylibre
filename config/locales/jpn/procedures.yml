@@ -52,7 +52,7 @@ jpn:
     implanter_tool: "注入ツール"
     insemination: "授精"
     inseminator: "人工受精を施す人"
-    item: "項目"
+    item: "項目" #?
     juice: "ジュース"
     juice_to_ferment: "発酵のジュース"
     land_parcel: "土地区画"
@@ -130,7 +130,7 @@ jpn:
     direct_silage: "ダイレクトサイレージ"
     egg_collecting: "採卵"
     enzyme_addition: "酵素添加"
-    equipment_item_replacement: "装備アイテムの交換"
+    equipment_item_replacement: "装備アイテムの交換" #?
     fermentation: "発酵"
     fertilizing: "施肥"
     field_plant_sorting: "フィールド植物ソート"

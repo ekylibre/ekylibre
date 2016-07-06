@@ -52,7 +52,7 @@ arb:
     implanter_tool: "أداة Implanter"
     insemination: "تخصيب"
     # inseminator: "Inseminator"
-    item: "بند"
+    item: "بند" #?
     juice: "عصير"
     juice_to_ferment: "عصير لتخمر"
     land_parcel: "قطعة أرض"
@@ -130,7 +130,7 @@ arb:
     direct_silage: "السيلاج المباشر"
     egg_collecting: "جمع البيض"
     enzyme_addition: "انزيم إضافة"
-    equipment_item_replacement: "استبدال البند المعدات"
+    equipment_item_replacement: "استبدال البند المعدات" #?
     fermentation: "تخمير"
     fertilizing: "تسميد"
     field_plant_sorting: "فرز النباتات الميدان"

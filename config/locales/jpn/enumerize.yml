@@ -104,11 +104,14 @@ jpn:
         passed: "合格"
         passed_with_warnings: "警告付きで合格"
     intervention:
-      state:
-        done: "終わりました"
-        in_progress: "進行中"
-        squeezed: "スクイーズ"
-        undone: "元に戻します"
+      nature:
+        # record: "record"
+        # request: "Request"
+      state:  #?
+        done: "終わりました" #?
+        in_progress: "進行中" #?
+        squeezed: "スクイーズ" #?
+        undone: "元に戻します" #?
     journal:
       nature:
         bank: "バンク"

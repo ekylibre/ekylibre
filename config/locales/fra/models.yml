@@ -543,6 +543,7 @@ fra:
     commission_base_amount: "Montant fixe de la commission"
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
+    # components: "Components"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
     computed_at: "Calculé le" #?
@@ -761,6 +762,7 @@ fra:
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
+    # following: "Following"
     formats: "Formats"
     fourth_producer: "Quatrième producteur" #?
     fourth_producer_way: "Voie du quatrième producteur" #?
@@ -1064,6 +1066,7 @@ fra:
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
+    part_variant: "Variant de pièce"
     parted: "En partie"
     parted_product: "Produit retiré"
     participant: "Participant"
@@ -1154,10 +1157,15 @@ fra:
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
+    # product_nature_component: "Product nature component"
+    # product_nature_variant: "Product nature variant"
+    # product_nature_variant_component: "Product nature variant component"
+    # product_nature_variant_id: "Product nature variant"
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
     product_parameters: "Paramètres du produit"
+    # product_part_replacement: "Product part replacement"
     product_phases: "Phases de produit"
     product_quadruple_mixings: "Quadruple mélanges de produit" #?
     product_quintuple_mixings: "Quintuple mélanges de produit" #?

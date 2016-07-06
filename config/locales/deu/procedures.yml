@@ -52,7 +52,7 @@ deu:
     implanter_tool: "Implanter Werkzeug"
     insemination: "Besamung"
     inseminator: "Besamungs"
-    item: "Artikel"
+    item: "Artikel" #?
     juice: "Saft"
     juice_to_ferment: "Saft zu gären"
     land_parcel: "Parzelle"
@@ -130,7 +130,7 @@ deu:
     direct_silage: "Direkter Silage"
     egg_collecting: "Eiersammeln"
     enzyme_addition: "Enzymzusatz"
-    equipment_item_replacement: "Ausrüstungsgegenstand Ersatz"
+    equipment_item_replacement: "Ausrüstungsgegenstand Ersatz" #?
     # fermentation: "Fermentation"
     fertilizing: "Dünge-"
     field_plant_sorting: "Feld Sortieranlage"

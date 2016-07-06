@@ -22,15 +22,15 @@
 #
 # == Table: product_nature_variant_components
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  piece_variant_id :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  variant_id       :integer          not null
+#  created_at                     :datetime         not null
+#  creator_id                     :integer
+#  id                             :integer          not null, primary key
+#  lock_version                   :integer          default(0), not null
+#  name                           :string           not null
+#  part_product_nature_variant_id :integer          not null
+#  product_nature_variant_id      :integer          not null
+#  updated_at                     :datetime         not null
+#  updater_id                     :integer
 #
 require 'test_helper'
 

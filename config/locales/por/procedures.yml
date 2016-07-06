@@ -52,7 +52,6 @@ por:
     implanter_tool: "Ferramenta de implantação"
     insemination: "Inseminação"
     inseminator: "Inseminador"
-    # item: "Item"
     juice: "Suco"
     juice_to_ferment: "Suco para fermentar"
     land_parcel: "Parcela de terra"
@@ -130,7 +129,7 @@ por:
     direct_silage: "Silagem direto"
     egg_collecting: "Coleta de ovos"
     enzyme_addition: "Adição de enzima"
-    equipment_item_replacement: "Substituição item de equipamento"
+    equipment_item_replacement: "Substituição item de equipamento" #?
     fermentation: "Fermentação"
     fertilizing: "Fertilizar"
     field_plant_sorting: "Triagem planta campo"

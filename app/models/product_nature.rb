@@ -90,6 +90,7 @@ class ProductNature < Ekylibre::Record::Base
   validates_presence_of :subscription_nature, if: :subscribing?
 
   accepts_nested_attributes_for :variants, reject_if: :all_blank, allow_destroy: true
+
   acts_as_numbered force: false
 
   delegate :deliverable?, :purchasable?, :to, to: :category
