@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="uncompacting" categories="soil_working" actions="loosening">
     <parameters>
-      <target name="land_parcel" filter="(is plant or is land_parcel) and has indicator shape">
+      <target name="land_parcel" filter="is land_parcel and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <tool name="soil_loosener" filter="can uncompact"/>
