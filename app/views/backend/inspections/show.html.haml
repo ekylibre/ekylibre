@@ -22,10 +22,6 @@
     = render "preference_btns", inspection: resource
 
     = infos do
-      - ActivityInspectionPointNature.unmarketable_categories.each do |category|
-        .med-info
-          %span.title= category.l
-          %span.value= resource.points_net_mass_percentage(category).round(2).l(precision: 2) + '%'
       - case user_pref
       - when :mass
         = render "totals", to_display: user_pref, resource: resource
