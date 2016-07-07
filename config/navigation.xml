@@ -180,7 +180,6 @@
         <page to="backend/bank_statements#show"/>
         <page to="backend/bank_statements#unroll"/>
         <page to="backend/bank_statements#update"/>
-        <page to="backend/bank_statements#edit_items" nonexistent="true"/>
         <page to="backend/bank_statements#reconciliation"/>
       </item>
       <item name="loans">
@@ -380,7 +379,6 @@
         <page to="backend/matters#list_groups"/>
         <page to="backend/matters#list_readings"/>
         <page to="backend/matters#list_intervention_product_parameters"/>
-        <page to="backend/matters#list_target_distributions" nonexistent="true"/>
         <page to="backend/matters#list_issues"/>
         <page to="backend/matters#list_members"/>
         <page to="backend/matters#list_places"/>
@@ -408,7 +406,6 @@
         <page to="backend/products#list_intervention_product_parameters"/>
         <page to="backend/products#list_members"/>
         <page to="backend/products#list_places"/>
-        <page to="backend/products#list_target_distributions" nonexistent="true"/>
         <page to="backend/products#list_carried_linkages"/>
         <page to="backend/products#list_carrier_linkages"/>
         <page to="backend/products#picture"/>
@@ -432,7 +429,6 @@
         <page to="backend/product_groups#list_issues"/>
         <page to="backend/product_groups#list_members"/>
         <page to="backend/product_groups#list_places"/>
-        <page to="backend/product_groups#list_target_distributions" nonexistent="true"/>
         <page to="backend/product_groups#new"/>
         <page to="backend/product_groups#picture"/>
         <page to="backend/product_groups#show"/>
@@ -626,7 +622,6 @@
         <page to="backend/animals#list_places"/>
         <page to="backend/animals#list_carried_linkages"/>
         <page to="backend/animals#list_carrier_linkages"/>
-        <page to="backend/animals#list_target_distributions" nonexistent="true"/>
         <page to="backend/animals#take"/>
         <page to="backend/animals#unroll"/>
         <page to="backend/animals#change"/>
@@ -655,7 +650,6 @@
         <page to="backend/fungi#list_contained_products"/>
         <page to="backend/fungi#list_groups"/>
         <page to="backend/fungi#list_intervention_product_parameters"/>
-        <page to="backend/fungi#list_target_distributions" nonexistent="true"/>
         <page to="backend/fungi#list_issues"/>
         <page to="backend/fungi#list_members"/>
         <page to="backend/fungi#list_places"/>
@@ -768,7 +762,6 @@
         <page to="backend/plants#list_issues"/>
         <page to="backend/plants#list_members"/>
         <page to="backend/plants#list_places"/>
-        <page to="backend/plants#list_target_distributions" nonexistent="true"/>
         <page to="backend/plants#picture"/>
         <page to="backend/plants#new"/>
         <page to="backend/plants#show"/>
@@ -1319,7 +1312,6 @@
         <page to="backend/workers#list_issues"/>
         <page to="backend/workers#list_members"/>
         <page to="backend/workers#list_places"/>
-        <page to="backend/workers#list_target_distributions" nonexistent="true"/>
         <page to="backend/workers#picture"/>
         <page to="backend/workers#take"/>
         <page to="backend/workers#unroll"/>
@@ -1343,7 +1335,6 @@
         <page to="backend/equipments#list_readings"/>
         <page to="backend/equipments#list_members"/>
         <page to="backend/equipments#list_places"/>
-        <page to="backend/equipments#list_target_distributions" nonexistent="true"/>
         <page to="backend/equipments#list_carried_linkages"/>
         <page to="backend/equipments#list_carrier_linkages"/>
         <page to="backend/equipments#picture"/>
@@ -1365,7 +1356,6 @@
         <page to="backend/buildings#list_groups"/>
         <page to="backend/buildings#list_issues"/>
         <page to="backend/buildings#list_readings"/>
-        <page to="backend/buildings#list_target_distributions" nonexistent="true"/>
         <page to="backend/buildings#list_intervention_product_parameters"/>
         <page to="backend/buildings#list_members"/>
         <page to="backend/buildings#list_places"/>
@@ -1392,7 +1382,6 @@
         <page to="backend/building_divisions#list_intervention_product_parameters"/>
         <page to="backend/building_divisions#list_members"/>
         <page to="backend/building_divisions#list_places"/>
-        <page to="backend/building_divisions#list_target_distributions" nonexistent="true"/>
         <page to="backend/building_divisions#list_carried_linkages"/>
         <page to="backend/building_divisions#list_carrier_linkages"/>
         <page to="backend/building_divisions#picture"/>
@@ -1423,7 +1412,6 @@
         <page to="backend/land_parcels#list_groups"/>
         <page to="backend/land_parcels#list_readings"/>
         <page to="backend/land_parcels#list_intervention_product_parameters"/>
-        <page to="backend/land_parcels#list_target_distributions" nonexistent="true"/>
         <page to="backend/land_parcels#list_issues"/>
         <page to="backend/land_parcels#list_members"/>
         <page to="backend/land_parcels#list_places"/>
@@ -1450,7 +1438,6 @@
         <page to="backend/settlements#list_issues"/>
         <page to="backend/settlements#list_members"/>
         <page to="backend/settlements#list_places"/>
-        <page to="backend/settlements#list_target_distributions" nonexistent="true"/>
         <page to="backend/settlements#picture"/>
         <page to="backend/settlements#new"/>
         <page to="backend/settlements#show"/>
