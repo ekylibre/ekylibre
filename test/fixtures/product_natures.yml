@@ -339,7 +339,7 @@ product_natures_014:
     shape
   variety: building_division
 product_natures_015:
-  abilities_list: consume(phytosanitary), consume(water), produce(grain), produce(straw)
+  abilities_list: consume(preparation), consume(water), produce(grain), produce(straw)
   active: true
   category_id: 8
   created_at: 2014-11-01 19:06:50.030010000 Z
@@ -808,7 +808,7 @@ product_natures_033:
   updater_id: 1
   variety: preparation
 product_natures_034:
-  abilities_list: consume(phytosanitary), consume(water), produce(straw)
+  abilities_list: consume(preparation), consume(water), produce(straw)
   active: true
   category_id: 8
   created_at: 2014-11-07 15:40:58.360188000 Z
@@ -858,7 +858,7 @@ product_natures_035:
   variable_indicators_list: dry_matter_rate
   variety: grass
 product_natures_036:
-  abilities_list: consume(phytosanitary), consume(water), produce(fruit), produce(straw)
+  abilities_list: consume(preparation), consume(water), produce(fruit), produce(straw)
   active: true
   category_id: 8
   created_at: 2014-11-07 16:33:48.598611000 Z
@@ -1004,7 +1004,7 @@ product_natures_041:
   variable_indicators_list: certification, reference_year, temperature, total_bacteria_concentration
   variety: wine
 product_natures_042:
-  abilities_list: store(grape), store(grape_juice), store(wine), store_liquid
+  abilities_list: store(grape), store(juice), store(wine), store_liquid
   active: true
   category_id: 14
   created_at: 2014-11-07 17:14:18.201534000 Z
@@ -1028,7 +1028,7 @@ product_natures_042:
   variable_indicators_list: geolocation
   variety: tank
 product_natures_043:
-  abilities_list: press(grape), press(grape_juice), press(wine)
+  abilities_list: press(grape), press(juice), press(wine)
   active: true
   category_id: 14
   created_at: 2014-11-07 17:23:08.046218000 Z
