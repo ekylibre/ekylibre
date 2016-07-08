@@ -197,7 +197,7 @@ class ParcelTest < ActiveSupport::TestCase
 
     parcel_items_attributes = {
       population: 0.02,
-      source_product: products
+      source_product: product
     }
 
     p = Parcel.create!(parcel_attributes)
@@ -231,8 +231,10 @@ class ParcelTest < ActiveSupport::TestCase
     }
 
     parcel_items_attributes = {
-      population: 20,
-      variant: variant
+      population: 1,
+      variant: variant,
+      product_name: "Moo",
+      product_identification_number: "Cow-wow"
     }
 
     p = Parcel.create!(parcel_attributes)
@@ -262,10 +264,10 @@ class ParcelTest < ActiveSupport::TestCase
     PRODUCT_NOT_IN_STOCK
 
     # The newly created product should have the population specified in the parcel.
-    assert_equal(variant.products.last.population, p.items.first.population, <<-WRONG_POPULATION)
+    assert_equal(variant.products.order(:created_at).last.population, p.items.first.population, <<-WRONG_POPULATION)
 
     \tLast item in stock's population :
-    \t\t#{variant.products.last.population}
+    \t\t#{variant.products.order(:created_at).last.population}
     \tPopulation that was in the parcel :
     \t\t#{p.items.first.population}
     WRONG_POPULATION
