@@ -230,7 +230,7 @@ class Product < Ekylibre::Record::Base
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
   def born_at_in_interventions
-    first_date = interventions.pluck(:stopped_at).sort.first
+    first_date = interventions.pluck(:started_at).sort.first
     errors.add(:born_at, :invalid) unless born_at <= first_date
   end
 
