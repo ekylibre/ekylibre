@@ -235,7 +235,7 @@ class Product < Ekylibre::Record::Base
   end
 
   def dead_at_in_interventions
-    last_date = interventions.pluck(&:stopped_at).sort.last
+    last_date = interventions.pluck(:stopped_at).sort.last
     errors.add(:dead_at, :invalid) unless dead_at >= last_date
   end
 
