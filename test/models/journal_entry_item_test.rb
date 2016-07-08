@@ -72,12 +72,13 @@ class JournalEntryItemTest < ActiveSupport::TestCase
     assert item.valid?, item.inspect + "\n" + item.errors.full_messages.to_sentence
   end
   test 'journal entry items pointed by a bank statement' do
-    bank_statement = bank_statements(:bank_statements_001)
+    bank_statement = bank_statements(:bank_statements_002)
     pointed_ids_by_bank_statement = [
-      journal_entry_items(:journal_entry_items_037),
-      journal_entry_items(:journal_entry_items_039),
-      journal_entry_items(:journal_entry_items_053),
-      journal_entry_items(:journal_entry_items_196)
+      journal_entry_items(:journal_entry_items_011),
+      journal_entry_items(:journal_entry_items_014),
+      journal_entry_items(:journal_entry_items_028),
+      journal_entry_items(:journal_entry_items_031),
+      journal_entry_items(:journal_entry_items_037)
     ].map(&:id)
     assert_equal pointed_ids_by_bank_statement.to_set, JournalEntryItem.pointed_by(bank_statement).map(&:id).to_set
   end
