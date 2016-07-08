@@ -78,16 +78,16 @@
           disease_percentage = last_inspection.points_net_mass_percentage('disease').round(2) if last_inspection
           last_disease_percentage = last_before_inspection.points_net_mass_percentage('disease').round(2) if last_before_inspection
           if disease_percentage && last_disease_percentage && last_disease_percentage.to_d != 0.0
-            disease_percentage_evolution =  (( disease_percentage - last_disease_percentage ) / last_disease_percentage) * 100
-            inspection_qualities_evolutions << { label: :disease_percentage_evolution.tl, value: disease_percentage_evolution.round(0).in(:percent).l } if disease_percentage_evolution
+            disease_percentage_evolution =  disease_percentage - last_disease_percentage
+            inspection_qualities_evolutions << { label: :disease_percentage_evolution.tl, value: disease_percentage_evolution.round(0).in(:unity).l } if disease_percentage_evolution
           end
 
           # for deformity between last and last-1
           deformity_percentage = last_inspection.points_net_mass_percentage('deformity').round(2) if last_inspection
           last_deformity_percentage = last_before_inspection.points_net_mass_percentage('deformity').round(2) if last_before_inspection
           if deformity_percentage && last_deformity_percentage && last_deformity_percentage.to_d != 0.0
-            deformity_percentage_evolution =  ((deformity_percentage - last_deformity_percentage) / last_deformity_percentage ) * 100
-            inspection_qualities_evolutions << { label: :deformity_percentage_evolution.tl, value: deformity_percentage_evolution.round(0).in(:percent).l } if deformity_percentage_evolution
+            deformity_percentage_evolution =  deformity_percentage - last_deformity_percentage
+            inspection_qualities_evolutions << { label: :deformity_percentage_evolution.tl, value: deformity_percentage_evolution.round(0).in(:unity).l } if deformity_percentage_evolution
           end
 
           inspections = []
