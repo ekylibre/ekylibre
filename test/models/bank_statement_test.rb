@@ -74,7 +74,7 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   test 'save with items replace its items with the new items attributes' do
-    bank_statement = bank_statements(:bank_statements_001)
+    bank_statement = bank_statements(:bank_statements_005)
     new_items = [
       {
         name: 'Bank statement item 1',
@@ -135,22 +135,22 @@ class BankStatementTest < ActiveSupport::TestCase
 
   test 'save with items keeps the journal entry items bank statement letter when previous items are kept' do
     bank_statement = bank_statements(:bank_statements_001)
-    jeis_to_keep = bank_statement.items.detect { |item| item.letter == 'G' }.associated_journal_entry_items.to_a
+    jeis_to_keep = bank_statement.items.detect { |item| item.letter == 'F' }.associated_journal_entry_items.to_a
     assert jeis_to_keep.any?
     new_items = [
       {
         name: 'Bank statement item 1',
         credit: 15.3,
         debit: nil,
-        letter: 'G',
-        transfered_on: Date.parse('2016-05-11'),
+        letter: 'F',
+        transfered_on: Date.parse('2009-07-12'),
         transaction_number: '119X6731'
       }
     ]
     assert bank_statement.save_with_items(new_items), inspect_errors(bank_statement)
     jeis_to_keep.each do |jei|
       jei.reload
-      assert_equal 'G', jei.bank_statement_letter
+      assert_equal 'F', jei.bank_statement_letter
       assert_equal bank_statement.id, jei.bank_statement_id
     end
   end
@@ -177,6 +177,9 @@ class BankStatementTest < ActiveSupport::TestCase
   end
 
   def inspect_errors(object)
-    object.inspect + "\n" + object.errors.full_messages.to_sentence
+    [object.inspect,
+      object.errors.full_messages.to_sentence,
+      object.items.map { |i| [" - " + i.inspect, "    - " + i.errors.full_messages.to_sentence] }
+      ].join("\n")
   end
 end

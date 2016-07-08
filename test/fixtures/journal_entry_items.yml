@@ -1640,7 +1640,7 @@ journal_entry_items_053:
   lock_version: 0
   name: "[Emprunt Vélo] Réception des fonds"
   position: 1
-  printed_on: 2015-05-01
+  printed_on: 2009-06-01
   real_balance: 2000.0
   real_credit: 0.0
   real_currency: EUR
@@ -1670,7 +1670,7 @@ journal_entry_items_054:
   lock_version: 0
   name: "[Emprunt Vélo] Réception des fonds"
   position: 2
-  printed_on: 2015-05-01
+  printed_on: 2009-06-01
   real_balance: -2000.0
   real_credit: 2000.0
   real_currency: EUR
@@ -1700,7 +1700,7 @@ journal_entry_items_055:
   lock_version: 0
   name: "[Remboursement d’emprunt Vélo] Remboursement n°1"
   position: 1
-  printed_on: 2015-06-01
+  printed_on: 2009-07-10
   real_balance: 2.07
   real_credit: 0.0
   real_currency: EUR
@@ -1730,7 +1730,7 @@ journal_entry_items_056:
   lock_version: 0
   name: "[Remboursement d’emprunt Vélo] Remboursement n°1"
   position: 2
-  printed_on: 2015-06-01
+  printed_on: 2009-07-10
   real_balance: -2.07
   real_credit: 2.07
   real_currency: EUR
@@ -1760,7 +1760,7 @@ journal_entry_items_057:
   lock_version: 0
   name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
   position: 1
-  printed_on: 2016-06-01
+  printed_on: 2009-07-31
   real_balance: 1016.22
   real_credit: 0.0
   real_currency: EUR
@@ -1790,7 +1790,7 @@ journal_entry_items_058:
   lock_version: 0
   name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
   position: 2
-  printed_on: 2016-06-01
+  printed_on: 2009-07-31
   real_balance: 70.31
   real_credit: 0.0
   real_currency: EUR
@@ -1820,7 +1820,7 @@ journal_entry_items_059:
   lock_version: 0
   name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
   position: 3
-  printed_on: 2016-06-01
+  printed_on: 2009-07-31
   real_balance: 2.07
   real_credit: 0.0
   real_currency: EUR
@@ -1850,7 +1850,7 @@ journal_entry_items_060:
   lock_version: 0
   name: "[Remboursement d’emprunt Vélo] Remboursement n°2"
   position: 4
-  printed_on: 2016-06-01
+  printed_on: 2009-07-31
   real_balance: -1088.6
   real_credit: 1088.6
   real_currency: EUR
