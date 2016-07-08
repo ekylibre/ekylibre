@@ -143,7 +143,7 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup change', 'input[data-intervention-updater]', ->
+  $(document).on 'keyup', 'input[data-intervention-updater]', (e) ->
     $(this).each ->
       E.interventions.refresh $(this)
 
