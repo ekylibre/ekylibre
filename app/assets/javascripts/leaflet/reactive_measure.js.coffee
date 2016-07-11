@@ -225,6 +225,7 @@ L.Edit.Poly.include
 
 L.Edit.PolyVerticesEdit.include
   __onTouchMove: L.Edit.PolyVerticesEdit::_onTouchMove
+  __removeMarker: L.Edit.PolyVerticesEdit::_removeMarker
 
   _onMarkerDrag: (e) ->
     marker = e.target
@@ -241,6 +242,10 @@ L.Edit.PolyVerticesEdit.include
   _onTouchMove: (e) ->
     @__onTouchMove.apply @, arguments
     @_poly.fire 'editdrag'
+
+  _removeMarker: (marker) ->
+    @__removeMarker.apply @, arguments
+    @_poly.fire 'editdrag', marker: marker
 
 
 L.LatLng.prototype.toArray = ->
@@ -345,6 +350,10 @@ L.EditToolbar.Edit.include
     layer.editing.latlngs = this._uneditedLayerProps[id].latlngs
     layer.editing._poly._latlngs = this._uneditedLayerProps[id].latlngs
     layer.editing._verticesHandlers[0]._latlngs = this._uneditedLayerProps[id].latlngs
+
+  _editStyle: ->
+    # missing method declaration in Leaflet.Draw
+    return
 
 L.EditToolbar.include
   # Patch _activeMode is null
