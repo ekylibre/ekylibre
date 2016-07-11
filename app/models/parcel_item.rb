@@ -93,7 +93,7 @@ class ParcelItem < Ekylibre::Record::Base
 
   before_validation do
     read_at = parcel ? parcel_prepared_at : Time.zone.now
-    self.population ||= product_is_identifiable? ? 1 : 0
+    self.population ||= product_is_unitary? ? 1 : 0
     next if parcel_incoming?
 
     if sale_item
@@ -108,6 +108,7 @@ class ParcelItem < Ekylibre::Record::Base
 
   ALLOWED = %w(
     product_localization_id
+    product_movement_id
     product_enjoyment_id
     product_ownership_id
     purchase_item_id
@@ -150,25 +151,8 @@ class ParcelItem < Ekylibre::Record::Base
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
-    if parcel_outgoing?
-      create_product_enjoyment!(product: product, nature: :other, started_at: parcel_given_at, enjoyer: parcel.recipient)
-      unless parcel_remain_owner
-        create_product_ownership!(product: product, nature: :other, started_at: parcel_given_at, owner: parcel.recipient)
-      end
-      if storage
-        create_product_localization!(product: product, nature: :exterior, container: storage, started_at: parcel_given_at)
-      else
-        create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at)
-      end
-    else
-      if storage
-        create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at)
-      end
-      create_product_enjoyment!(product: product, nature: :own, started_at: parcel_given_at)
-      unless parcel_remain_owner
-        create_product_ownership!(product: product, nature: :own, started_at: parcel_given_at)
-      end
-    end
+    give_outgoing if parcel_outgoing?
+    give_incoming if parcel_incoming?
   end
 
   protected
@@ -177,35 +161,45 @@ class ParcelItem < Ekylibre::Record::Base
     product_params = {}
     no_fusing = parcel_separated_stock? || product_is_unitary?
 
-    if no_fusing
-      product_params[:name] = product_name if product_is_unitary?
-      product_params[:identification_number] = product_identification_number
-    else
-      self.product = existing_product_in_storage
-    end
+    product_params[:name] = product_name
     product_params[:name] ||= "#{variant.name} (#{parcel.number})"
-
-    product_params[:initial_population] = quantity
-    product_params[:initial_container] = parcel.storage
+    product_params[:identification_number] = product_identification_number
     product_params[:initial_born_at] = checked_at
 
+    self.product = existing_product_in_storage unless no_fusing || storage.blank?
+
     self.product ||= variant.create_product!(product_params)
-    self.product.movements.create!(delta: population, started_at: checked_at) unless no_fusing
   end
 
   def check_outgoing(checked_at)
-    if self.population == source_product.population(at: checked_at)
-      source_product.ownerships.create!(owner: parcel_recipient, started_at: checked_at)
-    end
     update! product: source_product
-    source_product.movements.create!(delta: -1 * population, started_at: checked_at)
+  end
+
+  def give_incoming
+    create_product_movement!(product: product, delta: population, started_at: parcel_given_at)
+    create_product_localization!(product: product, nature: :interior, container: storage, started_at: parcel_given_at)
+    create_product_enjoyment!(product: product, nature: :own, started_at: parcel_given_at)
+    create_product_ownership!(product: product, nature: :own, started_at: parcel_given_at) unless parcel_remain_owner
+  end
+
+  def give_outgoing
+    if self.population == source_product.population(at: parcel_given_at) && !parcel_remain_owner
+      puts "Yolo".yellow
+      create_product_ownership!(product: product, owner: parcel_recipient, started_at: parcel_given_at)
+      create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at)
+      create_product_enjoyment!(product: product, nature: :other, started_at: parcel_given_at, enjoyer: parcel.recipient)
+    else
+      puts "Swag".blue
+      create_product_movement!(product: product, delta: -1 * population, started_at: parcel_given_at)
+    end
   end
 
   def existing_product_in_storage
     similar_products = Product.where(variant: variant)
     product_in_storage = similar_products.find do |p|
       location = p.localizations.last.container
-      location == storage
+      owner = p.owner
+      location == storage && owner = Entity.of_company
     end
     product_in_storage
   end
