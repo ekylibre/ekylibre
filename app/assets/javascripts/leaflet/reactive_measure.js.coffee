@@ -1,3 +1,19 @@
+# Extends featureGroup to return measure. Works with inherited classes (L.MultiPolygon, L.MultiPolyline)
+L.FeatureGroup.include
+  getMeasure: () ->
+
+    measure =
+      perimeter: 0
+      area: 0
+
+    this.eachLayer (layer) ->
+      m = layer.getMeasure()
+      measure.perimeter += m.perimeter
+      measure.area += m.area
+
+    measure
+
+
 L.Polygon.include
   ###
   # Get centroid of the polygon in square meters
@@ -354,9 +370,10 @@ L.ReactiveMeasureControl = L.Control.extend
 
     if layers.getLayers().length > 0
       layers.eachLayer (layer) =>
-        m = layer.getMeasure()
-        @options.measure.perimeter += m.perimeter
-        @options.measure.area += m.area
+        if typeof layer.getMeasure() is 'function'
+          m = layer.getMeasure()
+          @options.measure.perimeter += m.perimeter
+          @options.measure.area += m.area
 
   onAdd: (map) ->
     @_container = L.DomUtil.create('div', 'reactive-measure-control')

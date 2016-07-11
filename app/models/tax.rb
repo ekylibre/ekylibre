@@ -98,7 +98,7 @@ class Tax < Ekylibre::Record::Base
       tax ||= Tax.find_by(reference_name: reference_name)
 
       if tax
-        tax.update_column(active: active) unless active.nil?
+        tax.update_column(:active, active) unless active.nil?
         return tax
       end
       nature = Nomen::TaxNature.find(item.nature)

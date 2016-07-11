@@ -146,7 +146,7 @@ class HashCollector
 end
 
 class ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def fixture_files
     #     Rails.root.join('test', 'fixture-files')

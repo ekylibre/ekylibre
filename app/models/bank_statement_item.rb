@@ -64,7 +64,7 @@ class BankStatementItem < Ekylibre::Record::Base
     if (debit != 0 && credit != 0) || (debit == 0 && credit == 0)
       errors.add(:credit, :unvalid_amounts)
     end
-    if bank_statement
+    if bank_statement && transfered_on
       unless started_on <= transfered_on && transfered_on <= stopped_on
         errors.add(:transfered_on, :invalid)
       end
@@ -84,5 +84,17 @@ class BankStatementItem < Ekylibre::Record::Base
   def associated_journal_entry_items
     return [] unless bank_statement && letter
     JournalEntryItem.pointed_by(bank_statement).where(bank_statement_letter: letter)
+  end
+
+  def cash_currency
+    bank_statement && bank_statement.cash && bank_statement.cash.currency
+  end
+
+  def balance=(new_balance)
+    if new_balance > 0
+      self.credit = new_balance
+    else
+      self.debit = - new_balance
+    end
   end
 end

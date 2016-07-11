@@ -464,8 +464,8 @@ module Backend
           # Add variant selector
           fs << variety(scope: variant)
 
-          fs << input(:initial_born_at, label: Product.human_attribute_name(:born_at))
-          fs << input(:initial_dead_at, label: Product.human_attribute_name(:dead_at))
+          fs << input(:born_at)
+          fs << input(:dead_at)
 
           # error message for indicators
           if Rails.env.development?

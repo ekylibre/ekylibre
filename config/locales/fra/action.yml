@@ -71,6 +71,7 @@ fra:
       show: "%{nature}\_: %{name}"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
+      # import_ofx: "Import OFX file"
       index: "Relevés de compte bancaire"
       new: "Pointer un nouveau relevé de compte"
       reconciliation: "Pointer le relevé %{cash} n°%{number} (du %{started_on} au %{stopped_on})"
@@ -877,6 +878,7 @@ fra:
     attachment: "Pièce jointe"
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
+    # auto_reconciliate: "Auto reconciliate"
     automatic: "Auto"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
@@ -2303,6 +2305,7 @@ fra:
       generate_last_journal_entry: "Générer la dernière écriture"
       generate_parcel: "Générer bon de préparation"
       import: "Importer"
+      # import_ofx: "Import OFX file"
       incorporate: "Incorporer"
       increment: "Incrémenter" #?
       index: "Index"

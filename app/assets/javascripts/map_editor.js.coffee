@@ -478,7 +478,7 @@
         else
           this.reference = L.GeoJSON.geometryToLayer(this.options.show)
 
-        if reference?
+        if this.reference?
           this.reference.setStyle this.options.showStyle
           this.reference.addTo this.map
       this

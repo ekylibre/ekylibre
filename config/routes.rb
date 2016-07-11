@@ -242,9 +242,9 @@ Rails.application.routes.draw do
     resources :bank_statements, concerns: [:list, :unroll], path: 'bank-statements' do
       collection do
         get :list_items
+        match :import_ofx, via: [:get, :post]
       end
       member do
-        match :edit_items, via: [:get, :post]
         match :reconciliation, via: [:get, :post]
       end
     end

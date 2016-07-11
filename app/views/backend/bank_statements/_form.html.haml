@@ -1,14 +1,18 @@
 = field_set do
-  - if resource.new_record?
-    = f.referenced_association :cash, as: :hidden, source: :pointables
+  - if @cash
+    = f.referenced_association :cash, source: :pointables, new: @cash.attributes.keep_if { |_,v| v.present? }
+  - else
+    = f.referenced_association :cash, source: :pointables, disabled: true
   = f.input :number
   = f.input :started_on
   = f.input :stopped_on
   = f.custom_fields
 
+= f.attachments_field_set
+
 = field_set BankStatement.human_attribute_name(:items) do
-  .items
-    %table#items-table
+  .active-list
+    %table.list#items-table
       %thead
         %tr
           %th= BankStatementItem.human_attribute_name(:name)
@@ -17,18 +21,16 @@
           %th{ colspan: 2 }= BankStatementItem.human_attribute_name(:credit)
           %th
       %tfoot
+        %tr
+          %td= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
         %tr#total.total
-          %th
-            = link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
-          %th
+          %th{ colspan: 2 }
             %span= :total.tl
           %td#debit.decimal{data: {use: "input.debit", calculate_round: 2}}=  resource.debit
-          %td.txt= resource.currency
+          %td.txt= resource.cash_currency
           %td#credit.decimal{data: {use: "input.credit", calculate_round: 2}}= resource.credit
-          %td.txt= resource.currency
+          %td.txt= resource.cash_currency
           %th.action
-      - f.object.items.build unless f.object.items.any?
-      = f.simple_fields_for :items do |item|
-        = render 'item_fields', f: item
 
-= f.attachments_field_set
+      = f.simple_fields_for :items, resource.items do |item|
+        = render 'item_fields', f: item
