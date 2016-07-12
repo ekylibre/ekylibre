@@ -49,12 +49,16 @@ module Backend
       desc = params[:nature].split('-')
       # raise StandardError.new desc.inspect
       if desc[0] == 'special'
-        if desc[1] == 'all_columns'
+        case desc[1]
+        when 'all_columns'
           model = @listing_node.model
           for column in model.content_columns.sort { |a, b| model.human_attribute_name(a.name.to_s) <=> model.human_attribute_name(b.name.to_s) }
             ln = @listing_node.children.new(nature: 'column', attribute_name: column.name, label: @listing_node.model.human_attribute_name(column.name))
             ln.save!
           end
+        when 'custom'
+            ln = @listing_node.children.new(nature: 'custom', attribute_name: desc[2], label: @listing_node.model.human_attribute_name(desc[2]))
+            ln.save!
         end
       else
         ln = @listing_node.children.new(nature: desc[0], attribute_name: desc[1], label: @listing_node.model.human_attribute_name(desc[1]))

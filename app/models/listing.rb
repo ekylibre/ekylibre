@@ -42,7 +42,9 @@ class Listing < Ekylibre::Record::Base
   attr_readonly :root_model
   enumerize :root_model, in: Ekylibre::Schema.models, i18n_scope: ['activerecord.models']
   has_many :columns, -> { where('nature = ?', 'column') }, class_name: 'ListingNode'
+  has_many :custom_fields_columns, -> { where('nature = ?', 'custom') }, class_name: 'ListingNode'
   has_many :exportable_columns, -> { where(nature: 'column', exportable: true).order('position') }, class_name: 'ListingNode'
+  has_many :exportable_fields, -> { where(nature: %w(column custom), exportable: true).order('position') }, class_name: 'ListingNode'
   has_many :filtered_columns, -> { where("nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", 'column', 'any') }, class_name: 'ListingNode'
   has_many :coordinate_columns, -> { where('name LIKE ? AND nature = ? ', '%.coordinate', 'column') }, class_name: 'ListingNode'
   has_many :nodes, class_name: 'ListingNode', dependent: :delete_all, inverse_of: :listing
@@ -76,10 +78,11 @@ class Listing < Ekylibre::Record::Base
       conn = self.class.connection
       root = self.root
       query = 'SELECT ' + exportable_columns.collect { |n| "#{n.name} AS " + conn.quote_column_name(n.label) }.join(', ')
+      query << ", " + custom_fields_columns.collect { |cf| "#{cf.name}' AS #{conn.quote_column_name(cf.label)}" }.join(', ') if custom_fields_columns.present?
       query << " FROM #{root.model.table_name} AS #{root.name}" + root.compute_joins
       query << ' WHERE ' + compute_where unless compute_where.blank?
-      unless exportable_columns.size.zero?
-        query << ' ORDER BY ' + exportable_columns.collect(&:name).join(', ')
+      unless (custom_fields_columns + exportable_columns).size.zero?
+        query << ' ORDER BY ' + exportable_fields.map { |n| conn.quote_column_name(n.label) }.join(', ')
       end
     rescue
       query = ''
