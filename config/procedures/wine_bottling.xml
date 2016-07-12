@@ -4,6 +4,7 @@
     <parameters>
       <parameter name="tank" type="target" filter="is equipment and can store(wine)" default-actor="storage"/>
       <input name="wine" filter="is wine" default-actor="first_localized_in: tank">
+        <handler name="population"/>
         <handler indicator="net_volume" unit="hectoliter"
                  if="PRODUCT..net_volume?"
                  backward="POPULATION * PRODUCT..net_volume(hectoliter)"
@@ -14,6 +15,7 @@
                  forward="VALUE / PRODUCT..net_volume(liter)"/>
       </input>
       <input name="bottles" filter="is cork_bottle and can store(wine)">
+        <handler name="population"/>
         <handler indicator="net_volume" unit="hectoliter"
                  if="PRODUCT..net_volume?"
                  backward="POPULATION * PRODUCT..net_volume(hectoliter)"
@@ -23,7 +25,9 @@
                  backward="POPULATION * PRODUCT..net_volume(liter)"
                  forward="VALUE / PRODUCT..net_volume(liter)"/>
       </input>
-      <input name="corks" filter="is cork and can close(cork_bottle)"/>
+      <input name="corks" filter="is cork and can close(cork_bottle)">
+        <handler name="population"/>
+      </input>
       <parameter name="wine_man" type="doer" filter="can drive(corker) and can drive(bottler) and can move"/>
       <parameter name="hand_drawn" type="tool" filter="is equipment and can fill(bottle)"/>
       <parameter name="corker" type="tool" filter="is equipment and can close(bottle)"/>

@@ -2,14 +2,14 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="fermentation" categories="viticulture_transformation" actions="fermentation">
     <parameters>
-      <parameter name="tank" type="tool" filter="is tank and can store_liquid" default-actor="storage"/>
-      <parameter name="juice_to_ferment" type="target" filter="is juice and derives from fruit" default-actor="first_localized_in: tank"/>
-      <parameter name="oenological_intrant" type="input" filter="is matter and can fermentize(wine)">
+      <tool name="tank" filter="is tank and can store_liquid" default-actor="storage"/>
+      <target name="juice_to_ferment" filter="is juice and derives from fruit" default-actor="first_localized_in: tank"/>
+      <input name="oenological_intrant" filter="is matter and can fermentize(wine)">
+        <handler name="population"/>
         <handler indicator="mass_volume_density" unit="gram_per_hectoliter" if="tank? and juice_to_ferment?" to="population" backward="(POPULATION * PRODUCT..net_mass(gram)) / sum(juice_to_ferment, :net_volume, :hectoliter)" forward="(VALUE * sum(juice_to_ferment, :net_volume, :hectoliter)) / PRODUCT..net_mass(gram)"/>
-      </parameter>
-      <parameter name="wine_man" type="doer" filter="is worker and can move"/>
-      <parameter name="fermented_juice" type="output" derivative-of="derivative-of: juice_to_ferment" filter="derives from juice" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production">
-      </parameter>
+      </input>
+      <doer name="wine_man" filter="is worker and can move"/>
+      <output name="fermented_juice" derivative-of="derivative-of: juice_to_ferment" filter="derives from juice" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" default-variant="production"/>
     </parameters>
   </procedure>
 </procedures>
