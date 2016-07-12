@@ -27,7 +27,7 @@ You can learn how to contribute in Ekylibre by following our official guide:
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...):
 
-* [English](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation.rdoc) ([for Debian Jessie](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.rdoc))
+* [English](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation.md) ([for Debian Jessie](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.md))
 * [Français](https://wiki.ekylibre.com/fr/guides/installation)
 
 Ekylibre depends on PostgreSQL (≥ 9.5) and PostGIS (≥ 2.2).
