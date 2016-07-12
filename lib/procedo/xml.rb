@@ -104,7 +104,7 @@ module Procedo
         name = element.attr('name').to_sym
         if element.name != 'parameter'
           type = element.name.to_sym
-          raise 'type attribute is not supported' if element.has_attribute?('type')
+          raise "'type' attribute is not supported in a <#{element.name}> element" if element.has_attribute?('type')
         else
           type = element.attr('type').underscore.to_sym
         end
