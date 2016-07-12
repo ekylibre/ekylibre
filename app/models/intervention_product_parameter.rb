@@ -112,7 +112,7 @@ class InterventionProductParameter < InterventionParameter
         if reference.handled? && quantity_handler?
           errors.add(:quantity_handler, :invalid) unless reference.handler(quantity_handler)
         end
-      else
+      elsif !reference_name.blank?
         errors.add(:reference_name, :invalid)
       end
     end
