@@ -1,6 +1,6 @@
 - main_toolbar do |t|
   = t.new
-  = t.import_ofx params: { controller: :bank_statements }
+  = t.import params: { controller: :bank_statements }
 
 = janus do |j|
   - j.face :list do

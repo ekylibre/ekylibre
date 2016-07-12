@@ -178,8 +178,7 @@ class BankStatementTest < ActiveSupport::TestCase
 
   def inspect_errors(object)
     [object.inspect,
-      object.errors.full_messages.to_sentence,
-      object.items.map { |i| [" - " + i.inspect, "    - " + i.errors.full_messages.to_sentence] }
-      ].join("\n")
+     object.errors.full_messages.to_sentence,
+     object.items.map { |i| [' - ' + i.inspect, '    - ' + i.errors.full_messages.to_sentence] }].join("\n")
   end
 end

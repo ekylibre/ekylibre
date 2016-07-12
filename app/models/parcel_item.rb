@@ -171,7 +171,7 @@ class ParcelItem < Ekylibre::Record::Base
     self.product ||= variant.create_product!(product_params)
   end
 
-  def check_outgoing(checked_at)
+  def check_outgoing(_checked_at)
     update! product: source_product
   end
 

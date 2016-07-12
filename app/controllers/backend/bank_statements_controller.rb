@@ -52,7 +52,7 @@ module Backend
       t.column :credit, currency: :currency
     end
 
-    def import_ofx
+    def import
       @cash = Cash.find_by(id: params[:cash_id])
       if request.post?
         file = params[:upload]

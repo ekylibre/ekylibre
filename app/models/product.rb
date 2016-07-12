@@ -285,12 +285,12 @@ class Product < Ekylibre::Record::Base
       errors.add(:dead_at, :invalid) if dead_at < born_at
     end
     if variant
-      if variety
+      if variety && Nomen::Variety.find(variant_variety)
         unless Nomen::Variety.find(variant_variety) >= variety
           errors.add(:variety, :invalid)
         end
       end
-      if derivative_of
+      if derivative_of && Nomen::Variety.find(variant_derivative_of)
         unless Nomen::Variety.find(variant_derivative_of) >= derivative_of
           errors.add(:derivative_of, :invalid)
         end

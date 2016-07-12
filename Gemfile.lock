@@ -173,7 +173,7 @@ GEM
       loofah (~> 2.0)
       sax-machine (~> 1.0)
     ffaker (2.2.0)
-    ffi (1.9.13)
+    ffi (1.9.14)
     foreman (0.82.0)
       thor (~> 0.19.1)
     formize (2.1.0)

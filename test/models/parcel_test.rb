@@ -233,8 +233,8 @@ class ParcelTest < ActiveSupport::TestCase
     parcel_items_attributes = {
       population: 1,
       variant: variant,
-      product_name: "Moo",
-      product_identification_number: "Cow-wow"
+      product_name: 'Moo',
+      product_identification_number: 'Cow-wow'
     }
 
     p = Parcel.create!(parcel_attributes)

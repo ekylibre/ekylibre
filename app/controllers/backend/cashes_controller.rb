@@ -46,7 +46,7 @@ module Backend
       t.action :reconciliation
       t.action :destroy
       t.action :new, on: :none, url: { cash_id: 'params[:id]'.c }
-      t.action :import_ofx, on: :none, url: { cash_id: 'params[:id]'.c }
+      t.action :import, on: :none, url: { cash_id: 'params[:id]'.c }
       t.column :number, url: true
       t.column :started_on
       t.column :stopped_on
