@@ -1297,7 +1297,7 @@ intervention_tools_004:
   position: 4
   product_id: 88
   quantity_population: 1.0
-  reference_name: cultivator
+  reference_name: hoe
   type: InterventionTool
   updated_at: 2014-11-04 18:41:39.757856000 Z
   updater_id: 1
