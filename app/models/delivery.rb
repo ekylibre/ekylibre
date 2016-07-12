@@ -56,7 +56,7 @@ class Delivery < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(delivery) { delivery.stopped_at && delivery.started_at }
+  validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(delivery) { delivery.stopped_at && delivery.started_at }
   validates :state, presence: true
   # ]VALIDATORS]
 

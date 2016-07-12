@@ -72,7 +72,7 @@ class FixedAsset < Ekylibre::Record::Base
   has_one :tool, class_name: 'Equipment'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :ceded_on, :purchased_on, :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(fixed_asset) { fixed_asset.stopped_on && fixed_asset.started_on }
+  validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(fixed_asset) { fixed_asset.stopped_on && fixed_asset.started_on }
   validates :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, numericality: { allow_nil: true }
   validates :allocation_account, :currency, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on, presence: true
   # ]VALIDATORS]

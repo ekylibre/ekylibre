@@ -66,7 +66,7 @@ class Intervention < Ekylibre::Record::Base
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(intervention) { intervention.stopped_at && intervention.started_at }
+  validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(intervention) { intervention.stopped_at && intervention.started_at }
   validates :whole_duration, :working_duration, numericality: { allow_nil: true, only_integer: true }
   validates :procedure_name, :state, :whole_duration, :working_duration, presence: true
   # ]VALIDATORS]

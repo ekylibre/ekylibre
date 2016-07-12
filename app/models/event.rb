@@ -51,7 +51,7 @@ class Event < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(event) { event.stopped_at && event.started_at }
+  validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(event) { event.stopped_at && event.started_at }
   validates :duration, numericality: { allow_nil: true, only_integer: true }
   validates :restricted, inclusion: { in: [true, false] }
   validates :name, :nature, :started_at, presence: true

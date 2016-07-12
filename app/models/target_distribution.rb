@@ -41,7 +41,7 @@ class TargetDistribution < Ekylibre::Record::Base
   belongs_to :target, class_name: 'Product', inverse_of: :distributions
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(target_distribution) { target_distribution.stopped_at && target_distribution.started_at }
+  validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(target_distribution) { target_distribution.stopped_at && target_distribution.started_at }
   validates :activity, :activity_production, :target, presence: true
   # ]VALIDATORS]
 

@@ -44,7 +44,7 @@ class ProductEnjoyment < Ekylibre::Record::Base
   enumerize :nature, in: [:unknown, :own, :other], default: :unknown, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(product_enjoyment) { product_enjoyment.stopped_at && product_enjoyment.started_at }
+  validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(product_enjoyment) { product_enjoyment.stopped_at && product_enjoyment.started_at }
   validates :nature, :product, presence: true
   # ]VALIDATORS]
   validates :enjoyer, presence: { if: :other? }

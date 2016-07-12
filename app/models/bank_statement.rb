@@ -47,7 +47,7 @@ class BankStatement < Ekylibre::Record::Base
   has_many :items, class_name: 'BankStatementItem', dependent: :destroy, inverse_of: :bank_statement
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(bank_statement) { bank_statement.stopped_on && bank_statement.started_on }
+  validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(bank_statement) { bank_statement.stopped_on && bank_statement.started_on }
   validates :credit, :debit, :initial_balance_credit, :initial_balance_debit, numericality: { allow_nil: true }
   validates :cash, :credit, :currency, :debit, :initial_balance_credit, :initial_balance_debit, :number, :started_on, :stopped_on, presence: true
   # ]VALIDATORS]

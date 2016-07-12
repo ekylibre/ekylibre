@@ -29,8 +29,9 @@ module Clean
         columns.each do |c|
           next unless [:stopped_at, :stopped_on].include?(c.name.to_sym)
           # p "started#{c.name.scan(/_.{2}/).first}", columns.collect(&:name)
-          if !c.name.scan(/_.{2}/).empty? && columns.collect(&:name).include?("started#{c.name.scan(/_.{2}/).first}")
-            code << "  validates_datetime :#{c.name}, allow_blank: true, on_or_after: :started#{c.name.scan(/_.{2}/).first}, if: ->(#{record}) { #{record}.#{c.name} && #{record}.started#{c.name.scan(/_.{2}/).first} }\n"
+          suffix = c.name.scan(/_.{2}/).first
+          if suffix && columns.collect(&:name).include?("started#{suffix}")
+            code << "  validates :#{c.name}, timeliness: { allow_blank: true, on_or_after: :started#{suffix} }, if: ->(#{record}) { #{record}.#{c.name} && #{record}.started#{suffix} }\n"
           end
         end
 

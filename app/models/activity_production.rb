@@ -70,7 +70,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(activity_production) { activity_production.stopped_on && activity_production.started_on }
+  validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(activity_production) { activity_production.stopped_on && activity_production.started_on }
   validates :rank_number, numericality: { allow_nil: true, only_integer: true }
   validates :size_value, numericality: { allow_nil: true }
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }

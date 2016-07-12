@@ -230,13 +230,13 @@ class Product < Ekylibre::Record::Base
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
   def born_at_in_interventions
-    first_date = interventions.pluck(:started_at).sort.first
-    errors.add(:born_at, :invalid) unless born_at <= first_date
+    first_used_at = interventions.order(started_at: :asc).first.started_at
+    errors.add(:born_at, :on_or_before, restriction: first_used_at.l) if born_at > first_used_at
   end
 
   def dead_at_in_interventions
-    last_date = interventions.pluck(:stopped_at).sort.last
-    errors.add(:dead_at, :invalid) unless dead_at >= last_date
+    last_used_at = interventions.order(stopped_at: :desc).first.stopped_at
+    errors.add(:dead_at, :on_or_after, restriction: last_used_at.l) if dead_at < last_used_at
   end
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|

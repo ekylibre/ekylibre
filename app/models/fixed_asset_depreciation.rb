@@ -49,7 +49,7 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :accounted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates_datetime :stopped_on, allow_blank: true, on_or_after: :started_on, if: ->(fixed_asset_depreciation) { fixed_asset_depreciation.stopped_on && fixed_asset_depreciation.started_on }
+  validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(fixed_asset_depreciation) { fixed_asset_depreciation.stopped_on && fixed_asset_depreciation.started_on }
   validates :amount, :depreciable_amount, :depreciated_amount, numericality: { allow_nil: true }
   validates :accountable, :locked, inclusion: { in: [true, false] }
   validates :amount, :fixed_asset, :started_on, :stopped_on, presence: true
