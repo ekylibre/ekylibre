@@ -30,7 +30,19 @@
 
   $.loadHighcharts = ->
     $("*[data-highcharts]").each ->
-      $(this).highchart()
+      chartitem = $(this)
+      chartitem.highchart()
+      $(window).resize ->
+        chartitem.highcharts().setSize(
+                0,
+                chartitem.parent().height(),
+                false
+            );
+        chartitem.highcharts().setSize(
+                chartitem.parent().width(),
+                chartitem.parent().height(),
+                false
+            )
     return
 
   $(document).ready $.loadHighcharts
