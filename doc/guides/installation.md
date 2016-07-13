@@ -2,7 +2,7 @@
 
 This a short explanation on installation steps for developers.
 
-If you are on Debian Jessie, please take a look at [detailed installation guide](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.rdoc).
+If you are on Debian Jessie, please take a look at [detailed installation guide](https://github.com/ekylibre/ekylibre/blob/master/doc/guides/installation-debian-jessie.md).
 
 ## 1. Dependencies
 
