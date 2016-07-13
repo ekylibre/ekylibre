@@ -77,8 +77,9 @@ class Listing < Ekylibre::Record::Base
     begin
       conn = self.class.connection
       root = self.root
-      columns_to_export = exportable_columns.collect { |n| "#{n.name} AS " + conn.quote_column_name(n.label) }
-      columns_to_export += custom_fields_columns.collect { |cf| "#{cf.name}' AS #{conn.quote_column_name(cf.label)}" }
+      columns_to_export = exportable_columns.collect { |n| [n.position, "#{n.name} AS " + conn.quote_column_name(n.label)] }
+      columns_to_export += custom_fields_columns.collect { |cf| [cf.position, "#{cf.name}' AS #{conn.quote_column_name(cf.label)}"] }
+      columns_to_export = columns_to_export.sort_by(&:first).map(&:last)
       query = 'SELECT ' + columns_to_export.join(', ')
       query << " FROM #{root.model.table_name} AS #{root.name}" + root.compute_joins
       query << ' WHERE ' + compute_where unless compute_where.blank?
