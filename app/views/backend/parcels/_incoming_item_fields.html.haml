@@ -14,12 +14,12 @@
       .item-quantifier
         .item-quantifier-population
           = f.input :population, wrapper: :nested_append do
-            = f.input_field :population, class: "item-population", placeholder: (source_product.population.or_else(nil).to_s), data: {"when-item": "identifiable", "when-set-value": 1, "when-prop-value": "disabled"}
+            = f.input_field :population, class: "item-population", placeholder: (source_product.population.or_else(nil).to_s), data: {"when-item": "unitary", "when-set-value": 1, "when-prop-value": "disabled"}
             %span.add-on.item-population-unit-name
               = variant.unit_name.or_else('#')
     %td= f.referenced_association(:analysis, wrapper: :nested)
 
-  - display = "display: none;" unless variant.population_counting_unitary?.or_else(false)
+  - display = "display: none;" unless variant.population_identifiable?.or_else(false)
   %tr.no-border{style: display, data: {"when-item": "identifiable", "when-display-value": 'true'}}
     %td
     %td
