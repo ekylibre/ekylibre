@@ -77,11 +77,12 @@ class Listing < Ekylibre::Record::Base
     begin
       conn = self.class.connection
       root = self.root
-      query = 'SELECT ' + exportable_columns.collect { |n| "#{n.name} AS " + conn.quote_column_name(n.label) }.join(', ')
-      query << ", " + custom_fields_columns.collect { |cf| "#{cf.name}' AS #{conn.quote_column_name(cf.label)}" }.join(', ') if custom_fields_columns.present?
+      columns_to_export = exportable_columns.collect { |n| "#{n.name} AS " + conn.quote_column_name(n.label) }
+      columns_to_export += custom_fields_columns.collect { |cf| "#{cf.name}' AS #{conn.quote_column_name(cf.label)}" }
+      query = 'SELECT ' + columns_to_export.join(', ')
       query << " FROM #{root.model.table_name} AS #{root.name}" + root.compute_joins
       query << ' WHERE ' + compute_where unless compute_where.blank?
-      unless (custom_fields_columns + exportable_columns).size.zero?
+      unless columns_to_export.size.zero?
         query << ' ORDER BY ' + exportable_fields.map { |n| conn.quote_column_name(n.label) }.join(', ')
       end
     rescue
