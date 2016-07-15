@@ -153,7 +153,9 @@
 
   $(document).on "keyup change", "input.intervention-started-at", ->
     $(this).each ->
-      E.interventions.updateParcelsScopes ($(this).data("datetimepicker").getFormattedDate())
+      #date = $(this).data("datetimepicker").getFormattedDate()
+      date = $(this).val()
+      E.interventions.updateParcelsScopes(date)
 
   # $(document).on 'change', '*[data-procedure-global="at"]', ->
   #   $(this).each ->
