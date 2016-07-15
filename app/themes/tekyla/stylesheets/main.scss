@@ -716,8 +716,23 @@ form.search {
   border: $menu-border;
   box-shadow: 0 0 $default-gap rgba(0, 0, 0, 0.15);
   @include float(left);
+  @include text-align(center);
   margin: 0 $default-gap;
   padding: $default-gap;
+  &.picture-identity {
+    min-height: 180px;
+    min-width: 180px;
+    border: none;
+    box-shadow: none;
+    padding: $default-gap 0;
+    > img {
+      @include border-radius($default-gap * 0.5);
+    }
+    > .picto {
+      font-size: 120px;
+      line-height: 180px;
+    }
+  }
 }
 
 .mini-map {

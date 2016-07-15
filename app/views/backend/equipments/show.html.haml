@@ -31,8 +31,9 @@
         %i.picto{class: "picto-timelapse"}
         = :x_hours.tl(count: resource.working_duration(as: :tool)/3600)
     - if resource.description
-      %span.title= Equipment.human_attribute_name(:description)
-      %span.value= resource.description
+      .med-info
+        %span.title= Equipment.human_attribute_name(:description)
+        %span.value= resource.description
 
 = cobbles do |c|
 

@@ -85,7 +85,7 @@ module Ekylibre
             path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
             styles: {
               thumb: ['64x64>', :jpg],
-              identity: ['180x180>', :jpg]
+              identity: ['180x180#', :jpg]
             },
             convert_options: {
               thumb:    '-background white -gravity center -extent 64x64',
