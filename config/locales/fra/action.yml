@@ -487,7 +487,7 @@ fra:
       show: "Variante de produit\_: %{name}"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
-      index: "Types de produits"
+      index: "Types de produit"
       new: "Nouveau type de produit"
       pick: "Importer un type de produit"
       show: "Type de produit\_: %{name}"
@@ -506,7 +506,7 @@ fra:
       new: "Nouveau produit à la commande" #?
     backend/purchase_natures:
       edit: "Modifier le type d’achat\_: %{name}"
-      index: "Type d’achats"
+      index: "Types d’achat"
       new: "Nouveau type d’achat"
       show: "Type d’achat\_: %{name}"
     backend/purchases:
@@ -539,7 +539,7 @@ fra:
       new: "Nouveau produit à la vente" #?
     backend/sale_natures:
       edit: "Modifier le type de vente\_: %{name}"
-      index: "Types de ventes"
+      index: "Types de vente"
       new: "Nouveau type de vente"
       show: "Type de vente\_: %{name}"
     backend/sale_opportunities:
@@ -586,7 +586,7 @@ fra:
       show: "Installation\_: %{name}"
     backend/subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
-      index: "Types d’abonnements"
+      index: "Types d’abonnement"
       new: "Nouveau type d’abonnement"
       show: "Type d’abonnement\_: %{name}"
     backend/subscriptions:
