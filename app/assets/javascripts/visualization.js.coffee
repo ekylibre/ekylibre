@@ -175,6 +175,9 @@
       @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
       @ghostLabelCluster.addTo @map
 
+      @layersScheduler = L.layersScheduler()
+      @layersScheduler.addTo @map
+
       this._resize()
       this._refreshView()
       this._refreshControls()
@@ -310,6 +313,7 @@
           overlayLayer.name = layer.name
           layer.overlay = overlays[layer.label] = overlayLayer
           @map.addLayer(overlayLayer)
+          @layersScheduler.insert overlayLayer._leaflet_id
           console.log("#{layer.name} layer added")
           try
             group = new L.featureGroup(layerGroup)
@@ -325,7 +329,8 @@
 
         console.groupEnd() if console.groupEnd isnt undefined
 
-      @map.on "overlayadd", (event) ->
+      @map.on "overlayadd", (event) =>
+        @layersScheduler.schedule event.layer
         console.log "Add legend control..."
         legend = $(legendControl.getContainer())
         legend.children("#legend-#{event.layer.name}").show()
