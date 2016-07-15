@@ -35,19 +35,33 @@
   -if resource.products.any?
     - c.cobble(:stocks) do
       :ruby
-          dataset = resource.products
+        dataset = resource.products
 
-          series = []
-          dataset.each do |product|
-            items = ProductMovement.where(product: product).reorder(:started_at)
-            item_h = items.sort.inject({}) do |hash, pair|
-              hash[pair.started_at.to_usec] = pair.population.to_d
-              hash
-            end
-            data = []
-            data = item_h.collect{|k,v| [k, v.to_s.to_f] }
-            series << {name: product.name ,data: data }
+        series = []
+        variant_data = {}
+        dataset.each do |product|
+          items = ProductMovement.where(product: product).reorder(:started_at)
+          item_h = items.sort.inject({}) do |hash, pair|
+            hash[pair.started_at.to_usec] = pair.population.to_d
+            hash
           end
+          data = []
+          data = item_h.collect{|k,v| [k, v.to_s.to_f] }.sort_by(&:first)
+          series << {name: product.name, data: data }
+        end
+        datas = series.map { |s| s[:data] }
+        sorted_datas = datas.map do |data|
+          changes = (data + [[0, 0]]).sort_by(&:first).reverse.each_cons(2).map do |one, two|
+            [one.first, one.last - two.last]
+          end
+          changes.reverse
+        end
+        variant_datas = sorted_datas.flatten(1).sort_by(&:first).reduce([]) do |vd, data_point|
+          key = data_point.first
+          value = Maybe(vd.last).last.or_else(0)
+          vd << [key, value+data_point.last]
+        end
+        series << {name: "Variant " + resource.name, data: variant_datas.to_a}
 
       = line_highcharts(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
 
