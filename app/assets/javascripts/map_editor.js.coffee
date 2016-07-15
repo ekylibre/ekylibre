@@ -155,11 +155,11 @@
       this._resize()
       # console.log "resized"
       this._refreshBackgroundLayer()
+      this._refreshGhostLayerGroup()
       # console.log "backgrounded"
       this._refreshReferenceLayerGroup()
       # console.log "shown"
       this._refreshEditionLayerGroup()
-      this._refreshGhostLayerGroup()
 
       # console.log "edited"
       this._refreshView()
@@ -440,6 +440,7 @@
       this
 
     addSerie: (serie) ->
+      serie.options ||= {}
       @options.popupAttributes = serie.options.popup
       featureCollection = L.geoJson(serie.data, {
         onEachFeature: (feature, layer) =>
@@ -469,7 +470,7 @@
 
             this.reference = L.geoJson(this.options.show, {
               onEachFeature: (feature, layer) =>
-
+                feature.properties ||= {}
                 #required for cap_land_parcel_clusters as names are set later
                 if not feature.properties.name?
                   feature.properties.name = if feature.properties.id? then "#{this.options.defaultEditionFeaturePrefix}#{feature.properties.id}" else this.defaultLabel
@@ -752,7 +753,9 @@
       if @options.overlaySelector?
 
         @map.on "overlayadd", (event) =>
-          console.log 'overlayAdd', event.name
+
+          @layersScheduler.schedule event.layer
+
           if event.name == @options.overlaySelector.ghostLayer
             @map.eachLayer (layer) =>
               if layer.options? and layer.options.className == "leaflet-ghost-label"
@@ -766,15 +769,29 @@
                 label = $(layer._container)
                 label.hide()
 
+        @layersScheduler = L.layersScheduler()
+        @layersScheduler.addTo @map
         selector = @layerSelector || new L.Control.Layers()
-        selector.addOverlay(@ghost, @options.overlaySelector.ghostLayer) if @ghost? and @ghost.getLayers().length > 0
-        selector.addOverlay(@reference, @options.overlaySelector.referenceLayer) if @reference? and @reference.getLayers().length > 0
-        selector.addOverlay(@edition, @options.overlaySelector.editionLayer) if @edition? and @edition.getLayers().length > 0
+
+        if @ghost? and @ghost.getLayers().length
+          selector.addOverlay(@ghost, @options.overlaySelector.ghostLayer)
+          @layersScheduler.insert @ghost._leaflet_id, back: true
+
+        if @reference? and @reference.getLayers().length > 0
+          selector.addOverlay(@reference, @options.overlaySelector.referenceLayer)
+          @layersScheduler.insert @reference._leaflet_id
+
 
         if @seriesReferencesLayers?
           for layerGroup in @seriesReferencesLayers
             if layerGroup.serie.getLayers().length > 0
               selector.addOverlay(layerGroup.serie, layerGroup.title)
+              @layersScheduler.insert layerGroup.serie._leaflet_id
+
+        if @edition? and @edition.getLayers().length > 0
+          selector.addOverlay(@edition, @options.overlaySelector.editionLayer)
+          @layersScheduler.insert @edition._leaflet_id
+
 
     _saveUpdates: ->
       if this.edition?
