@@ -304,8 +304,12 @@ module Backend
         show ||= @object.class.where.not(attribute_name => nil)
         union = Charta.empty_geometry
         if show.any?
-          union = show.geom_union(attribute_name)
-          editor[:show] = union.to_json_object unless union.empty?
+          if show.is_a? Hash and show.key?(:series)
+            editor[:show] = show
+          else
+            union = show.geom_union(attribute_name)
+            editor[:show] = union.to_json_object unless union.empty?
+          end
         end
       end
       editor[:back] ||= MapBackground.availables.collect(&:to_json_object)

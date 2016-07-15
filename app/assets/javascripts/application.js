@@ -59,6 +59,7 @@
 //= require_tree .
 
 var visualization = {};
+var mapeditor = {};
 var ekylibre = {};
 var calcul = {};
 
