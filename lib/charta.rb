@@ -159,5 +159,9 @@ module Charta
     def from_geojson(data, srid = nil)
       new_geometry(::Charta::GeoJSON.new(data, srid).to_ewkt)
     end
+
+    def new_collection(*geom)
+      new_geometry(Charta.select_value("SELECT ST_AsEWKT(ST_Collect(ARRAY[#{geom.join(',')}]))"), nil, nil, false)
+    end
   end
 end
