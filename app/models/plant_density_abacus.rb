@@ -38,13 +38,15 @@
 class PlantDensityAbacus < Ekylibre::Record::Base
   has_many :items, class_name: 'PlantDensityAbacusItem', dependent: :delete_all, inverse_of: :plant_density_abacus
   has_many :plant_countings
-  refers_to :variety
+
+  belongs_to :activity
+
   refers_to :seeding_density_unit, class_name: 'Unit'
   refers_to :sampling_length_unit, class_name: 'Unit'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :germination_percentage, numericality: { allow_nil: true }
-  validates :name, :sampling_length_unit, :seeding_density_unit, :variety_name, presence: true
+  validates :name, :sampling_length_unit, :seeding_density_unit, presence: true
   # ]VALIDATORS]
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
