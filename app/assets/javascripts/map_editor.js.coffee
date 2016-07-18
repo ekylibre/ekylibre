@@ -52,12 +52,14 @@
             weight: 2
             opacity: 0.8
             fillOpacity: 0.4
+            legend: true
           categories:
             color: "#333"
             fillColor: "#333"
             weight: 2
             opacity: 0.8
             fillOpacity: 0.4
+            legend: true
       edit: null
       change: null
       view: 'auto'
@@ -501,7 +503,7 @@
                 @seriesReferencesLayers[layer.label] = layerGroup
                 @map.addLayer(layerGroup)
                 legend = @legend.getContainer()
-                legend.innerHTML += renderedLayer.buildLegend()
+                legend.innerHTML += renderedLayer.buildLegend() if options.legend
 
           else
 
