@@ -1,6 +1,5 @@
 = field_set do
   = f.input :name
-  = f.input :variety_name
   = f.input :seeding_density_unit, collection: Nomen::Unit.where(dimension: :surface_area_density).selection, include_blank: false
   = f.input :sampling_length_unit, collection: Nomen::Unit.where(dimension: :distance).selection, include_blank: false
   = f.input :germination_percentage
@@ -15,7 +14,7 @@
           %th
       %tbody#items
         = f.simple_fields_for :items, resource.items do |item|
-          = render 'item_fields', f: item
+          = render 'backend/plant_density_abaci/item_fields', f: item
       %tfoot
         %tr
           %td{ colspan: 2 }= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items', association_insertion_method: :append }, class: "btn primary"

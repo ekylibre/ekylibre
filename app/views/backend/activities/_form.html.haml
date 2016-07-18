@@ -17,7 +17,7 @@
     = f.input :size_unit_name
   = f.input :description
   = f.custom_fields
-  = f.input :use_countings
+  = f.input :use_countings, show: '#countings'
   = f.input :use_gradings, show: '#inspections'
 
 = field_set(:inspections) do
@@ -35,6 +35,31 @@
     = f.nested_association(:inspection_point_natures)
 
     = f.nested_association(:inspection_calibration_scales)
+
+= field_set(:countings) do
+  #countings
+    - f.object.build_counting unless f.object.counting
+    = f.simple_fields_for :counting do |g|
+      = g.input :name
+      = g.input :seeding_density_unit, collection: Nomen::Unit.where(dimension: :surface_area_density).selection, include_blank: false
+      = g.input :sampling_length_unit, collection: Nomen::Unit.where(dimension: :distance).selection, include_blank: false
+      = g.input :germination_percentage
+
+      = field_set PlantDensityAbacus.human_attribute_name(:items) do
+        .items
+          %table
+            %thead
+              %tr
+                %th= PlantDensityAbacusItem.human_attribute_name(:seeding_density_value)
+                %th= PlantDensityAbacusItem.human_attribute_name(:plants_count)
+                %th
+            %tbody#items
+              = g.simple_fields_for :items, g.object.items do |item|
+                = render 'backend/plant_density_abaci/item_fields', f: item
+            %tfoot
+              %tr
+                %td{ colspan: 2 }= link_to_add_association :add_item.tl, g, :items, partial: 'backend/plant_density_abaci/item_fields', data: { association_insertion_node: '#items', association_insertion_method: :append }, class: "btn primary"
+
 
 .auxiliary-nature-options
   = field_set(Activity.human_attribute_name(:distributions)) do
