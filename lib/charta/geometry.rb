@@ -80,8 +80,8 @@ module Charta
       if feature_collection && !collection?.nil?
         feature_collection = {}
         feature_collection[:type] = 'FeatureCollection'
-        feature_collection[:features] = JSON.parse(json).fetch('geometries', []).collect do |geometry|
-          { type: 'Feature', properties: {}, geometry: geometry }
+        feature_collection[:features] = JSON.parse(json).fetch('geometries', []).collect.with_index do |geometry, index|
+          { type: 'Feature', properties: @options[index].slice!(:shape), geometry: geometry }
         end
         json = feature_collection.to_json
       end

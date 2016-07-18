@@ -12,7 +12,7 @@ require 'charta/geo_json'
 # Charta aims to supply easy geom/geog tools
 module Charta
   class << self
-    def new_geometry(coordinates, srs = nil, format = nil, flatten_collection = true)
+    def new_geometry(coordinates, srs = nil, format = nil, flatten_collection = true, options = {})
       geom_ewkt = nil
       if coordinates.blank?
         geom_ewkt = empty_geometry(srs).to_ewkt
@@ -55,9 +55,9 @@ module Charta
              when 'POLYGON' then
                Polygon.new(geom_ewkt)
              when 'MULTIPOLYGON' then
-               MultiPolygon.new(geom_ewkt)
+               MultiPolygon.new(geom_ewkt, flatten_collection, options)
              when 'GEOMETRYCOLLECTION' then
-               GeometryCollection.new(geom_ewkt, flatten_collection)
+               GeometryCollection.new(geom_ewkt, flatten_collection, options)
              else
                Geometry.new(geom_ewkt)
              end
@@ -160,8 +160,8 @@ module Charta
       new_geometry(::Charta::GeoJSON.new(data, srid).to_ewkt)
     end
 
-    def new_collection(*geom)
-      new_geometry(Charta.select_value("SELECT ST_AsEWKT(ST_Collect(ARRAY[#{geom.join(',')}]))"), nil, nil, false)
+    def new_collection(geometries)
+      new_geometry(Charta.select_value("SELECT ST_AsEWKT(ST_Collect(ARRAY[#{geometries.collect{|geo| geo[:shape].geom}.join(',')}]))"), nil, nil, false, geometries)
     end
   end
 end
