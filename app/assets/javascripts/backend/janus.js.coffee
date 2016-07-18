@@ -5,7 +5,7 @@
     button = $(this)
     $("*[data-toggle='face']").removeClass('active')
     button.addClass('active')
-    target = button.attr('href')
+    target = button.attr('data-janus-href')
     $("*[data-face].active").removeClass('active').trigger('face:deactivate')
     $("*[data-face='#{target}']").addClass('active').trigger('face:activate')
     $(window).trigger("resize")

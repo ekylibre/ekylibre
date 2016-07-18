@@ -524,6 +524,7 @@ Rails.application.routes.draw do
     resources :januses, only: [] do
       member do
         post :toggle
+        get :toggle
       end
     end
 

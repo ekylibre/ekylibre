@@ -23,7 +23,11 @@ module Backend
       face = params[:face].to_s
       janus = params[:id].to_s.strip
       if janus.blank?
-        head :not_found
+        if request.post?
+          head :not_found
+        else
+          raise ActionController::RoutingError.new('Not Found')
+        end
       else
         default = params[:default] || 'list'
         preference_name = "interface.janus.#{janus}.current_face"
@@ -32,7 +36,15 @@ module Backend
           p = current_user.preference(preference_name, default)
           p.set!(face)
         end
-        head :ok
+        if request.post?
+          head :ok
+        else
+          if params[:redirect]
+            redirect_to(params[:redirect])
+          else
+            raise ActionController::RoutingError.new('Not Found')
+          end
+        end
       end
     end
   end

@@ -309,7 +309,8 @@ module Backend
               face_name = face.args.first.to_s
               classes = ['btn', 'btn-default']
               classes << 'active' if face_name == active_face
-              link_to(face_name, data: { toggle: 'face' }, class: classes, title: face_name.tl) do
+              get_url = url_for(controller: '/backend/januses', action: :toggle, id: name, face: face_name, redirect: url_for)
+              link_to(get_url, data: { "janus-href": face_name, toggle: 'face' }, class: classes, title: face_name.tl) do
                 content_tag(:i, '', class: "icon icon-#{face_name}") + ' '.html_safe + face_name.tl
               end
             end.join.html_safe
