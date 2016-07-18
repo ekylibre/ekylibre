@@ -38,7 +38,7 @@ ita:
     forager_driver: "autista Forager"
     fuel: "Carburante"
     gaz_engine: "motore di Gaz"
-    grains: "Grani"
+    grains: "Grani" #?
     grape: "Uva"
     grass: "Erba"
     grinder: "Macinino"
@@ -100,7 +100,7 @@ ita:
     straw: "Cannuccia"
     straw_bales: "Balle di fieno"
     straw_to_bunch: "Straw a grappolo"
-    straws: "cannucce"
+    straws: "cannucce" #?
     # stubble_cultivator: "Stubble cultivator"
     tank: "Carro armato"
     tank_for_residue: "Serbatoio per residui"
@@ -159,7 +159,7 @@ ita:
     land_parcel_grinding: "macinazione delle parcelle agricole"
     lifting: "sollevamento"
     manual_feeding: "alimentazione manuale"
-    mechanical_harvesting: "raccolta meccanica"
+    mechanical_harvesting: "raccolta meccanica" #?
     mechanical_planting: "impianto meccanico"
     milking: "Mungitura"
     net_installation: "installazione in rete"

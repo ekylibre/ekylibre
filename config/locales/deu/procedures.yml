@@ -38,7 +38,7 @@ deu:
     forager_driver: "Häcksler mit Fahrer"
     fuel: "Kraftstoff"
     gaz_engine: "Gaz Motor"
-    grains: "Körner"
+    grains: "Körner" #?
     grape: "Traube"
     grass: "Gras"
     grinder: "Schleifer"
@@ -100,7 +100,7 @@ deu:
     straw: "Stroh"
     straw_bales: "Strohballen"
     straw_to_bunch: "Straw Haufen"
-    straws: "Strohhalme"
+    straws: "Strohhalme" #?
     # stubble_cultivator: "Stubble cultivator"
     tank: "Panzer"
     tank_for_residue: "Tank für Rest"
@@ -159,7 +159,7 @@ deu:
     land_parcel_grinding: "Parzelle Schleif"
     lifting: "Heben"
     manual_feeding: "Manueller Einzug"
-    mechanical_harvesting: "Die maschinelle Ernte"
+    mechanical_harvesting: "Die maschinelle Ernte" #?
     mechanical_planting: "mechanische Pflanz"
     milking: "Melken"
     net_installation: "Net-Installation"

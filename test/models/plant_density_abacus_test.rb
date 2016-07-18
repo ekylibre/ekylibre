@@ -22,6 +22,7 @@
 #
 # == Table: plant_density_abaci
 #
+#  activity_id            :integer
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  germination_percentage :decimal(19, 4)
@@ -32,7 +33,6 @@
 #  seeding_density_unit   :string           not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variety_name           :string           not null
 #
 require 'test_helper'
 

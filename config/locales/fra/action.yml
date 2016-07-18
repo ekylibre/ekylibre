@@ -900,6 +900,7 @@ fra:
     budgets: "Budgets"
     building: "Lieu de stockage"
     # building_divisions: "building areas"
+    # building_divisions_and_parcels: "building areas and land parcels"
     building_name: "Sortie de" #?
     # buildings: "buildings"
     buildings_map: "Carte des bâtiments" #?
@@ -912,8 +913,13 @@ fra:
     cancel: "Annuler"
     cancelation: "Annulation"
     cancelled: "Passées en avoir" #?
+    # cap_cluster_prefix: "CAP island No."
+    # cap_clusters: "CAP islands"
     cap_islets: "Ilots PAC"
+    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "Parcelles PAC"
+    # cap_parcel_prefix: "CAP land parcel No."
+    # cap_parcels: "CAP land parcels"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
@@ -972,6 +978,7 @@ fra:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
     configure: "Configurer"
+    # confirm_sentence: "Are you sure?"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Entrer" #?
@@ -1002,6 +1009,7 @@ fra:
     counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
+    # create_a_new_division: "Create a new zone. Click on the map to add a point and close the drawing to create the zone."
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
@@ -1028,6 +1036,7 @@ fra:
     csv_statistics: "Statistiques à exporter au format CSV" #?
     cultivable_zone: "Zone cultivable"
     cultivable_zone_abbreviation: "ZC" #?
+    # cultivable_zone_prefix: "cultivable area No."
     cultivable_zones: "Zones cultivables"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
@@ -1055,6 +1064,7 @@ fra:
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
     delete: "Supprimer"
+    # delete_an_existing_division: "Delete an existing zone. Click the box to remove it."
     # delete_shape: "Delete form"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
@@ -1095,6 +1105,9 @@ fra:
     download_firefox: "Télécharger Mozilla Firefox…" #?
     downpayment: "Acompte"
     draft: "Brouillard"
+    # draw_your_building_divisions: "Draw your building areas. By default, a main area for your building is created."
+    # draw_your_buildings: "Draw your buildings, which ye shall divide area in the next step."
+    # draw_your_cultivable_zones: "Draw the areas where you have crops. These are deducted from your PAC import if necessary."
     drug: "Médicament" #?
     duplicate: "Dupliquer"
     duration: "Durée"
@@ -1102,7 +1115,9 @@ fra:
     during: "Pendant"
     earns: "Gains"
     edit: "Modifier"
+    # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "Modifier le budget"
+    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité" #?
     email: "Email:"
@@ -1118,6 +1133,9 @@ fra:
     entries_to_point: "Écritures à pointer"
     entry_items: "Lignes d’écriture"
     # equipment: "Equipment"
+    # equipment_name: "Name of equipment"
+    # equipment_type: "Type of equipment"
+    # equipment_zone: "Location"
     equipments: "Équipements"
     error: "Désolé..."
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
@@ -1153,6 +1171,7 @@ fra:
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
+    # file_imports: "Import files"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
     file_preview: "Visualisation de votre fichier"
@@ -1217,7 +1236,9 @@ fra:
     implanted_at: "Implantée le"
     import: "Importer"
     import_backup: "Import de fichier de sauvegarde" #?
+    # import_zones_from_third_party_softwares: "Import zones from third party software, the GeoJSON format GML and KML."
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
+    # imported_file: "Your file has been imported"
     in_production: "En production" #?
     inactive: "Inactif"
     incident: "Incident" #?
@@ -1234,6 +1255,7 @@ fra:
       unreceived: "Non reçus" #?
       waiting: "À encaisser plus tard" #?
     incoming_payments_to_deposit: "Encaissements à déposer"
+    # increase_map_on_fullscreen: "Enlarge map in full screen."
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
     indicator_with_unit: "%{indicator} (%{unit})" #?
@@ -1316,6 +1338,7 @@ fra:
     last_products: "Dernières naissances"
     last_purchases: "Derniers achats"
     last_sales: "Dernières ventes"
+    # layers_management: "layers of management, to change the base map and refine the visual representations to show."
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
@@ -1350,6 +1373,7 @@ fra:
       other: "%{count} courriels"
       zero: "Aucun courriels"
     main_settings: "Principaux paramètres"
+    # main_zone_of: "main area of ​​%{zone}"
     make_your_production_support: "Faire l’assolement ou le prévisionnel de production"
     mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère" #?
     mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère" #?
@@ -1363,15 +1387,17 @@ fra:
     manual_period: "du %{start} au %{finish}"
     manure_management_plan_chart: "Visualisation des apports azotés"
     map: "Carte"
+    # map_editor_explanation: "Question of the map grip"
     margins: "Marges" #?
     mark_all_as_read: "Tout marquer comme lu"
     mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
     marketable_net_mass: "Masse nette commercialisable"
     mass: "Masse" #?
-    max_level: "Niveau maximum" #?
+    max_level: "Niveau maximum"
     maximal_temperature: "Température maximale"
     measure_options: "Indicateur de type mesure" #?
+    # measurement_tools: "measurement tool, for calculations of distances and areas."
     meat_withdrawal_period: "Période d’attente avant remise en vente de viande" #?
     medical_informations: "Informations médicales" #?
     medicines: "Remèdes" #?
@@ -1383,10 +1409,11 @@ fra:
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
-    min_level: "Niveau minimum" #?
+    min_level: "Niveau minimum"
     minimal_temperature: "Température minimale"
     # missing: "Missing"
     missing_attributes: "Des champs sont manquants"
+    # missing_buildings: "You have not saved building for now. You can return to the previous step to declare your buildings or ignore this message by clicking Next."
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
     mobile: "Portable"
@@ -1640,6 +1667,7 @@ fra:
     reconciled_total: "Total rapproché"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
+    # reference_cap_clusters: "Islets reference CAP"
     reflect: "Refléter"
     reflected: "Changements répercutés"
     reflections: "Réflections"
@@ -1664,9 +1692,11 @@ fra:
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
+    # request_building_levels: "buildings levels"
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
+    # reset_all_data: "Delete and start over"
     resource: "Consulter la pièce d’origine\_: %{resource} %{number}"
     resources: "Gestion des ressources humaines"
     rest: "Reste"
@@ -1677,6 +1707,7 @@ fra:
       one: "%{count} résultat"
       other: "%{count} résultats"
       zero: "Aucun résultat"
+    # retrieve_my_telepac_file: "Retrieve TELEPAC file."
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
@@ -1769,6 +1800,7 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
+    # short_level_label: "Lv."
     show: "Afficher"
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
@@ -1800,6 +1832,7 @@ fra:
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     storage: "Support"
+    # storages: "Silos and tanks"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
     submit: "Envoyer"
@@ -1827,7 +1860,10 @@ fra:
     tasks: "Tâches"
     taxations: "Taxations"
     taxes: "Taxes"
+    # telepac_files: "Import TELEPAC"
+    # telepac_upload_your_xml_file: "You can import your statement in XML format that you have previously exported to TELEPAC."
     temperature: "Température" #?
+    # the_file_is_invalid: "The file is invalid!"
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
     thumb: "Miniature"
@@ -1907,6 +1943,7 @@ fra:
     unlock: "Déverrouiller"
     unmark: "Délettrer"
     unmarketable_inspection_categories_evolution: "Évolution du pourcentage de malformations et maladies"
+    # unnamed: "Nameless"
     unpaid: "Impayées"
     unpaid_amount: "Montant restant à payer" #?
     unpaid_days: "À payer depuis (jours)"
@@ -1919,6 +1956,7 @@ fra:
     unused_payment: "Encaissement à utiliser" #?
     unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?
+    # unzoom_map: "Zoom out the map."
     up: "Monter"
     update: "Modifier"
     update_params: "Modifier la recherche" #?
@@ -1961,6 +1999,7 @@ fra:
     virtual_quantity: "Quantité virtuelle" #?
     watering_concentration: "Eau consommée"
     weather: "Météo"
+    # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
@@ -2115,7 +2154,10 @@ fra:
     yield: "Rendement"
     yield_by_calibration: "Rendement par calibre"
     yield_by_calibrations: "Rendement par calibre" #?
+    # you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions."
+    # you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:"
     zones: "Zones"
+    # zoom_on_map: "Zoom on the map."
   notifications:
     levels:
       error: "Erreur\_!"

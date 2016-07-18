@@ -38,7 +38,7 @@ spa:
     forager_driver: "Controlador Forager"
     fuel: "Combustible"
     gaz_engine: "Motor de gas"
-    grains: "Granos"
+    grains: "Granos" #?
     grape: "Uva"
     grass: "Césped"
     grinder: "Amoladora"
@@ -100,7 +100,7 @@ spa:
     straw: "Paja"
     straw_bales: "Las balas de paja"
     straw_to_bunch: "Paja de racimo"
-    straws: "Pajas"
+    straws: "Pajas" #?
     # stubble_cultivator: "Stubble cultivator"
     tank: "Tanque"
     tank_for_residue: "El tanque de residuos"
@@ -159,7 +159,7 @@ spa:
     land_parcel_grinding: "Molienda de parcelas"
     lifting: "Levantamiento"
     manual_feeding: "Alimentación manual"
-    mechanical_harvesting: "La cosecha mecánica"
+    mechanical_harvesting: "La cosecha mecánica" #?
     mechanical_planting: "Plantación mecánica"
     milking: "Ordeño"
     net_installation: "Instalación de la malla"

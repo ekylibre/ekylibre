@@ -38,7 +38,7 @@ por:
     forager_driver: "Motorista forager"
     fuel: "Combustível"
     gaz_engine: "Motor de Gaz"
-    grains: "Grãos"
+    grains: "Grãos" #?
     grape: "Uva"
     grass: "Grama"
     grinder: "Amolador"
@@ -100,7 +100,7 @@ por:
     straw: "Palha"
     straw_bales: "Fardos de palha"
     straw_to_bunch: "Palha para grupo"
-    straws: "Palhas"
+    straws: "Palhas" #?
     # stubble_cultivator: "Stubble cultivator"
     tank: "Tanque"
     tank_for_residue: "Tanque de resíduo"
@@ -159,7 +159,7 @@ por:
     land_parcel_grinding: "Parcela de terra de moagem"
     lifting: "Elevação"
     manual_feeding: "Alimentação manual"
-    mechanical_harvesting: "Colheita mecânica"
+    mechanical_harvesting: "Colheita mecânica" #?
     mechanical_planting: "Plantio mecanizado"
     milking: "Ordenha"
     net_installation: "Instalação de rede"

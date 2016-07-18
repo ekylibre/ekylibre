@@ -38,7 +38,7 @@ jpn:
     forager_driver: "飼料収穫機ドライバ"
     fuel: "燃料"
     gaz_engine: "ギャズ・エンジン"
-    grains: "穀類"
+    grains: "穀類" #?
     grape: "グレープ"
     grass: "草"
     grinder: "グラインダー"
@@ -100,7 +100,7 @@ jpn:
     straw: "ストロー"
     straw_bales: "わら俵"
     straw_to_bunch: "束にストロー"
-    straws: "ストロー"
+    straws: "ストロー" #?
     # stubble_cultivator: "Stubble cultivator"
     tank: "タンク"
     tank_for_residue: "残留物のためのタンク"
@@ -159,7 +159,7 @@ jpn:
     land_parcel_grinding: "土地区画研削"
     lifting: "持ち上げ"
     manual_feeding: "手差し"
-    mechanical_harvesting: "機械収穫"
+    mechanical_harvesting: "機械収穫" #?
     mechanical_planting: "機械植栽"
     milking: "搾乳"
     net_installation: "ネットインストール"

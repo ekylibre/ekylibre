@@ -444,6 +444,7 @@ eng:
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
     costs_per_unit: "Costs per %{unit}" #?
+    # counting: "Counting"
     country: "Country"
     created_at: "Created at"
     creator: "Creator"

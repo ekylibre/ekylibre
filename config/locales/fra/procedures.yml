@@ -134,7 +134,7 @@ fra:
     gaz_engine: "Désherbeur à gaz"
     grain: "Grain" #?
     grain_to_deliver: "Grain à livrer" #?
-    grains: "Grains"
+    grains: "Grains" #?
     grape: "Raisin"
     grape_picker: "Vendangeur" #?
     grape_reaper: "Machine à vendanger" #?
@@ -255,7 +255,7 @@ fra:
     straw_to_bunch: "Fourrage entrant"
     straw_to_deliver: "Fourrage à livrer" #?
     straw_to_mulch: "Paille à pailler" #?
-    straws: "Paille"
+    straws: "Paille" #?
     stubble_cultivator: "Déchaumeur"
     tank: "Cuve"
     tank_for_residue: "Cuve pour les résidus"
@@ -364,7 +364,7 @@ fra:
     manual_feeding: "Alimentation manuelle"
     manual_vine_harvest: "Vendange manuelle" #?
     mecanical_vine_harvest: "Vendange mécanique" #?
-    mechanical_harvesting: "Récolte mécanique"
+    mechanical_harvesting: "Récolte mécanique" #?
     mechanical_planting: "Plantation mécanique"
     milking: "Traite"
     mineral_fertilizing: "Fertilisation minérale" #?

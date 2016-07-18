@@ -38,7 +38,7 @@ arb:
     forager_driver: "سائق المؤن"
     fuel: "وقود"
     gaz_engine: "محرك غاز"
-    grains: "حبيبات"
+    grains: "حبيبات" #?
     grape: "عنب"
     grass: "عشب"
     grinder: "طاحونة"
@@ -100,7 +100,7 @@ arb:
     straw: "قش"
     straw_bales: "بالات القش"
     straw_to_bunch: "القش لمجموعة"
-    straws: "القش"
+    straws: "القش" #?
     # stubble_cultivator: "Stubble cultivator"
     tank: "خزان"
     tank_for_residue: "صهريج للمخلفات"
@@ -159,7 +159,7 @@ arb:
     land_parcel_grinding: "قطعة أرض طحن"
     lifting: "رفع"
     manual_feeding: "التغذية اليدوية"
-    mechanical_harvesting: "الحصاد الميكانيكي"
+    mechanical_harvesting: "الحصاد الميكانيكي" #?
     mechanical_planting: "زراعة الميكانيكية"
     milking: "حلب"
     net_installation: "صافي تركيب"

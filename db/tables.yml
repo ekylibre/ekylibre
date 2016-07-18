@@ -4317,6 +4317,9 @@ plant_countings:
     type: integer
     references: user
 plant_density_abaci:
+  activity_id:
+    type: integer
+    references: activity
   created_at:
     type: datetime
     required: true
@@ -4348,9 +4351,6 @@ plant_density_abaci:
   updater_id:
     type: integer
     references: user
-  variety_name:
-    type: string
-    required: true
 plant_density_abacus_items:
   created_at:
     type: datetime

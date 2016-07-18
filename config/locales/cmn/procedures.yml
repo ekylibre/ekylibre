@@ -38,7 +38,7 @@ cmn:
     forager_driver: "觅食司机"
     fuel: "燃料"
     gaz_engine: "发动机燃气公司"
-    grains: "谷物"
+    grains: "谷物" #?
     grape: "葡萄"
     grass: "草"
     grinder: "磨床"
@@ -100,7 +100,7 @@ cmn:
     straw: "稻草"
     straw_bales: "秸秆包"
     straw_to_bunch: "秸秆捆"
-    straws: "秸秆"
+    straws: "秸秆" #?
     # stubble_cultivator: "Stubble cultivator"
     tank: "坦克"
     tank_for_residue: "罐残留"
@@ -159,7 +159,7 @@ cmn:
     land_parcel_grinding: "地块磨"
     lifting: "吊装"
     manual_feeding: "手动进纸"
-    mechanical_harvesting: "机械收割"
+    mechanical_harvesting: "机械收割" #?
     mechanical_planting: "机械插秧"
     milking: "挤奶"
     net_installation: "网络安装"
