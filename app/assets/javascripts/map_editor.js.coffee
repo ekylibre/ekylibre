@@ -47,13 +47,17 @@
         layers: {}
         layerDefaults:
           simple:
-            stroke: true
-            color: "#333333"
-            weight: 1
-            opacity: 1
-            fill: true
-            fillColor: "green"
-            fillOpacity: 1
+            color: "#333"
+            fillColor: "#333"
+            weight: 2
+            opacity: 0.8
+            fillOpacity: 0.4
+          categories:
+            color: "#333"
+            fillColor: "#333"
+            weight: 2
+            opacity: 0.8
+            fillOpacity: 0.4
       edit: null
       change: null
       view: 'auto'
