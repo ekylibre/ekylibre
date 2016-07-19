@@ -288,6 +288,8 @@ module Backend
       editor[:controls][:importers] ||= { formats: [:gml, :kml, :geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
       editor[:controls][:importers][:content] ||= @template.importer_form(editor[:controls][:importers][:formats])
 
+      editor[:withoutLabel] = true
+
       geom = @object.send(attribute_name)
       if geom
         editor[:edit] = Charta.new_geometry(geom).to_json_object

@@ -64,6 +64,7 @@
       change: null
       view: 'auto'
       useFeatures: false
+      withoutLabel: false
       showStyle:
         color: "#333"
         fillOpacity: 0.4
@@ -554,9 +555,9 @@
         this.counter += 1
         feature.properties['level'] = 0 if this.options.multiLevels? and not feature.properties.level?
 
-        label = new L.GhostLabel(className: 'leaflet-ghost-label').setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
-
-        @ghostLabelCluster.bind label, layer
+        unless this.options.withoutLabel
+          label = new L.GhostLabel(className: 'leaflet-ghost-label').setContent(feature.properties.name || feature.properties.id).toCentroidOfBounds(layer.getLatLngs())
+          @ghostLabelCluster.bind label, layer
 
 
       $(this.element).trigger('mapeditor:feature_add', feature)
