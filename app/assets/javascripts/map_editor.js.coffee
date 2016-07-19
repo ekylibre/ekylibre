@@ -764,18 +764,17 @@
 
           @layersScheduler.schedule event.layer
 
-          if event.name == @options.overlaySelector.ghostLayer
-            @map.eachLayer (layer) =>
-              if layer.options? and layer.options.className == "leaflet-ghost-label"
-                label = $(layer._container)
-                label.show()
+          # for each layer in the layerGroup
+          event.layer.eachLayer (layer) =>
+            @ghostLabelCluster.bind layer.label, layer unless layer.label is undefined
+          @ghostLabelCluster.refresh()
+
 
         @map.on "overlayremove", (event) =>
-          if event.name == @options.overlaySelector.ghostLayer
-            @map.eachLayer (layer) =>
-              if layer.options? and layer.options.className == "leaflet-ghost-label"
-                label = $(layer._container)
-                label.hide()
+
+          event.layer.eachLayer (layer) =>
+            @ghostLabelCluster.removeLayer target: { label: layer.label } unless layer.label is undefined
+          @ghostLabelCluster.refresh()
 
         @layersScheduler = L.layersScheduler()
         @layersScheduler.addTo @map

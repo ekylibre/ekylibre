@@ -33,7 +33,7 @@ L.GhostLabelCluster = L.LayerGroup.extend
     return
 
   addLayer: (layer) ->
-    @_originalLayers.push layer
+    @_originalLayers.push layer unless @_originalLayers.indexOf(layer) != -1
     if @_map
       @__addClusteredLayer layer
     return
@@ -73,12 +73,12 @@ L.GhostLabelCluster = L.LayerGroup.extend
   onAdd: (map) ->
     unless @_map
       @_map = map
-      @_onZoomEnd()
-      map.on 'zoomend', @_onZoomEnd, this
+      @refresh()
+      map.on 'zoomend', @refresh, this
     return
 
   onRemove: (map) ->
-    map.off 'zoomend', @_onZoomEnd, this
+    map.off 'zoomend', @refresh, this
     return
 
   __addClusteredLayer: (layer) ->
@@ -128,9 +128,9 @@ L.GhostLabelCluster = L.LayerGroup.extend
           idsToCollapse.push otherLayer._leaflet_id
         else
           collapsedLayer = @_visibleLayers[@_clusterIndex[item[4].id]]
-          bounds = collapsedLayer.getLatLng()
+          bounds = collapsedLayer.getLatLng() unless collapsedLayer is undefined
 
-        latLngBounds.extend bounds
+        latLngBounds.extend bounds unless bounds is undefined
 
 
       collapsedLayer ||= new L.GhostLabel(className: className)
@@ -175,7 +175,7 @@ L.GhostLabelCluster = L.LayerGroup.extend
       box[3] + offset.y + @_margin
     ]
 
-  _onZoomEnd: ->
+  refresh: ->
     for id, layer of @_visibleLayers
       @__removeLayer.call @, layer
       delete @_visibleLayers[id]
