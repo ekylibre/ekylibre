@@ -13,8 +13,8 @@
           %th= PlantDensityAbacusItem.human_attribute_name(:plants_count)
           %th
       %tbody#items
-        = f.simple_fields_for :items, resource.items do |item|
+        = f.simple_fields_for :items, f.object.items do |item|
           = render 'backend/plant_density_abaci/item_fields', f: item
       %tfoot
         %tr
-          %td{ colspan: 2 }= link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items', association_insertion_method: :append }, class: "btn primary"
+          %td{ colspan: 2 }= link_to_add_association :add_item.tl, f, :items, partial: 'backend/plant_density_abaci/item_fields', data: { association_insertion_node: '#items', association_insertion_method: :append }, class: "btn primary"
