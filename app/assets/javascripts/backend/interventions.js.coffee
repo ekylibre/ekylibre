@@ -75,16 +75,12 @@
       for id, attributes of list
         E.interventions.unserializeRecord(form, attributes, prefix + id + '_', updater_id)
 
-    updateParcelsScopes: (newTime) ->
+    updateDateScopes: (newTime) ->
       $("input.scoped-parameter").each (index, item) ->
-        console.log newTime
         scopeUri = decodeURI($(item).data("selector"))
         re =  /(scope\[availables\]\[\]\[at\]=)(.*)(&)/
-        console.log scopeUri
         scopeUri = scopeUri.replace(re, "$1"+newTime+"$3")
-        console.log scopeUri
         $(item).attr("data-selector", encodeURI(scopeUri))
-        console.log $(item).data('selector')
 
     # Ask for a refresh of values depending on given field
     refresh: (origin) ->
@@ -133,6 +129,11 @@
   $(document).on 'cocoon:after-insert', ->
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
+    $("input.intervention-started-at").each ->
+      $(this).each ->
+        #date = $(this).data("datetimepicker").getFormattedDate()
+        date = $(this).val()
+        E.interventions.updateDateScopes(date)
 
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
@@ -155,7 +156,7 @@
     $(this).each ->
       #date = $(this).data("datetimepicker").getFormattedDate()
       date = $(this).val()
-      E.interventions.updateParcelsScopes(date)
+      E.interventions.updateDateScopes(date)
 
   # $(document).on 'change', '*[data-procedure-global="at"]', ->
   #   $(this).each ->
