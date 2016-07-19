@@ -1663,6 +1663,7 @@ cmn:
         bacterial_leaf_blight: "白叶枯病"
         bacterial_streak: "细菌连胜"
         bacteriosis: "细菌性"
+        # bad_vegetative_growth_conditions: "Bad vegetative growth conditions"
         black_rust: "黑锈"
         chenopodium_album: "藜"
         climate_issue: "气候问题"

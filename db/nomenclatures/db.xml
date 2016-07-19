@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160630075849">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160719100836">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1647,6 +1647,7 @@
       <item name="bacterial_leaf_blight" parent="bacteria_disease" target="poa"/>
       <item name="bacterial_streak" parent="bacteria_disease" target="poa"/>
       <item name="bacteriosis" parent="bacteria_disease" cause="xanthomonas_arboricola" target="juglans"/>
+      <item name="bad_vegetative_growth_conditions" parent="disease" target="plant"/>
       <item name="black_rust" parent="fungus_disease" cause="fungus" target="poa"/>
       <item name="chenopodium_album" parent="plant_disease" target="zea"/>
       <item name="climate_issue" parent="issue"/>

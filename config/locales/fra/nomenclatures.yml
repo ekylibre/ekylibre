@@ -1810,6 +1810,7 @@ fra:
         bacterial_leaf_blight: "Bactériose des glumes du blé"
         bacterial_streak: "Glume noire des céréales"
         bacteriosis: "Bactériose"
+        bad_vegetative_growth_conditions: "Mauvais état végétatif"
         black_rust: "Rouille brune"
         chenopodium_album: "Chénopode blanc"
         climate_issue: "Incident climatique"

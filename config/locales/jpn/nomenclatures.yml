@@ -1674,6 +1674,7 @@ jpn:
         bacterial_leaf_blight: "白葉枯病"
         bacterial_streak: "細菌連勝"
         bacteriosis: "細菌症"
+        # bad_vegetative_growth_conditions: "Bad vegetative growth conditions"
         black_rust: "黒さび病"
         chenopodium_album: "シロザ"
         climate_issue: "気候問題"

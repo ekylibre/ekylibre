@@ -1663,6 +1663,7 @@ deu:
         bacterial_leaf_blight: "Bakterienbrand"
         bacterial_streak: "Bakterielle Streifen"
         bacteriosis: "bacteriosis"
+        # bad_vegetative_growth_conditions: "Bad vegetative growth conditions"
         black_rust: "Schwarzrost"
         # chenopodium_album: "Chenopodium album"
         climate_issue: "Klimafrage"

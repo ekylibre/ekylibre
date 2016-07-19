@@ -1663,6 +1663,7 @@ ita:
         bacterial_leaf_blight: "Batterica peronospora sul cespo"
         bacterial_streak: "striscia batterica"
         bacteriosis: "batteriosi"
+        # bad_vegetative_growth_conditions: "Bad vegetative growth conditions"
         black_rust: "ruggine nero"
         # chenopodium_album: "Chenopodium album"
         climate_issue: "problema del clima"

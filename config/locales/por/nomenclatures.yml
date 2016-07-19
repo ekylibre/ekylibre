@@ -1663,6 +1663,7 @@ por:
         bacterial_leaf_blight: "Mancha foliar bacteriana"
         bacterial_streak: "Raia bacteriana"
         bacteriosis: "Bacteriose"
+        # bad_vegetative_growth_conditions: "Bad vegetative growth conditions"
         black_rust: "Ferrugem negra"
         # chenopodium_album: "Chenopodium album"
         climate_issue: "Questão climática"

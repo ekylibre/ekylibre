@@ -1672,6 +1672,7 @@ arb:
         bacterial_leaf_blight: "بكتيريا اللفحة ورقة"
         bacterial_streak: "خط البكتيرية"
         bacteriosis: "داء جرثومي"
+        # bad_vegetative_growth_conditions: "Bad vegetative growth conditions"
         black_rust: "الصدأ الأسود"
         chenopodium_album: "سرمق أبيض"
         climate_issue: "قضية المناخ"

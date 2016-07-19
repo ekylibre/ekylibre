@@ -1669,6 +1669,7 @@ spa:
         bacterial_leaf_blight: "Tizón de la hoja bacteriana"
         bacterial_streak: "Racha bacteriana"
         bacteriosis: "Bacteriosis"
+        # bad_vegetative_growth_conditions: "Bad vegetative growth conditions"
         black_rust: "Óxido negro"
         # chenopodium_album: "Chenopodium album"
         climate_issue: "Cuestión del clima"
