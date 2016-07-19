@@ -303,7 +303,7 @@ fra:
       guide_analysis: "Analyse d’un référentiel"
       guide_analysis_point: "Point d’analyse d’un référentiel"
       identifier: "Identifiant"
-      implement: "Outil"
+      implement: "Outil" #?
       import: "Import"
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
