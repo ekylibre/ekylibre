@@ -296,33 +296,35 @@ class JournalEntry < Ekylibre::Record::Base
     ActiveRecord::Base.transaction do
       saved = save
 
-      # Remove removed items and keep existings
-      items.where.not(id: entry_items.map { |i| i[:id] }).find_each(&:destroy)
+      if saved
+        # Remove removed items and keep existings
+        items.where.not(id: entry_items.map { |i| i[:id] }).find_each(&:destroy)
 
-      entry_items.each_with_index do |entry_item, _index|
-        item = items.detect { |i| i.id == entry_item[:id].to_i }
-        if item
-          item.attributes = entry_item.except(:id)
+        entry_items.each_with_index do |entry_item, _index|
+          item = items.detect { |i| i.id == entry_item[:id].to_i }
+          if item
+            item.attributes = entry_item.except(:id)
+          else
+            item = items.build(entry_item.except(:id))
+          end
+          saved = false unless item.save
+        end
+        if saved
+          reload
+          unless items.any?
+            errors.add(:items, :empty)
+            saved = false
+          end
+          unless balanced?
+            errors.add(:debit, :unbalanced)
+            saved = false
+          end
+        end
+        if saved
+          return true
         else
-          item = items.build(entry_item.except(:id))
+          raise ActiveRecord::Rollback
         end
-        saved = false unless item.save
-      end
-      if saved
-        reload
-        unless items.any?
-          errors.add(:items, :empty)
-          saved = false
-        end
-        unless balanced?
-          errors.add(:debit, :unbalanced)
-          saved = false
-        end
-      end
-      if saved
-        return true
-      else
-        raise ActiveRecord::Rollback
       end
     end
     false

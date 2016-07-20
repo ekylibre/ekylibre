@@ -5,6 +5,7 @@
   id ||= @@item_count * -1
   id = id.to_s
   @@item_count += 1
+  item = JournalEntryItem.new(item) if item.is_a?(Hash)
 
 - if item.errors.any?
   %tr.inline-errors{id: "#{id}-errors", class: "#{id}-item"}
@@ -30,10 +31,10 @@
   - rate ||= 0
   %tr{id: "#{id}-real-values", class: "#{id}-item"}
     %td.dec{colspan: 2}
-    %td.dec.debit{data: {calculate_round: precision}}= (item.real_debit * rate).round(precision)
-    %td.debit-without-error-correction.hidden= (item.real_debit * rate).round(precision)
+    %td.dec.debit{data: {calculate_round: precision}}= ((item.real_debit||0) * rate).round(precision)
+    %td.debit-without-error-correction.hidden= ((item.real_debit||0) * rate).round(precision)
     %td= @financial_year.currency
-    %td.dec.credit{data: {calculate_round: precision}}= (item.real_credit * rate).round(precision)
-    %td.credit-without-error-correction.hidden= (item.real_credit * rate).round(precision)
+    %td.dec.credit{data: {calculate_round: precision}}= ((item.real_credit||0) * rate).round(precision)
+    %td.credit-without-error-correction.hidden= ((item.real_credit||0) * rate).round(precision)
     %td= @financial_year.currency
     %td.act
