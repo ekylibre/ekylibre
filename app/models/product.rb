@@ -663,6 +663,24 @@ class Product < Ekylibre::Record::Base
     list
   end
 
+  # Override net_surface_area indicator to compute it from shape if
+  # product has shape indicator unless options :strict is given
+  def net_surface_area(options = {})
+    # TODO: Manage global preferred surface unit or system
+    area_unit = options[:unit] || :hectare
+    if !options.keys.detect { |k| [:gathering, :interpolate, :cast].include?(k) } &&
+       has_indicator?(:shape) && !options[:compute].is_a?(FalseClass)
+      unless options[:strict]
+        options[:at] = born_at if born_at && born_at > Time.zone.now
+      end
+      shape = get(:shape, options)
+      area = shape.area.in(area_unit).round(3) if shape
+    else
+      area = get(:net_surface_area, options)
+    end
+    area || 0.in(area_unit)
+  end
+
   # Returns working duration of a product
   def working_duration(options = {})
     role = options[:as] || :tool
