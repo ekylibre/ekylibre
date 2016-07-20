@@ -30,6 +30,7 @@ eng:
     # ton: "Ton"
     #~ volume_area_density: "Volume area density"
     #~ volume_density: "Volume density"
+    stakes_by_hectare: "Stakes by hectare"
   procedure_parameters:
     adding_wine: "Adding wine"
     animal: "Animal"

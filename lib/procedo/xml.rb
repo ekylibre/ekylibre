@@ -145,12 +145,11 @@ module Procedo
       # Parse <handler> of parameter
       def parse_handler(parameter, element)
         # Extract attributes from XML element
-        options = %w(forward backward indicator unit to name if).each_with_object({}) do |attr, hash|
+        options = %w(forward backward indicator unit to name if datatype).each_with_object({}) do |attr, hash|
           hash[attr.to_sym] = element.attr(attr) if element.has_attribute?(attr)
           hash
         end
 
-        options[:indicator] ||= options[:name]
         name = options.delete(:name) || options[:indicator]
 
         handler = parameter.add_handler(name, options)

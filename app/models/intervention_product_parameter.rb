@@ -89,8 +89,8 @@ class InterventionProductParameter < InterventionParameter
     if reference
       if reference.handled? && quantity_handler?
         handler = reference.handler(quantity_handler)
-        if handler && handler.indicator
-          self.quantity_indicator_name = handler.indicator.name
+        if handler
+          self.quantity_indicator_name = handler.name
           self.quantity_unit_name = handler.unit.name if handler.unit
         end
       end
@@ -144,7 +144,11 @@ class InterventionProductParameter < InterventionParameter
   end
 
   def measurable?
-    quantity_handler? && quantity_handler_reference && quantity_handler_reference.indicator?
+    quantity_handler? && quantity_handler_reference && quantity_handler_reference.measure?
+  end
+
+  def is_population?
+    quantity_indicator_name == 'population'
   end
 
   [:doer, :input, :output, :target, :tool].each do |role|
