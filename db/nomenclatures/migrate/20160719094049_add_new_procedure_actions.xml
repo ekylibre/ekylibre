@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add new procedure actions">
+  <item-creation item="procedure_actions#curative_maintenance"/>
+  <item-creation item="procedure_actions#preventive_maintenance"/>
+  <item-creation item="procedure_actions#upgrading_maintenance"/>
+</migration>
