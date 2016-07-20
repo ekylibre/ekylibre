@@ -18,9 +18,9 @@ arb:
         per_working_unit: "لكل وحدة العمل"
     activity_inspection_point_nature:
       category:
-        # deformity: "Deformity"
-        # disease: "Disease"
-        # none: "None"
+        deformity: "تشويه"
+        disease: "مرض"
+        none: "لا شيء"
     activity_production:
       support_nature:
         border: "الحدود"
@@ -95,8 +95,8 @@ arb:
         polygon: "المضلع"
     grading_quality_criterion:
       nature:
-        # disease_presence: "Disease presence"
-        # waste: "Waste"
+        disease_presence: "وجود المرض"
+        waste: "المخلفات"
     guide_analysis:
       status:
         # errored: "Errored"

@@ -771,10 +771,9 @@ fra:
     active_fixed_sum: "Total actifs immobilisés" #?
     active_sum: "Total actifs" #?
     activities: "Activités"
-    # activities_step: "activities"
     activity: "Activités"
-    # activity_family: "Family activities"
-    # activity_name: "Activity"
+    activity_family: "Activités familiales"
+    activity_name: "Activité"
     activity_production: "Production"
     activity_productions: "Productions"
     add: "Ajouter"
@@ -789,7 +788,7 @@ fra:
     add_distribution: "Ajouter une répartition"
     add_email: "Ajouter une adresse e-mail"
     add_entry: "Ajouter une écriture"
-    # add_equipment: "Adding equipment"
+    add_equipment: "Ajout d&#39;équipements"
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
@@ -821,8 +820,6 @@ fra:
     add_working_period: "Ajouter une période de travail"
     add_x: "Ajouter «\_%{x}\_»"
     add_x_html: "Ajouter «\_%{x}\_»" #?
-    # add_your_activities: "Add the activities you need. The activities are deducted from your import TELEPAC appropriate."
-    # add_your_equipment: "Add Your Equipment. You can also associate a location that you have previously defined (cultivable area or building area)."
     address: "Adresse" #?
     affair: "Affaire"
     affair_number: "N° d’affaire"
@@ -830,7 +827,7 @@ fra:
     all: "Tous"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —" #?
-    all_cash_balances: "Soldes des comptes"
+    all_cash_balances: "Soldes des comptes" #?
     all_columns: "Toutes les colonnes"
     all_conditions: "toutes les conditions"
     all_periods: "Tous les exercices"
@@ -852,7 +849,7 @@ fra:
     animal_identification: "Identification animale" #?
     animal_life_state: "Phase du bioprocessus de vie d’un animal" #?
     animal_pie: "Animaux par lot" #?
-    animal_productions: "Productions animales"
+    animal_productions: "Productions animales" #?
     animals: "Animaux"
     apply: "Appliquer" #?
     archived_at: "Archivé à" #?
@@ -878,7 +875,7 @@ fra:
     attachment: "Pièce jointe"
     attachments: "Pièces jointes"
     attorney: "Informations mandataire" #?
-    # auto_reconciliate: "Auto reconciliate"
+    auto_reconciliate: "Auto réconcilier"
     automatic: "Auto"
     available: "Disponible"
     available_columns: "Champs disponibles\_: %{columns}"
@@ -899,10 +896,8 @@ fra:
     budget_per_working_indicator: "Budget par unité d’œuvre"
     budgets: "Budgets"
     building: "Lieu de stockage"
-    # building_divisions: "building areas"
-    # building_divisions_and_parcels: "building areas and land parcels"
     building_name: "Sortie de" #?
-    # buildings: "buildings"
+    buildings: "bâtiments"
     buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
@@ -913,13 +908,8 @@ fra:
     cancel: "Annuler"
     cancelation: "Annulation"
     cancelled: "Passées en avoir" #?
-    # cap_cluster_prefix: "CAP island No."
-    # cap_clusters: "CAP islands"
     cap_islets: "Ilots PAC"
-    # cap_land_parcel_clusters: "CAP islands"
     cap_land_parcels: "Parcelles PAC"
-    # cap_parcel_prefix: "CAP land parcel No."
-    # cap_parcels: "CAP land parcels"
     care: "soins" #?
     cartography: "Cartographie"
     cash: "Trésorerie"
@@ -968,7 +958,7 @@ fra:
     column_title: "Titre" #?
     columns: "Colonnes à importer"
     commission: "Commission"
-    # company: "Society"
+    company: "Société"
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     complete: "Compléter"
@@ -978,7 +968,6 @@ fra:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
       special-subscriber: "Filtre Abonné"
     configure: "Configurer"
-    # confirm_sentence: "Are you sure?"
     confirmed: "Confirmées" #?
     confirmed_at: "Confirmée le" #?
     connect: "Entrer" #?
@@ -1005,11 +994,11 @@ fra:
     costs: "Coûts"
     costs_map: "Carte des coûts" #?
     costs_per_hectare: "Couts par hectare"
+    countings: "dénombrements"
     country: "Pays" #?
     counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "Créer"
-    # create_a_new_division: "Create a new zone. Click on the map to add a point and close the drawing to create the zone."
     create_journal: "— Créer le journal —"
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
@@ -1036,7 +1025,6 @@ fra:
     csv_statistics: "Statistiques à exporter au format CSV" #?
     cultivable_zone: "Zone cultivable"
     cultivable_zone_abbreviation: "ZC" #?
-    # cultivable_zone_prefix: "cultivable area No."
     cultivable_zones: "Zones cultivables"
     cumul: "Cumul du total et du solde précédent N°%{number}"
     currency: "Devise" #?
@@ -1060,12 +1048,10 @@ fra:
     default_letter_introduction: "Suite à notre conversation, je vous communique les éléments du devis."
     default_subject: "[%{company}]"
     definition: "Définition"
-    # deformity: "Deformity"
+    deformity: "Déformation"
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
     delete: "Supprimer"
-    # delete_an_existing_division: "Delete an existing zone. Click the box to remove it."
-    # delete_shape: "Delete form"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"
@@ -1105,19 +1091,14 @@ fra:
     download_firefox: "Télécharger Mozilla Firefox…" #?
     downpayment: "Acompte"
     draft: "Brouillard"
-    # draw_your_building_divisions: "Draw your building areas. By default, a main area for your building is created."
-    # draw_your_buildings: "Draw your buildings, which ye shall divide area in the next step."
-    # draw_your_cultivable_zones: "Draw the areas where you have crops. These are deducted from your PAC import if necessary."
     drug: "Médicament" #?
     duplicate: "Dupliquer"
     duration: "Durée"
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     during: "Pendant"
-    earns: "Gains"
+    earns: "Gains" #?
     edit: "Modifier"
-    # edit_an_existing_division: "Edit an existing zone. Drag a point to move, Ctrl + left click to remove it."
     edit_budget: "Modifier le budget"
-    # edited_cap_clusters: "Islands modified PAC"
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Temps passé par activité" #?
     email: "Email:"
@@ -1132,10 +1113,8 @@ fra:
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
     entry_items: "Lignes d’écriture"
-    # equipment: "Equipment"
-    # equipment_name: "Name of equipment"
-    # equipment_type: "Type of equipment"
-    # equipment_zone: "Location"
+    equipment: "Équipement"
+    equipment_name: "Nom de l&#39;équipement"
     equipments: "Équipements"
     error: "Désolé..."
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
@@ -1171,7 +1150,6 @@ fra:
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
-    # file_imports: "Import files"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
     file_preview: "Visualisation de votre fichier"
@@ -1236,9 +1214,7 @@ fra:
     implanted_at: "Implantée le"
     import: "Importer"
     import_backup: "Import de fichier de sauvegarde" #?
-    # import_zones_from_third_party_softwares: "Import zones from third party software, the GeoJSON format GML and KML."
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
-    # imported_file: "Your file has been imported"
     in_production: "En production" #?
     inactive: "Inactif"
     incident: "Incident" #?
@@ -1255,23 +1231,22 @@ fra:
       unreceived: "Non reçus" #?
       waiting: "À encaisser plus tard" #?
     incoming_payments_to_deposit: "Encaissements à déposer"
-    # increase_map_on_fullscreen: "Enlarge map in full screen."
     indicator: "Indicateur"
     indicator_value: "Valeur de l’indicateur"
     indicator_with_unit: "%{indicator} (%{unit})" #?
     indicators: "Indicateurs"
     indicators_evolutions: "Évolutions des indicateurs"
-    indirect_expenses: "Charges indirectes"
+    indirect_expenses: "Charges indirectes" #?
     inel_index: "Index génétique INEL" #?
     info: "Information\_: %{value}"
     infos: "Information générales"
     initial_balance_of_bank_statement: "Solde initial du relevé de compte"
     input_cost: "Coût d’intrant"
-    input_cost_per_hectare: "Coût des intrants par hectare"
+    input_cost_per_hectare: "Coût des intrants par hectare" #?
     inputs: "Intrants"
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
-    # inspections: "Inspections"
+    inspections: "inspections"
     internal_error: "Oups, quelque chose s’est mal passé."
     interval: "Intervalle personnalisé"
     intervention: "Intervention"
@@ -1338,7 +1313,6 @@ fra:
     last_products: "Dernières naissances"
     last_purchases: "Derniers achats"
     last_sales: "Dernières ventes"
-    # layers_management: "layers of management, to change the base map and refine the visual representations to show."
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé" #?
     letter: "Lettrer"
     letter_options: "Lettre" #?
@@ -1349,8 +1323,8 @@ fra:
       clients: "Clients" #?
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
-    # level: "Level"
-    # levels: "levels"
+    level: "Niveau"
+    levels: "les niveaux"
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
@@ -1373,7 +1347,6 @@ fra:
       other: "%{count} courriels"
       zero: "Aucun courriels"
     main_settings: "Principaux paramètres"
-    # main_zone_of: "main area of ​​%{zone}"
     make_your_production_support: "Faire l’assolement ou le prévisionnel de production"
     mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère" #?
     mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère" #?
@@ -1387,17 +1360,15 @@ fra:
     manual_period: "du %{start} au %{finish}"
     manure_management_plan_chart: "Visualisation des apports azotés"
     map: "Carte"
-    # map_editor_explanation: "Question of the map grip"
     margins: "Marges" #?
     mark_all_as_read: "Tout marquer comme lu"
     mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
     marketable_net_mass: "Masse nette commercialisable"
     mass: "Masse" #?
-    max_level: "Niveau maximum"
+    max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
     measure_options: "Indicateur de type mesure" #?
-    # measurement_tools: "measurement tool, for calculations of distances and areas."
     meat_withdrawal_period: "Période d’attente avant remise en vente de viande" #?
     medical_informations: "Informations médicales" #?
     medicines: "Remèdes" #?
@@ -1409,11 +1380,10 @@ fra:
     merge: "Fusionner"
     method: "Méthode"
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
-    min_level: "Niveau minimum"
+    min_level: "Niveau minimum" #?
     minimal_temperature: "Température minimale"
-    # missing: "Missing"
+    missing: "Manquant"
     missing_attributes: "Des champs sont manquants"
-    # missing_buildings: "You have not saved building for now. You can return to the previous step to declare your buildings or ignore this message by clicking Next."
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
     mobile: "Portable"
@@ -1433,13 +1403,13 @@ fra:
     natures: "Types"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions" #?
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant" #?
-    net_margin: "Marge nette"
+    net_margin: "Marge nette" #?
     net_mass: "Masse nette"
     net_surface_area: "Surface nette"
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     new: "Nouveau"
-    # new_activity: "new activity"
+    new_activity: "nouvelle activité"
     new_animal: "Nouvel animal"
     new_attachment: "Nouvel attachement"
     new_box: "Nouvelle boîte"
@@ -1459,7 +1429,7 @@ fra:
       zero: "Effectuer une remise\_: %{mode} (Pas d’encaissements disponibles)"
     new_document: "Nouveau document" #?
     new_email: "Nouveau courriel"
-    # new_equipment: "new equipment"
+    new_equipment: "nouvel équipement"
     new_family: "Nouvelle famille" #?
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
@@ -1554,7 +1524,7 @@ fra:
     participations: "Participations"
     parts: "Modules"
     password: "Mot de passe"
-    paths_to_convert: "Chemins à convertir"
+    paths_to_convert: "Chemins à convertir" #?
     payable_taxes: "Taxes payables"
     payback: "Remboursement demandée" #?
     payment_amount: "Montant de l’encaissement"
@@ -1656,7 +1626,7 @@ fra:
     quantity_rest: "Quantité restante" #?
     quarterly: "Trimestrielle" #?
     query: "Requête:"
-    raw_margin: "Marge brute"
+    raw_margin: "Marge brute" #?
     reading_tasks: "Relevés d’indicateur"
     readings: "Relevés d’indicateur"
     ready: "Prêt(e)"
@@ -1667,7 +1637,6 @@ fra:
     reconciled_total: "Total rapproché"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
-    # reference_cap_clusters: "Islets reference CAP"
     reflect: "Refléter"
     reflected: "Changements répercutés"
     reflections: "Réflections"
@@ -1692,11 +1661,9 @@ fra:
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
-    # request_building_levels: "buildings levels"
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
-    # reset_all_data: "Delete and start over"
     resource: "Consulter la pièce d’origine\_: %{resource} %{number}"
     resources: "Gestion des ressources humaines"
     rest: "Reste"
@@ -1707,7 +1674,6 @@ fra:
       one: "%{count} résultat"
       other: "%{count} résultats"
       zero: "Aucun résultat"
-    # retrieve_my_telepac_file: "Retrieve TELEPAC file."
     revenues: "Recettes"
     revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Appliquer la condition inverse"
@@ -1800,7 +1766,6 @@ fra:
     sex: "Sexe"
     shape: "Forme"
     ship: "Prévue le"
-    # short_level_label: "Lv."
     show: "Afficher"
     sign_out: "Se déconnecter"
     simplified: "Régime du réel simplifié"
@@ -1826,13 +1791,12 @@ fra:
     stock_min: "Stock minimum" #?
     stock_of_x: "Stock de %{x}"
     stocks: "Stocks"
-    stocks_by_calibrations: "Stock en terre par calibre"
-    stocks_in_ground: "Stock en terre"
+    stocks_by_calibrations: "Stock en terre par calibre" #?
+    stocks_in_ground: "Stock en terre" #?
     stocks_preferences: "Gestion des stocks" #?
     stop: "Jusqu’au"
     stopped: "Arrêtés"
     storage: "Support"
-    # storages: "Silos and tanks"
     string_case: "Options pour le texte" #?
     subject: "Sujet"
     submit: "Envoyer"
@@ -1860,10 +1824,7 @@ fra:
     tasks: "Tâches"
     taxations: "Taxations"
     taxes: "Taxes"
-    # telepac_files: "Import TELEPAC"
-    # telepac_upload_your_xml_file: "You can import your statement in XML format that you have previously exported to TELEPAC."
     temperature: "Température" #?
-    # the_file_is_invalid: "The file is invalid!"
     theoric_quantity: "Quantité théorique" #?
     third_informations: "Informations tierces" #?
     thumb: "Miniature"
@@ -1901,7 +1862,7 @@ fra:
     total_bacteria_concentration: "Dénombrement des germes totaux" #?
     total_cost: "Coût total"
     total_cost_per_working_unit: "Coût total par unité d’œuvre" #?
-    total_earn: "Gain total"
+    total_earn: "Gain total" #?
     total_earn_per_working_unit: "Gain total par unité d’œuvre" #?
     total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total montant facturé" #?
@@ -1943,7 +1904,6 @@ fra:
     unlock: "Déverrouiller"
     unmark: "Délettrer"
     unmarketable_inspection_categories_evolution: "Évolution du pourcentage de malformations et maladies"
-    # unnamed: "Nameless"
     unpaid: "Impayées"
     unpaid_amount: "Montant restant à payer" #?
     unpaid_days: "À payer depuis (jours)"
@@ -1956,7 +1916,6 @@ fra:
     unused_payment: "Encaissement à utiliser" #?
     unvalid_date: "Date incorrecte" #?
     unvalidated_operations: "Travaux non validés" #?
-    # unzoom_map: "Zoom out the map."
     up: "Monter"
     update: "Modifier"
     update_params: "Modifier la recherche" #?
@@ -1999,7 +1958,6 @@ fra:
     virtual_quantity: "Quantité virtuelle" #?
     watering_concentration: "Eau consommée"
     weather: "Météo"
-    # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
@@ -2154,10 +2112,7 @@ fra:
     yield: "Rendement"
     yield_by_calibration: "Rendement par calibre"
     yield_by_calibrations: "Rendement par calibre" #?
-    # you_are_ready_to_start: "You will be guided through the steps to easily configure your operation. You can go back or skip ahead through the progress bar located above the title of the stage. In the end, you will be able to start using the software in good conditions."
-    # you_will_start_to_add_your_first_data: "The steps will allow you to import the following data:"
     zones: "Zones"
-    # zoom_on_map: "Zoom on the map."
   notifications:
     levels:
       error: "Erreur\_!"
@@ -2168,7 +2123,7 @@ fra:
       a_campaign_must_be_opened: "Une campagne doit être ouverte"
       a_production_must_be_opened: "Une production doit être ouverte"
       access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
-      # all_data_import_finished: "All of your data was imported"
+      all_data_import_finished: "Toutes vos données ont été importées"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tous les colis doivent être facturables de la même nature et au même tiers"
       an_activity_must_be_defined: "Une activité doit être définie"
       bad_file: "Le fichier ne semble pas correspondre." #?
@@ -2279,7 +2234,7 @@ fra:
       some_parcels_are_not_shippable: "Certains colis ne sont pas transportables"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
-      # subscription_is_not_renewable: "Subscription is not renewable"
+      subscription_is_not_renewable: "L&#39;abonnement est non renouvelable"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
@@ -2296,7 +2251,7 @@ fra:
       you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
       you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"
       you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre\_?" #?
-      # your_data_are_being_imported: "Your data is being imported"
+      your_data_are_being_imported: "Vos données sont en cours d&#39;importation"
   preferences:
     accounting_system: "Plan comptable"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
@@ -2383,7 +2338,7 @@ fra:
       ship: "Expédier"
       show: "Afficher"
       sort: "Trier"
-      # star: "Star"
+      star: "Étoile"
       start: "Commencer"
       stop: "Arrêter"
       suspend: "Suspendre"

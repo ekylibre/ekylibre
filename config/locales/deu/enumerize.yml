@@ -18,9 +18,9 @@ deu:
         per_working_unit: "Je Arbeitseinheit"
     activity_inspection_point_nature:
       category:
-        # deformity: "Deformity"
-        # disease: "Disease"
-        # none: "None"
+        deformity: "Deformität"
+        disease: "Krankheit"
+        none: "Keiner"
     activity_production:
       support_nature:
         border: "Rand"
@@ -31,7 +31,7 @@ deu:
     cash:
       mode:
         bban: "Grund Bank Account Number (BBAN)"
-        # iban: "International Bank Account Number (IBAN)"
+        iban: "Internationale Bankkontonummer (IBAN)"
       nature:
         associate_account: "Mitarbeiterin Konto"
         bank_account: "Bank Konto"
@@ -62,7 +62,7 @@ deu:
         first: "Zunächst Typ"
         first_of_template: "Zunächst template"
         last: "Zuletzt vom Typ"
-        # last_of_template: "Last of template"
+        last_of_template: "Der letzte Vorlage"
         none: "Keiner von Typ"
         none_of_template: "Keines template"
     entity:
@@ -95,8 +95,8 @@ deu:
         polygon: "Vieleck"
     grading_quality_criterion:
       nature:
-        # disease_presence: "Disease presence"
-        # waste: "Waste"
+        disease_presence: "Krankheit Präsenz"
+        waste: "Abfall"
     guide_analysis:
       status:
         errored: "Fehlerhafte"

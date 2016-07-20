@@ -18,9 +18,9 @@ jpn:
         per_working_unit: "作業単位当たり"
     activity_inspection_point_nature:
       category:
-        # deformity: "Deformity"
-        # disease: "Disease"
-        # none: "None"
+        deformity: "変形"
+        disease: "疾患"
+        none: "なし"
     activity_production:
       support_nature:
         border: "境界"
@@ -95,8 +95,8 @@ jpn:
         polygon: "ポリゴン"
     grading_quality_criterion:
       nature:
-        # disease_presence: "Disease presence"
-        # waste: "Waste"
+        disease_presence: "病気の存在"
+        waste: "廃棄物"
     guide_analysis:
       status:
         errored: "エラーの発生しました"

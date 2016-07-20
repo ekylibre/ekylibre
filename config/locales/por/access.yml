@@ -38,7 +38,7 @@ por:
       events: "Eventos"
       exports: "Exportações"
       financial_years: "Anos Fiscais"
-      # first_run: "First run"
+      first_run: "Primeira corrida"
       fixed_assets: "Ativos financeiros"
       fungi: "Fungos"
       gaps: "Lacunas"

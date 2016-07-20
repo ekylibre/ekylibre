@@ -18,9 +18,9 @@ cmn:
         per_working_unit: "每工作单位"
     activity_inspection_point_nature:
       category:
-        # deformity: "Deformity"
-        # disease: "Disease"
-        # none: "None"
+        deformity: "畸形"
+        disease: "疾病"
+        none: "没有"
     activity_production:
       support_nature:
         border: "边境"
@@ -95,8 +95,8 @@ cmn:
         polygon: "多边形"
     grading_quality_criterion:
       nature:
-        # disease_presence: "Disease presence"
-        # waste: "Waste"
+        disease_presence: "疾病的存在"
+        waste: "浪费"
     guide_analysis:
       status:
         errored: "误码"

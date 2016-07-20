@@ -18,9 +18,9 @@ ita:
         per_working_unit: "Per unità di lavoro"
     activity_inspection_point_nature:
       category:
-        # deformity: "Deformity"
-        # disease: "Disease"
-        # none: "None"
+        deformity: "Deformità"
+        disease: "Malattia"
+        none: "Nessuna"
     activity_production:
       support_nature:
         border: "Confine"
@@ -95,8 +95,8 @@ ita:
         polygon: "Poligono"
     grading_quality_criterion:
       nature:
-        # disease_presence: "Disease presence"
-        # waste: "Waste"
+        disease_presence: "presenza Disease"
+        waste: "Rifiuto"
     guide_analysis:
       status:
         errored: "errored"

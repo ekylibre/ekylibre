@@ -18,9 +18,9 @@ spa:
         per_working_unit: "Por unidad de trabajo"
     activity_inspection_point_nature:
       category:
-        # deformity: "Deformity"
-        # disease: "Disease"
-        # none: "None"
+        deformity: "Deformidad"
+        disease: "Enfermedad"
+        none: "Ninguna"
     activity_production:
       support_nature:
         border: "Frontera"
@@ -95,8 +95,8 @@ spa:
         polygon: "Polígono"
     grading_quality_criterion:
       nature:
-        # disease_presence: "Disease presence"
-        # waste: "Waste"
+        disease_presence: "la presencia de enfermedad"
+        waste: "Residuos"
     guide_analysis:
       status:
         errored: "Con error"

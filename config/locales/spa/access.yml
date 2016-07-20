@@ -36,7 +36,7 @@ spa:
       events: "Eventos"
       exports: "Exportaciones"
       financial_years: "Ejercicios"
-      # first_run: "First run"
+      first_run: "Primer intento"
       fixed_assets: "Los activos fijos"
       fungi: "Hongos"
       gaps: "Brechas"

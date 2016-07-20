@@ -66,7 +66,7 @@ fra:
     population: "Population" #?
     potassium_unities_density: "Unités de potassium par surface" #?
     shape: "Contour" #?
-    # stakes_by_hectare: "Stakes by hectare"
+    stakes_by_hectare: "Enjeux par hectare"
     stakes_count: "Nombre de piquets" #?
     sulfur_dioxide_density: "Dioxyde de soufre par volume" #?
     surface_area_percentage: "% de surface couverte" #?
@@ -91,6 +91,7 @@ fra:
     child: "Nouveau né"
     cleaner: "Outil de nettoyage"
     compressor: "Compresseur"
+    construction_material: "Materiel de construction"
     container: "Conteneur"
     corker: "Boucheuse"
     corks: "Bouchons"
@@ -160,6 +161,7 @@ fra:
     implanter: "Planteuse"
     implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
+    implement: "Mettre en place"
     insecticide: "Insecticide" #?
     insecticide_to_input: "Insecticide à distribuer" #?
     insemination: "Insémination"
@@ -204,6 +206,7 @@ fra:
     oenological_intrant_to_put: "Produit œnologique à mettre" #?
     oil: "Huile"
     oil_to_input: "Huile mise" #?
+    operator: "Opérateur"
     plant: "Culture végétale" #?
     plant_medicine: "Produit phytosanitaire"
     plant_medicine_to_spray: "Produit phytosanitaire à pulvériser" #?
@@ -340,6 +343,7 @@ fra:
     grains_harvest: "Moisson" #?
     grape_pressing: "Pressage de raisin"
     grape_transport: "Transport de raisin" #?
+    greenhouse_assembling: "Greenhouse assemblage"
     grinding: "Broyage" #?
     ground_destratification: "Déstratification"
     group_exclusion: "Exclusion de groupe" #?

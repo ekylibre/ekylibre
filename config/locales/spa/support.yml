@@ -16,7 +16,7 @@ spa:
       default: "%d/%m/%Y"
       legal: "%d %B %Y"
       long: "%B %d, %Y"
-      # month: "%B %Y"
+      month: "% B% Y"
       month_letter: "%d %B %Y"
       short: "%b %d"
     month_names: ["", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
