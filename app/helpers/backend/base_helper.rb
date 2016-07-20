@@ -322,7 +322,7 @@ module Backend
     end
 
     def resource_info(name, options = {}, &block)
-      value = resource.send(name)
+      value = options[:value] || resource.send(name)
       return nil if value.blank? && !options[:force]
       nomenclature = options.delete(:nomenclature)
       if nomenclature.is_a?(TrueClass)

@@ -7,7 +7,7 @@
 = main_informations attachment: true do
   = render 'picture'
   = infos do
-    = resource_info(:work_number, important: true)
+    = product_info(:work_number, important: true)
     .med-info.important
       - icon = resource.category.pictogram
       %span.title= Equipment.human_attribute_name(:variant)
@@ -15,11 +15,11 @@
         %i.picto{class: "picto-#{icon}"}
         = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
     - if resource.born_at and resource.age >= 1.day
-      = resource_info(:age) do |age|
+      = product_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 2)
     - if resource.fixed_asset
-      = resource_info :fixed_asset do |fixed_asset|
+      = product_info :fixed_asset do |fixed_asset|
         %i.picto{class: "picto-money"}
         = link_to(fixed_asset.number, controller: :fixed_assets, action: :show, id: fixed_asset.id)
     .med-info.important

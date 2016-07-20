@@ -7,15 +7,15 @@
 = main_informations attachment: true do
   = render 'picture'
   = infos do
-    = resource_info(:work_number, important: true)
-    = resource_info(:net_surface_area, important: true) do |population|
+    = product_info(:work_number, important: true)
+    = product_info(:net_surface_area, important: true) do |population|
       = resource.net_surface_area.round(3).l
-    = resource_info(:variety, important: true, nomenclature: true)
-    = resource_info(:born_at, important: true)
+    = product_info(:variety, important: true, nomenclature: true)
+    = product_info(:born_at, important: true)
     - if resource.dead_at
-      = resource_info(:dead_at, important: true)
+      = product_info(:dead_at, important: true)
     - if resource.born_at && resource.age >= 1.day
-      = resource_info(:age) do |age|
+      = product_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 2)
     -# stock = resource.inspections.reorder(:sampled_at).last.product_stock_in_ground
@@ -32,14 +32,14 @@
             %i.picto{class: "picto-grain"}
             - unit = stock.unit + "_per_" + resource.net_surface_area.unit
             = (stock.to_d / resource.population).in(unit).round(3).l
-    = resource_info(:status, important: true) do |status|
+    = product_info(:status, important: true) do |status|
       = lights(status)
     .med-info
       %span.title= :ready_to_harvest.tl
       %span.value
         %i.picto{class: "picto-#{resource.ready_to_harvest? ? :done : :clear}"}
-    = resource_info :description
-    = resource_info :container do |container|
+    = product_info :description
+    = product_info :container do |container|
       %i.picto{class: "zone"}
       = link_to(container.work_name, {controller: container.type.tableize, action: :show, id: container.id})
     - if resource.customized?

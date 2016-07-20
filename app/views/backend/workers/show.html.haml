@@ -6,21 +6,21 @@
 = main_informations attachment: true do
   = render 'picture'
   = infos do
-    -#= resource_info(:variant, important: true) do |variant|
+    -#= product_info(:variant, important: true) do |variant|
       - if variant.pictogram.any?
         - icon = variant.pictogram
       - if icon
         %i.picto{class: "picto-#{icon}"}
       = link_to(variant.name, controller: :product_nature_variants, action: :show, id: variant.id)
     - if resource.person
-      = resource_info(:person) do |person|
+      = product_info(:person) do |person|
         %i.picto{class: "picto-user"}
         = link_to(person.full_name, controller: :entities, action: :show, id: person.id)
     - if resource.born_at && resource.age >= 1.day
-      = resource_info(:age) do |age|
+      = product_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 2)
-    = resource_info(:working_duration) do |working_duration|
+    = product_info(:working_duration) do |working_duration|
       %i.picto{class: "picto-timelapse"}
       = :x_hours.tl(count: resource.working_duration(as: :doer)/3600)
 

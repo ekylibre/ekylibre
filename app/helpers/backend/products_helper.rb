@@ -51,10 +51,20 @@ module Backend
     # future
     def product_mini_map(product = nil)
       product ||= resource
-      raise ArgumentError, 'Product expected, got ' + product.inspect
+      unless product.is_a?(Product)
+        raise ArgumentError, 'Product expected, got ' + product.inspect
+      end
       mini_map(product) do |r|
         { name: r.name, shape: r.shape(at: [r.born_at, Time.zone.now].compact.max) }
       end
+    end
+
+    def product_info(name, options = {}, &block)
+      product ||= resource
+      unless product.respond_to?(name)
+        options[:value] ||= product.send(name, at: [product.born_at, Time.zone.now].compact.max)
+      end
+      resource_info(name, options, &block)
     end
   end
 end

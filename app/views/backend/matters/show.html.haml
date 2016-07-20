@@ -13,18 +13,18 @@
         %span.value
           %i.picto{class: "picto-#{icon}"}
           = link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
-    = resource_info(:work_number, important: true)
+    = product_info(:work_number, important: true)
     - if resource.born_at && resource.age && resource.age >= 1.day
-      = resource_info(:age) do |age|
+      = product_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 3)
     - unless resource.population_counting_unitary?
-      = resource_info :population, important: true do |population|
+      = product_info :population, important: true do |population|
         = population.l + " " + resource.unit_name
     - if resource.has_indicator?(:net_mass) && resource.net_mass.to_d > 0
-      = resource_info(:net_mass, important: true)
+      = product_info(:net_mass, important: true)
     - if resource.current_ownership && resource.current_ownership.other?
-      = resource_info(:owner, important: true) do |owner|
+      = product_info(:owner, important: true) do |owner|
         = owner.name
     - if resource.incoming_parcel_item
       .med-info.important

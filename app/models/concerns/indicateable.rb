@@ -66,8 +66,7 @@ module Indicateable
     end
     read_at = options[:at] || Time.zone.now
     indicator_name = indicator.name
-    results = readings.select { |r| r.indicator_name == indicator_name && r.read_at <= read_at }
-    results.max { |a, b| a.read_at <=> b.read_at }
+    readings.where(indicator_name: indicator.name).where('read_at <= ?', read_at).order(read_at: :desc).first
   end
 
   def first_reading(indicator_name)
