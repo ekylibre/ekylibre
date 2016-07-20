@@ -665,7 +665,7 @@ class Product < Ekylibre::Record::Base
 
   def wear_status(component = nil)
     if component.nil?
-      status_list = variant.all_components.map do |component|
+      status_list = variant.components.map do |component|
         wear_status(component)
       end
       if status_list.include?(:caution)
