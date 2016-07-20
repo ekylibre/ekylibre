@@ -4,7 +4,7 @@
 
 = main_informations attachment: true do
   - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
-    = mini_map(resource.support)
+    = mini_map(resource, shape_method: :support_shape)
     = infos do
       .med-info.important
         %span.title= LandParcel.human_attribute_name(:net_surface_area)

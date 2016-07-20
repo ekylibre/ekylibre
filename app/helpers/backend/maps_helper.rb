@@ -21,10 +21,11 @@ module Backend
     # Raw map for given resource
     def map(resources, options = {}, html_options = {}, &_block)
       resources = [resources] unless resources.respond_to?(:each)
+      shape_method = options[:shape_method] || :shape
 
       global = nil
       options[:geometries] = resources.collect do |resource|
-        hash = (block_given? ? yield(resource) : { name: resource.name, shape: resource.shape })
+        hash = (block_given? ? yield(resource) : { name: resource.name, shape: resource.send(shape_method) })
         hash[:url] ||= url_for(controller: "/backend/#{resource.class.name.tableize}", action: :show, id: resource.id)
         if hash[:shape]
           global = (global ? global.merge(hash[:shape]) : Charta.new_geometry(hash[:shape]))
