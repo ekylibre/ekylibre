@@ -343,7 +343,7 @@ fra:
     grains_harvest: "Moisson" #?
     grape_pressing: "Pressage de raisin"
     grape_transport: "Transport de raisin" #?
-    greenhouse_assembling: "Greenhouse assemblage"
+    greenhouse_assembling: "Montage de serre"
     grinding: "Broyage" #?
     ground_destratification: "Déstratification"
     group_exclusion: "Exclusion de groupe" #?
