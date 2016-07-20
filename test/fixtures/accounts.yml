@@ -542,6 +542,8 @@ accounts_039:
 accounts_040:
   created_at: 2014-11-01 19:47:25.946030000 Z
   creator_id: 1
+  custom_fields:
+    account_custom_test: Yolo
   debtor: false
   id: 206
   label: 4111 - Busbest Andrew
@@ -551,8 +553,6 @@ accounts_040:
   reconcilable: true
   updated_at: 2014-11-01 19:47:25.946030000 Z
   updater_id: 1
-  custom_fields:
-    account_custom_test: "Yolo"
 accounts_041:
   created_at: 2014-11-01 19:47:25.953834000 Z
   creator_id: 1

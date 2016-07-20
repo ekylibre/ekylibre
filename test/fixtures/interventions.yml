@@ -279,7 +279,7 @@ interventions_015:
   id: 23
   lock_version: 2
   number: '22'
-  procedure_name: mechanical_harvesting
+  procedure_name: harvesting
   started_at: 2013-09-16 05:00:00.000000000 Z
   state: done
   stopped_at: 2013-09-16 17:00:00.000000000 Z
