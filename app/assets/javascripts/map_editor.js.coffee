@@ -161,11 +161,6 @@
       @ghostLayerLabelCluster = L.ghostLabelCluster(type: 'hidden')
       @ghostLayerLabelCluster.addTo @map
 
-      this.legend = new L.control(position: "bottomright")
-      this.legend.onAdd = (map) =>
-        L.DomUtil.create('div', 'leaflet-legend-control')
-
-      this.map.addControl this.legend
 
       this.map.on "draw:created", (e) =>
         #Attempt to add a geojson feature
@@ -501,10 +496,9 @@
                 # Build layer group
                 layerGroup = renderedLayer.buildLayerGroup(this, options)
                 layerGroup.name = layer.name
+                layerGroup.renderedLayer = renderedLayer
                 @seriesReferencesLayers[layer.label] = layerGroup
                 @map.addLayer(layerGroup)
-                legend = @legend.getContainer()
-                legend.innerHTML += renderedLayer.buildLegend() if options.legend
 
           else
 
@@ -744,8 +738,16 @@
         this.map.addControl this.controls.reactiveMeasureControl
 
 
+
+      this.controls.legend = new L.control(position: "bottomright")
+      this.controls.legend.onAdd = (map) =>
+        L.DomUtil.create('div', 'leaflet-legend-control')
+
+      this.map.addControl this.controls.legend
+
+
       if this.options.multiLevels?
-        legend = @legend.getContainer()
+        legend = @controls.legend.getContainer()
 
         legend.innerHTML += this.buildMultiLevelLegend(this.edition)
 
@@ -794,6 +796,8 @@
           for label, layer of @seriesReferencesLayers
             selector.addOverlay(layer, label)
             @layersScheduler.insert layer._leaflet_id
+            @controls.legend.getContainer().innerHTML += layer.renderedLayer.buildLegend() if layer.renderedLayer.options.legend
+
 
         if @edition? and @edition.getLayers().length > 0
           selector.addOverlay(@edition, @options.overlaySelector.editionLayer)
