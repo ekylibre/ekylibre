@@ -26,7 +26,7 @@ module Backend
         if request.post?
           head :not_found
         else
-          raise ActionController::RoutingError.new('Not Found')
+          raise ActionController::RoutingError, 'Not Found'
         end
       else
         default = params[:default] || 'list'
@@ -42,7 +42,7 @@ module Backend
           if params[:redirect]
             redirect_to(params[:redirect])
           else
-            raise ActionController::RoutingError.new('Not Found')
+            raise ActionController::RoutingError, 'Not Found'
           end
         end
       end

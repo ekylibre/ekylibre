@@ -57,8 +57,8 @@ module Backend
             ln.save!
           end
         when 'custom'
-            ln = @listing_node.children.new(nature: 'custom', attribute_name: desc[2], label: @listing_node.model.human_attribute_name(desc[2]))
-            ln.save!
+          ln = @listing_node.children.new(nature: 'custom', attribute_name: desc[2], label: @listing_node.model.human_attribute_name(desc[2]))
+          ln.save!
         end
       else
         ln = @listing_node.children.new(nature: desc[0], attribute_name: desc[1], label: @listing_node.model.human_attribute_name(desc[1]))

@@ -161,7 +161,7 @@ module Charta
     end
 
     def new_collection(geometries)
-      new_geometry(Charta.select_value("SELECT ST_AsEWKT(ST_Collect(ARRAY[#{geometries.collect{|geo| geo[:shape].geom}.join(',')}]))"), nil, nil, false, geometries)
+      new_geometry(Charta.select_value("SELECT ST_AsEWKT(ST_Collect(ARRAY[#{geometries.collect { |geo| geo[:shape].geom }.join(',')}]))"), nil, nil, false, geometries)
     end
   end
 end

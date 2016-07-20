@@ -306,7 +306,7 @@ module Backend
         show ||= @object.class.where.not(attribute_name => nil)
         union = Charta.empty_geometry
         if show.any?
-          if show.is_a? Hash and show.key?(:series)
+          if show.is_a?(Hash) && show.key?(:series)
             editor[:show] = show
           else
             union = show.geom_union(attribute_name)

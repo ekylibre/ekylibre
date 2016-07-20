@@ -1,4 +1,6 @@
 por:
+  procedure_handlers:
+    # stakes_by_hectare: "Stakes by hectare"
   procedure_parameters:
     adding_wine: "Adicionando vinho"
     # animal: "Animal"

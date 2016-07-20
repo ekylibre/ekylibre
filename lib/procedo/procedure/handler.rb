@@ -20,7 +20,7 @@ module Procedo
         else
           @datatype = options[:datatype]
           @datatype ||= Maybe(Nomen::Indicator.find(options[:indicator])).datatype.or_else(nil)
-          raise "Cant have handler without datatype or indicator" unless @datatype
+          raise 'Cant have handler without datatype or indicator' unless @datatype
           self.unit_name = options[:unit] if measure?
           self.indicator_name = options[:indicator] if options[:indicator]
         end

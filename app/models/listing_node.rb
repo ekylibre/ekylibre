@@ -116,7 +116,7 @@ class ListingNode < Ekylibre::Record::Base
     elsif reflection?
       self.name = attribute_name.to_s + '_0'
     else
-      if self.nature == "custom"
+      if nature == 'custom'
         self.sql_type = convert_sql_type(parent.model.custom_fields.find_by_column_name(attribute_name).nature.to_s)
         self.name = parent.name.underscore + ".custom_fields->'" + attribute_name
       elsif parent.model
@@ -149,7 +149,7 @@ class ListingNode < Ekylibre::Record::Base
 
   def compute_joins(sql_alias = nil)
     conditions = ''
-    children.where('(nature = ? OR nature = ?)', 'belongs_to', 'has_many').each do |child|
+    children.where('(nature = ? OR nature = ?)', 'belongs_to', 'has_many').find_each do |child|
       parent = sql_alias || name || child.parent.model.table_name
       if child.nature == 'has_many' # or child.nature == "belongs_to"
         conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.foreign_key} = #{parent}.id)"

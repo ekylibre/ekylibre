@@ -39,7 +39,7 @@ fra:
       simple_reading_task: "%{indicator} est mesuré" #?
       triple_mixing: "Mélange de %{first_producer}, %{second_producer} et %{third_producer} dans %{product}" #?
       variant_cast: "Transformation de %{product} en %{variant}" #?
-  procedure_handlers:  #?
+  procedure_handlers:
     dry_matter_mass: "Masse de matière sèche" #?
     dry_matter_mass_area_density: "Masse de matière sèche par surface" #?
     food_mass_per_animal: "Masse d’aliment par animal" #?
@@ -66,6 +66,7 @@ fra:
     population: "Population" #?
     potassium_unities_density: "Unités de potassium par surface" #?
     shape: "Contour" #?
+    # stakes_by_hectare: "Stakes by hectare"
     stakes_count: "Nombre de piquets" #?
     sulfur_dioxide_density: "Dioxyde de soufre par volume" #?
     surface_area_percentage: "% de surface couverte" #?

@@ -1,4 +1,6 @@
 jpn:
+  procedure_handlers:
+    # stakes_by_hectare: "Stakes by hectare"
   procedure_parameters:
     adding_wine: "ワインを追加します"
     animal: "動物"

@@ -45,13 +45,13 @@ class ListingTest < ActiveSupport::TestCase
 
   test 'extract a model column' do
     ListingNode.rebuild!
-    listing = Listing.create!(name: "TestListing", root_model: "entity")
+    listing = Listing.create!(name: 'TestListing', root_model: 'entity')
     root = listing.root
     root.children.create!(
       nature: 'column',
-      attribute_name: "full_name",
-      label: root.model.human_attribute_name("full_name")
-      )
+      attribute_name: 'full_name',
+      label: root.model.human_attribute_name('full_name')
+    )
     listing.reload
     listing.update!({})
 
@@ -64,39 +64,20 @@ class ListingTest < ActiveSupport::TestCase
 
   test 'extract an associated model column' do
     ListingNode.rebuild!
-    listing = Listing.create!(name: "TestListing", root_model: "entity")
+    listing = Listing.create!(name: 'TestListing', root_model: 'entity')
     root = listing.root
     assoc = root.children
                 .create!(
                   nature: 'belongs_to',
-                  attribute_name: "client_account",
-                  label: root.model.human_attribute_name("client_account")
-                  )
+                  attribute_name: 'client_account',
+                  label: root.model.human_attribute_name('client_account')
+                )
     assoc
       .children
       .create!(
         nature: 'column',
         attribute_name: 'name',
-        label: assoc.model.human_attribute_name("name")
-        )
-    listing.reload
-    listing.update!({})
-
-    conn = ActiveRecord::Base.connection
-    actual = conn.execute(listing.query).values.map(&:compact).reject(&:blank?).flatten
-
-    expected = Entity.joins(:client_account).order("accounts.name").pluck("accounts.name")
-    assert_equal expected, actual
-  end
-
-  test 'extract a custom field column' do
-    ListingNode.rebuild!
-    listing = Listing.create!(name: "TestListing", root_model: "entity")
-    root = listing.root
-    root.children.create!(
-      nature: 'custom',
-      attribute_name: "sdqdqsdq_sd_qsq",
-      label: "Sdqdqsdq sd qsq"
+        label: assoc.model.human_attribute_name('name')
       )
     listing.reload
     listing.update!({})
@@ -104,34 +85,53 @@ class ListingTest < ActiveSupport::TestCase
     conn = ActiveRecord::Base.connection
     actual = conn.execute(listing.query).values.map(&:compact).reject(&:blank?).flatten
 
-    expected = Entity.pluck(:custom_fields).compact.map { |cf| cf["sdqdqsdq_sd_qsq"].to_json }.sort
+    expected = Entity.joins(:client_account).order('accounts.name').pluck('accounts.name')
     assert_equal expected, actual
   end
 
-  test 'extract an associated custom field column' do
+  test 'extract a custom field column' do
     ListingNode.rebuild!
-    listing = Listing.create!(name: "TestListing", root_model: "entity")
+    listing = Listing.create!(name: 'TestListing', root_model: 'entity')
     root = listing.root
-    assoc = root.children
-                .create!(
-                  nature: 'belongs_to',
-                  attribute_name: "client_account",
-                  label: root.model.human_attribute_name("client_account")
-                  )
-    assoc
-      .children
-      .create!(
-        nature: 'custom',
-        attribute_name: 'account_custom_test',
-        label: assoc.model.human_attribute_name("account_custom_test")
-        )
+    root.children.create!(
+      nature: 'custom',
+      attribute_name: 'sdqdqsdq_sd_qsq',
+      label: 'Sdqdqsdq sd qsq'
+    )
     listing.reload
     listing.update!({})
 
     conn = ActiveRecord::Base.connection
     actual = conn.execute(listing.query).values.map(&:compact).reject(&:blank?).flatten
 
-    expected = Entity.joins(:client_account).pluck("accounts.custom_fields").compact.map { |cf| cf["account_custom_test"].to_json }.sort
+    expected = Entity.pluck(:custom_fields).compact.map { |cf| cf['sdqdqsdq_sd_qsq'].to_json }.sort
+    assert_equal expected, actual
+  end
+
+  test 'extract an associated custom field column' do
+    ListingNode.rebuild!
+    listing = Listing.create!(name: 'TestListing', root_model: 'entity')
+    root = listing.root
+    assoc = root.children
+                .create!(
+                  nature: 'belongs_to',
+                  attribute_name: 'client_account',
+                  label: root.model.human_attribute_name('client_account')
+                )
+    assoc
+      .children
+      .create!(
+        nature: 'custom',
+        attribute_name: 'account_custom_test',
+        label: assoc.model.human_attribute_name('account_custom_test')
+      )
+    listing.reload
+    listing.update!({})
+
+    conn = ActiveRecord::Base.connection
+    actual = conn.execute(listing.query).values.map(&:compact).reject(&:blank?).flatten
+
+    expected = Entity.joins(:client_account).pluck('accounts.custom_fields').compact.map { |cf| cf['account_custom_test'].to_json }.sort
     assert_equal expected, actual
   end
 end
