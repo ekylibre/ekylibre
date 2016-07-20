@@ -478,17 +478,20 @@ class ActivityProduction < Ekylibre::Record::Base
                           surface_unit_name: surface_unit_name)
   end
 
-  # call method in production for instance
-  def estimate_yield(options = {})
+  # TODO: Which yield is computed? usage is not very good to determine yields
+  #   because many yields can be computed...
+  def estimate_yield(campaign, options = {})
+    variety = options.delete(:variety)
     # compute variety for estimate yield
     if usage == 'grain' || usage == 'seed'
-      options[:variety] ||= 'grain'
+      variety ||= 'grain'
     elsif usage == 'fodder' || usage == 'fiber'
-      options[:variety] ||= 'grass'
+      variety ||= 'grass'
     end
     # get current campaign
-    options[:campaign] ||= campaign
-    activity.estimate_yield_from_budget_of(options)
+    budget = activity.budget_of(campaign)
+    return nil unless budget
+    budget.estimate_yield(variety, options)
   end
 
   def current_cultivation

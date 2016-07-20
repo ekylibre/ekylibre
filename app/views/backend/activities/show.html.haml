@@ -147,7 +147,7 @@
 
       = pie_highcharts(series, legend: true)
 
-  - if resource.use_gradings
+  - if resource.use_gradings && resource.inspection_calibration_scales.any? && resource.inspections.any?
     - c.cobble(:stock_in_ground) do
       %table
         %tbody
@@ -215,10 +215,10 @@
                 end
                 spline_series << {name: category.l, data: spline_data}
               end
-
-            %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-            %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-            %td{style: 'width: 33%' }= spline_highcharts(spline_series, x_axis: {categories: spline_categories} ,title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {})
+            %tr
+              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+              %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+              %td{style: 'width: 33%' }= spline_highcharts(spline_series, x_axis: {categories: spline_categories} ,title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {})
 
     - c.cobble(:inspections) do
       = cobble_list :inspections

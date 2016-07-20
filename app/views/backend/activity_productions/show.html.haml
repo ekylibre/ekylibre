@@ -9,39 +9,12 @@
       .med-info.important
         %span.title= LandParcel.human_attribute_name(:net_surface_area)
         %span.value= resource.human_support_shape_area
-      .med-info
-        %span.title= ActivityProduction.human_attribute_name(:support_nature)
-        %span.value= resource.support_nature.text
-      - usage = Nomen::ProductionUsage.find(resource.usage)
-      - if usage
-        .med-info
-          %span.title= ActivityProduction.human_attribute_name(:usage)
-          %span.value= usage.human_name
-      .med-info
-        %span.title= ActivityProduction.human_attribute_name(:irrigated)
-        %span.value
-          %i.picto{class: "picto-#{resource.irrigated ? :done : :clear}"}
-      .med-info
-        %span.title= ActivityProduction.human_attribute_name(:nitrate_fixing)
-        %span.value
-          %i.picto{class: "picto-#{resource.nitrate_fixing ? :done : :clear}"}
-      - if resource.plant_farming? && resource.cap_land_parcel
-        .med-info
-          %span.title= CapLandParcel.human_attribute_name(:land_parcel_number)
-          %span.value= link_to(resource.cap_land_parcel.land_parcel_number, {controller: :cap_land_parcels, action: :show, id: resource.cap_land_parcel.id})
-
-      - if resource.estimate_yield && resource.estimate_yield.to_d > 0.0
+      - estimated_yield = resource.estimate_yield(current_campaign)
+      - if estimated_yield
         .med-info
           %span.title= :estimate_yield.tl
-          %span.value= resource.estimate_yield.l
-      - if resource.implanted_at
-        .med-info
-          %span.title= :implanted_at.tl
-          %span.value= resource.implanted_at.l
+          %span.value= estimated_yield.round(1).l(precision: 1)
       - if resource.harvested_at
-        .med-info
-          %span.title= :harvested_at.tl
-          %span.value= resource.harvested_at.l
         - if resource.grains_yield && resource.grains_yield.to_d > 0.0
           .med-info
             %span.title= :grains_yield.tl
@@ -50,7 +23,19 @@
           .med-info
             %span.title= :vine_yield.tl
             %span.value= resource.vine_yield.round(2).l
-
+  = attributes_list stamps: false do |l|
+    - l.attribute :activity, url: true
+    - l.attribute :support_nature
+    - l.attribute :usage
+    - l.attribute :irrigated
+    - l.attribute :nitrate_fixing
+    - l.attribute :cap_land_parcel, url: true, label: :land_parcel_number
+    - l.attribute :implanted_at
+    - l.attribute :harvested_at
+    - if resource.grains_yield && resource.grains_yield.to_d > 0.0
+      - l.attribute :grains_yield
+    - if resource.vine_yield && resource.vine_yield.to_d > 0.0
+      - l.attribute :vine_yield
 
 = cobbles do |c|
 

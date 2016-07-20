@@ -1116,7 +1116,7 @@ eng:
     group: "Group" #?
     groups: "Groups"
     guide_evolution: "Guide evolution"
-    harvested_at: "Harvested at"
+    harvested_at: "Harvested at" #?
     help: "Help"
     help_center: "Help center"
     hint: "Hint: %{value}" #?
@@ -1127,7 +1127,7 @@ eng:
     identification: "Identification"
     identifiers: "Identifiers"
     illness: "Illness"
-    implanted_at: "Implanted at"
+    implanted_at: "Implanted at" #?
     import: "Import"
     import_zones_from_third_party_softwares: "Import zones from third party software, the GeoJSON format GML and KML." #?!
     importation_explanation: "Importation explanation"
