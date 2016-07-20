@@ -66,9 +66,6 @@
 
   - c.cobble(:general_informations) do
     = infos do
-      .med-info.important
-        %span.title= Intervention.human_attribute_name(:state)
-        %span.value= lights(resource.status)
       .med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
