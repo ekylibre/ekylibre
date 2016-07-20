@@ -46,5 +46,15 @@ module Backend
         end
       end
     end
+
+    # A product mini map show shape between born_at if born_at is in the
+    # future
+    def product_mini_map(product = nil)
+      product ||= resource
+      raise ArgumentError, 'Product expected, got ' + product.inspect
+      mini_map(product) do |r|
+        { name: r.name, shape: r.shape(at: [r.born_at, Time.zone.now].compact.max) }
+      end
+    end
   end
 end
