@@ -40,6 +40,10 @@ module Clean
       end
 
       def clean!
+        if Ekylibre::Plugin.registered_plugins.any?
+          raise "Cannot clean locales if plugins are activated"
+        end
+
         log("Locale #{::I18n.locale_label}:\n")
 
         ::I18n.locale = @locale
