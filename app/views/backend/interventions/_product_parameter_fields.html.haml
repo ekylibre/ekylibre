@@ -3,16 +3,16 @@
 .nested-fields.nested-product-parameter{class: "nested-#{reference.name.to_s.parameterize}", data: { intervention_parameter: reference.name } }
   = link_to_remove_nested_association(:destroy.ta, f)
   = f.input :reference_name, as: :hidden
+  - started_at = Time.now
+  - if f.object.intervention
+    - if f.object.intervention.started_at
+      - started_at = f.object.intervention.started_at
+    - else
+      - started_at = f.object.intervention.working_periods.map(&:started_at).min
   - if reference.output?
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
   - else
-    - started_at = Time.now
-    - if f.object.intervention
-      - if f.object.intervention.started_at
-        - started_at = f.object.intervention.started_at
-      - else
-        - started_at = f.object.intervention.working_periods.map(&:started_at).min
     = f.referenced_association :product, label: reference.human_name, source: { scope: reference.scope_hash.merge(availables: [at: started_at.strftime("%Y-%m-%d %H:%M")]), keep: true }, input_html: { class: "scoped-parameter", data: { intervention_updater: prefix + 'product_id' } }, new: false
   - if reference.quantified?
     = render 'quantifier_field', f: f, reference: reference, prefix: prefix
@@ -22,7 +22,18 @@
     - else
       = f.input :new_name, input_html: { data: { intervention_updater: prefix + 'new_name' }}
   - if reference.attribute(:working_zone)
-    = f.geometry :working_zone, input_html: { data: { intervention_updater: prefix + 'working_zone' }}
+    :ruby
+      # TODO move into controller
+      land_parcels = LandParcel.at(started_at).collect do |l|
+        {shape: l.shape} unless l.shape.nil?
+      end.compact
+      land_parcels = Charta.new_collection(land_parcels).to_json_object(true)
+      plants = Plant.at(started_at).collect do |l|
+        {name: l.name, shape: l.shape, variety: Nomen::Variety[l.variety].human_name, color: Activity.color(:plant_farming, l.variety), fillColor: Activity.color(:plant_farming, l.variety)} unless l.shape.nil?
+      end.compact
+      plants = Charta.new_collection(plants).to_json_object(true)
+    = f.geometry :working_zone, { input_html: { data: { intervention_updater: prefix + 'working_zone' }}, show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories}]}, editor: {useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }} }
+
   - if reference.readings.any?
     - reference.readings.each do |reading|
       - unless f.object.readings.detect{|r| r.indicator_name.to_s == reading.name.to_s }
