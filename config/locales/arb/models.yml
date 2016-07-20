@@ -1717,6 +1717,8 @@ arb:
     parcels: "الطرود"
     parent: "النسب"
     parent_id: "نسب" #?
+    # part_product_nature_variant_id: "Part product nature variant"
+    # part_replacements: "Part replacements"
     # part_variant: "Part variant"
     parted: "افترقنا"
     parted_product: "المنتج افترقنا"

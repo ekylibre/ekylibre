@@ -860,6 +860,8 @@ spa:
     parcel_items: "Artículos de paquetería"
     parcels: "Parcelas"
     parent: "Padre"
+    # part_product_nature_variant_id: "Part product nature variant"
+    # part_replacements: "Part replacements"
     # part_variant: "Part variant"
     parted: "Parted"
     parted_product: "Producto separado"

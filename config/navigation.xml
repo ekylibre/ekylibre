@@ -1734,6 +1734,43 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animals">
+        <page to="backend/animals#list_part_replacements"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_part_replacements"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_part_replacements"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#list_part_replacements"/>
+      </item>
+      <item name="fungi">
+        <page to="backend/fungi#list_part_replacements"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#list_part_replacements"/>
+      </item>
+      <item name="matters">
+        <page to="backend/matters#list_part_replacements"/>
+      </item>
+      <item name="plants">
+        <page to="backend/plants#list_part_replacements"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#list_part_replacements"/>
+      </item>
+      <item name="products">
+        <page to="backend/products#list_part_replacements"/>
+      </item>
+      <item name="settlements">
+        <page to="backend/settlements#list_part_replacements"/>
+      </item>
+      <item name="workers">
+        <page to="backend/workers#list_part_replacements"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

@@ -326,6 +326,7 @@ eng:
     affected_at: "Affected at" #?
     age: "Age"
     # all_addresses: "All addresses"
+    # all_components: "All components"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
     amount: "Amount"
@@ -879,6 +880,8 @@ eng:
     parcels: "Parcels"
     parent: "Parent"
     # part_product_nature_variant: "Part product nature variant"
+    part_product_nature_variant_id: "Part product nature variant"
+    part_replacements: "Part replacements"
     part_variant: "Part variant" #?
     parted: "Parted"
     parted_product: "Parted product" #?
@@ -962,6 +965,7 @@ eng:
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
     product_part_replacement: "Product part replacement"
+    # product_part_replacements: "Product part replacements"
     product_phases: "Product phases" #?
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?

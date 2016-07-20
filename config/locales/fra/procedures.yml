@@ -196,7 +196,7 @@ fra:
     nuts_to_deliver: "Fruits à coques à livrer" #?
     oenological_intrant: "Produit œnologique"
     oenological_intrant_to_put: "Produit œnologique à mettre" #?
-    oil: "Huile"
+    oil: "Huile" #?
     oil_to_input: "Huile mise" #?
     plant: "Culture végétale" #?
     plant_medicine: "Produit phytosanitaire"
@@ -359,7 +359,7 @@ fra:
     moving: "Déplacement" #?
     net_installation: "Pose de filet de protection"
     net_removing: "Retrait de filet"
-    oil_replacement: "Vidange d’huile"
+    oil_replacement: "Vidange d’huile" #?
     organic_fertilizing: "Fertilisation organique" #?
     partial_wine_transfer: "Transfert de vin (Partiel)"
     parturition: "Mise bas"

@@ -68,7 +68,7 @@ arb:
     net_implanter: "صافي implanter"
     net_roll: "صافي لفة"
     oenological_intrant: "intrant Oenological"
-    oil: "نفط"
+    oil: "نفط" #?
     plant_medicine: "الطب المصنع"
     plants: "النباتات"
     plastic: "البلاستيك"
@@ -153,7 +153,7 @@ arb:
     milking: "حلب"
     net_installation: "صافي تركيب"
     net_removing: "صافي إزالة"
-    oil_replacement: "استبدال النفط"
+    oil_replacement: "استبدال النفط" #?
     partial_wine_transfer: "TRANSFERT النبيذ جزئي"
     parturition: "مخاض الولادة"
     pasturing: "الرعي"

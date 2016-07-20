@@ -91,6 +91,7 @@ class Product < Ekylibre::Record::Base
   has_many :activity_productions, foreign_key: :support_id
   has_many :analyses, class_name: 'Analysis', dependent: :restrict_with_exception
   has_many :carrier_linkages, class_name: 'ProductLinkage', foreign_key: :carried_id, dependent: :destroy
+  has_many :components, class_name: 'ProductNatureVariantComponent', through: :variant
   has_many :content_localizations, class_name: 'ProductLocalization', foreign_key: :container_id
   has_many :contents, class_name: 'Product', through: :content_localizations, source: :product
   has_many :distributions, class_name: 'TargetDistribution', foreign_key: :target_id, inverse_of: :target, dependent: :destroy
@@ -108,7 +109,7 @@ class Product < Ekylibre::Record::Base
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
-  has_many :product_part_replacement, inverse_of: :product
+  has_many :part_replacements, class_name: 'ProductPartReplacement', inverse_of: :product
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
@@ -637,17 +638,11 @@ class Product < Ekylibre::Record::Base
   def working_duration(options = {})
     role = options[:as] || :tool
     periods = InterventionWorkingPeriod.with_generic_cast(role, self)
+    periods = periods.where('started_at >= ?', options[:since] )  if options[:since]
     periods = periods.of_campaign(options[:campaign]) if options[:campaign]
     periods.sum(:duration)
   end
 
-  def working_time # return the result of two different calcul to know the working time. Depending of a daily_average_working_time or the working_duration method
-    if has_indicator?(:daily_average_working_time)
-      variant.daily_average_working_time * (Time.zone.today - born_at.to_date)
-    else
-      working_duration.to_f.in_second
-    end
-  end
 
   def remaining_lifespan
     if has_indicator?(:lifespan)
@@ -667,4 +662,69 @@ class Product < Ekylibre::Record::Base
       end
     end
   end
+
+  def wear_status(component = nil)
+    if component.nil?
+      status_list = variant.all_components.map do |component|
+        wear_status(component)
+      end
+      if status_list.include?(:caution)
+        return :caution
+      elsif status_list.include?(:stop)
+        return :stop
+      else
+        return :go
+      end
+    else
+      if working_life_progress_of(component) >= 100 || total_life_progress_of(component) >= 100
+        return :stop
+      elsif working_life_progress_of(component) >= 95 || total_life_progress_of(component) >= 95
+        return :caution
+      else
+        return :go
+      end
+    end
+  end
+
+  def working_time(since = nil) # Return the result of two different calcul to know the working time. Depending of a daily_average_working_time or the working_duration method
+    start = since || born_at
+    if has_indicator?(:daily_average_working_time)
+      variant.daily_average_working_time * (Time.zone.today - start.to_date)
+    else
+      working_duration(since: start).to_f.in_second
+    end
+  end
+
+  def working_life_of(component)
+    working_time(replaced_at(component, born_at))
+  end
+
+  def working_life_progress_of(component) #return a percent
+    return 0 if !component.product_nature_variant || !component.product_nature_variant.has_indicator?(:working_lifespan)
+    100 * working_life_of(component).to_f(:second) / component.product_nature_variant.working_lifespan.to_f(:second)
+  end
+
+  def total_life_of(component)
+      (Time.zone.now - replaced_at(component, born_at)).to_f.in_second
+  end
+
+  def total_life_progress_of(component) #return a percent
+    return 0 if !component.product_nature_variant || !component.product_nature_variant.has_indicator?(:lifespan)
+    100 * total_life_of(component).to_f(:second) / component.product_nature_variant.lifespan.to_f(:second)
+  end
+
+
+  def replaced_at(component, since = nil)
+    last_replaced_at = nil
+    list = self.part_replacements.where(component_id: component.id).joins(:intervention).order('interventions.stopped_at DESC')
+    if list.any?
+      last_replaced_at = list.first.intervention.stopped_at
+    end
+    best_replaced_at = [last_replaced_at, since].compact.sort.last
+    if component.parent
+      return replaced_at(component.parent, best_replaced_at)
+    end
+    best_replaced_at
+  end
+
 end

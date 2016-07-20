@@ -309,7 +309,7 @@ class Intervention < Ekylibre::Record::Base
   def status
     if request?
       return (runnable? ? :caution : :stop)
-    elsif done?
+    elsif record?
       return :go
     end
   end
@@ -330,11 +330,11 @@ class Intervention < Ekylibre::Record::Base
     valid
   end
 
-  # Run the intervention ie. the nature is marked as done
+  # Run the intervention ie. the nature is marked as record
   # Returns intervention
   def run!
     raise 'Cannot run intervention without procedure' unless runnable?
-    update_attributes(nature: :done)
+    update_attributes(nature: :record)
     self
   end
 

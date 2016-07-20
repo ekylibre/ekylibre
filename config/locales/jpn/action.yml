@@ -926,6 +926,7 @@ jpn:
     document: "資料"
     document_natures: "ドキュメントタイプ"
     document_templates: "ドキュメントテンプレート"
+    # documentation: "Documentation"
     doer_cost: "行為者のコスト"
     done: "終わりました"
     dont_use_journal: "- ジャーナルを使用しないでください -"
@@ -1215,6 +1216,7 @@ jpn:
     operations: "オペレーション"
     options: "オプション"
     organic_matter_concentration: "有機物濃度"
+    # original_component: "original"
     others: "他人"
     outgoing_payment: "支払"
     outgoing_payments: "支払"
@@ -1495,6 +1497,7 @@ jpn:
     # variety: "Variety"
     view: "ビュー"
     # watering_concentration: "Watering concentration"
+    # wear: "Wear"
     weather: "天気"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "風速"
@@ -1538,6 +1541,9 @@ jpn:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1575,6 +1581,9 @@ jpn:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_part_replacements:
+      # one: "%{count} part_replacement"
+      # other: "%{count} part replacements"
     x_purchases:
       one: "1購入"
       # other: "%{count} purchases"

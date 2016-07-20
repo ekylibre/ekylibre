@@ -973,6 +973,7 @@ spa:
     document_natures: "Tipos de documentos"
     document_template_create: "Crear un modelo de documento" #?
     document_templates: "Modelos de documentos"
+    # documentation: "Documentation"
     doer_cost: "Costo hacedor"
     done: "Hecho"
     dont_use_journal: "-- No utilizar el periodico --"
@@ -1313,6 +1314,7 @@ spa:
     operations: "Operaciones"
     options: "Opciones"
     organic_matter_concentration: "Concentración de materia orgánica"
+    # original_component: "original"
     other_assessable_operations: "Autras operaciones imponibles" #?
     other_not_assessable_operations: "Autras operaciones no imponibles" #?
     other_results: "Otros resultados" #?
@@ -1664,6 +1666,7 @@ spa:
     # variety: "Variety"
     view: "Ver"
     # watering_concentration: "Watering concentration"
+    # wear: "Wear"
     weather: "Clima"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Velocidad del viento"
@@ -1708,6 +1711,9 @@ spa:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1746,6 +1752,9 @@ spa:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_part_replacements:
+      # one: "%{count} part_replacement"
+      # other: "%{count} part replacements"
     x_purchases:
       one: "1 compra"
       # other: "%{count} purchases"

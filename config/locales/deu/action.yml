@@ -857,6 +857,7 @@ deu:
     document: "Dokument"
     document_natures: "Dokumenttypen"
     document_templates: "Dokumentvorlagen"
+    # documentation: "Documentation"
     doer_cost: "Macher Kosten"
     done: "Erledigt"
     dont_use_journal: "- Verwenden Sie Journal nicht -"
@@ -1142,6 +1143,7 @@ deu:
     operations: "Geschäftstätigkeit"
     options: "Optionen"
     organic_matter_concentration: "Bio-Stoffkonzentration"
+    # original_component: "original"
     others: "andere"
     outgoing_payment: "Zahlungsausgang"
     outgoing_payments: "Auszahlungen"
@@ -1421,6 +1423,7 @@ deu:
     # variety: "Variety"
     view: "Aussicht"
     # watering_concentration: "Watering concentration"
+    # wear: "Wear"
     weather: "Wetter"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Windgeschwindigkeit"
@@ -1464,6 +1467,9 @@ deu:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1501,6 +1507,9 @@ deu:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_part_replacements:
+      # one: "%{count} part_replacement"
+      # other: "%{count} part replacements"
     x_purchases:
       one: "1 Kauf"
       # other: "%{count} purchases"

@@ -68,7 +68,7 @@ ita:
     net_implanter: "implanter net"
     net_roll: "rotolo di rete"
     oenological_intrant: "intrant enologico"
-    oil: "Olio"
+    oil: "Olio" #?
     plant_medicine: "medicina pianta"
     plants: "Piante"
     plastic: "Plastica"
@@ -153,7 +153,7 @@ ita:
     milking: "Mungitura"
     net_installation: "installazione in rete"
     net_removing: "net rimozione"
-    oil_replacement: "la sostituzione dell'olio"
+    oil_replacement: "la sostituzione dell'olio" #?
     partial_wine_transfer: "transfert vino parziale"
     parturition: "Parto"
     pasturing: "Monticazione"

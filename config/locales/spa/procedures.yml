@@ -68,7 +68,7 @@ spa:
     net_implanter: "Implantador neta"
     net_roll: "La recogida de ésta"
     oenological_intrant: "Intrant enológico"
-    oil: "Petróleo"
+    oil: "Petróleo" #?
     plant_medicine: "Planta medicina"
     plants: "Plantas"
     plastic: "El plastico"
@@ -153,7 +153,7 @@ spa:
     milking: "Ordeño"
     net_installation: "Instalación de la malla"
     net_removing: "La eliminación neta"
-    oil_replacement: "La sustitución del aceite"
+    oil_replacement: "La sustitución del aceite" #?
     partial_wine_transfer: "Transfert vino parcial"
     parturition: "Parto"
     pasturing: "Pastoreo"

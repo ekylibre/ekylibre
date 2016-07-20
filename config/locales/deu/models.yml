@@ -856,6 +856,8 @@ deu:
     parcel_items: "Paketsendungen"
     parcels: "Pakete"
     parent: "Elternteil"
+    # part_product_nature_variant_id: "Part product nature variant"
+    # part_replacements: "Part replacements"
     # part_variant: "Part variant"
     parted: "parted"
     parted_product: "parted Produkt"

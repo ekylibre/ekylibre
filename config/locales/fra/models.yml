@@ -1066,6 +1066,8 @@ fra:
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
+    # part_product_nature_variant_id: "Part product nature variant"
+    # part_replacements: "Part replacements"
     part_variant: "Variant de pièce"
     parted: "En partie"
     parted_product: "Produit retiré"

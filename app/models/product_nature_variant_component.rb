@@ -24,22 +24,40 @@
 #
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
+#  deleted_at                     :datetime
+#  depth                          :integer
 #  id                             :integer          not null, primary key
+#  lft                            :integer
 #  lock_version                   :integer          default(0), not null
 #  name                           :string           not null
-#  part_product_nature_variant_id :integer          not null
+#  parent_id                      :integer
+#  part_product_nature_variant_id :integer
 #  product_nature_variant_id      :integer          not null
+#  rgt                            :integer
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
 #
 class ProductNatureVariantComponent < Ekylibre::Record::Base
   belongs_to :product_nature_variant, class_name: 'ProductNatureVariant', inverse_of: :components
   belongs_to :part_product_nature_variant, class_name: 'ProductNatureVariant'
+  belongs_to :parent, class_name: 'ProductNatureVariantComponent', inverse_of: :children
+  has_many :children, class_name: 'ProductNatureVariantComponent', foreign_key: :parent_id, inverse_of: :parent
+  has_many :product_part_replacements
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :name, :part_product_nature_variant, :product_nature_variant
+  validates_datetime :deleted_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
+  validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
+  validates_presence_of :name, :product_nature_variant
   # ]VALIDATORS]
   validates :name, uniqueness: { case_sensitive: false, scope: :product_nature_variant_id }
+  # acts_as_nested_set scope: :product_nature_variant_id
+  accepts_nested_attributes_for :children
 
+
+  before_validation do
+    if parent
+    self.product_nature_variant = self.parent.product_nature_variant
+    end
+  end
 
   validate do
     if product_nature_variant && part_product_nature_variant
@@ -58,11 +76,11 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   # There can't be many product_nature_variant_component
   # je retrouve le variant_component d'un component pour un variant donné.
   # Je ne peux pas avoir plusieur variant_component pour un component avec un variant donné
-  def product_nature_variant_component_for(assembly_variant) 
-    list = product_nature_variant_components.select do |component|  
+  def product_nature_variant_component_for(assembly_variant)
+    list = product_nature_variant_components.select do |component|
       component.parent_components.detect do |parent|
         parent.product_nature_variant == assembly_variant
-      end 
+      end
     end
     if list.size > 1
       raise 'Unexpected count of component for given variant'
@@ -77,16 +95,10 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   def part_product_nature_variant_for(assembly)
     component = product_nature_variant_component_for(assembly.variant)
     if component
-      return component.part_product_nature_variant 
+      return component.part_product_nature_variant
     end
     return nil
   end
-
-
-
-
-
-
 
   # return in the list all the parent's variant, and do this until there are no more parent's
   def parent_variants

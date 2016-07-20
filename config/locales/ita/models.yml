@@ -887,6 +887,8 @@ ita:
     parcel_items: "articoli pacchi"
     parcels: "pacchi"
     parent: "Genitore"
+    # part_product_nature_variant_id: "Part product nature variant"
+    # part_replacements: "Part replacements"
     # part_variant: "Part variant"
     parted: "parted"
     parted_product: "prodotto parted"

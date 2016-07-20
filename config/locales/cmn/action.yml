@@ -857,6 +857,7 @@ cmn:
     document: "文件"
     document_natures: "文档类型"
     document_templates: "文档模板"
+    # documentation: "Documentation"
     doer_cost: "杜尔成本"
     done: "做"
     dont_use_journal: "- 不要使用日记 -"
@@ -1142,6 +1143,7 @@ cmn:
     operations: "操作"
     options: "选项"
     organic_matter_concentration: "有机物浓度"
+    # original_component: "original"
     others: "其他"
     outgoing_payment: "付款"
     outgoing_payments: "汇出款项"
@@ -1421,6 +1423,7 @@ cmn:
     # variety: "Variety"
     view: "视图"
     # watering_concentration: "Watering concentration"
+    # wear: "Wear"
     weather: "天气"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "风速"
@@ -1464,6 +1467,9 @@ cmn:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1501,6 +1507,9 @@ cmn:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_part_replacements:
+      # one: "%{count} part_replacement"
+      # other: "%{count} part replacements"
     x_purchases:
       one: "1购买"
       # other: "%{count} purchases"

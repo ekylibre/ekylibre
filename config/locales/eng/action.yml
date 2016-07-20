@@ -1019,6 +1019,7 @@ eng:
     document: "Document" #?
     document_natures: "Document types" #?
     document_templates: "Document templates" #?
+    documentation: "Documentation"
     doer_cost: "Doer cost"
     done: "Done" #?
     dont_use_journal: "— Do not use journal —"
@@ -1305,6 +1306,7 @@ eng:
     operations: "Operations" #?
     options: "Options"
     organic_matter_concentration: "Organic matter concentration" #?
+    original_component: "original"
     others: "Others" #?
     # outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
@@ -1365,6 +1367,7 @@ eng:
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
+    # product_part_replacements: "Product part replacements"
     product_value: "Product value %{financial_year}"
     production: "Production"
     production_cost: "Production cost"
@@ -1587,6 +1590,7 @@ eng:
     variety: "Variety" #?
     view: "View"
     watering_concentration: "Watering concentration" #?
+    wear: "Wear"
     weather: "Weather"
     welcome_on_first_run_wizard: "Welcome to the Startup Wizard" #?!
     wind_speed: "Wind speed"
@@ -1630,6 +1634,9 @@ eng:
     x_hours:
       one: "%{count} hour"
       other: "%{count} hours"
+    x_hours_worked:
+      one: "%{count}\_h worked"
+      other: "%{count}\_h worked"
     x_incoming_payments:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
@@ -1667,6 +1674,9 @@ eng:
     x_outgoing_payments:
       one: "%{count} disbursement"
       other: "%{count} disbursements"
+    x_part_replacements:
+      one: "%{count} part_replacement"
+      other: "%{count} part replacements"
     x_purchases:
       one: "1 purchase"
       other: "%{count} purchases"

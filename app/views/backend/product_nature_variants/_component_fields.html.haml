@@ -2,4 +2,5 @@
   = link_to_remove_nested_association(:component, f)
   = f.input :name, autocomplete: {controller: :product_nature_variant_components}
   = f.referenced_association :part_product_nature_variant
+  = f.nested_association(:children, locals: {depth: 0})
 

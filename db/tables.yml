@@ -4817,23 +4817,33 @@ product_nature_variant_components:
   creator_id:
     type: integer
     references: user
+  deleted_at:
+    type: datetime
+  depth:
+    type: integer
   id:
     type: integer
     required: true
+  lft:
+    type: integer
   lock_version:
     type: integer
     required: true
   name:
     type: string
     required: true
+  parent_id:
+    type: integer
+    references: product_nature_variant_component
   part_product_nature_variant_id:
     type: integer
     references: product_nature_variant
-    required: true
   product_nature_variant_id:
     type: integer
     references: product_nature_variant
     required: true
+  rgt:
+    type: integer
   updated_at:
     type: datetime
     required: true

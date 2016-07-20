@@ -68,7 +68,7 @@ cmn:
     net_implanter: "净注入"
     net_roll: "净卷"
     oenological_intrant: "酿酒内联网"
-    oil: "油"
+    oil: "油" #?
     plant_medicine: "植物药"
     plants: "植物"
     plastic: "塑料"
@@ -153,7 +153,7 @@ cmn:
     milking: "挤奶"
     net_installation: "网络安装"
     net_removing: "卸下网"
-    oil_replacement: "机油更换"
+    oil_replacement: "机油更换" #?
     partial_wine_transfer: "部分酒transfert"
     parturition: "分娩"
     pasturing: "牧区"

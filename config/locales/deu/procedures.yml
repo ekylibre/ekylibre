@@ -68,7 +68,7 @@ deu:
     # net_implanter: "Net planter"
     net_roll: "Netzrolle"
     oenological_intrant: "önologischen intrant"
-    oil: "Öl"
+    oil: "Öl" #?
     plant_medicine: "Pflanzenmedizin"
     plants: "Pflanzen"
     plastic: "Kunststoff"
@@ -153,7 +153,7 @@ deu:
     milking: "Melken"
     net_installation: "Net-Installation"
     net_removing: "Net Entfernen"
-    oil_replacement: "Ölwechsel"
+    oil_replacement: "Ölwechsel" #?
     partial_wine_transfer: "Teilweise Wein transfert"
     parturition: "Entbindung"
     pasturing: "Weide"

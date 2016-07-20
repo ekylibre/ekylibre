@@ -55,7 +55,7 @@ module Backend
       item = association.to_s.singularize
       partial = options[:partial] || item + '_fields'
       options[:locals] ||= {}
-      html = simple_fields_for(association) do |nested|
+      html = simple_fields_for(association, options[:collection]) do |nested|
         @template.render(partial, options[:locals].merge(f: nested))
       end
       html_options = { id: "#{association}-field", class: "nested-#{association} nested-association" }

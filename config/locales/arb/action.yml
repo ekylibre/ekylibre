@@ -1204,6 +1204,7 @@ arb:
     document_natures: "نوع الوثيقة"
     document_template_create: "انشاء نموذج للوثيقة" #?
     document_templates: "نموذج الوثائق"
+    # documentation: "Documentation"
     doer_cost: "تكلفة الفاعل"
     done: "فعله"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
@@ -1646,6 +1647,7 @@ arb:
     order_amount_with_taxes: "قيمة الطلب مع الضرائب" #?
     order_print: "طباعة الطلب" #?
     organic_matter_concentration: "تركيز المواد العضوية"
+    # original_component: "original"
     other_assessable_operations: "اجراءات ضريبية اخرى" #?
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى" #?
     other_results: "...نتائج اخرى" #?
@@ -2081,6 +2083,7 @@ arb:
     virtual_quantity: "الكمية العملية" #?
     waiting: "أ€ التسدسد لاحقا" #?
     # watering_concentration: "Watering concentration"
+    # wear: "Wear"
     weather: "طقس"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "سرعة الرياح"
@@ -2129,6 +2132,9 @@ arb:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
@@ -2178,6 +2184,9 @@ arb:
       one: "نفقة واحدة"
       other: "%{count} نفقات اخرى"
       zero: "ولااية نفقة" #?
+    x_part_replacements:
+      # one: "%{count} part_replacement"
+      # other: "%{count} part replacements"
     x_performed_operations:  #?
       one: "تم انجاز عمل واحد" #?
       other: "%{count} تم انجاز اعمال اخرى" #?

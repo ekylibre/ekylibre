@@ -856,6 +856,8 @@ jpn:
     parcel_items: "小包のアイテム"
     parcels: "小包"
     parent: "親戚"
+    # part_product_nature_variant_id: "Part product nature variant"
+    # part_replacements: "Part replacements"
     # part_variant: "Part variant"
     parted: "分割されました"
     parted_product: "別れた製品"

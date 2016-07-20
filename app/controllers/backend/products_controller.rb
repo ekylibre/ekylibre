@@ -148,6 +148,12 @@ module Backend
       t.column :stopped_at
     end
 
+    list(:part_replacements, model: :product_part_replacement) do |t|
+      t.column :intervention, url: true
+      t.column :stopped_at, through: :intervention, datatype: :datetime
+      t.column :human_activities_names, through: :intervention
+    end
+
     # Lists localizations of the current product
     list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.column :nature

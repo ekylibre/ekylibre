@@ -856,6 +856,8 @@ por:
     parcel_items: "Itens da Parcela"
     parcels: "Parcelas"
     parent: "Parente"
+    # part_product_nature_variant_id: "Part product nature variant"
+    # part_replacements: "Part replacements"
     # part_variant: "Part variant"
     parted: "Repartido"
     parted_product: "Produto se separaram"

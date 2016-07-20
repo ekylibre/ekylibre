@@ -24,11 +24,16 @@
 #
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
+#  deleted_at                     :datetime
+#  depth                          :integer
 #  id                             :integer          not null, primary key
+#  lft                            :integer
 #  lock_version                   :integer          default(0), not null
 #  name                           :string           not null
-#  part_product_nature_variant_id :integer          not null
+#  parent_id                      :integer
+#  part_product_nature_variant_id :integer
 #  product_nature_variant_id      :integer          not null
+#  rgt                            :integer
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
 #

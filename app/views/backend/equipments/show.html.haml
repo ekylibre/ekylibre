@@ -25,6 +25,10 @@
     .med-info.important
       %span.title= Equipment.human_attribute_name(:state)
       %span.value= lights(resource.status)
+    - if resource.remaining_working_lifespan || resource.remaining_lifespan
+      .med-info.important
+        %span.title= :wear.tl
+        %span.value= lights(resource.wear_status)
     .med-info
       %span.title= Equipment.human_attribute_name(:working_duration)
       %span.value
@@ -58,8 +62,13 @@
         = cobble_list(:issues)
 
   - time_spent_by_activity(resource, cobbler: c)
+
+  - if resource.part_replacements.any?
+    - c.cobble(:product_part_replacements, title: :x_part_replacements.tl(count: resource.part_replacements.count)) do
+      = cobble_list(:part_replacements)
+
   - if resource.nature.variants.collect(&:components).any?
     - c.cobble(:components) do
       .component-tree
-        = render "composition", product: resource, variant: resource.variant
+        = render "composition", product: resource, components: resource.components
 

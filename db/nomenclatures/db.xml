@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160615122805">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160719094049">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1953,6 +1953,7 @@
       <item name="complete_wine_transfer"/>
       <item name="concrete_slab_pouring"/>
       <item name="corvicide"/>
+      <item name="curative_maintenance"/>
       <item name="cutting"/>
       <item name="dehorning"/>
       <item name="desiccation"/>
@@ -2023,6 +2024,7 @@
       <item name="plantation_unfixing"/>
       <item name="planting"/>
       <item name="plowing"/>
+      <item name="preventive_maintenance"/>
       <item name="product_identification"/>
       <item name="pumping_system_troubleshooting"/>
       <item name="rain_protection"/>
@@ -2050,6 +2052,7 @@
       <item name="tractor_troubleshooting"/>
       <item name="troubleshooting"/>
       <item name="tunnel_removing"/>
+      <item name="upgrading_maintenance"/>
       <item name="virucide"/>
       <item name="water_flow_improvement"/>
       <item name="weeding"/>

@@ -1079,6 +1079,7 @@ fra:
     document: "Document joint"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
+    documentation: "Documentation"
     doer_cost: "Coût de main d’œuvre"
     done: "Fait"
     dont_use_journal: "— Ne pas utiliser de journal —"
@@ -1509,6 +1510,7 @@ fra:
     order_amount_with_taxes: "Montant de la commande" #?
     order_print: "Imprimer la commande" #?
     organic_matter_concentration: "Teneur en matière organique"
+    original_component: "D'origine"
     other_results: "Autres résultats…" #?
     others: "Autres"
     outgoing_payment: "Décaissement"
@@ -1968,6 +1970,7 @@ fra:
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
     watering_concentration: "Eau consommée"
+    wear: "Usure"
     weather: "Météo"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Vitesse du vent"
@@ -2016,6 +2019,9 @@ fra:
     x_hours:
       one: "%{count} heure"
       other: "%{count} heures"
+    x_hours_worked:
+      one: "%{count}\_h travaillée"
+      other: "%{count}\_h travaillées"
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
@@ -2059,6 +2065,9 @@ fra:
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
+    x_part_replacements:
+      one: "%{count} changement de pièces effectué"
+      other: "%{count} changement de pièces effectués"
     x_performed_operations:  #?
       one: "%{count} travail à réaliser" #?
       other: "%{count} travaux à réaliser" #?

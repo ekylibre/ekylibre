@@ -17,6 +17,7 @@ namespace :diagrams do
       journal: [Journal, JournalEntry, JournalEntryItem, Account, FinancialYear, AccountBalance, Loan, LoanRepayment, BankStatement, Cash, FixedAsset, FixedAssetDepreciation], # , CashTransfer, CashSession]
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
       production: [Activity, ActivityDistribution, Campaign, ActivityProduction, ActivityBudget, TargetDistribution, Intervention, InterventionParameter, InterventionWorkingPeriod, CultivableZone, Product],
+      component: [ProductNature, ProductNatureVariant, ProductNatureVariantComponent, ProductPartReplacement, InterventionParameter, Intervention, Product],
       sale: [Sale, SaleNature, SaleItem, Parcel, ParcelItem, Delivery, IncomingPayment, IncomingPaymentMode, Deposit, Affair],
       purchase: [Purchase, PurchaseNature, PurchaseItem, Parcel, ParcelItem, OutgoingPayment, OutgoingPaymentMode, Affair],
       cap_statement: [CapStatement, CapIslet, CapLandParcel, Entity, Campaign],

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get :list_members
       get :list_places
       get :take
+      get :list_part_replacements
     end
   end
 

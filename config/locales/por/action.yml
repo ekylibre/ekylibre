@@ -862,6 +862,7 @@ por:
     document: "Documento"
     document_natures: "Tipos de documentos"
     document_templates: "Modelos de documentos"
+    # documentation: "Documentation"
     doer_cost: "Custo doer"
     done: "Feito"
     dont_use_journal: "- Não use jornal -"
@@ -1147,6 +1148,7 @@ por:
     operations: "Operações"
     options: "Opções"
     organic_matter_concentration: "Concentração de matéria orgânica"
+    # original_component: "original"
     others: "Outras"
     outgoing_payment: "Pagamento de saída"
     outgoing_payments: "Contas a pagar"
@@ -1426,6 +1428,7 @@ por:
     # variety: "Variety"
     view: "Visão"
     # watering_concentration: "Watering concentration"
+    # wear: "Wear"
     weather: "Clima"
     # welcome_on_first_run_wizard: "Welcome to the Startup Wizard"
     wind_speed: "Velocidade do vento"
@@ -1469,6 +1472,9 @@ por:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1506,6 +1512,9 @@ por:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_part_replacements:
+      # one: "%{count} part_replacement"
+      # other: "%{count} part replacements"
     x_purchases:
       one: "1 de compra"
       # other: "%{count} purchases"

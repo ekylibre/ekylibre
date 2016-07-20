@@ -29,4 +29,7 @@
     = f.nested_association(:readings, new: false)
 
 = field_set(:components) do
-  = f.nested_association(:components)
+  = f.nested_association(:components, collection: f.object.root_components)
+
+
+
