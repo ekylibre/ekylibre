@@ -6,12 +6,14 @@
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <input name="stakes" filter="is stake and can enclose" cardinality="*">
-        <handler indicator="stakes_count" unit="unity_per_hectare"
+        <handler name="population"/>
+        <handler name="stakes_by_hectare" unit="unity_per_hectare" datatype="measure"
                  if="sum(land_parcel, :net_surface_area, :hectare) != 0"
                  backward="(POPULATION / sum(land_parcel, :net_surface_area, :hectare))"
                  forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare))"/>
       </input>
       <input name="wire_fence" filter="is wire and can enclose" cardinality="*">
+        <handler name="population"/>
         <handler indicator="length" unit="meter"
                  if="PRODUCT..length?"
                  backward="(POPULATION * PRODUCT..length(meter))"
