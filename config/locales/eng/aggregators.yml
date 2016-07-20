@@ -27,7 +27,7 @@ eng:
     #~ address: "Address"
     #~ amount: "Amount"
     # animal_husbandry_register: "Animal husbandry register"
-    #~ animal_productions: "Animal productions"
+    # animal_productions: "Animal productions"
     area: "Area"
     area_in_hectare: "Area in hectare"
     #~ balance: "Balance"
