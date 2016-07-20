@@ -10,7 +10,7 @@ class mapeditor.Simple
           label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: false).setContent(feature.properties.name).toCentroidOfBounds(layer.getLatLngs())
           widget.ghostLabelCluster.bind label, layer
         feature.properties['popupAttributes'] = globalStyle.popup || []
-        widget.popupizeSerie(feature, layer)
+        widget.popupizeSerie(feature, layer) if @layer.popup
 
       style: (feature) =>
         $.extend {}, true, globalStyle, feature.properties
