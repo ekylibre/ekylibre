@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718150935) do
+ActiveRecord::Schema.define(version: 20160721162003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,9 +242,11 @@ ActiveRecord::Schema.define(version: 20160718150935) do
     t.integer  "rank_number",                                                                                                null: false
     t.integer  "campaign_id"
     t.jsonb    "custom_fields"
+    t.integer  "activity_season_id"
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
+  add_index "activity_productions", ["activity_season_id"], name: "index_activity_productions_on_activity_season_id", using: :btree
   add_index "activity_productions", ["campaign_id"], name: "index_activity_productions_on_campaign_id", using: :btree
   add_index "activity_productions", ["created_at"], name: "index_activity_productions_on_created_at", using: :btree
   add_index "activity_productions", ["creator_id"], name: "index_activity_productions_on_creator_id", using: :btree
@@ -252,6 +254,22 @@ ActiveRecord::Schema.define(version: 20160718150935) do
   add_index "activity_productions", ["support_id"], name: "index_activity_productions_on_support_id", using: :btree
   add_index "activity_productions", ["updated_at"], name: "index_activity_productions_on_updated_at", using: :btree
   add_index "activity_productions", ["updater_id"], name: "index_activity_productions_on_updater_id", using: :btree
+
+  create_table "activity_seasons", force: :cascade do |t|
+    t.integer  "activity_id",              null: false
+    t.string   "name"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "activity_seasons", ["activity_id"], name: "index_activity_seasons_on_activity_id", using: :btree
+  add_index "activity_seasons", ["created_at"], name: "index_activity_seasons_on_created_at", using: :btree
+  add_index "activity_seasons", ["creator_id"], name: "index_activity_seasons_on_creator_id", using: :btree
+  add_index "activity_seasons", ["updated_at"], name: "index_activity_seasons_on_updated_at", using: :btree
+  add_index "activity_seasons", ["updater_id"], name: "index_activity_seasons_on_updater_id", using: :btree
 
   create_table "affairs", force: :cascade do |t|
     t.string   "number",                                                          null: false
