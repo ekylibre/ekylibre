@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update equipment varieties">
+  <item-creation item="varieties#motorized_vehicle" parent="equipment"/>
+  <item-creation item="varieties#trailed_equipment" parent="equipment"/>
+  <item-creation item="varieties#portable_equipment" parent="equipment"/>
+  <item-creation item="varieties#truck" parent="motorized_vehicle"/>
+  <item-creation item="varieties#car" parent="motorized_vehicle"/>
+  <item-creation item="varieties#self_propelled_equipment" parent="motorized_vehicle"/>
+  <item-change item="varieties#tractor" parent="motorized_vehicle"/>
+  <item-creation item="varieties#heavy_equipment" parent="motorized_vehicle"/>
+  <item-creation item="varieties#handling_equipment" parent="motorized_vehicle"/>
+  <item-change item="varieties#item" name="equipment_part" parent="matter"/>
+  <item-merging item="varieties#bale_collector" into="trailed_equipment"/>
+  <item-merging item="varieties#baler" into="trailed_equipment"/>
+  <item-merging item="varieties#bottler" into="equipment"/>
+  <item-merging item="varieties#cleaner" into="portable_equipment"/>
+  <item-merging item="varieties#corker" into="equipment"/>
+  <item-merging item="varieties#food_deliver" into="trailed_equipment"/>
+  <item-merging item="varieties#forager" into="trailed_equipment"/>
+  <item-merging item="varieties#harvester" into="trailed_equipment"/>
+  <item-merging item="varieties#implanter" into="trailed_equipment"/>
+  <item-merging item="varieties#mower" into="trailed_equipment"/>
+  <item-merging item="varieties#plower" into="trailed_equipment"/>
+  <item-merging item="varieties#press" into="equipment"/>
+  <item-merging item="varieties#pruner" into="portable_equipment"/>
+  <item-merging item="varieties#reaper" into="trailed_equipment"/>
+  <item-merging item="varieties#sower" into="trailed_equipment"/>
+  <item-merging item="varieties#sprayer" into="trailed_equipment"/>
+  <item-merging item="varieties#spreader" into="trailed_equipment"/>
+  <item-merging item="varieties#telescopic_handler" into="handling_equipment"/>
+  <item-merging item="varieties#trailer" into="trailed_equipment"/>
+  <item-merging item="varieties#wheel_loader" into="heavy_equipment"/>
+</migration>
