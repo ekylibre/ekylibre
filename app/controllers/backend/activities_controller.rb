@@ -71,7 +71,7 @@ module Backend
       budgets = ActivityBudget.of_campaign(source)
       budgets = budgets.of_activity(activity) if activity
       budgets.each do |budget|
-        budget.duplicate!(activity, new_campaign)
+        budget.duplicate!(budget.activity, new_campaign)
       end
       redirect_to params[:redirect] || { action: :index }
     end
