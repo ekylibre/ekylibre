@@ -127,7 +127,7 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
   accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
-  accepts_nested_attributes_for :counting, allow_destroy: true
+  accepts_nested_attributes_for :counting, allow_destroy: true, update_only: true, reject_if: -> (par) { par[:use_countings].blank? }
 
   # protect(on: :update) do
   #   productions.any?
