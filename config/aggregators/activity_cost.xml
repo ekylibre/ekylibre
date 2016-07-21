@@ -25,11 +25,11 @@
           <matrix name="interventions" for="intervention" in="Intervention.real.where(state: 'done').of_activity(activity).of_campaign(campaign).order(:started_at)">
             <cell name="id" of="intervention" level="api"/>
             <cell name="name" of="intervention" of-type="record"/>
-            <cell name="production_support" if="intervention.production_support and intervention.production_support.storage" value="intervention.production_support.storage.name" of-type="record"/>
-            <cell name="production_support_area_value_in_hectare" if="intervention.production_support and intervention.production_support.storage" value="intervention.production_support.storage.net_surface_area.round(2)" level="api"/>
+            <cell name="production_support" value="intervention.activity_productions.map{ |ap| ap.name }.to_sentence" of-type="record"/>
+            <cell name="production_support_area_value_in_hectare" value="intervention.activity_productions.map{ |ap| ap.support_shape.area.in(:hectare) }.sum.in(:hectare).round(2)" level="api"/>
             <cell name="started_at" of="intervention" type="datetime"/>
             <cell name="stopped_at" of="intervention" type="datetime"/>
-            <cell name="casting" of="intervention" level="api"/>
+            <cell name="casting" value="intervention.product_parameters.map { |p| p.name }.to_sentence" level="api"/>
             <cell name="working_area_value_in_hectare" if="intervention.working_area" value="intervention.working_area" level="api"/>
             <cell name="duration_in_hour" if="intervention.duration" value="intervention.duration.in_second.convert(:hour).round(2)" type="measure"/>
             <cell name="duration_value_in_hour" if="intervention.duration" value="intervention.duration.in_second.convert(:hour).round(2).value.to_f" level="api"/>
