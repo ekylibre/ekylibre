@@ -124,21 +124,24 @@ class ActivityBudget < Ekylibre::Record::Base
     r = []
     revenues.find_each do |item|
       next if item.variant_indicator == 'working_period'
+      quantity_unit = item.variant_unit
       quantity = if item.variant_indicator == 'population' && item.variant.frozen_indicators.detect { |i| i <= :net_mass }
-                   item.quantity * item.variant.net_mass.to_f(item.variant_unit)
+                   quantity_unit = :quintal
+                   item.quantity * item.variant.net_mass.to_f(quantity_unit)
                  else
                    item.quantity
                  end
-      next if item.variant_indicator == 'population'
       # TODO: do dimensional analysis to find exiting unit in matching dimension if necessary
-      item_unit = Nomen::Unit.find("#{item.variant_unit}_per_#{activity.size_unit.name}")
+      item_unit = Nomen::Unit.find("#{quantity_unit}_per_#{activity.size_unit.name}")
       next unless item_unit
       next unless item_unit.dimension == yield_unit.dimension
       harvest_yield = if item.per_working_unit?
                         quantity
                       elsif item.per_production?
+                        next if productions_size.zero?
                         quantity * productions_count / productions_size
                       else # per campaign
+                        next if productions_size.zero?
                         quantity / productions_size
                       end
       r << harvest_yield.in(item_unit).convert(yield_unit)
