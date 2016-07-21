@@ -169,6 +169,10 @@ class Intervention < Ekylibre::Record::Base
     with_undestroyable_products?
   end
 
+  def activity_productions
+    ActivityProduction.of_intervention(self)
+  end
+
   def with_undestroyable_products?
     outputs.map(&:product).detect do |product|
       next unless product
