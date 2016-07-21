@@ -569,10 +569,13 @@
 
     _refreshEditionLayerGroup: ->
       if this.edition?
+        #remove overlay
+        @layerSelector.removeLayer this.edition
         this.map.removeLayer this.edition
       if this.options.edit?
         if this.options.useFeatures
 
+          polys = []
           this.edition = L.geoJson(this.options.edit, {
             onEachFeature: (feature, layer) =>
               #nested function cause geojson doesn't seem to pass binding context
@@ -580,7 +583,13 @@
 
             style: (feature) =>
               @featureStyling feature
+            filter: (feature) =>
+              if feature.type == 'MultiPolygon'
+                for coordinates in feature.coordinates
+                  polys.push {type: 'Polygon', coordinates: coordinates}
+              !(feature.type == 'MultiPolygon')
           })
+          this.edition.addData(polys)
         else
           this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
       else

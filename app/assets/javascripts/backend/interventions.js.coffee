@@ -53,7 +53,6 @@
             else if element.is(":ui-mapeditor")
               value = $.parseJSON(value)
               if (value.geometries? and value.geometries.length > 0) || (value.coordinates? and value.coordinates.length > 0)
-                element.mapeditor "show", value
                 element.mapeditor "edit", value
                 try
                   element.mapeditor "view", "edit"
