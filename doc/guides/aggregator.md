@@ -56,7 +56,7 @@ Special markup `<within>` permits to set default name or value for a group of
 
 ## Sample
 
-These following codes compose the Rosetta Stone to unciffer the Aggregator
+These following codes compose the Rosetta Stone to decipher the Aggregator
 XML.
 
 ### Aggregator XML
