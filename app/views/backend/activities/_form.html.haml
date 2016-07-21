@@ -33,7 +33,6 @@
       = f.referenced_nomenclature :grading_sizes_unit, collection: Nomen::Unit.where(dimension: :distance).selection, include_blanks: false
 
     = f.nested_association(:inspection_point_natures)
-
     = f.nested_association(:inspection_calibration_scales)
 
 = field_set(:countings) do
@@ -42,7 +41,11 @@
     = f.simple_fields_for :counting do |g|
       = render "backend/plant_density_abaci/form", f: g
 
-
 .auxiliary-nature-options
   = field_set(Activity.human_attribute_name(:distributions)) do
     = f.nested_association(:distributions)
+
+= field_set(:activity_seasons) do
+  = f.input :use_seasons, show: '#seasons'
+  #seasons
+    = f.nested_association(:seasons)

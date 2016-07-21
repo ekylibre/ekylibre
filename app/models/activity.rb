@@ -49,6 +49,7 @@
 #  updater_id                   :integer
 #  use_countings                :boolean          default(FALSE), not null
 #  use_gradings                 :boolean          default(FALSE), not null
+#  use_seasons                  :boolean          default(FALSE)
 #  with_cultivation             :boolean          not null
 #  with_supports                :boolean          not null
 #
@@ -75,6 +76,7 @@ class Activity < Ekylibre::Record::Base
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
+    has_many :seasons, class_name: 'ActivitySeason'
     has_many :inspections, class_name: 'Inspection'
     has_one :counting, class_name: 'PlantDensityAbacus'
     has_many :inspection_point_natures, class_name: 'ActivityInspectionPointNature'
@@ -128,7 +130,7 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
   accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
   accepts_nested_attributes_for :counting, allow_destroy: true, update_only: true, reject_if: -> (par) { par[:use_countings].blank? }
-
+  accepts_nested_attributes_for :seasons, update_only: true, reject_if: -> (par) { par[:name].blank? }
   # protect(on: :update) do
   #   productions.any?
   # end

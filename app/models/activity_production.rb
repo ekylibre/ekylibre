@@ -23,6 +23,7 @@
 # == Table: activity_productions
 #
 #  activity_id         :integer          not null
+#  activity_season_id  :integer
 #  campaign_id         :integer
 #  created_at          :datetime         not null
 #  creator_id          :integer
@@ -57,6 +58,7 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :campaign
   belongs_to :cultivable_zone
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
+  belongs_to :activity_season, class_name: 'ActivitySeason', inverse_of: :activity_production
   has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :restrict_with_exception
   has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',

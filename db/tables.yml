@@ -186,6 +186,9 @@ activities:
     type: boolean
     required: true
     default: false
+  use_seasons:
+    type: boolean
+    default: false
   with_cultivation:
     type: boolean
     required: true
@@ -412,6 +415,9 @@ activity_productions:
     type: integer
     references: activity
     required: true
+  activity_season_id:
+    type: integer
+    references: activity_season
   campaign_id:
     type: integer
     references: campaign
@@ -479,6 +485,31 @@ activity_productions:
   usage:
     type: string
     required: true
+activity_seasons:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 affairs:
   accounted_at:
     type: datetime

@@ -1752,6 +1752,17 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="activity_seasons">
+        <page to="backend/activity_seasons#index"/>
+        <page to="backend/activity_seasons#create"/>
+        <page to="backend/activity_seasons#destroy"/>
+        <page to="backend/activity_seasons#edit"/>
+        <page to="backend/activity_seasons#new"/>
+        <page to="backend/activity_seasons#show"/>
+        <page to="backend/activity_seasons#unroll"/>
+        <page to="backend/activity_seasons#update"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

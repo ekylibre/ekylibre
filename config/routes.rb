@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -200,6 +201,8 @@ Rails.application.routes.draw do
         get :list_interventions
       end
     end
+
+    resources :activity_seasons, concerns: [:unroll]
 
     resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
 

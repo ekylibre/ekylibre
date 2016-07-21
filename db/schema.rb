@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721162003) do
+ActiveRecord::Schema.define(version: 20160721192642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20160721162003) do
     t.string   "grading_sizes_indicator_name"
     t.string   "grading_sizes_unit_name"
     t.string   "production_system_name"
+    t.boolean  "use_seasons",                  default: false
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
