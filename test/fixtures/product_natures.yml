@@ -539,7 +539,7 @@ product_natures_022:
   updated_at: 2014-11-02 18:19:51.679190000 Z
   updater_id: 1
   variable_indicators_list: geolocation
-  variety: plower
+  variety: trailed_equipment
 product_natures_023:
   abilities_list: plow
   active: true
@@ -563,7 +563,7 @@ product_natures_023:
   updated_at: 2014-11-02 18:29:03.417542000 Z
   updater_id: 1
   variable_indicators_list: geolocation
-  variety: plower
+  variety: trailed_equipment
 product_natures_024:
   abilities_list: consume(seed), consume(water), produce(plant), store(animal), store(fungus),
     store(plant)
@@ -613,7 +613,7 @@ product_natures_025:
   updated_at: 2014-11-02 18:36:36.365485000 Z
   updater_id: 1
   variable_indicators_list: geolocation
-  variety: sower
+  variety: trailed_equipment
 product_natures_026:
   abilities_list: consume(mix), consume(poaceae), consume(silage), consume(water),
     move, produce(excrement), produce(milk)
@@ -687,7 +687,7 @@ product_natures_028:
   updated_at: 2014-11-04 18:38:32.184660000 Z
   updater_id: 1
   variable_indicators_list: geolocation
-  variety: plower
+  variety: trailed_equipment
 product_natures_029:
   abilities_list: hoe, plow_superficially
   active: true
@@ -711,7 +711,7 @@ product_natures_029:
   updated_at: 2014-11-04 18:40:21.555218000 Z
   updater_id: 1
   variable_indicators_list: geolocation
-  variety: plower
+  variety: trailed_equipment
 product_natures_030:
   abilities_list: spray
   active: true
@@ -735,7 +735,7 @@ product_natures_030:
   updated_at: 2014-11-07 15:00:45.263080000 Z
   updater_id: 1
   variable_indicators_list: geolocation
-  variety: sprayer
+  variety: trailed_equipment
 product_natures_031:
   abilities_list: spread(preparation)
   active: true
@@ -759,7 +759,7 @@ product_natures_031:
   updated_at: 2014-11-07 15:22:23.946771000 Z
   updater_id: 1
   variable_indicators_list: geolocation
-  variety: spreader
+  variety: trailed_equipment
 product_natures_032:
   abilities_list: move, spread(excrement), store(excrement), store_fluid
   active: true
@@ -782,7 +782,7 @@ product_natures_032:
   updated_at: 2014-11-07 15:22:31.398219000 Z
   updater_id: 1
   variable_indicators_list: geolocation, nominal_storable_net_mass, nominal_storable_net_volume
-  variety: trailer
+  variety: trailed_equipment
 product_natures_033:
   abilities_list: fertilize
   active: true
@@ -929,7 +929,7 @@ product_natures_038:
   updated_at: 2014-11-07 16:48:34.917965000 Z
   updater_id: 1
   variable_indicators_list: geolocation
-  variety: implanter
+  variety: trailed_equipment
 product_natures_039:
   abilities_list: consume(fuel), consume(oil), harvest(grape)
   active: true
@@ -952,7 +952,7 @@ product_natures_039:
   updated_at: 2014-11-07 17:04:02.243262000 Z
   updater_id: 1
   variable_indicators_list: application_width, geolocation
-  variety: reaper
+  variety: trailed_equipment
 product_natures_040:
   abilities_list: produce(juice)
   active: true
@@ -1049,7 +1049,7 @@ product_natures_043:
   updated_at: 2014-11-07 17:23:08.046218000 Z
   updater_id: 1
   variable_indicators_list: nominal_storable_net_volume
-  variety: press
+  variety: equipment
 product_natures_044:
   abilities_list: fertilize
   active: true

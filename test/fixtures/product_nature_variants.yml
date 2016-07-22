@@ -402,7 +402,7 @@ product_nature_variants_024:
   unit_name: "Équipement"
   updated_at: 2014-11-02 18:19:51.698049000 Z
   updater_id: 1
-  variety: plower
+  variety: trailed_equipment
 product_nature_variants_025:
   active: true
   category_id: 14
@@ -432,7 +432,7 @@ product_nature_variants_026:
   unit_name: "Équipement"
   updated_at: 2014-11-02 18:29:03.433574000 Z
   updater_id: 1
-  variety: plower
+  variety: trailed_equipment
 product_nature_variants_027:
   active: true
   category_id: 15
@@ -462,7 +462,7 @@ product_nature_variants_028:
   unit_name: "Équipement"
   updated_at: 2014-11-02 18:36:36.382111000 Z
   updater_id: 1
-  variety: sower
+  variety: trailed_equipment
 product_nature_variants_029:
   active: true
   category_id: 16
@@ -524,7 +524,7 @@ product_nature_variants_032:
   unit_name: "Équipement"
   updated_at: 2014-11-04 18:38:32.203593000 Z
   updater_id: 1
-  variety: plower
+  variety: trailed_equipment
 product_nature_variants_033:
   active: true
   category_id: 14
@@ -539,7 +539,7 @@ product_nature_variants_033:
   unit_name: "Équipement"
   updated_at: 2014-11-04 18:40:21.570497000 Z
   updater_id: 1
-  variety: plower
+  variety: trailed_equipment
 product_nature_variants_034:
   active: true
   category_id: 1
@@ -569,7 +569,7 @@ product_nature_variants_035:
   unit_name: "Équipement"
   updated_at: 2014-11-07 15:00:45.280360000 Z
   updater_id: 1
-  variety: sprayer
+  variety: trailed_equipment
 product_nature_variants_036:
   active: true
   category_id: 14
@@ -584,7 +584,7 @@ product_nature_variants_036:
   unit_name: "Équipement"
   updated_at: 2014-11-07 15:22:23.973592000 Z
   updater_id: 1
-  variety: spreader
+  variety: trailed_equipment
 product_nature_variants_037:
   active: true
   category_id: 14
@@ -599,7 +599,7 @@ product_nature_variants_037:
   unit_name: "Équipement"
   updated_at: 2014-11-07 15:22:31.413012000 Z
   updater_id: 1
-  variety: trailer
+  variety: trailed_equipment
 product_nature_variants_038:
   active: true
   category_id: 17
@@ -723,7 +723,7 @@ product_nature_variants_045:
   unit_name: "Équipement"
   updated_at: 2014-11-07 16:48:34.937972000 Z
   updater_id: 1
-  variety: implanter
+  variety: trailed_equipment
 product_nature_variants_046:
   active: true
   category_id: 14
@@ -738,7 +738,7 @@ product_nature_variants_046:
   unit_name: "Équipement"
   updated_at: 2014-11-07 17:04:02.267331000 Z
   updater_id: 1
-  variety: reaper
+  variety: trailed_equipment
 product_nature_variants_047:
   active: true
   category_id: 20
@@ -815,7 +815,7 @@ product_nature_variants_051:
   unit_name: "Équipement"
   updated_at: 2014-11-07 17:23:08.062270000 Z
   updater_id: 1
-  variety: press
+  variety: equipment
 product_nature_variants_052:
   active: true
   category_id: 20
