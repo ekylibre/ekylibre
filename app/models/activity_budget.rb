@@ -122,7 +122,7 @@ class ActivityBudget < Ekylibre::Record::Base
     Nomen::Variety.find!(variety)
 
     r = []
-    revenues.where(variant: Variant.of_variety(variety)).find_each do |item|
+    revenues.where(variant: ProductNatureVariant.of_variety(variety)).find_each do |item|
       next if item.variant_indicator == 'working_period'
       quantity_unit = item.variant_unit
       quantity = if item.variant_indicator == 'population' && item.variant.frozen_indicators.detect { |i| i <= :net_mass }
