@@ -70,11 +70,11 @@ module TimeLineable
   end
 
   def following
-    return nil unless stopped_at
     followings.order(started_at: :asc).first
   end
 
   def followings
+    return nil unless started_at
     other_siblings.after(self.started_at)
   end
 

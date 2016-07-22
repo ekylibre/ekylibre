@@ -4,7 +4,7 @@ module Procedo
   module Engine
     class Intervention
       class ProductParameter < Procedo::Engine::Intervention::Parameter
-        attr_reader :product, :working_zone, :readings
+        attr_reader :product, :working_zone, :readings, :read_at
 
         delegate :get, to: :product
 
@@ -16,6 +16,7 @@ module Procedo
           if attributes[:working_zone].present?
             @working_zone = Charta.from_geojson(attributes[:working_zone])
           end
+          @read_at = intervention.working_periods['0'].started_at if intervention and intervention.working_periods.present?
           @readings = {}.with_indifferent_access
           if @attributes[:readings_attributes]
             @attributes[:readings_attributes].each do |id, attributes|
@@ -179,7 +180,7 @@ module Procedo
         end
 
         def env
-          { self: self, product: product, working_zone: working_zone }
+          { self: self, product: product, working_zone: working_zone, read_at: read_at }
         end
       end
     end

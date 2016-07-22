@@ -40,5 +40,4 @@ class ActivitySeason < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   scope :of_activity, ->(activity) { where(activity: activity) }
-
 end

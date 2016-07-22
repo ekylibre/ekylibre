@@ -425,7 +425,7 @@ equipments_002:
   updater_id: 1
   uuid: 7f595f92-5b4d-48a9-a4d3-3d267b1c2129
   variant_id: 25
-  variety: plower
+  variety: trailed_equipment
 equipments_003:
   born_at: 2005-09-14 22:00:00.000000000 Z
   category_id: 14
@@ -445,7 +445,7 @@ equipments_003:
   updater_id: 1
   uuid: 352ec0a2-381b-49a8-ad64-f637ba0b9ffd
   variant_id: 27
-  variety: plower
+  variety: trailed_equipment
 equipments_004:
   born_at: 1997-01-22 23:00:00.000000000 Z
   category_id: 14
@@ -467,7 +467,7 @@ equipments_004:
   updater_id: 1
   uuid: 248bcc0e-cc66-4f29-a166-f7a8a5835874
   variant_id: 29
-  variety: sower
+  variety: trailed_equipment
 equipments_005:
   born_at: 1992-01-17 23:00:00.000000000 Z
   category_id: 14
@@ -489,7 +489,7 @@ equipments_005:
   updater_id: 1
   uuid: 29331714-8318-47f7-8467-e5388a0a1a9b
   variant_id: 33
-  variety: plower
+  variety: trailed_equipment
 equipments_006:
   born_at: 1997-09-22 12:30:00.000000000 Z
   category_id: 14
@@ -511,7 +511,7 @@ equipments_006:
   updater_id: 1
   uuid: 381e8428-9ef4-4e44-ae55-a4cf28ec9c85
   variant_id: 34
-  variety: plower
+  variety: trailed_equipment
 equipments_007:
   born_at: 2009-01-11 23:00:00.000000000 Z
   category_id: 14
@@ -533,7 +533,7 @@ equipments_007:
   updater_id: 1
   uuid: 4cb5c421-438a-43c9-8adf-289b74619d2f
   variant_id: 36
-  variety: sprayer
+  variety: trailed_equipment
 equipments_008:
   born_at: 2010-11-01 23:00:00.000000000 Z
   category_id: 14
@@ -555,7 +555,7 @@ equipments_008:
   updater_id: 1
   uuid: 4e25533b-5a95-4862-b260-ac20a35d1587
   variant_id: 37
-  variety: spreader
+  variety: trailed_equipment
 equipments_009:
   born_at: 2001-01-22 23:00:00.000000000 Z
   category_id: 14
@@ -577,7 +577,7 @@ equipments_009:
   updater_id: 1
   uuid: ef374cae-d086-4763-8409-91a162e255db
   variant_id: 46
-  variety: implanter
+  variety: trailed_equipment
 equipments_010:
   born_at: 2012-09-02 07:00:00.000000000 Z
   category_id: 14
@@ -599,7 +599,7 @@ equipments_010:
   updater_id: 1
   uuid: e6357c30-807e-4051-9887-3cb555119bd0
   variant_id: 47
-  variety: reaper
+  variety: trailed_equipment
 equipments_011:
   born_at: 2010-06-30 22:00:00.000000000 Z
   category_id: 14
@@ -685,7 +685,7 @@ equipments_014:
   updater_id: 1
   uuid: d23d07ad-66f2-41d6-a3c0-e9a5b21d29a1
   variant_id: 52
-  variety: press
+  variety: equipment
 equipments_015:
   born_at: 1954-05-11 23:00:00.000000000 Z
   category_id: 14
@@ -705,7 +705,7 @@ equipments_015:
   updater_id: 1
   uuid: 9ae74360-1cd2-4f6d-8645-4643dc309bfe
   variant_id: 67
-  variety: baler
+  variety: trailed_equipment
 equipments_016:
   born_at: 2014-11-07 19:36:30.009048000 Z
   category_id: 14
@@ -725,7 +725,7 @@ equipments_016:
   updater_id: 1
   uuid: 311cab80-50a0-4f16-b5b1-a225c7fd3220
   variant_id: 66
-  variety: baler
+  variety: trailed_equipment
 fungi_001:
   category_id: 1
   created_at: 2014-10-31 17:19:32.000000000 Z
