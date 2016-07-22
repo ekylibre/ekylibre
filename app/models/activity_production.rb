@@ -107,7 +107,7 @@ class ActivityProduction < Ekylibre::Record::Base
     where(activity: Activity.of_cultivation_variety(variety))
   }
   scope :of_current_campaigns, -> { of_campaign(Campaign.current.last) }
-
+  
   scope :of_activity, ->(activity) { where(activity: activity) }
   scope :of_activities, lambda { |*activities|
     where(activity_id: activities.flatten.map(&:id))

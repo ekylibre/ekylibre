@@ -39,4 +39,6 @@ class ActivitySeason < Ekylibre::Record::Base
   validates :activity, presence: true
   # ]VALIDATORS]
 
+  scope :of_activity, ->(activity) { where(activity: activity) }
+
 end

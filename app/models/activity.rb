@@ -218,6 +218,10 @@ class Activity < Ekylibre::Record::Base
     end
   end
 
+  def seasons
+    ActivitySeason.of_activity(self).map(&:name)
+  end
+
   def interventions
     Intervention.of_activity(self)
   end
