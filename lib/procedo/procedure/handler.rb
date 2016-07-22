@@ -70,6 +70,7 @@ module Procedo
       end
 
       def measure?
+        return false unless @datatype
         @datatype.to_sym == :measure
       end
 
