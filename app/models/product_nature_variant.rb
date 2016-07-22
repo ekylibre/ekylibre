@@ -174,7 +174,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Returns the direct value of an indicator of variant
-  def get(indicator)
+  def get(indicator, options = {})
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
