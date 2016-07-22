@@ -1318,7 +1318,7 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
-    plant: "Crop" #?
+    plant: "Crop"
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
     please_wait: "Please wait…"
