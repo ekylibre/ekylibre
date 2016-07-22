@@ -320,7 +320,6 @@ eng:
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     # activity_season: "Activity season"
-    # activity_seasons: "Activity seasons"
     actor: "Actor" #?
     actual_number: "Actual number" #?
     actual_population: "Actual population"
