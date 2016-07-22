@@ -40,6 +40,11 @@ eng:
       # index: "Activity productions"
       new: "New activity production"
       show: "Activity production: %{name}"
+    backend/activity_seasons:
+      # edit: "Edit activity season: %{name}"
+      # index: "Activity seasons"
+      # new: "New activity season"
+      # show: "Activity season: %{name}"
     backend/affairs:
       attach: "Attach to affair %{number}"
       detach: "Detach from affair %{number}"
@@ -792,6 +797,7 @@ eng:
     activity_name: "Activity" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
+    # activity_seasons: "Activity seasons"
     add: "Add"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
@@ -1318,7 +1324,7 @@ eng:
     picture: "Picture" #?
     placeholder: "Placeholder" #?
     places: "Places"
-    plant: "Crop" #?
+    plant: "Crop"
     plantation_density: "Plantation density" #?
     plants: "Crops" #?
     please_wait: "Please wait…"
