@@ -3841,8 +3841,6 @@ eng:
         avena_sativa_une_de_mai: "Oat une de mai"          #< avena_sativa
         aves: "Bird"                                       #< animal
         bacteria: "Bacteria"                               #< bioproduct
-        bale_collector: "Bale collector"                   #< equipment
-        baler: "Baler"                                     #< equipment
         bambusa: "Bamboo"                                  #< poaceae
         bellis: "Bellis"                                   #< asteraceae
         bellis_perennis: "Bellis perennis"                 #< bellis
@@ -3939,7 +3937,6 @@ eng:
         botrytis: "Botrytis"                               #< sclerotiniaceae
         botrytis_cinerea: "Botrytis cinerea"               #< botrytis
         bottle: "Bottle"                                   #< packaged_matter
-        bottler: "Bottler"                                 #< equipment
         bovidae: "Bovidae"                                 #< mammalia
         brassica: "Brassica"                               #< brassicaceae
         brassica_napus: "Rapeseed"                         #< brassica
@@ -4105,6 +4102,7 @@ eng:
         capsicum_chinense: "Habanero Pepper"               #< capsicum
         capsicum_frutescens: "Hot Pepper"                  #< capsicum
         capsicum_pubescens: "Rocoto"                       #< capsicum
+        car: "Car"                                         #< motorized_vehicle
         carpinus: "Carpinus"                               #< betulaceae
         carpinus_betulus: "Carpinus betulus"               #< carpinus
         carpinus_caroliniana: "Carpinus caroliniana"       #< carpinus
@@ -4167,7 +4165,6 @@ eng:
         citrus_medica: "Citron"                            #< citrus
         citrus_reticulata: "Tangerine"                     #< citrus
         citrus_sinensis: "Orange"                          #< citrus
-        cleaner: "Cleaner"                                 #< equipment
         coccoidea: "Coccoidea"                             #< insecta
         coffea: "Coffea"                                   #< rubiaceae
         coffea_arabica: "Coffea arabica"                   #< coffea
@@ -4183,7 +4180,6 @@ eng:
         coriandrum_sativum: "Coriander"                    #< coriandrum
         cork: "Cork"                                       #< packaged_matter
         cork_bottle: "Cork bottle"                         #< bottle
-        corker: "Corker"                                   #< equipment
         corylus: "Hazel"                                   #< betulaceae
         corylus_avellana: "Common hazel"                   #< corylus
         corylus_avellana_butler: "Common hazel Butler"     #< corylus_avellana
@@ -4359,6 +4355,7 @@ eng:
         eotetranychus_coryli: "Eotetranychus coryli"       #< insecta
         equidae: "Equidae"                                 #< mammalia
         equipment: "Equipment"                             #< matter
+        equipment_part: "Item"                             #< matter
         equus: "Equine"                                    #< equidae
         equus_asinus: "Donkey"                             #< equus
         equus_caballus: "Horse"                            #< equus
@@ -4394,8 +4391,6 @@ eng:
         foeniculum_vulgare_azoricum: "Florence Fennel"     #< foeniculum_vulgare
         foeniculum_vulgare_piperitum: "Pepper Fennel"      #< foeniculum_vulgare
         fomitiporia: "Fomitiporia"                         #< hymenochaetaceae
-        food_deliver: "Food deliver"                       #< equipment
-        forager: "Silage harvester"                        #< equipment
         forsythia: "Forsythia"                             #< oleaceae
         forsythia_europaea: "Forsythia europaea"           #< forsythia
         forsythia_x_intermedia: "Forsythia x intermedia"   #< forsythia
@@ -4432,9 +4427,10 @@ eng:
         guano: "Guano"                                     #< excrement
         guizotia: "Guizotia"                               #< asteraceae
         guizotia_abyssinica: "Niger"                       #< guizotia
-        harvester: "Harvester"                             #< equipment
+        handling_equipment: "Handling equipment"           #< motorized_vehicle
         hay: "Hay"                                         #< grass
         hazelnut: "Hazelnut"                               #< fruit
+        heavy_equipment: "Heavy equipment"                 #< motorized_vehicle
         helianthus: "Sunflower"                            #< asteraceae
         helianthus_annuus: "Annual sunflower"              #< helianthus
         helianthus_annuus_aurasol: "Annual sunflower aurasol" #< helianthus_annuus
@@ -4636,13 +4632,11 @@ eng:
         hypericaceae: "Hypericaceae"                       #< plant
         hypericum: "Hypericum"                             #< hypericaceae
         immatter: "Immatter"                               #< product
-        implanter: "Planter"                               #< equipment
         insecta: "Insecta"                                 #< animal
         ipomoea: "Ipomoea"                                 #< convolvulaceae
         ipomoea_batatas: "Sweet potato"                    #< ipomoea
         ipomoea_batatas_beauregard: "Sweet potato Beauregard" #< ipomoea_batatas
         iridaceae: "Iridaceae"                             #< plant
-        item: "Item"                                       #< equipment
         juglandaceae: "Juglandaceae"                       #< plant
         juglans: "Juglans"                                 #< juglandaceae
         juglans_regia: "Common walnut"                     #< juglans
@@ -4991,7 +4985,7 @@ eng:
         morus_microphylla: "Morus microphylla"             #< morus
         morus_nigra: "Morus nigra"                         #< morus
         morus_rubra: "Morus rubra"                         #< morus
-        mower: "Windrower"                                 #< equipment
+        motorized_vehicle: "Motorized vehicle"             #< equipment
         musa: "Musa"                                       #< musaceae
         musa_acuminata: "Musa acuminata"                   #< musa
         musa_balbisiana: "Musa balbisiana"                 #< musa
@@ -5166,7 +5160,6 @@ eng:
         plantago_psyllium: "Plantago psyllium"             #< plantago
         plasmopara: "Plasmopara"                           #< peronosporaceae
         plasmopara_viticola: "Plasmopara viticola"         #< plasmopara
-        plower: "Plower"                                   #< equipment
         plum: "Plum"                                       #< fruit
         plumbaginaceae: "Plumbaginaceae"                   #< plant
         poa: "Poa"                                         #< poaceae
@@ -5176,9 +5169,9 @@ eng:
         polygonaceae: "Polygonaceae"                       #< plant
         pomace: "Pomace"                                   #< preparation
         poncirus: "Prickly lemon tree"                     #< rutaceae
+        portable_equipment: "Portable equipment"           #< equipment
         potassium_ferrocyanide: "Potassium ferrocyanide"   #< raw_matter
         preparation: "Preparation"                         #< matter
-        press: "Press"                                     #< equipment
         primula: "Primula"                                 #< primulaceae
         primulaceae: "Primulaceae"                         #< plant
         pringlea_antiscorbutica: "Kerguelen cabbage"       #< brassicaceae
@@ -5187,7 +5180,6 @@ eng:
         product: "Product"
         product_group: "Product group"                     #< product
         property_title: "Property title"                   #< immatter
-        pruner: "Pruner"                                   #< equipment
         prunus: "Prunus"                                   #< rosaceae
         prunus_armeniaca: "Apricot tree"                   #< prunus
         prunus_armeniaca_abricot_commun_de_clairac: "Apricot tree common apricot De Clairac" #< prunus_armeniaca
@@ -5373,7 +5365,6 @@ eng:
         raphanus_sativus_oleiformis_compass: "Forage Radish Compass" #< raphanus_sativus_oleiformis
         raspberry: "Raspberry"                             #< fruit
         raw_matter: "Raw matter"                           #< preparation
-        reaper: "Combine harverster"                       #< equipment
         rhagoletis_completa: "Rhagoletis completa"         #< insecta
         ribes: "Ribes"                                     #< grossulariaceae
         ribes_nigrum: "Blackcurrant"                       #< ribes
@@ -5434,6 +5425,7 @@ eng:
         secale_cereale: "Rye"                              #< secale
         seed: "Seed"                                       #< raw_matter
         seedling: "Seedling"                               #< raw_matter
+        self_propelled_equipment: "Self propelled equipment" #< motorized_vehicle
         service: "Service"                                 #< immatter
         setaria: "Foxtail"                                 #< poaceae
         setaria_italica: "Foxtail millet"                  #< setaria
@@ -5813,15 +5805,12 @@ eng:
         solanum_tuberosum_yukon_gold: "Potato Yukon Gold"  #< solanum_tuberosum
         solanum_tuberosum_zuzzna: "Potato Zuzzna"          #< solanum_tuberosum
         sorghum: "Sorghum"                                 #< poaceae
-        sower: "Seeder"                                    #< equipment
         spinacia: "Spinacia"                               #< amaranthaceae
         spinacia_oleracea: "Spinach"                       #< spinacia
         spinacia_oleracea_el_grinta: "Spinach El Grinta"   #< spinacia_oleracea
         spinacia_oleracea_rocoon: "Spinach Rocoon"         #< spinacia_oleracea
         spiraea: "Spiraea"                                 #< rosaceae
         spiraea_x_billiardii: "Spiraea x billiardii"       #< spiraea
-        sprayer: "Sprayer"                                 #< equipment
-        spreader: "Fertilizer spreader"                    #< equipment
         stake: "Stake"                                     #< packaged_matter
         straw: "Straw"                                     #< grass
         strawberry: "Strawberry"                           #< fruit
@@ -5870,7 +5859,6 @@ eng:
         sus_scrofa_x70: "Domestic pig X70"                 #< sus_scrofa
         sus_scrofa_x80: "Domestic pig X80"                 #< sus_scrofa
         tank: "Tank"                                       #< equipment
-        telescopic_handler: "Telescopic handler"           #< equipment
         theobroma: "Theobroma"                             #< malvaceae
         theobroma_cacao: "Cocoa tree"                      #< theobroma
         theobroma_grandiflorum: "Theobroma grandiflorum"   #< theobroma
@@ -5878,9 +5866,9 @@ eng:
         tilia: "Tilia"                                     #< malvaceae
         tilia_americana: "Tilia americana"                 #< tilia
         tilia_cordata: "Tilia cordata"                     #< tilia
-        tractor: "Tractor"                                 #< equipment
+        tractor: "Tractor"                                 #< motorized_vehicle
         tragopogon: "Salsify"                              #< asteraceae
-        trailer: "Trailer"                                 #< equipment
+        trailed_equipment: "Trailed equipment"             #< equipment
         trifolium: "Clover"                                #< fabaceae
         trifolium_alexandrinum: "Trifolium alexandrinum"   #< trifolium
         trifolium_incarnatum: "Trifolium incarnatum"       #< trifolium
@@ -6106,6 +6094,7 @@ eng:
         triticum_durum_vivadur: "Durum wheat Vivadur"      #< triticum_durum
         triticum_durum_yelodur: "Durum wheat Yelodur"      #< triticum_durum
         triticum_spelta: "Spelt"                           #< triticum
+        truck: "Truck"                                     #< motorized_vehicle
         uncinula: "Uncinula"                               #< erysiphaceae
         uncinula_necator: "Uncinula necator"               #< uncinula
         valeriana: "Valeriana"                             #< valerianaceae
@@ -6192,7 +6181,6 @@ eng:
         water: "Water"                                     #< matter
         weigela: "Weigela"                                 #< diervillaceae
         weigela_floribunda: "Weigela floribunda"           #< weigela
-        wheel_loader: "Wheel loader"                       #< equipment
         wine: "Wine"                                       #< fermented_juice
         wire: "Wire"                                       #< packaged_matter
         worker: "Worker"                                   #< product

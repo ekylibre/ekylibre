@@ -12,6 +12,8 @@ fra:
       activity_production:  #?
         production_usage: "Usage futur" #?
         storage: "Support" #?
+      activity_tactic:  #?
+        planning_nature: "Type de plannifcation" #?
       animal:  #?
         born_at: "Né(e) le" #?
         variety: "Race" #?

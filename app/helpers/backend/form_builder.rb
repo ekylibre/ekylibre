@@ -410,6 +410,19 @@ module Backend
       end
     end
 
+    def delta_field(value_attribute, delta_attribute, unit_name_attribute, unit_values, *args)
+
+      options = args.extract_options!
+      attribute_name = args.shift || options[:name]
+
+      input(attribute_name, options.merge(wrapper: :append)) do
+          input(value_attribute, wrapper: :simplest) +
+          @template.content_tag(:span, :delta.tl, class: 'add-on') +
+          input(delta_attribute, wrapper: :simplest) +
+          input(unit_name_attribute, collection: unit_values, include_blank: false, wrapper: :simplest)
+      end
+    end
+
     # Load a partial
     def subset(name, options = {}, &block)
       options[:id] ||= name

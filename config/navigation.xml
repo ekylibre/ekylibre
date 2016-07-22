@@ -1763,6 +1763,15 @@
         <page to="backend/activity_seasons#unroll"/>
         <page to="backend/activity_seasons#update"/>
       </item>
+      <item name="activity_tactics">
+        <page to="backend/activity_tactics#index"/>
+        <page to="backend/activity_tactics#create"/>
+        <page to="backend/activity_tactics#destroy"/>
+        <page to="backend/activity_tactics#edit"/>
+        <page to="backend/activity_tactics#new"/>
+        <page to="backend/activity_tactics#show"/>
+        <page to="backend/activity_tactics#update"/>
+      </item>
     </group>
   </untreated-actions>
 </navigation>

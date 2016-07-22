@@ -7,6 +7,7 @@ module Procedo
         attr_reader :name, :intervention, :group, :id, :reference, :type
 
         delegate :procedure, to: :intervention
+        delegate :working_periods, to: :intervention
         delegate :name, :reflection_name, to: :reference, prefix: true
 
         def initialize(group, id, attributes = {})

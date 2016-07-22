@@ -20,7 +20,7 @@ module Procedo
         else
           @datatype = options[:datatype]
           @datatype ||= Maybe(Nomen::Indicator.find(options[:indicator])).datatype.or_else(nil)
-          raise 'Cant have handler without datatype or indicator' unless @datatype
+          raise 'Cant have handler without datatype or indicator' if @datatype.blank?
           self.unit_name = options[:unit] if measure?
           self.indicator_name = options[:indicator] if options[:indicator]
         end
@@ -37,7 +37,7 @@ module Procedo
         unless @indicator.respond_to?(:nomenclature) && @indicator.nomenclature.name == :indicators
           raise Procedo::Errors::InvalidHandler, "Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}"
         end
-        self.unit_name = indicator.unit if measure?
+        self.unit_name = indicator.unit if self.unit.nil? && measure?
       end
 
       # Sets the indicator name
@@ -70,6 +70,7 @@ module Procedo
       end
 
       def measure?
+        return false unless @datatype
         @datatype.to_sym == :measure
       end
 

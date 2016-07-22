@@ -5,6 +5,7 @@ module Procedo
   module Engine
     class Intervention
       attr_reader :procedure
+      attr_reader :working_periods
 
       delegate :name, to: :procedure, prefix: true
       delegate :add, :add_group, :add_product, :to_hash, to: :root_group

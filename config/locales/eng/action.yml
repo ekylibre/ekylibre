@@ -45,6 +45,11 @@ eng:
       # index: "Activity seasons"
       # new: "New activity season"
       # show: "Activity season: %{name}"
+    backend/activity_tactics:
+      # edit: "Edit activity tactic: %{name}"
+      # index: "Activity tactics"
+      # new: "New activity tactic"
+      # show: "Activity tactic: %{name}"
     backend/affairs:
       attach: "Attach to affair %{number}"
       detach: "Detach from affair %{number}"
@@ -798,6 +803,7 @@ eng:
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     # activity_seasons: "Activity seasons"
+    # activity_tactics: "Activity tactics"
     add: "Add"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
@@ -999,6 +1005,7 @@ eng:
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
+    # delta: "Delta"
     deposit: "Deposit"
     depositable_options: "Deposit options"
     deposits: "Deposits"

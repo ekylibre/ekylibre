@@ -50,6 +50,7 @@
 #  use_countings                :boolean          default(FALSE), not null
 #  use_gradings                 :boolean          default(FALSE), not null
 #  use_seasons                  :boolean          default(FALSE)
+#  use_tactics                  :boolean          default(FALSE)
 #  with_cultivation             :boolean          not null
 #  with_supports                :boolean          not null
 #
@@ -77,6 +78,7 @@ class Activity < Ekylibre::Record::Base
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
     has_many :seasons, class_name: 'ActivitySeason'
+    has_one :tactic, class_name: 'ActivityTactic'
     has_many :inspections, class_name: 'Inspection'
     has_one :counting, class_name: 'PlantDensityAbacus'
     has_many :inspection_point_natures, class_name: 'ActivityInspectionPointNature'

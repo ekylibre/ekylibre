@@ -1,0 +1,7 @@
+.nested-fields
+  = link_to_remove_nested_association(:tactic, f)
+  - bulk_units = Nomen::Units.where(dimension: :mass).selection
+  = f.input :mod, as: :radio_buttons
+  = f.delta_field(:sowed_on, :mod_quantity_delta, :mod, bulk_units, {'name': 'Date'})
+  = f.delta_field(:harvested_on, :mod_quantity_delta, :mod, bulk_units, {'name': 'Date'})
+  = f.delta_field(:bulk_quantity, :bulk_quantity_delta, :bulk_unit_name, bulk_units, {'name': 'Date'})

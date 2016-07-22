@@ -116,7 +116,7 @@ module Procedo
           if node.is_a?(Procedo::Formula::Language::IndividualReading)
             product = product.variant
           end
-          value = product.get(indicator.name.to_sym)
+          value = product.get(indicator.name.to_sym, @env['READ_AT'])
           value = value.to_f(unit.name) if unit
           value
         elsif node.nil?

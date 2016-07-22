@@ -49,3 +49,8 @@
   = f.input :use_seasons, show: '#seasons'
   #seasons
     = f.nested_association(:seasons)
+
+= field_set(:tactics) do
+  = f.input :use_tactics, show: '#activity_tactics'
+  #activity_tactics
+    = f.nested_association(:tactic, {:locals => {f: f}})

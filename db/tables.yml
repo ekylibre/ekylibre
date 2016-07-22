@@ -189,6 +189,9 @@ activities:
   use_seasons:
     type: boolean
     default: false
+  use_tactics:
+    type: boolean
+    default: false
   with_cultivation:
     type: boolean
     required: true
@@ -418,6 +421,9 @@ activity_productions:
   activity_season_id:
     type: integer
     references: activity_season
+  activity_tactic_id:
+    type: integer
+    references: activity_tactic
   campaign_id:
     type: integer
     references: campaign
@@ -504,6 +510,46 @@ activity_seasons:
     required: true
   name:
     type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+activity_tactics:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  bulk_quantity:
+    type: integer
+  bulk_quantity_delta:
+    type: integer
+  bulk_unit_name:
+    type: string
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  harvested_on:
+    type: date
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  mod:
+    type: string
+  mod_quantity_delta:
+    type: integer
+  name:
+    type: string
+    required: true
+  sowed_on:
+    type: date
   updated_at:
     type: datetime
     required: true

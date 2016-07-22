@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721192642) do
+ActiveRecord::Schema.define(version: 20160722080926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(version: 20160721192642) do
     t.string   "grading_sizes_unit_name"
     t.string   "production_system_name"
     t.boolean  "use_seasons",                  default: false
+    t.boolean  "use_tactics",                  default: false
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -244,10 +245,12 @@ ActiveRecord::Schema.define(version: 20160721192642) do
     t.integer  "campaign_id"
     t.jsonb    "custom_fields"
     t.integer  "activity_season_id"
+    t.integer  "activity_tactic_id"
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
   add_index "activity_productions", ["activity_season_id"], name: "index_activity_productions_on_activity_season_id", using: :btree
+  add_index "activity_productions", ["activity_tactic_id"], name: "index_activity_productions_on_activity_tactic_id", using: :btree
   add_index "activity_productions", ["campaign_id"], name: "index_activity_productions_on_campaign_id", using: :btree
   add_index "activity_productions", ["created_at"], name: "index_activity_productions_on_created_at", using: :btree
   add_index "activity_productions", ["creator_id"], name: "index_activity_productions_on_creator_id", using: :btree
@@ -271,6 +274,29 @@ ActiveRecord::Schema.define(version: 20160721192642) do
   add_index "activity_seasons", ["creator_id"], name: "index_activity_seasons_on_creator_id", using: :btree
   add_index "activity_seasons", ["updated_at"], name: "index_activity_seasons_on_updated_at", using: :btree
   add_index "activity_seasons", ["updater_id"], name: "index_activity_seasons_on_updater_id", using: :btree
+
+  create_table "activity_tactics", force: :cascade do |t|
+    t.integer  "activity_id",                     null: false
+    t.string   "name",                            null: false
+    t.date     "sowed_on"
+    t.date     "harvested_on"
+    t.integer  "mod_quantity_delta"
+    t.string   "mod"
+    t.integer  "bulk_quantity"
+    t.integer  "bulk_quantity_delta"
+    t.string   "bulk_unit_name"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",        default: 0, null: false
+  end
+
+  add_index "activity_tactics", ["activity_id"], name: "index_activity_tactics_on_activity_id", using: :btree
+  add_index "activity_tactics", ["created_at"], name: "index_activity_tactics_on_created_at", using: :btree
+  add_index "activity_tactics", ["creator_id"], name: "index_activity_tactics_on_creator_id", using: :btree
+  add_index "activity_tactics", ["updated_at"], name: "index_activity_tactics_on_updated_at", using: :btree
+  add_index "activity_tactics", ["updater_id"], name: "index_activity_tactics_on_updater_id", using: :btree
 
   create_table "affairs", force: :cascade do |t|
     t.string   "number",                                                          null: false
