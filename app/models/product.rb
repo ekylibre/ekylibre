@@ -665,7 +665,7 @@ class Product < Ekylibre::Record::Base
 
   def wear_status(component = nil)
     if component.nil?
-      status_list = variant.components.map do |component|
+      status_list = variant.components.collect do |component|
         wear_status(component)
       end
       if status_list.include?(:caution)
@@ -714,17 +714,19 @@ class Product < Ekylibre::Record::Base
   end
 
 
+  def last_replacement(component)
+    replacements = self.part_replacements.where(component: component.self_and_parents).joins(:intervention)
+    # replacements = replacements.where('interventions.stopped_at >= ?', since) if since
+    replacements.order('interventions.stopped_at DESC').first
+  end
+
   def replaced_at(component, since = nil)
-    last_replaced_at = nil
-    list = self.part_replacements.where(component_id: component.id).joins(:intervention).order('interventions.stopped_at DESC')
-    if list.any?
-      last_replaced_at = list.first.intervention.stopped_at
+    replacement = last_replacement(component)
+    if replacement 
+      return replacement.intervention.stopped_at 
+    else 
+      return since
     end
-    best_replaced_at = [last_replaced_at, since].compact.sort.last
-    if component.parent
-      return replaced_at(component.parent, best_replaced_at)
-    end
-    best_replaced_at
   end
 
 end

@@ -25,15 +25,12 @@
 #  created_at                     :datetime         not null
 #  creator_id                     :integer
 #  deleted_at                     :datetime
-#  depth                          :integer
 #  id                             :integer          not null, primary key
-#  lft                            :integer
 #  lock_version                   :integer          default(0), not null
 #  name                           :string           not null
 #  parent_id                      :integer
 #  part_product_nature_variant_id :integer
 #  product_nature_variant_id      :integer          not null
-#  rgt                            :integer
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
 #
@@ -42,15 +39,14 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   belongs_to :part_product_nature_variant, class_name: 'ProductNatureVariant'
   belongs_to :parent, class_name: 'ProductNatureVariantComponent', inverse_of: :children
   has_many :children, class_name: 'ProductNatureVariantComponent', foreign_key: :parent_id, inverse_of: :parent
-  has_many :product_part_replacements
+  has_many :part_replacements, class_name: 'ProductPartReplacement', inverse_of: :component, foreign_key: :component_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_datetime :deleted_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
   validates_presence_of :name, :product_nature_variant
   # ]VALIDATORS]
   validates :name, uniqueness: { case_sensitive: false, scope: :product_nature_variant_id }
   # acts_as_nested_set scope: :product_nature_variant_id
-  accepts_nested_attributes_for :children
+  accepts_nested_attributes_for :children, allow_destroy: true
 
 
   before_validation do
@@ -99,6 +95,14 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
     end
     return nil
   end
+
+  def self_and_parents 
+    unless @self_and_parents
+      @self_and_parents = [self]
+      @self_and_parents += parent.self_and_parents if parent
+    end
+    @self_and_parents
+  end 
 
   # return in the list all the parent's variant, and do this until there are no more parent's
   def parent_variants

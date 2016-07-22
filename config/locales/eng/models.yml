@@ -326,7 +326,6 @@ eng:
     affected_at: "Affected at" #?
     age: "Age"
     # all_addresses: "All addresses"
-    # all_components: "All components"
     all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
     amount: "Amount"
@@ -965,7 +964,6 @@ eng:
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
     product_part_replacement: "Product part replacement"
-    # product_part_replacements: "Product part replacements"
     product_phases: "Product phases" #?
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
@@ -1070,6 +1068,7 @@ eng:
     rights: "Rights"
     role: "Role"
     roles: "Roles" #?
+    # root_components: "Root components"
     root_model: "Root model"
     root_model_name: "Root model name"
     root_node: "Root node"

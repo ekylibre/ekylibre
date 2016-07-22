@@ -634,6 +634,7 @@ por:
     add_attachment: "Juntar anexo"
     add_bank_statement: "Adicionar extrato bancário"
     add_catalog_price: "Adicionar preço de catálogo"
+    # add_child: "Add a child component"
     add_choice: "Adicionar escolha"
     # add_component: "Add component"
     add_condition: "Adicionar condição"
@@ -777,6 +778,8 @@ por:
     columns: "Colunas para importar"
     commission: "Comissão"
     # company: "Society"
+    # component: "Component"
+    # component_name: "Component name"
     conditions:
       filter_on_attribute_of_class: "Filtrar atributo da classe"
       special-subscriber: "Especial assinante"
@@ -1203,7 +1206,9 @@ por:
     prices: "Preços"
     print: "Impressão"
     # printing_document: "Printing %{document}"
-    procedures: "Procedimentos"
+    # procedure: "Procedure"
+    # procedure_name: "Procedure name"
+    procedures: "Procedimentos" #?
     product: "Produto"
     product_category: "Categoria de Produto"
     product_name: "Nome do Produto"

@@ -36,7 +36,7 @@
 class ProductPartReplacement < Ekylibre::Record::Base
 
 	belongs_to :product, inverse_of: :part_replacements
-	belongs_to :component, class_name: "ProductNatureVariantComponent"
+	belongs_to :component, class_name: "ProductNatureVariantComponent", inverse_of: :part_replacements
 	belongs_to :intervention_parameter
 	has_one :intervention, through: :intervention_parameter
 	belongs_to :following, class_name:'ProductPartReplacement'

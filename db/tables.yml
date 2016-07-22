@@ -4819,13 +4819,9 @@ product_nature_variant_components:
     references: user
   deleted_at:
     type: datetime
-  depth:
-    type: integer
   id:
     type: integer
     required: true
-  lft:
-    type: integer
   lock_version:
     type: integer
     required: true
@@ -4842,8 +4838,6 @@ product_nature_variant_components:
     type: integer
     references: product_nature_variant
     required: true
-  rgt:
-    type: integer
   updated_at:
     type: datetime
     required: true

@@ -70,5 +70,5 @@
   - if resource.nature.variants.collect(&:components).any?
     - c.cobble(:components) do
       .component-tree
-        = render "composition", product: resource, components: resource.components
+        = render "composition", product: resource, components: resource.variant.root_components
 

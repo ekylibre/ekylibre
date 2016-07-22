@@ -154,6 +154,7 @@ module Backend
       t.column :human_activities_names, through: :intervention
     end
 
+
     # Lists localizations of the current product
     list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.column :nature

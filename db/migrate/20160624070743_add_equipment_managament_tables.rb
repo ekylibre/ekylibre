@@ -69,11 +69,7 @@ class AddEquipmentManagamentTables < ActiveRecord::Migration
       t.references :parent, index: true
       t.datetime :deleted_at
       t.string :name, null: false
-      t.integer :lft
-      t.integer :rgt
-      t.integer :depth
 
-      t.index [:lft, :rgt]
       t.index      :product_nature_variant_id, name: :index_product_nature_variant_components_on_variant
       t.index      :part_product_nature_variant_id, name: :index_product_nature_variant_components_on_part_variant
       t.index      :deleted_at, name: :index_product_nature_variant_components_ondeleted_at_on_

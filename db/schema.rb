@@ -2538,9 +2538,6 @@ ActiveRecord::Schema.define(version: 20160624070743) do
     t.integer  "parent_id"
     t.datetime "deleted_at"
     t.string   "name",                                       null: false
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
     t.integer  "creator_id"
@@ -2551,7 +2548,6 @@ ActiveRecord::Schema.define(version: 20160624070743) do
   add_index "product_nature_variant_components", ["created_at"], name: "index_product_nature_variant_components_on_created_at", using: :btree
   add_index "product_nature_variant_components", ["creator_id"], name: "index_product_nature_variant_components_on_creator_id", using: :btree
   add_index "product_nature_variant_components", ["deleted_at"], name: "index_product_nature_variant_components_ondeleted_at_on_", using: :btree
-  add_index "product_nature_variant_components", ["lft", "rgt"], name: "index_product_nature_variant_components_on_lft_and_rgt", using: :btree
   add_index "product_nature_variant_components", ["parent_id"], name: "index_product_nature_variant_components_on_parent_id", using: :btree
   add_index "product_nature_variant_components", ["part_product_nature_variant_id"], name: "index_product_nature_variant_components_on_part_variant", using: :btree
   add_index "product_nature_variant_components", ["product_nature_variant_id"], name: "index_product_nature_variant_components_on_variant", using: :btree

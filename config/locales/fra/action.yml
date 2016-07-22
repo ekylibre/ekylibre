@@ -772,6 +772,7 @@ fra:
     add_attachment: "Ajouter une pièce jointe"
     add_bank_statement: "Ajouter un relevé de compte"
     add_catalog_price: "Ajouter un prix catalogue"
+    add_child: "Ajouter un sous-composant"
     add_choice: "Ajouter un choix"
     add_component: "Ajouter un composant"
     add_condition: "Ajouter la condition"
@@ -961,7 +962,8 @@ fra:
     # company: "Society"
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
-    components: "Composants" #?
+    component: "Composant"
+    component_name: "Nom du composant"
     concentrations_map: "Carte des concentrations" #?
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
@@ -1115,8 +1117,8 @@ fra:
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
     entry_items: "Lignes d’écriture"
-    # equipment: "Equipment"
-    # equipment_name: "Name of equipment"
+    equipment: "Equipement"
+    equipment_name: "Nom de l'equipement"
     # equipment_type: "Type of equipment"
     # equipment_zone: "Location"
     equipments: "Équipements"
@@ -1591,8 +1593,9 @@ fra:
     print_at: "Le" #?
     print_with_template: "Imprimer %{name}" #?
     printing_document: "Impression de %{document}"
+    procedure: "Procédure"
+    procedure_name: "Nom de la procedure"
     procedure_natures: "Types de procédures" #?
-    procedures: "Procédures"
     product: "Produit"
     product_bar: "Produit par catégories" #?
     product_category: "Produits"

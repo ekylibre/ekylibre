@@ -1,0 +1,26 @@
+- if component.part_replacements.any?
+  %table.component-modal
+    %thead
+      %tbody
+        %tr
+          %th
+            = :equipment.tl
+          %th
+            = :component.tl
+          %th
+            = :procedure.tl
+          %th
+            = Equipment.human_attribute_name(:maintenance_nature)
+        - component.part_replacements.each do |part_replacement|
+          %tr
+            %td
+              = part_replacement.product.name
+            %td
+              = part_replacement.component.name
+            %td
+              = part_replacement.intervention_parameter.intervention.procedure_name.l
+            %td
+              = part_replacement.intervention_parameter.intervention.maintenance_nature.l
+            - if part_replacement.intervention.doers.any? &&  part_replacement.intervention.doers.first.product.present?
+              %td
+                = part_replacement.intervention_parameter.intervention.doers.first.product.name

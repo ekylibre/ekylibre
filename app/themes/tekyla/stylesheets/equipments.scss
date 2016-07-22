@@ -1,5 +1,5 @@
 .component-tree{
-	@include padding-left($lh-normal);
+	// @include padding-left($lh-small);
 	padding-top: 13px;
   	box-sizing: border-box;
 }
@@ -21,10 +21,10 @@
 		}
 
     	.component-status{
-    		width: 100px;
+    		width: 50px;
   			white-space: nowrap;
   			text-overflow: ellipsis;
-  			@include padding-right($lh-ratio);
+  			
     	}
     	.component-life{
     		width: 120px;
@@ -40,8 +40,15 @@
   			@include padding-right($lh-ratio);
 
 		}
+		.component-details{
+			width: 100px;
+			@include padding-left($lh-normal);
+			@include text-align(right);
+
+  			
+		}
 		.component-documentation {
-			@include padding-left($lh-large);
+			@include padding-left($lh-small);
 			@include padding-right($lh-ratio);
   			width: 150px;
 
@@ -53,9 +60,12 @@
 		}
 
 .component > .component {
-	@include padding-left($lh-large);
+	@include padding-left($lh-normal);
 }
 
+.component-modal{
+	border: 2px;
+}
 
 
 

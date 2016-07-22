@@ -53,7 +53,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
 
-  has_many :root_components, -> {where(depth: 0)}, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :product_nature_variant, foreign_key: :product_nature_variant_id
+  has_many :root_components, -> {where(parent: nil)}, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :product_nature_variant, foreign_key: :product_nature_variant_id
   has_many :components, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :product_nature_variant, foreign_key: :product_nature_variant_id
 
   has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'

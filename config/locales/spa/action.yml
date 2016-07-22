@@ -696,6 +696,7 @@ spa:
     add_attachment: "Añadir un adjunto"
     add_bank_statement: "Añadir estado de cuenta bancaria"
     add_catalog_price: "Añadir precio de catálogo"
+    # add_child: "Add a child component"
     add_choice: "Añadir elección"
     # add_component: "Add component"
     add_condition: "Añadir condición"
@@ -867,6 +868,8 @@ spa:
     columns: "Columnas para importar"
     commission: "Comisión"
     # company: "Society"
+    # component: "Component"
+    # component_name: "Component name"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
@@ -1384,7 +1387,9 @@ spa:
     print: "Impresion de documentos"
     print_at: "el" #?
     # printing_document: "Printing %{document}"
-    procedures: "Procedimientos"
+    # procedure: "Procedure"
+    # procedure_name: "Procedure name"
+    procedures: "Procedimientos" #?
     product: "Producto"
     product_category: "Categoria de producto"
     product_name: "Nombre del producto"
