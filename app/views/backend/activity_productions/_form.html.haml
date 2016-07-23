@@ -7,7 +7,6 @@
     - f.object.campaign ||= current_campaign
     = f.referenced_association :campaign
   = f.date_range
-  - source = nil
   - if activity.use_seasons? && activity.seasons
     = f.association :activity_season, as: :radio_buttons, collection: activity.seasons
   - if activity.plant_farming?
