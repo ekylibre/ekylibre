@@ -145,7 +145,7 @@ eng:
       activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "Activity grading check"
       activity_production: "Production support"
-      # activity_season: "Activity season"
+      activity_season: "Cropping season"
       affair: "Affair"
       analysis: "Analysis"
       analysis_item: "Analysis item"
@@ -319,7 +319,7 @@ eng:
     activity_grading_check: "Activity grading check" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
-    # activity_season: "Activity season"
+    activity_season: "Cropping season"
     actor: "Actor" #?
     actual_number: "Actual number" #?
     actual_population: "Actual population"
@@ -1102,6 +1102,7 @@ eng:
     scale: "Scale"
     # scales: "Scales"
     scheduled: "Scheduled"
+    season: "Cropping season" #?
     # seasons: "Seasons"
     seeding_density_unit: "Seeding density unit"
     # seeding_density_value: "Seeding density value"
@@ -1234,7 +1235,7 @@ eng:
     use_countings: "Use countings"
     use_grading_calibre: "Use grading calibre" #?
     use_gradings: "Use gradings"
-    # use_seasons: "Use seasons"
+    use_seasons: "Use cropping seasons"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
     useful_items: "Useful items"

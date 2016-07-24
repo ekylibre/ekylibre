@@ -746,6 +746,7 @@ arb:
       activity_inspection_calibration_scale: "عيار"
       activity_inspection_point_nature: "النشاط الاختيار الدرجات"
       activity_production: "دعم الإنتاج"
+      # activity_season: "Cropping season"
       affair: "قضية"
       analysis: "تحليل"
       analysis_item: "البند تحليل"
@@ -969,6 +970,7 @@ arb:
     activity_grading_check: "النشاط الاختيار الدرجات"
     activity_production: "إنتاج النشاط"
     activity_productions: "إنتاجات آخر"
+    # activity_season: "Cropping season"
     actor: "الممثل"
     actual_number: "الرقم الحالي"
     actual_population: "عدد السكان الفعلي"
@@ -1999,6 +2001,7 @@ arb:
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scale: "مقياس"
     scheduled: "الدفعة المبرمجة"
+    # season: "Cropping season"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
     second_move_id: "الحركة الثانية" #?
@@ -2183,6 +2186,7 @@ arb:
     use_grading_calibre: "استخدام عيار الدرجات"
     use_gradings: "استخدام الى التصنيف"
     use_range: "استخدام الكمية الفاصلة" #?
+    # use_seasons: "Use cropping seasons"
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
     useful_items: "المواد المفيدة"

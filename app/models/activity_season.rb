@@ -39,7 +39,5 @@ class ActivitySeason < Ekylibre::Record::Base
   validates :activity, presence: true
   # ]VALIDATORS]
 
-  def duplicate_seasons
-  end
 
 end

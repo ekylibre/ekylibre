@@ -22,7 +22,7 @@ arb:
     cover_implanter: "implanter غطاء"
     crop: "زراعة"
     cropper: "الحصاد"
-    cropper_driver: "سائق كروبر"
+    cropper_driver: "سائق كروبر" #?
     cultivation: "زراعة"
     cultivator: "الفلاحة" #?
     cutter: "قاطعة"

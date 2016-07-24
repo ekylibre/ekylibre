@@ -797,7 +797,7 @@ eng:
     activity_name: "Activity" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
-    # activity_seasons: "Activity seasons"
+    activity_seasons: "Cropping seasons"
     add: "Add"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
@@ -835,6 +835,7 @@ eng:
     add_reading: "Add a value for an indicator"
     add_revenue: "Add revenue"
     add_sale_taxation: "Add sale taxation"
+    add_season: "Add season"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
     add_tool: "Add tool"

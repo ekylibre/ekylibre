@@ -9,8 +9,9 @@
       .med-info.important
         %span.title= LandParcel.human_attribute_name(:net_surface_area)
         %span.value= resource.human_support_shape_area
-        %span.title= ActivitySeason.human_attribute_name(:season)
-        %span.value= resource.activity_season.name
+        - if resource.activity_season
+          %span.title= ActivitySeason.human_attribute_name(:season)
+          %span.value= resource.activity_season.name
       - estimated_yield = resource.estimate_yield(current_campaign) if ["grain", "seed", "fodder", "fiber"].include?(resource.usage)
       - if estimated_yield
         .med-info

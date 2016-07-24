@@ -199,6 +199,9 @@ class Activity < Ekylibre::Record::Base
   end
 
   after_save do
+    productions.each do |production|
+      production.update_column(:activity_season_id, seasons.first.id) if production.activity_season.nil?
+    end
     if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)
       if total != 100
