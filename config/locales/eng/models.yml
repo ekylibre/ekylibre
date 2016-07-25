@@ -444,7 +444,6 @@ eng:
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
     costs_per_unit: "Costs per %{unit}" #?
-    # counting: "Counting"
     country: "Country"
     created_at: "Created at"
     creator: "Creator"
@@ -929,6 +928,7 @@ eng:
     plant: "Plant"
     plant_counting: "Plant counting"
     plant_countings: "Plant countings"
+    # plant_density_abaci: "Plant density abaci"
     plant_density_abacus: "Plant density abacus"
     plant_density_abacus_item: "Plant density abacus item"
     plants_count: "Plants count"
