@@ -22,7 +22,7 @@ deu:
     cover_implanter: "Abdeckung implanter"
     crop: "Anbau"
     cropper: "Anbauer"
-    cropper_driver: "Cropper Fahrer"
+    cropper_driver: "Cropper Fahrer" #?
     cultivation: "Anbau"
     cultivator: "Grubber" #?
     # cutter: "Cutter"

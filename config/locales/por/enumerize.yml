@@ -30,7 +30,7 @@ por:
         fallow_land: "Os pousios"
         none: "Nenhum"
     activity_tactic:
-      planning_nature:
+      mode:
         # harvested: "Harvest sowing date"
         # sowed: "Provisional sowing date"
     cash:

@@ -6,6 +6,6 @@ class AddActivitySeasons < ActiveRecord::Migration
       t.stamps
     end
 
-    add_reference :activity_productions, :activity_season, index: true
+    add_reference :activity_productions, :season, index: true
   end
 end

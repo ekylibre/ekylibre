@@ -12,8 +12,10 @@ fra:
       activity_production:  #?
         production_usage: "Usage futur" #?
         storage: "Support" #?
-      activity_tactic:  #?
-        planning_nature: "Type de plannifcation" #?
+      activity_tactic:
+        bulk_quantity: "Volume prévisionnel"
+        mode: "Type de plannifcation"
+        plan_on: "Date"
       animal:  #?
         born_at: "Né(e) le" #?
         variety: "Race" #?
@@ -256,6 +258,7 @@ fra:
       activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "Type de point de contrôle d'agréage"
       activity_production: "Support de production"
+      activity_season: "Saison culturale"
       affair: "Affaire"
       analysis: "Analyse"
       analysis_item: "Élément d’analyse"
@@ -433,6 +436,7 @@ fra:
     activity_grading_check: "Point de contrôle d’agréage"
     activity_production: "Production"
     activity_productions: "Productions"
+    activity_season: "Season culturale"
     actor: "Acteur"
     actual_number: "Numéro en cours"
     actual_population: "Population réelle"
@@ -1014,6 +1018,7 @@ fra:
     minimal_size_value: "Taille minimale"
     minimal_value: "Valeur minimale"
     mobiles: "Portables"
+    # mod: "Mod"
     mode: "Mode"
     model_euid: "Modèle"
     mother: "Mère"
@@ -1315,6 +1320,7 @@ fra:
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
     scheduled: "Encaissement programmé"
+    season: "Saison culturale"
     second_producer: "Second producteur" #?
     second_producer_way: "Voie du second producteur" #?
     seeding_density_unit: "unité de densité de semis"
@@ -1455,6 +1461,8 @@ fra:
     use_countings: "Utiliser les comptages"
     use_grading_calibre: "Utiliser un calibre d'agréage"
     use_gradings: "Utiliser les agréages"
+    use_seasons: "Utiliser les saisons culturales"
+    use_tactics: "Utiliser les itinéraires techniques"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
     useful_items: "Lignes utiles"

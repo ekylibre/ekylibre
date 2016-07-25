@@ -22,7 +22,7 @@ jpn:
     cover_implanter: "表紙注入"
     crop: "栽培"
     cropper: "クロッパー"
-    cropper_driver: "クロッパードライバ"
+    cropper_driver: "クロッパードライバ" #?
     cultivation: "栽培"
     cultivator: "耕運機" #?
     cutter: "カッター"

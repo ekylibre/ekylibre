@@ -29,7 +29,7 @@ deu:
         fallow_land: "Brachland"
         none: "Keiner"
     activity_tactic:
-      planning_nature:
+      mode:
         # harvested: "Harvest sowing date"
         # sowed: "Provisional sowing date"
     cash:

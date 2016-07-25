@@ -418,12 +418,6 @@ activity_productions:
     type: integer
     references: activity
     required: true
-  activity_season_id:
-    type: integer
-    references: activity_season
-  activity_tactic_id:
-    type: integer
-    references: activity_tactic
   campaign_id:
     type: integer
     references: campaign
@@ -455,6 +449,9 @@ activity_productions:
   rank_number:
     type: integer
     required: true
+  season_id:
+    type: integer
+    references: activity_season
   size_indicator_name:
     type: string
     required: true
@@ -482,6 +479,9 @@ activity_productions:
     limit:
       srid: 4326
       type: multi_polygon
+  tactic_id:
+    type: integer
+    references: activity_tactic
   updated_at:
     type: datetime
     required: true
@@ -521,9 +521,9 @@ activity_tactics:
     type: integer
     references: activity
     required: true
-  bulk_quantity:
+  bulk_delta:
     type: integer
-  bulk_quantity_delta:
+  bulk_quantity:
     type: integer
   bulk_unit_name:
     type: string
@@ -533,22 +533,20 @@ activity_tactics:
   creator_id:
     type: integer
     references: user
-  harvested_on:
-    type: date
   id:
     type: integer
     required: true
   lock_version:
     type: integer
     required: true
-  mod:
+  mode:
     type: string
-  mod_quantity_delta:
+  mode_delta:
     type: integer
   name:
     type: string
     required: true
-  sowed_on:
+  plan_on:
     type: date
   updated_at:
     type: datetime

@@ -29,7 +29,7 @@ cmn:
         fallow_land: "熟荒"
         none: "无"
     activity_tactic:
-      planning_nature:
+      mode:
         # harvested: "Harvest sowing date"
         # sowed: "Provisional sowing date"
     cash:

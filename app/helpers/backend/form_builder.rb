@@ -415,7 +415,7 @@ module Backend
       options = args.extract_options!
       attribute_name = args.shift || options[:name]
 
-      input(attribute_name, options.merge(wrapper: :append)) do
+      input(value_attribute, options.merge(wrapper: :append)) do
           input(value_attribute, wrapper: :simplest) +
           @template.content_tag(:span, :delta.tl, class: 'add-on') +
           input(delta_attribute, wrapper: :simplest) +

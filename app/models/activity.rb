@@ -78,7 +78,7 @@ class Activity < Ekylibre::Record::Base
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
     has_many :seasons, class_name: 'ActivitySeason'
-    has_one :tactic, class_name: 'ActivityTactic'
+    has_many :tactics, class_name: 'ActivityTactic'
     has_many :inspections, class_name: 'Inspection'
     has_one :counting, class_name: 'PlantDensityAbacus'
     has_many :inspection_point_natures, class_name: 'ActivityInspectionPointNature'
@@ -133,6 +133,7 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
   accepts_nested_attributes_for :counting, allow_destroy: true, update_only: true, reject_if: -> (par) { par[:use_countings].blank? }
   accepts_nested_attributes_for :seasons, update_only: true, reject_if: -> (par) { par[:name].blank? }
+  accepts_nested_attributes_for :tactics, update_only: true, reject_if: :all_blank
   # protect(on: :update) do
   #   productions.any?
   # end
@@ -201,6 +202,9 @@ class Activity < Ekylibre::Record::Base
   end
 
   after_save do
+    productions.each do |production|
+      production.update_column(:season_id, seasons.first.id) if production.season.nil?
+    end
     if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)
       if total != 100

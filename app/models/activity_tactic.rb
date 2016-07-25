@@ -22,31 +22,30 @@
 #
 # == Table: activity_tactics
 #
-#  activity_id         :integer          not null
-#  bulk_quantity       :integer
-#  bulk_quantity_delta :integer
-#  bulk_unit_name      :string
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  harvested_on        :date
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  mod                 :string
-#  mod_quantity_delta  :integer
-#  name                :string           not null
-#  sowed_on            :date
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  activity_id    :integer          not null
+#  bulk_delta     :integer
+#  bulk_quantity  :integer
+#  bulk_unit_name :string
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  mode           :string
+#  mode_delta     :integer
+#  name           :string           not null
+#  plan_on        :date
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 class ActivityTactic < Ekylibre::Record::Base
 
-  enumerize :mod, in: [:sowed, :harvested], default: :sowed
+  enumerize :mode, in: [:sowed, :harvested], default: :sowed
 
-  belongs_to :activity, class_name: 'Activity'
+  belongs_to :activity, class_name: 'Activity', inverse_of: :tactics
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :harvested_on, :sowed_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :bulk_quantity, :bulk_quantity_delta, :mod_quantity_delta, numericality: { allow_nil: true, only_integer: true }
+  validates :plan_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :bulk_delta, :bulk_quantity, :mode_delta, numericality: { allow_nil: true, only_integer: true }
   validates :activity, :name, presence: true
   # ]VALIDATORS]
 

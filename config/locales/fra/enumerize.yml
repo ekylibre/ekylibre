@@ -29,7 +29,7 @@ fra:
         fallow_land: "Jachère"
         none: "Aucun"
     activity_tactic:
-      planning_nature:
+      mode:
         harvested: "Date de récolte prévisionnelle"
         sowed: "Date de semis prévisionnelle"
     cash:

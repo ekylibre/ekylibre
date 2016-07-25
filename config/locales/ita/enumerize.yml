@@ -29,7 +29,7 @@ ita:
         fallow_land: "terreni a riposo"
         none: "Nessuna"
     activity_tactic:
-      planning_nature:
+      mode:
         # harvested: "Harvest sowing date"
         # sowed: "Provisional sowing date"
     cash:

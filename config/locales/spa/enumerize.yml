@@ -29,7 +29,7 @@ spa:
         fallow_land: "Las tierras en barbecho"
         none: "Ninguna"
     activity_tactic:
-      planning_nature:
+      mode:
         # harvested: "Harvest sowing date"
         # sowed: "Provisional sowing date"
     cash:

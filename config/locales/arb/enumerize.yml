@@ -29,7 +29,7 @@ arb:
         fallow_land: "الأراضي البور"
         none: "لا شيء"
     activity_tactic:
-      planning_nature:
+      mode:
         # harvested: "Harvest sowing date"
         # sowed: "Provisional sowing date"
     cash:

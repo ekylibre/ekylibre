@@ -29,7 +29,7 @@ jpn:
         fallow_land: "休閑地"
         none: "なし"
     activity_tactic:
-      planning_nature:
+      mode:
         # harvested: "Harvest sowing date"
         # sowed: "Provisional sowing date"
     cash:

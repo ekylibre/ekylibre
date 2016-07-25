@@ -244,18 +244,18 @@ ActiveRecord::Schema.define(version: 20160722080926) do
     t.integer  "rank_number",                                                                                                null: false
     t.integer  "campaign_id"
     t.jsonb    "custom_fields"
-    t.integer  "activity_season_id"
-    t.integer  "activity_tactic_id"
+    t.integer  "season_id"
+    t.integer  "tactic_id"
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
-  add_index "activity_productions", ["activity_season_id"], name: "index_activity_productions_on_activity_season_id", using: :btree
-  add_index "activity_productions", ["activity_tactic_id"], name: "index_activity_productions_on_activity_tactic_id", using: :btree
   add_index "activity_productions", ["campaign_id"], name: "index_activity_productions_on_campaign_id", using: :btree
   add_index "activity_productions", ["created_at"], name: "index_activity_productions_on_created_at", using: :btree
   add_index "activity_productions", ["creator_id"], name: "index_activity_productions_on_creator_id", using: :btree
   add_index "activity_productions", ["cultivable_zone_id"], name: "index_activity_productions_on_cultivable_zone_id", using: :btree
+  add_index "activity_productions", ["season_id"], name: "index_activity_productions_on_season_id", using: :btree
   add_index "activity_productions", ["support_id"], name: "index_activity_productions_on_support_id", using: :btree
+  add_index "activity_productions", ["tactic_id"], name: "index_activity_productions_on_tactic_id", using: :btree
   add_index "activity_productions", ["updated_at"], name: "index_activity_productions_on_updated_at", using: :btree
   add_index "activity_productions", ["updater_id"], name: "index_activity_productions_on_updater_id", using: :btree
 
@@ -276,20 +276,19 @@ ActiveRecord::Schema.define(version: 20160722080926) do
   add_index "activity_seasons", ["updater_id"], name: "index_activity_seasons_on_updater_id", using: :btree
 
   create_table "activity_tactics", force: :cascade do |t|
-    t.integer  "activity_id",                     null: false
-    t.string   "name",                            null: false
-    t.date     "sowed_on"
-    t.date     "harvested_on"
-    t.integer  "mod_quantity_delta"
-    t.string   "mod"
+    t.integer  "activity_id",                null: false
+    t.string   "name",                       null: false
+    t.date     "plan_on"
+    t.integer  "mode_delta"
+    t.string   "mode"
     t.integer  "bulk_quantity"
-    t.integer  "bulk_quantity_delta"
+    t.integer  "bulk_delta"
     t.string   "bulk_unit_name"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",        default: 0, null: false
+    t.integer  "lock_version",   default: 0, null: false
   end
 
   add_index "activity_tactics", ["activity_id"], name: "index_activity_tactics_on_activity_id", using: :btree

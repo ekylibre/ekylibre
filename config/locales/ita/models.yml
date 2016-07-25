@@ -4,6 +4,10 @@ ita:
       activity_budget:
         expenses_amount: "Le spese importo"
         revenues_amount: "I ricavi sono pari"
+      activity_tactic:
+        # bulk_quantity: "forecast volume"
+        # mode: "Planning type"
+        # plan_on: "Date"
       animal_group:
         born_at: "creato a"
       building:
@@ -176,6 +180,7 @@ ita:
       activity_inspection_calibration_scale: "Calibro"
       activity_inspection_point_nature: "controllo di classificazione di attività"
       activity_production: "supporto alla produzione"
+      # activity_season: "Cropping season"
       affair: "Affare"
       analysis: "Analisi"
       analysis_item: "oggetto di analisi"
@@ -347,6 +352,7 @@ ita:
     activity_grading_check: "controllo di classificazione di attività"
     activity_production: "Attività Produttive"
     activity_productions: "produzioni di attività"
+    # activity_season: "Cropping season"
     actor: "Attore"
     actual_number: "Il numero effettivo"
     actual_population: "popolazione effettiva"
@@ -840,6 +846,7 @@ ita:
     minimal_size_value: "valore della dimensione minima"
     minimal_value: "valore minimo"
     mobiles: "Cellulari"
+    # mod: "Mod"
     mode: "modo"
     model_euid: "Modello"
     mother: "Madre"
@@ -1097,6 +1104,7 @@ ita:
     sampling_temporal_mode: "modalità temporale di campionamento"
     scale: "Scala"
     scheduled: "In programma"
+    # season: "Cropping season"
     second_producer: "secondo produttore" #?
     seeding_density_unit: "unità di densità di semina"
     selected: "selezionata"
@@ -1223,6 +1231,8 @@ ita:
     use_countings: "Utilizzare i conteggi"
     use_grading_calibre: "Utilizzare calibro di classificazione"
     use_gradings: "Utilizzare classificazioni"
+    # use_seasons: "Use cropping seasons"
+    # use_tactics: "Use crop management Technique"
     used_for_affairs: "Usato per gli affari"
     used_for_gaps: "Usato per le lacune"
     useful_items: "oggetti utili"

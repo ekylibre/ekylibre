@@ -50,7 +50,7 @@
   #seasons
     = f.nested_association(:seasons)
 
-= field_set(:tactics) do
-  = f.input :use_tactics, show: '#activity_tactics'
-  #activity_tactics
-    = f.nested_association(:tactic, {:locals => {f: f}})
+= field_set(:activity_tactics, title: Activity.human_attribute_name(:tactics)) do
+  = f.input :use_tactics, show: '#tactics'
+  #tactics
+    = f.nested_association(:tactics)

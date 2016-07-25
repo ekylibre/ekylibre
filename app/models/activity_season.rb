@@ -32,11 +32,12 @@
 #  updater_id   :integer
 #
 class ActivitySeason < Ekylibre::Record::Base
-  belongs_to :activity, class_name: 'Activity'
-  has_many :activity_production, class_name: 'ActivityProduction', inverse_of: :activity_season
+  belongs_to :activity, class_name: 'Activity', inverse_of: :seasons
+  has_many :productions, class_name: 'ActivityProduction', inverse_of: :activity_season
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :activity, presence: true
   # ]VALIDATORS]
+
 
 end

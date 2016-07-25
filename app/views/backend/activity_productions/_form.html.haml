@@ -1,4 +1,5 @@
 - activity = f.object.activity
+- seasons = activity.seasons
 = f.object.errors.inspect if f.object.errors.any? && Rails.env.development?
 = field_set do
   -# = f.input :name
@@ -7,14 +8,13 @@
     - f.object.campaign ||= current_campaign
     = f.referenced_association :campaign
   = f.date_range
-  - if activity.use_seasons?
-    = f.referenced_association :activity_season
+  - if activity.use_seasons? && seasons
+    = f.association :season, as: :radio_buttons, collection: seasons, checked: seasons.first.id
   - if activity.plant_farming?
     -# Vegetal cropsra
     = f.input :support_nature, as: :radio_buttons
     - f.object.usage ||= :grain
     = f.input :usage
-    - source = nil
     - if activity && activity.production_system.present?
       - source = { scope: { of_production_system: activity.production_system.name } }
     = f.referenced_association :cultivable_zone, source: source

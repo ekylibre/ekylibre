@@ -4,6 +4,10 @@ eng:
       activity_budget:
         expenses_amount: "Expenses amount"
         revenues_amount: "Revenues amount"
+      activity_tactic:
+        bulk_quantity: "forecast volume"
+        mode: "Planning type"
+        plan_on: "Date"
       animal_group:
         born_at: "Created at"
       building:
@@ -145,7 +149,7 @@ eng:
       activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "Activity grading check"
       activity_production: "Production support"
-      # activity_season: "Activity season"
+      activity_season: "Cropping season"
       # activity_tactic: "Activity tactic"
       affair: "Affair"
       analysis: "Analysis"
@@ -320,8 +324,7 @@ eng:
     activity_grading_check: "Activity grading check" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
-    # activity_season: "Activity season"
-    # activity_tactic: "Activity tactic"
+    activity_season: "Cropping season" #?
     actor: "Actor" #?
     actual_number: "Actual number" #?
     actual_population: "Actual population"
@@ -378,8 +381,8 @@ eng:
     born_at: "Born at"
     budgets: "Budgets"
     buildings: "Buildings"
+    # bulk_delta: "Bulk delta"
     # bulk_quantity: "Bulk quantity"
-    # bulk_quantity_delta: "Bulk quantity delta"
     # bulk_unit_name: "Bulk unit name"
     by_default: "By default"
     calibrations: "Calibrations"
@@ -652,7 +655,6 @@ eng:
     groups: "Groups"
     guide: "Guide"
     harvest_year: "Harvest year"
-    # harvested_on: "Harvested on"
     has_downpayment: "Has downpayment"
     host: "Host"
     human_activities_names: "Activities names"
@@ -844,9 +846,9 @@ eng:
     minimal_size_value: "Minimal size value"
     minimal_value: "Minimal value"
     mobiles: "Mobile phones"
-    # mod: "Mod"
-    # mod_quantity_delta: "Mod quantity delta"
+    mod: "Mod" #?
     mode: "Mode"
+    # mode_delta: "Mode delta"
     model_euid: "Model"
     mother: "Mother"
     movements: "Movements"
@@ -933,6 +935,7 @@ eng:
     picture_updated_at: "Picture updated at"
     place: "Place"
     plan: "Plan"
+    # plan_on: "Plan on"
     planned_at: "Planned at"
     planned_depreciations: "Planned depreciations"
     plant: "Plant"
@@ -1110,6 +1113,7 @@ eng:
     scale: "Scale"
     # scales: "Scales"
     scheduled: "Scheduled"
+    season: "Cropping season"
     # seasons: "Seasons"
     seeding_density_unit: "Seeding density unit"
     # seeding_density_value: "Seeding density value"
@@ -1141,7 +1145,6 @@ eng:
     source: "Source"
     source_product: "Source product"
     # source_product_movement: "Source product movement"
-    # sowed_on: "Sowed on"
     spaced_iban: "Spaced IBAN"
     sql_type: "SQL type"
     start: "Start"
@@ -1187,6 +1190,7 @@ eng:
     suspended: "Suspended"
     # swim_lane_uuid: "Swim lane uuid"
     # tactic: "Tactic"
+    # tactics: "Tactics"
     target: "Target"
     target_type: "Target type"
     target_url: "Target url"
@@ -1244,8 +1248,8 @@ eng:
     use_countings: "Use countings"
     use_grading_calibre: "Use grading calibre" #?
     use_gradings: "Use gradings"
-    # use_seasons: "Use seasons"
-    # use_tactics: "Use tactics"
+    use_seasons: "Use cropping seasons"
+    use_tactics: "Use crop management Technique"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
     useful_items: "Useful items"

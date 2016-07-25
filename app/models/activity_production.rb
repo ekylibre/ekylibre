@@ -23,8 +23,6 @@
 # == Table: activity_productions
 #
 #  activity_id         :integer          not null
-#  activity_season_id  :integer
-#  activity_tactic_id  :integer
 #  campaign_id         :integer
 #  created_at          :datetime         not null
 #  creator_id          :integer
@@ -35,6 +33,7 @@
 #  lock_version        :integer          default(0), not null
 #  nitrate_fixing      :boolean          default(FALSE), not null
 #  rank_number         :integer          not null
+#  season_id           :integer
 #  size_indicator_name :string           not null
 #  size_unit_name      :string
 #  size_value          :decimal(19, 4)   not null
@@ -44,6 +43,7 @@
 #  support_id          :integer          not null
 #  support_nature      :string
 #  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id           :integer
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  usage               :string           not null
@@ -59,8 +59,8 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :campaign
   belongs_to :cultivable_zone
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
-  belongs_to :activity_season, class_name: 'ActivitySeason', inverse_of: :activity_production
-  belongs_to :activity_tactic, class_name: 'ActivityTactic', inverse_of: :activity_production
+  belongs_to :tactic, class_name: 'ActivityTactic', inverse_of: :productions
+  belongs_to :season, class_name: 'ActivitySeason', inverse_of: :productions
   has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :restrict_with_exception
   has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
