@@ -7,8 +7,6 @@
   - budget = resource.budget_of(current_campaign)
   - if budget && budget.items.any?
     = t.edit params: {controller: :activity_budgets, id: budget.id}, label: :edit_budget.tl
-  - if resource.use_countings?
-    = link_to(PlantDensityAbacus.model_name.human, { controller: :activities, action: :edit, id: resource.id, anchor: "countings" }, class: 'btn btn-default')
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
     = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
 
