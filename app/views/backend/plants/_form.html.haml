@@ -1,7 +1,9 @@
+- display_dead_at ||= false
+
 = f.product_form_frame do
   = field_set(:identification) do
     = f.input :work_number
-    = f.input :dead_at
+    = f.input :dead_at if display_dead_at
     = f.picture
     = f.input :description
 
