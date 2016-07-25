@@ -22,9 +22,7 @@ cmn:
     cover_implanter: "封面注入"
     crop: "养殖"
     cropper: "农作物"
-    cropper_driver: "克罗珀司机"
     cultivation: "养殖"
-    cultivator: "中耕" #?
     cutter: "切纸机"
     destination_tank: "目的地坦克"
     doer: "杜尔"
