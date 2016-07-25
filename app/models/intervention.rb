@@ -61,6 +61,7 @@ class Intervention < Ekylibre::Record::Base
     has_many :targets, class_name: 'InterventionTarget'
     has_many :tools, class_name: 'InterventionTool'
     has_many :working_periods, class_name: 'InterventionWorkingPeriod'
+    has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true

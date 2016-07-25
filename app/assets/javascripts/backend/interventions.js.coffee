@@ -143,7 +143,12 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on 'keyup', 'input[data-intervention-updater]', (e) ->
+  $(document).on 'keyup', 'input[data-selector]', (e) ->
+    $(this).each ->
+      E.interventions.refresh $(this)
+
+
+  $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (e) ->
     $(this).each ->
       E.interventions.refresh $(this)
 

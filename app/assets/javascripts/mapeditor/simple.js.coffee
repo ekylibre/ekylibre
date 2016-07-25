@@ -3,18 +3,21 @@ class mapeditor.Simple
   constructor: (@layer, @data, @options = {}) ->
 
   buildLayerGroup: (widget, globalStyle = {}) ->
-    L.geoJson(@data, {
-      onEachFeature: (feature, layer) =>
-        feature.properties['internal_id'] = new Date().getTime()
-        if feature.properties.name
-          label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: false).setContent(feature.properties.name).toCentroidOfBounds(layer.getLatLngs())
-          widget.ghostLabelCluster.bind label, layer
-        feature.properties['popupAttributes'] = globalStyle.popup || []
-        widget.popupizeSerie(feature, layer) if @layer.popup
+    if @data == 'no_data'
+      L.featureGroup()
+    else
+      L.geoJson(@data, {
+        onEachFeature: (feature, layer) =>
+          feature.properties['internal_id'] = new Date().getTime()
+          if feature.properties.name
+            label = new L.GhostLabel(className: 'leaflet-ghost-label', toBack: false).setContent(feature.properties.name).toCentroidOfBounds(layer.getLatLngs())
+            widget.ghostLabelCluster.bind label, layer
+          feature.properties['popupAttributes'] = globalStyle.popup || []
+          widget.popupizeSerie(feature, layer) if @layer.popup
 
-      style: (feature) =>
-        $.extend {}, true, globalStyle, feature.properties
-    })
+        style: (feature) =>
+          $.extend {}, true, globalStyle, feature.properties
+      })
 
   buildLegend: () ->
     html  = "<div class='leaflet-legend-item' id='legend-#{@layer.name}'>"

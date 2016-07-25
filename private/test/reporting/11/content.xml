@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="show" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0" whenNoDataType="AllSectionsNoDetail">
   <property name="ireport.zoom" value="1.6105100000000014"/>
   <property name="ireport.x" value="0"/>
   <property name="ireport.y" value="187"/>
@@ -24,7 +24,7 @@
   </style>
   <parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
   <parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
-  <queryString language="xPath"><![CDATA[/intervention/parameters/parameter]]></queryString>
+  <queryString language="xPath"><![CDATA[/intervention/leaves-parameters/leaves-parameter]]></queryString>
   <field name="description" class="java.lang.String">
     <fieldDescription><![CDATA[ancestor::intervention/description]]></fieldDescription>
   </field>

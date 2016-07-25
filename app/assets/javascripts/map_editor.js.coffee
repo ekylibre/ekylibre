@@ -1,10 +1,37 @@
 #= require_self
 #= require mapeditor/simple
+#= require mapeditor/categories
 
 ((M, $) ->
   "use strict"
+  ###
+  ## Series managment:
+  Series allows to display multiple layers of data on a single map, which can be hidden with the selector.
+  I/ Serie handlers:
+    Specify series to work with in a hash:
+      key: the uniq identifier of the serie
+      value: the data of a serie, as a geojson
+  II/ Layers handlers:
+    Specify layers to display data, in an array of hashes:
+      name: identifier of the layer
+      label: Visible name in the legend and the selector
+      serie: the serie identifier as in the handlers
+      type: 'simple' or 'categories', see below
+      legend: boolean (true), displays the layer name and color in the legend.
+      popup: An array of hashes, which define the way popup is shown:
+        type: 'label' or 'input'. A label is a static text whereas an input provide a form to edit properties.
+        property_label: text displayed before value
+        property_value: the name of the feature property to show/edit
+      Handler support layer-scoped styling, as supported by Leaflet (stroke, color, etc.)
+  III/ Layer types:
+     'simple': Display a single layer, identified by a name and a color.
+     'categories': Display a layer where geometries have their own set of properties, as color or opacity.
+        reference: The key allows to group geometries to a property, to display distinct categories.
+  Example: show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories, popup: [{type: :label, property_label: 'My name', property_value: :name}]}]}
 
-
+  ## Others options:
+  withoutLabel: boolean (false), bind label to edition layer
+  ###
   M.layer = (layer, data, options) ->
     @layerTypes ?= {}
     if type = @layerTypes[layer.type]
@@ -19,22 +46,9 @@
 
   # allow to inject jquery objects and interpolate
   L.Map.Modal.prototype.reloadContent = (content) ->
-#    inject = L.Util.template(
-#      content,
-#      options
-#    )
     $(this._getInnerContentContainer()).find('.modal-body').empty()
-#    $(this._getInnerContentContainer()).find('.modal-body > :first-child').replaceWith($content)
     $(this._getInnerContentContainer()).find('.modal-body').append($(content))
     this.update()
-
-  # TODO: split serie and default behavior into separated constructors
-  # series managment:
-  # series is an array of serie:
-  # [{title (as string), data (as FeatureCollection (as json)), options (as hash)}]
-  # options is composed of:
-  # style: styles supported by Leaflet Draw
-  # popup: [{type: 'label' | 'input', property_label: string, property_value: feature property name}]
 
   $.widget "ui.mapeditor",
     options:
@@ -213,7 +227,8 @@
           this.updateFeatureProperties(featureId, $(field).attr('name'), $(field).val())
 
         if layer.feature and layer.feature.geometry and layer.feature.geometry.type == 'MultiPolygon'
-          layer.invoke('closePopup')
+          layer.eachLayer (layer) ->
+            layer.closePopup()
         else
           layer.closePopup()
 
@@ -378,7 +393,11 @@
       popup += "<input class='updateAttributesSerieInPopup' type='button' value='ok'/>"
       popup += "</div>"
 
-      layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
+      if layer.feature and layer.feature.geometry and layer.feature.geometry.type == 'MultiPolygon'
+        layer.eachLayer (layer) ->
+          layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
+      else
+        layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
 
     colorize: (level) ->
       #levels rane is set to [-3,3]
@@ -480,7 +499,7 @@
     _refreshReferenceLayerGroup: ->
       if this.reference?
         this.map.removeLayer this.reference
-      if this.options.show?
+      if this.options.show? and this.options.show.layers.length > 0
         if this.options.useFeatures
 
           if @options.show.series?
