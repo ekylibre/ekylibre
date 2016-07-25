@@ -17,10 +17,9 @@
     = f.input :size_unit_name
   = f.input :description
   = f.custom_fields
-  = f.input :use_countings, show: '#countings'
-  = f.input :use_gradings, show: '#inspections'
 
-= field_set(:inspections) do
+= field_set(:activity_inspections, title: Activity.human_attribute_name(:inspections)) do
+  = f.input :use_gradings, show: '#inspections'
   #inspections
     = f.input :measure_grading_items_count
     = f.input :measure_grading_net_mass, show: '#grading_net_mass'
@@ -32,10 +31,11 @@
       = f.referenced_nomenclature :grading_sizes_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: :distance)).selection, include_blanks: false
       = f.referenced_nomenclature :grading_sizes_unit, collection: Nomen::Unit.where(dimension: :distance).selection, include_blanks: false
 
-    = f.nested_association(:inspection_point_natures)
     = f.nested_association(:inspection_calibration_scales)
+    = f.nested_association(:inspection_point_natures)
 
-= field_set(:countings) do
+= field_set(:activity_countings, title: Activity.human_attribute_name(:counting)) do
+  = f.input :use_countings, show: '#countings'
   #countings
     - f.object.build_counting unless f.object.counting
     = f.simple_fields_for :counting do |g|
@@ -45,7 +45,7 @@
   = field_set(Activity.human_attribute_name(:distributions)) do
     = f.nested_association(:distributions)
 
-= field_set(:activity_seasons) do
+= field_set(:activity_seasons, title: Activity.human_attribute_name(:seasons)) do
   = f.input :use_seasons, show: '#seasons'
   #seasons
     = f.nested_association(:seasons)
