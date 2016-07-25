@@ -118,15 +118,14 @@ module Backend
                                       include: {
                                         product: {
                                           methods: [:picture_path, :nature_name, :unit_name]
-                                          }
                                         }
                                       }
-                                    }, {
+                                    } }, {
                                       prescription: {
                                         include: [:prescriptor, :attachments]
-                                        }
                                       }
-                                    ],
+                                    }
+                                  ],
                                   procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) })
     end
 

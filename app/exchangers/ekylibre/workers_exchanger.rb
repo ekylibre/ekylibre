@@ -90,8 +90,19 @@ module Ekylibre
         # create the user
         if person && r.email.present? && !User.where(person_id: person.id).any?
           unless user = User.find_by(email: r.email)
+            role = Role.order(:id).first
+            role = Role.import_from_nomenclature(:farm_worker) unless role
             password = User.generate_password(100, :hard)
-            user = User.create!(first_name: r.first_name, last_name: r.last_name, person: person, email: r.email, password: password, password_confirmation: password, language: Preference[:language], role: Role.order(:id).first)
+            user = User.create!(
+              first_name: r.first_name,
+              last_name: r.last_name,
+              person: person,
+              email: r.email,
+              password: password,
+              password_confirmation: password,
+              language: Preference[:language],
+              role: role
+            )
           end
           unless user.person
             user.person = person

@@ -443,7 +443,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       record
     end
     if unfound.any?
-      raise "Cannot find #{klass.name.tableize} with #{column}: #{unfound.to_sentence}"
+      raise "Cannot find #{klass.name.tableize.humanize} with #{column}: #{unfound.to_sentence}"
     end
     records
   end

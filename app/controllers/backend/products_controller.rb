@@ -28,7 +28,6 @@ module Backend
     before_action :check_variant_availability, only: :new
     before_action :clean_attachments, only: [:update]
 
-
     unroll :name, :number, :work_number, :identification_number # , 'population:!', 'unit_name:!'
 
     # params:
@@ -197,12 +196,10 @@ module Backend
       end
     end
 
-
     def clean_attachments
       permitted_params['attachments_attributes'].each do |k, v|
-        permitted_params['attachments_attributes'].delete(k) if v.has_key?('id') and !Attachment.exists?(v['id'])
+        permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
       end if permitted_params.include?('attachments_attributes')
     end
-
   end
 end

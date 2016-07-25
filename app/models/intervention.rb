@@ -350,11 +350,6 @@ class Intervention < Ekylibre::Record::Base
     working_zone_area(unit: unit).round(precision).l(precision: precision)
   end
 
-  def working_area(unit = :hectare)
-    ActiveSupport::Deprecation.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'
-    working_zone_area(unit)
-  end
-
   def status
     if undone?
       return (runnable? ? :caution : :stop)
