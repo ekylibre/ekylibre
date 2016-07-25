@@ -2,6 +2,9 @@
   = t.export :entity_sheet
   = t.edit resource
   = t.destroy
+  = t.menu :new.ta, icon: nil do |menu|
+    - ProductNatureVariant.of_variety(:worker).order(:name).each do |a|
+      - menu.item a.name, { controller: :workers, action: :new, variant_id: a.id, person_id: resource.id, redirect: url_for(controller: :workers, action: :show, id: resource.id)}
 
 = main_informations attachment: true do
   = render 'coordinates'
