@@ -208,7 +208,8 @@
           this.updateFeatureProperties(featureId, $(field).attr('name'), $(field).val())
 
         if layer.feature and layer.feature.geometry and layer.feature.geometry.type == 'MultiPolygon'
-          layer.invoke('closePopup')
+          layer.eachLayer (layer) ->
+            layer.closePopup()
         else
           layer.closePopup()
 
@@ -373,7 +374,11 @@
       popup += "<input class='updateAttributesSerieInPopup' type='button' value='ok'/>"
       popup += "</div>"
 
-      layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
+      if layer.feature and layer.feature.geometry and layer.feature.geometry.type == 'MultiPolygon'
+        layer.eachLayer (layer) ->
+          layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
+      else
+        layer.bindPopup popup, keepInView: true, maxWidth: 600, className: 'leaflet-popup-pane'
 
     colorize: (level) ->
       #levels rane is set to [-3,3]
