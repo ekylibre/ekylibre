@@ -1770,6 +1770,7 @@
         <page to="backend/activity_tactics#edit"/>
         <page to="backend/activity_tactics#new"/>
         <page to="backend/activity_tactics#show"/>
+        <page to="backend/activity_tactics#unroll"/>
         <page to="backend/activity_tactics#update"/>
       </item>
     </group>

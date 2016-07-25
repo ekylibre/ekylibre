@@ -992,7 +992,9 @@ eng:
     current_stocks_by_variety: "Current stocks by variety" #?
     custom_fields: "Custom fields"
     # data: "Data"
+    date: "Date"
     dates: "Select period start date and Period end date" #?
+    days: "Days" #?
     deals: "Deals"
     debit: "Debit" #?
     debts_on_assets: "Debts on assets %{financial_year}"
@@ -1009,7 +1011,7 @@ eng:
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
-    # delta: "Delta"
+    delta: "+/-"
     deposit: "Deposit"
     depositable_options: "Deposit options"
     deposits: "Deposits"
@@ -1087,6 +1089,7 @@ eng:
     first_line_as_title: "First line as title"
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
+    forecast_volume: "Forecast volume"
     from: "From"
     fullscreen: "Fullscreen"
     function: "Function"

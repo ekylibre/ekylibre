@@ -6,6 +6,7 @@ class AddActivityTactics < ActiveRecord::Migration
       t.date :plan_on
       t.integer :mode_delta
       t.string :mode
+      t.string :mode_unit_name
       t.integer :bulk_quantity
       t.integer :bulk_delta
       t.string :bulk_unit_name

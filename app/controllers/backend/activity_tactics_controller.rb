@@ -20,5 +20,7 @@ module Backend
   class ActivityTacticsController < Backend::BaseController
     manage_restfully
 
+    unroll
+
   end
 end

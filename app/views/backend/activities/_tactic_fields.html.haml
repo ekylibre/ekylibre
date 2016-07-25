@@ -1,7 +1,7 @@
 .nested-fields
-  - bulk_units = Nomen::Units.where(dimension: :mass).selection
-  - days = ['Jours']
+  - bulk_units = Nomen::Units.where(dimension: :mass).selection.reverse
   = link_to_remove_nested_association(:tactics, f)
+  = f.input :name
   = f.input :mode, as: :radio_buttons
-  = f.delta_field(:plan_on, :mode_delta, :mode, days)
-  = f.delta_field(:bulk_quantity, :bulk_delta, :bulk_unit_name, bulk_units)
+  = f.delta_field(:plan_on, :mode_delta, :mode_unit_name, :days, {'name': :date.tl})
+  = f.delta_field(:bulk_quantity, :bulk_delta, :bulk_unit_name, bulk_units, {'name': :forecast_volume.tl})

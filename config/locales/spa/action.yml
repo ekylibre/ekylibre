@@ -928,7 +928,9 @@ spa:
     custom_fields: "Campos Personalizados"
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
+    # date: "Date"
     dates: "Marcar las fechas de empezo y termino por los periodos"
+    # days: "Days"
     deals: "Ofertas"
     debit: "Flujo"
     debts_on_assets: "Deudas de los activos"
@@ -949,6 +951,7 @@ spa:
     delivery: "Entrega"
     delivery_natural_gas_and_electricity_assessable: "Entrega de gaz natural ou elctricidad imponible en Francia" #?
     delivery_natural_gas_and_electricity_not_assessable: "Entrega de gaz natural ou elctricidad no imponible en Francia" #?
+    # delta: "+/-"
     department_create: "Añadir un nuevo servicio" #?
     departments: "Servicios" #?
     deposit: "Aposto en banco del"
@@ -1051,6 +1054,7 @@ spa:
     first_line_as_title: "Primera línea como el título"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
     fixed_assets: "Los activos fijos"
+    # forecast_volume: "Forecast volume"
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
     fullscreen: "Pantalla completa"

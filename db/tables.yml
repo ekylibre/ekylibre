@@ -543,6 +543,8 @@ activity_tactics:
     type: string
   mode_delta:
     type: integer
+  mode_unit_name:
+    type: string
   name:
     type: string
     required: true

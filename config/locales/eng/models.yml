@@ -849,6 +849,7 @@ eng:
     mod: "Mod" #?
     mode: "Mode"
     # mode_delta: "Mode delta"
+    # mode_unit_name: "Mode unit name"
     model_euid: "Model"
     mother: "Mother"
     movements: "Movements"

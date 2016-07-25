@@ -1153,7 +1153,9 @@ arb:
     custom_fields: "الحقول المخصصة"
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
+    # date: "Date"
     dates: "ادخل تواريخ بداية ونهاية المدة"
+    # days: "Days"
     deals: "عروض"
     debit: "الدين"
     debts_on_assets: "الديون على الأصول"
@@ -1176,6 +1178,7 @@ arb:
     delivery: "خدمه توصيل"
     delivery_natural_gas_and_electricity_assessable: "وتخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا" #?
     delivery_natural_gas_and_electricity_not_assessable: "لا تخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا" #?
+    # delta: "+/-"
     department_create: "اضافة وظيفة جديدة" #?
     departments: "وظائف/مهام" #?
     deposit: "اقتطاعات البنك"
@@ -1301,6 +1304,7 @@ arb:
     first_line_as_title: "السطر الأول كما لقب"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
     fixed_assets: "أصول ثابتة"
+    # forecast_volume: "Forecast volume"
     format_date:  #?
       iso: "(السنة-الشهر-اليوم)" #?
     free_purchases: "المشتريات مجانية" #?

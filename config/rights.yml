@@ -37,6 +37,7 @@
 #     - "backend/activity_tactics#index"
 #     - "backend/activity_tactics#new"
 #     - "backend/activity_tactics#show"
+#     - "backend/activity_tactics#unroll"
 #     - "backend/activity_tactics#update"
 #     - "backend/animals#take"
 #     - "backend/attachments#create"
