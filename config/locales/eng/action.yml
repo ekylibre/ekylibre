@@ -793,7 +793,9 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
+    activity_countings: "Countings"
     activity_family: "Family activities" #?
+    activity_inspections: "Inspections"
     activity_name: "Activity" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
@@ -956,7 +958,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
-    countings: "Countings"
+    countings: "Countings" #?
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"

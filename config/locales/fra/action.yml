@@ -772,7 +772,9 @@ fra:
     active_sum: "Total actifs" #?
     activities: "Activités"
     activity: "Activités"
+    activity_countings: "Comptages"
     activity_family: "Activités familiales"
+    activity_inspections: "Agréages"
     activity_name: "Activité"
     activity_production: "Production"
     activity_productions: "Productions"
