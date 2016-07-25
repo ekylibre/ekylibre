@@ -37,9 +37,7 @@
 = field_set(:activity_countings, title: Activity.human_attribute_name(:counting)) do
   = f.input :use_countings, show: '#countings'
   #countings
-    - f.object.build_counting unless f.object.counting
-    = f.simple_fields_for :counting do |g|
-      = render "backend/plant_density_abaci/form", f: g
+    = f.nested_association :plant_density_abaci
 
 .auxiliary-nature-options
   = field_set(Activity.human_attribute_name(:distributions)) do

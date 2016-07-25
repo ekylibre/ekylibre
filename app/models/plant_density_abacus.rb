@@ -39,7 +39,7 @@ class PlantDensityAbacus < Ekylibre::Record::Base
   has_many :items, class_name: 'PlantDensityAbacusItem', dependent: :delete_all, inverse_of: :plant_density_abacus
   has_many :plant_countings
 
-  belongs_to :activity
+  belongs_to :activity, inverse_of: :plant_density_abaci
 
   refers_to :seeding_density_unit, class_name: 'Unit'
   refers_to :sampling_length_unit, class_name: 'Unit'

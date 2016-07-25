@@ -80,7 +80,7 @@ class Activity < Ekylibre::Record::Base
     has_many :seasons, class_name: 'ActivitySeason'
     has_many :tactics, class_name: 'ActivityTactic'
     has_many :inspections, class_name: 'Inspection'
-    has_one :counting, class_name: 'PlantDensityAbacus'
+    has_many :plant_density_abaci, class_name: 'PlantDensityAbacus'
     has_many :inspection_point_natures, class_name: 'ActivityInspectionPointNature'
     has_many :inspection_calibration_scales, class_name: 'ActivityInspectionCalibrationScale'
     has_many :inspection_calibration_natures, class_name: 'ActivityInspectionCalibrationNature', through: :inspection_calibration_scales, source: :natures
@@ -134,6 +134,7 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :counting, allow_destroy: true, update_only: true, reject_if: -> (par) { par[:use_countings].blank? }
   accepts_nested_attributes_for :seasons, update_only: true, reject_if: -> (par) { par[:name].blank? }
   accepts_nested_attributes_for :tactics, update_only: true, reject_if: :all_blank
+  accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
   # protect(on: :update) do
   #   productions.any?
   # end
