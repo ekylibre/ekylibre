@@ -1099,6 +1099,7 @@ ita:
     scheduled: "In programma"
     second_producer: "secondo produttore" #?
     seeding_density_unit: "unità di densità di semina"
+    seeding_density_value: "densità di semina"
     selected: "selezionata"
     selected_manure_management_plan: "piano di gestione del letame selezionato"
     selected_manure_management_plan_zone: "gestione del letame selezionato zona piano"

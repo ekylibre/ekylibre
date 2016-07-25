@@ -187,7 +187,7 @@ fra:
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
         bank_statement:
-          no_cash_match_ofx: "Aucune somme d&#39;argent trouvée pour le numéro de compte bancaire donné dans le fichier"
+          no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
           ofx_file_has_multiple_bank_accounts: "fichier OFX avec plusieurs comptes bancaires ne sont pas pris en charge"
           ofx_file_invalid: "fichier OFX est invalide"
         bank_statement_item:
@@ -395,7 +395,7 @@ fra:
       user: "Utilisateur"
       vegetal_activity: "Activité végétale" #?
       version: "Version"
-      worker: "Travailleur"
+      worker: "Équipier"
       zone: "Zone"
   attributes:
     abilities: "Compétences" #?
@@ -785,7 +785,7 @@ fra:
     gaps: "Écarts"
     geolocation: "Géolocalisation"
     geometry_value: "Valeur géométrique"
-    germination_percentage: "Le pourcentage de germination"
+    germination_percentage: "Pourcentage de germination attendu"
     given_at: "Donné à"
     global_amount: "Montant global" #?
     global_balance: "Solde global"
@@ -799,11 +799,11 @@ fra:
     grading_calibre_unit: "Unité utilisée pour le calibrage" #?
     grading_checks: "Éléments d'un agréage" #?
     grading_net_mass_unit: "Unité utilisée pour la masse nette"
-    grading_net_mass_unit_name: "Le classement net nom de l&#39;unité de masse"
+    grading_net_mass_unit_name: "Le classement net nom de l’unité de masse"
     grading_sizes_indicator: "Indicateur utilisé pour la mesure des extrema"
-    grading_sizes_indicator_name: "Classement tailles nom de l&#39;indicateur"
+    grading_sizes_indicator_name: "Classement tailles nom de l’indicateur"
     grading_sizes_unit: "Unité utilisée pour la mesure des extrema"
-    grading_sizes_unit_name: "Classement tailles nom de l&#39;unité"
+    grading_sizes_unit_name: "Classement tailles nom de l’unité"
     gradings: "Agréages"
     gravity: "Gravité"
     gross_mass: "Masse brute"
@@ -1118,7 +1118,7 @@ fra:
     plant_countings: "dénombrements des plantes"
     plant_density_abacus: "boulier densité végétale"
     plant_density_abacus_item: "la densité des plantes article boulier"
-    plants_count: "Les plantes comptent"
+    plants_count: "Nombre de plants"
     point: "Point"
     point_value: "Point value"
     points: "Points"
@@ -1159,7 +1159,7 @@ fra:
     product_divisions: "Divisions de produit" #?
     product_enjoyments: "Usufruit de produit"
     product_grading: "Agréage produit" #?
-    product_identification_number: "Numéro d&#39;identification"
+    product_identification_number: "Numéro d’identification"
     product_junctions: "Product junctions" #?
     product_linkages: "Attelages de produit"
     product_localization: "Localisation de produit"
@@ -1309,13 +1309,14 @@ fra:
     sampler: "Préleveur"
     sampling_area: "Surface d'échantillonnage"
     sampling_distance: "Distance de prélèvement"
-    sampling_length_unit: "unité de longueur d&#39;échantillonnage"
+    sampling_length_unit: "Unité de longueur d’échantillonnage"
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
     scheduled: "Encaissement programmé"
     second_producer: "Second producteur" #?
     second_producer_way: "Voie du second producteur" #?
-    seeding_density_unit: "unité de densité de semis"
+    seeding_density_unit: "Unité de densité de semis"
+    seeding_density_value: "Densité de semis"
     selected: "Sélectionné"
     selected_manure_management_plan: "Plan de fumure sélectionné"
     selected_manure_management_plan_zone: "Zone de plan de fumure sélectionné"
@@ -1485,7 +1486,7 @@ fra:
     with_supports: "Avec des supports"
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
-    worker: "Travailleur"
+    worker: "Équipier"
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"
     working_periods: "Périodes de travail"

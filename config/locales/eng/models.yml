@@ -1102,7 +1102,7 @@ eng:
     # scales: "Scales"
     scheduled: "Scheduled"
     seeding_density_unit: "Seeding density unit"
-    # seeding_density_value: "Seeding density value"
+    seeding_density_value: "Seeding density"
     selected: "Selected"
     selected_manure_management_plan: "Selected manure management plan"
     selected_manure_management_plan_zone: "Selected manure management plan zone"

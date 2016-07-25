@@ -1068,6 +1068,7 @@ cmn:
     scheduled: "计划"
     second_producer: "第二生成" #?
     seeding_density_unit: "播种密度单位"
+    seeding_density_value: "播种密度"
     selected: "选"
     selected_manure_management_plan: "选定的粪便管理计划"
     selected_manure_management_plan_zone: "选定的粪便管理计划区"

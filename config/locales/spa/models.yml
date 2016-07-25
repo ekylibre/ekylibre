@@ -1072,6 +1072,7 @@ spa:
     scheduled: "Programado"
     second_producer: "En segundo productor" #?
     seeding_density_unit: "unidad de densidad de siembra"
+    seeding_density_value: "densidad de siembra"
     selected: "Seleccionado"
     selected_manure_management_plan: "Plan de manejo del estiércol seleccionado"
     selected_manure_management_plan_zone: "Zona de plan de manejo del estiércol seleccionado"

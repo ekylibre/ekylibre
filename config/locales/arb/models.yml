@@ -2004,6 +2004,7 @@ arb:
     second_move_id: "الحركة الثانية" #?
     second_producer: "منتج الثاني" #?
     seeding_density_unit: "وحدة كثافة بذر"
+    seeding_density_value: "كثافة بذر"
     selected: "مختار"
     selected_manure_management_plan: "خطة إدارة السماد مختارة"
     selected_manure_management_plan_zone: "منطقة خطة إدارة السماد مختارة"

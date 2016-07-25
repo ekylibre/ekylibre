@@ -462,7 +462,6 @@ module Backend
         full_name = Entity.find(@template.params[:person_id]).full_name
       end
 
-
       options[:input_html] ||= {}
       options[:input_html][:class] ||= ''
 
@@ -473,13 +472,13 @@ module Backend
         form = @template.field_set options[:input_html] do
           fs = input(:variant_id, value: variant.id, as: :hidden)
           # Add name
-          fs << (full_name.nil? ? input(:name): input(:name, input_html: {value: full_name}))
+          fs << (full_name.nil? ? input(:name) : input(:name, input_html: { value: full_name }))
           # Add work number
           fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
           # Add variant selector
           fs << variety(scope: variant)
 
-          fs << (born_at.nil? ? input(:born_at): input(:born_at, input_html: {value: born_at}))
+          fs << (born_at.nil? ? input(:born_at) : input(:born_at, input_html: { value: born_at }))
           fs << input(:dead_at)
 
           # error message for indicators

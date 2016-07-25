@@ -777,6 +777,7 @@ fra:
     activity_production: "Production"
     activity_productions: "Productions"
     add: "Ajouter"
+    add_a_worker: "Ajouter un équipier"
     add_annotation: "Ajouter une annotation"
     add_attachment: "Ajouter une pièce jointe"
     add_bank_statement: "Ajouter un relevé de compte"
@@ -788,7 +789,7 @@ fra:
     add_distribution: "Ajouter une répartition"
     add_email: "Ajouter une adresse e-mail"
     add_entry: "Ajouter une écriture"
-    add_equipment: "Ajout d&#39;équipements"
+    add_equipment: "Ajout d’équipements"
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
@@ -805,6 +806,7 @@ fra:
     add_participation: "Ajouter une participation"
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
+    add_plant_density_abacus: "Ajouter une table de référence de densité de semis"
     add_point: "Ajouter un point"
     add_polygon: "Ajouter un polygone"
     add_production: "Ajouter une production"
@@ -994,7 +996,7 @@ fra:
     costs: "Coûts"
     costs_map: "Carte des coûts" #?
     costs_per_hectare: "Couts par hectare"
-    countings: "dénombrements"
+    countings: "Comptages"
     country: "Pays" #?
     counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
@@ -1003,7 +1005,7 @@ fra:
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
     create_or_import_interventions: "Créer ou importer des interventions"
-    create_or_import_workers: "Créer ou importer des travailleurs"
+    create_or_import_workers: "Créer ou importer des équipiers"
     created_at: "Créée le"
     created_at_by: "Créé le %{at} par %{author}"
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
@@ -1114,7 +1116,7 @@ fra:
     entries_to_point: "Écritures à pointer"
     entry_items: "Lignes d’écriture"
     equipment: "Équipement"
-    equipment_name: "Nom de l&#39;équipement"
+    equipment_name: "Nom de l’équipement"
     equipments: "Équipements"
     error: "Désolé..."
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
@@ -1246,7 +1248,7 @@ fra:
     inputs: "Intrants"
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
-    inspections: "inspections"
+    inspections: "Agréages"
     internal_error: "Oups, quelque chose s’est mal passé."
     interval: "Intervalle personnalisé"
     intervention: "Intervention"
@@ -1963,7 +1965,7 @@ fra:
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
-    workers: "Travailleurs"
+    workers: "Équipiers"
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
     working_sets_stocks: "Stocks d’ensembles de produits"
@@ -2234,7 +2236,7 @@ fra:
       some_parcels_are_not_shippable: "Certains colis ne sont pas transportables"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
-      subscription_is_not_renewable: "L&#39;abonnement est non renouvelable"
+      subscription_is_not_renewable: "L’abonnement est non renouvelable"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
@@ -2251,7 +2253,7 @@ fra:
       you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
       you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"
       you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre\_?" #?
-      your_data_are_being_imported: "Vos données sont en cours d&#39;importation"
+      your_data_are_being_imported: "Vos données sont en cours d’importation"
   preferences:
     accounting_system: "Plan comptable"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
