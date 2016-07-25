@@ -205,8 +205,8 @@ class Activity < Ekylibre::Record::Base
 
   after_save do
     productions.each do |production|
-      production.update_column(:season_id, seasons.first.id) if seasons.any? && production.season.nil?
-      production.update_column(:tactic_id, tactics.first.id) if tactics.any? && production.tactic.nil?
+      production.update_column(:season_id, seasons.first.id) if use_seasons?
+      production.update_column(:tactic_id, tactics.first.id) if use_tactics?
     end
     if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)

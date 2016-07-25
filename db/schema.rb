@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725090113) do
+ActiveRecord::Schema.define(version: 20160725135214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -244,16 +244,19 @@ ActiveRecord::Schema.define(version: 20160725090113) do
     t.integer  "rank_number",                                                                                                null: false
     t.integer  "campaign_id"
     t.jsonb    "custom_fields"
-    t.integer  "activity_season_id"
+    t.integer  "season_id"
     t.integer  "tactic_id"
+    t.string   "estimated_yield"
+    t.integer  "yield_delta"
+    t.string   "yield_unit_name"
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
-  add_index "activity_productions", ["activity_season_id"], name: "index_activity_productions_on_activity_season_id", using: :btree
   add_index "activity_productions", ["campaign_id"], name: "index_activity_productions_on_campaign_id", using: :btree
   add_index "activity_productions", ["created_at"], name: "index_activity_productions_on_created_at", using: :btree
   add_index "activity_productions", ["creator_id"], name: "index_activity_productions_on_creator_id", using: :btree
   add_index "activity_productions", ["cultivable_zone_id"], name: "index_activity_productions_on_cultivable_zone_id", using: :btree
+  add_index "activity_productions", ["season_id"], name: "index_activity_productions_on_season_id", using: :btree
   add_index "activity_productions", ["support_id"], name: "index_activity_productions_on_support_id", using: :btree
   add_index "activity_productions", ["tactic_id"], name: "index_activity_productions_on_tactic_id", using: :btree
   add_index "activity_productions", ["updated_at"], name: "index_activity_productions_on_updated_at", using: :btree
@@ -281,7 +284,6 @@ ActiveRecord::Schema.define(version: 20160725090113) do
     t.date     "plan_on"
     t.integer  "mode_delta"
     t.string   "mode"
-    t.string   "mode_unit_name"
     t.integer  "bulk_quantity"
     t.integer  "bulk_delta"
     t.string   "bulk_unit_name"
