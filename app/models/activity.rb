@@ -76,7 +76,7 @@ class Activity < Ekylibre::Record::Base
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
     has_many :inspections, class_name: 'Inspection'
-    has_one :counting, class_name: 'PlantDensityAbacus'
+    has_many :plant_density_abaci, class_name: 'PlantDensityAbacus'
     has_many :inspection_point_natures, class_name: 'ActivityInspectionPointNature'
     has_many :inspection_calibration_scales, class_name: 'ActivityInspectionCalibrationScale'
     has_many :inspection_calibration_natures, class_name: 'ActivityInspectionCalibrationNature', through: :inspection_calibration_scales, source: :natures
@@ -127,7 +127,7 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
   accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
-  accepts_nested_attributes_for :counting, allow_destroy: true, update_only: true, reject_if: -> (par) { par[:use_countings].blank? }
+  accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
 
   # protect(on: :update) do
   #   productions.any?
