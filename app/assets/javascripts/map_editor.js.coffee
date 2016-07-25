@@ -1,17 +1,36 @@
 #= require_self
 #= require mapeditor/simple
+#= require mapeditor/categories
 
 ((M, $) ->
   "use strict"
   ###
-  Series managment:
+  ## Series managment:
   Series allows to display multiple layers of data on a single map, which can be hidden with the selector.
   I/ Serie handlers:
     Specify series to work with in a hash:
       key: the uniq identifier of the serie
       value: the data of a serie, as a geojson
+  II/ Layers handlers:
+    Specify layers to display data, in an array of hashes:
+      name: identifier of the layer
+      label: Visible name in the legend and the selector
+      serie: the serie identifier as in the handlers
+      type: 'simple' or 'categories', see below
+      legend: boolean (true), displays the layer name and color in the legend.
+      popup: An array of hashes, which define the way popup is shown:
+        type: 'label' or 'input'. A label is a static text whereas an input provide a form to edit properties.
+        property_label: text displayed before value
+        property_value: the name of the feature property to show/edit
+      Handler support layer-scoped styling, as supported by Leaflet (stroke, color, etc.)
+  III/ Layer types:
+     'simple': Display a single layer, identified by a name and a color.
+     'categories': Display a layer where geometries have their own set of properties, as color or opacity.
+        reference: The key allows to group geometries to a property, to display distinct categories.
+  Example: show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories, popup: [{type: :label, property_label: 'My name', property_value: :name}]}]}
 
-  Example: show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories}]}
+  ## Others options:
+  withoutLabel: boolean (false), bind label to edition layer
   ###
   M.layer = (layer, data, options) ->
     @layerTypes ?= {}
