@@ -3,8 +3,16 @@
 
 ((M, $) ->
   "use strict"
+  ###
+  Series managment:
+  Series allows to display multiple layers of data on a single map, which can be hidden with the selector.
+  I/ Serie handlers:
+    Specify series to work with in a hash:
+      key: the uniq identifier of the serie
+      value: the data of a serie, as a geojson
 
-
+  Example: show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories}]}
+  ###
   M.layer = (layer, data, options) ->
     @layerTypes ?= {}
     if type = @layerTypes[layer.type]
@@ -19,22 +27,9 @@
 
   # allow to inject jquery objects and interpolate
   L.Map.Modal.prototype.reloadContent = (content) ->
-#    inject = L.Util.template(
-#      content,
-#      options
-#    )
     $(this._getInnerContentContainer()).find('.modal-body').empty()
-#    $(this._getInnerContentContainer()).find('.modal-body > :first-child').replaceWith($content)
     $(this._getInnerContentContainer()).find('.modal-body').append($(content))
     this.update()
-
-  # TODO: split serie and default behavior into separated constructors
-  # series managment:
-  # series is an array of serie:
-  # [{title (as string), data (as FeatureCollection (as json)), options (as hash)}]
-  # options is composed of:
-  # style: styles supported by Leaflet Draw
-  # popup: [{type: 'label' | 'input', property_label: string, property_value: feature property name}]
 
   $.widget "ui.mapeditor",
     options:
@@ -480,7 +475,7 @@
     _refreshReferenceLayerGroup: ->
       if this.reference?
         this.map.removeLayer this.reference
-      if this.options.show?
+      if this.options.show? and this.options.show.layers.length > 0
         if this.options.useFeatures
 
           if @options.show.series?
