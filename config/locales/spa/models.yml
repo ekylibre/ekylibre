@@ -1146,6 +1146,7 @@ spa:
     support_variety: "Variedad de apoyo"
     supports: "Soportes"
     suspended: "Suspendido"
+    # tactic: "Crop management Technique"
     target: "Objetivo"
     target_type: "Tipo de destino"
     target_url: "URL de destino"

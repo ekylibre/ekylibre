@@ -13,6 +13,10 @@
         .med-info
           %span.title= ActivityProduction.human_attribute_name(:season)
           %span.value= resource.season.name
+      - if resource.tactic
+        .med-info
+          %span.title= ActivityProduction.human_attribute_name(:tactic)
+          %span.value= resource.tactic.name
       - estimated_yield = resource.estimate_yield(current_campaign) if ["grain", "seed", "fodder", "fiber"].include?(resource.usage)
       - if estimated_yield
         .med-info

@@ -1395,6 +1395,7 @@ fra:
     support_variety: "Variété du support"
     supports: "Supports"
     suspended: "Suspendu"
+    tactic: "Itinéraire technique"
     target: "Cible"
     target_type: "Type de cible"
     target_url: "URL cible"

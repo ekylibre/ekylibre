@@ -1142,6 +1142,7 @@ jpn:
     support_variety: "サポートさまざまな"
     supports: "サポート"
     suspended: "吊り"
+    # tactic: "Crop management Technique"
     target: "ターゲット"
     target_type: "ターゲット・タイプ"
     target_url: "ターゲットURL"

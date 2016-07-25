@@ -432,6 +432,8 @@ activity_productions:
     references: cultivable_zone
   custom_fields:
     type: jsonb
+  estimated_yield:
+    type: string
   id:
     type: integer
     required: true
@@ -491,6 +493,10 @@ activity_productions:
   usage:
     type: string
     required: true
+  yield_delta:
+    type: integer
+  yield_unit_name:
+    type: string
 activity_seasons:
   activity_id:
     type: integer
@@ -543,8 +549,6 @@ activity_tactics:
     type: string
   mode_delta:
     type: integer
-  mode_unit_name:
-    type: string
   name:
     type: string
     required: true

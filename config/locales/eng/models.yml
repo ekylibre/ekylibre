@@ -575,6 +575,7 @@ eng:
     entry: "Entry"
     entry_items: "Entry items"
     entry_number: "Entry number"
+    # estimated_yield: "Estimated yield"
     event: "Event"
     event_participation: "Event participation"
     events: "Events"
@@ -770,6 +771,7 @@ eng:
     last_sign_in_ip: "Last sign in IP"
     last_year: "Last year"
     latest: "Latest"
+    # leaves_parameters: "Leaves parameters"
     lender: "Lender"
     letter: "Letter"
     letter_format: "Letter format"
@@ -849,7 +851,6 @@ eng:
     mod: "Mod" #?
     mode: "Mode"
     # mode_delta: "Mode delta"
-    # mode_unit_name: "Mode unit name"
     model_euid: "Model"
     mother: "Mother"
     movements: "Movements"
@@ -1190,7 +1191,7 @@ eng:
     supports: "Supports"
     suspended: "Suspended"
     # swim_lane_uuid: "Swim lane uuid"
-    # tactic: "Tactic"
+    tactic: "Crop management Technique"
     # tactics: "Tactics"
     target: "Target"
     target_type: "Target type"
@@ -1286,6 +1287,8 @@ eng:
     working_periods: "Working periods"
     working_zone: "Working zone"
     working_zone_area: "Working zone area"
+    # yield_delta: "Yield delta"
+    # yield_unit_name: "Yield unit name"
     zone_memberships: "Zone memberships" #?
     zones: "Zones"
   models:

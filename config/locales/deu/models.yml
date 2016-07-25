@@ -1142,6 +1142,7 @@ deu:
     support_variety: "Unterstützung Vielfalt"
     supports: "Unterstützungen"
     suspended: "Suspendiert"
+    # tactic: "Crop management Technique"
     target: "Ziel"
     target_type: "Zieltyp"
     target_url: "Ziel-URL"

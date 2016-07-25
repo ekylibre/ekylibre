@@ -28,6 +28,7 @@
 #  creator_id          :integer
 #  cultivable_zone_id  :integer
 #  custom_fields       :jsonb
+#  estimated_yield     :string
 #  id                  :integer          not null, primary key
 #  irrigated           :boolean          default(FALSE), not null
 #  lock_version        :integer          default(0), not null
@@ -47,6 +48,8 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  usage               :string           not null
+#  yield_delta         :integer
+#  yield_unit_name     :string
 #
 
 class ActivityProduction < Ekylibre::Record::Base
@@ -75,7 +78,7 @@ class ActivityProduction < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(activity_production) { activity_production.stopped_on && activity_production.started_on }
-  validates :rank_number, numericality: { allow_nil: true, only_integer: true }
+  validates :rank_number, :yield_delta, numericality: { allow_nil: true, only_integer: true }
   validates :size_value, numericality: { allow_nil: true }
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
   validates :activity, :rank_number, :size_indicator_name, :size_value, :support, :usage, presence: true

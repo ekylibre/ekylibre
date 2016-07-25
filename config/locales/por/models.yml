@@ -1142,6 +1142,7 @@ por:
     support_variety: "Variedade apoio"
     supports: "Suportes"
     suspended: "Suspenso"
+    # tactic: "Crop management Technique"
     target: "Alvo"
     target_type: "Tipo de destino"
     target_url: "Alvo URL"

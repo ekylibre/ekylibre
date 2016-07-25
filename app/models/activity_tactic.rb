@@ -32,7 +32,6 @@
 #  lock_version   :integer          default(0), not null
 #  mode           :string
 #  mode_delta     :integer
-#  mode_unit_name :string
 #  name           :string           not null
 #  plan_on        :date
 #  updated_at     :datetime         not null

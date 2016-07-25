@@ -1142,6 +1142,7 @@ cmn:
     support_variety: "支持多种"
     supports: "支持"
     suspended: "暂停"
+    # tactic: "Crop management Technique"
     target: "目标"
     target_type: "目标类型"
     target_url: "目标URL"

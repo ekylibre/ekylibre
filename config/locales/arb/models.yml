@@ -2108,6 +2108,7 @@ arb:
     suspended: "معطل"
     symbol: "نموذج" #?
     symmetric: "متساو" #?
+    # tactic: "Crop management Technique"
     target: "الهدف"
     target_id: "الهدف" #?
     target_type: "نوع الهدف"
