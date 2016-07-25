@@ -1,0 +1,8 @@
+Description:
+    This generator creates a migration renaming the property OLD_NAME to NEW_NAME in all interventions of the procedure PROCEDURE_NAME.
+
+Example:
+    rails generate renaming_migration cropper_driver driver harvesting
+
+    This will create:
+        db/migrate/20160725090113_rename_cropper_driver_to_driver_in_harvesting_procedure.rb
