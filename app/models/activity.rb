@@ -195,6 +195,8 @@ class Activity < Ekylibre::Record::Base
   before_save do
     self.support_variety = nil unless with_supports
     self.cultivation_variety = nil unless with_cultivation
+    self.use_seasons = nil unless seasons.any?
+    self.use_tactics = nil unless tactics.any?
   end
 
   after_save do
@@ -203,8 +205,8 @@ class Activity < Ekylibre::Record::Base
 
   after_save do
     productions.each do |production|
-      production.update_column(:season_id, seasons.first.id) if use_seasons? && production.season.nil?
-      production.update_column(:tactic_id, tactics.first.id) if use_tactics? && production.tactic.nil?
+      production.update_column(:season_id, seasons.first.id) if seasons.any? && production.season.nil?
+      production.update_column(:tactic_id, tactics.first.id) if tactics.any? && production.tactic.nil?
     end
     if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)
