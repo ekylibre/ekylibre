@@ -1752,6 +1752,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="inspections">
+        <page to="backend/inspections#set_view_preference"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

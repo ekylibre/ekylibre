@@ -89,11 +89,11 @@
           inspections = []
           # get last inspection for current plant
           last_inspection = plant.inspections.reorder(:sampled_at).last
+          symbol_measure = :ton
           last_inspection.scales.each do |scale|
-            symbol_measure = inspection_unit.symbol
             dataset = last_inspection.calibrations.of_scale(scale).reorder(:id)
             dataset.map do |calibration|
-              inspections << {label: calibration.name, value: calibration.marketable_net_mass.round(0).convert(inspection_unit).l}
+              inspections << {label: calibration.name, value: calibration.marketable_net_mass.round(0).convert(symbol_measure).l}
             end
           end
 
@@ -224,8 +224,8 @@
               end
 
             %tr
-              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-              %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+              %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
               %td{style: 'width: 33%' }= spline_highcharts(spline_series, x_axis: {categories: spline_categories} ,title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {})
 
     - c.cobble(:inspections) do

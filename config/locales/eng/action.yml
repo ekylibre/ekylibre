@@ -321,6 +321,7 @@ eng:
       edit: "Edit product grading\_: %{number}"
       index: "Product gradings"
       new: "New product grading"
+      # set_view_preference: "Set view preference inspection: %{name}"
       show: "Product grading\_: %{number}"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
@@ -1192,6 +1193,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass"
+    marketable_mass_yield: "Marketable mass yield"
     maximal_temperature: "Maximal temperature"
     members: "Members"
     menus: "Menus"
@@ -1854,6 +1856,7 @@ eng:
       run: "Run"
       search: "Search" #?
       select: "Select"
+      # set_view_preference: "Set view preference"
       ship: "Ship"
       show: "Show"
       sort: "Sort"
