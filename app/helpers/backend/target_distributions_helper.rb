@@ -1,6 +1,6 @@
 module Backend
   module TargetDistributionsHelper
-    def target_distributions_chronologies(distributions, _product)
+    def target_distributions_chronologies(distributions, _product, options = {})
       return nil if distributions.empty?
       dates = (distributions.map(&:started_on) +
           distributions.map(&:stopped_on)).sort
@@ -17,7 +17,9 @@ module Backend
       end
       render 'backend/shared/distribution_chronologies', distributions: distributions,
                                                          grades: grades, duration: duration,
-                                                         period_started_on: period_started_on
+                                                         period_started_on: period_started_on,
+                                                         options: options
+
     end
   end
 end

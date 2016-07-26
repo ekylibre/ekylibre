@@ -169,3 +169,5 @@
       = t.new(params: {controller: :interventions, production_support_id: resource.id})
     - if resource.interventions.any?
       = cobble_list(:interventions)
+
+  = render partial: 'backend/shared/distributions', locals: {c: c}

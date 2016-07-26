@@ -114,4 +114,4 @@
       = t.new(params: { controller: :inspections, product_id: resource.id })
     = cobble_list(:inspections)
 
-  = render partial: 'distributions', locals: {c: c}
+  = render partial: 'backend/shared/distributions', locals: {c: c}
