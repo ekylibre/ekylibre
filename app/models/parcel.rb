@@ -110,6 +110,9 @@ class Parcel < Ekylibre::Record::Base
       transition in_preparation: :prepared, if: :all_items_prepared?
     end
     event :give do
+      transition draft: :given, unless: :with_delivery?
+      transition ordered: :given, unless: :with_delivery?
+      transition in_preparation: :given, unless: :with_delivery?
       transition prepared: :given, unless: :with_delivery?
     end
     event :cancel do
