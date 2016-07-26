@@ -75,7 +75,9 @@ namespace :nomen do
   task export: 'export:csv'
 
   namespace :migrate do
+    desc 'Generate migration file (in db/migrate) for corresponding'
     task generate: :environment do
+      puts 'DEPRECATION WARNING: `rake nomen:migrate:generate` is deprecated. Please use `rails g nomenclature_migration` instead.'.yellow
       unless name = ENV['NAME']
         puts 'Use command with NAME: rake nomen:migrate:generate NAME=add_some_stuff'
         exit 1
@@ -110,7 +112,7 @@ namespace :nomen do
     end
   end
 
-  desc 'Generate migration file (in db/migrate) for corresponding '
+  desc 'Migrate Nomen data'
   task migrate: :environment do
     Rails.application.eager_load! if Rails.env.development?
     Nomen.missing_migrations.each do |migration|
@@ -121,6 +123,8 @@ namespace :nomen do
     end
   end
 
+
+  
   task avatar: :environment do
     cache = {}
     avatars_dir = Rails.root.join('app', 'assets', 'images')
