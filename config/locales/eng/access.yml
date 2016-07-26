@@ -32,7 +32,7 @@ eng:
       document_templates: "Document templates"
       documents: "Documents"
       entities: "Entities"
-      equipments: "Equipments"
+      equipments: "Equipment"
       events: "Events"
       exports: "Exports"
       financial_years: "Financial years"
