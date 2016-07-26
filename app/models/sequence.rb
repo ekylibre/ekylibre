@@ -42,7 +42,7 @@
 
 class Sequence < Ekylibre::Record::Base
   enumerize :period, in: [:cweek, :month, :number, :year]
-  enumerize :usage, in: [:affairs, :analyses, :animals, :campaigns, :cash_transfers, :deliveries, :deposits, :documents, :entities, :fixed_assets, :gaps, :incoming_payments, :inspections, :interventions, :opportunities, :outgoing_payments, :parcels, :plants, :products, :product_natures, :product_nature_categories, :product_nature_variants, :purchases, :sales, :sales_invoices, :subscriptions]
+  enumerize :usage, in: [:affairs, :analyses, :animals, :campaigns, :cash_transfers, :deliveries, :deposits, :documents, :entities, :fixed_assets, :gaps, :incoming_payments, :inspections, :interventions, :inventories, :opportunities, :outgoing_payments, :parcels, :plants, :products, :product_natures, :product_nature_categories, :product_nature_variants, :purchases, :sales, :sales_invoices, :subscriptions]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, numericality: { allow_nil: true, only_integer: true }

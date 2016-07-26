@@ -49,8 +49,9 @@ class Inventory < Ekylibre::Record::Base
   validates :reflected, inclusion: { in: [true, false] }
   validates :name, presence: true
   # ]VALIDATORS]
-  validates :number, length: { allow_nil: true, maximum: 20 }
   validates :achieved_at, presence: true
+
+  acts_as_numbered
 
   scope :unreflecteds, -> { where(reflected: false) }
   scope :before, ->(at) { where(arel_table[:achieved_at].lt(at)) }
