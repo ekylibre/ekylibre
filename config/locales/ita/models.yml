@@ -1407,6 +1407,7 @@ ita:
           in_preparation: "In preparazione"
           ordered: "Ordinato"
           prepared: "Preparato"
+          # received: "Received"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

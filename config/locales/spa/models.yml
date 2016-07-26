@@ -1380,6 +1380,7 @@ spa:
           in_preparation: "En la preparación de"
           ordered: "Ordenado"
           prepared: "Preparado"
+          # received: "Received"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

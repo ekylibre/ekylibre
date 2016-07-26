@@ -2657,6 +2657,7 @@ arb:
           in_preparation: "قيد التحضير"
           ordered: "أمر"
           prepared: "أعدت"
+          # received: "Received"
     product:
       informations:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"

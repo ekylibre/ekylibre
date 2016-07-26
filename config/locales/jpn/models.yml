@@ -1376,6 +1376,7 @@ jpn:
           in_preparation: "準備中"
           ordered: "順序付けられました"
           prepared: "準備"
+          # received: "Received"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

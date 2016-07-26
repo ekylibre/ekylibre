@@ -1651,6 +1651,7 @@ fra:
           in_preparation: "En préparation"
           ordered: "Commandé"
           prepared: "Prêt"
+          received: "Reçu"
     product:
       informations:
         with_components: "%{product} (%{unit}) (produit transformé)"
