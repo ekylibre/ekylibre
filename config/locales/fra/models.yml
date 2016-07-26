@@ -806,6 +806,7 @@ fra:
     grading_sizes_unit_name: "Classement tailles nom de l’unité"
     gradings: "Agréages"
     gravity: "Gravité"
+    gross_items: "Nombre total"
     gross_mass: "Masse brute"
     gross_yield_value: "Rendement brut"
     group: "Groupe"
@@ -977,6 +978,7 @@ fra:
     manure_management_plan_zones: "Zones de plan de fumure"
     markers: "Repères" #?
     marketable: "Commercialisable"
+    marketable_items_count: "Nombre d'unités commercialisables"
     marketable_net_mass: "Masse nette commercialisable"
     marketable_net_yield: "Rendement net commercialisable"
     marketable_yield: "Rendement commercialisable"

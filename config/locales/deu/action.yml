@@ -1040,6 +1040,7 @@ deu:
     map: "Karte"
     mark_all_as_read: "Alles als gelesen markieren"
     mark_as_read: "als gelesen markieren"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "Marktgängige Nettomasse"
     maximal_temperature: "Maximaltemperatur"
     members: "Mitglieder"

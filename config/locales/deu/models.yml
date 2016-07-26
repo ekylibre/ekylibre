@@ -619,6 +619,7 @@ deu:
     grading_sizes_unit_name: "Grading Größen Gerätenamen"
     gradings: "Sortierungen"
     gravity: "Schwerkraft"
+    # gross_items: "Gross count"
     gross_mass: "Rohmasse"
     gross_yield_value: "Die Bruttoertragswert"
     group: "Gruppe"

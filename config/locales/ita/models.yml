@@ -650,6 +650,7 @@ ita:
     grading_sizes_unit_name: "Grading dimensioni nome dell&#39;unità"
     gradings: "classificazioni"
     gravity: "Gravità"
+    # gross_items: "Gross count"
     gross_mass: "massa lorda"
     gross_yield_value: "Valore di rendimento lordo"
     group: "Gruppo"

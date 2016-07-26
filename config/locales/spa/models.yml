@@ -623,6 +623,7 @@ spa:
     grading_sizes_unit_name: "La clasificación tamaños nombre de la unidad"
     gradings: "gradaciones"
     gravity: "Gravedad"
+    # gross_items: "Gross count"
     gross_mass: "masa bruta"
     gross_yield_value: "Valor de rendimiento bruto"
     group: "Grupo"

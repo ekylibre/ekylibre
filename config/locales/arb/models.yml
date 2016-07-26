@@ -1410,6 +1410,7 @@ arb:
     grading_sizes_unit_name: "الدرجات أحجام اسم الوحدة"
     gradings: "الى التصنيف"
     gravity: "الجاذبية"
+    # gross_items: "Gross count"
     gross_mass: "الكتلة الإجمالية"
     gross_yield_value: "القيمة الإنتاجية الإجمالية"
     group: "مجموعة"

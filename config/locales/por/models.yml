@@ -619,6 +619,7 @@ por:
     grading_sizes_unit_name: "Grading tamanhos nome da unidade"
     gradings: "gradings"
     gravity: "Gravidade"
+    # gross_items: "Gross count"
     gross_mass: "massa bruta"
     gross_yield_value: "Valor do rendimento bruto"
     group: "Grupo"

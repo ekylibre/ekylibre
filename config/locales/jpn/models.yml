@@ -619,6 +619,7 @@ jpn:
     grading_sizes_unit_name: "グレーディングサイズのユニット名"
     gradings: "グレーディング"
     gravity: "重力"
+    # gross_items: "Gross count"
     gross_mass: "総質量"
     gross_yield_value: "総降伏値"
     group: "グループ"

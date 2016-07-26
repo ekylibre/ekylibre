@@ -1045,6 +1045,7 @@ por:
     map: "Mapa"
     mark_all_as_read: "Marcar tudo como lido"
     mark_as_read: "Marcar como Lido"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "massa líquida comercializável"
     maximal_temperature: "Temperatura máxima"
     members: "Membros"

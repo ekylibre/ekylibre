@@ -1197,6 +1197,7 @@ spa:
     map: "Mapa"
     mark_all_as_read: "Marcar todo como leido"
     mark_as_read: "Marcar como leído"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "masa neta comercializable"
     maximal_temperature: "La temperatura máxima"
     members: "Miembros"

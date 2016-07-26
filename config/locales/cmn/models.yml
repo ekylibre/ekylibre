@@ -619,6 +619,7 @@ cmn:
     grading_sizes_unit_name: "分级尺寸单位名称"
     gradings: "放坡"
     gravity: "重力"
+    # gross_items: "Gross count"
     gross_mass: "总质量"
     gross_yield_value: "总收益率值"
     group: "组"
