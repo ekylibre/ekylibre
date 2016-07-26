@@ -31,7 +31,7 @@
   - if resource.calibrations.any?
     - if resource.activity.measure_grading_net_mass && resource.calibrations.sum(:net_mass_value) > 0
 
-      - c.cobble("stock_in_ground_#{user_pref}") do
+      - c.cobble("stock_in_ground") do
         = render "preference_btns", inspection: resource
         %table
           %tbody
