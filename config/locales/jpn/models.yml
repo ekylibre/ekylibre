@@ -778,6 +778,7 @@ jpn:
     managed_sales: "マネージド販売"
     manure_management_plan_zones: "肥料管理計画区域"
     marketable: "市場性のあります"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "有価正味質量"
     marketable_net_yield: "有価純利回り"
     marketable_yield: "有価収量"

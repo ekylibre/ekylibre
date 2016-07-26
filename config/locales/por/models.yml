@@ -778,6 +778,7 @@ por:
     managed_sales: "Vendas gerenciados"
     manure_management_plan_zones: "Zonas de plano de manejo de dejetos"
     marketable: "vendável"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "massa líquida comercializável"
     marketable_net_yield: "rendimento líquido comercializável"
     marketable_yield: "A produtividade comercial"

@@ -782,6 +782,7 @@ spa:
     managed_sales: "Ventas gestionadas"
     manure_management_plan_zones: "Zonas del plan de manejo del estiércol"
     marketable: "Vendible"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "masa neta comercializable"
     marketable_net_yield: "rendimiento neto comercializable"
     marketable_yield: "rendimiento comercial"

@@ -805,7 +805,7 @@ eng:
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
     marketable: "Marketable"
-    marketable_items_count: "Marketable items count" #?!
+    marketable_items_count: "Marketable items count"
     marketable_net_mass: "Marketable net mass"
     marketable_net_yield: "Marketable net yield" #?
     marketable_yield: "Marketable yield" #?

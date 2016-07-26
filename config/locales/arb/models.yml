@@ -1606,6 +1606,7 @@ arb:
     mandates: "تفويضات" #?
     manure_management_plan_zones: "مناطق خطة إدارة السماد"
     marketable: "تسويق"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "الكتلة الصافية للتسويق"
     marketable_net_yield: "العائد الصافي للتسويق"
     marketable_yield: "العائد للتسويق"

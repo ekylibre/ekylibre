@@ -809,6 +809,7 @@ ita:
     managed_sales: "vendite managed"
     manure_management_plan_zones: "zone di piano di gestione del letame"
     marketable: "vendibile"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "massa netta commerciabile"
     marketable_net_yield: "rendimento netto commerciabile"
     marketable_yield: "resa commerciabile"

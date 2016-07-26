@@ -1193,6 +1193,7 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass"
+    mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
     menus: "Menus"

@@ -778,6 +778,7 @@ cmn:
     managed_sales: "销售管理"
     manure_management_plan_zones: "粪便管理计划区"
     marketable: "销售"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "适销对路的净质量"
     marketable_net_yield: "适销对路的净收益"
     marketable_yield: "适销对路的产量"

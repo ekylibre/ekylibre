@@ -778,6 +778,7 @@ deu:
     managed_sales: "Managed Verkaufs"
     manure_management_plan_zones: "Gülle-Management-Plan Zonen"
     marketable: "marktfähig"
+    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "Marktgängige Nettomasse"
     marketable_net_yield: "Marktfähige Nettorendite"
     marketable_yield: "Marktgängige Ausbeute"

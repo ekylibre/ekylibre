@@ -1474,9 +1474,8 @@ arb:
     map: "رسم خريطة"
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
-    # marketable_items_count: "Marketable items count"
     marketable_net_mass: "الكتلة الصافية للتسويق"
-    mass: "الوزن" #?
+    mass: "الوزن"
     maximal_temperature: "درجة الحرارة القصوى"
     meeting: "المقابلة(X)مكان" #?
     members: "أعضاء"
