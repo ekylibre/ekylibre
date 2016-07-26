@@ -123,8 +123,6 @@ namespace :nomen do
     end
   end
 
-
-  
   task avatar: :environment do
     cache = {}
     avatars_dir = Rails.root.join('app', 'assets', 'images')

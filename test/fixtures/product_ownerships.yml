@@ -1220,3 +1220,13 @@ product_ownerships_123:
   started_at: 2016-07-01 20:23:25.072310000 Z
   updated_at: 2016-07-01 20:23:25.109313000 Z
   updater_id: 1
+product_ownerships_124:
+  created_at: 2016-07-26 19:27:42.813506000 Z
+  creator_id: 1
+  id: 131
+  lock_version: 0
+  nature: unknown
+  product_id: 143
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-07-26 19:27:42.813506000 Z
+  updater_id: 1

@@ -31,7 +31,7 @@
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
 #  name             :string           not null
-#  number           :string
+#  number           :string           not null
 #  reflected        :boolean          default(FALSE), not null
 #  reflected_at     :datetime
 #  responsible_id   :integer
@@ -47,7 +47,7 @@ class Inventory < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :achieved_at, :reflected_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :reflected, inclusion: { in: [true, false] }
-  validates :name, presence: true
+  validates :name, :number, presence: true
   # ]VALIDATORS]
   validates :achieved_at, presence: true
 

@@ -3067,6 +3067,7 @@ inventories:
     required: true
   number:
     type: string
+    required: true
   reflected:
     type: boolean
     required: true

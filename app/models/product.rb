@@ -264,6 +264,10 @@ class Product < Ekylibre::Record::Base
 
   before_validation do
     self.initial_born_at ||= Time.zone.now
+    self.born_at ||= self.initial_born_at
+    self.initial_born_at = self.born_at
+    self.dead_at ||= initial_dead_at
+    self.initial_dead_at = self.dead_at
     self.uuid ||= UUIDTools::UUID.random_create.to_s
   end
 

@@ -2742,27 +2742,31 @@ matters_049:
   variant_id: 65
   variety: wine
 matters_050:
-  born_at: 2213-10-30 13:52:00.000000000 Z
+  born_at: 2013-10-30 13:52:00.000000000 Z
   category_id: 21
   created_at: 2014-11-07 19:36:59.233966000 Z
   creator_id: 1
+  custom_fields:
+    test: ''
   default_storage_id: 116
   derivative_of: grape
+  description: ''
   id: 143
-  initial_born_at: 2213-10-30 14:00:00.000000000 Z
+  initial_born_at: 2013-10-30 13:52:00.000000000 Z
   initial_container_id: 116
   initial_movement_id: 126
   initial_population: 1992.0
-  lock_version: 0
+  lock_version: 1
   name: Bouteille de vin (75cl) [oct. 2013] (Hangar principal)
   nature_id: 41
   number: PR00000010087
   type: Matter
-  updated_at: 2014-11-07 19:36:59.233966000 Z
+  updated_at: 2016-07-26 19:27:42.725364000 Z
   updater_id: 1
   uuid: 4959cf9c-db74-42c1-923e-dc00ef433bf6
   variant_id: 65
   variety: wine
+  work_number: ''
 matters_051:
   born_at: 2015-09-17 13:38:07.151525000 Z
   category_id: 11
