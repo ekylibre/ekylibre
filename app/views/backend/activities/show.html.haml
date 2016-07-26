@@ -152,7 +152,7 @@
         if user_pref == :items
           long_name = "items_count"
           unit = Nomen::Unit[:thousand]
-          yield_unit = Nomen::Unit[:unity_per_square_meter]
+          yield_unit = Nomen::Unit[:thousand_per_hectare]
         elsif user_pref == :mass
           long_name = "net_mass"
           unit = Nomen::Unit[:ton]
@@ -226,7 +226,7 @@
             %tr
               %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
               %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-              %td{style: 'width: 33%' }= spline_highcharts(spline_series, x_axis: {categories: spline_categories} ,title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {})
+              %td{style: 'width: 33%' }= spline_highcharts(spline_series, x_axis: {categories: spline_categories}, y_axis: { title: {text: "%"} }, title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {})
 
     - c.cobble(:inspections) do
       = cobble_list :inspections
