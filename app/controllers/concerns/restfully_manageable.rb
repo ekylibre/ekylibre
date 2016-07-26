@@ -83,8 +83,8 @@ module RestfullyManageable
         lookup = Rails.root.join('app', 'views', "{#{parents.map(&:controller_path).join(',')}}")
         if Dir.glob(lookup.join('show.*')).any?
           if options[:subclass_inheritance]
-            code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}'\n"
-            code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
+            code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}' && !request.xhr?\n"
+            code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id, format: params[:format]\n"
             code << "    return\n"
             code << "  end\n"
           end
