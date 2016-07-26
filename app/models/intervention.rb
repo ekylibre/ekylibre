@@ -269,6 +269,12 @@ class Intervention < Ekylibre::Record::Base
       product.initial_born_at = product.born_at
       product.save!
 
+      reading = product.initial_reading(:shape)
+      unless reading.nil?
+        reading.read_at = product.born_at
+        reading.save!
+      end
+
       movement = output.product_movement
       next unless movement
       movement.started_at = self.started_at
