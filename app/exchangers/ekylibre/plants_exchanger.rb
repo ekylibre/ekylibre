@@ -11,7 +11,7 @@ class Ekylibre::PlantsExchanger < ActiveExchanger::Base
         container_number: (row[3].blank? ? nil : row[3].to_s.strip),
         born_at: (row[4].blank? ? nil : row[4].to_datetime),
         variety: (row[5].blank? ? nil : row[5].to_s.strip),
-        indicators: row[6].blank? ? {} : row[6].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+        indicators: row[6].blank? ? {} : row[6].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
           h[i.first.strip.downcase.to_sym] = i.second
           h
         end,

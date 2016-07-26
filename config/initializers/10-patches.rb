@@ -104,7 +104,7 @@ class ::Hash
   end
 
   def deep_compact
-    inject({}) do |hash, pair|
+    each_with_object({}) do |pair, hash|
       k = pair.first
       v = pair.second
       v2 = (v.is_a?(Hash) ? v.deep_compact : v)

@@ -38,7 +38,6 @@ class AttachPlantDensityAbaciToActivities < ActiveRecord::Migration
       dir.down do
         change_column :plant_density_abaci, :activity_id, :integer, null: true
       end
-
     end
   end
 end

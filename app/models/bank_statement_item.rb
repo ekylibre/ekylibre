@@ -61,7 +61,7 @@ class BankStatementItem < Ekylibre::Record::Base
   end
 
   validate do
-    if (debit != 0 && credit != 0) || (debit == 0 && credit == 0)
+    if (debit.nonzero? && credit.nonzero?) || (debit.zero? && credit.zero?)
       errors.add(:credit, :unvalid_amounts)
     end
     if bank_statement && transfered_on

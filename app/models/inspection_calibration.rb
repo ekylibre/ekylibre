@@ -63,11 +63,11 @@ class InspectionCalibration < Ekylibre::Record::Base
     end
 
     define_method "marketable_#{short_name}_yield" do
-      if respond_to?("grading_#{long_name}_unit")
-        unit_name = send("grading_#{long_name}_unit").name + "_per_" + "#{product_net_surface_area.unit}"
-      else
-        unit_name = ""
-      end
+      unit_name = if respond_to?("grading_#{long_name}_unit")
+                    send("grading_#{long_name}_unit").name + '_per_' + product_net_surface_area.unit.to_s
+                  else
+                    ''
+                  end
       unit_name = unit.last unless Nomen::Unit.find(unit_name)
       y = (send("marketable_#{long_name}").to_d(unit.first) / product_net_surface_area.to_d(unit.second)).in(unit.last)
       y.in(unit_name).round(0)

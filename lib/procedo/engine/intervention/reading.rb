@@ -30,7 +30,7 @@ module Procedo
                          Charta.empty_geometry
                        else
                          val = Charta.from_geojson(val)
-                         val.srid = 4326 if val.srid == 0
+                         val.srid = 4326 if val.srid.zero?
                          val
                        end
                      elsif datatype == :integer

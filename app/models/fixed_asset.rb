@@ -231,8 +231,8 @@ class FixedAsset < Ekylibre::Record::Base
     days = 0
     options[:mode] ||= :linear
     if options[:mode] == :simplified_linear
-      sa = ((started_on.day >= 30 || (started_on.end_of_month == started_on)) ? 30 : started_on.day)
-      so = ((stopped_on.day >= 30 || (stopped_on.end_of_month == stopped_on)) ? 30 : stopped_on.day)
+      sa = (started_on.day >= 30 || (started_on.end_of_month == started_on) ? 30 : started_on.day)
+      so = (stopped_on.day >= 30 || (stopped_on.end_of_month == stopped_on) ? 30 : stopped_on.day)
 
       if started_on.beginning_of_month == stopped_on.beginning_of_month
         days = so - sa + 1

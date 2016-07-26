@@ -25,7 +25,7 @@ module Ekylibre
           sex: (row[6].blank? ? nil : row[6].to_sym),
           place: (row[7].blank? ? nil : row[7].to_s),
           indicators_at: (row[8].blank? ? Time.zone.today : row[8]).to_datetime,
-          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
             h
           end,
@@ -80,7 +80,7 @@ module Ekylibre
           sex: (row[6].blank? ? nil : row[6].to_sym),
           place: (row[7].blank? ? nil : row[7].to_s),
           indicators_at: (row[8].blank? ? Time.zone.today : row[8]).to_datetime,
-          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
             h
           end,

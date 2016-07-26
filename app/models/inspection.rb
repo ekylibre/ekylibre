@@ -77,7 +77,7 @@ class Inspection < Ekylibre::Record::Base
   after_validation :set_net_surface_area, on: :create
 
   before_validation do
-    if implanter_application_width && implanter_rows_number && implanter_rows_number != 0
+    if implanter_application_width && implanter_rows_number && implanter_rows_number.nonzero?
       self.implanter_working_width = implanter_application_width / implanter_rows_number
     end
   end
@@ -187,7 +187,6 @@ class Inspection < Ekylibre::Record::Base
   #   end
   # end
 
-
   def product_net_surface_area
     return nil if product_net_surface_area_value.blank? ||
                   product_net_surface_area_unit.blank?
@@ -208,7 +207,6 @@ class Inspection < Ekylibre::Record::Base
   end
 
   [[:items_count, :items, :items_count], [:net_mass, :mass, :net_mass_value]].each do |long_name, short_name, column_name|
-
     define_method "#{short_name}_statable?" do
       product_net_surface_area && send("measure_grading_net_#{short_name}")
     end
@@ -243,7 +241,7 @@ class Inspection < Ekylibre::Record::Base
       end
     end
 
-    define_method "#{long_name}" do |scale = nil|
+    define_method long_name.to_s do |scale = nil|
       calibration_values(:"#{long_name}_in_unit", scale)
     end
 
@@ -264,12 +262,11 @@ class Inspection < Ekylibre::Record::Base
     end
 
     define_method "unmarketable_#{short_name}_rate" do
-      send(long_name).to_d != 0 ? send("unmarketable_#{long_name}") / send(long_name) : nil
+      send(long_name).to_d.nonzero? ? send("unmarketable_#{long_name}") / send(long_name) : nil
     end
-
   end
 
-protected
+  protected
 
   # Returns the sum of measurements on a scale if one is provided
   #  or the average of measurements across all scales if none is.
@@ -282,5 +279,4 @@ protected
       calib.map(&method).sum
     end
   end
-
 end

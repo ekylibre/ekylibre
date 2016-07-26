@@ -4320,6 +4320,7 @@ plant_density_abaci:
   activity_id:
     type: integer
     references: activity
+    required: true
   created_at:
     type: datetime
     required: true

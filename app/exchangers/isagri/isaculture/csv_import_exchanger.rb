@@ -90,7 +90,7 @@ class Isagri::Isaculture::CsvImportExchanger < ActiveExchanger::Base
       w.info "Detected encoding: #{detection.inspect}"
 
       source = File.read(path, encoding: detection[:encoding])
-      stats = ["\t", ';', ',', '|'].inject({}) do |hash, char|
+      stats = ["\t", ';', ',', '|'].each_with_object({}) do |char, hash|
         hash[char] = source.count(char)
         hash
       end

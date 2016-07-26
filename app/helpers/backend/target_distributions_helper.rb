@@ -19,7 +19,6 @@ module Backend
                                                          grades: grades, duration: duration,
                                                          period_started_on: period_started_on,
                                                          options: options
-
     end
   end
 end

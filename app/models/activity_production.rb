@@ -321,7 +321,7 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     # if net_surface_area, make the division
     area = net_surface_area.to_d(area_unit_name)
-    indicator_unity_per_hectare = balance.compact.sum / area if area != 0
+    indicator_unity_per_hectare = balance.compact.sum / area if area.nonzero?
     indicator_unity_per_hectare
   end
 

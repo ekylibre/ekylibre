@@ -22,7 +22,7 @@
 #
 # == Table: plant_density_abaci
 #
-#  activity_id            :integer
+#  activity_id            :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  germination_percentage :decimal(19, 4)
@@ -45,7 +45,7 @@ class PlantDensityAbacus < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :germination_percentage, numericality: { allow_nil: true }
-  validates :name, :sampling_length_unit, :seeding_density_unit, presence: true
+  validates :activity, :name, :sampling_length_unit, :seeding_density_unit, presence: true
   # ]VALIDATORS]
 
   delegate :cultivation_variety, to: :activity

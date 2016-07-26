@@ -154,7 +154,7 @@ module Backend
     def new
       columns = Parcel.columns_definition.keys
       columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
-      values = columns.map(&:to_sym).uniq.reduce({}) do |hash, attr|
+      values = columns.map(&:to_sym).uniq.each_with_object({}) do |attr, hash|
         hash[attr] = params[:"#{attr}"] unless attr.blank? || attr.to_s.match(/_attributes$/)
         hash
       end

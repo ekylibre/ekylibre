@@ -134,7 +134,7 @@ module Clean
         # Labels
         translation << "  labels:\n"
         labels = ::I18n.t('labels')
-        needed_labels = Clean::Support.look_for_labels(watched_files).inject({}) do |hash, string|
+        needed_labels = Clean::Support.look_for_labels(watched_files).each_with_object({}) do |string, hash|
           hash[Regexp.new('\A' + string.split('.').first.gsub('*', '([\w\_]+)') + '\z')] = string.split('.').first
           hash
         end

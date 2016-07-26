@@ -39,11 +39,11 @@ module Inspectable
   end
 
   def find_item_unit(value)
-    if value <= 1
-      closest_round = 0
-    else
-      closest_round = 10 ** Math.log(value, 10).floor
-    end
+    closest_round = if value <= 1
+                      0
+                    else
+                      10**Math.log(value, 10).floor
+                    end
     units = Nomen::Unit.where(dimension: :none).select { |u| u.symbol.last == '.' }
     units.min_by { |u| (u.a - closest_round).abs }
   end

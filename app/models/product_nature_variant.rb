@@ -297,7 +297,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   def take(quantity)
-    products.mine.reduce({}) do |result, product|
+    products.mine.each_with_object({}) do |product, result|
       reminder = quantity - result.values.sum
       result[product] = [product.population, reminder].min if reminder > 0
       result

@@ -370,7 +370,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
     r = OpenStruct.new(
       intervention_number: row[0].to_i,
       campaign_code: row[1].to_s,
-      intervention_started_at: ((row[2].blank? || row[3].blank?) ? nil : Time.strptime(Date.parse(row[2].to_s).strftime('%d/%m/%Y') + ' ' + row[3].to_s, '%d/%m/%Y %H:%M')),
+      intervention_started_at: (row[2].blank? || row[3].blank? ? nil : Time.strptime(Date.parse(row[2].to_s).strftime('%d/%m/%Y') + ' ' + row[3].to_s, '%d/%m/%Y %H:%M')),
       intervention_duration_in_hour: (row[4].blank? ? nil : row[4].tr(',', '.').to_d),
       procedure_name: (row[5].blank? ? nil : row[5].to_s.downcase.to_sym), # to transcode
       procedure_description: row[6].to_s,
@@ -385,7 +385,7 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
       second: parse_actor(row, 16),
       ### THIRD PRODUCT
       third: parse_actor(row, 20),
-      indicators: row[24].blank? ? {} : row[24].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect { |i| i.split(/[[:space:]]*(\:|\=)[[:space:]]*/) }.inject({}) do |h, i|
+      indicators: row[24].blank? ? {} : row[24].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect { |i| i.split(/[[:space:]]*(\:|\=)[[:space:]]*/) }.each_with_object({}) do |i, h|
         h[i.first.strip.downcase.to_sym] = i.third
         h
       end

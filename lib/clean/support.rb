@@ -47,7 +47,7 @@ module Clean
       end
 
       def deep_symbolize_keys(hash)
-        hash.inject({}) do |result, (key, value)|
+        hash.each_with_object({}) do |(key, value), result|
           value = deep_symbolize_keys(value) if value.is_a? Hash
           key = :no if key.to_s == '__no_is_not__false__'
           result[(begin

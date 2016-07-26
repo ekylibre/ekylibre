@@ -192,7 +192,7 @@ module Backend
         next unless items.any?
         data = []
         data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
-        data += items.inject({}) do |hash, pair|
+        data += items.each_with_object({}) do |pair, hash|
           hash[pair.read_at.to_usec] = pair.value.to_d
           hash
         end.collect { |k, v| [k, v.to_s.to_f] }
@@ -214,7 +214,7 @@ module Backend
       min = now - window if (now - min) < window
       if movements.any?
         data = []
-        data += movements.inject({}) do |hash, pair|
+        data += movements.each_with_object({}) do |pair, hash|
           hash[pair.started_at.to_usec] = pair.population.to_d
           hash
         end.collect { |k, v| [k, v.to_s.to_f] }
