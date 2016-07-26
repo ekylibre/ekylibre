@@ -5,4 +5,4 @@ Example:
     rails generate nomenclature_migration add_some_new_reference_data
 
     This will create:
-        db/nomenclature/migrate/20160726173309_add_some_new_reference_data.xml
+        db/nomenclatures/migrate/20160726173309_add_some_new_reference_data.xml
