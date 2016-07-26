@@ -2240,7 +2240,7 @@ ActiveRecord::Schema.define(version: 20160726112542) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                    default: 0, null: false
-    t.integer  "activity_id"
+    t.integer  "activity_id",                                                 null: false
   end
 
   add_index "plant_density_abaci", ["created_at"], name: "index_plant_density_abaci_on_created_at", using: :btree
