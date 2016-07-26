@@ -34,9 +34,11 @@ module Backend
     #   :support_id
     def self.list_conditions
       code = ''
+      conn = Intervention.connection
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
-
-      code = search_conditions(interventions: [:state, :number]) + " ||= []\n"
+      expressions = []
+      expressions << 'CASE ' + Procedo.selection.map { |l, n| "WHEN procedure_name = #{conn.quote(n)} THEN #{conn.quote(l)}" }.join(' ') + " ELSE '' END"
+      code = search_conditions({ interventions: [:state, :procedure_name, :number] }, expressions: expressions) + " ||= []\n"
       code << "unless params[:state].blank?\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.state IN (?)'\n"
       code << "  c << params[:state].flatten\n"
