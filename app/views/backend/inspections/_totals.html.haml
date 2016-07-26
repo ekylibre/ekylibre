@@ -18,13 +18,14 @@
       %span.value= resource.send("points_#{long_name}_percentage", category).round(2).l(precision: 2) + '%'
   - if resource.activity.inspection_calibration_scales.any?
     :ruby
-      totals_of = {
-        "marketable_#{long_name}": unit,
-        "marketable_#{short_name}_yield": yield_unit,
-        "total_#{long_name}": unit,
-        "#{long_name}_yield": yield_unit
-      }
-    - totals_of.each do |method, unit|
+      totals_of = [
+        ["marketable_#{long_name}", unit],
+        ["marketable_#{short_name}_yield", yield_unit, :marketable_net_yield],
+        ["total_#{long_name}", unit, :"gross_#{short_name}"],
+        ["#{long_name}_yield", yield_unit, :gross_yield_value]
+      ]
+    - totals_of.each do |method, unit, title|
       .med-info
-        %span.title= Inspection.human_attribute_name(method)
+        - total_title = (title || method)
+        %span.title= Inspection.human_attribute_name(total_title)
         %span.value= resource.send(method).convert(unit).round(2).l(precision: 0)
