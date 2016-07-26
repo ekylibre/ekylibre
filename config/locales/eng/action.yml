@@ -788,8 +788,6 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
-    activity_family: "Family activities" #?
-    activity_name: "Activity" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     add: "Add"
@@ -805,7 +803,6 @@ eng:
     add_distribution: "Add distribution"
     add_email: "Add email"
     add_entry: "Add entry"
-    add_equipment: "Adding equipment"
     add_expense: "Add expense"
     add_fax: "Add fax"
     add_filter: "Add filter"
@@ -886,8 +883,6 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
-    building: "Building" #?
-    buildings: "buildings" #?
     # by_default: "By default"
     by_year: "By year"
     calculate: "Calculate" #?
@@ -1172,8 +1167,6 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales" #?
     letter: "Letter" #?
-    level: "Level" #?
-    levels: "levels" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
@@ -1205,7 +1198,6 @@ eng:
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
-    missing: "Missing" #?
     missing_attributes: "Some attributes are missing"
     missing_help: "Missing page"
     mobile: "Mobile" #?
@@ -1224,7 +1216,6 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
-    new_activity: "new activity"
     new_animal: "New animal"
     new_attachment: "New attachment"
     new_box: "New box"
@@ -1243,7 +1234,6 @@ eng:
       other: "Make a deposit %{mode}: %{count} available payments"
       zero: "Make a deposit %{mode}: no available payments"
     new_email: "New email"
-    new_equipment: "new equipment"
     new_group: "New group"
     new_issue: "New issue"
     new_organization: "New organization"
@@ -1274,7 +1264,6 @@ eng:
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
     numbers: "Numbers" #?
-    ok: "OK" #?
     on_account: "On account" #?
     one_condition: "One condition"
     open_a_production: "Open a production"
@@ -1289,7 +1278,6 @@ eng:
     # outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
-    pacage_number: "No. GRAZING" #?
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1532,7 +1520,6 @@ eng:
     updated_at_by: "Updated at %{at} by %{author}"
     updated_by_ago: "Updated by %{author} %{when}"
     upload: "Upload"
-    uploaded_file: "imported file" #?
     usage: "Usage" #?
     user_status: "Status" #?
     users: "Users"
@@ -1542,11 +1529,9 @@ eng:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validate selected entries"
-    validations: "Finalisation" #?
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants"
-    variety: "Variety" #?
     view: "View"
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?

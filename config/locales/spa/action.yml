@@ -696,8 +696,6 @@ spa:
     active_sum: "Total activos" #?
     activities: "Ocupaciones"
     activity: "Actividad"
-    activity_family: "Actividades familiares"
-    activity_name: "Actividad"
     activity_production: "La producción de la actividad"
     activity_productions: "Producciones de actividad"
     add: "Añadir"
@@ -713,7 +711,6 @@ spa:
     add_distribution: "Añadir la distribución"
     add_email: "Añadir correo electrónico"
     add_entry: "Añadir entrada"
-    add_equipment: "Adición de equipos"
     add_expense: "Añadir expensas"
     add_fax: "Añadir fax"
     add_filter: "Añadir filtro"
@@ -816,10 +813,8 @@ spa:
     budget: "Presupuesto"
     budget_per_working_indicator: "Presupuesto por indicador de trabajo"
     budgets: "Presupuestos"
-    building: "edificio"
     building_create: "Añadir un lugar de deposito" #?
     building_update: "Modifiar el lugar de deposito" #?
-    buildings: "Ver la lista de los lugares de deposito"
     by_year: "Por año"
     calculate: "Calcular"
     calculators: "Calculadoras"
@@ -1172,8 +1167,6 @@ spa:
       clients: "Clientes" #?
       suppliers: "abastecedores" #?
       title: "Catégorias de tercios" #?
-    level: "Nivel"
-    levels: "niveles"
     # line_number: "Line #%{number}"
     linear_options: "Opciones lineales"
     link: "Enlazar"
@@ -1211,7 +1204,6 @@ spa:
     merge: "Unir"
     method: "Método"
     minimal_temperature: "Temperatura mínima"
-    missing: "Desaparecido"
     missing_attributes: "Algunos atributos faltan"
     missing_help: "La página no existe"
     mobile: "Móvil"
@@ -1243,7 +1235,6 @@ spa:
     net_surface_area: "Área de superficie Net"
     net_vat_amount: "TVA neta deuda" #?
     new: "Nuevo"
-    new_activity: "nueva actividad"
     new_animal: "Nuevo animal"
     new_attachment: "Nuevo archivo adjunto"
     new_box: "Nuevo cuadro"
@@ -1262,7 +1253,6 @@ spa:
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Nuevo Email"
-    new_equipment: "Nuevo equipamiento"
     new_group: "Nuevo grupo"
     new_issue: "Nueva edición"
     new_organization: "Nueva organización"
@@ -1296,7 +1286,6 @@ spa:
     number_of_cap_land_parcels: "Número de parcelas de tapa"
     number_options: "Opciones números" #?
     numbers: "Números"
-    ok: "DE ACUERDO"
     on_account: "Volver a poner sobre la cuenta"
     one_condition: "Una condición"
     open_a_campaign: "Abrir una campaña" #?
@@ -1317,7 +1306,6 @@ spa:
     outgoing_payment: "Salida de pagos"
     outgoing_payments: "Pagos salientes"
     overflow: "CREDITO O ECCEDENTE" #?
-    pacage_number: "Nº PASTO"
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
@@ -1629,7 +1617,6 @@ spa:
     # updated_at_by: "Updated at %{at} by %{author}"
     # updated_by_ago: "Updated by %{author} %{when}"
     upload: "Séleccionar el fichero de salvaguardia a cargar"
-    uploaded_file: "El archivo subido"
     usage: "Uso"
     use_forward: "Seleccionar un periodico para los aplazamientos de nuevo" #?
     used_accounts: "Cuentos utilozados unico" #?
@@ -1644,11 +1631,9 @@ spa:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validar la escrituras seleccionadas"
-    validations: "Finalización"
     values: "Valores"
     variable_indicators: "Indicadores variables"
     variants: "Variantes"
-    variety: "Variedad"
     view: "Ver"
     watering_concentration: "Uso del agua"
     weather: "Clima"

@@ -772,8 +772,6 @@ fra:
     active_sum: "Total actifs" #?
     activities: "Activités"
     activity: "Activités"
-    activity_family: "Activités familiales"
-    activity_name: "Activité"
     activity_production: "Production"
     activity_productions: "Productions"
     add: "Ajouter"
@@ -789,7 +787,6 @@ fra:
     add_distribution: "Ajouter une répartition"
     add_email: "Ajouter une adresse e-mail"
     add_entry: "Ajouter une écriture"
-    add_equipment: "Ajout d’équipements"
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
@@ -897,9 +894,7 @@ fra:
     budget: "Budget"
     budget_per_working_indicator: "Budget par unité d’œuvre"
     budgets: "Budgets"
-    building: "Lieu de stockage"
     building_name: "Sortie de" #?
-    buildings: "bâtiments"
     buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
@@ -1325,8 +1320,6 @@ fra:
       clients: "Clients" #?
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
-    level: "Niveau"
-    levels: "les niveaux"
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
@@ -1384,7 +1377,6 @@ fra:
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     min_level: "Niveau minimum" #?
     minimal_temperature: "Température minimale"
-    missing: "Manquant"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
@@ -1411,7 +1403,6 @@ fra:
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     new: "Nouveau"
-    new_activity: "nouvelle activité"
     new_animal: "Nouvel animal"
     new_attachment: "Nouvel attachement"
     new_box: "Nouvelle boîte"
@@ -1431,7 +1422,6 @@ fra:
       zero: "Effectuer une remise\_: %{mode} (Pas d’encaissements disponibles)"
     new_document: "Nouveau document" #?
     new_email: "Nouveau courriel"
-    new_equipment: "nouvel équipement"
     new_family: "Nouvelle famille" #?
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
@@ -1489,7 +1479,6 @@ fra:
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_options: "Options de numérotations" #?
     numbers: "Numéros"
-    ok: "OK"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
     open_a_campaign: "Ouvrir une campagne de production" #?
@@ -1514,7 +1503,6 @@ fra:
       undelivered: "Non délivrés" #?
       unparted: "Non affectés" #?
       waiting: "À décaisser plus tard" #?
-    pacage_number: "No. PACAGE"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1924,7 +1912,6 @@ fra:
     updated_at_by: "Mis à jour le %{at} par %{author}"
     updated_by_ago: "Mis à jour par %{author} %{when}"
     upload: "Téléversement"
-    uploaded_file: "Fichier téléversé"
     uploading_unicoque_traceability: "Télétransmission - Traçabilité Unicoque" #?
     urea_concentration: "Teneur moyenne en urée" #?
     usage: "Utilisation"
@@ -1942,11 +1929,9 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    # validations: "Finalisation"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
-    variety: "Variété"
     vat: "Taxe à payer" #?
     vat_acquisitions: "Acquisitions intracommunautaires" #?
     vat_amount: "Taxe due" #?
