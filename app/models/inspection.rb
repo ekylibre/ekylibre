@@ -217,6 +217,8 @@ class Inspection < Ekylibre::Record::Base
       point_sum = points_of_category(category).sum(:"#{column_name}")
       if activity.respond_to?("grading_#{long_name}_unit")
         point_sum.in(activity.send("grading_#{long_name}_unit"))
+      else
+        point_sum.in(:unity)
       end
     end
 

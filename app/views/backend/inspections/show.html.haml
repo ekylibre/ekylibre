@@ -87,7 +87,7 @@
             %tr
               %td= calibration.nature_name
               - if resource.measure_grading_items_count
-                %td.decimal= calibration.items_count_in_unit
+                %td.decimal= calibration.items_count_in_unit.l(precision: 0)
               - if resource.measure_grading_net_mass
                 %td.decimal= calibration.net_mass_in_unit.l(precision: 0)
               - if resource.measure_grading_sizes
@@ -100,7 +100,7 @@
           %tr.total
             %th= :totals.tl
             - if resource.measure_grading_items_count
-              %th.decimal= resource.items_count(scale)
+              %th.decimal= resource.items_count(scale).l(precision: 0)
             - if resource.measure_grading_net_mass
               %th.decimal= resource.net_mass(scale).l(precision: 0)
             - if resource.measure_grading_sizes
@@ -130,7 +130,7 @@
             %tr
               %td= point.nature_name
               - if resource.measure_grading_items_count
-                %td.decimal= point.items_count_in_unit
+                %td.decimal= point.items_count_in_unit.l(precision: 0)
               - if resource.measure_grading_net_mass
                 %td.decimal= point.net_mass_in_unit.l(precision: 0)
               - if resource.measure_grading_sizes
@@ -144,7 +144,7 @@
             %tr.subtotal
               %th= "enumerize.activity_inspection_point_nature.category.#{category}".t
               - if resource.measure_grading_items_count
-                %td.decimal= resource.points_items_count(category)
+                %td.decimal= resource.points_items_count(category).l(precision: 0)
               - if resource.measure_grading_net_mass
                 %td.decimal= resource.points_net_mass(category).l(precision: 0)
               - if resource.measure_grading_sizes
@@ -157,7 +157,7 @@
           %tr.total
             %th= :totals.tl
             - if resource.measure_grading_items_count
-              %th.decimal= resource.points_items_count
+              %th.decimal= resource.points_items_count.l(precision: 0)
             - if resource.measure_grading_net_mass
               %th.decimal= resource.points_net_mass.l(precision: 0)
             - if resource.measure_grading_sizes
