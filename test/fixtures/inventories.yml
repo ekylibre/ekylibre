@@ -46,6 +46,7 @@ inventories_001:
   id: 1
   lock_version: 0
   name: 2009's inventory
+  number: I00000001
   reflected: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -56,6 +57,7 @@ inventories_002:
   id: 2
   lock_version: 0
   name: 2009's bad inventory
+  number: I00000002
   reflected: false
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
