@@ -1,6 +1,5 @@
--# set unit for this view
-- unit = Nomen::Unit[:ton]
-- yield_unit = Nomen::Unit[:ton_per_hectare]
+- choices = resource.unit_choices
+- user_pref = resource.unit_preference(current_user)
 
 - main_toolbar do |t|
   = t.edit resource
@@ -16,55 +15,38 @@
     - l.attribute :activity, url: true
     - l.attribute :comment
 
+
 = cobbles do |c|
 
   - c.cobble(:totals) do
-    = infos do
-      - ActivityInspectionPointNature.unmarketable_categories.each do |category|
-        .med-info
-          %span.title= category.l
-          %span.value= resource.points_net_mass_percentage(category).round(2).l(precision: 2) + '%'
-      - if resource.activity.inspection_calibration_scales.any?
-        .med-info
-          %span.title= Inspection.human_attribute_name(:marketable_net_mass)
-          %span.value= resource.marketable_net_mass.convert(unit).round(2).l(precision: 0)
-        .med-info
-          %span.title= Inspection.human_attribute_name(:marketable_net_yield)
-          %span.value= resource.marketable_yield.convert(yield_unit).round(2).l(precision: 0)
-        .med-info
-          %span.title= Inspection.human_attribute_name(:gross_mass)
-          %span.value= resource.total_net_mass.convert(unit).round(2).l(precision: 0)
-        .med-info
-          %span.title= Inspection.human_attribute_name(:gross_yield_value)
-          %span.value= resource.net_mass_yield.convert(yield_unit).round(2).l(precision: 0)
+    = render "preference_btns", inspection: resource
 
-  - if resource.calibrations.any? && resource.calibrations.sum(:net_mass_value) > 0
-    - c.cobble(:stock_in_ground) do
-      %table
-        %tbody
-          - resource.scales.each do |scale|
-            :ruby
-              symbol_measure = unit.symbol
-              dataset = resource.calibrations.of_scale(scale).reorder(:id)
-            %tr
-              = render "pie_inspection", resource: resource, unit: unit, scale: scale
+    = infos do
+      - case user_pref
+      - when :mass
+        = render "totals", to_display: user_pref, resource: resource
+      - when :items
+        = render "totals", to_display: user_pref, resource: resource
+
+  - if resource.calibrations.any?
+    - if resource.activity.measure_grading_net_mass && resource.calibrations.sum(:net_mass_value) > 0
+
+      - c.cobble("stock_in_ground") do
+        = render "preference_btns", inspection: resource
+        %table
+          %tbody
+            - resource.scales.each do |scale|
               :ruby
-                net_surface_area = resource.product_net_surface_area_value
-                data = []
-                series = []
-                dataset.map do |calibration|
-                  series << { name: calibration.name, data: [calibration.marketable_net_mass.round(0).to_d(unit).to_s.to_f] }
-                end
-              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-              :ruby
-                net_surface_area = resource.product_net_surface_area_value
-                yield_symbol_measure = yield_unit.symbol
-                data = []
-                series = []
-                dataset.map do |calibration|
-                  series << { name: calibration.name, data: [calibration.marketable_yield.round(0).to_d(yield_unit).to_s.to_f] }
-                end
-              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+                dataset = resource.calibrations.of_scale(scale).reorder(:id)
+              - case user_pref
+              - when :mass
+                = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
+              - when :items
+                = render "charts", to_graph: "items_count", dataset: dataset, resource: resource, scale: scale
+              - else
+                = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
+                = render "charts", to_graph: "items_count", dataset: dataset, resource: resource, scale: scale
+
   - c.cobble(:analyses) do
     - analysis = Analysis.where(product: resource.product, nature: 'plant_analysis').reorder(:sampled_at).last
     - if analysis
@@ -105,9 +87,9 @@
             %tr
               %td= calibration.nature_name
               - if resource.measure_grading_items_count
-                %td.decimal= calibration.items_count
+                %td.decimal= calibration.items_count_in_unit.l(precision: 0)
               - if resource.measure_grading_net_mass
-                %td.decimal= calibration.net_mass.l(precision: 0)
+                %td.decimal= calibration.net_mass_in_unit.l(precision: 0)
               - if resource.measure_grading_sizes
                 %td.decimal= calibration.minimal_size.l(precision: 0)
                 %td.decimal= calibration.maximal_size.l(precision: 0)
@@ -118,7 +100,7 @@
           %tr.total
             %th= :totals.tl
             - if resource.measure_grading_items_count
-              %th.decimal= resource.items_count(scale)
+              %th.decimal= resource.items_count(scale).l(precision: 0)
             - if resource.measure_grading_net_mass
               %th.decimal= resource.net_mass(scale).l(precision: 0)
             - if resource.measure_grading_sizes
@@ -148,9 +130,9 @@
             %tr
               %td= point.nature_name
               - if resource.measure_grading_items_count
-                %td.decimal= point.items_count
+                %td.decimal= point.items_count_in_unit.l(precision: 0)
               - if resource.measure_grading_net_mass
-                %td.decimal= point.net_mass.l(precision: 0)
+                %td.decimal= point.net_mass_in_unit.l(precision: 0)
               - if resource.measure_grading_sizes
                 %td.decimal= point.minimal_size.l(precision: 0)
                 %td.decimal= point.maximal_size.l(precision: 0)
@@ -162,7 +144,7 @@
             %tr.subtotal
               %th= "enumerize.activity_inspection_point_nature.category.#{category}".t
               - if resource.measure_grading_items_count
-                %td.decimal= resource.points_items_count(category)
+                %td.decimal= resource.points_items_count(category).l(precision: 0)
               - if resource.measure_grading_net_mass
                 %td.decimal= resource.points_net_mass(category).l(precision: 0)
               - if resource.measure_grading_sizes
@@ -175,7 +157,7 @@
           %tr.total
             %th= :totals.tl
             - if resource.measure_grading_items_count
-              %th.decimal= resource.points_items_count
+              %th.decimal= resource.points_items_count.l(precision: 0)
             - if resource.measure_grading_net_mass
               %th.decimal= resource.points_net_mass.l(precision: 0)
             - if resource.measure_grading_sizes

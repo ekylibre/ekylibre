@@ -1,6 +1,4 @@
 -# set unit for this view
-- inspection_unit = Nomen::Unit[:ton]
-- inspection_yield_unit = Nomen::Unit[:ton_per_hectare]
 
 - main_toolbar do |t|
   = t.edit resource
@@ -91,11 +89,11 @@
           inspections = []
           # get last inspection for current plant
           last_inspection = plant.inspections.reorder(:sampled_at).last
+          symbol_measure = :ton
           last_inspection.scales.each do |scale|
-            symbol_measure = inspection_unit.symbol
             dataset = last_inspection.calibrations.of_scale(scale).reorder(:id)
             dataset.map do |calibration|
-              inspections << {label: calibration.name, value: calibration.marketable_net_mass.round(0).convert(inspection_unit).l}
+              inspections << {label: calibration.name, value: calibration.marketable_net_mass.round(0).convert(symbol_measure).l}
             end
           end
 
@@ -147,12 +145,23 @@
 
   - if resource.use_gradings && resource.inspection_calibration_scales.any? && resource.inspections.any?
     - c.cobble(:stock_in_ground) do
+      = render "backend/inspections/preference_btns", inspection: resource.inspections.last
+      :ruby
+        choices = resource.inspections.last.unit_choices
+        user_pref = resource.inspections.last.unit_preference(current_user)
+        if user_pref == :items
+          long_name = "items_count"
+          unit = Nomen::Unit[:thousand]
+          yield_unit = Nomen::Unit[:thousand_per_hectare]
+        elsif user_pref == :mass
+          long_name = "net_mass"
+          unit = Nomen::Unit[:ton]
+          yield_unit = Nomen::Unit[:ton_per_hectare]
+        end
       %table
         %tbody
           - resource.inspection_calibration_scales.each do |scale|
             :ruby
-              symbol_measure = inspection_unit.symbol
-              yield_symbol_measure = inspection_yield_unit.symbol
 
               # get last calibration for each plant of the current activity
               dataset_inspections = resource.inspections
@@ -177,8 +186,8 @@
                 last_calibrations_yield = []
                 dataset_last_inspections.each do |last_inspection|
                   l = last_inspection.calibrations.of_scale(scale).where(nature_id: nature.id)
-                  last_calibrations << l.first.marketable_net_mass.round(0).to_d(inspection_unit)
-                  last_calibrations_yield << l.first.marketable_yield.round(0).to_d(inspection_yield_unit)
+                  last_calibrations << l.first.send("marketable_#{long_name}").round(0).to_d(unit)
+                  last_calibrations_yield << l.first.send("marketable_#{user_pref}_yield").round(0).to_d(yield_unit)
                 end
                 series << { name: nature.name, data: [last_calibrations.compact.sum.to_s.to_f] }
                 yield_series << { name: nature.name, data: [ last_calibrations_yield.any? ? (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f : 0] }
@@ -206,17 +215,18 @@
                     Plant.at(curr_date).include? Plant.find(plant)
                   end
                   dataset = dataset.map do |_, inspections|
-                    inspections.last.points_net_mass_percentage(category).round(2).to_s.to_f
+                    inspections.last.send("points_#{long_name}_percentage", category).round(2).to_s.to_f
                   end
                   p dataset
                   spline_data << dataset.compact.sum / dataset.compact.count unless dataset.empty?
                 end
                 spline_series << {name: category.l, data: spline_data}
               end
+
             %tr
-              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-              %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-              %td{style: 'width: 33%' }= spline_highcharts(spline_series, x_axis: {categories: spline_categories} ,title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {})
+              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+              %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+              %td{style: 'width: 33%' }= spline_highcharts(spline_series, x_axis: {categories: spline_categories}, y_axis: { title: {text: "%"} }, title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {})
 
     - c.cobble(:inspections) do
       = cobble_list :inspections
