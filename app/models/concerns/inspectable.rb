@@ -49,7 +49,6 @@ module Inspectable
   end
 
   def items_count_yield
-    unit_name = "#{find_item_unit(total_items_count.to_f).name}_per_#{product_net_surface_area.unit}"
     unit_name = :unity_per_square_meter unless Nomen::Unit.find(unit_name)
     y = (items_count_in_unit.to_d(:unity) / sampling_area.to_d(:square_meter)).in(:unity_per_square_meter)
     y.in(unit_name).round(0)
