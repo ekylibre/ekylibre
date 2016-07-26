@@ -1,13 +1,16 @@
 .state-bar{class: "state-bar-#{states.count}"}
   - transitions = resource.state_transitions
   - states.each do |state|
+    - human_name = Maybe(renamings)[state.name].or_else(state.name)
+    - localized_path =  "models." + resource.class.name.downcase + ".state_machine.states." + human_name.to_s
+    - localized_name = localized_path.t
     - classes = ["state", "state-#{state.name}"]
     - classes << "active" if state == current_state
     - if state == current_state
       - classes << "active"
-      %span{class: classes}= state.human_name
+      %span{class: classes}= localized_name
     - elsif transition = transitions.detect{|t| t.to == state.name.to_s }
-      = link_to(state.human_name, {action: transition.event, id: resource.id}, class: classes, method: :post, data: {confirm: :are_you_sure.tl}, title: transition.event.to_sym.ta)
+      = link_to(localized_name, {action: transition.event, id: resource.id}, class: classes, method: :post, data: {confirm: :are_you_sure.tl}, title: transition.event.to_sym.ta)
     - else
       - classes << "inaccessible"
-      %span{class: classes}= state.human_name
+      %span{class: classes}= localized_name

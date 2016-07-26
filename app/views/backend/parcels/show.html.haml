@@ -2,7 +2,9 @@
   = t.edit resource if resource.updateable?
   = t.destroy
 
-= main_state_bar(resource)
+- renamings = {}
+- renamings = renamings.merge({:given => :received}) if resource.outgoing?
+= main_state_bar(resource, renamings: renamings)
 
 = main_informations attachment: true do
   = attributes_list do |l|

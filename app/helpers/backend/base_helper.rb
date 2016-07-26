@@ -258,7 +258,7 @@ module Backend
       machine = resource.class.state_machine
       state = resource.state
       state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) || state.nil?
-      render 'state_bar', states: machine.states, current_state: state, resource: resource
+      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: _options[:renamings]
     end
 
     def main_state_bar(resource, options = {})
