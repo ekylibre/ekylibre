@@ -1,4 +1,4 @@
-class RenameCropperDriverToDriverInNomenclatureHarversting < ActiveRecord::Migration
+class Rename<%= old_name.camelcase %>To<%= new_name.camelcase %>In<%= procedure_name.camelcase %> < ActiveRecord::Migration
   def change
     reversible do |dir|
       dir.up do
