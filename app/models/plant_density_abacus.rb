@@ -36,10 +36,9 @@
 #
 
 class PlantDensityAbacus < Ekylibre::Record::Base
+  belongs_to :activity, inverse_of: :plant_density_abaci
   has_many :items, class_name: 'PlantDensityAbacusItem', dependent: :delete_all, inverse_of: :plant_density_abacus
   has_many :plant_countings
-
-  belongs_to :activity, inverse_of: :plant_density_abaci
 
   refers_to :seeding_density_unit, class_name: 'Unit'
   refers_to :sampling_length_unit, class_name: 'Unit'
@@ -49,9 +48,15 @@ class PlantDensityAbacus < Ekylibre::Record::Base
   validates :name, :sampling_length_unit, :seeding_density_unit, presence: true
   # ]VALIDATORS]
 
+  delegate :cultivation_variety, to: :activity
+
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
   protect on: :destroy do
     plant_countings.any?
+  end
+
+  def variety_name
+    activity ? cultivation_variety : nil
   end
 end
