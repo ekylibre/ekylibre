@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/lcoq/ofx-parser.git
+  remote: https://github.com/lcoq/ofx-parser.git
   revision: 3be6cdb8a70cea4b54bc0b4456b00ad2addf7284
   branch: master
   specs:
@@ -180,7 +180,7 @@ GEM
       jquery-rails (>= 3)
       jquery-ui-rails (>= 5)
       rails (>= 3.2)
-    globalid (0.3.6)
+    globalid (0.3.7)
       activesupport (>= 4.1.0)
     gyoku (1.3.1)
       builder (>= 2.1.2)
