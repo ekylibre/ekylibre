@@ -346,8 +346,9 @@ module Backend
         marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
         marker[:view] = { center: marker[:marker] }
       else
-        if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
-          marker[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
+        siblings = @object.class.where("#{attribute_name} IS NOT NULL").order(id: :desc)
+        if siblings.any?
+          marker[:view] = { center: Charta.new_geometry(siblings.first.send(attribute_name)).centroid }
         elsif zone = CultivableZone.first
           marker[:view] = { center: zone.shape_centroid }
         end
