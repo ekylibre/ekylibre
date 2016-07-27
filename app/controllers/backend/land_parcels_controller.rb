@@ -34,7 +34,7 @@ module Backend
       t.column :work_number
       t.column :identification_number
       t.column :net_surface_area, datatype: :measure
-      t.column :created_at
+      t.column :born_at
       t.column :dead_at
     end
   end
