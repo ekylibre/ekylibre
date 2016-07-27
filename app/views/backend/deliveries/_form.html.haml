@@ -11,7 +11,7 @@
     = f.referenced_association :driver
     = f.nested_association(:tools)
   = f.custom_fields
-  - parcels = Parcel.where("id IN (?) OR state != ?", f.object.parcel_ids, :given)
+  - parcels = Parcel.where("id IN (?) OR state != ?", f.object.parcel_ids, :given).order(:created_at)
   - if parcels.any?
     = f.association(:parcels, as: :check_boxes, label_method: :number, collection: parcels)
 
