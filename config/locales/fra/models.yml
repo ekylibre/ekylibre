@@ -1285,7 +1285,7 @@ fra:
     resource_type: "Type de ressource"
     responsible: "Responsable"
     restricted: "Réservé"
-    retrieval_message: "Un message de récupération"
+    retrieval_message: "Message"
     retrieval_mode: "Mode de récupération"
     retrieval_status: "Statut de la récupération"
     revenues: "Produits"
