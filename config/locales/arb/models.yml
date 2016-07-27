@@ -2119,6 +2119,7 @@ arb:
     template_id: "نموذج" #?
     text_importance: "ذو شأن" #?
     text_nature: "النوع" #?
+    # theme: "Theme"
     theoric_quantity: "الكمية النظرية" #?
     third: "ثلث"
     third_producer: "ثالث منتج" #?

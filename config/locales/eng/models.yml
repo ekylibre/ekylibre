@@ -1186,6 +1186,7 @@ eng:
     taxations: "Taxations"
     team: "Team"
     template: "Template"
+    theme: "Theme"
     third: "Third"
     third_role: "Third role"
     thread: "Thread"

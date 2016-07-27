@@ -1150,6 +1150,7 @@ spa:
     taxations: "Tasaciones"
     team: "Equipo"
     template: "Modelo"
+    # theme: "Theme"
     third: "Tercero"
     third_producer: "En tercer productor" #?
     third_role: "Tercera papel"

@@ -1146,6 +1146,7 @@ jpn:
     # taxations: "Taxations"
     team: "チーム"
     template: "テンプレート"
+    # theme: "Theme"
     third: "三番"
     third_producer: "サードプロデューサー" #?
     third_role: "第三の役割"

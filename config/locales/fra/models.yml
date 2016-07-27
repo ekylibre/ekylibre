@@ -1399,6 +1399,7 @@ fra:
     taxations: "Taxations"
     team: "Équipe"
     template: "Modèle"
+    theme: "Thème"
     theoric_quantity: "Quantité théorique" #?
     third: "Tiers"
     third_producer: "Producteur tiers" #?

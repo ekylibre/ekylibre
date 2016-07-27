@@ -1146,6 +1146,7 @@ por:
     taxations: "Taxations"
     team: "Equipe"
     template: "Modelo"
+    # theme: "Theme"
     third: "Terceiro"
     third_producer: "Terceiro produtor" #?
     third_role: "Terceiro papel"
