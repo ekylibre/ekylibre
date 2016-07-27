@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160726173309">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160727092830">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -10174,7 +10174,6 @@
       <item name="malus_pumila_barbarie" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_beaurichard" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_bec_d_oie_du_cher" parent="malus_pumila" itis_tsn="25262"/>
-      <item name="malus_pumila_belle-fille_de_la_creuse" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_belle_de_juillet" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_belle_de_linards" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_belle_de_pontoise" parent="malus_pumila" itis_tsn="25262"/>
