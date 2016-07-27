@@ -1,7 +1,7 @@
 %header.calendar-header
-  = link_to raw('&laquo;'), { action: :show, calendar.options[:param_name] => date_range.first - 1.day }, remote: true, class: 'previous-month', data: {}
+  = link_to raw('&laquo;'), calendar.params.merge(calendar.options[:param_name] => date_range.first - 1.day), remote: true, class: 'previous-month', data: {}
   %span= 'date.month_names'.t[start_date.month] + ' ' + start_date.year.to_s
-  = link_to raw('&raquo;'), { action: :show, calendar.options[:param_name] => date_range.last + 1.day }, remote: true, class: 'next-month'
+  = link_to raw('&raquo;'), calendar.params.merge(calendar.options[:param_name] => date_range.last + 1.day), remote: true, class: 'next-month'
 
 %table
   %thead

@@ -61,6 +61,10 @@ module Backend
         @options[:param_name] ||= :start_date
       end
 
+      def params
+        @options[:params] ||= {}
+      end
+
       def start_date
         view_context.params.fetch(date_param_name, Date.today).to_date
       end
