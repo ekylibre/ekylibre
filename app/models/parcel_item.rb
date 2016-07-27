@@ -187,9 +187,8 @@ class ParcelItem < Ekylibre::Record::Base
       create_product_ownership!(product: product, owner: parcel_recipient, started_at: parcel_given_at)
       create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at)
       create_product_enjoyment!(product: product, enjoyer: parcel_recipient, nature: :other, started_at: parcel_given_at)
-    else
-      create_product_movement!(product: product, delta: -1 * population, started_at: parcel_given_at)
     end
+    create_product_movement!(product: product, delta: -1 * population, started_at: parcel_given_at)
   end
 
   def existing_product_in_storage
