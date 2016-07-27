@@ -1664,7 +1664,7 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
-    yield: "Yield"
+    yield: "Yield" #?
     yield_by_calibration: "Yield by calibration"
     zones: "Zones"
   notifications:
