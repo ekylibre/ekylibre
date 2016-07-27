@@ -79,23 +79,15 @@
 #     - "backend/cells/working_sets_stocks_cells#show"
 #     - "backend/cobblers#update"
 #     - "backend/dashboards#accountancy"
-#     - "backend/dashboards#create"
-#     - "backend/dashboards#destroy"
-#     - "backend/dashboards#edit"
 #     - "backend/dashboards#home"
-#     - "backend/dashboards#index"
-#     - "backend/dashboards#list"
-#     - "backend/dashboards#new"
 #     - "backend/dashboards#production"
 #     - "backend/dashboards#relationship"
 #     - "backend/dashboards#sandbox"
 #     - "backend/dashboards#search"
 #     - "backend/dashboards#settings"
-#     - "backend/dashboards#show"
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
-#     - "backend/dashboards#update"
 #     - "backend/equipments#take"
 #     - "backend/fungi#take"
 #     - "backend/golumns#reset"
@@ -104,20 +96,9 @@
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
-#     - "backend/inspections#set_view_preference"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
-#     - "backend/map_backgrounds#create"
-#     - "backend/map_backgrounds#destroy"
-#     - "backend/map_backgrounds#edit"
-#     - "backend/map_backgrounds#index"
-#     - "backend/map_backgrounds#load"
-#     - "backend/map_backgrounds#new"
-#     - "backend/map_backgrounds#show"
-#     - "backend/map_backgrounds#star"
-#     - "backend/map_backgrounds#toggle"
-#     - "backend/map_backgrounds#update"
 #     - "backend/map_editors#upload"
 #     - "backend/matters#take"
 #     - "backend/notifications#destroy"
@@ -126,11 +107,6 @@
 #     - "backend/notifications#unread"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
-#     - "backend/product_localizations#create"
-#     - "backend/product_localizations#destroy"
-#     - "backend/product_localizations#edit"
-#     - "backend/product_localizations#new"
-#     - "backend/product_localizations#update"
 #     - "backend/product_nature_variants#detail"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
@@ -205,6 +181,7 @@ activities:
     - "backend/activity_budgets#show"
     - "backend/inspections#index"
     - "backend/inspections#list"
+    - "backend/inspections#set_view_preference"
     - "backend/inspections#show"
     - "backend/inspections#unroll"
     - "backend/plant_density_abaci#index"
@@ -1261,6 +1238,24 @@ manure_management_plans:
     - "backend/manure_management_plans#new"
     - "backend/manure_management_plans#update"
 
+map_backgrounds:
+  read:
+    actions:
+    - "backend/map_backgrounds#index"
+    - "backend/map_backgrounds#new"
+    - "backend/map_backgrounds#show"
+  write:
+    dependencies:
+    - read-map_backgrounds
+    actions:
+    - "backend/map_backgrounds#create"
+    - "backend/map_backgrounds#destroy"
+    - "backend/map_backgrounds#edit"
+    - "backend/map_backgrounds#load"
+    - "backend/map_backgrounds#star"
+    - "backend/map_backgrounds#toggle"
+    - "backend/map_backgrounds#update"
+
 matters:
   read:
     actions:
@@ -1292,11 +1287,19 @@ matters:
 myselves:
   read:
     actions:
+    - "backend/dashboards#index"
+    - "backend/dashboards#list"
+    - "backend/dashboards#show"
     - "backend/myselves#show"
   write:
     dependencies:
     - read-myselves
     actions:
+    - "backend/dashboards#create"
+    - "backend/dashboards#destroy"
+    - "backend/dashboards#edit"
+    - "backend/dashboards#new"
+    - "backend/dashboards#update"
     - "backend/myselves#change_password"
     - "backend/myselves#update"
 
@@ -1585,6 +1588,11 @@ products:
     dependencies:
     - read-products
     actions:
+    - "backend/product_localizations#create"
+    - "backend/product_localizations#destroy"
+    - "backend/product_localizations#edit"
+    - "backend/product_localizations#new"
+    - "backend/product_localizations#update"
     - "backend/products#create"
     - "backend/products#destroy"
     - "backend/products#edit"
