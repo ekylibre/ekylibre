@@ -148,6 +148,10 @@ class ParcelItem < Ekylibre::Record::Base
     save!
   end
 
+  def name
+    Maybe(product || variant).name.or_else("")
+  end
+
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
