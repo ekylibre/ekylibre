@@ -8,7 +8,7 @@ module JournalEntriesCondition
       filter = { JournalEntryItem.table_name => [:name, :debit, :credit] }
       unless options[:with_items]
         code << search_conditions(filter, conditions: 'cjel') + "\n"
-        search_options[:filters] = { "#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE '+cjel[0]+')" => 'cjel[1..-1]' }
+        search_options[:filters] = { "#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE \" + cjel[0] + \")" => 'cjel[1..-1]' }
         filter.delete(JournalEntryItem.table_name)
       end
       filter[JournalEntry.table_name] = [:number, :debit, :credit]
