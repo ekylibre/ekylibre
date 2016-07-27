@@ -902,7 +902,7 @@ fra:
     item_object: "Objet de l’élément"
     item_type: "Type de l’élément"
     item_value: "Valeur de l’élément"
-    items: "Nombre"
+    items: "Élements"
     items_count: "Nombre d’éléments"
     journal: "Journal"
     journal_entries: "Écritures"
@@ -1487,8 +1487,8 @@ fra:
     with_deposit: "Utiliser les remises en banque"
     with_supports: "Avec des supports"
     with_transport: "Avec transport"
-    work_number: "Numéro de travail"
     work_name: "Nom de travail"
+    work_number: "Numéro de travail"
     worker: "Équipier"
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"
@@ -1578,6 +1578,9 @@ fra:
           name: "Chèque"
         transfer:
           name: "Virement"
+    inspection:
+      items: "Nombre"
+      mass: "Masse"
     intervention:
       name: "%{intervention} n°%{number}"
     issue:

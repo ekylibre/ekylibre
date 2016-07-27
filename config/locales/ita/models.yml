@@ -1255,6 +1255,7 @@ ita:
     with_deposit: "con deposito"
     with_supports: "Con supporti"
     with_transport: "con i trasporti"
+    # work_name: "Work name"
     work_number: "numero di lavoro"
     worker: "Lavoratore"
     working_duration: "durata di funzionamento"
@@ -1338,6 +1339,9 @@ ita:
           name: "Dai un'occhiata"
         transfer:
           name: "virement"
+    inspection:
+      # items: "Items"
+      # mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:

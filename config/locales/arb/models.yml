@@ -2224,6 +2224,7 @@ arb:
     with_supports: "مع الدعم"
     with_tracking: "مع التتبع" #?
     with_transport: "مع النقل"
+    # work_name: "Work name"
     work_number: "رقم العمل"
     worker: "عامل"
     working_duration: "مدة العمل"
@@ -2549,6 +2550,9 @@ arb:
           # name: "Virement"
     incoming_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
+    inspection:
+      # items: "Items"
+      # mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory_item:  #?

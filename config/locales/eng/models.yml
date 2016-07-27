@@ -1346,6 +1346,9 @@ eng:
           name: "Chèque"
         transfer:
           name: "Virement"
+    inspection:
+      items: "Items"
+      mass: "Mass"
     intervention:
       name: "%{intervention} #%{number}"
     issue:

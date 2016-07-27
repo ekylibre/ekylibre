@@ -1223,6 +1223,7 @@ deu:
     with_deposit: "mit Pfand"
     with_supports: "mit Stützen"
     with_transport: "mit Transport"
+    # work_name: "Work name"
     work_number: "Arbeitsnummer"
     worker: "Arbeitnehmer"
     working_duration: "Arbeitsdauer"
@@ -1306,6 +1307,9 @@ deu:
           name: "Prüfen"
         transfer:
           # name: "Virement"
+    inspection:
+      # items: "Items"
+      # mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:

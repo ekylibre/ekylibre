@@ -1228,6 +1228,7 @@ spa:
     with_deposit: "Con el depósito"
     with_supports: "Con soportes"
     with_transport: "Con el transporte"
+    # work_name: "Work name"
     work_number: "Número de trabajo"
     worker: "Obrero"
     working_duration: "Duración de trabajo"
@@ -1311,6 +1312,9 @@ spa:
           name: "Comprobar"
         transfer:
           name: "Virement"
+    inspection:
+      # items: "Items"
+      # mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:

@@ -1224,6 +1224,7 @@ cmn:
     with_deposit: "随着存款"
     with_supports: "随着支持"
     with_transport: "随着运输"
+    # work_name: "Work name"
     work_number: "工号"
     worker: "工人"
     working_duration: "工作时间"
@@ -1307,6 +1308,9 @@ cmn:
           name: "支票"
         transfer:
           # name: "Virement"
+    inspection:
+      # items: "Items"
+      # mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:

@@ -1360,7 +1360,7 @@ fra:
     mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
     marketable_net_mass: "Masse nette commercialisable"
-    mass: "Masse"
+    # mass: "Masse"
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
     measure_options: "Indicateur de type mesure" #?

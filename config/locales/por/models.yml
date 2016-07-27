@@ -1224,6 +1224,7 @@ por:
     with_deposit: "Com depósito"
     with_supports: "Com suportes"
     with_transport: "Com os transportes"
+    # work_name: "Work name"
     work_number: "O número de trabalho"
     worker: "Trabalhador"
     working_duration: "Duração de trabalho"
@@ -1307,6 +1308,9 @@ por:
           name: "Verifica"
         transfer:
           name: "Virement"
+    inspection:
+      # items: "Items"
+      # mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:
