@@ -733,7 +733,7 @@ module ApplicationHelper
 
   def tool_to(name, url, options = {})
     raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
-    icon = options.delete(:tool)
+    icon = options.key?(:tool) ? options.delete(:tool) : options.key?(:icon) ? options.delete(:icon) : nil
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
     options[:class] << ' icn btn-' + icon.to_s if icon
