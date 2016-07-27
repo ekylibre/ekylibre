@@ -1,0 +1,10 @@
+- current = inspection.unit_preference(current_user)
+- choices = inspection.unit_choices.map { |e| [e, e.capitalize] }.to_h
+
+- if choices.length > 1
+  - cobble_meta_toolbar do
+    .btn-group.pull-right
+      - choices.each do |pref, name|
+        - classes = ['btn', 'btn-default', ('active' if current == pref)]
+        = link_to(backend_inspection_path(unit: pref, id: inspection.id), class: classes) do
+          = "models.inspection.#{name.downcase}".t

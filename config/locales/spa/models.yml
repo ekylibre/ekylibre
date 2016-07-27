@@ -623,7 +623,7 @@ spa:
     grading_sizes_unit_name: "La clasificación tamaños nombre de la unidad"
     gradings: "gradaciones"
     gravity: "Gravedad"
-    # gross_items: "Gross count"
+    gross_items: "recuento bruto"
     gross_mass: "masa bruta"
     gross_yield_value: "Valor de rendimiento bruto"
     group: "Grupo"
@@ -782,7 +782,7 @@ spa:
     managed_sales: "Ventas gestionadas"
     manure_management_plan_zones: "Zonas del plan de manejo del estiércol"
     marketable: "Vendible"
-    # marketable_items_count: "Marketable items count"
+    marketable_items_count: "cuentan artículos negociables"
     marketable_net_mass: "masa neta comercializable"
     marketable_net_yield: "rendimiento neto comercializable"
     marketable_yield: "rendimiento comercial"
@@ -1150,7 +1150,7 @@ spa:
     taxations: "Tasaciones"
     team: "Equipo"
     template: "Modelo"
-    # theme: "Theme"
+    theme: "Tema"
     third: "Tercero"
     third_producer: "En tercer productor" #?
     third_role: "Tercera papel"
@@ -1229,7 +1229,7 @@ spa:
     with_deposit: "Con el depósito"
     with_supports: "Con soportes"
     with_transport: "Con el transporte"
-    # work_name: "Work name"
+    work_name: "nombre del trabajo"
     work_number: "Número de trabajo"
     worker: "Obrero"
     working_duration: "Duración de trabajo"
@@ -1314,8 +1314,8 @@ spa:
         transfer:
           name: "Virement"
     inspection:
-      # items: "Items"
-      # mass: "Mass"
+      items: "Artículos"
+      mass: "Masa"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:
@@ -1387,7 +1387,7 @@ spa:
           in_preparation: "En la preparación de"
           ordered: "Ordenado"
           prepared: "Preparado"
-          # received: "Received"
+          received: "Recibido"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

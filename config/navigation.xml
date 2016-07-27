@@ -223,7 +223,6 @@
         <page to="backend/sales#create"/>
         <page to="backend/sales#destroy"/>
         <page to="backend/sales#duplicate"/>
-        <page to="backend/sales#generate_parcel"/>
         <page to="backend/sales#edit"/>
         <page to="backend/sales#invoice"/>
         <page to="backend/sales#list"/>
@@ -310,7 +309,6 @@
         <page to="backend/purchases#create"/>
         <page to="backend/purchases#destroy"/>
         <page to="backend/purchases#edit"/>
-        <page to="backend/purchases#generate_parcel"/>
         <page to="backend/purchases#invoice"/>
         <page to="backend/purchases#list"/>
         <page to="backend/purchases#list_parcels"/>
@@ -1790,9 +1788,6 @@
       </item>
       <item name="workers">
         <page to="backend/workers#list_part_replacements"/>
-      </item>
-      <item name="inspections">
-        <page to="backend/inspections#set_view_preference"/>
       </item>
     </group>
   </untreated-actions>

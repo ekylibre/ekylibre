@@ -86,7 +86,7 @@ class Inventory < Ekylibre::Record::Base
 
   def build_missing_items
     self.achieved_at ||= Time.zone.now
-    Matter.at(achieved_at).of_owner(Entity.of_company).find_each do |product|
+    Matter.at(achieved_at).mine_or_undefined(achieved_at).find_each do |product|
       next if items.detect { |i| i.product_id == product.id }
       population = product.population(at: self.achieved_at)
       # shape = product.shape(at: self.achieved_at)

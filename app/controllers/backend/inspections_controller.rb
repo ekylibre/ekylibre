@@ -33,13 +33,9 @@ module Backend
       # t.column :implanter_working_width
     end
 
-    def set_view_preference
-      id = params[:inspection_id]
-      id ||= params[:id]
-      Inspection.find(id).unit_preference(current_user, params['preference'])
-      destination = params['redirect'] if params['redirect']
-      destination ||= { action: 'show', id: params[:id] }
-      redirect_to destination
+    before_action only: [:show] do
+      @inspection = Inspection.find(params[:id])
+      @inspection.unit_preference(current_user, params['unit'])
     end
   end
 end

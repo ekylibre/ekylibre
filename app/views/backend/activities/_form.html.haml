@@ -17,11 +17,10 @@
     = f.input :size_unit_name
   = f.input :description
   = f.custom_fields
-  = f.input :use_countings, show: '#countings'
-  = f.input :use_gradings, show: '#inspections'
 
 = field_set(:inspections) do
-  #inspections
+  = f.input :use_gradings, show: '#inspections-fields'
+  #inspections-fields
     = f.input :measure_grading_items_count
     = f.input :measure_grading_net_mass, show: '#grading_net_mass'
     #grading_net_mass
@@ -37,7 +36,8 @@
     = f.nested_association(:inspection_calibration_scales)
 
 = field_set(:countings) do
-  #countings
+  = f.input :use_countings, show: '#countings-fields'
+  #countings-fields
     = f.nested_association :plant_density_abaci
 
 .auxiliary-nature-options

@@ -701,7 +701,6 @@ Rails.application.routes.draw do
       member do
         get :list_items
         get :list_parcels
-        post :generate_parcel
         post :abort
         post :confirm
         post :correct
@@ -748,7 +747,6 @@ Rails.application.routes.draw do
         get :list_subscriptions
         get :list_parcels
         get :list_credits
-        post :generate_parcel
         post :abort
         post :confirm
         post :correct

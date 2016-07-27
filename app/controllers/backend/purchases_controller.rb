@@ -136,11 +136,6 @@ module Backend
       end
     end
 
-    def generate_parcel
-      return unless @purchase = find_and_check
-      redirect_to controller: :parcels, action: :new, purchase_id: @purchase.id, nature: :incoming
-    end
-
     def abort
       return unless @purchase = find_and_check
       @purchase.abort

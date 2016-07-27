@@ -88,12 +88,13 @@ class Inspection < Ekylibre::Record::Base
       .reject { |e| e == :mass && !measure_grading_net_mass }
   end
 
-  def unit_preference(user, *args)
-    user.prefer!("activity_#{activity_id}_inspection_view", args[0].to_sym) if args.present?
-    user_pref = user.preference("activity_#{activity_id}_inspection_view").value
-    user_pref ||= :mass
-    user_pref = unit_choices.find { |c| c.to_sym == user_pref.to_sym }
-    user_pref ||= unit_choices.first
+  def unit_preference(user, unit = nil)
+    unit_preference_name = "activity_#{activity_id}_inspection_view_unit"
+    user.prefer!(unit_preference_name, unit.to_sym) if unit.present?
+    pref = user.preference(unit_preference_name).value
+    pref ||= :mass
+    pref = unit_choices.find { |c| c.to_sym == pref.to_sym }
+    pref ||= unit_choices.first
   end
 
   def set_net_surface_area

@@ -198,11 +198,6 @@ module Backend
       redirect_to params[:redirect] || { action: :show, id: copy.id }
     end
 
-    def generate_parcel
-      return unless @sale = find_and_check
-      redirect_to controller: :parcels, action: :new, sale_id: @sale.id, nature: :outgoing
-    end
-
     def cancel
       return unless @sale = find_and_check
       url = { controller: :sale_credits, action: :new, credited_sale_id: @sale.id }

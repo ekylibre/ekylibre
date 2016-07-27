@@ -38,8 +38,6 @@ module Synel
           variety = (item ? item.name : :bos_taurus)
           variant = ProductNatureVariant.import_from_nomenclature(r.sex == :male ? :male_adult_cow : :female_adult_cow)
 
-          puts r.born_at.inspect.green
-          puts r.dead_at.inspect.red
           animal = Animal.create!(
             variant: variant,
             name: r.name,

@@ -3,7 +3,7 @@
     .activity-production
       .activity-production-infos
         = link_to(production.name, {action: :show, controller: :activity_productions, id: production.id})
-        %span.pull-right= production.size.l rescue nil
+        %span.pull-right= production.size.round(2).l(precision: 2) rescue nil
       .activity-production-chronology
         .chronology
           .grades

@@ -980,7 +980,6 @@ arb:
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?
-    are_you_sure_you_want_to_generate_parcel: "هل أنت متأكد أنك تريد أن تولد لا يتجزأ"
     are_you_sure_you_want_to_invoice: "هل انت متأكد من رغبتك باعداد فاتورة البيع؟"
     are_you_sure_you_want_to_send_mails: "هل انت متأكد من رغبتك بارسال الرسالة"
     area: "منطقة"
@@ -1310,6 +1309,7 @@ arb:
     general_ledger: "دفتر الحسابات" #?
     generate: "توليد"
     generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
+    generate_parcel: "تولد لا يتجزأ"
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
     go: "صلاحية"
@@ -2454,7 +2454,6 @@ arb:
       family: "أسرة"
       finish: "إنهاء"
       generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
-      generate_parcel: "تولد لا يتجزأ"
       import: "استيراد"
       incorporate: "دمج"
       increment: "زيادة" #?

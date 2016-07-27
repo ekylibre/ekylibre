@@ -11,8 +11,10 @@
     = f.referenced_association :driver
     = f.nested_association(:tools)
   = f.custom_fields
-  - parcel_choices = f.object.available_parcels
-  - if parcel_choices.any?
+
+- parcel_choices = f.object.available_parcels
+- if parcel_choices.any?
+  = field_set :parcels, title: Delivery.human_attribute_name(:parcels) do
     %table
       %thead
         %tr
@@ -27,8 +29,8 @@
             %td= p.check_box
             %td= p.object.number
             %td= p.object.nature.l
-            %td= Maybe(p.object.sender || p.object.recipient).name.or_else('-')
-            %td= p.object.items.map(&:product).map(&:name).to_sentence
+            %td= Maybe(p.object.sender || p.object.recipient).name.or_else('&ndash;'.html_safe)
+            %td= p.object.items.map(&:name).compact.to_sentence
 
 = f.attachments_field_set
 

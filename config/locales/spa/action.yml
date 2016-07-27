@@ -772,7 +772,6 @@ spa:
       reopen_issue: "¿Está seguro de que desea volver a abrir este problema?"
     are_you_sure_you_want_to_confirm: "¿Seguro que quiere pedir"
     are_you_sure_you_want_to_delete: "¿Está seguro de que desea eliminar este registro?"
-    are_you_sure_you_want_to_generate_parcel: "¿Seguro que desea generar parcela"
     are_you_sure_you_want_to_invoice: "¿Seguro que desea facturar?"
     are_you_sure_you_want_to_send_mails: "Esta seguro querer enviar este correo electronico?'"
     area: "Zona"
@@ -1054,6 +1053,7 @@ spa:
     general_ledger: "Grande libro" #?
     generate: "Generar"
     generate_last_journal_entry: "Generar última entrada en el diario"
+    generate_parcel: "generar parcela"
     geolocation: "Geolocalización"
     go: "Ir"
     gradings: "gradaciones"
@@ -1963,7 +1963,6 @@ spa:
       family: "Familia"
       finish: "Acabado"
       generate_last_journal_entry: "Generar última entrada en el diario"
-      generate_parcel: "Generar parcela"
       import: "Importar"
       incorporate: "Incorporar"
       increment: "Incremento" #?

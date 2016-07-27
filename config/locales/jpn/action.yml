@@ -768,7 +768,6 @@ jpn:
       reopen_issue: "あなたはこの問題を再度開くにしてもよろしいですか？"
     are_you_sure_you_want_to_confirm: "あなたが注文してもよろしいです"
     are_you_sure_you_want_to_delete: "あなたはこのレコードを削除してもよろしいですか？"
-    are_you_sure_you_want_to_generate_parcel: "あなたが小包を生成してもよろしいです"
     are_you_sure_you_want_to_invoice: "あなたが請求してもよろしいですか？"
     are_you_sure_you_want_to_send_mails: "あなたは電子メールを送信してもよろしいですか？"
     area: "エリア"
@@ -992,6 +991,7 @@ jpn:
     general_informations: "一般的な情報"
     generate: "生成します"
     generate_last_journal_entry: "最後の仕訳を生成します"
+    generate_parcel: "小包を生成します"
     geolocation: "ジオロケーション"
     go: "行きます"
     gradings: "グレーディング"
@@ -1110,7 +1110,7 @@ jpn:
     mark_all_as_read: "すべての読み取りとしてマーク"
     mark_as_read: "既読にする"
     marketable_net_mass: "有価正味質量"
-    # mass: "Masse"
+    mass: "マッセ"
     maximal_temperature: "最高温度"
     members: "メンバー"
     menu:  #?
@@ -1739,7 +1739,6 @@ jpn:
       family: "家族"
       finish: "仕上げ"
       generate_last_journal_entry: "最後の仕訳を生成します"
-      generate_parcel: "小包を生成します"
       import: "インポート"
       incorporate: "組み込みます"
       increment: "インクリメント" #?
