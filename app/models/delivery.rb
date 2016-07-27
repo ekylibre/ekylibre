@@ -60,7 +60,6 @@ class Delivery < Ekylibre::Record::Base
   validates :state, presence: true
   # ]VALIDATORS]
 
-
   accepts_nested_attributes_for :tools, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :parcels, reject_if: :all_blank, allow_destroy: true
 
@@ -121,7 +120,7 @@ class Delivery < Ekylibre::Record::Base
   end
 
   def available_parcels
-    Parcel.where("(delivery_id = ?) OR ((delivery_id IS ?) AND (state != ?))", self.id, nil, :given).order(:number)
+    Parcel.where('(delivery_id = ?) OR ((delivery_id IS ?) AND (state != ?))', id, nil, :given).order(:number)
   end
 
   def finish

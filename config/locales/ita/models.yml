@@ -650,7 +650,7 @@ ita:
     grading_sizes_unit_name: "Grading dimensioni nome dell&#39;unità"
     gradings: "classificazioni"
     gravity: "Gravità"
-    # gross_items: "Gross count"
+    gross_items: "conteggio lordo"
     gross_mass: "massa lorda"
     gross_yield_value: "Valore di rendimento lordo"
     group: "Gruppo"
@@ -809,7 +809,7 @@ ita:
     managed_sales: "vendite managed"
     manure_management_plan_zones: "zone di piano di gestione del letame"
     marketable: "vendibile"
-    # marketable_items_count: "Marketable items count"
+    marketable_items_count: "contano articoli negoziabili"
     marketable_net_mass: "massa netta commerciabile"
     marketable_net_yield: "rendimento netto commerciabile"
     marketable_yield: "resa commerciabile"
@@ -1177,7 +1177,7 @@ ita:
     taxations: "tassazioni"
     team: "Squadra"
     template: "Modello"
-    # theme: "Theme"
+    theme: "Tema"
     third: "Terzo"
     third_producer: "terzo produttore" #?
     third_role: "terzo ruolo"
@@ -1256,7 +1256,7 @@ ita:
     with_deposit: "con deposito"
     with_supports: "Con supporti"
     with_transport: "con i trasporti"
-    # work_name: "Work name"
+    work_name: "nome lavoro"
     work_number: "numero di lavoro"
     worker: "Lavoratore"
     working_duration: "durata di funzionamento"
@@ -1341,8 +1341,8 @@ ita:
         transfer:
           name: "virement"
     inspection:
-      # items: "Items"
-      # mass: "Mass"
+      items: "Elementi"
+      mass: "Massa"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:
@@ -1414,7 +1414,7 @@ ita:
           in_preparation: "In preparazione"
           ordered: "Ordinato"
           prepared: "Preparato"
-          # received: "Received"
+          received: "ricevuto"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

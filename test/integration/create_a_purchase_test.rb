@@ -61,7 +61,7 @@ class CreateAPurchaseTest < CapybaraIntegrationTest
     # click_link :timeline.tl
     page.execute_script("$(\"*[data-toggle='face'][href='timeline']\").click();")
     sleep(1)
-	# p find('.timeline-tool.tl-purchases')
+    # p find('.timeline-tool.tl-purchases')
     within('.timeline-tool.tl-purchases') do
       click_on 'actions.backend/purchases.new'.t
     end

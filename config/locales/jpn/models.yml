@@ -619,7 +619,7 @@ jpn:
     grading_sizes_unit_name: "グレーディングサイズのユニット名"
     gradings: "グレーディング"
     gravity: "重力"
-    # gross_items: "Gross count"
+    gross_items: "総カウント数"
     gross_mass: "総質量"
     gross_yield_value: "総降伏値"
     group: "グループ"
@@ -778,7 +778,7 @@ jpn:
     managed_sales: "マネージド販売"
     manure_management_plan_zones: "肥料管理計画区域"
     marketable: "市場性のあります"
-    # marketable_items_count: "Marketable items count"
+    marketable_items_count: "有価項目はカウント"
     marketable_net_mass: "有価正味質量"
     marketable_net_yield: "有価純利回り"
     marketable_yield: "有価収量"
@@ -1146,7 +1146,7 @@ jpn:
     # taxations: "Taxations"
     team: "チーム"
     template: "テンプレート"
-    # theme: "Theme"
+    theme: "テーマ"
     third: "三番"
     third_producer: "サードプロデューサー" #?
     third_role: "第三の役割"
@@ -1225,7 +1225,7 @@ jpn:
     with_deposit: "預金と"
     with_supports: "サポート付き"
     with_transport: "輸送と"
-    # work_name: "Work name"
+    work_name: "仕事名"
     work_number: "勤務先の電話番号"
     worker: "ワーカー"
     working_duration: "作業期間"
@@ -1310,8 +1310,8 @@ jpn:
         transfer:
           name: "費目変更"
     inspection:
-      # items: "Items"
-      # mass: "Mass"
+      items: "アイテム"
+      mass: "質量"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:
@@ -1383,7 +1383,7 @@ jpn:
           in_preparation: "準備中"
           ordered: "順序付けられました"
           prepared: "準備"
-          # received: "Received"
+          received: "受け"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

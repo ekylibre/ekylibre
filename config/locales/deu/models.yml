@@ -619,7 +619,7 @@ deu:
     grading_sizes_unit_name: "Grading Größen Gerätenamen"
     gradings: "Sortierungen"
     gravity: "Schwerkraft"
-    # gross_items: "Gross count"
+    gross_items: "Gross Zahl"
     gross_mass: "Rohmasse"
     gross_yield_value: "Die Bruttoertragswert"
     group: "Gruppe"
@@ -778,7 +778,7 @@ deu:
     managed_sales: "Managed Verkaufs"
     manure_management_plan_zones: "Gülle-Management-Plan Zonen"
     marketable: "marktfähig"
-    # marketable_items_count: "Marketable items count"
+    marketable_items_count: "Marktfähige Produkte zählen"
     marketable_net_mass: "Marktgängige Nettomasse"
     marketable_net_yield: "Marktfähige Nettorendite"
     marketable_yield: "Marktgängige Ausbeute"
@@ -1146,7 +1146,7 @@ deu:
     taxations: "Besteuerungen"
     team: "Mannschaft"
     template: "Vorlage"
-    # theme: "Theme"
+    theme: "Thema"
     third: "Dritte"
     third_producer: "Drittens Produzent" #?
     third_role: "Drittens Rolle"
@@ -1224,7 +1224,7 @@ deu:
     with_deposit: "mit Pfand"
     with_supports: "mit Stützen"
     with_transport: "mit Transport"
-    # work_name: "Work name"
+    work_name: "Arbeitsname"
     work_number: "Arbeitsnummer"
     worker: "Arbeitnehmer"
     working_duration: "Arbeitsdauer"
@@ -1309,8 +1309,8 @@ deu:
         transfer:
           # name: "Virement"
     inspection:
-      # items: "Items"
-      # mass: "Mass"
+      items: "Artikel"
+      mass: "Masse"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:
@@ -1382,7 +1382,7 @@ deu:
           in_preparation: "In Vorbereitung"
           ordered: "bestellt"
           prepared: "Bereit"
-          # received: "Received"
+          received: "Empfangen"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
