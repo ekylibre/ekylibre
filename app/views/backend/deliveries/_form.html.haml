@@ -27,8 +27,8 @@
             %td= p.check_box
             %td= p.object.number
             %td= p.object.nature.l
-            %td= Maybe(p.object.sender || p.object.recipient).name.or_else('-')
-            %td= p.object.items.map(&:name).to_sentence
+            %td= Maybe(p.object.sender || p.object.recipient).name.or_else('&ndash;'.html_safe)
+            %td= p.object.items.map(&:name).compact.to_sentence
 
 = f.attachments_field_set
 
