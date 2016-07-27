@@ -30,12 +30,7 @@
     - l.attribute :irrigated
     - l.attribute :nitrate_fixing
     - l.attribute :cap_land_parcel, url: true, label: :land_parcel_number
-    - l.attribute :implanted_at
-    - l.attribute :harvested_at
-    - if resource.grains_yield && resource.grains_yield.to_d > 0.0
-      - l.attribute :grains_yield
-    - if resource.vine_yield && resource.vine_yield.to_d > 0.0
-      - l.attribute :vine_yield
+    
 
 = cobbles do |c|
 
@@ -170,4 +165,4 @@
     - if resource.interventions.any?
       = cobble_list(:interventions)
 
-  = render partial: 'backend/shared/distributions', locals: {c: c}
+  = #render partial: 'backend/shared/distributions', locals: {c: c}
