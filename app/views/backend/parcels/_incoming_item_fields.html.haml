@@ -1,6 +1,6 @@
 - item ||= f.object
 - source_product = Maybe(item.source_product)
-- variant = source_product.variant
+- variant = Maybe(source_product.variant.or_else(item.variant))
 
 %tbody.nested-fields.delivery-item.incoming-parcel-item
   %tr
