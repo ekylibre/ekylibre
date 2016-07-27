@@ -81,7 +81,7 @@
               %th= InspectionCalibration.human_attribute_name(:maximal_size)
             - if resource.mass_statable?
               %th= :total.tl
-              %th= :yield.tl
+              %th= Inspection.human_attribute_name(:gross_yield_value)
               %th= InspectionCalibration.human_attribute_name(:marketable)
           - resource.calibrations.of_scale(scale).reorder(:id).each do |calibration|
             %tr
@@ -109,7 +109,7 @@
             - if resource.mass_statable?
               %th.decimal= resource.total_net_mass(scale).l(precision: 0)
               %th.decimal= resource.net_mass_yield(scale).l(precision: 0)
-              %th.decimal= resource.marketable_net_mass(scale).l(precision: 0)
+              %th.decimal= resource.marketable_net_mass(scale).round(2).l(precision: 0)
         - if resource.points.any?
           %tr.title
             %th{ colspan: colspan }= Inspection.human_attribute_name(:points)
@@ -124,7 +124,7 @@
               %th= InspectionPoint.human_attribute_name(:maximal_size)
             - if resource.mass_statable?
               %th= :total.tl
-              %th= :yield.tl
+              %th= Inspection.human_attribute_name(:gross_yield_value)
               %th= InspectionPoint.human_attribute_name(:net_mass_percentage)
           - resource.points.joins(:nature).order('category, name').each do |point|
             %tr

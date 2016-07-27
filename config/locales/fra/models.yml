@@ -1579,7 +1579,7 @@ fra:
         transfer:
           name: "Virement"
     inspection:
-      items: "Nombre"
+      items: "Nombre de pièces"
       mass: "Masse"
     intervention:
       name: "%{intervention} n°%{number}"
