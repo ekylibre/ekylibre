@@ -2,7 +2,7 @@
   - transitions = resource.state_transitions
   - states.each do |state|
     - human_name = Maybe(renamings)[state.name].or_else(state.name)
-    - localized_path =  "models." + resource.class.name.downcase + ".state_machine.states." + human_name.to_s
+    - localized_path =  "models." + resource.class.model_name.param_key + ".state_machine.states." + human_name.to_s
     - localized_name = localized_path.t
     - classes = ["state", "state-#{state.name}"]
     - classes << "active" if state == current_state
