@@ -272,7 +272,7 @@ class Inspection < Ekylibre::Record::Base
   #  or the average of measurements across all scales if none is.
   def calibration_values(method, scale = nil, marketable = false)
     if scale.nil?
-      (scales.map { |s| send(:calibration_values, method, s, marketable) }.sum / scales.count).round(0)
+      (scales.map { |s| send(:calibration_values, method, s, marketable) }.sum / scales.count)
     else
       calib = calibrations.of_scale(scale)
       calib = calib.marketable if marketable
