@@ -20,7 +20,8 @@ module Ekylibre
         zone = CultivableZone.find_or_initialize_by(work_number: r.code)
         zone.name = r.name
 
-        georeading = Georeading.find_by(number: r.georeading_number)
+        georeading = Georeading.find_by(number: r.georeading_number) ||
+                     Georeading.find_by(name: r.georeading_number)
         if georeading
           zone.shape = georeading.content
         else
