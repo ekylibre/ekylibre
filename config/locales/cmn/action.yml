@@ -701,7 +701,6 @@ cmn:
       reopen_issue: "你确定你要重新讨论这一问题？"
     are_you_sure_you_want_to_confirm: "您确定要订购"
     are_you_sure_you_want_to_delete: "你确定要删除此记录？"
-    are_you_sure_you_want_to_generate_parcel: "你确定你要生成包裹"
     are_you_sure_you_want_to_invoice: "你确定你要发票？"
     are_you_sure_you_want_to_send_mails: "你确定要发送电子邮件？"
     area: "区"
@@ -923,6 +922,7 @@ cmn:
     general_informations: "一般信息"
     generate: "生成"
     generate_last_journal_entry: "最后生成日记帐分录"
+    generate_parcel: "生成包裹"
     geolocation: "地理位置"
     go: "走"
     gradings: "放坡"
@@ -1663,7 +1663,6 @@ cmn:
       family: "家庭"
       finish: "完"
       generate_last_journal_entry: "最后生成日记帐分录"
-      generate_parcel: "生成包裹"
       import: "进口"
       incorporate: "合并"
       increment: "增量" #?

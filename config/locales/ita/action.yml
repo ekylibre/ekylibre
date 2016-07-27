@@ -767,7 +767,6 @@ ita:
       reopen_issue: "Sei sicuro di voler riaprire la questione?"
     are_you_sure_you_want_to_confirm: "Sei sicuro di voler ordinare"
     are_you_sure_you_want_to_delete: "Sei sicuro di voler eliminare questo record?"
-    are_you_sure_you_want_to_generate_parcel: "Sei sicuro che si desidera generare pacco"
     are_you_sure_you_want_to_invoice: "Sei sicuro di voler fattura?"
     are_you_sure_you_want_to_send_mails: "Sei sicuro che si desidera inviare messaggi di posta elettronica?"
     area: "La zona"
@@ -989,6 +988,7 @@ ita:
     general_informations: "informazioni generali"
     generate: "creare"
     generate_last_journal_entry: "Generare ultima voce di diario"
+    generate_parcel: "genera pacchi"
     geolocation: "geolocalizzazione"
     go: "Partire"
     gradings: "classificazioni"
@@ -1728,7 +1728,6 @@ ita:
       family: "Famiglia"
       finish: "finire"
       generate_last_journal_entry: "Generare ultima voce di diario"
-      generate_parcel: "genera pacchi"
       import: "Importare"
       incorporate: "incorporare"
       increment: "Incremento" #?

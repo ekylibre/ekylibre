@@ -706,7 +706,6 @@ por:
       reopen_issue: "Tem certeza de que quer reabrir esta questão?"
     are_you_sure_you_want_to_confirm: "Tem a certeza que pretende encomendar"
     are_you_sure_you_want_to_delete: "Tem certeza de que deseja excluir este registro?"
-    are_you_sure_you_want_to_generate_parcel: "Tem certeza de que quer gerar encomendas"
     are_you_sure_you_want_to_invoice: "Tem certeza de que quer facturar?"
     are_you_sure_you_want_to_send_mails: "Tem certeza de que deseja enviar e-mails?"
     area: "Área"
@@ -928,6 +927,7 @@ por:
     general_informations: "Informações gerais"
     generate: "Gerar"
     generate_last_journal_entry: "Gerar última entrada do diário"
+    generate_parcel: "gerar parcel"
     # geolocation: "Geolocation"
     go: "Ir"
     gradings: "gradings"
@@ -1667,7 +1667,6 @@ por:
       family: "Família"
       finish: "Terminar"
       generate_last_journal_entry: "Gerar última entrada do diário"
-      generate_parcel: "Gerar parcel"
       import: "Importar"
       incorporate: "Incorporar"
       increment: "Incremento" #?

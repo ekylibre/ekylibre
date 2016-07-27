@@ -519,7 +519,6 @@ eng:
       confirm: "Confirm order and wait for deliveries"
       correct: "Correct order"
       edit: "Edit purchase: %{number}"
-      # generate_parcel: "Generate parcel purchase: %{name}"
       index: "Purchases"
       invoice: "Receive invoice"
       new: "New purchase"
@@ -574,7 +573,6 @@ eng:
       # contacts: "Contacts sale: %{name}"
       # correct: "Correct sale: %{name}"
       edit: "Edit sale %{number}"
-      # generate_parcel: "Generate parcel sale: %{name}"
       index: "Sales"
       # invoice: "Invoice sale: %{name}"
       new: "New sale"
@@ -859,7 +857,6 @@ eng:
       reopen_issue: "Are you sure you want to reopen this issue?"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
-    are_you_sure_you_want_to_generate_parcel: "Are you sure you want to generate parcel"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
@@ -1078,6 +1075,7 @@ eng:
     general_informations: "General informations"
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
+    generate_parcel: "Generate parcel"
     geolocation: "Geolocation" #?
     go: "Go" #?
     gradings: "Gradings" #?
@@ -1812,7 +1810,6 @@ eng:
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
-      generate_parcel: "Generate parcel"
       # give: "Give"
       import: "Import"
       incorporate: "Incorporate"

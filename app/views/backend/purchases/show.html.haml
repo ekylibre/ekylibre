@@ -1,7 +1,8 @@
 - main_toolbar do |t|
   = t.export :purchases_invoice
   = t.edit resource if resource.draft?
-  = t.generate_parcel(resource, method: :post, "data-confirm" => :are_you_sure_you_want_to_generate_parcel.tl) if resource.can_generate_parcel?
+  - if current_user.can? :write, :parcels
+    = t.new(resource, params: { controller: :parcels, purchase_id: resource.id, nature: :incoming }, label: :generate_parcel.tl) if resource.can_generate_parcel?
   = t.destroy
 
 = main_state_bar(resource)
