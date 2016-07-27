@@ -11,8 +11,10 @@
     = f.referenced_association :driver
     = f.nested_association(:tools)
   = f.custom_fields
-  - parcel_choices = f.object.available_parcels
-  - if parcel_choices.any?
+
+- parcel_choices = f.object.available_parcels
+- if parcel_choices.any?
+  = field_set :parcels, title: Delivery.human_attribute_name(:parcels) do
     %table
       %thead
         %tr
