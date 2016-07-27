@@ -56,6 +56,10 @@ fra:
         to_bank_at: "À encaisser le" #?
       inspection:  #?
         points: "Points de contrôle" #?
+      inspection_calibration:  #?
+        items_count: "Nombre de pièces" #?
+      inspection_point:  #?
+        items_count: "Nombre de pièces" #?
       intervention:  #?
         production_support: "Support de production" #?
         storage: "Support" #?
@@ -991,7 +995,7 @@ fra:
     maximal_value: "Valeur maximale"
     maximum_nitrogen_input: "Apport maximum d’azote"
     meadow_humus_mineralization: "Minéralisation nette due à un retournement de prairie (Mhp)"
-    measure_grading_items_count: "Mesurer la population de l'échantillon"
+    measure_grading_items_count: "Mesurer le nombre de pièces de l'échantillon"
     measure_grading_net_mass: "Mesurer la masse nette de l'échantillon"
     measure_grading_sizes: "Mesurer les extrema de l'échantillon"
     measure_value: "Valeur de la mesure"
