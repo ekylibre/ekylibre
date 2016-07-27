@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727201017) do
+ActiveRecord::Schema.define(version: 20160728070743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1559,20 +1559,20 @@ ActiveRecord::Schema.define(version: 20160727201017) do
   create_table "interventions", force: :cascade do |t|
     t.integer  "issue_id"
     t.integer  "prescription_id"
-    t.string   "procedure_name",               null: false
-    t.string   "state",                        null: false
+    t.string   "procedure_name",                          null: false
+    t.string   "nature",                                  null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0, null: false
+    t.integer  "lock_version",            default: 0,     null: false
     t.integer  "event_id"
     t.string   "number"
     t.text     "description"
-    t.integer  "working_duration", default: 0, null: false
-    t.integer  "whole_duration",   default: 0, null: false
+    t.integer  "working_duration",        default: 0,     null: false
+    t.integer  "whole_duration",          default: 0,     null: false
     t.string   "actions"
     t.jsonb    "custom_fields"
     t.integer  "request_intervention_id"
@@ -2116,19 +2116,17 @@ ActiveRecord::Schema.define(version: 20160727201017) do
     t.integer  "product_id"
     t.integer  "analysis_id"
     t.integer  "variant_id"
-    t.boolean  "parted",                                                                                                 default: false, null: false
-    t.decimal  "population",                                                                    precision: 19, scale: 4
-    t.geometry "shape",                           limit: {:srid=>4326, :type=>"multi_polygon"}
-    t.integer  "source_product_shape_reading_id"
-    t.integer  "product_shape_reading_id"
+    t.boolean  "parted",                                                                                               default: false, null: false
+    t.decimal  "population",                                                                  precision: 19, scale: 4
+    t.geometry "shape",                         limit: {:srid=>4326, :type=>"multi_polygon"}
     t.integer  "product_enjoyment_id"
     t.integer  "product_ownership_id"
     t.integer  "product_localization_id"
-    t.datetime "created_at",                                                                                                             null: false
-    t.datetime "updated_at",                                                                                                             null: false
+    t.datetime "created_at",                                                                                                           null: false
+    t.datetime "updated_at",                                                                                                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                           default: 0,     null: false
+    t.integer  "lock_version",                                                                                         default: 0,     null: false
     t.integer  "product_movement_id"
     t.integer  "source_product_movement_id"
     t.string   "product_identification_number"
