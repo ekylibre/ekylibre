@@ -1263,6 +1263,7 @@ eng:
     with_deposit: "With deposit"
     with_supports: "With supports"
     with_transport: "With transport" #?
+    work_name: "Work name"
     work_number: "Work number"
     worker: "Worker"
     working_duration: "Working duration"

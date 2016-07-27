@@ -1488,6 +1488,7 @@ fra:
     with_supports: "Avec des supports"
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
+    work_name: "Nom de travail"
     worker: "Équipier"
     working_area: "Superficie travaillée" #?
     working_duration: "Durée travaillée"
