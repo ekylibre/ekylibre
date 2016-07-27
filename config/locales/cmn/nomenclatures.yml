@@ -1506,6 +1506,7 @@ cmn:
         consumption_period: "消费期"
         copper_concentration: "铜浓度"
         cumulated_rainfall: "累计降雨"
+        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "每日制氮"
         diameter: "直径"
         dry_matter_rate: "干物质率"
@@ -1536,6 +1537,7 @@ cmn:
         lactating: "哺乳"
         last_birth_children_count: "去年出生的孩子数"
         length: "长度"
+        # lifespan: "Lifespan"
         lipolysis: "脂解"
         livestock_unit: "畜牧业单位"
         magnesium_concentration: "镁离子浓度"
@@ -1640,6 +1642,7 @@ cmn:
         wind_direction: "风向"
         wind_speed: "风速"
         woodstock_variety: "伍德斯托克品种"
+        # working_lifespan: "Working lifespan"
         zinc_concentration: "锌浓度"
       name: "指标"
       property_natures:

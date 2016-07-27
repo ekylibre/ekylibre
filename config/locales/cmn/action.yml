@@ -637,7 +637,9 @@ cmn:
     add_attachment: "添加附件"
     add_bank_statement: "添加银行对账单"
     add_catalog_price: "添加目录价格"
+    # add_child: "Add a child component"
     add_choice: "选择添加"
+    # add_component: "Add component"
     add_condition: "添加条件"
     add_conditions: "添加条件"
     add_delivery: "添加交货"
@@ -857,6 +859,7 @@ cmn:
     document: "文件"
     document_natures: "文档类型"
     document_templates: "文档模板"
+    # documentation: "Documentation"
     doer_cost: "杜尔成本"
     done: "做"
     dont_use_journal: "- 不要使用日记 -"
@@ -1128,6 +1131,7 @@ cmn:
     operations: "操作"
     options: "选项"
     organic_matter_concentration: "有机物浓度"
+    # original_component: "original"
     others: "其他"
     outgoing_payment: "付款"
     outgoing_payments: "汇出款项"
@@ -1138,9 +1142,10 @@ cmn:
     paid_at: "在付费"
     parameters: "参数"
     parcels: "地块"
+    # part: "part"
     participants: "参与者"
     participations: "参股"
-    parts: "模块"
+    parts: "模块" #?
     password: "密码"
     paths_to_convert: "路径转换" #?
     payable_taxes: "应交税费"
@@ -1180,7 +1185,9 @@ cmn:
     prices: "价格"
     print: "打印"
     # printing_document: "Printing %{document}"
-    procedures: "程序"
+    # procedure: "Procedure"
+    # procedure_name: "Procedure name"
+    procedures: "程序" #?
     product: "产品"
     product_category: "产品分类"
     product_name: "产品名称"
@@ -1214,6 +1221,7 @@ cmn:
     reflected: "反映变化"
     reflections: "思考"
     refresh: "刷新"
+    # register_intervention_request: "Register intervention request"
     relationship: "关系"
     # relationship_of_entity: "%{relationship} of %{entity}"
     # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
@@ -1437,6 +1445,9 @@ cmn:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1477,6 +1488,9 @@ cmn:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_part_replacements:
+      # one: "%{count} part_replacement"
+      # other: "%{count} part replacements"
     x_purchases:
       one: "1购买"
       # other: "%{count} purchases"
@@ -1727,6 +1741,7 @@ cmn:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
+    # backend/interventions: "%{number}. %{name}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

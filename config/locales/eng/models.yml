@@ -256,8 +256,10 @@ eng:
       product_nature_category: "Product category"
       product_nature_category_taxation: "Product type category taxation"
       product_nature_variant: "Product type variant"
+      product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "Product type variant reading"
       product_ownership: "Product ownership"
+      # product_part_replacement: "Product part replacement"
       product_phase: "Product phase"
       product_reading: "Product reading"
       purchase: "Purchase"
@@ -427,6 +429,8 @@ eng:
     commission_base_amount: "Base amount of the commission"
     commission_percentage: "Commission percentage"
     commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
+    # component: "Component"
+    components: "Components"
     computation_method: "Computation method"
     compute: "Compute"
     conclusion: "Conclusion"
@@ -613,6 +617,7 @@ eng:
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
     fixed_assets: "Fixed assets"
+    following: "Following"
     formats: "Formats"
     frequency: "Frequency"
     frozen_indicators_list: "Frozen indicators list"
@@ -801,6 +806,7 @@ eng:
     main_crop_precision: "Main crop precision"
     main_crop_seed_production: "Main crop seed production"
     main_production: "Main production" #?
+    maintenance_nature: "Maintenance nature"
     managed: "Managed"
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
@@ -898,6 +904,10 @@ eng:
     parcel_items: "Parcel items"
     parcels: "Parcels"
     parent: "Parent"
+    # part_product_nature_variant: "Part product nature variant"
+    part_product_nature_variant_id: "Part product nature variant"
+    part_replacements: "Part replacements"
+    part_variant: "Part variant" #?
     parted: "Parted"
     parted_product: "Parted product" #?
     participant: "Participant"
@@ -943,6 +953,7 @@ eng:
     post: "Post"
     postal_code: "Postal code"
     postal_zones: "Postal zones"
+    # precedings: "Precedings"
     preferences: "Preferences"
     prepared_at: "Prepared at"
     prescription: "Prescription"
@@ -971,12 +982,17 @@ eng:
     product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"
     product_nature_category_taxations: "Product type category taxations"
+    product_nature_component: "Product nature component" #?
+    product_nature_variant: "Product nature variant"
+    product_nature_variant_component: "Product nature variant component" #?
+    product_nature_variant_id: "Product nature variant"
     # product_natures: "Product natures"
     # product_net_surface_area_unit: "Product net surface area unit"
     # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "Product ownership"
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
+    product_part_replacement: "Product part replacement"
     product_phases: "Product phases" #?
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
@@ -1054,6 +1070,8 @@ eng:
     reflections: "Reflections" #?
     remain_owner: "Remain owner"
     remaining_amount: "Remaining amount"
+    remaining_lifespan: "Remaining lifespan"
+    remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "Remember created at"
     remember_me: "Remember me"
     reminder_submissive: "Reminder submissive"
@@ -1062,6 +1080,7 @@ eng:
     repayment_period: "Repayment period"
     repayments: "Repayments"
     reporter: "Reporter" #?
+    # request_intervention: "Request intervention"
     required: "Required"
     reset_password_sent_at: "Reset password sent at"
     reset_password_token: "Reset password token"
@@ -1077,6 +1096,7 @@ eng:
     rights: "Rights"
     role: "Role"
     roles: "Roles" #?
+    # root_components: "Root components"
     root_model: "Root model"
     root_model_name: "Root model name"
     root_node: "Root node"

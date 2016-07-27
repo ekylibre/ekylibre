@@ -104,11 +104,9 @@ eng:
         passed: "Passed"
         passed_with_warnings: "Passed with warnings"
     intervention:
-      state:
-        done: "Done"
-        in_progress: "In progress"
-        squeezed: "Squeezed"
-        undone: "Undone"
+      nature:
+        record: "record"
+        request: "Request"
     journal:
       nature:
         bank: "Bank"

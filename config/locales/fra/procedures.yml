@@ -164,7 +164,7 @@ fra:
     insecticide_to_input: "Insecticide à distribuer" #?
     insemination: "Insémination"
     inseminator: "Inséminateur"
-    item: "Pièce"
+    item: "Pièce" #?
     item_to_change: "Pièce changée" #?
     items: "Éléments" #?
     items_to_fill: "Éléments à remplir" #?
@@ -202,7 +202,7 @@ fra:
     nuts_to_deliver: "Fruits à coques à livrer" #?
     oenological_intrant: "Produit œnologique"
     oenological_intrant_to_put: "Produit œnologique à mettre" #?
-    oil: "Huile"
+    oil: "Huile" #?
     oil_to_input: "Huile mise" #?
     operator: "Opérateur"
     plant: "Culture végétale" #?
@@ -329,7 +329,7 @@ fra:
     egg_collecting: "Collecte d'œufs"
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
-    equipment_item_replacement: "Remplacement de pièces d'équipement"
+    equipment_part_replacement: "Remplacement de pièces d'équipement" #?
     fermentation: "Fermentation"
     fertilizing: "Fertilisation"
     field_plant_sorting: "Tri au champ"
@@ -374,7 +374,7 @@ fra:
     moving: "Déplacement" #?
     net_installation: "Pose de filet de protection"
     net_removing: "Retrait de filet"
-    oil_replacement: "Vidange d’huile"
+    oil_replacement: "Vidange d’huile" #?
     organic_fertilizing: "Fertilisation organique" #?
     partial_wine_transfer: "Transfert de vin (Partiel)"
     parturition: "Mise bas"

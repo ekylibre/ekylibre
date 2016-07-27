@@ -25,11 +25,27 @@
     .med-info.important
       %span.title= Equipment.human_attribute_name(:state)
       %span.value= lights(resource.status)
+    - if resource.remaining_working_lifespan || resource.remaining_lifespan
+      .med-info.important
+        %span.title= :wear.tl
+        %span.value= lights(resource.wear_status)
     .med-info
       %span.title= Equipment.human_attribute_name(:working_duration)
       %span.value
         %i.picto{class: "picto-timelapse"}
-        = :x_hours.tl(count: resource.working_duration(as: :tool)/3600)
+        = resource.working_time.in_hour.l precision: 1
+    - if resource.remaining_working_lifespan
+      .med-info
+        %span.title= Equipment.human_attribute_name(:remaining_working_lifespan)
+        %span.value
+          %i.picto{class: "picto-timelapse"}
+          = resource.remaining_working_lifespan.in_hour.l precision: 1
+    - if resource.remaining_lifespan
+      .med-info
+        %span.title= Equipment.human_attribute_name(:remaining_lifespan)
+        %span.value
+          %i.picto{class: "picto-timelapse"}
+          = resource.remaining_lifespan.in_hour.l precision: 1
     - if resource.description
       .med-info
         %span.title= Equipment.human_attribute_name(:description)
@@ -53,3 +69,13 @@
       .toolbar
         = tool_to :new.ta, {action: :new, controller: :product_localizations, product_id: resource.id }, tool: :new
       = cobble_list(:places)
+
+  - if resource.part_replacements.any?
+    - c.cobble(:product_part_replacements, title: :x_part_replacements.tl(count: resource.part_replacements.count)) do
+      = cobble_list(:part_replacements)
+
+    - if resource.nature.variants.collect(&:components).any?
+      - c.cobble(:components) do
+        .component-tree
+          = render "composition", product: resource, components: resource.variant.root_components
+

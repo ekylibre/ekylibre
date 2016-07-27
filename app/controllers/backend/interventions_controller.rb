@@ -93,6 +93,7 @@ module Backend
       t.column :total_cost, currency: true
       # t.status
       t.column :issue, url: true
+      t.column :trouble_encountered, hidden: true
       # t.column :casting
       # t.column :human_target_names, hidden: true
     end

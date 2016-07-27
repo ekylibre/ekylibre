@@ -1653,6 +1653,7 @@ fra:
         consumption_period: "Période de consommation limite"
         copper_concentration: "Teneur en cuivre"
         cumulated_rainfall: "Cumul des précipitations"
+        daily_average_working_time: "Temps journalier moyen de travail"
         daily_nitrogen_production: "Production d’azote journalière"
         diameter: "Diamètre"
         dry_matter_rate: "Taux de matière sèche"
@@ -1683,6 +1684,7 @@ fra:
         lactating: "En lactation"
         last_birth_children_count: "Nombre de nouveaux-nés lors de la dernière naissance"
         length: "Longueur"
+        lifespan: "Esperance de vie"
         lipolysis: "Lipolyse"
         livestock_unit: "Unité de gros bétail (UGB)"
         magnesium_concentration: "Teneur en magnésium"
@@ -1788,6 +1790,7 @@ fra:
         wind_direction: "Direction du vent"
         wind_speed: "Vitesse du vent"
         woodstock_variety: "Variété du porte-greffe"
+        working_lifespan: "Esperance de vie de travail"
         zinc_concentration: "Teneur en zinc"
       name: "Indicateurs"
       property_natures:

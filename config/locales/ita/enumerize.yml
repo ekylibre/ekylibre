@@ -104,11 +104,14 @@ ita:
         passed: "Passato"
         passed_with_warnings: "Superato con avvisi"
     intervention:
-      state:
-        done: "Fatto"
-        in_progress: "In corso"
-        squeezed: "spremuto"
-        undone: "disfatto"
+      nature:
+        # record: "record"
+        # request: "Request"
+      state:  #?
+        done: "Fatto" #?
+        in_progress: "In corso" #?
+        squeezed: "spremuto" #?
+        undone: "disfatto" #?
     journal:
       nature:
         bank: "Banca"

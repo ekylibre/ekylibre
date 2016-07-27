@@ -1515,6 +1515,7 @@ arb:
         consumption_period: "فترة الاستهلاك"
         copper_concentration: "تركيز النحاس"
         cumulated_rainfall: "الأمطار المتراكمة"
+        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "إنتاج النيتروجين اليومي"
         diameter: "قطر الدائرة"
         dry_matter_rate: "معدل المادة الجافة"
@@ -1545,6 +1546,7 @@ arb:
         lactating: "المرضعات"
         last_birth_children_count: "آخر إحصاء الأطفال الولادة"
         length: "الطول"
+        # lifespan: "Lifespan"
         lipolysis: "تحلل الدهون"
         livestock_unit: "وحدة الثروة الحيوانية"
         magnesium_concentration: "تركيز المغنيسيوم"
@@ -1649,6 +1651,7 @@ arb:
         wind_direction: "اتجاه الرياح"
         wind_speed: "سرعة الرياح"
         woodstock_variety: "وودستوك متنوعة"
+        # working_lifespan: "Working lifespan"
         zinc_concentration: "تركيز الزنك"
       name: "مؤشرات"
       property_natures:

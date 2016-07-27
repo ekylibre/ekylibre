@@ -53,6 +53,7 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :group, class_name: 'InterventionGroupParameter'
   belongs_to :parent, class_name: 'InterventionGroupParameter', foreign_key: :group_id, inverse_of: :children
   belongs_to :intervention, inverse_of: :parameters
+  has_many :product_part_replacement, inverse_of: :intervention_parameter
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :quantity_population, :quantity_value, numericality: { allow_nil: true }

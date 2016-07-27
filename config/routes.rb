@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get :list_members
       get :list_places
       get :take
+      get :list_part_replacements
     end
   end
 
@@ -676,6 +677,7 @@ Rails.application.routes.draw do
 
     resources :product_nature_categories, concerns: [:incorporate, :list, :unroll] do
       member do
+        get :list_components
         get :list_products
         get :list_product_natures
         get :list_taxations

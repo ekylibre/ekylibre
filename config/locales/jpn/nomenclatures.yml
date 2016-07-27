@@ -1517,6 +1517,7 @@ jpn:
         consumption_period: "消費期間"
         copper_concentration: "銅濃度"
         cumulated_rainfall: "累積雨量"
+        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "毎日の窒素製造"
         diameter: "直径"
         dry_matter_rate: "乾物率"
@@ -1547,6 +1548,7 @@ jpn:
         lactating: "授乳中"
         last_birth_children_count: "最後の出生子どもたちが数えます"
         length: "長さ"
+        # lifespan: "Lifespan"
         lipolysis: "脂肪分解"
         livestock_unit: "家畜単位"
         magnesium_concentration: "マグネシウム濃度"
@@ -1651,6 +1653,7 @@ jpn:
         wind_direction: "風向き"
         wind_speed: "風速"
         woodstock_variety: "ウッドストック多様"
+        # working_lifespan: "Working lifespan"
         zinc_concentration: "亜鉛濃度"
       name: "インジケータ"
       property_natures:

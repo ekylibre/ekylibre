@@ -104,11 +104,14 @@ arb:
         passed: "مرت"
         passed_with_warnings: "مرت مع تحذيرات"
     intervention:
-      state:
-        done: "فعله"
-        in_progress: "في تَقَدم"
-        squeezed: "تقلص"
-        undone: "غير مصنوع"
+      nature:
+        # record: "record"
+        # request: "Request"
+      state:  #?
+        done: "فعله" #?
+        in_progress: "في تَقَدم" #?
+        squeezed: "تقلص" #?
+        undone: "غير مصنوع" #?
     journal:
       nature:
         bank: "بنك"

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add daily average working time indicator, lifespan and working_lifespan indicators">
+  <item-creation item="indicators#daily_average_working_time" datatype="measure" unit="hour"/>
+  <item-creation item="indicators#lifespan" datatype="measure" unit="hour"/>
+  <item-creation item="indicators#working_lifespan" datatype="measure" unit="hour"/>
+</migration>

@@ -49,6 +49,8 @@ module Backend
       t.column :derivative_of
     end
 
+
+
     list(:variants, model: :product_nature_variants,
                     conditions: { nature_id: 'params[:id]'.c }, order: :name) do |t|
       t.action :new, on: :none, url: { nature_id: 'params[:id]'.c, redirect: 'request.fullpath'.c }

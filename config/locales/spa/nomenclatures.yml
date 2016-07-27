@@ -1512,6 +1512,7 @@ spa:
         consumption_period: "Período de consumo"
         copper_concentration: "La concentración de cobre"
         cumulated_rainfall: "La precipitación acumulada"
+        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "La producción diaria de nitrógeno"
         diameter: "Diámetro"
         dry_matter_rate: "Tasa de materia seca"
@@ -1542,6 +1543,7 @@ spa:
         lactating: "En periodo de lactancia"
         last_birth_children_count: "Cuentan últimos hijos biológicos"
         length: "Longitud"
+        # lifespan: "Lifespan"
         lipolysis: "Lipólisis"
         livestock_unit: "Unidad de ganado mayor"
         magnesium_concentration: "Concentración de magnesio"
@@ -1646,6 +1648,7 @@ spa:
         wind_direction: "Dirección del viento"
         wind_speed: "Velocidad del viento"
         woodstock_variety: "Variedad de Woodstock"
+        # working_lifespan: "Working lifespan"
         zinc_concentration: "Concentración de zinc"
       name: "Indicadores"
       property_natures:
