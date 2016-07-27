@@ -321,7 +321,6 @@ eng:
       edit: "Edit product grading\_: %{number}"
       index: "Product gradings"
       new: "New product grading"
-      # set_view_preference: "Set view preference inspection: %{name}"
       show: "Product grading\_: %{number}"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
@@ -1853,7 +1852,6 @@ eng:
       run: "Run"
       search: "Search" #?
       select: "Select"
-      # set_view_preference: "Set view preference"
       ship: "Ship"
       show: "Show"
       sort: "Sort"

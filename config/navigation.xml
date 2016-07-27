@@ -730,7 +730,6 @@
         <page to="backend/inspections#show"/>
         <page to="backend/inspections#unroll"/>
         <page to="backend/inspections#update"/>
-        <page to="backend/inspections#set_view_preference"/>
       </item>
     </group>
     <group name="land_parcels" icon="land-parcels">

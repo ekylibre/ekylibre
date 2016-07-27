@@ -181,7 +181,6 @@ activities:
     - "backend/activity_budgets#show"
     - "backend/inspections#index"
     - "backend/inspections#list"
-    - "backend/inspections#set_view_preference"
     - "backend/inspections#show"
     - "backend/inspections#unroll"
     - "backend/plant_density_abaci#index"

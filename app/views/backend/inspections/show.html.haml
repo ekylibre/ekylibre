@@ -1,5 +1,5 @@
 - choices = resource.unit_choices
-- user_pref = resource.unit_preference(current_user)
+- selected_unit = resource.unit_preference(current_user)
 
 - main_toolbar do |t|
   = t.edit resource
@@ -19,33 +19,25 @@
 = cobbles do |c|
 
   - c.cobble(:totals) do
-    = render "preference_btns", inspection: resource
+    = render 'unit_selector', inspection: resource
 
     = infos do
-      - case user_pref
-      - when :mass
-        = render "totals", to_display: user_pref, resource: resource
-      - when :items
-        = render "totals", to_display: user_pref, resource: resource
+      = render 'totals', to_display: selected_unit, resource: resource
 
   - if resource.calibrations.any?
     - if resource.activity.measure_grading_net_mass && resource.calibrations.sum(:net_mass_value) > 0
 
-      - c.cobble("stock_in_ground") do
-        = render "preference_btns", inspection: resource
+      - c.cobble('stock_in_ground') do
+        = render 'unit_selector', inspection: resource
         %table
           %tbody
             - resource.scales.each do |scale|
               :ruby
                 dataset = resource.calibrations.of_scale(scale).reorder(:id)
-              - case user_pref
-              - when :mass
-                = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
-              - when :items
-                = render "charts", to_graph: "items_count", dataset: dataset, resource: resource, scale: scale
-              - else
-                = render "charts", to_graph: "net_mass", dataset: dataset, resource: resource, scale: scale
-                = render "charts", to_graph: "items_count", dataset: dataset, resource: resource, scale: scale
+              - if selected_unit == :mass || selected_unit != :items
+                = render 'charts', to_graph: 'net_mass', dataset: dataset, resource: resource, scale: scale
+              - if selected_unit != :mass || selected_unit == :items
+                = render 'charts', to_graph: 'items_count', dataset: dataset, resource: resource, scale: scale
 
   - c.cobble(:analyses) do
     - analysis = Analysis.where(product: resource.product, nature: 'plant_analysis').reorder(:sampled_at).last
@@ -53,7 +45,7 @@
       .med-info
         %span.title= Analysis.human_attribute_name(:number)
         %span.value
-          %i.picto{class: "picto-flask"}
+          %i.picto{class: 'picto-flask'}
           = link_to(analysis.number, {controller: :analyses, action: :show, id: analysis.id})
     .help-panel
       = link_to(:new.ta, {controller: :analyses, action: :new, nature: 'plant_analysis', product_id: resource.product.id, sampled_at: Time.now}, class: 'btn btn-default')
