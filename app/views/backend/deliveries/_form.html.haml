@@ -11,9 +11,24 @@
     = f.referenced_association :driver
     = f.nested_association(:tools)
   = f.custom_fields
-  - parcels = Parcel.where("id IN (?) OR state != ?", f.object.parcel_ids, :given).order(:created_at)
-  - if parcels.any?
-    = f.association(:parcels, as: :check_boxes, label_method: :number, collection: parcels)
+  - parcel_choices = f.object.available_parcels
+  - if parcel_choices.any?
+    %table
+      %thead
+        %tr
+          %th
+          %th= Parcel.human_attribute_name(:number)
+          %th= Parcel.human_attribute_name(:nature)
+          %th= Entity.model_name.human
+          %th= Parcel.human_attribute_name(:items)
+      %tbody
+        = f.collection_check_boxes :parcel_ids, parcel_choices, :id, :number do |p|
+          %tr
+            %td= p.check_box
+            %td= p.object.number
+            %td= p.object.nature.l
+            %td= Maybe(p.object.sender || p.object.recipient).name.or_else('-')
+            %td= p.object.items.map(&:product).map(&:name).to_sentence
 
 = f.attachments_field_set
 
