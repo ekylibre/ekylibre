@@ -52,6 +52,7 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
 
     rename_column :interventions, :state, :nature
     add_reference :interventions, :request_intervention, index: true
+    add_column :interventions, :state, :string
 
     add_column :interventions, :maintenance_nature, :string
     add_column :interventions, :trouble_encountered, :boolean, null: false, default: false

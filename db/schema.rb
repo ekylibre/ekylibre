@@ -1576,6 +1576,7 @@ ActiveRecord::Schema.define(version: 20160728070743) do
     t.string   "actions"
     t.jsonb    "custom_fields"
     t.integer  "request_intervention_id"
+    t.string   "state"
     t.string   "maintenance_nature"
     t.boolean  "trouble_encountered",     default: false, null: false
     t.string   "trouble_description"
