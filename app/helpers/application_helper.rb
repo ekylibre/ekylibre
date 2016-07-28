@@ -816,12 +816,6 @@ module ApplicationHelper
 
   def backend_form_for(object, *args, &block)
     options = args.extract_options!
-
-    if options.fetch(:data, {}).key?(:defaults) && options[:data][:defaults].is_a?(Hash)
-      options[:data][:defaults].each do |k, v|
-        object.send("#{k}=", v) if object.has_attribute?(k)
-      end
-    end
     simple_form_for([:backend, object], *(args << options.merge(builder: Backend::FormBuilder)), &block)
   end
 

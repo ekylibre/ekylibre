@@ -693,11 +693,10 @@ module Backend
       options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
       options[:input_html][:data][:selector] = @template.url_for(choices)
       unless options[:new].is_a?(FalseClass)
-        new_url = {}
+        new_url = options[:new].is_a?(Hash) ? options[:new] : {}
         new_url[:controller] ||= choices[:controller]
         new_url[:action] ||= :new
         options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
-        options[:input_html][:data][:selector_new_item_default_values] = options[:new] if options[:new].is_a? Hash
       end
       # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
       options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
