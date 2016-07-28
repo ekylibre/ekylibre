@@ -28,4 +28,4 @@
       .med-info
         - total_title = (title || method)
         %span.title= Inspection.human_attribute_name(total_title)
-        %span.value= resource.send(method).convert(unit).round(2).l(precision: 0)
+        %span.value= resource.send(method).in(unit).round(2).l(precision: 0)
