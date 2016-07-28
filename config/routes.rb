@@ -658,12 +658,7 @@ Rails.application.routes.draw do
 
     resources :products, concerns: [:products]
 
-    resources :inspections, concerns: [:list, :unroll] do
-      member do
-        get :list_points
-        get :set_view_preference
-      end
-    end
+    resources :inspections, concerns: [:list, :unroll]
 
     resources :product_groups, concerns: :products
 

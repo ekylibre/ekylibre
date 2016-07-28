@@ -145,10 +145,10 @@
 
   - if resource.use_gradings && resource.inspection_calibration_scales.any? && resource.inspections.any?
     - c.cobble(:stock_in_ground) do
-      = render "backend/inspections/preference_btns", inspection: resource.inspections.last
+      = render 'backend/inspections/unit_selector', activity: resource
       :ruby
-        choices = resource.inspections.last.unit_choices
-        user_pref = resource.inspections.last.unit_preference(current_user)
+        choices = resource.unit_choices
+        user_pref = resource.unit_preference(current_user)
         if user_pref == :items
           long_name = "items_count"
           unit = Nomen::Unit[:thousand]

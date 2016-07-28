@@ -18,6 +18,8 @@
 
 module Backend
   class ActivitiesController < Backend::BaseController
+    include InspectionViewable
+
     manage_restfully except: [:show], subclass_inheritance: true
 
     unroll

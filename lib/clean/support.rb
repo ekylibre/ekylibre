@@ -215,7 +215,10 @@ module Clean
 
       # Lists all controller that inherits of ApplicationController included
       def controllers_in_file
-        Dir.glob(Rails.root.join('app', 'controllers', '**', '*.rb')).each { |file| require file }
+        Dir.glob(Rails.root.join('app', 'controllers', '**', '*.rb')).each do |file|
+          next if file.start_with? Rails.root.join('app', 'controllers', 'concerns').to_s
+          require file
+        end
         ObjectSpace
           .each_object(Class)
           .select { |klass| klass <= ::ApplicationController || klass <= ::ApiController }

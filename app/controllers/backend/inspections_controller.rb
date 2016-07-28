@@ -18,6 +18,8 @@
 
 module Backend
   class InspectionsController < Backend::BaseController
+    include InspectionViewable
+
     manage_restfully sampled_at: 'Time.zone.now'.c
 
     unroll
@@ -31,11 +33,6 @@ module Backend
       t.column :sampled_at, datatype: :datetime
       # t.column :implanter_rows_number
       # t.column :implanter_working_width
-    end
-
-    before_action only: [:show] do
-      @inspection = Inspection.find(params[:id])
-      @inspection.unit_preference(current_user, params['unit'])
     end
   end
 end

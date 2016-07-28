@@ -18,6 +18,8 @@
 
 module Backend
   class PlantsController < Backend::MattersController
+    include InspectionViewable
+
     list do |t|
       t.action :edit
       t.action :destroy, if: :destroyable?
