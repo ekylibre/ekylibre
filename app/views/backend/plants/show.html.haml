@@ -56,17 +56,17 @@
       = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
     = cobble_list(:issues)
 
-  -if resource.inspections.any?
+  - if resource.inspections.any?
     - inspections = resource.inspections.reorder(:sampled_at)
     - activity = inspections.first.activity
+    - choices = activity.unit_choices
+    - user_pref = activity.unit_preference(current_user)
     - activity.inspection_calibration_scales.each do |scale|
       :ruby
 
         categories = inspections.map(&:position).map(&:to_s)
 
         last_inspection = resource.inspections.reorder(:sampled_at).last
-        choices = last_inspection.unit_choices
-        user_pref = last_inspection.unit_preference(current_user)
         if user_pref == :items
           long_name = "items_count"
           unit = Nomen::Unit[:thousand]
@@ -108,16 +108,16 @@
         end
 
       - c.cobble(:stock_in_ground_by_calibration) do
-        = render "backend/inspections/preference_btns", inspection: last_inspection
+        = render 'backend/inspections/unit_selector', activity: last_inspection.activity
         - dataset = last_inspection.calibrations.of_scale(scale).reorder(:id).reverse
-        = column_highcharts(series, y_axis: {reversed_stacks: false, title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+        = column_highcharts(series, y_axis: {reversed_stacks: false, title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
 
       - c.cobble(:disease_deformity_percentage) do
-        = render "backend/inspections/preference_btns", inspection: last_inspection
+        = render 'backend/inspections/unit_selector', activity: last_inspection.activity
         = column_highcharts(series_disease, y_axis: {reversed_stacks: false, title: {text: "%"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} %"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
 
       - c.cobble(:percentage_by_calibration) do
-        = render "backend/inspections/preference_btns", inspection: last_inspection
+        = render 'backend/inspections/unit_selector', activity: last_inspection.activity
         - last_inspection.scales.each do |scale|
           = render "backend/inspections/percentage_chart", resource: last_inspection, to_graph: long_name, unit: unit, scale: scale
 

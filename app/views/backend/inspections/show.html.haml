@@ -1,5 +1,4 @@
-- choices = resource.unit_choices
-- selected_unit = resource.unit_preference(current_user)
+- selected_unit = resource.activity.unit_preference(current_user)
 
 - main_toolbar do |t|
   = t.edit resource
@@ -19,7 +18,7 @@
 = cobbles do |c|
 
   - c.cobble(:totals) do
-    = render 'unit_selector', inspection: resource
+    = render 'unit_selector', activity: resource.activity
 
     = infos do
       = render 'totals', to_display: selected_unit, resource: resource
@@ -28,7 +27,7 @@
     - if resource.activity.measure_grading_net_mass && resource.calibrations.sum(:net_mass_value) > 0
 
       - c.cobble('stock_in_ground') do
-        = render 'unit_selector', inspection: resource
+        = render 'unit_selector', activity: resource.activity
         %table
           %tbody
             - resource.scales.each do |scale|
