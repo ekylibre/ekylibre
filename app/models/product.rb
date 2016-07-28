@@ -347,9 +347,16 @@ class Product < Ekylibre::Record::Base
     nature ? nature.name : nil
   end
 
-  # FIXME: Not I18nized
   def work_name
-    "#{name} (#{work_number})"
+    if work_number.present?
+      # FIXME: Not I18nized
+      name.to_s + ' (' + work_number.to_s + ')'
+    elsif identification_number.present?
+      # FIXME: Not I18nized
+      name.to_s + ' (' + identification_number.to_s + ')'
+    else
+      name
+    end
   end
 
   def unroll_name
