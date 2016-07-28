@@ -5,48 +5,130 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
       dir.up do
         execute "update interventions set state='aborted' where state='squeezed'"
         execute <<-SQL
-                DELETE FROM intervention_parameter_readings
-                  WHERE id IN (SELECT intervention_parameter_readings.id
-                                 FROM intervention_parameter_readings
-                                   INNER JOIN intervention_parameters ON intervention_parameters.id = intervention_parameter_readings.parameter_id
-                                   INNER JOIN interventions ON interventions.id = intervention_parameters.intervention_id
-                                 WHERE interventions.state = 'aborted')
-                SQL
+        DELETE FROM intervention_parameter_readings
+          WHERE id IN (
+            SELECT intervention_parameter_readings.id
+              FROM intervention_parameter_readings
+                INNER JOIN intervention_parameters
+                  ON intervention_parameters.id = intervention_parameter_readings.parameter_id
+                INNER JOIN interventions
+                  ON interventions.id = intervention_parameters.intervention_id
+              WHERE interventions.state = 'aborted'
+          )
+        SQL
 
         execute <<-SQL
         DELETE FROM intervention_parameters
-           where id IN (SELECT intervention_parameters.id
-                          FROM intervention_parameters
-                            INNER JOIN interventions ON interventions.id = intervention_parameters.intervention_id
-                        WHERE interventions.state='aborted')
-                  SQL
+          WHERE id IN (
+            SELECT intervention_parameters.id
+              FROM intervention_parameters
+                INNER JOIN interventions
+                  ON interventions.id = intervention_parameters.intervention_id
+              WHERE interventions.state='aborted'
+          )
+        SQL
 
-        execute "DELETE FROM interventions WHERE interventions.state='aborted'"
-        execute "update interventions set state='request' where state='undone'"
-        execute "update interventions set state='record' where state='in_progress'"
-        execute "update interventions set state='record' where state='done'"
+        execute <<-SQL
+        DELETE
+          FROM interventions
+          WHERE interventions.state='aborted'
+        SQL
+
+        execute <<-SQL
+        UPDATE interventions
+          SET state='request'
+          WHERE state='undone'
+        SQL
+
+        execute <<-SQL
+        UPDATE interventions
+          SET state='record'
+          WHERE state='in_progress'
+        SQL
+
+        execute <<-SQL
+        UPDATE interventions
+          SET state='record'
+          WHERE state='done'
+        SQL
+
       end
 
       dir.down do
-        execute  "update interventions set state='squeezed' where state='aborted'"
-        execute  "update interventions set state='done' where state='record'"
-        execute  "update interventions set state='undone' where state='request'"
+        execute <<-SQL
+        UPDATE interventions
+          SET state='squeezed'
+          WHERE state='aborted'
+        SQL
+
+        execute <<-SQL
+        UPDATE interventions
+          SET state='done'
+          WHERE state='record'
+        SQL
+
+        execute <<-SQL
+        UPDATE interventions
+          SET state='undone'
+          WHERE state='request'
+        SQL
+
       end
     end
     reversible do |dir|
       dir.up do
-        execute "update interventions set procedure_name='equipment_maintenance' where procedure_name='equipment_item_replacement'"
-        execute "update intervention_parameters set reference_name='part' where reference_name='piece'"
+        execute <<-SQL
+        UPDATE interventions
+          SET procedure_name = 'equipment_maintenance'
+          WHERE procedure_name = 'equipment_item_replacement'
+        SQL
 
-        execute "update interventions set procedure_name='equipment_maintenance' where procedure_name='oil_replacement'"
-        execute "update intervention_parameters set reference_name='part' where reference_name='oil'"
+        execute <<-SQL
+        UPDATE intervention_parameters
+          SET reference_name = 'part'
+          WHERE reference_name = 'piece'
+        SQL
+
+
+        execute <<-SQL
+        UPDATE interventions
+          SET procedure_name = 'equipment_maintenance'
+          WHERE procedure_name = 'oil_replacement'
+        SQL
+
+        execute <<-SQL
+        UPDATE intervention_parameters
+          SET reference_name = 'part'
+          WHERE reference_name = 'oil'
+        SQL
+
       end
       dir.down do
-        execute "update interventions set procedure_name='equipment_item_replacement' where procedure_name='equipment_maintenance'"
-        execute "update intervention_parameters set reference_name='piece' where reference_name='part'"
+        execute <<-SQL
+        UPDATE interventions
+          SET procedure_name = 'equipment_item_replacement'
+          WHERE procedure_name = 'equipment_maintenance'
+        SQL
 
-        execute "update interventions set procedure_name='oil_replacement' where procedure_name='equipment_maintenance'"
-        execute "update intervention_parameters set reference_name='oil' where reference_name='part'"
+        execute <<-SQL
+        UPDATE intervention_parameters
+          SET reference_name = 'piece'
+          WHERE reference_name = 'part'
+        SQL
+
+
+        execute <<-SQL
+        UPDATE interventions
+          SET procedure_name = 'oil_replacement'
+          WHERE procedure_name = 'equipment_maintenance'
+        SQL
+
+        execute <<-SQL
+        UPDATE intervention_parameters
+          SET reference_name = 'oil'
+          WHERE reference_name = 'part'
+        SQL
+
       end
     end
 
@@ -65,9 +147,9 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
       t.references :parent, index: true
       t.datetime :deleted_at
       t.string :name, null: false
-      t.index      :product_nature_variant_id, name: :index_product_nature_variant_components_on_variant
-      t.index      :part_product_nature_variant_id, name: :index_product_nature_variant_components_on_part_variant
-      t.index      :deleted_at, name: :index_product_nature_variant_components_ondeleted_at_on_
+      t.index :product_nature_variant_id, name: :index_product_nature_variant_components_on_variant
+      t.index :part_product_nature_variant_id, name: :index_product_nature_variant_components_on_part_variant
+      t.index :deleted_at, name: :index_product_nature_variant_components_ondeleted_at_on_
       t.stamps
     end
 
