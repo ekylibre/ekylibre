@@ -1,71 +1,70 @@
-.component-tree{
-	// @include padding-left($lh-small);
-	padding-top: 13px;
-  	box-sizing: border-box;
+.component-tree {
+  // @include padding-left($lh-small);
+  padding-top: 13px;
+  box-sizing: border-box;
 }
-	.component{
-	}
-		.component-block {
-			display: flex;
-		    flex-direction: row;
-		    @include padding-left($lh-normal);
-		    @include padding-right($lh-normal);
-  			flex-wrap: wrap;
-  			padding-top: 6px;
-  			flex-grow: 0;
-		}
 
-		.component-title {
-			flex:1 0 0;
-			flex-grow: 1;
-		}
+.component {
+}
 
-    	.component-status{
-    		width: 50px;
-  			white-space: nowrap;
-  			text-overflow: ellipsis;
-  			
-    	}
-    	.component-life{
-    		width: 120px;
-  			white-space: nowrap;
-		 	text-overflow: ellipsis;
-		 	@include padding-right($lh-small);
-		 	@include text-align(right);
-    	}
-		.component-wear {
-			width: 100px;
-  			white-space: nowrap;
-  			text-overflow: ellipsis;
-  			@include padding-right($lh-ratio);
+.component-block {
+  display: flex;
+  flex-direction: row;
+  @include padding-left($lh-normal);
+  @include padding-right($lh-normal);
+  flex-wrap: wrap;
+  padding-top: 6px;
+  flex-grow: 0;
+}
 
-		}
-		.component-details{
-			width: 100px;
-			@include padding-left($lh-normal);
-			@include text-align(right);
+.component-title {
+  flex:1 0 0;
+  flex-grow: 1;
+}
 
-  			
-		}
-		.component-documentation {
-			@include padding-left($lh-small);
-			@include padding-right($lh-ratio);
-  			width: 150px;
+.component-status {
+  width: 50px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
-		}
-		.component-replacement{
-			@include padding-right($lh-ratio);
-			width: 150px;
-			flex-direction: left;
-		}
+.component-life {
+  width: 120px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @include padding-right($lh-small);
+  @include text-align(right);
+}
+
+.component-wear {
+  width: 100px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @include padding-right($lh-ratio);
+}
+
+.component-details {
+  width: 100px;
+  @include padding-left($lh-normal);
+  @include text-align(right);
+}
+
+.component-documentation {
+  @include padding-left($lh-small);
+  @include padding-right($lh-ratio);
+  width: 150px;
+}
+
+.component-replacement {
+  @include padding-right($lh-ratio);
+  width: 150px;
+  flex-direction: left;
+}
 
 .component > .component {
-	@include padding-left($lh-normal);
+  @include padding-left($lh-normal);
 }
 
-.component-modal{
-	border: 2px;
+.component-modal {
+  border: 2px;
 }
-
-
-
