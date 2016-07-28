@@ -105,14 +105,15 @@ $activity_border_size: 5px;
 $chronology-background-color: #EEE;
 .chronology {
   .grades {
+    display: flex;
     height: $lh-normal;
     position: relative;
     .grade {
+      flex: 1;
       font-size: $fs-small;
       font-weight: bold;
       text-transform: uppercase;
       color: $neutral-color;
-      position: absolute;
       @include inline-block;
       @include padding-left($default-gap);
       &.grade-start {
@@ -125,7 +126,7 @@ $chronology-background-color: #EEE;
   }
   .periods {
     position: relative;
-    height: $lh-normal;
+    height: $lh-huge;
     background-color: $chronology-background-color;
     @include border-radius($default-border-radius);
     .period {
@@ -143,6 +144,53 @@ $chronology-background-color: #EEE;
       &.without-right {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
+      }
+    }
+
+    .markers {
+      height: 100%;
+      width: 100%;
+      @include flex-column();
+
+      .marker {
+        @include flex-column();
+        position: absolute;
+        height: 20px;
+        box-shadow: 1px 1px #e4e3e3;
+        width: 20px;
+        border-radius: 20px;
+        background-color: $white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .picto {
+          min-width: 0;
+          line-height: 0;
+          font-size: 14px;
+          color: $text-color;
+        }
+      }
+
+      .interventions {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+      }
+
+      .crop-management-technique {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+
+        .period {
+          @include flex-row();
+          height: 21px;
+        }
+
+        .marker {
+          position: initial;
+        }
       }
     }
   }

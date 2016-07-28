@@ -28,7 +28,6 @@
 #  creator_id          :integer
 #  cultivable_zone_id  :integer
 #  custom_fields       :jsonb
-#  estimated_yield     :string
 #  id                  :integer          not null, primary key
 #  irrigated           :boolean          default(FALSE), not null
 #  lock_version        :integer          default(0), not null
@@ -48,8 +47,6 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  usage               :string           not null
-#  yield_delta         :integer
-#  yield_unit_name     :string
 #
 ---
 activity_productions_001:

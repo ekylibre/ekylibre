@@ -172,6 +172,11 @@
   - else
     = no_data
 
+  - c.cobble(:timeline) do
+    = timeline(resource, id: :entity) do |timeline|
+      - timeline.side :budgets, at: :created_at, new: false
+
+
   - c.cobble(:interventions) do
     = cobble_toolbar do |t|
       = t.new(params: {controller: :interventions, production_support_id: resource.id})

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725135214) do
+ActiveRecord::Schema.define(version: 20160725090113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -246,9 +246,6 @@ ActiveRecord::Schema.define(version: 20160725135214) do
     t.jsonb    "custom_fields"
     t.integer  "season_id"
     t.integer  "tactic_id"
-    t.string   "estimated_yield"
-    t.integer  "yield_delta"
-    t.string   "yield_unit_name"
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
@@ -284,6 +281,7 @@ ActiveRecord::Schema.define(version: 20160725135214) do
     t.date     "plan_on"
     t.integer  "mode_delta"
     t.string   "mode"
+    t.string   "mode_unit_name"
     t.integer  "bulk_quantity"
     t.integer  "bulk_delta"
     t.string   "bulk_unit_name"

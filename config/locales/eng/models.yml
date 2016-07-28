@@ -454,7 +454,6 @@ eng:
     coordinate: "Coordinate"
     coordinate_columns: "Coordinate columns"
     costs_per_unit: "Costs per %{unit}" #?
-    # counting: "Counting"
     country: "Country"
     created_at: "Created at"
     creator: "Creator"
@@ -575,7 +574,6 @@ eng:
     entry: "Entry"
     entry_items: "Entry items"
     entry_number: "Entry number"
-    # estimated_yield: "Estimated yield"
     event: "Event"
     event_participation: "Event participation"
     events: "Events"
@@ -851,6 +849,7 @@ eng:
     mod: "Mod" #?
     mode: "Mode"
     # mode_delta: "Mode delta"
+    # mode_unit_name: "Mode unit name"
     model_euid: "Model"
     mother: "Mother"
     movements: "Movements"
@@ -943,6 +942,7 @@ eng:
     plant: "Plant"
     plant_counting: "Plant counting"
     plant_countings: "Plant countings"
+    # plant_density_abaci: "Plant density abaci"
     plant_density_abacus: "Plant density abacus"
     plant_density_abacus_item: "Plant density abacus item"
     plants_count: "Plants count"
@@ -1287,8 +1287,6 @@ eng:
     working_periods: "Working periods"
     working_zone: "Working zone"
     working_zone_area: "Working zone area"
-    # yield_delta: "Yield delta"
-    # yield_unit_name: "Yield unit name"
     zone_memberships: "Zone memberships" #?
     zones: "Zones"
   models:
