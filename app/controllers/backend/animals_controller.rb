@@ -83,7 +83,7 @@ module Backend
       @sorted = @grouped_animals
 
       without_container = []
-      Animal.of_enjoyer(Entity.of_company).select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
+      Animal.availables(at: Time.now).of_enjoyer(Entity.of_company).select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
         if a.container.nil? || a.memberships.empty?
           without_container << { animal: a.to_json(methods: [:picture_path, :sex_text, :status]) }
         end
