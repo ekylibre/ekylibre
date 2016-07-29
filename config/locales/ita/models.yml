@@ -1107,6 +1107,7 @@ ita:
     scale: "Scala"
     scheduled: "In programma"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_producer: "secondo produttore" #?
     seeding_density_unit: "unità di densità di semina"
     seeding_density_value: "densità di semina"
@@ -1177,6 +1178,7 @@ ita:
     supports: "supporti"
     suspended: "Sospeso"
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "Bersaglio"
     target_type: "tipo di destinazione"
     target_url: "URL di destinazione"

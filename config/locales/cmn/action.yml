@@ -631,8 +631,6 @@ cmn:
     activity: "活动"
     activity_production: "生产活动"
     activity_productions: "活动制作"
-    # activity_seasons: "Cropping seasons"
-    # activity_tactics: "Crop management Technique"
     add: "加"
     add_a_worker: "添加一个工人"
     add_annotation: "添加注释"

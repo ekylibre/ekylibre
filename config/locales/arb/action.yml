@@ -900,8 +900,6 @@ arb:
     activity: "نشاط"
     activity_production: "إنتاج النشاط"
     activity_productions: "إنتاجات آخر"
-    # activity_seasons: "Cropping seasons"
-    # activity_tactics: "Crop management Technique"
     add: "اضافة"
     add_a_worker: "إضافة عامل"
     add_annotation: "إضافة تعليق توضيحي"

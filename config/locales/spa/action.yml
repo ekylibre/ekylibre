@@ -698,8 +698,6 @@ spa:
     activity: "Actividad"
     activity_production: "La producción de la actividad"
     activity_productions: "Producciones de actividad"
-    # activity_seasons: "Cropping seasons"
-    # activity_tactics: "Crop management Technique"
     add: "Añadir"
     add_a_worker: "Añadir un trabajador"
     add_annotation: "Añadir anotación"

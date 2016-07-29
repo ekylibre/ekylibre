@@ -697,8 +697,6 @@ jpn:
     activity: "アクティビティ"
     activity_production: "アクティビティ生産"
     activity_productions: "アクティビティ制作"
-    # activity_seasons: "Cropping seasons"
-    # activity_tactics: "Crop management Technique"
     add: "加える"
     add_a_worker: "労働者を追加します。"
     add_annotation: "注釈を追加"

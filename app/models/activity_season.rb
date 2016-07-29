@@ -27,17 +27,15 @@
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string
+#  name         :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 class ActivitySeason < Ekylibre::Record::Base
   belongs_to :activity, class_name: 'Activity', inverse_of: :seasons
-  has_many :productions, class_name: 'ActivityProduction', inverse_of: :activity_season
+  has_many :productions, class_name: 'ActivityProduction', inverse_of: :activity_season, foreign_key: :season_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :activity, presence: true
+  validates :activity, :name, presence: true
   # ]VALIDATORS]
-
-
 end

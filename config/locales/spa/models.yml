@@ -1080,6 +1080,7 @@ spa:
     scale: "Escala"
     scheduled: "Programado"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_producer: "En segundo productor" #?
     seeding_density_unit: "unidad de densidad de siembra"
     seeding_density_value: "densidad de siembra"
@@ -1150,6 +1151,7 @@ spa:
     supports: "Soportes"
     suspended: "Suspendido"
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "Objetivo"
     target_type: "Tipo de destino"
     target_url: "URL de destino"

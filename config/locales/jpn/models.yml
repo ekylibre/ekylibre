@@ -1076,6 +1076,7 @@ jpn:
     scale: "規模"
     scheduled: "予定の"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_producer: "セカンドプロデューサー" #?
     seeding_density_unit: "播種密度ユニット"
     seeding_density_value: "播種密度"
@@ -1146,6 +1147,7 @@ jpn:
     supports: "サポート"
     suspended: "吊り"
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "ターゲット"
     target_type: "ターゲット・タイプ"
     target_url: "ターゲットURL"

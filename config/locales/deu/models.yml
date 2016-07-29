@@ -1076,6 +1076,7 @@ deu:
     scale: "Rahmen"
     scheduled: "Geplant"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_producer: "Zweitens Produzent" #?
     seeding_density_unit: "Seeding Dichteeinheit"
     seeding_density_value: "Seeding Dichte"
@@ -1146,6 +1147,7 @@ deu:
     supports: "Unterstützungen"
     suspended: "Suspendiert"
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "Ziel"
     target_type: "Zieltyp"
     target_url: "Ziel-URL"

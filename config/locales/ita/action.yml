@@ -697,8 +697,6 @@ ita:
     activity: "Attività"
     activity_production: "Attività Produttive"
     activity_productions: "Produzioni di attività"
-    # activity_seasons: "Cropping seasons"
-    # activity_tactics: "Crop management Technique"
     add: "Aggiungere"
     add_a_worker: "Aggiungere un lavoratore"
     add_annotation: "Aggiungere annotazioni"

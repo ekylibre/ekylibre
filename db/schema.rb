@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160725135214) do
-=======
-ActiveRecord::Schema.define(version: 20160727201017) do
->>>>>>> master
+ActiveRecord::Schema.define(version: 20160729080926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +96,7 @@ ActiveRecord::Schema.define(version: 20160727201017) do
     t.string   "grading_sizes_unit_name"
     t.string   "production_system_name"
     t.boolean  "use_seasons",                  default: false
-    t.boolean  "use_tactics",                  default: false
+    t.boolean  "use_tactics",                  default: false, null: false
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -250,9 +246,6 @@ ActiveRecord::Schema.define(version: 20160727201017) do
     t.jsonb    "custom_fields"
     t.integer  "season_id"
     t.integer  "tactic_id"
-    t.string   "estimated_yield"
-    t.integer  "yield_delta"
-    t.string   "yield_unit_name"
   end
 
   add_index "activity_productions", ["activity_id"], name: "index_activity_productions_on_activity_id", using: :btree
@@ -268,7 +261,7 @@ ActiveRecord::Schema.define(version: 20160727201017) do
 
   create_table "activity_seasons", force: :cascade do |t|
     t.integer  "activity_id",              null: false
-    t.string   "name"
+    t.string   "name",                     null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "creator_id"
@@ -285,7 +278,7 @@ ActiveRecord::Schema.define(version: 20160727201017) do
   create_table "activity_tactics", force: :cascade do |t|
     t.integer  "activity_id",                null: false
     t.string   "name",                       null: false
-    t.date     "plan_on"
+    t.date     "planned_on"
     t.integer  "mode_delta"
     t.string   "mode"
     t.integer  "bulk_quantity"

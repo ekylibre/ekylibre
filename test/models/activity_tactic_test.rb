@@ -33,7 +33,7 @@
 #  mode           :string
 #  mode_delta     :integer
 #  name           :string           not null
-#  plan_on        :date
+#  planned_on     :date
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #

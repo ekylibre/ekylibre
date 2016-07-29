@@ -2009,6 +2009,7 @@ arb:
     scale: "مقياس"
     scheduled: "الدفعة المبرمجة"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
     second_move_id: "الحركة الثانية" #?
@@ -2112,6 +2113,7 @@ arb:
     symbol: "نموذج" #?
     symmetric: "متساو" #?
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "الهدف"
     target_id: "الهدف" #?
     target_type: "نوع الهدف"

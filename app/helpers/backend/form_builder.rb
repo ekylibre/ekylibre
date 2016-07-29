@@ -412,12 +412,11 @@ module Backend
     end
 
     def delta_field(value_attribute, delta_attribute, unit_name_attribute, unit_values, *args)
-
       options = args.extract_options!
       attribute_name = args.shift || options[:name]
 
       input(attribute_name, options.merge(wrapper: :append)) do
-          input(value_attribute, wrapper: :simplest) +
+        input(value_attribute, wrapper: :simplest) +
           @template.content_tag(:span, :delta.tl, class: 'add-on') +
           input(delta_attribute, wrapper: :simplest) +
           unit_field(unit_name_attribute, unit_values, args)
@@ -718,9 +717,8 @@ module Backend
       options
     end
 
-    def unit_field(unit_name_attribute, units_values, *args)
-
-      if units_values.kind_of?(Array)
+    def unit_field(unit_name_attribute, units_values, *_args)
+      if units_values.is_a?(Array)
         return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
       end
 

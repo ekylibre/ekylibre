@@ -1076,6 +1076,7 @@ por:
     scale: "Escala"
     scheduled: "Programado"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_producer: "Segundo produtor" #?
     seeding_density_unit: "unidade de densidade de semeadura"
     seeding_density_value: "densidade de semeadura"
@@ -1146,6 +1147,7 @@ por:
     supports: "Suportes"
     suspended: "Suspenso"
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "Alvo"
     target_type: "Tipo de destino"
     target_url: "Alvo URL"

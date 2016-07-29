@@ -33,17 +33,38 @@
 #  mode           :string
 #  mode_delta     :integer
 #  name           :string           not null
-#  plan_on        :date
+#  planned_on     :date
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
-
-
-# # Empty samples of activity_tactics
-# activity_tactics_001:
-#   id: 1
-#   name: 'ActivityTactic 1'
-
-# activity_tactics_002:
-#   id: 2
-#   name: 'ActivityTactic 2'
+---
+activity_tactics_001:
+  activity_id: 22
+  bulk_delta: 25
+  bulk_quantity: 1000
+  bulk_unit_name: ton
+  created_at: 2016-07-29 09:03:08.444536000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  mode: sowed
+  mode_delta: 3
+  name: Tardif
+  planned_on: 2016-07-14
+  updated_at: 2016-07-29 09:03:08.444536000 Z
+  updater_id: 1
+activity_tactics_002:
+  activity_id: 9
+  bulk_delta: 500
+  bulk_quantity: 1000
+  bulk_unit_name: ton
+  created_at: 2016-07-29 09:03:43.305809000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  mode: sowed
+  mode_delta: 20
+  name: Normal
+  planned_on: 2016-07-27
+  updated_at: 2016-07-29 09:03:43.305809000 Z
+  updater_id: 1

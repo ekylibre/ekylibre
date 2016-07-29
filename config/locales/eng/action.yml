@@ -789,7 +789,7 @@ eng:
     access: "Access"
     access_parameters: "Access parameters"
     accountancy: "Accountancy"
-    accountancy_balance: "Accountancy balance" #?
+    accountancy_balance: "Accountancy balance"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
@@ -798,8 +798,6 @@ eng:
     activity: "Activity"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
-    activity_seasons: "Cropping seasons"
-    activity_tactics: "Crop management Technique"
     add: "Add"
     add_a_worker: "Add a worker"
     add_annotation: "Add annotation"
@@ -885,7 +883,7 @@ eng:
     balance: "Balance"
     bank_account: "Bank account"
     bank_statement_number: "Bank statement number" #?
-    bank_statements: "Bank statements"
+    bank_statements: "Bank statements" #?
     bban: "Basic Bank Account Number (BBAN)"
     beginning: "Beginning"
     body: "Body of the message"
@@ -898,7 +896,7 @@ eng:
     by_year: "By year"
     calculate: "Calculate" #?
     calculators: "Calculators" #?
-    calendar: "Calendar" #?
+    calendar: "Calendar"
     campaign: "Campaign"
     canals: "Canals" #?
     cancel: "Cancel"
@@ -915,6 +913,7 @@ eng:
     catalog: "Catalog" #?
     catalog_items: "Catalog items"
     category: "Category"
+    # cell: "Cell"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
     change_password: "Change password"
@@ -973,7 +972,7 @@ eng:
     credit: "Credit" #?
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
-    cropping_plan: "Cropping plan" #?
+    cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone" #?
@@ -984,6 +983,7 @@ eng:
     current_stocks_by_variety: "Current stocks by variety" #?
     custom_fields: "Custom fields"
     # data: "Data"
+    # data_transmissions: "Data transmissions"
     date: "Date"
     dates: "Select period start date and Period end date" #?
     days: "Days" #?
@@ -1006,7 +1006,7 @@ eng:
     delta: "+/-"
     deposit: "Deposit"
     depositable_options: "Deposit options"
-    deposits: "Deposits"
+    deposits: "Deposits" #?
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     description: "Description" #?
@@ -1044,12 +1044,12 @@ eng:
     email: "Email:" #?
     end: "to" #?
     entities: "Entities"
-    entity_links: "Entity links"
+    entity_links: "Entity links" #?
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
-    entry_items: "Entry items"
+    entry_items: "Entry items" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
@@ -1170,18 +1170,18 @@ eng:
     last_analyses: "Last milk analysis"
     last_computed_balance: "Last computed balance" #?
     last_documents: "Last documents" #?
-    last_entities: "Last entities" #?
+    last_entities: "Last entities"
     last_events: "Last events" #?
-    last_incoming_parcels: "Last incoming parcels" #?
+    last_incoming_parcels: "Last incoming parcels"
     last_inspection: "Last inspection"
     last_intervention: "Last intervention"
     last_issue: "Last issue"
-    last_issues: "Last issues" #?
+    last_issues: "Last issues"
     last_movements: "Last movements"
-    last_outgoing_parcels: "Last outgoing parcels" #?
+    last_outgoing_parcels: "Last outgoing parcels"
     last_products: "Last products" #?
     last_purchases: "Last purchases"
-    last_sales: "Last sales" #?
+    last_sales: "Last sales"
     letter: "Letter" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
@@ -1198,7 +1198,7 @@ eng:
       one: "%{count} email"
       other: "%{count} emails"
       zero: "No emails"
-    main_settings: "Main settings" #?
+    main_settings: "Main settings"
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
     manual: "Manual" #?
@@ -1305,7 +1305,7 @@ eng:
     parcels: "Parcels"
     participants: "Participants"
     participations: "Participations"
-    parts: "Modules" #?
+    parts: "Modules"
     password: "Password" #?
     payable_taxes: "Payable taxes"
     payment_amount: "Amount of payment" #?
@@ -1389,7 +1389,6 @@ eng:
     report: "Report" #?
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
-    # resource_map: "Resource map"
     resources: "Resources management" #?
     rest: "Rest"
     restore: "Restore" #?
@@ -1399,7 +1398,7 @@ eng:
       other: "%{count} results" #?
       zero: "No results" #?
     revenues: "Revenues" #?
-    revenues_by_product_nature: "Revenues by product type" #?
+    revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
     rights: "Rights"
     role: "Role" #?
@@ -1408,7 +1407,7 @@ eng:
     run: "Run" #?
     sale: "Sale" #?
     sale_items: "Sale items"
-    sale_opportunities: "Sale opportunities"
+    sale_opportunities: "Sale opportunities" #?
     sales: "Sales"
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
@@ -1430,7 +1429,7 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
-    sessions: "Sessions"
+    sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
     settings_statistics: "Settings statistics"
@@ -1474,7 +1473,7 @@ eng:
     supports: "Supports" #?
     synthesis: "Synthesis"
     target: "Target" #?
-    tasks: "Tasks"
+    tasks: "Tasks" #?
     taxations: "Taxations"
     taxes: "Taxes" #?
     thumb: "Thumb" #?
@@ -1511,7 +1510,7 @@ eng:
     totals: "Totals"
     tracking: "Tracking" #?
     trade: "Trade"
-    trade_counts: "Trade counts" #?
+    trade_counts: "Trade counts"
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
@@ -1548,7 +1547,7 @@ eng:
     validate_selected_entries: "Validate selected entries"
     values: "Values"
     variable_indicators: "Variable indicators"
-    variants: "Variants"
+    variants: "Variants" #?
     view: "View"
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?
@@ -1682,6 +1681,7 @@ eng:
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration"
     zones: "Zones"
+    # }: "}"
   notifications:
     levels:
       error: "Error!"

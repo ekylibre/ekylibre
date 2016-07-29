@@ -21,6 +21,5 @@ module Backend
     manage_restfully
 
     unroll
-
   end
 end

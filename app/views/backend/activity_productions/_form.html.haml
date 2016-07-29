@@ -8,7 +8,7 @@
     - f.object.campaign ||= current_campaign
     = f.referenced_association :campaign
   = f.date_range
-  - if activity.use_seasons? && seasons
+  - if activity.use_seasons? && seasons.any?
     = f.association :season, as: :radio_buttons, collection: seasons, checked: seasons.first.id
   - if activity.plant_farming?
     -# Vegetal cropsra

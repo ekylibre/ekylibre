@@ -636,8 +636,6 @@ por:
     activity: "Atividade"
     activity_production: "Produção de atividade"
     activity_productions: "Produções de atividade"
-    # activity_seasons: "Cropping seasons"
-    # activity_tactics: "Crop management Technique"
     add: "Adicionar"
     add_a_worker: "Adicionar um trabalhador"
     add_annotation: "Adicionar anotação"

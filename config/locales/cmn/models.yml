@@ -1076,6 +1076,7 @@ cmn:
     scale: "规模"
     scheduled: "计划"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_producer: "第二生成" #?
     seeding_density_unit: "播种密度单位"
     seeding_density_value: "播种密度"
@@ -1146,6 +1147,7 @@ cmn:
     supports: "支持"
     suspended: "暂停"
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "目标"
     target_type: "目标类型"
     target_url: "目标URL"

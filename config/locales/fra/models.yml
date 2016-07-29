@@ -1327,6 +1327,7 @@ fra:
     scale: "Échelle"
     scheduled: "Encaissement programmé"
     season: "Saison culturale"
+    seasons: "Saisons"
     second_producer: "Second producteur" #?
     second_producer_way: "Voie du second producteur" #?
     seeding_density_unit: "Unité de densité de semis"
@@ -1403,6 +1404,7 @@ fra:
     supports: "Supports"
     suspended: "Suspendu"
     tactic: "Itinéraire technique"
+    tactics: "Itinéraires culturaux"
     target: "Cible"
     target_type: "Type de cible"
     target_url: "URL cible"
