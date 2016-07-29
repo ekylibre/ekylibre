@@ -219,7 +219,7 @@ class Sale < Ekylibre::Record::Base
 
   # Gives the amount to use for affair bookkeeping
   def deal_amount
-    ((aborted? || refused?) ? 0 : credit? ? -amount : amount)
+    (aborted? || refused? ? 0 : credit? ? -amount : amount)
   end
 
   # Globalizes taxes into an array of hash
@@ -356,7 +356,7 @@ class Sale < Ekylibre::Record::Base
 
   # Label of the sales order depending on the state and the number
   def name
-    tc("label.#{(credit? && invoice?) ? :credit : self.state}", number: number)
+    tc("label.#{credit? && invoice? ? :credit : self.state}", number: number)
   end
   alias label name
 
@@ -420,7 +420,7 @@ class Sale < Ekylibre::Record::Base
 
   # Build a new sale with new items ready for correction and save
   def build_credit
-    attrs = [:affair, :client, :address, :responsible, :nature, :currency, :invoice_address, :transporter].inject({}) do |hash, attribute|
+    attrs = [:affair, :client, :address, :responsible, :nature, :currency, :invoice_address, :transporter].each_with_object({}) do |attribute, hash|
       hash[attribute] = send(attribute) unless send(attribute).nil?
       hash
     end
@@ -429,7 +429,7 @@ class Sale < Ekylibre::Record::Base
     attrs[:credited_sale] = self
     sale_credit = Sale.new(attrs)
     items.each do |item|
-      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].inject({}) do |hash, attribute|
+      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end

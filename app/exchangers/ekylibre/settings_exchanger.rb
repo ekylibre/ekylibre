@@ -129,7 +129,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Load accounts
     if can_load_default?(:accounts)
-      @manifest[:accounts] = Cash.nature.values.inject({}) do |hash, nature|
+      @manifest[:accounts] = Cash.nature.values.each_with_object({}) do |nature, hash|
         hash[nature] = { name: "enumerize.cash.nature.#{nature}".t,
                          number: sprintf('%08d', rand(10**7)) }
         hash
@@ -153,7 +153,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Loads journals
     if can_load_default?(:journals)
-      @manifest[:journals] = Journal.nature.values.inject({}) do |hash, nature|
+      @manifest[:journals] = Journal.nature.values.each_with_object({}) do |nature, hash|
         hash[nature] = { name: "enumerize.journal.nature.#{nature}".t, nature: nature.to_s, currency: currency, closed_on: Date.new(1899, 12, 31).end_of_month }
         hash
       end
@@ -163,7 +163,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Load cashes
     if can_load_default?(:cashes)
-      @manifest[:cashes] = [:bank_account, :cash_box].inject({}) do |hash, nature|
+      @manifest[:cashes] = [:bank_account, :cash_box].each_with_object({}) do |nature, hash|
         unless journal_nature = { bank_account: :bank, cash_box: :cash }[nature]
           raise StandardError, 'Need a valid journal nature to register a cash'
         end
@@ -180,7 +180,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Load incoming payment modes
     if can_load_default?(:incoming_payment_modes)
-      @manifest[:incoming_payment_modes] = %w(cash check transfer).inject({}) do |hash, nature|
+      @manifest[:incoming_payment_modes] = %w(cash check transfer).each_with_object({}) do |nature, hash|
         if cash = Cash.find_by(nature: Cash.nature.values.include?(nature) ? nature : :bank_account)
           hash[nature] = { name: IncomingPaymentMode.tc("default.#{nature}.name"), with_accounting: true, cash: cash, with_deposit: (nature == 'check' ? true : false) }
           if hash[nature][:with_deposit] && journal = Journal.find_by(nature: 'bank')
@@ -198,7 +198,7 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
 
     # Load outgoing payment modes
     if can_load_default?(:outgoing_payment_modes)
-      @manifest[:outgoing_payment_modes] = %w(cash check transfer).inject({}) do |hash, nature|
+      @manifest[:outgoing_payment_modes] = %w(cash check transfer).each_with_object({}) do |nature, hash|
         hash[nature] = { name: OutgoingPaymentMode.tc("default.#{nature}.name"),
                          with_accounting: true,
                          cash: Cash.find_by(nature:

@@ -383,7 +383,7 @@ activity_productions_013:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.5534
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -420,7 +420,7 @@ activity_productions_014:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.9989
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -462,7 +462,7 @@ activity_productions_015:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.2768
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -489,7 +489,7 @@ activity_productions_016:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 0.6467
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -515,7 +515,7 @@ activity_productions_017:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.206
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -545,7 +545,7 @@ activity_productions_018:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 9.712
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -584,7 +584,7 @@ activity_productions_019:
   rank_number: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.2445
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -617,7 +617,7 @@ activity_productions_020:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.3423
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -645,7 +645,7 @@ activity_productions_021:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.3843
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -677,7 +677,7 @@ activity_productions_022:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.0579
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -709,7 +709,7 @@ activity_productions_023:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 7.2782
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -739,7 +739,7 @@ activity_productions_024:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.8002
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -768,7 +768,7 @@ activity_productions_025:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.9359
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -801,7 +801,7 @@ activity_productions_026:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.3814
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -828,7 +828,7 @@ activity_productions_027:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.3421
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -858,7 +858,7 @@ activity_productions_028:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.944
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -888,7 +888,7 @@ activity_productions_029:
   rank_number: 4
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 6.0725
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -919,7 +919,7 @@ activity_productions_030:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.5386
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -946,7 +946,7 @@ activity_productions_031:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 5.5413
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -971,7 +971,7 @@ activity_productions_032:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.039
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -995,7 +995,7 @@ activity_productions_033:
   rank_number: 2
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 5.7285
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1022,7 +1022,7 @@ activity_productions_034:
   rank_number: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 0.2087
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1045,7 +1045,7 @@ activity_productions_035:
   rank_number: 4
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 0.5827
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1068,7 +1068,7 @@ activity_productions_036:
   rank_number: 5
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.063
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1098,7 +1098,7 @@ activity_productions_037:
   rank_number: 6
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 1.4511
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1123,7 +1123,7 @@ activity_productions_038:
   rank_number: 7
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.009
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1146,7 +1146,7 @@ activity_productions_039:
   rank_number: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 3.7979
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1170,7 +1170,7 @@ activity_productions_040:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 8.1114
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1196,7 +1196,7 @@ activity_productions_041:
   rank_number: 4
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 12.0715
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1241,7 +1241,7 @@ activity_productions_042:
   rank_number: 8
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 4.6746
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31
@@ -1266,7 +1266,7 @@ activity_productions_043:
   rank_number: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
-  size_value: 0.0
+  size_value: 2.3275
   started_on: 2015-01-01
   state: opened
   stopped_on: 2015-12-31

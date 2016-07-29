@@ -60,9 +60,9 @@ module Ekylibre
 
             results += "**Matched Nomen bos taurus items: #{nomen_varieties.count { |_, v| v[:matched] == 1 }}/#{nomen_varieties.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_varieties.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_varieties.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_varieties.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_varieties.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               out_exception_races[k] = nil
             end
@@ -99,9 +99,9 @@ module Ekylibre
 
             results += "**Matched Idele csv race code: #{idele_race_code.count { |_, v| v[:matched] == 1 }}/#{idele_race_code.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_race_code.count { |_, v| v[:matched] == 0 }} Missing Idele race code Matching: \n"
+            results += "**#{idele_race_code.count { |_, v| (v[:matched]).zero? }} Missing Idele race code Matching: \n"
 
-            idele_race_code.select { |_, v| v[:matched] == 0 }.each do |_, v|
+            idele_race_code.select { |_, v| (v[:matched]).zero? }.each do |_, v|
               results += "Code : #{v[:code]}, Human name: #{v[:human_name]}\n"
               in_exception_races[v[:code]] = nil
             end
@@ -193,9 +193,9 @@ module Ekylibre
 
             results += "**Matched Nomen sexes items: #{nomen_sexes.count { |_, v| v[:matched] == 1 }}/#{nomen_sexes.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_sexes.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_sexes.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_sexes.select { |_, v| v[:matched] == 0 }.each do |_, v|
+            nomen_sexes.select { |_, v| (v[:matched]).zero? }.each do |_, v|
               results += "Nomenclature: #{v[:nomenclature]}\n"
               out_exception_sexes[v[:nomenclature]] = nil
             end
@@ -233,9 +233,9 @@ module Ekylibre
 
             results += "**Matched Idele sexes: #{idele_sexes.count { |_, v| v[:matched] == 1 }}/#{idele_sexes.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_sexes.count { |_, v| v[:matched] == 0 }} Missing Idele sexes Matching: \n"
+            results += "**#{idele_sexes.count { |_, v| (v[:matched]).zero? }} Missing Idele sexes Matching: \n"
 
-            idele_sexes.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_sexes.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_sexes[k] = nil
             end
@@ -337,9 +337,9 @@ module Ekylibre
 
             results += "**Matched Nomen Mammalia birth conditions items: #{nomen_mammalia_birth_conditions.count { |_, v| v[:matched] == 1 }}/#{nomen_mammalia_birth_conditions.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_mammalia_birth_conditions.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_mammalia_birth_conditions.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_mammalia_birth_conditions.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_mammalia_birth_conditions.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "Nomenclature: #{k}\n"
               out_exception_mammalia_birth_conditions[k] = nil
             end
@@ -369,9 +369,9 @@ module Ekylibre
 
             results += "**Matched Idele mammalia_birth_conditions: #{idele_mammalia_birth_conditions.count { |_, v| v[:matched] == 1 }}/#{idele_mammalia_birth_conditions.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_mammalia_birth_conditions.count { |_, v| v[:matched] == 0 }} Missing Idele mammalia_birth_conditions Matching: \n"
+            results += "**#{idele_mammalia_birth_conditions.count { |_, v| (v[:matched]).zero? }} Missing Idele mammalia_birth_conditions Matching: \n"
 
-            idele_mammalia_birth_conditions.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_mammalia_birth_conditions.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_mammalia_birth_conditions[k] = nil
             end
@@ -476,9 +476,9 @@ module Ekylibre
 
             results += "**Matched Nomen Entry Reason items: #{nomen_entry_reason.count { |_, v| v[:matched] == 1 }}/#{nomen_entry_reason.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_entry_reason.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_entry_reason.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_entry_reason.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_entry_reason.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "Nomenclature: #{k}\n"
               out_exception_entry_reason[k] = nil
             end
@@ -508,9 +508,9 @@ module Ekylibre
 
             results += "**Matched Idele entry_reason: #{idele_entry_reason.count { |_, v| v[:matched] == 1 }}/#{idele_entry_reason.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_entry_reason.count { |_, v| v[:matched] == 0 }} Missing Idele entry_reason Matching: \n"
+            results += "**#{idele_entry_reason.count { |_, v| (v[:matched]).zero? }} Missing Idele entry_reason Matching: \n"
 
-            idele_entry_reason.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_entry_reason.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_entry_reason[k] = nil
             end
@@ -618,9 +618,9 @@ module Ekylibre
 
             results += "**Matched Nomen Exit Reason items: #{nomen_exit_reason.count { |_, v| v[:matched] == 1 }}/#{nomen_exit_reason.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_exit_reason.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_exit_reason.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_exit_reason.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_exit_reason.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "Nomenclature: #{k}\n"
               out_exception_exit_reason[k] = nil
             end
@@ -650,9 +650,9 @@ module Ekylibre
 
             results += "**Matched Idele exit_reason: #{idele_exit_reason.count { |_, v| v[:matched] == 1 }}/#{idele_exit_reason.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_exit_reason.count { |_, v| v[:matched] == 0 }} Missing Idele exit_reason Matching: \n"
+            results += "**#{idele_exit_reason.count { |_, v| (v[:matched]).zero? }} Missing Idele exit_reason Matching: \n"
 
-            idele_exit_reason.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_exit_reason.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_exit_reason[k] = nil
             end
@@ -750,9 +750,9 @@ module Ekylibre
 
             results += "**Matched Nomen Temoin completude items: #{nomen_temoin_completude.count { |_, v| v[:matched] == 1 }}/#{nomen_temoin_completude.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_temoin_completude.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_temoin_completude.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_temoin_completude.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_temoin_completude.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "Nomenclature: #{k}\n"
               out_exception_temoin_completude[k] = nil
             end
@@ -782,9 +782,9 @@ module Ekylibre
 
             results += "**Matched Idele temoin_completude: #{idele_temoin_completude.count { |_, v| v[:matched] == 1 }}/#{idele_temoin_completude.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_temoin_completude.count { |_, v| v[:matched] == 0 }} Missing Idele temoin_completude Matching: \n"
+            results += "**#{idele_temoin_completude.count { |_, v| (v[:matched]).zero? }} Missing Idele temoin_completude Matching: \n"
 
-            idele_temoin_completude.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_temoin_completude.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_temoin_completude[k] = nil
             end
@@ -883,9 +883,9 @@ module Ekylibre
 
             results += "**Matched Nomen Temoin fin_de_vie items: #{nomen_temoin_fin_de_vie.count { |_, v| v[:matched] == 1 }}/#{nomen_temoin_fin_de_vie.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_temoin_fin_de_vie.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_temoin_fin_de_vie.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_temoin_fin_de_vie.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_temoin_fin_de_vie.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "Nomenclature: #{k}\n"
               out_exception_temoin_fin_de_vie[k] = nil
             end
@@ -915,9 +915,9 @@ module Ekylibre
 
             results += "**Matched Idele temoin_fin_de_vie: #{idele_temoin_fin_de_vie.count { |_, v| v[:matched] == 1 }}/#{idele_temoin_fin_de_vie.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_temoin_fin_de_vie.count { |_, v| v[:matched] == 0 }} Missing Idele temoin_fin_de_vie Matching: \n"
+            results += "**#{idele_temoin_fin_de_vie.count { |_, v| (v[:matched]).zero? }} Missing Idele temoin_fin_de_vie Matching: \n"
 
-            idele_temoin_fin_de_vie.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_temoin_fin_de_vie.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_temoin_fin_de_vie[k] = nil
             end
@@ -1020,9 +1020,9 @@ module Ekylibre
 
             results += "**Matched Nomen cause remplacement items: #{nomen_cause_remplacement.count { |_, v| v[:matched] == 1 }}/#{nomen_cause_remplacement.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_cause_remplacement.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_cause_remplacement.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_cause_remplacement.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_cause_remplacement.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "Nomenclature: #{k}\n"
               out_exception_cause_remplacement[k] = nil
             end
@@ -1052,9 +1052,9 @@ module Ekylibre
 
             results += "**Matched Idele cause_remplacement: #{idele_cause_remplacement.count { |_, v| v[:matched] == 1 }}/#{idele_cause_remplacement.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_cause_remplacement.count { |_, v| v[:matched] == 0 }} Missing Idele cause_remplacement Matching: \n"
+            results += "**#{idele_cause_remplacement.count { |_, v| (v[:matched]).zero? }} Missing Idele cause_remplacement Matching: \n"
 
-            idele_cause_remplacement.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_cause_remplacement.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_cause_remplacement[k] = nil
             end
@@ -1151,9 +1151,9 @@ module Ekylibre
 
             results += "**Matched Nomen mode insemination items: #{nomen_mode_insemination.count { |_, v| v[:matched] == 1 }}/#{nomen_mode_insemination.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_mode_insemination.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_mode_insemination.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_mode_insemination.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_mode_insemination.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "Nomenclature: #{k}\n"
               out_exception_mode_insemination[k] = nil
             end
@@ -1183,9 +1183,9 @@ module Ekylibre
 
             results += "**Matched Idele mode_insemination: #{idele_mode_insemination.count { |_, v| v[:matched] == 1 }}/#{idele_mode_insemination.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_mode_insemination.count { |_, v| v[:matched] == 0 }} Missing Idele mode_insemination Matching: \n"
+            results += "**#{idele_mode_insemination.count { |_, v| (v[:matched]).zero? }} Missing Idele mode_insemination Matching: \n"
 
-            idele_mode_insemination.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_mode_insemination.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_mode_insemination[k] = nil
             end
@@ -1288,9 +1288,9 @@ module Ekylibre
 
             results += "**Matched Nomen Paillette fractionnee items: #{nomen_paillette_fractionnee.count { |_, v| v[:matched] == 1 }}/#{nomen_paillette_fractionnee.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_paillette_fractionnee.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_paillette_fractionnee.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_paillette_fractionnee.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_paillette_fractionnee.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "Nomenclature: #{k}\n"
               out_exception_paillette_fractionnee[k] = nil
             end
@@ -1320,9 +1320,9 @@ module Ekylibre
 
             results += "**Matched Idele paillette_fractionnee: #{idele_paillette_fractionnee.count { |_, v| v[:matched] == 1 }}/#{idele_paillette_fractionnee.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_paillette_fractionnee.count { |_, v| v[:matched] == 0 }} Missing Idele paillette_fractionnee Matching: \n"
+            results += "**#{idele_paillette_fractionnee.count { |_, v| (v[:matched]).zero? }} Missing Idele paillette_fractionnee Matching: \n"
 
-            idele_paillette_fractionnee.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_paillette_fractionnee.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_paillette_fractionnee[k] = nil
             end
@@ -1420,9 +1420,9 @@ module Ekylibre
 
             results += "**Matched Nomen Semence Sexee items: #{nomen_semence_sexee.count { |_, v| v[:matched] == 1 }}/#{nomen_semence_sexee.size} (#{out_existing_exception.size} manually)\n"
 
-            results += "**#{nomen_semence_sexee.count { |_, v| v[:matched] == 0 }} Missing Nomen Item Matching: \n"
+            results += "**#{nomen_semence_sexee.count { |_, v| (v[:matched]).zero? }} Missing Nomen Item Matching: \n"
 
-            nomen_semence_sexee.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            nomen_semence_sexee.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "Nomenclature: #{k}\n"
               out_exception_semence_sexee[k] = nil
             end
@@ -1452,9 +1452,9 @@ module Ekylibre
 
             results += "**Matched Idele semence_sexee: #{idele_semence_sexee.count { |_, v| v[:matched] == 1 }}/#{idele_semence_sexee.size} (#{in_existing_exception.size} manually)\n"
 
-            results += "**#{idele_semence_sexee.count { |_, v| v[:matched] == 0 }} Missing Idele semence_sexee Matching: \n"
+            results += "**#{idele_semence_sexee.count { |_, v| (v[:matched]).zero? }} Missing Idele semence_sexee Matching: \n"
 
-            idele_semence_sexee.select { |_, v| v[:matched] == 0 }.each do |k, _|
+            idele_semence_sexee.select { |_, v| (v[:matched]).zero? }.each do |k, _|
               results += "#{k}\n"
               in_exception_semence_sexee[k] = nil
             end

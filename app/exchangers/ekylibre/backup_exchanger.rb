@@ -153,7 +153,7 @@ module Ekylibre
         keys.each do |key|
           raise "Invalid key for record identification: #{key}" unless columns.include? key
         end
-        renamings = columns.keys.inject({}) do |h, k|
+        renamings = columns.keys.each_with_object({}) do |k, h|
           h[k] = { comment: :description, department_id: :team_id }[k] || k
           h
         end
@@ -171,7 +171,7 @@ module Ekylibre
 
         browse_and_match(backup_model) do |item|
           # puts item.inspect.magenta
-          finder = keys.inject({}) do |hash, key|
+          finder = keys.each_with_object({}) do |key, hash|
             new_column = renamings[key]
             hash.store(new_column, value_of(item, key, columns[key][:references], converters[new_column]))
             hash
@@ -244,7 +244,7 @@ module Ekylibre
 
       # :accounts, :cultivations, :custom_fields, :delays, :districts, :document_templates, :entity_categories, :entity_link_natures, :entity_natures, :establishments, :event_natures, :incoming_delivery_modes, :journals, :land_parcel_groups, :listings, :operation_natures, :outgoing_delivery_modes, :production_chains, :professions, :roles, :sequences, :tools, :units
 
-      delays = data[:delay].inject({}) do |hash, item|
+      delays = data[:delay].each_with_object({}) do |item, hash|
         hash[item.id] = item.expression
         hash
       end

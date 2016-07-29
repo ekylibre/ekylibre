@@ -82,7 +82,7 @@ class BankStatement < Ekylibre::Record::Base
         errors.add(:stopped_on, :posterior, to: started_on.l)
       end
     end
-    if initial_balance_debit != 0 && initial_balance_credit != 0
+    if initial_balance_debit.nonzero? && initial_balance_credit.nonzero?
       errors.add(:initial_balance_credit, :unvalid_amounts)
     end
   end

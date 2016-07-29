@@ -216,7 +216,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   def monthly_sums(started_at, stopped_at, expr = 'debit - credit')
-    account.journal_entry_items.between(started_at, stopped_at).group('EXTRACT(YEAR FROM printed_on)*100 + EXTRACT(MONTH FROM printed_on)').sum(expr).sort.inject({}) do |hash, pair|
+    account.journal_entry_items.between(started_at, stopped_at).group('EXTRACT(YEAR FROM printed_on)*100 + EXTRACT(MONTH FROM printed_on)').sum(expr).sort.each_with_object({}) do |pair, hash|
       hash[pair[0].to_i.to_s] = pair[1].to_d
       hash
     end

@@ -110,7 +110,7 @@ class Tax < Ekylibre::Record::Base
         name: item.human_name,
         nature: item.nature,
         country: item.country,
-        active: active,
+        active: (active.nil? ? true : active),
         reference_name: item.name
       }
       [:deduction, :collect, :fixed_asset_deduction, :fixed_asset_collect].each do |account|
@@ -147,6 +147,11 @@ class Tax < Ekylibre::Record::Base
     def load_defaults
       import_all_from_nomenclature(country: Preference[:country].to_sym)
     end
+  end
+
+  before_validation do
+    self.active = false if active.nil?
+    true
   end
 
   protect(on: :destroy) do

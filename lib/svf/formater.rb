@@ -121,7 +121,7 @@ module SVF
         code << "if line.is_a?(#{line.class_name(@name)})\n"
         new_line = (line.has_children? ? sibling.line : 'line')
         code << "    #{sibling.line} = line\n" if line.has_children?
-        code << ((sibling.range.max == 1) ? "    #{full_name} = #{new_line}\n" : "    #{full_name} << #{new_line}\n")
+        code << (sibling.range.max == 1 ? "    #{full_name} = #{new_line}\n" : "    #{full_name} << #{new_line}\n")
         if line.to
           code << "    line = #{options[:file]}.gets\n"
           code << "    line_number += 1\n"

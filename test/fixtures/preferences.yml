@@ -3165,7 +3165,7 @@ preferences_268:
   created_at: 2015-09-17 13:23:01.063340000 Z
   creator_id: 1
   id: 269
-  lock_version: 4
+  lock_version: 6
   name: list._parcels_list_parcels_tag
   nature: string
   string_value:
@@ -3183,7 +3183,12 @@ preferences_268:
     dir: desc
     per_page: 20
     sort: planned_at
-  updated_at: 2015-09-17 13:31:13.719335000 Z
+    delivery_mode: Tous
+    nature: Tous
+    period: all
+    started_on: '2015-09-01'
+    stopped_on: '2016-08-31'
+  updated_at: 2016-07-26 19:23:26.424245000 Z
   updater_id: 1
   user_id: 1
 preferences_269:

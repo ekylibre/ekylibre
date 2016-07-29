@@ -124,7 +124,7 @@ class Affair < Ekylibre::Record::Base
   bookkeep do |b|
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, third: third.full_name)
     all_deals = self.deals
-    thirds = all_deals.inject({}) do |hash, deal|
+    thirds = all_deals.each_with_object({}) do |deal, hash|
       if third = deal.deal_third
         # account = third.account(deal.class.affairable_options[:third])
         account = third.account(deal.deal_third_role.to_sym)
@@ -308,12 +308,12 @@ class Affair < Ekylibre::Record::Base
     amount = deals.map(&amount_method).sum
     thirds = self.thirds
     distribution = if mode == :equality
-                     thirds.inject({}) do |hash, third|
+                     thirds.each_with_object({}) do |third, hash|
                        hash[third.id] = (balance / thirds.size).round(currency_precision)
                        hash
                      end
                    else
-                     thirds.inject({}) do |hash, third|
+                     thirds.each_with_object({}) do |third, hash|
                        third_amount = deals.select do |deal|
                          deal.deal_third == third
                        end.map(&amount_method).sum

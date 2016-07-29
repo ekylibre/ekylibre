@@ -21,7 +21,7 @@ namespace :clean do
         rights[resource][access][:dependencies] = old_rights[resource][access][:dependencies] || (access == :read ? [] : ["read-#{resource}"])
         actions = (ref["backend/#{resource}"] || []).collect { |a| "backend/#{resource}##{a}" }
         read_actions = actions.select { |x| x.to_s =~ read_exp }
-        rights[resource][access][:actions] = old_rights[resource][access][:actions] || (actions.nil? ? [] : (access == :read) ? read_actions : (actions - read_actions))
+        rights[resource][access][:actions] = old_rights[resource][access][:actions] || (actions.nil? ? [] : access == :read ? read_actions : (actions - read_actions))
       end
     end
 

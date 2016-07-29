@@ -19,7 +19,7 @@ module Ekylibre
 
   class << self
     def http_languages
-      ::I18n.available_locales.inject({}) do |h, l|
+      ::I18n.available_locales.each_with_object({}) do |l, h|
         h['i18n.iso2'.t(locale: l)] = l
         h
       end

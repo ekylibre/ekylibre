@@ -77,7 +77,7 @@ class Inspection < Ekylibre::Record::Base
   after_validation :set_net_surface_area, on: :create
 
   before_validation do
-    if implanter_application_width && implanter_rows_number && implanter_rows_number != 0
+    if implanter_application_width && implanter_rows_number && implanter_rows_number.nonzero?
       self.implanter_working_width = implanter_application_width / implanter_rows_number
     end
   end
@@ -173,10 +173,6 @@ class Inspection < Ekylibre::Record::Base
   #   end
   # end
 
-  def mass_statable?
-    product_net_surface_area && measure_grading_net_mass
-  end
-
   def product_net_surface_area
     return nil if product_net_surface_area_value.blank? ||
                   product_net_surface_area_unit.blank?
@@ -196,76 +192,77 @@ class Inspection < Ekylibre::Record::Base
     points.of_category(category)
   end
 
-  def points_items_count(category = nil)
-    points_of_category(category).sum(:items_count)
-  end
+  [[:items_count, :items, :items_count], [:net_mass, :mass, :net_mass_value]].each do |long_name, short_name, column_name|
+    define_method "#{short_name}_statable?" do
+      product_net_surface_area && send("measure_grading_net_#{short_name}")
+    end
 
-  def points_net_mass(category = nil)
-    points_of_category(category).sum(:net_mass_value).in(activity.grading_net_mass_unit)
-  end
+    define_method "points_#{long_name}" do |category = nil|
+      point_sum = points_of_category(category).sum(:"#{column_name}")
+      if activity.respond_to?("grading_#{long_name}_unit")
+        point_sum.in(activity.send("grading_#{long_name}_unit"))
+      else
+        point_sum.in(:unity)
+      end
+    end
 
-  def total_points_net_mass(category = nil)
-    points_of_category(category).map(&:total_net_mass).sum.round(0)
-  end
+    define_method "total_points_#{long_name}" do |category = nil|
+      points_of_category(category).map(&:"total_#{long_name}").sum.round(0)
+    end
 
-  def points_net_mass_yield(category = nil)
-    points_of_category(category).map(&:net_mass_yield).sum.round(0)
-  end
+    define_method "points_#{long_name}_yield" do |category = nil|
+      points_of_category(category).map(&:"#{long_name}_yield").sum.round(0)
+    end
 
-  def points_net_mass_percentage(category = nil)
-    points_of_category(category).map(&:net_mass_percentage).sum
-  end
+    define_method "points_#{long_name}_percentage" do |category = nil|
+      points_of_category(category).map(&:"#{long_name}_percentage").sum
+    end
 
-  def items_count(scale)
-    calibrations.of_scale(scale).sum(:items_count)
-  end
+    define_method "unmarketable_#{long_name}" do
+      point_sum = points.unmarketable.sum(:"#{column_name}")
+      if activity.respond_to?(:"grading_#{long_name}_unit")
+        point_sum.in(activity.send("grading_#{long_name}_unit"))
+      else
+        point_sum.in(:unity)
+      end
+    end
 
-  def net_mass(scale = nil)
-    if scale.nil?
-      (scales.map { |s| net_mass(s) }.sum / scales.count).round(0)
-    else
-      calibrations.of_scale(scale).sum(:net_mass_value).in(activity.grading_net_mass_unit)
+    define_method long_name.to_s do |scale = nil|
+      calibration_values(:"#{long_name}_in_unit", scale)
+    end
+
+    define_method "#{long_name}_yield" do |scale = nil|
+      calibration_values(:"#{long_name}_yield", scale)
+    end
+
+    define_method "marketable_#{long_name}" do |scale = nil|
+      calibration_values(:"marketable_#{long_name}", scale, true)
+    end
+
+    define_method "marketable_#{short_name}_yield" do |scale = nil|
+      calibration_values(:"marketable_#{short_name}_yield", scale, true)
+    end
+
+    define_method "total_#{long_name}" do |scale = nil|
+      calibration_values(:"total_#{long_name}", scale)
+    end
+
+    define_method "unmarketable_#{short_name}_rate" do
+      send(long_name).to_d.nonzero? ? send("unmarketable_#{long_name}") / send(long_name) : nil
     end
   end
 
-  def total_net_mass(scale = nil)
+  protected
+
+  # Returns the sum of measurements on a scale if one is provided
+  #  or the average of measurements across all scales if none is.
+  def calibration_values(method, scale = nil, marketable = false)
     if scale.nil?
-      (scales.map { |s| total_net_mass(s) }.sum / scales.count).round(0)
+      (scales.map { |s| send(:calibration_values, method, s, marketable) }.sum / scales.count)
     else
-      calibrations.of_scale(scale).map(&:total_net_mass).sum
+      calib = calibrations.of_scale(scale)
+      calib = calib.marketable if marketable
+      calib.map(&method).sum
     end
-  end
-
-  def net_mass_yield(scale = nil)
-    if scale.nil?
-      (scales.map { |s| net_mass_yield(s) }.sum / scales.count).round(0)
-    else
-      calibrations.of_scale(scale).map(&:net_mass_yield).sum.round(0)
-    end
-  end
-
-  def marketable_net_mass(scale = nil)
-    if scale.nil?
-      (scales.map { |s| marketable_net_mass(s) }.sum / scales.count).round(0)
-    else
-      calibrations.of_scale(scale).marketable.map(&:marketable_net_mass).sum.round(0)
-    end
-  end
-
-  def marketable_yield(scale = nil)
-    if scale.nil?
-      (scales.map { |s| marketable_yield(s) }.sum / scales.count).round(0)
-    else
-      calibrations.of_scale(scale).marketable.map(&:marketable_yield).sum.round(0)
-    end
-  end
-
-  def unmarketable_rate
-    # raise [unmarketable_net_mass.to_s, total_net_mass.to_s].to_sentence
-    net_mass.value != 0 ? unmarketable_net_mass / net_mass : nil
-  end
-
-  def unmarketable_net_mass
-    points.unmarketable.sum(:net_mass_value).in(activity.grading_net_mass_unit)
   end
 end

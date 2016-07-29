@@ -629,6 +629,7 @@ spa:
     grading_sizes_unit_name: "La clasificación tamaños nombre de la unidad"
     gradings: "gradaciones"
     gravity: "Gravedad"
+    gross_items: "recuento bruto"
     gross_mass: "masa bruta"
     gross_yield_value: "Valor de rendimiento bruto"
     group: "Grupo"
@@ -787,6 +788,7 @@ spa:
     managed_sales: "Ventas gestionadas"
     manure_management_plan_zones: "Zonas del plan de manejo del estiércol"
     marketable: "Vendible"
+    marketable_items_count: "cuentan artículos negociables"
     marketable_net_mass: "masa neta comercializable"
     marketable_net_yield: "rendimiento neto comercializable"
     marketable_yield: "rendimiento comercial"
@@ -1080,6 +1082,7 @@ spa:
     # season: "Cropping season"
     second_producer: "En segundo productor" #?
     seeding_density_unit: "unidad de densidad de siembra"
+    seeding_density_value: "densidad de siembra"
     selected: "Seleccionado"
     selected_manure_management_plan: "Plan de manejo del estiércol seleccionado"
     selected_manure_management_plan_zone: "Zona de plan de manejo del estiércol seleccionado"
@@ -1156,6 +1159,7 @@ spa:
     taxations: "Tasaciones"
     team: "Equipo"
     template: "Modelo"
+    theme: "Tema"
     third: "Tercero"
     third_producer: "En tercer productor" #?
     third_role: "Tercera papel"
@@ -1236,6 +1240,7 @@ spa:
     with_deposit: "Con el depósito"
     with_supports: "Con soportes"
     with_transport: "Con el transporte"
+    work_name: "nombre del trabajo"
     work_number: "Número de trabajo"
     worker: "Obrero"
     working_duration: "Duración de trabajo"
@@ -1319,6 +1324,9 @@ spa:
           name: "Comprobar"
         transfer:
           name: "Virement"
+    inspection:
+      items: "Artículos"
+      mass: "Masa"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:
@@ -1390,6 +1398,7 @@ spa:
           in_preparation: "En la preparación de"
           ordered: "Ordenado"
           prepared: "Preparado"
+          received: "Recibido"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

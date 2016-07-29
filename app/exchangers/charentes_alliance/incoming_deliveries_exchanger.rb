@@ -1,33 +1,31 @@
 # coding: utf-8
 module CharentesAlliance
+  # Incoming deliveries extracted from Charentes Alliance extranet
   class IncomingDeliveriesExchanger < ActiveExchanger::Base
     def import
       here = Pathname.new(__FILE__).dirname
 
-      catalog = Catalog.find_by_code('ACHAT') || Catalog.first
-      supplier_account = Account.find_or_import_from_nomenclature(:suppliers)
+      catalog = Catalog.by_default!(:purchase)
       # TODO: take care of no taxes present before
       Tax.load_defaults unless Tax.any?
-      default_tax = Tax.first
-      building_division = BuildingDivision.first
-      suppliers = Entity.where(of_company: false, supplier: true).reorder(:supplier_account_id, :last_name)
-      suppliers ||= Entity.create!(
-        sale_catalog_id: catalog.id,
-        nature: :organization,
-        language: 'fra',
-        last_name: 'All',
-        supplier_account_id: supplier_account.id,
-        currency: 'EUR',
-        supplier: true
-      )
+      default_tax = Tax.first ||
+                    Tax.import_from_nomenclature(:french_vat_normal_2014)
+      building_division = BuildingDivision.first ||
+                          BuildingDivision.create!(
+                            name: 'Default storage',
+                            initial_born_at: Date.civil(1, 1, 1),
+                            variant: ProductNatureVariant.import_from_nomenclature(:building_division)
+                          )
 
       variants_transcode = {}.with_indifferent_access
       CSV.foreach(here.join('variants.csv'), headers: true) do |row|
         variants_transcode[row[0]] = row[1].to_sym
       end
 
-      cooperative = Entity.where('last_name ILIKE ?', 'CHARENTES ALLIANCE').first ||
-                    Entity.find_by_last_name('Charentes Alliance')
+      sender_name = 'Charentes Alliance'
+      sender = Entity.find_by(last_name: sender_name) ||
+               Entity.where('last_name ILIKE ?', sender_name).first ||
+               Entity.create!(nature: :organization, last_name: sender_name, supplier: true)
 
       # map sub_family to product_nature_variant XML Nomenclature
 
@@ -75,21 +73,24 @@ module CharentesAlliance
           delivery.finish
         end
 
+        address = Entity.of_company.default_mail_address ||
+                  Entity.of_company.mails.create!(by_default: true)
+
         # create an order if not exist
-        unless (order = Parcel.find_by(reference_number: r.order_number))
-          order = Parcel.create!(
-            nature: :incoming,
-            reference_number: r.order_number,
-            planned_at: r.ordered_on,
-            given_at: r.ordered_on,
-            state: :in_preparation,
-            sender: cooperative,
-            address: Entity.of_company.default_mail_address,
-            delivery_mode: :third,
-            storage: building_division
-          )
-          previous_order_number = r.order_number
-        end
+        order = Parcel.find_by(reference_number: r.order_number) ||
+                Parcel.create!(
+                  nature: :incoming,
+                  reference_number: r.order_number,
+                  planned_at: r.ordered_on,
+                  given_at: r.ordered_on,
+                  state: :in_preparation,
+                  sender: sender,
+                  address: address,
+                  delivery_mode: :third,
+                  storage: building_division
+                )
+        previous_order_number = r.order_number
+
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
         unless product_nature_variant = ProductNatureVariant.find_by(number: r.coop_reference_name)
           product_nature_variant ||= if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
@@ -101,6 +102,9 @@ module CharentesAlliance
           product_nature_variant.number = r.coop_reference_name if r.coop_reference_name
           product_nature_variant.save!
         end
+        # Force population_counting to decimal for every product_nature used
+        # here
+        product_nature_variant.nature.update_columns(population_counting: :decimal)
         # find a price from current supplier for a consider variant
         # TODO: waiting for a product price capitalization method
         catalog_item = catalog.items.find_by(variant_id: product_nature_variant.id)
@@ -114,7 +118,7 @@ module CharentesAlliance
         if r.order_status == :order
           order.items.create!(
             variant: product_nature_variant,
-            product_name: r.matter_name + ' (' + r.ordered_on.to_s + ')',
+            product_name: r.matter_name + ' (' + r.ordered_on.l + ')',
             product_identification_number: r.ordered_on.to_s + '_' + r.order_number + '_' + r.matter_name,
             quantity: r.quantity
           )

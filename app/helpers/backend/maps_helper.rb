@@ -61,7 +61,7 @@ module Backend
           content_tag(:div, class: 'row') do
             imports.collect.with_index do |k, i|
               content_tag(:div, class: 'choice-padding') do
-                radio_button_tag(:importer_format, k, (i == 0 ? true : false)) + label_tag("importer_format_#{k}".to_sym, k)
+                radio_button_tag(:importer_format, k, (i.zero? ? true : false)) + label_tag("importer_format_#{k}".to_sym, k)
               end
             end.join.html_safe
           end + content_tag(:div, class: 'row') do

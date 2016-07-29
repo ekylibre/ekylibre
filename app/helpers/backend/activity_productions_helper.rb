@@ -11,7 +11,7 @@ module Backend
       duration = (period_stopped_on - period_started_on).to_f
       grades = []
       on = period_started_on.dup
-      finish = period_stopped_on.beginning_of_month - 1.month
+      finish = period_stopped_on.beginning_of_month + 1.month
       while on < finish
         grades << on # if grades.empty? || grades.last.year != on.year
         on += 1.month

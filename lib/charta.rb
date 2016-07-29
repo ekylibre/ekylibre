@@ -161,7 +161,7 @@ module Charta
     end
 
     def new_collection(geometries)
-      geometries.is_a? Array and geometries.any? ? new_geometry(Charta.select_value("SELECT ST_AsEWKT(ST_Collect(ARRAY[#{geometries.collect { |geo| geo[:shape].geom }.join(',')}]))"), nil, nil, false, geometries) : Charta.empty_geometry
+      geometries.is_a?(Array) && geometries.any? ? new_geometry(Charta.select_value("SELECT ST_AsEWKT(ST_Collect(ARRAY[#{geometries.collect { |geo| geo[:shape].geom }.join(',')}]))"), nil, nil, false, geometries) : Charta.empty_geometry
     end
   end
 end

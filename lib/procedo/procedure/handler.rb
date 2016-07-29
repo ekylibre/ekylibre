@@ -37,7 +37,7 @@ module Procedo
         unless @indicator.respond_to?(:nomenclature) && @indicator.nomenclature.name == :indicators
           raise Procedo::Errors::InvalidHandler, "Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}"
         end
-        self.unit_name = indicator.unit if self.unit.nil? && measure?
+        self.unit_name = indicator.unit if unit.nil? && measure?
       end
 
       # Sets the indicator name

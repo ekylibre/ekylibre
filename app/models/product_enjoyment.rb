@@ -50,7 +50,7 @@ class ProductEnjoyment < Ekylibre::Record::Base
   validates :enjoyer, presence: { if: :other? }
 
   before_validation do
-    self.nature ||= (enjoyer.blank? ? :unknown : (enjoyer == Entity.of_company) ? :own : :other)
+    self.nature ||= (enjoyer.blank? ? :unknown : enjoyer == Entity.of_company ? :own : :other)
   end
 
   private

@@ -3603,3 +3603,35 @@ product_readings_223:
   read_at: 2016-07-01 20:23:20.986644000 Z
   updated_at: 2016-07-01 20:23:21.142696000 Z
   updater_id: 1
+product_readings_224:
+  absolute_measure_value_unit: kilogram
+  absolute_measure_value_value: 0.76
+  boolean_value: false
+  created_at: 2016-07-26 19:27:42.935113000 Z
+  creator_id: 1
+  id: 350
+  indicator_datatype: measure
+  indicator_name: net_mass
+  lock_version: 0
+  measure_value_unit: gram
+  measure_value_value: 760.0
+  product_id: 143
+  read_at: 2013-10-30 13:52:00.000000000 Z
+  updated_at: 2016-07-26 19:27:42.935113000 Z
+  updater_id: 1
+product_readings_225:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 0.75
+  boolean_value: false
+  created_at: 2016-07-26 19:27:42.937685000 Z
+  creator_id: 1
+  id: 351
+  indicator_datatype: measure
+  indicator_name: net_volume
+  lock_version: 0
+  measure_value_unit: centiliter
+  measure_value_value: 75.0
+  product_id: 143
+  read_at: 2013-10-30 13:52:00.000000000 Z
+  updated_at: 2016-07-26 19:27:42.937685000 Z
+  updater_id: 1

@@ -18,14 +18,14 @@ module Ekylibre
         r = OpenStruct.new(
           name: row[0],
           nature: row[1].to_s,
-          member_nature: (row[2].blank? ? nil : row[2].to_s),
+          member_nature: (row[2].blank? ? nil : row[2].to_sym),
           code: row[3],
           minimum_age: (row[4].blank? ? nil : row[4].to_i),
           maximum_age: (row[5].blank? ? nil : row[5].to_i),
           sex: (row[6].blank? ? nil : row[6].to_sym),
           place: (row[7].blank? ? nil : row[7].to_s),
           indicators_at: (row[8].blank? ? Time.zone.today : row[8]).to_datetime,
-          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
             h
           end,
@@ -40,11 +40,14 @@ module Ekylibre
             valid = false
           end
         end
-        unless animal_variant = ProductNatureVariant.find_by_number(r.member_nature) || ProductNatureVariant.find_by_reference_name(r.member_nature)
-          unless animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature.to_sym)
-            w.error "#{prompt} #{r.member_nature} does not exist in NOMENCLATURE or in DB"
-            valid = false
-          end
+        r.member_nature = "#{r.member_nature}_band".to_sym if r.member_nature.to_s =~ /^(fe)?male_young_pig$/
+        r.member_nature = :young_rabbit if r.member_nature.to_s =~ /^(fe)?male_young_rabbit$/
+        animal_variant = ProductNatureVariant.find_by(number: r.member_nature) ||
+                         ProductNatureVariant.find_by(reference_name: r.member_nature) ||
+                         ProductNatureVariant.import_from_nomenclature(r.member_nature)
+        unless animal_variant
+          w.error "#{prompt} #{r.member_nature} does not exist in NOMENCLATURE or in DB"
+          valid = false
         end
 
         unless animal_container = Product.find_by_work_number(r.place)
@@ -70,14 +73,14 @@ module Ekylibre
         r = OpenStruct.new(
           name: row[0],
           nature: row[1].to_s,
-          member_nature: (row[2].blank? ? nil : row[2].to_s),
+          member_nature: (row[2].blank? ? nil : row[2].to_sym),
           code: row[3],
           minimum_age: (row[4].blank? ? nil : row[4].to_i),
           maximum_age: (row[5].blank? ? nil : row[5].to_i),
           sex: (row[6].blank? ? nil : row[6].to_sym),
           place: (row[7].blank? ? nil : row[7].to_s),
           indicators_at: (row[8].blank? ? Time.zone.today : row[8]).to_datetime,
-          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+          indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
             h
           end,
@@ -89,8 +92,14 @@ module Ekylibre
         unless variant = ProductNatureVariant.find_by_number(r.nature)
           variant = ProductNatureVariant.import_from_nomenclature(r.nature.to_sym)
         end
-        unless animal_variant = ProductNatureVariant.find_by_number(r.member_nature) || ProductNatureVariant.find_by_reference_name(r.member_nature)
-          animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature.to_sym)
+
+        r.member_nature = "#{r.member_nature}_band".to_sym if r.member_nature.to_s =~ /^(fe)?male_young_pig$/
+        r.member_nature = :young_rabbit if r.member_nature.to_s =~ /^(fe)?male_young_rabbit$/
+        animal_variant = ProductNatureVariant.find_by(number: r.member_nature) ||
+                         ProductNatureVariant.find_by(reference_name: r.member_nature) ||
+                         ProductNatureVariant.import_from_nomenclature(r.member_nature)
+        unless animal_variant
+          animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature)
         end
         animal_container = Product.find_by_work_number(r.place)
 
@@ -122,9 +131,10 @@ module Ekylibre
           # find support for intervention changing or create it
           unless ap = ActivityProduction.where(support_id: animal_group.id).first
             # campaign = Campaign.find_or_create_by!(harvest_year: r.campaign_year)
+            family = Nomen::ActivityFamily.find(:animal_farming)
+            r.activity_name = family.human_name if r.activity_name.blank?
             unless activity = Activity.find_by(name: r.activity_name)
               # family = Activity.find_best_family(animal_group.derivative_of, animal_group.variety)
-              family = Nomen::ActivityFamily.find(:animal_farming)
               unless family
                 w.error 'Cannot determine activity'
                 raise ActiveExchanger::Error, "Cannot determine activity with support #{support_variant ? support_variant.variety.inspect : '?'} and cultivation #{cultivation_variant ? cultivation_variant.variety.inspect : '?'} in production #{sheet_name}"

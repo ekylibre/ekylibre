@@ -61,6 +61,10 @@ module Backend
         @options[:param_name] ||= :start_date
       end
 
+      def params
+        @options[:params] ||= {}
+      end
+
       def start_date
         view_context.params.fetch(date_param_name, Date.today).to_date
       end
@@ -192,7 +196,7 @@ module Backend
         next unless items.any?
         data = []
         data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
-        data += items.inject({}) do |hash, pair|
+        data += items.each_with_object({}) do |pair, hash|
           hash[pair.read_at.to_usec] = pair.value.to_d
           hash
         end.collect { |k, v| [k, v.to_s.to_f] }
@@ -214,7 +218,7 @@ module Backend
       min = now - window if (now - min) < window
       if movements.any?
         data = []
-        data += movements.inject({}) do |hash, pair|
+        data += movements.each_with_object({}) do |pair, hash|
           hash[pair.started_at.to_usec] = pair.population.to_d
           hash
         end.collect { |k, v| [k, v.to_s.to_f] }
@@ -258,7 +262,7 @@ module Backend
       machine = resource.class.state_machine
       state = resource.state
       state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) || state.nil?
-      render 'state_bar', states: machine.states, current_state: state, resource: resource
+      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: _options[:renamings]
     end
 
     def main_state_bar(resource, options = {})

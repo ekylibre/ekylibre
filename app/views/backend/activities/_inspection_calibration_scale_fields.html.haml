@@ -1,4 +1,4 @@
-.nested-fields
+.nested-fields.inspection-calibration-scale
   = link_to_remove_nested_association(:inspection_calibration_scale, f)
   = f.referenced_nomenclature :size_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: [:distance, :mass])).selection, include_blanks: false
   = f.referenced_nomenclature :size_unit, collection: Nomen::Unit.where(dimension: [:distance, :mass]).selection, include_blanks: false

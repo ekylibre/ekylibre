@@ -214,7 +214,11 @@ class Product < Ekylibre::Record::Base
   scope :storage, -> { of_expression('is building or is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
 
-  scope :mine, -> { of_owner(Entity.of_company) }
+  scope :mine, -> { of_owner(:own) }
+  scope :mine_or_undefined, ->(at = nil) {
+    at ||= Time.zone.now
+    where.not(id: ProductOwnership.select(:product_id).where(nature: :other).at(at))
+  }
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
@@ -264,6 +268,10 @@ class Product < Ekylibre::Record::Base
 
   before_validation do
     self.initial_born_at ||= Time.zone.now
+    self.born_at ||= self.initial_born_at
+    self.initial_born_at = self.born_at
+    self.dead_at ||= initial_dead_at
+    self.initial_dead_at = self.dead_at
     self.uuid ||= UUIDTools::UUID.random_create.to_s
   end
 
@@ -339,9 +347,16 @@ class Product < Ekylibre::Record::Base
     nature ? nature.name : nil
   end
 
-  # FIXME: Not I18nized
   def work_name
-    "#{name} (#{work_number})"
+    if work_number.present?
+      # FIXME: Not I18nized
+      name.to_s + ' (' + work_number.to_s + ')'
+    elsif identification_number.present?
+      # FIXME: Not I18nized
+      name.to_s + ' (' + identification_number.to_s + ')'
+    else
+      name
+    end
   end
 
   def unroll_name

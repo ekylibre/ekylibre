@@ -155,9 +155,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Measure a product for a given indicator
-  def read!(indicator, value, _options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+  def read!(indicator, value)
+    unless indicator.is_a?(Nomen::Item)
+      indicator = Nomen::Indicator.find(indicator)
+      unless indicator
+        raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      end
     end
     reading = readings.find_or_initialize_by(indicator_name: indicator.name)
     reading.value = value
@@ -174,7 +177,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Returns the direct value of an indicator of variant
-  def get(indicator, options = {})
+  def get(indicator, _options = {})
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
@@ -294,7 +297,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   def take(quantity)
-    products.mine.reduce({}) do |result, product|
+    products.mine.each_with_object({}) do |product, result|
       reminder = quantity - result.values.sum
       result[product] = [product.population, reminder].min if reminder > 0
       result
@@ -417,8 +420,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
             .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
-          # puts i.first.strip.downcase.to_sym.inspect.red
-          variant.read!(i.first.strip.downcase.to_sym, i.second)
+          indicator_name = i.first.strip.downcase.to_sym
+          next unless variant.has_indicator? indicator_name
+          variant.read!(indicator_name, i.second)
         end
       end
 

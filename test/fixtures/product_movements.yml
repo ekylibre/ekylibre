@@ -1441,11 +1441,11 @@ product_movements_126:
   creator_id: 1
   delta: 1992.0
   id: 126
-  lock_version: 0
+  lock_version: 1
   population: 1992.0
   product_id: 143
-  started_at: 2213-10-30 13:52:00.000000000 Z
-  updated_at: 2014-11-07 19:36:59.233966000 Z
+  started_at: 2013-10-30 13:52:00.000000000 Z
+  updated_at: 2016-07-26 19:27:42.881322000 Z
   updater_id: 1
 product_movements_127:
   created_at: 2014-10-31 17:19:32.000000000 Z

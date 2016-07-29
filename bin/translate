@@ -1,0 +1,212 @@
+#!/usr/bin/env ruby
+require 'yaml'
+require 'pathname'
+require 'active_support'
+require 'active_support/core_ext'
+require 'colored'
+require 'uri'
+require 'json'
+require 'google/apis/translate_v2'
+require 'rest-client'
+
+class Translator
+  PATHS = [
+    'config/locales/LOCALE/*.yml',
+    'plugins/*/config/locales/LOCALE.yml'
+  ].freeze
+
+  LOCALES = {
+    eng: :en,
+    cmn: :zh,
+    deu: :de,
+    fra: :fr,
+    ita: :it,
+    por: :pt,
+    spa: :es,
+    jpn: :ja,
+    arb: :ar
+  }.freeze
+
+  ROOT = Pathname.new(__FILE__).dirname.dirname.freeze
+
+  KEY = YAML.load_file(ROOT.join('config', 'services.yml'))['google_translate'].freeze
+
+  def self.run!(target_locale, source_locale = :eng)
+    new(target_locale, source_locale).run!
+  end
+
+  def self.run_all!(source_locale = :eng)
+    (LOCALES.keys - [source_locale]).each do |target_locale|
+      puts "Translate #{target_locale.to_s.yellow} from #{source_locale.to_s.yellow}"
+      run!(target_locale, source_locale)
+    end
+  end
+
+  def initialize(target, source)
+    @target = target.to_sym
+    @source = source.to_sym
+    @service = Google::Apis::TranslateV2::TranslateService.new
+    @service.key = KEY
+    @cache = if cache_file.exist?
+               YAML.load_file(cache_file)
+             else
+               FileUtils.mkdir_p(cache_file.dirname)
+               {}
+             end
+  end
+
+  def run!
+    @count = 0
+    each_couple do |source_file, target_file|
+      print " - #{target_file.to_s.yellow}: ".ljust(60)
+      source_tree = load_file(source_file, @source)
+      target_tree = load_file(target_file, @target)
+      missing_translations = browse(source_tree, target_tree)
+      print "#{missing_translations.keys.size} missing translations"
+      translations = translate_list(missing_translations)
+      translated = merge_translations(target_tree, translations)
+      File.write(target_file, { @target => translated }.deep_stringify_keys.to_yaml)
+    end
+  end
+
+  def browse(sobject, tobject, stack = [], translations = {})
+    raise 'WTF' unless sobject.is_a?(Hash)
+    tobject ||= {}
+    sobject.each do |key, value|
+      new_stack = stack + [key]
+      if value.is_a?(Hash)
+        unless tobject.is_a?(Hash)
+          puts 'Cannot compare Hash ' + new_stack.join('.') + ' with: ' + tobject.inspect
+          next
+        end
+        translations.update browse(value, tobject[key], new_stack)
+      elsif value.is_a?(Array)
+      # do nothing
+      elsif sobject[key] && (tobject[key].nil? || tobject[key] == '')
+        if value =~ /\%\{.+\}/
+          # puts ('Skip ' + new_stack.join('.') + ': ' + value.inspect).yellow
+        else
+          translations[new_stack.join('.')] = value
+        end
+      end
+    end
+    translations
+  end
+
+  def each_couple
+    files = []
+    PATHS.each do |path|
+      files += Dir.glob(path.gsub('LOCALE', @source.to_s)).sort
+    end
+    files.each do |f|
+      yield ROOT.join(f), ROOT.join(f.gsub(/\b#{@source}\b/, @target.to_s))
+    end
+  end
+
+  # From cache and service if nothing
+  def translate_list(hash)
+    result = {}
+    hash.each do |stack, value|
+      r = cache_get("#{@target}.#{stack}")
+      if r
+        result[stack] = r if r != value
+        hash.delete(stack)
+      end
+    end
+    batch(hash) do |trans|
+      response = @service.list_translations(trans.values, LOCALES[@target].to_s, source: LOCALES[@source].to_s)
+      response.translations.each_with_index do |t, i|
+        result[trans.keys[i]] = t.translated_text unless t.translated_text == trans.values[i]
+        cache_set("#{@target}.#{trans.keys[i]}", t.translated_text)
+      end
+      print '.'.red
+      sleep(trans.size * 0.07)
+      print '.'.white
+    end
+    puts ''
+    result
+  end
+
+  def merge_translations(tree, translations)
+    hash = tree
+    translations.each do |joined_key, value|
+      next if value.nil?
+      h = hash
+      keys = joined_key.split('.').map(&:to_sym)
+      keys.each_with_index do |key, index|
+        if index == keys.size - 1
+          h[key] = value
+        else
+          h[key] ||= {}
+          h = h[key]
+        end
+      end
+    end
+    tree.deep_merge hash
+  end
+
+  def batch(hash, size = 100)
+    array = hash.to_a
+    yield Hash[array.slice!(0, size)] until array.empty?
+  end
+
+  def translate(text, stack = [])
+    full_stack = [@target] + stack
+    print "translate #{stack.join('.')}: #{text.inspect.white} with"
+    result = cache_get(full_stack)
+    unless result
+      print '...'
+      response = @service.list_translations(text, LOCALES[@target].to_s, source: LOCALES[@source].to_s)
+      result = response.translations.first.translated_text
+      cache_set(full_stack, result)
+      @count += text.size
+      sleep(0.005)
+    end
+    if result.blank? || result == text
+      puts ' ' + 'avoided'.red
+      return nil
+    end
+    if [:spa, :por, :eng, :fra, :ita, :deu].include?(@target)
+      result = result.mb_chars.slice(0).upcase + result.mb_chars.slice(1..-1)
+    end
+    # query = "https://www.googleapis.com/language/translate/v2?q=#{URI.escape(text)}&target=#{LOCALES[@target]}&format=text&source=#{LOCALES[@source]}&key=#{API_KEY}"
+    # response = RestClient.get(query)
+    # puts response.inspect.red
+    puts ' ' + result.blue + " (#{@count})"
+    result.to_s
+  end
+
+  def cache_get(stack)
+    @cache[stack.is_a?(Array) ? stack.join('.') : stack]
+  end
+
+  def cache_set(stack, value)
+    stack = stack.join('.') if stack.is_a?(Array)
+    @cache[stack] = value
+    File.write(cache_file, "\n" + stack + ': "' + value.to_s.gsub('"', '\\"') + '"', mode: 'a')
+  end
+
+  def cache_file
+    ROOT.join('tmp', 'cache', 'translations.yml')
+  end
+
+  def load_file(path, locale)
+    if path.exist?
+      YAML.load_file(path).deep_symbolize_keys[locale] || {}
+    else
+      return {}
+    end
+  end
+end
+
+unless Translator::KEY
+  puts 'Google Translate API key is missing. Please add it in config/services.yml'
+  puts "with key 'google_translate'."
+  puts ''
+  puts 'Example:'
+  puts '  ---'
+  puts '  google_translate: 123546dfsfsdfsdfkjhsfkjh'
+  exit 1
+end
+
+Translator.run_all!

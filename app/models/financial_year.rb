@@ -208,7 +208,7 @@ class FinancialYear < Ekylibre::Record::Base
           for balance in account_balances.joins(:account).order('number')
             if balance.account.number.to_s =~ /^(#{expenses.number}|#{revenues.number})/
               result += balance.balance
-            elsif balance.balance != 0
+            elsif balance.balance.nonzero?
               # TODO: Use currencies properly in account_balances !
               entry.items.create!(account_id: balance.account_id, name: balance.account.name, real_debit: balance.balance_debit, real_credit: balance.balance_credit)
             end

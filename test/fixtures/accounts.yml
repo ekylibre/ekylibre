@@ -230,7 +230,7 @@ accounts_015:
   reconcilable: false
   updated_at: 2014-10-31 18:48:46.520318000 Z
   updater_id: 1
-  usages: equipment_expenses
+  usages: equipment_maintenance_expenses
 accounts_016:
   created_at: 2014-10-31 18:48:46.546665000 Z
   creator_id: 1
@@ -1138,7 +1138,7 @@ accounts_085:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.592206000 Z
   updater_id: 1
-  usages: equipments_depreciations_inputations_expenses
+  usages: equipment_depreciations_inputations_expenses
 accounts_086:
   created_at: 2014-12-24 11:08:52.596619000 Z
   creator_id: 1
@@ -1151,7 +1151,7 @@ accounts_086:
   reconcilable: false
   updated_at: 2014-12-24 11:08:52.596619000 Z
   updater_id: 1
-  usages: equipments_expenses
+  usages: equipment_expenses
 accounts_087:
   created_at: 2014-12-24 11:08:52.602270000 Z
   creator_id: 1

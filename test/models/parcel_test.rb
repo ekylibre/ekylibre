@@ -95,9 +95,10 @@ class ParcelTest < ActiveSupport::TestCase
 
     p.items.create!(parcel_items_attributes)
 
-    p.order
-    p.prepare
-    p.check
+    p.order!
+    p.prepare!
+    p.check!
+    p.give!
 
     variant.reload
     post_num_of_products = variant.products.count
@@ -156,6 +157,7 @@ class ParcelTest < ActiveSupport::TestCase
     p.order!
     p.prepare!
     p.check!
+    p.give!
 
     variant.reload
     post_stock = p.items.first.product.population
@@ -196,7 +198,7 @@ class ParcelTest < ActiveSupport::TestCase
     }
 
     parcel_items_attributes = {
-      population: 0.02,
+      population: product.population,
       source_product: product
     }
 
@@ -207,6 +209,7 @@ class ParcelTest < ActiveSupport::TestCase
     p.order!
     p.prepare!
     p.check!
+    p.give!
 
     # Should've sent all of them
     assert_equal(0, product.population, <<-POPULATION_NOT_NULL)
@@ -241,9 +244,10 @@ class ParcelTest < ActiveSupport::TestCase
 
     p.items.create!(parcel_items_attributes)
 
-    p.order
-    p.prepare
-    p.check
+    p.order!
+    p.prepare!
+    p.check!
+    p.give!
 
     variant.reload
     post_num_of_products = variant.products.count

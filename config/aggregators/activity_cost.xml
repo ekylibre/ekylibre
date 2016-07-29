@@ -30,7 +30,7 @@
             <cell name="started_at" of="intervention" type="datetime"/>
             <cell name="stopped_at" of="intervention" type="datetime"/>
             <cell name="casting" value="intervention.product_parameters.map { |p| p.name }.to_sentence" level="api"/>
-            <cell name="working_area_value_in_hectare" if="intervention.working_area" value="intervention.working_area" level="api"/>
+            <cell name="working_area_value_in_hectare" if="intervention.working_zone_area" value="intervention.working_zone_area" level="api"/>
             <cell name="duration_in_hour" if="intervention.duration" value="intervention.duration.in_second.convert(:hour).round(2)" type="measure"/>
             <cell name="duration_value_in_hour" if="intervention.duration" value="intervention.duration.in_second.convert(:hour).round(2).value.to_f" level="api"/>
             <cell name="input_cost" if="intervention.cost(:input)" value="intervention.cost(:input).round(2)" type="money"/>

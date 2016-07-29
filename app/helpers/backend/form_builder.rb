@@ -346,8 +346,9 @@ module Backend
         marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
         marker[:view] = { center: marker[:marker] }
       else
-        if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
-          marker[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
+        siblings = @object.class.where("#{attribute_name} IS NOT NULL").order(id: :desc)
+        if siblings.any?
+          marker[:view] = { center: Charta.new_geometry(siblings.first.send(attribute_name)).centroid }
         elsif zone = CultivableZone.first
           marker[:view] = { center: zone.shape_centroid }
         end
@@ -475,7 +476,6 @@ module Backend
         full_name = Entity.find(@template.params[:person_id]).full_name
       end
 
-
       options[:input_html] ||= {}
       options[:input_html][:class] ||= ''
 
@@ -486,13 +486,13 @@ module Backend
         form = @template.field_set options[:input_html] do
           fs = input(:variant_id, value: variant.id, as: :hidden)
           # Add name
-          fs << (full_name.nil? ? input(:name): input(:name, input_html: {value: full_name}))
+          fs << (full_name.nil? ? input(:name) : input(:name, input_html: { value: full_name }))
           # Add work number
           fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
           # Add variant selector
           fs << variety(scope: variant)
 
-          fs << (born_at.nil? ? input(:born_at): input(:born_at, input_html: {value: born_at}))
+          fs << (born_at.nil? ? input(:born_at) : input(:born_at, input_html: { value: born_at }))
           fs << input(:dead_at)
 
           # error message for indicators
@@ -706,11 +706,10 @@ module Backend
       options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
       options[:input_html][:data][:selector] = @template.url_for(choices)
       unless options[:new].is_a?(FalseClass)
-        new_url = {}
+        new_url = options[:new].is_a?(Hash) ? options[:new] : {}
         new_url[:controller] ||= choices[:controller]
         new_url[:action] ||= :new
         options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
-        options[:input_html][:data][:selector_new_item_default_values] = options[:new] if options[:new].is_a? Hash
       end
       # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
       options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s

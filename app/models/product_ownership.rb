@@ -50,7 +50,7 @@ class ProductOwnership < Ekylibre::Record::Base
   validates :owner, presence: { if: :other? }
 
   before_validation do
-    self.nature ||= (owner.blank? ? :unknown : (owner == Entity.of_company) ? :own : :other)
+    self.nature ||= (owner.blank? ? :unknown : owner == Entity.of_company ? :own : :other)
   end
 
   private
