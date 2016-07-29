@@ -80,20 +80,7 @@ module Backend
         @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
       end
 
-      preference = current_user.preference("golumn.#{params[:golumn_id]}", {}.to_yaml)
-      user_pref = YAML.load(preference.value)
-
-      @sorted = []
-      user_pref.deep_symbolize_keys!
-      if user_pref[:positions].present?
-        user_pref[:positions].each do |g|
-          @grouped_animals.each do |h|
-            @sorted << h if h[:group].id == g[:id]
-          end
-        end
-      else
-        @sorted = @grouped_animals
-      end
+      @sorted = @grouped_animals
 
       without_container = []
       Animal.of_enjoyer(Entity.of_company).select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
