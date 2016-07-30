@@ -1,10 +1,9 @@
 module Api
   module V1
-    # PlantCountings API permits to access plant_density_abacus
+    # PlantCountings API permits to access plant_density_abaci
     class PlantCountingsController < Api::V1::BaseController
       def create
         plant_counting = PlantCounting.new(permitted_params)
-        # plant_counting.user = current_user
         if plant_counting.save
           render json: { id: plant_counting.id }, status: :created
         else
