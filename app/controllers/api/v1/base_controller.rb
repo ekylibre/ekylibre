@@ -21,6 +21,7 @@ module Api
     class BaseController < ::ApiController
       include ActionController::Flash
 
+      wrap_parameters false
       respond_to :json
 
       before_action :authenticate_api_user!
