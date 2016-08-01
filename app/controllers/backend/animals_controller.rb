@@ -79,7 +79,7 @@ module Backend
     def load_animals
       read_at = Time.zone.now
 
-      @grouped_animals = AnimalGroup.availables(at: read_at).select(:id, :name).collect do |group|
+      @grouped_animals = AnimalGroup.availables(at: read_at).order(:name).select(:id, :name).collect do |group|
         animal_groups = {
           id: group.id,
           name: group.name,
@@ -87,11 +87,11 @@ module Backend
             {
                 id: place.id,
                 name: place.name,
-                animals: Animal.members_of(group, read_at).contained_by(place).as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
+                animals: Animal.members_of(group, read_at).contained_by(place).order(:name).as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
             }
           end
         }
-        animals_without_container = Animal.members_of(group, read_at).collect do |animal|
+        animals_without_container = Animal.members_of(group, read_at).order(:name).collect do |animal|
           next unless animal.container.nil?
           animal.as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
         end.compact
@@ -107,7 +107,7 @@ module Backend
         animal_groups
       end
 
-      animals_without_group = Animal.availables(at: Time.zone.now).collect do |animal|
+      animals_without_group = Animal.availables(at: Time.zone.now).order(:name).collect do |animal|
         next unless animal.memberships.empty?
         animal.as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
       end.compact
