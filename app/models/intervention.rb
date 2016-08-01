@@ -256,7 +256,7 @@ class Intervention < Ekylibre::Record::Base
       started_at: started_at,
       stopped_at: stopped_at,
       working_duration: working_periods.sum(:duration),
-      whole_duration: ((stopped_at && started_at) ? (stopped_at - started_at).to_i : 0)
+      whole_duration: (stopped_at && started_at ? (stopped_at - started_at).to_i : 0)
     )
     event.update_columns(
       started_at: self.started_at,
@@ -268,6 +268,12 @@ class Intervention < Ekylibre::Record::Base
       product.born_at = self.started_at
       product.initial_born_at = product.born_at
       product.save!
+
+      reading = product.initial_reading(:shape)
+      unless reading.nil?
+        reading.read_at = product.born_at
+        reading.save!
+      end
 
       movement = output.product_movement
       next unless movement
@@ -348,11 +354,6 @@ class Intervention < Ekylibre::Record::Base
     unit = args.shift || options[:unit] || :hectare
     precision = args.shift || options[:precision] || 2
     working_zone_area(unit: unit).round(precision).l(precision: precision)
-  end
-
-  def working_area(unit = :hectare)
-    ActiveSupport::Deprecation.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'
-    working_zone_area(unit)
   end
 
   def status

@@ -18,9 +18,9 @@
   = f.input :description
   = f.custom_fields
 
-= field_set(:activity_inspections, title: Activity.human_attribute_name(:inspections)) do
-  = f.input :use_gradings, show: '#inspections'
-  #inspections
+= field_set(:inspections) do
+  = f.input :use_gradings, show: '#inspections-fields'
+  #inspections-fields
     = f.input :measure_grading_items_count
     = f.input :measure_grading_net_mass, show: '#grading_net_mass'
     #grading_net_mass
@@ -34,9 +34,9 @@
     = f.nested_association(:inspection_calibration_scales)
     = f.nested_association(:inspection_point_natures)
 
-= field_set(:activity_countings, title: Activity.human_attribute_name(:counting)) do
-  = f.input :use_countings, show: '#countings'
-  #countings
+= field_set(:countings) do
+  = f.input :use_countings, show: '#countings-fields'
+  #countings-fields
     = f.nested_association :plant_density_abaci
 
 .auxiliary-nature-options

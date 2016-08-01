@@ -108,7 +108,7 @@ class Activity < Ekylibre::Record::Base
   }
   scope :of_campaign, lambda { |campaign|
     if campaign
-      c = (campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation)) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
+      c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
       prods = where(id: ActivityProduction.select(:activity_id).of_campaign(c))
       budgets = where(id: ActivityBudget.select(:activity_id).of_campaign(c))
       where(id: prods.select(:id) + budgets.select(:id))
@@ -429,5 +429,20 @@ class Activity < Ekylibre::Record::Base
 
   def is_of_family?(family)
     Nomen::ActivityFamily[self.family] <= family
+  end
+
+  def unit_choices
+    [:items, :mass]
+      .reject { |e| e == :items && !measure_grading_items_count }
+      .reject { |e| e == :mass && !measure_grading_net_mass }
+end
+
+  def unit_preference(user, unit = nil)
+    unit_preference_name = "activity_#{id}_inspection_view_unit"
+    user.prefer!(unit_preference_name, unit.to_sym) if unit.present?
+    pref = user.preference(unit_preference_name).value
+    pref ||= :mass
+    pref = unit_choices.find { |c| c.to_sym == pref.to_sym }
+    pref ||= unit_choices.first
   end
 end

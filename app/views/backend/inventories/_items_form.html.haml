@@ -10,4 +10,4 @@
         %span.input-append
           = nested.input_field :actual_population
           %span.add-on= nested.object.unit_name
-        %span.help-block= :expected_quantity_is_x.tl x: nested.object.expected_population.l
+        %span.help-block= :expected_quantity_is_x.tl x: nested.object.expected_population.l(precision: 0)

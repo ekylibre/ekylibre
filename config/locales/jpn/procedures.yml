@@ -22,9 +22,11 @@ jpn:
     cover_implanter: "表紙注入"
     crop: "栽培"
     cropper: "クロッパー"
+<<<<<<< HEAD
     cropper_driver: "クロッパードライバ" #?
+=======
+>>>>>>> 1540825dce35ed4fc2dbc81c20494476c342565a
     cultivation: "栽培"
-    cultivator: "耕運機" #?
     cutter: "カッター"
     destination_tank: "先タンク"
     doer: "やり手"

@@ -22,9 +22,11 @@ spa:
     cover_implanter: "Cubierta implantador"
     crop: "Cultivo"
     cropper: "Cultivador"
+<<<<<<< HEAD
     cropper_driver: "Controlador Cropper" #?
+=======
+>>>>>>> 1540825dce35ed4fc2dbc81c20494476c342565a
     cultivation: "Cultivo"
-    cultivator: "Cultivador" #?
     cutter: "Cortador"
     destination_tank: "Tanque de destino"
     doer: "Hacedor"

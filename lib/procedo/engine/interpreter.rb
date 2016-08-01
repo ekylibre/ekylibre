@@ -85,7 +85,7 @@ module Procedo
           indicator = Nomen::Indicator.find!(node.indicator.text_value)
           product = run(node.object)
           Rails.logger.warn 'Invalid product. Got: ' + product.inspect unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
-          product.has_indicator?(indicator.name.to_sym) && (indicator.datatype == :measure ? product.get(indicator.name).to_f != 0 : product.get(indicator.name).present?)
+          product.has_indicator?(indicator.name.to_sym) && (indicator.datatype == :measure ? product.get(indicator.name).to_f.nonzero? : product.get(indicator.name).present?)
         elsif node.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(node.indicator.text_value)
           product = run(node.object)
@@ -96,7 +96,7 @@ module Procedo
           # puts indicator.datatype
           # puts product.get(indicator.name).to_f
           # puts product.get(indicator.name).inspect
-          product.frozen_indicators.include?(indicator.name.to_sym) && ((indicator.datatype == :measure && product.get(indicator.name).to_f != 0) || product.get(indicator.name).present?)
+          product.frozen_indicators.include?(indicator.name.to_sym) && ((indicator.datatype == :measure && product.get(indicator.name).to_f.nonzero?) || product.get(indicator.name).present?)
         elsif node.is_a?(Procedo::Formula::Language::Reading)
           unit = nil
           if node.options && node.options.respond_to?(:unit)

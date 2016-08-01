@@ -2,12 +2,17 @@
   = t.export :entity_sheet
   = t.edit resource
   = t.destroy
-  = t.menu :new.ta, icon: nil do |menu|
-    - ProductNatureVariant.of_variety(:worker).order(:name).each do |a|
-      - menu.item a.name, { controller: :workers, action: :new, variant_id: a.id, person_id: resource.id, redirect: url_for(controller: :workers, action: :show, id: resource.id)}
+  - if resource.contact? && !resource.worker && !resource.client? && !resource.supplier? && !resource.transporter? && !resource.prospect?
+    = t.menu :add_a_worker.tl, icon: false do |menu|
+      - ProductNatureVariant.of_variety(:worker).order(:name).each do |a|
+        - menu.item a.name, { controller: :workers, action: :new, variant_id: a.id, person_id: resource.id, born_at: resource.born_at, redirect: url_for(controller: :workers, action: :show, id: resource.id)}
 
 = main_informations attachment: true do
   = render 'coordinates'
+  - if resource.worker
+    .info
+      %span.title= Entity.human_attribute_name(:worker)
+      %span.value= link_to(resource.worker.name, {controller: :workers, action: :show, id: resource.worker.id})
 
 = janus do |j|
   - j.face :timeline do

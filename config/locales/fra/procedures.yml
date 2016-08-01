@@ -102,7 +102,6 @@ fra:
     cropper: "Outil de récolte"
     cropper_driver: "Conducteur de l'outil de récolte" #?
     cultivation: "Parcelle / Culture"
-    cultivator: "Cultivateur" #?
     cutter: "Outil de taille"
     destination_tank: "Cuve de destination"
     doer: "Opérateur"

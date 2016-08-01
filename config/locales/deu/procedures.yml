@@ -22,9 +22,11 @@ deu:
     cover_implanter: "Abdeckung implanter"
     crop: "Anbau"
     cropper: "Anbauer"
+<<<<<<< HEAD
     cropper_driver: "Cropper Fahrer" #?
+=======
+>>>>>>> 1540825dce35ed4fc2dbc81c20494476c342565a
     cultivation: "Anbau"
-    cultivator: "Grubber" #?
     # cutter: "Cutter"
     destination_tank: "Zieltank"
     doer: "Macher"

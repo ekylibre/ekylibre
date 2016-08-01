@@ -344,7 +344,7 @@ class ActivityProduction < Ekylibre::Record::Base
     end
     # if net_surface_area, make the division
     area = net_surface_area.to_d(area_unit_name)
-    indicator_unity_per_hectare = balance.compact.sum / area if area != 0
+    indicator_unity_per_hectare = balance.compact.sum / area if area.nonzero?
     indicator_unity_per_hectare
   end
 
@@ -566,9 +566,6 @@ class ActivityProduction < Ekylibre::Record::Base
     list = []
     list << activity.name unless options[:activity].is_a?(FalseClass)
     list << cultivable_zone.name if cultivable_zone
-    v = Nomen::Variety.find(cultivation_variety)
-    list << v.human_name if v && !(activity.name.start_with?(v.human_name) || activity.name.end_with?(v.human_name))
-    # list << support.name if !options[:support].is_a?(FalseClass) && support
     list << started_on.to_date.l(format: :month) if started_on
     list << :rank.t(number: rank_number)
     list = list.reverse! if 'i18n.dir'.t == 'rtl'

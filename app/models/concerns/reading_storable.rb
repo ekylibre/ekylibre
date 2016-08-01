@@ -13,7 +13,7 @@ module ReadingStorable
     composed_of :measure_value, class_name: 'Measure', mapping: [%w(measure_value_value to_d), %w(measure_value_unit unit)]
     composed_of :absolute_measure_value, class_name: 'Measure', mapping: [%w(absolute_measure_value_value to_d), %w(absolute_measure_value_unit unit)]
 
-    validates :indicator_name, inclusion: { in: indicator_name.values }
+    # validates :indicator_name, inclusion: { in: indicator_name.values }
     validates :indicator_datatype, inclusion: { in: indicator_datatype.values }
 
     validates :boolean_value, inclusion: { in: [true, false], if: :indicator_datatype_boolean? }

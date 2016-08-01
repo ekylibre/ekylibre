@@ -1381,3 +1381,15 @@ product_phases_117:
   updated_at: 2016-07-01 20:23:21.121514000 Z
   updater_id: 1
   variant_id: 39
+product_phases_118:
+  category_id: 21
+  created_at: 2016-07-26 19:27:42.904338000 Z
+  creator_id: 1
+  id: 126
+  lock_version: 0
+  nature_id: 41
+  product_id: 143
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  updated_at: 2016-07-26 19:27:42.904338000 Z
+  updater_id: 1
+  variant_id: 65

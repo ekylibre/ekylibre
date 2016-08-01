@@ -62,7 +62,7 @@ class TargetDistribution < Ekylibre::Record::Base
   end
 
   def siblings
-    target.distributions
+    target.distributions unless target.nil?
   end
 
   def started_on

@@ -22,7 +22,7 @@
 #
 # == Table: plant_density_abaci
 #
-#  activity_id            :integer
+#  activity_id            :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  germination_percentage :decimal(19, 4)
@@ -36,22 +36,28 @@
 #
 
 class PlantDensityAbacus < Ekylibre::Record::Base
+  belongs_to :activity, inverse_of: :plant_density_abaci
   has_many :items, class_name: 'PlantDensityAbacusItem', dependent: :delete_all, inverse_of: :plant_density_abacus
   has_many :plant_countings
-
-  belongs_to :activity, inverse_of: :plant_density_abaci
 
   refers_to :seeding_density_unit, class_name: 'Unit'
   refers_to :sampling_length_unit, class_name: 'Unit'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :germination_percentage, numericality: { allow_nil: true }
-  validates :name, :sampling_length_unit, :seeding_density_unit, presence: true
+  validates :activity, :name, :sampling_length_unit, :seeding_density_unit, presence: true
   # ]VALIDATORS]
+  validates :name, uniqueness: true
+
+  delegate :cultivation_variety, to: :activity
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
   protect on: :destroy do
     plant_countings.any?
+  end
+
+  def variety_name
+    activity ? cultivation_variety : nil
   end
 end

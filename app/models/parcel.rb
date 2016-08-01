@@ -83,6 +83,8 @@ class Parcel < Ekylibre::Record::Base
   validates :storage, presence: { unless: :outgoing? }
 
   scope :without_transporter, -> { with_delivery_mode(:transporter).where(transporter_id: nil) }
+  scope :with_delivery, -> { where(with_delivery: true) }
+  scope :to_deliver, -> { with_delivery.where(delivery_id: nil).where.not(state: :given) }
 
   accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
 
@@ -110,6 +112,9 @@ class Parcel < Ekylibre::Record::Base
       transition in_preparation: :prepared, if: :all_items_prepared?
     end
     event :give do
+      transition draft: :given, unless: :with_delivery?
+      transition ordered: :given, unless: :with_delivery?
+      transition in_preparation: :given, unless: :with_delivery?
       transition prepared: :given, unless: :with_delivery?
     end
     event :cancel do

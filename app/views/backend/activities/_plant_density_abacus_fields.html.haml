@@ -1,8 +1,8 @@
-.counting
+.nested-fields.plant-density-abacus
+  = link_to_remove_nested_association(:plant_density_abacus, f)
   = f.input :name
   = f.input :seeding_density_unit, collection: Nomen::Unit.where(dimension: :surface_area_density).selection, include_blank: false, input_html: { class: "counting-seeding-density" }
   = f.input :sampling_length_unit, collection: Nomen::Unit.where(dimension: :distance).selection, include_blank: false, input_html: { class: "counting-sampling-length" }
   = f.input :germination_percentage
 
-.items
   = f.nested_association :items

@@ -320,7 +320,7 @@
           <printWhenExpression><![CDATA[!$F{supplier-website}.isEmpty()]]></printWhenExpression>
         </reportElement>
         <textElement>
-          <font fontName="Barmeno"/>
+          <font fontName="Open Sans"/>
         </textElement>
         <textFieldExpression><![CDATA["Site : "+$F{supplier-website}]]></textFieldExpression>
       </textField>
@@ -329,7 +329,7 @@
           <printWhenExpression><![CDATA[!$F{supplier-email}.isEmpty()]]></printWhenExpression>
         </reportElement>
         <textElement>
-          <font fontName="Barmeno"/>
+          <font fontName="Open Sans"/>
         </textElement>
         <textFieldExpression><![CDATA["Email : "+$F{supplier-email}]]></textFieldExpression>
       </textField>

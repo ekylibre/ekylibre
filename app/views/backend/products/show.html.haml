@@ -77,5 +77,5 @@
       = t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})
     = cobble_list(:issues)
 
-  = render partial: 'distributions', locals: {c: c}
+  = render partial: 'backend/shared/distributions', locals: {c: c}
 = render "timeline"

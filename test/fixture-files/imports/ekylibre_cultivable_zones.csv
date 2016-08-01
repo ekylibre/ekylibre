@@ -1,34 +1,3 @@
 Name,Nature,Code,Shape Number
-Zone Petit champ,cultivable_zone,ZC01,ZC01
-Zone Grand champ,cultivable_zone,ZC02,ZC02
-Zone Bousseau,cultivable_zone,ZC03,ZC03
-Zone Raguenaud,cultivable_zone,ZC04,ZC04
-Zone Le terrier,cultivable_zone,ZC05,ZC05
-Zone Enclouse des chatâigniers,cultivable_zone,ZC06,ZC06
-Zone Bois granger,cultivable_zone,ZC07,ZC07
-Zone Orme 5 têtes 1,cultivable_zone,ZC08,ZC08
-Zone Orme 5 têtes 2,cultivable_zone,ZC09,ZC09
-Zone Chaumasse,cultivable_zone,ZC10,ZC10
-Zone Parcours,cultivable_zone,ZC11,ZC11
-Zone Les grands pieces,cultivable_zone,ZC12,ZC12
-Zone La renanbrie,cultivable_zone,ZC13,ZC13
-Zone Poteau edf,cultivable_zone,ZC14,ZC14
-Zone le silo,cultivable_zone,ZC15,ZC15
-Zone les aiguilles,cultivable_zone,ZC16,ZC16
-Zone Champ guillon,cultivable_zone,ZC17,ZC17
-Zone Bernessard entier,cultivable_zone,ZC18,ZC18
-Zone Bernessard en haut,cultivable_zone,ZC19,ZC19
-Zone Bernessard en bas,cultivable_zone,ZC20,ZC20
-Zone a côté de la vigne,cultivable_zone,ZC21,LP19
-Zone les chataigniers,cultivable_zone,ZC22,LP20
-Zone les avoinies,cultivable_zone,ZC23,LP21
-Zone la bouchanière,cultivable_zone,ZC24,LP22
-Zone menard fille,cultivable_zone,ZC25,LP23
-Zone les pommiers,cultivable_zone,ZC26,LP24
-Zone le philippot,cultivable_zone,ZC27,LP25
-Zone lauriere,cultivable_zone,ZC28,LP26
-Zone carrefour,cultivable_zone,ZC29,LP27
-Zone les abaupins,cultivable_zone,ZC30,LP28
-Zone la baudrière,cultivable_zone,ZC31,LP29
-Zone la baudrière 1,cultivable_zone,ZC32,ZC32
-Zone la baudrière 2,cultivable_zone,ZC33,ZC33
+Zone Petit champ,cultivable_zone,ZC01,GR1
+Zone Enclouse des chatâigniers,cultivable_zone,ZC02,GR2

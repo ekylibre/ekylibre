@@ -528,7 +528,6 @@ eng:
       confirm: "Confirm order and wait for deliveries"
       correct: "Correct order"
       edit: "Edit purchase: %{number}"
-      # generate_parcel: "Generate parcel purchase: %{name}"
       index: "Purchases"
       invoice: "Receive invoice"
       new: "New purchase"
@@ -583,7 +582,6 @@ eng:
       # contacts: "Contacts sale: %{name}"
       # correct: "Correct sale: %{name}"
       edit: "Edit sale %{number}"
-      # generate_parcel: "Generate parcel sale: %{name}"
       index: "Sales"
       # invoice: "Invoice sale: %{name}"
       new: "New sale"
@@ -798,15 +796,19 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
+<<<<<<< HEAD
     activity_countings: "Countings"
     activity_family: "Family activities" #?
     activity_inspections: "Inspections"
     activity_name: "Activity" #?
+=======
+>>>>>>> 1540825dce35ed4fc2dbc81c20494476c342565a
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     activity_seasons: "Cropping seasons"
     activity_tactics: "Crop management Technique"
     add: "Add"
+    add_a_worker: "Add a worker"
     add_annotation: "Add annotation"
     add_attachment: "Add attachment"
     add_bank_statement: "Add bank statement"
@@ -818,7 +820,6 @@ eng:
     add_distribution: "Add distribution"
     add_email: "Add email"
     add_entry: "Add entry"
-    add_equipment: "Adding equipment"
     add_expense: "Add expense"
     add_fax: "Add fax"
     add_filter: "Add filter"
@@ -835,6 +836,7 @@ eng:
     add_participation: "Add participation"
     add_payment: "Add payment"
     add_phone: "Add phone number"
+    add_plant_density_abacus: "Add seeding density reference table"
     add_point: "Add point"
     add_polygon: "Add polygon"
     add_production: "Add production"
@@ -875,7 +877,6 @@ eng:
       reopen_issue: "Are you sure you want to reopen this issue?"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
-    are_you_sure_you_want_to_generate_parcel: "Are you sure you want to generate parcel"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     area: "Area" #?
@@ -900,8 +901,6 @@ eng:
     budget: "Budget"
     budget_per_working_indicator: "Budget per working indicator"
     budgets: "Budgets" #?
-    building: "Building" #?
-    buildings: "buildings" #?
     # by_default: "By default"
     by_year: "By year"
     calculate: "Calculate" #?
@@ -1100,6 +1099,7 @@ eng:
     general_informations: "General informations"
     generate: "Generate"
     generate_last_journal_entry: "Generate last journal entry"
+    generate_parcel: "Generate parcel"
     geolocation: "Geolocation" #?
     go: "Go" #?
     gradings: "Gradings" #?
@@ -1190,8 +1190,6 @@ eng:
     last_purchases: "Last purchases"
     last_sales: "Last sales" #?
     letter: "Letter" #?
-    level: "Level" #?
-    levels: "levels" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
     link: "Link"
@@ -1217,13 +1215,13 @@ eng:
     mark_all_as_read: "Mark all as read"
     mark_as_read: "Mark as read"
     marketable_net_mass: "Marketable net mass"
+    mass: "Masse" #?
     maximal_temperature: "Maximal temperature"
     members: "Members"
     menus: "Menus"
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
-    missing: "Missing" #?
     missing_attributes: "Some attributes are missing"
     missing_help: "Missing page"
     mobile: "Mobile" #?
@@ -1242,7 +1240,6 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
-    new_activity: "new activity"
     new_animal: "New animal"
     new_attachment: "New attachment"
     new_box: "New box"
@@ -1261,7 +1258,6 @@ eng:
       other: "Make a deposit %{mode}: %{count} available payments"
       zero: "Make a deposit %{mode}: no available payments"
     new_email: "New email"
-    new_equipment: "new equipment"
     new_group: "New group"
     new_issue: "New issue"
     new_organization: "New organization"
@@ -1292,7 +1288,6 @@ eng:
     number_of_cap_islets: "Number of CAP islets"
     number_of_cap_land_parcels: "Number of CAP land parcels"
     numbers: "Numbers" #?
-    ok: "OK" #?
     on_account: "On account" #?
     one_condition: "One condition"
     open_a_production: "Open a production"
@@ -1307,7 +1302,6 @@ eng:
     # outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
-    pacage_number: "No. GRAZING" #?
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1550,7 +1544,6 @@ eng:
     updated_at_by: "Updated at %{at} by %{author}"
     updated_by_ago: "Updated by %{author} %{when}"
     upload: "Upload"
-    uploaded_file: "imported file" #?
     usage: "Usage" #?
     user_status: "Status" #?
     users: "Users"
@@ -1560,11 +1553,9 @@ eng:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validate selected entries"
-    validations: "Finalisation" #?
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants"
-    variety: "Variety" #?
     view: "View"
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?
@@ -1695,7 +1686,7 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
-    yield: "Yield"
+    yield: "Yield" #?
     yield_by_calibration: "Yield by calibration"
     zones: "Zones"
   notifications:
@@ -1843,7 +1834,6 @@ eng:
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
-      generate_parcel: "Generate parcel"
       # give: "Give"
       import: "Import"
       incorporate: "Incorporate"

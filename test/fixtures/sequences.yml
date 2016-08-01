@@ -488,3 +488,14 @@ sequences_028:
   updated_at: 2016-05-10 21:09:18.950537000 Z
   updater_id: 1
   usage: inspections
+sequences_029:
+  created_at: 2016-07-26 19:07:46.003990000 Z
+  id: 29
+  lock_version: 0
+  name: Inventories
+  number_format: I[number|8]
+  number_increment: 1
+  number_start: 3
+  period: number
+  updated_at: 2016-07-26 19:07:46.003990000 Z
+  usage: inventories

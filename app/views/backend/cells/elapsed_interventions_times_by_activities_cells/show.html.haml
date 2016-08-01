@@ -19,7 +19,6 @@
 
     # data for bar chart times by activities and by month
     Activity.actives.find_each do |activity|
-    puts activity.inspect.red
       activity_target_id = activity.productions.pluck(:support_id)
       targets = Product.find(activity_target_id)
       interventions = Intervention.with_targets(targets).of_civil_year(@campaign.harvest_year).reorder(:started_at)

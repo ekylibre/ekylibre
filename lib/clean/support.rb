@@ -47,7 +47,7 @@ module Clean
       end
 
       def deep_symbolize_keys(hash)
-        hash.inject({}) do |result, (key, value)|
+        hash.each_with_object({}) do |(key, value), result|
           value = deep_symbolize_keys(value) if value.is_a? Hash
           key = :no if key.to_s == '__no_is_not__false__'
           result[(begin
@@ -215,7 +215,10 @@ module Clean
 
       # Lists all controller that inherits of ApplicationController included
       def controllers_in_file
-        Dir.glob(Rails.root.join('app', 'controllers', '**', '*.rb')).each { |file| require file }
+        Dir.glob(Rails.root.join('app', 'controllers', '**', '*.rb')).each do |file|
+          next if file.start_with? Rails.root.join('app', 'controllers', 'concerns').to_s
+          require file
+        end
         ObjectSpace
           .each_object(Class)
           .select { |klass| klass <= ::ApplicationController || klass <= ::ApiController }

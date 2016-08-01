@@ -177,6 +177,14 @@ class User < Ekylibre::Record::Base
     name
   end
 
+  def theme=(value)
+    prefer!(:theme, value, :string)
+  end
+
+  def theme
+    preference(:theme).value
+  end
+
   # Returns the URL of the avatar of the user
   def avatar_url(options = {})
     size = options[:size] || 200

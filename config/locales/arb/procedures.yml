@@ -24,7 +24,6 @@ arb:
     cropper: "الحصاد"
     cropper_driver: "سائق كروبر" #?
     cultivation: "زراعة"
-    cultivator: "الفلاحة" #?
     cutter: "قاطعة"
     destination_tank: "دبابات وجهة"
     doer: "الفاعل"

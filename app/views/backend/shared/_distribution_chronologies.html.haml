@@ -1,3 +1,5 @@
+- options ||= {}
+- options[:target] ||= false
 .target-distributions
   .target-distribution
     .target-distribution-chronology
@@ -10,4 +12,7 @@
             :ruby
               started_at = (distribution.started_on - period_started_on).to_f / duration
               width = (distribution.stopped_on - distribution.started_on).to_f / duration
-            = link_to('', { action: :show, controller: :target_distributions, id: distribution.id }, style: "left: #{100 * started_at.round(6)}%; width: #{100 * width.round(6)}%; background-color: #{distribution.activity_production.activity.color};", class: "period rounded #{'without-left' if started_at == 0}#{' without-right' if started_at + width >=1}", title: distribution.activity_production.name)
+            - if options[:target]
+              = link_to('', backend_product_path(distribution.target), style: "left: #{100 * started_at.round(6)}%; width: #{100 * width.round(6)}%; background-color: #{distribution.activity_production.activity.color};", class: "period rounded #{'without-left' if started_at == 0}#{' without-right' if started_at + width >=1}", title: distribution.target.name)
+            - else
+              = link_to('', { action: :show, controller: :target_distributions, id: distribution.id }, style: "left: #{100 * started_at.round(6)}%; width: #{100 * width.round(6)}%; background-color: #{distribution.activity_production.activity.color};", class: "period rounded #{'without-left' if started_at == 0}#{' without-right' if started_at + width >=1}", title: distribution.activity_production.name)

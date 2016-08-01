@@ -211,11 +211,11 @@ module Unrollable
         a = object.map { |o| includify(o) }.compact
         return (a.size == 1 ? a.first : a)
       elsif object.is_a?(Hash)
-        n = object.inject({}) do |h, pair|
+        n = object.each_with_object({}) do |pair, h|
           h[pair.first] = includify(pair.second)
           h
         end
-        return n.inject([]) do |a, pair|
+        return n.each_with_object([]) do |pair, a|
           a << (pair.second.nil? ? pair.first : { pair.first => pair.second })
           a
         end
@@ -232,7 +232,7 @@ module Unrollable
         a = object.map { |o| compactify(o) }.compact
         return (a.empty? ? nil : a)
       elsif object.is_a?(Hash)
-        return (object.keys.empty? ? nil : object.inject({}) { |h, p| h[p.first] = compactify(p.second); h })
+        return (object.keys.empty? ? nil : object.each_with_object({}) { |p, h| h[p.first] = compactify(p.second); h })
       elsif object.is_a?(Symbol) || object.is_a?(String)
         return object
       else
