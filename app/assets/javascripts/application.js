@@ -63,6 +63,8 @@ var mapeditor = {};
 var ekylibre = {};
 var calcul = {};
 
+var golumn = {};
+
 // FIX Browser interoperability
 // href function seems to be ineffective
 $.rails.href = function (element) {
