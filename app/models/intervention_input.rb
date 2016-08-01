@@ -60,6 +60,7 @@ class InterventionInput < InterventionProductParameter
 
   before_validation do
     self.variant = product.variant if product
+    self.schematic_id = product.variant.id
   end
 
   after_save do
@@ -70,6 +71,16 @@ class InterventionInput < InterventionProductParameter
       movement.started_at = intervention.started_at || Time.zone.now - 1.hour
       movement.stopped_at = intervention.stopped_at || movement.started_at + 1.hour
       movement.save!
+    end
+  end
+
+  after_create do
+    if component_id.present? && schematic_id.present?
+      ProductPartReplacement.create(
+        component_id: component_id,
+        intervention_parameter_id: id,
+        product_id: product.id
+      )
     end
   end
 

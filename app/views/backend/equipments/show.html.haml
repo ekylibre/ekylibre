@@ -74,8 +74,8 @@
     - c.cobble(:product_part_replacements, title: :x_part_replacements.tl(count: resource.part_replacements.count)) do
       = cobble_list(:part_replacements)
 
-    - if resource.nature.variants.collect(&:components).any?
-      - c.cobble(:components) do
-        .component-tree
-          = render "composition", product: resource, components: resource.variant.root_components
+  - if resource.components.any?
+    - c.cobble(:components) do
+      .component-tree
+        = render "composition", product: resource, components: resource.variant.root_components
 

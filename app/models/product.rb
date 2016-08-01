@@ -778,9 +778,8 @@ class Product < Ekylibre::Record::Base
     100 * total_life_of(component).to_f(:second) / component.product_nature_variant.lifespan.to_f(:second)
   end
 
-
   def last_replacement(component)
-    replacements = self.part_replacements.where(component: component.self_and_parents).joins(:intervention)
+    replacements = ProductPartReplacement.where(component: component.self_and_parents).joins(:intervention)
     # replacements = replacements.where('interventions.stopped_at >= ?', since) if since
     replacements.order('interventions.stopped_at DESC').first
   end
