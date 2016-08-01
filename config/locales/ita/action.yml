@@ -695,13 +695,10 @@ ita:
     active: "Attivo"
     activities: "attività"
     activity: "Attività"
-<<<<<<< HEAD
     # activity_countings: "Countings"
     activity_family: "attività per le famiglie"
     # activity_inspections: "Inspections"
     activity_name: "Attività"
-=======
->>>>>>> 1540825dce35ed4fc2dbc81c20494476c342565a
     activity_production: "Attività Produttive"
     activity_productions: "Produzioni di attività"
     # activity_seasons: "Cropping seasons"

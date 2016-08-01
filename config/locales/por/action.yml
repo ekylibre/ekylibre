@@ -634,13 +634,10 @@ por:
     active: "Ativo"
     activities: "Atividades"
     activity: "Atividade"
-<<<<<<< HEAD
     # activity_countings: "Countings"
     activity_family: "atividades da família"
     # activity_inspections: "Inspections"
     activity_name: "Atividade"
-=======
->>>>>>> 1540825dce35ed4fc2dbc81c20494476c342565a
     activity_production: "Produção de atividade"
     activity_productions: "Produções de atividade"
     # activity_seasons: "Cropping seasons"

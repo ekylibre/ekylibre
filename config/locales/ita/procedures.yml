@@ -22,10 +22,7 @@ ita:
     cover_implanter: "implanter copertina"
     crop: "Coltivazione"
     cropper: "coltivatore"
-<<<<<<< HEAD
     cropper_driver: "autista Cropper" #?
-=======
->>>>>>> 1540825dce35ed4fc2dbc81c20494476c342565a
     cultivation: "Coltivazione"
     cutter: "fresa"
     destination_tank: "serbatoio Destinazione"

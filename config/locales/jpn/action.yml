@@ -695,13 +695,10 @@ jpn:
     active: "アクティブ"
     activities: "活動"
     activity: "アクティビティ"
-<<<<<<< HEAD
     # activity_countings: "Countings"
     activity_family: "家族の活動"
     # activity_inspections: "Inspections"
     activity_name: "アクティビティ"
-=======
->>>>>>> 1540825dce35ed4fc2dbc81c20494476c342565a
     activity_production: "アクティビティ生産"
     activity_productions: "アクティビティ制作"
     # activity_seasons: "Cropping seasons"

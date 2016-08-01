@@ -796,13 +796,10 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
-<<<<<<< HEAD
     activity_countings: "Countings"
     activity_family: "Family activities" #?
     activity_inspections: "Inspections"
     activity_name: "Activity" #?
-=======
->>>>>>> 1540825dce35ed4fc2dbc81c20494476c342565a
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     activity_seasons: "Cropping seasons"
