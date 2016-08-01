@@ -669,7 +669,7 @@ deu:
     add_reading: "Fügen Sie einen Wert für einen Indikator"
     add_revenue: "In Einnahmen"
     add_sale_taxation: "In Verkauf Besteuerung"
-    # add_season: "Add season"
+    # add_season: "Add saisonality"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "In Unterstützung"
     # add_tactic: "Add crop management Technique"

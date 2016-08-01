@@ -191,7 +191,6 @@ activities:
     default: false
   use_tactics:
     type: boolean
-    required: true
     default: false
   with_cultivation:
     type: boolean
@@ -523,12 +522,6 @@ activity_tactics:
     type: integer
     references: activity
     required: true
-  bulk_delta:
-    type: integer
-  bulk_quantity:
-    type: integer
-  bulk_unit_name:
-    type: string
   created_at:
     type: datetime
     required: true
@@ -545,8 +538,6 @@ activity_tactics:
     type: string
   mode_delta:
     type: integer
-  mode_unit_name:
-    type: string
   name:
     type: string
     required: true

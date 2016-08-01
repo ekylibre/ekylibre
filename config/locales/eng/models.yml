@@ -149,7 +149,7 @@ eng:
       activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "Activity grading check"
       activity_production: "Production support"
-      activity_season: "Cropping season"
+      activity_season: "Seasonality"
       # activity_tactic: "Activity tactic"
       affair: "Affair"
       analysis: "Analysis"
@@ -324,7 +324,7 @@ eng:
     activity_grading_check: "Activity grading check" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
-    activity_season: "Cropping season" #?
+    activity_season: "Seasonality" #?
     actor: "Actor" #?
     actual_number: "Actual number" #?
     actual_population: "Actual population"
@@ -381,9 +381,6 @@ eng:
     born_at: "Born at"
     budgets: "Budgets"
     buildings: "Buildings"
-    # bulk_delta: "Bulk delta"
-    # bulk_quantity: "Bulk quantity"
-    # bulk_unit_name: "Bulk unit name"
     by_default: "By default"
     calibrations: "Calibrations"
     campaign: "Campaign"
@@ -851,7 +848,6 @@ eng:
     mod: "Mod" #?
     mode: "Mode"
     # mode_delta: "Mode delta"
-    # mode_unit_name: "Mode unit name"
     model_euid: "Model"
     mother: "Mother"
     movements: "Movements"
@@ -1117,8 +1113,8 @@ eng:
     scale: "Scale"
     # scales: "Scales"
     scheduled: "Scheduled"
-    season: "Cropping season"
-    seasons: "Seasons"
+    season: "Seasonality"
+    seasons: "Seasonalities"
     seeding_density_unit: "Seeding density unit"
     seeding_density_value: "Seeding density"
     selected: "Selected"
@@ -1253,7 +1249,7 @@ eng:
     use_countings: "Use countings"
     use_grading_calibre: "Use grading calibre" #?
     use_gradings: "Use gradings"
-    use_seasons: "Use cropping seasons"
+    use_seasons: "Use Seasonalities"
     use_tactics: "Use crop management Technique"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"

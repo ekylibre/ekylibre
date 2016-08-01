@@ -735,7 +735,7 @@ jpn:
     add_reading: "指標の値を追加します。"
     add_revenue: "収益を追加"
     add_sale_taxation: "販売課税を追加します。"
-    # add_season: "Add season"
+    # add_season: "Add saisonality"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "サポートを追加"
     # add_tactic: "Add crop management Technique"

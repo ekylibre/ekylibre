@@ -736,7 +736,7 @@ spa:
     add_reading: "Añadir un valor de un indicador"
     add_revenue: "Añadir los ingresos"
     add_sale_taxation: "Añadir la venta imposición"
-    # add_season: "Add season"
+    # add_season: "Add saisonality"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Añadir soporte"
     # add_tactic: "Add crop management Technique"

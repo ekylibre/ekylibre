@@ -735,7 +735,7 @@ ita:
     add_reading: "Aggiungere un valore per un indicatore"
     add_revenue: "Aggiungere entrate"
     add_sale_taxation: "Aggiungere vendita tassazione"
-    # add_season: "Add season"
+    # add_season: "Add saisonality"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Aggiungere il supporto"
     # add_tactic: "Add crop management Technique"

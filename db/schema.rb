@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(version: 20160729080926) do
     t.string   "grading_sizes_unit_name"
     t.string   "production_system_name"
     t.boolean  "use_seasons",                  default: false
-    t.boolean  "use_tactics",                  default: false, null: false
+    t.boolean  "use_tactics",                  default: false
   end
 
   add_index "activities", ["created_at"], name: "index_activities_on_created_at", using: :btree
@@ -276,20 +276,16 @@ ActiveRecord::Schema.define(version: 20160729080926) do
   add_index "activity_seasons", ["updater_id"], name: "index_activity_seasons_on_updater_id", using: :btree
 
   create_table "activity_tactics", force: :cascade do |t|
-    t.integer  "activity_id",                null: false
-    t.string   "name",                       null: false
+    t.integer  "activity_id",              null: false
+    t.string   "name",                     null: false
     t.date     "planned_on"
     t.integer  "mode_delta"
     t.string   "mode"
-    t.string   "mode_unit_name"
-    t.integer  "bulk_quantity"
-    t.integer  "bulk_delta"
-    t.string   "bulk_unit_name"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",   default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "activity_tactics", ["activity_id"], name: "index_activity_tactics_on_activity_id", using: :btree

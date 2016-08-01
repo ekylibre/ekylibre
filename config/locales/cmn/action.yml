@@ -669,7 +669,7 @@ cmn:
     add_reading: "添加值的指标"
     add_revenue: "添加收入"
     add_sale_taxation: "添加销售税收"
-    # add_season: "Add season"
+    # add_season: "Add saisonality"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "添加支持"
     # add_tactic: "Add crop management Technique"

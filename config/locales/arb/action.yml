@@ -938,7 +938,7 @@ arb:
     add_reading: "إضافة قيمة للمؤشر"
     add_revenue: "إضافة الإيرادات"
     add_sale_taxation: "إضافة بيع الضرائب"
-    # add_season: "Add season"
+    # add_season: "Add saisonality"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "إضافة دعم"
     # add_tactic: "Add crop management Technique"

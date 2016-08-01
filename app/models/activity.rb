@@ -50,7 +50,7 @@
 #  use_countings                :boolean          default(FALSE), not null
 #  use_gradings                 :boolean          default(FALSE), not null
 #  use_seasons                  :boolean          default(FALSE)
-#  use_tactics                  :boolean          default(FALSE), not null
+#  use_tactics                  :boolean          default(FALSE)
 #  with_cultivation             :boolean          not null
 #  with_supports                :boolean          not null
 #
@@ -88,7 +88,7 @@ class Activity < Ekylibre::Record::Base
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :use_tactics, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
+  validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
   validates :family, :name, :nature, :production_cycle, presence: true
   # ]VALIDATORS]
   validates :family, inclusion: { in: family.values }
