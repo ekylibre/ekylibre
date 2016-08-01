@@ -132,7 +132,7 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
   accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
   accepts_nested_attributes_for :seasons, update_only: true, reject_if: -> (par) { par[:name].blank? }
-  accepts_nested_attributes_for :tactics, update_only: true, reject_if: :all_blank
+  accepts_nested_attributes_for :tactics, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
   # protect(on: :update) do
   #   productions.any?

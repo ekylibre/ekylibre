@@ -51,4 +51,4 @@
 = field_set(:activity_tactics, title: Activity.human_attribute_name(:tactics)) do
   = f.input :use_tactics, show: '#tactics'
   #tactics
-    = f.nested_association(:tactics)
+    = f.nested_association(:tactics, maximum: 1)

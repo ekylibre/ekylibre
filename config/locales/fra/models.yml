@@ -14,7 +14,7 @@ fra:
         storage: "Support" #?
       activity_tactic:
         bulk_quantity: "Volume prévisionnel"
-        mode: "Type de plannifcation"
+        mode: "Type de planification"
         plan_on: "Date"
       animal:  #?
         born_at: "Né(e) le" #?
