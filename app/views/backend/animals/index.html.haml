@@ -47,18 +47,18 @@
             %span.golumn-group-title{data: { bind: 'text: name'}}
             %span.badge.golumn-group-badge{data: { bind: 'text: count'}}
           .golumn-group-body{data: { bind: "css: {'hide':hidden}"}}
-            %div{data: { bind: "sortable: {template: 'golumn-item-template', data: $data.items, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
-            -#%div{data: { bind: "draggable: {template: 'golumn-item-template', data: $data.items, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
+            -#%div{data: { bind: "sortable: {template: 'golumn-item-template', data: $data.items, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
+            %div{data: { bind: "draggable: {template: 'golumn-item-template', data: $data.items, options: {handle: '.golumn-item-handle', cursor: 'move', opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
             -#%div{data: { bind: "template: { name: 'golumn-item-template', foreach: $data.items }"}}
 
       %script#golumn-item-template{type: 'text/html'}
-        .golumn-item{data: { bind: 'css: statusClass  '}}
+        .golumn-item{data: { bind: 'css: $data.statusClass  '}}
           .golumn-item-actions
-            .checker{data: { bind: 'checkbox: checked'}}
+            .checker{data: { bind: 'checkbox: $data.checked'}}
           %span.golumn-item-handle
             %i.icon.icon-ellipsis-v
-          %span.golumn-item-title{data: { bind: 'text: name, click: $root.toggleAnimalDetailsModal'}}
-          %i.sex.icon{data: {bind: 'css: sexClass'}}
+          %span.golumn-item-title{data: { bind: 'text: $data.name, click: $root.toggleAnimalDetailsModal'}}
+          %i.sex.icon{data: {bind: 'css: $data.sexClass'}}
           -# .golumn-item-infos
             %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{data: { bind: 'click: $root.toggleAnimalDetailsModal'}, type: 'button'}
               %span{data: { bind: 'text: name'}}

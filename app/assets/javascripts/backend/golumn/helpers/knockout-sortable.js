@@ -458,14 +458,17 @@
     //create a draggable that is appropriate for dropping into a sortable
     ko.bindingHandlers.draggable = {
         init: function(element, valueAccessor, allBindingsAccessor, data, context) {
-            var value = unwrap(valueAccessor()) || {},
+            var $element = $(element),
+                value = unwrap(valueAccessor()) || {},
                 options = value.options || {},
                 draggableOptions = ko.utils.extend({}, ko.bindingHandlers.draggable.options),
-                templateOptions = prepareTemplateOptions(valueAccessor, "data"),
+                templateOptions = prepareTemplateOptions(valueAccessor, "foreach"),
                 connectClass = value.connectClass || ko.bindingHandlers.draggable.connectClass,
                 isEnabled = value.isEnabled !== undefined ? value.isEnabled : ko.bindingHandlers.draggable.isEnabled;
 
-            value = "data" in value ? value.data : value;
+            // value = "data" in value ? value.data : value;
+            // value = "foreach" in value ? value.foreach : value;
+            // console.log(element, ko.utils.unwrapObservable(valueAccessor()));
 
             //set meta-data
             dataSet(element, DRAGKEY, value);
@@ -474,34 +477,96 @@
             ko.utils.extend(draggableOptions, options);
 
             //setup connection to a sortable
-            draggableOptions.connectToSortable = connectClass ? "." + connectClass : false;
+            // draggableOptions.connectToSortable = connectClass ? "." + connectClass : false;
 
             //initialize draggable
-            $(element).draggable(draggableOptions);
+            // $(element).draggable(draggableOptions);
 
-            //handle enabling/disabling sorting
-            if (isEnabled !== undefined) {
-                ko.computed({
-                    read: function() {
-                        $(element).draggable(unwrap(isEnabled) ? "enable" : "disable");
+            ko.bindingHandlers.template.init(element, function() { return templateOptions; }, allBindingsAccessor, data, context);
+
+
+            var createTimeout = setTimeout(function() {
+                $(element).draggable(ko.utils.extend(draggableOptions, {
+                    helper: function (e) {
+                        var elements = [];
+                        var helper;
+
+                        elements = $('.checker.active').closest('.golumn-item').find('.golumn-item-title');
+
+                        if(!elements.length)
+                        {
+                            item = $(e.target).siblings('.golumn-item-title');
+                            if(item.length > 0)
+                            {
+                                elements.push(item);
+                            }
+                        }
+
+                        helper = $("<div class='animate-dragging' style='width: 130px; height: 30px'></div>");
+
+
+                        helper.append($("<div class='animate-dragging-number'>"+elements.length+"</div>"));
+
+                        var container = $("<div style='width: 130px; height: 30px; color: white; vertical-align: middle; text-align: center; font-weight: bold; font-size:14px; line-height:20px; background-color: #428bca; box-shadow: 1px 1px 8px #000000;'></div>");
+
+                        container.append($(elements[0]).text());
+                        container.addClass('animate-dragging-text');
+                        helper.append(container);
+
+                        return helper;
+
                     },
-                    disposeWhenNodeIsRemoved: element
-                });
-            }
+                    start: function(event, ui) {
 
-            //handle disposal
+                        $('.golumn-group .body .animal-dropzone').addClass('grow-empty-zone');
+                        $('.add-container').css('display','block');
+                        $('.add-container').addClass('grow-empty-zone');
+
+                    },
+                    stop: function (e, ui) {
+
+                        $('.golumn-group .body .animal-dropzone').removeClass('grow-empty-zone');
+                        $('.add-container').removeClass('grow-empty-zone');
+                        $('.add-container').css('display','none');
+
+                    }
+                }));
+
+                //handle enabling/disabling sorting
+                if (isEnabled !== undefined) {
+                    ko.computed({
+                        read: function() {
+                            $(element).draggable(unwrap(isEnabled) ? "enable" : "disable");
+                        },
+                        disposeWhenNodeIsRemoved: element
+                    });
+                }
+
+            }, 0);
+
             ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-                $(element).draggable("destroy");
+                //only call destroy if draggable has been created
+                if ($element.data("ui-draggable") || $element.data("draggable")) {
+                    $element.draggable("destroy");
+                }
+
+                ko.utils.toggleDomNodeCssClass(element, draggable.connectClass, false);
+
+                //do not create the sortable if the element has been removed from DOM
+                clearTimeout(createTimeout);
             });
 
-            return ko.bindingHandlers.template.init(element, function() { return templateOptions; }, allBindingsAccessor, data, context);
+            return { 'controlsDescendantBindings': true };
+
         },
         update: function(element, valueAccessor, allBindingsAccessor, data, context) {
-            var templateOptions = prepareTemplateOptions(valueAccessor, "data");
+            var templateOptions = prepareTemplateOptions(valueAccessor, "foreach");
+
+            dataSet(element, LISTKEY, templateOptions.foreach);
+
 
             return ko.bindingHandlers.template.update(element, function() { return templateOptions; }, allBindingsAccessor, data, context);
         },
-        connectClass: ko.bindingHandlers.sortable.connectClass,
         options: {
             helper: "clone"
         }
