@@ -26,7 +26,7 @@
             - component.part_product_nature_variant.attachments.each do |attachment|
               - menu.item attachment.name, {controller: 'backend/documents', id: attachment.document_id, action: :show, format: :pdf }
       .component-replacement
-        = tool_to "Remplacer l'élément", {}
+        = tool_to :replace.ta, {action: :new, controller: :interventions, procedure_name: :equipment_maintenance, intervention_maintenance_nature: :curative, equipment_id: resource.id, component_id: component.id, redirect: request.fullpath}
     = modal(id: "show_component_details_#{component.id}", title: Product.human_attribute_name(:part_replacements), close_button: true) do
       = render "component_infos", component: component
     = render 'composition', product: product, components: component.children
