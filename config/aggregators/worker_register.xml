@@ -25,20 +25,6 @@
 	          <property name="stopped_at" value="intervention.stopped_at" type="datetime"/>
 	          <property name="working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
 	          <property name="working_duration_in_hours" value="intervention.working_duration.in(:second).in(:hour).round(2).to_f" type="decimal"/>
-	          <property name="working_zone_area" if="intervention.working_zone_area" value="intervention.working_zone_area.round(2).l" type="measure"/>
-	          <property name="targets_name" value="intervention.human_target_names"/>
-	          <property name="actions_name" value="intervention.human_actions_names"/>
-	          <property name="doers_name" value="intervention.human_doer_names"/>
-	          <property name="tools_name" value="intervention.human_tool_names"/>
-	          <property name="total_cost" value="intervention.total_cost"/>
-	          <property name="total_cost_per_area" if="intervention.cost_per_area" value="intervention.cost_per_area"/>
-	          <section name="issue" of="intervention.issue">
-	            <property name="id" level="api"/>
-	            <property name="nature"/>
-	            <property name="observed_at"/>
-	            <property name="state" level="api"/>
-	            <property name="description"/>
-	          </section>
 	        </sections>
         </sections>
       </sections>

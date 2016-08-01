@@ -47,6 +47,7 @@ class PlantDensityAbacus < Ekylibre::Record::Base
   validates :germination_percentage, numericality: { allow_nil: true }
   validates :activity, :name, :sampling_length_unit, :seeding_density_unit, presence: true
   # ]VALIDATORS]
+  validates :name, uniqueness: true
 
   delegate :cultivation_variety, to: :activity
 
