@@ -12,8 +12,9 @@
   = field_set(container.name) do
     = render 'items_form', f: f, items: f.object.items.select{|i| i.container == container}.sort{|a,b| a.name <=> b.name}
 
-= field_set(:undefined_container) do
-  = render 'items_form', f: f, items: f.object.items.select{|i| i.container.nil? }.sort{|a,b| a.name <=> b.name}
-
+- undefined = f.object.items.select{|i| i.container.nil? }
+- if undefined.any?    
+  = field_set(:undefined_container) do
+    = render 'items_form', f: f, items: undefined.sort{|a,b| a.name <=> b.name}
 
 = f.attachments_field_set
