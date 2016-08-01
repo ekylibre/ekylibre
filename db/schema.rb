@@ -1520,6 +1520,8 @@ ActiveRecord::Schema.define(version: 20160728070743) do
     t.string   "quantity_indicator_name"
     t.integer  "group_id"
     t.string   "new_name"
+    t.integer  "component_id"
+    t.integer  "schematic_id"
   end
 
   add_index "intervention_parameters", ["created_at"], name: "index_intervention_parameters_on_created_at", using: :btree
@@ -1575,8 +1577,8 @@ ActiveRecord::Schema.define(version: 20160728070743) do
     t.integer  "whole_duration",          default: 0,     null: false
     t.string   "actions"
     t.jsonb    "custom_fields"
-    t.integer  "request_intervention_id"
     t.string   "state"
+    t.integer  "request_intervention_id"
     t.string   "maintenance_nature"
     t.boolean  "trouble_encountered",     default: false, null: false
     t.string   "trouble_description"

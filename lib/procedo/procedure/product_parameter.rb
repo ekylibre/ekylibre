@@ -6,12 +6,15 @@ module Procedo
     # A parameter is used to defined which are the operators, targets, inputs,
     # outputs and tools in procedure.
     class ProductParameter < Procedo::Procedure::Parameter
+      include Codeable
       attr_reader :filter, :birth_nature, :derivative_of, :default_name,
                   :destinations, :default_actor, :default_variant,
                   :procedure, :producer_name, :roles, :type, :value,
                   :variety, :new_value
 
       TYPES = [:target, :tool, :doer, :input, :output].freeze
+
+      code_trees :component_of
 
       def initialize(procedure, name, type, options = {})
         super(procedure, name, options)
@@ -24,6 +27,7 @@ module Procedo
           # # Check filter syntax
           # WorkingSet.parse(@filter)
         end
+        self.component_of = options[:output][:component_of]
         @handlers = {}
         @attributes = {}
         @readings = {}
@@ -262,11 +266,12 @@ module Procedo
         @readings.each do |_, reading|
           parameter_names += reading.dependent_parameters
         end
+        parameter_names += component_of_dependent_parameters || []
         parameter_names.uniq
       end
 
       def depend_on?(parameter)
-        dependent_parameters.detect do |p|
+        dependent_parameter_names.detect do |p|
           p == parameter.name
         end
       end

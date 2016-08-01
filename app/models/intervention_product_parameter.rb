@@ -56,6 +56,8 @@ class InterventionProductParameter < InterventionParameter
   belongs_to :new_group, class_name: 'ProductGroup'
   belongs_to :new_variant, class_name: 'ProductNatureVariant'
   belongs_to :variant, class_name: 'ProductNatureVariant'
+  belongs_to :component, class_name: 'ProductNatureVariantComponent'
+  belongs_to :schematic, class_name: 'ProductNatureVariant'
   has_many :crumbs, dependent: :destroy, foreign_key: :intervention_parameter_id
   has_many :readings, class_name: 'InterventionParameterReading', dependent: :destroy, inverse_of: :intervention_parameter, foreign_key: :parameter_id
   has_one :product_nature, through: :variant, source: :nature

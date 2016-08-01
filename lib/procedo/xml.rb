@@ -116,13 +116,13 @@ module Procedo
           end
         end
         options[:output] = {}
-        %w(name variety derivative-of variant).each do |attribute|
+        %w(name variety derivative-of variant component-of).each do |attribute|
           if element.has_attribute?(attribute)
             options[:output][attribute.underscore.to_sym] = element.attr(attribute).to_s
           end
         end
         options[:output][:default] = {}
-        %w(name variety derivative-of variant).each do |attribute|
+        %w(name variety derivative-of variant component-of).each do |attribute|
           if element.has_attribute?("default-#{attribute}")
             options[:output][:default][attribute.underscore.to_sym] = element.attr("default-#{attribute}").to_s
           end

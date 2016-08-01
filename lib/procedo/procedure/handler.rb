@@ -130,9 +130,10 @@ module Procedo
       end
 
       def dependent_parameters
-        parameters = handler.condition_dependent_parameters
-        parameters += handler.backward_dependent_parameters
-        parameters += handler.forward_dependent_parameters
+        parameters = []
+        parameters += self.condition_dependent_parameters || []
+        parameters += self.backward_dependent_parameters || []
+        parameters += self.forward_dependent_parameters || []
         parameters.uniq
       end
     end

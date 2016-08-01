@@ -9,6 +9,8 @@
       - started_at = f.object.intervention.started_at
     - else
       - started_at = f.object.intervention.working_periods.map(&:started_at).min
+  - if reference.component_of?
+    = render 'component_field', f: f, reference: reference, prefix: prefix
   - if reference.output?
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}

@@ -133,8 +133,8 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
     end
 
     rename_column :interventions, :state, :nature
-    add_reference :interventions, :request_intervention, index: true
     add_column :interventions, :state, :string
+    add_reference :interventions, :request_intervention, index: true
 
     add_column :interventions, :maintenance_nature, :string
     add_column :interventions, :trouble_encountered, :boolean, null: false, default: false
@@ -161,5 +161,8 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
       t.references :product, null: false, index: true
       t.stamps
     end
+
+    add_reference :intervention_parameters, :component
+    add_reference :intervention_parameters, :schematic
   end
 end

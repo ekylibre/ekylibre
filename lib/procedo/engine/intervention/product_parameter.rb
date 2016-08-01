@@ -77,6 +77,7 @@ module Procedo
           impact_on_attributes(field)
           impact_on_readings(field)
           impact_on_parameters(field)
+          impact_on_components(field)
         end
 
         # Impact changes on attributes of parameter based on given field
@@ -149,6 +150,14 @@ module Procedo
                   ir.value = value
                 end
               end
+            end
+          end
+        end
+
+        def impact_on_components(field)
+          procedure.parameters.select { |p| p.depend_on?(self) }.each do |component_parameter|
+            intervention.parameters_of_name(component_parameter.name).each do |component_inputs|
+              component_inputs.schematic_source = self
             end
           end
         end

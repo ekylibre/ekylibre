@@ -96,13 +96,13 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
     return nil
   end
 
-  def self_and_parents 
+  def self_and_parents
     unless @self_and_parents
       @self_and_parents = [self]
       @self_and_parents += parent.self_and_parents if parent
     end
     @self_and_parents
-  end 
+  end
 
   # return in the list all the parent's variant, and do this until there are no more parent's
   def parent_variants
