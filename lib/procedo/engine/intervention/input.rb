@@ -20,15 +20,17 @@ module Procedo
         end
 
         def schematic_source=(field)
-          @schematic_id = field.product.variant.id
+          self.schematic_id = field.product.variant.id
         end
 
         def schematic_id=(value)
           @schematic_id = value
+          impact_dependencies! :schematic
         end
 
         def component_id=(value)
           @component_id = value
+          impact_dependencies! :component
         end
       end
     end

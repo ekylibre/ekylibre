@@ -11,10 +11,10 @@ module Procedo
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
           if @attributes[:product_id].present?
-            @product = Product.find_by(id: @attributes[:product_id])
+            self.product = Product.find_by(id: @attributes[:product_id])
           end
           if attributes[:working_zone].present?
-            @working_zone = Charta.from_geojson(attributes[:working_zone])
+            self.working_zone = Charta.from_geojson(attributes[:working_zone])
           end
           @read_at = intervention.working_periods['0'].started_at if intervention && intervention.working_periods.present?
           @readings = {}.with_indifferent_access

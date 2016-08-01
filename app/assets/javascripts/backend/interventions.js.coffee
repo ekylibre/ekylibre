@@ -15,6 +15,28 @@
   # other fields and on updater itself if necessary
   E.interventions =
 
+    handleComponents: (form, attributes, prefix = '') ->
+      for name, value of attributes
+        subprefix = prefix + name
+        if /\w+_attributes$/.test(name)
+          for id, attrs of value
+            E.interventions.handleComponents(form, attrs, subprefix + '_' + id + '_')
+        else
+          input = form.find("##{prefix}component_id")
+          unrollPath = input.attr('data-selector')
+          if unrollPath
+            schemId = attributes["schematic_id"]
+            if typeof(schemId) == 'undefined'
+              schemId = "nil"
+            else
+              componentReg = /(unroll\?.*scope.*components_of[^=]*)=([^&]*)(&?.*)/
+              oldSchematics = unrollPath.match(componentReg)[2]
+              unrollPath = unrollPath.replace(componentReg, "$1="+schemId+"$3")
+              input.attr('data-selector', unrollPath)
+              if schemId.toString() != oldSchematics.toString()
+                $(input).val('')
+
+
     toggleHandlers: (form, attributes, prefix = '') ->
       for name, value of attributes
         subprefix = prefix + name
@@ -115,6 +137,7 @@
             console.group('Unserialize intervention updated by ' + updaterId)
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
+            E.interventions.handleComponents(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
             # if updaterElement? and initialValue != E.value($("*[data-intervention-updater='#{intervention.updater}']").first())
             #   E.interventions.refresh updaterElement

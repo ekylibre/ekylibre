@@ -48,6 +48,7 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   # acts_as_nested_set scope: :product_nature_variant_id
   accepts_nested_attributes_for :children, allow_destroy: true
 
+  scope :components_of, -> (variant_id) { variant_id.nil? ? none : where(product_nature_variant_id: variant_id) }
 
   before_validation do
     if parent
@@ -63,10 +64,6 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
       end
     end
   end
-
-
-
-
 
  # Find the product_nature_variant_component corresponding to a component, for a given  product_nature_variant
   # There can't be many product_nature_variant_component
