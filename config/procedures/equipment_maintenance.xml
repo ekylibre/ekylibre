@@ -5,9 +5,11 @@
       <group name="work" cardinality="+">
         <target name="equipment" filter="is equipment" cardinality="1"/>
         <input name="replacement_part" component-of="first(siblings(SELF, equipment))" filter="is matter and derives from equipment" cardinality="*">
-          <handler name="population"/>
+          <handler name="population" />
         </input>
-        <input name="consumable_part" filter="is matter" cardinality="*"/>
+        <input name="consumable_part" filter="is matter" cardinality="*">
+          <handler name="population" />
+        </input>
       </group>
       <doer name="mechanic" filter="is worker"/>
       <tool name="tool" filter="is equipment" />
