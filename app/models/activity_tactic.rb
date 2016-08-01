@@ -43,12 +43,16 @@ class ActivityTactic < Ekylibre::Record::Base
   enumerize :mode, in: [:sowed, :harvested], default: :sowed
 
   belongs_to :activity, class_name: 'Activity', inverse_of: :tactics
-  has_many :productions, class_name: 'ActivityProduction', inverse_of: :tactic
+  has_many :productions, class_name: 'ActivityProduction', inverse_of: :tactic, foreign_key: :tactic_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :plan_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :bulk_delta, :bulk_quantity, :mode_delta, numericality: { allow_nil: true, only_integer: true }
   validates :activity, :name, presence: true
   # ]VALIDATORS]
+
+  protect(on: :destroy) do
+    productions.any?
+  end
 
 end

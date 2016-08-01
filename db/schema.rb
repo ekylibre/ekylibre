@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160725090113) do
+ActiveRecord::Schema.define(version: 20160727201017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1634,7 +1634,7 @@ ActiveRecord::Schema.define(version: 20160725090113) do
   add_index "interventions", ["updater_id"], name: "index_interventions_on_updater_id", using: :btree
 
   create_table "inventories", force: :cascade do |t|
-    t.string   "number"
+    t.string   "number",                           null: false
     t.datetime "reflected_at"
     t.boolean  "reflected",        default: false, null: false
     t.integer  "responsible_id"
@@ -2285,7 +2285,7 @@ ActiveRecord::Schema.define(version: 20160725090113) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                    default: 0, null: false
-    t.integer  "activity_id"
+    t.integer  "activity_id",                                                 null: false
   end
 
   add_index "plant_density_abaci", ["created_at"], name: "index_plant_density_abaci_on_created_at", using: :btree
