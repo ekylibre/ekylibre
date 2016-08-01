@@ -94,12 +94,6 @@ class AnimalGroup < ProductGroup
 
   def places(viewed_at = nil)
     animals = members_at(viewed_at || Time.zone.now)
-    # containers = []
-    # byebug
-    # animals.each do |animal|
-    #   containers << animal.container
-    # end
-    # return containers.uniq
     animals.collect(&:container).uniq.compact
   end
 

@@ -18,6 +18,8 @@
 
 module Backend
   class AnimalsController < Backend::MattersController
+
+    respond_to :json
     # params:
     #   :q Text search
     #   :s State search
@@ -75,21 +77,55 @@ module Backend
     end
 
     def load_animals
-      @grouped_animals = []
-      AnimalGroup.all.select(:id, :name).each do |group|
-        @grouped_animals << { group: group, places_and_animals: group.members_with_places_at }
-      end
+      read_at = Time.zone.now
 
-      @sorted = @grouped_animals
+      @grouped_animals = AnimalGroup.availables(at: read_at).select(:id, :name).collect do |group|
+        animal_groups = {
+          id: group.id,
+          name: group.name,
+          places: group.places.collect do |place|
+            {
+                id: place.id,
+                name: place.name,
+                animals: Animal.members_of(group, read_at).contained_by(place).as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
+            }
+          end
+        }
+        animals_without_container = Animal.members_of(group, read_at).collect do |animal|
+          next unless animal.container.nil?
+          animal.as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
+        end.compact
 
-      without_container = []
-      Animal.availables(at: Time.now).of_enjoyer(Entity.of_company).select(:id, :name, :identification_number, :nature_id, :dead_at).each do |a|
-        if a.container.nil? || a.memberships.empty?
-          without_container << { animal: a.to_json(methods: [:picture_path, :sex_text, :status]) }
+        unless animals_without_container.empty?
+          animal_groups[:places] << {
+              id: nil,
+              name: :others,
+              animals: animals_without_container
+          }
         end
+
+        animal_groups
       end
-      @sorted << { others: without_container } if without_container.any?
-      render json: @sorted.to_json
+
+      animals_without_group = Animal.availables(at: Time.zone.now).collect do |animal|
+        next unless animal.memberships.empty?
+        animal.as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
+      end.compact
+
+      unless animals_without_group.empty?
+        @grouped_animals << {
+            id: nil,
+            name: :others,
+            places: [
+            {
+                id: nil,
+                name: :others,
+                animals: animals_without_group
+            }
+            ]
+        }
+      end
+      respond_with @grouped_animals
     end
 
     def load_containers
