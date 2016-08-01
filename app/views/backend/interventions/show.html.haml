@@ -115,10 +115,10 @@
         %span.title= Intervention.human_attribute_name(:description)
         %span.value= resource.description
 
-    - if resource.maintenance? && resource.maintenance_nature?
+    - if resource.maintenance? && resource.maintenance_nature.any?
       .info
         %span.title= Intervention.human_attribute_name(:maintenance)
-        %span.value= resource.maintenance_nature.l
+        %span.value= resource.human_actions_names
 
     - if resource.trouble_encountered?
       .info

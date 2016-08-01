@@ -3013,8 +3013,6 @@ interventions:
   lock_version:
     type: integer
     required: true
-  maintenance_nature:
-    type: string
   nature:
     type: string
     required: true

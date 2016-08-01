@@ -1,4 +1,4 @@
-- components.each  do |component|
+- components.each do |component|
   .component
     .component-block
       .component-title
@@ -26,7 +26,9 @@
             - component.part_product_nature_variant.attachments.each do |attachment|
               - menu.item attachment.name, {controller: 'backend/documents', id: attachment.document_id, action: :show, format: :pdf }
       .component-replacement
-        = tool_to :replace.ta, {action: :new, controller: :interventions, procedure_name: :equipment_maintenance, intervention_maintenance_nature: :curative, equipment_id: resource.id, component_id: component.id, redirect: request.fullpath}
+        - target_attributes = { product_id: resource.id }
+        - component_attributes = { component_id: component.id }
+        = tool_to :replace.ta, {action: :new, controller: :interventions, "procedure_name"=>"equipment_maintenance", "actions"=>["curative_maintenance"], "trouble_encountered"=>"0", "trouble_description"=>"", "prescription_id"=>"", "group_parameters_attributes"=>{ "0"=> { "reference_name"=>"work", "targets_attributes"=> { "0"=> { "reference_name"=>"equipment", "product_id"=>resource.id }, }, "inputs_attributes"=> { "0"=> { "reference_name"=>"replacement_part", "component_id"=>component.id } } } }, redirect: request.fullpath}
     = modal(id: "show_component_details_#{component.id}", title: Product.human_attribute_name(:part_replacements), close_button: true) do
       = render "component_infos", component: component
     = render 'composition', product: product, components: component.children

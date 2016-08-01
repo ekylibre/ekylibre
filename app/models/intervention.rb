@@ -72,7 +72,6 @@ class Intervention < Ekylibre::Record::Base
   end
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   enumerize :nature, in: [:request, :record], default: :record, predicates: true
-  enumerize :maintenance_nature, in: [:curative, :preventive, :ameliorative], predicates: true, default: :curative
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
@@ -82,7 +81,6 @@ class Intervention < Ekylibre::Record::Base
   validates_inclusion_of :trouble_encountered, in: [true, false]
   validates_presence_of :nature, :procedure_name, :whole_duration, :working_duration
   # ]VALIDATORS]
-  validates_presence_of :maintenance_nature, if: :maintenance?
   validates :actions, presence: true
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
@@ -246,6 +244,10 @@ class Intervention < Ekylibre::Record::Base
   def human_actions_names
     actions.map { |action| Nomen::ProcedureAction.find(action).human_name }
            .to_sentence
+  end
+
+  def maintenance_nature
+    actions
   end
 
   def name

@@ -25,7 +25,6 @@
             %td
               = part.intervention_parameter.intervention.procedure_name.l
             %td
-              = part.intervention_parameter.intervention.maintenance_nature.l
             - if part.intervention.doers.any? &&  part.intervention.doers.first.product.present?
               %td
                 = part.intervention_parameter.intervention.doers.first.product.name
