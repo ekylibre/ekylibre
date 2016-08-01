@@ -898,15 +898,10 @@ arb:
     active_sum: "مجموع الموجودات" #?
     activities: "أنشطة"
     activity: "نشاط"
-    # activity_countings: "Countings"
-    activity_family: "الأنشطة العائلية"
-    # activity_inspections: "Inspections"
-    activity_name: "نشاط"
     activity_production: "إنتاج النشاط"
     activity_productions: "إنتاجات آخر"
-    # activity_seasons: "Cropping seasons"
-    # activity_tactics: "Crop management Technique"
     add: "اضافة"
+    add_a_worker: "إضافة عامل"
     add_annotation: "إضافة تعليق توضيحي"
     add_attachment: "إضافة مرفق"
     add_bank_statement: "إضافة كشف حساب بنكي"
@@ -918,7 +913,6 @@ arb:
     add_distribution: "إضافة التوزيع"
     add_email: "إضافة البريد الإلكتروني"
     add_entry: "إضافة إدخال"
-    add_equipment: "معدات مضيفا"
     add_expense: "إضافة حساب"
     add_fax: "إضافة الفاكس"
     add_filter: "إضافة فلتر"
@@ -935,6 +929,7 @@ arb:
     add_participation: "إضافة مشاركة"
     add_payment: "اضافة دفعة"
     add_phone: "إضافة رقم الهاتف"
+    add_plant_density_abacus: "إضافة الجدول المرجعي كثافة بذر"
     add_point: "إضافة نقطة"
     add_polygon: "إضافة مضلع"
     add_production: "إضافة الانتاج"
@@ -985,7 +980,6 @@ arb:
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟" #?
-    are_you_sure_you_want_to_generate_parcel: "هل أنت متأكد أنك تريد أن تولد لا يتجزأ"
     are_you_sure_you_want_to_invoice: "هل انت متأكد من رغبتك باعداد فاتورة البيع؟"
     are_you_sure_you_want_to_send_mails: "هل انت متأكد من رغبتك بارسال الرسالة"
     area: "منطقة"
@@ -1030,11 +1024,9 @@ arb:
     budget: "ميزانية"
     budget_per_working_indicator: "الميزانية في مؤشر العمل"
     budgets: "الميزانيات"
-    building: "مكان التخزين"
     building_create: "اضافة موقع تخزين" #?
     building_name: "انتاج" #?
     building_update: "تعديل موقع التخزين" #?
-    buildings: "النظر بقائمة مواقع التخزين"
     by_year: "وبحلول العام"
     calculate: "حساب"
     calculators: "الآلات الحاسبة"
@@ -1320,6 +1312,7 @@ arb:
     general_ledger: "دفتر الحسابات" #?
     generate: "توليد"
     generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
+    generate_parcel: "تولد لا يتجزأ"
     geolocation: "تحديد الموقع الجغرافي"
     give_discount: "منح خصومات" #?
     go: "صلاحية"
@@ -1453,8 +1446,6 @@ arb:
       clients: "العملاء" #?
       suppliers: "الممولون" #?
       title: "العنصر الثالث" #?
-    level: "مستوى"
-    levels: "مستويات"
     line: "سطر رقم%{index} :" #?
     # line_number: "Line #%{number}"
     line_stock: "مكان التخزين: %{building}, الكمية المتوفرة: %{virtual_q}" #?
@@ -1490,7 +1481,7 @@ arb:
     mark_all_as_read: "علامة جميع للقراءة"
     mark_as_read: "كمقروء"
     marketable_net_mass: "الكتلة الصافية للتسويق"
-    mass: "الوزن" #?
+    mass: "الوزن"
     maximal_temperature: "درجة الحرارة القصوى"
     meeting: "المقابلة(X)مكان" #?
     members: "أعضاء"
@@ -1520,7 +1511,6 @@ arb:
     merge: "دمج"
     method: "طريقة"
     minimal_temperature: "درجة الحرارة الحد الأدنى"
-    missing: "مفقود"
     missing_attributes: "بعض سمات مفقودة"
     missing_help: "صفحات مفقودة"
     mobile: "التليفون المحمول"
@@ -1558,7 +1548,6 @@ arb:
     net_surface_area: "مساحة صافية"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
-    new_activity: "نشاط جديد"
     new_animal: "حيوان جديد"
     new_attachment: "مرفق جديد"
     new_box: "صندوق جديد"
@@ -1577,7 +1566,6 @@ arb:
       # other: "Make a deposit %{mode}: %{count} available payments"
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "بريد إلكتروني جديد"
-    new_equipment: "معدات جديدة"
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
     new_issue: "مشكلة جديدة"
@@ -1631,7 +1619,6 @@ arb:
     number_options: "أرقام الخيارات" #?
     numbers: "أرقام"
     observation_create: "اضافة ملاحظة" #?
-    ok: "حسنا"
     on_account: "أ€ يضع على الحساب"
     one_condition: "ما لا يقل عن شرط واحد"
     open_a_campaign: "فتح حملة" #?
@@ -1665,7 +1652,6 @@ arb:
     outgoing_payment_use_create: "تسديد سعر الشراء" #?
     outgoing_payments: "المدفوعات الصادرة"
     overflow: "فائض رصيد الدائن" #?
-    pacage_number: "رقم الرعي"
     page_title: "%{company_code} - %{menu} - %{action}"
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
@@ -2047,7 +2033,6 @@ arb:
     # updated_at_by: "Updated at %{at} by %{author}"
     # updated_by_ago: "Updated by %{author} %{when}"
     upload: "تحميل الملفات"
-    uploaded_file: "ملف مرفوع"
     usage: "استعمال"
     use_forward: "اختر دفتر يومي للتقارير الجديدة" #?
     used_accounts: "الحسابات المستخدمة فقط" #?
@@ -2063,11 +2048,9 @@ arb:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "التحقق من المدخلات المختارة"
-    validations: "الصياغة النهائية"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"
-    variety: "تشكيلة"
     vat: "الضريبة المستحقة" #?
     vat_acquisitions: "المكاسب الداخلية" #?
     vat_amount: "الضرائب المستحقة" #?
@@ -2463,7 +2446,6 @@ arb:
       family: "أسرة"
       finish: "إنهاء"
       generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
-      generate_parcel: "تولد لا يتجزأ"
       import: "استيراد"
       incorporate: "دمج"
       increment: "زيادة" #?

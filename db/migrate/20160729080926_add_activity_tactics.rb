@@ -3,10 +3,9 @@ class AddActivityTactics < ActiveRecord::Migration
     create_table :activity_tactics do |t|
       t.references :activity, null: false, index: true
       t.string :name, null: false
-      t.date :plan_on
+      t.date :planned_on
       t.integer :mode_delta
       t.string :mode
-      t.string :mode_unit_name
       t.integer :bulk_quantity
       t.integer :bulk_delta
       t.string :bulk_unit_name
@@ -14,6 +13,6 @@ class AddActivityTactics < ActiveRecord::Migration
     end
 
     add_reference :activity_productions, :tactic, index: true
-    add_column :activities, :use_tactics, :boolean, default: false
+    add_column :activities, :use_tactics, :boolean, null: false, default: false
   end
 end

@@ -83,8 +83,8 @@ module RestfullyManageable
         lookup = Rails.root.join('app', 'views', "{#{parents.map(&:controller_path).join(',')}}")
         if Dir.glob(lookup.join('show.*')).any?
           if options[:subclass_inheritance]
-            code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}'\n"
-            code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
+            code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}' && !request.xhr?\n"
+            code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id, format: params[:format]\n"
             code << "    return\n"
             code << "  end\n"
           end
@@ -126,7 +126,7 @@ module RestfullyManageable
         # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
         columns = model.columns_definition.keys
         columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
-        values = columns.map(&:to_sym).uniq.inject({}) do |hash, attr|
+        values = columns.map(&:to_sym).uniq.each_with_object({}) do |attr, hash|
           hash[attr] = "params[:#{attr}]".c unless attr.blank? || attr.to_s.match(/_attributes$/)
           hash
         end.merge(defaults).collect { |k, v| "#{k}: (#{v.inspect})" }.join(', ')
@@ -265,7 +265,7 @@ module RestfullyManageable
 
       columns = model.columns_definition.keys
       columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
-      values = columns.inject({}) do |hash, attr|
+      values = columns.each_with_object({}) do |attr, hash|
         hash[attr] = "params[:#{attr}]".c unless attr.blank? || attr.to_s.match(/_attributes$/)
         hash
       end.collect { |k, v| "#{k}: (#{v.inspect})" }.join(', ')

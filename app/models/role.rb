@@ -85,7 +85,7 @@ class Role < Ekylibre::Record::Base
     end
 
     # parse rights
-    rights = item.accesses.inject({}) do |hash, right|
+    rights = item.accesses.each_with_object({}) do |right, hash|
       array = right.to_s.split('-')
       array.insert(0, 'all') if array.size < 3
       array << 'all' if array.size < 3

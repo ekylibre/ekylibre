@@ -741,7 +741,7 @@ module ApplicationHelper
 
   def tool_to(name, url, options = {})
     raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
-    icon = options.delete(:tool)
+    icon = options.key?(:tool) ? options.delete(:tool) : options.key?(:icon) ? options.delete(:icon) : nil
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
     options[:class] << ' icn btn-' + icon.to_s if icon
@@ -824,12 +824,6 @@ module ApplicationHelper
 
   def backend_form_for(object, *args, &block)
     options = args.extract_options!
-
-    if options.fetch(:data, {}).key?(:defaults) && options[:data][:defaults].is_a?(Hash)
-      options[:data][:defaults].each do |k, v|
-        object.send("#{k}=", v) if object.has_attribute?(k)
-      end
-    end
     simple_form_for([:backend, object], *(args << options.merge(builder: Backend::FormBuilder)), &block)
   end
 

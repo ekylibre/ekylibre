@@ -173,7 +173,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     #   errors.add(:number, :closed_entry)
     #   return
     # end
-    errors.add(:credit, :unvalid_amounts) if debit != 0 && credit != 0
+    errors.add(:credit, :unvalid_amounts) if debit.nonzero? && credit.nonzero?
   end
 
   after_save do

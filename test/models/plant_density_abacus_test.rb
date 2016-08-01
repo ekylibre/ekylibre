@@ -22,7 +22,7 @@
 #
 # == Table: plant_density_abaci
 #
-#  activity_id            :integer
+#  activity_id            :integer          not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  germination_percentage :decimal(19, 4)

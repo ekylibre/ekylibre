@@ -17,12 +17,12 @@
 #
 
 module ChartsHelper
-  OPTIONS = [:colors, :credits, :exporting, :labels, :legend, :loading, :navigation, :pane, :plot_options, :series, :subtitle, :title, :tooltip, :x_axis, :y_axis].inject({}) do |hash, name|
+  OPTIONS = [:colors, :credits, :exporting, :labels, :legend, :loading, :navigation, :pane, :plot_options, :series, :subtitle, :title, :tooltip, :x_axis, :y_axis].each_with_object({}) do |name, hash|
     hash[name] = name.to_s.tr('_', '-') # camelize(:lower)
     hash
   end.freeze
 
-  TYPES = [:line, :spline, :area, :area_spline, :column, :bar, :pie, :scatter, :area_range, :area_spline_range, :column_range, :waterfall].inject({}) do |hash, name|
+  TYPES = [:line, :spline, :area, :area_spline, :column, :bar, :pie, :scatter, :area_range, :area_spline_range, :column_range, :waterfall].each_with_object({}) do |name, hash|
     hash[name] = name.to_s.delete('_')
     hash
   end.freeze

@@ -93,10 +93,10 @@ class ActivityBudget < Ekylibre::Record::Base
 
   def computation_methods
     list = []
-    if productions_size.to_f != 0
+    if productions_size.to_f.nonzero?
       list << :per_working_unit
       list << :per_production
-    elsif productions_count.to_f != 0
+    elsif productions_count.to_f.nonzero?
       list << :per_production
     end
     list << :per_campaign

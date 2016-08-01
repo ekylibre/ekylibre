@@ -2929,11 +2929,11 @@ preferences_247:
   created_at: 2015-06-02 20:35:20.100688000 Z
   creator_id: 1
   id: 248
-  integer_value: 6
-  lock_version: 67
+  integer_value: 5
+  lock_version: 70
   name: current_campaign.id
   nature: integer
-  updated_at: 2016-07-01 20:46:59.769778000 Z
+  updated_at: 2016-07-29 09:03:15.763996000 Z
   updater_id: 1
   user_id: 1
 preferences_248:
@@ -3165,7 +3165,7 @@ preferences_268:
   created_at: 2015-09-17 13:23:01.063340000 Z
   creator_id: 1
   id: 269
-  lock_version: 4
+  lock_version: 6
   name: list._parcels_list_parcels_tag
   nature: string
   string_value:
@@ -3183,7 +3183,12 @@ preferences_268:
     dir: desc
     per_page: 20
     sort: planned_at
-  updated_at: 2015-09-17 13:31:13.719335000 Z
+    delivery_mode: Tous
+    nature: Tous
+    period: all
+    started_on: '2015-09-01'
+    stopped_on: '2016-08-31'
+  updated_at: 2016-07-26 19:23:26.424245000 Z
   updater_id: 1
   user_id: 1
 preferences_269:
@@ -4208,5 +4213,15 @@ preferences_362:
     - general-informations
     - parameters
   updated_at: 2016-07-01 20:48:48.142879000 Z
+  updater_id: 1
+  user_id: 1
+preferences_363:
+  created_at: 2016-07-29 09:00:34.795269000 Z
+  creator_id: 1
+  id: 365
+  lock_version: 0
+  name: activity_22_inspection_view_unit
+  nature: string
+  updated_at: 2016-07-29 09:00:34.795269000 Z
   updater_id: 1
   user_id: 1

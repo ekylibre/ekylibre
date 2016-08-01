@@ -17,11 +17,17 @@ module Ekylibre
           # members: row[4].blank? ? [] : row[4].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
         }.to_struct
 
-        georeading = Georeading.find_by(number: r.georeading_number)
-        raise "Cannot find georeading: #{r.georeading_number}" unless georeading
         zone = CultivableZone.find_or_initialize_by(work_number: r.code)
         zone.name = r.name
-        zone.shape = georeading.content
+
+        georeading = Georeading.find_by(number: r.georeading_number) ||
+                     Georeading.find_by(name: r.georeading_number)
+        if georeading
+          zone.shape = georeading.content
+        else
+          zone.shape = Charta.new_geometry('MULTIPOLYGON(((0 0,0 1,1 1,1 0,0 0)))')
+          Rails.logger.warn "Cannot find georeading: #{r.georeading_number}"
+        end
         zone.save!
         w.check_point
       end

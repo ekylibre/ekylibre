@@ -1,8 +1,10 @@
-= f.input :seeding_density_value do
-  = f.input_field :seeding_density_value
-  %span.add-on.seeding-density-unit= f.object.plant_density_abacus.human_seeding_density_unit_name
+.nested-fields.plant-density-abacus-item
+  = link_to_remove_nested_association(:item, f)
+  = f.input :seeding_density_value, wrapper: :append do
+    = f.input_field :seeding_density_value
+    %span.add-on.seeding-density-unit= f.object.plant_density_abacus.human_seeding_density_unit_name
 
-= f.input :plants_count do
-  = f.input_field :plants_count
-  %span.add-on= "/"
-  %span.add-on.sampling-length-unit= f.object.plant_density_abacus.human_sampling_length_unit_name
+  = f.input :plants_count, wrapper: :append do
+    = f.input_field :plants_count
+    %span.add-on= "/"
+    %span.add-on.sampling-length-unit= f.object.plant_density_abacus.human_sampling_length_unit_name

@@ -16,7 +16,7 @@ module Procedo
           if attributes[:working_zone].present?
             @working_zone = Charta.from_geojson(attributes[:working_zone])
           end
-          @read_at = intervention.working_periods['0'].started_at if intervention and intervention.working_periods.present?
+          @read_at = intervention.working_periods['0'].started_at if intervention && intervention.working_periods.present?
           @readings = {}.with_indifferent_access
           if @attributes[:readings_attributes]
             @attributes[:readings_attributes].each do |id, attributes|

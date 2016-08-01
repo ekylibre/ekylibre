@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160721124220">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160727092830">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -153,12 +153,12 @@
       <item name="equipment_asset_depreciations" fr_pcga="2815"/>
       <item name="equipment_assets" fr_pcga="2154"/>
       <item name="equipment_cooperative_participation_assets" fr_pcga="2622"/>
-      <item name="equipment_expenses" fr_pcga="6155"/>
+      <item name="equipment_depreciations_inputations_expenses" fr_pcga="68115"/>
+      <item name="equipment_expenses" fr_pcg82="605"/>
       <item name="equipment_locative_expenses" fr_pcga="6142"/>
+      <item name="equipment_maintenance_expenses" fr_pcga="6155"/>
       <item name="equipment_rent_expenses" fr_pcga="6132"/>
       <item name="equipment_subventions" fr_pcg82="131"/>
-      <item name="equipments_depreciations_inputations_expenses" fr_pcga="68115"/>
-      <item name="equipments_expenses" fr_pcg82="605"/>
       <item name="establishment_charge_assets" fr_pcga="201"/>
       <item name="exceptional_expenses" fr_pcga="67"/>
       <item name="exceptional_revenues" fr_pcga="77"/>
@@ -2257,10 +2257,10 @@
       <item name="duty_and_taxe" charge_account="other_taxes" purchasable="true" pictogram="legal"/>
       <item name="egg" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
       <item name="electricity" charge_account="electricity_expenses" purchasable="true" pictogram="bolt"/>
-      <item name="electronic_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipments_depreciations_inputations_expenses" depreciation_percentage="33.0" charge_account="equipments_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="laptop"/>
-      <item name="equipment" fixed_asset_account="equipment_assets" fixed_asset_allocation_account="equipment_asset_depreciations" fixed_asset_expenses_account="equipments_depreciations_inputations_expenses" depreciation_percentage="15.0" charge_account="equipment_expenses" product_account="sales_assets_revenues" purchasable="true" saleable="true" depreciable="true" pictogram="tractor"/>
+      <item name="electronic_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="33.0" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="laptop"/>
+      <item name="equipment" fixed_asset_account="equipment_assets" fixed_asset_allocation_account="equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="15.0" charge_account="equipment_maintenance_expenses" product_account="sales_assets_revenues" purchasable="true" saleable="true" depreciable="true" pictogram="tractor"/>
       <item name="equipment_rent" charge_account="equipment_rent_expenses" product_account="revenues" purchasable="true" saleable="true" pictogram="tractor"/>
-      <item name="equipment_repair_services" charge_account="equipment_expenses" purchasable="true" pictogram="wrench"/>
+      <item name="equipment_repair_services" charge_account="equipment_maintenance_expenses" purchasable="true" pictogram="wrench"/>
       <item name="exploitation_subsidies" product_account="exploitation_subsidies" saleable="true" pictogram="legal"/>
       <item name="farm_teaching_services" charge_account="making_services_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="barn"/>
       <item name="fee" charge_account="fees_expenses" purchasable="true" pictogram="tasks"/>
@@ -2279,7 +2279,7 @@
       <item name="harvest_insurance" charge_account="exploitation_risk_insurance_expenses" purchasable="true" pictogram="umbrella"/>
       <item name="honey" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
       <item name="infirmity_and_death_insurance" charge_account="infirmity_and_death_insurance_expenses" purchasable="true" pictogram="umbrella"/>
-      <item name="installation" fixed_asset_account="general_installation_assets" fixed_asset_allocation_account="general_installation_asset_depreciations" fixed_asset_expenses_account="equipments_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipment_expenses" product_account="sales_assets_revenues" purchasable="true" saleable="true" depreciable="true" pictogram="road"/>
+      <item name="installation" fixed_asset_account="general_installation_assets" fixed_asset_allocation_account="general_installation_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipment_maintenance_expenses" product_account="sales_assets_revenues" purchasable="true" saleable="true" depreciable="true" pictogram="road"/>
       <item name="installing_charge" charge_account="fees_expenses" fixed_asset_account="establishment_charge_assets" fixed_asset_allocation_account="incorporeal_asset_depreciations" fixed_asset_expenses_account="incorporeals_depreciations_inputations_expenses" depreciation_percentage="25.0" purchasable="true" depreciable="true" pictogram="book"/>
       <item name="insurance" charge_account="insurance_expenses" purchasable="true" pictogram="umbrella"/>
       <item name="irrigation_water" charge_account="irrigation_expenses" purchasable="true" pictogram="drop"/>
@@ -2300,7 +2300,7 @@
       <item name="milk" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
       <item name="natural_water" pictogram="drop"/>
       <item name="oenological_product" charge_account="raw_material_expenses" product_account="revenues" stock_account="plant_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="beaker"/>
-      <item name="office_furniture_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipments_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipments_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="fax"/>
+      <item name="office_furniture_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="fax"/>
       <item name="other_consumable" charge_account="other_consumable_matter_expenses" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter"/>
       <item name="oyster_band" charge_account="other_animal_expenses" product_account="other_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="fish"/>
       <item name="package_consumable" charge_account="packaging" stock_account="other_consumables_stock" purchasable="true" storable="true" pictogram="matter"/>
@@ -2322,7 +2322,7 @@
       <item name="service" product_account="services_revenues" saleable="true" pictogram="user"/>
       <item name="settlement" fixed_asset_account="general_installation_assets" fixed_asset_allocation_account="general_installation_asset_depreciations" fixed_asset_expenses_account="land_parcel_construction_depreciations_inputations_expenses" depreciation_percentage="10.0" product_account="sales_assets_revenues" saleable="true" depreciable="true" pictogram="building"/>
       <item name="short_time_animal" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow"/>
-      <item name="small_electronic_equipment" charge_account="equipments_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" storable="true" pictogram="laptop"/>
+      <item name="small_electronic_equipment" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" storable="true" pictogram="laptop"/>
       <item name="small_equipment" charge_account="maintenances_consumables_expenses" product_account="revenues" stock_account="maintenances_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="wrench"/>
       <item name="straw" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="wheat"/>
       <item name="studies_and_research" charge_account="studies_and_research_expenses" purchasable="true" pictogram="book"/>
@@ -3228,7 +3228,7 @@
       <item name="mixed_liquid_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" variable_indicators="net_volume, nitrogen_concentration, phosphorus_concentration, potassium_concentration" frozen_indicators="net_mass"/>
       <item name="mixed_organic_fertilizer" category="fertilizer" variety="preparation" population_counting="decimal" abilities="fertilize" frozen_indicators="net_mass" variable_indicators="nitrogen_concentration, phosphorus_concentration, potassium_concentration, dry_matter_rate, organic_matter_concentration, sulfur_trioxide_concentration, magnesium_concentration, calcium_concentrtion, net_volume"/>
       <item name="molluscicide" category="plant_medicine" variety="preparation" population_counting="decimal" abilities="kill(gastropoda), care(plant)" variable_indicators="approved_input_dose, untreated_zone_length, wait_before_entering_period, wait_before_harvest_period" frozen_indicators="net_volume, net_mass"/>
-      <item name="motor_oil" category="fuel" variety="oil" population_counting="decimal" abilities="lubricate(tractor), lubricate(forager), lubricate(harvester)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
+      <item name="motor_oil" category="fuel" variety="oil" population_counting="decimal" abilities="lubricate(trailed_equipment), lubricate(motorized_vehicle)" variable_indicators="" frozen_indicators="net_volume, net_mass"/>
       <item name="moving_travel" category="travel" variety="service" population_counting="decimal" variable_indicators=""/>
       <item name="mower" category="equipment" variety="trailed_equipment" population_counting="unitary" abilities="mow" variable_indicators="application_width, geolocation" frozen_indicators=""/>
       <item name="natural_water" category="natural_water" variety="water" population_counting="decimal" variable_indicators="nitrogen_concentration, potential_hydrogen" frozen_indicators="net_volume, net_mass"/>
@@ -10174,7 +10174,6 @@
       <item name="malus_pumila_barbarie" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_beaurichard" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_bec_d_oie_du_cher" parent="malus_pumila" itis_tsn="25262"/>
-      <item name="malus_pumila_belle-fille_de_la_creuse" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_belle_de_juillet" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_belle_de_linards" parent="malus_pumila" itis_tsn="25262"/>
       <item name="malus_pumila_belle_de_pontoise" parent="malus_pumila" itis_tsn="25262"/>

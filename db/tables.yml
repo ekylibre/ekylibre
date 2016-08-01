@@ -191,6 +191,7 @@ activities:
     default: false
   use_tactics:
     type: boolean
+    required: true
     default: false
   with_cultivation:
     type: boolean
@@ -510,6 +511,7 @@ activity_seasons:
     required: true
   name:
     type: string
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -548,7 +550,7 @@ activity_tactics:
   name:
     type: string
     required: true
-  plan_on:
+  planned_on:
     type: date
   updated_at:
     type: datetime
@@ -3144,6 +3146,7 @@ inventories:
     required: true
   number:
     type: string
+    required: true
   reflected:
     type: boolean
     required: true
@@ -4397,6 +4400,7 @@ plant_density_abaci:
   activity_id:
     type: integer
     references: activity
+    required: true
   created_at:
     type: datetime
     required: true

@@ -228,23 +228,30 @@ module Backend
         code = "\n#{conditions} = ['1=1']\n"
         columns = search.collect do |table, filtered_columns|
           filtered_columns.collect do |column|
-            ActiveRecord::Base.connection.quote_table_name(table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table) +
+            (table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table).to_s +
               '.' +
-              ActiveRecord::Base.connection.quote_column_name(column)
+              column.to_s
           end
         end.flatten
-        code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
+        code << "#{variable}.to_s.lower.split(/\\s+/).each do |kw|\n"
         code << "  kw = '%'+kw+'%'\n"
         filters = columns.collect do |x|
-          'LOWER(CAST(' + x.to_s + ' AS VARCHAR)) LIKE ?'
+          'LOWER(CAST(' + x.to_s + ' AS VARCHAR)) ILIKE ?'
         end
-        values = '[' + (['kw'] * columns.size).join(', ') + ']'
-        for k, v in options[:filters]
+        exp_count = columns.size
+        if options[:expressions]
+          filters += options[:expressions].collect do |x|
+            x.to_s + ' ILIKE ?'
+          end
+          exp_count += options[:expressions].count
+        end
+        values = '[' + (['kw'] * exp_count).join(', ') + ']'
+        options[:filters].each do |k, v|
           filters << k
           v = '[' + v.join(', ') + ']' if v.is_a? Array
           values += '+' + v
         end
-        code << "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
+        code << "  #{conditions}[0] += \" AND (#{filters.join(' OR ')})\"\n"
         code << "  #{conditions} += #{values}\n"
         code << "end\n"
         code << conditions.to_s

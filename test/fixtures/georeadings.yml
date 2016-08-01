@@ -45,7 +45,7 @@ georeadings_001:
   lock_version: 0
   name: 'Polygon #1'
   nature: polygon
-  number: Polygon1
+  number: GR1
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 georeadings_002:
@@ -58,7 +58,7 @@ georeadings_002:
   lock_version: 0
   name: 'Polygon #1 bis'
   nature: polygon
-  number: Polygon1bis
+  number: GR2
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
 georeadings_003:
@@ -71,6 +71,6 @@ georeadings_003:
   lock_version: 0
   name: 'Line #1'
   nature: linestring
-  number: Line1
+  number: GR3
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1

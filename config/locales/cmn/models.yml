@@ -625,6 +625,7 @@ cmn:
     grading_sizes_unit_name: "分级尺寸单位名称"
     gradings: "放坡"
     gravity: "重力"
+    gross_items: "格罗斯计数"
     gross_mass: "总质量"
     gross_yield_value: "总收益率值"
     group: "组"
@@ -783,6 +784,7 @@ cmn:
     managed_sales: "销售管理"
     manure_management_plan_zones: "粪便管理计划区"
     marketable: "销售"
+    marketable_items_count: "适销对路的项目数"
     marketable_net_mass: "适销对路的净质量"
     marketable_net_yield: "适销对路的净收益"
     marketable_yield: "适销对路的产量"
@@ -1074,8 +1076,10 @@ cmn:
     scale: "规模"
     scheduled: "计划"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_producer: "第二生成" #?
     seeding_density_unit: "播种密度单位"
+    seeding_density_value: "播种密度"
     selected: "选"
     selected_manure_management_plan: "选定的粪便管理计划"
     selected_manure_management_plan_zone: "选定的粪便管理计划区"
@@ -1143,6 +1147,7 @@ cmn:
     supports: "支持"
     suspended: "暂停"
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "目标"
     target_type: "目标类型"
     target_url: "目标URL"
@@ -1152,6 +1157,7 @@ cmn:
     taxations: "税费"
     team: "球队"
     template: "模板"
+    theme: "主题"
     third: "第三"
     third_producer: "第三制片人" #?
     third_role: "第三个角色"
@@ -1232,6 +1238,7 @@ cmn:
     with_deposit: "随着存款"
     with_supports: "随着支持"
     with_transport: "随着运输"
+    work_name: "作品名"
     work_number: "工号"
     worker: "工人"
     working_duration: "工作时间"
@@ -1315,6 +1322,9 @@ cmn:
           name: "支票"
         transfer:
           # name: "Virement"
+    inspection:
+      items: "项目"
+      mass: "块"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:
@@ -1386,6 +1396,7 @@ cmn:
           in_preparation: "在准备"
           ordered: "有序"
           prepared: "准备"
+          received: "收到"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

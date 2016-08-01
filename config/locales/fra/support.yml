@@ -32,19 +32,19 @@ fra:
         one: "environ un an"
         other: "environ %{count} ans"
       almost_x_years:
-        one: "presqu'un an"
+        one: "presqu’un an"
         other: "presque %{count} ans"
       half_a_minute: "une demi-minute"
       less_than_x_minutes:
-        one: "moins d'une minute"
+        one: "moins d’une minute"
         other: "moins de %{count} minutes"
-        zero: "moins d'une minute" #?
+        zero: "moins d’une minute" #?
       less_than_x_seconds:
-        one: "moins d'une seconde"
+        one: "moins d’une seconde"
         other: "moins de %{count} secondes"
-        zero: "moins d'une seconde" #?
+        zero: "moins d’une seconde" #?
       over_x_years:
-        one: "plus d'un an"
+        one: "plus d’un an"
         other: "plus de %{count} ans"
       x_days:
         one: "1 jour"
@@ -64,13 +64,13 @@ fra:
   http:
     errors:
       internal_server_error:
-        hint: "L'application rencontre des problèmes. Les administrateurs ont été notifiés."
-        title: "Nous sommes désolés, mais quelque chose s'est mal passé"
+        hint: "L’application rencontre des problèmes. Les administrateurs ont été notifiés."
+        title: "Nous sommes désolés, mais quelque chose s’est mal passé"
       not_found:
-        hint: "Vous pouvez avoir mal saisi l'adresse ou la page peut avoir été déplacée."
-        title: "La page que vous voulez n'existe pas"
+        hint: "Vous pouvez avoir mal saisi l’adresse ou la page peut avoir été déplacée."
+        title: "La page que vous voulez n’existe pas"
       unprocessable_entity:
-        hint: "Peut-être que vous avez essayé de changer quelquechose auquel vous n'avez pas accès."
+        hint: "Peut-être que vous avez essayé de changer quelque chose auquel vous n’avez pas accès."
         title: "Le changement que vous avez demandé a été rejeté"
   number:
     currency:

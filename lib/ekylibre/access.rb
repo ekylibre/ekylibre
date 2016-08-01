@@ -67,7 +67,7 @@ module Ekylibre
 
       # Returns a hash for all known rights
       def all_rights
-        @resources.inject({}) do |hash, pair|
+        @resources.each_with_object({}) do |pair, hash|
           hash[pair.first.to_s] = pair.second.keys.map(&:to_s)
           hash
         end

@@ -71,7 +71,8 @@ class ParcelItem < Ekylibre::Record::Base
   validates :parted, inclusion: { in: [true, false] }
   validates :parcel, presence: true
   # ]VALIDATORS]
-  validates :source_product, presence: { if: :parcel_prepared? }
+  validates :source_product, presence: { if: :parcel_outgoing? }
+  validates :variant, presence: { if: :parcel_incoming? }
   validates :product, presence: { if: :parcel_prepared? }
 
   validates :population, numericality: { less_than_or_equal_to: 1,
@@ -148,6 +149,10 @@ class ParcelItem < Ekylibre::Record::Base
     save!
   end
 
+  def name
+    Maybe(source_product || variant || product).name.or_else(nil)
+  end
+
   # Mark items as given, and so change enjoyer and ownership if needed at
   # this moment.
   def give
@@ -187,9 +192,8 @@ class ParcelItem < Ekylibre::Record::Base
       create_product_ownership!(product: product, owner: parcel_recipient, started_at: parcel_given_at)
       create_product_localization!(product: product, nature: :exterior, started_at: parcel_given_at)
       create_product_enjoyment!(product: product, enjoyer: parcel_recipient, nature: :other, started_at: parcel_given_at)
-    else
-      create_product_movement!(product: product, delta: -1 * population, started_at: parcel_given_at)
     end
+    create_product_movement!(product: product, delta: -1 * population, started_at: parcel_given_at)
   end
 
   def existing_product_in_storage

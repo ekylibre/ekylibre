@@ -1004,7 +1004,7 @@ land_parcels_009:
     45.8224860308865,-0.792677952392898 45.8220886145692,-0.792718162762933 45.8220467646111,-0.792660125760958
     45.821890386501,-0.792454727108962 45.8215321667496,-0.79228204935118 45.8217001703347)))
   lock_version: 0
-  name: 'ZC-017005218-3-1 #1'
+  name: ZC-017005218-3-1 Maïs (zea_mays) 2015 n°1
   nature_id: 59
   number: PR00000000091
   type: LandParcel
@@ -1026,7 +1026,7 @@ land_parcels_010:
     45.8212195696032,-0.792173752206736 45.8212025676846,-0.791803126997377 45.8205256692196,-0.791587200522699
     45.8202132941208,-0.791397316324069 45.8204004370199)))
   lock_version: 0
-  name: 'ZC-017005218-4-1 #2'
+  name: ZC-017005218-4-1 Maïs (zea_mays) 2015 n°2
   nature_id: 59
   number: PR00000000092
   type: LandParcel
@@ -1589,7 +1589,7 @@ land_parcels_033:
     45.8109659677897,-0.834452308254665 45.8106562420056,-0.833326474331472 45.810398202432,-0.832076922014566
     45.8101939142688,-0.831764859873219 45.8104393898025)))
   lock_version: 0
-  name: 'ZC-017005218-24-1 #3'
+  name: ZC-017005218-24-1 Maïs (zea_mays) 2015 n°3
   nature_id: 59
   number: PR00000000115
   type: LandParcel
@@ -1652,7 +1652,7 @@ land_parcels_035:
     45.8172029918801,-0.829784650250927 45.8172522507178,-0.829941329591869 45.8173287405223,-0.8300624498879
     45.8174163108851,-0.830250397481167 45.8175561557014)))
   lock_version: 0
-  name: 'ZC-017005218-26-1 #4'
+  name: ZC-017005218-26-1 Maïs (zea_mays) 2015 n°4
   nature_id: 59
   number: PR00000000117
   type: LandParcel
@@ -2509,7 +2509,7 @@ matters_038:
   variant_id: 59
   variety: yeast
 matters_039:
-  born_at: 2013-10-05 13:36:00.000000000 Z
+  born_at: 2013-10-05 12:36:00.000000000 Z
   category_id: 21
   created_at: 2014-11-07 19:08:55.237093000 Z
   creator_id: 1
@@ -2742,27 +2742,31 @@ matters_049:
   variant_id: 65
   variety: wine
 matters_050:
-  born_at: 2213-10-30 13:52:00.000000000 Z
+  born_at: 2013-10-30 13:52:00.000000000 Z
   category_id: 21
   created_at: 2014-11-07 19:36:59.233966000 Z
   creator_id: 1
+  custom_fields:
+    test: ''
   default_storage_id: 116
   derivative_of: grape
+  description: ''
   id: 143
-  initial_born_at: 2213-10-30 14:00:00.000000000 Z
+  initial_born_at: 2013-10-30 13:52:00.000000000 Z
   initial_container_id: 116
   initial_movement_id: 126
   initial_population: 1992.0
-  lock_version: 0
+  lock_version: 1
   name: Bouteille de vin (75cl) [oct. 2013] (Hangar principal)
   nature_id: 41
   number: PR00000010087
   type: Matter
-  updated_at: 2014-11-07 19:36:59.233966000 Z
+  updated_at: 2016-07-26 19:27:42.725364000 Z
   updater_id: 1
   uuid: 4959cf9c-db74-42c1-923e-dc00ef433bf6
   variant_id: 65
   variety: wine
+  work_number: ''
 matters_051:
   born_at: 2015-09-17 13:38:07.151525000 Z
   category_id: 11

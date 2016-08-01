@@ -625,6 +625,7 @@ deu:
     grading_sizes_unit_name: "Grading Größen Gerätenamen"
     gradings: "Sortierungen"
     gravity: "Schwerkraft"
+    gross_items: "Gross Zahl"
     gross_mass: "Rohmasse"
     gross_yield_value: "Die Bruttoertragswert"
     group: "Gruppe"
@@ -783,6 +784,7 @@ deu:
     managed_sales: "Managed Verkaufs"
     manure_management_plan_zones: "Gülle-Management-Plan Zonen"
     marketable: "marktfähig"
+    marketable_items_count: "Marktfähige Produkte zählen"
     marketable_net_mass: "Marktgängige Nettomasse"
     marketable_net_yield: "Marktfähige Nettorendite"
     marketable_yield: "Marktgängige Ausbeute"
@@ -1074,8 +1076,10 @@ deu:
     scale: "Rahmen"
     scheduled: "Geplant"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_producer: "Zweitens Produzent" #?
     seeding_density_unit: "Seeding Dichteeinheit"
+    seeding_density_value: "Seeding Dichte"
     selected: "Ausgewählt"
     selected_manure_management_plan: "Ausgewählte Gülle-Management-Plan"
     selected_manure_management_plan_zone: "Ausgewählte Gülle-Management-Plan Zone"
@@ -1143,6 +1147,7 @@ deu:
     supports: "Unterstützungen"
     suspended: "Suspendiert"
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "Ziel"
     target_type: "Zieltyp"
     target_url: "Ziel-URL"
@@ -1152,6 +1157,7 @@ deu:
     taxations: "Besteuerungen"
     team: "Mannschaft"
     template: "Vorlage"
+    theme: "Thema"
     third: "Dritte"
     third_producer: "Drittens Produzent" #?
     third_role: "Drittens Rolle"
@@ -1231,6 +1237,7 @@ deu:
     with_deposit: "mit Pfand"
     with_supports: "mit Stützen"
     with_transport: "mit Transport"
+    work_name: "Arbeitsname"
     work_number: "Arbeitsnummer"
     worker: "Arbeitnehmer"
     working_duration: "Arbeitsdauer"
@@ -1314,6 +1321,9 @@ deu:
           name: "Prüfen"
         transfer:
           # name: "Virement"
+    inspection:
+      items: "Artikel"
+      mass: "Masse"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:
@@ -1385,6 +1395,7 @@ deu:
           in_preparation: "In Vorbereitung"
           ordered: "bestellt"
           prepared: "Bereit"
+          received: "Empfangen"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

@@ -5,36 +5,6 @@
  *= require_self
  */
 
-$base-color: #E87018;
+$base-color: #F26018;
 
-// Core variables and mixins
-@import "themes/tekyla/variables";
-@import "themes/tekyla/mixins";
-
-// Reset
-@import "themes/tekyla/reset";
-@import "themes/tekyla/fonts";
-@import "themes/tekyla/print";
-
-// Plugins
-@import "themes/tekyla-sunrise/plugins";
-
-// Specific
-@import "themes/tekyla/abilities";
-@import "themes/tekyla/accesses";
-@import "themes/tekyla/budget";
-@import "themes/tekyla/buttons";
-@import "themes/tekyla/beehives";
-@import "themes/tekyla/calendars";
-@import "themes/tekyla/datetimepickers";
-@import "themes/tekyla/forms";
-@import "themes/tekyla/golumns";
-@import "themes/tekyla/grid";
-@import "themes/tekyla/leaflet";
-@import "themes/tekyla/main";
-@import "themes/tekyla/modals";
-@import "themes/tekyla/tables";
-@import "themes/tekyla/timelines";
-
-// Optimization
-@import "themes/tekyla/symbolic_icons";
+@import "themes/tekyla/all";

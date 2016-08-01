@@ -772,15 +772,10 @@ fra:
     active_sum: "Total actifs" #?
     activities: "Activités"
     activity: "Activités"
-    activity_countings: "Comptages"
-    activity_family: "Activités familiales"
-    activity_inspections: "Agréages"
-    activity_name: "Activité"
     activity_production: "Production"
     activity_productions: "Productions"
-    activity_seasons: "Saisons culturales"
-    activity_tactics: "Itinéraires techniques"
     add: "Ajouter"
+    add_a_worker: "Ajouter un équipier"
     add_annotation: "Ajouter une annotation"
     add_attachment: "Ajouter une pièce jointe"
     add_bank_statement: "Ajouter un relevé de compte"
@@ -792,7 +787,6 @@ fra:
     add_distribution: "Ajouter une répartition"
     add_email: "Ajouter une adresse e-mail"
     add_entry: "Ajouter une écriture"
-    add_equipment: "Ajout d&#39;équipements"
     add_expense: "Ajouter une dépense"
     add_fax: "Ajouter un n° de fax"
     add_filter: "Ajouter un filtre"
@@ -809,6 +803,7 @@ fra:
     add_participation: "Ajouter une participation"
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
+    add_plant_density_abacus: "Ajouter une table de référence de densité de semis"
     add_point: "Ajouter un point"
     add_polygon: "Ajouter un polygone"
     add_production: "Ajouter une production"
@@ -867,7 +862,6 @@ fra:
       reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident\_?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer en commande\_?"
     are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement\_?"
-    are_you_sure_you_want_to_generate_parcel: "Êtes-vous sûr(e) de vouloir générer ce bon de préparation\_?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer\_?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails\_?"
     area: "Zone"
@@ -901,9 +895,7 @@ fra:
     budget: "Budget"
     budget_per_working_indicator: "Budget par unité d’œuvre"
     budgets: "Budgets"
-    building: "Lieu de stockage"
     building_name: "Sortie de" #?
-    buildings: "bâtiments"
     buildings_map: "Carte des bâtiments" #?
     by_year: "Par an"
     calculate: "Calculer"
@@ -1000,7 +992,7 @@ fra:
     costs: "Coûts"
     costs_map: "Carte des coûts" #?
     costs_per_hectare: "Couts par hectare"
-    countings: "dénombrements"
+    countings: "Comptages"
     country: "Pays" #?
     counts: "Totaux"
     counts_by_nature: "Nombre de pièces à comptabiliser par type"
@@ -1009,7 +1001,7 @@ fra:
     create_or_import_equipments: "Créer ou importer des équipements"
     create_or_import_incoming_parcels: "Créer ou importer des colis à réceptionner"
     create_or_import_interventions: "Créer ou importer des interventions"
-    create_or_import_workers: "Créer ou importer des travailleurs"
+    create_or_import_workers: "Créer ou importer des équipiers"
     created_at: "Créée le"
     created_at_by: "Créé le %{at} par %{author}"
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
@@ -1123,7 +1115,7 @@ fra:
     entries_to_point: "Écritures à pointer"
     entry_items: "Lignes d’écriture"
     equipment: "Équipement"
-    equipment_name: "Nom de l&#39;équipement"
+    equipment_name: "Nom de l’équipement"
     equipments: "Équipements"
     error: "Désolé..."
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
@@ -1191,6 +1183,7 @@ fra:
     general_ledger: "Grand livre" #?
     generate: "Générer"
     generate_last_journal_entry: "Générer la dernière écriture"
+    generate_parcel: "Générer bon de préparation"
     geolocation: "Géolocalisation"
     give_discount: "Octroyer une remise" #?
     go: "Valider"
@@ -1256,7 +1249,7 @@ fra:
     inputs: "Intrants"
     insert_actual_password: "Saisissez votre mot de passe actuel" #?
     insert_password: "Saisissez votre nouveau mot de passe" #?
-    inspections: "inspections"
+    inspections: "Agréages"
     internal_error: "Oups, quelque chose s’est mal passé."
     interval: "Intervalle personnalisé"
     intervention: "Intervention"
@@ -1333,8 +1326,6 @@ fra:
       clients: "Clients" #?
       suppliers: "Fournisseurs" #?
       title: "Catégories de tiers" #?
-    level: "Niveau"
-    levels: "les niveaux"
     line_number: "Ligne n°%{index}\_:"
     linear_options: "Options du linéaire"
     link: "Lien"
@@ -1375,7 +1366,7 @@ fra:
     mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
     marketable_net_mass: "Masse nette commercialisable"
-    mass: "Masse" #?
+    # mass: "Masse"
     max_level: "Niveau maximum" #?
     maximal_temperature: "Température maximale"
     measure_options: "Indicateur de type mesure" #?
@@ -1392,7 +1383,6 @@ fra:
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     min_level: "Niveau minimum" #?
     minimal_temperature: "Température minimale"
-    missing: "Manquant"
     missing_attributes: "Des champs sont manquants"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite" #?
@@ -1419,7 +1409,6 @@ fra:
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     new: "Nouveau"
-    new_activity: "nouvelle activité"
     new_animal: "Nouvel animal"
     new_attachment: "Nouvel attachement"
     new_box: "Nouvelle boîte"
@@ -1439,7 +1428,6 @@ fra:
       zero: "Effectuer une remise\_: %{mode} (Pas d’encaissements disponibles)"
     new_document: "Nouveau document" #?
     new_email: "Nouveau courriel"
-    new_equipment: "nouvel équipement"
     new_family: "Nouvelle famille" #?
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
@@ -1497,7 +1485,6 @@ fra:
     number_of_cap_land_parcels: "Nombre de parcelle PAC"
     number_options: "Options de numérotations" #?
     numbers: "Numéros"
-    ok: "OK"
     on_account: "À remettre sur le compte"
     one_condition: "au moins une condition"
     open_a_campaign: "Ouvrir une campagne de production" #?
@@ -1522,7 +1509,6 @@ fra:
       undelivered: "Non délivrés" #?
       unparted: "Non affectés" #?
       waiting: "À décaisser plus tard" #?
-    pacage_number: "No. PACAGE"
     page_title: "%{company_code} · %{menu} · %{action}"
     page_title_by_default: "Ekylibre · %{action}"
     page_title_special: "%{company_code} · %{action}"
@@ -1932,7 +1918,6 @@ fra:
     updated_at_by: "Mis à jour le %{at} par %{author}"
     updated_by_ago: "Mis à jour par %{author} %{when}"
     upload: "Téléversement"
-    uploaded_file: "Fichier téléversé"
     uploading_unicoque_traceability: "Télétransmission - Traçabilité Unicoque" #?
     urea_concentration: "Teneur moyenne en urée" #?
     usage: "Utilisation"
@@ -1950,11 +1935,9 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    # validations: "Finalisation"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
-    variety: "Variété"
     vat: "Taxe à payer" #?
     vat_acquisitions: "Acquisitions intracommunautaires" #?
     vat_amount: "Taxe due" #?
@@ -1973,7 +1956,7 @@ fra:
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)" #?
     worked_on: "Travaillé le" #?
-    workers: "Travailleurs"
+    workers: "Équipiers"
     working_area: "Surface travaillée" #?
     working_duration: "Temps de travail"
     working_sets_stocks: "Stocks d’ensembles de produits"
@@ -2244,7 +2227,7 @@ fra:
       some_parcels_are_not_shippable: "Certains colis ne sont pas transportables"
       specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
       specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
-      subscription_is_not_renewable: "L&#39;abonnement est non renouvelable"
+      subscription_is_not_renewable: "L’abonnement est non renouvelable"
       the_sales_invoice_is_not_cancellable: "La facture ne peut pas être passée en avoir"
       unavailable_resource: "%{type} indisponible ou inexistant(e) #%{id}"
       unexpected_resource_type: "Type de ressource inattendue\_: %{type}"
@@ -2261,7 +2244,7 @@ fra:
       you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
       you_need_to_review_your_application_configuration: "Vous devez revoir la configuration de votre application"
       you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre\_?" #?
-      your_data_are_being_imported: "Vos données sont en cours d&#39;importation"
+      your_data_are_being_imported: "Vos données sont en cours d’importation"
   preferences:
     accounting_system: "Plan comptable"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
@@ -2309,7 +2292,6 @@ fra:
       family: "Famille"
       finish: "Finir"
       generate_last_journal_entry: "Générer la dernière écriture"
-      generate_parcel: "Générer bon de préparation"
       import: "Importer"
       incorporate: "Incorporer"
       increment: "Incrémenter" #?

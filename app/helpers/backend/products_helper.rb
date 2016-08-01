@@ -26,7 +26,7 @@ module Backend
       Activity.find_each do |activity|
         activity_periods = working_periods.of_activities(activity).order(:started_at)
         if activity_periods.any?
-          sums = activity_periods.sums_of_periods.sort.inject({}) do |hash, period|
+          sums = activity_periods.sums_of_periods.sort.each_with_object({}) do |period, hash|
             hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f
             hash
           end

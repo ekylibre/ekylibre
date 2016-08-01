@@ -625,6 +625,7 @@ por:
     grading_sizes_unit_name: "Grading tamanhos nome da unidade"
     gradings: "gradings"
     gravity: "Gravidade"
+    gross_items: "contagem bruta"
     gross_mass: "massa bruta"
     gross_yield_value: "Valor do rendimento bruto"
     group: "Grupo"
@@ -783,6 +784,7 @@ por:
     managed_sales: "Vendas gerenciados"
     manure_management_plan_zones: "Zonas de plano de manejo de dejetos"
     marketable: "vendável"
+    marketable_items_count: "itens comercializáveis ​​contar"
     marketable_net_mass: "massa líquida comercializável"
     marketable_net_yield: "rendimento líquido comercializável"
     marketable_yield: "A produtividade comercial"
@@ -1074,8 +1076,10 @@ por:
     scale: "Escala"
     scheduled: "Programado"
     # season: "Cropping season"
+    # seasons: "Seasons"
     second_producer: "Segundo produtor" #?
     seeding_density_unit: "unidade de densidade de semeadura"
+    seeding_density_value: "densidade de semeadura"
     selected: "Selecionado"
     selected_manure_management_plan: "Plano de manejo de dejetos selecionadas"
     selected_manure_management_plan_zone: "Zona de plano de manejo de dejetos selecionadas"
@@ -1143,6 +1147,7 @@ por:
     supports: "Suportes"
     suspended: "Suspenso"
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "Alvo"
     target_type: "Tipo de destino"
     target_url: "Alvo URL"
@@ -1152,6 +1157,7 @@ por:
     taxations: "Taxations"
     team: "Equipe"
     template: "Modelo"
+    theme: "Tema"
     third: "Terceiro"
     third_producer: "Terceiro produtor" #?
     third_role: "Terceiro papel"
@@ -1232,6 +1238,7 @@ por:
     with_deposit: "Com depósito"
     with_supports: "Com suportes"
     with_transport: "Com os transportes"
+    work_name: "Trabalhe nome"
     work_number: "O número de trabalho"
     worker: "Trabalhador"
     working_duration: "Duração de trabalho"
@@ -1315,6 +1322,9 @@ por:
           name: "Verifica"
         transfer:
           name: "Virement"
+    inspection:
+      items: "Unid"
+      mass: "Massa"
     intervention:
       # name: "%{intervention} #%{number}"
     issue:
@@ -1386,6 +1396,7 @@ por:
           in_preparation: "Em preparação"
           ordered: "Pedido"
           prepared: "Preparado"
+          received: "Recebido"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -661,11 +660,7 @@ Rails.application.routes.draw do
 
     resources :products, concerns: [:products]
 
-    resources :inspections, concerns: [:list, :unroll] do
-      member do
-        get :list_points
-      end
-    end
+    resources :inspections, concerns: [:list, :unroll]
 
     resources :product_groups, concerns: :products
 
@@ -702,7 +697,6 @@ Rails.application.routes.draw do
       member do
         get :list_items
         get :list_parcels
-        post :generate_parcel
         post :abort
         post :confirm
         post :correct
@@ -749,7 +743,6 @@ Rails.application.routes.draw do
         get :list_subscriptions
         get :list_parcels
         get :list_credits
-        post :generate_parcel
         post :abort
         post :confirm
         post :correct

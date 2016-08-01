@@ -1,0 +1,8 @@
+Description:
+    This generator creates an empty migration for updating nomenclatures data.
+
+Example:
+    rails generate nomenclature_migration add_some_new_reference_data
+
+    This will create:
+        db/nomenclatures/migrate/20160726173309_add_some_new_reference_data.xml

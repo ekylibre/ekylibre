@@ -47,7 +47,7 @@ module Clean
       end
 
       def deep_symbolize_keys(hash)
-        hash.inject({}) do |result, (key, value)|
+        hash.each_with_object({}) do |(key, value), result|
           value = deep_symbolize_keys(value) if value.is_a? Hash
           key = :no if key.to_s == '__no_is_not__false__'
           result[(begin
@@ -111,8 +111,8 @@ module Clean
 
       def look_for_labels(*paths)
         list = []
-        for path in paths.flatten
-          for file in Dir.glob(path)
+        paths.flatten.each do |path|
+          Dir.glob(path).each do |file|
             source = File.read(file)
             source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.(tl|th)/) do |exp|
               exp.gsub!(/\.tl\z/, '')
@@ -128,10 +128,15 @@ module Clean
               exp.gsub!(/\#\{[^\}]+\}/, '*')
               list << exp
             end
-            source.gsub(/(tg|tl|field_set|cell|cobble|subheading)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)\s*(\)|\,|\z|\s+do)/) do |exp|
-              exp = exp.split(/[\s\(\)\:\'\"\,]+/)[1]
-              exp.gsub!(/\#\{[^\}]+\}/, '*')
-              list << exp
+            source.gsub(/(tl|field_set|cell|cobble|subheading)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)[^\n\z]*(\n|\z)/) do |exp|
+              keys = exp.split(/[\s\(\)\:\'\"\,]+/)
+              key = keys[1].gsub(/\#\{[^\}]+\}/, '*')
+              if keys[2..-1].include?('title') || keys[2..-1].include?('label')
+                # puts "NO! ".red + key.yellow + " (#{exp.strip})"
+                next
+              end
+              # puts "YES ".green + key.yellow + " (#{exp.strip})"
+              list << key
             end
           end
         end
@@ -215,7 +220,10 @@ module Clean
 
       # Lists all controller that inherits of ApplicationController included
       def controllers_in_file
-        Dir.glob(Rails.root.join('app', 'controllers', '**', '*.rb')).each { |file| require file }
+        Dir.glob(Rails.root.join('app', 'controllers', '**', '*.rb')).each do |file|
+          next if file.start_with? Rails.root.join('app', 'controllers', 'concerns').to_s
+          require file
+        end
         ObjectSpace
           .each_object(Class)
           .select { |klass| klass <= ::ApplicationController || klass <= ::ApiController }

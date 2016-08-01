@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Rename equipments to equipment">
+  <item-change item="accounts#equipment_expenses" name="equipment_maintenance_expenses"/>
+  <item-change item="accounts#equipments_expenses" name="equipment_expenses"/>
+  <item-change item="accounts#equipments_depreciations_inputations_expenses" name="equipment_depreciations_inputations_expenses"/>
+</migration>

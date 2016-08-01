@@ -254,7 +254,7 @@ intervention_doers_014:
   position: 1
   product_id: 79
   quantity_population: 0.0
-  reference_name: cropper_driver
+  reference_name: driver
   type: InterventionDoer
   updated_at: 2014-11-07 17:07:15.612283000 Z
   updater_id: 1
