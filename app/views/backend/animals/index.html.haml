@@ -34,7 +34,7 @@
             .add-container{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: {accept: '.golumn-item', hoverClass: 'container-drop-hover', tolerance: 'intersect'}}" },style:'display:none'}
               %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
                 %i.icon.icon-plus.text-muted
-            %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: $root.displayedContainers($data) }"}}
+            %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: $data.containers }"}}
           -# = link_to('#', data: {target: '#new-animal', toggle: 'modal'}, class: "golumn-column-footer") do
             %i.icon.icon-plus
             %span= "actions.backend/animals.new".t
@@ -45,24 +45,24 @@
             .golumn-group-actions
               .collapser{data: { bind: "click: toggle, css: {'active': !hidden()}"}}
             %span.golumn-group-title{data: { bind: 'text: name'}}
-            %span.badge.golumn-group-badge{data: { bind: 'text: animalCount'}}
+            %span.badge.golumn-group-badge{data: { bind: 'text: count'}}
           .golumn-group-body{data: { bind: "css: {'hide':hidden}"}}
-            %div{data: { bind: "sortable: {template: 'golumn-item-template', data: $root.animals, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
+            %div{data: { bind: "sortable: {template: 'golumn-item-template', data: $data.items, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
+            -#%div{data: { bind: "draggable: {template: 'golumn-item-template', data: $data.items, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
+            -#%div{data: { bind: "template: { name: 'golumn-item-template', foreach: $data.items }"}}
 
       %script#golumn-item-template{type: 'text/html'}
-        /ko if: $parent.id == container_id() && $parent.group_id() == group_id()
-        .golumn-item{data: { bind: 'css: animalStatusClass'}}
+        .golumn-item{data: { bind: 'css: statusClass  '}}
           .golumn-item-actions
             .checker{data: { bind: 'checkbox: checked'}}
           %span.golumn-item-handle
             %i.icon.icon-ellipsis-v
           %span.golumn-item-title{data: { bind: 'text: name, click: $root.toggleAnimalDetailsModal'}}
-          %i.sex.icon{data: {bind: 'css: animalSexClass'}}
+          %i.sex.icon{data: {bind: 'css: sexClass'}}
           -# .golumn-item-infos
             %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{data: { bind: 'click: $root.toggleAnimalDetailsModal'}, type: 'button'}
               %span{data: { bind: 'text: name'}}
             %i.icon.text-muted{data: {bind: 'css: animalSexClass'}}
-        / /ko
 
 
     = modal(:new_animal) do
@@ -164,10 +164,10 @@
               %span{data: { bind: 'text: name'}}
             %p
               = :sex.tl
-              %i.icon{data: {bind: 'css: animalSexClass'}}
+              %i.icon{data: {bind: 'css: sexClass'}}
             %p
               = Animal.human_attribute_name(:status)
-              %span.lights{data: { bind: 'css: animalFlagClass'}}
+              %span.lights{data: { bind: 'css: flagClass'}}
                 %span.light-go
                 %span.light-caution
                 %span.light-stop

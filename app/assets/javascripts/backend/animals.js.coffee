@@ -1,50 +1,14 @@
 #= require bootstrap/modal
 
-(($) ->
+((G, $) ->
 
   $(document).ajaxSend (e, xhr, options) ->
     token = $('meta[name=\'csrf-token\']').attr('content')
     xhr.setRequestHeader 'X-CSRF-Token', token
     return
 
-  ko.bindingHandlers.checkbox =
-    init: (element, valueAccessor, allBindings, data, context) ->
-      observable = valueAccessor()
-      if !ko.isWriteableObservable(observable)
-        throw 'You must pass an observable or writeable computed'
-      $element = $(element)
-      $element.on 'click', ->
-        observable !observable()
-        return
-      ko.computed
-        disposeWhenNodeIsRemoved: element
-        read: ->
-          $element.toggleClass 'active', observable()
-          return
-      return
 
-  ko.bindingHandlers.modal =
-    init: (element, valueAccessor) ->
-      $(element).modal show: false
-      value = valueAccessor()
-      if typeof value == 'function'
-        $(element).on 'hide.bs.modal', ->
-          value false
-          return
-      ko.utils.domNodeDisposal.addDisposeCallback element, ->
-        $(element).modal 'destroy'
-        return
-      return
-    update: (element, valueAccessor) ->
-      value = valueAccessor()
-      if ko.utils.unwrapObservable(value)
-        $(element).modal 'show'
-      else
-        $(element).modal 'hide'
-      return
-
-
-  class dashboardViewModel
+  class golumn
     constructor: (id) ->
       @id = id
 
@@ -87,7 +51,7 @@
         @showNewGroupModal false
 
       @addContainer = =>
-        newContainer = new dashboardViewModel.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
+        newContainer = new golumn.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
         @containers.push newContainer
 
         if @droppedAnimals().length > 0
@@ -268,7 +232,7 @@
                  sex = a.sex
                  num = a.number_id
                  @animals.remove a
-                 @animals.push new dashboardViewModel.Animal(id, name, img, status, sex, num, @moveAnimalModalOptions.container().id, @moveAnimalModalOptions.group().id)
+                 @animals.push new golumn.Animal(id, name, img, status, sex, num, @moveAnimalModalOptions.container().id, @moveAnimalModalOptions.group().id)
 
 
               @resetAnimalsMoving()
@@ -296,7 +260,7 @@
           container = a.container_id()
           group = a.group_id()
           @animals.remove a
-          @animals.push new dashboardViewModel.Animal(id, name, img, status, sex, num, container, group)
+          @animals.push new golumn.Animal(id, name, img, status, sex, num, container, group)
 
         @showMoveAnimalModal false
 
@@ -369,7 +333,7 @@
             data: {name:group(),variant_id: @newGroupModalOptions.variantId()},
             success: (res) =>
               if res.id
-                @groups.push new dashboardViewModel.Group(res.id, res.name)
+                @groups.push new golumn.Group(res.id, res.name)
 
               @showNewGroupModal false
               return true
@@ -378,70 +342,6 @@
               @showNewGroupModal false
               return false
 
-
-    @Group: (id, name) ->
-      @id = id
-      @name = name
-      @toggleItems = ko.observable false
-      @toggleItems.subscribe (newValue) =>
-
-        container_array = ko.utils.arrayFilter window.app.containers(), (c) =>
-          c.group_id() == @id
-
-        ko.utils.arrayForEach container_array, (c) =>
-          ko.utils.arrayForEach window.app.animals(), (a) =>
-            if a.container_id() == c.id and a.group_id() == @id
-              a.checked newValue
-
-      return
-
-    @Container: (id, name, group_id) ->
-      @id = id
-      @name = name
-      @group_id = ko.observable group_id
-
-      @animalCount = ko.pureComputed () =>
-        array = ko.utils.arrayFilter window.app.animals(), (a) =>
-          a.container_id() == @id && a.group_id() == @group_id()
-
-        array.length
-
-      @hidden = ko.observable false
-      @toggle = () =>
-        @hidden(!@hidden())
-        return
-
-      @position = ko.observable 0
-      return
-
-    @Animal: (id, name, img, status, sex, number_id, container_id, group_id) ->
-      @id = id
-      @name = name
-      @img = ko.pureComputed () =>
-        img
-      @status = status
-      @sex = sex
-      @animalSexClass = ko.pureComputed () =>
-        #TODO get sex key from backend instead of human name
-        if @sex == 'Mâle'
-          className = "icon-mars"
-        if @sex == 'Femelle'
-          className = "icon-venus"
-        className
-      #@number_id = number_id
-      @animalStatusClass = ko.pureComputed () =>
-        return "status-#{@status}"
-
-      @animalFlagClass = ko.pureComputed () =>
-        return "lights-#{@status}"
-      @showUrl = ko.pureComputed () =>
-        "/backend/animals/#{@id}"
-
-      @container_id = ko.observable container_id
-      @group_id = ko.observable group_id
-      @checked = ko.observable false
-
-      return
 
   @loadData = (golumn, element) =>
     $.ajax '/backend/animals/load_animals',
@@ -456,26 +356,18 @@
         element.removeClass("loading")
         return
       success: (json_data) ->
-        ko.utils.arrayForEach json_data, (j) =>
-          if j.group
-            window.app.groups.push new dashboardViewModel.Group(j.group.id, j.group.name)
-          if j.places_and_animals and j.places_and_animals.length > 0
-            ko.utils.arrayForEach j.places_and_animals, (container) =>
-              if container.place
-                window.app.containers.push new dashboardViewModel.Container(container.place.id, container.place.name, j.group.id)
-              if container.animals
-                ko.utils.arrayForEach $.parseJSON(container.animals), (animal) =>
-                  window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', animal.status, animal.sex_text, animal.identification_number, container.place.id, j.group.id)
+        ko.utils.arrayForEach json_data, (group) =>
 
-          if j.others
+          places = []
+          ko.utils.arrayForEach group.places, (place) =>
 
-            window.app.groups.push new dashboardViewModel.Group(0, 'A classer')
-            window.app.containers.push new dashboardViewModel.Container(0, 'A classer', 0) #305 = vaches laitières
+            animals = []
+            ko.utils.arrayForEach place.animals, (animal) =>
+              animals.push new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number)
 
-            ko.utils.arrayForEach j.others, (other) =>
-              if other.animal
-                animal = $.parseJSON(other.animal)
-                window.app.animals.push new dashboardViewModel.Animal(animal.id, animal.name, '', animal.status, animal.sex_text, animal.identification_number, 0, 0)
+            places.push new G.Container(place.id, place.name, animals)
+
+          window.app.groups.push new G.Group(group.id, group.name, places)
 
 
         ko.applyBindings window.app
@@ -497,7 +389,7 @@
 
     $("*[data-golumns='animal']").each ->
       golumn_id = $(this).data("golumns")
-      window.app = new dashboardViewModel(golumn_id)
+      window.app = new golumn(golumn_id)
       window.loadData(golumn_id, $(this))
 
-) jQuery
+) golumn, jQuery
