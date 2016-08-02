@@ -31,7 +31,7 @@
             .golumn-column-handle
               %span.golumn-column-title{data: {bind: 'text: name'}}
           .golumn-column-body
-            .add-container{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: {accept: '.golumn-item', hoverClass: 'container-drop-hover', tolerance: 'intersect'}}" },style:'display:none'}
+            .add-container.dropzone{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}" },style:'display:none'}
               %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
                 %i.icon.icon-plus.text-muted
             %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: $data.containers }"}}
@@ -40,15 +40,14 @@
             %span= "actions.backend/animals.new".t
 
       %script#golumn-group-template{type: 'text/html'}
-        %li.golumn-group{data: {bind: "droppable: {data: $root.hoverdrop, options: {accept: '.golumn-item', tolerance: 'pointer'}}" }}
+        %li.golumn-group{data: {bind: "droppable: {data: $root.hoverdrop, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'} }" }}
           .golumn-group-header
             .golumn-group-actions
               .collapser{data: { bind: "click: toggle, css: {'active': !hidden()}"}}
             %span.golumn-group-title{data: { bind: 'text: name'}}
             %span.badge.golumn-group-badge{data: { bind: 'text: count'}}
           .golumn-group-body{data: { bind: "css: {'hide':hidden}"}}
-            -#%div{data: { bind: "sortable: {template: 'golumn-item-template', data: $data.items, connectClass: 'animal-dropzone', options: {handle: '.golumn-item-handle', cursor: 'move', placeholder: 'sorting-animal-placeholder', dropOnEmpty: true, forcePlaceholderSize: true, opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
-            %div{data: { bind: "draggable: {template: 'golumn-item-template', data: $data.items, options: {handle: '.golumn-item-handle', cursor: 'move', opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30}}"}}
+            %div{data: { bind: "draggable: {template: 'golumn-item-template', data: $data.items, options: {handle: '.golumn-item-handle', cursor: 'move', opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30, scope: 'items'}}"}}
             -#%div{data: { bind: "template: { name: 'golumn-item-template', foreach: $data.items }"}}
 
       %script#golumn-item-template{type: 'text/html'}
@@ -144,11 +143,11 @@
 
     = modal(:new_container, data: {bind: 'modal: showNewContainerModal(), with: containerModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelContainerAdding'}}) do
       .modal-body
+        %div{data: { bind: 'if: group' }}
+          %span{data: {bind: 'text: group().name'}}
+
         = label_tag(:containers_list, :new_container.tl, class: 'control-label')
-        = select_tag(:containers_list, nil,  data: { bind: "options: $root.containers_list,
-          optionsText: 'name',
-          value: $root.newContainer,
-          optionsCaption: '#{:choices.tl}'" })
+        = text_field_tag :containers_list, nil, data: { selector: url_for(controller: 'backend/products', action: 'unroll', 'scope[of_expression]': 'can store(animal)')}
       .modal-footer
         %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addContainer'}}
           %i.icon.icon-plus
