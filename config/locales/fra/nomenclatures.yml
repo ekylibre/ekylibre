@@ -3414,7 +3414,7 @@ fra:
         gas: "Gaz"
         gas_engine: "Machine à gaz"
         goat_herd: "Troupeau caprin"
-        grain: "Céréale"
+        grain: "Céréale-Légumineuse-Oléagineuse"
         grain_crop: "Culture à graines"
         grain_tank: "Silo à grain"
         grape: "Raisin"

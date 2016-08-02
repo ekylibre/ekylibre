@@ -15,6 +15,7 @@ namespace :diagrams do
       cash: [Cash, CashSession, CashTransfer, BankStatement, Deposit, IncomingPaymentMode, OutgoingPaymentMode, Loan, LoanRepayment],
       entity: [Entity, EntityLink, EntityAddress, Task, Event, EventParticipation, Observation, PostalZone, District],
       journal: [Journal, JournalEntry, JournalEntryItem, Account, FinancialYear, AccountBalance, Loan, LoanRepayment, BankStatement, Cash, FixedAsset, FixedAssetDepreciation], # , CashTransfer, CashSession]
+      plant_counting: [Plant, Product, PlantCounting, PlantCountingItem, PlantDensityAbacus, PlantDensityAbacusItem, Activity],
       product_nature: [Product, ProductNature, ProductNatureVariant, ProductNatureCategory, ProductNatureVariantReading, ProductNatureCategoryTaxation],
       production: [Activity, ActivityDistribution, Campaign, ActivityProduction, ActivityBudget, TargetDistribution, Intervention, InterventionParameter, InterventionWorkingPeriod, CultivableZone, Product],
       component: [ProductNature, ProductNatureVariant, ProductNatureVariantComponent, ProductPartReplacement, InterventionParameter, Intervention, Product],
