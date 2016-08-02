@@ -100,7 +100,6 @@ fra:
     cover_implanter: "Plastifieuse"
     crop: "Culture"
     cropper: "Outil de récolte"
-    cropper_driver: "Conducteur de l'outil de récolte" #?
     cultivation: "Parcelle / Culture"
     cutter: "Outil de taille"
     destination_tank: "Cuve de destination"

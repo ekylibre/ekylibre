@@ -27,17 +27,35 @@
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string
+#  name         :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-
-
-# # Empty samples of activity_seasons
-# activity_seasons_001:
-#   id: 1
-#   name: 'ActivitySeason 1'
-
-# activity_seasons_002:
-#   id: 2
-#   name: 'ActivitySeason 2'
+---
+activity_seasons_001:
+  activity_id: 22
+  created_at: 2016-07-29 09:03:08.440527000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 0
+  name: Primeur
+  updated_at: 2016-07-29 09:03:08.440527000 Z
+  updater_id: 1
+activity_seasons_002:
+  activity_id: 22
+  created_at: 2016-07-29 09:03:08.442627000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 0
+  name: Saison
+  updated_at: 2016-07-29 09:03:08.442627000 Z
+  updater_id: 1
+activity_seasons_003:
+  activity_id: 22
+  created_at: 2016-07-29 09:03:08.443549000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  name: Hiver
+  updated_at: 2016-07-29 09:03:08.443549000 Z
+  updater_id: 1

@@ -20,6 +20,5 @@ module Backend
   class ActivitySeasonsController < Backend::BaseController
     manage_restfully
     unroll
-
   end
 end

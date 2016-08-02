@@ -750,7 +750,7 @@ arb:
       activity_inspection_calibration_scale: "عيار"
       activity_inspection_point_nature: "النشاط الاختيار الدرجات"
       activity_production: "دعم الإنتاج"
-      # activity_season: "Cropping season"
+      # activity_season: "Seasonality"
       affair: "قضية"
       analysis: "تحليل"
       analysis_item: "البند تحليل"
@@ -974,7 +974,7 @@ arb:
     activity_grading_check: "النشاط الاختيار الدرجات"
     activity_production: "إنتاج النشاط"
     activity_productions: "إنتاجات آخر"
-    # activity_season: "Cropping season"
+    # activity_season: "Seasonality"
     actor: "الممثل"
     actual_number: "الرقم الحالي"
     actual_population: "عدد السكان الفعلي"
@@ -2008,7 +2008,8 @@ arb:
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scale: "مقياس"
     scheduled: "الدفعة المبرمجة"
-    # season: "Cropping season"
+    # season: "Seasonality"
+    # seasons: "Seasonalities"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
     second_move_id: "الحركة الثانية" #?
@@ -2112,6 +2113,7 @@ arb:
     symbol: "نموذج" #?
     symmetric: "متساو" #?
     # tactic: "Crop management Technique"
+    # tactics: "Tactics"
     target: "الهدف"
     target_id: "الهدف" #?
     target_type: "نوع الهدف"
@@ -2196,7 +2198,7 @@ arb:
     use_grading_calibre: "استخدام عيار الدرجات"
     use_gradings: "استخدام الى التصنيف"
     use_range: "استخدام الكمية الفاصلة" #?
-    # use_seasons: "Use cropping seasons"
+    # use_seasons: "Use Seasonalities"
     # use_tactics: "Use crop management Technique"
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"

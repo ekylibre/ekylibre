@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727201017) do
+ActiveRecord::Schema.define(version: 20160729080926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,7 +261,7 @@ ActiveRecord::Schema.define(version: 20160727201017) do
 
   create_table "activity_seasons", force: :cascade do |t|
     t.integer  "activity_id",              null: false
-    t.string   "name"
+    t.string   "name",                     null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "creator_id"
@@ -276,20 +276,16 @@ ActiveRecord::Schema.define(version: 20160727201017) do
   add_index "activity_seasons", ["updater_id"], name: "index_activity_seasons_on_updater_id", using: :btree
 
   create_table "activity_tactics", force: :cascade do |t|
-    t.integer  "activity_id",                null: false
-    t.string   "name",                       null: false
-    t.date     "plan_on"
+    t.integer  "activity_id",              null: false
+    t.string   "name",                     null: false
+    t.date     "planned_on"
     t.integer  "mode_delta"
     t.string   "mode"
-    t.string   "mode_unit_name"
-    t.integer  "bulk_quantity"
-    t.integer  "bulk_delta"
-    t.string   "bulk_unit_name"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",   default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "activity_tactics", ["activity_id"], name: "index_activity_tactics_on_activity_id", using: :btree
