@@ -977,6 +977,7 @@ ita:
     product_nature_categories: "categorie di tipi di prodotto"
     product_nature_category: "Categoria Tipo di prodotto"
     product_nature_category_taxations: "prodotto Tipo categoria tassazioni"
+    product_natures: "Tipi di prodotto"
     product_ownership: "di proprietà del prodotto"
     product_ownerships: "ownership del prodotto"
     product_parameters: "parametri del prodotto"

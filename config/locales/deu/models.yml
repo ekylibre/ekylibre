@@ -946,6 +946,7 @@ deu:
     product_nature_categories: "Kategorien Produkttyp"
     product_nature_category: "Produkttyp Kategorie"
     product_nature_category_taxations: "Produkttyp Kategorie Besteuerungen"
+    product_natures: "Produkttypen"
     product_ownership: "Artikel Eigentum"
     product_ownerships: "Produkt Eigentümern"
     product_parameters: "Produktparameter"

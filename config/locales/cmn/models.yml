@@ -946,6 +946,7 @@ cmn:
     product_nature_categories: "产品类型类别"
     product_nature_category: "产品类型分类"
     product_nature_category_taxations: "产品类型类别税费"
+    product_natures: "产品类型"
     product_ownership: "产品所有权"
     product_ownerships: "产品所有权"
     product_parameters: "产品参数"

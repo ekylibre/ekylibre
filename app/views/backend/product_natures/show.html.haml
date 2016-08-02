@@ -13,6 +13,7 @@
       - l.attribute :subscribing
       - if resource.subscribing
         - l.attribute :subscription_duration
+        - l.attribute :subscription_nature, url: true
       - l.attribute :description
 
   - c.cobble :variants, title: ProductNature.human_attribute_name(:variants) do

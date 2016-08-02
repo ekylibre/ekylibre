@@ -1823,6 +1823,7 @@ subscription_natures:
     - "backend/subscription_natures#index"
     - "backend/subscription_natures#list"
     - "backend/subscription_natures#list_subscriptions"
+    - "backend/subscription_natures#list_product_natures"
     - "backend/subscription_natures#show"
     - "backend/subscription_natures#unroll"
   write:

@@ -1838,6 +1838,7 @@ arb:
     product_nature_categories: "فئات نوع المنتج"
     product_nature_category: "فئة نوع المنتج"
     product_nature_category_taxations: "الأنظمة الضريبية فئة نوع المنتج"
+    product_natures: "أنواع المنتجات"
     product_ownership: "ملكية المنتج"
     product_ownerships: "الملكيات المنتج"
     product_parameters: "المنتج المعلمات"

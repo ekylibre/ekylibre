@@ -950,6 +950,7 @@ spa:
     product_nature_categories: "Categorías de tipos de producto"
     product_nature_category: "Tipo de producto categoría"
     product_nature_category_taxations: "Tasaciones categoría Tipo de producto"
+    product_natures: "Tipos de productos"
     product_ownership: "Propiedad del producto"
     product_ownerships: "Titularidades de productos"
     product_parameters: "Parámetros del producto"

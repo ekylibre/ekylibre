@@ -946,6 +946,7 @@ por:
     product_nature_categories: "Categorias tipo de produto"
     product_nature_category: "Categoria tipo de produto"
     product_nature_category_taxations: "Taxations categoria de tipo de produto"
+    product_natures: "Tipos de produtos"
     product_ownership: "Propriedade do produto"
     product_ownerships: "Ownerships produtos"
     product_parameters: "Parâmetros do produto"
