@@ -8,14 +8,8 @@
       options = value.options or {}
       draggableOptions = ko.utils.extend({}, ko.bindingHandlers.draggable.options)
       templateOptions = ko.utils.prepareTemplateOptions(valueAccessor, 'foreach')
-      connectClass = value.connectClass or ko.bindingHandlers.draggable.connectClass
       isEnabled = if value.isEnabled != undefined then value.isEnabled else ko.bindingHandlers.draggable.isEnabled
 
-      # value = "data" in value ? value.data : value;
-      # value = "foreach" in value ? value.foreach : value;
-      # console.log(element, ko.utils.unwrapObservable(valueAccessor()));
-      #set meta-data
-      ko.utils.domData.set element, ko.constants.DRAGKEY, value
       #override global options with override options passed in
       ko.utils.extend draggableOptions, options
       #setup connection to a sortable
@@ -25,6 +19,7 @@
       ko.bindingHandlers.template.init element, (->
         templateOptions
       ), allBindingsAccessor, data, context
+
       createTimeout = setTimeout((->
         $(element).draggable ko.utils.extend(draggableOptions,
           helper: (e) ->
@@ -43,13 +38,11 @@
             helper.append container
             helper
           start: (event, ui) ->
-            $('.golumn-group .body .animal-dropzone').addClass 'grow-empty-zone'
+            ui.items = []
+            $(@).data 'items', $('.checker.active').closest('.golumn-item')
             $('.add-container').css 'display', 'block'
-            $('.add-container').addClass 'grow-empty-zone'
             return
           stop: (e, ui) ->
-            $('.golumn-group .body .animal-dropzone').removeClass 'grow-empty-zone'
-            $('.add-container').removeClass 'grow-empty-zone'
             $('.add-container').css 'display', 'none'
             return
         )
