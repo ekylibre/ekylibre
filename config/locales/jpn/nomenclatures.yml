@@ -1517,7 +1517,6 @@ jpn:
         consumption_period: "消費期間"
         copper_concentration: "銅濃度"
         cumulated_rainfall: "累積雨量"
-        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "毎日の窒素製造"
         diameter: "直径"
         dry_matter_rate: "乾物率"

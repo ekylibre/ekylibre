@@ -22,6 +22,7 @@
 #
 # == Table: intervention_parameters
 #
+#  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
 #  event_participation_id  :integer
@@ -42,6 +43,7 @@
 #  quantity_unit_name      :string
 #  quantity_value          :decimal(19, 4)
 #  reference_name          :string           not null
+#  schematic_id            :integer
 #  type                    :string
 #  updated_at              :datetime         not null
 #  updater_id              :integer

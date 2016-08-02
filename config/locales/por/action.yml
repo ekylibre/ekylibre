@@ -278,8 +278,10 @@ por:
       # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
+      # edit_request: "Edit request %{procedure_name} #%{number}"
       index: "Intervenções"
       new: "Nova intervenção"
+      # new_request: "New requested intervention"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Editar inventário"
@@ -642,7 +644,9 @@ por:
     add_attachment: "Juntar anexo"
     add_bank_statement: "Adicionar extrato bancário"
     add_catalog_price: "Adicionar preço de catálogo"
+    # add_child: "Add a child component"
     add_choice: "Adicionar escolha"
+    # add_component: "Add component"
     add_condition: "Adicionar condição"
     add_conditions: "Adicionar condições"
     add_delivery: "Adicionar entrega"
@@ -656,6 +660,8 @@ por:
     add_inspection_calibration_nature: "Adicionar inspeção de calibração natureza"
     add_inspection_calibration_scale: "Adicionar escala de calibração de inspecção"
     add_inspection_point_nature: "Adicionar inspeção ponto natureza"
+    # add_intervention_record: "Add intervention record"
+    # add_intervention_request: "Add intervention request"
     add_item: "Adicionar Item"
     add_line: "Adicionar linha"
     add_linestring: "Adicionar linestring"
@@ -861,6 +867,7 @@ por:
     document: "Documento"
     document_natures: "Tipos de documentos"
     document_templates: "Modelos de documentos"
+    # documentation: "Documentation"
     doer_cost: "Custo doer"
     done: "Feito"
     dont_use_journal: "- Não use jornal -"
@@ -1132,6 +1139,7 @@ por:
     operations: "Operações"
     options: "Opções"
     organic_matter_concentration: "Concentração de matéria orgânica"
+    # original_component: "original"
     others: "Outras"
     outgoing_payment: "Pagamento de saída"
     outgoing_payments: "Contas a pagar"
@@ -1142,9 +1150,10 @@ por:
     paid_at: "Pago no"
     parameters: "Parâmetros"
     parcels: "Recepção"
+    # part: "part"
     participants: "Os participantes"
     # participations: "Participations"
-    parts: "Módulos"
+    parts: "Módulos" #?
     password: "Senha"
     paths_to_convert: "Caminhos para converter" #?
     payable_taxes: "Impostos a pagar"
@@ -1184,7 +1193,9 @@ por:
     prices: "Preços"
     print: "Impressão"
     # printing_document: "Printing %{document}"
-    procedures: "Procedimentos"
+    # procedure: "Procedure"
+    # procedure_name: "Procedure name"
+    procedures: "Procedimentos" #?
     product: "Produto"
     product_category: "Categoria de Produto"
     product_name: "Nome do Produto"
@@ -1218,6 +1229,7 @@ por:
     reflected: "Alterações refletidas"
     reflections: "Reflexões"
     refresh: "Refrescar"
+    # register_intervention_request: "Register intervention request"
     relationship: "Relações"
     # relationship_of_entity: "%{relationship} of %{entity}"
     # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
@@ -1441,6 +1453,9 @@ por:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1481,6 +1496,9 @@ por:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_part_replacements:
+      # one: "%{count} part_replacement"
+      # other: "%{count} part replacements"
     x_purchases:
       one: "1 de compra"
       # other: "%{count} purchases"
@@ -1526,6 +1544,7 @@ por:
     x_years:
       one: "1 ano"
       # other: "%{count} years"
+    # xed_intervention: "%{x}ed intervention"
     yield: "Produção"
     yield_by_calibration: "Rendimento por calibração"
     zones: "Zonas"
@@ -1730,6 +1749,7 @@ por:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
+    # backend/interventions: "%{number}. %{name}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

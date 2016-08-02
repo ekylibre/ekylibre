@@ -31,13 +31,13 @@
 #  id                      :integer          not null, primary key
 #  issue_id                :integer
 #  lock_version            :integer          default(0), not null
-#  maintenance_nature      :string
 #  nature                  :string           not null
 #  number                  :string
 #  prescription_id         :integer
 #  procedure_name          :string           not null
 #  request_intervention_id :integer
 #  started_at              :datetime
+#  state                   :string
 #  stopped_at              :datetime
 #  trouble_description     :string
 #  trouble_encountered     :boolean          default(FALSE), not null

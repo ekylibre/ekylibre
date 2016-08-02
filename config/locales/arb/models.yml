@@ -889,6 +889,7 @@ arb:
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
       product_nature_variant: "نوع المنتج البديل"
+      # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "نوع المنتج البديل القراءة"
       product_ownership: "ملكية المنتج"
       product_phase: "مرحلة المنتج"
@@ -1116,9 +1117,9 @@ arb:
     commissioned_incoming_payment_modes: "بتكليف وسائل الدفع واردة"
     company: "الشركة" #?
     company_id: "شركة" #?
-    component: "محتوى العبوة" #?
+    component: "محتوى العبوة"
     component_id: "محتوى العبوة" #?
-    components: "مكونات المنتج" #?
+    components: "مكونات المنتج"
     computation_method: "طريقة حساب"
     compute: "القيمة الاخيرة"
     conclusion: "الاستنتاج"
@@ -1377,6 +1378,7 @@ arb:
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
     fixed_asset_expenses_account: "حساب نفقات انخفاض قيمة الأصول الثابتة inputations"
     fixed_assets: "أصول ثابتة"
+    # following: "Following"
     for_immobilizations: "منتجات ساكنة" #?
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
@@ -1600,6 +1602,7 @@ arb:
     main_crop_precision: "الدقة المحاصيل الرئيسية"
     main_crop_seed_production: "الرئيسي إنتاج بذور المحاصيل"
     main_production: "الإنتاج الرئيسية"
+    # maintenance_nature: "Maintenance nature"
     major_accounts: "الحسابات الئيسية" #?
     managed: "تمكنت"
     managed_sales: "مبيعات المدارة"
@@ -1735,6 +1738,9 @@ arb:
     parcels: "الطرود"
     parent: "النسب"
     parent_id: "نسب" #?
+    # part_product_nature_variant_id: "Part product nature variant"
+    # part_replacements: "Part replacements"
+    # part_variant: "Part variant"
     parted: "افترقنا"
     parted_product: "المنتج افترقنا"
     participant: "مشارك"
@@ -1836,9 +1842,14 @@ arb:
     product_nature_categories: "فئات نوع المنتج"
     product_nature_category: "فئة نوع المنتج"
     product_nature_category_taxations: "الأنظمة الضريبية فئة نوع المنتج"
+    # product_nature_component: "Product nature component"
+    # product_nature_variant: "Product nature variant"
+    # product_nature_variant_component: "Product nature variant component"
+    # product_nature_variant_id: "Product nature variant"
     product_ownership: "ملكية المنتج"
     product_ownerships: "الملكيات المنتج"
     product_parameters: "المنتج المعلمات"
+    # product_part_replacement: "Product part replacement"
     product_phases: "مراحل المنتج"
     product_reading: "قراءة المنتج"
     product_reading_tasks: "مهام القراءة المنتج"
@@ -1937,6 +1948,8 @@ arb:
     remain_owner: "تبقى مالك"
     remaining_amount: "المبلغ المتبقي"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
+    # remaining_lifespan: "Remaining lifespan"
+    # remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "أتذكر إنشاؤها في"
     remember_me: "تذكرنى"
     reminder_submissive: "تذكير منقاد"
@@ -2001,6 +2014,7 @@ arb:
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scale: "مقياس"
     scheduled: "الدفعة المبرمجة"
+    # schematic: "Schematic"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
     second_move_id: "الحركة الثانية" #?

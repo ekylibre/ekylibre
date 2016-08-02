@@ -57,7 +57,7 @@ jpn:
     implement: "実装します"
     insemination: "授精"
     inseminator: "人工受精を施す人"
-    item: "項目"
+    item: "項目" #?
     juice: "ジュース"
     juice_to_ferment: "発酵のジュース"
     land_parcel: "土地区画"
@@ -74,7 +74,7 @@ jpn:
     net_implanter: "ネット注入"
     net_roll: "ネットロール"
     # oenological_intrant: "Oenological intrant"
-    oil: "油"
+    oil: "油" #?
     operator: "オペレーター"
     plant_medicine: "植物薬"
     plants: "植物"
@@ -143,7 +143,7 @@ jpn:
     direct_silage: "ダイレクトサイレージ"
     egg_collecting: "採卵"
     enzyme_addition: "酵素添加"
-    equipment_item_replacement: "装備アイテムの交換"
+    equipment_item_replacement: "装備アイテムの交換" #?
     fermentation: "発酵"
     fertilizing: "施肥"
     field_plant_sorting: "フィールド植物ソート"
@@ -168,7 +168,7 @@ jpn:
     milking: "搾乳"
     net_installation: "ネットインストール"
     net_removing: "取り外しネット"
-    oil_replacement: "オイル交換"
+    oil_replacement: "オイル交換" #?
     partial_wine_transfer: "部分的なワインの送迎"
     parturition: "分娩"
     pasturing: "放牧"

@@ -31,13 +31,13 @@
 #  id                      :integer          not null, primary key
 #  issue_id                :integer
 #  lock_version            :integer          default(0), not null
-#  maintenance_nature      :string
 #  nature                  :string           not null
 #  number                  :string
 #  prescription_id         :integer
 #  procedure_name          :string           not null
 #  request_intervention_id :integer
 #  started_at              :datetime
+#  state                   :string
 #  stopped_at              :datetime
 #  trouble_description     :string
 #  trouble_encountered     :boolean          default(FALSE), not null
@@ -77,9 +77,8 @@ class Intervention < Ekylibre::Record::Base
   validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(intervention) { intervention.stopped_at && intervention.started_at }
   validates :whole_duration, :working_duration, numericality: { allow_nil: true, only_integer: true }
-  validates :procedure_name, :state, :whole_duration, :working_duration, presence: true
-  validates_inclusion_of :trouble_encountered, in: [true, false]
-  validates_presence_of :nature, :procedure_name, :whole_duration, :working_duration
+  validates :trouble_encountered, inclusion: { in: [true, false] }
+  validates :nature, :procedure_name, :whole_duration, :working_duration, presence: true
   # ]VALIDATORS]
   validates :actions, presence: true
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods

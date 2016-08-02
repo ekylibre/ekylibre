@@ -1505,6 +1505,7 @@ eng:
         consumption_period: "Consumption period"
         copper_concentration: "Copper concentration"
         cumulated_rainfall: "Cumulated rainfall"
+        # daily_average_working_time: "Daily average working time"
         daily_nitrogen_production: "Daily nitrogen production"
         diameter: "Diameter"
         dry_matter_rate: "Dry matter rate"

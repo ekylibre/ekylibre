@@ -1512,7 +1512,6 @@ spa:
         consumption_period: "Período de consumo"
         copper_concentration: "La concentración de cobre"
         cumulated_rainfall: "La precipitación acumulada"
-        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "La producción diaria de nitrógeno"
         diameter: "Diámetro"
         dry_matter_rate: "Tasa de materia seca"

@@ -1653,7 +1653,7 @@ fra:
         consumption_period: "Période de consommation limite"
         copper_concentration: "Teneur en cuivre"
         cumulated_rainfall: "Cumul des précipitations"
-        daily_average_working_time: "Temps journalier moyen de travail"
+        daily_average_working_time: "Temps journalier moyen de travail" #?
         daily_nitrogen_production: "Production d’azote journalière"
         diameter: "Diamètre"
         dry_matter_rate: "Taux de matière sèche"

@@ -57,7 +57,7 @@ arb:
     implement: "تنفيذ"
     insemination: "تخصيب"
     # inseminator: "Inseminator"
-    item: "بند"
+    item: "بند" #?
     juice: "عصير"
     juice_to_ferment: "عصير لتخمر"
     land_parcel: "قطعة أرض"
@@ -74,7 +74,7 @@ arb:
     net_implanter: "صافي implanter"
     net_roll: "صافي لفة"
     oenological_intrant: "intrant Oenological"
-    oil: "نفط"
+    oil: "نفط" #?
     operator: "عامل"
     plant_medicine: "الطب المصنع"
     plants: "النباتات"
@@ -143,7 +143,7 @@ arb:
     direct_silage: "السيلاج المباشر"
     egg_collecting: "جمع البيض"
     enzyme_addition: "انزيم إضافة"
-    equipment_item_replacement: "استبدال البند المعدات"
+    equipment_item_replacement: "استبدال البند المعدات" #?
     fermentation: "تخمير"
     fertilizing: "تسميد"
     field_plant_sorting: "فرز النباتات الميدان"
@@ -168,7 +168,7 @@ arb:
     milking: "حلب"
     net_installation: "صافي تركيب"
     net_removing: "صافي إزالة"
-    oil_replacement: "استبدال النفط"
+    oil_replacement: "استبدال النفط" #?
     partial_wine_transfer: "TRANSFERT النبيذ جزئي"
     parturition: "مخاض الولادة"
     pasturing: "الرعي"

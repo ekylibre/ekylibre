@@ -43,6 +43,6 @@ class ProductPartReplacement < Ekylibre::Record::Base
 	has_many :precedings, class_name:'ProductPartReplacement', foreign_key: 'following_id'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :component, :intervention_parameter, :product
+  validates :component, :intervention_parameter, :product, presence: true
   # ]VALIDATORS]
 end

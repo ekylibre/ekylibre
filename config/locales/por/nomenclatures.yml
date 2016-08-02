@@ -1506,7 +1506,6 @@ por:
         consumption_period: "Período de consumo"
         copper_concentration: "Concentração de cobre"
         cumulated_rainfall: "Precipitação acumulada"
-        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "A produção diária de azoto"
         diameter: "Diâmetro"
         dry_matter_rate: "Taxa de matéria seca"

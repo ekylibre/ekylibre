@@ -273,8 +273,10 @@ cmn:
       # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
+      # edit_request: "Edit request %{procedure_name} #%{number}"
       index: "干预"
       new: "新的干预"
+      # new_request: "New requested intervention"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "编辑盘点"
@@ -653,6 +655,8 @@ cmn:
     add_inspection_calibration_nature: "添加检查校准性质"
     add_inspection_calibration_scale: "添加检查校准规模"
     add_inspection_point_nature: "添加检测点的性质"
+    # add_intervention_record: "Add intervention record"
+    # add_intervention_request: "Add intervention request"
     add_item: "新增项目"
     add_line: "添加行"
     add_linestring: "添加线串"
@@ -1536,6 +1540,7 @@ cmn:
     x_years:
       one: "1年"
       # other: "%{count} years"
+    # xed_intervention: "%{x}ed intervention"
     yield: "产量"
     yield_by_calibration: "产量由校准"
     zones: "区"

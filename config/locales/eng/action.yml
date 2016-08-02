@@ -325,10 +325,10 @@ eng:
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
-      edit_request: "Edit request %{procedure_name} #%{number}"
+      edit_request: "Edit request %{procedure_name} #%{number}" #?
       index: "Interventions"
       new: "New intervention"
-      new_request: "New requested intervention"
+      new_request: "New requested intervention" #?
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Edit inventory"
@@ -933,6 +933,8 @@ eng:
     commission: "Commission"
     company: "Society" #?
     complete: "Complete"
+    # component: "Component"
+    # components: "Components"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -1127,7 +1129,6 @@ eng:
     inspections: "Inspections"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
-    xed_intervention: "%{x}ed intervention"
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
     intervention_product_parameters: "Intervention casts"
@@ -1337,9 +1338,9 @@ eng:
     prices: "Prices" #?
     print: "Print" #?
     printing_document: "Printing %{document}"
-    procedure: "Procedure" #?
-    procedure_name: "Procedure name" #?
     procedure: "Procedure"
+    procedure_name: "Procedure name" #?
+    # procedures: "Procedures"
     product: "Product"
     product_category: "Product category" #?
     product_name: "Product name" #?
@@ -1367,11 +1368,12 @@ eng:
     received: "Received" #?
     recent_events: "Recent events"
     reconciled_total: "Reconciled total"
+    # record_interventions: "Record interventions"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
     refresh: "Refresh" #?
-    register_intervention_request: "Register intervention request"
+    register_intervention_request: "Register intervention request" #?!
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
@@ -1549,9 +1551,11 @@ eng:
     view: "View"
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?
+    # wear: "Wear"
     weather: "Weather"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
+    # worker: "Worker"
     workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
@@ -1682,6 +1686,7 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
+    xed_intervention: "%{x}ed intervention" #??
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration"
     zones: "Zones"

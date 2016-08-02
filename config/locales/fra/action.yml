@@ -320,8 +320,10 @@ fra:
       show: "Agréage\_: %{number}"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
+      # edit_request: "Edit request %{procedure_name} #%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
+      # new_request: "New requested intervention"
       run: "Exécuter l’intervention" #?
       set: "Saisie des valeurs de l’intervention" #?
       show: "%{procedure_name}"
@@ -962,9 +964,9 @@ fra:
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     complete: "Compléter"
+    component: "Composant" #?
+    component_name: "Nom du composant" #?
     components: "Composants" #?
-    component: "Composant"
-    component_name: "Nom du composant"
     concentrations_map: "Carte des concentrations" #?
     conditions:
       filter_on_attribute_of_class: "Filtre sur %{attribute} (%{class})"
@@ -1955,7 +1957,7 @@ fra:
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
     watering_concentration: "Eau consommée"
-    wear: "Usure"
+    wear: "Usure" #?
     weather: "Météo"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
@@ -2111,6 +2113,7 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
       zero: "0" #?
+    # xed_intervention: "%{x}ed intervention"
     y: "Oui" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?

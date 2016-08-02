@@ -1506,7 +1506,6 @@ cmn:
         consumption_period: "消费期"
         copper_concentration: "铜浓度"
         cumulated_rainfall: "累计降雨"
-        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "每日制氮"
         diameter: "直径"
         dry_matter_rate: "干物质率"

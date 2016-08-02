@@ -2881,6 +2881,9 @@ intervention_parameter_readings:
     type: integer
     references: user
 intervention_parameters:
+  component_id:
+    type: integer
+    references: product_nature_variant_component
   created_at:
     type: datetime
     required: true
@@ -2940,6 +2943,9 @@ intervention_parameters:
   reference_name:
     type: string
     required: true
+  schematic_id:
+    type: integer
+    references: product_nature_variant
   type:
     type: string
   updated_at:
@@ -3029,6 +3035,8 @@ interventions:
     references: intervention
   started_at:
     type: datetime
+  state:
+    type: string
   stopped_at:
     type: datetime
   trouble_description:

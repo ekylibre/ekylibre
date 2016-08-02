@@ -334,8 +334,10 @@ arb:
       # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
+      # edit_request: "Edit request %{procedure_name} #%{number}"
       index: "التدخلات"
       new: "تدخل جديد"
+      # new_request: "New requested intervention"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "تعديل الجرد"
@@ -922,6 +924,8 @@ arb:
     add_inspection_calibration_nature: "إضافة تفتيش معايرة الطبيعة"
     add_inspection_calibration_scale: "إضافة تفتيش على نطاق والمعايرة"
     add_inspection_point_nature: "إضافة نقطة تفتيش الطبيعة"
+    # add_intervention_record: "Add intervention record"
+    # add_intervention_request: "Add intervention request"
     add_item: "إضافة البند"
     add_line: "إضافة خط"
     add_linestring: "إضافة تنسيقي"
@@ -2217,6 +2221,7 @@ arb:
     x_years:
       one: "1 سنة"
       # other: "%{count} years"
+    # xed_intervention: "%{x}ed intervention"
     y: "نعم" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?

@@ -1768,6 +1768,9 @@
       <item name="fungi">
         <page to="backend/fungi#list_part_replacements"/>
       </item>
+      <item name="interventions">
+        <page to="backend/interventions#list_record_interventions"/>
+      </item>
       <item name="land_parcels">
         <page to="backend/land_parcels#list_part_replacements"/>
       </item>
@@ -1779,6 +1782,9 @@
       </item>
       <item name="product_groups">
         <page to="backend/product_groups#list_part_replacements"/>
+      </item>
+      <item name="product_nature_variant_components">
+        <page to="backend/product_nature_variant_components#unroll"/>
       </item>
       <item name="products">
         <page to="backend/products#list_part_replacements"/>

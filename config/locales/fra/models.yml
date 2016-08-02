@@ -369,6 +369,7 @@ fra:
       product_nature_category: "Catégorie de type de produit"
       product_nature_category_taxation: "Taxation de catégorie de type de produit"
       product_nature_variant: "Variante de type de produit"
+      # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
@@ -559,6 +560,8 @@ fra:
     commission_base_amount: "Montant fixe de la commission"
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
+    # component: "Component"
+    # components: "Components"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
     computed_at: "Calculé le" #?
@@ -777,6 +780,7 @@ fra:
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
+    # following: "Following"
     formats: "Formats"
     fourth_producer: "Quatrième producteur" #?
     fourth_producer_way: "Voie du quatrième producteur" #?
@@ -976,6 +980,7 @@ fra:
     main_crop_precision: "Code précision de la culture principale"
     main_crop_seed_production: "Production de semence"
     main_production: "Production principale"
+    # maintenance_nature: "Maintenance nature"
     managed: "Géré par le système"
     managed_sales: "Ventes gérées"
     mandates: "Responsabilités" #?
@@ -1088,6 +1093,9 @@ fra:
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
+    # part_product_nature_variant_id: "Part product nature variant"
+    # part_replacements: "Part replacements"
+    # part_variant: "Part variant"
     parted: "En partie"
     parted_product: "Produit retiré"
     participant: "Participant"
@@ -1180,10 +1188,15 @@ fra:
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
+    # product_nature_component: "Product nature component"
+    # product_nature_variant: "Product nature variant"
+    # product_nature_variant_component: "Product nature variant component"
+    # product_nature_variant_id: "Product nature variant"
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
     product_parameters: "Paramètres du produit"
+    # product_part_replacement: "Product part replacement"
     product_phases: "Phases de produit"
     product_quadruple_mixings: "Quadruple mélanges de produit" #?
     product_quintuple_mixings: "Quintuple mélanges de produit" #?
@@ -1270,6 +1283,8 @@ fra:
     reflections: "Réflexions"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
+    # remaining_lifespan: "Remaining lifespan"
+    # remaining_working_lifespan: "Remaining working lifespan"
     remember_created_at: "Se souvenir de moi à"
     remember_me: "Se souvenir de moi"
     reminder_submissive: "Soumis à la relance"
@@ -1319,6 +1334,7 @@ fra:
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
     scheduled: "Encaissement programmé"
+    # schematic: "Schematic"
     second_producer: "Second producteur" #?
     second_producer_way: "Voie du second producteur" #?
     seeding_density_unit: "Unité de densité de semis"

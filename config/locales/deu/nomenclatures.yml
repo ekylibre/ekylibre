@@ -1506,7 +1506,6 @@ deu:
         consumption_period: "Verbrauchsperiode"
         copper_concentration: "Kupferkonzentration"
         cumulated_rainfall: "kumulierte Niederschläge"
-        # daily_average_working_time: "daily average working time"
         daily_nitrogen_production: "Täglich Stickstoffproduktion"
         diameter: "Durchmesser"
         dry_matter_rate: "Trockenmasse Rate"

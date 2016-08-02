@@ -299,8 +299,10 @@ spa:
       # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
+      # edit_request: "Edit request %{procedure_name} #%{number}"
       index: "Intervenciones"
       new: "Intervención New"
+      # new_request: "New requested intervention"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Modificación del inventario"
@@ -704,7 +706,9 @@ spa:
     add_attachment: "Añadir un adjunto"
     add_bank_statement: "Añadir estado de cuenta bancaria"
     add_catalog_price: "Añadir precio de catálogo"
+    # add_child: "Add a child component"
     add_choice: "Añadir elección"
+    # add_component: "Add component"
     add_condition: "Añadir condición"
     add_conditions: "Añadir condiciones"
     add_delivery: "Añadir la entrega"
@@ -718,6 +722,8 @@ spa:
     add_inspection_calibration_nature: "Añadir la naturaleza de calibración de inspección"
     add_inspection_calibration_scale: "Añadir escala de calibración de inspección"
     add_inspection_point_nature: "Añadir la naturaleza del punto de inspección"
+    # add_intervention_record: "Add intervention record"
+    # add_intervention_request: "Add intervention request"
     add_item: "Añadir artículo"
     add_line: "Añadir línea"
     add_linestring: "Añadir cadena de líneas"
@@ -972,6 +978,7 @@ spa:
     document_natures: "Tipos de documentos"
     document_template_create: "Crear un modelo de documento" #?
     document_templates: "Modelos de documentos"
+    # documentation: "Documentation"
     doer_cost: "Costo hacedor"
     done: "Hecho"
     dont_use_journal: "-- No utilizar el periodico --"
@@ -1298,6 +1305,7 @@ spa:
     operations: "Operaciones"
     options: "Opciones"
     organic_matter_concentration: "Concentración de materia orgánica"
+    # original_component: "original"
     other_assessable_operations: "Autras operaciones imponibles" #?
     other_not_assessable_operations: "Autras operaciones no imponibles" #?
     other_results: "Otros resultados" #?
@@ -1314,9 +1322,10 @@ spa:
     paid_at: "Pagado en"
     parameters: "Parametros"
     parcels: "Parcelas"
+    # part: "part"
     participants: "Los participantes"
     participations: "Participaciones"
-    parts: "Modulos"
+    parts: "Modulos" #?
     passive_balance_sheet: "Balance pasivo" #?
     passive_capital_sum: "Total capitales" #?
     passive_debt_sum: "Total deudas" #?
@@ -1365,7 +1374,9 @@ spa:
     print: "Impresion de documentos"
     print_at: "el" #?
     # printing_document: "Printing %{document}"
-    procedures: "Procedimientos"
+    # procedure: "Procedure"
+    # procedure_name: "Procedure name"
+    procedures: "Procedimientos" #?
     product: "Producto"
     product_category: "Categoria de producto"
     product_name: "Nombre del producto"
@@ -1405,6 +1416,7 @@ spa:
     reflections: "Reflexiones"
     refresh: "Refrescar"
     register: "Crear una nueva compañía" #?
+    # register_intervention_request: "Register intervention request"
     relations: "Relaciones clientos/abastecedores" #?
     relationship: "Relación"
     # relationship_of_entity: "%{relationship} of %{entity}"
@@ -1680,6 +1692,9 @@ spa:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1721,6 +1736,9 @@ spa:
     x_outgoing_payments:
       # one: "%{count} disbursement"
       # other: "%{count} disbursements"
+    x_part_replacements:
+      # one: "%{count} part_replacement"
+      # other: "%{count} part replacements"
     x_purchases:
       one: "1 compra"
       # other: "%{count} purchases"
@@ -1766,6 +1784,7 @@ spa:
     x_years:
       one: "1 año"
       # other: "%{count} years"
+    # xed_intervention: "%{x}ed intervention"
     yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico" #?
     yield: "rendimiento"
@@ -2026,6 +2045,7 @@ spa:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
+    # backend/interventions: "%{number}. %{name}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

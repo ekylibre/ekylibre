@@ -57,7 +57,7 @@ cmn:
     implement: "实行"
     insemination: "授精"
     # inseminator: "Inseminator"
-    item: "项目"
+    item: "项目" #?
     juice: "汁"
     juice_to_ferment: "果汁发酵"
     land_parcel: "地块"
@@ -74,7 +74,7 @@ cmn:
     net_implanter: "净注入"
     net_roll: "净卷"
     oenological_intrant: "酿酒内联网"
-    oil: "油"
+    oil: "油" #?
     operator: "操作者"
     plant_medicine: "植物药"
     plants: "植物"
@@ -143,7 +143,7 @@ cmn:
     direct_silage: "直接青贮"
     egg_collecting: "鸡蛋收集"
     enzyme_addition: "加入酶"
-    equipment_item_replacement: "设备更换项目"
+    equipment_item_replacement: "设备更换项目" #?
     fermentation: "发酵"
     fertilizing: "施肥"
     field_plant_sorting: "现场分拣厂"
@@ -168,7 +168,7 @@ cmn:
     milking: "挤奶"
     net_installation: "网络安装"
     net_removing: "卸下网"
-    oil_replacement: "机油更换"
+    oil_replacement: "机油更换" #?
     partial_wine_transfer: "部分酒transfert"
     parturition: "分娩"
     pasturing: "牧区"

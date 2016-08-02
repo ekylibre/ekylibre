@@ -57,7 +57,7 @@ spa:
     implement: "Implementar"
     insemination: "Inseminación"
     inseminator: "Inseminador"
-    item: "Ítem"
+    item: "Ítem" #?
     juice: "Jugo"
     juice_to_ferment: "Jugo para fermentar"
     land_parcel: "Parcela de tierra"
@@ -74,7 +74,7 @@ spa:
     net_implanter: "Implantador neta"
     net_roll: "La recogida de ésta"
     oenological_intrant: "Intrant enológico"
-    oil: "Petróleo"
+    oil: "Petróleo" #?
     operator: "Operador"
     plant_medicine: "Planta medicina"
     plants: "Plantas"
@@ -143,7 +143,7 @@ spa:
     direct_silage: "Ensilado directa"
     egg_collecting: "La recolección de huevos"
     enzyme_addition: "Además Enzyme"
-    equipment_item_replacement: "Equipo de reemplazo del artículo"
+    equipment_item_replacement: "Equipo de reemplazo del artículo" #?
     fermentation: "Fermentación"
     fertilizing: "Fertilización"
     field_plant_sorting: "Campo de la planta de clasificación"
@@ -168,7 +168,7 @@ spa:
     milking: "Ordeño"
     net_installation: "Instalación de la malla"
     net_removing: "La eliminación neta"
-    oil_replacement: "La sustitución del aceite"
+    oil_replacement: "La sustitución del aceite" #?
     partial_wine_transfer: "Transfert vino parcial"
     parturition: "Parto"
     pasturing: "Pastoreo"
