@@ -18,9 +18,12 @@
       @showNewGroupModal = ko.observable false
 
       @animalDetailsModalOptions = ko.observable false
-      @containerModalOptions = ko.observable false
+      @containerModalOptions =
+        group: ko.observable undefined
+        items: ko.observableArray []
+#        newContainer: ko.observable undefined
 
-      @newContainer = ko.observable ''
+#      @newContainer = ko.observable ''
 
       @moveAnimalModalOptions =
         animals: ko.observableArray []
@@ -51,14 +54,19 @@
         @showNewGroupModal false
 
       @addContainer = =>
-        newContainer = new golumn.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
-        @containers.push newContainer
+        # Lets JQuery to do this simple task, no need an observable for that.
+        name = $("#containers_list").val()
+        id = $("input[name='containers_list']").val()
 
-        if @droppedAnimals().length > 0
-          #Send animals by values instead of observableArray reference
-          animals = []
-          ko.utils.arrayForEach @droppedAnimals(), (a) =>
-            animals.push a
+#        newContainer = new golumn.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
+        newContainer = G.Container(id, name, @containerModalOptions.items)
+        @containerModalOptions.group().push newContainer
+
+#        if @droppedAnimals().length > 0
+#          #Send animals by values instead of observableArray reference
+#          animals = []
+#          ko.utils.arrayForEach @droppedAnimals(), (a) =>
+#            animals.push a
 
           @toggleMoveAnimalModal(animals,newContainer);
 
@@ -67,7 +75,7 @@
         @resetContainerAdding()
 
 
-      @containers_list = ko.observableArray []
+#      @containers_list = ko.observableArray []
       @workers_list = ko.observableArray []
       @natures_list = ko.observableArray []
       @production_support_list = ko.observableArray []
@@ -83,14 +91,14 @@
       @droppedAnimals = ko.observableArray []
 
 
-
-
-      @displayedContainers = (group) =>
-
-        c = ko.utils.arrayFilter @containers(), (c) =>
-          c.group_id() == group.id
-
-        return @sortContainerByPosition c
+#
+#
+#      @displayedContainers = (group) =>
+#
+#        c = ko.utils.arrayFilter @containers(), (c) =>
+#          c.group_id() == group.id
+#
+#        return @sortContainerByPosition c
 
 
       @sortContainerByPosition = (containers) =>
@@ -112,18 +120,12 @@
         @showNewGroupModal true
         return
 
-      @toggleNewContainerModal = (group) =>
-        @containerModalOptions group.id
+      @toggleNewContainerModal = (group, items = []) =>
+        @containerModalOptions.group group
+        @containerModalOptions.items items
         @showNewContainerModal true
         #Be sure only one modal is displayed
         @showMoveAnimalModal false
-        $.ajax '/backend/animals/load_containers',
-          type: 'GET',
-          dataType: 'JSON',
-          success: (json_data) ->
-            ko.utils.arrayForEach json_data, (j) =>
-              window.app.containers_list.push j
-            return true
 
       @toggleMoveAnimalModal = (animals, container) =>
         @moveAnimalModalOptions.animals animals
@@ -286,7 +288,7 @@
 
 
       @resetContainerAdding = () =>
-        @newContainer = ko.observable false
+#        @newContainer = ko.observable false
         @containerModalOptions = ko.observable false
         @containers_list.removeAll()
         @showNewContainerModal false
