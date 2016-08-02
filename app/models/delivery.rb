@@ -121,7 +121,7 @@ class Delivery < Ekylibre::Record::Base
     end
     super
   end
-  
+
   def prepare
     return false unless can_prepare?
     parcels.each do |parcel|
@@ -129,7 +129,7 @@ class Delivery < Ekylibre::Record::Base
     end
     super
   end
-  
+
   def check
     return false unless can_check?
     parcels.find_each do |parcel|
@@ -140,14 +140,14 @@ class Delivery < Ekylibre::Record::Base
   end
 
   def start
-    self.update_column(:started_at, Time.zone.now)
+    update_column(:started_at, Time.zone.now)
     super
   end
-  
+
   def finish
     start if can_start?
     return false unless can_finish?
-    self.update_column(:stopped_at, Time.zone.now)
+    update_column(:stopped_at, Time.zone.now)
     parcels.each do |parcel|
       parcel.check if parcel.in_preparation?
       parcel.give if parcel.prepared?
