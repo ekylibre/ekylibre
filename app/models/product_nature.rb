@@ -289,7 +289,7 @@ class ProductNature < Ekylibre::Record::Base
     stopped_on += self.subscription_years_count.years
     stopped_on += self.subscription_months_count.months
     stopped_on += self.subscription_days_count.months
-    stopped_on -= 1.day
+    stopped_on -= 1.day if stopped_on > started_on
     stopped_on
   end
 
