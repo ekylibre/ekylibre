@@ -152,12 +152,6 @@ class Parcel < Ekylibre::Record::Base
     end
   end
 
-  after_save do
-    if delivery && prepared? && delivery_in_preparation?
-      delivery.check if delivery.parcels.all?(&:prepared?)
-    end
-  end
-
   protect on: :destroy do
     prepared? || given?
   end
