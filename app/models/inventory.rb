@@ -50,6 +50,7 @@ class Inventory < Ekylibre::Record::Base
   validates :name, :number, presence: true
   # ]VALIDATORS]
   validates :achieved_at, presence: true
+  validates :name, uniqueness: true
 
   acts_as_numbered
 
@@ -73,15 +74,23 @@ class Inventory < Ekylibre::Record::Base
     !reflected? # && self.class.unreflecteds.before(self.achieved_at).empty?
   end
 
+  # Apply deltas on products and raises an error if any problem
+  def reflect!
+    raise StandardError, 'Cannot reflect inventory on stocks' unless reflect
+  end
+
   # Apply deltas on products
   def reflect
-    raise StandardError, 'Not reflectable inventory' unless reflectable?
-    self.class.transaction do
-      self.reflected_at = Time.zone.now
-      self.reflected = true
-      save!
-      items.find_each(&:save)
+    unless reflectable?
+      errors.add(:reflected, :invalid)
+      return false
     end
+    self.reflected_at = Time.zone.now
+    self.reflected = true
+    return false unless valid? && items.all?(&:valid?)
+    save
+    items.find_each(&:save)
+    true
   end
 
   def build_missing_items
