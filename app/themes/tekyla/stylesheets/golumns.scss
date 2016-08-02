@@ -737,7 +737,8 @@ $column-width: 28ex;
 }
 
 .container-drop-hover {
-  padding: 7px;
+  transition: all 1s ease;
+  padding: 10px 0;
   background-color: cornflowerblue;
 }
 
