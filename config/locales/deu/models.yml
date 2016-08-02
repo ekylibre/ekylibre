@@ -941,7 +941,7 @@ deu:
     product_localizations: "Produkt Lokalisierungen"
     product_memberships: "Produkt-Mitgliedschaften"
     product_movement: "Produkt-Bewegung"
-    # product_name: "Name"
+    product_name: "Name"
     product_nature: "Produktart"
     product_nature_categories: "Kategorien Produkttyp"
     product_nature_category: "Produkttyp Kategorie"

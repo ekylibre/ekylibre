@@ -78,16 +78,16 @@ class Delivery < Ekylibre::Record::Base
       transition ordered: :in_preparation
     end
     event :check do
-      transition in_preparation: :prepared, if: :all_parcels_prepared?
+      transition in_preparation: :prepared, if: :all_parcels_almost_prepared?
     end
     event :start do
-      transition in_preparation: :started
-      transition prepared: :started
+      transition in_preparation: :started, if: :all_parcels_prepared?
+      transition prepared: :started, if: :all_parcels_prepared?
     end
     event :finish do
-      transition in_preparation: :finished
-      transition prepared: :finished
-      transition started: :finished
+      transition in_preparation: :finished, if: :all_parcels_prepared?
+      transition prepared: :finished, if: :all_parcels_prepared?
+      transition started: :finished, if: :all_parcels_prepared?
     end
     event :cancel do
       transition ordered: :draft
@@ -110,6 +110,26 @@ class Delivery < Ekylibre::Record::Base
     mode.text
   end
 
+  def available_parcels
+    Parcel.where('(delivery_id = ?) OR ((delivery_id IS ?) AND (state != ?))', id, nil, :given).order(:number)
+  end
+
+  def order
+    return false unless can_order?
+    parcels.each do |parcel|
+      parcel.order if parcel.draft?
+    end
+    super
+  end
+  
+  def prepare
+    return false unless can_prepare?
+    parcels.each do |parcel|
+      parcel.prepare if parcel.ordered?
+    end
+    super
+  end
+  
   def check
     return false unless can_check?
     parcels.find_each do |parcel|
@@ -119,23 +139,27 @@ class Delivery < Ekylibre::Record::Base
     super
   end
 
-  def available_parcels
-    Parcel.where('(delivery_id = ?) OR ((delivery_id IS ?) AND (state != ?))', id, nil, :given).order(:number)
+  def start
+    self.update_column(:started_at, Time.zone.now)
+    super
   end
-
+  
   def finish
+    start if can_start?
     return false unless can_finish?
+    self.update_column(:stopped_at, Time.zone.now)
     parcels.each do |parcel|
-      parcel.give! if parcel.prepared?
+      parcel.check if parcel.in_preparation?
+      parcel.give if parcel.prepared?
     end
     super
   end
 
-  def all_parcels_in_preparation?
-    parcels.all?(&:in_preparation?)
+  def all_parcels_almost_prepared?
+    parcels.all? { |p| p.prepared? || p.in_preparation? }
   end
 
   def all_parcels_prepared?
-    parcels.all?(&:prepared?)
+    parcels.all? { |p| p.prepared? || p.given? }
   end
 end

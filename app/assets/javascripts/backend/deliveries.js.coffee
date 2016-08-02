@@ -44,7 +44,7 @@
             pop.attr('placeholder', data.population)
           else
             total.html('&ndash;')
-            pop.removeAttr('placeholder')
+            pop.attr('placeholder', '0')
           pop.attr('min', 0)
           pop.attr('max', data.population)
           if data.population_counting is 'unitary'

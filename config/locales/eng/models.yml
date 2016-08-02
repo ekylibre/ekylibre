@@ -967,7 +967,7 @@ eng:
     product_localizations: "Product localizations" #?
     product_memberships: "Product memberships" #?
     product_movement: "Product movement"
-    product_name: "Name"
+    product_name: "Product"
     product_nature: "Product type"
     product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"

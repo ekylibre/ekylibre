@@ -1640,6 +1640,7 @@ cmn:
       # bookkeep: "Bookkeep"
       cancel: "取消"
       category: "类别" #?
+      check: "检查"
       children: "孩子" #?
       close: "关闭"
       compute: "计算"
@@ -1663,6 +1664,7 @@ cmn:
       family: "家庭"
       finish: "完"
       generate_last_journal_entry: "最后生成日记帐分录"
+      give: "给"
       import: "进口"
       incorporate: "合并"
       increment: "增量" #?
@@ -1679,8 +1681,10 @@ cmn:
       # negociate: "Negociate"
       new: "新"
       open: "打开"
+      order: "订购"
       pick: "挑"
       picture: "图片"
+      prepare: "准备"
       propose: "提出"
       propose_and_invoice: "提出和发票"
       prospect: "展望"

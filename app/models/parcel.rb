@@ -100,11 +100,11 @@ class Parcel < Ekylibre::Record::Base
     state :given
 
     event :order do
-      transition draft: :ordered, if: :items?
+      transition draft: :ordered, if: :any_items?
     end
     event :prepare do
-      transition draft: :in_preparation, if: :items?
-      transition ordered: :in_preparation, if: :items?
+      transition draft: :in_preparation, if: :any_items?
+      transition ordered: :in_preparation, if: :any_items?
     end
     event :check do
       transition draft: :prepared, if: :all_items_prepared?
@@ -112,10 +112,10 @@ class Parcel < Ekylibre::Record::Base
       transition in_preparation: :prepared, if: :all_items_prepared?
     end
     event :give do
-      transition draft: :given, unless: :with_delivery?
-      transition ordered: :given, unless: :with_delivery?
-      transition in_preparation: :given, unless: :with_delivery?
-      transition prepared: :given, unless: :with_delivery?
+      transition draft: :given, if: :giveable?
+      transition ordered: :given, if: :giveable?
+      transition in_preparation: :given, if: :giveable?
+      transition prepared: :given, if: :giveable?
     end
     event :cancel do
       transition ordered: :draft
@@ -212,15 +212,19 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def all_items_prepared?
-    items.all?(&:prepared?)
+    any_items? && items.all?(&:prepared?)
   end
 
-  def items?
+  def any_items?
     items.any?
   end
 
   def issues?
     issues.any?
+  end
+
+  def giveable?
+    !with_delivery || (with_delivery && delivery.present? && delivery.started?)
   end
 
   def status

@@ -2262,6 +2262,7 @@ fra:
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
       category: "Categorie" #?
+      check: "Vérifier"
       children: "Enfant" #?
       close: "Fermer"
       compute: "Calculer"
@@ -2286,6 +2287,7 @@ fra:
       family: "Famille"
       finish: "Finir"
       generate_last_journal_entry: "Générer la dernière écriture"
+      give: "Donner"
       import: "Importer"
       incorporate: "Incorporer"
       increment: "Incrémenter" #?
@@ -2302,8 +2304,10 @@ fra:
       negociate: "Négocier"
       new: "Nouveau"
       open: "Ouvrir"
+      order: "Commander"
       pick: "Piocher"
       picture: "Image"
+      prepare: "Préparer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"

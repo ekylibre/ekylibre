@@ -2417,6 +2417,7 @@ arb:
       # bookkeep: "Bookkeep"
       cancel: "إلغاء"
       category: "فئة" #?
+      check: "الاختيار"
       children: "الأطفال" #?
       close: "قريب"
       compute: "حساب"
@@ -2440,6 +2441,7 @@ arb:
       family: "أسرة"
       finish: "إنهاء"
       generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
+      give: "يعطى"
       import: "استيراد"
       incorporate: "دمج"
       increment: "زيادة" #?
@@ -2456,8 +2458,10 @@ arb:
       # negociate: "Negociate"
       new: "جديد"
       open: "فتح"
+      order: "طلب"
       pick: "اختيار"
       picture: "صورة"
+      prepare: "إعداد"
       propose: "اقترح"
       propose_and_invoice: "اقتراح وفاتورة"
       prospect: "احتمال"
