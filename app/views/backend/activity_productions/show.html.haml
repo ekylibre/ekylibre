@@ -167,9 +167,10 @@
   - else
     = no_data
 
-  - c.cobble(:timeline) do
-    = timeline(resource, id: :entity) do |timeline|
-      - timeline.side :budgets, at: :created_at, new: false
+  - c.cobble(:chronology) do
+    .horizontal-timeline
+      %div.header
+      %div.content
 
 
   - c.cobble(:interventions) do
