@@ -1,6 +1,10 @@
 cmn:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "问题本质"
+          variety: "品种"
       items:
         acidify: "酸化"
         administer_care: "护理管理"
@@ -3141,6 +3145,9 @@ cmn:
         variety: "品种"
     product_natures:
       choices:
+        linkage_points:
+          front: "面前"
+          rear: "后"
         population_counting:
           decimal: "十进制"
           integer: "整型"

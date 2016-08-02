@@ -1,6 +1,10 @@
 fra:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Type d’incident"
+          variety: "Variété"
       items:
         acidify: "Acidifier"
         administer_care: "Administrer des soins"
@@ -3298,9 +3302,9 @@ fra:
         variety: "Variété"
     product_natures:
       choices:
-        linkage_points:  #?
-          front: "avant" #?
-          rear: "arrière" #?
+        linkage_points:
+          front: "avant"
+          rear: "arrière"
         population_counting:
           decimal: "Décimal"
           integer: "Entier"

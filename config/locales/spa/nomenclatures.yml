@@ -1,6 +1,10 @@
 spa:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Naturaleza tema"
+          variety: "Variedad"
       items:
         acidify: "Acidificar"
         administer_care: "Proporcionar los cuidados"
@@ -3147,6 +3151,9 @@ spa:
         variety: "Variedad"
     product_natures:
       choices:
+        linkage_points:
+          front: "Frente"
+          rear: "Posterior"
         population_counting:
           # decimal: "Decimal"
           integer: "Entero"
