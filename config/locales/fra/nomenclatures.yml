@@ -3303,8 +3303,8 @@ fra:
     product_natures:
       choices:
         linkage_points:
-          front: "avant"
-          rear: "arrière"
+          front: "Avant"
+          rear: "Arrière"
         population_counting:
           decimal: "Décimal"
           integer: "Entier"
