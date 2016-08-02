@@ -93,10 +93,6 @@ deu:
         line: "Linie"
         point: "Punkt"
         polygon: "Vieleck"
-    grading_quality_criterion:
-      nature:
-        disease_presence: "Krankheit Präsenz"
-        waste: "Abfall"
     guide_analysis:
       status:
         errored: "Fehlerhafte"

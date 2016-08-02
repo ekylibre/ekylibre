@@ -116,8 +116,12 @@ class Translator
     batch(hash) do |trans|
       response = @service.list_translations(trans.values, LOCALES[@target].to_s, source: LOCALES[@source].to_s)
       response.translations.each_with_index do |t, i|
-        result[trans.keys[i]] = t.translated_text unless t.translated_text == trans.values[i]
-        cache_set("#{@target}.#{trans.keys[i]}", t.translated_text)
+        text = t.translated_text
+        if [:spa, :por, :eng, :fra, :ita, :deu].include?(@target)
+          text = text.mb_chars.slice(0).upcase + result.mb_chars.slice(1..-1)
+        end
+        result[trans.keys[i]] = text unless text == trans.values[i]
+        cache_set("#{@target}.#{trans.keys[i]}", text)
       end
       print '.'.red
       sleep(trans.size * 0.07)
@@ -148,32 +152,6 @@ class Translator
   def batch(hash, size = 100)
     array = hash.to_a
     yield Hash[array.slice!(0, size)] until array.empty?
-  end
-
-  def translate(text, stack = [])
-    full_stack = [@target] + stack
-    print "translate #{stack.join('.')}: #{text.inspect.white} with"
-    result = cache_get(full_stack)
-    unless result
-      print '...'
-      response = @service.list_translations(text, LOCALES[@target].to_s, source: LOCALES[@source].to_s)
-      result = response.translations.first.translated_text
-      cache_set(full_stack, result)
-      @count += text.size
-      sleep(0.005)
-    end
-    if result.blank? || result == text
-      puts ' ' + 'avoided'.red
-      return nil
-    end
-    if [:spa, :por, :eng, :fra, :ita, :deu].include?(@target)
-      result = result.mb_chars.slice(0).upcase + result.mb_chars.slice(1..-1)
-    end
-    # query = "https://www.googleapis.com/language/translate/v2?q=#{URI.escape(text)}&target=#{LOCALES[@target]}&format=text&source=#{LOCALES[@source]}&key=#{API_KEY}"
-    # response = RestClient.get(query)
-    # puts response.inspect.red
-    puts ' ' + result.blue + " (#{@count})"
-    result.to_s
   end
 
   def cache_get(stack)
