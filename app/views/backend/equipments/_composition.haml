@@ -20,25 +20,9 @@
       .component-details
         = button_tag :details ,type: :button, class: "btn", data: { toggle: :modal, target: "#show_component_details_#{component.id}"}
 
-      .component-documentation
-        - if component.part_product_nature_variant
-          = dropdown_menu_button(:documentation.tl, icon: false) do |menu|
-            - component.part_product_nature_variant.attachments.each do |attachment|
-              - menu.item attachment.name, {controller: 'backend/documents', id: attachment.document_id, action: :show, format: :pdf }
-      .component-replacement
-        - target = { "reference_name"=>"equipment", "product_id"=>resource.id }
-        - input = { "reference_name"=>"replacement_part", "component_id"=>component.id }
-        - ref = { "reference_name"=>"work" }
-        - group_w_target = ref.merge( "targets_attributes": { "0"=> target } )
-        - group = group_w_target.merge( "inputs_attributes": { "0"=> input } )
+      = modal(id: "show_component_details_#{component.id}", title: Product.human_attribute_name(:part_replacements), close_button: true) do
+        = render "component_infos", component: component
 
-        - intervention_type = { procedure_name: :equipment_maintenance, actions: [:curative_maintenance] }
-        - prefill = intervention_type.merge(group_parameters_attributes: {0 => group})
-
-        = tool_to :replace.ta, {action: :new, controller: :interventions, redirect: request.fullpath}.merge(prefill)
-
-    = modal(id: "show_component_details_#{component.id}", title: Product.human_attribute_name(:part_replacements), close_button: true) do
-      = render "component_infos", component: component
     = render 'composition', product: product, components: component.children
 
 

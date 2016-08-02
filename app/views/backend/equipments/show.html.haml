@@ -76,6 +76,9 @@
 
   - if resource.components.any?
     - c.cobble(:components) do
-      .component-tree
-        = render "composition", product: resource, components: resource.variant.root_components
+      .equipment-components-list
+        .component-btns
+          = render "equipment_btns", components: resource.variant.root_components
+        .component-tree
+          = render "composition", product: resource, components: resource.variant.root_components
 

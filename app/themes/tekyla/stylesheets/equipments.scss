@@ -1,10 +1,28 @@
 .component-tree {
-  // @include padding-left($lh-small);
-  padding-top: 13px;
+  flex: 1;
+  padding-top: 6px;
   box-sizing: border-box;
 }
 
+.equipment-components-list {
+  display: flex;
+}
+
 .component {
+  & > .component {
+    @include padding-left($lh-normal);
+  }
+}
+
+.component-btns {
+  @include padding-left($lh-small);
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.component-btn-group {
+  padding-top: 6px;
+  display: flex;
 }
 
 .component-block {
@@ -19,7 +37,6 @@
 
 .component-title {
   flex:1 0 0;
-  flex-grow: 1;
 }
 
 .component-status {
@@ -52,17 +69,11 @@
 .component-documentation {
   @include padding-left($lh-small);
   @include padding-right($lh-ratio);
-  width: 150px;
+  width: 20px;
 }
 
 .component-replacement {
   @include padding-right($lh-ratio);
-  width: 150px;
-  flex-direction: left;
-}
-
-.component > .component {
-  @include padding-left($lh-normal);
 }
 
 .component-modal {

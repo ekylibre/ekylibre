@@ -1,0 +1,21 @@
+- components.each do |component|
+  .component-btn-group
+    .component-replacement
+      - target = { "reference_name"=>"equipment", "product_id"=>resource.id }
+      - input = { "reference_name"=>"replacement_part", "component_id"=>component.id }
+      - ref = { "reference_name"=>"work" }
+      - group_w_target = ref.merge( "targets_attributes": { "0"=> target } )
+      - group = group_w_target.merge( "inputs_attributes": { "0"=> input } )
+
+      - intervention_type = { procedure_name: :equipment_maintenance, actions: [:curative_maintenance] }
+      - prefill = intervention_type.merge(group_parameters_attributes: {0 => group})
+
+      = tool_to "", {action: :new, controller: :interventions, redirect: request.fullpath}.merge(prefill), icon: :repair, class: "icn-only"
+
+    .component-documentation
+      - if component.part_product_nature_variant
+        = dropdown_menu_button("", icon: :documentation) do |menu|
+          - component.part_product_nature_variant.attachments.each do |attachment|
+            - menu.item attachment.name, {controller: 'backend/documents', id: attachment.document_id, action: :show, format: :pdf }
+
+  = render "equipment_btns", components: component.children
