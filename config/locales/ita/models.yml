@@ -27,6 +27,8 @@ ita:
         born_at: "creato a"
       outgoing_payment:
         delivered: "Dato al destinatario"
+      parcel_item:
+        population: "Quantità"
       plant:
         born_at: "piantato a"
       sale:

@@ -27,6 +27,8 @@ cmn:
         born_at: "创建时间"
       outgoing_payment:
         delivered: "给收件人"
+      parcel_item:
+        population: "数量"
       plant:
         born_at: "在种植"
       sale:

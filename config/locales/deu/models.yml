@@ -27,6 +27,8 @@ deu:
         born_at: "Hergestellt in"
       outgoing_payment:
         delivered: "Da an Empfänger"
+      parcel_item:
+        population: "Menge"
       plant:
         born_at: "gepflanzt bei"
       sale:

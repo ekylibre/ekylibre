@@ -9,15 +9,6 @@
         $("#delivery-mode-#{$(this).val()}").hide()
       $("#delivery-mode-#{input.val()}").show()
 
-  $(document).behave "load click", "form label input[name='parcel[nature]']", ->
-    input = $(this)
-    if input.is(':checked')
-      form = input.closest('form')
-      form.find("input[name='parcel[nature]']").each ->
-        $("#nature-#{$(this).val()}").hide()
-      $("#nature-#{input.val()}").show()
-
-
   $(document).behave "load click", "form label input[name='delivery[mode]']", ->
     input = $(this)
     if input.is(':checked')

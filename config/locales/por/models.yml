@@ -27,6 +27,8 @@ por:
         born_at: "Criado em"
       outgoing_payment:
         delivered: "Dada a destinatário"
+      parcel_item:
+        population: "Quantidade"
       plant:
         born_at: "Plantadas em"
       sale:

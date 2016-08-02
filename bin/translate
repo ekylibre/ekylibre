@@ -118,7 +118,7 @@ class Translator
       response.translations.each_with_index do |t, i|
         text = t.translated_text
         if [:spa, :por, :eng, :fra, :ita, :deu].include?(@target)
-          text = text.mb_chars.slice(0).upcase + result.mb_chars.slice(1..-1)
+          text = (text.mb_chars.slice(0).upcase + text.mb_chars.slice(1..-1)).to_s
         end
         result[trans.keys[i]] = text unless text == trans.values[i]
         cache_set("#{@target}.#{trans.keys[i]}", text)

@@ -86,6 +86,8 @@ fra:
         delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
+      parcel_item:
+        population: "Quantité"
       plant:
         born_at: "Planté/semé le"
         nature: "Nature de la culture" #?

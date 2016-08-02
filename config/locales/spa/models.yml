@@ -27,6 +27,8 @@ spa:
         born_at: "Creado en"
       outgoing_payment:
         delivered: "Teniendo en cuenta para el destinatario"
+      parcel_item:
+        population: "Cantidad"
       plant:
         born_at: "Plantado en"
       sale:
