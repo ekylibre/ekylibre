@@ -13,12 +13,6 @@ module Api
           return false
         end
       end
-
-      protected
-
-      def permitted_params
-        params.permit(:name, :germination_percentage, :sampling_length_unit, :seeding_density_unit, :variety_name)
-      end
     end
   end
 end
