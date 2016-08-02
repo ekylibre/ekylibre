@@ -128,14 +128,6 @@ module Procedo
           backward_with_parameter?(parameter_name) ||
           forward_with_parameter?(parameter_name)
       end
-
-      def dependent_parameters
-        parameters = []
-        parameters += self.condition_dependent_parameters || []
-        parameters += self.backward_dependent_parameters || []
-        parameters += self.forward_dependent_parameters || []
-        parameters.uniq
-      end
     end
   end
 end

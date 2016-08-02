@@ -1,9 +1,7 @@
 module Procedo::Procedure::Codeable
   extend ActiveSupport::Concern
 
-  delegate :parse!, :detect_parameter, :dependent_parameters_root, :detect_environment_variable, :count_variables, to: :class
-
-  alias :dependent_parameters :dependent_parameters_root
+  delegate :parse!, :detect_parameter, :detect_environment_variable, :count_variables, to: :class
 
   module ClassMethods
 
@@ -44,13 +42,6 @@ module Procedo::Procedure::Codeable
           return false unless tree.present?
           detect_parameter(tree, parameter)
         end
-
-        # Check if given parameter is used
-        define_method "#{snippet}_dependent_parameters" do
-          tree = instance_variable_get(instance_var)
-          return false unless tree.present?
-          dependent_parameters_root(tree)
-        end
       end
     end
 
@@ -77,17 +68,6 @@ module Procedo::Procedure::Codeable
         node.is_a?(Procedo::Formula::Language::Variable) &&
           parameter_name == node.text_value
       end
-    end
-
-    def dependent_parameters_root(root)
-      parameters = []
-      each(root) do |node|
-        if node.is_a?(Procedo::Formula::Language::Variable)
-          name = node.text_value.to_sym
-          parameters << name unless parameters.include?(name)
-        end
-      end
-      parameters
     end
 
     def detect(root, &block)

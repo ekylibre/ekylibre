@@ -26,15 +26,14 @@
           unrollPath = input.attr('data-selector')
           if unrollPath
             schemId = attributes["schematic_id"]
-            if typeof(schemId) == 'undefined'
+            if typeof(schemId) == 'undefined' or schemId is null
               schemId = "nil"
-            else
-              componentReg = /(unroll\?.*scope.*components_of[^=]*)=([^&]*)(&?.*)/
-              oldSchematics = unrollPath.match(componentReg)[2]
-              unrollPath = unrollPath.replace(componentReg, "$1="+schemId+"$3")
-              input.attr('data-selector', unrollPath)
-              if schemId.toString() != oldSchematics.toString()
-                $(input).val('')
+            componentReg = /(unroll\?.*scope.*components_of[^=]*)=([^&]*)(&?.*)/
+            oldSchematics = unrollPath.match(componentReg)[2]
+            unrollPath = unrollPath.replace(componentReg, "$1="+schemId+"$3")
+            input.attr('data-selector', unrollPath)
+            if schemId.toString() != oldSchematics.toString()
+              $(input).val('')
 
 
     toggleHandlers: (form, attributes, prefix = '') ->

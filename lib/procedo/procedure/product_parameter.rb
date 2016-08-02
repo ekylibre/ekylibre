@@ -244,36 +244,19 @@ module Procedo
         end
       end
 
+      def depend_on?(parameter)
+        return false if (parameter.name == self.name)
+        attr_dependent = @attributes.values.any? { |a| a.depend_on? parameter.name }
+        read_dependent = @readings.values.any? { |r| r.depend_on? parameter.name }
+        hand_dependent = @handlers.values.any? { |h| h.depend_on? parameter.name }
+        comp_dependent = component_of? || component_of_with_parameter?(parameter.name)
+        attr_dependent || read_dependent || hand_dependent || comp_dependent
+      end
+
       # Returns dependings parameters. Parameters that I point
       def depending_variables
         # self.producer
         [procedure.parameters[variety.split(/\:\s*/)], procedure.parameters[derivative_of.split(/\:\s*/)]].compact
-      end
-
-      def dependent_parameters
-        @dependent_parameters ||= dependent_parameter_names.map { |p| procedure.find!(p) }
-      end
-
-      # Returns list of dependent parameter names
-      def dependent_parameter_names
-        parameter_names = []
-        @handlers.each do |_, handler|
-          parameter_names += handler.dependent_parameters
-        end
-        @attributes.each do |_, attribute|
-          parameter_names += attribute.dependent_parameters
-        end
-        @readings.each do |_, reading|
-          parameter_names += reading.dependent_parameters
-        end
-        parameter_names += component_of_dependent_parameters || []
-        parameter_names.uniq
-      end
-
-      def depend_on?(parameter)
-        dependent_parameter_names.detect do |p|
-          p == parameter.name
-        end
       end
 
       # Checks if a given actor might fulfill the procedure's parameter. Returns

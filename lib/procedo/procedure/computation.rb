@@ -14,11 +14,6 @@ module Procedo
         self.expression = options[:expression]
         self.condition = options[:if]
       end
-
-      def depend_on?(parameter_name)
-        expression_with_parameter?(parameter_name) ||
-          condition_with_parameter?(parameter_name)
-      end
     end
   end
 end
