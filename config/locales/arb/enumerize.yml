@@ -93,10 +93,6 @@ arb:
         line: "خط"
         point: "نقطة"
         polygon: "المضلع"
-    grading_quality_criterion:
-      nature:
-        disease_presence: "وجود المرض"
-        waste: "المخلفات"
     guide_analysis:
       status:
         # errored: "Errored"

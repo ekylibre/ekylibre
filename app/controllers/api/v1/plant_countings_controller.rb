@@ -14,7 +14,7 @@ module Api
       protected
 
       def permitted_params
-        params.except(:format).permit(:comment, :plant_density_abacus_item_id, :average_value, :read_at, :plant_id, items_attributes: [:value])
+        super.permit(:comment, :plant_density_abacus_item_id, :average_value, :read_at, :plant_id, items_attributes: [:value])
       end
     end
   end

@@ -27,6 +27,8 @@ ita:
         born_at: "creato a"
       outgoing_payment:
         delivered: "Dato al destinatario"
+      parcel_item:
+        population: "Quantità"
       plant:
         born_at: "piantato a"
       sale:
@@ -183,6 +185,7 @@ ita:
       animal_group: "gruppo di animali"
       attachment: "Allegati"
       bank_statement: "estratto conto bancario"
+      bank_statement_item: "Fila estratto conto bancario"
       bioproduct: "vivere prodotto"
       building: "Costruzione"
       building_division: "Camera / Zone"
@@ -220,7 +223,6 @@ ita:
       gap: "divario"
       gap_item: "voce Gap"
       # georeading: "Georeading"
-      grading_quality_criterion: "criterio di qualità di classificazione"
       guide: "Guida"
       guide_analysis: "analisi Guida"
       guide_analysis_point: "Guida punto di analisi"

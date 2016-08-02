@@ -93,10 +93,6 @@ eng:
         line: "Line"
         point: "Point"
         polygon: "Polygon"
-    grading_quality_criterion:
-      nature:
-        disease_presence: "Disease presence"
-        waste: "Waste"
     guide_analysis:
       status:
         errored: "Errored"

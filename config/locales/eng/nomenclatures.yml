@@ -1,6 +1,10 @@
 eng:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Issue nature"
+          variety: "Variety"
       items:
         acidify: "Acidify"
         administer_care: "Administer care"
@@ -3148,6 +3152,9 @@ eng:
         variety: "Variety"
     product_natures:
       choices:
+        linkage_points:
+          front: "Front"
+          rear: "Rear"
         population_counting:
           decimal: "Decimal"
           integer: "Integer"

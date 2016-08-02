@@ -1,6 +1,10 @@
 arb:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "طبيعة القضية"
+          variety: "تشكيلة"
       items:
         acidify: "تحمض"
         administer_care: "إدارة الرعاية"
@@ -3152,6 +3156,9 @@ arb:
         variety: "تشكيلة"
     product_natures:
       choices:
+        linkage_points:
+          front: "جبهة"
+          rear: "خلفي"
         population_counting:
           decimal: "عدد عشري"
           integer: "عدد صحيح"

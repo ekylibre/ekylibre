@@ -324,6 +324,8 @@ arb:
         updater_id: "التعديل" #?
       parameter:  #?
         updated_at: "تم تحديثها في" #?
+      parcel_item:
+        population: "كمية"
       plant:
         born_at: "زرعت في"
       postal_zone:  #?
@@ -754,6 +756,7 @@ arb:
       area: "المنطقة البريدية" #?
       attachment: "مرفق"
       bank_statement: "بيان الحساب المصرفي"
+      bank_statement_item: "الصف بيان البنك"
       bioproduct: "المنتج تعيش"
       building: "موقع التخزين"
       building_division: "غرفة / المنطقة"
@@ -806,7 +809,6 @@ arb:
       gap: "فراغ"
       gap_item: "البند الفجوة"
       # georeading: "Georeading"
-      grading_quality_criterion: "معيار جودة الدرجات"
       guide: "دليل"
       guide_analysis: "تحليل دليل"
       guide_analysis_point: "نقطة تحليل دليل"

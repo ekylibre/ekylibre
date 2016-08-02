@@ -1,6 +1,10 @@
 jpn:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "問題の性質"
+          variety: "多様"
       items:
         acidify: "酸性にします"
         administer_care: "介護の管理"
@@ -3154,6 +3158,9 @@ jpn:
         variety: "多様"
     product_natures:
       choices:
+        linkage_points:
+          front: "フロント"
+          rear: "リア"
         population_counting:
           decimal: "10進数"
           integer: "整数"

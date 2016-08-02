@@ -86,6 +86,8 @@ fra:
         delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
+      parcel_item:
+        population: "Quantité"
       plant:
         born_at: "Planté/semé le"
         nature: "Nature de la culture" #?
@@ -265,6 +267,7 @@ fra:
       animal_group: "Groupe d’animaux"
       attachment: "Pièce jointe"
       bank_statement: "Relevé de compte bancaire"
+      bank_statement_item: "Ligne de relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Bâtiment"
       building_division: "Pièce"
@@ -302,7 +305,6 @@ fra:
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
       georeading: "Relevé topographique"
-      grading_quality_criterion: "Critère qualité d'un agréage"
       guide: "Référentiel"
       guide_analysis: "Analyse d’un référentiel"
       guide_analysis_point: "Point d’analyse d’un référentiel"

@@ -1,6 +1,10 @@
 por:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Emissão natureza"
+          variety: "Variedade"
       items:
         acidify: "Acidificar"
         administer_care: "Administrar cuidados"
@@ -3143,6 +3147,9 @@ por:
         variety: "Variedade"
     product_natures:
       choices:
+        linkage_points:
+          front: "Frente"
+          rear: "Traseiro"
         population_counting:
           # decimal: "Decimal"
           integer: "Número inteiro"

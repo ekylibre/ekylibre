@@ -78,6 +78,12 @@ module Api
         render status: :unauthorized, json: { message: 'Unauthorized.' }
         false
       end
+
+      protected
+
+      def permitted_params
+        params.except(:format)
+      end
     end
   end
 end

@@ -95,10 +95,6 @@ por:
         line: "Linha"
         point: "Ponto"
         polygon: "Polígono"
-    grading_quality_criterion:
-      nature:
-        disease_presence: "presença da doença"
-        waste: "Desperdício"
     guide_analysis:
       status:
         errored: "Com erros"

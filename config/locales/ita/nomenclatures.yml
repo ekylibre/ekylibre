@@ -1,6 +1,10 @@
 ita:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "La natura problema"
+          variety: "Varietà"
       items:
         acidify: "Acidificare"
         administer_care: "somministrare cura"
@@ -3143,6 +3147,9 @@ ita:
         variety: "Varietà"
     product_natures:
       choices:
+        linkage_points:
+          front: "Davanti"
+          rear: "Parte posteriore"
         population_counting:
           decimal: "Decimale"
           integer: "Numero intero"

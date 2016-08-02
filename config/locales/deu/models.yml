@@ -27,6 +27,8 @@ deu:
         born_at: "Hergestellt in"
       outgoing_payment:
         delivered: "Da an Empfänger"
+      parcel_item:
+        population: "Menge"
       plant:
         born_at: "gepflanzt bei"
       sale:
@@ -152,6 +154,7 @@ deu:
       animal_group: "Tiergruppe"
       attachment: "Befestigung"
       bank_statement: "Kontoauszug"
+      bank_statement_item: "Kontoauszug Reihe"
       bioproduct: "Wohnen Produkt"
       building: "Gebäude"
       building_division: "Zimmer / Zone"
@@ -189,7 +192,6 @@ deu:
       gap: "Spalt"
       gap_item: "Gap Artikel"
       # georeading: "Georeading"
-      grading_quality_criterion: "Grading Qualitätskriterium"
       guide: "Führen"
       guide_analysis: "Leitfaden Analyse"
       guide_analysis_point: "Führer Analysepunkt"
