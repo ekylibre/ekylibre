@@ -320,10 +320,10 @@ fra:
       show: "Agréage\_: %{number}"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
-      # edit_request: "Edit request %{procedure_name} #%{number}"
+      edit_request: "Modifier la demande de %{procedure_name} #%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
-      # new_request: "New requested intervention"
+      new_request: "Nouvelle demande d'intervention"
       run: "Exécuter l’intervention" #?
       set: "Saisie des valeurs de l’intervention" #?
       show: "%{procedure_name}"

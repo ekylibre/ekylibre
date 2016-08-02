@@ -92,6 +92,7 @@ fra:
     cleaner: "Outil de nettoyage"
     compressor: "Compresseur"
     construction_material: "Materiel de construction"
+    consumable_part: "Consommable"
     container: "Conteneur"
     corker: "Boucheuse"
     corks: "Bouchons"
@@ -221,6 +222,7 @@ fra:
     protective_canvas: "Bâche de protection"
     protective_net: "Filet de protection"
     pruner: "Sécateur" #?
+    replacement_part: "Pièce de remplacement"
     residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux" #?
     second_chemical_input_to_use: "Second intrant de protection des végétaux à utiliser" #?
