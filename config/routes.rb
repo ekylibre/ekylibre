@@ -502,6 +502,7 @@ Rails.application.routes.draw do
       end
       member do
         get :list_product_parameters
+        get :list_record_interventions
       end
     end
 

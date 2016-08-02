@@ -325,8 +325,10 @@ eng:
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
+      edit_request: "Edit request %{procedure_name} #%{number}"
       index: "Interventions"
       new: "New intervention"
+      new_request: "New requested intervention"
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Edit inventory"
@@ -1125,6 +1127,7 @@ eng:
     inspections: "Inspections"
     internal_error: "Oops, something happened."
     interval: "Personalized Interval" #?
+    xed_intervention: "%{x}ed intervention"
     intervention: "Intervention"
     intervention_at: "%{intervention} at %{at}"
     intervention_product_parameters: "Intervention casts"

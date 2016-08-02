@@ -91,7 +91,7 @@ module Backend
       t.column :human_target_names
       t.column :human_working_zone_area
       t.column :total_cost, currency: true
-      # t.status
+      t.column :nature
       t.column :issue, url: true
       t.column :trouble_encountered, hidden: true
       # t.column :casting
@@ -108,6 +108,16 @@ module Backend
       t.column :unit_name, through: :variant
       # t.column :working_zone, hidden: true
       t.column :variant, url: true
+    end
+
+    list(:record_interventions, model: :interventions, conditions: { request_intervention_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
+      # t.column :roles, hidden: true
+      t.column :name, sort: :reference_name
+      t.column :started_at, datatype: :datetime
+      t.column :stopped_at, datatype: :datetime
+      t.column :human_activities_names, through: :intervention
+      t.column :human_working_duration, through: :intervention
+      t.column :human_working_zone_area, through: :intervention
     end
 
     # Show one intervention with params_id

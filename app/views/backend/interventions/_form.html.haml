@@ -1,14 +1,15 @@
 - if f.object.errors.any? && Rails.env.development?
   = f.object.errors.inspect
 - procedure = f.object.procedure
+- content_for :main_title do
+  = ('actions.' + controller_path + '.' + action_name + '_' + f.object.nature).to_sym.t if f.object.request?
 - if procedure = f.object.procedure
   = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
   = field_set do
     = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
     = f.referenced_association :issue, new: false
-    = f.referenced_association :request_intervention, new: false, as: :hidden
-    / = f.referenced_association :intervention_done, new: false
-
+    - if f.object.record?
+      = f.referenced_association :request_intervention, new: false, as: :hidden
     = f.input :description
     - procedure.mandatory_actions.each do |a|
       = hidden_field_tag('intervention[actions][]', a.name)
