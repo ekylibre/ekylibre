@@ -753,8 +753,8 @@ eng:
         handlers:
           edit:
             tooltip:
-              subtext: "Click cancel to undo changes."
-              text: "Drag handles, or marker to edit feature."
+              subtext: "Click cancel to undo changes"
+              text: "Drag handles, or marker to edit feature"
           remove:
             tooltip:
               text: "Click on a feature to remove"
@@ -762,15 +762,15 @@ eng:
           actions:
             cancel:
               text: "Cancel"
-              title: "Cancel editing, discards all changes."
+              title: "Cancel editing, discards all changes"
             save:
               text: "Save"
-              title: "Save changes."
+              title: "Save changes"
           buttons:
-            edit: "Edit layers."
-            editDisabled: "No layers to edit."
-            remove: "Delete layers."
-            removeDisabled: "No layers to delete."
+            edit: "Edit layers"
+            editDisabled: "No layers to edit"
+            remove: "Delete layers"
+            removeDisabled: "No layers to delete"
       fullscreenTitle: "Full Screen"
       importerButtonTitle: "Import"
       zoomInTitle: "Zoom in"

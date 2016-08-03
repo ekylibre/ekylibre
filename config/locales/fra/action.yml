@@ -716,8 +716,8 @@ fra:
         handlers:
           edit:
             tooltip:
-              subtext: "Cliquez sur Annuler pour revenir sur les changements."
-              text: "Déplacez les ancres, ou le marqueur pour éditer l’objet."
+              subtext: "Cliquez sur Annuler pour revenir sur les changements"
+              text: "Déplacez les ancres, ou le marqueur pour éditer l’objet"
           remove:
             tooltip:
               text: "Cliquez sur l’objet à enlever"
@@ -725,15 +725,15 @@ fra:
           actions:
             cancel:
               text: "Annuler"
-              title: "Annulez l’édition, ignorer tous les changements."
+              title: "Annulez l’édition, ignorer tous les changements"
             save:
               text: "Sauver"
-              title: "Sauvegardez les changements."
+              title: "Sauvegardez les changements"
           buttons:
-            edit: "Editer les couches."
-            editDisabled: "Pas de couches à éditer."
-            remove: "Supprimer les couches."
-            removeDisabled: "Pas de couches à supprimer."
+            edit: "Editer les couches"
+            editDisabled: "Pas de couches à éditer"
+            remove: "Supprimer les couches"
+            removeDisabled: "Pas de couches à supprimer"
       fullscreenTitle: "Plein écran"
       importerButtonTitle: "Importer"
       zoomInTitle: "Zoomer"
