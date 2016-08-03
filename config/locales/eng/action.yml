@@ -796,9 +796,9 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
-    activity_countings: "Countings"
+    activity_countings: "Countings" #?!
     activity_family: "Family activities" #?
-    activity_inspections: "Inspections"
+    activity_inspections: "Inspections" #??
     activity_name: "Activity" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
@@ -929,6 +929,7 @@ eng:
     choose_a_type_of_product: "Choose a type of product"
     choose_creation_mode: "Choose creation mode"
     choose_mail_column: "Choose email column"
+    # chronology: "Chronology"
     clear: "Clear"
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
@@ -961,7 +962,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
-    countings: "Countings" #?
+    countings: "Countings"
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"

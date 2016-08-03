@@ -25,7 +25,7 @@
 #   - file: "app/assets/javascripts/i18n/translations.js"
 #     only: "*"
 #
-export_i18n_js: "app/assets/javascripts/i18n"
+export_i18n_js: false
 translations:
-  - file: "app/assets/javascripts/i18n/%{locale}.js"
-    only: '*.front-end.*'
+  - file: "app/assets/javascripts/i18n/translations.js"
+    only: ['*.front-end.*', '*.date.*', '*.time.*']

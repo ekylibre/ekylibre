@@ -167,10 +167,8 @@
   - else
     = no_data
 
-  - c.cobble(:chronology) do
-    .horizontal-timeline
-      %div.header
-      %div.content
+  - c.cobble(:horizontal_timeline) do
+    = horizontal_timeline()
 
 
   - c.cobble(:interventions) do

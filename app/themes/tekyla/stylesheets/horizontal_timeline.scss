@@ -1,10 +1,83 @@
 .horizontal-timeline {
+  padding: 20px;
+}
 
-  .header {
-    height: 100px;
-  }
+*, *:after, *:before {
+    box-sizing: border-box;
+}
 
-  .content {
-    height: 200px;
-  }
+
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: Helvetica, Arial;
+}
+body > section {
+    height: 100%;
+    width: 100%;
+}
+
+#chart {
+    width: 100%;
+    height: 300px;
+    background: rgb(218, 218, 218);
+    opacity: 0.9;
+    border-radius: 5px;
+    border: 1px solid #2b2b2b;
+}
+
+#chart line,
+#chart .tick {
+    stroke: #2b2b2b;
+}
+
+.timeline-chart rect, .timeline-chart rect.chart-bounds {
+  fill: transparent;
+}
+
+.timeline-chart .axis path {
+    fill: none;
+    stroke: none;
+}
+
+rect.interval.blue-interval {
+    fill: blue;
+    stroke: blue;
+    height: 30px
+}
+
+circle.blue-dot {
+    fill: blue;
+}
+
+/* Override d3tip */
+
+.d3-tip {
+    background: white;
+    color: black;
+}
+
+/* Tiny Flex Grid */
+
+[flex] {
+    display: flex;
+}
+[flex-fill] {
+    flex: 1;
+}
+[flex-full-center] {
+    align-items: center;
+    justify-content: center;
+}
+[flex-direction=column] {
+    flex-direction: column;
+}
+[flex-direction=row] {
+    flex-direction: row;
+}
+[flex-size="40"] {
+    flex: 40;
+}
+[flex-size="60"] {
+    flex: 60;
 }

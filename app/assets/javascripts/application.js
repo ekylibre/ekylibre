@@ -28,6 +28,10 @@
 //= require active_list.jquery
 //= require knockout
 //= require_self
+//= require i18n
+//= require i18n/translations
+//= require i18n/i18n_locale
+//= require i18n/i18n_ext
 //= require ekylibre
 //= require formize/behave
 //= require form/dialog
@@ -42,7 +46,6 @@
 //= require ui
 //= require jstz
 //= require heatmap
-//= require i18n/translations
 //= require geographiclib
 //= require leaflet.js.erb
 //= require leaflet/draw
@@ -53,6 +56,7 @@
 //= require leaflet/easy-button
 //= require leaflet/modal
 //= require leaflet/label
+//= require timeline-chart
 //= require rbush
 //= require autosize
 //= require plugins
