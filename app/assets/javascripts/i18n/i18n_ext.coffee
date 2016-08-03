@@ -1,4 +1,4 @@
-((E, $) ->
+(($) ->
 
   "use strict"
 
@@ -14,6 +14,12 @@
       else
         return translation
 
+
+
+    _getMonths: (key) ->
+        translation = I18n.translate(key)
+        if ( Object.prototype.toString.call( translation ) == '[object Array]' )
+          return translation[1..12]
 
     ###
         Remove list element if element has his value equal to :
@@ -35,33 +41,35 @@
   class Dates extends I18nExt
 
     getDayNames: ->
-      return this._getTranslation('date.day_names')
+      return I18n.translate('date.day_names')
 
     getMonthNames: ->
-      return this._getTranslation('date.month_names')
+      return this._getMonths('date.month_names')
 
     getAbbrDayNames: ->
-      return this._getTranslation('date.abbr_day_names')
+      return I18n.translate('date.abbr_day_names')
 
     getAbbrMonthNames: ->
-      return this._getTranslation('date.abbr_month_names')
+      return this._getMonths('date.abbr_month_names')
 
 
   class DateFormat extends I18nExt
 
     getDefaultFormat: ->
-      return this._getTranslation('date.formats.default')
+      return I18n.translate('date.formats.default')
 
     getLegalFormat: ->
-      return this._getTranslation('date.formats.legal')
+      return I18n.translate('date.formats.legal')
 
     getLongFormat: ->
-      return this._getTranslation('date.formats.long')
+      return I18n.translate('date.formats.long')
 
 
 
-  E.I18nExt = new I18nExt()
-  E.I18nExt.Dates = new Dates()
-  E.I18nExt.DateFormat = new DateFormat()
+  I18nExt = new I18nExt()
+  I18nExt.Dates = new Dates()
+  I18nExt.DateFormat = new DateFormat()
 
-) ekylibre, jQuery
+  $.extend(I18n, I18nExt)
+
+) jQuery
