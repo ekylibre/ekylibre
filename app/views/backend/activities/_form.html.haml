@@ -43,12 +43,12 @@
   = field_set(Activity.human_attribute_name(:distributions)) do
     = f.nested_association(:distributions)
 
-= field_set(:activity_seasons, title: Activity.human_attribute_name(:seasons)) do
-  = f.input :use_seasons, show: '#seasons'
-  #seasons
+= field_set(:seasons, title: Activity.human_attribute_name(:seasons)) do
+  = f.input :use_seasons, show: '#seasons-fields'
+  #seasons-fields
     = f.nested_association(:seasons)
 
-= field_set(:activity_tactics, title: Activity.human_attribute_name(:tactics)) do
-  = f.input :use_tactics, show: '#tactics'
-  #tactics
-    = f.nested_association(:tactics)
+= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
+  = f.input :use_tactics, show: '#tactics-fields'
+  #tactics-fields
+    = f.nested_association(:tactics, maximum: 1)

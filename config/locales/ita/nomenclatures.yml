@@ -145,10 +145,10 @@ ita:
         equipment_asset_depreciations: "svalutazioni di asset Attrezzature"
         equipment_assets: "Le attività Attrezzature"
         equipment_cooperative_participation_assets: "Attrezzature cooperativa beni di partecipazione"
-        equipment_depreciations_inputations_expenses: "Attrezzature Ammortamenti inputations spese"
+        equipment_depreciations_inputations_expenses: "Attrezzature Ammortamenti inputations spese" #?
         equipment_expenses: "spese Attrezzature"
         equipment_locative_expenses: "le spese di attrezzature locative"
-        equipment_maintenance_expenses: "le spese di attrezzature"
+        equipment_maintenance_expenses: "le spese di attrezzature" #?
         equipment_rent_expenses: "Attrezzature affitto le spese"
         equipment_subventions: "sovvenzioni Attrezzature"
         establishment_charge_assets: "Le attività di carica Establishment"

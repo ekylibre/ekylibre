@@ -261,6 +261,10 @@ class ActivityProduction < Ekylibre::Record::Base
     activity.family.to_s != 'fallow_land'
   end
 
+  def season?
+    !season_id.nil?
+  end
+
   # Returns interventions of current production
   def interventions
     Intervention.of_activity_production(self)

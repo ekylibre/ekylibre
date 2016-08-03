@@ -22,21 +22,17 @@
 #
 # == Table: activity_tactics
 #
-#  activity_id    :integer          not null
-#  bulk_delta     :integer
-#  bulk_quantity  :integer
-#  bulk_unit_name :string
-#  created_at     :datetime         not null
-#  creator_id     :integer
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  mode           :string
-#  mode_delta     :integer
-#  mode_unit_name :string
-#  name           :string           not null
-#  plan_on        :date
-#  updated_at     :datetime         not null
-#  updater_id     :integer
+#  activity_id  :integer          not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  mode         :string
+#  mode_delta   :integer
+#  name         :string           not null
+#  planned_on   :date
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 require 'test_helper'
 

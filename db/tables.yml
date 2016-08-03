@@ -510,6 +510,7 @@ activity_seasons:
     required: true
   name:
     type: string
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -521,12 +522,6 @@ activity_tactics:
     type: integer
     references: activity
     required: true
-  bulk_delta:
-    type: integer
-  bulk_quantity:
-    type: integer
-  bulk_unit_name:
-    type: string
   created_at:
     type: datetime
     required: true
@@ -543,12 +538,10 @@ activity_tactics:
     type: string
   mode_delta:
     type: integer
-  mode_unit_name:
-    type: string
   name:
     type: string
     required: true
-  plan_on:
+  planned_on:
     type: date
   updated_at:
     type: datetime

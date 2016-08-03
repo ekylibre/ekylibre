@@ -77,6 +77,8 @@ activities_001:
   updater_id: 1
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_002:
@@ -100,6 +102,8 @@ activities_002:
   updater_id: 1
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_003:
@@ -119,6 +123,8 @@ activities_003:
   updater_id: 1
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: false
   with_supports: false
 activities_004:
@@ -143,6 +149,8 @@ activities_004:
   updater_id: 1
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_005:
@@ -167,6 +175,8 @@ activities_005:
   updater_id: 1
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_006:
@@ -187,6 +197,8 @@ activities_006:
   updater_id: 1
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: false
   with_supports: false
 activities_007:
@@ -209,14 +221,17 @@ activities_007:
   updated_at: 2016-01-21 14:05:46.351081000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_008:
   created_at: 2016-01-21 14:05:47.480362000 Z
   cultivation_variety: zea_mays
+  description: ''
   family: plant_farming
   id: 9
-  lock_version: 0
+  lock_version: 1
   measure_grading_items_count: false
   measure_grading_net_mass: false
   measure_grading_sizes: false
@@ -228,9 +243,11 @@ activities_008:
   size_unit_name: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2016-01-21 14:05:47.480362000 Z
+  updated_at: 2016-07-29 09:03:43.304413000 Z
+  updater_id: 1
   use_countings: false
   use_gradings: false
+  use_tactics: true
   with_cultivation: true
   with_supports: true
 activities_009:
@@ -253,6 +270,8 @@ activities_009:
   updated_at: 2016-01-21 14:05:47.774103000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_010:
@@ -276,6 +295,8 @@ activities_010:
   updated_at: 2016-01-21 14:05:48.250016000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_011:
@@ -298,6 +319,8 @@ activities_011:
   updated_at: 2016-01-21 14:05:48.385508000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_012:
@@ -320,6 +343,8 @@ activities_012:
   updated_at: 2016-01-21 14:05:48.519822000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_013:
@@ -342,6 +367,8 @@ activities_013:
   updated_at: 2016-01-21 14:05:48.672465000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_014:
@@ -365,6 +392,8 @@ activities_014:
   updated_at: 2016-01-21 14:05:48.816582000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_015:
@@ -387,6 +416,8 @@ activities_015:
   updated_at: 2016-01-21 14:05:49.164349000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_016:
@@ -411,6 +442,8 @@ activities_016:
   updater_id: 1
   use_countings: false
   use_gradings: true
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_017:
@@ -433,6 +466,8 @@ activities_017:
   updated_at: 2016-01-21 14:05:49.554454000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_018:
@@ -457,6 +492,8 @@ activities_018:
   updater_id: 1
   use_countings: true
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_019:
@@ -480,6 +517,8 @@ activities_019:
   updated_at: 2016-01-21 14:05:51.294978000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_020:
@@ -502,6 +541,8 @@ activities_020:
   updated_at: 2016-01-21 14:05:51.718311000 Z
   use_countings: false
   use_gradings: false
+  use_seasons: false
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_021:
@@ -514,7 +555,7 @@ activities_021:
   grading_sizes_indicator_name: length
   grading_sizes_unit_name: centimeter
   id: 22
-  lock_version: 0
+  lock_version: 1
   measure_grading_items_count: true
   measure_grading_net_mass: true
   measure_grading_sizes: true
@@ -527,9 +568,11 @@ activities_021:
   size_unit_name: hectare
   support_variety: land_parcel
   suspended: false
-  updated_at: 2016-05-10 19:12:13.384484000 Z
+  updated_at: 2016-07-29 09:03:08.438666000 Z
   updater_id: 1
   use_countings: true
   use_gradings: true
+  use_seasons: true
+  use_tactics: true
   with_cultivation: true
   with_supports: true
