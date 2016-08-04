@@ -978,7 +978,7 @@ eng:
     product_localizations: "Product localizations" #?
     product_memberships: "Product memberships" #?
     product_movement: "Product movement"
-    product_name: "Name"
+    product_name: "Product"
     product_nature: "Product type"
     product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"
@@ -987,7 +987,7 @@ eng:
     product_nature_variant: "Product nature variant"
     product_nature_variant_component: "Product nature variant component" #?
     product_nature_variant_id: "Product nature variant"
-    # product_natures: "Product natures"
+    product_natures: "Product types"
     # product_net_surface_area_unit: "Product net surface area unit"
     # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "Product ownership"

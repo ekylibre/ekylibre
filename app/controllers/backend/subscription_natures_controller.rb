@@ -41,5 +41,14 @@ module Backend
       t.column :started_on
       t.column :stopped_on
     end
+
+    list(:product_natures, conditions: { subscription_nature_id: 'params[:id]'.c }) do |t|
+      t.action :edit
+      t.action :destroy
+      t.column :number, url: true
+      t.column :name, url: true
+      t.column :subscribing
+      t.column :subscription_duration
+    end
   end
 end

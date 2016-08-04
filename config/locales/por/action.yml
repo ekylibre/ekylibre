@@ -1663,6 +1663,7 @@ por:
       # bookkeep: "Bookkeep"
       cancel: "Cancelar"
       category: "Categoria" #?
+      check: "Verifica"
       children: "Crianças" #?
       close: "Fechar"
       compute: "Calcular"
@@ -1686,6 +1687,7 @@ por:
       family: "Família"
       finish: "Terminar"
       generate_last_journal_entry: "Gerar última entrada do diário"
+      give: "Dar"
       import: "Importar"
       incorporate: "Incorporar"
       increment: "Incremento" #?
@@ -1702,8 +1704,10 @@ por:
       negociate: "Negociar"
       new: "Novo"
       open: "Aberto"
+      order: "Ordem"
       pick: "Escolher"
       picture: "Fotografia"
+      prepare: "Preparar"
       propose: "Propor"
       propose_and_invoice: "Propor e fatura"
       prospect: "Prospecto"

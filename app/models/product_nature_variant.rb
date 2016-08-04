@@ -58,9 +58,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'
 
-  has_many :products, foreign_key: :variant_id
-  has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant
-  has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant
+  has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
+  has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
   has_picture
 
@@ -119,7 +120,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :of_category, ->(category) { where(category: category) }
 
   protect(on: :destroy) do
-    products.any?
+    products.any? || sale_items.any? || purchase_items.any? || parcel_items.any?
   end
 
   before_validation on: :create do

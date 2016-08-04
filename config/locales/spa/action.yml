@@ -1959,6 +1959,7 @@ spa:
       # bookkeep: "Bookkeep"
       cancel: "Cancelar"
       category: "Categoría" #?
+      check: "Comprobar"
       children: "Niños" #?
       close: "Cerca"
       compute: "Calcular"
@@ -1982,6 +1983,7 @@ spa:
       family: "Familia"
       finish: "Acabado"
       generate_last_journal_entry: "Generar última entrada en el diario"
+      give: "Dar"
       import: "Importar"
       incorporate: "Incorporar"
       increment: "Incremento" #?
@@ -1998,8 +2000,10 @@ spa:
       negociate: "Negociate"
       new: "Nuevo"
       open: "Abierto"
+      order: "Orden"
       pick: "Recoger"
       picture: "Imagen"
+      prepare: "Preparar"
       propose: "Proponer"
       propose_and_invoice: "Proponer y factura"
       prospect: "Perspectiva"

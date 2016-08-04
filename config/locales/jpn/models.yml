@@ -958,6 +958,7 @@ jpn:
     # product_nature_variant: "Product nature variant"
     # product_nature_variant_component: "Product nature variant component"
     # product_nature_variant_id: "Product nature variant"
+    product_natures: "製品の種類"
     product_ownership: "製品の所有権"
     product_ownerships: "製品の所有権"
     product_parameters: "製品パラメータ"

@@ -784,6 +784,7 @@ Rails.application.routes.draw do
     resources :subscription_natures, concerns: [:list, :unroll], path: 'subscription-natures' do
       member do
         get :list_subscriptions
+        get :list_product_natures
       end
     end
 

@@ -1724,6 +1724,7 @@ ita:
       # bookkeep: "Bookkeep"
       cancel: "Annulla"
       category: "Categoria" #?
+      check: "Dai un’occhiata"
       children: "Bambini" #?
       close: "Vicino"
       compute: "Calcolare"
@@ -1747,6 +1748,7 @@ ita:
       family: "Famiglia"
       finish: "finire"
       generate_last_journal_entry: "Generare ultima voce di diario"
+      give: "Dare"
       import: "Importare"
       incorporate: "incorporare"
       increment: "Incremento" #?
@@ -1763,8 +1765,10 @@ ita:
       negociate: "negoziare"
       new: "Nuovo"
       open: "aperto"
+      order: "Ordine"
       pick: "scegliere"
       picture: "Immagine"
+      prepare: "Preparare"
       propose: "Proporre"
       propose_and_invoice: "Proporre e fattura"
       prospect: "Prospettiva"

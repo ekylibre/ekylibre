@@ -1735,6 +1735,7 @@ jpn:
       # bookkeep: "Bookkeep"
       cancel: "キャンセル"
       category: "カテゴリ" #?
+      check: "チェック"
       children: "子供" #?
       close: "閉じる"
       compute: "計算"
@@ -1758,6 +1759,7 @@ jpn:
       family: "家族"
       finish: "仕上げ"
       generate_last_journal_entry: "最後の仕訳を生成します"
+      give: "与える"
       import: "インポート"
       incorporate: "組み込みます"
       increment: "インクリメント" #?
@@ -1774,8 +1776,10 @@ jpn:
       # negociate: "Negociate"
       new: "新しい"
       open: "開いた"
+      order: "注文"
       pick: "ピック"
       picture: "画像"
+      prepare: "準備します"
       propose: "提案します"
       propose_and_invoice: "提案と請求書"
       prospect: "見通し"

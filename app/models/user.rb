@@ -301,7 +301,7 @@ class User < Ekylibre::Record::Base
     if options[:on]
       crumbs = crumbs.where(read_at: options[:on].beginning_of_day..options[:on].end_of_day)
     end
-    crumbs.order(read_at: :asc).map(&:intervention_path)
+    crumbs.order(read_at: :asc).map(&:intervention_path).uniq
   end
 
   def current_campaign

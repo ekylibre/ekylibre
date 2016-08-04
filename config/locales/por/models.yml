@@ -958,6 +958,7 @@ por:
     # product_nature_variant: "Product nature variant"
     # product_nature_variant_component: "Product nature variant component"
     # product_nature_variant_id: "Product nature variant"
+    product_natures: "Tipos de produtos"
     product_ownership: "Propriedade do produto"
     product_ownerships: "Ownerships produtos"
     product_parameters: "Parâmetros do produto"

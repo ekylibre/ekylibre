@@ -1658,6 +1658,7 @@ deu:
       # bookkeep: "Bookkeep"
       cancel: "Stornieren"
       category: "Kategorie" #?
+      check: "Prüfen"
       children: "Kinder" #?
       close: "Schließen"
       compute: "Berechnen"
@@ -1680,6 +1681,7 @@ deu:
       family: "Familie"
       finish: "Fertig"
       generate_last_journal_entry: "Generieren letzten Tagebucheintrag"
+      give: "Geben"
       import: "Einführen"
       incorporate: "integrieren"
       increment: "Zuwachs" #?
@@ -1696,8 +1698,10 @@ deu:
       negociate: "verhandeln"
       new: "Neu"
       open: "Öffnen"
+      order: "Auftrag"
       pick: "pflücken"
       picture: "Bild"
+      prepare: "Bereiten"
       propose: "Vorschlagen"
       propose_and_invoice: "Vorschlagen und Rechnung"
       prospect: "Aussicht"

@@ -1187,6 +1187,7 @@
         <page to="backend/subscription_natures#edit"/>
         <page to="backend/subscription_natures#list"/>
         <page to="backend/subscription_natures#list_subscriptions"/>
+        <page to="backend/subscription_natures#list_product_natures"/>
         <page to="backend/subscription_natures#new"/>
         <page to="backend/subscription_natures#update"/>
         <page to="backend/subscription_natures#show"/>

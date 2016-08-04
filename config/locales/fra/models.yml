@@ -1185,7 +1185,7 @@ fra:
     product_mixings: "Mélanges de produit" #?
     product_movement: "Mouvement de produit"
     product_moves: "Mouvements de produit" #?
-    product_name: "prénom"
+    product_name: "Produit"
     product_nature: "Type de produit"
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
@@ -1194,6 +1194,7 @@ fra:
     # product_nature_variant: "Product nature variant"
     # product_nature_variant_component: "Product nature variant component"
     # product_nature_variant_id: "Product nature variant"
+    product_natures: "Types de produits"
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"

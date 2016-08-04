@@ -962,6 +962,7 @@ spa:
     # product_nature_variant: "Product nature variant"
     # product_nature_variant_component: "Product nature variant component"
     # product_nature_variant_id: "Product nature variant"
+    product_natures: "Tipos de productos"
     product_ownership: "Propiedad del producto"
     product_ownerships: "Titularidades de productos"
     product_parameters: "Parámetros del producto"
