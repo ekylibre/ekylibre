@@ -133,8 +133,8 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
     add_reference :interventions, :request_intervention, index: true
 
     add_column :interventions, :trouble_encountered, :boolean,
-      null: false,
-      default: false
+               null: false,
+               default: false
     add_column :interventions, :trouble_description, :string
 
     # Create product nature variant component
@@ -145,11 +145,11 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
       t.datetime :deleted_at
       t.string :name, null: false
       t.index :product_nature_variant_id,
-        name: :index_product_nature_variant_components_on_variant
+              name: :index_product_nature_variant_components_on_variant
       t.index :part_product_nature_variant_id,
-        name: :index_product_nature_variant_components_on_part_variant
+              name: :index_product_nature_variant_components_on_part_variant
       t.index :deleted_at,
-        name: :index_product_nature_variant_components_on_deleted_at
+              name: :index_product_nature_variant_components_on_deleted_at
       t.stamps
     end
 
