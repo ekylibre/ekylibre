@@ -3,7 +3,12 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
     # Add nature for intervention
     reversible do |dir|
       dir.up do
-        execute "update interventions set state='aborted' where state='squeezed'"
+        execute <<-SQL
+        UPDATE interventions
+          SET state='aborted'
+          WHERE state='squeezed'
+        SQL
+
         execute <<-SQL
         DELETE FROM intervention_parameter_readings
           WHERE id IN (

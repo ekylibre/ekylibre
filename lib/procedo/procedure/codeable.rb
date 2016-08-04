@@ -10,8 +10,8 @@ module Procedo::Procedure::Codeable
       base_parse_options = {}
       base_parse_options[:root] = options[:root] if options[:root]
       snippets.each do |snippet|
-        tree_name = snippet.to_s + '_tree'
-        instance_var = '@' + tree_name
+        tree_name = snippet.to_s + "_tree"
+        instance_var = "@" + tree_name
         attr_reader tree_name
 
         define_method "#{snippet}=" do |expr|
@@ -48,8 +48,8 @@ module Procedo::Procedure::Codeable
     def parse!(code, options = {})
       return Procedo::Formula.parse(code.to_s, options)
     rescue Procedo::Formula::SyntaxError => e
-      raise (options[:message] || "Syntax error in #{code.inspect}.") + ' ' + e.message + "\n" +
-            code + "\n" + ('━' * e.failure_index) + '┛'
+      raise (options[:message] || "Syntax error in #{code.inspect}.") + " " + e.message + "\n" +
+            code + "\n" + ("━" * e.failure_index) + "┛"
     end
 
     # Detects environment variables for the given name
