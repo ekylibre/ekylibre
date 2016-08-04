@@ -41,7 +41,7 @@ class InspectionPoint < Ekylibre::Record::Base
   belongs_to :nature, class_name: 'ActivityInspectionPointNature'
   belongs_to :inspection, inverse_of: :points
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { allow_nil: true }
+  validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :inspection, :nature, presence: true
   # ]VALIDATORS]
 

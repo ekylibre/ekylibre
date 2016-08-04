@@ -47,11 +47,12 @@ class FinancialYear < Ekylibre::Record::Base
   has_many :account_balances, class_name: 'AccountBalance', foreign_key: :financial_year_id, dependent: :delete_all
   has_many :fixed_asset_depreciations, class_name: 'FixedAssetDepreciation'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(financial_year) { financial_year.stopped_on && financial_year.started_on }
-  validates :currency_precision, numericality: { allow_nil: true, only_integer: true }
   validates :closed, inclusion: { in: [true, false] }
-  validates :code, :currency, :started_on, :stopped_on, presence: true
+  validates :code, presence: true, length: { maximum: 500 }
+  validates :currency, presence: true
+  validates :currency_precision, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(financial_year) { financial_year.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :code, length: { allow_nil: true, maximum: 20 }

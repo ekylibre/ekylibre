@@ -47,12 +47,13 @@ class FixedAssetDepreciation < Ekylibre::Record::Base
   belongs_to :financial_year
   belongs_to :journal_entry
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :accounted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(fixed_asset_depreciation) { fixed_asset_depreciation.stopped_on && fixed_asset_depreciation.started_on }
-  validates :amount, :depreciable_amount, :depreciated_amount, numericality: { allow_nil: true }
   validates :accountable, :locked, inclusion: { in: [true, false] }
-  validates :amount, :fixed_asset, :started_on, :stopped_on, presence: true
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :depreciable_amount, :depreciated_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(fixed_asset_depreciation) { fixed_asset_depreciation.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :fixed_asset, presence: true
   # ]VALIDATORS]
   validates :financial_year, presence: true
   delegate :currency, to: :fixed_asset

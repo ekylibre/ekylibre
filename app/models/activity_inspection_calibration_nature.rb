@@ -39,9 +39,9 @@ class ActivityInspectionCalibrationNature < Ekylibre::Record::Base
   has_one :activity, through: :scale
   has_many :inspection_calibrations, class_name: 'InspectionCalibration', inverse_of: :nature, foreign_key: :nature_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :maximal_value, :minimal_value, numericality: { allow_nil: true }
   validates :marketable, inclusion: { in: [true, false] }
-  validates :maximal_value, :minimal_value, :scale, presence: true
+  validates :maximal_value, :minimal_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :scale, presence: true
   # ]VALIDATORS]
 
   delegate :size_indicator, :size_unit, to: :scale

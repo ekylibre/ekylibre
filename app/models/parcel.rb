@@ -72,9 +72,13 @@ class Parcel < Ekylibre::Record::Base
   # has_many :interventions, class_name: 'Intervention', as: :resource
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :given_at, :in_preparation_at, :ordered_at, :planned_at, :prepared_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :delivery_mode, :reference_number, length: { maximum: 500 }, allow_blank: true
+  validates :given_at, :in_preparation_at, :ordered_at, :prepared_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :nature, :state, presence: true, length: { maximum: 500 }
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }
-  validates :nature, :number, :planned_at, :state, presence: true
+  validates :separated_stock, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :delivery_mode, :address, presence: true
   validates :recipient, presence: { if: :outgoing? }
