@@ -51,7 +51,6 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
           SET state='record'
           WHERE state='done'
         SQL
-
       end
 
       dir.down do
@@ -72,9 +71,9 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
           SET state='undone'
           WHERE state='request'
         SQL
-
       end
     end
+
     reversible do |dir|
       dir.up do
         execute <<-SQL
@@ -89,7 +88,6 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
           WHERE reference_name = 'piece'
         SQL
 
-
         execute <<-SQL
         UPDATE interventions
           SET procedure_name = 'equipment_maintenance'
@@ -101,8 +99,8 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
           SET reference_name = 'part'
           WHERE reference_name = 'oil'
         SQL
-
       end
+
       dir.down do
         execute <<-SQL
         UPDATE interventions
@@ -116,7 +114,6 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
           WHERE reference_name = 'part'
         SQL
 
-
         execute <<-SQL
         UPDATE interventions
           SET procedure_name = 'oil_replacement'
@@ -128,7 +125,6 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
           SET reference_name = 'oil'
           WHERE reference_name = 'part'
         SQL
-
       end
     end
 
