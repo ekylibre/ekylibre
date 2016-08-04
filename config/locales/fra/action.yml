@@ -1425,9 +1425,11 @@ fra:
     new_family: "Nouvelle famille" #?
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
+    new_incoming_parcel: "Nouveau colis entrant"
     new_issue: "Nouvel incident"
     new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?
+    new_outgoing_parcel: "Nouveau colis sortant"
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"
