@@ -1,5 +1,28 @@
 - main_toolbar do |t|
   = t.edit resource
+  - target = {}
+  - target[:reference_name] = :equipment
+  - target[:product_id] = resource.id
+
+  - input = {}
+  - input[:reference_name] = :replacement_part
+  - input[:component_id] = component.id
+
+  - group = []
+  - group[:reference_name] = :work
+  - group[:targets_attributes] = { "0"=> target }
+  - group[:inputs_attributes] = { "0"=> input }
+
+  - prefill = {}
+  - prefill[:procedure_name] = :equipment_maintenance
+  - prefill[:actions] = [:curative_maintenance]
+  - prefill[:group_parameters_attributes] = {0 => group})
+
+  - options = {}
+  - options[:action] = :new
+  - options[:controller] = :interventions
+  - options[:redirect] = request.fullpath
+  - options.merge! prefill
   = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
 
 - main_campaign_selector
