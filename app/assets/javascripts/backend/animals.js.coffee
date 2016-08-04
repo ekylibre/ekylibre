@@ -12,20 +12,17 @@
     constructor: (id) ->
       @id = id
 
-      @showAnimalDetailsModal = ko.observable false
-      @showNewContainerModal = ko.observable false
-      @showMoveAnimalModal = ko.observable false
-      @showNewGroupModal = ko.observable false
+      @selectedItemsIndex = {}
 
-      @animalDetailsModalOptions = ko.observable false
-      @containerModalOptions =
-        group: ko.observable undefined
-        items: ko.observableArray []
-#        newContainer: ko.observable undefined
+      @newContainerModal =
+        show: ko.observable false
+        group: ko.observable false
+        targetContainer: ko.observable undefined
 
-#      @newContainer = ko.observable ''
 
-      @moveAnimalModalOptions =
+      @moveAnimalsModal =
+        show: ko.observable false
+        container: ko.observable false
         animals: ko.observableArray []
         started_at: ko.observable ''
         stopped_at: ko.observable ''
@@ -33,13 +30,17 @@
         variant: ko.observable undefined
         production_support: ko.observable undefined
         group: ko.observable undefined
-        container: ko.observable undefined
         alert: ko.observable false
         checkNature: ko.observable false
 
-      @moveAnimalModalOptions.checkNature.subscribe (value) =>
+      @moveAnimalsModal.checkNature.subscribe (value) =>
         if value != 1
-          @moveAnimalModalOptions.variant undefined
+          @moveAnimalsModal.variant undefined
+
+      @showAnimalDetailsModal = ko.observable false
+      @showNewGroupModal = ko.observable false
+
+      @animalDetailsModalOptions = ko.observable false
 
       @newGroupModalOptions =
         group: ko.observable ''
@@ -57,23 +58,14 @@
         # Lets JQuery to do this simple task, no need an observable for that.
         name = $("#containers_list").val()
         id = $("input[name='containers_list']").val()
+        console.log 'CHANGE THIS', @newContainerModal.targetContainer()
 
-#        newContainer = new golumn.Container(@newContainer().id, @newContainer().name, @containerModalOptions())
-        newContainer = G.Container(id, name, @containerModalOptions.items)
-        @containerModalOptions.group().push newContainer
+        group = @newContainerModal.group()
+        newContainer = new G.Container(id, name, ko.observableArray([]), group)
+        group.containers.push newContainer
 
-#        if @droppedAnimals().length > 0
-#          #Send animals by values instead of observableArray reference
-#          animals = []
-#          ko.utils.arrayForEach @droppedAnimals(), (a) =>
-#            animals.push a
-
-#          @toggleMoveAnimalModal(animals,newContainer);
-
-
-
-        @resetContainerAdding()
-
+        @resetNewContainerModal()
+        @toggleMoveAnimalModal(newContainer)
 
 #      @containers_list = ko.observableArray []
       @workers_list = ko.observableArray []
@@ -88,28 +80,6 @@
 
       @drop = ko.observable
       @hoverdrop = ko.observable
-      @droppedAnimals = ko.observableArray []
-
-
-#
-#
-#      @displayedContainers = (group) =>
-#
-#        c = ko.utils.arrayFilter @containers(), (c) =>
-#          c.group_id() == group.id
-#
-#        return @sortContainerByPosition c
-
-
-      @sortContainerByPosition = (containers) =>
-        containers.sort (a,b) =>
-          if a.position() == b.position()
-            res = 0
-          else if a.position() < b.position()
-            res = -1
-          else
-            res = 1
-          return res
 
       @toggleAnimalDetailsModal = (animal) =>
         @animalDetailsModalOptions animal
@@ -120,21 +90,22 @@
         @showNewGroupModal true
         return
 
-      @toggleNewContainerModal = (group, items = []) =>
-        @containerModalOptions.group group
-        @containerModalOptions.items items
-        @showNewContainerModal true
+      @toggleNewContainerModal = (group) =>
+        @newContainerModal.show(true)
+        @newContainerModal.group(group)
         #Be sure only one modal is displayed
-        @showMoveAnimalModal false
+        @moveAnimalsModal.show(false)
 
-      @toggleMoveAnimalModal = (animals, container) =>
-        @moveAnimalModalOptions.animals animals
-        @moveAnimalModalOptions.container container
-        group = ko.utils.arrayFirst @groups(), (g) =>
-          g.id == container.group_id()
-        @moveAnimalModalOptions.group group
+      @toggleMoveAnimalModal = (container) =>
+        @moveAnimalsModal.container(container)
 
-        @showMoveAnimalModal true
+
+        for id, item of @selectedItemsIndex
+          @moveAnimalsModal.animals.push item
+
+
+        @moveAnimalsModal.show(true)
+
         $.ajax '/backend/animals/load_workers',
           type: 'GET',
           dataType: 'JSON',
@@ -159,39 +130,6 @@
             ko.utils.arrayForEach json_data, (j) =>
               window.app.production_support_list.push j
             return true
-
-      @moveContainer = (container, sourceGroup, sourceIndex, targetGroup, targetIndex) =>
-        #Allow to update multiple containers
-        offset = container.length || 1
-
-        #update target group
-        container.group_id targetGroup.id
-        container.position targetIndex
-
-        supContainers = ko.utils.arrayFilter @containers(), (c) =>
-          c.group_id() == targetGroup.id and c.position() > targetIndex and c.id != container.id
-
-        ko.utils.arrayForEach supContainers, (f) =>
-          f.position f.position()+offset
-
-        infContainers = ko.utils.arrayFilter @containers(), (c) =>
-          c.group_id() == targetGroup.id and c.position() <= targetIndex and c.id != container.id
-
-        ko.utils.arrayForEach infContainers, (f) =>
-          f.position f.position()-offset
-
-        if sourceGroup != targetGroup
-          #two swaps, we need to reorganize source group without removed container and change the owner group
-
-          supContainers = ko.utils.arrayFilter @containers(), (c) =>
-            c.group_id() == sourceGroup.id and c.position() > sourceIndex and c.id != container.id
-
-          ko.utils.arrayForEach supContainers, (f) =>
-            f.position f.position()-offset
-
-        #update preferences
-        @updatePreferences();
-
 
       @moveAnimals = () =>
 
@@ -237,7 +175,7 @@
                  @animals.push new golumn.Animal(id, name, img, status, sex, num, @moveAnimalModalOptions.container().id, @moveAnimalModalOptions.group().id)
 
 
-              @resetAnimalsMoving()
+              @resetMoveAnimalsModal()
 
 
               return true
@@ -250,49 +188,37 @@
         else
           @moveAnimalModalOptions.alert true
 
-      @cancelAnimalsMoving = () =>
+      @resetMoveAnimalsModal = () =>
 
-        ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
-          id = a.id
-          name = a.name
-          img = a.img
-          status = a.status
-          sex = a.sex
-          num = a.number_id
-          container = a.container_id()
-          group = a.group_id()
-          @animals.remove a
-          @animals.push new golumn.Animal(id, name, img, status, sex, num, container, group)
-
-        @showMoveAnimalModal false
-
-        @resetAnimalsMoving()
-
-      @resetAnimalsMoving = () =>
-        @moveAnimalModalOptions.animals.removeAll()
-
-        @moveAnimalModalOptions.container undefined
-        @moveAnimalModalOptions.started_at ''
-        @moveAnimalModalOptions.stopped_at ''
-        @moveAnimalModalOptions.worker undefined
-        @moveAnimalModalOptions.variant undefined
-        @moveAnimalModalOptions.group undefined
-        @moveAnimalModalOptions.alert false
-        @moveAnimalModalOptions.checkNature false
-        @production_support_list.removeAll()
-        @workers_list.removeAll()
-        @natures_list.removeAll()
-
-      @cancelContainerAdding = () =>
-        @resetContainerAdding()
+        @moveAnimalsModal.show false
+        @moveAnimalsModal.container false
+        @moveAnimalsModal.animals.removeAll()
+        @moveAnimalsModal.started_at ''
+        @moveAnimalsModal.stopped_at ''
+        @moveAnimalsModal.worker undefined
+        @moveAnimalsModal.variant undefined
+        @moveAnimalsModal.production_support undefined
+        @moveAnimalsModal.group undefined
+        @moveAnimalsModal.alert false
+        @moveAnimalsModal.checkNature false
 
 
-      @resetContainerAdding = () =>
+      @resetNewContainerModal = () =>
+        @newContainerModal.show false
+        @newContainerModal.group false
 #        @newContainer = ko.observable false
-        @containerModalOptions = ko.observable false
-        @containers_list.removeAll()
-        @showNewContainerModal false
-        @droppedAnimals.removeAll()
+#        @containerModalOptions = ko.observable false
+#        @containers_list.removeAll()
+#        @showNewContainerModal false
+#        @droppedAnimals.removeAll()
+
+
+      @resetSelectedItems = () =>
+        for id, item  of @selectedItemsIndex
+          item.checked(false)
+
+        @selectedItemsIndex = {}
+
 
       @updatePreferences = () =>
 

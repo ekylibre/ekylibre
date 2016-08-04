@@ -32,7 +32,7 @@
               %span.golumn-column-title{data: {bind: 'text: name'}}
           .golumn-column-body
             .add-container.dropzone{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}" },style:'display:none'}
-              %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
+              %button.btn.btn-link{type: 'button'}
                 %i.icon.icon-plus.text-muted
             %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: containers }"}}
           -# = link_to('#', data: {target: '#new-animal', toggle: 'modal'}, class: "golumn-column-footer") do
@@ -88,17 +88,17 @@
           = :add.tl
 
 
-    = modal(:move_animal, data: {bind: 'modal: showMoveAnimalModal(), with: moveAnimalModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelAnimalsMoving'}}) do
+    = modal(:move_animal, data: {bind: 'modal: moveAnimalsModal.show(), with: moveAnimalsModal', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.resetMoveAnimalsModal'}}) do
       .modal-body
         .alert.alert-danger{data: {bind: 'visible: alert'}}= :missing_attributes.tl
         %form.form-horizontal.v-spacer
           .control-group
             = label_tag(:moved, :move.ta, class: 'control-label')
-            .controls{data: {bind: 'foreach: animals()'}}
+            .controls{data: {bind: 'foreach: animals'}}
               %span{data: {bind: 'text: name'} }
-          .control-group{data: {bind: 'if: group' } }
+          .control-group{data: {bind: 'if: container() && container().parent' } }
             = label_tag(:group, 'enumerize.equipment.variety.animal_group'.t, class: 'control-label')
-            .controls{data: {bind: 'text: group().name'}}
+            .controls{data: {bind: 'text: container().parent.name'}}
           .control-group{data: {bind: 'if: container' } }
             = label_tag(:container, :container.tl, class: 'control-label')
             .controls{data: {bind: 'text: container().name'}}
@@ -140,7 +140,7 @@
           = :move.ta
 
 
-    = modal(:new_container, data: {bind: 'modal: showNewContainerModal(), with: containerModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelContainerAdding'}}) do
+    = modal(:new_container, data: {bind: 'modal: newContainerModal.show(), with: newContainerModal', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.resetNewContainerModal'}}) do
       .modal-body
         %div{data: { bind: 'if: group' }}
           %span{data: {bind: 'text: group().name'}}
