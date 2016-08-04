@@ -363,9 +363,9 @@
           places = ko.utils.arrayMap group.places, (place) =>
 
             animals = ko.utils.arrayMap place.animals, (animal) =>
-              new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number)
+              new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number, place)
 
-            new G.Container(place.id, place.name, animals)
+            new G.Container(place.id, place.name, ko.observableArray(animals), group)
 
           new G.Group(group.id, group.name, ko.observableArray(places))
 

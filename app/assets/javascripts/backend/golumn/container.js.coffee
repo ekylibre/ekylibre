@@ -1,6 +1,5 @@
 class golumn.Container
-  constructor: (@id, @name, items) ->
-    @items = ko.observableArray(items)
+  constructor: (@id, @name, @items, @parent) ->
     @count = ko.pureComputed () =>
       @items().length
     @hidden = ko.observable false
