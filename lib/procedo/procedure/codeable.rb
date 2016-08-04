@@ -113,7 +113,7 @@ module Procedo
             return 1
           end
           return 0 unless node.elements
-          node.elements.reduce(0) do |count, child|
+          node.elements.inject(0) do |count, child|
             count + count_variables(child, name)
           end
         end
