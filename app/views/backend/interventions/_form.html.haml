@@ -44,8 +44,7 @@
 - else # Root Procedure Natures
   - main_campaign_selector
   - Nomen::ActivityFamily.find_each do |family|
-    - families = Nomen::ProcedureCategory.all.map(&:activity_family)
-    - categories = families.select { |f| f.include?(family.name.to_sym) }
+    - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
     - next unless categories.any?
     .activity-family
       %h2.activity-family-name= family.human_name
