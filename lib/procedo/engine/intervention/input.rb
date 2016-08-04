@@ -8,8 +8,9 @@ module Procedo
 
         def initialize(intervention, id, attributes = {})
           super(intervention, id, attributes)
-          @component_id = attributes[:component_id].to_i if attributes[:component_id].present?
-          @schematic_id = attributes[:schematic_id].to_i if attributes[:component_id].present?
+          attributes = Maybe(attributes)
+          @component_id = attributes[:component_id].to_i.or_else(nil)
+          @schematic_id = attributes[:schematic_id].to_i.or_else(nil)
         end
 
         def to_hash

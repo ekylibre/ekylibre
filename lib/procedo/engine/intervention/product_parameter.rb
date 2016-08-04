@@ -154,9 +154,11 @@ module Procedo
           end
         end
 
-        def impact_on_components(field)
-          procedure.parameters.select { |p| p.depend_on?(self) }.each do |component_parameter|
-            intervention.parameters_of_name(component_parameter.name).each do |component_inputs|
+        def impact_on_components(_field)
+          dependents = procedure.parameters.select { |p| p.depend_on?(self) }
+          dependents.each do |component_parameter|
+            inputs = intervention.parameters_of_name(component_parameter.name)
+            inputs.each do |component_inputs|
               component_inputs.schematic_source = self
             end
           end
