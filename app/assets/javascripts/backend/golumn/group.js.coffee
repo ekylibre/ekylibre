@@ -1,6 +1,5 @@
 class golumn.Group
-  constructor: (@id, @name, containers) ->
-    @containers = ko.observableArray(containers)
+  constructor: (@id, @name, @containers) ->
     @toggleItems = ko.observable false
 #    @toggleItems.subscribe (newValue) =>
 #
