@@ -68,7 +68,7 @@
 #          ko.utils.arrayForEach @droppedAnimals(), (a) =>
 #            animals.push a
 
-          @toggleMoveAnimalModal(animals,newContainer);
+#          @toggleMoveAnimalModal(animals,newContainer);
 
 
 
@@ -358,19 +358,18 @@
         element.removeClass("loading")
         return
       success: (json_data) ->
-        ko.utils.arrayForEach json_data, (group) =>
+        groups = ko.utils.arrayMap json_data, (group) =>
 
-          places = []
-          ko.utils.arrayForEach group.places, (place) =>
+          places = ko.utils.arrayMap group.places, (place) =>
 
-            animals = []
-            ko.utils.arrayForEach place.animals, (animal) =>
-              animals.push new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number)
+            animals = ko.utils.arrayMap place.animals, (animal) =>
+              new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number)
 
-            places.push new G.Container(place.id, place.name, animals)
+            new G.Container(place.id, place.name, animals)
 
-          window.app.groups.push new G.Group(group.id, group.name, places)
+          new G.Group(group.id, group.name, ko.observableArray(places))
 
+        window.app.groups = ko.observableArray(groups)
 
         ko.applyBindings window.app
 
