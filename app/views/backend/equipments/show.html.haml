@@ -33,19 +33,19 @@
       %span.title= Equipment.human_attribute_name(:working_duration)
       %span.value
         %i.picto{class: "picto-timelapse"}
-        = resource.working_time.in_hour.l precision: 1
+        = resource.working_duration.in_hour.round(2).l precision: 1
     - if resource.remaining_working_lifespan
       .med-info
         %span.title= Equipment.human_attribute_name(:remaining_working_lifespan)
         %span.value
           %i.picto{class: "picto-timelapse"}
-          = resource.remaining_working_lifespan.in_hour.l precision: 1
+          = resource.remaining_working_lifespan.in_hour.round(2).l precision: 1
     - if resource.remaining_lifespan
       .med-info
         %span.title= Equipment.human_attribute_name(:remaining_lifespan)
         %span.value
           %i.picto{class: "picto-timelapse"}
-          = resource.remaining_lifespan.in_hour.l precision: 1
+          = resource.remaining_lifespan.in_hour.round(2).l precision: 1
     - if resource.description
       .med-info
         %span.title= Equipment.human_attribute_name(:description)
