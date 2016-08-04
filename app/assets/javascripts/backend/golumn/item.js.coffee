@@ -16,4 +16,10 @@ class golumn.Item
       "/backend/animals/#{@id}"
 
     @checked = ko.observable false
+    @checked.subscribe (newValue) =>
+      if newValue
+        app.selectedItemsIndex[@id] = @
+      else
+        delete app.selectedItemsIndex[@id]
+
     return

@@ -20,18 +20,16 @@
 
         $(element).draggable ko.utils.extend draggableOptions,
           helper: (e) ->
-            elements = []
-            elements = $('.checker.active').closest('.golumn-item').find('.golumn-item-title')
+            elements = app.selectedItemsIndex
+            keys = Object.keys(elements)
             helper = $('<div class=\'animate-dragging\' style=\'width: 130px; height: 30px\'></div>')
-            helper.append $('<div class=\'animate-dragging-number\'>' + elements.length + '</div>')
+            helper.append $('<div class=\'animate-dragging-number\'>' + keys.length + '</div>')
             container = $('<div style=\'width: 130px; height: 30px; color: white; vertical-align: middle; text-align: center; font-weight: bold; font-size:14px; line-height:20px; background-color: #428bca; box-shadow: 1px 1px 8px #000000;\'></div>')
-            container.append $(elements[0]).text()
+            container.append elements[keys[0]].name
             container.addClass 'animate-dragging-text'
             helper.append container
             helper
           start: (event, ui) ->
-            ui.items = []
-            $(@).data 'items', $('.checker.active').closest('.golumn-item')
             $('.add-container').css 'display', 'block'
             return
           stop: (e, ui) ->
