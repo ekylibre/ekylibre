@@ -30,13 +30,13 @@
   @include padding-right($lh-normal);
   display: flex;
   flex-direction: row;
+  flex-grow: 0;
   flex-wrap: wrap;
   padding-top: 6px;
-  flex-grow: 0;
 }
 
 .component-title {
-  flex:1 0 0;
+  flex: 1 0 0;
 }
 
 .component-status {
@@ -48,16 +48,16 @@
 .component-life {
   @include padding-right($lh-small);
   @include text-align(right);
-  width: 120px;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 120px;
 }
 
 .component-wear {
   @include padding-right($lh-ratio);
-  width: 100px;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100px;
 }
 
 .component-details {
