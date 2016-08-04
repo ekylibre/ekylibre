@@ -1,21 +1,42 @@
 - components.each do |component|
   .component-btn-group
     .component-replacement
-      - target = { "reference_name"=>"equipment", "product_id"=>resource.id }
-      - input = { "reference_name"=>"replacement_part", "component_id"=>component.id }
-      - ref = { "reference_name"=>"work" }
-      - group_w_target = ref.merge( "targets_attributes": { "0"=> target } )
-      - group = group_w_target.merge( "inputs_attributes": { "0"=> input } )
+      - target = {}
+      - target[:reference_name] = :equipment
+      - target[:product_id] = resource.id
 
-      - intervention_type = { procedure_name: :equipment_maintenance, actions: [:curative_maintenance] }
-      - prefill = intervention_type.merge(group_parameters_attributes: {0 => group})
+      - input = {}
+      - input[:reference_name] = :replacement_part
+      - input[:component_id] = component.id
 
-      = tool_to "", {action: :new, controller: :interventions, redirect: request.fullpath}.merge(prefill), icon: :repair, class: "icn-only"
+      - group = []
+      - group[:reference_name] = :work
+      - group[:targets_attributes] = { "0"=> target }
+      - group[:inputs_attributes] = { "0"=> input }
+
+      - prefill = {}
+      - prefill[:procedure_name] = :equipment_maintenance
+      - prefill[:actions] = [:curative_maintenance]
+      - prefill[:group_parameters_attributes] = {0 => group})
+
+      - options = {}
+      - options[:action] = :new
+      - options[:controller] = :interventions
+      - options[:redirect] = request.fullpath
+      - options.merge! prefill
+
+      = tool_to "", options, icon: :repair, class: "icn-only"
 
     .component-documentation
       - if component.part_product_nature_variant
         = dropdown_menu_button("", icon: :documentation) do |menu|
           - component.part_product_nature_variant.attachments.each do |attachment|
-            - menu.item attachment.name, {controller: 'backend/documents', id: attachment.document_id, action: :show, format: :pdf }
+            - options = {}
+            - options[:controller] = 'backend/documents'
+            - options[:id] = attachment.document_id
+            - options[:action] = :show
+            - options[:format] = :pdf
+
+            - menu.item attachment.name, options
 
   = render "equipment_btns", components: component.children
