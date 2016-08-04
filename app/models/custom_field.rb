@@ -48,7 +48,8 @@ class CustomField < Ekylibre::Record::Base
   has_many :choices, -> { order(:position) }, class_name: 'CustomFieldChoice', dependent: :delete_all, inverse_of: :custom_field
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :required, inclusion: { in: [true, false] }
-  validates :column_name, :customized_type, :name, :nature, presence: true, length: { maximum: 500 }
+  validates :column_name, :name, presence: true, length: { maximum: 500 }
+  validates :customized_type, :nature, presence: true
   validates :maximal_length, :minimal_length, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :maximal_value, :minimal_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]

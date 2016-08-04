@@ -57,8 +57,7 @@ class AnalysisItem < Ekylibre::Record::Base
   validates :absolute_measure_value_value, :decimal_value, :measure_value_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :annotation, :string_value, length: { maximum: 100_000 }, allow_blank: true
   validates :boolean_value, inclusion: { in: [true, false] }
-  validates :indicator_datatype, presence: true, length: { maximum: 500 }
-  validates :analysis, :indicator_name, presence: true
+  validates :analysis, :indicator_datatype, :indicator_name, presence: true
   validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   # ]VALIDATORS]
   validates :indicator_name, uniqueness: { scope: :analysis_id }

@@ -68,7 +68,7 @@ class Intervention < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 100_000 }, allow_blank: true
-  validates :procedure_name, :state, presence: true, length: { maximum: 500 }
+  validates :procedure_name, :state, presence: true
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }

@@ -46,9 +46,9 @@ class Sequence < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :last_cweek, :last_month, :last_number, :last_year, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :name, :number_format, :period, presence: true, length: { maximum: 500 }
+  validates :name, :number_format, presence: true, length: { maximum: 500 }
   validates :number_increment, :number_start, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
-  validates :usage, length: { maximum: 500 }, allow_blank: true
+  validates :period, presence: true
   # ]VALIDATORS]
   validates :period, inclusion: { in: period.values }
   validates :usage, inclusion: { in: usage.values, allow_nil: true }

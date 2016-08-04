@@ -63,9 +63,9 @@ class ListingNode < Ekylibre::Record::Base
   validates :depth, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :exportable, inclusion: { in: [true, false] }
   validates :item_value, length: { maximum: 100_000 }, allow_blank: true
-  validates :label, :name, :nature, presence: true, length: { maximum: 500 }
+  validates :label, :name, presence: true, length: { maximum: 500 }
   validates :lft, :rgt, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :listing, presence: true
+  validates :listing, :nature, presence: true
   # ]VALIDATORS]
   validates :item_nature, length: { allow_nil: true, maximum: 10 }
   validates :key, uniqueness: true

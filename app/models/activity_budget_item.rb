@@ -57,8 +57,8 @@ class ActivityBudgetItem < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :quantity, :unit_amount, :unit_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :computation_method, :direction, :unit_currency, presence: true, length: { maximum: 500 }
-  validates :activity_budget, :currency, presence: true
+  validates :activity_budget, :computation_method, :currency, :direction, presence: true
+  validates :unit_currency, presence: true, length: { maximum: 500 }
   validates :variant_indicator, :variant_unit, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :variant, presence: true

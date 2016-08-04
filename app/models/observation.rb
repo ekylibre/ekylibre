@@ -42,9 +42,9 @@ class Observation < Ekylibre::Record::Base
   belongs_to :author, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :content, presence: true, length: { maximum: 100_000 }
-  validates :importance, :subject_type, presence: true, length: { maximum: 500 }
+  validates :author, :importance, :subject, presence: true
   validates :observed_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :author, :subject, presence: true
+  validates :subject_type, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :importance, length: { allow_nil: true, maximum: 10 }
 

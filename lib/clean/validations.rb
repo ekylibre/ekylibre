@@ -56,7 +56,7 @@ module Clean
             limit = column.limit
             # We consider nomenclature inclusion validation as sufficient
             unless string_foreign_keys.include?(column.name) ||
-                   model.send(column.name).respond_to?(:values)
+                   (model.respond_to?(column.name) && model.send(column.name).respond_to?(:values))
               limit ||= 500 if type == :string
               limit ||= 10**5
             end

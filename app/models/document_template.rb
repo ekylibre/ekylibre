@@ -46,9 +46,9 @@ class DocumentTemplate < Ekylibre::Record::Base
   has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :by_default, :managed, inclusion: { in: [true, false] }
-  validates :archiving, :name, presence: true, length: { maximum: 500 }
+  validates :archiving, :language, :nature, presence: true
   validates :formats, length: { maximum: 500 }, allow_blank: true
-  validates :language, :nature, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :language, length: { allow_nil: true, maximum: 3 }
   validates :archiving, :nature, length: { allow_nil: true, maximum: 60 }

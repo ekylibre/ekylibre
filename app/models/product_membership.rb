@@ -44,11 +44,10 @@ class ProductMembership < Ekylibre::Record::Base
   belongs_to :group, class_name: 'ProductGroup', inverse_of: :memberships
   belongs_to :member, class_name: 'Product', inverse_of: :memberships
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :nature, presence: true, length: { maximum: 500 }
+  validates :group, :member, :nature, presence: true
   validates :originator_type, length: { maximum: 500 }, allow_blank: true
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :stopped_at, timeliness: { on_or_after: ->(product_membership) { product_membership.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :group, :member, presence: true
   # ]VALIDATORS]
 
   before_validation do

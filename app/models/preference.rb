@@ -54,7 +54,8 @@ class Preference < Ekylibre::Record::Base
   validates :boolean_value, inclusion: { in: [true, false] }, allow_blank: true
   validates :decimal_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :name, :nature, presence: true, length: { maximum: 500 }
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :nature, presence: true
   validates :record_value_type, length: { maximum: 500 }, allow_blank: true
   validates :string_value, length: { maximum: 100_000 }, allow_blank: true
   # ]VALIDATORS]

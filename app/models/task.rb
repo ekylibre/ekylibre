@@ -50,8 +50,8 @@ class Task < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 100_000 }, allow_blank: true
   validates :due_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :name, :nature, :state, presence: true, length: { maximum: 500 }
-  validates :entity, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :entity, :nature, :state, presence: true
   # ]VALIDATORS]
   versionize
 

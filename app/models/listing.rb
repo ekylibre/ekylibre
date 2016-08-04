@@ -53,7 +53,8 @@ class Listing < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :conditions, :description, :mail, :query, :source, :story, length: { maximum: 100_000 }, allow_blank: true
-  validates :name, :root_model, presence: true, length: { maximum: 500 }
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :root_model, presence: true
   # ]VALIDATORS]
   validates :query, :conditions, format: { with: /\A[^\;]*\z/ }
 

@@ -73,11 +73,11 @@ class FixedAsset < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :ceded, inclusion: { in: [true, false] }, allow_blank: true
   validates :ceded_on, :purchased_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
-  validates :allocation_account, :currency, :journal, presence: true
+  validates :allocation_account, :currency, :depreciation_method, :journal, presence: true
   validates :current_amount, :depreciation_percentage, :purchase_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :depreciable_amount, :depreciated_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :depreciation_method, :name, :number, presence: true, length: { maximum: 500 }
   validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :name, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]

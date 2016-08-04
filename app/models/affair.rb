@@ -82,12 +82,11 @@ class Affair < Ekylibre::Record::Base
   validates :accounted_at, :closed_at, :dead_line_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :closed, inclusion: { in: [true, false] }
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :currency, :third, presence: true
+  validates :currency, :third, :third_role, presence: true
   validates :description, length: { maximum: 100_000 }, allow_blank: true
   validates :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :pretax_amount, :probability_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :third_role, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   # validates_inclusion_of :third_role, in: self.third_role.values
