@@ -1,5 +1,5 @@
 module Procedo
-  module Procedure
+  class Procedure
     module Codeable
       extend ActiveSupport::Concern
 
