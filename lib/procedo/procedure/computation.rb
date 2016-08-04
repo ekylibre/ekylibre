@@ -3,7 +3,8 @@ module Procedo
     # A Computation defines an information computed to stored in given
     # destinations
     class Computation < Field
-      code_trees :condition, root: 'boolean_expression', context: :code_tree_context
+      code_trees :condition, root: "boolean_expression",
+                 context: :code_tree_context
       code_trees :expression
 
       attr_reader :destinations
