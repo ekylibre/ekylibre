@@ -91,7 +91,6 @@ class Product < Ekylibre::Record::Base
   has_many :activity_productions, foreign_key: :support_id
   has_many :analyses, class_name: 'Analysis', dependent: :restrict_with_exception
   has_many :carrier_linkages, class_name: 'ProductLinkage', foreign_key: :carried_id, dependent: :destroy
-  has_many :components, class_name: 'ProductNatureVariantComponent', through: :variant
   has_many :content_localizations, class_name: 'ProductLocalization', foreign_key: :container_id
   has_many :contents, class_name: 'Product', through: :content_localizations, source: :product
   has_many :distributions, class_name: 'TargetDistribution', foreign_key: :target_id, inverse_of: :target, dependent: :destroy

@@ -33,7 +33,7 @@
       %span.title= Equipment.human_attribute_name(:working_duration)
       %span.value
         %i.picto{class: "picto-timelapse"}
-        = resource.working_duration.in_hour.round(2).l precision: 1
+        = resource.current_work_life.in_hour.round(2).l precision: 1
     - if resource.remaining_working_lifespan
       .med-info
         %span.title= Equipment.human_attribute_name(:remaining_working_lifespan)
@@ -80,5 +80,5 @@
         .component-btns
           = render "equipment_btns", components: resource.variant.root_components
         .component-tree
-          = render "composition", product: resource, components: resource.variant.root_components
+          = render "composition", equipment: resource, components: resource.variant.root_components
 

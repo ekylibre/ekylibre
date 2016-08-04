@@ -66,34 +66,6 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
     end
   end
 
- # Find the product_nature_variant_component corresponding to a component, for a given  product_nature_variant
-  # There can't be many product_nature_variant_component
-  # je retrouve le variant_component d'un component pour un variant donné.
-  # Je ne peux pas avoir plusieur variant_component pour un component avec un variant donné
-  def product_nature_variant_component_for(assembly_variant)
-    list = product_nature_variant_components.select do |component|
-      component.parent_components.detect do |parent|
-        parent.product_nature_variant == assembly_variant
-      end
-    end
-    if list.size > 1
-      raise 'Unexpected count of component for given variant'
-    end
-    list.first
-  end
-
-  #For a given product, return part_product_nature_variant, if there is a product_nature_variant_component
-  #If there is no product_nature_variant_component, return nil.
-  #Pour un produit donné, on renvoie le part_product_nature_variant s'il exise un product_nature_variant_component
-  #sinon retourne nul.
-  def part_product_nature_variant_for(assembly)
-    component = product_nature_variant_component_for(assembly.variant)
-    if component
-      return component.part_product_nature_variant
-    end
-    return nil
-  end
-
   def self_and_parents
     unless @self_and_parents
       @self_and_parents = [self]

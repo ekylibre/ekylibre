@@ -68,6 +68,7 @@
 
 class Equipment < Matter
   include Attachable
+  has_many :components, class_name: 'ProductNatureVariantComponent', through: :variant
   refers_to :variety, scope: :equipment
 
   ##################################################
@@ -81,17 +82,25 @@ class Equipment < Matter
 
   def wear_status(component = nil)
     if component.nil?
+      # To take into account the tear&wear of the components.
       comp_status = variant.components.map { |c| wear_status(c) }
-      return :stop if comp_status.include?(:stop)
-      return :caution if comp_status.include?(:caution)
+
+      # To take into account the tear&wear of the equipment itself.
+      progresses = [lifespan_progress, working_lifespan_progress]
+      worn_out = progresses.any? { |prog| prog >= 1 }
+      almost_worn_out = progresses.any? { |prog| prog >= 0.85 }
+
+      return :stop if comp_status.include?(:stop) || worn_out
+      return :caution if comp_status.include?(:caution) || almost_worn_out
       return :go
     end
 
-    work_progress = working_life_progress_of(component)
-    life_progress = total_life_progress_of(component)
-    progresses = [work_progress, life_progress]
+    # If we're only working on a single component.
+    life_progress = lifespan_progress_of(component)
+    work_progress = working_lifespan_progress_of(component)
+    progresses = [life_progress, work_progress]
     return :stop if progresses.any? { |prog| prog >= 1 }
-    return :caution if progresses.any? { |prog| prog >= 0.95 }
+    return :caution if progresses.any? { |prog| prog >= 0.85 }
     return :go
   end
 
@@ -108,16 +117,27 @@ class Equipment < Matter
   end
 
   ##################################################
+  ### Used up lifespan #############################
+
+  def current_life
+    (Time.zone.today - born_at.to_date).in(:day)
+  end
+
+  def current_work_life
+    working_duration.in(:day)
+  end
+
+  ##################################################
   ### Remaining lifespans (total - gone) ###########
 
   def remaining_lifespan
     return nil unless total_lifespan
-    return (total_lifespan - (Time.zone.today - born_at.to_date).in(:day))
+    return total_lifespan - current_life
   end
 
   def remaining_working_lifespan
     return nil unless total_working_lifespan
-    return total_working_lifespan - working_duration.in(:day)
+    return total_working_lifespan - current_work_life
   end
 
 
@@ -127,11 +147,13 @@ class Equipment < Matter
   #### [0 - 1]
 
   def lifespan_progress
-    1 - (remaining_lifespan || 1) / (total_lifespan || 1)
+    return 0 unless current_life && total_lifespan
+    current_life / total_lifespan
   end
 
   def working_lifespan_progress
-    1 - (remaining_working_lifespan || 1) / (total_working_lifespan || 1)
+    return 0 unless current_work_life && total_working_lifespan
+    current_work_life / total_working_lifespan
   end
 
   #### [0 - 100%]
@@ -176,7 +198,6 @@ class Equipment < Matter
     return (average * duration.in_day).in_second
   end
 
-
   #######################################################
   ### Components ########################################
 
@@ -197,12 +218,40 @@ class Equipment < Matter
   ##################################################
   ###### Total lifespans values ####################
 
-  def working_life_of(component)
+  def total_lifespan_of(component)
+    comp_variant = component.part_product_nature_variant
+    return nil unless comp_variant && comp_variant.has_indicator?(:lifespan)
+    comp_variant.lifespan
+  end
+
+  def total_working_lifespan_of(component)
+    comp_variant = component.part_product_nature_variant
+    return nil unless comp_variant && comp_variant.has_indicator?(:working_lifespan)
+    comp_variant.working_lifespan
+  end
+
+  ##################################################
+  ###### Used up lifespan ##########################
+
+  def current_life_of(component)
+    (Time.zone.now - replaced_at(component, born_at)).to_f.in_second
+  end
+
+  def current_work_life_of(component)
     working_duration(replaced_at(component, born_at)).to_f.in_second
   end
 
-  def total_life_of(component)
-    (Time.zone.now - replaced_at(component, born_at)).to_f.in_second
+  ##################################################
+  ######### Remaining lifespan values ##############
+
+  def remaining_lifespan_of(component)
+    return nil unless total_lifespan_of(component)
+    total_lifespan_of(component) - current_life_of(component)
+  end
+
+  def remaining_working_lifespan_life_of(component)
+    return nil unless total_working_lifespan_of(component)
+    total_working_life_of(component) - current_work_life_of(component)
   end
 
   ##################################################
@@ -210,24 +259,86 @@ class Equipment < Matter
 
   ####### [0 - 1]
 
-  def working_life_progress_of(component)
-    comp_variant = component.product_nature_variant
-    return 0 unless comp_variant && comp_variant.has_indicator?(:working_lifespan)
-    working_life_of(component).to_f(:second) / component.product_nature_variant.working_lifespan.to_f(:second)
+  def lifespan_progress_of(component)
+    return 0 unless current_life_of(component) && total_lifespan_of(component)
+    current_life_of(component) / total_lifespan_of(component)
   end
 
-  def total_life_progress_of(component)
-    return 0 if !component.product_nature_variant || !component.product_nature_variant.has_indicator?(:lifespan)
-    total_life_of(component).to_f(:second) / component.product_nature_variant.lifespan.to_f(:second)
+  def working_lifespan_progress_of(component)
+    return 0 unless current_work_life_of(component) && total_working_lifespan_of(component)
+    current_work_life_of(component) / total_working_lifespan_of(component)
   end
 
   ####### [0 - 100%]
 
-  def total_life_progress_percent_of(component)
-    total_life_progress_of(component) * 100
+  def lifespan_progress_percent
+    lifespan_progress_of(component) * 100
   end
 
-  def working_life_progress_percent_of(component)
-    total_life_progress_of(component) * 100
+  def working_lifespan_progress_percent
+    working_lifespan_progress_of(component) * 100
   end
+
+  #######################################################
+  ### Notifications #####################################
+
+  ##################################################
+  ###### Equipment #################################
+
+  def alert_life
+    User.notify_administrators(
+      :equipment_is_at_end_of_life,
+      interpolations(remaining_lifespan),
+      target: self,
+      level: :warning
+    )
+  end
+
+  def alert_work
+    User.notify_administrators(
+      :equipment_is_worn_out,
+      interpolations(remaining_working_lifespan),
+      target: self,
+      level: :warning
+    )
+  end
+
+  ##################################################
+  ###### Component #################################
+
+  def alert_component_life(component)
+    User.notify_administrators(
+      :equipment_component_is_at_end_of_life,
+      interpolations_for(component, remaining_lifespan_of(component)),
+      target: self,
+      level: :warning
+    )
+  end
+
+  def alert_component_work(component)
+    User.notify_administrators(
+      :equipment_component_is_worn_out,
+      interpolations_for(component, remaining_working_lifespan_of(component)),
+      target: self,
+      level: :warning
+    )
+  end
+
+protected
+
+  def interpolations(lifespan)
+    {
+      name: name,
+      remaining_time: lifespan.in(:hour).round(2).l(precision: 0)
+    }
+  end
+
+  def interpolations_for(component, lifespan)
+    {
+      equipment_name: name,
+      component_name: component.name,
+      remaining_time: lifespan.in(:hour).round(2).l(precision: 0)
+    }
+  end
+
 end

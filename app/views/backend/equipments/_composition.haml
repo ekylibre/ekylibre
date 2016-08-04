@@ -6,15 +6,15 @@
         - if component.part_product_nature_variant
           = link_to component.part_product_nature_variant.name, backend_product_nature_variant_path(component.part_product_nature_variant)
         - if component.part_replacements.any?
-          %span= product.last_replacement(component).intervention_parameter.product.name
+          %span= equipment.last_replacement(component).intervention_parameter.product.name
       - if resource.remaining_working_lifespan || resource.remaining_lifespan
         .component-status
-          = lights(product.wear_status(component))
+          = lights(equipment.wear_status(component))
         .component-life
-          %span= :x_hours_worked.tl count: product.working_life_of(component).to_f(:hour).round
+          %span= :x_hours_worked.tl count: equipment.current_work_life_of(component).to_d(:hour).round(2)
       .component-wear
-        - if product.replaced_at(component)
-          %span{title: product.replaced_at(component).l }= relative_distance_in_words product.replaced_at(component)
+        - if equipment.replaced_at(component)
+          %span{title: equipment.replaced_at(component).l }= relative_distance_in_words equipment.replaced_at(component)
         - else
           = :original_component.tl
       .component-details
@@ -23,7 +23,7 @@
       = modal(id: "show_component_details_#{component.id}", title: Product.human_attribute_name(:part_replacements), close_button: true) do
         = render "component_infos", component: component
 
-    = render 'composition', product: product, components: component.children
+    = render 'composition', equipment: equipment, components: component.children
 
 
   / %table
