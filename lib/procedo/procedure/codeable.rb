@@ -10,7 +10,6 @@ module Procedo
                to: :class
 
       module ClassMethods
-
         def code_trees(*snippets)
           options = snippets.extract_options!
           base_parse_options = {}
@@ -24,7 +23,7 @@ module Procedo
               parse_options = base_parse_options.merge(
                 message: "Syntax error on #{self.class.name} #{snippet}."
               )
-              inst,value = expr.blank? ? nil : parse!(expr.to_s, parse_options)
+              inst_value = expr.blank? ? nil : parse!(expr.to_s, parse_options)
               instance_variable_set(instance_var, inst_value)
             end
 
@@ -114,9 +113,8 @@ module Procedo
             return 1
           end
           return 0 unless node.elements
-          node.elements.each_with_object(0) do |child, count|
-            count += count_variables(child, name)
-            count
+          node.elements.reduce(0) do |count, child|
+            count + count_variables(child, name)
           end
         end
       end

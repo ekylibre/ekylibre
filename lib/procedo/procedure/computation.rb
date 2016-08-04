@@ -4,7 +4,7 @@ module Procedo
     # destinations
     class Computation < Field
       code_trees :condition, root: "boolean_expression",
-                 context: :code_tree_context
+                             context: :code_tree_context
       code_trees :expression
 
       attr_reader :destinations
