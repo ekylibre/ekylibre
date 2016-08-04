@@ -34,7 +34,7 @@
             .add-container.dropzone{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}" },style:'display:none'}
               %button.btn.btn-link{type: 'button', data: { bind: 'click: $root.toggleNewContainerModal' }}
                 %i.icon.icon-plus.text-muted
-            %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: $data.containers }"}}
+            %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: containers }"}}
           -# = link_to('#', data: {target: '#new-animal', toggle: 'modal'}, class: "golumn-column-footer") do
             %i.icon.icon-plus
             %span= "actions.backend/animals.new".t
@@ -47,15 +47,14 @@
             %span.golumn-group-title{data: { bind: 'text: name'}}
             %span.badge.golumn-group-badge{data: { bind: 'text: count'}}
           .golumn-group-body{data: { bind: "css: {'hide':hidden}"}}
-            %div{data: { bind: "draggable: {template: 'golumn-item-template', data: $data.items, options: {handle: '.golumn-item-handle', cursor: 'move', opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30, scope: 'items'}}"}}
-            -#%div{data: { bind: "template: { name: 'golumn-item-template', foreach: $data.items }"}}
+            %div{data: { bind: "template: { name: 'golumn-item-template', foreach: items }"}}
 
       %script#golumn-item-template{type: 'text/html'}
-        .golumn-item{data: { bind: 'css: $data.statusClass  '}}
+        .golumn-item{data: { bind: "draggable: {active: checked, options: {handle: '.golumn-item-handle', cursor: 'move', opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30, scope: 'items'}}, css: $data.statusClass"}}
           .golumn-item-actions
             .checker{data: { bind: 'checkbox: $data.checked'}}
           %span.golumn-item-handle
-            %i.icon.icon-ellipsis-v
+            %i.icon.icon-ellipsis-v{ data: { bind: 'visible: checked'}}
           %span.golumn-item-title{data: { bind: 'text: $data.name, click: $root.toggleAnimalDetailsModal'}}
           %i.sex.icon{data: {bind: 'css: $data.sexClass'}}
           -# .golumn-item-infos

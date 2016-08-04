@@ -42,6 +42,7 @@
 
               else if target.constructor.name is 'Container'
                 #on existing container
+                return
 
 
 #            console.log 'i am a dropzone',
