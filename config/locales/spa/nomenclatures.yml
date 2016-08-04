@@ -811,7 +811,6 @@ spa:
         er: "Eritrea"
         es: "España"
         et: "Etiopía"
-        false: "Noruega" #?
         fi: "Finlandia"
         fj: "Fiyi"
         fk: "Islas Malvinas"
@@ -909,7 +908,7 @@ spa:
         ng: "Nigeria"
         ni: "Nicaragua"
         nl: "Países Bajos"
-        # no: "Norway"
+        no: "Noruega"
         np: "Nepal"
         nr: "Nauru"
         nu: "Niue"

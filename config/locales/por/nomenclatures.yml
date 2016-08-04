@@ -811,7 +811,6 @@ por:
         # er: "Eritrea"
         es: "Espanha"
         et: "Etiópia"
-        false: "Noruega" #?
         fi: "Finlândia"
         # fj: "Fiji"
         fk: "Ilhas Falkland (Malvinas)"
@@ -909,7 +908,7 @@ por:
         ng: "Nigéria"
         ni: "Nicarágua"
         nl: "Países Baixos"
-        # no: "Norway"
+        no: "Noruega"
         # np: "Nepal"
         # nr: "Nauru"
         # nu: "Niue"

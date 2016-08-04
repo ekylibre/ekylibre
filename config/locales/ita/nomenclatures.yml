@@ -811,7 +811,6 @@ ita:
         er: "L'Eritrea"
         es: "Spagna"
         et: "Etiopia"
-        false: "Norvegia" #?
         fi: "Finlandia"
         # fj: "Fiji"
         fk: "Isole Falkland (Malvinas)"
@@ -909,7 +908,7 @@ ita:
         # ng: "Nigeria"
         # ni: "Nicaragua"
         nl: "Olanda"
-        # no: "Norway"
+        no: "Norvegia"
         # np: "Nepal"
         # nr: "Nauru"
         # nu: "Niue"
