@@ -33,7 +33,8 @@
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #
-require 'test_helper'
+
+require "test_helper"
 
 class ProductPartReplacementTest < ActiveSupport::TestCase
   # Add tests here...
