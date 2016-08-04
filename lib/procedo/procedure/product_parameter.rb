@@ -249,7 +249,7 @@ module Procedo
         attr_dependent = @attributes.values.any? { |a| a.depend_on? parameter.name }
         read_dependent = @readings.values.any? { |r| r.depend_on? parameter.name }
         hand_dependent = @handlers.values.any? { |h| h.depend_on? parameter.name }
-        comp_dependent = component_of? || component_of_with_parameter?(parameter.name)
+        comp_dependent = component_of? && component_of_with_parameter?(parameter.name)
         attr_dependent || read_dependent || hand_dependent || comp_dependent
       end
 

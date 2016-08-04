@@ -59,7 +59,7 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   validate do
     if product_nature_variant && part_product_nature_variant
       errors.add :part_product_nature_variant_id, :invalid if (product_nature_variant_id == part_product_nature_variant_id)
-      errors.add :product_nature_variant_id, :invalid unless product_nature_variant.variety_of?(:equipment)
+      errors.add :product_nature_variant_id, :invalid unless product_nature_variant.of_variety?(:equipment)
       unless errors[:part_product_nature_variant_id]
         errors.add :part_product_nature_variant_id, :invalid if parent_variants.include?(part_product_nature_variant)
       end
