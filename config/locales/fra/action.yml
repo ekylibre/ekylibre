@@ -1035,7 +1035,7 @@ fra:
     daily_nitrogen_production: "Excretion d’azote journalière" #?
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
-    date: "Date"
+    date: "Date" #?
     dates: "Saisissez les dates de début et de fin de la période"
     days: "Jours"
     deals: "Transactions"

@@ -938,10 +938,10 @@ arb:
     add_reading: "إضافة قيمة للمؤشر"
     add_revenue: "إضافة الإيرادات"
     add_sale_taxation: "إضافة بيع الضرائب"
-    # add_season: "Add saisonality"
+    # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "إضافة دعم"
-    # add_tactic: "Add crop management Technique"
+    # add_tactic: "Add cropping technique"
     add_tool: "إضافة أداة"
     add_website: "أضف موقعك"
     add_working_period: "إضافة working_period"
@@ -1145,7 +1145,6 @@ arb:
     custom_fields: "الحقول المخصصة"
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
-    # date: "Date"
     dates: "ادخل تواريخ بداية ونهاية المدة"
     # days: "Days"
     deals: "عروض"

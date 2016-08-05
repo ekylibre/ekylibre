@@ -93,7 +93,7 @@ class ActivityProduction < Ekylibre::Record::Base
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
   delegate :animal_farming?, :plant_farming?,
-           :at_cycle_start?, :at_cycle_end?,
+           :at_cycle_start?, :at_cycle_end?, :use_seasons?, :use_tactics?,
            :with_cultivation, :cultivation_variety, :with_supports, :support_variety,
            :color, :annual?, :perennial?, to: :activity
 
@@ -271,22 +271,21 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def interventions_by_weeks
-      interventions_by_week = {}
+    interventions_by_week = {}
 
-      self.interventions.each do |intervention|
+    interventions.each do |intervention|
+      week_number = intervention.started_at.to_date.cweek
 
-          week_number = intervention.started_at.to_date.cweek
-
-          list = []
-          unless interventions_by_week[week_number].nil?
-            list = interventions_by_week[week_number]
-          end
-
-          list << intervention
-          interventions_by_week[week_number] = list
+      list = []
+      unless interventions_by_week[week_number].nil?
+        list = interventions_by_week[week_number]
       end
 
-      interventions_by_week
+      list << intervention
+      interventions_by_week[week_number] = list
+    end
+
+    interventions_by_week
   end
 
   def campaigns

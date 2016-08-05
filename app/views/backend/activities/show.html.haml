@@ -219,7 +219,6 @@
                   dataset = dataset.map do |_, inspections|
                     inspections.last.send("points_#{long_name}_percentage", category).round(2).to_s.to_f
                   end
-                  p dataset
                   spline_data << dataset.compact.sum / dataset.compact.count unless dataset.empty?
                 end
                 spline_series << {name: category.l, data: spline_data}

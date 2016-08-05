@@ -34,28 +34,46 @@
 ---
 activity_seasons_001:
   activity_id: 22
-  created_at: 2016-07-29 09:03:08.440527000 Z
+  created_at: 2016-08-05 14:55:28.416312000 Z
   creator_id: 1
   id: 1
-  lock_version: 0
+  lock_version: 1
   name: Primeur
-  updated_at: 2016-07-29 09:03:08.440527000 Z
+  updated_at: 2016-08-05 15:38:09.636619000 Z
   updater_id: 1
 activity_seasons_002:
   activity_id: 22
-  created_at: 2016-07-29 09:03:08.442627000 Z
+  created_at: 2016-08-05 14:55:28.418243000 Z
   creator_id: 1
   id: 2
-  lock_version: 0
+  lock_version: 1
   name: Saison
-  updated_at: 2016-07-29 09:03:08.442627000 Z
+  updated_at: 2016-08-05 15:38:09.637811000 Z
   updater_id: 1
 activity_seasons_003:
-  activity_id: 22
-  created_at: 2016-07-29 09:03:08.443549000 Z
+  activity_id: 5
+  created_at: 2016-08-05 15:34:20.772369000 Z
   creator_id: 1
   id: 3
   lock_version: 0
+  name: dfsdfs
+  updated_at: 2016-08-05 15:34:20.772369000 Z
+  updater_id: 1
+activity_seasons_004:
+  activity_id: 5
+  created_at: 2016-08-05 15:34:20.774024000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  name: sfsdfsdf
+  updated_at: 2016-08-05 15:34:20.774024000 Z
+  updater_id: 1
+activity_seasons_005:
+  activity_id: 22
+  created_at: 2016-08-05 15:38:09.638898000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
   name: Hiver
-  updated_at: 2016-07-29 09:03:08.443549000 Z
+  updated_at: 2016-08-05 15:38:09.638898000 Z
   updater_id: 1

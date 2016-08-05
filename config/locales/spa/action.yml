@@ -736,10 +736,10 @@ spa:
     add_reading: "Añadir un valor de un indicador"
     add_revenue: "Añadir los ingresos"
     add_sale_taxation: "Añadir la venta imposición"
-    # add_season: "Add saisonality"
+    # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Añadir soporte"
-    # add_tactic: "Add crop management Technique"
+    # add_tactic: "Add cropping technique"
     add_tool: "Añadir herramienta"
     add_website: "Añadir página web"
     add_working_period: "Añadir working_period"
@@ -920,7 +920,6 @@ spa:
     custom_fields: "Campos Personalizados"
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
-    # date: "Date"
     dates: "Marcar las fechas de empezo y termino por los periodos"
     # days: "Days"
     deals: "Ofertas"

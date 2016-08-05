@@ -839,7 +839,7 @@ eng:
     add_season: "Add season"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
-    add_tactic: "Add crop management Technique"
+    add_tactic: "Add cropping technique"
     add_tool: "Add tool"
     add_website: "Add website"
     add_working_period: "Add working period"
@@ -984,7 +984,7 @@ eng:
     custom_fields: "Custom fields"
     # data: "Data"
     # data_transmissions: "Data transmissions"
-    date: "Date"
+    # date: "Date"
     dates: "Select period start date and Period end date" #?
     days: "Days" #?
     deals: "Deals"
