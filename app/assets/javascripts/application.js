@@ -29,9 +29,9 @@
 //= require knockout
 //= require_self
 //= require ekylibre
-//= require formize/behave
+//= require form/behave
 //= require form/dialog
-//= require formize/observe
+//= require form/observe
 //= require form/scope
 //= require form/dependents
 //= require form/toggle

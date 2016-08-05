@@ -1,16 +1,17 @@
+# coding: utf-8
 source 'https://rubygems.org'
 
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '5.0.0'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
-gem 'activerecord-postgis-adapter', '>= 3.0.0'
+gem 'activerecord-postgis-adapter', '~> 4.0.0'
 
 # Multi-tenancy
-gem 'apartment', '~> 1.0.0', '< 2.0'
+gem 'apartment', '~> 1.2.0'
 gem 'apartment-sidekiq'
 
 # Ruby functionalities extension
@@ -22,36 +23,36 @@ gem 'charlock_holmes'
 
 gem 'browser'
 
-gem 'actionpack-xml_parser'
+gem 'actionpack-xml_parser', git: 'https://github.com/rails/actionpack-xml_parser.git'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails' # , '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier' # , '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails' # , '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '~> 2.0'
+gem 'turbolinks' # , '~> 2.0'
 gem 'jquery-turbolinks'
 
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
-gem 'jquery-scrollto-rails'
+# gem 'jquery-scrollto-rails'
 
 # Forms helper
-gem 'formize', '~> 2.1.0'
+## gem 'formize', '~> 2.1.0'
 # gem 'codemirror-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'# , '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc'# , '~> 0.4.0', group: :doc
 # gem 'rails-api'
 
 # Freeze time for demo and/or tests
@@ -61,8 +62,8 @@ gem 'timecop'
 gem 'foreman'
 
 # Background jobs
-gem 'sidekiq', '>= 4.0'
-gem 'sidekiq-cron', '>= 0.4.0'
+gem 'sidekiq'
+gem 'sidekiq-cron'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -79,15 +80,15 @@ gem 'exception_notification'
 # Views helpers
 gem 'haml'
 gem 'simple_calendar'
-gem 'active_list', '>= 6.5.0' # , path: "../active_list"
+gem 'active_list', git: 'https://github.com/ekylibre/active_list.git' # , '>= 6.5.0' # , path: "../active_list"
 
 # Models helpers
 gem 'uuidtools'
-gem 'acts_as_list'
+gem 'acts_as_list', '~> 0.7.6'
 gem 'state_machine'
-gem 'awesome_nested_set', '~> 3.0.0'
+gem 'awesome_nested_set', '~> 3.1.1'
 gem 'enumerize'
-gem 'jc-validates_timeliness', '~> 3.1.1'
+gem 'jc-validates_timeliness'# , '~> 3.1.1'
 
 # Authentication & Authorization
 gem 'devise'
@@ -99,9 +100,9 @@ gem 'paperclip'
 gem 'paperclip-document', '> 0.0.8'
 
 # Forms
-gem 'simple_form', '~> 3.2.0'
+gem 'simple_form' # , '~> 3.2.0'
 gem 'cocoon'
-gem 'remotipart', '~> 1.2'
+gem 'remotipart' # , '~> 1.2'
 
 # I18n and localeapp
 gem 'i18n-complements', '>= 0.0.14'
@@ -109,7 +110,7 @@ gem 'http_accept_language'
 gem 'i18n-js', '>= 3.0.0.rc12'
 
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri', '~> 1.6.0'
+gem 'nokogiri'# , '~> 1.6.0'
 
 # Parse LALR or LR-1 grammars
 gem 'treetop'
@@ -132,7 +133,7 @@ gem 'rubyzip'
 gem 'roo'
 
 # Demo data
-gem 'ffaker', '>= 2.0.0'
+gem 'ffaker'# , '>= 2.0.0'
 
 # Reading RSS feeds
 gem 'feedjira', require: false
@@ -141,11 +142,11 @@ gem 'feedjira', require: false
 gem 'colored' # , require: false
 
 # S/CSS Framework
-gem 'bootstrap-sass', '~> 3.1'
+gem 'bootstrap-sass'# , '~> 3.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric', '~> 3.0'
+gem 'agric', '3.0.1'
 
 # Web services
 gem 'mechanize'
@@ -155,7 +156,7 @@ gem 'rest-client', require: false
 gem 'luhn'
 
 group :development do
-  gem 'quiet_assets'
+  # gem 'quiet_assets'
   # gem 'rack-mini-profiler'
 
   # Code metrics
@@ -166,7 +167,7 @@ group :development do
   gem 'thin'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 3.0'
+  gem 'web-console'# , '~> 3.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
