@@ -66,7 +66,7 @@ class InterventionInput < InterventionProductParameter
   end
 
   after_save do
-    if product
+    if product && intervention.record?
       movement = product_movement
       movement = build_product_movement(product: product) unless movement
       movement.delta = -1 * quantity_population

@@ -2,7 +2,7 @@
   = t.edit resource
   = t.export :intervention_sheet
   = t.destroy
-  = t.new params: {request_intervention_id: resource.id}
+  = t.new params: { request_intervention_id: resource.id } if resource.request?
 
 = cobbles do |c|
   - if params[:mode] == 'spraying'
