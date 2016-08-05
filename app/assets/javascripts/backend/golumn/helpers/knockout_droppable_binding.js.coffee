@@ -4,17 +4,25 @@
 
   ko.bindingHandlers.droppable =
 
-    init: (element, valueAccessor, allBindingsAccessor, data, context) ->
+    init: (element, valueAccessor, allBindingsAccessor) ->
+      $element = $(element)
+
+      ko.utils.domNodeDisposal.addDisposeCallback element, ->
+
+        #only call destroy if droppable has been created
+        if $element.data('ui-droppable') or $element.data('droppable')
+          $element.droppable 'destroy'
+
+      return
+
+    update: (element, valueAccessor, allBindingsAccessor, data, context) ->
       $element = $(element)
       value = ko.utils.unwrapObservable(valueAccessor()) or {}
-      options = value.options or {}
-      droppableOptions = ko.utils.extend({}, ko.bindingHandlers.droppable.options)
+      droppableOptions = ko.utils.extend({}, value.options || {})
 
-      #override global options with override options passed in
-      ko.utils.extend droppableOptions, options
+      if ko.utils.unwrapObservable(value.active)
 
-      createTimeout = setTimeout((->
-        $element.droppable ko.utils.extend(droppableOptions,
+        $element.droppable ko.utils.extend droppableOptions,
           out: (e, ui) ->
             return
           over: (e, ui) ->
@@ -33,23 +41,11 @@
                 app.toggleMoveAnimalModal target
 
               return
-        )
-      ), 0)
 
-      ko.utils.domNodeDisposal.addDisposeCallback element, ->
-
-        #only call destroy if draggable has been created
+      else
         if $element.data('ui-droppable') or $element.data('droppable')
-          $element.draggable 'destroy'
+          $element.droppable 'destroy'
 
-        clearTimeout createTimeout
-
-        return
-
-      return
-
-    update: (element, valueAccessor, allBindingsAccessor, data, context) ->
-      return
     targetIndex: null
     afterMove: null
     beforeMove: null

@@ -30,9 +30,11 @@
             helper.append container
             helper
           start: (event, ui) ->
+            context.$root.enableDropZones(true)
             $('.add-container').css 'display', 'block'
             return
           stop: (e, ui) ->
+            context.$root.enableDropZones(false)
             $('.add-container').css 'display', 'none'
             return
       else

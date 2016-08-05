@@ -6,3 +6,4 @@ class golumn.Container
     @toggle = () =>
       @hidden(!@hidden())
       return
+    @droppable = ko.observable false

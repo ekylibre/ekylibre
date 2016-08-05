@@ -31,7 +31,7 @@
             .golumn-column-handle
               %span.golumn-column-title{data: {bind: 'text: name'}}
           .golumn-column-body
-            .add-container.dropzone{data: {bind: "droppable: {data: $root.drop, afterMove: $root.groupMoved, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}" },style:'display:none'}
+            .add-container.dropzone{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}" },style:'display:none'}
               %button.btn.btn-link{type: 'button'}
                 %i.icon.icon-plus.text-muted
             %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: containers }"}}
@@ -40,7 +40,7 @@
             %span= "actions.backend/animals.new".t
 
       %script#golumn-group-template{type: 'text/html'}
-        %li.golumn-group{data: {bind: "droppable: {data: $root.hoverdrop, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'} }" }}
+        %li.golumn-group{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'} }" }}
           .golumn-group-header
             .golumn-group-actions
               .collapser{data: { bind: "click: toggle, css: {'active': !hidden()}"}}

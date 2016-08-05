@@ -81,6 +81,12 @@
       @drop = ko.observable
       @hoverdrop = ko.observable
 
+      @enableDropZones = (state = false) =>
+        ko.utils.arrayForEach @groups(), (group) =>
+          group.droppable true
+          ko.utils.arrayForEach group.containers(), (container) =>
+            container.droppable true
+
       @toggleAnimalDetailsModal = (animal) =>
         @animalDetailsModalOptions animal
         @showAnimalDetailsModal true
