@@ -478,7 +478,7 @@ eng:
       # take: "Take product group: %{name}"
     backend/product_localizations:
       edit: "Edit product localization:"
-      # new: "New product localization"
+      new: "New product localization"
     backend/product_nature_categories:
       edit: "Edit product category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"

@@ -389,6 +389,7 @@ deu:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Pencil Produktlokalisierung:"
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Produktkategorien"
