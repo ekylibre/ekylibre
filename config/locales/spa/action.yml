@@ -1333,7 +1333,7 @@ spa:
     # part: "part"
     participants: "Los participantes"
     participations: "Participaciones"
-    parts: "Modulos" #?
+    parts: "Modulos"
     passive_balance_sheet: "Balance pasivo" #?
     passive_capital_sum: "Total capitales" #?
     passive_debt_sum: "Total deudas" #?

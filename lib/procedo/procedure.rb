@@ -12,13 +12,56 @@ module Procedo
              :product_parameters, :group_parameters, :parameters,
              :position_of, :parameters_of_type, to: :root_group
 
+    class << self
+      def find(name)
+        Procedo.find(name)
+      end
+
+      def find_each(&block)
+        Procedo.procedures.each(&block)
+      end
+
+      # Returns procedures of given activity families
+      def activity_family(*families)
+        options = categories.extract_options!
+        select(options) do |p|
+          p.of_activity_family?(*families)
+        end
+      end
+
+      # Returns procedures of given categories
+      def of_category(*categories)
+        options = categories.extract_options!
+        select(options) do |p|
+          p.of_category?(*categories)
+        end
+      end
+
+      # Returns procedures which main category match given ones
+      def of_main_category(*categories)
+        options = categories.extract_options!
+        select(options) do |p|
+          categories.detect { |c| p.categories.first <= c }
+        end
+      end
+
+      # Select procedures with given block
+      def select(options = {})
+        include_deprecated = options[:include_deprecated]
+        Procedo.procedures.select do |p|
+          (include_deprecated || (!include_deprecated && !p.deprecated?)) &&
+            yield(p)
+        end
+      end
+    end
+
     def initialize(name, options = {})
       @name = name.to_sym
       @categories = []
       @mandatory_actions = []
       @optional_actions = []
       @root_group = Procedo::Procedure::GroupParameter.new(self, ROOT_NAME, cardinality: 1)
-      @maintenance = !!options[:maintenance]
+      @deprecated = !!options[:deprecated]
       # Adds categories & action
       options[:categories].each { |c| add_category(c) } if options[:categories]
       options[:mandatory_actions].each { |c| add_action(c) } if options[:mandatory_actions]
@@ -32,8 +75,8 @@ module Procedo
       @mandatory_actions + @optional_actions
     end
 
-    def maintenance?
-      @maintenance
+    def deprecated?
+      @deprecated
     end
 
     # Adds category to procedure

@@ -1212,6 +1212,7 @@ fra:
     product_ownerships: "Propriétés de produit"
     product_parameters: "Paramètres du produit"
     # product_part_replacement: "Product part replacement"
+    # product_part_replacements: "Product part replacements"
     product_phases: "Phases de produit"
     product_quadruple_mixings: "Quadruple mélanges de produit" #?
     product_quintuple_mixings: "Quintuple mélanges de produit" #?

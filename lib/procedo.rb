@@ -44,27 +44,6 @@ module Procedo
     end
     alias [] find
 
-    # Returns direct procedures of nature
-    def procedures_of_activity_family(*families)
-      procedures.select do |p|
-        p.of_activity_family?(*families)
-      end
-    end
-
-    # Returns direct procedures of nature
-    def procedures_of_category(*categories)
-      procedures.select do |p|
-        p.of_category?(*categories)
-      end
-    end
-
-    # Returns direct procedures of nature
-    def procedures_of_main_category(*categories)
-      procedures.select do |p|
-        categories.detect { |c| p.categories.first <= c }
-      end
-    end
-
     # Browse all available procedures
     def each_procedure
       @@list.each do |_, procedure|

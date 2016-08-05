@@ -1161,7 +1161,7 @@ por:
     # part: "part"
     participants: "Os participantes"
     # participations: "Participations"
-    parts: "Módulos" #?
+    parts: "Módulos"
     password: "Senha"
     paths_to_convert: "Caminhos para converter" #?
     payable_taxes: "Impostos a pagar"

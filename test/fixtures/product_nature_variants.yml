@@ -454,13 +454,13 @@ product_nature_variants_028:
   created_at: 2014-11-02 18:36:36.382111000 Z
   creator_id: 1
   id: 29
-  lock_version: 0
+  lock_version: 1
   name: Semoir
   nature_id: 25
-  number: GWNVKRYVPNV000000000014
+  number: GWNVK00014
   reference_name: sower
   unit_name: "Équipement"
-  updated_at: 2014-11-02 18:36:36.382111000 Z
+  updated_at: 2016-08-05 20:03:17.765627000 Z
   updater_id: 1
   variety: trailed_equipment
 product_nature_variants_029:

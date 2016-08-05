@@ -1532,7 +1532,7 @@ fra:
     part: "Pièce"
     participants: "Participants"
     participations: "Participations"
-    parts: "Modules" #?
+    parts: "Modules"
     password: "Mot de passe"
     paths_to_convert: "Chemins à convertir" #?
     payable_taxes: "Taxes payables"

@@ -1672,7 +1672,7 @@ arb:
     # part: "part"
     participants: "مشتركين"
     participations: "بالمشاركات"
-    parts: "وحدات" #?
+    parts: "وحدات"
     passive_balance_sheet: "رصيد ثابت" #?
     passive_capital_sum: "مجموع رأس المال" #?
     passive_debt_sum: "مجموع الديون" #?

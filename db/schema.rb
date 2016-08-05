@@ -1565,6 +1565,7 @@ ActiveRecord::Schema.define(version: 20160730070743) do
     t.integer  "schematic_id"
   end
 
+  add_index "intervention_parameters", ["component_id"], name: "index_intervention_parameters_on_component_id", using: :btree
   add_index "intervention_parameters", ["created_at"], name: "index_intervention_parameters_on_created_at", using: :btree
   add_index "intervention_parameters", ["creator_id"], name: "index_intervention_parameters_on_creator_id", using: :btree
   add_index "intervention_parameters", ["event_participation_id"], name: "index_intervention_parameters_on_event_participation_id", using: :btree
@@ -1576,6 +1577,7 @@ ActiveRecord::Schema.define(version: 20160730070743) do
   add_index "intervention_parameters", ["outcoming_product_id"], name: "index_intervention_parameters_on_outcoming_product_id", using: :btree
   add_index "intervention_parameters", ["product_id"], name: "index_intervention_parameters_on_product_id", using: :btree
   add_index "intervention_parameters", ["reference_name"], name: "index_intervention_parameters_on_reference_name", using: :btree
+  add_index "intervention_parameters", ["schematic_id"], name: "index_intervention_parameters_on_schematic_id", using: :btree
   add_index "intervention_parameters", ["type"], name: "index_intervention_parameters_on_type", using: :btree
   add_index "intervention_parameters", ["updated_at"], name: "index_intervention_parameters_on_updated_at", using: :btree
   add_index "intervention_parameters", ["updater_id"], name: "index_intervention_parameters_on_updater_id", using: :btree
@@ -1621,13 +1623,14 @@ ActiveRecord::Schema.define(version: 20160730070743) do
     t.string   "nature",                                  null: false
     t.integer  "request_intervention_id"
     t.boolean  "trouble_encountered",     default: false, null: false
-    t.string   "trouble_description"
+    t.text     "trouble_description"
   end
 
   add_index "interventions", ["created_at"], name: "index_interventions_on_created_at", using: :btree
   add_index "interventions", ["creator_id"], name: "index_interventions_on_creator_id", using: :btree
   add_index "interventions", ["event_id"], name: "index_interventions_on_event_id", using: :btree
   add_index "interventions", ["issue_id"], name: "index_interventions_on_issue_id", using: :btree
+  add_index "interventions", ["nature"], name: "index_interventions_on_nature", using: :btree
   add_index "interventions", ["prescription_id"], name: "index_interventions_on_prescription_id", using: :btree
   add_index "interventions", ["procedure_name"], name: "index_interventions_on_procedure_name", using: :btree
   add_index "interventions", ["request_intervention_id"], name: "index_interventions_on_request_intervention_id", using: :btree
@@ -2620,7 +2623,7 @@ ActiveRecord::Schema.define(version: 20160730070743) do
   add_index "product_nature_variant_components", ["created_at"], name: "index_product_nature_variant_components_on_created_at", using: :btree
   add_index "product_nature_variant_components", ["creator_id"], name: "index_product_nature_variant_components_on_creator_id", using: :btree
   add_index "product_nature_variant_components", ["deleted_at"], name: "index_product_nature_variant_components_on_deleted_at", using: :btree
-  add_index "product_nature_variant_components", ["name", "product_nature_variant_id"], name: "index_product_nature_variant_name_uniqueness", unique: true, using: :btree
+  add_index "product_nature_variant_components", ["name", "product_nature_variant_id"], name: "index_product_nature_variant_name_unique", unique: true, using: :btree
   add_index "product_nature_variant_components", ["parent_id"], name: "index_product_nature_variant_components_on_parent_id", using: :btree
   add_index "product_nature_variant_components", ["part_product_nature_variant_id"], name: "index_product_nature_variant_components_on_part_variant", using: :btree
   add_index "product_nature_variant_components", ["product_nature_variant_id"], name: "index_product_nature_variant_components_on_variant", using: :btree

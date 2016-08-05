@@ -1229,7 +1229,7 @@ jpn:
     # part: "part"
     participants: "参加者"
     participations: "参加"
-    parts: "モジュール" #?
+    parts: "モジュール"
     password: "パスワード"
     paths_to_convert: "変換するパス" #?
     payable_taxes: "未払税金"

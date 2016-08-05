@@ -972,6 +972,7 @@ por:
     product_ownerships: "Ownerships produtos"
     product_parameters: "Parâmetros do produto"
     # product_part_replacement: "Product part replacement"
+    # product_part_replacements: "Product part replacements"
     product_phases: "Fases produtos"
     product_reading: "Leitura produto"
     product_reading_tasks: "Tarefas de leitura produto"

@@ -1060,13 +1060,8 @@ eng:
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
-<<<<<<< HEAD
-    entry_items: "Entry items"
-    equipment: "Equipment"
-=======
     entry_items: "Entry items" #?
-    equipment: "Equipment" #?
->>>>>>> master
+    equipment: "Equipment"
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
     error: "Sorry..."
@@ -1325,10 +1320,7 @@ eng:
     part: "part" #?
     participants: "Participants"
     participations: "Participations"
-<<<<<<< HEAD
-=======
     parts: "Modules"
->>>>>>> master
     password: "Password" #?
     payable_taxes: "Payable taxes"
     payment_amount: "Amount of payment" #?
@@ -1374,7 +1366,6 @@ eng:
     product_category: "Product category" #?
     product_name: "Product name" #?
     product_natures: "Product types"
-    # product_part_replacements: "Product part replacements"
     product_value: "Product value %{financial_year}"
     production: "Production"
     production_cost: "Production cost"
@@ -1397,7 +1388,6 @@ eng:
     received: "Received" #?
     recent_events: "Recent events"
     reconciled_total: "Reconciled total"
-    # record_interventions: "Record interventions"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?

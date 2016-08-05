@@ -2,11 +2,12 @@
   .component
     .component-block
       .component-title
-        %span= "#{component.name} (#{component.id}): "
-        - if component.part_product_nature_variant
-          = link_to component.part_product_nature_variant.name, backend_product_nature_variant_path(component.part_product_nature_variant)
-        - if component.part_replacements.any?
+        %span= component.name
+        -# if component.part_replacements.any?
           %span= equipment.last_replacement(component).intervention_parameter.product.name
+      - if component.part_product_nature_variant
+        .component-type
+          = link_to component.part_product_nature_variant.name, backend_product_nature_variant_path(component.part_product_nature_variant)
       - if resource.remaining_working_lifespan || resource.remaining_lifespan
         .component-status
           = lights(equipment.wear_status(component))

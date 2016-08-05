@@ -976,6 +976,7 @@ spa:
     product_ownerships: "Titularidades de productos"
     product_parameters: "Parámetros del producto"
     # product_part_replacement: "Product part replacement"
+    # product_part_replacements: "Product part replacements"
     product_phases: "Fases de productos"
     product_reading: "Producto de lectura"
     product_reading_tasks: "Tareas de lectura del producto"

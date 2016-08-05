@@ -3111,7 +3111,7 @@ interventions:
   stopped_at:
     type: datetime
   trouble_description:
-    type: string
+    type: text
   trouble_encountered:
     type: boolean
     required: true

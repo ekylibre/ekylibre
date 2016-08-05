@@ -39,7 +39,7 @@
 #  started_at              :datetime
 #  state                   :string           not null
 #  stopped_at              :datetime
-#  trouble_description     :string
+#  trouble_description     :text
 #  trouble_encountered     :boolean          default(FALSE), not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer
@@ -76,10 +76,11 @@ class Intervention < Ekylibre::Record::Base
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
-  validates :procedure_name, :state, presence: true
+  validates :description, :trouble_description, length: { maximum: 100_000 }, allow_blank: true
+  validates :nature, :procedure_name, :state, presence: true
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   # ]VALIDATORS]
   validates :actions, presence: true
@@ -106,7 +107,7 @@ class Intervention < Ekylibre::Record::Base
 
   scope :of_nature, ->(reference_name) { where(reference_name: reference_name) }
   scope :of_category, lambda { |category|
-    where(procedure_name: Procedo.procedures_of_category(category).map(&:name))
+    where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }
   scope :of_campaign, lambda { |campaign|
     where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).of_campaign(campaign)))

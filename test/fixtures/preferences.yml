@@ -4062,11 +4062,16 @@ preferences_349:
   created_at: 2016-07-01 20:18:46.122906000 Z
   creator_id: 1
   id: 350
-  lock_version: 0
+  lock_version: 2
   name: cobbler.equipments-show
   nature: string
-  string_value: {}
-  updated_at: 2016-07-01 20:18:46.122906000 Z
+  string_value:
+    order:
+    - components
+    - intervention-product-parameters
+    - time-spent-by-activity
+    - places
+  updated_at: 2016-08-05 20:11:21.995394000 Z
   updater_id: 1
   user_id: 1
 preferences_350:
@@ -4264,5 +4269,71 @@ preferences_367:
   nature: string
   string_value: cobbles
   updated_at: 2016-08-05 15:33:49.014323000 Z
+  updater_id: 1
+  user_id: 1
+preferences_368:
+  boolean_value: false
+  created_at: 2016-08-05 19:57:03.497423000 Z
+  creator_id: 1
+  id: 370
+  lock_version: 0
+  name: interface.snippets.access.collapsed
+  nature: boolean
+  updated_at: 2016-08-05 19:57:03.497423000 Z
+  updater_id: 1
+  user_id: 1
+preferences_369:
+  created_at: 2016-08-05 19:58:29.475966000 Z
+  creator_id: 1
+  id: 371
+  lock_version: 0
+  name: cobbler.product_nature_variants-show
+  nature: string
+  string_value: {}
+  updated_at: 2016-08-05 19:58:29.475966000 Z
+  updater_id: 1
+  user_id: 1
+preferences_370:
+  created_at: 2016-08-05 19:58:29.506267000 Z
+  creator_id: 1
+  id: 372
+  lock_version: 0
+  name: list._product_nature_variants_list_sale_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-08-05 19:58:29.506267000 Z
+  updater_id: 1
+  user_id: 1
+preferences_371:
+  created_at: 2016-08-05 19:58:29.517549000 Z
+  creator_id: 1
+  id: 373
+  lock_version: 0
+  name: list._product_nature_variants_list_parcel_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-08-05 19:58:29.517549000 Z
+  updater_id: 1
+  user_id: 1
+preferences_372:
+  created_at: 2016-08-05 19:58:29.527966000 Z
+  creator_id: 1
+  id: 374
+  lock_version: 0
+  name: list._product_nature_variants_list_catalog_items_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-08-05 19:58:29.527966000 Z
+  updater_id: 1
+  user_id: 1
+preferences_373:
+  created_at: 2016-08-05 19:58:29.541091000 Z
+  creator_id: 1
+  id: 375
+  lock_version: 0
+  name: list._product_nature_variants_list_components_tag
+  nature: string
+  string_value: {}
+  updated_at: 2016-08-05 19:58:29.541091000 Z
   updater_id: 1
   user_id: 1

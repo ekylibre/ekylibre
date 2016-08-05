@@ -1003,6 +1003,7 @@ ita:
     product_ownerships: "ownership del prodotto"
     product_parameters: "parametri del prodotto"
     # product_part_replacement: "Product part replacement"
+    # product_part_replacements: "Product part replacements"
     product_phases: "le fasi del prodotto"
     product_reading: "lettura del prodotto"
     product_reading_tasks: "compiti di lettura del prodotto"

@@ -1157,7 +1157,7 @@ cmn:
     # part: "part"
     participants: "参与者"
     participations: "参股"
-    parts: "模块" #?
+    parts: "模块"
     password: "密码"
     paths_to_convert: "路径转换" #?
     payable_taxes: "应交税费"

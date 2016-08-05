@@ -972,6 +972,7 @@ deu:
     product_ownerships: "Produkt Eigentümern"
     product_parameters: "Produktparameter"
     # product_part_replacement: "Product part replacement"
+    # product_part_replacements: "Product part replacements"
     product_phases: "Produktphasen"
     product_reading: "Artikel lesen"
     product_reading_tasks: "Produktleseaufgaben"

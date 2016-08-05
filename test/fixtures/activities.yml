@@ -78,6 +78,7 @@ activities_001:
   updater_id: 1
   use_countings: false
   use_gradings: false
+  use_seasons: false
   use_tactics: true
   with_cultivation: true
   with_supports: true
@@ -151,6 +152,7 @@ activities_004:
   use_countings: false
   use_gradings: false
   use_seasons: true
+  use_tactics: false
   with_cultivation: true
   with_supports: true
 activities_005:

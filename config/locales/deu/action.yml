@@ -1156,7 +1156,7 @@ deu:
     # part: "part"
     participants: "Die Teilnehmer"
     participations: "Beteiligungen"
-    parts: "Module" #?
+    parts: "Module"
     password: "Passwort"
     paths_to_convert: "Wege zu konvertieren" #?
     payable_taxes: "abzuführenden Steuern"

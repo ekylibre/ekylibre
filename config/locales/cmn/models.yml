@@ -972,6 +972,7 @@ cmn:
     product_ownerships: "产品所有权"
     product_parameters: "产品参数"
     # product_part_replacement: "Product part replacement"
+    # product_part_replacements: "Product part replacements"
     product_phases: "产品阶段"
     product_reading: "产品阅读"
     product_reading_tasks: "产品阅读任务"

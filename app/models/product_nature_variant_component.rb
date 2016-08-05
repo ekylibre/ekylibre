@@ -41,8 +41,9 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   has_many :children, class_name: 'ProductNatureVariantComponent', foreign_key: :parent_id, inverse_of: :parent
   has_many :part_replacements, class_name: 'ProductPartReplacement', inverse_of: :component, foreign_key: :component_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :deleted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :name, :product_nature_variant, presence: true
+  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :product_nature_variant, presence: true
   # ]VALIDATORS]
   # acts_as_nested_set scope: :product_nature_variant_id
   accepts_nested_attributes_for :children, allow_destroy: true
@@ -62,7 +63,7 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
       end
     end
 
-    # Validates uniqueness due to sequential creation messing it up :
+    # Validates uniqueness due to sequential creation messing it up:
     # Ex of a Rails execution:
     #   "C1.name ALREADY EXISTS ?" => false
     #   "C2.name ALREADY EXISTS ?" => false

@@ -1222,7 +1222,7 @@ ita:
     # part: "part"
     participants: "I partecipanti"
     participations: "partecipazioni"
-    parts: "moduli" #?
+    parts: "moduli"
     password: "parola d'ordine"
     paths_to_convert: "Percorsi per convertire" #?
     payable_taxes: "Debiti tributari"

@@ -7,7 +7,7 @@ namespace :catalog do
         xml.send('activity-families') do
           Nomen::ActivityFamily.list.each do |family|
             xml.send('activity-family', name: family.name, title: family.human_name) do
-              Procedo.procedures_of_activity_family(family.name.to_sym).each do |procedure|
+              Procedo::Procedure.of_activity_family(family.name.to_sym).each do |procedure|
                 xml.procedure(name: procedure.name)
               end
             end

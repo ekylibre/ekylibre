@@ -39,7 +39,7 @@
 #  started_at              :datetime
 #  state                   :string           not null
 #  stopped_at              :datetime
-#  trouble_description     :string
+#  trouble_description     :text
 #  trouble_encountered     :boolean          default(FALSE), not null
 #  updated_at              :datetime         not null
 #  updater_id              :integer

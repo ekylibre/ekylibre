@@ -76,8 +76,8 @@ module Procedo
         options[:optional_actions] = element.attr('optional-actions')
                                             .to_s.split(/[\s\,]+/)
                                             .map(&:to_sym)
-        options[:maintenance] = element.attr('maintenance').to_s == 'true'
-        options[:maintenance] ||= nil
+        options[:maintenance] = (element.attr('maintenance').to_s == 'true')
+        options[:deprecated] = (element.attr('deprecated').to_s == 'true')
 
         procedure = Procedo::Procedure.new(name, options)
 

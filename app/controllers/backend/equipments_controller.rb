@@ -49,6 +49,5 @@ module Backend
       t.column :stopped_at, through: :intervention, datatype: :datetime
       t.column :human_activities_names, through: :intervention
     end
-
   end
 end

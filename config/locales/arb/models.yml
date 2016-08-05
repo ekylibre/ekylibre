@@ -1862,6 +1862,7 @@ arb:
     product_ownerships: "الملكيات المنتج"
     product_parameters: "المنتج المعلمات"
     # product_part_replacement: "Product part replacement"
+    # product_part_replacements: "Product part replacements"
     product_phases: "مراحل المنتج"
     product_reading: "قراءة المنتج"
     product_reading_tasks: "مهام القراءة المنتج"
