@@ -90,6 +90,8 @@ fra:
         delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
+      parcel_item:
+        population: "Quantité"
       plant:
         born_at: "Planté/semé le"
         nature: "Nature de la culture" #?
@@ -271,6 +273,7 @@ fra:
       animal_group: "Groupe d’animaux"
       attachment: "Pièce jointe"
       bank_statement: "Relevé de compte bancaire"
+      bank_statement_item: "Ligne de relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Bâtiment"
       building_division: "Pièce"
@@ -308,7 +311,6 @@ fra:
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
       georeading: "Relevé topographique"
-      grading_quality_criterion: "Critère qualité d'un agréage"
       guide: "Référentiel"
       guide_analysis: "Analyse d’un référentiel"
       guide_analysis_point: "Point d’analyse d’un référentiel"
@@ -1183,11 +1185,12 @@ fra:
     product_mixings: "Mélanges de produit" #?
     product_movement: "Mouvement de produit"
     product_moves: "Mouvements de produit" #?
-    product_name: "prénom"
+    product_name: "Produit"
     product_nature: "Type de produit"
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
+    product_natures: "Types de produits"
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"

@@ -1096,8 +1096,10 @@ por:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Novo Email"
     new_group: "Novo grupo"
+    new_incoming_parcel: "Novo pacote de entrada"
     new_issue: "Novo problema"
     new_organization: "Nova organização"
+    new_outgoing_parcel: "Novo pacote de saída"
     new_production: "Nova produção"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nova citação"
@@ -1649,6 +1651,7 @@ por:
       # bookkeep: "Bookkeep"
       cancel: "Cancelar"
       category: "Categoria" #?
+      check: "Verifica"
       children: "Crianças" #?
       close: "Fechar"
       compute: "Calcular"
@@ -1672,6 +1675,7 @@ por:
       family: "Família"
       finish: "Terminar"
       generate_last_journal_entry: "Gerar última entrada do diário"
+      give: "Dar"
       import: "Importar"
       incorporate: "Incorporar"
       increment: "Incremento" #?
@@ -1688,8 +1692,10 @@ por:
       negociate: "Negociar"
       new: "Novo"
       open: "Aberto"
+      order: "Ordem"
       pick: "Escolher"
       picture: "Fotografia"
+      prepare: "Preparar"
       propose: "Propor"
       propose_and_invoice: "Propor e fatura"
       prospect: "Prospecto"

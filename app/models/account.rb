@@ -63,7 +63,9 @@ class Account < Ekylibre::Record::Base
   has_many :suppliers,            class_name: 'Entity', foreign_key: :supplier_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :debtor, :reconcilable, inclusion: { in: [true, false] }
-  validates :label, :name, :number, presence: true
+  validates :description, :usages, length: { maximum: 100_000 }, allow_blank: true
+  validates :label, :name, :number, presence: true, length: { maximum: 500 }
+  validates :last_letter, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :last_letter, length: { allow_nil: true, maximum: 10 }
   validates :number, length: { allow_nil: true, maximum: 20 }

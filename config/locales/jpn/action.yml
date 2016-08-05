@@ -1164,8 +1164,10 @@ jpn:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "新しい電子メール"
     new_group: "新しいグループ"
+    new_incoming_parcel: "新しい着信小包"
     new_issue: "新発債"
     new_organization: "新組織"
+    new_outgoing_parcel: "新しい発信小包"
     new_production: "新生産"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新しい引用"
@@ -1721,6 +1723,7 @@ jpn:
       # bookkeep: "Bookkeep"
       cancel: "キャンセル"
       category: "カテゴリ" #?
+      check: "チェック"
       children: "子供" #?
       close: "閉じる"
       compute: "計算"
@@ -1744,6 +1747,7 @@ jpn:
       family: "家族"
       finish: "仕上げ"
       generate_last_journal_entry: "最後の仕訳を生成します"
+      give: "与える"
       import: "インポート"
       incorporate: "組み込みます"
       increment: "インクリメント" #?
@@ -1760,8 +1764,10 @@ jpn:
       # negociate: "Negociate"
       new: "新しい"
       open: "開いた"
+      order: "注文"
       pick: "ピック"
       picture: "画像"
+      prepare: "準備します"
       propose: "提案します"
       propose_and_invoice: "提案と請求書"
       prospect: "見通し"

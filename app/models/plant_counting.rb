@@ -43,8 +43,9 @@ class PlantCounting < Ekylibre::Record::Base
   has_many :items, class_name: 'PlantCountingItem', dependent: :delete_all, inverse_of: :plant_counting
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :read_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :average_value, numericality: { allow_nil: true }
+  validates :average_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :comment, length: { maximum: 100_000 }, allow_blank: true
+  validates :read_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :plant, :plant_density_abacus, :plant_density_abacus_item, presence: true
   # ]VALIDATORS]
 

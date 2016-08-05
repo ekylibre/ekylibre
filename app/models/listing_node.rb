@@ -59,9 +59,13 @@ class ListingNode < Ekylibre::Record::Base
   belongs_to :item_listing_node, class_name: 'ListingNode'
   has_many :items, class_name: 'ListingNodeItem', foreign_key: :node_id, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :depth, :lft, :rgt, numericality: { allow_nil: true, only_integer: true }
+  validates :attribute_name, :condition_operator, :condition_value, :item_nature, :key, :sql_type, length: { maximum: 500 }, allow_blank: true
+  validates :depth, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :exportable, inclusion: { in: [true, false] }
-  validates :depth, :label, :listing, :name, :nature, presence: true
+  validates :item_value, length: { maximum: 100_000 }, allow_blank: true
+  validates :label, :name, presence: true, length: { maximum: 500 }
+  validates :lft, :rgt, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :listing, :nature, presence: true
   # ]VALIDATORS]
   validates :item_nature, length: { allow_nil: true, maximum: 10 }
   validates :key, uniqueness: true

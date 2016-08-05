@@ -74,9 +74,13 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :bank_statement
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :printed_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, numericality: { allow_nil: true }
-  validates :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state, presence: true
+  validates :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :absolute_currency, :account, :currency, :entry, :financial_year, :journal, :real_currency, presence: true
+  validates :bank_statement_letter, :letter, length: { maximum: 500 }, allow_blank: true
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :entry_number, :name, :state, presence: true, length: { maximum: 500 }
+  validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
   # ]VALIDATORS]
   validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
   validates :letter, length: { allow_nil: true, maximum: 10 }

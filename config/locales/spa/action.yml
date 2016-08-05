@@ -1260,8 +1260,10 @@ spa:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Nuevo Email"
     new_group: "Nuevo grupo"
+    new_incoming_parcel: "Nueva parcela entrante"
     new_issue: "Nueva edición"
     new_organization: "Nueva organización"
+    new_outgoing_parcel: "Nueva parcela saliente"
     new_production: "Nueva producción"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nueva cita"
@@ -1945,6 +1947,7 @@ spa:
       # bookkeep: "Bookkeep"
       cancel: "Cancelar"
       category: "Categoría" #?
+      check: "Comprobar"
       children: "Niños" #?
       close: "Cerca"
       compute: "Calcular"
@@ -1968,6 +1971,7 @@ spa:
       family: "Familia"
       finish: "Acabado"
       generate_last_journal_entry: "Generar última entrada en el diario"
+      give: "Dar"
       import: "Importar"
       incorporate: "Incorporar"
       increment: "Incremento" #?
@@ -1984,8 +1988,10 @@ spa:
       negociate: "Negociate"
       new: "Nuevo"
       open: "Abierto"
+      order: "Orden"
       pick: "Recoger"
       picture: "Imagen"
+      prepare: "Preparar"
       propose: "Proponer"
       propose_and_invoice: "Proponer y factura"
       prospect: "Perspectiva"

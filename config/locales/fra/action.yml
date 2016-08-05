@@ -716,8 +716,8 @@ fra:
         handlers:
           edit:
             tooltip:
-              subtext: "Cliquez sur Annuler pour revenir sur les changements."
-              text: "Déplacez les ancres, ou le marqueur pour éditer l’objet."
+              subtext: "Cliquez sur Annuler pour revenir sur les changements"
+              text: "Déplacez les ancres, ou le marqueur pour éditer l’objet"
           remove:
             tooltip:
               text: "Cliquez sur l’objet à enlever"
@@ -725,15 +725,15 @@ fra:
           actions:
             cancel:
               text: "Annuler"
-              title: "Annulez l’édition, ignorer tous les changements."
+              title: "Annulez l’édition, ignorer tous les changements"
             save:
               text: "Sauver"
-              title: "Sauvegardez les changements."
+              title: "Sauvegardez les changements"
           buttons:
-            edit: "Editer les couches."
-            editDisabled: "Pas de couches à éditer."
-            remove: "Supprimer les couches."
-            removeDisabled: "Pas de couches à supprimer."
+            edit: "Editer les couches"
+            editDisabled: "Pas de couches à éditer"
+            remove: "Supprimer les couches"
+            removeDisabled: "Pas de couches à supprimer"
       fullscreenTitle: "Plein écran"
       importerButtonTitle: "Importer"
       zoomInTitle: "Zoomer"
@@ -1431,9 +1431,11 @@ fra:
     new_family: "Nouvelle famille" #?
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
+    new_incoming_parcel: "Nouveau colis entrant"
     new_issue: "Nouvel incident"
     new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?
+    new_outgoing_parcel: "Nouveau colis sortant"
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"
@@ -2268,6 +2270,7 @@ fra:
       bookkeep: "Comptabiliser"
       cancel: "Annuler"
       category: "Categorie" #?
+      check: "Vérifier"
       children: "Enfant" #?
       close: "Fermer"
       compute: "Calculer"
@@ -2292,6 +2295,7 @@ fra:
       family: "Famille"
       finish: "Finir"
       generate_last_journal_entry: "Générer la dernière écriture"
+      give: "Donner"
       import: "Importer"
       incorporate: "Incorporer"
       increment: "Incrémenter" #?
@@ -2308,8 +2312,10 @@ fra:
       negociate: "Négocier"
       new: "Nouveau"
       open: "Ouvrir"
+      order: "Commander"
       pick: "Piocher"
       picture: "Image"
+      prepare: "Préparer"
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"

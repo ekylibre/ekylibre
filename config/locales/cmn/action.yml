@@ -1092,8 +1092,10 @@ cmn:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "新邮件"
     new_group: "新建组"
+    new_incoming_parcel: "新进​​入的包裹"
     new_issue: "新问题"
     new_organization: "新组织"
+    new_outgoing_parcel: "新传出的包裹"
     new_production: "新的生产"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新报价"
@@ -1645,6 +1647,7 @@ cmn:
       # bookkeep: "Bookkeep"
       cancel: "取消"
       category: "类别" #?
+      check: "检查"
       children: "孩子" #?
       close: "关闭"
       compute: "计算"
@@ -1668,6 +1671,7 @@ cmn:
       family: "家庭"
       finish: "完"
       generate_last_journal_entry: "最后生成日记帐分录"
+      give: "给"
       import: "进口"
       incorporate: "合并"
       increment: "增量" #?
@@ -1684,8 +1688,10 @@ cmn:
       # negociate: "Negociate"
       new: "新"
       open: "打开"
+      order: "订购"
       pick: "挑"
       picture: "图片"
+      prepare: "准备"
       propose: "提出"
       propose_and_invoice: "提出和发票"
       prospect: "展望"

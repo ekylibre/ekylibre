@@ -5,6 +5,7 @@
   - k.needle_choice :working_set, [[]] + Nomen::WorkingSet.selection
 
 - main_toolbar do |t|
+  = t.new params: { controller: :parcels, action: :new, nature: :incoming }, label: :new_incoming_parcel.tl
   = t.new
 
 = main_list

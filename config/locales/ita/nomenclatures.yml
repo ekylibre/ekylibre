@@ -1,6 +1,10 @@
 ita:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "La natura problema"
+          variety: "Varietà"
       items:
         acidify: "Acidificare"
         administer_care: "somministrare cura"
@@ -553,7 +557,7 @@ ita:
         cow_milk_analysis: "analisi del latte di mucca"
         grain_analysis: "analisi dei cereali"
         meteorological_analysis: "analisi meteorologica"
-        plant_analysis: "analisi dell&#39;impianto"
+        plant_analysis: "analisi dell’impianto"
         sensor_analysis: "analisi del sensore"
         silage_analysis: "analisi insilato"
         soil_analysis: "analisi del suolo"
@@ -807,7 +811,6 @@ ita:
         er: "L'Eritrea"
         es: "Spagna"
         et: "Etiopia"
-        false: "Norvegia" #?
         fi: "Finlandia"
         # fj: "Fiji"
         fk: "Isole Falkland (Malvinas)"
@@ -905,7 +908,7 @@ ita:
         # ng: "Nigeria"
         # ni: "Nicaragua"
         nl: "Olanda"
-        # no: "Norway"
+        no: "Norvegia"
         # np: "Nepal"
         # nr: "Nauru"
         # nu: "Niue"
@@ -3141,6 +3144,9 @@ ita:
         variety: "Varietà"
     product_natures:
       choices:
+        linkage_points:
+          front: "Davanti"
+          rear: "Parte posteriore"
         population_counting:
           decimal: "Decimale"
           integer: "Numero intero"
@@ -3460,7 +3466,7 @@ ita:
     production_systems:
       items:
         extensive_farming: "allevamento estensivo"
-        intensive_farming: "L&#39;agricoltura intensiva"
+        intensive_farming: "L’agricoltura intensiva"
         organic_farming: "Coltivazione biologica"
         permaculture: "Permacultura"
         sustainable_agriculture: "Agricoltura sostenibile"
@@ -3630,7 +3636,7 @@ ita:
         cubic_centimeter: "centimetro cubo"
         cubic_meter: "Metro cubo"
         cubic_meter_per_hectare: "metro cubo per ettaro"
-        cubic_meter_per_hour: "metro cubo all&#39;ora"
+        cubic_meter_per_hour: "metro cubo all’ora"
         day: "Giorno"
         degree: "Grado"
         dozen: "Dozzina"
@@ -3644,7 +3650,7 @@ ita:
         gram_per_liter: "Gram per litro"
         gram_per_square_meter: "Grammo per metro quadrato"
         hectare: "Ettaro"
-        hectare_per_hour: "Ettaro all&#39;ora"
+        hectare_per_hour: "Ettaro all’ora"
         hectoliter: "Ettolitro"
         hectoliter_per_hectare: "Ettolitri per ettaro"
         hectopascal: "ettopascal"

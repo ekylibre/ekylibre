@@ -326,6 +326,8 @@ arb:
         updater_id: "التعديل" #?
       parameter:  #?
         updated_at: "تم تحديثها في" #?
+      parcel_item:
+        population: "كمية"
       plant:
         born_at: "زرعت في"
       postal_zone:  #?
@@ -758,6 +760,7 @@ arb:
       area: "المنطقة البريدية" #?
       attachment: "مرفق"
       bank_statement: "بيان الحساب المصرفي"
+      bank_statement_item: "الصف بيان البنك"
       bioproduct: "المنتج تعيش"
       building: "موقع التخزين"
       building_division: "غرفة / المنطقة"
@@ -810,7 +813,6 @@ arb:
       gap: "فراغ"
       gap_item: "البند الفجوة"
       # georeading: "Georeading"
-      grading_quality_criterion: "معيار جودة الدرجات"
       guide: "دليل"
       guide_analysis: "تحليل دليل"
       guide_analysis_point: "نقطة تحليل دليل"
@@ -1841,6 +1843,7 @@ arb:
     product_nature_categories: "فئات نوع المنتج"
     product_nature_category: "فئة نوع المنتج"
     product_nature_category_taxations: "الأنظمة الضريبية فئة نوع المنتج"
+    product_natures: "أنواع المنتجات"
     product_ownership: "ملكية المنتج"
     product_ownerships: "الملكيات المنتج"
     product_parameters: "المنتج المعلمات"

@@ -29,6 +29,8 @@ spa:
         born_at: "Creado en"
       outgoing_payment:
         delivered: "Teniendo en cuenta para el destinatario"
+      parcel_item:
+        population: "Cantidad"
       plant:
         born_at: "Plantado en"
       sale:
@@ -156,6 +158,7 @@ spa:
       animal_group: "Grupo de animales"
       attachment: "Adjunto archivo"
       bank_statement: "Extracto de cuenta"
+      bank_statement_item: "Línea del extracto bancario"
       bioproduct: "Producto vivo"
       building: "Edificio"
       building_division: "Sala / Zona"
@@ -194,7 +197,6 @@ spa:
       gap: "Brecha"
       gap_item: "Elemento de intervalo"
       # georeading: "Georeading"
-      grading_quality_criterion: "criterio de calidad de clasificación"
       guide: "Guía"
       guide_analysis: "Guía de análisis"
       guide_analysis_point: "Guía de punto de análisis"
@@ -953,6 +955,7 @@ spa:
     product_nature_categories: "Categorías de tipos de producto"
     product_nature_category: "Tipo de producto categoría"
     product_nature_category_taxations: "Tasaciones categoría Tipo de producto"
+    product_natures: "Tipos de productos"
     product_ownership: "Propiedad del producto"
     product_ownerships: "Titularidades de productos"
     product_parameters: "Parámetros del producto"

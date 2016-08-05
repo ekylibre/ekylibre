@@ -57,11 +57,13 @@ class Subscription < Ekylibre::Record::Base
   has_many :children, class_name: 'Subscription', foreign_key: :parent_id, dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(subscription) { subscription.stopped_on && subscription.started_on }
-  validates :quantity, numericality: { allow_nil: true, only_integer: true }
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :number, length: { maximum: 500 }, allow_blank: true
+  validates :quantity, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(subscription) { subscription.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :suspended, inclusion: { in: [true, false] }
-  validates :quantity, :started_on, :stopped_on, :swim_lane_uuid, presence: true
+  validates :swim_lane_uuid, presence: true
   # ]VALIDATORS]
   validates :nature, :subscriber, presence: true
 

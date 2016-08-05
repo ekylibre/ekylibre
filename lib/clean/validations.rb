@@ -1,6 +1,12 @@
+require 'active_support/number_helper/number_to_delimited_converter'
+
 module Clean
   module Validations
     class << self
+      def pretty_number(value)
+        ActiveSupport::NumberHelper::NumberToDelimitedConverter.convert(value, locale: :eng, delimiter: '_')
+      end
+
       def validable_column?(column)
         return false if [:created_at, :creator_id, :creator, :updated_at, :updater_id, :updater, :position, :lock_version].include?(column.name.to_sym)
         return false if column.name.to_s =~ /^\_/
@@ -8,66 +14,78 @@ module Clean
       end
 
       def search_missing_validations(model)
-        code = ''
-
-        return code unless model.superclass == Ekylibre::Record::Base
+        return '' unless model.superclass == Ekylibre::Record::Base
 
         record = model.name.underscore
 
         columns = model.content_columns.delete_if { |c| !validable_column?(c) }.sort { |a, b| a.name.to_s <=> b.name.to_s }
+        string_foreign_keys = model.nomenclature_reflections.values.map(&:foreign_key)
 
-        cs = columns.select { |c| c.type == :date }
-        if cs.any?
-          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }\n"
-        end
+        validations = {}
+        columns.each do |column|
+          list = []
 
-        cs = columns.select { |c| c.type == :datetime || c.type == :timestamp }
-        if cs.any?
-          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }\n"
-        end
+          type = column.type
 
-        columns.each do |c|
-          next unless [:stopped_at, :stopped_on].include?(c.name.to_sym)
-          # p "started#{c.name.scan(/_.{2}/).first}", columns.collect(&:name)
-          suffix = c.name.scan(/_.{2}/).first
-          if suffix && columns.collect(&:name).include?("started#{suffix}")
-            code << "  validates :#{c.name}, timeliness: { allow_blank: true, on_or_after: :started#{suffix} }, if: ->(#{record}) { #{record}.#{c.name} && #{record}.started#{suffix} }\n"
+          list << 'presence: true' if !column.null && type != :boolean
+
+          if ActiveRecord::Base.connection.index_exists?(model.table_name, column.name, unique: true)
+            list << 'uniqueness: true'
           end
+
+          if [:date, :datetime, :timestamp].include? type
+            suffix = column.name.scan(/_.+$/).first[1..-1]
+            on_or_after = nil
+            if column.name =~ /\Astopped_#{suffix}\z/ && columns.collect(&:name).include?("started_#{suffix}")
+              on_or_after = "->(#{record}) { #{record}.started_#{suffix} || Time.new(1, 1, 1).in_time_zone }"
+            end
+            on_or_after ||= '-> { Time.new(1, 1, 1).in_time_zone }'
+            list << "timeliness: { on_or_after: #{on_or_after}, on_or_before: -> { Time.zone.#{suffix == 'on' ? 'today' : 'now'} + 50.years }#{', type: :date' if type == :date} }" # #{ 'allow_blank: true, ' if column.null }
+          elsif type == :boolean
+            list << 'inclusion: { in: [true, false] }'
+          elsif type == :integer
+            list << "numericality: { only_integer: true, greater_than: -#{pretty_number(2_147_483_648 + 1)}, less_than: #{pretty_number(2_147_483_647 + 1)} }"
+          elsif column.number?
+            if column.precision && column.scale
+              max = pretty_number(10**(column.precision - column.scale))
+              list << "numericality: { greater_than: -#{max}, less_than: #{max} }"
+            else
+              list << 'numericality: true'
+            end
+          elsif type == :string || type == :text
+            limit = column.limit
+            # We consider nomenclature inclusion validation as sufficient
+            unless string_foreign_keys.include?(column.name) ||
+                   (model.respond_to?(column.name) && model.send(column.name).respond_to?(:values))
+              limit ||= 500 if type == :string
+              limit ||= 10**5
+            end
+            list << "length: { maximum: #{pretty_number(limit)} }" if limit
+          end
+          if column.null && list.any?
+            list << 'allow_blank: true' # unless [:date, :datetime, :timestamp].include? type
+          end
+          next if list.empty?
+          validation = list.join(', ')
+          validations[validation] ||= []
+          validations[validation] << column.name.to_sym
         end
 
-        cs = columns.select { |c| c.type == :integer }
-        if cs.any?
-          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", numericality: { allow_nil: true, only_integer: true }\n"
-        end
-
-        cs = columns.select { |c| c.number? && c.type != :integer }
-        if cs.any?
-          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", numericality: { allow_nil: true }\n"
-        end
-
-        cs = columns.select { |c| (c.type == :string || c.type == :text) && c.limit }
-        limits = cs.map(&:limit).uniq.sort # .delete_if{|l| l == 255}
-        limits.each do |limit|
-          cs = columns.select { |c| c.limit == limit }
-          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", numericality: { allow_nil: true, maximum: #{limit} }\n"
-        end
-
-        cs = columns.select { |c| !c.null && c.type == :boolean }
-        if cs.any?
-          code << '  validates ' + cs.map { |c| ":#{c.name}" }.join(', ') + ", inclusion: { in: [true, false] }\n"
-        end
-
-        needed = columns.select { |c| !c.null && c.type != :boolean }.map { |c| ":#{c.name}" }
-        needed += model.reflect_on_all_associations(:belongs_to).select do |association|
+        model.reflect_on_all_associations(:belongs_to).select do |association|
           column = model.columns_hash[association.foreign_key.to_s]
           unless column
-            raise StandardError, "Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'"
+            raise StandardError, "Column #{association.foreign_key} is missing. See #{association.active_record.name} at '#{association.macro} :#{association.name}'"
           end
           !column.null && validable_column?(column)
-        end.map { |r| ":#{r.name}" }
-        code << '  validates ' + needed.sort.join(', ') + ", presence: true\n" if needed.any?
+        end.each do |reflection|
+          validation = 'presence: true'
+          validations[validation] ||= []
+          validations[validation] << reflection.name.to_sym
+        end
 
-        code
+        validations.map do |list, attributes|
+          'validates ' + attributes.sort.map { |a| ":#{a}" }.join(', ') + ", #{list}\n"
+        end.join.dig
       end
     end
   end

@@ -52,17 +52,20 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
-  has_many :products, foreign_key: :variant_id
-  has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant
-  has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant
+  has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
+  has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :picture_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :picture_file_size, numericality: { allow_nil: true, only_integer: true }
   validates :active, inclusion: { in: [true, false] }
-  validates :category, :nature, :unit_name, :variety, presence: true
+  validates :name, :number, :picture_content_type, :picture_file_name, :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :unit_name, presence: true, length: { maximum: 500 }
+  validates :category, :nature, :variety, presence: true
   # ]VALIDATORS]
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates_attachment_content_type :picture, content_type: /image/
@@ -112,7 +115,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :of_category, ->(category) { where(category: category) }
 
   protect(on: :destroy) do
-    products.any?
+    products.any? || sale_items.any? || purchase_items.any? || parcel_items.any?
   end
 
   before_validation on: :create do

@@ -29,6 +29,8 @@ cmn:
         born_at: "创建时间"
       outgoing_payment:
         delivered: "给收件人"
+      parcel_item:
+        population: "数量"
       plant:
         born_at: "在种植"
       sale:
@@ -156,6 +158,7 @@ cmn:
       animal_group: "动物群"
       attachment: "附件"
       bank_statement: "银行对帐单"
+      bank_statement_item: "银行对账单行"
       bioproduct: "生活产品"
       building: "建造"
       building_division: "房/区"
@@ -193,7 +196,6 @@ cmn:
       gap: "间隙"
       gap_item: "峡项目"
       # georeading: "Georeading"
-      grading_quality_criterion: "分级质量标准"
       guide: "指南"
       guide_analysis: "分析指南"
       guide_analysis_point: "指南分析点"
@@ -949,6 +951,7 @@ cmn:
     product_nature_categories: "产品类型类别"
     product_nature_category: "产品类型分类"
     product_nature_category_taxations: "产品类型类别税费"
+    product_natures: "产品类型"
     product_ownership: "产品所有权"
     product_ownerships: "产品所有权"
     product_parameters: "产品参数"

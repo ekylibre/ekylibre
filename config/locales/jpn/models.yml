@@ -29,6 +29,8 @@ jpn:
         born_at: "で作成されました"
       outgoing_payment:
         delivered: "受信者に与えられました"
+      parcel_item:
+        population: "量"
       plant:
         born_at: "で植え"
       sale:
@@ -156,6 +158,7 @@ jpn:
       animal_group: "動物群"
       attachment: "アタッチメント"
       bank_statement: "銀行取引明細書"
+      bank_statement_item: "銀行取引明細書行"
       bioproduct: "リビング製品"
       building: "建物"
       building_division: "ルーム/ゾーン"
@@ -193,7 +196,6 @@ jpn:
       gap: "ギャップ"
       gap_item: "ギャップアイテム"
       # georeading: "Georeading"
-      grading_quality_criterion: "グレーディング品質基準"
       guide: "ガイド"
       guide_analysis: "ガイド分析"
       guide_analysis_point: "ガイド解析ポイント"
@@ -949,6 +951,7 @@ jpn:
     product_nature_categories: "製品タイプカテゴリ"
     product_nature_category: "製品タイプカテゴリ"
     product_nature_category_taxations: "製品タイプカテゴリtaxations"
+    product_natures: "製品の種類"
     product_ownership: "製品の所有権"
     product_ownerships: "製品の所有権"
     product_parameters: "製品パラメータ"

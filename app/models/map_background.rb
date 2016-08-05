@@ -42,9 +42,10 @@
 #
 class MapBackground < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :max_zoom, :min_zoom, numericality: { allow_nil: true, only_integer: true }
+  validates :attribution, :reference_name, :subdomains, length: { maximum: 500 }, allow_blank: true
   validates :by_default, :enabled, :managed, :tms, inclusion: { in: [true, false] }
-  validates :name, :url, presence: true
+  validates :max_zoom, :min_zoom, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :name, :url, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :url, format: { with: URI.regexp(%w(http https)) }
 

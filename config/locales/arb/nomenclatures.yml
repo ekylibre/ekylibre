@@ -1,6 +1,10 @@
 arb:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "طبيعة القضية"
+          variety: "تشكيلة"
       items:
         acidify: "تحمض"
         administer_care: "إدارة الرعاية"
@@ -807,7 +811,6 @@ arb:
         er: "علم إرتيريا إرتيريا"
         es: "علم إسبانيا إسبانيا"
         et: "علم إثيوبيا إثيوبيا"
-        false: "علم النرويج النرويج" #?
         fi: "علم فنلندا فنلندا"
         fj: "علم فيجي فيجي"
         fk: "قالب:معطيات Falkland Islands (Malvinas)"
@@ -905,7 +908,7 @@ arb:
         ng: "علم نيجيريا نيجيريا"
         ni: "علم نيكاراغوا نيكاراغوا"
         nl: "علم هولندا هولندا"
-        # no: "Norway"
+        no: "النرويج"
         np: "علم نيبال نيبال"
         nr: "علم ناورو ناورو"
         nu: "علم نييوي نييوي"
@@ -3150,6 +3153,9 @@ arb:
         variety: "تشكيلة"
     product_natures:
       choices:
+        linkage_points:
+          front: "جبهة"
+          rear: "خلفي"
         population_counting:
           decimal: "عدد عشري"
           integer: "عدد صحيح"

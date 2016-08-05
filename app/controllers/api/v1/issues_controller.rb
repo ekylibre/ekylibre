@@ -18,7 +18,7 @@ module Api
       protected
 
       def permitted_params
-        params.permit(:name, :nature, :description, :geolocation, :gravity, :priority, :observed_at, :target_id, :target_type, :state)
+        super.permit(:name, :nature, :description, :geolocation, :gravity, :priority, :observed_at, :target_id, :target_type, :state)
       end
     end
   end

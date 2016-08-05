@@ -48,8 +48,10 @@ class Task < Ekylibre::Record::Base
   belongs_to :sale_opportunity
   belongs_to :executor, -> { responsibles }, class_name: 'Entity'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :due_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :due_at, :entity, :name, :nature, :state, presence: true
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :due_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :entity, :nature, :state, presence: true
   # ]VALIDATORS]
   versionize
 

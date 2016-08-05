@@ -75,9 +75,12 @@ class JournalEntry < Ekylibre::Record::Base
   has_many :bank_statement, through: :useful_items
   accepts_nested_attributes_for :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :printed_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_currency_rate, :real_debit, numericality: { allow_nil: true }
-  validates :absolute_credit, :absolute_currency, :absolute_debit, :balance, :credit, :currency, :debit, :journal, :number, :printed_on, :real_balance, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state, presence: true
+  validates :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_balance, :real_credit, :real_debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :absolute_currency, :currency, :journal, :real_currency, presence: true
+  validates :number, :state, presence: true, length: { maximum: 500 }
+  validates :printed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :real_currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
+  validates :resource_type, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :absolute_currency, :currency, :real_currency, length: { allow_nil: true, maximum: 3 }
   validates :state, length: { allow_nil: true, maximum: 30 }

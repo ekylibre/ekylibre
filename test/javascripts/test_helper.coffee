@@ -31,6 +31,8 @@
 #
 # For more information: http://github.com/modeset/teaspoon
 
+#= require i18n_locale_helper.js.erb
+
 class window.Tools
   geod = GeographicLib.Geodesic.WGS84
 

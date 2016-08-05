@@ -1,17 +1,15 @@
 - item_partial = f.object.nature.to_s + '_item_fields'
 = field_set :general_informations do
   = f.input :nature, as: :hidden
-  .address-group.delivery-item
+  .delivery-item
     - if f.object.incoming?
-      #nature-incoming
-        = f.referenced_association :sender, required: true
+      = f.referenced_association :sender, required: true
     - elsif f.object.outgoing?
-      #nature-outgoing
-        = f.referenced_association :recipient, required: true, input_html: {data: {product_of_delivery_item: {url: backend_entity_path("RECORD_ID", format: :json)}}}
+      = f.referenced_association :recipient, required: true, input_html: {data: {product_of_delivery_item: {url: backend_entity_path("RECORD_ID", format: :json)}}}
     = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}
   - if f.object.incoming?
+    = f.input :reference_number
     = f.referenced_association :storage, source: :storage, required: true
-  - if f.object.incoming?
     = f.input :separated_stock
   = f.input :with_delivery
   = f.input :delivery_mode, as: :radio_buttons
@@ -33,7 +31,7 @@
         %th.act
         %th= ParcelItem.human_attribute_name(:product)
         -# %th= ParcelItem.human_attribute_name(:parted)
-        %th= ParcelItem.human_attribute_name(:quantity)
+        %th= ParcelItem.human_attribute_name(:population)
         -# %th= ParcelItem.human_attribute_name(:shape)
         %th= ParcelItem.human_attribute_name(:analysis)
 

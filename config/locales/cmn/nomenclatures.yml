@@ -1,6 +1,10 @@
 cmn:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "问题本质"
+          variety: "品种"
       items:
         acidify: "酸化"
         administer_care: "护理管理"
@@ -807,7 +811,6 @@ cmn:
         er: "厄立特里亚"
         es: "西班牙"
         et: "埃塞俄比亚"
-        false: "挪威" #?
         fi: "芬兰"
         fj: "斐"
         fk: "福克兰群岛（马尔维纳斯群岛）"
@@ -905,7 +908,7 @@ cmn:
         ng: "尼日利亚"
         ni: "尼加拉瓜"
         nl: "荷兰"
-        # no: "Norway"
+        no: "挪威"
         np: "尼泊尔"
         nr: "瑙鲁"
         nu: "纽埃"
@@ -3141,6 +3144,9 @@ cmn:
         variety: "品种"
     product_natures:
       choices:
+        linkage_points:
+          front: "面前"
+          rear: "后"
         population_counting:
           decimal: "十进制"
           integer: "整型"

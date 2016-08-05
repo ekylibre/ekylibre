@@ -1091,8 +1091,10 @@ deu:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Neue e-mail"
     new_group: "Neue Gruppe"
+    new_incoming_parcel: "Neu eingehende Paket"
     new_issue: "Neues Problem"
     new_organization: "neue Organisation"
+    new_outgoing_parcel: "Neue abgehende Paket"
     new_production: "neue Produktions"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "New Zitat"
@@ -1644,6 +1646,7 @@ deu:
       # bookkeep: "Bookkeep"
       cancel: "Stornieren"
       category: "Kategorie" #?
+      check: "Prüfen"
       children: "Kinder" #?
       close: "Schließen"
       compute: "Berechnen"
@@ -1666,6 +1669,7 @@ deu:
       family: "Familie"
       finish: "Fertig"
       generate_last_journal_entry: "Generieren letzten Tagebucheintrag"
+      give: "Geben"
       import: "Einführen"
       incorporate: "integrieren"
       increment: "Zuwachs" #?
@@ -1682,8 +1686,10 @@ deu:
       negociate: "verhandeln"
       new: "Neu"
       open: "Öffnen"
+      order: "Auftrag"
       pick: "pflücken"
       picture: "Bild"
+      prepare: "Bereiten"
       propose: "Vorschlagen"
       propose_and_invoice: "Vorschlagen und Rechnung"
       prospect: "Aussicht"

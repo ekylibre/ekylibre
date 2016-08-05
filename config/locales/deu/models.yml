@@ -29,6 +29,8 @@ deu:
         born_at: "Hergestellt in"
       outgoing_payment:
         delivered: "Da an Empfänger"
+      parcel_item:
+        population: "Menge"
       plant:
         born_at: "gepflanzt bei"
       sale:
@@ -156,6 +158,7 @@ deu:
       animal_group: "Tiergruppe"
       attachment: "Befestigung"
       bank_statement: "Kontoauszug"
+      bank_statement_item: "Kontoauszug Reihe"
       bioproduct: "Wohnen Produkt"
       building: "Gebäude"
       building_division: "Zimmer / Zone"
@@ -193,7 +196,6 @@ deu:
       gap: "Spalt"
       gap_item: "Gap Artikel"
       # georeading: "Georeading"
-      grading_quality_criterion: "Grading Qualitätskriterium"
       guide: "Führen"
       guide_analysis: "Leitfaden Analyse"
       guide_analysis_point: "Führer Analysepunkt"
@@ -944,11 +946,12 @@ deu:
     product_localizations: "Produkt Lokalisierungen"
     product_memberships: "Produkt-Mitgliedschaften"
     product_movement: "Produkt-Bewegung"
-    # product_name: "Name"
+    product_name: "Name"
     product_nature: "Produktart"
     product_nature_categories: "Kategorien Produkttyp"
     product_nature_category: "Produkttyp Kategorie"
     product_nature_category_taxations: "Produkttyp Kategorie Besteuerungen"
+    product_natures: "Produkttypen"
     product_ownership: "Artikel Eigentum"
     product_ownerships: "Produkt Eigentümern"
     product_parameters: "Produktparameter"

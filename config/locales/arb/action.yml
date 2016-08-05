@@ -1567,8 +1567,10 @@ arb:
     new_email: "بريد إلكتروني جديد"
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
+    new_incoming_parcel: "لا يتجزأ الجديد الوافد"
     new_issue: "مشكلة جديدة"
     new_organization: "منظمة جديدة"
+    new_outgoing_parcel: "الطرد الصادر الجديد"
     new_payment: "تسجيل دفعة جديدة" #?
     new_production: "إنتاج جديد"
     # new_production_of_activity: "New production of %{activity}"
@@ -2422,6 +2424,7 @@ arb:
       # bookkeep: "Bookkeep"
       cancel: "إلغاء"
       category: "فئة" #?
+      check: "الاختيار"
       children: "الأطفال" #?
       close: "قريب"
       compute: "حساب"
@@ -2445,6 +2448,7 @@ arb:
       family: "أسرة"
       finish: "إنهاء"
       generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
+      give: "يعطى"
       import: "استيراد"
       incorporate: "دمج"
       increment: "زيادة" #?
@@ -2461,8 +2465,10 @@ arb:
       # negociate: "Negociate"
       new: "جديد"
       open: "فتح"
+      order: "طلب"
       pick: "اختيار"
       picture: "صورة"
+      prepare: "إعداد"
       propose: "اقترح"
       propose_and_invoice: "اقتراح وفاتورة"
       prospect: "احتمال"
