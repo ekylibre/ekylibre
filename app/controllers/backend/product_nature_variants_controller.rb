@@ -96,7 +96,7 @@ module Backend
     end
 
 
-    list(:components, model: :product_nature_variant_component, conditions: { product_nature_variant_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+    list(:components, model: :product_nature_variant_component, conditions: { product_nature_variant_id: 'params[:id]'.c }, order: { position: :asc }) do |t|
       t.column :name
       t.column :part_product_nature_variant, url: true
     end

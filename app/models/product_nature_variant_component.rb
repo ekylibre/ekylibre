@@ -44,7 +44,6 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   validates :deleted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :name, :product_nature_variant, presence: true
   # ]VALIDATORS]
-  validates :name, uniqueness: { case_sensitive: false, scope: :product_nature_variant_id }
   # acts_as_nested_set scope: :product_nature_variant_id
   accepts_nested_attributes_for :children, allow_destroy: true
 
@@ -52,7 +51,7 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
 
   before_validation do
     if parent
-    self.product_nature_variant = self.parent.product_nature_variant
+      self.product_nature_variant = self.parent.product_nature_variant
     end
   end
 
@@ -62,6 +61,20 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
       errors.add :product_nature_variant_id, :invalid unless product_nature_variant.of_variety?(:equipment)
       unless errors[:part_product_nature_variant_id]
         errors.add :part_product_nature_variant_id, :invalid if parent_variants.include?(part_product_nature_variant)
+      end
+    end
+
+    #Validates uniqueness due to sequential creation messing it up :
+    # Ex of a Rails execution:
+    #   "C1.name ALREADY EXISTS ?" => false
+    #   "C2.name ALREADY EXISTS ?" => false
+    #   "C1.create"
+    #   "C2.create"
+    # Here we go through all Ruby objects (not in-DB records) and to avoid both being flagged
+    # as erroring we ignore the first one with the name.
+    if product_nature_variant
+      unless self == product_nature_variant.components.select { |c| c.name == self.name }.first
+        errors.add :name, :taken if (product_nature_variant.components - [self]).map(&:name).include?(self.name)
       end
     end
   end

@@ -84,7 +84,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   accepts_nested_attributes_for :components, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :readings, reject_if: proc { |params| params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :catalog_items, reject_if: :all_blank, allow_destroy: true
-  # acts_as_numbered
+  validates_associated :components
 
   scope :availables, -> { where(nature_id: ProductNature.availables).order(:name) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }

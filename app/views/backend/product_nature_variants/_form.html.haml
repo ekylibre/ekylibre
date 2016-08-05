@@ -30,7 +30,7 @@
 
 - if f.object.of_variety? :equipment
   = field_set(:components) do
-    = f.nested_association(:components, collection: f.object.root_components)
+    = f.nested_association(:components, collection: f.object.components.select { |c| c.parent_id.nil? })
 
 
 
