@@ -1562,7 +1562,7 @@ ActiveRecord::Schema.define(version: 20160728070743) do
     t.integer  "issue_id"
     t.integer  "prescription_id"
     t.string   "procedure_name",                          null: false
-    t.string   "nature",                                  null: false
+    t.string   "state",                                   null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.datetime "created_at",                              null: false
@@ -1577,7 +1577,7 @@ ActiveRecord::Schema.define(version: 20160728070743) do
     t.integer  "whole_duration",          default: 0,     null: false
     t.string   "actions"
     t.jsonb    "custom_fields"
-    t.string   "state"
+    t.string   "nature",                                  null: false
     t.integer  "request_intervention_id"
     t.boolean  "trouble_encountered",     default: false, null: false
     t.string   "trouble_description"
@@ -2579,6 +2579,7 @@ ActiveRecord::Schema.define(version: 20160728070743) do
   add_index "product_nature_variant_components", ["created_at"], name: "index_product_nature_variant_components_on_created_at", using: :btree
   add_index "product_nature_variant_components", ["creator_id"], name: "index_product_nature_variant_components_on_creator_id", using: :btree
   add_index "product_nature_variant_components", ["deleted_at"], name: "index_product_nature_variant_components_on_deleted_at", using: :btree
+  add_index "product_nature_variant_components", ["name", "product_nature_variant_id"], name: "index_product_nature_variant_name_uniqueness", unique: true, using: :btree
   add_index "product_nature_variant_components", ["parent_id"], name: "index_product_nature_variant_components_on_parent_id", using: :btree
   add_index "product_nature_variant_components", ["part_product_nature_variant_id"], name: "index_product_nature_variant_components_on_part_variant", using: :btree
   add_index "product_nature_variant_components", ["product_nature_variant_id"], name: "index_product_nature_variant_components_on_variant", using: :btree

@@ -1,11 +1,14 @@
 class AddEquipmentManagementTables < ActiveRecord::Migration
   def change
     # Add nature for intervention
+
+    add_column :interventions, :nature, :string
+
     reversible do |dir|
       dir.up do
         execute <<-SQL
         UPDATE interventions
-          SET state='aborted'
+          SET nature='aborted'
           WHERE state='squeezed'
         SQL
 
@@ -41,19 +44,19 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
 
         execute <<-SQL
         UPDATE interventions
-          SET state='request'
+          SET nature='request'
           WHERE state='undone'
         SQL
 
         execute <<-SQL
         UPDATE interventions
-          SET state='record'
+          SET nature='record'
           WHERE state='in_progress'
         SQL
 
         execute <<-SQL
         UPDATE interventions
-          SET state='record'
+          SET nature='record'
           WHERE state='done'
         SQL
       end
@@ -61,19 +64,19 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
       dir.down do
         execute <<-SQL
         UPDATE interventions
-          SET state='squeezed'
+          SET nature='squeezed'
           WHERE state='aborted'
         SQL
 
         execute <<-SQL
         UPDATE interventions
-          SET state='done'
+          SET nature='done'
           WHERE state='record'
         SQL
 
         execute <<-SQL
         UPDATE interventions
-          SET state='undone'
+          SET nature='undone'
           WHERE state='request'
         SQL
       end
@@ -133,8 +136,7 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
       end
     end
 
-    rename_column :interventions, :state, :nature
-    add_column :interventions, :state, :string
+    change_column_null :interventions, :nature, false
     add_reference :interventions, :request_intervention, index: true
 
     add_column :interventions, :trouble_encountered, :boolean,
@@ -149,9 +151,10 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
       t.references :parent, index: true
       t.datetime :deleted_at
       t.string :name, null: false
-      t.index [:name, :product_nature_variant_id], unique: true
+      t.index [:name, :product_nature_variant_id], unique: true,
+              name: :index_product_nature_variant_name_uniqueness
       t.index :product_nature_variant_id,
-              name: :index_product_nature_variant_components_on_variant,
+              name: :index_product_nature_variant_components_on_variant
       t.index :part_product_nature_variant_id,
               name: :index_product_nature_variant_components_on_part_variant
       t.index :deleted_at,
