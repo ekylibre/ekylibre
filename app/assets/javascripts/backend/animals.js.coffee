@@ -83,9 +83,9 @@
 
       @enableDropZones = (state = false) =>
         ko.utils.arrayForEach @groups(), (group) =>
-          group.droppable true
+          group.droppable state
           ko.utils.arrayForEach group.containers(), (container) =>
-            container.droppable true
+            container.droppable state
 
       @toggleAnimalDetailsModal = (animal) =>
         @animalDetailsModalOptions animal

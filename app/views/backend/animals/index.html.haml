@@ -31,7 +31,7 @@
             .golumn-column-handle
               %span.golumn-column-title{data: {bind: 'text: name'}}
           .golumn-column-body
-            .add-container.dropzone{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}" },style:'display:none'}
+            .add-container.dropzone{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}, visible: droppable" }}
               %button.btn.btn-link{type: 'button'}
                 %i.icon.icon-plus.text-muted
             %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: containers }"}}
