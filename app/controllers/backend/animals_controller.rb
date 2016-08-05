@@ -128,32 +128,6 @@ module Backend
       respond_with @grouped_animals
     end
 
-    def load_containers
-      @containers = Product.select(:id, :name).of_expression('can store(animal)')
-      render json: @containers
-    end
-
-    def load_workers
-      @workers = Worker.select(:id, :name).all
-      render json: @workers
-    end
-
-    def load_natures
-      @natures = ProductNatureVariant.of_variety(:animal).select(:id, :name).all
-      render json: @natures
-    end
-
-    def load_production_supports
-      prod = {}
-      arr = []
-      ActivityProduction.where(support: params[:group_id]).each do |p|
-        prod[:id] = p.id
-        prod[:name] = p.production.name + " (#{p.production.campaign.name})"
-        arr << prod
-      end
-      render json: arr, status: 200
-    end
-
     def change
       # params[:animals_id]
       # params[:container_id]

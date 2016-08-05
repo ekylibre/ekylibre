@@ -28,7 +28,6 @@
         stopped_at: ko.observable ''
         worker: ko.observable undefined
         variant: ko.observable undefined
-        production_support: ko.observable undefined
         group: ko.observable undefined
         alert: ko.observable false
         checkNature: ko.observable false
@@ -66,11 +65,6 @@
 
         @resetNewContainerModal()
         @toggleMoveAnimalModal(newContainer)
-
-#      @containers_list = ko.observableArray []
-      @workers_list = ko.observableArray []
-      @natures_list = ko.observableArray []
-      @production_support_list = ko.observableArray []
 
 
       @groups = ko.observableArray []
@@ -112,37 +106,12 @@
 
         @moveAnimalsModal.show(true)
 
-        $.ajax '/backend/animals/load_workers',
-          type: 'GET',
-          dataType: 'JSON',
-          success: (json_data) ->
-            ko.utils.arrayForEach json_data, (j) =>
-              window.app.workers_list.push j
-            return true
-
-        $.ajax '/backend/animals/load_natures',
-          type: 'GET',
-          dataType: 'JSON',
-          success: (json_data) ->
-            ko.utils.arrayForEach json_data, (j) =>
-              window.app.natures_list.push j
-            return true
-
-        $.ajax '/backend/animals/load_production_supports',
-          type: 'GET',
-          dataType: 'JSON',
-          data: {group_id: group.id},
-          success: (json_data) ->
-            ko.utils.arrayForEach json_data, (j) =>
-              window.app.production_support_list.push j
-            return true
 
       @moveAnimals = () =>
 
         animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
           return a.id
 
-#        if animals_id.length > 0 and @moveAnimalModalOptions.container() != undefined and @moveAnimalModalOptions.group() != undefined and @moveAnimalModalOptions.worker() != undefined and @moveAnimalModalOptions.started_at() != '' and @moveAnimalModalOptions.stopped_at() != '' and @moveAnimalModalOptions.production_support() != undefined
         if animals_id.length > 0 and @moveAnimalModalOptions.container() != undefined and @moveAnimalModalOptions.group() != undefined and @moveAnimalModalOptions.worker() != undefined and @moveAnimalModalOptions.started_at() != '' and @moveAnimalModalOptions.stopped_at() != ''
 
           data =
@@ -158,8 +127,6 @@
           if @moveAnimalModalOptions.variant()
              data['variant_id'] =  @moveAnimalModalOptions.variant().id
 
-          if @moveAnimalModalOptions.production_support()
-            data['production_support_id'] = @moveAnimalModalOptions.production_support().id
 
           $.ajax '/backend/animals/change',
             type: 'PUT',
@@ -203,7 +170,6 @@
         @moveAnimalsModal.stopped_at ''
         @moveAnimalsModal.worker undefined
         @moveAnimalsModal.variant undefined
-        @moveAnimalsModal.production_support undefined
         @moveAnimalsModal.group undefined
         @moveAnimalsModal.alert false
         @moveAnimalsModal.checkNature false
@@ -212,12 +178,6 @@
       @resetNewContainerModal = () =>
         @newContainerModal.show false
         @newContainerModal.group false
-#        @newContainer = ko.observable false
-#        @containerModalOptions = ko.observable false
-#        @containers_list.removeAll()
-#        @showNewContainerModal false
-#        @droppedAnimals.removeAll()
-
 
       @resetSelectedItems = () =>
         for id, item  of @selectedItemsIndex

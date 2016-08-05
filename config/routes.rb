@@ -221,11 +221,7 @@ Rails.application.routes.draw do
     resources :animals, concerns: :products do
       collection do
         # add routes for frontend animals column view
-        match 'load_containers', via: [:get]
         match 'load_animals', via: [:get]
-        match 'load_workers', via: [:get]
-        match 'load_natures', via: [:get]
-        match 'load_production_supports', via: [:get]
         put :change
         put :add_group
       end

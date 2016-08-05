@@ -103,12 +103,6 @@
             = label_tag(:container, :container.tl, class: 'control-label')
             .controls{data: {bind: 'text: container().name'}}
           .control-group
-            = label_tag(:production_support, Intervention.human_attribute_name(:production_support), class: 'control-label')
-            .controls
-              = select_tag(:production_support, nil, data: { bind: "options: $root.production_support_list,
-                optionsText: 'name',
-                value: production_support" } )
-          .control-group
             = label_tag(:started_at, Intervention.human_attribute_name(:started_at), class: 'control-label')
             .controls
               = datetime_field_tag(:started_at, nil, data: { bind: 'value: started_at'})
@@ -117,23 +111,18 @@
             .controls
               = datetime_field_tag(:stopped_at, nil, data: { bind: 'value: stopped_at'})
           .control-group
-            = label_tag(:worker, ::I18n.translate('procedure_parameters.caregiver'), class: 'control-label')
+            = label_tag(:workers_list, 'procedure_parameters.caregiver'.t, class: 'control-label')
             .controls
-              = select_tag(:worker, nil, data: {bind: "options: $root.workers_list,
-                optionsText: 'name',
-                value: worker,
-                optionsCaption: '#{:choices.tl}'" })
+              = # TODO: set worker abilities
+              = text_field_tag :workers_list, nil, data: { selector: url_for(controller: 'backend/workers', action: 'unroll', 'scope[availables][][at]': Time.zone.now) }
           .control-group
             .controls
               = check_box_tag(:check_nature,'1', false, {data: {bind: 'checked: checkNature'}})
               = label_tag(:check_nature, :nature_changed.tl)
           .control-group
-            = label_tag(:nature, :nature.tl , class:'control-label')
+            = label_tag(:natures_list, :nature.tl , class:'control-label')
             .controls
-              = select_tag(:nature, nil, data: { bind: "options: $root.natures_list,
-                optionsText: 'name',
-                value: variant,
-                optionsCaption: '#{:choices.tl}', enable: checkNature" } )
+              = text_field_tag :natures_list, nil, data: { selector: url_for(controller: 'backend/product_nature_variants', action: 'unroll', 'scope[availables]': true, 'scope[of_variety]': 'animal'), bind: 'enable: checkNature' }
       .modal-footer
         %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.moveAnimals'}}
           %i.icon.icon-plus
@@ -146,7 +135,7 @@
           %span{data: {bind: 'text: group().name'}}
 
         = label_tag(:containers_list, :new_container.tl, class: 'control-label')
-        = text_field_tag :containers_list, nil, data: { selector: url_for(controller: 'backend/products', action: 'unroll', 'scope[of_expression]': 'can store(animal)')}
+        = text_field_tag :containers_list, nil, data: { selector: url_for(controller: 'backend/products', action: 'unroll', 'scope[availables][][at]': Time.zone.now, 'scope[of_expression]': 'can store(animal)')}
       .modal-footer
         %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addContainer'}}
           %i.icon.icon-plus
