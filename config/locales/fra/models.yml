@@ -374,6 +374,7 @@ fra:
       # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
+      # product_part_replacement: "Product part replacement"
       product_phase: "Phase de produits"
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
@@ -429,6 +430,7 @@ fra:
     actions: "Actions"
     active: "Actif"
     active_prices: "Prix actifs" #?
+    # active_sessions: "Active sessions"
     activities: "Activités"
     activity: "Activité"
     activity_budget: "Budget"
@@ -749,6 +751,7 @@ fra:
     exploitation_name: "Nom de l’exploitation"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
+    # exportable_fields: "Exportable fields"
     expression: "Expression" #?
     external: "Externe"
     extjuncted: "Extjoint" #?
@@ -1098,6 +1101,7 @@ fra:
     part_product_nature_variant: "Variant du composant"
     part_product_nature_variant_id: "Variant du composant"
     part_replacements: "Remplacement de pièce"
+    # part_variant: "Part variant"
     parted: "En partie"
     parted_product: "Produit retiré"
     participant: "Participant"
@@ -1296,6 +1300,7 @@ fra:
     repayment_period: "Période de remboursement"
     repayments: "Remboursements"
     reporter: "Rapporteur"
+    # request_intervention: "Request intervention"
     required: "Obligatoire"
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"
@@ -1452,9 +1457,9 @@ fra:
     transporter: "Transporteur"
     transporter_purchase: "Achat du transporteur"
     transporter_sales: "Ventes de transporteurs"
+    transports: "Transports" #?
     trouble_description: "Description du problème"
     trouble_encountered: "Probléme durant l'intervention"
-    transports: "Transports" #?
     type: "Type"
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"

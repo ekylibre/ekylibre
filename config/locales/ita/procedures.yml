@@ -15,6 +15,7 @@ ita:
     cleaner: "addetto alle pulizie"
     compressor: "Compressore"
     construction_material: "Materiale da costruzione"
+    # consumable_part: "Consumable"
     container: "Contenitore"
     corker: "operaio che tappa le bottiglie"
     corks: "Tappi di sughero"
@@ -86,6 +87,7 @@ ita:
     press: "stampa"
     protective_canvas: "tela di protezione"
     protective_net: "rete di protezione"
+    # replacement_part: "Replacement part"
     residue: "Residui"
     seedlings: "piantine"
     seeds: "semi"
@@ -144,6 +146,7 @@ ita:
     egg_collecting: "raccolta delle uova"
     enzyme_addition: "Inoltre Enzyme"
     equipment_item_replacement: "Attrezzature rimontaggio dell'articolo" #?
+    # equipment_maintenance: "Equipment maintenance"
     fermentation: "Fermentazione"
     fertilizing: "fertilizzante"
     field_plant_sorting: "impianto di Campo di smistamento"

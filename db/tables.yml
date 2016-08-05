@@ -3037,6 +3037,7 @@ interventions:
     type: datetime
   state:
     type: string
+    required: true
   stopped_at:
     type: datetime
   trouble_description:

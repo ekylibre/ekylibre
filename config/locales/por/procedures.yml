@@ -15,6 +15,7 @@ por:
     cleaner: "Limpador"
     # compressor: "Compressor"
     construction_material: "Material de construção"
+    # consumable_part: "Consumable"
     container: "Recipiente"
     corker: "Sujeito formidável"
     corks: "Rolhas de cortiça"
@@ -85,6 +86,7 @@ por:
     press: "Pressione"
     protective_canvas: "Tela de proteção"
     protective_net: "Rede de proteção"
+    # replacement_part: "Replacement part"
     residue: "Resíduo"
     seedlings: "Mudas"
     seeds: "Sementes"
@@ -143,6 +145,7 @@ por:
     egg_collecting: "Coleta de ovos"
     enzyme_addition: "Adição de enzima"
     equipment_item_replacement: "Substituição item de equipamento" #?
+    # equipment_maintenance: "Equipment maintenance"
     fermentation: "Fermentação"
     fertilizing: "Fertilizar"
     field_plant_sorting: "Triagem planta campo"

@@ -37,7 +37,7 @@
 #  procedure_name          :string           not null
 #  request_intervention_id :integer
 #  started_at              :datetime
-#  state                   :string
+#  state                   :string           not null
 #  stopped_at              :datetime
 #  trouble_description     :string
 #  trouble_encountered     :boolean          default(FALSE), not null

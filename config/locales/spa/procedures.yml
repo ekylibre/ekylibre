@@ -15,6 +15,7 @@ spa:
     cleaner: "Limpiador"
     compressor: "Compresor"
     construction_material: "Material de construcción"
+    # consumable_part: "Consumable"
     container: "Envase"
     corker: "Bola"
     corks: "Corchos"
@@ -86,6 +87,7 @@ spa:
     press: "Prensa"
     protective_canvas: "Lona protectora"
     protective_net: "Red de protección"
+    # replacement_part: "Replacement part"
     residue: "Residuo"
     seedlings: "Las plántulas"
     seeds: "Semillas"
@@ -144,6 +146,7 @@ spa:
     egg_collecting: "La recolección de huevos"
     enzyme_addition: "Además Enzyme"
     equipment_item_replacement: "Equipo de reemplazo del artículo" #?
+    # equipment_maintenance: "Equipment maintenance"
     fermentation: "Fermentación"
     fertilizing: "Fertilización"
     field_plant_sorting: "Campo de la planta de clasificación"

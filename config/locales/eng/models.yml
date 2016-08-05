@@ -994,6 +994,7 @@ eng:
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
     product_part_replacement: "Product part replacement"
+    # product_part_replacements: "Product part replacements"
     product_phases: "Product phases" #?
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?

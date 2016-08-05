@@ -37,7 +37,7 @@
 #  procedure_name          :string           not null
 #  request_intervention_id :integer
 #  started_at              :datetime
-#  state                   :string
+#  state                   :string           not null
 #  stopped_at              :datetime
 #  trouble_description     :string
 #  trouble_encountered     :boolean          default(FALSE), not null
@@ -79,7 +79,7 @@ class Intervention < Ekylibre::Record::Base
   validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(intervention) { intervention.stopped_at && intervention.started_at }
   validates :whole_duration, :working_duration, numericality: { allow_nil: true, only_integer: true }
   validates :trouble_encountered, inclusion: { in: [true, false] }
-  validates :nature, :procedure_name, :whole_duration, :working_duration, presence: true
+  validates :nature, :procedure_name, :state, :whole_duration, :working_duration, presence: true
   # ]VALIDATORS]
   validates :actions, presence: true
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods

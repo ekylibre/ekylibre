@@ -15,6 +15,7 @@ arb:
     cleaner: "منظف"
     compressor: "ضاغط"
     construction_material: "مواد البناء"
+    # consumable_part: "Consumable"
     container: "وعاء"
     corker: "كوركر"
     corks: "الفلين"
@@ -86,6 +87,7 @@ arb:
     press: "صحافة"
     protective_canvas: "قماش واقية"
     protective_net: "شبكة واقية"
+    # replacement_part: "Replacement part"
     residue: "بقايا"
     seedlings: "الشتلات"
     seeds: "بذور"
@@ -144,6 +146,7 @@ arb:
     egg_collecting: "جمع البيض"
     enzyme_addition: "انزيم إضافة"
     equipment_item_replacement: "استبدال البند المعدات" #?
+    # equipment_maintenance: "Equipment maintenance"
     fermentation: "تخمير"
     fertilizing: "تسميد"
     field_plant_sorting: "فرز النباتات الميدان"

@@ -894,6 +894,7 @@ arb:
       # product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "نوع المنتج البديل القراءة"
       product_ownership: "ملكية المنتج"
+      # product_part_replacement: "Product part replacement"
       product_phase: "مرحلة المنتج"
       product_price_listing: "فئة الفرد" #?
       product_price_template: "الاسعار" #?
@@ -963,6 +964,7 @@ arb:
     acquisition_amount: "قيمة الاقتناء" #?
     actions: "الإجراءات"
     active: "فعال"
+    # active_sessions: "Active sessions"
     activities: "أنشطة"
     activity: "نشاط"
     activity_budget: "ميزانية النشاط"
@@ -1348,6 +1350,7 @@ arb:
     exploitation_name: "اسم الاستغلال"
     exportable: "قبل للتصدير"
     exportable_columns: "أعمدة للتصدير"
+    # exportable_fields: "Exportable fields"
     expression: "اسلوب للتعبير" #?
     extension: "التوسع" #?
     external: "خارجي"
@@ -1740,6 +1743,7 @@ arb:
     parcels: "الطرود"
     parent: "النسب"
     parent_id: "نسب" #?
+    # part_product_nature_variant: "Part product nature variant"
     # part_product_nature_variant_id: "Part product nature variant"
     # part_replacements: "Part replacements"
     # part_variant: "Part variant"
@@ -1961,6 +1965,7 @@ arb:
     repayment_period: "فترة السداد"
     repayments: "تسديد"
     reporter: "صحافي"
+    # request_intervention: "Request intervention"
     required: "الزامي"
     reservoir: "المخزن" #?
     reset_password_sent_at: "إعادة تعيين كلمة المرور أرسلت في"
@@ -2170,6 +2175,8 @@ arb:
     transporter_sales: "مبيعات نقل"
     transporters: "ناقلات الشحن" #?
     transports: "وسائل النقل" #?
+    # trouble_description: "Trouble description"
+    # trouble_encountered: "Trouble encountered"
     type: "النوع"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
     undelivered_quantity: "يبقى للتسليم"

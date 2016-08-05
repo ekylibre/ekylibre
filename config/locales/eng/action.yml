@@ -1385,6 +1385,7 @@ eng:
     renewed: "Renewed"
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
+    # replace: "Replace"
     report: "Report" #?
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
@@ -1721,10 +1722,10 @@ eng:
         other: "%{count} entries have been validated"
         zero: "No entries has been validated"
       entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
-      equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
-      equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
-      equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
-      equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
+      equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
+      equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
+      equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
+      equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
       exception_raised: "An error occurred during the processing: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "Implemented with dummy data"
