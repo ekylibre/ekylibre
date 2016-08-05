@@ -142,6 +142,56 @@ module Backend
                                   procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) })
     end
 
+    def new
+      options = {}
+      [:actions, :custom_fields, :description, :event_id, :issue_id,
+       :nature, :number, :prescription_id, :procedure_name,
+       :request_intervention_id, :started_at, :state,
+       :stopped_at, :trouble_description, :trouble_encountered,
+       :whole_duration, :working_duration].each do |param|
+        options[param] = params[param]
+      end
+      options[:group_parameters_attributes] = params[:group_parameters_attributes] || []
+
+      @intervention = Intervention.new(options)
+
+      from_request = Intervention.find_by_id(params[:request_intervention_id])
+      if from_request
+        @intervention = from_request.deep_clone(
+          only: [:actions, :custom_fields, :description, :event_id, :issue_id,
+                 :nature, :number, :prescription_id, :procedure_name,
+                 :request_intervention_id, :started_at, :state,
+                 :stopped_at, :trouble_description, :trouble_encountered,
+                 :whole_duration, :working_duration],
+          include:
+            [
+              {group_parameters: [
+                                   :parameters,
+                                   :group_parameters,
+                                   :doers,
+                                   :inputs,
+                                   :outputs,
+                                   :targets,
+                                   :tools
+                                  ]
+              },
+              {root_parameters: :group},
+              {parameters: :group},
+              {product_parameters: [:readings, :group]},
+              {doers: :group},
+              {inputs: :group},
+              {outputs: :group},
+              {targets: :group},
+              {tools: :group},
+              :working_periods,
+            ]
+        )
+        @intervention.nature = :record
+      end
+
+      render(locals: {cancel_url: {:action=>:index}})
+    end
+
     # Computes impacts of a updated value in an intervention input context
     def compute
       unless params[:intervention]

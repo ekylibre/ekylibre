@@ -142,6 +142,8 @@ GEM
     database_cleaner (1.5.3)
     dbf (3.0.5)
     debug_inspector (0.0.2)
+    deep_cloneable (2.2.1)
+      activerecord (>= 3.1.0, < 5.2.0)
     devise (4.2.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -508,6 +510,7 @@ DEPENDENCIES
   colored
   coveralls (>= 0.6)
   database_cleaner
+  deep_cloneable (~> 2.2.1)
   devise
   devise-i18n-views
   devise_invitable
@@ -572,6 +575,9 @@ DEPENDENCIES
   unicorn
   uuidtools
   web-console (~> 3.0)
+
+RUBY VERSION
+   ruby 2.2.3p173
 
 BUNDLED WITH
    1.12.5
