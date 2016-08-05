@@ -34,39 +34,39 @@
 #  updated_at                     :datetime         not null
 #  updater_id                     :integer
 #
-require "test_helper"
+require 'test_helper'
 
 class ProductNatureVariantComponentTest < ActiveSupport::TestCase
-  test "test non recursivity of components" do
+  test 'test non recursivity of components' do
     tractor = ProductNatureVariant.import_from_nomenclature(:tractor)
 
     piston_params = {
       nature: ProductNature.import_from_nomenclature(:equipment),
-      name: "Piston B72 injection retro, alliage titane",
-      unit_name: "Piston"
+      name: 'Piston B72 injection retro, alliage titane',
+      unit_name: 'Piston'
     }
     piston = ProductNatureVariant.create!(piston_params)
 
     motor_v12_param = {
       nature: ProductNature.import_from_nomenclature(:equipment),
-      name: "Moteur V12 injection gtx 18L, 2013",
-      unit_name: "Moteur"
+      name: 'Moteur V12 injection gtx 18L, 2013',
+      unit_name: 'Moteur'
     }
     motor_v12 = ProductNatureVariant.create!(motor_v12_param)
 
-    tractor.components.create!(name: "Moteur", piece_variant: motor_v12)
-    motor_v12.components.create!(name: "Piston 1", piece_variant: piston)
-    motor_v12.components.create!(name: "Piston 2", piece_variant: piston)
+    tractor.components.create!(name: 'Moteur', piece_variant: motor_v12)
+    motor_v12.components.create!(name: 'Piston 1', piece_variant: piston)
+    motor_v12.components.create!(name: 'Piston 2', piece_variant: piston)
 
     assert_raise ActiveRecord::RecordInvalid do
-      motor_v12.components.create!(name: "Piston 2", piece_variant: piston)
+      motor_v12.components.create!(name: 'Piston 2', piece_variant: piston)
     end
     assert_raise ActiveRecord::RecordInvalid do
-      motor_v12.components.create!(name: "piston 2", piece_variant: piston)
+      motor_v12.components.create!(name: 'piston 2', piece_variant: piston)
     end
 
     assert_raise ActiveRecord::RecordInvalid do
-      piston.components.create!(name: "Nimp", piece_variant: tractor)
+      piston.components.create!(name: 'Nimp', piece_variant: tractor)
     end
   end
 end

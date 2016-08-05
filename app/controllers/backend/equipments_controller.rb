@@ -43,5 +43,12 @@ module Backend
       t.status
       t.column :container, url: true
     end
+
+    list(:part_replacements, model: :product_part_replacement) do |t|
+      t.column :intervention, url: true
+      t.column :stopped_at, through: :intervention, datatype: :datetime
+      t.column :human_activities_names, through: :intervention
+    end
+
   end
 end

@@ -77,7 +77,7 @@ class Equipment < Matter
   def status
     return :stop if dead_at?
     return :caution if issues.where(state: :opened).any?
-    return :go
+    :go
   end
 
   def wear_status(component = nil)
@@ -101,9 +101,8 @@ class Equipment < Matter
     progresses = [life_progress, work_progress]
     return :stop if progresses.any? { |prog| prog >= 1 }
     return :caution if progresses.any? { |prog| prog >= 0.85 }
-    return :go
+    :go
   end
-
 
   ##################################################
   ### Total lifespans values fetched from variant ##
@@ -132,14 +131,13 @@ class Equipment < Matter
 
   def remaining_lifespan
     return nil unless total_lifespan
-    return total_lifespan - current_life
+    total_lifespan - current_life
   end
 
   def remaining_working_lifespan
     return nil unless total_working_lifespan
-    return total_working_lifespan - current_work_life
+    total_working_lifespan - current_work_life
   end
-
 
   ##################################################
   ### Lifespan progress in [0-1] and percents ######
@@ -176,7 +174,7 @@ class Equipment < Matter
     start = since || born_at
     work_duration = working_duration_from_average(since: start)
     work_duration ||= working_duration_from_interventions(since: start)
-    return work_duration.to_f.in_second
+    work_duration.to_f.in_second
   end
 
   ### Returns working duration as the sum of the time spent
@@ -184,7 +182,7 @@ class Equipment < Matter
   def working_duration_from_interventions(options = {})
     role = options[:as] || :tool
     periods = InterventionWorkingPeriod.with_intervention_parameter(role, self)
-    periods = periods.where('started_at >= ?', options[:since])  if options[:since]
+    periods = periods.where('started_at >= ?', options[:since]) if options[:since]
     periods = periods.of_campaign(options[:campaign]) if options[:campaign]
     periods.sum(:duration).in_second
   end
@@ -195,7 +193,7 @@ class Equipment < Matter
     return nil unless has_indicator?(:daily_average_working_time)
     duration = (Time.zone.today - options[:since].to_date)
     average = variant.daily_average_working_time
-    return (average * duration.in_day).in_second
+    (average * duration.in_day).in_second
   end
 
   #######################################################
@@ -207,7 +205,7 @@ class Equipment < Matter
   def replaced_at(component, since = nil)
     replacement = last_replacement(component)
     return replacement.intervention.stopped_at if replacement
-    return since
+    since
   end
 
   def last_replacement(component)
@@ -324,7 +322,7 @@ class Equipment < Matter
     )
   end
 
-protected
+  protected
 
   def interpolations(lifespan)
     {
@@ -340,5 +338,4 @@ protected
       remaining_time: lifespan.in(:hour).round(2).l(precision: 0)
     }
   end
-
 end

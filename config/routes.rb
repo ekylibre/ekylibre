@@ -41,7 +41,6 @@ Rails.application.routes.draw do
       get :list_members
       get :list_places
       get :take
-      get :list_part_replacements
     end
   end
 
@@ -406,7 +405,11 @@ Rails.application.routes.draw do
 
     resources :entity_links
 
-    resources :equipments, concerns: :products
+    resources :equipments, concerns: :products do
+      member do
+        get :list_part_replacements
+      end
+    end
 
     resources :event_participations
 

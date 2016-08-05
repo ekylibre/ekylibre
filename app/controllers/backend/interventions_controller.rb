@@ -20,7 +20,7 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }, group_parameters_attributes: "params[:group_parameters_attributes] || []".c
+    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }, group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -165,31 +165,30 @@ module Backend
                  :whole_duration, :working_duration],
           include:
             [
-              {group_parameters: [
-                                   :parameters,
-                                   :group_parameters,
-                                   :doers,
-                                   :inputs,
-                                   :outputs,
-                                   :targets,
-                                   :tools
-                                  ]
-              },
-              {root_parameters: :group},
-              {parameters: :group},
-              {product_parameters: [:readings, :group]},
-              {doers: :group},
-              {inputs: :group},
-              {outputs: :group},
-              {targets: :group},
-              {tools: :group},
-              :working_periods,
+              { group_parameters: [
+                :parameters,
+                :group_parameters,
+                :doers,
+                :inputs,
+                :outputs,
+                :targets,
+                :tools
+              ] },
+              { root_parameters: :group },
+              { parameters: :group },
+              { product_parameters: [:readings, :group] },
+              { doers: :group },
+              { inputs: :group },
+              { outputs: :group },
+              { targets: :group },
+              { tools: :group },
+              :working_periods
             ]
         )
         @intervention.nature = :record
       end
 
-      render(locals: {cancel_url: {:action=>:index}})
+      render(locals: { cancel_url: { action: :index } })
     end
 
     # Computes impacts of a updated value in an intervention input context

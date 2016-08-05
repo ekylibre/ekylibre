@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 module Backend
   class ProductNatureVariantComponentsControllerTest < ActionController::TestCase
     test_restfully_all_actions

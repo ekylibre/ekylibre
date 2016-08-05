@@ -43,14 +43,14 @@ module Procedo
       # Returns a list of Procedo::Procedure
       def parse(file)
         collection = []
-        f = File.open(file, "rb")
+        f = File.open(file, 'rb')
         document = Nokogiri::XML(f) do |config|
           config.strict.nonet.noblanks.noent
         end
         f.close
         # Add a better syntax check
         if document.root.namespace.href.to_s == XML_NAMESPACE
-          document.root.xpath("xmlns:procedure").each do |element|
+          document.root.xpath('xmlns:procedure').each do |element|
             collection << parse_procedure(element)
           end
         else
@@ -62,33 +62,33 @@ module Procedo
       # Parse a DOM element of and XML procedure corresponding to a <procedure>
       def parse_procedure(element)
         # Create procedure
-        name = element.attr("name").to_sym
+        name = element.attr('name').to_sym
         options = {}
-        options[:required] = true if element.attr("required").to_s == "true"
-        options[:categories] = element.attr("categories")
+        options[:required] = true if element.attr('required').to_s == 'true'
+        options[:categories] = element.attr('categories')
                                       .to_s
                                       .split(/[\s\,]+/)
                                       .map(&:to_sym)
-        options[:mandatory_actions] = element.attr("actions")
+        options[:mandatory_actions] = element.attr('actions')
                                              .to_s
                                              .split(/[\s\,]+/)
                                              .map(&:to_sym)
-        options[:optional_actions] = element.attr("optional-actions")
+        options[:optional_actions] = element.attr('optional-actions')
                                             .to_s.split(/[\s\,]+/)
                                             .map(&:to_sym)
-        options[:maintenance] = element.attr("maintenance").to_s == "true"
+        options[:maintenance] = element.attr('maintenance').to_s == 'true'
         options[:maintenance] ||= nil
 
         procedure = Procedo::Procedure.new(name, options)
 
         # Adds parameters
-        parameters_count = element.xpath("xmlns:parameters").count
+        parameters_count = element.xpath('xmlns:parameters').count
         if parameters_count > 1
           raise "Too many <parameters> markup in #{procedure.name}. Only one accepted."
         elsif parameters_count < 1
           raise "No <parameters> markup in #{procedure.name}. One is needed."
         end
-        parse_group_children(procedure, element.xpath("xmlns:parameters").first)
+        parse_group_children(procedure, element.xpath('xmlns:parameters').first)
 
         # Check procedure validity
         # procedure.check!
@@ -99,7 +99,7 @@ module Procedo
       # Parse list of children of a <parameter-group> or <parameters> tag
       def parse_group_children(procedure, element, options = {})
         element.children.each do |child|
-          if child.name == "parameter" || Procedo::Procedure::ProductParameter::TYPES.include?(child.name.to_sym)
+          if child.name == 'parameter' || Procedo::Procedure::ProductParameter::TYPES.include?(child.name.to_sym)
             parse_parameter(procedure, child, options)
           elsif %w(group parameter-group).include?(child.name)
             parse_parameter_group(procedure, child, options)
@@ -111,14 +111,14 @@ module Procedo
 
       # Parse <parameter>
       def parse_parameter(procedure, element, options = {})
-        name = element.attr("name").to_sym
-        if element.name != "parameter"
+        name = element.attr('name').to_sym
+        if element.name != 'parameter'
           type = element.name.to_sym
-          if element.has_attribute?("type")
+          if element.has_attribute?('type')
             raise "'type' attribute is not supported in a <#{element.name}> element"
           end
         else
-          type = element.attr("type").underscore.to_sym
+          type = element.attr('type').underscore.to_sym
         end
         raise "No type given for #{name} parameter" unless type
         %w(filter cardinality).each do |info|
@@ -141,15 +141,15 @@ module Procedo
         parent = options[:group] || procedure
         parameter = parent.add_product_parameter(name, type, options)
         # Handlers
-        element.xpath("xmlns:handler").each do |el|
+        element.xpath('xmlns:handler').each do |el|
           parse_handler(parameter, el)
         end
         # Attributes
-        element.xpath("xmlns:attribute").each do |el|
+        element.xpath('xmlns:attribute').each do |el|
           parse_attribute(parameter, el)
         end
         # Readings
-        element.xpath("xmlns:reading").each do |el|
+        element.xpath('xmlns:reading').each do |el|
           parse_reading(parameter, el)
         end
       end
@@ -166,7 +166,7 @@ module Procedo
 
         handler = parameter.add_handler(name, options)
         # Converters
-        if element.xpath("xmlns:converter").any?
+        if element.xpath('xmlns:converter').any?
           Rails.logger.warn "Converters are no more supported (in #{parameter.procedure_name}/#{parameter.name})"
         end
       end
@@ -182,42 +182,42 @@ module Procedo
       end
 
       def parse_setter(parameter, type, element)
-        name = element.attr("name")
+        name = element.attr('name')
         options = {}
-        if element.has_attribute?("value")
-          options[:default_value] = element.attr("value")
+        if element.has_attribute?('value')
+          options[:default_value] = element.attr('value')
           options[:hidden] = true
-        elsif element.has_attribute?("default-value")
-          options[:default_value] = element.attr("default-value")
+        elsif element.has_attribute?('default-value')
+          options[:default_value] = element.attr('default-value')
         end
-        options[:if] = element.attr("if") if element.has_attribute?("if")
+        options[:if] = element.attr('if') if element.has_attribute?('if')
         setter = parameter.send("add_#{type}", name, options)
         parse_computations(setter, element)
       end
 
       def parse_computations(item, element)
-        element.xpath("xmlns:compute").each do |el|
+        element.xpath('xmlns:compute').each do |el|
           parse_computation(item, el)
         end
       end
 
       def parse_computation(item, element)
-        expression = element.attr("expr").strip
-        destinations = element.attr("to").strip.split(/\s*\,\s*/)
+        expression = element.attr('expr').strip
+        destinations = element.attr('to').strip.split(/\s*\,\s*/)
         options = {}
-        options[:if] = element.attr("if") if element.has_attribute?("if")
+        options[:if] = element.attr('if') if element.has_attribute?('if')
         item.add_computation(expression, destinations, options)
       end
 
       # Parse <parameter-group> element
       def parse_parameter_group(procedure, element, options = {})
-        unless element.has_attribute?("name")
+        unless element.has_attribute?('name')
           raise Procedo::Errors::MissingAttribute, "Missing name for parameter-group in #{procedure.name} at line #{element.line}"
         end
-        name = element.attr("name").to_sym
+        name = element.attr('name').to_sym
         options = {}
-        if element.has_attribute?("cardinality")
-          options[:cardinality] = element.attr("cardinality").to_s
+        if element.has_attribute?('cardinality')
+          options[:cardinality] = element.attr('cardinality').to_s
         end
         parent = options[:group] || procedure
         group = parent.add_group_parameter(name, options)

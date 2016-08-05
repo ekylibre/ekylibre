@@ -1272,6 +1272,7 @@
         <page to="backend/product_nature_variants#unroll"/>
         <page to="backend/product_nature_variants#list_components"/>
         <page to="backend/product_nature_variant_components#autocomplete"/>
+        <page to="backend/product_nature_variant_components#unroll"/>
       </item>
       <item name="catalogs">
         <page to="backend/catalogs#index"/>
@@ -1336,6 +1337,7 @@
         <page to="backend/equipments#list_issues"/>
         <page to="backend/equipments#list_readings"/>
         <page to="backend/equipments#list_members"/>
+        <page to="backend/equipments#list_part_replacements"/>
         <page to="backend/equipments#list_places"/>
         <page to="backend/equipments#list_carried_linkages"/>
         <page to="backend/equipments#list_carrier_linkages"/>
@@ -1764,7 +1766,6 @@
         <page to="backend/buildings#list_part_replacements"/>
       </item>
       <item name="equipments">
-        <page to="backend/equipments#list_part_replacements"/>
       </item>
       <item name="fungi">
         <page to="backend/fungi#list_part_replacements"/>
@@ -1785,7 +1786,6 @@
         <page to="backend/product_groups#list_part_replacements"/>
       </item>
       <item name="product_nature_variant_components">
-        <page to="backend/product_nature_variant_components#unroll"/>
       </item>
       <item name="products">
         <page to="backend/products#list_part_replacements"/>

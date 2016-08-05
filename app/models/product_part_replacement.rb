@@ -34,13 +34,12 @@
 #  updater_id                :integer
 #
 class ProductPartReplacement < Ekylibre::Record::Base
-
-	belongs_to :product, inverse_of: :part_replacements
-	belongs_to :component, class_name: "ProductNatureVariantComponent", inverse_of: :part_replacements
-	belongs_to :intervention_parameter
-	has_one :intervention, through: :intervention_parameter
-	belongs_to :following, class_name:'ProductPartReplacement'
-	has_many :precedings, class_name:'ProductPartReplacement', foreign_key: 'following_id'
+  belongs_to :product, inverse_of: :part_replacements
+  belongs_to :component, class_name: 'ProductNatureVariantComponent', inverse_of: :part_replacements
+  belongs_to :intervention_parameter
+  has_one :intervention, through: :intervention_parameter
+  belongs_to :following, class_name: 'ProductPartReplacement'
+  has_many :precedings, class_name: 'ProductPartReplacement', foreign_key: 'following_id'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :component, :intervention_parameter, :product, presence: true

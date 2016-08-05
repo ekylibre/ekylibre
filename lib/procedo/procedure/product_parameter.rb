@@ -245,7 +245,7 @@ module Procedo
       end
 
       def depend_on?(parameter)
-        return false if (parameter.name == self.name)
+        return false if parameter.name == name
         attr_dependent = @attributes.values.any? { |a| a.depend_on? parameter.name }
         read_dependent = @readings.values.any? { |r| r.depend_on? parameter.name }
         hand_dependent = @handlers.values.any? { |h| h.depend_on? parameter.name }
