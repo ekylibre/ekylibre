@@ -18,7 +18,7 @@
   = f.input :description
   = f.custom_fields
 
-= field_set(:inspections) do
+= field_set(:inspections, title: Activity.human_attribute_name(:inspections)) do
   = f.input :use_gradings, show: '#inspections-fields'
   #inspections-fields
     = f.input :measure_grading_items_count
@@ -31,11 +31,10 @@
       = f.referenced_nomenclature :grading_sizes_indicator, collection: Nomen::Indicator.where(unit: Nomen::Unit.where(dimension: :distance)).selection, include_blanks: false
       = f.referenced_nomenclature :grading_sizes_unit, collection: Nomen::Unit.where(dimension: :distance).selection, include_blanks: false
 
+    = f.nested_association(:inspection_calibration_scales)
     = f.nested_association(:inspection_point_natures)
 
-    = f.nested_association(:inspection_calibration_scales)
-
-= field_set(:countings) do
+= field_set(:countings, title: Activity.human_attribute_name(:countings)) do
   = f.input :use_countings, show: '#countings-fields'
   #countings-fields
     = f.nested_association :plant_density_abaci
@@ -43,3 +42,13 @@
 .auxiliary-nature-options
   = field_set(Activity.human_attribute_name(:distributions)) do
     = f.nested_association(:distributions)
+
+= field_set(:seasons, title: Activity.human_attribute_name(:seasons)) do
+  = f.input :use_seasons, show: '#seasons-fields'
+  #seasons-fields
+    = f.nested_association(:seasons)
+
+= field_set(:tactics, title: Activity.human_attribute_name(:tactics)) do
+  = f.input :use_tactics, show: '#tactics-fields'
+  #tactics-fields
+    = f.nested_association(:tactics, maximum: 1)

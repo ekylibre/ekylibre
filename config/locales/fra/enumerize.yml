@@ -28,6 +28,10 @@ fra:
         cultivation: "Culture"
         fallow_land: "Jachère"
         none: "Aucun"
+    activity_tactic:
+      mode:
+        harvested: "Date de récolte prévisionnelle"
+        sowed: "Date de semis prévisionnelle"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"

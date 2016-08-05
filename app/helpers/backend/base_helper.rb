@@ -365,5 +365,45 @@ module Backend
       end
       content_tag(:div, options, &block)
     end
+
+    def chronology_period(margin, width, background_color, url_options = {}, html_options = {})
+      direction = reading_ltr? ? 'left' : 'right'
+      period_margin = 100 * margin.round(6)
+      period_width = 100 * width.round(6)
+
+      style = "#{direction}: #{period_margin}%;"
+      style += "width: #{period_width}%;"
+      style += "background-color: #{background_color}"
+
+      element_class = html_options[:class] || ''
+      title = html_options[:title] || ''
+      nested_element = html_options[:nested_element] || nil
+
+      if nested_element.nil?
+        link_to('', url_options, style: style, class: "period #{element_class}", title: title)
+      else
+        link_to(url_options, style: style, class: "period #{element_class}", title: title) do
+          nested_element
+        end
+      end
+    end
+
+    def chronology_period_icon(positioned_at, picto_class, html_options = {})
+      style = ''
+
+      if positioned_at != 'initial'
+
+        direction = reading_ltr? ? 'left' : 'right'
+        period_icon_margin = 100 * positioned_at.round(6)
+        style = "#{direction}: #{period_icon_margin}%;"
+      end
+
+      element_class = html_options[:class] || 'period'
+      title = html_options[:title] || ''
+
+      content_tag(:div, style: style, class: element_class, title: title) do
+        content_tag(:i, '', class: "picto picto-#{picto_class}")
+      end
+    end
   end
 end

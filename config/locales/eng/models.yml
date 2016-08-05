@@ -4,6 +4,8 @@ eng:
       activity_budget:
         expenses_amount: "Expenses amount"
         revenues_amount: "Revenues amount"
+      activity_tactic:
+        mode: "Planning type"
       animal_group:
         born_at: "Created at"
       building:
@@ -147,6 +149,8 @@ eng:
       activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "Quality check"
       activity_production: "Activity production"
+      activity_season: "Activity season"
+      activity_tactic: "Activity cropping technique"
       affair: "Affair"
       analysis: "Analysis"
       analysis_item: "Analysis item"
@@ -839,7 +843,9 @@ eng:
     minimal_size_value: "Minimal size value"
     minimal_value: "Minimal value"
     mobiles: "Mobile phones"
+    mod: "Mod" #?
     mode: "Mode"
+    # mode_delta: "Mode delta"
     model_euid: "Model"
     mother: "Mother"
     movements: "Movements"
@@ -928,6 +934,7 @@ eng:
     plan: "Plan"
     planned_at: "Planned at"
     planned_depreciations: "Planned depreciations"
+    # planned_on: "Planned on"
     plant: "Plant"
     plant_counting: "Plant counting"
     plant_countings: "Plant countings"
@@ -1104,6 +1111,8 @@ eng:
     scale: "Scale"
     # scales: "Scales"
     scheduled: "Scheduled"
+    season: "Seasonality"
+    seasons: "Seasonalities"
     seeding_density_unit: "Seeding density unit"
     seeding_density_value: "Seeding density"
     selected: "Selected"
@@ -1178,6 +1187,8 @@ eng:
     supports: "Supports"
     suspended: "Suspended"
     # swim_lane_uuid: "Swim lane uuid"
+    tactic: "Cropping technique"
+    tactics: "Cropping techniques"
     target: "Target"
     target_type: "Target type"
     target_url: "Target url"
@@ -1236,6 +1247,8 @@ eng:
     use_countings: "Use countings"
     use_grading_calibre: "Use grading calibre" #?
     use_gradings: "Use gradings"
+    use_seasons: "Use seasonalities"
+    use_tactics: "Use cropping techniques"
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
     useful_items: "Useful items"

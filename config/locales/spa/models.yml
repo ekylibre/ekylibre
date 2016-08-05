@@ -4,6 +4,8 @@ spa:
       activity_budget:
         expenses_amount: "Importe los gastos"
         revenues_amount: "Monto de los ingresos"
+      activity_tactic:
+        # mode: "Planning type"
       animal_group:
         born_at: "Creado en"
       building:
@@ -147,6 +149,8 @@ spa:
       # activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "verificación de calificaciones actividad"
       activity_production: "Soporte de producción"
+      # activity_season: "Activity season"
+      # activity_tactic: "Activity cropping technique"
       affair: "Asunto"
       analysis: "Análisis"
       analysis_item: "Análisis elemento"
@@ -817,6 +821,7 @@ spa:
     minimal_size_value: "El valor mínimo según el tamaño"
     minimal_value: "El valor mínimo"
     mobiles: "Teléfonos móviles"
+    # mod: "Mod"
     mode: "Modo"
     model_euid: "Modelo"
     mother: "Madre"
@@ -1075,6 +1080,8 @@ spa:
     sampling_temporal_mode: "El modo de muestreo temporal"
     scale: "Escala"
     scheduled: "Programado"
+    # season: "Seasonality"
+    # seasons: "Seasonalities"
     second_producer: "En segundo productor" #?
     seeding_density_unit: "unidad de densidad de siembra"
     seeding_density_value: "densidad de siembra"
@@ -1144,6 +1151,8 @@ spa:
     support_variety: "Variedad de apoyo"
     supports: "Soportes"
     suspended: "Suspendido"
+    # tactic: "Cropping technique"
+    # tactics: "Cropping techniques"
     target: "Objetivo"
     target_type: "Tipo de destino"
     target_url: "URL de destino"
@@ -1203,6 +1212,8 @@ spa:
     use_countings: "Use conteos"
     use_grading_calibre: "Utilice el calibre de clasificación"
     use_gradings: "Use gradaciones"
+    # use_seasons: "Use seasonalities"
+    # use_tactics: "Use cropping techniques"
     used_for_affairs: "Se utiliza para asuntos"
     used_for_gaps: "Se utiliza para huecos"
     useful_items: "Artículos útiles"

@@ -938,8 +938,10 @@ arb:
     add_reading: "إضافة قيمة للمؤشر"
     add_revenue: "إضافة الإيرادات"
     add_sale_taxation: "إضافة بيع الضرائب"
+    # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "إضافة دعم"
+    # add_tactic: "Add cropping technique"
     add_tool: "إضافة أداة"
     add_website: "أضف موقعك"
     add_working_period: "إضافة working_period"
@@ -1144,6 +1146,7 @@ arb:
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
     dates: "ادخل تواريخ بداية ونهاية المدة"
+    # days: "Days"
     deals: "عروض"
     debit: "الدين"
     debts_on_assets: "الديون على الأصول"
@@ -1166,6 +1169,7 @@ arb:
     delivery: "خدمه توصيل"
     delivery_natural_gas_and_electricity_assessable: "وتخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا" #?
     delivery_natural_gas_and_electricity_not_assessable: "لا تخضع امدادات الغاز الطبيعي والكهرباء للضريبة في فرنسا" #?
+    # delta: "+/-"
     department_create: "اضافة وظيفة جديدة" #?
     departments: "وظائف/مهام" #?
     deposit: "اقتطاعات البنك"
@@ -1291,6 +1295,7 @@ arb:
     first_line_as_title: "السطر الأول كما لقب"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
     fixed_assets: "أصول ثابتة"
+    # forecast_volume: "Forecast volume"
     format_date:  #?
       iso: "(السنة-الشهر-اليوم)" #?
     free_purchases: "المشتريات مجانية" #?

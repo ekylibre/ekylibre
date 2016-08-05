@@ -4,6 +4,8 @@ ita:
       activity_budget:
         expenses_amount: "Le spese importo"
         revenues_amount: "I ricavi sono pari"
+      activity_tactic:
+        # mode: "Planning type"
       animal_group:
         born_at: "creato a"
       building:
@@ -178,6 +180,8 @@ ita:
       activity_inspection_calibration_scale: "Calibro"
       activity_inspection_point_nature: "controllo di classificazione di attività"
       activity_production: "supporto alla produzione"
+      # activity_season: "Activity season"
+      # activity_tactic: "Activity cropping technique"
       affair: "Affare"
       analysis: "Analisi"
       analysis_item: "oggetto di analisi"
@@ -844,6 +848,7 @@ ita:
     minimal_size_value: "valore della dimensione minima"
     minimal_value: "valore minimo"
     mobiles: "Cellulari"
+    # mod: "Mod"
     mode: "modo"
     model_euid: "Modello"
     mother: "Madre"
@@ -1102,6 +1107,8 @@ ita:
     sampling_temporal_mode: "modalità temporale di campionamento"
     scale: "Scala"
     scheduled: "In programma"
+    # season: "Seasonality"
+    # seasons: "Seasonalities"
     second_producer: "secondo produttore" #?
     seeding_density_unit: "unità di densità di semina"
     seeding_density_value: "densità di semina"
@@ -1171,6 +1178,8 @@ ita:
     support_variety: "varietà di sostegno"
     supports: "supporti"
     suspended: "Sospeso"
+    # tactic: "Cropping technique"
+    # tactics: "Cropping techniques"
     target: "Bersaglio"
     target_type: "tipo di destinazione"
     target_url: "URL di destinazione"
@@ -1230,6 +1239,8 @@ ita:
     use_countings: "Utilizzare i conteggi"
     use_grading_calibre: "Utilizzare calibro di classificazione"
     use_gradings: "Utilizzare classificazioni"
+    # use_seasons: "Use seasonalities"
+    # use_tactics: "Use cropping techniques"
     used_for_affairs: "Usato per gli affari"
     used_for_gaps: "Usato per le lacune"
     useful_items: "oggetti utili"

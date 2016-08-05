@@ -4,6 +4,8 @@ cmn:
       activity_budget:
         expenses_amount: "支出金额"
         revenues_amount: "收入金额"
+      activity_tactic:
+        # mode: "Planning type"
       animal_group:
         born_at: "创建时间"
       building:
@@ -147,6 +149,8 @@ cmn:
       activity_inspection_calibration_scale: "口径"
       activity_inspection_point_nature: "活动分级检查"
       activity_production: "生产支持"
+      # activity_season: "Activity season"
+      # activity_tactic: "Activity cropping technique"
       affair: "事务"
       analysis: "分析"
       analysis_item: "分析项目"
@@ -813,6 +817,7 @@ cmn:
     minimal_size_value: "最小尺寸值"
     minimal_value: "最小值"
     mobiles: "手机"
+    # mod: "Mod"
     mode: "模式"
     model_euid: "模型"
     mother: "母亲"
@@ -1071,6 +1076,8 @@ cmn:
     sampling_temporal_mode: "采样时间模式"
     scale: "规模"
     scheduled: "计划"
+    # season: "Seasonality"
+    # seasons: "Seasonalities"
     second_producer: "第二生成" #?
     seeding_density_unit: "播种密度单位"
     seeding_density_value: "播种密度"
@@ -1140,6 +1147,8 @@ cmn:
     support_variety: "支持多种"
     supports: "支持"
     suspended: "暂停"
+    # tactic: "Cropping technique"
+    # tactics: "Cropping techniques"
     target: "目标"
     target_type: "目标类型"
     target_url: "目标URL"
@@ -1199,6 +1208,8 @@ cmn:
     use_countings: "使用countings"
     use_grading_calibre: "使用分级口径"
     use_gradings: "采用放坡"
+    # use_seasons: "Use seasonalities"
+    # use_tactics: "Use cropping techniques"
     used_for_affairs: "用于事务"
     used_for_gaps: "用于差距"
     useful_items: "有用的物品"

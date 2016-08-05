@@ -28,6 +28,10 @@ jpn:
         cultivation: "栽培"
         fallow_land: "休閑地"
         none: "なし"
+    activity_tactic:
+      mode:
+        # harvested: "Harvest sowing date"
+        # sowed: "Provisional sowing date"
     cash:
       mode:
         bban: "基本的な銀行口座番号（BBAN）"

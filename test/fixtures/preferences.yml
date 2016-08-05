@@ -2930,10 +2930,10 @@ preferences_247:
   creator_id: 1
   id: 248
   integer_value: 6
-  lock_version: 67
+  lock_version: 71
   name: current_campaign.id
   nature: integer
-  updated_at: 2016-07-01 20:46:59.769778000 Z
+  updated_at: 2016-08-05 15:37:38.611971000 Z
   updater_id: 1
   user_id: 1
 preferences_248:
@@ -4213,5 +4213,56 @@ preferences_362:
     - general-informations
     - parameters
   updated_at: 2016-07-01 20:48:48.142879000 Z
+  updater_id: 1
+  user_id: 1
+preferences_363:
+  boolean_value: true
+  created_at: 2016-08-05 14:40:40.830877000 Z
+  creator_id: 1
+  id: 365
+  lock_version: 1
+  name: first_run.assistant.proposed
+  nature: boolean
+  updated_at: 2016-08-05 14:40:46.027091000 Z
+  updater_id: 1
+preferences_364:
+  boolean_value: false
+  created_at: 2016-08-05 14:40:40.836567000 Z
+  creator_id: 1
+  id: 366
+  lock_version: 0
+  name: first_run.executed
+  nature: boolean
+  updated_at: 2016-08-05 14:40:40.836567000 Z
+  updater_id: 1
+preferences_365:
+  created_at: 2016-08-05 14:40:40.886415000 Z
+  creator_id: 1
+  id: 367
+  lock_version: 1
+  name: first_run.assistant.current_step
+  nature: string
+  string_value: welcomes
+  updated_at: 2016-08-05 14:40:40.927783000 Z
+  updater_id: 1
+preferences_366:
+  created_at: 2016-08-05 14:55:10.249068000 Z
+  creator_id: 1
+  id: 368
+  lock_version: 0
+  name: activity_22_inspection_view_unit
+  nature: string
+  updated_at: 2016-08-05 14:55:10.249068000 Z
+  updater_id: 1
+  user_id: 1
+preferences_367:
+  created_at: 2016-08-05 15:30:44.561976000 Z
+  creator_id: 1
+  id: 369
+  lock_version: 2
+  name: interface.janus.backend-campaigns-show-36.current_face
+  nature: string
+  string_value: cobbles
+  updated_at: 2016-08-05 15:33:49.014323000 Z
   updater_id: 1
   user_id: 1

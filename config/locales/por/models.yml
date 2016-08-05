@@ -4,6 +4,8 @@ por:
       activity_budget:
         expenses_amount: "Quantidade despesas"
         revenues_amount: "Montante das receitas"
+      activity_tactic:
+        # mode: "Planning type"
       animal_group:
         born_at: "Criado em"
       building:
@@ -147,6 +149,8 @@ por:
       # activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "verificação de classificação Atividade"
       activity_production: "Apoio à produção"
+      # activity_season: "Activity season"
+      # activity_tactic: "Activity cropping technique"
       affair: "Caso"
       analysis: "Análise"
       analysis_item: "Análise de itens"
@@ -813,6 +817,7 @@ por:
     minimal_size_value: "valor do tamanho mínimo"
     minimal_value: "Valor mínimo"
     mobiles: "Celulares"
+    # mod: "Mod"
     mode: "Modo"
     model_euid: "Modelo"
     mother: "Mãe"
@@ -1071,6 +1076,8 @@ por:
     sampling_temporal_mode: "Modo temporais de amostragem"
     scale: "Escala"
     scheduled: "Programado"
+    # season: "Seasonality"
+    # seasons: "Seasonalities"
     second_producer: "Segundo produtor" #?
     seeding_density_unit: "unidade de densidade de semeadura"
     seeding_density_value: "densidade de semeadura"
@@ -1140,6 +1147,8 @@ por:
     support_variety: "Variedade apoio"
     supports: "Suportes"
     suspended: "Suspenso"
+    # tactic: "Cropping technique"
+    # tactics: "Cropping techniques"
     target: "Alvo"
     target_type: "Tipo de destino"
     target_url: "Alvo URL"
@@ -1199,6 +1208,8 @@ por:
     use_countings: "Use contagens"
     use_grading_calibre: "Use calibre classificação"
     # use_gradings: "Use gradings"
+    # use_seasons: "Use seasonalities"
+    # use_tactics: "Use cropping techniques"
     used_for_affairs: "Usado para assuntos"
     used_for_gaps: "Usado para lacunas"
     useful_items: "Itens úteis"

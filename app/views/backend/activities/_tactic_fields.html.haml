@@ -1,0 +1,6 @@
+.nested-fields
+  - bulk_units = Nomen::Units.where(dimension: :mass).selection.reverse
+  = link_to_remove_nested_association(:tactics, f)
+  = f.input :name
+  = f.input :mode, as: :radio_buttons
+  = f.delta_field(:planned_on, :mode_delta, :mode_unit_name, :days, {'name': :date.tl})

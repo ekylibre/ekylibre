@@ -123,10 +123,11 @@ module Clean
             exp.gsub!(/\#\{[^\}]+\}/, '*')
             list << exp
           end
-          source.gsub(/(tg|tl|field_set|cell|cobble|subheading)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)\s*(\)|\,|\z|\s+do)/) do |exp|
-            exp = exp.split(/[\s\(\)\:\'\"\,]+/)[1]
-            exp.gsub!(/\#\{[^\}]+\}/, '*')
-            list << exp
+          source.gsub(/(tl|field_set|cell|cobble|subheading)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)[^\n\z]*(\n|\z)/) do |exp|
+            keys = exp.split(/[\s\(\)\:\'\"\,]+/)
+            key = keys[1].gsub(/\#\{[^\}]+\}/, '*')
+            next if keys[2..-1].include?('title') || keys[2..-1].include?('label')
+            list << key
           end
         end
         list += Ekylibre::Navigation.parts.collect { |p| p.index.keys }.flatten.compact.map(&:to_s)

@@ -4,6 +4,8 @@ deu:
       activity_budget:
         expenses_amount: "Die Aufwendungen Menge"
         revenues_amount: "Der Umsatz Betrag"
+      activity_tactic:
+        # mode: "Planning type"
       animal_group:
         born_at: "Hergestellt in"
       building:
@@ -147,6 +149,8 @@ deu:
       activity_inspection_calibration_scale: "Kaliber"
       activity_inspection_point_nature: "Aktivität Sortierprüfung"
       activity_production: "Produktionsunterstützung"
+      # activity_season: "Activity season"
+      # activity_tactic: "Activity cropping technique"
       affair: "Affäre"
       analysis: "Analyse"
       analysis_item: "Analyse Artikel"
@@ -813,6 +817,7 @@ deu:
     minimal_size_value: "Minimale Größe Wert"
     minimal_value: "Minimalwert"
     mobiles: "Mobiltelefone"
+    # mod: "Mod"
     mode: "Modus"
     model_euid: "Modell"
     mother: "Mutter"
@@ -1071,6 +1076,8 @@ deu:
     sampling_temporal_mode: "Sampling Temporalmodus"
     scale: "Rahmen"
     scheduled: "Geplant"
+    # season: "Seasonality"
+    # seasons: "Seasonalities"
     second_producer: "Zweitens Produzent" #?
     seeding_density_unit: "Seeding Dichteeinheit"
     seeding_density_value: "Seeding Dichte"
@@ -1140,6 +1147,8 @@ deu:
     support_variety: "Unterstützung Vielfalt"
     supports: "Unterstützungen"
     suspended: "Suspendiert"
+    # tactic: "Cropping technique"
+    # tactics: "Cropping techniques"
     target: "Ziel"
     target_type: "Zieltyp"
     target_url: "Ziel-URL"
@@ -1198,6 +1207,8 @@ deu:
     use_countings: "Verwenden Zählungen"
     use_grading_calibre: "Verwenden Sie Grading Kaliber"
     use_gradings: "Verwenden Sie Sortierungen"
+    # use_seasons: "Use seasonalities"
+    # use_tactics: "Use cropping techniques"
     used_for_affairs: "Wird für die Angelegenheiten"
     used_for_gaps: "Wird für die Lücken"
     useful_items: "Nützliches"

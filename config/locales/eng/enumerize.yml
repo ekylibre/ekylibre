@@ -28,6 +28,10 @@ eng:
         cultivation: "Cultivation"
         fallow_land: "Fallow land"
         none: "None"
+    activity_tactic:
+      mode:
+        harvested: "Harvest sowing date"
+        sowed: "Provisional sowing date"
     cash:
       mode:
         bban: "Basic Bank Account Number (BBAN)"

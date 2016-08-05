@@ -201,6 +201,9 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :activity_seasons, concerns: [:unroll]
+    resources :activity_tactics, concerns: [:unroll]
+
     resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
 
     resources :analyses, concerns: [:list, :unroll] do

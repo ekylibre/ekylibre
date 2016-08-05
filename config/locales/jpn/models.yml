@@ -4,6 +4,8 @@ jpn:
       activity_budget:
         expenses_amount: "費用額"
         revenues_amount: "収益額"
+      activity_tactic:
+        # mode: "Planning type"
       animal_group:
         born_at: "で作成されました"
       building:
@@ -147,6 +149,8 @@ jpn:
       activity_inspection_calibration_scale: "口径"
       activity_inspection_point_nature: "アクティビティグレーディングチェック"
       activity_production: "生産支援"
+      # activity_season: "Activity season"
+      # activity_tactic: "Activity cropping technique"
       affair: "事件"
       analysis: "分析"
       analysis_item: "分析項目"
@@ -813,6 +817,7 @@ jpn:
     minimal_size_value: "最小限のサイズ値"
     minimal_value: "極小値"
     mobiles: "携帯電話"
+    # mod: "Mod"
     mode: "モード"
     model_euid: "モデル"
     mother: "母"
@@ -1071,6 +1076,8 @@ jpn:
     sampling_temporal_mode: "サンプリング時間的モード"
     scale: "規模"
     scheduled: "予定の"
+    # season: "Seasonality"
+    # seasons: "Seasonalities"
     second_producer: "セカンドプロデューサー" #?
     seeding_density_unit: "播種密度ユニット"
     seeding_density_value: "播種密度"
@@ -1140,6 +1147,8 @@ jpn:
     support_variety: "サポートさまざまな"
     supports: "サポート"
     suspended: "吊り"
+    # tactic: "Cropping technique"
+    # tactics: "Cropping techniques"
     target: "ターゲット"
     target_type: "ターゲット・タイプ"
     target_url: "ターゲットURL"
@@ -1199,6 +1208,8 @@ jpn:
     use_countings: "countingsを使用してください"
     use_grading_calibre: "グレーディング口径を使用します"
     use_gradings: "グレーディングを使用してください"
+    # use_seasons: "Use seasonalities"
+    # use_tactics: "Use cropping techniques"
     used_for_affairs: "業務用に使用されます"
     used_for_gaps: "ギャップのために使用"
     useful_items: "便利なアイテム"

@@ -144,6 +144,14 @@ module ApplicationHelper
     vals.join(':')
   end
 
+  def reading_direction
+    t('i18n.dir')
+  end
+
+  def reading_ltr?
+    reading_direction == 'ltr'
+  end
+
   # def locale_selector
   #   # , :selected => ::I18n.locale)
   #   locales = ::I18n.available_locales.sort{|a,b| a.to_s <=> b.to_s}

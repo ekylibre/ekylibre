@@ -761,3 +761,50 @@
   @include text-base-indicator;
   color: $caution-color;
 }
+
+@mixin respond-to-bigger-than($screen-size) {
+  @if $screen-size == small {
+    @media screen and (min-width: $small-screen) { @content; }
+  }
+  @else if $screen-size == medium {
+    @media screen and (min-width: $medium-screen) { @content; }
+  }
+  @else if $screen-size == normal {
+    @media screen and (min-width: $large-screen) { @content; }
+  }
+  @else {
+    @warn "Assuming no @media queries for unknown screen size: #{$screen-size}";
+    @content;
+  }
+}
+
+@mixin flex($direction, $horizontal-alignement: center, $vertical-alignement: center) {
+
+  display: flex;
+  @if $direction == row {
+
+    html[dir="ltr"] {
+      flex-direction: row;
+    }
+
+    html[dir="rtl"] {
+      flex-direction: row;
+    }
+
+    justify-content: $horizontal-alignement;
+    align-items: $vertical-alignement;
+  }
+  @else {
+    flex-direction: column;
+    justify-content: $vertical-alignement;
+    align-items: $horizontal-alignement;
+  }
+}
+
+@mixin flex-row($horizontal-alignement: center, $vertical-alignement: center) {
+  @include flex(row, $horizontal-alignement, $vertical-alignement);
+}
+
+@mixin flex-column($horizontal-alignement: center, $vertical-alignement: center) {
+  @include flex(column, $horizontal-alignement, $vertical-alignement);
+}

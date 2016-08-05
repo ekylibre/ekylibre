@@ -12,6 +12,10 @@ fra:
       activity_production:  #?
         production_usage: "Usage futur" #?
         storage: "Support" #?
+      activity_tactic:
+        bulk_quantity: "Volume prévisionnel" #?
+        mode: "Type de planification"
+        plan_on: "Date" #?
       animal:  #?
         born_at: "Né(e) le" #?
         variety: "Race" #?
@@ -260,6 +264,8 @@ fra:
       activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "Type de point de contrôle d'agréage"
       activity_production: "Support de production"
+      activity_season: "Saisonnalité"
+      # activity_tactic: "Activity cropping technique"
       affair: "Affaire"
       analysis: "Analyse"
       analysis_item: "Élément d’analyse"
@@ -437,6 +443,7 @@ fra:
     activity_grading_check: "Point de contrôle d’agréage"
     activity_production: "Production"
     activity_productions: "Productions"
+    activity_season: "Saisonnalité" #?
     actor: "Acteur"
     actual_number: "Numéro en cours"
     actual_population: "Population réelle"
@@ -1020,6 +1027,7 @@ fra:
     minimal_size_value: "Taille minimale"
     minimal_value: "Valeur minimale"
     mobiles: "Portables"
+    # mod: "Mod"
     mode: "Mode"
     model_euid: "Modèle"
     mother: "Mère"
@@ -1322,6 +1330,8 @@ fra:
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
     scheduled: "Encaissement programmé"
+    season: "Saisonnalité"
+    seasons: "Saisonnalités"
     second_producer: "Second producteur" #?
     second_producer_way: "Voie du second producteur" #?
     seeding_density_unit: "Unité de densité de semis"
@@ -1397,6 +1407,8 @@ fra:
     support_variety: "Variété du support"
     supports: "Supports"
     suspended: "Suspendu"
+    tactic: "Itinéraire technique"
+    tactics: "Itinéraires culturaux"
     target: "Cible"
     target_type: "Type de cible"
     target_url: "URL cible"
@@ -1464,6 +1476,8 @@ fra:
     use_countings: "Utiliser les comptages"
     use_grading_calibre: "Utiliser un calibre d'agréage"
     use_gradings: "Utiliser les agréages"
+    use_seasons: "Utiliser les saisonnalités"
+    use_tactics: "Utiliser les itinéraires techniques"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
     useful_items: "Lignes utiles"

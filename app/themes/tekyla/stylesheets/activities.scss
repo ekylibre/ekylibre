@@ -74,7 +74,7 @@ $activity_border_size: 5px;
         // line-height: $indicators_height;
         &.cash {
           @include make-md-column(12, $gutter: 0);
-          @include icon-before(money, $font-size: 14px);
+          @include icon-before(money, $font-size: $fs-normal);
         }
       }
     }
@@ -89,15 +89,15 @@ $activity_border_size: 5px;
   }
 
   .cumulated-time {
-    @include icon-before(timelapse, $font-size: 14px);
+    @include icon-before(timelapse, $font-size: $fs-normal);
   }
 
   .opened-issues {
-    @include icon-before(bug, $font-size: 14px);
+    @include icon-before(bug, $font-size: $fs-normal);
   }
 
   .size {
-    @include icon-before(settings-ethernet, $font-size: 14px);
+    @include icon-before(settings-ethernet, $font-size: $fs-normal);
   }
 
 }
@@ -105,14 +105,15 @@ $activity_border_size: 5px;
 $chronology-background-color: #EEE;
 .chronology {
   .grades {
+    display: flex;
     height: $lh-normal;
     position: relative;
     .grade {
+      flex: 1;
       font-size: $fs-small;
       font-weight: bold;
       text-transform: uppercase;
       color: $neutral-color;
-      position: absolute;
       @include inline-block;
       @include padding-left($default-gap);
       &.grade-start {
@@ -125,7 +126,7 @@ $chronology-background-color: #EEE;
   }
   .periods {
     position: relative;
-    height: $lh-normal;
+    height: $fs-normal;
     background-color: $chronology-background-color;
     @include border-radius($default-border-radius);
     .period {
@@ -137,12 +138,56 @@ $chronology-background-color: #EEE;
         @include border-radius(3 * $default-border-radius);
       }
       &.without-left {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        @include border-left-radius(0);
       }
       &.without-right {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+        @include border-right-radius(0);
+      }
+    }
+
+    .markers {
+      height: 100%;
+      width: 100%;
+      @include flex-column();
+
+      .marker {
+        @include flex-column();
+        position: absolute;
+        height: $lh-normal;
+        box-shadow: 1px 1px #e4e3e3;
+        width: $lh-normal;
+        @include border-radius($lh-normal);
+        background-color: $white;
+        @include display(flex);
+        flex-direction: column;
+        justify-content: center;
+
+        .picto {
+          min-width: 0;
+          line-height: 0;
+          font-size: $fs-normal;
+          color: $text-color;
+        }
+      }
+
+      .interventions {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+      }
+
+      .crop-management-technique {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+
+        .period {
+          @include flex-row();
+        }
+
+        .marker {
+          position: initial;
+        }
       }
     }
   }
@@ -151,6 +196,6 @@ $chronology-background-color: #EEE;
 .activity-productions {
   @include clearfix;
   .activity-production {
-    margin: 2*$default-gap;
+    margin: 2 * $default-gap;
   }
 }
