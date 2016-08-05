@@ -44,9 +44,11 @@ class Crumb < Ekylibre::Record::Base
   belongs_to :intervention_parameter, class_name: 'InterventionProductParameter'
   has_one :worker, through: :user
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :read_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :accuracy, numericality: { allow_nil: true }
-  validates :accuracy, :device_uid, :geolocation, :nature, :read_at, presence: true
+  validates :accuracy, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :device_uid, presence: true, length: { maximum: 500 }
+  validates :geolocation, :nature, presence: true
+  validates :metadata, length: { maximum: 100_000 }, allow_blank: true
+  validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
   serialize :metadata, Hash
 

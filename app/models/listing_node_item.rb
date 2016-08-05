@@ -37,7 +37,9 @@ class ListingNodeItem < Ekylibre::Record::Base
   belongs_to :node, class_name: 'ListingNode'
   attr_readonly :node_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :nature, :node, presence: true
+  validates :nature, presence: true, length: { maximum: 500 }
+  validates :value, length: { maximum: 100_000 }, allow_blank: true
+  validates :node, presence: true
   # ]VALIDATORS]
   validates :nature, length: { allow_nil: true, maximum: 10 }
 end

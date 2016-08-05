@@ -28,6 +28,10 @@ cmn:
         cultivation: "养殖"
         fallow_land: "熟荒"
         none: "无"
+    activity_tactic:
+      mode:
+        # harvested: "Harvest sowing date"
+        # sowed: "Provisional sowing date"
     cash:
       mode:
         bban: "基本银行帐户号码（BBAN）"

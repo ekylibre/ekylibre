@@ -2,23 +2,23 @@
 :ruby
   data = []
   data_crumbs = []
-  resource.product_parameters.each do |cast|
-    shape = cast.working_zone
-    shape ||= cast.product.shape(at: resource.started_at) if cast.product
+  resource.targets.each do |parameter|
+    shape = parameter.working_zone
+    shape ||= parameter.product.shape(at: resource.started_at) if parameter.product
     if shape
-      activity = cast.activity if cast.is_a?(InterventionTarget)
+      activity = parameter.activity if parameter.is_a?(InterventionTarget)
       if activity
         item = {
-          name: cast.product.name,
+          name: parameter.product.name,
           shape: shape,
           activity: activity.name,
           shape_color: activity.color
         }
       else
         item = {
-          name: cast.product.name,
+          name: parameter.product.name,
           shape: shape,
-          activity: :activity.tl,
+          activity: parameter.product.name,
           shape_color: cycle(theme_colors)
         }
       end
@@ -30,10 +30,10 @@
   - if data.any?
     - v.serie :main, data
     - v.categories :activity, :main
-  - resource.product_parameters.each do |cast|
-    - if cast.crumbs.any?
-      - v.serie "path_#{cast.id}", cast.crumbs.reorder(:read_at).collect{|c| {name: cast.name, shape: c.geolocation}}
-      - v.path (cast.product ? cast.product.name : cast.variant ? cast.variant.name : cast.name), "path_#{cast.id}"
+  - resource.product_parameters.each do |parameter|
+    - if parameter.crumbs.any?
+      - v.serie "path_#{parameter.id}", parameter.crumbs.reorder(:read_at).collect{|c| {name: parameter.name, shape: c.geolocation}}
+      - v.path (parameter.product ? parameter.product.name : parameter.variant ? parameter.variant.name : parameter.name), "path_#{parameter.id}"
       - count += 1
   - v.control :zoom
   - v.control :scale

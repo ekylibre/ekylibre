@@ -150,10 +150,10 @@ fra:
         equipment_asset_depreciations: "Ammortissements des installations techniques, matériels et outillage"
         equipment_assets: "Matériels"
         equipment_cooperative_participation_assets: "CUMA"
-        equipment_depreciations_inputations_expenses: "Dotat. aux amort. des équipements"
+        equipment_depreciations_inputations_expenses: "Dotat. aux amort. des équipements" #?
         equipment_expenses: "Dépenses d’équipements et travaux"
         equipment_locative_expenses: "Charges locatives du matériel"
-        equipment_maintenance_expenses: "Installations techniques, matériel et outillage"
+        equipment_maintenance_expenses: "Installations techniques, matériel et outillage" #?
         equipment_rent_expenses: "Location de matériel"
         equipment_subventions: "Subventions d’équipement"
         establishment_charge_assets: "Immobilisations des frais d’établissement"
@@ -936,7 +936,6 @@ fra:
         er: "Érythrée"
         es: "Espagne"
         et: "Éthiopie"
-        false: "Norvège" #?
         fi: "Finlande"
         fj: "Fidji"
         fk: "Falkland, Îles (Malvinas)"
@@ -1034,7 +1033,7 @@ fra:
         ng: "Nigéria"
         ni: "Nicaragua"
         nl: "Pays-Bas"
-        # no: "Norway"
+        no: "Norvège"
         np: "Népal"
         nr: "Nauru"
         nu: "Niué"

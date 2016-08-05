@@ -28,6 +28,10 @@ spa:
         cultivation: "Cultivo"
         fallow_land: "Las tierras en barbecho"
         none: "Ninguna"
+    activity_tactic:
+      mode:
+        # harvested: "Harvest sowing date"
+        # sowed: "Provisional sowing date"
     cash:
       mode:
         bban: "Número de cuenta bancaria básica (BBAN)"

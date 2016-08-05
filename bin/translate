@@ -170,9 +170,19 @@ class Translator
 
   def load_file(path, locale)
     if path.exist?
-      YAML.load_file(path).deep_symbolize_keys[locale] || {}
+      hash = YAML.load(IO.read(path).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
+      deep_symbolize_keys(hash)[locale] || {}
     else
       return {}
+    end
+  end
+
+  def deep_symbolize_keys(hash)
+    hash.each_with_object({}) do |(key, value), result|
+      value = deep_symbolize_keys(value) if value.is_a? Hash
+      key = key[2..-3] if key.to_s =~ /^__(yes|no|true|false)__$/
+      result[key.to_sym] = value
+      result
     end
   end
 end

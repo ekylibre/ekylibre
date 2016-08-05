@@ -475,6 +475,7 @@ fra:
       show: "Groupe\_: %{name}"
     backend/product_localizations:
       edit: "Editer la localisation du produit:"
+      new: "Nouvelle localisation du produit"
     backend/product_nature_categories:
       edit: "Modifier la catégorie du produit\_: %{name}"
       index: "Catégories de produits"
@@ -818,8 +819,10 @@ fra:
     add_reading: "Ajouter une mesure pour un indicateur"
     add_revenue: "Ajouter une recette"
     add_sale_taxation: "Ajouter une taxe de vente"
+    add_season: "Ajouter une saison"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
+    add_tactic: "Ajouter un itinéraire technique"
     add_tool: "Ajouter un outil"
     add_website: "Ajouter un site web"
     add_working_period: "Ajouter une période de travail"
@@ -1041,7 +1044,9 @@ fra:
     daily_nitrogen_production: "Excretion d’azote journalière" #?
     data_to_export: "Données à exporter" #?
     data_to_extract: "Données à extraire" #?
+    date: "Date" #?
     dates: "Saisissez les dates de début et de fin de la période"
+    days: "Jours"
     deals: "Transactions"
     debit: "Débit"
     debts_on_assets: "Taux d’endettement (Dettes / Actifs) %{financial_year}"
@@ -1059,6 +1064,7 @@ fra:
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"
+    delta: "+/-"
     deposit: "Remise en banque"
     depositable_options: "Options de remise en banque"
     deposits: "Dépôts"
@@ -1174,6 +1180,7 @@ fra:
     first_line_as_title: "Titre en première ligne"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
+    forecast_volume: "Volume prévisionnel"
     from: "À partir du"
     full_name: "Client" #?
     fullscreen: "Plein écran"
@@ -1434,9 +1441,11 @@ fra:
     new_family: "Nouvelle famille" #?
     new_group: "Nouveau troupeau"
     new_in_line: "Ajouter un produit intrant" #?
+    new_incoming_parcel: "Nouveau colis entrant"
     new_issue: "Nouvel incident"
     new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?
+    new_outgoing_parcel: "Nouveau colis sortant"
     new_payment: "Enregistrer un nouvel encaissement" #?
     new_production: "Nouvelle production"
     new_production_of_activity: "Nouvelle production de %{activity}"

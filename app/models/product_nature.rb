@@ -77,10 +77,14 @@ class ProductNature < Ekylibre::Record::Base
   serialize :linkage_points_list, SymbolArray
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :picture_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :picture_file_size, numericality: { allow_nil: true, only_integer: true }
+  validates :abilities_list, :derivatives_list, :description, :frozen_indicators_list, :linkage_points_list, :variable_indicators_list, length: { maximum: 100_000 }, allow_blank: true
   validates :active, :evolvable, :subscribing, inclusion: { in: [true, false] }
-  validates :category, :name, :number, :population_counting, :variety, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :picture_content_type, :picture_file_name, length: { maximum: 500 }, allow_blank: true
+  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :category, :population_counting, :variety, presence: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 30 }
   validates :derivative_of, :reference_name, :variety, length: { allow_nil: true, maximum: 120 }

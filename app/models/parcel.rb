@@ -72,9 +72,14 @@ class Parcel < Ekylibre::Record::Base
   # has_many :interventions, class_name: 'Intervention', as: :resource
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :given_at, :in_preparation_at, :ordered_at, :planned_at, :prepared_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :given_at, :in_preparation_at, :ordered_at, :prepared_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :nature, presence: true
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }
-  validates :nature, :number, :planned_at, :state, presence: true
+  validates :separated_stock, inclusion: { in: [true, false] }, allow_blank: true
+  validates :state, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :delivery_mode, :address, presence: true
   validates :recipient, presence: { if: :outgoing? }
@@ -356,23 +361,11 @@ class Parcel < Ekylibre::Record::Base
         parcels.each do |parcel|
           parcel.items.each do |item|
             # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
-            unless item.variant.saleable?
-              item.category.product_account = Account.find_or_import_from_nomenclature(:revenues)
-              item.category.saleable = true
-            end
-            next unless item.population && item.population > 0
-            unless catalog_item = item.variant.catalog_items.first
-              unless catalog = Catalog.of_usage(:sale).first
-                catalog = Catalog.create!(
-                  name: Catalog.enumerized_attributes[:usage].human_value_name(:sales),
-                  usage: :sales
-                )
-              end
-              catalog_item = catalog.items.create!(amount: 0, variant: item.variant)
-            end
+            next unless item.variant.saleable? && item.population && item.population > 0
+            catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
             item.sale_item = sale.items.create!(
               variant: item.variant,
-              unit_pretax_amount: catalog_item.amount,
+              unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
               tax: item.variant.category.sale_taxes.first || Tax.first,
               quantity: item.population
             )
@@ -422,8 +415,8 @@ class Parcel < Ekylibre::Record::Base
         # Adds items
         parcels.each do |parcel|
           parcel.items.each do |item|
-            next unless item.population && item.population > 0
-            catalog_item = item.variant.catalog_items.order(id: :desc).first
+            next unless item.variant.purchasable? && item.population && item.population > 0
+            catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
             item.purchase_item = purchase.items.create!(
               variant: item.variant,
               unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),

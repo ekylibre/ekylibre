@@ -28,6 +28,10 @@ ita:
         cultivation: "Coltivazione"
         fallow_land: "terreni a riposo"
         none: "Nessuna"
+    activity_tactic:
+      mode:
+        # harvested: "Harvest sowing date"
+        # sowed: "Provisional sowing date"
     cash:
       mode:
         bban: "Bank Account Number di base (BBAN)"

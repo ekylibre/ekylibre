@@ -42,9 +42,11 @@ class Tracking < Ekylibre::Record::Base
   belongs_to :producer, class_name: 'Entity'
   belongs_to :product
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :usage_limit_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :active, inclusion: { in: [true, false] }
-  validates :name, presence: true
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :serial, length: { maximum: 500 }, allow_blank: true
+  validates :usage_limit_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :usage_limit_on, presence: { unless: :no_limit? }
 

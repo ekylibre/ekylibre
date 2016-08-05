@@ -28,6 +28,10 @@ deu:
         cultivation: "Anbau"
         fallow_land: "Brachland"
         none: "Keiner"
+    activity_tactic:
+      mode:
+        # harvested: "Harvest sowing date"
+        # sowed: "Provisional sowing date"
     cash:
       mode:
         bban: "Grund Bank Account Number (BBAN)"

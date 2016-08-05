@@ -48,7 +48,9 @@ class CultivableZone < Ekylibre::Record::Base
   has_many :supports, through: :activity_productions
   has_geometry :shape, type: :multi_polygon
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :name, :shape, :work_number, presence: true
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :name, :work_number, presence: true, length: { maximum: 500 }
+  validates :shape, presence: true
   # ]VALIDATORS]
   validates :uuid, presence: true
 

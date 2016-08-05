@@ -54,11 +54,13 @@ class ProductReading < Ekylibre::Record::Base
   belongs_to :originator, polymorphic: true
   has_one :variant, through: :product
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :read_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :integer_value, numericality: { allow_nil: true, only_integer: true }
-  validates :absolute_measure_value_value, :decimal_value, :measure_value_value, numericality: { allow_nil: true }
+  validates :absolute_measure_value_unit, :choice_value, :originator_type, length: { maximum: 500 }, allow_blank: true
+  validates :absolute_measure_value_value, :decimal_value, :measure_value_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :boolean_value, inclusion: { in: [true, false] }
-  validates :indicator_datatype, :indicator_name, :product, :read_at, presence: true
+  validates :indicator_datatype, :indicator_name, :product, presence: true
+  validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :read_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :string_value, length: { maximum: 100_000 }, allow_blank: true
   # ]VALIDATORS]
 
   scope :between, lambda { |started_at, stopped_at|

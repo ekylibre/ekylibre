@@ -149,10 +149,10 @@ spa:
         equipment_asset_depreciations: "Depreciaciones de activos Equipo"
         equipment_assets: "Bienes de equipo"
         equipment_cooperative_participation_assets: "Equipo cooperativa activos de participación"
-        equipment_depreciations_inputations_expenses: "Gastos de Equipamientos depreciaciones inputations"
+        equipment_depreciations_inputations_expenses: "Gastos de Equipamientos depreciaciones inputations" #?
         equipment_expenses: "Gastos de Equipamientos"
         equipment_locative_expenses: "Gastos de equipamiento locativas"
-        equipment_maintenance_expenses: "Los gastos en equipo"
+        equipment_maintenance_expenses: "Los gastos en equipo" #?
         equipment_rent_expenses: "Equipo de los gastos de alquileres"
         equipment_subventions: "Subvenciones de equipos"
         establishment_charge_assets: "Establecimiento de carga activos"
@@ -811,7 +811,6 @@ spa:
         er: "Eritrea"
         es: "España"
         et: "Etiopía"
-        false: "Noruega" #?
         fi: "Finlandia"
         fj: "Fiyi"
         fk: "Islas Malvinas"
@@ -909,7 +908,7 @@ spa:
         ng: "Nigeria"
         ni: "Nicaragua"
         nl: "Países Bajos"
-        # no: "Norway"
+        no: "Noruega"
         np: "Nepal"
         nr: "Nauru"
         nu: "Niue"

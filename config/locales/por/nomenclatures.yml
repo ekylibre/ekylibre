@@ -149,10 +149,10 @@ por:
         equipment_asset_depreciations: "Depreciações de ativos Equipamento"
         equipment_assets: "Bens de equipamento"
         equipment_cooperative_participation_assets: "Equipamento cooperativa ativos de participação"
-        equipment_depreciations_inputations_expenses: "As despesas de depreciação Equipamentos inputations"
+        equipment_depreciations_inputations_expenses: "As despesas de depreciação Equipamentos inputations" #?
         equipment_expenses: "Despesas de Equipamentos"
         equipment_locative_expenses: "Despesas de equipamento locativas"
-        equipment_maintenance_expenses: "As despesas em equipamento"
+        equipment_maintenance_expenses: "As despesas em equipamento" #?
         equipment_rent_expenses: "Equipamento de despesas de aluguel"
         equipment_subventions: "Subvenções de equipamentos"
         establishment_charge_assets: "Ativos de carga Estabelecimento"
@@ -811,7 +811,6 @@ por:
         # er: "Eritrea"
         es: "Espanha"
         et: "Etiópia"
-        false: "Noruega" #?
         fi: "Finlândia"
         # fj: "Fiji"
         fk: "Ilhas Falkland (Malvinas)"
@@ -909,7 +908,7 @@ por:
         ng: "Nigéria"
         ni: "Nicarágua"
         nl: "Países Baixos"
-        # no: "Norway"
+        no: "Noruega"
         # np: "Nepal"
         # nr: "Nauru"
         # nu: "Niue"

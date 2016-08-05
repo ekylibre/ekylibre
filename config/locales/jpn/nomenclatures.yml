@@ -149,10 +149,10 @@ jpn:
         equipment_asset_depreciations: "設備資産の減価償却"
         equipment_assets: "設備資産"
         equipment_cooperative_participation_assets: "機器協同組合参加資産"
-        equipment_depreciations_inputations_expenses: "設備の減価償却費inputations"
+        equipment_depreciations_inputations_expenses: "設備の減価償却費inputations" #?
         equipment_expenses: "設備費"
         equipment_locative_expenses: "機器所格費"
-        equipment_maintenance_expenses: "設備費"
+        equipment_maintenance_expenses: "設備費" #?
         equipment_rent_expenses: "設備賃貸費用"
         equipment_subventions: "機器の助成金"
         establishment_charge_assets: "設立チャージ資産"
@@ -811,7 +811,6 @@ jpn:
         er: "エリトリア"
         es: "スペイン"
         et: "エチオピア"
-        false: "ノルウェー" #?
         fi: "フィンランド"
         fj: "フィジー"
         fk: "フォークランド諸島"
@@ -909,7 +908,7 @@ jpn:
         ng: "ナイジェリア"
         ni: "ニカラグア"
         nl: "オランダ"
-        # no: "Norway"
+        no: "ノルウェー"
         np: "ネパール"
         nr: "ナウル"
         nu: "ニウエ"

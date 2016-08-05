@@ -52,7 +52,9 @@ class Listing < Ekylibre::Record::Base
   has_one :root_node, -> { where(parent_id: nil) }, class_name: 'ListingNode'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :name, :root_model, presence: true
+  validates :conditions, :description, :mail, :query, :source, :story, length: { maximum: 100_000 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :root_model, presence: true
   # ]VALIDATORS]
   validates :query, :conditions, format: { with: /\A[^\;]*\z/ }
 

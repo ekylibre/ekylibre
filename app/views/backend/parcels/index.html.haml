@@ -21,6 +21,7 @@
   - k.choice *([[:all.tl, :all]] + resource_model.delivery_mode.values.map{ |s| [s.l, s] }), name: :delivery_mode, label: Parcel.human_attribute_name(:delivery_mode)
 
 - main_toolbar do |t|
-  = t.new variants: Parcel.nature.values.map { |n| [ n.l, { nature: n}] }
+  = t.new params: { nature: :incoming, redirect: nil }, label: :new_incoming_parcel.tl
+  = t.new params: { nature: :outgoing }, label: :new_outgoing_parcel.tl
 
 = main_list

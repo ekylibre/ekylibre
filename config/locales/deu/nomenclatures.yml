@@ -149,10 +149,10 @@ deu:
         equipment_asset_depreciations: "Ausrüstung Asset Abschreibungen"
         equipment_assets: "Ausrüstung Vermögenswerte"
         equipment_cooperative_participation_assets: "Ausrüstung kooperative Teilnahme Vermögen"
-        equipment_depreciations_inputations_expenses: "Ausrüstungen Abschreibungen inputations Kosten"
+        equipment_depreciations_inputations_expenses: "Ausrüstungen Abschreibungen inputations Kosten" #?
         equipment_expenses: "Ausrüstungen Kosten"
         equipment_locative_expenses: "Ausrüstung locative Kosten"
-        equipment_maintenance_expenses: "Gerätekosten"
+        equipment_maintenance_expenses: "Gerätekosten" #?
         equipment_rent_expenses: "Ausrüstung Mietaufwendungen"
         equipment_subventions: "Ausrüstung Subventionen"
         establishment_charge_assets: "Einrichtung Ladungsvermögen"
@@ -811,7 +811,6 @@ deu:
         # er: "Eritrea"
         es: "Spanien"
         et: "Äthiopien"
-        false: "Norwegen" #?
         fi: "Finnland"
         fj: "Fidschi"
         fk: "Falklandinseln (Malvinas)"
@@ -909,7 +908,7 @@ deu:
         # ng: "Nigeria"
         # ni: "Nicaragua"
         nl: "Niederlande"
-        # no: "Norway"
+        no: "Norwegen"
         # np: "Nepal"
         # nr: "Nauru"
         # nu: "Niue"

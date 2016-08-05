@@ -428,6 +428,7 @@ spa:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Editar la localización del producto:"
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorías de Producto"
@@ -742,8 +743,10 @@ spa:
     add_reading: "Añadir un valor de un indicador"
     add_revenue: "Añadir los ingresos"
     add_sale_taxation: "Añadir la venta imposición"
+    # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Añadir soporte"
+    # add_tactic: "Add cropping technique"
     add_tool: "Añadir herramienta"
     add_website: "Añadir página web"
     add_working_period: "Añadir working_period"
@@ -925,6 +928,7 @@ spa:
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
     dates: "Marcar las fechas de empezo y termino por los periodos"
+    # days: "Days"
     deals: "Ofertas"
     debit: "Flujo"
     debts_on_assets: "Deudas de los activos"
@@ -945,6 +949,7 @@ spa:
     delivery: "Entrega"
     delivery_natural_gas_and_electricity_assessable: "Entrega de gaz natural ou elctricidad imponible en Francia" #?
     delivery_natural_gas_and_electricity_not_assessable: "Entrega de gaz natural ou elctricidad no imponible en Francia" #?
+    # delta: "+/-"
     department_create: "Añadir un nuevo servicio" #?
     departments: "Servicios" #?
     deposit: "Aposto en banco del"
@@ -1048,6 +1053,7 @@ spa:
     first_line_as_title: "Primera línea como el título"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
     fixed_assets: "Los activos fijos"
+    # forecast_volume: "Forecast volume"
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
     fullscreen: "Pantalla completa"
@@ -1262,8 +1268,10 @@ spa:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Nuevo Email"
     new_group: "Nuevo grupo"
+    new_incoming_parcel: "Nueva parcela entrante"
     new_issue: "Nueva edición"
     new_organization: "Nueva organización"
+    new_outgoing_parcel: "Nueva parcela saliente"
     new_production: "Nueva producción"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nueva cita"

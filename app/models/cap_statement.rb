@@ -42,6 +42,7 @@ class CapStatement < Ekylibre::Record::Base
   has_many :cap_islets, dependent: :destroy
   has_many :cap_land_parcels, through: :cap_islets
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :farm_name, :pacage_number, :siret_number, length: { maximum: 500 }, allow_blank: true
   validates :campaign, presence: true
   # ]VALIDATORS]
   validates :farm_name, :pacage_number, :siret_number, presence: true

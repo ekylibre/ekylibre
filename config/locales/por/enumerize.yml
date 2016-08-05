@@ -29,6 +29,10 @@ por:
         cultivation: "Cultivo"
         fallow_land: "Os pousios"
         none: "Nenhum"
+    activity_tactic:
+      mode:
+        # harvested: "Harvest sowing date"
+        # sowed: "Provisional sowing date"
     cash:
       mode:
         bban: "Número básico contas bancárias (BBAN)"

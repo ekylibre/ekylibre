@@ -75,11 +75,12 @@ class Intervention < Ekylibre::Record::Base
   enumerize :nature, in: [:request, :record], default: :record, predicates: true
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(intervention) { intervention.stopped_at && intervention.started_at }
-  validates :whole_duration, :working_duration, numericality: { allow_nil: true, only_integer: true }
-  validates :trouble_encountered, inclusion: { in: [true, false] }
-  validates :nature, :procedure_name, :state, :whole_duration, :working_duration, presence: true
+  validates :actions, :number, length: { maximum: 500 }, allow_blank: true
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :procedure_name, :state, presence: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   # ]VALIDATORS]
   validates :actions, presence: true
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods

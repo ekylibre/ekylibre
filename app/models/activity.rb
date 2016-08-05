@@ -49,6 +49,8 @@
 #  updater_id                   :integer
 #  use_countings                :boolean          default(FALSE), not null
 #  use_gradings                 :boolean          default(FALSE), not null
+#  use_seasons                  :boolean          default(FALSE)
+#  use_tactics                  :boolean          default(FALSE)
 #  with_cultivation             :boolean          not null
 #  with_supports                :boolean          not null
 #
@@ -75,6 +77,8 @@ class Activity < Ekylibre::Record::Base
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
+    has_many :seasons, class_name: 'ActivitySeason'
+    has_many :tactics, class_name: 'ActivityTactic'
     has_many :inspections, class_name: 'Inspection'
     has_many :plant_density_abaci, class_name: 'PlantDensityAbacus'
     has_many :inspection_point_natures, class_name: 'ActivityInspectionPointNature'
@@ -84,8 +88,11 @@ class Activity < Ekylibre::Record::Base
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :family, :nature, :production_cycle, presence: true
   validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
-  validates :family, :name, :nature, :production_cycle, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :use_seasons, :use_tactics, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
   validates :family, inclusion: { in: family.values }
   validates :cultivation_variety, presence: { if: :with_cultivation }
@@ -127,8 +134,9 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
   accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
+  accepts_nested_attributes_for :seasons, update_only: true, reject_if: -> (par) { par[:name].blank? }
+  accepts_nested_attributes_for :tactics, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
-
   # protect(on: :update) do
   #   productions.any?
   # end
@@ -190,6 +198,8 @@ class Activity < Ekylibre::Record::Base
   before_save do
     self.support_variety = nil unless with_supports
     self.cultivation_variety = nil unless with_cultivation
+    self.use_seasons = nil unless seasons.any?
+    self.use_tactics = nil unless tactics.any?
   end
 
   after_save do
@@ -197,6 +207,10 @@ class Activity < Ekylibre::Record::Base
   end
 
   after_save do
+    productions.each do |production|
+      production.update_column(:season_id, seasons.first.id) if use_seasons?
+      production.update_column(:tactic_id, tactics.first.id) if use_tactics?
+    end
     if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)
       if total != 100

@@ -149,10 +149,10 @@ arb:
         equipment_asset_depreciations: "انخفاض قيمة المعدات الأصول"
         equipment_assets: "الأصول المعدات"
         equipment_cooperative_participation_assets: "معدات التعاونية الأصول مشاركة"
-        equipment_depreciations_inputations_expenses: "نفقات المعدات انخفاض قيمة inputations"
+        equipment_depreciations_inputations_expenses: "نفقات المعدات انخفاض قيمة inputations" #?
         equipment_expenses: "نفقات المعدات"
         equipment_locative_expenses: "نفقات المعدات ظرفي"
-        equipment_maintenance_expenses: "نفقات المعدات"
+        equipment_maintenance_expenses: "نفقات المعدات" #?
         equipment_rent_expenses: "نفقات المعدات الإيجار"
         equipment_subventions: "الإعانات المعدات"
         establishment_charge_assets: "الأصول تهمة إنشاء"
@@ -811,7 +811,6 @@ arb:
         er: "علم إرتيريا إرتيريا"
         es: "علم إسبانيا إسبانيا"
         et: "علم إثيوبيا إثيوبيا"
-        false: "علم النرويج النرويج" #?
         fi: "علم فنلندا فنلندا"
         fj: "علم فيجي فيجي"
         fk: "قالب:معطيات Falkland Islands (Malvinas)"
@@ -909,7 +908,7 @@ arb:
         ng: "علم نيجيريا نيجيريا"
         ni: "علم نيكاراغوا نيكاراغوا"
         nl: "علم هولندا هولندا"
-        # no: "Norway"
+        no: "النرويج"
         np: "علم نيبال نيبال"
         nr: "علم ناورو ناورو"
         nu: "علم نييوي نييوي"

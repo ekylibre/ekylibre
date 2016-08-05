@@ -60,9 +60,11 @@ class EntityAddress < Ekylibre::Record::Base
   refers_to :mail_country, class_name: 'Country'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :deleted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :by_default, :mail_auto_update, inclusion: { in: [true, false] }
-  validates :canal, :coordinate, :entity, presence: true
+  validates :canal, :entity, presence: true
+  validates :coordinate, presence: true, length: { maximum: 500 }
+  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :name, :thread, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :mail_country, length: { allow_nil: true, maximum: 2 }
   validates :canal, length: { allow_nil: true, maximum: 20 }
