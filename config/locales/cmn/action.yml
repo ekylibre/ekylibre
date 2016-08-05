@@ -389,6 +389,7 @@ cmn:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "编辑产品的本地化："
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "产品类别"

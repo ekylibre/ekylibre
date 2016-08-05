@@ -426,6 +426,7 @@ spa:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Editar la localización del producto:"
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorías de Producto"

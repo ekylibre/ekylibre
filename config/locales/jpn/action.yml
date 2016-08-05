@@ -389,6 +389,7 @@ jpn:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "編集製品のローカライズ："
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "製品カテゴリー"

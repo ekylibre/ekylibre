@@ -389,6 +389,7 @@ ita:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Modifica localizzazione del prodotto:"
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorie di Prodotto"
