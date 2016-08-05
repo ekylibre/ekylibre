@@ -79,5 +79,6 @@
         .component-btns
           = render "equipment_btns", components: resource.variant.root_components
         .component-tree
-          = render "composition", equipment: resource, components: resource.variant.root_components
+          - display_details = resource.components.any? { |c| c.part_replacements.any? }
+          = render "composition", equipment: resource, components: resource.variant.root_components, display_details: display_details
 

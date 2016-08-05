@@ -1661,6 +1661,7 @@ fra:
     reopen_journal: "Déclôturer le journal" #?
     repayments: "Remboursements"
     repayments_graph: "Graphique des remboursements"
+    replace: "Remplacer"
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?

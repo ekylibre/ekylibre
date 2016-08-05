@@ -32,6 +32,7 @@
   flex-direction: row;
   flex-grow: 0;
   flex-wrap: wrap;
+  align-items: center;
   padding-top: 6px;
 }
 
@@ -63,13 +64,15 @@
 .component-details {
   @include padding-left($lh-normal);
   @include text-align(right);
-  width: 100px;
+
+  > .hidden {
+    visibility: hidden;
+  }
 }
 
 .component-documentation {
   @include padding-left($lh-small);
   @include padding-right($lh-ratio);
-  width: 20px;
 }
 
 .component-replacement {

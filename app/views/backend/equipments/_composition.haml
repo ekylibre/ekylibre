@@ -18,12 +18,15 @@
         - else
           = :original_component.tl
       .component-details
-        = button_tag :details ,type: :button, class: "btn", data: { toggle: :modal, target: "#show_component_details_#{component.id}"}
+        - if component.part_replacements.any?
+          = button_tag :details.tl,type: :button, class: "btn", data: { toggle: :modal, target: "#show_component_details_#{component.id}"}
+        - elsif display_details
+          = button_tag :details.tl,type: :button, class: "btn hidden", data: { toggle: :modal, target: "#show_component_details_#{component.id}"}
 
       = modal(id: "show_component_details_#{component.id}", title: Product.human_attribute_name(:part_replacements), close_button: true) do
         = render "component_infos", component: component
 
-    = render 'composition', equipment: equipment, components: component.children
+    = render 'composition', equipment: equipment, components: component.children, display_details: display_details
 
 
   / %table
