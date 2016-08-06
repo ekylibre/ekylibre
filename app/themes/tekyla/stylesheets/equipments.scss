@@ -1,84 +1,45 @@
+$indent-max: 9 !default;
+
 .component-tree {
   box-sizing: border-box;
   flex: 1;
-  padding-top: 6px;
-}
-
-.equipment-components-list {
-  display: flex;
-}
-
-.component {
-  > .component {
-    @include padding-left($lh-normal);
+  .component {
+    @for $i from 0 to $indent-max {
+      &.component-level-#{$i} .component-heading .component-title {
+        @include margin-left($i * $lh-normal);
+      }
+    }
+    .component-row, .component-head {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 0;
+      flex-wrap: wrap;
+      align-items: center;
+      .component-col {
+        @include ellipsis;
+        flex: 1 1;
+        padding: round($fs-normal*0.2) round($fs-normal*0.5);
+        &.component-heading {
+          flex: 2
+        }
+      }
+    }
+    .component-row {
+      border-top: $row-border;
+      .component-col {
+        &.component-life {
+          @include padding-right($lh-small);
+          @include text-align(right);
+        }
+        &.component-wear {
+          @include padding-right($lh-ratio);
+        }
+      }
+    }
+    .component-head {
+      .component-col {
+        font-weight: bold;
+      }
+    }
   }
-}
-
-.component-btns {
-  @include padding-left($lh-small);
-  padding-bottom: 6px;
-  padding-top: 6px;
-}
-
-.component-btn-group {
-  display: flex;
-  padding-top: 6px;
-}
-
-.component-block {
-  @include padding-left($lh-normal);
-  @include padding-right($lh-normal);
-  display: flex;
-  flex-direction: row;
-  flex-grow: 0;
-  flex-wrap: wrap;
-  align-items: center;
-  padding-top: 6px;
-}
-
-.component-title {
-  flex: 1 0 0;
-}
-
-.component-status {
-  width: 50px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.component-life {
-  @include padding-right($lh-small);
-  @include text-align(right);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 120px;
-}
-
-.component-wear {
-  @include padding-right($lh-ratio);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 100px;
-}
-
-.component-details {
-  @include padding-left($lh-normal);
-  @include text-align(right);
-
-  > .hidden {
-    visibility: hidden;
-  }
-}
-
-.component-documentation {
-  @include padding-left($lh-small);
-  @include padding-right($lh-ratio);
-}
-
-.component-replacement {
-  @include padding-right($lh-ratio);
-}
-
-.component-modal {
-  border: 2px;
 }

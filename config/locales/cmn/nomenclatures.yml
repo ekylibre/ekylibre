@@ -149,10 +149,10 @@ cmn:
         equipment_asset_depreciations: "设备资产贬值"
         equipment_assets: "设备资产"
         equipment_cooperative_participation_assets: "设备合作参与资产"
-        equipment_depreciations_inputations_expenses: "设备折旧费用inputations" #?
+        equipment_depreciations_inputations_expenses: "设备折旧费用inputations"
         equipment_expenses: "设备费用"
         equipment_locative_expenses: "设备方位费用"
-        equipment_maintenance_expenses: "设备费用" #?
+        equipment_maintenance_expenses: "设备费用"
         equipment_rent_expenses: "设备租赁费用"
         equipment_subventions: "设备补助金"
         establishment_charge_assets: "建立收费资产"
@@ -1509,6 +1509,7 @@ cmn:
         consumption_period: "消费期"
         copper_concentration: "铜浓度"
         cumulated_rainfall: "累计降雨"
+        # daily_average_working_time: "Daily average working time"
         daily_nitrogen_production: "每日制氮"
         diameter: "直径"
         dry_matter_rate: "干物质率"

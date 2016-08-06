@@ -108,7 +108,6 @@ class Product < Ekylibre::Record::Base
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
-  has_many :part_replacements, class_name: 'ProductPartReplacement', inverse_of: :product
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases

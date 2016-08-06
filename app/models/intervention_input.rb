@@ -78,7 +78,7 @@ class InterventionInput < InterventionProductParameter
 
   after_create do
     if component_id.present? && schematic_id.present?
-      ProductPartReplacement.create(
+      ProductPartReplacement.create!(
         component_id: component_id,
         intervention_parameter_id: id,
         product_id: product.id

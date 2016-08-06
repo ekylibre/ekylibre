@@ -811,7 +811,6 @@ eng:
     main_crop_precision: "Main crop precision"
     main_crop_seed_production: "Main crop seed production"
     main_production: "Main production" #?
-    maintenance_nature: "Maintenance nature"
     managed: "Managed"
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
@@ -914,7 +913,6 @@ eng:
     part_product_nature_variant: "Part product nature variant"
     part_product_nature_variant_id: "Part product nature variant"
     part_replacements: "Part replacements"
-    part_variant: "Part variant" #?
     parted: "Parted"
     parted_product: "Parted product" #?
     participant: "Participant"
@@ -990,17 +988,14 @@ eng:
     product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"
     product_nature_category_taxations: "Product type category taxations"
-    product_nature_component: "Product nature component" #?
-    product_nature_variant: "Product nature variant"
-    product_nature_variant_component: "Product nature variant component" #?
-    product_nature_variant_id: "Product nature variant"
+    product_nature_variant: "Product type variant"
+    product_nature_variant_id: "Product type variant"
     product_natures: "Product types"
     # product_net_surface_area_unit: "Product net surface area unit"
     # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "Product ownership"
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
-    product_part_replacement: "Product part replacement" #?
     product_part_replacements: "Product part replacements"
     product_phases: "Product phases" #?
     product_reading: "Product reading"

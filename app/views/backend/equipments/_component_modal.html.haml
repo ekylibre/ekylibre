@@ -1,0 +1,66 @@
+= modal(id: modal_id, title: component.name, close_button: true) do
+  - part_variant = component.part_product_nature_variant
+  .modal-body
+    - if part_variant
+      .toolbar
+        = dropdown_menu_button(:documentation.tl, icon: false) do |menu|
+          - part_variant.attachments.each do |attachment|
+            - options = {}
+            - options[:controller] = 'backend/documents'
+            - options[:id] = attachment.document_id
+            - options[:action] = :show
+            - options[:format] = :pdf
+
+            - menu.item attachment.name, options
+
+    - replacements = equipment.part_replacements.of_component(component)
+    - if replacements.any?
+      %table
+        %thead
+          %tr
+            %th= ProductPartReplacement.human_attribute_name(:product)
+            %th= ProductPartReplacement.human_attribute_name(:component)
+            %th= ProductPartReplacement.human_attribute_name(:intervention)
+            %th= Intervention.human_attribute_name(:actions)
+            %th= Intervention.human_attribute_name(:doers)
+        %tbody
+          - replacements.each do |replacement|
+            - intervention = replacement.intervention
+            %tr
+              %td= link_to(replacement.product.name, backend_equipment_path(replacement.product))
+              %td= replacement.component.name
+              %td= intervention.procedure_name.l
+              %td= intervention.human_actions_name
+              %td= intervention.human_doers_name
+    - else
+      .placeholding-message= :no_replacements_since_beginning.tn
+  .modal-footer
+    :ruby
+      target = {}
+      target[:reference_name] = :equipment
+      target[:product_id] = resource.id
+
+      input = {}
+      input[:reference_name] = :replacement_part
+      input[:component_id] = component.id
+
+      group = {}
+      group[:reference_name] = :work
+      group[:targets_attributes] = { '0' => target }
+      group[:inputs_attributes] = { '0' => input }
+
+      prefill = {}
+      prefill[:procedure_name] = :equipment_maintenance
+      prefill[:actions] = [:curative_maintenance]
+      prefill[:group_parameters_attributes] = { '0' => group}
+
+      url_options = {}
+      url_options[:action] = :new
+      url_options[:controller] = :interventions
+      url_options[:redirect] = request.fullpath
+      url_options.merge! prefill
+
+    = tool_to :request_maintenance.tl, url_options.merge(nature: :request), icon: false
+    = tool_to :record_maintenance.tl, url_options, icon: false
+    = button_tag(:close.tl, class: 'btn btn-default', data: { dismiss: 'modal' })
+

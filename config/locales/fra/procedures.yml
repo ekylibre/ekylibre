@@ -165,7 +165,7 @@ fra:
     insecticide_to_input: "Insecticide à distribuer" #?
     insemination: "Insémination"
     inseminator: "Inséminateur"
-    item: "Pièce" #?
+    item: "Pièce"
     item_to_change: "Pièce changée" #?
     items: "Éléments" #?
     items_to_fill: "Éléments à remplir" #?
@@ -203,7 +203,7 @@ fra:
     nuts_to_deliver: "Fruits à coques à livrer" #?
     oenological_intrant: "Produit œnologique"
     oenological_intrant_to_put: "Produit œnologique à mettre" #?
-    oil: "Huile" #?
+    oil: "Huile"
     oil_to_input: "Huile mise" #?
     operator: "Opérateur"
     plant: "Culture végétale" #?
@@ -299,6 +299,7 @@ fra:
     wine_to_treat: "Vin à traiter"
     wire_fence: "Fils de clôture"
     wire_fence_to_put: "Fils de clôture à positionner" #?
+    # work: "Work"
     worker: "Travailleur"
     zone: "Zone"
   procedures:
@@ -331,6 +332,7 @@ fra:
     egg_collecting: "Collecte d'œufs"
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
+    # equipment_item_replacement: "Equipment part replacement"
     # equipment_maintenance: "Equipment maintenance"
     equipment_part_replacement: "Remplacement de pièces d'équipement" #?
     fermentation: "Fermentation"
@@ -377,7 +379,7 @@ fra:
     moving: "Déplacement" #?
     net_installation: "Pose de filet de protection"
     net_removing: "Retrait de filet"
-    oil_replacement: "Vidange d’huile" #?
+    oil_replacement: "Vidange d’huile"
     organic_fertilizing: "Fertilisation organique" #?
     partial_wine_transfer: "Transfert de vin (Partiel)"
     parturition: "Mise bas"

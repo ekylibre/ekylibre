@@ -946,7 +946,6 @@ eng:
     commission: "Commission"
     company: "Society" #?
     complete: "Complete"
-    # component: "Component"
     # components: "Components"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
@@ -1061,7 +1060,7 @@ eng:
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
     entry_items: "Entry items" #?
-    equipment: "Equipment"
+    equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
     error: "Sorry..."
@@ -1317,7 +1316,6 @@ eng:
     parameters: "Parameters"
     # parcel_items: "Parcel items"
     parcels: "Parcels"
-    part: "part" #?
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1359,9 +1357,7 @@ eng:
     prices: "Prices" #?
     print: "Print" #?
     printing_document: "Printing %{document}"
-    procedure: "Procedure"
-    procedure_name: "Procedure name" #?
-    # procedures: "Procedures"
+    procedures: "Procedures"
     product: "Product"
     product_category: "Product category" #?
     product_name: "Product name" #?
@@ -1388,6 +1384,7 @@ eng:
     received: "Received" #?
     recent_events: "Recent events"
     reconciled_total: "Reconciled total"
+    record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
@@ -1406,6 +1403,7 @@ eng:
     repayments_graph: "Repayments graph"
     # replace: "Replace"
     report: "Report" #?
+    request_maintenance: "Request maintenance"
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
     resources: "Resources management" #?
@@ -1574,7 +1572,6 @@ eng:
     weather: "Weather"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
-    # worker: "Worker"
     workers: "Workers"
     working_duration: "Working duration"
     working_sets_stocks: "Working sets stocks" #?
@@ -1705,7 +1702,6 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
-    xed_intervention: "%{x}ed intervention" #??
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration"
     zones: "Zones"
@@ -1785,6 +1781,7 @@ eng:
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_reopenable_journal: "You can not re-open this journal."
+      no_replacements_since_beginning: "No replacements since beginning"
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"
       record_has_been_correctly_removed: "The record has been removed successfully"

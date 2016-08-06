@@ -34,7 +34,7 @@
 #  updater_id                :integer
 #
 class ProductPartReplacement < Ekylibre::Record::Base
-  belongs_to :product, inverse_of: :part_replacements
+  belongs_to :product, class_name: 'Equipment', inverse_of: :part_replacements
   belongs_to :component, class_name: 'ProductNatureVariantComponent', inverse_of: :part_replacements
   belongs_to :intervention_parameter
   has_one :intervention, through: :intervention_parameter
@@ -44,4 +44,6 @@ class ProductPartReplacement < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :component, :intervention_parameter, :product, presence: true
   # ]VALIDATORS]
+
+  scope :of_component, ->(component) { where(component: component.self_and_parents) }
 end

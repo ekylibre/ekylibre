@@ -69,6 +69,7 @@
 class Equipment < Matter
   include Attachable
   has_many :components, class_name: 'ProductNatureVariantComponent', through: :variant
+  has_many :part_replacements, class_name: 'ProductPartReplacement', inverse_of: :product, foreign_key: :product_id
   refers_to :variety, scope: :equipment
 
   ##################################################
@@ -202,6 +203,12 @@ class Equipment < Matter
   ##################################################
   ###### Replacements ##############################
 
+  # Returns the list of replacements
+  def replacements_of(component)
+    raise ArgumentError, 'Incompatible component' unless component.product_nature_variant == variant
+    part_replacements.where(component: component.self_and_parents)
+  end
+
   def replaced_at(component, since = nil)
     replacement = last_replacement(component)
     return replacement.intervention.stopped_at if replacement
@@ -209,8 +216,7 @@ class Equipment < Matter
   end
 
   def last_replacement(component)
-    replacements = ProductPartReplacement.where(component: component.self_and_parents).joins(:intervention)
-    replacements.order('interventions.stopped_at DESC').first
+    replacements_of(component).joins(:intervention).order('interventions.stopped_at DESC').first
   end
 
   ##################################################

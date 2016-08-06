@@ -11,8 +11,8 @@
           <handler name="population" />
         </input>
       </group>
-      <doer name="mechanic" filter="is worker"/>
-      <tool name="tool" filter="is equipment" />
+      <doer name="mechanic" filter="is worker" cardinality="*"/>
+      <tool name="tool" filter="is equipment" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

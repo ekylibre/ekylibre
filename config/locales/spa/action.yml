@@ -1330,7 +1330,6 @@ spa:
     paid_at: "Pagado en"
     parameters: "Parametros"
     parcels: "Parcelas"
-    # part: "part"
     participants: "Los participantes"
     participations: "Participaciones"
     parts: "Modulos"
@@ -1382,9 +1381,7 @@ spa:
     print: "Impresion de documentos"
     print_at: "el" #?
     # printing_document: "Printing %{document}"
-    # procedure: "Procedure"
-    # procedure_name: "Procedure name"
-    procedures: "Procedimientos" #?
+    procedures: "Procedimientos"
     product: "Producto"
     product_category: "Categoria de producto"
     product_name: "Nombre del producto"
@@ -1419,6 +1416,7 @@ spa:
     received: "Recibido"
     recent_events: "Eventos recientes"
     reconciled_total: "total conciliado"
+    # record_maintenance: "Record maintenance"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
     reflections: "Reflexiones"
@@ -1440,6 +1438,7 @@ spa:
     repayments_graph: "Reembolsos gráfico"
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
+    # request_maintenance: "Request maintenance"
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
@@ -1792,7 +1791,6 @@ spa:
     x_years:
       one: "1 año"
       # other: "%{count} years"
-    # xed_intervention: "%{x}ed intervention"
     yearly: "Anual" #?
     years_count_in_historic: "Nombre de años en el historico" #?
     yield: "rendimiento"
@@ -1901,6 +1899,7 @@ spa:
       no_production_defined_for_current_campaign: "No se ha definido para la producción de la campaña actual"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No se encontró producción. Se pueden añadir nuevos o copiar algunos de la campaña anterior."
       no_reopenable_journal: "nos se puede cerrar este periodico."
+      # no_replacements_since_beginning: "No replacements since beginning"
       no_stocks: "No hay ningun deposito. Si se quiere adùinistrar los depositos para une producto, por favor escroge la opción «administrar los depositos» dentro de las caracteristicas de vuestro producto." #?
       no_template_journal: "Ningun modelo de periodico" #?
       no_template_journal_by_id: "Ningun modedo de periodico" #?

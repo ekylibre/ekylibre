@@ -1529,7 +1529,7 @@ fra:
     paid_at: "Réglé le"
     parameters: "Paramètres"
     parcels: "Colis"
-    part: "Pièce"
+    part: "Pièce" #?
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1592,9 +1592,10 @@ fra:
     print_at: "Le" #?
     print_with_template: "Imprimer %{name}" #?
     printing_document: "Impression de %{document}"
-    procedure: "Procédure"
-    procedure_name: "Nom de la procedure"
+    procedure: "Procédure" #?
+    procedure_name: "Nom de la procedure" #?
     procedure_natures: "Types de procédures" #?
+    procedures: "Procédures"
     product: "Produit"
     product_bar: "Produit par catégories" #?
     product_category: "Produits"
@@ -1648,6 +1649,7 @@ fra:
     reconciled_total: "Total rapproché"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
+    record_maintenance: "Enregistrer une maintenance"
     reflect: "Refléter"
     reflected: "Changements répercutés"
     reflections: "Réflections"
@@ -1674,6 +1676,7 @@ fra:
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
+    request_maintenance: "Demander une maintenance"
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
@@ -2123,7 +2126,6 @@ fra:
       one: "%{count} an"
       other: "%{count} ans"
       zero: "0" #?
-    # xed_intervention: "%{x}ed intervention"
     y: "Oui" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
@@ -2229,6 +2231,7 @@ fra:
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune production pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
+      no_replacements_since_beginning: "Aucun changement depuis le début"
       no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
       no_template_journal: "Pas de modèle journal" #?
       no_template_journal_by_id: "Pas de modèle journal" #?
@@ -2390,11 +2393,10 @@ fra:
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} de %{payer_full_name} de %{amount} %{currency}"
-    # backend/interventions: "%{number}. %{name}"
+    backend/interventions: "%{number}. %{name}"
     backend/journal_entry_items: "[%{entry_number}] %{name} (%{account_number}) D%{real_debit}/C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"
-    backend/operations: "%{reference_name} (%{started_at})" #?
     backend/outgoing_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
     backend/plants: "%{name} ‒ %{work_number}"
@@ -2402,7 +2404,6 @@ fra:
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
-    backend/productions: "%{name} (%{campaign_name})" #?
     backend/products: "%{work_number} %{name} (%{number})"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

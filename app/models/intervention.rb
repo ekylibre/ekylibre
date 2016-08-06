@@ -86,8 +86,6 @@ class Intervention < Ekylibre::Record::Base
   validates :actions, presence: true
   # validates_associated :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods
 
-  delegate :maintenance?, to: :procedure
-
   serialize :actions, SymbolArray
 
   alias_attribute :duration, :working_duration
@@ -246,10 +244,6 @@ class Intervention < Ekylibre::Record::Base
   def human_actions_names
     actions.map { |action| Nomen::ProcedureAction.find(action).human_name }
            .to_sentence
-  end
-
-  def maintenance_nature
-    actions
   end
 
   def name

@@ -163,6 +163,9 @@ ul.dropdown-menu {
     font-size: $fs-huge;
     line-height: $lh-huge;
   }
+  .modal & {
+    padding: 8vh 10%;
+  }
 }
 
 a[data-toggle='side'] {

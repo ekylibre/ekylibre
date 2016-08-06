@@ -1669,7 +1669,6 @@ arb:
     paid_at: "تم التسديد في"
     parameters: "عامل متغير"
     parcels: "الطرود"
-    # part: "part"
     participants: "مشتركين"
     participations: "بالمشاركات"
     parts: "وحدات"
@@ -1730,9 +1729,7 @@ arb:
     print: "طباعة"
     print_at: "ال" #?
     # printing_document: "Printing %{document}"
-    # procedure: "Procedure"
-    # procedure_name: "Procedure name"
-    procedures: "الإجراءات" #?
+    procedures: "الإجراءات"
     product: "المنتج"
     product_category: "الفئة"
     product_category_create: "اضافة فئة جديدة للمنتج" #?
@@ -1781,6 +1778,7 @@ arb:
     reconciled_total: "مجموعه التوفيق"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
+    # record_maintenance: "Record maintenance"
     reflect: "يعكس"
     reflected: "التغييرات تنعكس"
     reflections: "خواطر"
@@ -1802,6 +1800,7 @@ arb:
     repayments_graph: "تسديد الرسم البياني"
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
+    # request_maintenance: "Request maintenance"
     reservoir: "الاحتياطي" #?
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
@@ -2229,7 +2228,6 @@ arb:
     x_years:
       one: "1 سنة"
       # other: "%{count} years"
-    # xed_intervention: "%{x}ed intervention"
     y: "نعم" #?
     yearly: "Annuelle" #?
     years_count_in_historic: "عدد السنوات عامة" #?
@@ -2333,6 +2331,7 @@ arb:
       no_production_defined_for_current_campaign: "لم يتم تحديد لحملة الحالية إنتاج"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "لم يتم العثور على الإنتاج. يمكنك إضافة جديد أو نسخ بعض من حملة السابقة."
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
+      # no_replacements_since_beginning: "No replacements since beginning"
       no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك" #?
       no_template_journal: "ليس هنالك من نموذج للدفتر اليومي" #?
       no_template_journal_by_id: "ليس هنالك من نموذج للدفتر اليومي" #?

@@ -15,7 +15,7 @@ arb:
     cleaner: "منظف"
     compressor: "ضاغط"
     construction_material: "مواد البناء"
-    # consumable_part: "Consumable"
+    # consumable_part: "Consumable part"
     container: "وعاء"
     corker: "كوركر"
     corks: "الفلين"
@@ -58,7 +58,7 @@ arb:
     implement: "تنفيذ"
     insemination: "تخصيب"
     # inseminator: "Inseminator"
-    item: "بند" #?
+    item: "بند"
     juice: "عصير"
     juice_to_ferment: "عصير لتخمر"
     land_parcel: "قطعة أرض"
@@ -75,7 +75,7 @@ arb:
     net_implanter: "صافي implanter"
     net_roll: "صافي لفة"
     oenological_intrant: "intrant Oenological"
-    oil: "نفط" #?
+    oil: "نفط"
     operator: "عامل"
     plant_medicine: "الطب المصنع"
     plants: "النباتات"
@@ -127,6 +127,7 @@ arb:
     wine_man: "رجل النبيذ"
     wine_to_treat: "النبيذ لعلاج"
     wire_fence: "سياج سلكي"
+    # work: "Work"
     worker: "عامل"
     zone: "منطقة"
   procedures:
@@ -145,7 +146,7 @@ arb:
     direct_silage: "السيلاج المباشر"
     egg_collecting: "جمع البيض"
     enzyme_addition: "انزيم إضافة"
-    equipment_item_replacement: "استبدال البند المعدات" #?
+    equipment_item_replacement: "استبدال البند المعدات"
     # equipment_maintenance: "Equipment maintenance"
     fermentation: "تخمير"
     fertilizing: "تسميد"
@@ -171,7 +172,7 @@ arb:
     milking: "حلب"
     net_installation: "صافي تركيب"
     net_removing: "صافي إزالة"
-    oil_replacement: "استبدال النفط" #?
+    oil_replacement: "استبدال النفط"
     partial_wine_transfer: "TRANSFERT النبيذ جزئي"
     parturition: "مخاض الولادة"
     pasturing: "الرعي"

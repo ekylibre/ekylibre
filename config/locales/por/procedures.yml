@@ -15,7 +15,7 @@ por:
     cleaner: "Limpador"
     # compressor: "Compressor"
     construction_material: "Material de construção"
-    # consumable_part: "Consumable"
+    # consumable_part: "Consumable part"
     container: "Recipiente"
     corker: "Sujeito formidável"
     corks: "Rolhas de cortiça"
@@ -58,6 +58,7 @@ por:
     implement: "Implemento"
     insemination: "Inseminação"
     inseminator: "Inseminador"
+    # item: "Part"
     juice: "Suco"
     juice_to_ferment: "Suco para fermentar"
     land_parcel: "Parcela de terra"
@@ -74,7 +75,7 @@ por:
     net_implanter: "Implanter net"
     net_roll: "Rolo de rede"
     oenological_intrant: "Intrant enológico"
-    oil: "Óleo" #?
+    oil: "Óleo"
     operator: "Operador"
     plant_medicine: "Planta medicina"
     plants: "Plantas"
@@ -126,6 +127,7 @@ por:
     wine_man: "Homem do vinho"
     wine_to_treat: "Vinho para tratar"
     wire_fence: "Cerca de arame"
+    # work: "Work"
     worker: "Trabalhador"
     zone: "Zona"
   procedures:
@@ -144,7 +146,7 @@ por:
     direct_silage: "Silagem direto"
     egg_collecting: "Coleta de ovos"
     enzyme_addition: "Adição de enzima"
-    equipment_item_replacement: "Substituição item de equipamento" #?
+    equipment_item_replacement: "Substituição item de equipamento"
     # equipment_maintenance: "Equipment maintenance"
     fermentation: "Fermentação"
     fertilizing: "Fertilizar"
@@ -170,7 +172,7 @@ por:
     milking: "Ordenha"
     net_installation: "Instalação de rede"
     net_removing: "Net removendo"
-    oil_replacement: "Substituição de óleo" #?
+    oil_replacement: "Substituição de óleo"
     partial_wine_transfer: "Transfert vinho parcial"
     parturition: "Parto"
     pasturing: "Pastoreio"
