@@ -1860,22 +1860,6 @@ ul.tree {
   @include box-emphasis;
 }
 
-.activity-family {
-  margin: $default-gap * 2;
-  h2.activity-family-name {
-    font-size: $fs-large;
-    line-height: $lh-large;
-    margin-bottom: $default-gap * 2;
-    border-bottom: 1px solid #DDD;
-  }
-  .btn-group {
-    margin: $default-gap;
-    .btn {
-      min-width: 20em;
-    }
-  }
-}
-
 .proposal-list {
   padding: $default-gap;
   text-align: center;

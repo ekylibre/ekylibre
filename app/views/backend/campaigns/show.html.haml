@@ -35,15 +35,15 @@
 - if activities.any?
   = janus do |j|
     - j.face :cobbles do
-      .activities-index
-        - families = activities.order(:family).collect(&:family).uniq
-        - families.each do |family|
-          .activity-family-group
-            - if families.count > 1
-              .activity-family-heading= family.l
-            - activities.where(family: family).order(:name).each do |activity|
-              .activity-container
-                = render 'backend/activities/card', activity: activity, campaign: resource
+      - families = activities.order(:family).collect(&:family).uniq
+      - families.each do |family|
+        .activity-family.activity-cards
+          .activity-family-heading
+            %h2.activity-family-title= family.human_name
+          .activity-family-body
+            .activity-containers
+              - activities.where(family: family).order(:name).each do |activity|
+                .activity-container= render 'backend/activities/card', activity: activity, campaign: resource
     - j.face :list do
       .productions-list
         = production_chronologies(resource.activity_productions)

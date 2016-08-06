@@ -4,6 +4,7 @@ module Enumerize
       text
     end
     alias l localize
+    alias human_name localize
 
     def to_xml(options = {})
       require 'active_support/builder' unless defined?(Builder)
