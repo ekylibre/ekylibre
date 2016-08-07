@@ -39,4 +39,15 @@
         $(element).modal 'hide'
       return
 
+  ko.bindingHandlers.selector =
+    init: (element, valueAccessor) ->
+      $el = $(element)
+      $el.on 'selector:change', ->
+        valueAccessor().id $("input[name=#{$el.attr('id')}]").val()
+        valueAccessor().name $el.val()
+
+    update: (element, valueAccessor) ->
+      return
+
+
 ) ko, jQuery
