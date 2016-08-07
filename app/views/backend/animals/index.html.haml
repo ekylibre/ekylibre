@@ -50,18 +50,13 @@
             %div{data: { bind: "template: { name: 'golumn-item-template', foreach: items }"}}
 
       %script#golumn-item-template{type: 'text/html'}
-        .golumn-item{data: { bind: "draggable: {active: checked, options: {handle: '.golumn-item-handle', cursor: 'move', opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30, scope: 'items'}}, css: $data.statusClass"}}
+        .golumn-item{data: { bind: "draggable: {active: checked, options: {cursor: 'move', opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30, scope: 'items'}}, checkbox: $data.checked, css: stateClass"}}
           .golumn-item-actions
-            .checker{data: { bind: 'checkbox: $data.checked'}}
-          %span.golumn-item-handle
+            .details{data: { bind: ' click: $root.toggleAnimalDetailsModal' }}
+          -#%span.golumn-item-handle
             %i.icon.icon-ellipsis-v{ data: { bind: 'visible: checked'}}
-          %span.golumn-item-title{data: { bind: 'text: $data.name, click: $root.toggleAnimalDetailsModal'}}
           %i.sex.icon{data: {bind: 'css: $data.sexClass'}}
-          -# .golumn-item-infos
-            %button.btn.btn-link.no-padding.xs-h-padding.golumn-item-name{data: { bind: 'click: $root.toggleAnimalDetailsModal'}, type: 'button'}
-              %span{data: { bind: 'text: name'}}
-            %i.icon.text-muted{data: {bind: 'css: animalSexClass'}}
-
+          %span.golumn-item-title{data: { bind: 'text: $data.name'}}
 
     = modal(:new_animal) do
       .modal-body

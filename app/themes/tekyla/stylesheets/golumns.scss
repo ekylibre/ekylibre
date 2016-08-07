@@ -210,6 +210,7 @@ $column-width: 28ex;
       line-height: $lh-normal;
       font-size: $fs-normal;
     }
+    cursor: pointer;
     background: #FFF;
     margin: $default-border-radius;
     padding: $default-border-radius $default-gap;
@@ -243,11 +244,32 @@ $column-width: 28ex;
       cursor: pointer;
     }
     &:hover {
-      .checker {
+      .details {
         opacity: 0.5;
         &:hover, &.active {
           opacity: 1;
         }
+      }
+    }
+
+    &.active {
+      background-color: cornflowerblue !important;
+
+      .golumn-item-title {
+        color: white !important;
+      }
+    }
+
+    .details {
+      @include is-icon(14px);
+      @include use-icon(ellipsis-h);
+      cursor: pointer;
+      opacity: 0.5;
+      width: 14px;
+      @include text-align(center);
+      @include transition(opacity 0.2s);
+      &:hover, &.active {
+        opacity: 1;
       }
     }
   }

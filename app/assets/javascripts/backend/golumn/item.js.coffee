@@ -10,6 +10,12 @@ class golumn.Item
     @statusClass = ko.pureComputed () =>
       return "status-#{@status}"
 
+    @stateClass = ko.pureComputed () =>
+      klass = @statusClass()
+      if @checked()
+        klass += ' active'
+      klass
+
     @flagClass = ko.pureComputed () =>
       return "lights-#{@status}"
     @showUrl = ko.pureComputed () =>
