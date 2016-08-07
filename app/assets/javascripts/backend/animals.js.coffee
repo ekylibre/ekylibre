@@ -172,27 +172,20 @@
         @moveAnimalsModal.animals.removeAll()
         @moveAnimalsModal.started_at ''
         @moveAnimalsModal.stopped_at ''
-        @moveAnimalsModal.worker undefined
-        @moveAnimalsModal.variant undefined
+        @moveAnimalsModal.worker.id undefined
+        @moveAnimalsModal.worker.name undefined
+        @moveAnimalsModal.variant.id undefined
+        @moveAnimalsModal.variant.name undefined
         @moveAnimalsModal.group undefined
         @moveAnimalsModal.alert false
         @moveAnimalsModal.checkNature false
-
-        #TODO CHANGE THIS
-        $("#workers_list").val('')
-        $("input[name='workers_list']").val('')
-
-        $("#natures_list").val('')
-        $("input[name='natures_list']").val('')
 
 
       @resetNewContainerModal = () =>
         @newContainerModal.show false
         @newContainerModal.group false
-
-        #TODO CHANGE THIS
-        $("#containers_list").val()
-        $("input[name='containers_list']").val()
+        @newContainerModal.container.id undefined
+        @newContainerModal.container.name undefined
 
 
       @resetSelectedItems = () =>
