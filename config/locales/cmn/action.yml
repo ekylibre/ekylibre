@@ -630,13 +630,6 @@ cmn:
     active: "活性"
     activities: "活动"
     activity: "活动"
-<<<<<<< HEAD
-    # activity_countings: "Countings"
-    # activity_family: "Family activities"
-    # activity_inspections: "Inspections"
-    # activity_name: "Activity"
-=======
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "生产活动"
     activity_productions: "活动制作"
     add: "加"

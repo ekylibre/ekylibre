@@ -1767,41 +1767,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-<<<<<<< HEAD
-    <group>
-      <item name="activity_seasons">
-        <page to="backend/activity_seasons#index"/>
-        <page to="backend/activity_seasons#create"/>
-        <page to="backend/activity_seasons#destroy"/>
-        <page to="backend/activity_seasons#edit"/>
-        <page to="backend/activity_seasons#new"/>
-        <page to="backend/activity_seasons#show"/>
-        <page to="backend/activity_seasons#unroll"/>
-        <page to="backend/activity_seasons#update"/>
-      </item>
-      <item name="activity_tactic_steps">
-        <page to="backend/activity_tactic_steps#index"/>
-        <page to="backend/activity_tactic_steps#create"/>
-        <page to="backend/activity_tactic_steps#destroy"/>
-        <page to="backend/activity_tactic_steps#edit"/>
-        <page to="backend/activity_tactic_steps#new"/>
-        <page to="backend/activity_tactic_steps#show"/>
-        <page to="backend/activity_tactic_steps#unroll"/>
-        <page to="backend/activity_tactic_steps#update"/>
-      </item>
-      <item name="activity_tactics">
-        <page to="backend/activity_tactics#index"/>
-        <page to="backend/activity_tactics#create"/>
-        <page to="backend/activity_tactics#destroy"/>
-        <page to="backend/activity_tactics#edit"/>
-        <page to="backend/activity_tactics#new"/>
-        <page to="backend/activity_tactics#show"/>
-        <page to="backend/activity_tactics#unroll"/>
-        <page to="backend/activity_tactics#update"/>
-      </item>
-    </group>
-=======
     <group/>
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   </untreated-actions>
 </navigation>

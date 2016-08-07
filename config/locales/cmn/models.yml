@@ -149,12 +149,8 @@ cmn:
       activity_inspection_calibration_scale: "口径"
       activity_inspection_point_nature: "活动分级检查"
       activity_production: "生产支持"
-<<<<<<< HEAD
-      # activity_season: "Seasonality"
-=======
       # activity_season: "Activity season"
       # activity_tactic: "Activity cropping technique"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
       affair: "事务"
       analysis: "分析"
       analysis_item: "分析项目"
@@ -326,10 +322,6 @@ cmn:
     activity_grading_check: "活动分级检查"
     activity_production: "生产活动"
     activity_productions: "活动制作"
-<<<<<<< HEAD
-    # activity_season: "Seasonality"
-=======
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     actor: "演员"
     actual_number: "实际数量"
     actual_population: "实际人口"
@@ -1156,13 +1148,8 @@ cmn:
     support_variety: "支持多种"
     supports: "支持"
     suspended: "暂停"
-<<<<<<< HEAD
-    # tactic: "Crop management Technique"
-    # tactics: "Tactics"
-=======
     # tactic: "Cropping technique"
     # tactics: "Cropping techniques"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     target: "目标"
     target_type: "目标类型"
     target_url: "目标URL"
@@ -1222,13 +1209,8 @@ cmn:
     use_countings: "使用countings"
     use_grading_calibre: "使用分级口径"
     use_gradings: "采用放坡"
-<<<<<<< HEAD
-    # use_seasons: "Use Seasonalities"
-    # use_tactics: "Use crop management Technique"
-=======
     # use_seasons: "Use seasonalities"
     # use_tactics: "Use cropping techniques"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     used_for_affairs: "用于事务"
     used_for_gaps: "用于差距"
     useful_items: "有用的物品"

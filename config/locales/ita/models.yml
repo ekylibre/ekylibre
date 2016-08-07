@@ -180,12 +180,8 @@ ita:
       activity_inspection_calibration_scale: "Calibro"
       activity_inspection_point_nature: "controllo di classificazione di attività"
       activity_production: "supporto alla produzione"
-<<<<<<< HEAD
-      # activity_season: "Seasonality"
-=======
       # activity_season: "Activity season"
       # activity_tactic: "Activity cropping technique"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
       affair: "Affare"
       analysis: "Analisi"
       analysis_item: "oggetto di analisi"
@@ -357,10 +353,6 @@ ita:
     activity_grading_check: "controllo di classificazione di attività"
     activity_production: "Attività Produttive"
     activity_productions: "produzioni di attività"
-<<<<<<< HEAD
-    # activity_season: "Seasonality"
-=======
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     actor: "Attore"
     actual_number: "Il numero effettivo"
     actual_population: "popolazione effettiva"
@@ -1187,13 +1179,8 @@ ita:
     support_variety: "varietà di sostegno"
     supports: "supporti"
     suspended: "Sospeso"
-<<<<<<< HEAD
-    # tactic: "Crop management Technique"
-    # tactics: "Tactics"
-=======
     # tactic: "Cropping technique"
     # tactics: "Cropping techniques"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     target: "Bersaglio"
     target_type: "tipo di destinazione"
     target_url: "URL di destinazione"
@@ -1253,13 +1240,8 @@ ita:
     use_countings: "Utilizzare i conteggi"
     use_grading_calibre: "Utilizzare calibro di classificazione"
     use_gradings: "Utilizzare classificazioni"
-<<<<<<< HEAD
-    # use_seasons: "Use Seasonalities"
-    # use_tactics: "Use crop management Technique"
-=======
     # use_seasons: "Use seasonalities"
     # use_tactics: "Use cropping techniques"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     used_for_affairs: "Usato per gli affari"
     used_for_gaps: "Usato per le lacune"
     useful_items: "oggetti utili"

@@ -697,13 +697,6 @@ spa:
     active_sum: "Total activos" #?
     activities: "Ocupaciones"
     activity: "Actividad"
-<<<<<<< HEAD
-    # activity_countings: "Countings"
-    # activity_family: "Family activities"
-    # activity_inspections: "Inspections"
-    # activity_name: "Activity"
-=======
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "La producción de la actividad"
     activity_productions: "Producciones de actividad"
     add: "Añadir"

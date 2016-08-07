@@ -149,12 +149,8 @@ jpn:
       activity_inspection_calibration_scale: "口径"
       activity_inspection_point_nature: "アクティビティグレーディングチェック"
       activity_production: "生産支援"
-<<<<<<< HEAD
-      # activity_season: "Seasonality"
-=======
       # activity_season: "Activity season"
       # activity_tactic: "Activity cropping technique"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
       affair: "事件"
       analysis: "分析"
       analysis_item: "分析項目"
@@ -326,10 +322,6 @@ jpn:
     activity_grading_check: "アクティビティグレーディングチェック"
     activity_production: "アクティビティ生産"
     activity_productions: "アクティビティ制作"
-<<<<<<< HEAD
-    # activity_season: "Seasonality"
-=======
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     actor: "俳優"
     actual_number: "実際の数値"
     actual_population: "実際の人口"
@@ -1156,13 +1148,8 @@ jpn:
     support_variety: "サポートさまざまな"
     supports: "サポート"
     suspended: "吊り"
-<<<<<<< HEAD
-    # tactic: "Crop management Technique"
-    # tactics: "Tactics"
-=======
     # tactic: "Cropping technique"
     # tactics: "Cropping techniques"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     target: "ターゲット"
     target_type: "ターゲット・タイプ"
     target_url: "ターゲットURL"
@@ -1222,13 +1209,8 @@ jpn:
     use_countings: "countingsを使用してください"
     use_grading_calibre: "グレーディング口径を使用します"
     use_gradings: "グレーディングを使用してください"
-<<<<<<< HEAD
-    # use_seasons: "Use Seasonalities"
-    # use_tactics: "Use crop management Technique"
-=======
     # use_seasons: "Use seasonalities"
     # use_tactics: "Use cropping techniques"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     used_for_affairs: "業務用に使用されます"
     used_for_gaps: "ギャップのために使用"
     useful_items: "便利なアイテム"

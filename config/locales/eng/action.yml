@@ -801,13 +801,6 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
-<<<<<<< HEAD
-    activity_countings: "Countings" #?!
-    activity_family: "Family activities" #?
-    activity_inspections: "Inspections" #??
-    activity_name: "Activity" #?
-=======
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     add: "Add"
@@ -996,11 +989,7 @@ eng:
     custom_fields: "Custom fields"
     # data: "Data"
     # data_transmissions: "Data transmissions"
-<<<<<<< HEAD
-    date: "Date"
-=======
     # date: "Date"
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     dates: "Select period start date and Period end date" #?
     days: "Days" #?
     deals: "Deals"

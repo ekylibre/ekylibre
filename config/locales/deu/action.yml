@@ -630,13 +630,6 @@ deu:
     active: "Aktiv"
     activities: "Aktivitäten"
     activity: "Aktivität"
-<<<<<<< HEAD
-    # activity_countings: "Countings"
-    # activity_family: "Family activities"
-    # activity_inspections: "Inspections"
-    # activity_name: "Activity"
-=======
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "Aktivität Produktion"
     activity_productions: "Aktivität Produktionen"
     add: "Hinzufügen"
