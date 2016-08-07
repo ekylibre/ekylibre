@@ -17,7 +17,9 @@
       @newContainerModal =
         show: ko.observable false
         group: ko.observable false
-        targetContainer: ko.observable undefined
+        container:
+          id: ko.observable undefined
+          name: ko.observable undefined
 
 
       @moveAnimalsModal =
@@ -26,8 +28,12 @@
         animals: ko.observableArray []
         started_at: ko.observable ''
         stopped_at: ko.observable ''
-        worker: ko.observable undefined
-        variant: ko.observable undefined
+        worker:
+          id: ko.observable undefined
+          name: ko.observable undefined
+        variant:
+          id: ko.observable undefined
+          name: ko.observable undefined
         group: ko.observable undefined
         alert: ko.observable false
         checkNature: ko.observable false
@@ -54,13 +60,8 @@
         @showNewGroupModal false
 
       @addContainer = =>
-        # Lets JQuery to do this simple task, no need an observable for that.
-        name = $("#containers_list").val()
-        id = $("input[name='containers_list']").val()
-        console.log 'CHANGE THIS', @newContainerModal.targetContainer()
-
         group = @newContainerModal.group()
-        newContainer = new G.Container(id, name, ko.observableArray([]), group)
+        newContainer = new G.Container(@newContainerModal.container.id(), @newContainerModal.container.name(), ko.observableArray([]), group)
         group.containers.push newContainer
 
         @resetNewContainerModal()
@@ -98,6 +99,8 @@
 
       @toggleMoveAnimalModal = (container) =>
         @moveAnimalsModal.container(container)
+        @moveAnimalsModal.started_at(new Date().toISOString())
+        @moveAnimalsModal.stopped_at(new Date().toISOString())
 
 
         for id, item of @selectedItemsIndex
@@ -109,6 +112,7 @@
 
       @moveAnimals = () =>
 
+#        console.log @moveAnimalsModal.worker, @moveAnimalsModal.variant
         animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
           return a.id
 
@@ -174,10 +178,22 @@
         @moveAnimalsModal.alert false
         @moveAnimalsModal.checkNature false
 
+        #TODO CHANGE THIS
+        $("#workers_list").val('')
+        $("input[name='workers_list']").val('')
+
+        $("#natures_list").val('')
+        $("input[name='natures_list']").val('')
+
 
       @resetNewContainerModal = () =>
         @newContainerModal.show false
         @newContainerModal.group false
+
+        #TODO CHANGE THIS
+        $("#containers_list").val()
+        $("input[name='containers_list']").val()
+
 
       @resetSelectedItems = () =>
         for id, item  of @selectedItemsIndex

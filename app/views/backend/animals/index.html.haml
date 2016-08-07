@@ -106,18 +106,18 @@
             .controls
               = datetime_field_tag(:stopped_at, nil, data: { bind: 'value: stopped_at'})
           .control-group
-            = label_tag(:workers_list, 'procedure_parameters.caregiver'.t, class: 'control-label')
+            = label_tag(:workers, 'procedure_parameters.caregiver'.t, class: 'control-label')
             .controls
               = # TODO: set worker abilities
-              = text_field_tag :workers_list, nil, data: { selector: url_for(controller: 'backend/workers', action: 'unroll', 'scope[availables][][at]': Time.zone.now) }
+              = text_field_tag :workers, nil, data: { selector: url_for(controller: 'backend/workers', action: 'unroll', 'scope[availables][][at]': Time.zone.now), bind: 'selector: worker'}
           .control-group
             .controls
               = check_box_tag(:check_nature,'1', false, {data: {bind: 'checked: checkNature'}})
               = label_tag(:check_nature, :nature_changed.tl)
           .control-group
-            = label_tag(:natures_list, :nature.tl , class:'control-label')
+            = label_tag(:variants, :nature.tl , class:'control-label')
             .controls
-              = text_field_tag :natures_list, nil, data: { selector: url_for(controller: 'backend/product_nature_variants', action: 'unroll', 'scope[availables]': true, 'scope[of_variety]': 'animal'), bind: 'enable: checkNature' }
+              = text_field_tag :variants, nil, data: { selector: url_for(controller: 'backend/product_nature_variants', action: 'unroll', 'scope[availables]': true, 'scope[of_variety]': 'animal'), bind: 'enable: checkNature, selector: variant' }
       .modal-footer
         %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.moveAnimals'}}
           %i.icon.icon-plus
@@ -129,8 +129,9 @@
         %div{data: { bind: 'if: group' }}
           %span{data: {bind: 'text: group().name'}}
 
-        = label_tag(:containers_list, :new_container.tl, class: 'control-label')
-        = text_field_tag :containers_list, nil, data: { selector: url_for(controller: 'backend/products', action: 'unroll', 'scope[availables][][at]': Time.zone.now, 'scope[of_expression]': 'can store(animal)')}
+        = label_tag(:containers, :new_container.tl, class: 'control-label')
+        = text_field_tag :containers, nil, data: { selector: url_for(controller: 'backend/products', action: 'unroll', 'scope[availables][][at]': Time.zone.now, 'scope[of_expression]': 'can store(animal)'), bind: 'selector: container'}
+        %span{data: {bind: 'text: container.id()'}}
       .modal-footer
         %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addContainer'}}
           %i.icon.icon-plus
