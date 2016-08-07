@@ -1,0 +1,7 @@
+.nested-fields.tactic-step
+  = link_to_remove_nested_association(:tactic_steps, f) if f.object.destroyable?
+  = field_set do
+    = f.input :name
+    = f.referenced_nomenclature :procedure_action
+    = f.input :started_on
+    = f.input :stopped_on

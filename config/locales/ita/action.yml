@@ -389,6 +389,7 @@ ita:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Modifica localizzazione del prodotto:"
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorie di Prodotto"
@@ -695,10 +696,13 @@ ita:
     active: "Attivo"
     activities: "attività"
     activity: "Attività"
+<<<<<<< HEAD
     # activity_countings: "Countings"
     # activity_family: "Family activities"
     # activity_inspections: "Inspections"
     # activity_name: "Activity"
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "Attività Produttive"
     activity_productions: "Produzioni di attività"
     add: "Aggiungere"
@@ -742,7 +746,7 @@ ita:
     # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Aggiungere il supporto"
-    # add_tactic: "Add crop management Technique"
+    # add_tactic: "Add cropping technique"
     add_tool: "Aggiungere strumento"
     add_website: "Aggiungere sito"
     add_working_period: "Aggiungere working_period"
@@ -886,7 +890,6 @@ ita:
     current_cultivation: "la coltivazione di corrente"
     current_stocks_by_variety: "le scorte attuali di varietà"
     custom_fields: "Campi personalizzati"
-    # date: "Date"
     dates: "Selezionare data di inizio periodo e periodo data di fine"
     # days: "Days"
     deals: "offerte"
@@ -1162,8 +1165,10 @@ ita:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Nuova email"
     new_group: "Nuovo gruppo"
+    new_incoming_parcel: "Nuovo pacco in arrivo"
     new_issue: "Nuovo problema"
     new_organization: "nuova organizzazione"
+    new_outgoing_parcel: "Nuovo pacco in uscita"
     new_production: "nuova produzione"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nuovo preventivo"
@@ -1715,6 +1720,7 @@ ita:
       # bookkeep: "Bookkeep"
       cancel: "Annulla"
       category: "Categoria" #?
+      check: "Dai un’occhiata"
       children: "Bambini" #?
       close: "Vicino"
       compute: "Calcolare"
@@ -1738,6 +1744,7 @@ ita:
       family: "Famiglia"
       finish: "finire"
       generate_last_journal_entry: "Generare ultima voce di diario"
+      give: "Dare"
       import: "Importare"
       incorporate: "incorporare"
       increment: "Incremento" #?
@@ -1754,8 +1761,10 @@ ita:
       negociate: "negoziare"
       new: "Nuovo"
       open: "aperto"
+      order: "Ordine"
       pick: "scegliere"
       picture: "Immagine"
+      prepare: "Preparare"
       propose: "Proporre"
       propose_and_invoice: "Proporre e fattura"
       prospect: "Prospettiva"

@@ -1,5 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource if resource.updateable?
+  = t.ship resource, method: :post if resource.shippable?
   = t.destroy
 
 - renamings = {}
@@ -10,14 +11,23 @@
   = attributes_list do |l|
     - l.attribute :number
     - l.attribute :nature
-    - l.attribute :sender, url: true
+    - if resource.incoming?
+      - l.attribute :sender, url: true
+    - if resource.outgoing?
+      - l.attribute :recipient, url: true
+    - l.attribute :separated_stock
+    - l.attribute :with_delivery
     - l.attribute :delivery_mode
     - l.attribute :delivery, url: true
     -# l.attribute :net_mass
-    - l.attribute :sale, url: true
-    - l.attribute :purchase, url: true
+    - if resource.outgoing?
+      - l.attribute :sale, url: true
+      - l.attribute :remain_owner
+    - if resource.incoming?
+      - l.attribute :purchase, url: true
     - l.attribute :address
-    - l.attribute :transporter, url: true
+    - if resource.delivery_mode_transporter?
+      - l.attribute :transporter, url: true
     - l.attribute :planned_at
     - l.attribute :ordered_at
     - l.attribute :in_preparation_at

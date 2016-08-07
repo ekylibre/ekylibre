@@ -389,6 +389,7 @@ jpn:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "編集製品のローカライズ："
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "製品カテゴリー"
@@ -695,10 +696,13 @@ jpn:
     active: "アクティブ"
     activities: "活動"
     activity: "アクティビティ"
+<<<<<<< HEAD
     # activity_countings: "Countings"
     # activity_family: "Family activities"
     # activity_inspections: "Inspections"
     # activity_name: "Activity"
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "アクティビティ生産"
     activity_productions: "アクティビティ制作"
     add: "加える"
@@ -742,7 +746,7 @@ jpn:
     # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "サポートを追加"
-    # add_tactic: "Add crop management Technique"
+    # add_tactic: "Add cropping technique"
     add_tool: "ツールを追加"
     add_website: "ウェブサイトを追加"
     add_working_period: "working_periodを追加"
@@ -888,7 +892,6 @@ jpn:
     current_cultivation: "現在の栽培"
     current_stocks_by_variety: "種々の方法により、現在の株式"
     custom_fields: "カスタムフィールド"
-    # date: "Date"
     dates: "期間開始日と期間終了日を選択"
     # days: "Days"
     deals: "お得な情報"
@@ -1169,8 +1172,10 @@ jpn:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "新しい電子メール"
     new_group: "新しいグループ"
+    new_incoming_parcel: "新しい着信小包"
     new_issue: "新発債"
     new_organization: "新組織"
+    new_outgoing_parcel: "新しい発信小包"
     new_production: "新生産"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新しい引用"
@@ -1726,6 +1731,7 @@ jpn:
       # bookkeep: "Bookkeep"
       cancel: "キャンセル"
       category: "カテゴリ" #?
+      check: "チェック"
       children: "子供" #?
       close: "閉じる"
       compute: "計算"
@@ -1749,6 +1755,7 @@ jpn:
       family: "家族"
       finish: "仕上げ"
       generate_last_journal_entry: "最後の仕訳を生成します"
+      give: "与える"
       import: "インポート"
       incorporate: "組み込みます"
       increment: "インクリメント" #?
@@ -1765,8 +1772,10 @@ jpn:
       # negociate: "Negociate"
       new: "新しい"
       open: "開いた"
+      order: "注文"
       pick: "ピック"
       picture: "画像"
+      prepare: "準備します"
       propose: "提案します"
       propose_and_invoice: "提案と請求書"
       prospect: "見通し"

@@ -41,7 +41,7 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   has_many :payments, class_name: 'OutgoingPayment', foreign_key: :mode_id, inverse_of: :mode, dependent: :restrict_with_error
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :with_accounting, inclusion: { in: [true, false] }
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :name, length: { allow_nil: true, maximum: 50 }
   validates :cash, presence: true

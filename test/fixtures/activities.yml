@@ -62,23 +62,28 @@ activities_001:
   description: ''
   family: plant_farming
   id: 1
-  lock_version: 2
+  lock_version: 3
   measure_grading_items_count: false
   measure_grading_net_mass: false
   measure_grading_sizes: false
   name: Blé tendre
   nature: main
+  production_campaign: at_cycle_end
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-03-08 16:28:24.934621000 Z
+  updated_at: 2016-08-05 15:37:30.429539000 Z
   updater_id: 1
   use_countings: false
   use_gradings: false
+<<<<<<< HEAD
   use_seasons: false
   use_tactics: false
+=======
+  use_tactics: true
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   with_cultivation: true
   with_supports: true
 activities_002:
@@ -134,23 +139,28 @@ activities_004:
   description: ''
   family: plant_farming
   id: 5
-  lock_version: 1
+  lock_version: 2
   measure_grading_items_count: false
   measure_grading_net_mass: false
   measure_grading_sizes: false
   name: Maïs
   nature: main
+  production_campaign: at_cycle_end
   production_cycle: annual
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2015-03-08 16:30:59.380202000 Z
+  updated_at: 2016-08-05 15:34:20.770702000 Z
   updater_id: 1
   use_countings: false
   use_gradings: false
+<<<<<<< HEAD
   use_seasons: false
   use_tactics: false
+=======
+  use_seasons: true
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   with_cultivation: true
   with_supports: true
 activities_005:
@@ -247,7 +257,12 @@ activities_008:
   updater_id: 1
   use_countings: false
   use_gradings: false
+<<<<<<< HEAD
   use_tactics: true
+=======
+  use_seasons: false
+  use_tactics: false
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   with_cultivation: true
   with_supports: true
 activities_009:
@@ -555,7 +570,11 @@ activities_021:
   grading_sizes_indicator_name: length
   grading_sizes_unit_name: centimeter
   id: 22
+<<<<<<< HEAD
   lock_version: 1
+=======
+  lock_version: 2
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   measure_grading_items_count: true
   measure_grading_net_mass: true
   measure_grading_sizes: true
@@ -568,7 +587,11 @@ activities_021:
   size_unit_name: hectare
   support_variety: land_parcel
   suspended: false
+<<<<<<< HEAD
   updated_at: 2016-07-29 09:03:08.438666000 Z
+=======
+  updated_at: 2016-08-05 15:12:58.518873000 Z
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   updater_id: 1
   use_countings: true
   use_gradings: true

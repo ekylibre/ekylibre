@@ -493,7 +493,7 @@ eng:
       # take: "Take product group: %{name}"
     backend/product_localizations:
       edit: "Edit product localization:"
-      # new: "New product localization"
+      new: "New product localization"
     backend/product_nature_categories:
       edit: "Edit product category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"
@@ -768,8 +768,8 @@ eng:
         handlers:
           edit:
             tooltip:
-              subtext: "Click cancel to undo changes."
-              text: "Drag handles, or marker to edit feature."
+              subtext: "Click cancel to undo changes"
+              text: "Drag handles, or marker to edit feature"
           remove:
             tooltip:
               text: "Click on a feature to remove"
@@ -777,15 +777,15 @@ eng:
           actions:
             cancel:
               text: "Cancel"
-              title: "Cancel editing, discards all changes."
+              title: "Cancel editing, discards all changes"
             save:
               text: "Save"
-              title: "Save changes."
+              title: "Save changes"
           buttons:
-            edit: "Edit layers."
-            editDisabled: "No layers to edit."
-            remove: "Delete layers."
-            removeDisabled: "No layers to delete."
+            edit: "Edit layers"
+            editDisabled: "No layers to edit"
+            remove: "Delete layers"
+            removeDisabled: "No layers to delete"
       fullscreenTitle: "Full Screen"
       importerButtonTitle: "Import"
       zoomInTitle: "Zoom in"
@@ -801,10 +801,13 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
+<<<<<<< HEAD
     activity_countings: "Countings" #?!
     activity_family: "Family activities" #?
     activity_inspections: "Inspections" #??
     activity_name: "Activity" #?
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "Activity production"
     activity_productions: "Activity productions"
     add: "Add"
@@ -848,7 +851,7 @@ eng:
     add_season: "Add season"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
-    add_tactic: "Add crop management Technique"
+    add_tactic: "Add cropping technique"
     add_tool: "Add tool"
     add_website: "Add website"
     add_working_period: "Add working period"
@@ -993,7 +996,11 @@ eng:
     custom_fields: "Custom fields"
     # data: "Data"
     # data_transmissions: "Data transmissions"
+<<<<<<< HEAD
     date: "Date"
+=======
+    # date: "Date"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     dates: "Select period start date and Period end date" #?
     days: "Days" #?
     deals: "Deals"
@@ -1262,8 +1269,10 @@ eng:
       zero: "Make a deposit %{mode}: no available payments"
     new_email: "New email"
     new_group: "New group"
+    new_incoming_parcel: "New incoming parcel"
     new_issue: "New issue"
     new_organization: "New organization"
+    new_outgoing_parcel: "New outgoing parcel"
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
@@ -1814,7 +1823,7 @@ eng:
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_password: "Change password"
-      # check: "Check"
+      check: "Check"
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"
@@ -1837,7 +1846,7 @@ eng:
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
-      # give: "Give"
+      give: "Give"
       import: "Import"
       incorporate: "Incorporate"
       index: "Index"
@@ -1858,10 +1867,10 @@ eng:
       negociate: "Negociate"
       new: "New"
       open: "Open"
-      # order: "Order"
+      order: "Order"
       pick: "Pick"
       picture: "Picture"
-      # prepare: "Prepare"
+      prepare: "Prepare"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"

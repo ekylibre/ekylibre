@@ -39,8 +39,10 @@
 class Team < Ekylibre::Record::Base
   has_many :employees, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :depth, :lft, :rgt, numericality: { allow_nil: true, only_integer: true }
-  validates :depth, :name, presence: true
+  validates :depth, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :lft, :rgt, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :name, uniqueness: true
 

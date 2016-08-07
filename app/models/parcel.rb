@@ -72,9 +72,14 @@ class Parcel < Ekylibre::Record::Base
   # has_many :interventions, class_name: 'Intervention', as: :resource
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :given_at, :in_preparation_at, :ordered_at, :planned_at, :prepared_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :given_at, :in_preparation_at, :ordered_at, :prepared_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :nature, presence: true
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :reference_number, length: { maximum: 500 }, allow_blank: true
   validates :remain_owner, :with_delivery, inclusion: { in: [true, false] }
-  validates :nature, :number, :planned_at, :state, presence: true
+  validates :separated_stock, inclusion: { in: [true, false] }, allow_blank: true
+  validates :state, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :delivery_mode, :address, presence: true
   validates :recipient, presence: { if: :outgoing? }
@@ -100,11 +105,11 @@ class Parcel < Ekylibre::Record::Base
     state :given
 
     event :order do
-      transition draft: :ordered, if: :items?
+      transition draft: :ordered, if: :any_items?
     end
     event :prepare do
-      transition draft: :in_preparation, if: :items?
-      transition ordered: :in_preparation, if: :items?
+      transition draft: :in_preparation, if: :any_items?
+      transition ordered: :in_preparation, if: :any_items?
     end
     event :check do
       transition draft: :prepared, if: :all_items_prepared?
@@ -112,10 +117,10 @@ class Parcel < Ekylibre::Record::Base
       transition in_preparation: :prepared, if: :all_items_prepared?
     end
     event :give do
-      transition draft: :given, unless: :with_delivery?
-      transition ordered: :given, unless: :with_delivery?
-      transition in_preparation: :given, unless: :with_delivery?
-      transition prepared: :given, unless: :with_delivery?
+      transition draft: :given, if: :giveable?
+      transition ordered: :given, if: :giveable?
+      transition in_preparation: :given, if: :giveable?
+      transition prepared: :given, if: :giveable?
     end
     event :cancel do
       transition ordered: :draft
@@ -149,12 +154,6 @@ class Parcel < Ekylibre::Record::Base
       products.each do |product|
         product.readings.where(read_at: old_record.given_at).update_all(read_at: given_at)
       end
-    end
-  end
-
-  after_save do
-    if delivery && prepared? && delivery_in_preparation?
-      delivery.check if delivery.parcels.all?(&:prepared?)
     end
   end
 
@@ -212,15 +211,19 @@ class Parcel < Ekylibre::Record::Base
   end
 
   def all_items_prepared?
-    items.all?(&:prepared?)
+    any_items? && items.all?(&:prepared?)
   end
 
-  def items?
+  def any_items?
     items.any?
   end
 
   def issues?
     issues.any?
+  end
+
+  def giveable?
+    !with_delivery || (with_delivery && delivery.present? && delivery.started?)
   end
 
   def status
@@ -358,23 +361,11 @@ class Parcel < Ekylibre::Record::Base
         parcels.each do |parcel|
           parcel.items.each do |item|
             # raise "#{item.variant.name} cannot be sold" unless item.variant.saleable?
-            unless item.variant.saleable?
-              item.category.product_account = Account.find_or_import_from_nomenclature(:revenues)
-              item.category.saleable = true
-            end
-            next unless item.population && item.population > 0
-            unless catalog_item = item.variant.catalog_items.first
-              unless catalog = Catalog.of_usage(:sale).first
-                catalog = Catalog.create!(
-                  name: Catalog.enumerized_attributes[:usage].human_value_name(:sales),
-                  usage: :sales
-                )
-              end
-              catalog_item = catalog.items.create!(amount: 0, variant: item.variant)
-            end
+            next unless item.variant.saleable? && item.population && item.population > 0
+            catalog_item = Catalog.by_default!(:sale).items.find_by(variant: item.variant)
             item.sale_item = sale.items.create!(
               variant: item.variant,
-              unit_pretax_amount: catalog_item.amount,
+              unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),
               tax: item.variant.category.sale_taxes.first || Tax.first,
               quantity: item.population
             )
@@ -424,8 +415,8 @@ class Parcel < Ekylibre::Record::Base
         # Adds items
         parcels.each do |parcel|
           parcel.items.each do |item|
-            next unless item.population && item.population > 0
-            catalog_item = item.variant.catalog_items.order(id: :desc).first
+            next unless item.variant.purchasable? && item.population && item.population > 0
+            catalog_item = Catalog.by_default!(:purchase).items.find_by(variant: item.variant)
             item.purchase_item = purchase.items.create!(
               variant: item.variant,
               unit_pretax_amount: (catalog_item ? catalog_item.amount : 0.0),

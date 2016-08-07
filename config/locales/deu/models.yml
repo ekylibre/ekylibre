@@ -5,9 +5,7 @@ deu:
         expenses_amount: "Die Aufwendungen Menge"
         revenues_amount: "Der Umsatz Betrag"
       activity_tactic:
-        # bulk_quantity: "forecast volume"
         # mode: "Planning type"
-        # plan_on: "Date"
       animal_group:
         born_at: "Hergestellt in"
       building:
@@ -31,6 +29,8 @@ deu:
         born_at: "Hergestellt in"
       outgoing_payment:
         delivered: "Da an Empfänger"
+      parcel_item:
+        population: "Menge"
       plant:
         born_at: "gepflanzt bei"
       sale:
@@ -149,7 +149,12 @@ deu:
       activity_inspection_calibration_scale: "Kaliber"
       activity_inspection_point_nature: "Aktivität Sortierprüfung"
       activity_production: "Produktionsunterstützung"
+<<<<<<< HEAD
       # activity_season: "Seasonality"
+=======
+      # activity_season: "Activity season"
+      # activity_tactic: "Activity cropping technique"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
       affair: "Affäre"
       analysis: "Analyse"
       analysis_item: "Analyse Artikel"
@@ -157,6 +162,7 @@ deu:
       animal_group: "Tiergruppe"
       attachment: "Befestigung"
       bank_statement: "Kontoauszug"
+      bank_statement_item: "Kontoauszug Reihe"
       bioproduct: "Wohnen Produkt"
       building: "Gebäude"
       building_division: "Zimmer / Zone"
@@ -194,7 +200,6 @@ deu:
       gap: "Spalt"
       gap_item: "Gap Artikel"
       # georeading: "Georeading"
-      grading_quality_criterion: "Grading Qualitätskriterium"
       guide: "Führen"
       guide_analysis: "Leitfaden Analyse"
       guide_analysis_point: "Führer Analysepunkt"
@@ -321,7 +326,10 @@ deu:
     activity_grading_check: "Aktivität Sortierprüfung"
     activity_production: "Aktivität Produktion"
     activity_productions: "Aktivität Produktionen"
+<<<<<<< HEAD
     # activity_season: "Seasonality"
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     actor: "Darsteller"
     actual_number: "Die tatsächliche Anzahl"
     actual_population: "tatsächliche Bevölkerung"
@@ -947,11 +955,12 @@ deu:
     product_localizations: "Produkt Lokalisierungen"
     product_memberships: "Produkt-Mitgliedschaften"
     product_movement: "Produkt-Bewegung"
-    # product_name: "Name"
+    product_name: "Name"
     product_nature: "Produktart"
     product_nature_categories: "Kategorien Produkttyp"
     product_nature_category: "Produkttyp Kategorie"
     product_nature_category_taxations: "Produkttyp Kategorie Besteuerungen"
+    product_natures: "Produkttypen"
     product_ownership: "Artikel Eigentum"
     product_ownerships: "Produkt Eigentümern"
     product_parameters: "Produktparameter"
@@ -1147,8 +1156,13 @@ deu:
     support_variety: "Unterstützung Vielfalt"
     supports: "Unterstützungen"
     suspended: "Suspendiert"
+<<<<<<< HEAD
     # tactic: "Crop management Technique"
     # tactics: "Tactics"
+=======
+    # tactic: "Cropping technique"
+    # tactics: "Cropping techniques"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     target: "Ziel"
     target_type: "Zieltyp"
     target_url: "Ziel-URL"
@@ -1207,8 +1221,13 @@ deu:
     use_countings: "Verwenden Zählungen"
     use_grading_calibre: "Verwenden Sie Grading Kaliber"
     use_gradings: "Verwenden Sie Sortierungen"
+<<<<<<< HEAD
     # use_seasons: "Use Seasonalities"
     # use_tactics: "Use crop management Technique"
+=======
+    # use_seasons: "Use seasonalities"
+    # use_tactics: "Use cropping techniques"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     used_for_affairs: "Wird für die Angelegenheiten"
     used_for_gaps: "Wird für die Lücken"
     useful_items: "Nützliches"

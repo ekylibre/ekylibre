@@ -20,7 +20,7 @@
                  backward="(POPULATION * VARIANT.net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)"
                  forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / VARIANT.net_mass(ton)"/>
       </output>
-      <tool name="tractor" filter="is equipment and (can tow(mower) or can mow)" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and (can tow(equipment) or can mow)" cardinality="*"/>
       <tool name="mower" filter="can mow" cardinality="*"/>
       <doer name="mower_driver" filter="can drive(tractor)" cardinality="*"/>
     </parameters>

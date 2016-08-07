@@ -5,9 +5,7 @@ ita:
         expenses_amount: "Le spese importo"
         revenues_amount: "I ricavi sono pari"
       activity_tactic:
-        # bulk_quantity: "forecast volume"
         # mode: "Planning type"
-        # plan_on: "Date"
       animal_group:
         born_at: "creato a"
       building:
@@ -31,6 +29,8 @@ ita:
         born_at: "creato a"
       outgoing_payment:
         delivered: "Dato al destinatario"
+      parcel_item:
+        population: "Quantità"
       plant:
         born_at: "piantato a"
       sale:
@@ -180,7 +180,12 @@ ita:
       activity_inspection_calibration_scale: "Calibro"
       activity_inspection_point_nature: "controllo di classificazione di attività"
       activity_production: "supporto alla produzione"
+<<<<<<< HEAD
       # activity_season: "Seasonality"
+=======
+      # activity_season: "Activity season"
+      # activity_tactic: "Activity cropping technique"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
       affair: "Affare"
       analysis: "Analisi"
       analysis_item: "oggetto di analisi"
@@ -188,6 +193,7 @@ ita:
       animal_group: "gruppo di animali"
       attachment: "Allegati"
       bank_statement: "estratto conto bancario"
+      bank_statement_item: "Fila estratto conto bancario"
       bioproduct: "vivere prodotto"
       building: "Costruzione"
       building_division: "Camera / Zone"
@@ -225,7 +231,6 @@ ita:
       gap: "divario"
       gap_item: "voce Gap"
       # georeading: "Georeading"
-      grading_quality_criterion: "criterio di qualità di classificazione"
       guide: "Guida"
       guide_analysis: "analisi Guida"
       guide_analysis_point: "Guida punto di analisi"
@@ -274,7 +279,7 @@ ita:
       plant: "pianta"
       plant_counting: "conteggio delle piante"
       plant_counting_item: "ingresso conteggio delle piante"
-      plant_density_abacus: "Abacus Densità d&#39;impianto"
+      plant_density_abacus: "Abacus Densità d’impianto"
       plant_density_abacus_item: "ingresso in stabilimento densità di abaco"
       postal_zone: "zona postale"
       preference: "Preferenza"
@@ -352,7 +357,10 @@ ita:
     activity_grading_check: "controllo di classificazione di attività"
     activity_production: "Attività Produttive"
     activity_productions: "produzioni di attività"
+<<<<<<< HEAD
     # activity_season: "Seasonality"
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     actor: "Attore"
     actual_number: "Il numero effettivo"
     actual_population: "popolazione effettiva"
@@ -649,11 +657,11 @@ ita:
     global_debit: "debito globale"
     godchildren: "figliocci"
     grading_net_mass_unit: "Classificando unità di massa netta"
-    grading_net_mass_unit_name: "Grading net nome dell&#39;unità di massa"
+    grading_net_mass_unit_name: "Grading net nome dell’unità di massa"
     grading_sizes_indicator: "Indicatore dimensioni di classificazione"
     grading_sizes_indicator_name: "Grading dimensioni nome indicatore"
     grading_sizes_unit: "unità di dimensioni di classificazione"
-    grading_sizes_unit_name: "Grading dimensioni nome dell&#39;unità"
+    grading_sizes_unit_name: "Grading dimensioni nome dell’unità"
     gradings: "classificazioni"
     gravity: "Gravità"
     gross_items: "conteggio lordo"
@@ -943,7 +951,7 @@ ita:
     plant: "pianta"
     plant_counting: "conteggio delle piante"
     plant_countings: "conteggi delle piante"
-    plant_density_abacus: "Abacus Densità d&#39;impianto"
+    plant_density_abacus: "Abacus Densità d’impianto"
     plant_density_abacus_item: "Voce Impianti abaco densità"
     plants_count: "contano piante"
     point: "Punto"
@@ -983,6 +991,7 @@ ita:
     product_nature_categories: "categorie di tipi di prodotto"
     product_nature_category: "Categoria Tipo di prodotto"
     product_nature_category_taxations: "prodotto Tipo categoria tassazioni"
+    product_natures: "Tipi di prodotto"
     product_ownership: "di proprietà del prodotto"
     product_ownerships: "ownership del prodotto"
     product_parameters: "parametri del prodotto"
@@ -1178,8 +1187,13 @@ ita:
     support_variety: "varietà di sostegno"
     supports: "supporti"
     suspended: "Sospeso"
+<<<<<<< HEAD
     # tactic: "Crop management Technique"
     # tactics: "Tactics"
+=======
+    # tactic: "Cropping technique"
+    # tactics: "Cropping techniques"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     target: "Bersaglio"
     target_type: "tipo di destinazione"
     target_url: "URL di destinazione"
@@ -1239,8 +1253,13 @@ ita:
     use_countings: "Utilizzare i conteggi"
     use_grading_calibre: "Utilizzare calibro di classificazione"
     use_gradings: "Utilizzare classificazioni"
+<<<<<<< HEAD
     # use_seasons: "Use Seasonalities"
     # use_tactics: "Use crop management Technique"
+=======
+    # use_seasons: "Use seasonalities"
+    # use_tactics: "Use cropping techniques"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     used_for_affairs: "Usato per gli affari"
     used_for_gaps: "Usato per le lacune"
     useful_items: "oggetti utili"

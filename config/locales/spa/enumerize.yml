@@ -97,10 +97,6 @@ spa:
         line: "Línea"
         point: "Punto"
         polygon: "Polígono"
-    grading_quality_criterion:
-      nature:
-        disease_presence: "la presencia de enfermedad"
-        waste: "Residuos"
     guide_analysis:
       status:
         errored: "Con error"

@@ -44,8 +44,9 @@ class PlantDensityAbacus < Ekylibre::Record::Base
   refers_to :sampling_length_unit, class_name: 'Unit'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :germination_percentage, numericality: { allow_nil: true }
-  validates :activity, :name, :sampling_length_unit, :seeding_density_unit, presence: true
+  validates :germination_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :name, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :activity, :sampling_length_unit, :seeding_density_unit, presence: true
   # ]VALIDATORS]
   validates :name, uniqueness: true
 

@@ -389,6 +389,7 @@ deu:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Pencil Produktlokalisierung:"
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Produktkategorien"
@@ -629,10 +630,13 @@ deu:
     active: "Aktiv"
     activities: "Aktivitäten"
     activity: "Aktivität"
+<<<<<<< HEAD
     # activity_countings: "Countings"
     # activity_family: "Family activities"
     # activity_inspections: "Inspections"
     # activity_name: "Activity"
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "Aktivität Produktion"
     activity_productions: "Aktivität Produktionen"
     add: "Hinzufügen"
@@ -676,7 +680,7 @@ deu:
     # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "In Unterstützung"
-    # add_tactic: "Add crop management Technique"
+    # add_tactic: "Add cropping technique"
     add_tool: "In Werkzeug"
     add_website: "In Website"
     add_working_period: "In working_period"
@@ -820,7 +824,6 @@ deu:
     current_cultivation: "aktuelle Anbau"
     current_stocks_by_variety: "Aktuelle Bestände durch Vielfalt"
     custom_fields: "Benutzerdefinierte Felder"
-    # date: "Date"
     dates: "Wählen Sie Zeitraum Startdatum und Enddatum der Periode"
     # days: "Days"
     deals: "Angebote"
@@ -1096,8 +1099,10 @@ deu:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Neue e-mail"
     new_group: "Neue Gruppe"
+    new_incoming_parcel: "Neu eingehende Paket"
     new_issue: "Neues Problem"
     new_organization: "neue Organisation"
+    new_outgoing_parcel: "Neue abgehende Paket"
     new_production: "neue Produktions"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "New Zitat"
@@ -1649,6 +1654,7 @@ deu:
       # bookkeep: "Bookkeep"
       cancel: "Stornieren"
       category: "Kategorie" #?
+      check: "Prüfen"
       children: "Kinder" #?
       close: "Schließen"
       compute: "Berechnen"
@@ -1671,6 +1677,7 @@ deu:
       family: "Familie"
       finish: "Fertig"
       generate_last_journal_entry: "Generieren letzten Tagebucheintrag"
+      give: "Geben"
       import: "Einführen"
       incorporate: "integrieren"
       increment: "Zuwachs" #?
@@ -1687,8 +1694,10 @@ deu:
       negociate: "verhandeln"
       new: "Neu"
       open: "Öffnen"
+      order: "Auftrag"
       pick: "pflücken"
       picture: "Bild"
+      prepare: "Bereiten"
       propose: "Vorschlagen"
       propose_and_invoice: "Vorschlagen und Rechnung"
       prospect: "Aussicht"

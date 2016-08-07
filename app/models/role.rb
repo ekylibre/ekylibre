@@ -37,7 +37,9 @@ class Role < Ekylibre::Record::Base
   include Rightable
   has_many :users
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :rights, length: { maximum: 100_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :name, uniqueness: true
 

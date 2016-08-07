@@ -495,6 +495,7 @@ arb:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "تحرير توطين المنتج:"
+      # new: "New product localization"
     backend/product_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
@@ -898,10 +899,13 @@ arb:
     active_sum: "مجموع الموجودات" #?
     activities: "أنشطة"
     activity: "نشاط"
+<<<<<<< HEAD
     # activity_countings: "Countings"
     # activity_family: "Family activities"
     # activity_inspections: "Inspections"
     # activity_name: "Activity"
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "إنتاج النشاط"
     activity_productions: "إنتاجات آخر"
     add: "اضافة"
@@ -945,7 +949,7 @@ arb:
     # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "إضافة دعم"
-    # add_tactic: "Add crop management Technique"
+    # add_tactic: "Add cropping technique"
     add_tool: "إضافة أداة"
     add_website: "أضف موقعك"
     add_working_period: "إضافة working_period"
@@ -1149,7 +1153,6 @@ arb:
     custom_fields: "الحقول المخصصة"
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
-    # date: "Date"
     dates: "ادخل تواريخ بداية ونهاية المدة"
     # days: "Days"
     deals: "عروض"
@@ -1572,8 +1575,10 @@ arb:
     new_email: "بريد إلكتروني جديد"
     new_family: "اسرة جديدة" #?
     new_group: "مجموعة جديدة"
+    new_incoming_parcel: "لا يتجزأ الجديد الوافد"
     new_issue: "مشكلة جديدة"
     new_organization: "منظمة جديدة"
+    new_outgoing_parcel: "الطرد الصادر الجديد"
     new_payment: "تسجيل دفعة جديدة" #?
     new_production: "إنتاج جديد"
     # new_production_of_activity: "New production of %{activity}"
@@ -2427,6 +2432,7 @@ arb:
       # bookkeep: "Bookkeep"
       cancel: "إلغاء"
       category: "فئة" #?
+      check: "الاختيار"
       children: "الأطفال" #?
       close: "قريب"
       compute: "حساب"
@@ -2450,6 +2456,7 @@ arb:
       family: "أسرة"
       finish: "إنهاء"
       generate_last_journal_entry: "تولد الماضي إدخال دفتر اليومية"
+      give: "يعطى"
       import: "استيراد"
       incorporate: "دمج"
       increment: "زيادة" #?
@@ -2466,8 +2473,10 @@ arb:
       # negociate: "Negociate"
       new: "جديد"
       open: "فتح"
+      order: "طلب"
       pick: "اختيار"
       picture: "صورة"
+      prepare: "إعداد"
       propose: "اقترح"
       propose_and_invoice: "اقتراح وفاتورة"
       prospect: "احتمال"

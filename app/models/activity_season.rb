@@ -34,13 +34,11 @@
 class ActivitySeason < Ekylibre::Record::Base
 
   belongs_to :activity, class_name: 'Activity', inverse_of: :seasons
-  has_many :productions, class_name: 'ActivityProduction', inverse_of: :season, foreign_key: :tactic_id
+  has_many :productions, class_name: 'ActivityProduction', inverse_of: :season, foreign_key: :season_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :activity, :name, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :activity, presence: true
   # ]VALIDATORS]
-
-  protect(on: :destroy) do
-    productions.any?
-  end
+  validates :name, uniqueness: { scope: :activity_id }
 end

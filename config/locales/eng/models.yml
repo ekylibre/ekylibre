@@ -5,9 +5,7 @@ eng:
         expenses_amount: "Expenses amount"
         revenues_amount: "Revenues amount"
       activity_tactic:
-        bulk_quantity: "forecast volume"
         mode: "Planning type"
-        plan_on: "Date"
       animal_group:
         born_at: "Created at"
       building:
@@ -31,6 +29,8 @@ eng:
         born_at: "Created at"
       outgoing_payment:
         delivered: "Given to recipient"
+      parcel_item:
+        population: "Quantity"
       plant:
         born_at: "Planted at"
       sale:
@@ -147,11 +147,18 @@ eng:
       activity_distribution: "Activity distribution"
       activity_inspection_calibration_nature: "Calibre type"
       activity_inspection_calibration_scale: "Calibre"
+<<<<<<< HEAD
       activity_inspection_point_nature: "Activity grading check"
       activity_production: "Production support"
       activity_season: "Seasonality"
       # activity_tactic: "Activity tactic"
       # activity_tactic_step: "Activity tactic step"
+=======
+      activity_inspection_point_nature: "Quality check"
+      activity_production: "Activity production"
+      activity_season: "Activity season"
+      activity_tactic: "Activity cropping technique"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
       affair: "Affair"
       analysis: "Analysis"
       analysis_item: "Analysis item"
@@ -159,7 +166,7 @@ eng:
       animal_group: "Animal group"
       attachment: "Attachment"
       bank_statement: "Bank statement"
-      # bank_statement_item: "Bank statement item"
+      bank_statement_item: "Bank statement row"
       bioproduct: "Living product"
       building: "Building"
       building_division: "Room / Zone"
@@ -197,7 +204,6 @@ eng:
       gap: "Gap"
       gap_item: "Gap item"
       georeading: "Georeading"
-      grading_quality_criterion: "Grading quality criterion" #?
       guide: "Guide"
       guide_analysis: "Guide analysis"
       guide_analysis_point: "Guide analysis point"
@@ -216,7 +222,7 @@ eng:
       intervention_output: "Intervention output"
       intervention_parameter: "Intervention parameter"
       intervention_parameter_reading: "Product reading task"
-      intervention_product_parameter: "Intervention cast"
+      intervention_product_parameter: "Intervention product parameter"
       intervention_target: "Intervention target"
       intervention_tool: "Intervention tool"
       intervention_working_period: "Intervention working period"
@@ -244,10 +250,10 @@ eng:
       parcel: "Parcel"
       parcel_item: "Parcel item"
       plant: "Plant"
-      plant_counting: "Plant count"
-      plant_counting_item: "Plant count entry"
+      plant_counting: "Plant counting"
+      plant_counting_item: "Plant counting item"
       plant_density_abacus: "Plant density abacus"
-      plant_density_abacus_item: "Plant density abacus entry"
+      plant_density_abacus_item: "Plant density abacus row"
       postal_zone: "Postal zone"
       preference: "Preference"
       prescription: "Prescription"
@@ -325,7 +331,10 @@ eng:
     activity_grading_check: "Activity grading check" #?
     activity_production: "Activity production"
     activity_productions: "Activity productions"
+<<<<<<< HEAD
     activity_season: "Seasonality" #?
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     actor: "Actor" #?
     actual_number: "Actual number" #?
     actual_population: "Actual population"
@@ -978,12 +987,12 @@ eng:
     product_localizations: "Product localizations" #?
     product_memberships: "Product memberships" #?
     product_movement: "Product movement"
-    product_name: "Name"
+    product_name: "Product"
     product_nature: "Product type"
     product_nature_categories: "Product type categories" #?
     product_nature_category: "Product type category"
     product_nature_category_taxations: "Product type category taxations"
-    # product_natures: "Product natures"
+    product_natures: "Product types"
     # product_net_surface_area_unit: "Product net surface area unit"
     # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "Product ownership"
@@ -1191,9 +1200,14 @@ eng:
     supports: "Supports"
     suspended: "Suspended"
     # swim_lane_uuid: "Swim lane uuid"
+<<<<<<< HEAD
     tactic: "Crop management Technique"
     # tactic_steps: "Tactic steps"
     tactics: "Tactics"
+=======
+    tactic: "Cropping technique"
+    tactics: "Cropping techniques"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     target: "Target"
     target_type: "Target type"
     target_url: "Target url"
@@ -1252,8 +1266,13 @@ eng:
     use_countings: "Use countings"
     use_grading_calibre: "Use grading calibre" #?
     use_gradings: "Use gradings"
+<<<<<<< HEAD
     use_seasons: "Use Seasonalities"
     use_tactics: "Use crop management Technique"
+=======
+    use_seasons: "Use seasonalities"
+    use_tactics: "Use cropping techniques"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     used_for_affairs: "Used for affairs"
     used_for_gaps: "Used for gaps"
     useful_items: "Useful items"

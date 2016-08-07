@@ -1,6 +1,10 @@
 deu:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Ausgabe der Natur"
+          variety: "Vielfalt"
       items:
         acidify: "Ansäuern"
         administer_care: "verwalten Pflege"
@@ -807,7 +811,6 @@ deu:
         # er: "Eritrea"
         es: "Spanien"
         et: "Äthiopien"
-        false: "Norwegen" #?
         fi: "Finnland"
         fj: "Fidschi"
         fk: "Falklandinseln (Malvinas)"
@@ -905,7 +908,7 @@ deu:
         # ng: "Nigeria"
         # ni: "Nicaragua"
         nl: "Niederlande"
-        # no: "Norway"
+        no: "Norwegen"
         # np: "Nepal"
         # nr: "Nauru"
         # nu: "Niue"
@@ -3141,6 +3144,9 @@ deu:
         variety: "Vielfalt"
     product_natures:
       choices:
+        linkage_points:
+          front: "Vorderseite"
+          rear: "Rückseite"
         population_counting:
           decimal: "Dezimal"
           integer: "Ganze Zahl"

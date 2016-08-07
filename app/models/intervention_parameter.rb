@@ -55,8 +55,10 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :parameters
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :quantity_population, :quantity_value, numericality: { allow_nil: true }
-  validates :intervention, :reference_name, presence: true
+  validates :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
+  validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :reference_name, presence: true, length: { maximum: 500 }
+  validates :intervention, presence: true
   # ]VALIDATORS]
   validates :position, presence: true
 

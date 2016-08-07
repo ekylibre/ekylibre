@@ -1,6 +1,10 @@
 fra:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Type d’incident"
+          variety: "Variété"
       items:
         acidify: "Acidifier"
         administer_care: "Administrer des soins"
@@ -932,7 +936,6 @@ fra:
         er: "Érythrée"
         es: "Espagne"
         et: "Éthiopie"
-        false: "Norvège" #?
         fi: "Finlande"
         fj: "Fidji"
         fk: "Falkland, Îles (Malvinas)"
@@ -1030,7 +1033,7 @@ fra:
         ng: "Nigéria"
         ni: "Nicaragua"
         nl: "Pays-Bas"
-        # no: "Norway"
+        no: "Norvège"
         np: "Népal"
         nr: "Nauru"
         nu: "Niué"
@@ -3298,9 +3301,9 @@ fra:
         variety: "Variété"
     product_natures:
       choices:
-        linkage_points:  #?
-          front: "avant" #?
-          rear: "arrière" #?
+        linkage_points:
+          front: "Avant"
+          rear: "Arrière"
         population_counting:
           decimal: "Décimal"
           integer: "Entier"
@@ -3411,7 +3414,7 @@ fra:
         gas: "Gaz"
         gas_engine: "Machine à gaz"
         goat_herd: "Troupeau caprin"
-        grain: "Céréale"
+        grain: "Céréale-Légumineuse-Oléagineuse"
         grain_crop: "Culture à graines"
         grain_tank: "Silo à grain"
         grape: "Raisin"

@@ -145,11 +145,11 @@ module ApplicationHelper
   end
 
   def reading_direction
-    t("i18n.dir")
+    t('i18n.dir')
   end
 
   def reading_ltr?
-    reading_direction == "ltr"
+    reading_direction == 'ltr'
   end
 
   # def locale_selector

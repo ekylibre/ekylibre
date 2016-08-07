@@ -389,6 +389,7 @@ cmn:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "编辑产品的本地化："
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "产品类别"
@@ -629,10 +630,13 @@ cmn:
     active: "活性"
     activities: "活动"
     activity: "活动"
+<<<<<<< HEAD
     # activity_countings: "Countings"
     # activity_family: "Family activities"
     # activity_inspections: "Inspections"
     # activity_name: "Activity"
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     activity_production: "生产活动"
     activity_productions: "活动制作"
     add: "加"
@@ -676,7 +680,7 @@ cmn:
     # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "添加支持"
-    # add_tactic: "Add crop management Technique"
+    # add_tactic: "Add cropping technique"
     add_tool: "添加工具"
     add_website: "添加网站"
     add_working_period: "添加working_period"
@@ -820,7 +824,6 @@ cmn:
     current_cultivation: "目前种植"
     current_stocks_by_variety: "目前的库存按品种"
     custom_fields: "自定义字段"
-    # date: "Date"
     dates: "选择期限起始日期和周期的最后一天"
     # days: "Days"
     deals: "优惠"
@@ -1097,8 +1100,10 @@ cmn:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "新邮件"
     new_group: "新建组"
+    new_incoming_parcel: "新进​​入的包裹"
     new_issue: "新问题"
     new_organization: "新组织"
+    new_outgoing_parcel: "新传出的包裹"
     new_production: "新的生产"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "新报价"
@@ -1650,6 +1655,7 @@ cmn:
       # bookkeep: "Bookkeep"
       cancel: "取消"
       category: "类别" #?
+      check: "检查"
       children: "孩子" #?
       close: "关闭"
       compute: "计算"
@@ -1673,6 +1679,7 @@ cmn:
       family: "家庭"
       finish: "完"
       generate_last_journal_entry: "最后生成日记帐分录"
+      give: "给"
       import: "进口"
       incorporate: "合并"
       increment: "增量" #?
@@ -1689,8 +1696,10 @@ cmn:
       # negociate: "Negociate"
       new: "新"
       open: "打开"
+      order: "订购"
       pick: "挑"
       picture: "图片"
+      prepare: "准备"
       propose: "提出"
       propose_and_invoice: "提出和发票"
       prospect: "展望"

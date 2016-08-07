@@ -50,10 +50,13 @@ class Inspection < Ekylibre::Record::Base
                     inverse_of: :inspection, dependent: :destroy
   has_many :scales, through: :activity, source: :inspection_calibration_scales
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :sampled_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :implanter_rows_number, numericality: { allow_nil: true, only_integer: true }
-  validates :implanter_application_width, :implanter_working_width, :product_net_surface_area_value, :sampling_distance, numericality: { allow_nil: true }
-  validates :activity, :number, :product, :sampled_at, presence: true
+  validates :comment, length: { maximum: 100_000 }, allow_blank: true
+  validates :implanter_application_width, :implanter_working_width, :product_net_surface_area_value, :sampling_distance, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :implanter_rows_number, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :number, presence: true, length: { maximum: 500 }
+  validates :product_net_surface_area_unit, length: { maximum: 500 }, allow_blank: true
+  validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :activity, :product, presence: true
   # ]VALIDATORS]
   validates :implanter_application_width, :implanter_rows_number,
             :sampling_distance, numericality: { greater_than: 0 }, presence: true

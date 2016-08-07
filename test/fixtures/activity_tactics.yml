@@ -37,6 +37,7 @@
 ---
 activity_tactics_001:
   activity_id: 22
+<<<<<<< HEAD
   bulk_delta: 25
   bulk_quantity: 1000
   bulk_unit_name: ton
@@ -56,12 +57,34 @@ activity_tactics_002:
   bulk_quantity: 1000
   bulk_unit_name: ton
   created_at: 2016-07-29 09:03:43.305809000 Z
+=======
+  created_at: 2016-08-05 15:12:58.528344000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 1
+  mode: sowed
+  mode_delta: 10
+  name: Conventionnel
+  planned_on: 2016-08-17
+  updated_at: 2016-08-05 15:38:09.640136000 Z
+  updater_id: 1
+activity_tactics_002:
+  activity_id: 1
+  created_at: 2016-08-05 15:37:30.430871000 Z
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   creator_id: 1
   id: 2
   lock_version: 0
   mode: sowed
+<<<<<<< HEAD
   mode_delta: 20
   name: Normal
   planned_on: 2016-07-27
   updated_at: 2016-07-29 09:03:43.305809000 Z
+=======
+  mode_delta: 10
+  name: Test 2
+  planned_on: 2016-08-23
+  updated_at: 2016-08-05 15:37:30.430871000 Z
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   updater_id: 1

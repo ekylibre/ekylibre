@@ -42,19 +42,14 @@ class ActivityTactic < Ekylibre::Record::Base
   has_many :tactic_steps, class_name: 'ActivityTacticStep', inverse_of: :tactic, foreign_key: :tactic_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :planned_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :mode_delta, numericality: { allow_nil: true, only_integer: true }
-  validates :activity, :name, presence: true
+  validates :mode_delta, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :planned_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :activity, presence: true
   # ]VALIDATORS]
 
-  accepts_nested_attributes_for :tactic_steps, allow_destroy: true, reject_if: :all_blank
-
-  protect(on: :destroy) do
-    productions.any?
-  end
-
   def mode_unit_name
-    :days
+    :day
   end
 
   def mode_unit_name=(value)

@@ -13,9 +13,15 @@ fra:
         production_usage: "Usage futur" #?
         storage: "Support" #?
       activity_tactic:
+<<<<<<< HEAD
         bulk_quantity: "Volume prévisionnel"
         mode: "Type de planification"
         plan_on: "Date"
+=======
+        bulk_quantity: "Volume prévisionnel" #?
+        mode: "Type de planification"
+        plan_on: "Date" #?
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
       animal:  #?
         born_at: "Né(e) le" #?
         variety: "Race" #?
@@ -90,6 +96,8 @@ fra:
         delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
+      parcel_item:
+        population: "Quantité"
       plant:
         born_at: "Planté/semé le"
         nature: "Nature de la culture" #?
@@ -263,6 +271,10 @@ fra:
       activity_inspection_point_nature: "Type de point de contrôle d'agréage"
       activity_production: "Support de production"
       activity_season: "Saisonnalité"
+<<<<<<< HEAD
+=======
+      # activity_tactic: "Activity cropping technique"
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
       affair: "Affaire"
       analysis: "Analyse"
       analysis_item: "Élément d’analyse"
@@ -270,6 +282,7 @@ fra:
       animal_group: "Groupe d’animaux"
       attachment: "Pièce jointe"
       bank_statement: "Relevé de compte bancaire"
+      bank_statement_item: "Ligne de relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Bâtiment"
       building_division: "Pièce"
@@ -307,7 +320,6 @@ fra:
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
       georeading: "Relevé topographique"
-      grading_quality_criterion: "Critère qualité d'un agréage"
       guide: "Référentiel"
       guide_analysis: "Analyse d’un référentiel"
       guide_analysis_point: "Point d’analyse d’un référentiel"
@@ -440,7 +452,11 @@ fra:
     activity_grading_check: "Point de contrôle d’agréage"
     activity_production: "Production"
     activity_productions: "Productions"
+<<<<<<< HEAD
     activity_season: "Saisonnalité"
+=======
+    activity_season: "Saisonnalité" #?
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
     actor: "Acteur"
     actual_number: "Numéro en cours"
     actual_population: "Population réelle"
@@ -1183,11 +1199,12 @@ fra:
     product_mixings: "Mélanges de produit" #?
     product_movement: "Mouvement de produit"
     product_moves: "Mouvements de produit" #?
-    product_name: "prénom"
+    product_name: "Produit"
     product_nature: "Type de produit"
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
+    product_natures: "Types de produits"
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"

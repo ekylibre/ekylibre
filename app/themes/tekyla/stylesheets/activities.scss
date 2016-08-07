@@ -74,7 +74,7 @@ $activity_border_size: 5px;
         // line-height: $indicators_height;
         &.cash {
           @include make-md-column(12, $gutter: 0);
-          @include icon-before(money, $font-size: 14px);
+          @include icon-before(money, $font-size: $fs-normal);
         }
       }
     }
@@ -89,15 +89,15 @@ $activity_border_size: 5px;
   }
 
   .cumulated-time {
-    @include icon-before(timelapse, $font-size: 14px);
+    @include icon-before(timelapse, $font-size: $fs-normal);
   }
 
   .opened-issues {
-    @include icon-before(bug, $font-size: 14px);
+    @include icon-before(bug, $font-size: $fs-normal);
   }
 
   .size {
-    @include icon-before(settings-ethernet, $font-size: 14px);
+    @include icon-before(settings-ethernet, $font-size: $fs-normal);
   }
 
 }
@@ -126,7 +126,7 @@ $chronology-background-color: #EEE;
   }
   .periods {
     position: relative;
-    height: $lh-huge;
+    height: $fs-normal;
     background-color: $chronology-background-color;
     @include border-radius($default-border-radius);
     .period {
@@ -138,12 +138,10 @@ $chronology-background-color: #EEE;
         @include border-radius(3 * $default-border-radius);
       }
       &.without-left {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        @include border-left-radius(0);
       }
       &.without-right {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+        @include border-right-radius(0);
       }
     }
 
@@ -155,19 +153,19 @@ $chronology-background-color: #EEE;
       .marker {
         @include flex-column();
         position: absolute;
-        height: 20px;
+        height: $lh-normal;
         box-shadow: 1px 1px #e4e3e3;
-        width: 20px;
-        border-radius: 20px;
+        width: $lh-normal;
+        @include border-radius($lh-normal);
         background-color: $white;
-        display: flex;
+        @include display(flex);
         flex-direction: column;
         justify-content: center;
 
         .picto {
           min-width: 0;
           line-height: 0;
-          font-size: 14px;
+          font-size: $fs-normal;
           color: $text-color;
         }
       }
@@ -185,7 +183,6 @@ $chronology-background-color: #EEE;
 
         .period {
           @include flex-row();
-          height: 21px;
         }
 
         .marker {
@@ -199,6 +196,6 @@ $chronology-background-color: #EEE;
 .activity-productions {
   @include clearfix;
   .activity-production {
-    margin: 2*$default-gap;
+    margin: 2 * $default-gap;
   }
 }

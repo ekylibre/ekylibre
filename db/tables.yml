@@ -511,6 +511,7 @@ activity_seasons:
   name:
     type: string
     required: true
+<<<<<<< HEAD
   updated_at:
     type: datetime
     required: true
@@ -544,6 +545,8 @@ activity_tactic_steps:
     type: integer
     references: activity_tactic
     required: true
+=======
+>>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   updated_at:
     type: datetime
     required: true

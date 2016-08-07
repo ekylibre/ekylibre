@@ -55,9 +55,11 @@ class Delivery < Ekylibre::Record::Base
   has_many :tools, class_name: 'DeliveryTool', dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(delivery) { delivery.stopped_at && delivery.started_at }
-  validates :state, presence: true
+  validates :annotation, length: { maximum: 100_000 }, allow_blank: true
+  validates :number, :reference_number, length: { maximum: 500 }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :state, presence: true, length: { maximum: 500 }
+  validates :stopped_at, timeliness: { on_or_after: ->(delivery) { delivery.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   # ]VALIDATORS]
 
   accepts_nested_attributes_for :tools, reject_if: :all_blank, allow_destroy: true
@@ -78,16 +80,16 @@ class Delivery < Ekylibre::Record::Base
       transition ordered: :in_preparation
     end
     event :check do
-      transition in_preparation: :prepared, if: :all_parcels_prepared?
+      transition in_preparation: :prepared, if: :all_parcels_almost_prepared?
     end
     event :start do
-      transition in_preparation: :started
-      transition prepared: :started
+      transition in_preparation: :started, if: :all_parcels_prepared?
+      transition prepared: :started, if: :all_parcels_prepared?
     end
     event :finish do
-      transition in_preparation: :finished
-      transition prepared: :finished
-      transition started: :finished
+      transition in_preparation: :finished, if: :all_parcels_prepared?
+      transition prepared: :finished, if: :all_parcels_prepared?
+      transition started: :finished, if: :all_parcels_prepared?
     end
     event :cancel do
       transition ordered: :draft
@@ -110,6 +112,26 @@ class Delivery < Ekylibre::Record::Base
     mode.text
   end
 
+  def available_parcels
+    Parcel.where('(delivery_id = ?) OR ((delivery_id IS ?) AND (state != ?))', id, nil, :given).order(:number)
+  end
+
+  def order
+    return false unless can_order?
+    parcels.each do |parcel|
+      parcel.order if parcel.draft?
+    end
+    super
+  end
+
+  def prepare
+    return false unless can_prepare?
+    parcels.each do |parcel|
+      parcel.prepare if parcel.ordered?
+    end
+    super
+  end
+
   def check
     return false unless can_check?
     parcels.find_each do |parcel|
@@ -119,23 +141,27 @@ class Delivery < Ekylibre::Record::Base
     super
   end
 
-  def available_parcels
-    Parcel.where('(delivery_id = ?) OR ((delivery_id IS ?) AND (state != ?))', id, nil, :given).order(:number)
+  def start
+    update_column(:started_at, Time.zone.now)
+    super
   end
 
   def finish
+    start if can_start?
     return false unless can_finish?
+    update_column(:stopped_at, Time.zone.now)
     parcels.each do |parcel|
-      parcel.give! if parcel.prepared?
+      parcel.check if parcel.in_preparation?
+      parcel.give if parcel.prepared?
     end
     super
   end
 
-  def all_parcels_in_preparation?
-    parcels.all?(&:in_preparation?)
+  def all_parcels_almost_prepared?
+    parcels.all? { |p| p.prepared? || p.in_preparation? }
   end
 
   def all_parcels_prepared?
-    parcels.all?(&:prepared?)
+    parcels.all? { |p| p.prepared? || p.given? }
   end
 end

@@ -41,7 +41,7 @@ class InspectionCalibration < Ekylibre::Record::Base
   belongs_to :inspection, inverse_of: :calibrations
   has_one :product, through: :inspection
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { allow_nil: true }
+  validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :inspection, :nature, presence: true
   # ]VALIDATORS]
 

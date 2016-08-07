@@ -53,9 +53,11 @@ class Tax < Ekylibre::Record::Base
   has_many :purchase_items
   has_many :sale_items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :amount, numericality: { allow_nil: true }
   validates :active, inclusion: { in: [true, false] }
-  validates :amount, :country, :name, :nature, presence: true
+  validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :country, :nature, presence: true
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :reference_name, length: { allow_nil: true, maximum: 120 }
   validates :collect_account, :deduction_account, presence: true
