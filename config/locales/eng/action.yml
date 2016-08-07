@@ -45,6 +45,11 @@ eng:
       # index: "Activity seasons"
       # new: "New activity season"
       # show: "Activity season: %{name}"
+    backend/activity_tactic_steps:
+      # edit: "Edit activity tactic step: %{name}"
+      # index: "Activity tactic steps"
+      # new: "New activity tactic step"
+      # show: "Activity tactic step: %{name}"
     backend/activity_tactics:
       # edit: "Edit activity tactic: %{name}"
       # index: "Activity tactics"
@@ -928,7 +933,6 @@ eng:
     choose_a_type_of_product: "Choose a type of product"
     choose_creation_mode: "Choose creation mode"
     choose_mail_column: "Choose email column"
-    # chronology: "Chronology"
     clear: "Clear"
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
@@ -1114,6 +1118,7 @@ eng:
     hint: "Hint: %{value}" #?
     historic: "Historic" #?
     home: "Home"
+    # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
     iban: "International Bank Account Number (IBAN)"
     identification: "Identification"

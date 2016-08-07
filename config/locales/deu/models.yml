@@ -935,6 +935,7 @@ deu:
     printed_on: "gedruckt auf"
     priority: "Priorität"
     probability_percentage: "Wahrscheinlichkeitsprozent"
+    # procedure_action: "Procedure action"
     procedure_name: "Prozedurname"
     producer: "Hersteller"
     product: "Produkt"

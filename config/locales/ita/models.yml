@@ -966,6 +966,7 @@ ita:
     printed_on: "stampato su"
     priority: "Priorità"
     probability_percentage: "percentuale di probabilità"
+    # procedure_action: "Procedure action"
     procedure_name: "nome procedura"
     producer: "Produttore"
     product: "Prodotto"

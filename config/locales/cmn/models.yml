@@ -935,6 +935,7 @@ cmn:
     printed_on: "印上"
     priority: "优先"
     probability_percentage: "概率百分比"
+    # procedure_action: "Procedure action"
     procedure_name: "程序名称"
     producer: "制片人"
     product: "产品"

@@ -173,7 +173,10 @@
 
   - c.cobble(:interventions) do
     = cobble_toolbar do |t|
-      = t.new(params: {controller: :interventions, production_support_id: resource.id})
+      - if resource.tactic
+        = t.new(params: { controller: :activity_tactics, action: :edit, id: resource.tactic.id })
+      = t.new(params: { controller: :interventions, production_support_id: resource.id })
+
     - if resource.interventions.any?
       = cobble_list(:interventions)
 

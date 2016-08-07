@@ -39,12 +39,15 @@ class ActivityTactic < Ekylibre::Record::Base
 
   belongs_to :activity, class_name: 'Activity', inverse_of: :tactics
   has_many :productions, class_name: 'ActivityProduction', inverse_of: :tactic, foreign_key: :tactic_id
+  has_many :tactic_steps, class_name: 'ActivityTacticStep', inverse_of: :tactic, foreign_key: :tactic_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :planned_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :mode_delta, numericality: { allow_nil: true, only_integer: true }
   validates :activity, :name, presence: true
   # ]VALIDATORS]
+
+  accepts_nested_attributes_for :tactic_steps, allow_destroy: true, reject_if: :all_blank
 
   protect(on: :destroy) do
     productions.any?

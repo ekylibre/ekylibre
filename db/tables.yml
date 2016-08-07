@@ -517,6 +517,39 @@ activity_seasons:
   updater_id:
     type: integer
     references: user
+activity_tactic_steps:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  procedure_action:
+    type: string
+    required: true
+  started_on:
+    type: date
+  stopped_on:
+    type: date
+  tactic_id:
+    type: integer
+    references: activity_tactic
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 activity_tactics:
   activity_id:
     type: integer

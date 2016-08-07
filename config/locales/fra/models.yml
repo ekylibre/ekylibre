@@ -1157,6 +1157,7 @@ fra:
     printed_on: "Daté du"
     priority: "Priorité"
     probability_percentage: "Pourcentage de probabilité"
+    # procedure_action: "Procedure action"
     procedure_name: "Nom de la procédure"
     procedures: "Procédures" #?
     process: "Process" #?

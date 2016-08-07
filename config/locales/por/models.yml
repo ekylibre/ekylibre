@@ -935,6 +935,7 @@ por:
     printed_on: "Impresso em"
     priority: "Prioridade"
     probability_percentage: "Percentual de probabilidade"
+    # procedure_action: "Procedure action"
     procedure_name: "Nome do procedimento"
     producer: "Produtor"
     product: "Produto"

@@ -1821,6 +1821,7 @@ arb:
     printed_on: "طبع يوم"
     priority: "أفضلية"
     probability_percentage: "نسبة احتمال"
+    # procedure_action: "Procedure action"
     procedure_name: "اسم الإجراء"
     producer: "المنتج"
     producer_id: "المنتج" #?

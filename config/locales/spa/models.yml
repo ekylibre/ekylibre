@@ -939,6 +939,7 @@ spa:
     printed_on: "Impreso en"
     priority: "Prioridad"
     probability_percentage: "Porcentaje de probabilidad"
+    # procedure_action: "Procedure action"
     procedure_name: "Nombre del procedimiento"
     producer: "Productor"
     product: "Producto"

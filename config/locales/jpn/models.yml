@@ -935,6 +935,7 @@ jpn:
     printed_on: "上の印刷"
     priority: "優先"
     probability_percentage: "確率パーセンテージ"
+    # procedure_action: "Procedure action"
     procedure_name: "プロシージャ名"
     producer: "プロデューサー"
     product: "製品"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729080926) do
+ActiveRecord::Schema.define(version: 20160805094418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,6 +274,25 @@ ActiveRecord::Schema.define(version: 20160729080926) do
   add_index "activity_seasons", ["creator_id"], name: "index_activity_seasons_on_creator_id", using: :btree
   add_index "activity_seasons", ["updated_at"], name: "index_activity_seasons_on_updated_at", using: :btree
   add_index "activity_seasons", ["updater_id"], name: "index_activity_seasons_on_updater_id", using: :btree
+
+  create_table "activity_tactic_steps", force: :cascade do |t|
+    t.integer  "tactic_id",                    null: false
+    t.string   "name",                         null: false
+    t.date     "started_on"
+    t.date     "stopped_on"
+    t.string   "procedure_action",             null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",     default: 0, null: false
+  end
+
+  add_index "activity_tactic_steps", ["created_at"], name: "index_activity_tactic_steps_on_created_at", using: :btree
+  add_index "activity_tactic_steps", ["creator_id"], name: "index_activity_tactic_steps_on_creator_id", using: :btree
+  add_index "activity_tactic_steps", ["tactic_id"], name: "index_activity_tactic_steps_on_tactic_id", using: :btree
+  add_index "activity_tactic_steps", ["updated_at"], name: "index_activity_tactic_steps_on_updated_at", using: :btree
+  add_index "activity_tactic_steps", ["updater_id"], name: "index_activity_tactic_steps_on_updater_id", using: :btree
 
   create_table "activity_tactics", force: :cascade do |t|
     t.integer  "activity_id",              null: false
