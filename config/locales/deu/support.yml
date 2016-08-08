@@ -182,4 +182,5 @@ deu:
       default: "%A, %d. %B %Y, %H:%M Uhr"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
+      time: "%H:%M"
     pm: "nachmittags"

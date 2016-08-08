@@ -106,4 +106,5 @@ eng:
       default: "%b. %d, %Y at %H:%M:%S"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+      time: "%H:%M"
     pm: "pm"

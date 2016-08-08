@@ -108,4 +108,5 @@ fra:
       default: "%d/%m/%Y %H:%M"
       long: "%A %d %B %Y à %H:%M"
       short: "%d %b %H:%M"
+      time: "%H:%M"
     pm: "pm"
