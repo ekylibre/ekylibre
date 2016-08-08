@@ -24,8 +24,10 @@ class golumn.Item
     @checked = ko.observable false
     @checked.subscribe (newValue) =>
       if newValue
+        @parent.protect = true
         app.selectedItemsIndex[@id] = @
       else
+        @parent.protect = false
         delete app.selectedItemsIndex[@id]
 
     return

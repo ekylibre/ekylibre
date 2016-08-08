@@ -93,6 +93,7 @@
               %span{data: {bind: 'text: name'} }
             = hidden_field_tag :animals_ids, nil, data: {bind: 'value: animals_ids'}
           .control-group{data: {bind: 'if: group' } }
+            = hidden_field_tag :group, nil, data: {bind: 'value: group.id()'}
             = label_tag(:group, 'enumerize.equipment.variety.animal_group'.t, class: 'control-label')
             .controls{data: {bind: 'text: group().name'}}
           .control-group

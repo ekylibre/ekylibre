@@ -62,7 +62,7 @@
         ko.utils.arrayForEach @groups(), (group) =>
           group.droppable state
           ko.utils.arrayForEach group.containers(), (container) =>
-            container.droppable state
+            container.droppable state unless container.protect
 
       @toggleAnimalDetailsModal = (animal) =>
         @animalDetailsModalOptions animal
