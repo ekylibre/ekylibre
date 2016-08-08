@@ -26,7 +26,7 @@
         url: beehive.data("beehive-reset-url")
         type: 'post'
         success: (data, status, request) ->
-          document.location.reload(true)
+          Turbolinks.visit()
 
     setSortable: (beehive) ->
       $.beehive.addCellProposers(beehive)
