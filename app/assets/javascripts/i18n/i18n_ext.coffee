@@ -4,19 +4,10 @@
 
   class I18nExt
 
-    isKeyExist: (key) ->
-      return I18n.isSet(key)
-
-    _getTranslation: (key) ->
-      translation = I18n.translate(key)
-      if ( Object.prototype.toString.call( translation ) == '[object Array]' )
-        return this._cleanArray(translation)
-      else
-        return translation
-
-
-
-    _getMonths: (key) ->
+    ###
+        Method for get the values of the months when the first value is blank.
+    ###
+    _sliceMonthList: (key) ->
         translation = I18n.translate(key)
         if ( Object.prototype.toString.call( translation ) == '[object Array]' )
           return translation[1..12]
@@ -44,31 +35,73 @@
       return I18n.translate('date.day_names')
 
     getMonthNames: ->
-      return this._getMonths('date.month_names')
+      return this._sliceMonthList('date.month_names')
 
     getAbbrDayNames: ->
       return I18n.translate('date.abbr_day_names')
 
     getAbbrMonthNames: ->
-      return this._getMonths('date.abbr_month_names')
+      return this._sliceMonthList('date.abbr_month_names')
+
+    getOrder: ->
+      return I18n.translate('date.order')
 
 
   class DateFormat extends I18nExt
 
-    getDefaultFormat: ->
+    default: ->
       return I18n.translate('date.formats.default')
 
-    getLegalFormat: ->
+    legal: ->
       return I18n.translate('date.formats.legal')
 
-    getLongFormat: ->
+    short: ->
+      return I18n.translate('date.formats.short')
+
+    long: ->
       return I18n.translate('date.formats.long')
 
+    month: ->
+      return I18n.translate('date.formats.month')
+
+    monthLetter: ->
+      return I18n.translate('date.formats.month_letter')
 
 
-  I18nExt = new I18nExt()
-  I18nExt.Dates = new Dates()
-  I18nExt.DateFormat = new DateFormat()
+  class Datetime extends I18nExt
+
+    am: ->
+      return I18n.translate('time.am')
+
+    pm: ->
+      return I18n.translate('time.pm')
+
+    periods: ->
+      return [this.am(), this.pm()]
+
+
+
+  class DatetimeFormat extends I18nExt
+
+    default: ->
+      return I18n.translate('time.formats.default')
+
+    long: ->
+      return I18n.translate('time.formats.long')
+
+    short: ->
+      return I18n.translate('time.formats.short')
+
+    time: ->
+      return I18n.translate('time.formats.time')
+
+
+
+  I18nExt.extend = new I18nExt()
+  I18nExt.extend.dates = new Dates()
+  I18nExt.extend.dateFormat = new DateFormat()
+  I18nExt.extend.datetime = new Datetime()
+  I18nExt.extend.datetimeFormat = new DatetimeFormat()
 
   $.extend(I18n, I18nExt)
 

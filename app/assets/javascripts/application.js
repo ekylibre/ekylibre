@@ -56,7 +56,9 @@
 //= require leaflet/easy-button
 //= require leaflet/modal
 //= require leaflet/label
-//= require timeline-chart
+//= require d3
+//= require d3-tip
+//= require timeline-chart/timeline-chart.js
 //= require rbush
 //= require autosize
 //= require plugins

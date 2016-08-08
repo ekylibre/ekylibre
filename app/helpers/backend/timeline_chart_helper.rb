@@ -1,5 +1,5 @@
-module Backend::HorizontalTimelineHelper
-  class HorizontalTimeline
+module Backend::TimelineChartHelper
+  class TimelineChart
 
     def initialize()
     end
@@ -13,6 +13,6 @@ module Backend::HorizontalTimelineHelper
     #  render partial: 'backend/shared/horizontal_timeline.html', locals: {}
     #end
 
-    render partial: 'backend/shared/horizontal_timeline.html', locals: {}
+    render partial: 'backend/shared/timeline_chart.html', locals: {}
   end
 end
