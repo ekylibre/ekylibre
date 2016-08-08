@@ -84,20 +84,21 @@
 
 
     = modal(:move_animal, data: {bind: 'modal: moveAnimalsModal.show(), with: moveAnimalsModal', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.resetMoveAnimalsModal'}}) do
-      .modal-body
-        .alert.alert-danger{data: {bind: 'visible: alert'}}= :missing_attributes.tl
-        %form.form-horizontal.v-spacer
+      = form_tag change_backend_animals_path, remote: true, class: 'form-horizontal v-spacer', data: {bind: 'submit: $root.moveAnimals', move_animals_updater: true} do
+        .modal-body
+          .alert.alert-danger{data: {bind: 'visible: alert.length > 0; text: alert'}}
           .control-group
             = label_tag(:moved, :move.ta, class: 'control-label')
             .controls{data: {bind: 'foreach: animals'}}
               %span{data: {bind: 'text: name'} }
+            = hidden_field_tag :animals_ids, nil, data: {bind: 'value: animals_ids'}
           .control-group{data: {bind: 'if: group' } }
             = label_tag(:group, 'enumerize.equipment.variety.animal_group'.t, class: 'control-label')
             .controls{data: {bind: 'text: group().name'}}
           .control-group
             = label_tag(:container, :container.tl, class: 'control-label')
             .controls
-              = text_field_tag :containers, nil, data: { selector: url_for(controller: 'backend/products', action: 'unroll', 'scope[availables][][at]': Time.zone.now, 'scope[of_expression]': 'can store(animal)'), bind: 'selector: container'}
+              = text_field_tag :container, nil, data: { selector: url_for(controller: 'backend/products', action: 'unroll', 'scope[availables][][at]': Time.zone.now, 'scope[of_expression]': 'can store(animal)'), bind: 'selector: container'}
           .control-group
             = label_tag(:started_at, Intervention.human_attribute_name(:started_at), class: 'control-label')
             .controls
@@ -107,22 +108,18 @@
             .controls
               = datetime_field_tag(:stopped_at, nil, data: { bind: 'value: stopped_at'})
           .control-group
-            = label_tag(:workers, 'procedure_parameters.caregiver'.t, class: 'control-label')
+            = label_tag(:worker, 'procedure_parameters.caregiver'.t, class: 'control-label')
             .controls
               = # TODO: set worker abilities
-              = text_field_tag :workers, nil, data: { selector: url_for(controller: 'backend/workers', action: 'unroll', 'scope[availables][][at]': Time.zone.now), bind: 'selector: worker'}
+              = text_field_tag :worker, nil, data: { selector: url_for(controller: 'backend/workers', action: 'unroll', 'scope[availables][][at]': Time.zone.now), bind: 'selector: worker'}
           .control-group
+            = label_tag(:variant, :new_nature.tl , class:'control-label')
             .controls
-              = check_box_tag(:check_nature,'1', false, {data: {bind: 'checked: checkNature'}})
-              = label_tag(:check_nature, :nature_changed.tl)
-          .control-group
-            = label_tag(:variants, :nature.tl , class:'control-label')
-            .controls
-              = text_field_tag :variants, nil, data: { selector: url_for(controller: 'backend/product_nature_variants', action: 'unroll', 'scope[availables]': true, 'scope[of_variety]': 'animal'), bind: 'enable: checkNature, selector: variant' }
-      .modal-footer
-        %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.moveAnimals'}}
-          %i.icon.icon-plus
-          = :move.ta
+              = text_field_tag :variant, nil, data: { selector: url_for(controller: 'backend/product_nature_variants', action: 'unroll', 'scope[availables]': true, 'scope[of_variety]': 'animal'), bind: 'selector: variant' }
+        .modal-footer
+          %button.btn.btn-default{type: 'submit'}
+            %i.icon.icon-plus
+            = :move.ta
 
 
     = modal(:animal_details, data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelAnimalDetails'}}) do

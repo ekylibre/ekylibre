@@ -16,7 +16,7 @@
 
       @moveAnimalsModal =
         show: ko.observable false
-        container: ko.observable new G.Container(undefined, undefined, [], undefined, true)
+        container: ko.observable new G.Container(undefined, undefined, [], undefined)
         animals: ko.observableArray []
         started_at: ko.observable ''
         stopped_at: ko.observable ''
@@ -27,12 +27,11 @@
           id: ko.observable undefined
           name: undefined
         group: ko.observable undefined
-        alert: ko.observable false
-        checkNature: ko.observable false
-
-      @moveAnimalsModal.checkNature.subscribe (value) =>
-        if value != 1
-          @moveAnimalsModal.variant undefined
+        alert: ko.observable undefined
+        animals_ids: ko.pureComputed () =>
+          ko.utils.arrayMap @moveAnimalsModal.animals(), (a) =>
+            a.id
+          .join(',')
 
       @showAnimalDetailsModal = ko.observable false
       @showNewGroupModal = ko.observable false
@@ -87,68 +86,45 @@
           @moveAnimalsModal.animals.push item
 
 
+
         @moveAnimalsModal.show(true)
 
 
       @moveAnimals = () =>
 
-#        console.log @moveAnimalsModal.worker, @moveAnimalsModal.variant
-        animals_id = ko.utils.arrayMap @moveAnimalModalOptions.animals(), (a) =>
-          return a.id
+        #if its a new container
+        if @moveAnimalsModal.container().parent is undefined
 
-        if animals_id.length > 0 and @moveAnimalModalOptions.container() != undefined and @moveAnimalModalOptions.group() != undefined and @moveAnimalModalOptions.worker() != undefined and @moveAnimalModalOptions.started_at() != '' and @moveAnimalModalOptions.stopped_at() != ''
+          @moveAnimalsModal.container().parent = @moveAnimalsModal.group()
+          @moveAnimalsModal.group().containers.push @moveAnimalsModal.container()
 
-          data =
-            animals_id: animals_id.join(',')
-            container_id: @moveAnimalModalOptions.container().id
-            worker_id: @moveAnimalModalOptions.worker().id
-            started_at: @moveAnimalModalOptions.started_at()
-            stopped_at: @moveAnimalModalOptions.stopped_at()
+        $("[data-move-animals-updater]")
 
-          if @moveAnimalModalOptions.group().id != @moveAnimalModalOptions.animals()[0].group_id()
-            data['group_id'] = @moveAnimalModalOptions.group().id
+        .on 'ajax:success', (data, status, xhr) =>
+          ko.utils.arrayForEach @moveAnimalsModal.animals(), (animal) =>
+            @moveAnimalsModal.show false
 
-          if @moveAnimalModalOptions.variant()
-             data['variant_id'] =  @moveAnimalModalOptions.variant().id
+            oldContainer = animal.parent
 
+            newContainer = @moveAnimalsModal.container()
+            animal.parent = newContainer
+            animal.checked false
+            newContainer.items.push animal
 
-          $.ajax '/backend/animals/change',
-            type: 'PUT',
-  #          type: 'GET',
-            dataType: 'JSON',
-            data: data,
-            success: (res) =>
-              @showMoveAnimalModal false
+            oldContainer.items.remove(animal)
 
-              # maj
-              ko.utils.arrayForEach @moveAnimalModalOptions.animals(), (a) =>
-                 id = a.id
-                 name = a.name
-                 img = a.img
-                 status = a.status
-                 sex = a.sex
-                 num = a.number_id
-                 @animals.remove a
-                 @animals.push new golumn.Animal(id, name, img, status, sex, num, @moveAnimalModalOptions.container().id, @moveAnimalModalOptions.group().id)
+            @resetMoveAnimalsModal()
 
 
-              @resetMoveAnimalsModal()
+        .on 'ajax:error', (xhr, status, error) =>
+          console.log 'error', xhr, status, error
+          @moveAnimalsModal.alert error
 
-
-              return true
-
-            error: (res) =>
-              @showMoveAnimalModal false
-              alert res.statusText
-              @cancelAnimalsMoving()
-              return false
-        else
-          @moveAnimalModalOptions.alert true
 
       @resetMoveAnimalsModal = () =>
 
         @moveAnimalsModal.show false
-        @moveAnimalsModal.container new G.Container(undefined, undefined, [], undefined, true)
+        @moveAnimalsModal.container new G.Container(undefined, undefined, [], undefined)
         @moveAnimalsModal.animals.removeAll()
         @moveAnimalsModal.started_at ''
         @moveAnimalsModal.stopped_at ''
@@ -157,8 +133,7 @@
         @moveAnimalsModal.worker().id undefined
         @moveAnimalsModal.worker().name = undefined
         @moveAnimalsModal.group undefined
-        @moveAnimalsModal.alert false
-        @moveAnimalsModal.checkNature false
+        @moveAnimalsModal.alert undefined
 
 
       @resetSelectedItems = () =>
@@ -167,34 +142,6 @@
 
         @selectedItemsIndex = {}
 
-
-      @updatePreferences = () =>
-
-        data = []
-
-        ko.utils.arrayForEach @groups(), (g) =>
-          group = {id: g.id, containers: []}
-          curContainers = ko.utils.arrayFilter @containers(), (c) =>
-            c.group_id() == g.id
-
-          containers = ko.utils.arrayMap curContainers, (c) =>
-            {id: c.id, position: c.position()}
-
-          containers = containers.sort (a,b)->
-            if a.position > b.position
-              return 1
-            else
-              return -1
-
-          ko.utils.arrayForEach containers, (item) ->
-            group.containers.push item.id
-          data.push group
-
-        $.ajax
-          url: "/backend/golumns/#{@id}"
-          type: 'PATCH'
-          data:
-            positions: data
 
       @showAddGroup = (item) =>
         return item() == @groups().length-1
@@ -232,16 +179,21 @@
         element.removeClass("loading")
         return
       success: (json_data) ->
-        groups = ko.utils.arrayMap json_data, (group) =>
+        groups = ko.utils.arrayMap json_data, (jGroup) =>
 
-          places = ko.utils.arrayMap group.places, (place) =>
+          group = new G.Group(jGroup.id, jGroup.name, [])
 
-            animals = ko.utils.arrayMap place.animals, (animal) =>
-              new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number, place)
+          places = ko.utils.arrayMap jGroup.places, (jPlace) =>
 
-            new G.Container(place.id, place.name, ko.observableArray(animals), group)
+            container = new G.Container(jPlace.id, jPlace.name, [], group)
 
-          new G.Group(group.id, group.name, ko.observableArray(places))
+            animals = ko.utils.arrayMap jPlace.animals, (animal) =>
+              new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number, container)
+
+            container.items animals
+            container
+
+          group.containers places
 
         window.app.groups = ko.observableArray(groups)
 

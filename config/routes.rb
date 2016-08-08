@@ -222,7 +222,7 @@ Rails.application.routes.draw do
       collection do
         # add routes for frontend animals column view
         match 'load_animals', via: [:get]
-        put :change
+        post :change
         put :add_group
       end
       member do
