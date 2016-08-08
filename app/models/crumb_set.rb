@@ -42,14 +42,22 @@ class CrumbSet
       Rails.logger.warn 'Unknown procedure nature: No points, so no start point...'
     end
     @started_at = @start.read_at
-    @stopped_at = @crumbs.last.read_at
+    @stopped_at = stop.read_at
     @user = @start.user
     @device_uid = @start.device_uid
     @intervention_parameter = @start.intervention_parameter
   end
 
+  def stop
+    @crumbs.last
+  end
+
   def human_name
     :intervention_at.tl(intervention: procedure_name, at: @start.read_at.l)
+  end
+
+  def size
+    @crumbs.count
   end
 
   def id
@@ -115,6 +123,10 @@ class CrumbSet
       @working_zone = line.buffer(@working_width)
     end
     @working_zone
+  end
+
+  def ==(other)
+    @start == other.start
   end
 
   protected

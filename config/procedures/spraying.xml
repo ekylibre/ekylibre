@@ -21,7 +21,7 @@
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
       </input>
       <tool name="sprayer" filter="can spray"/>
-      <tool name="tractor" filter="is equipment and can catch(sprayer)" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can catch(equipment)" cardinality="*"/>
       <doer name="driver"  filter="can drive(tractor) and can move"/>
     </parameters>
   </procedure>

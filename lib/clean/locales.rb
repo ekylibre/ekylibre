@@ -461,7 +461,7 @@ module Clean
                 trl[:properties] = "      property_natures:\n"
                 nomenclature.property_natures.sort { |a, b| a.first.to_s <=> b.first.to_s }.each do |name, property_nature|
                   trl[:properties] << s.exp(ref, nomenclature.name, :property_natures, name.to_sym).dig(4)
-                  if property_nature.type == :choice
+                  if property_nature.type == :choice || property_nature.type == :choice_list
                     if property_nature.inline_choices?
                       choices << "#{name}:\n"
                       property_nature.choices.sort { |a, b| a.to_s <=> b.to_s }.each do |choice|

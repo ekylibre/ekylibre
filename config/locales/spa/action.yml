@@ -426,6 +426,7 @@ spa:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Editar la localización del producto:"
+      # new: "New product localization"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorías de Producto"
@@ -743,7 +744,7 @@ spa:
     # add_season: "Add season"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Añadir soporte"
-    # add_tactic: "Add crop management Technique"
+    # add_tactic: "Add cropping technique"
     add_tool: "Añadir herramienta"
     add_website: "Añadir página web"
     add_working_period: "Añadir working_period"
@@ -924,7 +925,6 @@ spa:
     custom_fields: "Campos Personalizados"
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
-    # date: "Date"
     dates: "Marcar las fechas de empezo y termino por los periodos"
     # days: "Days"
     deals: "Ofertas"
@@ -1265,8 +1265,10 @@ spa:
       # zero: "Make a deposit %{mode}: no available payments"
     new_email: "Nuevo Email"
     new_group: "Nuevo grupo"
+    new_incoming_parcel: "Nueva parcela entrante"
     new_issue: "Nueva edición"
     new_organization: "Nueva organización"
+    new_outgoing_parcel: "Nueva parcela saliente"
     new_production: "Nueva producción"
     # new_production_of_activity: "New production of %{activity}"
     new_quote: "Nueva cita"
@@ -1950,6 +1952,7 @@ spa:
       # bookkeep: "Bookkeep"
       cancel: "Cancelar"
       category: "Categoría" #?
+      check: "Comprobar"
       children: "Niños" #?
       close: "Cerca"
       compute: "Calcular"
@@ -1973,6 +1976,7 @@ spa:
       family: "Familia"
       finish: "Acabado"
       generate_last_journal_entry: "Generar última entrada en el diario"
+      give: "Dar"
       import: "Importar"
       incorporate: "Incorporar"
       increment: "Incremento" #?
@@ -1989,8 +1993,10 @@ spa:
       negociate: "Negociate"
       new: "Nuevo"
       open: "Abierto"
+      order: "Orden"
       pick: "Recoger"
       picture: "Imagen"
+      prepare: "Preparar"
       propose: "Proponer"
       propose_and_invoice: "Proponer y factura"
       prospect: "Perspectiva"

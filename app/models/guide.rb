@@ -50,10 +50,12 @@ class Guide < Ekylibre::Record::Base
   has_attached_file :reference_source, path: ':tenant/:class/:id/source.xml'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :reference_source_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :reference_source_file_size, numericality: { allow_nil: true, only_integer: true }
   validates :active, :external, inclusion: { in: [true, false] }
-  validates :frequency, :name, :nature, presence: true
+  validates :frequency, :nature, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :reference_source_content_type, :reference_source_file_name, length: { maximum: 500 }, allow_blank: true
+  validates :reference_source_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :reference_source_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   # ]VALIDATORS]
   validates :nature, inclusion: { in: nature.values }
   validates :frequency, inclusion: { in: frequency.values }

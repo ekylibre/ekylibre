@@ -367,8 +367,7 @@ module Backend
     end
 
     def chronology_period(margin, width, background_color, url_options = {}, html_options = {})
-
-      direction = if reading_ltr? then "left" else "right" end
+      direction = reading_ltr? ? 'left' : 'right'
       period_margin = 100 * margin.round(6)
       period_width = 100 * width.round(6)
 
@@ -390,12 +389,11 @@ module Backend
     end
 
     def chronology_period_icon(positioned_at, picto_class, html_options = {})
-
-      style = ""
+      style = ''
 
       if positioned_at != 'initial'
 
-        direction = if reading_ltr? then "left" else "right" end
+        direction = reading_ltr? ? 'left' : 'right'
         period_icon_margin = 100 * positioned_at.round(6)
         style = "#{direction}: #{period_icon_margin}%;"
       end

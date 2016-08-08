@@ -69,9 +69,9 @@
 
   - c.cobble(:places) do
     = cobble_toolbar do |t|
-      .toolbar
-        = tool_to :new.ta, {action: :new, controller: :product_localizations, product_id: resource.id }, tool: :new
-      = cobble_list(:places)
+      = tool_to :new.ta, {action: :new, controller: :product_localizations, product_id: resource.id }, tool: :new
+    = cobble_list(:places)
+
   = render partial: 'backend/shared/distributions', locals: {c: c}
 
   -# c.cobble(:groups) do

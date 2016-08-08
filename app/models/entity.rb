@@ -132,10 +132,13 @@ class Entity < Ekylibre::Record::Base
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :picture_file_size, numericality: { allow_nil: true, only_integer: true }
   validates :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
-  validates :currency, :full_name, :language, :last_name, :nature, presence: true
+  validates :activity_code, :deliveries_conditions, :first_name, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
+  validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :currency, :language, :nature, presence: true
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :full_name, :last_name, presence: true, length: { maximum: 500 }
+  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   # ]VALIDATORS]
   validates :country, length: { allow_nil: true, maximum: 2 }
   validates :language, length: { allow_nil: true, maximum: 3 }

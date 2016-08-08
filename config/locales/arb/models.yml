@@ -18,9 +18,7 @@ arb:
         expenses_amount: "مبلغ النفقات"
         revenues_amount: "مبلغ الإيرادات"
       activity_tactic:
-        # bulk_quantity: "forecast volume"
         # mode: "Planning type"
-        # plan_on: "Date"
       animal_group:
         born_at: "أنشئت في"
       area:  #?
@@ -328,6 +326,8 @@ arb:
         updater_id: "التعديل" #?
       parameter:  #?
         updated_at: "تم تحديثها في" #?
+      parcel_item:
+        population: "كمية"
       plant:
         born_at: "زرعت في"
       postal_zone:  #?
@@ -750,7 +750,8 @@ arb:
       activity_inspection_calibration_scale: "عيار"
       activity_inspection_point_nature: "النشاط الاختيار الدرجات"
       activity_production: "دعم الإنتاج"
-      # activity_season: "Seasonality"
+      # activity_season: "Activity season"
+      # activity_tactic: "Activity cropping technique"
       affair: "قضية"
       analysis: "تحليل"
       analysis_item: "البند تحليل"
@@ -759,6 +760,7 @@ arb:
       area: "المنطقة البريدية" #?
       attachment: "مرفق"
       bank_statement: "بيان الحساب المصرفي"
+      bank_statement_item: "الصف بيان البنك"
       bioproduct: "المنتج تعيش"
       building: "موقع التخزين"
       building_division: "غرفة / المنطقة"
@@ -811,7 +813,6 @@ arb:
       gap: "فراغ"
       gap_item: "البند الفجوة"
       # georeading: "Georeading"
-      grading_quality_criterion: "معيار جودة الدرجات"
       guide: "دليل"
       guide_analysis: "تحليل دليل"
       guide_analysis_point: "نقطة تحليل دليل"
@@ -974,7 +975,6 @@ arb:
     activity_grading_check: "النشاط الاختيار الدرجات"
     activity_production: "إنتاج النشاط"
     activity_productions: "إنتاجات آخر"
-    # activity_season: "Seasonality"
     actor: "الممثل"
     actual_number: "الرقم الحالي"
     actual_population: "عدد السكان الفعلي"
@@ -1821,6 +1821,7 @@ arb:
     printed_on: "طبع يوم"
     priority: "أفضلية"
     probability_percentage: "نسبة احتمال"
+    # procedure_action: "Procedure action"
     procedure_name: "اسم الإجراء"
     producer: "المنتج"
     producer_id: "المنتج" #?
@@ -1843,6 +1844,7 @@ arb:
     product_nature_categories: "فئات نوع المنتج"
     product_nature_category: "فئة نوع المنتج"
     product_nature_category_taxations: "الأنظمة الضريبية فئة نوع المنتج"
+    product_natures: "أنواع المنتجات"
     product_ownership: "ملكية المنتج"
     product_ownerships: "الملكيات المنتج"
     product_parameters: "المنتج المعلمات"
@@ -2112,8 +2114,8 @@ arb:
     suspended: "معطل"
     symbol: "نموذج" #?
     symmetric: "متساو" #?
-    # tactic: "Crop management Technique"
-    # tactics: "Tactics"
+    # tactic: "Cropping technique"
+    # tactics: "Cropping techniques"
     target: "الهدف"
     target_id: "الهدف" #?
     target_type: "نوع الهدف"
@@ -2198,8 +2200,8 @@ arb:
     use_grading_calibre: "استخدام عيار الدرجات"
     use_gradings: "استخدام الى التصنيف"
     use_range: "استخدام الكمية الفاصلة" #?
-    # use_seasons: "Use Seasonalities"
-    # use_tactics: "Use crop management Technique"
+    # use_seasons: "Use seasonalities"
+    # use_tactics: "Use cropping techniques"
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
     useful_items: "المواد المفيدة"

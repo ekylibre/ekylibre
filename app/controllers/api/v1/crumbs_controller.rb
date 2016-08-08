@@ -37,7 +37,7 @@ module Api
       protected
 
       def permitted_params
-        params.permit(:nature, :geolocation, :read_at, :accuracy, :device_uid, metadata: [:procedure_nature, :name, :scanned_code, :quantity, :unit])
+        super.permit(:nature, :geolocation, :read_at, :accuracy, :device_uid, metadata: [:procedure_nature, :name, :scanned_code, :quantity, :unit])
       end
     end
   end

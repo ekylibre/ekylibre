@@ -73,12 +73,13 @@ class ActivityProduction < Ekylibre::Record::Base
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(activity_production) { activity_production.stopped_on && activity_production.started_on }
-  validates :rank_number, numericality: { allow_nil: true, only_integer: true }
-  validates :size_value, numericality: { allow_nil: true }
   validates :irrigated, :nitrate_fixing, inclusion: { in: [true, false] }
-  validates :activity, :rank_number, :size_indicator_name, :size_value, :support, :usage, presence: true
+  validates :rank_number, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :activity, :size_indicator_name, :support, :usage, presence: true
+  validates :size_value, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :started_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :state, length: { maximum: 500 }, allow_blank: true
+  validates :stopped_on, timeliness: { on_or_after: ->(activity_production) { activity_production.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
   # ]VALIDATORS]
   validates :rank_number, uniqueness: { scope: :activity_id }
   validates :started_on, presence: true
@@ -93,7 +94,7 @@ class ActivityProduction < Ekylibre::Record::Base
   # delegate :shape, :shape_to_ewkt, :shape_svg, :net_surface_area, :shape_area, to: :support
   delegate :name, :size_indicator_name, :size_unit_name, to: :activity, prefix: true
   delegate :animal_farming?, :plant_farming?,
-           :at_cycle_start?, :at_cycle_end?,
+           :at_cycle_start?, :at_cycle_end?, :use_seasons?, :use_tactics?,
            :with_cultivation, :cultivation_variety, :with_supports, :support_variety,
            :color, :annual?, :perennial?, to: :activity
 
@@ -271,22 +272,21 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def interventions_by_weeks
-      interventions_by_week = {}
+    interventions_by_week = {}
 
-      self.interventions.each do |intervention|
+    interventions.each do |intervention|
+      week_number = intervention.started_at.to_date.cweek
 
-          week_number = intervention.started_at.to_date.cweek
-
-          list = []
-          unless interventions_by_week[week_number].nil?
-            list = interventions_by_week[week_number]
-          end
-
-          list << intervention
-          interventions_by_week[week_number] = list
+      list = []
+      unless interventions_by_week[week_number].nil?
+        list = interventions_by_week[week_number]
       end
 
-      interventions_by_week
+      list << intervention
+      interventions_by_week[week_number] = list
+    end
+
+    interventions_by_week
   end
 
   def campaigns

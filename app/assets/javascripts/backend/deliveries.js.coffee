@@ -9,15 +9,6 @@
         $("#delivery-mode-#{$(this).val()}").hide()
       $("#delivery-mode-#{input.val()}").show()
 
-  $(document).behave "load click", "form label input[name='parcel[nature]']", ->
-    input = $(this)
-    if input.is(':checked')
-      form = input.closest('form')
-      form.find("input[name='parcel[nature]']").each ->
-        $("#nature-#{$(this).val()}").hide()
-      $("#nature-#{input.val()}").show()
-
-
   $(document).behave "load click", "form label input[name='delivery[mode]']", ->
     input = $(this)
     if input.is(':checked')
@@ -53,7 +44,7 @@
             pop.attr('placeholder', data.population)
           else
             total.html('&ndash;')
-            pop.removeAttr('placeholder')
+            pop.attr('placeholder', '0')
           pop.attr('min', 0)
           pop.attr('max', data.population)
           if data.population_counting is 'unitary'

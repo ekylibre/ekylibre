@@ -79,10 +79,14 @@ class Affair < Ekylibre::Record::Base
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
   has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :closed_at, :dead_line_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :credit, :debit, :pretax_amount, :probability_percentage, numericality: { allow_nil: true }
+  validates :accounted_at, :closed_at, :dead_line_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :closed, inclusion: { in: [true, false] }
-  validates :credit, :currency, :debit, :number, :third, :third_role, presence: true
+  validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :currency, :third, :third_role, presence: true
+  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :pretax_amount, :probability_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   # validates_inclusion_of :third_role, in: self.third_role.values

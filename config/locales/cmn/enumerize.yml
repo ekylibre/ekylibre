@@ -97,10 +97,6 @@ cmn:
         line: "线"
         point: "点"
         polygon: "多边形"
-    grading_quality_criterion:
-      nature:
-        disease_presence: "疾病的存在"
-        waste: "浪费"
     guide_analysis:
       status:
         errored: "误码"

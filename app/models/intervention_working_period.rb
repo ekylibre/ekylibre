@@ -38,10 +38,10 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   include PeriodicCalculable
   belongs_to :intervention
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(intervention_working_period) { intervention_working_period.stopped_at && intervention_working_period.started_at }
-  validates :duration, numericality: { allow_nil: true, only_integer: true }
-  validates :duration, :intervention, :started_at, :stopped_at, presence: true
+  validates :duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :stopped_at, presence: true, timeliness: { on_or_after: ->(intervention_working_period) { intervention_working_period.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :intervention, presence: true
   # ]VALIDATORS]
 
   calculable period: :month, column: :duration, at: :started_at, name: :sum

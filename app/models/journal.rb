@@ -46,9 +46,10 @@ class Journal < Ekylibre::Record::Base
   has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
   enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :closed_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :code, :currency, :name, presence: true, length: { maximum: 500 }
+  validates :nature, presence: true
   validates :used_for_affairs, :used_for_gaps, inclusion: { in: [true, false] }
-  validates :closed_on, :code, :currency, :name, :nature, presence: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :code, length: { allow_nil: true, maximum: 4 }
