@@ -7,6 +7,6 @@
   = f.input :by_default
   = f.input :formats, :placeholder => 'pdf,odt,...'
   - unless @document_template.managed?
-    = f.input :language, :collection => languages
+    = f.input :language
     = f.input :source, as: :file
   = f.custom_fields

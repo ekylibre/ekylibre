@@ -1,6 +1,6 @@
 = field_set do
   = f.input :name
-  = f.input :currency, collection: currencies
+  = f.input :currency
   = f.input :nature, show: '.{{value}}-options', as: :radio_buttons
   .associate_account-options
     = f.referenced_association :owner
@@ -17,7 +17,7 @@
     = f.input :bank_identifier_code
 
   = field_set(:bban) do
-    = f.input :country, collection: countries
+    = f.input :country
     = f.input :bank_code
     = f.input :bank_agency_code
     = f.input :bank_account_number

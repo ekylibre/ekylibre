@@ -8,4 +8,4 @@
   = f.input(:mail_line_4, wrapper_html: {id: 'mail-line-4-field'})
   = f.input(:mail_line_5, wrapper_html: {id: 'mail-line-5-field'})
   = f.input(:mail_line_6, autocomplete: { controller: :postal_zones, column: :name }, wrapper_html: {id: 'mail-line-6-field'})
-  = f.input(:mail_country, :collection => countries, wrapper_html: {id: 'mail-country-field'})
+  = f.input(:mail_country, wrapper_html: {id: 'mail-country-field'})

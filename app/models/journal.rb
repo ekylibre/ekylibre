@@ -41,6 +41,7 @@
 class Journal < Ekylibre::Record::Base
   include Customizable
   attr_readonly :currency
+  refers_to :currency
   has_many :cashes, dependent: :restrict_with_exception
   has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal, dependent: :destroy
   has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
