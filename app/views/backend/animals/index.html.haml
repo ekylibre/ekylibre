@@ -91,12 +91,13 @@
             = label_tag(:moved, :move.ta, class: 'control-label')
             .controls{data: {bind: 'foreach: animals'}}
               %span{data: {bind: 'text: name'} }
-          .control-group{data: {bind: 'if: container() && container().parent' } }
+          .control-group{data: {bind: 'if: group' } }
             = label_tag(:group, 'enumerize.equipment.variety.animal_group'.t, class: 'control-label')
-            .controls{data: {bind: 'text: container().parent.name'}}
-          .control-group{data: {bind: 'if: container' } }
+            .controls{data: {bind: 'text: group().name'}}
+          .control-group
             = label_tag(:container, :container.tl, class: 'control-label')
-            .controls{data: {bind: 'text: container().name'}}
+            .controls
+              = text_field_tag :containers, nil, data: { selector: url_for(controller: 'backend/products', action: 'unroll', 'scope[availables][][at]': Time.zone.now, 'scope[of_expression]': 'can store(animal)'), bind: 'selector: container'}
           .control-group
             = label_tag(:started_at, Intervention.human_attribute_name(:started_at), class: 'control-label')
             .controls
@@ -122,20 +123,6 @@
         %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.moveAnimals'}}
           %i.icon.icon-plus
           = :move.ta
-
-
-    = modal(:new_container, data: {bind: 'modal: newContainerModal.show(), with: newContainerModal', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.resetNewContainerModal'}}) do
-      .modal-body
-        %div{data: { bind: 'if: group' }}
-          %span{data: {bind: 'text: group().name'}}
-
-        = label_tag(:containers, :new_container.tl, class: 'control-label')
-        = text_field_tag :containers, nil, data: { selector: url_for(controller: 'backend/products', action: 'unroll', 'scope[availables][][at]': Time.zone.now, 'scope[of_expression]': 'can store(animal)'), bind: 'selector: container'}
-        %span{data: {bind: 'text: container.id()'}}
-      .modal-footer
-        %button.btn.btn-default{type: 'button', data: {bind: 'click: $root.addContainer'}}
-          %i.icon.icon-plus
-          = :add.tl
 
 
     = modal(:animal_details, data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelAnimalDetails'}}) do

@@ -42,12 +42,20 @@
   ko.bindingHandlers.selector =
     init: (element, valueAccessor) ->
       $el = $(element)
-      $el.on 'selector:change', ->
-        valueAccessor().id $("input[name=#{$el.attr('id')}]").val()
-        valueAccessor().name $el.val()
+      value = ko.utils.unwrapObservable(valueAccessor())
 
     update: (element, valueAccessor) ->
-      return
+      $el = $(element)
+      value = ko.utils.unwrapObservable(valueAccessor())
+      return if value is undefined
+      if value.id() is undefined
+        $el.selector('clear')
+      else
+        $el.selector('value', value.id())
+
+      $el.one 'selector:change', ->
+        value.id $("input[name=#{$el.attr('id')}]").val()
+        value.name =  $el.val()
 
 
 ) ko, jQuery

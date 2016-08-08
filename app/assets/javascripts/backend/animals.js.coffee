@@ -14,26 +14,18 @@
 
       @selectedItemsIndex = {}
 
-      @newContainerModal =
-        show: ko.observable false
-        group: ko.observable false
-        container:
-          id: ko.observable undefined
-          name: ko.observable undefined
-
-
       @moveAnimalsModal =
         show: ko.observable false
-        container: ko.observable false
+        container: ko.observable new G.Container(undefined, undefined, [], undefined, true)
         animals: ko.observableArray []
         started_at: ko.observable ''
         stopped_at: ko.observable ''
-        worker:
+        worker: ko.observable
           id: ko.observable undefined
-          name: ko.observable undefined
-        variant:
+          name: undefined
+        variant: ko.observable
           id: ko.observable undefined
-          name: ko.observable undefined
+          name: undefined
         group: ko.observable undefined
         alert: ko.observable false
         checkNature: ko.observable false
@@ -59,15 +51,6 @@
       @cancelNewGroup = () =>
         @showNewGroupModal false
 
-      @addContainer = =>
-        group = @newContainerModal.group()
-        newContainer = new G.Container(@newContainerModal.container.id(), @newContainerModal.container.name(), ko.observableArray([]), group)
-        group.containers.push newContainer
-
-        @resetNewContainerModal()
-        @toggleMoveAnimalModal(newContainer)
-
-
       @groups = ko.observableArray []
       @containers = ko.observableArray []
       @animals = ko.observableArray []
@@ -91,14 +74,11 @@
         @showNewGroupModal true
         return
 
-      @toggleNewContainerModal = (group) =>
-        @newContainerModal.show(true)
-        @newContainerModal.group(group)
-        #Be sure only one modal is displayed
-        @moveAnimalsModal.show(false)
+      @toggleMoveAnimalModal = (container, group) =>
 
-      @toggleMoveAnimalModal = (container) =>
-        @moveAnimalsModal.container(container)
+        @moveAnimalsModal.group(group) unless group is undefined
+        @moveAnimalsModal.container(container) unless container is undefined
+
         @moveAnimalsModal.started_at(new Date().toISOString())
         @moveAnimalsModal.stopped_at(new Date().toISOString())
 
@@ -168,24 +148,17 @@
       @resetMoveAnimalsModal = () =>
 
         @moveAnimalsModal.show false
-        @moveAnimalsModal.container false
+        @moveAnimalsModal.container new G.Container(undefined, undefined, [], undefined, true)
         @moveAnimalsModal.animals.removeAll()
         @moveAnimalsModal.started_at ''
         @moveAnimalsModal.stopped_at ''
-        @moveAnimalsModal.worker.id undefined
-        @moveAnimalsModal.worker.name undefined
-        @moveAnimalsModal.variant.id undefined
-        @moveAnimalsModal.variant.name undefined
+        @moveAnimalsModal.variant().id undefined
+        @moveAnimalsModal.variant().name = undefined
+        @moveAnimalsModal.worker().id undefined
+        @moveAnimalsModal.worker().name = undefined
         @moveAnimalsModal.group undefined
         @moveAnimalsModal.alert false
         @moveAnimalsModal.checkNature false
-
-
-      @resetNewContainerModal = () =>
-        @newContainerModal.show false
-        @newContainerModal.group false
-        @newContainerModal.container.id undefined
-        @newContainerModal.container.name undefined
 
 
       @resetSelectedItems = () =>

@@ -32,13 +32,14 @@
 
             if target
 
-              if target.constructor.name is 'Group'
-                #dropped on empty dropzone
-                app.toggleNewContainerModal target
+              container = undefined
+              group = target
 
-              else if target.constructor.name is 'Container'
-                #on existing container
-                app.toggleMoveAnimalModal target
+              if target.constructor.name is 'Container'
+                container = target
+                group = target.parent
+
+              app.toggleMoveAnimalModal container, group
 
               return
 
