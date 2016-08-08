@@ -355,6 +355,7 @@ eng:
     # archive_file_size: "Archive file size"
     # archive_updated_at: "Archive updated at"
     archiving: "Archiving"
+    assembly: "Assembly"
     attachments: "Attachments"
     attribute_name: "Attribute name"
     # attribution: "Attribution"

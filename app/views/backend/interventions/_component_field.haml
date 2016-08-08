@@ -1,10 +1,21 @@
-- target = Maybe(f.object).group.targets.first
-- schematic_id = target.product.variant.id.or_else("nil")
+= f.referenced_association :assembly, as: :hidden
 = f.referenced_association :schematic, as: :hidden
 
 :ruby
-  source_attr = { scope: { components_of: schematic_id }, keep: true }
-  data = { intervention_updater: prefix + 'component_id' }
-  input_attr = { class: "scoped-parameter", data: data }
-  options = { source: source_attr, input_html: input_attr, new: false }
+  options = {
+    new: false,
+    source: {
+      keep: true,
+      scope: {
+        components_of: f.object.schematic_id
+      }
+    },
+    input_html: {
+      class: "scoped-parameter",
+      data: {
+        intervention_updater: prefix + 'component_id'
+      }
+    }
+  }
+
 = f.referenced_association :component, options

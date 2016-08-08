@@ -350,6 +350,7 @@ deu:
     annotation: "Anmerkung"
     archive: "archivieren"
     archiving: "Archivierung"
+    # assembly: "Assembly"
     attachments: "Zubehör"
     attribute_name: "Attributname"
     authentication_token: "Authentifizierungstoken"

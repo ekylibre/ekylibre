@@ -7,10 +7,11 @@ module Procedo
     # outputs and tools in procedure.
     class ProductParameter < Procedo::Procedure::Parameter
       include Codeable
-      attr_reader :filter, :birth_nature, :derivative_of, :default_name,
+      attr_reader :filter, :birth_nature, :default_name, :new_value,
                   :destinations, :default_actor, :default_variant,
-                  :procedure, :producer_name, :roles, :type, :value,
-                  :variety, :new_value
+                  :procedure, :producer_name, :roles, :type, :value
+
+      attr_accessor :variety, :derivative_of
 
       TYPES = [:target, :tool, :doer, :input, :output].freeze
 
@@ -27,7 +28,13 @@ module Procedo
           # # Check filter syntax
           # WorkingSet.parse(@filter)
         end
-        self.component_of = options[:output][:component_of]
+        if output?
+          self.variety = options[:variety]
+          self.derivative_of = options[:derivative_of]
+        end
+        if input? && options[:component_of]
+          self.component_of = options[:component_of]
+        end
         @handlers = {}
         @attributes = {}
         @readings = {}
@@ -139,6 +146,14 @@ module Procedo
         end
       end
 
+      # Return parameters where component-of dependent on current parameter
+      def components
+        procedure.product_parameters(true).select do |p|
+          next unless p.component_of?
+          p.component_of? && p.component_of_with_parameter?(name)
+        end
+      end
+
       def producer
         @producer ||= @procedure.parameters[@producer_name]
       end
@@ -244,13 +259,12 @@ module Procedo
         end
       end
 
-      def depend_on?(parameter)
-        return false if parameter.name == name
-        attr_dependent = @attributes.values.any? { |a| a.depend_on? parameter.name }
-        read_dependent = @readings.values.any? { |r| r.depend_on? parameter.name }
-        hand_dependent = @handlers.values.any? { |h| h.depend_on? parameter.name }
-        comp_dependent = component_of? && component_of_with_parameter?(parameter.name)
-        attr_dependent || read_dependent || hand_dependent || comp_dependent
+      def depend_on?(parameter_name)
+        return false if parameter_name == name
+        @attributes.values.any? { |a| a.depend_on? parameter_name } ||
+          @readings.values.any? { |r| r.depend_on? parameter_name } ||
+          @handlers.values.any? { |h| h.depend_on? parameter_name } ||
+          (component_of? && component_of_with_parameter?(parameter_name))
       end
 
       # Returns dependings parameters. Parameters that I point

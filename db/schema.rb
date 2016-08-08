@@ -1562,9 +1562,11 @@ ActiveRecord::Schema.define(version: 20160730070743) do
     t.integer  "group_id"
     t.string   "new_name"
     t.integer  "component_id"
+    t.integer  "assembly_id"
     t.integer  "schematic_id"
   end
 
+  add_index "intervention_parameters", ["assembly_id"], name: "index_intervention_parameters_on_assembly_id", using: :btree
   add_index "intervention_parameters", ["component_id"], name: "index_intervention_parameters_on_component_id", using: :btree
   add_index "intervention_parameters", ["created_at"], name: "index_intervention_parameters_on_created_at", using: :btree
   add_index "intervention_parameters", ["creator_id"], name: "index_intervention_parameters_on_creator_id", using: :btree

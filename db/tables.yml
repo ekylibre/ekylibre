@@ -2951,6 +2951,9 @@ intervention_parameter_readings:
     type: integer
     references: user
 intervention_parameters:
+  assembly_id:
+    type: integer
+    references: product
   component_id:
     type: integer
     references: product_nature_variant_component

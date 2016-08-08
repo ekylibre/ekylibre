@@ -350,6 +350,7 @@ jpn:
     annotation: "注釈"
     archive: "アーカイブ"
     archiving: "アーカイブ"
+    # assembly: "Assembly"
     attachments: "添付ファイル"
     attribute_name: "属性名"
     authentication_token: "認証トークン"

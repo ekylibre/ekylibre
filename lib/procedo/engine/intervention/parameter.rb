@@ -4,6 +4,7 @@ module Procedo
   module Engine
     class Intervention
       class Parameter
+        include Reassignable
         attr_reader :name, :intervention, :group, :id, :reference, :type
 
         delegate :procedure, to: :intervention
@@ -44,13 +45,12 @@ module Procedo
           raise NotImplementedError
         end
 
-        def impact(field)
-          # puts "Impact #{field}".magenta
-          send(field + '=', send(field))
+        def impact_dependencies!(field = nil)
+          # Nothing to do at this level except detect and refresh dependent parameters
         end
 
-        def impact_dependencies!(field)
-          # puts "Impact dependencies from #{field}!".red
+        def dependents
+          procedure.parameters.select { |p| p.depend_on?(reference.name) }
         end
 
         def env

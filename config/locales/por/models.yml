@@ -350,6 +350,7 @@ por:
     annotation: "Anotação"
     archive: "Arquivo"
     archiving: "Arquivamento"
+    # assembly: "Assembly"
     attachments: "Anexos"
     attribute_name: "Nome do atributo"
     authentication_token: "Token de autenticação"

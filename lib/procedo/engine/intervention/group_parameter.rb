@@ -91,13 +91,10 @@ module Procedo
         end
 
         def impact_with(steps)
-          if steps.size == 1
-            impact(step)
-          elsif steps.size >= 2
-            @members[steps[0]][steps[1]].impact_with(steps[2..-1])
-          else
-            raise 'Invalid steps: ' + steps.inspect
+          unless steps.size > 1
+            raise ArgumentError, 'Invalid steps: got ' + steps.inspect
           end
+          @members[steps[0]][steps[1]].impact_with(steps[2..-1])
         end
 
         protected

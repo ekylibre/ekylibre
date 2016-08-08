@@ -9,7 +9,7 @@ module Procedo
     attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,
              :each_product_parameter, :each_group_parameter, :each_parameter,
-             :product_parameters, :group_parameters, :parameters,
+             :product_parameters, :group_parameters,
              :position_of, :parameters_of_type, to: :root_group
 
     class << self

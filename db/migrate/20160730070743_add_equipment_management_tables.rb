@@ -55,6 +55,7 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
     end
 
     add_reference :intervention_parameters, :component, index: true
+    add_reference :intervention_parameters, :assembly, index: true
     add_reference :intervention_parameters, :schematic, index: true
   end
 end

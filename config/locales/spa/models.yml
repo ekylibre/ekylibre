@@ -351,6 +351,7 @@ spa:
     annotation: "Anotación"
     archive: "Archivo"
     archiving: "El archivado"
+    # assembly: "Assembly"
     attachments: "Archivos adjuntos"
     attribute_name: "Nombre del Atributo"
     authentication_token: "Token de autenticación"

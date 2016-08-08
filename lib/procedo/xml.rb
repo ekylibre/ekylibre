@@ -126,16 +126,9 @@ module Procedo
             options[info.underscore.to_sym] = element.attr(info).to_s
           end
         end
-        options[:output] = {}
-        %w(name variety derivative-of variant component-of).each do |attribute|
+        %w(variety derivative-of component-of).each do |attribute|
           if element.has_attribute?(attribute)
-            options[:output][attribute.underscore.to_sym] = element.attr(attribute).to_s
-          end
-        end
-        options[:output][:default] = {}
-        %w(name variety derivative-of variant component-of).each do |attribute|
-          if element.has_attribute?("default-#{attribute}")
-            options[:output][:default][attribute.underscore.to_sym] = element.attr("default-#{attribute}").to_s
+            options[attribute.underscore.to_sym] = element.attr(attribute).to_s
           end
         end
         parent = options[:group] || procedure

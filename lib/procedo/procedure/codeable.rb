@@ -1,3 +1,4 @@
+# coding: utf-8
 module Procedo
   class Procedure
     module Codeable
@@ -10,6 +11,7 @@ module Procedo
                to: :class
 
       module ClassMethods
+        # Parse and build syntax trees for given object variables
         def code_trees(*snippets)
           options = snippets.extract_options!
           base_parse_options = {}
@@ -37,7 +39,7 @@ module Procedo
               tree = instance_variable_get(instance_var)
               return false unless tree.present?
               names.each do |name|
-                detected = detect_environment_variable(tree, name.to_s.upcase)
+                detected = self.class.detect_environment_variable(tree, name.to_s.upcase)
                 return true if detected
               end
             end
@@ -48,7 +50,16 @@ module Procedo
             define_method "#{snippet}_with_parameter?" do |parameter|
               tree = instance_variable_get(instance_var)
               return false unless tree.present?
-              detect_parameter(tree, parameter)
+              self.class.detect_parameter(tree, parameter)
+            end
+
+            # Returns list of parameter used in code
+            define_method "#{snippet}_parameters" do
+              tree = instance_variable_get(instance_var)
+              return [] unless tree.present?
+              self.class.select_nodes(tree) do |node|
+                node.is_a?(Procedo::Formula::Language::Variable)
+              end.map(&:text_value)
             end
           end
         end
@@ -72,11 +83,11 @@ module Procedo
 
         # Detects environment variables for the given name
         def detect_parameter(root, parameter)
-          parameter_name = parameter
-          if parameter_name.is_a? Procedo::Procedure::Parameter
-            parameter_name = parameter_name.name
-          end
-          parameter_name = parameter_name.to_s
+          parameter_name = if parameter_name.is_a? Procedo::Procedure::Parameter
+                             parameter.name
+                           else
+                             parameter.to_s
+                           end
           detect(root) do |node|
             node.is_a?(Procedo::Formula::Language::Variable) &&
               parameter_name == node.text_value
@@ -88,10 +99,22 @@ module Procedo
           if root.elements
             root.elements.each do |node|
               child = detect(node, &block)
-              return child unless child.nil?
+              return child if child
             end
           end
           nil
+        end
+
+        # Browse all nodes and select which match block
+        def select_nodes(root, &block)
+          list = []
+          list << root if yield(root)
+          if root.elements
+            root.elements.each do |node|
+              list += select_nodes(node, &block)
+            end
+          end
+          list
         end
 
         def each(root, &block)

@@ -65,7 +65,7 @@ module Procedo
         end
 
         def first(set)
-          set.parameters.first
+          set.first
         end
 
         def parent(parameter)

@@ -350,6 +350,7 @@ cmn:
     annotation: "注解"
     archive: "档案"
     archiving: "存档"
+    # assembly: "Assembly"
     attachments: "附件"
     attribute_name: "属性名"
     authentication_token: "认证令牌"

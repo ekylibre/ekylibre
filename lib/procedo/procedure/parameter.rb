@@ -48,7 +48,7 @@ module Procedo
 
       # Returns +true+ if self depend on given parameter through a formula
       # of handlers, attributes or readings.
-      def depend_on?(_parameter)
+      def depend_on?(_parameter_name)
         false
       end
     end

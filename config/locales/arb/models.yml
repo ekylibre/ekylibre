@@ -1010,6 +1010,7 @@ arb:
     area_unit: "وحدة المساحة" #?
     area_unit_id: "وحدة مساحة" #?
     arrived_at: "وصل يوم" #?
+    # assembly: "Assembly"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة" #?
     attachments: "مرفقات"
     attorney: "الوكيل" #?

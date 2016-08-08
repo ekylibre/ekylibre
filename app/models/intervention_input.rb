@@ -22,6 +22,7 @@
 #
 # == Table: intervention_parameters
 #
+#  assembly_id             :integer
 #  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
@@ -61,8 +62,10 @@ class InterventionInput < InterventionProductParameter
   validates :quantity_population, presence: true
 
   before_validation do
-    self.variant = product.variant if product
-    self.schematic_id = product.variant.id
+    if product
+      self.variant = product.variant
+      self.schematic = variant
+    end
   end
 
   after_save do
@@ -77,11 +80,11 @@ class InterventionInput < InterventionProductParameter
   end
 
   after_create do
-    if component_id.present? && schematic_id.present?
+    if product && component && schematic
       ProductPartReplacement.create!(
-        component_id: component_id,
-        intervention_parameter_id: id,
-        product_id: product.id
+        component: component_id,
+        intervention_parameter: self,
+        product: product
       )
     end
   end

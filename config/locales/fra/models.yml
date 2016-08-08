@@ -476,6 +476,7 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
+    # assembly: "Assembly"
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?

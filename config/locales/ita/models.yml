@@ -381,6 +381,7 @@ ita:
     annotation: "Annotazione"
     archive: "archivio"
     archiving: "Archiviazione"
+    # assembly: "Assembly"
     attachments: "allegati"
     attribute_name: "Nome attributo"
     authentication_token: "token di autenticazione"
