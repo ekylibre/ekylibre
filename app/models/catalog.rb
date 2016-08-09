@@ -46,7 +46,7 @@ class Catalog < Ekylibre::Record::Base
   validates :all_taxes_included, :by_default, inclusion: { in: [true, false] }
   validates :code, :name, presence: true, length: { maximum: 500 }
   validates :currency, :usage, presence: true
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :code, :usage, length: { allow_nil: true, maximum: 20 }

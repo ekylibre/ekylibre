@@ -57,7 +57,7 @@ class InterventionParameterReading < Ekylibre::Record::Base
   validates :boolean_value, inclusion: { in: [true, false] }
   validates :indicator_datatype, :indicator_name, :intervention_parameter, presence: true
   validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
-  validates :string_value, length: { maximum: 100_000 }, allow_blank: true
+  validates :string_value, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :indicator_name, uniqueness: { scope: :parameter_id }
 

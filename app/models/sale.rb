@@ -89,7 +89,7 @@ class Sale < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :annotation, :conclusion, :description, :introduction, length: { maximum: 100_000 }, allow_blank: true
+  validates :annotation, :conclusion, :description, :introduction, length: { maximum: 500_000 }, allow_blank: true
   validates :credit, :has_downpayment, :letter_format, inclusion: { in: [true, false] }
   validates :client, :currency, :payer, presence: true
   validates :expiration_delay, :function_title, :initial_number, :reference_number, :subject, length: { maximum: 500 }, allow_blank: true

@@ -71,7 +71,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   has_many :purchase_taxes, class_name: 'Tax', through: :purchase_taxations, source: :tax
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, inclusion: { in: [true, false] }
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :fixed_asset_depreciation_method, :reference_name, length: { maximum: 500 }, allow_blank: true
   validates :fixed_asset_depreciation_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }

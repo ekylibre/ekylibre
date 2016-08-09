@@ -63,7 +63,7 @@ class Analysis < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :analysed_at, :stopped_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :retrieval_status, presence: true
   validates :number, :sampling_temporal_mode, presence: true, length: { maximum: 500 }
   validates :reference_number, :retrieval_message, length: { maximum: 500 }, allow_blank: true

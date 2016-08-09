@@ -43,7 +43,7 @@ class ManureManagementPlan < Ekylibre::Record::Base
   belongs_to :recommender, class_name: 'Entity'
   has_many :zones, class_name: 'ManureManagementPlanZone', dependent: :destroy, inverse_of: :plan, foreign_key: :plan_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :annotation, length: { maximum: 100_000 }, allow_blank: true
+  validates :annotation, length: { maximum: 500_000 }, allow_blank: true
   validates :default_computation_method, :name, presence: true, length: { maximum: 500 }
   validates :locked, :selected, inclusion: { in: [true, false] }
   validates :opened_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }

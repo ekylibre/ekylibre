@@ -77,7 +77,7 @@ class ProductNature < Ekylibre::Record::Base
   serialize :linkage_points_list, SymbolArray
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :abilities_list, :derivatives_list, :description, :frozen_indicators_list, :linkage_points_list, :variable_indicators_list, length: { maximum: 100_000 }, allow_blank: true
+  validates :abilities_list, :derivatives_list, :description, :frozen_indicators_list, :linkage_points_list, :variable_indicators_list, length: { maximum: 500_000 }, allow_blank: true
   validates :active, :evolvable, :subscribing, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }

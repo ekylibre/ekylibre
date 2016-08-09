@@ -37,7 +37,7 @@ class SubscriptionNature < Ekylibre::Record::Base
   has_many :subscriptions, foreign_key: :nature_id, inverse_of: :nature
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :name, uniqueness: true

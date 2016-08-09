@@ -68,7 +68,7 @@ class Purchase < Ekylibre::Record::Base
   validates :accounted_at, :confirmed_at, :invoiced_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :payee, :supplier, presence: true
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, presence: true, length: { maximum: 500 }
   validates :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]

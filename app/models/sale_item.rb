@@ -81,7 +81,7 @@ class SaleItem < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :annotation, :label, length: { maximum: 100_000 }, allow_blank: true
+  validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :credited_quantity, :unit_pretax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :currency, :sale, :variant, presence: true
   # ]VALIDATORS]

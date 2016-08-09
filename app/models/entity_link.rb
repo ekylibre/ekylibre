@@ -45,7 +45,7 @@ class EntityLink < Ekylibre::Record::Base
   belongs_to :linked, class_name: 'Entity'
   refers_to :nature, class_name: 'EntityLinkNature'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :entity_role, :linked_role, presence: true, length: { maximum: 500 }
   validates :main, inclusion: { in: [true, false] }
   validates :entity, :linked, :nature, presence: true
