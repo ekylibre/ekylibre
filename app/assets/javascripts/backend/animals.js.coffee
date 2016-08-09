@@ -1,6 +1,6 @@
 #= require bootstrap/modal
 
-((G, $) ->
+((E, G, $) ->
 
   $(document).ajaxSend (e, xhr, options) ->
     token = $('meta[name=\'csrf-token\']').attr('content')
@@ -88,7 +88,16 @@
         for id, item of @selectedItemsIndex
           @moveAnimalsModal.animals.push item
 
-        Turbolinks.visit @animal_moving_url
+        E.dialog.open @animal_moving_url,
+          returns:
+            success: (frame, data, status, request) ->
+              frame.dialog "close"
+              return
+
+            invalid: (frame, data, status, request) ->
+              frame.html request.responseText
+              return
+
 
 #        @moveAnimalsModal.show(true)
 
@@ -233,8 +242,15 @@
         animals_ids: Object.keys(app.selectedItemsIndex)
       })}"
 
-    #TODO call modal to directly add a new intervention instead of redirect
-    Turbolinks.visit link
+    E.dialog.open link,
+      returns:
+        success: (frame, data, status, request) ->
+          frame.dialog "close"
+          return
+
+        invalid: (frame, data, status, request) ->
+          frame.html request.responseText
+          return
     false
 
 
@@ -250,4 +266,4 @@
       window.app = new golumn(golumn_id)
       window.loadData(golumn_id, $(this))
 
-) golumn, jQuery
+) ekylibre, golumn, jQuery
