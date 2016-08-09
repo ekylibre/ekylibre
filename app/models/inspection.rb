@@ -60,8 +60,10 @@ class Inspection < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :implanter_application_width, :implanter_rows_number,
             :sampling_distance, numericality: { greater_than: 0 }, presence: true
+  validates :product_net_surface_area, presence: true
 
-  # composed_of :product_net_surface_area, class_name: 'Measure', mapping: [%w(product_net_surface_area_value to_d), %w(product_net_surface_area_unit unit)]
+  composed_of :product_net_surface_area, class_name: 'Measure',
+              mapping: [%w(product_net_surface_area_value to_d), %w(product_net_surface_area_unit unit)]
 
   acts_as_numbered :number
 
@@ -77,7 +79,7 @@ class Inspection < Ekylibre::Record::Base
   }
 
   before_validation :set_implanter_values, on: :create
-  after_validation :set_net_surface_area, on: :create
+  before_validation :set_net_surface_area, on: :create
 
   before_validation do
     if implanter_application_width && implanter_rows_number && implanter_rows_number.nonzero?
