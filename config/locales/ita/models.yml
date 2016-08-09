@@ -74,7 +74,7 @@ ita:
         # on_or_before: "%{attribute} must be on or before %{restriction}"
         other_than: "devono essere di numero diverso da %{count}" #?
         # overlap_sibling: "%{attribute} overlaps sibling"
-        # posterior: "The date %{attribute} must be posterior to %{to}"
+        # posterior: "%{attribute} must be posterior to %{to}"
         present: "deve essere lasciato in bianco" #?
         # record_invalid: "Validations failed: %{errors}"
         taken: "è già presente"
