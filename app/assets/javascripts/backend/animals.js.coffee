@@ -14,28 +14,6 @@
 
       @selectedItemsIndex = {}
 
-      @moveAnimalsModal =
-        show: ko.observable false
-        container: ko.observable new G.Container(undefined, undefined, [], undefined)
-        animals: ko.observableArray []
-        started_at: ko.observable ''
-        stopped_at: ko.observable ''
-        worker: ko.observable
-          id: ko.observable undefined
-          name: undefined
-        variant: ko.observable
-          id: ko.observable undefined
-          name: undefined
-        group: ko.observable undefined
-        alert: ko.observableArray []
-        animals_ids: ko.pureComputed () =>
-          ko.utils.arrayMap @moveAnimalsModal.animals(), (a) =>
-            a.id
-          .join(',')
-
-
-      @animal_moving_url = ''
-
       @showAnimalDetailsModal = ko.observable false
       @showNewGroupModal = ko.observable false
 
@@ -58,9 +36,6 @@
       @animals = ko.observableArray []
 
 
-      @drop = ko.observable
-      @hoverdrop = ko.observable
-
       @enableDropZones = (state = false) =>
         ko.utils.arrayForEach @groups(), (group) =>
           group.droppable state
@@ -76,21 +51,20 @@
         @showNewGroupModal true
         return
 
-      @toggleMoveAnimalModal = (container, group) =>
+      @moveAnimals = (container, group) =>
 
-        @moveAnimalsModal.group(group) unless group is undefined
-        @moveAnimalsModal.container(container) unless container is undefined
-
-        @moveAnimalsModal.started_at(new Date().toISOString())
-        @moveAnimalsModal.stopped_at(new Date().toISOString())
+        params['container'] = group().id()
 
 
-        for id, item of @selectedItemsIndex
-          @moveAnimalsModal.animals.push item
+#        params['variant'] = group().id()
+#        params['group'] = group().id()
 
-        E.dialog.open @animal_moving_url,
+
+        E.dialog.open @rebuildUrl(params),
           returns:
-            success: (frame, data, status, request) ->
+            success: (frame, data, status, request) =>
+              Turbolinks.refresh
+
               frame.dialog "close"
               return
 
@@ -98,73 +72,27 @@
               frame.html request.responseText
               return
 
+      # by default, build url to move animals
+      @rebuildUrl = =>
+        options = Array.from(arguments).shift()
+        options['animals_ids'] ||= Object.keys(@selectedItemsIndex)
+        base_url = options['base_url'] || $('a[data-intervention-accessor=animal_group_changing]').attr('href')
+        delete options['base_url']
 
-#        @moveAnimalsModal.show(true)
+        "#{base_url}&#{$.param(options)}"
 
+      @impactOnSelection = =>
 
-      @impactSelectedItems = =>
         count = Object.keys(@selectedItemsIndex).length
         $el = $('.interventions-accessor').find('[data-toggle=dropdown]')
 
-        unless $el.data('name')
-          $el.data('name', $el.html())
+        $el.data('name', $el.html()) unless $el.data('name')
 
         # TODO: set icon or text to explain counting.
         $el.html("#{$el.data('name')} (#{count})")
 
-        @animal_moving_url = $('a[data-intervention-accessor=animal_group_changing]').attr('href')
-        parameters = $.param
-            animals_ids: Object.keys(app.selectedItemsIndex)
 
-        @animal_moving_url += "&#{parameters}"
-
-
-      @moveAnimals = () =>
-
-        #if its a new container
-        if @moveAnimalsModal.container().parent is undefined
-
-          @moveAnimalsModal.container().parent = @moveAnimalsModal.group()
-          @moveAnimalsModal.group().containers.push @moveAnimalsModal.container()
-
-        $("[data-move-animals-updater]")
-
-        .on 'ajax:success', (data, status, xhr) =>
-          ko.utils.arrayForEach @moveAnimalsModal.animals(), (animal) =>
-            @moveAnimalsModal.show false
-
-            oldContainer = animal.parent
-
-            newContainer = @moveAnimalsModal.container()
-            animal.parent = newContainer
-            animal.checked false
-            newContainer.items.push animal
-
-            oldContainer.items.remove(animal)
-
-            @resetMoveAnimalsModal()
-
-
-        .on 'ajax:error', (xhr, status, error) =>
-          @moveAnimalsModal.alert status.responseJSON.errors
-
-
-      @resetMoveAnimalsModal = () =>
-
-        @moveAnimalsModal.show false
-        @moveAnimalsModal.container new G.Container(undefined, undefined, [], undefined)
-        @moveAnimalsModal.animals.removeAll()
-        @moveAnimalsModal.started_at ''
-        @moveAnimalsModal.stopped_at ''
-        @moveAnimalsModal.variant().id undefined
-        @moveAnimalsModal.variant().name = undefined
-        @moveAnimalsModal.worker().id undefined
-        @moveAnimalsModal.worker().name = undefined
-        @moveAnimalsModal.group undefined
-        @moveAnimalsModal.alert []
-
-
-      @resetSelectedItems = () =>
+      @resetSelectedItems = =>
         for id, item  of @selectedItemsIndex
           item.checked(false)
 

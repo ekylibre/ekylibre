@@ -39,7 +39,7 @@
                 container = target
                 group = target.parent
 
-              app.toggleMoveAnimalModal container, group
+              app.moveAnimals container, group
 
               return
 
