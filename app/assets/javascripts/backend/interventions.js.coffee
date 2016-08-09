@@ -133,6 +133,8 @@
         #date = $(this).data("datetimepicker").getFormattedDate()
         date = $(this).val()
         E.interventions.updateDateScopes(date)
+    $('*[data-intervention-updater]').each ->
+        E.interventions.refresh $(this)
 
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
