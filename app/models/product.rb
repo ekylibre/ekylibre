@@ -207,7 +207,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { all }
+  scope :available, -> { alive } # TODO Remove null-population products
   scope :alive, -> { where(dead_at: nil) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
@@ -327,14 +327,12 @@ class Product < Ekylibre::Record::Base
     alias_method_chain :new, :cast
 
     def availables(**args)
-      if args[:at]
-        if args[:at].is_a? String
-          available.at(Time.strptime(args[:at], '%Y-%m-%d %H:%M'))
-        else
-          available.at(args[:at])
-        end
+      at = args[:at]
+      return available if at.blank?
+      if at.is_a? String
+        available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
       else
-        available
+        available.at(at)
       end
     end
   end
