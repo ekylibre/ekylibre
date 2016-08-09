@@ -27,7 +27,7 @@
           id: ko.observable undefined
           name: undefined
         group: ko.observable undefined
-        alert: ko.observable undefined
+        alert: ko.observableArray []
         animals_ids: ko.pureComputed () =>
           ko.utils.arrayMap @moveAnimalsModal.animals(), (a) =>
             a.id
@@ -117,8 +117,7 @@
 
 
         .on 'ajax:error', (xhr, status, error) =>
-          console.log 'error', xhr, status, error
-          @moveAnimalsModal.alert error
+          @moveAnimalsModal.alert status.responseJSON.errors
 
 
       @resetMoveAnimalsModal = () =>
@@ -133,7 +132,7 @@
         @moveAnimalsModal.worker().id undefined
         @moveAnimalsModal.worker().name = undefined
         @moveAnimalsModal.group undefined
-        @moveAnimalsModal.alert undefined
+        @moveAnimalsModal.alert []
 
 
       @resetSelectedItems = () =>

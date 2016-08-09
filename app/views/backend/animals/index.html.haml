@@ -84,16 +84,17 @@
 
 
     = modal(:move_animal, data: {bind: 'modal: moveAnimalsModal.show(), with: moveAnimalsModal', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.resetMoveAnimalsModal'}}) do
-      = form_tag change_backend_animals_path, remote: true, class: 'form-horizontal v-spacer', data: {bind: 'submit: $root.moveAnimals', move_animals_updater: true} do
+      = form_tag change_backend_animals_path, remote: true, class: 'form-horizontal v-spacer', data: {bind: 'submit: $root.moveAnimals', move_animals_updater: true, type: :json} do
         .modal-body
-          .alert.alert-danger{data: {bind: 'visible: alert.length > 0; text: alert'}}
+          .alert{data: {bind: 'foreach: alert'}}
+            .alert-danger{data: {bind: 'text: $data'}}
           .control-group
             = label_tag(:moved, :move.ta, class: 'control-label')
             .controls{data: {bind: 'foreach: animals'}}
               %span{data: {bind: 'text: name'} }
             = hidden_field_tag :animals_ids, nil, data: {bind: 'value: animals_ids'}
           .control-group{data: {bind: 'if: group' } }
-            = hidden_field_tag :group, nil, data: {bind: 'value: group.id()'}
+            = hidden_field_tag :group, nil, data: {bind: 'value: group().id'}
             = label_tag(:group, 'enumerize.equipment.variety.animal_group'.t, class: 'control-label')
             .controls{data: {bind: 'text: group().name'}}
           .control-group

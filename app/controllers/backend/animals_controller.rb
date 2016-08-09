@@ -130,8 +130,12 @@ module Backend
 
     def change
       # params[:animals_id]
-      # params[:container_id]
-      # params[:group_id]
+      # params[:container]
+      # params[:group]
+      # params[:worker]
+      # params[:variant]
+      # params[:started_at]
+      # params[:stopped_at]
       # check animal exist
       if params[:animals_id]
         animals = params[:animals_id].split(',').collect do |animal_id|
@@ -139,11 +143,42 @@ module Backend
         end.compact
       end
 
+      errors = nil
+
+      begin
+        started_at = Date.parse(params[:started_at])
+      rescue StandardError => e
+        errors = notify_error(e.message.parameterize('_').to_sym.tn, type: :started_at)
+      end
+
+      begin
+        stopped_at = Date.parse(params[:stopped_at])
+      rescue StandardError => e
+        errors = notify_error(e.message.parameterize('_').to_sym.tn, type: :stopped_at)
+      end
+
+      group = AnimalGroup.find_by(id: params[:group])
+
+      if group.nil? or params[:group].blank?
+        errors = notify_error(:unavailable_resource, type: AnimalGroup.model_name.human, id: params[:group].to_s)
+      end
+
+      container = Product.find_by(id: params[:container])
+
+      if container.nil? or params[:container].blank?
+        errors = notify_error(:unavailable_resource, type: Product.human_attribute_name(:container), id: params[:container].to_s)
+      end
+
       procedure_natures = []
 
-      procedure_natures << :animal_moving if params[:container_id].present?
-      procedure_natures << :animal_group_changing if params[:group_id].present?
-      procedure_natures << :animal_evolution if params[:variant_id].present?
+      # massive assignment
+      procedure_natures << :animal_moving if params[:container].present?
+      procedure_natures << :animal_evolution if params[:variant].present?
+
+
+      # TODO: find if group changed, some animals can already be in that group.
+      procedure_natures << :animal_group_changing if params[:group].present?
+
 
       Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ActivityProduction.find_by(id: params[:production_support_id])) do |i|
         i.cast :caregiver, Product.find_by(id: params[:worker_id]), role: 'animal_moving-doer', position: 1
@@ -175,7 +210,12 @@ module Backend
         end
       end
 
-      render json: { result: 'ok' }
+      if errors.any?
+        render json: { errors: errors }, status: :unprocessable_entity
+      else
+        render json: {result: 'ok'}, status: :created
+      end
+
     end
 
     # Insert a group
