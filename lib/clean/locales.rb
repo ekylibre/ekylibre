@@ -62,7 +62,7 @@ module Clean
         clean_aggregators!
         clean_file! 'devise'
         clean_file! 'devise.views'
-        clean_file! 'enumerize'
+        clean_enumerize!
         clean_file! 'exceptions'
         clean_exchangers!
         clean_file! 'formats'
@@ -344,6 +344,31 @@ module Clean
 
         # Finishing...
         write(file, translation, to_translate, untranslated)
+      end
+
+      def clean_enumerize!
+        translate('enumerize.yml') do |ref, translation, s|
+          translation << "  enumerize:\n"
+          ref[:enumerize] ||= {}
+          Clean::Support.models_in_file.each do |model|
+            attrs = []
+            model.enumerized_attributes.each do |attr|
+              next if attr.i18n_scope
+              next unless attr.values.any?
+              next if model < Ekylibre::Record::Base &&
+                      model.nomenclature_reflections.detect { |_k, n| n.foreign_key.to_s == attr.name.to_s }
+              attrs << attr
+            end
+            next unless attrs.any?
+            translation << "    #{model.name.underscore}:\n"
+            attrs.sort { |a, b| a.name <=> b.name }.each do |attr|
+              translation << "      #{attr.name}:\n"
+              attr.values.sort { |a, b| a <=> b }.each do |value|
+                translation << s.exp(ref, :enumerize, model.name.underscore.to_sym, attr.name, value.to_sym).dig(4)
+              end
+            end
+          end
+        end
       end
 
       def clean_exchangers!

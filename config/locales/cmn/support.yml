@@ -101,6 +101,12 @@ cmn:
       format:
         delimiter: ""
   rank: "#%{number}"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "供应商发票号"
+    required:
+      text: "需要"
   support:
     array:
       last_word_connector: ", 和 "

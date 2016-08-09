@@ -16,6 +16,9 @@ cmn:
         per_campaign: "每个广告系列"
         per_production: "每生产"
         per_working_unit: "每工作单位"
+      direction:
+        expense: "费用"
+        revenue: "收入"
     activity_inspection_point_nature:
       category:
         deformity: "畸形"
@@ -28,6 +31,28 @@ cmn:
         cultivation: "养殖"
         fallow_land: "熟荒"
         none: "无"
+    affair:
+      third_role:
+        client: "客户"
+        supplier: "供应商"
+    analysis:
+      retrieval_status:
+        controller_error: "控制器错误"
+        error: "错误"
+        internal_error: "内部错误"
+        ok: "好"
+        sensor_error: "传感器误差"
+    analysis_item:
+      indicator_datatype:
+        boolean: "布尔"
+        choice: "选择"
+        decimal: "十进制"
+        geometry: "几何"
+        integer: "整数"
+        measure: "测量"
+        multi_polygon: "多多边形"
+        point: "点"
+        string: "串"
     cash:
       mode:
         bban: "基本银行帐户号码（BBAN）"
@@ -42,6 +67,16 @@ cmn:
         purchase: "采购"
         sale: "拍卖"
         stock: "股票"
+    crumb:
+      nature:
+        hard_start: "硬启动"
+        hard_stop: "硬停止"
+        pause: "暂停"
+        point: "点"
+        resume: "简历"
+        scan: "扫描"
+        start: "开始"
+        stop: "停止"
     custom_field:
       nature:
         boolean: "复选框"
@@ -57,8 +92,8 @@ cmn:
         us: "被我们"
     document_template:
       archiving:
-        all: "所有类型"
-        all_of_template: "所有模板"
+        all: "所有类型" #?
+        all_of_template: "所有模板" #?
         first: "第一种类型的"
         first_of_template: "首先模板"
         last: "最后一种类型"
@@ -85,26 +120,72 @@ cmn:
         waiting: "等候"
     fixed_asset:
       depreciation_method:
-        graduated: "毕业"
+        graduated: "毕业" #?
         linear: "线性"
         simplified_linear: "线性简化"
+    gap:
+      direction:
+        loss: "失利"
+        profit: "利润"
+      entity_role:
+        client: "客户"
+        supplier: "供应商"
     georeading:
       nature:
-        line: "线"
+        line: "线" #?
+        linestring: "线串"
         point: "点"
         polygon: "多边形"
+    guide:
+      frequency:
+        daily: "日常"
+        # decadely: "Decadely"
+        hourly: "每小时"
+        monthly: "每月一次"
+        none: "没有"
+        weekly: "每周"
+        yearly: "每年"
     guide_analysis:
-      status:
+      acceptance_status:
         errored: "误码"
         failed: "失败"
         passed: "通过"
         passed_with_warnings: "有警告传递"
+      status:  #?
+        errored: "误码" #?
+        failed: "失败" #?
+        passed: "通过" #?
+        passed_with_warnings: "有警告传递" #?
+    guide_analysis_point:
+      acceptance_status:
+        errored: "误码"
+        failed: "失败"
+        passed: "通过"
+        passed_with_warnings: "有警告传递"
+    import:
+      state:
+        aborted: "中止"
+        errored: "误码"
+        finished: "完"
+        in_progress: "进行中"
+        undone: "未完成"
     intervention:
       state:
         done: "做"
         in_progress: "进行中"
         squeezed: "挤压"
         undone: "未完成"
+    intervention_parameter_reading:
+      indicator_datatype:
+        boolean: "布尔"
+        choice: "选择"
+        decimal: "十进制"
+        geometry: "几何"
+        integer: "整数"
+        measure: "测量"
+        multi_polygon: "多多边形"
+        point: "点"
+        string: "串"
     journal:
       nature:
         bank: "银行"
@@ -113,6 +194,17 @@ cmn:
         purchases: "购买"
         sales: "销售"
         various: "各种操作"
+    listing_node:
+      nature:
+        belongs_to: "属于"
+        boolean: "布尔"
+        column: "柱"
+        custom: "习俗"
+        datetime: "约会时间"
+        has_many: "有很多"
+        numeric: "数字"
+        root: "根"
+        string: "串"
     loan:
       repayment_method:
         constant_amount: "恒量"
@@ -123,6 +215,12 @@ cmn:
       shift_method:
         # anatocism: "anatocism"
         immediate_payment: "立即付款"
+    notification:
+      level:
+        error: "错误"
+        information: "信息"
+        success: "成功"
+        warning: "警告"
     observation:
       importance:
         important: "重要"
@@ -130,20 +228,143 @@ cmn:
         notice: "注意"
     parcel:
       delivery_mode:
-        indifferent: "冷漠"
+        indifferent: "冷漠" #?
         third: "受援国运"
         transporter: "通过转运运输"
         us: "美国运输"
       nature:
         incoming: "来"
-        internal: "内部"
+        internal: "内部" #?
         outgoing: "传出"
-      state:
-        draft: "草案"
-        given: "特定"
-        in_preparation: "在准备"
-        ordered: "有序"
-        prepared: "准备"
+      state:  #?
+        draft: "草案" #?
+        given: "特定" #?
+        in_preparation: "在准备" #?
+        ordered: "有序" #?
+        prepared: "准备" #?
+    preference:
+      nature:
+        accounting_system: "会计制度"
+        boolean: "布尔"
+        country: "国家"
+        currency: "货币"
+        decimal: "十进制"
+        integer: "整数"
+        language: "语言"
+        record: "记录"
+        spatial_reference_system: "空间参照系统"
+        string: "串"
+    product_enjoyment:
+      nature:
+        other: "其他"
+        own: "拥有"
+        unknown: "未知"
+    product_linkage:
+      nature:
+        available: "可用的"
+        occupied: "占据"
+        unavailable: "不可用"
+      point:
+        front: "面前"
+        rear: "后"
+    product_localization:
+      nature:
+        exterior: "外观"
+        interior: "室内"
+        transfer: "转让"
+    product_membership:
+      nature:
+        exterior: "外观"
+        interior: "室内"
+    product_nature:
+      population_counting:
+        decimal: "十进制"
+        integer: "整数"
+        unitary: "酉"
+    product_nature_category:
+      pictogram:
+        bank: "银行"
+        barn: "谷仓"
+        beaker: "烧杯"
+        bolt: "螺栓"
+        book: "书"
+        bug: "臭虫"
+        building: "建造"
+        car: "汽车"
+        cc: "抄送"
+        cow: "牛"
+        credit_card: "信用卡"
+        desktop: "桌面"
+        drop: "下降"
+        fax: "传真"
+        fish: "鱼"
+        food: "餐饮"
+        gift: "礼品"
+        group: "组"
+        home: "家"
+        land_parcels: "地块"
+        laptop: "笔记本电脑"
+        leaf: "叶"
+        legal: "法律"
+        lemon: "柠檬"
+        light_bulb: "灯泡"
+        male: "男"
+        matter: "物"
+        medkit: "医疗包"
+        money: "钱"
+        mushroom: "蘑菇"
+        phone: "电话"
+        pill: "丸"
+        plane: "平面"
+        road: "路"
+        subscription: "订阅"
+        tasks: "任务"
+        tractor: "拖拉机"
+        truck: "卡车"
+        umbrella: "雨伞"
+        undefined: "未定义"
+        user: "用户"
+        wheat: "小麦"
+        wrench: "扳手"
+    product_nature_category_taxation:
+      usage:
+        purchase: "采购"
+        sale: "拍卖"
+    product_nature_variant_reading:
+      indicator_datatype:
+        boolean: "布尔"
+        choice: "选择"
+        decimal: "十进制"
+        geometry: "几何"
+        integer: "整数"
+        measure: "测量"
+        multi_polygon: "多多边形"
+        point: "点"
+        string: "串"
+    product_ownership:
+      nature:
+        other: "其他"
+        own: "拥有"
+        unknown: "未知"
+    product_reading:
+      indicator_datatype:
+        boolean: "布尔"
+        choice: "选择"
+        decimal: "十进制"
+        geometry: "几何"
+        integer: "整数"
+        measure: "测量"
+        multi_polygon: "多多边形"
+        point: "点"
+        string: "串"
+    sale_opportunity:
+      third_role:
+        client: "客户"
+        supplier: "供应商"
+    sale_ticket:
+      third_role:
+        client: "客户"
+        supplier: "供应商"
     sensor:
       retrieval_mode:
         listening: "听力"
@@ -160,16 +381,21 @@ cmn:
         animals: "动物记数"
         campaigns: "活动的记数"
         cash_transfers: "现金转移的记数"
+        deliveries: "交付"
         deposits: "存款记数"
         documents: "文档记数"
         entities: "人的记数"
         fixed_assets: "固定资产记数"
         gaps: "空白的记数"
-        incoming_parcels: "传入交付记数"
+        incoming_parcels: "传入交付记数" #?
         incoming_payments: "支付记数"
+        inspections: "检查"
         interventions: "干预的记数"
-        outgoing_deliveries: "即将离任的交货记数"
+        inventories: "存货"
+        opportunities: "机会"
+        outgoing_deliveries: "即将离任的交货记数" #?
         outgoing_payments: "支付记数"
+        parcels: "地块"
         plants: "植物的记数"
         product_nature_categories: "产品性质类别的记数"
         product_nature_variants: "产品性质的记数变种"
@@ -179,37 +405,41 @@ cmn:
         sales: "销售的记数"
         sales_invoices: "销售发票的记数"
         subscriptions: "订阅记数"
-        transports: "运输的记数"
-    subscription_nature:
-      entity_link_direction:
-        all: "双向"
-        direct: "直接"
-        indirect: "间接"
-      nature:
-        period: "认购日期"
-        quantity: "认购按编号"
+        transports: "运输的记数" #?
+    subscription_nature:  #?
+      entity_link_direction: #?
+        all: "双向" #?
+        direct: "直接" #?
+        indirect: "间接" #?
+      nature: #?
+        period: "认购日期" #?
+        quantity: "认购按编号" #?
     task:
       nature:
-        document: "写作"
+        document: "写作" #?
         incoming_call: "来电"
         incoming_email: "收到的电子邮件"
         incoming_mail: "接收邮件"
         outgoing_call: "呼出"
         outgoing_email: "传出的电子邮件"
         outgoing_mail: "外发邮件"
-        quote: "引用"
-    tax:
-      nature:
-        amount: "量"
-        percentage: "百分比"
+        quote: "引用" #?
+      state:
+        doing: "干"
+        done: "做"
+        todo: "去做"
+    tax:  #?
+      nature: #?
+        amount: "量" #?
+        percentage: "百分比" #?
     tracking:
       usage_limit_nature:
         best_before: "日期前最佳"
         no_limit: "没有限制"
         used_by: "按日期使用"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "供应商发票号"
-    required:
-      text: "需要"
+  simple_form:  #?
+    hints: #?
+      purchase: #?
+        reference_number: "供应商发票号" #?
+    required: #?
+      text: "需要" #?

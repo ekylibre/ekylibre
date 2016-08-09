@@ -16,6 +16,9 @@ jpn:
         per_campaign: "キャンペーンごと"
         per_production: "生産あたり"
         per_working_unit: "作業単位当たり"
+      direction:
+        expense: "費用"
+        revenue: "収入"
     activity_inspection_point_nature:
       category:
         deformity: "変形"
@@ -28,6 +31,28 @@ jpn:
         cultivation: "栽培"
         fallow_land: "休閑地"
         none: "なし"
+    affair:
+      third_role:
+        client: "クライアント"
+        supplier: "サプライヤー"
+    analysis:
+      retrieval_status:
+        controller_error: "コントローラのエラー"
+        error: "エラー"
+        internal_error: "内部エラー"
+        ok: "OK"
+        sensor_error: "センサー誤差"
+    analysis_item:
+      indicator_datatype:
+        boolean: "ブーリアン"
+        choice: "選択"
+        decimal: "10進数"
+        geometry: "幾何学"
+        integer: "整数"
+        measure: "メジャー"
+        multi_polygon: "マルチポリゴン"
+        point: "ポイント"
+        string: "文字列"
     cash:
       mode:
         bban: "基本的な銀行口座番号（BBAN）"
@@ -42,6 +67,16 @@ jpn:
         purchase: "購入"
         sale: "販売"
         stock: "株式"
+    crumb:
+      nature:
+        hard_start: "ハードスタート"
+        hard_stop: "ハードストップ"
+        pause: "ポーズ"
+        point: "ポイント"
+        resume: "履歴書"
+        scan: "スキャン"
+        start: "開始"
+        stop: "やめる"
     custom_field:
       nature:
         boolean: "チェックボックス"
@@ -57,8 +92,8 @@ jpn:
         us: "当社による"
     document_template:
       archiving:
-        all: "タイプのすべての"
-        all_of_template: "テンプレートのすべて"
+        all: "タイプのすべての" #?
+        all_of_template: "テンプレートのすべて" #?
         first: "タイプの第一"
         first_of_template: "テンプレートの最初の"
         last: "タイプの最後の"
@@ -85,26 +120,72 @@ jpn:
         waiting: "待っています"
     fixed_asset:
       depreciation_method:
-        graduated: "目盛り付きの"
+        graduated: "目盛り付きの" #?
         linear: "リニア"
         simplified_linear: "簡体リニア"
+    gap:
+      direction:
+        loss: "損失"
+        profit: "利益"
+      entity_role:
+        client: "クライアント"
+        supplier: "サプライヤー"
     georeading:
       nature:
-        line: "ライン"
+        line: "ライン" #?
+        linestring: "折れ線"
         point: "ポイント"
         polygon: "ポリゴン"
+    guide:
+      frequency:
+        daily: "デイリー"
+        # decadely: "Decadely"
+        hourly: "毎時"
+        monthly: "毎月"
+        none: "なし"
+        weekly: "毎週"
+        yearly: "毎年"
     guide_analysis:
-      status:
+      acceptance_status:
         errored: "エラーの発生しました"
         failed: "失敗しました"
         passed: "合格"
         passed_with_warnings: "警告付きで合格"
+      status:  #?
+        errored: "エラーの発生しました" #?
+        failed: "失敗しました" #?
+        passed: "合格" #?
+        passed_with_warnings: "警告付きで合格" #?
+    guide_analysis_point:
+      acceptance_status:
+        errored: "エラーの発生しました"
+        failed: "失敗しました"
+        passed: "合格"
+        passed_with_warnings: "警告付きで合格"
+    import:
+      state:
+        aborted: "中止されました"
+        errored: "エラーの発生しました"
+        finished: "完成しました"
+        in_progress: "進行中"
+        undone: "元に戻します"
     intervention:
       state:
         done: "終わりました"
         in_progress: "進行中"
         squeezed: "スクイーズ"
         undone: "元に戻します"
+    intervention_parameter_reading:
+      indicator_datatype:
+        boolean: "ブーリアン"
+        choice: "選択"
+        decimal: "10進数"
+        geometry: "幾何学"
+        integer: "整数"
+        measure: "メジャー"
+        multi_polygon: "マルチポリゴン"
+        point: "ポイント"
+        string: "文字列"
     journal:
       nature:
         bank: "バンク"
@@ -113,6 +194,17 @@ jpn:
         purchases: "購入"
         sales: "セールス"
         various: "さまざまな操作"
+    listing_node:
+      nature:
+        belongs_to: "属する"
+        boolean: "ブーリアン"
+        column: "カラム"
+        custom: "カスタム"
+        datetime: "日付時刻"
+        has_many: "多くを持っています"
+        numeric: "数値の"
+        root: "ルート"
+        string: "文字列"
     loan:
       repayment_method:
         constant_amount: "一定量"
@@ -123,6 +215,12 @@ jpn:
       shift_method:
         # anatocism: "anatocism"
         immediate_payment: "即納"
+    notification:
+      level:
+        error: "エラー"
+        information: "情報"
+        success: "成功"
+        warning: "警告"
     observation:
       importance:
         important: "重要"
@@ -130,20 +228,143 @@ jpn:
         notice: "通知"
     parcel:
       delivery_mode:
-        indifferent: "無関心"
+        indifferent: "無関心" #?
         third: "受信者によって運ば"
         transporter: "トランスポーターによって輸送"
         us: "私たちによって運ば"
       nature:
         incoming: "入ってきます"
-        internal: "内部"
+        internal: "内部" #?
         outgoing: "出ていきます"
-      state:
-        draft: "ドラフト"
-        given: "与えられました"
-        in_preparation: "準備中"
-        ordered: "順序付けられました"
-        prepared: "準備"
+      state:  #?
+        draft: "ドラフト" #?
+        given: "与えられました" #?
+        in_preparation: "準備中" #?
+        ordered: "順序付けられました" #?
+        prepared: "準備" #?
+    preference:
+      nature:
+        accounting_system: "会計システム"
+        boolean: "ブーリアン"
+        country: "国"
+        currency: "通貨"
+        decimal: "10進数"
+        integer: "整数"
+        language: "言語"
+        record: "記録"
+        spatial_reference_system: "空間参照システム"
+        string: "文字列"
+    product_enjoyment:
+      nature:
+        other: "他の"
+        own: "自分の"
+        unknown: "未知の"
+    product_linkage:
+      nature:
+        available: "利用できます"
+        occupied: "占領下"
+        unavailable: "利用できません"
+      point:
+        front: "フロント"
+        rear: "リア"
+    product_localization:
+      nature:
+        exterior: "外観"
+        interior: "インテリア"
+        transfer: "移転"
+    product_membership:
+      nature:
+        exterior: "外観"
+        interior: "インテリア"
+    product_nature:
+      population_counting:
+        decimal: "10進数"
+        integer: "整数"
+        unitary: "単一の"
+    product_nature_category:
+      pictogram:
+        bank: "バンク"
+        barn: "納屋"
+        beaker: "ビーカー"
+        bolt: "ボルト"
+        book: "本"
+        bug: "バグ"
+        building: "建物"
+        car: "車"
+        cc: "ccで"
+        cow: "牛"
+        credit_card: "クレジットカード"
+        desktop: "デスクトップ"
+        drop: "ドロップ"
+        fax: "ファックス"
+        fish: "魚"
+        food: "フード"
+        gift: "贈り物"
+        group: "グループ"
+        home: "ホーム"
+        land_parcels: "土地区画"
+        laptop: "ノートパソコン"
+        leaf: "葉"
+        legal: "法的"
+        lemon: "レモン"
+        light_bulb: "電球"
+        male: "男性"
+        matter: "問題"
+        # medkit: "Medkit"
+        money: "お金"
+        mushroom: "キノコ"
+        phone: "電話"
+        pill: "ピル"
+        plane: "飛行機"
+        road: "道路"
+        subscription: "サブスクリプション"
+        tasks: "タスク"
+        tractor: "トラクター"
+        truck: "トラック"
+        umbrella: "傘"
+        undefined: "未定義"
+        user: "ユーザー"
+        wheat: "小麦"
+        wrench: "レンチ"
+    product_nature_category_taxation:
+      usage:
+        purchase: "購入"
+        sale: "販売"
+    product_nature_variant_reading:
+      indicator_datatype:
+        boolean: "ブーリアン"
+        choice: "選択"
+        decimal: "10進数"
+        geometry: "幾何学"
+        integer: "整数"
+        measure: "メジャー"
+        multi_polygon: "マルチポリゴン"
+        point: "ポイント"
+        string: "文字列"
+    product_ownership:
+      nature:
+        other: "他の"
+        own: "自分の"
+        unknown: "未知の"
+    product_reading:
+      indicator_datatype:
+        boolean: "ブーリアン"
+        choice: "選択"
+        decimal: "10進数"
+        geometry: "幾何学"
+        integer: "整数"
+        measure: "メジャー"
+        multi_polygon: "マルチポリゴン"
+        point: "ポイント"
+        string: "文字列"
+    sale_opportunity:
+      third_role:
+        client: "クライアント"
+        supplier: "サプライヤー"
+    sale_ticket:
+      third_role:
+        client: "クライアント"
+        supplier: "サプライヤー"
     sensor:
       retrieval_mode:
         listening: "聞いている"
@@ -160,16 +381,21 @@ jpn:
         animals: "動物の記数"
         campaigns: "キャンペーンの記数"
         cash_transfers: "送金の記数"
+        deliveries: "出荷"
         deposits: "預金の記数"
         documents: "文書の記数"
         entities: "人々の記数"
         fixed_assets: "固定資産の記数"
         gaps: "ギャップの記数"
-        incoming_parcels: "着信配達の記数"
+        incoming_parcels: "着信配達の記数" #?
         incoming_payments: "支払いの記数"
+        inspections: "検査"
         interventions: "介入の記数"
-        outgoing_deliveries: "発信配達の記数"
+        inventories: "棚卸"
+        opportunities: "機会"
+        outgoing_deliveries: "発信配達の記数" #?
         outgoing_payments: "支払いの記数"
+        parcels: "小包"
         plants: "植物の記数"
         product_nature_categories: "製品自然カテゴリの記数"
         product_nature_variants: "製品の性質変異体の記数"
@@ -179,37 +405,41 @@ jpn:
         sales: "売上高の記数"
         sales_invoices: "売上請求書の記数"
         subscriptions: "サブスクリプションの記数"
-        transports: "トランスポートの記数"
-    subscription_nature:
-      entity_link_direction:
-        all: "双方向の"
-        direct: "直接"
-        indirect: "間接的な"
-      nature:
-        period: "日付別のサブスクリプション"
-        quantity: "番号で購読"
+        transports: "トランスポートの記数" #?
+    subscription_nature:  #?
+      entity_link_direction: #?
+        all: "双方向の" #?
+        direct: "直接" #?
+        indirect: "間接的な" #?
+      nature: #?
+        period: "日付別のサブスクリプション" #?
+        quantity: "番号で購読" #?
     task:
       nature:
-        document: "書き込み"
+        document: "書き込み" #?
         incoming_call: "電話の着信"
         incoming_email: "受信メール"
         incoming_mail: "メール受信"
         outgoing_call: "電話の発信"
         outgoing_email: "送信メール"
         outgoing_mail: "送信メール"
-        quote: "見積もり"
-    tax:
-      nature:
-        amount: "量"
-        percentage: "パーセンテージ"
+        quote: "見積もり" #?
+      state:
+        doing: "実行"
+        done: "終わりました"
+        todo: "藤堂"
+    tax:  #?
+      nature: #?
+        amount: "量" #?
+        percentage: "パーセンテージ" #?
     tracking:
       usage_limit_nature:
         best_before: "賞味期限"
         no_limit: "制限なし"
         used_by: "日付によって使用されます"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "サプライヤーの請求書番号"
-    required:
-      text: "必須"
+  simple_form:  #?
+    hints: #?
+      purchase: #?
+        reference_number: "サプライヤーの請求書番号" #?
+    required: #?
+      text: "必須" #?
