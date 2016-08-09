@@ -208,6 +208,7 @@ class Product < Ekylibre::Record::Base
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
   scope :available, -> { all }
+  scope :alive, -> { where(dead_at: nil) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
