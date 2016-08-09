@@ -298,6 +298,12 @@ class ProductNature < Ekylibre::Record::Base
   end
 
   class << self
+    # Returns some nomenclature items are available to be imported, e.g. not
+    # already imported
+    def any_reference_available?
+      Nomen::ProductNature.without(ProductNature.pluck(:reference_name).uniq).any?
+    end
+
     Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
 
     # Returns core attributes of nomenclature merge with nature if necessary

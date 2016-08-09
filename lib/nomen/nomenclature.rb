@@ -370,6 +370,7 @@ module Nomen
 
     # Returns a list for select, without specified items
     def select_without(already_imported)
+      ActiveSupport::Deprecation.warn 'Nomen::Nomenclature#select_without method is deprecated. Please use Nomen::Nomenclature#without method instead.'
       select_options = @items.values.collect do |item|
         [item.human_name, item.name.to_s] unless already_imported[item.name.to_s]
       end
@@ -454,6 +455,13 @@ module Nomen
           end
         end
         valid
+      end
+    end
+
+    def without(*names)
+      excluded = names.flatten.compact.map(&:to_sym)
+      list.select do |item|
+        !excluded.include?(item.name)
       end
     end
 

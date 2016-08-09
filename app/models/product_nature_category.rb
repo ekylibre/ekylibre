@@ -128,6 +128,12 @@ class ProductNatureCategory < Ekylibre::Record::Base
   end
 
   class << self
+    # Returns some nomenclature items are available to be imported, e.g. not
+    # already imported
+    def any_reference_available?
+      Nomen::ProductNatureCategory.without(ProductNatureCategory.pluck(:reference_name).uniq).any?
+    end
+
     # Load a product nature category from product nature category nomenclature
     def import_from_nomenclature(reference_name, force = false)
       unless item = Nomen::ProductNatureCategory.find(reference_name)

@@ -25,8 +25,7 @@ module Backend
     unroll
 
     list do |t|
-      t.action :new,  on: :none
-      t.action :pick, on: :none
+      t.action :new, on: :none
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name, url: true

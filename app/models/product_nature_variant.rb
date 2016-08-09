@@ -339,11 +339,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   class << self
-    # # Returns indicators for a set of product
-    # def indicator(name, options = {})
-    #   created_at = options[:at] || Time.zone.now
-    #   ProductNatureVariantReading.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.variant_id = p2.variant_id AND (p1.created_at < p2.created_at OR (p1.created_at = p2.created_at AND p1.id < p2.id)) AND p2.created_at <= ?) WHERE p1.created_at <= ? AND p1.variant_id IN (?) AND p2 IS NULL)", created_at, created_at, self.pluck(:id))
-    # end
+    # Returns some nomenclature items are available to be imported, e.g. not
+    # already imported
+    def any_reference_available?
+      Nomen::ProductNatureVariant.without(ProductNatureVariant.pluck(:reference_name).uniq).any?
+    end
 
     # Find or import variant from nomenclature with given attributes
     # variety and derivative_of only are accepted for now
