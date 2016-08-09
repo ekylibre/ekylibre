@@ -75,7 +75,7 @@ class Crumb < Ekylibre::Record::Base
   end
 
   after_destroy do
-    intervention_path.delete_all if start?
+    intervention_path.delete_all if start? && intervention_path
   end
 
   after_update do
@@ -144,8 +144,9 @@ class Crumb < Ekylibre::Record::Base
     end
   end
 
-  # returns all the crumbs corresponding to the same intervention as the current crumb, i.e. the nearest start crumb including itself,
-  # the nearest stop crumb including itself, and all the crumbs in between including the crumb itself.
+  # Returns all the crumbs corresponding to the same intervention as the current
+  # crumb, i.e. the nearest start crumb including itself, the nearest stop crumb
+  # including itself, and all the crumbs in between including the crumb itself.
   def intervention_path
     start_read_at = read_at.utc
     unless start?
@@ -163,6 +164,8 @@ class Crumb < Ekylibre::Record::Base
                      .first
       stop_read_at = stop.read_at.utc if stop
     end
-    CrumbSet.new(siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc))
+    crumbs = siblings.where(read_at: start_read_at..stop_read_at).order(read_at: :asc)
+    return nil unless crumbs.any?
+    CrumbSet.new(crumbs)
   end
 end
