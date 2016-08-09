@@ -5,4 +5,4 @@
 
   = form_actions do
     = submit_tag :update.tl, class: 'primary'
-    = link_to :cancel.tl, :back, class: 'btn'
+    = link_to :cancel.tl, { controller: :dashboards, action: :settings}, class: 'btn'
