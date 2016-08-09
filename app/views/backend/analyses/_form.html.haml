@@ -32,18 +32,20 @@
         end
 
         indicators_and_children = nature.items.map { |item| Nomen::Indicator.find(item.to_s).self_and_children }
-        existing = indicators_and_children.map { |ind| ind.map { |i| [i.human_name, i.name.to_s] } }
+        existing = indicators_and_children.map { |ind| ind.map { |i| i.name.to_s } }
         existing = existing.flatten(1)
       end
     end
 
-  #analysis-items
+  .nested-association#analysis-items
     = f.backend_fields_for(:items) do |i|
       = render "backend/analysis_items/form", f: i
 
   .links
-    - id = rand(1_000_000).to_s(36)
+    - id = rand(1_679_615).to_s(36)
     - existing ||= []
+    - indicator_values = Nomen::Indicator.selection
+    - values = indicator_values.map { |elem| existing.include?(elem.last) ? elem + [{disabled: true, hidden: true}] : elem }
     %span.nested-add= :add_item.tl
-    %span.input-append= select_tag(:indicator_name, options_for_select(Nomen::Indicator.selection - existing), id: id)
+    %span.input-append= select_tag(:indicator_name, options_for_select(Nomen::Indicator.selection), id: id)
     = link_to(:add.tl, {action: :new, controller: :analysis_items}, class: "btn btn-default", remote: true, data: {update: '#analysis-items', update_at: 'bottom', with: "##{id}"})
