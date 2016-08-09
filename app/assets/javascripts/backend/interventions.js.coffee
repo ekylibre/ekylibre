@@ -74,11 +74,12 @@
       for id, attributes of list
         E.interventions.unserializeRecord(form, attributes, prefix + id + '_', updater_id)
 
-    updateDateScopes: (newTime) ->
+    updateAvailibityInstant: (newTime) ->
+      return unless newTime != ''
       $("input.scoped-parameter").each (index, item) ->
         scopeUri = decodeURI($(item).data("selector"))
         re =  /(scope\[availables\]\[\]\[at\]=)(.*)(&)/
-        scopeUri = scopeUri.replace(re, "$1"+newTime+"$3")
+        scopeUri = scopeUri.replace(re, "$1" + newTime + "$3")
         $(item).attr("data-selector", encodeURI(scopeUri))
 
     # Ask for a refresh of values depending on given field
@@ -128,11 +129,11 @@
   $(document).on 'cocoon:after-insert', ->
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
-    $("input.intervention-started-at").each ->
+    $(".nested-fields.working-period:first-child input.intervention-started-at").each ->
       $(this).each ->
-        #date = $(this).data("datetimepicker").getFormattedDate()
-        date = $(this).val()
-        E.interventions.updateDateScopes(date)
+        E.interventions.updateAvailibityInstant($(this).val())
+    $('*[data-intervention-updater]').each ->
+        E.interventions.refresh $(this)
 
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
@@ -156,11 +157,9 @@
     $(this).each ->
       E.interventions.refresh $(this)
 
-  $(document).on "keyup change", "input.intervention-started-at", ->
+  $(document).on "keyup change", ".nested-fields.working-period:first-child input.intervention-started-at", ->
     $(this).each ->
-      #date = $(this).data("datetimepicker").getFormattedDate()
-      date = $(this).val()
-      E.interventions.updateDateScopes(date)
+      E.interventions.updateAvailibityInstant($(this).val())
 
   # $(document).on 'change', '*[data-procedure-global="at"]', ->
   #   $(this).each ->

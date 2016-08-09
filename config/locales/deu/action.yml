@@ -38,7 +38,7 @@ deu:
       # detach: "Detach from affair %{number}"
       # finish: "Finish affair %{number}"
       index: "Angelegenheiten"
-      # select: "Select for affair %{number}"
+      select: "Wählen Sie einen Datensatz zu Affäre hinzufügen"
       # show: "Affair: %{number}"
     backend/analyses:
       # edit: "Edit analysis #%{number}"
@@ -389,7 +389,7 @@ deu:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Pencil Produktlokalisierung:"
-      # new: "New product localization"
+      new: "Neue Produktlokalisierung"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Produktkategorien"

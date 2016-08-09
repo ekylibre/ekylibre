@@ -44,7 +44,7 @@ spa:
       # detach: "Detach from affair %{number}"
       # finish: "Finish affair %{number}"
       index: "Asuntos"
-      # select: "Select for affair %{number}"
+      select: "Seleccione un registro para agregar al asunto"
       # show: "Affair: %{number}"
     backend/analyses:
       # edit: "Edit analysis #%{number}"
@@ -426,7 +426,7 @@ spa:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Editar la localización del producto:"
-      # new: "New product localization"
+      new: "Nueva localización del producto"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorías de Producto"

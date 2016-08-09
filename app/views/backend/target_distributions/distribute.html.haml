@@ -5,12 +5,13 @@
         %th= :product.tl
         %th= :activity_production.tl
     %tbody
+      - activity_productions = ActivityProduction.includes(:cultivable_zone, :activity).all.sort{ |a,b| a.name <=> b.name }
       - @targets.each_with_index do |target, i|
         %tr
           %td= link_to target.product.name, backend_product_path(target.product)
           = simple_fields_for "target_distribution[collection][#{i}]", target do |target_fields|
             = target_fields.input :target_id, as: :hidden, input_html: { value: target_fields.object.product.id }
-            %td= target_fields.input_field :activity_production_id, collection: ActivityProduction.all.sort{ |a,b| a.name <=> b.name }, selected: (target.activity_production.present? ? target.activity_production.id : nil), include_blank: true
+            %td= target_fields.input_field :activity_production_id, collection: activity_productions, selected: (target.activity_production.present? ? target.activity_production.id : nil), include_blank: true
   - f.add(:submit, :create.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
   - f.add(:link, :cancel.tl, (params[:redirect] || local_assigns[:cancel_url] || {action: :index}), (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
   = f.actions

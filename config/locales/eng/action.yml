@@ -55,7 +55,7 @@ eng:
       detach: "Detach from affair %{number}"
       finish: "Finish affair %{number}"
       index: "Affairs"
-      select: "Select for affair %{number}"
+      select: "Select a record to add to affair"
       show: "Affair: %{number}"
     backend/analyses:
       edit: "Edit analysis #%{number}"

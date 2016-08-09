@@ -19,13 +19,13 @@
 module Backend
   class AnalysisItemsController < Backend::BaseController
     def new
-      if request.xhr? && params[:indicator_name]
-        unless @analysis = Analysis.find_by(id: params[:analysis_id])
-          @analysis = Analysis.new
-        end
+      if request.xhr?
         unless indicator = Nomen::Indicator.find(params[:indicator_name])
           head :not_found
           return
+        end
+        unless @analysis = Analysis.find_by(id: params[:analysis_id])
+          @analysis = Analysis.new
         end
         @analysis.items.build(indicator_name: indicator.name)
         render partial: 'nested_form'

@@ -56,7 +56,7 @@ class Tax < Ekylibre::Record::Base
   validates :active, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :country, :nature, presence: true
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :reference_name, length: { allow_nil: true, maximum: 120 }

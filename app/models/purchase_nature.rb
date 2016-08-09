@@ -43,7 +43,7 @@ class PurchaseNature < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :by_default, :with_accounting, inclusion: { in: [true, false] }
   validates :currency, presence: true
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :journal, presence: { if: :with_accounting? }

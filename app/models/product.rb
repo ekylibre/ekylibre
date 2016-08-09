@@ -207,7 +207,8 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { all }
+  scope :available, -> { alive } # TODO: Remove null-population products
+  scope :alive, -> { where(dead_at: nil) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
@@ -222,7 +223,7 @@ class Product < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :born_at, :dead_at, :initial_born_at, :initial_dead_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :identification_number, :picture_content_type, :picture_file_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :initial_population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
@@ -326,14 +327,12 @@ class Product < Ekylibre::Record::Base
     alias_method_chain :new, :cast
 
     def availables(**args)
-      if args[:at]
-        if args[:at].is_a? String
-          available.at(Time.strptime(args[:at], '%Y-%m-%d %H:%M'))
-        else
-          available.at(args[:at])
-        end
+      at = args[:at]
+      return available if at.blank?
+      if at.is_a? String
+        available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
       else
-        available
+        available.at(at)
       end
     end
   end

@@ -8,7 +8,7 @@
     target = button.attr('data-janus-href')
     $("*[data-face].active").removeClass('active').trigger('face:deactivate')
     $("*[data-face='#{target}']").addClass('active').trigger('face:activate')
-    $(window).trigger("resize")
+    $(window).trigger('resize')
     janus = button.closest("*[data-janus]")
     $.ajax
       url: janus.data("janus")
