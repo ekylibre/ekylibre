@@ -126,14 +126,15 @@ module Procedo
           reference.components.each do |component_parameter|
             inputs = intervention.parameters_of_name(component_parameter.name)
             inputs.each do |input|
-              input.assembly = intervention.interpret(input.reference.component_of_tree, env)
+              input.assign(:assembly, intervention.interpret(input.reference.component_of_tree, env))
             end
           end
         end
 
         def impact_on_parameters(_field)
-          procedure.product_parameters(true).each do |parameter|
-            intervention.parameters_of_name(parameter.name).each do |ip|
+          (procedure.product_parameters(true)).each do |parameter|
+            (intervention.parameters_of_name(parameter.name) - [self]).each do |ip|
+
               # Impact handlers
               if parameter.quantified? && ip.quantity_handler
                 handler = parameter.handler(ip.quantity_handler)
@@ -154,7 +155,7 @@ module Procedo
                 ip.reading(reading.name).assign(:value, ip.compute_reading(reading))
               end
               # Impact components
-              ip.impact_on_components
+              ip.impact_on_components(_field)
             end
           end
         end

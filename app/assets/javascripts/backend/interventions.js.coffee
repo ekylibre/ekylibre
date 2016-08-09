@@ -25,14 +25,14 @@
           input = form.find("##{prefix}component_id")
           unrollPath = input.attr('data-selector')
           if unrollPath
-            schemId = attributes["schematic_id"]
-            if typeof(schemId) == 'undefined' or schemId is null
-              schemId = "nil"
-            componentReg = /(unroll\?.*scope.*components_of[^=]*)=([^&]*)(&?.*)/
+            assemId = attributes["assembly_id"]
+            if typeof(assemId) == 'undefined' or assemId is null
+              assemId = "nil"
+            componentReg = /(unroll\?.*scope.*components_of_product[^=]*)=([^&]*)(&?.*)/
             oldSchematics = unrollPath.match(componentReg)[2]
-            unrollPath = unrollPath.replace(componentReg, "$1="+schemId+"$3")
+            unrollPath = unrollPath.replace(componentReg, "$1="+assemId+"$3")
             input.attr('data-selector', unrollPath)
-            if schemId.toString() != oldSchematics.toString()
+            if assemId.toString() != oldSchematics.toString()
               $(input).val('')
 
 

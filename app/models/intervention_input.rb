@@ -64,7 +64,6 @@ class InterventionInput < InterventionProductParameter
   before_validation do
     if product
       self.variant = product.variant
-      self.schematic = variant
     end
   end
 
@@ -80,7 +79,7 @@ class InterventionInput < InterventionProductParameter
   end
 
   after_create do
-    if product && component && schematic
+    if product && component
       ProductPartReplacement.create!(
         component: component_id,
         intervention_parameter: self,

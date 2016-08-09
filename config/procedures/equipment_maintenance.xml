@@ -4,7 +4,7 @@
     <parameters>
       <group name="work" cardinality="+">
         <target name="equipment" filter="is equipment" cardinality="1"/>
-        <input name="replacement_part" component-of="first(siblings(SELF, equipment))" filter="is matter and derives from equipment" cardinality="*">
+        <input name="replacement_part" component-of="first_product_of(siblings(SELF, equipment))" filter="is matter and derives from equipment" cardinality="*">
           <handler name="population" />
         </input>
         <input name="consumable_part" filter="is matter" cardinality="*">

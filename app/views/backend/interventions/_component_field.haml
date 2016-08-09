@@ -1,5 +1,4 @@
 = f.referenced_association :assembly, as: :hidden
-= f.referenced_association :schematic, as: :hidden
 
 :ruby
   options = {
@@ -7,7 +6,7 @@
     source: {
       keep: true,
       scope: {
-        components_of: f.object.schematic_id
+        components_of_product: Maybe(f.object.assembly).variant.id.or_else("nil")
       }
     },
     input_html: {
