@@ -118,8 +118,8 @@ class FixedAsset < Ekylibre::Record::Base
         end
       end
       if self.stopped_on
-        unless self.stopped_on >= started_on
-          errors.add(:started_on, :less_than_or_equal_to, count: self.stopped_on.l)
+        unless self.stopped_on > started_on
+          errors.add(:stopped_on, :posterior, to: self.started_on.l)
         end
       end
     end
