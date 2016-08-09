@@ -6,7 +6,7 @@
       = f.referenced_association :sender, required: true
     - elsif f.object.outgoing?
       = f.referenced_association :recipient, required: true, input_html: {data: {product_of_delivery_item: {url: backend_entity_path("RECORD_ID", format: :json)}}}
-    = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}
+    = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }
   - if f.object.incoming?
     = f.input :reference_number
     = f.referenced_association :storage, source: :storage, required: true

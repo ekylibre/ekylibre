@@ -102,8 +102,10 @@ class EntityAddress < Ekylibre::Record::Base
           end
         end
       end
-      self.mail_line_1 = entity.full_name if mail_line_1.blank?
-      self.mail_auto_update = (entity.full_name == mail_line_1 ? true : false)
+      if entity
+        self.mail_line_1 = entity.full_name if mail_line_1.blank?
+        self.mail_auto_update = (entity.full_name == mail_line_1 ? true : false)
+      end
       self.coordinate = mail_lines
     elsif website?
       self.coordinate = 'http://' + coordinate unless coordinate =~ /^.+p.*\/\//
