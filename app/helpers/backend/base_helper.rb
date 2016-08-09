@@ -224,7 +224,7 @@ module Backend
         end.collect { |k, v| [k, v.to_s.to_f] }
         # current population
         data << [now.to_usec, resource.population.to_d.to_s.to_f]
-        series << { name: resource.name, data: data, step: 'left' }
+        series << { name: resource.name, data: data.sort { |a, b| a.first <=> b.first }, step: 'left' }
       end
       return no_data if series.empty?
       line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
