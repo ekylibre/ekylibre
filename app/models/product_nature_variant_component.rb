@@ -48,8 +48,8 @@ class ProductNatureVariantComponent < Ekylibre::Record::Base
   # acts_as_nested_set scope: :product_nature_variant_id
   accepts_nested_attributes_for :children, allow_destroy: true
 
-  scope :components_of, -> (variant_id) { variant_id.nil? ? none : where(product_nature_variant_id: variant_id) }
-  scope :components_of_product, -> (product_id) { product_id.nil? ? none : where(product_nature_variant_id: Product.find(product_id).variant_id) }
+  scope :components_of, -> (variant_id) { variant_id == "nil" ? none : where(product_nature_variant_id: variant_id) }
+  scope :components_of_product, -> (product_id) { product_id == "nil" ? none : where(product_nature_variant_id: Product.find(product_id).variant_id) }
 
   before_validation do
     self.product_nature_variant = parent.product_nature_variant if parent

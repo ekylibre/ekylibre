@@ -147,7 +147,7 @@
   ##############################################################################
   # Triggers
   #
-  $(document).on 'cocoon:after-insert', ->
+  $(document).on 'cocoon:after-insert', (e, i) ->
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
     $("input.intervention-started-at").each ->
@@ -155,6 +155,8 @@
         #date = $(this).data("datetimepicker").getFormattedDate()
         date = $(this).val()
         E.interventions.updateDateScopes(date)
+    $(i).find('*[data-intervention-updater]').each (_index, inp) ->
+      E.interventions.refresh $(inp)
 
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
@@ -168,7 +170,6 @@
   $(document).on 'keyup', 'input[data-selector]', (e) ->
     $(this).each ->
       E.interventions.refresh $(this)
-
 
   $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (e) ->
     $(this).each ->
