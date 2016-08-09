@@ -38,7 +38,7 @@ cmn:
       # detach: "Detach from affair %{number}"
       # finish: "Finish affair %{number}"
       index: "事务"
-      # select: "Select for affair %{number}"
+      select: "选择一个记录添加到外遇"
       # show: "Affair: %{number}"
     backend/analyses:
       # edit: "Edit analysis #%{number}"
@@ -389,7 +389,7 @@ cmn:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "编辑产品的本地化："
-      # new: "New product localization"
+      new: "新产品本地化"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "产品类别"

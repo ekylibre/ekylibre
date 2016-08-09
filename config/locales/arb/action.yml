@@ -44,7 +44,7 @@ arb:
       # detach: "Detach from affair %{number}"
       # finish: "Finish affair %{number}"
       index: "شئون"
-      # select: "Select for affair %{number}"
+      select: "تحديد سجل لإضافة إلى قضية"
       # show: "Affair: %{number}"
     backend/analyses:
       # edit: "Edit analysis #%{number}"
@@ -495,7 +495,7 @@ arb:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "تحرير توطين المنتج:"
-      # new: "New product localization"
+      new: "جديد توطين المنتج"
     backend/product_moves:  #?
       edit: "تعديل حركة سهم : %{name}" #?
       new: "التسجيل لحركة السهم" #?
