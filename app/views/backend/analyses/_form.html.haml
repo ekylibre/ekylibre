@@ -32,7 +32,7 @@
         end
 
         indicators_and_children = nature.items.map { |item| Nomen::Indicator.find(item.to_s).self_and_children }
-        existing = indicators_and_children.map { |ind| ind.map { |i| i.name.to_s } }
+        existing = indicators_and_children.map { |ind| ind.map(&:name).map(&:to_s) }
         existing = existing.flatten(1)
       end
     end
