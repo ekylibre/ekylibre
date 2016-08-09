@@ -64,6 +64,15 @@ class AnalysisItem < Ekylibre::Record::Base
 
   delegate :sampled_at, to: :analysis
 
+  validate do
+    if analysis
+      similars = analysis.items.select { |i| i.indicator_name == indicator_name }
+      if similars.size > 1 && similars.first != self
+        errors.add :indicator_name, :taken
+      end
+    end
+  end
+
   after_save do
     if product
       if reading = product_reading

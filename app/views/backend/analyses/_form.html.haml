@@ -12,9 +12,6 @@
   = f.input :analysed_at
   = f.referenced_association :analyser
   = f.referenced_association :product
-  = f.custom_fields
-
-= f.attachments_field_set
 
 = field_set :items do
   :ruby
@@ -30,10 +27,6 @@
             f.object.items.build(attrs)
           end
         end
-
-        indicators_and_children = nature.items.map { |item| Nomen::Indicator.find(item.to_s).self_and_children }
-        existing = indicators_and_children.map { |ind| ind.map(&:name).map(&:to_s) }
-        existing = existing.flatten(1)
       end
     end
 
@@ -41,11 +34,13 @@
     = f.backend_fields_for(:items) do |i|
       = render "backend/analysis_items/form", f: i
 
-  .links
-    - id = rand(1_679_615).to_s(36)
-    - existing ||= []
-    - indicator_values = Nomen::Indicator.selection
-    - values = indicator_values.map { |elem| existing.include?(elem.last) ? elem + [{disabled: true, hidden: true}] : elem }
-    %span.nested-add= :add_item.tl
-    %span.input-append= select_tag(:indicator_name, options_for_select(Nomen::Indicator.selection), id: id)
-    = link_to(:add.tl, {action: :new, controller: :analysis_items}, class: "btn btn-default", remote: true, data: {update: '#analysis-items', update_at: 'bottom', with: "##{id}"})
+    .links
+      :ruby
+        existing = f.object.items.map(&:indicator_name).map(&:to_s)
+        indicator_values = Nomen::Indicator.selection
+        indicator_values.each { |elem| elem << { disabled: true, hidden: true } if existing.include?(elem.last) }
+      %span.nested-add= :add_item.tl
+      %span.input-append= select_tag(:indicator_name, options_for_select(indicator_values), id: 'indicator-selector')
+      = link_to(:add.tl, { action: :new, controller: :analysis_items }, class: "btn btn-default", remote: true, data: { update: '.links', update_at: 'before', closest: '#analysis-items', with: '#indicator-selector' })
+
+= f.attachments_field_set
