@@ -184,7 +184,7 @@ fra:
         on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
-        posterior: "La date %{attribute} doit être postérieure à %{to}"
+        posterior: "%{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
@@ -213,7 +213,7 @@ fra:
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
