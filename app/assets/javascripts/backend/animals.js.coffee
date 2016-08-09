@@ -33,6 +33,9 @@
             a.id
           .join(',')
 
+
+      @animal_moving_url = ''
+
       @showAnimalDetailsModal = ko.observable false
       @showNewGroupModal = ko.observable false
 
@@ -85,9 +88,9 @@
         for id, item of @selectedItemsIndex
           @moveAnimalsModal.animals.push item
 
+        Turbolinks.visit @animal_moving_url
 
-
-        @moveAnimalsModal.show(true)
+#        @moveAnimalsModal.show(true)
 
 
       @impactSelectedItems = =>
@@ -99,6 +102,13 @@
 
         # TODO: set icon or text to explain counting.
         $el.html("#{$el.data('name')} (#{count})")
+
+        @animal_moving_url = $('a[data-intervention-accessor=animal_group_changing]').attr('href')
+        parameters = $.param
+            animals_ids: Object.keys(app.selectedItemsIndex)
+
+        @animal_moving_url += "&#{parameters}"
+
 
       @moveAnimals = () =>
 
@@ -218,11 +228,10 @@
   $(document).on 'click', 'a[data-intervention-accessor]', (e) =>
     unless app.selectedItemsIndex is undefined
       link = e.currentTarget.getAttribute('href')
-      parameters = {
-        animals_ids: Object.keys(app.selectedItemsIndex)
-      }
       # assume link already has parameters (at least procedure name ?)
-      link += "&#{$.param(parameters)}"
+      link += "&#{$.param({
+        animals_ids: Object.keys(app.selectedItemsIndex)
+      })}"
 
     #TODO call modal to directly add a new intervention instead of redirect
     Turbolinks.visit link
