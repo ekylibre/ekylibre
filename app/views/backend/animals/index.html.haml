@@ -2,6 +2,14 @@
   = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
   = t.new data: { target: '#new-animal', toggle: 'modal' }, href: "#"
 
+  - family = Nomen::ActivityFamily[:animal_farming]
+  = t.menu :interventions, icon: false, class: 'interventions-accessor' do |menu|
+    - Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
+      - Procedo.procedures_of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
+        - menu.item procedure.human_name, { controller: :interventions, procedure_name: procedure.name, redirect: params[:redirect], action: :new }, data: {intervention_accessor: true}
+      - menu.separator
+
+
 = janus do |j|
   - j.face :list do
     = kujaku do |k|

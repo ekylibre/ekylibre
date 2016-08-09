@@ -26,8 +26,10 @@ class golumn.Item
       if newValue
         @parent.protect = true
         app.selectedItemsIndex[@id] = @
+        app.impactSelectedItems()
       else
         @parent.protect = false
         delete app.selectedItemsIndex[@id]
+        app.impactSelectedItems()
 
     return

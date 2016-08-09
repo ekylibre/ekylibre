@@ -90,6 +90,16 @@
         @moveAnimalsModal.show(true)
 
 
+      @impactSelectedItems = =>
+        count = Object.keys(@selectedItemsIndex).length
+        $el = $('.interventions-accessor').find('[data-toggle=dropdown]')
+
+        unless $el.data('name')
+          $el.data('name', $el.html())
+
+        # TODO: set icon or text to explain counting.
+        $el.html("#{$el.data('name')} (#{count})")
+
       @moveAnimals = () =>
 
         #if its a new container
@@ -204,6 +214,19 @@
         return false
 
     return
+
+  $(document).on 'click', 'a[data-intervention-accessor]', (e) =>
+    unless app.selectedItemsIndex is undefined
+      link = e.currentTarget.getAttribute('href')
+      parameters = {
+        animals_ids: Object.keys(app.selectedItemsIndex)
+      }
+      # assume link already has parameters (at least procedure name ?)
+      link += "&#{$.param(parameters)}"
+
+    #TODO call modal to directly add a new intervention instead of redirect
+    Turbolinks.visit link
+    false
 
 
   $(document).ready ->
