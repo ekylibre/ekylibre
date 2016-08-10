@@ -24,7 +24,7 @@
   -# = f.object.errors.inspect
 
 
-= field_set resource_model.human_attribute_name(:items) do
+= field_set f.object_model.human_attribute_name(:items) do
   %table.list
     %thead
       %tr
@@ -35,7 +35,7 @@
         -# %th= ParcelItem.human_attribute_name(:shape)
         %th= ParcelItem.human_attribute_name(:analysis)
 
-    = f.simple_fields_for :items, resource.items do |item|
+    = f.simple_fields_for :items, f.object.items do |item|
       = render item_partial, f: item
     - if f.object.allow_items_update?
       %tfoot#items_anchor
