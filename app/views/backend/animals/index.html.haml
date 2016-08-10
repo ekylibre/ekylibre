@@ -34,9 +34,7 @@
 
       %script#golumn-column-template{type: 'text/html'}
         .golumn-column
-          .golumn-column-header
-            .golumn-column-actions
-              .checker{data: {bind: 'checkbox: toggleItems'}}
+          .golumn-column-header{data: {bind: 'checkbox: toggleItems'}}
             .golumn-column-handle
               %span.golumn-column-title{data: {bind: 'text: name'}}
               %span.badge.golumn-column-badge{data: { bind: 'text: count'}}

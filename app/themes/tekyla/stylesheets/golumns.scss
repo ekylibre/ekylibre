@@ -111,6 +111,8 @@ $column-width: 28ex;
     .golumn-column-header {
       @include clearfix;
       flex: none;
+      cursor: pointer;
+
       .golumn-column-actions {
         @include float(right);
       }
