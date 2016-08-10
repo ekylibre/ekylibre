@@ -173,6 +173,9 @@ arb:
         in_progress: "في تَقَدم"
         undone: "غير مصنوع"
     intervention:
+      nature:
+        record: "سجل"
+        request: "طلب"
       state:
         done: "فعله"
         in_progress: "في تَقَدم"

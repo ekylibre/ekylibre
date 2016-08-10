@@ -74,6 +74,7 @@ module ToolbarHelper
       url[:action] ||= name
       url[:id] = record.id if record && record.class < ActiveRecord::Base
       action_label = options[:label] || I18n.t(name, scope: 'rest.actions')
+      url[:nature] = options[:nature] if options[:nature]
       if options[:variants]
         variants = options.delete(:variants)
         # variants ||= { action_label => url } if authorized?(url)

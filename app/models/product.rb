@@ -700,12 +700,4 @@ class Product < Ekylibre::Record::Base
     end
     area || 0.in(area_unit)
   end
-
-  # Returns working duration of a product
-  def working_duration(options = {})
-    role = options[:as] || :tool
-    periods = InterventionWorkingPeriod.with_generic_cast(role, self)
-    periods = periods.of_campaign(options[:campaign]) if options[:campaign]
-    periods.sum(:duration)
-  end
 end

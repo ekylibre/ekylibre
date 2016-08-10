@@ -22,6 +22,8 @@
 #
 # == Table: intervention_parameters
 #
+#  assembly_id             :integer
+#  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
 #  event_participation_id  :integer

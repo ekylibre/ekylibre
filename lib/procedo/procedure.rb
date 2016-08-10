@@ -9,8 +9,51 @@ module Procedo
     attr_reader :id, :name, :categories, :mandatory_actions, :optional_actions
     delegate :add_product_parameter, :add_group_parameter, :find, :find!,
              :each_product_parameter, :each_group_parameter, :each_parameter,
-             :product_parameters, :group_parameters, :parameters,
+             :product_parameters, :group_parameters,
              :position_of, :parameters_of_type, to: :root_group
+
+    class << self
+      def find(name)
+        Procedo.find(name)
+      end
+
+      def find_each(&block)
+        Procedo.procedures.each(&block)
+      end
+
+      # Returns procedures of given activity families
+      def activity_family(*families)
+        options = categories.extract_options!
+        select(options) do |p|
+          p.of_activity_family?(*families)
+        end
+      end
+
+      # Returns procedures of given categories
+      def of_category(*categories)
+        options = categories.extract_options!
+        select(options) do |p|
+          p.of_category?(*categories)
+        end
+      end
+
+      # Returns procedures which main category match given ones
+      def of_main_category(*categories)
+        options = categories.extract_options!
+        select(options) do |p|
+          categories.detect { |c| p.categories.first <= c }
+        end
+      end
+
+      # Select procedures with given block
+      def select(options = {})
+        include_deprecated = options[:include_deprecated]
+        Procedo.procedures.select do |p|
+          (include_deprecated || (!include_deprecated && !p.deprecated?)) &&
+            yield(p)
+        end
+      end
+    end
 
     def initialize(name, options = {})
       @name = name.to_sym
@@ -18,6 +61,7 @@ module Procedo
       @mandatory_actions = []
       @optional_actions = []
       @root_group = Procedo::Procedure::GroupParameter.new(self, ROOT_NAME, cardinality: 1)
+      @deprecated = !!options[:deprecated]
       # Adds categories & action
       options[:categories].each { |c| add_category(c) } if options[:categories]
       options[:mandatory_actions].each { |c| add_action(c) } if options[:mandatory_actions]
@@ -29,6 +73,10 @@ module Procedo
     # All actions (mandatory and optional)
     def actions
       @mandatory_actions + @optional_actions
+    end
+
+    def deprecated?
+      @deprecated
     end
 
     # Adds category to procedure

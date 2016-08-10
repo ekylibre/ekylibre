@@ -15,6 +15,28 @@
   # other fields and on updater itself if necessary
   E.interventions =
 
+    handleComponents: (form, attributes, prefix = '') ->
+      for name, value of attributes
+        subprefix = prefix + name
+        if /\w+_attributes$/.test(name)
+          for id, attrs of value
+            E.interventions.handleComponents(form, attrs, subprefix + '_' + id + '_')
+        else
+          input = form.find("##{prefix}component_id")
+          unrollPath = input.attr('data-selector')
+          if unrollPath
+            assemId = attributes["assembly_id"]
+            if typeof(assemId) == 'undefined' or assemId is null
+              assemId = "nil"
+            componentReg = /(unroll\?.*scope.*components_of_product[^=]*)=([^&]*)(&?.*)/
+            oldAssembly = unrollPath.match(componentReg)[2]
+            unrollPath = unrollPath.replace(componentReg, "$1="+assemId+"$3")
+            input.attr('data-selector', unrollPath)
+            if assemId.toString() != oldAssembly.toString()
+              console.log "CLEAR"
+              $(input).val('')
+
+
     toggleHandlers: (form, attributes, prefix = '') ->
       for name, value of attributes
         subprefix = prefix + name
@@ -116,6 +138,7 @@
             console.group('Unserialize intervention updated by ' + updaterId)
             # Updates elements with new values
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
+            E.interventions.handleComponents(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
             # if updaterElement? and initialValue != E.value($("*[data-intervention-updater='#{intervention.updater}']").first())
             #   E.interventions.refresh updaterElement
@@ -126,7 +149,7 @@
   ##############################################################################
   # Triggers
   #
-  $(document).on 'cocoon:after-insert', ->
+  $(document).on 'cocoon:after-insert', (e, i) ->
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
     $(".nested-fields.working-period:first-child input.intervention-started-at").each ->
@@ -147,7 +170,6 @@
   $(document).on 'keyup', 'input[data-selector]', (e) ->
     $(this).each ->
       E.interventions.refresh $(this)
-
 
   $(document).on 'keyup change', 'input[data-intervention-updater]:not([data-selector])', (e) ->
     $(this).each ->

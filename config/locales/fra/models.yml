@@ -377,6 +377,7 @@ fra:
       product_nature_category: "Catégorie de type de produit"
       product_nature_category_taxation: "Taxation de catégorie de type de produit"
       product_nature_variant: "Variante de type de produit"
+      product_nature_variant_component: "Produit Composant de variante de la nature"
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
@@ -434,6 +435,7 @@ fra:
     actions: "Actions"
     active: "Actif"
     active_prices: "Prix actifs" #?
+    active_sessions: "Sessions actives"
     activities: "Activités"
     activity: "Activité"
     activity_budget: "Budget"
@@ -473,6 +475,7 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
+    assembly: "Assemblée"
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
@@ -568,6 +571,8 @@ fra:
     commission_base_amount: "Montant fixe de la commission"
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
+    component: "Composant"
+    components: "Composants"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
     computed_at: "Calculé le" #?
@@ -697,7 +702,7 @@ fra:
     document: "Document"
     document_archives: "Archives documentaires" #?
     documents: "Documents"
-    doers: "Equipiers"
+    doers: "Équipiers"
     done_at: "Fait le" #?
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
@@ -754,6 +759,7 @@ fra:
     exploitation_name: "Nom de l’exploitation"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
+    exportable_fields: "Champs exportables"
     expression: "Expression" #?
     external: "Externe"
     extjuncted: "Extjoint" #?
@@ -793,6 +799,7 @@ fra:
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
+    following: "Suivant"
     formats: "Formats"
     fourth_producer: "Quatrième producteur" #?
     fourth_producer_way: "Voie du quatrième producteur" #?
@@ -1104,6 +1111,9 @@ fra:
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
+    part_product_nature_variant: "Variante du composant"
+    part_product_nature_variant_id: "Variante du composant"
+    part_replacements: "Remplacements de pièce"
     parted: "En partie"
     parted_product: "Produit retiré"
     participant: "Participant"
@@ -1196,6 +1206,8 @@ fra:
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
+    product_nature_variant: "Variante"
+    product_nature_variant_id: "Variante"
     product_natures: "Types de produits"
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
@@ -1287,6 +1299,8 @@ fra:
     reflections: "Réflexions"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
+    remaining_lifespan: "Vie restante"
+    remaining_working_lifespan: "Vie travaillée restante"
     remember_created_at: "Se souvenir de moi à"
     remember_me: "Se souvenir de moi"
     reminder_submissive: "Soumis à la relance"
@@ -1294,7 +1308,10 @@ fra:
     repayment_method: "Méthode de remboursement"
     repayment_period: "Période de remboursement"
     repayments: "Remboursements"
+    replaced_at: "Remplacé le"
+    replacements: "Remplacements"
     reporter: "Rapporteur"
+    request_intervention: "Demande intervention"
     required: "Obligatoire"
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"
@@ -1456,6 +1473,8 @@ fra:
     transporter_purchase: "Achat du transporteur"
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports" #?
+    trouble_description: "Description du problème"
+    trouble_encountered: "Probléme durant l'intervention"
     type: "Type"
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"

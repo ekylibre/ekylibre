@@ -167,6 +167,9 @@ fra:
         in_progress: "En cours"
         undone: "Défait"
     intervention:
+      nature:
+        record: "Enregistrement"
+        request: "Demande"
       state:
         done: "Réalisée"
         in_progress: "En cours"

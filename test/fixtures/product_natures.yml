@@ -1443,3 +1443,23 @@ product_natures_060:
   updated_at: 2016-05-26 21:23:56.026594000 Z
   updater_id: 1
   variety: immatter
+product_natures_061:
+  active: true
+  category_id: 23
+  created_at: 2016-08-10 14:23:55.785085000 Z
+  creator_id: 1
+  derivative_of: equipment
+  description: ''
+  evolvable: false
+  id: 61
+  lock_version: 1
+  name: Pièce de machine
+  number: PDM
+  population_counting: decimal
+  subscribing: false
+  subscription_days_count: 0
+  subscription_months_count: 0
+  subscription_years_count: 0
+  updated_at: 2016-08-10 14:27:34.011711000 Z
+  updater_id: 1
+  variety: equipment_part

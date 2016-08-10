@@ -16,13 +16,19 @@ module Procedo
           if attributes[:working_zone].present?
             @working_zone = Charta.from_geojson(attributes[:working_zone])
           end
-          @read_at = intervention.working_periods['0'].started_at if intervention && intervention.working_periods.present?
+          if intervention && intervention.working_periods.present?
+            @read_at = intervention.working_periods['0'].started_at
+          end
           @readings = {}.with_indifferent_access
           if @attributes[:readings_attributes]
             @attributes[:readings_attributes].each do |id, attributes|
               add_reading(id, attributes)
             end
           end
+        end
+
+        def read_at?
+          @read_at.present?
         end
 
         def product_id
@@ -33,9 +39,18 @@ module Procedo
           self.product_id = record.id
         end
 
+        def product?
+          @product.present?
+        end
+
         def product_id=(id)
           @product = Product.find_by!(id: id)
+          # Can impact on own attributes, own readings, and other parameters
           impact_dependencies!(:product)
+        end
+
+        def working_zone?
+          @working_zone.present?
         end
 
         def working_zone=(value)
@@ -57,8 +72,8 @@ module Procedo
 
         def to_hash
           hash = super
-          hash[:product_id] = product_id
-          hash[:working_zone] = @working_zone ? @working_zone.to_json : nil
+          hash[:product_id] = product_id if product?
+          hash[:working_zone] = @working_zone.to_json if working_zone?
           @readings.each do |id, reading|
             next unless reference.reading(reading.name)
             hash[:readings_attributes] ||= {}
@@ -68,87 +83,78 @@ module Procedo
         end
 
         def impact_with(steps)
-          raise 'Invalid steps: ' + steps.inspect if steps.size != 1
-          impact(steps.first)
+          if steps.size != 1
+            raise ArgumentError, 'Invalid steps: got ' + steps.inspect
+          end
+          reassign!(steps.first)
         end
 
-        def impact_dependencies!(field)
+        def impact_dependencies!(field = nil)
           super(field)
           impact_on_attributes(field)
           impact_on_readings(field)
+          impact_on_components(field)
           impact_on_parameters(field)
         end
 
         # Impact changes on attributes of parameter based on given field
-        def impact_on_attributes(field)
+        def impact_on_attributes(field = nil)
           reference.attributes.each do |attribute|
             next unless field != attribute.name
             next unless attribute.default_value?
             next unless attribute.default_value_with_environment_variable?(field, :self)
             next if attribute.condition? && !usable_attribute?(attribute)
-            # value = send(attribute.name)
-            # next unless value.blank?
             value = compute_attribute(attribute)
             next if value.blank? || value == send(attribute.name)
-            # puts "Update #{attribute.name}"
             value = Charta.new_geometry(value) if value && attribute.name == :working_zone
-            send(attribute.name.to_s + '=', value)
+            assign(attribute.name, value)
           end
         end
 
         # Impact changes on readings of parameter based on given field
-        def impact_on_readings(field)
+        def impact_on_readings(field = nil)
           reference.readings.each do |ref_reading|
             ir = reading(ref_reading.name)
             next unless ir && ref_reading.default_value?
             next unless ref_reading.default_value_with_environment_variable?(field, :self)
             next if ref_reading.condition? && !usable_reading?(ref_reading)
-            # next unless ir.value.blank?
-            value = compute_reading(ref_reading)
-            if value != ir.value
-              # puts "Update reading #{ref_reading.name}"
-              ir.value = value
+            ir.assign(:value, compute_reading(ref_reading))
+          end
+        end
+
+        def impact_on_components(_field = nil)
+          reference.components.each do |component_parameter|
+            inputs = intervention.parameters_of_name(component_parameter.name)
+            inputs.each do |input|
+              input.assign(:assembly, intervention.interpret(input.reference.component_of_tree, env))
             end
-            ir.impact_dependencies!
           end
         end
 
         def impact_on_parameters(_field)
-          procedure.parameters.each do |parameter|
-            next unless parameter.is_a?(Procedo::Procedure::ProductParameter)
-            intervention_parameters = intervention.parameters_of_name(parameter.name)
-            intervention_parameters.each do |ip|
+          procedure.product_parameters(true).each do |parameter|
+            (intervention.parameters_of_name(parameter.name) - [self]).each do |ip|
               # Impact handlers
               if parameter.quantified? && ip.quantity_handler
                 handler = parameter.handler(ip.quantity_handler)
                 if handler && handler.depend_on?(reference_name)
-                  # puts "Impact #{parameter.name} #{handler.name} quantity_value"
-                  ip.quantity_value = ip.quantity_value
+                  ip.reassign(:quantity_value)
                 end
               end
               # Impact attributes
               parameter.attributes.each do |attribute|
-                next unless attribute.depend_on?(reference_name)
-                next unless ip.usable_attribute?(attribute)
-                value = ip.compute_attribute(attribute)
-                if value != ip.send(attribute.name)
-                  # puts "Impact #{parameter.name} #{attribute.name} attribute"
-                  ip.impact(attribute.name)
-                end
+                next unless attribute.depend_on?(reference_name) &&
+                            ip.usable_attribute?(attribute)
+                ip.assign(attribute.name, ip.compute_attribute(attribute))
               end
               # Impact readings
               parameter.readings.each do |reading|
-                next unless reading.depend_on?(reference_name)
-                next unless ip.usable_reading?(reading)
-                value = ip.compute_reading(reading)
-                ir = ip.reading(reading.name)
-                # puts value.inspect.green
-                # puts ir.value.inspect.blue
-                if value != ir.value
-                  # puts "Impact #{parameter.name} #{reading.name} reading: #{ir.value.inspect}"
-                  ir.value = value
-                end
+                next unless reading.depend_on?(reference_name) &&
+                            ip.usable_reading?(reading)
+                ip.reading(reading.name).assign(:value, ip.compute_reading(reading))
               end
+              # Impact components
+              ip.impact_on_components(_field)
             end
           end
         end
@@ -180,7 +186,7 @@ module Procedo
         end
 
         def env
-          { self: self, product: product, working_zone: working_zone, read_at: read_at }
+          super.merge(product: product, working_zone: working_zone, read_at: read_at)
         end
       end
     end

@@ -22,6 +22,8 @@
 #
 # == Table: intervention_parameters
 #
+#  assembly_id             :integer
+#  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
 #  event_participation_id  :integer
@@ -381,6 +383,17 @@ intervention_group_parameters_003:
   type: InterventionGroupParameter
   updated_at: 2015-03-23 09:36:39.556387000 Z
   updater_id: 1
+intervention_group_parameters_004:
+  created_at: 2016-08-10 14:33:28.788139000 Z
+  creator_id: 1
+  id: 167
+  intervention_id: 33
+  lock_version: 0
+  position: 1
+  reference_name: work
+  type: InterventionGroupParameter
+  updated_at: 2016-08-10 14:33:28.788139000 Z
+  updater_id: 1
 intervention_inputs_001:
   created_at: 2014-11-05 15:39:35.605810000 Z
   creator_id: 1
@@ -670,6 +683,26 @@ intervention_inputs_017:
   updated_at: 2016-07-01 20:46:56.155381000 Z
   updater_id: 1
   variant_id: 39
+intervention_inputs_018:
+  assembly_id: 32
+  component_id: 1
+  created_at: 2016-08-10 14:33:28.789526000 Z
+  creator_id: 1
+  group_id: 167
+  id: 168
+  intervention_id: 33
+  lock_version: 0
+  position: 3
+  product_id: 180
+  quantity_handler: population
+  quantity_indicator_name: population
+  quantity_population: 2.0
+  quantity_value: 2.0
+  reference_name: replacement_part
+  type: InterventionInput
+  updated_at: 2016-08-10 14:33:28.789526000 Z
+  updater_id: 1
+  variant_id: 71
 intervention_outputs_001:
   created_at: 2014-11-05 15:39:35.633332000 Z
   creator_id: 1
@@ -1246,6 +1279,20 @@ intervention_targets_021:
     45.8259433837065,-0.797173976898193 45.8246574475616,-0.796272754669189 45.8233789583432,-0.796594619750976
     45.8217490289288,-0.797646045684814 45.8210088158703,-0.798568725585938 45.8212032162122,-0.799566507339478
     45.8210985391894,-0.799287557601929 45.8255247100834)))
+intervention_targets_022:
+  created_at: 2016-08-10 14:33:28.823451000 Z
+  creator_id: 1
+  group_id: 167
+  id: 169
+  intervention_id: 33
+  lock_version: 0
+  position: 2
+  product_id: 32
+  reference_name: equipment
+  type: InterventionTarget
+  updated_at: 2016-08-10 14:33:28.823451000 Z
+  updater_id: 1
+  variant_id: 29
 intervention_tools_001:
   created_at: 2014-11-04 18:31:09.308816000 Z
   creator_id: 1

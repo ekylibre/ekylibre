@@ -174,11 +174,14 @@ ita:
         in_progress: "In corso"
         undone: "Disfatto"
     intervention:
+      nature:
+        record: "Disco"
+        request: "Richiesta"
       state:
         done: "Fatto"
         in_progress: "In corso"
-        squeezed: "spremuto"
-        undone: "disfatto"
+        squeezed: "Spremuto"
+        undone: "Disfatto"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booleano"

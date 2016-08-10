@@ -165,6 +165,9 @@ eng:
         in_progress: "In progress"
         undone: "Undone"
     intervention:
+      nature:
+        record: "Record"
+        request: "Request"
       state:
         done: "Done"
         in_progress: "In progress"
@@ -384,9 +387,9 @@ eng:
         outgoing_payments: "Numeration of payments"
         parcels: "Numeration of parcels"
         plants: "Numeration of plants"
-        product_nature_categories: "Numeration of product nature categories"
-        product_nature_variants: "Numeration of product nature variants"
-        product_natures: "Numeration of product natures"
+        product_nature_categories: "Numeration of product type categories"
+        product_nature_variants: "Numeration of product type variants"
+        product_natures: "Numeration of product types"
         products: "Numeration of products"
         purchases: "Numeration of purchases"
         sales: "Numeration of sales"

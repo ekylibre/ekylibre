@@ -1,0 +1,28 @@
+- components.each do |component|
+  - modal_id = "equipment-#{equipment.id}-component-#{component.id}-show"
+  = render 'component_modal', modal_id: modal_id, equipment: equipment, component: component
+  .component{ class: "component-level-#{depth}" }
+    .component-row
+      .component-col.component-heading
+        = link_to(component.name, '#', data: { toggle: :modal, target: "##{modal_id}" }, class: 'component-title')
+      .component-col.component-type
+        - if component.part_product_nature_variant
+          = link_to component.part_product_nature_variant.name, backend_product_nature_variant_path(component.part_product_nature_variant)
+      .component-col.component-status
+        - if resource.remaining_working_lifespan || resource.remaining_lifespan
+          = lights(equipment.wear_status(component))
+      .component-col.component-life
+        %span= :x_hours_worked.tl(count: equipment.current_work_life_of(component).to_d(:hour).round(2))
+      .component-col.component-wear
+        - if equipment.replaced_at(component)
+          %span{ title: equipment.replaced_at(component).l }
+            = relative_distance_in_words equipment.replaced_at(component)
+        - else
+          = :original_component.tl
+      .component-col.component-count
+        - replacements = equipment.replacements_of(component).includes(:intervention)
+        %span{ data: { toggle: 'tooltip' }, title: replacements.map(&:intervention).uniq.map(&:name).to_sentence }= :x_times.tl(count: replacements.count)
+
+    - if component.children.any?
+      .component-children
+        = render 'components', equipment: equipment, components: component.children, depth: depth + 1

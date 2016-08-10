@@ -22,6 +22,8 @@
 #
 # == Table: intervention_parameters
 #
+#  assembly_id             :integer
+#  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
 #  event_participation_id  :integer
@@ -50,6 +52,8 @@
 #
 
 class InterventionProductParameter < InterventionParameter
+  belongs_to :assembly, class_name: 'Product'
+  belongs_to :component, class_name: 'ProductNatureVariantComponent'
   belongs_to :intervention, inverse_of: :product_parameters
   belongs_to :product, inverse_of: :intervention_product_parameters
   belongs_to :new_container, class_name: 'Product'

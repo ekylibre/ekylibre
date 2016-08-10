@@ -107,7 +107,10 @@
 #     - "backend/notifications#unread"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
+#     - "backend/product_nature_variant_components#autocomplete"
+#     - "backend/product_nature_variant_components#unroll"
 #     - "backend/product_nature_variants#detail"
+#     - "backend/product_nature_variants#list_components"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
 #     - "backend/settlements#take"
@@ -1032,6 +1035,7 @@ interventions:
     - "backend/interventions#index"
     - "backend/interventions#list"
     - "backend/interventions#list_product_parameters"
+    - "backend/interventions#list_record_interventions"
     - "backend/interventions#show"
     - "backend/interventions#unroll"
   write:
