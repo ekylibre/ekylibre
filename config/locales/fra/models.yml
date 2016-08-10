@@ -703,7 +703,7 @@ fra:
     document: "Document"
     document_archives: "Archives documentaires" #?
     documents: "Documents"
-    doers: "Equipiers"
+    doers: "Équipiers"
     done_at: "Fait le" #?
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
