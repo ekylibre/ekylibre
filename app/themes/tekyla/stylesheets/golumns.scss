@@ -8,6 +8,7 @@ $column-width: 28ex;
 .golumn {
   background: mix($active-color, $desktop-background, 30%);
   overflow: auto;
+  position: relative;
   height: 100%;
   .golumn-loading{
     display: none;
@@ -17,12 +18,20 @@ $column-width: 28ex;
     padding: $column-padding;
     overflow: auto;
     @include calc(height, "100% - #{2 * $column-padding}");
+
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    overflow: hidden;
+    overflow-x: auto;
+
     .golumn-columns-container {
       @include display(inline-flex);
       align-items: flex-start;
       flex-direction: row;
       height: 100%;
-      overflow: auto;
     }
 
     .golumn-group-handle, .golumn-item-handle {

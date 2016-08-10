@@ -58,7 +58,7 @@
             %div{data: { bind: "template: { name: 'golumn-item-template', foreach: items }"}}
 
       %script#golumn-item-template{type: 'text/html'}
-        .golumn-item{data: { bind: "draggable: {active: checked, options: {cursor: 'move', opacity: 1, revert: true, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30, scope: 'items'}}, checkbox: $data.checked, css: stateClass"}}
+        .golumn-item{data: { bind: "draggable: {active: checked, options: {cursor: 'move', opacity: 1, revert: false, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30, scope: 'items'}}, checkbox: $data.checked, css: stateClass"}}
           .golumn-item-actions
             .details{data: { bind: ' click: $root.toggleAnimalDetailsModal' }}
           -#%span.golumn-item-handle
