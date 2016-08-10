@@ -22,11 +22,8 @@
           helper: (e) ->
             elements = app.selectedItemsIndex
             keys = Object.keys(elements)
-            helper = $('<div class=\'animate-dragging\' style=\'width: 130px; height: 30px\'></div>')
-            helper.append $('<div class=\'animate-dragging-number\'>' + keys.length + '</div>')
-            container = $('<div style=\'width: 130px; height: 30px; color: white; vertical-align: middle; text-align: center; font-weight: bold; font-size:14px; line-height:20px; background-color: #428bca; box-shadow: 1px 1px 8px #000000;\'></div>')
-            container.append elements[keys[0]].name
-            container.addClass 'animate-dragging-text'
+            helper = $("<div class='animate-dragging' data-count='#{keys.length}'></div>")
+            container = $("<div class='animate-dragging-text'>#{elements[keys[0]].name}</div>")
             helper.append container
             helper
           start: (event, ui) ->
