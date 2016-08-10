@@ -25,7 +25,8 @@ module Backend
     #   :variant_id
     def self.equipments_conditions
       code = ''
-      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid], product_nature_variants: [:name]) + " ||= []\n"
+      code = search_conditions(products: [:name, :work_number, :number, :description, :uuid],
+                               product_nature_variants: [:name]) + " ||= []\n"
       code << "  if params[:variant_id].to_i > 0\n"
       code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
       code << "    c << params[:variant_id].to_i\n"
@@ -42,12 +43,6 @@ module Backend
       t.column :born_at
       t.status
       t.column :container, url: true
-    end
-
-    list(:part_replacements, model: :intervention_input) do |t|
-      t.column :intervention, url: true
-      t.column :stopped_at, through: :intervention, datatype: :datetime
-      t.column :human_activities_names, through: :intervention
     end
   end
 end

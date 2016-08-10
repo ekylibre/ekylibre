@@ -1,3 +1,4 @@
+//= require bootstrap/tooltip
 //= require bootstrap/dropdown
 //= require bootstrap/datetimepicker
 //= require bootstrap/datetimepicker-i18n
@@ -90,6 +91,7 @@
   $(document).on('page:load', '.fieldset .fieldset-fields', $.fn.raiseContentErrorToFieldSet);
   $(document).ready(function () {
     $(".fieldset .fieldset-fields").raiseContentErrorToFieldSet();
+    $('[data-toggle="tooltip"]').tooltip()
   });
 
 

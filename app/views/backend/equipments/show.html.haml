@@ -69,10 +69,6 @@
         = tool_to :new.ta, {action: :new, controller: :product_localizations, product_id: resource.id }, tool: :new
       = cobble_list(:places)
 
-  - if resource.part_replacements.any?
-    - c.cobble(:product_part_replacements, title: :x_part_replacements.tl(count: resource.part_replacements.count)) do
-      = cobble_list(:part_replacements)
-
   - if resource.components.any?
     - c.cobble(:components) do
       .component-tree
@@ -81,8 +77,9 @@
             .component-col.component-heading= ProductNatureVariantComponent.human_attribute_name(:name)
             .component-col.component-type= ProductNatureVariantComponent.human_attribute_name(:product_nature_variant)
             .component-col.component-status= ProductNatureVariantComponent.human_attribute_name(:status)
-            .component-col.component-life= ProductNatureVariantComponent.human_attribute_name(:working_time)
-            .component-col.component-wear= ProductNatureVariantComponent.human_attribute_name(:wear)
+            .component-col.component-life= ProductNatureVariantComponent.human_attribute_name(:working_duration)
+            .component-col.component-wear= ProductNatureVariantComponent.human_attribute_name(:replaced_at)
+            .component-col.component-count= ProductNatureVariantComponent.human_attribute_name(:replacements)
 
         = render 'components', equipment: resource, components: resource.variant.root_components, depth: 0
 

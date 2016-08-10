@@ -5,8 +5,6 @@
     .component-row
       .component-col.component-heading
         = link_to(component.name, '#', data: { toggle: :modal, target: "##{modal_id}" }, class: 'component-title')
-        -# if component.part_replacements.any?
-          %span= equipment.last_replacement(component).intervention_parameter.product.name
       .component-col.component-type
         - if component.part_product_nature_variant
           = link_to component.part_product_nature_variant.name, backend_product_nature_variant_path(component.part_product_nature_variant)
@@ -21,6 +19,9 @@
             = relative_distance_in_words equipment.replaced_at(component)
         - else
           = :original_component.tl
+      .component-col.component-count
+        - replacements = equipment.replacements_of(component).includes(:intervention)
+        %span{ data: { toggle: 'tooltip' }, title: replacements.map(&:intervention).uniq.map(&:name).to_sentence }= :x_times.tl(count: replacements.count)
 
     - if component.children.any?
       .component-children

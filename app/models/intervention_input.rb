@@ -60,7 +60,7 @@ class InterventionInput < InterventionProductParameter
   has_one :product_movement, as: :originator, dependent: :destroy
   validates :quantity_population, presence: true
 
-  scope :of_component, -> (component) { where(component: component) }
+  scope :of_component, -> (component) { where(component: component.self_and_parents) }
 
   before_validation do
     self.variant = product.variant if product

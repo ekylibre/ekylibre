@@ -1,12 +1,17 @@
 $indent-max: 9 !default;
 
+#component-documentation {
+  @include float(left);
+}
+
+
 .component-tree {
   box-sizing: border-box;
   flex: 1;
   .component {
     @for $i from 0 to $indent-max {
       &.component-level-#{$i} .component-heading .component-title {
-        @include margin-left($i * $lh-normal);
+        @include margin-left($i * $lh-large + 0.5 * $default-gap);
       }
     }
     .component-row, .component-head {
@@ -20,7 +25,15 @@ $indent-max: 9 !default;
         flex: 1 1;
         padding: round($fs-normal*0.2) round($fs-normal*0.5);
         &.component-heading {
-          flex: 2
+          flex: 2;
+          .component-title {
+            @include display(block);
+            @include icon-before(info-circle, $font-size: 14px);
+            vertical-align: inherit;
+          }
+        }
+        &.component-status, &.component-count {
+          flex: 0.5
         }
       }
     }
