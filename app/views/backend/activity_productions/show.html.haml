@@ -168,8 +168,22 @@
     = no_data
 
   - c.cobble(:horizontal_timeline) do
-    = horizontal_timeline()
 
+    = timeline_chart("chart", resource.started_on, resource.stopped_on) do |chart|
+      - interventions_menu = pop_menu :class => "timeline-chart-menu" do |menu|
+        - menu.item 'Ajouter une intervention', { item_options: {:class => "menu-item"}, link_url: {}, link_options: {:class => "menu-link"}}
+        - menu.item 'Ajouter une période', { item_options: {:class => "menu-item"}, link_url: {}, link_options: {:class => "menu-link"}}
+
+      - chart.group "Périodes" do |period|
+        - period.interval "Test", Date.new(2016,2,2), Date.new(2016,6,2),
+            {"id": "interval1", "custom_class": "blue-interval"},
+            {"click": {"type": "menu", "position": "initial", "content": interventions_menu.html_safe}}
+      - chart.group "Interventions" do |period|
+        - period.point "Test 2", Date.new(2016,3,3),
+            {"id": "interval2", "custom_class": "blue-interval"},
+            {"click": {"type": "menu", "position": "initial", "content": interventions_menu.html_safe}}
+      - chart.group "Icônes" do |period|
+        - period.icon "Test 2", Date.new(2016,7,5), 'tractor', "40px", {"id": "icone2", "custom_class": "blue-interval"}
 
   - c.cobble(:interventions) do
     = cobble_toolbar do |t|

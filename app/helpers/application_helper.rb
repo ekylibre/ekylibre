@@ -513,6 +513,35 @@ module ApplicationHelper
     end
   end
 
+  def pop_menu(options = {}, &block)
+
+    menu = Ekylibre::Support::Lister.new(:item, :separator)
+    default_class = options[:class] || "pop-menu"
+
+    yield menu
+
+    content_tag(:nav, '', {:class => default_class}) do
+
+      content_tag(:ul, class: 'menu', role: 'menu') do
+
+        html = ''.html_safe
+        menu.list.each do |item|
+
+          if item.name == :item
+
+            options = item.args.extract_options!
+            html << content_tag(:li, link_to(*item.args, options[:link_url], options[:link_options]), options[:item_options])
+
+          elsif item.name == :separator
+            html << content_tag(:li, '', class: 'separator')
+          end
+        end
+
+        html
+      end
+    end
+  end
+
   def last_page(menu)
     # session[:last_page][menu.to_s]||
     url_for(controller: :dashboards, action: menu)

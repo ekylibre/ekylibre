@@ -1,6 +1,3 @@
-.timeline-chart-block
-  #chart
-    %nav.timeline-chart-menu.interval-menu.hidden
-      %ul.menu-block
-        %li.menu-item Ajouter une intervention
-        %li.menu-item Ajouter une période
+%div.timeline-chart-block{data: {timeline: timeline_chart.datas.to_json,
+                                 events: timeline_chart.events.to_json}}
+  %div{:id => "#{timeline_chart.id}"}
