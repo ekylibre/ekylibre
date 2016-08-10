@@ -1377,7 +1377,6 @@
         <page to="backend/equipments#list_issues"/>
         <page to="backend/equipments#list_readings"/>
         <page to="backend/equipments#list_members"/>
-        <page to="backend/equipments#list_part_replacements"/>
         <page to="backend/equipments#list_places"/>
         <page to="backend/equipments#list_carried_linkages"/>
         <page to="backend/equipments#list_carrier_linkages"/>

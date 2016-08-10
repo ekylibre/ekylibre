@@ -174,8 +174,8 @@ arb:
         undone: "غير مصنوع"
     intervention:
       nature:
-        # record: "Record"
-        # request: "Request"
+        record: "سجل"
+        request: "طلب"
       state:
         done: "فعله"
         in_progress: "في تَقَدم"

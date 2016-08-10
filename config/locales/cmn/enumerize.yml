@@ -175,8 +175,8 @@ cmn:
         undone: "未完成"
     intervention:
       nature:
-        # record: "Record"
-        # request: "Request"
+        record: "记录"
+        request: "请求"
       state:
         done: "做"
         in_progress: "进行中"

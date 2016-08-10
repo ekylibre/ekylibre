@@ -177,8 +177,8 @@ por:
         undone: "Desfeito"
     intervention:
       nature:
-        # record: "Record"
-        # request: "Request"
+        record: "Registro"
+        request: "Pedido"
       state:
         done: "Finalizado"
         in_progress: "Em progresso"

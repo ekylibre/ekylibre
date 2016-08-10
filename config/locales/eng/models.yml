@@ -264,7 +264,6 @@ eng:
       product_nature_variant_component: "Product nature variant component"
       product_nature_variant_reading: "Product type variant reading"
       product_ownership: "Product ownership"
-      product_part_replacement: "Product part replacement" #?
       product_phase: "Product phase"
       product_reading: "Product reading"
       purchase: "Purchase"
@@ -996,7 +995,6 @@ eng:
     product_ownership: "Product ownership"
     product_ownerships: "Product ownerships" #?
     product_parameters: "Product parameters"
-    product_part_replacements: "Product part replacements" #?
     product_phases: "Product phases" #?
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
@@ -1084,6 +1082,8 @@ eng:
     repayment_method: "Repayment method"
     repayment_period: "Repayment period"
     repayments: "Repayments"
+    replaced_at: "Replaced at"
+    replacements: "Replacements" #?
     reporter: "Reporter" #?
     request_intervention: "Request intervention"
     required: "Required"

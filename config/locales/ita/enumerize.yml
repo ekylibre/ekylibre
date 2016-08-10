@@ -175,8 +175,8 @@ ita:
         undone: "Disfatto"
     intervention:
       nature:
-        # record: "Record"
-        # request: "Request"
+        record: "Disco"
+        request: "Richiesta"
       state:
         done: "Fatto"
         in_progress: "In corso"

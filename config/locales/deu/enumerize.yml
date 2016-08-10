@@ -175,8 +175,8 @@ deu:
         undone: "Unerledigt"
     intervention:
       nature:
-        # record: "Record"
-        # request: "Request"
+        record: "Aufzeichnen"
+        request: "Anfordern"
       state:
         done: "Erledigt"
         in_progress: "In Bearbeitung"
@@ -402,7 +402,7 @@ deu:
         opportunities: "Chancen"
         outgoing_deliveries: "Nummerierung der ausgehenden Lieferungen" #?
         outgoing_payments: "Nummerierung der Zahlungen"
-        # parcels: "Numeration of parcels"
+        parcels: "Parcels"
         plants: "Nummerierung der Pflanzen"
         product_nature_categories: "Nummerierung der Natur Produktkategorien"
         product_nature_variants: "Nummerierung der Produktart Varianten"

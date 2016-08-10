@@ -727,7 +727,6 @@ equipments:
     - "backend/equipments#list_intervention_product_parameters"
     - "backend/equipments#list_issues"
     - "backend/equipments#list_members"
-    - "backend/equipments#list_part_replacements"
     - "backend/equipments#list_places"
     - "backend/equipments#list_readings"
     - "backend/equipments#picture"

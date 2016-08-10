@@ -175,8 +175,8 @@ jpn:
         undone: "元に戻します"
     intervention:
       nature:
-        # record: "Record"
-        # request: "Request"
+        record: "記録"
+        request: "要求"
       state:
         done: "終わりました"
         in_progress: "進行中"

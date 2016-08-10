@@ -895,10 +895,9 @@ arb:
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
       product_nature_variant: "نوع المنتج البديل"
-      # product_nature_variant_component: "Product nature variant component"
+      product_nature_variant_component: "المنتج المكون طبيعة البديل"
       product_nature_variant_reading: "نوع المنتج البديل القراءة"
       product_ownership: "ملكية المنتج"
-      # product_part_replacement: "Product part replacement"
       product_phase: "مرحلة المنتج"
       product_price_listing: "فئة الفرد" #?
       product_price_template: "الاسعار" #?
@@ -968,7 +967,7 @@ arb:
     acquisition_amount: "قيمة الاقتناء" #?
     actions: "الإجراءات"
     active: "فعال"
-    # active_sessions: "Active sessions"
+    active_sessions: "جلسات العمل النشطة"
     activities: "أنشطة"
     activity: "نشاط"
     activity_budget: "ميزانية النشاط"
@@ -1010,7 +1009,7 @@ arb:
     area_unit: "وحدة المساحة" #?
     area_unit_id: "وحدة مساحة" #?
     arrived_at: "وصل يوم" #?
-    # assembly: "Assembly"
+    assembly: "جمعية"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة" #?
     attachments: "مرفقات"
     attorney: "الوكيل" #?
@@ -1356,7 +1355,7 @@ arb:
     exploitation_name: "اسم الاستغلال"
     exportable: "قبل للتصدير"
     exportable_columns: "أعمدة للتصدير"
-    # exportable_fields: "Exportable fields"
+    exportable_fields: "الحقول القابلة للتصدير"
     expression: "اسلوب للتعبير" #?
     extension: "التوسع" #?
     external: "خارجي"
@@ -1395,7 +1394,7 @@ arb:
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
     fixed_asset_expenses_account: "حساب نفقات انخفاض قيمة الأصول الثابتة inputations"
     fixed_assets: "أصول ثابتة"
-    # following: "Following"
+    following: "التالي"
     for_immobilizations: "منتجات ساكنة" #?
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
@@ -1754,9 +1753,9 @@ arb:
     parcels: "الطرود"
     parent: "النسب"
     parent_id: "نسب" #?
-    # part_product_nature_variant: "Part product nature variant"
-    # part_product_nature_variant_id: "Part product nature variant"
-    # part_replacements: "Part replacements"
+    part_product_nature_variant: "جزء طبيعة المنتج البديل"
+    part_product_nature_variant_id: "جزء طبيعة المنتج البديل"
+    part_replacements: "استبدال جزء"
     parted: "افترقنا"
     parted_product: "المنتج افترقنا"
     participant: "مشارك"
@@ -1858,13 +1857,12 @@ arb:
     product_nature_categories: "فئات نوع المنتج"
     product_nature_category: "فئة نوع المنتج"
     product_nature_category_taxations: "الأنظمة الضريبية فئة نوع المنتج"
-    # product_nature_variant: "Product type variant"
-    # product_nature_variant_id: "Product type variant"
+    product_nature_variant: "طبيعة المنتج البديل"
+    product_nature_variant_id: "طبيعة المنتج البديل"
     product_natures: "أنواع المنتجات"
     product_ownership: "ملكية المنتج"
     product_ownerships: "الملكيات المنتج"
     product_parameters: "المنتج المعلمات"
-    # product_part_replacements: "Product part replacements"
     product_phases: "مراحل المنتج"
     product_reading: "قراءة المنتج"
     product_reading_tasks: "مهام القراءة المنتج"
@@ -1963,8 +1961,8 @@ arb:
     remain_owner: "تبقى مالك"
     remaining_amount: "المبلغ المتبقي"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
-    # remaining_lifespan: "Remaining lifespan"
-    # remaining_working_lifespan: "Remaining working lifespan"
+    remaining_lifespan: "المتبقية عمر"
+    remaining_working_lifespan: "عمر العمل المتبقي"
     remember_created_at: "أتذكر إنشاؤها في"
     remember_me: "تذكرنى"
     reminder_submissive: "تذكير منقاد"
@@ -1972,8 +1970,10 @@ arb:
     repayment_method: "طريقة السداد"
     repayment_period: "فترة السداد"
     repayments: "تسديد"
+    replaced_at: "محل في"
+    replacements: "بدلاء"
     reporter: "صحافي"
-    # request_intervention: "Request intervention"
+    request_intervention: "تدخل الطلب"
     required: "الزامي"
     reservoir: "المخزن" #?
     reset_password_sent_at: "إعادة تعيين كلمة المرور أرسلت في"
@@ -2187,8 +2187,8 @@ arb:
     transporter_sales: "مبيعات نقل"
     transporters: "ناقلات الشحن" #?
     transports: "وسائل النقل" #?
-    # trouble_description: "Trouble description"
-    # trouble_encountered: "Trouble encountered"
+    trouble_description: "وصف المتاعب"
+    trouble_encountered: "مشكلة واجهتها"
     type: "النوع"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
     undelivered_quantity: "يبقى للتسليم"

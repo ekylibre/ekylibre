@@ -408,11 +408,7 @@ Rails.application.routes.draw do
 
     resources :entity_links
 
-    resources :equipments, concerns: :products do
-      member do
-        get :list_part_replacements
-      end
-    end
+    resources :equipments, concerns: :products
 
     resources :event_participations
 

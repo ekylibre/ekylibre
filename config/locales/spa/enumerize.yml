@@ -175,8 +175,8 @@ spa:
         undone: "Deshecho"
     intervention:
       nature:
-        # record: "Record"
-        # request: "Request"
+        record: "Grabar"
+        request: "Solicitud"
       state:
         done: "Hecho"
         in_progress: "En progreso"

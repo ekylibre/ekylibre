@@ -1161,7 +1161,7 @@ fra:
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
-    field_distribution: "Répartition Champs"
+    field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
     file_preview: "Visualisation de votre fichier"
@@ -2069,9 +2069,9 @@ fra:
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
-    x_part_replacements:
-      one: "%{count} changement de pièces effectué"
-      other: "%{count} changement de pièces effectués"
+    x_part_replacements:  #?
+      one: "%{count} changement de pièces effectué" #?
+      other: "%{count} changement de pièces effectués" #?
     x_performed_operations:  #?
       one: "%{count} travail à réaliser" #?
       other: "%{count} travaux à réaliser" #?
@@ -2111,6 +2111,9 @@ fra:
       one: "%{count} tâche"
       other: "%{count} tâches"
     x_thing: "%{x} %{thing}"
+    x_times:
+      one: "%{count} fois"
+      other: "%{count} fois"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"

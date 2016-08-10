@@ -377,10 +377,9 @@ fra:
       product_nature_category: "Catégorie de type de produit"
       product_nature_category_taxation: "Taxation de catégorie de type de produit"
       product_nature_variant: "Variante de type de produit"
-      # product_nature_variant_component: "Product nature variant component"
+      product_nature_variant_component: "Produit Composant de variante de la nature"
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
-      # product_part_replacement: "Product part replacement"
       product_phase: "Phase de produits"
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
@@ -436,7 +435,7 @@ fra:
     actions: "Actions"
     active: "Actif"
     active_prices: "Prix actifs" #?
-    # active_sessions: "Active sessions"
+    active_sessions: "Sessions actives"
     activities: "Activités"
     activity: "Activité"
     activity_budget: "Budget"
@@ -476,7 +475,7 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
-    # assembly: "Assembly"
+    assembly: "Assemblée"
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
@@ -760,7 +759,7 @@ fra:
     exploitation_name: "Nom de l’exploitation"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
-    # exportable_fields: "Exportable fields"
+    exportable_fields: "Champs exportables"
     expression: "Expression" #?
     external: "Externe"
     extjuncted: "Extjoint" #?
@@ -800,7 +799,7 @@ fra:
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
-    # following: "Following"
+    following: "Suivant"
     formats: "Formats"
     fourth_producer: "Quatrième producteur" #?
     fourth_producer_way: "Voie du quatrième producteur" #?
@@ -1112,9 +1111,9 @@ fra:
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
-    part_product_nature_variant: "Variant du composant"
-    part_product_nature_variant_id: "Variant du composant"
-    part_replacements: "Remplacement de pièce"
+    part_product_nature_variant: "Variante du composant"
+    part_product_nature_variant_id: "Variante du composant"
+    part_replacements: "Remplacements de pièce"
     parted: "En partie"
     parted_product: "Produit retiré"
     participant: "Participant"
@@ -1207,14 +1206,13 @@ fra:
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
-    # product_nature_variant: "Product type variant"
-    # product_nature_variant_id: "Product type variant"
+    product_nature_variant: "Variante"
+    product_nature_variant_id: "Variante"
     product_natures: "Types de produits"
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
     product_parameters: "Paramètres du produit"
-    # product_part_replacements: "Product part replacements"
     product_phases: "Phases de produit"
     product_quadruple_mixings: "Quadruple mélanges de produit" #?
     product_quintuple_mixings: "Quintuple mélanges de produit" #?
@@ -1310,8 +1308,10 @@ fra:
     repayment_method: "Méthode de remboursement"
     repayment_period: "Période de remboursement"
     repayments: "Remboursements"
+    replaced_at: "Remplacé le"
+    replacements: "Remplacements"
     reporter: "Rapporteur"
-    # request_intervention: "Request intervention"
+    request_intervention: "Demande intervention"
     required: "Obligatoire"
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"

@@ -299,7 +299,7 @@ fra:
     wine_to_treat: "Vin à traiter"
     wire_fence: "Fils de clôture"
     wire_fence_to_put: "Fils de clôture à positionner" #?
-    # work: "Work"
+    work: "Travail"
     worker: "Travailleur"
     zone: "Zone"
   procedures:
@@ -332,8 +332,8 @@ fra:
     egg_collecting: "Collecte d'œufs"
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
-    # equipment_item_replacement: "Equipment part replacement"
-    # equipment_maintenance: "Equipment maintenance"
+    equipment_item_replacement: "Équipement pièce de rechange"
+    equipment_maintenance: "Entretien de l&#39;équipement"
     equipment_part_replacement: "Remplacement de pièces d'équipement" #?
     fermentation: "Fermentation"
     fertilizing: "Fertilisation"
