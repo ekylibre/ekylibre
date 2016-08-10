@@ -32,7 +32,7 @@ fra:
       show: "Budget: %{name}"
     backend/activity_productions:
       edit: "Modifier une production"
-      index: "Productions" #?
+      index: "Productions"
       new: "Nouvelle production"
       show: "Production\_: %{name}"
     backend/affairs:
@@ -1152,6 +1152,7 @@ fra:
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
+    field_distribution: "Répartition Champ"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
     file_preview: "Visualisation de votre fichier"
@@ -1619,6 +1620,7 @@ fra:
       invoice: "Facture" #?
       order: "Commande" #?
       refused: "Refusée" #?
+    quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
     quantity_rest: "Quantité restante" #?

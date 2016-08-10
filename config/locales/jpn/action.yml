@@ -30,9 +30,10 @@ jpn:
       new: "新しい予算"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      index: "プロダクション"
       new: "新しいアクティビティ生産"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -976,6 +977,7 @@ jpn:
     expenses: "経費"
     expenses_by_product_nature_category: "製品の性質上カテゴリ別経費"
     export: "輸出書類"
+    field_distribution: "電界分布"
     file_nature: "ファイルの種類"
     file_preview: "プレビュー"
     file_to_upload: "アップロードするファイル"
@@ -1277,6 +1279,7 @@ jpn:
     purchase_items: "アイテムを購入します"
     purchase_number: "購入数"
     purchases: "購入"
+    quality: "品質"
     # quandl: "Quandl"
     quantity: "量"
     quantity_rest: "残量" #?

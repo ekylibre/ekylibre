@@ -36,9 +36,10 @@ spa:
       new: "nuevo presupuesto"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      index: "Producciones"
       new: "Nueva producción de la actividad"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -1031,6 +1032,7 @@ spa:
     expenses: "Gastos"
     expenses_by_product_nature_category: "Los gastos por categoría de productos naturaleza"
     export: "Exportación de un fichero de salvaguardia"
+    field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
     file_preview: "Avance"
     file_to_import: "Fichero a importar" #?
@@ -1393,6 +1395,7 @@ spa:
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
     purchases: "Compras"
+    quality: "Calidad"
     # quandl: "Quandl"
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante" #?
