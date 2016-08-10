@@ -175,7 +175,7 @@ spa:
         undone: "Deshecho"
     intervention:
       nature:
-        # record: "record"
+        # record: "Record"
         # request: "Request"
       state:
         done: "Hecho"
@@ -444,6 +444,11 @@ spa:
         best_before: "Consumir preferentemente antes del"
         no_limit: "Sin límite"
         used_by: "Utilizado por fecha"
+    version:
+      event:
+        # create: "Create"
+        # destroy: "Destroy"
+        # update: "Update"
   simple_form:  #?
     hints: #?
       purchase: #?

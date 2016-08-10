@@ -175,7 +175,7 @@ deu:
         undone: "Unerledigt"
     intervention:
       nature:
-        # record: "record"
+        # record: "Record"
         # request: "Request"
       state:
         done: "Erledigt"
@@ -402,7 +402,7 @@ deu:
         opportunities: "Chancen"
         outgoing_deliveries: "Nummerierung der ausgehenden Lieferungen" #?
         outgoing_payments: "Nummerierung der Zahlungen"
-        # parcels: "Parcels"
+        # parcels: "Numeration of parcels"
         plants: "Nummerierung der Pflanzen"
         product_nature_categories: "Nummerierung der Natur Produktkategorien"
         product_nature_variants: "Nummerierung der Produktart Varianten"
@@ -444,6 +444,11 @@ deu:
         best_before: "Mindesthaltbarkeitsdatum"
         no_limit: "Keine Begrenzung"
         used_by: "Wird von Datum"
+    version:
+      event:
+        # create: "Create"
+        # destroy: "Destroy"
+        # update: "Update"
   simple_form:  #?
     hints: #?
       purchase: #?

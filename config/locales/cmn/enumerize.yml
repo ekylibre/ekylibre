@@ -175,7 +175,7 @@ cmn:
         undone: "未完成"
     intervention:
       nature:
-        # record: "record"
+        # record: "Record"
         # request: "Request"
       state:
         done: "做"
@@ -444,6 +444,11 @@ cmn:
         best_before: "日期前最佳"
         no_limit: "没有限制"
         used_by: "按日期使用"
+    version:
+      event:
+        # create: "Create"
+        # destroy: "Destroy"
+        # update: "Update"
   simple_form:  #?
     hints: #?
       purchase: #?

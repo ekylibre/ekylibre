@@ -412,3 +412,8 @@ fra:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"
         no_limit: "Aucune limite"
         used_by: "Date Limite de Consommation (DLC)"
+    version:
+      event:
+        # create: "Create"
+        # destroy: "Destroy"
+        # update: "Update"

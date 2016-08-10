@@ -3016,9 +3016,6 @@ intervention_parameters:
   reference_name:
     type: string
     required: true
-  schematic_id:
-    type: integer
-    references: product_nature_variant
   type:
     type: string
   updated_at:

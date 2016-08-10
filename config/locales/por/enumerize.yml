@@ -177,7 +177,7 @@ por:
         undone: "Desfeito"
     intervention:
       nature:
-        # record: "record"
+        # record: "Record"
         # request: "Request"
       state:
         done: "Finalizado"
@@ -457,6 +457,11 @@ por:
         best_before: "Melhor antes da data"
         no_limit: "Não há limite"
         used_by: "Usado por data"
+    version:
+      event:
+        # create: "Create"
+        # destroy: "Destroy"
+        # update: "Update"
   simple_form:  #?
     hints: #?
       purchase: #?

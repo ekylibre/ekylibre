@@ -175,7 +175,7 @@ jpn:
         undone: "元に戻します"
     intervention:
       nature:
-        # record: "record"
+        # record: "Record"
         # request: "Request"
       state:
         done: "終わりました"
@@ -444,6 +444,11 @@ jpn:
         best_before: "賞味期限"
         no_limit: "制限なし"
         used_by: "日付によって使用されます"
+    version:
+      event:
+        # create: "Create"
+        # destroy: "Destroy"
+        # update: "Update"
   simple_form:  #?
     hints: #?
       purchase: #?

@@ -175,7 +175,7 @@ ita:
         undone: "Disfatto"
     intervention:
       nature:
-        # record: "record"
+        # record: "Record"
         # request: "Request"
       state:
         done: "Fatto"
@@ -444,6 +444,11 @@ ita:
         best_before: "Data di scadenza"
         no_limit: "Senza limite"
         used_by: "Usato per data"
+    version:
+      event:
+        # create: "Create"
+        # destroy: "Destroy"
+        # update: "Update"
   simple_form:  #?
     hints: #?
       purchase: #?

@@ -1563,7 +1563,6 @@ ActiveRecord::Schema.define(version: 20160730070743) do
     t.string   "new_name"
     t.integer  "component_id"
     t.integer  "assembly_id"
-    t.integer  "schematic_id"
   end
 
   add_index "intervention_parameters", ["assembly_id"], name: "index_intervention_parameters_on_assembly_id", using: :btree
@@ -1579,7 +1578,6 @@ ActiveRecord::Schema.define(version: 20160730070743) do
   add_index "intervention_parameters", ["outcoming_product_id"], name: "index_intervention_parameters_on_outcoming_product_id", using: :btree
   add_index "intervention_parameters", ["product_id"], name: "index_intervention_parameters_on_product_id", using: :btree
   add_index "intervention_parameters", ["reference_name"], name: "index_intervention_parameters_on_reference_name", using: :btree
-  add_index "intervention_parameters", ["schematic_id"], name: "index_intervention_parameters_on_schematic_id", using: :btree
   add_index "intervention_parameters", ["type"], name: "index_intervention_parameters_on_type", using: :btree
   add_index "intervention_parameters", ["updated_at"], name: "index_intervention_parameters_on_updated_at", using: :btree
   add_index "intervention_parameters", ["updater_id"], name: "index_intervention_parameters_on_updater_id", using: :btree

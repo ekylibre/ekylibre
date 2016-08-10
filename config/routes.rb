@@ -697,8 +697,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :product_nature_variant_components,
-              concerns: [:autocomplete, :unroll]
+    resources :product_nature_variant_components, only: [],
+                                                  concerns: [:autocomplete, :unroll]
 
     resources :purchase_natures, concerns: [:list, :unroll]
 

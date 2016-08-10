@@ -132,9 +132,8 @@ module Procedo
         end
 
         def impact_on_parameters(_field)
-          (procedure.product_parameters(true)).each do |parameter|
+          procedure.product_parameters(true).each do |parameter|
             (intervention.parameters_of_name(parameter.name) - [self]).each do |ip|
-
               # Impact handlers
               if parameter.quantified? && ip.quantity_handler
                 handler = parameter.handler(ip.quantity_handler)

@@ -174,7 +174,7 @@ arb:
         undone: "غير مصنوع"
     intervention:
       nature:
-        # record: "record"
+        # record: "Record"
         # request: "Request"
       state:
         done: "فعله"
@@ -443,6 +443,11 @@ arb:
         best_before: "الافضل قبل الموعد"
         no_limit: "لا حدود"
         used_by: "المستخدمة من قبل التاريخ"
+    version:
+      event:
+        # create: "Create"
+        # destroy: "Destroy"
+        # update: "Update"
   simple_form:  #?
     hints: #?
       purchase: #?
