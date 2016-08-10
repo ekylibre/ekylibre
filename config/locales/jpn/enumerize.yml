@@ -446,9 +446,3 @@ jpn:
         create: "作ります"
         destroy: "破壊する"
         update: "更新"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "サプライヤーの請求書番号" #?
-    required: #?
-      text: "必須" #?
