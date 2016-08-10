@@ -15,26 +15,33 @@
     position: absolute;
   }
 
-  .menu-block {
+  .icon .picto {
+    font-size: 40px;
+    min-width: 0;
+    line-height: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .timeline-chart-menu {
     @include menu();
 
     li {
       @include menu-item;
     }
 
-    .menu-item {
-      //@include menu-item();
+    .menu-link {
+      height: 100%;
     }
+  }
 
-    /*li:nth-child(n+2) {
-      border-top: solid 1px #DDD;
-    }
-
-    .menu-item:hover {
-      background-color: $base-color;
-      color: $white;
-      cursor: pointer;
-    }*/
+  .interval,
+  .dot {
+    cursor: pointer;
   }
 }
 
