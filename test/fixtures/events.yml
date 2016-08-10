@@ -556,3 +556,16 @@ events_040:
   stopped_at: 2016-07-01 20:47:00.000000000 Z
   updated_at: 2016-07-01 20:46:56.124775000 Z
   updater_id: 1
+events_041:
+  created_at: 2016-08-10 14:33:28.785502000 Z
+  creator_id: 1
+  duration: 60
+  id: 51
+  lock_version: 0
+  name: Equipment maintenance n°31
+  nature: production_intervention
+  restricted: false
+  started_at: 2016-08-10 13:33:00.000000000 Z
+  stopped_at: 2016-08-10 14:33:00.000000000 Z
+  updated_at: 2016-08-10 14:33:28.785502000 Z
+  updater_id: 1

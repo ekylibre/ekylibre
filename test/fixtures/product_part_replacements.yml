@@ -33,4 +33,14 @@
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #
---- {}
+---
+product_part_replacements_001:
+  component_id: 1
+  created_at: 2016-08-10 14:33:28.801690000 Z
+  creator_id: 1
+  id: 1
+  intervention_parameter_id: 168
+  lock_version: 0
+  product_id: 32
+  updated_at: 2016-08-10 14:33:28.801690000 Z
+  updater_id: 1

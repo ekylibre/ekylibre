@@ -431,3 +431,23 @@ interventions_021:
   updater_id: 1
   whole_duration: 54060
   working_duration: 39360
+interventions_022:
+  actions: curative_maintenance
+  created_at: 2016-08-10 14:33:28.786749000 Z
+  creator_id: 1
+  description: ''
+  event_id: 51
+  id: 33
+  lock_version: 0
+  nature: record
+  number: '31'
+  procedure_name: equipment_maintenance
+  started_at: 2016-08-10 13:33:00.000000000 Z
+  state: undone
+  stopped_at: 2016-08-10 14:33:00.000000000 Z
+  trouble_description: ''
+  trouble_encountered: false
+  updated_at: 2016-08-10 14:33:28.786749000 Z
+  updater_id: 1
+  whole_duration: 3600
+  working_duration: 3600
