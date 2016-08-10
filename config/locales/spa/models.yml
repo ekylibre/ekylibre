@@ -74,7 +74,7 @@ spa:
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
         # overlap_sibling: "%{attribute} overlaps sibling"
-        # posterior: "The date %{attribute} must be posterior to %{to}"
+        # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
         # too_long: "%{attribute} is too long (maximum is %{count} characters)"
@@ -103,7 +103,7 @@ spa:
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
@@ -558,6 +558,7 @@ spa:
     employed: "Empleado"
     employees: "Empleados"
     employment: "Empleo"
+    enabled: "Habilitado"
     encrypted_password: "Contraseña encriptada"
     enjoyer: "Disfrutador"
     enjoyments: "Goces"
@@ -594,6 +595,10 @@ spa:
     father: "Padre"
     faxes: "Faxes"
     fifth_producer: "En quinto productor" #?
+    file: "Archivo"
+    file_file_size: "Tamaño del archivo"
+    file_pages_count: "Páginas no se contabiliza"
+    file_updated_at: "Actualizada a las"
     filtered_columns: "Columnas filtradas"
     financial_year: "Año financiero"
     financial_year_as_last: "Ejercicio (en su última entrada en el diario)"
@@ -606,6 +611,8 @@ spa:
     fixed_asset: "Activo fijo"
     fixed_asset_account: "Cuenta de activo fijo"
     fixed_asset_allocation_account: "Corregido cuenta las depreciaciones de activos"
+    fixed_asset_collect_account: "Activo fijo recopilar cuenta"
+    fixed_asset_deduction_account: "Cuenta la deducción de activos fijos"
     fixed_asset_depreciation_method: "Método de depreciación de los inmuebles"
     fixed_asset_depreciation_percentage: "Porcentaje de la depreciación de activos fijos"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
@@ -1172,6 +1179,7 @@ spa:
     # tactic: "Cropping technique"
     # tactics: "Cropping techniques"
     target: "Objetivo"
+    target_name: "Nombre del Destinatario"
     target_type: "Tipo de destino"
     target_url: "URL de destino"
     targets: "Objetivos"
@@ -1230,7 +1238,7 @@ spa:
     usage_limit_on: "Utilizado por el"
     usages: "Usos"
     use_countings: "Use conteos"
-    use_grading_calibre: "Utilice el calibre de clasificación"
+    use_grading_calibre: "Utilice el calibre de clasificación" #?
     use_gradings: "Use gradaciones"
     # use_seasons: "Use seasonalities"
     # use_tactics: "Use cropping techniques"

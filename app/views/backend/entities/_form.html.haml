@@ -17,8 +17,8 @@
   = f.custom_fields
 
 = field_set(:details) do # , :collapsed => true
-  = f.input :language, :collection => languages, :field => :select, selected: f.object.country || Preference[:language]
-  = f.input :country, :collection => countries, selected: f.object.country || Preference[:country]
+  = f.input :language
+  = f.input :country
   - if nature == :organization
     = f.input :siret_number
     = f.input :activity_code

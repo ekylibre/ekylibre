@@ -57,7 +57,7 @@ class Preference < Ekylibre::Record::Base
   validates :name, presence: true, length: { maximum: 500 }
   validates :nature, presence: true
   validates :record_value_type, length: { maximum: 500 }, allow_blank: true
-  validates :string_value, length: { maximum: 100_000 }, allow_blank: true
+  validates :string_value, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
   validates :nature, length: { allow_nil: true, maximum: 60 }
   validates :nature, inclusion: { in: nature.values }

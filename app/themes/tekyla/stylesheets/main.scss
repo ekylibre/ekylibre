@@ -2441,6 +2441,10 @@ a[data-annotate] {
   &.active {
     display: block;
     height: 100%;
+    > *[data-cell], > *[data-highcharts] {
+      display: block;
+      height: inherit;
+    }
   }
 }
 

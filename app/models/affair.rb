@@ -83,7 +83,7 @@ class Affair < Ekylibre::Record::Base
   validates :closed, inclusion: { in: [true, false] }
   validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :third, :third_role, presence: true
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :origin, :state, length: { maximum: 500 }, allow_blank: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :pretax_amount, :probability_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true

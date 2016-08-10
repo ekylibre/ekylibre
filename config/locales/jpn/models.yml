@@ -74,7 +74,7 @@ jpn:
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
         # overlap_sibling: "%{attribute} overlaps sibling"
-        # posterior: "The date %{attribute} must be posterior to %{to}"
+        # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
         # too_long: "%{attribute} is too long (maximum is %{count} characters)"
@@ -103,7 +103,7 @@ jpn:
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
@@ -554,6 +554,7 @@ jpn:
     employed: "採用"
     employees: "従業員"
     employment: "雇用"
+    enabled: "使用可能"
     encrypted_password: "暗号化されたパスワード"
     # enjoyer: "Enjoyer"
     enjoyments: "楽しみ"
@@ -590,6 +591,10 @@ jpn:
     father: "お父さん"
     faxes: "ファックス"
     fifth_producer: "フィフスプロデューサー" #?
+    file: "ファイル"
+    file_file_size: "ファイルサイズ"
+    file_pages_count: "ページカウント"
+    file_updated_at: "で更新"
     filtered_columns: "フィルタリングされた列"
     financial_year: "会計年度"
     financial_year_as_last: "会計年度（最後の仕訳など）"
@@ -602,6 +607,8 @@ jpn:
     fixed_asset: "固定資産"
     fixed_asset_account: "固定資産勘定"
     fixed_asset_allocation_account: "固定資産の減価償却のアカウント"
+    fixed_asset_collect_account: "固定資産のアカウントを収集"
+    fixed_asset_deduction_account: "固定資産控除アカウント"
     fixed_asset_depreciation_method: "固定資産の減価償却の方法"
     fixed_asset_depreciation_percentage: "固定資産の減価償却費の割合"
     fixed_asset_depreciations: "固定資産の減価償却"
@@ -1168,6 +1175,7 @@ jpn:
     # tactic: "Cropping technique"
     # tactics: "Cropping techniques"
     target: "ターゲット"
+    target_name: "ターゲット名"
     target_type: "ターゲット・タイプ"
     target_url: "ターゲットURL"
     targets: "ターゲット"
@@ -1226,7 +1234,7 @@ jpn:
     usage_limit_on: "上で使用されます"
     usages: "用途"
     use_countings: "countingsを使用してください"
-    use_grading_calibre: "グレーディング口径を使用します"
+    use_grading_calibre: "グレーディング口径を使用します" #?
     use_gradings: "グレーディングを使用してください"
     # use_seasons: "Use seasonalities"
     # use_tactics: "Use cropping techniques"

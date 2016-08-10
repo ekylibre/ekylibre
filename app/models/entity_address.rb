@@ -49,6 +49,7 @@
 
 class EntityAddress < Ekylibre::Record::Base
   attr_readonly :entity_id
+  refers_to :mail_country, class_name: 'Country'
   belongs_to :mail_postal_zone, class_name: 'PostalZone'
   belongs_to :entity, inverse_of: :addresses
   has_many :buildings, foreign_key: :address_id
@@ -57,7 +58,6 @@ class EntityAddress < Ekylibre::Record::Base
   has_many :sales, foreign_key: :address_id
   has_many :subscriptions, foreign_key: :address_id
   enumerize :canal, in: [:mail, :email, :phone, :mobile, :fax, :website], default: :email, predicates: true
-  refers_to :mail_country, class_name: 'Country'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :by_default, :mail_auto_update, inclusion: { in: [true, false] }
@@ -102,8 +102,10 @@ class EntityAddress < Ekylibre::Record::Base
           end
         end
       end
-      self.mail_line_1 = entity.full_name if mail_line_1.blank?
-      self.mail_auto_update = (entity.full_name == mail_line_1 ? true : false)
+      if entity
+        self.mail_line_1 = entity.full_name if mail_line_1.blank?
+        self.mail_auto_update = (entity.full_name == mail_line_1 ? true : false)
+      end
       self.coordinate = mail_lines
     elsif website?
       self.coordinate = 'http://' + coordinate unless coordinate =~ /^.+p.*\/\//

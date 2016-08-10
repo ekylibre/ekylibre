@@ -74,7 +74,7 @@ deu:
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
         # overlap_sibling: "%{attribute} overlaps sibling"
-        # posterior: "The date %{attribute} must be posterior to %{to}"
+        # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
         # too_long: "%{attribute} is too long (maximum is %{count} characters)"
@@ -103,7 +103,7 @@ deu:
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
@@ -554,6 +554,7 @@ deu:
     employed: "Beschäftigt"
     employees: "Mitarbeiter"
     employment: "Beschäftigung"
+    enabled: "Aktiviert"
     encrypted_password: "verschlüsselte Passwort"
     enjoyer: "enjoyer"
     enjoyments: "Genüsse"
@@ -590,6 +591,10 @@ deu:
     father: "Vater"
     faxes: "Faxgeräte"
     fifth_producer: "fünfte Produzent" #?
+    file: "Datei"
+    file_file_size: "Dateigröße"
+    file_pages_count: "Seiten zählen"
+    file_updated_at: "Aktualisiert am"
     filtered_columns: "gefiltert Spalten"
     financial_year: "Geschäftsjahr"
     financial_year_as_last: "Geschäftsjahr (zuletzt Journaleintrag)"
@@ -602,6 +607,8 @@ deu:
     fixed_asset: "Anlagevermögen"
     fixed_asset_account: "Anlagekonto"
     fixed_asset_allocation_account: "Anlagevermögen Abschreibungen Rechnung"
+    fixed_asset_collect_account: "Anlagekonto sammeln"
+    fixed_asset_deduction_account: "Anlagevermögen Abzug Konto"
     fixed_asset_depreciation_method: "Anlagenabschreibungsmethode"
     fixed_asset_depreciation_percentage: "Abschreibungen auf Sachanlagen Prozent"
     fixed_asset_depreciations: "Anlagevermögen Abschreibungen"
@@ -1168,6 +1175,7 @@ deu:
     # tactic: "Cropping technique"
     # tactics: "Cropping techniques"
     target: "Ziel"
+    target_name: "Zielname"
     target_type: "Zieltyp"
     target_url: "Ziel-URL"
     targets: "Ziele"
@@ -1225,7 +1233,7 @@ deu:
     usage_limit_on: "Wird von auf"
     usages: "Nutzungen"
     use_countings: "Verwenden Zählungen"
-    use_grading_calibre: "Verwenden Sie Grading Kaliber"
+    use_grading_calibre: "Verwenden Sie Grading Kaliber" #?
     use_gradings: "Verwenden Sie Sortierungen"
     # use_seasons: "Use seasonalities"
     # use_tactics: "Use cropping techniques"

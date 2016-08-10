@@ -38,7 +38,7 @@ ita:
       # detach: "Detach from affair %{number}"
       # finish: "Finish affair %{number}"
       index: "Affari"
-      # select: "Select for affair %{number}"
+      select: "Selezionare un record da aggiungere a vicenda"
       # show: "Affair: %{number}"
     backend/analyses:
       # edit: "Edit analysis #%{number}"
@@ -391,7 +391,7 @@ ita:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Modifica localizzazione del prodotto:"
-      # new: "New product localization"
+      new: "Nuova localizzazione del prodotto"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorie di Prodotto"
@@ -1586,6 +1586,9 @@ ita:
     x_sales_invoices:
       # one: "%{count} sales invoice"
       # other: "%{count} sales invoices"
+    x_seconds:
+      # one: "%{count} second"
+      # other: "%{count} seconds"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"

@@ -55,7 +55,7 @@ eng:
       detach: "Detach from affair %{number}"
       finish: "Finish affair %{number}"
       index: "Affairs"
-      select: "Select for affair %{number}"
+      select: "Select a record to add to affair"
       show: "Affair: %{number}"
     backend/analyses:
       edit: "Edit analysis #%{number}"
@@ -1675,6 +1675,9 @@ eng:
     x_sales_invoices:
       one: "%{count} sales invoice"
       other: "%{count} sales invoices"
+    x_seconds:
+      one: "%{count} second"
+      other: "%{count} seconds"
     x_subscriptions:
       one: "%{count} subscription"
       other: "%{count} subscriptions"

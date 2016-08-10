@@ -271,9 +271,8 @@ module RestfullyManageable
       end.collect { |k, v| "#{k}: (#{v.inspect})" }.join(', ')
       code << "def pick\n"
       code << "  @#{record_name} = resource_model.new(#{values})\n"
-      code << "  already_imported_records = #{model}.select(:reference_name).collect(&:reference_name)\n"
-      code << "  already_imported = already_imported_records.inject({}) { |ha, val| ha[val] = true; ha}\n"
-      code << "  @items = Nomen::#{controller_name.camelcase}.select_without already_imported\n"
+      code << "  already_imported = #{model}.pluck(:reference_name).uniq.compact\n"
+      code << "  @items = Nomen::#{controller_name.camelcase}.without(already_imported).selection\n"
       code << "end\n"
 
       code << "def incorporate\n"

@@ -56,7 +56,7 @@ class SaleNature < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :by_default, :downpayment, :with_accounting, inclusion: { in: [true, false] }
   validates :catalog, :currency, presence: true
-  validates :description, :payment_mode_complement, :sales_conditions, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, :payment_mode_complement, :sales_conditions, length: { maximum: 500_000 }, allow_blank: true
   validates :downpayment_minimum, :downpayment_percentage, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :expiration_delay, :name, :payment_delay, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]

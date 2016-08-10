@@ -58,7 +58,7 @@ class PurchaseItem < Ekylibre::Record::Base
   has_one :product_nature_category, through: :variant, source: :category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :annotation, :label, length: { maximum: 100_000 }, allow_blank: true
+  validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
   validates :account, :currency, :purchase, :tax, :variant, presence: true
   validates :fixed, inclusion: { in: [true, false] }
   # ]VALIDATORS]

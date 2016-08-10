@@ -38,7 +38,7 @@ jpn:
       # detach: "Detach from affair %{number}"
       # finish: "Finish affair %{number}"
       index: "業務"
-      # select: "Select for affair %{number}"
+      select: "不倫に追加するレコードを選択"
       # show: "Affair: %{number}"
     backend/analyses:
       # edit: "Edit analysis #%{number}"
@@ -391,7 +391,7 @@ jpn:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "編集製品のローカライズ："
-      # new: "New product localization"
+      new: "新製品のローカライズ"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "製品カテゴリー"
@@ -1594,6 +1594,9 @@ jpn:
     x_sales_invoices:
       # one: "%{count} sales invoice"
       # other: "%{count} sales invoices"
+    x_seconds:
+      # one: "%{count} second"
+      # other: "%{count} seconds"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"

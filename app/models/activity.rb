@@ -88,7 +88,7 @@ class Activity < Ekylibre::Record::Base
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :family, :nature, :production_cycle, presence: true
   validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
