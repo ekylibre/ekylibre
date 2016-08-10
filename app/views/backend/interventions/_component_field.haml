@@ -1,12 +1,11 @@
 = f.referenced_association :assembly, as: :hidden
-
 :ruby
   options = {
     new: false,
     source: {
       keep: true,
       scope: {
-        components_of_product: Maybe(f.object.assembly).variant.id.or_else("nil")
+        components_of_product: Maybe(f.object.assembly).id.or_else("nil")
       }
     },
     input_html: {

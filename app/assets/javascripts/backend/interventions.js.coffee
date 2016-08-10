@@ -29,10 +29,11 @@
             if typeof(assemId) == 'undefined' or assemId is null
               assemId = "nil"
             componentReg = /(unroll\?.*scope.*components_of_product[^=]*)=([^&]*)(&?.*)/
-            oldSchematics = unrollPath.match(componentReg)[2]
+            oldAssembly = unrollPath.match(componentReg)[2]
             unrollPath = unrollPath.replace(componentReg, "$1="+assemId+"$3")
             input.attr('data-selector', unrollPath)
-            if assemId.toString() != oldSchematics.toString()
+            if assemId.toString() != oldAssembly.toString()
+              console.log "CLEAR"
               $(input).val('')
 
 
