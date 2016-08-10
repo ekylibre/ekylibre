@@ -3,6 +3,8 @@
   = t.export :intervention_sheet
   = t.destroy
 
+- currency = Nomen::Currency.find(resource.currency)
+
 = cobbles do |c|
   - if params[:mode] == 'spraying'
     = render 'spraying_map', cobbler: c
@@ -38,17 +40,16 @@
     = infos(class: 'costs') do
       - total = 0
       - [:input, :tool, :doer].each do |type|
-        - cost = (resource.cost(type) || 0.0).round.to_i
-        - total += cost
+        - cost = (resource.cost(type) || 0.0).round(currency.precision)
         .big-info.cost
           %span.title= "evaluated_#{type}_cost".tl
           %span.value
             %i.picto{class: "picto-#{type}"}
-            = cost.l(currency: Preference[:currency])
+            = cost.l(currency: currency.name)
 
       .big-info.cost.important
         %span.title= :total_cost.tl
-        %span.value= total.l(currency: Preference[:currency])
+        %span.value= resource.total_cost.round(currency.precision).l(currency: currency.name)
 
       - if resource.working_zone_area > 0.0.in_square_meter
         .big-info
@@ -58,7 +59,7 @@
         .big-info
           - unit = Nomen::Unit.find(:hectare)
           %span.title= Intervention.human_attribute_name(:costs_per_unit, unit: unit.human_name)
-          %span.value= resource.total_cost_per_area(unit).round(2).l(currency: Preference[:currency]) + "/" + unit.symbol
+          %span.value= resource.total_cost_per_area(unit).round(currency.precision).l(currency: currency.name) + "/" + unit.symbol
 
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do

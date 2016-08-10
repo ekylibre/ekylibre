@@ -319,7 +319,7 @@ class Intervention < Ekylibre::Record::Base
 
   def total_cost
     [:input, :tool, :doer].map do |type|
-      (cost(type) || 0.0).to_d.round(2)
+      (cost(type) || 0.0).to_d
     end.sum
   end
 
