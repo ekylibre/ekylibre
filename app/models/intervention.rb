@@ -332,6 +332,12 @@ class Intervention < Ekylibre::Record::Base
     end.sum
   end
 
+  def human_total_cost
+    [:input, :tool, :doer].map do |type|
+      (cost(type) || 0.0).to_d
+    end.sum.round(Nomen::Currency.find(currency).precision)
+  end
+
   def total_cost_per_area(area_unit = :hectare)
     if working_zone_area > 0.0.in_square_meter
       return (total_cost / working_zone_area(area_unit).to_d)
