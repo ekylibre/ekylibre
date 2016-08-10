@@ -1299,6 +1299,7 @@ arb:
     employed: "وظف من قبل الشركة"
     employees: "الموظفين"
     employment: "الوظيفة"
+    enabled: "تمكين"
     encrypted_password: "كلمة المرور المشفرة"
     # enjoyer: "Enjoyer"
     enjoyments: "المتعة"
@@ -1358,6 +1359,10 @@ arb:
     fax: "فاكس" #?
     faxes: "الفاكسات"
     fifth_producer: "منتج الخامس" #?
+    file: "ملف"
+    file_file_size: "حجم الملف"
+    file_pages_count: "عد الصفحات"
+    file_updated_at: "تحديث في"
     filename: "الملف" #?
     filesize: "حجم الملف" #?
     filtered_columns: "الأعمدة التي تمت تصفيتها"
@@ -1374,6 +1379,8 @@ arb:
     fixed_asset: "الأصول الثابتة"
     fixed_asset_account: "حساب الأصول الثابتة"
     fixed_asset_allocation_account: "ثابت حساب انخفاض قيمة الأصول"
+    fixed_asset_collect_account: "الأصول الثابتة جمع الحساب"
+    fixed_asset_deduction_account: "حساب خصم الأصول الثابتة"
     fixed_asset_depreciation_method: "الأصول الثابتة طريقة الاستهلاك"
     fixed_asset_depreciation_percentage: "نسبة انخفاض قيمة الأصول الثابتة"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
@@ -2108,6 +2115,7 @@ arb:
     symmetric: "متساو" #?
     target: "الهدف"
     target_id: "الهدف" #?
+    target_name: "اسم الهدف"
     target_type: "نوع الهدف"
     target_url: "الهدف رابط"
     targets: "أهداف"
@@ -2187,7 +2195,7 @@ arb:
     usage_limit_on: "التي يستخدمها على"
     usages: "الأعراف"
     use_countings: "استخدام فرزان"
-    use_grading_calibre: "استخدام عيار الدرجات"
+    use_grading_calibre: "استخدام عيار الدرجات" #?
     use_gradings: "استخدام الى التصنيف"
     use_range: "استخدام الكمية الفاصلة" #?
     used_for_affairs: "تستخدم للشؤون"
