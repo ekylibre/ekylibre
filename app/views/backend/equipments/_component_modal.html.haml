@@ -1,7 +1,7 @@
 = modal(id: modal_id, title: component.name, close_button: true) do
   - part_variant = component.part_product_nature_variant
   .modal-body
-    - if part_variant
+    - if part_variant && part_variant.attachments.any?
       .toolbar
         = dropdown_menu_button(:documentation.tl, icon: false) do |menu|
           - part_variant.attachments.each do |attachment|
@@ -27,7 +27,7 @@
             - intervention = replacement.intervention
             %tr
               %td= replacement.component.name
-              %td= intervention.procedure_name.l
+              %td= link_to(intervention.name, controller: :interventions, action: :show, id: intervention.id)
               %td= intervention.human_actions_names
               %td= intervention.human_doer_names
     - else
