@@ -15,21 +15,11 @@
       @selectedItemsIndex = {}
 
       @showAnimalDetailsModal = ko.observable false
-      @showNewGroupModal = ko.observable false
-
       @animalDetailsModalOptions = ko.observable false
-
-      @newGroupModalOptions =
-        group: ko.observable ''
-        variantId: ko.observable ''
-
 
       @cancelAnimalDetails = () =>
         @animalDetailsModalOptions false
         @showAnimalDetailsModal false
-
-      @cancelNewGroup = () =>
-        @showNewGroupModal false
 
       @groups = ko.observableArray []
       @containers = ko.observableArray []
@@ -45,10 +35,6 @@
       @toggleAnimalDetailsModal = (animal) =>
         @animalDetailsModalOptions animal
         @showAnimalDetailsModal true
-        return
-
-      @toggleNewGroupModal = () =>
-        @showNewGroupModal true
         return
 
       @moveAnimals = (container, group) =>
@@ -99,29 +85,6 @@
           item.checked(false)
 
         @selectedItemsIndex = {}
-
-
-      @showAddGroup = (item) =>
-        return item() == @groups().length-1
-
-      @addGroup = () =>
-        if group = @newGroupModalOptions.group
-
-          $.ajax '/backend/animals/add_group',
-            type: 'PUT',
-#            type: 'GET',
-            dataType: 'JSON',
-            data: {name:group(),variant_id: @newGroupModalOptions.variantId()},
-            success: (res) =>
-              if res.id
-                @groups.push new golumn.Group(res.id, res.name)
-
-              @showNewGroupModal false
-              return true
-
-            error: (res) =>
-              @showNewGroupModal false
-              return false
 
 
   @loadData = (golumn, element) =>

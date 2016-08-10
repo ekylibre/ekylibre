@@ -2,6 +2,7 @@
   = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
   = t.new params: { controller: :animals, action: :new }, data: { toggle: 'dialog' }
   = t.new label: Parcel.model_name.human, params: { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog' }
+  = t.new label: AnimalGroup.model_name.human, params: { controller: :animal_groups, action: :new }, data: { toggle: 'dialog' }
 
   - family = Nomen::ActivityFamily[:animal_farming]
   = t.menu :interventions, icon: false, class: 'interventions-accessor' do |menu|
@@ -28,9 +29,6 @@
       .golumn-loading
       .golumn-columns
         .golumn-columns-container{data: { bind: "template: {name: 'golumn-column-template', foreach: groups}"}}
-        .golumn-addon
-          = link_to("#new-group", class: "golumn-column-add", data: { bind: 'click: $root.toggleNewGroupModal' }) do
-            %i
 
       %script#golumn-column-template{type: 'text/html'}
         .golumn-column
@@ -74,21 +72,6 @@
         -# Procedo.procedures_of_nature(:viviparous_birth).each do |procedure|
           = link_to procedure.human_name, new_backend_intervention_path(reference_name: procedure.name), class: 'btn btn-default'
         = link_to "actions.backend/animals.new".t, new_backend_animal_path, class: 'btn btn-default'
-
-
-    = modal(:new_group, data: {bind: 'modal: showNewGroupModal(), with: newGroupModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelNewGroup'}}) do
-      .modal-body
-        .control-group
-          %label.control-label= ProductGroup.human_attribute_name(:name)
-          .controls
-            %input{type: 'text', data: { bind: 'value: group'}}
-        .control-group
-          %label.control-label= ProductGroup.human_attribute_name(:variant)
-          .controls
-            = select_tag(:variant_id, options_for_select(ProductNatureVariant.of_variety(:animal_group).map{|v| [v.name, v.id]}), data: {bind: 'value: variantId'})
-      .modal-footer
-        = link_to("#", data: {bind: 'click: $root.addGroup'}, class: "btn btn-default") do
-          = :add.tl
 
     = modal(:animal_details, data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelAnimalDetails'}}) do
       .modal-body
