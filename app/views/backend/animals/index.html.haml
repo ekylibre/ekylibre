@@ -39,6 +39,7 @@
               .checker{data: {bind: 'checkbox: toggleItems'}}
             .golumn-column-handle
               %span.golumn-column-title{data: {bind: 'text: name'}}
+              %span.badge.golumn-column-badge{data: { bind: 'text: count'}}
           .golumn-column-body
             .add-container.dropzone{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}, visible: droppable" }}
               %button.btn.btn-link{type: 'button'}

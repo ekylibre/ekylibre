@@ -128,6 +128,12 @@ $column-width: 28ex;
         &, * {
           line-height: $lh-normal;
         }
+
+        .golumn-column-badge {
+          font-size: $fs-small;
+          line-height: 13px;
+          @include float(right);
+        }
       }
       &:hover {
         .checker {
