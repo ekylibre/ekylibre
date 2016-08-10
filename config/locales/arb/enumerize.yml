@@ -448,9 +448,3 @@ arb:
         create: "خلق"
         destroy: "هدم"
         update: "تحديث"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "رقم الفاتورة المورد" #?
-    required: #?
-      text: "مطلوب" #?

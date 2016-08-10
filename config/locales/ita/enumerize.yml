@@ -449,9 +449,3 @@ ita:
         create: "Creare"
         destroy: "Distruggere"
         update: "Aggiornare"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "numero di fattura del fornitore" #?
-    required: #?
-      text: "richiesto" #?

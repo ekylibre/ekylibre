@@ -449,9 +449,3 @@ deu:
         create: "Erstellen"
         destroy: "Zerstören"
         update: "Aktualisieren"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "Lieferant Rechnungsnummer" #?
-    required: #?
-      text: "Erforderlich" #?

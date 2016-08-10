@@ -449,9 +449,3 @@ cmn:
         create: "创建"
         destroy: "破坏"
         update: "更新"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "供应商发票号" #?
-    required: #?
-      text: "需要" #?
