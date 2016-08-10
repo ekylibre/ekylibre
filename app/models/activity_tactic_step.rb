@@ -22,27 +22,45 @@
 #
 # == Table: activity_tactic_steps
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  procedure_action :string           not null
-#  started_on       :date
-#  stopped_on       :date
-#  tactic_id        :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  action              :string
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  name                :string           not null
+#  procedure_categorie :string           not null
+#  procedure_name      :string
+#  started_on          :date             not null
+#  stopped_on          :date             not null
+#  tactic_id           :integer          not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
+
+require 'procedo'
+
 class ActivityTacticStep < Ekylibre::Record::Base
 
-  refers_to :procedure_action, class_name: 'ProcedureAction'
-  belongs_to :tactic, class_name: 'ActivityTactic', inverse_of: :tactic_steps
+  refers_to :procedure_categorie, class_name: 'ProcedureCategory'
+  refers_to :action, class_name: 'ProcedureAction'
+
+  belongs_to :tactic, class_name: 'ActivityTactic', inverse_of: :steps
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_on, :stopped_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :stopped_on, timeliness: { allow_blank: true, on_or_after: :started_on }, if: ->(activity_tactic_step) { activity_tactic_step.stopped_on && activity_tactic_step.started_on }
-  validates :name, :procedure_action, :tactic, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :procedure_categorie, :tactic, presence: true
+  validates :procedure_name, length: { maximum: 500 }, allow_blank: true
+  validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
+  validates :stopped_on, presence: true, timeliness: { on_or_after: ->(activity_tactic_step) { activity_tactic_step.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
+
+  def of_procedures_name
+    Procedo.procedures_of_main_category(procedure_categorie)
+  end
+
+  def of_actions
+    Procedo.find(procedure_name).optional_actions_selection
+  end
+
 
 end

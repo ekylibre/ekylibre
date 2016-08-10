@@ -15,11 +15,37 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+require 'procedo'
 
 module Backend
   class ActivityTacticsController < Backend::BaseController
     manage_restfully
-
     unroll
+    def procedures_name
+      data = {}
+      check_value(Procedo.procedures_of_main_category(params[:name]).sort{|a,b| a.human_name <=> b.human_name }).each do |procedure_name|
+        data[procedure_name.name] = procedure_name.human_name
+      end
+      render json: data
+    end
+
+    def actions
+      data = {}
+      check_value(Procedo.find(params[:name]).optional_actions_selection).each do |action|
+        data[action[1]] = action[0]
+      end
+      render json: data
+    end
+
+    private
+
+    def check_value(data)
+      unless data
+        head :not_found
+        return
+      end
+      data
+    end
   end
+
 end

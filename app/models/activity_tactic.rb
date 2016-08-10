@@ -39,7 +39,7 @@ class ActivityTactic < Ekylibre::Record::Base
 
   belongs_to :activity, class_name: 'Activity', inverse_of: :tactics
   has_many :productions, class_name: 'ActivityProduction', inverse_of: :tactic, foreign_key: :tactic_id
-  has_many :tactic_steps, class_name: 'ActivityTacticStep', inverse_of: :tactic, foreign_key: :tactic_id
+  has_many :steps, class_name: 'ActivityTacticStep', inverse_of: :tactic, foreign_key: :tactic_id
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :mode_delta, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -48,7 +48,11 @@ class ActivityTactic < Ekylibre::Record::Base
   validates :activity, presence: true
   # ]VALIDATORS]
 
-  accepts_nested_attributes_for :tactic_steps, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :steps, allow_destroy: true, reject_if: :all_blank
+
+  def of_family
+    Activity.where(id: self.activity_id).map(&:family).join.to_sym
+  end
 
   def mode_unit_name
     :day

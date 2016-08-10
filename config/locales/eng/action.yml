@@ -51,9 +51,11 @@ eng:
       # new: "New activity tactic step"
       # show: "Activity tactic step: %{name}"
     backend/activity_tactics:
+      # actions: "Actions activity tactic: %{name}"
       # edit: "Edit activity tactic: %{name}"
       # index: "Activity tactics"
       # new: "New activity tactic"
+      # procedures_name: "Procedures name activity tactic: %{name}"
       # show: "Activity tactic: %{name}"
     backend/affairs:
       attach: "Attach to affair %{number}"
@@ -961,7 +963,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
-    countings: "Countings"
+    countings: "Countings" #?
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
@@ -1801,6 +1803,7 @@ eng:
     actions:
       abort: "Abort"
       about: "About"
+      # actions: "Actions"
       # add_group: "Add group"
       # add_to_container: "Add to container"
       # add_to_group: "Add to group"
@@ -1860,6 +1863,7 @@ eng:
       pick: "Pick"
       picture: "Picture"
       prepare: "Prepare"
+      # procedures_name: "Procedures name"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"

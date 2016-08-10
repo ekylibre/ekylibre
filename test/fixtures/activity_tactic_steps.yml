@@ -22,17 +22,19 @@
 #
 # == Table: activity_tactic_steps
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  procedure_action :string           not null
-#  started_on       :date
-#  stopped_on       :date
-#  tactic_id        :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  action              :string
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  name                :string           not null
+#  procedure_categorie :string           not null
+#  procedure_name      :string
+#  started_on          :date             not null
+#  stopped_on          :date             not null
+#  tactic_id           :integer          not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
 
 

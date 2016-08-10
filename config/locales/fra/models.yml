@@ -431,6 +431,7 @@ fra:
     accounted_at: "Date comptabilisation"
     accuracy: "Précision"
     achieved_at: "Achevé le"
+    # action: "Action"
     actions: "Actions"
     active: "Actif"
     active_prices: "Prix actifs" #?
@@ -1161,6 +1162,7 @@ fra:
     priority: "Priorité"
     probability_percentage: "Pourcentage de probabilité"
     # procedure_action: "Procedure action"
+    # procedure_categorie: "Procedure categorie"
     procedure_name: "Nom de la procédure"
     procedures: "Procédures" #?
     process: "Process" #?

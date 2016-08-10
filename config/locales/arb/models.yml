@@ -964,6 +964,7 @@ arb:
     accuracy: "دقة"
     achieved_at: "تحقق في"
     acquisition_amount: "قيمة الاقتناء" #?
+    # action: "Action"
     actions: "الإجراءات"
     active: "فعال"
     activities: "أنشطة"
@@ -1822,6 +1823,7 @@ arb:
     priority: "أفضلية"
     probability_percentage: "نسبة احتمال"
     # procedure_action: "Procedure action"
+    # procedure_categorie: "Procedure categorie"
     procedure_name: "اسم الإجراء"
     producer: "المنتج"
     producer_id: "المنتج" #?

@@ -107,35 +107,6 @@ module Clean
 
       def look_for_labels(*paths)
         list = []
-<<<<<<< HEAD
-        paths.flatten.each do |path|
-          Dir.glob(path).each do |file|
-            source = File.read(file)
-            source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.(tl|th)/) do |exp|
-              exp.gsub!(/\.tl\z/, '')
-              exp.gsub!(/\A\:/, '')
-              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ || exp =~ /\A\".*\"\z/
-              exp.gsub!(/\#\{[^\}]+\}/, '*')
-              list << exp
-            end
-            source.gsub(/(\'labels\.[^\']+\'|\"labels\.[^\"]+\")\.t/) do |exp|
-              exp.gsub!(/\.t\z/, '')
-              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ || exp =~ /\A\".*\"\z/
-              exp.gsub!(/\Alabels\./, '')
-              exp.gsub!(/\#\{[^\}]+\}/, '*')
-              list << exp
-            end
-            source.gsub(/(tl|field_set|cell|cobble|subheading)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)[^\n\z]*(\n|\z)/) do |exp|
-              keys = exp.split(/[\s\(\)\:\'\"\,]+/)
-              key = keys[1].gsub(/\#\{[^\}]+\}/, '*')
-              if keys[2..-1].include?('title') || keys[2..-1].include?('label')
-                # puts "NO! ".red + key.yellow + " (#{exp.strip})"
-                next
-              end
-              # puts "YES ".green + key.yellow + " (#{exp.strip})"
-              list << key
-            end
-=======
         browse(paths) do |file|
           source = File.read(file)
           source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.(tl|th)/) do |exp|
@@ -157,7 +128,6 @@ module Clean
             key = keys[1].gsub(/\#\{[^\}]+\}/, '*')
             next if keys[2..-1].include?('title') || keys[2..-1].include?('label')
             list << key
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
           end
         end
         list += Ekylibre::Navigation.parts.collect { |p| p.index.keys }.flatten.compact.map(&:to_s)
