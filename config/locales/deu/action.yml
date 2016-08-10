@@ -915,7 +915,7 @@ deu:
     expenses: "Kosten"
     expenses_by_product_nature_category: "Die Aufwendungen nach Produkt Kategorie Natur"
     export: "Export-Dokumente"
-    # field_distribution: "Field distribution"
+    field_distribution: "Feldverteilung"
     file_nature: "Dateityp"
     file_preview: "Vorschau"
     file_to_upload: "Datei hochladen"
@@ -1214,7 +1214,7 @@ deu:
     purchase_items: "Kauf von Gegenständen"
     purchase_number: "Ankauf"
     purchases: "Käufe"
-    # quality: "Quality"
+    quality: "Qualität"
     # quandl: "Quandl"
     quantity: "Menge"
     quantity_rest: "Verbleibende Menge" #?

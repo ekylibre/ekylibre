@@ -31,7 +31,7 @@ ita:
       # show: "Activity budget: %{name}"
     backend/activity_productions:
       # edit: "Edit production: %{name}"
-      # index: "Productions"
+      index: "Produzioni"
       new: "Produzione Nuova attività"
       # show: "Production: %{name}"
     backend/affairs:
@@ -981,7 +981,7 @@ ita:
     expenses: "Spese"
     expenses_by_product_nature_category: "Le spese per categoria di prodotto della natura"
     export: "documenti di esportazione"
-    # field_distribution: "Field distribution"
+    field_distribution: "Distribuzione del campo"
     file_nature: "Tipo di file"
     file_preview: "Anteprima"
     file_to_upload: "File da caricare"
@@ -1280,7 +1280,7 @@ ita:
     purchase_items: "articoli di acquisto"
     purchase_number: "Acquisto"
     purchases: "acquisti"
-    # quality: "Quality"
+    quality: "Qualità"
     # quandl: "Quandl"
     quantity: "Quantità"
     quantity_rest: "Quantità rimanente" #?

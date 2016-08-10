@@ -31,7 +31,7 @@ cmn:
       # show: "Activity budget: %{name}"
     backend/activity_productions:
       # edit: "Edit production: %{name}"
-      # index: "Productions"
+      index: "制作"
       new: "新的生产活动"
       # show: "Production: %{name}"
     backend/affairs:
@@ -915,7 +915,7 @@ cmn:
     expenses: "开支"
     expenses_by_product_nature_category: "按产品类别性质的费用"
     export: "出口单证"
-    # field_distribution: "Field distribution"
+    field_distribution: "场分布"
     file_nature: "文件类型"
     file_preview: "预习"
     file_to_upload: "文件上传"
@@ -1215,7 +1215,7 @@ cmn:
     purchase_items: "购买物品"
     purchase_number: "购买数量"
     purchases: "购买"
-    # quality: "Quality"
+    quality: "质量"
     # quandl: "Quandl"
     quantity: "数量"
     quantity_rest: "剩余数量" #?

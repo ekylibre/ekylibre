@@ -1161,7 +1161,7 @@ fra:
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
-    # field_distribution: "Field distribution"
+    field_distribution: "Répartition Champs"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
     file_preview: "Visualisation de votre fichier"
@@ -1633,7 +1633,7 @@ fra:
       invoice: "Facture" #?
       order: "Commande" #?
       refused: "Refusée" #?
-    # quality: "Quality"
+    quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
     quantity_rest: "Quantité restante" #?
