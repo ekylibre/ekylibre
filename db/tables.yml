@@ -5238,40 +5238,6 @@ product_ownerships:
   updater_id:
     type: integer
     references: user
-product_part_replacements:
-  component_id:
-    type: integer
-    references: product_nature_variant_component
-    required: true
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  following_id:
-    type: integer
-    references: product_part_replacement
-  id:
-    type: integer
-    required: true
-  intervention_parameter_id:
-    type: integer
-    references: intervention_parameter
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  product_id:
-    type: integer
-    references: product
-    required: true
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
 product_phases:
   category_id:
     type: integer

@@ -2758,27 +2758,6 @@ ActiveRecord::Schema.define(version: 20160730070743) do
   add_index "product_ownerships", ["updated_at"], name: "index_product_ownerships_on_updated_at", using: :btree
   add_index "product_ownerships", ["updater_id"], name: "index_product_ownerships_on_updater_id", using: :btree
 
-  create_table "product_part_replacements", force: :cascade do |t|
-    t.integer  "component_id",                          null: false
-    t.integer  "following_id"
-    t.integer  "intervention_parameter_id",             null: false
-    t.integer  "product_id",                            null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",              default: 0, null: false
-  end
-
-  add_index "product_part_replacements", ["component_id"], name: "index_product_part_replacements_on_component_id", using: :btree
-  add_index "product_part_replacements", ["created_at"], name: "index_product_part_replacements_on_created_at", using: :btree
-  add_index "product_part_replacements", ["creator_id"], name: "index_product_part_replacements_on_creator_id", using: :btree
-  add_index "product_part_replacements", ["following_id"], name: "index_product_part_replacements_on_following_id", using: :btree
-  add_index "product_part_replacements", ["intervention_parameter_id"], name: "index_product_part_replacements_on_intervention_parameter_id", using: :btree
-  add_index "product_part_replacements", ["product_id"], name: "index_product_part_replacements_on_product_id", using: :btree
-  add_index "product_part_replacements", ["updated_at"], name: "index_product_part_replacements_on_updated_at", using: :btree
-  add_index "product_part_replacements", ["updater_id"], name: "index_product_part_replacements_on_updater_id", using: :btree
-
   create_table "product_phases", force: :cascade do |t|
     t.integer  "originator_id"
     t.string   "originator_type"

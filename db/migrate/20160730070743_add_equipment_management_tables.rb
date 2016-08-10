@@ -45,15 +45,6 @@ class AddEquipmentManagementTables < ActiveRecord::Migration
       t.stamps
     end
 
-    # Create product part replacements
-    create_table :product_part_replacements do |t|
-      t.references :component, null: false, index: true
-      t.references :following, index: true
-      t.references :intervention_parameter, null: false, index: true
-      t.references :product, null: false, index: true
-      t.stamps
-    end
-
     add_reference :intervention_parameters, :component, index: true
     add_reference :intervention_parameters, :assembly, index: true
   end

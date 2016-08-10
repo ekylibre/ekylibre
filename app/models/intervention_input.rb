@@ -75,16 +75,6 @@ class InterventionInput < InterventionProductParameter
     end
   end
 
-  after_create do
-    if product && component
-      ProductPartReplacement.create!(
-        component: component,
-        intervention_parameter: self,
-        product: assembly
-      )
-    end
-  end
-
   def cost_amount_computation
     return InterventionParameter::AmountComputation.failed unless product
     incoming_parcel = product.incoming_parcel_item

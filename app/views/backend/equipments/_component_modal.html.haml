@@ -18,20 +18,18 @@
       %table
         %thead
           %tr
-            %th= ProductPartReplacement.human_attribute_name(:product)
-            %th= ProductPartReplacement.human_attribute_name(:component)
-            %th= ProductPartReplacement.human_attribute_name(:intervention)
+            %th= InterventionInput.human_attribute_name(:component)
+            %th= InterventionInput.human_attribute_name(:intervention)
             %th= Intervention.human_attribute_name(:actions)
             %th= Intervention.human_attribute_name(:doers)
         %tbody
           - replacements.each do |replacement|
             - intervention = replacement.intervention
             %tr
-              %td= link_to(replacement.product.name, backend_equipment_path(replacement.product))
               %td= replacement.component.name
               %td= intervention.procedure_name.l
-              %td= intervention.human_actions_name
-              %td= intervention.human_doers_name
+              %td= intervention.human_actions_names
+              %td= intervention.human_doer_names
     - else
       .placeholding-message= :no_replacements_since_beginning.tn
   .modal-footer

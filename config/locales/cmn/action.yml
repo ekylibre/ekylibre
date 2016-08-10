@@ -30,9 +30,10 @@ cmn:
       new: "新预算"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      # index: "Productions"
       new: "新的生产活动"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -914,6 +915,7 @@ cmn:
     expenses: "开支"
     expenses_by_product_nature_category: "按产品类别性质的费用"
     export: "出口单证"
+    # field_distribution: "Field distribution"
     file_nature: "文件类型"
     file_preview: "预习"
     file_to_upload: "文件上传"
@@ -1213,6 +1215,7 @@ cmn:
     purchase_items: "购买物品"
     purchase_number: "购买数量"
     purchases: "购买"
+    # quality: "Quality"
     # quandl: "Quandl"
     quantity: "数量"
     quantity_rest: "剩余数量" #?

@@ -36,9 +36,10 @@ arb:
       new: "الميزانية الجديدة"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      # index: "Productions"
       new: "إنتاج نشاط جديد"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -1286,6 +1287,7 @@ arb:
     expenses_by_product_nature_category: "النفقات حسب الفئة طبيعة المنتج"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
+    # field_distribution: "Field distribution"
     file_nature: "نوع الملف"
     file_preview: "معاينة"
     file_to_download: "ملف الاستيراد" #?
@@ -1761,6 +1763,7 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
+    # quality: "Quality"
     # quandl: "Quandl"
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية" #?

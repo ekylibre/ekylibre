@@ -30,9 +30,10 @@ deu:
       new: "Neue Haushalts"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      # index: "Productions"
       new: "Neue Aktivität Produktion"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -914,6 +915,7 @@ deu:
     expenses: "Kosten"
     expenses_by_product_nature_category: "Die Aufwendungen nach Produkt Kategorie Natur"
     export: "Export-Dokumente"
+    # field_distribution: "Field distribution"
     file_nature: "Dateityp"
     file_preview: "Vorschau"
     file_to_upload: "Datei hochladen"
@@ -1212,6 +1214,7 @@ deu:
     purchase_items: "Kauf von Gegenständen"
     purchase_number: "Ankauf"
     purchases: "Käufe"
+    # quality: "Quality"
     # quandl: "Quandl"
     quantity: "Menge"
     quantity_rest: "Verbleibende Menge" #?

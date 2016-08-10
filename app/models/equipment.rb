@@ -69,7 +69,7 @@
 class Equipment < Matter
   include Attachable
   has_many :components, class_name: 'ProductNatureVariantComponent', through: :variant
-  has_many :part_replacements, class_name: 'ProductPartReplacement', inverse_of: :product, foreign_key: :product_id
+  has_many :part_replacements, class_name: 'InterventionInput', foreign_key: :assembly_id
   refers_to :variety, scope: :equipment
 
   ##################################################
