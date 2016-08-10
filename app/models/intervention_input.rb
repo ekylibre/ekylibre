@@ -78,9 +78,9 @@ class InterventionInput < InterventionProductParameter
   after_create do
     if product && component
       ProductPartReplacement.create!(
-        component: component_id,
+        component: component,
         intervention_parameter: self,
-        product: product
+        product: assembly
       )
     end
   end
