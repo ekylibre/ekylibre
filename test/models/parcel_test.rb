@@ -119,7 +119,7 @@ class ParcelTest < ActiveSupport::TestCase
     PRODUCT_NOT_IN_STOCK
 
     # The newly created product should have the population specified in the parcel.
-    assert_equal(variant.products.last.population, p.items.first.population, <<-WRONG_POPULATION)
+    assert_equal(variant.products.order(:id).last.population, p.items.first.population, <<-WRONG_POPULATION)
 
     \tLast item in stock's population :
     \t\t#{variant.products.last.population}
