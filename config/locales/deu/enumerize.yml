@@ -33,8 +33,8 @@ deu:
         none: "Keiner"
     activity_tactic:
       mode:
-        # harvested: "Harvest sowing date"
-        # sowed: "Provisional sowing date"
+        harvested: "Ernte Saattermin"
+        sowed: "Vorläufige Saattermin"
     affair:
       third_role:
         client: "Klient"
@@ -217,7 +217,7 @@ deu:
         month: "Monat"
         year: "Jahr"
       shift_method:
-        # anatocism: "anatocism"
+        anatocism: "anatocism"
         immediate_payment: "Sofortige Bezahlung"
     notification:
       level:
@@ -295,7 +295,7 @@ deu:
         bug: "Fehler"
         building: "Gebäude"
         car: "Auto"
-        # cc: "Cc"
+        cc: "Cc"
         cow: "Kuh"
         credit_card: "Kreditkarte"
         desktop: "Desktop-"
@@ -399,7 +399,7 @@ deu:
         opportunities: "Chancen"
         outgoing_deliveries: "Nummerierung der ausgehenden Lieferungen" #?
         outgoing_payments: "Nummerierung der Zahlungen"
-        # parcels: "Parcels"
+        parcels: "Parcels"
         plants: "Nummerierung der Pflanzen"
         product_nature_categories: "Nummerierung der Natur Produktkategorien"
         product_nature_variants: "Nummerierung der Produktart Varianten"
@@ -441,6 +441,11 @@ deu:
         best_before: "Mindesthaltbarkeitsdatum"
         no_limit: "Keine Begrenzung"
         used_by: "Wird von Datum"
+    version:
+      event:
+        create: "Erstellen"
+        destroy: "Zerstören"
+        update: "Aktualisieren"
   simple_form:  #?
     hints: #?
       purchase: #?

@@ -33,8 +33,8 @@ jpn:
         none: "なし"
     activity_tactic:
       mode:
-        # harvested: "Harvest sowing date"
-        # sowed: "Provisional sowing date"
+        harvested: "収穫播種日"
+        sowed: "暫定播種日"
     affair:
       third_role:
         client: "クライアント"
@@ -217,7 +217,7 @@ jpn:
         month: "月"
         year: "年"
       shift_method:
-        # anatocism: "anatocism"
+        anatocism: "anatocism"
         immediate_payment: "即納"
     notification:
       level:
@@ -441,6 +441,11 @@ jpn:
         best_before: "賞味期限"
         no_limit: "制限なし"
         used_by: "日付によって使用されます"
+    version:
+      event:
+        create: "作ります"
+        destroy: "破壊する"
+        update: "更新"
   simple_form:  #?
     hints: #?
       purchase: #?

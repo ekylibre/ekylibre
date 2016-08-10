@@ -18,7 +18,7 @@ arb:
         expenses_amount: "مبلغ النفقات"
         revenues_amount: "مبلغ الإيرادات"
       activity_tactic:
-        # mode: "Planning type"
+        mode: "نوع التخطيط"
       animal_group:
         born_at: "أنشئت في"
       area:  #?
@@ -750,8 +750,8 @@ arb:
       activity_inspection_calibration_scale: "عيار"
       activity_inspection_point_nature: "النشاط الاختيار الدرجات"
       activity_production: "دعم الإنتاج"
-      # activity_season: "Activity season"
-      # activity_tactic: "Activity cropping technique"
+      activity_season: "موسمية"
+      activity_tactic: "آخر تقنية زراعة المحاصيل"
       affair: "قضية"
       analysis: "تحليل"
       analysis_item: "البند تحليل"
@@ -1656,7 +1656,6 @@ arb:
     minimal_value: "قيمة الحد الأدنى"
     mobile: "الهاتف النقال" #?
     mobiles: "هواتف محمولة"
-    # mod: "Mod"
     mode: "نمط الدفعة"
     mode_id: "طريقة تسديد دفعة" #?
     model_euid: "نموذج"
@@ -2016,7 +2015,7 @@ arb:
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scale: "مقياس"
     scheduled: "الدفعة المبرمجة"
-    # season: "Seasonality"
+    season: "موسمية"
     # seasons: "Seasonalities"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
@@ -2120,8 +2119,8 @@ arb:
     suspended: "معطل"
     symbol: "نموذج" #?
     symmetric: "متساو" #?
-    # tactic: "Cropping technique"
-    # tactics: "Cropping techniques"
+    tactic: "تقنيات إدارة المحاصيل"
+    tactics: "تكتيكات"
     target: "الهدف"
     target_id: "الهدف" #?
     target_name: "اسم الهدف"
@@ -2207,8 +2206,8 @@ arb:
     use_grading_calibre: "استخدام عيار الدرجات" #?
     use_gradings: "استخدام الى التصنيف"
     use_range: "استخدام الكمية الفاصلة" #?
-    # use_seasons: "Use seasonalities"
-    # use_tactics: "Use cropping techniques"
+    use_seasons: "استخدام Seasonalities"
+    use_tactics: "استخدام تقنيات إدارة المحاصيل"
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
     useful_items: "المواد المفيدة"

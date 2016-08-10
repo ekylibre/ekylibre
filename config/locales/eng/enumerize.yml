@@ -33,8 +33,8 @@ eng:
         none: "None"
     activity_tactic:
       mode:
-        harvested: "Harvest sowing date"
-        sowed: "Provisional sowing date"
+        harvested: "From harvesting date"
+        sowed: "From sowing date"
     affair:
       third_role:
         client: "Client"
@@ -44,7 +44,7 @@ eng:
         controller_error: "Controller error"
         error: "Error"
         internal_error: "Internal error"
-        ok: "Ok"
+        ok: "OK"
         sensor_error: "Sensor error"
     analysis_item:
       indicator_datatype:
@@ -54,7 +54,7 @@ eng:
         geometry: "Geometry"
         integer: "Integer"
         measure: "Measure"
-        multi_polygon: "Multi polygon"
+        multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
     cash:
@@ -178,7 +178,7 @@ eng:
         geometry: "Geometry"
         integer: "Integer"
         measure: "Measure"
-        multi_polygon: "Multi polygon"
+        multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
     journal:
@@ -208,7 +208,7 @@ eng:
         month: "Month"
         year: "Year"
       shift_method:
-        anatocism: "anatocism"
+        anatocism: "Anatocism"
         immediate_payment: "Immediate payment"
     notification:
       level:
@@ -278,7 +278,7 @@ eng:
         bug: "Bug"
         building: "Building"
         car: "Car"
-        cc: "Cc"
+        cc: "CC"
         cow: "Cow"
         credit_card: "Credit card"
         desktop: "Desktop"
@@ -327,7 +327,7 @@ eng:
         geometry: "Geometry"
         integer: "Integer"
         measure: "Measure"
-        multi_polygon: "Multi polygon"
+        multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
     product_ownership:
@@ -343,7 +343,7 @@ eng:
         geometry: "Geometry"
         integer: "Integer"
         measure: "Measure"
-        multi_polygon: "Multi polygon"
+        multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
     sale_opportunity:
@@ -370,19 +370,19 @@ eng:
         animals: "Numeration of animals"
         campaigns: "Numeration of campaigns"
         cash_transfers: "Numeration of cash transfers"
-        deliveries: "Deliveries"
+        deliveries: "Numeration of deliveries"
         deposits: "Numeration of deposits"
         documents: "Numeration of documents"
         entities: "Numeration of people"
         fixed_assets: "Numeration of fixed assets"
         gaps: "Numeration of gaps"
         incoming_payments: "Numeration of payments"
-        inspections: "Inspections"
+        inspections: "Numeration of inspections"
         interventions: "Numeration of interventions"
-        inventories: "Inventories"
-        opportunities: "Opportunities"
+        inventories: "Numeration of inventories"
+        opportunities: "Numeration of opportunities"
         outgoing_payments: "Numeration of payments"
-        parcels: "Parcels"
+        parcels: "Numeration of parcels"
         plants: "Numeration of plants"
         product_nature_categories: "Numeration of product nature categories"
         product_nature_variants: "Numeration of product nature variants"
@@ -411,6 +411,6 @@ eng:
         used_by: "Used by date"
     version:
       event:
-        # create: "Create"
-        # destroy: "Destroy"
-        # update: "Update"
+        create: "Create"
+        destroy: "Destroy"
+        update: "Update"

@@ -1171,7 +1171,6 @@ fra:
     first_line_as_title: "Titre en première ligne"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
-    forecast_volume: "Volume prévisionnel"
     from: "À partir du"
     full_name: "Client" #?
     fullscreen: "Plein écran"

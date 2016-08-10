@@ -737,10 +737,10 @@ spa:
     add_reading: "Añadir un valor de un indicador"
     add_revenue: "Añadir los ingresos"
     add_sale_taxation: "Añadir la venta imposición"
-    # add_season: "Add season"
+    add_season: "Añadir la temporada"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Añadir soporte"
-    # add_tactic: "Add cropping technique"
+    add_tactic: "Añadir técnica de manejo del cultivo"
     add_tool: "Añadir herramienta"
     add_website: "Añadir página web"
     add_working_period: "Añadir working_period"
@@ -922,7 +922,7 @@ spa:
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
     dates: "Marcar las fechas de empezo y termino por los periodos"
-    # days: "Days"
+    days: "Días"
     deals: "Ofertas"
     debit: "Flujo"
     debts_on_assets: "Deudas de los activos"
@@ -1046,7 +1046,6 @@ spa:
     first_line_as_title: "Primera línea como el título"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
     fixed_assets: "Los activos fijos"
-    # forecast_volume: "Forecast volume"
     free_purchases: "Compras en franquisia" #?
     from: "Expedidor"
     fullscreen: "Pantalla completa"

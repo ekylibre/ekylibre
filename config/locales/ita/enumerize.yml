@@ -33,8 +33,8 @@ ita:
         none: "Nessuna"
     activity_tactic:
       mode:
-        # harvested: "Harvest sowing date"
-        # sowed: "Provisional sowing date"
+        harvested: "Harvest data di semina"
+        sowed: "Data provvisoria di semina"
     affair:
       third_role:
         client: "Cliente"
@@ -44,7 +44,7 @@ ita:
         controller_error: "Errore del controller"
         error: "Errore"
         internal_error: "Errore interno"
-        # ok: "Ok"
+        ok: "Ok"
         sensor_error: "Errore sensore"
     analysis_item:
       indicator_datatype:
@@ -295,7 +295,7 @@ ita:
         bug: "Insetto"
         building: "Costruzione"
         car: "Auto"
-        # cc: "Cc"
+        cc: "Cc"
         cow: "Mucca"
         credit_card: "Carta di credito"
         # desktop: "Desktop"
@@ -441,6 +441,11 @@ ita:
         best_before: "Data di scadenza"
         no_limit: "Senza limite"
         used_by: "Usato per data"
+    version:
+      event:
+        create: "Creare"
+        destroy: "Distruggere"
+        update: "Aggiornare"
   simple_form:  #?
     hints: #?
       purchase: #?

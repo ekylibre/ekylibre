@@ -844,7 +844,6 @@ eng:
     minimal_size_value: "Minimal size value"
     minimal_value: "Minimal value"
     mobiles: "Mobile phones"
-    mod: "Mod" #?
     mode: "Mode"
     # mode_delta: "Mode delta"
     model_euid: "Model"

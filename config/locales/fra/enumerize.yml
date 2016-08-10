@@ -280,7 +280,7 @@ fra:
         bug: "Punaise"
         building: "Bâtiment"
         car: "Voiture"
-        # cc: "Cc"
+        cc: "Cc"
         cow: "Vache"
         credit_card: "Carte de crédit"
         desktop: "Bureau"
@@ -409,3 +409,8 @@ fra:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"
         no_limit: "Aucune limite"
         used_by: "Date Limite de Consommation (DLC)"
+    version:
+      event:
+        create: "Créer"
+        destroy: "Détruire"
+        update: "Mettre à jour"
