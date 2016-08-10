@@ -2066,6 +2066,9 @@ fra:
     x_sales_invoices:
       one: "%{count} facture"
       other: "%{count} factures"
+    x_seconds:
+      one: "%{count} seconde"
+      other: "%{count} secondes"
     x_stock_transfers_to_confirm:  #?
       one: "%{count} transfert à effectuer" #?
       other: "%{count} transferts à effectuer" #?
