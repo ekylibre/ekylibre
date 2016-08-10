@@ -437,9 +437,4 @@ deu:
         best_before: "Mindesthaltbarkeitsdatum"
         no_limit: "Keine Begrenzung"
         used_by: "Wird von Datum"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "Lieferant Rechnungsnummer" #?
-    required: #?
-      text: "Erforderlich" #?
+

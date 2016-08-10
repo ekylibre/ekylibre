@@ -437,9 +437,4 @@ ita:
         best_before: "Data di scadenza"
         no_limit: "Senza limite"
         used_by: "Usato per data"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "numero di fattura del fornitore" #?
-    required: #?
-      text: "richiesto" #?
+

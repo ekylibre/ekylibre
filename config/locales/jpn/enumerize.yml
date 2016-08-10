@@ -437,9 +437,4 @@ jpn:
         best_before: "賞味期限"
         no_limit: "制限なし"
         used_by: "日付によって使用されます"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "サプライヤーの請求書番号" #?
-    required: #?
-      text: "必須" #?
+

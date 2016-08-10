@@ -437,9 +437,4 @@ spa:
         best_before: "Consumir preferentemente antes del"
         no_limit: "Sin límite"
         used_by: "Utilizado por fecha"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "Número de factura del proveedor" #?
-    required: #?
-      text: "necesario" #?
+

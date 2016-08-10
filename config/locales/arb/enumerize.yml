@@ -436,9 +436,4 @@ arb:
         best_before: "الافضل قبل الموعد"
         no_limit: "لا حدود"
         used_by: "المستخدمة من قبل التاريخ"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "رقم الفاتورة المورد" #?
-    required: #?
-      text: "مطلوب" #?
+
