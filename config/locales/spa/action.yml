@@ -1563,6 +1563,7 @@ spa:
     # timeline_comment: "%{author} commented %{when}"
     timeline_entity_link: "Línea de tiempo de enlace entidad"
     # timeline_event: "%{name} with %{participants} %{when}"
+    # timeline_event_without_participants: "%{name} %{when}"
     # timeline_incoming_call: "%{author} called %{entity} about %{name} %{when}"
     # timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{when}"
     # timeline_item: "%{type} %{name} added by %{author} %{when}"

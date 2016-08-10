@@ -1834,6 +1834,7 @@ fra:
     timeline_comment: "%{author} a commenté %{when}"
     timeline_entity_link: "Lien de %{nature} avec %{linked} ajouté par %{author} %{when}"
     timeline_event: "%{name} avec %{participants} %{when}"
+    timeline_event_without_participants: "%{name} %{when}"
     timeline_incoming_call: "%{entity} a appelé %{author} à propos de %{name} %{when}"
     timeline_incoming_mail: "%{entity} a écrit à %{author} à propos de %{name} %{when}"
     timeline_item: "%{type} %{name} ajouté par %{author} %{when}"
