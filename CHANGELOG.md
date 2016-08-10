@@ -1,5 +1,63 @@
 # Change Log
 
+## [2.0.5](https://github.com/ekylibre/ekylibre/tree/2.0.5) (2016-08-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.4...2.0.5)
+
+**Implemented enhancements:**
+
+- Redundant information in timeline on Entities. [\#921](https://github.com/ekylibre/ekylibre/issues/921)
+- Display duplication on a worker show view [\#887](https://github.com/ekylibre/ekylibre/issues/887)
+
+**Fixed bugs:**
+
+- Edition of an inventory keeps us on the form page without confirmation of changes. [\#937](https://github.com/ekylibre/ekylibre/issues/937)
+- Redundant information in timeline on Entities. [\#921](https://github.com/ekylibre/ekylibre/issues/921)
+- incoming parcel's dates must be the same. [\#912](https://github.com/ekylibre/ekylibre/issues/912)
+- Intervention view total cost is calculated from rounded values [\#897](https://github.com/ekylibre/ekylibre/issues/897)
+- Display duplication on a worker show view [\#887](https://github.com/ekylibre/ekylibre/issues/887)
+- When creating a new matter directly, the product is created and no redirection is made [\#886](https://github.com/ekylibre/ekylibre/issues/886)
+- Error in modification of an activity [\#999](https://github.com/ekylibre/ekylibre/issues/999)
+
+**Closed issues:**
+
+- List alphabetical sorting puts \[empty\] before 'A'  [\#918](https://github.com/ekylibre/ekylibre/issues/918)
+
+## [2.0.4](https://github.com/ekylibre/ekylibre/tree/2.0.4) (2016-08-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.3...2.0.4)
+
+**Implemented enhancements:**
+
+- We don't display the dashboard description [\#940](https://github.com/ekylibre/ekylibre/issues/940)
+- French \(FRA\) translations are missing [\#914](https://github.com/ekylibre/ekylibre/issues/914)
+
+**Fixed bugs:**
+
+- Currency used in "Draft Journal" is not the absolute one [\#895](https://github.com/ekylibre/ekylibre/issues/895)
+- Text length limitation at 100000 character is too small for Document [\#995](https://github.com/ekylibre/ekylibre/issues/995)
+- Label "required" is missing on the field "net surface area" at creation of a new inspection [\#989](https://github.com/ekylibre/ekylibre/issues/989)
+- Informations are no longer fulfilled automatically at creation of a new inspection [\#988](https://github.com/ekylibre/ekylibre/issues/988)
+- Crumbs validation is not working [\#986](https://github.com/ekylibre/ekylibre/issues/986)
+- Filter on land parcel/cultivation in production/new intervention doesn't work in all cases [\#983](https://github.com/ekylibre/ekylibre/issues/983)
+- Remove the button "new" in "Land Parcels" view [\#979](https://github.com/ekylibre/ekylibre/issues/979)
+- Cancel button without any effect [\#977](https://github.com/ekylibre/ekylibre/issues/977)
+- X-mas tree effect [\#976](https://github.com/ekylibre/ekylibre/issues/976)
+- Bug with the validation of empty attachments [\#964](https://github.com/ekylibre/ekylibre/issues/964)
+- Duplication of fields possible in Analyses [\#943](https://github.com/ekylibre/ekylibre/issues/943)
+- Distribute unaffected products is too long to load. [\#941](https://github.com/ekylibre/ekylibre/issues/941)
+- Product update wrongly updates population. [\#934](https://github.com/ekylibre/ekylibre/issues/934)
+- Destroyed product appear in outgoing parcels [\#933](https://github.com/ekylibre/ekylibre/issues/933)
+- Graphs don't show on switch to new face. [\#927](https://github.com/ekylibre/ekylibre/issues/927)
+- Missing validation on Fixed Asset dates. [\#926](https://github.com/ekylibre/ekylibre/issues/926)
+- Fixed asset creation fails without error message. [\#925](https://github.com/ekylibre/ekylibre/issues/925)
+- AJAX error on date pick in Journal Entry. [\#922](https://github.com/ekylibre/ekylibre/issues/922)
+- Entity language incorrect update. [\#920](https://github.com/ekylibre/ekylibre/issues/920)
+- French \\(FRA\\) translations are missing [\#914](https://github.com/ekylibre/ekylibre/issues/914)
+- Unwanted cycling movements chart [\#898](https://github.com/ekylibre/ekylibre/issues/898)
+- plant\_watering intervention fails selecting land\_parcel or plant when empty dates [\#896](https://github.com/ekylibre/ekylibre/issues/896)
+- Button "pick" is still available when no item in choice list for product nature variants [\#894](https://github.com/ekylibre/ekylibre/issues/894)
+- When adding a new entity\_address through dialog box, the form is full of all field despite chosen canal [\#890](https://github.com/ekylibre/ekylibre/issues/890)
+- Adding deal title print "Select for affair %{number}" [\#888](https://github.com/ekylibre/ekylibre/issues/888)
+
 ## [2.0.3](https://github.com/ekylibre/ekylibre/tree/2.0.3) (2016-08-04)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.2...2.0.3)
 
@@ -618,13 +676,7 @@
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/1.3.0.beta2...1.3.0.beta3)
 
 ## [1.3.0.beta2](https://github.com/ekylibre/ekylibre/tree/1.3.0.beta2) (2015-09-17)
-[Full Changelog](https://github.com/ekylibre/ekylibre/compare/test2...1.3.0.beta2)
-
-## [test2](https://github.com/ekylibre/ekylibre/tree/test2) (2015-09-03)
-[Full Changelog](https://github.com/ekylibre/ekylibre/compare/test...test2)
-
-## [test](https://github.com/ekylibre/ekylibre/tree/test) (2015-09-03)
-[Full Changelog](https://github.com/ekylibre/ekylibre/compare/1.3.0.beta1...test)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/1.3.0.beta1...1.3.0.beta2)
 
 **Merged pull requests:**
 
@@ -1152,10 +1204,6 @@
 ## [1.0.0.rc14](https://github.com/ekylibre/ekylibre/tree/1.0.0.rc14) (2014-08-14)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/1.0.0.rc13...1.0.0.rc14)
 
-**Fixed bugs:**
-
-- calling \#contents methods on a Product returns duplicates  [\#141](https://github.com/ekylibre/ekylibre/issues/141)
-
 **Closed issues:**
 
 - validation issue for "trip simulation" in demo data [\#143](https://github.com/ekylibre/ekylibre/issues/143)
@@ -1339,6 +1387,54 @@
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.1.0...0.1.1)
 
 ## [0.1.0](https://github.com/ekylibre/ekylibre/tree/0.1.0) (2010-02-02)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.16...0.1.0)
+
+## [0.0.16](https://github.com/ekylibre/ekylibre/tree/0.0.16) (2010-01-14)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.15...0.0.16)
+
+## [0.0.15](https://github.com/ekylibre/ekylibre/tree/0.0.15) (2009-11-23)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.14...0.0.15)
+
+## [0.0.14](https://github.com/ekylibre/ekylibre/tree/0.0.14) (2009-10-15)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.13...0.0.14)
+
+## [0.0.13](https://github.com/ekylibre/ekylibre/tree/0.0.13) (2009-10-06)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.12...0.0.13)
+
+## [0.0.12](https://github.com/ekylibre/ekylibre/tree/0.0.12) (2009-09-18)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.11...0.0.12)
+
+## [0.0.11](https://github.com/ekylibre/ekylibre/tree/0.0.11) (2009-07-16)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.10...0.0.11)
+
+## [0.0.10](https://github.com/ekylibre/ekylibre/tree/0.0.10) (2009-07-14)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.9...0.0.10)
+
+## [0.0.9](https://github.com/ekylibre/ekylibre/tree/0.0.9) (2009-06-29)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.8...0.0.9)
+
+## [0.0.8](https://github.com/ekylibre/ekylibre/tree/0.0.8) (2009-05-24)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.7...0.0.8)
+
+## [0.0.7](https://github.com/ekylibre/ekylibre/tree/0.0.7) (2009-05-06)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.6...0.0.7)
+
+## [0.0.6](https://github.com/ekylibre/ekylibre/tree/0.0.6) (2009-04-24)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.5...0.0.6)
+
+## [0.0.5](https://github.com/ekylibre/ekylibre/tree/0.0.5) (2009-04-06)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.4...0.0.5)
+
+## [0.0.4](https://github.com/ekylibre/ekylibre/tree/0.0.4) (2009-03-31)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.3...0.0.4)
+
+## [0.0.3](https://github.com/ekylibre/ekylibre/tree/0.0.3) (2009-03-09)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.2...0.0.3)
+
+## [0.0.2](https://github.com/ekylibre/ekylibre/tree/0.0.2) (2009-02-22)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/0.0.1...0.0.2)
+
+## [0.0.1](https://github.com/ekylibre/ekylibre/tree/0.0.1) (2009-02-12)
 
 
 \* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
