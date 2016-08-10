@@ -278,8 +278,8 @@ ActiveRecord::Schema.define(version: 20160805094418) do
   create_table "activity_tactic_steps", force: :cascade do |t|
     t.integer  "tactic_id",                    null: false
     t.string   "name",                         null: false
-    t.date     "started_on"
-    t.date     "stopped_on"
+    t.date     "started_on",                   null: false
+    t.date     "stopped_on",                   null: false
     t.string   "procedure_action",             null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false

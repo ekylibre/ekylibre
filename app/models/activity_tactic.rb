@@ -48,6 +48,8 @@ class ActivityTactic < Ekylibre::Record::Base
   validates :activity, presence: true
   # ]VALIDATORS]
 
+  accepts_nested_attributes_for :tactic_steps, allow_destroy: true, reject_if: :all_blank
+
   def mode_unit_name
     :day
   end
