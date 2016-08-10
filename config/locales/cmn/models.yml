@@ -103,7 +103,7 @@ cmn:
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
@@ -548,6 +548,7 @@ cmn:
     employed: "就业"
     employees: "员工"
     employment: "雇用"
+    enabled: "启用"
     encrypted_password: "加密密码"
     enjoyer: "享乐"
     enjoyments: "享乐"
@@ -583,6 +584,10 @@ cmn:
     father: "父亲"
     faxes: "传真"
     fifth_producer: "第五制片人" #?
+    file: "文件"
+    file_file_size: "文件大小"
+    file_pages_count: "页面数"
+    file_updated_at: "更新时间"
     filtered_columns: "过滤列"
     financial_year: "财政年度"
     financial_year_as_last: "财政年度（截至去年日记帐分录）"
@@ -595,6 +600,8 @@ cmn:
     fixed_asset: "固定资产"
     fixed_asset_account: "固定资产帐户"
     fixed_asset_allocation_account: "固定资产折旧帐户"
+    fixed_asset_collect_account: "固定资产收集帐户"
+    fixed_asset_deduction_account: "固定资产扣除账户"
     fixed_asset_depreciation_method: "固定资产折旧方法"
     fixed_asset_depreciation_percentage: "固定资产折旧率"
     fixed_asset_depreciations: "固定资产折旧"
@@ -1150,6 +1157,7 @@ cmn:
     # tactic: "Cropping technique"
     # tactics: "Cropping techniques"
     target: "目标"
+    target_name: "指标名称"
     target_type: "目标类型"
     target_url: "目标URL"
     targets: "目标"
@@ -1206,7 +1214,7 @@ cmn:
     usage_limit_on: "通过使用"
     usages: "用法"
     use_countings: "使用countings"
-    use_grading_calibre: "使用分级口径"
+    use_grading_calibre: "使用分级口径" #?
     use_gradings: "采用放坡"
     # use_seasons: "Use seasonalities"
     # use_tactics: "Use cropping techniques"

@@ -674,7 +674,7 @@ arb:
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
@@ -1303,6 +1303,7 @@ arb:
     employed: "وظف من قبل الشركة"
     employees: "الموظفين"
     employment: "الوظيفة"
+    enabled: "تمكين"
     encrypted_password: "كلمة المرور المشفرة"
     # enjoyer: "Enjoyer"
     enjoyments: "المتعة"
@@ -1362,6 +1363,10 @@ arb:
     fax: "فاكس" #?
     faxes: "الفاكسات"
     fifth_producer: "منتج الخامس" #?
+    file: "ملف"
+    file_file_size: "حجم الملف"
+    file_pages_count: "عد الصفحات"
+    file_updated_at: "تحديث في"
     filename: "الملف" #?
     filesize: "حجم الملف" #?
     filtered_columns: "الأعمدة التي تمت تصفيتها"
@@ -1378,6 +1383,8 @@ arb:
     fixed_asset: "الأصول الثابتة"
     fixed_asset_account: "حساب الأصول الثابتة"
     fixed_asset_allocation_account: "ثابت حساب انخفاض قيمة الأصول"
+    fixed_asset_collect_account: "الأصول الثابتة جمع الحساب"
+    fixed_asset_deduction_account: "حساب خصم الأصول الثابتة"
     fixed_asset_depreciation_method: "الأصول الثابتة طريقة الاستهلاك"
     fixed_asset_depreciation_percentage: "نسبة انخفاض قيمة الأصول الثابتة"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
@@ -2117,6 +2124,7 @@ arb:
     # tactics: "Cropping techniques"
     target: "الهدف"
     target_id: "الهدف" #?
+    target_name: "اسم الهدف"
     target_type: "نوع الهدف"
     target_url: "الهدف رابط"
     targets: "أهداف"
@@ -2196,7 +2204,7 @@ arb:
     usage_limit_on: "التي يستخدمها على"
     usages: "الأعراف"
     use_countings: "استخدام فرزان"
-    use_grading_calibre: "استخدام عيار الدرجات"
+    use_grading_calibre: "استخدام عيار الدرجات" #?
     use_gradings: "استخدام الى التصنيف"
     use_range: "استخدام الكمية الفاصلة" #?
     # use_seasons: "Use seasonalities"

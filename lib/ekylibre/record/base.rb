@@ -131,6 +131,8 @@ module Ekylibre
 
         def nomenclature_reflections
           @nomenclature_reflections ||= {}.with_indifferent_access
+          (superclass.respond_to?(:nomenclature_reflections) ? superclass.nomenclature_reflections : {})
+            .merge(@nomenclature_reflections)
         end
 
         # Link to nomenclature

@@ -390,6 +390,7 @@ class Product < Ekylibre::Record::Base
       movement.delta = initial_population
       movement.started_at = born_at
       movement.save!
+      update_column(:initial_movement_id, movement.id)
 
       # Initial shape
       if initial_shape && variable_indicators_list.include?(:shape)
@@ -407,9 +408,10 @@ class Product < Ekylibre::Record::Base
       phase.variant = variant
       phase.save!
       # set indicators from variant in products readings
-      for f_v_indicator in variant.readings
-        reading = readings.new(indicator_name: f_v_indicator.indicator_name)
-        reading.value = f_v_indicator.value
+      variant.readings.each do |variant_reading|
+        reading = readings.first_of_all(variant_reading.indicator_name) ||
+                  readings.new(indicator_name: variant_reading.indicator_name)
+        reading.value = variant_reading.value
         reading.read_at = born_at
         reading.save!
       end

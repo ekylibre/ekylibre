@@ -16,6 +16,9 @@ spa:
         per_campaign: "Por campaña"
         per_production: "Por la producción"
         per_working_unit: "Por unidad de trabajo"
+      direction:
+        expense: "Gastos"
+        revenue: "Ingresos"
     activity_inspection_point_nature:
       category:
         deformity: "Deformidad"
@@ -32,6 +35,28 @@ spa:
       mode:
         # harvested: "Harvest sowing date"
         # sowed: "Provisional sowing date"
+    affair:
+      third_role:
+        client: "Cliente"
+        supplier: "Proveedor"
+    analysis:
+      retrieval_status:
+        controller_error: "Error de controlador"
+        # error: "Error"
+        internal_error: "Error interno"
+        ok: "De acuerdo"
+        sensor_error: "Error del sensor"
+    analysis_item:
+      indicator_datatype:
+        boolean: "Boole"
+        choice: "Elección"
+        # decimal: "Decimal"
+        geometry: "Geometría"
+        integer: "Entero"
+        measure: "Medida"
+        multi_polygon: "Polígono de múltiples"
+        point: "Punto"
+        string: "Cuerda"
     cash:
       mode:
         bban: "Número de cuenta bancaria básica (BBAN)"
@@ -46,6 +71,16 @@ spa:
         purchase: "Compra"
         sale: "Venta"
         stock: "Valores"
+    crumb:
+      nature:
+        hard_start: "Inicio difícil,"
+        hard_stop: "Tope duro"
+        pause: "Pausa"
+        point: "Punto"
+        resume: "Currículum"
+        scan: "Escanear"
+        start: "Comienzo"
+        stop: "Detener"
     custom_field:
       nature:
         boolean: "Casilla de verificación"
@@ -61,8 +96,8 @@ spa:
         us: "Por nosotros"
     document_template:
       archiving:
-        all: "Todo tipo"
-        all_of_template: "Todas plantilla"
+        all: "Todo tipo" #?
+        all_of_template: "Todas plantilla" #?
         first: "En primer tipo"
         first_of_template: "En primer plantilla"
         last: "Por último tipo"
@@ -89,26 +124,72 @@ spa:
         waiting: "Esperando"
     fixed_asset:
       depreciation_method:
-        graduated: "Graduado"
+        graduated: "Graduado" #?
         linear: "Lineal"
         simplified_linear: "Lineal simplificado"
+    gap:
+      direction:
+        loss: "Pérdida"
+        profit: "Lucro"
+      entity_role:
+        client: "Cliente"
+        supplier: "Proveedor"
     georeading:
       nature:
-        line: "Línea"
+        line: "Línea" #?
+        linestring: "LINESTRING"
         point: "Punto"
         polygon: "Polígono"
+    guide:
+      frequency:
+        daily: "Diariamente"
+        # decadely: "Decadely"
+        hourly: "Cada hora"
+        monthly: "Mensual"
+        none: "Ninguna"
+        weekly: "Semanal"
+        yearly: "Anual"
     guide_analysis:
-      status:
+      acceptance_status:
         errored: "Con error"
         failed: "Ha fallado"
         passed: "Pasado"
         passed_with_warnings: "Ha superado con advertencias"
+      status:  #?
+        errored: "Con error" #?
+        failed: "Ha fallado" #?
+        passed: "Pasado" #?
+        passed_with_warnings: "Ha superado con advertencias" #?
+    guide_analysis_point:
+      acceptance_status:
+        errored: "Con error"
+        failed: "Ha fallado"
+        passed: "Pasado"
+        passed_with_warnings: "Ha superado con advertencias"
+    import:
+      state:
+        aborted: "Abortado"
+        errored: "Con error"
+        finished: "Terminado"
+        in_progress: "En progreso"
+        undone: "Deshecho"
     intervention:
       state:
         done: "Hecho"
         in_progress: "En progreso"
         squeezed: "Exprimido"
         undone: "Deshecho"
+    intervention_parameter_reading:
+      indicator_datatype:
+        boolean: "Boole"
+        choice: "Elección"
+        # decimal: "Decimal"
+        geometry: "Geometría"
+        integer: "Entero"
+        measure: "Medida"
+        multi_polygon: "Polígono de múltiples"
+        point: "Punto"
+        string: "Cuerda"
     journal:
       nature:
         bank: "Banco"
@@ -117,6 +198,17 @@ spa:
         purchases: "Las compras"
         sales: "Ventas"
         various: "Diversas operaciones"
+    listing_node:
+      nature:
+        belongs_to: "Pertenece a"
+        boolean: "Boole"
+        column: "Columna"
+        custom: "Personalizado"
+        datetime: "Fecha y hora"
+        has_many: "Tiene muchas"
+        numeric: "Numérico"
+        root: "Raíz"
+        string: "Cuerda"
     loan:
       repayment_method:
         constant_amount: "Cantidad constante"
@@ -127,6 +219,12 @@ spa:
       shift_method:
         anatocism: "Anatocismo"
         immediate_payment: "Pago inmediato"
+    notification:
+      level:
+        # error: "Error"
+        information: "Información"
+        success: "Éxito"
+        warning: "Advertencia"
     observation:
       importance:
         important: "Importante"
@@ -134,20 +232,143 @@ spa:
         notice: "Darse cuenta"
     parcel:
       delivery_mode:
-        indifferent: "Indiferente"
+        indifferent: "Indiferente" #?
         third: "Transportado por el destinatario"
         transporter: "Transportado por el transportador"
         us: "Transportado por nosotros"
       nature:
         incoming: "Entrante"
-        internal: "Interno"
+        internal: "Interno" #?
         outgoing: "Saliente"
-      state:
-        draft: "Borrador"
-        given: "Dado"
-        in_preparation: "En la preparación de"
-        ordered: "Ordenado"
-        prepared: "Preparado"
+      state:  #?
+        draft: "Borrador" #?
+        given: "Dado" #?
+        in_preparation: "En la preparación de" #?
+        ordered: "Ordenado" #?
+        prepared: "Preparado" #?
+    preference:
+      nature:
+        accounting_system: "Sistema de contabilidad"
+        boolean: "Boole"
+        country: "País"
+        currency: "Moneda"
+        # decimal: "Decimal"
+        integer: "Entero"
+        language: "Idioma"
+        record: "Grabar"
+        spatial_reference_system: "Sistema de referencia espacial"
+        string: "Cuerda"
+    product_enjoyment:
+      nature:
+        other: "Otro"
+        own: "Propio"
+        unknown: "Desconocido"
+    product_linkage:
+      nature:
+        available: "Disponible"
+        occupied: "Ocupado"
+        unavailable: "Indisponible"
+      point:
+        front: "Frente"
+        rear: "Posterior"
+    product_localization:
+      nature:
+        # exterior: "Exterior"
+        # interior: "Interior"
+        transfer: "Transferir"
+    product_membership:
+      nature:
+        # exterior: "Exterior"
+        # interior: "Interior"
+    product_nature:
+      population_counting:
+        # decimal: "Decimal"
+        integer: "Entero"
+        unitary: "Unitario"
+    product_nature_category:
+      pictogram:
+        bank: "Banco"
+        barn: "Granero"
+        beaker: "Cubilete"
+        bolt: "Tornillo"
+        book: "Libro"
+        bug: "Error"
+        building: "Edificio"
+        car: "Coche"
+        # cc: "Cc"
+        cow: "Vaca"
+        credit_card: "Tarjeta de crédito"
+        desktop: "Escritorio"
+        drop: "Soltar"
+        # fax: "Fax"
+        fish: "Pescado"
+        food: "Comida"
+        gift: "Regalo"
+        group: "Grupo"
+        home: "Casa"
+        land_parcels: "Parcelas"
+        laptop: "Ordenador portátil"
+        leaf: "Hoja"
+        # legal: "Legal"
+        lemon: "Limón"
+        light_bulb: "Bombilla"
+        male: "Masculino"
+        matter: "Importar"
+        # medkit: "Medkit"
+        money: "Dinero"
+        mushroom: "Seta"
+        phone: "Teléfono"
+        pill: "Píldora"
+        plane: "Avión"
+        road: "La carretera"
+        subscription: "Suscripción"
+        tasks: "Tareas"
+        # tractor: "Tractor"
+        truck: "Camión"
+        umbrella: "Paraguas"
+        undefined: "Indefinido"
+        user: "Usuario"
+        wheat: "Trigo"
+        wrench: "Llave inglesa"
+    product_nature_category_taxation:
+      usage:
+        purchase: "Compra"
+        sale: "Venta"
+    product_nature_variant_reading:
+      indicator_datatype:
+        boolean: "Boole"
+        choice: "Elección"
+        # decimal: "Decimal"
+        geometry: "Geometría"
+        integer: "Entero"
+        measure: "Medida"
+        multi_polygon: "Polígono de múltiples"
+        point: "Punto"
+        string: "Cuerda"
+    product_ownership:
+      nature:
+        other: "Otro"
+        own: "Propio"
+        unknown: "Desconocido"
+    product_reading:
+      indicator_datatype:
+        boolean: "Boole"
+        choice: "Elección"
+        # decimal: "Decimal"
+        geometry: "Geometría"
+        integer: "Entero"
+        measure: "Medida"
+        multi_polygon: "Polígono de múltiples"
+        point: "Punto"
+        string: "Cuerda"
+    sale_opportunity:
+      third_role:
+        client: "Cliente"
+        supplier: "Proveedor"
+    sale_ticket:
+      third_role:
+        client: "Cliente"
+        supplier: "Proveedor"
     sensor:
       retrieval_mode:
         listening: "Escuchando"
@@ -164,16 +385,21 @@ spa:
         animals: "Numeración de los animales"
         campaigns: "La numeración de las campañas"
         cash_transfers: "Numeración de las transferencias de dinero"
+        deliveries: "Las entregas"
         deposits: "La numeración de los depósitos"
         documents: "Numeración de documentos"
         entities: "Numeración de las personas"
         fixed_assets: "La numeración de los activos fijos"
         gaps: "La numeración de las lagunas"
-        incoming_parcels: "Numeración de las entregas entrantes"
+        incoming_parcels: "Numeración de las entregas entrantes" #?
         incoming_payments: "Numeración de los pagos"
+        inspections: "Inspecciones"
         interventions: "Numeración de las intervenciones"
-        outgoing_deliveries: "Numeración de las entregas salientes"
+        inventories: "Los inventarios"
+        opportunities: "Oportunidades"
+        outgoing_deliveries: "Numeración de las entregas salientes" #?
         outgoing_payments: "Numeración de los pagos"
+        parcels: "Parcelas"
         plants: "Numeración de las plantas"
         product_nature_categories: "La numeración de las categorías de productos naturales"
         product_nature_variants: "Numeración de la naturaleza del producto Variantes"
@@ -183,37 +409,41 @@ spa:
         sales: "Numeración de las ventas"
         sales_invoices: "La numeración de las facturas de venta"
         subscriptions: "Numeración de las suscripciones"
-        transports: "Numeración de los transportes"
-    subscription_nature:
-      entity_link_direction:
-        all: "Bidireccional"
-        direct: "Directo"
-        indirect: "Indirecto"
-      nature:
-        period: "Suscripción por fecha"
-        quantity: "Suscripción por número"
+        transports: "Numeración de los transportes" #?
+    subscription_nature:  #?
+      entity_link_direction: #?
+        all: "Bidireccional" #?
+        direct: "Directo" #?
+        indirect: "Indirecto" #?
+      nature: #?
+        period: "Suscripción por fecha" #?
+        quantity: "Suscripción por número" #?
     task:
       nature:
-        document: "Escritura"
+        document: "Escritura" #?
         incoming_call: "Llamada entrante"
         incoming_email: "Correo electrónico entrante"
         incoming_mail: "Correo entrante"
         outgoing_call: "Llamada saliente"
         outgoing_email: "Correo electrónico saliente"
         outgoing_mail: "Correspondencia saliente"
-        quote: "Citar"
-    tax:
-      nature:
-        amount: "Cantidad"
-        percentage: "Porcentaje"
+        quote: "Citar" #?
+      state:
+        doing: "Obra"
+        done: "Hecho"
+        todo: "Que hacer"
+    tax:  #?
+      nature: #?
+        amount: "Cantidad" #?
+        percentage: "Porcentaje" #?
     tracking:
       usage_limit_nature:
         best_before: "Consumir preferentemente antes del"
         no_limit: "Sin límite"
         used_by: "Utilizado por fecha"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Número de factura del proveedor"
-    required:
-      text: "necesario"
+  simple_form:  #?
+    hints: #?
+      purchase: #?
+        reference_number: "Número de factura del proveedor" #?
+    required: #?
+      text: "necesario" #?

@@ -112,7 +112,7 @@ ita:
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
@@ -579,6 +579,7 @@ ita:
     employed: "occupato"
     employees: "I dipendenti"
     employment: "occupazione"
+    enabled: "Abilitato"
     encrypted_password: "password crittografata"
     enjoyer: "enjoyer"
     enjoyments: "godimenti"
@@ -614,6 +615,10 @@ ita:
     father: "Padre"
     faxes: "fax"
     fifth_producer: "Quinto produttore" #?
+    # file: "File"
+    file_file_size: "Dimensione del file"
+    file_pages_count: "Contano pagine"
+    file_updated_at: "Aggiornati alle"
     filtered_columns: "colonne filtrati"
     financial_year: "Anno finanziario"
     financial_year_as_last: "Esercizio (come ultima voce di diario)"
@@ -626,6 +631,8 @@ ita:
     fixed_asset: "Assetto stabile"
     fixed_asset_account: "conto capitale fisso"
     fixed_asset_allocation_account: "Fixed conto svalutazioni di asset"
+    fixed_asset_collect_account: "Cespite raccogliere conto"
+    fixed_asset_deduction_account: "Conto detrazione capitale fisso"
     fixed_asset_depreciation_method: "metodo di ammortamento capitale fisso"
     fixed_asset_depreciation_percentage: "percentuale di deprezzamento capitale fisso"
     fixed_asset_depreciations: "svalutazioni di immobilizzazioni"
@@ -1181,6 +1188,7 @@ ita:
     # tactic: "Cropping technique"
     # tactics: "Cropping techniques"
     target: "Bersaglio"
+    target_name: "Nome di destinazione"
     target_type: "tipo di destinazione"
     target_url: "URL di destinazione"
     targets: "obiettivi"
@@ -1237,7 +1245,7 @@ ita:
     usage_limit_on: "Utilizzato da su"
     usages: "usi"
     use_countings: "Utilizzare i conteggi"
-    use_grading_calibre: "Utilizzare calibro di classificazione"
+    use_grading_calibre: "Utilizzare calibro di classificazione" #?
     use_gradings: "Utilizzare classificazioni"
     # use_seasons: "Use seasonalities"
     # use_tactics: "Use cropping techniques"

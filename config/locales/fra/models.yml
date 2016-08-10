@@ -188,7 +188,7 @@ fra:
         on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
-        posterior: "La date %{attribute} doit être postérieure à %{to}"
+        posterior: "%{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
@@ -217,7 +217,7 @@ fra:
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
@@ -720,6 +720,7 @@ fra:
     employed: "Employé par la société"
     employees: "employés"
     employment: "Emploi/Rôle"
+    enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
     end_junction: "Jonction finale" #?
     end_way: "Voie finale" #?
@@ -763,6 +764,10 @@ fra:
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
+    file: "Fichier"
+    file_file_size: "Taille du fichier"
+    file_pages_count: "Pages comptent"
+    file_updated_at: "Mis à jour à"
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
@@ -778,6 +783,8 @@ fra:
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
+    fixed_asset_collect_account: "Capital fixe recueillir compte"
+    fixed_asset_deduction_account: "Actif fixe compte de la déduction"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
@@ -1383,7 +1390,7 @@ fra:
     storages: "Stockages"
     story: "Historique"
     string_value: "Valeur textuelle"
-    # subdomains: "Subdomains"
+    subdomains: "Sous-domaines"
     subject: "Objet"
     subject_label: "Objet" #?
     subject_type: "Type de sujet"
@@ -1410,6 +1417,7 @@ fra:
     tactic: "Itinéraire technique"
     tactics: "Itinéraires culturaux"
     target: "Cible"
+    target_name: "Nom de la cible"
     target_type: "Type de cible"
     target_url: "URL cible"
     targets: "Cibles"
@@ -1428,7 +1436,7 @@ fra:
     ticket: "Ticket" #?
     time_window: "Fenêtre de temps (en secondes)"
     title: "Titre"
-    # tms: "TMS"
+    tms: "TMS"
     to: "Pour"
     to_bank_at: "À décaisser le"
     to_deposit: "À déposer"
@@ -1467,14 +1475,13 @@ fra:
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     uploaded: "Téléversé"
-    url: "url"
+    url: "URL"
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     usage_limit_nature: "Type de date limite de consommation"
     usage_limit_on: "Date limite de consommation"
     usages: "Usages"
     use_countings: "Utiliser les comptages"
-    use_grading_calibre: "Utiliser un calibre d'agréage"
     use_gradings: "Utiliser les agréages"
     use_seasons: "Utiliser les saisonnalités"
     use_tactics: "Utiliser les itinéraires techniques"
@@ -1483,7 +1490,7 @@ fra:
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
-    # uuid: "UUID"
+    uuid: "UUID"
     value: "Valeur"
     variable_indicators: "Indicateurs variables" #?
     variable_indicators_list: "Liste des indicateurs variables"

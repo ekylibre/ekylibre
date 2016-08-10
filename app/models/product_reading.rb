@@ -88,4 +88,8 @@ class ProductReading < Ekylibre::Record::Base
       end
     end
   end
+
+  def self.first_of_all(indicator_name)
+    where(indicator_name: indicator_name).reorder(:read_at).first
+  end
 end

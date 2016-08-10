@@ -109,7 +109,7 @@ class FixedAsset < Ekylibre::Record::Base
 
   validate do
     if currency && journal
-      errors.add(:currency, :invalid) if currency != journal.currency
+      errors.add(:journal, :invalid) if currency != journal.currency
     end
     if started_on
       if fy = FinancialYear.reorder(:started_on).first
@@ -133,7 +133,7 @@ class FixedAsset < Ekylibre::Record::Base
   before_update do
     @auto_depreciate = false
     old = self.class.find(id)
-    for attr in [:depreciable_amount, :started_on, :stopped_on, :depreciation_method, :depreciation_percentage, :currency]
+    [:depreciable_amount, :started_on, :stopped_on, :depreciation_method, :depreciation_percentage, :currency].each do |attr|
       @auto_depreciate = true if send(attr) != old.send(attr)
     end
   end
