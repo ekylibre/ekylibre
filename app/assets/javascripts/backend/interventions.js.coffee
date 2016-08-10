@@ -74,7 +74,7 @@
       for id, attributes of list
         E.interventions.unserializeRecord(form, attributes, prefix + id + '_', updater_id)
 
-    updateAvailibityInstant: (newTime) ->
+    updateAvailabilityInstant: (newTime) ->
       return unless newTime != ''
       $("input.scoped-parameter").each (index, item) ->
         scopeUri = decodeURI($(item).data("selector"))
@@ -131,7 +131,7 @@
       $(this).mapeditor()
     $(".nested-fields.working-period:first-child input.intervention-started-at").each ->
       $(this).each ->
-        E.interventions.updateAvailibityInstant($(this).val())
+        E.interventions.updateAvailabilityInstant($(this).val())
     $('*[data-intervention-updater]').each ->
         E.interventions.refresh $(this)
 
@@ -159,7 +159,7 @@
 
   $(document).on "keyup change", ".nested-fields.working-period:first-child input.intervention-started-at", ->
     $(this).each ->
-      E.interventions.updateAvailibityInstant($(this).val())
+      E.interventions.updateAvailabilityInstant($(this).val())
 
   # $(document).on 'change', '*[data-procedure-global="at"]', ->
   #   $(this).each ->
