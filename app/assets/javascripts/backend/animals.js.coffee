@@ -53,7 +53,9 @@
 
       @moveAnimals = (container, group) =>
 
-        params['container'] = group().id()
+        params = {}
+        params['container'] = container.id() unless container is undefined
+        params['group'] = group.id unless group is undefined
 
 
 #        params['variant'] = group().id()
@@ -76,7 +78,7 @@
       @rebuildUrl = =>
         options = Array.from(arguments).shift()
         options['animals_ids'] ||= Object.keys(@selectedItemsIndex)
-        base_url = options['base_url'] || $('a[data-intervention-accessor=animal_group_changing]').attr('href')
+        base_url = options['base_url'] || $('a[data-target=animal_group_changing]').attr('href')
         delete options['base_url']
 
         "#{base_url}&#{$.param(options)}"
@@ -162,15 +164,9 @@
 
     return
 
-  $(document).on 'click', 'a[data-intervention-accessor]', (e) =>
-    unless app.selectedItemsIndex is undefined
-      link = e.currentTarget.getAttribute('href')
-      # assume link already has parameters (at least procedure name ?)
-      link += "&#{$.param({
-        animals_ids: Object.keys(app.selectedItemsIndex)
-      })}"
-
-    E.dialog.open link,
+  $(document).on 'click', 'a[data-toggle=dialog]', (e) =>
+    
+    E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href')}),
       returns:
         success: (frame, data, status, request) ->
           frame.dialog "close"
