@@ -34,8 +34,8 @@ por:
         none: "Nenhum"
     activity_tactic:
       mode:
-        # harvested: "Harvest sowing date"
-        # sowed: "Provisional sowing date"
+        harvested: "Colheita época de semeadura"
+        sowed: "semeadura provisória"
     affair:
       third_role:
         client: "Cliente"
@@ -300,7 +300,7 @@ por:
         bug: "Erro"
         building: "Prédio"
         car: "Carro"
-        # cc: "Cc"
+        cc: "Cc"
         cow: "Vaca"
         credit_card: "Cartão de crédito"
         desktop: "Área de Trabalho"
@@ -459,9 +459,9 @@ por:
         used_by: "Usado por data"
     version:
       event:
-        # create: "Create"
-        # destroy: "Destroy"
-        # update: "Update"
+        create: "Crio"
+        destroy: "Destruir"
+        update: "Atualizar"
   simple_form:  #?
     hints: #?
       purchase: #?

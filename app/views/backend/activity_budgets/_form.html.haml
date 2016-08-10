@@ -1,8 +1,8 @@
 = f.referenced_association :activity, as: :hidden
 = f.referenced_association :campaign, as: :hidden
 
-= hidden_field_tag(:supports_quantity, resource.productions_size.to_f, id: 'supports-quantity')
-= hidden_field_tag(:supports_count, resource.productions_count, id: 'supports-count')
+= hidden_field_tag(:supports_quantity, f.object.productions_size.to_f, id: 'supports-quantity')
+= hidden_field_tag(:supports_count, f.object.productions_count, id: 'supports-count')
 
 - if Rails.env.development? && f.object.errors.any?
   = f.object.errors.inspect

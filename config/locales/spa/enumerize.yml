@@ -33,8 +33,8 @@ spa:
         none: "Ninguna"
     activity_tactic:
       mode:
-        # harvested: "Harvest sowing date"
-        # sowed: "Provisional sowing date"
+        harvested: "Cosecha fecha de siembra"
+        sowed: "fecha de siembra provisional"
     affair:
       third_role:
         client: "Cliente"
@@ -298,7 +298,7 @@ spa:
         bug: "Error"
         building: "Edificio"
         car: "Coche"
-        # cc: "Cc"
+        cc: "Cc"
         cow: "Vaca"
         credit_card: "Tarjeta de crédito"
         desktop: "Escritorio"
@@ -446,9 +446,9 @@ spa:
         used_by: "Utilizado por fecha"
     version:
       event:
-        # create: "Create"
-        # destroy: "Destroy"
-        # update: "Update"
+        create: "Crear"
+        destroy: "Destruir"
+        update: "Actualizar"
   simple_form:  #?
     hints: #?
       purchase: #?

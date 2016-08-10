@@ -283,7 +283,7 @@ fra:
         bug: "Punaise"
         building: "Bâtiment"
         car: "Voiture"
-        # cc: "Cc"
+        cc: "Cc"
         cow: "Vache"
         credit_card: "Carte de crédit"
         desktop: "Bureau"
@@ -414,6 +414,7 @@ fra:
         used_by: "Date Limite de Consommation (DLC)"
     version:
       event:
-        # create: "Create"
-        # destroy: "Destroy"
-        # update: "Update"
+        create: "Créer"
+        destroy: "Détruire"
+        update: "Mettre à jour"
+

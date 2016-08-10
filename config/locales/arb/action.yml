@@ -945,10 +945,10 @@ arb:
     add_reading: "إضافة قيمة للمؤشر"
     add_revenue: "إضافة الإيرادات"
     add_sale_taxation: "إضافة بيع الضرائب"
-    # add_season: "Add season"
+    add_season: "إضافة الموسم"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "إضافة دعم"
-    # add_tactic: "Add cropping technique"
+    add_tactic: "إضافة تقنيات إدارة المحاصيل"
     add_tool: "إضافة أداة"
     add_website: "أضف موقعك"
     add_working_period: "إضافة working_period"
@@ -1153,7 +1153,7 @@ arb:
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
     dates: "ادخل تواريخ بداية ونهاية المدة"
-    # days: "Days"
+    days: "أيام"
     deals: "عروض"
     debit: "الدين"
     debts_on_assets: "الديون على الأصول"
@@ -1303,7 +1303,6 @@ arb:
     first_line_as_title: "السطر الأول كما لقب"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
     fixed_assets: "أصول ثابتة"
-    # forecast_volume: "Forecast volume"
     format_date:  #?
       iso: "(السنة-الشهر-اليوم)" #?
     free_purchases: "المشتريات مجانية" #?
@@ -1965,6 +1964,7 @@ arb:
     # timeline_comment: "%{author} commented %{when}"
     timeline_entity_link: "رابط كيان الزمني"
     # timeline_event: "%{name} with %{participants} %{when}"
+    # timeline_event_without_participants: "%{name} %{when}"
     # timeline_incoming_call: "%{author} called %{entity} about %{name} %{when}"
     # timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{when}"
     # timeline_item: "%{type} %{name} added by %{author} %{when}"

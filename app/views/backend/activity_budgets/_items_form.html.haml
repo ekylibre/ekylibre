@@ -1,12 +1,12 @@
 - reflection = direction.to_s.pluralize
 - locals = { direction: direction, currency_symbol: currency_symbol, currency: currency, computation_methods: computation_methods }
-= f.simple_fields_for reflection, resource.send(reflection) do |item|
+= f.simple_fields_for reflection, f.object.send(reflection) do |item|
   = render 'item_fields', locals.merge(f: item)
 %tr.total{id: "#{reflection}-total-row"}
   %th= link_to_add_association "add_#{direction}".tl, f, reflection, partial: 'item_fields', 'data-association-insertion-node' => "##{reflection}-total-row", 'data-association-insertion-method' => :before, class: "btn primary", render_options: { locals: locals }
   %th{colspan: 3}= reflection.tl
   %td.decimal
-    %span{id: "#{reflection}-amount", data: {use: ".nested-fields .#{direction}-amount", calculate: "sum", calculate_round: currency.precision}}= resource.send(reflection).sum(:amount)
+    %span{id: "#{reflection}-amount", data: {use: ".nested-fields .#{direction}-amount", calculate: "sum", calculate_round: currency.precision}}= f.object.send(reflection).sum(:amount)
     %span.currency= currency_symbol
   %td.decimal.with-some-supports
     %span{id: "#{reflection}-amount-per-working-unit", data: {use: ".nested-fields .#{direction}-amount-per-working-unit", calculate: "sum", calculate_round: currency.precision}}

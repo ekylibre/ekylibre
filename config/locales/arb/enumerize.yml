@@ -33,8 +33,8 @@ arb:
         none: "لا شيء"
     activity_tactic:
       mode:
-        # harvested: "Harvest sowing date"
-        # sowed: "Provisional sowing date"
+        harvested: "حصاد تاريخ البذر"
+        sowed: "مواعيد الزراعة المؤقت"
     affair:
       third_role:
         client: "زبون"
@@ -219,7 +219,7 @@ arb:
         month: "شهر"
         year: "عام"
       shift_method:
-        # anatocism: "anatocism"
+        anatocism: "anatocism"
         immediate_payment: "الدفع الفوري"
     notification:
       level:
@@ -445,9 +445,9 @@ arb:
         used_by: "المستخدمة من قبل التاريخ"
     version:
       event:
-        # create: "Create"
-        # destroy: "Destroy"
-        # update: "Update"
+        create: "خلق"
+        destroy: "هدم"
+        update: "تحديث"
   simple_form:  #?
     hints: #?
       purchase: #?

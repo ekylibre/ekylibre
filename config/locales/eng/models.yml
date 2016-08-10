@@ -850,7 +850,6 @@ eng:
     minimal_size_value: "Minimal size value"
     minimal_value: "Minimal value"
     mobiles: "Mobile phones"
-    mod: "Mod" #?
     mode: "Mode"
     # mode_delta: "Mode delta"
     model_euid: "Model"
@@ -1130,7 +1129,6 @@ eng:
     scale: "Scale"
     # scales: "Scales"
     scheduled: "Scheduled"
-    schematic: "Schematic" #?
     season: "Seasonality"
     seasons: "Seasonalities"
     seeding_density_unit: "Seeding density unit"
