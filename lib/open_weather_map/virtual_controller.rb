@@ -14,7 +14,12 @@ module OpenWeatherMap
       path += "&lat=#{latitude}&lon=#{longitude}" if latitude && longitude
       api_key = parameters[:api_key]
       path += "&APPID=#{api_key}" unless api_key.blank?
+
       response = http.get(path)
+      unless response.code == 200
+        return { status: :error, message: response.message }
+      end
+
       json = JSON.load(response.body).deep_symbolize_keys
 
       unless json[:cod] == 200
