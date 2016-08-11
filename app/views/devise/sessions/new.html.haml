@@ -29,4 +29,5 @@
 
   .field= f.submit t('.sign_in', default: "Sign in")
 
+= link_to t(".ekylibre_oauth", :default => "Sign in with Ekylibre.org"), user_doorkeeper_omniauth_authorize_path
 = render "devise/shared/links"

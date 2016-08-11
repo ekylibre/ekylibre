@@ -1,5 +1,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+require File.expand_path('lib/omniauth/strategies/doorkeeper', Rails.root)
+
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -272,7 +274,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  config.omniauth :doorkeeper, '4e936ae5d09b654e90c04796ea4003e3de4975c21f3b77a4014a3d6c444288de', '572095ff4a0dcd036e3bf92e800f32459e153473a4d97c9af0d5b1e654059bc1'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
