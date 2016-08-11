@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       get :select
       post :attach
       delete :detach
+      delete :detach_gaps
       post :finish
     end
   end
