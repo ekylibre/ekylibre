@@ -169,7 +169,7 @@
                 });
 
                 groupIntervalItems.append('text').text(Chart._getLabel).attr('fill', 'white')
-                .attr('class', Chart._withCustom('interval-text')).attr('y', groupHeight / 2 + 5)
+                .attr('class', Chart._withCustom('interval-text')).attr('y', groupHeight - intervalBarHeight)
                 .attr('x', function (data) {
                     return Utils.getStartedDatePosition(x, data);
                 });
