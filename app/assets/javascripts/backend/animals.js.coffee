@@ -87,21 +87,41 @@
         element.removeClass("loading")
         return
       success: (json_data) ->
-        groups = ko.utils.arrayMap json_data, (jGroup) =>
+        groups = ko.utils.arrayMap json_data.groups, (jGroup) =>
 
           group = new G.Group(jGroup.id, jGroup.name, [])
 
-          places = ko.utils.arrayMap jGroup.places, (jPlace) =>
+          group.containers ko.utils.arrayMap jGroup.places, (jPlace) =>
 
             container = new G.Container(jPlace.id, jPlace.name, [], group)
 
-            animals = ko.utils.arrayMap jPlace.animals, (animal) =>
-              new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number, animal.show_path, container)
+            container.items ko.utils.arrayMap jPlace.animals, (animal) =>
+              new G.Item(animal.id, animal.name, animal.status, animal.sex, animal.show_path, container)
 
-            container.items animals
             container
 
-          group.containers places
+          #items without place:
+          if jGroup.without_place
+            new_container = new G.Container(jGroup.without_place.id, jGroup.without_place.name, [], group)
+            new_container.items ko.utils.arrayMap jGroup.without_place.animals, (animal) =>
+              new G.Item(animal.id, animal.name, animal.status, animal.sex, animal.show_path, new_container)
+
+            group.containers.push new_container
+
+          group
+
+        if json_data.without_group
+          new_group = new G.Group(json_data.without_group.id, json_data.without_group.name, [])
+
+          #items without place:
+          if json_data.without_group.without_place
+            new_container = new G.Container(json_data.without_group.without_place.id, json_data.without_group.without_place.name, [], new_group)
+            new_container.items ko.utils.arrayMap json_data.without_group.without_place.animals, (animal) =>
+              new G.Item(animal.id, animal.name, animal.status, animal.sex, animal.show_path, new_container)
+
+            new_group.containers.push new_container
+
+            groups.push new_group
 
         window.app.groups = ko.observableArray(groups)
 

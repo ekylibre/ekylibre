@@ -77,55 +77,12 @@ module Backend
     end
 
     def load_animals
-      read_at = Time.zone.now
+      #TODO override if all animals need to be loaded
+      @read_at = { at: Time.zone.now }
 
-      @grouped_animals = AnimalGroup.availables(at: read_at).order(:name).select(:id, :name).collect do |group|
-        animal_groups = {
-          id: group.id,
-          name: group.name,
-          places: group.places.collect do |place|
-            {
-                id: place.id,
-                name: place.name,
-                animals: Animal.members_of(group, read_at).contained_by(place).order(:name).as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
-            }
-          end
-        }
-        animals_without_container = Animal.members_of(group, read_at).order(:name).collect do |animal|
-          next unless animal.container.nil?
-          animal.as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
-        end.compact
+      @animal_groups = AnimalGroup.availables(@read_at).order(:name)
+      @animals = Animal.availables(@read_at).order(:name)
 
-        unless animals_without_container.empty?
-          animal_groups[:places] << {
-              id: nil,
-              name: :others,
-              animals: animals_without_container
-          }
-        end
-
-        animal_groups
-      end
-
-      animals_without_group = Animal.availables(at: Time.zone.now).order(:name).collect do |animal|
-        next unless animal.memberships.empty?
-        animal.as_json(only: [:id, :name, :identification_number, :nature_id, :dead_at], methods: [:picture_path, :sex_text, :status])
-      end.compact
-
-      unless animals_without_group.empty?
-        @grouped_animals << {
-            id: nil,
-            name: :others,
-            places: [
-            {
-                id: nil,
-                name: :others,
-                animals: animals_without_group
-            }
-            ]
-        }
-      end
-      respond_with @grouped_animals
     end
 
     def change
@@ -143,7 +100,7 @@ module Backend
         end.compact
       end
 
-      errors = nil
+      errors = []
 
       begin
         started_at = Date.parse(params[:started_at])
@@ -176,38 +133,8 @@ module Backend
       procedure_natures << :animal_evolution if params[:variant].present?
 
 
-      # TODO: find if group changed, some animals can already be in that group.
-      procedure_natures << :animal_group_changing if params[:group].present?
-
-
-      Intervention.write(*procedure_natures, short_name: :animal_changing, started_at: params[:started_at], stopped_at: params[:stopped_at], production_support: ActivityProduction.find_by(id: params[:production_support_id])) do |i|
-        i.cast :caregiver, Product.find_by(id: params[:worker_id]), role: 'animal_moving-doer', position: 1
-        ah = nil
-        ag = nil
-        av = nil
-        if procedure_natures.include?(:animal_moving)
-          ah = i.cast :animal_housing, Product.find_by(id: params[:container_id]), role: ['animal_moving-target'], position: 2
-        end
-        if procedure_natures.include?(:animal_group_changing)
-          ag = i.cast :herd, Product.find_by(id: params[:group_id]), role: ['animal_group_changing-target'], position: 3
-        end
-        if procedure_natures.include?(:animal_evolution)
-          av = i.cast :new_animal_variant, ProductNatureVariant.find_by(id: params[:variant_id]), role: ['animal_evolution-variant'], position: 4, variant: true
-        end
-        animals.each_with_index do |a, index|
-          ac = i.cast :animal, a, role: ['animal_moving-input', 'animal_group_changing-input', 'animal_evolution-target'], position: index + 5
-          if procedure_natures.include?(:animal_moving)
-            i.task :entering, product: ac, localizable: ah
-          end
-          if procedure_natures.include?(:animal_group_changing)
-            i.task :group_inclusion, member: ac, group: ag
-            # i.group_inclusion :animal, :herd
-          end
-          if procedure_natures.include?(:animal_evolution)
-            i.task :variant_cast, product: ac, variant: av
-            # i.variant_cast :animal, :new_animal_variant
-          end
-        end
+      if params[:group].present?
+        procedure_natures << :animal_group_changing
       end
 
       if errors.any?
