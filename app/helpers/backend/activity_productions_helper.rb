@@ -21,11 +21,11 @@ module Backend
                                                        period_started_on: period_started_on
     end
 
-    def product_chronology_period(production, campaign, period_started_on, duration, url_options = {}, html_options = {})
-      started_at = (production.started_on_for(campaign) - period_started_on).to_f / duration
-      width = (production.stopped_on_for(campaign) - production.started_on_for(campaign)).to_f / duration
+    def product_chronology_period(started_on, stopped_on, period_started_on, period_duration, background_color, url_options = {}, html_options = {})
+      started_at = (started_on - period_started_on).to_f / period_duration
+      width = (stopped_on - started_on).to_f / period_duration
 
-      chronology_period(started_at, width, production.color, url_options, html_options)
+      chronology_period(started_at, width, background_color, url_options, html_options)
     end
 
     def interventions_chronology_icons(interventions_list, period_started_on, duration, html_options = {})
