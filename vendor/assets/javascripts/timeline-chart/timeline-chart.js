@@ -479,14 +479,14 @@
                 return d3.locale({
                     "decimal": ",",
                     "thousands": ".",
-                    "dateTime": I18n.extend.datetimeFormat.default(),
-                    "date": I18n.extend.dateFormat.default(),
-                    "time": I18n.extend.datetimeFormat.time(),
-                    "periods": I18n.extend.datetime.periods(),
-                    "days": I18n.extend.dates.getDayNames(),
-                    "shortDays": I18n.extend.dates.getAbbrDayNames(),
-                    "months": I18n.extend.dates.getMonthNames(),
-                    "shortMonths": I18n.extend.dates.getAbbrMonthNames()
+                    "dateTime": I18n.ext.datetimeFormat.default(),
+                    "date": I18n.ext.dateFormat.default(),
+                    "time": I18n.ext.datetimeFormat.time(),
+                    "periods": I18n.ext.datetime.periods(),
+                    "days": I18n.ext.dates.getDayNames(),
+                    "shortDays": I18n.ext.dates.getAbbrDayNames(),
+                    "months": I18n.ext.dates.getMonthNames(),
+                    "shortMonths": I18n.ext.dates.getAbbrMonthNames()
                 });
             },
 

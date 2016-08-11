@@ -97,11 +97,11 @@
 
 
 
-  I18nExt.extend = new I18nExt()
-  I18nExt.extend.dates = new Dates()
-  I18nExt.extend.dateFormat = new DateFormat()
-  I18nExt.extend.datetime = new Datetime()
-  I18nExt.extend.datetimeFormat = new DatetimeFormat()
+  I18nExt.ext = new I18nExt()
+  I18nExt.ext.dates = new Dates()
+  I18nExt.ext.dateFormat = new DateFormat()
+  I18nExt.ext.datetime = new Datetime()
+  I18nExt.ext.datetimeFormat = new DatetimeFormat()
 
   $.extend(I18n, I18nExt)
 
