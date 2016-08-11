@@ -297,6 +297,13 @@ class Affair < Ekylibre::Record::Base
     deal.undeal!(self)
   end
 
+  def reload_gaps
+    if gaps.any?
+      gaps.each { |g| g.undeal! self }
+      finish
+    end
+  end
+
   # Returns a hash with each amount for each third
   # Amounts are always positive although it'a loss or a profit
   # In case of a loss, credits are greater than debits. We need to
