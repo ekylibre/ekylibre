@@ -5,16 +5,25 @@ $indicators_height: $activity-container-height - $activity-name-height;
 $indicator_item_height: $indicators_height / 2;
 $activity_border_size: 5px;
 
-.activities-index {
-  .activity-family-group {
-    @include make-row($gutter: 0);
-  }
+.activity-family {
   .activity-family-heading {
-    border-bottom: $menu-border;
-    color: $neutral-color;
-    padding: $default-gap;
-    font-size: $fs-large;
+    margin: $default-gap * 2;
+    .activity-family-title {
+      font-size: $fs-large;
+      line-height: $lh-large;
+      border-bottom: $menu-border;
+    }
   }
+  .activity-family-body {
+    margin: $default-gap * 2;
+    @include clearfix;
+  }
+}
+
+.activity-containers {
+  @include make-row;
+  margin-left: 0;
+  margin-right: 0;
   .activity-container {
     @include float(left);
     @include make-xs-column(12);
@@ -24,6 +33,15 @@ $activity_border_size: 5px;
     padding: 0;
   }
 }
+
+
+.procedure-dropdown {
+  margin: $default-gap;
+  .btn {
+    min-width: 20em;
+  }
+}
+
 
 .activity {
   @include normal-shadow();

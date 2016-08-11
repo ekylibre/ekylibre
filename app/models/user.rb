@@ -57,6 +57,7 @@
 #  locked_at                              :datetime
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
 #  person_id                              :integer
+#  provider                               :string
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
 #  reset_password_token                   :string
@@ -65,6 +66,7 @@
 #  sign_in_count                          :integer          default(0)
 #  signup_at                              :datetime
 #  team_id                                :integer
+#  uid                                    :string
 #  unconfirmed_email                      :string
 #  unlock_token                           :string
 #  updated_at                             :datetime         not null
@@ -95,7 +97,7 @@ class User < Ekylibre::Record::Base
   validates :administrator, :commercial, :employed, :locked, inclusion: { in: [true, false] }
   validates :authentication_token, :confirmation_token, :invitation_token, :reset_password_token, :unlock_token, uniqueness: true, length: { maximum: 500 }, allow_blank: true
   validates :confirmation_sent_at, :confirmed_at, :current_sign_in_at, :invitation_accepted_at, :invitation_created_at, :invitation_sent_at, :last_sign_in_at, :locked_at, :remember_created_at, :reset_password_sent_at, :signup_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :current_sign_in_ip, :employment, :last_sign_in_ip, :unconfirmed_email, length: { maximum: 500 }, allow_blank: true
+  validates :current_sign_in_ip, :employment, :last_sign_in_ip, :provider, :uid, :unconfirmed_email, length: { maximum: 500 }, allow_blank: true
   validates :description, :rights, length: { maximum: 500_000 }, allow_blank: true
   validates :email, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :encrypted_password, :first_name, :last_name, presence: true, length: { maximum: 500 }

@@ -78,22 +78,15 @@ module Procedo
       end
 
       # Impact changes
-      def impact_with!(updater_name)
-        steps = updater_name.to_s.split(/[\[\]]+/)
-        impact_with(steps)
-      end
-
-      # Find a working_period, or a parameters
-      def impact_with(steps)
-        if steps.size > 1
-          if steps.first == 'working_periods'
-            @working_periods[steps[1]].impact_with(steps[2..-1])
-          else
-            @root_group.impact_with(steps)
-          end
-        elsif !steps.empty?
-          field = steps.first
-          send(field + '=', send(field))
+      def impact_with!(steps)
+        steps = steps.to_s.split(/[\[\]]+/) unless steps.is_a?(Array)
+        unless steps.size > 1
+          raise ArgumentError, 'Invalid steps: got ' + steps.inspect
+        end
+        if steps.first == 'working_periods'
+          @working_periods[steps[1]].impact_with(steps[2..-1])
+        else
+          @root_group.impact_with(steps)
         end
       end
 

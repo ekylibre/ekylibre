@@ -550,20 +550,17 @@
   </part>
   <part name="production" icon="cogs">
     <page to="backend/dashboards#production"/>
-    <group name="activity" icon="cogs">
-      <item name="productions">
-        <page to="backend/campaigns#current"/>
-        <page to="backend/campaigns#show"/>
-        <page to="backend/campaigns#index"/>
-        <page to="backend/campaigns#create"/>
-        <page to="backend/campaigns#destroy"/>
-        <page to="backend/campaigns#edit"/>
-        <page to="backend/campaigns#list"/>
-        <page to="backend/campaigns#new"/>
-        <page to="backend/campaigns#open"/>
-        <page to="backend/campaigns#close"/>
-        <page to="backend/campaigns#update"/>
-        <page to="backend/campaigns#unroll"/>
+    <group name="production" icon="cogs">
+      <item name="activities">
+        <page to="backend/activity_productions#index"/>
+        <page to="backend/activity_productions#list_interventions"/>
+        <page to="backend/activity_productions#show"/>
+        <page to="backend/activity_productions#unroll"/>
+        <page to="backend/activity_productions#create"/>
+        <page to="backend/activity_productions#destroy"/>
+        <page to="backend/activity_productions#edit"/>
+        <page to="backend/activity_productions#new"/>
+        <page to="backend/activity_productions#update"/>
         <page to="backend/activities#index"/>
         <page to="backend/activities#create"/>
         <page to="backend/activities#destroy"/>
@@ -578,6 +575,18 @@
         <page to="backend/activities#show"/>
         <page to="backend/activities#update"/>
         <page to="backend/activities#unroll"/>
+        <page to="backend/campaigns#current"/>
+        <page to="backend/campaigns#show"/>
+        <page to="backend/campaigns#index"/>
+        <page to="backend/campaigns#create"/>
+        <page to="backend/campaigns#destroy"/>
+        <page to="backend/campaigns#edit"/>
+        <page to="backend/campaigns#list"/>
+        <page to="backend/campaigns#new"/>
+        <page to="backend/campaigns#open"/>
+        <page to="backend/campaigns#close"/>
+        <page to="backend/campaigns#update"/>
+        <page to="backend/campaigns#unroll"/>
         <page to="backend/activity_budgets#index"/>
         <page to="backend/activity_budgets#create"/>
         <page to="backend/activity_budgets#destroy"/>
@@ -586,15 +595,6 @@
         <page to="backend/activity_budgets#new"/>
         <page to="backend/activity_budgets#show"/>
         <page to="backend/activity_budgets#update"/>
-        <page to="backend/activity_productions#index"/>
-        <page to="backend/activity_productions#list_interventions"/>
-        <page to="backend/activity_productions#show"/>
-        <page to="backend/activity_productions#unroll"/>
-        <page to="backend/activity_productions#create"/>
-        <page to="backend/activity_productions#destroy"/>
-        <page to="backend/activity_productions#edit"/>
-        <page to="backend/activity_productions#new"/>
-        <page to="backend/activity_productions#update"/>
         <page to="backend/activity_inspection_point_natures#autocomplete"/>
         <page to="backend/activity_seasons#index"/>
         <page to="backend/activity_seasons#create"/>
@@ -707,6 +707,7 @@
         <page to="backend/interventions#show"/>
         <page to="backend/interventions#update"/>
         <page to="backend/interventions#list_product_parameters"/>
+        <page to="backend/interventions#list_record_interventions"/>
         <page to="backend/interventions#unroll"/>
         <page to="backend/crumbs#index"/>
         <page to="backend/crumbs#update"/>
@@ -723,7 +724,9 @@
         <page to="backend/prescriptions#unroll"/>
         <page to="backend/prescriptions#update"/>
       </item>
-      <item name="analyses" icon="beaker">
+    </group>
+    <group name="quality" icon="beaker">
+      <item name="analyses">
         <page to="backend/analyses#index"/>
         <page to="backend/analyses#create"/>
         <page to="backend/analyses#destroy"/>
@@ -735,6 +738,22 @@
         <page to="backend/analyses#unroll"/>
         <page to="backend/analyses#update"/>
         <page to="backend/analysis_items#new"/>
+      </item>
+      <item name="issues">
+        <page to="backend/issues#index"/>
+        <page to="backend/issues#create"/>
+        <page to="backend/issues#destroy"/>
+        <page to="backend/issues#edit"/>
+        <page to="backend/issues#list"/>
+        <page to="backend/issues#new"/>
+        <page to="backend/issues#show"/>
+        <page to="backend/issues#update"/>
+        <page to="backend/issues#abort"/>
+        <page to="backend/issues#close"/>
+        <page to="backend/issues#reopen"/>
+        <page to="backend/issues#list_interventions"/>
+        <page to="backend/issues#picture"/>
+        <page to="backend/issues#unroll"/>
       </item>
       <item name="inspections" icon="grain">
         <page to="backend/inspections#index"/>
@@ -748,7 +767,7 @@
         <page to="backend/inspections#update"/>
       </item>
     </group>
-    <group name="land_parcels" icon="land-parcels">
+    <group name="field_distribution" icon="land-parcels">
       <item name="cultivable_zones">
         <page to="backend/cultivable_zones#index"/>
         <page to="backend/cultivable_zones#create"/>
@@ -760,6 +779,29 @@
         <page to="backend/cultivable_zones#update"/>
         <page to="backend/cultivable_zones#list_productions"/>
         <page to="backend/cultivable_zones#unroll"/>
+      </item>
+      <item name="land_parcels">
+        <page to="backend/land_parcels#index"/>
+        <page to="backend/land_parcels#create"/>
+        <page to="backend/land_parcels#destroy"/>
+        <page to="backend/land_parcels#edit"/>
+        <page to="backend/land_parcels#list"/>
+        <page to="backend/land_parcels#list_carried_linkages"/>
+        <page to="backend/land_parcels#list_carrier_linkages"/>
+        <page to="backend/land_parcels#list_contained_products"/>
+        <page to="backend/land_parcels#list_inspections"/>
+        <page to="backend/land_parcels#list_groups"/>
+        <page to="backend/land_parcels#list_readings"/>
+        <page to="backend/land_parcels#list_intervention_product_parameters"/>
+        <page to="backend/land_parcels#list_issues"/>
+        <page to="backend/land_parcels#list_members"/>
+        <page to="backend/land_parcels#list_places"/>
+        <page to="backend/land_parcels#picture"/>
+        <page to="backend/land_parcels#new"/>
+        <page to="backend/land_parcels#show"/>
+        <page to="backend/land_parcels#take"/>
+        <page to="backend/land_parcels#unroll"/>
+        <page to="backend/land_parcels#update"/>
       </item>
       <item name="plants">
         <page to="backend/plants#index"/>
@@ -845,24 +887,6 @@
         <page to="backend/guide_analyses#list_points"/>
       </item>
       -->
-    </group>
-    <group name="issues" icon="bug">
-      <item name="issues">
-        <page to="backend/issues#index"/>
-        <page to="backend/issues#create"/>
-        <page to="backend/issues#destroy"/>
-        <page to="backend/issues#edit"/>
-        <page to="backend/issues#list"/>
-        <page to="backend/issues#new"/>
-        <page to="backend/issues#show"/>
-        <page to="backend/issues#update"/>
-        <page to="backend/issues#abort"/>
-        <page to="backend/issues#close"/>
-        <page to="backend/issues#reopen"/>
-        <page to="backend/issues#list_interventions"/>
-        <page to="backend/issues#picture"/>
-        <page to="backend/issues#unroll"/>
-      </item>
     </group>
     <group name="cartography" icon="layers">
       <item name="cap_statements">
@@ -1286,6 +1310,9 @@
         <page to="backend/product_nature_variants#list_sale_items"/>
         <page to="backend/product_nature_variants#list_parcel_items"/>
         <page to="backend/product_nature_variants#unroll"/>
+        <page to="backend/product_nature_variants#list_components"/>
+        <page to="backend/product_nature_variant_components#autocomplete"/>
+        <page to="backend/product_nature_variant_components#unroll"/>
       </item>
       <item name="catalogs">
         <page to="backend/catalogs#index"/>
@@ -1415,29 +1442,6 @@
         <page to="backend/animal_groups#list_places"/>
         <page to="backend/animal_groups#unroll"/>
       </item>
-      <item name="land_parcels">
-        <page to="backend/land_parcels#index"/>
-        <page to="backend/land_parcels#create"/>
-        <page to="backend/land_parcels#destroy"/>
-        <page to="backend/land_parcels#edit"/>
-        <page to="backend/land_parcels#list"/>
-        <page to="backend/land_parcels#list_carried_linkages"/>
-        <page to="backend/land_parcels#list_carrier_linkages"/>
-        <page to="backend/land_parcels#list_contained_products"/>
-        <page to="backend/land_parcels#list_inspections"/>
-        <page to="backend/land_parcels#list_groups"/>
-        <page to="backend/land_parcels#list_readings"/>
-        <page to="backend/land_parcels#list_intervention_product_parameters"/>
-        <page to="backend/land_parcels#list_issues"/>
-        <page to="backend/land_parcels#list_members"/>
-        <page to="backend/land_parcels#list_places"/>
-        <page to="backend/land_parcels#picture"/>
-        <page to="backend/land_parcels#new"/>
-        <page to="backend/land_parcels#show"/>
-        <page to="backend/land_parcels#take"/>
-        <page to="backend/land_parcels#unroll"/>
-        <page to="backend/land_parcels#update"/>
-      </item>
       <item name="settlements">
         <page to="backend/settlements#index"/>
         <page to="backend/settlements#create"/>
@@ -1546,6 +1550,15 @@
         <page to="authentication/sessions#create"/>
         <page to="authentication/sessions#destroy"/>
         <page to="authentication/sessions#new"/>
+      </item>
+      <item name="omniauth_callbacks">
+        <page to="authentication/omniauth_callbacks#doorkeeper"/>
+        <page to="authentication/omniauth_callbacks#failure"/>
+        <page to="authentication/omniauth_callbacks#passthru"/>
+      </item>
+      <item name="omniauth_callbacks">
+        <page to="devise/omniauth_callbacks#failure"/>
+        <page to="devise/omniauth_callbacks#passthru"/>
       </item>
       <item name="confirmations">
         <page to="devise/confirmations#create"/>
@@ -1767,6 +1780,7 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+    </group>
   </untreated-actions>
 </navigation>

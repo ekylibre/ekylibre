@@ -2,6 +2,7 @@
   = t.edit resource
   = t.export :intervention_sheet
   = t.destroy
+  = t.new params: { request_intervention_id: resource.id } if resource.request?
 
 - currency = Nomen::Currency.find(resource.currency)
 
@@ -67,6 +68,9 @@
 
   - c.cobble(:general_informations) do
     = infos do
+      .med-info.important
+        %span.title= Intervention.human_attribute_name(:nature)
+        %span.value= resource.nature.l #lights(resource.status)
       .med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
@@ -112,3 +116,19 @@
       .info
         %span.title= Intervention.human_attribute_name(:description)
         %span.value= resource.description
+
+    .info
+      %span.title= Intervention.human_attribute_name(:actions)
+      %span.value= resource.human_actions_names
+
+    - if resource.trouble_encountered?
+      .info
+        %span.title= Intervention.human_attribute_name(:trouble_encountered)
+        %span.value= resource.trouble_description
+
+  - if resource.request?
+    - c.cobble(:record_interventions, title: :x_interventions.tl(count: resource.record_interventions.count)) do
+      = cobble_toolbar do |t|
+        .toolbar
+          = tool_to :new.ta, {action: :new, controller: :interventions, request_intervention_id: resource.id, procedure_name: resource.procedure_name}, tool: :new
+      =  cobble_list(:record_interventions)

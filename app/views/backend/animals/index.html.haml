@@ -73,7 +73,7 @@
         .placeholding-message= :choose_creation_mode.tl
       .modal-footer
         = link_to Parcel.model_name.human, new_backend_parcel_path(nature: :incoming), class: 'btn btn-default'
-        -# Procedo.procedures_of_nature(:viviparous_birth).each do |procedure|
+        -# Procedo::Procedure.of_nature(:viviparous_birth).each do |procedure|
           = link_to procedure.human_name, new_backend_intervention_path(reference_name: procedure.name), class: 'btn btn-default'
         = link_to "actions.backend/animals.new".t, new_backend_animal_path, class: 'btn btn-default'
 

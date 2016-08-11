@@ -15048,3 +15048,51 @@ versions_273:
     custom_fields: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
       test: ''
   item_type: Product
+versions_274:
+  created_at: 2016-08-10 14:27:49.848916000 Z
+  creator_id: 1
+  creator_name: Gendo IKARI
+  event: create
+  id: 311
+  item_id: 180
+  item_object: !ruby/hash:ActiveSupport::HashWithIndifferentAccess
+    id: 180
+    type: Matter
+    name: Pièce de machine
+    number: PR00000000124
+    variant_id: 71
+    nature_id: 61
+    category_id: 23
+    initial_born_at: 2016-08-10 14:27:49.798212000 Z
+    initial_dead_at:
+    initial_container_id:
+    initial_owner_id: 1
+    initial_enjoyer_id:
+    initial_population: !ruby/object:BigDecimal 18:0.0
+    initial_shape:
+    initial_father_id:
+    initial_mother_id:
+    variety: equipment_part
+    derivative_of: equipment
+    tracking_id:
+    fixed_asset_id:
+    born_at: 2016-08-10 14:27:49.798212000 Z
+    dead_at:
+    description:
+    picture_file_name:
+    picture_content_type:
+    picture_file_size:
+    picture_updated_at:
+    identification_number: ''
+    work_number:
+    address_id:
+    parent_id:
+    default_storage_id:
+    created_at: 2016-08-10 14:27:49.841387000 Z
+    creator_id: 1
+    person_id:
+    initial_geolocation:
+    uuid: a07ec5ff-4f65-4c35-93ce-86df33b8922b
+    initial_movement_id:
+    custom_fields:
+  item_type: Product

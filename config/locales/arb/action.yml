@@ -36,9 +36,10 @@ arb:
       new: "الميزانية الجديدة"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      index: "إنتاجات"
       new: "إنتاج نشاط جديد"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -334,8 +335,10 @@ arb:
       # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
+      # edit_request: "Edit request %{procedure_name} #%{number}"
       index: "التدخلات"
       new: "تدخل جديد"
+      new_request: "تدخل طلب جديد"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "تعديل الجرد"
@@ -907,7 +910,9 @@ arb:
     add_attachment: "إضافة مرفق"
     add_bank_statement: "إضافة كشف حساب بنكي"
     add_catalog_price: "إضافة سعر كتالوج"
+    add_child: "إضافة عنصر الطفل"
     add_choice: "إضافة خيار"
+    add_component: "إضافة عنصر"
     add_condition: "اضافة شرط"
     add_conditions: "اضف شروط"
     add_delivery: "اضافة وسيلة نقل"
@@ -921,6 +926,8 @@ arb:
     add_inspection_calibration_nature: "إضافة تفتيش معايرة الطبيعة"
     add_inspection_calibration_scale: "إضافة تفتيش على نطاق والمعايرة"
     add_inspection_point_nature: "إضافة نقطة تفتيش الطبيعة"
+    add_intervention_record: "اضافة التسجيلة تدخل"
+    add_intervention_request: "إضافة طلب تدخل"
     add_item: "إضافة البند"
     add_line: "إضافة خط"
     add_linestring: "إضافة تنسيقي"
@@ -1208,6 +1215,7 @@ arb:
     document_natures: "نوع الوثيقة"
     document_template_create: "انشاء نموذج للوثيقة" #?
     document_templates: "نموذج الوثائق"
+    documentation: "توثيق"
     doer_cost: "تكلفة الفاعل"
     done: "فعله"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
@@ -1279,6 +1287,7 @@ arb:
     expenses_by_product_nature_category: "النفقات حسب الفئة طبيعة المنتج"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
+    field_distribution: "مجال التوزيع"
     file_nature: "نوع الملف"
     file_preview: "معاينة"
     file_to_download: "ملف الاستيراد" #?
@@ -1638,6 +1647,7 @@ arb:
     order_amount_with_taxes: "قيمة الطلب مع الضرائب" #?
     order_print: "طباعة الطلب" #?
     organic_matter_concentration: "تركيز المواد العضوية"
+    original_component: "أصلي"
     other_assessable_operations: "اجراءات ضريبية اخرى" #?
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى" #?
     other_results: "...نتائج اخرى" #?
@@ -1753,6 +1763,7 @@ arb:
     purchases: "المشتريات"
     purchases_number: "" #?
     purchases_price_create: "اضافة سعر الشراء" #?
+    quality: "جودة"
     # quandl: "Quandl"
     quantity: "الكمية"
     quantity_rest: "الكمية المتبقية" #?
@@ -1769,11 +1780,13 @@ arb:
     reconciled_total: "مجموعه التوفيق"
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح" #?
     record_has_not_been_removed: "لم يتم حذف السجلات" #?
+    record_maintenance: "صيانة المسجلات"
     reflect: "يعكس"
     reflected: "التغييرات تنعكس"
     reflections: "خواطر"
     refresh: "تحديث"
     register: "تسجيل شركة جديدة" #?
+    register_intervention_request: "تسجيل طلب تدخل"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     relationship: "صلة"
     # relationship_of_entity: "%{relationship} of %{entity}"
@@ -1789,6 +1802,7 @@ arb:
     repayments_graph: "تسديد الرسم البياني"
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
+    request_maintenance: "صيانة الطلب"
     reservoir: "الاحتياطي" #?
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
@@ -2109,6 +2123,9 @@ arb:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
@@ -2195,6 +2212,9 @@ arb:
       # one: "%{count} task"
       # other: "%{count} tasks"
     # x_thing: "%{x} %{thing}"
+    x_times:
+      # one: "%{count} time"
+      # other: "%{count} times"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -2253,6 +2273,10 @@ arb:
         other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى"
         zero: "لم يتم التحقق من صحة اي ملف"
       entity_columns_are_needed: ".يجب عليك تحديد عامود واحد كحد ادنى للفرد بما في ذلك اسمه"
+      # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
+      # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       exception_raised: "ظهور خطأ واحد اثناء المعالجة: %{message}"
       expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
       fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
@@ -2313,6 +2337,7 @@ arb:
       no_production_defined_for_current_campaign: "لم يتم تحديد لحملة الحالية إنتاج"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "لم يتم العثور على الإنتاج. يمكنك إضافة جديد أو نسخ بعض من حملة السابقة."
       no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
+      no_replacements_since_beginning: "لا البدلاء منذ بداية"
       no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك" #?
       no_template_journal: "ليس هنالك من نموذج للدفتر اليومي" #?
       no_template_journal_by_id: "ليس هنالك من نموذج للدفتر اليومي" #?
@@ -2518,6 +2543,7 @@ arb:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
+    # backend/interventions: "%{number}. %{name}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

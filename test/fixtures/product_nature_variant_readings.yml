@@ -1049,3 +1049,60 @@ product_nature_variant_readings_069:
   updated_at: 2016-05-10 19:12:52.618977000 Z
   updater_id: 1
   variant_id: 69
+product_nature_variant_readings_070:
+  absolute_measure_value_unit: liter
+  absolute_measure_value_value: 250.0
+  boolean_value: false
+  created_at: 2016-08-05 20:03:17.772434000 Z
+  creator_id: 1
+  id: 94
+  indicator_datatype: measure
+  indicator_name: nominal_storable_net_volume
+  lock_version: 0
+  measure_value_unit: liter
+  measure_value_value: 250.0
+  updated_at: 2016-08-05 20:03:17.772434000 Z
+  updater_id: 1
+  variant_id: 29
+product_nature_variant_readings_071:
+  absolute_measure_value_unit: meter
+  absolute_measure_value_value: 6.0
+  boolean_value: false
+  created_at: 2016-08-05 20:03:17.773972000 Z
+  creator_id: 1
+  id: 95
+  indicator_datatype: measure
+  indicator_name: application_width
+  lock_version: 0
+  measure_value_unit: meter
+  measure_value_value: 6.0
+  updated_at: 2016-08-05 20:03:17.773972000 Z
+  updater_id: 1
+  variant_id: 29
+product_nature_variant_readings_072:
+  boolean_value: false
+  created_at: 2016-08-05 20:03:17.775181000 Z
+  creator_id: 1
+  id: 96
+  indicator_datatype: integer
+  indicator_name: rows_count
+  integer_value: 4
+  lock_version: 0
+  updated_at: 2016-08-05 20:03:17.775181000 Z
+  updater_id: 1
+  variant_id: 29
+product_nature_variant_readings_073:
+  absolute_measure_value_unit: hectare_per_hour
+  absolute_measure_value_value: 1.0
+  boolean_value: false
+  created_at: 2016-08-05 20:03:17.776431000 Z
+  creator_id: 1
+  id: 97
+  indicator_datatype: measure
+  indicator_name: theoretical_working_speed
+  lock_version: 0
+  measure_value_unit: hectare_per_hour
+  measure_value_value: 1.0
+  updated_at: 2016-08-05 20:03:17.776431000 Z
+  updater_id: 1
+  variant_id: 29

@@ -20,7 +20,7 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }
+    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }, group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -90,9 +90,10 @@ module Backend
       t.column :human_working_duration
       t.column :human_target_names
       t.column :human_working_zone_area
-      t.column :total_cost, currency: true
-      # t.status
+      t.column :total_cost, label_method: :human_total_cost, currency: true
+      t.column :nature
       t.column :issue, url: true
+      t.column :trouble_encountered, hidden: true
       # t.column :casting
       # t.column :human_target_names, hidden: true
     end
@@ -107,6 +108,16 @@ module Backend
       t.column :unit_name, through: :variant
       # t.column :working_zone, hidden: true
       t.column :variant, url: true
+    end
+
+    list(:record_interventions, model: :interventions, conditions: { request_intervention_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
+      # t.column :roles, hidden: true
+      t.column :name, sort: :reference_name
+      t.column :started_at, datatype: :datetime
+      t.column :stopped_at, datatype: :datetime
+      t.column :human_activities_names, through: :intervention
+      t.column :human_working_duration, through: :intervention
+      t.column :human_working_zone_area, through: :intervention
     end
 
     # Show one intervention with params_id
@@ -129,6 +140,55 @@ module Backend
                                     }
                                   ],
                                   procs: proc { |options| options[:builder].tag!(:url, backend_intervention_url(@intervention)) })
+    end
+
+    def new
+      options = {}
+      [:actions, :custom_fields, :description, :event_id, :issue_id,
+       :nature, :number, :prescription_id, :procedure_name,
+       :request_intervention_id, :started_at, :state,
+       :stopped_at, :trouble_description, :trouble_encountered,
+       :whole_duration, :working_duration].each do |param|
+        options[param] = params[param]
+      end
+      options[:group_parameters_attributes] = params[:group_parameters_attributes] || []
+
+      @intervention = Intervention.new(options)
+
+      from_request = Intervention.find_by_id(params[:request_intervention_id])
+      if from_request
+        @intervention = from_request.deep_clone(
+          only: [:actions, :custom_fields, :description, :event_id, :issue_id,
+                 :nature, :number, :prescription_id, :procedure_name,
+                 :request_intervention_id, :started_at, :state,
+                 :stopped_at, :trouble_description, :trouble_encountered,
+                 :whole_duration, :working_duration],
+          include:
+            [
+              { group_parameters: [
+                :parameters,
+                :group_parameters,
+                :doers,
+                :inputs,
+                :outputs,
+                :targets,
+                :tools
+              ] },
+              { root_parameters: :group },
+              { parameters: :group },
+              { product_parameters: [:readings, :group] },
+              { doers: :group },
+              { inputs: :group },
+              { outputs: :group },
+              { targets: :group },
+              { tools: :group },
+              :working_periods
+            ]
+        )
+        @intervention.nature = :record
+      end
+
+      render(locals: { cancel_url: { action: :index } })
     end
 
     # Computes impacts of a updated value in an intervention input context

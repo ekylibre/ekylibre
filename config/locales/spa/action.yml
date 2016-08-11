@@ -36,9 +36,10 @@ spa:
       new: "nuevo presupuesto"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      index: "Producciones"
       new: "Nueva producción de la actividad"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -299,8 +300,10 @@ spa:
       # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
+      # edit_request: "Edit request %{procedure_name} #%{number}"
       index: "Intervenciones"
       new: "Intervención New"
+      new_request: "Intervención New solicitado"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Modificación del inventario"
@@ -705,7 +708,9 @@ spa:
     add_attachment: "Añadir un adjunto"
     add_bank_statement: "Añadir estado de cuenta bancaria"
     add_catalog_price: "Añadir precio de catálogo"
+    add_child: "Añadir un componente secundario"
     add_choice: "Añadir elección"
+    add_component: "Añadir componente"
     add_condition: "Añadir condición"
     add_conditions: "Añadir condiciones"
     add_delivery: "Añadir la entrega"
@@ -719,6 +724,8 @@ spa:
     add_inspection_calibration_nature: "Añadir la naturaleza de calibración de inspección"
     add_inspection_calibration_scale: "Añadir escala de calibración de inspección"
     add_inspection_point_nature: "Añadir la naturaleza del punto de inspección"
+    add_intervention_record: "Añadir registro de intervención"
+    add_intervention_request: "Añadir solicitud de intervención"
     add_item: "Añadir artículo"
     add_line: "Añadir línea"
     add_linestring: "Añadir cadena de líneas"
@@ -977,6 +984,7 @@ spa:
     document_natures: "Tipos de documentos"
     document_template_create: "Crear un modelo de documento" #?
     document_templates: "Modelos de documentos"
+    documentation: "Documentación"
     doer_cost: "Costo hacedor"
     done: "Hecho"
     dont_use_journal: "-- No utilizar el periodico --"
@@ -1031,6 +1039,7 @@ spa:
     expenses: "Gastos"
     expenses_by_product_nature_category: "Los gastos por categoría de productos naturaleza"
     export: "Exportación de un fichero de salvaguardia"
+    field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
     file_preview: "Avance"
     file_to_import: "Fichero a importar" #?
@@ -1305,6 +1314,7 @@ spa:
     operations: "Operaciones"
     options: "Opciones"
     organic_matter_concentration: "Concentración de materia orgánica"
+    original_component: "Original"
     other_assessable_operations: "Autras operaciones imponibles" #?
     other_not_assessable_operations: "Autras operaciones no imponibles" #?
     other_results: "Otros resultados" #?
@@ -1393,6 +1403,7 @@ spa:
       products: "Creación de la compra" #?
       summary: "Desembolsos" #?
     purchases: "Compras"
+    quality: "Calidad"
     # quandl: "Quandl"
     quantity: "Quantidades"
     quantity_rest: "Quantidad restante" #?
@@ -1407,11 +1418,13 @@ spa:
     received: "Recibido"
     recent_events: "Eventos recientes"
     reconciled_total: "total conciliado"
+    record_maintenance: "El mantenimiento de registros"
     reflect: "Reflejar"
     reflected: "Cambios reflejados"
     reflections: "Reflexiones"
     refresh: "Refrescar"
     register: "Crear una nueva compañía" #?
+    register_intervention_request: "Register solicitud de intervención"
     relations: "Relaciones clientos/abastecedores" #?
     relationship: "Relación"
     # relationship_of_entity: "%{relationship} of %{entity}"
@@ -1427,6 +1440,7 @@ spa:
     repayments_graph: "Reembolsos gráfico"
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
+    request_maintenance: "Solicitud de mantenimiento"
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
@@ -1688,6 +1702,9 @@ spa:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1758,6 +1775,9 @@ spa:
       # one: "%{count} task"
       # other: "%{count} tasks"
     # x_thing: "%{x} %{thing}"
+    x_times:
+      # one: "%{count} time"
+      # other: "%{count} times"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1819,6 +1839,10 @@ spa:
         # other: "%{count} entries have been validated"
         zero: "No hay entradas ha sido validado"
       entity_columns_are_needed: "se debe especifiar a lo menos une columna para la persona y particularmente sur nombre."
+      # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
+      # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       exception_raised: "Un error sobrevino durante el tratamiento\_: %{message}"
       expired_session: "sesion espirada. por favor reconectese." #?
       fails_to_extract_listing: "La extracción no ha podido hacerse\_: %{message}"
@@ -1881,6 +1905,7 @@ spa:
       no_production_defined_for_current_campaign: "No se ha definido para la producción de la campaña actual"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No se encontró producción. Se pueden añadir nuevos o copiar algunos de la campaña anterior."
       no_reopenable_journal: "nos se puede cerrar este periodico."
+      no_replacements_since_beginning: "No hay que sustituir una desde el principio"
       no_stocks: "No hay ningun deposito. Si se quiere adùinistrar los depositos para une producto, por favor escroge la opción «administrar los depositos» dentro de las caracteristicas de vuestro producto." #?
       no_template_journal: "Ningun modelo de periodico" #?
       no_template_journal_by_id: "Ningun modedo de periodico" #?
@@ -2041,6 +2066,7 @@ spa:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
+    # backend/interventions: "%{number}. %{name}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

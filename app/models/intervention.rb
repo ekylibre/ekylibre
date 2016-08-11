@@ -22,25 +22,29 @@
 #
 # == Table: interventions
 #
-#  actions          :string
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  custom_fields    :jsonb
-#  description      :text
-#  event_id         :integer
-#  id               :integer          not null, primary key
-#  issue_id         :integer
-#  lock_version     :integer          default(0), not null
-#  number           :string
-#  prescription_id  :integer
-#  procedure_name   :string           not null
-#  started_at       :datetime
-#  state            :string           not null
-#  stopped_at       :datetime
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  whole_duration   :integer          default(0), not null
-#  working_duration :integer          default(0), not null
+#  actions                 :string
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  custom_fields           :jsonb
+#  description             :text
+#  event_id                :integer
+#  id                      :integer          not null, primary key
+#  issue_id                :integer
+#  lock_version            :integer          default(0), not null
+#  nature                  :string           not null
+#  number                  :string
+#  prescription_id         :integer
+#  procedure_name          :string           not null
+#  request_intervention_id :integer
+#  started_at              :datetime
+#  state                   :string           not null
+#  stopped_at              :datetime
+#  trouble_description     :text
+#  trouble_encountered     :boolean          default(FALSE), not null
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  whole_duration          :integer          default(0), not null
+#  working_duration        :integer          default(0), not null
 #
 
 class Intervention < Ekylibre::Record::Base
@@ -48,8 +52,11 @@ class Intervention < Ekylibre::Record::Base
   include Customizable
   attr_readonly :procedure_name, :production_id
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
+  belongs_to :request_intervention, -> { where(nature: :request) }, class_name: 'Intervention'
   belongs_to :issue
   belongs_to :prescription
+  has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
+
   with_options inverse_of: :intervention do
     has_many :root_parameters, -> { where(group_id: nil) }, class_name: 'InterventionParameter', dependent: :destroy
     has_many :parameters, class_name: 'InterventionParameter'
@@ -64,13 +71,15 @@ class Intervention < Ekylibre::Record::Base
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
+  enumerize :nature, in: [:request, :record], default: :record, predicates: true
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
-  validates :description, length: { maximum: 500_000 }, allow_blank: true
-  validates :procedure_name, :state, presence: true
+  validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
+  validates :nature, :procedure_name, :state, presence: true
   validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   # ]VALIDATORS]
   validates :actions, presence: true
@@ -95,7 +104,7 @@ class Intervention < Ekylibre::Record::Base
 
   scope :of_nature, ->(reference_name) { where(reference_name: reference_name) }
   scope :of_category, lambda { |category|
-    where(procedure_name: Procedo.procedures_of_category(category).map(&:name))
+    where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }
   scope :of_campaign, lambda { |campaign|
     where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).of_campaign(campaign)))
@@ -323,6 +332,12 @@ class Intervention < Ekylibre::Record::Base
     end.sum
   end
 
+  def human_total_cost
+    [:input, :tool, :doer].map do |type|
+      (cost(type) || 0.0).to_d
+    end.sum.round(Nomen::Currency.find(currency).precision)
+  end
+
   def total_cost_per_area(area_unit = :hectare)
     if working_zone_area > 0.0.in_square_meter
       return (total_cost / working_zone_area(area_unit).to_d)
@@ -356,6 +371,11 @@ class Intervention < Ekylibre::Record::Base
     unit = args.shift || options[:unit] || :hectare
     precision = args.shift || options[:precision] || 2
     working_zone_area(unit: unit).round(precision).l(precision: precision)
+  end
+
+  def working_area(unit = :hectare)
+    ActiveSupport::Deprecation.warn 'Intervention#working_area is deprecated. Please use Intervention#working_zone_area instead.'
+    working_zone_area(unit)
   end
 
   def status

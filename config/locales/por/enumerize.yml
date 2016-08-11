@@ -176,6 +176,9 @@ por:
         in_progress: "Em progresso"
         undone: "Desfeito"
     intervention:
+      nature:
+        record: "Registro"
+        request: "Pedido"
       state:
         done: "Finalizado"
         in_progress: "Em progresso"
@@ -459,9 +462,3 @@ por:
         create: "Crio"
         destroy: "Destruir"
         update: "Atualizar"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "Número fatura fornecedor" #?
-    required: #?
-      text: "requeridos" #?

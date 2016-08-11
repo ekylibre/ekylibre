@@ -465,7 +465,10 @@ module ApplicationHelper
     item_options = default_item.args.third if default_item
     item_options ||= {}
     item_options[:tool] = options[:icon] if options.key?(:icon)
-    content_tag(:div, class: 'btn-group' + (options[:class] ? ' ' + options[:class].to_s : '')) do
+    html_options = { class: 'btn-group' }
+    html_options[:class] << ' ' + options[:class].to_s if options[:class]
+    html_options[:id] = options[:id] if options[:id]
+    content_tag(:div, html_options) do
       if default_item
         html = tool_to(default_item.args.first, default_item.args.second,
                        item_options, &default_item.block)
@@ -916,7 +919,7 @@ module ApplicationHelper
     header_options = options.slice(:close_button, :close_html).merge(title_id: options[:aria][:labelledby])
     content_for(:popover) do
       content_tag(:div, options) do
-        content_tag(:div, class: 'modal-dialog') do
+        content_tag(:div, class: 'modal-dialog' + (options[:size] == :large ? ' modal-lg' : options[:size] == :small ? ' modal-sm' : '')) do
           content_tag(:div, class: 'modal-content') do
             if title
               modal_header(title, header_options) + capture(&block)

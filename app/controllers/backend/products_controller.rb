@@ -132,10 +132,11 @@ module Backend
     list(:intervention_product_parameters, model: :intervention_parameters, conditions: { product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
       t.column :intervention, url: true
       # t.column :roles, hidden: true
-      t.column :name, sort: :reference_name
+      t.column :reference, label_method: :name, sort: :reference_name
       t.column :started_at, through: :intervention, datatype: :datetime
       t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
       t.column :human_activities_names, through: :intervention
+      t.column :actions, label_method: :human_actions_names, through: :intervention
       # t.column :intervention_activities
       t.column :human_working_duration, through: :intervention
       t.column :human_working_zone_area, through: :intervention

@@ -163,6 +163,9 @@ ul.dropdown-menu {
     font-size: $fs-huge;
     line-height: $lh-huge;
   }
+  .modal & {
+    padding: 8vh 10%;
+  }
 }
 
 a[data-toggle='side'] {
@@ -1858,22 +1861,6 @@ ul.tree {
 
 .select-product {
   @include box-emphasis;
-}
-
-.activity-family {
-  margin: $default-gap * 2;
-  h2.activity-family-name {
-    font-size: $fs-large;
-    line-height: $lh-large;
-    margin-bottom: $default-gap * 2;
-    border-bottom: 1px solid #DDD;
-  }
-  .btn-group {
-    margin: $default-gap;
-    .btn {
-      min-width: 20em;
-    }
-  }
 }
 
 .proposal-list {

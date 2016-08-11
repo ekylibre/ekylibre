@@ -2851,6 +2851,28 @@ matters_054:
   uuid: 165a7542-3292-4e3a-8ead-2bde5d8d0837
   variant_id: 39
   variety: preparation
+matters_055:
+  born_at: 2016-08-10 14:27:49.798212000 Z
+  category_id: 23
+  created_at: 2016-08-10 14:27:49.841387000 Z
+  creator_id: 1
+  derivative_of: equipment
+  id: 180
+  identification_number: ''
+  initial_born_at: 2016-08-10 14:27:49.798212000 Z
+  initial_movement_id: 173
+  initial_owner_id: 1
+  initial_population: 0.0
+  lock_version: 0
+  name: Pièce de machine
+  nature_id: 61
+  number: PR00000000124
+  type: Matter
+  updated_at: 2016-08-10 14:27:49.841387000 Z
+  updater_id: 1
+  uuid: a07ec5ff-4f65-4c35-93ce-86df33b8922b
+  variant_id: 71
+  variety: equipment_part
 plants_001:
   born_at: 2013-11-10 12:01:30.000000000 Z
   category_id: 8

@@ -173,6 +173,9 @@ arb:
         in_progress: "في تَقَدم"
         undone: "غير مصنوع"
     intervention:
+      nature:
+        record: "سجل"
+        request: "طلب"
       state:
         done: "فعله"
         in_progress: "في تَقَدم"
@@ -445,9 +448,3 @@ arb:
         create: "خلق"
         destroy: "هدم"
         update: "تحديث"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "رقم الفاتورة المورد" #?
-    required: #?
-      text: "مطلوب" #?

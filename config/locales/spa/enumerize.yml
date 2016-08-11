@@ -174,6 +174,9 @@ spa:
         in_progress: "En progreso"
         undone: "Deshecho"
     intervention:
+      nature:
+        record: "Grabar"
+        request: "Solicitud"
       state:
         done: "Hecho"
         in_progress: "En progreso"
@@ -446,9 +449,3 @@ spa:
         create: "Crear"
         destroy: "Destruir"
         update: "Actualizar"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "Número de factura del proveedor" #?
-    required: #?
-      text: "necesario" #?

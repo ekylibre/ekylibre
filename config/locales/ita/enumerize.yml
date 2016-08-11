@@ -174,11 +174,14 @@ ita:
         in_progress: "In corso"
         undone: "Disfatto"
     intervention:
+      nature:
+        record: "Disco"
+        request: "Richiesta"
       state:
         done: "Fatto"
         in_progress: "In corso"
-        squeezed: "spremuto"
-        undone: "disfatto"
+        squeezed: "Spremuto"
+        undone: "Disfatto"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booleano"
@@ -446,9 +449,3 @@ ita:
         create: "Creare"
         destroy: "Distruggere"
         update: "Aggiornare"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "numero di fattura del fornitore" #?
-    required: #?
-      text: "richiesto" #?

@@ -121,6 +121,7 @@
 - product_nature_category
 - product_nature_category_taxation
 - product_nature_variant
+- product_nature_variant_component
 - product_nature_variant_reading
 - product_ownership
 - product_phase

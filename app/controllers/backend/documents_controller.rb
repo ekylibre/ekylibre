@@ -46,7 +46,7 @@ module Backend
         format.html { t3e @document }
         format.json
         format.xml
-        format.pdf { send_file(@document.file.path(:default), disposition: 'inline') }
+        format.pdf { send_file(@document.file.path(params[:format] != :default ? :original : :default), disposition: 'inline') }
         format.jpg { send_file(@document.file.path(:thumbnail), disposition: 'inline') }
       end
     end

@@ -2180,3 +2180,25 @@ product_localizations_188:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2016-07-26 19:27:42.860722000 Z
   updater_id: 1
+product_localizations_189:
+  created_at: 2016-08-10 14:27:49.895960000 Z
+  creator_id: 1
+  id: 223
+  lock_version: 0
+  nature: exterior
+  product_id: 180
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:49.895960000 Z
+  updater_id: 1
+product_localizations_190:
+  container_id: 21
+  created_at: 2016-08-10 14:27:49.997236000 Z
+  creator_id: 1
+  id: 224
+  lock_version: 0
+  nature: interior
+  product_id: 180
+  started_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:49.997236000 Z
+  updater_id: 1

@@ -32,7 +32,7 @@ fra:
       show: "Budget: %{name}"
     backend/activity_productions:
       edit: "Modifier une production"
-      index: "Productions" #?
+      index: "Productions"
       new: "Nouvelle production"
       show: "Production\_: %{name}"
     backend/affairs:
@@ -320,8 +320,10 @@ fra:
       show: "Agréage\_: %{number}"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
+      edit_request: "Modifier la demande de %{procedure_name} #%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
+      new_request: "Nouvelle demande d'intervention"
       run: "Exécuter l’intervention" #?
       set: "Saisie des valeurs de l’intervention" #?
       show: "%{procedure_name}"
@@ -781,7 +783,9 @@ fra:
     add_attachment: "Ajouter une pièce jointe"
     add_bank_statement: "Ajouter un relevé de compte"
     add_catalog_price: "Ajouter un prix catalogue"
+    add_child: "Ajouter un sous-composant"
     add_choice: "Ajouter un choix"
+    add_component: "Ajouter un composant"
     add_condition: "Ajouter la condition"
     add_conditions: "Ajoutez des conditions"
     add_delivery: "Ajouter une livraison"
@@ -795,6 +799,8 @@ fra:
     add_inspection_calibration_nature: "Ajouter un intervalle du calibre"
     add_inspection_calibration_scale: "Ajouter une échelle de calibre"
     add_inspection_point_nature: "Ajouter un critère de qualité"
+    add_intervention_record: "Enregistrer une intervention"
+    add_intervention_request: "Demander une intervention"
     add_item: "Ajouter un élément"
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
@@ -961,6 +967,8 @@ fra:
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     complete: "Compléter"
+    component: "Composant" #?
+    component_name: "Nom du composant" #?
     components: "Composants" #?
     concentrations_map: "Carte des concentrations" #?
     conditions:
@@ -1085,6 +1093,7 @@ fra:
     document: "Document joint"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
+    documentation: "Documentation"
     doer_cost: "Coût de main d’œuvre"
     done: "Fait"
     dont_use_journal: "— Ne pas utiliser de journal —"
@@ -1152,6 +1161,7 @@ fra:
     extract: "Extraire" #?
     fat_matters_concentration: "Teneur en matières grasses" #?
     fax: "Fax" #?
+    field_distribution: "Parcellaire"
     file_nature: "Type de fichier"
     file_pages_count: "Nombre de pages" #?
     file_preview: "Visualisation de votre fichier"
@@ -1502,6 +1512,7 @@ fra:
     order_amount_with_taxes: "Montant de la commande" #?
     order_print: "Imprimer la commande" #?
     organic_matter_concentration: "Teneur en matière organique"
+    original_component: "D'origine"
     other_results: "Autres résultats…" #?
     others: "Autres"
     outgoing_payment: "Décaissement"
@@ -1518,6 +1529,7 @@ fra:
     paid_at: "Réglé le"
     parameters: "Paramètres"
     parcels: "Colis"
+    part: "Pièce" #?
     participants: "Participants"
     participations: "Participations"
     parts: "Modules"
@@ -1580,6 +1592,8 @@ fra:
     print_at: "Le" #?
     print_with_template: "Imprimer %{name}" #?
     printing_document: "Impression de %{document}"
+    procedure: "Procédure" #?
+    procedure_name: "Nom de la procedure" #?
     procedure_natures: "Types de procédures" #?
     procedures: "Procédures"
     product: "Produit"
@@ -1619,6 +1633,7 @@ fra:
       invoice: "Facture" #?
       order: "Commande" #?
       refused: "Refusée" #?
+    quality: "Qualité"
     quandl: "Quandl"
     quantity: "Quantité"
     quantity_rest: "Quantité restante" #?
@@ -1635,10 +1650,12 @@ fra:
     reconciled_total: "Total rapproché"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement." #?
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé." #?
+    record_maintenance: "Enregistrer une maintenance"
     reflect: "Refléter"
     reflected: "Changements répercutés"
     reflections: "Réflections"
     refresh: "Rafraîchir"
+    register_intervention_request: "Enregistrer la demande d'intervention"
     related_people: "En lien avec" #?
     relationship: "Tiers"
     relationship_of_entity: "%{relationship} de %{entity}"
@@ -1656,9 +1673,11 @@ fra:
     reopen_journal: "Déclôturer le journal" #?
     repayments: "Remboursements"
     repayments_graph: "Graphique des remboursements"
+    replace: "Remplacer" #?
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
+    request_maintenance: "Demander une maintenance"
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
@@ -1953,6 +1972,7 @@ fra:
       resized: "Mode «\_Tout à l’écran\_»" #?
     virtual_quantity: "Quantité virtuelle" #?
     watering_concentration: "Eau consommée"
+    wear: "Usure" #?
     weather: "Météo"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
@@ -2000,6 +2020,9 @@ fra:
     x_hours:
       one: "%{count} heure"
       other: "%{count} heures"
+    x_hours_worked:
+      one: "%{count}\_h travaillée"
+      other: "%{count}\_h travaillées"
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
@@ -2046,6 +2069,9 @@ fra:
     x_outgoing_payments:
       one: "%{count} décaissement"
       other: "%{count} décaissements"
+    x_part_replacements:  #?
+      one: "%{count} changement de pièces effectué" #?
+      other: "%{count} changement de pièces effectués" #?
     x_performed_operations:  #?
       one: "%{count} travail à réaliser" #?
       other: "%{count} travaux à réaliser" #?
@@ -2085,6 +2111,9 @@ fra:
       one: "%{count} tâche"
       other: "%{count} tâches"
     x_thing: "%{x} %{thing}"
+    x_times:
+      one: "%{count} fois"
+      other: "%{count} fois"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s de %{product}"
     x_unit_per_second: "Débit: %{quantity}%{unit}/s"
@@ -2147,6 +2176,10 @@ fra:
         other: "%{count} écritures du brouillard validées"
         zero: "Aucune écriture du brouillard validée"
       entity_columns_are_needed: "Vous devez spécifier au moins une colonne pour la personne et notamment son nom de famille/dénomination sociale."
+      equipment_component_is_at_end_of_life: "Le composant %{component_name} de l'équipement %{equipment_name} approche la fin de sa vie. Temps restant: %{remaining_time}."
+      equipment_component_is_worn_out: "Le composant %{component_name} de l'équipement %{equipment_name} est usé. Temps de travail restant: %{remaining_time}."
+      equipment_is_at_end_of_life: "L'équipment %{name} approche la fin de sa vie. Temps restant: %{remaining_time}."
+      equipment_is_worn_out: "L'équipement %{name} est usé. Temps de travail restant: %{remaining_time}."
       exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
       expired_session: "Session expirée. Veuillez vous reconnecter." #?
       fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
@@ -2206,6 +2239,7 @@ fra:
       no_production_defined_for_current_campaign: "Aucune production pour la campagne en cours"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Aucune production pour l’instant. Vous pouvez en créer une nouvelle ou en copier depuis la campagne précédente."
       no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
+      no_replacements_since_beginning: "Aucun changement depuis le début"
       no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
       no_template_journal: "Pas de modèle journal" #?
       no_template_journal_by_id: "Pas de modèle journal" #?
@@ -2367,10 +2401,10 @@ fra:
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} de %{payer_full_name} de %{amount} %{currency}"
+    backend/interventions: "%{number}. %{name}"
     backend/journal_entry_items: "[%{entry_number}] %{name} (%{account_number}) D%{real_debit}/C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"
-    backend/operations: "%{reference_name} (%{started_at})" #?
     backend/outgoing_payments: "%{number}. %{mode_name} pour %{payee_full_name} de %{amount} %{currency}"
     backend/parcels: "%{number} ‒ %{reference_number}"
     backend/plants: "%{name} ‒ %{work_number}"
@@ -2378,7 +2412,6 @@ fra:
     backend/product_memberships: "%{started_at}"
     backend/product_nature_variants: "%{name} (%{unit_name})"
     backend/product_natures: "%{name}"
-    backend/productions: "%{name} (%{campaign_name})" #?
     backend/products: "%{work_number} %{name} (%{number})"
     backend/trackings: "%{serial} ‒ %{name} ‒ %{producer_full_name}"
     backend/users: "%{first_name} %{last_name}"

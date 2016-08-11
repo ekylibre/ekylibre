@@ -92,6 +92,7 @@ fra:
     cleaner: "Outil de nettoyage"
     compressor: "Compresseur"
     construction_material: "Materiel de construction"
+    consumable_part: "Consommable"
     container: "Conteneur"
     corker: "Boucheuse"
     corks: "Bouchons"
@@ -221,6 +222,7 @@ fra:
     protective_canvas: "Bâche de protection"
     protective_net: "Filet de protection"
     pruner: "Sécateur" #?
+    replacement_part: "Pièce de remplacement"
     residue: "Residue"
     second_chemical_input: "Second intrant de protection des végétaux" #?
     second_chemical_input_to_use: "Second intrant de protection des végétaux à utiliser" #?
@@ -297,6 +299,7 @@ fra:
     wine_to_treat: "Vin à traiter"
     wire_fence: "Fils de clôture"
     wire_fence_to_put: "Fils de clôture à positionner" #?
+    work: "Travail"
     worker: "Travailleur"
     zone: "Zone"
   procedures:
@@ -329,7 +332,9 @@ fra:
     egg_collecting: "Collecte d'œufs"
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
-    equipment_item_replacement: "Remplacement de pièces d'équipement"
+    equipment_item_replacement: "Équipement pièce de rechange"
+    equipment_maintenance: "Entretien de l&#39;équipement"
+    equipment_part_replacement: "Remplacement de pièces d'équipement" #?
     fermentation: "Fermentation"
     fertilizing: "Fertilisation"
     field_plant_sorting: "Tri au champ"

@@ -1895,3 +1895,40 @@ product_movements_172:
   stopped_at: 2016-07-01 20:46:56.161420000 Z
   updated_at: 2016-07-01 20:46:56.169394000 Z
   updater_id: 1
+product_movements_173:
+  created_at: 2016-08-10 14:27:49.907001000 Z
+  creator_id: 1
+  delta: 0.0
+  id: 173
+  lock_version: 0
+  population: -2.0
+  product_id: 180
+  started_at: 2016-08-10 14:27:49.798212000 Z
+  stopped_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:49.907001000 Z
+  updater_id: 1
+product_movements_174:
+  created_at: 2016-08-10 14:27:49.987221000 Z
+  creator_id: 1
+  delta: 250.0
+  id: 174
+  lock_version: 0
+  population: 248.0
+  product_id: 180
+  started_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:49.987221000 Z
+  updater_id: 1
+product_movements_175:
+  created_at: 2016-08-10 14:33:28.819569000 Z
+  creator_id: 1
+  delta: -2.0
+  id: 175
+  lock_version: 1
+  originator_id: 168
+  originator_type: InterventionParameter
+  population: -2.0
+  product_id: 180
+  started_at: 2016-08-10 13:33:00.000000000 Z
+  stopped_at: 2016-08-10 14:27:49.798212000 Z
+  updated_at: 2016-08-10 14:33:28.858698000 Z
+  updater_id: 1

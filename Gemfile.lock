@@ -142,6 +142,8 @@ GEM
     database_cleaner (1.5.3)
     dbf (3.0.5)
     debug_inspector (0.0.2)
+    deep_cloneable (2.2.1)
+      activerecord (>= 3.1.0, < 5.2.0)
     devise (4.2.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -155,7 +157,7 @@ GEM
     docile (1.1.5)
     domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
-    enumerize (1.1.1)
+    enumerize (2.0.0)
       activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.2.0.1)
@@ -523,6 +525,7 @@ DEPENDENCIES
   colored
   coveralls (>= 0.6)
   database_cleaner
+  deep_cloneable (~> 2.2.1)
   devise
   devise-i18n-views
   devise_invitable

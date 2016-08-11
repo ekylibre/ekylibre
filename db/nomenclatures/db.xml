@@ -1495,6 +1495,7 @@
       <item name="consumption_period" datatype="measure" unit="day"/>
       <item name="copper_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="cumulated_rainfall" datatype="measure" unit="millimeter" sampling_temporal_mode="period"/>
+      <item name="daily_average_working_time" datatype="measure" unit="hour"/>
       <item name="daily_nitrogen_production" datatype="measure" unit="kilogram"/>
       <item name="diameter" datatype="measure" unit="meter"/>
       <item name="dry_matter_rate" datatype="measure" unit="mass_percent"/>
@@ -1525,6 +1526,7 @@
       <item name="lactating" datatype="boolean"/>
       <item name="last_birth_children_count" datatype="integer"/>
       <item name="length" datatype="measure" unit="meter"/>
+      <item name="lifespan" datatype="measure" unit="hour"/>
       <item name="lipolysis" datatype="measure" unit="thousand_per_hectogram"/>
       <item name="livestock_unit" datatype="decimal" gathering="proportional_to_population"/>
       <item name="magnesium_concentration" datatype="measure" unit="mass_percent"/>
@@ -1629,6 +1631,7 @@
       <item name="wind_direction" datatype="measure" unit="degree" sampling_temporal_mode="instant"/>
       <item name="wind_speed" datatype="measure" unit="kilometer_per_hour" sampling_temporal_mode="instant"/>
       <item name="woodstock_variety" datatype="choice" choices="varieties"/>
+      <item name="working_lifespan" datatype="measure" unit="hour"/>
       <item name="zinc_concentration" datatype="measure" unit="parts_per_million"/>
     </items>
   </nomenclature>
@@ -1956,6 +1959,7 @@
       <item name="concrete_slab_pouring"/>
       <item name="conservation_plowing"/>
       <item name="corvicide"/>
+      <item name="curative_maintenance"/>
       <item name="cutting"/>
       <item name="dehorning"/>
       <item name="desiccation"/>
@@ -2029,6 +2033,7 @@
       <item name="planting"/>
       <item name="plowing"/>
       <item name="pollinate"/>
+      <item name="preventive_maintenance"/>
       <item name="product_identification"/>
       <item name="pumping_system_troubleshooting"/>
       <item name="rain_protection"/>
@@ -2058,6 +2063,7 @@
       <item name="tunnel_installation"/>
       <item name="tunnel_removal"/>
       <item name="tunnel_removing"/>
+      <item name="upgrading_maintenance"/>
       <item name="virucide"/>
       <item name="water_flow_improvement"/>
       <item name="weeding"/>

@@ -22,25 +22,29 @@
 #
 # == Table: interventions
 #
-#  actions          :string
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  custom_fields    :jsonb
-#  description      :text
-#  event_id         :integer
-#  id               :integer          not null, primary key
-#  issue_id         :integer
-#  lock_version     :integer          default(0), not null
-#  number           :string
-#  prescription_id  :integer
-#  procedure_name   :string           not null
-#  started_at       :datetime
-#  state            :string           not null
-#  stopped_at       :datetime
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  whole_duration   :integer          default(0), not null
-#  working_duration :integer          default(0), not null
+#  actions                 :string
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  custom_fields           :jsonb
+#  description             :text
+#  event_id                :integer
+#  id                      :integer          not null, primary key
+#  issue_id                :integer
+#  lock_version            :integer          default(0), not null
+#  nature                  :string           not null
+#  number                  :string
+#  prescription_id         :integer
+#  procedure_name          :string           not null
+#  request_intervention_id :integer
+#  started_at              :datetime
+#  state                   :string           not null
+#  stopped_at              :datetime
+#  trouble_description     :text
+#  trouble_encountered     :boolean          default(FALSE), not null
+#  updated_at              :datetime         not null
+#  updater_id              :integer
+#  whole_duration          :integer          default(0), not null
+#  working_duration        :integer          default(0), not null
 #
 require 'test_helper'
 

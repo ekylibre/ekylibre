@@ -1561,8 +1561,12 @@ ActiveRecord::Schema.define(version: 20160811124234) do
     t.string   "quantity_indicator_name"
     t.integer  "group_id"
     t.string   "new_name"
+    t.integer  "component_id"
+    t.integer  "assembly_id"
   end
 
+  add_index "intervention_parameters", ["assembly_id"], name: "index_intervention_parameters_on_assembly_id", using: :btree
+  add_index "intervention_parameters", ["component_id"], name: "index_intervention_parameters_on_component_id", using: :btree
   add_index "intervention_parameters", ["created_at"], name: "index_intervention_parameters_on_created_at", using: :btree
   add_index "intervention_parameters", ["creator_id"], name: "index_intervention_parameters_on_creator_id", using: :btree
   add_index "intervention_parameters", ["event_participation_id"], name: "index_intervention_parameters_on_event_participation_id", using: :btree
@@ -1600,30 +1604,36 @@ ActiveRecord::Schema.define(version: 20160811124234) do
   create_table "interventions", force: :cascade do |t|
     t.integer  "issue_id"
     t.integer  "prescription_id"
-    t.string   "procedure_name",               null: false
-    t.string   "state",                        null: false
+    t.string   "procedure_name",                          null: false
+    t.string   "state",                                   null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0, null: false
+    t.integer  "lock_version",            default: 0,     null: false
     t.integer  "event_id"
     t.string   "number"
     t.text     "description"
-    t.integer  "working_duration", default: 0, null: false
-    t.integer  "whole_duration",   default: 0, null: false
+    t.integer  "working_duration",        default: 0,     null: false
+    t.integer  "whole_duration",          default: 0,     null: false
     t.string   "actions"
     t.jsonb    "custom_fields"
+    t.string   "nature",                                  null: false
+    t.integer  "request_intervention_id"
+    t.boolean  "trouble_encountered",     default: false, null: false
+    t.text     "trouble_description"
   end
 
   add_index "interventions", ["created_at"], name: "index_interventions_on_created_at", using: :btree
   add_index "interventions", ["creator_id"], name: "index_interventions_on_creator_id", using: :btree
   add_index "interventions", ["event_id"], name: "index_interventions_on_event_id", using: :btree
   add_index "interventions", ["issue_id"], name: "index_interventions_on_issue_id", using: :btree
+  add_index "interventions", ["nature"], name: "index_interventions_on_nature", using: :btree
   add_index "interventions", ["prescription_id"], name: "index_interventions_on_prescription_id", using: :btree
   add_index "interventions", ["procedure_name"], name: "index_interventions_on_procedure_name", using: :btree
+  add_index "interventions", ["request_intervention_id"], name: "index_interventions_on_request_intervention_id", using: :btree
   add_index "interventions", ["started_at"], name: "index_interventions_on_started_at", using: :btree
   add_index "interventions", ["stopped_at"], name: "index_interventions_on_stopped_at", using: :btree
   add_index "interventions", ["updated_at"], name: "index_interventions_on_updated_at", using: :btree
@@ -2596,6 +2606,29 @@ ActiveRecord::Schema.define(version: 20160811124234) do
   add_index "product_nature_category_taxations", ["updated_at"], name: "index_product_nature_category_taxations_on_updated_at", using: :btree
   add_index "product_nature_category_taxations", ["updater_id"], name: "index_product_nature_category_taxations_on_updater_id", using: :btree
   add_index "product_nature_category_taxations", ["usage"], name: "index_product_nature_category_taxations_on_usage", using: :btree
+
+  create_table "product_nature_variant_components", force: :cascade do |t|
+    t.integer  "product_nature_variant_id",                  null: false
+    t.integer  "part_product_nature_variant_id"
+    t.integer  "parent_id"
+    t.datetime "deleted_at"
+    t.string   "name",                                       null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                   default: 0, null: false
+  end
+
+  add_index "product_nature_variant_components", ["created_at"], name: "index_product_nature_variant_components_on_created_at", using: :btree
+  add_index "product_nature_variant_components", ["creator_id"], name: "index_product_nature_variant_components_on_creator_id", using: :btree
+  add_index "product_nature_variant_components", ["deleted_at"], name: "index_product_nature_variant_components_on_deleted_at", using: :btree
+  add_index "product_nature_variant_components", ["name", "product_nature_variant_id"], name: "index_product_nature_variant_name_unique", unique: true, using: :btree
+  add_index "product_nature_variant_components", ["parent_id"], name: "index_product_nature_variant_components_on_parent_id", using: :btree
+  add_index "product_nature_variant_components", ["part_product_nature_variant_id"], name: "index_product_nature_variant_components_on_part_variant", using: :btree
+  add_index "product_nature_variant_components", ["product_nature_variant_id"], name: "index_product_nature_variant_components_on_variant", using: :btree
+  add_index "product_nature_variant_components", ["updated_at"], name: "index_product_nature_variant_components_on_updated_at", using: :btree
+  add_index "product_nature_variant_components", ["updater_id"], name: "index_product_nature_variant_components_on_updater_id", using: :btree
 
   create_table "product_nature_variant_readings", force: :cascade do |t|
     t.integer  "variant_id",                                                                                                          null: false

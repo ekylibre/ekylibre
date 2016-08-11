@@ -88,6 +88,7 @@ gem 'state_machine'
 gem 'awesome_nested_set', '~> 3.0.0'
 gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
+gem 'deep_cloneable', '~> 2.2.1'
 
 # Authentication & Authorization
 gem 'devise'

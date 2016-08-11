@@ -174,6 +174,9 @@ deu:
         in_progress: "In Bearbeitung"
         undone: "Unerledigt"
     intervention:
+      nature:
+        record: "Aufzeichnen"
+        request: "Anfordern"
       state:
         done: "Erledigt"
         in_progress: "In Bearbeitung"
@@ -446,9 +449,3 @@ deu:
         create: "Erstellen"
         destroy: "Zerstören"
         update: "Aktualisieren"
-  simple_form:  #?
-    hints: #?
-      purchase: #?
-        reference_number: "Lieferant Rechnungsnummer" #?
-    required: #?
-      text: "Erforderlich" #?
