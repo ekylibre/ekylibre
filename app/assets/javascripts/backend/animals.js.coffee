@@ -41,12 +41,11 @@
 
         params = {}
         params['container'] = container.id() unless container is undefined
-        params['group'] = group.id unless group is undefined
 
-
-#        params['variant'] = group().id()
-#        params['group'] = group().id()
-
+        # find if any group changed
+        for id, item of @selectedItemsIndex
+          if item.parent.parent.id != group.id and group isnt undefined
+            params['group'] = group.id
 
         E.dialog.open @rebuildUrl(params),
           returns:
