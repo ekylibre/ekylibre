@@ -93,6 +93,8 @@ gem 'jc-validates_timeliness', '~> 3.1.1'
 gem 'devise'
 gem 'devise_invitable'
 gem 'devise-i18n-views'
+gem 'omniauth'
+gem 'omniauth-oauth2'
 
 # Attachments
 gem 'paperclip'
