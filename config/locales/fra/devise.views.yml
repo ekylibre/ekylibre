@@ -45,6 +45,7 @@ fra:
     sessions:
       new:
         sign_in: "Connexion"
+        ekylibre_oauth_sign_in: "Connexion avec Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Vous n’avez pas reçu le mail de confirmation\_?"
