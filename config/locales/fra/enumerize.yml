@@ -44,7 +44,7 @@ fra:
         controller_error: "Erreur de contrôleur"
         error: "Erreur"
         internal_error: "Erreur interne"
-        ok: "D&#39;accord"
+        ok: "OK"
         sensor_error: "Erreur de capteur"
     analysis_item:
       indicator_datatype:
