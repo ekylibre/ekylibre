@@ -27,12 +27,15 @@ module Backend::TimelineChartHelper
 
       @groups.each do |group|
 
+        timeline_datas = Hash.new {|h,k| h[k]=[]}
+        timeline_datas[:label] = group.label
+        timeline_datas[:data] = [] unless group.items.any?
+
         group.items.each do |item|
-          timeline_datas = Hash.new {|h,k| h[k]=[]}
-          timeline_datas[:label] = group.label
           timeline_datas[:data] << item.get_datas
-          datas[:datas] << timeline_datas
         end
+
+        datas[:datas] << timeline_datas
       end
 
       datas
