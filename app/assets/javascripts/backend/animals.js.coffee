@@ -143,16 +143,15 @@
 
   $(document).on 'click', 'a[data-toggle=dialog]', (e) =>
 
-    e.stopPropagation()
-    
     E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href'), parameters: $(e.currentTarget).data('parameters')}),
       returns:
         success: (frame, data, status, request) ->
 
-          if $(e.currentTarget).data('refresh')
-            Turbolinks.visit '', action: 'replace'
-
           frame.dialog "close"
+
+          if $(e.currentTarget).data('refresh')
+            window.onLoad()
+
           return
 
         invalid: (frame, data, status, request) ->
@@ -160,6 +159,12 @@
           return
     false
 
+  @onLoad = ->
+    $("*[data-golumns='animal']").each ->
+      golumn_id = $(this).data("golumns")
+      ko.unapplyBindings($(document.body))
+      window.app = new golumn(golumn_id)
+      window.loadData(golumn_id, $(this))
 
   $(document).ready ->
     # $("*[data-golumns]").mousewheel (event, delta) ->
@@ -167,10 +172,15 @@
     #     @scrollLeft -= (delta * 30)
     #     event.preventDefault()
 
+    window.onLoad()
 
-    $("*[data-golumns='animal']").each ->
-      golumn_id = $(this).data("golumns")
-      window.app = new golumn(golumn_id)
-      window.loadData(golumn_id, $(this))
+  ko.unapplyBindings = ($node, remove) =>
+    $node.find('*').each () ->
+      $(@).unbind()
+
+    if remove
+      ko.removeNode $node[0]
+    else
+      ko.cleanNode $node[0]
 
 ) ekylibre, golumn, jQuery
