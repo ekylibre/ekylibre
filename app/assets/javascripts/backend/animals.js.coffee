@@ -96,7 +96,7 @@
       success: (json_data) ->
         groups = ko.utils.arrayMap json_data.groups, (jGroup) =>
 
-          group = new G.Group(jGroup.id, jGroup.name, [])
+          group = new G.Group(jGroup.id, jGroup.name, jGroup.edit_path, [])
 
           group.containers ko.utils.arrayMap jGroup.places, (jPlace) =>
 
@@ -118,7 +118,7 @@
           group
 
         if json_data.without_group
-          new_group = new G.Group(json_data.without_group.id, json_data.without_group.name, [])
+          new_group = new G.Group(json_data.without_group.id, json_data.without_group.name, json_data.without_group.edit_path, [])
 
           #items without place:
           if json_data.without_group.without_place

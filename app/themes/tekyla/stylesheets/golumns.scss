@@ -69,19 +69,16 @@ $column-width: 28ex;
     flex-direction: column;
     // max-height: 100%;
 
-    .checker {
+    .edit {
       @include is-icon(14px);
-      @include use-icon(square-o);
+      @include use-icon(pencil);
       cursor: pointer;
-      opacity: 0;
+      opacity: 0.5;
       width: 14px;
       @include text-align(center);
       @include transition(opacity 0.2s);
       &:hover, &.active {
         opacity: 1;
-      }
-      &.active {
-        @include use-icon(check-square-o);
       }
     }
 

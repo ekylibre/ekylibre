@@ -8,7 +8,7 @@
   = t.menu :interventions, icon: false, class: 'interventions-accessor' do |menu|
     - Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
       - Procedo.procedures_of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-        - menu.item procedure.human_name, { controller: :interventions, procedure_name: procedure.name, redirect: params[:redirect], action: :new }, data: {toggle: 'dialog', target: procedure.name}
+        - menu.item procedure.human_name, { controller: :interventions, procedure_name: procedure.name, redirect: params[:redirect], action: :new }, data: {toggle: 'dialog', target: procedure.name, parameters: true}
       - menu.separator
 
 
@@ -35,6 +35,7 @@
           .golumn-column-header{data: {bind: 'checkbox: toggleItems'}}
             .golumn-column-handle
               %span.golumn-column-title{data: {bind: 'text: name'}}
+              = link_to '', nil, class: :edit, data: { bind: 'attr: { href: edit_path }', toggle: 'dialog', refresh: true }
               %span.badge.golumn-column-badge{data: { bind: 'text: count'}}
           .golumn-column-body
             .add-container.dropzone{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'}}, visible: droppable" }}

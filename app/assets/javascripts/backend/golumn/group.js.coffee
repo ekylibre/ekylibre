@@ -1,5 +1,5 @@
 class golumn.Group
-  constructor: (@id, @name, containers) ->
+  constructor: (@id, @name, @edit_path, containers) ->
     @containers = ko.observableArray([])
     @toggleItems = ko.observable false
     @droppable = ko.observable false
