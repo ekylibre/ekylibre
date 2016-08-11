@@ -1529,7 +1529,7 @@ eng:
         grains_area_density: "Grains area density"
         grains_count: "Grains count"
         hagberg_falling_number: "Hagberg falling number"
-        healthy: "Animal disease state"
+        healthy: "Healthiness"
         height: "Height"
         horizontal_rotation: "Horizontal rotation"
         immunoglobulins_concentration: "Immunoglobulins concentration"
