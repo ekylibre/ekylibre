@@ -1,8 +1,8 @@
 - main_toolbar do |t|
   = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
-  = t.new params: { controller: :animals, action: :new }, data: { toggle: 'dialog' }
-  = t.new label: Parcel.model_name.human, params: { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog' }
-  = t.new label: AnimalGroup.model_name.human, params: { controller: :animal_groups, action: :new }, data: { toggle: 'dialog' }
+  = t.new params: { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
+  = t.new label: Parcel.model_name.human, params: { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog', refresh: true }
+  = t.new label: AnimalGroup.model_name.human, params: { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }
 
   - family = Nomen::ActivityFamily[:animal_farming]
   = t.menu :interventions, icon: false, class: 'interventions-accessor' do |menu|
@@ -58,9 +58,7 @@
       %script#golumn-item-template{type: 'text/html'}
         .golumn-item{data: { bind: "draggable: {active: checked, options: {cursor: 'move', opacity: 1, revert: false, cursorAt: { left: 65 }, scrollSensitivity: 65, scrollSpeed: 30, scope: 'items'}}, checkbox: $data.checked, css: stateClass"}}
           .golumn-item-actions
-            .details{data: { bind: ' click: $root.toggleAnimalDetailsModal' }}
-          -#%span.golumn-item-handle
-            %i.icon.icon-ellipsis-v{ data: { bind: 'visible: checked'}}
+            = link_to '', nil, class: :details, data: { bind: 'attr: { href: show_path }', toggle: 'dialog' }
           %i.sex.icon{data: {bind: 'css: $data.sexClass'}}
           %span.golumn-item-title{data: { bind: 'text: $data.name'}}
 

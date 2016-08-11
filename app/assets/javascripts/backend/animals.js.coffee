@@ -14,13 +14,6 @@
 
       @selectedItemsIndex = {}
 
-      @showAnimalDetailsModal = ko.observable false
-      @animalDetailsModalOptions = ko.observable false
-
-      @cancelAnimalDetails = () =>
-        @animalDetailsModalOptions false
-        @showAnimalDetailsModal false
-
       @groups = ko.observableArray []
       @containers = ko.observableArray []
       @animals = ko.observableArray []
@@ -31,11 +24,6 @@
           group.droppable state
           ko.utils.arrayForEach group.containers(), (container) =>
             container.droppable state unless container.protect
-
-      @toggleAnimalDetailsModal = (animal) =>
-        @animalDetailsModalOptions animal
-        @showAnimalDetailsModal true
-        return
 
       @moveAnimals = (container, group) =>
 
@@ -50,7 +38,7 @@
         E.dialog.open @rebuildUrl(params),
           returns:
             success: (frame, data, status, request) =>
-              Turbolinks.refresh
+              Turbolinks.visit '#', action: 'replace'
 
               frame.dialog "close"
               return
@@ -108,7 +96,7 @@
             container = new G.Container(jPlace.id, jPlace.name, [], group)
 
             animals = ko.utils.arrayMap jPlace.animals, (animal) =>
-              new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number, container)
+              new G.Item(animal.id, animal.name, animal.picture_path, animal.status, animal.sex_text, animal.identification_number, animal.show_path, container)
 
             container.items animals
             container
@@ -131,6 +119,10 @@
     E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href')}),
       returns:
         success: (frame, data, status, request) ->
+
+          if $(e.currentTarget).data('refresh')
+            Turbolinks.visit '', action: 'replace'
+
           frame.dialog "close"
           return
 

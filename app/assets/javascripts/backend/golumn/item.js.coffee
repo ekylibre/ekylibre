@@ -1,5 +1,5 @@
 class golumn.Item
-  constructor: (@id, @name, @img, @status, @sex, @number_id, @parent) ->
+  constructor: (@id, @name, @img, @status, @sex, @number_id, @show_path = '', @parent) ->
     @sexClass = ko.pureComputed () =>
       #TODO get sex key from backend instead of human name
       if @sex == 'Mâle'
