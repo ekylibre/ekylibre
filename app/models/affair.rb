@@ -235,7 +235,7 @@ class Affair < Ekylibre::Record::Base
     end
     self.class.transaction do
       # raise thirds.map(&:name).inspect
-      for third in thirds
+      thirds.each do |third|
         attributes = { affair: self, amount: balance, currency: currency, entity: third, entity_role: third_role, direction: (losing? ? :loss : :profit), items: [] }
         pretax_amount = 0.0.to_d
         tax_items_for(third, distribution[third.id], (!losing? ? :debit : :credit)).each_with_index do |item, _index|
@@ -298,10 +298,9 @@ class Affair < Ekylibre::Record::Base
   end
 
   def reload_gaps
-    if gaps.any?
-      gaps.each { |g| g.undeal! self }
-      finish
-    end
+    return if gaps.none?
+    gaps.each { |g| g.undeal! self }
+    finish
   end
 
   # Returns a hash with each amount for each third
