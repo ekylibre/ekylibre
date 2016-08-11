@@ -41,9 +41,6 @@
               %button.btn.btn-link{type: 'button'}
                 %i.icon.icon-plus.text-muted
             %ul.golumn-groups{data: { bind: "template: { name: 'golumn-group-template', foreach: containers }"}}
-          -# = link_to('#', data: {target: '#new-animal', toggle: 'modal'}, class: "golumn-column-footer") do
-            %i.icon.icon-plus
-            %span= "actions.backend/animals.new".t
 
       %script#golumn-group-template{type: 'text/html'}
         %li.golumn-group{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'} }" }}
@@ -61,32 +58,3 @@
             = link_to '', nil, class: :details, data: { bind: 'attr: { href: show_path }', toggle: 'dialog' }
           %i.sex.icon{data: {bind: 'css: $data.sexClass'}}
           %span.golumn-item-title{data: { bind: 'text: $data.name'}}
-
-    = modal(:new_animal) do
-      .modal-body
-        .placeholding-message= :choose_creation_mode.tl
-      .modal-footer
-        = link_to Parcel.model_name.human, new_backend_parcel_path(nature: :incoming), class: 'btn btn-default'
-        -# Procedo.procedures_of_nature(:viviparous_birth).each do |procedure|
-          = link_to procedure.human_name, new_backend_intervention_path(reference_name: procedure.name), class: 'btn btn-default'
-        = link_to "actions.backend/animals.new".t, new_backend_animal_path, class: 'btn btn-default'
-
-    = modal(:animal_details, data: { bind: 'modal: showAnimalDetailsModal(), with: animalDetailsModalOptions', backdrop: 'static', keyboard: false}, close_html: {data: {bind: 'click: $root.cancelAnimalDetails'}}) do
-      .modal-body
-        .row
-          .col-md-9
-            %p
-              = Animal.human_attribute_name(:name)
-              %span{data: { bind: 'text: name'}}
-            %p
-              = :sex.tl
-              %i.icon{data: {bind: 'css: sexClass'}}
-            %p
-              = Animal.human_attribute_name(:status)
-              %span.lights{data: { bind: 'css: flagClass'}}
-                %span.light-go
-                %span.light-caution
-                %span.light-stop
-      .modal-footer
-        = link_to("#", data: {bind: 'attr: {href: showUrl}'}, class: "btn btn-default") do
-          = :details.tl
