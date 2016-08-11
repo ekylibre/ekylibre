@@ -29,6 +29,7 @@
 
         params = {}
         params['container'] = container.id() unless container is undefined
+        params['parameters'] = true
 
         # find if any group changed
         for id, item of @selectedItemsIndex
@@ -51,10 +52,16 @@
       @rebuildUrl = =>
         options = Array.from(arguments).shift()
         options['animals_ids'] ||= Object.keys(@selectedItemsIndex)
-        base_url = options['base_url'] || $('a[data-target=animal_group_changing]').attr('href')
-        delete options['base_url']
 
-        "#{base_url}&#{$.param(options)}"
+        parameters = options['parameters'] || false
+        base_url = options['base_url'] || $('a[data-target=animal_group_changing]').attr('href')
+
+        delete options['base_url']
+        delete options['parameters']
+
+        base_url += "&#{$.param(options)}" if parameters
+
+        base_url
 
       @impactOnSelection = =>
 
@@ -135,8 +142,10 @@
     return
 
   $(document).on 'click', 'a[data-toggle=dialog]', (e) =>
+
+    e.stopPropagation()
     
-    E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href')}),
+    E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href'), parameters: $(e.currentTarget).data('parameters')}),
       returns:
         success: (frame, data, status, request) ->
 
