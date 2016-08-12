@@ -77,8 +77,7 @@ module Backend
     end
 
     def load_animals
-      #TODO override if all animals need to be loaded
-      @read_at = { at: Time.zone.now }
+      @read_at = params[:scope] == 'now' ? { at: Time.zone.now } : @read_at = { at: false }
 
       @animal_groups = AnimalGroup.availables(@read_at).order(:name)
       @animals = Animal.availables(@read_at).order(:name)

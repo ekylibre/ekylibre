@@ -15,6 +15,11 @@
         - menu.item procedure.human_name, { controller: :interventions, procedure_name: procedure.name, redirect: params[:redirect], action: :new }, data: {toggle: 'dialog', target: procedure.name, parameters: true}
       - menu.separator
 
+  .btn-group
+    = t.new icon: false, label: :all.tl, data: { toggle: 'item-scope', scoped_items: 'all' }, href: ''
+    = t.new icon: false, label: :available.tl, data: { toggle: 'item-scope', scoped_items: 'now' }, href: '', class: 'active'
+
+
 
 = janus do |j|
   - j.face :list do

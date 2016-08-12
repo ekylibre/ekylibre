@@ -77,12 +77,13 @@
         @selectedItemsIndex = {}
 
 
-  @loadData = (golumn, element) =>
+  @loadData = (golumn, scope, element) =>
     $.ajax '/backend/animals/load_animals',
       type: 'GET'
       dataType: 'JSON'
       data:
         golumn_id: golumn
+        scope: scope
       beforeSend: () ->
         element.addClass("loading")
         return
@@ -159,8 +160,22 @@
     $("*[data-golumns='animal']").each ->
       golumn_id = $(this).data("golumns")
       ko.unapplyBindings($(document.body))
+
+      scope = $('[data-scoped-items].active').data('scoped-items')
+
       window.app = new golumn(golumn_id)
-      window.loadData(golumn_id, $(this))
+      window.loadData(golumn_id, scope, $(this))
+
+  $(document).on 'click', '[data-scoped-items]', (e) =>
+    scope = $(e.currentTarget).data('scoped-items')
+
+    $(e.currentTarget).data('scope', true)
+    $('[data-toggle=item-scope]').removeClass('active')
+    $(e.currentTarget).addClass('active')
+
+    window.onLoad()
+    e.preventDefault()
+
 
   $(document).ready ->
     # $("*[data-golumns]").mousewheel (event, delta) ->

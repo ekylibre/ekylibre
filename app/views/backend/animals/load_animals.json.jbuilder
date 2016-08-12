@@ -2,7 +2,7 @@ json.groups @animal_groups do |group|
   json.(group, :id, :name)
   json.edit_path edit_backend_animal_group_path(group)
 
-  members = Animal.members_of(group, @read_at[:at]).order(:name)
+  members = group.members_at(@read_at[:at]).availables(@read_at).order(:name)
 
   json.places group.places do |place|
     json.(place, :id, :name)
