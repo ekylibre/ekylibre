@@ -12,7 +12,7 @@
     %tfoot
       %tr
         %td{colspan: 4}
-          - if affair
+          - if affair && affair.gaps.none?
             - unless affair.closed?
               %span.action-intro= :attach_deal.tl
             %span.btn-group<
