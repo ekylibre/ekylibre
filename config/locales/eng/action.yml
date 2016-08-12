@@ -1522,7 +1522,7 @@ eng:
     tool_cost: "Tool cost"
     tools: "Tools"
     total: "Total"
-    total_amount: "Total amount" #?
+    total_amount: "Total amount" #??
     total_cost: "Total cost"
     total_in_currency: "Total (%{currency})"
     total_pretax_expenses: "Total pre-tax expenses"

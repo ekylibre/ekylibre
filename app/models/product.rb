@@ -337,6 +337,18 @@ class Product < Ekylibre::Record::Base
     end
   end
 
+  def production(at = nil)
+    distributions.at(at || Time.zone.now).first
+  end
+
+  def activity
+    production ? production.activity : nil
+  end
+
+  def activity_id
+    activity ? activity.id : nil
+  end
+
   # TODO: Removes this ASAP
   def deliverable?
     false

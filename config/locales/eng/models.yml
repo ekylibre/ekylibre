@@ -999,7 +999,7 @@ eng:
     product_reading: "Product reading"
     product_reading_tasks: "Product reading tasks" #?
     product_readings: "Product readings" #?
-    production: "Production" #?
+    production: "Production"
     production_campaign: "Production campaign"
     production_cycle: "Production cycle"
     production_support: "Production support" #?
