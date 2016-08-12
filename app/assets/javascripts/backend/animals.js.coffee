@@ -169,6 +169,9 @@
     #     event.preventDefault()
 
     window.onLoad()
+    $('.golumn-columns').scroll () =>
+      $('.golumn-items-counter').css('right', - $('.golumn-columns').scrollLeft() )
+
 
   ko.unapplyBindings = ($node, remove) =>
     $node.find('*').each () ->
