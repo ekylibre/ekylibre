@@ -1,14 +1,15 @@
 - main_toolbar do |t|
   = t.export :animal_list, key: Time.zone.now.to_s, resource: @animals
-  = t.new params: { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
-  = t.new label: Parcel.model_name.human, params: { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog', refresh: true }
-  = t.new label: AnimalGroup.model_name.human, params: { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }
-  = t.new label: BuildingDivision.model_name.human, params: { controller: :building_divisions, action: :new }, data: { toggle: 'dialog' }
-  = t.new label: Parcel.model_name.human, params: { controller: :parcels, action: :new, nature: :outgoing }, data: { toggle: 'dialog', refresh: true }
+  = t.menu :new.tl do |menu|
+    - menu.item :new.tl, { controller: :animals, action: :new }, data: { toggle: 'dialog', refresh: true }
+    - menu.item Parcel.model_name.human, { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog', refresh: true }
+    - menu.item AnimalGroup.model_name.human, { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }
+    - menu.item BuildingDivision.model_name.human, { controller: :building_divisions, action: :new }, data: { toggle: 'dialog' }
+    - menu.item Parcel.model_name.human, { controller: :parcels, action: :new, nature: :outgoing }, data: { toggle: 'dialog', refresh: true }
 
 
   - family = Nomen::ActivityFamily[:animal_farming]
-  = t.menu :interventions, icon: false, class: 'interventions-accessor' do |menu|
+  = t.menu :interventions, icon: false do |menu|
     - Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
       - Procedo.procedures_of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
         - menu.item procedure.human_name, { controller: :interventions, procedure_name: procedure.name, redirect: params[:redirect], action: :new }, data: {toggle: 'dialog', target: procedure.name, parameters: true}
