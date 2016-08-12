@@ -4,6 +4,8 @@
   = t.new label: Parcel.model_name.human, params: { controller: :parcels, action: :new, nature: :incoming }, data: { toggle: 'dialog', refresh: true }
   = t.new label: AnimalGroup.model_name.human, params: { controller: :animal_groups, action: :new }, data: { toggle: 'dialog', refresh: true }
   = t.new label: BuildingDivision.model_name.human, params: { controller: :building_divisions, action: :new }, data: { toggle: 'dialog' }
+  = t.new label: Parcel.model_name.human, params: { controller: :parcels, action: :new, nature: :outgoing }, data: { toggle: 'dialog', refresh: true }
+
 
   - family = Nomen::ActivityFamily[:animal_farming]
   = t.menu :interventions, icon: false, class: 'interventions-accessor' do |menu|
