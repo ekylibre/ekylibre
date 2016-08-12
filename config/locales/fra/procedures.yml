@@ -333,7 +333,7 @@ fra:
     egg_production: "Production d'œufs" #?
     enzyme_addition: "Ajout d'enzymes"
     equipment_item_replacement: "Équipement pièce de rechange"
-    equipment_maintenance: "Entretien de l&#39;équipement"
+    equipment_maintenance: "Entretien de l’équipement"
     equipment_part_replacement: "Remplacement de pièces d'équipement" #?
     fermentation: "Fermentation"
     fertilizing: "Fertilisation"

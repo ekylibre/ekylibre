@@ -1696,7 +1696,7 @@ ita:
       no_production_defined_for_current_campaign: "Nessuna produzione definita per la campagna in corso"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Nessuna produzione trovato. È possibile aggiungere nuovi o copiare alcuni dalla precedente campagna."
       no_reopenable_journal: "Non si può riaprire questa rivista."
-      no_replacements_since_beginning: "Non ci sono sostituzioni fin dall&#39;inizio"
+      no_replacements_since_beginning: "Non ci sono sostituzioni fin dall’inizio"
       record_already_imported: "Record già importati"
       record_cannot_be_removed: "Il record non può essere eliminato"
       record_has_been_correctly_removed: "Il record è stato rimosso con successo"
