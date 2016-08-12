@@ -207,7 +207,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { alive } # TODO: Remove null-population products
+  scope :available, -> {}
   scope :alive, -> { where(dead_at: nil) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
