@@ -28,7 +28,8 @@
 
       .golumn-loading
       .golumn-columns
-        .golumn-columns-container{data: { bind: "template: {name: 'golumn-column-template', foreach: groups}"}}
+        .golumn-columns-container{data: { bind: "template: {name: 'golumn-column-template', foreach: groups}" }}
+        .golumn-items-counter{data: { bind: "visible: counter, text: counter" }}
 
       %script#golumn-column-template{type: 'text/html'}
         .golumn-column

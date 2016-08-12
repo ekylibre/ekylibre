@@ -18,6 +18,8 @@
       @containers = ko.observableArray []
       @animals = ko.observableArray []
 
+      @counter = ko.observable 0
+
 
       @enableDropZones = (state = false) =>
         ko.utils.arrayForEach @groups(), (group) =>
@@ -65,13 +67,7 @@
 
       @impactOnSelection = =>
 
-        count = Object.keys(@selectedItemsIndex).length
-        $el = $('.interventions-accessor').find('[data-toggle=dropdown]')
-
-        $el.data('name', $el.html()) unless $el.data('name')
-
-        # TODO: set icon or text to explain counting.
-        $el.html("#{$el.data('name')} (#{count})")
+        @counter Object.keys(@selectedItemsIndex).length
 
 
       @resetSelectedItems = =>

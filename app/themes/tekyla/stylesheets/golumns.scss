@@ -37,6 +37,20 @@ $column-width: 28ex;
     .golumn-group-handle, .golumn-item-handle {
       cursor: move;
     }
+
+    .golumn-items-counter {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      border-color: $active-color;
+      background-color: $active-color;
+      color: white;
+      @include box-shadow(0 0 2px $active-color);
+      margin: $default-border-radius;
+      padding: $default-border-radius $default-gap;
+      clear: both;
+      @include border-radius($default-border-radius);
+    }
   }
 
 
