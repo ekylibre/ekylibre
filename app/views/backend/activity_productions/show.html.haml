@@ -171,14 +171,15 @@
 
     = timeline_chart("chart", resource.started_on, resource.stopped_on) do |chart|
       - interventions_menu = pop_menu :class => "timeline-chart-menu" do |menu|
-        - period_url = { controller: :activity_tactics, action: :edit, id: resource.tactic.id }
         - intervention_url = { controller: :interventions, action: :new}
         - menu.item 'Ajouter une intervention', { item_options: {:class => "menu-item"}, link_url: intervention_url, link_options: {:class => "menu-link"}}
-        - menu.item 'Ajouter une période', { item_options: {:class => "menu-item"}, link_url: period_url, link_options: {:class => "menu-link"}}
+        - if resource.tactic.present?
+          - period_url = { controller: :activity_tactics, action: :edit, id: resource.tactic.id }
+          - menu.item 'Ajouter une période', { item_options: {:class => "menu-item"}, link_url: period_url, link_options: {:class => "menu-link"}}
 
-      - chart.group "Périodes" do |item|
+      - if resource.tactic.present? && resource.tactic.steps.any?
+        - chart.group "Périodes" do |item|
 
-        - if resource.tactic.present? && resource.tactic.steps.any?
           - resource.tactic.steps.each do |step|
             - item.interval step.name, step.started_on, step.stopped_on,
                 {"id": step.name, "custom_class": "blue-interval"},
