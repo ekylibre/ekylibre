@@ -50,7 +50,7 @@
 
       %script#golumn-group-template{type: 'text/html'}
         %li.golumn-group{data: {bind: "droppable: {active: droppable, options: { hoverClass: 'container-drop-hover', tolerance: 'intersect' , scope: 'items'} }" }}
-          .golumn-group-header
+          .golumn-group-header{data: {bind: 'checkbox: toggleItems'}}
             .golumn-group-actions
               .collapser{data: { bind: "click: toggle, css: {'active': !hidden()}"}}
             %span.golumn-group-title{data: { bind: 'text: name'}}

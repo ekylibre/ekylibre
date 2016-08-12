@@ -192,6 +192,8 @@ $column-width: 28ex;
       border-top: none;
     }
     .golumn-group-header {
+      cursor: pointer;
+
       padding: round(0.5* $default-gap) $default-gap;
       .golumn-group-actions {
         @include float(right);
