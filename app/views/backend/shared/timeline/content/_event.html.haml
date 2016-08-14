@@ -1,6 +1,11 @@
 :ruby
-  participants = event.participations.collect do |participation|
+  parts_wo_self = event.participations.reject { |p| p.participant == resource }
+  uniq_parts = parts_wo_self.uniq { |p| p.participant }
+  participants = uniq_parts.collect do |participation|
     participant = participation.participant
     link_to(participant.name, {controller: :entities, action: :show, id: participant.id})
   end
-= :timeline_event.th(defaults.merge(participants: participants.to_sentence.html_safe))
+- if participants.blank?
+  = :timeline_event_without_participants.th(defaults)
+- else
+  = :timeline_event.th(defaults.merge(participants: participants.to_sentence.html_safe))

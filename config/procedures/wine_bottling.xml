@@ -28,7 +28,7 @@
       <input name="corks" filter="is cork and can close(cork_bottle)">
         <handler name="population"/>
       </input>
-      <parameter name="wine_man" type="doer" filter="can drive(corker) and can drive(bottler) and can move"/>
+      <parameter name="wine_man" type="doer" filter="can drive(equipment) and can move"/>
       <parameter name="hand_drawn" type="tool" filter="is equipment and can fill(bottle)"/>
       <parameter name="corker" type="tool" filter="is equipment and can close(bottle)"/>
       <parameter name="wine_bottles" type="output" variety="wine" derivative-of=":wine_to_pack" filter="is wine and derives from wine" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})"/>

@@ -77,10 +77,14 @@ class ProductNature < Ekylibre::Record::Base
   serialize :linkage_points_list, SymbolArray
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :picture_updated_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :picture_file_size, numericality: { allow_nil: true, only_integer: true }
+  validates :abilities_list, :derivatives_list, :description, :frozen_indicators_list, :linkage_points_list, :variable_indicators_list, length: { maximum: 500_000 }, allow_blank: true
   validates :active, :evolvable, :subscribing, inclusion: { in: [true, false] }
-  validates :category, :name, :number, :population_counting, :variety, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :picture_content_type, :picture_file_name, length: { maximum: 500 }, allow_blank: true
+  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :category, :population_counting, :variety, presence: true
   # ]VALIDATORS]
   validates :number, length: { allow_nil: true, maximum: 30 }
   validates :derivative_of, :reference_name, :variety, length: { allow_nil: true, maximum: 120 }
@@ -90,6 +94,7 @@ class ProductNature < Ekylibre::Record::Base
   validates :subscription_nature, presence: { if: :subscribing? }
 
   accepts_nested_attributes_for :variants, reject_if: :all_blank, allow_destroy: true
+
   acts_as_numbered force: false
 
   delegate :deliverable?, :purchasable?, :to, to: :category
@@ -289,11 +294,17 @@ class ProductNature < Ekylibre::Record::Base
     stopped_on += self.subscription_years_count.years
     stopped_on += self.subscription_months_count.months
     stopped_on += self.subscription_days_count.months
-    stopped_on -= 1.day
+    stopped_on -= 1.day if stopped_on > started_on
     stopped_on
   end
 
   class << self
+    # Returns some nomenclature items are available to be imported, e.g. not
+    # already imported
+    def any_reference_available?
+      Nomen::ProductNature.without(ProductNature.pluck(:reference_name).uniq).any?
+    end
+
     Item = Struct.new(:name, :variety, :derivative_of, :abilities_list, :indicators, :frozen_indicators, :variable_indicators)
 
     # Returns core attributes of nomenclature merge with nature if necessary

@@ -1,5 +1,5 @@
 = field_set do
-  = hidden_field_tag :journal_id, (resource.new_record? ? params[:journal_id] : resource.journal_id)
+  = hidden_field_tag :journal_id, (f.object.new_record? ? params[:journal_id] : f.object.journal_id)
   -# = f.referenced_association :journal, readonly: true, input_html: { data: { dependents: '#items-form' } }
   = f.input :number
   = f.input :printed_on, input_html: { data: { dependents: '#items-form', parameter_name: 'printed_on' } }

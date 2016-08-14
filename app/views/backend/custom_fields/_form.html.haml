@@ -1,5 +1,5 @@
 = field_set do
-  = f.input :customized_type, collection: resource.class.customizable_types.collect{|m| [Ekylibre::Record.human_name(m.to_s.underscore), m]}.sort{|a,b| a[0] <=> b[0]}
+  = f.input :customized_type, collection: f.object.class.customizable_types.collect{|m| [Ekylibre::Record.human_name(m.to_s.underscore), m]}.sort{|a,b| a[0] <=> b[0]}
   = f.input :name
   = f.input :active
   = f.input :required

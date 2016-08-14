@@ -227,6 +227,7 @@ module Nomen
 
     # Returns property value
     def property(name)
+      return @name.to_sym if name == :name
       property = @nomenclature.properties[name]
       value = @attributes[name]
       if property

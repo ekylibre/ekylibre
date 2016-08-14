@@ -37,8 +37,8 @@ class Supervision < Ekylibre::Record::Base
   include Customizable
   has_many :items, class_name: 'SupervisionItem', dependent: :destroy, inverse_of: :supervision
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :time_window, numericality: { allow_nil: true, only_integer: true }
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :time_window, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   # ]VALIDATORS]
 
   accepts_nested_attributes_for :items

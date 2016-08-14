@@ -45,11 +45,12 @@ class Inventory < Ekylibre::Record::Base
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :achieved_at, :reflected_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :name, :number, presence: true, length: { maximum: 500 }
   validates :reflected, inclusion: { in: [true, false] }
-  validates :name, :number, presence: true
   # ]VALIDATORS]
   validates :achieved_at, presence: true
+  validates :name, uniqueness: true
 
   acts_as_numbered
 
@@ -73,15 +74,23 @@ class Inventory < Ekylibre::Record::Base
     !reflected? # && self.class.unreflecteds.before(self.achieved_at).empty?
   end
 
+  # Apply deltas on products and raises an error if any problem
+  def reflect!
+    raise StandardError, 'Cannot reflect inventory on stocks' unless reflect
+  end
+
   # Apply deltas on products
   def reflect
-    raise StandardError, 'Not reflectable inventory' unless reflectable?
-    self.class.transaction do
-      self.reflected_at = Time.zone.now
-      self.reflected = true
-      save!
-      items.find_each(&:save)
+    unless reflectable?
+      errors.add(:reflected, :invalid)
+      return false
     end
+    self.reflected_at = Time.zone.now
+    self.reflected = true
+    return false unless valid? && items.all?(&:valid?)
+    save
+    items.find_each(&:save)
+    true
   end
 
   def build_missing_items

@@ -1,6 +1,10 @@
 cmn:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "问题本质"
+          variety: "品种"
       items:
         acidify: "酸化"
         administer_care: "护理管理"
@@ -807,7 +811,6 @@ cmn:
         er: "厄立特里亚"
         es: "西班牙"
         et: "埃塞俄比亚"
-        false: "挪威" #?
         fi: "芬兰"
         fj: "斐"
         fk: "福克兰群岛（马尔维纳斯群岛）"
@@ -905,7 +908,7 @@ cmn:
         ng: "尼日利亚"
         ni: "尼加拉瓜"
         nl: "荷兰"
-        # no: "Norway"
+        no: "挪威"
         np: "尼泊尔"
         nr: "瑙鲁"
         nu: "纽埃"
@@ -1506,6 +1509,7 @@ cmn:
         consumption_period: "消费期"
         copper_concentration: "铜浓度"
         cumulated_rainfall: "累计降雨"
+        daily_average_working_time: "每天平均工作时间"
         daily_nitrogen_production: "每日制氮"
         diameter: "直径"
         dry_matter_rate: "干物质率"
@@ -1536,6 +1540,7 @@ cmn:
         lactating: "哺乳"
         last_birth_children_count: "去年出生的孩子数"
         length: "长度"
+        lifespan: "寿命"
         lipolysis: "脂解"
         livestock_unit: "畜牧业单位"
         magnesium_concentration: "镁离子浓度"
@@ -1640,6 +1645,7 @@ cmn:
         wind_direction: "风向"
         wind_speed: "风速"
         woodstock_variety: "伍德斯托克品种"
+        working_lifespan: "工作寿命"
         zinc_concentration: "锌浓度"
       name: "指标"
       property_natures:
@@ -1967,6 +1973,7 @@ cmn:
         concrete_slab_pouring: "混凝土浇筑板"
         conservation_plowing: "保护春耕"
         # corvicide: "Corvicide"
+        curative_maintenance: "疗效维持"
         cutting: "切割"
         dehorning: "去角"
         desiccation: "脱水"
@@ -2040,6 +2047,7 @@ cmn:
         planting: "种植"
         plowing: "耕作"
         pollinate: "授粉"
+        preventive_maintenance: "预防性的维护"
         product_identification: "产品标识"
         pumping_system_troubleshooting: "泵送系统故障排除"
         rain_protection: "防雨保护"
@@ -2069,6 +2077,7 @@ cmn:
         tunnel_installation: "隧道安装"
         tunnel_removal: "隧道拆除"
         tunnel_removing: "隧道删除"
+        upgrading_maintenance: "升级维护"
         virucide: "杀病毒"
         water_flow_improvement: "水流量的改善"
         weeding: "除草"
@@ -3141,6 +3150,9 @@ cmn:
         variety: "品种"
     product_natures:
       choices:
+        linkage_points:
+          front: "面前"
+          rear: "后"
         population_counting:
           decimal: "十进制"
           integer: "整型"

@@ -36,7 +36,8 @@ class Identifier < Ekylibre::Record::Base
   refers_to :nature, class_name: 'IdentifierNature'
   belongs_to :net_service
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :nature, :value, presence: true
+  validates :nature, presence: true
+  validates :value, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
 
   delegate :reference, to: :net_service, prefix: true

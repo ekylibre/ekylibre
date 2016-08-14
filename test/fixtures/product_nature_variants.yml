@@ -454,13 +454,13 @@ product_nature_variants_028:
   created_at: 2014-11-02 18:36:36.382111000 Z
   creator_id: 1
   id: 29
-  lock_version: 0
+  lock_version: 1
   name: Semoir
   nature_id: 25
-  number: GWNVKRYVPNV000000000014
+  number: GWNVK00014
   reference_name: sower
   unit_name: "Équipement"
-  updated_at: 2014-11-02 18:36:36.382111000 Z
+  updated_at: 2016-08-05 20:03:17.765627000 Z
   updater_id: 1
   variety: trailed_equipment
 product_nature_variants_029:
@@ -1087,3 +1087,18 @@ product_nature_variants_069:
   updated_at: 2016-05-26 21:24:33.024053000 Z
   updater_id: 1
   variety: immatter
+product_nature_variants_070:
+  active: true
+  category_id: 14
+  created_at: 2016-08-10 14:24:46.796093000 Z
+  creator_id: 1
+  derivative_of: equipment
+  id: 71
+  lock_version: 0
+  name: Pièce de machine
+  nature_id: 61
+  number: PDM001
+  unit_name: Pièce
+  updated_at: 2016-08-10 14:24:46.796093000 Z
+  updater_id: 1
+  variety: equipment_part

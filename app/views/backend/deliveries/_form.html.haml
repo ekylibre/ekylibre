@@ -1,15 +1,15 @@
 = field_set do
-  = f.referenced_association :responsible, source: :contacts
-  = f.input :started_at
-  = f.input :stopped_at
-  = f.input :annotation
   = f.input :mode, as: :radio_buttons
   #transporter
     = f.referenced_association :transporter, source: :necessary_transporters, new: {transporter: 1}
     = f.input :reference_number
   #us
+    = f.input :started_at
+    = f.input :stopped_at
     = f.referenced_association :driver
     = f.nested_association(:tools)
+  = f.referenced_association :responsible, source: :contacts
+  = f.input :annotation
   = f.custom_fields
 
 - parcel_choices = f.object.available_parcels

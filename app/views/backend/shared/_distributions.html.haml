@@ -1,5 +1,5 @@
 - c.cobble(:distributions) do
-  .toolbar
+  = cobble_toolbar do
     = tool_to :new.ta, {action: :new, controller: :target_distributions, target_id: resource.id }, tool: :new
 
   - resource.distributions.collect(&:target).each do |product|

@@ -2,6 +2,8 @@ module Procedo
   module Engine
     class Intervention
       class WorkingPeriod
+        include Reassignable
+
         DEFAULT_DURATION = 2.hours
 
         attr_accessor :started_at, :stopped_at, :id
@@ -31,9 +33,10 @@ module Procedo
         end
 
         def impact_with(steps)
-          raise 'Invalid steps: ' + steps.inspect if steps.size != 1
-          field = steps.first
-          send(field + '=', send(field))
+          unless steps.size != 1
+            raise ArgumentError, 'Invalid steps: got ' + steps.inspect
+          end
+          reassign steps.first
         end
       end
     end

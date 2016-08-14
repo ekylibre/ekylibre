@@ -35,7 +35,8 @@
 class District < Ekylibre::Record::Base
   has_many :postal_zones
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :name, presence: true
+  validates :code, length: { maximum: 500 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :name, uniqueness: true
   validates :code, uniqueness: { allow_blank: true }

@@ -1,6 +1,10 @@
 spa:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Naturaleza tema"
+          variety: "Variedad"
       items:
         acidify: "Acidificar"
         administer_care: "Proporcionar los cuidados"
@@ -807,7 +811,6 @@ spa:
         er: "Eritrea"
         es: "España"
         et: "Etiopía"
-        false: "Noruega" #?
         fi: "Finlandia"
         fj: "Fiyi"
         fk: "Islas Malvinas"
@@ -905,7 +908,7 @@ spa:
         ng: "Nigeria"
         ni: "Nicaragua"
         nl: "Países Bajos"
-        # no: "Norway"
+        no: "Noruega"
         np: "Nepal"
         nr: "Nauru"
         nu: "Niue"
@@ -1512,6 +1515,7 @@ spa:
         consumption_period: "Período de consumo"
         copper_concentration: "La concentración de cobre"
         cumulated_rainfall: "La precipitación acumulada"
+        daily_average_working_time: "Tiempo medio de trabajo diario"
         daily_nitrogen_production: "La producción diaria de nitrógeno"
         diameter: "Diámetro"
         dry_matter_rate: "Tasa de materia seca"
@@ -1542,6 +1546,7 @@ spa:
         lactating: "En periodo de lactancia"
         last_birth_children_count: "Cuentan últimos hijos biológicos"
         length: "Longitud"
+        lifespan: "Esperanza de vida"
         lipolysis: "Lipólisis"
         livestock_unit: "Unidad de ganado mayor"
         magnesium_concentration: "Concentración de magnesio"
@@ -1646,6 +1651,7 @@ spa:
         wind_direction: "Dirección del viento"
         wind_speed: "Velocidad del viento"
         woodstock_variety: "Variedad de Woodstock"
+        working_lifespan: "Ciclo de vida laboral"
         zinc_concentration: "Concentración de zinc"
       name: "Indicadores"
       property_natures:
@@ -1973,6 +1979,7 @@ spa:
         concrete_slab_pouring: "Losa de hormigón vertido"
         conservation_plowing: "arado Conservación"
         # corvicide: "Corvicide"
+        curative_maintenance: "Mantenimiento curativo"
         cutting: "Corte"
         dehorning: "Dehorning"
         desiccation: "Desecación"
@@ -2046,6 +2053,7 @@ spa:
         planting: "La siembra"
         plowing: "Arada"
         pollinate: "Polinizar"
+        preventive_maintenance: "Mantenimiento preventivo"
         product_identification: "Identificación de producto"
         pumping_system_troubleshooting: "El bombeo de solución de problemas del sistema"
         rain_protection: "Protección contra la lluvia"
@@ -2075,6 +2083,7 @@ spa:
         tunnel_installation: "la instalación del túnel"
         tunnel_removal: "la eliminación del túnel"
         tunnel_removing: "Túnel de la eliminación"
+        upgrading_maintenance: "La actualización de mantenimiento"
         virucide: "Virucida"
         water_flow_improvement: "Mejora el flujo de agua"
         weeding: "Deshierbe"
@@ -3147,6 +3156,9 @@ spa:
         variety: "Variedad"
     product_natures:
       choices:
+        linkage_points:
+          front: "Frente"
+          rear: "Posterior"
         population_counting:
           # decimal: "Decimal"
           integer: "Entero"

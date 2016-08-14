@@ -2,11 +2,12 @@
 
 module Procedo
   module Engine
+    # A set is a couple of data: reference parameter and its associated "real" data (products)
     class Set
       attr_reader :parameter
 
       delegate :name, to: :parameter, prefix: true
-      delegate :map, :collect, :each, to: :parameters
+      delegate :map, :collect, :each, :size, :count, to: :parameters
 
       def initialize(intervention, parameter, list = nil)
         raise 'Invalid intervention' unless intervention.is_a?(Procedo::Engine::Intervention)
@@ -21,7 +22,17 @@ module Procedo
       end
 
       def build(list = nil)
-        self.class.new(@intervention, @parameter, list)
+        sub(list)
+      end
+
+      def first
+        sub([@list.first])
+      end
+
+      private
+
+      def sub(items)
+        self.class.new(@intervention, @parameter, items)
       end
     end
   end

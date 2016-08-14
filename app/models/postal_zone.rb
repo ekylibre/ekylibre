@@ -42,7 +42,9 @@ class PostalZone < Ekylibre::Record::Base
   belongs_to :district
   has_many :mail_addresses, class_name: 'EntityAddress', foreign_key: :mail_postal_zone_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :country, :name, :postal_code, presence: true
+  validates :city, :city_name, :code, length: { maximum: 500 }, allow_blank: true
+  validates :country, presence: true
+  validates :name, :postal_code, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :country, length: { allow_nil: true, maximum: 2 }
 

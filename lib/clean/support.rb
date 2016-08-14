@@ -17,7 +17,7 @@ module Clean
       end
 
       def yaml_to_hash(filename)
-        hash = YAML.load(IO.read(filename).gsub(/^(\s*)no:(.*)$/, '\1__no_is_not__false__:\2'))
+        hash = YAML.load(IO.read(filename).gsub(/^(\s*)(no|yes|false|true):(.*)$/, '\1__\2__:\3'))
         deep_symbolize_keys(hash)
       end
 
@@ -25,7 +25,7 @@ module Clean
         hash ||= {}
         code = ''
         count = 0
-        for key, value in hash.sort { |a, b| a[0].to_s <=> b[0].to_s }
+        hash.sort { |a, b| a[0].to_s <=> b[0].to_s }.each do |key, value|
           if value.is_a? Hash
             scode, scount = hash_sort_and_count(value, depth + 1)
             code += '  ' * depth + key.to_s + ":\n" + scode
@@ -40,7 +40,7 @@ module Clean
 
       def hash_count(hash)
         count = 0
-        for key, value in hash
+        hash.each do |_key, value|
           count += (value.is_a?(Hash) ? hash_count(value) : 1)
         end
         count
@@ -49,12 +49,8 @@ module Clean
       def deep_symbolize_keys(hash)
         hash.each_with_object({}) do |(key, value), result|
           value = deep_symbolize_keys(value) if value.is_a? Hash
-          key = :no if key.to_s == '__no_is_not__false__'
-          result[(begin
-                    key.to_sym
-                  rescue
-                    key
-                  end) || key] = value
+          key = key[2..-3] if key.to_s =~ /^__(yes|no|true|false)__$/
+          result[key.to_sym] = value
           result
         end
       end
@@ -81,7 +77,7 @@ module Clean
         code = ''
         count = 0
         total = 0
-        for key in keys
+        keys.each do |key|
           h = hash[key]
           r = ref[key]
           # total += 1 unless r.is_a? Hash
@@ -111,28 +107,27 @@ module Clean
 
       def look_for_labels(*paths)
         list = []
-        for path in paths.flatten
-          for file in Dir.glob(path)
-            source = File.read(file)
-            source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.(tl|th)/) do |exp|
-              exp.gsub!(/\.tl\z/, '')
-              exp.gsub!(/\A\:/, '')
-              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ || exp =~ /\A\".*\"\z/
-              exp.gsub!(/\#\{[^\}]+\}/, '*')
-              list << exp
-            end
-            source.gsub(/(\'labels\.[^\']+\'|\"labels\.[^\"]+\")\.t/) do |exp|
-              exp.gsub!(/\.t\z/, '')
-              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ || exp =~ /\A\".*\"\z/
-              exp.gsub!(/\Alabels\./, '')
-              exp.gsub!(/\#\{[^\}]+\}/, '*')
-              list << exp
-            end
-            source.gsub(/(tg|tl|field_set|cell|cobble|subheading)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)\s*(\)|\,|\z|\s+do)/) do |exp|
-              exp = exp.split(/[\s\(\)\:\'\"\,]+/)[1]
-              exp.gsub!(/\#\{[^\}]+\}/, '*')
-              list << exp
-            end
+        browse(paths) do |file|
+          source = File.read(file)
+          source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.(tl|th)/) do |exp|
+            exp.gsub!(/\.tl\z/, '')
+            exp.gsub!(/\A\:/, '')
+            exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ || exp =~ /\A\".*\"\z/
+            exp.gsub!(/\#\{[^\}]+\}/, '*')
+            list << exp
+          end
+          source.gsub(/(\'labels\.[^\']+\'|\"labels\.[^\"]+\")\.t/) do |exp|
+            exp.gsub!(/\.t\z/, '')
+            exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ || exp =~ /\A\".*\"\z/
+            exp.gsub!(/\Alabels\./, '')
+            exp.gsub!(/\#\{[^\}]+\}/, '*')
+            list << exp
+          end
+          source.gsub(/(tl|field_set|cell|cobble|subheading)\s*\(?\s*(\:?\'[^\w+\.]+\'|\:?\"[^\"]+\"|\:\w+)[^\n\z]*(\n|\z)/) do |exp|
+            keys = exp.split(/[\s\(\)\:\'\"\,]+/)
+            key = keys[1].gsub(/\#\{[^\}]+\}/, '*')
+            next if keys[2..-1].include?('title') || keys[2..-1].include?('label')
+            list << key
           end
         end
         list += Ekylibre::Navigation.parts.collect { |p| p.index.keys }.flatten.compact.map(&:to_s)
@@ -148,27 +143,32 @@ module Clean
 
       def look_for_notifications(*paths)
         list = []
-        for path in paths.flatten
-          for file in Dir.glob(path)
-            source = File.read(file)
-            source.gsub(/notify(_error|_warning|_success)?(_now)?(\(\s*|\s+)\:\w+/) do |exp|
-              list << exp.split(/\:/)[1].to_sym
-            end
-            source.gsub(/\:\w+\.tn/) do |exp|
-              list << exp[1..-4].to_sym
-            end
+        browse(paths) do |file|
+          source = File.read(file)
+          source.gsub(/notify(_error|_warning|_success)?(_now)?(\(\s*|\s+)\:\w+/) do |exp|
+            list << exp.split(/\:/)[1].to_sym
+          end
+          source.gsub(/\:\w+\.tn/) do |exp|
+            list << exp[1..-4].to_sym
           end
         end
         list.sort
       end
 
       def text_found?(exp, *paths)
-        for path in paths
-          for file in Dir.glob(path)
-            return true if File.read(file) =~ exp
-          end
+        browse(paths) do |file|
+          return true if File.read(file) =~ exp
         end
         false
+      end
+
+      def browse(paths)
+        raise ArgumentError, 'Missing block' unless block_given?
+        paths.each do |path|
+          Dir.glob(path).each do |file|
+            yield file
+          end
+        end
       end
 
       def default_action_title(controller_path, action_name)

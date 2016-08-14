@@ -67,8 +67,9 @@ class ParcelItem < Ekylibre::Record::Base
   has_one :storage, through: :parcel
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :population, numericality: { allow_nil: true }
   validates :parted, inclusion: { in: [true, false] }
+  validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :product_identification_number, :product_name, length: { maximum: 500 }, allow_blank: true
   validates :parcel, presence: true
   # ]VALIDATORS]
   validates :source_product, presence: { if: :parcel_outgoing? }
@@ -113,6 +114,7 @@ class ParcelItem < Ekylibre::Record::Base
     product_enjoyment_id
     product_ownership_id
     purchase_item_id
+    sale_item_id
     updated_at
   ).freeze
   protect(allow_update_on: ALLOWED, on: [:create, :destroy, :update]) do
@@ -169,7 +171,7 @@ class ParcelItem < Ekylibre::Record::Base
     product_params[:name] = product_name
     product_params[:name] ||= "#{variant.name} (#{parcel.number})"
     product_params[:identification_number] = product_identification_number
-    product_params[:initial_born_at] = checked_at
+    product_params[:initial_born_at] = [checked_at, parcel_given_at].compact.min
 
     self.product = existing_product_in_storage unless no_fusing || storage.blank?
 

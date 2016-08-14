@@ -9,6 +9,14 @@
       .med-info.important
         %span.title= LandParcel.human_attribute_name(:net_surface_area)
         %span.value= resource.human_support_shape_area
+      - if resource.season
+        .med-info
+          %span.title= ActivityProduction.human_attribute_name(:season)
+          %span.value= resource.season.name
+      - if resource.tactic
+        .med-info
+          %span.title= ActivityProduction.human_attribute_name(:tactic)
+          %span.value= resource.tactic.name
       - estimated_yield = resource.estimate_yield(current_campaign) if ["grain", "seed", "fodder", "fiber"].include?(resource.usage)
       - if estimated_yield
         .med-info
@@ -158,6 +166,11 @@
       = column_highcharts(series, title: chart_title, tooltip: {point_format: "{point.y: 1.2f} #{symbol_measure}"}, y_axis: {title: {text: :cost_per_net_surface_area.tl + ' (' + symbol_measure + ')'}, stack_labels: {enabled: true, format: "{total} " + symbol_measure}, labels: { format: "{value}" }}, x_axis: { categories: categories}, legend: true, plot_options: { column: {stacking: 'normal'}})
   - else
     = no_data
+
+  - c.cobble(:timeline) do
+    = timeline(resource, id: :entity) do |timeline|
+      - timeline.side :budgets, at: :created_at, new: false
+
 
   - c.cobble(:interventions) do
     = cobble_toolbar do |t|

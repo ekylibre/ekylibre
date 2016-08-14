@@ -1,6 +1,10 @@
 eng:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Issue nature"
+          variety: "Variety"
       items:
         acidify: "Acidify"
         administer_care: "Administer care"
@@ -1505,6 +1509,7 @@ eng:
         consumption_period: "Consumption period"
         copper_concentration: "Copper concentration"
         cumulated_rainfall: "Cumulated rainfall"
+        daily_average_working_time: "Daily average working time"
         daily_nitrogen_production: "Daily nitrogen production"
         diameter: "Diameter"
         dry_matter_rate: "Dry matter rate"
@@ -1524,7 +1529,7 @@ eng:
         grains_area_density: "Grains area density"
         grains_count: "Grains count"
         hagberg_falling_number: "Hagberg falling number"
-        healthy: "Animal disease state"
+        healthy: "Healthiness"
         height: "Height"
         horizontal_rotation: "Horizontal rotation"
         immunoglobulins_concentration: "Immunoglobulins concentration"
@@ -1535,6 +1540,7 @@ eng:
         lactating: "Lactating"
         last_birth_children_count: "Last birth children count"
         length: "Length"
+        lifespan: "Lifespan"
         lipolysis: "Lipolysis"
         livestock_unit: "Livestock unit"
         magnesium_concentration: "Magnesium concentration"
@@ -1639,6 +1645,7 @@ eng:
         wind_direction: "Wind direction"
         wind_speed: "Wind speed"
         woodstock_variety: "Woodstock variety"
+        working_lifespan: "Working lifespan"
         zinc_concentration: "Zinc concentration"
       name: "Indicators"
       property_natures:
@@ -1966,6 +1973,7 @@ eng:
         concrete_slab_pouring: "Concrete slab pouring"
         conservation_plowing: "Conservation plowing"
         corvicide: "Corvicide"
+        curative_maintenance: "Curative maintenance"
         cutting: "Cutting"
         dehorning: "Dehorning"
         desiccation: "Desiccation"
@@ -2039,6 +2047,7 @@ eng:
         planting: "Planting"
         plowing: "Plowing"
         pollinate: "Pollinate"
+        preventive_maintenance: "Preventive maintenance"
         product_identification: "Product identification"
         pumping_system_troubleshooting: "Pumping system troubleshooting"
         rain_protection: "Rain protection"
@@ -2068,6 +2077,7 @@ eng:
         tunnel_installation: "Tunnel installation"
         tunnel_removal: "Tunnel removal"
         tunnel_removing: "Tunnel removing"
+        upgrading_maintenance: "Upgrading maintenance"
         virucide: "Virucide"
         water_flow_improvement: "Water flow improvement"
         weeding: "Weeding"
@@ -3142,6 +3152,9 @@ eng:
         variety: "Variety"
     product_natures:
       choices:
+        linkage_points:
+          front: "Front"
+          rear: "Rear"
         population_counting:
           decimal: "Decimal"
           integer: "Integer"

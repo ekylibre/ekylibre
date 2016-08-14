@@ -12,6 +12,10 @@ fra:
       activity_production:  #?
         production_usage: "Usage futur" #?
         storage: "Support" #?
+      activity_tactic:
+        bulk_quantity: "Volume prévisionnel" #?
+        mode: "Type de planification"
+        plan_on: "Date" #?
       animal:  #?
         born_at: "Né(e) le" #?
         variety: "Race" #?
@@ -86,6 +90,8 @@ fra:
         delivered: "Remis au bénéficiaire"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
+      parcel_item:
+        population: "Quantité"
       plant:
         born_at: "Planté/semé le"
         nature: "Nature de la culture" #?
@@ -182,7 +188,7 @@ fra:
         on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
-        posterior: "La date %{attribute} doit être postérieure à %{to}"
+        posterior: "%{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
@@ -211,7 +217,7 @@ fra:
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
@@ -258,6 +264,8 @@ fra:
       activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "Type de point de contrôle d'agréage"
       activity_production: "Support de production"
+      activity_season: "Saisonnalité"
+      activity_tactic: "Technique de culture d’activité"
       affair: "Affaire"
       analysis: "Analyse"
       analysis_item: "Élément d’analyse"
@@ -265,6 +273,7 @@ fra:
       animal_group: "Groupe d’animaux"
       attachment: "Pièce jointe"
       bank_statement: "Relevé de compte bancaire"
+      bank_statement_item: "Ligne de relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Bâtiment"
       building_division: "Pièce"
@@ -302,7 +311,6 @@ fra:
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
       georeading: "Relevé topographique"
-      grading_quality_criterion: "Critère qualité d'un agréage"
       guide: "Référentiel"
       guide_analysis: "Analyse d’un référentiel"
       guide_analysis_point: "Point d’analyse d’un référentiel"
@@ -369,6 +377,7 @@ fra:
       product_nature_category: "Catégorie de type de produit"
       product_nature_category_taxation: "Taxation de catégorie de type de produit"
       product_nature_variant: "Variante de type de produit"
+      product_nature_variant_component: "Produit Composant de variante de la nature"
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
@@ -426,6 +435,7 @@ fra:
     actions: "Actions"
     active: "Actif"
     active_prices: "Prix actifs" #?
+    active_sessions: "Sessions actives"
     activities: "Activités"
     activity: "Activité"
     activity_budget: "Budget"
@@ -435,6 +445,7 @@ fra:
     activity_grading_check: "Point de contrôle d’agréage"
     activity_production: "Production"
     activity_productions: "Productions"
+    activity_season: "Saisonnalité" #?
     actor: "Acteur"
     actual_number: "Numéro en cours"
     actual_population: "Population réelle"
@@ -464,6 +475,7 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
+    assembly: "Assemblée"
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
@@ -559,6 +571,8 @@ fra:
     commission_base_amount: "Montant fixe de la commission"
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
+    component: "Composant"
+    components: "Composants"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
     computed_at: "Calculé le" #?
@@ -688,7 +702,7 @@ fra:
     document: "Document"
     document_archives: "Archives documentaires" #?
     documents: "Documents"
-    doers: "Equipiers"
+    doers: "Équipiers"
     done_at: "Fait le" #?
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
@@ -711,6 +725,7 @@ fra:
     employed: "Employé par la société"
     employees: "employés"
     employment: "Emploi/Rôle"
+    enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
     end_junction: "Jonction finale" #?
     end_way: "Voie finale" #?
@@ -744,6 +759,7 @@ fra:
     exploitation_name: "Nom de l’exploitation"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
+    exportable_fields: "Champs exportables"
     expression: "Expression" #?
     external: "Externe"
     extjuncted: "Extjoint" #?
@@ -754,6 +770,10 @@ fra:
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
+    file: "Fichier"
+    file_file_size: "Taille du fichier"
+    file_pages_count: "Pages comptent"
+    file_updated_at: "Mis à jour à"
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
@@ -769,6 +789,8 @@ fra:
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
+    fixed_asset_collect_account: "Capital fixe recueillir compte"
+    fixed_asset_deduction_account: "Actif fixe compte de la déduction"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
@@ -777,6 +799,7 @@ fra:
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
+    following: "Suivant"
     formats: "Formats"
     fourth_producer: "Quatrième producteur" #?
     fourth_producer_way: "Voie du quatrième producteur" #?
@@ -1088,6 +1111,9 @@ fra:
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
+    part_product_nature_variant: "Variante du composant"
+    part_product_nature_variant_id: "Variante du composant"
+    part_replacements: "Remplacements de pièce"
     parted: "En partie"
     parted_product: "Produit retiré"
     participant: "Participant"
@@ -1175,11 +1201,14 @@ fra:
     product_mixings: "Mélanges de produit" #?
     product_movement: "Mouvement de produit"
     product_moves: "Mouvements de produit" #?
-    product_name: "prénom"
+    product_name: "Produit"
     product_nature: "Type de produit"
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
+    product_nature_variant: "Variante"
+    product_nature_variant_id: "Variante"
+    product_natures: "Types de produits"
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
@@ -1270,6 +1299,8 @@ fra:
     reflections: "Réflexions"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
+    remaining_lifespan: "Vie restante"
+    remaining_working_lifespan: "Vie travaillée restante"
     remember_created_at: "Se souvenir de moi à"
     remember_me: "Se souvenir de moi"
     reminder_submissive: "Soumis à la relance"
@@ -1277,7 +1308,10 @@ fra:
     repayment_method: "Méthode de remboursement"
     repayment_period: "Période de remboursement"
     repayments: "Remboursements"
+    replaced_at: "Remplacé le"
+    replacements: "Remplacements"
     reporter: "Rapporteur"
+    request_intervention: "Demande intervention"
     required: "Obligatoire"
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"
@@ -1319,6 +1353,8 @@ fra:
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
     scheduled: "Encaissement programmé"
+    season: "Saisonnalité"
+    seasons: "Saisonnalités"
     second_producer: "Second producteur" #?
     second_producer_way: "Voie du second producteur" #?
     seeding_density_unit: "Unité de densité de semis"
@@ -1370,7 +1406,7 @@ fra:
     storages: "Stockages"
     story: "Historique"
     string_value: "Valeur textuelle"
-    # subdomains: "Subdomains"
+    subdomains: "Sous-domaines"
     subject: "Objet"
     subject_label: "Objet" #?
     subject_type: "Type de sujet"
@@ -1394,7 +1430,10 @@ fra:
     support_variety: "Variété du support"
     supports: "Supports"
     suspended: "Suspendu"
+    tactic: "Itinéraire technique"
+    tactics: "Itinéraires culturaux"
     target: "Cible"
+    target_name: "Nom de la cible"
     target_type: "Type de cible"
     target_url: "URL cible"
     targets: "Cibles"
@@ -1413,7 +1452,7 @@ fra:
     ticket: "Ticket" #?
     time_window: "Fenêtre de temps (en secondes)"
     title: "Titre"
-    # tms: "TMS"
+    tms: "TMS"
     to: "Pour"
     to_bank_at: "À décaisser le"
     to_deposit: "À déposer"
@@ -1434,6 +1473,8 @@ fra:
     transporter_purchase: "Achat du transporteur"
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports" #?
+    trouble_description: "Description du problème"
+    trouble_encountered: "Probléme durant l'intervention"
     type: "Type"
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"
@@ -1452,21 +1493,22 @@ fra:
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     uploaded: "Téléversé"
-    url: "url"
+    url: "URL"
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     usage_limit_nature: "Type de date limite de consommation"
     usage_limit_on: "Date limite de consommation"
     usages: "Usages"
     use_countings: "Utiliser les comptages"
-    use_grading_calibre: "Utiliser un calibre d'agréage"
     use_gradings: "Utiliser les agréages"
+    use_seasons: "Utiliser les saisonnalités"
+    use_tactics: "Utiliser les itinéraires techniques"
     used_for_affairs: "Utilisé pour les affaires"
     used_for_gaps: "Utilisé pour les écarts"
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
-    # uuid: "UUID"
+    uuid: "UUID"
     value: "Valeur"
     variable_indicators: "Indicateurs variables" #?
     variable_indicators_list: "Liste des indicateurs variables"

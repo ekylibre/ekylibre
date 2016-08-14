@@ -1,6 +1,5 @@
 - main_toolbar do |t|
   = t.edit resource
-  = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
 
 - main_campaign_selector
 
@@ -25,12 +24,28 @@
     .med-info.important
       %span.title= Equipment.human_attribute_name(:state)
       %span.value= lights(resource.status)
+    - if resource.remaining_working_lifespan || resource.remaining_lifespan
+      .med-info.important
+        %span.title= :wear.tl
+        %span.value= lights(resource.wear_status)
     .med-info
       %span.title= Equipment.human_attribute_name(:working_duration)
       %span.value
         %i.picto{class: "picto-timelapse"}
-        = :x_hours.tl(count: resource.working_duration(as: :tool)/3600)
-    - if resource.description
+        = resource.current_work_life.in_hour.round(2).l precision: 1
+    - if resource.remaining_working_lifespan
+      .med-info
+        %span.title= Equipment.human_attribute_name(:remaining_working_lifespan)
+        %span.value
+          %i.picto{class: "picto-timelapse"}
+          = resource.remaining_working_lifespan.in_hour.round(2).l precision: 1
+    - if resource.remaining_lifespan
+      .med-info
+        %span.title= Equipment.human_attribute_name(:remaining_lifespan)
+        %span.value
+          %i.picto{class: "picto-timelapse"}
+          = resource.remaining_lifespan.in_hour.round(2).l precision: 1
+    - unless resource.description.blank?
       .med-info
         %span.title= Equipment.human_attribute_name(:description)
         %span.value= resource.description
@@ -53,3 +68,18 @@
       .toolbar
         = tool_to :new.ta, {action: :new, controller: :product_localizations, product_id: resource.id }, tool: :new
       = cobble_list(:places)
+
+  - if resource.components.any?
+    - c.cobble(:components) do
+      .component-tree
+        .component
+          .component-head
+            .component-col.component-heading= ProductNatureVariantComponent.human_attribute_name(:name)
+            .component-col.component-type= ProductNatureVariantComponent.human_attribute_name(:product_nature_variant)
+            .component-col.component-status= ProductNatureVariantComponent.human_attribute_name(:status)
+            .component-col.component-life= ProductNatureVariantComponent.human_attribute_name(:working_duration)
+            .component-col.component-wear= ProductNatureVariantComponent.human_attribute_name(:replaced_at)
+            .component-col.component-count= ProductNatureVariantComponent.human_attribute_name(:replacements)
+
+        = render 'components', equipment: resource, components: resource.variant.root_components, depth: 0
+

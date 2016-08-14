@@ -42,10 +42,11 @@ class CashSession < Ekylibre::Record::Base
   has_many :affairs
   refers_to :currency
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_at, :stopped_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, timeliness: { allow_blank: true, on_or_after: :started_at }, if: ->(cash_session) { cash_session.stopped_at && cash_session.started_at }
-  validates :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, numericality: { allow_nil: true }
-  validates :cash, :started_at, presence: true
+  validates :expected_stop_amount, :noticed_start_amount, :noticed_stop_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :number, length: { maximum: 500 }, allow_blank: true
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(cash_session) { cash_session.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :cash, presence: true
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :number, uniqueness: { scope: :cash_id, allow_nil: true }

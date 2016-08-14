@@ -8,7 +8,7 @@
       - if f.object.destroyable?
         = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
     %td
-      - scopes = {deliverables: true}
+      - scopes = { deliverables: true, alive: true }
       - if item.source_product.blank?
         - variant_id = variant.id.or_else(nil)
         - scopes[:of_variant] = variant_id if variant_id

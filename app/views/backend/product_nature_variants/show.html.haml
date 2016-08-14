@@ -31,6 +31,7 @@
     - l.attribute :variety
     - l.attribute :derivative_of
 
+
 = cobbles do |c|
   -if resource.products.any?
     - c.cobble(:stocks) do
@@ -79,3 +80,8 @@
     = cobble_toolbar do |t|
       = t.new(params: {controller: :catalog_items, :variant_id => resource.id, redirect: request.fullpath}, tool: 'new-price')
     = cobble_list(:catalog_items)
+
+  - if resource.of_variety? :equipment
+    - c.cobble(:components) do
+      = cobble_list(:components)
+

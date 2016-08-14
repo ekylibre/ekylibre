@@ -4,6 +4,8 @@ spa:
       activity_budget:
         expenses_amount: "Importe los gastos"
         revenues_amount: "Monto de los ingresos"
+      activity_tactic:
+        mode: "tipo de planificación"
       animal_group:
         born_at: "Creado en"
       building:
@@ -27,6 +29,8 @@ spa:
         born_at: "Creado en"
       outgoing_payment:
         delivered: "Teniendo en cuenta para el destinatario"
+      parcel_item:
+        population: "Cantidad"
       plant:
         born_at: "Plantado en"
       sale:
@@ -70,7 +74,7 @@ spa:
         # on_or_after: "%{attribute} must be on or after %{restriction}"
         # on_or_before: "%{attribute} must be on or before %{restriction}"
         # overlap_sibling: "%{attribute} overlaps sibling"
-        # posterior: "The date %{attribute} must be posterior to %{to}"
+        # posterior: "%{attribute} must be posterior to %{to}"
         # record_invalid: "Validations failed: %{errors}"
         # taken: "%{attribute} has already been taken"
         # too_long: "%{attribute} is too long (maximum is %{count} characters)"
@@ -99,7 +103,7 @@ spa:
             stopped_on:
               # end_of_month: "%{attribute} must be an end of month"
           # overlap: "%{attribute} overlaps an existing financial year"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
@@ -145,6 +149,8 @@ spa:
       # activity_inspection_calibration_scale: "Calibre"
       activity_inspection_point_nature: "verificación de calificaciones actividad"
       activity_production: "Soporte de producción"
+      activity_season: "Estacionalidad"
+      activity_tactic: "Técnica de cultivo actividad"
       affair: "Asunto"
       analysis: "Análisis"
       analysis_item: "Análisis elemento"
@@ -152,6 +158,7 @@ spa:
       animal_group: "Grupo de animales"
       attachment: "Adjunto archivo"
       bank_statement: "Extracto de cuenta"
+      bank_statement_item: "Línea del extracto bancario"
       bioproduct: "Producto vivo"
       building: "Edificio"
       building_division: "Sala / Zona"
@@ -190,7 +197,6 @@ spa:
       gap: "Brecha"
       gap_item: "Elemento de intervalo"
       # georeading: "Georeading"
-      grading_quality_criterion: "criterio de calidad de clasificación"
       guide: "Guía"
       guide_analysis: "Guía de análisis"
       guide_analysis_point: "Guía de punto de análisis"
@@ -256,6 +262,7 @@ spa:
       product_nature_category: "Categoria de producto"
       product_nature_category_taxation: "Tipo de producto categoría de los impuestos"
       product_nature_variant: "Tipo de producto variante"
+      product_nature_variant_component: "Producto componente de naturaleza variante"
       product_nature_variant_reading: "Variante de la lectura tipo de producto"
       product_ownership: "Propiedad del producto"
       product_phase: "Fase Producto"
@@ -308,6 +315,7 @@ spa:
     achieved_at: "Alcanzado en"
     actions: "Comportamiento"
     active: "Activo"
+    active_sessions: "Sesiones activas"
     activities: "Ocupaciones"
     activity: "Actividad"
     activity_budget: "Presupuesto de la actividad"
@@ -342,6 +350,7 @@ spa:
     annotation: "Anotación"
     archive: "Archivo"
     archiving: "El archivado"
+    assembly: "Asamblea"
     attachments: "Archivos adjuntos"
     attribute_name: "Nombre del Atributo"
     authentication_token: "Token de autenticación"
@@ -421,6 +430,8 @@ spa:
     commissioned_incoming_payment_modes: "Modos de pagos recibidos por encargo"
     company: "Compañía" #?
     company_id: "Compañía" #?
+    component: "Componente"
+    components: "Componentes"
     computation_method: "Método de cálculo"
     compute: "Calcular"
     conclusion: "Conclusión"
@@ -546,6 +557,7 @@ spa:
     employed: "Empleado"
     employees: "Empleados"
     employment: "Empleo"
+    enabled: "Habilitado"
     encrypted_password: "Contraseña encriptada"
     enjoyer: "Disfrutador"
     enjoyments: "Goces"
@@ -574,6 +586,7 @@ spa:
     exploitation_name: "Nombre de la explotación"
     # exportable: "Exportable"
     exportable_columns: "Columnas exportables"
+    exportable_fields: "Campos exportables"
     external: "Externo"
     failed_attempts: "Intentos fallidos"
     family: "Familia"
@@ -581,6 +594,10 @@ spa:
     father: "Padre"
     faxes: "Faxes"
     fifth_producer: "En quinto productor" #?
+    file: "Archivo"
+    file_file_size: "Tamaño del archivo"
+    file_pages_count: "Páginas no se contabiliza"
+    file_updated_at: "Actualizada a las"
     filtered_columns: "Columnas filtradas"
     financial_year: "Año financiero"
     financial_year_as_last: "Ejercicio (en su última entrada en el diario)"
@@ -593,11 +610,14 @@ spa:
     fixed_asset: "Activo fijo"
     fixed_asset_account: "Cuenta de activo fijo"
     fixed_asset_allocation_account: "Corregido cuenta las depreciaciones de activos"
+    fixed_asset_collect_account: "Activo fijo recopilar cuenta"
+    fixed_asset_deduction_account: "Cuenta la deducción de activos fijos"
     fixed_asset_depreciation_method: "Método de depreciación de los inmuebles"
     fixed_asset_depreciation_percentage: "Porcentaje de la depreciación de activos fijos"
     fixed_asset_depreciations: "Amortizaciones de bienes de uso"
     fixed_asset_expenses_account: "Depreciaciones de bienes de uso inputations cuenta de gastos"
     fixed_assets: "Los activos fijos"
+    following: "Siguiendo"
     formats: "Formatos"
     fourth_producer: "Cuarto productor" #?
     frequency: "Frecuencia"
@@ -877,6 +897,9 @@ spa:
     parcel_items: "Artículos de paquetería"
     parcels: "Parcelas"
     parent: "Padre"
+    part_product_nature_variant: "Parte variante de la naturaleza del producto"
+    part_product_nature_variant_id: "Parte variante de la naturaleza del producto"
+    part_replacements: "Reemplazo de piezas"
     parted: "Parted"
     parted_product: "Producto separado"
     participant: "Partícipe"
@@ -948,6 +971,9 @@ spa:
     product_nature_categories: "Categorías de tipos de producto"
     product_nature_category: "Tipo de producto categoría"
     product_nature_category_taxations: "Tasaciones categoría Tipo de producto"
+    product_nature_variant: "Variante de la naturaleza del producto"
+    product_nature_variant_id: "Variante de la naturaleza del producto"
+    product_natures: "Tipos de productos"
     product_ownership: "Propiedad del producto"
     product_ownerships: "Titularidades de productos"
     product_parameters: "Parámetros del producto"
@@ -1024,6 +1050,8 @@ spa:
     reflections: "Reflexiones"
     remain_owner: "Permanecer propietario"
     remaining_amount: "Cantidad restante"
+    remaining_lifespan: "Vida útil restante"
+    remaining_working_lifespan: "Ciclo de vida laboral restante"
     remember_created_at: "Recuerde creado el"
     remember_me: "Recuérdame"
     reminder_submissive: "Recordatorio sumisa"
@@ -1031,7 +1059,10 @@ spa:
     repayment_method: "Método de pago"
     repayment_period: "Período de reembolso"
     repayments: "Reembolsos"
+    replaced_at: "Sustituido en"
+    replacements: "Reemplazos"
     reporter: "Reportero"
+    request_intervention: "Solicitud de intervención"
     required: "Necesario"
     reset_password_sent_at: "Restablecer la contraseña enviada al"
     reset_password_token: "Contador de restablecimiento de contraseña"
@@ -1072,6 +1103,8 @@ spa:
     sampling_temporal_mode: "El modo de muestreo temporal"
     scale: "Escala"
     scheduled: "Programado"
+    season: "Estacionalidad"
+    seasons: "Estacionalidades"
     second_producer: "En segundo productor" #?
     seeding_density_unit: "unidad de densidad de siembra"
     seeding_density_value: "densidad de siembra"
@@ -1141,7 +1174,10 @@ spa:
     support_variety: "Variedad de apoyo"
     supports: "Soportes"
     suspended: "Suspendido"
+    tactic: "Técnica de manejo del cultivo"
+    tactics: "Táctica"
     target: "Objetivo"
+    target_name: "Nombre del Destinatario"
     target_type: "Tipo de destino"
     target_url: "URL de destino"
     targets: "Objetivos"
@@ -1175,6 +1211,8 @@ spa:
     transporter_purchase: "Transportador de compra"
     transporter_sales: "Ventas Transporter"
     transports: "Transportes" #?
+    trouble_description: "Descripción problemas"
+    trouble_encountered: "El problema encontrado"
     type: "Tipo"
     unconfirmed_email: "Correo electrónico sin confirmar"
     undelivered_quantity: "Cantidad no entregada"
@@ -1198,8 +1236,10 @@ spa:
     usage_limit_on: "Utilizado por el"
     usages: "Usos"
     use_countings: "Use conteos"
-    use_grading_calibre: "Utilice el calibre de clasificación"
+    use_grading_calibre: "Utilice el calibre de clasificación" #?
     use_gradings: "Use gradaciones"
+    use_seasons: "Use estacionalidades"
+    use_tactics: "Usar cultivos técnica de gestión"
     used_for_affairs: "Se utiliza para asuntos"
     used_for_gaps: "Se utiliza para huecos"
     useful_items: "Artículos útiles"

@@ -8,9 +8,8 @@
         .chronology
           .grades
             - grades.each_with_index do |grade, index|
-              .grade{style: "left: #{(100 * index.to_f / grades.count.to_f).round(4)}%", class: (grade.month == 1 ? 'grade-start' : 'grade-middle') + ' ' + ((index == 0 || grade.month == 1) ? 'grade-year' : 'grade-month')}= ((index == 0 || grade.month == 1) ? grade.year.to_s : I18n.t('date.abbr_month_names')[grade.month])
+              .grade{class: (grade.month == 1 ? 'grade-start' : 'grade-middle') + ' ' + ((index == 0 || grade.month == 1) ? 'grade-year' : 'grade-month')}= ((index == 0 || grade.month == 1) ? grade.year.to_s : I18n.t('date.abbr_month_names')[grade.month])
           .periods
-            :ruby
-              started_at = (production.started_on_for(campaign) - period_started_on).to_f / duration
-              width = (production.stopped_on_for(campaign) - production.started_on_for(campaign)).to_f / duration
-            = link_to('', { action: :show, controller: :activity_productions, id: production.id }, style: "left: #{100 * started_at.round(6)}%; width: #{100 * width.round(6)}%; background-color: #{production.color}", class: 'period', title: production.name)
+            - url_options = { action: :show, controller: :activity_productions, id: production.id }
+            - html_options = {:title => production.name}
+            = product_chronology_period(production, campaign, period_started_on, duration, url_options, html_options)

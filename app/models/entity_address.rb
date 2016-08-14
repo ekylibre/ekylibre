@@ -49,6 +49,7 @@
 
 class EntityAddress < Ekylibre::Record::Base
   attr_readonly :entity_id
+  refers_to :mail_country, class_name: 'Country'
   belongs_to :mail_postal_zone, class_name: 'PostalZone'
   belongs_to :entity, inverse_of: :addresses
   has_many :buildings, foreign_key: :address_id
@@ -57,12 +58,13 @@ class EntityAddress < Ekylibre::Record::Base
   has_many :sales, foreign_key: :address_id
   has_many :subscriptions, foreign_key: :address_id
   enumerize :canal, in: [:mail, :email, :phone, :mobile, :fax, :website], default: :email, predicates: true
-  refers_to :mail_country, class_name: 'Country'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :deleted_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :by_default, :mail_auto_update, inclusion: { in: [true, false] }
-  validates :canal, :coordinate, :entity, presence: true
+  validates :canal, :entity, presence: true
+  validates :coordinate, presence: true, length: { maximum: 500 }
+  validates :deleted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :name, :thread, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   validates :mail_country, length: { allow_nil: true, maximum: 2 }
   validates :canal, length: { allow_nil: true, maximum: 20 }
@@ -100,8 +102,10 @@ class EntityAddress < Ekylibre::Record::Base
           end
         end
       end
-      self.mail_line_1 = entity.full_name if mail_line_1.blank?
-      self.mail_auto_update = (entity.full_name == mail_line_1 ? true : false)
+      if entity
+        self.mail_line_1 = entity.full_name if mail_line_1.blank?
+        self.mail_auto_update = (entity.full_name == mail_line_1 ? true : false)
+      end
       self.coordinate = mail_lines
     elsif website?
       self.coordinate = 'http://' + coordinate unless coordinate =~ /^.+p.*\/\//

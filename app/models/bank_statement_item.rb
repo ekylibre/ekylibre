@@ -48,9 +48,12 @@ class BankStatementItem < Ekylibre::Record::Base
   delegate :started_on, :stopped_on, to: :bank_statement
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :initiated_on, :transfered_on, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
-  validates :credit, :debit, numericality: { allow_nil: true }
-  validates :bank_statement, :credit, :currency, :debit, :name, :transfered_on, presence: true
+  validates :credit, :debit, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :bank_statement, :currency, presence: true
+  validates :initiated_on, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }, allow_blank: true
+  validates :letter, :transaction_number, length: { maximum: 500 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :transfered_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   # ]VALIDATORS]
 
   before_validation do

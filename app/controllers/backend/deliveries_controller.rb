@@ -18,7 +18,10 @@
 
 module Backend
   class DeliveriesController < Backend::BaseController
-    manage_restfully parcel_ids: '(params[:parcel_ids] || [])'.c, responsible_id: 'current_user.person.id'.c, started_at: 'Time.zone.now'.c, driver_id: 'current_user.person.id'.c
+    manage_restfully parcel_ids: '(params[:parcel_ids] || [])'.c,
+                     responsible_id: 'current_user.person.id'.c,
+                     started_at: 'Time.zone.now'.c,
+                     driver_id: 'current_user.person.id'.c
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 

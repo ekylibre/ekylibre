@@ -1,6 +1,6 @@
 = form_tag({}, class: "flex") do
   = field_set do
-    = field(tl(:accounts_to_load), select_tag("accounting_system", options_for_select(Account.accounting_systems.collect{|c| [Account.accounting_system_name(c), c.to_s]}.sort, Account.accounting_system.to_s)))
+    = field(:accounts_to_load.tl, select_tag("accounting_system", options_for_select(Account.accounting_systems.collect{|c| [Account.accounting_system_name(c), c.to_s]}.sort, Account.accounting_system.to_s)))
 
     -# for setting in [:unset_reconcilable_old_third_accounts, :set_reconcilable_new_but_existing_third_accounts]
       = field tl(setting), check_box_tag(setting, "1", params[setting])

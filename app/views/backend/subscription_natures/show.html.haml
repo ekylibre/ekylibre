@@ -13,3 +13,5 @@
     = cobble_toolbar do |t|
       = t.new(params: {controller: :subscriptions, nature_id: resource.id})
     = cobble_list :subscriptions
+  - c.cobble :product_natures, title: SubscriptionNature.human_attribute_name(:product_natures) do
+    = cobble_list :product_natures

@@ -16,6 +16,8 @@
     - l.attribute :production_system
     - l.attribute :use_countings
     - l.attribute :use_gradings
+    - l.attribute :use_seasons
+    - l.attribute :use_tactics
     -# if resource.use_gradings
       - l.attribute :measure_grading_net_mass
       - if resource.measure_grading_net_mass
@@ -217,7 +219,6 @@
                   dataset = dataset.map do |_, inspections|
                     inspections.last.send("points_#{long_name}_percentage", category).round(2).to_s.to_f
                   end
-                  p dataset
                   spline_data << dataset.compact.sum / dataset.compact.count unless dataset.empty?
                 end
                 spline_series << {name: category.l, data: spline_data}
@@ -230,4 +231,3 @@
 
     - c.cobble(:inspections) do
       = cobble_list :inspections
-

@@ -1,6 +1,10 @@
 fra:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Type d’incident"
+          variety: "Variété"
       items:
         acidify: "Acidifier"
         administer_care: "Administrer des soins"
@@ -932,7 +936,6 @@ fra:
         er: "Érythrée"
         es: "Espagne"
         et: "Éthiopie"
-        false: "Norvège" #?
         fi: "Finlande"
         fj: "Fidji"
         fk: "Falkland, Îles (Malvinas)"
@@ -1030,7 +1033,7 @@ fra:
         ng: "Nigéria"
         ni: "Nicaragua"
         nl: "Pays-Bas"
-        # no: "Norway"
+        no: "Norvège"
         np: "Népal"
         nr: "Nauru"
         nu: "Niué"
@@ -1653,6 +1656,7 @@ fra:
         consumption_period: "Période de consommation limite"
         copper_concentration: "Teneur en cuivre"
         cumulated_rainfall: "Cumul des précipitations"
+        daily_average_working_time: "Temps journalier moyen de travail"
         daily_nitrogen_production: "Production d’azote journalière"
         diameter: "Diamètre"
         dry_matter_rate: "Taux de matière sèche"
@@ -1683,6 +1687,7 @@ fra:
         lactating: "En lactation"
         last_birth_children_count: "Nombre de nouveaux-nés lors de la dernière naissance"
         length: "Longueur"
+        lifespan: "Esperance de vie"
         lipolysis: "Lipolyse"
         livestock_unit: "Unité de gros bétail (UGB)"
         magnesium_concentration: "Teneur en magnésium"
@@ -1788,6 +1793,7 @@ fra:
         wind_direction: "Direction du vent"
         wind_speed: "Vitesse du vent"
         woodstock_variety: "Variété du porte-greffe"
+        working_lifespan: "Esperance de vie de travail"
         zinc_concentration: "Teneur en zinc"
       name: "Indicateurs"
       property_natures:
@@ -2117,6 +2123,7 @@ fra:
         concrete_slab_pouring: "Coullage dalle"
         conservation_plowing: "Labour de conservation"
         corvicide: "Corvicide"
+        curative_maintenance: "Maintenance curative"
         cutting: "Taille"
         dehorning: "Écornage"
         desiccation: "Dessiccation"
@@ -2190,6 +2197,7 @@ fra:
         planting: "Implantation"
         plowing: "Labour"
         pollinate: "Polliniser"
+        preventive_maintenance: "Maintenance préventive"
         product_identification: "Identification produit"
         pumping_system_troubleshooting: "Dépannage système de pompage"
         rain_protection: "Parapluie"
@@ -2219,6 +2227,7 @@ fra:
         tunnel_installation: "Installation de chenille/tunnel"
         tunnel_removal: "Retrait de chenille/tunnel"
         tunnel_removing: "Retrait de chenille/tunnel"
+        upgrading_maintenance: "Maintenance améliorative"
         virucide: "Virucide"
         water_flow_improvement: "Amélioration de la circuation d’eau"
         weeding: "Désherbage"
@@ -3298,9 +3307,9 @@ fra:
         variety: "Variété"
     product_natures:
       choices:
-        linkage_points:  #?
-          front: "avant" #?
-          rear: "arrière" #?
+        linkage_points:
+          front: "Avant"
+          rear: "Arrière"
         population_counting:
           decimal: "Décimal"
           integer: "Entier"
@@ -3411,7 +3420,7 @@ fra:
         gas: "Gaz"
         gas_engine: "Machine à gaz"
         goat_herd: "Troupeau caprin"
-        grain: "Céréale"
+        grain: "Céréale-Légumineuse-Oléagineuse"
         grain_crop: "Culture à graines"
         grain_tank: "Silo à grain"
         grape: "Raisin"
@@ -4637,7 +4646,7 @@ fra:
         electricity: "Électricité"
         empoasca_vitis: "Empoasca vitis (cicadelle des grillures)"
         eotetranychus_coryli: "Eotetranychus coryli"
-        equidae: "Equidé"
+        equidae: "Équidé"
         equipment: "Équipement"
         equipment_part: "Pièce"
         equus: "Équin"

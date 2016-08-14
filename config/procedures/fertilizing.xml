@@ -25,7 +25,7 @@
                  forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
       </input>
       <tool name="spreader" filter="can spread(preparation)" cardinality="*"/>
-      <tool name="tractor" filter="is equipment and can tow(spreader)" cardinality="*"/>
+      <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
       <doer name="driver"  filter="can drive(tractor) and can move" cardinality="*"/>
     </parameters>
   </procedure>

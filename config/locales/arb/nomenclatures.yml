@@ -1,6 +1,10 @@
 arb:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "طبيعة القضية"
+          variety: "تشكيلة"
       items:
         acidify: "تحمض"
         administer_care: "إدارة الرعاية"
@@ -807,7 +811,6 @@ arb:
         er: "علم إرتيريا إرتيريا"
         es: "علم إسبانيا إسبانيا"
         et: "علم إثيوبيا إثيوبيا"
-        false: "علم النرويج النرويج" #?
         fi: "علم فنلندا فنلندا"
         fj: "علم فيجي فيجي"
         fk: "قالب:معطيات Falkland Islands (Malvinas)"
@@ -905,7 +908,7 @@ arb:
         ng: "علم نيجيريا نيجيريا"
         ni: "علم نيكاراغوا نيكاراغوا"
         nl: "علم هولندا هولندا"
-        # no: "Norway"
+        no: "النرويج"
         np: "علم نيبال نيبال"
         nr: "علم ناورو ناورو"
         nu: "علم نييوي نييوي"
@@ -1515,6 +1518,7 @@ arb:
         consumption_period: "فترة الاستهلاك"
         copper_concentration: "تركيز النحاس"
         cumulated_rainfall: "الأمطار المتراكمة"
+        daily_average_working_time: "المعدل اليومي وقت العمل"
         daily_nitrogen_production: "إنتاج النيتروجين اليومي"
         diameter: "قطر الدائرة"
         dry_matter_rate: "معدل المادة الجافة"
@@ -1545,6 +1549,7 @@ arb:
         lactating: "المرضعات"
         last_birth_children_count: "آخر إحصاء الأطفال الولادة"
         length: "الطول"
+        lifespan: "عمر"
         lipolysis: "تحلل الدهون"
         livestock_unit: "وحدة الثروة الحيوانية"
         magnesium_concentration: "تركيز المغنيسيوم"
@@ -1649,6 +1654,7 @@ arb:
         wind_direction: "اتجاه الرياح"
         wind_speed: "سرعة الرياح"
         woodstock_variety: "وودستوك متنوعة"
+        working_lifespan: "عمر العمل"
         zinc_concentration: "تركيز الزنك"
       name: "مؤشرات"
       property_natures:
@@ -1976,6 +1982,7 @@ arb:
         concrete_slab_pouring: "البلاطة الخرسانية سكب"
         conservation_plowing: "الحرث المحافظة"
         # corvicide: "Corvicide"
+        curative_maintenance: "الصيانة العلاجية"
         cutting: "قطع"
         # dehorning: "Dehorning"
         desiccation: "تجفيف"
@@ -2049,6 +2056,7 @@ arb:
         planting: "يزرع"
         plowing: "حراثة"
         pollinate: "لقح"
+        preventive_maintenance: "الصيانة الوقائية"
         product_identification: "تعريف المنتج"
         pumping_system_troubleshooting: "ضخ استكشاف الأخطاء وإصلاحها نظام"
         rain_protection: "حماية المطر"
@@ -2078,6 +2086,7 @@ arb:
         tunnel_installation: "تركيب نفق"
         tunnel_removal: "إزالة نفق"
         tunnel_removing: "نفق إزالة"
+        upgrading_maintenance: "صيانة الترقية"
         virucide: "مبيد للفيروس"
         water_flow_improvement: "تحسين تدفق المياه"
         weeding: "إزالة الأعشاب الضارة"
@@ -3150,6 +3159,9 @@ arb:
         variety: "تشكيلة"
     product_natures:
       choices:
+        linkage_points:
+          front: "جبهة"
+          rear: "خلفي"
         population_counting:
           decimal: "عدد عشري"
           integer: "عدد صحيح"

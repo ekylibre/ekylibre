@@ -39,7 +39,8 @@ class ActivityInspectionPointNature < Ekylibre::Record::Base
   enumerize :category, in: [:disease, :deformity, :none], default: :none, predicates: true
   has_many :inspection_points, inverse_of: :nature, foreign_key: :nature_id, dependent: :restrict_with_exception
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :activity, :category, :name, presence: true
+  validates :activity, :category, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :name, uniqueness: { scope: :activity_id }
 

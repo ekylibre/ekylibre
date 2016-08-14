@@ -146,7 +146,12 @@ module Backend::TimelineHelper
       count = 1
       ago = now - 1.year
       while list.detect { |s| s.at < ago }
-        list << MarkerStep.new(ago, :past, 'datetime.distance_in_words.over_x_years'.t(count: count))
+        step = MarkerStep.new(ago, :past, 'datetime.distance_in_words.over_x_years'.t(count: count))
+        if list.last.is_a?(MarkerStep) && list.last.key == :past
+          list[-1] = step
+        else
+          list << step
+        end
         count += 1
         ago = now - count.year
       end

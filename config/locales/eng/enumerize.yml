@@ -16,6 +16,9 @@ eng:
         per_campaign: "Per campaign"
         per_production: "Per production"
         per_working_unit: "Per working unit"
+      direction:
+        expense: "Expense"
+        revenue: "Revenue"
     activity_inspection_point_nature:
       category:
         deformity: "Deformity"
@@ -28,6 +31,32 @@ eng:
         cultivation: "Cultivation"
         fallow_land: "Fallow land"
         none: "None"
+    activity_tactic:
+      mode:
+        harvested: "From harvesting date"
+        sowed: "From sowing date"
+    affair:
+      third_role:
+        client: "Client"
+        supplier: "Supplier"
+    analysis:
+      retrieval_status:
+        controller_error: "Controller error"
+        error: "Error"
+        internal_error: "Internal error"
+        ok: "OK"
+        sensor_error: "Sensor error"
+    analysis_item:
+      indicator_datatype:
+        boolean: "Boolean"
+        choice: "Choice"
+        decimal: "Decimal"
+        geometry: "Geometry"
+        integer: "Integer"
+        measure: "Measure"
+        multi_polygon: "Multi-polygon"
+        point: "Point"
+        string: "String"
     cash:
       mode:
         bban: "Basic Bank Account Number (BBAN)"
@@ -42,6 +71,16 @@ eng:
         purchase: "Purchase"
         sale: "Sale"
         stock: "Stock"
+    crumb:
+      nature:
+        hard_start: "Hard start"
+        hard_stop: "Hard stop"
+        pause: "Pause"
+        point: "Point"
+        resume: "Resume"
+        scan: "Scan"
+        start: "Start"
+        stop: "Stop"
     custom_field:
       nature:
         boolean: "Check box"
@@ -57,8 +96,6 @@ eng:
         us: "By us"
     document_template:
       archiving:
-        all: "All of type"
-        all_of_template: "All of template"
         first: "First of type"
         first_of_template: "First of template"
         last: "Last of type"
@@ -85,30 +122,68 @@ eng:
         waiting: "Waiting"
     fixed_asset:
       depreciation_method:
-        graduated: "Graduated"
         linear: "Linear"
         simplified_linear: "Simplified linear"
+    gap:
+      direction:
+        loss: "Loss"
+        profit: "Profit"
+      entity_role:
+        client: "Client"
+        supplier: "Supplier"
     georeading:
       nature:
-        line: "Line"
+        linestring: "Linestring"
         point: "Point"
         polygon: "Polygon"
-    grading_quality_criterion:
-      nature:
-        disease_presence: "Disease presence"
-        waste: "Waste"
+    guide:
+      frequency:
+        daily: "Daily"
+        decadely: "Decadely"
+        hourly: "Hourly"
+        monthly: "Monthly"
+        none: "None"
+        weekly: "Weekly"
+        yearly: "Yearly"
     guide_analysis:
-      status:
+      acceptance_status:
         errored: "Errored"
         failed: "Failed"
         passed: "Passed"
         passed_with_warnings: "Passed with warnings"
+    guide_analysis_point:
+      acceptance_status:
+        errored: "Errored"
+        failed: "Failed"
+        passed: "Passed"
+        passed_with_warnings: "Passed with warnings"
+    import:
+      state:
+        aborted: "Aborted"
+        errored: "Errored"
+        finished: "Finished"
+        in_progress: "In progress"
+        undone: "Undone"
     intervention:
+      nature:
+        record: "Record"
+        request: "Request"
       state:
         done: "Done"
         in_progress: "In progress"
         squeezed: "Squeezed"
         undone: "Undone"
+    intervention_parameter_reading:
+      indicator_datatype:
+        boolean: "Boolean"
+        choice: "Choice"
+        decimal: "Decimal"
+        geometry: "Geometry"
+        integer: "Integer"
+        measure: "Measure"
+        multi_polygon: "Multi-polygon"
+        point: "Point"
+        string: "String"
     journal:
       nature:
         bank: "Bank"
@@ -117,6 +192,17 @@ eng:
         purchases: "Purchases"
         sales: "Sales"
         various: "Various operations"
+    listing_node:
+      nature:
+        belongs_to: "Belongs to"
+        boolean: "Boolean"
+        column: "Column"
+        custom: "Custom"
+        datetime: "Datetime"
+        has_many: "Has many"
+        numeric: "Numeric"
+        root: "Root"
+        string: "String"
     loan:
       repayment_method:
         constant_amount: "Constant amount"
@@ -125,8 +211,14 @@ eng:
         month: "Month"
         year: "Year"
       shift_method:
-        anatocism: "anatocism"
+        anatocism: "Anatocism"
         immediate_payment: "Immediate payment"
+    notification:
+      level:
+        error: "Error"
+        information: "Information"
+        success: "Success"
+        warning: "Warning"
     observation:
       importance:
         important: "Important"
@@ -134,20 +226,137 @@ eng:
         notice: "Notice"
     parcel:
       delivery_mode:
-        indifferent: "Indifferent"
         third: "Transported by recipient"
         transporter: "Transported by transporter"
         us: "Transported by us"
       nature:
         incoming: "Incoming"
-        internal: "Internal"
         outgoing: "Outgoing"
-      state:
-        draft: "Draft"
-        given: "Given"
-        in_preparation: "In preparation"
-        ordered: "Ordered"
-        prepared: "Prepared"
+    preference:
+      nature:
+        accounting_system: "Accounting system"
+        boolean: "Boolean"
+        country: "Country"
+        currency: "Currency"
+        decimal: "Decimal"
+        integer: "Integer"
+        language: "Language"
+        record: "Record"
+        spatial_reference_system: "Spatial reference system"
+        string: "String"
+    product_enjoyment:
+      nature:
+        other: "Other"
+        own: "Own"
+        unknown: "Unknown"
+    product_linkage:
+      nature:
+        available: "Available"
+        occupied: "Occupied"
+        unavailable: "Unavailable"
+      point:
+        front: "Front"
+        rear: "Rear"
+    product_localization:
+      nature:
+        exterior: "Exterior"
+        interior: "Interior"
+        transfer: "Transfer"
+    product_membership:
+      nature:
+        exterior: "Exterior"
+        interior: "Interior"
+    product_nature:
+      population_counting:
+        decimal: "Decimal"
+        integer: "Integer"
+        unitary: "Unitary"
+    product_nature_category:
+      pictogram:
+        bank: "Bank"
+        barn: "Barn"
+        beaker: "Beaker"
+        bolt: "Bolt"
+        book: "Book"
+        bug: "Bug"
+        building: "Building"
+        car: "Car"
+        cc: "CC"
+        cow: "Cow"
+        credit_card: "Credit card"
+        desktop: "Desktop"
+        drop: "Drop"
+        fax: "Fax"
+        fish: "Fish"
+        food: "Food"
+        gift: "Gift"
+        group: "Group"
+        home: "Home"
+        land_parcels: "Land parcels"
+        laptop: "Laptop"
+        leaf: "Leaf"
+        legal: "Legal"
+        lemon: "Lemon"
+        light_bulb: "Light bulb"
+        male: "Male"
+        matter: "Matter"
+        medkit: "Medkit"
+        money: "Money"
+        mushroom: "Mushroom"
+        phone: "Phone"
+        pill: "Pill"
+        plane: "Plane"
+        plane: "Plane"
+        road: "Road"
+        subscription: "Subscription"
+        tasks: "Tasks"
+        tractor: "Tractor"
+        truck: "Truck"
+        truck: "Truck"
+        umbrella: "Umbrella"
+        undefined: "Undefined"
+        user: "User"
+        wheat: "Wheat"
+        wrench: "Wrench"
+    product_nature_category_taxation:
+      usage:
+        purchase: "Purchase"
+        sale: "Sale"
+    product_nature_variant_reading:
+      indicator_datatype:
+        boolean: "Boolean"
+        choice: "Choice"
+        decimal: "Decimal"
+        geometry: "Geometry"
+        integer: "Integer"
+        measure: "Measure"
+        multi_polygon: "Multi-polygon"
+        point: "Point"
+        string: "String"
+    product_ownership:
+      nature:
+        other: "Other"
+        own: "Own"
+        unknown: "Unknown"
+    product_reading:
+      indicator_datatype:
+        boolean: "Boolean"
+        choice: "Choice"
+        decimal: "Decimal"
+        geometry: "Geometry"
+        integer: "Integer"
+        measure: "Measure"
+        multi_polygon: "Multi-polygon"
+        point: "Point"
+        string: "String"
+    sale_opportunity:
+      third_role:
+        client: "Client"
+        supplier: "Supplier"
+    sale_ticket:
+      third_role:
+        client: "Client"
+        supplier: "Supplier"
     sensor:
       retrieval_mode:
         listening: "Listening"
@@ -164,56 +373,47 @@ eng:
         animals: "Numeration of animals"
         campaigns: "Numeration of campaigns"
         cash_transfers: "Numeration of cash transfers"
+        deliveries: "Numeration of deliveries"
         deposits: "Numeration of deposits"
         documents: "Numeration of documents"
         entities: "Numeration of people"
         fixed_assets: "Numeration of fixed assets"
         gaps: "Numeration of gaps"
-        incoming_parcels: "Numeration of incoming deliveries"
         incoming_payments: "Numeration of payments"
+        inspections: "Numeration of inspections"
         interventions: "Numeration of interventions"
-        outgoing_deliveries: "Numeration of outgoing deliveries"
+        inventories: "Numeration of inventories"
+        opportunities: "Numeration of opportunities"
         outgoing_payments: "Numeration of payments"
+        parcels: "Numeration of parcels"
         plants: "Numeration of plants"
-        product_nature_categories: "Numeration of product nature categories"
-        product_nature_variants: "Numeration of product nature variants"
-        product_natures: "Numeration of product natures"
+        product_nature_categories: "Numeration of product type categories"
+        product_nature_variants: "Numeration of product type variants"
+        product_natures: "Numeration of product types"
         products: "Numeration of products"
         purchases: "Numeration of purchases"
         sales: "Numeration of sales"
         sales_invoices: "Numeration of sales invoices"
         subscriptions: "Numeration of subscriptions"
-        transports: "Numeration of transports"
-    subscription_nature:
-      entity_link_direction:
-        all: "Bidirectional"
-        direct: "Direct"
-        indirect: "Indirect"
-      nature:
-        period: "Subscription by date"
-        quantity: "Subscription by number"
     task:
       nature:
-        document: "Writing"
         incoming_call: "Incoming call"
         incoming_email: "Incoming email"
         incoming_mail: "Incoming mail"
         outgoing_call: "Outgoing call"
         outgoing_email: "Outgoing email"
         outgoing_mail: "Outgoing mail"
-        quote: "Quote"
-    tax:
-      nature:
-        amount: "Amount"
-        percentage: "Percentage"
+      state:
+        doing: "Doing"
+        done: "Done"
+        todo: "Todo"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"
         no_limit: "No limit"
         used_by: "Used by date"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Supplier invoice number"
-    required:
-      text: "required"
+    version:
+      event:
+        create: "Create"
+        destroy: "Destroy"
+        update: "Update"

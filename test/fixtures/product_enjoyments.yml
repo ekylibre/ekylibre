@@ -1218,3 +1218,26 @@ product_enjoyments_123:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2016-07-26 19:27:42.832555000 Z
   updater_id: 1
+product_enjoyments_124:
+  created_at: 2016-08-10 14:27:49.887848000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 131
+  lock_version: 0
+  nature: unknown
+  product_id: 180
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:49.887848000 Z
+  updater_id: 1
+product_enjoyments_125:
+  created_at: 2016-08-10 14:27:50.008167000 Z
+  creator_id: 1
+  enjoyer_id: 1
+  id: 132
+  lock_version: 0
+  nature: own
+  product_id: 180
+  started_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:50.008167000 Z
+  updater_id: 1

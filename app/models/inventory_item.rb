@@ -42,8 +42,8 @@ class InventoryItem < Ekylibre::Record::Base
   has_one :container, through: :product
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :actual_population, :expected_population, numericality: { allow_nil: true }
-  validates :actual_population, :expected_population, :inventory, :product, presence: true
+  validates :actual_population, :expected_population, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :inventory, :product, presence: true
   # ]VALIDATORS]
 
   delegate :name, :unit_name, :population_counting_unitary?, to: :product

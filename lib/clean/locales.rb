@@ -62,7 +62,7 @@ module Clean
         clean_aggregators!
         clean_file! 'devise'
         clean_file! 'devise.views'
-        clean_file! 'enumerize'
+        clean_enumerize!
         clean_file! 'exceptions'
         clean_exchangers!
         clean_file! 'formats'
@@ -346,6 +346,31 @@ module Clean
         write(file, translation, to_translate, untranslated)
       end
 
+      def clean_enumerize!
+        translate('enumerize.yml') do |ref, translation, s|
+          translation << "  enumerize:\n"
+          ref[:enumerize] ||= {}
+          Clean::Support.models_in_file.each do |model|
+            attrs = []
+            model.enumerized_attributes.each do |attr|
+              next if attr.i18n_scope
+              next unless attr.values.any?
+              next if model < Ekylibre::Record::Base &&
+                      model.nomenclature_reflections.detect { |_k, n| n.foreign_key.to_s == attr.name.to_s }
+              attrs << attr
+            end
+            next unless attrs.any?
+            translation << "    #{model.name.underscore}:\n"
+            attrs.sort { |a, b| a.name <=> b.name }.each do |attr|
+              translation << "      #{attr.name}:\n"
+              attr.values.sort { |a, b| a <=> b }.each do |value|
+                translation << s.exp(ref, :enumerize, model.name.underscore.to_sym, attr.name, value.to_sym).dig(4)
+              end
+            end
+          end
+        end
+      end
+
       def clean_exchangers!
         translate('exchangers.yml') do |ref, translation, s|
           translation << "  exchangers:\n"
@@ -461,7 +486,7 @@ module Clean
                 trl[:properties] = "      property_natures:\n"
                 nomenclature.property_natures.sort { |a, b| a.first.to_s <=> b.first.to_s }.each do |name, property_nature|
                   trl[:properties] << s.exp(ref, nomenclature.name, :property_natures, name.to_sym).dig(4)
-                  if property_nature.type == :choice
+                  if property_nature.type == :choice || property_nature.type == :choice_list
                     if property_nature.inline_choices?
                       choices << "#{name}:\n"
                       property_nature.choices.sort { |a, b| a.to_s <=> b.to_s }.each do |choice|

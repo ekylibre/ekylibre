@@ -36,16 +36,27 @@ eng:
     backend/activity_inspection_point_natures:
       # autocomplete: "Autocomplete activity inspection point nature: %{name}"
     backend/activity_productions:
-      edit: "Edit activity production: %{name}"
-      # index: "Activity productions"
-      new: "New activity production"
-      show: "Activity production: %{name}"
+      edit: "Edit production: %{name}"
+      index: "Productions"
+      new: "New production"
+      show: "Production: %{name}"
+    backend/activity_seasons:
+      # edit: "Edit activity season: %{name}"
+      # index: "Activity seasons"
+      # new: "New activity season"
+      # show: "Activity season: %{name}"
+    backend/activity_tactics:
+      # edit: "Edit activity tactic: %{name}"
+      # index: "Activity tactics"
+      # new: "New activity tactic"
+      # show: "Activity tactic: %{name}"
     backend/affairs:
       attach: "Attach to affair %{number}"
       detach: "Detach from affair %{number}"
+      # detach_gaps: "Detach gaps affair: %{name}"
       finish: "Finish affair %{number}"
       index: "Affairs"
-      select: "Select for affair %{number}"
+      select: "Select a record to add to affair"
       show: "Affair: %{number}"
     backend/analyses:
       edit: "Edit analysis #%{number}"
@@ -325,8 +336,10 @@ eng:
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
+      edit_request: "Edit request %{procedure_name} #%{number}" #?
       index: "Interventions"
       new: "New intervention"
+      new_request: "New requested intervention" #?
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Edit inventory"
@@ -478,7 +491,7 @@ eng:
       # take: "Take product group: %{name}"
     backend/product_localizations:
       edit: "Edit product localization:"
-      # new: "New product localization"
+      new: "New product localization"
     backend/product_nature_categories:
       edit: "Edit product category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"
@@ -486,6 +499,8 @@ eng:
       new: "New product category"
       pick: "Pick product category"
       show: "Product category: %{name}"
+    backend/product_nature_variant_components:
+      # autocomplete: "Autocomplete product nature variant component: %{name}"
     backend/product_nature_variants:
       # detail: "Detail product nature variant: %{name}"
       edit: "Edit product variant: %{name}"
@@ -545,6 +560,7 @@ eng:
     backend/sale_opportunities:
       # attach: "Attach sale opportunity: %{name}"
       # detach: "Detach sale opportunity: %{name}"
+      # detach_gaps: "Detach gaps sale opportunity: %{name}"
       edit: "Edit opportunity: %{name}"
       # evaluate: "Evaluate sale opportunity: %{name}"
       # finish: "Finish sale opportunity: %{name}"
@@ -561,6 +577,7 @@ eng:
     backend/sale_tickets:
       # attach: "Attach sale ticket: %{name}"
       # detach: "Detach sale ticket: %{name}"
+      # detach_gaps: "Detach gaps sale ticket: %{name}"
       # finish: "Finish sale ticket: %{name}"
       # index: "Sale tickets"
       # select: "Select sale ticket: %{name}"
@@ -753,8 +770,8 @@ eng:
         handlers:
           edit:
             tooltip:
-              subtext: "Click cancel to undo changes."
-              text: "Drag handles, or marker to edit feature."
+              subtext: "Click cancel to undo changes"
+              text: "Drag handles, or marker to edit feature"
           remove:
             tooltip:
               text: "Click on a feature to remove"
@@ -762,15 +779,15 @@ eng:
           actions:
             cancel:
               text: "Cancel"
-              title: "Cancel editing, discards all changes."
+              title: "Cancel editing, discards all changes"
             save:
               text: "Save"
-              title: "Save changes."
+              title: "Save changes"
           buttons:
-            edit: "Edit layers."
-            editDisabled: "No layers to edit."
-            remove: "Delete layers."
-            removeDisabled: "No layers to delete."
+            edit: "Edit layers"
+            editDisabled: "No layers to edit"
+            remove: "Delete layers"
+            removeDisabled: "No layers to delete"
       fullscreenTitle: "Full Screen"
       importerButtonTitle: "Import"
       zoomInTitle: "Zoom in"
@@ -779,7 +796,7 @@ eng:
     access: "Access"
     access_parameters: "Access parameters"
     accountancy: "Accountancy"
-    accountancy_balance: "Accountancy balance" #?
+    accountancy_balance: "Accountancy balance"
     accounts: "Accounts"
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
@@ -794,7 +811,9 @@ eng:
     add_attachment: "Add attachment"
     add_bank_statement: "Add bank statement"
     add_catalog_price: "Add catalog price"
+    add_child: "Add a child component"
     add_choice: "Add choice"
+    add_component: "Add component"
     add_condition: "Add condition"
     add_conditions: "Add conditions"
     add_delivery: "Add delivery"
@@ -808,6 +827,8 @@ eng:
     add_inspection_calibration_nature: "Add inspection calibration nature"
     add_inspection_calibration_scale: "Add inspection calibration scale"
     add_inspection_point_nature: "Add inspection point nature"
+    add_intervention_record: "Add intervention record"
+    add_intervention_request: "Add intervention request"
     add_item: "Add item"
     add_line: "Add line"
     add_linestring: "Add linestring"
@@ -826,8 +847,10 @@ eng:
     add_reading: "Add a value for an indicator"
     add_revenue: "Add revenue"
     add_sale_taxation: "Add sale taxation"
+    add_season: "Add season"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Add support"
+    add_tactic: "Add cropping technique"
     add_tool: "Add tool"
     add_website: "Add website"
     add_working_period: "Add working period"
@@ -871,7 +894,7 @@ eng:
     balance: "Balance"
     bank_account: "Bank account"
     bank_statement_number: "Bank statement number" #?
-    bank_statements: "Bank statements"
+    bank_statements: "Bank statements" #?
     bban: "Basic Bank Account Number (BBAN)"
     beginning: "Beginning"
     body: "Body of the message"
@@ -884,7 +907,7 @@ eng:
     by_year: "By year"
     calculate: "Calculate" #?
     calculators: "Calculators" #?
-    calendar: "Calendar" #?
+    calendar: "Calendar"
     campaign: "Campaign"
     canals: "Canals" #?
     cancel: "Cancel"
@@ -901,6 +924,7 @@ eng:
     catalog: "Catalog" #?
     catalog_items: "Catalog items"
     category: "Category"
+    # cell: "Cell"
     centralize: "Centralize account"
     centralized_account: "Centralized account %{name}"
     change_password: "Change password"
@@ -925,6 +949,7 @@ eng:
     commission: "Commission"
     company: "Society" #?
     complete: "Complete"
+    # components: "Components"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
       special-subscriber: "Special-subscriber"
@@ -943,7 +968,7 @@ eng:
     cost_per_net_surface_area: "Cost per net surface area"
     costs: "Costs"
     costs_per_hectare: "Costs per hectare"
-    countings: "Countings"
+    countings: "Countings" #?
     counts: "Counts"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
@@ -959,7 +984,7 @@ eng:
     credit: "Credit" #?
     credited_quantity: "Quantity to credit" #?
     credits: "Credits"
-    cropping_plan: "Cropping plan" #?
+    cropping_plan: "Cropping plan"
     cropping_plan_on_cultivable_zones: "Cropping plan on cultivable zones"
     crumbs: "Crumbs" #?
     cultivable_zone: "Cultivable zone" #?
@@ -970,7 +995,10 @@ eng:
     current_stocks_by_variety: "Current stocks by variety" #?
     custom_fields: "Custom fields"
     # data: "Data"
+    # data_transmissions: "Data transmissions"
+    # date: "Date"
     dates: "Select period start date and Period end date" #?
+    days: "Days" #?
     deals: "Deals"
     debit: "Debit" #?
     debts_on_assets: "Debts on assets %{financial_year}"
@@ -987,9 +1015,10 @@ eng:
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
+    delta: "+/-"
     deposit: "Deposit"
     depositable_options: "Deposit options"
-    deposits: "Deposits"
+    deposits: "Deposits" #?
     depreciation: "Depreciation"
     depreciations: "Depreciations"
     description: "Description" #?
@@ -1011,6 +1040,7 @@ eng:
     document: "Document" #?
     document_natures: "Document types" #?
     document_templates: "Document templates" #?
+    documentation: "Documentation"
     doer_cost: "Doer cost"
     done: "Done" #?
     dont_use_journal: "— Do not use journal —"
@@ -1027,12 +1057,12 @@ eng:
     email: "Email:" #?
     end: "to" #?
     entities: "Entities"
-    entity_links: "Entity links"
+    entity_links: "Entity links" #?
     entity_to_delete: "Person to delete"
     entity_to_update: "Person to update"
     entries: "Entries" #?
     entries_to_point: "Entries pointing to"
-    entry_items: "Entry items"
+    entry_items: "Entry items" #?
     equipment: "Equipment" #?
     equipment_name: "Name of equipment" #?
     equipments: "Equipment"
@@ -1054,6 +1084,7 @@ eng:
     expenses: "Expenses"
     expenses_by_product_nature_category: "Expenses by product nature category" #?
     export: "Export documents"
+    field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
     file_to_upload: "File to upload"
@@ -1152,18 +1183,18 @@ eng:
     last_analyses: "Last milk analysis"
     last_computed_balance: "Last computed balance" #?
     last_documents: "Last documents" #?
-    last_entities: "Last entities" #?
+    last_entities: "Last entities"
     last_events: "Last events" #?
-    last_incoming_parcels: "Last incoming parcels" #?
+    last_incoming_parcels: "Last incoming parcels"
     last_inspection: "Last inspection"
     last_intervention: "Last intervention"
     last_issue: "Last issue"
-    last_issues: "Last issues" #?
+    last_issues: "Last issues"
     last_movements: "Last movements"
-    last_outgoing_parcels: "Last outgoing parcels" #?
+    last_outgoing_parcels: "Last outgoing parcels"
     last_products: "Last products" #?
     last_purchases: "Last purchases"
-    last_sales: "Last sales" #?
+    last_sales: "Last sales"
     letter: "Letter" #?
     line_number: "Line #%{number}"
     linear_options: "Linear options"
@@ -1180,7 +1211,7 @@ eng:
       one: "%{count} email"
       other: "%{count} emails"
       zero: "No emails"
-    main_settings: "Main settings" #?
+    main_settings: "Main settings"
     make_your_production_support: "Make your production support"
     manage_activities: "Manage activities"
     manual: "Manual" #?
@@ -1234,8 +1265,10 @@ eng:
       zero: "Make a deposit %{mode}: no available payments"
     new_email: "New email"
     new_group: "New group"
+    new_incoming_parcel: "New incoming parcel"
     new_issue: "New issue"
     new_organization: "New organization"
+    new_outgoing_parcel: "New outgoing parcel"
     new_production: "New production"
     new_production_of_activity: "New production of %{activity}"
     new_quote: "New quote"
@@ -1273,6 +1306,7 @@ eng:
     operations: "Operations" #?
     options: "Options"
     organic_matter_concentration: "Organic matter concentration" #?
+    original_component: "original"
     others: "Others" #?
     # outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
@@ -1287,7 +1321,7 @@ eng:
     parcels: "Parcels"
     participants: "Participants"
     participations: "Participations"
-    parts: "Modules" #?
+    parts: "Modules"
     password: "Password" #?
     payable_taxes: "Payable taxes"
     payment_amount: "Amount of payment" #?
@@ -1343,6 +1377,7 @@ eng:
     purchase_items: "Purchase items" #?
     purchase_number: "Purchase number" #?
     purchases: "Purchases"
+    quality: "Quality"
     quandl: "Quandl" #?
     quantity: "Quantity" #?
     query: "Query:" #?
@@ -1353,10 +1388,12 @@ eng:
     received: "Received" #?
     recent_events: "Recent events"
     reconciled_total: "Reconciled total"
+    record_maintenance: "Record maintenance"
     reflect: "Reflect" #?
     reflected: "Reflected changes" #?
     reflections: "Reflections" #?
     refresh: "Refresh" #?
+    register_intervention_request: "Register intervention request" #?!
     relationship: "Relationship"
     relationship_of_entity: "%{relationship} of %{entity}"
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
@@ -1369,9 +1406,9 @@ eng:
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
+    request_maintenance: "Request maintenance"
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
-    # resource_map: "Resource map"
     resources: "Resources management" #?
     rest: "Rest"
     restore: "Restore" #?
@@ -1381,7 +1418,7 @@ eng:
       other: "%{count} results" #?
       zero: "No results" #?
     revenues: "Revenues" #?
-    revenues_by_product_nature: "Revenues by product type" #?
+    revenues_by_product_nature: "Revenues by product type"
     reverse: "Reverse condition"
     rights: "Rights"
     role: "Role" #?
@@ -1390,7 +1427,7 @@ eng:
     run: "Run" #?
     sale: "Sale" #?
     sale_items: "Sale items"
-    sale_opportunities: "Sale opportunities"
+    sale_opportunities: "Sale opportunities" #?
     sales: "Sales"
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
@@ -1412,7 +1449,7 @@ eng:
     send_test_mail: "Send test mail"
     sensor_model: "Sensor model"
     sensors: "Sensors" #?
-    sessions: "Sessions"
+    sessions: "Sessions" #?
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
     settings_statistics: "Settings statistics"
@@ -1456,7 +1493,7 @@ eng:
     supports: "Supports" #?
     synthesis: "Synthesis"
     target: "Target" #?
-    tasks: "Tasks"
+    tasks: "Tasks" #?
     taxations: "Taxations"
     taxes: "Taxes" #?
     thumb: "Thumb" #?
@@ -1467,6 +1504,7 @@ eng:
     timeline_comment: "%{author} commented %{when}"
     timeline_entity_link: "Timeline entity link"
     timeline_event: "%{name} with %{participants} %{when}"
+    timeline_event_without_participants: "%{name} %{when}"
     timeline_incoming_call: "%{author} called %{entity} about %{name} %{when}"
     timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{when}"
     timeline_item: "%{type} %{name} added by %{author} %{when}"
@@ -1484,7 +1522,7 @@ eng:
     tool_cost: "Tool cost"
     tools: "Tools"
     total: "Total"
-    total_amount: "Total amount" #?
+    total_amount: "Total amount" #??
     total_cost: "Total cost"
     total_in_currency: "Total (%{currency})"
     total_pretax_expenses: "Total pre-tax expenses"
@@ -1493,7 +1531,7 @@ eng:
     totals: "Totals"
     tracking: "Tracking" #?
     trade: "Trade"
-    trade_counts: "Trade counts" #?
+    trade_counts: "Trade counts"
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
@@ -1530,10 +1568,11 @@ eng:
     validate_selected_entries: "Validate selected entries"
     values: "Values"
     variable_indicators: "Variable indicators"
-    variants: "Variants"
+    variants: "Variants" #?
     view: "View"
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?
+    # wear: "Wear"
     weather: "Weather"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
@@ -1576,6 +1615,9 @@ eng:
     x_hours:
       one: "%{count} hour"
       other: "%{count} hours"
+    x_hours_worked:
+      one: "%{count}\_h worked"
+      other: "%{count}\_h worked"
     x_incoming_payments:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
@@ -1635,6 +1677,9 @@ eng:
     x_sales_invoices:
       one: "%{count} sales invoice"
       other: "%{count} sales invoices"
+    x_seconds:
+      one: "%{count} second"
+      other: "%{count} seconds"
     x_subscriptions:
       one: "%{count} subscription"
       other: "%{count} subscriptions"
@@ -1642,6 +1687,9 @@ eng:
       one: "%{count} task"
       other: "%{count} tasks"
     x_thing: "%{x} %{thing}"
+    x_times:
+      one: "%{count} time"
+      other: "%{count} times"
     x_unit: "%{quantity}%{unit}"
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1664,6 +1712,7 @@ eng:
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration"
     zones: "Zones"
+    # }: "}"
   notifications:
     levels:
       error: "Error!"
@@ -1695,6 +1744,10 @@ eng:
         other: "%{count} entries have been validated"
         zero: "No entries has been validated"
       entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
+      equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
+      equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}." #?
+      equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}." #?
+      equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}." #?
       exception_raised: "An error occurred during the processing: %{message}"
       fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "Implemented with dummy data"
@@ -1735,6 +1788,7 @@ eng:
       no_production_defined_for_current_campaign: "No production defined for current campaign"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "No production found. You can add new or copy some from previous campaign."
       no_reopenable_journal: "You can not re-open this journal."
+      no_replacements_since_beginning: "No replacements since beginning"
       record_already_imported: "Record already imported"
       record_cannot_be_removed: "The record can not be deleted"
       record_has_been_correctly_removed: "The record has been removed successfully"
@@ -1786,7 +1840,7 @@ eng:
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_password: "Change password"
-      # check: "Check"
+      check: "Check"
       close: "Close"
       compute: "Compute"
       compute_balances: "Compute balances"
@@ -1798,6 +1852,7 @@ eng:
       # current: "Current"
       destroy: "Destroy"
       detach: "Detach"
+      # detach_gaps: "Detach gaps"
       detail: "Detail"
       distribute: "Distribute unaffected products"
       down: "Down"
@@ -1809,7 +1864,7 @@ eng:
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
-      # give: "Give"
+      give: "Give"
       import: "Import"
       incorporate: "Incorporate"
       index: "Index"
@@ -1830,10 +1885,10 @@ eng:
       negociate: "Negociate"
       new: "New"
       open: "Open"
-      # order: "Order"
+      order: "Order"
       pick: "Pick"
       picture: "Picture"
-      # prepare: "Prepare"
+      prepare: "Prepare"
       # progress: "Progress"
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
@@ -1882,6 +1937,7 @@ eng:
     backend/entity_links: "%{started_at}"
     backend/events: "%{name}"
     backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
+    backend/interventions: "%{number}. %{name}"
     backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     backend/matters: "%{name} ‒ %{work_number}"
     backend/observations: "%{content}"

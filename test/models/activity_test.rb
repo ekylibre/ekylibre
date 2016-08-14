@@ -49,6 +49,8 @@
 #  updater_id                   :integer
 #  use_countings                :boolean          default(FALSE), not null
 #  use_gradings                 :boolean          default(FALSE), not null
+#  use_seasons                  :boolean          default(FALSE)
+#  use_tactics                  :boolean          default(FALSE)
 #  with_cultivation             :boolean          not null
 #  with_supports                :boolean          not null
 #

@@ -33,6 +33,7 @@
 #  lock_version        :integer          default(0), not null
 #  nitrate_fixing      :boolean          default(FALSE), not null
 #  rank_number         :integer          not null
+#  season_id           :integer
 #  size_indicator_name :string           not null
 #  size_unit_name      :string
 #  size_value          :decimal(19, 4)   not null
@@ -42,6 +43,7 @@
 #  support_id          :integer          not null
 #  support_nature      :string
 #  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id           :integer
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  usage               :string           not null
@@ -71,6 +73,7 @@ activity_productions_001:
     45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
     45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
     45.8266349359199,-0.796809196472168 45.8269227686334)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:15.017043000 Z
   updater_id: 1
   usage: fodder
@@ -99,6 +102,7 @@ activity_productions_002:
     45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
     45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
     45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:15.019045000 Z
   updater_id: 1
   usage: fodder
@@ -126,6 +130,7 @@ activity_productions_003:
     45.823562135501,-0.796680450439453 45.8240705424138,-0.79751193523407 45.8253078957196,-0.798069834709167
     45.8259471218497,-0.798091292381287 45.8262386962433,-0.797989368438721 45.8264592450906,-0.797780156135559
     45.8266349359199,-0.796809196472168 45.8269227686334)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:48.520900000 Z
   updater_id: 1
   usage: fodder
@@ -154,6 +159,7 @@ activity_productions_004:
     45.8206237516506,-0.796240568161011 45.8205601971058,-0.795108675956726 45.8205938436385,-0.794395208358765
     45.8206274901509,-0.793923139572144 45.8206798291298,-0.793456435203552 45.8208069378736,-0.792801976203918
     45.8209377848067,-0.794330835342407 45.8240069918036,-0.796213746070862 45.8235247524565)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:48.523744000 Z
   updater_id: 1
   usage: fodder
@@ -179,6 +185,7 @@ activity_productions_005:
   support_shape: SRID=4326;MULTIPOLYGON(((-0.801068544387817 45.825154629884,-0.801712274551391
     45.8250686513037,-0.802023410797119 45.823001387198,-0.799459218978882 45.8229901721743,-0.799303650856018
     45.8255060192232,-0.800360441207886 45.825132200702,-0.801068544387817 45.825154629884)))
+  tactic_id: 2
   updated_at: 2014-11-04 17:23:48.526283000 Z
   updater_id: 1
   usage: fodder
@@ -193,6 +200,7 @@ activity_productions_006:
   lock_version: 0
   nitrate_fixing: false
   rank_number: 1
+  season_id: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   size_value: 3.9989
@@ -219,6 +227,7 @@ activity_productions_007:
   lock_version: 0
   nitrate_fixing: false
   rank_number: 2
+  season_id: 3
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   size_value: 3.9989
@@ -1285,6 +1294,7 @@ activity_productions_044:
   lock_version: 0
   nitrate_fixing: false
   rank_number: 1
+  season_id: 1
   size_indicator_name: net_surface_area
   size_unit_name: hectare
   size_value: 3.9989
@@ -1297,6 +1307,7 @@ activity_productions_044:
     45.8208704921367,-0.801602303981781 45.8207901146742,-0.801505744457245 45.8212873315345,-0.801551342010498
     45.8215415459581,-0.801910758018494 45.8223359585506,-0.802023410797119 45.8230051255387,-0.799464583396912
     45.8229752188059,-0.799569189548492 45.8210648929617)))
+  tactic_id: 1
   updated_at: 2016-05-10 19:12:52.835212000 Z
   updater_id: 1
   usage: grain

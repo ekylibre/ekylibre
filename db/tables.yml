@@ -186,6 +186,12 @@ activities:
     type: boolean
     required: true
     default: false
+  use_seasons:
+    type: boolean
+    default: false
+  use_tactics:
+    type: boolean
+    default: false
   with_cultivation:
     type: boolean
     required: true
@@ -443,6 +449,9 @@ activity_productions:
   rank_number:
     type: integer
     required: true
+  season_id:
+    type: integer
+    references: activity_season
   size_indicator_name:
     type: string
     required: true
@@ -470,6 +479,9 @@ activity_productions:
     limit:
       srid: 4326
       type: multi_polygon
+  tactic_id:
+    type: integer
+    references: activity_tactic
   updated_at:
     type: datetime
     required: true
@@ -479,6 +491,64 @@ activity_productions:
   usage:
     type: string
     required: true
+activity_seasons:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+activity_tactics:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  mode:
+    type: string
+  mode_delta:
+    type: integer
+  name:
+    type: string
+    required: true
+  planned_on:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 affairs:
   accounted_at:
     type: datetime
@@ -2881,6 +2951,12 @@ intervention_parameter_readings:
     type: integer
     references: user
 intervention_parameters:
+  assembly_id:
+    type: integer
+    references: product
+  component_id:
+    type: integer
+    references: product_nature_variant_component
   created_at:
     type: datetime
     required: true
@@ -3013,6 +3089,9 @@ interventions:
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
+    required: true
   number:
     type: string
   prescription_id:
@@ -3021,6 +3100,9 @@ interventions:
   procedure_name:
     type: string
     required: true
+  request_intervention_id:
+    type: integer
+    references: intervention
   started_at:
     type: datetime
   state:
@@ -3028,6 +3110,12 @@ interventions:
     required: true
   stopped_at:
     type: datetime
+  trouble_description:
+    type: text
+  trouble_encountered:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -4865,6 +4953,40 @@ product_nature_category_taxations:
   usage:
     type: string
     required: true
+product_nature_variant_components:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  deleted_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  parent_id:
+    type: integer
+    references: product_nature_variant_component
+  part_product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+  product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 product_nature_variant_readings:
   absolute_measure_value_unit:
     type: string

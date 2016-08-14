@@ -56,9 +56,10 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   has_many :unlocked_payments, -> { where(journal_entry_id: JournalEntry.where(state: 'draft')) }, foreign_key: :mode_id, class_name: 'IncomingPayment'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :commission_base_amount, :commission_percentage, numericality: { allow_nil: true }
+  validates :active, inclusion: { in: [true, false] }, allow_blank: true
+  validates :commission_base_amount, :commission_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :detail_payments, :with_accounting, :with_commission, :with_deposit, inclusion: { in: [true, false] }
-  validates :commission_base_amount, :commission_percentage, :name, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
   validates :name, length: { allow_nil: true, maximum: 50 }
   validates :commission_percentage, numericality: { greater_than_or_equal_to: 0, if: :with_commission? }

@@ -1,6 +1,10 @@
 por:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Emissão natureza"
+          variety: "Variedade"
       items:
         acidify: "Acidificar"
         administer_care: "Administrar cuidados"
@@ -807,7 +811,6 @@ por:
         # er: "Eritrea"
         es: "Espanha"
         et: "Etiópia"
-        false: "Noruega" #?
         fi: "Finlândia"
         # fj: "Fiji"
         fk: "Ilhas Falkland (Malvinas)"
@@ -905,7 +908,7 @@ por:
         ng: "Nigéria"
         ni: "Nicarágua"
         nl: "Países Baixos"
-        # no: "Norway"
+        no: "Noruega"
         # np: "Nepal"
         # nr: "Nauru"
         # nu: "Niue"
@@ -1506,6 +1509,7 @@ por:
         consumption_period: "Período de consumo"
         copper_concentration: "Concentração de cobre"
         cumulated_rainfall: "Precipitação acumulada"
+        daily_average_working_time: "Tempo de trabalho diário médio"
         daily_nitrogen_production: "A produção diária de azoto"
         diameter: "Diâmetro"
         dry_matter_rate: "Taxa de matéria seca"
@@ -1536,6 +1540,7 @@ por:
         lactating: "Lactação"
         last_birth_children_count: "Última contagem crianças nascidas"
         length: "Comprimento"
+        lifespan: "Vida útil"
         lipolysis: "Lipólise"
         livestock_unit: "Unidade de gado"
         magnesium_concentration: "Concentração de magnésio"
@@ -1640,6 +1645,7 @@ por:
         wind_direction: "Direção do vento"
         wind_speed: "Velocidade do vento"
         woodstock_variety: "Variedade Woodstock"
+        working_lifespan: "Vida útil de trabalho"
         zinc_concentration: "A concentração de zinco"
       name: "Indicadores"
       property_natures:
@@ -1967,6 +1973,7 @@ por:
         concrete_slab_pouring: "Laje de concreto de derramamento"
         conservation_plowing: "lavoura de conservação"
         # corvicide: "Corvicide"
+        curative_maintenance: "Manutenção curativa"
         cutting: "Corte"
         dehorning: "Descorna"
         desiccation: "Dessecação"
@@ -2040,6 +2047,7 @@ por:
         planting: "Plantio"
         plowing: "Arar"
         pollinate: "Polinizar"
+        preventive_maintenance: "Manutenção preventiva"
         product_identification: "Identificação do produto"
         pumping_system_troubleshooting: "Bombeando solução de problemas do sistema"
         rain_protection: "Proteção contra chuva"
@@ -2069,6 +2077,7 @@ por:
         tunnel_installation: "instalação de túnel"
         tunnel_removal: "remoção do túnel"
         tunnel_removing: "Túnel removendo"
+        upgrading_maintenance: "Manutenção Atualizando"
         virucide: "Virucida"
         water_flow_improvement: "Melhoria do fluxo de água"
         weeding: "Capina"
@@ -3141,6 +3150,9 @@ por:
         variety: "Variedade"
     product_natures:
       choices:
+        linkage_points:
+          front: "Frente"
+          rear: "Traseiro"
         population_counting:
           # decimal: "Decimal"
           integer: "Número inteiro"

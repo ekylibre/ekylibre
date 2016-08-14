@@ -1,3 +1,4 @@
+
 # = Informations
 #
 # == License
@@ -40,7 +41,8 @@ class ActivityBudget < Ekylibre::Record::Base
   has_many :revenues, -> { revenues }, class_name: 'ActivityBudgetItem', inverse_of: :activity_budget
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :activity, :campaign, :currency, presence: true
+  validates :currency, presence: true, length: { maximum: 500 }
+  validates :activity, :campaign, presence: true
   # ]VALIDATORS]
   validates_associated :expenses, :revenues
 

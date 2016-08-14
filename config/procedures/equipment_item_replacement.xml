@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="equipment_item_replacement" categories="equipment_maintenance" actions="troubleshooting">
+  <procedure name="equipment_item_replacement" categories="equipment_maintenance" actions="troubleshooting" deprecated="true">
     <parameters>
       <target name="equipment" filter="is equipment" />
       <input name="item" filter="is matter and derives from equipment" cardinality="*">

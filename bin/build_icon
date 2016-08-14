@@ -45,7 +45,7 @@ cp icon-1024px.png store-retina.png
 # Removes useless files
 rm -f icon-*px.png
 
-
+# Build marker icons used by Leaflet
 cd $here/../app/assets/images/map/marker
 inkscape -z --export-png=icon.png    --export-width=25 --export-height=41 icon.svg
 inkscape -z --export-png=icon-2x.png --export-width=50 --export-height=82 icon.svg

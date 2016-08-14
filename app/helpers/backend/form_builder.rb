@@ -55,7 +55,7 @@ module Backend
       item = association.to_s.singularize
       partial = options[:partial] || item + '_fields'
       options[:locals] ||= {}
-      html = simple_fields_for(association) do |nested|
+      html = simple_fields_for(association, options[:collection]) do |nested|
         @template.render(partial, options[:locals].merge(f: nested))
       end
       html_options = { id: "#{association}-field", class: "nested-#{association} nested-association" }
@@ -411,6 +411,18 @@ module Backend
       end
     end
 
+    def delta_field(value_attribute, delta_attribute, unit_name_attribute, unit_values, *args)
+      options = args.extract_options!
+      attribute_name = args.shift || options[:name]
+
+      input(attribute_name, options.merge(wrapper: :append)) do
+        input(value_attribute, wrapper: :simplest) +
+          @template.content_tag(:span, :delta.tl, class: 'add-on') +
+          input(delta_attribute, wrapper: :simplest) +
+          unit_field(unit_name_attribute, unit_values, args)
+      end
+    end
+
     # Load a partial
     def subset(name, options = {}, &block)
       options[:id] ||= name
@@ -693,17 +705,24 @@ module Backend
       options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
       options[:input_html][:data][:selector] = @template.url_for(choices)
       unless options[:new].is_a?(FalseClass)
-        new_url = {}
+        new_url = options[:new].is_a?(Hash) ? options[:new] : {}
         new_url[:controller] ||= choices[:controller]
         new_url[:action] ||= :new
         options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
-        options[:input_html][:data][:selector_new_item_default_values] = options[:new] if options[:new].is_a? Hash
       end
       # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
       options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
       options[:as] = :string
       options[:reflection] = reflection
       options
+    end
+
+    def unit_field(unit_name_attribute, units_values, *_args)
+      if units_values.is_a?(Array)
+        return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
+      end
+
+      @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
   end
 end

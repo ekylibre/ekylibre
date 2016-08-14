@@ -113,7 +113,7 @@ eng:
     pretax_amount: "Pre-tax amount"
     printed_on: "Printed on"
     product_account_label: "Product account label"
-    #~ product_name: "Name"
+    #~ product_name: "Product"
     production_support: "Production support"
     productions_sales: "Productions sales"
     products_purchases: "Products purchases"

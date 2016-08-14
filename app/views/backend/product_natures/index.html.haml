@@ -7,7 +7,8 @@
 
 - main_toolbar do |t|
   = t.new
-  = t.pick
+  - if ProductNature.any_reference_available?
+    = t.pick
 
 = main_list
 

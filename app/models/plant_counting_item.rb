@@ -39,8 +39,8 @@ class PlantCountingItem < Ekylibre::Record::Base
   after_destroy :update_average_value
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :value, numericality: { allow_nil: true, only_integer: true }
-  validates :plant_counting, :value, presence: true
+  validates :value, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
+  validates :plant_counting, presence: true
   # ]VALIDATORS]
 
   def update_average_value

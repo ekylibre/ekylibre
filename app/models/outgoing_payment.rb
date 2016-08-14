@@ -57,10 +57,12 @@ class OutgoingPayment < Ekylibre::Record::Base
   belongs_to :payee, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :accounted_at, :paid_at, :to_bank_at, timeliness: { allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :amount, numericality: { allow_nil: true }
+  validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :bank_check_number, :number, length: { maximum: 500 }, allow_blank: true
+  validates :cash, :currency, :mode, :payee, :responsible, presence: true
   validates :delivered, :downpayment, inclusion: { in: [true, false] }
-  validates :amount, :cash, :currency, :mode, :payee, :responsible, :to_bank_at, presence: true
+  validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
   validates :amount, numericality: { greater_than: 0 }

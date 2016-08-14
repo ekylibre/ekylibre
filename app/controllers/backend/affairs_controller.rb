@@ -73,6 +73,12 @@ module Backend
       end
     end
 
+    def detach_gaps
+      return unless @affair = find_and_check
+      @affair.gaps.each { |g| g.undeal! @affair }
+      redirect_to params[:redirect] || redirect_to_best_page
+    end
+
     def finish
       return unless @affair = find_and_check
       notify_error :cannot_finish_affair unless @affair.finish
