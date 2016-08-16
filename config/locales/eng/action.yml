@@ -667,6 +667,8 @@ eng:
       index: "Teams"
       new: "New team"
       show: "Team: %{name}"
+    backend/tours:
+      # finish: "Finish tour: %{name}"
     backend/trackings:
       edit: "Edit tracking: %{name}"
       index: "Trackings"
@@ -1092,6 +1094,7 @@ eng:
     final_balance: "Final balance"
     financials_assets: "Financials assets"
     finish: "Finish" #?
+    finished: "Finished"
     first_line_as_title: "First line as title"
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
@@ -1530,6 +1533,23 @@ eng:
     total_pretax_revenues: "Total pre-tax revenues"
     total_quantity: "Total quantity" #?
     totals: "Totals"
+    tours:
+      welcome:
+        home:
+          content: "We will make a quick tour of the interface of the application. First this button permits to go home from anywhere in application."
+          title: "Welcome on Ekylibre"
+        main:
+          content: "Where all the action take place is here. We wish you an happy usage."
+          title: "Where you work"
+        parts:
+          content: "This menu permits to access to all of main modules."
+          title: "Modules of Ekylibre"
+        side:
+          content: "This side bar contains all the sub-menus of the current module you are consulting."
+          title: "Module side bar"
+        user:
+          content: "Here, you can see your notifications, show help, read your farm name. Your user preferences are editable from menu."
+          title: "User menu"
     tracking: "Tracking" #?
     trade: "Trade"
     trade_counts: "Trade counts"

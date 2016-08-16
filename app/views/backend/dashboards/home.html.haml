@@ -6,3 +6,10 @@
   - b.hbox do
     - b.cell :calendar
     - b.cell :weather
+
+- tour(:welcome) do |s|
+  - s.step(:home, on: :bottom_right)
+  - s.step(:parts, on: :bottom)
+  - s.step(:user, on: :bottom_left)
+  - s.step(:side, on: :right)
+  - s.step(:main, on: :center)

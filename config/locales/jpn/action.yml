@@ -992,6 +992,7 @@ jpn:
     final_balance: "期末残高"
     financials_assets: "金融資産"
     finish: "仕上げ"
+    finished: "完成しました"
     first_line_as_title: "タイトルとして最初の行"
     fixed_asset_depreciations: "固定資産の減価償却"
     fixed_assets: "固定資産"
@@ -1446,6 +1447,23 @@ jpn:
     total_quantity: "総量"
     total_unpaid_amount: "合計未払い額" #?
     totals: "合計"
+    tours:
+      welcome:
+        home:
+          content: "私たちは、アプリケーションのインターフェイスのクイックツアーを行います。アプリケーションのどこからでも家に帰るまずこのボタンを可能にします。"
+          title: "Ekylibreにようこそ"
+        main:
+          content: "すべてのアクションが起こるのはここです。私たちはあなたに幸せな利用を望みます。"
+          title: "どこで働きます"
+        parts:
+          content: "このメニューは、メインモジュールのすべてにアクセスすることを許可します。"
+          title: "Ekylibreのモジュール"
+        side:
+          content: "このサイドバーには、相談している現在のモジュールのすべてのサブメニューが含まれています。"
+          title: "モジュールのサイドバー"
+        user:
+          content: "ここで、あなたは、あなたの通知を参照してくださいヘルプを表示、ファーム名を読み取ることができます。ユーザー設定は、メニューから編集可能です。"
+          title: "ユーザメニュー"
     tracking: "追跡"
     trade: "トレード"
     trade_counts: "貿易カウント"

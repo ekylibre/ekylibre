@@ -1050,6 +1050,7 @@ spa:
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     financials_assets: "Activos Finanzas"
     finish: "Acabado"
+    finished: "Terminado"
     finished_income_statement: "Productos" #?
     finished_sum: "Total productos de explotación" #?
     first_line_as_title: "Primera línea como el título"
@@ -1607,6 +1608,23 @@ spa:
     total_quantity: "Quantidad total"
     total_unpaid_amount: "Cantidad total no pagado" #?
     totals: "Totales (piezas validas y niebla)"
+    tours:
+      welcome:
+        home:
+          content: "Vamos a hacer una visita rápida de la interfaz de la aplicación. En primer lugar este botón permisos para ir a casa desde cualquier lugar de la aplicación."
+          title: "Bienvenido a Ekylibre"
+        main:
+          content: "Donde toda la acción tendrá lugar está aquí. Le deseamos un uso feliz."
+          title: "Donde trabajas"
+        parts:
+          content: "Este menú permite acceder a todos los módulos principales."
+          title: "Módulos de Ekylibre"
+        side:
+          content: "Esta barra lateral contiene todos los submenús del módulo actual que está consultando."
+          title: "Barra lateral del módulo"
+        user:
+          content: "Aquí, se puede ver sus notificaciones, mostrar ayuda, leer su nombre de la granja. Sus preferencias del usuario se pueden modificar desde el menú."
+          title: "Menú del Usuario"
     tracking: "Rastreo"
     trade: "Comercio"
     trade_counts: "Conteos comerciales"

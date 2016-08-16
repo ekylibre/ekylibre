@@ -1529,6 +1529,9 @@
       <item name="map_editors">
         <page to="backend/map_editors#upload"/>
       </item>
+      <item name="tours">
+        <page to="backend/tours#finish"/>
+      </item>
       <item name="invitations">
         <page to="authentication/invitations#create"/>
         <page to="authentication/invitations#destroy"/>

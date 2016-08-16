@@ -117,6 +117,7 @@
 #     - "backend/products#take"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
+#     - "backend/tours#finish"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"

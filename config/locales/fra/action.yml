@@ -1174,6 +1174,7 @@ fra:
     financial_state: "État financier" #?
     financials_assets: "Immobilisations"
     finish: "Terminer"
+    finished: "Terminé"
     finished_income_statement: "Produits" #?
     finished_sum: "Total produits d’exploitation" #?
     finishes: "Termine par" #?
@@ -1891,6 +1892,23 @@ fra:
     total_quantity: "Quantité totale"
     total_unpaid_amount: "Montant total impayé" #?
     totals: "Totaux"
+    tours:
+      welcome:
+        home:
+          content: "Nous allons faire un tour rapide de l’interface de l’application. Tout d’abord ce bouton permet de revenir à l’accueil depuis n’importe où dans l’application."
+          title: "Bienvenue sur Ekylibre"
+        main:
+          content: "Toute l’action prend place ici. Nous vous souhaitons une bonne prise en main."
+          title: "Où vous travaillez"
+        parts:
+          content: "Ce menu permet d’accéder à l’ensemble des modules principaux."
+          title: "Modules de Ekylibre"
+        side:
+          content: "Cette barre latérale contient tous les sous-menus du module où vous vous trouvez."
+          title: "Barre latérale du module"
+        user:
+          content: "Ici, vous pouvez voir vos notifications, afficher l’aide, lire le nom de votre ferme. Vos préférences utilisateur sont modifiables à partir du menu aussi."
+          title: "Menu utilisateur"
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"
