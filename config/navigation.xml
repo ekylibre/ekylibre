@@ -1774,6 +1774,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="activity_productions">
+        <page to="backend/activity_productions#list_target_distributions"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

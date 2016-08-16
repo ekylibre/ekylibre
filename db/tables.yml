@@ -3379,6 +3379,9 @@ journal_entry_items:
     type: integer
     references: account
     required: true
+  activity_id:
+    type: integer
+    references: activity
   balance:
     type: decimal
     precision: 19
@@ -3389,6 +3392,9 @@ journal_entry_items:
     references: bank_statement
   bank_statement_letter:
     type: string
+  campaign_id:
+    type: integer
+    references: campaign
   created_at:
     type: datetime
     required: true
@@ -5488,6 +5494,9 @@ purchase_items:
     type: integer
     references: account
     required: true
+  activity_id:
+    type: integer
+    references: activity
   amount:
     type: decimal
     precision: 19
@@ -5495,6 +5504,9 @@ purchase_items:
     required: true
   annotation:
     type: text
+  campaign_id:
+    type: integer
+    references: campaign
   created_at:
     type: datetime
     required: true
@@ -5702,6 +5714,9 @@ sale_items:
   account_id:
     type: integer
     references: account
+  activity_id:
+    type: integer
+    references: activity
   amount:
     type: decimal
     precision: 19
@@ -5709,6 +5724,9 @@ sale_items:
     required: true
   annotation:
     type: text
+  campaign_id:
+    type: integer
+    references: campaign
   created_at:
     type: datetime
     required: true

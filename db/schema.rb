@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730070743) do
+ActiveRecord::Schema.define(version: 20160816220901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1784,11 +1784,15 @@ ActiveRecord::Schema.define(version: 20160730070743) do
     t.integer  "lock_version",                                        default: 0,   null: false
     t.decimal  "real_balance",              precision: 19, scale: 4,  default: 0.0, null: false
     t.string   "bank_statement_letter"
+    t.integer  "campaign_id"
+    t.integer  "activity_id"
   end
 
   add_index "journal_entry_items", ["account_id"], name: "index_journal_entry_items_on_account_id", using: :btree
+  add_index "journal_entry_items", ["activity_id"], name: "index_journal_entry_items_on_activity_id", using: :btree
   add_index "journal_entry_items", ["bank_statement_id"], name: "index_journal_entry_items_on_bank_statement_id", using: :btree
   add_index "journal_entry_items", ["bank_statement_letter"], name: "index_journal_entry_items_on_bank_statement_letter", using: :btree
+  add_index "journal_entry_items", ["campaign_id"], name: "index_journal_entry_items_on_campaign_id", using: :btree
   add_index "journal_entry_items", ["created_at"], name: "index_journal_entry_items_on_created_at", using: :btree
   add_index "journal_entry_items", ["creator_id"], name: "index_journal_entry_items_on_creator_id", using: :btree
   add_index "journal_entry_items", ["entry_id"], name: "index_journal_entry_items_on_entry_id", using: :btree
@@ -2912,9 +2916,13 @@ ActiveRecord::Schema.define(version: 20160730070743) do
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0,   null: false
     t.boolean  "fixed",                                         default: false, null: false
     t.decimal  "reduction_percentage", precision: 19, scale: 4, default: 0.0,   null: false
+    t.integer  "campaign_id"
+    t.integer  "activity_id"
   end
 
   add_index "purchase_items", ["account_id"], name: "index_purchase_items_on_account_id", using: :btree
+  add_index "purchase_items", ["activity_id"], name: "index_purchase_items_on_activity_id", using: :btree
+  add_index "purchase_items", ["campaign_id"], name: "index_purchase_items_on_campaign_id", using: :btree
   add_index "purchase_items", ["created_at"], name: "index_purchase_items_on_created_at", using: :btree
   add_index "purchase_items", ["creator_id"], name: "index_purchase_items_on_creator_id", using: :btree
   add_index "purchase_items", ["purchase_id"], name: "index_purchase_items_on_purchase_id", using: :btree
@@ -3022,9 +3030,13 @@ ActiveRecord::Schema.define(version: 20160730070743) do
     t.integer  "lock_version",                                  default: 0,   null: false
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "credited_quantity",    precision: 19, scale: 4
+    t.integer  "campaign_id"
+    t.integer  "activity_id"
   end
 
   add_index "sale_items", ["account_id"], name: "index_sale_items_on_account_id", using: :btree
+  add_index "sale_items", ["activity_id"], name: "index_sale_items_on_activity_id", using: :btree
+  add_index "sale_items", ["campaign_id"], name: "index_sale_items_on_campaign_id", using: :btree
   add_index "sale_items", ["created_at"], name: "index_sale_items_on_created_at", using: :btree
   add_index "sale_items", ["creator_id"], name: "index_sale_items_on_creator_id", using: :btree
   add_index "sale_items", ["credited_item_id"], name: "index_sale_items_on_credited_item_id", using: :btree

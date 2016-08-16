@@ -138,6 +138,8 @@ module Backend
       t.column :reduction_percentage
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :activity, hidden: true
+      t.column :campaign, hidden: true
     end
 
     # Displays details of one sale selected with +params[:id]+
