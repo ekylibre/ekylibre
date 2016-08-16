@@ -923,6 +923,7 @@ cmn:
     final_balance: "最终平衡"
     financials_assets: "金融资产"
     finish: "完"
+    finished: "完"
     first_line_as_title: "第一行标题"
     fixed_asset_depreciations: "固定资产折旧"
     fixed_assets: "固定资产"
@@ -1374,6 +1375,23 @@ cmn:
     total_quantity: "总数（量"
     total_unpaid_amount: "总未付款项" #?
     totals: "总计"
+    tours:
+      welcome:
+        home:
+          content: "我们将应用程序的界面的快速浏览。首先这个按钮允许从应用程序中的任何地方回家。"
+          title: "欢迎Ekylibre"
+        main:
+          content: "其中，所有的操作发生的位置就在这里。我们希望您的快乐使用。"
+          title: "你在哪里工作"
+        parts:
+          content: "此菜单允许访问所有主要模块。"
+          title: "Ekylibre的模块"
+        side:
+          content: "该边栏包含要咨询当前模块的所有子菜单。"
+          title: "模块侧栏"
+        user:
+          content: "在这里，您可以看到您的通知，显示帮助，请阅读你的农场名称。您的用户偏好，从菜单中编辑。"
+          title: "用户菜单"
     tracking: "跟踪"
     trade: "贸易"
     trade_counts: "交易计数"

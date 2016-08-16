@@ -928,6 +928,7 @@ por:
     final_balance: "saldo final"
     financials_assets: "Ativos Financials"
     finish: "Terminar"
+    finished: "Acabado"
     first_line_as_title: "Primeira linha como o título"
     fixed_asset_depreciations: "Depreciações de ativos fixos"
     fixed_assets: "Activos fixos"
@@ -1378,6 +1379,23 @@ por:
     total_quantity: "Quantidade total"
     total_unpaid_amount: "Montante total não pago" #?
     totals: "Totais"
+    tours:
+      welcome:
+        home:
+          content: "Vamos fazer uma visita rápida da interface da aplicação. Em primeiro lugar este botão permite ir para casa a partir de qualquer lugar no aplicativo."
+          title: "Bem-vindo a Ekylibre"
+        main:
+          content: "Onde toda a ação ocorra é aqui. Desejamos-lhe um uso feliz."
+          title: "Onde você trabalha"
+        parts:
+          content: "Este menu permite acesso a todos os módulos principais."
+          title: "Módulos de Ekylibre"
+        side:
+          content: "Esta barra lateral contém todos os sub-menus do módulo atual que você está consultando."
+          title: "Barra lateral Módulo"
+        user:
+          content: "Aqui, você pode ver as suas notificações, mostrar ajuda, leia o seu nome da fazenda. Suas preferências de usuário são editáveis ​​a partir do menu."
+          title: "Menu do usuário"
     tracking: "Rastreamento"
     trade: "Comercializaçaõ"
     trade_counts: "Contagens comerciais"

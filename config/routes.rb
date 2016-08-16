@@ -831,6 +831,12 @@ Rails.application.routes.draw do
 
     resources :teams, concerns: [:list, :unroll]
 
+    resources :tours, only: [] do
+      member do
+        post :finish
+      end
+    end
+
     resources :trackings, concerns: [:list, :unroll] do
       member do
         get :list_products

@@ -989,6 +989,7 @@ ita:
     final_balance: "consuntivo"
     financials_assets: "beni Financials"
     finish: "finire"
+    finished: "Finito"
     first_line_as_title: "Prima linea come titolo"
     fixed_asset_depreciations: "svalutazioni di immobilizzazioni"
     fixed_assets: "immobilizzazioni"
@@ -1439,6 +1440,23 @@ ita:
     total_quantity: "Quantità totale"
     total_unpaid_amount: "Totale importo non pagato" #?
     totals: "Totali"
+    tours:
+      welcome:
+        home:
+          content: "Faremo un breve tour della interfaccia dell’applicazione. In primo luogo questo tasto permette di tornare a casa da qualsiasi applicazione."
+          title: "Benvenuti su Ekylibre"
+        main:
+          content: "Dove tutte le azioni si svolgono è qui. Vi auguriamo un uso felice."
+          title: "Dove lavori"
+        parts:
+          content: "Questo menu permette di accedere a tutti i moduli principali."
+          title: "Moduli di Ekylibre"
+        side:
+          content: "Questa barra laterale contiene tutti i sottomenu del modulo attuale si sta consultando."
+          title: "Barra laterale modulo"
+        user:
+          content: "Qui, è possibile vedere le notifiche, mostrare aiuto, leggere il tuo nome farm. Le preferenze degli utenti sono modificabili dal menu."
+          title: "Menu utente"
     tracking: "puntamento"
     trade: "Commercio"
     trade_counts: "conta Commercio"

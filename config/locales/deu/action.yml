@@ -923,6 +923,7 @@ deu:
     final_balance: "Die Schlussbilanz"
     financials_assets: "Finanzvermögen"
     finish: "Fertig"
+    finished: "Fertig"
     first_line_as_title: "Erste Zeile als Titel"
     fixed_asset_depreciations: "Anlagevermögen Abschreibungen"
     fixed_assets: "Anlagevermögen"
@@ -1373,6 +1374,23 @@ deu:
     total_quantity: "Gesamtmenge"
     total_unpaid_amount: "Noch nicht ausgezahlten Betrag" #?
     # totals: "Totals"
+    tours:
+      welcome:
+        home:
+          content: "Wir werden eine kurze Tour durch die Schnittstelle der Anwendung machen. Zuerst diese Taste ermöglicht von überall in der Anwendung nach Hause zu gehen."
+          title: "Willkommen auf Ekylibre"
+        main:
+          content: "Wo die Action stattfinden ist hier. Wir wünschen Ihnen einen angenehmen Gebrauch."
+          title: "Wo Du arbeitest"
+        parts:
+          content: "Dieses Menü erlaubt den Zugriff auf alle Hauptmodule."
+          title: "Module von Ekylibre"
+        side:
+          content: "Diese Seite Leiste enthält alle Untermenüs des aktuellen Moduls Sie beraten."
+          title: "Modulseitenleiste"
+        user:
+          content: "Hier können Sie Ihre Benachrichtigungen sehen, Hilfe, lesen Sie Ihre Farmnamen. Ihre Benutzereinstellungen sind editierbar aus dem Menü."
+          title: "Benutzermenü"
     tracking: "Verfolgung"
     trade: "Handel"
     trade_counts: "Handel zählt"
