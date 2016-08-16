@@ -1376,6 +1376,19 @@ cmn:
     total_unpaid_amount: "总未付款项" #?
     totals: "总计"
     tours:
+      production:
+        field_distribution:
+          content: "在这里查找栽培的3个层次：耕种区域（独立运动），在生产中定义地块，和干预措施期间播种栽培。"
+          title: "字段"
+        production:
+          content: "活动允许定义要生产，并计划它是什么。"
+          title: "生产"
+        quality:
+          content: "按照你的作物和活动，许多类型的分析，监测与疾病问题，检查收获质量检查。"
+          title: "质量工具"
+        supervision:
+          content: "传感器许可登记并在您的领域集中你的传感器值。"
+          title: "传感器"
       welcome:
         home:
           content: "我们将应用程序的界面的快速浏览。首先这个按钮允许从应用程序中的任何地方回家。"

@@ -1534,6 +1534,19 @@ eng:
     total_quantity: "Total quantity" #?
     totals: "Totals"
     tours:
+      production:
+        field_distribution:
+          content: "Find here the 3 levels for cultivations: cultivable zones (independent of campaigns), land parcels defined in productions, and cultivations sowed during interventions."
+          title: "Fields"
+        production:
+          content: "Activities permits to define what you want to produce and plan it."
+          title: "Production"
+        quality:
+          content: "Follow your crops and activities with many types of analyses, monitor diseases with issues and check harvest quality with inspections."
+          title: "Quality tools"
+        supervision:
+          content: "Sensors permits to register and concentrate values of yours sensors in your fields."
+          title: "Sensors"
       welcome:
         home:
           content: "We will make a quick tour of the interface of the application. First this button permits to go home from anywhere in application."

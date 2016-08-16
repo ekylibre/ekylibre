@@ -1893,6 +1893,19 @@ fra:
     total_unpaid_amount: "Montant total impayé" #?
     totals: "Totaux"
     tours:
+      production:
+        field_distribution:
+          content: "Trouvez ici les 3 niveaux pour les cultures\_: zones cultivables (indépendantes des campagnes), les parcelles définies dans les productions et les cultures semées au cours des interventions."
+          title: "Parcellaire"
+        production:
+          content: "Les activités permettent de définir ce que vous voulez produire et le planifier."
+          title: "Production"
+        quality:
+          content: "Suivez vos cultures et les activités avec différents types d’analyses, les maladies en enregistrant les incidents et vérifiez la qualité de la récolte avec des agréages."
+          title: "Outils pour la qualité"
+        supervision:
+          content: "Enregistrer et regrouper les valeurs remontées de vos capteurs dans vos champs ici."
+          title: "Capteurs"
       welcome:
         home:
           content: "Nous allons faire un tour rapide de l’interface de l’application. Tout d’abord ce bouton permet de revenir à l’accueil depuis n’importe où dans l’application."

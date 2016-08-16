@@ -1778,7 +1778,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
