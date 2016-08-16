@@ -1688,7 +1688,7 @@ eng:
         escape: "Escape"                                   #< issue
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
-        field_edge_male_seed_corn_default: "Field edge male seed corn default" #< plant_issue
+        field_edge_male_seed_corn_defect: "Field edge male seed corn default" #< plant_issue
         flooding: "Flooding"                               #< climate_issue
         fomitiporia: "Fomitiporia"                         #< fungus_disease
         fungus_disease: "Fungus disease"                   #< disease
@@ -1713,7 +1713,7 @@ eng:
         respiratory_problem: "Respiratory problem"         #< disease
         scale_insect: "Scale insect"                       #< insecta_disease
         scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
-        seed_corn_castration_default: "Seed corn castration default" #< plant_issue
+        seed_corn_castration_defect: "Seed corn castration default" #< plant_issue
         septoria_blotch: "Septoria blotch"                 #< fungus_disease
         support_issue: "Support issue"                     #< issue
         vine_mildew: "Vine mildew"                         #< fungus_disease

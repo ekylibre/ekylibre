@@ -23,6 +23,7 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/activity_inspection_point_natures#autocomplete"
+#     - "backend/activity_productions#list_target_distributions"
 #     - "backend/animals#take"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"

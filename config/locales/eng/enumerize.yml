@@ -26,6 +26,7 @@ eng:
         none: "None"
     activity_production:
       support_nature:
+        # animal_group: "Animal group"
         border: "Border"
         buffer: "Buffer"
         cultivation: "Cultivation"
