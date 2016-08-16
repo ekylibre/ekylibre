@@ -1,5 +1,5 @@
 class CallResponse < CallMessage
-  belongs_to :request, class_name: 'CallMessage'
+  belongs_to :request, class_name: 'CallRequest'
   delegate :method, :ip, :url, :format, to: :request
 
   # Create a CallResponse from an ActionResponse
