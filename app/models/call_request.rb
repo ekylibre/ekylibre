@@ -3,6 +3,7 @@ class CallRequest < CallMessage
 
   def self.create_from_request!(request)
     create!(
+      nature: :incoming, # Because we are in one of our own controllers here.
       headers: request.headers,
       body: request.body,
       ip: request.ip,

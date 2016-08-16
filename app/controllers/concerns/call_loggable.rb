@@ -1,3 +1,5 @@
+# Concern allowing us to log all requests hitting a controller's action and the
+# response sent back as CallMessages in the database.
 module CallLoggable
   extend ActiveSupport::Concern
 
@@ -10,6 +12,8 @@ module CallLoggable
   end
 
   def log_request
+    # Stocking the CallRequest so we can set the request_id reference
+    # in CallResponse later.
     @call_log_request = CallRequest.create_from_request!(request)
   end
 

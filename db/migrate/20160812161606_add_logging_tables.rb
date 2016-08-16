@@ -6,6 +6,7 @@ class AddLoggingTables < ActiveRecord::Migration
       t.text        :body
 
       t.string      :type
+      t.string      :nature
 
       t.string      :ip
       t.string      :url

@@ -480,6 +480,7 @@ ActiveRecord::Schema.define(version: 20160812161606) do
     t.string  "headers"
     t.text    "body"
     t.string  "type"
+    t.string  "nature"
     t.string  "ip"
     t.string  "url"
     t.string  "format"
