@@ -6,7 +6,7 @@ class CallRequest < CallMessage
       headers: request.headers,
       body: request.body,
       ip: request.ip,
-      url: request.fullpath,
+      url: request.original_url,
       format: request.format,
       method: request.method
     )

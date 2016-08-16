@@ -483,13 +483,12 @@ ActiveRecord::Schema.define(version: 20160812161606) do
     t.string  "ip"
     t.string  "url"
     t.string  "format"
-    t.string  "source"
     t.string  "method"
     t.integer "request_id"
-    t.integer "operation_id"
+    t.integer "call_id"
   end
 
-  add_index "call_messages", ["operation_id"], name: "index_call_messages_on_operation_id", using: :btree
+  add_index "call_messages", ["call_id"], name: "index_call_messages_on_call_id", using: :btree
   add_index "call_messages", ["request_id"], name: "index_call_messages_on_request_id", using: :btree
 
   create_table "calls", force: :cascade do |t|

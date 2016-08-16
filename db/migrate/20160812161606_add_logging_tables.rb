@@ -11,16 +11,13 @@ class AddLoggingTables < ActiveRecord::Migration
       t.string      :url
       t.string      :format
 
-      t.string      :source
-
       t.string      :method
 
       t.references  :request,   index: true
-      t.references  :operation, index: true
+      t.references  :call, index: true
     end
 
     create_table :calls do |t|
-
     end
   end
 end
