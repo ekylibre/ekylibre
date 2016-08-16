@@ -53,6 +53,7 @@ eng:
     backend/affairs:
       attach: "Attach to affair %{number}"
       detach: "Detach from affair %{number}"
+      # detach_gaps: "Detach gaps affair: %{name}"
       finish: "Finish affair %{number}"
       index: "Affairs"
       select: "Select a record to add to affair"
@@ -559,6 +560,7 @@ eng:
     backend/sale_opportunities:
       # attach: "Attach sale opportunity: %{name}"
       # detach: "Detach sale opportunity: %{name}"
+      # detach_gaps: "Detach gaps sale opportunity: %{name}"
       edit: "Edit opportunity: %{name}"
       # evaluate: "Evaluate sale opportunity: %{name}"
       # finish: "Finish sale opportunity: %{name}"
@@ -575,6 +577,7 @@ eng:
     backend/sale_tickets:
       # attach: "Attach sale ticket: %{name}"
       # detach: "Detach sale ticket: %{name}"
+      # detach_gaps: "Detach gaps sale ticket: %{name}"
       # finish: "Finish sale ticket: %{name}"
       # index: "Sale tickets"
       # select: "Select sale ticket: %{name}"
@@ -1519,7 +1522,7 @@ eng:
     tool_cost: "Tool cost"
     tools: "Tools"
     total: "Total"
-    total_amount: "Total amount" #?
+    total_amount: "Total amount" #??
     total_cost: "Total cost"
     total_in_currency: "Total (%{currency})"
     total_pretax_expenses: "Total pre-tax expenses"
@@ -1849,6 +1852,7 @@ eng:
       # current: "Current"
       destroy: "Destroy"
       detach: "Detach"
+      # detach_gaps: "Detach gaps"
       detail: "Detail"
       distribute: "Distribute unaffected products"
       down: "Down"

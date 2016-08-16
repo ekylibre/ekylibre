@@ -200,7 +200,7 @@ class Affair < Ekylibre::Record::Base
   # Returns the remaining balance of the affair
   # Positive result is a profit
   # A contrario, negative result is a loss
-  def  balance
+  def balance
     self.debit - self.credit
   end
 
@@ -233,7 +233,7 @@ class Affair < Ekylibre::Record::Base
   # so the amounts amounts taxed at each VAT %s in the gap are
   # proportional to the VAT %s amounts in the debit/credit.
   def finish
-    return false if self.balance.zero?
+    return false if balance.zero?
     self.class.transaction do
       thirds.each do |third|
         # Get all VAT-specified deals

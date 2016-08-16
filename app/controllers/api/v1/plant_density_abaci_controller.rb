@@ -3,7 +3,7 @@ module Api
     # PlantDensityAbaci API permits to access plant_density_abaci
     class PlantDensityAbaciController < Api::V1::BaseController
       def index
-        @plant_density_abaci = PlantDensityAbacus.order(id: :desc).limit(25)
+        @plant_density_abaci = PlantDensityAbacus.order(id: :desc)
       end
 
       def show
