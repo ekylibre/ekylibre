@@ -23,7 +23,7 @@ module Backend
     unroll :rank_number, activity: :name, support: :name
 
     def index
-      @activities = Activity.of_campaign(current_campaign).order(name: :asc) || []
+      render 'backend/campaigns/show'
     end
 
     before_action only: :new do
