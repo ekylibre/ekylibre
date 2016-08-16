@@ -1086,7 +1086,7 @@ por:
     net_mass: "Massa líquida"
     net_surface_area: "Área de superfície líquida"
     new: "Novo"
-    # new_activity: "New activity"
+    new_activity: "nova atividade"
     new_animal: "Novo animal"
     new_attachment: "Novo anexo"
     new_box: "Nova caixa"
