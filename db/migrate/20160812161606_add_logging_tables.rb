@@ -14,7 +14,7 @@ class AddLoggingTables < ActiveRecord::Migration
 
       t.string      :method
 
-      t.references  :request,   index: true
+      t.references  :request, index: true
       t.references  :call, index: true
     end
 

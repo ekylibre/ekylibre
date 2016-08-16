@@ -5,7 +5,7 @@ class CallResponse < CallMessage
   # Create a CallResponse from an ActionResponse
   def self.create_from_response!(response, request)
     create!(
-      nature: :outgoing,      # Because we come from a controller here.
+      nature: :outgoing, # Because we come from a controller here.
       status: response.status,
       headers: response.headers,
       body: response.body,

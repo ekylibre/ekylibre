@@ -1,5 +1,5 @@
 class CallRequest < CallMessage
-  has_many :responses, class_name: "CallResponse"
+  has_many :responses, class_name: 'CallResponse'
 
   def self.create_from_request!(request)
     create!(
