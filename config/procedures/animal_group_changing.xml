@@ -2,11 +2,12 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="animal_group_changing" categories="animal_treating" actions="animal_group_changing">
     <parameters>
-      <group name="movement">
-        <parameter name="animal" type="target" filter="is animal and can move"/>
-        <parameter name="herd"   type="target" filter="is animal_group and derives from animal" default-actor="storage" cardinality="1"/>
-      </group>
-      <parameter name="caregiver" type="doer" filter="is worker" cardinality="*"/>
+      <target name="animal" filter="is animal" cardinality="*">
+        <!-- <attribute name="new_group"/>
+        	 <attribute name="new_evolution"/> OR <attribute name="new_variant"/>
+             <attribute name="new_container"/> -->	
+      </target>
+      <doer name="caregiver" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>
