@@ -906,6 +906,7 @@
         <page to="backend/cap_statements#unroll"/>
         <page to="backend/cap_statements#update"/>
         <page to="backend/cap_islets#index"/>
+        <page to="backend/cap_islets#convert"/>
         <page to="backend/cap_islets#create"/>
         <page to="backend/cap_islets#destroy"/>
         <page to="backend/cap_islets#edit"/>

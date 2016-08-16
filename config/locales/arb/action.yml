@@ -1105,6 +1105,7 @@ arb:
     container: "وعاء"
     convert_balance_into_loss: "تحويل الرصيد إلى فقدان"
     convert_balance_into_profit: "تحويل الرصيد إلى أرباح"
+    convert_to_cultivable_zone: "تحويل إلى منطقة صالحة للزراعة"
     cooperative_cartodb: "تعاونية CartoDB"
     coordinates: "تنسيق"
     copy_from_another_activity: "نسخ من نشاط آخر"

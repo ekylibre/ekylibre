@@ -788,6 +788,7 @@ deu:
     # container: "Container"
     convert_balance_into_loss: "Konvertieren Gleichgewicht in Verlust"
     convert_balance_into_profit: "Konvertieren Gleichgewicht in die Gewinnzone"
+    convert_to_cultivable_zone: "Konvertieren in kultivierbaren Zone"
     # cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Koordinaten"
     copy_from_another_activity: "Kopieren Sie aus einer anderen Tätigkeit"
