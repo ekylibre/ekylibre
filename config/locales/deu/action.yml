@@ -1375,6 +1375,19 @@ deu:
     total_unpaid_amount: "Noch nicht ausgezahlten Betrag" #?
     # totals: "Totals"
     tours:
+      production:
+        field_distribution:
+          content: "Hier finden Sie die 3 Ebenen für Anpflanzungen: bebaubar Zonen (unabhängig von Kampagnen), Landparzellen in Produktionen definiert und Anpflanzungen bei Eingriffen säte."
+          title: "Felder"
+        production:
+          content: "Aktivitäten erlaubt zu definieren, was Sie wollen, es zu produzieren und zu planen."
+          title: "Produktion"
+        quality:
+          content: "Folgen Sie Ihre Pflanzen und Aktivitäten mit vielen Arten von Analysen, überwachen Krankheiten, die mit Fragen und überprüfen Erntequalität mit Inspektionen."
+          title: "Qualitätswerkzeuge"
+        supervision:
+          content: "Sensoren erlaubt zu registrieren und Werte von Ihnen Sensoren in Ihre Felder konzentrieren."
+          title: "Sensoren"
       welcome:
         home:
           content: "Wir werden eine kurze Tour durch die Schnittstelle der Anwendung machen. Zuerst diese Taste ermöglicht von überall in der Anwendung nach Hause zu gehen."

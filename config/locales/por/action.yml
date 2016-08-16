@@ -1380,6 +1380,19 @@ por:
     total_unpaid_amount: "Montante total não pago" #?
     totals: "Totais"
     tours:
+      production:
+        field_distribution:
+          content: "Encontre aqui os 3 níveis para cultivos: zonas cultiváveis ​​(independentes de campanhas), parcelas de terra definidas nas produções e culturas semeadas durante as intervenções."
+          title: "Campos"
+        production:
+          content: "Atividades permite definir o que você quer produzir e planejar."
+          title: "Produção"
+        quality:
+          content: "Siga as suas culturas e atividades com muitos tipos de análises, controlar doenças com problemas e verificar a qualidade da colheita com inspeções."
+          title: "Ferramentas de qualidade"
+        supervision:
+          content: "Sensores de licenças para registrar e concentrar-se valores de sensores seu em seus campos."
+          title: "Sensores"
       welcome:
         home:
           content: "Vamos fazer uma visita rápida da interface da aplicação. Em primeiro lugar este botão permite ir para casa a partir de qualquer lugar no aplicativo."
