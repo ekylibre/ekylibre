@@ -856,6 +856,7 @@ jpn:
     container: "コンテナ"
     convert_balance_into_loss: "損失にバランスを変換します"
     convert_balance_into_profit: "利益にバランスを変換します"
+    convert_to_cultivable_zone: "耕作ゾーンに変換"
     cooperative_cartodb: "共同CartoDB"
     coordinates: "座標"
     copy_from_another_activity: "別のアクティビティからのコピー"

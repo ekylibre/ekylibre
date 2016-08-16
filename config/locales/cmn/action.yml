@@ -788,6 +788,7 @@ cmn:
     container: "容器"
     convert_balance_into_loss: "转换成平衡损失"
     convert_balance_into_profit: "转换成平衡利润"
+    convert_to_cultivable_zone: "转换成可耕种区"
     cooperative_cartodb: "合作CartoDB"
     coordinates: "坐标"
     copy_from_another_activity: "从另一项活动复制"

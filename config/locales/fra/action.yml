@@ -988,6 +988,7 @@ fra:
     contextual_help: "Aide contextuelle" #?
     convert_balance_into_loss: "Passer le solde en perte"
     convert_balance_into_profit: "Passer le solde en profit"
+    convert_to_cultivable_zone: "Convertir en zone cultivable"
     cooperative_cartodb: "CartoDB Coopérative"
     coordinates: "Coordonnées"
     copy_from_another_activity: "Copier depuis une autre activité"

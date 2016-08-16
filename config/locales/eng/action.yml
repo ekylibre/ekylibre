@@ -120,6 +120,7 @@ eng:
       # open: "Open campaign: %{name}"
       show: "Campaign %{name}"
     backend/cap_islets:
+      # convert: "Convert cap islet: %{name}"
       edit: "Edit CAP islet: %{islet_number}"
       index: "CAP islets"
       new: "New CAP islet"
@@ -961,6 +962,7 @@ eng:
     container: "Container"
     convert_balance_into_loss: "Convert balance into loss"
     convert_balance_into_profit: "Convert balance into profit"
+    convert_to_cultivable_zone: "Convert to cultivable zone"
     cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Coordinates"
     copy_from_another_activity: "Copy from another activity"

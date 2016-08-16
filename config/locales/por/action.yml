@@ -793,6 +793,7 @@ por:
     container: "Recipiente"
     convert_balance_into_loss: "Converter equilíbrio em perda de"
     convert_balance_into_profit: "Converter equilíbrio em lucro"
+    convert_to_cultivable_zone: "Converter para zona cultivável"
     cooperative_cartodb: "Cooperativa CartoDB"
     coordinates: "Coordenadas"
     copy_from_another_activity: "Copiar de outra atividade"

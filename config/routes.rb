@@ -284,6 +284,7 @@ Rails.application.routes.draw do
     resources :cap_islets, concerns: [:list, :unroll] do
       member do
         get :list_cap_land_parcels
+        post :convert
       end
     end
 

@@ -54,6 +54,7 @@ class CapLandParcel < Ekylibre::Record::Base
 
   delegate :pacage_number, to: :cap_statement
   delegate :islet_number, to: :cap_islet
+  delegate :name, to: :campaign, prefix: true
 
   scope :of_campaign, lambda { |*campaigns|
     where(cap_islet_id: CapIslet.of_campaign(*campaigns))
