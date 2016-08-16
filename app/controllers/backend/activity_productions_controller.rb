@@ -23,7 +23,7 @@ module Backend
     unroll :rank_number, activity: :name, support: :name
 
     def index
-      render 'backend/campaigns/show'
+      redirect_to backend_activities_path
     end
 
     before_action only: :new do

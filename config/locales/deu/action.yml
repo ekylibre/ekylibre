@@ -1081,6 +1081,7 @@ deu:
     net_mass: "Eigenmasse"
     net_surface_area: "Nettofläche"
     new: "Neu"
+    # new_activity: "New activity"
     new_animal: "neue Tier"
     new_attachment: "neue Befestigungs"
     new_box: "New Box"

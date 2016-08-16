@@ -159,11 +159,14 @@ class ActivityProduction < Ekylibre::Record::Base
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
       if plant_farming?
         self.support_shape ||= cultivable_zone.shape if cultivable_zone
-        if support_shape && !support
-          land_parcels = LandParcel.shape_matching(support_shape)
-                                   .where.not(id: ActivityProduction.select(:support_id))
-                                   .order(:id)
-          self.support = land_parcels.any? ? land_parcels.first : LandParcel.new
+        unless support
+          if support_shape
+            land_parcels = LandParcel.shape_matching(support_shape)
+                                     .where.not(id: ActivityProduction.select(:support_id))
+                                     .order(:id)
+            self.support = land_parcels.first if land_parcels.any?
+          end
+          self.support ||= LandParcel.new
         end
         support.name = computed_support_name
         support.initial_shape = support_shape

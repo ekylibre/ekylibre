@@ -1082,6 +1082,7 @@ cmn:
     net_mass: "净质量"
     net_surface_area: "净面积"
     new: "新"
+    # new_activity: "New activity"
     new_animal: "新的动物"
     new_attachment: "新附件"
     new_box: "新箱"

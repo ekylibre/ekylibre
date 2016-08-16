@@ -1556,6 +1556,7 @@ arb:
     net_surface_area: "مساحة صافية"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
+    # new_activity: "New activity"
     new_animal: "حيوان جديد"
     new_attachment: "مرفق جديد"
     new_box: "صندوق جديد"

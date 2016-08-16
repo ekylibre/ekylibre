@@ -962,7 +962,7 @@ eng:
     cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Coordinates"
     copy_from_another_activity: "Copy from another activity"
-    copy_from_previous_campaign: "Copy from previous campaign"
+    copy_from_previous_campaign: "Copy from previous campaign" #?!
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
     cost_per_net_surface_area: "Cost per net surface area"
@@ -1246,6 +1246,7 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
+    new_activity: "New activity"
     new_animal: "New animal"
     new_attachment: "New attachment"
     new_box: "New box"
