@@ -30,6 +30,7 @@
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
 #  bank_statement_letter     :string
+#  campaign_id               :integer
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  credit                    :decimal(19, 4)   default(0.0), not null

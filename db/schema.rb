@@ -1794,6 +1794,7 @@ ActiveRecord::Schema.define(version: 20160817133216) do
   add_index "journal_entry_items", ["activity_budget_id"], name: "index_journal_entry_items_on_activity_budget_id", using: :btree
   add_index "journal_entry_items", ["bank_statement_id"], name: "index_journal_entry_items_on_bank_statement_id", using: :btree
   add_index "journal_entry_items", ["bank_statement_letter"], name: "index_journal_entry_items_on_bank_statement_letter", using: :btree
+  add_index "journal_entry_items", ["campaign_id"], name: "index_journal_entry_items_on_campaign_id", using: :btree
   add_index "journal_entry_items", ["created_at"], name: "index_journal_entry_items_on_created_at", using: :btree
   add_index "journal_entry_items", ["creator_id"], name: "index_journal_entry_items_on_creator_id", using: :btree
   add_index "journal_entry_items", ["entry_id"], name: "index_journal_entry_items_on_entry_id", using: :btree
