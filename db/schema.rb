@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160730070743) do
+ActiveRecord::Schema.define(version: 20160812161606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -474,6 +474,26 @@ ActiveRecord::Schema.define(version: 20160730070743) do
   add_index "bank_statements", ["creator_id"], name: "index_bank_statements_on_creator_id", using: :btree
   add_index "bank_statements", ["updated_at"], name: "index_bank_statements_on_updated_at", using: :btree
   add_index "bank_statements", ["updater_id"], name: "index_bank_statements_on_updater_id", using: :btree
+
+  create_table "call_messages", force: :cascade do |t|
+    t.string  "status"
+    t.string  "headers"
+    t.text    "body"
+    t.string  "type"
+    t.string  "ip"
+    t.string  "url"
+    t.string  "format"
+    t.string  "source"
+    t.string  "method"
+    t.integer "request_id"
+    t.integer "operation_id"
+  end
+
+  add_index "call_messages", ["operation_id"], name: "index_call_messages_on_operation_id", using: :btree
+  add_index "call_messages", ["request_id"], name: "index_call_messages_on_request_id", using: :btree
+
+  create_table "calls", force: :cascade do |t|
+  end
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "name",                         null: false
