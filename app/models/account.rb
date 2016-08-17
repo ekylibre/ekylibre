@@ -91,8 +91,9 @@ class Account < Ekylibre::Record::Base
     where(id: JournalEntryItem.between(started_at, stopped_at).select(:account_id))
   }
 
-  scope :clients,   -> { of_usage(:clients) }
-  scope :suppliers, -> { of_usage(:suppliers) }
+  scope :clients,   -> { of_usages(:clients, :social_agricultural_mutuality, :usual_associates_current_accounts) }
+  scope :suppliers, -> { of_usages(:suppliers, :social_agricultural_mutuality, :usual_associates_current_accounts) }
+  scope :employees, -> { of_usages(:staff_due_remunerations) }
   scope :attorneys, -> { of_usage(:attorneys) }
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }

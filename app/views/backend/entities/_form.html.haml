@@ -9,14 +9,7 @@
   - else
     = f.input :last_name, label: Entity.human_attribute_name(:full_name)
   = f.input :active, hide: :dead_at
-  -# = f.input :number
-  = f.input :prospect
-  = f.input :client, show: :client_informations
-  = f.input :supplier, show: :supplier_informations
-  = f.input :transporter
   = f.custom_fields
-
-= field_set(:details) do # , :collapsed => true
   = f.input :language
   = f.input :country
   - if nature == :organization
@@ -28,21 +21,33 @@
   = f.picture
 
 = field_set(:client_informations) do
-  - if nature == :contact
-    = f.input :meeting_origin, autocomplete: true
-    = f.input :first_met_at
-    = f.referenced_association :proposer
-  = f.referenced_association :responsible, source: :employees
-  = f.input :vat_subjected
-  = f.input :reminder_submissive, show: :reduction_percentage
-  = f.input :authorized_payments_count
-  = f.input :deliveries_conditions, as: :text
-  = f.referenced_association :client_account, source: :thirds, :buttons => {:new => {:number => Account.find_or_import_from_nomenclature(:clients).number}}
+  = f.input :prospect
+  = f.input :client, show: '#client-informations'
+  #client-informations
+    - if nature == :contact
+      = f.input :meeting_origin, autocomplete: true
+      = f.input :first_met_at
+      = f.referenced_association :proposer
+    = f.referenced_association :responsible, source: :employees
+    = f.input :vat_subjected
+    = f.input :reminder_submissive, show: :reduction_percentage
+    = f.input :authorized_payments_count
+    = f.input :deliveries_conditions, as: :text
+    = f.referenced_association :client_account, source: :clients, buttons: { new: { number: Account.find_or_import_from_nomenclature(:clients).number}}
 
 = field_set(:supplier_informations) do
-  = f.referenced_association :supplier_account, source: :thirds, :buttons => {:new => {:number => Account.find_or_import_from_nomenclature(:suppliers).number}}
+  = f.input :supplier, show: '#supplier-informations'
+  #supplier-informations
+    = f.referenced_association :supplier_account, source: :suppliers, buttons: { new: { number: Account.find_or_import_from_nomenclature(:suppliers).number}}
+  = f.input :transporter
 
-= field_set(:coordinates, :major => true) do
+- if f.object.contact?
+  = field_set(:employee_informations) do
+    = f.input :employee, show: '#employee-informations'
+    #employee-informations
+      = f.referenced_association :employee_account, source: :employees, buttons: {new: { number: Account.find_or_import_from_nomenclature(:staff_due_remunerations).number}}
+
+= field_set(:coordinates) do
   = f.nested_association(:emails)
   = f.nested_association(:mails)
   = f.nested_association(:phones)

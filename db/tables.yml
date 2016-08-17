@@ -1813,6 +1813,13 @@ entities:
     type: string
   description:
     type: text
+  employee:
+    type: boolean
+    required: true
+    default: false
+  employee_account_id:
+    type: integer
+    references: account
   first_met_at:
     type: datetime
   first_name:
@@ -5598,6 +5605,9 @@ purchase_natures:
     required: true
   name:
     type: string
+  nature:
+    type: string
+    required: true
   updated_at:
     type: datetime
     required: true

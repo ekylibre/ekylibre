@@ -349,6 +349,10 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    purchase_nature:
+      nature:
+        payslip: "Fiche de paie"
+        purchase: "Achat"
     sale_opportunity:
       third_role:
         # client: "Client"

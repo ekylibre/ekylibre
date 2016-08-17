@@ -891,6 +891,7 @@ por:
     # ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Intervenções decorreram vezes por actividades" #?
     email: "O email:"
+    employee_informations: "Informações do empregado"
     end: "Para"
     entities: "Entidade pessoas"
     entity_links: "Ligações entidade"

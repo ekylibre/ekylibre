@@ -1,11 +1,14 @@
 = field_set do
-  = f.referenced_association :supplier, source: :suppliers, new: {supplier: 1}
+  - if f.object.nature.payslip?
+    = f.referenced_association :supplier, source: :employees, new: { employee: 1 }, label: Purchase.human_attribute_name(:employee)
+  - else
+    = f.referenced_association :supplier, source: :suppliers, new: { supplier: 1 }
   = f.association :nature, as: :hidden
   = f.referenced_association :delivery_address, source: :own_mails, new: {entity_id: Entity.of_company.id}
   = f.input :reference_number
   = f.input :planned_at
   = f.input :invoiced_at
-  = f.referenced_association :responsible, source: :employees, new: {employed: 1}
+  = f.referenced_association :responsible, source: :employees, new: { employed: 1 }
   = f.input :description
   = f.custom_fields
 

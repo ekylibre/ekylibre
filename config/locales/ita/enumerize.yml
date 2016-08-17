@@ -364,6 +364,10 @@ ita:
         multi_polygon: "Multi poligono"
         point: "Punto"
         string: "Corda"
+    purchase_nature:
+      nature:
+        payslip: "Busta paga"
+        purchase: "Acquista"
     sale_opportunity:
       third_role:
         client: "Cliente"

@@ -372,6 +372,10 @@ por:
         manual: "Manual" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
+    purchase_nature:
+      nature:
+        payslip: "Recibo de Pagamento"
+        purchase: "Compra"
     sale:  #?
       computation_method: #?
         adaptative: "Adaptativo" #?

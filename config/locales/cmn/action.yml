@@ -886,6 +886,7 @@ cmn:
     # ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "经过干预倍活动" #?
     email: "电子邮件："
+    employee_informations: "员工信息"
     end: "至"
     entities: "实体"
     entity_links: "实体链接"

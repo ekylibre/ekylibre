@@ -364,6 +364,10 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    purchase_nature:
+      nature:
+        payslip: "給料明細書"
+        purchase: "購入"
     sale_opportunity:
       third_role:
         client: "クライアント"
