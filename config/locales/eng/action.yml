@@ -47,7 +47,6 @@ eng:
       # show: "Activity season: %{name}"
     backend/activity_tactics:
       # edit: "Edit activity tactic: %{name}"
-      # index: "Activity tactics"
       # new: "New activity tactic"
       # show: "Activity tactic: %{name}"
     backend/affairs:

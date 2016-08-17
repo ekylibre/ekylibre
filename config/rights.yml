@@ -187,7 +187,6 @@ activities:
     - "backend/activity_seasons#index"
     - "backend/activity_seasons#show"
     - "backend/activity_seasons#unroll"
-    - "backend/activity_tactics#index"
     - "backend/activity_tactics#show"
     - "backend/activity_tactics#unroll"
     - "backend/inspections#index"
