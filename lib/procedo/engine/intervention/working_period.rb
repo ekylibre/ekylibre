@@ -33,7 +33,7 @@ module Procedo
         end
 
         def impact_with(steps)
-          unless steps.size != 1
+          if steps.size != 1
             raise ArgumentError, 'Invalid steps: got ' + steps.inspect
           end
           reassign steps.first
