@@ -608,7 +608,6 @@
         <page to="backend/activity_seasons#show"/>
         <page to="backend/activity_seasons#unroll"/>
         <page to="backend/activity_seasons#update"/>
-        <page to="backend/activity_tactics#index"/>
         <page to="backend/activity_tactics#create"/>
         <page to="backend/activity_tactics#destroy"/>
         <page to="backend/activity_tactics#edit"/>
