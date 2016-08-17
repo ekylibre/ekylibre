@@ -20,7 +20,7 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }, group_parameters_attributes: 'params[:group_parameters_attributes] || []'.c
+    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }, group_parameters_attributes: 'params[:group_parameters_attributes] || []', targets_attributes: 'params[:targets_attributes] || []'.c
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -151,7 +151,11 @@ module Backend
        :whole_duration, :working_duration].each do |param|
         options[param] = params[param]
       end
-      options[:group_parameters_attributes] = params[:group_parameters_attributes] || []
+
+      #, :doers, :inputs, :outputs, :tools
+      [:group_parameters, :targets].each do |param|
+        options["#{param}_attributes"] = params["#{param}_attributes"] || []
+      end
 
       @intervention = Intervention.new(options)
 
