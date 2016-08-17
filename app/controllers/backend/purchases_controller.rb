@@ -90,8 +90,7 @@ module Backend
       t.column :reduction_percentage
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
-      t.column :activity, hidden: true
-      t.column :campaign, hidden: true
+      t.column :activity_budget, hidden: true
     end
 
     list(:parcels, model: :parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|

@@ -2393,6 +2393,7 @@ fra:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
+    backend/activity_budgets: "%{activity_name} %{campaign_name}"
     backend/activity_inspection_point_natures: "%{activity_name} - %{quality_criterion_name}" #?
     backend/activity_productions: "%{activity_name} %{support_name} n°%{rank_number}"
     backend/animals: "%{name} ‒ %{work_number}"

@@ -23,10 +23,9 @@
 # == Table: purchase_items
 #
 #  account_id           :integer          not null
-#  activity_id          :integer
+#  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
-#  campaign_id          :integer
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  currency             :string           not null
@@ -51,8 +50,7 @@ class PurchaseItem < Ekylibre::Record::Base
   include PeriodicCalculable
   refers_to :currency
   belongs_to :account
-  belongs_to :campaign
-  belongs_to :activity
+  belongs_to :activity_budget, class_name: 'ActivityBudget'
   belongs_to :purchase, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax

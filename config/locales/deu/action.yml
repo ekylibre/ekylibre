@@ -1757,6 +1757,7 @@ deu:
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
+    # backend/activity_budgets: "%{activity_name} %{campaign_name}"
     # backend/activity_productions: "%{activity_name} %{support_name} #%{rank_number}"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"

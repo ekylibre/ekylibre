@@ -36,5 +36,5 @@
   - attrs[:style] = "display: none" if f.object.annotation.blank?
   %tr.tr-add-on.annotate{attrs}
     %td{ colspan: 20 }= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })
-    %td{ colspan: 20 }= f.referenced_association(:activity)
-    %td{ colspan: 20 }= f.referenced_association(:campaign)
+    - if ActivityBudget.any?
+      %td{ colspan: 20 }= f.referenced_association(:activity_budget)

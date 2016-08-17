@@ -9,8 +9,8 @@
       %tr
         %th= JournalEntryItem.human_attribute_name(:name)
         %th= JournalEntryItem.human_attribute_name(:account)
-        %th= JournalEntryItem.human_attribute_name(:activity)
-        %th= JournalEntryItem.human_attribute_name(:campaign)
+        - if ActivityBudget.any?
+          %th= JournalEntryItem.human_attribute_name(:activity_budget)
         %th{colspan: 2}= JournalEntryItem.human_attribute_name(:debit)
         %th{colspan: 2}= JournalEntryItem.human_attribute_name(:credit)
         %th.act

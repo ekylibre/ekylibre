@@ -22,6 +22,7 @@
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
+#     - "backend/activity_budgets#unroll"
 #     - "backend/activity_inspection_point_natures#autocomplete"
 #     - "backend/activity_productions#list_target_distributions"
 #     - "backend/animals#take"

@@ -23,10 +23,9 @@
 # == Table: sale_items
 #
 #  account_id           :integer
-#  activity_id          :integer
+#  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
-#  campaign_id          :integer
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer
@@ -53,8 +52,7 @@ class SaleItem < Ekylibre::Record::Base
   attr_readonly :sale_id
   refers_to :currency
   belongs_to :account
-  belongs_to :campaign
-  belongs_to :activity
+  belongs_to :activity_budget, class_name: 'ActivityBudget'
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'
   belongs_to :variant, class_name: 'ProductNatureVariant'

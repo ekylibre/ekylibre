@@ -26,11 +26,10 @@
 #  absolute_currency         :string           not null
 #  absolute_debit            :decimal(19, 4)   default(0.0), not null
 #  account_id                :integer          not null
-#  activity_id               :integer
+#  activity_budget_id        :integer
 #  balance                   :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id         :integer
 #  bank_statement_letter     :string
-#  campaign_id               :integer
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  credit                    :decimal(19, 4)   default(0.0), not null
@@ -71,8 +70,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   refers_to :absolute_currency, class_name: 'Currency'
   belongs_to :account
   belongs_to :financial_year
-  belongs_to :campaign
-  belongs_to :activity
+  belongs_to :activity_budget, class_name: 'ActivityBudget'
   belongs_to :journal, inverse_of: :entry_items
   belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
   belongs_to :bank_statement
