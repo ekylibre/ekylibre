@@ -1,26 +1,49 @@
 # Change Log
 
-## [2.0.5](https://github.com/ekylibre/ekylibre/tree/2.0.5) (2016-08-10)
-[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.4...2.0.5)
+## [2.1.0](https://github.com/ekylibre/ekylibre/tree/2.1.0) (2016-08-17)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.5...2.1.0)
 
 **Implemented enhancements:**
 
+- Adds a slide to introduce new menu in production [\#1005](https://github.com/ekylibre/ekylibre/issues/1005)
+- Adds activity\_id attribute in plant\_countings and plant\_density\_abaci API [\#1003](https://github.com/ekylibre/ekylibre/issues/1003)
+- Possibility to create land parcel from CAP declaration [\#991](https://github.com/ekylibre/ekylibre/issues/991)
+- Improve production Menu [\#978](https://github.com/ekylibre/ekylibre/issues/978)
+- Budget could be rounded [\#955](https://github.com/ekylibre/ekylibre/issues/955)
+- Sort list by alphabetical order in dropdown "reference name" [\#951](https://github.com/ekylibre/ekylibre/issues/951)
 - Redundant information in timeline on Entities. [\#921](https://github.com/ekylibre/ekylibre/issues/921)
 - Display duplication on a worker show view [\#887](https://github.com/ekylibre/ekylibre/issues/887)
+- Client addresses are not loaded automatically when the client is selected in a sale form [\#846](https://github.com/ekylibre/ekylibre/issues/846)
+- Add a way to simplify the cropping plan graph in production dashboard [\#590](https://github.com/ekylibre/ekylibre/issues/590)
+- Add activity seasons and tactics [\#857](https://github.com/ekylibre/ekylibre/pull/857) ([burisu](https://github.com/burisu))
+- Adds equipment maintenance \(CMMS\) features [\#851](https://github.com/ekylibre/ekylibre/pull/851) ([burisu](https://github.com/burisu))
 
 **Fixed bugs:**
 
+- Reviews productions activity card alignment in \#index [\#1004](https://github.com/ekylibre/ekylibre/issues/1004)
+- Worker "dead on" date [\#1001](https://github.com/ekylibre/ekylibre/issues/1001)
+- Conflicting translations in indicator names [\#945](https://github.com/ekylibre/ekylibre/issues/945)
 - Edition of an inventory keeps us on the form page without confirmation of changes. [\#937](https://github.com/ekylibre/ekylibre/issues/937)
 - Redundant information in timeline on Entities. [\#921](https://github.com/ekylibre/ekylibre/issues/921)
+- When making a new plant by sowing, no target repartition appears. [\#913](https://github.com/ekylibre/ekylibre/issues/913)
 - incoming parcel's dates must be the same. [\#912](https://github.com/ekylibre/ekylibre/issues/912)
+- Adding a target distribution on a new product fails [\#901](https://github.com/ekylibre/ekylibre/issues/901)
 - Intervention view total cost is calculated from rounded values [\#897](https://github.com/ekylibre/ekylibre/issues/897)
+- Currency used in "Draft Journal" is not the absolute one [\#895](https://github.com/ekylibre/ekylibre/issues/895)
+- Purchase: convert balance into loss raise a StandardError [\#893](https://github.com/ekylibre/ekylibre/issues/893)
 - Display duplication on a worker show view [\#887](https://github.com/ekylibre/ekylibre/issues/887)
 - When creating a new matter directly, the product is created and no redirection is made [\#886](https://github.com/ekylibre/ekylibre/issues/886)
-- Error in modification of an activity [\#999](https://github.com/ekylibre/ekylibre/issues/999)
 
 **Closed issues:**
 
 - List alphabetical sorting puts \[empty\] before 'A'  [\#918](https://github.com/ekylibre/ekylibre/issues/918)
+
+## [2.0.5](https://github.com/ekylibre/ekylibre/tree/2.0.5) (2016-08-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.4...2.0.5)
+
+**Fixed bugs:**
+
+- Error in modification of an activity [\#999](https://github.com/ekylibre/ekylibre/issues/999)
 
 ## [2.0.4](https://github.com/ekylibre/ekylibre/tree/2.0.4) (2016-08-10)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.3...2.0.4)
@@ -32,7 +55,6 @@
 
 **Fixed bugs:**
 
-- Currency used in "Draft Journal" is not the absolute one [\#895](https://github.com/ekylibre/ekylibre/issues/895)
 - Text length limitation at 100000 character is too small for Document [\#995](https://github.com/ekylibre/ekylibre/issues/995)
 - Label "required" is missing on the field "net surface area" at creation of a new inspection [\#989](https://github.com/ekylibre/ekylibre/issues/989)
 - Informations are no longer fulfilled automatically at creation of a new inspection [\#988](https://github.com/ekylibre/ekylibre/issues/988)
@@ -66,7 +88,6 @@
 - Cropping plan widget feature request [\#873](https://github.com/ekylibre/ekylibre/issues/873)
 - Add filter on land parcel/cultivation field in production/new intervention [\#666](https://github.com/ekylibre/ekylibre/issues/666)
 - The term "campaigns" is not very understandable in productions menu [\#618](https://github.com/ekylibre/ekylibre/issues/618)
-- Add a way to simplify the cropping plan graph in production dashboard [\#590](https://github.com/ekylibre/ekylibre/issues/590)
 - Outdated favicon  [\#916](https://github.com/ekylibre/ekylibre/issues/916)
 - Filter of land parcel doesn't work at creation of new intervention [\#605](https://github.com/ekylibre/ekylibre/issues/605)
 
@@ -87,7 +108,6 @@
 - Parcel number is missing in last incoming parcels cell [\#864](https://github.com/ekylibre/ekylibre/issues/864)
 - Reference number is missing on incoming parcel [\#863](https://github.com/ekylibre/ekylibre/issues/863)
 - Translation missing for linkage\_points items in product nature form [\#723](https://github.com/ekylibre/ekylibre/issues/723)
-- Add activity seasons and tactics [\#857](https://github.com/ekylibre/ekylibre/pull/857) ([burisu](https://github.com/burisu))
 
 **Fixed bugs:**
 
@@ -106,7 +126,6 @@
 
 **Implemented enhancements:**
 
-- Client addresses are not loaded automatically when the client is selected in a sale form [\#846](https://github.com/ekylibre/ekylibre/issues/846)
 - "Initial owner" in workers form [\#593](https://github.com/ekylibre/ekylibre/issues/593)
 - Display of informations in setting/edit fail [\#588](https://github.com/ekylibre/ekylibre/issues/588)
 - Add a way to sort activities [\#581](https://github.com/ekylibre/ekylibre/issues/581)
