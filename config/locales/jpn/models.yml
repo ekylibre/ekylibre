@@ -551,6 +551,8 @@ jpn:
     emission_currency: "排出通貨"
     emission_journal_entry: "排出仕訳"
     employed: "採用"
+    employee: "従業員"
+    employee_account: "従業員のアカウント"
     employees: "従業員"
     employment: "雇用"
     enabled: "使用可能"

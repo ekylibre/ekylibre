@@ -1,14 +1,10 @@
 = field_set do
   = f.input :name
   = f.input :active
+  = f.input :nature, as: :radio_buttons
   = f.input :currency
-  = f.input :with_accounting, :show => :accountancy
-  = f.input :description, :field => :text
+  = f.input :with_accounting, show: :accountancy
+  #accountancy
+    = f.referenced_association :journal, source: :purchases
+  = f.input :description, as: :text
   = f.custom_fields
-
-= field_set :accountancy do
-  = f.referenced_association :journal, :source => :purchases
-
-
-
-

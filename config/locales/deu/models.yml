@@ -551,6 +551,8 @@ deu:
     emission_currency: "Emissionswährung"
     emission_journal_entry: "Emissionsjournaleintrag"
     employed: "Beschäftigt"
+    employee: "Mitarbeiter"
+    employee_account: "Mitarbeiterkonto"
     employees: "Mitarbeiter"
     employment: "Beschäftigung"
     enabled: "Aktiviert"

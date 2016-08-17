@@ -886,6 +886,7 @@ deu:
     # ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Abgelaufene Interventionen Zeiten von Aktivitäten" #?
     # email: "Email:"
+    employee_informations: "Mitarbeiterinformationen"
     end: "zu"
     # entities: "Entities"
     entity_links: "Entity Links"

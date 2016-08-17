@@ -350,6 +350,10 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    purchase_nature:
+      nature:
+        payslip: "Payslip"
+        purchase: "Purchase"
     sale_opportunity:
       third_role:
         client: "Client"

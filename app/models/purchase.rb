@@ -156,7 +156,7 @@ class Purchase < Ekylibre::Record::Base
         entry.add_debit(label, item.account, item.pretax_amount) unless item.pretax_amount.zero?
         entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
-      entry.add_credit(label, self.supplier.account(:supplier).id, amount)
+      entry.add_credit(label, self.supplier.account(nature.payslip? ? :employee : :supplier).id, amount)
     end
   end
 

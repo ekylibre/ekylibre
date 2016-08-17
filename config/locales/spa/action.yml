@@ -1005,6 +1005,7 @@ spa:
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Intervenciones transcurridos veces por actividades" #?
     # email: "Email:"
+    employee_informations: "Información sobre los empleados"
     end: "al"
     entities: "Entidades"
     entity_links: "Enlaces entidad"

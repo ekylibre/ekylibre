@@ -551,6 +551,8 @@ por:
     emission_currency: "Moeda de emissão"
     emission_journal_entry: "Entrada de diário de emissão"
     employed: "Empregado"
+    employee: "Empregado"
+    employee_account: "Conta de empregado"
     employees: "Funcionários"
     employment: "Emprego"
     enabled: "Ativado"
