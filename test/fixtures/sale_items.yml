@@ -26,7 +26,6 @@
 #  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
-#  campaign_id          :integer
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer

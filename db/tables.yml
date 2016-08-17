@@ -3399,9 +3399,6 @@ journal_entry_items:
     references: bank_statement
   bank_statement_letter:
     type: string
-  campaign_id:
-    type: integer
-    references: campaign
   created_at:
     type: datetime
     required: true
@@ -5511,9 +5508,6 @@ purchase_items:
     required: true
   annotation:
     type: text
-  campaign_id:
-    type: integer
-    references: campaign
   created_at:
     type: datetime
     required: true
@@ -5734,9 +5728,6 @@ sale_items:
     required: true
   annotation:
     type: text
-  campaign_id:
-    type: integer
-    references: campaign
   created_at:
     type: datetime
     required: true
