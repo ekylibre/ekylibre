@@ -18,11 +18,16 @@ module OmniAuth
       end
 
       def callback_url
-        full_host + script_name + callback_path
+        full_host + script_name + callback_path + invitation_token_param
       end
 
       def raw_info
         @raw_info ||= access_token.get(ENV['EKYLIBRE_OAUTH2_API_ME_ENDPOINT']).parsed
+      end
+
+      def invitation_token_param
+        return '' unless request.params['invitation_token']
+        "?invitation_token=#{request.params['invitation_token']}"
       end
     end
   end

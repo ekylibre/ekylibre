@@ -22,6 +22,7 @@ module Authentication
       @user = user_by_omniauth(request.env['omniauth.auth'])
 
       if @user
+        accept_invitation if from_invitation?
         sign_in_and_redirect @user
       else
         set_flash_message :alert, :invalid, scope: 'devise.failure'
@@ -33,9 +34,24 @@ module Authentication
     private
 
     def user_by_omniauth(auth)
-      User.find_by(
-        email: auth.info.email
-      )
+      if from_invitation?
+        User.find_by_invitation_token(invitation_token, true)
+      else
+        User.find_by(email: auth.info.email)
+      end
+    end
+
+    def invitation_token
+      @invitation_token ||= params[:invitation_token]
+    end
+
+    def from_invitation?
+      invitation_token.present?
+    end
+
+    def accept_invitation
+      @user.password = Devise.friendly_token[20]
+      @user.accept_invitation!
     end
   end
 end
