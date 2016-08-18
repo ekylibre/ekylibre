@@ -13,7 +13,7 @@ class BackendInvitations < CapybaraIntegrationTest
   end
 
   setup do
-    login_with_user('/backend')
+    login_with_user(after_login_path: '/backend')
   end
 
   teardown do
