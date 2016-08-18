@@ -1,3 +1,4 @@
+# Represents a Request in DB.
 class CallRequest < CallMessage
   has_many :responses, class_name: 'CallResponse'
 
@@ -9,7 +10,20 @@ class CallRequest < CallMessage
       ip: request.ip,
       url: request.original_url,
       format: request.format,
-      method: request.method
+      method: request.method,
+      ssl: request.ssl?
+    )
+  end
+
+  def self.create_from_net_request!(http, request, format)
+    create!(
+      nature: :outgoing, # We are hitting up someone.
+      headers: request.to_hash,
+      body: request.body,
+      url: http.address + request.path,
+      format: format,
+      method: request.method,
+      ssl: http.use_ssl?
     )
   end
 
