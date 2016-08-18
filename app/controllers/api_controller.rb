@@ -1,3 +1,3 @@
 class ApiController < ActionController::Base
-  include Logging
+  include CallLoggable
 end
