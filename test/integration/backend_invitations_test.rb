@@ -10,6 +10,7 @@ class BackendInvitations < CapybaraIntegrationTest
     click_on(:create.tl)
     assert has_content?('Robert'), 'Robert must appear in list after creation'
     assert has_content?('Pending'), 'Invitation created should be pending'
+    js_logout
   end
 
   setup do
