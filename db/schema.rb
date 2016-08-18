@@ -484,6 +484,7 @@ ActiveRecord::Schema.define(version: 20160812161606) do
     t.string  "ip"
     t.string  "url"
     t.string  "format"
+    t.string  "ssl"
     t.string  "method"
     t.integer "request_id"
     t.integer "call_id"
@@ -493,6 +494,9 @@ ActiveRecord::Schema.define(version: 20160812161606) do
   add_index "call_messages", ["request_id"], name: "index_call_messages_on_request_id", using: :btree
 
   create_table "calls", force: :cascade do |t|
+    t.string "source"
+    t.string "method"
+    t.jsonb  "args"
   end
 
   create_table "campaigns", force: :cascade do |t|

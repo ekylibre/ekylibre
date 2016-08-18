@@ -11,6 +11,7 @@ class AddLoggingTables < ActiveRecord::Migration
       t.string      :ip
       t.string      :url
       t.string      :format
+      t.string      :ssl
 
       t.string      :method
 
@@ -19,6 +20,9 @@ class AddLoggingTables < ActiveRecord::Migration
     end
 
     create_table :calls do |t|
+      t.string      :source
+      t.string      :method
+      t.jsonb       :args
     end
   end
 end
