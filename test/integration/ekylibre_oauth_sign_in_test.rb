@@ -39,7 +39,7 @@ class EkylibreOauthSignInTest < CapybaraIntegrationTest
     omniauth_mock(email: 'invitee@ekylibre.org')
 
     create_invitation(email: 'invitee@ekylibre.org')
-    sleep 0.5
+    sleep 1
     accept_invitation_path = find_accept_invitation_path
 
     invitation_token = URI.parse(accept_invitation_path)
