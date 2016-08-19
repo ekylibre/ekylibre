@@ -150,7 +150,7 @@ L.Draw.Polyline.include
 
 
   __onMouseMove: (e) ->
-    @_tooltip.hide()
+    @_tooltip.hide() if @_tooltip?
     return unless @_markers.length > 0
     newPos = @_map.mouseEventToLayerPoint(e.originalEvent)
     mouseLatLng = @_map.layerPointToLatLng(newPos)
@@ -177,18 +177,17 @@ L.Draw.Polyline.include
       perimeter: g.perimeter()
       area: g.area()
 
-    @_reactiveMeasureControl.updateContent measure, {selection: true}
+    e.target.reactiveMeasureControl.updateContent measure, {selection: true}
 
 
 
   addHooks: () ->
     @__addHooks.apply this, arguments
-    @_reactiveMeasureControl = L.EditToolbar.reactiveMeasureControl
     @_map.on 'mousemove', @__onMouseMove, this
     return
 
   removeHooks: () ->
-    if @_reactiveMeasureControl
+    if @_map.reactiveMeasureControl
       @_map.off 'mousemove'
     @__removeHooks.apply this, arguments
     return
@@ -208,14 +207,12 @@ L.Edit.Poly.include
 
     L.extend(L.Draw.Polyline.prototype.options, target: e.marker.getLatLng())
 
-    @_reactiveMeasureControl.updateContent measure, {selection: true}
+    e.marker._map.reactiveMeasureControl.updateContent measure, {selection: true}
 
 
   addHooks: () ->
     @__addHooks.apply this, arguments
-    if L.EditToolbar.reactiveMeasureControl
-      @_reactiveMeasureControl = L.EditToolbar.reactiveMeasureControl
-      this._poly.on 'editdrag', @__onHandlerDrag, this
+    this._poly.on 'editdrag', @__onHandlerDrag, this
 
   removeHooks: () ->
 
@@ -225,7 +222,7 @@ L.Edit.Poly.include
       perimeter: g.perimeter()
       area: g.area()
 
-    @_reactiveMeasureControl.updateContent measure, {selection: false}
+    @._poly._map.reactiveMeasureControl.updateContent measure, {selection: false} if @._poly._map?
 
     if L.EditToolbar.reactiveMeasure
       this._poly.off 'editdrag'
@@ -333,8 +330,7 @@ L.DrawToolbar.include
 L.EditToolbar.include
   __initialize: L.EditToolbar.prototype.initialize
 
-  initialize: (options) ->
-    L.EditToolbar.reactiveMeasureControl = options.reactiveMeasureControl || new L.ReactiveMeasureControl()
+  initialize: () ->
     @__initialize.apply this, arguments
     return
 
@@ -394,7 +390,9 @@ L.ReactiveMeasureControl = L.Control.extend
           @options.measure.area += m.area
 
   onAdd: (map) ->
-    @_container = L.DomUtil.create('div', 'reactive-measure-control')
+    @_container = L.DomUtil.create('div', "reactive-measure-control #{map._leaflet_id}")
+    map.reactiveMeasureControl = @
+
     if map and @_container
       @updateContent(@options.measure)
     @_container
