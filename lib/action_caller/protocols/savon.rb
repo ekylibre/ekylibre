@@ -3,29 +3,15 @@ module ActionCaller
     # Methods to do calls with Savon.
     # TODO: Actually implement it.
     module Savon
-      include Protocols::Base
-
       # Sets up the format to SOAP so it's not saved as a "savon" format request.
       FORMAT = :soap
 
-      def get(path)
-        path
-      end
-
-      def post
-        raise NotImplementedError
-      end
-
-      def put
-        raise NotImplementedError
-      end
-
-      def patch
-        raise NotImplementedError
-      end
-
-      def delete
-        raise NotImplementedError
+      def call(operation, message, options)
+        client = Savon.client(options)
+        response = client.call(operation, message)
+        request_log = CallRequest.create_from_savon!(operation, message, client, @format)
+        messages << resquest_log
+        messages << CallResponse.create_from_savon!(response, request_log, @format)
       end
     end
   end

@@ -4,13 +4,16 @@ module France
     calls :get_my_herd, :add_my_herd
 
     def get_my_herd(_herd_number)
+      # Transcodage
       get_html('http://test.ekylibre.lan:3000/backend/dashboards/stocks') do |r|
         r.success do
           Rails.logger.info "SUCCESS #{r.code}"
+          # Transcodage
         end
 
         r.redirect do
           Rails.logger.info "REDIRECT #{r.code}"
+          r.error :redirect
         end
 
         r.error do
