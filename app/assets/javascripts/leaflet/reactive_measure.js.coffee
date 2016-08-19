@@ -218,6 +218,15 @@ L.Edit.Poly.include
       this._poly.on 'editdrag', @__onHandlerDrag, this
 
   removeHooks: () ->
+
+    g = new L.GeographicUtil.Polygon @_poly.getLatLngsAsArray()
+
+    measure =
+      perimeter: g.perimeter()
+      area: g.area()
+
+    @_reactiveMeasureControl.updateContent measure, {selection: false}
+
     if L.EditToolbar.reactiveMeasure
       this._poly.off 'editdrag'
 
@@ -397,7 +406,7 @@ L.ReactiveMeasureControl = L.Control.extend
     if measure['area']
       text += "<span class='leaflet-draw-tooltip-measure area'>#{L.GeometryUtil.readableArea(measure.area, !!@options.metric)}</span>"
 
-    if options.selection?
+    if options.selection? && options.selection is true
       L.DomUtil.addClass @_container, 'selection'
     else
       L.DomUtil.removeClass @_container, 'selection'
