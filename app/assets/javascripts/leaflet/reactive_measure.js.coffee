@@ -379,7 +379,7 @@ L.ReactiveMeasureControl = L.Control.extend
 
     if layers.getLayers().length > 0
       layers.eachLayer (layer) =>
-        if typeof layer.getMeasure() is 'function'
+        if typeof layer.getMeasure is 'function'
           m = layer.getMeasure()
           @options.measure.perimeter += m.perimeter
           @options.measure.area += m.area
