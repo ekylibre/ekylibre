@@ -4452,6 +4452,7 @@ eng:
         helianthus_annuus_aurasol: "Annual sunflower aurasol" #< helianthus_annuus
         helianthus_annuus_es_ethic: "Annual sunflower es ethic" #< helianthus_annuus
         helianthus_annuus_es_magnific: "Annual sunflower es magnific" #< helianthus_annuus
+        helianthus_annuus_es_romantic: "Annual sunflower es romantic" #< helianthus_annuus
         helianthus_annuus_extrasol: "Annual sunflower extrasol" #< helianthus_annuus
         helianthus_annuus_lg_5360_ho: "Annual sunflower lg 5360 ho" #< helianthus_annuus
         helianthus_annuus_lg_5450_ho: "Annual sunflower lg 5450 ho" #< helianthus_annuus
@@ -5141,6 +5142,7 @@ eng:
         phaseolus_vulgaris_mogex: "Bean Mogex"             #< phaseolus_vulgaris
         phaseolus_vulgaris_molly: "Bean Molly"             #< phaseolus_vulgaris
         phaseolus_vulgaris_princesse_du_peleve: "Bean Princesse du Pélève" #< phaseolus_vulgaris
+        phaseolus_vulgaris_red_kindley: "Bean Red Kindley" #< phaseolus_vulgaris
         phaseolus_vulgaris_stanley: "Bean Stanley"         #< phaseolus_vulgaris
         phaseolus_vulgaris_sv1162gn: "Bean SV1162GN"       #< phaseolus_vulgaris
         phaseolus_vulgaris_verdelys: "Bean green flageolet Verdelys (dwarf)" #< phaseolus_vulgaris
@@ -6207,15 +6209,18 @@ eng:
         yeast: "Yeast"                                     #< preparation
         zea: "Zea"                                         #< poaceae
         zea_mays: "Corn"                                   #< zea
+        zea_mays_5142: "Corn 5142"                         #< zea_mays
         zea_mays_P0216: "Corn P0216"                       #< zea_mays
         zea_mays_aallexia: "Corn Aallexia"                 #< zea_mays
         zea_mays_barcarolle_cs: "Corn Barcarolle CS"       #< zea_mays
         zea_mays_bergxxon: "Corn Bergxxon"                 #< zea_mays
         zea_mays_boomer: "Corn Boomer"                     #< zea_mays
         zea_mays_cadixxio: "Corn Cadixxio"                 #< zea_mays
+        zea_mays_capuzi: "Corn Capuzi"                     #< zea_mays
         zea_mays_ceratina: "Waxy Corn"                     #< zea_mays
         zea_mays_ceratina_dkc5430wx: "Waxy Corn DKC 5430 wx" #< zea_mays_ceratina
         zea_mays_ceratina_dkc5783wx: "Waxy Corn DKC 5783 wx" #< zea_mays_ceratina
+        zea_mays_ceratina_mas56wx: "Waxy Corn MAS 56 WX"   #< zea_mays_ceratina
         zea_mays_ceratina_mas66wx: "Waxy Corn MAS 66 wx"   #< zea_mays_ceratina
         zea_mays_ceratina_p0725e: "Waxy Corn P0725E"       #< zea_mays_ceratina
         zea_mays_ceratina_p1547e: "Waxy Corn P1547E"       #< zea_mays_ceratina
@@ -6251,7 +6256,9 @@ eng:
         zea_mays_p921s: "Corn P921 S"                      #< zea_mays
         zea_mays_ph30: "Corn PH 30"                        #< zea_mays
         zea_mays_ph31s: "Corn PH 31 S"                     #< zea_mays
+        zea_mays_ph450: "Corn PH 450"                      #< zea_mays
         zea_mays_pr34p88: "Corn PR34P88"                   #< zea_mays
+        zea_mays_pw450: "Corn PW 450"                      #< zea_mays
         zea_mays_roberi_cs: "Corn Roberi CS"               #< zea_mays
         zea_mays_saccharata: "Sweet Corn"                  #< zea_mays
         zea_mays_saccharata_646: "Sweet Corn 646"          #< zea_mays_saccharata
