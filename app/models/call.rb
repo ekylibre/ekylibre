@@ -10,11 +10,20 @@ class Call < ActiveRecord::Base
 
     yield(self) if block_given?
   end
+  alias execute execute_now
 
   # ASync
-  def execute
-    # TODO: implement.
-    raise NotImplementedError
+  # Not called #execute for risk users wouldn't notice the difference with
+  # #execute_now and would call this one instead.
+  def execute_async
+    Thread.new do
+      execute_now(&block)
+      @state = :waiting
+      @response = caller.new(self).send(method.to_sym, *args)
+      @state = :done
+
+      yield(self) if block_given?
+    end
   end
 
   def caller
@@ -22,27 +31,33 @@ class Call < ActiveRecord::Base
   end
 
   def success(code = nil)
-    yield(@response) if state_is?(:success) && (!code || state_code_is?(code))
+    yield(@response) if state_is?(:success) && state_code_matches?(code)
   end
 
   def error(code = nil)
-    yield(@response) if state_is?(:error) && (!code || state_code_is?(code))
+    yield(@response) if state_is?(:error) && state_code_matches?(code)
   end
 
   def redirect(code = nil)
-    yield(@response) if state_is?(:redirect) && (!code || state_code_is?(code))
+    yield(@response) if state_is?(:redirect) && state_code_matches?(code)
   end
 
   def on(code)
-    yield(@response) if !code || state_code_is?(code)
+    yield(@response) if state_code_matches?(code)
   end
 
   private
+
+  # Returns true for a nil/false code.
+  def state_code_matches?(code)
+    !code || state_code_is?(code)
+  end
 
   def state_is?(state)
     @response.state.to_s.split('_').first == state.to_s
   end
 
+  # Returns false for a nil/false code.
   def state_code_is?(state)
     @response.state.to_s.split('_')[1..-1].join('_') == state.to_s
   end

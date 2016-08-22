@@ -494,6 +494,7 @@ ActiveRecord::Schema.define(version: 20160812161606) do
   add_index "call_messages", ["request_id"], name: "index_call_messages_on_request_id", using: :btree
 
   create_table "calls", force: :cascade do |t|
+    t.string "state"
     t.string "source"
     t.string "method"
     t.jsonb  "args"

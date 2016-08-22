@@ -20,6 +20,7 @@ class AddLoggingTables < ActiveRecord::Migration
     end
 
     create_table :calls do |t|
+      t.string      :state    # Needed for Async calls.
       t.string      :source
       t.string      :method
       t.jsonb       :args
