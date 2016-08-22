@@ -1,6 +1,8 @@
 # Class representing an API Call, executed or not.
 class Call < ActiveRecord::Base
   has_many :messages, class_name: 'CallMessage'
+  has_many :requests, class_name: 'CallRequest'
+  has_many :responses, class_name: 'CallResponse'
 
   # Sync
   def execute_now(&block)
@@ -10,7 +12,7 @@ class Call < ActiveRecord::Base
     # to execute the api call.
     @response = caller.new(self).send(method.to_sym, *args)
 
-    instance_exec(self, &block) if block_given?
+    instance_exec(&block) if block_given?
   end
   alias execute execute_now
 
@@ -26,7 +28,7 @@ class Call < ActiveRecord::Base
       @response = caller.new(self).send(method.to_sym, *args)
       @state = :done
 
-      instance_exec(self, &block) if block_given?
+      instance_exec(&block) if block_given?
     end
   end
 
