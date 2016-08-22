@@ -20,6 +20,14 @@ module ActionCaller
       state_handling(:error, %w(4 5), error_code, &block)
     end
 
+    def client_error(error_code = nil, &block)
+      state_handling(:error, '4', error_code, &block)
+    end
+
+    def server_error(error_code = nil, &block)
+      state_handling(:error, '5', error_code, &block)
+    end
+
     def state=(signal)
       @state = @state_code || signal
     end
