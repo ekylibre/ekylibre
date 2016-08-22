@@ -27,6 +27,18 @@ class CallRequest < CallMessage
     )
   end
 
+  def self.create_from_savon_httpi_request!(req, format)
+    create!(
+      nature: :outgoing, # We are hitting up someone.
+      headers: req.headers,
+      body: req.body,
+      url: req.url,
+      format: format,
+      method: :POST,
+      ssl: req.ssl?
+    )
+  end
+
   def last_response
     responses.order(:created_at).last
   end

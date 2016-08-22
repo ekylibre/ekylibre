@@ -25,4 +25,15 @@ class CallResponse < CallMessage
       request: request
     )
   end
+
+  def self.create_from_savon_httpi_response!(response, request)
+    create!(
+      nature: :incoming, # Receiving an answer in protocol.
+      status: response.code,
+      headers: response.headers,
+      body: response.raw_body,
+      format: response.headers.split(';').first,
+      request: request
+    )
+  end
 end
