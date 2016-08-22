@@ -1414,7 +1414,7 @@ fra:
     subject_label: "Objet" #?
     subject_type: "Type de sujet"
     subscriber: "Abonné"
-    subscribing: "Abonne"
+    subscribing: "Abonnement"
     subscription_duration: "Période"
     subscription_nature: "Type d’abonnement"
     subscription_quantity: "Quantité" #?
