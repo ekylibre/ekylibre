@@ -4,6 +4,8 @@ class Call < ActiveRecord::Base
 
   # Sync
   def execute_now(&block)
+    save!
+
     # Instantiate a ActionCaller object with itself as parameter
     # to execute the api call.
     @response = caller.new(self).send(method.to_sym, *args)
@@ -16,6 +18,8 @@ class Call < ActiveRecord::Base
   # Not called #execute for risk users wouldn't notice the difference with
   # #execute_now and would call this one instead.
   def execute_async(&block)
+    save!
+
     Thread.new do
       execute_now(&block)
       @state = :waiting

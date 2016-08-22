@@ -22,7 +22,7 @@ module ActionCaller
       called_methods.each do |method|
         singleton_class.instance_exec(method) do
           define_method(method) do |*args|
-            ::Call.create!(
+            ::Call.new(
               source: self,
               method: method,
               args:   args
