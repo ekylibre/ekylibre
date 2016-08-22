@@ -20,9 +20,15 @@ module ActionCaller
       state_handling(:error, %w(4 5), error_code, &block)
     end
 
+    def state=(signal)
+      @state = @state_code || signal
+    end
+
+    private
+
     def state_handling(signal, http_codes, code = nil)
+      return unless code_match?(@code, http_codes)
       if block_given?
-        return unless code_match?(@code, http_codes)
         yield
       else
         @state_code = [signal, code].compact.join('_').to_sym
@@ -31,12 +37,8 @@ module ActionCaller
     end
 
     def code_match?(code, http_codes)
-      return http_codes.include?(code.to_s) if http_codes.is_a? Array
+      return http_codes.include?(code.first.to_s) if http_codes.is_a? Array
       http_codes.to_s == code.first.to_s
-    end
-
-    def state=(signal)
-      @state = @state_code || signal
     end
   end
 end
