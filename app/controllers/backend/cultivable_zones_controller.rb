@@ -30,17 +30,20 @@ module Backend
       t.column :human_shape_area, datatype: :measure
       # FIXME: Remove use of "_name" for nomen columns
       t.column :production_system_name
+      t.column :farmer, url: true
+      t.column :owner, url: true
       # t.column :unit
     end
 
     # content production on current cultivable land parcel
-    list(:productions, model: :activity_productions, conditions: { support_id: 'params[:id]'.c }, order: 'started_on DESC') do |t|
-      t.column :name
+    list(:productions, model: :activity_productions, conditions: { cultivable_zone_id: 'params[:id]'.c }, order: 'started_on DESC') do |t|
+      t.column :name, url: true
       t.column :activity, url: true
       t.column :support, url: true
       t.column :usage
-      t.column :started_at
-      t.column :stopped_at
+      t.column :grains_yield
+      t.column :started_on
+      t.column :stopped_on
     end
   end
 end

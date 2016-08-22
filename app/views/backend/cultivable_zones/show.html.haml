@@ -12,6 +12,10 @@
       .med-info
         %span.title= CultivableZone.human_attribute_name(:production_system)
         %span.value= resource.human_production_system_name
+    - if resource.soil_nature
+      .med-info
+        %span.title= CultivableZone.human_attribute_name(:soil_nature)
+        %span.value= resource.human_soil_nature_name
     .med-info
       %span.title= CultivableZone.human_attribute_name(:net_surface_area)
       %span.value= resource.human_shape_area
@@ -28,7 +32,7 @@
   - c.cobble :weather do
     = cell :weather, params: {id: resource.id}
 
-  -# c.cobble(:productions) do
+  - c.cobble(:productions) do
     = cobble_list(:productions)
   -# c.cobble(:contained_products) do
     = cobble_list(:contained_products)

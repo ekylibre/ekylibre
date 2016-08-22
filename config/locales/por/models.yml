@@ -589,6 +589,7 @@ por:
     failed_attempts: "Tentativas falhadas"
     family: "Família"
     farm_name: "Nome do farm"
+    # farmer: "Farmer"
     father: "Pai"
     faxes: "Faxes"
     fifth_producer: "Quinto produtor" #?

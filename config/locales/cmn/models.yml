@@ -589,6 +589,7 @@ cmn:
     failed_attempts: "失败的尝试"
     family: "家庭"
     farm_name: "农场名称"
+    # farmer: "Farmer"
     father: "父亲"
     faxes: "传真"
     fifth_producer: "第五制片人" #?

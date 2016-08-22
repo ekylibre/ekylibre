@@ -1365,6 +1365,7 @@ arb:
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
     farm_name: "اسم مزرعة"
+    # farmer: "Farmer"
     father: "الآب"
     fax: "فاكس" #?
     faxes: "الفاكسات"
