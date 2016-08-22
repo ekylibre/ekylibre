@@ -32,7 +32,7 @@ module ActionCaller
 
         # Gets us to {"string" => "string"} Hash + removes data when it's
         # empty.
-        args = ::JSON.parse([url.path, data].to_json).compact
+        args = ::JSON.parse([data].to_json).compact.prepend(url)
 
         request = action_class.new(*args)
 
@@ -43,7 +43,7 @@ module ActionCaller
       # returns the state of that response to be used by the outside call block.
       def handle_request(http, request)
         response = execute_request(http, request)
-        response = ActionCaller::Response.new(response)
+        response = ActionCaller::Response.new_from_net(response)
 
         yield(response)
 

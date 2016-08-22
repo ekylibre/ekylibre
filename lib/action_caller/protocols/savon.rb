@@ -27,10 +27,12 @@ module ActionCaller
         response = client.call(operation, message: message)
 
         messages << CallResponse.create_from_savon_httpi_response!(
-          response,
+          response.http,
           request_log,
           @format
         )
+
+        ActionCaller::Response.new_from_savon(response)
       end
     end
   end

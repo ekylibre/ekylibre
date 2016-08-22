@@ -1,11 +1,29 @@
 module ActionCaller
   # Response object that includes the DSL methods.
   class Response
-    attr_reader :code
+    attr_reader :code, :headers, :body
     attr_reader :state
 
-    def initialize(net_response)
-      @code = net_response.code
+    def initialize(params)
+      @code = params[:code]
+      @headers = params[:headers]
+      @body = params[:body]
+    end
+
+    def self.new_from_net(net_response)
+      new(
+        code: net_response.code,
+        headers: net_response.to_hash,
+        body: net_response.body
+      )
+    end
+
+    def self.new_from_httpi(httpi_response)
+      new(
+        code: httpi_response.code,
+        headers: httpi.headers,
+        body: httpi.raw_body
+      )
     end
 
     def success(success_code = nil, &block)
