@@ -589,6 +589,7 @@ jpn:
     failed_attempts: "失敗した試み"
     family: "家族"
     farm_name: "ファーム名"
+    # farmer: "Farmer"
     father: "お父さん"
     faxes: "ファックス"
     fifth_producer: "フィフスプロデューサー" #?

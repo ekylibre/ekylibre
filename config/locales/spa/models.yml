@@ -593,6 +593,7 @@ spa:
     failed_attempts: "Intentos fallidos"
     family: "Familia"
     farm_name: "Nombre de granja"
+    # farmer: "Farmer"
     father: "Padre"
     faxes: "Faxes"
     fifth_producer: "En quinto productor" #?

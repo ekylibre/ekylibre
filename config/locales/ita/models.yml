@@ -620,6 +620,7 @@ ita:
     failed_attempts: "tentativi falliti"
     family: "Famiglia"
     farm_name: "nome Farm"
+    # farmer: "Farmer"
     father: "Padre"
     faxes: "fax"
     fifth_producer: "Quinto produttore" #?
