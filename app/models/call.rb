@@ -3,26 +3,26 @@ class Call < ActiveRecord::Base
   has_many :messages, class_name: 'CallMessage'
 
   # Sync
-  def execute_now
+  def execute_now(&block)
     # Instantiate a ActionCaller object with itself as parameter
     # to execute the api call.
     @response = caller.new(self).send(method.to_sym, *args)
 
-    yield(self) if block_given?
+    instance_exec(self, &block) if block_given?
   end
   alias execute execute_now
 
   # ASync
   # Not called #execute for risk users wouldn't notice the difference with
   # #execute_now and would call this one instead.
-  def execute_async
+  def execute_async(&block)
     Thread.new do
       execute_now(&block)
       @state = :waiting
       @response = caller.new(self).send(method.to_sym, *args)
       @state = :done
 
-      yield(self) if block_given?
+      instance_exec(self, &block) if block_given?
     end
   end
 
