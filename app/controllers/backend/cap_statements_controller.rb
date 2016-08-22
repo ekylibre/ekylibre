@@ -66,7 +66,7 @@ module Backend
 
     list(:cap_land_parcels, conditions: cap_land_parcel_conditions, joins: :cap_statement, order: { land_parcel_number: :desc }) do |t|
       t.column :land_parcel_number, url: true
-      t.column :islet_number
+      t.column :islet_number, through: :islet, url: true
       t.column :main_crop_code
       t.column :main_crop_commercialisation
       t.column :main_crop_seed_production

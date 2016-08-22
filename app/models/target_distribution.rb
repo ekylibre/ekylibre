@@ -45,6 +45,8 @@ class TargetDistribution < Ekylibre::Record::Base
   validates :activity, :activity_production, :target, presence: true
   # ]VALIDATORS]
 
+  delegate :name, :work_number, to: :target, prefix: true
+
   scope :of_campaign, lambda { |campaign|
     where(activity_production_id: ActivityProduction.of_campaign(campaign))
   }

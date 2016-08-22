@@ -47,7 +47,6 @@ eng:
       # show: "Activity season: %{name}"
     backend/activity_tactics:
       # edit: "Edit activity tactic: %{name}"
-      # index: "Activity tactics"
       # new: "New activity tactic"
       # show: "Activity tactic: %{name}"
     backend/affairs:
@@ -120,6 +119,7 @@ eng:
       # open: "Open campaign: %{name}"
       show: "Campaign %{name}"
     backend/cap_islets:
+      # convert: "Convert cap islet: %{name}"
       edit: "Edit CAP islet: %{islet_number}"
       index: "CAP islets"
       new: "New CAP islet"
@@ -667,6 +667,8 @@ eng:
       index: "Teams"
       new: "New team"
       show: "Team: %{name}"
+    backend/tours:
+      # finish: "Finish tour: %{name}"
     backend/trackings:
       edit: "Edit tracking: %{name}"
       index: "Trackings"
@@ -959,10 +961,11 @@ eng:
     container: "Container"
     convert_balance_into_loss: "Convert balance into loss"
     convert_balance_into_profit: "Convert balance into profit"
+    convert_to_cultivable_zone: "Convert to cultivable zone"
     cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Coordinates"
     copy_from_another_activity: "Copy from another activity"
-    copy_from_previous_campaign: "Copy from previous campaign"
+    copy_from_previous_campaign: "Copy from previous campaign" #?!
     copy_of: "Copy of %{source}"
     copy_previous_budget: "Copy previous budget"
     cost_per_net_surface_area: "Cost per net surface area"
@@ -1055,6 +1058,7 @@ eng:
     edit_budget: "Edit budget"
     ekylibre: "www.ekylibre.org" #?
     email: "Email:" #?
+    employee_informations: "Employee informations"
     end: "to" #?
     entities: "Entities"
     entity_links: "Entity links" #?
@@ -1092,6 +1096,7 @@ eng:
     final_balance: "Final balance"
     financials_assets: "Financials assets"
     finish: "Finish" #?
+    finished: "Finished"
     first_line_as_title: "First line as title"
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
@@ -1246,6 +1251,7 @@ eng:
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
     new: "New" #?
+    new_activity: "New activity"
     new_animal: "New animal"
     new_attachment: "New attachment"
     new_box: "New box"
@@ -1529,6 +1535,36 @@ eng:
     total_pretax_revenues: "Total pre-tax revenues"
     total_quantity: "Total quantity" #?
     totals: "Totals"
+    tours:
+      production:
+        field_distribution:
+          content: "Find here the 3 levels for cultivations: cultivable zones (independent of campaigns), land parcels defined in productions, and cultivations sowed during interventions."
+          title: "Fields"
+        production:
+          content: "Activities permits to define what you want to produce and plan it."
+          title: "Production"
+        quality:
+          content: "Follow your crops and activities with many types of analyses, monitor diseases with issues and check harvest quality with inspections."
+          title: "Quality tools"
+        supervision:
+          content: "Sensors permits to register and concentrate values of yours sensors in your fields."
+          title: "Sensors"
+      welcome:
+        home:
+          content: "We will make a quick tour of the interface of the application. First this button permits to go home from anywhere in application."
+          title: "Welcome on Ekylibre"
+        main:
+          content: "Where all the action take place is here. We wish you an happy usage."
+          title: "Where you work"
+        parts:
+          content: "This menu permits to access to all of main modules."
+          title: "Modules of Ekylibre"
+        side:
+          content: "This side bar contains all the sub-menus of the current module you are consulting."
+          title: "Module side bar"
+        user:
+          content: "Here, you can see your notifications, show help, read your farm name. Your user preferences are editable from menu."
+          title: "User menu"
     tracking: "Tracking" #?
     trade: "Trade"
     trade_counts: "Trade counts"

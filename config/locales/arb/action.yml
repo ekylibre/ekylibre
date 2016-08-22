@@ -1105,6 +1105,7 @@ arb:
     container: "وعاء"
     convert_balance_into_loss: "تحويل الرصيد إلى فقدان"
     convert_balance_into_profit: "تحويل الرصيد إلى أرباح"
+    convert_to_cultivable_zone: "تحويل إلى منطقة صالحة للزراعة"
     cooperative_cartodb: "تعاونية CartoDB"
     coordinates: "تنسيق"
     copy_from_another_activity: "نسخ من نشاط آخر"
@@ -1234,6 +1235,7 @@ arb:
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "التدخلات مرات المنقضي من الأنشطة" #?
     email: "البريد الإلكتروني:"
+    employee_informations: "المعلومات موظف"
     employee_name: "الموظف" #?
     end: "لغاية"
     entities: "الكيانات"
@@ -1300,6 +1302,7 @@ arb:
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     financials_assets: "الأصول المالية"
     finish: "انهاء"
+    finished: "تم الانتهاء من"
     finished_income_statement: "المنتجات" #?
     finished_sum: "مجموع منتجات الاستثمار" #?
     first_line_as_title: "السطر الأول كما لقب"
@@ -1556,6 +1559,7 @@ arb:
     net_surface_area: "مساحة صافية"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة" #?
     new: "انشاء دفعة جديدة"
+    new_activity: "نشاط جديد"
     new_animal: "حيوان جديد"
     new_attachment: "مرفق جديد"
     new_box: "صندوق جديد"
@@ -2000,6 +2004,36 @@ arb:
     total_quantity: "مجموع الكمية"
     total_unpaid_amount: "إجمالي المبلغ غير المدفوع" #?
     totals: "(المجموع (صلاحية العينات والمسودات"
+    tours:
+      production:
+        field_distribution:
+          content: "تجد هنا 3 مستويات للالزراعات: مناطق صالحة للزراعة (مستقلة من الحملات)، قطع الأراضي المحددة في الإنتاج، والزراعات زرعت خلال التدخلات."
+          title: "مجالات"
+        production:
+          content: "تسمح الأنشطة لتحديد ما تريد لإنتاج والتخطيط له."
+          title: "إنتاج"
+        quality:
+          content: "اتبع المحاصيل والأنشطة الخاصة بك مع العديد من أنواع التحليلات، ومراقبة الأمراض مع القضايا والتحقق من جودة الحصاد مع عمليات التفتيش."
+          title: "أدوات الجودة"
+        supervision:
+          content: "تصاريح أجهزة استشعار لتسجيل والتركيز القيم لك أجهزة الاستشعار في الحقول."
+          title: "أجهزة الاستشعار"
+      welcome:
+        home:
+          content: "سنقوم بعمل جولة سريعة من واجهة التطبيق. أول هذه التصاريح زر العودة إلى المنزل من أي مكان في التطبيق."
+          title: "مرحبا بكم في Ekylibre"
+        main:
+          content: "حيث كل مكان اتخاذ الإجراءات هنا. نتمنى لك استخدام سعيدا."
+          title: "اين تعمل"
+        parts:
+          content: "تسمح هذه القائمة إلى الوصول إلى جميع وحدات رئيسية."
+          title: "وحدات من Ekylibre"
+        side:
+          content: "يحتوي هذا الشريط الجانبي جميع القوائم الفرعية وحدة الحالية التي يجري التشاور."
+          title: "الشريط الجانبي وحدة"
+        user:
+          content: "هنا، يمكنك أن ترى الإشعارات، وتبين مساعدة، وقراءة اسم المزارع الخاصة بك. تفضيلات المستخدم الخاص بك للتحرير من القائمة."
+          title: "القائمة المستخدم"
     tracking: "المسار"
     trade: "تجارة"
     trade_counts: "التهم التجارة"

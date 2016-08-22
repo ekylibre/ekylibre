@@ -1,5 +1,6 @@
 - main_toolbar do |t|
   = t.edit resource
+  = t.convert resource, params: { to: :cultivable_zone, redirect: nil }, method: :post, label: :convert_to_cultivable_zone.tl
 
 = cobbles do |c|
   - c.cobble :general_informations do
@@ -8,11 +9,11 @@
         %span.title= CapIslet.human_attribute_name(:islet_number)
         %span.value= resource.islet_number
       .med-info
-        %span.title= Campaign.human_attribute_name(:name)
-        %span.value= resource.cap_statement.campaign.name
+        %span.title= CapIslet.human_attribute_name(:campaign)
+        %span.value= resource.campaign_name
       .med-info
         %span.title= CultivableZone.human_attribute_name(:net_surface_area)
-        %span.value= resource.net_surface_area.in(:hectare).l
+        %span.value= resource.net_surface_area.in(:hectare).round(3).l
   - c.cobble :resource_map, title: :map.tl do
     = visualization do |v|
       - v.serie resource.id, [{name: resource.islet_number, shape: resource.shape}]

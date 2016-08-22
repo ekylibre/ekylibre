@@ -555,6 +555,8 @@ spa:
     emission_currency: "La moneda de emisión"
     emission_journal_entry: "Entrada en el diario de emisión"
     employed: "Empleado"
+    employee: "Empleado"
+    employee_account: "Cuenta de empleado"
     employees: "Empleados"
     employment: "Empleo"
     enabled: "Habilitado"

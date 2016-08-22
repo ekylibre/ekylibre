@@ -364,6 +364,10 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    purchase_nature:
+      nature:
+        # payslip: "Payslip"
+        purchase: "Kauf"
     sale_opportunity:
       third_role:
         client: "Klient"

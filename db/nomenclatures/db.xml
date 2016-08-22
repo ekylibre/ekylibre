@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160802123639">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160819082951">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -1669,6 +1669,7 @@
       <item name="escape" parent="issue"/>
       <item name="fecondity_problem" parent="disease" target="bioproduct"/>
       <item name="fever" parent="disease" target="animal"/>
+      <item name="field_edge_male_seed_corn_defect" parent="plant_issue" target="plant"/>
       <item name="flooding" parent="climate_issue" cause="water" target="plant"/>
       <item name="fomitiporia" parent="fungus_disease" cause="fomitiporia" target="corylus"/>
       <item name="fungus_disease" parent="disease" target="bioproduct"/>
@@ -1687,11 +1688,13 @@
       <item name="phytophthora" parent="fungus_disease" cause="fungus" target="juglans"/>
       <item name="piece_breakdown" parent="mechanical_issue" target="equipment"/>
       <item name="plant_disease" parent="disease" target="bioproduct"/>
+      <item name="plant_issue" target="plant"/>
       <item name="pourridie_rot" parent="fungus_disease" cause="fungus" target="corylus"/>
       <item name="protozoa_disease" parent="disease" target="bioproduct"/>
       <item name="respiratory_problem" parent="disease" target="bioproduct"/>
       <item name="scale_insect" parent="insecta_disease" cause="coccoidea" target="plant"/>
       <item name="scaphoideus_titanus_leafhopper" parent="insecta_disease" cause="scaphoideus_titanus" target="vitis"/>
+      <item name="seed_corn_castration_defect" parent="plant_issue" target="plant"/>
       <item name="septoria_blotch" parent="fungus_disease" cause="fungus" target="poa"/>
       <item name="support_issue" parent="issue"/>
       <item name="vine_mildew" parent="fungus_disease" cause="plasmopara_viticola" target="vitis"/>
@@ -9897,6 +9900,7 @@
       <item name="helianthus_annuus_aurasol" parent="helianthus_annuus" itis_tsn="0"/>
       <item name="helianthus_annuus_es_ethic" parent="helianthus_annuus" itis_tsn="0"/>
       <item name="helianthus_annuus_es_magnific" parent="helianthus_annuus" itis_tsn="0"/>
+      <item name="helianthus_annuus_es_romantic" parent="helianthus_annuus" itis_tsn="36616"/>
       <item name="helianthus_annuus_extrasol" parent="helianthus_annuus" itis_tsn="0"/>
       <item name="helianthus_annuus_lg_5360_ho" parent="helianthus_annuus" itis_tsn="0"/>
       <item name="helianthus_annuus_lg_5450_ho" parent="helianthus_annuus" itis_tsn="0"/>
@@ -10586,6 +10590,7 @@
       <item name="phaseolus_vulgaris_mogex" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_molly" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_princesse_du_peleve" parent="phaseolus_vulgaris" itis_tsn="26857"/>
+      <item name="phaseolus_vulgaris_red_kindley" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_stanley" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_sv1162gn" parent="phaseolus_vulgaris" itis_tsn="26857"/>
       <item name="phaseolus_vulgaris_verdelys" parent="phaseolus_vulgaris" itis_tsn="26857"/>
@@ -11652,15 +11657,18 @@
       <item name="yeast" parent="preparation"/>
       <item name="zea" parent="poaceae" itis_tsn="42268"/>
       <item name="zea_mays" parent="zea" itis_tsn="42269"/>
+      <item name="zea_mays_5142" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_P0216" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_aallexia" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_barcarolle_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_bergxxon" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_boomer" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_cadixxio" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_capuzi" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_ceratina" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_ceratina_dkc5430wx" parent="zea_mays_ceratina" itis_tsn="42269"/>
       <item name="zea_mays_ceratina_dkc5783wx" parent="zea_mays_ceratina" itis_tsn="42269"/>
+      <item name="zea_mays_ceratina_mas56wx" parent="zea_mays_ceratina" itis_tsn="42269"/>
       <item name="zea_mays_ceratina_mas66wx" parent="zea_mays_ceratina" itis_tsn="42269"/>
       <item name="zea_mays_ceratina_p0725e" parent="zea_mays_ceratina" itis_tsn="42269"/>
       <item name="zea_mays_ceratina_p1547e" parent="zea_mays_ceratina" itis_tsn="42269"/>
@@ -11696,7 +11704,9 @@
       <item name="zea_mays_p921s" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_ph30" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_ph31s" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_ph450" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_pr34p88" parent="zea_mays" itis_tsn="42269"/>
+      <item name="zea_mays_pw450" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_roberi_cs" parent="zea_mays" itis_tsn="42269"/>
       <item name="zea_mays_saccharata" parent="zea_mays" itis_tsn="0"/>
       <item name="zea_mays_saccharata_646" parent="zea_mays_saccharata" itis_tsn="42269"/>

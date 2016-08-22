@@ -555,15 +555,6 @@
     <page to="backend/dashboards#production"/>
     <group name="production" icon="cogs">
       <item name="activities">
-        <page to="backend/activity_productions#index"/>
-        <page to="backend/activity_productions#list_interventions"/>
-        <page to="backend/activity_productions#show"/>
-        <page to="backend/activity_productions#unroll"/>
-        <page to="backend/activity_productions#create"/>
-        <page to="backend/activity_productions#destroy"/>
-        <page to="backend/activity_productions#edit"/>
-        <page to="backend/activity_productions#new"/>
-        <page to="backend/activity_productions#update"/>
         <page to="backend/activities#index"/>
         <page to="backend/activities#create"/>
         <page to="backend/activities#destroy"/>
@@ -578,6 +569,16 @@
         <page to="backend/activities#show"/>
         <page to="backend/activities#update"/>
         <page to="backend/activities#unroll"/>
+        <page to="backend/activity_productions#index"/>
+        <page to="backend/activity_productions#list_interventions"/>
+        <page to="backend/activity_productions#list_target_distributions"/>
+        <page to="backend/activity_productions#show"/>
+        <page to="backend/activity_productions#unroll"/>
+        <page to="backend/activity_productions#create"/>
+        <page to="backend/activity_productions#destroy"/>
+        <page to="backend/activity_productions#edit"/>
+        <page to="backend/activity_productions#new"/>
+        <page to="backend/activity_productions#update"/>
         <page to="backend/campaigns#current"/>
         <page to="backend/campaigns#show"/>
         <page to="backend/campaigns#index"/>
@@ -607,7 +608,6 @@
         <page to="backend/activity_seasons#show"/>
         <page to="backend/activity_seasons#unroll"/>
         <page to="backend/activity_seasons#update"/>
-        <page to="backend/activity_tactics#index"/>
         <page to="backend/activity_tactics#create"/>
         <page to="backend/activity_tactics#destroy"/>
         <page to="backend/activity_tactics#edit"/>
@@ -905,6 +905,7 @@
         <page to="backend/cap_statements#unroll"/>
         <page to="backend/cap_statements#update"/>
         <page to="backend/cap_islets#index"/>
+        <page to="backend/cap_islets#convert"/>
         <page to="backend/cap_islets#create"/>
         <page to="backend/cap_islets#destroy"/>
         <page to="backend/cap_islets#edit"/>
@@ -1527,6 +1528,9 @@
       </item>
       <item name="map_editors">
         <page to="backend/map_editors#upload"/>
+      </item>
+      <item name="tours">
+        <page to="backend/tours#finish"/>
       </item>
       <item name="invitations">
         <page to="authentication/invitations#create"/>

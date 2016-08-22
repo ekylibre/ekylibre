@@ -788,6 +788,7 @@ deu:
     # container: "Container"
     convert_balance_into_loss: "Konvertieren Gleichgewicht in Verlust"
     convert_balance_into_profit: "Konvertieren Gleichgewicht in die Gewinnzone"
+    convert_to_cultivable_zone: "Konvertieren in kultivierbaren Zone"
     # cooperative_cartodb: "Cooperative CartoDB"
     coordinates: "Koordinaten"
     copy_from_another_activity: "Kopieren Sie aus einer anderen Tätigkeit"
@@ -885,6 +886,7 @@ deu:
     # ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Abgelaufene Interventionen Zeiten von Aktivitäten" #?
     # email: "Email:"
+    employee_informations: "Mitarbeiterinformationen"
     end: "zu"
     # entities: "Entities"
     entity_links: "Entity Links"
@@ -923,6 +925,7 @@ deu:
     final_balance: "Die Schlussbilanz"
     financials_assets: "Finanzvermögen"
     finish: "Fertig"
+    finished: "Fertig"
     first_line_as_title: "Erste Zeile als Titel"
     fixed_asset_depreciations: "Anlagevermögen Abschreibungen"
     fixed_assets: "Anlagevermögen"
@@ -1081,6 +1084,7 @@ deu:
     net_mass: "Eigenmasse"
     net_surface_area: "Nettofläche"
     new: "Neu"
+    new_activity: "neue Aktivität"
     new_animal: "neue Tier"
     new_attachment: "neue Befestigungs"
     new_box: "New Box"
@@ -1372,6 +1376,36 @@ deu:
     total_quantity: "Gesamtmenge"
     total_unpaid_amount: "Noch nicht ausgezahlten Betrag" #?
     # totals: "Totals"
+    tours:
+      production:
+        field_distribution:
+          content: "Hier finden Sie die 3 Ebenen für Anpflanzungen: bebaubar Zonen (unabhängig von Kampagnen), Landparzellen in Produktionen definiert und Anpflanzungen bei Eingriffen säte."
+          title: "Felder"
+        production:
+          content: "Aktivitäten erlaubt zu definieren, was Sie wollen, es zu produzieren und zu planen."
+          title: "Produktion"
+        quality:
+          content: "Folgen Sie Ihre Pflanzen und Aktivitäten mit vielen Arten von Analysen, überwachen Krankheiten, die mit Fragen und überprüfen Erntequalität mit Inspektionen."
+          title: "Qualitätswerkzeuge"
+        supervision:
+          content: "Sensoren erlaubt zu registrieren und Werte von Ihnen Sensoren in Ihre Felder konzentrieren."
+          title: "Sensoren"
+      welcome:
+        home:
+          content: "Wir werden eine kurze Tour durch die Schnittstelle der Anwendung machen. Zuerst diese Taste ermöglicht von überall in der Anwendung nach Hause zu gehen."
+          title: "Willkommen auf Ekylibre"
+        main:
+          content: "Wo die Action stattfinden ist hier. Wir wünschen Ihnen einen angenehmen Gebrauch."
+          title: "Wo Du arbeitest"
+        parts:
+          content: "Dieses Menü erlaubt den Zugriff auf alle Hauptmodule."
+          title: "Module von Ekylibre"
+        side:
+          content: "Diese Seite Leiste enthält alle Untermenüs des aktuellen Moduls Sie beraten."
+          title: "Modulseitenleiste"
+        user:
+          content: "Hier können Sie Ihre Benachrichtigungen sehen, Hilfe, lesen Sie Ihre Farmnamen. Ihre Benutzereinstellungen sind editierbar aus dem Menü."
+          title: "Benutzermenü"
     tracking: "Verfolgung"
     trade: "Handel"
     trade_counts: "Handel zählt"

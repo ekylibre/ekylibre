@@ -856,6 +856,7 @@ jpn:
     container: "コンテナ"
     convert_balance_into_loss: "損失にバランスを変換します"
     convert_balance_into_profit: "利益にバランスを変換します"
+    convert_to_cultivable_zone: "耕作ゾーンに変換"
     cooperative_cartodb: "共同CartoDB"
     coordinates: "座標"
     copy_from_another_activity: "別のアクティビティからのコピー"
@@ -954,6 +955,7 @@ jpn:
     ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "活動による介入の時間経過" #?
     email: "Eメール："
+    employee_informations: "従業員の情報"
     end: "に"
     entities: "エンティティ"
     entity_links: "エンティティへのリンク"
@@ -992,6 +994,7 @@ jpn:
     final_balance: "期末残高"
     financials_assets: "金融資産"
     finish: "仕上げ"
+    finished: "完成しました"
     first_line_as_title: "タイトルとして最初の行"
     fixed_asset_depreciations: "固定資産の減価償却"
     fixed_assets: "固定資産"
@@ -1154,6 +1157,7 @@ jpn:
     net_mass: "正味質量"
     net_surface_area: "正味の表面積"
     new: "新しい"
+    new_activity: "新しいアクティビティ"
     new_animal: "新しい動物"
     new_attachment: "新付着"
     new_box: "新箱"
@@ -1445,6 +1449,36 @@ jpn:
     total_quantity: "総量"
     total_unpaid_amount: "合計未払い額" #?
     totals: "合計"
+    tours:
+      production:
+        field_distribution:
+          content: "耕作ゾーン（キャンペーンの独立した）、制作に定義された土地区画、および介入中に播種栽培：栽培のための3つのレベルをここで見つけます。"
+          title: "フィールズ"
+        production:
+          content: "活動は、あなたが生産し、それを計画したいのかを定義することを可能にします。"
+          title: "製造"
+        quality:
+          content: "、分析の多くの種類のあなたの作物や活動に従って問題に疾患を監視し、検査と収穫の品質をチェック。"
+          title: "品質ツール"
+        supervision:
+          content: "センサーは、あなたの分野であなたセンサーの値を登録し、集中することを可能にします。"
+          title: "センサー"
+      welcome:
+        home:
+          content: "私たちは、アプリケーションのインターフェイスのクイックツアーを行います。アプリケーションのどこからでも家に帰るまずこのボタンを可能にします。"
+          title: "Ekylibreにようこそ"
+        main:
+          content: "すべてのアクションが起こるのはここです。私たちはあなたに幸せな利用を望みます。"
+          title: "どこで働きます"
+        parts:
+          content: "このメニューは、メインモジュールのすべてにアクセスすることを許可します。"
+          title: "Ekylibreのモジュール"
+        side:
+          content: "このサイドバーには、相談している現在のモジュールのすべてのサブメニューが含まれています。"
+          title: "モジュールのサイドバー"
+        user:
+          content: "ここで、あなたは、あなたの通知を参照してくださいヘルプを表示、ファーム名を読み取ることができます。ユーザー設定は、メニューから編集可能です。"
+          title: "ユーザメニュー"
     tracking: "追跡"
     trade: "トレード"
     trade_counts: "貿易カウント"
