@@ -115,7 +115,7 @@ class User < Ekylibre::Record::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :invitable, :omniauthable, :omniauth_providers => [:ekylibre]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :invitable, :omniauthable, omniauth_providers: [:ekylibre]
   model_stamper # Needed to stamp.all records
   delegate :picture, :participations, to: :person
   delegate :name, to: :role, prefix: true

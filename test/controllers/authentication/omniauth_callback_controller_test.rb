@@ -23,7 +23,7 @@ class Authentication::OmniauthCallbacksControllerTest < ActionController::TestCa
     assert !@invitee.invitation_accepted?
 
     get :ekylibre, invitation_token: @invitee.raw_invitation_token
-    assert_redirected_to /\A#{backend_root_url}/
+    assert_redirected_to(/\A#{backend_root_url}/)
     assert @invitee.reload.invitation_accepted?
   end
 
