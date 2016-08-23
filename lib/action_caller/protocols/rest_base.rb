@@ -1,7 +1,7 @@
 module ActionCaller
   module Protocols
     # Methods used by every other protocol
-    module Base
+    module RestBase
       private
 
       def get_base(path, &block)

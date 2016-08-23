@@ -37,22 +37,26 @@ class Call < ActiveRecord::Base
   end
 
   def success(code = nil)
-    yield(@response) if state_is?(:success) && state_code_matches?(code)
+    yield(result) if state_is?(:success) && state_code_matches?(code)
   end
 
   def error(code = nil)
-    yield(@response) if state_is?(:error) && state_code_matches?(code)
+    yield(result) if state_is?(:error) && state_code_matches?(code)
   end
 
   def redirect(code = nil)
-    yield(@response) if state_is?(:redirect) && state_code_matches?(code)
+    yield(result) if state_is?(:redirect) && state_code_matches?(code)
   end
 
   def on(code)
-    yield(@response) if state_code_matches?(code)
+    yield(result) if state_code_matches?(code)
   end
 
   private
+
+  def result
+    @response.result
+  end
 
   # Returns true for a nil/false code.
   def state_code_matches?(code)

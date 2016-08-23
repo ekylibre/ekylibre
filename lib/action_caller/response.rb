@@ -2,7 +2,7 @@ module ActionCaller
   # Response object that includes the DSL methods.
   class Response
     attr_reader :code, :headers, :body
-    attr_reader :state
+    attr_reader :state, :result
 
     def initialize(params)
       @code = params[:code]
@@ -53,13 +53,14 @@ module ActionCaller
     private
 
     def state_handling(signal, http_codes, code = nil)
-      return unless code_match?(@code, http_codes)
+      return @result unless code_match?(@code, http_codes)
       if block_given?
-        yield
+        result = yield
       else
         @state_code = [signal, code].compact.join('_').to_sym
       end
       self.state = signal.to_sym
+      @result = result || @state
     end
 
     def code_match?(code, http_codes)

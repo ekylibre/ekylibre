@@ -112,6 +112,8 @@ class Sensor < Ekylibre::Record::Base
     analysis
   rescue => e
     # save failure
+    # NOPE
+    raise e
     analysis = analyses.create!(retrieval_status: :internal_error, retrieval_message: e.message, nature: :sensor_analysis, sampled_at: Time.now)
     if options[:background] && analysis.status_changed?
       notify_error(:sensor_reading_failed, { name: name, message: e.message }, level: :error)

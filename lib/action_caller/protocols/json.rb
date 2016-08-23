@@ -2,7 +2,7 @@ module ActionCaller
   module Protocols
     # JSON protocol methods. Rely on Base.
     module JSON
-      include Protocols::Base
+      include Protocols::RestBase
 
       def get(path, &block)
         get_base(path, &block)

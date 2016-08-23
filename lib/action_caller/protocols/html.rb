@@ -2,7 +2,7 @@ module ActionCaller
   module Protocols
     # Basic HTML Get operation.
     module HTML
-      include Protocols::Base
+      include Protocols::RestBase
 
       def get(path, &block)
         get_base(path, &block)

@@ -9,8 +9,8 @@ ActiveRecord::Base.send(:extend, Delay::Validation::ClassMethods)
 require 'safe_string'
 autoload :SymbolArray, 'symbol_array'
 
-# # ActionCaller
-# require 'action_caller/protocols/base'
+# ActionCaller
+autoload :ActionCaller, 'action_caller'
 
 # ActiveThing
 autoload :ActiveExchanger, 'active_exchanger'
