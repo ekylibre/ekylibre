@@ -78,9 +78,10 @@ module Backend
       t.action :ship,    on: :both, method: :post, if: :shippable?
       t.action :edit,    on: :both, method: :get, if: :updateable?
       t.action :destroy
+      t.column :nature
       t.column :number, url: true
       t.column :reference_number, hidden: true
-      t.column :nature
+      t.column :content_sentence, label: :contains
       t.column :planned_at
       t.column :recipient, url: true
       t.column :sender, url: true

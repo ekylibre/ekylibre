@@ -161,6 +161,14 @@ class Parcel < Ekylibre::Record::Base
     prepared? || given?
   end
 
+  def content_sentence(limit = 30)
+    sentence = items.map(&:name).compact.to_sentence
+    to_keep = limit || sentence.size
+    limited = sentence[0...to_keep - 3]
+    limited << '...' unless limited == sentence
+    limited
+  end
+
   def separated_stock?
     separated_stock
   end
