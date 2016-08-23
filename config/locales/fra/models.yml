@@ -768,6 +768,7 @@ fra:
     failed_attempts: "Tentatives de connexions échouées"
     family: "Famille"
     farm_name: "Nom de la ferme"
+    farmer: "Fermier"
     father: "Père"
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
@@ -791,8 +792,8 @@ fra:
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
-    fixed_asset_collect_account: "Capital fixe recueillir compte"
-    fixed_asset_deduction_account: "Actif fixe compte de la déduction"
+    fixed_asset_collect_account: "TVA collectée sur les immobilisations"
+    fixed_asset_deduction_account: "TVA déductible sur les immobilisations"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
@@ -1413,7 +1414,7 @@ fra:
     subject_label: "Objet" #?
     subject_type: "Type de sujet"
     subscriber: "Abonné"
-    subscribing: "Abonne"
+    subscribing: "Abonnement"
     subscription_duration: "Période"
     subscription_nature: "Type d’abonnement"
     subscription_quantity: "Quantité" #?

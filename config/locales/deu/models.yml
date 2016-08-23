@@ -589,6 +589,7 @@ deu:
     failed_attempts: "Fehlversuche"
     family: "Familie"
     farm_name: "Farm Name"
+    # farmer: "Farmer"
     father: "Vater"
     faxes: "Faxgeräte"
     fifth_producer: "fünfte Produzent" #?
