@@ -26,3 +26,17 @@
     stroke: #CCC;
   }
 }
+
+.chart-table {
+  .chart-line {
+    .chart-cell {
+      width: 33.33%;
+      @include float(left);
+      @for $weight from 1 to 12 {
+        .chart-cell-#{$weight} {
+          width: floor(10000% / $weight) / 100;
+        }
+      }
+    }
+  }
+}
