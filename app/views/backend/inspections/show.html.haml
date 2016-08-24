@@ -28,15 +28,14 @@
 
       - c.cobble('stock_in_ground') do
         = render 'unit_selector', activity: resource.activity
-        %table
-          %tbody
-            - resource.scales.each do |scale|
-              :ruby
-                dataset = resource.calibrations.of_scale(scale).reorder(:id)
-              - if selected_unit == :mass || selected_unit != :items
-                = render 'charts', to_graph: 'net_mass', dataset: dataset, resource: resource, scale: scale
-              - if selected_unit != :mass || selected_unit == :items
-                = render 'charts', to_graph: 'items_count', dataset: dataset, resource: resource, scale: scale
+        .chart-table
+          - resource.scales.each do |scale|
+            :ruby
+              dataset = resource.calibrations.of_scale(scale).reorder(:id)
+            - if selected_unit == :mass || selected_unit != :items
+              = render 'charts', to_graph: 'net_mass', dataset: dataset, resource: resource, scale: scale
+            - if selected_unit != :mass || selected_unit == :items
+              = render 'charts', to_graph: 'items_count', dataset: dataset, resource: resource, scale: scale
 
   - c.cobble(:analyses) do
     - analysis = Analysis.where(product: resource.product, nature: 'plant_analysis').reorder(:sampled_at).last
