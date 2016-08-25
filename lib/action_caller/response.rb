@@ -8,6 +8,10 @@ module ActionCaller
       @code = params[:code]
       @headers = params[:headers]
       @body = params[:body]
+      success(nil, true)
+      redirect(nil, true)
+      client_error(nil, true)
+      server_error(nil, true)
     end
 
     def self.new_from_net(net_response)
@@ -26,24 +30,24 @@ module ActionCaller
       )
     end
 
-    def success(success_code = nil, &block)
-      state_handling(:success, '2', success_code, &block)
+    def success(success_code = nil, match = false, &block)
+      state_handling(:success, '2', success_code, match, &block)
     end
 
-    def redirect(redirect_code = nil, &block)
-      state_handling(:redirect, '3', redirect_code, &block)
+    def redirect(redirect_code = nil, match = false, &block)
+      state_handling(:redirect, '3', redirect_code, match, &block)
     end
 
-    def error(error_code = nil, &block)
-      state_handling(:error, %w(4 5), error_code, &block)
+    def error(error_code = nil, match = false, &block)
+      state_handling(:error, %w(4 5), error_code, match, &block)
     end
 
-    def client_error(error_code = nil, &block)
-      state_handling(:error, '4', error_code, &block)
+    def client_error(error_code = nil, match = false, &block)
+      state_handling(:client_error, '4', error_code, match, &block)
     end
 
-    def server_error(error_code = nil, &block)
-      state_handling(:error, '5', error_code, &block)
+    def server_error(error_code = nil, match = false, &block)
+      state_handling(:server_error, '5', error_code, match, &block)
     end
 
     def state=(signal)
@@ -52,14 +56,18 @@ module ActionCaller
 
     private
 
-    def state_handling(signal, http_codes, code = nil)
-      return @result unless code_match?(@code, http_codes)
+    def state_handling(signal, http_codes, code = nil, must_match_code = false)
       if block_given?
-        result = yield
+        if code_match?(@code, http_codes)
+          result = yield
+          self.state = signal.to_sym
+        end
       else
-        @state_code = [signal, code].compact.join('_').to_sym
+        unless must_match_code && !code_match?(@code, http_codes)
+          @state_code = [signal, code].compact.join('_').to_sym
+          self.state = signal.to_sym
+        end
       end
-      self.state = signal.to_sym
       @result = result || @state
     end
 
