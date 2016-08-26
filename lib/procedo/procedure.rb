@@ -22,8 +22,8 @@ module Procedo
       end
 
       # Returns procedures of given activity families
-      def activity_family(*families)
-        options = categories.extract_options!
+      def of_activity_family(*families)
+        options = families.extract_options!
         select(options) do |p|
           p.of_activity_family?(*families)
         end
