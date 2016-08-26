@@ -53,13 +53,17 @@
       # by default, build url to move animals
       @rebuildUrl = =>
         options = Array.from(arguments).shift()
-        options['animals_ids'] ||= Object.keys(@selectedItemsIndex)
+        options['targets_attributes'] ||= []
+        options['targets_attributes'] = ko.utils.arrayMap Object.keys(@selectedItemsIndex), (id) ->
+          { product_id: id, reference_name: 'animal', new_container_id: options['container'], new_group_id: options['group'] }
 
         parameters = options['parameters'] || false
         base_url = options['base_url'] || $('a[data-target=animal_group_changing]').attr('href')
 
         delete options['base_url']
         delete options['parameters']
+        delete options['container']
+        delete options['group']
 
         base_url += "&#{$.param(options)}" if parameters
 
