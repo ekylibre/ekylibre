@@ -40,6 +40,10 @@ module Clean
       end
 
       def clean!
+        if Ekylibre::Plugin.registered_plugins.any?
+          raise 'Cannot clean locales if plugins are activated'
+        end
+
         log("Locale #{::I18n.locale_label}:\n")
 
         ::I18n.locale = @locale
@@ -58,7 +62,7 @@ module Clean
         clean_aggregators!
         clean_file! 'devise'
         clean_file! 'devise.views'
-        clean_file! 'enumerize'
+        clean_enumerize!
         clean_file! 'exceptions'
         clean_exchangers!
         clean_file! 'formats'
@@ -99,7 +103,7 @@ module Clean
         # Actions
         translation << "  actions:\n"
         # raise controllers_hash.inspect
-        for controller_path, actions in Clean::Support.actions_hash
+        Clean::Support.actions_hash(except: [::ApiController, ::Backend::Cells::BaseController]).each do |controller_path, actions|
           existing_actions = begin
                                ::I18n.translate("actions.#{controller_path}").stringify_keys.keys
                              rescue
@@ -109,7 +113,7 @@ module Clean
           translateable_actions += (actions.delete_if { |a| [:update, :create, :picture, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) || a.to_s.match(/^(list|unroll)(\_|$)/) } | existing_actions).sort
           next unless translateable_actions.any?
           translation << '    ' + controller_path + ":\n"
-          for action_name in translateable_actions
+          translateable_actions.each do |action_name|
             name = ::I18n.hardtranslate("actions.#{controller_path}.#{action_name}")
             to_translate += 1
             untranslated += 1 if actions.include?(action_name) && name.blank?
@@ -130,7 +134,7 @@ module Clean
         # Labels
         translation << "  labels:\n"
         labels = ::I18n.t('labels')
-        needed_labels = Clean::Support.look_for_labels(watched_files).inject({}) do |hash, string|
+        needed_labels = Clean::Support.look_for_labels(watched_files).each_with_object({}) do |string, hash|
           hash[Regexp.new('\A' + string.split('.').first.gsub('*', '([\w\_]+)') + '\z')] = string.split('.').first
           hash
         end
@@ -342,6 +346,31 @@ module Clean
         write(file, translation, to_translate, untranslated)
       end
 
+      def clean_enumerize!
+        translate('enumerize.yml') do |ref, translation, s|
+          translation << "  enumerize:\n"
+          ref[:enumerize] ||= {}
+          Clean::Support.models_in_file.each do |model|
+            attrs = []
+            model.enumerized_attributes.each do |attr|
+              next if attr.i18n_scope
+              next unless attr.values.any?
+              next if model < Ekylibre::Record::Base &&
+                      model.nomenclature_reflections.detect { |_k, n| n.foreign_key.to_s == attr.name.to_s }
+              attrs << attr
+            end
+            next unless attrs.any?
+            translation << "    #{model.name.underscore}:\n"
+            attrs.sort { |a, b| a.name <=> b.name }.each do |attr|
+              translation << "      #{attr.name}:\n"
+              attr.values.sort { |a, b| a <=> b }.each do |value|
+                translation << s.exp(ref, :enumerize, model.name.underscore.to_sym, attr.name, value.to_sym).dig(4)
+              end
+            end
+          end
+        end
+      end
+
       def clean_exchangers!
         translate('exchangers.yml') do |ref, translation, s|
           translation << "  exchangers:\n"
@@ -457,7 +486,7 @@ module Clean
                 trl[:properties] = "      property_natures:\n"
                 nomenclature.property_natures.sort { |a, b| a.first.to_s <=> b.first.to_s }.each do |name, property_nature|
                   trl[:properties] << s.exp(ref, nomenclature.name, :property_natures, name.to_sym).dig(4)
-                  if property_nature.type == :choice
+                  if property_nature.type == :choice || property_nature.type == :choice_list
                     if property_nature.inline_choices?
                       choices << "#{name}:\n"
                       property_nature.choices.sort { |a, b| a.to_s <=> b.to_s }.each do |choice|

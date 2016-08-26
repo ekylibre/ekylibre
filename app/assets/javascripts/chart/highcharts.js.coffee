@@ -30,7 +30,8 @@
 
   $.loadHighcharts = ->
     $("*[data-highcharts]").each ->
-      $(this).highchart()
+      chartitem = $(this)
+      chartitem.highchart()
     return
 
   $(document).ready $.loadHighcharts

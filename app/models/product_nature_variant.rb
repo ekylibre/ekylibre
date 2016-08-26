@@ -52,37 +52,48 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
   belongs_to :category, class_name: 'ProductNatureCategory', inverse_of: :variants
   has_many :catalog_items, foreign_key: :variant_id, dependent: :destroy
-  has_many :products, foreign_key: :variant_id
-  has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant
-  has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant
+
+  has_many :root_components, -> { where(parent: nil) }, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :product_nature_variant, foreign_key: :product_nature_variant_id
+  has_many :components, class_name: 'ProductNatureVariantComponent', dependent: :destroy, inverse_of: :product_nature_variant, foreign_key: :product_nature_variant_id
+
+  has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'
+
+  has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
+  has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
+  has_many :sale_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
   has_many :readings, class_name: 'ProductNatureVariantReading', foreign_key: :variant_id, inverse_of: :variant
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_inclusion_of :active, in: [true, false]
-  validates_presence_of :category, :nature, :unit_name, :variety
+  validates :active, inclusion: { in: [true, false] }
+  validates :name, :number, :picture_content_type, :picture_file_name, :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :unit_name, presence: true, length: { maximum: 500 }
+  validates :category, :nature, :variety, presence: true
   # ]VALIDATORS]
-  validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
+  validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :commercial_name, :name
 
-  delegate :able_to?, :able_to_each?, :has_indicator?, :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :of_expression, :population_counting_unitary?, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
+  delegate :able_to?, :identifiable?, :able_to_each?, :has_indicator?, :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :of_expression, :population_counting_unitary?, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
   delegate :variety, :derivative_of, :name, to: :nature, prefix: true
   delegate :depreciable?, :depreciation_rate, :deliverable?, :purchasable?, :saleable?, :subscribing?, :fixed_asset_depreciation_method, :fixed_asset_depreciation_percentage, :fixed_asset_account, :fixed_asset_allocation_account, :fixed_asset_expenses_account, :product_account, :charge_account, :stock_account, to: :category
 
   accepts_nested_attributes_for :products, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :readings, reject_if: proc { |params| params['measure_value_value'].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :components, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :readings, reject_if: proc { |params| params['measure_value_value'].blank? && params['integer_value'].blank? && params['boolean_value'].blank? && params['decimal_value'].blank? }, allow_destroy: true
   accepts_nested_attributes_for :catalog_items, reject_if: :all_blank, allow_destroy: true
-  # acts_as_numbered
+  validates_associated :components
 
   scope :availables, -> { where(nature_id: ProductNature.availables).order(:name) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :purchaseables, -> { joins(:nature).merge(ProductNature.purchaseables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :stockables_or_depreciables, -> { joins(:nature).merge(ProductNature.stockables_or_depreciables).order(:name) }
+  scope :identifiables, -> { where(nature: ProductNature.identifiables) }
 
   scope :derivative_of, proc { |*varieties| of_derivative_of(*varieties) }
 
@@ -111,7 +122,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :of_category, ->(category) { where(category: category) }
 
   protect(on: :destroy) do
-    products.any?
+    products.any? || sale_items.any? || purchase_items.any? || parcel_items.any?
   end
 
   before_validation on: :create do
@@ -154,9 +165,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Measure a product for a given indicator
-  def read!(indicator, value, _options = {})
-    unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+  def read!(indicator, value)
+    unless indicator.is_a?(Nomen::Item)
+      indicator = Nomen::Indicator.find(indicator)
+      unless indicator
+        raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
+      end
     end
     reading = readings.find_or_initialize_by(indicator_name: indicator.name)
     reading.value = value
@@ -173,7 +187,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Returns the direct value of an indicator of variant
-  def get(indicator)
+  def get(indicator, _options = {})
     unless indicator.is_a?(Nomen::Item) || indicator = Nomen::Indicator[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicator.all.sort.to_sentence}."
     end
@@ -283,6 +297,27 @@ class ProductNatureVariant < Ekylibre::Record::Base
     product_model.create!(variant: self, name: product_name + ' ' + born_at.l, initial_owner: Entity.of_company, initial_born_at: born_at, default_storage: default_storage)
   end
 
+  # Shortcut for creating a new product of the variant
+  def create_product!(attributes = {})
+    attributes[:initial_owner] ||= Entity.of_company
+    attributes[:initial_born_at] ||= Time.zone.now
+    attributes[:born_at] ||= attributes[:initial_born_at]
+    attributes[:name] ||= "#{name} (#{attributes[:initial_born_at].to_date.l})"
+    matching_model.create!(attributes.merge(variant: self))
+  end
+
+  def take(quantity)
+    products.mine.each_with_object({}) do |product, result|
+      reminder = quantity - result.values.sum
+      result[product] = [product.population, reminder].min if reminder > 0
+      result
+    end
+  end
+
+  def take!(quantity)
+    raise 'errors.not_enough'.t if take(quantity).values.sum < quantity
+  end
+
   # Returns last purchase item for the variant
   # and a given supplier if any, or nil if there's
   # no purchase item matching criterias
@@ -311,11 +346,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   class << self
-    # # Returns indicators for a set of product
-    # def indicator(name, options = {})
-    #   created_at = options[:at] || Time.zone.now
-    #   ProductNatureVariantReading.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.variant_id = p2.variant_id AND (p1.created_at < p2.created_at OR (p1.created_at = p2.created_at AND p1.id < p2.id)) AND p2.created_at <= ?) WHERE p1.created_at <= ? AND p1.variant_id IN (?) AND p2 IS NULL)", created_at, created_at, self.pluck(:id))
-    # end
+    # Returns some nomenclature items are available to be imported, e.g. not
+    # already imported
+    def any_reference_available?
+      Nomen::ProductNatureVariant.without(ProductNatureVariant.pluck(:reference_name).uniq).any?
+    end
 
     # Find or import variant from nomenclature with given attributes
     # variety and derivative_of only are accepted for now
@@ -395,8 +430,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
             .collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each do |i|
-          # puts i.first.strip.downcase.to_sym.inspect.red
-          variant.read!(i.first.strip.downcase.to_sym, i.second)
+          indicator_name = i.first.strip.downcase.to_sym
+          next unless variant.has_indicator? indicator_name
+          variant.read!(indicator_name, i.second)
         end
       end
 

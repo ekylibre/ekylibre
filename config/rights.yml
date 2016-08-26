@@ -22,8 +22,8 @@
 #     - "authentication/sessions#destroy"
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
-#     - "backend/activities#list_inspections"
 #     - "backend/activity_inspection_point_natures#autocomplete"
+#     - "backend/activity_productions#list_target_distributions"
 #     - "backend/animals#take"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
@@ -80,23 +80,15 @@
 #     - "backend/cells/working_sets_stocks_cells#show"
 #     - "backend/cobblers#update"
 #     - "backend/dashboards#accountancy"
-#     - "backend/dashboards#create"
-#     - "backend/dashboards#destroy"
-#     - "backend/dashboards#edit"
 #     - "backend/dashboards#home"
-#     - "backend/dashboards#index"
-#     - "backend/dashboards#list"
-#     - "backend/dashboards#new"
 #     - "backend/dashboards#production"
 #     - "backend/dashboards#relationship"
 #     - "backend/dashboards#sandbox"
 #     - "backend/dashboards#search"
 #     - "backend/dashboards#settings"
-#     - "backend/dashboards#show"
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
-#     - "backend/dashboards#update"
 #     - "backend/equipments#take"
 #     - "backend/fungi#take"
 #     - "backend/golumns#reset"
@@ -108,16 +100,6 @@
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
-#     - "backend/map_backgrounds#create"
-#     - "backend/map_backgrounds#destroy"
-#     - "backend/map_backgrounds#edit"
-#     - "backend/map_backgrounds#index"
-#     - "backend/map_backgrounds#load"
-#     - "backend/map_backgrounds#new"
-#     - "backend/map_backgrounds#show"
-#     - "backend/map_backgrounds#star"
-#     - "backend/map_backgrounds#toggle"
-#     - "backend/map_backgrounds#update"
 #     - "backend/map_editors#upload"
 #     - "backend/matters#take"
 #     - "backend/notifications#destroy"
@@ -127,11 +109,15 @@
 #     - "backend/plants#take"
 #     - "backend/postal_zones#import"
 #     - "backend/product_groups#take"
+#     - "backend/product_nature_variant_components#autocomplete"
+#     - "backend/product_nature_variant_components#unroll"
 #     - "backend/product_nature_variants#detail"
+#     - "backend/product_nature_variants#list_components"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
+#     - "backend/tours#finish"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
@@ -193,11 +179,17 @@ activities:
     - "backend/activities#index"
     - "backend/activities#list"
     - "backend/activities#list_distributions"
+    - "backend/activities#list_inspections"
     - "backend/activities#list_productions"
     - "backend/activities#show"
     - "backend/activities#unroll"
     - "backend/activity_budgets#index"
     - "backend/activity_budgets#show"
+    - "backend/activity_seasons#index"
+    - "backend/activity_seasons#show"
+    - "backend/activity_seasons#unroll"
+    - "backend/activity_tactics#show"
+    - "backend/activity_tactics#unroll"
     - "backend/inspections#index"
     - "backend/inspections#list"
     - "backend/inspections#show"
@@ -205,6 +197,10 @@ activities:
     - "backend/plant_density_abaci#index"
     - "backend/plant_density_abaci#list"
     - "backend/plant_density_abaci#show"
+    - "backend/target_distributions#index"
+    - "backend/target_distributions#list"
+    - "backend/target_distributions#list_intervention_product_parameters"
+    - "backend/target_distributions#show"
   write:
     dependencies:
     - read-activities
@@ -222,6 +218,16 @@ activities:
     - "backend/activity_budgets#edit"
     - "backend/activity_budgets#new"
     - "backend/activity_budgets#update"
+    - "backend/activity_seasons#create"
+    - "backend/activity_seasons#destroy"
+    - "backend/activity_seasons#edit"
+    - "backend/activity_seasons#new"
+    - "backend/activity_seasons#update"
+    - "backend/activity_tactics#create"
+    - "backend/activity_tactics#destroy"
+    - "backend/activity_tactics#edit"
+    - "backend/activity_tactics#new"
+    - "backend/activity_tactics#update"
     - "backend/campaigns#close"
     - "backend/campaigns#open"
     - "backend/inspections#create"
@@ -234,6 +240,12 @@ activities:
     - "backend/plant_density_abaci#edit"
     - "backend/plant_density_abaci#new"
     - "backend/plant_density_abaci#update"
+    - "backend/target_distributions#create"
+    - "backend/target_distributions#destroy"
+    - "backend/target_distributions#distribute"
+    - "backend/target_distributions#edit"
+    - "backend/target_distributions#new"
+    - "backend/target_distributions#update"
 
 affairs:
   read:
@@ -250,11 +262,13 @@ affairs:
     actions:
     - "backend/affairs#attach"
     - "backend/affairs#detach"
+    - "backend/affairs#detach_gaps"
     - "backend/affairs#finish"
     - "backend/affairs#select"
     - "backend/affairs#unroll"
     - "backend/sale_tickets#attach"
     - "backend/sale_tickets#detach"
+    - "backend/sale_tickets#detach_gaps"
     - "backend/sale_tickets#finish"
     - "backend/sale_tickets#select"
     - "backend/sale_tickets#unroll"
@@ -348,13 +362,14 @@ bank_statements:
     dependencies:
     - read-bank_statements
     actions:
+    - "backend/bank_statement_items#new"
     - "backend/bank_statements#create"
     - "backend/bank_statements#destroy"
     - "backend/bank_statements#edit"
+    - "backend/bank_statements#import"
     - "backend/bank_statements#new"
-    - "backend/bank_statements#point"
+    - "backend/bank_statements#reconciliation"
     - "backend/bank_statements#update"
-    - "backend/cashes#point"
 
 building_divisions:
   read:
@@ -543,6 +558,7 @@ cultivable_zones:
     dependencies:
     - read-cultivable_zones
     actions:
+    - "backend/cap_islets#convert"
     - "backend/cultivable_zones#create"
     - "backend/cultivable_zones#destroy"
     - "backend/cultivable_zones#edit"
@@ -803,6 +819,14 @@ financial_years:
     - "backend/financial_years#new"
     - "backend/financial_years#update"
 
+first_run:
+  write:
+    dependencies:
+    - read-first_run
+  execute:
+    dependencies:
+    - read-first_run
+
 fixed_assets:
   read:
     actions:
@@ -954,7 +978,8 @@ incoming_deliveries:
     - "backend/parcel_items#new"
     - "backend/parcels#index"
     - "backend/parcels#list"
-    - "backend/parcels#list_items"
+    - "backend/parcels#list_incoming_items"
+    - "backend/parcels#list_outgoing_items"
     - "backend/parcels#show"
     - "backend/parcels#unroll"
   write:
@@ -1015,6 +1040,7 @@ interventions:
     - "backend/interventions#index"
     - "backend/interventions#list"
     - "backend/interventions#list_product_parameters"
+    - "backend/interventions#list_record_interventions"
     - "backend/interventions#show"
     - "backend/interventions#unroll"
   write:
@@ -1236,6 +1262,24 @@ manure_management_plans:
     - "backend/manure_management_plans#new"
     - "backend/manure_management_plans#update"
 
+map_backgrounds:
+  read:
+    actions:
+    - "backend/map_backgrounds#index"
+    - "backend/map_backgrounds#new"
+    - "backend/map_backgrounds#show"
+  write:
+    dependencies:
+    - read-map_backgrounds
+    actions:
+    - "backend/map_backgrounds#create"
+    - "backend/map_backgrounds#destroy"
+    - "backend/map_backgrounds#edit"
+    - "backend/map_backgrounds#load"
+    - "backend/map_backgrounds#star"
+    - "backend/map_backgrounds#toggle"
+    - "backend/map_backgrounds#update"
+
 matters:
   read:
     actions:
@@ -1267,11 +1311,19 @@ matters:
 myselves:
   read:
     actions:
+    - "backend/dashboards#index"
+    - "backend/dashboards#list"
+    - "backend/dashboards#show"
     - "backend/myselves#show"
   write:
     dependencies:
     - read-myselves
     actions:
+    - "backend/dashboards#create"
+    - "backend/dashboards#destroy"
+    - "backend/dashboards#edit"
+    - "backend/dashboards#new"
+    - "backend/dashboards#update"
     - "backend/myselves#change_password"
     - "backend/myselves#update"
 
@@ -1308,7 +1360,8 @@ outgoing_deliveries:
     actions:
     - "backend/parcels#index"
     - "backend/parcels#list"
-    - "backend/parcels#list_items"
+    - "backend/parcels#list_incoming_items"
+    - "backend/parcels#list_outgoing_items"
     - "backend/parcels#show"
     - "backend/parcels#unroll"
   write:
@@ -1559,6 +1612,11 @@ products:
     dependencies:
     - read-products
     actions:
+    - "backend/product_localizations#create"
+    - "backend/product_localizations#destroy"
+    - "backend/product_localizations#edit"
+    - "backend/product_localizations#new"
+    - "backend/product_localizations#update"
     - "backend/products#create"
     - "backend/products#destroy"
     - "backend/products#edit"
@@ -1671,6 +1729,7 @@ sales:
     - "backend/sale_opportunities#create"
     - "backend/sale_opportunities#destroy"
     - "backend/sale_opportunities#detach"
+    - "backend/sale_opportunities#detach_gaps"
     - "backend/sale_opportunities#edit"
     - "backend/sale_opportunities#evaluate"
     - "backend/sale_opportunities#finish"
@@ -1692,7 +1751,6 @@ sales:
     - "backend/sales#destroy"
     - "backend/sales#duplicate"
     - "backend/sales#edit"
-    - "backend/sales#generate_parcel"
     - "backend/sales#invoice"
     - "backend/sales#new"
     - "backend/sales#propose"
@@ -1790,6 +1848,8 @@ subscription_natures:
     actions:
     - "backend/subscription_natures#index"
     - "backend/subscription_natures#list"
+    - "backend/subscription_natures#list_product_natures"
+    - "backend/subscription_natures#list_subscriptions"
     - "backend/subscription_natures#show"
     - "backend/subscription_natures#unroll"
   write:
@@ -1797,10 +1857,8 @@ subscription_natures:
     - read-subscription_natures
     actions:
     - "backend/subscription_natures#create"
-    - "backend/subscription_natures#decrement"
     - "backend/subscription_natures#destroy"
     - "backend/subscription_natures#edit"
-    - "backend/subscription_natures#increment"
     - "backend/subscription_natures#new"
     - "backend/subscription_natures#update"
 
@@ -1819,6 +1877,9 @@ subscriptions:
     - "backend/subscriptions#destroy"
     - "backend/subscriptions#edit"
     - "backend/subscriptions#new"
+    - "backend/subscriptions#renew"
+    - "backend/subscriptions#suspend"
+    - "backend/subscriptions#takeover"
     - "backend/subscriptions#update"
 
 supervisions:

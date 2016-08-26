@@ -158,12 +158,6 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{item_product_work_number}]]></textFieldExpression>
 			</textField>
-			<componentElement>
-				<reportElement x="2" y="0" width="116" height="50" uuid="d481ac6e-bb35-406e-ada7-0d3f24b384fd"/>
-				<jr:Codabar xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
-					<jr:codeExpression><![CDATA[$F{item_product_number}]]></jr:codeExpression>
-				</jr:Codabar>
-			</componentElement>
 			<textField isBlankWhenNull="true">
 				<reportElement style="label" x="118" y="23" width="182" height="23" uuid="34e5c980-1325-46af-848d-f6d95ee1ae19"/>
 				<textFieldExpression><![CDATA[$F{item_product_identification_number}]]></textFieldExpression>

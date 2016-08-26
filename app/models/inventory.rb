@@ -31,7 +31,7 @@
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
 #  name             :string           not null
-#  number           :string
+#  number           :string           not null
 #  reflected        :boolean          default(FALSE), not null
 #  reflected_at     :datetime
 #  responsible_id   :integer
@@ -45,12 +45,14 @@ class Inventory < Ekylibre::Record::Base
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :achieved_at, :reflected_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_inclusion_of :reflected, in: [true, false]
-  validates_presence_of :name
+  validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :name, :number, presence: true, length: { maximum: 500 }
+  validates :reflected, inclusion: { in: [true, false] }
   # ]VALIDATORS]
-  validates_length_of :number, allow_nil: true, maximum: 20
-  validates_presence_of :achieved_at
+  validates :achieved_at, presence: true
+  validates :name, uniqueness: true
+
+  acts_as_numbered
 
   scope :unreflecteds, -> { where(reflected: false) }
   scope :before, ->(at) { where(arel_table[:achieved_at].lt(at)) }
@@ -72,20 +74,28 @@ class Inventory < Ekylibre::Record::Base
     !reflected? # && self.class.unreflecteds.before(self.achieved_at).empty?
   end
 
+  # Apply deltas on products and raises an error if any problem
+  def reflect!
+    raise StandardError, 'Cannot reflect inventory on stocks' unless reflect
+  end
+
   # Apply deltas on products
   def reflect
-    raise StandardError, 'Not reflectable inventory' unless reflectable?
-    self.class.transaction do
-      self.reflected_at = Time.zone.now
-      self.reflected = true
-      save!
-      items.find_each(&:save)
+    unless reflectable?
+      errors.add(:reflected, :invalid)
+      return false
     end
+    self.reflected_at = Time.zone.now
+    self.reflected = true
+    return false unless valid? && items.all?(&:valid?)
+    save
+    items.find_each(&:save)
+    true
   end
 
   def build_missing_items
     self.achieved_at ||= Time.zone.now
-    Matter.at(achieved_at).of_owner(Entity.of_company).find_each do |product|
+    Matter.at(achieved_at).mine_or_undefined(achieved_at).find_each do |product|
       next if items.detect { |i| i.product_id == product.id }
       population = product.population(at: self.achieved_at)
       # shape = product.shape(at: self.achieved_at)

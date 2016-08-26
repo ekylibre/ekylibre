@@ -32,6 +32,7 @@
 #  journal_id      :integer
 #  lock_version    :integer          default(0), not null
 #  name            :string
+#  nature          :string           not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  with_accounting :boolean          default(FALSE), not null
@@ -47,6 +48,7 @@ purchase_natures_001:
   journal_id: 4
   lock_version: 1
   name: Classical purchase
+  nature: purchase
   updated_at: 2014-10-31 18:37:30.563173000 Z
   updater_id: 1
   with_accounting: true
@@ -60,6 +62,7 @@ purchase_natures_002:
   journal_id: 5
   lock_version: 1
   name: USD Purchase
+  nature: purchase
   updated_at: 2014-10-31 18:39:35.027564000 Z
   updater_id: 1
   with_accounting: true

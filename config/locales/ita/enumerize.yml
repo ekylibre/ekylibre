@@ -16,11 +16,14 @@ ita:
         per_campaign: "per campagna"
         per_production: "per la produzione"
         per_working_unit: "Per unità di lavoro"
+      direction:
+        expense: "Spese"
+        revenue: "Reddito"
     activity_inspection_point_nature:
       category:
-        # deformity: "Deformity"
-        # disease: "Disease"
-        # none: "None"
+        deformity: "Deformità"
+        disease: "Malattia"
+        none: "Nessuna"
     activity_production:
       support_nature:
         border: "Confine"
@@ -28,6 +31,32 @@ ita:
         cultivation: "Coltivazione"
         fallow_land: "terreni a riposo"
         none: "Nessuna"
+    activity_tactic:
+      mode:
+        harvested: "Harvest data di semina"
+        sowed: "Data provvisoria di semina"
+    affair:
+      third_role:
+        client: "Cliente"
+        supplier: "Fornitore"
+    analysis:
+      retrieval_status:
+        controller_error: "Errore del controller"
+        error: "Errore"
+        internal_error: "Errore interno"
+        ok: "Ok"
+        sensor_error: "Errore sensore"
+    analysis_item:
+      indicator_datatype:
+        boolean: "Booleano"
+        choice: "Scelta"
+        decimal: "Decimale"
+        geometry: "Geometria"
+        integer: "Numero intero"
+        measure: "Misurare"
+        multi_polygon: "Multi poligono"
+        point: "Punto"
+        string: "Corda"
     cash:
       mode:
         bban: "Bank Account Number di base (BBAN)"
@@ -42,6 +71,16 @@ ita:
         purchase: "Acquista"
         sale: "Vendita"
         stock: "Azione"
+    crumb:
+      nature:
+        hard_start: "Inizio difficile"
+        hard_stop: "Arresto rigido"
+        pause: "Pausa"
+        point: "Punto"
+        resume: "Curriculum vitae"
+        scan: "Scansione"
+        start: "Inizio"
+        # stop: "Stop"
     custom_field:
       nature:
         boolean: "casella di controllo"
@@ -57,8 +96,8 @@ ita:
         us: "Da noi"
     document_template:
       archiving:
-        all: "Tutti di tipo"
-        all_of_template: "Tutti i template"
+        all: "Tutti di tipo" #?
+        all_of_template: "Tutti i template" #?
         first: "Prima di tipo"
         first_of_template: "Prima di template"
         last: "Ultimo di tipo"
@@ -85,30 +124,75 @@ ita:
         waiting: "In attesa"
     fixed_asset:
       depreciation_method:
-        graduated: "Laureato"
+        graduated: "Laureato" #?
         linear: "Lineare"
         simplified_linear: "lineari semplificato"
+    gap:
+      direction:
+        loss: "Perdita"
+        profit: "Profitto"
+      entity_role:
+        client: "Cliente"
+        supplier: "Fornitore"
     georeading:
       nature:
-        line: "linea"
+        line: "linea" #?
+        linestring: "Stringa lineare"
         point: "Punto"
         polygon: "Poligono"
-    grading_quality_criterion:
-      nature:
-        # disease_presence: "Disease presence"
-        # waste: "Waste"
+    guide:
+      frequency:
+        daily: "Quotidiano"
+        # decadely: "Decadely"
+        hourly: "Ogni ora"
+        monthly: "Mensile"
+        none: "Nessuna"
+        weekly: "Settimanalmente"
+        yearly: "Annuale"
     guide_analysis:
-      status:
-        errored: "errored"
-        failed: "fallito"
+      acceptance_status:
+        # errored: "Errored"
+        failed: "Fallito"
         passed: "Passato"
         passed_with_warnings: "Superato con avvisi"
+      status:  #?
+        errored: "errored" #?
+        failed: "fallito" #?
+        passed: "Passato" #?
+        passed_with_warnings: "Superato con avvisi" #?
+    guide_analysis_point:
+      acceptance_status:
+        # errored: "Errored"
+        failed: "Fallito"
+        passed: "Passato"
+        passed_with_warnings: "Superato con avvisi"
+    import:
+      state:
+        aborted: "Abortito"
+        # errored: "Errored"
+        finished: "Finito"
+        in_progress: "In corso"
+        undone: "Disfatto"
     intervention:
+      nature:
+        record: "Disco"
+        request: "Richiesta"
       state:
         done: "Fatto"
         in_progress: "In corso"
-        squeezed: "spremuto"
-        undone: "disfatto"
+        squeezed: "Spremuto"
+        undone: "Disfatto"
+    intervention_parameter_reading:
+      indicator_datatype:
+        boolean: "Booleano"
+        choice: "Scelta"
+        decimal: "Decimale"
+        geometry: "Geometria"
+        integer: "Numero intero"
+        measure: "Misurare"
+        multi_polygon: "Multi poligono"
+        point: "Punto"
+        string: "Corda"
     journal:
       nature:
         bank: "Banca"
@@ -117,6 +201,17 @@ ita:
         purchases: "acquisti"
         sales: "Vendite"
         various: "varie operazioni"
+    listing_node:
+      nature:
+        belongs_to: "Appartiene a"
+        boolean: "Booleano"
+        column: "Colonna"
+        custom: "Costume"
+        datetime: "Appuntamento"
+        has_many: "Ha molti"
+        numeric: "Numerico"
+        root: "Radice"
+        string: "Corda"
     loan:
       repayment_method:
         constant_amount: "quantità costante"
@@ -127,6 +222,12 @@ ita:
       shift_method:
         anatocism: "anatocismo"
         immediate_payment: "Pagamento immediato"
+    notification:
+      level:
+        error: "Errore"
+        information: "Informazioni"
+        success: "Successo"
+        warning: "Avvertimento"
     observation:
       importance:
         important: "Importante"
@@ -134,20 +235,147 @@ ita:
         notice: "Avviso"
     parcel:
       delivery_mode:
-        indifferent: "Indifferente"
+        indifferent: "Indifferente" #?
         third: "Trasportato da destinatario"
         transporter: "Trasportato da transporter"
         us: "Trasportato da noi"
       nature:
         incoming: "in arrivo"
-        internal: "Interno"
+        internal: "Interno" #?
         outgoing: "Estroverso"
-      state:
-        draft: "Bozza"
-        given: "Dato"
-        in_preparation: "In preparazione"
-        ordered: "Ordinato"
-        prepared: "Preparato"
+      state:  #?
+        draft: "Bozza" #?
+        given: "Dato" #?
+        in_preparation: "In preparazione" #?
+        ordered: "Ordinato" #?
+        prepared: "Preparato" #?
+    preference:
+      nature:
+        accounting_system: "Sistema di contabilità"
+        boolean: "Booleano"
+        country: "Nazione"
+        currency: "Moneta"
+        decimal: "Decimale"
+        integer: "Numero intero"
+        language: "Lingua"
+        record: "Disco"
+        spatial_reference_system: "Sistema di riferimento spaziale"
+        string: "Corda"
+    product_enjoyment:
+      nature:
+        other: "Altro"
+        own: "Proprio"
+        unknown: "Sconosciuto"
+    product_linkage:
+      nature:
+        available: "A disposizione"
+        occupied: "Occupato"
+        unavailable: "Non disponibile"
+      point:
+        front: "Davanti"
+        rear: "Parte posteriore"
+    product_localization:
+      nature:
+        exterior: "Esterno"
+        interior: "Interno"
+        transfer: "Trasferimento"
+    product_membership:
+      nature:
+        exterior: "Esterno"
+        interior: "Interno"
+    product_nature:
+      population_counting:
+        decimal: "Decimale"
+        integer: "Numero intero"
+        unitary: "Unitario"
+    product_nature_category:
+      pictogram:
+        bank: "Banca"
+        barn: "Fienile"
+        beaker: "Coppa"
+        bolt: "Bullone"
+        book: "Libro"
+        bug: "Insetto"
+        building: "Costruzione"
+        car: "Auto"
+        cc: "Cc"
+        cow: "Mucca"
+        credit_card: "Carta di credito"
+        # desktop: "Desktop"
+        drop: "Far cadere"
+        # fax: "Fax"
+        fish: "Pesce"
+        food: "Cibo"
+        gift: "Regalo"
+        group: "Gruppo"
+        home: "Casa"
+        land_parcels: "Appezzamenti"
+        laptop: "Il computer portatile"
+        leaf: "Foglia"
+        legal: "Legale"
+        lemon: "Limone"
+        light_bulb: "Lampadina"
+        male: "Maschio"
+        matter: "Importa"
+        # medkit: "Medkit"
+        money: "I soldi"
+        mushroom: "Fungo"
+        phone: "Telefono"
+        pill: "Pillola"
+        plane: "Aereo"
+        road: "Strada"
+        subscription: "Sottoscrizione"
+        tasks: "Compiti"
+        tractor: "Trattore"
+        truck: "Camion"
+        umbrella: "Ombrello"
+        undefined: "Non definito"
+        user: "Utente"
+        wheat: "Grano"
+        wrench: "Chiave inglese"
+    product_nature_category_taxation:
+      usage:
+        purchase: "Acquista"
+        sale: "Vendita"
+    product_nature_variant_reading:
+      indicator_datatype:
+        boolean: "Booleano"
+        choice: "Scelta"
+        decimal: "Decimale"
+        geometry: "Geometria"
+        integer: "Numero intero"
+        measure: "Misurare"
+        multi_polygon: "Multi poligono"
+        point: "Punto"
+        string: "Corda"
+    product_ownership:
+      nature:
+        other: "Altro"
+        own: "Proprio"
+        unknown: "Sconosciuto"
+    product_reading:
+      indicator_datatype:
+        boolean: "Booleano"
+        choice: "Scelta"
+        decimal: "Decimale"
+        geometry: "Geometria"
+        integer: "Numero intero"
+        measure: "Misurare"
+        multi_polygon: "Multi poligono"
+        point: "Punto"
+        string: "Corda"
+    purchase_nature:
+      nature:
+        payslip: "Busta paga"
+        purchase: "Acquista"
+    sale_opportunity:
+      third_role:
+        client: "Cliente"
+        supplier: "Fornitore"
+    sale_ticket:
+      third_role:
+        client: "Cliente"
+        supplier: "Fornitore"
     sensor:
       retrieval_mode:
         listening: "Ascolto"
@@ -164,16 +392,21 @@ ita:
         animals: "Numerazione degli animali"
         campaigns: "Numerazione di campagne"
         cash_transfers: "Numerazione dei trasferimenti di denaro"
+        deliveries: "Le consegne"
         deposits: "Numerazione dei depositi"
         documents: "Numerazione dei documenti"
         entities: "Numerazione di persone"
         fixed_assets: "Numerazione delle immobilizzazioni"
         gaps: "Numerazione di lacune"
-        incoming_parcels: "Numerazione delle consegne in entrata"
+        incoming_parcels: "Numerazione delle consegne in entrata" #?
         incoming_payments: "Numerazione dei pagamenti"
+        inspections: "Ispezioni"
         interventions: "Numerazione degli interventi"
-        outgoing_deliveries: "Numerazione delle consegne in uscita"
+        inventories: "Rimanenze"
+        opportunities: "Opportunità"
+        outgoing_deliveries: "Numerazione delle consegne in uscita" #?
         outgoing_payments: "Numerazione dei pagamenti"
+        parcels: "Pacchi"
         plants: "Numerazione delle piante"
         product_nature_categories: "Numerazione di categorie di prodotti naturali"
         product_nature_variants: "Numerazione della natura del prodotto varianti"
@@ -183,37 +416,40 @@ ita:
         sales: "Numerazione delle vendite"
         sales_invoices: "Numerazione di fatture di vendita"
         subscriptions: "Numerazione degli abbonamenti"
-        transports: "Numerazione dei trasporti"
-    subscription_nature:
-      entity_link_direction:
-        all: "bidirezionale"
-        direct: "Diretto"
-        indirect: "indiretto"
-      nature:
-        period: "Abbonamento per data"
-        quantity: "Abbonamento per numero"
+        transports: "Numerazione dei trasporti" #?
+    subscription_nature:  #?
+      entity_link_direction: #?
+        all: "bidirezionale" #?
+        direct: "Diretto" #?
+        indirect: "indiretto" #?
+      nature: #?
+        period: "Abbonamento per data" #?
+        quantity: "Abbonamento per numero" #?
     task:
       nature:
-        document: "scrittura"
+        document: "scrittura" #?
         incoming_call: "Chiamata in arrivo"
         incoming_email: "e-mail in arrivo"
         incoming_mail: "Posta in arrivo"
         outgoing_call: "Chiamata in uscita"
         outgoing_email: "e-mail in uscita"
         outgoing_mail: "Posta in uscita"
-        quote: "Citazione"
-    tax:
-      nature:
-        amount: "Quantità"
-        percentage: "Percentuale"
+        quote: "Citazione" #?
+      state:
+        doing: "Fare"
+        done: "Fatto"
+        todo: "Fare"
+    tax:  #?
+      nature: #?
+        amount: "Quantità" #?
+        percentage: "Percentuale" #?
     tracking:
       usage_limit_nature:
         best_before: "Data di scadenza"
         no_limit: "Senza limite"
         used_by: "Usato per data"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "numero di fattura del fornitore"
-    required:
-      text: "richiesto"
+    version:
+      event:
+        create: "Creare"
+        destroy: "Distruggere"
+        update: "Aggiornare"

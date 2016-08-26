@@ -4,7 +4,7 @@
   = f.input :line_4
   = f.input :line_5
   = f.input :line_6, "data-autocompletion" => url_for(action: :autocomplete_for_area_name, controller: :interfacers)
-  = f.input :country, :collection => countries
+  = f.input :country
 
 = field_set(@contact, :canals) do |f|
   = f.input :phone

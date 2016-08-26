@@ -11,7 +11,7 @@
     %p= event.place
   - if event.participations.any?
     %ul
-      - for participation in event.participations
+      - event.participations.each do |participation|
         %li.participation{class: participation.state}
           - if participant = participation.participant
             %i{class: (participant.organization? ? :group : :person)}

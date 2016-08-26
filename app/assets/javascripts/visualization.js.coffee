@@ -172,6 +172,11 @@
 
         backgroundLayer = L.tileLayer(@options.backgrounds.url, opts)
         backgroundLayer.addTo @map
+      @ghostLabelCluster = L.ghostLabelCluster(type: 'number', innerClassName: 'leaflet-ghost-label-collapsed')
+      @ghostLabelCluster.addTo @map
+
+      @layersScheduler = L.layersScheduler()
+      @layersScheduler.addTo @map
 
       this._resize()
       this._refreshView()
@@ -253,19 +258,27 @@
       baseLayers = {}
       overlays = {}
 
-      for layer, index in @options.backgrounds
-        opts = {}
-        opts['attribution'] = layer.attribution if layer.attribution?
-        opts['minZoom'] = layer.minZoom if layer.minZoom?
-        opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
-        opts['subdomains'] = layer.subdomains if layer.subdomains?
-        opts['tms'] = true if layer.tms
+      if @options.backgrounds.length > 0
+        for layer, index in @options.backgrounds
+          opts = {}
+          opts['attribution'] = layer.attribution if layer.attribution?
+          opts['minZoom'] = layer.minZoom if layer.minZoom?
+          opts['maxZoom'] = layer.maxZoom if layer.maxZoom?
+          opts['subdomains'] = layer.subdomains if layer.subdomains?
+          opts['tms'] = true if layer.tms
 
-        console.log opts['tms']
+          backgroundLayer = L.tileLayer(layer.url, opts)
+          baseLayers[layer.name] = backgroundLayer
+          @map.addLayer(backgroundLayer) if layer.byDefault
+      else
+        # no backgrounds, set defaults
+        backgrounds = ['OpenStreetMap.HOT',"OpenStreetMap.Mapnik", "Thunderforest.Landscape", "Esri.WorldImagery"]
 
-        backgroundLayer = L.tileLayer(layer.url, opts)
-        baseLayers[layer.name] = backgroundLayer
-        @map.addLayer(backgroundLayer) if layer.byDefault
+        baseLayers = {}
+        for layer, index in backgrounds
+          backgroundLayer = L.tileLayer.provider(layer)
+          baseLayers[layer] = backgroundLayer
+          @map.addLayer(backgroundLayer) if index == 0
 
 
       for layer in @options.overlays
@@ -300,6 +313,7 @@
           overlayLayer.name = layer.name
           layer.overlay = overlays[layer.label] = overlayLayer
           @map.addLayer(overlayLayer)
+          @layersScheduler.insert overlayLayer._leaflet_id
           console.log("#{layer.name} layer added")
           try
             group = new L.featureGroup(layerGroup)
@@ -315,7 +329,8 @@
 
         console.groupEnd() if console.groupEnd isnt undefined
 
-      @map.on "overlayadd", (event) ->
+      @map.on "overlayadd", (event) =>
+        @layersScheduler.schedule event.layer
         console.log "Add legend control..."
         legend = $(legendControl.getContainer())
         legend.children("#legend-#{event.layer.name}").show()

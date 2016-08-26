@@ -37,17 +37,40 @@
 #
 class InspectionCalibration < Ekylibre::Record::Base
   include Inspectable
-  belongs_to :nature, class_name: 'ActivityInspectionCalibrationNature'
+  belongs_to :nature, class_name: 'ActivityInspectionCalibrationNature', inverse_of: :inspection_calibrations
   belongs_to :inspection, inverse_of: :calibrations
+  has_one :product, through: :inspection
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :maximal_size_value, :minimal_size_value, :net_mass_value, allow_nil: true
-  validates_presence_of :inspection, :nature
+  validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :inspection, :nature, presence: true
   # ]VALIDATORS]
+
+  delegate :name, to: :nature
 
   scope :of_scale, ->(scale) { joins(:nature).where(activity_inspection_calibration_natures: { scale_id: scale }).order('minimal_size_value', 'maximal_size_value') }
   scope :marketable, -> { where(nature: ActivityInspectionCalibrationNature.marketable) }
+  scope :of_products, ->(*products) { joins(:inspection).where(inspections: { product_id: products.map(&:id) }) }
 
   def marketable?
     nature.marketable
+  end
+
+  [[:items_count, :items, [:unity, :hectare, :unity_per_hectare]], [:net_mass, :mass, [:kilogram, :square_meter, :kilogram_per_square_meter]]].each do |long_name, short_name, unit|
+    define_method "marketable_#{long_name}" do
+      if inspection.send("unmarketable_#{short_name}_rate")
+        send("total_#{long_name}") * (1 - inspection.send("unmarketable_#{short_name}_rate"))
+      end
+    end
+
+    define_method "marketable_#{short_name}_yield" do
+      unit_name = if respond_to?("grading_#{long_name}_unit")
+                    send("grading_#{long_name}_unit").name + '_per_' + product_net_surface_area.unit.to_s
+                  else
+                    ''
+                  end
+      unit_name = unit.last unless Nomen::Unit.find(unit_name)
+      y = (send("marketable_#{long_name}").to_d(unit.first) / product_net_surface_area.to_d(unit.second)).in(unit.last)
+      y.in(unit_name).round(0)
+    end
   end
 end

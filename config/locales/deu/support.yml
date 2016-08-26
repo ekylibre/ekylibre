@@ -170,6 +170,12 @@ deu:
       format:
         delimiter: ""
   rank: "#%{number}"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Lieferant Rechnungsnummer"
+    required:
+      text: "Erforderlich"
   support:
     array:
       last_word_connector: " und "

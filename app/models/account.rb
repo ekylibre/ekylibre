@@ -45,31 +45,33 @@ class Account < Ekylibre::Record::Base
   attr_readonly :number
   # has_many :account_balances
   # has_many :attorneys, class_name: "Entity", foreign_key: :attorney_account_id
-  has_many :balances, class_name: 'AccountBalance'
-  has_many :cashes
+  has_many :balances, class_name: 'AccountBalance', dependent: :destroy
+  has_many :cashes, dependent: :restrict_with_exception
   has_many :clients,             class_name: 'Entity', foreign_key: :client_account_id
   has_many :collected_taxes,     class_name: 'Tax', foreign_key: :collect_account_id
   has_many :commissioned_incoming_payment_modes, class_name: 'IncomingPaymentMode',
                                                  foreign_key: :commission_account_id
   has_many :depositables_incoming_payment_modes, class_name: 'IncomingPaymentMode',
                                                  foreign_key: :depositables_account_id
-  has_many :journal_entry_items,  class_name: 'JournalEntryItem'
+  has_many :journal_entry_items,  class_name: 'JournalEntryItem', dependent: :restrict_with_exception
   has_many :paid_taxes,           class_name: 'Tax', foreign_key: :deduction_account_id
   has_many :charges_categories,   class_name: 'ProductNatureCategory', foreign_key: :charge_account_id
-  has_many :purchase_items,       class_name: 'PurchaseItem'
+  has_many :purchase_items,       class_name: 'PurchaseItem', dependent: :restrict_with_exception
   has_many :sale_items,           class_name: 'SaleItem'
   has_many :products_categories,  class_name: 'ProductNatureCategory', foreign_key: :product_account_id
   has_many :stocks_categories,    class_name: 'ProductNatureCategory', foreign_key: :stock_account_id
   has_many :suppliers,            class_name: 'Entity', foreign_key: :supplier_account_id
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :debtor, :reconcilable, in: [true, false]
-  validates_presence_of :label, :name, :number
+  validates :debtor, :reconcilable, inclusion: { in: [true, false] }
+  validates :description, :usages, length: { maximum: 500_000 }, allow_blank: true
+  validates :label, :name, :number, presence: true, length: { maximum: 500 }
+  validates :last_letter, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :last_letter, allow_nil: true, maximum: 10
-  validates_length_of :number, allow_nil: true, maximum: 20
-  validates_length_of :name, allow_nil: true, maximum: 200
-  validates_format_of :number, with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/
-  validates_uniqueness_of :number
+  validates :last_letter, length: { allow_nil: true, maximum: 10 }
+  validates :number, length: { allow_nil: true, maximum: 20 }
+  validates :name, length: { allow_nil: true, maximum: 200 }
+  validates :number, format: { with: /\A\d(\d(\d[0-9A-Z]*)?)?\z/ }
+  validates :number, uniqueness: true
 
   # default_scope order(:number, :name)
   scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
@@ -89,8 +91,9 @@ class Account < Ekylibre::Record::Base
     where(id: JournalEntryItem.between(started_at, stopped_at).select(:account_id))
   }
 
-  scope :clients,   -> { of_usage(:clients) }
-  scope :suppliers, -> { of_usage(:suppliers) }
+  scope :clients,   -> { of_usages(:clients, :social_agricultural_mutuality, :usual_associates_current_accounts) }
+  scope :suppliers, -> { of_usages(:suppliers, :social_agricultural_mutuality, :usual_associates_current_accounts) }
+  scope :employees, -> { of_usages(:staff_due_remunerations) }
   scope :attorneys, -> { of_usage(:attorneys) }
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add worker register">
+  <item-creation item="document_natures#worker_register" category="management"/>
+</migration>

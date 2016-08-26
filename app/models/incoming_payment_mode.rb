@@ -51,20 +51,21 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   belongs_to :depositables_account, class_name: 'Account'
   belongs_to :depositables_journal, class_name: 'Journal'
   has_many :depositable_payments, -> { where(deposit_id: nil) }, class_name: 'IncomingPayment', foreign_key: :mode_id
-  has_many :payments, foreign_key: :mode_id, class_name: 'IncomingPayment'
+  has_many :payments, foreign_key: :mode_id, class_name: 'IncomingPayment', dependent: :restrict_with_exception
   # has_many :unlocked_payments, -> { where("journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})") }, foreign_key: :mode_id, class_name: "IncomingPayment"
   has_many :unlocked_payments, -> { where(journal_entry_id: JournalEntry.where(state: 'draft')) }, foreign_key: :mode_id, class_name: 'IncomingPayment'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :commission_base_amount, :commission_percentage, allow_nil: true
-  validates_inclusion_of :detail_payments, :with_accounting, :with_commission, :with_deposit, in: [true, false]
-  validates_presence_of :commission_base_amount, :commission_percentage, :name
+  validates :active, inclusion: { in: [true, false] }, allow_blank: true
+  validates :commission_base_amount, :commission_percentage, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :detail_payments, :with_accounting, :with_commission, :with_deposit, inclusion: { in: [true, false] }
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates_length_of :name, allow_nil: true, maximum: 50
-  validates_numericality_of :commission_percentage, greater_than_or_equal_to: 0, if: :with_commission?
-  validates_presence_of :depositables_account, if: :with_deposit?
-  validates_presence_of :depositables_journal, if: :with_deposit?
-  validates_presence_of :cash
+  validates :name, length: { allow_nil: true, maximum: 50 }
+  validates :commission_percentage, numericality: { greater_than_or_equal_to: 0, if: :with_commission? }
+  validates :depositables_account, presence: { if: :with_deposit? }
+  validates :depositables_journal, presence: { if: :with_deposit? }
+  validates :cash, presence: true
 
   delegate :currency, to: :cash
   delegate :journal, to: :cash, prefix: true
@@ -103,7 +104,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
 
   def self.load_defaults
     %w(cash check transfer).each do |nature|
-      cash_nature = (nature == 'cash') ? :cash_box : :bank_account
+      cash_nature = nature == 'cash' ? :cash_box : :bank_account
       cash = Cash.find_by(nature: cash_nature)
       next unless cash
       attributes = {

@@ -49,7 +49,7 @@
             %td.dec= number_to_accountancy(-item[4].to_f, currency) if item[4].to_f < 0
         - elsif item[1].to_i == -2
           %tr.subtotal
-            %td{colspan: 2, style: "padding-left: #{d*8+4}px"}= :subtotal.tl(name: item[0])
+            %th{colspan: 2, style: "padding-left: #{d*8+4}px"}= :subtotal.tl(name: item[0])
             %td.dec= number_to_accountancy(item[2], currency)
             %td.dec= number_to_accountancy(item[3], currency)
             %td.dec= number_to_accountancy(item[4], currency) if item[4].to_f > 0

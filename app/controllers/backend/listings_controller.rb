@@ -47,7 +47,7 @@ module Backend
         query.gsub!(' ORDER BY ', ' AND (' + @listing.coordinate_columns.collect { |c| "#{c.name} NOT LIKE '%@%.%'" }.join(' AND ') + ') ORDER BY ') if params[:mode] == 'no_mail'
         # FIXME: Manage suppression of CURRENT_COMPANY...
         first_item = []
-        @listing.exportable_columns.each { |item| first_item << item.label }
+        @listing.exportable_fields.each { |item| first_item << item.label }
         result = ActiveRecord::Base.connection.select_rows(query)
         result.insert(0, first_item)
 

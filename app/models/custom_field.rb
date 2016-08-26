@@ -44,20 +44,21 @@
 class CustomField < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, in: [:text, :decimal, :boolean, :date, :datetime, :choice], predicates: true
-  enumerize :customized_type, in: Ekylibre::Schema.model_names
+  enumerize :customized_type, in: Ekylibre::Schema.model_names, i18n_scope: ['activerecord.models']
   has_many :choices, -> { order(:position) }, class_name: 'CustomFieldChoice', dependent: :delete_all, inverse_of: :custom_field
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true
-  validates_numericality_of :maximal_value, :minimal_value, allow_nil: true
-  validates_inclusion_of :active, :required, in: [true, false]
-  validates_presence_of :column_name, :customized_type, :name, :nature
+  validates :active, :required, inclusion: { in: [true, false] }
+  validates :column_name, :name, presence: true, length: { maximum: 500 }
+  validates :customized_type, :nature, presence: true
+  validates :maximal_length, :minimal_length, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :maximal_value, :minimal_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :nature, allow_nil: true, maximum: 20
-  validates_inclusion_of :nature, in: nature.values
-  validates_inclusion_of :customized_type, in: customized_type.values
-  validates_uniqueness_of :column_name, scope: [:customized_type]
-  validates_format_of :column_name, with: /\A([a-z]+(\_[a-z]+)*)+\z/
-  validates_exclusion_of :column_name, in: ['_destroy']
+  validates :nature, length: { allow_nil: true, maximum: 20 }
+  validates :nature, inclusion: { in: nature.values }
+  validates :customized_type, inclusion: { in: customized_type.values }
+  validates :column_name, uniqueness: { scope: [:customized_type] }
+  validates :column_name, format: { with: /\A([a-z]+(\_[a-z]+)*)+\z/ }
+  validates :column_name, exclusion: { in: ['_destroy'] }
 
   accepts_nested_attributes_for :choices
   acts_as_list scope: 'customized_type = \'#{customized_type}\''

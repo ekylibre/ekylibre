@@ -32,6 +32,7 @@
 #  journal_id      :integer
 #  lock_version    :integer          default(0), not null
 #  name            :string
+#  nature          :string           not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  with_accounting :boolean          default(FALSE), not null

@@ -163,6 +163,9 @@ ul.dropdown-menu {
     font-size: $fs-huge;
     line-height: $lh-huge;
   }
+  .modal & {
+    padding: 8vh 10%;
+  }
 }
 
 a[data-toggle='side'] {
@@ -716,8 +719,23 @@ form.search {
   border: $menu-border;
   box-shadow: 0 0 $default-gap rgba(0, 0, 0, 0.15);
   @include float(left);
+  @include text-align(center);
   margin: 0 $default-gap;
   padding: $default-gap;
+  &.picture-identity {
+    min-height: 180px;
+    min-width: 180px;
+    border: none;
+    box-shadow: none;
+    padding: $default-gap 0;
+    > img {
+      @include border-radius($default-gap * 0.5);
+    }
+    > .picto {
+      font-size: 120px;
+      line-height: 180px;
+    }
+  }
 }
 
 .mini-map {
@@ -1845,22 +1863,6 @@ ul.tree {
   @include box-emphasis;
 }
 
-.activity-family {
-  margin: $default-gap * 2;
-  h2.activity-family-name {
-    font-size: $fs-large;
-    line-height: $lh-large;
-    margin-bottom: $default-gap * 2;
-    border-bottom: 1px solid #DDD;
-  }
-  .btn-group {
-    margin: $default-gap;
-    .btn {
-      min-width: 20em;
-    }
-  }
-}
-
 .proposal-list {
   padding: $default-gap;
   text-align: center;
@@ -2360,10 +2362,15 @@ a[data-annotate] {
 }
 
 .nested-fields {
+  tr.tr-add-on {
+    td {
+      border-top: none;
+    }
+  }
   .annotate {
     textarea {
       @include box-sizing(border-box);
-      margin: $default-gap 0 0;
+      // margin: $default-gap 0 0;
       width: 100%;
     }
   }
@@ -2434,6 +2441,10 @@ a[data-annotate] {
   &.active {
     display: block;
     height: 100%;
+    > *[data-cell], > *[data-highcharts] {
+      display: block;
+      height: inherit;
+    }
   }
 }
 

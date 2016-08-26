@@ -21,10 +21,11 @@ module Backend
     # Raw map for given resource
     def map(resources, options = {}, html_options = {}, &_block)
       resources = [resources] unless resources.respond_to?(:each)
+      shape_method = options[:shape_method] || :shape
 
       global = nil
       options[:geometries] = resources.collect do |resource|
-        hash = (block_given? ? yield(resource) : { name: resource.name, shape: resource.shape })
+        hash = (block_given? ? yield(resource) : { name: resource.name, shape: resource.send(shape_method) })
         hash[:url] ||= url_for(controller: "/backend/#{resource.class.name.tableize}", action: :show, id: resource.id)
         if hash[:shape]
           global = (global ? global.merge(hash[:shape]) : Charta.new_geometry(hash[:shape]))
@@ -56,15 +57,16 @@ module Backend
 
     def importer_form(imports = [])
       form_tag({ controller: '/backend/map_editors', action: :upload }, method: :post, multipart: true, remote: true, authenticity_token: true, data: { importer_form: 'true' }) do
-        content_tag(:div, class: 'row') do
-          imports.collect do |k|
-            content_tag(:div, class: 'choice-padding') do
-              radio_button_tag(:importer_format, k) + label_tag("importer_format_#{k}".to_sym, k)
-            end
-          end.join.html_safe
-        end + content_tag(:div, class: 'row') do
-          file_field_tag(:import_file) + content_tag(:span, content_tag(:i), class: 'spinner-loading', data: { importer_spinner: 'true' })
-        end
+        content_tag(:div, nil, id: 'alert', class: 'row alert-danger') +
+          content_tag(:div, class: 'row') do
+            imports.collect.with_index do |k, i|
+              content_tag(:div, class: 'choice-padding') do
+                radio_button_tag(:importer_format, k, (i.zero? ? true : false)) + label_tag("importer_format_#{k}".to_sym, k)
+              end
+            end.join.html_safe
+          end + content_tag(:div, class: 'row') do
+                  file_field_tag(:import_file) + content_tag(:span, content_tag(:i), class: 'spinner-loading', data: { importer_spinner: 'true' })
+                end
       end
     end
 
@@ -127,7 +129,10 @@ module Backend
           # content << { label: klass.human_attribute_name(label_method), value: record.send(label_method) }
           content << { label: Nomen::Indicator.find(:net_surface_area).human_name,
                        value: record.net_surface_area.in(area_unit).round(3).l }
-          content << link_to(:show.tl, { controller: controller, action: :show, id: record.id }, class: 'btn btn-default')
+          content << content_tag(:div, class: 'btn-group') do
+            link_to(:show.tl, { controller: controller, action: :show, id: record.id }, class: 'btn btn-default') +
+              link_to(:edit.tl, { controller: controller, action: :edit, id: record.id }, class: 'btn btn-default')
+          end
           feature = { popup: { content: content, header: true } }
         end
         feature[:name] ||= record.send(label_method)

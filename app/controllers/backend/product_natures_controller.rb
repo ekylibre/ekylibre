@@ -42,6 +42,7 @@ module Backend
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :name, url: true
+      t.column :number, url: true
       t.column :category, url: true
       t.column :active
       t.column :variety

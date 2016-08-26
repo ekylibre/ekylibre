@@ -16,6 +16,7 @@ module Api
         assert_response :ok
         json = JSON.parse response.body
         assert json['germination_percentage']
+        assert json['variety_name'], json.inspect
         assert json['items'].is_a?(Array)
         assert json['items'].any?
         json['items'].each do |item|

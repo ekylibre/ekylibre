@@ -13,7 +13,7 @@ lines:
           default: '0200000'
       - text_version:
           type: string-4
-          default: '8550'
+          default: '8700'
       - remove_entry_lines: boolean
       - label: string-30
       - encoding:

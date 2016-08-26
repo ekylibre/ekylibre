@@ -1,3 +1,4 @@
+
 # = Informations
 #
 # == License
@@ -40,7 +41,8 @@ class ActivityBudget < Ekylibre::Record::Base
   has_many :revenues, -> { revenues }, class_name: 'ActivityBudgetItem', inverse_of: :activity_budget
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :activity, :campaign, :currency
+  validates :currency, presence: true, length: { maximum: 500 }
+  validates :activity, :campaign, presence: true
   # ]VALIDATORS]
   validates_associated :expenses, :revenues
 
@@ -88,12 +90,14 @@ class ActivityBudget < Ekylibre::Record::Base
 
   delegate :count, to: :productions, prefix: true
 
+  delegate :count, to: :productions, prefix: true
+
   def computation_methods
     list = []
-    if productions_size.to_f != 0
+    if productions_size.to_f.nonzero?
       list << :per_working_unit
       list << :per_production
-    elsif productions_count.to_f != 0
+    elsif productions_count.to_f.nonzero?
       list << :per_production
     end
     list << :per_campaign
@@ -107,5 +111,44 @@ class ActivityBudget < Ekylibre::Record::Base
       item.duplicate!(activity_budget: budget)
     end
     budget
+  end
+
+  # return estimate yield from revenues item for given variety
+  def estimate_yield(variety, options = {})
+    # set default parameter if theres no one given
+    yield_unit = Nomen::Unit.find(options[:unit] || :quintal_per_hectare)
+    unless yield_unit
+      raise ArgumentError, "Cannot find unit for yield estimate: #{options[:unit].inspect}"
+    end
+
+    Nomen::Variety.find!(variety)
+
+    r = []
+    revenues.where(variant: ProductNatureVariant.of_variety(variety)).find_each do |item|
+      next if item.variant_indicator == 'working_period'
+      quantity_unit = item.variant_unit
+      quantity = if item.variant_indicator == 'population' && item.variant.frozen_indicators.detect { |i| i <= :net_mass }
+                   quantity_unit = :quintal
+                   item.quantity * item.variant.net_mass.to_f(quantity_unit)
+                 else
+                   item.quantity
+                 end
+      # TODO: do dimensional analysis to find exiting unit in matching dimension if necessary
+      item_unit = Nomen::Unit.find("#{quantity_unit}_per_#{activity.size_unit.name}")
+      next unless item_unit
+      next unless item_unit.dimension == yield_unit.dimension
+      harvest_yield = if item.per_working_unit?
+                        quantity
+                      elsif item.per_production?
+                        next if productions_size.zero?
+                        quantity * productions_count / productions_size
+                      else # per campaign
+                        next if productions_size.zero?
+                        quantity / productions_size
+                      end
+      r << harvest_yield.in(item_unit).convert(yield_unit)
+    end
+    return nil if r.empty?
+    r.sum
   end
 end

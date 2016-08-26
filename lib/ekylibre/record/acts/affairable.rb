@@ -33,10 +33,24 @@ module Ekylibre::Record
           end
           # code << "has_many :affairs, as: :originator, dependent: :destroy\n"
 
-          code << "delegate :credit, :debit, :closed?, to: :affair, prefix: true\n"
-
           # default scope for affairable
           code << "scope :affairable, -> { where('#{affair_id} IN (SELECT id FROM affairs WHERE NOT closed)') }\n"
+
+          # Need to log strange things on delegate
+          { credit: 0,
+            debit: 0,
+            closed: false,
+            balance: 0,
+            status: 'stop' }.each do |meth, default_value|
+            code << "def affair_#{meth}\n"
+            code << "  unless affair\n"
+            code << "    Rails.logger.warn 'No affair on ' + self.class.name + ' ID=' + self.id.to_s\n"
+            code << "    return #{default_value.inspect}\n"
+            code << "  end\n"
+            code << "  affair.#{meth}\n"
+            code << "end\n"
+          end
+          code << "alias affair_closed? affair_closed\n"
 
           # # Marks model as affairable
           # code << "def self.affairable_options\n"

@@ -138,6 +138,12 @@ arb:
       format:
         delimiter: ""
   # rank: "#%{number}"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "رقم الفاتورة المورد"
+    required:
+      text: "مطلوب"
   support:
     array:
       last_word_connector: " و "

@@ -83,27 +83,29 @@ class Sale < Ekylibre::Record::Base
   belongs_to :transporter, class_name: 'Entity'
   has_many :credits, class_name: 'Sale', foreign_key: :credited_sale_id
   has_many :parcels, dependent: :destroy, inverse_of: :sale
-  has_many :documents, as: :owner
   has_many :items, -> { order('position, id') }, class_name: 'SaleItem', dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, as: :resource
-  has_many :subscriptions, class_name: 'Subscription'
+  has_many :subscriptions, through: :items, class_name: 'Subscription', source: 'subscription'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :amount, :downpayment_amount, :pretax_amount, allow_nil: true
-  validates_inclusion_of :credit, :has_downpayment, :letter_format, in: [true, false]
-  validates_presence_of :amount, :client, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
+  validates :accounted_at, :confirmed_at, :expired_at, :invoiced_at, :payment_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :amount, :downpayment_amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :annotation, :conclusion, :description, :introduction, length: { maximum: 500_000 }, allow_blank: true
+  validates :credit, :has_downpayment, :letter_format, inclusion: { in: [true, false] }
+  validates :client, :currency, :payer, presence: true
+  validates :expiration_delay, :function_title, :initial_number, :reference_number, :subject, length: { maximum: 500 }, allow_blank: true
+  validates :number, :payment_delay, :state, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
-  validates_presence_of :client, :currency, :nature
-  validates_presence_of :invoiced_at, if: :invoice?
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :initial_number, :number, :state, length: { allow_nil: true, maximum: 60 }
+  validates :client, :currency, :nature, presence: true
+  validates :invoiced_at, presence: { if: :invoice? }
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, readonly: false
   acts_as_affairable :client, debit: :credit?
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? }, allow_destroy: true
 
-  delegate :closed, :balance, to: :affair, prefix: true
+  delegate :with_accounting, to: :nature
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
     where(invoiced_at: started_at..stopped_at)
@@ -113,7 +115,7 @@ class Sale < Ekylibre::Record::Base
     where(accounted_at: started_at..stopped_at, state: :estimate)
   }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).where('payment_at IS NULL OR payment_at <= ?', Time.zone.now).where.not(affair: Affair.closeds) }
+  scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
 
   state_machine :state, initial: :draft do
     state :draft
@@ -199,7 +201,7 @@ class Sale < Ekylibre::Record::Base
 
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (self.nature.with_accounting? && invoice?)) do |entry|
+    b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       entry.add_debit(label, client.account(:client).id, amount) unless amount.zero?
       for item in items
@@ -220,7 +222,7 @@ class Sale < Ekylibre::Record::Base
 
   # Gives the amount to use for affair bookkeeping
   def deal_amount
-    ((aborted? || refused?) ? 0 : credit? ? -amount : amount)
+    (aborted? || refused? ? 0 : credit? ? -amount : amount)
   end
 
   # Globalizes taxes into an array of hash
@@ -272,23 +274,6 @@ class Sale < Ekylibre::Record::Base
     items.any? && delivery_address && (order? || invoice?)
   end
 
-  # Generate parcel for preparation
-  def generate_parcel
-    items_attributes = items.map do |item|
-      { sale_item: item, population: item.quantity, variant: item.variant }
-    end
-    attributes = {
-      sale: self,
-      recipient: client,
-      address: delivery_address,
-      nature: :outgoing,
-      delivery_mode: :us,
-      state: :ordered,
-      items_attributes: items_attributes
-    }
-    Parcel.create!(attributes)
-  end
-
   # Remove all bad dependencies and return at draft state with no parcels
   def correct
     return false unless can_correct?
@@ -330,31 +315,34 @@ class Sale < Ekylibre::Record::Base
     !credit
   end
 
-  # Duplicates a +sale+ in 'E' mode with its items and its active subscriptions
+  # Duplicates a +sale+ in estimate state with its items and its active
+  # subscriptions
   def duplicate(attributes = {})
     raise StandardError, 'Uncancelable sale' unless duplicatable?
-    hash = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :description, :currency].inject({}) do |h, field|
+    hash = [
+      :client_id, :nature_id, :letter_format, :annotation, :subject,
+      :function_title, :introduction, :conclusion, :description
+    ].each_with_object({}) do |field, h|
       h[field] = send(field)
-      h
-    end.merge(attributes)
+    end
     # Items
     items_attributes = {}
-    items.each_with_index do |item, index|
-      items_attributes[index] = [:variant_id, :quantity, :amount, :currency, :label, :position, :pretax_amount, :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount].inject({}) do |h, field|
+    items.order(:position).each_with_index do |item, index|
+      attrs = [
+        :variant_id, :quantity, :amount, :label, :pretax_amount, :annotation,
+        :reduction_percentage, :tax_id, :unit_amount, :unit_pretax_amount
+      ].each_with_object({}) do |field, h|
         h[field] = item.send(field)
-        # Subscriptions
-        h[:subscriptions_attributes] = {}
-        subscriptions.where(suspended: false).each_with_index do |subscription, j|
-          h[:subscriptions_attributes][j] = [:subscriber_id, :address_id, :quantity_id, :nature_id, :product_nature_id].inject({}) do |sh, field|
-            sh[field] = subscription.send(field)
-            sh
-          end
-        end
-        h
       end
+      # Subscription
+      subscription = item.subscription
+      if subscription
+        attrs[:subscription_attributes] = subscription.following_attributes
+      end
+      items_attributes[index.to_s] = attrs
     end
     hash[:items_attributes] = items_attributes
-    self.class.create!(hash)
+    self.class.create!(hash.with_indifferent_access.deep_merge(attributes))
   end
 
   # Prints human name of current state
@@ -371,7 +359,7 @@ class Sale < Ekylibre::Record::Base
 
   # Label of the sales order depending on the state and the number
   def name
-    tc("label.#{(credit? && invoice?) ? :credit : self.state}", number: number)
+    tc("label.#{credit? && invoice? ? :credit : self.state}", number: number)
   end
   alias label name
 
@@ -435,7 +423,7 @@ class Sale < Ekylibre::Record::Base
 
   # Build a new sale with new items ready for correction and save
   def build_credit
-    attrs = [:affair, :client, :address, :responsible, :nature, :currency, :invoice_address, :transporter].inject({}) do |hash, attribute|
+    attrs = [:affair, :client, :address, :responsible, :nature, :currency, :invoice_address, :transporter].each_with_object({}) do |attribute, hash|
       hash[attribute] = send(attribute) unless send(attribute).nil?
       hash
     end
@@ -444,7 +432,7 @@ class Sale < Ekylibre::Record::Base
     attrs[:credited_sale] = self
     sale_credit = Sale.new(attrs)
     items.each do |item|
-      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].inject({}) do |hash, attribute|
+      attrs = [:account, :currency, :variant, :unit_pretax_amount, :unit_amount, :reduction_percentage, :tax].each_with_object({}) do |attribute, hash|
         hash[attribute] = item.send(attribute) unless item.send(attribute).nil?
         hash
       end

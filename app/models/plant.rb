@@ -75,7 +75,7 @@ class Plant < Bioproduct
     unless campaign.is_a?(Campaign)
       raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
     end
-    started_at = Date.new(campaign.harvest_year.to_f, 01, 01)
+    started_at = Date.new(campaign.harvest_year.to_f, 0o1, 0o1)
     stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)
     where('born_at <= ? AND (dead_at IS NULL OR dead_at <= ?)', stopped_at, stopped_at)
   }
@@ -100,5 +100,13 @@ class Plant < Bioproduct
     else
       return :go
     end
+  end
+
+  def ready_to_harvest?
+    analysis = analyses.where(nature: 'plant_analysis').reorder(sampled_at: :desc).first
+    return false unless analysis
+    item = analysis.items.find_by(indicator_name: 'ready_to_harvest')
+    return false unless item
+    item.value
   end
 end

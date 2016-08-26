@@ -186,6 +186,12 @@ activities:
     type: boolean
     required: true
     default: false
+  use_seasons:
+    type: boolean
+    default: false
+  use_tactics:
+    type: boolean
+    default: false
   with_cultivation:
     type: boolean
     required: true
@@ -443,6 +449,9 @@ activity_productions:
   rank_number:
     type: integer
     required: true
+  season_id:
+    type: integer
+    references: activity_season
   size_indicator_name:
     type: string
     required: true
@@ -470,6 +479,9 @@ activity_productions:
     limit:
       srid: 4326
       type: multi_polygon
+  tactic_id:
+    type: integer
+    references: activity_tactic
   updated_at:
     type: datetime
     required: true
@@ -479,6 +491,64 @@ activity_productions:
   usage:
     type: string
     required: true
+activity_seasons:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+activity_tactics:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  mode:
+    type: string
+  mode_delta:
+    type: integer
+  name:
+    type: string
+    required: true
+  planned_on:
+    type: date
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 affairs:
   accounted_at:
     type: datetime
@@ -738,6 +808,54 @@ attachments:
   updater_id:
     type: integer
     references: user
+bank_statement_items:
+  bank_statement_id:
+    type: integer
+    references: bank_statement
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  currency:
+    type: string
+    required: true
+  debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  id:
+    type: integer
+    required: true
+  initiated_on:
+    type: date
+  letter:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  transaction_number:
+    type: string
+  transfered_on:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 bank_statements:
   cash_id:
     type: integer
@@ -767,17 +885,27 @@ bank_statements:
   id:
     type: integer
     required: true
+  initial_balance_credit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
+  initial_balance_debit:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   lock_version:
     type: integer
     required: true
   number:
     type: string
     required: true
-  started_at:
-    type: datetime
+  started_on:
+    type: date
     required: true
-  stopped_at:
-    type: datetime
+  stopped_on:
+    type: date
     required: true
   updated_at:
     type: datetime
@@ -1260,6 +1388,9 @@ cultivable_zones:
     type: jsonb
   description:
     type: text
+  farmer_id:
+    type: integer
+    references: entity
   id:
     type: integer
     required: true
@@ -1269,6 +1400,9 @@ cultivable_zones:
   name:
     type: string
     required: true
+  owner_id:
+    type: integer
+    references: entity
   production_system_name:
     type: string
   shape:
@@ -1277,6 +1411,8 @@ cultivable_zones:
       srid: 4326
       type: multi_polygon
     required: true
+  soil_nature:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -1685,6 +1821,13 @@ entities:
     type: string
   description:
     type: text
+  employee:
+    type: boolean
+    required: true
+    default: false
+  employee_account_id:
+    type: integer
+    references: account
   first_met_at:
     type: datetime
   first_name:
@@ -2823,6 +2966,12 @@ intervention_parameter_readings:
     type: integer
     references: user
 intervention_parameters:
+  assembly_id:
+    type: integer
+    references: product
+  component_id:
+    type: integer
+    references: product_nature_variant_component
   created_at:
     type: datetime
     required: true
@@ -2955,6 +3104,9 @@ interventions:
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
+    required: true
   number:
     type: string
   prescription_id:
@@ -2963,6 +3115,9 @@ interventions:
   procedure_name:
     type: string
     required: true
+  request_intervention_id:
+    type: integer
+    references: intervention
   started_at:
     type: datetime
   state:
@@ -2970,6 +3125,12 @@ interventions:
     required: true
   stopped_at:
     type: datetime
+  trouble_description:
+    type: text
+  trouble_encountered:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -3009,6 +3170,7 @@ inventories:
     required: true
   number:
     type: string
+    required: true
   reflected:
     type: boolean
     required: true
@@ -3240,6 +3402,8 @@ journal_entry_items:
   bank_statement_id:
     type: integer
     references: bank_statement
+  bank_statement_letter:
+    type: string
   created_at:
     type: datetime
     required: true
@@ -4071,18 +4235,19 @@ parcel_items:
   product_id:
     type: integer
     references: product
+  product_identification_number:
+    type: string
   product_localization_id:
     type: integer
     references: product_localization
   product_movement_id:
     type: integer
     references: product_movement
+  product_name:
+    type: string
   product_ownership_id:
     type: integer
     references: product_ownership
-  product_shape_reading_id:
-    type: integer
-    references: product_reading
   purchase_item_id:
     type: integer
     references: purchase_item
@@ -4100,9 +4265,6 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
-  source_product_shape_reading_id:
-    type: integer
-    references: product_reading
   updated_at:
     type: datetime
     required: true
@@ -4172,6 +4334,8 @@ parcels:
   sender_id:
     type: integer
     references: entity
+  separated_stock:
+    type: boolean
   state:
     type: string
     required: true
@@ -4187,6 +4351,10 @@ parcels:
   updater_id:
     type: integer
     references: user
+  with_delivery:
+    type: boolean
+    required: true
+    default: false
 plant_counting_items:
   created_at:
     type: datetime
@@ -4253,6 +4421,10 @@ plant_countings:
     type: integer
     references: user
 plant_density_abaci:
+  activity_id:
+    type: integer
+    references: activity
+    required: true
   created_at:
     type: datetime
     required: true
@@ -4284,9 +4456,6 @@ plant_density_abaci:
   updater_id:
     type: integer
     references: user
-  variety_name:
-    type: string
-    required: true
 plant_density_abacus_items:
   created_at:
     type: datetime
@@ -4763,11 +4932,6 @@ product_nature_categories:
     type: boolean
     required: true
     default: false
-  subscription_duration:
-    type: string
-  subscription_nature_id:
-    type: integer
-    references: subscription_nature
   updated_at:
     type: datetime
     required: true
@@ -4804,6 +4968,40 @@ product_nature_category_taxations:
   usage:
     type: string
     required: true
+product_nature_variant_components:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  deleted_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  parent_id:
+    type: integer
+    references: product_nature_variant_component
+  part_product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+  product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 product_nature_variant_readings:
   absolute_measure_value_unit:
     type: string
@@ -4987,6 +5185,22 @@ product_natures:
     required: true
   reference_name:
     type: string
+  subscribing:
+    type: boolean
+    required: true
+    default: false
+  subscription_days_count:
+    type: integer
+    required: true
+  subscription_months_count:
+    type: integer
+    required: true
+  subscription_nature_id:
+    type: integer
+    references: subscription_nature
+  subscription_years_count:
+    type: integer
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -5393,6 +5607,9 @@ purchase_natures:
     required: true
   name:
     type: string
+  nature:
+    type: string
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -5862,8 +6079,6 @@ sequences:
   usage:
     type: string
 subscription_natures:
-  actual_number:
-    type: integer
   created_at:
     type: datetime
     required: true
@@ -5872,10 +6087,6 @@ subscription_natures:
     references: user
   description:
     type: text
-  entity_link_direction:
-    type: string
-  entity_link_nature:
-    type: string
   id:
     type: integer
     required: true
@@ -5885,13 +6096,6 @@ subscription_natures:
   name:
     type: string
     required: true
-  nature:
-    type: string
-    required: true
-  reduction_percentage:
-    type: decimal
-    precision: 19
-    scale: 4
   updated_at:
     type: datetime
     required: true
@@ -5912,13 +6116,9 @@ subscriptions:
     type: jsonb
   description:
     type: text
-  first_number:
-    type: integer
   id:
     type: integer
     required: true
-  last_number:
-    type: integer
   lock_version:
     type: integer
     required: true
@@ -5927,23 +6127,21 @@ subscriptions:
     references: subscription_nature
   number:
     type: string
-  product_nature_id:
+  parent_id:
     type: integer
-    references: product_nature
+    references: subscription
   quantity:
-    type: decimal
-    precision: 19
-    scale: 4
-  sale_id:
     type: integer
-    references: sale
+    required: true
   sale_item_id:
     type: integer
     references: sale_item
-  started_at:
-    type: datetime
-  stopped_at:
-    type: datetime
+  started_on:
+    type: date
+    required: true
+  stopped_on:
+    type: date
+    required: true
   subscriber_id:
     type: integer
     references: entity
@@ -5951,6 +6149,9 @@ subscriptions:
     type: boolean
     required: true
     default: false
+  swim_lane_uuid:
+    type: uuid
+    required: true
   updated_at:
     type: datetime
     required: true

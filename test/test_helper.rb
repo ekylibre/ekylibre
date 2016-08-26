@@ -51,7 +51,7 @@ class FixtureRetriever
   def normalize(value)
     if value.is_a?(Integer)
       unless @@truc[@table]
-        @@truc[@table] = YAML.load_file(Rails.root.join('test', 'fixtures', "#{@table}.yml")).inject({}) do |hash, pair|
+        @@truc[@table] = YAML.load_file(Rails.root.join('test', 'fixtures', "#{@table}.yml")).each_with_object({}) do |pair, hash|
           hash[pair.second['id'].to_i] = pair.first.to_sym
           hash
         end
@@ -146,7 +146,7 @@ class HashCollector
 end
 
 class ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def fixture_files
     #     Rails.root.join('test', 'fixture-files')

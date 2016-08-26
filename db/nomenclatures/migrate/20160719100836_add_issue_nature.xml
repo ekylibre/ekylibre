@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add issue nature">
+  <item-creation item="issue_natures#bad_vegetative_growth_conditions" parent="disease" target="plant"/>
+</migration>

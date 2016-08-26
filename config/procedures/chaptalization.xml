@@ -2,9 +2,10 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="chaptalization" categories="viticulture_transformation" actions="chaptalization">
     <parameters>
-      <parameter name="tank" type="tool" filter="is equipment and can store(wine)" default-actor="storage"/>
-      <parameter name="wine_to_treat" type="target" filter="is wine" default-actor="first_localized_in: tank"/>
-      <parameter name="oenological_intrant" type="input" filter="is matter and can chaptelise(wine)">
+      <tool name="tank" filter="is equipment and can store(wine)" default-actor="storage"/>
+      <target name="wine_to_treat" filter="is wine" default-actor="first_localized_in: tank"/>
+      <input name="oenological_intrant" filter="is matter and can chaptelise(wine)">
+        <handler name="population"/>
         <handler indicator="net_volume" unit="liter"
                  if="PRODUCT.net_volume? and PRODUCT.net_volume(liter) > 0"
                  backward="POPULATION * PRODUCT..net_volume(liter)"
@@ -21,8 +22,8 @@
                  if="PRODUCT.net_mass? and PRODUCT.net_mass(gram) > 0 and sum(wine_to_treat, :net_volume, :hectoliter) > 0"
                  backward="(POPULATION * PRODUCT..net_mass(gram)) / sum(wine_to_treat, :net_volume, :hectoliter)"
                  forward="(VALUE / PRODUCT..net_mass(gram)) * sum(wine_to_treat, :net_volume, :hectoliter)"/>
-      </parameter>
-      <parameter name="wine_man" type="doer" filter="is worker and can move"/>
+      </input>
+      <doer name="wine_man" filter="is worker and can move"/>
     </parameters>
   </procedure>
 </procedures>

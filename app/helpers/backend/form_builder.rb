@@ -55,7 +55,7 @@ module Backend
       item = association.to_s.singularize
       partial = options[:partial] || item + '_fields'
       options[:locals] ||= {}
-      html = simple_fields_for(association) do |nested|
+      html = simple_fields_for(association, options[:collection]) do |nested|
         @template.render(partial, options[:locals].merge(f: nested))
       end
       html_options = { id: "#{association}-field", class: "nested-#{association} nested-association" }
@@ -288,7 +288,10 @@ module Backend
       editor[:controls][:importers] ||= { formats: [:gml, :kml, :geojson], title: :import.tl, okText: :import.tl, cancelText: :close.tl }
       editor[:controls][:importers][:content] ||= @template.importer_form(editor[:controls][:importers][:formats])
 
-      if geom = @object.send(attribute_name)
+      editor[:withoutLabel] = true
+
+      geom = @object.send(attribute_name)
+      if geom
         editor[:edit] = Charta.new_geometry(geom).to_json_object
         editor[:view] = { center: Charta.new_geometry(geom).centroid, zoom: 16 }
       else
@@ -303,8 +306,12 @@ module Backend
         show ||= @object.class.where.not(attribute_name => nil)
         union = Charta.empty_geometry
         if show.any?
-          union = show.geom_union(attribute_name)
-          editor[:show] = union.to_json_object unless union.empty?
+          if show.is_a?(Hash) && show.key?(:series)
+            editor[:show] = show
+          else
+            union = show.geom_union(attribute_name)
+            editor[:show] = union.to_json_object unless union.empty?
+          end
         end
       end
       editor[:back] ||= MapBackground.availables.collect(&:to_json_object)
@@ -339,14 +346,15 @@ module Backend
         marker[:marker] = Charta.new_geometry(geom).to_json_object['coordinates'].reverse
         marker[:view] = { center: marker[:marker] }
       else
-        if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
-          marker[:view] = { center: Charta.new_geometry(sibling.send(attribute_name)).centroid }
+        siblings = @object.class.where("#{attribute_name} IS NOT NULL").order(id: :desc)
+        if siblings.any?
+          marker[:view] = { center: Charta.new_geometry(siblings.first.send(attribute_name)).centroid }
         elsif zone = CultivableZone.first
           marker[:view] = { center: zone.shape_centroid }
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.by_default.to_json_object
+      marker[:background] ||= MapBackground.availables.collect(&:to_json_object)
       input(attribute_name, options.merge(input_html: { data: { map_marker: marker } }))
     end
 
@@ -364,7 +372,8 @@ module Backend
         end
         marker[:marker] = marker[:view][:center] if marker[:view]
       end
-      marker[:background] ||= MapBackground.by_default.to_json_object
+      marker[:background] ||= MapBackground.availables.collect(&:to_json_object).first
+      marker[:background] &&= MapBackground.by_default.to_json_object
       input_field(attribute_name, options.merge(data: { map_marker: marker }))
     end
 
@@ -399,6 +408,18 @@ module Backend
           input(start_attribute_name, wrapper: :simplest) +
           @template.content_tag(:span, :to.tl, class: 'add-on') +
           input(stop_attribute_name, wrapper: :simplest)
+      end
+    end
+
+    def delta_field(value_attribute, delta_attribute, unit_name_attribute, unit_values, *args)
+      options = args.extract_options!
+      attribute_name = args.shift || options[:name]
+
+      input(attribute_name, options.merge(wrapper: :append)) do
+        input(value_attribute, wrapper: :simplest) +
+          @template.content_tag(:span, :delta.tl, class: 'add-on') +
+          input(delta_attribute, wrapper: :simplest) +
+          unit_field(unit_name_attribute, unit_values, args)
       end
     end
 
@@ -446,18 +467,32 @@ module Backend
         variant_id = @template.params[:variant_id]
         variant = ProductNatureVariant.where(id: variant_id.to_i).first if variant_id
       end
+
+      born_at = nil
+      full_name = nil
+      if @template.params[:person_id]
+        born_at = Entity.find(@template.params[:person_id]).born_at
+        full_name = Entity.find(@template.params[:person_id]).full_name
+      end
+
+      options[:input_html] ||= {}
+      options[:input_html][:class] ||= ''
+
       if variant
         @object.nature ||= variant.nature
         whole_indicators = variant.whole_indicators
         # Add product type selector
-        html << @template.field_set do
+        form = @template.field_set options[:input_html] do
           fs = input(:variant_id, value: variant.id, as: :hidden)
           # Add name
-          fs << input(:name)
+          fs << (full_name.nil? ? input(:name) : input(:name, input_html: { value: full_name }))
           # Add work number
           fs << input(:work_number) unless options[:work_number].is_a?(FalseClass)
           # Add variant selector
           fs << variety(scope: variant)
+
+          fs << (born_at.nil? ? input(:born_at) : input(:born_at, input_html: { value: born_at }))
+          fs << input(:dead_at)
 
           # error message for indicators
           if Rails.env.development?
@@ -476,6 +511,7 @@ module Backend
 
           fs
         end
+        html << form
 
         # Add form body
         html += if block_given?
@@ -485,8 +521,9 @@ module Backend
                 end
 
         # Add first indicators
-
-        indicators = variant.variable_indicators.delete_if { |i| whole_indicators.include?(i) }
+        indicators = variant.variable_indicators.delete_if do |i|
+          whole_indicators.include?(i) || [:geolocation, :shape].include?(i.name.to_sym)
+        end
         if object.new_record? && indicators.any?
 
           indicators.each do |indicator|
@@ -668,17 +705,24 @@ module Backend
       options[:input_html][:data][:use_closest] = options[:closest] if options[:closest]
       options[:input_html][:data][:selector] = @template.url_for(choices)
       unless options[:new].is_a?(FalseClass)
-        new_url = {}
+        new_url = options[:new].is_a?(Hash) ? options[:new] : {}
         new_url[:controller] ||= choices[:controller]
         new_url[:action] ||= :new
         options[:input_html][:data][:selector_new_item] = @template.url_for(new_url)
-        options[:input_html][:data][:selector_new_item_default_values] = options[:new] if options[:new].is_a? Hash
       end
       # options[:input_html][:data][:value_parameter_name] = options[:value_parameter_name] || reflection.foreign_key
       options[:input_html][:data][:selector_id] = model.name.underscore + '_' + reflection.foreign_key.to_s
       options[:as] = :string
       options[:reflection] = reflection
       options
+    end
+
+    def unit_field(unit_name_attribute, units_values, *_args)
+      if units_values.is_a?(Array)
+        return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
+      end
+
+      @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
   end
 end

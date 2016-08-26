@@ -14,22 +14,21 @@ module Procedo
       def initialize(parameter, name, options = {})
         super(parameter, name, options)
         @trees = {}.with_indifferent_access
-        options[:type] ||= :population if @name == :population
-        @type = options[:type] || :indicator
-        raise 'Invalid type: ' + @type.inspect unless TYPES.include?(@type)
-        if indicator?
-          self.indicator_name = options[:indicator] || @name
-          self.unit_name = options[:unit] if measure?
-        elsif population?
+        if population?
           options[:forward] = 'VALUE'
           options[:backward] = 'POPULATION'
-          # options[:if] ||= 'PRODUCT?'
+        else
+          @datatype = options[:datatype]
+          @datatype ||= Maybe(Nomen::Indicator.find(options[:indicator])).datatype.or_else(nil)
+          raise 'Cant have handler without datatype or indicator' if @datatype.blank?
+          self.unit_name = options[:unit] if measure?
+          self.indicator_name = options[:indicator] if options[:indicator]
         end
         self.condition = options[:if]
         self.forward = options[:forward]
         self.backward = options[:backward]
         # Define widget of handler (or parameter...)
-        @widget = (options[:widget] || (datatype == :geometry ? :map : :number)).to_sym
+        @widget = (options[:widget] || (@datatype == :geometry ? :map : :number)).to_sym
       end
 
       # Sets the indicator
@@ -38,7 +37,7 @@ module Procedo
         unless @indicator.respond_to?(:nomenclature) && @indicator.nomenclature.name == :indicators
           raise Procedo::Errors::InvalidHandler, "Handler of #{@parameter.name} must have a valid 'indicator' attribute. Got: #{value.inspect}"
         end
-        self.unit_name = indicator.unit if measure?
+        self.unit_name = indicator.unit if unit.nil? && measure?
       end
 
       # Sets the indicator name
@@ -48,15 +47,16 @@ module Procedo
 
       # Sets the indicator name
       def unit_name=(value)
-        raise 'Cant assign unit without indicator' unless indicator
         raise 'Cant assign unit with indicator which is not a measure' unless measure?
         unit = Nomen::Unit.find(value)
         unless unit
           raise Procedo::Errors::InvalidHandler, "Cannot find unit. Got: #{value.inspect}"
         end
-        indicator_dimension = Nomen::Unit.find(indicator.unit).dimension
-        unless unit.dimension == indicator_dimension
-          raise "Dimension of unit (#{unit.dimension.inspect}) must be identical to indicator's (#{indicator_dimension.inspect}) in #{parameter_name}##{@name} of #{procedure_name}"
+        if @indicator
+          indicator_dimension = Nomen::Unit.find(indicator.unit).dimension
+          unless unit.dimension == indicator_dimension
+            raise "Dimension of unit (#{unit.dimension.inspect}) must be identical to indicator's (#{indicator_dimension.inspect}) in #{parameter_name}##{@name} of #{procedure_name}"
+          end
         end
         @unit = unit
       end
@@ -65,20 +65,13 @@ module Procedo
         @unit.dimension.to_sym
       end
 
-      def indicator?
-        @type == :indicator
-      end
-
       def population?
-        @type == :population
-      end
-
-      def datatype
-        population? ? :decimal : indicator.datatype
+        @name == :population
       end
 
       def measure?
-        datatype == :measure
+        return false unless @datatype
+        @datatype.to_sym == :measure
       end
 
       def unit?
@@ -101,12 +94,15 @@ module Procedo
       # Returns the human name of the handler
       def human_name
         default = []
-        params = { indicator: indicator.human_name }
-        if unit?
-          default << :indicator_with_unit
-          params[:unit] = unit.symbol
+        params = {}
+        if @indicator
+          params.merge(indicator: indicator.human_name)
+          if unit?
+            default << :indicator_with_unit
+            params[:unit] = unit.symbol
+          end
+          default << @indicator.human_name
         end
-        default << @indicator.human_name
         name.t(params.merge(default: default, scope: 'procedure_handlers'))
       end
 
@@ -131,13 +127,6 @@ module Procedo
         condition_with_parameter?(parameter_name) ||
           backward_with_parameter?(parameter_name) ||
           forward_with_parameter?(parameter_name)
-      end
-
-      def dependent_parameters
-        parameters = handler.condition_dependent_parameters
-        parameters += handler.backward_dependent_parameters
-        parameters += handler.forward_dependent_parameters
-        parameters.uniq
       end
     end
   end

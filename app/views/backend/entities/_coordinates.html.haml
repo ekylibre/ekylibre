@@ -1,6 +1,6 @@
-.picture
+.picture.picture-identity
   - if resource.picture.file?
-    = image_tag(resource.picture.url(:thumb))
+    = image_tag(resource.picture.url(:identity))
   - else
     .picto{class: "picto-#{resource.organization? ? :building : :user}"}
 - main_links = EntityLink.of_entity(resource)

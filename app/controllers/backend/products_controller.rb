@@ -26,6 +26,7 @@ module Backend
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
     before_action :check_variant_availability, only: :new
+    before_action :clean_attachments, only: [:update]
 
     unroll :name, :number, :work_number, :identification_number # , 'population:!', 'unit_name:!'
 
@@ -128,13 +129,14 @@ module Backend
     end
 
     # Lists intervention product parameters of the current product
-    list(:intervention_product_parameters, conditions: { product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
+    list(:intervention_product_parameters, model: :intervention_parameters, conditions: { product_id: 'params[:id]'.c }, order: 'interventions.started_at DESC') do |t|
       t.column :intervention, url: true
       # t.column :roles, hidden: true
-      t.column :name, sort: :reference_name
+      t.column :reference, label_method: :name, sort: :reference_name
       t.column :started_at, through: :intervention, datatype: :datetime
       t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
       t.column :human_activities_names, through: :intervention
+      t.column :actions, label_method: :human_actions_names, through: :intervention
       # t.column :intervention_activities
       t.column :human_working_duration, through: :intervention
       t.column :human_working_zone_area, through: :intervention
@@ -150,11 +152,12 @@ module Backend
 
     # Lists localizations of the current product
     list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+      t.action :edit
       t.column :nature
       t.column :container, url: true
       t.column :intervention, url: true
       t.column :started_at
-      t.column :stopped_at, hidden: true
+      t.column :stopped_at
     end
 
     # Lists readings of the current product
@@ -192,6 +195,12 @@ module Backend
         redirect_to new_backend_product_nature_path
         return false
       end
+    end
+
+    def clean_attachments
+      permitted_params['attachments_attributes'].each do |k, v|
+        permitted_params['attachments_attributes'].delete(k) if v.key?('id') && !Attachment.exists?(v['id'])
+      end if permitted_params.include?('attachments_attributes')
     end
   end
 end

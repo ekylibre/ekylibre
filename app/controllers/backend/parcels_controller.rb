@@ -18,7 +18,7 @@
 
 module Backend
   class ParcelsController < Backend::BaseController
-    manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, planned_at: 'Time.zone.now'.c
+    manage_restfully t3e: { nature: 'RECORD.nature.text'.c }, except: :new
 
     respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
@@ -34,7 +34,6 @@ module Backend
     #   :delivery_mode Choice
     #   :nature Choice
     def self.parcels_conditions
-      code = ''
       code = search_conditions(parcels: [:number, :reference_number], entities: [:full_name, :number]) + " ||= []\n"
       code << "unless params[:period].blank? || params[:period].is_a?(Symbol)\n"
       code << "  if params[:period] != 'all'\n"
@@ -75,19 +74,19 @@ module Backend
     end
 
     list(conditions: parcels_conditions, order: { planned_at: :desc }) do |t|
-      t.action :new,     on: :none
       t.action :invoice, on: :both, method: :post, if: :invoiceable?
       t.action :ship,    on: :both, method: :post, if: :shippable?
-      t.action :edit
+      t.action :edit,    on: :both, method: :get, if: :updateable?
       t.action :destroy
+      t.column :nature
       t.column :number, url: true
       t.column :reference_number, hidden: true
-      t.column :nature
+      t.column :content_sentence, label: :contains
       t.column :planned_at
       t.column :recipient, url: true
       t.column :sender, url: true
       t.status
-      t.column :human_state_name
+      t.column :state, label_method: :human_state_name
       t.column :delivery, url: true
       t.column :transporter, url: true, hidden: true
       # t.column :sent_at
@@ -97,16 +96,29 @@ module Backend
       t.column :purchase, url: true
     end
 
-    list(:items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
-      t.column :product, url: true
+    list(:outgoing_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+      t.column :source_product, url: true
+      t.column :product, url: true, hidden: true
       # t.column :product_work_number, through: :product, label_method: :work_number
       t.column :population
       t.column :unit_name, through: :variant
-      t.column :variant, url: true
+      # t.column :variant, url: true
       t.status
       # t.column :net_mass
       t.column :analysis, url: true
-      t.column :source_product, url: true, hidden: true
+    end
+
+    list(:incoming_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
+      t.column :variant, url: true
+      # t.column :source_product, url: true
+      t.column :product_name
+      t.column :product_identification_number
+      t.column :population
+      t.column :unit_name, through: :variant
+      t.status
+      # t.column :net_mass
+      t.column :product, url: true
+      t.column :analysis, url: true
     end
 
     # Displays the main page with the list of parcels
@@ -120,7 +132,7 @@ module Backend
 
     # Displays details of one parcel selected with +params[:id]+
     def show
-      return unless @parcel = find_and_check
+      return unless (@parcel = find_and_check)
       respond_with(@parcel, methods: [:all_item_prepared, :status, :items_quantity],
                             include: { address: { methods: [:mail_coordinate] },
                                        sale: {},
@@ -133,6 +145,50 @@ module Backend
           t3e @parcel.attributes.merge(nature: @parcel.nature.text)
         end
       end
+    end
+
+    before_action only: :new do
+      params[:nature] ||= 'incoming'
+    end
+
+    def new
+      columns = Parcel.columns_definition.keys
+      columns = columns.delete_if { |c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+      values = columns.map(&:to_sym).uniq.each_with_object({}) do |attr, hash|
+        hash[attr] = params[:"#{attr}"] unless attr.blank? || attr.to_s.match(/_attributes$/)
+        hash
+      end
+      values[:planned_at] ||= Time.zone.now
+
+      @parcel = Parcel.new(values)
+
+      if params[:sale_id]
+        sale = Sale.find(params[:sale_id])
+        @parcel.recipient = sale.client
+        @parcel.address = sale.delivery_address
+
+        sale.items.each do |item|
+          item.variant.take(item.quantity).each do |product, quantity|
+            @parcel.items.new(source_product: product, quantity: quantity)
+          end
+        end
+      end
+
+      if params[:purchase_id]
+        purchase = Purchase.find(params[:purchase_id])
+        @parcel.sender = purchase.supplier
+        @parcel.address = purchase.delivery_address
+        preceding = Parcel
+                    .where(nature: @parcel.nature, sender: @parcel.sender)
+                    .order(planned_at: :desc).first
+        @parcel.storage = preceding.storage if preceding
+
+        purchase.items.each do |item|
+          @parcel.items.new(quantity: item.quantity, variant: item.variant)
+        end
+      end
+
+      t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
     end
 
     # Converts parcel to trade
@@ -157,11 +213,11 @@ module Backend
     def ship
       parcels = find_parcels
       return unless parcels
-      parcel = parcels.detect { |p| p.shippable? && !p.delivery_mode_indifferent? }
+      parcel = parcels.detect(&:shippable?)
       options = { parcel_ids: parcels.map(&:id) }
       if !parcel
         redirect_to(options.merge(controller: :deliveries, action: :new))
-      elsif parcels.all? { |p| p.shippable? && (p.delivery_mode_indifferent? || p.delivery_mode == parcel.delivery_mode) }
+      elsif parcels.all? { |p| p.shippable? && (p.delivery_mode == parcel.delivery_mode) }
         options[:mode] = parcel.delivery_mode
         options[:transporter_id] = parcel.transporter_id if parcel.transporter
         redirect_to(options.merge(controller: :deliveries, action: :new))

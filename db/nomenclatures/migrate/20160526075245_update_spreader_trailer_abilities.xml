@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update spreader trailer abilities">
+  <item-change item="product_natures#spreader_trailer" abilities="store(excrement), move, spread(excrement), store(raw_matter), store_fluid, spread(preparation)"/>
+</migration>

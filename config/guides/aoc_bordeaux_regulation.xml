@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <guide title="aoc_bordeaux_regulation" frequency="yearly" nature="regulations" xmlns="http://www.ekylibre.org/XML/2014/guides">
   <!-- Cahier des charges de l’appellation d’origine contrôlée « BORDEAUX » homologué par le décret n° 2011-1739
-du 2 décembre 2011, modifié par décret n° 2013-1079 du 28 novembre 2013 publié au JORF du 30 novembre 2013 -  BO du MAAF n°49 du 6 décembre 2013 -->
+       du 2 décembre 2011, modifié par décret n° 2013-1079 du 28 novembre 2013 publié au JORF du 30 novembre 2013 -  BO du MAAF n°49 du 6 décembre 2013 -->
   <sections>
     <section name="VI. - Conduite du vignoble">
       <test name="Plantations de vignes" test="Plant.of_variety(:vitis_vinifera).where("born_at &gt; ?", "2008-08-01" ).count &gt; 0"/>
       <section name="density_check">
-	<test name="density is greater than 4000 plants per hectare" mandatory="false">
-	</test>
+        <test name="density is greater than 4000 plants per hectare" mandatory="false">
+        </test>
       </section>
     </section>
   </sections>

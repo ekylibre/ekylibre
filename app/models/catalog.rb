@@ -43,12 +43,14 @@ class Catalog < Ekylibre::Record::Base
   # has_many :active_items, -> { where(active: true) }, class_name: "CatalogItem"
   has_many :items, class_name: 'CatalogItem', dependent: :destroy, inverse_of: :catalog
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :all_taxes_included, :by_default, in: [true, false]
-  validates_presence_of :code, :currency, :name, :usage
+  validates :all_taxes_included, :by_default, inclusion: { in: [true, false] }
+  validates :code, :name, presence: true, length: { maximum: 500 }
+  validates :currency, :usage, presence: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :code, :usage, allow_nil: true, maximum: 20
-  validates_uniqueness_of :code
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :code, :usage, length: { allow_nil: true, maximum: 20 }
+  validates :code, uniqueness: true
 
   selects_among_all scope: :usage
 

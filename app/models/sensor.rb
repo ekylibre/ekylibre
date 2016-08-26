@@ -50,11 +50,13 @@ class Sensor < Ekylibre::Record::Base
   has_many :analyses, class_name: 'Analysis', dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :active, :embedded, in: [true, false]
-  validates_presence_of :name, :retrieval_mode
+  validates :active, :embedded, inclusion: { in: [true, false] }
+  validates :model_euid, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :retrieval_mode, presence: true
   # ]VALIDATORS]
-  validates_uniqueness_of :name
-  validates_presence_of :token, if: :listening?
+  validates :name, uniqueness: true
+  validates :token, presence: { if: :listening? }
 
   # TODO: Check parameters presence
 

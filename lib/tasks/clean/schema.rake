@@ -96,7 +96,7 @@ namespace :clean do
     end
 
     File.open(Ekylibre::Schema.root.join('models.yml'), 'wb') do |f|
-      f.write(models.collect { |m| m.name.underscore }.to_yaml)
+      f.write(models.collect { |m| m.name.underscore }.uniq.sort.to_yaml)
     end
 
     Ekylibre::Schema.reset!

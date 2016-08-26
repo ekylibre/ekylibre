@@ -15,7 +15,7 @@ module Ekylibre
           born_at: (row[5].blank? ? Time.zone.today : row[5]).to_datetime,
           variety: (row[6].blank? ? nil : row[6].to_sym),
           initial_owner: (row[7].blank? ? nil : row[7].to_s),
-          indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+          indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
             h
           end,

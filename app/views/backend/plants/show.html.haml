@@ -7,13 +7,15 @@
 = main_informations attachment: true do
   = render 'picture'
   = infos do
-    = resource_info(:work_number, important: true)
-    = resource_info(:population, important: true) do |population|
-      = resource.population.round(3).to_s + " " + Nomen::Unit[resource.net_surface_area.unit].symbol
-    = resource_info(:variety, important: true, nomenclature: true)
-    = resource_info(:born_at, important: true)
+    = product_info(:work_number, important: true)
+    = product_info(:net_surface_area, important: true) do |population|
+      = resource.net_surface_area.round(3).l
+    = product_info(:variety, important: true, nomenclature: true)
+    = product_info(:born_at, important: true)
+    - if resource.dead_at
+      = product_info(:dead_at, important: true)
     - if resource.born_at && resource.age >= 1.day
-      = resource_info(:age) do |age|
+      = product_info(:age) do |age|
         %i.picto{class: "picto-clock-o"}
         = human_age(resource.born_at, display: 2)
     -# stock = resource.inspections.reorder(:sampled_at).last.product_stock_in_ground
@@ -30,14 +32,14 @@
             %i.picto{class: "picto-grain"}
             - unit = stock.unit + "_per_" + resource.net_surface_area.unit
             = (stock.to_d / resource.population).in(unit).round(3).l
-    = resource_info(:status, important: true) do |status|
+    = product_info(:status, important: true) do |status|
       = lights(status)
-    -#.med-info
-      %span.title= Product.human_attribute_name(:ready_to_harvest)
+    .med-info
+      %span.title= :ready_to_harvest.tl
       %span.value
-        %i.picto{class: "picto-#{resource.ready_to_harvest ? :done : :clear}"}
-    = resource_info :description
-    = resource_info :container do |container|
+        %i.picto{class: "picto-#{resource.ready_to_harvest? ? :done : :clear}"}
+    = product_info :description
+    = product_info :container do |container|
       %i.picto{class: "zone"}
       = link_to(container.work_name, {controller: container.type.tableize, action: :show, id: container.id})
     - if resource.customized?
@@ -54,42 +56,75 @@
       = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name})
     = cobble_list(:issues)
 
-  -# if resource.inspections.any?
-    -:ruby
-      # build categories
-      categories = []
-      dataset = resource.inspections.reorder(:sampled_at)
-      categories << dataset.map(&:position).uniq
-      series = []
+  - if resource.inspections.any?
+    - inspections = resource.inspections.reorder(:sampled_at)
+    - activity = inspections.first.activity
+    - choices = activity.unit_choices
+    - user_pref = activity.unit_preference(current_user)
+    - activity.inspection_calibration_scales.each do |scale|
+      :ruby
 
-      # build symbol
-      symbol_measure = Nomen::Unit[dataset.last.product_stock_in_ground.unit].symbol
+        categories = inspections.map(&:position).map(&:to_s)
 
-      pgc = InspectionPoint.where(inspection_id: dataset.pluck(:id)).of_nature(:calibre)
-      agc = ActivityInspectionPointNature.where(id: pgc.pluck(:activity_grading_check_id).compact.uniq).reorder(:minimal_calibre_value)
-
-      # for each calibre
-      agc.each do |activity_calibre|
-        chec = activity_calibre.inspection_checks.of_products(resource).reorder(:minimal_size_value)
-        # check global net mass of inspection
-        m = chec.first.inspection.net_mass.to_d
-        stock_in_ground = chec.first.inspection.product_stock_in_ground.to_d
-        arr = []
-        # for each check
-        chec.of_nature(:calibre).map do |check|
-          y = (check.net_mass_value.to_d / m) * stock_in_ground  if m != 0.0
-          arr << y.to_i.to_s.to_f
+        last_inspection = resource.inspections.reorder(:sampled_at).last
+        if user_pref == :items
+          long_name = "items_count"
+          unit = Nomen::Unit[:thousand]
+          yield_unit = Nomen::Unit[:unity_per_square_meter]
+        elsif user_pref == :mass
+          long_name = "net_mass"
+          unit = Nomen::Unit[:ton]
+          yield_unit = Nomen::Unit[:ton_per_hectare]
         end
-        series << { name: activity_calibre.name, data: arr}
-      end
 
-    - if series.any?
-      - c.cobble(:stock_in_ground_by_calibres) do
-        = column_highcharts(series, y_axis: {title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+        series = []
+        curves = {}
+        inspections.each do |i|
+          categories << i.position.to_s
+          # for each calibre
+          scale.natures.reorder(:minimal_value).each do |nature|
+            calibration = i.calibrations.find_by(nature: nature)
+            curves[nature] ||= []
+            curves[nature] << (calibration ? calibration.send("marketable_#{long_name}").round(0).to_d(unit).to_s : 0).to_f
+          end
+        end
+        curves.each do |nature, data|
+          series << { name: nature.name, data: data}
+        end
 
+        series_disease = []
+
+        curves_disease = {}
+
+        inspections.each do |i|
+          ActivityInspectionPointNature.unmarketable_categories.each do |nature|
+            calibration = i.send("points_#{long_name}_percentage", nature)
+            curves_disease[nature] ||= []
+            curves_disease[nature] << (calibration ? calibration.round(2).to_s : 0).to_f
+          end
+        end
+        curves_disease.each do |nature, data|
+          series_disease << { name: nature.l, data: data}
+        end
+
+      - c.cobble(:stock_in_ground_by_calibration) do
+        = render 'backend/inspections/unit_selector', activity: last_inspection.activity
+        - dataset = last_inspection.calibrations.of_scale(scale).reorder(:id).reverse
+        = column_highcharts(series, y_axis: {reversed_stacks: false, title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+
+      - c.cobble(:disease_deformity_percentage) do
+        = render 'backend/inspections/unit_selector', activity: last_inspection.activity
+        = column_highcharts(series_disease, y_axis: {reversed_stacks: false, title: {text: "%"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} %"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+
+      - c.cobble(:percentage_by_calibration) do
+        = render 'backend/inspections/unit_selector', activity: last_inspection.activity
+        - last_inspection.scales.each do |scale|
+          = render "backend/inspections/percentage_chart", resource: last_inspection, to_graph: long_name, unit: unit, scale: scale
 
   - c.cobble(:inspections, title: :x_inspections.tl(count: resource.inspections.count)) do
     -# FIXME Add activity in URL to get link working
     -# = cobble_toolbar do |t|
       = t.new(params: { controller: :inspections, product_id: resource.id })
     = cobble_list(:inspections)
+
+  = render partial: 'backend/shared/distributions', locals: {c: c}

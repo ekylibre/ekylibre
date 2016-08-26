@@ -28,7 +28,7 @@
           </matrix>
           <property name="doers_product_name" value="intervention.human_doer_names" level="api"/>
           <matrix name="worker" for="worker" in="intervention.doers">
-          	<cell name="name" value="worker.product.name"/>
+            <cell name="name" value="worker.product.name"/>
             <cell name="identification_number" value="worker.product.identification_number"/>
           </matrix>
           <section name="issue" of="intervention.issue" of-type="record">

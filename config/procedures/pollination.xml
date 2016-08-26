@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="pollination" categories="crop_maintenance" actions="pollinate">
+    <parameters>
+      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <input name="pollinating_insects" filter="is insecta and can pollinate(plant)" cardinality="*">
+        <handler name="population"/>
+      </input>
+      <tool name="mechanical_pollinator" filter="is equipment and can pollinate(plant)" cardinality="*"/>
+      <tool name="hive"   filter="is equipment and can store(apis)" cardinality="*"/>
+      <tool name="pollination_tool" filter="is matter and can pollinate(plant)" cardinality="*"/>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer"  filter="is worker and can move" cardinality="*"/>
+    </parameters>
+  </procedure>
+</procedures>

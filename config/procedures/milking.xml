@@ -5,7 +5,7 @@
       <target name="mammal_to_milk" filter="is mammalia and can produce(milk)"/>
       <output name="milk" variety="milk" derivative-of="variety: mammal_to_milk" filter="is milk and derives from mammalia" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}">
         <attribute name="new_name"/>
-      	<handler name="population"/>
+        <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..net_mass?"
                  backward="POPULATION * PRODUCT..net_mass(kilogram)"

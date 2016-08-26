@@ -29,11 +29,11 @@
 
 - if cultivable_zones_ready_for_production.any?
   .info
-    %span.title= :cultivable_zones.tl
-    %span.value= link_to(cultivable_zones_ready_for_production.count.to_s, controller: "/backend/cultivable_zones", action: :index)
+    %span.title= :land_parcels.tl
+    %span.value= link_to(cultivable_zones_ready_for_production.count.to_s, controller: "/backend/land_parcels", action: :index)
 -# else
   .info
-    %span.title= :cultivable_zones.tl
+    %span.title= :land_parcels.tl
     %span.value= link_to(:make_your_production_support.tl, controller: "/backend/activity_productions", action: :new)
 
 - if interventions.any?

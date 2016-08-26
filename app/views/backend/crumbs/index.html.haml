@@ -50,8 +50,8 @@
         - v.control :fullscreen
         - v.control :layer_selector
     = cobbles do |c|
-      - interventions_paths.each do |intervention_path|
-        - c.cobble "intervention_#{intervention_path.id}".to_sym, title: intervention_path.human_name do
+      - interventions_paths.each_with_index do |intervention_path, index|
+        - c.cobble "intervention_#{index}".to_sym, title: intervention_path.human_name do
           = render 'intervention', path: intervention_path
 - else
   = :no_crumbs_to_check.tl

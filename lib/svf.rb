@@ -4,6 +4,9 @@ module SVF
   autoload :Line,      'svf/line'
   autoload :Occurence, 'svf/occurrence'
 
+  class InvalidSyntax < StandardError
+  end
+
   class << self
     # Build submodule to handle format defined in the file
     # Format must be defined in YAML

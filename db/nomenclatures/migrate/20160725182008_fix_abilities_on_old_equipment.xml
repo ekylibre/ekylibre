@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Fix abilities on old equipment">
+  <item-change item="product_natures#motor_oil" abilities="lubricate(trailed_equipment), lubricate(motorized_vehicle)"/>
+</migration>

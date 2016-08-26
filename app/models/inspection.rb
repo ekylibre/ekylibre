@@ -50,15 +50,20 @@ class Inspection < Ekylibre::Record::Base
                     inverse_of: :inspection, dependent: :destroy
   has_many :scales, through: :activity, source: :inspection_calibration_scales
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :sampled_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :implanter_rows_number, allow_nil: true, only_integer: true
-  validates_numericality_of :implanter_application_width, :implanter_working_width, :product_net_surface_area_value, :sampling_distance, allow_nil: true
-  validates_presence_of :activity, :number, :product, :sampled_at
+  validates :comment, length: { maximum: 500_000 }, allow_blank: true
+  validates :implanter_application_width, :implanter_working_width, :product_net_surface_area_value, :sampling_distance, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :implanter_rows_number, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :number, presence: true, length: { maximum: 500 }
+  validates :product_net_surface_area_unit, length: { maximum: 500 }, allow_blank: true
+  validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :activity, :product, presence: true
   # ]VALIDATORS]
-  validates_numericality_of :implanter_application_width, :implanter_rows_number,
-                            :sampling_distance, greater_than: 0
+  validates :implanter_application_width, :implanter_rows_number,
+            :sampling_distance, numericality: { greater_than: 0 }, presence: true
+  validates :product_net_surface_area, presence: true
 
-  # composed_of :product_net_surface_area, class_name: 'Measure', mapping: [%w(product_net_surface_area_value to_d), %w(product_net_surface_area_unit unit)]
+  composed_of :product_net_surface_area, class_name: 'Measure',
+                                         mapping: [%w(product_net_surface_area_value to_d), %w(product_net_surface_area_unit unit)]
 
   acts_as_numbered :number
 
@@ -74,10 +79,10 @@ class Inspection < Ekylibre::Record::Base
   }
 
   before_validation :set_implanter_values, on: :create
-  after_validation :set_net_surface_area, on: :create
+  before_validation :set_net_surface_area, on: :create
 
   before_validation do
-    if implanter_application_width && implanter_rows_number && implanter_rows_number != 0
+    if implanter_application_width && implanter_rows_number && implanter_rows_number.nonzero?
       self.implanter_working_width = implanter_application_width / implanter_rows_number
     end
   end
@@ -85,9 +90,11 @@ class Inspection < Ekylibre::Record::Base
   def set_net_surface_area
     return unless product
     if product.net_surface_area
-      self.net_surface_area_in_hectare = product.net_surface_area.to_d(:hectare)
+      self.product_net_surface_area_value ||= product.net_surface_area.to_d(:hectare)
+      self.product_net_surface_area_unit ||= 'hectare'
     elsif product.shape
-      self.net_surface_area_in_hectare = product.shape.area.to_d(:hectare)
+      self.product_net_surface_area_value ||= product.shape.area.to_d(:hectare)
+      self.product_net_surface_area_unit ||= 'hectare'
     end
   end
 
@@ -111,10 +118,10 @@ class Inspection < Ekylibre::Record::Base
         # get rows_count and application_width of sower or implanter
         rows_count = equipment.rows_count(sampled_at) # if equipment.has_indicator?(rows_count)
         # rows_count = equipment.rows_count(self.sampled_at)
-        application_width = equipment.application_width(sampled_at) # if equipment.has_indicator?(application_width)
+        application_width = equipment.application_width(sampled_at).convert(:meter) # if equipment.has_indicator?(application_width)
         # set rows_count to implanter_application_width
         self.implanter_rows_number ||= rows_count if rows_count
-        self.implanter_application_width ||= application_width if application_width
+        self.implanter_application_width ||= application_width.to_d if application_width
       end
     end
   end
@@ -171,10 +178,6 @@ class Inspection < Ekylibre::Record::Base
   #   end
   # end
 
-  def mass_statable?
-    product_net_surface_area && measure_grading_net_mass
-  end
-
   def product_net_surface_area
     return nil if product_net_surface_area_value.blank? ||
                   product_net_surface_area_unit.blank?
@@ -194,39 +197,77 @@ class Inspection < Ekylibre::Record::Base
     points.of_category(category)
   end
 
-  def points_items_count(category = nil)
-    points_of_category(category).sum(:items_count)
+  [[:items_count, :items, :items_count], [:net_mass, :mass, :net_mass_value]].each do |long_name, short_name, column_name|
+    define_method "#{short_name}_statable?" do
+      product_net_surface_area && send("measure_grading_net_#{short_name}")
+    end
+
+    define_method "points_#{long_name}" do |category = nil|
+      point_sum = points_of_category(category).sum(:"#{column_name}")
+      if activity.respond_to?("grading_#{long_name}_unit")
+        point_sum.in(activity.send("grading_#{long_name}_unit"))
+      else
+        point_sum.in(:unity)
+      end
+    end
+
+    define_method "total_points_#{long_name}" do |category = nil|
+      points_of_category(category).map(&:"total_#{long_name}").sum.round(0)
+    end
+
+    define_method "points_#{long_name}_yield" do |category = nil|
+      points_of_category(category).map(&:"#{long_name}_yield").sum.round(0)
+    end
+
+    define_method "points_#{long_name}_percentage" do |category = nil|
+      points_of_category(category).map(&:"#{long_name}_percentage").sum
+    end
+
+    define_method "unmarketable_#{long_name}" do
+      point_sum = points.unmarketable.sum(:"#{column_name}")
+      if activity.respond_to?(:"grading_#{long_name}_unit")
+        point_sum.in(activity.send("grading_#{long_name}_unit"))
+      else
+        point_sum.in(:unity)
+      end
+    end
+
+    define_method long_name.to_s do |scale = nil|
+      calibration_values(:"#{long_name}_in_unit", scale)
+    end
+
+    define_method "#{long_name}_yield" do |scale = nil|
+      calibration_values(:"#{long_name}_yield", scale)
+    end
+
+    define_method "marketable_#{long_name}" do |scale = nil|
+      calibration_values(:"marketable_#{long_name}", scale, true)
+    end
+
+    define_method "marketable_#{short_name}_yield" do |scale = nil|
+      calibration_values(:"marketable_#{short_name}_yield", scale, true)
+    end
+
+    define_method "total_#{long_name}" do |scale = nil|
+      calibration_values(:"total_#{long_name}", scale)
+    end
+
+    define_method "unmarketable_#{short_name}_rate" do
+      send(long_name).to_d.nonzero? ? send("unmarketable_#{long_name}") / send(long_name) : nil
+    end
   end
 
-  def points_net_mass(category = nil)
-    points_of_category(category).sum(:net_mass_value).in(activity.grading_net_mass_unit)
-  end
+  protected
 
-  def total_points_net_mass(category = nil)
-    points_of_category(category).map(&:total_net_mass).sum.round(0)
-  end
-
-  def points_net_mass_yield(category = nil)
-    points_of_category(category).map(&:net_mass_yield).sum.round(0)
-  end
-
-  def items_count(scale)
-    calibrations.of_scale(scale).sum(:items_count)
-  end
-
-  def net_mass(scale)
-    calibrations.of_scale(scale).sum(:net_mass_value).in(activity.grading_net_mass_unit)
-  end
-
-  def total_net_mass(scale)
-    calibrations.of_scale(scale).map(&:total_net_mass).sum.round(0)
-  end
-
-  def net_mass_yield(scale)
-    calibrations.of_scale(scale).map(&:net_mass_yield).sum.round(0)
-  end
-
-  def marketable_net_mass(scale)
-    calibrations.of_scale(scale).marketable.map(&:total_net_mass).sum.round(0)
+  # Returns the sum of measurements on a scale if one is provided
+  #  or the average of measurements across all scales if none is.
+  def calibration_values(method, scale = nil, marketable = false)
+    if scale.nil?
+      (scales.map { |s| send(:calibration_values, method, s, marketable) }.sum / scales.count)
+    else
+      calib = calibrations.of_scale(scale)
+      calib = calib.marketable if marketable
+      calib.map(&method).sum
+    end
   end
 end

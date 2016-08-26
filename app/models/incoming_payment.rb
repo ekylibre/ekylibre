@@ -65,21 +65,24 @@ class IncomingPayment < Ekylibre::Record::Base
   belongs_to :payer, class_name: 'Entity', inverse_of: :incoming_payments
   belongs_to :mode, class_name: 'IncomingPaymentMode', inverse_of: :payments
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :paid_at, :to_bank_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :amount, :commission_amount, allow_nil: true
-  validates_inclusion_of :downpayment, :received, :scheduled, in: [true, false]
-  validates_presence_of :amount, :commission_amount, :currency, :mode, :to_bank_at
+  validates :accounted_at, :paid_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :amount, :commission_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :bank_account_number, :bank_check_number, :bank_name, :number, length: { maximum: 500 }, allow_blank: true
+  validates :currency, :mode, presence: true
+  validates :downpayment, :received, :scheduled, inclusion: { in: [true, false] }
+  validates :receipt, length: { maximum: 500_000 }, allow_blank: true
+  validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_numericality_of :amount, greater_than: 0.0
-  validates_numericality_of :commission_amount, greater_than_or_equal_to: 0.0
-  validates_presence_of :payer
-  validates_presence_of :commission_account, if: :with_commission?
-
-  delegate :status, to: :affair
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :amount, numericality: { greater_than: 0.0 }
+  validates :commission_amount, numericality: { greater_than_or_equal_to: 0.0 }
+  validates :payer, presence: true
+  validates :commission_account, presence: { if: :with_commission? }
 
   acts_as_numbered
   acts_as_affairable :payer, dealt_at: :to_bank_at, role: 'client'
+
+  alias status affair_status
 
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_at <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Time.zone.now, true) }
 

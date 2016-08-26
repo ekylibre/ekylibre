@@ -1,1 +1,5 @@
+= main_toolbar do |t|
+  - if ProductNatureCategory.any_reference_available?
+    = t.pick
+
 = main_list

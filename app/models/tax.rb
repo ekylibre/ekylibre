@@ -53,15 +53,17 @@ class Tax < Ekylibre::Record::Base
   has_many :purchase_items
   has_many :sale_items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, allow_nil: true
-  validates_inclusion_of :active, in: [true, false]
-  validates_presence_of :amount, :country, :name, :nature
+  validates :active, inclusion: { in: [true, false] }
+  validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :country, :nature, presence: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates_length_of :reference_name, allow_nil: true, maximum: 120
-  validates_presence_of :collect_account, :deduction_account
-  validates_uniqueness_of :name
-  validates_uniqueness_of :amount, scope: [:country, :nature]
-  validates_numericality_of :amount, in: 0..100
+  validates :reference_name, length: { allow_nil: true, maximum: 120 }
+  validates :collect_account, :deduction_account, presence: true
+  validates :name, uniqueness: true
+  validates :amount, uniqueness: { scope: [:country, :nature] }
+  validates :amount, numericality: { in: 0..100 }
 
   delegate :name, to: :collect_account, prefix: true
   delegate :name, to: :deduction_account, prefix: true
@@ -90,41 +92,40 @@ class Tax < Ekylibre::Record::Base
     end
 
     # Load a tax from tax nomenclature
-    def import_from_nomenclature(reference_name, active = false)
+    def import_from_nomenclature(reference_name, active = nil)
       unless item = Nomen::Tax.find(reference_name)
         raise ArgumentError, "The tax #{reference_name.inspect} is not known"
       end
       tax = Tax.find_by(amount: item.amount, nature: item.nature, country: item.country)
       tax ||= Tax.find_by(reference_name: reference_name)
+
       if tax
-        tax.active = active
-      else
-        nature = Nomen::TaxNature.find(item.nature)
-        if nature.computation_method != :percentage
-          raise StandardError, 'Can import only percentage computed taxes'
-        end
-        attributes = {
-          amount: item.amount,
-          name: item.human_name,
-          nature: item.nature,
-          country: item.country,
-          active: active,
-          reference_name: item.name
-        }
-        [:deduction, :collect, :fixed_asset_deduction, :fixed_asset_collect].each do |account|
-          next unless name = nature.send("#{account}_account")
-          tax_radical = Account.find_or_import_from_nomenclature(name)
-          # find if already account tax  by number was created
-          tax_account = Account.find_or_create_by_number("#{tax_radical.number}#{nature.suffix}") do |a|
-            a.name = "#{tax_radical.name} - #{item.human_name}"
-            a.usages = tax_radical.usages
-          end
-          attributes["#{account}_account_id"] = tax_account.id
-        end
-        tax = Tax.new(attributes)
+        tax.update_column(:active, active) unless active.nil?
+        return tax
       end
-      tax.save!
-      tax
+      nature = Nomen::TaxNature.find(item.nature)
+      if nature.computation_method != :percentage
+        raise StandardError, 'Can import only percentage computed taxes'
+      end
+      attributes = {
+        amount: item.amount,
+        name: item.human_name,
+        nature: item.nature,
+        country: item.country,
+        active: (active.nil? ? true : active),
+        reference_name: item.name
+      }
+      [:deduction, :collect, :fixed_asset_deduction, :fixed_asset_collect].each do |account|
+        next unless name = nature.send("#{account}_account")
+        tax_radical = Account.find_or_import_from_nomenclature(name)
+        # find if already account tax  by number was created
+        tax_account = Account.find_or_create_by_number("#{tax_radical.number}#{nature.suffix}") do |a|
+          a.name = "#{tax_radical.name} - #{item.human_name}"
+          a.usages = tax_radical.usages
+        end
+        attributes["#{account}_account_id"] = tax_account.id
+      end
+      Tax.create!(attributes)
     end
 
     # Load all tax from tax nomenclature by country
@@ -148,6 +149,11 @@ class Tax < Ekylibre::Record::Base
     def load_defaults
       import_all_from_nomenclature(country: Preference[:country].to_sym)
     end
+  end
+
+  before_validation do
+    self.active = false if active.nil?
+    true
   end
 
   protect(on: :destroy) do

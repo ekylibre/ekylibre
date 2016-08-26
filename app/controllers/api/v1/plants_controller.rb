@@ -3,7 +3,7 @@ module Api
     # Plants API permits to access plants
     class PlantsController < Api::V1::BaseController
       def index
-        render json: Plant.order(id: :desc).limit(25), status: :ok
+        @plants = Plant.availables.order(id: :desc)
       end
     end
   end

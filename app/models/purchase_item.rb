@@ -55,13 +55,15 @@ class PurchaseItem < Ekylibre::Record::Base
   has_many :parcel_items
   has_many :products, through: :parcel_items
   has_one :fixed_asset, foreign_key: :purchase_item_id, inverse_of: :purchase_item
+  has_one :product_nature_category, through: :variant, source: :category
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_inclusion_of :fixed, in: [true, false]
-  validates_presence_of :account, :amount, :currency, :pretax_amount, :purchase, :quantity, :reduction_percentage, :tax, :unit_amount, :unit_pretax_amount, :variant
+  validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
+  validates :account, :currency, :purchase, :tax, :variant, presence: true
+  validates :fixed, inclusion: { in: [true, false] }
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_presence_of :account, :tax, :reduction_percentage
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :account, :tax, :reduction_percentage, presence: true
   validates_associated :fixed_asset
 
   delegate :invoiced_at, :number, :computation_method, :computation_method_quantity_tax?, :computation_method_tax_quantity?, :computation_method_adaptative?, :computation_method_manual?, to: :purchase
@@ -104,7 +106,7 @@ class PurchaseItem < Ekylibre::Record::Base
       item = Nomen::Currency.find(currency)
       precision = item ? item.precision : 2
       self.unit_amount = unit_pretax_amount * (100.0 + tax_amount) / 100.0
-      if pretax_amount.zero? || pretax_amount.nil?
+      if pretax_amount.nil? || pretax_amount.zero?
         self.pretax_amount = (unit_pretax_amount * self.quantity * (100.0 - self.reduction_percentage) / 100.0).round(precision)
       end
       if amount.nil? || amount.zero?
@@ -122,8 +124,8 @@ class PurchaseItem < Ekylibre::Record::Base
             currency: currency,
             started_on: purchase.invoiced_at.to_date,
             depreciable_amount: pretax_amount,
-            depreciation_method: variant.fixed_asset_depreciation_method,
-            depreciation_percentage: variant.fixed_asset_depreciation_percentage,
+            depreciation_method: variant.fixed_asset_depreciation_method || :simplified_linear,
+            depreciation_percentage: variant.fixed_asset_depreciation_percentage || 20,
             journal: Journal.find_by(nature: :various),
             allocation_account: variant.fixed_asset_allocation_account, # 28
             expenses_account: variant.fixed_asset_expenses_account # 68

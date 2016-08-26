@@ -18,9 +18,10 @@
 
 module Api
   module V1
-    class BaseController < ActionController::Base
+    class BaseController < ::ApiController
       include ActionController::Flash
 
+      wrap_parameters false
       respond_to :json
 
       before_action :authenticate_api_user!
@@ -76,6 +77,12 @@ module Api
         end
         render status: :unauthorized, json: { message: 'Unauthorized.' }
         false
+      end
+
+      protected
+
+      def permitted_params
+        params.except(:format)
       end
     end
   end

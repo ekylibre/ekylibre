@@ -15,7 +15,7 @@ module Aggeratio
 
     # Import parameter form an XML node
     def self.import(element)
-      options = element.attributes.inject({}) do |hash, pair|
+      options = element.attributes.each_with_object({}) do |pair, hash|
         hash[pair[0].to_sym] = pair[1].to_s
         hash
       end

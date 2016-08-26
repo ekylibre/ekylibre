@@ -8,8 +8,8 @@
         %span.title= CapLandParcel.human_attribute_name(:land_parcel_number)
         %span.value= resource.land_parcel_number
       .med-info
-        %span.title= Campaign.human_attribute_name(:name)
-        %span.value= resource.cap_islet.cap_statement.campaign.name
+        %span.title= CapLandParcel.human_attribute_name(:campaign)
+        %span.value= resource.campaign_name
       .med-info
         %span.title= CultivableZone.human_attribute_name(:net_surface_area)
         %span.value= resource.net_surface_area.in(:hectare).l

@@ -60,12 +60,15 @@ module Unrollable
       haml << "  %ul.items-list\n"
       haml << "    - items.limit(items.count > #{(max * 1.5).round} ? #{max} : #{max * 2}).each do |item|\n"
       haml << "      - item_label = #{item_label}\n"
-      haml << "      %li.item{data: {item: {label: item_label, id: item.id}}}\n"
-      haml << if options[:partial]
-                "        = render '#{partial}', item: item\n"
-              else
-                "        = highlight(item_label, keys)\n"
-    end
+      haml << '      - attributes = {'
+      filters.each do |f|
+        haml << "#{f[:name]}: #{f[:expression]}, "
+      end
+      haml << "}\n"
+      haml << "      %li.item{data: {item: {label: item_label, id: item.id}.merge(attributes.to_h)}}\n"
+      haml << '        = ' + (options[:partial] ? "render '#{partial}', item: item" : 'highlight(item_label, keys)') + "\n"
+      haml << "    - if params[:insert].to_i > 0\n"
+      haml << "      %li.item.special{data: {new_item: ''}}= 'labels.add_#{model.name.underscore}'.t(default: [:'labels.add_new_record'])\n"
       haml << "  - if items.count > #{(max * 1.5).round}\n"
       haml << "    %span.items-status.items-status-too-many-records\n"
       haml << "      = 'labels.x_items_remain'.t(count: (items.count - #{max}))\n"
@@ -99,13 +102,23 @@ module Unrollable
         code << ".references(#{includes.inspect})"
       end
       code << ".reorder(#{order.inspect})\n"
-      code << "  if scopes = params[:scope]\n"
-      code << "    scopes = {scopes.to_sym => true} if scopes.is_a?(String) or scopes.is_a?(Symbol)\n"
-      code << "    for scope, parameters in scopes.symbolize_keys\n"
-      code << "      if (parameters.is_a?(TrueClass) or parameters == 'true') and klass.simple_scopes.map(&:name).include?(scope)\n"
-      code << "        items = items.send(scope)\n"
-      code << "      elsif parameters.is_a?(String) and klass.complex_scopes.map(&:name).include?(scope)\n"
-      code << "        items = items.send(scope, *(parameters.strip.split(/\s*\,\s*/)))\n"
+      code << "  scopes = params[:scope]\n"
+      code << "  if scopes\n"
+      code << "    scopes = { scopes.to_sym => true } if scopes.is_a?(String) || scopes.is_a?(Symbol)\n"
+      code << "    scopes.symbolize_keys.each do |scope, parameters|\n"
+      code << "      if klass.simple_scopes.map(&:name).include?(scope)\n"
+      code << "        if (parameters.is_a?(TrueClass) or parameters == 'true')\n"
+      code << "          items = items.send(scope)\n"
+      code << "        elsif (parameters.is_a?(Array))\n"
+      code << "          parameters.map! { |p| p.is_a?(Hash) ? p.symbolize_keys : p }\n"
+      code << "          items = items.send(scope, *parameters)\n"
+      code << "        else\n"
+      code << "          logger.error(\"Scope \#{scope.inspect} is unknown for \#{klass.name}. \#{klass.scopes.map(&:name).inspect} are expected.\")\n"
+      code << "          head :bad_request\n"
+      code << "          return false\n"
+      code << "        end\n"
+      code << "      elsif parameters.is_a?(String) && klass.complex_scopes.map(&:name).include?(scope)\n"
+      code << "          items = items.send(scope, *(parameters.strip.split(/\s*\,\s*/)))\n"
       code << "      else\n"
       code << "        logger.error(\"Scope \#{scope.inspect} is unknown for \#{klass.name}. \#{klass.scopes.map(&:name).inspect} are expected.\")\n"
       code << "        head :bad_request\n"
@@ -120,7 +133,11 @@ module Unrollable
 
       code << "  keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)\n"
       code << "  if params[:id]\n"
-      code << "    items = items.where(id: params[:id])\n"
+      code << "    if params[:keep].to_s == 'true'\n"
+      code << "      items = klass.where(id: params[:id])\n"
+      code << "    else\n"
+      code << "      items = items.where(id: params[:id])\n"
+      code << "    end\n"
       code << "  elsif keys.any?\n"
       code << "    conditions = ['(']\n"
       code << "    keys.each_with_index do |key, index|\n"
@@ -139,14 +156,14 @@ module Unrollable
 
       code << "  respond_to do |format|\n"
       code << "    format.html { render file: '#{view.relative_path_from(Rails.root)}', locals: { items: items, keys: keys, search: params[:q].to_s.capitalize.strip }, layout: false }\n"
-      code << "    format.json { render json: items.collect{|item| {label: #{item_label}, id: item.id}} }\n"
-      code << "    format.xml  { render  xml: items.collect{|item| {label: #{item_label}, id: item.id}} }\n"
+      code << "    format.json { render json: items.collect{ |item| { label: #{item_label}, id: item.id } } }\n"
+      code << "    format.xml  { render  xml: items.collect{ |item| { label: #{item_label}, id: item.id } } }\n"
       code << "  end\n"
       code << 'end'
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l.blue)}
       class_eval(code)
       :unroll
-  end
+    end
 
     private
 
@@ -194,11 +211,11 @@ module Unrollable
         a = object.map { |o| includify(o) }.compact
         return (a.size == 1 ? a.first : a)
       elsif object.is_a?(Hash)
-        n = object.inject({}) do |h, pair|
+        n = object.each_with_object({}) do |pair, h|
           h[pair.first] = includify(pair.second)
           h
         end
-        return n.inject([]) do |a, pair|
+        return n.each_with_object([]) do |pair, a|
           a << (pair.second.nil? ? pair.first : { pair.first => pair.second })
           a
         end
@@ -215,12 +232,12 @@ module Unrollable
         a = object.map { |o| compactify(o) }.compact
         return (a.empty? ? nil : a)
       elsif object.is_a?(Hash)
-        return (object.keys.empty? ? nil : object.inject({}) { |h, p| h[p.first] = compactify(p.second); h })
+        return (object.keys.empty? ? nil : object.each_with_object({}) { |p, h| h[p.first] = compactify(p.second); h })
       elsif object.is_a?(Symbol) || object.is_a?(String)
         return object
       else
         raise "What a parameter? #{object.inspect}"
       end
     end
-end
+  end
 end

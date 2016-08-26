@@ -97,7 +97,7 @@ $nested-field-border: $menu-border-width solid mix($menu-border-color, white);
       max-width: 65%;
     }
 
-    tr.nested-fields {
+    tr.nested-fields, tbody.nested-fields {
       input {
         max-width: 100%;
         &[type="number"] {
@@ -375,4 +375,11 @@ div.nested-fields {
       margin: 0;
     }
   }
+}
+
+
+.label-inline {
+  padding-left: $default-gap;
+  padding-right: $default-gap;
+  @include inline-block;
 }

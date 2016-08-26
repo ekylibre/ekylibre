@@ -36,13 +36,17 @@ class ActivityInspectionCalibrationScale < Ekylibre::Record::Base
   belongs_to :activity
   has_many :natures, -> { order(:minimal_value, :maximal_value) },
            class_name: 'ActivityInspectionCalibrationNature',
-           foreign_key: :scale_id, inverse_of: :scale
+           foreign_key: :scale_id, inverse_of: :scale, dependent: :destroy
   refers_to :size_indicator, -> { where(datatype: :measure) }, class_name: 'Indicator'
   refers_to :size_unit, -> { where(dimension: [:distance, :mass]) }, class_name: 'Unit'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :activity, :size_indicator_name, :size_unit_name
+  validates :activity, :size_indicator_name, :size_unit_name, presence: true
   # ]VALIDATORS]
 
   accepts_nested_attributes_for :natures, reject_if: :all_blank, allow_destroy: true
+
+  def name
+    size_indicator.human_name
+  end
 end

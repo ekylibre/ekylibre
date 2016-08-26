@@ -79,6 +79,11 @@ module CobblesHelper
     nil
   end
 
+  def cobble_meta_toolbar(&block)
+    id = Cobble.current.id
+    content_for("cobble_#{id}_meta_toolbar".to_sym, &block)
+  end
+
   def cobble_list(name, options = {}, &block)
     id = Cobble.current.id
     list(name, options.deep_merge(content_for: {

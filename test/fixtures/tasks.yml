@@ -83,3 +83,21 @@ tasks_002:
   state: done
   updated_at: 2015-06-07 15:35:17.003092000 Z
   updater_id: 1
+tasks_003:
+  created_at: 2016-07-01 19:24:45.238427000 Z
+  creator_id: 1
+  description: 'Morbi lectus justo, volutpat vel nulla ac, sollicitudin condimentum
+    magna. Donec suscipit leo justo. Sed tristique ipsum a odio ornare suscipit. Aenean
+    eu mi augue. Nullam accumsan ex eget lectus tincidunt ultricies. Aliquam hendrerit,
+    magna vel commodo molestie, neque magna elementum odio, et cursus urna est in
+    neque. Sed malesuada purus sem, id auctor orci luctus molestie. '
+  due_at: 2016-07-01 19:24:00.000000000 Z
+  entity_id: 14
+  executor_id: 9
+  id: 3
+  lock_version: 1
+  name: Call for new Contract
+  nature: outgoing_call
+  state: done
+  updated_at: 2016-07-01 19:25:02.955439000 Z
+  updater_id: 1

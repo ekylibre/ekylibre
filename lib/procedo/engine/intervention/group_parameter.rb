@@ -38,6 +38,19 @@ module Procedo
           hash
         end
 
+        def handlers_states
+          hash = {}
+          each_member do |parameter|
+            param_name = parameter.param_name
+            next unless parameter.respond_to? :handlers_states
+            states = parameter.handlers_states
+            next if states.empty?
+            hash[param_name] ||= {}
+            hash[param_name][parameter.id.to_s] = states
+          end
+          hash
+        end
+
         def each_member(&_block)
           @members.each do |_reflection, children|
             children.each do |_id, member|
@@ -78,13 +91,10 @@ module Procedo
         end
 
         def impact_with(steps)
-          if steps.size == 1
-            impact(step)
-          elsif steps.size >= 2
-            @members[steps[0]][steps[1]].impact_with(steps[2..-1])
-          else
-            raise 'Invalid steps: ' + steps.inspect
+          unless steps.size > 1
+            raise ArgumentError, 'Invalid steps: got ' + steps.inspect
           end
+          @members[steps[0]][steps[1]].impact_with(steps[2..-1])
         end
 
         protected

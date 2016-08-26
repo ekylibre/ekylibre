@@ -22,27 +22,25 @@
 #
 # == Table: subscriptions
 #
-#  address_id        :integer
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  custom_fields     :jsonb
-#  description       :text
-#  first_number      :integer
-#  id                :integer          not null, primary key
-#  last_number       :integer
-#  lock_version      :integer          default(0), not null
-#  nature_id         :integer
-#  number            :string
-#  product_nature_id :integer
-#  quantity          :decimal(19, 4)
-#  sale_id           :integer
-#  sale_item_id      :integer
-#  started_at        :datetime
-#  stopped_at        :datetime
-#  subscriber_id     :integer
-#  suspended         :boolean          default(FALSE), not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  address_id     :integer
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  custom_fields  :jsonb
+#  description    :text
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  nature_id      :integer
+#  number         :string
+#  parent_id      :integer
+#  quantity       :integer          not null
+#  sale_item_id   :integer
+#  started_on     :date             not null
+#  stopped_on     :date             not null
+#  subscriber_id  :integer
+#  suspended      :boolean          default(FALSE), not null
+#  swim_lane_uuid :uuid             not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer
 #
 
 require 'test_helper'

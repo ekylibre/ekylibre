@@ -1,0 +1,67 @@
+= modal(id: modal_id, title: component.name, close_button: true, size: :large) do
+  - part_variant = component.part_product_nature_variant
+  .modal-body
+    - replacements = equipment.part_replacements.of_component(component).includes(:intervention).order('interventions.started_at DESC')
+    - if replacements.any?
+      %table
+        %thead
+          %tr
+            %th= Intervention.human_attribute_name(:nature)
+            %th= Intervention.human_attribute_name(:started_at)
+            %th= InterventionInput.human_attribute_name(:intervention)
+            %th= InterventionInput.human_attribute_name(:component)
+            %th= Intervention.human_attribute_name(:actions)
+            %th= Intervention.human_attribute_name(:doers)
+        %tbody
+          - replacements.each do |replacement|
+            - intervention = replacement.intervention
+            %tr
+              %td= intervention.nature.l
+              %td= intervention.started_at.l
+              %td= link_to(intervention.name, controller: :interventions, action: :show, id: intervention.id)
+              %td= replacement.component.name
+              %td= intervention.human_actions_names
+              %td= intervention.human_doer_names
+    - else
+      .placeholding-message= :no_replacements_since_beginning.tn
+  .modal-footer
+    :ruby
+      target = {}
+      target[:reference_name] = :equipment
+      target[:product_id] = resource.id
+
+      input = {}
+      input[:reference_name] = :replacement_part
+      input[:component_id] = component.id
+      input[:assembly_id] = resource.id
+
+      group = {}
+      group[:reference_name] = :work
+      group[:targets_attributes] = { '0' => target }
+      group[:inputs_attributes] = { '0' => input }
+
+      prefill = {}
+      prefill[:procedure_name] = :equipment_maintenance
+      prefill[:actions] = [:curative_maintenance]
+      prefill[:group_parameters_attributes] = { '0' => group}
+
+      url_options = {}
+      url_options[:action] = :new
+      url_options[:controller] = :interventions
+      url_options[:redirect] = request.fullpath
+      url_options.merge! prefill
+    - if part_variant && part_variant.attachments.any?
+      = dropdown_menu_button(:documentation.tl, icon: :book, id: 'component-documentation') do |menu|
+        :ruby
+          part_variant.attachments.each do |attachment|
+            menu.item attachment.name, {
+              controller: 'backend/documents',
+              action: :show,
+              id: attachment.document_id,
+              format: :pdf
+            }
+          end
+    = tool_to :request_maintenance.tl, url_options.merge(nature: :request), icon: false
+    = tool_to :record_maintenance.tl, url_options, icon: false
+    = button_tag(:close.tl, class: 'btn btn-default', data: { dismiss: 'modal' })
+

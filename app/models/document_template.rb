@@ -45,12 +45,14 @@ class DocumentTemplate < Ekylibre::Record::Base
   refers_to :nature, class_name: 'DocumentNature'
   has_many :documents, class_name: 'Document', foreign_key: :template_id, dependent: :nullify, inverse_of: :template
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :active, :by_default, :managed, in: [true, false]
-  validates_presence_of :archiving, :language, :name, :nature
+  validates :active, :by_default, :managed, inclusion: { in: [true, false] }
+  validates :archiving, :language, :nature, presence: true
+  validates :formats, length: { maximum: 500 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]
-  validates_length_of :language, allow_nil: true, maximum: 3
-  validates_length_of :archiving, :nature, allow_nil: true, maximum: 60
-  validates_inclusion_of :nature, in: nature.values
+  validates :language, length: { allow_nil: true, maximum: 3 }
+  validates :archiving, :nature, length: { allow_nil: true, maximum: 60 }
+  validates :nature, inclusion: { in: nature.values }
 
   selects_among_all scope: :nature
 

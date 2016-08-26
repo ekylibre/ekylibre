@@ -1,0 +1,79 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: activity_seasons
+#
+#  activity_id  :integer          not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string           not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
+#
+---
+activity_seasons_001:
+  activity_id: 22
+  created_at: 2016-08-05 14:55:28.416312000 Z
+  creator_id: 1
+  id: 1
+  lock_version: 1
+  name: Primeur
+  updated_at: 2016-08-05 15:38:09.636619000 Z
+  updater_id: 1
+activity_seasons_002:
+  activity_id: 22
+  created_at: 2016-08-05 14:55:28.418243000 Z
+  creator_id: 1
+  id: 2
+  lock_version: 1
+  name: Saison
+  updated_at: 2016-08-05 15:38:09.637811000 Z
+  updater_id: 1
+activity_seasons_003:
+  activity_id: 5
+  created_at: 2016-08-05 15:34:20.772369000 Z
+  creator_id: 1
+  id: 3
+  lock_version: 0
+  name: dfsdfs
+  updated_at: 2016-08-05 15:34:20.772369000 Z
+  updater_id: 1
+activity_seasons_004:
+  activity_id: 5
+  created_at: 2016-08-05 15:34:20.774024000 Z
+  creator_id: 1
+  id: 4
+  lock_version: 0
+  name: sfsdfsdf
+  updated_at: 2016-08-05 15:34:20.774024000 Z
+  updater_id: 1
+activity_seasons_005:
+  activity_id: 22
+  created_at: 2016-08-05 15:38:09.638898000 Z
+  creator_id: 1
+  id: 5
+  lock_version: 0
+  name: Hiver
+  updated_at: 2016-08-05 15:38:09.638898000 Z
+  updater_id: 1

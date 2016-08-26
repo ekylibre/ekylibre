@@ -96,6 +96,12 @@ por:
       format:
         delimiter: "."
   rank: "#%{number}"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "Número da fatura fornecedor"
+    required:
+      text: "Requeridos"
   support:
     array:
       last_word_connector: " e "

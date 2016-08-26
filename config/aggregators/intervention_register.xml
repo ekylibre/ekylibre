@@ -7,22 +7,26 @@
     <section name="campaigns">
       <variable name="company" value="Entity.of_company"/>
       <property name="entity_name" value="company.full_name"/>
-      <property name="address" value="company.default_mail_address.coordinate"/>
+      <property name="address" value="company.default_mail_address.coordinate" if="company.default_mail_address"/>
       <sections for="campaign" in="campaigns">
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
         <!-- looking for all intervention in the current campaign year-->
         <sections for="intervention" in="Intervention.of_civil_year(campaign.harvest_year).reorder(:started_at)" of-type="record">
           <title name="name" of="intervention"/>
-	      <property name="id" of="intervention" level="api"/>
-	      <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
-	      <property name="started_at" value="intervention.started_at" type="datetime"/>
-	      <property name="stopped_at" value="intervention.stopped_at" type="datetime"/>
-	      <property name="working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
-	      <property name="working_zone_area" if="intervention.working_zone_area" value="intervention.working_zone_area.round(2).l" type="measure"/>
+          <property name="id" of="intervention" level="api"/>
+          <property name="procedure_name" value="intervention.procedure.name" level="api"/>
+          <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
+          <property name="started_at" value="intervention.started_at" type="datetime"/>
+          <property name="stopped_at" value="intervention.stopped_at" type="datetime"/>
+          <property name="working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
+          <property name="working_zone_area" if="intervention.working_zone_area" value="intervention.working_zone_area.round(2).l" type="measure"/>
           <property name="targets_name" value="intervention.human_target_names"/>
+          <property name="actions_name" value="intervention.human_actions_names"/>
           <property name="doers_name" value="intervention.human_doer_names"/>
           <property name="tools_name" value="intervention.human_tool_names"/>
+          <property name="total_cost" value="intervention.total_cost"/>
+          <property name="total_cost_per_area" if="intervention.cost_per_area" value="intervention.cost_per_area"/>
           <section name="issue" of="intervention.issue">
             <property name="id" level="api"/>
             <property name="nature"/>
@@ -30,16 +34,12 @@
             <property name="state" level="api"/>
             <property name="description"/>
           </section>
-          <matrix name="inputs" for="input" in="intervention.inputs">
-	        <cell name="id" of="input" level="api" />
-	        <within of="input.product">
-	          <cell name="name"/>
-	          <cell name="number" level="api"/>
-	          <cell name="born_at" level="api" type="datetime"/>
-	          <cell name="variant_name"/>
-	          <cell name="variety" level="api"/>
-	        </within>
-	        <cell name="quantity" value="input.quantity.l" type="measure" />
+          <matrix name="actors" for="actor" in="intervention.product_parameters">
+            <cell name="id" of="actor" level="api" />
+            <cell name="product_name" if="actor.product" of="actor" />
+            <cell name="variant_name" if="actor.variant" of="actor" />
+            <cell name="quantity" if="actor.quantity_population" value="actor.quantity.l" type="measure" />
+            <cell name="working_zone" if="actor.working_zone" value="actor.working_zone.area.convert(:hectare).round(2).l" type="measure" />
           </matrix>
         </sections>
       </sections>

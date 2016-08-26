@@ -4,7 +4,7 @@
     f.object.unit_name ||= Nomen::Variety[nature.variety].human_name
     nature.frozen_indicators.each do |indicator|
       unless f.object.readings.find_by(indicator_name: indicator.name)
-        f.object.readings.build(indicator_name: indicator.name)
+        f.object.readings.build(indicator_name: indicator.name, indicator_datatype: indicator.datatype)
       end
     end
   end
@@ -23,6 +23,14 @@
   = f.picture
   = f.custom_fields
 
+
 - if f.object.readings.any?
   = field_set(:indicators) do
     = f.nested_association(:readings, new: false)
+
+- if f.object.of_variety? :equipment
+  = field_set(:components) do
+    = f.nested_association(:components, collection: f.object.components.select { |c| c.parent_id.nil? })
+
+
+

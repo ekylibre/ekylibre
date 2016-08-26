@@ -49,6 +49,8 @@
 #  updater_id                   :integer
 #  use_countings                :boolean          default(FALSE), not null
 #  use_gradings                 :boolean          default(FALSE), not null
+#  use_seasons                  :boolean          default(FALSE)
+#  use_tactics                  :boolean          default(FALSE)
 #  with_cultivation             :boolean          not null
 #  with_supports                :boolean          not null
 #
@@ -75,23 +77,31 @@ class Activity < Ekylibre::Record::Base
     has_many :budgets, class_name: 'ActivityBudget'
     has_many :distributions, class_name: 'ActivityDistribution'
     has_many :productions, class_name: 'ActivityProduction'
+    has_many :seasons, class_name: 'ActivitySeason'
+    has_many :tactics, class_name: 'ActivityTactic'
+    has_many :inspections, class_name: 'Inspection'
+    has_many :plant_density_abaci, class_name: 'PlantDensityAbacus'
     has_many :inspection_point_natures, class_name: 'ActivityInspectionPointNature'
     has_many :inspection_calibration_scales, class_name: 'ActivityInspectionCalibrationScale'
+    has_many :inspection_calibration_natures, class_name: 'ActivityInspectionCalibrationNature', through: :inspection_calibration_scales, source: :natures
   end
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, in: [true, false]
-  validates_presence_of :family, :name, :nature, :production_cycle
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :family, :nature, :production_cycle, presence: true
+  validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :use_seasons, :use_tactics, inclusion: { in: [true, false] }, allow_blank: true
   # ]VALIDATORS]
-  validates_inclusion_of :family, in: family.values
-  validates_presence_of :cultivation_variety, if: :with_cultivation
-  validates_presence_of :support_variety, if: :with_supports
-  validates_uniqueness_of :name
+  validates :family, inclusion: { in: family.values }
+  validates :cultivation_variety, presence: { if: :with_cultivation }
+  validates :support_variety, presence: { if: :with_supports }
+  validates :name, uniqueness: true
   # validates_associated :productions
-  validates_presence_of :production_campaign, if: :perennial?
-  validates_presence_of :grading_net_mass_unit, if: :measure_grading_net_mass
-  validates_presence_of :grading_sizes_indicator, :grading_sizes_unit, if: :measure_grading_sizes
+  validates :production_campaign, presence: { if: :perennial? }
+  validates :grading_net_mass_unit, presence: { if: :measure_grading_net_mass }
+  validates :grading_sizes_indicator, :grading_sizes_unit, presence: { if: :measure_grading_sizes }
 
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
@@ -101,7 +111,7 @@ class Activity < Ekylibre::Record::Base
   }
   scope :of_campaign, lambda { |campaign|
     if campaign
-      c = (campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation)) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
+      c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
       prods = where(id: ActivityProduction.select(:activity_id).of_campaign(c))
       budgets = where(id: ActivityBudget.select(:activity_id).of_campaign(c))
       where(id: prods.select(:id) + budgets.select(:id))
@@ -124,7 +134,9 @@ class Activity < Ekylibre::Record::Base
   accepts_nested_attributes_for :distributions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :inspection_point_natures, allow_destroy: true
   accepts_nested_attributes_for :inspection_calibration_scales, allow_destroy: true
-
+  accepts_nested_attributes_for :seasons, update_only: true, reject_if: -> (par) { par[:name].blank? }
+  accepts_nested_attributes_for :tactics, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :plant_density_abaci, allow_destroy: true, reject_if: :all_blank
   # protect(on: :update) do
   #   productions.any?
   # end
@@ -186,6 +198,8 @@ class Activity < Ekylibre::Record::Base
   before_save do
     self.support_variety = nil unless with_supports
     self.cultivation_variety = nil unless with_cultivation
+    self.use_seasons = nil unless seasons.any?
+    self.use_tactics = nil unless tactics.any?
   end
 
   after_save do
@@ -193,6 +207,10 @@ class Activity < Ekylibre::Record::Base
   end
 
   after_save do
+    productions.each do |production|
+      production.update_column(:season_id, seasons.first.id) if use_seasons?
+      production.update_column(:tactic_id, tactics.first.id) if use_tactics?
+    end
     if auxiliary? && distributions.any?
       total = distributions.sum(:affectation_percentage)
       if total != 100
@@ -414,5 +432,20 @@ class Activity < Ekylibre::Record::Base
 
   def is_of_family?(family)
     Nomen::ActivityFamily[self.family] <= family
+  end
+
+  def unit_choices
+    [:items, :mass]
+      .reject { |e| e == :items && !measure_grading_items_count }
+      .reject { |e| e == :mass && !measure_grading_net_mass }
+end
+
+  def unit_preference(user, unit = nil)
+    unit_preference_name = "activity_#{id}_inspection_view_unit"
+    user.prefer!(unit_preference_name, unit.to_sym) if unit.present?
+    pref = user.preference(unit_preference_name).value
+    pref ||= :mass
+    pref = unit_choices.find { |c| c.to_sym == pref.to_sym }
+    pref ||= unit_choices.first
   end
 end

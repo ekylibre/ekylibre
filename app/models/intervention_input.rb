@@ -22,6 +22,8 @@
 #
 # == Table: intervention_parameters
 #
+#  assembly_id             :integer
+#  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
 #  event_participation_id  :integer
@@ -56,14 +58,16 @@ class InterventionInput < InterventionProductParameter
   belongs_to :intervention, inverse_of: :inputs
   belongs_to :outcoming_product, class_name: 'Product'
   has_one :product_movement, as: :originator, dependent: :destroy
-  validates_presence_of :quantity_population
+  validates :quantity_population, presence: true
+
+  scope :of_component, -> (component) { where(component: component.self_and_parents) }
 
   before_validation do
     self.variant = product.variant if product
   end
 
   after_save do
-    if product
+    if product && intervention.record?
       movement = product_movement
       movement = build_product_movement(product: product) unless movement
       movement.delta = -1 * quantity_population

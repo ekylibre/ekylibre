@@ -144,6 +144,14 @@ module ApplicationHelper
     vals.join(':')
   end
 
+  def reading_direction
+    t('i18n.dir')
+  end
+
+  def reading_ltr?
+    reading_direction == 'ltr'
+  end
+
   # def locale_selector
   #   # , :selected => ::I18n.locale)
   #   locales = ::I18n.available_locales.sort{|a,b| a.to_s <=> b.to_s}
@@ -451,13 +459,16 @@ module ApplicationHelper
     end
     raise 'Need a name or a default item' unless name || default_item
     if name.is_a?(Symbol)
-      options[:icon] ||= name unless options.key?(:icon)
+      options[:icon] ||= name unless options[:icon].is_a?(FalseClass)
       name = options[:label] || name.ta(default: ["labels.#{name}".to_sym])
     end
     item_options = default_item.args.third if default_item
     item_options ||= {}
-    item_options[:tool] = options[:icon] if options[:icon]
-    content_tag(:div, class: 'btn-group' + (options[:class] ? ' ' + options[:class].to_s : '')) do
+    item_options[:tool] = options[:icon] if options.key?(:icon)
+    html_options = { class: 'btn-group' }
+    html_options[:class] << ' ' + options[:class].to_s if options[:class]
+    html_options[:id] = options[:id] if options[:id]
+    content_tag(:div, html_options) do
       if default_item
         html = tool_to(default_item.args.first, default_item.args.second,
                        item_options, &default_item.block)
@@ -733,7 +744,7 @@ module ApplicationHelper
 
   def tool_to(name, url, options = {})
     raise ArgumentError, "##{__method__} cannot use blocks" if block_given?
-    icon = options.delete(:tool)
+    icon = options.key?(:tool) ? options.delete(:tool) : options.key?(:icon) ? options.delete(:icon) : nil
     icon ||= url[:action] if url.is_a?(Hash) && !icon.is_a?(FalseClass)
     options[:class] = (options[:class].blank? ? 'btn btn-default' : options[:class].to_s + ' btn btn-default')
     options[:class] << ' icn btn-' + icon.to_s if icon
@@ -816,12 +827,6 @@ module ApplicationHelper
 
   def backend_form_for(object, *args, &block)
     options = args.extract_options!
-
-    if options.fetch(:data, {}).key?(:defaults) && options[:data][:defaults].is_a?(Hash)
-      options[:data][:defaults].each do |k, v|
-        object.send("#{k}=", v) if object.has_attribute?(k)
-      end
-    end
     simple_form_for([:backend, object], *(args << options.merge(builder: Backend::FormBuilder)), &block)
   end
 
@@ -914,7 +919,7 @@ module ApplicationHelper
     header_options = options.slice(:close_button, :close_html).merge(title_id: options[:aria][:labelledby])
     content_for(:popover) do
       content_tag(:div, options) do
-        content_tag(:div, class: 'modal-dialog') do
+        content_tag(:div, class: 'modal-dialog' + (options[:size] == :large ? ' modal-lg' : options[:size] == :small ? ' modal-sm' : '')) do
           content_tag(:div, class: 'modal-content') do
             if title
               modal_header(title, header_options) + capture(&block)

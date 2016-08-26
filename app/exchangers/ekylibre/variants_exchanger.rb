@@ -35,7 +35,7 @@ module Ekylibre
             stock_unit_pretax_amount: s.cell('G', row).blank? ? nil : s.cell('G', row).to_d,
             sale_unit_pretax_amount: s.cell('H', row).blank? ? nil : s.cell('H', row).to_d,
             price_unity: s.cell('I', row).blank? ? nil : s.cell('I', row).to_s.strip.split(/[\,\.\/\\\(\)]/),
-            indicators: s.cell('J', row).blank? ? {} : s.cell('J', row).to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+            indicators: s.cell('J', row).blank? ? {} : s.cell('J', row).to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
               h[i.first.strip.downcase.to_sym] = i.second
               h
             end

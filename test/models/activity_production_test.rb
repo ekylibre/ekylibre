@@ -33,6 +33,7 @@
 #  lock_version        :integer          default(0), not null
 #  nitrate_fixing      :boolean          default(FALSE), not null
 #  rank_number         :integer          not null
+#  season_id           :integer
 #  size_indicator_name :string           not null
 #  size_unit_name      :string
 #  size_value          :decimal(19, 4)   not null
@@ -42,6 +43,7 @@
 #  support_id          :integer          not null
 #  support_nature      :string
 #  support_shape       :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  tactic_id           :integer
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #  usage               :string           not null

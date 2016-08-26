@@ -85,7 +85,7 @@ module Ekylibre
             path: ':tenant/:class/:attachment/:id_partition/:style.:extension',
             styles: {
               thumb: ['64x64>', :jpg],
-              identity: ['180x180>', :jpg]
+              identity: ['180x180#', :jpg]
             },
             convert_options: {
               thumb:    '-background white -gravity center -extent 64x64',
@@ -131,6 +131,11 @@ module Ekylibre
 
         def nomenclature_reflections
           @nomenclature_reflections ||= {}.with_indifferent_access
+          if superclass.respond_to?(:nomenclature_reflections)
+            superclass.nomenclature_reflections.merge(@nomenclature_reflections)
+          else
+            @nomenclature_reflections
+          end
         end
 
         # Link to nomenclature
@@ -170,6 +175,11 @@ module Ekylibre
           scope "of_#{name}".to_sym, proc { |*items|
             where(reflection.foreign_key => items.map { |i| reflection.klass.all(i) }.flatten.uniq)
           }
+
+          define_method "of_#{name}?" do |item_or_name|
+            item = item_or_name.is_a?(Nomen::Item) ? item_or_name : reflection.klass.find(item_or_name)
+            self[reflection.foreign_key].present? && item >= self[reflection.foreign_key]
+          end
         end
 
         # Permits to consider something and something_id like the same
@@ -192,7 +202,7 @@ module Ekylibre
           code << "before_update do\n"
           code << "  if self.#{method_name}\n"
           code << "    old = #{name}.find(self.id)\n"
-          for attribute in args
+          args.each do |attribute|
             code << "  self['#{attribute}'] = old['#{attribute}']\n"
           end
           code << "  end\n"

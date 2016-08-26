@@ -59,29 +59,34 @@ class SaleItem < Ekylibre::Record::Base
   has_many :parcel_items
   has_many :credits, class_name: 'SaleItem', foreign_key: :credited_item_id
   has_many :subscriptions, dependent: :destroy
+  has_one :subscription, -> { order(:id) }, inverse_of: :sale_item
   has_one :sale_nature, through: :sale, source: :nature
+  has_one :product_nature, through: :variant, source: :nature
 
-  accepts_nested_attributes_for :subscriptions
   delegate :sold?, :invoiced_at, :number, to: :sale
   delegate :currency, :credit, to: :sale, prefix: true
   delegate :name, :short_label, :amount, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true
   delegate :unit_name, :name, to: :variant
   delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
+  delegate :subscription_nature, to: :product_nature
   delegate :entity_id, to: :address, prefix: true
 
-  alias product_nature variant_nature
+  # alias product_nature variant_nature
 
   acts_as_list scope: :sale
-
+  accepts_nested_attributes_for :subscriptions
+  accepts_nested_attributes_for :subscription, reject_if: :all_blank, allow_destroy: true
   sums :sale, :items, :pretax_amount, :amount
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :credited_quantity, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, :unit_pretax_amount, allow_nil: true
-  validates_presence_of :amount, :currency, :pretax_amount, :quantity, :reduction_percentage, :sale, :unit_amount, :variant
+  validates :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :annotation, :label, length: { maximum: 500_000 }, allow_blank: true
+  validates :credited_quantity, :unit_pretax_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :currency, :sale, :variant, presence: true
   # ]VALIDATORS]
-  validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_presence_of :tax
+  validates :currency, length: { allow_nil: true, maximum: 3 }
+  validates :tax, presence: true
 
   # return all sale items  between two dates
   scope :between, lambda { |started_at, stopped_at|

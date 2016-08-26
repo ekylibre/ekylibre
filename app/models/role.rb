@@ -37,9 +37,11 @@ class Role < Ekylibre::Record::Base
   include Rightable
   has_many :users
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :name
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :rights, length: { maximum: 500_000 }, allow_blank: true
   # ]VALIDATORS]
-  validates_uniqueness_of :name
+  validates :name, uniqueness: true
 
   protect(on: :destroy) do
     users.any?
@@ -85,7 +87,7 @@ class Role < Ekylibre::Record::Base
     end
 
     # parse rights
-    rights = item.accesses.inject({}) do |hash, right|
+    rights = item.accesses.each_with_object({}) do |right, hash|
       array = right.to_s.split('-')
       array.insert(0, 'all') if array.size < 3
       array << 'all' if array.size < 3

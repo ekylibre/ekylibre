@@ -18,6 +18,8 @@
 
 module Backend
   class ActivitiesController < Backend::BaseController
+    include InspectionViewable
+
     manage_restfully except: [:show], subclass_inheritance: true
 
     unroll
@@ -71,7 +73,7 @@ module Backend
       budgets = ActivityBudget.of_campaign(source)
       budgets = budgets.of_activity(activity) if activity
       budgets.each do |budget|
-        budget.duplicate!(activity, new_campaign)
+        budget.duplicate!(budget.activity, new_campaign)
       end
       redirect_to params[:redirect] || { action: :index }
     end
@@ -86,10 +88,10 @@ module Backend
         label: family.human_name,
         name: family.name
       }
-      if family.cultivation_variety
+      unless family.cultivation_variety.blank?
         data[:cultivation_varieties] = Nomen::Variety.selection_hash(family.cultivation_variety)
       end
-      if family.support_variety
+      unless family.support_variety.blank?
         data[:support_varieties] = Nomen::Variety.selection_hash(family.support_variety)
       end
       render json: data

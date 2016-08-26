@@ -41,7 +41,7 @@ module Ekylibre::Record
           code << "after_validation(:load_unique_reliable_#{column}, on: :create)\n"
 
           code << "def load_unique_predictable_#{column}\n"
-          code << "  unless self.#{column}\n" if options[:force].is_a?(FalseClass)
+          code << "  unless self.#{column}.present?\n" if options[:force].is_a?(FalseClass)
           code << "    last = #{last}\n"
           code << "    self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
           code << "    while #{class_name}.find_by(#{column}: self.#{column}) do\n"

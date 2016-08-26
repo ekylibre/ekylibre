@@ -37,6 +37,8 @@
 #  dead_at                   :datetime
 #  deliveries_conditions     :string
 #  description               :text
+#  employee                  :boolean          default(FALSE), not null
+#  employee_account_id       :integer
 #  first_met_at              :datetime
 #  first_name                :string
 #  full_name                 :string           not null
@@ -74,27 +76,29 @@ class Entity < Ekylibre::Record::Base
   include Versionable, Commentable, Attachable
   include Customizable
   attr_accessor :password_confirmation, :old_password
-  # belongs_to :attorney_account, class_name: "Account"
-  belongs_to :client_account, class_name: 'Account'
   refers_to :currency
   refers_to :language
   refers_to :country
   enumerize :nature, in: [:organization, :contact], default: :organization, predicates: true
   versionize exclude: [:full_name]
+  belongs_to :client_account, class_name: 'Account'
+  belongs_to :employee_account, class_name: 'Account'
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   belongs_to :proposer, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   belongs_to :supplier_account, class_name: 'Account'
   has_many :clients, class_name: 'Entity', foreign_key: :responsible_id, dependent: :nullify
-  has_many :all_addresses, class_name: 'EntityAddress', inverse_of: :entity, dependent: :destroy
-  has_many :addresses, -> { actives }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :mails,     -> { actives.mails    }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :emails,    -> { actives.emails   }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :phones,    -> { actives.phones   }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :mobiles,   -> { actives.mobiles  }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :faxes,     -> { actives.faxes    }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :websites,  -> { actives.websites }, class_name: 'EntityAddress', inverse_of: :entity
-  has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }, class_name: 'EntityAddress'
+  with_options class_name: 'EntityAddress', inverse_of: :entity do
+    has_many :all_addresses, dependent: :destroy
+    has_many :addresses, -> { actives }
+    has_many :mails,     -> { actives.mails    }
+    has_many :emails,    -> { actives.emails   }
+    has_many :phones,    -> { actives.phones   }
+    has_many :mobiles,   -> { actives.mobiles  }
+    has_many :faxes,     -> { actives.faxes    }
+    has_many :websites,  -> { actives.websites }
+    has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }
+  end
   has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
@@ -104,20 +108,22 @@ class Entity < Ekylibre::Record::Base
   has_many :indirect_links, class_name: 'EntityLink', foreign_key: :linked_id
   has_many :outgoing_payments, foreign_key: :payee_id
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :owner_id
-  has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id
-  has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) }, class_name: 'Purchase', foreign_key: :supplier_id
-  has_many :purchases, foreign_key: :supplier_id
+  has_many :participations, class_name: 'EventParticipation', foreign_key: :participant_id, dependent: :destroy
+  has_many :purchase_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
+           class_name: 'Purchase', foreign_key: :supplier_id
+  has_many :purchases, foreign_key: :supplier_id, dependent: :restrict_with_exception
   has_many :purchase_items, through: :purchases, source: :items
   has_many :parcels, foreign_key: :transporter_id
-  has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) }, class_name: 'Sale', foreign_key: :client_id
-  has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id
-  has_many :sale_opportunities, -> { order(created_at: :desc) }, foreign_key: :third_id
+  has_many :sales_invoices, -> { where(state: 'invoice').order(created_at: :desc) },
+           class_name: 'Sale', foreign_key: :client_id
+  has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id, dependent: :restrict_with_exception
+  has_many :sale_opportunities, -> { order(created_at: :desc) }, foreign_key: :third_id, dependent: :destroy
   has_many :managed_sales, -> { order(created_at: :desc) }, foreign_key: :responsible_id, class_name: 'Sale'
   has_many :sale_items, through: :sales, source: :items
-  has_many :subscriptions, foreign_key: :subscriber_id
+  has_many :subscriptions, foreign_key: :subscriber_id, dependent: :restrict_with_error
   has_many :tasks
   has_many :trackings, foreign_key: :producer_id
-  has_many :transports, foreign_key: :transporter_id
+  has_many :deliveries, foreign_key: :transporter_id, dependent: :restrict_with_error
   has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: 'Sale'
   has_many :usable_incoming_payments, -> { where('used_amount < amount') }, class_name: 'IncomingPayment', foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where(state: 'ready_to_send') }, class_name: 'Parcel', foreign_key: :transporter_id
@@ -128,17 +134,20 @@ class Entity < Ekylibre::Record::Base
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :born_at, :dead_at, :first_met_at, :picture_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, in: [true, false]
-  validates_presence_of :currency, :full_name, :language, :last_name, :nature
+  validates :active, :client, :employee, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
+  validates :activity_code, :deliveries_conditions, :first_name, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
+  validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :currency, :language, :nature, presence: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :full_name, :last_name, presence: true, length: { maximum: 500 }
+  validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :country, allow_nil: true, maximum: 2
-  validates_length_of :language, allow_nil: true, maximum: 3
-  validates_length_of :siret_number, allow_nil: true, maximum: 14
-  validates_length_of :vat_number, allow_nil: true, maximum: 20
-  validates_length_of :activity_code, allow_nil: true, maximum: 30
-  validates_length_of :deliveries_conditions, :number, allow_nil: true, maximum: 60
+  validates :country, length: { allow_nil: true, maximum: 2 }
+  validates :language, length: { allow_nil: true, maximum: 3 }
+  validates :siret_number, length: { allow_nil: true, maximum: 14 }
+  validates :vat_number, length: { allow_nil: true, maximum: 20 }
+  validates :activity_code, length: { allow_nil: true, maximum: 30 }
+  validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :name, :full_name
@@ -147,6 +156,7 @@ class Entity < Ekylibre::Record::Base
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
+  scope :employees,    -> { where(employee: true) }
   scope :related_to, lambda { |entity|
     where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
   }
@@ -200,7 +210,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any?
+    destroyable?
   end
 
   class << self
@@ -276,7 +286,7 @@ class Entity < Ekylibre::Record::Base
 
   # This method creates automatically an account for the entity for its usage (client, supplier...)
   def account(nature)
-    natures = [:client, :supplier]
+    natures = [:client, :supplier, :employee]
     conversions = { payer: :client, payee: :supplier }
     nature = nature.to_sym
     nature = conversions[nature] || nature
@@ -285,7 +295,9 @@ class Entity < Ekylibre::Record::Base
     end
     valid_account = send("#{nature}_account")
     if valid_account.nil?
-      prefix = Nomen::Account[nature.to_s.pluralize].send(Account.accounting_system)
+      account_nomen = nature.to_s.pluralize
+      account_nomen = :staff_due_remunerations if nature == :employee
+      prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s + self.number.to_s
         unless valid_account = Account.find_by(number: number)
@@ -295,7 +307,7 @@ class Entity < Ekylibre::Record::Base
         suffix = '1'
         suffix = suffix.upper_ascii[0..5].rjust(6, '0')
         account = 1
-        # x=Time.zone.now
+        # x = Time.zone.now
         i = 0
         until account.nil?
           account = Account.find_by('number LIKE ?', prefix.to_s + suffix.to_s)
@@ -321,7 +333,11 @@ class Entity < Ekylibre::Record::Base
   end
 
   def default_mail_coordinate
-    default_address ? default_address.coordinate : '[NoDefaultEntityAddressError]'
+    default_mail_address ? default_mail_address.coordinate : nil
+  end
+
+  def default_mail_address_id
+    default_mail_address ? default_mail_address.id : nil
   end
 
   def link_to!(entity, options = {})
@@ -338,12 +354,16 @@ class Entity < Ekylibre::Record::Base
       .maximum(:reduction_percentage).to_f || 0.0
   end
 
+  def last_subscription(nature)
+    subscriptions.where(nature: nature).order(stopped_on: :desc).first
+  end
+
   def picture_path(style = :original)
     picture.path(style)
   end
 
   def description
-    desc = number + '. ' + full_name
+    desc = (number.nil? ? '' : number) + '. ' + full_name
     c = default_mail_address
     desc += ' (' + c.mail_line_6.to_s + ')' unless c.nil?
     desc
@@ -418,6 +438,10 @@ class Entity < Ekylibre::Record::Base
       # Remove doublon
       entity.destroy
     end
+  end
+
+  def destroyable?
+    !(of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any?)
   end
 
   def self.best_clients(limit = -1)

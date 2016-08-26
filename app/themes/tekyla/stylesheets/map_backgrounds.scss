@@ -92,6 +92,10 @@ $map-height: 250px;
           &.active {
             @include icon-before(star, $font-size: $fs-normal);
           }
+
+          &.hide {
+            visibility: hidden;
+          }
         }
 
         .map-background-delete {

@@ -1,0 +1,6 @@
+= field_set do
+  = f.input :started_at
+  = f.input :stopped_at
+  = f.referenced_association :target
+  = f.referenced_association :activity
+  = f.referenced_association :activity_production

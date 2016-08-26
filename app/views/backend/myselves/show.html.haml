@@ -4,6 +4,7 @@
       = f.input :first_name
       = f.input :last_name
       = f.input :language, collection: available_languages
+      = f.input :theme, as: :radio_buttons, collection: ['tekyla', 'tekyla-sunrise', 'margarita'].sort.map{|t| [t.humanize, t] }
       = form_actions do
         = f.submit :update.ta, class: 'primary'
 

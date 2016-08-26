@@ -1,6 +1,6 @@
 = field_set do
   = f.input :name
   = f.input :code
-  = f.input :currency, collection: currencies
+  = f.input :currency, input_html: (f.object.new_record? ? {} : { disabled: true })
   = f.input :nature
   = f.custom_fields

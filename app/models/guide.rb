@@ -41,7 +41,7 @@
 #
 
 class Guide < Ekylibre::Record::Base
-  has_many :analyses, class_name: 'GuideAnalysis'
+  has_many :analyses, class_name: 'GuideAnalysis', dependent: :destroy
   has_one :last_analysis, -> { where(latest: true) }, class_name: 'GuideAnalysis'
   refers_to :nature, class_name: 'GuideNature'
   enumerize :frequency, in: [:hourly, :daily, :weekly, :monthly, :yearly, :decadely, :none], default: :none
@@ -50,13 +50,15 @@ class Guide < Ekylibre::Record::Base
   has_attached_file :reference_source, path: ':tenant/:class/:id/source.xml'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :reference_source_updated_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :reference_source_file_size, allow_nil: true, only_integer: true
-  validates_inclusion_of :active, :external, in: [true, false]
-  validates_presence_of :frequency, :name, :nature
+  validates :active, :external, inclusion: { in: [true, false] }
+  validates :frequency, :nature, presence: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :reference_source_content_type, :reference_source_file_name, length: { maximum: 500 }, allow_blank: true
+  validates :reference_source_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :reference_source_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   # ]VALIDATORS]
-  validates_inclusion_of :nature, in: nature.values
-  validates_inclusion_of :frequency, in: frequency.values
+  validates :nature, inclusion: { in: nature.values }
+  validates :frequency, inclusion: { in: frequency.values }
   validates_attachment_content_type :reference_source, content_type: /xml/
 
   delegate :status, to: :last_analysis, prefix: true

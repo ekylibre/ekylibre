@@ -83,7 +83,7 @@ class LandParcel < Easement
   end
 
   protect(on: :destroy) do
-    activity_productions.any?
+    activity_productions.any? || analyses.any?
   end
 
   def administrative_area

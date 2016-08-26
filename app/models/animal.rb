@@ -71,8 +71,8 @@ class Animal < Bioproduct
   belongs_to :initial_father, class_name: 'Animal'
   belongs_to :initial_mother, class_name: 'Animal'
 
-  validates_presence_of :identification_number
-  validates_uniqueness_of :identification_number
+  validates :identification_number, presence: true
+  validates :identification_number, uniqueness: true
 
   scope :fathers, -> { indicate(sex: 'male', reproductor: true).order(:name) }
   scope :mothers, -> { indicate(sex: 'female', reproductor: true).order(:name) }

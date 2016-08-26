@@ -1,6 +1,10 @@
 eng:
   nomenclatures:
     abilities:
+      choices:
+        parameters:
+          issue_nature: "Issue nature"
+          variety: "Variety"
       items:
         acidify: "Acidify"
         administer_care: "Administer care"
@@ -145,12 +149,12 @@ eng:
         equipment_asset_depreciations: "Equipment asset depreciations"
         equipment_assets: "Equipment assets"
         equipment_cooperative_participation_assets: "Equipment cooperative participation assets"
+        equipment_depreciations_inputations_expenses: "Equipment depreciations inputations expenses"
         equipment_expenses: "Equipment expenses"
         equipment_locative_expenses: "Equipment locative expenses"
+        equipment_maintenance_expenses: "Equipment maintenance expenses"
         equipment_rent_expenses: "Equipment rent expenses"
         equipment_subventions: "Equipment subventions"
-        equipments_depreciations_inputations_expenses: "Equipments depreciations inputations expenses"
-        equipments_expenses: "Equipments expenses"
         establishment_charge_assets: "Establishment charge assets"
         exceptional_expenses: "Exceptional expenses"
         exceptional_revenues: "Exceptional revenues"
@@ -553,6 +557,7 @@ eng:
         cow_milk_analysis: "Cow milk analysis"
         grain_analysis: "Grain analysis"
         meteorological_analysis: "Meteorological analysis"
+        plant_analysis: "Plant analysis"
         sensor_analysis: "Sensor analysis"
         silage_analysis: "Silage analysis"
         soil_analysis: "Soil analysis"
@@ -1332,6 +1337,7 @@ eng:
         wine_bottling_register: "Wine bottling register"
         wine_detention_register: "Wine detention register"
         wine_manipulation_register: "Wine manipulation register"
+        worker_register: "Worker register"
       name: "Document natures"
       property_natures:
         category: "Category"
@@ -1503,6 +1509,7 @@ eng:
         consumption_period: "Consumption period"
         copper_concentration: "Copper concentration"
         cumulated_rainfall: "Cumulated rainfall"
+        daily_average_working_time: "Daily average working time"
         daily_nitrogen_production: "Daily nitrogen production"
         diameter: "Diameter"
         dry_matter_rate: "Dry matter rate"
@@ -1514,6 +1521,7 @@ eng:
         fence_perimeter: "Fence perimeter"
         fertility_index: "Fertility index"
         figure: "Figure"
+        fodder_bales_count: "Fodder bales count"
         freezing_point_temperature: "Freezing point temperature"
         fresh_mass: "Fresh mass"
         fuel_consumption: "Fuel consumption"
@@ -1521,7 +1529,7 @@ eng:
         grains_area_density: "Grains area density"
         grains_count: "Grains count"
         hagberg_falling_number: "Hagberg falling number"
-        healthy: "Animal disease state"
+        healthy: "Healthiness"
         height: "Height"
         horizontal_rotation: "Horizontal rotation"
         immunoglobulins_concentration: "Immunoglobulins concentration"
@@ -1532,6 +1540,7 @@ eng:
         lactating: "Lactating"
         last_birth_children_count: "Last birth children count"
         length: "Length"
+        lifespan: "Lifespan"
         lipolysis: "Lipolysis"
         livestock_unit: "Livestock unit"
         magnesium_concentration: "Magnesium concentration"
@@ -1593,6 +1602,7 @@ eng:
         protein_concentration_index: "Protein concentration index"
         protein_matters_concentration: "Protein matters concentration"
         rainfall: "Rainfall"
+        ready_to_harvest: "Ready to harvest"
         reference_year: "Reference year"
         relative_humidity: "Relative humidity"
         reproductor: "Reproductor"
@@ -1607,6 +1617,7 @@ eng:
         soil_nature: "Soil nature"
         solar_irradiance: "Solar irradiance"
         somatic_cell_concentration: "Somatic cell concentration"
+        spans_count: "Spans count"
         specific_weight: "Specific weight"
         stakes_count: "Stakes count"
         subsoil_nature: "Subsoil nature"
@@ -1626,6 +1637,7 @@ eng:
         usage_duration: "Usage duration"
         volume_area_density: "Volume area density"
         volume_density: "Volume density"
+        volume_flow: "Volume flow"
         wait_before_entering_period: "Wait before entering period"
         wait_before_harvest_period: "Wait before harvest period"
         water_content_rate: "Water content rate"
@@ -1633,6 +1645,7 @@ eng:
         wind_direction: "Wind direction"
         wind_speed: "Wind speed"
         woodstock_variety: "Woodstock variety"
+        working_lifespan: "Working lifespan"
         zinc_concentration: "Zinc concentration"
       name: "Indicators"
       property_natures:
@@ -1656,6 +1669,7 @@ eng:
         bacterial_leaf_blight: "Bacterial leaf blight"     #< bacteria_disease
         bacterial_streak: "Bacterial streak"               #< bacteria_disease
         bacteriosis: "Bacteriosis"                         #< bacteria_disease
+        bad_vegetative_growth_conditions: "Bad vegetative growth conditions" #< disease
         black_rust: "Black rust"                           #< fungus_disease
         chenopodium_album: "Chenopodium album"             #< plant_disease
         climate_issue: "Climate issue"                     #< issue
@@ -1674,6 +1688,7 @@ eng:
         escape: "Escape"                                   #< issue
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
+        field_edge_male_seed_corn_defect: "Field edge male seed corn default" #< plant_issue
         flooding: "Flooding"                               #< climate_issue
         fomitiporia: "Fomitiporia"                         #< fungus_disease
         fungus_disease: "Fungus disease"                   #< disease
@@ -1692,11 +1707,13 @@ eng:
         phytophthora: "Phytophthora"                       #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
         plant_disease: "Plant disease"                     #< disease
+        plant_issue: "Plant issue"
         pourridie_rot: "Pourridie rot"                     #< fungus_disease
         protozoa_disease: "Protozoa disease"               #< disease
         respiratory_problem: "Respiratory problem"         #< disease
         scale_insect: "Scale insect"                       #< insecta_disease
         scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
+        seed_corn_castration_defect: "Seed corn castration default" #< plant_issue
         septoria_blotch: "Septoria blotch"                 #< fungus_disease
         support_issue: "Support issue"                     #< issue
         vine_mildew: "Vine mildew"                         #< fungus_disease
@@ -1957,7 +1974,9 @@ eng:
         chaptalization: "Chaptalization"
         complete_wine_transfer: "Complete wine transfer"
         concrete_slab_pouring: "Concrete slab pouring"
+        conservation_plowing: "Conservation plowing"
         corvicide: "Corvicide"
+        curative_maintenance: "Curative maintenance"
         cutting: "Cutting"
         dehorning: "Dehorning"
         desiccation: "Desiccation"
@@ -2017,6 +2036,7 @@ eng:
         molluscicide: "Molluscicide"
         natural_mating: "Natural mating"
         nematicide: "Nematicide"
+        net_removal: "Net removal"
         net_removing: "Net removing"
         oil_replacement: "Oil replacement"
         organic_fertilization: "Organic fertilization"
@@ -2024,10 +2044,13 @@ eng:
         partial_wine_transfer: "Partial wine transfer"
         parturition: "Parturition"
         pivot_troubleshooting: "Pivot troubleshooting"
+        plant_support: "Plant support"
         plant_uncovering: "Plant uncovering"
         plantation_unfixing: "Plantation unfixing"
         planting: "Planting"
         plowing: "Plowing"
+        pollinate: "Pollinate"
+        preventive_maintenance: "Preventive maintenance"
         product_identification: "Product identification"
         pumping_system_troubleshooting: "Pumping system troubleshooting"
         rain_protection: "Rain protection"
@@ -2054,7 +2077,10 @@ eng:
         topkilling: "Topkilling"
         tractor_troubleshooting: "Tractor troubleshooting"
         troubleshooting: "Troubleshooting"
+        tunnel_installation: "Tunnel installation"
+        tunnel_removal: "Tunnel removal"
         tunnel_removing: "Tunnel removing"
+        upgrading_maintenance: "Upgrading maintenance"
         virucide: "Virucide"
         water_flow_improvement: "Water flow improvement"
         weeding: "Weeding"
@@ -2063,6 +2089,7 @@ eng:
         wine_bottling: "Wine bottling"
         wood_collecting: "Wood collecting"
         wood_refilling: "Wood refilling"
+        yield_improvement: "Yield improvement"
       name: "Procedure actions"
     procedure_categories:
       items:
@@ -2354,6 +2381,7 @@ eng:
         trade_show: "Trade show"
         travel: "Travel"
         various_loan_interest: "Various loan interest"
+        vegetable: "Vegetable"
         vegetals_making_services: "Vegetals making services"
         wine: "Wine"
         wine_package_consumable: "Wine package consumable"
@@ -2468,6 +2496,7 @@ eng:
         bank_service: "Bank service"
         barley_grain: "Barley grain"
         battery: "Battery"
+        bean: "Bean"
         bean_crop: "Bean crop"
         bed_former: "Seedbed cultivator"
         bee_band: "Bee band"
@@ -2475,6 +2504,7 @@ eng:
         beef_dried_sausage: "Beef dried sausage"
         beef_meat: "Beef meat"
         beef_sausage: "Beef sausage"
+        beet: "Beet"
         beet_crop: "Beet crop"
         big_sticker: "Big sticker"
         blackcurrant_crop: "Blackcurrant crop"
@@ -2517,6 +2547,7 @@ eng:
         bumblebee_band: "Bumblebee band"
         burdock_crop: "Burdock crop"
         butler_hazelnut: "Butler hazelnut"
+        cabbage: "Cabbage"
         cabbage_crop: "Cabbage crop"
         calcium_carbonate_25kg: "Calcium carbonate 25kg"
         calf: "Calf"
@@ -2528,6 +2559,7 @@ eng:
         car_moving_travel: "Car moving travel"
         card: "Card"
         carriage: "Carriage"
+        carrot: "Carrot"
         carrot_crop: "Carrot crop"
         cattle_compost: "Cattle compost"
         cattle_herd: "Cattle herd"
@@ -2538,6 +2570,7 @@ eng:
         cereals_harvest_insurance: "Cereals harvest insurance"
         chainsaw: "Chainsaw"
         chandler_walnut: "Chandler walnut"
+        chard: "Chard"
         chemical_fertilizer_division: "Chemical fertilizer division"
         cherry_laurel_crop: "Cherry laurel crop"
         chick_hen_band: "Chick hen band"
@@ -2795,7 +2828,9 @@ eng:
         hen_slurry: "Hen slurry"
         herbicide: "Herbicide"
         hiller: "Hiller"
+        hive: "Hive"
         hoe: "Hoe"
+        hoe_weeder: "Hoe weeder"
         horse_compost: "Horse compost"
         horse_herd: "Horse herd"
         horse_manure: "Horse manure"
@@ -2816,8 +2851,10 @@ eng:
         internet_line_subscription: "Internet line subscription"
         intership: "Intership"
         ip_address_subscription: "Ip address subscription"
+        irrigation_pivot: "Irrigation pivot"
         irrigation_water: "Irrigation water"
         jemstegaard_hazelnut: "Jemstegaard hazelnut"
+        jerusalem_artichoke: "Jerusalem artichoke"
         lactic_acid_25kg: "Lactic acid 25kg"
         lamb: "Lamb"
         lamb_meat: "Lamb meat"
@@ -2828,10 +2865,12 @@ eng:
         lara_walnut: "Lara walnut"
         lavender_crop: "Lavender crop"
         leasing: "Leasing"
+        leek: "Leek"
         leek_crop: "Leek crop"
         legal_registration: "Legal registration"
         lentil_crop: "Lentil crop"
         lentil_grain: "Lentil grain"
+        lettuce: "Lettuce"
         lettuce_crop: "Lettuce crop"
         lewis_hazelnut: "Lewis hazelnut"
         lifter: "Lifter"
@@ -2906,6 +2945,7 @@ eng:
         office_building: "Office building"
         office_building_division: "Office building division"
         oilrape_grain: "Oilrape grain"
+        onion: "Onion"
         orchards_harvest_insurance: "Orchards harvest insurance"
         other_herbicide: "Other herbicide"
         ovis_compost: "Ovis compost"
@@ -2916,7 +2956,9 @@ eng:
         packed_ox_meat: "Packed ox meat"
         packed_veal_meat: "Packed veal meat"
         pallet: "Pallet"
+        parsnip: "Parsnip"
         pauetet_hazelnut: "Pauetet hazelnut"
+        pea: "Pea"
         pea_crop: "Pea crop"
         pea_grain: "Pea grain"
         pea_seed: "Pea seed"
@@ -2944,6 +2986,8 @@ eng:
         plum_seedling: "Plum seedling"
         poaceae_fungicide: "Poaceae fungicide"
         poaceae_herbicide: "Poaceae herbicide"
+        pollination_tool: "Pollination tool"
+        pollinator: "Pollinator"
         polyester_tank: "Polyester tank"
         pony_herd: "Pony herd"
         popcorn_grain: "Popcorn grain"
@@ -2955,6 +2999,7 @@ eng:
         postal_stamp: "Postal stamp"
         potassium_bicarbonate_25kg: "Potassium bicarbonate 25kg"
         potassium_ferrocyanide_25kg: "Potassium ferrocyanide 25kg"
+        potato: "Potato"
         potato_crop: "Potato crop"
         poultry_sausage: "Poultry sausage"
         preparation_division: "Preparation division"
@@ -2969,11 +3014,12 @@ eng:
         quinoa_crop: "Quinoa crop"
         rabbit_herd: "Rabbit herd"
         rabbit_manure: "Rabbit manure"
+        radish: "Radish"
         rape_crop: "Rape crop"
         rape_seed: "Rape seed"
         raspberry_crop: "Raspberry crop"
         raspberry_seedling: "Raspberry seedling"
-        reaper: "Combine harverster"
+        reaper: "Combine harvester"
         rent: "Rent"
         representation_suit: "Representation suit"
         responsibility_insurance: "Responsibility insurance"
@@ -3022,6 +3068,7 @@ eng:
         spelt_grain: "Spelt grain"
         spelt_seed_25: "Spelt seed 25"
         spelt_wheat_crop: "Spelt wheat crop"
+        spinach: "Spinach"
         sprayer: "Sprayer"
         spread_renting: "Spread renting"
         spreader: "Fertilizer spreader"
@@ -3029,6 +3076,7 @@ eng:
         spring_barley_crop: "Spring barley crop"
         spring_barley_seed_25: "Spring barley seed 25"
         spring_oat_crop: "Spring oat crop"
+        squash: "Squash"
         stainless_steel_tank: "Stainless steel tank"
         steam_engine: "Steam engine"
         strawberry_crop: "Strawberry crop"
@@ -3058,6 +3106,7 @@ eng:
         triticale_crop: "Triticale crop"
         triticale_grain: "Triticale grain"
         truck: "Truck"
+        turnip: "Turnip"
         uncover: "Uncover"
         urban_compost: "Urban compost"
         various_loan_interest: "Various loan interest"
@@ -3074,6 +3123,7 @@ eng:
         water_bowser: "Water bowser"
         water_spreader: "Water spreader"
         weeder: "Weeder"
+        weeding_kit: "Weeding kit"
         wheat_crop: "Wheat crop"
         wheat_grain: "Wheat grain"
         wheat_seed_25: "Wheat seed 25"
@@ -3105,6 +3155,9 @@ eng:
         variety: "Variety"
     product_natures:
       choices:
+        linkage_points:
+          front: "Front"
+          rear: "Rear"
         population_counting:
           decimal: "Decimal"
           integer: "Integer"
@@ -3126,20 +3179,25 @@ eng:
         bale_collector: "Bale collector"
         baler: "Baler"
         bank_service: "Bank service"
+        bean: "Bean"
         bee_band: "Bee band"
         beef_meat: "Beef meat"
+        beet: "Beet"
         bonus_staff_expense: "Bonus staff expense"
         bottle: "Bottle"
         building: "Building"
         building_division: "Building division"
         bumblebee_band: "Bumblebee band"
+        cabbage: "Cabbage"
         calf: "Calf"
         car: "Car"
         carriage: "Carriage"
+        carrot: "Carrot"
         catalog_and_print: "Catalog and print"
         cattle_herd: "Cattle herd"
         cereal_crop: "Cereal crop"
         chainsaw: "Chainsaw"
+        chard: "Chard"
         cheese: "Cheese"
         chemical_fertilizer: "Chemical fertilizer"
         clarification_solution: "Clarification solution"
@@ -3190,6 +3248,7 @@ eng:
         ferry: "Grain cart"
         fiscal_fine: "Fiscal fine"
         flower_crop: "Flower crop"
+        fodder_bale: "Fodder bale"
         foliar_spray: "Foliar spray"
         food_distributor: "Food distributor"
         food_equipment_division: "Food equipment division"
@@ -3229,7 +3288,9 @@ eng:
         hen_herd: "Hen herd"
         herbicide: "Herbicide"
         hiller: "Hiller"
+        hive: "Hive"
         hoe: "Hoe"
+        hoe_weeder: "Hoe weeder"
         honey: "Honey"
         horse_herd: "Horse herd"
         hydraulic_oil: "Hydraulic oil"
@@ -3239,7 +3300,9 @@ eng:
         inseminator: "Inseminator"
         installing_charge: "Installing charge"
         insurance: "Insurance"
+        irrigation_pivot: "Irrigation pivot"
         irrigation_water: "Irrigation water"
+        jerusalem_artichoke: "Jerusalem artichoke"
         lamb: "Lamb"
         lamb_meat: "Lamb meat"
         land_parcel: "Land parcel"
@@ -3247,7 +3310,9 @@ eng:
         land_parcel_construction: "Land parcel construction"
         land_parcel_locative_charge: "Land parcel locative charge"
         leasing: "Leasing"
+        leek: "Leek"
         legal_registration: "Legal registration"
+        lettuce: "Lettuce"
         little_office_item: "Little office item"
         loan_interest: "Loan interest"
         mail_subscription: "Mail subscription"
@@ -3286,9 +3351,12 @@ eng:
         numeric_subscription: "Numeric subscription"
         oenological_yeast: "Oenological yeast"
         office_furniture: "Office furniture"
+        onion: "Onion"
         organic_fertilizer: "Organic fertilizer"
         oyster_band: "Oyster band"
         packaged_process_food: "Packaged process food"
+        parsnip: "Parsnip"
+        pea: "Pea"
         peanut: "Peanut"
         picker: "Picker"
         pig_band: "Pig band"
@@ -3300,7 +3368,10 @@ eng:
         plum: "Plum"
         plum_reaper: "Plum reaper"
         plum_seedling: "Plum seedling"
+        pollination_tool: "Pollination tool"
+        pollinator: "Pollinator"
         pork_meat: "Pork meat"
+        potato: "Potato"
         poultry_meat: "Poultry meat"
         preparation_division: "Preparation division"
         process_food: "Process food"
@@ -3317,6 +3388,7 @@ eng:
         pruning_platform: "Pruning platform"
         rabbit_herd: "Rabbit herd"
         radio_subscription: "Radio subscription"
+        radish: "Radish"
         raw_material: "Raw material"
         reaper: "Combine harverster"
         recycling_contribution: "Recycling contribution"
@@ -3341,10 +3413,12 @@ eng:
         soil_loosener: "Soil loosener"
         sower: "Seeder"
         species: "Species"
+        spinach: "Spinach"
         sprayer: "Sprayer"
         spread_renting: "Spread renting"
         spreader: "Fertilizer spreader"
         spreader_trailer: "Manure spreader"
+        squash: "Squash"
         stake: "Stake"
         steam_engine: "Steam engine"
         straw: "Straw"
@@ -3361,10 +3435,12 @@ eng:
         training_course: "Training course"
         trimmer: "Trimmer"
         truck: "Truck"
+        turnip: "Turnip"
         uncover: "Uncover"
         user_support: "User support"
         usual_vine_seedling: "Usual vine seedling"
         various_loan_interest: "Various loan interest"
+        vegetable: "Vegetable"
         vegetable_crop: "Vegetable crop"
         vegetals_making_services: "Vegetals making services"
         vial: "Vial"
@@ -3373,6 +3449,7 @@ eng:
         water_spreader: "Water spreader"
         water_tank: "Water tank"
         weeder: "Weeder"
+        weeding_kit: "Weeding kit"
         wheel_loader: "Wheel loader"
         wine: "Wine"
         wine_acidifying: "Wine acidifying"
@@ -3564,6 +3641,7 @@ eng:
         cubic_centimeter: "Cubic centimeter"
         cubic_meter: "Cubic meter"
         cubic_meter_per_hectare: "Cubic meter per hectare"
+        cubic_meter_per_hour: "Cubic meter per hour"
         day: "Day"
         degree: "Degree"
         dozen: "Dozen"
@@ -3601,6 +3679,7 @@ eng:
         liter: "Liter"
         liter_per_hectare: "Liter per hectare"
         liter_per_hour: "Liter per hour"
+        liter_per_minute: "Liter per minute"
         liter_per_square_meter: "Liter per square meter"
         mass_percent: "Mass percent"
         megawatt: "Megawatt"
@@ -3778,8 +3857,6 @@ eng:
         avena_sativa_une_de_mai: "Oat une de mai"          #< avena_sativa
         aves: "Bird"                                       #< animal
         bacteria: "Bacteria"                               #< bioproduct
-        bale_collector: "Bale collector"                   #< equipment
-        baler: "Baler"                                     #< equipment
         bambusa: "Bamboo"                                  #< poaceae
         bellis: "Bellis"                                   #< asteraceae
         bellis_perennis: "Bellis perennis"                 #< bellis
@@ -3876,7 +3953,6 @@ eng:
         botrytis: "Botrytis"                               #< sclerotiniaceae
         botrytis_cinerea: "Botrytis cinerea"               #< botrytis
         bottle: "Bottle"                                   #< packaged_matter
-        bottler: "Bottler"                                 #< equipment
         bovidae: "Bovidae"                                 #< mammalia
         brassica: "Brassica"                               #< brassicaceae
         brassica_napus: "Rapeseed"                         #< brassica
@@ -4042,6 +4118,7 @@ eng:
         capsicum_chinense: "Habanero Pepper"               #< capsicum
         capsicum_frutescens: "Hot Pepper"                  #< capsicum
         capsicum_pubescens: "Rocoto"                       #< capsicum
+        car: "Car"                                         #< motorized_vehicle
         carpinus: "Carpinus"                               #< betulaceae
         carpinus_betulus: "Carpinus betulus"               #< carpinus
         carpinus_caroliniana: "Carpinus caroliniana"       #< carpinus
@@ -4104,7 +4181,6 @@ eng:
         citrus_medica: "Citron"                            #< citrus
         citrus_reticulata: "Tangerine"                     #< citrus
         citrus_sinensis: "Orange"                          #< citrus
-        cleaner: "Cleaner"                                 #< equipment
         coccoidea: "Coccoidea"                             #< insecta
         coffea: "Coffea"                                   #< rubiaceae
         coffea_arabica: "Coffea arabica"                   #< coffea
@@ -4120,7 +4196,6 @@ eng:
         coriandrum_sativum: "Coriander"                    #< coriandrum
         cork: "Cork"                                       #< packaged_matter
         cork_bottle: "Cork bottle"                         #< bottle
-        corker: "Corker"                                   #< equipment
         corylus: "Hazel"                                   #< betulaceae
         corylus_avellana: "Common hazel"                   #< corylus
         corylus_avellana_butler: "Common hazel Butler"     #< corylus_avellana
@@ -4161,7 +4236,7 @@ eng:
         cucurbita_argyrosperma: "Cushaw"                   #< cucurbita
         cucurbita_ficifolia: "Figleaf Gourd"               #< cucurbita
         cucurbita_maxima: "Winter squash"                  #< cucurbita
-        cucurbita_maxima_atlantic_giant: "Atlantic Giant"  #< cucurbita_maxima
+        cucurbita_maxima_atlantic_giant: "Atlantic Giant Pumpkin" #< cucurbita_maxima
         cucurbita_maxima_baleine: "Whale Pumpkin"          #< cucurbita_maxima
         cucurbita_maxima_blanc_de_mayet: "White Pumpkin"   #< cucurbita_maxima
         cucurbita_maxima_bleu_de_hongrie: "Bleu de Hongrie squash" #< cucurbita_maxima
@@ -4296,6 +4371,7 @@ eng:
         eotetranychus_coryli: "Eotetranychus coryli"       #< insecta
         equidae: "Equidae"                                 #< mammalia
         equipment: "Equipment"                             #< matter
+        equipment_part: "Item"                             #< matter
         equus: "Equine"                                    #< equidae
         equus_asinus: "Donkey"                             #< equus
         equus_caballus: "Horse"                            #< equus
@@ -4331,8 +4407,6 @@ eng:
         foeniculum_vulgare_azoricum: "Florence Fennel"     #< foeniculum_vulgare
         foeniculum_vulgare_piperitum: "Pepper Fennel"      #< foeniculum_vulgare
         fomitiporia: "Fomitiporia"                         #< hymenochaetaceae
-        food_deliver: "Food deliver"                       #< equipment
-        forager: "Silage harvester"                        #< equipment
         forsythia: "Forsythia"                             #< oleaceae
         forsythia_europaea: "Forsythia europaea"           #< forsythia
         forsythia_x_intermedia: "Forsythia x intermedia"   #< forsythia
@@ -4369,14 +4443,16 @@ eng:
         guano: "Guano"                                     #< excrement
         guizotia: "Guizotia"                               #< asteraceae
         guizotia_abyssinica: "Niger"                       #< guizotia
-        harvester: "Harvester"                             #< equipment
+        handling_equipment: "Handling equipment"           #< motorized_vehicle
         hay: "Hay"                                         #< grass
         hazelnut: "Hazelnut"                               #< fruit
+        heavy_equipment: "Heavy equipment"                 #< motorized_vehicle
         helianthus: "Sunflower"                            #< asteraceae
         helianthus_annuus: "Annual sunflower"              #< helianthus
         helianthus_annuus_aurasol: "Annual sunflower aurasol" #< helianthus_annuus
         helianthus_annuus_es_ethic: "Annual sunflower es ethic" #< helianthus_annuus
         helianthus_annuus_es_magnific: "Annual sunflower es magnific" #< helianthus_annuus
+        helianthus_annuus_es_romantic: "Annual sunflower es romantic" #< helianthus_annuus
         helianthus_annuus_extrasol: "Annual sunflower extrasol" #< helianthus_annuus
         helianthus_annuus_lg_5360_ho: "Annual sunflower lg 5360 ho" #< helianthus_annuus
         helianthus_annuus_lg_5450_ho: "Annual sunflower lg 5450 ho" #< helianthus_annuus
@@ -4573,13 +4649,11 @@ eng:
         hypericaceae: "Hypericaceae"                       #< plant
         hypericum: "Hypericum"                             #< hypericaceae
         immatter: "Immatter"                               #< product
-        implanter: "Planter"                               #< equipment
         insecta: "Insecta"                                 #< animal
         ipomoea: "Ipomoea"                                 #< convolvulaceae
         ipomoea_batatas: "Sweet potato"                    #< ipomoea
         ipomoea_batatas_beauregard: "Sweet potato Beauregard" #< ipomoea_batatas
         iridaceae: "Iridaceae"                             #< plant
-        item: "Item"                                       #< equipment
         juglandaceae: "Juglandaceae"                       #< plant
         juglans: "Juglans"                                 #< juglandaceae
         juglans_regia: "Common walnut"                     #< juglans
@@ -4662,7 +4736,6 @@ eng:
         malus_pumila_barbarie: "Apple-tree Barbarie"       #< malus_pumila
         malus_pumila_beaurichard: "Apple-tree Beaurichard" #< malus_pumila
         malus_pumila_bec_d_oie_du_cher: "Apple-tree Bec d’oie du Cher" #< malus_pumila
-        malus_pumila_belle-fille_de_la_creuse: "Apple-tree Belle-Fille de la Creuse" #< malus_pumila
         malus_pumila_belle_de_juillet: "Apple-tree Belle de juillet" #< malus_pumila
         malus_pumila_belle_de_linards: "Apple-tree Belle de Linards" #< malus_pumila
         malus_pumila_belle_de_pontoise: "Apple-tree Belle de Pontoise" #< malus_pumila
@@ -4928,13 +5001,15 @@ eng:
         morus_microphylla: "Morus microphylla"             #< morus
         morus_nigra: "Morus nigra"                         #< morus
         morus_rubra: "Morus rubra"                         #< morus
-        mower: "Windrower"                                 #< equipment
+        motorized_vehicle: "Motorized vehicle"             #< equipment
         musa: "Musa"                                       #< musaceae
         musa_acuminata: "Musa acuminata"                   #< musa
         musa_balbisiana: "Musa balbisiana"                 #< musa
         musa_textilis: "Musa textilis"                     #< musa
         musa_velutina: "Musa velutina"                     #< musa
         musaceae: "Musaceae"                               #< plant
+        musca: "Fly"                                       #< insecta
+        musca_domestica: "House fly"                       #< musca
         myocastoridae: "Myocastoridae"                     #< mammalia
         myrtaceae: "Myrtaceae"                             #< plant
         mytilidae: "Mytilidae"                             #< bivalvia
@@ -5067,6 +5142,7 @@ eng:
         phaseolus_vulgaris_mogex: "Bean Mogex"             #< phaseolus_vulgaris
         phaseolus_vulgaris_molly: "Bean Molly"             #< phaseolus_vulgaris
         phaseolus_vulgaris_princesse_du_peleve: "Bean Princesse du Pélève" #< phaseolus_vulgaris
+        phaseolus_vulgaris_red_kindley: "Bean Red Kindley" #< phaseolus_vulgaris
         phaseolus_vulgaris_stanley: "Bean Stanley"         #< phaseolus_vulgaris
         phaseolus_vulgaris_sv1162gn: "Bean SV1162GN"       #< phaseolus_vulgaris
         phaseolus_vulgaris_verdelys: "Bean green flageolet Verdelys (dwarf)" #< phaseolus_vulgaris
@@ -5101,7 +5177,6 @@ eng:
         plantago_psyllium: "Plantago psyllium"             #< plantago
         plasmopara: "Plasmopara"                           #< peronosporaceae
         plasmopara_viticola: "Plasmopara viticola"         #< plasmopara
-        plower: "Plower"                                   #< equipment
         plum: "Plum"                                       #< fruit
         plumbaginaceae: "Plumbaginaceae"                   #< plant
         poa: "Poa"                                         #< poaceae
@@ -5111,9 +5186,9 @@ eng:
         polygonaceae: "Polygonaceae"                       #< plant
         pomace: "Pomace"                                   #< preparation
         poncirus: "Prickly lemon tree"                     #< rutaceae
+        portable_equipment: "Portable equipment"           #< equipment
         potassium_ferrocyanide: "Potassium ferrocyanide"   #< raw_matter
         preparation: "Preparation"                         #< matter
-        press: "Press"                                     #< equipment
         primula: "Primula"                                 #< primulaceae
         primulaceae: "Primulaceae"                         #< plant
         pringlea_antiscorbutica: "Kerguelen cabbage"       #< brassicaceae
@@ -5122,7 +5197,6 @@ eng:
         product: "Product"
         product_group: "Product group"                     #< product
         property_title: "Property title"                   #< immatter
-        pruner: "Pruner"                                   #< equipment
         prunus: "Prunus"                                   #< rosaceae
         prunus_armeniaca: "Apricot tree"                   #< prunus
         prunus_armeniaca_abricot_commun_de_clairac: "Apricot tree common apricot De Clairac" #< prunus_armeniaca
@@ -5308,7 +5382,6 @@ eng:
         raphanus_sativus_oleiformis_compass: "Forage Radish Compass" #< raphanus_sativus_oleiformis
         raspberry: "Raspberry"                             #< fruit
         raw_matter: "Raw matter"                           #< preparation
-        reaper: "Combine harverster"                       #< equipment
         rhagoletis_completa: "Rhagoletis completa"         #< insecta
         ribes: "Ribes"                                     #< grossulariaceae
         ribes_nigrum: "Blackcurrant"                       #< ribes
@@ -5369,6 +5442,7 @@ eng:
         secale_cereale: "Rye"                              #< secale
         seed: "Seed"                                       #< raw_matter
         seedling: "Seedling"                               #< raw_matter
+        self_propelled_equipment: "Self propelled equipment" #< motorized_vehicle
         service: "Service"                                 #< immatter
         setaria: "Foxtail"                                 #< poaceae
         setaria_italica: "Foxtail millet"                  #< setaria
@@ -5748,15 +5822,12 @@ eng:
         solanum_tuberosum_yukon_gold: "Potato Yukon Gold"  #< solanum_tuberosum
         solanum_tuberosum_zuzzna: "Potato Zuzzna"          #< solanum_tuberosum
         sorghum: "Sorghum"                                 #< poaceae
-        sower: "Seeder"                                    #< equipment
         spinacia: "Spinacia"                               #< amaranthaceae
         spinacia_oleracea: "Spinach"                       #< spinacia
         spinacia_oleracea_el_grinta: "Spinach El Grinta"   #< spinacia_oleracea
         spinacia_oleracea_rocoon: "Spinach Rocoon"         #< spinacia_oleracea
         spiraea: "Spiraea"                                 #< rosaceae
         spiraea_x_billiardii: "Spiraea x billiardii"       #< spiraea
-        sprayer: "Sprayer"                                 #< equipment
-        spreader: "Fertilizer spreader"                    #< equipment
         stake: "Stake"                                     #< packaged_matter
         straw: "Straw"                                     #< grass
         strawberry: "Strawberry"                           #< fruit
@@ -5805,7 +5876,6 @@ eng:
         sus_scrofa_x70: "Domestic pig X70"                 #< sus_scrofa
         sus_scrofa_x80: "Domestic pig X80"                 #< sus_scrofa
         tank: "Tank"                                       #< equipment
-        telescopic_handler: "Telescopic handler"           #< equipment
         theobroma: "Theobroma"                             #< malvaceae
         theobroma_cacao: "Cocoa tree"                      #< theobroma
         theobroma_grandiflorum: "Theobroma grandiflorum"   #< theobroma
@@ -5813,9 +5883,9 @@ eng:
         tilia: "Tilia"                                     #< malvaceae
         tilia_americana: "Tilia americana"                 #< tilia
         tilia_cordata: "Tilia cordata"                     #< tilia
-        tractor: "Tractor"                                 #< equipment
+        tractor: "Tractor"                                 #< motorized_vehicle
         tragopogon: "Salsify"                              #< asteraceae
-        trailer: "Trailer"                                 #< equipment
+        trailed_equipment: "Trailed equipment"             #< equipment
         trifolium: "Clover"                                #< fabaceae
         trifolium_alexandrinum: "Trifolium alexandrinum"   #< trifolium
         trifolium_incarnatum: "Trifolium incarnatum"       #< trifolium
@@ -6041,6 +6111,7 @@ eng:
         triticum_durum_vivadur: "Durum wheat Vivadur"      #< triticum_durum
         triticum_durum_yelodur: "Durum wheat Yelodur"      #< triticum_durum
         triticum_spelta: "Spelt"                           #< triticum
+        truck: "Truck"                                     #< motorized_vehicle
         uncinula: "Uncinula"                               #< erysiphaceae
         uncinula_necator: "Uncinula necator"               #< uncinula
         valeriana: "Valeriana"                             #< valerianaceae
@@ -6127,7 +6198,6 @@ eng:
         water: "Water"                                     #< matter
         weigela: "Weigela"                                 #< diervillaceae
         weigela_floribunda: "Weigela floribunda"           #< weigela
-        wheel_loader: "Wheel loader"                       #< equipment
         wine: "Wine"                                       #< fermented_juice
         wire: "Wire"                                       #< packaged_matter
         worker: "Worker"                                   #< product
@@ -6139,15 +6209,18 @@ eng:
         yeast: "Yeast"                                     #< preparation
         zea: "Zea"                                         #< poaceae
         zea_mays: "Corn"                                   #< zea
+        zea_mays_5142: "Corn 5142"                         #< zea_mays
         zea_mays_P0216: "Corn P0216"                       #< zea_mays
         zea_mays_aallexia: "Corn Aallexia"                 #< zea_mays
         zea_mays_barcarolle_cs: "Corn Barcarolle CS"       #< zea_mays
         zea_mays_bergxxon: "Corn Bergxxon"                 #< zea_mays
         zea_mays_boomer: "Corn Boomer"                     #< zea_mays
         zea_mays_cadixxio: "Corn Cadixxio"                 #< zea_mays
+        zea_mays_capuzi: "Corn Capuzi"                     #< zea_mays
         zea_mays_ceratina: "Waxy Corn"                     #< zea_mays
         zea_mays_ceratina_dkc5430wx: "Waxy Corn DKC 5430 wx" #< zea_mays_ceratina
         zea_mays_ceratina_dkc5783wx: "Waxy Corn DKC 5783 wx" #< zea_mays_ceratina
+        zea_mays_ceratina_mas56wx: "Waxy Corn MAS 56 WX"   #< zea_mays_ceratina
         zea_mays_ceratina_mas66wx: "Waxy Corn MAS 66 wx"   #< zea_mays_ceratina
         zea_mays_ceratina_p0725e: "Waxy Corn P0725E"       #< zea_mays_ceratina
         zea_mays_ceratina_p1547e: "Waxy Corn P1547E"       #< zea_mays_ceratina
@@ -6183,7 +6256,9 @@ eng:
         zea_mays_p921s: "Corn P921 S"                      #< zea_mays
         zea_mays_ph30: "Corn PH 30"                        #< zea_mays
         zea_mays_ph31s: "Corn PH 31 S"                     #< zea_mays
+        zea_mays_ph450: "Corn PH 450"                      #< zea_mays
         zea_mays_pr34p88: "Corn PR34P88"                   #< zea_mays
+        zea_mays_pw450: "Corn PW 450"                      #< zea_mays
         zea_mays_roberi_cs: "Corn Roberi CS"               #< zea_mays
         zea_mays_saccharata: "Sweet Corn"                  #< zea_mays
         zea_mays_saccharata_646: "Sweet Corn 646"          #< zea_mays_saccharata

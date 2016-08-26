@@ -19,75 +19,77 @@
 module Backend
   class SubscriptionsController < Backend::BaseController
     manage_restfully(
-      except: [:index],
-      address_id: 'EntityAddress.find_by(entity_id: params[:subscriber_id]).id rescue 0'.c,
+      # address_id: 'EntityAddress.find_by(entity_id: params[:subscriber_id]).id rescue nil'.c,
       # nature_id: 'SubscriptionNature.first.id rescue 0'.c,
+      quantity: 1,
+      started_on: 'Time.zone.today'.c,
+      stopped_on: 'Time.zone.today + 1.year - 1.day'.c,
       t3e: {
-        nature: '@subscription.nature.name'.c,
-        start: '@subscription.start'.c,
-        finish: '@subscription.finish'.c
+        nature: 'RECORD.nature_name'.c,
+        start: 'RECORD.started_on.l'.c,
+        finish: 'RECORD.stopped_on.l'.c
       }
     )
     unroll
 
-    def self.subscriptions_conditions(_options = {})
+    def self.subscriptions_conditions
       code = ''
-      code << "conditions = [ \" COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state NOT IN ('invoice', 'order'))\" ]\n"
-      code << "unless session[:subscriptions_nature_id].to_i.zero?\n"
+      # COALESCE(#{Sale.table_name}.state NOT INsale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state NOT IN ('invoice', 'order'))
+      code << "conditions = ['1=1']\n"
+      code << "unless params[:nature_id].to_i.zero?\n"
       code << "  conditions[0] += \" AND #{Subscription.table_name}.nature_id = ?\"\n"
-      code << "  conditions << session[:subscriptions_nature_id].to_i\n"
+      code << "  conditions << params[:nature_id].to_i\n"
       code << "end\n"
-      code << "unless session[:subscriptions_instant].nil?\n"
-      code << "  if session[:subscriptions_nature_nature] == 'quantity'\n"
-      code << "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.first_number AND #{Subscription.table_name}.last_number\"\n"
-      code << "    conditions << session[:subscriptions_instant]\n"
-      code << "  elsif session[:subscriptions_nature_nature] == 'period'\n"
-      code << "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_at AND #{Subscription.table_name}.stopped_at\"\n"
-      code << "    conditions << session[:subscriptions_instant]\n"
-      code << "  end\n"
+      code << "if params[:subscribed_on].to_s =~ /\A\d\d\d\d\-\d\d\-\d\d\z/.nil?\n"
+      code << "  conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
+      code << "  conditions << params[:subscribed_on]\n"
       code << "end\n"
       code << "conditions\n"
       code.c
     end
 
-    list(conditions: subscriptions_conditions, order: { id: :desc }) do |t|
-      t.column :mail_line_1, through: :address, url: true
-      t.column :mail_line_2, through: :address, label: :column
-      t.column :mail_line_3, through: :address, label: :column
-      t.column :mail_line_4, through: :address, label: :column
-      t.column :mail_line_5, through: :address, label: :column
-      t.column :mail_line_6, through: :address, label: :column
-      t.column :product_nature
+    list(conditions: subscriptions_conditions, order: { started_on: :desc }, line_class: "(RECORD.disabled? ? 'disabled' : RECORD.active? ? 'success' : '') + (RECORD.suspended ? ' squeezed' : '')".c) do |t|
+      t.action :edit
+      t.action :renew, method: :post, if: 'current_user.can?(:write, :sales) && RECORD.renewable?'.c
+      t.action :suspend, method: :post, if: :suspendable?
+      t.action :takeover, method: :post, if: :suspended
+      t.action :destroy
+      t.column :number, url: true
+      t.column :subscriber, url: true
+      t.column :coordinate, through: :address, url: true
+      # t.column :product_nature
       t.column :quantity
-      t.column :start
-      t.column :finish
+      t.column :sale, url: true
+      t.column :started_on
+      t.column :stopped_on
     end
 
-    # Displays the main page with the list of subscriptions
-    def index
-      unless SubscriptionNature.any?
-        notify(:need_to_create_subscription_nature)
-        redirect_to controller: :subscription_natures
+    def renew
+      @subscription = find_and_check
+      unless @subscription.renewable?
+        notify_error :subscription_is_not_renewable
+        redirect_to params[:redirect] || { action: :show, id: @subscription.id }
         return
       end
-      if request.xhr?
-        return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
-        session[:subscriptions_instant] = @subscription_nature.now
-        render partial: 'options'
+      unless current_user.can?(:write, :sales)
+        notify_error :access_denied
+        redirect_to params[:redirect] || { action: :show, id: @subscription.id }
         return
       end
-      if params[:nature_id]
-        return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
-      end
-      @subscription_nature ||= SubscriptionNature.first
-      instant = begin
-                  (@subscription_nature.period? ? params[:instant].to_date : params[:instant].to_i)
-                rescue
-                  nil
-                end
-      session[:subscriptions_nature_id] = @subscription_nature.id
-      session[:subscriptions_nature_nature] = @subscription_nature.nature.to_sym
-      session[:subscriptions_instant] = ((instant.blank? || instant == 0) ? @subscription_nature.now : instant)
+      sale = @subscription.renew!
+      redirect_to(controller: :sales, action: :edit, id: sale.id)
+    end
+
+    def suspend
+      @subscription = find_and_check
+      @subscription.suspend
+      redirect_to params[:redirect] || { action: :show, id: @subscription.id }
+    end
+
+    def takeover
+      @subscription = find_and_check
+      @subscription.takeover
+      redirect_to params[:redirect] || { action: :show, id: @subscription.id }
     end
   end
 end

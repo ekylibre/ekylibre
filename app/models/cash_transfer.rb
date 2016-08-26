@@ -55,13 +55,17 @@ class CashTransfer < Ekylibre::Record::Base
   belongs_to :reception_cash, class_name: 'Cash'
   belongs_to :reception_journal_entry, class_name: 'JournalEntry'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :transfered_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :currency_rate, :emission_amount, :reception_amount, allow_nil: true
-  validates_presence_of :currency_rate, :emission_amount, :emission_cash, :emission_currency, :number, :reception_amount, :reception_cash, :reception_currency, :transfered_at
+  validates :accounted_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :currency_rate, presence: true, numericality: { greater_than: -1_000_000_000, less_than: 1_000_000_000 }
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :emission_amount, :reception_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :emission_cash, :emission_currency, :reception_cash, :reception_currency, presence: true
+  validates :number, presence: true, length: { maximum: 500 }
+  validates :transfered_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
-  validates_length_of :emission_currency, :reception_currency, allow_nil: true, maximum: 3
-  validates_numericality_of :emission_amount, greater_than: 0.0
-  validates_presence_of :transfered_at
+  validates :emission_currency, :reception_currency, length: { allow_nil: true, maximum: 3 }
+  validates :emission_amount, numericality: { greater_than: 0.0 }
+  validates :transfered_at, presence: true
 
   before_validation do
     self.transfered_at ||= Time.zone.today

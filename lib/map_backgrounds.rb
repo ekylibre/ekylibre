@@ -80,5 +80,3 @@ module MapBackgrounds
     end
   end
 end
-
-MapBackgrounds::Layer.load

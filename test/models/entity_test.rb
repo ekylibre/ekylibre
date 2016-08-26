@@ -36,6 +36,8 @@
 #  dead_at                   :datetime
 #  deliveries_conditions     :string
 #  description               :text
+#  employee                  :boolean          default(FALSE), not null
+#  employee_account_id       :integer
 #  first_met_at              :datetime
 #  first_name                :string
 #  full_name                 :string           not null

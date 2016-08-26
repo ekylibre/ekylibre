@@ -43,7 +43,8 @@
 //= require jstz
 //= require heatmap
 //= require i18n/translations
-//= require leaflet
+//= require geographiclib
+//= require leaflet.js.erb
 //= require leaflet/draw
 //= require leaflet/fullscreen
 //= require leaflet/providers
@@ -52,11 +53,14 @@
 //= require leaflet/easy-button
 //= require leaflet/modal
 //= require leaflet/label
+//= require rbush
 //= require autosize
 //= require plugins
 //= require_tree .
+//= require tour
 
 var visualization = {};
+var mapeditor = {};
 var ekylibre = {};
 var calcul = {};
 
@@ -68,3 +72,8 @@ $.rails.href = function (element) {
 
 Turbolinks.enableTransitionCache();
 Turbolinks.enableProgressBar();
+
+$(document).ready(function()
+{
+    L.Icon.Default.imagePath = '/assets';
+});

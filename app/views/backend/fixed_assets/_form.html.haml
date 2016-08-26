@@ -5,7 +5,7 @@
 
 = field_set(:depreciation) do
   = f.money :depreciable_amount
-  = f.input :depreciation_method, as: :radio_buttons
+  = f.input :depreciation_method, as: :radio_buttons, show: '#{{value}}_options'
   = f.input :started_on
 
 = field_set(:simplified_linear_options) do

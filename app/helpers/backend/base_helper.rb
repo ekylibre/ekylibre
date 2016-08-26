@@ -61,6 +61,10 @@ module Backend
         @options[:param_name] ||= :start_date
       end
 
+      def params
+        @options[:params] ||= {}
+      end
+
       def start_date
         view_context.params.fetch(date_param_name, Date.today).to_date
       end
@@ -192,7 +196,7 @@ module Backend
         next unless items.any?
         data = []
         data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
-        data += items.inject({}) do |hash, pair|
+        data += items.each_with_object({}) do |pair, hash|
           hash[pair.read_at.to_usec] = pair.value.to_d
           hash
         end.collect { |k, v| [k, v.to_s.to_f] }
@@ -214,19 +218,13 @@ module Backend
       min = now - window if (now - min) < window
       if movements.any?
         data = []
-        # initial population
-        if resource.initial_movement
-          data << [min.to_usec, resource.initial_movement.population.to_d.to_s.to_f]
-        elsif resource.initial_population
-          data << [min.to_usec, resource.initial_population.to_d.to_s.to_f]
-        end
-        data += movements.inject({}) do |hash, pair|
+        data += movements.each_with_object({}) do |pair, hash|
           hash[pair.started_at.to_usec] = pair.population.to_d
           hash
         end.collect { |k, v| [k, v.to_s.to_f] }
         # current population
         data << [now.to_usec, resource.population.to_d.to_s.to_f]
-        series << { name: resource.name, data: data, step: 'left' }
+        series << { name: resource.name, data: data.sort { |a, b| a.first <=> b.first }, step: 'left' }
       end
       return no_data if series.empty?
       line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
@@ -264,7 +262,7 @@ module Backend
       machine = resource.class.state_machine
       state = resource.state
       state = machine.state(state.to_sym) unless state.is_a?(StateMachine::State) || state.nil?
-      render 'state_bar', states: machine.states, current_state: state, resource: resource
+      render 'state_bar', states: machine.states, current_state: state, resource: resource, renamings: _options[:renamings]
     end
 
     def main_state_bar(resource, options = {})
@@ -315,7 +313,8 @@ module Backend
               face_name = face.args.first.to_s
               classes = ['btn', 'btn-default']
               classes << 'active' if face_name == active_face
-              link_to(face_name, data: { toggle: 'face' }, class: classes, title: face_name.tl) do
+              get_url = url_for(controller: '/backend/januses', action: :toggle, id: name, face: face_name, redirect: url_for)
+              link_to(get_url, data: { "janus-href": face_name, toggle: 'face' }, class: classes, title: face_name.tl) do
                 content_tag(:i, '', class: "icon icon-#{face_name}") + ' '.html_safe + face_name.tl
               end
             end.join.html_safe
@@ -327,7 +326,7 @@ module Backend
     end
 
     def resource_info(name, options = {}, &block)
-      value = resource.send(name)
+      value = options[:value] || resource.send(name)
       return nil if value.blank? && !options[:force]
       nomenclature = options.delete(:nomenclature)
       if nomenclature.is_a?(TrueClass)
@@ -365,6 +364,96 @@ module Backend
         options[:class] = css_class
       end
       content_tag(:div, options, &block)
+    end
+
+    def chronology_period(margin, width, background_color, url_options = {}, html_options = {})
+      direction = reading_ltr? ? 'left' : 'right'
+      period_margin = 100 * margin.round(6)
+      period_width = 100 * width.round(6)
+
+      style = "#{direction}: #{period_margin}%;"
+      style += "width: #{period_width}%;"
+      style += "background-color: #{background_color}"
+
+      element_class = html_options[:class] || ''
+      title = html_options[:title] || ''
+      nested_element = html_options[:nested_element] || nil
+
+      if nested_element.nil?
+        link_to('', url_options, style: style, class: "period #{element_class}", title: title)
+      else
+        link_to(url_options, style: style, class: "period #{element_class}", title: title) do
+          nested_element
+        end
+      end
+    end
+
+    def chronology_period_icon(positioned_at, picto_class, html_options = {})
+      style = ''
+
+      if positioned_at != 'initial'
+
+        direction = reading_ltr? ? 'left' : 'right'
+        period_icon_margin = 100 * positioned_at.round(6)
+        style = "#{direction}: #{period_icon_margin}%;"
+      end
+
+      element_class = html_options[:class] || 'period'
+      title = html_options[:title] || ''
+
+      content_tag(:div, style: style, class: element_class, title: title) do
+        content_tag(:i, '', class: "picto picto-#{picto_class}")
+      end
+    end
+
+    # Build a JSON for a data-tour parameter and put it on <body> element
+    def tour(name, _options = {})
+      preference = current_user.preference("interface.tours.#{name}.finished", false, :boolean)
+      return if preference.value
+      object = {}
+      object[:defaults] ||= {}
+      object[:defaults][:classes] ||= 'shepherd-theme-arrows'
+      object[:defaults][:show_cancel_link] = true unless object[:defaults].key?(:show_cancel_link)
+      unless object[:defaults][:buttons]
+        buttons = []
+        buttons << {
+          text: :next.tl,
+          classes: 'btn btn-primary',
+          action: 'next'
+        }
+        object[:defaults][:buttons] = buttons
+      end
+      lister = Ekylibre::Support::Lister.new(:step)
+      yield lister
+      return nil unless lister.any?
+      steps = lister.steps.map do |step|
+        id = step.args.first
+        on = (step.options[:on] || 'center').to_s
+        if reading_ltr?
+          if on =~ /right/
+            on.gsub!('right', 'left')
+          else
+            on.gsub!('left', 'right')
+          end
+        end
+        attributes = {
+          id: id,
+          title: "tours.#{name}.#{id}.title".tl,
+          text: "tours.#{name}.#{id}.content".tl,
+          attachTo: {
+            element: step.options[:element] || '#' + id.to_s,
+            on: on.tr('_', ' ')
+          }
+        }
+        if step == lister.steps.last
+          attributes[:buttons] = [{ text: :finished.tl, classes: 'btn btn-primary', action: 'next' }]
+        end
+        attributes
+      end
+      object[:name] = name
+      object[:url] = finish_backend_tour_path(id: name)
+      object[:steps] = steps
+      content_for(:tour, object.jsonize_keys.to_json)
     end
   end
 end

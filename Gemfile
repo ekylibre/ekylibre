@@ -3,15 +3,18 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '4.2.7.1'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter', '>= 3.0.0'
 
 # Multi-tenancy
-gem 'apartment', '>= 1.0.0', '< 2.0'
+gem 'apartment', '~> 1.0.0', '< 2.0'
 gem 'apartment-sidekiq'
+
+# Ruby functionalities extension
+gem 'possibly'
 
 # Code manipulation
 gem 'code_string'
@@ -33,7 +36,7 @@ gem 'therubyracer', platforms: :ruby
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 2.0'
 gem 'jquery-turbolinks'
 
 # jQuery UI Javascript framework
@@ -76,7 +79,7 @@ gem 'exception_notification'
 # Views helpers
 gem 'haml'
 gem 'simple_calendar'
-gem 'active_list', '>= 6.5.0' # , path: "../active_list"
+gem 'active_list', '>= 6.6.0' # , path: "../active_list"
 
 # Models helpers
 gem 'uuidtools'
@@ -85,6 +88,7 @@ gem 'state_machine'
 gem 'awesome_nested_set', '~> 3.0.0'
 gem 'enumerize'
 gem 'jc-validates_timeliness', '~> 3.1.1'
+gem 'deep_cloneable', '~> 2.2.1'
 
 # Authentication & Authorization
 gem 'devise'
@@ -113,7 +117,7 @@ gem 'treetop'
 
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
-gem 'beardley', '~> 1.3.0'
+gem 'beardley', '~> 1.3.0' # , path: "../beardley"
 gem 'beardley-barcode'
 gem 'beardley-batik'
 gem 'beardley-charts'
@@ -122,7 +126,7 @@ gem 'beardley-xml'
 gem 'beardley-open_sans'
 
 # Import/Export
-# gem 'ofx-parser'
+gem 'ofx-parser', git: 'https://github.com/lcoq/ofx-parser.git', branch: 'master'
 gem 'rgeo-shapefile'
 gem 'rgeo-geojson'
 gem 'rubyzip'
@@ -142,7 +146,7 @@ gem 'bootstrap-sass', '~> 3.1'
 gem 'twitter-typeahead-rails'
 
 # Iconic font
-gem 'agric'
+gem 'agric', '~> 3.0'
 
 # Web services
 gem 'mechanize'
@@ -174,6 +178,8 @@ end
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
+  gem 'pry-inline'
+  gem 'teaspoon-jasmine'
 end
 
 group :test do

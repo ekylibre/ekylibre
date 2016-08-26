@@ -65,9 +65,19 @@ module Procedo
         name = element.attr('name').to_sym
         options = {}
         options[:required] = true if element.attr('required').to_s == 'true'
-        options[:categories] = element.attr('categories').to_s.split(/[\s\,]+/).map(&:to_sym)
-        options[:mandatory_actions] = element.attr('actions').to_s.split(/[\s\,]+/).map(&:to_sym)
-        options[:optional_actions] = element.attr('optional-actions').to_s.split(/[\s\,]+/).map(&:to_sym)
+        options[:categories] = element.attr('categories')
+                                      .to_s
+                                      .split(/[\s\,]+/)
+                                      .map(&:to_sym)
+        options[:mandatory_actions] = element.attr('actions')
+                                             .to_s
+                                             .split(/[\s\,]+/)
+                                             .map(&:to_sym)
+        options[:optional_actions] = element.attr('optional-actions')
+                                            .to_s.split(/[\s\,]+/)
+                                            .map(&:to_sym)
+        options[:maintenance] = (element.attr('maintenance').to_s == 'true')
+        options[:deprecated] = (element.attr('deprecated').to_s == 'true')
 
         procedure = Procedo::Procedure.new(name, options)
 
@@ -104,7 +114,9 @@ module Procedo
         name = element.attr('name').to_sym
         if element.name != 'parameter'
           type = element.name.to_sym
-          raise 'type attribute is not supported' if element.has_attribute?('type')
+          if element.has_attribute?('type')
+            raise "'type' attribute is not supported in a <#{element.name}> element"
+          end
         else
           type = element.attr('type').underscore.to_sym
         end
@@ -114,16 +126,9 @@ module Procedo
             options[info.underscore.to_sym] = element.attr(info).to_s
           end
         end
-        options[:output] = {}
-        %w(name variety derivative-of variant).each do |attribute|
+        %w(component-of).each do |attribute|
           if element.has_attribute?(attribute)
-            options[:output][attribute.underscore.to_sym] = element.attr(attribute).to_s
-          end
-        end
-        options[:output][:default] = {}
-        %w(name variety derivative-of variant).each do |attribute|
-          if element.has_attribute?("default-#{attribute}")
-            options[:output][:default][attribute.underscore.to_sym] = element.attr("default-#{attribute}").to_s
+            options[attribute.underscore.to_sym] = element.attr(attribute).to_s
           end
         end
         parent = options[:group] || procedure
@@ -145,12 +150,11 @@ module Procedo
       # Parse <handler> of parameter
       def parse_handler(parameter, element)
         # Extract attributes from XML element
-        options = %w(forward backward indicator unit to name if).each_with_object({}) do |attr, hash|
+        options = %w(forward backward indicator unit to name if datatype).each_with_object({}) do |attr, hash|
           hash[attr.to_sym] = element.attr(attr) if element.has_attribute?(attr)
           hash
         end
 
-        options[:indicator] ||= options[:name]
         name = options.delete(:name) || options[:indicator]
 
         handler = parameter.add_handler(name, options)

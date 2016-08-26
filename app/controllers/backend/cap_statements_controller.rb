@@ -54,7 +54,8 @@ module Backend
       t.column :pacage_number, url: true
       t.column :campaign, url: true
       t.column :declarant, url: true
-      t.column :net_surface_area
+      t.column :farm_name, url: true
+      t.column :net_surface_area, label_method: :human_net_surface_area
     end
 
     list(:cap_islets, conditions: { cap_statement_id: 'params[:id]'.c }, order: { islet_number: :desc }) do |t|
@@ -65,7 +66,7 @@ module Backend
 
     list(:cap_land_parcels, conditions: cap_land_parcel_conditions, joins: :cap_statement, order: { land_parcel_number: :desc }) do |t|
       t.column :land_parcel_number, url: true
-      t.column :islet_number
+      t.column :islet_number, through: :islet, url: true
       t.column :main_crop_code
       t.column :main_crop_commercialisation
       t.column :main_crop_seed_production

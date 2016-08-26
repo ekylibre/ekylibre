@@ -20,10 +20,19 @@
     options = element.data("variant-of-deal-item")
     variant_id = element.selector('value')
     reg = new RegExp("\\bRECORD_ID\\b", "g")
+    form = element.closest('form')
+    params = {}
+    # TODO So so bad
+    form.find('#sale_client_id, #purchase_supplier_id, #sale_address_id, #purchase_address_id').each ->
+      selector = $(this)
+      value = selector.selector('value')
+      params[selector.attr('id')] = value if value?
+
     if variant_id?
       item = element.closest("*[data-trade-item]")
       $.ajax
         url: options.url.replace(reg, variant_id)
+        data: params
         dataType: "json"
         success: (data, status, request) ->
           # Update fields
@@ -31,22 +40,41 @@
             item.find(options.label_field or ".label").val(data.name)
 
           if data.depreciable
-            item.addClass("with-fixed-asset")
+            item.find('.fixed-asset').show()
           else
-            item.removeClass("with-fixed-asset")
+            item.find('.fixed-asset').hide()
+
+          if data.subscription?
+            if data.subscription.nature_name?
+              item.find('.subscription_nature_name').html(data.subscription.nature_name)
+            if data.subscription.started_on?
+              item.find('.subscription_started_on').val(data.subscription.started_on)
+            if data.subscription.stopped_on?
+              item.find('.subscription_stopped_on').val(data.subscription.stopped_on)
+            if data.subscription.address_id?
+              select = item.find('.subscription_address_id').first()
+              select.selector('value', data.subscription.address_id)
+            item.find('.subscription').show()
+          else
+            item.find('.subscription').hide()
+            select = item.find('.subscription_address_id').first()
+            select.selector('clear')
+            item.find('.subscription_started_on').val('')
+            item.find('.subscription_stopped_on').val('')
+
 
           if unit = data.unit
             if unit.name
               item.find(options.unit_name_tag or ".unit-name").html(data.name)
 
             input = item.find(options.unit_pretax_amount_field or "*[data-trade-component='unit_pretax_amount']")
-            if unit.pretax_amount isnt undefined
+            if unit.pretax_amount?
               input.val(unit.pretax_amount)
             else if input.val() is ""
               input.val(0)
 
             input = item.find(options.unit_amount_field or "*[data-trade-component='unit_amount']")
-            if unit.amount isnt undefined
+            if unit.amount?
               input.val(unit.amount)
             else if input.val() is ""
               input.val(0)

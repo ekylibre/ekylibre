@@ -41,8 +41,8 @@ class InspectionPoint < Ekylibre::Record::Base
   belongs_to :nature, class_name: 'ActivityInspectionPointNature'
   belongs_to :inspection, inverse_of: :points
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :maximal_size_value, :minimal_size_value, :net_mass_value, allow_nil: true
-  validates_presence_of :inspection, :nature
+  validates :maximal_size_value, :minimal_size_value, :net_mass_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
+  validates :inspection, :nature, presence: true
   # ]VALIDATORS]
 
   scope :of_nature, lambda { |nature|
@@ -54,4 +54,14 @@ class InspectionPoint < Ekylibre::Record::Base
   }
 
   scope :of_category, ->(category) { where(nature_id: ActivityInspectionPointNature.where(category: category)) }
+
+  scope :unmarketable, -> { where(nature_id: ActivityInspectionPointNature.unmarketable) }
+
+  def net_mass_percentage
+    (100 * (net_mass_in_unit / inspection.net_mass))
+  end
+
+  def items_count_percentage
+    (100 * (items_count_in_unit / inspection.items_count))
+  end
 end

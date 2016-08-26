@@ -34,6 +34,12 @@ module Nomen
       assert set.item('vehicles', :race_vehicle) == :race_vehicle
       assert set.item(:vehicles,  'race_vehicle') == :race_vehicle
       assert set.item('vehicles', 'race_vehicle') == :race_vehicle
+
+      nomenclature = set.nomenclature(:vehicles)
+      assert nomenclature
+      assert_raise Nomen::ItemNotFound do
+        nomenclature.selection_hash(:flash_mcqueen)
+      end
     end
   end
 end

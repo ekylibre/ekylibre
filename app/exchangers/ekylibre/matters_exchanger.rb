@@ -24,7 +24,7 @@ module Ekylibre
           variety: row[5].blank? ? nil : row[5].to_s.strip,
           derivative_of: row[6].blank? ? nil : row[6].to_s.strip,
           external: !row[7].blank?,
-          indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+          indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
             h
           end,
@@ -68,7 +68,7 @@ module Ekylibre
           variety: row[5].blank? ? nil : row[5].to_s.strip,
           derivative_of: row[6].blank? ? nil : row[6].to_s.strip,
           external: !row[7].blank?,
-          indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.inject({}) do |h, i|
+          indicators: row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect { |i| i.split(/[[:space:]]*\:[[:space:]]*/) }.each_with_object({}) do |i, h|
             h[i.first.strip.downcase.to_sym] = i.second
             h
           end,

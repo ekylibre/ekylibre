@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update malus_pumila variety name">
+  <item-merging item="varieties#malus_pumila_belle-fille_de_la_creuse" into="malus_pumila_belle_fille_de_la_creuse"/>
+</migration>

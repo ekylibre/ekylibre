@@ -60,32 +60,34 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :supplier, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
   has_many :parcels
-  has_many :documents, as: :owner
   has_many :items, class_name: 'PurchaseItem', dependent: :destroy, inverse_of: :purchase
   has_many :journal_entries, as: :resource
   has_many :products, -> { uniq }, through: :items
   has_many :fixed_assets, through: :items
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :accounted_at, :confirmed_at, :invoiced_at, :planned_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_numericality_of :amount, :pretax_amount, allow_nil: true
-  validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
+  validates :accounted_at, :confirmed_at, :invoiced_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
+  validates :currency, :payee, :supplier, presence: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :number, presence: true, length: { maximum: 500 }
+  validates :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
-  validates_length_of :number, :state, allow_nil: true, maximum: 60
-  validates_presence_of :created_at, :state, :nature
-  validates_uniqueness_of :number
+  validates :number, :state, length: { allow_nil: true, maximum: 60 }
+  validates :created_at, :state, :nature, presence: true
+  validates :number, uniqueness: true
   validates_associated :items
 
   acts_as_numbered
   acts_as_affairable :supplier
   accepts_nested_attributes_for :items, reject_if: proc { |item| item[:variant_id].blank? && item[:variant].blank? }, allow_destroy: true
 
-  delegate :closed, :balance, to: :affair, prefix: true
+  delegate :with_accounting, to: :nature
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
     where(invoiced_at: started_at..stopped_at)
   }
 
-  scope :unpaid, -> { where(state: %w(order invoice)).joins(:affair).where('NOT closed') }
+  scope :unpaid, -> { where(state: %w(order invoice)).where.not(affair: Affair.closeds) }
   scope :current, -> { unpaid }
   scope :current_or_self, ->(purchase) { where(unpaid).or(where(id: (purchase.is_a?(Purchase) ? purchase.id : purchase))) }
   scope :of_supplier, ->(supplier) { where(supplier_id: (supplier.is_a?(Entity) ? supplier.id : supplier)) }
@@ -131,6 +133,10 @@ class Purchase < Ekylibre::Record::Base
     self.amount = items.sum(:amount)
   end
 
+  after_update do
+    affair.reload_gaps
+  end
+
   validate do
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
@@ -144,13 +150,13 @@ class Purchase < Ekylibre::Record::Base
   # This callback permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(nature.journal, printed_on: invoiced_on, if: invoice?) do |entry|
+    b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice?)) do |entry|
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: self.supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
       for item in items
         entry.add_debit(label, item.account, item.pretax_amount) unless item.pretax_amount.zero?
         entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
-      entry.add_credit(label, self.supplier.account(:supplier).id, amount)
+      entry.add_credit(label, self.supplier.account(nature.payslip? ? :employee : :supplier).id, amount)
     end
   end
 
@@ -254,5 +260,9 @@ class Purchase < Ekylibre::Record::Base
 
   def taxes_amount
     amount - pretax_amount
+  end
+
+  def can_generate_parcel?
+    items.any? && delivery_address && (order? || invoice?)
   end
 end

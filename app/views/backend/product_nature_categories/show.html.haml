@@ -29,12 +29,11 @@
         - l.attribute :stock_account, url: true
 
       - l.attribute :subscribing
-      - if resource.subscribing
-        - l.attribute :subscription_duration
-        - l.attribute :subscription_nature, url: true
 
   - c.cobble :taxations do
     = cobble_list :taxations
 
   - c.cobble :product_natures do
+    = cobble_toolbar do |t|
+      = t.new params: { controller: :product_natures, category_id: resource.id, name: resource.name, subscribing: resource.subscribing }
     = cobble_list :product_natures

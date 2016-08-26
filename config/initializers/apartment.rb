@@ -46,6 +46,16 @@ module Apartment
         request.env['HTTP_X_TENANT']
       end
     end
+
+    class SecuredSubdomain < Apartment::Elevators::Subdomain
+      def call(env)
+        super
+      rescue ::Apartment::TenantNotFound
+        request = Rack::Request.new(env)
+        Rails.logger.error "Apartment Tenant not found: #{subdomain(request.host)}"
+        return [404, { 'Content-Type' => 'text/html' }, [File.read(Rails.root.join('public', '404.html'))]]
+      end
+    end
   end
 end
 
@@ -56,5 +66,5 @@ elsif Rails.env.test?
 elsif ENV['ELEVATOR'] == 'header'
   Rails.application.config.middleware.use 'Apartment::Elevators::Header'
 else
-  Rails.application.config.middleware.use 'Apartment::Elevators::Subdomain'
+  Rails.application.config.middleware.use 'Apartment::Elevators::SecuredSubdomain'
 end

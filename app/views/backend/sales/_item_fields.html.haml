@@ -1,22 +1,38 @@
 - item ||= f.object
-- precision = Nomen::Currency[f.object.sale_currency].precision
-%tr.nested-fields{data: {trade_item: "selling"}}
-  %td
-    .annotable
+%tbody.nested-fields{ data: { trade_item: "selling" } }
+  %tr
+    %td.annotable
       = f.referenced_association(:variant, wrapper: :nested, source: {scope: :saleables}, input_html: {data: {variant_of_deal_item: {url: detail_backend_product_nature_variant_path("RECORD_ID", sale_nature_id: f.object.sale.nature_id, mode: :last_sale_item)}}})
-      - attrs = {}
       - if f.object.annotation.blank?
-        = link_to("#", data: {annotate: ".annotate", use_closest: "td"}, title: :add_annotation.tl) do
+        = link_to("#", data: { annotate: ".annotate", use_closest: "tbody" }, title: :add_annotation.tl) do
           %i
-        - attrs[:style] = "display: none"
-    .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: {class: "annotation"})
-  %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
-  %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
-  %td.decimal= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
-  %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {data: {trade_component: "reduction_percentage"}})
-  %td.decimal{class: "pta", data: {trade_component: "pretax_amount"}}= f.object.pretax_amount.l
-  %td.decimal{class: "wta", data: {trade_component: "amount"}}= f.object.amount.l
-  -# %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
-  -# %td.decimal= f.input(:amount, wrapper: :nested, input_html: {class: "wta", data: {trade_component: "amount"}})
-  %td.currency= f.object.sale_currency
-  %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
+    %td= f.input(:unit_pretax_amount, wrapper: :nested, input_html: {data: {trade_component: "unit_pretax_amount"}})
+    %td.decimal= f.input(:quantity, wrapper: :nested, input_html: {size: 7, data: {trade_component: "quantity"}})
+    %td.decimal= f.select(:tax_id, Tax.current.collect{|t| [t.short_label, t.id, {'data-rate' => ((100 + t.amount)/100)}]}, {}, data: {value: 'rate', trade_component: "tax"})
+    %td= f.input(:reduction_percentage, wrapper: :nested, input_html: {data: {trade_component: "reduction_percentage"}})
+    %td.decimal{class: "pta", data: {trade_component: "pretax_amount"}}= f.object.pretax_amount.l
+    %td.decimal{class: "wta", data: {trade_component: "amount"}}= f.object.amount.l
+    -# %td.decimal= f.input(:pretax_amount, wrapper: :nested, input_html: {class: "pta", data: {trade_component: "pretax_amount"}})
+    -# %td.decimal= f.input(:amount, wrapper: :nested, input_html: {class: "wta", data: {trade_component: "amount"}})
+    %td.currency= f.object.sale_currency
+    %td.action= link_to_remove_association(content_tag(:i) + h(:destroy.ta), f, 'data-no-turbolink' => true, class: 'remove-item')
+
+  - attrs = {}
+  - attrs[:style] = 'display: none' unless f.object.subscription
+  - f.object.build_subscription unless f.object.subscription
+  %tr.tr-add-on.subscription{attrs}
+    %td{ colspan: 20 }
+      .subscription-form
+        = f.simple_fields_for :subscription do |s|
+          %strong.label-inline.subscription_nature_name= (f.object.product_nature && f.object.subscription_nature) ? f.object.subscription_nature.name : nil
+          %label.label-inline= :at_the_address.tl
+          = s.referenced_association :address, source: { scope: :mails }, wrapper: :nested, input_html: { class: 'subscription_address_id' }
+          %label.label-inline= :from.tl
+          = s.input :started_on, wrapper: :nested, input_html: { class: 'subscription_started_on' }
+          %label.label-inline= :to.tl
+          = s.input :stopped_on, wrapper: :nested, input_html: { class: 'subscription_stopped_on' }
+
+  - attrs = {}
+  - attrs[:style] = "display: none" if f.object.annotation.blank?
+  %tr.tr-add-on.annotate{attrs}
+    %td{ colspan: 20 }= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })

@@ -50,14 +50,17 @@ class Event < Ekylibre::Record::Base
   refers_to :nature, class_name: 'EventNature'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_datetime :started_at, :stopped_at, allow_blank: true, on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }
-  validates_datetime :stopped_at, allow_blank: true, on_or_after: :started_at, if: ->(event) { event.stopped_at && event.started_at }
-  validates_numericality_of :duration, allow_nil: true, only_integer: true
-  validates_inclusion_of :restricted, in: [true, false]
-  validates_presence_of :name, :nature, :started_at
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
+  validates :duration, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :name, presence: true, length: { maximum: 500 }
+  validates :nature, presence: true
+  validates :place, length: { maximum: 500 }, allow_blank: true
+  validates :restricted, inclusion: { in: [true, false] }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
+  validates :stopped_at, timeliness: { on_or_after: ->(event) { event.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   # ]VALIDATORS]
-  validates_inclusion_of :nature, in: nature.values
-  validates_presence_of :stopped_at
+  validates :nature, inclusion: { in: nature.values }
+  validates :stopped_at, presence: true
 
   accepts_nested_attributes_for :participations
 

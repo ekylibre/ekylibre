@@ -9,7 +9,7 @@
   = f.custom_fields
 
 = field_set(:function) do
-  = f.referenced_association :person
+  = f.referenced_association :person, new: { nature: :contact }, source: { scope: :contacts }
   = f.input :employed, :show => :employee
   #employee
     = f.input :employment
