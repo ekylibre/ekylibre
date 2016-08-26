@@ -3,9 +3,9 @@
   <procedure name="animal_group_changing" categories="animal_treating" actions="animal_group_changing">
     <parameters>
       <target name="animal" filter="is animal" cardinality="*">
-        <!-- <attribute name="new_group"/>
-        	 <attribute name="new_evolution"/> OR <attribute name="new_variant"/>
-             <attribute name="new_container"/> -->	
+        <attribute name="new_container_id" filter="is building_division"/>
+        <attribute name="new_group_id" compute-filter="'is animal_group and derives from %{variety_of(PRODUCT)}'"/>
+        <attribute name="new_variant" default-value="variant_of(NEW_GROUP)" hidden="true"/>
       </target>
       <doer name="caregiver" filter="is worker" cardinality="*"/>
     </parameters>
