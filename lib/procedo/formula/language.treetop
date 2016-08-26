@@ -28,7 +28,23 @@ module Procedo
       end
 
       rule primary
-        numeric / reading / object / "(" space? expression space? ")" <Expression>
+        numeric / reading / string_expression / object / interpolation / "(" space? expression space? ")" <Expression>
+      end
+
+      rule string_expression
+        "'" string_body:(string_part)* "'" <StringExpression>
+      end
+
+      rule string_part
+         interpolation / text
+      end
+
+      rule text
+        ["_"a-zA-Z0-9\s\n]+ <Text>
+      end
+
+      rule interpolation
+        "%\{" space? expression space? "\}" <Interpolation>
       end
 
       rule argument

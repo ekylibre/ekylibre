@@ -22,7 +22,15 @@ module Procedo
       protected
 
       def run(node)
-        if node.is_a?(Procedo::Formula::Language::Expression)
+        if node.is_a?(Procedo::Formula::Language::StringExpression)
+          node.string_body.elements.collect do |element|
+            run(element)
+          end.compact.join('')
+        elsif node.is_a?(Procedo::Formula::Language::Text)
+          node.text_value
+        elsif node.is_a?(Procedo::Formula::Language::Interpolation)
+          run(node.expression)
+        elsif node.is_a?(Procedo::Formula::Language::Expression)
           run(node.expression)
         elsif node.is_a?(Procedo::Formula::Language::BooleanExpression)
           run(node.boolean_expression)
