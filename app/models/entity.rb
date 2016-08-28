@@ -99,7 +99,7 @@ class Entity < Ekylibre::Record::Base
     has_many :websites,  -> { actives.websites }
     has_many :auto_updateable_addresses, -> { actives.where(mail_auto_update: true) }
   end
-  has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id
+  has_many :direct_links, class_name: 'EntityLink', foreign_key: :entity_id, dependent: :destroy
   has_many :events, through: :participations
   has_many :gaps, dependent: :restrict_with_error
   has_many :issues, as: :target, dependent: :destroy
