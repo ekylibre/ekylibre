@@ -144,6 +144,12 @@ class BankStatement < Ekylibre::Record::Base
 
       statement_items.each_index do |index|
         statement_items[index] = items.build(statement_items[index])
+        if started_on > statement_items[index].transfered_on
+          statement_items[index].transfered_on = started_on
+        end
+        if statement_items[index].transfered_on > stopped_on
+          statement_items[index].transfered_on = stopped_on
+        end
         saved = false if saved && !statement_items[index].save
       end
 
