@@ -1,0 +1,161 @@
+.taskboard {
+  @include flex-column(stretch, space-between);
+  padding: 10px 20px;
+  overflow: auto;
+}
+
+.taskboard .headers {
+  @include flex-row(space-between);
+
+  &--fixed {
+    position: fixed;
+    background-color: #F7F7F7;
+    z-index: 6;
+  }
+
+  .taskboard-header {
+    flex: 1;
+    @include flex-row(space-between);
+    height: 60px;
+    margin-right: 30px;
+  }
+
+  .column-title {
+    font-size: $fs-large;
+  }
+
+  .column-actions {
+
+    .picto {
+      color: #bdb8b8;
+      font-size: $fs-large;
+      min-width: initial;
+      line-height: initial;
+    }
+
+    .picto--invisible {
+      display: none;
+    }
+
+    .picto:hover {
+      color: $text-color;
+      cursor: pointer;
+    }
+  }
+}
+
+.taskboard .line {
+  @include flex-row(space-between, stretch);
+  border-bottom: 1px solid #DDD;
+  padding: 20px 0;
+}
+
+.taskboard .tasks {
+  flex: 1;
+  @include flex-column(stretch);
+  margin-right: 30px;
+
+  .task {
+    @include flex-column(flex-start, flex-start);
+    margin: 10px 20px;
+    padding: 15px;
+    border: 1px solid #DDD;
+    @include normal-shadow();
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+
+    &-select-field {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+
+    &--selected {
+
+    }
+
+    &-texts {
+      align-self: center;
+    }
+
+    &-text {
+      font-size: $fs-normal;
+    }
+
+    &-datas {
+      margin-top: 5px;
+
+      .picto {
+        font-size: $fs-large;
+        min-width: initial;
+        line-height: initial;
+      }
+    }
+
+    &-datas * {
+      color: #8c8c8c;
+    }
+
+    &-datas .data-text {
+      font-size: $fs-normal;
+      font-style: italic;
+      margin-left: 10px;
+      line-height: initial;
+    }
+
+    &-colors {
+      @include flex-row(flex-start);
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+    }
+
+    &-color {
+      width: 40px;
+      height: 10px;
+      border-radius: 5px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+
+    .task-menu {
+      font-size: $fs-huge;
+      position: absolute;
+      bottom: 12px;
+      right: 5px;
+      min-width: 0;
+      line-height: 0;
+      color: #8c8c8c;
+      cursor: pointer;
+    }
+
+    .task-menu:hover {
+      color: $text-color;
+    }
+  }
+}
+
+.taskboard.interventions-board {
+
+  .taskboard-header {
+
+    &--gray {
+      border-bottom: solid 1px #DDD;
+    }
+  }
+
+  .task {
+
+    &--updated {
+      border-left: solid 5px #FF5722;
+    }
+
+    &--further {
+      border-left: solid 5px #2196F3;
+    }
+
+    &--not-updated {
+      border-left: solid 5px #4CAF50;
+    }
+  }
+}

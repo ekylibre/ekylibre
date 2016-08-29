@@ -1,0 +1,60 @@
+%div.modal-intervention
+
+  %div.indicators
+    .med-info
+      %span.title= Intervention.human_attribute_name(:working_duration)
+      %span.value
+        %i.picto.picto-timelapse
+        = human_duration(resource.working_duration)
+
+    .med-info
+      %span.title= Intervention.human_attribute_name(:started_at)
+      %span.value
+        %i.picto.picto-clock-o
+        = resource.started_at.l
+
+    .med-info
+      %span.title= Intervention.human_attribute_name(:stopped_at)
+      %span.value
+        %i.picto.picto-clock-o
+        = resource.stopped_at.l
+
+  %div.blocks
+
+    %div.block
+      %h3.block-title Parcelles / Cultures
+
+      - intervention.targets.each do |targets|
+        - title = targets.product.name
+        - detail = targets.product.nature.name
+        = add_modal_data(title, detail, {icon: 'picto-land-parcels'})
+
+      - intervention.outputs.each do |output|
+        - title = output.product.name
+        - detail = output.product.nature.name
+        = add_modal_data(title, detail, {icon: 'picto-leaf'})
+
+    %div.block
+      %h3.block-title Opérateurs
+
+      - intervention.doers.each do |doer|
+        - title = doer.product.name
+        - detail = doer.name
+        = add_modal_data(title, detail, {icon: 'picto-male'})
+
+    %div.block
+      %h3.block-title Intrants
+
+      - intervention.inputs.each do |input|
+        - title = input.product.name
+        - detail = input.quantity_value.round(2).l(precision: 0) + " " + input.product.unit_name.mb_chars
+        = add_modal_data(title, detail, {icon: 'picto-matter'})
+
+
+    %div.block
+      %h3.block-title Outils
+
+      - intervention.tools.each do |tool|
+        - title = tool.product.name
+        - detail = tool.product.nature.name
+        = add_modal_data(title, detail, {icon: "picto-tractor"})

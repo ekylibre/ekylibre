@@ -64,7 +64,7 @@ class Intervention < Ekylibre::Record::Base
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
-  enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
+  enumerize :state, in: [:undone, :in_progress, :done, :validated], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, length: { maximum: 100_000 }, allow_blank: true
@@ -113,6 +113,28 @@ class Intervention < Ekylibre::Record::Base
 
   scope :with_generic_cast, lambda { |role, object|
     where(id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
+  }
+
+  scope :with_unroll, lambda { |search, procedure_name, target_id, year, state|
+
+    search_params = ''
+
+    search_params << "EXTRACT(YEAR FROM started_at) = #{year}"
+    search_params << " AND #{Intervention.table_name}.state = '#{state}'"
+
+    unless search.blank?
+      search_params << " AND #{Intervention.table_name}.number ILIKE '%#{search}%'"
+    end
+
+    unless procedure_name.blank?
+      search_params << " AND #{Intervention.table_name}.procedure_name = '#{procedure_name}'"
+    end
+
+    unless target_id.blank?
+      search_params << " AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{target_id}')"
+    end
+
+    where(search_params)
   }
 
   scope :with_targets, lambda { |*targets|
@@ -215,9 +237,13 @@ class Intervention < Ekylibre::Record::Base
     procedure
   end
 
+  def targets_list
+    targets.map(&:product).compact.map(&:work_name).sort
+  end
+
   # Returns human target names
   def human_target_names
-    targets.map(&:product).compact.map(&:work_name).sort.to_sentence
+    targets_list.to_sentence
   end
 
   # Returns human doer names

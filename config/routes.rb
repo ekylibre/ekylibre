@@ -506,6 +506,7 @@ Rails.application.routes.draw do
     resources :interventions, concerns: [:list, :unroll] do
       collection do
         patch :compute
+        get :show_intervention_modal
       end
       member do
         get :list_product_parameters

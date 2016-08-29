@@ -245,6 +245,21 @@ module Backend
       render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
     end
 
+    def main_week_selector
+      content_for(:heading_toolbar) do
+        week_selector
+      end
+    end
+
+    def week_selector(campaign = nil, options = {})
+      unless Campaign.any?
+        @current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
+        current_user.current_campaign = @current_campaign
+      end
+      campaign ||= current_campaign
+      render 'backend/shared/week_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
+    end
+
     def lights(status, html_options = {})
       if html_options.key?(:class)
         html_options[:class] << " lights lights-#{status}"

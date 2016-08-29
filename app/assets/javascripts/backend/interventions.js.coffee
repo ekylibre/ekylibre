@@ -186,5 +186,163 @@
   #   support.attr("data-selector", url)
   #   support.data("selector", url)
 
+  $(document).ready ->
+
+    if $('.taskboard').length > 0
+
+      taskboard = new InterventionsTaskboard
+      taskboard.addHeaderActionsEvent()
+      taskboard.addEditIconClickEvent()
+      taskboard.addDeleteIconClickEvent()
+      taskboard.onSelectTaskEvent()
+
+      # taskboard = new Taskboard('interventionsTaskboard')
+      # taskboard.addSelectTaskEvent()
+      # taskboard.addTaskModalEvent()
+      # taskboard.addEditIconClickEvent()
+      # taskboard.addDeleteIconClickEvent()
+
+
+  class InterventionsTaskboard
+    constructor: ->
+      @taskboard = new ekylibre.taskboard('#interventionsTaskboard', true)
+      @taskboardModal = new ekylibre.modal('#taskboard-modal')
+
+    getTaskboard: ->
+      return @taskboard
+
+    getTaskboardModal: ->
+      return @taskboardModal
+
+    addHeaderActionsEvent: ->
+
+      instance = this
+
+      @taskboard.addSelectTaskEvent((event) ->
+
+          selectedField = $(event.target)
+          columnIndex = instance.getTaskboard().getTaskColumnIndex(selectedField)
+          header = instance.getTaskboard().getHeaderByIndex(columnIndex)
+          checkedFieldsCount = instance.getTaskboard().getCheckedSelectFieldsCount(selectedField)
+
+          if (checkedFieldsCount == 0)
+
+            instance.getTaskboard().hiddenHeaderIcons(header)
+          else
+            instance.getTaskboard().displayHeaderIcons(header)
+      )
+
+    addEditIconClickEvent: ->
+      @taskboard.getHeaderActions().find('.edit-tasks').on('click', ->
+        alert "Etes-vous sur de vouloir modifier ces interventions ?"
+      )
+
+
+    addDeleteIconClickEvent: ->
+      @taskboard.getHeaderActions().find('.delete-tasks').on('click', ->
+        alert "Etes-vous sur de vouloir supprimer ces interventions ?"
+      )
+
+    onSelectTaskEvent: ->
+
+      instance = this
+
+      @taskboard.addTaskClickEvent((event) ->
+        task = $(event.target)
+
+        if (task.is(':input[type="checkbox"]'))
+          return
+
+        intervention = JSON.parse(task.attr('data-intervention'))
+
+        $.ajax
+          url: "/backend/interventions/show_intervention_modal",
+          data: {intervention_id: intervention.id}
+          success: (data, status, request) ->
+
+            modal = new ekylibre.modal('#taskboard-modal')
+            modal.resetModal()
+
+            modal.getHeader().prepend('<h4 class="modal-title">' + intervention.name + '</h4>')
+
+            labels = $('<div class="labels"></div>')
+
+            $(labels).append('<span class="label label-default">Réalisé</span>')
+            $(labels).append('<span class="label label-success">Conforme</span>')
+            $(labels).insertAfter(modal.getHeader().find('.modal-title'))
+
+            # $('<span class="label label-warning">Modifiée</span>').insertBefore('#taskboard-modal .modal-header .modal-title')
+            # $('<span class="label label-primary">Nouvelle intervention</span>').insertBefore('#taskboard-modal .modal-header .modal-title')
+            # $('<span class="label label-success">Conforme</span>').insertBefore('#taskboard-modal .modal-header .modal-title')
+
+
+            modal.getBody().append(data)
+
+            # buttons = {
+            #   [
+            #     "href" => '/backend/interventions/'+intervention.id+'/edit',
+            #     "class" => 'btn-default',
+            #     "label" => 'Modifier'
+            #   ],
+            #   [
+            #     "href" => '/backend/interventions/'+intervention.id+'/edit',
+            #     "class" => 'btn-primary',
+            #     "label" => 'Changer le statut'
+            #   ],
+            #   [
+            #     "href" => '/backend/interventions/'+intervention.id+'/edit',
+            #     "class" => 'btn-danger',
+            #     "label" => 'Supprimer'
+            #   ]
+            # }
+
+            editButton = $('<a href="/backend/interventions/'+intervention.id+'/edit" class="btn btn-default">Modifier</a>')
+
+            modal.getFooter().append('<div class="task-actions"></div>')
+            modal.getFooter().find('.task-actions').append(editButton)
+            # $('#taskboard-modal .modal-footer .task-actions').append(editButton)
+            # $('#taskboard-modal .modal-footer .task-actions').append(editButton)
+
+            $('#taskboard-modal').modal 'show'
+      )
+
+
+
+  class Taskboard
+
+    constructor: (id) ->
+      @id = id
+      @taskboard = $("##{id}")
+
+    # Delete
+    addSelectTaskEvent: ->
+      $('.tasks .task-select-field input[type="checkbox"]').on('change', (event) ->
+
+      )
+
+    # Delete
+    @resetModal: ->
+      modalHeader = $('#taskboard-modal .modal-header')
+      modalBody = $('#taskboard-modal .modal-body')
+
+      $(modalHeader).find('.modal-title').remove()
+      $(modalHeader).find('.labels').remove()
+      $(modalBody).empty()
+
+
+
+
+    addEditIconClickEvent: ->
+      @taskboard.find('.column-actions .edit-tasks').on('click', ->
+        alert "Etes-vous sur de vouloir modifier ces interventions ?"
+      )
+
+
+    addDeleteIconClickEvent: ->
+      @taskboard.find('.column-actions .delete-tasks').on('click', ->
+        alert "Etes-vous sur de vouloir supprimer ces interventions ?"
+      )
+
+
   true
 ) ekylibre, jQuery

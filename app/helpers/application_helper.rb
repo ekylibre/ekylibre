@@ -945,7 +945,7 @@ module ApplicationHelper
     header_options = options.slice(:close_button, :close_html).merge(title_id: options[:aria][:labelledby])
     content_for(:popover) do
       content_tag(:div, options) do
-        content_tag(:div, class: 'modal-dialog') do
+        content_tag(:div, class: 'modal-dialog' + (options[:size] == :large ? ' modal-lg' : options[:size] == :small ? ' modal-sm' : '')) do
           content_tag(:div, class: 'modal-content') do
             if title
               modal_header(title, header_options) + capture(&block)

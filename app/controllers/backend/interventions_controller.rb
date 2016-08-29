@@ -159,5 +159,10 @@ module Backend
         end
       end
     end
+
+    def show_intervention_modal
+      @intervention = Intervention.find(params[:intervention_id])
+      render partial: 'backend/interventions/modal', locals: { intervention: @intervention }
+    end
   end
 end

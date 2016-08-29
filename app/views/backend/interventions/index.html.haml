@@ -19,6 +19,59 @@
     - count = current_user.crumbs.unconverted.where(nature: "start").count
     = t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
 
+//- datetime_field_tag(:started_at, nil, data: { bind: 'value: started_at'})
+- main_week_selector
 - main_campaign_selector
 
-= main_list
+- if current_campaign
+  - productions = ActivityProduction.of_campaign(current_campaign)
+  - if productions.any?
+    = janus do |j|
+      - j.face :cobbles do
+
+        - campaign ||= current_campaign
+
+        - interventions_requested = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], campaign.harvest_year, :undone)
+        - interventions_in_progress = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], campaign.harvest_year, :in_progress)
+        - interventions_done = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], campaign.harvest_year, :done)
+        - interventions_validate = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], campaign.harvest_year, :validate)
+
+
+        -# = interventions_requested[0].reference_name
+
+        = taskboard params: { id: "interventionsTaskboard", class: "interventions-board"} do |board|
+
+          = modal(:taskboard_modal, class: "interventions-modal", size: :large) do
+            .modal-body
+            .modal-footer
+              .task-actions
+
+
+          - edit_icon = content_tag(:i, nil, {:class => "picto picto-edit picto--invisible edit-tasks"} )
+          - delete_icon = content_tag(:i, nil, {:class => "picto picto-delete picto--invisible delete-tasks"} )
+          - headers_actions = [edit_icon, delete_icon]
+
+          - board.headers :class => "taskboard-header--gray" do |header|
+            - header.content "Demandes (" + interventions_requested.count.to_s + ")", headers_actions
+            - header.content "En cours (" + interventions_in_progress.count.to_s + ")", headers_actions
+            - header.content "Terminées (" + interventions_done.count.to_s + ")", headers_actions
+            - header.content "Validées (" + interventions_validate.count.to_s + ")", headers_actions
+
+          - board.lines do |line|
+            - menu_icon = content_tag(:i, nil, {:class => "task-menu picto picto-keyboard-control"})
+
+            - line.block :class => "pending" do |block|
+              - add_tasks(interventions_requested, block)
+
+            - line.block :class => "current" do |block|
+              - add_tasks(interventions_in_progress, block)
+
+            - line.block :class => "realized" do |block|
+              - add_tasks(interventions_done, block)
+
+            - line.block :class => "validated" do |block|
+              - add_tasks(interventions_validate, block)
+
+
+      - j.face :list do
+        = main_list

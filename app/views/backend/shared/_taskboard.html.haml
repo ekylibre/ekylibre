@@ -1,0 +1,53 @@
+= content_tag(:div, nil, { :class => "taskboard #{taskboard.options[:class]}", :id => "#{taskboard.options[:id]}" }) do
+
+  - if taskboard.taskboard_headers.any?
+    %div.headers
+
+      - taskboard.taskboard_headers.each_with_index do |header, index|
+        = content_tag(:div, nil, :class => "taskboard-header #{taskboard.headers_options[:class]}", :data => {:column_index => index}) do
+          = content_tag(:h4, header.title, :class => "column-title #{header.options[:class]}")
+          = content_tag(:div, nil, :class => "column-actions") do
+            - header.actions.each do |action|
+              = action
+
+  - if taskboard.taskboard_lines.any?
+    %div.lines
+
+      - taskboard.taskboard_lines.each do |line|
+        = content_tag(:div, nil, :class => "line #{line.options[:class]}") do
+
+          - if line.blocks.any?
+            - line.blocks.each_with_index do |block, index|
+
+              = content_tag(:div, nil, :class => "tasks #{block.options[:class]}", :data => {:column_index => index}) do
+
+                - if block.tasks.any?
+                  - block.tasks.each do |task|
+
+                    = content_tag(:div, nil, :class => "task #{task.options[:class]}", :data => task.options[:data]) do
+
+                      - if task.can_select?
+                        %div.task-select-field
+                          = check_box_tag(:check_nature,'1', false)
+
+                      - if task.colors.any?
+                        %div.task-colors
+                          - task.colors.each do |color|
+                            %div.task-color{style: "background-color: #{color};"}
+
+                      - if task.titles.any?
+                        %div.task-texts
+                          - task.titles.each do |title|
+                            = content_tag(:p, title[:text], :class => "task-text #{title[:class]}")
+
+                      - if task.datas.any?
+                        = content_tag(:div, nil, :class => "task-datas") do
+                          - task.datas.each do |data|
+                            = content_tag(:div, nil, :class => "task-data") do
+                              = content_tag(:i, nil, :class => "picto picto-#{data[:icon]} #{data[:class]}")
+                              = content_tag(:span, data[:text], :class => "data-text #{data[:class]}")
+
+                      - if task.actions.any?
+                        %div.task-actions
+                          - task.actions.each do |action|
+                            = action

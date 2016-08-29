@@ -1,0 +1,75 @@
+@import "bootstrap/labels";
+
+$preview-modal-height: 80vh;
+
+.interventions-modal .modal-header {
+  display: flex;
+  // flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+
+ .modal-title {
+   margin-right: 10px;
+   font-size: $fs-large;
+ }
+
+ .label {
+   font-size: $fs-normal;
+ }
+
+ .close {
+   flex: 1;
+   text-align: right;
+ }
+}
+
+.interventions-modal .modal-body {
+  padding: 25px 15px 15px;
+  max-height: $preview-modal-height;
+  overflow-y: auto;
+}
+
+.interventions-modal .indicators {
+  @include flex-row(space-around);
+
+  .med-info {
+    padding: 0;
+
+    .value {
+      line-height: 60px;
+    }
+  }
+}
+
+.interventions-modal .blocks {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 10px;
+
+  .block {
+    flex: 1 50%;
+    margin: 30px 0;
+
+    .block-title {
+      margin-right: 80px;
+      border-bottom: 1px solid #e5e5e5;
+      padding-bottom: 5px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .data {
+      padding-top: 10px;
+    }
+
+    .data-title {
+      font-weight: bold;
+    }
+
+    .picture .picto {
+      font-size: $fs-huge;
+      line-height: initial;
+    }
+  }
+}
