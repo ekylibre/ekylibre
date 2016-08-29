@@ -181,6 +181,10 @@ class Intervention < Ekylibre::Record::Base
       if target.new_container_id
         ProductLocalization.find_or_create_by(product: target.product, container: Product.find(target.new_container_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
       end
+
+      if target.new_group_id
+        ProductMembership.find_or_create_by(member: target.product, group: ProductGroup.find(target.new_group_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
     end
   end
 
