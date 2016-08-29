@@ -5444,6 +5444,9 @@ products:
   lock_version:
     type: integer
     required: true
+  member_variant_id:
+    type: integer
+    references: product_nature_variant
   name:
     type: string
     required: true

@@ -115,7 +115,8 @@ module Procedo
           raise Procedo::FailedFunctionCall
         end
         def variant_of(product)
-          return product.variant unless product.nil?
+          return product.member_variant unless product.nil?
+          nil
         rescue
           raise Procedo::FailedFunctionCall
         end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160817133216) do
+ActiveRecord::Schema.define(version: 20160829091835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2868,6 +2868,7 @@ ActiveRecord::Schema.define(version: 20160817133216) do
     t.uuid     "uuid"
     t.integer  "initial_movement_id"
     t.jsonb    "custom_fields"
+    t.integer  "member_variant_id"
   end
 
   add_index "products", ["address_id"], name: "index_products_on_address_id", using: :btree
@@ -2882,6 +2883,7 @@ ActiveRecord::Schema.define(version: 20160817133216) do
   add_index "products", ["initial_mother_id"], name: "index_products_on_initial_mother_id", using: :btree
   add_index "products", ["initial_movement_id"], name: "index_products_on_initial_movement_id", using: :btree
   add_index "products", ["initial_owner_id"], name: "index_products_on_initial_owner_id", using: :btree
+  add_index "products", ["member_variant_id"], name: "index_products_on_member_variant_id", using: :btree
   add_index "products", ["name"], name: "index_products_on_name", using: :btree
   add_index "products", ["nature_id"], name: "index_products_on_nature_id", using: :btree
   add_index "products", ["number"], name: "index_products_on_number", unique: true, using: :btree

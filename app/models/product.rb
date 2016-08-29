@@ -47,6 +47,7 @@
 #  initial_population    :decimal(19, 4)   default(0.0)
 #  initial_shape         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  lock_version          :integer          default(0), not null
+#  member_variant_id     :integer
 #  name                  :string           not null
 #  nature_id             :integer          not null
 #  number                :string           not null
@@ -122,6 +123,7 @@ class Product < Ekylibre::Record::Base
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
