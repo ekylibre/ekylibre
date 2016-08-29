@@ -22,6 +22,7 @@
     = f.input :nitrate_fixing
   - elsif activity.animal_farming?
     -# Animal farming
+    = f.referenced_association :support, source: { scope: { of_variety: :animal_group } }
     = f.input :size_value
   - elsif activity.with_support
     -# Other families
