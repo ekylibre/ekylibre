@@ -793,6 +793,7 @@ por:
     container: "Recipiente"
     convert_balance_into_loss: "Converter equilíbrio em perda de"
     convert_balance_into_profit: "Converter equilíbrio em lucro"
+    convert_to_cultivable_zone: "Converter para zona cultivável"
     cooperative_cartodb: "Cooperativa CartoDB"
     coordinates: "Coordenadas"
     copy_from_another_activity: "Copiar de outra atividade"
@@ -890,6 +891,7 @@ por:
     # ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Intervenções decorreram vezes por actividades" #?
     email: "O email:"
+    employee_informations: "Informações do empregado"
     end: "Para"
     entities: "Entidade pessoas"
     entity_links: "Ligações entidade"
@@ -928,6 +930,7 @@ por:
     final_balance: "saldo final"
     financials_assets: "Ativos Financials"
     finish: "Terminar"
+    finished: "Acabado"
     first_line_as_title: "Primeira linha como o título"
     fixed_asset_depreciations: "Depreciações de ativos fixos"
     fixed_assets: "Activos fixos"
@@ -1086,6 +1089,7 @@ por:
     net_mass: "Massa líquida"
     net_surface_area: "Área de superfície líquida"
     new: "Novo"
+    new_activity: "nova atividade"
     new_animal: "Novo animal"
     new_attachment: "Novo anexo"
     new_box: "Nova caixa"
@@ -1377,6 +1381,36 @@ por:
     total_quantity: "Quantidade total"
     total_unpaid_amount: "Montante total não pago" #?
     totals: "Totais"
+    tours:
+      production:
+        field_distribution:
+          content: "Encontre aqui os 3 níveis para cultivos: zonas cultiváveis ​​(independentes de campanhas), parcelas de terra definidas nas produções e culturas semeadas durante as intervenções."
+          title: "Campos"
+        production:
+          content: "Atividades permite definir o que você quer produzir e planejar."
+          title: "Produção"
+        quality:
+          content: "Siga as suas culturas e atividades com muitos tipos de análises, controlar doenças com problemas e verificar a qualidade da colheita com inspeções."
+          title: "Ferramentas de qualidade"
+        supervision:
+          content: "Sensores de licenças para registrar e concentrar-se valores de sensores seu em seus campos."
+          title: "Sensores"
+      welcome:
+        home:
+          content: "Vamos fazer uma visita rápida da interface da aplicação. Em primeiro lugar este botão permite ir para casa a partir de qualquer lugar no aplicativo."
+          title: "Bem-vindo a Ekylibre"
+        main:
+          content: "Onde toda a ação ocorra é aqui. Desejamos-lhe um uso feliz."
+          title: "Onde você trabalha"
+        parts:
+          content: "Este menu permite acesso a todos os módulos principais."
+          title: "Módulos de Ekylibre"
+        side:
+          content: "Esta barra lateral contém todos os sub-menus do módulo atual que você está consultando."
+          title: "Barra lateral Módulo"
+        user:
+          content: "Aqui, você pode ver as suas notificações, mostrar ajuda, leia o seu nome da fazenda. Suas preferências de usuário são editáveis ​​a partir do menu."
+          title: "Menu do usuário"
     tracking: "Rastreamento"
     trade: "Comercializaçaõ"
     trade_counts: "Contagens comerciais"

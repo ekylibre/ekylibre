@@ -364,6 +364,10 @@ spa:
         multi_polygon: "Polígono de múltiples"
         point: "Punto"
         string: "Cuerda"
+    purchase_nature:
+      nature:
+        payslip: "Recibo de sueldo"
+        purchase: "Compra"
     sale_opportunity:
       third_role:
         client: "Cliente"

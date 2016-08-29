@@ -23,6 +23,7 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/activity_inspection_point_natures#autocomplete"
+#     - "backend/activity_productions#list_target_distributions"
 #     - "backend/animals#take"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
@@ -115,6 +116,7 @@
 #     - "backend/products#take"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
+#     - "backend/tours#finish"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
@@ -185,7 +187,6 @@ activities:
     - "backend/activity_seasons#index"
     - "backend/activity_seasons#show"
     - "backend/activity_seasons#unroll"
-    - "backend/activity_tactics#index"
     - "backend/activity_tactics#show"
     - "backend/activity_tactics#unroll"
     - "backend/inspections#index"
@@ -556,6 +557,7 @@ cultivable_zones:
     dependencies:
     - read-cultivable_zones
     actions:
+    - "backend/cap_islets#convert"
     - "backend/cultivable_zones#create"
     - "backend/cultivable_zones#destroy"
     - "backend/cultivable_zones#edit"

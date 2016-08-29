@@ -559,6 +559,8 @@ eng:
     emission_currency: "Emission currency"
     emission_journal_entry: "Emission journal entry"
     employed: "Employed"
+    employee: "Employee"
+    employee_account: "Employee account"
     employees: "Employees"
     employment: "Employment"
     enabled: "Enabled"

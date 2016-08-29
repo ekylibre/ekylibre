@@ -126,7 +126,7 @@ module Procedo
             options[info.underscore.to_sym] = element.attr(info).to_s
           end
         end
-        %w(variety derivative-of component-of).each do |attribute|
+        %w(component-of).each do |attribute|
           if element.has_attribute?(attribute)
             options[attribute.underscore.to_sym] = element.attr(attribute).to_s
           end

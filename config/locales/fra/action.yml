@@ -988,6 +988,7 @@ fra:
     contextual_help: "Aide contextuelle" #?
     convert_balance_into_loss: "Passer le solde en perte"
     convert_balance_into_profit: "Passer le solde en profit"
+    convert_to_cultivable_zone: "Convertir en zone cultivable"
     cooperative_cartodb: "CartoDB Coopérative"
     coordinates: "Coordonnées"
     copy_from_another_activity: "Copier depuis une autre activité"
@@ -1114,6 +1115,7 @@ fra:
     elapsed_interventions_times_by_activities: "Temps passé par activité" #?
     email: "Email:"
     employee: "Employé" #?
+    employee_informations: "Informations sociales"
     employee_name: "Employé" #?
     end: "au"
     entities: "Tiers"
@@ -1174,6 +1176,7 @@ fra:
     financial_state: "État financier" #?
     financials_assets: "Immobilisations"
     finish: "Terminer"
+    finished: "Terminé"
     finished_income_statement: "Produits" #?
     finished_sum: "Total produits d’exploitation" #?
     finishes: "Termine par" #?
@@ -1419,6 +1422,7 @@ fra:
     net_vat_amount: "TVA nette due" #?
     net_volume: "Volume net" #?
     new: "Nouveau"
+    new_activity: "Nouvelle activité"
     new_animal: "Nouvel animal"
     new_attachment: "Nouvel attachement"
     new_box: "Nouvelle boîte"
@@ -1890,6 +1894,36 @@ fra:
     total_quantity: "Quantité totale"
     total_unpaid_amount: "Montant total impayé" #?
     totals: "Totaux"
+    tours:
+      production:
+        field_distribution:
+          content: "Trouvez ici les 3 niveaux pour les cultures\_: zones cultivables (indépendantes des campagnes), les parcelles définies dans les productions et les cultures semées au cours des interventions."
+          title: "Parcellaire"
+        production:
+          content: "Les activités permettent de définir ce que vous voulez produire et le planifier."
+          title: "Production"
+        quality:
+          content: "Suivez vos cultures et les activités avec différents types d’analyses, les maladies en enregistrant les incidents et vérifiez la qualité de la récolte avec des agréages."
+          title: "Outils pour la qualité"
+        supervision:
+          content: "Enregistrer et regrouper les valeurs remontées de vos capteurs dans vos champs ici."
+          title: "Capteurs"
+      welcome:
+        home:
+          content: "Nous allons faire un tour rapide de l’interface de l’application. Tout d’abord ce bouton permet de revenir à l’accueil depuis n’importe où dans l’application."
+          title: "Bienvenue sur Ekylibre"
+        main:
+          content: "Toute l’action prend place ici. Nous vous souhaitons une bonne prise en main."
+          title: "Où vous travaillez"
+        parts:
+          content: "Ce menu permet d’accéder à l’ensemble des modules principaux."
+          title: "Modules de Ekylibre"
+        side:
+          content: "Cette barre latérale contient tous les sous-menus du module où vous vous trouvez."
+          title: "Barre latérale du module"
+        user:
+          content: "Ici, vous pouvez voir vos notifications, afficher l’aide, lire le nom de votre ferme. Vos préférences utilisateur sont modifiables à partir du menu aussi."
+          title: "Menu utilisateur"
     tracking: "Lot"
     trade: "Ventes/Achats"
     trade_counts: "Totaux commerciaux"

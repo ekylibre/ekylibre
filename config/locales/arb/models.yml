@@ -1304,6 +1304,8 @@ arb:
     emission_currency: "العملة الانبعاثات"
     emission_journal_entry: "دخول مجلة الانبعاثات"
     employed: "وظف من قبل الشركة"
+    employee: "موظف"
+    employee_account: "حساب الموظف"
     employees: "الموظفين"
     employment: "الوظيفة"
     enabled: "تمكين"

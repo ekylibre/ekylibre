@@ -788,6 +788,7 @@ cmn:
     container: "容器"
     convert_balance_into_loss: "转换成平衡损失"
     convert_balance_into_profit: "转换成平衡利润"
+    convert_to_cultivable_zone: "转换成可耕种区"
     cooperative_cartodb: "合作CartoDB"
     coordinates: "坐标"
     copy_from_another_activity: "从另一项活动复制"
@@ -885,6 +886,7 @@ cmn:
     # ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "经过干预倍活动" #?
     email: "电子邮件："
+    employee_informations: "员工信息"
     end: "至"
     entities: "实体"
     entity_links: "实体链接"
@@ -923,6 +925,7 @@ cmn:
     final_balance: "最终平衡"
     financials_assets: "金融资产"
     finish: "完"
+    finished: "完"
     first_line_as_title: "第一行标题"
     fixed_asset_depreciations: "固定资产折旧"
     fixed_assets: "固定资产"
@@ -1082,6 +1085,7 @@ cmn:
     net_mass: "净质量"
     net_surface_area: "净面积"
     new: "新"
+    new_activity: "新活动"
     new_animal: "新的动物"
     new_attachment: "新附件"
     new_box: "新箱"
@@ -1373,6 +1377,36 @@ cmn:
     total_quantity: "总数（量"
     total_unpaid_amount: "总未付款项" #?
     totals: "总计"
+    tours:
+      production:
+        field_distribution:
+          content: "在这里查找栽培的3个层次：耕种区域（独立运动），在生产中定义地块，和干预措施期间播种栽培。"
+          title: "字段"
+        production:
+          content: "活动允许定义要生产，并计划它是什么。"
+          title: "生产"
+        quality:
+          content: "按照你的作物和活动，许多类型的分析，监测与疾病问题，检查收获质量检查。"
+          title: "质量工具"
+        supervision:
+          content: "传感器许可登记并在您的领域集中你的传感器值。"
+          title: "传感器"
+      welcome:
+        home:
+          content: "我们将应用程序的界面的快速浏览。首先这个按钮允许从应用程序中的任何地方回家。"
+          title: "欢迎Ekylibre"
+        main:
+          content: "其中，所有的操作发生的位置就在这里。我们希望您的快乐使用。"
+          title: "你在哪里工作"
+        parts:
+          content: "此菜单允许访问所有主要模块。"
+          title: "Ekylibre的模块"
+        side:
+          content: "该边栏包含要咨询当前模块的所有子菜单。"
+          title: "模块侧栏"
+        user:
+          content: "在这里，您可以看到您的通知，显示帮助，请阅读你的农场名称。您的用户偏好，从菜单中编辑。"
+          title: "用户菜单"
     tracking: "跟踪"
     trade: "贸易"
     trade_counts: "交易计数"

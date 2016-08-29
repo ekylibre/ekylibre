@@ -551,6 +551,8 @@ cmn:
     emission_currency: "发射货币"
     emission_journal_entry: "发射日记帐分录"
     employed: "就业"
+    employee: "雇员"
+    employee_account: "员工帐户"
     employees: "员工"
     employment: "雇用"
     enabled: "启用"

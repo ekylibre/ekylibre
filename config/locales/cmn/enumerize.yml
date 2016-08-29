@@ -364,6 +364,10 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    purchase_nature:
+      nature:
+        payslip: "工资单"
+        purchase: "采购"
     sale_opportunity:
       third_role:
         client: "客户"

@@ -363,6 +363,10 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    purchase_nature:
+      nature:
+        payslip: "قسيمة الدفع"
+        purchase: "شراء"
     sale_opportunity:
       third_role:
         client: "زبون"

@@ -2,6 +2,10 @@ module Ekylibre
   module Support
     class Item < Struct.new(:type, :args, :block)
       alias name type
+
+      def options
+        args[-1].is_a?(Hash) ? args[-1] : {}
+      end
     end
 
     class Lister

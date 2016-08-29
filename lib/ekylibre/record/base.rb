@@ -178,7 +178,7 @@ module Ekylibre
 
           define_method "of_#{name}?" do |item_or_name|
             item = item_or_name.is_a?(Nomen::Item) ? item_or_name : reflection.klass.find(item_or_name)
-            item >= self[reflection.foreign_key]
+            self[reflection.foreign_key].present? && item >= self[reflection.foreign_key]
           end
         end
 

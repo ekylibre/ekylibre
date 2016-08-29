@@ -37,6 +37,8 @@
 #  dead_at                   :datetime
 #  deliveries_conditions     :string
 #  description               :text
+#  employee                  :boolean          default(FALSE), not null
+#  employee_account_id       :integer
 #  first_met_at              :datetime
 #  first_name                :string
 #  full_name                 :string           not null
@@ -74,13 +76,13 @@ class Entity < Ekylibre::Record::Base
   include Versionable, Commentable, Attachable
   include Customizable
   attr_accessor :password_confirmation, :old_password
-  # belongs_to :attorney_account, class_name: "Account"
-  belongs_to :client_account, class_name: 'Account'
   refers_to :currency
   refers_to :language
   refers_to :country
   enumerize :nature, in: [:organization, :contact], default: :organization, predicates: true
   versionize exclude: [:full_name]
+  belongs_to :client_account, class_name: 'Account'
+  belongs_to :employee_account, class_name: 'Account'
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   belongs_to :proposer, class_name: 'Entity'
   belongs_to :responsible, class_name: 'User'
@@ -132,7 +134,7 @@ class Entity < Ekylibre::Record::Base
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
+  validates :active, :client, :employee, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
   validates :activity_code, :deliveries_conditions, :first_name, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
   validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :currency, :language, :nature, presence: true
@@ -154,6 +156,7 @@ class Entity < Ekylibre::Record::Base
   scope :suppliers,    -> { where(supplier: true) }
   scope :transporters, -> { where(transporter: true) }
   scope :clients,      -> { where(client: true) }
+  scope :employees,    -> { where(employee: true) }
   scope :related_to, lambda { |entity|
     where("id IN (SELECT linked_id FROM #{EntityLink.table_name} WHERE entity_id = ?) OR id IN (SELECT entity_id FROM #{EntityLink.table_name} WHERE linked_id = ?)", entity.id, entity.id)
   }
@@ -283,7 +286,7 @@ class Entity < Ekylibre::Record::Base
 
   # This method creates automatically an account for the entity for its usage (client, supplier...)
   def account(nature)
-    natures = [:client, :supplier]
+    natures = [:client, :supplier, :employee]
     conversions = { payer: :client, payee: :supplier }
     nature = nature.to_sym
     nature = conversions[nature] || nature
@@ -292,7 +295,9 @@ class Entity < Ekylibre::Record::Base
     end
     valid_account = send("#{nature}_account")
     if valid_account.nil?
-      prefix = Nomen::Account[nature.to_s.pluralize].send(Account.accounting_system)
+      account_nomen = nature.to_s.pluralize
+      account_nomen = :staff_due_remunerations if nature == :employee
+      prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s + self.number.to_s
         unless valid_account = Account.find_by(number: number)
@@ -302,7 +307,7 @@ class Entity < Ekylibre::Record::Base
         suffix = '1'
         suffix = suffix.upper_ascii[0..5].rjust(6, '0')
         account = 1
-        # x=Time.zone.now
+        # x = Time.zone.now
         i = 0
         until account.nil?
           account = Account.find_by('number LIKE ?', prefix.to_s + suffix.to_s)

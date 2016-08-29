@@ -582,6 +582,8 @@ ita:
     emission_currency: "valuta di emissione"
     emission_journal_entry: "voce di diario di emissione"
     employed: "occupato"
+    employee: "Dipendente"
+    employee_account: "Conto dei dipendenti"
     employees: "I dipendenti"
     employment: "occupazione"
     enabled: "Abilitato"

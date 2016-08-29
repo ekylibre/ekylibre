@@ -26,6 +26,7 @@ eng:
         none: "None"
     activity_production:
       support_nature:
+        # animal_group: "Animal group"
         border: "Border"
         buffer: "Buffer"
         cultivation: "Cultivation"
@@ -349,6 +350,10 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    purchase_nature:
+      nature:
+        payslip: "Payslip"
+        purchase: "Purchase"
     sale_opportunity:
       third_role:
         client: "Client"

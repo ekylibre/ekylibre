@@ -45,9 +45,9 @@ fra:
     food_mass_per_animal: "Masse d’aliment par animal" #?
     grains_area_density: "Densité de grains" #?
     grains_area_density_in_thousand_per_hectare: "Densité surfacique de grains en milliers par hectare" #?
-    grains_count: "Nombre de grains" #?
+    grains_count: "Millers de grains" #?
     length: "Longueur" #?
-    mass_area_density: "Mass area density" #?
+    mass_area_density: "Densité surfacique en kilogrammes par hectare" #?
     mass_area_density_in_gram_per_square_meter: "Densité surfacique en grammes par mètre carré" #?
     mass_area_density_in_hectoliter_per_hectare: "Densité surfacique en hectolitres par hectare" #?
     mass_area_density_in_ton_per_hectare: "Densité surfacique en tonnes par hectare" #?

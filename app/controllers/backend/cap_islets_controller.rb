@@ -46,7 +46,17 @@ module Backend
 
     list(:cap_land_parcels, conditions: { cap_islet_id: 'params[:id]'.c }, order: { land_parcel_number: :asc }) do |t|
       t.column :land_parcel_number, url: true
-      t.column :net_surface_area
+      t.column :human_shape_area
+    end
+
+    def convert
+      return unless @cap_islet = find_and_check
+      if params[:to] == 'cultivable_zone'
+        cultivable_zone = CultivableZone.create!(name: @cap_islet.campaign_name + '-' + @cap_islet.islet_number, shape: @cap_islet.shape)
+        redirect_to params[:redirect] || { controller: :cultivable_zones, action: :show, id: cultivable_zone.id }
+      else
+        redirect_to backend_cap_islet(@cap_islet)
+      end
     end
   end
 end

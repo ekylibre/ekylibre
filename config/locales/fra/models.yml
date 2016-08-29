@@ -723,7 +723,9 @@ fra:
     emission_currency_rate: "Taux de la devise émise" #?
     emission_journal_entry: "Écriture de l’émission"
     employed: "Employé par la société"
-    employees: "employés"
+    employee: "Employé"
+    employee_account: "Compte employé"
+    employees: "Employés"
     employment: "Emploi/Rôle"
     enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
