@@ -176,6 +176,14 @@ class Intervention < Ekylibre::Record::Base
     true
   end
 
+  after_save do
+    targets.find_each do |target|
+      if target.new_container_id
+        ProductLocalization.find_or_create_by(product: target.product, container: Product.find(target.new_container_id), intervention_id: target.intervention_id, started_at: working_periods.maximum(:stopped_at))
+      end
+    end
+  end
+
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
     with_undestroyable_products?
