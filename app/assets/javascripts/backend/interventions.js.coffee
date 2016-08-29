@@ -52,7 +52,7 @@
               if unrollPath
                 # for each scope
                 for scopeKey, scopeValue of v.dynascope
-                  
+
                   scopeReg = ///
                   (.* #root
                   unroll\\?.*scope.*#{scopeKey}[^=]*) # current scope

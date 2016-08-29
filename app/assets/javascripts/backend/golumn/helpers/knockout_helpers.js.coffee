@@ -30,7 +30,7 @@
         $(element).modal 'destroy'
         return
       return
-      
+
     update: (element, valueAccessor) ->
       value = valueAccessor()
       if ko.utils.unwrapObservable(value)

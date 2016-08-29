@@ -1,6 +1,6 @@
 class golumn.Item
   constructor: (@id, @name, @status, @sex, @show_path = '', @parent) ->
-    
+
     @sexClass = ko.pureComputed () =>
       if @sex == 'male' then "icon-mars" else if @sex == 'female' then 'icon-venus' else ''
 

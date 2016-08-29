@@ -9,7 +9,7 @@ class golumn.Group
       ko.utils.arrayForEach @containers(), (container) =>
         c += container.count()
       c
-      
+
     @toggleItems.subscribe (newValue) =>
 
       ko.utils.arrayForEach @containers(), (container) =>
