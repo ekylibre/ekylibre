@@ -2074,6 +2074,7 @@ arb:
         shoulder_grinding: "كتف طحن"
         sifting: "غربلة"
         soil_structure_stabilisation: "استقرار بنية التربة"
+        # solarization: "Solarization"
         sowing: "بذر"
         sowing_burying: "بذر دفن"
         sterilization: "تعقيم"
