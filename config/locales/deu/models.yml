@@ -821,6 +821,7 @@ deu:
     measure_value_value: "Messwert Wert"
     meeting_origin: "Treffen Herkunft"
     member: "Mitglied"
+    # member_variant: "Member variant"
     members: "Mitglieder"
     members_count: "Mitglieder zählen"
     memberships: "Mitgliedschaften"

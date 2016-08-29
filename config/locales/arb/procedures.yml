@@ -69,7 +69,7 @@ arb:
     mechanical_pollinator: "الملقحات الميكانيكية"
     milk: "حليب"
     mother: "أم"
-    movement: "حركة"
+    movement: "حركة" #?
     mower: "جزازة"
     mower_driver: "سائق جزازة"
     net_implanter: "صافي implanter"

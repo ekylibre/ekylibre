@@ -821,6 +821,7 @@ jpn:
     measure_value_value: "測定値の値"
     meeting_origin: "会議の起源"
     member: "メンバー"
+    # member_variant: "Member variant"
     members: "メンバー"
     members_count: "メンバーは数えます"
     memberships: "メンバーシップ"

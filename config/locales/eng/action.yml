@@ -78,10 +78,6 @@ eng:
       edit: "Edit animal: %{name}"
       index: "Animals"
       # load_animals: "Load animals animal: %{name}"
-      # load_containers: "Load containers animal: %{name}"
-      # load_natures: "Load natures animal: %{name}"
-      # load_production_supports: "Load production supports animal: %{name}"
-      # load_workers: "Load workers animal: %{name}"
       new: "New animal"
       show: "%{nature}: %{name}"
       # take: "Take animal: %{name}"
@@ -871,7 +867,7 @@ eng:
     amount_per_unit: "%{amount}/%{unit}" #??
     amounts_in_currency: "Amounts (%{currency})"
     analyses: "Analyses"
-    animal_details: "Animal details" #?
+    animal_details: "Animal details" #?!
     animals: "Animals"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
@@ -890,7 +886,7 @@ eng:
     attachments: "Attachments"
     auto_reconciliate: "Auto reconciliate"
     automatic: "Auto" #?
-    available: "Available" #?
+    available: "Available"
     available_columns: "Available columns: %{columns}"
     back: "Back to the previous page"
     balance: "Balance"
@@ -935,7 +931,7 @@ eng:
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
-    choose_creation_mode: "Choose creation mode"
+    choose_creation_mode: "Choose creation mode" #?!
     choose_mail_column: "Choose email column"
     clear: "Clear"
     click_to_mail: "Click to email with your own mail software"
@@ -1233,7 +1229,7 @@ eng:
     merge: "Merge"
     method: "Method" #?
     minimal_temperature: "Minimal temperature"
-    missing_attributes: "Some attributes are missing"
+    missing_attributes: "Some attributes are missing" #?!
     missing_help: "Missing page"
     mobile: "Mobile" #?
     mode: "Mode" #?
@@ -1242,15 +1238,15 @@ eng:
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly" #?
     months: "Months"
-    move_animal: "Move animals" #?
+    move_animal: "Move animals" #??
     movements: "Movements"
     name: "Name" #?
     nature: "Type"
-    nature_changed: "Le type des animaux a changé"
+    nature_changed: "Le type des animaux a changé" #?!
     natures: "Types" #?
     net_mass: "Net mass"
     net_surface_area: "Net surface area"
-    new: "New" #?
+    new: "New"
     new_activity: "New activity"
     new_animal: "New animal"
     new_attachment: "New attachment"
@@ -1459,7 +1455,7 @@ eng:
     set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
     settings: "Settings"
     settings_statistics: "Settings statistics"
-    sex: "Sex"
+    sex: "Sex" #?
     shape: "Shape" #?
     ship: "Ship" #?
     show: "Show"
@@ -1908,10 +1904,6 @@ eng:
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
-      # load_containers: "Load containers"
-      # load_natures: "Load natures"
-      # load_production_supports: "Load production supports"
-      # load_workers: "Load workers"
       lock: "Lock"
       lose: "Lose"
       mail: "Mail"

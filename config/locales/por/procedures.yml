@@ -69,7 +69,7 @@ por:
     mechanical_pollinator: "polinizador mecânica"
     milk: "Leite"
     mother: "Mãe"
-    movement: "Movimento"
+    movement: "Movimento" #?
     mower: "Segador"
     mower_driver: "Motorista mower"
     net_implanter: "Implanter net"

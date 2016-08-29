@@ -821,6 +821,7 @@ cmn:
     measure_value_value: "测量值值"
     meeting_origin: "会议的起源"
     member: "会员"
+    # member_variant: "Member variant"
     members: "会员"
     members_count: "会员数"
     memberships: "成员"

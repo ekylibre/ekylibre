@@ -825,6 +825,7 @@ spa:
     measure_value_value: "Valor de medida del valor"
     meeting_origin: "Origen de reuniones"
     member: "Miembro"
+    # member_variant: "Member variant"
     members: "Miembros"
     members_count: "Cantidad de miembros"
     memberships: "Membresías"

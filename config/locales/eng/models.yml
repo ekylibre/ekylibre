@@ -839,6 +839,7 @@ eng:
     measure_value_value: "Measure value value"
     meeting_origin: "Meeting origin"
     member: "Member"
+    member_variant: "Member variant"
     members: "Members"
     members_count: "Members count" #?
     memberships: "Memberships"

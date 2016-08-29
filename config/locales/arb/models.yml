@@ -1649,6 +1649,7 @@ arb:
     measure_value_value: "قيمة قياس القيمة"
     meeting_origin: "أصل لقاء"
     member: "عضو"
+    # member_variant: "Member variant"
     members: "أعضاء"
     members_count: "عد الأعضاء"
     memberships: "عضوية"

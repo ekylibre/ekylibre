@@ -192,7 +192,7 @@ fra:
     molluscicide_to_input: "Molluscicide à distribuer" #?
     mother: "Mère"
     mother_animal: "Mère" #?
-    movement: "Mouvement"
+    movement: "Mouvement" #?
     mower: "Faucheuse"
     mower_driver: "Conducteur de faucheuse"
     net_implanter: "Dérouleur de filet"

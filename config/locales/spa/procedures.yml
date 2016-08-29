@@ -69,7 +69,7 @@ spa:
     mechanical_pollinator: "polinizador mecánica"
     milk: "Leche"
     mother: "Madre"
-    movement: "Movimiento"
+    movement: "Movimiento" #?
     mower: "Cortacésped"
     mower_driver: "Conductor del cortacésped"
     net_implanter: "Implantador neta"

@@ -1029,6 +1029,7 @@ fra:
     meat_withdrawal_period: "Délai d’attente (viande)" #?
     meeting_origin: "Origine de la rencontre"
     member: "Membre"
+    member_variant: "Variante de membre"
     members: "Membres"
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
