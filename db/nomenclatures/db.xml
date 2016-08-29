@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160819082951">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160829072846">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2051,6 +2051,7 @@
       <item name="shoulder_grinding"/>
       <item name="sifting"/>
       <item name="soil_structure_stabilisation"/>
+      <item name="solarization"/>
       <item name="sowing"/>
       <item name="sowing_burying"/>
       <item name="sterilization"/>

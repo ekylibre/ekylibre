@@ -2065,6 +2065,7 @@ deu:
         shoulder_grinding: "Schulterschleif"
         sifting: "Sichtung"
         soil_structure_stabilisation: "Bodenstruktur Stabilisierung"
+        # solarization: "Solarization"
         sowing: "Aussaat"
         sowing_burying: "Aussaat Vergraben"
         sterilization: "Sterilisation"

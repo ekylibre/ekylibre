@@ -2065,6 +2065,7 @@ por:
         shoulder_grinding: "Ombro moagem"
         sifting: "Peneirar"
         soil_structure_stabilisation: "Estabilização da estrutura do solo"
+        # solarization: "Solarization"
         sowing: "Semeadura"
         sowing_burying: "Enterramento de semeadura"
         sterilization: "Esterilização"

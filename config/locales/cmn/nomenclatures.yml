@@ -2065,6 +2065,7 @@ cmn:
         shoulder_grinding: "磨肩"
         sifting: "筛选"
         soil_structure_stabilisation: "土壤结构稳定"
+        # solarization: "Solarization"
         sowing: "播种"
         sowing_burying: "播种埋"
         sterilization: "消毒"

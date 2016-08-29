@@ -2065,6 +2065,7 @@ ita:
         shoulder_grinding: "macinazione spalla"
         sifting: "vaglio"
         soil_structure_stabilisation: "Stabilizzazione struttura del suolo"
+        # solarization: "Solarization"
         sowing: "Semina"
         sowing_burying: "semina interramento"
         sterilization: "Sterilizzazione"

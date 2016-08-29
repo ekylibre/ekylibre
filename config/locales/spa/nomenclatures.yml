@@ -2071,6 +2071,7 @@ spa:
         shoulder_grinding: "Molienda del hombro"
         sifting: "Cernido"
         soil_structure_stabilisation: "La estabilización de la estructura del suelo"
+        # solarization: "Solarization"
         sowing: "Siembra"
         sowing_burying: "Soterramiento de siembra"
         sterilization: "Esterilización"
