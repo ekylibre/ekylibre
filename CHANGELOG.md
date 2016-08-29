@@ -1,5 +1,26 @@
 # Change Log
 
+## [2.3.0](https://github.com/ekylibre/ekylibre/tree/2.3.0) (2016-08-28)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.2.0...2.3.0)
+
+**Implemented enhancements:**
+
+- Error message when clicking too quickly on production dashboard [\#856](https://github.com/ekylibre/ekylibre/issues/856)
+- add more informations on cultivable zone [\#1024](https://github.com/ekylibre/ekylibre/issues/1024)
+
+**Fixed bugs:**
+
+- Completed bank statement item from a journal entry item in bank statement reconciliation are not taken in account [\#1036](https://github.com/ekylibre/ekylibre/issues/1036)
+- Intervention inputs can be filled without given product [\#1035](https://github.com/ekylibre/ekylibre/issues/1035)
+- Missing translation : Sales [\#1021](https://github.com/ekylibre/ekylibre/issues/1021)
+- Cannot add a equipment\_maintenance directly from interventions\#index [\#1009](https://github.com/ekylibre/ekylibre/issues/1009)
+- Surface and perimeter are no longer displayed when the map is not in edition mode [\#954](https://github.com/ekylibre/ekylibre/issues/954)
+- Intervention creation form raise error if containing empty working period [\#902](https://github.com/ekylibre/ekylibre/issues/902)
+- Error in "new worker" form when you click on "add a new worker" button [\#862](https://github.com/ekylibre/ekylibre/issues/862)
+- The date "dead\_at" of land parcels should be filled automatically with the date of the end of the production [\#839](https://github.com/ekylibre/ekylibre/issues/839)
+- Fieldset in inspections view gets out of screen when zoomed on in then back out. [\#766](https://github.com/ekylibre/ekylibre/issues/766)
+- Piece replacement can be fill without any component [\#765](https://github.com/ekylibre/ekylibre/issues/765)
+
 ## [2.2.0](https://github.com/ekylibre/ekylibre/tree/2.2.0) (2016-08-17)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.1.0...2.2.0)
 
