@@ -5,7 +5,7 @@
       <target name="animal" filter="is animal" cardinality="*">
         <attribute name="new_container_id" filter="is building_division"/>
         <attribute name="new_group_id" compute-filter="'is animal_group and derives from %{variety_of(PRODUCT)}'"/>
-        <attribute name="new_variant" default-value="variant_of(NEW_GROUP)" hidden="true"/>
+        <attribute name="new_variant" value="variant_of(NEW_GROUP)"/>
       </target>
       <doer name="caregiver" filter="is worker" cardinality="*"/>
     </parameters>
