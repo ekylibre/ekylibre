@@ -2109,11 +2109,15 @@ arb:
     subject_type: "نوع يخضع"
     subscriber: "مكتتب"
     subscribing: "الاشتراك"
+    # subscription: "Subscription"
+    # subscription_days_count: "Subscription days count"
     subscription_duration: "الفترة"
+    # subscription_months_count: "Subscription months count"
     subscription_nature: "النوع"
     subscription_nature_id: "النوع" #?
     subscription_natures: "انواع الاشتراك" #?
     subscription_quantity: "الكمية" #?
+    # subscription_years_count: "Subscription years count"
     subscriptions: "الاشتراك"
     subsubdivision: "Z الوضع" #?
     sum_method: "اسلوب الاحصاء" #?
