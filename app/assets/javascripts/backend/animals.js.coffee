@@ -53,9 +53,10 @@
       # by default, build url to move animals
       @rebuildUrl = =>
         options = Array.from(arguments).shift()
+        options['reference_name'] ||= 'animal'
         options['targets_attributes'] ||= []
         options['targets_attributes'] = ko.utils.arrayMap Object.keys(@selectedItemsIndex), (id) ->
-          { product_id: id, reference_name: 'animal', new_container_id: options['container'], new_group_id: options['group'] }
+          { product_id: id, reference_name: options['reference_name'], new_container_id: options['container'], new_group_id: options['group'] }
 
         parameters = options['parameters'] || false
         base_url = options['base_url'] || $('a[data-target=animal_group_changing]').attr('href')
@@ -64,6 +65,7 @@
         delete options['parameters']
         delete options['container']
         delete options['group']
+        delete options['reference_name']
 
         base_url += "&#{$.param(options)}" if parameters
 
@@ -144,7 +146,7 @@
 
   $(document).on 'click', 'a[data-toggle=dialog]', (e) =>
 
-    E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href'), parameters: $(e.currentTarget).data('parameters')}),
+    E.dialog.open app.rebuildUrl({base_url: e.currentTarget.getAttribute('href'), parameters: $(e.currentTarget).data('parameters'), reference_name: $(e.currentTarget).data('reference-name')}),
       returns:
         success: (frame, data, status, request) ->
 
