@@ -1,7 +1,7 @@
 require 'test_helper'
 module Api
   module V1
-    class PlantsControllerTest < ActionController::TestCase
+    class InterventionsControllerTest < ActionController::TestCase
       connect_with_token
 
       test 'index' do
