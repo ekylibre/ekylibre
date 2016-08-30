@@ -2,10 +2,6 @@ module Ekylibre
   class EquipmentsExchanger < ActiveExchanger::Base
     # Create or updates equipments
     def import
-      building_division = BuildingDivision.first
-      unless building_division
-        w.warn 'A default BuildingDivision should help to define default storage for equipments'
-      end
 
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
@@ -59,8 +55,7 @@ module Ekylibre
           owner = Entity.of_company
         end
 
-        container = Product.find_by_work_number(r.place_code)
-        container ||= building_division
+        container = r.place_code ? Product.find_by_work_number(r.place_code) : nil
 
         # create the equipment
         equipment = pmodel.create!(variant_id: variant.id, name: r.name, initial_born_at: r.born_at, initial_owner: owner, initial_container: container, default_storage: container, work_number: r.work_number)
