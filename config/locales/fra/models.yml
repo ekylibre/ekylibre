@@ -1416,9 +1416,13 @@ fra:
     subject_type: "Type de sujet"
     subscriber: "Abonné"
     subscribing: "Abonnement"
+    subscription: "Abonnement"
+    subscription_days_count: "Nombre de jours d'abonnement"
     subscription_duration: "Période"
+    subscription_months_count: "Nombre de mois d'abonnement"
     subscription_nature: "Type d’abonnement"
     subscription_quantity: "Quantité" #?
+    subscription_years_count: "Nombre d'années d'abonnement"
     subscriptions: "Abonnements"
     supervision: "Surveillance"
     supplier: "Fournisseur"
