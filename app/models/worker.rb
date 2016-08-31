@@ -70,7 +70,11 @@
 class Worker < Product
   refers_to :variety, scope: :worker
   include Attachable
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  # ]VALIDATORS]
   validates :person, presence: true
+
+  # Returns working duration from interventions
+  def working_duration(_options = {})
+    InterventionWorkingPeriod.with_intervention_parameter(:doer, self)
+                             .sum(:duration).in_second
+  end
 end
