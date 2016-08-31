@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   # 'Loader' of the protocols.
   module Protocols
     def include_protocol(protocol)
@@ -10,7 +10,7 @@ module ActionCaller
       ::Call.include(protocol)
       Rails.logger.info "#{protocol.name} included in Call.".yellow
 
-      # Delegating all the request methods from ActionCaller to its Call object.
+      # Delegating all the request methods from ActionIntegration to its Call object.
       protocol.instance_methods.each do |method|
         delegate method, to: :call
         Rails.logger.info "Caller method ##{method} delegated to Call object."

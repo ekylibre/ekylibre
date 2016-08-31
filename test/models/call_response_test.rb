@@ -36,7 +36,8 @@
 #  type       :string
 #  url        :string
 #
-class CallMessage < Ekylibre::Record::Base
-  belongs_to :operation, class_name: 'Call'
-  enumerize :nature, in: [:incoming, :outgoing], predicates: true
+require 'test_helper'
+
+class CallResponseTest < ActiveSupport::TestCase
+  # Add tests here...
 end

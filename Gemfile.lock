@@ -64,6 +64,8 @@ GEM
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
+    ampex (3.0.0)
+      blankslate
     ansi (1.5.0)
     apartment (1.0.2)
       activerecord (>= 3.1.2, < 5.0)
@@ -93,6 +95,7 @@ GEM
       beardley
     beardley-xml (1.1.1)
       beardley
+    blankslate (3.1.3)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -490,6 +493,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
+  ampex
   apartment (~> 1.0.0, < 2.0)
   apartment-sidekiq
   awesome_nested_set (~> 3.0.0)

@@ -1,0 +1,11 @@
+.integration-form
+  .integration-presentation
+    .integration-picture
+      = image_tag(integration_logo_path(resource.nature, size: :large))
+    .integration-description
+      %h2= resource.integration_name
+      %p= "#{resource.nature}_long_description".tl
+      %p
+        = "Site: "
+        = link_to(resource.integration_name, "#{resource.nature}_url")
+  = render resource.auth_type.to_s, f: f

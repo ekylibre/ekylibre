@@ -501,6 +501,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :integrations
+
     resources :interventions, concerns: [:list, :unroll] do
       collection do
         patch :compute

@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   # Response object that includes the DSL methods.
   class Response
     attr_reader :code, :headers, :body

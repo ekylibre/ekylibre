@@ -17,13 +17,17 @@ class AddLoggingTables < ActiveRecord::Migration
 
       t.references  :request, index: true
       t.references  :call, index: true
+
+      t.stamps
     end
 
     create_table :calls do |t|
       t.string      :state    # Needed for Async calls.
-      t.string      :source
-      t.string      :method
-      t.jsonb       :args
+      t.string      :integration_name
+      t.string      :name
+      t.jsonb       :arguments
+
+      t.stamps
     end
   end
 end

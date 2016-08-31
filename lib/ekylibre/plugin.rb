@@ -50,6 +50,15 @@ module Ekylibre
         end
       end
 
+      def load_integrations
+        Dir.glob(File.join(directory, '*')).sort.each do |directory|
+          next unless File.directory?(directory)
+          Dir.glob(File.join(directory, 'app', 'integrations', '**', '*.rb')).sort.each do |integration|
+            require integration
+          end
+        end
+      end
+
       # Adds hooks for plugins
       # Must be done after load
       def plug
@@ -201,7 +210,7 @@ module Ekylibre
       end
 
       # Adds the app/{controllers,helpers,models} directories of the plugin to the autoload path
-      Dir.glob File.expand_path(@root.join('app', '{callers,controllers,exchangers,helpers,models,jobs,mailers,inputs,guides}')) do |dir|
+      Dir.glob File.expand_path(@root.join('app', '{controllers,exchangers,guides,helpers,inputs,integrations,jobs,mailers,models}')) do |dir|
         ActiveSupport::Dependencies.autoload_paths += [dir]
         $LOAD_PATH.unshift(dir) if Dir.exist?(dir)
       end

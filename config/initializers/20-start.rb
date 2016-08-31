@@ -9,8 +9,8 @@ ActiveRecord::Base.send(:extend, Delay::Validation::ClassMethods)
 require 'safe_string'
 autoload :SymbolArray, 'symbol_array'
 
-# ActionCaller
-autoload :ActionCaller, 'action_caller'
+# ActionIntegration
+autoload :ActionIntegration, 'action_integration'
 
 # ActiveThing
 autoload :ActiveExchanger, 'active_exchanger'
@@ -56,6 +56,8 @@ require 'open_weather_map' if Nomen[:indicators]
 # require 'active_list'
 # ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
 # ::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)
+
+Ekylibre.load_integrations
 
 Ekylibre::Plugin.load unless ENV['PLUGIN'] == 'false'
 Ekylibre::Plugin.plug

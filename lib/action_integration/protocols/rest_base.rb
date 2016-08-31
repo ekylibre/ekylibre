@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   module Protocols
     # Methods used by every other protocol
     module RestBase
@@ -43,7 +43,7 @@ module ActionCaller
       # returns the state of that response to be used by the outside call block.
       def handle_request(http, request)
         response = execute_request(http, request)
-        response = ActionCaller::Response.new_from_net(response)
+        response = ActionIntegration::Response.new_from_net(response)
 
         yield(response)
 

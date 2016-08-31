@@ -1778,6 +1778,16 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="integrations">
+        <page to="backend/integrations#index"/>
+        <page to="backend/integrations#create"/>
+        <page to="backend/integrations#destroy"/>
+        <page to="backend/integrations#edit"/>
+        <page to="backend/integrations#new"/>
+        <page to="backend/integrations#show"/>
+        <page to="backend/integrations#update"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

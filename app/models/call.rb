@@ -1,18 +1,47 @@
-# Class representing an API Call, executed or not.
-class Call < ActiveRecord::Base
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple agricultural ERP
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2010-2012 Brice Texier
+# Copyright (C) 2012-2016 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: calls
+#
+#  args   :jsonb
+#  id     :integer          not null, primary key
+#  method :string
+#  source :string
+#  state  :string
+#
+class Call < Ekylibre::Record::Base
   has_many :messages, class_name: 'CallMessage'
   has_many :requests, class_name: 'CallRequest'
   has_many :responses, class_name: 'CallResponse'
 
   # Sync
-  def execute_now(&block)
+  def execute_now
     save!
 
-    # Instantiate a ActionCaller object with itself as parameter
+    # Instantiate a ActionIntegration object with itself as parameter
     # to execute the api call.
-    @response = caller.new(self).send(method.to_sym, *args)
+    @response = integration.new(self).send(name.to_sym, *arguments)
 
-    instance_exec(&block) if block_given?
+    yield(self) if block_given?
   end
   alias execute execute_now
 
@@ -25,15 +54,15 @@ class Call < ActiveRecord::Base
     Thread.new do
       execute_now(&block)
       @state = :waiting
-      @response = caller.new(self).send(method.to_sym, *args)
+      @response = integration.new(self).send(name.to_sym, *arguments)
       @state = :done
 
       instance_exec(&block) if block_given?
     end
   end
 
-  def caller
-    source.constantize
+  def integration
+    integration_name.constantize
   end
 
   def success(code = nil)

@@ -333,6 +333,11 @@ eng:
       index: "Product gradings"
       new: "New product grading"
       show: "Product grading\_: %{number}"
+    backend/integrations:
+      # edit: "Edit integration: %{name}"
+      # index: "Integrations"
+      # new: "New integration"
+      # show: "Integration: %{name}"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"

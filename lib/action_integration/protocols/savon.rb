@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   module Protocols
     # Methods to do calls with Savon.
     module Savon
@@ -32,7 +32,7 @@ module ActionCaller
           @format
         )
 
-        ActionCaller::Response.new_from_savon(response)
+        ActionIntegration::Response.new_from_savon(response)
       end
     end
   end

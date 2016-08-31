@@ -20,23 +20,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: call_messages
+# == Table: integrations
 #
-#  body       :text
-#  call_id    :integer
-#  format     :string
-#  headers    :string
-#  id         :integer          not null, primary key
-#  ip         :string
-#  method     :string
-#  nature     :string
-#  request_id :integer
-#  ssl        :string
-#  status     :string
-#  type       :string
-#  url        :string
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  nature       :string
+#  parameters   :jsonb
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
-class CallMessage < Ekylibre::Record::Base
-  belongs_to :operation, class_name: 'Call'
-  enumerize :nature, in: [:incoming, :outgoing], predicates: true
-end
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+one: {}
+# column: value
+#
+two: {}
+#  column: value

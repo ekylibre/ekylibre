@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   module Protocols
     # Basic HTML Get operation.
     module HTML

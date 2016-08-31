@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   module Protocols
     # JSON protocol methods. Rely on Base.
     module JSON

@@ -913,6 +913,48 @@ bank_statements:
   updater_id:
     type: integer
     references: user
+call_messages:
+  body:
+    type: text
+  call_id:
+    type: integer
+    references: call
+  format:
+    type: string
+  headers:
+    type: string
+  id:
+    type: integer
+    required: true
+  ip:
+    type: string
+  method:
+    type: string
+  nature:
+    type: string
+  request_id:
+    type: integer
+    references: call_request
+  ssl:
+    type: string
+  status:
+    type: string
+  type:
+    type: string
+  url:
+    type: string
+calls:
+  args:
+    type: jsonb
+  id:
+    type: integer
+    required: true
+  method:
+    type: string
+  source:
+    type: string
+  state:
+    type: string
 campaigns:
   closed:
     type: boolean
@@ -2889,6 +2931,29 @@ inspections:
     type: decimal
     precision: 19
     scale: 4
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+integrations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+  parameters:
+    type: jsonb
   updated_at:
     type: datetime
     required: true
