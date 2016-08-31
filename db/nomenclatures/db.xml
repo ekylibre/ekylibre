@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160829072846">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160830153251">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -9217,6 +9217,7 @@
       <item name="allium_cepa_b010282" parent="allium_cepa" itis_tsn="42720"/>
       <item name="allium_cepa_b010283" parent="allium_cepa" itis_tsn="42720"/>
       <item name="allium_cepa_b010284" parent="allium_cepa" itis_tsn="42720"/>
+      <item name="allium_cepa_valenciana" parent="allium_cepa" itis_tsn="42720"/>
       <item name="allium_oleraceum" parent="allium" itis_tsn="42689"/>
       <item name="allium_porrum" parent="allium" itis_tsn="42659"/>
       <item name="allium_porrum_belton" parent="allium_porrum" itis_tsn="42659"/>
@@ -9443,6 +9444,7 @@
       <item name="brassica_oleracea_italica" parent="brassica_oleracea" itis_tsn="23062"/>
       <item name="brassica_oleracea_italica_belstar" parent="brassica_oleracea_italica" itis_tsn="23062"/>
       <item name="brassica_oleracea_italica_monaco" parent="brassica_oleracea_italica" itis_tsn="23062"/>
+      <item name="brassica_oleracea_italica_naxos" parent="brassica_oleracea_italica" itis_tsn="23062"/>
       <item name="brassica_oleracea_italica_parthenon" parent="brassica_oleracea_italica" itis_tsn="23062"/>
       <item name="brassica_oleracea_italica_spiridon" parent="brassica_oleracea_italica" itis_tsn="23062"/>
       <item name="brassica_oleracea_medullosa" parent="brassica_oleracea" itis_tsn="23062"/>
@@ -9803,6 +9805,7 @@
       <item name="daucus_carota_sugarsnax" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_sweet_candle" parent="daucus_carota" itis_tsn="29477"/>
       <item name="daucus_carota_texto" parent="daucus_carota" itis_tsn="29477"/>
+      <item name="daucus_carota_tino" parent="daucus_carota" itis_tsn="29476"/>
       <item name="daucus_carota_touchon" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_valerian" parent="daucus_carota" itis_tsn="0"/>
       <item name="daucus_carota_white_kuttingen" parent="daucus_carota" itis_tsn="0"/>
