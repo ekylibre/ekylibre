@@ -70,6 +70,7 @@ module Synel
               work_number: r.father_work_number,
               initial_owner: owner,
               initial_container: place,
+              initial_population: 1.0,
               default_storage: place
             )
           link = animal.links.new(nature: :father, started_at: animal.born_at)
