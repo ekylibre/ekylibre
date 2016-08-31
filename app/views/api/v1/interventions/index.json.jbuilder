@@ -4,7 +4,7 @@ json.array! @interventions do |intervention|
     if parameter.product
       json.product do
         json.id parameter.product_id
-        json.id parameter.product_name
+        json.name parameter.product_name
       end
     end
   end
