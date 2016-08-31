@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825125039) do
+ActiveRecord::Schema.define(version: 20160831144010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3212,6 +3212,7 @@ ActiveRecord::Schema.define(version: 20160825125039) do
     t.integer  "lock_version",      default: 0,     null: false
     t.string   "token"
     t.jsonb    "custom_fields"
+    t.string   "euid"
   end
 
   add_index "sensors", ["created_at"], name: "index_sensors_on_created_at", using: :btree
