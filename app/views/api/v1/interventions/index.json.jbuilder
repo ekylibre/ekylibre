@@ -4,7 +4,7 @@ json.array! @interventions do |intervention|
     json.id parameter.id
     json.role parameter.role
     json.name parameter.reference_name
-    json.label parameter.human_reference_name
+    json.label parameter.reference.human_name
     if parameter.product
       json.product do
         json.id parameter.product_id
