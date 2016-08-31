@@ -3769,6 +3769,7 @@ eng:
         allium_cepa_b010282: "Onion b010282"               #< allium_cepa
         allium_cepa_b010283: "Onion b010283"               #< allium_cepa
         allium_cepa_b010284: "Onion b010284"               #< allium_cepa
+        allium_cepa_valenciana: "Onion Valenciana"         #< allium_cepa
         allium_oleraceum: "Field garlic"                   #< allium
         allium_porrum: "Allium porrum"                     #< allium
         allium_porrum_belton: "Leek Belton"                #< allium_porrum
@@ -3995,6 +3996,7 @@ eng:
         brassica_oleracea_italica: "Broccoli"              #< brassica_oleracea
         brassica_oleracea_italica_belstar: "Broccoli Belstar" #< brassica_oleracea_italica
         brassica_oleracea_italica_monaco: "Broccoli Monaco" #< brassica_oleracea_italica
+        brassica_oleracea_italica_naxos: "Broccoli Naxos"  #< brassica_oleracea_italica
         brassica_oleracea_italica_parthenon: "Broccoli Parthenon" #< brassica_oleracea_italica
         brassica_oleracea_italica_spiridon: "Broccoli Spiridon" #< brassica_oleracea_italica
         brassica_oleracea_medullosa: "Marrow-stem Kale"    #< brassica_oleracea
@@ -4355,6 +4357,7 @@ eng:
         daucus_carota_sugarsnax: "Carrot Sugarsnax"        #< daucus_carota
         daucus_carota_sweet_candle: "Carrot Sweet Candle"  #< daucus_carota
         daucus_carota_texto: "Carrot Texto"                #< daucus_carota
+        daucus_carota_tino: "Carrot Tino"                  #< daucus_carota
         daucus_carota_touchon: "Carrot Touchon"            #< daucus_carota
         daucus_carota_valerian: "Carrot Valerian"          #< daucus_carota
         daucus_carota_white_kuttingen: "Carrot White Kuttingen" #< daucus_carota
