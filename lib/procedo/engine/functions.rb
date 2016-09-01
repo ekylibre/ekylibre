@@ -110,10 +110,10 @@ module Procedo
         end
         
         # compute a name from given variant
-        def output_computed_name(variant) #working_periods
+        def output_computed_name(variant, working_periods) #working_periods
           
           # last_day = working_periods.last[:value]
-          end_of_period = Time.now
+          end_of_period = working_periods.last[:stopped_at].to_time
           
           # get product born on the same day
           products = []
@@ -127,7 +127,7 @@ module Procedo
           # build variables
           ordered = (products.compact.count) + 1
           name = variant.name
-          born_at = Time.now.strftime("%d/%m/%Y")
+          born_at = end_of_period.strftime("%d/%m/%Y")
           
           return "#{name} n°#{ordered} #{born_at}"
         end
