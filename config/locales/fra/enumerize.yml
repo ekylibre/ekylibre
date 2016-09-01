@@ -16,6 +16,9 @@ fra:
         per_campaign: "Par campagne"
         per_production: "Par production"
         per_working_unit: "Par unité d’œuvre"
+      direction:
+        expense: "Frais"
+        revenue: "Revenu"
     activity_inspection_point_nature:
       category:
         deformity: "Malformation"
@@ -32,6 +35,28 @@ fra:
       mode:
         harvested: "Date de récolte prévisionnelle"
         sowed: "Date de semis prévisionnelle"
+    affair:
+      third_role:
+        # client: "Client"
+        supplier: "Fournisseur"
+    analysis:
+      retrieval_status:
+        controller_error: "Erreur de contrôleur"
+        error: "Erreur"
+        internal_error: "Erreur interne"
+        ok: "OK"
+        sensor_error: "Erreur de capteur"
+    analysis_item:
+      indicator_datatype:
+        boolean: "Booléen"
+        choice: "Choix"
+        decimal: "Décimal"
+        geometry: "Géométrie"
+        integer: "Entier"
+        measure: "Mesure"
+        multi_polygon: "Multi polygone"
+        # point: "Point"
+        string: "Chaîne"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
@@ -46,6 +71,16 @@ fra:
         purchase: "Achat"
         sale: "Vente"
         stock: "Stock"
+    crumb:
+      nature:
+        hard_start: "Dur début"
+        hard_stop: "Disque arrêt"
+        # pause: "Pause"
+        # point: "Point"
+        resume: "CV"
+        scan: "Balayage"
+        start: "Démarrer"
+        stop: "Arrêtez"
     custom_field:
       nature:
         boolean: "Case à cocher"
@@ -59,17 +94,8 @@ fra:
         third: "Par le tiers"
         transporter: "Par tranporteur"
         us: "Par nos soins"
-      state:  #?
-        draft: "Brouillon" #?
-        finished: "Terminée" #?
-        in_preparation: "En préparation" #?
-        ordered: "Commandée" #?
-        prepared: "Préparée" #?
-        started: "Commencée" #?
     document_template:
       archiving:
-        all: "Tous du type"
-        all_of_template: "Tous du modèle"
         first: "Premier du type"
         first_of_template: "Premier du modèle"
         last: "Dernier du type"
@@ -96,26 +122,70 @@ fra:
         waiting: "En attente de réponse"
     fixed_asset:
       depreciation_method:
-        graduated: "Dégressive"
+        graduated: "Dégressive" #?
         linear: "Linéaire"
         simplified_linear: "Linéaire simplifiée"
+    gap:
+      direction:
+        loss: "Perte"
+        profit: "Le profit"
+      entity_role:
+        # client: "Client"
+        supplier: "Fournisseur"
     georeading:
       nature:
-        line: "Ligne"
+        line: "Ligne" #?
+        linestring: "LINESTRING"
         point: "Point"
         polygon: "Polygone"
+    guide:
+      frequency:
+        daily: "Tous les jours"
+        decadely: "Par décade"
+        hourly: "Horaire"
+        monthly: "Mensuel"
+        none: "Aucun"
+        weekly: "Hebdomadaire"
+        yearly: "Annuel"
     guide_analysis:
-      status:
+      acceptance_status:
         errored: "Erroné"
         failed: "Échoué"
         passed: "Passé"
-        passed_with_warnings: "Passé avec remarques"
+        passed_with_warnings: "Passé avec des avertissements"
+    guide_analysis_point:
+      acceptance_status:
+        errored: "Erroné"
+        failed: "Échoué"
+        passed: "Passé"
+        passed_with_warnings: "Passé avec des avertissements"
+    import:
+      state:
+        aborted: "Avorté"
+        errored: "Erroné"
+        finished: "Fini"
+        in_progress: "En cours"
+        undone: "En attente"
     intervention:
+      nature:
+        record: "Enregistrement"
+        request: "Demande"
       state:
         done: "Réalisée"
         in_progress: "En cours"
         squeezed: "Non réalisée"
         undone: "Pas encore réalisée"
+    intervention_parameter_reading:
+      indicator_datatype:
+        boolean: "Booléen"
+        choice: "Choix"
+        decimal: "Décimal"
+        geometry: "Géométrie"
+        integer: "Entier"
+        measure: "Mesure"
+        multi_polygon: "Multi polygone"
+        # point: "Point"
+        string: "Chaîne"
     journal:
       nature:
         bank: "Banque"
@@ -124,6 +194,17 @@ fra:
         purchases: "Achats"
         sales: "Ventes"
         various: "Opérations diverses"
+    listing_node:
+      nature:
+        belongs_to: "Appartient à"
+        boolean: "Booléen"
+        column: "Colonne"
+        custom: "Coutume"
+        # datetime: "Datetime"
+        has_many: "A beaucoup"
+        numeric: "Numérique"
+        root: "Racine"
+        string: "Chaîne"
     loan:
       repayment_method:
         constant_amount: "Montant constant"
@@ -134,6 +215,12 @@ fra:
       shift_method:
         anatocism: "Capitalisation des intérêts (anatocisme)"
         immediate_payment: "Paiement immédiat des intérêts"
+    notification:
+      level:
+        error: "Erreur"
+        information: "Information"
+        success: "Succès"
+        warning: "Attention"
     observation:
       importance:
         important: "Importante"
@@ -141,25 +228,139 @@ fra:
         notice: "Faible"
     parcel:
       delivery_mode:
-        indifferent: "Indifférent"
         third: "Par le tiers"
         transporter: "Par tranporteur"
         us: "Par nos soins"
       nature:
         incoming: "Entrant"
-        internal: "Interne"
         outgoing: "Sortant"
-      state:
-        draft: "Brouillon"
-        given: "Expédié"
-        in_preparation: "En préparation"
-        ordered: "Lancé"
-        prepared: "Préparé"
-    product_nature:  #?
-      population_counting: #?
-        decimal: "Décimal" #?
-        integer: "Entier" #?
-        unitary: "Unitaire" #?
+    preference:
+      nature:
+        accounting_system: "Système de comptabilité"
+        boolean: "Booléen"
+        country: "Pays"
+        currency: "Devise"
+        decimal: "Décimal"
+        integer: "Entier"
+        language: "Langue"
+        record: "Enregistrement"
+        spatial_reference_system: "Système de référence spatiale"
+        string: "Chaîne"
+    product_enjoyment:
+      nature:
+        other: "Autre"
+        own: "Posséder"
+        unknown: "Inconnu"
+    product_linkage:
+      nature:
+        available: "Disponible"
+        occupied: "Occupé"
+        unavailable: "Indisponible"
+      point:
+        front: "Avant"
+        rear: "Arrière"
+    product_localization:
+      nature:
+        exterior: "Extérieur"
+        interior: "Intérieur"
+        transfer: "Transfert"
+    product_membership:
+      nature:
+        exterior: "Extérieur"
+        interior: "Intérieur"
+    product_nature:
+      population_counting:
+        decimal: "Décimal"
+        integer: "Entier"
+        unitary: "Unitaire"
+    product_nature_category:
+      pictogram:
+        bank: "Banque"
+        barn: "Grange"
+        beaker: "Gobelet"
+        bolt: "Boulon"
+        book: "Livre"
+        bug: "Punaise"
+        building: "Bâtiment"
+        car: "Voiture"
+        cc: "Cc"
+        cow: "Vache"
+        credit_card: "Carte de crédit"
+        desktop: "Bureau"
+        drop: "Laissez tomber"
+        # fax: "Fax"
+        fish: "Poisson"
+        food: "Aliments"
+        gift: "Cadeau"
+        group: "Groupe"
+        home: "Accueil"
+        land_parcels: "Les parcelles"
+        laptop: "Portable"
+        leaf: "Feuille"
+        legal: "Légal"
+        lemon: "Citron"
+        light_bulb: "Ampoule"
+        male: "Mâle"
+        matter: "Matière"
+        # medkit: "Medkit"
+        money: "Argent"
+        mushroom: "Champignon"
+        phone: "Téléphone"
+        pill: "Pilule"
+        plane: "Avion"
+        road: "Route"
+        subscription: "Abonnement"
+        tasks: "Les tâches"
+        tractor: "Tracteur"
+        truck: "Un camion"
+        umbrella: "Parapluie"
+        undefined: "Indéfini"
+        user: "Utilisateur"
+        wheat: "Blé"
+        wrench: "Clé"
+    product_nature_category_taxation:
+      usage:
+        purchase: "Achat"
+        sale: "Vente"
+    product_nature_variant_reading:
+      indicator_datatype:
+        boolean: "Booléen"
+        choice: "Choix"
+        decimal: "Décimal"
+        geometry: "Géométrie"
+        integer: "Entier"
+        measure: "Mesure"
+        multi_polygon: "Multi polygone"
+        # point: "Point"
+        string: "Chaîne"
+    product_ownership:
+      nature:
+        other: "Autre"
+        own: "Posséder"
+        unknown: "Inconnu"
+    product_reading:
+      indicator_datatype:
+        boolean: "Booléen"
+        choice: "Choix"
+        decimal: "Décimal"
+        geometry: "Géométrie"
+        integer: "Entier"
+        measure: "Mesure"
+        multi_polygon: "Multi polygone"
+        # point: "Point"
+        string: "Chaîne"
+    purchase_nature:
+      nature:
+        payslip: "Fiche de paie"
+        purchase: "Achat"
+    sale_opportunity:
+      third_role:
+        # client: "Client"
+        supplier: "Fournisseur"
+    sale_ticket:
+      third_role:
+        # client: "Client"
+        supplier: "Fournisseur"
     sensor:
       retrieval_mode:
         listening: "Serveur"
@@ -176,16 +377,19 @@ fra:
         animals: "Numérotation des animaux"
         campaigns: "Numérotation des campagnes de productions"
         cash_transfers: "Numérotation des virements internes"
+        deliveries: "Numérotation des livraisons"
         deposits: "Numérotation des remises en banque"
         documents: "Numérotation des documents"
         entities: "Numérotation des tiers"
         fixed_assets: "Numérotation des immobilisations"
         gaps: "Numérotation des écarts"
-        incoming_parcels: "Numérotation des bons de réceptions"
         incoming_payments: "Numérotation des encaissements"
+        inspections: "Numérotation des agréages"
         interventions: "Numérotation des interventions"
-        outgoing_deliveries: "Numérotation des bons de livraisons"
+        inventories: "Numérotation des inventaires"
+        opportunities: "Numérotation des opportunités"
         outgoing_payments: "Numérotation des décaissements"
+        parcels: "Numérotation des colis"
         plants: "Numérotation des cultures"
         product_nature_categories: "Numérotation des catégories de types de produits"
         product_nature_variants: "Numérotation des variantes de types de produits"
@@ -195,37 +399,25 @@ fra:
         sales: "Numérotation des ventes"
         sales_invoices: "Numérotation des factures"
         subscriptions: "Numérotation des abonnements"
-        transports: "Numérotation des transports"
-    subscription_nature:
-      entity_link_direction:
-        all: "Bidirectionnel"
-        direct: "Direct"
-        indirect: "Indirect"
-      nature:
-        period: "Par dates"
-        quantity: "Par numéros"
     task:
       nature:
-        document: "Écrit"
         incoming_call: "Appel entrant"
         incoming_email: "Courriel entrant"
         incoming_mail: "Courrier entrant"
         outgoing_call: "Appel sortant"
         outgoing_email: "Courriel sortant"
         outgoing_mail: "Courrier sortant"
-        quote: "Évaluation"
-    tax:
-      nature:
-        amount: "Montant"
-        percentage: "Pourcentage"
+      state:
+        doing: "Faire"
+        done: "Terminé"
+        todo: "Faire"
     tracking:
       usage_limit_nature:
         best_before: "Date Limite d’Utilisation Optimale (DLUO)"
         no_limit: "Aucune limite"
         used_by: "Date Limite de Consommation (DLC)"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "Numéro de la facture du fournisseur"
-    required:
-      text: "requis"
+    version:
+      event:
+        create: "Créer"
+        destroy: "Détruire"
+        update: "Mettre à jour"

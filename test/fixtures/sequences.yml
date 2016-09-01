@@ -78,17 +78,17 @@ sequences_003:
   created_at: 2014-11-01 16:00:07.976913000 Z
   creator_id: 1
   id: 3
-  last_cweek: 26
-  last_month: 7
-  last_number: 123
+  last_cweek: 32
+  last_month: 8
+  last_number: 124
   last_year: 2016
-  lock_version: 125
+  lock_version: 126
   name: products
   number_format: PR[number|11]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-07-01 20:23:21.029446000 Z
+  updated_at: 2016-08-10 14:27:49.837974000 Z
   updater_id: 1
   usage: products
 sequences_004:
@@ -270,17 +270,17 @@ sequences_015:
   created_at: 2014-11-01 16:25:18.953891000 Z
   creator_id: 1
   id: 15
-  last_cweek: 26
-  last_month: 7
-  last_number: 30
+  last_cweek: 32
+  last_month: 8
+  last_number: 31
   last_year: 2016
-  lock_version: 31
+  lock_version: 32
   name: Intervention
   number_format: "[number]"
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-07-01 20:46:56.106313000 Z
+  updated_at: 2016-08-10 14:33:28.771594000 Z
   updater_id: 1
   usage: interventions
 sequences_016:
@@ -458,17 +458,17 @@ sequences_027:
   created_at: 2015-09-17 13:24:45.008381000 Z
   creator_id: 1
   id: 27
-  last_cweek: 26
-  last_month: 7
-  last_number: 5
+  last_cweek: 32
+  last_month: 8
+  last_number: 6
   last_year: 2016
-  lock_version: 5
+  lock_version: 6
   name: Colis
   number_format: P[number|12]
   number_increment: 1
   number_start: 1
   period: number
-  updated_at: 2016-07-01 20:23:17.500734000 Z
+  updated_at: 2016-08-10 14:27:46.124881000 Z
   updater_id: 1
   usage: parcels
 sequences_028:

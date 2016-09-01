@@ -38,6 +38,7 @@ class CapIslet < Ekylibre::Record::Base
   belongs_to :cap_statement
   has_many :land_parcels, class_name: 'CapLandParcel', dependent: :destroy
   has_many :cap_land_parcels, dependent: :destroy
+  has_one :campaign, through: :cap_statement
   has_geometry :shape, type: :multi_polygon
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :islet_number, presence: true, length: { maximum: 500 }
@@ -46,6 +47,7 @@ class CapIslet < Ekylibre::Record::Base
   # ]VALIDATORS]
   validates :town_number, presence: true
   delegate :harvest_year, to: :cap_statement, prefix: false
+  delegate :name, to: :campaign, prefix: true
   delegate :pacage_number, to: :cap_statement, prefix: false
 
   alias_attribute :exploitation_name, :farm_name

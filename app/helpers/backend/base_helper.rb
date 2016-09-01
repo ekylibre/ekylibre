@@ -224,7 +224,7 @@ module Backend
         end.collect { |k, v| [k, v.to_s.to_f] }
         # current population
         data << [now.to_usec, resource.population.to_d.to_s.to_f]
-        series << { name: resource.name, data: data, step: 'left' }
+        series << { name: resource.name, data: data.sort { |a, b| a.first <=> b.first }, step: 'left' }
       end
       return no_data if series.empty?
       line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
@@ -433,6 +433,56 @@ module Backend
       content_tag(:div, style: style, class: element_class, title: title) do
         content_tag(:i, '', class: "picto picto-#{picto_class}")
       end
+    end
+
+    # Build a JSON for a data-tour parameter and put it on <body> element
+    def tour(name, _options = {})
+      preference = current_user.preference("interface.tours.#{name}.finished", false, :boolean)
+      return if preference.value
+      object = {}
+      object[:defaults] ||= {}
+      object[:defaults][:classes] ||= 'shepherd-theme-arrows'
+      object[:defaults][:show_cancel_link] = true unless object[:defaults].key?(:show_cancel_link)
+      unless object[:defaults][:buttons]
+        buttons = []
+        buttons << {
+          text: :next.tl,
+          classes: 'btn btn-primary',
+          action: 'next'
+        }
+        object[:defaults][:buttons] = buttons
+      end
+      lister = Ekylibre::Support::Lister.new(:step)
+      yield lister
+      return nil unless lister.any?
+      steps = lister.steps.map do |step|
+        id = step.args.first
+        on = (step.options[:on] || 'center').to_s
+        if reading_ltr?
+          if on =~ /right/
+            on.gsub!('right', 'left')
+          else
+            on.gsub!('left', 'right')
+          end
+        end
+        attributes = {
+          id: id,
+          title: "tours.#{name}.#{id}.title".tl,
+          text: "tours.#{name}.#{id}.content".tl,
+          attachTo: {
+            element: step.options[:element] || '#' + id.to_s,
+            on: on.tr('_', ' ')
+          }
+        }
+        if step == lister.steps.last
+          attributes[:buttons] = [{ text: :finished.tl, classes: 'btn btn-primary', action: 'next' }]
+        end
+        attributes
+      end
+      object[:name] = name
+      object[:url] = finish_backend_tour_path(id: name)
+      object[:steps] = steps
+      content_for(:tour, object.jsonize_keys.to_json)
     end
   end
 end

@@ -38,14 +38,15 @@ class CrumbSet
       unless @procedure
         Rails.logger.warn "Unknown procedure nature: #{@start.metadata['procedure_nature'].inspect}"
       end
+      @started_at = @start.read_at
+      @stopped_at = stop.read_at
+      @stopped_at += 1 if @started_at == @stopped_at
+      @user = @start.user
+      @device_uid = @start.device_uid
+      @intervention_parameter = @start.intervention_parameter
     else
       Rails.logger.warn 'Unknown procedure nature: No points, so no start point...'
     end
-    @started_at = @start.read_at
-    @stopped_at = stop.read_at
-    @user = @start.user
-    @device_uid = @start.device_uid
-    @intervention_parameter = @start.intervention_parameter
   end
 
   def stop
@@ -119,8 +120,10 @@ class CrumbSet
     working_width ||= DEFAULT_ACCURACY
     unless @working_zone && @working_width == working_width
       @working_width = working_width
-      line = Charta.make_line(crumbs.order(:read_at).map(&:geolocation))
-      @working_zone = line.buffer(@working_width)
+      if crumbs.size > 1
+        line = Charta.make_line(crumbs.order(:read_at).map(&:geolocation))
+        @working_zone = line.buffer(@working_width)
+      end
     end
     @working_zone
   end

@@ -30,9 +30,10 @@ por:
       new: "novo orçamento"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      # index: "Productions"
       new: "Produção nova atividade"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       attach: "Anexar a negociações %{number}"
       detach: "Desanexar de negociações %{number}"
@@ -278,8 +279,10 @@ por:
       # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
+      # edit_request: "Edit request %{procedure_name} #%{number}"
       index: "Intervenções"
       new: "Nova intervenção"
+      new_request: "Intervenção New solicitado"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Editar inventário"
@@ -394,7 +397,7 @@ por:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "Editar localização do produto:"
-      # new: "New product localization"
+      new: "Nova localização do produto"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "Categorias de Produtos"
@@ -643,7 +646,9 @@ por:
     add_attachment: "Juntar anexo"
     add_bank_statement: "Adicionar extrato bancário"
     add_catalog_price: "Adicionar preço de catálogo"
+    add_child: "Adicionar um componente filho"
     add_choice: "Adicionar escolha"
+    add_component: "Adicionar componente"
     add_condition: "Adicionar condição"
     add_conditions: "Adicionar condições"
     add_delivery: "Adicionar entrega"
@@ -657,6 +662,8 @@ por:
     add_inspection_calibration_nature: "Adicionar inspeção de calibração natureza"
     add_inspection_calibration_scale: "Adicionar escala de calibração de inspecção"
     add_inspection_point_nature: "Adicionar inspeção ponto natureza"
+    add_intervention_record: "Adicione registro de intervenção"
+    add_intervention_request: "Adicionar pedido de intervenção"
     add_item: "Adicionar Item"
     add_line: "Adicionar linha"
     add_linestring: "Adicionar linestring"
@@ -675,10 +682,10 @@ por:
     add_reading: "Adicionar um valor para um indicador"
     add_revenue: "Adicionar receitas"
     add_sale_taxation: "Adicione venda tributação"
-    # add_season: "Add season"
+    add_season: "Adicionar temporada"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "Adicionar suporte"
-    # add_tactic: "Add cropping technique"
+    add_tactic: "Adicionar Técnica manejo da cultura"
     add_tool: "Ferramenta Adicionar"
     add_website: "Adicionar website"
     add_working_period: "Adicionar working_period"
@@ -786,6 +793,7 @@ por:
     container: "Recipiente"
     convert_balance_into_loss: "Converter equilíbrio em perda de"
     convert_balance_into_profit: "Converter equilíbrio em lucro"
+    convert_to_cultivable_zone: "Converter para zona cultivável"
     cooperative_cartodb: "Cooperativa CartoDB"
     coordinates: "Coordenadas"
     copy_from_another_activity: "Copiar de outra atividade"
@@ -823,7 +831,7 @@ por:
     current_stocks_by_variety: "Estoques atuais de variedade"
     custom_fields: "Os campos personalizados"
     dates: "Selecione Data de início e data final do período"
-    # days: "Days"
+    days: "Dias"
     deals: "Ofertas"
     debit: "Débito"
     debts_on_assets: "Dívidas em activos"
@@ -866,6 +874,7 @@ por:
     document: "Documento"
     document_natures: "Tipos de documentos"
     document_templates: "Modelos de documentos"
+    documentation: "Documentação"
     doer_cost: "Custo doer"
     # doers: "Doers"
     done: "Feito"
@@ -883,6 +892,7 @@ por:
     # ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "Intervenções decorreram vezes por actividades" #?
     email: "O email:"
+    employee_informations: "Informações do empregado"
     end: "Para"
     entities: "Entidade pessoas"
     entity_links: "Ligações entidade"
@@ -913,6 +923,7 @@ por:
     expenses: "Despesas"
     expenses_by_product_nature_category: "Despesas por categoria de produto da natureza"
     export: "Documentos de exportação"
+    field_distribution: "Distribuição do campo"
     file_nature: "Tipo de arquivo"
     file_preview: "Visualização"
     file_to_upload: "Arquivo para upload"
@@ -920,11 +931,14 @@ por:
     final_balance: "saldo final"
     financials_assets: "Ativos Financials"
     finish: "Terminar"
+<<<<<<< HEAD
     # finished: "Finished"
+=======
+    finished: "Acabado"
+>>>>>>> c7dcab24354678090487fae0cefac196926858f9
     first_line_as_title: "Primeira linha como o título"
     fixed_asset_depreciations: "Depreciações de ativos fixos"
     fixed_assets: "Activos fixos"
-    # forecast_volume: "Forecast volume"
     from: "A partir de"
     fullscreen: "Tela cheia"
     function: "Função"
@@ -1080,6 +1094,7 @@ por:
     net_mass: "Massa líquida"
     net_surface_area: "Área de superfície líquida"
     new: "Novo"
+    new_activity: "nova atividade"
     new_animal: "Novo animal"
     new_attachment: "Novo anexo"
     new_box: "Nova caixa"
@@ -1142,6 +1157,7 @@ por:
     operations: "Operações"
     options: "Opções"
     organic_matter_concentration: "Concentração de matéria orgânica"
+    original_component: "Original"
     others: "Outras"
     outgoing_payment: "Pagamento de saída"
     outgoing_payments: "Contas a pagar"
@@ -1212,6 +1228,7 @@ por:
     purchase_items: "Itens de compra"
     purchase_number: "Número de compra"
     purchases: "Compras"
+    quality: "Qualidade"
     # quandl: "Quandl"
     quantity: "Quantidade"
     quantity_rest: "Quantidade restante" #?
@@ -1224,10 +1241,12 @@ por:
     received: "Recebido"
     recent_events: "Eventos recentes"
     reconciled_total: "total de reconciliado"
+    record_maintenance: "Manutenção de registros"
     reflect: "Refletir"
     reflected: "Alterações refletidas"
     reflections: "Reflexões"
     refresh: "Refrescar"
+    register_intervention_request: "Registre pedido de intervenção"
     relationship: "Relações"
     # relationship_of_entity: "%{relationship} of %{entity}"
     # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
@@ -1240,7 +1259,11 @@ por:
     repayments: "Reembolsos"
     repayments_graph: "Gráfico reembolsos"
     report: "Relatório"
+<<<<<<< HEAD
     # requests: "Requests"
+=======
+    request_maintenance: "Manutenção pedido"
+>>>>>>> c7dcab24354678090487fae0cefac196926858f9
     reset: "Restabelecer"
     # resource: "View original document: %{resource} %{number}"
     resources: "Gestão de recursos"
@@ -1339,6 +1362,7 @@ por:
     # timeline_comment: "%{author} commented %{when}"
     timeline_entity_link: "Ligação entidade Timeline"
     # timeline_event: "%{name} with %{participants} %{when}"
+    # timeline_event_without_participants: "%{name} %{when}"
     # timeline_incoming_call: "%{author} called %{entity} about %{name} %{when}"
     # timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{when}"
     # timeline_item: "%{type} %{name} added by %{author} %{when}"
@@ -1366,6 +1390,36 @@ por:
     total_quantity: "Quantidade total"
     total_unpaid_amount: "Montante total não pago" #?
     totals: "Totais"
+    tours:
+      production:
+        field_distribution:
+          content: "Encontre aqui os 3 níveis para cultivos: zonas cultiváveis ​​(independentes de campanhas), parcelas de terra definidas nas produções e culturas semeadas durante as intervenções."
+          title: "Campos"
+        production:
+          content: "Atividades permite definir o que você quer produzir e planejar."
+          title: "Produção"
+        quality:
+          content: "Siga as suas culturas e atividades com muitos tipos de análises, controlar doenças com problemas e verificar a qualidade da colheita com inspeções."
+          title: "Ferramentas de qualidade"
+        supervision:
+          content: "Sensores de licenças para registrar e concentrar-se valores de sensores seu em seus campos."
+          title: "Sensores"
+      welcome:
+        home:
+          content: "Vamos fazer uma visita rápida da interface da aplicação. Em primeiro lugar este botão permite ir para casa a partir de qualquer lugar no aplicativo."
+          title: "Bem-vindo a Ekylibre"
+        main:
+          content: "Onde toda a ação ocorra é aqui. Desejamos-lhe um uso feliz."
+          title: "Onde você trabalha"
+        parts:
+          content: "Este menu permite acesso a todos os módulos principais."
+          title: "Módulos de Ekylibre"
+        side:
+          content: "Esta barra lateral contém todos os sub-menus do módulo atual que você está consultando."
+          title: "Barra lateral Módulo"
+        user:
+          content: "Aqui, você pode ver as suas notificações, mostrar ajuda, leia o seu nome da fazenda. Suas preferências de usuário são editáveis ​​a partir do menu."
+          title: "Menu do usuário"
     tracking: "Rastreamento"
     trade: "Comercializaçaõ"
     trade_counts: "Contagens comerciais"
@@ -1454,6 +1508,9 @@ por:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1513,6 +1570,9 @@ por:
     x_sales_invoices:
       # one: "%{count} sales invoice"
       # other: "%{count} sales invoices"
+    x_seconds:
+      # one: "%{count} second"
+      # other: "%{count} seconds"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"
@@ -1520,6 +1580,9 @@ por:
       # one: "%{count} task"
       # other: "%{count} tasks"
     # x_thing: "%{x} %{thing}"
+    x_times:
+      # one: "%{count} time"
+      # other: "%{count} times"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1574,6 +1637,10 @@ por:
         # other: "%{count} entries have been validated"
         zero: "Nenhuma entrada foi validada"
       entity_columns_are_needed: "Você precisa especificar pelo menos uma coluna para a pessoa e em particular o seu nome de família."
+      # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
+      # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "Implementado com dados fictícios"
@@ -1614,6 +1681,7 @@ por:
       no_production_defined_for_current_campaign: "Sem produção definido para a campanha atual"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Sem produção encontrados. Você pode adicionar novos ou copiar alguns de campanha anterior."
       no_reopenable_journal: "Você não pode voltar a abrir este diário."
+      no_replacements_since_beginning: "Não há substituições desde início"
       record_already_imported: "Registro já importados"
       record_cannot_be_removed: "O registro não pode ser excluído"
       record_has_been_correctly_removed: "O registro foi removido com sucesso"
@@ -1748,6 +1816,7 @@ por:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
+    # backend/interventions: "%{number}. %{name}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

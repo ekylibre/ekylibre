@@ -16,6 +16,9 @@ arb:
         per_campaign: "في حملة"
         per_production: "في الانتاج"
         per_working_unit: "لكل وحدة العمل"
+      direction:
+        expense: "مصروف"
+        revenue: "إيرادات"
     activity_inspection_point_nature:
       category:
         deformity: "تشويه"
@@ -30,8 +33,30 @@ arb:
         none: "لا شيء"
     activity_tactic:
       mode:
-        # harvested: "Harvest sowing date"
-        # sowed: "Provisional sowing date"
+        harvested: "حصاد تاريخ البذر"
+        sowed: "مواعيد الزراعة المؤقت"
+    affair:
+      third_role:
+        client: "زبون"
+        supplier: "المورد"
+    analysis:
+      retrieval_status:
+        controller_error: "خطأ تحكم"
+        error: "خطأ"
+        internal_error: "خطأ داخلي"
+        ok: "حسنا"
+        sensor_error: "خطأ الاستشعار"
+    analysis_item:
+      indicator_datatype:
+        boolean: "منطقية"
+        choice: "خيار"
+        decimal: "عدد عشري"
+        geometry: "علم الهندسة"
+        integer: "عدد صحيح"
+        measure: "قياس"
+        multi_polygon: "مضلع متعددة"
+        point: "نقطة"
+        string: "خيط"
     cash:
       mode:
         bban: "رقم الحساب المصرفي الأساسي (BBAN)"
@@ -46,6 +71,16 @@ arb:
         purchase: "شراء"
         sale: "تخفيض السعر"
         stock: "مخزون"
+    crumb:
+      nature:
+        hard_start: "البداية الصعبة"
+        hard_stop: "توقف الصعب"
+        pause: "وقفة"
+        point: "نقطة"
+        resume: "استئنف"
+        scan: "تفحص"
+        start: "بداية"
+        stop: "توقف"
     custom_field:
       nature:
         boolean: "الاختيار مربع"
@@ -61,8 +96,8 @@ arb:
         us: "من قبلنا"
     document_template:
       archiving:
-        all: "كل نوع"
-        all_of_template: "كل قالب"
+        all: "كل نوع" #?
+        all_of_template: "كل قالب" #?
         first: "الأول من نوعه"
         first_of_template: "أول من القالب"
         last: "آخر من نوع"
@@ -89,26 +124,74 @@ arb:
         waiting: "انتظار"
     fixed_asset:
       depreciation_method:
-        graduated: "تخرج"
+        graduated: "تخرج" #?
         linear: "خطي"
         simplified_linear: "الخطية المبسطة"
+    gap:
+      direction:
+        loss: "خسارة"
+        profit: "ربح"
+      entity_role:
+        client: "زبون"
+        supplier: "المورد"
     georeading:
       nature:
-        line: "خط"
+        line: "خط" #?
+        linestring: "تنسيقي"
         point: "نقطة"
         polygon: "المضلع"
+    guide:
+      frequency:
+        daily: "يومي"
+        # decadely: "Decadely"
+        hourly: "باستمرار"
+        monthly: "شهريا"
+        none: "لا شيء"
+        weekly: "أسبوعي"
+        yearly: "سنوي"
     guide_analysis:
-      status:
+      acceptance_status:
         # errored: "Errored"
         failed: "فشل"
         passed: "مرت"
         passed_with_warnings: "مرت مع تحذيرات"
+      status:  #?
+        failed: "فشل" #?
+        passed: "مرت" #?
+        passed_with_warnings: "مرت مع تحذيرات" #?
+    guide_analysis_point:
+      acceptance_status:
+        # errored: "Errored"
+        failed: "فشل"
+        passed: "مرت"
+        passed_with_warnings: "مرت مع تحذيرات"
+    import:
+      state:
+        aborted: "أجهض"
+        # errored: "Errored"
+        finished: "تم الانتهاء من"
+        in_progress: "في تَقَدم"
+        undone: "غير مصنوع"
     intervention:
+      nature:
+        record: "سجل"
+        request: "طلب"
       state:
         done: "فعله"
         in_progress: "في تَقَدم"
         squeezed: "تقلص"
         undone: "غير مصنوع"
+    intervention_parameter_reading:
+      indicator_datatype:
+        boolean: "منطقية"
+        choice: "خيار"
+        decimal: "عدد عشري"
+        geometry: "علم الهندسة"
+        integer: "عدد صحيح"
+        measure: "قياس"
+        multi_polygon: "مضلع متعددة"
+        point: "نقطة"
+        string: "خيط"
     journal:
       nature:
         bank: "بنك"
@@ -117,6 +200,17 @@ arb:
         purchases: "مشتريات"
         sales: "مبيعات"
         various: "عمليات مختلفة"
+    listing_node:
+      nature:
+        belongs_to: "ينتمي إلى"
+        boolean: "منطقية"
+        column: "عمود"
+        custom: "عرف"
+        datetime: "التاريخ والوقت"
+        has_many: "لديها العديد"
+        numeric: "رقمية"
+        root: "جذر"
+        string: "خيط"
     loan:
       repayment_method:
         constant_amount: "مبلغ ثابت"
@@ -125,8 +219,14 @@ arb:
         month: "شهر"
         year: "عام"
       shift_method:
-        # anatocism: "anatocism"
+        anatocism: "anatocism"
         immediate_payment: "الدفع الفوري"
+    notification:
+      level:
+        error: "خطأ"
+        information: "معلومات"
+        success: "نجاح"
+        warning: "تحذير"
     observation:
       importance:
         important: "مهم"
@@ -134,20 +234,147 @@ arb:
         notice: "إشعار"
     parcel:
       delivery_mode:
-        indifferent: "غير مبال"
+        indifferent: "غير مبال" #?
         third: "نقل من قبل المرسل إليه"
         transporter: "تنقل عن طريق نقل"
         us: "نقل من قبلنا"
       nature:
         incoming: "الوارد"
-        internal: "داخلي"
+        internal: "داخلي" #?
         outgoing: "المنتهية ولايته"
-      state:
-        draft: "مسودة"
-        given: "معطى"
-        in_preparation: "قيد التحضير"
-        ordered: "أمر"
-        prepared: "أعدت"
+      state:  #?
+        draft: "مسودة" #?
+        given: "معطى" #?
+        in_preparation: "قيد التحضير" #?
+        ordered: "أمر" #?
+        prepared: "أعدت" #?
+    preference:
+      nature:
+        accounting_system: "نظام المحاسبة"
+        boolean: "منطقية"
+        country: "بلد"
+        currency: "عملة"
+        decimal: "عدد عشري"
+        integer: "عدد صحيح"
+        language: "لغة"
+        record: "سجل"
+        spatial_reference_system: "نظام المرجعية المكانية"
+        string: "خيط"
+    product_enjoyment:
+      nature:
+        other: "آخر"
+        own: "يمتلك"
+        unknown: "غير معروف"
+    product_linkage:
+      nature:
+        available: "متاح"
+        occupied: "مشغول"
+        unavailable: "غير متوفره"
+      point:
+        front: "جبهة"
+        rear: "خلفي"
+    product_localization:
+      nature:
+        exterior: "الخارج"
+        interior: "داخلي"
+        transfer: "تحويل"
+    product_membership:
+      nature:
+        exterior: "الخارج"
+        interior: "داخلي"
+    product_nature:
+      population_counting:
+        decimal: "عدد عشري"
+        integer: "عدد صحيح"
+        unitary: "وحدوي"
+    product_nature_category:
+      pictogram:
+        bank: "بنك"
+        barn: "إسطبل"
+        beaker: "فنجان"
+        bolt: "صاعقة"
+        book: "كتاب"
+        bug: "بق"
+        building: "بناء"
+        car: "سيارة"
+        cc: "سم مكعب"
+        cow: "بقرة"
+        credit_card: "بطاقة ائتمان"
+        desktop: "سطح المكتب"
+        drop: "قطرة"
+        fax: "فاكس"
+        fish: "سمك"
+        food: "طعام"
+        gift: "هدية"
+        group: "تجمع"
+        home: "الصفحة الرئيسية"
+        land_parcels: "قطع الأراضي"
+        laptop: "لابتوب"
+        leaf: "ورقة الشجر"
+        legal: "قانوني"
+        lemon: "ليمون"
+        light_bulb: "المصباح الكهربائي"
+        male: "ذكر"
+        matter: "مسألة"
+        # medkit: "Medkit"
+        money: "مال"
+        mushroom: "فطر"
+        phone: "هاتف"
+        pill: "حبة دواء"
+        plane: "طائرة"
+        road: "الطريق"
+        subscription: "اشتراك"
+        tasks: "المهام"
+        tractor: "جرار زراعى"
+        truck: "شاحنة"
+        umbrella: "مظلة"
+        undefined: "غير محدد"
+        user: "مستخدم"
+        wheat: "قمح"
+        wrench: "مفتاح الربط"
+    product_nature_category_taxation:
+      usage:
+        purchase: "شراء"
+        sale: "تخفيض السعر"
+    product_nature_variant_reading:
+      indicator_datatype:
+        boolean: "منطقية"
+        choice: "خيار"
+        decimal: "عدد عشري"
+        geometry: "علم الهندسة"
+        integer: "عدد صحيح"
+        measure: "قياس"
+        multi_polygon: "مضلع متعددة"
+        point: "نقطة"
+        string: "خيط"
+    product_ownership:
+      nature:
+        other: "آخر"
+        own: "يمتلك"
+        unknown: "غير معروف"
+    product_reading:
+      indicator_datatype:
+        boolean: "منطقية"
+        choice: "خيار"
+        decimal: "عدد عشري"
+        geometry: "علم الهندسة"
+        integer: "عدد صحيح"
+        measure: "قياس"
+        multi_polygon: "مضلع متعددة"
+        point: "نقطة"
+        string: "خيط"
+    purchase_nature:
+      nature:
+        payslip: "قسيمة الدفع"
+        purchase: "شراء"
+    sale_opportunity:
+      third_role:
+        client: "زبون"
+        supplier: "المورد"
+    sale_ticket:
+      third_role:
+        client: "زبون"
+        supplier: "المورد"
     sensor:
       retrieval_mode:
         listening: "استماع"
@@ -164,16 +391,21 @@ arb:
         animals: "ترقيم الحيوانات"
         campaigns: "ترقيم الحملات"
         cash_transfers: "ترقيم التحويلات النقدية"
+        deliveries: "التسليم"
         deposits: "ترقيم الودائع"
         documents: "ترقيم الوثائق"
         entities: "ترقيم الناس"
         fixed_assets: "ترقيم الأصول الثابتة"
         gaps: "ترقيم الثغرات"
-        incoming_parcels: "ترقيم شحنات واردة"
+        incoming_parcels: "ترقيم شحنات واردة" #?
         incoming_payments: "ترقيم المدفوعات"
+        inspections: "عمليات التفتيش"
         interventions: "ترقيم التدخلات"
-        outgoing_deliveries: "ترقيم شحنات الصادرة"
+        inventories: "المخزونات"
+        opportunities: "الفرص"
+        outgoing_deliveries: "ترقيم شحنات الصادرة" #?
         outgoing_payments: "ترقيم المدفوعات"
+        parcels: "الطرود"
         plants: "ترقيم النباتات"
         product_nature_categories: "ترقيم فئات طبيعة المنتج"
         product_nature_variants: "ترقيم طبيعة المنتج المتغيرات"
@@ -183,37 +415,40 @@ arb:
         sales: "ترقيم المبيعات"
         sales_invoices: "ترقيم فواتير المبيعات"
         subscriptions: "ترقيم الاشتراكات"
-        transports: "ترقيم وسائل النقل"
-    subscription_nature:
-      entity_link_direction:
-        all: "ثنائي الاتجاه"
-        direct: "مباشرة"
-        indirect: "غير مباشر"
-      nature:
-        period: "الاشتراك عن طريق التاريخ"
-        quantity: "الاشتراك عن طريق رقم"
+        transports: "ترقيم وسائل النقل" #?
+    subscription_nature:  #?
+      entity_link_direction: #?
+        all: "ثنائي الاتجاه" #?
+        direct: "مباشرة" #?
+        indirect: "غير مباشر" #?
+      nature: #?
+        period: "الاشتراك عن طريق التاريخ" #?
+        quantity: "الاشتراك عن طريق رقم" #?
     task:
       nature:
-        document: "جاري الكتابة"
+        document: "جاري الكتابة" #?
         incoming_call: "مكالمة واردة"
         incoming_email: "رسائل واردة"
         incoming_mail: "بريد وارد"
         outgoing_call: "المكالمات الصادرة"
         outgoing_email: "البريد الإلكتروني المنتهية ولايته"
         outgoing_mail: "الرسائل المرسلة"
-        quote: "اقتبس"
-    tax:
-      nature:
-        amount: "كمية"
-        percentage: "نسبة مئوية"
+        quote: "اقتبس" #?
+      state:
+        doing: "فعل"
+        done: "فعله"
+        todo: "لكى يفعل"
+    tax:  #?
+      nature: #?
+        amount: "كمية" #?
+        percentage: "نسبة مئوية" #?
     tracking:
       usage_limit_nature:
         best_before: "الافضل قبل الموعد"
         no_limit: "لا حدود"
         used_by: "المستخدمة من قبل التاريخ"
-  simple_form:
-    hints:
-      purchase:
-        reference_number: "رقم الفاتورة المورد"
-    required:
-      text: "مطلوب"
+    version:
+      event:
+        create: "خلق"
+        destroy: "هدم"
+        update: "تحديث"

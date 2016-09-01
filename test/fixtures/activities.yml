@@ -78,12 +78,8 @@ activities_001:
   updater_id: 1
   use_countings: false
   use_gradings: false
-<<<<<<< HEAD
   use_seasons: false
-  use_tactics: false
-=======
   use_tactics: true
->>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
   with_cultivation: true
   with_supports: true
 activities_002:
@@ -160,7 +156,11 @@ activities_004:
   use_tactics: false
 =======
   use_seasons: true
+<<<<<<< HEAD
 >>>>>>> 78c07dc30865c8b41b716d695438ed1a1109fe7e
+=======
+  use_tactics: false
+>>>>>>> c7dcab24354678090487fae0cefac196926858f9
   with_cultivation: true
   with_supports: true
 activities_005:

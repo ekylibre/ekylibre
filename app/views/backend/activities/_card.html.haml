@@ -10,20 +10,20 @@
     - if active
       .activity-indicators
         .activity-indicator.cash
-          = activity.real_expense_amount(campaign).l(currency: Preference[:currency])
+          = activity.real_expense_amount(campaign).round.l(currency: Preference[:currency], precision: 0)
           = '/'
-          = activity.budget_expenses_amount(campaign).l(currency: Preference[:currency])
+          = activity.budget_expenses_amount(campaign).round.l(currency: Preference[:currency], precision: 0)
       .activity-indicators
         .activity-indicator.size
           = activity.size_during(campaign).round(1).l(precision: 1) rescue nil
         .activity-indicator.cumulated-time
           - intervention = Intervention.of_campaign(campaign).of_activity(activity)
           - if intervention.any?
-            = Intervention.of_campaign(campaign).of_activity(activity).sum(:working_duration).to_d.in(:second).convert(:hour).round(2).l
+            = Intervention.of_campaign(campaign).of_activity(activity).sum(:working_duration).to_d.in(:second).convert(:hour).round.l(precision: 0)
           - else
             - targets = Product.where(id: activity.productions.select(:support_id))
             - if targets.any?
-              = Intervention.with_targets(targets).of_civil_year(campaign.harvest_year).sum(:working_duration).to_d.in(:second).convert(:hour).round(2).l
+              = Intervention.with_targets(targets).of_civil_year(campaign.harvest_year).sum(:working_duration).to_d.in(:second).convert(:hour).round.l(precision: 0)
         .activity-indicator.opened-issues
           = Issue.of_campaign(campaign).of_activity(activity).opened.count
           = '/'

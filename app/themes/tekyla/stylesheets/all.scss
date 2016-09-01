@@ -22,12 +22,16 @@
 // Specific
 @import "abilities";
 @import "accesses";
+@import "activities";
+@import "attachments";
+@import "bank_statements";
 @import "budget";
 @import "buttons";
 @import "beehives";
 @import "calendars";
 @import "charts";
 @import "datetimepickers";
+@import "equipments";
 @import "forms";
 @import "golumns";
 @import "grid";
@@ -36,14 +40,12 @@
 @import "leaflet";
 @import "d3-tip";
 @import "main";
+@import "map_backgrounds";
 @import "modals";
 @import "tables";
 @import "timelines";
 @import "timeline_chart";
-@import "attachments";
-@import "activities";
-@import "map_backgrounds";
-@import "bank_statements";
+@import "tour";
 
 // Optimization
 @import "symbolic_icons";

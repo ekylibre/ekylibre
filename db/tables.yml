@@ -1427,6 +1427,9 @@ cultivable_zones:
     type: jsonb
   description:
     type: text
+  farmer_id:
+    type: integer
+    references: entity
   id:
     type: integer
     required: true
@@ -1436,6 +1439,9 @@ cultivable_zones:
   name:
     type: string
     required: true
+  owner_id:
+    type: integer
+    references: entity
   production_system_name:
     type: string
   shape:
@@ -1444,6 +1450,8 @@ cultivable_zones:
       srid: 4326
       type: multi_polygon
     required: true
+  soil_nature:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -1852,6 +1860,13 @@ entities:
     type: string
   description:
     type: text
+  employee:
+    type: boolean
+    required: true
+    default: false
+  employee_account_id:
+    type: integer
+    references: account
   first_met_at:
     type: datetime
   first_name:
@@ -2990,6 +3005,12 @@ intervention_parameter_readings:
     type: integer
     references: user
 intervention_parameters:
+  assembly_id:
+    type: integer
+    references: product
+  component_id:
+    type: integer
+    references: product_nature_variant_component
   created_at:
     type: datetime
     required: true
@@ -3122,6 +3143,9 @@ interventions:
   lock_version:
     type: integer
     required: true
+  nature:
+    type: string
+    required: true
   number:
     type: string
   prescription_id:
@@ -3130,6 +3154,9 @@ interventions:
   procedure_name:
     type: string
     required: true
+  request_intervention_id:
+    type: integer
+    references: intervention
   started_at:
     type: datetime
   state:
@@ -3137,6 +3164,12 @@ interventions:
     required: true
   stopped_at:
     type: datetime
+  trouble_description:
+    type: text
+  trouble_encountered:
+    type: boolean
+    required: true
+    default: false
   updated_at:
     type: datetime
     required: true
@@ -4974,6 +5007,40 @@ product_nature_category_taxations:
   usage:
     type: string
     required: true
+product_nature_variant_components:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  deleted_at:
+    type: datetime
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  parent_id:
+    type: integer
+    references: product_nature_variant_component
+  part_product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+  product_nature_variant_id:
+    type: integer
+    references: product_nature_variant
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 product_nature_variant_readings:
   absolute_measure_value_unit:
     type: string
@@ -5579,6 +5646,9 @@ purchase_natures:
     required: true
   name:
     type: string
+  nature:
+    type: string
+    required: true
   updated_at:
     type: datetime
     required: true

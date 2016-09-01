@@ -153,6 +153,7 @@ module Ekylibre
                 activity: activity,
                 support_id: animal_group.id,
                 size_value: animals.count,
+                support_nature: :animal_group,
                 started_on: first_year_of_campaign ? Date.civil(first_year_of_campaign, 1, 1) : Date.civil(1970, 1, 1),
                 usage: :milk
               )

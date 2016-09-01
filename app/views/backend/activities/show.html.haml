@@ -160,74 +160,73 @@
           unit = Nomen::Unit[:ton]
           yield_unit = Nomen::Unit[:ton_per_hectare]
         end
-      %table
-        %tbody
-          - resource.inspection_calibration_scales.each do |scale|
-            :ruby
+      .chart-table
+        - resource.inspection_calibration_scales.each do |scale|
+          :ruby
 
-              # get last calibration for each plant of the current activity
-              dataset_inspections = resource.inspections
+            # get last calibration for each plant of the current activity
+            dataset_inspections = resource.inspections
 
-              # get all plants in dataset
-              plants = Plant.at(Time.now).where(id: dataset_inspections.pluck(:product_id).uniq)
+            # get all plants in dataset
+            plants = Plant.at(Time.now).where(id: dataset_inspections.pluck(:product_id).uniq)
 
-              # get all inspections calibrations nature in activity
-              natures = resource.inspection_calibration_natures
+            # get all inspections calibrations nature in activity
+            natures = resource.inspection_calibration_natures
 
-              # get last inspection for each plant
-              dataset_last_inspections = []
-              plants.each do |plant|
-                dataset_last_inspections << dataset_inspections.where(product: plant).reorder(:sampled_at).last
+            # get last inspection for each plant
+            dataset_last_inspections = []
+            plants.each do |plant|
+              dataset_last_inspections << dataset_inspections.where(product: plant).reorder(:sampled_at).last
+            end
+
+            series = []
+            yield_series = []
+
+            natures.each do |nature|
+              last_calibrations = []
+              last_calibrations_yield = []
+              dataset_last_inspections.each do |last_inspection|
+                l = last_inspection.calibrations.of_scale(scale).where(nature_id: nature.id)
+                last_calibrations << l.first.send("marketable_#{long_name}").round(0).to_d(unit)
+                last_calibrations_yield << l.first.send("marketable_#{user_pref}_yield").round(0).to_d(yield_unit)
               end
+              series << { name: nature.name, data: [last_calibrations.compact.sum.to_s.to_f] }
+              yield_series << { name: nature.name, data: [ last_calibrations_yield.any? ? (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f : 0] }
+            end
 
-              series = []
-              yield_series = []
+            # spline
+            spline_series = []
+            spline_categories = []
+            spline_dataset = dataset_inspections.reorder(:sampled_at)
 
-              natures.each do |nature|
-                last_calibrations = []
-                last_calibrations_yield = []
-                dataset_last_inspections.each do |last_inspection|
-                  l = last_inspection.calibrations.of_scale(scale).where(nature_id: nature.id)
-                  last_calibrations << l.first.send("marketable_#{long_name}").round(0).to_d(unit)
-                  last_calibrations_yield << l.first.send("marketable_#{user_pref}_yield").round(0).to_d(yield_unit)
+            # build categories
+            spline_dataset.each do |inspection|
+              spline_categories << inspection.sampled_at.l
+            end
+
+            # category level
+            ActivityInspectionPointNature.unmarketable_categories.each do |category|
+              spline_data = []
+              # inspection level (compute progressive average for each inspection)
+              avg_arr = []
+              spline_dataset.each_with_index do |inspection, index|
+                dataset = spline_dataset[0..index]
+                dataset = dataset.group_by(&:product_id).select do |plant, _|
+                  curr_date = inspection.sampled_at
+                  Plant.at(curr_date).include? Plant.find(plant)
                 end
-                series << { name: nature.name, data: [last_calibrations.compact.sum.to_s.to_f] }
-                yield_series << { name: nature.name, data: [ last_calibrations_yield.any? ? (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f : 0] }
-              end
-
-              # spline
-              spline_series = []
-              spline_categories = []
-              spline_dataset = dataset_inspections.reorder(:sampled_at)
-
-              # build categories
-              spline_dataset.each do |inspection|
-                spline_categories << inspection.sampled_at.l
-              end
-
-              # category level
-              ActivityInspectionPointNature.unmarketable_categories.each do |category|
-                spline_data = []
-                # inspection level (compute progressive average for each inspection)
-                avg_arr = []
-                spline_dataset.each_with_index do |inspection, index|
-                  dataset = spline_dataset[0..index]
-                  dataset = dataset.group_by(&:product_id).select do |plant, _|
-                    curr_date = inspection.sampled_at
-                    Plant.at(curr_date).include? Plant.find(plant)
-                  end
-                  dataset = dataset.map do |_, inspections|
-                    inspections.last.send("points_#{long_name}_percentage", category).round(2).to_s.to_f
-                  end
-                  spline_data << dataset.compact.sum / dataset.compact.count unless dataset.empty?
+                dataset = dataset.map do |_, inspections|
+                  inspections.last.send("points_#{long_name}_percentage", category).round(2).to_s.to_f
                 end
-                spline_series << {name: category.l, data: spline_data}
+                spline_data << dataset.compact.sum / dataset.compact.count unless dataset.empty?
               end
+              spline_series << {name: category.l, data: spline_data}
+            end
 
-            %tr
-              %td{style: 'width: 33%' }= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-              %td{style: 'width: 33%' }= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
-              %td{style: 'width: 33%' }= spline_highcharts(spline_series, x_axis: {categories: spline_categories}, y_axis: { title: {text: "%"} }, title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {})
+          .chart-line
+            .chart-cell= column_highcharts(series, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+            .chart-cell= column_highcharts(yield_series, title: {text: :yield_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{yield_unit.symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+            .chart-cell= spline_highcharts(spline_series, x_axis: {categories: spline_categories}, y_axis: { title: {text: "%"} }, title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {})
 
     - c.cobble(:inspections) do
       = cobble_list :inspections

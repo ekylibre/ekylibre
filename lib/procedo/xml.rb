@@ -65,9 +65,19 @@ module Procedo
         name = element.attr('name').to_sym
         options = {}
         options[:required] = true if element.attr('required').to_s == 'true'
-        options[:categories] = element.attr('categories').to_s.split(/[\s\,]+/).map(&:to_sym)
-        options[:mandatory_actions] = element.attr('actions').to_s.split(/[\s\,]+/).map(&:to_sym)
-        options[:optional_actions] = element.attr('optional-actions').to_s.split(/[\s\,]+/).map(&:to_sym)
+        options[:categories] = element.attr('categories')
+                                      .to_s
+                                      .split(/[\s\,]+/)
+                                      .map(&:to_sym)
+        options[:mandatory_actions] = element.attr('actions')
+                                             .to_s
+                                             .split(/[\s\,]+/)
+                                             .map(&:to_sym)
+        options[:optional_actions] = element.attr('optional-actions')
+                                            .to_s.split(/[\s\,]+/)
+                                            .map(&:to_sym)
+        options[:maintenance] = (element.attr('maintenance').to_s == 'true')
+        options[:deprecated] = (element.attr('deprecated').to_s == 'true')
 
         procedure = Procedo::Procedure.new(name, options)
 
@@ -101,33 +111,29 @@ module Procedo
 
       # Parse <parameter>
       def parse_parameter(procedure, element, options = {})
+        locals = {}
         name = element.attr('name').to_sym
         if element.name != 'parameter'
           type = element.name.to_sym
-          raise "'type' attribute is not supported in a <#{element.name}> element" if element.has_attribute?('type')
+          if element.has_attribute?('type')
+            raise "'type' attribute is not supported in a <#{element.name}> element"
+          end
         else
           type = element.attr('type').underscore.to_sym
         end
         raise "No type given for #{name} parameter" unless type
         %w(filter cardinality).each do |info|
           if element.has_attribute?(info)
-            options[info.underscore.to_sym] = element.attr(info).to_s
+            locals[info.underscore.to_sym] = element.attr(info).to_s
           end
         end
-        options[:output] = {}
-        %w(name variety derivative-of variant).each do |attribute|
+        %w(component-of).each do |attribute|
           if element.has_attribute?(attribute)
-            options[:output][attribute.underscore.to_sym] = element.attr(attribute).to_s
-          end
-        end
-        options[:output][:default] = {}
-        %w(name variety derivative-of variant).each do |attribute|
-          if element.has_attribute?("default-#{attribute}")
-            options[:output][:default][attribute.underscore.to_sym] = element.attr("default-#{attribute}").to_s
+            locals[attribute.underscore.to_sym] = element.attr(attribute).to_s
           end
         end
         parent = options[:group] || procedure
-        parameter = parent.add_product_parameter(name, type, options)
+        parameter = parent.add_product_parameter(name, type, options.merge(locals))
         # Handlers
         element.xpath('xmlns:handler').each do |el|
           parse_handler(parameter, el)

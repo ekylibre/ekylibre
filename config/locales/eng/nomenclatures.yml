@@ -149,10 +149,10 @@ eng:
         equipment_asset_depreciations: "Equipment asset depreciations"
         equipment_assets: "Equipment assets"
         equipment_cooperative_participation_assets: "Equipment cooperative participation assets"
-        # equipment_depreciations_inputations_expenses: "Equipment depreciations inputations expenses"
+        equipment_depreciations_inputations_expenses: "Equipment depreciations inputations expenses"
         equipment_expenses: "Equipment expenses"
         equipment_locative_expenses: "Equipment locative expenses"
-        # equipment_maintenance_expenses: "Equipment maintenance expenses"
+        equipment_maintenance_expenses: "Equipment maintenance expenses"
         equipment_rent_expenses: "Equipment rent expenses"
         equipment_subventions: "Equipment subventions"
         establishment_charge_assets: "Establishment charge assets"
@@ -1509,6 +1509,7 @@ eng:
         consumption_period: "Consumption period"
         copper_concentration: "Copper concentration"
         cumulated_rainfall: "Cumulated rainfall"
+        daily_average_working_time: "Daily average working time"
         daily_nitrogen_production: "Daily nitrogen production"
         diameter: "Diameter"
         dry_matter_rate: "Dry matter rate"
@@ -1528,7 +1529,7 @@ eng:
         grains_area_density: "Grains area density"
         grains_count: "Grains count"
         hagberg_falling_number: "Hagberg falling number"
-        healthy: "Animal disease state"
+        healthy: "Healthiness"
         height: "Height"
         horizontal_rotation: "Horizontal rotation"
         immunoglobulins_concentration: "Immunoglobulins concentration"
@@ -1539,6 +1540,7 @@ eng:
         lactating: "Lactating"
         last_birth_children_count: "Last birth children count"
         length: "Length"
+        lifespan: "Lifespan"
         lipolysis: "Lipolysis"
         livestock_unit: "Livestock unit"
         magnesium_concentration: "Magnesium concentration"
@@ -1643,6 +1645,7 @@ eng:
         wind_direction: "Wind direction"
         wind_speed: "Wind speed"
         woodstock_variety: "Woodstock variety"
+        working_lifespan: "Working lifespan"
         zinc_concentration: "Zinc concentration"
       name: "Indicators"
       property_natures:
@@ -1685,6 +1688,7 @@ eng:
         escape: "Escape"                                   #< issue
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
+        field_edge_male_seed_corn_defect: "Field edge male seed corn default" #< plant_issue
         flooding: "Flooding"                               #< climate_issue
         fomitiporia: "Fomitiporia"                         #< fungus_disease
         fungus_disease: "Fungus disease"                   #< disease
@@ -1703,11 +1707,13 @@ eng:
         phytophthora: "Phytophthora"                       #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
         plant_disease: "Plant disease"                     #< disease
+        plant_issue: "Plant issue"
         pourridie_rot: "Pourridie rot"                     #< fungus_disease
         protozoa_disease: "Protozoa disease"               #< disease
         respiratory_problem: "Respiratory problem"         #< disease
         scale_insect: "Scale insect"                       #< insecta_disease
         scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
+        seed_corn_castration_defect: "Seed corn castration default" #< plant_issue
         septoria_blotch: "Septoria blotch"                 #< fungus_disease
         support_issue: "Support issue"                     #< issue
         vine_mildew: "Vine mildew"                         #< fungus_disease
@@ -1970,6 +1976,7 @@ eng:
         concrete_slab_pouring: "Concrete slab pouring"
         conservation_plowing: "Conservation plowing"
         corvicide: "Corvicide"
+        curative_maintenance: "Curative maintenance"
         cutting: "Cutting"
         dehorning: "Dehorning"
         desiccation: "Desiccation"
@@ -2043,6 +2050,7 @@ eng:
         planting: "Planting"
         plowing: "Plowing"
         pollinate: "Pollinate"
+        preventive_maintenance: "Preventive maintenance"
         product_identification: "Product identification"
         pumping_system_troubleshooting: "Pumping system troubleshooting"
         rain_protection: "Rain protection"
@@ -2072,6 +2080,7 @@ eng:
         tunnel_installation: "Tunnel installation"
         tunnel_removal: "Tunnel removal"
         tunnel_removing: "Tunnel removing"
+        upgrading_maintenance: "Upgrading maintenance"
         virucide: "Virucide"
         water_flow_improvement: "Water flow improvement"
         weeding: "Weeding"
@@ -4443,6 +4452,7 @@ eng:
         helianthus_annuus_aurasol: "Annual sunflower aurasol" #< helianthus_annuus
         helianthus_annuus_es_ethic: "Annual sunflower es ethic" #< helianthus_annuus
         helianthus_annuus_es_magnific: "Annual sunflower es magnific" #< helianthus_annuus
+        helianthus_annuus_es_romantic: "Annual sunflower es romantic" #< helianthus_annuus
         helianthus_annuus_extrasol: "Annual sunflower extrasol" #< helianthus_annuus
         helianthus_annuus_lg_5360_ho: "Annual sunflower lg 5360 ho" #< helianthus_annuus
         helianthus_annuus_lg_5450_ho: "Annual sunflower lg 5450 ho" #< helianthus_annuus
@@ -5132,6 +5142,7 @@ eng:
         phaseolus_vulgaris_mogex: "Bean Mogex"             #< phaseolus_vulgaris
         phaseolus_vulgaris_molly: "Bean Molly"             #< phaseolus_vulgaris
         phaseolus_vulgaris_princesse_du_peleve: "Bean Princesse du Pélève" #< phaseolus_vulgaris
+        phaseolus_vulgaris_red_kindley: "Bean Red Kindley" #< phaseolus_vulgaris
         phaseolus_vulgaris_stanley: "Bean Stanley"         #< phaseolus_vulgaris
         phaseolus_vulgaris_sv1162gn: "Bean SV1162GN"       #< phaseolus_vulgaris
         phaseolus_vulgaris_verdelys: "Bean green flageolet Verdelys (dwarf)" #< phaseolus_vulgaris
@@ -6198,15 +6209,18 @@ eng:
         yeast: "Yeast"                                     #< preparation
         zea: "Zea"                                         #< poaceae
         zea_mays: "Corn"                                   #< zea
+        zea_mays_5142: "Corn 5142"                         #< zea_mays
         zea_mays_P0216: "Corn P0216"                       #< zea_mays
         zea_mays_aallexia: "Corn Aallexia"                 #< zea_mays
         zea_mays_barcarolle_cs: "Corn Barcarolle CS"       #< zea_mays
         zea_mays_bergxxon: "Corn Bergxxon"                 #< zea_mays
         zea_mays_boomer: "Corn Boomer"                     #< zea_mays
         zea_mays_cadixxio: "Corn Cadixxio"                 #< zea_mays
+        zea_mays_capuzi: "Corn Capuzi"                     #< zea_mays
         zea_mays_ceratina: "Waxy Corn"                     #< zea_mays
         zea_mays_ceratina_dkc5430wx: "Waxy Corn DKC 5430 wx" #< zea_mays_ceratina
         zea_mays_ceratina_dkc5783wx: "Waxy Corn DKC 5783 wx" #< zea_mays_ceratina
+        zea_mays_ceratina_mas56wx: "Waxy Corn MAS 56 WX"   #< zea_mays_ceratina
         zea_mays_ceratina_mas66wx: "Waxy Corn MAS 66 wx"   #< zea_mays_ceratina
         zea_mays_ceratina_p0725e: "Waxy Corn P0725E"       #< zea_mays_ceratina
         zea_mays_ceratina_p1547e: "Waxy Corn P1547E"       #< zea_mays_ceratina
@@ -6242,7 +6256,9 @@ eng:
         zea_mays_p921s: "Corn P921 S"                      #< zea_mays
         zea_mays_ph30: "Corn PH 30"                        #< zea_mays
         zea_mays_ph31s: "Corn PH 31 S"                     #< zea_mays
+        zea_mays_ph450: "Corn PH 450"                      #< zea_mays
         zea_mays_pr34p88: "Corn PR34P88"                   #< zea_mays
+        zea_mays_pw450: "Corn PW 450"                      #< zea_mays
         zea_mays_roberi_cs: "Corn Roberi CS"               #< zea_mays
         zea_mays_saccharata: "Sweet Corn"                  #< zea_mays
         zea_mays_saccharata_646: "Sweet Corn 646"          #< zea_mays_saccharata

@@ -35,18 +35,18 @@
           %th= SaleItem.human_attribute_name(:amount)
           %th= SaleItem.human_attribute_name(:currency)
           %th
-      - precision = Nomen::Currency[resource.currency].precision
+      - precision = Nomen::Currency[f.object.currency].precision
       %tfoot
         %tr.total
           %th
             - unless f.object.credited_sale
               = link_to_add_association :add_item.tl, f, :items, partial: 'item_fields', data: { association_insertion_node: '#items-table', association_insertion_method: :append }, class: "btn primary"
           %th{colspan: 4}= :total.tl
-          %td#pta.decimal{ data: { use: ".pta", calculate: "sum", calculate_round: precision } }= resource.pretax_amount
-          %td#wta.decimal{ data: { use: ".wta", calculate: "sum", calculate_round: precision } }= resource.amount
-          %td= resource.currency
+          %td#pta.decimal{ data: { use: ".pta", calculate: "sum", calculate_round: precision } }= f.object.pretax_amount
+          %td#wta.decimal{ data: { use: ".wta", calculate: "sum", calculate_round: precision } }= f.object.amount
+          %td= f.object.currency
           %th
-      = f.simple_fields_for :items, resource.items do |item|
+      = f.simple_fields_for :items, f.object.items do |item|
         = render 'item_fields', f: item
 
 = f.attachments_field_set

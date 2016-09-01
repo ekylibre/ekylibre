@@ -19,7 +19,8 @@ require 'procedo'
 
 module Backend
   class ActivityTacticsController < Backend::BaseController
-    manage_restfully
+    manage_restfully except: :index
+
     unroll
     def procedures_name
       data = {}

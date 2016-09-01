@@ -36,13 +36,13 @@ module Procedo
 
         def to_hash
           hash = super
-          hash[:variant_id] = @variant ? @variant.id : nil
-          hash[:new_name] = @new_name
+          hash[:variant_id] = @variant.id if @variant
+          hash[:new_name] = @new_name unless @new_name.blank?
           hash
         end
 
         def env
-          { variant: variant, new_name: new_name }.merge(super)
+          super.merge(variant: variant, new_name: new_name)
         end
       end
     end

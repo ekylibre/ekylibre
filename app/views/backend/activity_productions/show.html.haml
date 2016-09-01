@@ -31,16 +31,24 @@
           .med-info
             %span.title= :vine_yield.tl
             %span.value= resource.vine_yield.round(2).l
-  = attributes_list stamps: false do |l|
-    - l.attribute :activity, url: true
-    - l.attribute :support_nature
-    - l.attribute :usage
-    - l.attribute :irrigated
-    - l.attribute :nitrate_fixing
-    - l.attribute :cap_land_parcel, url: true, label: :land_parcel_number
+    = attributes_list stamps: false do |l|
+      - l.attribute :activity, url: true
+      - l.attribute :support_nature
+      - l.attribute :usage
+      - l.attribute :irrigated
+      - l.attribute :nitrate_fixing
+      - l.attribute :cap_land_parcel, url: true, label: :land_parcel_number
 
+  - if resource.animal_farming? && resource.support.is_a?(AnimalGroup)
+    = attributes_list stamps: false do |l|
+      - l.attribute :activity, url: true
+      - l.attribute :support_nature
 
 = cobbles do |c|
+
+  - if resource.animal_farming? && (resource.support.is_a?(AnimalGroup))
+    - c.cobble :animals do
+      = cobble_list(:target_distributions)
 
   - if resource.plant_farming? && (resource.support.is_a?(LandParcel) || resource.support.is_a?(Plant))
     - c.cobble :weather do

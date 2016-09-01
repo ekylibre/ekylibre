@@ -131,6 +131,11 @@ module Ekylibre
 
         def nomenclature_reflections
           @nomenclature_reflections ||= {}.with_indifferent_access
+          if superclass.respond_to?(:nomenclature_reflections)
+            superclass.nomenclature_reflections.merge(@nomenclature_reflections)
+          else
+            @nomenclature_reflections
+          end
         end
 
         # Link to nomenclature
@@ -173,7 +178,7 @@ module Ekylibre
 
           define_method "of_#{name}?" do |item_or_name|
             item = item_or_name.is_a?(Nomen::Item) ? item_or_name : reflection.klass.find(item_or_name)
-            item >= self[reflection.foreign_key]
+            self[reflection.foreign_key].present? && item >= self[reflection.foreign_key]
           end
         end
 

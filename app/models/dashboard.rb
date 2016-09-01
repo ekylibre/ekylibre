@@ -35,7 +35,7 @@
 class Dashboard < Ekylibre::Record::Base
   belongs_to :owner, class_name: 'User'
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :owner, presence: true
   # ]VALIDATORS]

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add issue natures">
+	<item-creation item="issue_natures#plant_issue" target="plant"/>
+    <item-creation item="issue_natures#field_edge_male_seed_corn_defect" parent="plant_issue" target="plant"/>
+    <item-creation item="issue_natures#seed_corn_castration_defect" parent="plant_issue" target="plant"/>
+</migration>

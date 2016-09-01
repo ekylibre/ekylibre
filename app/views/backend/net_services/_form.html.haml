@@ -1,10 +1,10 @@
 = field_set do
   = f.input :reference_name, as: :hidden
   = f.input :reference_name, disabled: true
-  - if resource and resource.reference
-    - resource.each_identifier do |identifier|
-      - unless resource.identifiers.detect{|i| i.nature.to_s == identifier.name.to_s}
-        - resource.identifiers.build(nature: identifier.name)
+  - if f.object and f.object.reference
+    - f.object.each_identifier do |identifier|
+      - unless f.object.identifiers.detect{|i| i.nature.to_s == identifier.name.to_s}
+        - f.object.identifiers.build(nature: identifier.name)
     = f.backend_fields_for(:identifiers) do |fi|
       = fi.input :nature, as: :hidden
       = fi.input :value, label: fi.object.name

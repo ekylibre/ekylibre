@@ -36,6 +36,8 @@
 #  dead_at                   :datetime
 #  deliveries_conditions     :string
 #  description               :text
+#  employee                  :boolean          default(FALSE), not null
+#  employee_account_id       :integer
 #  first_met_at              :datetime
 #  first_name                :string
 #  full_name                 :string           not null
@@ -77,6 +79,7 @@ entities_001:
   creator_id: 1
   currency: EUR
   deliveries_conditions: ''
+  employee: false
   first_name: ''
   full_name: C. Ferstivall LTD
   id: 1
@@ -108,6 +111,7 @@ entities_002:
   created_at: 2014-10-31 19:28:25.976860000 Z
   creator_id: 1
   currency: EUR
+  employee: false
   first_name: Mohandas Karamchand
   full_name: Mohandas Karamchand Gandhi
   id: 2
@@ -132,6 +136,7 @@ entities_003:
   created_at: 2014-10-31 20:09:53.266533000 Z
   creator_id: 1
   currency: EUR
+  employee: false
   full_name: BAKTOUBI
   id: 3
   language: aze
@@ -157,6 +162,7 @@ entities_004:
   creator_id: 1
   currency: EUR
   deliveries_conditions: ''
+  employee: false
   first_name: ''
   full_name: BAKTOUBI Inc.
   id: 4
@@ -186,6 +192,7 @@ entities_005:
   creator_id: 1
   currency: EUR
   deliveries_conditions: ''
+  employee: false
   first_name: ''
   full_name: Taurus Plus
   id: 5
@@ -214,6 +221,7 @@ entities_006:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  employee: false
   first_name: Andrew
   full_name: Andrew Busbest
   id: 6
@@ -239,6 +247,7 @@ entities_007:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  employee: false
   full_name: Toley LTD
   id: 7
   language: fra
@@ -265,6 +274,7 @@ entities_008:
   creator_id: 1
   currency: EUR
   deliveries_conditions: ''
+  employee: false
   first_name: ''
   full_name: Yuey LTD
   id: 8
@@ -292,6 +302,7 @@ entities_009:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   currency: EUR
+  employee: false
   first_name: Gendo
   full_name: M. Gendo IKARI
   id: 9
@@ -320,6 +331,7 @@ entities_010:
   creator_id: 1
   currency: EUR
   deliveries_conditions: ''
+  employee: false
   first_name: Kōzō
   full_name: M. Kōzō FUYUTSUKI
   id: 10
@@ -352,6 +364,7 @@ entities_011:
   currency: JPY
   dead_at: 2004-07-11 22:00:00.000000000 Z
   deliveries_conditions: ''
+  employee: false
   first_name: "ユイ"
   full_name: Mme ユイ 碇
   id: 11
@@ -381,6 +394,7 @@ entities_012:
   creator_id: 1
   currency: EUR
   deliveries_conditions: ''
+  employee: false
   first_name: Yui
   full_name: Mme Yui IKARI
   id: 12
@@ -415,6 +429,7 @@ entities_013:
     sdqdqsdq_sd_qsq: QSDQD
     bla_dsfk_jioh_sdf: sfsdfsf
   deliveries_conditions: ''
+  employee: false
   first_name: ''
   full_name: Coop Ain Coop'In
   id: 13
@@ -449,6 +464,7 @@ entities_014:
     sdqdqsdq_sd_qsq: ''
     bla_dsfk_jioh_sdf: ''
   deliveries_conditions: ''
+  employee: false
   first_name: ''
   full_name: M.  Περικλῆς
   id: 14
@@ -480,6 +496,7 @@ entities_015:
   creator_id: 1
   currency: EUR
   deliveries_conditions: ''
+  employee: false
   first_name: ''
   full_name: Kokonut Inc
   id: 15
@@ -509,6 +526,7 @@ entities_016:
   creator_id: 1
   currency: EUR
   deliveries_conditions: ''
+  employee: false
   first_name: ''
   full_name: NERV
   id: 16
@@ -534,6 +552,7 @@ entities_017:
   country: fr
   created_at: 2016-01-21 14:05:46.143246000 Z
   currency: EUR
+  employee: false
   first_name: ''
   full_name: GAEC DUPONT
   id: 17

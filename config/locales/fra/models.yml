@@ -188,7 +188,7 @@ fra:
         on_or_before: "%{attribute} doit être le ou avant le %{restriction}"
         overlap_sibling: "%{attribute} se trouve sur une période d'un autre enregistrement"
         period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant" #?
-        posterior: "La date %{attribute} doit être postérieure à %{to}"
+        posterior: "%{attribute} doit être postérieure à %{to}"
         record_invalid: "Validations échouées\_: %{errors}"
         taken: "%{attribute} a déjà été pris"
         too_long: "%{attribute} est trop long (%{count} caractères maximum)"
@@ -196,10 +196,12 @@ fra:
         unitary_in_parcel: "articles Unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
+        activity:
+          checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
         bank_statement:
           no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
-          ofx_file_has_multiple_bank_accounts: "fichier OFX avec plusieurs comptes bancaires ne sont pas pris en charge"
-          ofx_file_invalid: "fichier OFX est invalide"
+          ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge"
+          ofx_file_invalid: "Fichier OFX invalide"
         bank_statement_item:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         cash:
@@ -217,7 +219,7 @@ fra:
             stopped_on:
               end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
@@ -265,7 +267,7 @@ fra:
       activity_inspection_point_nature: "Type de point de contrôle d'agréage"
       activity_production: "Support de production"
       activity_season: "Saisonnalité"
-      # activity_tactic: "Activity cropping technique"
+      activity_tactic: "Technique de culture d’activité"
       affair: "Affaire"
       analysis: "Analyse"
       analysis_item: "Élément d’analyse"
@@ -377,6 +379,7 @@ fra:
       product_nature_category: "Catégorie de type de produit"
       product_nature_category_taxation: "Taxation de catégorie de type de produit"
       product_nature_variant: "Variante de type de produit"
+      product_nature_variant_component: "Produit Composant de variante de la nature"
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
@@ -435,6 +438,7 @@ fra:
     actions: "Actions"
     active: "Actif"
     active_prices: "Prix actifs" #?
+    active_sessions: "Sessions actives"
     activities: "Activités"
     activity: "Activité"
     activity_budget: "Budget"
@@ -474,6 +478,7 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
+    assembly: "Assemblée"
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
@@ -569,6 +574,8 @@ fra:
     commission_base_amount: "Montant fixe de la commission"
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
+    component: "Composant"
+    components: "Composants"
     computation_method: "Méthode de calcul"
     compute: "Dernière valeur"
     computed_at: "Calculé le" #?
@@ -698,7 +705,7 @@ fra:
     document: "Document"
     document_archives: "Archives documentaires" #?
     documents: "Documents"
-    doers: "Equipiers"
+    doers: "Équipiers"
     done_at: "Fait le" #?
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
@@ -719,8 +726,11 @@ fra:
     emission_currency_rate: "Taux de la devise émise" #?
     emission_journal_entry: "Écriture de l’émission"
     employed: "Employé par la société"
-    employees: "employés"
+    employee: "Employé"
+    employee_account: "Compte employé"
+    employees: "Employés"
     employment: "Emploi/Rôle"
+    enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
     end_junction: "Jonction finale" #?
     end_way: "Voie finale" #?
@@ -754,16 +764,22 @@ fra:
     exploitation_name: "Nom de l’exploitation"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
+    exportable_fields: "Champs exportables"
     expression: "Expression" #?
     external: "Externe"
     extjuncted: "Extjoint" #?
     failed_attempts: "Tentatives de connexions échouées"
     family: "Famille"
     farm_name: "Nom de la ferme"
+    farmer: "Fermier"
     father: "Père"
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
+    file: "Fichier"
+    file_file_size: "Taille du fichier"
+    file_pages_count: "Pages comptent"
+    file_updated_at: "Mis à jour à"
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
@@ -779,6 +795,8 @@ fra:
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
+    fixed_asset_collect_account: "TVA collectée sur les immobilisations"
+    fixed_asset_deduction_account: "TVA déductible sur les immobilisations"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
@@ -787,6 +805,7 @@ fra:
     fixed_asset_expenses_account: "Compte d’imputation des charges des dépréciations d’immobilisation"
     fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
+    following: "Suivant"
     formats: "Formats"
     fourth_producer: "Quatrième producteur" #?
     fourth_producer_way: "Voie du quatrième producteur" #?
@@ -1028,7 +1047,6 @@ fra:
     minimal_size_value: "Taille minimale"
     minimal_value: "Valeur minimale"
     mobiles: "Portables"
-    # mod: "Mod"
     mode: "Mode"
     model_euid: "Modèle"
     mother: "Mère"
@@ -1099,6 +1117,9 @@ fra:
     parcel_items: "Éléments de colis"
     parcels: "Colis"
     parent: "Parent"
+    part_product_nature_variant: "Variante du composant"
+    part_product_nature_variant_id: "Variante du composant"
+    part_replacements: "Remplacements de pièce"
     parted: "En partie"
     parted_product: "Produit retiré"
     participant: "Participant"
@@ -1193,6 +1214,8 @@ fra:
     product_nature_categories: "Catégories de type de produit"
     product_nature_category: "Catégorie de type de produit"
     product_nature_category_taxations: "Taxation de catégorie de type de produit"
+    product_nature_variant: "Variante"
+    product_nature_variant_id: "Variante"
     product_natures: "Types de produits"
     product_net_surface_area: "Surface totale" #?
     product_ownership: "Propriété de produit"
@@ -1284,6 +1307,8 @@ fra:
     reflections: "Réflexions"
     remain_owner: "Conserver la propriété"
     remaining_amount: "Montant restant"
+    remaining_lifespan: "Vie restante"
+    remaining_working_lifespan: "Vie travaillée restante"
     remember_created_at: "Se souvenir de moi à"
     remember_me: "Se souvenir de moi"
     reminder_submissive: "Soumis à la relance"
@@ -1291,7 +1316,10 @@ fra:
     repayment_method: "Méthode de remboursement"
     repayment_period: "Période de remboursement"
     repayments: "Remboursements"
+    replaced_at: "Remplacé le"
+    replacements: "Remplacements"
     reporter: "Rapporteur"
+    request_intervention: "Demande intervention"
     required: "Obligatoire"
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"
@@ -1386,15 +1414,19 @@ fra:
     storages: "Stockages"
     story: "Historique"
     string_value: "Valeur textuelle"
-    # subdomains: "Subdomains"
+    subdomains: "Sous-domaines"
     subject: "Objet"
     subject_label: "Objet" #?
     subject_type: "Type de sujet"
     subscriber: "Abonné"
-    subscribing: "Abonne"
+    subscribing: "Abonnement"
+    subscription: "Abonnement"
+    subscription_days_count: "Nombre de jours d'abonnement"
     subscription_duration: "Période"
+    subscription_months_count: "Nombre de mois d'abonnement"
     subscription_nature: "Type d’abonnement"
     subscription_quantity: "Quantité" #?
+    subscription_years_count: "Nombre d'années d'abonnement"
     subscriptions: "Abonnements"
     supervision: "Surveillance"
     supplier: "Fournisseur"
@@ -1413,6 +1445,7 @@ fra:
     tactic: "Itinéraire technique"
     tactics: "Itinéraires culturaux"
     target: "Cible"
+    target_name: "Nom de la cible"
     target_type: "Type de cible"
     target_url: "URL cible"
     targets: "Cibles"
@@ -1431,7 +1464,7 @@ fra:
     ticket: "Ticket" #?
     time_window: "Fenêtre de temps (en secondes)"
     title: "Titre"
-    # tms: "TMS"
+    tms: "TMS"
     to: "Pour"
     to_bank_at: "À décaisser le"
     to_deposit: "À déposer"
@@ -1452,6 +1485,8 @@ fra:
     transporter_purchase: "Achat du transporteur"
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports" #?
+    trouble_description: "Description du problème"
+    trouble_encountered: "Probléme durant l'intervention"
     type: "Type"
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"
@@ -1470,14 +1505,13 @@ fra:
     updated_at: "Mis à jour le"
     updater: "Modificateur"
     uploaded: "Téléversé"
-    url: "url"
+    url: "URL"
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     usage_limit_nature: "Type de date limite de consommation"
     usage_limit_on: "Date limite de consommation"
     usages: "Usages"
     use_countings: "Utiliser les comptages"
-    use_grading_calibre: "Utiliser un calibre d'agréage"
     use_gradings: "Utiliser les agréages"
     use_seasons: "Utiliser les saisonnalités"
     use_tactics: "Utiliser les itinéraires techniques"
@@ -1486,7 +1520,7 @@ fra:
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
-    # uuid: "UUID"
+    uuid: "UUID"
     value: "Valeur"
     variable_indicators: "Indicateurs variables" #?
     variable_indicators_list: "Liste des indicateurs variables"

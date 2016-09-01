@@ -171,7 +171,7 @@ class ParcelItem < Ekylibre::Record::Base
     product_params[:name] = product_name
     product_params[:name] ||= "#{variant.name} (#{parcel.number})"
     product_params[:identification_number] = product_identification_number
-    product_params[:initial_born_at] = checked_at
+    product_params[:initial_born_at] = [checked_at, parcel_given_at].compact.min
 
     self.product = existing_product_in_storage unless no_fusing || storage.blank?
 

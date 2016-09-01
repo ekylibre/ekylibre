@@ -48,7 +48,7 @@ class CatalogItem < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :all_taxes_included, inclusion: { in: [true, false] }
   validates :amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :commercial_description, length: { maximum: 100_000 }, allow_blank: true
+  validates :commercial_description, length: { maximum: 500_000 }, allow_blank: true
   validates :commercial_name, length: { maximum: 500 }, allow_blank: true
   validates :catalog, :currency, :variant, presence: true
   validates :name, presence: true, length: { maximum: 500 }

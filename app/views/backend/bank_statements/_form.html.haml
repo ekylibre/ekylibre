@@ -26,11 +26,11 @@
         %tr#total.total
           %th{ colspan: 2 }
             %span= :total.tl
-          %td#debit.decimal{data: {use: "input.debit", calculate_round: 2}}=  resource.debit
-          %td.txt= resource.cash_currency
-          %td#credit.decimal{data: {use: "input.credit", calculate_round: 2}}= resource.credit
-          %td.txt= resource.cash_currency
+          %td#debit.decimal{data: {use: "input.debit", calculate_round: 2}}=  f.object.debit
+          %td.txt= f.object.cash_currency
+          %td#credit.decimal{data: {use: "input.credit", calculate_round: 2}}= f.object.credit
+          %td.txt= f.object.cash_currency
           %th.action
 
-      = f.simple_fields_for :items, resource.items do |item|
+      = f.simple_fields_for :items, f.object.items do |item|
         = render 'item_fields', f: item

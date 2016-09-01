@@ -3,7 +3,7 @@
   -# k.multi_choice :state, [:done, :undone].map{ |s| [s.tl, s] }
   - k.helper do
     %label= Intervention.human_attribute_name(:reference_name)
-    = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}, params[:procedure_name]))
+    = select_tag(:procedure_name, options_for_select([[]] + Intervention.used_procedures.collect{|p| [p.human_name, p.name.to_s]}.sort_by(&:first), params[:procedure_name]))
   - if current_campaign
     - productions = ActivityProduction.of_campaign(current_campaign)
     - targets = InterventionTarget.joins(:product)
@@ -14,7 +14,8 @@
         -#= select_tag(:support_id, options_for_select([[]] + productions.joins(:support).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:support_id]))
 
 - main_toolbar do |t|
-  = t.new
+  = t.new(nature: :request, label: :add_intervention_request.tl)
+  = t.new(nature: :record, label: :add_intervention_record.tl )
   - if current_user.crumbs.unconverted.any?
     - count = current_user.crumbs.unconverted.where(nature: "start").count
     = t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")

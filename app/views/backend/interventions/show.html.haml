@@ -2,6 +2,9 @@
   = t.edit resource
   = t.export :intervention_sheet
   = t.destroy
+  = t.new params: { request_intervention_id: resource.id } if resource.request?
+
+- currency = Nomen::Currency.find(resource.currency)
 
 = cobbles do |c|
   - if params[:mode] == 'spraying'
@@ -38,17 +41,16 @@
     = infos(class: 'costs') do
       - total = 0
       - [:input, :tool, :doer].each do |type|
-        - cost = (resource.cost(type) || 0.0).round.to_i
-        - total += cost
+        - cost = (resource.cost(type) || 0.0).round(currency.precision)
         .big-info.cost
           %span.title= "evaluated_#{type}_cost".tl
           %span.value
             %i.picto{class: "picto-#{type}"}
-            = cost.l(currency: Preference[:currency])
+            = cost.l(currency: currency.name)
 
       .big-info.cost.important
         %span.title= :total_cost.tl
-        %span.value= total.l(currency: Preference[:currency])
+        %span.value= resource.total_cost.round(currency.precision).l(currency: currency.name)
 
       - if resource.working_zone_area > 0.0.in_square_meter
         .big-info
@@ -58,7 +60,7 @@
         .big-info
           - unit = Nomen::Unit.find(:hectare)
           %span.title= Intervention.human_attribute_name(:costs_per_unit, unit: unit.human_name)
-          %span.value= resource.total_cost_per_area(unit).round(2).l(currency: Preference[:currency]) + "/" + unit.symbol
+          %span.value= resource.total_cost_per_area(unit).round(currency.precision).l(currency: currency.name) + "/" + unit.symbol
 
   - if resource.product_parameters.any?
     - c.cobble(:parameters) do
@@ -66,6 +68,9 @@
 
   - c.cobble(:general_informations) do
     = infos do
+      .med-info.important
+        %span.title= Intervention.human_attribute_name(:nature)
+        %span.value= resource.nature.l #lights(resource.status)
       .med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
@@ -111,3 +116,19 @@
       .info
         %span.title= Intervention.human_attribute_name(:description)
         %span.value= resource.description
+
+    .info
+      %span.title= Intervention.human_attribute_name(:actions)
+      %span.value= resource.human_actions_names
+
+    - if resource.trouble_encountered?
+      .info
+        %span.title= Intervention.human_attribute_name(:trouble_encountered)
+        %span.value= resource.trouble_description
+
+  - if resource.request?
+    - c.cobble(:record_interventions, title: :x_interventions.tl(count: resource.record_interventions.count)) do
+      = cobble_toolbar do |t|
+        .toolbar
+          = tool_to :new.ta, {action: :new, controller: :interventions, request_intervention_id: resource.id, procedure_name: resource.procedure_name}, tool: :new
+      =  cobble_list(:record_interventions)

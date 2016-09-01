@@ -55,7 +55,7 @@ class AnalysisItem < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :absolute_measure_value_unit, :choice_value, length: { maximum: 500 }, allow_blank: true
   validates :absolute_measure_value_value, :decimal_value, :measure_value_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :annotation, :string_value, length: { maximum: 100_000 }, allow_blank: true
+  validates :annotation, :string_value, length: { maximum: 500_000 }, allow_blank: true
   validates :boolean_value, inclusion: { in: [true, false] }
   validates :analysis, :indicator_datatype, :indicator_name, presence: true
   validates :integer_value, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
@@ -63,6 +63,15 @@ class AnalysisItem < Ekylibre::Record::Base
   validates :indicator_name, uniqueness: { scope: :analysis_id }
 
   delegate :sampled_at, to: :analysis
+
+  validate do
+    if analysis
+      similars = analysis.items.select { |i| i.indicator_name == indicator_name }
+      if similars.size > 1 && similars.first != self
+        errors.add :indicator_name, :taken
+      end
+    end
+  end
 
   after_save do
     if product

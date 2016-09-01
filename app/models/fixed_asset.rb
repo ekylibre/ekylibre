@@ -76,7 +76,7 @@ class FixedAsset < Ekylibre::Record::Base
   validates :allocation_account, :currency, :depreciation_method, :journal, presence: true
   validates :current_amount, :depreciation_percentage, :purchase_amount, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :depreciable_amount, :depreciated_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
   validates :started_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :stopped_on, presence: true, timeliness: { on_or_after: ->(fixed_asset) { fixed_asset.started_on || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
@@ -109,7 +109,7 @@ class FixedAsset < Ekylibre::Record::Base
 
   validate do
     if currency && journal
-      errors.add(:currency, :invalid) if currency != journal.currency
+      errors.add(:journal, :invalid) if currency != journal.currency
     end
     if started_on
       if fy = FinancialYear.reorder(:started_on).first
@@ -118,8 +118,8 @@ class FixedAsset < Ekylibre::Record::Base
         end
       end
       if self.stopped_on
-        unless self.stopped_on >= started_on
-          errors.add(:started_on, :less_than_or_equal_to, count: self.stopped_on.l)
+        unless self.stopped_on > started_on
+          errors.add(:stopped_on, :posterior, to: started_on.l)
         end
       end
     end
@@ -133,7 +133,7 @@ class FixedAsset < Ekylibre::Record::Base
   before_update do
     @auto_depreciate = false
     old = self.class.find(id)
-    for attr in [:depreciable_amount, :started_on, :stopped_on, :depreciation_method, :depreciation_percentage, :currency]
+    [:depreciable_amount, :started_on, :stopped_on, :depreciation_method, :depreciation_percentage, :currency].each do |attr|
       @auto_depreciate = true if send(attr) != old.send(attr)
     end
   end
