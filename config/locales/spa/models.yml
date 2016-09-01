@@ -82,6 +82,8 @@ spa:
         unitary_in_parcel: "artículos unitarios sólo se pueden enviar una a una"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        activity:
+          checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones"
         bank_statement:
           no_cash_match_ofx: "No hay resultados para el número de cuenta bancaria que figura en el archivo de efectivo"
           ofx_file_has_multiple_bank_accounts: "archivo OFX con varias cuentas bancarias no se admite"
@@ -593,7 +595,7 @@ spa:
     failed_attempts: "Intentos fallidos"
     family: "Familia"
     farm_name: "Nombre de granja"
-    # farmer: "Farmer"
+    farmer: "Agricultor"
     father: "Padre"
     faxes: "Faxes"
     fifth_producer: "En quinto productor" #?
@@ -1161,12 +1163,12 @@ spa:
     subject_type: "Tipo de sujeto"
     subscriber: "Abonado"
     subscribing: "La suscripción"
-    # subscription: "Subscription"
-    # subscription_days_count: "Subscription days count"
+    subscription: "Suscripción"
+    subscription_days_count: "Días de suscripción de recuento"
     subscription_duration: "Duración de suscripción"
-    # subscription_months_count: "Subscription months count"
+    subscription_months_count: "Meses de suscripción de recuento"
     subscription_nature: "Tipo de suscripción"
-    # subscription_years_count: "Subscription years count"
+    subscription_years_count: "Año de suscripción de recuento"
     subscriptions: "Suscripciones"
     supervision: "Supervisión"
     supplier: "Proveedor"

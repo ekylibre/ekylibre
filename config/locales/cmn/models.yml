@@ -82,6 +82,8 @@ cmn:
         unitary_in_parcel: "酉项只能由一个被发送的一个"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        activity:
+          checked_without_measures: "至少，当检查被通缉应选择的一种度量类型"
         bank_statement:
           no_cash_match_ofx: "没有现金找到该文件中给出的银行账号"
           ofx_file_has_multiple_bank_accounts: "与多个银行账户OFX文件不支持"
@@ -589,7 +591,7 @@ cmn:
     failed_attempts: "失败的尝试"
     family: "家庭"
     farm_name: "农场名称"
-    # farmer: "Farmer"
+    farmer: "农民"
     father: "父亲"
     faxes: "传真"
     fifth_producer: "第五制片人" #?
@@ -1157,12 +1159,12 @@ cmn:
     subject_type: "主题类型"
     subscriber: "订户"
     subscribing: "订阅"
-    # subscription: "Subscription"
-    # subscription_days_count: "Subscription days count"
+    subscription: "订阅"
+    subscription_days_count: "认购天数"
     subscription_duration: "认购时间"
-    # subscription_months_count: "Subscription months count"
+    subscription_months_count: "订阅数月"
     subscription_nature: "订阅类型"
-    # subscription_years_count: "Subscription years count"
+    subscription_years_count: "订阅年数"
     subscriptions: "订阅"
     supervision: "监督"
     supplier: "供应商"

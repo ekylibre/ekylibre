@@ -82,6 +82,8 @@ jpn:
         unitary_in_parcel: "ユニタリアイテムは一つ一つを送信することができます"
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        activity:
+          checked_without_measures: "検査が求められていたときに少なくとも、1小節の種類を選択する必要があります"
         bank_statement:
           no_cash_match_ofx: "ファイルで指定された銀行口座番号が見つかり代引き不可"
           ofx_file_has_multiple_bank_accounts: "複数の銀行口座を持つOFXファイルはサポートされていません。"
@@ -589,7 +591,7 @@ jpn:
     failed_attempts: "失敗した試み"
     family: "家族"
     farm_name: "ファーム名"
-    # farmer: "Farmer"
+    farmer: "農家"
     father: "お父さん"
     faxes: "ファックス"
     fifth_producer: "フィフスプロデューサー" #?
@@ -1157,12 +1159,12 @@ jpn:
     subject_type: "対象タイプ"
     subscriber: "加入者"
     subscribing: "購読"
-    # subscription: "Subscription"
-    # subscription_days_count: "Subscription days count"
+    subscription: "サブスクリプション"
+    subscription_days_count: "サブスクリプション日カウント"
     subscription_duration: "サブスクリプション期間"
-    # subscription_months_count: "Subscription months count"
+    subscription_months_count: "サブスクリプションの数ヶ月数"
     subscription_nature: "サブスクリプション・タイプ"
-    # subscription_years_count: "Subscription years count"
+    subscription_years_count: "サブスクリプションの年数"
     subscriptions: "サブスクリプション"
     supervision: "監督"
     supplier: "サプライヤー"
