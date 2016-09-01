@@ -132,6 +132,16 @@ module Procedo
         rescue
           raise Procedo::FailedFunctionCall
         end
+
+        # return first date as Datetime object
+        def intervention_started_at(set)
+          set.collect{|h| DateTime.parse(h[:started_at])}.min
+        end
+
+        # return last date as Datetime object
+        def intervention_stopped_at(set)
+          set.collect{|h| DateTime.parse(h[:stopped_at])}.max
+        end
       end
     end
   end

@@ -1,6 +1,8 @@
 module Procedo
   module Engine
     class Interpreter
+      RESERVED_VARIABLES = [:working_periods].freeze
+
       def self.interpret(intervention, tree, env = {})
         new(intervention, env).interpret(tree)
       end
@@ -81,7 +83,12 @@ module Procedo
           @env[node.text_value]
         elsif node.is_a?(Procedo::Formula::Language::Variable)
           @variables << node.text_value.to_sym
-          @intervention.parameter_set(node.text_value)
+          if RESERVED_VARIABLES.include?(node.text_value.to_sym)
+            @intervention.send("#{node.text_value}_parameter")
+          else
+            @intervention.parameter_set(node.text_value)
+          end
+
         elsif node.is_a?(Procedo::Formula::Language::Numeric)
           node.text_value.to_d
         elsif node.is_a?(Procedo::Formula::Language::ActorPresenceTest)
