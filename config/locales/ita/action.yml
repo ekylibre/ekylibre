@@ -845,6 +845,7 @@ ita:
     commission: "Commissione"
     company: "Società"
     complete: "Completare"
+    # completed: "Completed"
     conditions:
       filter_on_attribute_of_class: "Filtro su attributo della classe"
       special-subscriber: "Special-abbonato"
@@ -1316,8 +1317,8 @@ ita:
     repayments: "rimborsi"
     repayments_graph: "grafico rimborsi"
     report: "rapporto"
-    # requests: "Requests"
     request_maintenance: "Richiesta di manutenzione"
+    # requests: "Requests"
     reset: "Azzerare"
     # resource: "View original document: %{resource} %{number}"
     resources: "Gestione delle risorse"

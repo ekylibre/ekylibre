@@ -784,6 +784,7 @@ por:
     commission: "Comissão"
     company: "Sociedade"
     complete: "Completo"
+    # completed: "Completed"
     conditions:
       filter_on_attribute_of_class: "Filtrar atributo da classe"
       special-subscriber: "Especial assinante"
@@ -931,11 +932,7 @@ por:
     final_balance: "saldo final"
     financials_assets: "Ativos Financials"
     finish: "Terminar"
-<<<<<<< HEAD
-    # finished: "Finished"
-=======
     finished: "Acabado"
->>>>>>> c7dcab24354678090487fae0cefac196926858f9
     first_line_as_title: "Primeira linha como o título"
     fixed_asset_depreciations: "Depreciações de ativos fixos"
     fixed_assets: "Activos fixos"
@@ -1259,11 +1256,8 @@ por:
     repayments: "Reembolsos"
     repayments_graph: "Gráfico reembolsos"
     report: "Relatório"
-<<<<<<< HEAD
-    # requests: "Requests"
-=======
     request_maintenance: "Manutenção pedido"
->>>>>>> c7dcab24354678090487fae0cefac196926858f9
+    # requests: "Requests"
     reset: "Restabelecer"
     # resource: "View original document: %{resource} %{number}"
     resources: "Gestão de recursos"

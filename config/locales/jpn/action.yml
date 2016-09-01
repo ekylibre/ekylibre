@@ -846,6 +846,7 @@ jpn:
     commission: "手数料"
     company: "社会"
     complete: "コンプリート"
+    # completed: "Completed"
     conditions:
       filter_on_attribute_of_class: "クラスの属性にフィルター"
       special-subscriber: "特別加入者"
@@ -1323,8 +1324,8 @@ jpn:
     repayments: "返済"
     repayments_graph: "返済グラフ"
     report: "報告する"
-    # requests: "Requests"
     request_maintenance: "リクエストメンテナンス"
+    # requests: "Requests"
     reset: "リセット"
     # resource: "View original document: %{resource} %{number}"
     resources: "リソースの管理"

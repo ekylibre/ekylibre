@@ -959,7 +959,7 @@ eng:
     commission: "Commission"
     company: "Society" #?
     complete: "Complete"
-    completed: "Completed"
+    completed: "Completed" #?!
     # components: "Components"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
@@ -1423,8 +1423,8 @@ eng:
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
-    requests: "Requests" #?
     request_maintenance: "Request maintenance"
+    requests: "Requests"
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
     resources: "Resources management" #?
@@ -1614,7 +1614,7 @@ eng:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validate selected entries"
-    validated: "Validated" #?
+    validated: "Validated"
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?

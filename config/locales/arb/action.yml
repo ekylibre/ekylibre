@@ -1089,6 +1089,7 @@ arb:
     commission: "عمولة"
     company: "المجتمع"
     complete: "كامل"
+    # completed: "Completed"
     components: "العناصر" #?
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
@@ -1807,8 +1808,8 @@ arb:
     repayments_graph: "تسديد الرسم البياني"
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
-    # requests: "Requests"
     request_maintenance: "صيانة الطلب"
+    # requests: "Requests"
     reservoir: "الاحتياطي" #?
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?

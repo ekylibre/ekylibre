@@ -967,6 +967,7 @@ fra:
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     complete: "Compléter"
+    completed: "Terminées"
     component: "Composant" #?
     component_name: "Nom du composant" #?
     components: "Composants" #?
@@ -1682,8 +1683,8 @@ fra:
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
-    requests: "Demandes"
     request_maintenance: "Demander une maintenance"
+    requests: "Demandes"
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"

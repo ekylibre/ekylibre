@@ -53,7 +53,7 @@
           - board.headers :class => "taskboard-header--gray" do |header|
             - header.content :requests.tl + " (" + interventions_requested.count.to_s + ")", headers_actions
             - header.content :current.tl + " (" + interventions_in_progress.count.to_s + ")", headers_actions
-            - header.content :finished.tl + " (" + interventions_done.count.to_s + ")", headers_actions
+            - header.content :completed.tl + " (" + interventions_done.count.to_s + ")", headers_actions
             - header.content :validated.tl + " (" + interventions_validate.count.to_s + ")", headers_actions
 
           - board.lines do |line|

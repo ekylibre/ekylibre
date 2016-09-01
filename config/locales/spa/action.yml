@@ -874,6 +874,7 @@ spa:
     commission: "Comisión"
     company: "Sociedad"
     complete: "Completar"
+    # completed: "Completed"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
@@ -1445,8 +1446,8 @@ spa:
     repayments_graph: "Reembolsos gráfico"
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
-    # requests: "Requests"
     request_maintenance: "Solicitud de mantenimiento"
+    # requests: "Requests"
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?

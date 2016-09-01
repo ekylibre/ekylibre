@@ -779,6 +779,7 @@ cmn:
     commission: "佣金"
     company: "社会"
     complete: "完成"
+    # completed: "Completed"
     conditions:
       filter_on_attribute_of_class: "在类的属性过滤器"
       special-subscriber: "特殊用户"
@@ -1251,8 +1252,8 @@ cmn:
     repayments: "偿还"
     repayments_graph: "偿还图"
     report: "报告"
-    # requests: "Requests"
     request_maintenance: "申请维修"
+    # requests: "Requests"
     reset: "重置"
     # resource: "View original document: %{resource} %{number}"
     resources: "资源管理"

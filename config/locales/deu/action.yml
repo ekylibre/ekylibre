@@ -779,6 +779,7 @@ deu:
     commission: "Kommission"
     company: "Gesellschaft"
     complete: "Komplett"
+    # completed: "Completed"
     conditions:
       filter_on_attribute_of_class: "Filter auf Attribut der Klasse"
       special-subscriber: "Spezial-Teilnehmer"
@@ -1250,8 +1251,8 @@ deu:
     repayments: "Rückzahlungen"
     repayments_graph: "Rückzahlungen graph"
     report: "Bericht"
-    # requests: "Requests"
     request_maintenance: "Anfrage Wartungs"
+    # requests: "Requests"
     reset: "zurückstellen"
     # resource: "View original document: %{resource} %{number}"
     resources: "Ressourcen-Management"
