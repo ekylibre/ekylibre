@@ -3,10 +3,7 @@
 $preview-modal-height: 80vh;
 
 .interventions-modal .modal-header {
-  display: flex;
-  // flex-direction: row-reverse;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-row(space-between);
 
  .modal-title {
    margin-right: 10px;
@@ -42,8 +39,7 @@ $preview-modal-height: 80vh;
 }
 
 .interventions-modal .blocks {
-  display: flex;
-  justify-content: flex-start;
+  @include flex-row(flex-start, flex-start);
   flex-wrap: wrap;
   padding: 10px;
 
@@ -61,6 +57,7 @@ $preview-modal-height: 80vh;
 
     .data {
       padding-top: 10px;
+      @include flex-row(flex-start, center);
     }
 
     .data-title {
@@ -70,6 +67,23 @@ $preview-modal-height: 80vh;
     .picture .picto {
       font-size: $fs-huge;
       line-height: initial;
+    }
+  }
+}
+
+.taskboard.interventions-board {
+
+  .taskboard-header {
+
+    &--gray {
+      border-bottom: solid 1px #DDD;
+    }
+  }
+
+  .task {
+
+    &-data.doers {
+      background-color: #455A64;
     }
   }
 }

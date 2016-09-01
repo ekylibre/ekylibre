@@ -115,12 +115,29 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
-  scope :with_unroll, lambda { |search, procedure_name, target_id, year, state|
+  scope :with_unroll, lambda { |search, procedure_name, target_id, period_type, period, state|
 
-    search_params = ''
+    search_params = "#{Intervention.table_name}.state = '#{state}'"
 
-    search_params << "EXTRACT(YEAR FROM started_at) = #{year}"
-    search_params << " AND #{Intervention.table_name}.state = '#{state}'"
+    unless period_type.blank? && period.blank?
+
+      if period_type.to_sym == :days
+
+        search_params << " AND EXTRACT(DAY FROM started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
+      elsif period_type.to_sym == :weeks
+
+        beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
+        end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
+
+        search_params << " AND started_at >= '#{beginning_of_week}' AND stopped_at <= '#{end_of_week}'"
+      elsif period_type.to_sym == :months
+
+        search_params << " AND EXTRACT(MONTH FROM started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
+      elsif period_type.to_sym == :years
+
+        search_params << " AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
+      end
+    end
 
     unless search.blank?
       search_params << " AND #{Intervention.table_name}.number ILIKE '%#{search}%'"
@@ -134,7 +151,7 @@ class Intervention < Ekylibre::Record::Base
       search_params << " AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{target_id}')"
     end
 
-    where(search_params)
+    where(search_params).order(started_at: :desc)
   }
 
   scope :with_targets, lambda { |*targets|
@@ -214,6 +231,10 @@ class Intervention < Ekylibre::Record::Base
       a << target.activity if target.activity
     end
     a.uniq
+  end
+
+  def activities_names_list
+    activities.map(&:name).sort
   end
 
   # Returns human tool names

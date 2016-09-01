@@ -9,7 +9,7 @@
     - if variants.any?
       = t.duplicate params: { controller: :activities, campaign_id: current_campaign.id, source_campaign_id: preceding.id, redirect: request.fullpath }, variants: variants, label: :copy_from_previous_campaign.tl, method: :post
 
-- main_campaign_selector
+- main_period_selector(:years)
 
 - if @activities.any?
   .activities-index

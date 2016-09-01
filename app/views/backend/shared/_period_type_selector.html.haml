@@ -1,0 +1,11 @@
+.btn-group.period-type-selector
+
+  - current_period_type = current_user.current_period_type.to_sym
+  - period_types = [:days, :weeks, :months, :years]
+
+  - period_types.each do |period_type|
+
+    - classes = "btn period-type "
+    - classes << 'active' if current_period_type == period_type
+
+    = link_to(period_type.tl, { :current_period_type => period_type, :current_campaign => Date.today.year }, class: classes)

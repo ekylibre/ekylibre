@@ -345,6 +345,7 @@ eng:
       index: "Interventions"
       new: "New intervention"
       show: "%{procedure_name}"
+      # show_intervention_modal: "Show intervention modal intervention: %{name}"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -801,7 +802,7 @@ eng:
     accounts_only_used_at: "Accounts only used at"
     accounts_to_load: "Accounts to load"
     active: "Active" #?
-    activities: "Activities" #?
+    activities: "Activities"
     activity: "Activity"
     activity_production: "Activity production"
     activity_productions: "Activity productions"
@@ -985,7 +986,7 @@ eng:
     cultivable_zone: "Cultivable zone" #?
     cultivable_zones: "arable areas" #?
     cumul: "Accumulation of tattle and previous balance N°%{number}" #?
-    current: "Current" #?
+    current: "Current"
     current_cultivation: "Current cultivation"
     current_stocks_by_variety: "Current stocks by variety" #?
     custom_fields: "Custom fields"
@@ -1036,6 +1037,7 @@ eng:
     document_natures: "Document types" #?
     document_templates: "Document templates" #?
     doer_cost: "Doer cost"
+    doers: "Doers"
     done: "Done" #?
     dont_use_journal: "— Do not use journal —"
     down: "Down" #?
@@ -1085,6 +1087,7 @@ eng:
     final_balance: "Final balance"
     financials_assets: "Financials assets"
     finish: "Finish" #?
+    finished: "Finished"
     first_line_as_title: "First line as title"
     fixed_asset_depreciations: "Fixed asset depreciations"
     fixed_assets: "Fixed assets"
@@ -1397,6 +1400,7 @@ eng:
     repayments: "Repayments"
     repayments_graph: "Repayments graph"
     report: "Report" #?
+    requests: "Requests" #?
     reset: "Reset"
     resource: "View original document: %{resource} %{number}" #?
     resources: "Resources management" #?
@@ -1555,6 +1559,7 @@ eng:
       one: "Validate crumbs for %{count} intervention"
       other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validate selected entries"
+    validated: "Validated" #?
     values: "Values"
     variable_indicators: "Variable indicators"
     variants: "Variants" #?
@@ -1562,6 +1567,7 @@ eng:
     # vine_yield: "Vine yield"
     watering_concentration: "Water use" #?
     weather: "Weather"
+    weeks: "Weeks" #?
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
@@ -1688,6 +1694,7 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
+    years: "Years" #?
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration"
     zones: "Zones"
@@ -1884,6 +1891,7 @@ eng:
       select: "Select"
       ship: "Ship"
       show: "Show"
+      # show_intervention_modal: "Show intervention modal"
       sort: "Sort"
       star: "Star"
       start: "Start"

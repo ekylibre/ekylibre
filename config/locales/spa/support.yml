@@ -19,6 +19,7 @@ spa:
       month: "% B% Y"
       month_letter: "%d %B %Y"
       short: "%b %d"
+      short_month: "%m/%Y"
     month_names: ["", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
   datetime:
     distance_in_words:

@@ -19,6 +19,7 @@ deu:
       month: "%DURCH"
       month_letter: "% D% B% Y"
       short: "%e. %b"
+      short_month: "%m.%Y"
     month_names: ["", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
   datetime:
     distance_in_words:

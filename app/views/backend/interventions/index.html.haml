@@ -19,9 +19,8 @@
     - count = current_user.crumbs.unconverted.where(nature: "start").count
     = t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
 
-//- datetime_field_tag(:started_at, nil, data: { bind: 'value: started_at'})
-- main_week_selector
-- main_campaign_selector
+- main_type_period_selector
+- main_period_selector
 
 - if current_campaign
   - productions = ActivityProduction.of_campaign(current_campaign)
@@ -30,14 +29,13 @@
       - j.face :cobbles do
 
         - campaign ||= current_campaign
+        - current_period_type = current_user.current_period_type
+        - current_period = current_user.current_period
 
-        - interventions_requested = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], campaign.harvest_year, :undone)
-        - interventions_in_progress = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], campaign.harvest_year, :in_progress)
-        - interventions_done = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], campaign.harvest_year, :done)
-        - interventions_validate = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], campaign.harvest_year, :validate)
-
-
-        -# = interventions_requested[0].reference_name
+        - interventions_requested = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :undone)
+        - interventions_in_progress = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :in_progress)
+        - interventions_done = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :done)
+        - interventions_validate = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :validate)
 
         = taskboard params: { id: "interventionsTaskboard", class: "interventions-board"} do |board|
 
@@ -52,21 +50,21 @@
           - headers_actions = [edit_icon, delete_icon]
 
           - board.headers :class => "taskboard-header--gray" do |header|
-            - header.content "Demandes (" + interventions_requested.count.to_s + ")", headers_actions
-            - header.content "En cours (" + interventions_in_progress.count.to_s + ")", headers_actions
-            - header.content "Terminées (" + interventions_done.count.to_s + ")", headers_actions
-            - header.content "Validées (" + interventions_validate.count.to_s + ")", headers_actions
+            - header.content :requests.tl + " (" + interventions_requested.count.to_s + ")", headers_actions
+            - header.content :current.tl + " (" + interventions_in_progress.count.to_s + ")", headers_actions
+            - header.content :finished.tl + " (" + interventions_done.count.to_s + ")", headers_actions
+            - header.content :validated.tl + " (" + interventions_validate.count.to_s + ")", headers_actions
 
           - board.lines do |line|
             - menu_icon = content_tag(:i, nil, {:class => "task-menu picto picto-keyboard-control"})
 
-            - line.block :class => "pending" do |block|
+            - line.block :class => "requests" do |block|
               - add_tasks(interventions_requested, block)
 
             - line.block :class => "current" do |block|
               - add_tasks(interventions_in_progress, block)
 
-            - line.block :class => "realized" do |block|
+            - line.block :class => "finished" do |block|
               - add_tasks(interventions_done, block)
 
             - line.block :class => "validated" do |block|

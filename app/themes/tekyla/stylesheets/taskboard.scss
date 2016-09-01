@@ -58,7 +58,7 @@
   .task {
     @include flex-column(flex-start, flex-start);
     margin: 10px 20px;
-    padding: 15px;
+    padding: 10px 15px 15px 15px;
     border: 1px solid #DDD;
     @include normal-shadow();
     border-radius: 5px;
@@ -76,7 +76,7 @@
     }
 
     &-texts {
-      align-self: center;
+      font-weight: bold;
     }
 
     &-text {
@@ -84,7 +84,9 @@
     }
 
     &-datas {
-      margin-top: 5px;
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
 
       .picto {
         font-size: $fs-large;
@@ -93,14 +95,21 @@
       }
     }
 
+    &-data {
+      margin-right: 12px;
+    }
+
     &-datas * {
-      color: #8c8c8c;
+      color: white;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
     &-datas .data-text {
       font-size: $fs-normal;
       font-style: italic;
-      margin-left: 10px;
       line-height: initial;
     }
 
@@ -131,31 +140,6 @@
 
     .task-menu:hover {
       color: $text-color;
-    }
-  }
-}
-
-.taskboard.interventions-board {
-
-  .taskboard-header {
-
-    &--gray {
-      border-bottom: solid 1px #DDD;
-    }
-  }
-
-  .task {
-
-    &--updated {
-      border-left: solid 5px #FF5722;
-    }
-
-    &--further {
-      border-left: solid 5px #2196F3;
-    }
-
-    &--not-updated {
-      border-left: solid 5px #4CAF50;
     }
   }
 }

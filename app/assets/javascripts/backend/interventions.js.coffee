@@ -306,43 +306,5 @@
             $('#taskboard-modal').modal 'show'
       )
 
-
-
-  class Taskboard
-
-    constructor: (id) ->
-      @id = id
-      @taskboard = $("##{id}")
-
-    # Delete
-    addSelectTaskEvent: ->
-      $('.tasks .task-select-field input[type="checkbox"]').on('change', (event) ->
-
-      )
-
-    # Delete
-    @resetModal: ->
-      modalHeader = $('#taskboard-modal .modal-header')
-      modalBody = $('#taskboard-modal .modal-body')
-
-      $(modalHeader).find('.modal-title').remove()
-      $(modalHeader).find('.labels').remove()
-      $(modalBody).empty()
-
-
-
-
-    addEditIconClickEvent: ->
-      @taskboard.find('.column-actions .edit-tasks').on('click', ->
-        alert "Etes-vous sur de vouloir modifier ces interventions ?"
-      )
-
-
-    addDeleteIconClickEvent: ->
-      @taskboard.find('.column-actions .delete-tasks').on('click', ->
-        alert "Etes-vous sur de vouloir supprimer ces interventions ?"
-      )
-
-
   true
 ) ekylibre, jQuery

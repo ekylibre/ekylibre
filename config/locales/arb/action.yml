@@ -1209,6 +1209,7 @@ arb:
     document_template_create: "انشاء نموذج للوثيقة" #?
     document_templates: "نموذج الوثائق"
     doer_cost: "تكلفة الفاعل"
+    # doers: "Doers"
     done: "فعله"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
@@ -1291,6 +1292,7 @@ arb:
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     financials_assets: "الأصول المالية"
     finish: "انهاء"
+    # finished: "Finished"
     finished_income_statement: "المنتجات" #?
     finished_sum: "مجموع منتجات الاستثمار" #?
     first_line_as_title: "السطر الأول كما لقب"
@@ -1790,6 +1792,7 @@ arb:
     repayments_graph: "تسديد الرسم البياني"
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
+    # requests: "Requests"
     reservoir: "الاحتياطي" #?
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
@@ -2050,6 +2053,7 @@ arb:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "التحقق من المدخلات المختارة"
+    # validated: "Validated"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"
@@ -2063,6 +2067,7 @@ arb:
     waiting: "أ€ التسدسد لاحقا" #?
     watering_concentration: "استخدام المياه"
     weather: "طقس"
+    # weeks: "Weeks"
     wind_speed: "سرعة الرياح"
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
@@ -2213,6 +2218,7 @@ arb:
       # other: "%{count} years"
     y: "نعم" #?
     yearly: "Annuelle" #?
+    # years: "Years"
     years_count_in_historic: "عدد السنوات عامة" #?
     yield: "يخضع أو يستسلم"
     yield_by_calibration: "العائد من المعايرة"

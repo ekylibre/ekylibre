@@ -245,19 +245,33 @@ module Backend
       render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
     end
 
-    def main_week_selector
+    def main_period_selector(period_type = nil)
       content_for(:heading_toolbar) do
-        week_selector
+        period_selector(period_type)
       end
     end
 
-    def week_selector(campaign = nil, options = {})
+    def period_selector(period_type = nil, campaign = nil, options = {})
+
       unless Campaign.any?
         @current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
         current_user.current_campaign = @current_campaign
       end
+
       campaign ||= current_campaign
-      render 'backend/shared/week_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
+      period_type ||= current_user.current_period_type.to_sym
+
+      render 'backend/shared/period_selector', period_type: period_type, campaign: campaign, param_name: options[:param_name] || :current_campaign
+    end
+
+    def main_type_period_selector
+      content_for(:heading_toolbar) do
+        type_period_selector
+      end
+    end
+
+    def type_period_selector
+      render 'backend/shared/period_type_selector'
     end
 
     def lights(status, html_options = {})

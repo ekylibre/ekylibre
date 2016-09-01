@@ -15,7 +15,7 @@
     = tool_to(:distribute.ta, { controller: :target_distributions, action: :distribute }, icon: false)
 
 - content_for :heading_toolbar do
-  = campaign_selector(resource)
+  = period_selector(:years, resource)
 
 -#= cobbles do |c|
   - c.cobble :general_informations do

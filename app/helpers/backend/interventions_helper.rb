@@ -6,27 +6,39 @@ module Backend
       tasks = []
 
       interventions.each do |intervention|
+
         can_select = true
-        activities = intervention.activities
-
-        cultivations = []
-        intervention.targets_list.each do |target|
-          cultivations << { icon: "land-parcels", text: target }
-        end
-
-        cultivations << { icon: "user", text: intervention.doers.count }
-
         colors = []
-        activities.each do |activity|
-          colors << activity.color
+        task_datas = []
+
+        intervention.activity_productions.each do |activity_production|
+
+          activity_color = activity_production.activity.color
+          cultivable_zone = activity_production.cultivable_zone
+
+          task_datas << { icon: "land-parcels", text: cultivable_zone.work_number, style: "background-color: #{activity_color};"}
         end
+
+
+        if intervention.doers.count > 0
+
+          doers_text = intervention.doers[0].product.name
+
+          if intervention.doers.count > 1
+            remaining_doers = intervention.doers.count - 1
+            doers_text << " +" + remaining_doers.to_s
+          end
+
+          task_datas << { icon: "user", text: doers_text, class: "doers" }
+        end
+
 
         intervention_datas = Hash.new
         intervention_datas[:id] = intervention.id
         intervention_datas[:name] = intervention.name
 
-        tasks << block.task([{text: intervention.name}], cultivations, [], can_select, colors,
-          params: {:class => "task--not-updated", :data => {:intervention => intervention_datas.to_json}})
+        tasks << block.task([{text: intervention.name}], task_datas, [], can_select, colors,
+          params: {:class => "", :data => {:intervention => intervention_datas.to_json}})
       end
 
       tasks

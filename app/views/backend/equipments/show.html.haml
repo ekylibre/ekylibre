@@ -2,7 +2,7 @@
   = t.edit resource
   = t.new(params: {controller: :issues, target_id: resource.id, target_type: resource.class.name}, tool: 'new-issue')
 
-- main_campaign_selector
+- main_period_selector(:years)
 
 = main_informations attachment: true do
   = render 'picture'

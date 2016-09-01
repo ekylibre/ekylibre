@@ -1086,6 +1086,7 @@ fra:
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
     doer_cost: "Coût de main d’œuvre"
+    doers: "Opérateurs"
     done: "Fait"
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
@@ -1164,6 +1165,7 @@ fra:
     financial_state: "État financier" #?
     financials_assets: "Immobilisations"
     finish: "Terminer"
+    finished: "Terminées"
     finished_income_statement: "Produits" #?
     finished_sum: "Total produits d’exploitation" #?
     finishes: "Termine par" #?
@@ -1660,6 +1662,7 @@ fra:
     report: "Informations communes"
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
+    requests: "Demandes"
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
@@ -1938,6 +1941,7 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
+    validated: "Validées"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
@@ -1954,6 +1958,7 @@ fra:
     virtual_quantity: "Quantité virtuelle" #?
     watering_concentration: "Eau consommée"
     weather: "Météo"
+    weeks: "Semaines"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
@@ -2104,6 +2109,7 @@ fra:
       zero: "0" #?
     y: "Oui" #?
     yearly: "Annuelle" #?
+    years: "Années"
     years_count_in_historic: "Nombre d’années dans l’historique" #?
     yield: "Rendement"
     yield_by_calibration: "Rendement par calibre"

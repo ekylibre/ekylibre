@@ -22,20 +22,24 @@
   %div.blocks
 
     %div.block
-      %h3.block-title Parcelles / Cultures
+      = content_tag(:h3, :activities.tl, class: "block-title")
+
+      - intervention.activities_names_list.each do |activity_name|
+        - title = activity_name
+        - detail = ""
+        = add_modal_data(title, detail, {icon: 'picto-leaf'})
+
+
+    %div.block
+      = content_tag(:h3, :land_parcels.tl, class: "block-title")
 
       - intervention.targets.each do |targets|
         - title = targets.product.name
         - detail = targets.product.nature.name
         = add_modal_data(title, detail, {icon: 'picto-land-parcels'})
 
-      - intervention.outputs.each do |output|
-        - title = output.product.name
-        - detail = output.product.nature.name
-        = add_modal_data(title, detail, {icon: 'picto-leaf'})
-
     %div.block
-      %h3.block-title Opérateurs
+      = content_tag(:h3, :doers.tl, class: "block-title")
 
       - intervention.doers.each do |doer|
         - title = doer.product.name
@@ -43,16 +47,17 @@
         = add_modal_data(title, detail, {icon: 'picto-male'})
 
     %div.block
-      %h3.block-title Intrants
+      = content_tag(:h3, :inputs.tl, class: "block-title")
 
       - intervention.inputs.each do |input|
-        - title = input.product.name
-        - detail = input.quantity_value.round(2).l(precision: 0) + " " + input.product.unit_name.mb_chars
-        = add_modal_data(title, detail, {icon: 'picto-matter'})
+        - unless input.product.blank?
+          - title = input.product.name
+          - detail = input.quantity_value.round(2).l(precision: 0) + " " + input.product.unit_name.mb_chars
+          = add_modal_data(title, detail, {icon: 'picto-matter'})
 
 
     %div.block
-      %h3.block-title Outils
+      = content_tag(:h3, :tools.tl, class: "block-title")
 
       - intervention.tools.each do |tool|
         - title = tool.product.name

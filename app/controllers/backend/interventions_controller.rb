@@ -20,7 +20,8 @@ require_dependency 'procedo'
 
 module Backend
   class InterventionsController < Backend::BaseController
-    manage_restfully t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }
+    manage_restfully  period_type: 'current_user.current_period_type'.c,
+                      t3e: { procedure_name: '(RECORD.procedure ? RECORD.procedure.human_name : nil)'.c }
 
     respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -49,11 +50,33 @@ module Backend
       code << "end\n"
       code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
 
-      # Current campaign
-      code << "if current_campaign\n"
-      code << "  c[0] << \" AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?\"\n"
-      code << "  c << current_campaign.harvest_year\n"
+
+      # select the interventions according to the user current period
+      code << "unless current_period_type.blank? && current_period.blank?\n"
+
+      code << " if current_period_type.to_sym == :days\n"
+      code << "   c[0] << ' AND EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
+      code << "   c << current_period.to_date.day\n"
+      code << "   c << current_period.to_date.month\n"
+      code << "   c << current_period.to_date.year\n"
+
+      code << " elsif current_period_type.to_sym == :weeks\n"
+      code << "   c[0] << ' AND started_at >= ? AND stopped_at <= ?'\n"
+      code << "   c << current_period.to_date.at_beginning_of_week.to_time.beginning_of_day\n"
+      code << "   c << current_period.to_date.at_end_of_week.to_time.end_of_day\n"
+
+      code << " elsif current_period_type.to_sym == :months\n"
+      code << "   c[0] << ' AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
+      code << "   c << current_period.to_date.month\n"
+      code << "   c << current_period.to_date.year\n"
+
+      code << " elsif current_period_type.to_sym == :years\n"
+      code << "   c[0] << ' AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
+      code << "   c << current_period.to_date.year\n"
+      code << " end\n"
+
       code << "end\n"
+
 
       # Support
       code << "if params[:product_id].to_i > 0\n"

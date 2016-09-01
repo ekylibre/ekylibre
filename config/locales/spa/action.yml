@@ -978,6 +978,7 @@ spa:
     document_template_create: "Crear un modelo de documento" #?
     document_templates: "Modelos de documentos"
     doer_cost: "Costo hacedor"
+    # doers: "Doers"
     done: "Hecho"
     dont_use_journal: "-- No utilizar el periodico --"
     down: "Abajo"
@@ -1041,6 +1042,7 @@ spa:
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     financials_assets: "Activos Finanzas"
     finish: "Acabado"
+    # finished: "Finished"
     finished_income_statement: "Productos" #?
     finished_sum: "Total productos de explotación" #?
     first_line_as_title: "Primera línea como el título"
@@ -1428,6 +1430,7 @@ spa:
     repayments_graph: "Reembolsos gráfico"
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
+    # requests: "Requests"
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
@@ -1640,12 +1643,14 @@ spa:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validar la escrituras seleccionadas"
+    # validated: "Validated"
     values: "Valores"
     variable_indicators: "Indicadores variables"
     variants: "Variantes"
     view: "Ver"
     watering_concentration: "Uso del agua"
     weather: "Clima"
+    # weeks: "Weeks"
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
@@ -1775,6 +1780,7 @@ spa:
       one: "1 año"
       # other: "%{count} years"
     yearly: "Anual" #?
+    # years: "Years"
     years_count_in_historic: "Nombre de años en el historico" #?
     yield: "rendimiento"
     yield_by_calibration: "Yield de calibración"

@@ -323,6 +323,23 @@ class User < Ekylibre::Record::Base
     prefer!('current_campaign.id', campaign.id, :integer)
   end
 
+  def current_period_type
+    self.preference('current_period_type', :years, :string).value
+  end
+
+  def current_period_type=(period_type)
+    prefer!('current_period_type', period_type, :string)
+  end
+
+  def current_period
+    self.preference('current_period', Date.today, :string).value
+  end
+
+  def current_period=(period)
+    prefer!('current_period', period, :string)
+  end
+
+
   def card
     nil
   end

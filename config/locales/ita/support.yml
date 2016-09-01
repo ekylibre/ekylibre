@@ -19,6 +19,7 @@ ita:
       month: "% B% Y"
       month_letter: "% D% B% Y"
       short: "%d %b"
+      short_month: "%m/%Y"
     month_names: ["", "gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"]
   datetime:
     distance_in_words:

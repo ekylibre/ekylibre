@@ -3,22 +3,22 @@ module Backend::TaskboardHelper
 
     attr_reader :options, :headers_options, :taskboard_headers, :taskboard_lines
 
-    def initialize(_options)
-      @options = _options[:params]
+    def initialize(options)
+      @options = options[:params]
       @taskboard_headers = []
       @taskboard_lines = []
     end
 
-    def headers(_options = {}, &_block)
-      headers = Headers.new(_options)
+    def headers(options = {}, &_block)
+      headers = Headers.new(options)
       yield headers
 
       @taskboard_headers = headers.headers_list
       @headers_options = headers.options
     end
 
-    def lines(_options = {}, &_block)
-      line = Line.new(_options)
+    def lines(options = {}, &_block)
+      line = Line.new(options)
       yield line
 
       @taskboard_lines << line
@@ -28,10 +28,10 @@ module Backend::TaskboardHelper
 
       attr_reader :headers_list, :options
 
-      def initialize(_options)
+      def initialize(options)
 
         @headers_list = []
-        @options = _options
+        @options = options
       end
 
       def content(title, actions, options = {})
@@ -43,24 +43,24 @@ module Backend::TaskboardHelper
 
       attr_reader :title, :actions, :options
 
-      def initialize(_title, _actions, _options)
+      def initialize(title, actions, options)
 
-        @title = _title
-        @actions = _actions
-        @options = _options
+        @title = title
+        @actions = actions
+        @options = options
       end
     end
 
     class Line
       attr_reader :blocks, :options
 
-      def initialize(_options)
+      def initialize(options)
         @blocks = []
-        @options = _options
+        @options = options
       end
 
-      def block(_options = {}, &_block)
-        block = Block.new(_options)
+      def block(options = {}, &_block)
+        block = Block.new(options)
         yield block unless _block.nil?
 
         @blocks << block
@@ -71,14 +71,14 @@ module Backend::TaskboardHelper
 
       attr_reader :tasks, :options
 
-      def initialize(_options)
+      def initialize(options)
 
         @tasks = []
-        @options = _options
+        @options = options
       end
 
-      def task(_titles, _datas, _actions, _select, _colors = {}, _options = {})
-        @tasks << Task.new(_titles, _datas, _actions, _select, _colors, _options)
+      def task(titles, datas, actions, can_select, colors = {}, options = {})
+        @tasks << Task.new(titles, datas, actions, can_select, colors, options)
       end
     end
 
@@ -86,14 +86,14 @@ module Backend::TaskboardHelper
 
       attr_reader :titles, :datas, :actions, :colors, :options
 
-      def initialize(_titles, _datas, _actions, _select, _colors = {}, _options = {})
+      def initialize(titles, datas, actions, can_select, colors = {}, options = {})
 
-        @titles = _titles
-        @datas = _datas
-        @actions = _actions
-        @select = _select
-        @colors = _colors
-        @options = _options[:params]
+        @titles = titles
+        @datas = datas
+        @actions = actions
+        @select = can_select
+        @colors = colors
+        @options = options[:params]
       end
 
       def can_select?
@@ -102,9 +102,9 @@ module Backend::TaskboardHelper
     end
   end
 
-  def taskboard(_options = {},  &_block)
+  def taskboard(options = {},  &_block)
 
-    taskboard = Taskboard.new(_options)
+    taskboard = Taskboard.new(options)
     yield taskboard
     render partial: 'backend/shared/taskboard.html', locals: { taskboard: taskboard }
   end
