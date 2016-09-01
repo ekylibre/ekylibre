@@ -100,17 +100,16 @@ module ActionIntegration
       @parameters << name
     end
 
-    def fetch_account(integration_account = nil)
-      user_account = integration_account
-      user_account &&= Integration.new(user_account)
-      user_account ||= ::Integration.find_by_nature(self.class.integration_name.underscore)
+    def fetch(integration_params = nil)
+      integration = integration_params && ::Integration.new(integration_params)
+      integration ||= ::Integration.find_by_nature(self.class.integration_name.underscore)
 
-      raise ServiceNotIntegrated unless user_account
+      raise ServiceNotIntegrated unless integration
       self.class.parameters.each do |p|
-        raise IntegrationParameterEmpty, p if user_account.parameters[p.to_s].blank?
+        raise IntegrationParameterEmpty, p if integration.parameters[p.to_s].blank?
       end
 
-      user_account
+      integration
     end
   end
 end

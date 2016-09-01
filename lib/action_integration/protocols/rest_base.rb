@@ -46,7 +46,6 @@ module ActionIntegration
         response = ActionIntegration::Response.new_from_net(response)
 
         yield(response)
-
         response
       end
 

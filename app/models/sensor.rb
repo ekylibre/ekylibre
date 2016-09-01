@@ -51,7 +51,7 @@ class Sensor < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :embedded, inclusion: { in: [true, false] }
-  validates :model_euid, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
+  validates :model_euid, :token, :vendor_euid, :euid, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :retrieval_mode, presence: true
   # ]VALIDATORS]

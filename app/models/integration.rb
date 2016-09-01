@@ -38,16 +38,17 @@ class Integration < Ekylibre::Record::Base
   delegate :auth_type, :check_connection, :integration_name, to: :integration_type
   validate do
     check_connection self do |c|
-      c.success do
-        Ekylibre::Hook.publish "#{nature}_check_successful"
-      end
       c.redirect do
-        Ekylibre::Hook.publish "#{nature}_check_redirected"
+        errors.add(:parameters, :check_redirected)
       end
       c.error do
-        Ekylibre::Hook.publish "#{nature}_check_errored"
+        errors.add(:parameters, :check_errored)
       end
     end
+  end
+
+  after_save do
+    Ekylibre::Hook.publish "#{nature}_check_successful"
   end
 
   def integration_type
