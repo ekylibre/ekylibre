@@ -29,7 +29,13 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     elsif srid = @manifest[:map_measure_srid]
       Preference.set!(:map_measure_srs, Nomen::SpatialReferenceSystem.find_by(srid: srid.to_i).name)
     end
-    Preference.set!(:demo, !!@manifest[:demo], :boolean)
+    demo = !!@manifest[:demo]
+    if demo
+      Preference.set!(:demo, demo, :boolean)
+      demo_user = @manifest[:users].keys.first
+      Preference.set!(:demo_user, demo_user)
+      Preference.set!(:demo_password, @manifest[:users][demo_user][:password])
+    end
     Preference.set!(:create_activities_from_telepac, !!@manifest[:create_activities_from_telepac], :boolean)
     ::I18n.locale = Preference[:language]
 
