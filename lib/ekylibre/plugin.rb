@@ -240,13 +240,14 @@ module Ekylibre
         # plugins/<plugin>/app/assets/*/ => tmp/plugins/assets/*/plugins/<plugin>/
         Dir.chdir(assets_directory) do
           Dir.glob('*') do |type|
-            type_dir = self.class.type_assets_directory(type)
-            plugin_type_dir = type_dir.join('plugins', @name.to_s) # mirrored_assets_directory(type)
-            FileUtils.rm_rf plugin_type_dir
-            FileUtils.mkdir_p(plugin_type_dir.dirname) unless plugin_type_dir.dirname.exist?
-            FileUtils.ln_sf(assets_directory.join(type), plugin_type_dir)
-            unless Rails.application.config.assets.paths.include?(type_dir.to_s)
-              Rails.application.config.assets.paths << type_dir.to_s
+            unless Rails.application.config.assets.paths.include?(assets_directory.join(type).to_s)
+              Rails.application.config.assets.paths << assets_directory.join(type).to_s
+            end
+            unless %w(javascript stylesheets).include? type
+              files_to_compile = Dir[type + '/**/*'].select { |f| File.file? f }.map do |f|
+                Pathname.new(f).relative_path_from(Pathname.new(type)).to_s unless f == type
+              end
+              Rails.application.config.assets.precompile += files_to_compile
             end
           end
         end

@@ -5,12 +5,11 @@ module Backend::IntegrationsHelper
     possible_names = integration.parents.map(&:name)
     possible_names = possible_names.prepend(integration_name)
     possible_names = possible_names.map(&:underscore)
+    possible_names = possible_names.map { |name| "#{name}-#{size}"}
 
-    image_files = possible_names.map do |name|
-      images = Dir.glob(Rails.root.join('app', 'assets', 'images', 'integrations', '*'))
-      image_names = images.map { |path| [File.basename(path, '.*'), File.basename(path)] }
-      image_names.to_h["#{name}-#{size}"]
-    end
-    image_files.compact.first && 'integrations/'+image_files.compact.first
+    assets = Rails.application.assets
+    existing_assets = possible_names.map { |name| assets.find_asset("integrations/#{name}") }
+
+    existing_assets.compact.first.logical_path
   end
 end
