@@ -192,6 +192,11 @@ class Activity < Ekylibre::Record::Base
         errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
       end
     end
+    if use_gradings
+      unless measure_something?
+        errors.add :use_gradings, :checked_without_measures
+      end
+    end
     true
   end
 
@@ -432,6 +437,10 @@ class Activity < Ekylibre::Record::Base
 
   def is_of_family?(family)
     Nomen::ActivityFamily[self.family] <= family
+  end
+
+  def measure_something?
+    measure_grading_items_count || measure_grading_net_mass || measure_grading_sizes
   end
 
   def unit_choices
