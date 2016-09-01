@@ -37,7 +37,7 @@ module Backend
       t.column :priority, hidden: true
     end
 
-    list(:interventions, conditions: { issue_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+    list(:interventions, conditions: { nature: :record, issue_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.column :reference_name, label_method: :name, url: true
       t.column :human_target_names, hidden: true
       t.column :started_at

@@ -33,7 +33,7 @@ module Backend
     end
 
     # List of interventions with precription_id
-    list(:interventions, conditions: { prescription_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
+    list(:interventions, conditions: { nature: :record, prescription_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
       t.column :reference_name, label_method: :name, url: true
       t.column :human_target_names, hidden: true
       t.column :started_at

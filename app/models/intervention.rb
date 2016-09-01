@@ -119,7 +119,7 @@ class Intervention < Ekylibre::Record::Base
   }
   scope :of_activities, ->(*activities) { of_activity(activities.flatten) }
   scope :provisional, -> { where('stopped_at > ?', Time.zone.now) }
-  scope :real, -> { where('stopped_at <= ?', Time.zone.now) }
+  scope :real, -> { where(nature: :record).where('stopped_at <= ?', Time.zone.now) }
 
   scope :with_generic_cast, lambda { |role, object|
     where(id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
