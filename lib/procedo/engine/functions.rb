@@ -108,7 +108,30 @@ module Procedo
         rescue
           raise Procedo::FailedFunctionCall
         end
-
+        
+        # compute a name from given variant
+        def output_computed_name(variant) #working_periods
+          
+          # last_day = working_periods.last[:value]
+          end_of_period = Time.now
+          
+          # get product born on the same day
+          products = []
+          ps = Product.of_variant(variant).at(end_of_period).order(:born_at)
+          ps.each do |p|
+            if p.born_at.to_date == end_of_period.to_date
+              products << p
+            end
+          end
+          
+          # build variables
+          ordered = (products.compact.count) + 1
+          name = variant.name
+          born_at = Time.now.strftime("%d/%m/%Y")
+          
+          return "#{name} n°#{ordered} #{born_at}"
+        end
+        
         def variety_of(product)
           return product.variety
         rescue
