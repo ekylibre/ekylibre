@@ -103,7 +103,7 @@ class Inspection < Ekylibre::Record::Base
     return unless product
 
     # get sowing intervention of current plant
-    interventions = Intervention.with_outputs(product)
+    interventions = Intervention.real.with_outputs(product)
 
     equipment = nil
 
