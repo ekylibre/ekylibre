@@ -25,6 +25,6 @@
             - if targets.any?
               = Intervention.real.with_targets(targets).of_civil_year(campaign.harvest_year).sum(:working_duration).to_d.in(:second).convert(:hour).round.l(precision: 0)
         .activity-indicator.opened-issues
-          = Issue.of_campaign(campaign).of_activity(activity).opened.count.to_s + '/' + Issue.of_campaign(campaign).of_activity(activity).count
+          = Issue.of_campaign(campaign).of_activity(activity).opened.count.to_s + '/' + Issue.of_campaign(campaign).of_activity(activity).count.to_s
     - else
       = link_to(:new_production.tl, {controller: :activity_productions, action: :new, activity_id: activity.id, campaign_id: campaign.id}, class: 'btn btn-default')
