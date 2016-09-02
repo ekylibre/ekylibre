@@ -298,6 +298,9 @@ spa:
       index: "gradaciones de productos"
       new: "Nueva clasificación de los productos"
       # show: "Product grading\_: %{number}"
+    backend/integrations:
+      # edit: "Activate integration: %{name}"
+      # index: "Integrations"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       # edit_request: "Edit request %{procedure_name} #%{number}"

@@ -700,6 +700,7 @@ jpn:
     insurance_amount: "保険金額"
     insurance_percentage: "保険の割合"
     integer_value: "整数値"
+    # integration_name: "Integration name"
     interest_amount: "利息額"
     interest_percentage: "利息の割合"
     intermediate_cultivation_residue_mineralization: "中間栽培残留物鉱化"

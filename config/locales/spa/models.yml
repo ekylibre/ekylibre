@@ -704,6 +704,7 @@ spa:
     insurance_amount: "El monto del seguro"
     insurance_percentage: "Porcentaje de Seguros"
     integer_value: "Valor entero"
+    # integration_name: "Integration name"
     interest_amount: "Cantidad de interés"
     interest_percentage: "Porcentaje de participación"
     intermediate_cultivation_residue_mineralization: "Mineralización de residuos de cultivo intermedio"

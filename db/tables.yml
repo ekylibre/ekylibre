@@ -919,6 +919,12 @@ call_messages:
   call_id:
     type: integer
     references: call
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
   format:
     type: string
   headers:
@@ -928,6 +934,9 @@ call_messages:
     required: true
   ip:
     type: string
+  lock_version:
+    type: integer
+    required: true
   method:
     type: string
   nature:
@@ -941,20 +950,41 @@ call_messages:
     type: string
   type:
     type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
   url:
     type: string
 calls:
-  args:
+  arguments:
     type: jsonb
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
   id:
     type: integer
     required: true
-  method:
+  integration_name:
     type: string
-  source:
+  lock_version:
+    type: integer
+    required: true
+  name:
     type: string
   state:
     type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 campaigns:
   closed:
     type: boolean
@@ -6068,6 +6098,8 @@ sensors:
     type: boolean
     required: true
     default: false
+  euid:
+    type: string
   host_id:
     type: integer
     references: product

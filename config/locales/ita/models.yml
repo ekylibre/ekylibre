@@ -731,6 +731,7 @@ ita:
     insurance_amount: "importo di assicurazione"
     insurance_percentage: "percentuale di assicurazione"
     integer_value: "valore intero"
+    # integration_name: "Integration name"
     interest_amount: "importo interesse"
     interest_percentage: "percentuale di interesse"
     intermediate_cultivation_residue_mineralization: "mineralizzazione dei residui di coltivazione Intermedio"

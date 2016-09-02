@@ -995,6 +995,11 @@
         <page to="backend/settings#edit"/>
         <page to="backend/settings#update"/>
       </item>
+      <item name="integrations">
+        <page to="backend/integrations#index"/>
+        <page to="backend/integrations#edit"/>
+        <page to="backend/integrations#new"/>
+      </item>
       <item name="map_backgrounds">
         <page to="backend/map_backgrounds#index"/>
         <page to="backend/map_backgrounds#create"/>
@@ -1780,11 +1785,8 @@
   <untreated-actions>
     <group>
       <item name="integrations">
-        <page to="backend/integrations#index"/>
         <page to="backend/integrations#create"/>
         <page to="backend/integrations#destroy"/>
-        <page to="backend/integrations#edit"/>
-        <page to="backend/integrations#new"/>
         <page to="backend/integrations#show"/>
         <page to="backend/integrations#update"/>
       </item>

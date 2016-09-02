@@ -897,6 +897,7 @@ fra:
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
     integer_value: "Valeur entière"
+    # integration_name: "Integration name"
     interest_amount: "Montant de l’intérêt"
     interest_percentage: "Taux d’intérêt (%)"
     intermediate_cultivation_residue_mineralization: "Minéralisation nette des résidus de culture intermédiaire (MrCi)"

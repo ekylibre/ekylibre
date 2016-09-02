@@ -378,6 +378,7 @@ spa:
         supplier: "Proveedor"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Escuchando"
         requesting: "Solicitando"
     sequence:

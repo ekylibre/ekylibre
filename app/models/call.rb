@@ -22,13 +22,21 @@
 #
 # == Table: calls
 #
-#  args   :jsonb
-#  id     :integer          not null, primary key
-#  method :string
-#  source :string
-#  state  :string
+#  arguments        :jsonb
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  integration_name :string
+#  lock_version     :integer          default(0), not null
+#  name             :string
+#  state            :string
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 class Call < Ekylibre::Record::Base
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :integration_name, :name, :state, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
   has_many :messages, class_name: 'CallMessage'
   has_many :requests, class_name: 'CallRequest'
   has_many :responses, class_name: 'CallResponse'

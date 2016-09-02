@@ -391,6 +391,7 @@ por:
         supplier: "Fornecedor"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Ouvindo"
         requesting: "Solicitando"
     sequence:

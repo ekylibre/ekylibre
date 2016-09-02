@@ -700,6 +700,7 @@ cmn:
     insurance_amount: "保险金额"
     insurance_percentage: "保险比例"
     integer_value: "整数值"
+    # integration_name: "Integration name"
     interest_amount: "利息金额"
     interest_percentage: "利息率"
     intermediate_cultivation_residue_mineralization: "中间种植残留矿化"

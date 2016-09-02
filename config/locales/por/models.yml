@@ -700,6 +700,7 @@ por:
     insurance_amount: "Valor do seguro"
     insurance_percentage: "Porcentagem de seguros"
     integer_value: "Valor inteiro"
+    # integration_name: "Integration name"
     interest_amount: "Montante de juros"
     interest_percentage: "Percentual de participação"
     intermediate_cultivation_residue_mineralization: "Cultivo Intermediário mineralização de resíduos"

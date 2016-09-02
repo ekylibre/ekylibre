@@ -1494,6 +1494,7 @@ arb:
     insurance_amount: "مبلغ التأمين"
     insurance_percentage: "نسبة التأمين"
     integer_value: "قيمة العدد الصحيح"
+    # integration_name: "Integration name"
     interest_amount: "مبلغ الفائدة"
     interest_percentage: "نسبة الفائدة"
     intermediate_cultivation_residue_mineralization: "زراعة المتوسطة بقايا تمعدن"

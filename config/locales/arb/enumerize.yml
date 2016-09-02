@@ -377,6 +377,7 @@ arb:
         supplier: "المورد"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "استماع"
         requesting: "طلب"
     sequence:

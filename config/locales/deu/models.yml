@@ -700,6 +700,7 @@ deu:
     insurance_amount: "Versicherungssumme"
     insurance_percentage: "Versicherungen Prozent"
     integer_value: "Integer Wert"
+    # integration_name: "Integration name"
     interest_amount: "Zinsbetrag"
     interest_percentage: "Zinsprozent"
     intermediate_cultivation_residue_mineralization: "Zwischen Anbau Rückstand Mineralisierung"
