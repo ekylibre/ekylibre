@@ -52,7 +52,7 @@
 
 .taskboard .tasks {
   flex: 1;
-  @include flex-column(stretch);
+  @include flex-column(stretch, flex-start);
   margin-right: 30px;
 
   .task {

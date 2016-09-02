@@ -17,6 +17,15 @@
       $(@modalBody).empty()
       $(@modalFooter).empty()
 
+    removeModalContent: ->
+      this.getModalContent().empty()
+
+    getModal: ->
+      return @modal
+
+    getModalContent: ->
+      return $(@modal).find(".modal-content")
+
     getHeader: ->
       return @modalHeader
 

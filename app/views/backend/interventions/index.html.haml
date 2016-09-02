@@ -33,20 +33,21 @@
         - current_period_type = current_user.current_period_type
         - current_period = current_user.current_period
 
-        - interventions_requested = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :undone)
-        - interventions_in_progress = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :in_progress)
-        - interventions_done = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :done)
-        - interventions_validate = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :validate)
+        - interventions_requested = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :request, nil)
+        - interventions_in_progress = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :record, :in_progress)
+        - interventions_done = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period,  :record, :done)
+        - interventions_validate = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period,  :record, :validated)
 
         = taskboard params: { id: "interventionsTaskboard", class: "interventions-board"} do |board|
 
-          = modal(:taskboard_modal, class: "interventions-modal", size: :large) do
+          = modal(id: "taskboard-modal", class: "interventions-modal", size: :large) do
+            .modal-header
             .modal-body
             .modal-footer
               .task-actions
 
 
-          - edit_icon = content_tag(:i, nil, {:class => "picto picto-edit picto--invisible edit-tasks"} )
+          - edit_icon = content_tag(:i, nil, {:class => "picto picto-long-arrow-right picto--invisible edit-tasks"} )
           - delete_icon = content_tag(:i, nil, {:class => "picto picto-delete picto--invisible delete-tasks"} )
           - headers_actions = [edit_icon, delete_icon]
 

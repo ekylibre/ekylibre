@@ -217,12 +217,6 @@
       taskboard.addDeleteIconClickEvent()
       taskboard.onSelectTaskEvent()
 
-      # taskboard = new Taskboard('interventionsTaskboard')
-      # taskboard.addSelectTaskEvent()
-      # taskboard.addTaskModalEvent()
-      # taskboard.addEditIconClickEvent()
-      # taskboard.addDeleteIconClickEvent()
-
 
   class InterventionsTaskboard
     constructor: ->
@@ -254,8 +248,39 @@
       )
 
     addEditIconClickEvent: ->
-      @taskboard.getHeaderActions().find('.edit-tasks').on('click', ->
-        alert "Etes-vous sur de vouloir modifier ces interventions ?"
+
+      instance = this
+
+      @taskboard.getHeaderActions().find('.edit-tasks').on('click', (event) ->
+        # alert "Etes-vous sur de vouloir modifier ces interventions ?"
+
+        taskboard = instance.getTaskboard()
+
+        columnIndex = taskboard.getHeaderColumnIndex(event.target)
+        columnTasks = taskboard.getTasksByIndex(columnIndex)
+        selectedTasks = taskboard.getCheckedTasks(columnTasks)
+
+        interventionsIds = [];
+        selectedTasks.each( ->
+
+          interventionDatas = JSON.parse($(this).attr('data-intervention'))
+          interventionsIds.push(interventionDatas.id);
+        );
+
+
+        $.ajax
+          url: "/backend/interventions/show_modal_state",
+          data: {interventions_ids: interventionsIds}
+          success: (data, status, request) ->
+
+            modal = new ekylibre.modal('#taskboard-modal')
+            modal.removeModalContent()
+            #
+            # modal.getHeader().prepend('<h4 class="modal-title">Changer le status des interventions</h4>')
+
+            modal.getModalContent().append(data)
+
+            $('#taskboard-modal').modal 'show'
       )
 
 

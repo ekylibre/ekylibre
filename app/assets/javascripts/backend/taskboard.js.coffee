@@ -25,6 +25,9 @@
     getHeaders: ->
       return @taskboardHeaders
 
+    getHeaderColumnIndex: (selector) ->
+      return $(selector).closest('.taskboard-header').attr('data-column-index')
+
     getHeaderByIndex: (index) ->
       return this.getHeaders().find(".taskboard-header[data-column-index=\"#{index}\"]")
 
@@ -64,11 +67,20 @@
       return $(taskSelector).find('.task-select-field')
 
 
+    getCheckedSelectedFields: (selector) ->
+      return $(selector).closest('.tasks').find('.task-select-field input[type="checkbox"]:checked')
+
     getCheckedSelectFieldsCount: (selector) ->
-      return $(selector).closest('.tasks').find('.task-select-field input[type="checkbox"]:checked').length
+      return this.getCheckedSelectedFields(selector).length
+
+    getCheckedTasks: (selector) ->
+      return this.getCheckedSelectedFields(selector).closest('.task')
 
     getTaskColumnIndex: (selector) ->
       return $(selector).closest('.tasks').attr('data-column-index')
+
+    getTasksByIndex: (index) ->
+      return this.getLines().find(".tasks[data-column-index=\"#{index}\"]")
 
     getTaskColors: (taskSelector) ->
       return $(taskSelector).find('.task-colors')

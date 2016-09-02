@@ -24,6 +24,10 @@ $preview-modal-height: 80vh;
   padding: 25px 15px 15px;
   max-height: $preview-modal-height;
   overflow-y: auto;
+
+  .controls {
+    @include flex-row(space-between);
+  }
 }
 
 .interventions-modal .indicators {

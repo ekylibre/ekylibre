@@ -505,6 +505,8 @@ Rails.application.routes.draw do
       collection do
         patch :compute
         get :show_intervention_modal
+        get :show_modal_state
+        post :change_state
       end
       member do
         get :list_product_parameters

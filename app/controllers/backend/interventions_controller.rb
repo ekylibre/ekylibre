@@ -243,8 +243,46 @@ module Backend
     end
 
     def show_intervention_modal
-      @intervention = Intervention.find(params[:intervention_id])
-      render partial: 'backend/interventions/modal', locals: { intervention: @intervention }
+      if params[:intervention_id]
+        @intervention = Intervention.find(params[:intervention_id])
+        render partial: 'backend/interventions/modal_details', locals: { intervention: @intervention }
+      end
     end
+
+    def show_modal_state
+      if params[:interventions_ids]
+        @interventions = Intervention.find(params[:interventions_ids].split(','))
+        render partial: 'backend/interventions/modal_change_state', locals: { interventions: @interventions }
+      end
+    end
+
+    def change_state
+
+      interventions_params = params[:intervention]
+
+      # [:state]
+
+      if interventions_params[:interventions_ids] && interventions_params[:state]
+        @interventions = Intervention.find(JSON.parse(interventions_params[:interventions_ids]).to_a)
+
+        @interventions.each do |intervention|
+
+          intervention.state = interventions_params[:state][0].to_sym
+          intervention.nature = :record
+
+          if intervention.valid?
+            intervention.save!
+          end
+        end
+      end
+
+      redirect_to_back
+    end
+
+    # private
+    #
+    # def intervention_params
+    #   params.require(:intervention).permit(:interventions_ids, :state)
+    # end
   end
 end

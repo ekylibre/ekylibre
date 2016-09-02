@@ -124,40 +124,57 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
-  scope :with_unroll, lambda { |search, procedure_name, target_id, period_type, period, state|
+  scope :with_unroll, lambda { |search, procedure_name, target_id, period_type, period, nature, state|
 
-    search_params = "#{Intervention.table_name}.state = '#{state}'"
+    search_params = ""
+
+    unless search.blank?
+      search_params << " #{Intervention.table_name}.number ILIKE '%#{search}%'"
+    end
+
+    unless procedure_name.blank?
+      search_params << " AND " unless search_params.blank?
+      search_params << "#{Intervention.table_name}.procedure_name = '#{procedure_name}'"
+    end
+
+    unless target_id.blank?
+      search_params << " AND " unless search_params.blank?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{target_id}')"
+    end
 
     unless period_type.blank? && period.blank?
 
-      if period_type.to_sym == :days
+      search_params << " AND " unless search_params.blank?
 
-        search_params << " AND EXTRACT(DAY FROM started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
-      elsif period_type.to_sym == :weeks
+      if period_type.to_sym == :days
+        search_params << "EXTRACT(DAY FROM started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
+      end
+
+      if period_type.to_sym == :weeks
 
         beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
         end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
 
-        search_params << " AND started_at >= '#{beginning_of_week}' AND stopped_at <= '#{end_of_week}'"
-      elsif period_type.to_sym == :months
+        search_params << "started_at >= '#{beginning_of_week}' AND stopped_at <= '#{end_of_week}'"
+      end
 
-        search_params << " AND EXTRACT(MONTH FROM started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
-      elsif period_type.to_sym == :years
+      if period_type.to_sym == :months
+        search_params << "EXTRACT(MONTH FROM started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
+      end
 
-        search_params << " AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
+      if period_type.to_sym == :years
+        search_params << "EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
       end
     end
 
-    unless search.blank?
-      search_params << " AND #{Intervention.table_name}.number ILIKE '%#{search}%'"
+    unless nature.blank?
+      search_params << " AND " unless search_params.blank?
+      search_params << "#{Intervention.table_name}.nature = '#{nature}'"
     end
 
-    unless procedure_name.blank?
-      search_params << " AND #{Intervention.table_name}.procedure_name = '#{procedure_name}'"
-    end
-
-    unless target_id.blank?
-      search_params << " AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{target_id}')"
+    unless state.blank?
+      search_params << " AND " unless search_params.blank?
+      search_params << "#{Intervention.table_name}.state = '#{state}'"
     end
 
     where(search_params).order(started_at: :desc)
@@ -181,7 +198,7 @@ class Intervention < Ekylibre::Record::Base
     if self.started_at && self.stopped_at
       self.whole_duration = (stopped_at - started_at).to_i
     end
-    self.state ||= self.class.state.default
+    self.state ||= self.class.state.default_value
     if procedure
       self.actions = procedure.actions.map(&:name) if actions && actions.empty?
     end
@@ -204,6 +221,7 @@ class Intervention < Ekylibre::Record::Base
 
   before_save do
     columns = { name: name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention }
+
     if event
       # self.event.update_columns(columns)
       event.attributes = columns
