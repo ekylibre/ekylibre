@@ -4,7 +4,7 @@
     <parameters>
       <target name="mammal_to_milk" filter="is mammalia and can produce(milk)"/>
       <output name="milk" filter="is milk and derives from mammalia">
-        <attribute name="new_name" value="output_computed_name(VARIANT)" />
+        <attribute name="new_name" value="output_computed_name(VARIANT, working_periods)" />
         <!-- <attribute name="derivative-of" value="variety_of(first_product_of(mammal_to_milk))"/>   working_periods -->
         <handler name="population"/>
         <handler indicator="net_mass" unit="kilogram"
