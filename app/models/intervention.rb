@@ -48,6 +48,7 @@
 #
 
 class Intervention < Ekylibre::Record::Base
+  include Ekylibre::Ednotif if defined? Ekylibre::Ednotif
   include PeriodicCalculable, CastGroupable
   include Customizable
   attr_readonly :procedure_name, :production_id

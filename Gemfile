@@ -151,6 +151,7 @@ gem 'agric', '~> 3.0'
 # Web services
 gem 'mechanize'
 gem 'savon'
+gem 'rubyntlm', '>= 0.3.2'
 gem 'rest-client', require: false
 
 gem 'luhn'
