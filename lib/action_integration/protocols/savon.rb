@@ -6,11 +6,11 @@ module ActionIntegration
       FORMAT = :soap
 
       def authenticate(options, message = {})
-        request(:authenticate, message, options)
+        request(:authenticate, options, message)
       end
 
       def call(operation, options, message = {})
-        request(operation, message, options)
+        request(operation, options, message)
       end
 
       private
