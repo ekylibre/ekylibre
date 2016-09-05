@@ -78,7 +78,15 @@ class Call < Ekylibre::Record::Base
   end
 
   def error(code = nil)
-    yield(result) if state_is?(:error) && state_code_matches?(code)
+    yield(result) if (state_is?(:error) || state_is?(:client_error) || state_is?(:server_error)) && state_code_matches?(code)
+  end
+
+  def client_error(code = nil)
+    yield(result) if state_is?(:client_error) && state_code_matches?(code)
+  end
+
+  def server_error(code = nil)
+    yield(result) if state_is?(:server_error) && state_code_matches?(code)
   end
 
   def redirect(code = nil)
