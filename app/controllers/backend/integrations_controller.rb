@@ -21,7 +21,7 @@ module Backend
 
     def edit
       return unless @integration = find_and_check(:integration)
-      t3e(@integration.attributes)
+      t3e(@integration.attributes.merge(name: @integration.nature.camelize))
       render(locals: { cancel_url: :back })
     end
   end
