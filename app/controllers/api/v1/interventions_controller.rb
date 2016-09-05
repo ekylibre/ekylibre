@@ -4,10 +4,12 @@ module Api
     class InterventionsController < Api::V1::BaseController
       def index
         nature = params[:nature] || 'record'
+        @interventions = Intervention
         unless %w(record request).include? nature
           head :unprocessable_entity
           return
         end
+
         page = (params[:page] || 1).to_i
         unless page > 0
           head :unprocessable_entity
@@ -18,7 +20,22 @@ module Api
           head :unprocessable_entity
           return
         end
-        @interventions = Intervention.where(nature: nature).page(page).per(per_page).order(:id)
+        if params[:contact_email]
+          entity = Entity.with_email(params[:contact_email])
+          unless entity
+            head :unprocessable_entity
+            return
+          end
+          @interventions = @interventions.with_doers(entity.worker)
+        elsif params[:user_email]
+          user = User.find_by(email: params[:user_email])
+          unless user
+            head :unprocessable_entity
+            return
+          end
+          @interventions = @interventions.with_doers(user.worker)
+        end
+        @interventions = @interventions.where(nature: nature).page(page).per(per_page).order(:id)
       end
     end
   end
