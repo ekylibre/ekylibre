@@ -1,6 +1,6 @@
 module Backend
   class IntegrationsController < Backend::BaseController
-    manage_restfully except: [:index, :edit, :new]
+    manage_restfully only: [:create, :update]
     def index
       @integration_types = ActionIntegration::Base.descendants.sort_by(&:name)
       respond_to do |format|
@@ -15,7 +15,8 @@ module Backend
         redirect_to action: :edit, controller: :integrations, id: existing.id
         return
       end
-      @integration = resource_model.new(nature: params[:nature], parameters: params[:parameters])
+      @integration = Integration.new(nature: params[:nature], parameters: params[:parameters])
+      t3e(@integration.attributes.merge(name: @integration.nature.camelize))
       render(locals: { cancel_url: :back })
     end
 
@@ -23,6 +24,11 @@ module Backend
       return unless @integration = find_and_check(:integration)
       t3e(@integration.attributes.merge(name: @integration.nature.camelize))
       render(locals: { cancel_url: :back })
+    end
+
+    def destroy
+      return unless existing = Integration.find_by_nature(params[:nature])
+      redirect_to action: :index, controller: :integrations if existing.destroy!
     end
   end
 end

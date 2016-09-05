@@ -5,52 +5,62 @@
   flex-wrap: wrap;
 
   .integration {
-    align-items: center;
-    background-color: rgb(247, 247, 247);
-    border-radius: 10px;
-    border: solid 2px darken(rgb(247, 247, 247), 10%);
-    display: flex;
-    flex-direction: column;
-    height: 250px;
-    justify-content: space-between;
-    padding: 30px 10px;
-    transition: background-color 0.5s ease-in-out 0s, box-shadow 0.5s 0s;
+    position: relative;
 
-    &:hover, &.integration-active {
-      background-color: white;
-      box-shadow: 0 0 10px rgba(30, 30, 30, 0.1);
+   .integration-destroy {
+      position: absolute;
+      right: 1em;
+      top: 1em;
     }
 
-    .integration-logo {
+    .integration-card {
       align-items: center;
+      background-color: rgb(247, 247, 247);
+      border-radius: 10px;
+      border: solid 2px darken(rgb(247, 247, 247), 10%);
       display: flex;
-      flex: 2 1 100%;
-      justify-content: center;
-      padding: 5px;
-
-      img {
-        object-fit: contain;
-        width: 200px;
-        height: 200px;
-      }
-    }
-    .integration-description {
-      align-items: center;
-      display: flex;
-      flex: 1 2 100%;
       flex-direction: column;
-      padding-bottom: 20px;
-      width: 250px;
+      height: 250px;
+      justify-content: space-between;
+      padding: 30px 10px;
+      transition: background-color 0.5s ease-in-out 0s, box-shadow 0.5s 0s;
 
-      h3 {
-        color: black;
-        font-size: 1.2em;
+      &:hover, &.integration-active {
+        background-color: white;
+        box-shadow: 0 0 10px rgba(30, 30, 30, 0.1);
       }
 
-      p {
-        color: black;
-        text-align: center;
-        overflow: ellipsis;
+      .integration-logo {
+        align-items: center;
+        display: flex;
+        flex: 2 1 100%;
+        justify-content: center;
+        padding: 5px;
+
+        img {
+          object-fit: contain;
+          width: 200px;
+          height: 200px;
+        }
+      }
+      .integration-description {
+        align-items: center;
+        display: flex;
+        flex: 1 2 100%;
+        flex-direction: column;
+        padding-bottom: 20px;
+        width: 250px;
+
+        h3 {
+          color: black;
+          font-size: 1.2em;
+        }
+
+        p {
+          color: black;
+          text-align: center;
+          overflow: ellipsis;
+        }
       }
     }
   }
