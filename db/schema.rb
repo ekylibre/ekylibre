@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160831144010) do
-=======
-ActiveRecord::Schema.define(version: 20160824160125) do
->>>>>>> 22d447f3c7b430d51cfcafbf06b7aab8d8096567
+ActiveRecord::Schema.define(version: 20160906112630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -489,7 +485,7 @@ ActiveRecord::Schema.define(version: 20160824160125) do
     t.string   "url"
     t.string   "format"
     t.string   "ssl"
-    t.string   "method"
+    t.string   "verb"
     t.integer  "request_id"
     t.integer  "call_id"
     t.datetime "created_at",               null: false
@@ -3429,6 +3425,22 @@ ActiveRecord::Schema.define(version: 20160824160125) do
   add_index "teams", ["parent_id"], name: "index_teams_on_parent_id", using: :btree
   add_index "teams", ["updated_at"], name: "index_teams_on_updated_at", using: :btree
   add_index "teams", ["updater_id"], name: "index_teams_on_updater_id", using: :btree
+
+  create_table "tokens", force: :cascade do |t|
+    t.string   "name",                     null: false
+    t.string   "value",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "tokens", ["created_at"], name: "index_tokens_on_created_at", using: :btree
+  add_index "tokens", ["creator_id"], name: "index_tokens_on_creator_id", using: :btree
+  add_index "tokens", ["name"], name: "index_tokens_on_name", unique: true, using: :btree
+  add_index "tokens", ["updated_at"], name: "index_tokens_on_updated_at", using: :btree
+  add_index "tokens", ["updater_id"], name: "index_tokens_on_updater_id", using: :btree
 
   create_table "trackings", force: :cascade do |t|
     t.string   "name",                              null: false

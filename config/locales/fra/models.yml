@@ -1538,6 +1538,7 @@ fra:
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Assujetti à la TVA"
     vendor_euid: "Constructeur"
+    # verb: "Verb"
     versions: "Versions"
     view_parameters: "Voir paramètres"
     waiting_deliveries: "Livraisons en attente"

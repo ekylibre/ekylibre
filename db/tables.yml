@@ -937,8 +937,6 @@ call_messages:
   lock_version:
     type: integer
     required: true
-  method:
-    type: string
   nature:
     type: string
   request_id:
@@ -957,6 +955,8 @@ call_messages:
     type: integer
     references: user
   url:
+    type: string
+  verb:
     type: string
 calls:
   arguments:
@@ -6479,6 +6479,31 @@ teams:
   updater_id:
     type: integer
     references: user
+tokens:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  value:
+    type: string
+    required: true
 trackings:
   active:
     type: boolean

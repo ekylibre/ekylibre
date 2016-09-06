@@ -1274,6 +1274,7 @@ spa:
     vat_number: "Número de valor agregado"
     vat_subjected: "IVA sometido"
     vendor_euid: "Vendedor"
+    # verb: "Verb"
     versions: "Versiones"
     view_parameters: "Ver los parámetros"
     waiting_deliveries: "Entregas de espera"

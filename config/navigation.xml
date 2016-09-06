@@ -1790,7 +1790,6 @@
       <item name="integrations">
         <page to="backend/integrations#create"/>
         <page to="backend/integrations#destroy"/>
-        <page to="backend/integrations#show"/>
         <page to="backend/integrations#update"/>
       </item>
     </group>

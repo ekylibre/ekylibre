@@ -337,7 +337,6 @@ eng:
       edit: "Edit integration: %{name}"
       index: "Integrations"
       new: "Activate integration: %{name}"
-      # show: "Integration: %{name}"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"

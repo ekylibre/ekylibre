@@ -100,7 +100,6 @@
 #     - "backend/integrations#edit"
 #     - "backend/integrations#index"
 #     - "backend/integrations#new"
-#     - "backend/integrations#show"
 #     - "backend/integrations#update"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"

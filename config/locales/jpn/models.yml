@@ -1270,6 +1270,7 @@ jpn:
     vat_number: "VAT番号"
     vat_subjected: "VAT受けます"
     vendor_euid: "ベンダー"
+    # verb: "Verb"
     versions: "バージョン"
     view_parameters: "ビューパラメータ"
     waiting_deliveries: "配達を待っています"

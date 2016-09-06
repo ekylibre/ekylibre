@@ -1270,6 +1270,7 @@ por:
     vat_number: "Número de IVA"
     vat_subjected: "IVA submetido"
     vendor_euid: "Fornecedor"
+    # verb: "Verb"
     versions: "Versões"
     view_parameters: "Veja parâmetros"
     waiting_deliveries: "Esperando entregas"

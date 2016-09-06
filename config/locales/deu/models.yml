@@ -1269,6 +1269,7 @@ deu:
     vat_number: "Umsatzsteuer-Identifikationsnummer"
     vat_subjected: "Mehrwertsteuer unterworfen"
     vendor_euid: "Verkäufer"
+    # verb: "Verb"
     versions: "Versionen"
     view_parameters: "Ansicht Parameter"
     waiting_deliveries: "warten Lieferungen"

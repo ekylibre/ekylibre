@@ -13,7 +13,7 @@ class AddLoggingTables < ActiveRecord::Migration
       t.string      :format
       t.string      :ssl
 
-      t.string      :method
+      t.string      :verb
 
       t.references  :request, index: true
       t.references  :call, index: true

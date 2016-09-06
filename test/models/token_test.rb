@@ -20,33 +20,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: call_messages
+# == Table: tokens
 #
-#  body         :text
-#  call_id      :integer
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  format       :string
-#  headers      :string
 #  id           :integer          not null, primary key
-#  ip           :string
 #  lock_version :integer          default(0), not null
-#  nature       :string
-#  request_id   :integer
-#  ssl          :string
-#  status       :string
-#  type         :string
+#  name         :string           not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  url          :string
-#  verb         :string
+#  value        :string           not null
 #
-class CallMessage < Ekylibre::Record::Base
-  belongs_to :operation, class_name: 'Call', foreign_key: :call_id
-  enumerize :nature, in: [:incoming, :outgoing], predicates: true
+require 'test_helper'
 
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :body, length: { maximum: 500_000 }, allow_blank: true
-  validates :format, :headers, :ip, :ssl, :status, :url, :verb, length: { maximum: 500 }, allow_blank: true
-  # ]VALIDATORS]
+class TokenTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

@@ -1301,6 +1301,7 @@ ita:
     vat_number: "Partita IVA"
     vat_subjected: "IVA sottoposto"
     vendor_euid: "venditore"
+    # verb: "Verb"
     versions: "versioni"
     view_parameters: "Visualizzare i parametri"
     waiting_deliveries: "In attesa delle consegne"

@@ -1270,6 +1270,7 @@ cmn:
     vat_number: "增值税号"
     vat_subjected: "受增值税"
     vendor_euid: "供应商"
+    # verb: "Verb"
     versions: "版本"
     view_parameters: "查看参数"
     waiting_deliveries: "等待分娩"

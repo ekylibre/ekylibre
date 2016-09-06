@@ -2262,6 +2262,7 @@ arb:
     vat_subjected: "ضريبة القيمة المضافة تعرض"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
     vendor_euid: "بائع"
+    # verb: "Verb"
     versions: "إصدارات"
     view_parameters: "مشاهدة المعلمات"
     virtual: "عملي" #?
