@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.0'
+gem 'rails', '5.0.0.1'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
