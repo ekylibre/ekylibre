@@ -1,6 +1,4 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
-#     - "api/v1/crumbs#create"
-#     - "api/v1/crumbs#index"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
 #     - "authentication/invitations#create"
@@ -1036,6 +1034,8 @@ incoming_payments:
 interventions:
   read:
     actions:
+    - "api/v1/crumbs#index"
+    - "api/v1/interventions#index"
     - "backend/interventions#index"
     - "backend/interventions#list"
     - "backend/interventions#list_product_parameters"
@@ -1046,6 +1046,7 @@ interventions:
     dependencies:
     - read-interventions
     actions:
+    - "api/v1/crumbs#create"
     - "backend/crumbs#convert"
     - "backend/crumbs#destroy"
     - "backend/crumbs#index"

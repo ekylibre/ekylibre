@@ -103,6 +103,14 @@ class InterventionParameter < Ekylibre::Record::Base
     true
   end
 
+  def self.role
+    @role ||= name.gsub(/^Intervention/, '').underscore.to_sym
+  end
+
+  def role
+    self.class.role
+  end
+
   # Returns a Procedo::Parameter corresponding to its reference_name
   # in the current procedure
   def reference
