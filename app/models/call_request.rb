@@ -52,7 +52,7 @@ class CallRequest < CallMessage
       ip: request.ip,
       url: request.original_url,
       format: request.format,
-      method: request.method,
+      verb: request.method,
       ssl: request.ssl?
     )
   end
@@ -64,7 +64,7 @@ class CallRequest < CallMessage
       body: request.body,
       url: http.address + request.path,
       format: format,
-      method: request.method,
+      verb: request.method,
       ssl: http.use_ssl?
     )
   end
@@ -76,7 +76,7 @@ class CallRequest < CallMessage
       body: req.body,
       url: req.url,
       format: format,
-      method: :POST,
+      verb: :POST,
       ssl: req.ssl?
     )
   end
