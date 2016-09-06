@@ -401,7 +401,7 @@ class Product < Ekylibre::Record::Base
       # Configure initial_movement
       movement = initial_movement || build_initial_movement
       movement.product = self
-      movement.delta = (!initial_population && variant.population_counting_unitary?) ? 1 : initial_population
+      movement.delta = !initial_population && variant.population_counting_unitary? ? 1 : initial_population
       movement.started_at = born_at
       movement.save!
       update_column(:initial_movement_id, movement.id)

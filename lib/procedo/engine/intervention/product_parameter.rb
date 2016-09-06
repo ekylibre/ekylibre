@@ -117,11 +117,9 @@ module Procedo
               assign(attribute.name, value)
             end
 
-
             if attribute.compute_filter? && attribute.compute_filter_with_environment_variable?(field, :self)
               attribute.computed_filter = intervention.interpret(attribute.compute_filter_tree, env)
             end
-
           end
         end
 
@@ -158,13 +156,13 @@ module Procedo
               # Impact attributes
               parameter.attributes.each do |attribute|
                 next unless attribute.depend_on?(reference_name) &&
-                    ip.usable_attribute?(attribute)
+                            ip.usable_attribute?(attribute)
                 ip.assign(attribute.name, ip.compute_attribute(attribute))
               end
               # Impact readings
               parameter.readings.each do |reading|
                 next unless reading.depend_on?(reference_name) &&
-                    ip.usable_reading?(reading)
+                            ip.usable_reading?(reading)
                 ip.reading(reading.name).assign(:value, ip.compute_reading(reading))
               end
               # Impact components

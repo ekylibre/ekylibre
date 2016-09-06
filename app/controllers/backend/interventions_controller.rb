@@ -152,7 +152,7 @@ module Backend
         options[param] = params[param]
       end
 
-      #, :doers, :inputs, :outputs, :tools
+      # , :doers, :inputs, :outputs, :tools
       [:group_parameters, :targets].each do |param|
         options["#{param}_attributes"] = params["#{param}_attributes"] || []
       end

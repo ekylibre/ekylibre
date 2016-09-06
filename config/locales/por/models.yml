@@ -824,7 +824,7 @@ por:
     measure_value_value: "Valor Valor medida"
     meeting_origin: "Origem Reunião"
     member: "Membro"
-    # member_variant: "Member variant"
+    member_variant: "Variante membro"
     members: "Membros"
     members_count: "Membros contar"
     memberships: "Associações"

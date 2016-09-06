@@ -17,10 +17,10 @@ module Procedo
         "'%{PRODUCT}%{VARIANT}%{NAME}'",
         "'is animal_group'",
         # indicators
-        "PRODUCT.shape",
-        "PRODUCT..thousand_grains_mass(gram)",
+        'PRODUCT.shape',
+        'PRODUCT..thousand_grains_mass(gram)',
         # direct function call
-        "variety_of(PRODUCT)"
+        'variety_of(PRODUCT)'
       ].each do |expression|
         begin
           Procedo::Formula.parse(expression)
@@ -34,7 +34,6 @@ module Procedo
       end.join("\n")
 
       assert invalids.empty?, "#{invalids.count} formulas have invalid syntax:\n" + details.dig
-
     end
 
     test 'invalid expressions' do
@@ -43,9 +42,9 @@ module Procedo
       [
         "'is %{'",
         "'%{}%{}%{}'",
-        "PRODUCT.shape()",
-        "PRODUCT..",
-        "variety_of("
+        'PRODUCT.shape()',
+        'PRODUCT..',
+        'variety_of('
       ].each do |expression|
         assert_raise ::Procedo::Formula::SyntaxError, "An expression #{expression.inspect} should fail" do
           Procedo::Formula.parse(expression)
@@ -57,8 +56,6 @@ module Procedo
       end.join("\n")
 
       assert invalids.empty?, "#{invalids.count} formulas have invalid syntax:\n" + details.dig
-
     end
   end
 end
-

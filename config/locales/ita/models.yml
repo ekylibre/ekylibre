@@ -855,7 +855,7 @@ ita:
     measure_value_value: "valore valore di misura"
     meeting_origin: "origine Meeting"
     member: "Membro"
-    # member_variant: "Member variant"
+    member_variant: "Variante membro"
     members: "Utenti"
     members_count: "Numero dei membri"
     memberships: "Adesioni"

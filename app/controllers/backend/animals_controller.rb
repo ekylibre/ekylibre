@@ -18,7 +18,6 @@
 
 module Backend
   class AnimalsController < Backend::MattersController
-
     respond_to :json
     # params:
     #   :q Text search
@@ -81,7 +80,6 @@ module Backend
 
       @animal_groups = AnimalGroup.availables(@read_at).order(:name)
       @animals = Animal.availables(@read_at).order(:name)
-
     end
 
     def change
@@ -115,13 +113,13 @@ module Backend
 
       group = AnimalGroup.find_by(id: params[:group])
 
-      if group.nil? or params[:group].blank?
+      if group.nil? || params[:group].blank?
         errors = notify_error(:unavailable_resource, type: AnimalGroup.model_name.human, id: params[:group].to_s)
       end
 
       container = Product.find_by(id: params[:container])
 
-      if container.nil? or params[:container].blank?
+      if container.nil? || params[:container].blank?
         errors = notify_error(:unavailable_resource, type: Product.human_attribute_name(:container), id: params[:container].to_s)
       end
 
@@ -131,17 +129,13 @@ module Backend
       procedure_natures << :animal_moving if params[:container].present?
       procedure_natures << :animal_evolution if params[:variant].present?
 
-
-      if params[:group].present?
-        procedure_natures << :animal_group_changing
-      end
+      procedure_natures << :animal_group_changing if params[:group].present?
 
       if errors.any?
         render json: { errors: errors }, status: :unprocessable_entity
       else
-        render json: {result: 'ok'}, status: :created
+        render json: { result: 'ok' }, status: :created
       end
-
     end
 
     # Insert a group

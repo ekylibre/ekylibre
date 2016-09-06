@@ -13,6 +13,7 @@ module Procedo
           @new_group = Product.find_by(id: attributes[:new_group_id].to_i.or_else(0))
           @new_container = Product.find_by(id: attributes[:new_container_id].to_i.or_else(0))
         end
+
         def new_group_id
           @new_group ? @new_group.id : nil
         end
@@ -25,7 +26,6 @@ module Procedo
           @new_group = Product.find_by(id: id)
           impact_dependencies!(:new_group)
         end
-
 
         def new_container_id
           @new_container ? @new_container.id : nil
@@ -40,9 +40,8 @@ module Procedo
           impact_dependencies!(:new_container)
         end
 
-
         def new_variant_id
-          self.new_variant ? self.new_variant.id : nil
+          new_variant ? new_variant.id : nil
         end
 
         def new_variant_id=(id)
