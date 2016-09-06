@@ -1,5 +1,40 @@
 # Change Log
 
+## [2.3.0](https://github.com/ekylibre/ekylibre/tree/2.3.0) (2016-08-28)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.2.0...2.3.0)
+
+**Implemented enhancements:**
+
+- Error message when clicking too quickly on production dashboard [\#856](https://github.com/ekylibre/ekylibre/issues/856)
+- add more informations on cultivable zone [\#1024](https://github.com/ekylibre/ekylibre/issues/1024)
+
+**Fixed bugs:**
+
+- Completed bank statement item from a journal entry item in bank statement reconciliation are not taken in account [\#1036](https://github.com/ekylibre/ekylibre/issues/1036)
+- Intervention inputs can be filled without given product [\#1035](https://github.com/ekylibre/ekylibre/issues/1035)
+- Missing translation : Sales [\#1021](https://github.com/ekylibre/ekylibre/issues/1021)
+- Cannot add a equipment\_maintenance directly from interventions\#index [\#1009](https://github.com/ekylibre/ekylibre/issues/1009)
+- Surface and perimeter are no longer displayed when the map is not in edition mode [\#954](https://github.com/ekylibre/ekylibre/issues/954)
+- Intervention creation form raise error if containing empty working period [\#902](https://github.com/ekylibre/ekylibre/issues/902)
+- Error in "new worker" form when you click on "add a new worker" button [\#862](https://github.com/ekylibre/ekylibre/issues/862)
+- The date "dead\_at" of land parcels should be filled automatically with the date of the end of the production [\#839](https://github.com/ekylibre/ekylibre/issues/839)
+- Fieldset in inspections view gets out of screen when zoomed on in then back out. [\#766](https://github.com/ekylibre/ekylibre/issues/766)
+- Piece replacement can be fill without any component [\#765](https://github.com/ekylibre/ekylibre/issues/765)
+
+## [2.2.0](https://github.com/ekylibre/ekylibre/tree/2.2.0) (2016-08-17)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.1.0...2.2.0)
+
+**Implemented enhancements:**
+
+- Add purchase type for staff remuneration [\#1011](https://github.com/ekylibre/ekylibre/issues/1011)
+
+**Fixed bugs:**
+
+- Interventions compute fails when derivative-of or variety attribute is set [\#1015](https://github.com/ekylibre/ekylibre/issues/1015)
+- Interventions compute action fails on working\_periods [\#1014](https://github.com/ekylibre/ekylibre/issues/1014)
+- New product\_nature\_variants without a given nature failed [\#1013](https://github.com/ekylibre/ekylibre/issues/1013)
+- Updates Rails to 4.2.7.1 to fix vulnerability CVE-2016-6316 and CVE-2016-6317 [\#1012](https://github.com/ekylibre/ekylibre/issues/1012)
+
 ## [2.1.0](https://github.com/ekylibre/ekylibre/tree/2.1.0) (2016-08-17)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.5...2.1.0)
 
@@ -57,7 +92,6 @@
 
 - Text length limitation at 100000 character is too small for Document [\#995](https://github.com/ekylibre/ekylibre/issues/995)
 - Label "required" is missing on the field "net surface area" at creation of a new inspection [\#989](https://github.com/ekylibre/ekylibre/issues/989)
-- Informations are no longer fulfilled automatically at creation of a new inspection [\#988](https://github.com/ekylibre/ekylibre/issues/988)
 - Crumbs validation is not working [\#986](https://github.com/ekylibre/ekylibre/issues/986)
 - Filter on land parcel/cultivation in production/new intervention doesn't work in all cases [\#983](https://github.com/ekylibre/ekylibre/issues/983)
 - Remove the button "new" in "Land Parcels" view [\#979](https://github.com/ekylibre/ekylibre/issues/979)
@@ -126,7 +160,6 @@
 
 **Implemented enhancements:**
 
-- "Initial owner" in workers form [\#593](https://github.com/ekylibre/ekylibre/issues/593)
 - Display of informations in setting/edit fail [\#588](https://github.com/ekylibre/ekylibre/issues/588)
 - Add a way to sort activities [\#581](https://github.com/ekylibre/ekylibre/issues/581)
 - first\_run should fail gracefully when postgis is not enabled [\#200](https://github.com/ekylibre/ekylibre/issues/200)
@@ -153,9 +186,13 @@
 - "Given" state should be named "Received" in incoming parcels [\#828](https://github.com/ekylibre/ekylibre/issues/828)
 - In parcels, last state \("Given"\) should be accessed directly when no delivery associated [\#827](https://github.com/ekylibre/ekylibre/issues/827)
 - Update the calculation results of inspections in activities view [\#771](https://github.com/ekylibre/ekylibre/issues/771)
+- Intervention list / Resquest [\#762](https://github.com/ekylibre/ekylibre/issues/762)
+- Cropping plan widget feature [\#757](https://github.com/ekylibre/ekylibre/issues/757)
 - Building is not displayed when drawing building divisions [\#742](https://github.com/ekylibre/ekylibre/issues/742)
 - Enhancement request : diplay stock variant evolution [\#735](https://github.com/ekylibre/ekylibre/issues/735)
 - Add the possibility to add an attachement on a production [\#730](https://github.com/ekylibre/ekylibre/issues/730)
+- No search bar for Product Category [\#722](https://github.com/ekylibre/ekylibre/issues/722)
+- Missing translation in Tools [\#720](https://github.com/ekylibre/ekylibre/issues/720)
 - Issue with a matter with a "Work number" while creatind a parcel [\#710](https://github.com/ekylibre/ekylibre/issues/710)
 - Enhance intervention destroy [\#706](https://github.com/ekylibre/ekylibre/issues/706)
 - Fertirrigation [\#700](https://github.com/ekylibre/ekylibre/issues/700)
@@ -167,18 +204,25 @@
 - "Documents management" translation [\#658](https://github.com/ekylibre/ekylibre/issues/658)
 - Translation "Plan comptable" [\#656](https://github.com/ekylibre/ekylibre/issues/656)
 - All crops have yields grain even if they do not produce grain [\#655](https://github.com/ekylibre/ekylibre/issues/655)
+- Missing function when creating interventions [\#644](https://github.com/ekylibre/ekylibre/issues/644)
 - Sort missing in new products [\#616](https://github.com/ekylibre/ekylibre/issues/616)
 - Bad EN translation in Production/Interventions/Harvesting [\#609](https://github.com/ekylibre/ekylibre/issues/609)
+- Missing operation in production/operation/harvesting [\#608](https://github.com/ekylibre/ekylibre/issues/608)
+- Missing equipment variant : bale loader [\#607](https://github.com/ekylibre/ekylibre/issues/607)
 - Add a way to close an activity [\#603](https://github.com/ekylibre/ekylibre/issues/603)
 - Update workers exchanger [\#601](https://github.com/ekylibre/ekylibre/issues/601)
 - Sowing interventions needs doers [\#598](https://github.com/ekylibre/ekylibre/issues/598)
 - Cannot manage easily supplier in purchase form [\#594](https://github.com/ekylibre/ekylibre/issues/594)
+- "Initial owner" in workers form [\#593](https://github.com/ekylibre/ekylibre/issues/593)
 - French translation of tool is wrong in the superficial plowing intervention [\#591](https://github.com/ekylibre/ekylibre/issues/591)
 - Translation error Production / Analyses [\#589](https://github.com/ekylibre/ekylibre/issues/589)
 - Add production systems [\#583](https://github.com/ekylibre/ekylibre/issues/583)
 - Help message on maps is unreadable [\#579](https://github.com/ekylibre/ekylibre/issues/579)
 - Improve the display of informations in campaigns dashboard [\#578](https://github.com/ekylibre/ekylibre/issues/578)
+- Add filters to sort matters [\#576](https://github.com/ekylibre/ekylibre/issues/576)
+- Add a column with the name of the company attached to the pacage number [\#573](https://github.com/ekylibre/ekylibre/issues/573)
 - Fertilizing with liquid nitrogen [\#565](https://github.com/ekylibre/ekylibre/issues/565)
+- Display of net surface area is too precise in cap statement dashboard [\#562](https://github.com/ekylibre/ekylibre/issues/562)
 - Question : what is "initial owner" in new worker form ? [\#556](https://github.com/ekylibre/ekylibre/issues/556)
 - Langage error when creating new worker [\#555](https://github.com/ekylibre/ekylibre/issues/555)
 - No capacity for spayer [\#544](https://github.com/ekylibre/ekylibre/issues/544)
@@ -260,6 +304,7 @@
 - Update the calculation results of inspections in activities view [\#771](https://github.com/ekylibre/ekylibre/issues/771)
 - Unpredictable sorting behavior in views because some columns are 'sortable' when they shouldn't be. [\#769](https://github.com/ekylibre/ekylibre/issues/769)
 - Invalid tool in soil loosening intervention [\#764](https://github.com/ekylibre/ekylibre/issues/764)
+- ProductMovements don't reflect an updated stock mouvement [\#761](https://github.com/ekylibre/ekylibre/issues/761)
 - Subsoiling : crop target is not available [\#760](https://github.com/ekylibre/ekylibre/issues/760)
 - Error on display of map at creation of a new intervention [\#759](https://github.com/ekylibre/ekylibre/issues/759)
 - Unchecked indicator's field is still visible in variant product [\#754](https://github.com/ekylibre/ekylibre/issues/754)
@@ -282,6 +327,7 @@
 - After a supplier removal, related purchases become "invisible" [\#705](https://github.com/ekylibre/ekylibre/issues/705)
 - Creating a new fixed asset starting before first financial year raises an exception [\#704](https://github.com/ekylibre/ekylibre/issues/704)
 - purchases\#create \(NoMethodError\) "undefined method `zero?' for nil:NilClass" [\#703](https://github.com/ekylibre/ekylibre/issues/703)
+- Cannot find water variety [\#702](https://github.com/ekylibre/ekylibre/issues/702)
 - Fertirrigation [\#700](https://github.com/ekylibre/ekylibre/issues/700)
 - Missing translation of minutes in matter show view [\#699](https://github.com/ekylibre/ekylibre/issues/699)
 - Intervention "facilities modifications" is wrong [\#698](https://github.com/ekylibre/ekylibre/issues/698)
@@ -321,6 +367,7 @@
 - Missing error message when deleting Land Parcel [\#637](https://github.com/ekylibre/ekylibre/issues/637)
 - Button "New" in Production Plants [\#636](https://github.com/ekylibre/ekylibre/issues/636)
 - Edit a journal entry removes its items bank statement [\#635](https://github.com/ekylibre/ekylibre/issues/635)
+- Wrong journal entry items currency in bank statement point [\#634](https://github.com/ekylibre/ekylibre/issues/634)
 - Wrong bank account balance currency [\#633](https://github.com/ekylibre/ekylibre/issues/633)
 - Auto-completion on doesn't work on entity mail address line\_6 [\#630](https://github.com/ekylibre/ekylibre/issues/630)
 - Maps seems to fail when no map backgrounds loaded [\#629](https://github.com/ekylibre/ekylibre/issues/629)
@@ -346,6 +393,8 @@
 - Quantity of plant in matters [\#566](https://github.com/ekylibre/ekylibre/issues/566)
 - Isacompta exchanger is not up-to-date [\#564](https://github.com/ekylibre/ekylibre/issues/564)
 - Delete a product in a parcel [\#563](https://github.com/ekylibre/ekylibre/issues/563)
+- French translations or text are missing on mouse over the cartography buttons [\#561](https://github.com/ekylibre/ekylibre/issues/561)
+- French translation of "required" is missing in all forms [\#559](https://github.com/ekylibre/ekylibre/issues/559)
 - Matters doesn't appear [\#551](https://github.com/ekylibre/ekylibre/issues/551)
 - Remove an intervention fails [\#550](https://github.com/ekylibre/ekylibre/issues/550)
 -  Save a new sowing intervention fails [\#549](https://github.com/ekylibre/ekylibre/issues/549)
@@ -373,6 +422,7 @@
 - Calendar cell fails on relationship dashboard [\#515](https://github.com/ekylibre/ekylibre/issues/515)
 - New matter don't appear in the inventory [\#514](https://github.com/ekylibre/ekylibre/issues/514)
 - Error when trying to access to analyses form with sensor\_analysis nature in url  [\#512](https://github.com/ekylibre/ekylibre/issues/512)
+- The worker list isn't displayed [\#511](https://github.com/ekylibre/ekylibre/issues/511)
 - Error when adding an animal farming production with a blank size\_value [\#510](https://github.com/ekylibre/ekylibre/issues/510)
 - Missing translations and balance in budget view [\#508](https://github.com/ekylibre/ekylibre/issues/508)
 - How to see a movement after updating a parcel [\#506](https://github.com/ekylibre/ekylibre/issues/506)
@@ -403,15 +453,26 @@
 
 **Closed issues:**
 
+- Qestion : lot management in stock. [\#750](https://github.com/ekylibre/ekylibre/issues/750)
+- Equipment: "undefined container" in Inventory [\#746](https://github.com/ekylibre/ekylibre/issues/746)
 - Save some interventions fail [\#719](https://github.com/ekylibre/ekylibre/issues/719)
+- First-run : map enhanchment [\#717](https://github.com/ekylibre/ekylibre/issues/717)
+- Intervention list is missing in activities [\#714](https://github.com/ekylibre/ekylibre/issues/714)
+- Plants map default loaded layers [\#712](https://github.com/ekylibre/ekylibre/issues/712)
+- Translation problem : "plants" [\#709](https://github.com/ekylibre/ekylibre/issues/709)
+- ERROR MESSAGE - Cannot add "Doer" in intervention [\#647](https://github.com/ekylibre/ekylibre/issues/647)
+- Bug importing workers [\#627](https://github.com/ekylibre/ekylibre/issues/627)
 - Labels in Sowing intervention [\#599](https://github.com/ekylibre/ekylibre/issues/599)
 - Bad label "land parcel" [\#596](https://github.com/ekylibre/ekylibre/issues/596)
 - French translation "Rhodes Grass" [\#595](https://github.com/ekylibre/ekylibre/issues/595)
+- French translation is missing for population\_counting [\#569](https://github.com/ekylibre/ekylibre/issues/569)
 - User language is not used after login [\#553](https://github.com/ekylibre/ekylibre/issues/553)
 - Translation problem "planting" [\#543](https://github.com/ekylibre/ekylibre/issues/543)
 - Word usage in worker [\#539](https://github.com/ekylibre/ekylibre/issues/539)
 - Entry number with decimal in parcels \(comma, not point\) [\#536](https://github.com/ekylibre/ekylibre/issues/536)
 - Since interventions have many targets, the visualization show only one. [\#507](https://github.com/ekylibre/ekylibre/issues/507)
+- Error when trying to navigate between campaigns with selector on card view  [\#495](https://github.com/ekylibre/ekylibre/issues/495)
+- Attachments on product form [\#455](https://github.com/ekylibre/ekylibre/issues/455)
 - i18n - Translation for portuguese [\#411](https://github.com/ekylibre/ekylibre/issues/411)
 - Legend masks menu on dashboard maps [\#251](https://github.com/ekylibre/ekylibre/issues/251)
 
@@ -421,8 +482,6 @@
 **Implemented enhancements:**
 
 - Need an image for Jerusalem artichoke variety [\#817](https://github.com/ekylibre/ekylibre/issues/817)
-- Cropping plan widget feature [\#757](https://github.com/ekylibre/ekylibre/issues/757)
-- Add a column with the name of the company attached to the pacage number [\#573](https://github.com/ekylibre/ekylibre/issues/573)
 
 ## [2.0.0.rc29](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc29) (2016-07-22)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc28...2.0.0.rc29)
@@ -445,49 +504,19 @@
 
 **Implemented enhancements:**
 
-- Intervention list / Resquest [\#762](https://github.com/ekylibre/ekylibre/issues/762)
 - "Storage" and "sender" required but not labeled as required [\#622](https://github.com/ekylibre/ekylibre/issues/622)
-- Display of net surface area is too precise in cap statement dashboard [\#562](https://github.com/ekylibre/ekylibre/issues/562)
 - Rename trackings to batches [\#445](https://github.com/ekylibre/ekylibre/issues/445)
 - Removes state\_label methods in models [\#361](https://github.com/ekylibre/ekylibre/issues/361)
 
 **Fixed bugs:**
 
-- ProductMovements don't reflect an updated stock mouvement [\#761](https://github.com/ekylibre/ekylibre/issues/761)
-- Wrong journal entry items currency in bank statement point [\#634](https://github.com/ekylibre/ekylibre/issues/634)
 - Removes state\\_label methods in models [\#361](https://github.com/ekylibre/ekylibre/issues/361)
-
-**Closed issues:**
-
-- Qestion : lot management in stock. [\#750](https://github.com/ekylibre/ekylibre/issues/750)
-- Equipment: "undefined container" in Inventory [\#746](https://github.com/ekylibre/ekylibre/issues/746)
 
 ## [2.0.0.rc24](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc24) (2016-06-15)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc23...2.0.0.rc24)
 
-**Implemented enhancements:**
-
-- No search bar for Product Category [\#722](https://github.com/ekylibre/ekylibre/issues/722)
-- Missing translation in Tools [\#720](https://github.com/ekylibre/ekylibre/issues/720)
-- Missing equipment variant : bale loader [\#607](https://github.com/ekylibre/ekylibre/issues/607)
-
-**Closed issues:**
-
-- First-run : map enhanchment [\#717](https://github.com/ekylibre/ekylibre/issues/717)
-- Intervention list is missing in activities [\#714](https://github.com/ekylibre/ekylibre/issues/714)
-- Plants map default loaded layers [\#712](https://github.com/ekylibre/ekylibre/issues/712)
-- Translation problem : "plants" [\#709](https://github.com/ekylibre/ekylibre/issues/709)
-
 ## [2.0.0.rc23](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc23) (2016-06-05)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc22...2.0.0.rc23)
-
-**Implemented enhancements:**
-
-- Missing operation in production/operation/harvesting [\#608](https://github.com/ekylibre/ekylibre/issues/608)
-
-**Fixed bugs:**
-
-- Cannot find water variety [\#702](https://github.com/ekylibre/ekylibre/issues/702)
 
 ## [2.0.0.rc22](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc22) (2016-05-30)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc21...2.0.0.rc22)
@@ -507,17 +536,8 @@
 ## [2.0.0.rc17](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc17) (2016-05-24)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc16...2.0.0.rc17)
 
-**Implemented enhancements:**
-
-- Missing function when creating interventions [\#644](https://github.com/ekylibre/ekylibre/issues/644)
-
 ## [2.0.0.rc16](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc16) (2016-05-18)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc15...2.0.0.rc16)
-
-**Closed issues:**
-
-- ERROR MESSAGE - Cannot add "Doer" in intervention [\#647](https://github.com/ekylibre/ekylibre/issues/647)
-- Bug importing workers [\#627](https://github.com/ekylibre/ekylibre/issues/627)
 
 ## [2.0.0.rc15](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc15) (2016-05-17)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc14...2.0.0.rc15)
@@ -538,19 +558,6 @@
 ## [2.0.0.rc11](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc11) (2016-04-18)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc10...2.0.0.rc11)
 
-**Implemented enhancements:**
-
-- Add filters to sort matters [\#576](https://github.com/ekylibre/ekylibre/issues/576)
-
-**Fixed bugs:**
-
-- French translations or text are missing on mouse over the cartography buttons [\#561](https://github.com/ekylibre/ekylibre/issues/561)
-- French translation of "required" is missing in all forms [\#559](https://github.com/ekylibre/ekylibre/issues/559)
-
-**Closed issues:**
-
-- French translation is missing for population\_counting [\#569](https://github.com/ekylibre/ekylibre/issues/569)
-
 ## [2.0.0.rc10](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc10) (2016-04-02)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc9...2.0.0.rc10)
 
@@ -563,10 +570,6 @@
 
 ## [2.0.0.rc8](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc8) (2016-03-22)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc7...2.0.0.rc8)
-
-**Fixed bugs:**
-
-- The worker list isn't displayed [\#511](https://github.com/ekylibre/ekylibre/issues/511)
 
 ## [2.0.0.rc7](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc7) (2016-03-16)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc6...2.0.0.rc7)
@@ -583,10 +586,6 @@
 
 ## [2.0.0.rc4](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc4) (2016-02-26)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc3...2.0.0.rc4)
-
-**Closed issues:**
-
-- Error when trying to navigate between campaigns with selector on card view  [\#495](https://github.com/ekylibre/ekylibre/issues/495)
 
 ## [2.0.0.rc3](https://github.com/ekylibre/ekylibre/tree/2.0.0.rc3) (2016-02-15)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.0.0.rc2...2.0.0.rc3)
@@ -675,18 +674,14 @@
 
 **Fixed bugs:**
 
-- Print income statement [\#449](https://github.com/ekylibre/ekylibre/issues/449)
 - Error on performing animal treatment [\#458](https://github.com/ekylibre/ekylibre/issues/458)
 - Internal error on a new sowing intervention [\#456](https://github.com/ekylibre/ekylibre/issues/456)
 - Error on adding a new cultivable zone shape [\#454](https://github.com/ekylibre/ekylibre/issues/454)
+- Print income statement [\#449](https://github.com/ekylibre/ekylibre/issues/449)
 - undefined method `human\_name' for nil:NilClass in land parcel list [\#448](https://github.com/ekylibre/ekylibre/issues/448)
 - Unknown leaflet-custom.scss [\#446](https://github.com/ekylibre/ekylibre/issues/446)
 - mistake on purchase item [\#443](https://github.com/ekylibre/ekylibre/issues/443)
 - A SystemStackError occurred in interventions\#compute [\#388](https://github.com/ekylibre/ekylibre/issues/388)
-
-**Closed issues:**
-
-- Attachments on product form [\#455](https://github.com/ekylibre/ekylibre/issues/455)
 
 ## [1.3.0.rc1](https://github.com/ekylibre/ekylibre/tree/1.3.0.rc1) (2015-09-29)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/1.3.0.beta3...1.3.0.rc1)
@@ -871,10 +866,6 @@
 
 - After a new payment creation in incoming\_payment\_use creation, "Conflict" error raises sometimes [\#204](https://github.com/ekylibre/ekylibre/issues/204)
 - Entity links don't seem to work perfectly on 0.3.2.4 [\#116](https://github.com/ekylibre/ekylibre/issues/116)
-
-**Closed issues:**
-
-- Demo app is down. [\#372](https://github.com/ekylibre/ekylibre/issues/372)
 
 ## [1.1.0](https://github.com/ekylibre/ekylibre/tree/1.1.0) (2015-03-23)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/1.1.0.rc2...1.1.0)
@@ -1144,6 +1135,7 @@
 - User name is wrongly displayed [\#156](https://github.com/ekylibre/ekylibre/issues/156)
 - No document template to print a deposit [\#148](https://github.com/ekylibre/ekylibre/issues/148)
 - When adding a new sale, need price, tax and round automatically [\#147](https://github.com/ekylibre/ekylibre/issues/147)
+- validation issue for "trip simulation" in demo data [\#143](https://github.com/ekylibre/ekylibre/issues/143)
 - A product\_groups controller should create [\#138](https://github.com/ekylibre/ekylibre/issues/138)
 - land\_parcel\_groups controller should [\#137](https://github.com/ekylibre/ekylibre/issues/137)
 - land\_parcel\_clusters controller should edit, show [\#136](https://github.com/ekylibre/ekylibre/issues/136)
@@ -1222,10 +1214,6 @@
 
 ## [1.0.0.rc14](https://github.com/ekylibre/ekylibre/tree/1.0.0.rc14) (2014-08-14)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/1.0.0.rc13...1.0.0.rc14)
-
-**Closed issues:**
-
-- validation issue for "trip simulation" in demo data [\#143](https://github.com/ekylibre/ekylibre/issues/143)
 
 ## [1.0.0.rc13](https://github.com/ekylibre/ekylibre/tree/1.0.0.rc13) (2014-06-25)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/1.0.0.rc12...1.0.0.rc13)

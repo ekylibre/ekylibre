@@ -55,7 +55,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    acts_as_list (0.7.7)
+    acts_as_list (0.8.1)
       activerecord (>= 3.0)
     addressable (2.4.0)
     agric (3.0.1)
@@ -64,8 +64,6 @@ GEM
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
-    ampex (3.0.0)
-      blankslate
     ansi (1.5.0)
     apartment (1.0.2)
       activerecord (>= 3.1.2, < 5.0)
@@ -75,7 +73,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.3)
     ast (2.3.0)
-    autoprefixer-rails (6.4.0.2)
+    autoprefixer-rails (6.4.1)
       execjs
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
@@ -95,7 +93,6 @@ GEM
       beardley
     beardley-xml (1.1.1)
       beardley
-    blankslate (3.1.3)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -121,7 +118,7 @@ GEM
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.9)
-    code_analyzer (0.4.6)
+    code_analyzer (0.4.7)
       sexp_processor
     code_string (0.0.0)
     coderay (1.1.1)
@@ -143,7 +140,7 @@ GEM
       tins (>= 1.6.0, < 2)
     daemons (1.2.4)
     database_cleaner (1.5.3)
-    dbf (3.0.6)
+    dbf (3.0.7)
     debug_inspector (0.0.2)
     deep_cloneable (2.2.1)
       activerecord (>= 3.1.0, < 5.2.0)
@@ -158,7 +155,7 @@ GEM
       actionmailer (>= 4.0.0)
       devise (>= 4.0.0)
     docile (1.1.5)
-    domain_name (0.5.20160615)
+    domain_name (0.5.20160826)
       unf (>= 0.0.5, < 1.0.0)
     enumerize (2.0.0)
       activesupport (>= 3.2)
@@ -201,7 +198,7 @@ GEM
     i18n (0.7.0)
     i18n-complements (1.1.0)
       i18n (>= 0.6)
-    i18n-js (3.0.0.rc13)
+    i18n-js (3.0.0.rc14)
       i18n (~> 0.6, >= 0.6.6)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -220,6 +217,9 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.10.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -231,17 +231,19 @@ GEM
     luhn (1.0.2)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    mechanize (2.7.4)
+    mechanize (2.7.5)
       domain_name (~> 0.5, >= 0.5.1)
       http-cookie (~> 1.0)
-      mime-types (>= 1.17.2, < 3)
+      mime-types (>= 1.17.2)
       net-http-digest_auth (~> 1.1, >= 1.1.1)
       net-http-persistent (~> 2.5, >= 2.5.2)
       nokogiri (~> 1.6)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
     method_source (0.8.2)
-    mime-types (2.99.2)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
     mimemagic (0.3.0)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
@@ -358,7 +360,7 @@ GEM
     rjb-loader (0.0.2)
       rails (>= 3.2)
       rjb (>= 1.4.8)
-    roo (2.5.0)
+    roo (2.5.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
     rubocop (0.42.0)
@@ -425,7 +427,7 @@ GEM
     sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-rails (3.1.1)
+    sprockets-rails (3.2.0)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
@@ -493,7 +495,6 @@ DEPENDENCIES
   activerecord-postgis-adapter (>= 3.0.0)
   acts_as_list
   agric (~> 3.0)
-  ampex
   apartment (~> 1.0.0, < 2.0)
   apartment-sidekiq
   awesome_nested_set (~> 3.0.0)
@@ -535,6 +536,7 @@ DEPENDENCIES
   jquery-scrollto-rails
   jquery-turbolinks
   jquery-ui-rails
+  kaminari
   letter_opener
   luhn
   mechanize

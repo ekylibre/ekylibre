@@ -165,7 +165,7 @@ fra:
         errored: "Erroné"
         finished: "Fini"
         in_progress: "En cours"
-        undone: "Défait"
+        undone: "En attente"
     intervention:
       nature:
         record: "Enregistrement"
