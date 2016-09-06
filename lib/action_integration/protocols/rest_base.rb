@@ -45,7 +45,7 @@ module ActionIntegration
         response = execute_request(http, request)
         response = ActionIntegration::Response.new_from_net(response)
 
-        yield(response)
+        yield(response) if block_given?
         response
       end
 
