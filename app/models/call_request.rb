@@ -42,7 +42,7 @@
 #  verb         :string
 #
 class CallRequest < CallMessage
-  has_many :responses, class_name: 'CallResponse'
+  has_many :responses, class_name: 'CallResponse', foreign_key: :request_id
 
   def self.create_from_request!(request)
     create!(
