@@ -32,6 +32,11 @@ module ActionIntegration
       end
     end
 
+    def self.on_logout(trigger: false, &block)
+      Ekylibre::Hook.subscribe("#{integration_name.underscore}_logout", block) if block_given?
+      Ekyliibre::Hook.publish("#{integration_name.underscore}_logout") if trigger
+    end
+
     def self.run(method_name = nil, every: nil, &block)
       raise ArgumentError, 'Please use either a method or a block at a time.' if block_given? && method_name.present?
       raise ArgumentError, 'Please specify either a method or a block.' unless method_name.present? || block_given?
@@ -48,7 +53,7 @@ module ActionIntegration
       Ekylibre::Hook.subscribe("every_#{every}", proc)
     end
 
-    # Check #####
+    # Check ##########
 
     def self.check_connection(account = nil, &block)
       calls :check
@@ -67,12 +72,16 @@ module ActionIntegration
       raise NotImplementedError
     end
 
-    #############
+    ##################
 
+    # Small helper methods #
+
+    # find_integration("bonjour_hello") => BonjourHelloIntegration / nil
     def self.find_integration(type)
       descendants.select { |caller| caller.name.demodulize == type.to_s.camelize + 'Integration' }.first
     end
 
+    # BonjourHelloIntegration => BonjourHello
     def self.integration_name
       name.underscore
           .split('/')
@@ -81,6 +90,8 @@ module ActionIntegration
           .join('_')
           .camelize
     end
+
+    #################
 
     def self.auth_type
       @auth_type || :check
@@ -100,7 +111,10 @@ module ActionIntegration
       @parameters << name
     end
 
+    # Finds the corresponding Integration record
+    # or instantiate an integration from the params
     def fetch(integration_params = nil)
+      # Needed for #new Integrations
       integration = integration_params && ::Integration.new(integration_params)
       integration ||= ::Integration.find_by_nature(self.class.integration_name.underscore)
 

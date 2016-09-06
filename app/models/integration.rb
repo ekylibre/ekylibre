@@ -36,6 +36,9 @@ class Integration < Ekylibre::Record::Base
   validates :nature, uniqueness: true, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   delegate :auth_type, :check_connection, :integration_name, to: :integration_type
+  before_destroy do
+    ActionIntegration::Base.find_integration(nature).on_logout(trigger: true)
+  end
   validate do
     check_connection self do |c|
       c.redirect do
