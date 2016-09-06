@@ -71,7 +71,8 @@ class Inspection < Ekylibre::Record::Base
   accepts_nested_attributes_for :calibrations, allow_destroy: true
 
   delegate :measure_grading_net_mass, :measure_grading_items_count,
-           :measure_grading_sizes, :grading_net_mass_unit, to: :activity
+           :measure_grading_sizes, :grading_net_mass_unit, :measure_something?,
+           to: :activity
 
   scope :of_products, lambda { |*products|
     products.flatten!
@@ -102,7 +103,7 @@ class Inspection < Ekylibre::Record::Base
     return unless product
 
     # get sowing intervention of current plant
-    interventions = Intervention.with_outputs(product)
+    interventions = Intervention.real.with_outputs(product)
 
     equipment = nil
 

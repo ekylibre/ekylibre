@@ -91,6 +91,8 @@ ita:
           one: "è della lunghezza sbagliata (deve essere di 1 carattere)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
       models:
+        activity:
+          checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
         bank_statement:
           no_cash_match_ofx: "Nessun denaro trovato per il numero di conto bancario data nel file"
           ofx_file_has_multiple_bank_accounts: "il file OFX con più conti bancari non è supportata"
@@ -620,7 +622,7 @@ ita:
     failed_attempts: "tentativi falliti"
     family: "Famiglia"
     farm_name: "nome Farm"
-    # farmer: "Farmer"
+    farmer: "Contadino"
     father: "Padre"
     faxes: "fax"
     fifth_producer: "Quinto produttore" #?
@@ -1187,8 +1189,12 @@ ita:
     subject_type: "tipo soggetto"
     subscriber: "abbonato"
     subscribing: "Iscrizione"
+    subscription: "Sottoscrizione"
+    subscription_days_count: "Giorni di conteggio"
     subscription_duration: "durata abbonamento"
+    subscription_months_count: "Mesi di abbonamento di conteggio"
     subscription_nature: "tipo di abbonamento"
+    subscription_years_count: "Anni di abbonamento conteggio"
     subscriptions: "Sottoscrizioni"
     supervision: "supervisione"
     supplier: "Fornitore"
