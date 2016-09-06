@@ -30,11 +30,8 @@ module ActionIntegration
 
         action_class = "Net::HTTP::#{action.to_s.camelize}".constantize
 
-        # Gets us to {"string" => "string"} Hash + removes data when it's
-        # empty.
-        args = ::JSON.parse([data].to_json).compact.prepend(url)
-
-        request = action_class.new(*args)
+        request = action_class.new(url)
+        request.body = data.to_json if data
 
         handle_request(http, request, &block)
       end
