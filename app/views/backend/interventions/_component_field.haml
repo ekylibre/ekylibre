@@ -1,0 +1,19 @@
+= f.referenced_association :assembly, as: :hidden
+:ruby
+  options = {
+    new: false,
+    source: {
+      keep: true,
+      scope: {
+        components_of_product: Maybe(f.object.assembly).id.or_else("nil")
+      }
+    },
+    input_html: {
+      class: "scoped-parameter",
+      data: {
+        intervention_updater: prefix + 'component_id'
+      }
+    }
+  }
+
+= f.referenced_association :component, options

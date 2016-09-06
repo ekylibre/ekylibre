@@ -1230,3 +1230,26 @@ product_ownerships_124:
   started_at: 0001-01-01 00:00:00.000000000 Z
   updated_at: 2016-07-26 19:27:42.813506000 Z
   updater_id: 1
+product_ownerships_125:
+  created_at: 2016-08-10 14:27:49.872168000 Z
+  creator_id: 1
+  id: 132
+  lock_version: 0
+  nature: unknown
+  owner_id: 1
+  product_id: 180
+  started_at: 0001-01-01 00:00:00.000000000 Z
+  stopped_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:49.872168000 Z
+  updater_id: 1
+product_ownerships_126:
+  created_at: 2016-08-10 14:27:50.017382000 Z
+  creator_id: 1
+  id: 133
+  lock_version: 0
+  nature: own
+  owner_id: 1
+  product_id: 180
+  started_at: 2016-08-10 14:27:49.970014000 Z
+  updated_at: 2016-08-10 14:27:50.017382000 Z
+  updater_id: 1

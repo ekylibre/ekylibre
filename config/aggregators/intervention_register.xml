@@ -12,7 +12,7 @@
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
         <!-- looking for all intervention in the current campaign year-->
-        <sections for="intervention" in="Intervention.of_civil_year(campaign.harvest_year).reorder(:started_at)" of-type="record">
+        <sections for="intervention" in="Intervention.real.of_civil_year(campaign.harvest_year).reorder(:started_at)" of-type="record">
           <title name="name" of="intervention"/>
           <property name="id" of="intervention" level="api"/>
           <property name="procedure_name" value="intervention.procedure.name" level="api"/>

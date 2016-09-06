@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plant_covering" categories="crop_protection" actions="temperature_improvement, soil_structure_stabilisation, humidity_stabilisation, drainage_improvement, herbicide, disease_treatment">
+  <procedure name="plant_covering" categories="crop_protection" actions="temperature_improvement, soil_structure_stabilisation, humidity_stabilisation, drainage_improvement, herbicide, disease_treatment" optional-actions="solarization">
     <parameters>
       <target name="cultivation" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>

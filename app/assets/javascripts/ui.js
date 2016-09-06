@@ -1,3 +1,4 @@
+//= require bootstrap/tooltip
 //= require bootstrap/dropdown
 //= require bootstrap/datetimepicker
 //= require bootstrap/datetimepicker-i18n
@@ -90,6 +91,7 @@
   $(document).on('page:load', '.fieldset .fieldset-fields', $.fn.raiseContentErrorToFieldSet);
   $(document).ready(function () {
     $(".fieldset .fieldset-fields").raiseContentErrorToFieldSet();
+    $('[data-toggle="tooltip"]').tooltip()
   });
 
 
@@ -101,6 +103,8 @@
     var target, closest;
     if (element.data("update-mode") === "closest") {
       target = $(this).closest(element.data("update")).first();
+    } else if (element.data("closest")) {
+      target = $(this).closest(element.data("closest")).find(element.data("update"));
     } else {
       target = $(element.data("update"));
     }
@@ -176,8 +180,13 @@
 
   // Adds parameters to link
   $(document).on("ajax:before confirm", "*[data-with]", function () {
-    var element = $(this), params = $.unparam(element.data("params"));
-    $(element.data("with")).each(function () {
+    var element = $(this), params = $.unparam(element.data("params")), elements;
+    if (element.data('closest')) {
+      elements = element.closest(element.data('closest')).find(element.data("with"));
+    } else {
+      elements = $(element.data("with"));
+    }
+    elements.each(function () {
       var paramName = $(this).data("parameter-name") || $(this).attr("name") || $(this).attr("id");
       if (paramName !== null && (typeof(paramName) !== "undefined")) {
         params[paramName] = $(this).val() || $(this).html();

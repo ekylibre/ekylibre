@@ -22,6 +22,8 @@
 #
 # == Table: intervention_parameters
 #
+#  assembly_id             :integer
+#  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
 #  event_participation_id  :integer
@@ -99,6 +101,14 @@ class InterventionParameter < Ekylibre::Record::Base
       self.position = (precision * now.to_f).round - (precision * now.to_i)
     end
     true
+  end
+
+  def self.role
+    @role ||= name.gsub(/^Intervention/, '').underscore.to_sym
+  end
+
+  def role
+    self.class.role
   end
 
   # Returns a Procedo::Parameter corresponding to its reference_name

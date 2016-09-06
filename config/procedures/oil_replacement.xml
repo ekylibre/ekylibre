@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="oil_replacement" categories="equipment_maintenance" actions="oil_replacement">
+  <procedure name="oil_replacement" categories="equipment_maintenance" actions="oil_replacement" deprecated="true">
     <parameters>
       <target name="equipment" filter="is equipment and can consume(oil)" />
       <input name="oil" filter="is preparation and can lubricate(tractor)" >

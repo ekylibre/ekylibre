@@ -13,9 +13,9 @@ module Procedo
 
         def to_hash
           hash = super
-          hash[:quantity_handler] = @quantity_handler
-          hash[:quantity_value] = @quantity_value.to_s.to_f
-          hash[:quantity_population] = @quantity_population.to_s.to_f
+          hash[:quantity_handler] = @quantity_handler if @quantity_handler
+          hash[:quantity_value] = @quantity_value.to_s.to_f unless @quantity_value.nil?
+          hash[:quantity_population] = @quantity_population.to_s.to_f unless @quantity_population.nil?
           hash
         end
 
@@ -91,8 +91,7 @@ module Procedo
         end
 
         def env
-          { self: self, product: product, working_zone: working_zone,
-            value: quantity_value, population: quantity_population }
+          super.merge(value: quantity_value, population: quantity_population)
         end
       end
     end

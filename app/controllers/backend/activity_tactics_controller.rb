@@ -18,7 +18,7 @@
 
 module Backend
   class ActivityTacticsController < Backend::BaseController
-    manage_restfully
+    manage_restfully except: :index
 
     unroll
   end

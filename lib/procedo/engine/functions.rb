@@ -64,6 +64,14 @@ module Procedo
           children(parent(parameter), set)
         end
 
+        def first(set)
+          set.first
+        end
+
+        def first_product_of(set)
+          set.parameters.first && set.parameters.first.product
+        end
+
         def parent(parameter)
           parameter.group
         end

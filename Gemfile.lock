@@ -155,6 +155,8 @@ GEM
     database_cleaner (1.5.3)
     dbf (3.0.7)
     debug_inspector (0.0.2)
+    deep_cloneable (2.2.1)
+      activerecord (>= 3.1.0, < 5.2.0)
     devise (4.2.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -222,6 +224,9 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.10.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -513,6 +518,7 @@ DEPENDENCIES
   colored
   coveralls (>= 0.6)
   database_cleaner
+  deep_cloneable (~> 2.2.1)
   devise
   devise-i18n-views
   devise_invitable
@@ -530,6 +536,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
+  kaminari
   letter_opener
   luhn
   mechanize

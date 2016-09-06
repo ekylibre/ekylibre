@@ -161,6 +161,14 @@ class Parcel < Ekylibre::Record::Base
     prepared? || given?
   end
 
+  def content_sentence(limit = 30)
+    sentence = items.map(&:name).compact.to_sentence
+    to_keep = limit || sentence.size
+    limited = sentence[0...to_keep - 3]
+    limited << '...' unless limited == sentence
+    limited
+  end
+
   def separated_stock?
     separated_stock
   end
@@ -276,7 +284,7 @@ class Parcel < Ekylibre::Record::Base
     prepare if can_prepare?
     check if can_check?
     return false unless can_give?
-    update_column(:given_at, Time.zone.now)
+    update_column(:given_at, Time.zone.now) if given_at.blank?
     items.each(&:give)
     super
   end

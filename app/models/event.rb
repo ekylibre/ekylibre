@@ -50,7 +50,7 @@ class Event < Ekylibre::Record::Base
   refers_to :nature, class_name: 'EventNature'
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :duration, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :nature, presence: true

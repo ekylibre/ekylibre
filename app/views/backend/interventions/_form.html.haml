@@ -1,17 +1,32 @@
 - if f.object.errors.any? && Rails.env.development?
   = f.object.errors.inspect
 - procedure = f.object.procedure
+- content_for :main_title do
+  :ruby
+    title_i18n = 'actions.'
+    title_i18n += controller_path
+    title_i18n += '.'
+    title_i18n += action_name
+    title_i18n += '_'
+    title_i18n += f.object.nature
+  = title_i18n.to_sym.t(procedure_name: f.object.procedure.human_name, number: f.object.number) if f.object.request? && f.object.procedure
 - if procedure = f.object.procedure
   = hidden_field_tag :updater, compute_backend_interventions_path(format: :json), data: {procedure_computing: procedure.name}
   = field_set do
     = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
+    = f.input :nature, as: :hidden
     = f.referenced_association :issue, new: false
+    - if f.object.record?
+      = f.referenced_association :request_intervention, new: false, as: :hidden
     = f.input :description
     - procedure.mandatory_actions.each do |a|
       = hidden_field_tag('intervention[actions][]', a.name)
     - if procedure.optional_actions.any?
       = f.items_list(:actions, selection: procedure.optional_actions_selection, required: procedure.mandatory_actions.empty?)
-
+    - if f.object.record?
+      = f.input :trouble_encountered, show: '#problem-description'
+      #problem-description
+        = f.input :trouble_description, as: :text
     = f.custom_fields
     #prescriptions
       = f.referenced_association :prescription
@@ -33,11 +48,12 @@
     - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
     - next unless categories.any?
     .activity-family
-      %h2.activity-family-name= family.human_name
-      .activity-family-procedures
+      .activity-family-heading
+        %h2.activity-family-title= family.human_name
+      .activity-family-body
         - categories.sort{|a,b| a.human_name <=> b.human_name }.each do |category|
-          = dropdown_menu_button(category.human_name, class: 'btn-group-lg', icon: false) do |menu|
-            - Procedo.procedures_of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
-              - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], action: :new }
+          = dropdown_menu_button(category.human_name, class: 'btn-group-lg procedure-dropdown', icon: false) do |menu|
+            - Procedo::Procedure.of_main_category(category.name.to_sym).sort{|a,b| a.human_name <=> b.human_name }.each do |procedure|
+              - menu.item procedure.human_name, { procedure_name: procedure.name, redirect: params[:redirect], nature: params[:nature] }
 
   - f.clear_actions!

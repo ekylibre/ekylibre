@@ -2,11 +2,14 @@ module Procedo
   module Engine
     class Intervention
       class Reading
+        include Reassignable
+
         attr_accessor :value
         attr_reader :parameter, :id, :reference, :indicator
 
         delegate :intervention, to: :parameter
         delegate :name, :datatype, to: :indicator
+        # delegate :depend_on?, to: :reference
 
         def initialize(parameter, id, attributes = {})
           unless parameter.is_a?(Procedo::Engine::Intervention::Parameter)
@@ -53,6 +56,11 @@ module Procedo
 
         def value=(val)
           @value = val
+          impact_dependencies!
+        end
+
+        def assign(attribute, value)
+          super(attribute, value)
           impact_dependencies!
         end
 

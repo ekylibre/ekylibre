@@ -6,7 +6,7 @@
       = f.referenced_association :sender, required: true
     - elsif f.object.outgoing?
       = f.referenced_association :recipient, required: true, input_html: {data: {product_of_delivery_item: {url: backend_entity_path("RECORD_ID", format: :json)}}}
-    = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}
+    = f.referenced_association :address, source: :mails, input_html: {data: {"when-item": "address_id", "when-set-value": "RECORD_VALUE"}}, new: { canal: :mail }
   - if f.object.incoming?
     = f.input :reference_number
     = f.referenced_association :storage, source: :storage, required: true
@@ -17,6 +17,7 @@
     = f.referenced_association :transporter, source: :transporters, new: {transporter: 1}
   -#= f.referenced_association :sale
   = f.input :planned_at, required: false
+  = f.input :given_at, required: false
   - if f.object.outgoing?
     = f.input :remain_owner
   = f.custom_fields
@@ -24,7 +25,7 @@
   -# = f.object.errors.inspect
 
 
-= field_set resource_model.human_attribute_name(:items) do
+= field_set f.object.class.human_attribute_name(:items) do
   %table.list
     %thead
       %tr
@@ -35,10 +36,10 @@
         -# %th= ParcelItem.human_attribute_name(:shape)
         %th= ParcelItem.human_attribute_name(:analysis)
 
-    = f.simple_fields_for :items, resource.items do |item|
+    = f.simple_fields_for :items, f.object.items do |item|
       = render item_partial, f: item
     - if f.object.allow_items_update?
       %tfoot#items_anchor
         %tr.total
-          %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items,   partial: item_partial, 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
+          %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items, partial: item_partial, 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
 

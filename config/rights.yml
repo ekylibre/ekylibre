@@ -1,6 +1,4 @@
 # THESE FOLLOWING ACTIONS ARE PUBLICLY ACCESSIBLE
-#     - "api/v1/crumbs#create"
-#     - "api/v1/crumbs#index"
 #     - "api/v1/tokens#create"
 #     - "api/v1/tokens#destroy"
 #     - "authentication/invitations#create"
@@ -23,6 +21,7 @@
 #     - "authentication/sessions#new"
 #     - "backend/activities#family"
 #     - "backend/activity_inspection_point_natures#autocomplete"
+#     - "backend/activity_productions#list_target_distributions"
 #     - "backend/animals#take"
 #     - "backend/attachments#create"
 #     - "backend/attachments#destroy"
@@ -107,11 +106,15 @@
 #     - "backend/notifications#unread"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
+#     - "backend/product_nature_variant_components#autocomplete"
+#     - "backend/product_nature_variant_components#unroll"
 #     - "backend/product_nature_variants#detail"
+#     - "backend/product_nature_variants#list_components"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
+#     - "backend/tours#finish"
 #     - "backend/visuals#picture"
 #     - "backend/workers#take"
 #     - "devise/confirmations#create"
@@ -182,7 +185,6 @@ activities:
     - "backend/activity_seasons#index"
     - "backend/activity_seasons#show"
     - "backend/activity_seasons#unroll"
-    - "backend/activity_tactics#index"
     - "backend/activity_tactics#show"
     - "backend/activity_tactics#unroll"
     - "backend/inspections#index"
@@ -257,11 +259,13 @@ affairs:
     actions:
     - "backend/affairs#attach"
     - "backend/affairs#detach"
+    - "backend/affairs#detach_gaps"
     - "backend/affairs#finish"
     - "backend/affairs#select"
     - "backend/affairs#unroll"
     - "backend/sale_tickets#attach"
     - "backend/sale_tickets#detach"
+    - "backend/sale_tickets#detach_gaps"
     - "backend/sale_tickets#finish"
     - "backend/sale_tickets#select"
     - "backend/sale_tickets#unroll"
@@ -551,6 +555,7 @@ cultivable_zones:
     dependencies:
     - read-cultivable_zones
     actions:
+    - "backend/cap_islets#convert"
     - "backend/cultivable_zones#create"
     - "backend/cultivable_zones#destroy"
     - "backend/cultivable_zones#edit"
@@ -1029,15 +1034,19 @@ incoming_payments:
 interventions:
   read:
     actions:
+    - "api/v1/crumbs#index"
+    - "api/v1/interventions#index"
     - "backend/interventions#index"
     - "backend/interventions#list"
     - "backend/interventions#list_product_parameters"
+    - "backend/interventions#list_record_interventions"
     - "backend/interventions#show"
     - "backend/interventions#unroll"
   write:
     dependencies:
     - read-interventions
     actions:
+    - "api/v1/crumbs#create"
     - "backend/crumbs#convert"
     - "backend/crumbs#destroy"
     - "backend/crumbs#index"
@@ -1720,6 +1729,7 @@ sales:
     - "backend/sale_opportunities#create"
     - "backend/sale_opportunities#destroy"
     - "backend/sale_opportunities#detach"
+    - "backend/sale_opportunities#detach_gaps"
     - "backend/sale_opportunities#edit"
     - "backend/sale_opportunities#evaluate"
     - "backend/sale_opportunities#finish"

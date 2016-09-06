@@ -97,6 +97,12 @@ jpn:
       format:
         delimiter: ""
   rank: "#%{number}"
+  simple_form:
+    hints:
+      purchase:
+        reference_number: "サプライヤーの請求書番号"
+    required:
+      text: "必須"
   support:
     array:
       last_word_connector: "と"

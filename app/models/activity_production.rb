@@ -51,7 +51,7 @@
 
 class ActivityProduction < Ekylibre::Record::Base
   include Customizable, Attachable
-  enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none], default: :cultivation
+  enumerize :support_nature, in: [:cultivation, :fallow_land, :buffer, :border, :none, :animal_group], default: :cultivation
   refers_to :usage, class_name: 'ProductionUsage'
   refers_to :size_indicator, class_name: 'Indicator'
   refers_to :size_unit, class_name: 'Unit'
@@ -159,15 +159,19 @@ class ActivityProduction < Ekylibre::Record::Base
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
       if plant_farming?
         self.support_shape ||= cultivable_zone.shape if cultivable_zone
-        if support_shape && !support
-          land_parcels = LandParcel.shape_matching(support_shape)
-                                   .where.not(id: ActivityProduction.select(:support_id))
-                                   .order(:id)
-          self.support = land_parcels.any? ? land_parcels.first : LandParcel.new
+        unless support
+          if support_shape
+            land_parcels = LandParcel.shape_matching(support_shape)
+                                     .where.not(id: ActivityProduction.select(:support_id))
+                                     .order(:id)
+            self.support = land_parcels.first if land_parcels.any?
+          end
+          self.support ||= LandParcel.new
         end
         support.name = computed_support_name
         support.initial_shape = support_shape
         support.initial_born_at = started_on
+        support.initial_dead_at = stopped_on
         support.variant ||= ProductNatureVariant.import_from_nomenclature(:land_parcel)
         support.save!
         reading = support.first_reading(:shape)

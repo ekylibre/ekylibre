@@ -18,7 +18,7 @@ arb:
         expenses_amount: "مبلغ النفقات"
         revenues_amount: "مبلغ الإيرادات"
       activity_tactic:
-        # mode: "Planning type"
+        mode: "نوع التخطيط"
       animal_group:
         born_at: "أنشئت في"
       area:  #?
@@ -648,6 +648,8 @@ arb:
         unitary_in_parcel: "لا يمكن إلا أن ترسل وحدات موحدة واحدا تلو الآخر"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
+        activity:
+          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش"
         bank_statement:
           no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية"
           ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة"
@@ -674,7 +676,7 @@ arb:
             stopped_on:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
-        fixed_asset:
+        fixed_asset_depreciation:
           attributes:
             started_on:
               # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
@@ -750,8 +752,8 @@ arb:
       activity_inspection_calibration_scale: "عيار"
       activity_inspection_point_nature: "النشاط الاختيار الدرجات"
       activity_production: "دعم الإنتاج"
-      # activity_season: "Activity season"
-      # activity_tactic: "Activity cropping technique"
+      activity_season: "موسمية"
+      activity_tactic: "آخر تقنية زراعة المحاصيل"
       affair: "قضية"
       analysis: "تحليل"
       analysis_item: "البند تحليل"
@@ -895,6 +897,7 @@ arb:
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
       product_nature_variant: "نوع المنتج البديل"
+      product_nature_variant_component: "المنتج المكون طبيعة البديل"
       product_nature_variant_reading: "نوع المنتج البديل القراءة"
       product_ownership: "ملكية المنتج"
       product_phase: "مرحلة المنتج"
@@ -966,6 +969,7 @@ arb:
     acquisition_amount: "قيمة الاقتناء" #?
     actions: "الإجراءات"
     active: "فعال"
+    active_sessions: "جلسات العمل النشطة"
     activities: "أنشطة"
     activity: "نشاط"
     activity_budget: "ميزانية النشاط"
@@ -1007,6 +1011,7 @@ arb:
     area_unit: "وحدة المساحة" #?
     area_unit_id: "وحدة مساحة" #?
     arrived_at: "وصل يوم" #?
+    assembly: "جمعية"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة" #?
     attachments: "مرفقات"
     attorney: "الوكيل" #?
@@ -1122,9 +1127,9 @@ arb:
     commissioned_incoming_payment_modes: "بتكليف وسائل الدفع واردة"
     company: "الشركة" #?
     company_id: "شركة" #?
-    component: "محتوى العبوة" #?
+    component: "محتوى العبوة"
     component_id: "محتوى العبوة" #?
-    components: "مكونات المنتج" #?
+    components: "مكونات المنتج"
     computation_method: "طريقة حساب"
     compute: "القيمة الاخيرة"
     conclusion: "الاستنتاج"
@@ -1301,8 +1306,11 @@ arb:
     emission_currency: "العملة الانبعاثات"
     emission_journal_entry: "دخول مجلة الانبعاثات"
     employed: "وظف من قبل الشركة"
+    employee: "موظف"
+    employee_account: "حساب الموظف"
     employees: "الموظفين"
     employment: "الوظيفة"
+    enabled: "تمكين"
     encrypted_password: "كلمة المرور المشفرة"
     # enjoyer: "Enjoyer"
     enjoyments: "المتعة"
@@ -1351,6 +1359,7 @@ arb:
     exploitation_name: "اسم الاستغلال"
     exportable: "قبل للتصدير"
     exportable_columns: "أعمدة للتصدير"
+    exportable_fields: "الحقول القابلة للتصدير"
     expression: "اسلوب للتعبير" #?
     extension: "التوسع" #?
     external: "خارجي"
@@ -1358,10 +1367,15 @@ arb:
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
     farm_name: "اسم مزرعة"
+    farmer: "مزارع"
     father: "الآب"
     fax: "فاكس" #?
     faxes: "الفاكسات"
     fifth_producer: "منتج الخامس" #?
+    file: "ملف"
+    file_file_size: "حجم الملف"
+    file_pages_count: "عد الصفحات"
+    file_updated_at: "تحديث في"
     filename: "الملف" #?
     filesize: "حجم الملف" #?
     filtered_columns: "الأعمدة التي تمت تصفيتها"
@@ -1378,11 +1392,14 @@ arb:
     fixed_asset: "الأصول الثابتة"
     fixed_asset_account: "حساب الأصول الثابتة"
     fixed_asset_allocation_account: "ثابت حساب انخفاض قيمة الأصول"
+    fixed_asset_collect_account: "الأصول الثابتة جمع الحساب"
+    fixed_asset_deduction_account: "حساب خصم الأصول الثابتة"
     fixed_asset_depreciation_method: "الأصول الثابتة طريقة الاستهلاك"
     fixed_asset_depreciation_percentage: "نسبة انخفاض قيمة الأصول الثابتة"
     fixed_asset_depreciations: "انخفاض قيمة الأصول الثابتة"
     fixed_asset_expenses_account: "حساب نفقات انخفاض قيمة الأصول الثابتة inputations"
     fixed_assets: "أصول ثابتة"
+    following: "التالي"
     for_immobilizations: "منتجات ساكنة" #?
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
@@ -1649,7 +1666,6 @@ arb:
     minimal_value: "قيمة الحد الأدنى"
     mobile: "الهاتف النقال" #?
     mobiles: "هواتف محمولة"
-    # mod: "Mod"
     mode: "نمط الدفعة"
     mode_id: "طريقة تسديد دفعة" #?
     model_euid: "نموذج"
@@ -1742,6 +1758,9 @@ arb:
     parcels: "الطرود"
     parent: "النسب"
     parent_id: "نسب" #?
+    part_product_nature_variant: "جزء طبيعة المنتج البديل"
+    part_product_nature_variant_id: "جزء طبيعة المنتج البديل"
+    part_replacements: "استبدال جزء"
     parted: "افترقنا"
     parted_product: "المنتج افترقنا"
     participant: "مشارك"
@@ -1843,6 +1862,8 @@ arb:
     product_nature_categories: "فئات نوع المنتج"
     product_nature_category: "فئة نوع المنتج"
     product_nature_category_taxations: "الأنظمة الضريبية فئة نوع المنتج"
+    product_nature_variant: "طبيعة المنتج البديل"
+    product_nature_variant_id: "طبيعة المنتج البديل"
     product_natures: "أنواع المنتجات"
     product_ownership: "ملكية المنتج"
     product_ownerships: "الملكيات المنتج"
@@ -1945,6 +1966,8 @@ arb:
     remain_owner: "تبقى مالك"
     remaining_amount: "المبلغ المتبقي"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات " #?
+    remaining_lifespan: "المتبقية عمر"
+    remaining_working_lifespan: "عمر العمل المتبقي"
     remember_created_at: "أتذكر إنشاؤها في"
     remember_me: "تذكرنى"
     reminder_submissive: "تذكير منقاد"
@@ -1952,7 +1975,10 @@ arb:
     repayment_method: "طريقة السداد"
     repayment_period: "فترة السداد"
     repayments: "تسديد"
+    replaced_at: "محل في"
+    replacements: "بدلاء"
     reporter: "صحافي"
+    request_intervention: "تدخل الطلب"
     required: "الزامي"
     reservoir: "المخزن" #?
     reset_password_sent_at: "إعادة تعيين كلمة المرور أرسلت في"
@@ -2009,7 +2035,7 @@ arb:
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scale: "مقياس"
     scheduled: "الدفعة المبرمجة"
-    # season: "Seasonality"
+    season: "موسمية"
     # seasons: "Seasonalities"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
@@ -2085,11 +2111,15 @@ arb:
     subject_type: "نوع يخضع"
     subscriber: "مكتتب"
     subscribing: "الاشتراك"
+    subscription: "اشتراك"
+    subscription_days_count: "أيام الاشتراك العد"
     subscription_duration: "الفترة"
+    subscription_months_count: "أشهر الاشتراك العد"
     subscription_nature: "النوع"
     subscription_nature_id: "النوع" #?
     subscription_natures: "انواع الاشتراك" #?
     subscription_quantity: "الكمية" #?
+    subscription_years_count: "سنوات الاشتراك العد"
     subscriptions: "الاشتراك"
     subsubdivision: "Z الوضع" #?
     sum_method: "اسلوب الاحصاء" #?
@@ -2113,10 +2143,11 @@ arb:
     suspended: "معطل"
     symbol: "نموذج" #?
     symmetric: "متساو" #?
-    # tactic: "Cropping technique"
-    # tactics: "Cropping techniques"
+    tactic: "تقنيات إدارة المحاصيل"
+    tactics: "تكتيكات"
     target: "الهدف"
     target_id: "الهدف" #?
+    target_name: "اسم الهدف"
     target_type: "نوع الهدف"
     target_url: "الهدف رابط"
     targets: "أهداف"
@@ -2165,6 +2196,8 @@ arb:
     transporter_sales: "مبيعات نقل"
     transporters: "ناقلات الشحن" #?
     transports: "وسائل النقل" #?
+    trouble_description: "وصف المتاعب"
+    trouble_encountered: "مشكلة واجهتها"
     type: "النوع"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
     undelivered_quantity: "يبقى للتسليم"
@@ -2196,11 +2229,11 @@ arb:
     usage_limit_on: "التي يستخدمها على"
     usages: "الأعراف"
     use_countings: "استخدام فرزان"
-    use_grading_calibre: "استخدام عيار الدرجات"
+    use_grading_calibre: "استخدام عيار الدرجات" #?
     use_gradings: "استخدام الى التصنيف"
     use_range: "استخدام الكمية الفاصلة" #?
-    # use_seasons: "Use seasonalities"
-    # use_tactics: "Use cropping techniques"
+    use_seasons: "استخدام Seasonalities"
+    use_tactics: "استخدام تقنيات إدارة المحاصيل"
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
     useful_items: "المواد المفيدة"

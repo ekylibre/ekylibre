@@ -57,6 +57,7 @@
 //= require autosize
 //= require plugins
 //= require_tree .
+//= require tour
 
 var visualization = {};
 var mapeditor = {};

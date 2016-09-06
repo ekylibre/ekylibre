@@ -30,15 +30,16 @@ cmn:
       new: "新预算"
       # show: "Activity budget: %{name}"
     backend/activity_productions:
-      # edit: "Edit activity production: %{name}"
+      # edit: "Edit production: %{name}"
+      index: "制作"
       new: "新的生产活动"
-      # show: "Activity production: %{name}"
+      # show: "Production: %{name}"
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
       # finish: "Finish affair %{number}"
       index: "事务"
-      # select: "Select for affair %{number}"
+      select: "选择一个记录添加到外遇"
       # show: "Affair: %{number}"
     backend/analyses:
       # edit: "Edit analysis #%{number}"
@@ -273,8 +274,10 @@ cmn:
       # show: "Product grading\_: %{number}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
+      # edit_request: "Edit request %{procedure_name} #%{number}"
       index: "干预"
       new: "新的干预"
+      new_request: "新要求干预"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "编辑盘点"
@@ -389,7 +392,7 @@ cmn:
       # show: "Group: %{name}"
     backend/product_localizations:
       edit: "编辑产品的本地化："
-      # new: "New product localization"
+      new: "新产品本地化"
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       index: "产品类别"
@@ -638,7 +641,9 @@ cmn:
     add_attachment: "添加附件"
     add_bank_statement: "添加银行对账单"
     add_catalog_price: "添加目录价格"
+    add_child: "添加子组件"
     add_choice: "选择添加"
+    add_component: "添加组件"
     add_condition: "添加条件"
     add_conditions: "添加条件"
     add_delivery: "添加交货"
@@ -652,6 +657,8 @@ cmn:
     add_inspection_calibration_nature: "添加检查校准性质"
     add_inspection_calibration_scale: "添加检查校准规模"
     add_inspection_point_nature: "添加检测点的性质"
+    add_intervention_record: "加入干预纪录"
+    add_intervention_request: "加入干预的请求"
     add_item: "新增项目"
     add_line: "添加行"
     add_linestring: "添加线串"
@@ -670,10 +677,10 @@ cmn:
     add_reading: "添加值的指标"
     add_revenue: "添加收入"
     add_sale_taxation: "添加销售税收"
-    # add_season: "Add season"
+    add_season: "添加赛季"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     add_support: "添加支持"
-    # add_tactic: "Add cropping technique"
+    add_tactic: "添加作物管理技术"
     add_tool: "添加工具"
     add_website: "添加网站"
     add_working_period: "添加working_period"
@@ -781,6 +788,7 @@ cmn:
     container: "容器"
     convert_balance_into_loss: "转换成平衡损失"
     convert_balance_into_profit: "转换成平衡利润"
+    convert_to_cultivable_zone: "转换成可耕种区"
     cooperative_cartodb: "合作CartoDB"
     coordinates: "坐标"
     copy_from_another_activity: "从另一项活动复制"
@@ -818,7 +826,7 @@ cmn:
     current_stocks_by_variety: "目前的库存按品种"
     custom_fields: "自定义字段"
     dates: "选择期限起始日期和周期的最后一天"
-    # days: "Days"
+    days: "天"
     deals: "优惠"
     debit: "借方"
     debts_on_assets: "资产负债"
@@ -861,6 +869,7 @@ cmn:
     document: "文件"
     document_natures: "文档类型"
     document_templates: "文档模板"
+    documentation: "文档"
     doer_cost: "杜尔成本"
     done: "做"
     dont_use_journal: "- 不要使用日记 -"
@@ -877,6 +886,7 @@ cmn:
     # ekylibre: "www.ekylibre.org"
     elapsed_interventions_times_by_activities: "经过干预倍活动" #?
     email: "电子邮件："
+    employee_informations: "员工信息"
     end: "至"
     entities: "实体"
     entity_links: "实体链接"
@@ -907,6 +917,7 @@ cmn:
     expenses: "开支"
     expenses_by_product_nature_category: "按产品类别性质的费用"
     export: "出口单证"
+    field_distribution: "场分布"
     file_nature: "文件类型"
     file_preview: "预习"
     file_to_upload: "文件上传"
@@ -914,10 +925,10 @@ cmn:
     final_balance: "最终平衡"
     financials_assets: "金融资产"
     finish: "完"
+    finished: "完"
     first_line_as_title: "第一行标题"
     fixed_asset_depreciations: "固定资产折旧"
     fixed_assets: "固定资产"
-    # forecast_volume: "Forecast volume"
     from: "从"
     fullscreen: "全屏"
     function: "功能"
@@ -1074,6 +1085,7 @@ cmn:
     net_mass: "净质量"
     net_surface_area: "净面积"
     new: "新"
+    new_activity: "新活动"
     new_animal: "新的动物"
     new_attachment: "新附件"
     new_box: "新箱"
@@ -1136,6 +1148,7 @@ cmn:
     operations: "操作"
     options: "选项"
     organic_matter_concentration: "有机物浓度"
+    original_component: "原版的"
     others: "其他"
     outgoing_payment: "付款"
     outgoing_payments: "汇出款项"
@@ -1206,6 +1219,7 @@ cmn:
     purchase_items: "购买物品"
     purchase_number: "购买数量"
     purchases: "购买"
+    quality: "质量"
     # quandl: "Quandl"
     quantity: "数量"
     quantity_rest: "剩余数量" #?
@@ -1218,10 +1232,12 @@ cmn:
     received: "收到"
     recent_events: "最近发生的事件"
     reconciled_total: "不甘心总"
+    record_maintenance: "维修记录"
     reflect: "反映"
     reflected: "反映变化"
     reflections: "思考"
     refresh: "刷新"
+    register_intervention_request: "注册的请求干预"
     relationship: "关系"
     # relationship_of_entity: "%{relationship} of %{entity}"
     # relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
@@ -1234,6 +1250,7 @@ cmn:
     repayments: "偿还"
     repayments_graph: "偿还图"
     report: "报告"
+    request_maintenance: "申请维修"
     reset: "重置"
     # resource: "View original document: %{resource} %{number}"
     resources: "资源管理"
@@ -1332,6 +1349,7 @@ cmn:
     # timeline_comment: "%{author} commented %{when}"
     timeline_entity_link: "时间轴实体链接"
     # timeline_event: "%{name} with %{participants} %{when}"
+    # timeline_event_without_participants: "%{name} %{when}"
     # timeline_incoming_call: "%{author} called %{entity} about %{name} %{when}"
     # timeline_incoming_mail: "%{entity} wrote to %{author} about %{name} %{when}"
     # timeline_item: "%{type} %{name} added by %{author} %{when}"
@@ -1359,6 +1377,36 @@ cmn:
     total_quantity: "总数（量"
     total_unpaid_amount: "总未付款项" #?
     totals: "总计"
+    tours:
+      production:
+        field_distribution:
+          content: "在这里查找栽培的3个层次：耕种区域（独立运动），在生产中定义地块，和干预措施期间播种栽培。"
+          title: "字段"
+        production:
+          content: "活动允许定义要生产，并计划它是什么。"
+          title: "生产"
+        quality:
+          content: "按照你的作物和活动，许多类型的分析，监测与疾病问题，检查收获质量检查。"
+          title: "质量工具"
+        supervision:
+          content: "传感器许可登记并在您的领域集中你的传感器值。"
+          title: "传感器"
+      welcome:
+        home:
+          content: "我们将应用程序的界面的快速浏览。首先这个按钮允许从应用程序中的任何地方回家。"
+          title: "欢迎Ekylibre"
+        main:
+          content: "其中，所有的操作发生的位置就在这里。我们希望您的快乐使用。"
+          title: "你在哪里工作"
+        parts:
+          content: "此菜单允许访问所有主要模块。"
+          title: "Ekylibre的模块"
+        side:
+          content: "该边栏包含要咨询当前模块的所有子菜单。"
+          title: "模块侧栏"
+        user:
+          content: "在这里，您可以看到您的通知，显示帮助，请阅读你的农场名称。您的用户偏好，从菜单中编辑。"
+          title: "用户菜单"
     tracking: "跟踪"
     trade: "贸易"
     trade_counts: "交易计数"
@@ -1445,6 +1493,9 @@ cmn:
     x_hours:
       # one: "%{count} hour"
       # other: "%{count} hours"
+    x_hours_worked:
+      # one: "%{count}\_h worked"
+      # other: "%{count}\_h worked"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"
@@ -1504,6 +1555,9 @@ cmn:
     x_sales_invoices:
       # one: "%{count} sales invoice"
       # other: "%{count} sales invoices"
+    x_seconds:
+      # one: "%{count} second"
+      # other: "%{count} seconds"
     x_subscriptions:
       # one: "%{count} subscription"
       # other: "%{count} subscriptions"
@@ -1511,6 +1565,9 @@ cmn:
       # one: "%{count} task"
       # other: "%{count} tasks"
     # x_thing: "%{x} %{thing}"
+    x_times:
+      # one: "%{count} time"
+      # other: "%{count} times"
     # x_unit: "%{quantity}%{unit}"
     # x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     # x_unit_per_second: "Flow: %{quantity}%{unit}/s"
@@ -1564,6 +1621,10 @@ cmn:
         # other: "%{count} entries have been validated"
         zero: "任何条目已被证实"
       entity_columns_are_needed: "你需要指定的人，特别是其姓氏至少有一列。"
+      # equipment_component_is_at_end_of_life: "The component %{component_name} of the equipment %{equipment_name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_component_is_worn_out: "The component %{component_name} of the equipment %{equipment_name} is worn out. Remaining work time: %{remaining_time}."
+      # equipment_is_at_end_of_life: "Equipment %{name} is reaching the end of its life. Remaining time: %{remaining_time}."
+      # equipment_is_worn_out: "Equipment %{name} is worn out. Remaining work time: %{remaining_time}."
       # exception_raised: "An error occurred during the processing: %{message}"
       # fails_to_extract_listing: "The listing can't be made: %{message}"
       implemented_with_dummy_data: "以虚拟数据实现"
@@ -1604,6 +1665,7 @@ cmn:
       no_production_defined_for_current_campaign: "没有当前活动定义生产"
       no_production_found_you_can_add_it_or_copy_from_previous_records: "没有生产中。您可以添加新的或复制一些从以前的运动。"
       no_reopenable_journal: "你不能重新打开该杂志。"
+      no_replacements_since_beginning: "年初以来没有更换"
       record_already_imported: "记录已导入"
       record_cannot_be_removed: "该记录不能被删除"
       record_has_been_correctly_removed: "该记录已成功删除"
@@ -1738,6 +1800,7 @@ cmn:
     # backend/entity_links: "%{started_at}"
     # backend/events: "%{name}"
     # backend/incoming_payments: "%{number}. %{mode_name} from %{payer_full_name} of %{amount} %{currency}"
+    # backend/interventions: "%{number}. %{name}"
     # backend/journal_entry_items: "%{entry_number} %{name} %{account_number} D%{real_debit} C%{real_credit} %{currency}"
     # backend/matters: "%{name} ‒ %{work_number}"
     # backend/observations: "%{content}"

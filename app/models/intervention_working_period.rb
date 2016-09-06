@@ -67,10 +67,8 @@ class InterventionWorkingPeriod < Ekylibre::Record::Base
   end
 
   validate do
-    if started_at && stopped_at
-      if stopped_at <= started_at
-        errors.add(:stopped_at, :posterior, to: started_at.l)
-      end
+    if started_at && stopped_at && stopped_at <= started_at
+      errors.add(:stopped_at, :posterior, to: started_at.l)
     end
   end
 

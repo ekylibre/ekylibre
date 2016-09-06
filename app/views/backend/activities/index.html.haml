@@ -1,10 +1,37 @@
-- main_toolbar do |t|
-  = t.new
-  - if current_campaign && current_campaign.activity_productions.empty?
-    - preceding = current_campaign.preceding
-    - if preceding && preceding.activity_productions.any?
-      = t.duplicate method: :post, confirm: :are_you_sure.tl
+- activities = Activity.of_campaign(current_campaign)
 
 - main_campaign_selector
 
-= main_list
+- main_toolbar do |t|
+  - availables = Activity.availables.where.not(id: activities)
+  - if availables.any?
+    = t.menu :open, icon: false do |menu|
+      - availables.order(:name).each do |a|
+        - menu.item a.name, { action: :open, controller: :campaigns, id: current_campaign.id, activity_id: a.id }, method: :post, title: a.name
+      - menu.separator
+      - menu.item :new_activity.tl, { controller: :activities, action: :new }, as: 'main'
+  - else
+    = tool_to :new_activity.tl, { controller: :activities, action: :new }
+  - unless TargetDistribution.distributed?
+    = tool_to(:distribute.ta, { controller: :target_distributions, action: :distribute }, icon: false)
+
+- if activities.any?
+  = janus do |j|
+    - j.face :cobbles do
+      - families = activities.order(:family).collect(&:family).uniq
+      - families.each do |family|
+        .activity-family.activity-cards
+          .activity-family-heading
+            %h2.activity-family-title= family.human_name
+          .activity-family-body
+            .activity-containers
+              - activities.where(family: family).order(:name).each do |activity|
+                .activity-container= render 'backend/activities/card', activity: activity, campaign: current_campaign
+    - j.face :timeline do
+      .productions-list
+        = production_chronologies(current_campaign.activity_productions)
+    - j.face :list do
+      = main_list
+- else
+  .placeholding-message
+    = :no_production_found_you_can_add_it_or_copy_from_previous_records.tn

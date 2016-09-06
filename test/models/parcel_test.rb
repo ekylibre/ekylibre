@@ -119,7 +119,7 @@ class ParcelTest < ActiveSupport::TestCase
     PRODUCT_NOT_IN_STOCK
 
     # The newly created product should have the population specified in the parcel.
-    assert_equal(variant.products.last.population, p.items.first.population, <<-WRONG_POPULATION)
+    assert_equal(variant.products.order(:id).last.population, p.items.first.population, <<-WRONG_POPULATION)
 
     \tLast item in stock's population :
     \t\t#{variant.products.last.population}
@@ -131,7 +131,8 @@ class ParcelTest < ActiveSupport::TestCase
   test 'incoming items with grouped stock' do
     variant = product_nature_variants(:product_nature_variants_048)
     # Making sure we have someone to group up with.
-    storage = variant.products.first.localizations.last.container
+    product = variant.products.first
+    storage = product.localizations.last.container
 
     pre_stock = variant.products.first.population
     pre_num_of_products = variant.products.count
@@ -167,7 +168,7 @@ class ParcelTest < ActiveSupport::TestCase
     assert_equal(pre_stock + 20, post_stock, <<-WRONG_POPULATION)
 
     \tCurrently in stock :
-    \t - All products :
+    \t - All products : \t(Expected: #{pre_stock + 20} - Actual: #{post_stock})
     #{variant.products.reduce('') { |a, p| a + "\t\t" + p.name.inspect + ":\t" + p.population.to_s + "\n" }}
 
     \tProducts that should have gotten in through the Parcel :
@@ -178,10 +179,10 @@ class ParcelTest < ActiveSupport::TestCase
     assert_equal(pre_num_of_products, post_num_of_products, <<-TOO_MANY_PRODUCTS)
 
     \tCurrently in stock :
-    \t - First product:
-    \t\t#{variant.products.first.name}
-    \t - Last product:
-    \t\t#{variant.products.last.name}
+    \t - Product it should have merged with:
+    \t\t#{product}
+    \t - Product in the parcel:
+    \t\t#{p.items.first.product}
     \t - All products :
     #{variant.products.map(&:name).reduce('') { |a, s| a + "\t\t" + s.inspect + "\n" }}
     TOO_MANY_PRODUCTS
@@ -214,7 +215,7 @@ class ParcelTest < ActiveSupport::TestCase
     # Should've sent all of them
     assert_equal(0, product.population, <<-POPULATION_NOT_NULL)
 
-    \tCurrent product population :
+    \tCurrent product population (should be 0) :
     \t\t#{product.population}
     POPULATION_NOT_NULL
   end

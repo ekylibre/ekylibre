@@ -68,7 +68,7 @@ class Purchase < Ekylibre::Record::Base
   validates :accounted_at, :confirmed_at, :invoiced_at, :planned_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :amount, :pretax_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :currency, :payee, :supplier, presence: true
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :number, presence: true, length: { maximum: 500 }
   validates :reference_number, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
@@ -133,6 +133,10 @@ class Purchase < Ekylibre::Record::Base
     self.amount = items.sum(:amount)
   end
 
+  after_update do
+    affair.reload_gaps
+  end
+
   validate do
     if invoiced_at
       errors.add(:invoiced_at, :before, restriction: Time.zone.now.l) if invoiced_at > Time.zone.now
@@ -152,7 +156,7 @@ class Purchase < Ekylibre::Record::Base
         entry.add_debit(label, item.account, item.pretax_amount) unless item.pretax_amount.zero?
         entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
-      entry.add_credit(label, self.supplier.account(:supplier).id, amount)
+      entry.add_credit(label, self.supplier.account(nature.payslip? ? :employee : :supplier).id, amount)
     end
   end
 

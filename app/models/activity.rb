@@ -88,7 +88,7 @@ class Activity < Ekylibre::Record::Base
   has_many :supports, through: :productions
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :description, length: { maximum: 100_000 }, allow_blank: true
+  validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :family, :nature, :production_cycle, presence: true
   validates :measure_grading_net_mass, :measure_grading_sizes, :suspended, :use_countings, :use_gradings, :with_cultivation, :with_supports, inclusion: { in: [true, false] }
   validates :name, presence: true, length: { maximum: 500 }
@@ -190,6 +190,11 @@ class Activity < Ekylibre::Record::Base
       end
       if with_cultivation && variety = Nomen::Variety[cultivation_variety]
         errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
+      end
+    end
+    if use_gradings
+      unless measure_something?
+        errors.add :use_gradings, :checked_without_measures
       end
     end
     true
@@ -427,11 +432,15 @@ class Activity < Ekylibre::Record::Base
 
   def interventions_duration(campaign)
     # productions.of_campaign(campaign).map(&:duration).compact.sum
-    productions.of_campaign(campaign).collect { |p| p.interventions.map(&:working_duration) }.flatten.compact.sum
+    productions.of_campaign(campaign).collect { |p| p.interventions.real.sum(:working_duration) }.sum
   end
 
   def is_of_family?(family)
     Nomen::ActivityFamily[self.family] <= family
+  end
+
+  def measure_something?
+    measure_grading_items_count || measure_grading_net_mass || measure_grading_sizes
   end
 
   def unit_choices

@@ -22,6 +22,8 @@
 #
 # == Table: intervention_parameters
 #
+#  assembly_id             :integer
+#  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
 #  event_participation_id  :integer
@@ -70,14 +72,16 @@ class InterventionOutput < InterventionProductParameter
       output.initial_shape = reading.value if reading
       output.save!
 
-      movement = product_movement
-      movement = build_product_movement(product: output) unless movement
-      movement.delta = quantity_population
-      movement.started_at = intervention.started_at if intervention
-      movement.started_at ||= Time.zone.now - 1.hour
-      movement.stopped_at = intervention.stopped_at if intervention
-      movement.stopped_at ||= movement.started_at + 1.hour
-      movement.save!
+      if intervention.record?
+        movement = product_movement
+        movement = build_product_movement(product: output) unless movement
+        movement.delta = quantity_population
+        movement.started_at = intervention.started_at if intervention
+        movement.started_at ||= Time.zone.now - 1.hour
+        movement.stopped_at = intervention.stopped_at if intervention
+        movement.stopped_at ||= movement.started_at + 1.hour
+        movement.save!
+      end
 
       update_columns(product_id: output.id) # , movement_id: movement.id)
       true
