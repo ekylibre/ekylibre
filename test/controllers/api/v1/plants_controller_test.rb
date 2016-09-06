@@ -9,7 +9,7 @@ module Api
         get :index
         json = JSON.parse response.body
         assert_response :ok
-        assert json.size <= 25
+        assert json.size <= 30
       end
     end
   end

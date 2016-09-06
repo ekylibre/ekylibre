@@ -1739,6 +1739,9 @@
         <page to="api/v1/crumbs#index"/>
         <page to="api/v1/crumbs#create"/>
       </item>
+      <item name="interventions">
+        <page to="api/v1/interventions#index"/>
+      </item>
       <item name="issues">
         <page to="api/v1/issues#index"/>
         <page to="api/v1/issues#create"/>
