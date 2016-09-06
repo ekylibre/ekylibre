@@ -60,7 +60,7 @@ module Synel
 
         # Find or create father
         unless r.father_identification_number.blank?
-          parents[:father][r.father_identification_number] ||=
+          father = parents[:father][r.father_identification_number] ||=
             Animal.find_by(identification_number: r.father_identification_number) ||
             Animal.create!(
               variant_id: male_adult_cow.id,
@@ -69,10 +69,9 @@ module Synel
               identification_number: r.father_identification_number,
               work_number: r.father_work_number,
               initial_owner: owner,
-              initial_container: place,
-              initial_population: 1.0,
-              default_storage: place
+              initial_population: 1.0
             )
+          father.localizations.create!(nature: :exterior)
           link = animal.links.new(nature: :father, started_at: animal.born_at)
           link.linked = parents[:father][r.father_identification_number]
           link.save
