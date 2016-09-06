@@ -101,10 +101,10 @@ module Ekylibre
         unless animal_variant
           animal_variant = ProductNatureVariant.import_from_nomenclature(r.member_nature)
         end
-        
+
         # get animal default container
         animal_container = BuildingDivision.find_by_work_number(r.place)
-        
+
         # find or create animal_group
         if animal_group = AnimalGroup.find_by(work_number: r.code)
           animal_group.name = r.name
@@ -139,7 +139,7 @@ module Ekylibre
           max_born_at = Time.zone.now - r.minimum_age.days if r.minimum_age
           min_born_at = Time.zone.now - r.maximum_age.days if r.maximum_age
           animals = Animal.indicate(sex: r.sex.to_s).where(born_at: min_born_at..max_born_at).reorder(:name)
-          
+
           # find support for intervention changing or create it
           unless ap = ActivityProduction.where(support_id: animal_group.id).first
             # campaign = Campaign.find_or_create_by!(harvest_year: r.campaign_year)
@@ -171,7 +171,7 @@ module Ekylibre
               )
             end
           end
-          
+
           # if animals and production_support, add animals to the target distribution
           if animals.any? && ap.present?
             animals.each do |animal|
@@ -182,7 +182,7 @@ module Ekylibre
             # TODO: how to add animals to a group
             # animal_group.add_animals(animals, started_at: Time.zone.now - 1.hour, stopped_at: Time.zone.now, production_support_id: ps.id, container_id: animal_container.id, variant_id: animal_variant.id, worker_id: Worker.first.id)
           end
-          
+
         end
 
         w.check_point

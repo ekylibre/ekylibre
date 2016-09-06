@@ -157,6 +157,7 @@ fra:
     hive: "Ruche"
     hoe: "Bineuse"
     hoeing_weeder: "Désherbineuse" #?
+    housing: "Zone"
     implanter: "Planteuse"
     implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
@@ -217,6 +218,7 @@ fra:
     plow: "Charrue"
     pollinating_insects: "Insectes pollinisateurs"
     pollination_tool: "Outil de pollinisation"
+    preparation: "Préparation"
     press: "Presse"
     product: "Produit" #?
     protective_canvas: "Bâche de protection"
@@ -359,6 +361,7 @@ fra:
     hilling: "Buttage"
     hilling_for_sifting: "Buttage pour tamisage"
     hoeing: "Binage"
+    housing_soil_disinfection: "Désinfection d'une zone"
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"

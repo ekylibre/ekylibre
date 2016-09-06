@@ -6,7 +6,7 @@
         <target name="animal" filter="is animal and can produce(animal)" cardinality="1"/>
         <input name="vial" filter="is vial and derives from animal and can inseminate(animal)" cardinality="1">
           <handler name="population"/>
-          <!-- 
+          <!--
         	 <attribute name="father_id"/> METHOD : mother.last_transplantation.input.father || mother.last_insemination.input.producer
         	 <attribute name="mother_id"/> METHOD : mother.last_transplantation.input.mother || mother
              -->
