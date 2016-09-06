@@ -378,6 +378,7 @@ deu:
         supplier: "Lieferant"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Hören"
         requesting: "Anfordern"
     sequence:

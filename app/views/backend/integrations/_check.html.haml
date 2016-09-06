@@ -1,0 +1,8 @@
+= field_set :informations do
+  .integration-connect
+    - nature = params[:nature] || resource.nature
+    - parameters = resource.parameters || {}
+    = f.input :nature, as: :hidden
+    = f.simple_fields_for :parameters do |p|
+      - resource.parameter_keys.each do |parameter|
+        = p.input parameter, input_html: { value: parameters[parameter.to_s] }

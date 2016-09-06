@@ -272,6 +272,9 @@ ita:
       index: "classificazioni dei prodotti"
       new: "Nuova classificazione del prodotto"
       # show: "Product grading\_: %{number}"
+    backend/integrations:
+      # edit: "Activate integration: %{name}"
+      # index: "Integrations"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       # edit_request: "Edit request %{procedure_name} #%{number}"

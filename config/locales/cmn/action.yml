@@ -272,6 +272,9 @@ cmn:
       index: "产品定级"
       new: "新产品分级"
       # show: "Product grading\_: %{number}"
+    backend/integrations:
+      # edit: "Activate integration: %{name}"
+      # index: "Integrations"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       # edit_request: "Edit request %{procedure_name} #%{number}"

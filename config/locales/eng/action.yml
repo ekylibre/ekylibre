@@ -333,6 +333,11 @@ eng:
       index: "Product gradings"
       new: "New product grading"
       show: "Product grading\_: %{number}"
+    backend/integrations:
+      edit: "Edit integration: %{name}"
+      index: "Integrations"
+      new: "Activate integration: %{name}"
+      # show: "Integration: %{name}"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
@@ -1147,6 +1152,7 @@ eng:
     indicators: "Indicators"
     indicators_evolutions: "Indicators evolutions"
     info: "General parameters" #?
+    # informations: "Informations"
     infos: "Product and quantity" #?
     initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Input cost"

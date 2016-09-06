@@ -378,6 +378,7 @@ ita:
         supplier: "Fornitore"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Ascolto"
         requesting: "Richiesta"
     sequence:

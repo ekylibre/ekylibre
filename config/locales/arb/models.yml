@@ -1047,6 +1047,7 @@ arb:
     base_amount: "كمية قاعدة"
     bban: "RIB" #?
     bic: "BIC" #?
+    # body: "Body"
     boolean_value: "القيمة المنطقية"
     born_at: "تاريخ الميلاد"
     budgets: "الميزانيات"
@@ -1404,7 +1405,7 @@ arb:
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
     for_sales: "منتجات البيع" #?
-    format: "التصميم" #?
+    format: "التصميم"
     formats: "صيغ"
     fourth_producer: "رابع منتج" #?
     frequency: "تردد"
@@ -1443,6 +1444,7 @@ arb:
     harvest_year: "حصاد العام"
     has_downpayment: "لديه عربون واحد"
     hashed_password: "تشفير كلمة المرور" #?
+    # headers: "Headers"
     host: "مضيف"
     hour_duration: "(ساعة (ساعات" #?
     human_activities_names: "أسماء الأنشطة"
@@ -1494,6 +1496,7 @@ arb:
     insurance_amount: "مبلغ التأمين"
     insurance_percentage: "نسبة التأمين"
     integer_value: "قيمة العدد الصحيح"
+    # integration_name: "Integration name"
     interest_amount: "مبلغ الفائدة"
     interest_percentage: "نسبة الفائدة"
     intermediate_cultivation_residue_mineralization: "زراعة المتوسطة بقايا تمعدن"
@@ -1520,6 +1523,7 @@ arb:
     invoice_contact_id: "العنوان للفاتورة" #?
     invoiced: "مفوتر" #?
     invoiced_at: "فواتير على"
+    # ip: "Ip"
     irrigated: "المروية"
     irrigation_water_nitrogen: "الري النيتروجين المياه"
     is_debit: "مدين" #?
@@ -1657,6 +1661,7 @@ arb:
     memberships: "عضوية"
     message: "الرسالة"
     metadata: "البيانات الوصفية"
+    # method: "Method"
     min_duration: "(دقيقة (دقائق" #?
     min_zoom: "دقيقة التكبير"
     mineral_nitrogen_at_opening: "النيتروجين المعدنية في افتتاح"
@@ -1713,7 +1718,7 @@ arb:
     office: "المكتب/الاستديو" #?
     old_password: "كلمة المرور الحالية"
     opened_at: "افتتح في"
-    operation: "العمل" #?
+    operation: "العمل"
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
     operation_natures: "انواع العمل" #?
@@ -1986,6 +1991,7 @@ arb:
     resource: "المصدر الاصلي"
     resource_id: "المصدر الاصلي" #?
     resource_type: "نوع المصدر"
+    # responses: "Responses"
     responsible: "المسؤول"
     responsible_id: "المسؤول" #?
     restricted: "مقيد"
@@ -2081,6 +2087,7 @@ arb:
     source_product: "مصدر المنتج"
     spaced_iban: "متباعدة IBAN"
     sql_type: "SQL نوع"
+    # ssl: "Ssl"
     start: "البداية"
     started_at: "ابتدأ يوم"
     started_on: "ابتدأ يوم"

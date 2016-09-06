@@ -1,0 +1,109 @@
+.integrations-container {
+  padding: 50px 150px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &:after {
+    content: "";
+    flex: auto;
+  }
+
+  .integration {
+    padding: 0 2em;
+    position: relative;
+
+   .integration-destroy {
+      position: absolute;
+      right: 3em;
+      top: 1em;
+    }
+
+    .integration-card {
+      align-items: center;
+      background-color: rgb(247, 247, 247);
+      border-radius: 10px;
+      border: solid 2px darken(rgb(247, 247, 247), 10%);
+      display: flex;
+      flex-direction: column;
+      height: 250px;
+      justify-content: space-between;
+      padding: 30px 10px;
+      transition: background-color 0.5s ease-in-out 0s, box-shadow 0.5s 0s;
+
+      &:hover, &.integration-active {
+        background-color: white;
+        box-shadow: 0 0 10px rgba(30, 30, 30, 0.1);
+      }
+
+      .integration-logo {
+        align-items: center;
+        display: flex;
+        flex: 2 1 100%;
+        justify-content: center;
+        padding: 5px;
+
+        img {
+          object-fit: contain;
+          width: 200px;
+          height: 200px;
+        }
+      }
+      .integration-description {
+        align-items: center;
+        display: flex;
+        flex: 1 2 100%;
+        flex-direction: column;
+        padding-bottom: 20px;
+        width: 250px;
+
+        h3 {
+          color: black;
+          font-size: 1.2em;
+        }
+
+        p {
+          color: black;
+          text-align: center;
+          overflow: ellipsis;
+        }
+      }
+    }
+  }
+}
+
+.integration-form {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  .integration-presentation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0;
+
+    .integration-picture {
+      img {
+        object-fit: contain;
+        width: 500px;
+      }
+      margin-bottom: 10px;
+    }
+    .integration-description {
+      h2 {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      p {
+        text-align: center;
+      }
+    }
+  }
+  .integration-connect {
+    display: flex;
+    justify-content: center;
+  }
+}

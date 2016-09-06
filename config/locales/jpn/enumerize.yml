@@ -378,6 +378,7 @@ jpn:
         supplier: "サプライヤー"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "聞いている"
         requesting: "要求"
     sequence:

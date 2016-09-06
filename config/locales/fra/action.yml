@@ -318,6 +318,10 @@ fra:
       index: "Agréages"
       new: "Nouvel agréage"
       show: "Agréage\_: %{number}"
+    backend/integrations:
+      new: "Activer l'intégration: %{name}"
+      edit: "Modifier l'intégration: %{name}"
+      index: "Intégrations"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       edit_request: "Modifier la demande de %{procedure_name} #%{number}"

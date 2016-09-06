@@ -378,6 +378,7 @@ cmn:
         supplier: "供应商"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "听力"
         requesting: "请求"
     sequence:
