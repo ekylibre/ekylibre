@@ -23,7 +23,7 @@ gem 'charlock_holmes'
 
 gem 'browser'
 
-gem 'actionpack-xml_parser', git: 'https://github.com/rails/actionpack-xml_parser.git'
+gem 'actionpack-xml_parser', '>= 2.0.0'
 
 # Use SCSS for stylesheets
 gem 'sass-rails' # , '~> 5.0'

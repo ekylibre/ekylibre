@@ -17,14 +17,6 @@ GIT
     ofx-parser (1.1.0.20121129105223)
       hpricot (>= 0.6)
 
-GIT
-  remote: https://github.com/rails/actionpack-xml_parser.git
-  revision: 2036a13b9a4b916c3f0c05a2ffa091fc5df88dad
-  specs:
-    actionpack-xml_parser (2.0.0)
-      actionpack (~> 5.x)
-      railties (~> 5.x)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -45,6 +37,9 @@ GEM
       rack-test (~> 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
+    actionpack-xml_parser (2.0.0)
+      actionpack (~> 5.x)
+      railties (~> 5.x)
     actionview (5.0.0.1)
       activesupport (= 5.0.0.1)
       builder (~> 3.1)
@@ -492,7 +487,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack-xml_parser!
+  actionpack-xml_parser (>= 2.0.0)
   active_list!
   activerecord-postgis-adapter (~> 4.0.0)
   acts_as_list (~> 0.7.6)
