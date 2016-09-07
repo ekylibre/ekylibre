@@ -269,7 +269,13 @@
 
       instance = this
 
-      @taskboard.getHeaderActions().find('.delete-tasks').on('click', ->
+      @taskboard.getHeaderActions().find('.delete-tasks').on('click', (event) ->
+
+        # if (event.isDefaultPrevented())
+        #     alert("I feel rejected")
+        # else
+        #     alert("I feel confirmed")
+        #
 
         columnSelector = event.target
         interventionsIds = instance._getSelectedInterventionsIds(columnSelector)
