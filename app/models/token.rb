@@ -38,6 +38,6 @@ class Token < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   before_validation do
-    value ||= SecureRandom.urlsafe_base64(32)
+    self.value ||= SecureRandom.urlsafe_base64(32)
   end
 end
