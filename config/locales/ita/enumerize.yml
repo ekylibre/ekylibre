@@ -180,8 +180,8 @@ ita:
       state:
         done: "Fatto"
         in_progress: "In corso"
-        squeezed: "Spremuto"
-        undone: "Disfatto"
+        squeezed: "Spremuto" #?
+        undone: "Disfatto" #?
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booleano"

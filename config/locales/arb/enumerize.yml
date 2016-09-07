@@ -179,8 +179,8 @@ arb:
       state:
         done: "فعله"
         in_progress: "في تَقَدم"
-        squeezed: "تقلص"
-        undone: "غير مصنوع"
+        squeezed: "تقلص" #?
+        undone: "غير مصنوع" #?
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "منطقية"

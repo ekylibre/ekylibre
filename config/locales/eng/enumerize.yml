@@ -170,10 +170,9 @@ eng:
         record: "Record"
         request: "Request"
       state:
+        # deleted: "Deleted"
         done: "Done"
         in_progress: "In progress"
-        squeezed: "Squeezed"
-        undone: "Undone"
         # validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:

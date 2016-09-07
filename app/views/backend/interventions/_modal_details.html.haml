@@ -4,7 +4,7 @@
 
   = content_tag(:div, '', class: 'labels') do
     = content_tag(:span, intervention.state.tl, class: 'label label-default') if intervention.nature == :record
-    = content_tag(:span, 'Conforme', class: 'label label-success')
+    -# = content_tag(:span, 'Conforme', class: 'label label-success')
 
   = button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }) do
     = content_tag(:span, '&times;'.html_safe, aria: { hidden: 'true' })

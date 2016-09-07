@@ -971,6 +971,7 @@ por:
     implanted_at: "Implantado em"
     import: "Importar"
     importation_explanation: "Explicação importação"
+    # in_progress: "En cours"
     inactive: "Inativo"
     include_blank: "Incluir em branco"
     income_statement: "Declaração de renda"

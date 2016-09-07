@@ -1032,6 +1032,7 @@ ita:
     implanted_at: "impiantato a"
     import: "Importare"
     importation_explanation: "importazione spiegazione"
+    # in_progress: "En cours"
     inactive: "Inattivo"
     include_blank: "Includi vuoto"
     income_statement: "Conto economico"

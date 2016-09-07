@@ -1035,6 +1035,7 @@ jpn:
     implanted_at: "で注入"
     import: "インポート"
     importation_explanation: "輸入説明"
+    # in_progress: "En cours"
     inactive: "非アクティブな"
     include_blank: "空白を含めます"
     income_statement: "損益計算書"

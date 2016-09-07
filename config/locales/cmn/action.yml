@@ -966,6 +966,7 @@ cmn:
     implanted_at: "在植入"
     import: "进口"
     importation_explanation: "进口的解释"
+    # in_progress: "En cours"
     inactive: "待用"
     include_blank: "包括空白"
     income_statement: "收入证明"

@@ -269,13 +269,11 @@
 
       instance = this
 
-      @taskboard.getHeaderActions().find('.delete-tasks').on('click', (event) ->
+      $(document).on('confirm:complete', (event, answer) ->
 
-        # if (event.isDefaultPrevented())
-        #     alert("I feel rejected")
-        # else
-        #     alert("I feel confirmed")
-        #
+        if ($(event.target).find('.delete-tasks').length == 0 || !answer)
+          return
+
 
         columnSelector = event.target
         interventionsIds = instance._getSelectedInterventionsIds(columnSelector)

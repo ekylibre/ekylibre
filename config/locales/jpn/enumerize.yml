@@ -180,8 +180,8 @@ jpn:
       state:
         done: "終わりました"
         in_progress: "進行中"
-        squeezed: "スクイーズ"
-        undone: "元に戻します"
+        squeezed: "スクイーズ" #?
+        undone: "元に戻します" #?
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "ブーリアン"

@@ -1357,6 +1357,7 @@ arb:
     import: "استيراد"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
+    # in_progress: "En cours"
     inactive: "غير نشط"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"

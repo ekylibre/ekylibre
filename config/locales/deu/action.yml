@@ -966,6 +966,7 @@ deu:
     implanted_at: "implantierte an"
     import: "Einführen"
     importation_explanation: "Einfuhr Erklärung"
+    # in_progress: "En cours"
     inactive: "Inaktiv"
     include_blank: "Fügen leer"
     income_statement: "Gewinn- und Verlustrechnung"

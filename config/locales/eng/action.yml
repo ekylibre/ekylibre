@@ -341,6 +341,7 @@ eng:
       new: "New product grading"
       show: "Product grading\_: %{number}"
     backend/interventions:
+      # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
       edit_request: "Edit request %{procedure_name} #%{number}" #?
@@ -349,6 +350,7 @@ eng:
       new_request: "New requested intervention" #?
       show: "%{procedure_name}"
       # show_intervention_modal: "Show intervention modal intervention: %{name}"
+      # show_modal_state: "Show modal state intervention: %{name}"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -959,7 +961,7 @@ eng:
     commission: "Commission"
     company: "Society" #?
     complete: "Complete"
-    completed: "Completed" #?!
+    completed: "Completed"
     # components: "Components"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
@@ -1146,6 +1148,7 @@ eng:
     implanted_at: "Implanted at" #?
     import: "Import"
     importation_explanation: "Importation explanation"
+    in_progress: "In progress"
     inactive: "Inactive" #?
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
@@ -1484,6 +1487,7 @@ eng:
     started: "Started"
     state: "State"
     statistics: "Statistics" #?
+    # status: "Status"
     stewardship: "Stewardship"
     stock: "Stock" #?
     stock_container_map: "Stock map" #?
@@ -1892,6 +1896,7 @@ eng:
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_password: "Change password"
+      # change_state: "Change state"
       check: "Check"
       close: "Close"
       compute: "Compute"
@@ -1963,6 +1968,7 @@ eng:
       ship: "Ship"
       show: "Show"
       # show_intervention_modal: "Show intervention modal"
+      # show_modal_state: "Show modal state"
       sort: "Sort"
       star: "Star"
       start: "Start"

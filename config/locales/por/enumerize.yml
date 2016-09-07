@@ -182,8 +182,8 @@ por:
       state:
         done: "Finalizado"
         in_progress: "Em progresso"
-        squeezed: "Apertado"
-        undone: "Desfeito"
+        squeezed: "Apertado" #?
+        undone: "Desfeito" #?
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"

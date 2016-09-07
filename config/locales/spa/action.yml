@@ -1097,6 +1097,7 @@ spa:
     implanted_at: "Implantado en"
     import: "Importación de un  fichero de salvaguardia"
     importation_explanation: "Explicación importación"
+    # in_progress: "En cours"
     inactive: "Inactivo"
     include_blank: "Incluir en blanco"
     income_statement: "cuentos de résultos"

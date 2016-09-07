@@ -180,8 +180,8 @@ spa:
       state:
         done: "Hecho"
         in_progress: "En progreso"
-        squeezed: "Exprimido"
-        undone: "Deshecho"
+        squeezed: "Exprimido" #?
+        undone: "Deshecho" #?
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Boole"

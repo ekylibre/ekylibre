@@ -173,8 +173,8 @@ fra:
       state:
         done: "Réalisée"
         in_progress: "En cours"
-        squeezed: "Non réalisée"
-        undone: "Pas encore réalisée"
+        squeezed: "Non réalisée" #?
+        undone: "Pas encore réalisée" #?
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booléen"
