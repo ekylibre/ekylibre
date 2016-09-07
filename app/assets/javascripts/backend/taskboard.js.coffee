@@ -82,6 +82,12 @@
     getTasksByIndex: (index) ->
       return this.getLines().find(".tasks[data-column-index=\"#{index}\"]")
 
+    getSelectedTasksByColumnSelector: (selector) ->
+      columnIndex = this.getHeaderColumnIndex(selector)
+      columnTasks = this.getTasksByIndex(columnIndex)
+
+      return this.getCheckedTasks(columnTasks)
+
     getTaskColors: (taskSelector) ->
       return $(taskSelector).find('.task-colors')
 

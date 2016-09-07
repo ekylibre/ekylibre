@@ -72,7 +72,7 @@ class Intervention < Ekylibre::Record::Base
   end
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   enumerize :nature, in: [:request, :record], default: :record, predicates: true
-  enumerize :state, in: [:undone, :squeezed, :in_progress, :done, :validated], default: :undone, predicates: true
+  enumerize :state, in: [:in_progress, :done, :validated, :deleted], default: :done, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
@@ -124,25 +124,29 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
-  scope :with_unroll, lambda { |search, procedure_name, target_id, period_type, period, nature, state|
+  scope :with_unroll, lambda { |*args|
 
+    params = args.extract_options!
     search_params = ""
 
-    unless search.blank?
-      search_params << " #{Intervention.table_name}.number ILIKE '%#{search}%'"
+    unless params[:q].blank?
+      search_params << " #{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
     end
 
-    unless procedure_name.blank?
+    unless params[:procedure_name].blank?
       search_params << " AND " unless search_params.blank?
-      search_params << "#{Intervention.table_name}.procedure_name = '#{procedure_name}'"
+      search_params << "#{Intervention.table_name}.procedure_name = '#{params[:procedure_name]}'"
     end
 
-    unless target_id.blank?
+    unless params[:product_id].blank?
       search_params << " AND " unless search_params.blank?
-      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{target_id}')"
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
-    unless period_type.blank? && period.blank?
+    unless params[:period_type].blank? && params[:period].blank?
+
+      period_type = params[:period_type]
+      period = params[:period]
 
       search_params << " AND " unless search_params.blank?
 
@@ -167,14 +171,16 @@ class Intervention < Ekylibre::Record::Base
       end
     end
 
-    unless nature.blank?
+    unless params[:nature].blank?
       search_params << " AND " unless search_params.blank?
-      search_params << "#{Intervention.table_name}.nature = '#{nature}'"
+      search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
+
+      search_params << " AND #{Intervention.table_name}.request_intervention_id IS NULL" if params[:nature] == :request
     end
 
-    unless state.blank?
+    unless params[:state].blank?
       search_params << " AND " unless search_params.blank?
-      search_params << "#{Intervention.table_name}.state = '#{state}'"
+      search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
     where(search_params).order(started_at: :desc)
@@ -444,9 +450,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def status
-    if undone?
-      return (runnable? ? :caution : :stop)
-    elsif done?
+    if done?
       return :go
     end
   end

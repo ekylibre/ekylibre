@@ -258,31 +258,45 @@ module Backend
 
     def change_state
 
-      interventions_params = params[:intervention]
+      if interventions_params
 
-      # [:state]
+        interventions_ids = JSON.parse(interventions_params[:interventions_ids]).to_a
+        new_state = interventions_params[:state].to_sym
 
-      if interventions_params[:interventions_ids] && interventions_params[:state]
-        @interventions = Intervention.find(JSON.parse(interventions_params[:interventions_ids]).to_a)
+        @interventions = Intervention.find(interventions_ids)
 
         @interventions.each do |intervention|
 
-          intervention.state = interventions_params[:state][0].to_sym
-          intervention.nature = :record
+          new_intervention = intervention
 
-          if intervention.valid?
-            intervention.save!
+          if intervention.nature == :request
+            new_intervention = intervention.dup
+            new_intervention.parameters = intervention.parameters
           end
+
+          new_intervention.state = new_state
+          new_intervention.nature = :record
+
+          if new_intervention.valid?
+            new_intervention.save!
+
+            if intervention.nature == :request
+              intervention.request_intervention_id = new_intervention.id
+              intervention.save!
+            end
+          end
+
         end
       end
 
       redirect_to_back
     end
 
-    # private
-    #
-    # def intervention_params
-    #   params.require(:intervention).permit(:interventions_ids, :state)
-    # end
+
+    private
+
+    def interventions_params
+      params.require(:intervention).permit(:interventions_ids, :state)
+    end
   end
 end

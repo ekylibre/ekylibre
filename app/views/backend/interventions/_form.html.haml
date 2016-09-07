@@ -15,6 +15,7 @@
   = field_set do
     = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
     = f.input :nature, as: :hidden
+    = f.input :state, as: :hidden
     = f.referenced_association :issue, new: false
     - if f.object.record?
       = f.referenced_association :request_intervention, new: false, as: :hidden

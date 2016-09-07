@@ -1,65 +1,84 @@
-%div.modal-intervention
+.modal-header
 
-  %div.indicators
-    .med-info
-      %span.title= Intervention.human_attribute_name(:working_duration)
-      %span.value
-        %i.picto.picto-timelapse
-        = human_duration(resource.working_duration)
+  = content_tag(:h4, intervention.name, class: 'modal-title')
 
-    .med-info
-      %span.title= Intervention.human_attribute_name(:started_at)
-      %span.value
-        %i.picto.picto-clock-o
-        = resource.started_at.l
+  = content_tag(:div, '', class: 'labels') do
+    = content_tag(:span, intervention.state.tl, class: 'label label-default') if intervention.nature == :record
+    = content_tag(:span, 'Conforme', class: 'label label-success')
 
-    .med-info
-      %span.title= Intervention.human_attribute_name(:stopped_at)
-      %span.value
-        %i.picto.picto-clock-o
-        = resource.stopped_at.l
+  = button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }) do
+    = content_tag(:span, '&times;'.html_safe, aria: { hidden: 'true' })
 
-  %div.blocks
+.modal-body
 
-    %div.block
-      = content_tag(:h3, :activities.tl, class: "block-title")
+  %div.modal-intervention
 
-      - intervention.activities_names_list.each do |activity_name|
-        - title = activity_name
-        - detail = ""
-        = add_modal_data(title, detail, {icon: 'picto-leaf'})
+    %div.indicators
+      .med-info
+        %span.title= Intervention.human_attribute_name(:working_duration)
+        %span.value
+          %i.picto.picto-timelapse
+          = human_duration(resource.working_duration)
 
+      .med-info
+        %span.title= Intervention.human_attribute_name(:started_at)
+        %span.value
+          %i.picto.picto-clock-o
+          = resource.started_at.l
 
-    %div.block
-      = content_tag(:h3, :land_parcels.tl, class: "block-title")
+      .med-info
+        %span.title= Intervention.human_attribute_name(:stopped_at)
+        %span.value
+          %i.picto.picto-clock-o
+          = resource.stopped_at.l
 
-      - intervention.targets.each do |targets|
-        - title = targets.product.name
-        - detail = targets.product.nature.name
-        = add_modal_data(title, detail, {icon: 'picto-land-parcels'})
+    %div.blocks
 
-    %div.block
-      = content_tag(:h3, :doers.tl, class: "block-title")
+      %div.block
+        = content_tag(:h3, :activities.tl, class: "block-title")
 
-      - intervention.doers.each do |doer|
-        - title = doer.product.name
-        - detail = doer.name
-        = add_modal_data(title, detail, {icon: 'picto-male'})
-
-    %div.block
-      = content_tag(:h3, :inputs.tl, class: "block-title")
-
-      - intervention.inputs.each do |input|
-        - unless input.product.blank?
-          - title = input.product.name
-          - detail = input.quantity_value.round(2).l(precision: 0) + " " + input.product.unit_name.mb_chars
-          = add_modal_data(title, detail, {icon: 'picto-matter'})
+        - intervention.activities_names_list.each do |activity_name|
+          - title = activity_name
+          - detail = ""
+          = add_modal_data(title, detail, {icon: 'picto-leaf'})
 
 
-    %div.block
-      = content_tag(:h3, :tools.tl, class: "block-title")
+      %div.block
+        = content_tag(:h3, :land_parcels.tl, class: "block-title")
 
-      - intervention.tools.each do |tool|
-        - title = tool.product.name
-        - detail = tool.product.nature.name
-        = add_modal_data(title, detail, {icon: "picto-tractor"})
+        - intervention.targets.each do |targets|
+          - title = targets.product.name
+          - detail = targets.product.nature.name
+          = add_modal_data(title, detail, {icon: 'picto-land-parcels'})
+
+      %div.block
+        = content_tag(:h3, :doers.tl, class: "block-title")
+
+        - intervention.doers.each do |doer|
+          - title = doer.product.name
+          - detail = doer.name
+          = add_modal_data(title, detail, {icon: 'picto-male'})
+
+      %div.block
+        = content_tag(:h3, :inputs.tl, class: "block-title")
+
+        - intervention.inputs.each do |input|
+          - unless input.product.blank?
+            - title = input.product.name
+            - detail = input.quantity_value.round(2).l(precision: 0) + " " + input.product.unit_name.mb_chars
+            = add_modal_data(title, detail, {icon: 'picto-matter'})
+
+
+      %div.block
+        = content_tag(:h3, :tools.tl, class: "block-title")
+
+        - intervention.tools.each do |tool|
+          - title = tool.product.name
+          - detail = tool.product.nature.name
+          = add_modal_data(title, detail, {icon: "picto-tractor"})
+
+
+.modal-footer
+  %div.task-actions
+
+    = link_to 'Modifier', edit_backend_intervention_path(intervention), class: 'btn btn-default'

@@ -32,8 +32,7 @@
 
 
   - url_params = Hash.new
-  - if period_type == :years
-    - url_params = { controller: '/backend/campaigns', action: :show, id: campaign }
+  - url_params = { controller: '/backend/campaigns', action: :show, id: campaign } if period_type == :years
 
   = link_to(displayed_period, url_params, class: "btn period #{additionnal_classes}")
 

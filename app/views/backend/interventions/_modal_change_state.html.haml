@@ -14,10 +14,12 @@
 
       = field "Test", nil do |check_box|
 
-        - Intervention.state.options.each do |state, options|
-          = label_tag(nil) do
-            = check_box_tag('intervention[state][]', options)
-            = content_tag(:span, state)
+        - Intervention.state.options.each do |state, option|
+
+          - if option.to_sym != :deleted
+            = label_tag(nil) do
+              = radio_button_tag('intervention[state]', option)
+              = content_tag(:span, state)
 
   .modal-footer
-    = submit_tag :load.tl, class: 'primary'
+    = submit_tag :edit.tl, class: 'primary'

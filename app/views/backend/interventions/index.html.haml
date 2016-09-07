@@ -33,22 +33,26 @@
         - current_period_type = current_user.current_period_type
         - current_period = current_user.current_period
 
-        - interventions_requested = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :request, nil)
-        - interventions_in_progress = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period, :record, :in_progress)
-        - interventions_done = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period,  :record, :done)
-        - interventions_validate = Intervention.with_unroll(params[:q], params[:procedure_name], params[:product_id], current_period_type, current_period,  :record, :validated)
+        - search_params = params.except(:controller, :action)
+        - search_params[:period_type] = current_user.current_period_type
+        - search_params[:period] = current_user.current_period
+
+        - interventions_requested = Intervention.with_unroll(search_params.merge({ :nature => :request }))
+        - interventions_in_progress = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :in_progress }))
+        - interventions_done = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :done }))
+        - interventions_validate = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :validated }))
+
 
         = taskboard params: { id: "interventionsTaskboard", class: "interventions-board"} do |board|
 
           = modal(id: "taskboard-modal", class: "interventions-modal", size: :large) do
-            .modal-header
             .modal-body
             .modal-footer
-              .task-actions
 
 
           - edit_icon = content_tag(:i, nil, {:class => "picto picto-long-arrow-right picto--invisible edit-tasks"} )
-          - delete_icon = content_tag(:i, nil, {:class => "picto picto-delete picto--invisible delete-tasks"} )
+          - delete_icon = link_to(nil, data: {confirm: :are_you_sure.tl} ) do
+            = content_tag(:i, nil, {:class => "picto picto-delete picto--invisible delete-tasks"})
           - headers_actions = [edit_icon, delete_icon]
 
           - board.headers :class => "taskboard-header--gray" do |header|
