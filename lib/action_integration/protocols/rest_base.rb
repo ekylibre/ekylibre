@@ -32,7 +32,7 @@ module ActionIntegration
 
         request = action_class.new(url)
         request.body = data.to_json if data
-        request.content_type = options["content-type"] if options["content-type"]
+        request.content_type = options['content-type'] if options['content-type']
 
         handle_request(http, request, &block)
       end
