@@ -8,23 +8,23 @@ module ActionIntegration
         action_base(path, nil, :get, &block)
       end
 
-      def post_base(path, data, &block)
-        action_base(path, data, :post, &block)
+      def post_base(path, data, options = {}, &block)
+        action_base(path, data, :post, options, &block)
       end
 
-      def put_base(path, data, &block)
-        action_base(path, data, :put, &block)
+      def put_base(path, data, options = {}, &block)
+        action_base(path, data, :put, options, &block)
       end
 
-      def patch_base(path, data, &block)
-        action_base(path, data, :patch, &block)
+      def patch_base(path, data, options = {}, &block)
+        action_base(path, data, :patch, options, &block)
       end
 
       def delete_base(path, &block)
         action_base(path, nil, :delete, &block)
       end
 
-      def action_base(path, data, action, &block)
+      def action_base(path, data, action, options = {}, &block)
         url = URI.parse(path)
         http = Net::HTTP.new(url.host, url.port)
 
@@ -32,6 +32,7 @@ module ActionIntegration
 
         request = action_class.new(url)
         request.body = data.to_json if data
+        request.content_type = options["content-type"] if options["content-type"]
 
         handle_request(http, request, &block)
       end
