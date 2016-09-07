@@ -13,12 +13,31 @@ module Ekylibre
           name: row[0].to_s,
           nature: (row[1].blank? ? nil : row[1].to_sym),
           code: (row[2].blank? ? nil : row[2].to_s),
-          georeading_number: (row[3].blank? ? nil : row[3].to_s)
-          # members: row[4].blank? ? [] : row[4].to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
+          georeading_number: (row[3].blank? ? nil : row[3].to_s),
+          soil_nature: (row[4].blank? ? nil : row[4].to_sym),
+          owner_name: (row[5].blank? ? nil : row[5].to_s),
+          farmer_name: (row[6].blank? ? nil : row[6].to_s)
         }.to_struct
 
         zone = CultivableZone.find_or_initialize_by(work_number: r.code)
         zone.name = r.name
+
+        if r.soil_nature && soil_variety = Nomen::SoilNature[r.soil_nature]
+          zone.soil_nature = r.soil_nature
+        end
+
+        # link the owner if exist
+        if r.owner_name
+          owner = Entity.find_by(last_name: r.owner_name.to_s)
+          owner ||= Entity.find_by(full_name: r.owner_name.to_s)
+          zone.owner = owner if owner
+        end
+
+        # link the farmer if exist
+        if r.farmer_name
+          farmer = Entity.find_by(last_name: r.farmer_name.to_s)
+          zone.farmer = farmer if farmer
+        end
 
         georeading = Georeading.find_by(number: r.georeading_number) ||
                      Georeading.find_by(name: r.georeading_number)

@@ -196,10 +196,12 @@ fra:
         unitary_in_parcel: "articles Unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
+        activity:
+          checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
         bank_statement:
           no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
-          ofx_file_has_multiple_bank_accounts: "fichier OFX avec plusieurs comptes bancaires ne sont pas pris en charge"
-          ofx_file_invalid: "fichier OFX est invalide"
+          ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge"
+          ofx_file_invalid: "Fichier OFX invalide"
         bank_statement_item:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         cash:
@@ -768,6 +770,7 @@ fra:
     failed_attempts: "Tentatives de connexions échouées"
     family: "Famille"
     farm_name: "Nom de la ferme"
+    farmer: "Fermier"
     father: "Père"
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
@@ -791,8 +794,8 @@ fra:
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
-    fixed_asset_collect_account: "Capital fixe recueillir compte"
-    fixed_asset_deduction_account: "Actif fixe compte de la déduction"
+    fixed_asset_collect_account: "TVA collectée sur les immobilisations"
+    fixed_asset_deduction_account: "TVA déductible sur les immobilisations"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
@@ -1413,10 +1416,14 @@ fra:
     subject_label: "Objet" #?
     subject_type: "Type de sujet"
     subscriber: "Abonné"
-    subscribing: "Abonne"
+    subscribing: "Abonnement"
+    subscription: "Abonnement"
+    subscription_days_count: "Nombre de jours d'abonnement"
     subscription_duration: "Période"
+    subscription_months_count: "Nombre de mois d'abonnement"
     subscription_nature: "Type d’abonnement"
     subscription_quantity: "Quantité" #?
+    subscription_years_count: "Nombre d'années d'abonnement"
     subscriptions: "Abonnements"
     supervision: "Surveillance"
     supplier: "Fournisseur"

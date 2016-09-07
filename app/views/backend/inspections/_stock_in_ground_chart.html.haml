@@ -1,4 +1,4 @@
 - data = data_series(resource, :"marketable_#{to_graph}", dataset, unit) { |name, result| {name: name, data: [result]} }
 - symbol_measure = unit.symbol
 
-%td{style: 'width: 33%' }= column_highcharts(data, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+.chart-cell= column_highcharts(data, title: {text: :stock_in_ground_by_calibration.tl}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})

@@ -6,6 +6,7 @@
 - main_links = EntityLink.of_entity(resource)
 - main_entities = [resource.id]
 - main_links.order("(entity_id = #{resource.id} and main) DESC, id ASC").each do |link|
+  - next unless link.entity && link.linked
   .info
     %span.title
       - other = (link.entity == resource ? link.linked : link.entity)
@@ -13,7 +14,7 @@
       - if others.any?
         - seconds = capture do
           %ul
-            - for indirect in others
+            - others.each do |indirect|
               %li= render "link", link: indirect, entity: other, popover: nil
       - else
         - seconds = nil

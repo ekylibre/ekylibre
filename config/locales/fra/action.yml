@@ -1906,7 +1906,7 @@ fra:
           content: "Suivez vos cultures et les activités avec différents types d’analyses, les maladies en enregistrant les incidents et vérifiez la qualité de la récolte avec des agréages."
           title: "Outils pour la qualité"
         supervision:
-          content: "Enregistrer et regrouper les valeurs remontées de vos capteurs dans vos champs ici."
+          content: "Enregistrez et regroupez les valeurs remontées de vos capteurs dans vos champs ici."
           title: "Capteurs"
       welcome:
         home:

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160817133216) do
+ActiveRecord::Schema.define(version: 20160824160125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -730,10 +730,15 @@ ActiveRecord::Schema.define(version: 20160817133216) do
     t.integer  "lock_version",                                                         default: 0, null: false
     t.jsonb    "custom_fields"
     t.string   "production_system_name"
+    t.string   "soil_nature"
+    t.integer  "owner_id"
+    t.integer  "farmer_id"
   end
 
   add_index "cultivable_zones", ["created_at"], name: "index_cultivable_zones_on_created_at", using: :btree
   add_index "cultivable_zones", ["creator_id"], name: "index_cultivable_zones_on_creator_id", using: :btree
+  add_index "cultivable_zones", ["farmer_id"], name: "index_cultivable_zones_on_farmer_id", using: :btree
+  add_index "cultivable_zones", ["owner_id"], name: "index_cultivable_zones_on_owner_id", using: :btree
   add_index "cultivable_zones", ["updated_at"], name: "index_cultivable_zones_on_updated_at", using: :btree
   add_index "cultivable_zones", ["updater_id"], name: "index_cultivable_zones_on_updater_id", using: :btree
 

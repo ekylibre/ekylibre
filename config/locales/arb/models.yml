@@ -648,6 +648,8 @@ arb:
         unitary_in_parcel: "لا يمكن إلا أن ترسل وحدات موحدة واحدا تلو الآخر"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
+        activity:
+          checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش"
         bank_statement:
           no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية"
           ofx_file_has_multiple_bank_accounts: "غير معتمد ملف OFX مع حسابات مصرفية متعددة"
@@ -1365,6 +1367,7 @@ arb:
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?
     farm_name: "اسم مزرعة"
+    farmer: "مزارع"
     father: "الآب"
     fax: "فاكس" #?
     faxes: "الفاكسات"
@@ -2108,11 +2111,15 @@ arb:
     subject_type: "نوع يخضع"
     subscriber: "مكتتب"
     subscribing: "الاشتراك"
+    subscription: "اشتراك"
+    subscription_days_count: "أيام الاشتراك العد"
     subscription_duration: "الفترة"
+    subscription_months_count: "أشهر الاشتراك العد"
     subscription_nature: "النوع"
     subscription_nature_id: "النوع" #?
     subscription_natures: "انواع الاشتراك" #?
     subscription_quantity: "الكمية" #?
+    subscription_years_count: "سنوات الاشتراك العد"
     subscriptions: "الاشتراك"
     subsubdivision: "Z الوضع" #?
     sum_method: "اسلوب الاحصاء" #?

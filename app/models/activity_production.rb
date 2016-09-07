@@ -171,6 +171,7 @@ class ActivityProduction < Ekylibre::Record::Base
         support.name = computed_support_name
         support.initial_shape = support_shape
         support.initial_born_at = started_on
+        support.initial_dead_at = stopped_on
         support.variant ||= ProductNatureVariant.import_from_nomenclature(:land_parcel)
         support.save!
         reading = support.first_reading(:shape)

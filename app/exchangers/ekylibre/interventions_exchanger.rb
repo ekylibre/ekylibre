@@ -91,10 +91,13 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         # PROCEDURE GIVE PRODUCTS OR VARIANTS BUT NOT EXIST IN DB
         #
         if actor.product.is_a?(Product)
+          valid = true
         # w.info "#{prompt} Actor ##{i + 1} exist in DB as a product (#{actor.product.name})"
         elsif actor.variant.is_a?(ProductNatureVariant)
+          valid = true
         # w.info "#{prompt} Actor ##{i + 1} exist in DB as a variant (#{actor.variant.name})"
         elsif item = Nomen::ProductNatureVariants.find(actor.target_variant)
+          valid = true
         # w.info "#{prompt} Actor ##{i + 1} exist in NOMENCLATURE as a variant (#{item.name})"
         else
           w.error "#{prompt} Actor ##{i + 1} (#{actor.product_code}) does not exist in DB as a product or as a variant in DB or NOMENCLATURE"
@@ -105,8 +108,10 @@ class Ekylibre::InterventionsExchanger < ActiveExchanger::Base
         #
         unit_name = actor.input_unit_name
         if Nomen::Units[unit_name]
+          valid = true
         # w.info "#{prompt} #{unit_name} exist in NOMENCLATURE as a unit"
         elsif u = Nomen::Units.find_by(symbol: unit_name)
+          valid = true
         # w.info "#{prompt} #{unit_name} exist in NOMENCLATURE as a symbol of #{u.name}"
         else
           w.error "#{prompt} Unknown unit: #{unit_name.inspect}"
