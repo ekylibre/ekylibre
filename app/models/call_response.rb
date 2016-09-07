@@ -47,7 +47,7 @@ class CallResponse < CallMessage
 
   # Create a CallResponse from an ActionResponse
   def self.create_from_response!(response, request)
-    create!(
+    r = new(
       nature: :outgoing, # Because we come from a controller here.
       status: response.status,
       headers: response.headers,
@@ -55,10 +55,22 @@ class CallResponse < CallMessage
       format: response.content_type,
       request: request
     )
+    r.save!
+    r
+  rescue ActiveRecord::RecordInvalid => e
+    raise e unless r.errors.messages[:body].present?
+    create!(
+      nature: :outgoing, # Because we come from a controller here.
+      status: response.status,
+      headers: response.headers,
+      body: 'Body too long to be saved.',
+      format: response.content_type,
+      request: request
+    )
   end
 
   def self.create_from_net_response!(response, request)
-    create!(
+    r = new(
       nature: :incoming, # Because we are receiving an answer.
       status: response.code,
       headers: response.to_hash,
@@ -66,14 +78,38 @@ class CallResponse < CallMessage
       format: response.content_type,
       request: request
     )
+    r.save!
+    r
+  rescue ActiveRecord::RecordInvalid => e
+    raise e unless r.errors.messages[:body].present?
+    create!(
+      nature: :incoming, # Because we are receiving an answer.
+      status: response.code,
+      headers: response.to_hash,
+      body: 'Body too long to be saved.',
+      format: response.content_type,
+      request: request
+    )
   end
 
   def self.create_from_savon_httpi_response!(response, request)
-    create!(
+    r.new(
       nature: :incoming, # Receiving an answer in protocol.
       status: response.code,
       headers: response.headers,
       body: response.raw_body,
+      format: response.headers.split(';').first,
+      request: request
+    )
+    r.save!
+    r
+  rescue ActiveRecord::RecordInvalid => e
+    raise e unless r.errors.messages[:body].present?
+    create!(
+      nature: :incoming, # Receiving an answer in protocol.
+      status: response.code,
+      headers: response.headers,
+      body: 'Body too long to be saved.',
       format: response.headers.split(';').first,
       request: request
     )
