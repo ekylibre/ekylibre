@@ -1062,6 +1062,7 @@ arb:
     centralized_account: "مركزية الحسابات %{name}"
     change_password: "تغيير كلمة السر"
     change_price: "تغيير وحدة السعر" #?
+    # change_state: "Change state"
     chart: "خريطة"
     check: "نحقق"
     children: "الأطفال"
@@ -1069,6 +1070,7 @@ arb:
     choose_a_type_of_product: "اختر نوع المنتج"
     choose_creation_mode: "اختيار وضع إنشاء"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
+    # choose_options_is_needed: "Vous devez choisir le statut sur lequel les interventions suivantes vont être affectées :"
     city_name: "المدينة" #?
     clear: "واضح"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
@@ -1357,7 +1359,7 @@ arb:
     import: "استيراد"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
-    # in_progress: "En cours"
+    # in_progress: "In progress"
     inactive: "غير نشط"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
@@ -1985,6 +1987,8 @@ arb:
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{when}"
     # timeline_task: "%{author} added task %{name} %{when}"
     times: "مرات"
+    # title_change_status_selected_interventions: "Change the status of selected interventions"
+    # title_delete_selected_interventions: "Delete the selected interventions"
     to: "الى"
     to_date: "الى تاريخ" #?
     to_deliver: "للتسليم" #?

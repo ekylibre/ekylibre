@@ -178,10 +178,12 @@ ita:
         record: "Disco"
         request: "Richiesta"
       state:
+        # deleted: "Deleted"
         done: "Fatto"
         in_progress: "In corso"
         squeezed: "Spremuto" #?
         undone: "Disfatto" #?
+        # validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booleano"

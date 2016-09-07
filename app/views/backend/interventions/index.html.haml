@@ -50,16 +50,16 @@
             .modal-footer
 
 
-          - edit_icon = content_tag(:i, nil, {:class => "picto picto-long-arrow-right picto--invisible edit-tasks"} )
+          - edit_icon = content_tag(:i, nil, { :class => "picto picto-long-arrow-right picto--invisible edit-tasks", :title => :title_change_status_selected_interventions.tl })
           - delete_icon = link_to(nil, data: {confirm: :are_you_sure.tl} ) do
-            = content_tag(:i, nil, {:class => "picto picto-delete picto--invisible delete-tasks"})
+            = content_tag(:i, nil, { :class => "picto picto-delete picto--invisible delete-tasks", :title => :title_delete_selected_interventions.tl })
           - headers_actions = [edit_icon, delete_icon]
 
           - board.headers :class => "taskboard-header--gray" do |header|
             - header.content :requests.tl + " (" + interventions_requested.count.to_s + ")", headers_actions
             - header.content :current.tl + " (" + interventions_in_progress.count.to_s + ")", headers_actions
             - header.content :completed.tl + " (" + interventions_done.count.to_s + ")", headers_actions
-            - header.content :validated.tl + " (" + interventions_validate.count.to_s + ")", headers_actions
+            - header.content :validated.tl + " (" + interventions_validate.count.to_s + ")", []
 
           - board.lines do |line|
             - menu_icon = content_tag(:i, nil, {:class => "task-menu picto picto-keyboard-control"})

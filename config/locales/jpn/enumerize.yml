@@ -178,10 +178,12 @@ jpn:
         record: "記録"
         request: "要求"
       state:
+        # deleted: "Deleted"
         done: "終わりました"
         in_progress: "進行中"
         squeezed: "スクイーズ" #?
         undone: "元に戻します" #?
+        # validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "ブーリアン"

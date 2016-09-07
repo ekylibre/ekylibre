@@ -170,10 +170,10 @@ eng:
         record: "Record"
         request: "Request"
       state:
-        # deleted: "Deleted"
+        deleted: "Deleted"
         done: "Done"
         in_progress: "In progress"
-        # validated: "Validated"
+        validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Boolean"

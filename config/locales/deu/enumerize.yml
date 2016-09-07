@@ -178,10 +178,12 @@ deu:
         record: "Aufzeichnen"
         request: "Anfordern"
       state:
+        # deleted: "Deleted"
         done: "Erledigt"
         in_progress: "In Bearbeitung"
         squeezed: "Eingezwängt" #?
         undone: "unerledigt" #?
+        # validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"

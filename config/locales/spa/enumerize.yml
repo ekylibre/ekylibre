@@ -178,10 +178,12 @@ spa:
         record: "Grabar"
         request: "Solicitud"
       state:
+        # deleted: "Deleted"
         done: "Hecho"
         in_progress: "En progreso"
         squeezed: "Exprimido" #?
         undone: "Deshecho" #?
+        # validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Boole"

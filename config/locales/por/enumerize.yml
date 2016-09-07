@@ -180,10 +180,12 @@ por:
         record: "Registro"
         request: "Pedido"
       state:
+        # deleted: "Deleted"
         done: "Finalizado"
         in_progress: "Em progresso"
         squeezed: "Apertado" #?
         undone: "Desfeito" #?
+        # validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"

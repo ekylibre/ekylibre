@@ -48,6 +48,9 @@ module Backend
       code << "  c << params[:procedure_name]\n"
       code << "end\n"
       code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
+      code << "c[0] << ' AND #{Intervention.table_name}.request_intervention_id IS NULL'\n"
+      code << "c[0] << ' AND #{Intervention.table_name}.state != ?'\n"
+      code << "  c << 'deleted'\n"
 
 
       # select the interventions according to the user current period

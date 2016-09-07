@@ -28,6 +28,26 @@ $preview-modal-height: 80vh;
   .controls {
     @include flex-row(space-between);
   }
+
+  .control-group {
+    margin-bottom: 2em;
+    padding-right: 2em;
+  }
+
+  .change-state-text {
+    margin-left: 1em;
+    margin-bottom: 1em;
+  }
+
+  .interventions-list {
+    list-style: inherit;
+    margin-bottom: 3em;
+    padding-left: 4em;
+
+    .intervention {
+      padding-left: 1em;
+    }
+  }
 }
 
 .interventions-modal .indicators {

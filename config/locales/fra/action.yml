@@ -932,6 +932,7 @@ fra:
     centralized_account: "Compte centralisateur %{name}"
     change_password: "Changer de mot de passe"
     change_price: "Changer le prix unitaire" #?
+    change_state: "Changement du statut"
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
@@ -942,6 +943,7 @@ fra:
     choose_a_type_of_product: "Choisissez un type de produit"
     choose_creation_mode: "Choisissez un mode de création"
     choose_mail_column: "Veuillez choisir la colonne à utiliser pour le mailing"
+    choose_options_is_needed: "Veuillez choisir le statut sur lequel les interventions suivantes vont être affectées :"
     city_name: "Ville" #?
     clear: "Effacer"
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
@@ -1871,6 +1873,8 @@ fra:
     timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} %{when}"
     timeline_task: "%{author} a ajouté une tâche %{name} %{when}"
     times: "Temps"
+    title_change_status_selected_interventions: "Changer le status des interventions selectionées"
+    title_delete_selected_interventions: "Supprimer les interventions selectionnées"
     to: "Au"
     to_bank_at: "À encaisser le" #?
     to_date: "Au" #?

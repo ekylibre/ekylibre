@@ -177,10 +177,12 @@ arb:
         record: "سجل"
         request: "طلب"
       state:
+        # deleted: "Deleted"
         done: "فعله"
         in_progress: "في تَقَدم"
         squeezed: "تقلص" #?
         undone: "غير مصنوع" #?
+        # validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "منطقية"

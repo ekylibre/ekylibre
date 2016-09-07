@@ -65,7 +65,7 @@
         - intervention.inputs.each do |input|
           - unless input.product.blank?
             - title = input.product.name
-            - detail = input.quantity_value.round(2).l(precision: 0) + " " + input.product.unit_name.mb_chars
+            - detail = input.quantity_value.round(2).l(precision: 0) + " " + input.quantity_handler_reference.unit.symbol
             = add_modal_data(title, detail, {icon: 'picto-matter'})
 
 
