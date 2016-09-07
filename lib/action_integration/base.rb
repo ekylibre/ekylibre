@@ -34,7 +34,7 @@ module ActionIntegration
 
     def self.on_logout(trigger: false, &block)
       Ekylibre::Hook.subscribe("#{integration_name.underscore}_logout", block) if block_given?
-      Ekyliibre::Hook.publish("#{integration_name.underscore}_logout") if trigger
+      Ekylibre::Hook.publish("#{integration_name.underscore}_logout") if trigger
     end
 
     def self.run(method_name = nil, every: nil, &block)
