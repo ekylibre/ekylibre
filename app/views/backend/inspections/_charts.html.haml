@@ -5,8 +5,8 @@
   - unit = Nomen::Unit[:ton]
   - yield_unit = Nomen::Unit[:ton_per_hectare]
 - else
-  - raise "I don't know how to handle the units for that measure : #{to_graph}"
+  - raise "I don't know how to handle the units for that measure: #{to_graph}"
 
-%tr
+.chart-line
   - %w(percentage stock_in_ground yield_by_calibration).each do |measure|
     = render "#{measure}_chart", dataset: dataset, resource: resource, unit: unit, yield_unit: yield_unit, scale: scale, to_graph: to_graph

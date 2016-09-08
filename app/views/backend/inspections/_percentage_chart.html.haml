@@ -2,4 +2,4 @@
 - dataset = resource.calibrations.of_scale(scale).reorder(:id)
 - data = data_series(resource, :"marketable_#{to_graph}", dataset, unit) { |name, result| {name: name, y: result} }
 
-%td{style: 'width: 33%' }= pie_highcharts({ name: scale.name, data: data }, title: {text: :percentage_by_calibration.tl}, y_axis: {title: {text: "#{symbol_measure}"}}, legend: true, tooltip: {point_format: "{point.y: 1f} : <b>{point.percentage:.1f}%</b>"} ,plot_options: { pie: {allow_point_select: true, data_labels: {enabled: true, format: "<b>{point.name}</b>: {point.percentage:.1f} %"}}})
+.chart-cell= pie_highcharts({ name: scale.name, data: data }, title: {text: :percentage_by_calibration.tl}, y_axis: {title: {text: "#{symbol_measure}"}}, legend: true, tooltip: {point_format: "{point.y: 1f} : <b>{point.percentage:.1f}%</b>"} ,plot_options: { pie: {allow_point_select: true, data_labels: {enabled: true, format: "<b>{point.name}</b>: {point.percentage:.1f} %"}}})

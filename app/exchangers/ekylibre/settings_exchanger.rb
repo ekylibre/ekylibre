@@ -17,19 +17,23 @@ class Ekylibre::SettingsExchanger < ActiveExchanger::Base
     language = I18n.locale = @manifest[:language]
     currency = @manifest[:currency] || 'EUR'
     country  = @manifest[:country] || 'fr'
-    host = @manifest[:host] || 'erp.example.com'
     sales_conditions = @manifest[:sales_conditions] || ''
     Preference.set!(:language, language)
     Preference.set!(:currency, currency)
     Preference.set!(:country, country)
-    Preference.set!(:host, host)
     Preference.set!(:sales_conditions, sales_conditions)
     if srs = @manifest[:map_measure_srs]
       Preference.set!(:map_measure_srs, srs)
     elsif srid = @manifest[:map_measure_srid]
       Preference.set!(:map_measure_srs, Nomen::SpatialReferenceSystem.find_by(srid: srid.to_i).name)
     end
-    Preference.set!(:demo, !!@manifest[:demo], :boolean)
+    demo = !!@manifest[:demo]
+    if demo
+      Preference.set!(:demo, demo, :boolean)
+      demo_user = @manifest[:users].keys.first
+      Preference.set!(:demo_user, demo_user)
+      Preference.set!(:demo_password, @manifest[:users][demo_user][:password])
+    end
     Preference.set!(:create_activities_from_telepac, !!@manifest[:create_activities_from_telepac], :boolean)
     ::I18n.locale = Preference[:language]
 

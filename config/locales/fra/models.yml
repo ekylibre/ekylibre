@@ -196,10 +196,12 @@ fra:
         unitary_in_parcel: "articles Unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
+        activity:
+          checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
         bank_statement:
           no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
-          ofx_file_has_multiple_bank_accounts: "fichier OFX avec plusieurs comptes bancaires ne sont pas pris en charge"
-          ofx_file_invalid: "fichier OFX est invalide"
+          ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge"
+          ofx_file_invalid: "Fichier OFX invalide"
         bank_statement_item:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         cash:
@@ -1415,9 +1417,13 @@ fra:
     subject_type: "Type de sujet"
     subscriber: "Abonné"
     subscribing: "Abonnement"
+    subscription: "Abonnement"
+    subscription_days_count: "Nombre de jours d'abonnement"
     subscription_duration: "Période"
+    subscription_months_count: "Nombre de mois d'abonnement"
     subscription_nature: "Type d’abonnement"
     subscription_quantity: "Quantité" #?
+    subscription_years_count: "Nombre d'années d'abonnement"
     subscriptions: "Abonnements"
     supervision: "Surveillance"
     supplier: "Fournisseur"

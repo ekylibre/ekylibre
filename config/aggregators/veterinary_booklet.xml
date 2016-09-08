@@ -13,10 +13,10 @@
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
         <variable name="targets" value="Animal.available"/>
-        <sections for="intervention" in="Intervention.of_civil_year(campaign.harvest_year).of_category(:animal_treating).with_targets(targets).reorder(:started_at)" of-type="record">
+        <sections for="intervention" in="Intervention.real.of_civil_year(campaign.harvest_year).of_category(:animal_treating).with_targets(targets).reorder(:started_at)" of-type="record">
           <title name="name" of="intervention"/>
           <property name="id" of="intervention" level="api"/>
-          <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
+          <property name="url" value="&quot;#{Ekylibre::Tenant.host}/backend/interventions/#{intervention.id}&quot;" level="api"/>
           <property name="started_at" of="intervention" type="datetime"/>
           <property name="stopped_at" of="intervention" type="datetime"/>
           <property name="working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>
