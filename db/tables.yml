@@ -932,13 +932,14 @@ call_messages:
   id:
     type: integer
     required: true
-  ip:
+  ip_address:
     type: string
   lock_version:
     type: integer
     required: true
   nature:
     type: string
+    required: true
   request_id:
     type: integer
     references: call_request
@@ -2968,6 +2969,8 @@ inspections:
     type: integer
     references: user
 integrations:
+  ciphered_parameters:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -2977,13 +2980,14 @@ integrations:
   id:
     type: integer
     required: true
+  initialization_vectors:
+    type: jsonb
   lock_version:
     type: integer
     required: true
   nature:
     type: string
-  parameters:
-    type: jsonb
+    required: true
   updated_at:
     type: datetime
     required: true

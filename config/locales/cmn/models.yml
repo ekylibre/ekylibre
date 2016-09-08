@@ -723,7 +723,7 @@ cmn:
     invited_by: "通过邀请"
     invoice_address: "发票地址"
     invoiced_at: "开具发票的上"
-    # ip: "Ip"
+    # ip_address: "IP address"
     irrigated: "灌溉"
     irrigation_water_nitrogen: "灌溉水氮"
     islet: "坻"

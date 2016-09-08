@@ -29,9 +29,9 @@
 #  format       :string
 #  headers      :string
 #  id           :integer          not null, primary key
-#  ip           :string
+#  ip_address   :string
 #  lock_version :integer          default(0), not null
-#  nature       :string
+#  nature       :string           not null
 #  request_id   :integer
 #  ssl          :string
 #  status       :string

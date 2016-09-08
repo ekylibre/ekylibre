@@ -29,9 +29,9 @@
 #  format       :string
 #  headers      :string
 #  id           :integer          not null, primary key
-#  ip           :string
+#  ip_address   :string
 #  lock_version :integer          default(0), not null
-#  nature       :string
+#  nature       :string           not null
 #  request_id   :integer
 #  ssl          :string
 #  status       :string
@@ -51,7 +51,7 @@ class CallRequest < CallMessage
       nature: :incoming, # Because we are in one of our own controllers here.
       headers: request.headers,
       body: request.body,
-      ip: request.ip,
+      ip_address: request.ip_address,
       url: request.original_url,
       format: request.format,
       verb: request.method,

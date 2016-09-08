@@ -723,7 +723,7 @@ deu:
     invited_by: "Auf Einladung"
     invoice_address: "Rechnungsanschrift"
     invoiced_at: "in Rechnung zu"
-    # ip: "Ip"
+    # ip_address: "IP address"
     irrigated: "bewässerte"
     irrigation_water_nitrogen: "Bewässerungswasser Stickstoff"
     islet: "Inselchen"

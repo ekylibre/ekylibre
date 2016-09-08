@@ -922,7 +922,7 @@ fra:
     invoiced: "Facturée" #?
     invoiced_at: "Facturée le"
     invoices_count: "Nombre de factures" #?
-    # ip: "Ip"
+    # ip_address: "IP address"
     irrigated: "Irrigué"
     irrigation_water_nitrogen: "Azote apporté par l’eau d’irrigation (Nirr)"
     islet: "Ilôt"

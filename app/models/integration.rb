@@ -22,24 +22,25 @@
 #
 # == Table: integrations
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nature       :string
-#  parameters   :jsonb
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  ciphered_parameters    :jsonb
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  id                     :integer          not null, primary key
+#  initialization_vectors :jsonb
+#  lock_version           :integer          default(0), not null
+#  nature                 :string           not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 class Integration < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :nature, uniqueness: true, length: { maximum: 500 }, allow_blank: true
+  validates :nature, presence: true, uniqueness: true, length: { maximum: 500 }
   # ]VALIDATORS]
   delegate :auth_type, :check_connection, :integration_name, to: :integration_type
   composed_of :parameters,
               class_name: 'ActionIntegration::Parameters',
               mapping: [%w(ciphered_parameters ciphered), %w(initialization_vectors ivs)],
-              converter: proc { |parameters| ActionIntegration::Parameters.cipher(parameters)}
+              converter: proc { |parameters| ActionIntegration::Parameters.cipher(parameters) }
 
   validate do
     check_connection attributes do |c|

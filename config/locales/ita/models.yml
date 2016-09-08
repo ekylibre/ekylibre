@@ -754,7 +754,7 @@ ita:
     invited_by: "Invitato da"
     invoice_address: "Indirizzo di fatturazione"
     invoiced_at: "fatturato su"
-    # ip: "Ip"
+    # ip_address: "IP address"
     irrigated: "Irrigato"
     irrigation_water_nitrogen: "azoto Irrigazione"
     islet: "Isolotto"

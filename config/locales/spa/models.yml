@@ -727,7 +727,7 @@ spa:
     invited_by: "Invitado por"
     invoice_address: "Dirección de facturación"
     invoiced_at: "Facturado sobre"
-    # ip: "Ip"
+    # ip_address: "IP address"
     irrigated: "Regadío"
     irrigation_water_nitrogen: "Irrigación de nitrógeno del agua"
     islet: "Isleta"

@@ -43,7 +43,7 @@ class Call < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :integration_name, :name, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
-  
+
   # Sync
   def execute_now
     save!

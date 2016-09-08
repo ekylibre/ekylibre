@@ -5,7 +5,7 @@ module Backend::IntegrationsHelper
     possible_names = integration.parents.map(&:name)
     possible_names = possible_names.prepend(integration_name)
     possible_names = possible_names.map(&:underscore)
-    possible_names = possible_names.map { |name| "#{name}"}
+    possible_names = possible_names.map(&:to_s)
 
     assets = Rails.application.assets
     existing_assets = possible_names.map { |name| assets.find_asset("integrations/#{name}") }
