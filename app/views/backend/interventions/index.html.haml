@@ -30,17 +30,17 @@
       - j.face :cobbles do
 
         - campaign ||= current_campaign
-        - current_period_type = current_user.current_period_type
-        - current_period = current_user.current_period
+        -# - current_period_type = current_user.current_period_type
+        -# - current_period = current_user.current_period
+        -#
+        -# - search_params = params.except(:controller, :action)
+        -# - search_params[:period_type] = current_user.current_period_type
+        -# - search_params[:period] = current_user.current_period
 
-        - search_params = params.except(:controller, :action)
-        - search_params[:period_type] = current_user.current_period_type
-        - search_params[:period] = current_user.current_period
-
-        - interventions_requested = Intervention.with_unroll(search_params.merge({ :nature => :request }))
-        - interventions_in_progress = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :in_progress }))
-        - interventions_done = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :done }))
-        - interventions_validate = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :validated }))
+        -# - interventions_requested = Intervention.with_unroll(search_params.merge({ :nature => :request }))
+        -# - interventions_in_progress = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :in_progress }))
+        -# - interventions_done = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :done }))
+        -# - interventions_validate = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :validated }))
 
 
         = taskboard params: { id: "interventionsTaskboard", class: "interventions-board"} do |board|
@@ -55,26 +55,35 @@
             = content_tag(:i, nil, { :class => "picto picto-delete picto--invisible delete-tasks", :title => :title_delete_selected_interventions.tl })
           - headers_actions = [edit_icon, delete_icon]
 
-          - board.headers :class => "taskboard-header--gray" do |header|
-            - header.content :requests.tl + " (" + interventions_requested.count.to_s + ")", headers_actions
-            - header.content :current.tl + " (" + interventions_in_progress.count.to_s + ")", headers_actions
-            - header.content :completed.tl + " (" + interventions_done.count.to_s + ")", headers_actions
-            - header.content :validated.tl + " (" + interventions_validate.count.to_s + ")", []
 
-          - board.lines do |line|
-            - menu_icon = content_tag(:i, nil, {:class => "task-menu picto picto-keyboard-control"})
+          - search_params = params.except(:controller, :action)
+          - search_params[:period_type] = current_user.current_period_type
+          - search_params[:period] = current_user.current_period
 
-            - line.block :class => "requests" do |block|
-              - add_tasks(interventions_requested, block)
+          - header_class = 'taskboard-header--gray'
 
-            - line.block :class => "current" do |block|
-              - add_tasks(interventions_in_progress, block)
+          - board.column :class => "requests" do |column|
+            - requested_interventions = Intervention.with_unroll(search_params.merge({ :nature => :request }))
+            - column.header :requests.tl + " (" + requested_interventions.count.to_s + ")", headers_actions, class: header_class
+            - add_tasks(requested_interventions, column)
 
-            - line.block :class => "finished" do |block|
-              - add_tasks(interventions_done, block)
+          - board.column :class => "current" do |column|
+            - interventions_in_progress = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :in_progress }))
+            - column.header :current.tl + " (" + interventions_in_progress.count.to_s + ")", headers_actions, class: header_class
+            - add_tasks(interventions_in_progress, column)
+            -# - column.tasks add_tasks(interventions_in_progress, block)
 
-            - line.block :class => "validated" do |block|
-              - add_tasks(interventions_validate, block)
+          - board.column :class => "finished" do |column|
+            - interventions_done = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :done }))
+            - column.header :completed.tl + " (" + interventions_done.count.to_s + ")", headers_actions, class: header_class
+            - add_tasks(interventions_done, column)
+            -# - column.tasks add_tasks(interventions_done, block)
+
+          - board.column :class => "validated" do |column|
+            - validated_interventions = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :validated }))
+            - column.header :validated.tl + " (" + validated_interventions.count.to_s + ")", [], class: header_class
+            - add_tasks(validated_interventions, column)
+            -# - column.tasks add_tasks(interventions_validate, block)
 
 
       - j.face :list do

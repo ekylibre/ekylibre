@@ -151,7 +151,7 @@ class Intervention < Ekylibre::Record::Base
       search_params << " AND " unless search_params.blank?
 
       if period_type.to_sym == :days
-        search_params << "EXTRACT(DAY FROM started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
+        search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
       if period_type.to_sym == :weeks
@@ -159,15 +159,15 @@ class Intervention < Ekylibre::Record::Base
         beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
         end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
 
-        search_params << "started_at >= '#{beginning_of_week}' AND stopped_at <= '#{end_of_week}'"
+        search_params << "#{Intervention.table_name}.started_at >= '#{beginning_of_week}' AND #{Intervention.table_name}.stopped_at <= '#{end_of_week}'"
       end
 
       if period_type.to_sym == :months
-        search_params << "EXTRACT(MONTH FROM started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
+        search_params << "EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
       if period_type.to_sym == :years
-        search_params << "EXTRACT(YEAR FROM started_at) = #{period.to_date.year}"
+        search_params << "EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
     end
 
@@ -183,7 +183,11 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
-    where(search_params).order(started_at: :desc)
+    where(search_params)
+      .includes(:doers)
+      .order(started_at: :desc)
+      # .includes(:doers, :targets, :outputs, :inputs, :tools, :record_interventions, :product_parameters)
+      # .references(:root_parameters, :parameters)
   }
 
   scope :with_targets, lambda { |*targets|

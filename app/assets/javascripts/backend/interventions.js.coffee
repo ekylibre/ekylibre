@@ -237,7 +237,7 @@
       @taskboard.addSelectTaskEvent((event) ->
 
           selectedField = $(event.target)
-          columnIndex = instance.getTaskboard().getTaskColumnIndex(selectedField)
+          columnIndex = instance.getTaskboard().getColumnIndex(selectedField)
           header = instance.getTaskboard().getHeaderByIndex(columnIndex)
           checkedFieldsCount = instance.getTaskboard().getCheckedSelectFieldsCount(selectedField)
 

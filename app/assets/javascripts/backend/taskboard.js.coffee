@@ -8,8 +8,8 @@
     constructor: (selector, fixHeader) ->
       @selector = selector
       @taskboard = $("#{selector}")
-      @taskboardHeaders = $(@taskboard).find('.headers')
-      @taskboardLines = $(@taskboard).find('.lines')
+      @taskboardHeaders = $(@taskboard).find('.taskboard-header')
+      @tasks = $(@taskboard).find('.tasks')
       @taskboardOffset = @taskboard.offset()
 
       if (fixHeader)
@@ -21,24 +21,26 @@
     getTaskboardOffset: ->
       return @taskboardOffset
 
+    getColumnIndex: (selector) ->
+      return $(selector).closest('.taskboard-column').attr('data-column-index')
+
+    getColumnByIndex: (index) ->
+      return $(".taskboard-column[data-column-index=\"#{index}\"]")
 
     getHeaders: ->
       return @taskboardHeaders
 
-    getHeaderColumnIndex: (selector) ->
-      return $(selector).closest('.taskboard-header').attr('data-column-index')
-
     getHeaderByIndex: (index) ->
-      return this.getHeaders().find(".taskboard-header[data-column-index=\"#{index}\"]")
+      return this.getColumnByIndex(index).find('.taskboard-header')
 
     getHeaderTitle: (selector) ->
-      return $(selector).find('.column-title')
+      return $(selector).find('.title')
 
     getHeaderActions: ->
-      return @taskboardHeaders.find('.column-actions')
+      return @taskboardHeaders.find('.actions')
 
     getHeaderAction: (headerAction) ->
-      return $(headerAction).find('.column-actions')
+      return $(headerAction).find('.actions')
 
     getHeaderIcons: (headerSelector) ->
       return this.getHeaderAction(headerSelector).find('.picto')
@@ -49,16 +51,11 @@
     displayHeaderIcons: (headerSelector) ->
       this.getHeaderIcons(headerSelector).removeClass('picto--invisible');
 
-
-    getLines: ->
-      return @taskboardLines
-
-
     getTasksBlocks: ->
-      return this.getLines().find('.tasks')
+      return @tasks
 
     getTasks: ->
-      return this.getLines().find('.task')
+      return this.getTasksBlocks().find('.task')
 
     getSelectFieldsTasks: ->
       return this.getTasks().find('.task-select-field')
@@ -76,14 +73,11 @@
     getCheckedTasks: (selector) ->
       return this.getCheckedSelectedFields(selector).closest('.task')
 
-    getTaskColumnIndex: (selector) ->
-      return $(selector).closest('.tasks').attr('data-column-index')
-
     getTasksByIndex: (index) ->
-      return this.getLines().find(".tasks[data-column-index=\"#{index}\"]")
+      return this.getColumnByIndex(index).find('.tasks')
 
     getSelectedTasksByColumnSelector: (selector) ->
-      columnIndex = this.getHeaderColumnIndex(selector)
+      columnIndex = this.getColumnIndex(selector)
       columnTasks = this.getTasksByIndex(columnIndex)
 
       return this.getCheckedTasks(columnTasks)

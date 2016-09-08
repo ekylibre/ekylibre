@@ -1,11 +1,13 @@
 module Backend
   module InterventionsHelper
 
-    def add_tasks(interventions, block)
+    def add_tasks(interventions, column)
 
       tasks = []
 
-      interventions.each do |intervention|
+      interventions.pluck(:id, :procedure_name)
+
+      interventions.find_each do |intervention|
 
         can_select = true
         colors = []
@@ -37,7 +39,7 @@ module Backend
         intervention_datas[:id] = intervention.id
         intervention_datas[:name] = intervention.name
 
-        tasks << block.task([{text: intervention.name}], task_datas, [], can_select, colors,
+        tasks << column.task([{text: intervention.name}], task_datas, [], can_select, colors,
           params: {:class => "", :data => {:intervention => intervention_datas.to_json}})
       end
 

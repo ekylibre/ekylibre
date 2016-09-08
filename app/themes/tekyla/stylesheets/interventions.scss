@@ -97,10 +97,17 @@ $preview-modal-height: 80vh;
 
 .taskboard.interventions-board {
 
-  .taskboard-header {
+  .taskboard-column {
 
-    &--gray {
-      border-bottom: solid 1px #DDD;
+    &.requests {
+      border: dashed 1px #616161;
+    }
+
+    .taskboard-header {
+
+      &--gray {
+        border-bottom: solid 1px #DDD;
+      }
     }
   }
 

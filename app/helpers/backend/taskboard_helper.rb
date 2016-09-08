@@ -1,41 +1,36 @@
 module Backend::TaskboardHelper
   class Taskboard
 
-    attr_reader :options, :headers_options, :taskboard_headers, :taskboard_lines
+    attr_reader :options, :columns
 
     def initialize(options)
+      @columns = []
       @options = options[:params]
-      @taskboard_headers = []
-      @taskboard_lines = []
     end
 
-    def headers(options = {}, &_block)
-      headers = Headers.new(options)
-      yield headers
+    def column(options = {}, &_block)
 
-      @taskboard_headers = headers.headers_list
-      @headers_options = headers.options
+      column = Column.new(options)
+
+      yield column
+
+      @columns << column
     end
 
-    def lines(options = {}, &_block)
-      line = Line.new(options)
-      yield line
-
-      @taskboard_lines << line
-    end
-
-    class Headers
-
-      attr_reader :headers_list, :options
+    class Column
+      attr_reader :column_header, :tasks, :options
 
       def initialize(options)
-
-        @headers_list = []
+        @tasks = []
         @options = options
       end
 
-      def content(title, actions, options = {})
-        @headers_list << Header.new(title, actions, options)
+      def header(title, actions, options = {})
+        @column_header = Header.new(title, actions, options)
+      end
+
+      def task(titles, datas, actions, can_select, colors = {}, options = {})
+        @tasks << Task.new(titles, datas, actions, can_select, colors, options)
       end
     end
 
@@ -48,37 +43,6 @@ module Backend::TaskboardHelper
         @title = title
         @actions = actions
         @options = options
-      end
-    end
-
-    class Line
-      attr_reader :blocks, :options
-
-      def initialize(options)
-        @blocks = []
-        @options = options
-      end
-
-      def block(options = {}, &_block)
-        block = Block.new(options)
-        yield block unless _block.nil?
-
-        @blocks << block
-      end
-    end
-
-    class Block
-
-      attr_reader :tasks, :options
-
-      def initialize(options)
-
-        @tasks = []
-        @options = options
-      end
-
-      def task(titles, datas, actions, can_select, colors = {}, options = {})
-        @tasks << Task.new(titles, datas, actions, can_select, colors, options)
       end
     end
 

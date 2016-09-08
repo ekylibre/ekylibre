@@ -1,145 +1,138 @@
 .taskboard {
-  @include flex-column(stretch, space-between);
-  padding: 10px 20px;
+  @include flex-row(space-between, flex-start);
+  padding: 20px;
   overflow: auto;
 }
 
-.taskboard .headers {
-  @include flex-row(space-between);
-
-  &--fixed {
-    position: fixed;
-    background-color: #F7F7F7;
-    z-index: 6;
-  }
-
-  .taskboard-header {
-    flex: 1;
-    @include flex-row(space-between);
-    height: 60px;
-    margin-right: 30px;
-  }
-
-  .column-title {
-    font-size: $fs-large;
-  }
-
-  .column-actions {
-
-    .picto {
-      color: #bdb8b8;
-      font-size: $fs-large;
-      min-width: initial;
-      line-height: initial;
-    }
-
-    .picto--invisible {
-      display: none;
-    }
-
-    .picto:hover {
-      color: $text-color;
-      cursor: pointer;
-    }
-  }
-}
-
-.taskboard .line {
-  @include flex-row(space-between, stretch);
-  border-bottom: 1px solid #DDD;
-  padding: 20px 0;
-}
-
-.taskboard .tasks {
+.taskboard .taskboard-column {
   flex: 1;
-  @include flex-column(stretch, flex-start);
+  border: solid 1px #DDD;
+  background: #fafafa;
   margin-right: 30px;
 
-  .task {
-    @include flex-column(flex-start, flex-start);
-    margin: 10px 20px;
-    padding: 10px 15px 15px 15px;
-    border: 1px solid #DDD;
-    @include normal-shadow();
-    border-radius: 5px;
-    position: relative;
-    cursor: pointer;
+  .taskboard-header {
+    @include flex-row(space-between);
+    padding-left: 20px;
+    padding-right: 10px;
+    height: 60px;
 
-    &-select-field {
-      position: absolute;
-      right: 10px;
-      top: 10px;
+    &--fixed {
+      position: fixed;
+      background-color: #F7F7F7;
+      z-index: 6;
     }
 
-    &--selected {
-
+    .title {
+      font-size: $fs-large;
     }
 
-    &-texts {
-      font-weight: bold;
-    }
-
-    &-text {
-      font-size: $fs-normal;
-    }
-
-    &-datas {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
+    .actions {
 
       .picto {
+        color: #bdb8b8;
         font-size: $fs-large;
         min-width: initial;
         line-height: initial;
       }
-    }
 
-    &-data {
-      margin-right: 12px;
-    }
+      .picto--invisible {
+        display: none;
+      }
 
-    &-datas * {
-      color: white;
-      padding: 2px 5px;
-      border-radius: 3px;
-      font-weight: bold;
-      margin-bottom: 5px;
+      .picto:hover {
+        color: $text-color;
+        cursor: pointer;
+      }
     }
+  }
 
-    &-datas .data-text {
-      font-size: $fs-normal;
-      font-style: italic;
-      line-height: initial;
-    }
+  .tasks {
+    flex: 1;
+    @include flex-column(stretch, flex-start);
+    padding-top: 20px;
 
-    &-colors {
-      @include flex-row(flex-start);
-      flex-wrap: wrap;
-      margin-bottom: 5px;
-    }
-
-    &-color {
-      width: 40px;
-      height: 10px;
+    .task {
+      @include flex-column(flex-start, flex-start);
+      margin: 10px 20px;
+      padding: 5px 15px;
+      border: 1px solid #DDD;
+      @include normal-shadow();
       border-radius: 5px;
-      margin-right: 5px;
-      margin-bottom: 5px;
-    }
-
-    .task-menu {
-      font-size: $fs-huge;
-      position: absolute;
-      bottom: 12px;
-      right: 5px;
-      min-width: 0;
-      line-height: 0;
-      color: #8c8c8c;
+      position: relative;
       cursor: pointer;
-    }
 
-    .task-menu:hover {
-      color: $text-color;
+      &-select-field {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+
+      &-texts {
+        font-weight: bold;
+      }
+
+      &-text {
+        font-size: $fs-normal;
+      }
+
+      &-datas {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+
+        .picto {
+          font-size: $fs-large;
+          min-width: initial;
+          line-height: initial;
+        }
+      }
+
+      &-data {
+        margin-right: 12px;
+      }
+
+      &-datas * {
+        color: white;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      &-datas .data-text {
+        font-size: $fs-normal;
+        font-style: italic;
+        line-height: initial;
+      }
+
+      &-colors {
+        @include flex-row(flex-start);
+        flex-wrap: wrap;
+        margin-bottom: 5px;
+      }
+
+      &-color {
+        width: 40px;
+        height: 10px;
+        border-radius: 5px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+
+      .task-menu {
+        font-size: $fs-huge;
+        position: absolute;
+        bottom: 12px;
+        right: 5px;
+        min-width: 0;
+        line-height: 0;
+        color: #8c8c8c;
+        cursor: pointer;
+      }
+
+      .task-menu:hover {
+        color: $text-color;
+      }
     }
   }
 }
