@@ -25,14 +25,14 @@
           input = form.find("##{prefix}component_id")
           unrollPath = input.attr('data-selector')
           if unrollPath
-            assemId = attributes["assembly_id"]
-            if typeof(assemId) == 'undefined' or assemId is null
-              assemId = "nil"
+            assemblyId = attributes["assembly_id"]
+            if typeof(assemblyId) == 'undefined' or assemblyId is null
+              assemblyId = "nil"
             componentReg = /(unroll\?.*scope.*components_of_product[^=]*)=([^&]*)(&?.*)/
-            oldAssembly = unrollPath.match(componentReg)[2]
-            unrollPath = unrollPath.replace(componentReg, "$1="+assemId+"$3")
+            oldAssemblyId = unrollPath.match(componentReg)[2]
+            unrollPath = unrollPath.replace(componentReg, "$1=#{assemblyId}$3")
             input.attr('data-selector', unrollPath)
-            if assemId.toString() != oldAssembly.toString()
+            if assemblyId.toString() != oldAssemblyId.toString()
               console.log "CLEAR"
               $(input).val('')
 
@@ -104,13 +104,8 @@
         scopeUri = scopeUri.replace(re, "$1" + newTime + "$3")
         $(item).attr("data-selector", encodeURI(scopeUri))
 
-    # Ask for a refresh of values depending on given field
-    refresh: (origin) ->
-      this.refreshHard(origin)
-      # this.refreshHardz(origin.data('procedure'), origin.data('intervention-updater'), origin)
-
     # Ask for a refresh of values depending on given update
-    refreshHard: (updater) ->
+    refresh: (updater, options = {}) ->
       unless updater?
         console.error 'Missing updater'
         return false
@@ -140,9 +135,8 @@
             E.interventions.toggleHandlers(form, data.handlers, 'intervention_')
             E.interventions.handleComponents(form, data.intervention, 'intervention_', data.updater_id)
             E.interventions.unserializeRecord(form, data.intervention, 'intervention_', data.updater_id)
-            # if updaterElement? and initialValue != E.value($("*[data-intervention-updater='#{intervention.updater}']").first())
-            #   E.interventions.refresh updaterElement
             computing.prop 'state', 'ready'
+            options.success.call(this, data, status, request) if options.success?
             console.groupEnd()
 
 
@@ -152,11 +146,10 @@
   $(document).on 'cocoon:after-insert', (e, i) ->
     $('input[data-map-editor]').each ->
       $(this).mapeditor()
-    $(".nested-fields.working-period:first-child input.intervention-started-at").each ->
-      $(this).each ->
-        E.interventions.updateAvailabilityInstant($(this).val())
-    $('*[data-intervention-updater]').each ->
-        E.interventions.refresh $(this)
+    $('#parameters *[data-intervention-updater]').each ->
+      E.interventions.refresh $(this),
+        success: (stat, status, request) ->
+          E.interventions.updateAvailabilityInstant($(".nested-fields.working-period:first-child input.intervention-started-at").first())
 
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->
@@ -341,7 +334,6 @@
       @taskboardModal.removeModalContent()
       @taskboardModal.getModalContent().append(data)
       @taskboardModal.getModal().modal 'show'
-
 
 
   true
