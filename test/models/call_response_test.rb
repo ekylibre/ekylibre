@@ -20,23 +20,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: calls
+# == Table: call_messages
 #
-#  args         :jsonb
+#  body         :text
+#  call_id      :integer
 #  created_at   :datetime         not null
 #  creator_id   :integer
+#  format       :string
+#  headers      :string
 #  id           :integer          not null, primary key
+#  ip           :string
 #  lock_version :integer          default(0), not null
 #  method       :string
-#  source       :string
-#  state        :string
+#  nature       :string
+#  request_id   :integer
+#  ssl          :string
+#  status       :string
+#  type         :string
 #  updated_at   :datetime         not null
 #  updater_id   :integer
+#  url          :string
 #
 require 'test_helper'
 
-class CallTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+class CallResponseTest < ActiveSupport::TestCase
+  # Add tests here...
 end

@@ -22,6 +22,10 @@
 - bioproduct
 - building
 - building_division
+- call
+- call_message
+- call_request
+- call_response
 - campaign
 - cap_islet
 - cap_land_parcel

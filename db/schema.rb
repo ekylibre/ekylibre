@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824160125) do
+ActiveRecord::Schema.define(version: 20160825161606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -476,29 +476,48 @@ ActiveRecord::Schema.define(version: 20160824160125) do
   add_index "bank_statements", ["updater_id"], name: "index_bank_statements_on_updater_id", using: :btree
 
   create_table "call_messages", force: :cascade do |t|
-    t.string  "status"
-    t.string  "headers"
-    t.text    "body"
-    t.string  "type"
-    t.string  "nature"
-    t.string  "ip"
-    t.string  "url"
-    t.string  "format"
-    t.string  "ssl"
-    t.string  "method"
-    t.integer "request_id"
-    t.integer "call_id"
+    t.string   "status"
+    t.string   "headers"
+    t.text     "body"
+    t.string   "type"
+    t.string   "nature"
+    t.string   "ip"
+    t.string   "url"
+    t.string   "format"
+    t.string   "ssl"
+    t.string   "method"
+    t.integer  "request_id"
+    t.integer  "call_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "call_messages", ["call_id"], name: "index_call_messages_on_call_id", using: :btree
+  add_index "call_messages", ["created_at"], name: "index_call_messages_on_created_at", using: :btree
+  add_index "call_messages", ["creator_id"], name: "index_call_messages_on_creator_id", using: :btree
   add_index "call_messages", ["request_id"], name: "index_call_messages_on_request_id", using: :btree
+  add_index "call_messages", ["updated_at"], name: "index_call_messages_on_updated_at", using: :btree
+  add_index "call_messages", ["updater_id"], name: "index_call_messages_on_updater_id", using: :btree
 
   create_table "calls", force: :cascade do |t|
-    t.string "state"
-    t.string "source"
-    t.string "method"
-    t.jsonb  "args"
+    t.string   "state"
+    t.string   "source"
+    t.string   "method"
+    t.jsonb    "args"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
   end
+
+  add_index "calls", ["created_at"], name: "index_calls_on_created_at", using: :btree
+  add_index "calls", ["creator_id"], name: "index_calls_on_creator_id", using: :btree
+  add_index "calls", ["updated_at"], name: "index_calls_on_updated_at", using: :btree
+  add_index "calls", ["updater_id"], name: "index_calls_on_updater_id", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "name",                         null: false

@@ -913,6 +913,78 @@ bank_statements:
   updater_id:
     type: integer
     references: user
+call_messages:
+  body:
+    type: text
+  call_id:
+    type: integer
+    references: call
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  format:
+    type: string
+  headers:
+    type: string
+  id:
+    type: integer
+    required: true
+  ip:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  method:
+    type: string
+  nature:
+    type: string
+  request_id:
+    type: integer
+    references: call_request
+  ssl:
+    type: string
+  status:
+    type: string
+  type:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  url:
+    type: string
+calls:
+  args:
+    type: jsonb
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: ''
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  method:
+    type: string
+  source:
+    type: string
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: ''
 campaigns:
   closed:
     type: boolean

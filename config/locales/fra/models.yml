@@ -504,6 +504,7 @@ fra:
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
     birth: "Naissance" #?
+    # body: "Body"
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
     budget: "Budget" #?
@@ -805,6 +806,7 @@ fra:
     fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
     following: "Suivant"
+    # format: "Format"
     formats: "Formats"
     fourth_producer: "Quatrième producteur" #?
     fourth_producer_way: "Voie du quatrième producteur" #?
@@ -847,6 +849,7 @@ fra:
     guide: "Référentiel"
     harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"
+    # headers: "Headers"
     host: "Hôte"
     human_activities_names: "Nom des activités"
     human_shape_area: "Superficie"
@@ -918,6 +921,7 @@ fra:
     invoiced: "Facturée" #?
     invoiced_at: "Facturée le"
     invoices_count: "Nombre de factures" #?
+    # ip: "Ip"
     irrigated: "Irrigué"
     irrigation_water_nitrogen: "Azote apporté par l’eau d’irrigation (Nirr)"
     islet: "Ilôt"
@@ -1037,6 +1041,7 @@ fra:
     memberships: "Membres du groupe"
     message: "Message"
     metadata: "Méta-données"
+    # method: "Method"
     milk_withdrawal_period: "Délai d’attente (lait)" #?
     min_zoom: "Zoom minimal"
     mineral_nitrogen_at_opening: "Azote minéral dans le sol à l’ouverture du bilan (Ri)"
@@ -1090,7 +1095,7 @@ fra:
     office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
     opened_at: "Ouvert le"
-    operation: "Travail" #?
+    operation: "Travail"
     operations: "Travaux" #?
     ordered_at: "Commandé à"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
@@ -1322,6 +1327,7 @@ fra:
     reset_password_token: "Jeton de réinitialisation du mot de passe"
     resource: "Ressource"
     resource_type: "Type de ressource"
+    # responses: "Responses"
     responsible: "Responsable"
     restricted: "Réservé"
     retrieval_message: "Message"
@@ -1393,6 +1399,7 @@ fra:
     source_product: "Produit Source"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
+    # ssl: "Ssl"
     start: "Début"
     start_junction: "Jonction de départ" #?
     start_way: "Voie de départ" #?
