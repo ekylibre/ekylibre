@@ -70,7 +70,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   refers_to :absolute_currency, class_name: 'Currency'
   belongs_to :account
   belongs_to :financial_year
-  belongs_to :activity_budget, class_name: 'ActivityBudget'
+  belongs_to :activity_budget
   belongs_to :journal, inverse_of: :entry_items
   belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
   belongs_to :bank_statement

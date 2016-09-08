@@ -52,7 +52,7 @@ class SaleItem < Ekylibre::Record::Base
   attr_readonly :sale_id
   refers_to :currency
   belongs_to :account
-  belongs_to :activity_budget, class_name: 'ActivityBudget'
+  belongs_to :activity_budget
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'
   belongs_to :variant, class_name: 'ProductNatureVariant'

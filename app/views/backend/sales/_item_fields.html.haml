@@ -21,7 +21,7 @@
   - attrs[:style] = 'display: none' unless f.object.subscription
   - f.object.build_subscription unless f.object.subscription
   %tr.tr-add-on.subscription{attrs}
-    %td{ colspan: 20 }
+    %td{ colspan: 5 }
       .subscription-form
         = f.simple_fields_for :subscription do |s|
           %strong.label-inline.subscription_nature_name= (f.object.product_nature && f.object.subscription_nature) ? f.object.subscription_nature.name : nil
@@ -35,6 +35,8 @@
   - attrs = {}
   - attrs[:style] = "display: none" if f.object.annotation.blank?
   %tr.tr-add-on.annotate{attrs}
-    %td{ colspan: 20 }= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })
-    - if ActivityBudget.any?
-      %td{ colspan: 20 }= f.referenced_association(:activity_budget)
+    %td{ colspan: 5 }= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })
+
+  - if current_user.can?(:read, :activities) && ActivityBudget.opened.any?
+    %tr.tr-add-on
+      %td{ colspan: 5 }= f.referenced_association(:activity_budget)
