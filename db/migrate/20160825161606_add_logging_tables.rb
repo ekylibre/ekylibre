@@ -17,7 +17,6 @@ class AddLoggingTables < ActiveRecord::Migration
 
       t.references  :request, index: true
       t.references  :call, index: true
-
       t.stamps
     end
 
@@ -26,7 +25,6 @@ class AddLoggingTables < ActiveRecord::Migration
       t.string      :integration_name
       t.string      :name
       t.jsonb       :arguments
-
       t.stamps
     end
   end

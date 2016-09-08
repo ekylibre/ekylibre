@@ -41,6 +41,8 @@
 #  url          :string
 #  verb         :string
 #
+
+# Represents a Request in DB.
 class CallRequest < CallMessage
   has_many :responses, class_name: 'CallResponse', foreign_key: :request_id
 

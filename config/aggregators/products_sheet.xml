@@ -13,7 +13,7 @@
       <sections for="category" in="ProductNatureCategory.order(:name)">
         <property name="id" of="category" level="api"/>
         <title name="name" of="category"/>
-        <property name="url" value="&quot;#{Preference[:host]}/backend/product_nature_categories/#{category.id}&quot;" level="api"/>
+        <property name="url" value="&quot;#{Ekylibre::Tenant.host}/backend/product_nature_categories/#{category.id}&quot;" level="api"/>
         <property name="fixed_asset_account_label" value="fixed_asset_account.label" of="category" if="category.fixed_asset_account"/>
         <property name="charge_account_label"  value="charge_account.label"  of="category" if="category.charge_account"/>
         <property name="product_account_label" value="product_account.label" of="category" if="category.product_account"/>
@@ -30,7 +30,7 @@
         <sections for="nature" in="category.natures.order(:name)">
           <property name="id" of="nature" level="api"/>
           <title name="name" of="nature"/>
-          <property name="url" value="&quot;#{Preference[:host]}/backend/product_natures/#{nature.id}&quot;" level="api"/>
+          <property name="url" value="&quot;#{Ekylibre::Tenant.host}/backend/product_natures/#{nature.id}&quot;" level="api"/>
           <property name="variety" of="nature"/>
           <property name="derivative_of" of="nature"/>
           <property name="reference_name" of="nature"/>
@@ -45,7 +45,7 @@
           <sections for="variant" in="nature.variants.order(:name)">
             <property name="id" of="variant" level="api"/>
             <title name="name" of="variant"/>
-            <property name="url" value="&quot;#{Preference[:host]}/backend/product_nature_variants/#{variant.id}&quot;" level="api"/>
+            <property name="url" value="&quot;#{Ekylibre::Tenant.host}/backend/product_nature_variants/#{variant.id}&quot;" level="api"/>
             <property name="variety" of="variant"/>
             <property name="derivative_of" of="variant"/>
             <property name="reference_name" of="variant"/>
@@ -56,7 +56,7 @@
             <matrix name="products" for="product" in="variant.products.at(stopped_on).reorder(:born_at)">
               <cell name="id" of="product" level="api"/>
               <cell name="name" of="product"/>
-              <cell name="url" value="&quot;#{Preference[:host]}/backend/products/#{product.id}&quot;" level="api"/>
+              <cell name="url" value="&quot;#{Ekylibre::Tenant.host}/backend/products/#{product.id}&quot;" level="api"/>
               <cell name="identification_number" of="product" level="api"/>
               <cell name="work_number" of="product"/>
               <cell name="number" of="product" level="api"/>

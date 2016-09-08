@@ -169,7 +169,7 @@ module Backend
 
         sale.items.each do |item|
           item.variant.take(item.quantity).each do |product, quantity|
-            @parcel.items.new(source_product: product, quantity: quantity)
+            @parcel.items.new(sale_item_id: item.id, source_product: product, quantity: quantity)
           end
         end
       end
@@ -184,10 +184,9 @@ module Backend
         @parcel.storage = preceding.storage if preceding
 
         purchase.items.each do |item|
-          @parcel.items.new(quantity: item.quantity, variant: item.variant)
+          @parcel.items.new(purchase_item_id: item.id, quantity: item.quantity, variant: item.variant)
         end
       end
-
       t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
     end
 

@@ -41,6 +41,8 @@
 #  url          :string
 #  verb         :string
 #
+
+# Represents a Response in DB.
 class CallResponse < CallMessage
   belongs_to :request, class_name: 'CallRequest'
   delegate :method, :ip, :url, to: :request

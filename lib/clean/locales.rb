@@ -351,6 +351,7 @@ module Clean
           translation << "  enumerize:\n"
           ref[:enumerize] ||= {}
           Clean::Support.models_in_file.each do |model|
+            next unless model.respond_to? :enumerized_attributes
             attrs = []
             model.enumerized_attributes.each do |attr|
               next if attr.i18n_scope
