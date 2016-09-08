@@ -74,7 +74,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates :to_bank_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   # ]VALIDATORS]
   validates :currency, length: { allow_nil: true, maximum: 3 }
-  validates :amount, numericality: { greater_than: 0.0 }
+  validates :amount, numericality: true
   validates :commission_amount, numericality: { greater_than_or_equal_to: 0.0 }
   validates :payer, presence: true
   validates :commission_account, presence: { if: :with_commission? }
