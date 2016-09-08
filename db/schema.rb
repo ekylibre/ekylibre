@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906112630) do
+ActiveRecord::Schema.define(version: 20160907155257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1560,12 +1560,13 @@ ActiveRecord::Schema.define(version: 20160906112630) do
 
   create_table "integrations", force: :cascade do |t|
     t.string   "nature"
-    t.jsonb    "parameters"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.jsonb    "ciphered_parameters"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
+    t.integer  "lock_version",           default: 0, null: false
+    t.jsonb    "initialization_vectors"
   end
 
   add_index "integrations", ["created_at"], name: "index_integrations_on_created_at", using: :btree

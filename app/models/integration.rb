@@ -36,11 +36,13 @@ class Integration < Ekylibre::Record::Base
   validates :nature, uniqueness: true, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
   delegate :auth_type, :check_connection, :integration_name, to: :integration_type
-  before_destroy do
-    ActionIntegration::Base.find_integration(nature).on_logout(trigger: true)
-  end
+  composed_of :parameters,
+              class_name: 'ActionIntegration::Parameters',
+              mapping: [%w(ciphered_parameters ciphered), %w(initialization_vectors ivs)],
+              converter: proc { |parameters| ActionIntegration::Parameters.cipher(parameters)}
+
   validate do
-    check_connection self do |c|
+    check_connection attributes do |c|
       c.redirect do
         errors.add(:parameters, :check_redirected)
       end
@@ -48,6 +50,15 @@ class Integration < Ekylibre::Record::Base
         errors.add(:parameters, :check_errored)
       end
     end
+  end
+
+  before_validation do
+    self.initialization_vectors = parameters.ivs
+    self.ciphered_parameters = parameters.ciphered
+  end
+
+  before_destroy do
+    ActionIntegration::Base.find_integration(nature).on_logout(trigger: true)
   end
 
   after_save do

@@ -999,6 +999,8 @@
         <page to="backend/integrations#index"/>
         <page to="backend/integrations#edit"/>
         <page to="backend/integrations#new"/>
+        <page to="backend/integrations#create"/>
+        <page to="backend/integrations#update"/>
       </item>
       <item name="map_backgrounds">
         <page to="backend/map_backgrounds#index"/>
