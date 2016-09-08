@@ -21,6 +21,9 @@
     getTaskboardOffset: ->
       return @taskboardOffset
 
+    getColumns: () ->
+      return this.getTaskboard().find('.taskboard-column')
+
     getColumnIndex: (selector) ->
       return $(selector).closest('.taskboard-column').attr('data-column-index')
 
@@ -101,17 +104,18 @@
 
       instance = this
 
-      $("#content").scroll( ->
+      $('#content').scroll( ->
 
         scroll = $('#content').scrollTop()
 
         if (scroll >= taskboardTopOffset)
-          instance.getHeaders().addClass('headers--fixed')
+          instance.getHeaders().addClass('taskboard-header--fixed')
           instance.getHeaders().css('top', $('#content').offset().top)
-          instance.getHeaders().css('width', instance.getTaskboard().css('width'))
+          instance.getHeaders().css('width', instance.getColumns().outerWidth())
         else
-          instance.getHeaders().removeClass('headers--fixed')
-
+          instance.getHeaders().removeClass('taskboard-header--fixed')
+          instance.getHeaders().css('top', 'initial')
+          instance.getHeaders().css('width', 'initial')
       )
 
     addTaskClickEvent: (callback) ->

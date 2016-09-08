@@ -1807,7 +1807,7 @@ fra:
     started: "Nouveaux"
     state: "État"
     statistics: "Statistiques"
-    status: "État" #?
+    status: "État"
     stewardship: "Assistant"
     stock: "Stock"
     stock_container_map: "Carte des lieux de stockage"
@@ -1848,6 +1848,7 @@ fra:
     target: "Cible"
     target_name: "Nom de la cible" #?
     target_zone: "Zone cible" #?
+    targets: "Cibles"
     tasks: "Tâches"
     taxations: "Taxations"
     taxes: "Taxes"

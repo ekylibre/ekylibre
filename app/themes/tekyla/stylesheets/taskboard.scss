@@ -54,7 +54,7 @@
     .task {
       @include flex-column(flex-start, flex-start);
       margin: 10px 20px;
-      padding: 5px 15px;
+      padding: 10px 15px;
       border: 1px solid #DDD;
       @include normal-shadow();
       border-radius: 5px;

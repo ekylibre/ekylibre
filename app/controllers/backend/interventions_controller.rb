@@ -103,19 +103,19 @@ module Backend
 
     # conditions: list_conditions,
     list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
-      # t.action :edit, if: :updateable?
-      # t.action :destroy, if: :destroyable?
+      t.action :edit, if: :updateable?
+      t.action :destroy, if: :destroyable?
       t.column :name, sort: :procedure_name, url: true
       t.column :procedure_name, hidden: true
       # t.column :production, url: true, hidden: true
       # t.column :campaign, url: true
-      # t.column :human_activities_names
+      t.column :human_activities_names
       t.column :started_at
       t.column :stopped_at, hidden: true
-      # t.column :human_working_duration
-      # t.column :human_target_names
-      # t.column :human_working_zone_area
-      # t.column :total_cost, label_method: :human_total_cost, currency: true
+      t.column :human_working_duration
+      t.column :human_target_names
+      t.column :human_working_zone_area
+      t.column :total_cost, label_method: :human_total_cost, currency: true
       t.column :nature
       t.column :issue, url: true
       t.column :trouble_encountered, hidden: true

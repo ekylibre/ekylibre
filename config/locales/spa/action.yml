@@ -860,7 +860,7 @@ spa:
     choose_a_type_of_product: "Elija un tipo de producto"
     choose_creation_mode: "Elige el modo de creación"
     choose_mail_column: "Por favor escoge la columna a utilizar para el mailing"
-    # choose_options_is_needed: "Vous devez choisir le statut sur lequel les interventions suivantes vont être affectées :"
+    # choose_options_is_needed: "You must choose the status for the following interventions :"
     clear: "Claro"
     click_to_mail: "Escribe su mensaje con su propia mensajeria electronica"
     client: "Cliente"
@@ -1544,6 +1544,7 @@ spa:
     started: "Empezado"
     state: "Estado"
     statistics: "Estadística"
+    # status: "Status"
     stewardship: "Administración"
     stock: "Valores"
     stock_container_map: "Foto mapa"
@@ -1573,6 +1574,7 @@ spa:
     supports_chart: "Soporta gráfica" #?
     synthesis: "Documentos de sintesis"
     target: "Objetivo"
+    # targets: "Targets"
     tasks: "Tareas"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?

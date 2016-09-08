@@ -1,11 +1,9 @@
 module Backend
   module InterventionsHelper
 
-    def add_tasks(interventions, column)
+    def add_taskboard_tasks(interventions, column)
 
       tasks = []
-
-      interventions.pluck(:id, :procedure_name)
 
       interventions.find_each do |intervention|
 
@@ -13,7 +11,7 @@ module Backend
         colors = []
         task_datas = []
 
-        intervention.activity_productions.each do |activity_production|
+        intervention.activity_productions.find_each do |activity_production|
 
           activity_color = activity_production.activity.color
           cultivable_zone = activity_production.cultivable_zone
@@ -22,24 +20,20 @@ module Backend
         end
 
 
-        if intervention.doers.count > 0
+        doers_count = intervention.doers.count
+
+        if doers_count > 0
 
           doers_text = intervention.doers[0].product.name
-
-          if intervention.doers.count > 1
-            remaining_doers = intervention.doers.count - 1
-            doers_text << " +" + remaining_doers.to_s
-          end
+          doers_text << " +" + (doers_count - 1).to_s if doers_count > 1
 
           task_datas << { icon: "user", text: doers_text, class: "doers" }
         end
 
 
-        intervention_datas = Hash.new
-        intervention_datas[:id] = intervention.id
-        intervention_datas[:name] = intervention.name
+        intervention_datas = { id: intervention.id, name: intervention.name }
 
-        tasks << column.task([{text: intervention.name}], task_datas, [], can_select, colors,
+        tasks << column.task([{text: intervention_datas[:name]}], task_datas, [], can_select, colors,
           params: {:class => "", :data => {:intervention => intervention_datas.to_json}})
       end
 

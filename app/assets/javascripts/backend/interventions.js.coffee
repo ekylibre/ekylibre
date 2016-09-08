@@ -212,10 +212,7 @@
     if $('.taskboard').length > 0
 
       taskboard = new InterventionsTaskboard
-      taskboard.addHeaderActionsEvent()
-      taskboard.addEditIconClickEvent()
-      taskboard.addDeleteIconClickEvent()
-      taskboard.addTaskClickEvent()
+      taskboard.initTaskboard()
 
 
   class InterventionsTaskboard
@@ -223,6 +220,12 @@
     constructor: ->
       @taskboard = new ekylibre.taskboard('#interventionsTaskboard', true)
       @taskboardModal = new ekylibre.modal('#taskboard-modal')
+
+    initTaskboard: ->
+      this.addHeaderActionsEvent()
+      this.addEditIconClickEvent()
+      this.addDeleteIconClickEvent()
+      this.addTaskClickEvent()
 
     getTaskboard: ->
       return @taskboard
@@ -338,6 +341,8 @@
       @taskboardModal.removeModalContent()
       @taskboardModal.getModalContent().append(data)
       @taskboardModal.getModal().modal 'show'
+
+
 
   true
 ) ekylibre, jQuery

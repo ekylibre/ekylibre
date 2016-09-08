@@ -112,6 +112,7 @@ por:
   time:
     am: "am"
     formats:
+      # datetime_with_slashs: "%m/%d/%Y %H:%M"
       default: "%a, %d de %B de %Y, %H:%M:%S"
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"

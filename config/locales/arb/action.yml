@@ -1070,7 +1070,7 @@ arb:
     choose_a_type_of_product: "اختر نوع المنتج"
     choose_creation_mode: "اختيار وضع إنشاء"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
-    # choose_options_is_needed: "Vous devez choisir le statut sur lequel les interventions suivantes vont être affectées :"
+    # choose_options_is_needed: "You must choose the status for the following interventions :"
     city_name: "المدينة" #?
     clear: "واضح"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
@@ -1926,6 +1926,7 @@ arb:
     started: "بدأت"
     state: "الحالة"
     statistics: "إحصائيات"
+    # status: "Status"
     stewardship: "إدارة"
     stock: "مخزون"
     stock_container_map: "خريطة الأسهم"
@@ -1963,6 +1964,7 @@ arb:
     supports_chart: "يدعم الرسم البياني" #?
     synthesis: "تجميع الوثائق"
     target: "الهدف"
+    # targets: "Targets"
     tasks: "المهام"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?

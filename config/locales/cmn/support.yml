@@ -117,6 +117,7 @@ cmn:
   time:
     am: "上午"
     formats:
+      # datetime_with_slashs: "%m/%d/%Y %H:%M"
       default: "%Y年%b%d日 %A %H:%M:%S %Z"
       long: "%Y年%b%d日 %H:%M"
       short: "%b%d日 %H:%M"

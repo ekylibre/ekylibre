@@ -112,6 +112,7 @@ fra:
   time:
     am: "am"
     formats:
+      datetime_with_slashs: "%d/%m/%Y %H:%M"
       default: "%d/%m/%Y %H:%M"
       long: "%A %d %B %Y à %H:%M"
       short: "%d %b %H:%M"

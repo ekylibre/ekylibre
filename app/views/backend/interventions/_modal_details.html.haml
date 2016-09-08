@@ -24,13 +24,13 @@
         %span.title= Intervention.human_attribute_name(:started_at)
         %span.value
           %i.picto.picto-clock-o
-          = resource.started_at.l
+          = resource.started_at.l(format: :datetime_with_slashs)
 
       .med-info
         %span.title= Intervention.human_attribute_name(:stopped_at)
         %span.value
           %i.picto.picto-clock-o
-          = resource.stopped_at.l
+          = resource.stopped_at.l(format: :datetime_with_slashs)
 
     %div.blocks
 
@@ -44,7 +44,7 @@
 
 
       %div.block
-        = content_tag(:h3, :land_parcels.tl, class: "block-title")
+        = content_tag(:h3, :targets.tl, class: "block-title")
 
         - intervention.targets.each do |targets|
           - title = targets.product.name
@@ -65,7 +65,12 @@
         - intervention.inputs.each do |input|
           - unless input.product.blank?
             - title = input.product.name
-            - detail = input.quantity_value.round(2).l(precision: 0) + " " + input.quantity_handler_reference.unit.symbol
+            - detail = ""
+
+            - unless input.quantity_handler_reference.unit.nil?
+              - detail = input.quantity_value.round(2).l(precision: 0)
+              - detail << " " + input.quantity_handler_reference.unit.symbol
+
             = add_modal_data(title, detail, {icon: 'picto-matter'})
 
 

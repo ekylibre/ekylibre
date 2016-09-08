@@ -186,6 +186,7 @@ deu:
   time:
     am: "vormittags"
     formats:
+      # datetime_with_slashs: "%m/%d/%Y %H:%M"
       default: "%A, %d. %B %Y, %H:%M Uhr"
       long: "%A, %d. %B %Y, %H:%M Uhr"
       short: "%d. %B, %H:%M Uhr"
