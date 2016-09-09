@@ -10,6 +10,7 @@
 #= require visualization/path
 #= require visualization/paths
 #= require visualization/points
+#= require visualization/point_group
 #= require visualization/simple
 
 ((V, $) ->
@@ -133,6 +134,14 @@
           fillColor: "#333333"
           radius: 3
         points:
+          stroke: true
+          color: "#333333"
+          weight: 2
+          opacity: 1
+          fill: true
+          fillOpacity: 1
+          radius: 5
+        point_group:
           stroke: true
           color: "#333333"
           weight: 2
