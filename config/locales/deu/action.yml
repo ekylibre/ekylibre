@@ -1455,6 +1455,7 @@ deu:
     view: "Aussicht"
     watering_concentration: "Der Wasserverbrauch"
     weather: "Wetter"
+    website: "Webseite"
     wind_speed: "Windgeschwindigkeit"
     with_fixed_assets_depreciations: "Mit Anlagevermögen Abschreibungen"
     workers: "Arbeitskräfte"

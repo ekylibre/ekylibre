@@ -319,9 +319,9 @@ fra:
       new: "Nouvel agréage"
       show: "Agréage\_: %{number}"
     backend/integrations:
-      edit: "Modifier l'intégration: %{name}"
+      edit: "Modifier l'intégration %{name}"
       index: "Intégrations"
-      new: "Activer l'intégration: %{name}"
+      new: "Activer l'intégration %{name}"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       edit_request: "Modifier la demande de %{procedure_name} #%{number}"
@@ -2012,6 +2012,7 @@ fra:
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"
+    website: "Site web"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"

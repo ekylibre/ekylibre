@@ -7,7 +7,7 @@
       %p= "#{resource.nature}_long_description".tl
       - url = "#{resource.nature}_url".tl(default: 'none')
       - if url != 'none'
-        - url_name = url.gsub(/\Ahttp(s)?\:\/\//, '').gsub(/\/\z/, '')
+        - url_name = url.gsub(/\Ahttp(s)?\:\/\/(www\.)?/, '').gsub(/\/\z/, '')
         %p
           = :website.tl
           = link_to(url_name, url)

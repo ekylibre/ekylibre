@@ -1615,7 +1615,7 @@ eng:
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"
-    # website: "Website"
+    website: "Website"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"

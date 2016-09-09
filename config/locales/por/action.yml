@@ -1460,6 +1460,7 @@ por:
     view: "Visão"
     watering_concentration: "O uso da água"
     weather: "Clima"
+    website: "Site"
     wind_speed: "Velocidade do vento"
     with_fixed_assets_depreciations: "Com depreciações de ativos fixos"
     workers: "Trabalhadores"

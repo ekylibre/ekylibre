@@ -1456,6 +1456,7 @@ cmn:
     view: "视图"
     watering_concentration: "水的使用"
     weather: "天气"
+    website: "网站"
     wind_speed: "风速"
     with_fixed_assets_depreciations: "拥有固定资产折旧"
     workers: "工人"
