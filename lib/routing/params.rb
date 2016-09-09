@@ -12,10 +12,12 @@ module Routes
   end
 end
 
-module ActionDispatch::Routing
-  class Mapper
-    def params(*args)
-      Routes::ParamsConstraint.new(*args)
+module ActionDispatch
+  module Routing
+    class Mapper
+      def params(*args)
+        Routes::ParamsConstraint.new(*args)
+      end
     end
   end
 end
