@@ -1001,6 +1001,7 @@
         <page to="backend/integrations#new"/>
         <page to="backend/integrations#create"/>
         <page to="backend/integrations#update"/>
+        <page to="backend/integrations#destroy"/>
       </item>
       <item name="map_backgrounds">
         <page to="backend/map_backgrounds#index"/>
@@ -1788,10 +1789,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="integrations">
-        <page to="backend/integrations#destroy"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

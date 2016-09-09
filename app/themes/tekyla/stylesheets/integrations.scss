@@ -1,5 +1,7 @@
 .integrations-container {
-  padding: 50px 150px;
+  padding: $fs-normal;
+  width: $narrow-page-width;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -10,43 +12,50 @@
   }
 
   .integration {
-    padding: 0 2em;
+    $integration-width: $narrow-page-width / 3;
+    width: $integration-width;
+    @include box-sizing(border-box);
+    padding: $fs-normal;
     position: relative;
+
+    > a {
+      display: block;
+    }
 
    .integration-destroy {
       position: absolute;
-      right: 3em;
+      right: 1em;
       top: 1em;
     }
 
     .integration-card {
       align-items: center;
-      background-color: rgb(247, 247, 247);
-      border-radius: 10px;
-      border: solid 2px darken(rgb(247, 247, 247), 10%);
+      border-radius: $default-border-radius;
+      border: $menu-border;
       display: flex;
       flex-direction: column;
-      height: 250px;
       justify-content: space-between;
-      padding: 30px 10px;
-      transition: background-color 0.5s ease-in-out 0s, box-shadow 0.5s 0s;
+      filter: grayscale(90%);
+      transition: filter 0.2s ease-in-out 0s;
 
       &:hover, &.integration-active {
-        background-color: white;
-        box-shadow: 0 0 10px rgba(30, 30, 30, 0.1);
+        filter: grayscale(0%);
       }
 
       .integration-logo {
+        background: mix($white, $desktop-background);
         align-items: center;
         display: flex;
         flex: 2 1 100%;
         justify-content: center;
-        padding: 5px;
+        padding: $fs-normal;
+        width: 100%;
+        @include box-sizing(border-box);
 
         img {
+          width: 0.6 * $integration-width;
+          height: 0.4 * $integration-width;
           object-fit: contain;
-          width: 200px;
-          height: 200px;
         }
       }
       .integration-description {
@@ -54,22 +63,34 @@
         display: flex;
         flex: 1 2 100%;
         flex-direction: column;
-        padding-bottom: 20px;
-        width: 250px;
+        padding: $fs-large;
+        width: 100%;
+        @include box-sizing(border-box);
+        border-top: $menu-border;
+        background: $white;
 
         h3 {
-          color: black;
-          font-size: 1.2em;
+          color: $text-color;
+          font-weight: bold;
+          font-size: $fs-large;
+          line-height: $lh-large;
         }
 
         p {
-          color: black;
+          color: $text-color;
           text-align: center;
+          font-size: $fs-normal;
+          line-height: $lh-normal;
           overflow: ellipsis;
         }
       }
     }
   }
+}
+
+#new_integration, #edit_integration {
+  width: $narrow-page-width;
+  margin: 0 auto;
 }
 
 .integration-form {
@@ -81,24 +102,28 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 25px 0;
+    padding: $lh-huge;
 
     .integration-picture {
       img {
         object-fit: contain;
-        width: 500px;
+        width: 0.6 * $narrow-page-width;
       }
       margin-bottom: 10px;
     }
     .integration-description {
       h2 {
-        font-size: 2em;
+        font-size: $fs-huge;
+        line-height: $lh-huge;
+        font-weight: bold;
         text-align: center;
-        margin-bottom: 10px;
       }
 
       p {
         text-align: center;
+        &, * {
+          vertical-align: baseline;
+        }
       }
     }
   }

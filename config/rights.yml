@@ -95,12 +95,6 @@
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
-#     - "backend/integrations#create"
-#     - "backend/integrations#destroy"
-#     - "backend/integrations#edit"
-#     - "backend/integrations#index"
-#     - "backend/integrations#new"
-#     - "backend/integrations#update"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
@@ -1036,6 +1030,20 @@ incoming_payments:
     - "backend/incoming_payments#edit"
     - "backend/incoming_payments#new"
     - "backend/incoming_payments#update"
+
+integrations:
+  read:
+    actions:
+    - "backend/integrations#index"
+  write:
+    dependencies:
+    - read-integrations
+    actions:
+    - "backend/integrations#create"
+    - "backend/integrations#destroy"
+    - "backend/integrations#edit"
+    - "backend/integrations#new"
+    - "backend/integrations#update"
 
 interventions:
   read:

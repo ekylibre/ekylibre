@@ -2231,6 +2231,7 @@ fra:
       impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
       incompatible_browser: "Votre navigateur ne semble pas compatible. Le navigateur Firefox est recommandé pour utiliser Ekylibre."
       informations_feed_is_unreachable: "Le flux d’informations (%{url}) est inaccessible. Message d’erreur\_: %{message}"
+      integrate_tools_you_are_using_every_day: "Intégrez les outils que vous utilisez tous les jours"
       invalid_file_nature: "Type de fichier invalide" #?
       invalid_reference_name: "Référence invalide"
       journal_closed_on: "Le %{journal} a été clôturé au %{closed_on} correctement."

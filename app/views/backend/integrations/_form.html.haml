@@ -5,7 +5,10 @@
     .integration-description
       %h2= resource.integration_name
       %p= "#{resource.nature}_long_description".tl
-      %p
-        = "Site: "
-        = link_to(resource.integration_name, "#{resource.nature}_url")
+      - url = "#{resource.nature}_url".tl(default: 'none')
+      - if url != 'none'
+        - url_name = url.gsub(/\Ahttp(s)?\:\/\//, '').gsub(/\/\z/, '')
+        %p
+          = :website.tl
+          = link_to(url_name, url)
   = render resource.auth_type.to_s, f: f

@@ -60,16 +60,16 @@ eng:
         string: "String"
     call_message:
       nature:
-        # incoming: "Incoming"
-        # outgoing: "Outgoing"
+        incoming: "Incoming"
+        outgoing: "Outgoing"
     call_request:
       nature:
-        # incoming: "Incoming"
-        # outgoing: "Outgoing"
+        incoming: "Incoming"
+        outgoing: "Outgoing"
     call_response:
       nature:
-        # incoming: "Incoming"
-        # outgoing: "Outgoing"
+        incoming: "Incoming"
+        outgoing: "Outgoing"
     cash:
       mode:
         bban: "Basic Bank Account Number (BBAN)"

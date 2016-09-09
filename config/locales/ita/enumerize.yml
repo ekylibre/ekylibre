@@ -57,6 +57,18 @@ ita:
         multi_polygon: "Multi poligono"
         point: "Punto"
         string: "Corda"
+    call_message:
+      nature:
+        incoming: "In arrivo"
+        outgoing: "Estroverso"
+    call_request:
+      nature:
+        incoming: "In arrivo"
+        outgoing: "Estroverso"
+    call_response:
+      nature:
+        incoming: "In arrivo"
+        outgoing: "Estroverso"
     cash:
       mode:
         bban: "Bank Account Number di base (BBAN)"
@@ -378,7 +390,7 @@ ita:
         supplier: "Fornitore"
     sensor:
       retrieval_mode:
-        # integration: "Integration"
+        integration: "Integrazione"
         listening: "Ascolto"
         requesting: "Richiesta"
     sequence:
