@@ -326,10 +326,10 @@ fra:
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       edit_request: "Modifier la demande de %{procedure_name} #%{number}"
       index: "Interventions"
-      new: "Nouvelle intervention"
-      new_request: "Nouvelle demande d'intervention"
-      run: "Exécuter l’intervention" #?
-      set: "Saisie des valeurs de l’intervention" #?
+      new: "Nouvelle intervention\_: %{procedure_name}"
+      new_request: "Nouvelle demande\_: %{procedure_name}"
+      new_undefined: "Nouvelle intervention"
+      new_undefined_request: "Nouvelle demande d’intervention"
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Modifier l’inventaire"

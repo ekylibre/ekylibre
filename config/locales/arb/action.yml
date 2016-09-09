@@ -339,10 +339,12 @@ arb:
       # new: "Activate integration: %{name}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit request %{procedure_name} #%{number}"
+      # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "التدخلات"
       new: "تدخل جديد"
       new_request: "تدخل طلب جديد"
+      new_undefined: "تدخل جديد"
+      new_undefined_request: "طلب تدخل جديد"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "تعديل الجرد"

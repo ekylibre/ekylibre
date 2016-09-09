@@ -278,10 +278,12 @@ cmn:
       # new: "Activate integration: %{name}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit request %{procedure_name} #%{number}"
+      # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "干预"
       new: "新的干预"
       new_request: "新要求干预"
+      new_undefined: "新的干预"
+      new_undefined_request: "新干预的请求"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "编辑盘点"

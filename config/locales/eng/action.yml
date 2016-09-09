@@ -340,10 +340,12 @@ eng:
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
-      edit_request: "Edit request %{procedure_name} #%{number}" #?
+      edit_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
-      new: "New intervention"
-      new_request: "New requested intervention" #?
+      new: "New %{procedure_name}"
+      new_request: "New requested %{procedure_name}" #?
+      new_undefined: "New intervention" #?
+      new_undefined_request: "New intervention request" #?
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Edit inventory"
