@@ -18,10 +18,6 @@
     padding: $fs-normal;
     position: relative;
 
-    > a {
-      display: block;
-    }
-
    .integration-destroy {
       position: absolute;
       right: 1em;
@@ -40,6 +36,11 @@
 
       &:hover, &.integration-active {
         filter: grayscale(0%);
+      }
+
+      .integration-body {
+        display: block;
+        width: 100%;
       }
 
       .integration-logo {
@@ -88,9 +89,11 @@
   }
 }
 
-#new_integration, #edit_integration {
-  width: $narrow-page-width;
-  margin: 0 auto;
+form {
+  &.new_integration, &.edit_integration {
+    width: $narrow-page-width;
+    margin: 0 auto;
+  }
 }
 
 .integration-form {
