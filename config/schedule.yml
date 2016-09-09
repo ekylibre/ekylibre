@@ -5,7 +5,7 @@ hourly_sensor_reading:
 activity_production_change:
   cron: '10 1 * * *'
   class: 'ActivityProductionCheckJob'
-equipment_monitoring:  
+equipment_monitoring:
   cron: '15 */7 * * *'
   class: 'EquipmentLifeProgressCheckJob'
 hourly:
