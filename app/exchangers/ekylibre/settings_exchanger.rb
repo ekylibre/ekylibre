@@ -15,7 +15,7 @@ module Ekylibre
       w.count = 22 - 1
 
       # Global preferences
-      language = I18n.locale = @manifest[:language]
+      language = ::I18n.locale = @manifest[:language]
       currency = @manifest[:currency] || 'EUR'
       country  = @manifest[:country] || 'fr'
       sales_conditions = @manifest[:sales_conditions] || ''
