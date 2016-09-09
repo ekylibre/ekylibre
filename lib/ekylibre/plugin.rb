@@ -86,7 +86,7 @@ module Ekylibre
         script = "# This files contains JS addons from plugins\n"
         each do |plugin|
           plugin.javascripts.each do |path|
-            script << "#= require plugins/#{plugin.name}/#{path}\n"
+            script << "#= require #{path}\n"
           end
         end
         # <base_dir>/plugins.js.coffee
@@ -107,7 +107,7 @@ module Ekylibre
               next unless name == theme || name == '*' || (name.respond_to?(:match) && theme.match(name))
               stylesheet << "// #{plugin.name}\n"
               addons[:stylesheets].each do |file|
-                stylesheet << "@import \"plugins/#{plugin.name}/#{file}\";"
+                stylesheet << "@import \"#{file}\";\n"
               end if addons[:stylesheets]
             end
           end
