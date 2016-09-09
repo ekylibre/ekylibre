@@ -1654,6 +1654,7 @@ a[data-remove-closest], a[data-remove] {
 
 
 .affair {
+  overflow: auto;
   .deals {
     // @include padding-left(4em);
     width: 100%;
