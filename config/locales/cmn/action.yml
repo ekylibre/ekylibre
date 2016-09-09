@@ -272,6 +272,10 @@ cmn:
       index: "产品定级"
       new: "新产品分级"
       # show: "Product grading\_: %{number}"
+    backend/integrations:
+      # edit: "Edit integration: %{name}"
+      index: "集成"
+      # new: "Activate integration: %{name}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       # edit_request: "Edit request %{procedure_name} #%{number}"
@@ -1452,6 +1456,7 @@ cmn:
     view: "视图"
     watering_concentration: "水的使用"
     weather: "天气"
+    website: "网站"
     wind_speed: "风速"
     with_fixed_assets_depreciations: "拥有固定资产折旧"
     workers: "工人"
@@ -1635,6 +1640,7 @@ cmn:
       impossible_to_add_items_to_purchase: "你不能产品添加到您的购买"
       incompatible_browser: "浏览器不兼容"
       # informations_feed_is_unreachable: "Informations feed (%{url}) is unreachable. Error message: %{message}"
+      integrate_tools_you_are_using_every_day: "整合您每天都在使用的工具"
       invalid_reference_name: "无效的参考名称"
       # journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "在记录已被验证，并且不能改变"

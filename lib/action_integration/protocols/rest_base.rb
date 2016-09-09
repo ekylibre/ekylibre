@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   module Protocols
     # Methods used by every other protocol
     module RestBase
@@ -8,33 +8,31 @@ module ActionCaller
         action_base(path, nil, :get, &block)
       end
 
-      def post_base(path, data, &block)
-        action_base(path, data, :post, &block)
+      def post_base(path, data, options = {}, &block)
+        action_base(path, data, :post, options, &block)
       end
 
-      def put_base(path, data, &block)
-        action_base(path, data, :put, &block)
+      def put_base(path, data, options = {}, &block)
+        action_base(path, data, :put, options, &block)
       end
 
-      def patch_base(path, data, &block)
-        action_base(path, data, :patch, &block)
+      def patch_base(path, data, options = {}, &block)
+        action_base(path, data, :patch, options, &block)
       end
 
       def delete_base(path, &block)
         action_base(path, nil, :delete, &block)
       end
 
-      def action_base(path, data, action, &block)
+      def action_base(path, data, action, options = {}, &block)
         url = URI.parse(path)
         http = Net::HTTP.new(url.host, url.port)
 
         action_class = "Net::HTTP::#{action.to_s.camelize}".constantize
 
-        # Gets us to {"string" => "string"} Hash + removes data when it's
-        # empty.
-        args = ::JSON.parse([data].to_json).compact.prepend(url)
-
-        request = action_class.new(*args)
+        request = action_class.new(url)
+        request.body = data.to_json if data
+        request.content_type = options['content-type'] if options['content-type']
 
         handle_request(http, request, &block)
       end
@@ -43,10 +41,9 @@ module ActionCaller
       # returns the state of that response to be used by the outside call block.
       def handle_request(http, request)
         response = execute_request(http, request)
-        response = ActionCaller::Response.new_from_net(response)
+        response = ActionIntegration::Response.new_from_net(response)
 
-        yield(response)
-
+        yield(response) if block_given?
         response
       end
 

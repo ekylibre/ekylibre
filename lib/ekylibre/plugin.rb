@@ -50,6 +50,15 @@ module Ekylibre
         end
       end
 
+      def load_integrations
+        Dir.glob(File.join(directory, '*')).sort.each do |directory|
+          next unless File.directory?(directory)
+          Dir.glob(File.join(directory, 'app', 'integrations', '**', '*.rb')).sort.each do |integration|
+            require integration
+          end
+        end
+      end
+
       # Adds hooks for plugins
       # Must be done after load
       def plug
@@ -77,7 +86,7 @@ module Ekylibre
         script = "# This files contains JS addons from plugins\n"
         each do |plugin|
           plugin.javascripts.each do |path|
-            script << "#= require plugins/#{plugin.name}/#{path}\n"
+            script << "#= require #{path}\n"
           end
         end
         # <base_dir>/plugins.js.coffee
@@ -98,7 +107,7 @@ module Ekylibre
               next unless name == theme || name == '*' || (name.respond_to?(:match) && theme.match(name))
               stylesheet << "// #{plugin.name}\n"
               addons[:stylesheets].each do |file|
-                stylesheet << "@import \"plugins/#{plugin.name}/#{file}\";"
+                stylesheet << "@import \"#{file}\";\n"
               end if addons[:stylesheets]
             end
           end
@@ -201,7 +210,7 @@ module Ekylibre
       end
 
       # Adds the app/{controllers,helpers,models} directories of the plugin to the autoload path
-      Dir.glob File.expand_path(@root.join('app', '{callers,controllers,exchangers,helpers,models,jobs,mailers,inputs,guides}')) do |dir|
+      Dir.glob File.expand_path(@root.join('app', '{controllers,exchangers,guides,helpers,inputs,integrations,jobs,mailers,models}')) do |dir|
         ActiveSupport::Dependencies.autoload_paths += [dir]
         $LOAD_PATH.unshift(dir) if Dir.exist?(dir)
       end
@@ -231,13 +240,14 @@ module Ekylibre
         # plugins/<plugin>/app/assets/*/ => tmp/plugins/assets/*/plugins/<plugin>/
         Dir.chdir(assets_directory) do
           Dir.glob('*') do |type|
-            type_dir = self.class.type_assets_directory(type)
-            plugin_type_dir = type_dir.join('plugins', @name.to_s) # mirrored_assets_directory(type)
-            FileUtils.rm_rf plugin_type_dir
-            FileUtils.mkdir_p(plugin_type_dir.dirname) unless plugin_type_dir.dirname.exist?
-            FileUtils.ln_sf(assets_directory.join(type), plugin_type_dir)
-            unless Rails.application.config.assets.paths.include?(type_dir.to_s)
-              Rails.application.config.assets.paths << type_dir.to_s
+            unless Rails.application.config.assets.paths.include?(assets_directory.join(type).to_s)
+              Rails.application.config.assets.paths << assets_directory.join(type).to_s
+            end
+            unless %w(javascript stylesheets).include? type
+              files_to_compile = Dir[type + '/**/*'].select { |f| File.file? f }.map do |f|
+                Pathname.new(f).relative_path_from(Pathname.new(type)).to_s unless f == type
+              end
+              Rails.application.config.assets.precompile += files_to_compile
             end
           end
         end

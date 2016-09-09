@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   # Response object that includes the DSL methods.
   class Response
     attr_reader :code, :headers, :body
@@ -61,6 +61,7 @@ module ActionCaller
         if code_match?(@code, http_codes)
           result = yield
           self.state = signal.to_sym
+          @result = result || @state
         end
       else
         unless must_match_code && !code_match?(@code, http_codes)
@@ -68,7 +69,6 @@ module ActionCaller
           self.state = signal.to_sym
         end
       end
-      @result = result || @state
     end
 
     def code_match?(code, http_codes)

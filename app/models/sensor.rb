@@ -28,6 +28,7 @@
 #  creator_id        :integer
 #  custom_fields     :jsonb
 #  embedded          :boolean          default(FALSE), not null
+#  euid              :string
 #  host_id           :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
@@ -44,14 +45,14 @@
 class Sensor < Ekylibre::Record::Base
   include Attachable
   include Customizable
-  enumerize :retrieval_mode, in: [:requesting, :listening], default: :requesting, predicates: true
+  enumerize :retrieval_mode, in: [:requesting, :listening, :integration], default: :requesting, predicates: true
   belongs_to :product
   belongs_to :host, class_name: 'Product'
   has_many :analyses, class_name: 'Analysis', dependent: :nullify
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :embedded, inclusion: { in: [true, false] }
-  validates :model_euid, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
+  validates :euid, :model_euid, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :retrieval_mode, presence: true
   # ]VALIDATORS]
@@ -75,6 +76,7 @@ class Sensor < Ekylibre::Record::Base
 
   # Read sensor indicator and write an analysis
   def retrieve(options = {})
+    return if retrieval_mode == :integration
     raise "Unknown equipment: vendor=#{vendor_euid}, model=#{model_euid}" unless equipment
 
     connection = equipment.connect(access_parameters)

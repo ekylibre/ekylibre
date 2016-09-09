@@ -22,33 +22,37 @@
 #
 # == Table: calls
 #
-#  args         :jsonb
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  method       :string
-#  source       :string
-#  state        :string
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  arguments        :jsonb
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  integration_name :string
+#  lock_version     :integer          default(0), not null
+#  name             :string
+#  state            :string
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 
 # Class representing an API Call, executed or not.
-class Call < ActiveRecord::Base
+class Call < Ekylibre::Record::Base
   has_many :messages, class_name: 'CallMessage'
   has_many :requests, class_name: 'CallRequest'
   has_many :responses, class_name: 'CallResponse'
 
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :integration_name, :name, :state, length: { maximum: 500 }, allow_blank: true
+  # ]VALIDATORS]
+
   # Sync
-  def execute_now(&block)
+  def execute_now
     save!
 
-    # Instantiate a ActionCaller object with itself as parameter
+    # Instantiate a ActionIntegration object with itself as parameter
     # to execute the api call.
-    @response = caller.new(self).send(method.to_sym, *args)
+    @response = integration.new(self).send(name.to_sym, *arguments)
 
-    instance_exec(&block) if block_given?
+    yield(self) if block_given?
   end
   alias execute execute_now
 
@@ -61,15 +65,15 @@ class Call < ActiveRecord::Base
     Thread.new do
       execute_now(&block)
       @state = :waiting
-      @response = caller.new(self).send(method.to_sym, *args)
+      @response = integration.new(self).send(name.to_sym, *arguments)
       @state = :done
 
       instance_exec(&block) if block_given?
     end
   end
 
-  def caller
-    source.constantize
+  def integration
+    integration_name.constantize
   end
 
   def success(code = nil)
@@ -77,7 +81,15 @@ class Call < ActiveRecord::Base
   end
 
   def error(code = nil)
-    yield(result) if state_is?(:error) && state_code_matches?(code)
+    yield(result) if (state_is?(:error) || state_is?(:client_error) || state_is?(:server_error)) && state_code_matches?(code)
+  end
+
+  def client_error(code = nil)
+    yield(result) if state_is?(:client_error) && state_code_matches?(code)
+  end
+
+  def server_error(code = nil)
+    yield(result) if state_is?(:server_error) && state_code_matches?(code)
   end
 
   def redirect(code = nil)

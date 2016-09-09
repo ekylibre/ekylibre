@@ -22,16 +22,16 @@
 #
 # == Table: calls
 #
-#  args         :jsonb
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  method       :string
-#  source       :string
-#  state        :string
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  arguments        :jsonb
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  integration_name :string
+#  lock_version     :integer          default(0), not null
+#  name             :string
+#  state            :string
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 require 'test_helper'
 

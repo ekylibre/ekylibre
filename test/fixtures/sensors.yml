@@ -28,6 +28,7 @@
 #  creator_id        :integer
 #  custom_fields     :jsonb
 #  embedded          :boolean          default(FALSE), not null
+#  euid              :string
 #  host_id           :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null

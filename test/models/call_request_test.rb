@@ -29,10 +29,9 @@
 #  format       :string
 #  headers      :string
 #  id           :integer          not null, primary key
-#  ip           :string
+#  ip_address   :string
 #  lock_version :integer          default(0), not null
-#  method       :string
-#  nature       :string
+#  nature       :string           not null
 #  request_id   :integer
 #  ssl          :string
 #  status       :string
@@ -40,6 +39,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #  url          :string
+#  verb         :string
 #
 require 'test_helper'
 

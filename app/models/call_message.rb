@@ -29,10 +29,9 @@
 #  format       :string
 #  headers      :string
 #  id           :integer          not null, primary key
-#  ip           :string
+#  ip_address   :string
 #  lock_version :integer          default(0), not null
-#  method       :string
-#  nature       :string
+#  nature       :string           not null
 #  request_id   :integer
 #  ssl          :string
 #  status       :string
@@ -40,10 +39,17 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #  url          :string
+#  verb         :string
 #
 
 # Class representing any message linked to APIs in DB, whether ours or others.
 class CallMessage < Ekylibre::Record::Base
-  belongs_to :call
+  belongs_to :operation, class_name: 'Call', foreign_key: :call_id
   enumerize :nature, in: [:incoming, :outgoing], predicates: true
+
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :body, length: { maximum: 500_000 }, allow_blank: true
+  validates :format, :headers, :ip_address, :ssl, :status, :url, :verb, length: { maximum: 500 }, allow_blank: true
+  validates :nature, presence: true
+  # ]VALIDATORS]
 end

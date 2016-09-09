@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   module Protocols
     # JSON protocol methods. Rely on Base.
     module JSON
@@ -9,15 +9,15 @@ module ActionCaller
       end
 
       def post(path, data, &block)
-        post_base(path, data, &block)
+        post_base(path, data, { 'content-type' => 'application/json' }, &block)
       end
 
       def put(path, data, &block)
-        put_base(path, data, &block)
+        put_base(path, data, { 'content-type' => 'application/json' }, &block)
       end
 
       def patch(path, data, &block)
-        patch_base(path, data, &block)
+        patch_base(path, data, { 'content-type' => 'application/json' }, &block)
       end
 
       def delete(path, &block)

@@ -29,10 +29,9 @@
 #  format       :string
 #  headers      :string
 #  id           :integer          not null, primary key
-#  ip           :string
+#  ip_address   :string
 #  lock_version :integer          default(0), not null
-#  method       :string
-#  nature       :string
+#  nature       :string           not null
 #  request_id   :integer
 #  ssl          :string
 #  status       :string
@@ -40,6 +39,7 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #  url          :string
+#  verb         :string
 #
 
 # Represents a Request in DB.
@@ -51,10 +51,10 @@ class CallRequest < CallMessage
       nature: :incoming, # Because we are in one of our own controllers here.
       headers: request.headers,
       body: request.body,
-      ip: request.ip,
+      ip_address: request.ip_address,
       url: request.original_url,
       format: request.format,
-      method: request.method,
+      verb: request.method,
       ssl: request.ssl?
     )
   end
@@ -66,7 +66,7 @@ class CallRequest < CallMessage
       body: request.body,
       url: http.address + request.path,
       format: format,
-      method: request.method,
+      verb: request.method,
       ssl: http.use_ssl?
     )
   end
@@ -78,7 +78,7 @@ class CallRequest < CallMessage
       body: req.body,
       url: req.url,
       format: format,
-      method: :POST,
+      verb: :POST,
       ssl: req.ssl?
     )
   end

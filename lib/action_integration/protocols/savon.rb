@@ -1,4 +1,4 @@
-module ActionCaller
+module ActionIntegration
   module Protocols
     # Methods to do calls with Savon.
     module Savon
@@ -6,11 +6,11 @@ module ActionCaller
       FORMAT = :soap
 
       def authenticate(options, message = {})
-        request(:authenticate, message, options)
+        request(:authenticate, options, message)
       end
 
       def call(operation, options, message = {})
-        request(operation, message, options)
+        request(operation, options, message)
       end
 
       private
@@ -32,7 +32,7 @@ module ActionCaller
           @format
         )
 
-        ActionCaller::Response.new_from_savon(response)
+        ActionIntegration::Response.new_from_savon(response)
       end
     end
   end

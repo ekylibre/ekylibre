@@ -6,14 +6,14 @@ class AddLoggingTables < ActiveRecord::Migration
       t.text        :body
 
       t.string      :type
-      t.string      :nature
+      t.string      :nature, null: false
 
-      t.string      :ip
+      t.string      :ip_address
       t.string      :url
       t.string      :format
       t.string      :ssl
 
-      t.string      :method
+      t.string      :verb
 
       t.references  :request, index: true
       t.references  :call, index: true
@@ -22,9 +22,9 @@ class AddLoggingTables < ActiveRecord::Migration
 
     create_table :calls do |t|
       t.string      :state # Needed for Async calls.
-      t.string      :source
-      t.string      :method
-      t.jsonb       :args
+      t.string      :integration_name
+      t.string      :name
+      t.jsonb       :arguments
       t.stamps
     end
   end
