@@ -12,7 +12,7 @@ module Ekylibre
         @version = manifest[:version]
         unless @version == VERSION
           raise "Incompatible first-run folder: #{@version.inspect}." \
-               "Need v#{VERSION} first-run API."
+                "Need v#{VERSION} first-run API."
         end
         @company = manifest[:company] || {}
         @imports = manifest[:imports] || {}
