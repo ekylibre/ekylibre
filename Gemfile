@@ -13,7 +13,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'apartment', '~> 1.0.0', '< 2.0'
 gem 'apartment-sidekiq'
 
-# Ruby functionalities extension
+# Ruby syntax extensions
 gem 'possibly'
 
 # Code manipulation
@@ -155,6 +155,7 @@ gem 'agric', '~> 3.0'
 # Web services
 gem 'mechanize'
 gem 'savon'
+gem 'rubyntlm', '>= 0.3.2'
 gem 'rest-client', require: false
 
 gem 'luhn'

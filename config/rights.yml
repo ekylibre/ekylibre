@@ -1031,6 +1031,20 @@ incoming_payments:
     - "backend/incoming_payments#new"
     - "backend/incoming_payments#update"
 
+integrations:
+  read:
+    actions:
+    - "backend/integrations#index"
+  write:
+    dependencies:
+    - read-integrations
+    actions:
+    - "backend/integrations#create"
+    - "backend/integrations#destroy"
+    - "backend/integrations#edit"
+    - "backend/integrations#new"
+    - "backend/integrations#update"
+
 interventions:
   read:
     actions:

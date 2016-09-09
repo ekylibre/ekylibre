@@ -372,6 +372,7 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
+    rubyntlm (0.6.0)
     rubyzip (1.2.0)
     rufus-scheduler (3.2.2)
     sass (3.4.22)
@@ -561,6 +562,7 @@ DEPENDENCIES
   rgeo-shapefile
   roo
   rubocop
+  rubyntlm (>= 0.3.2)
   rubyzip
   sass-rails (~> 5.0)
   savon

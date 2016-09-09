@@ -86,6 +86,9 @@ $default-gap: round($fs-normal * 0.55);
 $cell-background: mix($desktop-background, $base-color, 82%);
 $cell-background-current: mix($desktop-background, $base-color, 62%);
 
+// Page
+$narrow-page-width: 120ex;
+
 // Forms
 $input-border: $menu-border-width solid mix($desktop-background, $neutral-color, 60%);
 $label-width: 25% !default;
