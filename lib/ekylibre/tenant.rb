@@ -30,6 +30,10 @@ module Ekylibre
         name
       end
 
+      def host
+        "#{current}.#{ENV['HOST_DOMAIN_NAME'] || 'example.org'}"
+      end
+
       # Returns the private directory of the current tenant
       # If tenant name given, it returns its private_directory
       def private_directory(name = nil)

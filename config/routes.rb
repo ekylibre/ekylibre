@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     namespace :v1, defaults: { format: 'json' } do
       resources :tokens, only: [:create, :destroy]
       resources :crumbs
+      resources :interventions, only: [:index]
       resources :issues
       resources :plant_density_abaci
       resources :plant_countings
@@ -498,6 +499,12 @@ Rails.application.routes.draw do
         post :up
         post :down
         post :reflect
+      end
+    end
+
+    resources :integrations, except: [:show, :destroy] do
+      collection do
+        delete :destroy
       end
     end
 

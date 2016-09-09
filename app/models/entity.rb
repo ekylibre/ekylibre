@@ -164,6 +164,10 @@ class Entity < Ekylibre::Record::Base
   scope :responsibles,  -> { contacts }
   scope :contacts,      -> { where(nature: 'contact') }
   scope :organizations, -> { where(nature: 'organization') }
+  scope :with_address, ->(canal, coordinate) {
+    where(id: EntityAddress.where(canal: canal, coordinate: coordinate).select(:entity_id))
+  }
+  scope :with_email, ->(email) { with_address(:email, email) }
 
   acts_as_numbered :number
   accepts_nested_attributes_for :mails,    reject_if: :all_blank, allow_destroy: true

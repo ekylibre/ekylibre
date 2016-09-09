@@ -127,14 +127,6 @@ class InterventionProductParameter < InterventionParameter
     reference ? reference.human_name : reference_name.humanize
   end
 
-  def self.role
-    @name ||= name.gsub(/^Intervention/, '').underscore.to_sym
-  end
-
-  def role
-    self.class.role
-  end
-
   def human_quantity
     quantity.l if quantity
   end

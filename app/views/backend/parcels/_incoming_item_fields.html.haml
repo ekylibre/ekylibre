@@ -1,6 +1,7 @@
 - item ||= f.object
 - variant = Maybe(item.variant)
 
+= f.input :purchase_item_id, as: :hidden
 %tbody.nested-fields.delivery-item.incoming-parcel-item
   %tr
     %td.act
