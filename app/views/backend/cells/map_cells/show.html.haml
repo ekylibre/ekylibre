@@ -9,12 +9,20 @@
     Sensor.find_each.group_by(&:model_euid).each do |model, sensors|
       items = sensors.map do |sensor|
         if sensor.analyses.last && sensor.analyses.last.geolocation
+          analysis = sensor.analyses.last
+          popup_lines = analysis.items.map do |item|
+            value = item.value.is_a?(Measure) ? item.value.value.to_f.round : item.value
+            unit = item.value.is_a?(Measure) ? item.value.human_value_measure_unit_name : nil
+            { label: item.human_indicator_name, content: [value, unit].compact.join(" ") }
+          end
+
+          popup_lines << link_to(:see_more_details.tl, sensor.partner_url) if sensor.partner_url.present?
           {
             name: sensor.name,
-            shape: sensor.analyses.last.geolocation,
+            shape: analysis.geolocation,
             shape_color: '#'+Digest::MD5.hexdigest(model)[0, 6].upcase,
             group: model.camelize,
-            popup: {header: true, content: [{label: 'name'}]}
+            popup: {header: true, content: popup_lines }
           }
         end
       end

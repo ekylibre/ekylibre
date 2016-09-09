@@ -1449,6 +1449,7 @@ eng:
     search: "Search"
     search_placeholder: "Search…"
     section_x: "Section %{x}"
+    see_more_details: "See more details"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns"
     select_date: "Select date"
