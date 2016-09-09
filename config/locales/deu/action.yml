@@ -278,10 +278,12 @@ deu:
       # new: "Activate integration: %{name}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit request %{procedure_name} #%{number}"
+      # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "Interventionen"
       new: "New Intervention"
       new_request: "Neue angeforderte Intervention"
+      new_undefined: "Neue Intervention"
+      new_undefined_request: "Neue Serviceanfrage"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Bearbeiten Inventar"

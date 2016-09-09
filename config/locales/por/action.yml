@@ -283,10 +283,12 @@ por:
       # new: "Activate integration: %{name}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit request %{procedure_name} #%{number}"
+      # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "Intervenções"
       new: "Nova intervenção"
       new_request: "Intervenção New solicitado"
+      new_undefined: "Nova intervenção"
+      new_undefined_request: "Pedido de intervenção Nova"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Editar inventário"
