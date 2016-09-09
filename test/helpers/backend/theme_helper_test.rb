@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::ThemeHelperTest < ActionView::TestCase
+module Backend
+  class ThemeHelperTest < ActionView::TestCase
+  end
 end

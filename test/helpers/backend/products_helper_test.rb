@@ -1,5 +1,7 @@
 require 'test_helper'
 
-class Backend::ProductsHelperTest < ActionView::TestCase
-  # Add tests here...
+module Backend
+  class ProductsHelperTest < ActionView::TestCase
+    # Add tests here...
+  end
 end
