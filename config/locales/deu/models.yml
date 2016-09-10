@@ -759,6 +759,8 @@ deu:
     journal_entry_items: "Journaleintrag Artikel"
     key: "Taste"
     label: "Etikette"
+    # labellings: "Labellings"
+    # labels: "Labels"
     land_parcel_number: "Land Paketnummer"
     land_parcels: "Parzellen"
     language: "Sprache"

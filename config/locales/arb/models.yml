@@ -1565,6 +1565,8 @@ arb:
     journals: "الدفاتر اليومية" #?
     key: "المفتاح"
     label: "الملصق"
+    # labellings: "Labellings"
+    # labels: "Labels"
     land_parcel_number: "عدد قطعة أرض"
     land_parcels: "الكتل"
     language: "اللغة"

@@ -99,6 +99,8 @@ class Product < Ekylibre::Record::Base
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
+  has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy
+  has_many :labels, through: :labellings
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy

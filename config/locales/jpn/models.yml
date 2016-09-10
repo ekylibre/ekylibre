@@ -759,6 +759,8 @@ jpn:
     journal_entry_items: "仕訳項目"
     key: "キー"
     label: "ラベル"
+    # labellings: "Labellings"
+    # labels: "Labels"
     land_parcel_number: "土地区画番号"
     land_parcels: "土地区画"
     language: "言語"

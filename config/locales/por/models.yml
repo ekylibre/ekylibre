@@ -759,6 +759,8 @@ por:
     journal_entry_items: "Itens de entrada de diário"
     key: "Chave"
     label: "Rótulo"
+    # labellings: "Labellings"
+    # labels: "Labels"
     land_parcel_number: "Número de parcelas de terreno"
     land_parcels: "Parcelas de terra"
     language: "Língua"

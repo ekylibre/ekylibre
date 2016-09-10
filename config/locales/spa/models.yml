@@ -763,6 +763,8 @@ spa:
     journal_entry_items: "Artículos entrada de diario"
     key: "Llave"
     label: "Etiqueta"
+    # labellings: "Labellings"
+    # labels: "Labels"
     land_parcel_number: "Número de parcelas"
     land_parcels: "Parcelas"
     language: "Idioma"

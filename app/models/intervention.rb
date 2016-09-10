@@ -55,8 +55,9 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :request_intervention, -> { where(nature: :request) }, class_name: 'Intervention'
   belongs_to :issue
   belongs_to :prescription
+  has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy
+  has_many :labels, through: :labellings
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
-
   with_options inverse_of: :intervention do
     has_many :root_parameters, -> { where(group_id: nil) }, class_name: 'InterventionParameter', dependent: :destroy
     has_many :parameters, class_name: 'InterventionParameter'

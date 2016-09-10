@@ -961,6 +961,8 @@ fra:
     junctions: "Jonctions" #?
     key: "Clé"
     label: "Libellé"
+    # labellings: "Labellings"
+    # labels: "Labels"
     land_parcel_number: "Numéro de la parcelle PAC"
     land_parcels: "Parcelles"
     language: "Langue"
