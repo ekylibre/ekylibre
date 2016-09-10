@@ -2,13 +2,13 @@
 - source_product = Maybe(item.source_product)
 - variant = source_product.variant
 
-= f.input :sale_item_id, as: :hidden
 %tbody.nested-fields.delivery-item.outgoing-parcel-item
   %tr
     %td.act
       - if f.object.destroyable?
         = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'destroy remove remove-item')
     %td
+      = f.input :sale_item_id, as: :hidden
       - scopes = { deliverables: true, alive: true }
       - if item.source_product.blank?
         - variant_id = variant.id.or_else(nil)
