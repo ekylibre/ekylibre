@@ -11,6 +11,7 @@
           <handler name="population" />
         </input>
       </group>
+      <target name="equipment_to_repair" filter="is equipment" cardinality="*" component-of="first_product_of(SELF)"/>
       <doer name="mechanic" filter="is worker" cardinality="*"/>
       <tool name="tool" filter="is matter" cardinality="*"/>
     </parameters>

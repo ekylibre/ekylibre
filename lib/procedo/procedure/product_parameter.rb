@@ -32,7 +32,7 @@ module Procedo
           self.variety = options[:variety]
           self.derivative_of = options[:derivative_of]
         end
-        if input? && options[:component_of]
+        if (input? || target?) && options[:component_of]
           self.component_of = options[:component_of]
         end
         @handlers = {}
