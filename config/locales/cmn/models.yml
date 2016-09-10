@@ -772,6 +772,7 @@ cmn:
     last_number: "最后号码"
     last_sign_in_at: "上次登录在"
     last_sign_in_ip: "上次登录IP"
+    last_value: "最后一个值"
     last_year: "去年"
     latest: "最新"
     lender: "贷款人"

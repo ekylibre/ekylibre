@@ -776,6 +776,7 @@ spa:
     last_number: "Último número"
     last_sign_in_at: "Última señal en por lo"
     last_sign_in_ip: "Última señal en IP"
+    last_value: "Último valor"
     last_year: "El año pasado"
     latest: "Último"
     lender: "Prestador"

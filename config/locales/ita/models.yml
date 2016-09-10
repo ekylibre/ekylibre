@@ -803,6 +803,7 @@ ita:
     last_number: "l'ultimo numero"
     last_sign_in_at: "Ultimo segno in a"
     last_sign_in_ip: "Ultimo segno in IP"
+    last_value: "Ultimo valore"
     last_year: "L'anno scorso"
     latest: "Più recente"
     # lender: "Lender"
