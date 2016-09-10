@@ -1578,6 +1578,7 @@ arb:
     last_number: "الرقم الاخير"
     last_sign_in_at: "علامة الماضي في في"
     last_sign_in_ip: "علامة الماضي في مجال الملكية الفكرية"
+    last_value: "القيمة الأخيرة"
     last_year: "السنة السابقة"
     latest: "آخر"
     latitude: "خطوط العرض" #?

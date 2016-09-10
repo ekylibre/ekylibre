@@ -772,6 +772,7 @@ deu:
     last_number: "Letzte Reihe"
     last_sign_in_at: "Letztes Zeichen in zumin"
     last_sign_in_ip: "Letztes Zeichen in IP"
+    last_value: "Letzter Wert"
     last_year: "Letztes Jahr"
     latest: "Neueste"
     lender: "Darlehensgeber"

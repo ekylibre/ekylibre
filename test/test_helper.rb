@@ -491,13 +491,13 @@ module ActionController
           code << "end\n\n"
         end
         # code << "end\n"
-        
+
         file = Rails.root.join('tmp', 'code', 'test', "#{controller_path}.rb")
         FileUtils.mkdir_p(file.dirname)
         File.open(file, 'wb') do |f|
           f.write(code)
         end
-        
+
         class_eval(code, "(test) #{controller_path}") # :#{__LINE__}
       end
 

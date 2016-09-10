@@ -789,6 +789,7 @@ eng:
     last_number: "Last number"
     last_sign_in_at: "Last sign in at"
     last_sign_in_ip: "Last sign in IP"
+    last_value: "Last value"
     last_year: "Last year"
     latest: "Latest"
     # leaves_parameters: "Leaves parameters"

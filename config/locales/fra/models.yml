@@ -975,6 +975,7 @@ fra:
     last_number: "Dernier numéro"
     last_sign_in_at: "Dernière connexion à"
     last_sign_in_ip: "Dernière IP de connexion"
+    last_value: "Dernière valeur"
     last_year: "Dernière année"
     latest: "Dernier"
     lender: "Prêteur"

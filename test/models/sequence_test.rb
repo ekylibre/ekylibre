@@ -44,5 +44,30 @@ require 'test_helper'
 
 class SequenceTest < ActiveSupport::TestCase
   test_model_actions
-  # Add tests here...
+
+  test 'next values' do
+    sequence = Sequence.find_by(usage: :sales_invoices)
+    sequence.update_attributes!(number_format: 'Y[year]M[month]N[number|8]', period: :month)
+
+    val1 = sequence.next_value
+    val2 = sequence.next_value!
+    assert_equal val1, val2
+  end
+
+  test 'reset' do
+    sequence = Sequence.find_by(usage: :sales_invoices)
+    sequence.update_attributes!(number_format: 'Y[year]M[month]N[number|8]', period: :month)
+
+    sequence.next_value!
+    val1 = sequence.last_number
+    sequence.next_value!
+    assert_equal val1 + 1, sequence.last_number
+    sequence.next_value!
+    sequence.next_value!
+    sequence.next_value!
+    sequence.next_value!
+    future = Date.today >> 1
+    value = sequence.next_value(future)
+    assert_equal "Y#{future.year}M#{future.month}N00000001", value
+  end
 end
