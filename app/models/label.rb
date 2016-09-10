@@ -33,9 +33,9 @@
 #
 
 class Label < Ekylibre::Record::Base
-  has_many :intervention_labellings
+  has_many :intervention_labellings, dependent: :destroy
   has_many :interventions, through: :intervention_labellings
-  has_many :product_labellings
+  has_many :product_labellings, dependent: :destroy
   has_many :products, through: :product_labellings
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :color, presence: true, length: { maximum: 500 }
