@@ -3,7 +3,7 @@
 - procedure = f.object.procedure
 - content_for :main_title do
   - interpolations = { number: f.object.number, nature: f.object.nature.l }
-  - action_title_key = "#{action_name}"
+  - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
   - if procedure
     - interpolations[:procedure_name] = procedure.human_name
   - else

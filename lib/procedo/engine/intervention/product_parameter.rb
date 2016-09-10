@@ -25,10 +25,10 @@ module Procedo
               add_reading(id, attributes)
             end
           end
-          if attributes[:assembly_id]
+          if attributes[:assembly_id].present?
             @assembly = Product.find_by(id: attributes[:assembly_id])
           end
-          if attributes[:component_id]
+          if attributes[:component_id].present?
             @component = ProductNatureVariantComponent.find_by(id: attributes[:component_id])
           end
         end
@@ -133,12 +133,12 @@ module Procedo
 
         def impact_dependencies!(field = nil)
           super(field)
-          reassign(:assembly)
-          reassign(:component)
           impact_on_attributes(field)
           impact_on_readings(field)
           impact_on_components(field)
           impact_on_parameters(field)
+          reassign(:assembly)
+          reassign(:component)
         end
 
         # Impact changes on attributes of parameter based on given field
