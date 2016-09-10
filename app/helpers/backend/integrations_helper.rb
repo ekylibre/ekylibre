@@ -3,15 +3,21 @@ module Backend
     def integration_logo_path(integration_name, size: :small)
       integration = ActionIntegration::Base.find_integration(integration_name)
 
-      possible_names = integration.parents.map(&:name)
-      possible_names = possible_names.prepend(integration_name)
-      possible_names = possible_names.map(&:underscore)
-      possible_names = possible_names.map(&:to_s)
+      keys = [integration_name] + integration.parents.map(&:name)
+      possible_names = keys.map { |key| key.to_s.underscore }
 
-      assets = Rails.application.assets
-      existing_assets = possible_names.map { |name| assets.find_asset("integrations/#{name}") }
+      formats = %w(svg png)
 
-      existing_assets.compact.first.logical_path
+      path = nil
+      manifest = Rails.application.assets_manifest
+      name = possible_names.detect do |name|
+        formats.detect do |format|
+          path = "integrations/#{name}.#{format}"
+          manifest.find_logical_paths(path).any?
+        end
+      end
+      paths = manifest.find_logical_paths(path).first
+      paths.first
     end
-end
+  end
 end
