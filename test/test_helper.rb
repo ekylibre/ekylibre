@@ -338,7 +338,7 @@ module ActionController
             test_code << "end\n"
           elsif mode == :show
             test_code << "get :#{action}, #{sanitized_params[id: 'NaID', redirect: 'root_url'.c]}\n"
-            test_code << strictness == :api ? "assert_response 404\n" : "assert_redirected_to root_url\n"
+            test_code << (strictness == :api ? "assert_response 404\n" : "assert_redirected_to root_url\n")
             if model
               test_code << "#{model}.limit(5).find_each do |record|\n"
               test_code << "  get :#{action}, #{sanitized_params[id: 'record.id'.c]}\n"
