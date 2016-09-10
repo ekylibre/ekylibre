@@ -109,6 +109,7 @@ fra:
     eggs: "Œufs"
     energy: "Energie"
     equipment: "Équipement"
+    equipment_to_repair: "Équipement à réparer"
     excrement: "Excrément"
     excrement_zone: "Fumière" #?
     fermented_juice: "Jus fermenté"
@@ -299,7 +300,7 @@ fra:
     wine_to_treat: "Vin à traiter"
     wire_fence: "Fils de clôture"
     wire_fence_to_put: "Fils de clôture à positionner" #?
-    work: "Travail"
+    work: "Maintenance/Réparation sur équipment "
     worker: "Travailleur"
     zone: "Zone"
   procedures:

@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# coding: utf-8
 require 'yaml'
 require 'pathname'
 require 'active_support'
@@ -120,6 +121,7 @@ class Translator
         if [:spa, :por, :eng, :fra, :ita, :deu].include?(@target)
           text = (text.mb_chars.slice(0).upcase + text.mb_chars.slice(1..-1)).to_s
         end
+        text.gsub!('&#39;', '’')
         result[trans.keys[i]] = text unless text == trans.values[i]
         cache_set("#{@target}.#{trans.keys[i]}", text)
       end
