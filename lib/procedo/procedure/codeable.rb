@@ -47,10 +47,10 @@ module Procedo
                          "#{snippet}_with_environment_variable?"
 
             # Check if given parameter is used
-            define_method "#{snippet}_with_parameter?" do |parameter|
+            define_method "#{snippet}_with_parameter?" do |parameter, or_self = false|
               tree = instance_variable_get(instance_var)
               return false unless tree.present?
-              self.class.detect_parameter(tree, parameter)
+              self.class.detect_parameter(tree, parameter, or_self)
             end
 
             # Returns list of parameter used in code
@@ -82,15 +82,17 @@ module Procedo
         end
 
         # Detects environment variables for the given name
-        def detect_parameter(root, parameter)
+        def detect_parameter(root, parameter, or_self = false)
           parameter_name = if parameter_name.is_a? Procedo::Procedure::Parameter
                              parameter.name
                            else
                              parameter.to_s
                            end
           detect(root) do |node|
-            node.is_a?(Procedo::Formula::Language::Variable) &&
-              parameter_name == node.text_value
+            (node.is_a?(Procedo::Formula::Language::Variable) &&
+             parameter_name == node.text_value) ||
+              (or_self && node.is_a?(Procedo::Formula::Language::EnvironmentVariable) &&
+               node.text_value == 'SELF')
           end
         end
 
