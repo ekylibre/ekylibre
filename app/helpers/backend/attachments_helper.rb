@@ -21,5 +21,5 @@ module Backend
     def attachments_of(resource)
       render '/backend/attachments/thumbs', attachments: resource.attachments
     end
-end
+  end
 end

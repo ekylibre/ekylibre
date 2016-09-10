@@ -3,7 +3,7 @@ module Backend
     def target_distributions_chronologies(distributions, _product, options = {})
       return nil if distributions.empty?
       dates = (distributions.map(&:started_on) +
-          distributions.map(&:stopped_on)).sort
+               distributions.map(&:stopped_on)).sort
       margin = ((dates.last - dates.first).to_f * 0.07).to_i
       period_started_on = dates.first.beginning_of_month
       period_stopped_on = dates.last.end_of_month

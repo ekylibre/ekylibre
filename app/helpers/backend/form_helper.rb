@@ -92,5 +92,5 @@ module Backend
         return indicator.name.upcase
       end
     end
-end
+  end
 end

@@ -185,5 +185,5 @@ module Backend
         render partial: 'backend/shared/timeline', locals: { timeline: line }
       end
     end
-end
+  end
 end

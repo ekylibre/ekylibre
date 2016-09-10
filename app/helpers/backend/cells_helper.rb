@@ -27,5 +27,5 @@ module Backend
     def errored
       content_tag(:div, :internal_error.tl, class: 'internal-error')
     end
-end
+  end
 end

@@ -392,7 +392,7 @@ class Activity < Ekylibre::Record::Base
     [:items, :mass]
       .reject { |e| e == :items && !measure_grading_items_count }
       .reject { |e| e == :mass && !measure_grading_net_mass }
-end
+  end
 
   def unit_preference(user, unit = nil)
     unit_preference_name = "activity_#{id}_inspection_view_unit"

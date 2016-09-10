@@ -43,5 +43,5 @@ module Backend
     def theme_font_size
       theme_config[:font][:size]
     end
-end
+  end
 end

@@ -6,5 +6,5 @@ module Backend
         yield(calibration.name, calibration.send(method).round(0).to_d(unit).to_s.to_f)
       end
     end
-end
+  end
 end
