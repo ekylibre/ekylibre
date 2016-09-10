@@ -13,5 +13,5 @@ module Backend
 
       existing_assets.compact.first.logical_path
     end
-end
+  end
 end

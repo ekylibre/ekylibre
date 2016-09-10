@@ -42,5 +42,5 @@ module Backend
       code << ' ' << text_field_tag(id, params[id], size: 30)
       code.html_safe
     end
-end
+  end
 end
