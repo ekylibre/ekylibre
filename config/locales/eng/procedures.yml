@@ -61,6 +61,7 @@ eng:
     eggs: "Eggs"
     energy: "Energy"
     equipment: "Equipment"
+    equipment_to_repair: "Equipment to repair"
     excrement: "Excrement"
     fermented_juice: "Fermented juice"
     fertilizer: "Fertilizer"
@@ -154,7 +155,7 @@ eng:
     wine_man: "Wine man"
     wine_to_treat: "Wine to treat"
     wire_fence: "Wire fence"
-    work: "Work"
+    work: "Maintenance/Replacement on equipment"
     worker: "Worker"
     zone: "Zone"
   procedures:

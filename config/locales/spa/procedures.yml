@@ -31,6 +31,7 @@ spa:
     eggs: "Huevos"
     energy: "Energía"
     equipment: "Equipo"
+    equipment_to_repair: "Equipo para reparación"
     excrement: "Excremento"
     fermented_juice: "Jugo fermentado"
     fertilizer: "Fertilizante"

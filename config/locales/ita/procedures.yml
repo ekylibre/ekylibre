@@ -31,6 +31,7 @@ ita:
     eggs: "Uova"
     energy: "Energia"
     equipment: "attrezzatura"
+    equipment_to_repair: "Attrezzature di riparazione"
     excrement: "Escrementi"
     fermented_juice: "succo fermentato"
     fertilizer: "Fertilizzante"
