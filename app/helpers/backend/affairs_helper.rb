@@ -7,5 +7,5 @@ module Backend
     def affair_deals(affair)
       render partial: 'backend/affairs/show', object: affair, locals: { affair: affair, current_deal: nil }
     end
-end
+  end
 end

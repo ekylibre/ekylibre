@@ -168,24 +168,24 @@ module Backend
       content.html_safe
     end
 
-  #   name = name.to_s
-  #   content = ''
-  #   file_name, locale = '', nil
-  #   for locale in [I18n.locale, I18n.default_locale]
-  #     help_dir = Rails.root.join("config", "locales", locale.to_s, "help")
-  #     file_name = [name, name.split("-")[0].to_s << "-index"].detect do |pattern|
-  #       File.exists? help_dir.join(pattern << ".txt")
-  #     end
-  #     break unless file_name.blank?
-  #   end
-  #   file_text = Rails.root.join("config", "locales", locale.to_s, "help", file_name.to_s << ".txt")
-  #   if File.exists?(file_text)
-  #     File.open(file_text, 'r') do |file|
-  #       content = file.read
-  #     end
-  #     content = wikize(content, options)
-  #   end
-  #   return content
-  # end
-end
+    #   name = name.to_s
+    #   content = ''
+    #   file_name, locale = '', nil
+    #   for locale in [I18n.locale, I18n.default_locale]
+    #     help_dir = Rails.root.join("config", "locales", locale.to_s, "help")
+    #     file_name = [name, name.split("-")[0].to_s << "-index"].detect do |pattern|
+    #       File.exists? help_dir.join(pattern << ".txt")
+    #     end
+    #     break unless file_name.blank?
+    #   end
+    #   file_text = Rails.root.join("config", "locales", locale.to_s, "help", file_name.to_s << ".txt")
+    #   if File.exists?(file_text)
+    #     File.open(file_text, 'r') do |file|
+    #       content = file.read
+    #     end
+    #     content = wikize(content, options)
+    #   end
+    #   return content
+    # end
+  end
 end

@@ -196,5 +196,5 @@ module Backend
         @current_box = old_current_box
       end
     end
-end
+  end
 end
