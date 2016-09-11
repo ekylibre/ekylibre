@@ -874,7 +874,7 @@ eng:
     # mode_delta: "Mode delta"
     model_euid: "Model"
     mother: "Mother"
-    # movement_stock_account: "Movement stock account"
+    movement_stock_account: "Movement stock account"
     movements: "Movements"
     moves: "Moves" #?
     multi_polygon_value: "Multi polygon value"
@@ -1277,6 +1277,7 @@ eng:
     unit_name: "Unit name"
     unit_population: "Unit population"
     unit_pretax_amount: "Unit pre-tax amount"
+    unit_pretax_stock_amount: "Unit pretax stock amount"
     unlock_token: "Unlock token"
     unlocked_payments: "Unlocked payments"
     unpaid_sales: "Unpaid sales"

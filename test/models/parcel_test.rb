@@ -22,15 +22,18 @@
 #
 # == Table: parcels
 #
+#  accounted_at      :datetime
 #  address_id        :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  currency          :string
 #  custom_fields     :jsonb
 #  delivery_id       :integer
 #  delivery_mode     :string
 #  given_at          :datetime
 #  id                :integer          not null, primary key
 #  in_preparation_at :datetime
+#  journal_entry_id  :integer
 #  lock_version      :integer          default(0), not null
 #  nature            :string           not null
 #  number            :string           not null

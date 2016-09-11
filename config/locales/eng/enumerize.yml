@@ -204,6 +204,7 @@ eng:
         forward: "Carried-forward"
         purchases: "Purchases"
         sales: "Sales"
+        # stocks: "Stocks"
         various: "Various operations"
     listing_node:
       nature:

@@ -1066,6 +1066,7 @@ fra:
     model_euid: "Modèle"
     mother: "Mère"
     moved_at: "Fait le" #?
+    # movement_stock_account: "Movement stock account"
     movements: "Mouvements"
     moves: "Se déplace"
     multi_polygon_value: "Valeur multi-polygonale"
@@ -1513,6 +1514,7 @@ fra:
     unit_name: "Unité"
     unit_population: "Population de l’unité"
     unit_pretax_amount: "PU HT"
+    # unit_pretax_stock_amount: "Unit pretax stock amount"
     unit_price: "Prix unitaire" #?
     unlock_token: "Jeton de déverrouillage"
     unlocked_payments: "Paiement non verrouillés"
@@ -1659,6 +1661,7 @@ fra:
       items: "Nombre de pièces"
       mass: "Masse"
     intervention:
+      bookkeep: "[%{resource}] %{name}"
       name: "%{intervention} n°%{number}"
     issue:
       name_with_target: "%{nature} sur %{target}"
@@ -1727,6 +1730,7 @@ fra:
         transfer:
           name: "Virement"
     parcel:
+      bookkeep: "[%{resource} %{mode} %{number}] %{entity}" #?
       state_machine:
         states:
           draft: "Brouillon"

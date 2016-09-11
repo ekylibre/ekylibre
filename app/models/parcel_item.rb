@@ -25,8 +25,10 @@
 #  analysis_id                   :integer
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
+#  currency                      :string
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
+#  movement_stock_account_id     :integer
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
@@ -42,6 +44,8 @@
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
+#  stock_account_id              :integer
+#  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
 #  variant_id                    :integer
@@ -50,6 +54,7 @@ class ParcelItem < Ekylibre::Record::Base
   attr_readonly :parcel_id
   attr_accessor :product_nature_variant_id
   belongs_to :analysis
+  belongs_to :movement_stock_account, class_name: 'Account'
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
   belongs_to :product_enjoyment,          dependent: :destroy
@@ -58,6 +63,7 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :product_movement,           dependent: :destroy
   belongs_to :purchase_item
   belongs_to :sale_item
+  belongs_to :stock_account, class_name: 'Account'
   belongs_to :source_product, class_name: 'Product'
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
   belongs_to :variant, -> { of_variety :matter }, class_name: 'ProductNatureVariant'
@@ -67,9 +73,10 @@ class ParcelItem < Ekylibre::Record::Base
   has_one :storage, through: :parcel
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :currency, :product_identification_number, :product_name, length: { maximum: 500 }, allow_blank: true
   validates :parted, inclusion: { in: [true, false] }
   validates :population, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  validates :product_identification_number, :product_name, length: { maximum: 500 }, allow_blank: true
+  validates :unit_pretax_stock_amount, presence: true, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }
   validates :parcel, presence: true
   # ]VALIDATORS]
   validates :source_product, presence: { if: :parcel_outgoing? }
@@ -91,9 +98,18 @@ class ParcelItem < Ekylibre::Record::Base
   delegate :allow_items_update?, :remain_owner, :planned_at, :draft?,
            :ordered_at, :recipient, :in_preparation?, :in_preparation_at,
            :prepared?, :prepared_at, :given?, :given_at, :outgoing?, :incoming?,
-           :separated_stock?, to: :parcel, prefix: true
+           :separated_stock?, :currency, to: :parcel, prefix: true
 
   before_validation do
+    self.currency = parcel_currency if parcel
+    if variant
+      self.stock_account = variant.stock_account || Account.find_in_nomenclature(:stocks)
+      self.movement_stock_account = variant.movement_stock_account || Account.find_in_nomenclature(:stocks_variation)
+      catalog_item = variant.catalog_items.of_usage(:stock)
+      if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
+        self.unit_pretax_stock_amount = catalog_item.first.pretax_amount
+      end
+    end
     read_at = parcel ? parcel_prepared_at : Time.zone.now
     self.population ||= product_is_unitary? ? 1 : 0
     next if parcel_incoming?
@@ -124,6 +140,10 @@ class ParcelItem < Ekylibre::Record::Base
   def prepared?
     (!parcel_incoming? && source_product.present?) ||
       (parcel_incoming? && variant.present?)
+  end
+
+  def stock_amount
+    population * unit_pretax_stock_amount
   end
 
   def status

@@ -22,15 +22,18 @@
 #
 # == Table: parcels
 #
+#  accounted_at      :datetime
 #  address_id        :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
+#  currency          :string
 #  custom_fields     :jsonb
 #  delivery_id       :integer
 #  delivery_mode     :string
 #  given_at          :datetime
 #  id                :integer          not null, primary key
 #  in_preparation_at :datetime
+#  journal_entry_id  :integer
 #  lock_version      :integer          default(0), not null
 #  nature            :string           not null
 #  number            :string           not null
@@ -56,10 +59,13 @@
 class Parcel < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  attr_readonly :currency
+  refers_to :currency
   enumerize :nature, in: [:incoming, :outgoing], predicates: true, scope: true, default: :incoming
   enumerize :delivery_mode, in: [:transporter, :us, :third], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
+  belongs_to :journal_entry, dependent: :destroy
   belongs_to :storage, class_name: 'Product'
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase
@@ -72,7 +78,7 @@ class Parcel < Ekylibre::Record::Base
   # has_many :interventions, class_name: 'Intervention', as: :resource
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :given_at, :in_preparation_at, :ordered_at, :prepared_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :accounted_at, :given_at, :in_preparation_at, :ordered_at, :prepared_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :nature, presence: true
   validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :planned_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
@@ -133,6 +139,7 @@ class Parcel < Ekylibre::Record::Base
   before_validation do
     self.planned_at ||= Time.zone.today
     self.state ||= :draft
+    self.currency ||= Preference[:currency]
   end
 
   validate do
@@ -159,6 +166,39 @@ class Parcel < Ekylibre::Record::Base
 
   protect on: :destroy do
     prepared? || given?
+  end
+
+  # This method permits to add stock journal entries corresponding to the incoming or outgoing parcel
+  # It depends on the preference which permit to activate the "permanent_stock_inventory" and "automatic bookkeeping"
+  #       Mode Parcels     |     Debit                      |            Credit            |
+  # incoming parcel        |    stock(3X)                   |   stock_movement(603X/71X)   |
+  # outgoing parcel        |  stock_movement(603X/71X)      |            stock(3X)         |
+  bookkeep do |b|
+    if Preference[:permanent_stock_inventory]
+      mode = self.nature
+      entity = recipient || sender
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
+      stock_journal = Journal.find_or_create_by!(nature: :stocks)
+      if mode == :incoming
+        for item in items
+          b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
+            entry.add_credit(label, item.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            entry.add_debit(label, item.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+          end
+        end
+      elsif mode == :outgoing
+       for item in items
+          b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
+            entry.add_credit(label, item.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            entry.add_debit(label, item.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+          end
+        end
+      end
+    end
+  end
+
+  def printed_at
+    (given? ? given_at : created_at? ? self.created_at : Time.zone.now)
   end
 
   def content_sentence(limit = 30)

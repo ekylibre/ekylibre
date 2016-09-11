@@ -169,6 +169,7 @@ class Preference < Ekylibre::Record::Base
   end
 
   prefer :bookkeep_automatically, :boolean, true
+  prefer :permanent_stock_inventory, :boolean, true
   prefer :bookkeep_in_draft, :boolean, true
   prefer :detail_payments_in_deposit_bookkeeping, :boolean, true
   prefer :host, :string, 'erp.example.com'

@@ -1240,6 +1240,7 @@ fra:
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
+    incoming: "Entrant" #?
     incoming_parcels: "Colis entrants"
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
@@ -1523,6 +1524,7 @@ fra:
     original_component: "D'origine"
     other_results: "Autres résultats…" #?
     others: "Autres"
+    outgoing: "Sortant" #?
     outgoing_payment: "Décaissement"
     outgoing_payments: "Décaissements"
     outgoing_payments_states:  #?

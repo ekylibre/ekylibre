@@ -1866,6 +1866,7 @@ eng:
     host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
+    # permanent_stock_inventory: "Permanent stock inventory"
     sales_conditions: "Sales conditions"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
   rest:

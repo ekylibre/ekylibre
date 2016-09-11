@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909162601) do
+ActiveRecord::Schema.define(version: 20160911161801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1606,18 +1606,18 @@ ActiveRecord::Schema.define(version: 20160909162601) do
   add_index "intervention_parameter_readings", ["updater_id"], name: "index_intervention_parameter_readings_on_updater_id", using: :btree
 
   create_table "intervention_parameters", force: :cascade do |t|
-    t.integer  "intervention_id",                                                                                            null: false
+    t.integer  "intervention_id",                                                                                                null: false
     t.integer  "product_id"
     t.integer  "variant_id"
-    t.decimal  "quantity_population",                                                   precision: 19, scale: 4
-    t.geometry "working_zone",            limit: {:srid=>4326, :type=>"multi_polygon"}
-    t.string   "reference_name",                                                                                             null: false
-    t.integer  "position",                                                                                                   null: false
-    t.datetime "created_at",                                                                                                 null: false
-    t.datetime "updated_at",                                                                                                 null: false
+    t.decimal  "quantity_population",                                                     precision: 19, scale: 4
+    t.geometry "working_zone",              limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.string   "reference_name",                                                                                                 null: false
+    t.integer  "position",                                                                                                       null: false
+    t.datetime "created_at",                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                   default: 0, null: false
+    t.integer  "lock_version",                                                                                     default: 0,   null: false
     t.integer  "event_participation_id"
     t.integer  "outcoming_product_id"
     t.string   "type"
@@ -1625,13 +1625,17 @@ ActiveRecord::Schema.define(version: 20160909162601) do
     t.integer  "new_group_id"
     t.integer  "new_variant_id"
     t.string   "quantity_handler"
-    t.decimal  "quantity_value",                                                        precision: 19, scale: 4
+    t.decimal  "quantity_value",                                                          precision: 19, scale: 4
     t.string   "quantity_unit_name"
     t.string   "quantity_indicator_name"
     t.integer  "group_id"
     t.string   "new_name"
     t.integer  "component_id"
     t.integer  "assembly_id"
+    t.integer  "stock_account_id"
+    t.integer  "movement_stock_account_id"
+    t.string   "currency"
+    t.decimal  "unit_pretax_stock_amount",                                                precision: 19, scale: 4, default: 0.0, null: false
   end
 
   add_index "intervention_parameters", ["assembly_id"], name: "index_intervention_parameters_on_assembly_id", using: :btree
@@ -1641,12 +1645,14 @@ ActiveRecord::Schema.define(version: 20160909162601) do
   add_index "intervention_parameters", ["event_participation_id"], name: "index_intervention_parameters_on_event_participation_id", using: :btree
   add_index "intervention_parameters", ["group_id"], name: "index_intervention_parameters_on_group_id", using: :btree
   add_index "intervention_parameters", ["intervention_id"], name: "index_intervention_parameters_on_intervention_id", using: :btree
+  add_index "intervention_parameters", ["movement_stock_account_id"], name: "index_intervention_parameters_on_movement_stock_account_id", using: :btree
   add_index "intervention_parameters", ["new_container_id"], name: "index_intervention_parameters_on_new_container_id", using: :btree
   add_index "intervention_parameters", ["new_group_id"], name: "index_intervention_parameters_on_new_group_id", using: :btree
   add_index "intervention_parameters", ["new_variant_id"], name: "index_intervention_parameters_on_new_variant_id", using: :btree
   add_index "intervention_parameters", ["outcoming_product_id"], name: "index_intervention_parameters_on_outcoming_product_id", using: :btree
   add_index "intervention_parameters", ["product_id"], name: "index_intervention_parameters_on_product_id", using: :btree
   add_index "intervention_parameters", ["reference_name"], name: "index_intervention_parameters_on_reference_name", using: :btree
+  add_index "intervention_parameters", ["stock_account_id"], name: "index_intervention_parameters_on_stock_account_id", using: :btree
   add_index "intervention_parameters", ["type"], name: "index_intervention_parameters_on_type", using: :btree
   add_index "intervention_parameters", ["updated_at"], name: "index_intervention_parameters_on_updated_at", using: :btree
   add_index "intervention_parameters", ["updater_id"], name: "index_intervention_parameters_on_updater_id", using: :btree
@@ -1693,12 +1699,16 @@ ActiveRecord::Schema.define(version: 20160909162601) do
     t.integer  "request_intervention_id"
     t.boolean  "trouble_encountered",     default: false, null: false
     t.text     "trouble_description"
+    t.datetime "accounted_at"
+    t.string   "currency"
+    t.integer  "journal_entry_id"
   end
 
   add_index "interventions", ["created_at"], name: "index_interventions_on_created_at", using: :btree
   add_index "interventions", ["creator_id"], name: "index_interventions_on_creator_id", using: :btree
   add_index "interventions", ["event_id"], name: "index_interventions_on_event_id", using: :btree
   add_index "interventions", ["issue_id"], name: "index_interventions_on_issue_id", using: :btree
+  add_index "interventions", ["journal_entry_id"], name: "index_interventions_on_journal_entry_id", using: :btree
   add_index "interventions", ["nature"], name: "index_interventions_on_nature", using: :btree
   add_index "interventions", ["prescription_id"], name: "index_interventions_on_prescription_id", using: :btree
   add_index "interventions", ["procedure_name"], name: "index_interventions_on_procedure_name", using: :btree
@@ -2246,11 +2256,16 @@ ActiveRecord::Schema.define(version: 20160909162601) do
     t.integer  "source_product_movement_id"
     t.string   "product_identification_number"
     t.string   "product_name"
+    t.integer  "stock_account_id"
+    t.integer  "movement_stock_account_id"
+    t.string   "currency"
+    t.decimal  "unit_pretax_stock_amount",                                                    precision: 19, scale: 4, default: 0.0,   null: false
   end
 
   add_index "parcel_items", ["analysis_id"], name: "index_parcel_items_on_analysis_id", using: :btree
   add_index "parcel_items", ["created_at"], name: "index_parcel_items_on_created_at", using: :btree
   add_index "parcel_items", ["creator_id"], name: "index_parcel_items_on_creator_id", using: :btree
+  add_index "parcel_items", ["movement_stock_account_id"], name: "index_parcel_items_on_movement_stock_account_id", using: :btree
   add_index "parcel_items", ["parcel_id"], name: "index_parcel_items_on_parcel_id", using: :btree
   add_index "parcel_items", ["product_enjoyment_id"], name: "index_parcel_items_on_product_enjoyment_id", using: :btree
   add_index "parcel_items", ["product_id"], name: "index_parcel_items_on_product_id", using: :btree
@@ -2261,6 +2276,7 @@ ActiveRecord::Schema.define(version: 20160909162601) do
   add_index "parcel_items", ["sale_item_id"], name: "index_parcel_items_on_sale_item_id", using: :btree
   add_index "parcel_items", ["source_product_id"], name: "index_parcel_items_on_source_product_id", using: :btree
   add_index "parcel_items", ["source_product_movement_id"], name: "index_parcel_items_on_source_product_movement_id", using: :btree
+  add_index "parcel_items", ["stock_account_id"], name: "index_parcel_items_on_stock_account_id", using: :btree
   add_index "parcel_items", ["updated_at"], name: "index_parcel_items_on_updated_at", using: :btree
   add_index "parcel_items", ["updater_id"], name: "index_parcel_items_on_updater_id", using: :btree
   add_index "parcel_items", ["variant_id"], name: "index_parcel_items_on_variant_id", using: :btree
@@ -2294,12 +2310,16 @@ ActiveRecord::Schema.define(version: 20160909162601) do
     t.jsonb    "custom_fields"
     t.boolean  "with_delivery",     default: false, null: false
     t.boolean  "separated_stock"
+    t.datetime "accounted_at"
+    t.string   "currency"
+    t.integer  "journal_entry_id"
   end
 
   add_index "parcels", ["address_id"], name: "index_parcels_on_address_id", using: :btree
   add_index "parcels", ["created_at"], name: "index_parcels_on_created_at", using: :btree
   add_index "parcels", ["creator_id"], name: "index_parcels_on_creator_id", using: :btree
   add_index "parcels", ["delivery_id"], name: "index_parcels_on_delivery_id", using: :btree
+  add_index "parcels", ["journal_entry_id"], name: "index_parcels_on_journal_entry_id", using: :btree
   add_index "parcels", ["nature"], name: "index_parcels_on_nature", using: :btree
   add_index "parcels", ["number"], name: "index_parcels_on_number", unique: true, using: :btree
   add_index "parcels", ["purchase_id"], name: "index_parcels_on_purchase_id", using: :btree
