@@ -125,6 +125,7 @@
       .info
         %span.title= Intervention.human_attribute_name(:trouble_encountered)
         %span.value= resource.trouble_description
+    = labels_info(resource.labels)
 
   - if resource.request?
     - c.cobble(:record_interventions, title: :x_interventions.tl(count: resource.record_interventions.count)) do

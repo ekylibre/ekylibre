@@ -322,6 +322,11 @@ por:
       new: "Nova revista"
       # reopen: "Reopen journal: %{name}"
       # show: "Journal: %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      # index: "Labels"
+      new: "Novo rótulo"
+      # show: "Label: %{name}"
     backend/land_parcels:
       # edit: "Edit land parcel: %{name}"
       index: "Parcelas"
@@ -671,6 +676,7 @@ por:
     add_intervention_record: "Adicione registro de intervenção"
     add_intervention_request: "Adicionar pedido de intervenção"
     add_item: "Adicionar Item"
+    add_labelling: "Adicionar rótulo"
     add_line: "Adicionar linha"
     add_linestring: "Adicionar linestring"
     add_mail: "Adicionar endereço postal"

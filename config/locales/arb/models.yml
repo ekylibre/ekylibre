@@ -836,6 +836,7 @@ arb:
       intervention_doer: "التدخل الفاعل"
       intervention_group_parameter: "المعلمة مجموعة التدخل"
       intervention_input: "المدخلات تدخل"
+      intervention_labelling: "تدخل الوسم"
       intervention_output: "الناتج تدخل"
       intervention_parameter: "معلمة تدخل"
       intervention_parameter_reading: "مهمة القراءة المنتج"
@@ -850,6 +851,7 @@ arb:
       journal_entry: "المدخلات"
       journal_entry_item: "مجلة البند دخول"
       journal_record: "سجل المحاسبة" #?
+      label: "ملصق"
       land_parcel: "الكتلة"
       listing: "الاستخراج"
       listing_node: "عقدة الاستخراج"
@@ -890,6 +892,7 @@ arb:
       product_component: "عنصر الانتاج" #?
       product_enjoyment: "تمتع المنتج"
       product_group: "مجموعة المنتجات"
+      product_labelling: "وسم المنتجات"
       product_link: "رابط المنتج"
       product_linkage: "الربط المنتج"
       product_localization: "توطين المنتج"
@@ -1565,8 +1568,8 @@ arb:
     journals: "الدفاتر اليومية" #?
     key: "المفتاح"
     label: "الملصق"
-    # labellings: "Labellings"
-    # labels: "Labels"
+    labellings: "وضع العلامات"
+    labels: "تسميات"
     land_parcel_number: "عدد قطعة أرض"
     land_parcels: "الكتل"
     language: "اللغة"

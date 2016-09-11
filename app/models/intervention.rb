@@ -94,6 +94,7 @@ class Intervention < Ekylibre::Record::Base
 
   acts_as_numbered
   accepts_nested_attributes_for :group_parameters, :doers, :inputs, :outputs, :targets, :tools, :working_periods, allow_destroy: true
+  accepts_nested_attributes_for :labellings, allow_destroy: true
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)

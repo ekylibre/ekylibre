@@ -32,8 +32,8 @@
 #  updater_id   :integer
 #
 class ProductLabelling < Ekylibre::Record::Base
+  include Labellable
   belongs_to :product
-  belongs_to :label
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :label, :product, presence: true
   # ]VALIDATORS]

@@ -17,7 +17,7 @@
 #
 
 module Backend
-  class <%= controller_class_name -%>Controller < Backend::BaseController
+  class LabelsController < Backend::BaseController
     manage_restfully
 
     unroll

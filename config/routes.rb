@@ -569,6 +569,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :labels, concerns: [:list, :unroll]
+
     resources :land_parcels, concerns: :products
 
     resources :listing_nodes

@@ -32,8 +32,8 @@
 #  updater_id      :integer
 #
 class InterventionLabelling < Ekylibre::Record::Base
+  include Labellable
   belongs_to :intervention
-  belongs_to :label
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :intervention, :label, presence: true
   # ]VALIDATORS]
