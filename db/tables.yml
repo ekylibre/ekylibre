@@ -4995,6 +4995,9 @@ product_nature_categories:
   lock_version:
     type: integer
     required: true
+  movement_stock_account_id:
+    type: integer
+    references: account
   name:
     type: string
     required: true

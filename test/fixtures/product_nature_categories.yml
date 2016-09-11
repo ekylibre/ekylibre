@@ -36,6 +36,7 @@
 #  fixed_asset_expenses_account_id     :integer
 #  id                                  :integer          not null, primary key
 #  lock_version                        :integer          default(0), not null
+#  movement_stock_account_id           :integer
 #  name                                :string           not null
 #  number                              :string           not null
 #  pictogram                           :string

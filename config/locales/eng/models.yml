@@ -874,6 +874,7 @@ eng:
     # mode_delta: "Mode delta"
     model_euid: "Model"
     mother: "Mother"
+    # movement_stock_account: "Movement stock account"
     movements: "Movements"
     moves: "Moves" #?
     multi_polygon_value: "Multi polygon value"

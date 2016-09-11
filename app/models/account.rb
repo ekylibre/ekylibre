@@ -83,7 +83,7 @@ class Account < Ekylibre::Record::Base
   }
   # return Account which contains usages mentionned (OR)
   scope :of_usages, lambda { |*usages|
-    where('usages ~ E?', usages.sort.map { |usage| "\\\\m#{usage.to_s.gsub(/\W/, '')}\\\\M" }.join('.*|'))
+    where('usages ~ E?', usages.sort.map { |usage| "\\\\m#{usage.to_s.gsub(/\W/, '')}\\\\M" }.join('.*|')).reorder(:number)
   }
 
   scope :used_between, lambda { |started_at, stopped_at|
@@ -114,6 +114,14 @@ class Account < Ekylibre::Record::Base
 
   # scope :asset_depreciations_inputations_expenses, -> { where('number LIKE ?', '68%').order(:number, :name) }
   scope :asset_depreciations_inputations_expenses, -> { of_usages(:incorporeals_depreciations_inputations_expenses, :land_parcel_construction_depreciations_inputations_expenses, :building_depreciations_inputations_expenses, :animals_depreciations_inputations_expenses, :equipments_depreciations_inputations_expenses, :others_corporeals_depreciations_inputations_expenses) }
+
+  scope :stocks_variations, -> {
+    of_usages(:fertilizer_stocks_variation, :seed_stocks_variation, :plant_medicine_stocks_variation,
+              :livestock_feed_stocks_variation, :animal_medicine_stocks_variation, :animal_reproduction_stocks_variation,
+              :merchandising_stocks_variation, :adult_reproductor_animals_inventory_variations, :young_reproductor_animals_inventory_variations,
+              :long_cycle_product_inventory_variations, :short_cycle_product_inventory_variations,
+              :stocks_variation, :supply_stocks_variation, :other_supply_stocks_variation
+     ) }
 
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do

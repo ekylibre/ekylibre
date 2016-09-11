@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906112630) do
+ActiveRecord::Schema.define(version: 20160909162601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2642,6 +2642,7 @@ ActiveRecord::Schema.define(version: 20160906112630) do
     t.decimal  "fixed_asset_depreciation_percentage", precision: 19, scale: 4, default: 0.0
     t.string   "fixed_asset_depreciation_method"
     t.jsonb    "custom_fields"
+    t.integer  "movement_stock_account_id"
   end
 
   add_index "product_nature_categories", ["charge_account_id"], name: "index_product_nature_categories_on_charge_account_id", using: :btree
@@ -2650,6 +2651,7 @@ ActiveRecord::Schema.define(version: 20160906112630) do
   add_index "product_nature_categories", ["fixed_asset_account_id"], name: "index_product_nature_categories_on_fixed_asset_account_id", using: :btree
   add_index "product_nature_categories", ["fixed_asset_allocation_account_id"], name: "index_pnc_on_financial_asset_allocation_account_id", using: :btree
   add_index "product_nature_categories", ["fixed_asset_expenses_account_id"], name: "index_pnc_on_financial_asset_expenses_account_id", using: :btree
+  add_index "product_nature_categories", ["movement_stock_account_id"], name: "index_product_nature_categories_on_movement_stock_account_id", using: :btree
   add_index "product_nature_categories", ["name"], name: "index_product_nature_categories_on_name", using: :btree
   add_index "product_nature_categories", ["number"], name: "index_product_nature_categories_on_number", unique: true, using: :btree
   add_index "product_nature_categories", ["product_account_id"], name: "index_product_nature_categories_on_product_account_id", using: :btree
