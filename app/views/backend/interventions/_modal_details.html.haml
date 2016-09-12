@@ -14,6 +14,13 @@
   %div.modal-intervention
 
     %div.indicators
+      .med-info.total-cost
+        %span.title= :total_cost.tl
+        %span.value
+          %i.picto.picto-timelapse
+          - currency = Nomen::Currency.find(resource.currency)
+          = resource.total_cost.round(currency.precision).l(currency: currency.name)
+
       .med-info
         %span.title= Intervention.human_attribute_name(:working_duration)
         %span.value
@@ -86,4 +93,5 @@
 .modal-footer
   %div.task-actions
 
-    = link_to 'Modifier', edit_backend_intervention_path(intervention), class: 'btn btn-default'
+    = link_to :see_details.tl, backend_intervention_path(intervention), class: 'btn btn-primary'
+    = link_to :edit.tl, edit_backend_intervention_path(intervention), class: 'btn btn-primary'

@@ -21,7 +21,7 @@ $preview-modal-height: 80vh;
 }
 
 .interventions-modal .modal-body {
-  padding: 25px 15px 15px;
+  padding: 15px;
   max-height: $preview-modal-height;
   overflow-y: auto;
 
@@ -52,13 +52,21 @@ $preview-modal-height: 80vh;
 
 .interventions-modal .indicators {
   @include flex-row(space-around);
+  flex-wrap: wrap;
 
   .med-info {
+    @include flex-column();
+    flex: 1 50%;
     padding: 0;
+    margin-top: 10px;
 
     .value {
       line-height: 60px;
     }
+  }
+
+  .med-info.total-cost {
+    font-weight: bold;
   }
 }
 

@@ -1294,6 +1294,7 @@ deu:
     search: "Suche"
     search_placeholder: "Suche…"
     # section_x: "Section %{x}"
+    # see_details: "See details"
     select_closure_date: "Wählen Sie Schluss"
     select_columns: "Spalten auswählen"
     # select_date: "Select date"

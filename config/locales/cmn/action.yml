@@ -1295,6 +1295,7 @@ cmn:
     search: "搜索"
     search_placeholder: "搜索…"
     # section_x: "Section %{x}"
+    # see_details: "See details"
     select_closure_date: "选择截止日期"
     select_columns: "选择列"
     select_date: "选择日期"
