@@ -65,7 +65,7 @@ class Parcel < Ekylibre::Record::Base
   enumerize :delivery_mode, in: [:transporter, :us, :third], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
-  belongs_to :journal_entry, dependent: :destroy
+  belongs_to :journal_entry
   belongs_to :storage, class_name: 'Product'
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase

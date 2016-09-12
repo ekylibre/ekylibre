@@ -59,7 +59,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :request_intervention, -> { where(nature: :request) }, class_name: 'Intervention'
   belongs_to :issue
   belongs_to :prescription
-  belongs_to :journal_entry, dependent: :destroy
+  belongs_to :journal_entry
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
 
   with_options inverse_of: :intervention do

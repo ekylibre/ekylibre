@@ -26,6 +26,7 @@
 #  achieved_at      :datetime
 #  created_at       :datetime         not null
 #  creator_id       :integer
+#  currency         :string
 #  custom_fields    :jsonb
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
@@ -42,8 +43,11 @@
 class Inventory < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  attr_readonly :currency
+  refers_to :currency
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
+  belongs_to :journal_entry, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
@@ -61,9 +65,47 @@ class Inventory < Ekylibre::Record::Base
 
   before_validation do
     self.achieved_at ||= Time.zone.now
+    self.currency ||= Preference[:currency]
   end
 
-  bookkeep on: :nothing do |_b|
+  #       Mode Inventory     |     Debit                      |            Credit            |
+  #     inventory stock      |    stock(3X)                   |   stock_movement(603X/71X)   |
+  bookkeep  do |b|
+    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    fy = FinancialYear.opened.at(self.printed_at)
+    for item in items
+      parcel_or_intervention_journal_entry_ids = []
+      # for each product
+
+      # get current journal entry ids from interventions
+      parameters = InterventionProductParameter.of_actor(item.product)
+      i = Intervention.where(id: parameters.pluck(:intervention_id))
+      parcel_or_intervention_journal_entry_ids << i.pluck(:journal_entry_id).compact
+
+      # get current journal entry ids from parcels
+      parcel_items = ParcelItem.where(product: item.product)
+      p = Parcel.where(id: parcel_items.pluck(:parcel_id))
+      parcel_or_intervention_journal_entry_ids << p.pluck(:journal_entry_id).compact
+
+      journal_entries = JournalEntry.where(id: parcel_or_intervention_journal_entry_ids, journal: Journal.stocks.first, financial_year: fy).order(:printed_on)
+
+      journal_entry_items = JournalEntryItem.where(entry_id: journal_entries.pluck(:id))
+
+      puts item.name.inspect.red
+      puts journal_entry_items.inspect.yellow
+
+      # step 1 : neutralize last current stock in stock journal
+      #
+      # step 2 : record inventory stock in stock journal
+      #b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: item.product_movement) do |entry|
+      #  entry.add_credit(label, item.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+      #  entry.add_debit(label, item.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+      #end
+    end
+  end
+
+  def printed_at
+    (reflected? ? reflected_at : achieved_at? ? self.achieved_at : self.created_at)
   end
 
   protect do

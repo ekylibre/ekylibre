@@ -1733,6 +1733,7 @@ ActiveRecord::Schema.define(version: 20160911161801) do
     t.string   "name",                             null: false
     t.datetime "achieved_at"
     t.jsonb    "custom_fields"
+    t.string   "currency"
   end
 
   add_index "inventories", ["created_at"], name: "index_inventories_on_created_at", using: :btree
@@ -1743,23 +1744,29 @@ ActiveRecord::Schema.define(version: 20160911161801) do
   add_index "inventories", ["updater_id"], name: "index_inventories_on_updater_id", using: :btree
 
   create_table "inventory_items", force: :cascade do |t|
-    t.integer  "inventory_id",                                             null: false
-    t.integer  "product_id",                                               null: false
-    t.decimal  "expected_population", precision: 19, scale: 4,             null: false
-    t.decimal  "actual_population",   precision: 19, scale: 4,             null: false
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
+    t.integer  "inventory_id",                                                     null: false
+    t.integer  "product_id",                                                       null: false
+    t.decimal  "expected_population",       precision: 19, scale: 4,               null: false
+    t.decimal  "actual_population",         precision: 19, scale: 4,               null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                 default: 0, null: false
+    t.integer  "lock_version",                                       default: 0,   null: false
     t.integer  "product_movement_id"
+    t.integer  "stock_account_id"
+    t.integer  "movement_stock_account_id"
+    t.string   "currency"
+    t.decimal  "unit_pretax_stock_amount",  precision: 19, scale: 4, default: 0.0, null: false
   end
 
   add_index "inventory_items", ["created_at"], name: "index_inventory_items_on_created_at", using: :btree
   add_index "inventory_items", ["creator_id"], name: "index_inventory_items_on_creator_id", using: :btree
   add_index "inventory_items", ["inventory_id"], name: "index_inventory_items_on_inventory_id", using: :btree
+  add_index "inventory_items", ["movement_stock_account_id"], name: "index_inventory_items_on_movement_stock_account_id", using: :btree
   add_index "inventory_items", ["product_id"], name: "index_inventory_items_on_product_id", using: :btree
   add_index "inventory_items", ["product_movement_id"], name: "index_inventory_items_on_product_movement_id", using: :btree
+  add_index "inventory_items", ["stock_account_id"], name: "index_inventory_items_on_stock_account_id", using: :btree
   add_index "inventory_items", ["updated_at"], name: "index_inventory_items_on_updated_at", using: :btree
   add_index "inventory_items", ["updater_id"], name: "index_inventory_items_on_updater_id", using: :btree
 

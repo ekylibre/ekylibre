@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160911091901">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160912182501">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2328,7 +2328,7 @@
       <item name="milk" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop" movement_stock_account="products_inventory_variations"/>
       <item name="natural_water" pictogram="drop"/>
       <item name="oenological_product" charge_account="raw_material_expenses" product_account="revenues" stock_account="plant_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="beaker" movement_stock_account="plant_medicine_stocks_variation"/>
-      <item name="office_furniture_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="fax"/>
+      <item name="office_furniture_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="workshop_supplies_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="fax" movement_stock_account="other_supply_stocks_variation"/>
       <item name="other_consumable" charge_account="other_consumable_matter_expenses" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" movement_stock_account="other_supply_stocks_variation"/>
       <item name="oyster_band" charge_account="other_animal_expenses" product_account="other_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="fish" movement_stock_account="short_cycle_animals_inventory_variations"/>
       <item name="package_consumable" charge_account="packaging" stock_account="other_consumables_stock" purchasable="true" storable="true" pictogram="matter" movement_stock_account="other_supply_stocks_variation"/>
@@ -2363,7 +2363,7 @@
       <item name="vegetable" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf" movement_stock_account="products_inventory_variations"/>
       <item name="vegetals_making_services" charge_account="vegetals_making_services_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="tractor"/>
       <item name="wine" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="drop" movement_stock_account="products_inventory_variations"/>
-      <item name="wine_package_consumable" charge_account="packaging" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter"/>
+      <item name="wine_package_consumable" charge_account="packaging" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" movement_stock_account="other_supply_stocks_variation"/>
       <item name="worker" charge_account="staff_expenses" product_account="revenues" purchasable="true" saleable="true" pictogram="male"/>
     </items>
   </nomenclature>

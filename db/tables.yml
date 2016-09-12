@@ -3273,6 +3273,8 @@ inventories:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   custom_fields:
     type: jsonb
   id:
@@ -3317,6 +3319,8 @@ inventory_items:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   expected_population:
     type: decimal
     precision: 19
@@ -3332,6 +3336,9 @@ inventory_items:
   lock_version:
     type: integer
     required: true
+  movement_stock_account_id:
+    type: integer
+    references: account
   product_id:
     type: integer
     references: product
@@ -3339,6 +3346,14 @@ inventory_items:
   product_movement_id:
     type: integer
     references: product_movement
+  stock_account_id:
+    type: integer
+    references: account
+  unit_pretax_stock_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   updated_at:
     type: datetime
     required: true
