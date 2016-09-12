@@ -1158,6 +1158,7 @@ arb:
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
     dates: "ادخل تواريخ بداية ونهاية المدة"
+    # day: "Day"
     days: "أيام"
     deals: "عروض"
     debit: "الدين"
@@ -2122,7 +2123,7 @@ arb:
     waiting: "أ€ التسدسد لاحقا" #?
     watering_concentration: "استخدام المياه"
     weather: "طقس"
-    # weeks: "Weeks"
+    # week: "Week"
     wind_speed: "سرعة الرياح"
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?

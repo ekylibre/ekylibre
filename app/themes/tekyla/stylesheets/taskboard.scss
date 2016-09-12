@@ -5,9 +5,9 @@
 }
 
 .taskboard .taskboard-column {
+  @include border();
   flex: 1;
-  border: solid 1px #DDD;
-  background: #fafafa;
+  background: $darkened-white;
   margin-right: 30px;
 
   .taskboard-header {
@@ -18,7 +18,7 @@
 
     &--fixed {
       position: fixed;
-      background-color: #F7F7F7;
+      background-color: $darkened-white;
       z-index: 6;
     }
 
@@ -29,7 +29,7 @@
     .actions {
 
       .picto {
-        color: #bdb8b8;
+        color: $lightened-grey;
         font-size: $fs-large;
         min-width: initial;
         line-height: initial;
@@ -47,16 +47,16 @@
   }
 
   .tasks {
-    flex: 1;
     @include flex-column(stretch, flex-start);
+    flex: 1;
     padding-top: 20px;
 
     .task {
       @include flex-column(flex-start, flex-start);
+      @include border();
+      @include normal-shadow();
       margin: 10px 20px;
       padding: 10px 15px;
-      border: 1px solid #DDD;
-      @include normal-shadow();
       border-radius: 5px;
       position: relative;
       cursor: pointer;
@@ -92,7 +92,7 @@
       }
 
       &-datas * {
-        color: white;
+        color: $white;
         padding: 2px 5px;
         border-radius: 3px;
         font-weight: bold;
@@ -117,21 +117,6 @@
         border-radius: 5px;
         margin-right: 5px;
         margin-bottom: 5px;
-      }
-
-      .task-menu {
-        font-size: $fs-huge;
-        position: absolute;
-        bottom: 12px;
-        right: 5px;
-        min-width: 0;
-        line-height: 0;
-        color: #8c8c8c;
-        cursor: pointer;
-      }
-
-      .task-menu:hover {
-        color: $text-color;
       }
     }
   }

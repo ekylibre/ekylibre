@@ -1014,6 +1014,7 @@ eng:
     # data_transmissions: "Data transmissions"
     # date: "Date"
     dates: "Select period start date and Period end date" #?
+    day: "Day" #?
     days: "Days" #?
     deals: "Deals"
     debit: "Debit" #?
@@ -1632,7 +1633,7 @@ eng:
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"
-    weeks: "Weeks" #?
+    week: "Week"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"

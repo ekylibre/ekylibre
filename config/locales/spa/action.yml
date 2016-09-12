@@ -933,6 +933,7 @@ spa:
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
     dates: "Marcar las fechas de empezo y termino por los periodos"
+    # day: "Day"
     days: "Días"
     deals: "Ofertas"
     debit: "Flujo"
@@ -1705,7 +1706,7 @@ spa:
     view: "Ver"
     watering_concentration: "Uso del agua"
     weather: "Clima"
-    # weeks: "Weeks"
+    # week: "Week"
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?

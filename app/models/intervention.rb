@@ -150,11 +150,11 @@ class Intervention < Ekylibre::Record::Base
 
       search_params << " AND " unless search_params.blank?
 
-      if period_type.to_sym == :days
+      if period_type.to_sym == :day
         search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_type.to_sym == :weeks
+      if period_type.to_sym == :week
 
         beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
         end_of_week = period.to_date.at_end_of_week.to_time.end_of_day

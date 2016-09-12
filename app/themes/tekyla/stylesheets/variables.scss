@@ -43,8 +43,14 @@ $title-color:        darken($base-color, 40%) !default;
 $selection-color:  $active-color;
 $base-font-color:  $text-color !default;
 $base-font-reversed-color: #FFF !default;
+$default-border-color: #DDD;
 
+// Basic colors
 $white: #FFFFFF;
+$darkened-white: #FAFAFA;
+$lightened-black: #616161;
+$lightened-grey: #BDB8B8;
+$darkened-blue-grey: #455A64;
 
 $brand-primary: $base-color;
 $brand-success: $success-color;

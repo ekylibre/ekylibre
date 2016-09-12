@@ -73,9 +73,9 @@ $preview-modal-height: 80vh;
 
     .block-title {
       margin-right: 80px;
-      border-bottom: 1px solid #e5e5e5;
+      border-bottom: 1px solid $default-border-color;
       padding-bottom: 5px;
-      font-size: 18px;
+      font-size: $fs-large;
       font-weight: bold;
     }
 
@@ -100,13 +100,13 @@ $preview-modal-height: 80vh;
   .taskboard-column {
 
     &.requests {
-      border: dashed 1px #616161;
+      @include border(border, 1px, dashed, $lightened-black);
     }
 
     .taskboard-header {
 
       &--gray {
-        border-bottom: solid 1px #DDD;
+        @include border(border-bottom);
       }
     }
   }
@@ -114,7 +114,7 @@ $preview-modal-height: 80vh;
   .task {
 
     &-data.doers {
-      background-color: #455A64;
+      background-color: $darkened-blue-grey;
     }
   }
 }

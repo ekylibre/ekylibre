@@ -5,10 +5,10 @@
   - delta = nil
   - additionnal_classes = ''
 
-  - if period_type == :days
+  - if period_type == :day
     - delta = 1.day
 
-  - if period_type == :weeks
+  - if period_type == :week
     - delta = 1.week
     - displayed_period = :manual_period.tl(start: current_period.at_beginning_of_week.l, finish: current_period.at_end_of_week.l)
 

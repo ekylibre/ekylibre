@@ -1050,6 +1050,7 @@ fra:
     data_to_extract: "Données à extraire" #?
     date: "Date" #?
     dates: "Saisissez les dates de début et de fin de la période"
+    day: "Jour"
     days: "Jours"
     deals: "Transactions"
     debit: "Débit"
@@ -1874,7 +1875,7 @@ fra:
     timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} %{when}"
     timeline_task: "%{author} a ajouté une tâche %{name} %{when}"
     times: "Temps"
-    title_change_status_selected_interventions: "Changer le status des interventions selectionées"
+    title_change_status_selected_interventions: "Changer le statut des interventions selectionées"
     title_delete_selected_interventions: "Supprimer les interventions selectionnées"
     to: "Au"
     to_bank_at: "À encaisser le" #?
@@ -2018,7 +2019,7 @@ fra:
     watering_concentration: "Eau consommée"
     wear: "Usure" #?
     weather: "Météo"
-    weeks: "Semaines"
+    week: "Semaine"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"

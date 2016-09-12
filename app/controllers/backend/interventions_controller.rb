@@ -56,13 +56,13 @@ module Backend
       # select the interventions according to the user current period
       code << "unless current_period_type.blank? && current_period.blank?\n"
 
-      code << " if current_period_type.to_sym == :days\n"
+      code << " if current_period_type.to_sym == :day\n"
       code << "   c[0] << ' AND EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
       code << "   c << current_period.to_date.day\n"
       code << "   c << current_period.to_date.month\n"
       code << "   c << current_period.to_date.year\n"
 
-      code << " elsif current_period_type.to_sym == :weeks\n"
+      code << " elsif current_period_type.to_sym == :week\n"
       code << "   c[0] << ' AND #{Intervention.table_name}.started_at >= ? AND #{Intervention.table_name}.stopped_at <= ?'\n"
       code << "   c << current_period.to_date.at_beginning_of_week.to_time.beginning_of_day\n"
       code << "   c << current_period.to_date.at_end_of_week.to_time.end_of_day\n"
