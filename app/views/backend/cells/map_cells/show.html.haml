@@ -18,6 +18,7 @@
 
           popup_lines << link_to(:see_more_details.tl, sensor.partner_url) if sensor.partner_url.present?
           {
+            sensor_id: sensor.id,
             name: sensor.name,
             shape: analysis.geolocation,
             shape_color: '#'+Digest::MD5.hexdigest(model)[0, 6].upcase,
@@ -151,7 +152,7 @@
 - if data.empty?
   .placeholding-message= :no_production_defined_for_current_campaign.tn
 - else
-  = visualization do |v|
+  = visualization({}, { class: "refresh-locations" }) do |v|
     - v.serie :main, data
     - if params[:visualization] == "nitrogen_footprint"
       - v.choropleth :interventions_count, :main
@@ -170,8 +171,9 @@
       - v.choropleth :time_cost, :main, stop_color: "#E77000"
       - v.categories :activity, :main
 
-    - v.serie :sensor_data, sensor_data
-    - v.point_group :sensors, :sensor_data
+    - unless sensor_data.blank?
+      - v.serie :sensor_data, sensor_data
+      - v.point_group :sensors, :sensor_data
 
     - v.control :zoom
     - v.control :scale
