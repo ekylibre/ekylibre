@@ -57,6 +57,18 @@ cmn:
         multi_polygon: "多多边形"
         point: "点"
         string: "串"
+    call_message:
+      nature:
+        incoming: "来"
+        outgoing: "传出"
+    call_request:
+      nature:
+        incoming: "来"
+        outgoing: "传出"
+    call_response:
+      nature:
+        incoming: "来"
+        outgoing: "传出"
     cash:
       mode:
         bban: "基本银行帐户号码（BBAN）"
@@ -380,6 +392,7 @@ cmn:
         supplier: "供应商"
     sensor:
       retrieval_mode:
+        integration: "积分"
         listening: "听力"
         requesting: "请求"
     sequence:

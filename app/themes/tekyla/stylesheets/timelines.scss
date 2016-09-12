@@ -9,7 +9,7 @@ $marker-color: $caution-color;
   margin: 0 auto $padding;
   position: relative;
 
-  max-width: 120ex;
+  max-width: $narrow-page-width;
 
   &:before {
     background-color: $line-color;
@@ -215,7 +215,7 @@ $marker-color: $caution-color;
 }
 
 .timeline-tools {
-  max-width: 120ex;
+  max-width: $narrow-page-width;
   margin: 0 auto;
   padding: $default-gap;
   background: white;

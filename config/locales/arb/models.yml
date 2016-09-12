@@ -766,6 +766,10 @@ arb:
       bioproduct: "المنتج تعيش"
       building: "موقع التخزين"
       building_division: "غرفة / المنطقة"
+      call: "مكالمة"
+      call_message: "رسالة دعوة"
+      call_request: "طلب استدعاء"
+      call_response: "استجابة الدعوة"
       campaign: "حملة"
       cap_islet: "CAP جزيرة"
       cap_land_parcel: "CAP قطعة أرض"
@@ -826,6 +830,7 @@ arb:
       inspection: "تصنيف المنتجات"
       inspection_calibration: "عيار التفتيش"
       inspection_point: "الاختيار تصنيف المنتجات"
+      integration: "دمج"
       intervention: "تدخل"
       intervention_agent: "وكيل تدخل"
       intervention_doer: "التدخل الفاعل"
@@ -936,6 +941,7 @@ arb:
       tax: "الضريبة"
       tax_declaration: "تصريح الضرائب" #?
       team: "الخجمة"
+      token: "رمز"
       tool: "الاداة" #?
       tracking: "حصة ممكن عزوها"
       transfer: "التحويل" #?
@@ -1011,6 +1017,7 @@ arb:
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
     area_unit_id: "وحدة مساحة" #?
+    arguments: "الحجج"
     arrived_at: "وصل يوم" #?
     assembly: "جمعية"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة" #?
@@ -1048,6 +1055,7 @@ arb:
     base_amount: "كمية قاعدة"
     bban: "RIB" #?
     bic: "BIC" #?
+    body: "الجسم"
     boolean_value: "القيمة المنطقية"
     born_at: "تاريخ الميلاد"
     budgets: "الميزانيات"
@@ -1092,6 +1100,7 @@ arb:
     choice_value_id: "اختيار القيمة" #?
     choices: "خيارات الحقول الاضافية"
     choices_count: "عدد الخيارات"
+    ciphered_parameters: "المعلمات مشفر"
     city: "المدينة"
     city_name: "الاسم"
     client: "العميل"
@@ -1335,6 +1344,7 @@ arb:
     establishment: "المؤسسة" #?
     establishment_id: "مؤسسة" #?
     establishments: "المؤسسات" #?
+    # euid: "EUID"
     event: "حدث"
     event_natures: "نوع الحدث" #?
     event_participation: "مشاركة الحدث"
@@ -1405,7 +1415,7 @@ arb:
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
     for_sales: "منتجات البيع" #?
-    format: "التصميم" #?
+    format: "التصميم"
     formats: "صيغ"
     fourth_producer: "رابع منتج" #?
     frequency: "تردد"
@@ -1444,6 +1454,7 @@ arb:
     harvest_year: "حصاد العام"
     has_downpayment: "لديه عربون واحد"
     hashed_password: "تشفير كلمة المرور" #?
+    headers: "رؤوس"
     host: "مضيف"
     hour_duration: "(ساعة (ساعات" #?
     human_activities_names: "أسماء الأنشطة"
@@ -1489,12 +1500,14 @@ arb:
     initial_owner: "صاحب الأولي"
     initial_population: "السكان الأولي"
     initial_shape: "الشكل الأولي"
+    initialization_vectors: "ناقلات التهيئة"
     inputs: "المدخلات"
     inspection: "تفتيش"
     inspections: "عمليات التفتيش"
     insurance_amount: "مبلغ التأمين"
     insurance_percentage: "نسبة التأمين"
     integer_value: "قيمة العدد الصحيح"
+    integration_name: "اسم التكامل"
     interest_amount: "مبلغ الفائدة"
     interest_percentage: "نسبة الفائدة"
     intermediate_cultivation_residue_mineralization: "زراعة المتوسطة بقايا تمعدن"
@@ -1521,6 +1534,7 @@ arb:
     invoice_contact_id: "العنوان للفاتورة" #?
     invoiced: "مفوتر" #?
     invoiced_at: "فواتير على"
+    ip_address: "عنوان بروتوكول الإنترنت"
     irrigated: "المروية"
     irrigation_water_nitrogen: "الري النيتروجين المياه"
     is_debit: "مدين" #?
@@ -1565,6 +1579,7 @@ arb:
     last_number: "الرقم الاخير"
     last_sign_in_at: "علامة الماضي في في"
     last_sign_in_ip: "علامة الماضي في مجال الملكية الفكرية"
+    last_value: "القيمة الأخيرة"
     last_year: "السنة السابقة"
     latest: "آخر"
     latitude: "خطوط العرض" #?
@@ -1657,6 +1672,7 @@ arb:
     members_count: "عد الأعضاء"
     memberships: "عضوية"
     message: "الرسالة"
+    messages: "رسائل"
     metadata: "البيانات الوصفية"
     min_duration: "(دقيقة (دقائق" #?
     min_zoom: "دقيقة التكبير"
@@ -1714,7 +1730,7 @@ arb:
     office: "المكتب/الاستديو" #?
     old_password: "كلمة المرور الحالية"
     opened_at: "افتتح في"
-    operation: "العمل" #?
+    operation: "العمل"
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
     operation_natures: "انواع العمل" #?
@@ -1981,7 +1997,9 @@ arb:
     replaced_at: "محل في"
     replacements: "بدلاء"
     reporter: "صحافي"
+    request: "طلب"
     request_intervention: "تدخل الطلب"
+    requests: "طلبات"
     required: "الزامي"
     reservoir: "المخزن" #?
     reset_password_sent_at: "إعادة تعيين كلمة المرور أرسلت في"
@@ -1989,6 +2007,7 @@ arb:
     resource: "المصدر الاصلي"
     resource_id: "المصدر الاصلي" #?
     resource_type: "نوع المصدر"
+    responses: "الردود"
     responsible: "المسؤول"
     responsible_id: "المسؤول" #?
     restricted: "مقيد"
@@ -2084,6 +2103,7 @@ arb:
     source_product: "مصدر المنتج"
     spaced_iban: "متباعدة IBAN"
     sql_type: "SQL نوع"
+    ssl: "خدمة تصميم المواقع"
     start: "البداية"
     started_at: "ابتدأ يوم"
     started_on: "ابتدأ يوم"
@@ -2258,6 +2278,7 @@ arb:
     vat_subjected: "ضريبة القيمة المضافة تعرض"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
     vendor_euid: "بائع"
+    verb: "الفعل"
     versions: "إصدارات"
     view_parameters: "مشاهدة المعلمات"
     virtual: "عملي" #?

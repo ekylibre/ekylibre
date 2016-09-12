@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::UsersHelperTest < ActionView::TestCase
+module Backend
+  class UsersHelperTest < ActionView::TestCase
+  end
 end

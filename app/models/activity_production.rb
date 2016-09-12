@@ -419,7 +419,7 @@ class ActivityProduction < Ekylibre::Record::Base
                  products.of_campaign(campaign)
                else
                  products.where(born_at: started_on..(stopped_on || Time.zone.now.to_date))
-             end
+               end
     products.shape_within(support_shape)
   end
 

@@ -4,7 +4,7 @@ module Procedo
   module Engine
     class Intervention
       class ProductParameter < Procedo::Engine::Intervention::Parameter
-        attr_reader :product, :working_zone, :readings, :read_at
+        attr_reader :product, :working_zone, :readings, :read_at, :assembly, :component
 
         delegate :get, to: :product
 
@@ -25,6 +25,12 @@ module Procedo
               add_reading(id, attributes)
             end
           end
+          if attributes[:assembly_id].present?
+            @assembly = Product.find_by(id: attributes[:assembly_id])
+          end
+          if attributes[:component_id].present?
+            @component = ProductNatureVariantComponent.find_by(id: attributes[:component_id])
+          end
         end
 
         def read_at?
@@ -44,7 +50,7 @@ module Procedo
         end
 
         def product_id=(id)
-          @product = Product.find_by!(id: id)
+          @product = id.blank? ? nil : Product.find_by!(id: id)
           # Can impact on own attributes, own readings, and other parameters
           impact_dependencies!(:product)
         end
@@ -70,6 +76,40 @@ module Procedo
           nil
         end
 
+        def assembly_id
+          @assembly ? @assembly.id : nil
+        end
+
+        def assembly_id=(id)
+          @assembly = id.blank? ? nil : Product.find_by!(id: id)
+          impact_dependencies! :assembly
+        end
+
+        def assembly=(record)
+          self.assembly_id = Maybe(record).id.or_else(nil)
+        end
+
+        def assembly?
+          @assembly.present?
+        end
+
+        def component_id
+          @component ? @component.id : nil
+        end
+
+        def component_id=(id)
+          @component_id = id.blank? ? nil : ProductNatureVariant.find_by!(id: id)
+          impact_dependencies! :component
+        end
+
+        def component=(record)
+          self.component_id = Maybe(record).id.or_else(nil)
+        end
+
+        def component?
+          @component.present?
+        end
+
         def to_hash
           hash = super
           hash[:product_id] = product_id if product?
@@ -79,6 +119,8 @@ module Procedo
             hash[:readings_attributes] ||= {}
             hash[:readings_attributes][id] = reading.to_hash
           end
+          hash[:assembly_id] = assembly_id if assembly?
+          hash[:component_id] = component_id if component?
           hash
         end
 
@@ -95,6 +137,8 @@ module Procedo
           impact_on_readings(field)
           impact_on_components(field)
           impact_on_parameters(field)
+          reassign(:assembly)
+          reassign(:component)
         end
 
         # Impact changes on attributes of parameter based on given field

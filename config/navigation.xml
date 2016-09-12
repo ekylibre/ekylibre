@@ -995,6 +995,14 @@
         <page to="backend/settings#edit"/>
         <page to="backend/settings#update"/>
       </item>
+      <item name="integrations">
+        <page to="backend/integrations#index"/>
+        <page to="backend/integrations#edit"/>
+        <page to="backend/integrations#new"/>
+        <page to="backend/integrations#create"/>
+        <page to="backend/integrations#update"/>
+        <page to="backend/integrations#destroy"/>
+      </item>
       <item name="map_backgrounds">
         <page to="backend/map_backgrounds#index"/>
         <page to="backend/map_backgrounds#create"/>
@@ -1738,6 +1746,9 @@
       <item name="crumbs">
         <page to="api/v1/crumbs#index"/>
         <page to="api/v1/crumbs#create"/>
+      </item>
+      <item name="interventions">
+        <page to="api/v1/interventions#index"/>
       </item>
       <item name="issues">
         <page to="api/v1/issues#index"/>

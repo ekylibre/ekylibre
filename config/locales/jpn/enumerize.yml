@@ -57,6 +57,18 @@ jpn:
         multi_polygon: "マルチポリゴン"
         point: "ポイント"
         string: "文字列"
+    call_message:
+      nature:
+        incoming: "入ってきます"
+        outgoing: "出ていきます"
+    call_request:
+      nature:
+        incoming: "入ってきます"
+        outgoing: "出ていきます"
+    call_response:
+      nature:
+        incoming: "入ってきます"
+        outgoing: "出ていきます"
     cash:
       mode:
         bban: "基本的な銀行口座番号（BBAN）"
@@ -380,6 +392,7 @@ jpn:
         supplier: "サプライヤー"
     sensor:
       retrieval_mode:
+        integration: "統合"
         listening: "聞いている"
         requesting: "要求"
     sequence:

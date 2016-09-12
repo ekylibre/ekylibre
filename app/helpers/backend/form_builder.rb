@@ -161,6 +161,12 @@ module Backend
       if options[:hide]
         options[:input_html]['data-hide'] = clean_targets(options.delete(:hide))
       end
+      unless options.key?(:disabled)
+        if @object.is_a?(ActiveRecord::Base) && !@object.new_record? &&
+           @object.class.readonly_attributes.include?(attribute_name.to_s)
+          options[:disabled] = true
+        end
+      end
       autocomplete = options[:autocomplete]
       if autocomplete
         autocomplete = {} if autocomplete.is_a?(TrueClass)
