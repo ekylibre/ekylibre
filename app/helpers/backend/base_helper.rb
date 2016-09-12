@@ -342,7 +342,6 @@ module Backend
       end
     end
 
-
     def labels_info(labels)
       if labels.any?
         content_tag(:div, class: 'info-labels') do

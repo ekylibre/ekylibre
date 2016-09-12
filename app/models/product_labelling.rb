@@ -33,7 +33,7 @@
 #
 class ProductLabelling < Ekylibre::Record::Base
   include Labellable
-  belongs_to :product
+  belongs_to :product, inverse_of: :labellings
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :label, :product, presence: true
   # ]VALIDATORS]
