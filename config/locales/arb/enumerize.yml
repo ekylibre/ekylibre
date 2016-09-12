@@ -57,6 +57,18 @@ arb:
         multi_polygon: "مضلع متعددة"
         point: "نقطة"
         string: "خيط"
+    call_message:
+      nature:
+        incoming: "الوارد"
+        outgoing: "المنتهية ولايته"
+    call_request:
+      nature:
+        incoming: "الوارد"
+        outgoing: "المنتهية ولايته"
+    call_response:
+      nature:
+        incoming: "الوارد"
+        outgoing: "المنتهية ولايته"
     cash:
       mode:
         bban: "رقم الحساب المصرفي الأساسي (BBAN)"
@@ -379,6 +391,7 @@ arb:
         supplier: "المورد"
     sensor:
       retrieval_mode:
+        integration: "دمج" #?
         listening: "استماع"
         requesting: "طلب"
     sequence:

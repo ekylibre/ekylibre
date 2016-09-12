@@ -1,5 +1,67 @@
 # Change Log
 
+## [2.5.0](https://github.com/ekylibre/ekylibre/tree/2.5.0) (2016-09-09)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.4.1...2.5.0)
+
+**Implemented enhancements:**
+
+- Display the name of intervention at creation of a new intervention [\#1075](https://github.com/ekylibre/ekylibre/issues/1075)
+- Payment cancelation doesn't exist [\#1037](https://github.com/ekylibre/ekylibre/issues/1037)
+- Create the Integration system. [\#1032](https://github.com/ekylibre/ekylibre/pull/1032) ([Aquaj](https://github.com/Aquaj))
+- Add ActionCaller module to control calls to other API and track all exchanges [\#1007](https://github.com/ekylibre/ekylibre/pull/1007) ([burisu](https://github.com/burisu))
+
+**Fixed bugs:**
+
+- When dates are not touched in intervention form, selectors failed [\#1074](https://github.com/ekylibre/ekylibre/issues/1074)
+- Crumbs aren't visible [\#1072](https://github.com/ekylibre/ekylibre/issues/1072)
+- Overflow makes scroll on "big" affairs in deals [\#1069](https://github.com/ekylibre/ekylibre/issues/1069)
+- Colors of activities changed and are not representative of cultivations [\#1063](https://github.com/ekylibre/ekylibre/issues/1063)
+- Child components must have diffrent name [\#1060](https://github.com/ekylibre/ekylibre/issues/1060)
+- Duplication of indicator field at creation of a new product\_nature\_variant [\#861](https://github.com/ekylibre/ekylibre/issues/861)
+
+## [2.4.1](https://github.com/ekylibre/ekylibre/tree/2.4.1) (2016-09-07)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.4.0...2.4.1)
+
+**Fixed bugs:**
+
+- Fields of part\_replacement are cleared after adding a new part\_replacement in equipment\_maintenance procedure [\#1054](https://github.com/ekylibre/ekylibre/issues/1054)
+- Cannot filter on equipment component after adding a new input for replacement [\#1039](https://github.com/ekylibre/ekylibre/issues/1039)
+- Bug when i want to bill a parcel [\#949](https://github.com/ekylibre/ekylibre/issues/949)
+
+**Closed issues:**
+
+- Cannot select a land\_parcel in plant\_covering intervention \(solarization\) [\#1067](https://github.com/ekylibre/ekylibre/issues/1067)
+
+## [2.4.0](https://github.com/ekylibre/ekylibre/tree/2.4.0) (2016-09-06)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.3.3...2.4.0)
+
+**Implemented enhancements:**
+
+- Send request intervention to zero [\#1049](https://github.com/ekylibre/ekylibre/issues/1049)
+- Translation update : "item" in maintenance intervention [\#767](https://github.com/ekylibre/ekylibre/issues/767)
+- Completes nomenclatures [\#1065](https://github.com/ekylibre/ekylibre/pull/1065) ([burisu](https://github.com/burisu))
+- Extend API to adds interventions\#index action [\#1064](https://github.com/ekylibre/ekylibre/pull/1064) ([burisu](https://github.com/burisu))
+
+## [2.3.3](https://github.com/ekylibre/ekylibre/tree/2.3.3) (2016-09-02)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.3.2...2.3.3)
+
+## [2.3.2](https://github.com/ekylibre/ekylibre/tree/2.3.2) (2016-09-01)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.3.1...2.3.2)
+
+**Fixed bugs:**
+
+- Production costs with forecast interventions [\#1016](https://github.com/ekylibre/ekylibre/issues/1016)
+- Crash if measure grading net mass misses [\#908](https://github.com/ekylibre/ekylibre/issues/908)
+
+## [2.3.1](https://github.com/ekylibre/ekylibre/tree/2.3.1) (2016-08-31)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.3.0...2.3.1)
+
+**Fixed bugs:**
+
+- Cannot display a worker page [\#1059](https://github.com/ekylibre/ekylibre/issues/1059)
+- Geolocation input field on equipment edit page doesn't work on Chrome and Vivaldi browsers [\#975](https://github.com/ekylibre/ekylibre/issues/975)
+- Printing an intervention sheet provides an empty file [\#907](https://github.com/ekylibre/ekylibre/issues/907)
+
 ## [2.3.0](https://github.com/ekylibre/ekylibre/tree/2.3.0) (2016-08-28)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.2.0...2.3.0)
 
@@ -391,7 +453,6 @@
 - Multiplication of cultivable zones when create activities from telepac [\#570](https://github.com/ekylibre/ekylibre/issues/570)
 - French translations are missing for pictograms [\#568](https://github.com/ekylibre/ekylibre/issues/568)
 - Quantity of plant in matters [\#566](https://github.com/ekylibre/ekylibre/issues/566)
-- Isacompta exchanger is not up-to-date [\#564](https://github.com/ekylibre/ekylibre/issues/564)
 - Delete a product in a parcel [\#563](https://github.com/ekylibre/ekylibre/issues/563)
 - French translations or text are missing on mouse over the cartography buttons [\#561](https://github.com/ekylibre/ekylibre/issues/561)
 - French translation of "required" is missing in all forms [\#559](https://github.com/ekylibre/ekylibre/issues/559)

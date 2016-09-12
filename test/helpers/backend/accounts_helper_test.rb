@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::AccountsHelperTest < ActionView::TestCase
+module Backend
+  class AccountsHelperTest < ActionView::TestCase
+  end
 end

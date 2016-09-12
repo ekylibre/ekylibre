@@ -57,6 +57,18 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    call_message:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
+    call_request:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
+    call_response:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
@@ -363,6 +375,7 @@ fra:
         supplier: "Fournisseur"
     sensor:
       retrieval_mode:
+        integration: "Intégration" #?
         listening: "Serveur"
         requesting: "Client"
     sequence:

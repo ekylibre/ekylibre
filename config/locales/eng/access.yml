@@ -48,6 +48,7 @@ eng:
       incoming_deliveries: "Incoming deliveries"
       incoming_payment_modes: "Incoming payment modes"
       incoming_payments: "Incoming payments"
+      # integrations: "Integrations"
       interventions: "Interventions"
       inventories: "Inventories"
       issues: "Issues"

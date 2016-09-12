@@ -3,7 +3,7 @@
     f.object.name ||= nature.name
     f.object.unit_name ||= Nomen::Variety[nature.variety].human_name
     nature.frozen_indicators.each do |indicator|
-      unless f.object.readings.find_by(indicator_name: indicator.name)
+      unless f.object.readings.detect { |r| r.indicator_name.to_s == indicator.name.to_s }
         f.object.readings.build(indicator_name: indicator.name, indicator_datatype: indicator.datatype)
       end
     end
@@ -22,7 +22,6 @@
   = f.input :unit_name
   = f.picture
   = f.custom_fields
-
 
 - if f.object.readings.any?
   = field_set(:indicators) do

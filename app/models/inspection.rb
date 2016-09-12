@@ -260,15 +260,15 @@ class Inspection < Ekylibre::Record::Base
 
   protected
 
-  # Returns the sum of measurements on a scale if one is provided
-  #  or the average of measurements across all scales if none is.
-  def calibration_values(method, scale = nil, marketable = false)
+  # Returns the sum of measurements on a scale if one is provided or the average
+  # of measurements across all scales if none is.
+  def calibration_values(method_name, scale = nil, marketable = false)
     if scale.nil?
-      (scales.map { |s| send(:calibration_values, method, s, marketable) }.sum / scales.count)
+      (scales.map { |s| send(:calibration_values, method_name, s, marketable) }.sum / scales.count)
     else
       calib = calibrations.of_scale(scale)
       calib = calib.marketable if marketable
-      calib.map(&method).sum
+      calib.map(&method_name).compact.sum
     end
   end
 end

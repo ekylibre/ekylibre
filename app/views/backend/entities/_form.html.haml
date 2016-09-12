@@ -8,6 +8,7 @@
     = f.input :last_name, autocomplete: true
   - else
     = f.input :last_name, label: Entity.human_attribute_name(:full_name)
+  = f.input :number, required: false, placeholder: f.object.next_number
   = f.input :active, hide: :dead_at
   = f.custom_fields
   = f.input :language

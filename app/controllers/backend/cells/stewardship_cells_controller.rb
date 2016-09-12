@@ -8,7 +8,7 @@ module Backend
                       current_campaign
                     else
                       Campaign.current.last
-                     end
+                    end
       end
     end
   end

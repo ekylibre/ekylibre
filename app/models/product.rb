@@ -329,8 +329,13 @@ class Product < Ekylibre::Record::Base
     def availables(**args)
       at = args[:at]
       return available if at.blank?
-      if at.is_a? String
-        available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+      if at.is_a?(String)
+        if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
+          available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+        else
+          logger.warn('Cannot parse: ' + at)
+          available
+        end
       else
         available.at(at)
       end

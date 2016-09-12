@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::CellsHelperTest < ActionView::TestCase
+module Backend
+  class CellsHelperTest < ActionView::TestCase
+  end
 end

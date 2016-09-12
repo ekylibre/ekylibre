@@ -502,6 +502,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :integrations, except: [:show, :destroy] do
+      collection do
+        delete :destroy
+      end
+    end
+
     resources :interventions, concerns: [:list, :unroll] do
       collection do
         patch :compute

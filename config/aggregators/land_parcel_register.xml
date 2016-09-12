@@ -39,7 +39,7 @@
           <sections for="intervention" in="Intervention.real.done.with_targets(targets).reorder(:started_at)" of-type="record">
             <title name="name" of="intervention"/>
             <property name="id" of="intervention" level="api"/>
-            <property name="url" value="&quot;#{Preference[:host]}/backend/interventions/#{intervention.id}&quot;" level="api"/>
+            <property name="url" value="&quot;#{Ekylibre::Tenant.host}/backend/interventions/#{intervention.id}&quot;" level="api"/>
             <property name="started_at" value="intervention.started_at" type="datetime"/>
             <property name="stopped_at" value="intervention.stopped_at" type="datetime"/>
             <property name="working_duration" if="intervention.working_duration" value="intervention.working_duration.in(:second).in(:hour).round(2).l" type="measure"/>

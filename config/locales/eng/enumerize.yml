@@ -116,6 +116,22 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    call_message:
+      nature:
+        incoming: "Incoming"
+        outgoing: "Outgoing"
+    call_message:
+      nature:
+        incoming: "Incoming"
+        outgoing: "Outgoing"
+    call_request:
+      nature:
+        incoming: "Incoming"
+        outgoing: "Outgoing"
+    call_response:
+      nature:
+        incoming: "Incoming"
+        outgoing: "Outgoing"
     cash:
       mode:
         bban: "Basic Bank Account Number (BBAN)"
@@ -722,10 +738,12 @@ eng:
         supplier: "Supplier"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Listening"
         requesting: "Requesting"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Listening"
         requesting: "Requesting"
     sequence:
