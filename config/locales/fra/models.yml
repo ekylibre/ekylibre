@@ -1661,7 +1661,7 @@ fra:
       items: "Nombre de pièces"
       mass: "Masse"
     intervention:
-      bookkeep: "[%{resource}] %{name}"
+      bookkeep: "[%{resource}] %{name}" #?
       name: "%{intervention} n°%{number}"
     issue:
       name_with_target: "%{nature} sur %{target}"

@@ -80,7 +80,7 @@ class Intervention < Ekylibre::Record::Base
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :actions, :currency, :number, length: { maximum: 500 }, allow_blank: true
+  validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
   validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -217,9 +217,9 @@ class Intervention < Ekylibre::Record::Base
       end
     end
   end
-  
+
   def printed_at
-    (started_at? ? started_at : created_at? ? self.created_at : Time.zone.now)
+    (stopped_at? ? self.stopped_at : created_at? ? self.created_at : Time.zone.now)
   end
 
   def activity_productions

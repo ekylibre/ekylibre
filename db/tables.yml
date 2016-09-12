@@ -3097,7 +3097,7 @@ intervention_parameters:
     required: true
   movement_stock_account_id:
     type: integer
-    references: ''
+    references: account
   new_container_id:
     type: integer
     references: product
@@ -3137,7 +3137,7 @@ intervention_parameters:
     required: true
   stock_account_id:
     type: integer
-    references: ''
+    references: account
   type:
     type: string
   unit_pretax_stock_amount:

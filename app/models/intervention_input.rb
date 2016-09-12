@@ -81,10 +81,10 @@ class InterventionInput < InterventionProductParameter
       movement.save!
     end
   end
-  
+
   def stock_amount
     if self.product_movement
-      self.product_movement.population * unit_pretax_stock_amount
+      quantity_population * unit_pretax_stock_amount
     end
   end
 
