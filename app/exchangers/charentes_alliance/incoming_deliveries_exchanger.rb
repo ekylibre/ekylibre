@@ -5,11 +5,8 @@ module CharentesAlliance
     def import
       here = Pathname.new(__FILE__).dirname
 
-      catalog = Catalog.by_default!(:purchase)
-      # TODO: take care of no taxes present before
-      Tax.load_defaults unless Tax.any?
-      default_tax = Tax.first ||
-                    Tax.import_from_nomenclature(:french_vat_normal_2014)
+      purchase_catalog = Catalog.by_default!(:purchase)
+      stock_catalog = Catalog.by_default!(:stock)
       building_division = BuildingDivision.first ||
                           BuildingDivision.create!(
                             name: 'Default storage',
@@ -33,7 +30,7 @@ module CharentesAlliance
 
       # status to map
       status = {
-        'Liquidé' => :order,
+        'Liquidé' => :given,
         'A livrer' => :estimate,
         'Supprimé' => :aborted
       }
@@ -67,6 +64,7 @@ module CharentesAlliance
             stopped_at: r.ordered_on.to_time + 1
           )
           order.delivery_id = delivery.id
+          order.give
           order.save!
           delivery.check
           delivery.start
@@ -92,14 +90,14 @@ module CharentesAlliance
         previous_order_number = r.order_number
 
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
-        unless product_nature_variant = ProductNatureVariant.find_by(number: r.coop_reference_name)
+        unless product_nature_variant = ProductNatureVariant.find_by(work_number: r.coop_reference_name)
           product_nature_variant ||= if Nomen::ProductNatureVariant.find(r.coop_variant_reference_name)
                                        ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name)
                                      else
                                        # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre reference_name
                                        ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
                                      end
-          product_nature_variant.number = r.coop_reference_name if r.coop_reference_name
+          product_nature_variant.work_number = r.coop_reference_name if r.coop_reference_name
           product_nature_variant.save!
         end
         # Force population_counting to decimal for every product_nature used
@@ -107,15 +105,21 @@ module CharentesAlliance
         product_nature_variant.nature.update_columns(population_counting: :decimal)
         # find a price from current supplier for a consider variant
         # TODO: waiting for a product price capitalization method
-        catalog_item = catalog.items.find_by(variant_id: product_nature_variant.id)
-        catalog_item ||= catalog.items.create!(
+        catalog_item = purchase_catalog.items.find_by(variant_id: product_nature_variant.id)
+        catalog_item ||= purchase_catalog.items.create!(
           currency: 'EUR',
-          reference_tax_id: default_tax.id,
-          amount: default_tax.amount_of(r.product_unit_price),
+          amount: r.product_unit_price,
           variant_id: product_nature_variant.id
         )
 
-        if r.order_status == :order
+        stock_catalog_item = stock_catalog.items.find_by(variant_id: product_nature_variant.id)
+        stock_catalog_item ||= stock_catalog.items.create!(
+          currency: 'EUR',
+          amount: r.product_unit_price,
+          variant_id: product_nature_variant.id
+        )
+
+        if r.order_status == :given
           order.items.create!(
             variant: product_nature_variant,
             product_name: r.matter_name + ' (' + r.ordered_on.l + ')',
