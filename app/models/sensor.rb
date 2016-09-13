@@ -77,9 +77,9 @@ class Sensor < Ekylibre::Record::Base
   end
 
   def alert_status
-    return :green if alerts.joins(:phases).all? { |alert| alert.level.zero? }
-    return :red if alerts.joins(:phases).none? { |alert| alert.level.zero? }
-    return :orange
+    return :go if alerts.joins(:phases).all? { |alert| alert.level.zero? }
+    return :stop if alerts.joins(:phases).none? { |alert| alert.level.zero? }
+    :caution
   end
 
   # Read sensor indicator and write an analysis
