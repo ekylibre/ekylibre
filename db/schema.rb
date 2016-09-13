@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909140029) do
+ActiveRecord::Schema.define(version: 20160913133407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -333,6 +333,39 @@ ActiveRecord::Schema.define(version: 20160909140029) do
   add_index "affairs", ["third_id"], name: "index_affairs_on_third_id", using: :btree
   add_index "affairs", ["updated_at"], name: "index_affairs_on_updated_at", using: :btree
   add_index "affairs", ["updater_id"], name: "index_affairs_on_updater_id", using: :btree
+
+  create_table "alert_phases", force: :cascade do |t|
+    t.integer  "alert_id",                 null: false
+    t.datetime "started_at",               null: false
+    t.integer  "level",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "alert_phases", ["alert_id"], name: "index_alert_phases_on_alert_id", using: :btree
+  add_index "alert_phases", ["created_at"], name: "index_alert_phases_on_created_at", using: :btree
+  add_index "alert_phases", ["creator_id"], name: "index_alert_phases_on_creator_id", using: :btree
+  add_index "alert_phases", ["updated_at"], name: "index_alert_phases_on_updated_at", using: :btree
+  add_index "alert_phases", ["updater_id"], name: "index_alert_phases_on_updater_id", using: :btree
+
+  create_table "alerts", force: :cascade do |t|
+    t.integer  "sensor_id"
+    t.string   "nature",                   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "alerts", ["created_at"], name: "index_alerts_on_created_at", using: :btree
+  add_index "alerts", ["creator_id"], name: "index_alerts_on_creator_id", using: :btree
+  add_index "alerts", ["sensor_id"], name: "index_alerts_on_sensor_id", using: :btree
+  add_index "alerts", ["updated_at"], name: "index_alerts_on_updated_at", using: :btree
+  add_index "alerts", ["updater_id"], name: "index_alerts_on_updater_id", using: :btree
 
   create_table "analyses", force: :cascade do |t|
     t.string   "number",                                                                           null: false
@@ -3546,4 +3579,6 @@ ActiveRecord::Schema.define(version: 20160909140029) do
   add_index "versions", ["creator_id"], name: "index_versions_on_creator_id", using: :btree
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "alert_phases", "alerts"
+  add_foreign_key "alerts", "sensors"
 end

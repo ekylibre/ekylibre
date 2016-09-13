@@ -1503,6 +1503,7 @@ spa:
     search: "buscars piezas/escrituras"
     search_placeholder: "Buscar…"
     # section_x: "Section %{x}"
+    # see_more_details: "See more details"
     select_account_client: "Cuentos a marcar con letras" #?
     select_account_supplier: "Cuento a marcar con letra" #?
     select_building: "Escoger un lugar de deposito" #?

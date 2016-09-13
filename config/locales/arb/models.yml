@@ -1001,6 +1001,7 @@ arb:
     affected_at: "أثرت في"
     age: "عمر"
     agency_code: "رمز الوكالة" #?
+    # all_addresses: "All addresses"
     all_taxes_included: "وتشمل جميع الضرائب"
     allocation_account: "حساب توزيع"
     amount: "القيمة من دون الضرائب"
@@ -1012,6 +1013,10 @@ arb:
     analysis_items: "عناصر التحليل"
     annotation: "ملاحظة"
     archive: "أرشيف"
+    # archive_content_type: "Archive content type"
+    # archive_file_name: "Archive file name"
+    # archive_file_size: "Archive file size"
+    # archive_updated_at: "Archive updated at"
     archiving: "أرشفة"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
@@ -1048,6 +1053,7 @@ arb:
     bank_name: "اسم البنك"
     bank_statement: "بيانات الحساب المصرفي"
     bank_statement_id: "بيان الحساب المصرفي" #?
+    # bank_statement_letter: "Bank statement letter"
     bank_statements: "بيانات الحساب المصرفي"
     banks_accounts: "كتاب الحسابات المصرفية" #?
     base: "القاعدة" #?
@@ -1210,6 +1216,7 @@ arb:
     custom_field_data: "تكملة بيانات الملف" #?
     custom_field_id: "حقول اضافية" #?
     custom_fields: "الحقول الاضافية"
+    # custom_fields_columns: "Custom fields columns"
     customized_type: "نوع مرغوب"
     daily_nitrogen_production: "إنتاج النيتروجين اليومي"
     dashboards: "لوحات"
@@ -1383,7 +1390,11 @@ arb:
     faxes: "الفاكسات"
     fifth_producer: "منتج الخامس" #?
     file: "ملف"
+    # file_content_text: "File content text"
+    # file_content_type: "File content type"
+    # file_file_name: "File file name"
     file_file_size: "حجم الملف"
+    # file_fingerprint: "File fingerprint"
     file_pages_count: "عد الصفحات"
     file_updated_at: "تحديث في"
     filename: "الملف" #?
@@ -1487,6 +1498,8 @@ arb:
     indicator_name: "اسم المؤشر"
     indicators: "مؤشرات"
     indirect_links: "روابط مباشرة"
+    # initial_balance_credit: "Initial balance credit"
+    # initial_balance_debit: "Initial balance debit"
     initial_born_at: "الأولي ولد في"
     initial_container: "حاوية الأولية"
     initial_dead_at: "قتلى الأولي في"
@@ -1500,8 +1513,13 @@ arb:
     initial_population: "السكان الأولي"
     initial_shape: "الشكل الأولي"
     initialization_vectors: "ناقلات التهيئة"
+    # initiated_on: "Initiated on"
     inputs: "المدخلات"
     inspection: "تفتيش"
+    # inspection_calibration_natures: "Inspection calibration natures"
+    # inspection_calibration_scales: "Inspection calibration scales"
+    # inspection_point_natures: "Inspection point natures"
+    # inspection_points: "Inspection points"
     inspections: "عمليات التفتيش"
     insurance_amount: "مبلغ التأمين"
     insurance_percentage: "نسبة التأمين"
@@ -1581,6 +1599,7 @@ arb:
     last_year: "السنة السابقة"
     latest: "آخر"
     latitude: "خطوط العرض" #?
+    # leaves_parameters: "Leaves parameters"
     lender: "المقرض"
     length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
@@ -1682,6 +1701,7 @@ arb:
     mobile: "الهاتف النقال" #?
     mobiles: "هواتف محمولة"
     mode: "نمط الدفعة"
+    # mode_delta: "Mode delta"
     mode_id: "طريقة تسديد دفعة" #?
     model_euid: "نموذج"
     mother: "أم"
@@ -1781,6 +1801,7 @@ arb:
     participant: "مشارك"
     participants: "مشتركين"
     participations: "بالمشاركات"
+    # partner_url: "Partner url"
     parts: "الاجزاء" #?
     parts_amount: "القيمة المستخدمة" #?
     password: "كلمة المرور"
@@ -1822,9 +1843,11 @@ arb:
     plan: "خطة"
     planned_at: "قرر يوم"
     planned_depreciations: "انخفاض قيمة المخطط"
+    # planned_on: "Planned on"
     plant: "نبات"
     plant_counting: "عد النبات"
     plant_countings: "فرزان مصنع"
+    # plant_density_abaci: "Plant density abaci"
     plant_density_abacus: "الكثافة النباتية المعداد"
     plant_density_abacus_item: "مصنع كثافة البند المعداد"
     plants_count: "عد النباتات"
@@ -1957,6 +1980,7 @@ arb:
     recommended: "موصى به"
     recommender: "المزكي"
     reconcilable: "مصالحتها"
+    # record_interventions: "Record interventions"
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?
     record_value_type: "نوع التسجيل"
@@ -1971,6 +1995,10 @@ arb:
     reductions: "طرق الخصومات" #?
     reference_name: "اسم الإشارة"
     reference_number: "الرقم المرجعي"
+    # reference_source_content_type: "Reference source content type"
+    # reference_source_file_name: "Reference source file name"
+    # reference_source_file_size: "Reference source file size"
+    # reference_source_updated_at: "Reference source updated at"
     reference_tax: "الضرائب المرجعية"
     reference_value: "قيمة مرجعية"
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
@@ -2017,6 +2045,7 @@ arb:
     role_id: "الدور الاساسي" #?
     roles: "وظائف"
     rome: "رمز الروم" #?
+    # root_components: "Root components"
     root_model: "الجذر"
     root_model_name: "جذر"
     root_node: "عقدة الجذر"
@@ -2206,7 +2235,9 @@ arb:
     tracking_id: "الحصة" #?
     tracking_serial: "رقم الحصة" #?
     trackings: "الحصص"
+    # transaction_number: "Transaction number"
     transfered_at: "نقلها في"
+    # transfered_on: "Transfered on"
     transfers: "التحويلات" #?
     transport: "وسيلة النقل" #?
     transporter: "الناقلة"

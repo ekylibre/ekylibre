@@ -20,31 +20,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: sensors
+# == Table: alerts
 #
-#  access_parameters :json
-#  active            :boolean          default(TRUE), not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  custom_fields     :jsonb
-#  embedded          :boolean          default(FALSE), not null
-#  euid              :string
-#  host_id           :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  model_euid        :string
-#  name              :string           not null
-#  partner_url       :string
-#  product_id        :integer
-#  retrieval_mode    :string           not null
-#  token             :string
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  vendor_euid       :string
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  nature       :string           not null
+#  sensor_id    :integer
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 require 'test_helper'
 
-class SensorTest < ActiveSupport::TestCase
-  test_model_actions
-  # Add tests here...
+class AlertTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

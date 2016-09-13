@@ -34,6 +34,7 @@
 #  lock_version      :integer          default(0), not null
 #  model_euid        :string
 #  name              :string           not null
+#  partner_url       :string
 #  product_id        :integer
 #  retrieval_mode    :string           not null
 #  token             :string

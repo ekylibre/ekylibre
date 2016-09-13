@@ -34,6 +34,7 @@
 #  lock_version      :integer          default(0), not null
 #  model_euid        :string
 #  name              :string           not null
+#  partner_url       :string
 #  product_id        :integer
 #  retrieval_mode    :string           not null
 #  token             :string
@@ -49,10 +50,11 @@ class Sensor < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :host, class_name: 'Product'
   has_many :analyses, class_name: 'Analysis', dependent: :nullify
+  has_many :alerts, dependent: :destroy
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :embedded, inclusion: { in: [true, false] }
-  validates :euid, :model_euid, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
+  validates :euid, :model_euid, :partner_url, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :retrieval_mode, presence: true
   # ]VALIDATORS]
@@ -72,6 +74,12 @@ class Sensor < Ekylibre::Record::Base
 
   def equipment
     ActiveSensor::Equipment.find(vendor_euid, model_euid)
+  end
+
+  def alert_status
+    return :green if alerts.joins(:phases).all? { |alert| alert.level.zero? }
+    return :red if alerts.joins(:phases).none? { |alert| alert.level.zero? }
+    return :orange
   end
 
   # Read sensor indicator and write an analysis

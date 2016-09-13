@@ -631,6 +631,60 @@ affairs:
   updater_id:
     type: integer
     references: user
+alert_phases:
+  alert_id:
+    type: integer
+    references: alert
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  level:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  started_at:
+    type: date
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+alerts:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
+  sensor_id:
+    type: integer
+    references: sensor
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 analyses:
   analysed_at:
     type: datetime
@@ -6118,6 +6172,8 @@ sensors:
   name:
     type: string
     required: true
+  partner_url:
+    type: string
   product_id:
     type: integer
     references: product
