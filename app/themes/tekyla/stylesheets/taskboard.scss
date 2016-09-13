@@ -49,7 +49,7 @@
   .tasks {
     @include flex-column(stretch, flex-start);
     flex: 1;
-    padding-top: 20px;
+    padding: 20px 0;
 
     .task {
       @include flex-column(flex-start, flex-start);
