@@ -14,5 +14,7 @@ class UpdateStockAccountingAttributes < ActiveRecord::Migration
     # remove stock_account, movement_stock_account to inventory_items
     remove_column :inventory_items, :stock_account_id, :string, index: true
     remove_column :inventory_items, :movement_stock_account_id, :string, index: true
+    # add financial_year to inventories
+    add_reference :inventories, :financial_year, index: true
   end
 end

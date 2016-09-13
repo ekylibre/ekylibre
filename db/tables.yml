@@ -3271,6 +3271,9 @@ inventories:
     type: string
   custom_fields:
     type: jsonb
+  financial_year_id:
+    type: integer
+    references: financial_year
   id:
     type: integer
     required: true

@@ -1715,25 +1715,27 @@ ActiveRecord::Schema.define(version: 20160913105001) do
   add_index "interventions", ["updater_id"], name: "index_interventions_on_updater_id", using: :btree
 
   create_table "inventories", force: :cascade do |t|
-    t.string   "number",                           null: false
+    t.string   "number",                            null: false
     t.datetime "reflected_at"
-    t.boolean  "reflected",        default: false, null: false
+    t.boolean  "reflected",         default: false, null: false
     t.integer  "responsible_id"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0,     null: false
-    t.string   "name",                             null: false
+    t.integer  "lock_version",      default: 0,     null: false
+    t.string   "name",                              null: false
     t.datetime "achieved_at"
     t.jsonb    "custom_fields"
     t.string   "currency"
+    t.integer  "financial_year_id"
   end
 
   add_index "inventories", ["created_at"], name: "index_inventories_on_created_at", using: :btree
   add_index "inventories", ["creator_id"], name: "index_inventories_on_creator_id", using: :btree
+  add_index "inventories", ["financial_year_id"], name: "index_inventories_on_financial_year_id", using: :btree
   add_index "inventories", ["journal_entry_id"], name: "index_inventories_on_journal_entry_id", using: :btree
   add_index "inventories", ["responsible_id"], name: "index_inventories_on_responsible_id", using: :btree
   add_index "inventories", ["updated_at"], name: "index_inventories_on_updated_at", using: :btree

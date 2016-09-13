@@ -65,7 +65,7 @@ class Parcel < Ekylibre::Record::Base
   enumerize :delivery_mode, in: [:transporter, :us, :third], predicates: { prefix: true }, scope: true, default: :us
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
-  belongs_to :journal_entry
+  belongs_to :journal_entry, dependent: :destroy
   belongs_to :storage, class_name: 'Product'
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase
@@ -181,17 +181,21 @@ class Parcel < Ekylibre::Record::Base
       stock_journal = Journal.find_or_create_by!(nature: :stocks)
       if mode == :incoming
         for item in items
-          b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
-            entry.add_credit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-            entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+          if item.variant.storable?
+            b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
+              entry.add_credit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+              entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            end
           end
         end
       elsif mode == :outgoing
        for item in items
-          b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
+         if item.variant.storable?
+           b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
             entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
             entry.add_debit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-          end
+           end
+         end
         end
       end
     end

@@ -52,18 +52,19 @@ class InventoryItem < Ekylibre::Record::Base
   validates :inventory, :product, presence: true
   # ]VALIDATORS]
 
+  scope :of_variant, ->(variant) { joins(:product).merge(Product.of_variant(variant)) }
+
   delegate :name, :unit_name, :population_counting_unitary?, to: :product
   delegate :reflected?, :achieved_at, to: :inventory
+  delegate :storable?, to: :variant
   delegate :currency, to: :inventory, prefix: true
 
 
   before_validation do
     self.actual_population = expected_population if population_counting_unitary?
     self.currency = inventory_currency if inventory
-    if variant
-      self.stock_account = variant.stock_account || Account.find_in_nomenclature(:stocks)
-      self.movement_stock_account = variant.movement_stock_account || Account.find_in_nomenclature(:stocks_variation)
-      catalog_item = variant.catalog_items.of_usage(:stock)
+    if self.variant
+      catalog_item = self.variant.catalog_items.of_usage(:stock)
       if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
         self.unit_pretax_stock_amount = catalog_item.first.pretax_amount
       end

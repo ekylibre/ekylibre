@@ -22,22 +22,23 @@
 #
 # == Table: inventories
 #
-#  accounted_at     :datetime
-#  achieved_at      :datetime
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  currency         :string
-#  custom_fields    :jsonb
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer
-#  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  number           :string           not null
-#  reflected        :boolean          default(FALSE), not null
-#  reflected_at     :datetime
-#  responsible_id   :integer
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  accounted_at      :datetime
+#  achieved_at       :datetime
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  currency          :string
+#  custom_fields     :jsonb
+#  financial_year_id :integer
+#  id                :integer          not null, primary key
+#  journal_entry_id  :integer
+#  lock_version      :integer          default(0), not null
+#  name              :string           not null
+#  number            :string           not null
+#  reflected         :boolean          default(FALSE), not null
+#  reflected_at      :datetime
+#  responsible_id    :integer
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 
 class Inventory < Ekylibre::Record::Base
@@ -48,6 +49,7 @@ class Inventory < Ekylibre::Record::Base
   belongs_to :responsible, -> { contacts }, class_name: 'Entity'
   has_many :items, class_name: 'InventoryItem', dependent: :destroy, inverse_of: :inventory
   belongs_to :journal_entry, dependent: :destroy
+  belongs_to :financial_year
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :accounted_at, :achieved_at, :reflected_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :name, :number, presence: true, length: { maximum: 500 }
@@ -68,39 +70,49 @@ class Inventory < Ekylibre::Record::Base
     self.currency ||= Preference[:currency]
   end
 
-  #       Mode Inventory     |     Debit                      |            Credit            |
-  #     inventory stock      |    stock(3X)                   |   stock_movement(603X/71X)   |
+  #          Mode Inventory     |     Debit                      |            Credit            |
+  #     exchange current balance|    - balance (3X)              |   - balance (603X/71X)       |
+  #     physical inventory      |    stock(3X)                   |   stock_movement(603X/71X)   |
   bookkeep  do |b|
     stock_journal = Journal.find_or_create_by!(nature: :stocks)
-    fy = FinancialYear.opened.at(self.printed_at)
-    for item in items
-      parcel_or_intervention_journal_entry_ids = []
-      # for each product
-
-      # get current journal entry ids from interventions
-      parameters = InterventionProductParameter.of_actor(item.product)
-      i = Intervention.where(id: parameters.pluck(:intervention_id))
-      parcel_or_intervention_journal_entry_ids << i.pluck(:journal_entry_id).compact
-
-      # get current journal entry ids from parcels
-      parcel_items = ParcelItem.where(product: item.product)
-      p = Parcel.where(id: parcel_items.pluck(:parcel_id))
-      parcel_or_intervention_journal_entry_ids << p.pluck(:journal_entry_id).compact
-
-      journal_entries = JournalEntry.where(id: parcel_or_intervention_journal_entry_ids, journal: Journal.stocks.first, financial_year: fy).order(:printed_on)
-
-      journal_entry_items = JournalEntryItem.where(entry_id: journal_entries.pluck(:id))
-
-      puts item.name.inspect.red
-      puts journal_entry_items.inspect.yellow
-
-      # step 1 : neutralize last current stock in stock journal
-      #
-      # step 2 : record inventory stock in stock journal
-      #b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: item.product_movement) do |entry|
-      #  entry.add_credit(label, item.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-      #  entry.add_debit(label, item.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-      #end
+    fy_started_at = stock_journal.entries.reorder(:printed_on).first.printed_on.to_time
+    fy_stopped_at = financial_year.stopped_on.to_time
+    if reflected?
+      # get all variants corresponding to current items
+      variants = ProductNatureVariant.where(id: Product.where(id: items.pluck(:product_id)).pluck(:variant_id).uniq)
+      for variant in variants
+      # for all items of current variant (if storable)
+        if items.first.storable? && variant.stock_account
+          i = items.of_variant(variant)
+          s = variant.stock_account
+          ms = variant.movement_stock_account
+          
+          # step 1 : neutralize last current stock in stock journal for current variant
+          # by exchanging the current balance
+          label = tc(:bookkeep_exchange, resource: self.class.model_name.human, number: number)
+          b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: reflected?) do |entry|
+            entry.add_credit(label, ms.id, ms.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at) * -1)
+            entry.add_debit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at) * -1)
+          end
+          
+          # step 2 : record inventory stock in stock journal
+          # TODO update methods to evaluates price stock or open unit_pretax_stock_amount field to the user durinf inventory
+          # build the global value of the stock for each item
+          values = []
+          for item in i
+            v = item.actual_population * item.unit_pretax_stock_amount
+            values << v
+          end
+          # bookkeep step 2
+          unless values.compact.sum.zero?
+            label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
+            b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: reflected?) do |entry|
+              entry.add_credit(label, ms.id, values.compact.sum)
+              entry.add_debit(label, s.id, values.compact.sum)
+            end
+          end
+        end
+      end
     end
   end
 
