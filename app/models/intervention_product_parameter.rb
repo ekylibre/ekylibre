@@ -22,37 +22,35 @@
 #
 # == Table: intervention_parameters
 #
-#  assembly_id               :integer
-#  component_id              :integer
-#  created_at                :datetime         not null
-#  creator_id                :integer
-#  currency                  :string
-#  event_participation_id    :integer
-#  group_id                  :integer
-#  id                        :integer          not null, primary key
-#  intervention_id           :integer          not null
-#  lock_version              :integer          default(0), not null
-#  movement_stock_account_id :integer
-#  new_container_id          :integer
-#  new_group_id              :integer
-#  new_name                  :string
-#  new_variant_id            :integer
-#  outcoming_product_id      :integer
-#  position                  :integer          not null
-#  product_id                :integer
-#  quantity_handler          :string
-#  quantity_indicator_name   :string
-#  quantity_population       :decimal(19, 4)
-#  quantity_unit_name        :string
-#  quantity_value            :decimal(19, 4)
-#  reference_name            :string           not null
-#  stock_account_id          :integer
-#  type                      :string
-#  unit_pretax_stock_amount  :decimal(19, 4)   default(0.0), not null
-#  updated_at                :datetime         not null
-#  updater_id                :integer
-#  variant_id                :integer
-#  working_zone              :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  assembly_id              :integer
+#  component_id             :integer
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string
+#  event_participation_id   :integer
+#  group_id                 :integer
+#  id                       :integer          not null, primary key
+#  intervention_id          :integer          not null
+#  lock_version             :integer          default(0), not null
+#  new_container_id         :integer
+#  new_group_id             :integer
+#  new_name                 :string
+#  new_variant_id           :integer
+#  outcoming_product_id     :integer
+#  position                 :integer          not null
+#  product_id               :integer
+#  quantity_handler         :string
+#  quantity_indicator_name  :string
+#  quantity_population      :decimal(19, 4)
+#  quantity_unit_name       :string
+#  quantity_value           :decimal(19, 4)
+#  reference_name           :string           not null
+#  type                     :string
+#  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
+#  variant_id               :integer
+#  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
 class InterventionProductParameter < InterventionParameter
@@ -64,8 +62,6 @@ class InterventionProductParameter < InterventionParameter
   belongs_to :new_group, class_name: 'ProductGroup'
   belongs_to :new_variant, class_name: 'ProductNatureVariant'
   belongs_to :variant, class_name: 'ProductNatureVariant'
-  belongs_to :stock_account, class_name: 'Account'
-  belongs_to :movement_stock_account, class_name: 'Account'
   has_many :crumbs, dependent: :destroy, foreign_key: :intervention_parameter_id
   has_many :readings, class_name: 'InterventionParameterReading', dependent: :destroy, inverse_of: :intervention_parameter, foreign_key: :parameter_id
   has_one :product_nature, through: :variant, source: :nature
@@ -116,8 +112,6 @@ class InterventionProductParameter < InterventionParameter
       # end
     end
     v = variant || new_variant
-    self.stock_account = v.stock_account || Account.find_in_nomenclature(:stocks)
-    self.movement_stock_account = v.movement_stock_account || Account.find_in_nomenclature(:stocks_variation)
     catalog_item = v.catalog_items.of_usage(:stock)
     if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
       self.unit_pretax_stock_amount = catalog_item.first.pretax_amount

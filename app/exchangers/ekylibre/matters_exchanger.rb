@@ -42,7 +42,7 @@ module Ekylibre
         end
 
         next unless r.variant_reference_name
-        next if variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+        next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
         unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
@@ -79,7 +79,7 @@ module Ekylibre
 
         if r.variant_reference_name
           # find or import from variant reference_nameclature the correct ProductNatureVariant
-          unless variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+          unless variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
             if Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
               variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name.downcase.to_sym)
             else

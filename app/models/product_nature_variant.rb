@@ -22,26 +22,29 @@
 #
 # == Table: product_nature_variants
 #
-#  active               :boolean          default(FALSE), not null
-#  category_id          :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  custom_fields        :jsonb
-#  derivative_of        :string
-#  id                   :integer          not null, primary key
-#  lock_version         :integer          default(0), not null
-#  name                 :string
-#  nature_id            :integer          not null
-#  number               :string
-#  picture_content_type :string
-#  picture_file_name    :string
-#  picture_file_size    :integer
-#  picture_updated_at   :datetime
-#  reference_name       :string
-#  unit_name            :string           not null
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  variety              :string           not null
+#  active                    :boolean          default(FALSE), not null
+#  category_id               :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  derivative_of             :string
+#  id                        :integer          not null, primary key
+#  lock_version              :integer          default(0), not null
+#  movement_stock_account_id :integer
+#  name                      :string
+#  nature_id                 :integer          not null
+#  number                    :string
+#  picture_content_type      :string
+#  picture_file_name         :string
+#  picture_file_size         :integer
+#  picture_updated_at        :datetime
+#  reference_name            :string
+#  stock_account_id          :integer
+#  unit_name                 :string           not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  variety                   :string           not null
+#  work_number               :string
 #
 
 class ProductNatureVariant < Ekylibre::Record::Base
@@ -58,6 +61,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'
 
+  belongs_to :movement_stock_account, class_name: 'Account'
+  belongs_to :stock_account, class_name: 'Account'
+
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :products, foreign_key: :variant_id, dependent: :restrict_with_exception
   has_many :purchase_items, foreign_key: :variant_id, inverse_of: :variant, dependent: :restrict_with_exception
@@ -67,20 +73,24 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }
-  validates :name, :number, :picture_content_type, :picture_file_name, :reference_name, length: { maximum: 500 }, allow_blank: true
+  validates :name, :number, :picture_content_type, :picture_file_name, :reference_name, :work_number, length: { maximum: 500 }, allow_blank: true
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :unit_name, presence: true, length: { maximum: 500 }
   validates :category, :nature, :variety, presence: true
   # ]VALIDATORS]
+  validates :number, length: { allow_nil: true, maximum: 60 }
+  validates :number, uniqueness: true
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :commercial_name, :name
 
+  acts_as_numbered
+
   delegate :able_to?, :identifiable?, :able_to_each?, :has_indicator?, :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :of_expression, :population_counting_unitary?, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
   delegate :variety, :derivative_of, :name, to: :nature, prefix: true
-  delegate :depreciable?, :depreciation_rate, :deliverable?, :purchasable?, :saleable?, :subscribing?, :fixed_asset_depreciation_method, :fixed_asset_depreciation_percentage, :fixed_asset_account, :fixed_asset_allocation_account, :fixed_asset_expenses_account, :product_account, :charge_account, :stock_account, :movement_stock_account, to: :category
+  delegate :depreciable?, :depreciation_rate, :deliverable?, :purchasable?, :saleable?, :storable?, :subscribing?, :fixed_asset_depreciation_method, :fixed_asset_depreciation_percentage, :fixed_asset_account, :fixed_asset_allocation_account, :fixed_asset_expenses_account, :product_account, :charge_account, to: :category
 
   accepts_nested_attributes_for :products, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :components, reject_if: :all_blank, allow_destroy: true
@@ -135,6 +145,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
       if derivative_of.blank? && nature.derivative_of
         self.derivative_of ||= nature.derivative_of
       end
+      if storable?
+        self.stock_account ||= create_unique_account(:stock)
+        self.movement_stock_account ||= create_unique_account(:movement_stock)
+      end
     end
   end
 
@@ -149,6 +163,26 @@ class ProductNatureVariant < Ekylibre::Record::Base
           errors.add(:derivative_of, :invalid)
         end
       end
+    end
+  end
+
+  # create unique account for stock management in accountancy
+  def create_unique_account(mode = :stock)
+    if mode == :stock || mode == :movement_stock
+      unless storable?
+        raise ArgumentError, "Unknown to store #{self.name.inspect}. You have to check category first"
+      end
+      account_key = mode.to_s + '_account'
+      category_account = self.category.send(account_key)
+
+      options = {}
+      options[:number] = category_account.number + self.number[-6, 6].rjust(6)
+      options[:name] = category_account.name + ' [' + self.name + ']'
+      options[:label] = options[:number] + ' - ' + options[:name]
+      options[:usages] = category_account.usages
+
+      return ac = Account.create!(options)
+
     end
   end
 

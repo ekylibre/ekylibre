@@ -182,15 +182,15 @@ class Parcel < Ekylibre::Record::Base
       if mode == :incoming
         for item in items
           b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
-            entry.add_credit(label, item.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-            entry.add_debit(label, item.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            entry.add_credit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
           end
         end
       elsif mode == :outgoing
        for item in items
           b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
-            entry.add_credit(label, item.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-            entry.add_debit(label, item.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            entry.add_debit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
           end
         end
       end

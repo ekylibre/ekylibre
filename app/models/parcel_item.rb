@@ -28,7 +28,6 @@
 #  currency                      :string
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
-#  movement_stock_account_id     :integer
 #  parcel_id                     :integer          not null
 #  parted                        :boolean          default(FALSE), not null
 #  population                    :decimal(19, 4)
@@ -44,7 +43,6 @@
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
-#  stock_account_id              :integer
 #  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
@@ -54,7 +52,6 @@ class ParcelItem < Ekylibre::Record::Base
   attr_readonly :parcel_id
   attr_accessor :product_nature_variant_id
   belongs_to :analysis
-  belongs_to :movement_stock_account, class_name: 'Account'
   belongs_to :parcel, inverse_of: :items
   belongs_to :product
   belongs_to :product_enjoyment,          dependent: :destroy
@@ -63,7 +60,6 @@ class ParcelItem < Ekylibre::Record::Base
   belongs_to :product_movement,           dependent: :destroy
   belongs_to :purchase_item
   belongs_to :sale_item
-  belongs_to :stock_account, class_name: 'Account'
   belongs_to :source_product, class_name: 'Product'
   belongs_to :source_product_movement, class_name: 'ProductMovement', dependent: :destroy
   belongs_to :variant, -> { of_variety :matter }, class_name: 'ProductNatureVariant'
@@ -103,8 +99,6 @@ class ParcelItem < Ekylibre::Record::Base
   before_validation do
     self.currency = parcel_currency if parcel
     if variant
-      self.stock_account = variant.stock_account || Account.find_in_nomenclature(:stocks)
-      self.movement_stock_account = variant.movement_stock_account || Account.find_in_nomenclature(:stocks_variation)
       catalog_item = variant.catalog_items.of_usage(:stock)
       if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
         self.unit_pretax_stock_amount = catalog_item.first.pretax_amount
