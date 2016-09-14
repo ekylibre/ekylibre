@@ -46,6 +46,8 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   validates :name, length: { allow_nil: true, maximum: 50 }
   validates :cash, presence: true
 
+  validate :bank_details_for_sepa
+
   delegate :currency, to: :cash
 
   protect(on: :destroy) do
@@ -62,6 +64,14 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
         with_accounting: true,
         cash: cash
       )
+    end
+  end
+
+  private
+
+  def bank_details_for_sepa
+    if sepa && (cash.bank_account_holder_name.blank? || cash.iban.blank?)
+      errors.add(:sepa, :missing_bank_details_for_sepa)
     end
   end
 end
