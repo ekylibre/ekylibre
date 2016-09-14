@@ -69,4 +69,42 @@ class CashTest < ActiveSupport::TestCase
     cash = cashes(:cashes_001)
     assert_equal %w(G I J), cash.next_reconciliation_letters.take(3)
   end
+
+  test 'valid if bank_account and valid iban' do
+    assert cashes(:cashes_001).valid?
+  end
+
+  test 'invalid if bank_account and invalid iban value' do
+    cash = cashes(:cashes_001)
+    cash.iban = 'invalid_iban'
+    assert_not cash.valid?
+    assert_not_nil cash.errors.messages[:iban]
+  end
+
+  test 'invalid if bank_account and invalid iban length of 3' do
+    cash = cashes(:cashes_001)
+    cash.iban = '123'
+    assert_not cash.valid?
+    assert_not_nil cash.errors.messages[:iban]
+  end
+
+  test 'invalid if bank_account and invalid iban length of 35' do
+    cash = cashes(:cashes_001)
+    cash.iban = 'a' * 35
+    assert_not cash.valid?
+    assert_not_nil cash.errors.messages[:iban]
+  end
+
+  test 'valid if bank_account and iban blank' do
+    cash = cashes(:cashes_001)
+    cash.iban = ''
+    assert cash.valid?
+  end
+
+  test 'valid if not bank_account and invalid iban value' do
+    cash = cashes(:cashes_001)
+    cash.nature = :cash_box
+    cash.iban = 'invalid_iban'
+    assert cash.valid?
+  end
 end
