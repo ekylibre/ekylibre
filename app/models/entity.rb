@@ -148,6 +148,7 @@ class Entity < Ekylibre::Record::Base
   validates :vat_number, length: { allow_nil: true, maximum: 20 }
   validates :activity_code, length: { allow_nil: true, maximum: 30 }
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
+  validates :iban, iban: true, allow_blank: true
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :name, :full_name
@@ -193,6 +194,7 @@ class Entity < Ekylibre::Record::Base
     self.language = Preference[:language] if language.blank?
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
+    self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
   end
 
   validate do

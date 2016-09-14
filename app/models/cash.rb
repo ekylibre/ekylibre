@@ -89,7 +89,7 @@ class Cash < Ekylibre::Record::Base
   validates :currency, length: { allow_blank: true, maximum: 3 }
   validates :bank_identifier_code, length: { allow_blank: true, maximum: 11 }
   validates :nature, length: { allow_blank: true, maximum: 20 }
-  validates :iban, length: { allow_blank: true, maximum: 34 }
+  validates :iban, iban: true, allow_blank: true, if: :bank_account?
   validates :spaced_iban, length: { allow_blank: true, maximum: 42 }
   validates :bank_name, length: { allow_blank: true, maximum: 50 }
   validates :mode, inclusion: { in: mode.values }
@@ -139,9 +139,6 @@ class Cash < Ekylibre::Record::Base
           errors.add(:bank_account_key, :unvalid_bban) unless self.class.valid_bban?(country, attributes)
         end
       end
-      unless iban.blank?
-        errors.add(:iban, :invalid) unless self.class.valid_iban?(iban)
-      end
     end
   end
 
@@ -166,20 +163,6 @@ class Cash < Ekylibre::Record::Base
     else
       raise ArgumentError, "Unknown country code #{country_code.inspect}"
     end
-  end
-
-  # Checks if the IBAN is valid.
-  def self.valid_iban?(iban)
-    iban = iban.to_s
-    return false unless iban.length > 4
-    str = iban[4..iban.length] + iban[0..1] + '00'
-
-    # Test the iban key
-    str.each_char do |c|
-      str.gsub!(c, c.to_i(36).to_s) if c =~ /\D/
-    end
-    iban_key = 98 - (str.to_i.modulo 97)
-    (iban_key.to_i == iban[2..3].to_i)
   end
 
   # Generates the IBAN key.
