@@ -69,6 +69,8 @@ class ActivityProduction < Ekylibre::Record::Base
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
   has_one :cap_land_parcel, class_name: 'CapLandParcel', inverse_of: :activity_production, foreign_key: :support_id
 
+  has_and_belongs_to_many :interventions
+
   has_geometry :support_shape
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
 
@@ -118,8 +120,6 @@ class ActivityProduction < Ekylibre::Record::Base
   scope :of_activity_families, lambda { |*families|
     where(activity: Activity.of_families(*families))
   }
-
-  scope :of_intervention, ->(intervention) { includes(:activity).where(id: TargetDistribution.select(:activity_production_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention.id))).references(:activity) }
 
   scope :current, -> { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: Time.zone.now) }
 

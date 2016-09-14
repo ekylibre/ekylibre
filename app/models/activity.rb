@@ -87,6 +87,9 @@ class Activity < Ekylibre::Record::Base
   end
   has_many :supports, through: :productions
 
+  has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :campaigns
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :family, :nature, :production_cycle, presence: true
@@ -106,9 +109,7 @@ class Activity < Ekylibre::Record::Base
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
-  scope :of_intervention, lambda { |intervention|
-    where(id: TargetDistribution.select(:activity_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention)))
-  }
+
   scope :of_campaign, lambda { |campaign|
     if campaign
       c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }

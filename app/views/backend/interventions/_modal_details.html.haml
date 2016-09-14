@@ -37,7 +37,7 @@
       %div.block
         = content_tag(:h3, :activities.tl, class: "block-title")
 
-        - intervention.activities_names_list.each do |activity_name|
+        - intervention.activities_names.each do |activity_name|
           - title = activity_name
           - detail = ""
           = add_modal_data(title, detail, {icon: 'picto-leaf'})

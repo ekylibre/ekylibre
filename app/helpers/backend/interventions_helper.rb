@@ -11,12 +11,15 @@ module Backend
         colors = []
         task_datas = []
 
-        intervention.activity_productions.find_each do |activity_production|
+        if intervention.activity_productions.any?
 
-          activity_color = activity_production.activity.color
-          cultivable_zone = activity_production.cultivable_zone
+          intervention.activity_productions.find_each do |activity_production|
 
-          task_datas << { icon: "land-parcels", text: cultivable_zone.work_number, style: "background-color: #{activity_color};"}
+            activity_color = activity_production.activity.color
+            cultivable_zone = activity_production.cultivable_zone
+
+            task_datas << { icon: "land-parcels", text: cultivable_zone.work_number, style: "background-color: #{activity_color};"}
+          end
         end
 
 

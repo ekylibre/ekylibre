@@ -1147,7 +1147,6 @@ eng:
     hint: "Hint: %{value}" #?
     historic: "Historic" #?
     home: "Home"
-    # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
     iban: "International Bank Account Number (IBAN)"
     identification: "Identification"

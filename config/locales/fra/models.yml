@@ -268,6 +268,7 @@ fra:
       activity_production: "Support de production"
       activity_season: "Saisonnalité"
       activity_tactic: "Technique de culture d’activité"
+      # activity_tactic_step: "Activity tactic step"
       affair: "Affaire"
       analysis: "Analyse"
       analysis_item: "Élément d’analyse"
@@ -470,6 +471,7 @@ fra:
     affected_at: "Affecté le"
     age: "Âge"
     aim: "Objectif" #?
+    # all_addresses: "All addresses"
     all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Compte de dotation"
     amount: "Montant"
@@ -480,6 +482,10 @@ fra:
     analysis_items: "Lignes d’analyse"
     annotation: "Annotation"
     archive: "Archive"
+    # archive_content_type: "Archive content type"
+    # archive_file_name: "Archive file name"
+    # archive_file_size: "Archive file size"
+    # archive_updated_at: "Archive updated at"
     archived_at: "Archivé le" #?
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
@@ -492,6 +498,7 @@ fra:
     attorney_journal: "Journal mandataire" #?
     attorneys: "Mandataires" #?
     attribute_name: "Nom de l’attribut"
+    # attribution: "Attribution"
     authentication_token: "Clef d’authentification"
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
@@ -509,6 +516,7 @@ fra:
     bank_identifier_code: "BIC"
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
+    # bank_statement_letter: "Bank statement letter"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
     birth: "Naissance" #?
@@ -648,6 +656,7 @@ fra:
     current_supports: "Supports actuels"
     custom_field: "Champ complémentaire"
     custom_fields: "Champs complémentaires"
+    # custom_fields_columns: "Custom fields columns"
     customized: "Enregistrement personnalisé" #?
     customized_type: "Type d’enregistrement personnalisé"
     daily_nitrogen_production: "Excrétion d’azote journalière"
@@ -787,7 +796,11 @@ fra:
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
     file: "Fichier"
+    # file_content_text: "File content text"
+    # file_content_type: "File content type"
+    # file_file_name: "File file name"
     file_file_size: "Taille du fichier"
+    # file_fingerprint: "File fingerprint"
     file_pages_count: "Pages comptent"
     file_updated_at: "Mis à jour à"
     filtered_columns: "Colonnes filtrées"
@@ -891,6 +904,8 @@ fra:
     indicators: "Indicateurs"
     indirect_links: "Liens indirects"
     individual: "Individuel" #?
+    # initial_balance_credit: "Initial balance credit"
+    # initial_balance_debit: "Initial balance debit"
     initial_born_at: "Date initiale de naissance"
     initial_container: "Emplacement initial"
     initial_dead_at: "Date initiale de décès"
@@ -904,8 +919,14 @@ fra:
     initial_population: "Population initiale"
     initial_shape: "Forme initiale"
     initialization_vectors: "Vecteurs d’initialisation"
+    # initiated_on: "Initiated on"
     inputs: "Intrants"
     inspection: "Agréage"
+    # inspection_calibration_natures: "Inspection calibration natures"
+    # inspection_calibration_scales: "Inspection calibration scales"
+    # inspection_calibrations: "Inspection calibrations"
+    # inspection_point_natures: "Inspection point natures"
+    # inspection_points: "Inspection points"
     inspections: "Agréages"
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
@@ -979,6 +1000,7 @@ fra:
     last_value: "Dernière valeur"
     last_year: "Dernière année"
     latest: "Dernier"
+    # leaves_parameters: "Leaves parameters"
     lender: "Prêteur"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
@@ -1065,6 +1087,7 @@ fra:
     minimal_value: "Valeur minimale"
     mobiles: "Portables"
     mode: "Mode"
+    # mode_delta: "Mode delta"
     model_euid: "Modèle"
     mother: "Mère"
     moved_at: "Fait le" #?
@@ -1168,9 +1191,11 @@ fra:
     plan: "Plan"
     planned_at: "Prévu le"
     planned_depreciations: "Amortissements prévus"
+    # planned_on: "Planned on"
     plant: "Plante"
     plant_counting: "comptage des plantes"
     plant_countings: "dénombrements des plantes"
+    # plant_density_abaci: "Plant density abaci"
     plant_density_abacus: "boulier densité végétale"
     plant_density_abacus_item: "la densité des plantes article boulier"
     plants_count: "Nombre de plants"
@@ -1214,6 +1239,7 @@ fra:
     product_creations: "Créations de produit" #?
     product_deaths: "Morts de produit" #?
     product_divisions: "Divisions de produit" #?
+    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Usufruit de produit"
     product_grading: "Agréage produit" #?
     product_identification_number: "Numéro d’identification"
@@ -1235,6 +1261,8 @@ fra:
     product_nature_variant_id: "Variante"
     product_natures: "Types de produits"
     product_net_surface_area: "Surface totale" #?
+    # product_net_surface_area_unit: "Product net surface area unit"
+    # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
     product_parameters: "Paramètres du produit"
@@ -1304,6 +1332,7 @@ fra:
     recommended: "Prescrit"
     recommender: "Prescripteur"
     reconcilable: "Lettrable"
+    # record_interventions: "Record interventions"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
     reduced_item: "Élément réduit" #?
@@ -1316,6 +1345,10 @@ fra:
     reference: "Référence" #?
     reference_name: "Référence"
     reference_number: "N°Référence"
+    # reference_source_content_type: "Reference source content type"
+    # reference_source_file_name: "Reference source file name"
+    # reference_source_file_size: "Reference source file size"
+    # reference_source_updated_at: "Reference source updated at"
     reference_tax: "Taxe de référence"
     reference_value: "Valeur de référence"
     reflected: "Refléter les changements"
@@ -1356,6 +1389,7 @@ fra:
     road: "Route" #?
     role: "Rôle de base"
     roles: "Rôles"
+    # root_components: "Root components"
     root_model: "Racine"
     root_model_name: "Racine"
     root_node: "Nœud racine"
@@ -1380,6 +1414,7 @@ fra:
     sampling_length_unit: "Unité de longueur d’échantillonnage"
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
+    # scales: "Scales"
     scheduled: "Encaissement programmé"
     season: "Saisonnalité"
     seasons: "Saisonnalités"
@@ -1414,6 +1449,7 @@ fra:
     soil_production: "Contribution en azote du sol (Po)"
     source: "Source"
     source_product: "Produit Source"
+    # source_product_movement: "Source product movement"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
     ssl: "Ssl"
@@ -1426,6 +1462,7 @@ fra:
     state_label: "État"
     static_support: "Support statique" #?
     status: "Statut"
+    # steps: "Steps"
     stock_account: "Compte de stock"
     stocks_categories: "Catégories de produits avec stock"
     stopped_at: "Arrêté le"
@@ -1463,6 +1500,7 @@ fra:
     support_variety: "Variété du support"
     supports: "Supports"
     suspended: "Suspendu"
+    # swim_lane_uuid: "Swim lane uuid"
     tactic: "Itinéraire technique"
     tactics: "Itinéraires culturaux"
     target: "Cible"
@@ -1498,8 +1536,9 @@ fra:
     tracking: "Lot"
     tracking_serial: "Numéro de lot" #?
     trackings: "Lots traçables"
+    # transaction_number: "Transaction number"
     transfered_at: "Transféré à"
-    transfered_on: "Transféré le" #?
+    transfered_on: "Transféré le"
     transfers: "Transferts" #?
     transport: "Transport" #?
     transporter: "Transporteur"

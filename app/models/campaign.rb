@@ -38,6 +38,7 @@ class Campaign < Ekylibre::Record::Base
   has_many :cap_statements, dependent: :restrict_with_exception
   has_many :activity_budgets, inverse_of: :campaign, dependent: :restrict_with_exception
   has_one :selected_manure_management_plan, -> { selecteds }, class_name: 'ManureManagementPlan', foreign_key: :campaign_id, inverse_of: :campaign
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed, inclusion: { in: [true, false] }
   validates :closed_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
@@ -49,6 +50,9 @@ class Campaign < Ekylibre::Record::Base
   validates :harvest_year, uniqueness: true
 
   has_many :activity_productions
+
+  has_and_belongs_to_many :activities
+  has_and_belongs_to_many :interventions
 
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
   scope :at, ->(searched_at = Time.zone.now) { where(harvest_year: searched_at.year) }
@@ -80,13 +84,13 @@ class Campaign < Ekylibre::Record::Base
     ActivityProduction.of_campaign(self)
   end
 
-  def activities
-    Activity.of_campaign(self)
-  end
-
-  def interventions
-    Intervention.of_campaign(self)
-  end
+  # def activities
+  #   Activity.of_campaign(self)
+  # end
+  #
+  # def interventions
+  #   Intervention.of_campaign(self)
+  # end
 
   # Returns all CampaignProduction. These productions always last the campaign
   # duration
