@@ -19,6 +19,13 @@ Rails.application.routes.draw do
     get 'complete/:column', on: :collection, action: :autocomplete, as: :autocomplete
   end
 
+  concern :many do
+    collection do
+      get 'edit', action: :edit_many, as: :edit
+      patch '', action: :update_many
+    end
+  end
+
   concern :incorporate do
     collection do
       get :pick
@@ -816,9 +823,8 @@ Rails.application.routes.draw do
         post :run
       end
     end
-    resources :target_distributions, concerns: [:list] do
+    resources :target_distributions, concerns: [:list, :many], path: 'target-distributions' do
       collection do
-        get :distribute
         get :list_intervention_product_parameters
       end
     end

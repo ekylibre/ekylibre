@@ -7,6 +7,8 @@
     = t.edit params: {controller: :activity_budgets, id: budget.id}, label: :edit_budget.tl
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
     = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
+  - if resource.productions.any? && Product.of_variety(resource.cultivation_variety, resource.support_variety).any?
+    = tool_to(:distribute_unaffected_products.tl, { controller: :target_distributions, action: :edit_many, activity_id: resource.id }, icon: false)
 
 - main_campaign_selector
 
@@ -133,7 +135,7 @@
     - c.cobble(:productions) do
       = render 'productions'
 
-  - if resource.auxiliary?
+  - if resource.auxiliary? && resource.distributions.any?
     - c.cobble(:distributions, title: Activity.human_attribute_name(:distributions)) do
       :ruby
         data = []

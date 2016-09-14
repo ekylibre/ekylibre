@@ -51,6 +51,8 @@ class ApplicationController < ActionController::Base
       options[:default] << (root + 'new').to_sym
     elsif action == 'update' && !options[:default].include?((root + 'edit').to_sym)
       options[:default] << (root + 'edit').to_sym
+    elsif action == 'update_many' && !options[:default].include?((root + 'edit_many').to_sym)
+      options[:default] << (root + 'edit_many').to_sym
     end
     klass = superclass
     while klass != ApplicationController

@@ -808,6 +808,7 @@ arb:
       entity_link_nature: "طبيعة الرابط بين الافراد" #?
       entity_nature: "نوع الفرد" #?
       equipment: "الاداة"
+      equipment_fleet: "أسطول المعدات"
       establishment: "المؤسسة" #?
       event: "الحدث"
       event_nature: "نوع الحدث" #?
@@ -1571,6 +1572,7 @@ arb:
     last_analysis: "التحليل الأخير"
     last_bank_statement: "(((LAST_BANK_STATEMENT)))"
     last_cweek: "الاسبوع السابق"
+    last_intervention_target: "التدخل الأخير الهدف"
     last_journal_entry: "دخول مجلة نهاية العام"
     last_letter: "الرسالة الاخيرة"
     last_month: "الشهر السابق"

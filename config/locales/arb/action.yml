@@ -664,8 +664,8 @@ arb:
       index: "تزامن"
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
-      distribute: "توزيع المنتجات"
       edit: "توزيع هدف تحرير"
+      edit_many: "توزيع المنتجات لم تتأثر"
       index: "توزيعات الهدف"
       new: "توزيع هدف جديد"
       show: "توزيع هدف"
@@ -1212,6 +1212,7 @@ arb:
     disease_percentage_evolution: "تطور نسبة المرض"
     display: "عرض"
     display_help: "عرض المساعدة" #?
+    distribute_unaffected_products: "توزيع المنتجات لم تتأثر"
     distributions: "التوزيعات"
     district_create: "اضافة منطقة ادارية" #?
     district_x: "%{name} (%{code})" #?
@@ -2509,10 +2510,10 @@ arb:
       destroy: "هدم"
       detach: "فصل"
       detail: "التفاصيل"
-      distribute: "توزيع المنتجات لم تتأثر"
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"
+      edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
       extract: "استخراج"

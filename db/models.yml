@@ -51,6 +51,7 @@
 - entity_address
 - entity_link
 - equipment
+- equipment_fleet
 - event
 - event_participation
 - financial_year

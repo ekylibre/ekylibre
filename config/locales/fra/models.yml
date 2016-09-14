@@ -308,6 +308,7 @@ fra:
       entity_address: "Adresse"
       entity_link: "Lien de personne"
       equipment: "Équipement"
+      equipment_fleet: "Parc matériel"
       event: "Évènement"
       event_participation: "Participation à un évènement"
       financial_year: "Exercice"
@@ -968,6 +969,7 @@ fra:
     last_archive: "Dernière archive" #?
     last_bank_statement: "Dernier relevé bancaire"
     last_cweek: "Dernière semaine"
+    last_intervention_target: "Dernière cible d’intervention"
     last_journal_entry: "Écriture de fin d’exercice"
     last_letter: "Dernière lettre"
     last_month: "Dernier mois"

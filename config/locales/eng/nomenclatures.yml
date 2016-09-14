@@ -2309,6 +2309,7 @@ eng:
         electricity: "Electricity"
         electronic_equipment: "Electronic equipment"
         equipment: "Equipment"
+        equipment_fleet: "Equipment fleet"
         equipment_rent: "Equipment rent"
         equipment_repair_services: "Equipment repair services"
         exploitation_subsidies: "Exploitation subsidies"
@@ -4375,6 +4376,7 @@ eng:
         eotetranychus_coryli: "Eotetranychus coryli"       #< insecta
         equidae: "Equidae"                                 #< mammalia
         equipment: "Equipment"                             #< matter
+        equipment_fleet: "Equipment fleet"                 #< product_group
         equipment_part: "Item"                             #< matter
         equus: "Equine"                                    #< equidae
         equus_asinus: "Donkey"                             #< equus
