@@ -51,7 +51,7 @@ class ActivityTactic < Ekylibre::Record::Base
   accepts_nested_attributes_for :steps, allow_destroy: true, reject_if: :all_blank
 
   def of_family
-    Activity.where(id: self.activity_id).map(&:family).join.to_sym
+    Activity.where(id: activity_id).map(&:family).join.to_sym
   end
 
   def mode_unit_name
@@ -61,5 +61,4 @@ class ActivityTactic < Ekylibre::Record::Base
   def mode_unit_name=(value)
     raise ArgumentError, 'Mode unit must be: day' unless value.to_s == 'day'
   end
-
 end

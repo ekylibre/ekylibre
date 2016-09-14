@@ -24,7 +24,7 @@ module Backend
     unroll
     def procedures_name
       data = {}
-      check_value(Procedo.procedures_of_main_category(params[:name]).sort{|a,b| a.human_name <=> b.human_name }).each do |procedure_name|
+      check_value(Procedo.procedures_of_main_category(params[:name]).sort { |a, b| a.human_name <=> b.human_name }).each do |procedure_name|
         data[procedure_name.name] = procedure_name.human_name
       end
       render json: data
@@ -48,5 +48,4 @@ module Backend
       data
     end
   end
-
 end
