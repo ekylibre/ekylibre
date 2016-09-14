@@ -29,6 +29,6 @@
       = f.label :remember_me
 
   .field= f.submit t('.sign_in', default: "Sign in")
+  .field= link_to t(".ekylibre_oauth_sign_in", :default => "Sign in with Ekylibre.com"), user_ekylibre_omniauth_authorize_path, class: "btn btn-primary btn-lg btn-block"
 
-= link_to t(".ekylibre_oauth", :default => "Sign in with Ekylibre.org"), user_doorkeeper_omniauth_authorize_path
 = render "devise/shared/links"
