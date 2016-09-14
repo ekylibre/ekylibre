@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914082357) do
+ActiveRecord::Schema.define(version: 20160914132214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2181,6 +2181,7 @@ ActiveRecord::Schema.define(version: 20160914082357) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0,     null: false
+    t.boolean  "sepa",            default: false, null: false
   end
 
   add_index "outgoing_payment_modes", ["cash_id"], name: "index_outgoing_payment_modes_on_cash_id", using: :btree
