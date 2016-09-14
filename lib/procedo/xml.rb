@@ -103,7 +103,7 @@ module Procedo
             parse_parameter(procedure, child, options)
           elsif %w(group parameter-group).include?(child.name)
             parse_parameter_group(procedure, child, options)
-          else
+          elsif child.element?
             raise "Unexpected child: #{child.name}"
           end
         end
@@ -111,6 +111,7 @@ module Procedo
 
       # Parse <parameter>
       def parse_parameter(procedure, element, options = {})
+        locals = {}
         name = element.attr('name').to_sym
         if element.name != 'parameter'
           type = element.name.to_sym
@@ -123,16 +124,16 @@ module Procedo
         raise "No type given for #{name} parameter" unless type
         %w(filter cardinality).each do |info|
           if element.has_attribute?(info)
-            options[info.underscore.to_sym] = element.attr(info).to_s
+            locals[info.underscore.to_sym] = element.attr(info).to_s
           end
         end
-        %w(variety derivative-of component-of).each do |attribute|
+        %w(component-of).each do |attribute|
           if element.has_attribute?(attribute)
-            options[attribute.underscore.to_sym] = element.attr(attribute).to_s
+            locals[attribute.underscore.to_sym] = element.attr(attribute).to_s
           end
         end
         parent = options[:group] || procedure
-        parameter = parent.add_product_parameter(name, type, options)
+        parameter = parent.add_product_parameter(name, type, options.merge(locals))
         # Handlers
         element.xpath('xmlns:handler').each do |el|
           parse_handler(parameter, el)

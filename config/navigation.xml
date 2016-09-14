@@ -253,6 +253,7 @@
         <page to="backend/sale_opportunities#update"/>
         <page to="backend/sale_opportunities#attach"/>
         <page to="backend/sale_opportunities#detach"/>
+        <page to="backend/sale_opportunities#detach_gaps"/>
         <page to="backend/sale_opportunities#evaluate"/>
         <page to="backend/sale_opportunities#finish"/>
         <page to="backend/sale_opportunities#lose"/>
@@ -266,6 +267,7 @@
         <page to="backend/affairs#index"/>
         <page to="backend/affairs#attach"/>
         <page to="backend/affairs#detach"/>
+        <page to="backend/affairs#detach_gaps"/>
         <page to="backend/affairs#finish"/>
         <page to="backend/affairs#list"/>
         <page to="backend/affairs#select"/>
@@ -279,6 +281,7 @@
         <page to="backend/sale_tickets#index"/>
         <page to="backend/sale_tickets#attach"/>
         <page to="backend/sale_tickets#detach"/>
+        <page to="backend/sale_tickets#detach_gaps"/>
         <page to="backend/sale_tickets#finish"/>
         <page to="backend/sale_tickets#list"/>
         <page to="backend/sale_tickets#select"/>
@@ -552,15 +555,6 @@
     <page to="backend/dashboards#production"/>
     <group name="production" icon="cogs">
       <item name="activities">
-        <page to="backend/activity_productions#index"/>
-        <page to="backend/activity_productions#list_interventions"/>
-        <page to="backend/activity_productions#show"/>
-        <page to="backend/activity_productions#unroll"/>
-        <page to="backend/activity_productions#create"/>
-        <page to="backend/activity_productions#destroy"/>
-        <page to="backend/activity_productions#edit"/>
-        <page to="backend/activity_productions#new"/>
-        <page to="backend/activity_productions#update"/>
         <page to="backend/activities#index"/>
         <page to="backend/activities#create"/>
         <page to="backend/activities#destroy"/>
@@ -575,6 +569,16 @@
         <page to="backend/activities#show"/>
         <page to="backend/activities#update"/>
         <page to="backend/activities#unroll"/>
+        <page to="backend/activity_productions#index"/>
+        <page to="backend/activity_productions#list_interventions"/>
+        <page to="backend/activity_productions#list_target_distributions"/>
+        <page to="backend/activity_productions#show"/>
+        <page to="backend/activity_productions#unroll"/>
+        <page to="backend/activity_productions#create"/>
+        <page to="backend/activity_productions#destroy"/>
+        <page to="backend/activity_productions#edit"/>
+        <page to="backend/activity_productions#new"/>
+        <page to="backend/activity_productions#update"/>
         <page to="backend/campaigns#current"/>
         <page to="backend/campaigns#show"/>
         <page to="backend/campaigns#index"/>
@@ -604,7 +608,6 @@
         <page to="backend/activity_seasons#show"/>
         <page to="backend/activity_seasons#unroll"/>
         <page to="backend/activity_seasons#update"/>
-        <page to="backend/activity_tactics#index"/>
         <page to="backend/activity_tactics#create"/>
         <page to="backend/activity_tactics#destroy"/>
         <page to="backend/activity_tactics#edit"/>
@@ -902,6 +905,7 @@
         <page to="backend/cap_statements#unroll"/>
         <page to="backend/cap_statements#update"/>
         <page to="backend/cap_islets#index"/>
+        <page to="backend/cap_islets#convert"/>
         <page to="backend/cap_islets#create"/>
         <page to="backend/cap_islets#destroy"/>
         <page to="backend/cap_islets#edit"/>
@@ -990,6 +994,14 @@
       <item name="settings">
         <page to="backend/settings#edit"/>
         <page to="backend/settings#update"/>
+      </item>
+      <item name="integrations">
+        <page to="backend/integrations#index"/>
+        <page to="backend/integrations#edit"/>
+        <page to="backend/integrations#new"/>
+        <page to="backend/integrations#create"/>
+        <page to="backend/integrations#update"/>
+        <page to="backend/integrations#destroy"/>
       </item>
       <item name="map_backgrounds">
         <page to="backend/map_backgrounds#index"/>
@@ -1525,6 +1537,9 @@
       <item name="map_editors">
         <page to="backend/map_editors#upload"/>
       </item>
+      <item name="tours">
+        <page to="backend/tours#finish"/>
+      </item>
       <item name="invitations">
         <page to="authentication/invitations#create"/>
         <page to="authentication/invitations#destroy"/>
@@ -1740,6 +1755,9 @@
       <item name="crumbs">
         <page to="api/v1/crumbs#index"/>
         <page to="api/v1/crumbs#create"/>
+      </item>
+      <item name="interventions">
+        <page to="api/v1/interventions#index"/>
       </item>
       <item name="issues">
         <page to="api/v1/issues#index"/>

@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       get :select
       post :attach
       delete :detach
+      delete :detach_gaps
       post :finish
     end
   end
@@ -72,6 +73,7 @@ Rails.application.routes.draw do
     namespace :v1, defaults: { format: 'json' } do
       resources :tokens, only: [:create, :destroy]
       resources :crumbs
+      resources :interventions, only: [:index]
       resources :issues
       resources :plant_density_abaci
       resources :plant_countings
@@ -198,11 +200,12 @@ Rails.application.routes.draw do
     resources :activity_productions, concerns: [:unroll] do
       member do
         get :list_interventions
+        get :list_target_distributions
       end
     end
 
     resources :activity_seasons, concerns: [:unroll]
-    resources :activity_tactics, concerns: [:unroll]
+    resources :activity_tactics, concerns: [:unroll], except: [:index]
 
     resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
 
@@ -282,6 +285,7 @@ Rails.application.routes.draw do
     resources :cap_islets, concerns: [:list, :unroll] do
       member do
         get :list_cap_land_parcels
+        post :convert
       end
     end
 
@@ -495,6 +499,12 @@ Rails.application.routes.draw do
         post :up
         post :down
         post :reflect
+      end
+    end
+
+    resources :integrations, except: [:show, :destroy] do
+      collection do
+        delete :destroy
       end
     end
 
@@ -828,6 +838,12 @@ Rails.application.routes.draw do
     end
 
     resources :teams, concerns: [:list, :unroll]
+
+    resources :tours, only: [] do
+      member do
+        post :finish
+      end
+    end
 
     resources :trackings, concerns: [:list, :unroll] do
       member do

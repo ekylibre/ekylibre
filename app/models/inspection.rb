@@ -71,7 +71,8 @@ class Inspection < Ekylibre::Record::Base
   accepts_nested_attributes_for :calibrations, allow_destroy: true
 
   delegate :measure_grading_net_mass, :measure_grading_items_count,
-           :measure_grading_sizes, :grading_net_mass_unit, to: :activity
+           :measure_grading_sizes, :grading_net_mass_unit, :measure_something?,
+           to: :activity
 
   scope :of_products, lambda { |*products|
     products.flatten!
@@ -102,7 +103,7 @@ class Inspection < Ekylibre::Record::Base
     return unless product
 
     # get sowing intervention of current plant
-    interventions = Intervention.with_outputs(product)
+    interventions = Intervention.real.with_outputs(product)
 
     equipment = nil
 
@@ -259,15 +260,15 @@ class Inspection < Ekylibre::Record::Base
 
   protected
 
-  # Returns the sum of measurements on a scale if one is provided
-  #  or the average of measurements across all scales if none is.
-  def calibration_values(method, scale = nil, marketable = false)
+  # Returns the sum of measurements on a scale if one is provided or the average
+  # of measurements across all scales if none is.
+  def calibration_values(method_name, scale = nil, marketable = false)
     if scale.nil?
-      (scales.map { |s| send(:calibration_values, method, s, marketable) }.sum / scales.count)
+      (scales.map { |s| send(:calibration_values, method_name, s, marketable) }.sum / scales.count)
     else
       calib = calibrations.of_scale(scale)
       calib = calib.marketable if marketable
-      calib.map(&method).sum
+      calib.map(&method_name).compact.sum
     end
   end
 end

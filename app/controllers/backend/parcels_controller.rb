@@ -78,9 +78,10 @@ module Backend
       t.action :ship,    on: :both, method: :post, if: :shippable?
       t.action :edit,    on: :both, method: :get, if: :updateable?
       t.action :destroy
+      t.column :nature
       t.column :number, url: true
       t.column :reference_number, hidden: true
-      t.column :nature
+      t.column :content_sentence, label: :contains
       t.column :planned_at
       t.column :recipient, url: true
       t.column :sender, url: true
@@ -168,7 +169,7 @@ module Backend
 
         sale.items.each do |item|
           item.variant.take(item.quantity).each do |product, quantity|
-            @parcel.items.new(source_product: product, quantity: quantity)
+            @parcel.items.new(sale_item_id: item.id, source_product: product, quantity: quantity)
           end
         end
       end
@@ -183,10 +184,9 @@ module Backend
         @parcel.storage = preceding.storage if preceding
 
         purchase.items.each do |item|
-          @parcel.items.new(quantity: item.quantity, variant: item.variant)
+          @parcel.items.new(purchase_item_id: item.id, quantity: item.quantity, variant: item.variant)
         end
       end
-
       t3e(@parcel.attributes.merge(nature: @parcel.nature.text))
     end
 

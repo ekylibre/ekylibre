@@ -207,7 +207,7 @@ class Product < Ekylibre::Record::Base
   scope :production_supports, -> { where(variety: ['cultivable_zone']) }
   scope :supportables, -> { of_variety([:cultivable_zone, :animal_group, :equipment]) }
   scope :supporters, -> { where(id: ActivityProduction.pluck(:support_id)) }
-  scope :available, -> { alive } # TODO: Remove null-population products
+  scope :available, -> {}
   scope :alive, -> { where(dead_at: nil) }
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
@@ -329,12 +329,29 @@ class Product < Ekylibre::Record::Base
     def availables(**args)
       at = args[:at]
       return available if at.blank?
-      if at.is_a? String
-        available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+      if at.is_a?(String)
+        if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
+          available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+        else
+          logger.warn('Cannot parse: ' + at)
+          available
+        end
       else
         available.at(at)
       end
     end
+  end
+
+  def production(at = nil)
+    distributions.at(at || Time.zone.now).first
+  end
+
+  def activity
+    production ? production.activity : nil
+  end
+
+  def activity_id
+    activity ? activity.id : nil
   end
 
   # TODO: Removes this ASAP

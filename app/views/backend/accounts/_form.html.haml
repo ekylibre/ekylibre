@@ -2,6 +2,6 @@
   = f.input :number
   = f.input :name
   = f.input :reconcilable
-  = f.input :description, :field => :text
-  = f.input :usages, collection: Nomen::Account.list.collect { |c| [c.human_name, c.name.to_s] }
+  = f.input :description, as: :text
+  = f.input :usages, collection: Nomen::Account.selection
   = f.custom_fields

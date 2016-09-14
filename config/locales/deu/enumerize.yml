@@ -57,6 +57,18 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    call_message:
+      nature:
+        incoming: "Eingehend"
+        outgoing: "Abgehend"
+    call_request:
+      nature:
+        incoming: "Eingehend"
+        outgoing: "Abgehend"
+    call_response:
+      nature:
+        incoming: "Eingehend"
+        outgoing: "Abgehend"
     cash:
       mode:
         bban: "Grund Bank Account Number (BBAN)"
@@ -364,6 +376,10 @@ deu:
         multi_polygon: "Multi Polygon"
         point: "Punkt"
         string: "Schnur"
+    purchase_nature:
+      nature:
+        # payslip: "Payslip"
+        purchase: "Kauf"
     sale_opportunity:
       third_role:
         client: "Klient"
@@ -374,6 +390,7 @@ deu:
         supplier: "Lieferant"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Hören"
         requesting: "Anfordern"
     sequence:

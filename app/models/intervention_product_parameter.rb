@@ -84,7 +84,7 @@ class InterventionProductParameter < InterventionParameter
   accepts_nested_attributes_for :readings, allow_destroy: true
 
   scope :of_actor, ->(actor) { where(product_id: actor.id) }
-  scope :of_actors, ->(actors) { where(product_id: actors.flatten.map(&:id)) }
+  scope :of_actors, ->(actors) { where(product_id: actors.flatten.compact.map(&:id)) }
   scope :with_actor, -> { where.not(product_id: nil) }
   scope :with_working_zone, -> { where.not(working_zone: nil) }
 
@@ -125,14 +125,6 @@ class InterventionProductParameter < InterventionParameter
 
   def name
     reference ? reference.human_name : reference_name.humanize
-  end
-
-  def self.role
-    @name ||= name.gsub(/^Intervention/, '').underscore.to_sym
-  end
-
-  def role
-    self.class.role
   end
 
   def human_quantity

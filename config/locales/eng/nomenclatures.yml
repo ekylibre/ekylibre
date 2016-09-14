@@ -1529,7 +1529,7 @@ eng:
         grains_area_density: "Grains area density"
         grains_count: "Grains count"
         hagberg_falling_number: "Hagberg falling number"
-        healthy: "Animal disease state"
+        healthy: "Healthiness"
         height: "Height"
         horizontal_rotation: "Horizontal rotation"
         immunoglobulins_concentration: "Immunoglobulins concentration"
@@ -1688,6 +1688,7 @@ eng:
         escape: "Escape"                                   #< issue
         fecondity_problem: "Fecondity problem"             #< disease
         fever: "Fever"                                     #< disease
+        field_edge_male_seed_corn_defect: "Field edge male seed corn default" #< plant_issue
         flooding: "Flooding"                               #< climate_issue
         fomitiporia: "Fomitiporia"                         #< fungus_disease
         fungus_disease: "Fungus disease"                   #< disease
@@ -1706,11 +1707,13 @@ eng:
         phytophthora: "Phytophthora"                       #< fungus_disease
         piece_breakdown: "Piece breakdown"                 #< mechanical_issue
         plant_disease: "Plant disease"                     #< disease
+        plant_issue: "Plant issue"
         pourridie_rot: "Pourridie rot"                     #< fungus_disease
         protozoa_disease: "Protozoa disease"               #< disease
         respiratory_problem: "Respiratory problem"         #< disease
         scale_insect: "Scale insect"                       #< insecta_disease
         scaphoideus_titanus_leafhopper: "Scaphoideus titanus leafhopper" #< insecta_disease
+        seed_corn_castration_defect: "Seed corn castration default" #< plant_issue
         septoria_blotch: "Septoria blotch"                 #< fungus_disease
         support_issue: "Support issue"                     #< issue
         vine_mildew: "Vine mildew"                         #< fungus_disease
@@ -2062,6 +2065,7 @@ eng:
         shoulder_grinding: "Shoulder grinding"
         sifting: "Sifting"
         soil_structure_stabilisation: "Soil structure stabilisation"
+        solarization: "Solarization"
         sowing: "Sowing"
         sowing_burying: "Sowing burying"
         sterilization: "Sterilization"
@@ -3765,6 +3769,7 @@ eng:
         allium_cepa_b010282: "Onion b010282"               #< allium_cepa
         allium_cepa_b010283: "Onion b010283"               #< allium_cepa
         allium_cepa_b010284: "Onion b010284"               #< allium_cepa
+        allium_cepa_valenciana: "Onion Valenciana"         #< allium_cepa
         allium_oleraceum: "Field garlic"                   #< allium
         allium_porrum: "Allium porrum"                     #< allium
         allium_porrum_belton: "Leek Belton"                #< allium_porrum
@@ -3991,6 +3996,7 @@ eng:
         brassica_oleracea_italica: "Broccoli"              #< brassica_oleracea
         brassica_oleracea_italica_belstar: "Broccoli Belstar" #< brassica_oleracea_italica
         brassica_oleracea_italica_monaco: "Broccoli Monaco" #< brassica_oleracea_italica
+        brassica_oleracea_italica_naxos: "Broccoli Naxos"  #< brassica_oleracea_italica
         brassica_oleracea_italica_parthenon: "Broccoli Parthenon" #< brassica_oleracea_italica
         brassica_oleracea_italica_spiridon: "Broccoli Spiridon" #< brassica_oleracea_italica
         brassica_oleracea_medullosa: "Marrow-stem Kale"    #< brassica_oleracea
@@ -4351,6 +4357,7 @@ eng:
         daucus_carota_sugarsnax: "Carrot Sugarsnax"        #< daucus_carota
         daucus_carota_sweet_candle: "Carrot Sweet Candle"  #< daucus_carota
         daucus_carota_texto: "Carrot Texto"                #< daucus_carota
+        daucus_carota_tino: "Carrot Tino"                  #< daucus_carota
         daucus_carota_touchon: "Carrot Touchon"            #< daucus_carota
         daucus_carota_valerian: "Carrot Valerian"          #< daucus_carota
         daucus_carota_white_kuttingen: "Carrot White Kuttingen" #< daucus_carota
@@ -4449,6 +4456,7 @@ eng:
         helianthus_annuus_aurasol: "Annual sunflower aurasol" #< helianthus_annuus
         helianthus_annuus_es_ethic: "Annual sunflower es ethic" #< helianthus_annuus
         helianthus_annuus_es_magnific: "Annual sunflower es magnific" #< helianthus_annuus
+        helianthus_annuus_es_romantic: "Annual sunflower es romantic" #< helianthus_annuus
         helianthus_annuus_extrasol: "Annual sunflower extrasol" #< helianthus_annuus
         helianthus_annuus_lg_5360_ho: "Annual sunflower lg 5360 ho" #< helianthus_annuus
         helianthus_annuus_lg_5450_ho: "Annual sunflower lg 5450 ho" #< helianthus_annuus
@@ -5138,6 +5146,7 @@ eng:
         phaseolus_vulgaris_mogex: "Bean Mogex"             #< phaseolus_vulgaris
         phaseolus_vulgaris_molly: "Bean Molly"             #< phaseolus_vulgaris
         phaseolus_vulgaris_princesse_du_peleve: "Bean Princesse du Pélève" #< phaseolus_vulgaris
+        phaseolus_vulgaris_red_kindley: "Bean Red Kindley" #< phaseolus_vulgaris
         phaseolus_vulgaris_stanley: "Bean Stanley"         #< phaseolus_vulgaris
         phaseolus_vulgaris_sv1162gn: "Bean SV1162GN"       #< phaseolus_vulgaris
         phaseolus_vulgaris_verdelys: "Bean green flageolet Verdelys (dwarf)" #< phaseolus_vulgaris
@@ -6204,15 +6213,18 @@ eng:
         yeast: "Yeast"                                     #< preparation
         zea: "Zea"                                         #< poaceae
         zea_mays: "Corn"                                   #< zea
+        zea_mays_5142: "Corn 5142"                         #< zea_mays
         zea_mays_P0216: "Corn P0216"                       #< zea_mays
         zea_mays_aallexia: "Corn Aallexia"                 #< zea_mays
         zea_mays_barcarolle_cs: "Corn Barcarolle CS"       #< zea_mays
         zea_mays_bergxxon: "Corn Bergxxon"                 #< zea_mays
         zea_mays_boomer: "Corn Boomer"                     #< zea_mays
         zea_mays_cadixxio: "Corn Cadixxio"                 #< zea_mays
+        zea_mays_capuzi: "Corn Capuzi"                     #< zea_mays
         zea_mays_ceratina: "Waxy Corn"                     #< zea_mays
         zea_mays_ceratina_dkc5430wx: "Waxy Corn DKC 5430 wx" #< zea_mays_ceratina
         zea_mays_ceratina_dkc5783wx: "Waxy Corn DKC 5783 wx" #< zea_mays_ceratina
+        zea_mays_ceratina_mas56wx: "Waxy Corn MAS 56 WX"   #< zea_mays_ceratina
         zea_mays_ceratina_mas66wx: "Waxy Corn MAS 66 wx"   #< zea_mays_ceratina
         zea_mays_ceratina_p0725e: "Waxy Corn P0725E"       #< zea_mays_ceratina
         zea_mays_ceratina_p1547e: "Waxy Corn P1547E"       #< zea_mays_ceratina
@@ -6248,7 +6260,9 @@ eng:
         zea_mays_p921s: "Corn P921 S"                      #< zea_mays
         zea_mays_ph30: "Corn PH 30"                        #< zea_mays
         zea_mays_ph31s: "Corn PH 31 S"                     #< zea_mays
+        zea_mays_ph450: "Corn PH 450"                      #< zea_mays
         zea_mays_pr34p88: "Corn PR34P88"                   #< zea_mays
+        zea_mays_pw450: "Corn PW 450"                      #< zea_mays
         zea_mays_roberi_cs: "Corn Roberi CS"               #< zea_mays
         zea_mays_saccharata: "Sweet Corn"                  #< zea_mays
         zea_mays_saccharata_646: "Sweet Corn 646"          #< zea_mays_saccharata

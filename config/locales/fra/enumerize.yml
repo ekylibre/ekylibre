@@ -44,7 +44,7 @@ fra:
         controller_error: "Erreur de contrôleur"
         error: "Erreur"
         internal_error: "Erreur interne"
-        ok: "D&#39;accord"
+        ok: "OK"
         sensor_error: "Erreur de capteur"
     analysis_item:
       indicator_datatype:
@@ -57,6 +57,18 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    call_message:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
+    call_request:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
+    call_response:
+      nature:
+        incoming: "Nouveau"
+        outgoing: "Sortant"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
@@ -165,7 +177,7 @@ fra:
         errored: "Erroné"
         finished: "Fini"
         in_progress: "En cours"
-        undone: "Défait"
+        undone: "En attente"
     intervention:
       nature:
         record: "Enregistrement"
@@ -349,6 +361,10 @@ fra:
         multi_polygon: "Multi polygone"
         # point: "Point"
         string: "Chaîne"
+    purchase_nature:
+      nature:
+        payslip: "Fiche de paie"
+        purchase: "Achat"
     sale_opportunity:
       third_role:
         # client: "Client"
@@ -359,6 +375,7 @@ fra:
         supplier: "Fournisseur"
     sensor:
       retrieval_mode:
+        integration: "Intégration"
         listening: "Serveur"
         requesting: "Client"
     sequence:

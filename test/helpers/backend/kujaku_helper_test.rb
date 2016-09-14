@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::KujakuHelperTest < ActionView::TestCase
+module Backend
+  class KujakuHelperTest < ActionView::TestCase
+  end
 end

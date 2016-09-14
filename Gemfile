@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '4.2.7.1'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
@@ -13,7 +13,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'apartment', '~> 1.0.0', '< 2.0'
 gem 'apartment-sidekiq'
 
-# Ruby functionalities extension
+# Ruby syntax extensions
 gem 'possibly'
 
 # Code manipulation
@@ -23,6 +23,9 @@ gem 'charlock_holmes'
 gem 'browser'
 
 gem 'actionpack-xml_parser'
+
+# Manage env vars
+gem 'figaro'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -53,6 +56,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'rails-api'
+gem 'kaminari'
 
 # Freeze time for demo and/or tests
 gem 'timecop'
@@ -153,6 +157,7 @@ gem 'agric', '~> 3.0'
 # Web services
 gem 'mechanize'
 gem 'savon'
+gem 'rubyntlm', '>= 0.3.2'
 gem 'rest-client', require: false
 
 gem 'luhn'

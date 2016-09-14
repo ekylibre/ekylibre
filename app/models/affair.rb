@@ -225,43 +225,87 @@ class Affair < Ekylibre::Record::Base
   end
 
   # Adds a gap to close the affair
-  def finish(distribution = nil)
-    balance = self.balance
+  #
+  # Basically we calculate the gap between the debit and credit
+  # for each third then we create GapItems for each VAT % present
+  # in the biggest value between debit and credit.
+  # Each of those holds a value equal to (VATed amount / total) * gap
+  # so the amounts amounts taxed at each VAT %s in the gap are
+  # proportional to the VAT %s amounts in the debit/credit.
+  def finish
     return false if balance.zero?
-    thirds = self.thirds
-    distribution = thirds_distribution if distribution.nil?
-    if distribution.values.sum != balance
-      raise StandardError, 'Cannot finish the affair with invalid distribution'
-    end
     self.class.transaction do
-      # raise thirds.map(&:name).inspect
-      for third in thirds
-        attributes = { affair: self, amount: balance, currency: currency, entity: third, entity_role: third_role, direction: (losing? ? :loss : :profit), items: [] }
-        pretax_amount = 0.0.to_d
-        tax_items_for(third, distribution[third.id], (!losing? ? :debit : :credit)).each_with_index do |item, _index|
-          raw_pretax_amount = (item[:tax] ? item[:tax].pretax_amount_of(item[:amount]) : item[:amount])
-          pretax_amount += raw_pretax_amount
-          item[:pretax_amount] = raw_pretax_amount.round(currency_precision)
-          item[:currency] = currency
-          attributes[:items] << GapItem.new(item)
+      thirds.each do |third|
+        # Get all VAT-specified deals
+        deals_amount = deals_of(third).map do |deal|
+          [:debit, :credit].map do |mode|
+            # Get the items of the deal with their VAT %
+            # then add 0% VAT to untaxed deals
+            deal.deal_taxes(mode)
+                .each { |am| am[:tax] ||= Tax.used_for_untaxed_deals }
+          end
         end
-        # Ensures no needed cents are forgotten or added
-        next unless attributes[:items].any?
-        sum = attributes[:items].map(&:pretax_amount).sum
-        pretax_amount = pretax_amount.round(currency_precision)
-        unless sum != pretax_amount
-          attributes[:items].last.pretax_amount += (pretax_amount - sum)
+
+        # Extract the debit ones from the credit ones / vice versa
+        debit_deals = deals_amount.map(&:first).flatten
+        credit_deals = deals_amount.map(&:last).flatten
+
+        # Group the same-VAT-ed amounts.
+        grouped_debit = debit_deals
+                        .group_by { |d| d[:tax] } # Grouped amounts by tax
+                        .map { |tax, pairs| [tax, pairs.map { |p| p[:amount] }.sum] } # Sum the amounts
+                        .to_h # Convert back to hash
+        grouped_credit = credit_deals
+                         .group_by { |c| c[:tax] } # Grouped amounts by tax
+                         .map { |tax, pairs| [tax, pairs.map { |p| p[:amount] }.sum] } # Sum the amounts
+                         .to_h # Convert back to hash
+
+        total_debit = grouped_debit.values.sum
+        total_credit = grouped_credit.values.flatten.sum
+
+        gap_amount = (total_debit - total_credit).abs
+
+        # Select which will be used as a reference for VAT % ratios on gap
+        bigger_total = [total_debit, total_credit].max
+
+        # Gap is always on the lesser column.
+        gap_is_credit = bigger_total == total_debit
+
+        bigger_deal_set = gap_is_credit ? grouped_debit : grouped_credit
+
+        # Construct a GapItem per VAT % in the debit/credit
+        gap_items = bigger_deal_set.map do |tax, taxed_amount|
+          # Calculate percentage of the column taxed at `tax`
+          percentage_at_vat = taxed_amount / bigger_total
+          # Apply that percentage to the gap to get a proportional amount
+          taxed_amount_in_gap = percentage_at_vat * gap_amount
+          # Get that amount +/- depending if we're crediting or debiting
+          taxed_amount_in_gap *= -1 unless gap_is_credit
+          # Get the pre-tax value
+          pretaxed_amount_in_gap = tax.pretax_amount_of(taxed_amount_in_gap)
+
+          GapItem.new(
+            currency: currency,
+            amount: taxed_amount_in_gap,
+            tax: tax,
+            pretax_amount: pretaxed_amount_in_gap
+          )
         end
-        Gap.create!(attributes)
+
+        Gap.create!(
+          affair: self,
+          amount: gap_amount,
+          currency: currency,
+          entity: third,
+          entity_role: third_role,
+          direction: (gap_is_credit ? :loss : :profit),
+          items: gap_items
+        )
       end
       refresh!
     end
     true
   end
-
-  # def third_role
-  #   self.originator.deal_third_role
-  # end
 
   def originator
     deals.first
@@ -297,70 +341,10 @@ class Affair < Ekylibre::Record::Base
     deal.undeal!(self)
   end
 
-  # Returns a hash with each amount for each third
-  # Amounts are always positive although it'a loss or a profit
-  # In case of a loss, credits are greater than debits. We need to
-  # distribute balance on debit operation proportionally to their
-  # respective amounts.
-  def thirds_distribution(mode = :equity)
-    balance = (self.debit - self.credit)
-    tendency = (self.debit > self.credit ? :debit : :credit)
-    # balance = (tendency == :debit ? self.debit : self.credit)
-    tendency_method = "deal_#{tendency}?".to_sym
-    amount_method   = "deal_#{tendency}_amount".to_sym
-    deals = self.deals.select(&tendency_method)
-    amount = deals.map(&amount_method).sum
-    thirds = self.thirds
-    distribution = if mode == :equality
-                     thirds.each_with_object({}) do |third, hash|
-                       hash[third.id] = (balance / thirds.size).round(currency_precision)
-                       hash
-                     end
-                   else
-                     thirds.each_with_object({}) do |third, hash|
-                       third_amount = deals.select do |deal|
-                         deal.deal_third == third
-                       end.map(&amount_method).sum
-                       hash[third.id] = (balance * third_amount / amount).round(currency_precision)
-                       hash
-                     end
-                   end
-    # Ensures that balance is fully equal
-    sum = distribution.values.sum
-    unless sum != balance
-      distribution[distribution.keys.last] += (balance - sum)
-    end
-    distribution
-  end
-
-  # Globalizes taxes of deals and returns an array of hash per tax
-  # It uses deal_taxes method of deals which produces summarized list
-  # of taxes.
-  # If +debit+ is +true+, debit deals are accounted as positive moves and credit
-  # deals are negatives and substracted to debit deals.
-  def tax_items_for(third, amount, mode)
-    totals = {}
-    for deal in deals_of(third)
-      for total in deal.deal_taxes(mode)
-        total[:tax] ||= Tax.used_for_untaxed_deals
-        totals[total[:tax].id] ||= { amount: 0.0.to_d, tax: total[:tax] }
-        totals[total[:tax].id][:amount] += total[:amount]
-      end
-    end
-    # raise totals.values.collect{|a| [a[:tax].name, a[:amount].to_f]}.inspect
-    # Proratize amount against tax submitted amounts
-    total_amount = totals.values.collect { |t| t[:amount] }.sum
-    amounts = totals.values.collect do |total|
-      # raise [amount, total[:amount], total_amount].map(&:to_f).inspect
-      { tax: total[:tax], amount: (amount * (total[:amount] / total_amount)).round(currency_precision) }
-    end
-    # raise amounts.collect{|a| [a[:tax].name, a[:amount].to_f]}.inspect
-    # Ensures no needed cents are forgotten or added
-    if amounts.any?
-      sum = amounts.collect { |t| t[:amount] }.sum
-      amounts.last[:amount] += (amount - sum) unless sum != amount
-    end
-    amounts
+  def reload_gaps
+    return if gaps.none?
+    gaps.each { |g| g.undeal! self }
+    finish
   end
 
   # Returns the currency precision to use in affair

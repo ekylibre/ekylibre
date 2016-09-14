@@ -58,6 +58,18 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    call_message:
+      nature:
+        incoming: "Entrada"
+        outgoing: "Extrovertido"
+    call_request:
+      nature:
+        incoming: "Entrada"
+        outgoing: "Extrovertido"
+    call_response:
+      nature:
+        incoming: "Entrada"
+        outgoing: "Extrovertido"
     cash:
       mode:
         bban: "Número básico contas bancárias (BBAN)"
@@ -372,6 +384,10 @@ por:
         manual: "Manual" #?
         quantity_tax: "Quantidade-Imposto" #?
         tax_quantity: "Imposto-Quantidade" #?
+    purchase_nature:
+      nature:
+        payslip: "Recibo de Pagamento"
+        purchase: "Compra"
     sale:  #?
       computation_method: #?
         adaptative: "Adaptativo" #?
@@ -387,6 +403,7 @@ por:
         supplier: "Fornecedor"
     sensor:
       retrieval_mode:
+        integration: "Integração"
         listening: "Ouvindo"
         requesting: "Solicitando"
     sequence:

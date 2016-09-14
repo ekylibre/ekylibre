@@ -26,6 +26,7 @@ eng:
         none: "None"
     activity_production:
       support_nature:
+        # animal_group: "Animal group"
         border: "Border"
         buffer: "Buffer"
         cultivation: "Cultivation"
@@ -57,6 +58,18 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    call_message:
+      nature:
+        incoming: "Incoming"
+        outgoing: "Outgoing"
+    call_request:
+      nature:
+        incoming: "Incoming"
+        outgoing: "Outgoing"
+    call_response:
+      nature:
+        incoming: "Incoming"
+        outgoing: "Outgoing"
     cash:
       mode:
         bban: "Basic Bank Account Number (BBAN)"
@@ -349,6 +362,10 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    purchase_nature:
+      nature:
+        payslip: "Payslip"
+        purchase: "Purchase"
     sale_opportunity:
       third_role:
         client: "Client"
@@ -359,6 +376,7 @@ eng:
         supplier: "Supplier"
     sensor:
       retrieval_mode:
+        integration: "Integration"
         listening: "Listening"
         requesting: "Requesting"
     sequence:

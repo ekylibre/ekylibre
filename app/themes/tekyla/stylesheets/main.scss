@@ -168,6 +168,18 @@ ul.dropdown-menu {
   }
 }
 
+.introduction-message {
+  padding: $lh-huge;
+  @include text-align(center);
+  &, * {
+    font-size: $fs-huge;
+    line-height: $lh-huge;
+  }
+  .modal & {
+    padding: $lh-large;
+  }
+}
+
 a[data-toggle='side'] {
   i {
     @include is-icon($topbar-icon-size);
@@ -1642,6 +1654,7 @@ a[data-remove-closest], a[data-remove] {
 
 
 .affair {
+  overflow: auto;
   .deals {
     // @include padding-left(4em);
     width: 100%;

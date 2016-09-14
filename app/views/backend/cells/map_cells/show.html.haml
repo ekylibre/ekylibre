@@ -92,12 +92,12 @@
       #  popup_content << {label: CultivableZone.human_attribute_name(:net_surface_area), value: support.net_surface_area.in_hectare.round(2).l}
       #end
 
-      interventions = support.interventions
+      interventions = support.interventions.real
       if interventions.any?
-        spent_time = interventions.map(&:working_duration).compact.sum
+        spent_time = interventions.sum(:working_duration)
         popup_content << { label: :interventions_count.tl, value: "#{interventions.count} #{:during.tl.downcase!} #{:x_hours.tl(count: (spent_time/3600).round(2))}" }
 
-        last_intervention = interventions.max{|a,b| a.started_at <=> b.started_at }
+        last_intervention = interventions.order(started_at: :desc).first
         popup_content << { label: :last_intervention.tl, value: link_to( last_intervention.name, backend_intervention_path(last_intervention)) }
       end
 

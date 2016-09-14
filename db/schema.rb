@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811124234) do
+ActiveRecord::Schema.define(version: 20160906112630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -475,6 +475,50 @@ ActiveRecord::Schema.define(version: 20160811124234) do
   add_index "bank_statements", ["updated_at"], name: "index_bank_statements_on_updated_at", using: :btree
   add_index "bank_statements", ["updater_id"], name: "index_bank_statements_on_updater_id", using: :btree
 
+  create_table "call_messages", force: :cascade do |t|
+    t.string   "status"
+    t.string   "headers"
+    t.text     "body"
+    t.string   "type"
+    t.string   "nature",                   null: false
+    t.string   "ip_address"
+    t.string   "url"
+    t.string   "format"
+    t.string   "ssl"
+    t.string   "verb"
+    t.integer  "request_id"
+    t.integer  "call_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "call_messages", ["call_id"], name: "index_call_messages_on_call_id", using: :btree
+  add_index "call_messages", ["created_at"], name: "index_call_messages_on_created_at", using: :btree
+  add_index "call_messages", ["creator_id"], name: "index_call_messages_on_creator_id", using: :btree
+  add_index "call_messages", ["request_id"], name: "index_call_messages_on_request_id", using: :btree
+  add_index "call_messages", ["updated_at"], name: "index_call_messages_on_updated_at", using: :btree
+  add_index "call_messages", ["updater_id"], name: "index_call_messages_on_updater_id", using: :btree
+
+  create_table "calls", force: :cascade do |t|
+    t.string   "state"
+    t.string   "integration_name"
+    t.string   "name"
+    t.jsonb    "arguments"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",     default: 0, null: false
+  end
+
+  add_index "calls", ["created_at"], name: "index_calls_on_created_at", using: :btree
+  add_index "calls", ["creator_id"], name: "index_calls_on_creator_id", using: :btree
+  add_index "calls", ["updated_at"], name: "index_calls_on_updated_at", using: :btree
+  add_index "calls", ["updater_id"], name: "index_calls_on_updater_id", using: :btree
+
   create_table "campaigns", force: :cascade do |t|
     t.string   "name",                         null: false
     t.text     "description"
@@ -730,10 +774,15 @@ ActiveRecord::Schema.define(version: 20160811124234) do
     t.integer  "lock_version",                                                         default: 0, null: false
     t.jsonb    "custom_fields"
     t.string   "production_system_name"
+    t.string   "soil_nature"
+    t.integer  "owner_id"
+    t.integer  "farmer_id"
   end
 
   add_index "cultivable_zones", ["created_at"], name: "index_cultivable_zones_on_created_at", using: :btree
   add_index "cultivable_zones", ["creator_id"], name: "index_cultivable_zones_on_creator_id", using: :btree
+  add_index "cultivable_zones", ["farmer_id"], name: "index_cultivable_zones_on_farmer_id", using: :btree
+  add_index "cultivable_zones", ["owner_id"], name: "index_cultivable_zones_on_owner_id", using: :btree
   add_index "cultivable_zones", ["updated_at"], name: "index_cultivable_zones_on_updated_at", using: :btree
   add_index "cultivable_zones", ["updater_id"], name: "index_cultivable_zones_on_updater_id", using: :btree
 
@@ -981,11 +1030,14 @@ ActiveRecord::Schema.define(version: 20160811124234) do
     t.integer  "lock_version",              default: 0,     null: false
     t.string   "title"
     t.jsonb    "custom_fields"
+    t.boolean  "employee",                  default: false, null: false
+    t.integer  "employee_account_id"
   end
 
   add_index "entities", ["client_account_id"], name: "index_entities_on_client_account_id", using: :btree
   add_index "entities", ["created_at"], name: "index_entities_on_created_at", using: :btree
   add_index "entities", ["creator_id"], name: "index_entities_on_creator_id", using: :btree
+  add_index "entities", ["employee_account_id"], name: "index_entities_on_employee_account_id", using: :btree
   add_index "entities", ["full_name"], name: "index_entities_on_full_name", using: :btree
   add_index "entities", ["number"], name: "index_entities_on_number", using: :btree
   add_index "entities", ["of_company"], name: "index_entities_on_of_company", using: :btree
@@ -1505,6 +1557,23 @@ ActiveRecord::Schema.define(version: 20160811124234) do
   add_index "inspections", ["product_id"], name: "index_inspections_on_product_id", using: :btree
   add_index "inspections", ["updated_at"], name: "index_inspections_on_updated_at", using: :btree
   add_index "inspections", ["updater_id"], name: "index_inspections_on_updater_id", using: :btree
+
+  create_table "integrations", force: :cascade do |t|
+    t.string   "nature",                             null: false
+    t.jsonb    "initialization_vectors"
+    t.jsonb    "ciphered_parameters"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",           default: 0, null: false
+  end
+
+  add_index "integrations", ["created_at"], name: "index_integrations_on_created_at", using: :btree
+  add_index "integrations", ["creator_id"], name: "index_integrations_on_creator_id", using: :btree
+  add_index "integrations", ["nature"], name: "index_integrations_on_nature", unique: true, using: :btree
+  add_index "integrations", ["updated_at"], name: "index_integrations_on_updated_at", using: :btree
+  add_index "integrations", ["updater_id"], name: "index_integrations_on_updater_id", using: :btree
 
   create_table "intervention_parameter_readings", force: :cascade do |t|
     t.string   "indicator_name",                                                                                                      null: false
@@ -2936,6 +3005,7 @@ ActiveRecord::Schema.define(version: 20160811124234) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",    default: 0,     null: false
+    t.string   "nature",                          null: false
   end
 
   add_index "purchase_natures", ["created_at"], name: "index_purchase_natures_on_created_at", using: :btree
@@ -3143,6 +3213,7 @@ ActiveRecord::Schema.define(version: 20160811124234) do
     t.integer  "lock_version",      default: 0,     null: false
     t.string   "token"
     t.jsonb    "custom_fields"
+    t.string   "euid"
   end
 
   add_index "sensors", ["created_at"], name: "index_sensors_on_created_at", using: :btree
@@ -3355,6 +3426,22 @@ ActiveRecord::Schema.define(version: 20160811124234) do
   add_index "teams", ["parent_id"], name: "index_teams_on_parent_id", using: :btree
   add_index "teams", ["updated_at"], name: "index_teams_on_updated_at", using: :btree
   add_index "teams", ["updater_id"], name: "index_teams_on_updater_id", using: :btree
+
+  create_table "tokens", force: :cascade do |t|
+    t.string   "name",                     null: false
+    t.string   "value",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "tokens", ["created_at"], name: "index_tokens_on_created_at", using: :btree
+  add_index "tokens", ["creator_id"], name: "index_tokens_on_creator_id", using: :btree
+  add_index "tokens", ["name"], name: "index_tokens_on_name", unique: true, using: :btree
+  add_index "tokens", ["updated_at"], name: "index_tokens_on_updated_at", using: :btree
+  add_index "tokens", ["updater_id"], name: "index_tokens_on_updater_id", using: :btree
 
   create_table "trackings", force: :cascade do |t|
     t.string   "name",                              null: false

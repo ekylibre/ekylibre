@@ -913,6 +913,79 @@ bank_statements:
   updater_id:
     type: integer
     references: user
+call_messages:
+  body:
+    type: text
+  call_id:
+    type: integer
+    references: call
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  format:
+    type: string
+  headers:
+    type: string
+  id:
+    type: integer
+    required: true
+  ip_address:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
+  request_id:
+    type: integer
+    references: call_request
+  ssl:
+    type: string
+  status:
+    type: string
+  type:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  url:
+    type: string
+  verb:
+    type: string
+calls:
+  arguments:
+    type: jsonb
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  integration_name:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 campaigns:
   closed:
     type: boolean
@@ -1388,6 +1461,9 @@ cultivable_zones:
     type: jsonb
   description:
     type: text
+  farmer_id:
+    type: integer
+    references: entity
   id:
     type: integer
     required: true
@@ -1397,6 +1473,9 @@ cultivable_zones:
   name:
     type: string
     required: true
+  owner_id:
+    type: integer
+    references: entity
   production_system_name:
     type: string
   shape:
@@ -1405,6 +1484,8 @@ cultivable_zones:
       srid: 4326
       type: multi_polygon
     required: true
+  soil_nature:
+    type: string
   updated_at:
     type: datetime
     required: true
@@ -1813,6 +1894,13 @@ entities:
     type: string
   description:
     type: text
+  employee:
+    type: boolean
+    required: true
+    default: false
+  employee_account_id:
+    type: integer
+    references: account
   first_met_at:
     type: datetime
   first_name:
@@ -2874,6 +2962,32 @@ inspections:
     type: decimal
     precision: 19
     scale: 4
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+integrations:
+  ciphered_parameters:
+    type: jsonb
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  initialization_vectors:
+    type: jsonb
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -5592,6 +5706,9 @@ purchase_natures:
     required: true
   name:
     type: string
+  nature:
+    type: string
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -5985,6 +6102,8 @@ sensors:
     type: boolean
     required: true
     default: false
+  euid:
+    type: string
   host_id:
     type: integer
     references: product
@@ -6364,6 +6483,31 @@ teams:
   updater_id:
     type: integer
     references: user
+tokens:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  value:
+    type: string
+    required: true
 trackings:
   active:
     type: boolean

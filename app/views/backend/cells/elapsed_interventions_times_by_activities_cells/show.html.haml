@@ -1,8 +1,9 @@
 - series = []
-- if @campaign && Intervention.of_civil_year(@campaign.harvest_year).any?
+- interventions = Intervention.real.of_civil_year(@campaign.harvest_year)
+- if @campaign && interventions.any?
   :ruby
-    started_at = Intervention.of_civil_year(@campaign.harvest_year).reorder(:started_at).first.started_at.to_date
-    stopped_at = Intervention.of_civil_year(@campaign.harvest_year).reorder(:started_at).last.stopped_at.to_date
+    started_at = interventions.reorder(:started_at).first.started_at.to_date
+    stopped_at = interventions.reorder(:started_at).last.stopped_at.to_date
 
     unit = Nomen::Unit[:hour]
 
@@ -21,7 +22,7 @@
     Activity.actives.find_each do |activity|
       activity_target_id = activity.productions.pluck(:support_id)
       targets = Product.find(activity_target_id)
-      interventions = Intervention.with_targets(targets).of_civil_year(@campaign.harvest_year).reorder(:started_at)
+      interventions = Intervention.real.with_targets(targets).of_civil_year(@campaign.harvest_year).reorder(:started_at)
       if interventions.any?
         sums = interventions.sums_of_periods.sort.inject({}) do |hash, period|
           hash[period.expr.to_i.to_s] = period.sum.to_i.in_second.in(unit).round(2).to_f

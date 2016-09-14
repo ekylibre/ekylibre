@@ -65,6 +65,7 @@ private/test/plugins
 /config/tenants.yml
 /config/services.yml
 /config/unicorn.rb
+/config/application.yml
 
 # Coveralls
 coverage

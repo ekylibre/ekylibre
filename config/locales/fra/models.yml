@@ -196,10 +196,12 @@ fra:
         unitary_in_parcel: "articles Unitaires ne peuvent être envoyés un par un"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
+        activity:
+          checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
         bank_statement:
           no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
-          ofx_file_has_multiple_bank_accounts: "fichier OFX avec plusieurs comptes bancaires ne sont pas pris en charge"
-          ofx_file_invalid: "fichier OFX est invalide"
+          ofx_file_has_multiple_bank_accounts: "Fichier OFX avec plusieurs comptes bancaires non pris en charge"
+          ofx_file_invalid: "Fichier OFX invalide"
         bank_statement_item:
           unvalid_amounts: "L’écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps."
         cash:
@@ -265,7 +267,7 @@ fra:
       activity_inspection_point_nature: "Type de point de contrôle d'agréage"
       activity_production: "Support de production"
       activity_season: "Saisonnalité"
-      activity_tactic: "Technique de culture d&#39;activité"
+      activity_tactic: "Technique de culture d’activité"
       affair: "Affaire"
       analysis: "Analyse"
       analysis_item: "Élément d’analyse"
@@ -277,6 +279,10 @@ fra:
       bioproduct: "Produit vivant"
       building: "Bâtiment"
       building_division: "Pièce"
+      call: "Appel"
+      call_message: "Un message d’appel"
+      call_request: "Demande d’appel"
+      call_response: "Réponse Appel"
       campaign: "Campagne"
       cap_islet: "Ilôt PAC"
       cap_land_parcel: "Parcelle PAC"
@@ -322,6 +328,7 @@ fra:
       inspection: "Agréage produit"
       inspection_calibration: "Calibre de l'agréage"
       inspection_point: "Point de contrôle"
+      integration: "L’intégration"
       intervention: "Intervention"
       intervention_agent: "Agent d’intervention"
       intervention_doer: "Opérateur d’intervention"
@@ -404,6 +411,7 @@ fra:
       task: "Tâche"
       tax: "Taxe"
       team: "Service"
+      token: "Jeton"
       tracking: "Lot traçable"
       user: "Utilisateur"
       vegetal_activity: "Activité végétale" #?
@@ -475,6 +483,7 @@ fra:
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
     archiving: "Méthode d’archivage"
+    # arguments: "Arguments"
     assembly: "Assemblée"
     attachments: "Pièces jointes"
     attorney: "Mandataire" #?
@@ -502,6 +511,7 @@ fra:
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
     birth: "Naissance" #?
+    body: "Corps"
     boolean_value: "Valeur booléenne"
     born_at: "Date de naissance"
     budget: "Budget" #?
@@ -542,6 +552,7 @@ fra:
     choice_value: "Valeur choix"
     choices: "Choix de champ complémentaire"
     choices_count: "Nb. Choix"
+    ciphered_parameters: "Paramètres chiffrés"
     city: "Ville"
     city_name: "Nom de ville"
     client: "Client"
@@ -723,7 +734,9 @@ fra:
     emission_currency_rate: "Taux de la devise émise" #?
     emission_journal_entry: "Écriture de l’émission"
     employed: "Employé par la société"
-    employees: "employés"
+    employee: "Employé"
+    employee_account: "Compte employé"
+    employees: "Employés"
     employment: "Emploi/Rôle"
     enabled: "Activée"
     encrypted_password: "Mot de passe crypté"
@@ -740,6 +753,7 @@ fra:
     entry_items: "Lignes d’écritures"
     entry_number: "N° Écriture"
     establishment: "Établissement" #?
+    # euid: "EUID"
     event: "Évènement"
     event_participation: "Participation à un évènement"
     events: "Évènements"
@@ -766,6 +780,7 @@ fra:
     failed_attempts: "Tentatives de connexions échouées"
     family: "Famille"
     farm_name: "Nom de la ferme"
+    farmer: "Fermier"
     father: "Père"
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
@@ -789,8 +804,8 @@ fra:
     fixed_asset: "Immobilisation"
     fixed_asset_account: "Compte d’immobilisation"
     fixed_asset_allocation_account: "Compte des dépréciations d’immobilisation"
-    fixed_asset_collect_account: "Capital fixe recueillir compte"
-    fixed_asset_deduction_account: "Actif fixe compte de la déduction"
+    fixed_asset_collect_account: "TVA collectée sur les immobilisations"
+    fixed_asset_deduction_account: "TVA déductible sur les immobilisations"
     fixed_asset_depreciation_method: "Méthode de dépréciation d’immobilisation"
     fixed_asset_depreciation_percentage: "Pourcentage de dépréciation d’immobilisation"
     fixed_asset_depreciations: "Dépréciations d’immobilisation"
@@ -800,6 +815,7 @@ fra:
     fixed_assets: "Immobilisations"
     fixed_assets_categories: "Catégories de produits avec immobilisation" #?
     following: "Suivant"
+    # format: "Format"
     formats: "Formats"
     fourth_producer: "Quatrième producteur" #?
     fourth_producer_way: "Voie du quatrième producteur" #?
@@ -842,6 +858,7 @@ fra:
     guide: "Référentiel"
     harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"
+    headers: "Têtes"
     host: "Hôte"
     human_activities_names: "Nom des activités"
     human_shape_area: "Superficie"
@@ -885,12 +902,14 @@ fra:
     initial_owner: "Propriétaire initial"
     initial_population: "Population initiale"
     initial_shape: "Forme initiale"
+    initialization_vectors: "Vecteurs d’initialisation"
     inputs: "Intrants"
     inspection: "Agréage"
     inspections: "Agréages"
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
     integer_value: "Valeur entière"
+    integration_name: "Nom d’intégration"
     interest_amount: "Montant de l’intérêt"
     interest_percentage: "Taux d’intérêt (%)"
     intermediate_cultivation_residue_mineralization: "Minéralisation nette des résidus de culture intermédiaire (MrCi)"
@@ -913,6 +932,7 @@ fra:
     invoiced: "Facturée" #?
     invoiced_at: "Facturée le"
     invoices_count: "Nombre de factures" #?
+    ip_address: "Adresse IP"
     irrigated: "Irrigué"
     irrigation_water_nitrogen: "Azote apporté par l’eau d’irrigation (Nirr)"
     islet: "Ilôt"
@@ -955,6 +975,7 @@ fra:
     last_number: "Dernier numéro"
     last_sign_in_at: "Dernière connexion à"
     last_sign_in_ip: "Dernière IP de connexion"
+    last_value: "Dernière valeur"
     last_year: "Dernière année"
     latest: "Dernier"
     lender: "Prêteur"
@@ -1031,6 +1052,7 @@ fra:
     members_count: "Nombre de membres"
     memberships: "Membres du groupe"
     message: "Message"
+    # messages: "Messages"
     metadata: "Méta-données"
     milk_withdrawal_period: "Délai d’attente (lait)" #?
     min_zoom: "Zoom minimal"
@@ -1085,7 +1107,7 @@ fra:
     office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
     opened_at: "Ouvert le"
-    operation: "Travail" #?
+    operation: "Travail"
     operations: "Travaux" #?
     ordered_at: "Commandé à"
     organic_fertilizer_mineral_fraction: "Azote de la fraction minérale d’un engrais organique (Xa)"
@@ -1311,12 +1333,15 @@ fra:
     replaced_at: "Remplacé le"
     replacements: "Remplacements"
     reporter: "Rapporteur"
+    request: "Demande"
     request_intervention: "Demande intervention"
+    requests: "Demandes"
     required: "Obligatoire"
     reset_password_sent_at: "Réinitialisation du mot de passe envoyé à"
     reset_password_token: "Jeton de réinitialisation du mot de passe"
     resource: "Ressource"
     resource_type: "Type de ressource"
+    responses: "Réponses"
     responsible: "Responsable"
     restricted: "Réservé"
     retrieval_message: "Message"
@@ -1388,6 +1413,7 @@ fra:
     source_product: "Produit Source"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
+    ssl: "Ssl"
     start: "Début"
     start_junction: "Jonction de départ" #?
     start_way: "Voie de départ" #?
@@ -1411,10 +1437,14 @@ fra:
     subject_label: "Objet" #?
     subject_type: "Type de sujet"
     subscriber: "Abonné"
-    subscribing: "Abonne"
+    subscribing: "Abonnement"
+    subscription: "Abonnement"
+    subscription_days_count: "Nombre de jours d'abonnement"
     subscription_duration: "Période"
+    subscription_months_count: "Nombre de mois d'abonnement"
     subscription_nature: "Type d’abonnement"
     subscription_quantity: "Quantité" #?
+    subscription_years_count: "Nombre d'années d'abonnement"
     subscriptions: "Abonnements"
     supervision: "Surveillance"
     supplier: "Fournisseur"
@@ -1521,6 +1551,7 @@ fra:
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Assujetti à la TVA"
     vendor_euid: "Constructeur"
+    verb: "Verbe"
     versions: "Versions"
     view_parameters: "Voir paramètres"
     waiting_deliveries: "Livraisons en attente"
