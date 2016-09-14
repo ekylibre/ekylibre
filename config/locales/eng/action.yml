@@ -45,11 +45,6 @@ eng:
       # index: "Activity seasons"
       # new: "New activity season"
       # show: "Activity season: %{name}"
-    backend/activity_tactic_steps:
-      # edit: "Edit activity tactic step: %{name}"
-      # index: "Activity tactic steps"
-      # new: "New activity tactic step"
-      # show: "Activity tactic step: %{name}"
     backend/activity_tactics:
       # actions: "Actions activity tactic: %{name}"
       # edit: "Edit activity tactic: %{name}"

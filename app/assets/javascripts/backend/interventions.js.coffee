@@ -176,30 +176,6 @@
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
-  # $(document).on 'change', '*[data-procedure-global="at"]', ->
-  #   $(this).each ->
-  #     E.interventions.refresh $(this)
-
-  # $(document).behave 'load', '*[data-procedure]', (event) ->
-  #   $(this).each ->
-  #     E.interventions.refresh $(this)
-
-  # # Filters supports with given production
-  # # Hides supports line if needed
-  # $(document).behave "load selector:set", "*[data-intervention-updater='global:production']", (event) ->
-  #   production = $(this)
-  #   id = production.selector('value')
-  #   form = production.closest('form')
-  #   url = "/backend/production_supports/unroll?scope[of_current_campaigns]=true"
-  #   support = form.find("*[data-intervention-updater='global:support']").first()
-  #   if /^\d+$/.test(id)
-  #     url += "&scope[of_productions]=#{id}"
-  #     form.addClass("with-supports")
-  #   else
-  #     form.removeClass("with-supports")
-  #   support.attr("data-selector", url)
-  #   support.data("selector", url)
-
   $(document).ready ->
 
     if $('.taskboard').length > 0
