@@ -31,10 +31,41 @@ class CreateDbViews < ActiveRecord::Migration
 
     execute '
       CREATE OR REPLACE VIEW activity_productions_campaigns AS
-        SELECT DISTINCT campaigns.id as campain_id, activity_productions.id as activity_production_id
-        FROM activity_productions
-        INNER JOIN campaigns ON activity_productions.campaign_id = campaigns.id
-        ORDER BY campaigns.id;
+        SELECT DISTINCT c.id as campain_id, ap.id as activity_production_id
+        FROM activity_productions ap
+        INNER JOIN activities a ON ap.activity_id = a.id
+        LEFT JOIN campaigns c ON (
+          c.id = ap.campaign_id
+          OR
+          (
+            c.id IS NOT NULL
+            AND a.production_cycle = \'perennial\'
+            AND (
+              (
+                a.production_campaign = \'at_cycle_start\'
+                AND (
+                  (ap.stopped_on is null AND c.harvest_year >= EXTRACT(YEAR FROM ap.started_on))
+                  OR (ap.stopped_on is not null
+                    AND EXTRACT(YEAR FROM ap.started_on) <= c.harvest_year
+                    AND c.harvest_year < EXTRACT(YEAR FROM ap.stopped_on)
+                  )
+                )
+              )
+              OR
+              (
+                a.production_campaign = \'at_cycle_end\'
+                AND (
+                  (ap.stopped_on is null AND c.harvest_year > EXTRACT(YEAR FROM ap.started_on))
+                  OR (ap.stopped_on is not null
+                    AND EXTRACT(YEAR FROM ap.started_on) < c.harvest_year
+                    AND c.harvest_year <= EXTRACT(YEAR FROM ap.stopped_on)
+                  )
+                )
+              )
+            )
+          )
+        )
+        ORDER BY c.id;
     '
 
     execute '

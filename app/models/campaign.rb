@@ -53,6 +53,7 @@ class Campaign < Ekylibre::Record::Base
 
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :activity_productions
 
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
   scope :at, ->(searched_at = Time.zone.now) { where(harvest_year: searched_at.year) }
