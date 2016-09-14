@@ -180,6 +180,10 @@ class ActivityProduction < Ekylibre::Record::Base
     true
   end
 
+  after_create do
+    add_target!(support) if support
+  end
+
   after_commit do
     if self.activity.productions.where(rank_number: rank_number).count > 1
       update_column(:rank_number, self.activity.productions.maximum(:rank_number) + 1)
@@ -306,6 +310,12 @@ class ActivityProduction < Ekylibre::Record::Base
     end
   end
 
+  def add_target!(product, at = nil)
+    if distributions.where(target: product).any?
+      at ||= Time.now
+    end
+    distributions.create!(target: product)
+  end
 
   def active?
     activity.family.to_s != 'fallow_land'
