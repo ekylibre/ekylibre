@@ -500,6 +500,8 @@ fra:
     balance_amount: "Solde" #?
     balances: "Balances de compte"
     bank_account_key: "Clé RIB"
+    bank_account_holder_name: "Titulaire du compte"
+    bank_account_number: "Numéro de compte bancaire"
     bank_account_number: "Numéro de compte bancaire"
     bank_agency_address: "Adresse de l’agence bancaire"
     bank_agency_code: "Code guichet"

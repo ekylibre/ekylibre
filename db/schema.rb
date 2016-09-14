@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906112630) do
+ActiveRecord::Schema.define(version: 20160914082357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -653,31 +653,32 @@ ActiveRecord::Schema.define(version: 20160906112630) do
   add_index "cash_transfers", ["updater_id"], name: "index_cash_transfers_on_updater_id", using: :btree
 
   create_table "cashes", force: :cascade do |t|
-    t.string   "name",                                          null: false
-    t.string   "nature",               default: "bank_account", null: false
-    t.integer  "journal_id",                                    null: false
-    t.integer  "account_id",                                    null: false
+    t.string   "name",                                              null: false
+    t.string   "nature",                   default: "bank_account", null: false
+    t.integer  "journal_id",                                        null: false
+    t.integer  "account_id",                                        null: false
     t.string   "bank_code"
     t.string   "bank_agency_code"
     t.string   "bank_account_number"
     t.string   "bank_account_key"
     t.text     "bank_agency_address"
     t.string   "bank_name"
-    t.string   "mode",                 default: "iban",         null: false
+    t.string   "mode",                     default: "iban",         null: false
     t.string   "bank_identifier_code"
     t.string   "iban"
     t.string   "spaced_iban"
-    t.string   "currency",                                      null: false
+    t.string   "currency",                                          null: false
     t.string   "country"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",         default: 0,              null: false
+    t.integer  "lock_version",             default: 0,              null: false
     t.integer  "container_id"
     t.integer  "last_number"
     t.integer  "owner_id"
     t.jsonb    "custom_fields"
+    t.string   "bank_account_holder_name"
   end
 
   add_index "cashes", ["account_id"], name: "index_cashes_on_account_id", using: :btree
