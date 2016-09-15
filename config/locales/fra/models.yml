@@ -784,7 +784,7 @@ fra:
     failed_attempts: "Tentatives de connexions échouées"
     family: "Famille"
     farm_name: "Nom de la ferme"
-    farmer: "Fermier"
+    farmer: "Exploitant"
     father: "Père"
     faxes: "Fax"
     fifth_producer: "Cinquième producteur" #?
