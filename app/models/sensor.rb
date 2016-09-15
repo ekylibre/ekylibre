@@ -22,25 +22,27 @@
 #
 # == Table: sensors
 #
-#  access_parameters :json
-#  active            :boolean          default(TRUE), not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  custom_fields     :jsonb
-#  embedded          :boolean          default(FALSE), not null
-#  euid              :string
-#  host_id           :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  model_euid        :string
-#  name              :string           not null
-#  partner_url       :string
-#  product_id        :integer
-#  retrieval_mode    :string           not null
-#  token             :string
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  vendor_euid       :string
+#  access_parameters    :json
+#  active               :boolean          default(TRUE), not null
+#  battery_level        :decimal(19, 4)
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  custom_fields        :jsonb
+#  embedded             :boolean          default(FALSE), not null
+#  euid                 :string
+#  host_id              :integer
+#  id                   :integer          not null, primary key
+#  last_transmission_at :datetime
+#  lock_version         :integer          default(0), not null
+#  model_euid           :string
+#  name                 :string           not null
+#  partner_url          :string
+#  product_id           :integer
+#  retrieval_mode       :string           not null
+#  token                :string
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  vendor_euid          :string
 #
 
 class Sensor < Ekylibre::Record::Base
@@ -54,7 +56,9 @@ class Sensor < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :embedded, inclusion: { in: [true, false] }
+  validates :battery_level, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :euid, :model_euid, :partner_url, :token, :vendor_euid, length: { maximum: 500 }, allow_blank: true
+  validates :last_transmission_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :name, presence: true, length: { maximum: 500 }
   validates :retrieval_mode, presence: true
   # ]VALIDATORS]

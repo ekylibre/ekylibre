@@ -702,6 +702,9 @@ eng:
     devise/invitations:
       # edit: "Edit invitation: %{name}"
       # new: "New invitation"
+    devise/omniauth_callbacks:
+      # failure: "Failure omniauth callback: %{name}"
+      # passthru: "Passthru omniauth callback: %{name}"
     devise/passwords:
       # edit: "Edit password: %{name}"
       # new: "New password"
@@ -714,6 +717,10 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
+    devise_invitable/registrations:
+      # cancel: "Cancel registration: %{name}"
+      # edit: "Edit registration: %{name}"
+      # new: "New registration"
     public:
       index: "Home"
   errors:
@@ -1906,6 +1913,7 @@ eng:
       evaluate: "Evaluate"
       export: "Export"
       extract: "Extract"
+      # failure: "Failure"
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
@@ -1932,6 +1940,7 @@ eng:
       new: "New"
       open: "Open"
       order: "Order"
+      # passthru: "Passthru"
       pick: "Pick"
       picture: "Picture"
       prepare: "Prepare"

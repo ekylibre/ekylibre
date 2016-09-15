@@ -28,14 +28,14 @@
 #  id           :integer          not null, primary key
 #  level        :integer          not null
 #  lock_version :integer          default(0), not null
-#  started_at   :date             not null
+#  started_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 class AlertPhase < Ekylibre::Record::Base
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :level, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
-  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years }, type: :date }
+  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :alert, presence: true
   # ]VALIDATORS]
   belongs_to :alert

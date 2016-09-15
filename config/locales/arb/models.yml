@@ -1001,6 +1001,7 @@ arb:
     affected_at: "أثرت في"
     age: "عمر"
     agency_code: "رمز الوكالة" #?
+    # alerts: "Alerts"
     # all_addresses: "All addresses"
     all_taxes_included: "وتشمل جميع الضرائب"
     allocation_account: "حساب توزيع"
@@ -1058,6 +1059,7 @@ arb:
     banks_accounts: "كتاب الحسابات المصرفية" #?
     base: "القاعدة" #?
     base_amount: "كمية قاعدة"
+    # battery_level: "Battery level"
     bban: "RIB" #?
     bic: "BIC" #?
     body: "الجسم"
@@ -1596,6 +1598,7 @@ arb:
     last_number: "الرقم الاخير"
     last_sign_in_at: "علامة الماضي في في"
     last_sign_in_ip: "علامة الماضي في مجال الملكية الفكرية"
+    # last_transmission_at: "Last transmission"
     last_year: "السنة السابقة"
     latest: "آخر"
     latitude: "خطوط العرض" #?

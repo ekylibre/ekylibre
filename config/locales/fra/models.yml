@@ -469,6 +469,7 @@ fra:
     affected_at: "Affecté le"
     age: "Âge"
     aim: "Objectif" #?
+    # alerts: "Alerts"
     # all_addresses: "All addresses"
     all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Compte de dotation"
@@ -516,6 +517,7 @@ fra:
     # bank_statement_letter: "Bank statement letter"
     bank_statements: "Relevés de compte bancaire"
     base_amount: "Montant de base"
+    battery_level: "Niveau de la batterie"
     birth: "Naissance" #?
     body: "Corps"
     boolean_value: "Valeur booléenne"
@@ -993,6 +995,7 @@ fra:
     last_number: "Dernier numéro"
     last_sign_in_at: "Dernière connexion à"
     last_sign_in_ip: "Dernière IP de connexion"
+    last_transmission_at: "Dernière transmission"
     last_year: "Dernière année"
     latest: "Dernier"
     # leaves_parameters: "Leaves parameters"

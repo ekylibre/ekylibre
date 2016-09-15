@@ -28,7 +28,7 @@
 #  id           :integer          not null, primary key
 #  level        :integer          not null
 #  lock_version :integer          default(0), not null
-#  started_at   :date             not null
+#  started_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
