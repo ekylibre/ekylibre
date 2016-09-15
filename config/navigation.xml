@@ -1015,16 +1015,16 @@
         <page to="backend/map_backgrounds#star"/>
         <page to="backend/map_backgrounds#toggle"/>
       </item>
-      <item name="teams">
-        <page to="backend/teams#index"/>
-        <page to="backend/teams#create"/>
-        <page to="backend/teams#destroy"/>
-        <page to="backend/teams#edit"/>
-        <page to="backend/teams#list"/>
-        <page to="backend/teams#new"/>
-        <page to="backend/teams#show"/>
-        <page to="backend/teams#unroll"/>
-        <page to="backend/teams#update"/>
+      <item name="labels">
+        <page to="backend/labels#index"/>
+        <page to="backend/labels#create"/>
+        <page to="backend/labels#destroy"/>
+        <page to="backend/labels#edit"/>
+        <page to="backend/labels#list"/>
+        <page to="backend/labels#new"/>
+        <page to="backend/labels#show"/>
+        <page to="backend/labels#unroll"/>
+        <page to="backend/labels#update"/>
       </item>
       <item name="custom_fields">
         <page to="backend/custom_fields#index"/>
@@ -1072,6 +1072,17 @@
         <page to="backend/sequences#show"/>
         <page to="backend/sequences#unroll"/>
         <page to="backend/sequences#update"/>
+      </item>
+      <item name="teams">
+        <page to="backend/teams#index"/>
+        <page to="backend/teams#create"/>
+        <page to="backend/teams#destroy"/>
+        <page to="backend/teams#edit"/>
+        <page to="backend/teams#list"/>
+        <page to="backend/teams#new"/>
+        <page to="backend/teams#show"/>
+        <page to="backend/teams#unroll"/>
+        <page to="backend/teams#update"/>
       </item>
       <item name="net_services">
         <page to="backend/net_services#index"/>

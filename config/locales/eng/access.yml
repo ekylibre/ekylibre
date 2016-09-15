@@ -55,6 +55,7 @@ eng:
       journal_draft: "Journal draft"
       journal_entries: "Journal entries"
       journals: "Journals"
+      # labels: "Labels"
       land_parcels: "Land parcels"
       listings: "Listings"
       loans: "Loans"

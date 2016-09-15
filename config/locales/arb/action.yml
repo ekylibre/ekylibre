@@ -378,6 +378,11 @@ arb:
       new: "انشاء دفتر يومي جديد"
       reopen: "فتح %{name}"
       show: "الدفتر اليومي : %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      index: "تسميات"
+      new: "تسمية جديدة"
+      # show: "Label: %{name}"
     backend/land_parcels:
       edit: "تعديل النظام : %{name}"
       index: "انظمة"
@@ -935,6 +940,7 @@ arb:
     add_intervention_record: "اضافة التسجيلة تدخل"
     add_intervention_request: "إضافة طلب تدخل"
     add_item: "إضافة البند"
+    add_labelling: "إضافة تسمية"
     add_line: "إضافة خط"
     add_linestring: "إضافة تنسيقي"
     add_mail: "إضافة عنوان البريدي"

@@ -61,6 +61,12 @@ module Backend
       code << "  c << params[:product_id].to_i\n"
       code << "end\n"
 
+      # Label
+      code << "if params[:label_id].to_i > 0\n"
+      code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_labellings WHERE label_id IN (?))'\n"
+      code << "  c << params[:label_id].to_i\n"
+      code << "end\n"
+
       # ActivityProduction || Activity
       code << "if params[:production_id].to_i > 0\n"
       code << "  c[0] << ' AND #{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = \\'InterventionTarget\\' AND product_id IN (SELECT target_id FROM target_distributions WHERE activity_production_id = ?))'\n"
@@ -123,7 +129,7 @@ module Backend
     # Show one intervention with params_id
     def show
       return unless @intervention = find_and_check
-      t3e @intervention, procedure_name: @intervention.name
+      t3e @intervention, procedure_name: @intervention.procedure.human_name
       respond_with(@intervention, methods: [:cost, :earn, :status, :name, :duration, :human_working_zone_area, :human_actions_names],
                                   include: [
                                     { leaves_parameters: {
