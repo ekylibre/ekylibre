@@ -277,6 +277,7 @@ Devise.setup do |config|
   if ENV['EKYLIBRE_OAUTH2_CLIENT_ID'] && ENV['EKYLIBRE_OAUTH2_CLIENT_SECRET']
     config.omniauth :ekylibre, ENV['EKYLIBRE_OAUTH2_CLIENT_ID'], ENV['EKYLIBRE_OAUTH2_CLIENT_SECRET']
   end
+  config.omniauth_path_prefix = 'oauth'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
