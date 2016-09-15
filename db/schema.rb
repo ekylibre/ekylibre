@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910124234) do
+ActiveRecord::Schema.define(version: 20160910200730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1575,6 +1575,24 @@ ActiveRecord::Schema.define(version: 20160910124234) do
   add_index "integrations", ["updated_at"], name: "index_integrations_on_updated_at", using: :btree
   add_index "integrations", ["updater_id"], name: "index_integrations_on_updater_id", using: :btree
 
+  create_table "intervention_labellings", force: :cascade do |t|
+    t.integer  "intervention_id",             null: false
+    t.integer  "label_id",                    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",    default: 0, null: false
+  end
+
+  add_index "intervention_labellings", ["created_at"], name: "index_intervention_labellings_on_created_at", using: :btree
+  add_index "intervention_labellings", ["creator_id"], name: "index_intervention_labellings_on_creator_id", using: :btree
+  add_index "intervention_labellings", ["intervention_id", "label_id"], name: "index_intervention_labellings_on_intervention_id_and_label_id", unique: true, using: :btree
+  add_index "intervention_labellings", ["intervention_id"], name: "index_intervention_labellings_on_intervention_id", using: :btree
+  add_index "intervention_labellings", ["label_id"], name: "index_intervention_labellings_on_label_id", using: :btree
+  add_index "intervention_labellings", ["updated_at"], name: "index_intervention_labellings_on_updated_at", using: :btree
+  add_index "intervention_labellings", ["updater_id"], name: "index_intervention_labellings_on_updater_id", using: :btree
+
   create_table "intervention_parameter_readings", force: :cascade do |t|
     t.string   "indicator_name",                                                                                                      null: false
     t.string   "indicator_datatype",                                                                                                  null: false
@@ -1888,6 +1906,22 @@ ActiveRecord::Schema.define(version: 20160910124234) do
   add_index "journals", ["creator_id"], name: "index_journals_on_creator_id", using: :btree
   add_index "journals", ["updated_at"], name: "index_journals_on_updated_at", using: :btree
   add_index "journals", ["updater_id"], name: "index_journals_on_updater_id", using: :btree
+
+  create_table "labels", force: :cascade do |t|
+    t.string   "name",                     null: false
+    t.string   "color",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "labels", ["created_at"], name: "index_labels_on_created_at", using: :btree
+  add_index "labels", ["creator_id"], name: "index_labels_on_creator_id", using: :btree
+  add_index "labels", ["name"], name: "index_labels_on_name", unique: true, using: :btree
+  add_index "labels", ["updated_at"], name: "index_labels_on_updated_at", using: :btree
+  add_index "labels", ["updater_id"], name: "index_labels_on_updater_id", using: :btree
 
   create_table "listing_node_items", force: :cascade do |t|
     t.integer  "node_id",                  null: false
@@ -2479,6 +2513,24 @@ ActiveRecord::Schema.define(version: 20160910124234) do
   add_index "product_enjoyments", ["stopped_at"], name: "index_product_enjoyments_on_stopped_at", using: :btree
   add_index "product_enjoyments", ["updated_at"], name: "index_product_enjoyments_on_updated_at", using: :btree
   add_index "product_enjoyments", ["updater_id"], name: "index_product_enjoyments_on_updater_id", using: :btree
+
+  create_table "product_labellings", force: :cascade do |t|
+    t.integer  "product_id",               null: false
+    t.integer  "label_id",                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "product_labellings", ["created_at"], name: "index_product_labellings_on_created_at", using: :btree
+  add_index "product_labellings", ["creator_id"], name: "index_product_labellings_on_creator_id", using: :btree
+  add_index "product_labellings", ["label_id"], name: "index_product_labellings_on_label_id", using: :btree
+  add_index "product_labellings", ["product_id", "label_id"], name: "index_product_labellings_on_product_id_and_label_id", unique: true, using: :btree
+  add_index "product_labellings", ["product_id"], name: "index_product_labellings_on_product_id", using: :btree
+  add_index "product_labellings", ["updated_at"], name: "index_product_labellings_on_updated_at", using: :btree
+  add_index "product_labellings", ["updater_id"], name: "index_product_labellings_on_updater_id", using: :btree
 
   create_table "product_linkages", force: :cascade do |t|
     t.integer  "originator_id"

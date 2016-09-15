@@ -1,3 +1,5 @@
+@import "bootstrap/labels";
+
 i.icon {
   @include is-icon;
 }
@@ -825,6 +827,11 @@ form.search {
   }
 }
 
+.info-labels {
+  padding: $default-gap 2 * $default-gap;
+  font-size: $fs-large;
+  line-height: $lh-large;
+}
 
 .info {
   @include ellipsis;
