@@ -384,6 +384,11 @@ eng:
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
+    backend/labels:
+      edit: "Edit label: %{name}"
+      index: "Labels"
+      new: "New label"
+      show: "Label: %{name}"
     backend/land_parcels:
       edit: "Edit land parcel: %{name}"
       index: "Land parcels"
@@ -838,6 +843,7 @@ eng:
     add_intervention_record: "Add intervention record"
     add_intervention_request: "Add intervention request"
     add_item: "Add item"
+    add_labelling: "Add label"
     add_line: "Add line"
     add_linestring: "Add linestring"
     add_mail: "Add postal adress"

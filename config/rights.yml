@@ -1182,6 +1182,23 @@ journals:
     actions:
     - "backend/journals#reopen"
 
+labels:
+  read:
+    actions:
+    - "backend/labels#index"
+    - "backend/labels#list"
+    - "backend/labels#show"
+    - "backend/labels#unroll"
+  write:
+    dependencies:
+    - read-labels
+    actions:
+    - "backend/labels#create"
+    - "backend/labels#destroy"
+    - "backend/labels#edit"
+    - "backend/labels#new"
+    - "backend/labels#update"
+
 land_parcels:
   read:
     actions:

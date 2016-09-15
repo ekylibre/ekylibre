@@ -27,6 +27,21 @@ module ChartsHelper
     hash
   end.freeze
 
+  def lightness(color)
+    r = color[1..2].to_i(16)
+    g = color[3..4].to_i(16)
+    b = color[5..6].to_i(16)
+    0.299 * r + 0.587 * g + 0.114 * b
+  end
+
+  def contrasted_color(color)
+    if lightness(color) > 160
+      '#000000'
+    else
+      '#FFFFFF'
+    end
+  end
+
   def ligthen(color, rate)
     r = color[1..2].to_i(16)
     g = color[3..4].to_i(16)

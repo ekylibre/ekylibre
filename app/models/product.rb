@@ -99,6 +99,8 @@ class Product < Ekylibre::Record::Base
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
+  has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
+  has_many :labels, through: :labellings
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
@@ -252,6 +254,7 @@ class Product < Ekylibre::Record::Base
     !reading['indicator_name'] != 'population' && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :labellings, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: true
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,

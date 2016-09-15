@@ -365,6 +365,11 @@ fra:
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      index: "Étiquettes"
+      new: "Nouvelle étiquette"
+      # show: "Label: %{name}"
     backend/land_parcel_clusters:  #?
       edit: "Modifier l’îlot\_: %{name}" #?
       index: "Îlots" #?
@@ -806,6 +811,7 @@ fra:
     add_intervention_record: "Enregistrer une intervention"
     add_intervention_request: "Demander une intervention"
     add_item: "Ajouter un élément"
+    add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
