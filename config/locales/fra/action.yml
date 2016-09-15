@@ -1523,6 +1523,7 @@ fra:
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
     options: "Options"
+    or: "Ou"
     order: "Commande" #?
     order_amount_with_taxes: "Montant de la commande" #?
     order_print: "Imprimer la commande" #?

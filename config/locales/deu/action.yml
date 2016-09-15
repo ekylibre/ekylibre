@@ -1159,6 +1159,7 @@ deu:
     # operating_profit: "Operating profit %{financial_year}"
     operations: "Geschäftstätigkeit"
     options: "Optionen"
+    or: "Oder"
     organic_matter_concentration: "Bio-Stoffkonzentration"
     original_component: "Original"
     others: "andere"

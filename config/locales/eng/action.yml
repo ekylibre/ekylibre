@@ -1333,6 +1333,7 @@ eng:
     operating_profit: "Operating profit %{financial_year}"
     operations: "Operations" #?
     options: "Options"
+    or: "Or"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     others: "Others" #?

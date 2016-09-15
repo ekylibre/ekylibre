@@ -45,7 +45,7 @@ spa:
     sessions:
       new:
         sign_in: "Registrarse"
-        # sign_in_with_ekylibre: "Sign in with Ekylibre.com"
+        sign_in_with_ekylibre: "Entra con Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "¿No ha recibido instrucciones para confirmar?"

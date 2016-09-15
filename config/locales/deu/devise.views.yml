@@ -45,7 +45,7 @@ deu:
     sessions:
       new:
         sign_in: "Anmelden"
-        # sign_in_with_ekylibre: "Sign in with Ekylibre.com"
+        sign_in_with_ekylibre: "Anmeldung mit Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Nicht Bestätigung Anweisungen erhalten?"

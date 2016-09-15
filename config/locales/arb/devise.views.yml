@@ -45,7 +45,7 @@ arb:
     sessions:
       new:
         sign_in: "تسجيل الدخول"
-        # sign_in_with_ekylibre: "Sign in with Ekylibre.com"
+        sign_in_with_ekylibre: "تسجيل الدخول مع Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "لم تتلق تعليمات التأكيد؟"

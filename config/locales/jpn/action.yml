@@ -1232,6 +1232,7 @@ jpn:
     # operating_profit: "Operating profit %{financial_year}"
     operations: "オペレーション"
     options: "オプション"
+    or: "または"
     organic_matter_concentration: "有機物濃度"
     original_component: "元の"
     others: "他人"
