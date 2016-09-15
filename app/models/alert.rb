@@ -33,7 +33,7 @@
 #
 class Alert < Ekylibre::Record::Base
   belongs_to :sensor
-  has_many :phases, class_name: AlertPhase
+  has_many :phases, class_name: AlertPhase, dependent: :destroy
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :nature, presence: true, length: { maximum: 500 }
   # ]VALIDATORS]

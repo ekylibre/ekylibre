@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913133407) do
+ActiveRecord::Schema.define(version: 20160915094302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -3232,22 +3232,24 @@ ActiveRecord::Schema.define(version: 20160913133407) do
   create_table "sensors", force: :cascade do |t|
     t.string   "vendor_euid"
     t.string   "model_euid"
-    t.string   "name",                              null: false
-    t.string   "retrieval_mode",                    null: false
+    t.string   "name",                                                          null: false
+    t.string   "retrieval_mode",                                                null: false
     t.json     "access_parameters"
     t.integer  "product_id"
-    t.boolean  "embedded",          default: false, null: false
+    t.boolean  "embedded",                                      default: false, null: false
     t.integer  "host_id"
-    t.boolean  "active",            default: true,  null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.boolean  "active",                                        default: true,  null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0,     null: false
+    t.integer  "lock_version",                                  default: 0,     null: false
     t.string   "token"
     t.jsonb    "custom_fields"
     t.string   "euid"
     t.string   "partner_url"
+    t.decimal  "battery_level",        precision: 19, scale: 4
+    t.datetime "last_transmission_at"
   end
 
   add_index "sensors", ["created_at"], name: "index_sensors_on_created_at", using: :btree

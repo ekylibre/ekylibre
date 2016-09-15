@@ -16,14 +16,24 @@
             { label: item.human_indicator_name, content: [value, unit].compact.join(" ") }
           end
 
-          popup_lines << link_to(:see_more_details.tl, sensor.partner_url) if sensor.partner_url.present?
+          battery = sensor.battery_level
+          popup_lines << { label: sensor.human_attribute_name(:battery_level), content: battery.to_s } if battery.present?
+          transmission = sensor.last_transmission_at
+          popup_lines << { label: sensor.human_attribute_name(:last_transmission_at), content: transmission.localize } if transmission.present?
+
+          bottom_line = ""
+          bottom_line << "<span>#{link_to(:see_more_details.tl, sensor.partner_url)}</span>" if sensor.partner_url.present?
+          bottom_line << "<i class='icon icon-battery-alert' style='color: red;'></i>" if sensor.alert_on? "battery_life"
+          bottom_line << "<i class='icon icon-portable-wifi-off' style='color: red;'></i>" if sensor.alert_on? "lost_connection"
+          popup_lines << ("<div style='display: flex; justify-content: space-between'>"+bottom_line+"</div>").html_safe
+          header_content = "<span class='sensor-name'>#{sensor.name}</span>#{lights(sensor.alert_status)}".html_safe
           {
             sensor_id: sensor.id,
             name: sensor.name,
             shape: analysis.geolocation,
             shape_color: '#'+Digest::MD5.hexdigest(model)[0, 6].upcase,
             group: model.camelize,
-            popup: {header: true, content: popup_lines }
+            popup: {header: header_content, content: popup_lines }
           }
         end
       end

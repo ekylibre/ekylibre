@@ -82,6 +82,11 @@ class Sensor < Ekylibre::Record::Base
     :caution
   end
 
+  def alert_on?(alert_nature)
+    alert = alerts.find_by_nature(alert_nature)
+    alert.present? && alert.level > 0
+  end
+
   # Read sensor indicator and write an analysis
   def retrieve(options = {})
     return if retrieval_mode == :integration
