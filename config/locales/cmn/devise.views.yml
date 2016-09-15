@@ -45,6 +45,7 @@ cmn:
     sessions:
       new:
         sign_in: "签到"
+        # sign_in_with_ekylibre: "Sign in with Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "未收到确认指令？"

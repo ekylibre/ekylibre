@@ -3,9 +3,8 @@ class AddOmniauthToUsers < ActiveRecord::Migration
     change_table :users do |t|
       t.string :provider
       t.string :uid
+      t.index :provider
+      t.index :uid
     end
-
-    add_index :users, :provider
-    add_index :users, :uid
   end
 end

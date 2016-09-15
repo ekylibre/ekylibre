@@ -4,7 +4,7 @@ eng:
       edit: "Accept invitation"
       # new: "New invitation"
     authentication/omniauth_callbacks:
-      # doorkeeper: "Doorkeeper omniauth callback: %{name}"
+      # ekylibre: "Ekylibre omniauth callback: %{name}"
       # failure: "Failure omniauth callback: %{name}"
       # passthru: "Passthru omniauth callback: %{name}"
     authentication/passwords:
@@ -1907,10 +1907,10 @@ eng:
       # detach_gaps: "Detach gaps"
       detail: "Detail"
       distribute: "Distribute unaffected products"
-      # doorkeeper: "Doorkeeper"
       down: "Down"
       duplicate: "Duplicate"
       edit: "Edit"
+      # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
       export: "Export"
       extract: "Extract"

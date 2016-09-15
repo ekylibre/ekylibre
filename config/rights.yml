@@ -6,7 +6,7 @@
 #     - "authentication/invitations#edit"
 #     - "authentication/invitations#new"
 #     - "authentication/invitations#update"
-#     - "authentication/omniauth_callbacks#doorkeeper"
+#     - "authentication/omniauth_callbacks#ekylibre"
 #     - "authentication/omniauth_callbacks#failure"
 #     - "authentication/omniauth_callbacks#passthru"
 #     - "authentication/passwords#create"

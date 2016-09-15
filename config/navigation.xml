@@ -1567,7 +1567,7 @@
         <page to="authentication/sessions#new"/>
       </item>
       <item name="omniauth_callbacks">
-        <page to="authentication/omniauth_callbacks#doorkeeper"/>
+        <page to="authentication/omniauth_callbacks#ekylibre"/>
         <page to="authentication/omniauth_callbacks#failure"/>
         <page to="authentication/omniauth_callbacks#passthru"/>
       </item>

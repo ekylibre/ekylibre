@@ -45,7 +45,7 @@ eng:
     sessions:
       new:
         sign_in: "Sign in"
-        ekylibre_oauth_sign_in: "Sign in with Ekylibre.com"
+        sign_in_with_ekylibre: "Sign in with Ekylibre.com"
     shared:
       links:
         didn_t_receive_confirmation_instructions: "Didn't receive confirmation instructions?"
