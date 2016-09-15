@@ -617,8 +617,8 @@ fra:
       run: "Lancer une synchronization: %{name}"
       show: "Synchronisation: %{name}" #?
     backend/target_distributions:
-      distribute: "Répartir les produits"
       edit: "Modifier la répartition:"
+      edit_many: "Distribuer les produits non affectés"
       index: "Répartitions"
       new: "Nouvelle répartition"
       show: "Répartition:"
@@ -1096,6 +1096,7 @@ fra:
     disease_percentage_evolution: "Evolution des maladies"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
+    distribute_unaffected_products: "Distribuer les produits non affectés"
     distributions: "Répartitions"
     district_x: "%{name} (%{code})" #?
     divide: "Diviser"
@@ -2368,11 +2369,11 @@ fra:
       destroy: "Supprimer"
       detach: "Détacher"
       detail: "Détail"
-      distribute: "Répartir les produits non affectés"
       down: "Descendre"
       draft: "Brouillon" #?
       duplicate: "Dupliquer"
       edit: "Modifier"
+      edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
       extract: "Extraire"

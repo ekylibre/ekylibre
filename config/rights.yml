@@ -237,12 +237,12 @@ activities:
     - "backend/plant_density_abaci#edit"
     - "backend/plant_density_abaci#new"
     - "backend/plant_density_abaci#update"
-    - "backend/target_distributions#create"
     - "backend/target_distributions#destroy"
-    - "backend/target_distributions#distribute"
     - "backend/target_distributions#edit"
+    - "backend/target_distributions#edit_many"
     - "backend/target_distributions#new"
     - "backend/target_distributions#update"
+    - "backend/target_distributions#update_many"
 
 affairs:
   read:

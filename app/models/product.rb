@@ -124,6 +124,7 @@ class Product < Ekylibre::Record::Base
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
 
   has_picture
   has_geometry :initial_shape, type: :multi_polygon
