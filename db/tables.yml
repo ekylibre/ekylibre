@@ -913,6 +913,79 @@ bank_statements:
   updater_id:
     type: integer
     references: user
+call_messages:
+  body:
+    type: text
+  call_id:
+    type: integer
+    references: call
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  format:
+    type: string
+  headers:
+    type: string
+  id:
+    type: integer
+    required: true
+  ip_address:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
+  request_id:
+    type: integer
+    references: call_request
+  ssl:
+    type: string
+  status:
+    type: string
+  type:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  url:
+    type: string
+  verb:
+    type: string
+calls:
+  arguments:
+    type: jsonb
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  integration_name:
+    type: string
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+  state:
+    type: string
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 campaigns:
   closed:
     type: boolean
@@ -2895,6 +2968,59 @@ inspections:
   updater_id:
     type: integer
     references: user
+integrations:
+  ciphered_parameters:
+    type: jsonb
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  initialization_vectors:
+    type: jsonb
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+intervention_labellings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+    required: true
+  label_id:
+    type: integer
+    references: label
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_parameter_readings:
   absolute_measure_value_unit:
     type: string
@@ -3545,6 +3671,31 @@ journals:
     type: boolean
     required: true
     default: false
+labels:
+  color:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 listing_node_items:
   created_at:
     type: datetime
@@ -4635,6 +4786,33 @@ product_enjoyments:
     type: datetime
   stopped_at:
     type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+product_labellings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  label_id:
+    type: integer
+    references: label
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -6012,6 +6190,8 @@ sensors:
     type: boolean
     required: true
     default: false
+  euid:
+    type: string
   host_id:
     type: integer
     references: product
@@ -6391,6 +6571,31 @@ teams:
   updater_id:
     type: integer
     references: user
+tokens:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+  value:
+    type: string
+    required: true
 trackings:
   active:
     type: boolean

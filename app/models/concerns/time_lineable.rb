@@ -13,10 +13,10 @@ module TimeLineable
 
     before_validation do
       following_object = begin
-                    following
-                  rescue
-                    nil
-                  end
+                           following
+                         rescue
+                           nil
+                         end
       if started_at && following_object
         self.stopped_at = following_object.started_at
       else

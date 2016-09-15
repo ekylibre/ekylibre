@@ -300,7 +300,7 @@ class Sale < Ekylibre::Record::Base
       self.initial_number = number
       if sequence = Sequence.of(:sales_invoices)
         loop do
-          self.number = sequence.next_value
+          self.number = sequence.next_value!
           break unless self.class.find_by(number: number, state: 'invoice')
         end
       end

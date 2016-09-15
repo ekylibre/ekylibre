@@ -163,6 +163,13 @@ class Activity < Ekylibre::Record::Base
         self.cultivation_variety ||= :animal
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
+      elsif tool_maintaining?
+        self.with_supports = true
+        self.support_variety = :equipment_fleet
+        self.with_cultivation = true
+        self.cultivation_variety ||= :equipment
+        self.size_indicator_name = 'members_population' if size_indicator_name.blank?
+        self.size_unit_name = 'unity' if size_unit_name.blank?
       else
         self.with_supports = false
         self.with_cultivation = false
@@ -189,7 +196,9 @@ class Activity < Ekylibre::Record::Base
         errors.add(:support_variety, :invalid) unless variety <= family.support_variety
       end
       if with_cultivation && variety = Nomen::Variety[cultivation_variety]
-        errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
+        unless family.cultivation_variety.blank?
+          errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
+        end
       end
     end
     if use_gradings
@@ -256,10 +265,15 @@ class Activity < Ekylibre::Record::Base
     productions.of_campaign(campaign).any?
   end
 
-  [:plant_farming, :animal_farming, :equipment_management, :processing].each do |family_name|
-    define_method  family_name.to_s + '?' do
-      family && Nomen::ActivityFamily.find(family) <= family_name
+  Nomen::ActivityFamily.find_each do |base_family|
+    define_method base_family.name.to_s + '?' do
+      family && Nomen::ActivityFamily.find(family) <= base_family
     end
+  end
+
+  def not_distributed_products
+    Product.mine_or_undefined.of_variety(cultivation_variety, support_variety)
+      .where(id: InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).includes(:product))
   end
 
   def of_campaign?(campaign)
@@ -293,11 +307,7 @@ class Activity < Ekylibre::Record::Base
 
   # Returns a specific color for the given activity
   def color
-    if cultivation_variety
-      self.class.color(family, cultivation_variety)
-    else
-      return '#000000'
-    end
+    self.class.color(family, cultivation_variety)
   end
 
   def real_expense_amount(campaign)
@@ -310,79 +320,28 @@ class Activity < Ekylibre::Record::Base
     budget.expenses_amount
   end
 
+  COLORS_INDEX = Rails.root.join('db', 'nomenclatures', 'colors.yml').freeze
+  COLORS = (COLORS_INDEX.exist? ? YAML.load_file(COLORS_INDEX) : {}).freeze
+
   class << self
     # Returns a color for given family and variety
     # short-way solution, can be externalized in mid-way solution
     def color(family, variety)
-      colors = { gold: '#FFD700', golden_rod: '#DAA520', yellow: '#FFFF00',
-                 orange: '#FF8000', red: '#FF0000', green: '#80BB00',
-                 green_yellow: '#ADFF2F', spring_green: '#00FF7F',
-                 dark_green: '#006400', lime: '#00FF00', dark_turquoise: '#00FFFF',
-                 blue: '#0000FF', purple: '#BF00FF', gray: '#A4A4A4',
-                 slate_gray: '#708090', dark_magenta: '#8B008B', violet: '#EE82EE',
-                 teal: '#008080', fuchsia: '#FF00FF', brown: '#6A2B1A' }
       activity_family = Nomen::ActivityFamily.find(family)
       variety = Nomen::Variety.find(variety)
-      crop_sets = []
-      # if there no variety (no land cases)
-      if variety
-        crop_sets = Nomen::CropSet.select do |i|
-          i.varieties.detect { |v| variety <= v }
-        end.map { |i| i.name.to_sym }
-      end
-      return colors[:gray] unless activity_family
-      if activity_family <= :plant_farming && (variety || crop_sets.any?)
-        # MEADOW
-        if crop_sets.include?(:meadow)
-          colors[:dark_green]
-        # CEREALS
-        elsif crop_sets.include?(:cereals)
-          if variety <= :zea || variety <= :sorghum
-            colors[:orange]
-          elsif variety <= :hordeum || variety <= :avena || variety <= :secale
-            '#EEDD99'
-          elsif variety <= :triticum || variety <= :triticosecale
-            colors[:gold]
-          else
-            colors[:golden_rod]
-          end
-        # OILSEED
-        elsif crop_sets.include?(:oleaginous)
-          colors[:green_yellow]
-        # PROTEINS
-        elsif crop_sets.include?(:proteaginous)
-          colors[:teal]
-        # FIBER
-        elsif variety <= :linum ||
-              variety <= :cannabis
-          colors[:slate_gray]
-        # LEGUMINOUS
-        elsif crop_sets.include?(:leguminous)
-          colors[:lime]
-        elsif crop_sets.include?(:vegetables)
-          colors[:red]
-        elsif crop_sets.include?(:arboricultural)
-          colors[:blue]
-        # VINE
-        elsif variety <= :vitaceae
-          colors[:purple]
-        elsif crop_sets.include?(:aromatics_and_medicinals)
-          colors[:dark_turquoise]
-        elsif crop_sets.include?(:tropicals)
-          colors[:fuchsia]
-        elsif variety <= :nicotiana
-          colors[:dark_turquoise]
-        else
-          colors[:green]
-        end
+      return 'White' unless activity_family
+      if activity_family <= :plant_farming
+        list = COLORS['varieties']
+        return 'Gray' unless list
+        variety.rise { |i| list[i.name] }
       elsif activity_family <= :animal_farming
-        colors[:brown]
+        'Brown'
       elsif activity_family <= :administering
-        colors[:brown]
+        'RoyalBlue'
       elsif activity_family <= :tool_maintaining
-        colors[:blue]
+        'SlateGray'
       else
-        colors[:gray]
+        'DarkGray'
       end
     end
 
@@ -447,7 +406,7 @@ class Activity < Ekylibre::Record::Base
     [:items, :mass]
       .reject { |e| e == :items && !measure_grading_items_count }
       .reject { |e| e == :mass && !measure_grading_net_mass }
-end
+  end
 
   def unit_preference(user, unit = nil)
     unit_preference_name = "activity_#{id}_inspection_view_unit"

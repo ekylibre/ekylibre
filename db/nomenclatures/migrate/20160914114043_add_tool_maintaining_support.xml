@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add tool maintaining support">
+  <item-creation item="varieties#equipment_fleet" parent="product_group"/>
+  <item-creation item="product_nature_categories#equipment_fleet" pictogram="tractor"/>
+  <item-change item="activity_families#plant_farming" support_variety="land_parcel"/>
+  <item-change item="activity_families#tool_maintaining" support_variety="equipment_fleet" cultivation_variety="equipment"/>
+</migration>

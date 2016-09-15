@@ -44,10 +44,10 @@ preferences_001:
   created_at: 2014-10-31 17:19:32.000000000 Z
   creator_id: 1
   id: 1
-  lock_version: 34
+  lock_version: 36
   name: interface.helps.collapsed
   nature: boolean
-  updated_at: 2016-07-01 20:23:46.053448000 Z
+  updated_at: 2016-09-09 09:26:34.836180000 Z
   updater_id: 1
   user_id: 1
 preferences_002:
@@ -391,14 +391,14 @@ preferences_031:
   updated_at: 2014-10-31 18:36:11.733725000 Z
   updater_id: 1
 preferences_032:
-  boolean_value: true
+  boolean_value: false
   created_at: 2014-10-31 18:36:11.782573000 Z
   creator_id: 1
   id: 32
-  lock_version: 11
+  lock_version: 12
   name: interface.snippets.parameters.collapsed
   nature: boolean
-  updated_at: 2016-05-26 21:23:05.282767000 Z
+  updated_at: 2016-09-09 06:47:52.017587000 Z
   updater_id: 1
   user_id: 1
 preferences_033:
@@ -4249,11 +4249,11 @@ preferences_365:
   created_at: 2016-08-05 14:40:40.886415000 Z
   creator_id: 1
   id: 367
-  lock_version: 1
+  lock_version: 4
   name: first_run.assistant.current_step
   nature: string
-  string_value: welcomes
-  updated_at: 2016-08-05 14:40:40.927783000 Z
+  string_value: cultivable_zones
+  updated_at: 2016-09-09 06:45:34.791224000 Z
   updater_id: 1
 preferences_366:
   created_at: 2016-08-05 14:55:10.249068000 Z
@@ -4373,5 +4373,27 @@ preferences_376:
   nature: string
   string_value: {}
   updated_at: 2016-08-10 14:33:29.412332000 Z
+  updater_id: 1
+  user_id: 1
+preferences_377:
+  boolean_value: true
+  created_at: 2016-09-09 06:45:39.320005000 Z
+  creator_id: 1
+  id: 379
+  lock_version: 1
+  name: interface.tours.welcome.finished
+  nature: boolean
+  updated_at: 2016-09-09 06:47:48.343714000 Z
+  updater_id: 1
+  user_id: 1
+preferences_378:
+  boolean_value: false
+  created_at: 2016-09-09 09:26:41.102015000 Z
+  creator_id: 1
+  id: 380
+  lock_version: 0
+  name: interface.tours.production.finished
+  nature: boolean
+  updated_at: 2016-09-09 09:26:41.102015000 Z
   updater_id: 1
   user_id: 1

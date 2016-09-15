@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Ekylibre::Application.config.secret_key_base = 'c4b280c6d3e57376151af41fbc69a5609a89c851b92da6c41216b7ed38323dde698f67d4d66f5aa0e9f1442bdae2a161e031a7b61fd68995b5a4ea37075dfd88'
+Ekylibre::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
