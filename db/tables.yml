@@ -6719,6 +6719,8 @@ users:
   person_id:
     type: integer
     references: entity
+  provider:
+    type: string
   remember_created_at:
     type: datetime
   reset_password_sent_at:
@@ -6737,6 +6739,8 @@ users:
   team_id:
     type: integer
     references: team
+  uid:
+    type: string
   unconfirmed_email:
     type: string
   unlock_token:

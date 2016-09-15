@@ -1045,6 +1045,7 @@ eng:
     progression_percentage: "Progression (%)"
     proposer: "Proposer"
     prospect: "Prospect"
+    # provider: "Provider"
     provisional: "Provisional" #?
     provisional_intervention: "Provisional intervention" #?
     purchasable: "Purchasable"
@@ -1279,6 +1280,7 @@ eng:
     trouble_description: "Trouble description"
     trouble_encountered: "Trouble encountered"
     type: "Type"
+    # uid: "Uid"
     unconfirmed_email: "Unconfirmed email"
     undelivered_quantity: "Undelivered quantity"
     unit_amount: "Unit amount"

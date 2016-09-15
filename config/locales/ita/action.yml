@@ -1225,6 +1225,7 @@ ita:
     # operating_profit: "Operating profit %{financial_year}"
     operations: "operazioni"
     options: "Opzioni"
+    or: "O"
     organic_matter_concentration: "la concentrazione di materia organica"
     original_component: "Originale"
     others: "Altri"

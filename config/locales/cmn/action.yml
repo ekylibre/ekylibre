@@ -1160,6 +1160,7 @@ cmn:
     # operating_profit: "Operating profit %{financial_year}"
     operations: "操作"
     options: "选项"
+    or: "要么"
     organic_matter_concentration: "有机物浓度"
     original_component: "原版的"
     others: "其他"

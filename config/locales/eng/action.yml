@@ -3,6 +3,10 @@ eng:
     authentication/invitations:
       edit: "Accept invitation"
       # new: "New invitation"
+    authentication/omniauth_callbacks:
+      # ekylibre: "Ekylibre omniauth callback: %{name}"
+      # failure: "Failure omniauth callback: %{name}"
+      # passthru: "Passthru omniauth callback: %{name}"
     authentication/passwords:
       edit: "Edit password: %{name}"
       new: "New password"
@@ -709,6 +713,9 @@ eng:
     devise/invitations:
       # edit: "Edit invitation: %{name}"
       # new: "New invitation"
+    devise/omniauth_callbacks:
+      # failure: "Failure omniauth callback: %{name}"
+      # passthru: "Passthru omniauth callback: %{name}"
     devise/passwords:
       # edit: "Edit password: %{name}"
       # new: "New password"
@@ -1326,6 +1333,7 @@ eng:
     operating_profit: "Operating profit %{financial_year}"
     operations: "Operations" #?
     options: "Options"
+    or: "Or"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     others: "Others" #?
@@ -1911,9 +1919,11 @@ eng:
       duplicate: "Duplicate"
       edit: "Edit"
       edit_many: "Edit many"
+      # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
       export: "Export"
       extract: "Extract"
+      # failure: "Failure"
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
@@ -1939,6 +1949,7 @@ eng:
       new: "New"
       open: "Open"
       order: "Order"
+      # passthru: "Passthru"
       pick: "Pick"
       picture: "Picture"
       prepare: "Prepare"

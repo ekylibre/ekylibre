@@ -1330,6 +1330,7 @@ spa:
     # operating_profit: "Operating profit %{financial_year}"
     operations: "Operaciones"
     options: "Opciones"
+    or: "O"
     organic_matter_concentration: "Concentración de materia orgánica"
     original_component: "Original"
     other_assessable_operations: "Autras operaciones imponibles" #?
