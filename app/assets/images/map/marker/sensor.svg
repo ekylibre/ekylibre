@@ -13,7 +13,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="sensor.svg">
+   sodipodi:docname="sensor.svg"
+   inkscape:export-filename="/home/jbonal/Code/ekylibre/app/assets/images/map/marker/sensor.png"
+   inkscape:export-xdpi="89.130272"
+   inkscape:export-ydpi="89.130272">
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -51,7 +54,7 @@
      inkscape:window-x="0"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer2" />
+     inkscape:current-layer="svg2" />
   <g
      id="g3344"
      transform="translate(0.2012125,0.20061191)">
