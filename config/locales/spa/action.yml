@@ -1288,6 +1288,7 @@ spa:
     new_group: "Nuevo grupo"
     new_incoming_parcel: "Nueva parcela entrante"
     new_issue: "Nueva edición"
+    new_listing: "Nuevo listado"
     new_organization: "Nueva organización"
     new_outgoing_parcel: "Nueva parcela saliente"
     new_production: "Nueva producción"

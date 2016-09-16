@@ -1120,6 +1120,7 @@ cmn:
     new_group: "新建组"
     new_incoming_parcel: "新进​​入的包裹"
     new_issue: "新问题"
+    new_listing: "新品上市"
     new_organization: "新组织"
     new_outgoing_parcel: "新传出的包裹"
     new_production: "新的生产"

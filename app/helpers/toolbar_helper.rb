@@ -51,6 +51,23 @@ module ToolbarHelper
       end
     end
 
+    # Propose all listings available for given models. Model is one of current
+    # controller. Option +:model+ permit to change it.
+    def extract(options = {})
+      return nil unless @template.current_user.can?(:execute, :listings)
+      options[:model] ||= @template.controller_name.to_s.singularize
+      listings = Listing.where(root_model: options[:model]).limit(1)
+      @template.dropdown_menu_button(:extract, force_menu: true) do |menu|
+        listings.each do |listing|
+          menu.item(listing.name, { controller: '/backend/listings', action: :extract, id: listing.id, format: :csv })
+        end
+        if @template.current_user.can?(:write, :listings)
+          menu.separator if listings.any?
+          menu.item(:new_listing.tl, { controller: '/backend/listings', action: :new, root_model: :entity })
+        end
+      end
+    end
+
     def menu(name, options = {}, &block)
       @template.dropdown_menu_button(name, options, &block)
     end

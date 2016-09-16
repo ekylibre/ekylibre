@@ -1296,6 +1296,7 @@ eng:
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
     new_issue: "New issue"
+    new_listing: "New listing"
     new_organization: "New organization"
     new_outgoing_parcel: "New outgoing parcel"
     new_production: "New production"
