@@ -1168,6 +1168,8 @@ fra:
     expense_chart: "Évolution des dépenses" #?
     expenses: "Dépenses"
     expenses_by_product_nature_category: "Achats par catégories de produit"
+    expired_since: "Expiré depuis plus de"
+    expired_within: "Expiré dans moins de"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
@@ -1835,6 +1837,7 @@ fra:
     string_case: "Options pour le texte" #?
     subject: "Sujet"
     submit: "Envoyer"
+    subscribed_on: "Abonné au"
     subscriber_period: "Abonné(e) le %{subscribed_at}"
     subscriber_quantity: "Abonné(e) au numéro %{subscribed_at}"
     subscription_nature: "Type d’abonnement"
