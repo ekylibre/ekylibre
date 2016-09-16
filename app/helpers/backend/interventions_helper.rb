@@ -12,7 +12,22 @@ module Backend
           activity_color = activity_production.activity.color
           cultivable_zone = activity_production.cultivable_zone
 
+          next if cultivable_zone.nil?
+
           task_datas << { icon: 'land-parcels', text: cultivable_zone.work_number, style: "background-color: #{activity_color};" }
+        end
+
+        unless intervention.activity_productions.any?
+          intervention.targets.find_each do |target|
+
+            next if target.variant.nil?
+
+            if target.reference_name.to_sym == :herd
+              activity_color = 'black'
+              activity_color = target.activity.color unless target.activity.nil?
+              task_datas << { icon: 'cow', text: target.variant.name, style: "background-color: #{activity_color};" } unless target.variant.name.blank?
+            end
+          end
         end
 
         doers_count = intervention.doers.count
