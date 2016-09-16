@@ -34,7 +34,7 @@ module Ekylibre
 
         parent_accounts = nil
         items = nil
-        
+
         max = r.number.size - 1
         # get usages of nearest existing account by number
         (0..max).to_a.reverse.each do |i|
@@ -44,7 +44,7 @@ module Ekylibre
           parent_accounts = Account.find_with_regexp(number)
           break if parent_accounts.any?
         end
-        
+
         if parent_accounts && parent_accounts.any?
           usages = parent_accounts.first.usages
         elsif items.any?
@@ -53,17 +53,17 @@ module Ekylibre
         else
           usages = nil
         end
-        
+
         attributes = {
           name: r.name,
           number: r.number,
           usages: usages
         }
-      
+
         account = Account.find_or_initialize_by(number: r.number)
         account.attributes = attributes
         account.save!
-        
+
         w.check_point
       end
     end

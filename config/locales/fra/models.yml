@@ -1664,9 +1664,9 @@ fra:
     intervention:
       bookkeep: "[%{resource}] %{name}" #?
       name: "%{intervention} n°%{number}"
-    inventory:
-      bookkeep_exchange: "[%{resource}] %{number} - Contrepassation avant inventaire physique"
-      bookkeep: "[%{resource}] %{number} - Inventaire physique"
+    inventory:  #?
+      bookkeep: "[%{resource}] %{number} - Inventaire physique" #?
+      bookkeep_exchange: "[%{resource}] %{number} - Contrepassation avant inventaire physique" #?
     issue:
       name_with_target: "%{nature} sur %{target}"
       name_without_target: "%{nature}"

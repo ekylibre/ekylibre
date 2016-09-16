@@ -326,13 +326,13 @@ module Ekylibre
         return population_value
       end
     end
-    
+
     # shortcut to call population_conversion function
     def actor_population_conversion(actor, working_measure)
       population_conversion((actor.product.present? ? actor.product : actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose, working_measure)
     end
 
-    
+
     # shortcut to call population_conversion function
     def actor_measure_conversion(actor)
       measure_conversion((actor.product.present? ? actor.product : actor.variant), actor.input_population, actor.input_unit_name, actor.input_unit_target_dose)

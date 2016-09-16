@@ -86,7 +86,7 @@ class Inventory < Ekylibre::Record::Base
           i = items.of_variant(variant)
           s = variant.stock_account
           ms = variant.movement_stock_account
-          
+
           # step 1 : neutralize last current stock in stock journal for current variant
           # by exchanging the current balance
           label = tc(:bookkeep_exchange, resource: self.class.model_name.human, number: number)
@@ -94,7 +94,7 @@ class Inventory < Ekylibre::Record::Base
             entry.add_credit(label, ms.id, ms.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at) * -1)
             entry.add_debit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at) * -1)
           end
-          
+
           # step 2 : record inventory stock in stock journal
           # TODO update methods to evaluates price stock or open unit_pretax_stock_amount field to the user durinf inventory
           # build the global value of the stock for each item
