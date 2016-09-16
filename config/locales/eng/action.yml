@@ -342,6 +342,7 @@ eng:
     backend/interventions:
       # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
+      # display_modal: "Display modal intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
       edit_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
@@ -350,8 +351,6 @@ eng:
       new_undefined: "New intervention" #?
       new_undefined_request: "New intervention request" #?
       show: "%{procedure_name}"
-      # show_intervention_modal: "Show intervention modal intervention: %{name}"
-      # show_modal_state: "Show modal state intervention: %{name}"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -1922,6 +1921,7 @@ eng:
       detach: "Detach"
       # detach_gaps: "Detach gaps"
       detail: "Detail"
+      # display_modal: "Display modal"
       distribute: "Distribute unaffected products"
       down: "Down"
       duplicate: "Duplicate"
@@ -1978,8 +1978,6 @@ eng:
       select: "Select"
       ship: "Ship"
       show: "Show"
-      # show_intervention_modal: "Show intervention modal"
-      # show_modal_state: "Show modal state"
       sort: "Sort"
       star: "Star"
       start: "Start"

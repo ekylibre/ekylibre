@@ -190,9 +190,9 @@ ita:
         record: "Disco"
         request: "Richiesta"
       state:
-        # deleted: "Deleted"
         done: "Fatto"
         in_progress: "In corso"
+        # rejected: "Rejected"
         squeezed: "Spremuto" #?
         undone: "Disfatto" #?
         # validated: "Validated"

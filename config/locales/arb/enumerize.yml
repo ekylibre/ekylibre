@@ -189,9 +189,9 @@ arb:
         record: "سجل"
         request: "طلب"
       state:
-        # deleted: "Deleted"
         done: "فعله"
         in_progress: "في تَقَدم"
+        # rejected: "Rejected"
         squeezed: "تقلص" #?
         undone: "غير مصنوع" #?
         # validated: "Validated"

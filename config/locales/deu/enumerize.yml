@@ -190,9 +190,9 @@ deu:
         record: "Aufzeichnen"
         request: "Anfordern"
       state:
-        # deleted: "Deleted"
         done: "Erledigt"
         in_progress: "In Bearbeitung"
+        # rejected: "Rejected"
         squeezed: "Eingezwängt" #?
         undone: "unerledigt" #?
         # validated: "Validated"

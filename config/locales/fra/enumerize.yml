@@ -183,9 +183,9 @@ fra:
         record: "Enregistrement"
         request: "Demande"
       state:
-        rejected: "Rejetée"
         done: "Terminée"
         in_progress: "En cours"
+        rejected: "Rejetée"
         validated: "Validée"
     intervention_parameter_reading:
       indicator_datatype:

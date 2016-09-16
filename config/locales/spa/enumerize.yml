@@ -190,9 +190,9 @@ spa:
         record: "Grabar"
         request: "Solicitud"
       state:
-        # deleted: "Deleted"
         done: "Hecho"
         in_progress: "En progreso"
+        # rejected: "Rejected"
         squeezed: "Exprimido" #?
         undone: "Deshecho" #?
         # validated: "Validated"

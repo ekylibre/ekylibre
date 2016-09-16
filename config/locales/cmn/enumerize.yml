@@ -190,9 +190,9 @@ cmn:
         record: "记录"
         request: "请求"
       state:
-        # deleted: "Deleted"
         done: "做"
         in_progress: "进行中"
+        # rejected: "Rejected"
         squeezed: "挤压" #?
         undone: "未完成" #?
         # validated: "Validated"

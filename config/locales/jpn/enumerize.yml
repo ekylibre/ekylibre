@@ -190,9 +190,9 @@ jpn:
         record: "記録"
         request: "要求"
       state:
-        # deleted: "Deleted"
         done: "終わりました"
         in_progress: "進行中"
+        # rejected: "Rejected"
         squeezed: "スクイーズ" #?
         undone: "元に戻します" #?
         # validated: "Validated"

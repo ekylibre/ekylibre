@@ -1796,8 +1796,7 @@
       </item>
       <item name="interventions">
         <page to="backend/interventions#change_state"/>
-        <page to="backend/interventions#show_intervention_modal"/>
-        <page to="backend/interventions#show_modal_state"/>
+        <page to="backend/interventions#display_modal"/>
       </item>
     </group>
   </untreated-actions>

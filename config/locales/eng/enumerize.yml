@@ -351,9 +351,18 @@ eng:
         record: "Record"
         request: "Request"
       state:
-        rejected: "Rejected"
         done: "Done"
         in_progress: "In progress"
+        rejected: "Rejected"
+        validated: "Validated"
+    intervention:
+      nature:
+        record: "Record"
+        request: "Request"
+      state:
+        done: "Done"
+        in_progress: "In progress"
+        rejected: "Rejected"
         validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
