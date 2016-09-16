@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914150554) do
+ActiveRecord::Schema.define(version: 20160916091854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2173,6 +2173,12 @@ ActiveRecord::Schema.define(version: 20160914150554) do
   add_index "observations", ["updated_at"], name: "index_observations_on_updated_at", using: :btree
   add_index "observations", ["updater_id"], name: "index_observations_on_updater_id", using: :btree
 
+  create_table "outgoing_payment_lists", force: :cascade do |t|
+    t.string   "number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "outgoing_payment_modes", force: :cascade do |t|
     t.string   "name",                            null: false
     t.boolean  "with_accounting", default: false, null: false
@@ -2215,6 +2221,7 @@ ActiveRecord::Schema.define(version: 20160914150554) do
     t.integer  "updater_id"
     t.integer  "lock_version",                               default: 0,    null: false
     t.jsonb    "custom_fields"
+    t.integer  "list_id"
   end
 
   add_index "outgoing_payments", ["affair_id"], name: "index_outgoing_payments_on_affair_id", using: :btree
