@@ -1300,7 +1300,7 @@ por:
     search: "Pesquisar"
     search_placeholder: "Pesquisar…"
     # section_x: "Section %{x}"
-    # see_more_details: "See more details"
+    see_more_details: "Veja mais detalhes"
     select_closure_date: "Escolha a data de fechamento"
     select_columns: "Selecionar colunas"
     select_date: "Seleccionar data"

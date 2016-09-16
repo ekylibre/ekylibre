@@ -729,10 +729,6 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
-    devise_invitable/registrations:
-      # cancel: "Cancel registration: %{name}"
-      # edit: "Edit registration: %{name}"
-      # new: "New registration"
     public:
       index: "Home"
   errors:
