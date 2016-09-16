@@ -229,7 +229,7 @@
         interventionsIds = instance._getSelectedInterventionsIds(event.target)
 
         $.ajax
-          url: "/backend/interventions/show_modal_state",
+          url: "/backend/interventions/display_modal",
           data: {interventions_ids: interventionsIds}
           success: (data, status, request) ->
 
@@ -256,7 +256,7 @@
           data: {
             'intervention': {
               interventions_ids: JSON.stringify(interventionsIds),
-              state: 'deleted'
+              state: 'rejected'
             }
           }
           success: (data, status, request) ->
@@ -297,7 +297,7 @@
         intervention = JSON.parse(task.attr('data-intervention'))
 
         $.ajax
-          url: "/backend/interventions/show_intervention_modal",
+          url: "/backend/interventions/display_modal",
           data: {intervention_id: intervention.id}
           success: (data, status, request) ->
 

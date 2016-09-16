@@ -6,8 +6,7 @@ $preview-modal-height: 80vh;
   @include flex-row(space-between);
 
  .modal-title {
-   margin-right: 10px;
-   font-size: $fs-large;
+   margin-right: round($default-gap * 1.4);
  }
 
  .label {
@@ -21,7 +20,7 @@ $preview-modal-height: 80vh;
 }
 
 .interventions-modal .modal-body {
-  padding: 15px;
+  padding: round($default-gap * 2.2);
   max-height: $preview-modal-height;
   overflow-y: auto;
 
@@ -30,22 +29,22 @@ $preview-modal-height: 80vh;
   }
 
   .control-group {
-    margin-bottom: 2em;
-    padding-right: 2em;
+    margin-bottom: round($default-gap * 2.9);
+    padding-right: round($default-gap * 2.9);
   }
 
   .change-state-text {
-    margin-left: 1em;
-    margin-bottom: 1em;
+    margin-left: round($default-gap * 1.4);
+    margin-bottom: round($default-gap * 1.4);
   }
 
   .interventions-list {
     list-style: inherit;
-    margin-bottom: 3em;
-    padding-left: 4em;
+    margin-bottom: round($default-gap * 4.3);
+    padding-left: round($default-gap * 5.7);
 
     .intervention {
-      padding-left: 1em;
+      padding-left: round($default-gap * 1.4);
     }
   }
 }
@@ -58,10 +57,10 @@ $preview-modal-height: 80vh;
     @include flex-column();
     flex: 1 50%;
     padding: 0;
-    margin-top: 10px;
+    margin-top: round($default-gap * 1.4);
 
     .value {
-      line-height: 60px;
+      line-height: $fs-awesome;
     }
   }
 
@@ -73,22 +72,22 @@ $preview-modal-height: 80vh;
 .interventions-modal .blocks {
   @include flex-row(flex-start, flex-start);
   flex-wrap: wrap;
-  padding: 10px;
+  padding: round($default-gap * 1.4);
 
   .block {
     flex: 1 50%;
     margin: 30px 0;
 
     .block-title {
-      margin-right: 80px;
+      margin-right: round($default-gap * 12);
       border-bottom: 1px solid $default-border-color;
-      padding-bottom: 5px;
-      font-size: $fs-large;
+      padding-bottom: round($default-gap * 0.7);
+      font-size: $fs-normal;
       font-weight: bold;
     }
 
     .data {
-      padding-top: 10px;
+      padding-top: round($default-gap * 1.4);
       @include flex-row(flex-start, center);
     }
 

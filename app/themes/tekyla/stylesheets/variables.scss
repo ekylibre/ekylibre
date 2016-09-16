@@ -7,6 +7,7 @@ $default-ratio: $golden-ratio;
 // Basic colors
 $white: #FFFFFF !default;
 $black: #000000 !default;
+$blue-grey: #607D8B !default;
 
 // Font sizes
 $fs-ratio:   1.2 !default;
@@ -50,11 +51,10 @@ $base-font-reversed-color: #FFF !default;
 $default-border-color: #DDD;
 
 // Basic colors
-$white: #FFFFFF;
-$darkened-white: #FAFAFA;
-$lightened-black: #616161;
-$lightened-grey: #BDB8B8;
-$darkened-blue-grey: #455A64;
+$darkened-white: mix($black, $white, 2%) !default;
+$lightened-black: mix($black, $white, 60%) !default;
+$lightened-grey: mix($black, $white, 30%) !default;
+$darkened-blue-grey: darken($blue-grey, 10%) !default;
 
 $brand-primary: $base-color;
 $brand-success: $success-color;

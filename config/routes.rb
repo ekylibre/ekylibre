@@ -512,8 +512,9 @@ Rails.application.routes.draw do
     resources :interventions, concerns: [:list, :unroll] do
       collection do
         patch :compute
-        get :show_intervention_modal
-        get :show_modal_state
+        get :display_modal
+        # get :show_intervention_modal
+        # get :show_modal_state
         post :change_state
       end
       member do

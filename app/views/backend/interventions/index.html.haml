@@ -45,7 +45,7 @@
 
 
           - search_params = params.except(:controller, :action)
-          - search_params[:period_type] = current_period_type
+          - search_params[:period_interval] = current_period_interval
           - search_params[:period] = current_period
 
           - header_class = 'taskboard-header--gray'

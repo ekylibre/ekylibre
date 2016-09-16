@@ -2469,6 +2469,11 @@ a[data-annotate] {
     padding-right: $default-gap;
     @include box-sizing(border-box);
   }
+
+  .campaign {
+    font-size: $fs-large;
+  }
+
   > .btn,
   > .period-type,
   > .period {

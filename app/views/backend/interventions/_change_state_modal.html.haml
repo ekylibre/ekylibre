@@ -29,7 +29,7 @@
             - checked = true if option.to_sym == :done && interventions.first.state.to_sym == :in_progress
             - checked = true if option.to_sym == :validated && interventions.first.state.to_sym == :done
 
-          - if option.to_sym != :deleted
+          - if option.to_sym != :rejected
             = label_tag(nil) do
               = radio_button_tag('intervention[state]', option, checked)
               = content_tag(:span, state)

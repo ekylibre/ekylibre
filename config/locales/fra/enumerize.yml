@@ -183,7 +183,7 @@ fra:
         record: "Enregistrement"
         request: "Demande"
       state:
-        deleted: "Supprimée"
+        rejected: "Rejetée"
         done: "Terminée"
         in_progress: "En cours"
         validated: "Validée"

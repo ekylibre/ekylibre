@@ -5,34 +5,36 @@
   - delta = nil
   - additionnal_classes = ''
 
-  - if period_type == :day
+  - if period_interval == :day
     - delta = 1.day
 
-  - if period_type == :week
+  - if period_interval == :week
     - delta = 1.week
     - displayed_period = :manual_period.tl(start: current_period.at_beginning_of_week.l, finish: current_period.at_end_of_week.l)
 
-  - if period_type == :months
+  - if period_interval == :months
     - delta = 1.month
     - displayed_period = current_period.l(format: :short_month)
 
-  - if period_type == :years
+  - if period_interval == :years
     - delta = 1.year
     - displayed_period = current_period.year.to_s
+    - additionnal_classes << "campaign "
 
-  - if period_type != :years
-    - additionnal_classes = "disabled"
+
+  - if period_interval != :years
+    - additionnal_classes << "disabled"
 
   - previous_period = current_period - delta
   - url_params = Hash.new
   - url_params[:current_period] = previous_period
-  - url_params[:current_campaign] = previous_period.year if period_type == :years
+  - url_params[:current_campaign] = previous_period.year if period_interval == :years
 
   = link_to('', url_params, class: 'btn btn-previous icn icn-only')
 
 
   - url_params = Hash.new
-  - url_params = { controller: '/backend/campaigns', action: :show, id: campaign } if period_type == :years
+  - url_params = { controller: '/backend/campaigns', action: :show, id: campaign } if period_interval == :years
 
   = link_to(displayed_period, url_params, class: "btn period #{additionnal_classes}")
 
@@ -40,6 +42,6 @@
   - next_period = current_period + delta
   - url_params = Hash.new
   - url_params[:current_period] = next_period
-  - url_params[:current_campaign] = next_period.year if period_type == :years
+  - url_params[:current_campaign] = next_period.year if period_interval == :years
 
   = link_to('', url_params, class: 'btn btn-next icn icn-only')

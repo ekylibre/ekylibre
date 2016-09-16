@@ -4,7 +4,7 @@ module Backend
       tasks = []
 
       interventions.find_each do |intervention|
-        can_select = true
+        can_select = intervention.state != :validated
         colors = []
         task_datas = []
 
@@ -34,7 +34,7 @@ module Backend
       tasks
     end
 
-    def add_modal_data(title, detail, options)
+    def add_detail_to_modal_block(title, detail, options)
       html = []
 
       icon = options[:icon] || nil
