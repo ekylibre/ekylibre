@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::TimelineHelperTest < ActionView::TestCase
+module Backend
+  class TimelineHelperTest < ActionView::TestCase
+  end
 end

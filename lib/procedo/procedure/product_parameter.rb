@@ -32,7 +32,7 @@ module Procedo
           self.variety = options[:variety]
           self.derivative_of = options[:derivative_of]
         end
-        if input? && options[:component_of]
+        if (input? || target?) && options[:component_of]
           self.component_of = options[:component_of]
         end
         @handlers = {}
@@ -150,7 +150,7 @@ module Procedo
       def components
         procedure.product_parameters(true).select do |p|
           next unless p.component_of?
-          p.component_of? && p.component_of_with_parameter?(name)
+          p.component_of? && p.component_of_with_parameter?(name, p == self)
         end
       end
 

@@ -149,7 +149,7 @@
     $('#parameters *[data-intervention-updater]').each ->
       E.interventions.refresh $(this),
         success: (stat, status, request) ->
-          E.interventions.updateAvailabilityInstant($(".nested-fields.working-period:first-child input.intervention-started-at").first())
+          E.interventions.updateAvailabilityInstant($(".nested-fields.working-period:first-child input.intervention-started-at").first().val())
 
   $(document).on 'mapchange', '*[data-intervention-updater]', ->
     $(this).each ->

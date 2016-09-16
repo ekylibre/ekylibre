@@ -169,7 +169,7 @@ class Entity < Ekylibre::Record::Base
   }
   scope :with_email, ->(email) { with_address(:email, email) }
 
-  acts_as_numbered :number
+  acts_as_numbered :number, force: false, readonly: false
   accepts_nested_attributes_for :mails,    reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :emails,   reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :phones,   reject_if: :all_blank, allow_destroy: true

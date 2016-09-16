@@ -323,14 +323,14 @@ fra:
       index: "Intégrations"
       new: "Activer l'intégration %{name}"
     backend/interventions:
-      edit: "Modifier l’intervention %{procedure_name} N°%{number}"
-      edit_request: "Modifier la demande de %{procedure_name} #%{number}"
+      edit: "Modifier l’intervention %{procedure_name} n°%{number}"
+      edit_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
-      new: "Nouvelle intervention"
-      new_request: "Nouvelle demande d'intervention"
-      run: "Exécuter l’intervention" #?
-      set: "Saisie des valeurs de l’intervention" #?
-      show: "%{procedure_name}"
+      new: "Nouvelle intervention\_: %{procedure_name}"
+      new_request: "Nouvelle demande\_: %{procedure_name}"
+      new_undefined: "Nouvelle intervention"
+      new_undefined_request: "Nouvelle demande d’intervention"
+      show: "%{procedure_name} n°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
       index: "Inventaires"
@@ -365,6 +365,11 @@ fra:
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      index: "Étiquettes"
+      new: "Nouvelle étiquette"
+      # show: "Label: %{name}"
     backend/land_parcel_clusters:  #?
       edit: "Modifier l’îlot\_: %{name}" #?
       index: "Îlots" #?
@@ -612,8 +617,8 @@ fra:
       run: "Lancer une synchronization: %{name}"
       show: "Synchronisation: %{name}" #?
     backend/target_distributions:
-      distribute: "Répartir les produits"
       edit: "Modifier la répartition:"
+      edit_many: "Distribuer les produits non affectés"
       index: "Répartitions"
       new: "Nouvelle répartition"
       show: "Répartition:"
@@ -806,6 +811,7 @@ fra:
     add_intervention_record: "Enregistrer une intervention"
     add_intervention_request: "Demander une intervention"
     add_item: "Ajouter un élément"
+    add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
@@ -1090,6 +1096,7 @@ fra:
     disease_percentage_evolution: "Evolution des maladies"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
+    distribute_unaffected_products: "Distribuer les produits non affectés"
     distributions: "Répartitions"
     district_x: "%{name} (%{code})" #?
     divide: "Diviser"
@@ -1516,6 +1523,7 @@ fra:
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
     options: "Options"
+    or: "Ou"
     order: "Commande" #?
     order_amount_with_taxes: "Montant de la commande" #?
     order_print: "Imprimer la commande" #?
@@ -2363,11 +2371,11 @@ fra:
       destroy: "Supprimer"
       detach: "Détacher"
       detail: "Détail"
-      distribute: "Répartir les produits non affectés"
       down: "Descendre"
       draft: "Brouillon" #?
       duplicate: "Dupliquer"
       edit: "Modifier"
+      edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
       extract: "Extraire"

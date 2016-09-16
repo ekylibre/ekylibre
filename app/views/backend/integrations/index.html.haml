@@ -1,16 +1,17 @@
 .integrations-container
   .introduction-message
     = :integrate_tools_you_are_using_every_day.tn
-  - @integration_types.each do |type|
-    - integration_exists = Integration.find_by_nature(type.integration_name.underscore)
-    .integration
-      = link_to action: :new, controller: :integrations, nature: type.integration_name.underscore do
+  - unless ActionIntegration.config.cipher_key.blank?
+    - @integration_types.each do |type|
+      - integration_exists = Integration.find_by_nature(type.integration_name.underscore)
+      .integration
         .integration-card{class: ("integration-active" if integration_exists) }
           - if integration_exists
             = link_to({ action: :destroy, controller: :integrations, nature: type.integration_name.underscore }, method: :delete, class: "integration-destroy") do
               %i.icon.icon-sign-out
-          .integration-logo
-            = image_tag(integration_logo_path(type.integration_name))
-          .integration-description
-            %h3= type.integration_name
-            %p= "#{type.integration_name.underscore}_short_description".tl
+          = link_to({ action: :new, controller: :integrations, nature: type.integration_name.underscore }, class: 'integration-body') do
+            .integration-logo
+              = image_tag(integration_logo_path(type.integration_name))
+            .integration-description
+              %h3= type.integration_name
+              %p= "#{type.integration_name.underscore}_short_description".tl

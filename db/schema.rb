@@ -1608,6 +1608,24 @@ ActiveRecord::Schema.define(version: 20160915094302) do
   add_index "integrations", ["updated_at"], name: "index_integrations_on_updated_at", using: :btree
   add_index "integrations", ["updater_id"], name: "index_integrations_on_updater_id", using: :btree
 
+  create_table "intervention_labellings", force: :cascade do |t|
+    t.integer  "intervention_id",             null: false
+    t.integer  "label_id",                    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",    default: 0, null: false
+  end
+
+  add_index "intervention_labellings", ["created_at"], name: "index_intervention_labellings_on_created_at", using: :btree
+  add_index "intervention_labellings", ["creator_id"], name: "index_intervention_labellings_on_creator_id", using: :btree
+  add_index "intervention_labellings", ["intervention_id", "label_id"], name: "index_intervention_labellings_on_intervention_id_and_label_id", unique: true, using: :btree
+  add_index "intervention_labellings", ["intervention_id"], name: "index_intervention_labellings_on_intervention_id", using: :btree
+  add_index "intervention_labellings", ["label_id"], name: "index_intervention_labellings_on_label_id", using: :btree
+  add_index "intervention_labellings", ["updated_at"], name: "index_intervention_labellings_on_updated_at", using: :btree
+  add_index "intervention_labellings", ["updater_id"], name: "index_intervention_labellings_on_updater_id", using: :btree
+
   create_table "intervention_parameter_readings", force: :cascade do |t|
     t.string   "indicator_name",                                                                                                      null: false
     t.string   "indicator_datatype",                                                                                                  null: false
@@ -1921,6 +1939,22 @@ ActiveRecord::Schema.define(version: 20160915094302) do
   add_index "journals", ["creator_id"], name: "index_journals_on_creator_id", using: :btree
   add_index "journals", ["updated_at"], name: "index_journals_on_updated_at", using: :btree
   add_index "journals", ["updater_id"], name: "index_journals_on_updater_id", using: :btree
+
+  create_table "labels", force: :cascade do |t|
+    t.string   "name",                     null: false
+    t.string   "color",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "labels", ["created_at"], name: "index_labels_on_created_at", using: :btree
+  add_index "labels", ["creator_id"], name: "index_labels_on_creator_id", using: :btree
+  add_index "labels", ["name"], name: "index_labels_on_name", unique: true, using: :btree
+  add_index "labels", ["updated_at"], name: "index_labels_on_updated_at", using: :btree
+  add_index "labels", ["updater_id"], name: "index_labels_on_updater_id", using: :btree
 
   create_table "listing_node_items", force: :cascade do |t|
     t.integer  "node_id",                  null: false
@@ -2512,6 +2546,24 @@ ActiveRecord::Schema.define(version: 20160915094302) do
   add_index "product_enjoyments", ["stopped_at"], name: "index_product_enjoyments_on_stopped_at", using: :btree
   add_index "product_enjoyments", ["updated_at"], name: "index_product_enjoyments_on_updated_at", using: :btree
   add_index "product_enjoyments", ["updater_id"], name: "index_product_enjoyments_on_updater_id", using: :btree
+
+  create_table "product_labellings", force: :cascade do |t|
+    t.integer  "product_id",               null: false
+    t.integer  "label_id",                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "product_labellings", ["created_at"], name: "index_product_labellings_on_created_at", using: :btree
+  add_index "product_labellings", ["creator_id"], name: "index_product_labellings_on_creator_id", using: :btree
+  add_index "product_labellings", ["label_id"], name: "index_product_labellings_on_label_id", using: :btree
+  add_index "product_labellings", ["product_id", "label_id"], name: "index_product_labellings_on_product_id_and_label_id", unique: true, using: :btree
+  add_index "product_labellings", ["product_id"], name: "index_product_labellings_on_product_id", using: :btree
+  add_index "product_labellings", ["updated_at"], name: "index_product_labellings_on_updated_at", using: :btree
+  add_index "product_labellings", ["updater_id"], name: "index_product_labellings_on_updater_id", using: :btree
 
   create_table "product_linkages", force: :cascade do |t|
     t.integer  "originator_id"
@@ -3548,6 +3600,8 @@ ActiveRecord::Schema.define(version: 20160915094302) do
     t.integer  "invited_by_id"
     t.integer  "invitations_count",                                               default: 0
     t.datetime "signup_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
@@ -3559,9 +3613,11 @@ ActiveRecord::Schema.define(version: 20160915094302) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
+  add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   add_index "users", ["updated_at"], name: "index_users_on_updated_at", using: :btree
   add_index "users", ["updater_id"], name: "index_users_on_updater_id", using: :btree

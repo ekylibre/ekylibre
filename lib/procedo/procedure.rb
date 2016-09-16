@@ -2,7 +2,7 @@
 # require 'procedo/procedure/group_parameter'
 
 module Procedo
-  # This class represents a procedure
+  # This class represents a procedure. It's the definition
   class Procedure
     ROOT_NAME = 'root_'.freeze
 
@@ -66,8 +66,6 @@ module Procedo
       options[:categories].each { |c| add_category(c) } if options[:categories]
       options[:mandatory_actions].each { |c| add_action(c) } if options[:mandatory_actions]
       options[:optional_actions].each { |c| add_action(c, true) } if options[:optional_actions]
-      # Compile it
-      # self.compile!
     end
 
     # All actions (mandatory and optional)

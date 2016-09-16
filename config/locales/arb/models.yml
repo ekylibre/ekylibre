@@ -808,6 +808,7 @@ arb:
       entity_link_nature: "طبيعة الرابط بين الافراد" #?
       entity_nature: "نوع الفرد" #?
       equipment: "الاداة"
+      equipment_fleet: "أسطول المعدات"
       establishment: "المؤسسة" #?
       event: "الحدث"
       event_nature: "نوع الحدث" #?
@@ -836,6 +837,7 @@ arb:
       intervention_doer: "التدخل الفاعل"
       intervention_group_parameter: "المعلمة مجموعة التدخل"
       intervention_input: "المدخلات تدخل"
+      intervention_labelling: "تدخل الوسم"
       intervention_output: "الناتج تدخل"
       intervention_parameter: "معلمة تدخل"
       intervention_parameter_reading: "مهمة القراءة المنتج"
@@ -850,6 +852,7 @@ arb:
       journal_entry: "المدخلات"
       journal_entry_item: "مجلة البند دخول"
       journal_record: "سجل المحاسبة" #?
+      label: "ملصق"
       land_parcel: "الكتلة"
       listing: "الاستخراج"
       listing_node: "عقدة الاستخراج"
@@ -890,6 +893,7 @@ arb:
       product_component: "عنصر الانتاج" #?
       product_enjoyment: "تمتع المنتج"
       product_group: "مجموعة المنتجات"
+      product_labelling: "وسم المنتجات"
       product_link: "رابط المنتج"
       product_linkage: "الربط المنتج"
       product_localization: "توطين المنتج"
@@ -1585,12 +1589,15 @@ arb:
     journals: "الدفاتر اليومية" #?
     key: "المفتاح"
     label: "الملصق"
+    labellings: "وضع العلامات"
+    labels: "تسميات"
     land_parcel_number: "عدد قطعة أرض"
     land_parcels: "الكتل"
     language: "اللغة"
     last_analysis: "التحليل الأخير"
     last_bank_statement: "(((LAST_BANK_STATEMENT)))"
     last_cweek: "الاسبوع السابق"
+    last_intervention_target: "التدخل الأخير الهدف"
     last_journal_entry: "دخول مجلة نهاية العام"
     last_letter: "الرسالة الاخيرة"
     last_month: "الشهر السابق"
@@ -1599,6 +1606,7 @@ arb:
     last_sign_in_at: "علامة الماضي في في"
     last_sign_in_ip: "علامة الماضي في مجال الملكية الفكرية"
     # last_transmission_at: "Last transmission"
+    last_value: "القيمة الأخيرة"
     last_year: "السنة السابقة"
     latest: "آخر"
     latitude: "خطوط العرض" #?

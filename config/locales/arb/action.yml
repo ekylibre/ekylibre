@@ -339,10 +339,12 @@ arb:
       # new: "Activate integration: %{name}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit request %{procedure_name} #%{number}"
+      # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "التدخلات"
       new: "تدخل جديد"
       new_request: "تدخل طلب جديد"
+      new_undefined: "تدخل جديد"
+      new_undefined_request: "طلب تدخل جديد"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "تعديل الجرد"
@@ -376,6 +378,11 @@ arb:
       new: "انشاء دفتر يومي جديد"
       reopen: "فتح %{name}"
       show: "الدفتر اليومي : %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      index: "تسميات"
+      new: "تسمية جديدة"
+      # show: "Label: %{name}"
     backend/land_parcels:
       edit: "تعديل النظام : %{name}"
       index: "انظمة"
@@ -662,8 +669,8 @@ arb:
       index: "تزامن"
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
-      distribute: "توزيع المنتجات"
       edit: "توزيع هدف تحرير"
+      edit_many: "توزيع المنتجات لم تتأثر"
       index: "توزيعات الهدف"
       new: "توزيع هدف جديد"
       show: "توزيع هدف"
@@ -933,6 +940,7 @@ arb:
     add_intervention_record: "اضافة التسجيلة تدخل"
     add_intervention_request: "إضافة طلب تدخل"
     add_item: "إضافة البند"
+    add_labelling: "إضافة تسمية"
     add_line: "إضافة خط"
     add_linestring: "إضافة تنسيقي"
     add_mail: "إضافة عنوان البريدي"
@@ -1210,6 +1218,7 @@ arb:
     disease_percentage_evolution: "تطور نسبة المرض"
     display: "عرض"
     display_help: "عرض المساعدة" #?
+    distribute_unaffected_products: "توزيع المنتجات لم تتأثر"
     distributions: "التوزيعات"
     district_create: "اضافة منطقة ادارية" #?
     district_x: "%{name} (%{code})" #?
@@ -1652,6 +1661,7 @@ arb:
     operation_use_create: "اضافة مادة" #?
     operations: "عمليات"
     options: "خيارات"
+    or: "أو"
     order_amount_with_taxes: "قيمة الطلب مع الضرائب" #?
     order_print: "طباعة الطلب" #?
     organic_matter_concentration: "تركيز المواد العضوية"
@@ -2508,10 +2518,10 @@ arb:
       destroy: "هدم"
       detach: "فصل"
       detail: "التفاصيل"
-      distribute: "توزيع المنتجات لم تتأثر"
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"
+      edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
       extract: "استخراج"

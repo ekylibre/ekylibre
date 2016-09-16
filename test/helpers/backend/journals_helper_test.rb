@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::JournalsHelperTest < ActionView::TestCase
+module Backend
+  class JournalsHelperTest < ActionView::TestCase
+  end
 end

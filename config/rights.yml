@@ -6,6 +6,9 @@
 #     - "authentication/invitations#edit"
 #     - "authentication/invitations#new"
 #     - "authentication/invitations#update"
+#     - "authentication/omniauth_callbacks#ekylibre"
+#     - "authentication/omniauth_callbacks#failure"
+#     - "authentication/omniauth_callbacks#passthru"
 #     - "authentication/passwords#create"
 #     - "authentication/passwords#edit"
 #     - "authentication/passwords#new"
@@ -126,6 +129,8 @@
 #     - "devise/invitations#edit"
 #     - "devise/invitations#new"
 #     - "devise/invitations#update"
+#     - "devise/omniauth_callbacks#failure"
+#     - "devise/omniauth_callbacks#passthru"
 #     - "devise/passwords#create"
 #     - "devise/passwords#edit"
 #     - "devise/passwords#new"
@@ -238,12 +243,12 @@ activities:
     - "backend/plant_density_abaci#edit"
     - "backend/plant_density_abaci#new"
     - "backend/plant_density_abaci#update"
-    - "backend/target_distributions#create"
     - "backend/target_distributions#destroy"
-    - "backend/target_distributions#distribute"
     - "backend/target_distributions#edit"
+    - "backend/target_distributions#edit_many"
     - "backend/target_distributions#new"
     - "backend/target_distributions#update"
+    - "backend/target_distributions#update_many"
 
 affairs:
   read:
@@ -1182,6 +1187,23 @@ journals:
     - read-journals
     actions:
     - "backend/journals#reopen"
+
+labels:
+  read:
+    actions:
+    - "backend/labels#index"
+    - "backend/labels#list"
+    - "backend/labels#show"
+    - "backend/labels#unroll"
+  write:
+    dependencies:
+    - read-labels
+    actions:
+    - "backend/labels#create"
+    - "backend/labels#destroy"
+    - "backend/labels#edit"
+    - "backend/labels#new"
+    - "backend/labels#update"
 
 land_parcels:
   read:
