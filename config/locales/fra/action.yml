@@ -2406,6 +2406,7 @@ fra:
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"
+      purchase: "Passer en achat"
       qualify: "Qualifier"
       quote: "Réaliser un devis"
       reconciliation: "Rapprocher"
@@ -2419,6 +2420,7 @@ fra:
       run: "Éxécuter"
       search: "Rechercher"
       select: "Selectionner"
+      sell: "Passer en vente"
       set: "Définir" #?
       ship: "Expédier"
       show: "Afficher"

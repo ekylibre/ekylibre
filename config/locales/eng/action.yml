@@ -1960,6 +1960,7 @@ eng:
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
       prospect: "Prospect"
+      purchase: "Turn into purchase"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
@@ -1974,6 +1975,7 @@ eng:
       run: "Run"
       search: "Search" #?
       select: "Select"
+      sell: "Turn into sale"
       ship: "Ship"
       show: "Show"
       sort: "Sort"
