@@ -193,13 +193,13 @@ class Intervention < Ekylibre::Record::Base
   # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
   # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
   bookkeep do |b|
-    if Preference[:permanent_stock_inventory] && self.nature == :record
+    if Preference[:permanent_stock_inventory] && nature == :record
       stock_journal = Journal.find_or_create_by!(nature: :stocks)
       # inputs
       if inputs.any?
         for input in inputs
-          label = tc(:bookkeep, resource: self.name, name: input.product.name )
-          b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: input.product_movement) do |entry|
+          label = tc(:bookkeep, resource: name, name: input.product.name)
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: input.product_movement) do |entry|
             entry.add_debit(label, input.variant.movement_stock_account_id, input.stock_amount) unless input.stock_amount.zero?
             entry.add_credit(label, input.variant.stock_account_id, input.stock_amount) unless input.stock_amount.zero?
           end
@@ -207,19 +207,19 @@ class Intervention < Ekylibre::Record::Base
       end
       # outputs
       if outputs.any?
-       for output in outputs
-          label = tc(:bookkeep, resource: self.name, name: output.variant.name )
-          b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: output.product_movement) do |entry|
+        for output in outputs
+          label = tc(:bookkeep, resource: name, name: output.variant.name)
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: output.product_movement) do |entry|
             entry.add_debit(label, output.variant.stock_account_id, output.stock_amount) unless output.stock_amount.zero?
             entry.add_credit(label, output.variant.movement_stock_account_id, output.stock_amount) unless output.stock_amount.zero?
           end
-        end
+         end
       end
     end
   end
 
   def printed_at
-    (stopped_at? ? self.stopped_at : created_at? ? self.created_at : Time.zone.now)
+    (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
   end
 
   def activity_productions

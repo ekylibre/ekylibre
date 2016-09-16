@@ -28,7 +28,6 @@ module Ekylibre
           raise 'No container for cultivation!'
         end
 
-
         # create the plant
         product = variant.matching_model.create!(
           variant_id: variant.id,

@@ -175,34 +175,32 @@ class Parcel < Ekylibre::Record::Base
   # outgoing parcel        |  stock_movement(603X/71X)      |            stock(3X)         |
   bookkeep do |b|
     if Preference[:permanent_stock_inventory]
-      mode = self.nature
+      mode = nature
       entity = recipient || sender
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
       stock_journal = Journal.find_or_create_by!(nature: :stocks)
       if mode == :incoming
         for item in items
-          if item.variant.storable?
-            b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
-              entry.add_credit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-              entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-            end
+          next unless item.variant.storable?
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |entry|
+            entry.add_credit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
           end
         end
       elsif mode == :outgoing
-       for item in items
-         if item.variant.storable?
-           b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: given?) do |entry|
+        for item in items
+          next unless item.variant.storable?
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |entry|
             entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
             entry.add_debit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-           end
+          end
          end
-        end
       end
     end
   end
 
   def printed_at
-    (given? ? given_at : created_at? ? self.created_at : Time.zone.now)
+    (given? ? given_at : created_at? ? created_at : Time.zone.now)
   end
 
   def content_sentence(limit = 30)

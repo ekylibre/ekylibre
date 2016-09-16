@@ -59,7 +59,6 @@ class InventoryItem < Ekylibre::Record::Base
   delegate :storable?, to: :variant
   delegate :currency, to: :inventory, prefix: true
 
-
   before_validation do
     self.actual_population = expected_population if population_counting_unitary?
     self.currency = inventory_currency if inventory

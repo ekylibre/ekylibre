@@ -73,7 +73,7 @@ class Inventory < Ekylibre::Record::Base
   #          Mode Inventory     |     Debit                      |            Credit            |
   #     exchange current balance|    - balance (3X)              |   - balance (603X/71X)       |
   #     physical inventory      |    stock(3X)                   |   stock_movement(603X/71X)   |
-  bookkeep  do |b|
+  bookkeep do |b|
     stock_journal = Journal.find_or_create_by!(nature: :stocks)
     fy_started_at = stock_journal.entries.reorder(:printed_on).first.printed_on.to_time
     fy_stopped_at = financial_year.stopped_on.to_time
@@ -81,43 +81,41 @@ class Inventory < Ekylibre::Record::Base
       # get all variants corresponding to current items
       variants = ProductNatureVariant.where(id: Product.where(id: items.pluck(:product_id)).pluck(:variant_id).uniq)
       for variant in variants
-      # for all items of current variant (if storable)
-        if items.first.storable? && variant.stock_account
-          i = items.of_variant(variant)
-          s = variant.stock_account
-          ms = variant.movement_stock_account
+        # for all items of current variant (if storable)
+        next unless items.first.storable? && variant.stock_account
+        i = items.of_variant(variant)
+        s = variant.stock_account
+        ms = variant.movement_stock_account
 
-          # step 1 : neutralize last current stock in stock journal for current variant
-          # by exchanging the current balance
-          label = tc(:bookkeep_exchange, resource: self.class.model_name.human, number: number)
-          b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: reflected?) do |entry|
-            entry.add_credit(label, ms.id, ms.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at) * -1)
-            entry.add_debit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at) * -1)
-          end
+        # step 1 : neutralize last current stock in stock journal for current variant
+        # by exchanging the current balance
+        label = tc(:bookkeep_exchange, resource: self.class.model_name.human, number: number)
+        b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: reflected?) do |entry|
+          entry.add_credit(label, ms.id, ms.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at) * -1)
+          entry.add_debit(label, s.id, s.journal_entry_items_calculate(:balance, fy_started_at, fy_stopped_at) * -1)
+        end
 
-          # step 2 : record inventory stock in stock journal
-          # TODO update methods to evaluates price stock or open unit_pretax_stock_amount field to the user durinf inventory
-          # build the global value of the stock for each item
-          values = []
-          for item in i
-            v = item.actual_population * item.unit_pretax_stock_amount
-            values << v
-          end
-          # bookkeep step 2
-          unless values.compact.sum.zero?
-            label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
-            b.journal_entry(stock_journal, printed_on: self.printed_at.to_date, if: reflected?) do |entry|
-              entry.add_credit(label, ms.id, values.compact.sum)
-              entry.add_debit(label, s.id, values.compact.sum)
-            end
-          end
+        # step 2 : record inventory stock in stock journal
+        # TODO update methods to evaluates price stock or open unit_pretax_stock_amount field to the user durinf inventory
+        # build the global value of the stock for each item
+        values = []
+        for item in i
+          v = item.actual_population * item.unit_pretax_stock_amount
+          values << v
+        end
+        # bookkeep step 2
+        next if values.compact.sum.zero?
+        label = tc(:bookkeep, resource: self.class.model_name.human, number: number)
+        b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: reflected?) do |entry|
+          entry.add_credit(label, ms.id, values.compact.sum)
+          entry.add_debit(label, s.id, values.compact.sum)
         end
       end
     end
   end
 
   def printed_at
-    (reflected? ? reflected_at : achieved_at? ? self.achieved_at : self.created_at)
+    (reflected? ? reflected_at : achieved_at? ? self.achieved_at : created_at)
   end
 
   protect do

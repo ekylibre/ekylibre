@@ -62,7 +62,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   belongs_to :charge_account,    class_name: 'Account'
   belongs_to :product_account,   class_name: 'Account'
   belongs_to :stock_account,     class_name: 'Account'
-  belongs_to :movement_stock_account,     class_name: 'Account'
+  belongs_to :movement_stock_account, class_name: 'Account'
   has_many :natures, class_name: 'ProductNature', foreign_key: :category_id, inverse_of: :category, dependent: :restrict_with_exception
   has_many :products, foreign_key: :category_id, dependent: :restrict_with_exception
   has_many :taxations, class_name: 'ProductNatureCategoryTaxation', dependent: :destroy
@@ -84,7 +84,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   validates :product_account, presence: { if: :saleable? }
   validates :charge_account,  presence: { if: :purchasable? }
   validates :stock_account,   presence: { if: :storable? }
-  validates :movement_stock_account,   presence: { if: :storable? }
+  validates :movement_stock_account, presence: { if: :storable? }
   validates :fixed_asset_account, presence: { if: :depreciable? }
   validates :fixed_asset_allocation_account, presence: { if: :depreciable? }
   validates :fixed_asset_expenses_account, presence: { if: :depreciable? }

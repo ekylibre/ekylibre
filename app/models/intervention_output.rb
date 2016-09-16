@@ -91,9 +91,7 @@ class InterventionOutput < InterventionProductParameter
   end
 
   def stock_amount
-    if self.product_movement
-      self.product_movement.population * unit_pretax_stock_amount
-    end
+    product_movement.population * unit_pretax_stock_amount if product_movement
   end
 
   def earn_amount_computation

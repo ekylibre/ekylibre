@@ -173,10 +173,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
         raise ArgumentError, "Unknown to store #{self.name.inspect}. You have to check category first"
       end
       account_key = mode.to_s + '_account'
-      category_account = self.category.send(account_key)
+      category_account = category.send(account_key)
 
       options = {}
-      options[:number] = category_account.number + self.number[-6, 6].rjust(6)
+      options[:number] = category_account.number + number[-6, 6].rjust(6)
       options[:name] = category_account.name + ' [' + self.name + ']'
       options[:label] = options[:number] + ' - ' + options[:name]
       options[:usages] = category_account.usages
