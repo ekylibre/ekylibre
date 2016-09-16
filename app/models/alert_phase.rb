@@ -33,10 +33,10 @@
 #  updater_id   :integer
 #
 class AlertPhase < Ekylibre::Record::Base
+  belongs_to :alert
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :level, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
   validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :alert, presence: true
   # ]VALIDATORS]
-  belongs_to :alert
 end

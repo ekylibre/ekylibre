@@ -845,6 +845,7 @@
         <page to="backend/sensors#update"/>
         <page to="backend/sensors#list_analyses"/>
         <page to="backend/sensors#retrieve"/>
+        <page to="backend/sensors#last_locations"/>
         <page to="backend/supervisions#index"/>
         <page to="backend/supervisions#create"/>
         <page to="backend/supervisions#destroy"/>
@@ -1809,10 +1810,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="sensors">
-        <page to="backend/sensors#last_locations"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
