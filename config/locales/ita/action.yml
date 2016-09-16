@@ -854,6 +854,7 @@ ita:
     company: "Società"
     complete: "Completare"
     # completed: "Completed"
+    # completely_filled: "Completed"
     conditions:
       filter_on_attribute_of_class: "Filtro su attributo della classe"
       special-subscriber: "Special-abbonato"

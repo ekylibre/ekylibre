@@ -974,6 +974,7 @@ fra:
     complements: "Champs personnalisés" #?
     complete: "Compléter"
     completed: "Terminées"
+    completely_filled: "Complétée"
     component: "Composant" #?
     component_name: "Nom du composant" #?
     components: "Composants" #?

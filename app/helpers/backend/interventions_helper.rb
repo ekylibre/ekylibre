@@ -7,6 +7,11 @@ module Backend
         can_select = intervention.state != :validated
         colors = []
         task_datas = []
+        text_icon = nil
+
+        if intervention.completely_filled?
+          text_icon = 'check'
+        end
 
         intervention.activity_productions.find_each do |activity_production|
           activity_color = activity_production.activity.color
@@ -42,7 +47,8 @@ module Backend
 
         intervention_datas = { id: intervention.id, name: intervention.name }
 
-        tasks << column.task([{ text: intervention_datas[:name] }], task_datas, [], can_select, colors,
+        tasks << column.task([{ text: intervention_datas[:name], icon: text_icon, icon_class: "completely_filled" }],
+                             task_datas, [], can_select, colors,
                              params: { class: '', data: { intervention: intervention_datas.to_json } })
       end
 

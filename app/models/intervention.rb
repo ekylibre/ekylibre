@@ -331,6 +331,16 @@ class Intervention < Ekylibre::Record::Base
     working_duration.in(:second).convert(unit).round(2).l
   end
 
+  def completely_filled?
+
+    reference_names = parameters.pluck(:reference_name).uniq
+    reference_names = reference_names.map { |name| name.to_sym }
+    parameters_names = procedure.parameters.map(&:name).uniq
+
+    result = parameters_names - reference_names | reference_names - parameters_names
+    result.empty?
+  end
+
   # Update temporality informations in intervention
   def update_temporality
     reload unless new_record? || destroyed?

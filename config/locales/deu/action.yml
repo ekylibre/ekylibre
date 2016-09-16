@@ -788,6 +788,7 @@ deu:
     company: "Gesellschaft"
     complete: "Komplett"
     # completed: "Completed"
+    # completely_filled: "Completed"
     conditions:
       filter_on_attribute_of_class: "Filter auf Attribut der Klasse"
       special-subscriber: "Spezial-Teilnehmer"

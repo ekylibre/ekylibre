@@ -855,6 +855,7 @@ jpn:
     company: "社会"
     complete: "コンプリート"
     # completed: "Completed"
+    # completely_filled: "Completed"
     conditions:
       filter_on_attribute_of_class: "クラスの属性にフィルター"
       special-subscriber: "特別加入者"

@@ -120,6 +120,14 @@ $preview-modal-height: 80vh;
 
   .task {
 
+    .completely_filled {
+      margin-left: round($default-gap * 1.4);
+      color: $success-color;
+      font-size: $fs-large;
+      min-width: initial;
+      line-height: initial;
+    }
+
     &-data.doers {
       background-color: $darkened-blue-grey;
     }

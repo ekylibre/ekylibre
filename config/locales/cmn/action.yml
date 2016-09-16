@@ -788,6 +788,7 @@ cmn:
     company: "社会"
     complete: "完成"
     # completed: "Completed"
+    # completely_filled: "Completed"
     conditions:
       filter_on_attribute_of_class: "在类的属性过滤器"
       special-subscriber: "特殊用户"

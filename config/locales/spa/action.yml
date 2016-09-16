@@ -883,6 +883,7 @@ spa:
     company: "Sociedad"
     complete: "Completar"
     # completed: "Completed"
+    # completely_filled: "Completed"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"

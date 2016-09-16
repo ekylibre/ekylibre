@@ -964,6 +964,7 @@ eng:
     company: "Society" #?
     complete: "Complete"
     completed: "Completed"
+    completely_filled: "Completed" #?
     # components: "Components"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"

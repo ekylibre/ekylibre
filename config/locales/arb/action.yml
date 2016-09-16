@@ -1098,6 +1098,7 @@ arb:
     company: "المجتمع"
     complete: "كامل"
     # completed: "Completed"
+    # completely_filled: "Completed"
     components: "العناصر" #?
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
