@@ -455,6 +455,13 @@
     background: white;
     border: none;
     .leaflet-popup-content {
+      .popup-header {
+        .popup-block-content{
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
       .popup-content, .popup-header, .popup-footer {
         padding: $default-gap 2*$default-gap;
       }

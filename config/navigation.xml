@@ -1809,6 +1809,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="sensors">
+        <page to="backend/sensors#last_locations"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

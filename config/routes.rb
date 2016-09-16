@@ -789,6 +789,7 @@ Rails.application.routes.draw do
       collection do
         get :models
         get :detail
+        get :last_locations
       end
       member do
         get :list_analyses

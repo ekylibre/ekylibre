@@ -1361,6 +1361,7 @@ ita:
     search: "Ricerca"
     search_placeholder: "Ricerca…"
     # section_x: "Section %{x}"
+    # see_more_details: "See more details"
     select_closure_date: "Scegli la data di chiusura"
     select_columns: "selezionare le colonne"
     select_date: "Seleziona la data"

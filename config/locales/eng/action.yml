@@ -615,6 +615,7 @@ eng:
       # detail: "Detail sensor: %{name}"
       edit: "Edit sensor: %{name}"
       index: "Sensors"
+      # last_locations: "Last locations sensor: %{name}"
       # models: "Models sensor: %{name}"
       new: "New sensor"
       # retrieve: "Retrieve sensor: %{name}"
@@ -728,6 +729,10 @@ eng:
     devise/unlocks:
       # new: "New unlock"
       # show: "Unlock: %{name}"
+    devise_invitable/registrations:
+      # cancel: "Cancel registration: %{name}"
+      # edit: "Edit registration: %{name}"
+      # new: "New registration"
     public:
       index: "Home"
   errors:
@@ -1467,6 +1472,7 @@ eng:
     search: "Search"
     search_placeholder: "Search…"
     section_x: "Section %{x}"
+    see_more_details: "See more details"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns"
     select_date: "Select date"
@@ -1932,6 +1938,7 @@ eng:
       incorporate: "Incorporate"
       index: "Index"
       invoice: "Invoice"
+      # last_locations: "Last locations"
       list: "List"
       load: "Load"
       # load_animals: "Load animals"

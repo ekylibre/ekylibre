@@ -1892,6 +1892,7 @@ arb:
     search_sales: "البحث عن طلبات البيع" #?
     second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
+    # see_more_details: "See more details"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
     select_area: "عنوان بريدي" #?
