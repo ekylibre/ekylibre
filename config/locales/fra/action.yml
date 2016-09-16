@@ -816,7 +816,7 @@ fra:
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
-    add_new_record: "Ajouter un nouveau enregistrement"
+    add_new_record: "Ajouter un nouvel enregistrement"
     add_participation: "Ajouter une participation"
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
