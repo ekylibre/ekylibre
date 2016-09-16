@@ -60,6 +60,7 @@ module Backend
     end
 
     list(conditions: purchases_conditions, joins: [:supplier, :affair], line_class: :status, order: { created_at: :desc, number: :desc }) do |t|
+      t.action :pay, on: :both, method: :post, if: :payable?
       t.action :edit
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
@@ -162,6 +163,39 @@ module Backend
       redirect_to action: :show, id: @purchase.id
     end
 
+    def pay
+      purchases = find_purchases
+      return unless purchases
+
+      unless purchases.all? { |purchase| purchase.order? || purchase.invoice? }
+        notify_error(:all_purchases_must_be_ordered_or_invoiced)
+        redirect_to(params[:redirect] || { action: :index })
+        return
+      end
+
+      cash_mode = OutgoingPaymentMode.sepa.first
+
+      unless purchases.all?(&:sepable?)
+        notify_error(:purchases_invalid_for_sepa)
+        redirect_to(params[:redirect] || { action: :index })
+        return
+      end
+
+      payments_list = OutgoingPaymentList.build_from_purchases(
+        purchases,
+        cash_mode,
+        current_user
+      )
+
+      if payments_list.save
+        raise
+        redirect_to(params[:redirect] || { action: :index })
+      else
+        notify_error(payments_list.errors.full_messages.join(', '))
+        redirect_to(params[:redirect] || { action: :index })
+      end
+    end
+
     def propose
       return unless @purchase = find_and_check
       @purchase.propose
@@ -183,6 +217,19 @@ module Backend
       return unless @purchase = find_and_check
       @purchase.refuse
       redirect_to action: :show, id: @purchase.id
+    end
+
+    protected
+
+    def find_purchases
+      purchase_ids = params[:id].split(',')
+      purchases = purchase_ids.map { |id| Purchase.find_by(id: id) }.compact
+      unless purchases.any?
+        notify_error :no_purchases_given
+        redirect_to(params[:redirect] || { action: :index })
+        return nil
+      end
+      purchases
     end
   end
 end

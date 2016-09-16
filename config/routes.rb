@@ -716,6 +716,7 @@ Rails.application.routes.draw do
         post :confirm
         post :correct
         post :invoice
+        post :pay
         post :propose
         post :propose_and_invoice
         post :refuse
