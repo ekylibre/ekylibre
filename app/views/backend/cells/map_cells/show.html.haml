@@ -5,6 +5,42 @@
 
 - if @campaigns && activity_productions.where.not(support_shape: nil).any?
   :ruby
+    sensor_data = []
+    Sensor.find_each.group_by(&:model_euid).each do |model, sensors|
+      items = sensors.map do |sensor|
+        if sensor.analyses.last && sensor.analyses.last.geolocation
+          analysis = sensor.analyses.last
+          popup_lines = analysis.items.map do |item|
+            value = item.value.is_a?(Measure) ? item.value.value.to_f.round : item.value
+            unit = item.value.is_a?(Measure) ? item.value.human_value_measure_unit_name : nil
+            { label: item.human_indicator_name, content: [value, unit].compact.join(" ") }
+          end
+
+          battery = sensor.battery_level
+          popup_lines << { label: sensor.human_attribute_name(:battery_level), content: battery.to_s } if battery.present?
+          transmission = sensor.last_transmission_at
+          popup_lines << { label: sensor.human_attribute_name(:last_transmission_at), content: transmission.localize } if transmission.present?
+
+          bottom_line = ""
+          bottom_line << "<span>#{link_to(:see_more_details.tl, sensor.partner_url)}</span>" if sensor.partner_url.present?
+          bottom_line << "<i class='icon icon-battery-alert' style='color: red;'></i>" if sensor.alert_on? "battery_life"
+          bottom_line << "<i class='icon icon-portable-wifi-off' style='color: red;'></i>" if sensor.alert_on? "lost_connection"
+          popup_lines << ("<div style='display: flex; justify-content: space-between'>"+bottom_line+"</div>").html_safe
+          header_content = "<span class='sensor-name'>#{sensor.name}</span>#{lights(sensor.alert_status)}".html_safe
+          {
+            sensor_id: sensor.id,
+            name: sensor.name,
+            shape: analysis.geolocation,
+            shape_color: '#'+Digest::MD5.hexdigest(model)[0, 6].upcase,
+            group: model.camelize,
+            popup: {header: header_content, content: popup_lines }
+          }
+        end
+      end
+
+      sensor_data += (items || []).compact
+    end
+
     activity_productions.of_campaign(@campaigns).find_each do |support|
       next unless support.support_shape
       popup_content = []
@@ -126,7 +162,7 @@
 - if data.empty?
   .placeholding-message= :no_production_defined_for_current_campaign.tn
 - else
-  = visualization do |v|
+  = visualization({}, { class: "refresh-locations" }) do |v|
     - v.serie :main, data
     - if params[:visualization] == "nitrogen_footprint"
       - v.choropleth :interventions_count, :main
@@ -144,6 +180,11 @@
       - v.choropleth :input_cost, :main, stop_color: "#1122DD"
       - v.choropleth :time_cost, :main, stop_color: "#E77000"
       - v.categories :activity, :main
+
+    - unless sensor_data.blank?
+      - v.serie :sensor_data, sensor_data
+      - v.point_group :sensors, :sensor_data
+
     - v.control :zoom
     - v.control :scale
     - v.control :fullscreen

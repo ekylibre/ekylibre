@@ -10,6 +10,7 @@
 #= require visualization/path
 #= require visualization/paths
 #= require visualization/points
+#= require visualization/point_group
 #= require visualization/simple
 
 ((V, $) ->
@@ -140,6 +141,14 @@
           fill: true
           fillOpacity: 1
           radius: 5
+        point_group:
+          stroke: true
+          color: "#333333"
+          weight: 2
+          opacity: 1
+          fill: true
+          fillOpacity: 1
+          radius: 5
       map:
         maxZoom: 25
         minZoom:2
@@ -161,6 +170,7 @@
       $.extend(true, @options, @element.data("visualization"))
       @mapElement = $("<div>", class: "map").insertAfter(@element)
       @map = L.map(@mapElement[0], @options.map)
+      @layers = []
 
       if @options.map.setDefaultBackground
         opts = {}
@@ -198,6 +208,9 @@
     rebuild: ->
       this._destroy()
       this._create()
+
+    layrs: ->
+      return @layers
 
     mappo: ->
       return @map
@@ -311,6 +324,7 @@
           # Add layer overlay
           overlayLayer = L.layerGroup(layerGroup)
           overlayLayer.name = layer.name
+          @layers.push layer
           layer.overlay = overlays[layer.label] = overlayLayer
           @map.addLayer(overlayLayer)
           @layersScheduler.insert overlayLayer._leaflet_id
@@ -397,7 +411,41 @@
   $.loadVisualizations = ->
     $("*[data-visualization]").each ->
       $(this).visualization()
+    $(".refresh-locations[data-visualization]").each ->
+      refreshSensors($(this))
     return
+
+  # Needed to easily write setTimeout in CoffeeScript
+  delay = (time, method) -> setTimeout method, time
+
+  refreshSensors = (mapElement) ->
+    console.log "Test"
+    unless mapElement.data("refreshTimeout")?
+      console.log "Setting timeout"
+      timeoutId = delay 10000, -> updateSensorLocations(mapElement)
+      mapElement.data("refreshTimeout", timeoutId)
+
+  updateSensorLocations = (mapElement) ->
+    sensorLayer = $(mapElement.visualization("layrs")).filter(-> this.name == "sensors")[0]
+    layers = sensorLayer.overlay._layers
+    layer_keys = Object.keys(sensorLayer.overlay._layers)
+    marker_keys = $(layer_keys).filter (index) -> layers[layer_keys[index]].sensorId
+    shadow_keys = $(layer_keys).filter (index) -> layers[layer_keys[index]].markerSensorId
+    markers = $.map marker_keys, (element, index) -> layers[element]
+    shadows = $.map shadow_keys, (element, index) -> layers[element]
+    $.get "/backend/sensors/last_locations", (data) ->
+      $(Object.keys(data)).each (index, sensorId) ->
+        marker = (marker for marker in markers when marker.sensorId == parseInt(sensorId))[0]
+        shadow = (shadow for shadow in shadows when shadow.markerSensorId == parseInt(sensorId))[0]
+        newPos = new L.LatLng(data[sensorId].coordinates[1], data[sensorId].coordinates[0])
+        if marker? && shadow?
+          unless marker.getLatLng().equals(newPos)
+            marker.setLatLng(newPos)
+            shadow.setLatLng(newPos)
+    console.log "Updated markers positions"
+    timeoutId = delay 10000, -> updateSensorLocations(mapElement)
+    clearTimeout mapElement.data("refreshTimeout")
+    mapElement.data("refreshTimeout", timeoutId)
 
   $(document).ready $.loadVisualizations
   $(document).on "page:load cocoon:after-insert cell:load", $.loadVisualizations

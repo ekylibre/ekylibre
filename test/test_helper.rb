@@ -131,6 +131,23 @@ module ActiveSupport
       #     end
     end
   end
+
+  def omniauth_mock(uid: '123',
+                    email: 'john.doe@ekylibre.org',
+                    first_name: 'John',
+                    last_name: 'Doe')
+
+    OmniAuth.config.mock_auth[:ekylibre] = OmniAuth::AuthHash.new(
+      provider: 'ekylibre',
+      uid: uid,
+      info:
+      {
+        email: email,
+        first_name: first_name,
+        last_name: last_name
+      }
+    )
+  end
 end
 class HashCollector
   def initialize
@@ -199,6 +216,7 @@ module ActionController
           attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if do |c|
             [:depth, :lft, :rgt].include?(c)
           end
+
           attributes += options.delete(:other_attributes) || []
           attributes = ('{' + attributes.map(&:to_sym).uniq.collect do |a|
                                 if file_columns[a]
@@ -647,5 +665,27 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     page.execute_script script
     wait_for_ajax
     shoot_screen "#{options[:name]}/unroll-after" if options[:name]
+  end
+
+  def create_invitation(first_name: 'Robert',
+                        last_name: 'Tee',
+                        email: 'invitee@ekylibre.org')
+    login_with_user
+    visit('/backend/invitations/new')
+    fill_in('user[first_name]', with: first_name)
+    fill_in('user[last_name]', with: last_name)
+    fill_in('user[email]', with: email)
+    click_on(:create.tl)
+    js_logout
+  end
+
+  def js_logout
+    script = "$('a.signout').click()"
+    execute_script(script)
+  end
+
+  def find_accept_invitation_path
+    mail_body = ActionMailer::Base.deliveries.last.body.to_s
+    URI(URI.extract(mail_body).first).request_uri
   end
 end

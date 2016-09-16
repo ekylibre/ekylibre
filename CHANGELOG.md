@@ -1,5 +1,32 @@
 # Change Log
 
+## [2.5.3](https://github.com/ekylibre/ekylibre/tree/2.5.3) (2016-09-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.2...2.5.3)
+
+## [2.5.2](https://github.com/ekylibre/ekylibre/tree/2.5.2) (2016-09-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.1...2.5.2)
+
+**Implemented enhancements:**
+
+- Record a repair of a component of an equipment without input in an equipment\_maintenance intervention [\#1038](https://github.com/ekylibre/ekylibre/pull/1038) ([burisu](https://github.com/burisu))
+
+**Fixed bugs:**
+
+- New bug on Integrations assets due to different conf data between production and development [\#1081](https://github.com/ekylibre/ekylibre/issues/1081)
+- display problem in the recording of a parcel [\#1079](https://github.com/ekylibre/ekylibre/issues/1079)
+
+## [2.5.1](https://github.com/ekylibre/ekylibre/tree/2.5.1) (2016-09-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.0...2.5.1)
+
+**Implemented enhancements:**
+
+- Rename "work" in equipment\_maintenance procedure [\#1050](https://github.com/ekylibre/ekylibre/issues/1050)
+
+**Fixed bugs:**
+
+- Logging fails due to unknown method ip\_address on ActionDispatch::Request [\#1078](https://github.com/ekylibre/ekylibre/issues/1078)
+- Cannot go on Integrations index [\#1077](https://github.com/ekylibre/ekylibre/issues/1077)
+
 ## [2.5.0](https://github.com/ekylibre/ekylibre/tree/2.5.0) (2016-09-09)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.4.1...2.5.0)
 
@@ -370,7 +397,6 @@
 - Subsoiling : crop target is not available [\#760](https://github.com/ekylibre/ekylibre/issues/760)
 - Error on display of map at creation of a new intervention [\#759](https://github.com/ekylibre/ekylibre/issues/759)
 - Unchecked indicator's field is still visible in variant product [\#754](https://github.com/ekylibre/ekylibre/issues/754)
-- Installations are not displayed in the dropdowwn list "container" [\#752](https://github.com/ekylibre/ekylibre/issues/752)
 - Update the container of an equipement is impossible [\#751](https://github.com/ekylibre/ekylibre/issues/751)
 - Bad timing on matter tracking \(stocks\) [\#749](https://github.com/ekylibre/ekylibre/issues/749)
 - Fertilization : crop target is not available [\#748](https://github.com/ekylibre/ekylibre/issues/748)

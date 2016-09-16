@@ -631,6 +631,60 @@ affairs:
   updater_id:
     type: integer
     references: user
+alert_phases:
+  alert_id:
+    type: integer
+    references: alert
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  level:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  started_at:
+    type: datetime
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+alerts:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+    required: true
+  sensor_id:
+    type: integer
+    references: sensor
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 analyses:
   analysed_at:
     type: datetime
@@ -2994,6 +3048,33 @@ integrations:
   updater_id:
     type: integer
     references: user
+intervention_labellings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+    required: true
+  label_id:
+    type: integer
+    references: label
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_parameter_readings:
   absolute_measure_value_unit:
     type: string
@@ -3667,6 +3748,31 @@ journals:
     type: boolean
     required: true
     default: false
+labels:
+  color:
+    type: string
+    required: true
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  name:
+    type: string
+    required: true
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 listing_node_items:
   created_at:
     type: datetime
@@ -4771,6 +4877,33 @@ product_enjoyments:
     type: datetime
   stopped_at:
     type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
+product_labellings:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  label_id:
+    type: integer
+    references: label
+    required: true
+  lock_version:
+    type: integer
+    required: true
+  product_id:
+    type: integer
+    references: product
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -6141,6 +6274,10 @@ sensors:
     type: boolean
     required: true
     default: true
+  battery_level:
+    type: decimal
+    precision: 19
+    scale: 4
   created_at:
     type: datetime
     required: true
@@ -6161,6 +6298,8 @@ sensors:
   id:
     type: integer
     required: true
+  last_transmission_at:
+    type: datetime
   lock_version:
     type: integer
     required: true
@@ -6169,6 +6308,8 @@ sensors:
   name:
     type: string
     required: true
+  partner_url:
+    type: string
   product_id:
     type: integer
     references: product
@@ -6691,6 +6832,8 @@ users:
   person_id:
     type: integer
     references: entity
+  provider:
+    type: string
   remember_created_at:
     type: datetime
   reset_password_sent_at:
@@ -6709,6 +6852,8 @@ users:
   team_id:
     type: integer
     references: team
+  uid:
+    type: string
   unconfirmed_email:
     type: string
   unlock_token:

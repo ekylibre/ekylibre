@@ -19,6 +19,13 @@ Rails.application.routes.draw do
     get 'complete/:column', on: :collection, action: :autocomplete, as: :autocomplete
   end
 
+  concern :many do
+    collection do
+      get 'edit', action: :edit_many, as: :edit
+      patch '', action: :update_many
+    end
+  end
+
   concern :incorporate do
     collection do
       get :pick
@@ -56,16 +63,23 @@ Rails.application.routes.draw do
   end
 
   # No namespace because authentication is for all sides
-  devise_for :users, path: 'authentication', module: :authentication, skip: [:invitations, :registrations]
+  devise_for :users, path: '',
+                     module: :authentication,
+                     skip: [:invitations, :registrations],
+                     path_names: {
+                       sign_in: 'sign-in',
+                       sign_out: 'sign-out',
+                       sign_up: 'sign-up'
+                     }
   as :user do
     # Invitations
-    get 'authentication/invitation/accept' => 'authentication/invitations#edit', as: :accept_user_invitation
-    put 'authentication/invitation' => 'authentication/invitations#update', as: :user_invitation
-    patch 'authentication/invitation' => 'authentication/invitations#update'
+    get 'invitation/accept' => 'authentication/invitations#edit', as: :accept_user_invitation
+    put 'invitation' => 'authentication/invitations#update', as: :user_invitation
+    patch 'invitation' => 'authentication/invitations#update'
 
     # Registrations
-    get 'authentication/sign_up' => 'authentication/registrations#new', as: :new_user_registration
-    post 'authentication' => 'authentication/registrations#create', as: :user_registration
+    get 'signup' => 'authentication/registrations#new', as: :new_user_registration
+    post 'signup' => 'authentication/registrations#create', as: :user_registration
   end
 
   # No '-' in API paths for now, only '_'
@@ -569,6 +583,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :labels, concerns: [:list, :unroll]
+
     resources :land_parcels, concerns: :products
 
     resources :listing_nodes
@@ -773,6 +789,7 @@ Rails.application.routes.draw do
       collection do
         get :models
         get :detail
+        get :last_locations
       end
       member do
         get :list_analyses
@@ -816,9 +833,8 @@ Rails.application.routes.draw do
         post :run
       end
     end
-    resources :target_distributions, concerns: [:list] do
+    resources :target_distributions, concerns: [:list, :many], path: 'target-distributions' do
       collection do
-        get :distribute
         get :list_intervention_product_parameters
       end
     end

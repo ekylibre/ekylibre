@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add pest-related indicators">
+  <item-creation item="indicators#daily_pest_count" datatype="integer"/>
+  <item-creation item="indicators#weekly_pest_count" datatype="integer"/>
+</migration>
