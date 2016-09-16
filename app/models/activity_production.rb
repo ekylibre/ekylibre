@@ -158,7 +158,7 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
       if plant_farming?
-        initialize_plant_farming_support!
+        initialize_land_parcel_support!
       elsif animal_farming?
         initialize_animal_group_support!
       elsif tool_maintaining?
@@ -221,7 +221,6 @@ class ActivityProduction < Ekylibre::Record::Base
   def initialize_land_parcel_support!
     self.support_shape ||= cultivable_zone.shape if cultivable_zone
     unless support
-      create_land_parcel!
       if support_shape
         land_parcels = LandParcel.shape_matching(support_shape)
                                  .where.not(id: ActivityProduction.select(:support_id))
