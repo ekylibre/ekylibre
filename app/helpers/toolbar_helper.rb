@@ -55,15 +55,18 @@ module ToolbarHelper
     # controller. Option +:model+ permit to change it.
     def extract(options = {})
       return nil unless @template.current_user.can?(:execute, :listings)
-      options[:model] ||= @template.controller_name.to_s.singularize
-      listings = Listing.where(root_model: options[:model]).limit(1)
+      model = options[:model] || @template.controller_name.to_s.singularize
+      unless Listing.root_model.values.include?(model.to_s)
+        raise "Invalid model for listing: #{model}"
+      end
+      listings = Listing.where(root_model: model).order(:name)
       @template.dropdown_menu_button(:extract, force_menu: true) do |menu|
         listings.each do |listing|
           menu.item(listing.name, { controller: '/backend/listings', action: :extract, id: listing.id, format: :csv })
         end
-        if @template.current_user.can?(:write, :listings)
+        if options[:new].is_a?(TrueClass) && @template.current_user.can?(:write, :listings)
           menu.separator if listings.any?
-          menu.item(:new_listing.tl, { controller: '/backend/listings', action: :new, root_model: :entity })
+          menu.item(:new_listing.tl, { controller: '/backend/listings', action: :new, root_model: model })
         end
       end
     end
@@ -122,8 +125,16 @@ module ToolbarHelper
   def toolbar(options = {}, &block)
     return nil unless block_given?
 
-    html = capture(Toolbar.new(self), &block)
-
+    toolbar = Toolbar.new(self)
+    html = capture(toolbar, &block)
+    unless options[:extract].is_a?(FalseClass) || action_name != 'index'
+      model = controller_name.to_s.singularize
+      if Listing.root_model.values.include?(model.to_s)
+        html << capture(toolbar) do |t|
+          t.extract(options[:extract].is_a?(Hash) ? options[:extract] : {})
+        end
+      end
+    end
     unless options[:wrap].is_a?(FalseClass)
       html = content_tag(:div, html, class: 'toolbar' + (options[:class] ? ' ' << options[:class].to_s : ''))
     end
