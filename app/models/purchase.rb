@@ -265,4 +265,17 @@ class Purchase < Ekylibre::Record::Base
   def can_generate_parcel?
     items.any? && delivery_address && (order? || invoice?)
   end
+
+  def payable?
+    order? && sepable?
+  end
+
+  def sepable?
+    cash_mode = OutgoingPaymentMode.sepa.first
+
+    cash_mode &&
+      currency == cash_mode.cash.currency &&
+      payee.iban.present? &&
+      payee.bank_account_holder_name.present?
+  end
 end
