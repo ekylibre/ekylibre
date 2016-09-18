@@ -39,7 +39,6 @@ module Ekylibre
         # get usages of nearest existing account by number
         (0..max).to_a.reverse.each do |i|
           number = r.number[0, i]
-          puts number.inspect.yellow
           items = Nomen::Account.where(fr_pcga: number)
           parent_accounts = Account.find_with_regexp(number)
           break if parent_accounts.any?
