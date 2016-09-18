@@ -91,6 +91,7 @@ module Backend
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
       t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
     end
 
     list(:parcels, model: :parcels, children: :items, conditions: { purchase_id: 'params[:id]'.c }) do |t|

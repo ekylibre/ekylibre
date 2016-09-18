@@ -54,6 +54,7 @@
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
 #  state                     :string           not null
+#  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #

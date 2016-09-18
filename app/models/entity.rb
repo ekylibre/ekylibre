@@ -131,6 +131,7 @@ class Entity < Ekylibre::Record::Base
   has_one :default_mail_address, -> { where(by_default: true, canal: 'mail') }, class_name: 'EntityAddress'
   has_one :cash, class_name: 'Cash', foreign_key: :owner_id
   has_one :worker, foreign_key: :person_id
+  has_one :user, foreign_key: :person_id
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

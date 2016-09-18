@@ -39,6 +39,7 @@
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
 #  tax_id               :integer          not null
+#  team_id              :integer
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)   not null
 #  updated_at           :datetime         not null
@@ -51,6 +52,7 @@ class PurchaseItem < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :account
   belongs_to :activity_budget
+  belongs_to :team
   belongs_to :purchase, inverse_of: :items
   belongs_to :variant, class_name: 'ProductNatureVariant', inverse_of: :purchase_items
   belongs_to :tax

@@ -54,6 +54,7 @@ module Backend
       t.column :absolute_debit,  currency: :absolute_currency, hidden: true
       t.column :absolute_credit, currency: :absolute_currency, hidden: true
       t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
     end
 
     def new

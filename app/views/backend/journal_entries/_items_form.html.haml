@@ -3,6 +3,7 @@
     = field :exchange_rate_from_x_to_y.tl(x: @journal.currency, y: @financial_year.currency), text_field(:journal_entry, :real_currency_rate)
 
 - budget_size = budget_columns_count
+- team_size = Team.count
 
 .active-list
   %table.list
@@ -13,6 +14,8 @@
         %th= JournalEntryItem.human_attribute_name(:account)
         - if budget_size > 0
           %th= JournalEntryItem.human_attribute_name(:activity_budget)
+        - if team_size > 0
+          %th= JournalEntryItem.human_attribute_name(:team)
         %th{colspan: 2}= JournalEntryItem.human_attribute_name(:debit)
         %th{colspan: 2}= JournalEntryItem.human_attribute_name(:credit)
         %th.act

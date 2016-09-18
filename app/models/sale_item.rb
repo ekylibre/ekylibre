@@ -40,6 +40,7 @@
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
 #  sale_id              :integer          not null
 #  tax_id               :integer
+#  team_id              :integer
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)
 #  updated_at           :datetime         not null
@@ -53,6 +54,7 @@ class SaleItem < Ekylibre::Record::Base
   refers_to :currency
   belongs_to :account
   belongs_to :activity_budget
+  belongs_to :team
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: 'SaleItem'
   belongs_to :variant, class_name: 'ProductNatureVariant'
