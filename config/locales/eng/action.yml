@@ -1111,12 +1111,12 @@ eng:
     expenses_by_product_nature_category: "Expenses by product nature category" #?
     expired_since: "Expired since" #?
     expired_within: "Expired within" #?
-    export: "Export documents"
+    export: "Export documents" #?
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
     file_to_upload: "File to upload"
-    filter: "Filter"
+    filter: "Filter" #?
     final_balance: "Final balance"
     financials_assets: "Financials assets"
     finish: "Finish" #?
