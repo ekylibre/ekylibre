@@ -64,7 +64,7 @@ class ActivityProduction < Ekylibre::Record::Base
   has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :restrict_with_exception
   has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
-           inverse_of: :activity_production
+                                          inverse_of: :activity_production
   has_one :selected_manure_management_plan_zone, -> { selecteds },
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
   has_one :cap_land_parcel, class_name: 'CapLandParcel', inverse_of: :activity_production, foreign_key: :support_id
@@ -158,7 +158,7 @@ class ActivityProduction < Ekylibre::Record::Base
       self.size_unit_name = activity_size_unit_name
       self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
       if plant_farming?
-        initialize_plant_farming_support!
+        initialize_land_parcel_support!
       elsif animal_farming?
         initialize_animal_group_support!
       elsif tool_maintaining?
@@ -175,7 +175,7 @@ class ActivityProduction < Ekylibre::Record::Base
 
   validate do
     if plant_farming?
-      errors.add(:support_shape, :empty) if self.support_shape && self.support_shape.empty?
+      errors.add(:support_shape, :empty) if support_shape && support_shape.empty?
     end
     true
   end
@@ -221,11 +221,10 @@ class ActivityProduction < Ekylibre::Record::Base
   def initialize_land_parcel_support!
     self.support_shape ||= cultivable_zone.shape if cultivable_zone
     unless support
-      create_land_parcel!
       if support_shape
         land_parcels = LandParcel.shape_matching(support_shape)
-                       .where.not(id: ActivityProduction.select(:support_id))
-                       .order(:id)
+                                 .where.not(id: ActivityProduction.select(:support_id))
+                                 .order(:id)
         self.support = land_parcels.first if land_parcels.any?
       end
       self.support ||= LandParcel.new
@@ -266,8 +265,8 @@ class ActivityProduction < Ekylibre::Record::Base
       variant.save! if variant.new_record?
       support.variant = variant
     end
-    if self.activity.cultivation_variety
-      support.derivative_of ||= self.activity.cultivation_variety
+    if activity.cultivation_variety
+      support.derivative_of ||= activity.cultivation_variety
     end
     support.save!
     if size_value.nil?
@@ -299,8 +298,8 @@ class ActivityProduction < Ekylibre::Record::Base
       variant.save! if variant.new_record?
       support.variant = variant
     end
-    if self.activity.cultivation_variety
-      support.derivative_of ||= self.activity.cultivation_variety
+    if activity.cultivation_variety
+      support.derivative_of ||= activity.cultivation_variety
     end
     support.save!
     if size_value.nil?
@@ -311,9 +310,7 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   def add_target!(product, at = nil)
-    if distributions.where(target: product).any?
-      at ||= Time.now
-    end
+    at ||= Time.now if distributions.where(target: product).any?
     distributions.create!(target: product)
   end
 
@@ -554,17 +551,17 @@ class ActivityProduction < Ekylibre::Record::Base
   # Returns the yield of grain in mass per surface unit
   def grains_yield(mass_unit_name = :quintal, surface_unit_name = :hectare)
     harvest_yield(:grain, procedure_category: :harvesting,
-                  size_indicator_name: :net_mass,
-                  size_unit_name: mass_unit_name,
-                  surface_unit_name: surface_unit_name)
+                          size_indicator_name: :net_mass,
+                          size_unit_name: mass_unit_name,
+                          surface_unit_name: surface_unit_name)
   end
 
   # Returns the yield of grape in volume per surface unit
   def vine_yield(volume_unit_name = :hectoliter, surface_unit_name = :hectare)
     harvest_yield(:grape, procedure_category: :harvesting,
-                  size_indicator_name: :net_volume,
-                  size_unit_name: volume_unit_name,
-                  surface_unit_name: surface_unit_name)
+                          size_indicator_name: :net_volume,
+                          size_unit_name: volume_unit_name,
+                          surface_unit_name: surface_unit_name)
   end
 
   # TODO: Which yield is computed? usage is not very good to determine yields

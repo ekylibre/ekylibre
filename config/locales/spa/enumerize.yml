@@ -26,6 +26,7 @@ spa:
         none: "Ninguna"
     activity_production:
       support_nature:
+        # animal_group: "Animal group"
         border: "Frontera"
         # buffer: "Buffer"
         cultivation: "Cultivo"

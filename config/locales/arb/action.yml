@@ -1300,6 +1300,8 @@ arb:
     # expedier: "Expedier"
     expenses: "مصاريف"
     expenses_by_product_nature_category: "النفقات حسب الفئة طبيعة المنتج"
+    # expired_since: "Expired since"
+    # expired_within: "Expired within"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
@@ -1595,6 +1597,7 @@ arb:
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
     new_issue: "مشكلة جديدة"
+    new_listing: "قائمة جديدة"
     new_organization: "منظمة جديدة"
     new_outgoing_parcel: "الطرد الصادر الجديد"
     new_payment: "تسجيل دفعة جديدة" #?
@@ -1661,6 +1664,7 @@ arb:
     operation_use_create: "اضافة مادة" #?
     operations: "عمليات"
     options: "خيارات"
+    or: "أو"
     order_amount_with_taxes: "قيمة الطلب مع الضرائب" #?
     order_print: "طباعة الطلب" #?
     organic_matter_concentration: "تركيز المواد العضوية"
@@ -1891,6 +1895,7 @@ arb:
     search_sales: "البحث عن طلبات البيع" #?
     second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
+    see_more_details: "مشاهدة مزيد من التفاصيل"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
     select_area: "عنوان بريدي" #?
@@ -1950,6 +1955,7 @@ arb:
     string_case: "خيارات للنص" #?
     subject: "الموضوع"
     submit: "ارسال"
+    # subscribed_on: "Subscribed on"
     subscriber_period: "تم التسجيل في %{subscribed_at}"
     subscriber_quantity: "عدد المشتركيين %{subscribed_at}"
     subscription_create: "اضافة اشتراك" #?

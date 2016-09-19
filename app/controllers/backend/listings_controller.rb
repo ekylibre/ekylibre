@@ -70,12 +70,12 @@ module Backend
     end
 
     def new
-      @listing = Listing.new
+      @listing = Listing.new root_model: params[:root_model], name: params[:name]
       # render_restfully_form
     end
 
     def create
-      @listing = Listing.new listing_params
+      @listing = Listing.new permitted_params
       return if save_and_redirect(@listing, url: { action: :edit, id: 'id'.c })
       # render_restfully_form
     end
@@ -88,7 +88,7 @@ module Backend
 
     def update
       return unless @listing = find_and_check
-      @listing.attributes = listing_params
+      @listing.attributes = permitted_params
       return if save_and_redirect(@listing, url: { action: :edit, id: 'id'.c })
       t3e @listing.attributes
       # render_restfully_form
@@ -162,7 +162,7 @@ module Backend
 
     protected
 
-    def listing_params
+    def permitted_params
       params.require(:listing).permit!
     end
   end

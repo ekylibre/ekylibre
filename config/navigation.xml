@@ -9,7 +9,7 @@
         <page to="backend/entities#autocomplete"/>
         <page to="backend/entities#destroy"/>
         <page to="backend/entities#edit"/>
-        <page to="backend/entities#export"/>
+        <page to="backend/entities#export" nonexistent="true"/>
         <page to="backend/entities#import"/>
         <page to="backend/entities#list"/>
         <page to="backend/entities#list_event_participations"/>
@@ -846,6 +846,7 @@
         <page to="backend/sensors#update"/>
         <page to="backend/sensors#list_analyses"/>
         <page to="backend/sensors#retrieve"/>
+        <page to="backend/sensors#last_locations"/>
         <page to="backend/supervisions#index"/>
         <page to="backend/supervisions#create"/>
         <page to="backend/supervisions#destroy"/>
@@ -1577,6 +1578,15 @@
         <page to="authentication/sessions#create"/>
         <page to="authentication/sessions#destroy"/>
         <page to="authentication/sessions#new"/>
+      </item>
+      <item name="omniauth_callbacks">
+        <page to="authentication/omniauth_callbacks#ekylibre"/>
+        <page to="authentication/omniauth_callbacks#failure"/>
+        <page to="authentication/omniauth_callbacks#passthru"/>
+      </item>
+      <item name="omniauth_callbacks">
+        <page to="devise/omniauth_callbacks#failure"/>
+        <page to="devise/omniauth_callbacks#passthru"/>
       </item>
       <item name="confirmations">
         <page to="devise/confirmations#create"/>

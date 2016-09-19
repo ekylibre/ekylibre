@@ -1053,6 +1053,8 @@ spa:
     expedier: "Expédier"
     expenses: "Gastos"
     expenses_by_product_nature_category: "Los gastos por categoría de productos naturaleza"
+    # expired_since: "Expired since"
+    # expired_within: "Expired within"
     export: "Exportación de un fichero de salvaguardia"
     field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
@@ -1288,6 +1290,7 @@ spa:
     new_group: "Nuevo grupo"
     new_incoming_parcel: "Nueva parcela entrante"
     new_issue: "Nueva edición"
+    new_listing: "Nuevo listado"
     new_organization: "Nueva organización"
     new_outgoing_parcel: "Nueva parcela saliente"
     new_production: "Nueva producción"
@@ -1330,6 +1333,7 @@ spa:
     # operating_profit: "Operating profit %{financial_year}"
     operations: "Operaciones"
     options: "Opciones"
+    or: "O"
     organic_matter_concentration: "Concentración de materia orgánica"
     original_component: "Original"
     other_assessable_operations: "Autras operaciones imponibles" #?
@@ -1512,6 +1516,7 @@ spa:
     search: "buscars piezas/escrituras"
     search_placeholder: "Buscar…"
     # section_x: "Section %{x}"
+    see_more_details: "Ver más detalles"
     select_account_client: "Cuentos a marcar con letras" #?
     select_account_supplier: "Cuento a marcar con letra" #?
     select_building: "Escoger un lugar de deposito" #?
@@ -1564,6 +1569,7 @@ spa:
     storage: "Almacenamiento"
     subject: "Tema"
     submit: "Enviar"
+    # subscribed_on: "Subscribed on"
     # subscriber_period: "Subscribed on %{subscribed_at}"
     # subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     subscription_nature: "Tipo de suscripción"

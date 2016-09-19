@@ -816,7 +816,7 @@ fra:
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
-    add_new_record: "Ajouter un nouveau enregistrement"
+    add_new_record: "Ajouter un nouvel enregistrement"
     add_participation: "Ajouter une participation"
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
@@ -1168,6 +1168,8 @@ fra:
     expense_chart: "Évolution des dépenses" #?
     expenses: "Dépenses"
     expenses_by_product_nature_category: "Achats par catégories de produit"
+    expired_since: "Expiré depuis plus de"
+    expired_within: "Expiré dans moins de"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
@@ -1458,6 +1460,7 @@ fra:
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
     new_issue: "Nouvel incident"
+    new_listing: "Nouvelle extraction"
     new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?
     new_outgoing_parcel: "Nouveau colis sortant"
@@ -1523,6 +1526,7 @@ fra:
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
     options: "Options"
+    or: "Ou"
     order: "Commande" #?
     order_amount_with_taxes: "Montant de la commande" #?
     order_print: "Imprimer la commande" #?
@@ -1767,6 +1771,7 @@ fra:
     second_building_name: "Entrée de" #?
     second_contact: "Adresse secondaire" #?
     section_x: "%{section} %{x}"
+    see_more_details: "Voir plus de détails"
     select_account_client: "Compte à lettrer" #?
     select_account_supplier: "Compte à lettrer" #?
     select_area: "Zone postale" #?
@@ -1832,6 +1837,7 @@ fra:
     string_case: "Options pour le texte" #?
     subject: "Sujet"
     submit: "Envoyer"
+    subscribed_on: "Abonné au"
     subscriber_period: "Abonné(e) le %{subscribed_at}"
     subscriber_quantity: "Abonné(e) au numéro %{subscribed_at}"
     subscription_nature: "Type d’abonnement"

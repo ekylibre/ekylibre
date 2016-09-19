@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910200730) do
+ActiveRecord::Schema.define(version: 20160915094302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -333,6 +333,39 @@ ActiveRecord::Schema.define(version: 20160910200730) do
   add_index "affairs", ["third_id"], name: "index_affairs_on_third_id", using: :btree
   add_index "affairs", ["updated_at"], name: "index_affairs_on_updated_at", using: :btree
   add_index "affairs", ["updater_id"], name: "index_affairs_on_updater_id", using: :btree
+
+  create_table "alert_phases", force: :cascade do |t|
+    t.integer  "alert_id",                 null: false
+    t.datetime "started_at",               null: false
+    t.integer  "level",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "alert_phases", ["alert_id"], name: "index_alert_phases_on_alert_id", using: :btree
+  add_index "alert_phases", ["created_at"], name: "index_alert_phases_on_created_at", using: :btree
+  add_index "alert_phases", ["creator_id"], name: "index_alert_phases_on_creator_id", using: :btree
+  add_index "alert_phases", ["updated_at"], name: "index_alert_phases_on_updated_at", using: :btree
+  add_index "alert_phases", ["updater_id"], name: "index_alert_phases_on_updater_id", using: :btree
+
+  create_table "alerts", force: :cascade do |t|
+    t.integer  "sensor_id"
+    t.string   "nature",                   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "alerts", ["created_at"], name: "index_alerts_on_created_at", using: :btree
+  add_index "alerts", ["creator_id"], name: "index_alerts_on_creator_id", using: :btree
+  add_index "alerts", ["sensor_id"], name: "index_alerts_on_sensor_id", using: :btree
+  add_index "alerts", ["updated_at"], name: "index_alerts_on_updated_at", using: :btree
+  add_index "alerts", ["updater_id"], name: "index_alerts_on_updater_id", using: :btree
 
   create_table "analyses", force: :cascade do |t|
     t.string   "number",                                                                           null: false
@@ -3257,21 +3290,24 @@ ActiveRecord::Schema.define(version: 20160910200730) do
   create_table "sensors", force: :cascade do |t|
     t.string   "vendor_euid"
     t.string   "model_euid"
-    t.string   "name",                              null: false
-    t.string   "retrieval_mode",                    null: false
+    t.string   "name",                                                          null: false
+    t.string   "retrieval_mode",                                                null: false
     t.json     "access_parameters"
     t.integer  "product_id"
-    t.boolean  "embedded",          default: false, null: false
+    t.boolean  "embedded",                                      default: false, null: false
     t.integer  "host_id"
-    t.boolean  "active",            default: true,  null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.boolean  "active",                                        default: true,  null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0,     null: false
+    t.integer  "lock_version",                                  default: 0,     null: false
     t.string   "token"
     t.jsonb    "custom_fields"
     t.string   "euid"
+    t.string   "partner_url"
+    t.decimal  "battery_level",        precision: 19, scale: 4
+    t.datetime "last_transmission_at"
   end
 
   add_index "sensors", ["created_at"], name: "index_sensors_on_created_at", using: :btree
@@ -3570,6 +3606,8 @@ ActiveRecord::Schema.define(version: 20160910200730) do
     t.integer  "invited_by_id"
     t.integer  "invitations_count",                                               default: 0
     t.datetime "signup_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
@@ -3581,9 +3619,11 @@ ActiveRecord::Schema.define(version: 20160910200730) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
+  add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   add_index "users", ["updated_at"], name: "index_users_on_updated_at", using: :btree
   add_index "users", ["updater_id"], name: "index_users_on_updater_id", using: :btree
@@ -3603,4 +3643,6 @@ ActiveRecord::Schema.define(version: 20160910200730) do
   add_index "versions", ["creator_id"], name: "index_versions_on_creator_id", using: :btree
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "alert_phases", "alerts"
+  add_foreign_key "alerts", "sensors"
 end
