@@ -54,6 +54,7 @@
 #  real_currency_rate        :decimal(19, 10)  default(0.0), not null
 #  real_debit                :decimal(19, 4)   default(0.0), not null
 #  state                     :string           not null
+#  team_id                   :integer
 #  updated_at                :datetime         not null
 #  updater_id                :integer
 #
@@ -71,6 +72,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :financial_year
   belongs_to :activity_budget
+  belongs_to :team
   belongs_to :journal, inverse_of: :entry_items
   belongs_to :entry, class_name: 'JournalEntry', inverse_of: :items
   belongs_to :bank_statement

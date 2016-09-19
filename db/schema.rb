@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916220901) do
+ActiveRecord::Schema.define(version: 20160918152301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1905,6 +1905,7 @@ ActiveRecord::Schema.define(version: 20160916220901) do
     t.decimal  "real_balance",              precision: 19, scale: 4,  default: 0.0, null: false
     t.string   "bank_statement_letter"
     t.integer  "activity_budget_id"
+    t.integer  "team_id"
   end
 
   add_index "journal_entry_items", ["account_id"], name: "index_journal_entry_items_on_account_id", using: :btree
@@ -1918,6 +1919,7 @@ ActiveRecord::Schema.define(version: 20160916220901) do
   add_index "journal_entry_items", ["journal_id"], name: "index_journal_entry_items_on_journal_id", using: :btree
   add_index "journal_entry_items", ["letter"], name: "index_journal_entry_items_on_letter", using: :btree
   add_index "journal_entry_items", ["name"], name: "index_journal_entry_items_on_name", using: :btree
+  add_index "journal_entry_items", ["team_id"], name: "index_journal_entry_items_on_team_id", using: :btree
   add_index "journal_entry_items", ["updated_at"], name: "index_journal_entry_items_on_updated_at", using: :btree
   add_index "journal_entry_items", ["updater_id"], name: "index_journal_entry_items_on_updater_id", using: :btree
 
@@ -3021,6 +3023,7 @@ ActiveRecord::Schema.define(version: 20160916220901) do
     t.uuid     "uuid"
     t.integer  "initial_movement_id"
     t.jsonb    "custom_fields"
+    t.integer  "team_id"
   end
 
   add_index "products", ["address_id"], name: "index_products_on_address_id", using: :btree
@@ -3039,6 +3042,7 @@ ActiveRecord::Schema.define(version: 20160916220901) do
   add_index "products", ["nature_id"], name: "index_products_on_nature_id", using: :btree
   add_index "products", ["number"], name: "index_products_on_number", unique: true, using: :btree
   add_index "products", ["parent_id"], name: "index_products_on_parent_id", using: :btree
+  add_index "products", ["team_id"], name: "index_products_on_team_id", using: :btree
   add_index "products", ["tracking_id"], name: "index_products_on_tracking_id", using: :btree
   add_index "products", ["type"], name: "index_products_on_type", using: :btree
   add_index "products", ["updated_at"], name: "index_products_on_updated_at", using: :btree
@@ -3069,6 +3073,7 @@ ActiveRecord::Schema.define(version: 20160916220901) do
     t.boolean  "fixed",                                         default: false, null: false
     t.decimal  "reduction_percentage", precision: 19, scale: 4, default: 0.0,   null: false
     t.integer  "activity_budget_id"
+    t.integer  "team_id"
   end
 
   add_index "purchase_items", ["account_id"], name: "index_purchase_items_on_account_id", using: :btree
@@ -3077,6 +3082,7 @@ ActiveRecord::Schema.define(version: 20160916220901) do
   add_index "purchase_items", ["creator_id"], name: "index_purchase_items_on_creator_id", using: :btree
   add_index "purchase_items", ["purchase_id"], name: "index_purchase_items_on_purchase_id", using: :btree
   add_index "purchase_items", ["tax_id"], name: "index_purchase_items_on_tax_id", using: :btree
+  add_index "purchase_items", ["team_id"], name: "index_purchase_items_on_team_id", using: :btree
   add_index "purchase_items", ["updated_at"], name: "index_purchase_items_on_updated_at", using: :btree
   add_index "purchase_items", ["updater_id"], name: "index_purchase_items_on_updater_id", using: :btree
   add_index "purchase_items", ["variant_id"], name: "index_purchase_items_on_variant_id", using: :btree
@@ -3182,6 +3188,7 @@ ActiveRecord::Schema.define(version: 20160916220901) do
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "credited_quantity",    precision: 19, scale: 4
     t.integer  "activity_budget_id"
+    t.integer  "team_id"
   end
 
   add_index "sale_items", ["account_id"], name: "index_sale_items_on_account_id", using: :btree
@@ -3191,6 +3198,7 @@ ActiveRecord::Schema.define(version: 20160916220901) do
   add_index "sale_items", ["credited_item_id"], name: "index_sale_items_on_credited_item_id", using: :btree
   add_index "sale_items", ["sale_id"], name: "index_sale_items_on_sale_id", using: :btree
   add_index "sale_items", ["tax_id"], name: "index_sale_items_on_tax_id", using: :btree
+  add_index "sale_items", ["team_id"], name: "index_sale_items_on_team_id", using: :btree
   add_index "sale_items", ["updated_at"], name: "index_sale_items_on_updated_at", using: :btree
   add_index "sale_items", ["updater_id"], name: "index_sale_items_on_updater_id", using: :btree
   add_index "sale_items", ["variant_id"], name: "index_sale_items_on_variant_id", using: :btree

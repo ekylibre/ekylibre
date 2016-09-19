@@ -40,3 +40,7 @@
   - if current_user.can?(:read, :activities) && ActivityBudget.opened.any?
     %tr.tr-add-on
       %td{ colspan: 5 }= f.referenced_association(:activity_budget)
+
+  - if current_user.can?(:read, :teams) && Team.any?
+    %tr.tr-add-on
+      %td{ colspan: 5 }= f.referenced_association(:team)
