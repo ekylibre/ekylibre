@@ -544,5 +544,146 @@ class Intervention < Ekylibre::Record::Base
       result.delete_if { |_procedure, _relevance, arity| arity < maximum_arity } if options[:max_arity]
       result.sort_by { |_procedure, relevance, _arity| -relevance }[0..limit]
     end
+
+    def convert_to_purchase(interventions)
+      purchase = nil
+      transaction do
+        interventions = interventions
+                        .collect { |intv| (intv.is_a?(self) ? intv : find(intv)) }
+                        .sort { |a, b| a.stopped_at <=> b.stopped_at }
+        planned_at = interventions.last.stopped_at
+        owners = interventions.map(&:doers).map { |t| t.map(&:product).map(&:owner).compact }.flatten.uniq
+        supplier = owners.first unless owners.second.present?
+        unless nature = PurchaseNature.actives.first
+          unless journal = Journal.purchases.opened_at(planned_at).first
+            raise 'No purchase journal'
+          end
+          nature = PurchaseNature.new(
+            active: true,
+            currency: Preference[:currency],
+            with_accounting: true,
+            journal: journal,
+            by_default: true,
+            name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human)
+          )
+        end
+        purchase = nature.purchases.new(
+          supplier: supplier,
+          planned_at: planned_at,
+          delivery_address: supplier && supplier.default_mail_address,
+          description: %(#{Intervention.model_name.plural.tl}:
+\t- #{interventions.map(&:name).join("\n\t - ")})
+        )
+
+        # Adds items
+        interventions.each do |intervention|
+          hourly_params = {
+            catalog: Catalog.by_default!(:cost),
+            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+          }
+          components = {
+            doers:  hourly_params,
+            tools:  hourly_params,
+            inputs: {
+              catalog: Catalog.by_default!(:sale),
+              quantity_method: -> (item) { item.quantity }
+            }
+          }
+
+          components.each do |component, cost_params|
+            intervention.send(component).each do |item|
+              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              quantity = cost_params[:quantity_method].call(item).round(3)
+              purchase.items.new(
+                variant: item.variant,
+                unit_pretax_amount: catalog_item.pretax_amount.or_else(nil),
+                tax: catalog_item.reference_tax.or_else(nil),
+                quantity: quantity.value.to_f,
+                annotation: %(#{Intervention.model_name.human} '#{intervention.name}' > \
+#{Intervention.human_attribute_name(component).capitalize}
+\t- #{item.product.name} x #{quantity.l(precision: 2)})
+              )
+            end
+          end
+        end
+      end
+      purchase
+    end
+
+    def convert_to_sale(interventions)
+      sale = nil
+      transaction do
+        interventions = interventions
+                        .collect { |intv| (intv.is_a?(self) ? intv : find(intv)) }
+                        .sort { |a, b| a.stopped_at <=> b.stopped_at }
+        planned_at = interventions.last.stopped_at
+
+        owners = interventions.map do |intervention|
+          intervention.targets.map do |target|
+            case
+            when target.product.is_a?(LandParcel)
+              prod = target.activity_production
+              owner = prod && prod.cultivable_zone && prod.cultivable_zone.farmer
+            when target.product.is_a?(Equipment)
+              owner = target.product.owner
+            end
+            owner
+          end
+        end
+        owners = owners.flatten.uniq
+        client = owners.first unless owners.count > 1
+        unless nature = SaleNature.actives.first
+          unless journal = Journal.sales.opened_at(planned_at).first
+            raise 'No sale journal'
+          end
+          nature = SaleNature.new(
+            active: true,
+            currency: Preference[:currency],
+            with_accounting: true,
+            journal: journal,
+            by_default: true,
+            name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
+          )
+        end
+        sale = nature.sales.new(
+          client: client,
+          address: client && client.default_mail_address,
+          description: %(#{Intervention.model_name.plural.tl}:
+\t- #{interventions.map(&:name).join("\n\t - ")})
+        )
+        # Adds items
+        interventions.each do |intervention|
+          hourly_params = {
+            catalog: Catalog.by_default!(:cost),
+            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+          }
+          components = {
+            doers:  hourly_params,
+            tools:  hourly_params,
+            inputs: {
+              catalog: Catalog.by_default!(:sale),
+              quantity_method: -> (item) { item.quantity }
+            }
+          }
+
+          components.each do |component, cost_params|
+            intervention.send(component).each do |item|
+              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              quantity = cost_params[:quantity_method].call(item).round(3)
+              sale.items.new(
+                variant: item.variant,
+                unit_pretax_amount: catalog_item.pretax_amount.or_else(nil),
+                tax: catalog_item.reference_tax.or_else(nil),
+                quantity: quantity.value.to_f,
+                annotation: %(#{Intervention.model_name.human} '#{intervention.name}' > \
+#{Intervention.human_attribute_name(component).capitalize}
+\t- #{item.product.name} x #{quantity.l(precision: 2)})
+              )
+            end
+          end
+        end
+      end
+      sale
+    end
   end
 end

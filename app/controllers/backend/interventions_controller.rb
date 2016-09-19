@@ -204,13 +204,23 @@ module Backend
       render(locals: { cancel_url: { action: :index } })
     end
 
-    # TODO
     def sell
-      redirect_to action: :index
+      interventions = params[:id].split(',')
+      return unless interventions
+      if interventions
+        redirect_to new_backend_sale_path(intervention_ids: interventions)
+      else
+        redirect_to action: :index
+      end
     end
 
     def purchase
-      redirect_to action: :index
+      interventions = params[:id].split(',')
+      if interventions
+        redirect_to new_backend_purchase_path(intervention_ids: interventions)
+      else
+        redirect_to action: :index
+      end
     end
 
     # Computes impacts of a updated value in an intervention input context
@@ -240,6 +250,19 @@ module Backend
           format.json { render json: { errors: e.message }, status: 500 }
         end
       end
+    end
+
+    private
+
+    def find_interventions
+      intervention_ids = params[:id].split(',')
+      interventions = intervention_ids.map { |id| Intervention.find_by(id: id) }.compact
+      unless interventions.any?
+        notify_error :no_interventions_given
+        redirect_to(params[:redirect] || { action: :index })
+        return nil
+      end
+      interventions
     end
   end
 end
