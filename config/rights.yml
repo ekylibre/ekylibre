@@ -188,6 +188,7 @@ activities:
     - "backend/activities#unroll"
     - "backend/activity_budgets#index"
     - "backend/activity_budgets#show"
+    - "backend/activity_budgets#unroll"
     - "backend/activity_seasons#index"
     - "backend/activity_seasons#show"
     - "backend/activity_seasons#unroll"

@@ -598,6 +598,7 @@
         <page to="backend/activity_budgets#edit"/>
         <page to="backend/activity_budgets#new"/>
         <page to="backend/activity_budgets#show"/>
+        <page to="backend/activity_budgets#unroll"/>
         <page to="backend/activity_budgets#update"/>
         <page to="backend/activity_inspection_point_natures#autocomplete"/>
         <page to="backend/activity_seasons#index"/>
