@@ -11,9 +11,8 @@
         if sensor.analyses.last && sensor.analyses.last.geolocation
           analysis = sensor.analyses.last
           popup_lines = analysis.items.map do |item|
-            value = item.value.is_a?(Measure) ? item.value.value.to_f.round : item.value
-            unit = item.value.is_a?(Measure) ? item.value.human_value_measure_unit_name : nil
-            { label: item.human_indicator_name, content: [value, unit].compact.join(" ") }
+            next unless item.value.respond_to? :l
+            { label: item.human_indicator_name, content: item.value.l }
           end
 
           battery = sensor.battery_level
