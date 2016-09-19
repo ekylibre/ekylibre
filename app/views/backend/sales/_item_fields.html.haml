@@ -32,15 +32,12 @@
           %label.label-inline= :to.tl
           = s.input :stopped_on, wrapper: :nested, input_html: { class: 'subscription_stopped_on' }
 
-  - attrs = {}
-  - attrs[:style] = "display: none" if f.object.annotation.blank?
-  %tr.tr-add-on.annotate{attrs}
-    %td{ colspan: 5 }= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })
-
-  - if current_user.can?(:read, :activities) && ActivityBudget.opened.any?
-    %tr.tr-add-on
-      %td{ colspan: 5 }= f.referenced_association(:activity_budget)
-
-  - if current_user.can?(:read, :teams) && Team.any?
-    %tr.tr-add-on
-      %td{ colspan: 5 }= f.referenced_association(:team)
+  %tr.tr-add-on
+    %td{ colspan: 5 }
+      - attrs = {}
+      - attrs[:style] = "display: none" if f.object.annotation.blank?
+      .annotate{attrs}= f.input(:annotation, wrapper: :nested, input_html: { class: "annotation" })
+      - if current_user.can?(:read, :activities) && ActivityBudget.opened.any?
+        = f.referenced_association(:activity_budget)
+      - if current_user.can?(:read, :teams) && Team.any?
+        = f.referenced_association(:team)
