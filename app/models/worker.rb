@@ -75,9 +75,7 @@ class Worker < Product
   validates :person, presence: true
 
   before_validation do
-    if self.user && self.user.team
-      self.team_id = self.user.team_id
-    end
+    self.team_id = user.team_id if user && user.team
   end
 
   # Returns working duration from interventions
