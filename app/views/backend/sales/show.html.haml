@@ -10,7 +10,7 @@
   - if resource.invoice?
     = t.cancel(resource) if resource.cancellable?
   = t.edit resource if resource.draft?
-  = t.destroy
+  = t.destroy if resource.destroyable?
 
 = main_state_bar(resource)
 

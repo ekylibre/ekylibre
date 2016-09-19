@@ -105,8 +105,8 @@ class Subscription < Ekylibre::Record::Base
     errors.add(:address_id, :invalid) if address && !address.mail?
   end
 
-  protect on: :destroy do
-    sale_item
+  def destroyable_by_user?
+    !sale_item
   end
 
   def subscriber_name

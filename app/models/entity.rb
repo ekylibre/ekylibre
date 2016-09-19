@@ -473,5 +473,4 @@ class Entity < Ekylibre::Record::Base
     columns += CustomField.where("nature in ('string')").collect { |c| [CustomField.model_name.human + '/' + c.name, 'custom_field-id' + c.id.to_s] }.sort
     columns
   end
-
 end

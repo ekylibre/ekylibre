@@ -5,7 +5,7 @@
     = t.suspend resource, method: :post
   - elsif resource.suspended
     = t.takeover resource, method: :post
-  = t.destroy
+  = t.destroy if resource.destroyable_by_user?
 
 = main_informations do
   = infos do
