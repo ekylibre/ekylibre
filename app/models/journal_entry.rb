@@ -336,19 +336,19 @@ class JournalEntry < Ekylibre::Record::Base
   # Adds an entry_item with the minimum informations. It computes debit and credit with the "amount".
   # If the amount is negative, the amount is put in the other column (debit or credit). Example:
   #   entry.add_debit("blabla", account, -65) # will put +65 in +credit+ column
-  def add_debit(name, account, amount, activity_budget = nil, team = nil, options = {})
-    add!(name, account, amount, activity_budget, team, options)
+  def add_debit(name, account, amount, options = {})
+    add!(name, account, amount, options)
   end
 
   #
-  def add_credit(name, account, amount, activity_budget = nil, team = nil, options = {})
-    add!(name, account, amount, activity_budget, team, options.merge(credit: true))
+  def add_credit(name, account, amount, options = {})
+    add!(name, account, amount, options.merge(credit: true))
   end
 
   private
 
   #
-  def add!(name, account, amount, activity_budget, team, options = {})
+  def add!(name, account, amount, options = {})
     # return if amount == 0
     if name.size > 255
       omission = (options.delete(:omission) || '...').to_s
@@ -358,8 +358,8 @@ class JournalEntry < Ekylibre::Record::Base
     credit = !credit if amount < 0
     attributes = options.merge(name: name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
-    attributes[:activity_budget_id] = activity_budget.is_a?(Integer) ? activity_budget : activity_budget.id if activity_budget
-    attributes[:team_id] = team.is_a?(Integer) ? team : team.id if team
+    attributes[:activity_budget_id] = options[:activity_budget].id if options[:activity_budget]
+    attributes[:team_id] = options[:team].id if options[:team]
     # attributes[:real_currency] = self.journal.currency
     if credit
       attributes[:real_credit] = amount.abs

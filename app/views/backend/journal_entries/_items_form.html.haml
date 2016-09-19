@@ -16,13 +16,13 @@
           %th= JournalEntryItem.human_attribute_name(:activity_budget)
         - if team_size > 0
           %th= JournalEntryItem.human_attribute_name(:team)
-        %th{colspan: 2}= JournalEntryItem.human_attribute_name(:debit)
-        %th{colspan: 2}= JournalEntryItem.human_attribute_name(:credit)
+        %th{ colspan: 2 }= JournalEntryItem.human_attribute_name(:debit)
+        %th{ colspan: 2 }= JournalEntryItem.human_attribute_name(:credit)
         %th.act
 
     %tfoot
       %tr#total.total{data: {valid_if_equality_between: "#entry-real-debit, #entry-real-credit", submit_if_valid: false}}
-        %th{colspan: 2 + budget_size}
+        %th{ colspan: 2 + budget_size + team_size }
           = tool_to(:new.ta, {controller: :journal_entry_items, action: :new, printed_on: @journal_entry.printed_on, journal_id: @journal.id}, remote: true, tabindex: -1, method: :get, data: {update: "#items", update_at: :bottom, type: :html})
           %span= :total.tl
         %td#entry-real-debit.decimal{ data: {use: "input.real-debit", calculate_round: Nomen::Currency[@journal.currency].precision}}=  @journal_entry.real_debit
