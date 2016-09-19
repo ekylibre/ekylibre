@@ -60,7 +60,7 @@ module Backend
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
-      t.action :destroy, if: :aborted?
+      t.action :destroy, if: :destroyable?
       t.column :number, url: { action: :show }
       t.column :created_at
       t.column :invoiced_at

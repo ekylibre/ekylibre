@@ -199,6 +199,10 @@ class Sale < Ekylibre::Record::Base
     client.add_event(:sale_creation, updater.person) if updater && updater.person
   end
 
+  protect on: :destroy do
+    invoice? || order?
+  end
+
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
     b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice?)) do |entry|
