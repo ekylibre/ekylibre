@@ -1340,7 +1340,7 @@ fra:
     reference_number: "N°Référence"
     reference_tax: "Taxe de référence"
     reference_value: "Valeur de référence"
-    reflected: "Refléter les changements"
+    reflected: "Changements reflétés"
     reflected_at: "Reflété le"
     reflection_nodes: "Nœuds de réflection"
     reflections: "Réflexions"

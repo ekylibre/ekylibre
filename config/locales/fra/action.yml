@@ -816,7 +816,7 @@ fra:
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
-    add_new_record: "Ajouter un nouveau enregistrement"
+    add_new_record: "Ajouter un nouvel enregistrement"
     add_participation: "Ajouter une participation"
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
@@ -1168,6 +1168,8 @@ fra:
     expense_chart: "Évolution des dépenses" #?
     expenses: "Dépenses"
     expenses_by_product_nature_category: "Achats par catégories de produit"
+    expired_since: "Expiré depuis plus de"
+    expired_within: "Expiré dans moins de"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
@@ -1459,6 +1461,7 @@ fra:
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
     new_issue: "Nouvel incident"
+    new_listing: "Nouvelle extraction"
     new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?
     new_outgoing_parcel: "Nouveau colis sortant"
@@ -1836,6 +1839,7 @@ fra:
     string_case: "Options pour le texte" #?
     subject: "Sujet"
     submit: "Envoyer"
+    subscribed_on: "Abonné au"
     subscriber_period: "Abonné(e) le %{subscribed_at}"
     subscriber_quantity: "Abonné(e) au numéro %{subscribed_at}"
     subscription_nature: "Type d’abonnement"
@@ -2443,6 +2447,7 @@ fra:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
+    backend/activity_budgets: "%{activity_name} %{campaign_name}"
     backend/activity_inspection_point_natures: "%{activity_name} - %{quality_criterion_name}" #?
     backend/activity_productions: "%{activity_name} %{support_name} n°%{rank_number}"
     backend/animals: "%{name} ‒ %{work_number}"

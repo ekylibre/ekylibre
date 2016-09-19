@@ -51,7 +51,7 @@
 
 class ListingNode < Ekylibre::Record::Base
   acts_as_list scope: :listing
-  acts_as_nested_set
+  acts_as_nested_set scope: :listing
   attr_readonly :listing_id, :nature
   enumerize :nature, in: [:root, :column, :datetime, :custom, :boolean, :string, :numeric, :belongs_to, :has_many]
   belongs_to :listing, inverse_of: :nodes

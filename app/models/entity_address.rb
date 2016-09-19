@@ -77,7 +77,7 @@ class EntityAddress < Ekylibre::Record::Base
 
   # Use unscoped to get all historic
   default_scope -> { actives }
-  scope :actives, -> { where('deleted_at IS NULL').order(:coordinate) }
+  scope :actives, -> { where(deleted_at: nil).order(:coordinate) }
 
   # Defines test and scope methods for.all canals
   canal.values.each do |canal|

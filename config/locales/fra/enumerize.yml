@@ -26,7 +26,7 @@ fra:
         none: "Aucune"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "Groupe d’animaux"
         border: "Bordure"
         buffer: "Zone tampon"
         cultivation: "Culture"

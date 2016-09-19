@@ -202,7 +202,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :activity_budgets do
+    resources :activity_budgets, concerns: [:unroll] do
       member do
         post :duplicate
       end
@@ -403,7 +403,6 @@ Rails.application.routes.draw do
     resources :entities, concerns: [:autocomplete, :list, :unroll] do
       collection do
         match 'import', via: [:get, :post]
-        match 'export', via: [:get, :post]
         match 'merge',  via: [:get, :post]
       end
       member do
