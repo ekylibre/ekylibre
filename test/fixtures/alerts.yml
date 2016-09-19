@@ -31,11 +31,4 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-
-one:
-  sensor_id:
-  nature: MyString
-
-two:
-  sensor_id:
-  nature: MyString
+--- {}

@@ -20,16 +20,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: alert_phases
+# == Table: intervention_labellings
 #
-#  alert_id     :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  level        :integer          not null
-#  lock_version :integer          default(0), not null
-#  started_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  intervention_id :integer          not null
+#  label_id        :integer          not null
+#  lock_version    :integer          default(0), not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 --- {}

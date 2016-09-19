@@ -228,7 +228,7 @@ eng:
     backend/entities:
       # autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
-      export: "Export people"
+      export: "Export people" #?
       import: "Import people"
       index: "People"
       merge: "Merge two people"
@@ -884,7 +884,7 @@ eng:
     all: "All"
     all_accounts: "All accounts"
     all_columns: "All columns" #?
-    all_conditions: "All conditions"
+    all_conditions: "All conditions" #?!
     all_periods: "All financial years"
     amount: "Amount" #?
     amount_computed_from: "Amount computed from %{source}"
@@ -952,7 +952,7 @@ eng:
     centralized_account: "Centralized account %{name}"
     change_password: "Change password"
     chart: "Chart"
-    check: "Check"
+    check: "Check" #?
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -1022,7 +1022,7 @@ eng:
     # data_transmissions: "Data transmissions"
     # date: "Date"
     dates: "Select period start date and Period end date" #?
-    days: "Days" #?
+    days: "Days"
     deals: "Deals"
     debit: "Debit" #?
     debts_on_assets: "Debts on assets %{financial_year}"
@@ -1109,7 +1109,9 @@ eng:
     expedier: "Expedier"
     expenses: "Expenses"
     expenses_by_product_nature_category: "Expenses by product nature category" #?
-    export: "Export documents"
+    expired_since: "Expired since" #?
+    expired_within: "Expired within" #?
+    export: "Export documents" #?
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1296,6 +1298,7 @@ eng:
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
     new_issue: "New issue"
+    new_listing: "New listing"
     new_organization: "New organization"
     new_outgoing_parcel: "New outgoing parcel"
     new_production: "New production"
@@ -1326,7 +1329,7 @@ eng:
     number_of_cap_land_parcels: "Number of CAP land parcels"
     numbers: "Numbers" #?
     on_account: "On account" #?
-    one_condition: "One condition"
+    one_condition: "One condition" #??
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
     operating_margin: "Operating margin %{financial_year}"
@@ -1470,7 +1473,7 @@ eng:
     section_x: "Section %{x}"
     see_more_details: "See more details"
     select_closure_date: "Choose closing date"
-    select_columns: "Select columns"
+    select_columns: "Select columns" #??
     select_date: "Select date"
     select_date_generation: "Limit date for generation"
     select_file_to_upload: "Select file to upload"
@@ -1509,6 +1512,7 @@ eng:
     storage: "Storage" #?
     subject: "Subject"
     submit: "Submit" #?
+    subscribed_on: "Subscribed on" #?
     subscriber_period: "Subscribed on %{subscribed_at}"
     subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     subscription_nature: "Subscription type" #?
@@ -1923,7 +1927,7 @@ eng:
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
-      export: "Export"
+      export: "Export" #?
       extract: "Extract"
       # failure: "Failure"
       family: "Family"

@@ -403,7 +403,6 @@ Rails.application.routes.draw do
     resources :entities, concerns: [:autocomplete, :list, :unroll] do
       collection do
         match 'import', via: [:get, :post]
-        match 'export', via: [:get, :post]
         match 'merge',  via: [:get, :post]
       end
       member do
