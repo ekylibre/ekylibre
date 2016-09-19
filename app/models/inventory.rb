@@ -85,7 +85,7 @@ class Inventory < Ekylibre::Record::Base
         next unless items.first.storable? && variant.stock_account
         i = items.of_variant(variant)
         s = variant.stock_account
-        ms = variant.movement_stock_account
+        ms = variant.stock_movement_account
 
         # step 1 : neutralize last current stock in stock journal for current variant
         # by exchanging the current balance

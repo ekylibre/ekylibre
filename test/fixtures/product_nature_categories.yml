@@ -36,7 +36,6 @@
 #  fixed_asset_expenses_account_id     :integer
 #  id                                  :integer          not null, primary key
 #  lock_version                        :integer          default(0), not null
-#  movement_stock_account_id           :integer
 #  name                                :string           not null
 #  number                              :string           not null
 #  pictogram                           :string
@@ -46,6 +45,7 @@
 #  reference_name                      :string
 #  saleable                            :boolean          default(FALSE), not null
 #  stock_account_id                    :integer
+#  stock_movement_account_id           :integer
 #  storable                            :boolean          default(FALSE), not null
 #  subscribing                         :boolean          default(FALSE), not null
 #  updated_at                          :datetime         not null

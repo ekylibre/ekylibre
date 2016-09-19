@@ -30,16 +30,16 @@
 #  derivative_of             :string
 #  id                        :integer          not null, primary key
 #  lock_version              :integer          default(0), not null
-#  movement_stock_account_id :integer
 #  name                      :string
 #  nature_id                 :integer          not null
-#  number                    :string
+#  number                    :string           not null
 #  picture_content_type      :string
 #  picture_file_name         :string
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
 #  reference_name            :string
 #  stock_account_id          :integer
+#  stock_movement_account_id :integer
 #  unit_name                 :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer

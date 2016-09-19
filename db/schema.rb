@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918152301) do
+ActiveRecord::Schema.define(version: 20160918161801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1780,8 +1780,8 @@ ActiveRecord::Schema.define(version: 20160918152301) do
     t.string   "name",                              null: false
     t.datetime "achieved_at"
     t.jsonb    "custom_fields"
-    t.string   "currency"
     t.integer  "financial_year_id"
+    t.string   "currency"
   end
 
   add_index "inventories", ["created_at"], name: "index_inventories_on_created_at", using: :btree
@@ -2748,7 +2748,7 @@ ActiveRecord::Schema.define(version: 20160918152301) do
     t.decimal  "fixed_asset_depreciation_percentage", precision: 19, scale: 4, default: 0.0
     t.string   "fixed_asset_depreciation_method"
     t.jsonb    "custom_fields"
-    t.integer  "movement_stock_account_id"
+    t.integer  "stock_movement_account_id"
   end
 
   add_index "product_nature_categories", ["charge_account_id"], name: "index_product_nature_categories_on_charge_account_id", using: :btree
@@ -2757,11 +2757,11 @@ ActiveRecord::Schema.define(version: 20160918152301) do
   add_index "product_nature_categories", ["fixed_asset_account_id"], name: "index_product_nature_categories_on_fixed_asset_account_id", using: :btree
   add_index "product_nature_categories", ["fixed_asset_allocation_account_id"], name: "index_pnc_on_financial_asset_allocation_account_id", using: :btree
   add_index "product_nature_categories", ["fixed_asset_expenses_account_id"], name: "index_pnc_on_financial_asset_expenses_account_id", using: :btree
-  add_index "product_nature_categories", ["movement_stock_account_id"], name: "index_product_nature_categories_on_movement_stock_account_id", using: :btree
   add_index "product_nature_categories", ["name"], name: "index_product_nature_categories_on_name", using: :btree
   add_index "product_nature_categories", ["number"], name: "index_product_nature_categories_on_number", unique: true, using: :btree
   add_index "product_nature_categories", ["product_account_id"], name: "index_product_nature_categories_on_product_account_id", using: :btree
   add_index "product_nature_categories", ["stock_account_id"], name: "index_product_nature_categories_on_stock_account_id", using: :btree
+  add_index "product_nature_categories", ["stock_movement_account_id"], name: "index_product_nature_categories_on_stock_movement_account_id", using: :btree
   add_index "product_nature_categories", ["updated_at"], name: "index_product_nature_categories_on_updated_at", using: :btree
   add_index "product_nature_categories", ["updater_id"], name: "index_product_nature_categories_on_updater_id", using: :btree
 
@@ -2857,17 +2857,18 @@ ActiveRecord::Schema.define(version: 20160918152301) do
     t.integer  "updater_id"
     t.integer  "lock_version",              default: 0,     null: false
     t.jsonb    "custom_fields"
-    t.string   "number"
+    t.string   "number",                                    null: false
     t.integer  "stock_account_id"
-    t.integer  "movement_stock_account_id"
+    t.integer  "stock_movement_account_id"
   end
 
   add_index "product_nature_variants", ["category_id"], name: "index_product_nature_variants_on_category_id", using: :btree
   add_index "product_nature_variants", ["created_at"], name: "index_product_nature_variants_on_created_at", using: :btree
   add_index "product_nature_variants", ["creator_id"], name: "index_product_nature_variants_on_creator_id", using: :btree
-  add_index "product_nature_variants", ["movement_stock_account_id"], name: "index_product_nature_variants_on_movement_stock_account_id", using: :btree
   add_index "product_nature_variants", ["nature_id"], name: "index_product_nature_variants_on_nature_id", using: :btree
+  add_index "product_nature_variants", ["number"], name: "index_product_nature_variants_on_number", unique: true, using: :btree
   add_index "product_nature_variants", ["stock_account_id"], name: "index_product_nature_variants_on_stock_account_id", using: :btree
+  add_index "product_nature_variants", ["stock_movement_account_id"], name: "index_product_nature_variants_on_stock_movement_account_id", using: :btree
   add_index "product_nature_variants", ["updated_at"], name: "index_product_nature_variants_on_updated_at", using: :btree
   add_index "product_nature_variants", ["updater_id"], name: "index_product_nature_variants_on_updater_id", using: :btree
 

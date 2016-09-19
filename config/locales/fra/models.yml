@@ -1087,7 +1087,6 @@ fra:
     model_euid: "Modèle"
     mother: "Mère"
     moved_at: "Fait le" #?
-    # movement_stock_account: "Movement stock account"
     movements: "Mouvements"
     moves: "Se déplace"
     multi_polygon_value: "Valeur multi-polygonale"
@@ -1450,6 +1449,7 @@ fra:
     static_support: "Support statique" #?
     status: "Statut"
     stock_account: "Compte de stock"
+    # stock_movement_account: "Stock movement account"
     stocks_categories: "Catégories de produits avec stock"
     stopped_at: "Arrêté le"
     stopped_on: "Arrêté le"

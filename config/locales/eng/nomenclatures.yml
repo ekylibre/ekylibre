@@ -2415,13 +2415,13 @@ eng:
         fixed_asset_account: "Fixed asset account"
         fixed_asset_allocation_account: "Fixed asset depreciations account"
         fixed_asset_expenses_account: "Fixed asset depreciations inputations expenses account"
-        # movement_stock_account: "Movement stock account"
         pictogram: "Pictogram"
         product_account: "Product account"
         purchasable: "Purchasable"
         reductible: "Reductible"
         saleable: "Saleable"
         stock_account: "Stock account"
+        # stock_movement_account: "Stock movement account"
         storable: "Storable"
     product_nature_variants:
       choices:

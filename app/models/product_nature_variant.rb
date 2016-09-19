@@ -30,16 +30,16 @@
 #  derivative_of             :string
 #  id                        :integer          not null, primary key
 #  lock_version              :integer          default(0), not null
-#  movement_stock_account_id :integer
 #  name                      :string
 #  nature_id                 :integer          not null
-#  number                    :string
+#  number                    :string           not null
 #  picture_content_type      :string
 #  picture_file_name         :string
 #  picture_file_size         :integer
 #  picture_updated_at        :datetime
 #  reference_name            :string
 #  stock_account_id          :integer
+#  stock_movement_account_id :integer
 #  unit_name                 :string           not null
 #  updated_at                :datetime         not null
 #  updater_id                :integer
@@ -61,7 +61,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   has_many :part_product_nature_variant_id, class_name: 'ProductNatureVariantComponent'
 
-  belongs_to :movement_stock_account, class_name: 'Account'
+  belongs_to :stock_movement_account, class_name: 'Account'
   belongs_to :stock_account, class_name: 'Account'
 
   has_many :parcel_items, foreign_key: :variant_id, dependent: :restrict_with_exception
@@ -73,7 +73,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }
-  validates :name, :number, :picture_content_type, :picture_file_name, :reference_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :name, :picture_content_type, :picture_file_name, :reference_name, :work_number, length: { maximum: 500 }, allow_blank: true
+  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :unit_name, presence: true, length: { maximum: 500 }
@@ -147,7 +148,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       end
       if storable?
         self.stock_account ||= create_unique_account(:stock)
-        self.movement_stock_account ||= create_unique_account(:movement_stock)
+        self.stock_movement_account ||= create_unique_account(:movement_stock)
       end
     end
   end

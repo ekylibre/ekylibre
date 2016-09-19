@@ -183,7 +183,7 @@ class Parcel < Ekylibre::Record::Base
         for item in items
           next unless item.variant.storable?
           b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |entry|
-            entry.add_credit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
             entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
           end
         end
@@ -192,7 +192,7 @@ class Parcel < Ekylibre::Record::Base
           next unless item.variant.storable?
           b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |entry|
             entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-            entry.add_debit(label, item.variant.movement_stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            entry.add_debit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
           end
          end
       end

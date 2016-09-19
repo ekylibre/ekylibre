@@ -202,7 +202,7 @@ class Intervention < Ekylibre::Record::Base
         for input in inputs
           label = tc(:bookkeep, resource: name, name: input.product.name)
           b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: input.product_movement) do |entry|
-            entry.add_debit(label, input.variant.movement_stock_account_id, input.stock_amount) unless input.stock_amount.zero?
+            entry.add_debit(label, input.variant.stock_movement_account_id, input.stock_amount) unless input.stock_amount.zero?
             entry.add_credit(label, input.variant.stock_account_id, input.stock_amount) unless input.stock_amount.zero?
           end
         end
@@ -213,7 +213,7 @@ class Intervention < Ekylibre::Record::Base
           label = tc(:bookkeep, resource: name, name: output.variant.name)
           b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: output.product_movement) do |entry|
             entry.add_debit(label, output.variant.stock_account_id, output.stock_amount) unless output.stock_amount.zero?
-            entry.add_credit(label, output.variant.movement_stock_account_id, output.stock_amount) unless output.stock_amount.zero?
+            entry.add_credit(label, output.variant.stock_movement_account_id, output.stock_amount) unless output.stock_amount.zero?
           end
          end
       end

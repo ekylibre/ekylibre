@@ -41,8 +41,6 @@ class InventoryItem < Ekylibre::Record::Base
   belongs_to :inventory, inverse_of: :items
   belongs_to :product
   belongs_to :product_movement, dependent: :destroy
-  belongs_to :movement_stock_account, class_name: 'Account'
-  belongs_to :stock_account, class_name: 'Account'
   has_one :variant, class_name: 'ProductNatureVariant', through: :product
   has_one :container, through: :product
 

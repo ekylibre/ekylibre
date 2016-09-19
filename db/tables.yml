@@ -5174,9 +5174,6 @@ product_nature_categories:
   lock_version:
     type: integer
     required: true
-  movement_stock_account_id:
-    type: integer
-    references: account
   name:
     type: string
     required: true
@@ -5203,6 +5200,9 @@ product_nature_categories:
     required: true
     default: false
   stock_account_id:
+    type: integer
+    references: account
+  stock_movement_account_id:
     type: integer
     references: account
   storable:
@@ -5378,9 +5378,6 @@ product_nature_variants:
   lock_version:
     type: integer
     required: true
-  movement_stock_account_id:
-    type: integer
-    references: account
   name:
     type: string
   nature_id:
@@ -5389,6 +5386,7 @@ product_nature_variants:
     required: true
   number:
     type: string
+    required: true
   picture_content_type:
     type: string
   picture_file_name:
@@ -5400,6 +5398,9 @@ product_nature_variants:
   reference_name:
     type: string
   stock_account_id:
+    type: integer
+    references: account
+  stock_movement_account_id:
     type: integer
     references: account
   unit_name:

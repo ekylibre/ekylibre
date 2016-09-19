@@ -1707,7 +1707,6 @@ arb:
     model_euid: "نموذج"
     mother: "أم"
     moved_at: "انجز يوم" #?
-    # movement_stock_account: "Movement stock account"
     movements: "الحركات"
     moves: "التحركات"
     multi_polygon_value: "قيمة مضلع متعددة"
@@ -2137,6 +2136,7 @@ arb:
     stock: "انتاج السهم" #?
     stock_account: "حساب الأسهم"
     stock_id: "انتاج سهم" #?
+    # stock_movement_account: "Stock movement account"
     stock_moves: "حركات الاسهم" #?
     stock_transfers: "تحويل او ضياع السهم" #?
     stockable: "ادارة الاسهم" #?
