@@ -3574,6 +3574,9 @@ journal_entry_items:
     type: integer
     references: account
     required: true
+  activity_budget_id:
+    type: integer
+    references: activity_budget
   balance:
     type: decimal
     precision: 19
@@ -3672,6 +3675,9 @@ journal_entry_items:
   state:
     type: string
     required: true
+  team_id:
+    type: integer
+    references: team
   updated_at:
     type: datetime
     required: true
@@ -5708,6 +5714,9 @@ products:
     type: integer
   picture_updated_at:
     type: datetime
+  team_id:
+    type: integer
+    references: team
   tracking_id:
     type: integer
     references: tracking
@@ -5735,6 +5744,9 @@ purchase_items:
     type: integer
     references: account
     required: true
+  activity_budget_id:
+    type: integer
+    references: activity_budget
   amount:
     type: decimal
     precision: 19
@@ -5788,6 +5800,9 @@ purchase_items:
     type: integer
     references: tax
     required: true
+  team_id:
+    type: integer
+    references: team
   unit_amount:
     type: decimal
     precision: 19
@@ -5952,6 +5967,9 @@ sale_items:
   account_id:
     type: integer
     references: account
+  activity_budget_id:
+    type: integer
+    references: activity_budget
   amount:
     type: decimal
     precision: 19
@@ -6007,6 +6025,9 @@ sale_items:
   tax_id:
     type: integer
     references: tax
+  team_id:
+    type: integer
+    references: team
   unit_amount:
     type: decimal
     precision: 19

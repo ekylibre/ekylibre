@@ -2229,6 +2229,7 @@ fra:
         temperature_improvement: "Augmentation de la température"
         topkilling: "Défanage"
         tractor_troubleshooting: "Dépannage tracteur"
+        transportation: "Transport"
         troubleshooting: "Dépannage"
         tunnel_installation: "Installation de chenille/tunnel"
         tunnel_removal: "Retrait de chenille/tunnel"

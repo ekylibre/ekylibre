@@ -18,6 +18,13 @@
 
 module Backend
   module JournalsHelper
+    def budget_columns_count(value = 1)
+      if current_user.can?(:read, :activities) && ActivityBudget.opened.any?
+        return value
+      end
+      0
+    end
+
     def journals_tag
       render partial: 'backend/journals/index'
     end
