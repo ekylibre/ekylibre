@@ -1274,6 +1274,7 @@ spa:
     type: "Tipo"
     # uid: "UID"
     unconfirmed_email: "Correo electrónico sin confirmar"
+    # undelivered_invoice_entry: "Undelivered invoice entry"
     undelivered_quantity: "Cantidad no entregada"
     unit_amount: "Importe unitario"
     unit_currency: "Moneda de la unidad"
@@ -1419,6 +1420,9 @@ spa:
       mass: "Masa"
     intervention:
       # name: "%{intervention} #%{number}"
+    inventory:
+      # bookkeep: "Physical inventory - [%{resource}] %{number}"
+      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
@@ -1481,6 +1485,7 @@ spa:
         transfer:
           name: "Transferir"
     parcel:
+      # bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Borrador"
@@ -1489,6 +1494,7 @@ spa:
           ordered: "Ordenado"
           prepared: "Preparado"
           received: "Recibido"
+      # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1519,6 +1525,7 @@ spa:
         sales: "Ventas"
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       # label: "%{supplier} at %{address}"
       purchase: "Compra"
       states:
@@ -1541,6 +1548,7 @@ spa:
         public: "Público"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label:
         # aborted: "Aborted sale %{number}"
         # credit: "Sale credit %{number}"

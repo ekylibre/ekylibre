@@ -4596,6 +4596,9 @@ parcels:
   transporter_id:
     type: integer
     references: entity
+  undelivered_invoice_entry_id:
+    type: integer
+    references: journal_entry
   updated_at:
     type: datetime
     required: true
@@ -5983,6 +5986,9 @@ purchases:
     type: integer
     references: entity
     required: true
+  undelivered_invoice_entry_id:
+    type: integer
+    references: journal_entry
   updated_at:
     type: datetime
     required: true
@@ -6283,6 +6289,9 @@ sales:
   transporter_id:
     type: integer
     references: entity
+  undelivered_invoice_entry_id:
+    type: integer
+    references: journal_entry
   updated_at:
     type: datetime
     required: true

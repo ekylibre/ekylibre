@@ -84,7 +84,7 @@ class Inventory < Ekylibre::Record::Base
       for variant in variants
         # for all items of current variant (if storable)
         next unless variant.storable? && variant.stock_account && variant.stock_movement_account
-        
+
         s = variant.stock_account
         ms = variant.stock_movement_account
 

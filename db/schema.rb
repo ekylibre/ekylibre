@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918161801) do
+ActiveRecord::Schema.define(version: 20160920233801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2350,8 +2350,8 @@ ActiveRecord::Schema.define(version: 20160918161801) do
   add_index "parcel_items", ["variant_id"], name: "index_parcel_items_on_variant_id", using: :btree
 
   create_table "parcels", force: :cascade do |t|
-    t.string   "number",                            null: false
-    t.string   "nature",                            null: false
+    t.string   "number",                                       null: false
+    t.string   "nature",                                       null: false
     t.string   "reference_number"
     t.integer  "recipient_id"
     t.integer  "sender_id"
@@ -2361,26 +2361,27 @@ ActiveRecord::Schema.define(version: 20160918161801) do
     t.integer  "sale_id"
     t.integer  "purchase_id"
     t.integer  "transporter_id"
-    t.boolean  "remain_owner",      default: false, null: false
+    t.boolean  "remain_owner",                 default: false, null: false
     t.string   "delivery_mode"
-    t.string   "state",                             null: false
-    t.datetime "planned_at",                        null: false
+    t.string   "state",                                        null: false
+    t.datetime "planned_at",                                   null: false
     t.datetime "ordered_at"
     t.datetime "in_preparation_at"
     t.datetime "prepared_at"
     t.datetime "given_at"
     t.integer  "position"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0,     null: false
+    t.integer  "lock_version",                 default: 0,     null: false
     t.jsonb    "custom_fields"
-    t.boolean  "with_delivery",     default: false, null: false
+    t.boolean  "with_delivery",                default: false, null: false
     t.boolean  "separated_stock"
     t.datetime "accounted_at"
     t.string   "currency"
     t.integer  "journal_entry_id"
+    t.integer  "undelivered_invoice_entry_id"
   end
 
   add_index "parcels", ["address_id"], name: "index_parcels_on_address_id", using: :btree
@@ -2397,6 +2398,7 @@ ActiveRecord::Schema.define(version: 20160918161801) do
   add_index "parcels", ["state"], name: "index_parcels_on_state", using: :btree
   add_index "parcels", ["storage_id"], name: "index_parcels_on_storage_id", using: :btree
   add_index "parcels", ["transporter_id"], name: "index_parcels_on_transporter_id", using: :btree
+  add_index "parcels", ["undelivered_invoice_entry_id"], name: "index_parcels_on_undelivered_invoice_entry_id", using: :btree
   add_index "parcels", ["updated_at"], name: "index_parcels_on_updated_at", using: :btree
   add_index "parcels", ["updater_id"], name: "index_parcels_on_updater_id", using: :btree
 
@@ -3136,10 +3138,10 @@ ActiveRecord::Schema.define(version: 20160918161801) do
   add_index "purchase_natures", ["updater_id"], name: "index_purchase_natures_on_updater_id", using: :btree
 
   create_table "purchases", force: :cascade do |t|
-    t.integer  "supplier_id",                                                null: false
-    t.string   "number",                                                     null: false
-    t.decimal  "pretax_amount",       precision: 19, scale: 4, default: 0.0, null: false
-    t.decimal  "amount",              precision: 19, scale: 4, default: 0.0, null: false
+    t.integer  "supplier_id",                                                         null: false
+    t.string   "number",                                                              null: false
+    t.decimal  "pretax_amount",                precision: 19, scale: 4, default: 0.0, null: false
+    t.decimal  "amount",                       precision: 19, scale: 4, default: 0.0, null: false
     t.integer  "delivery_address_id"
     t.text     "description"
     t.datetime "planned_at"
@@ -3150,15 +3152,16 @@ ActiveRecord::Schema.define(version: 20160918161801) do
     t.string   "reference_number"
     t.string   "state"
     t.integer  "responsible_id"
-    t.string   "currency",                                                   null: false
+    t.string   "currency",                                                            null: false
     t.integer  "nature_id"
     t.integer  "affair_id"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                 default: 0,   null: false
+    t.integer  "lock_version",                                          default: 0,   null: false
     t.jsonb    "custom_fields"
+    t.integer  "undelivered_invoice_entry_id"
   end
 
   add_index "purchases", ["accounted_at"], name: "index_purchases_on_accounted_at", using: :btree
@@ -3171,6 +3174,7 @@ ActiveRecord::Schema.define(version: 20160918161801) do
   add_index "purchases", ["nature_id"], name: "index_purchases_on_nature_id", using: :btree
   add_index "purchases", ["responsible_id"], name: "index_purchases_on_responsible_id", using: :btree
   add_index "purchases", ["supplier_id"], name: "index_purchases_on_supplier_id", using: :btree
+  add_index "purchases", ["undelivered_invoice_entry_id"], name: "index_purchases_on_undelivered_invoice_entry_id", using: :btree
   add_index "purchases", ["updated_at"], name: "index_purchases_on_updated_at", using: :btree
   add_index "purchases", ["updater_id"], name: "index_purchases_on_updater_id", using: :btree
 
@@ -3261,15 +3265,15 @@ ActiveRecord::Schema.define(version: 20160918161801) do
   add_index "sale_natures", ["updater_id"], name: "index_sale_natures_on_updater_id", using: :btree
 
   create_table "sales", force: :cascade do |t|
-    t.integer  "client_id",                                                    null: false
+    t.integer  "client_id",                                                             null: false
     t.integer  "nature_id"
-    t.string   "number",                                                       null: false
-    t.decimal  "pretax_amount",       precision: 19, scale: 4, default: 0.0,   null: false
-    t.decimal  "amount",              precision: 19, scale: 4, default: 0.0,   null: false
-    t.string   "state",                                                        null: false
+    t.string   "number",                                                                null: false
+    t.decimal  "pretax_amount",                precision: 19, scale: 4, default: 0.0,   null: false
+    t.decimal  "amount",                       precision: 19, scale: 4, default: 0.0,   null: false
+    t.string   "state",                                                                 null: false
     t.datetime "expired_at"
-    t.boolean  "has_downpayment",                              default: false, null: false
-    t.decimal  "downpayment_amount",  precision: 19, scale: 4, default: 0.0,   null: false
+    t.boolean  "has_downpayment",                                       default: false, null: false
+    t.decimal  "downpayment_amount",           precision: 19, scale: 4, default: 0.0,   null: false
     t.integer  "address_id"
     t.integer  "invoice_address_id"
     t.integer  "delivery_address_id"
@@ -3280,27 +3284,28 @@ ActiveRecord::Schema.define(version: 20160918161801) do
     t.text     "description"
     t.datetime "confirmed_at"
     t.integer  "responsible_id"
-    t.boolean  "letter_format",                                default: true,  null: false
+    t.boolean  "letter_format",                                         default: true,  null: false
     t.text     "annotation"
     t.integer  "transporter_id"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
     t.string   "reference_number"
     t.datetime "invoiced_at"
-    t.boolean  "credit",                                       default: false, null: false
+    t.boolean  "credit",                                                default: false, null: false
     t.datetime "payment_at"
     t.integer  "credited_sale_id"
     t.string   "initial_number"
-    t.string   "currency",                                                     null: false
+    t.string   "currency",                                                              null: false
     t.integer  "affair_id"
     t.string   "expiration_delay"
-    t.string   "payment_delay",                                                null: false
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.string   "payment_delay",                                                         null: false
+    t.datetime "created_at",                                                            null: false
+    t.datetime "updated_at",                                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                 default: 0,     null: false
+    t.integer  "lock_version",                                          default: 0,     null: false
     t.jsonb    "custom_fields"
+    t.integer  "undelivered_invoice_entry_id"
   end
 
   add_index "sales", ["accounted_at"], name: "index_sales_on_accounted_at", using: :btree
@@ -3317,6 +3322,7 @@ ActiveRecord::Schema.define(version: 20160918161801) do
   add_index "sales", ["nature_id"], name: "index_sales_on_nature_id", using: :btree
   add_index "sales", ["responsible_id"], name: "index_sales_on_responsible_id", using: :btree
   add_index "sales", ["transporter_id"], name: "index_sales_on_transporter_id", using: :btree
+  add_index "sales", ["undelivered_invoice_entry_id"], name: "index_sales_on_undelivered_invoice_entry_id", using: :btree
   add_index "sales", ["updated_at"], name: "index_sales_on_updated_at", using: :btree
   add_index "sales", ["updater_id"], name: "index_sales_on_updater_id", using: :btree
 

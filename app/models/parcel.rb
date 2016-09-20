@@ -22,38 +22,39 @@
 #
 # == Table: parcels
 #
-#  accounted_at      :datetime
-#  address_id        :integer
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  currency          :string
-#  custom_fields     :jsonb
-#  delivery_id       :integer
-#  delivery_mode     :string
-#  given_at          :datetime
-#  id                :integer          not null, primary key
-#  in_preparation_at :datetime
-#  journal_entry_id  :integer
-#  lock_version      :integer          default(0), not null
-#  nature            :string           not null
-#  number            :string           not null
-#  ordered_at        :datetime
-#  planned_at        :datetime         not null
-#  position          :integer
-#  prepared_at       :datetime
-#  purchase_id       :integer
-#  recipient_id      :integer
-#  reference_number  :string
-#  remain_owner      :boolean          default(FALSE), not null
-#  sale_id           :integer
-#  sender_id         :integer
-#  separated_stock   :boolean
-#  state             :string           not null
-#  storage_id        :integer
-#  transporter_id    :integer
-#  updated_at        :datetime         not null
-#  updater_id        :integer
-#  with_delivery     :boolean          default(FALSE), not null
+#  accounted_at                 :datetime
+#  address_id                   :integer
+#  created_at                   :datetime         not null
+#  creator_id                   :integer
+#  currency                     :string
+#  custom_fields                :jsonb
+#  delivery_id                  :integer
+#  delivery_mode                :string
+#  given_at                     :datetime
+#  id                           :integer          not null, primary key
+#  in_preparation_at            :datetime
+#  journal_entry_id             :integer
+#  lock_version                 :integer          default(0), not null
+#  nature                       :string           not null
+#  number                       :string           not null
+#  ordered_at                   :datetime
+#  planned_at                   :datetime         not null
+#  position                     :integer
+#  prepared_at                  :datetime
+#  purchase_id                  :integer
+#  recipient_id                 :integer
+#  reference_number             :string
+#  remain_owner                 :boolean          default(FALSE), not null
+#  sale_id                      :integer
+#  sender_id                    :integer
+#  separated_stock              :boolean
+#  state                        :string           not null
+#  storage_id                   :integer
+#  transporter_id               :integer
+#  undelivered_invoice_entry_id :integer
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer
+#  with_delivery                :boolean          default(FALSE), not null
 #
 
 class Parcel < Ekylibre::Record::Base
@@ -66,6 +67,7 @@ class Parcel < Ekylibre::Record::Base
   belongs_to :address, class_name: 'EntityAddress'
   belongs_to :delivery
   belongs_to :journal_entry, dependent: :destroy
+  belongs_to :undelivered_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :storage, class_name: 'Product'
   belongs_to :sale, inverse_of: :parcels
   belongs_to :purchase
@@ -175,25 +177,41 @@ class Parcel < Ekylibre::Record::Base
   # outgoing parcel        |  stock_movement(603X/71X)      |            stock(3X)         |
   bookkeep do |b|
     if Preference[:permanent_stock_inventory]
+      purchase_not_received_acccount = Account.find_or_import_from_nomenclature(:suppliers_invoices_not_received)
       mode = nature
       entity = recipient || sender
       label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
+      undelivered_label = tc(:undelivered_invoice, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
       stock_journal = Journal.find_or_create_by!(nature: :stocks)
+      sale_journal = Journal.find_or_create_by!(nature: :sales)
+      purchase_journal = Journal.find_or_create_by!(nature: :purchases)
       if mode == :incoming
-        for item in items
-          next unless item.variant.storable?
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |entry|
-            entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
-            entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+        # for purchase_not_received
+        b.journal_entry(purchase_journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
+          # for permanent stock inventory
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
+            for item in items
+              entry.add_credit(undelivered_label, purchase_not_received_acccount.id, item.stock_amount) unless item.stock_amount.zero?
+              entry.add_debit(undelivered_label, item.variant.charge_account.id, item.stock_amount) unless item.stock_amount.zero?
+              next unless item.variant.storable?
+              stock_entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
+              stock_entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+            end
           end
         end
-      elsif mode == :outgoing
-        for item in items
-          next unless item.variant.storable?
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |entry|
-            entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-            entry.add_debit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
-          end
+        elsif mode == :outgoing
+          # for sale_not_emitted
+          b.journal_entry(sale_journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
+            # for permanent stock inventory
+            b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
+              for item in items
+                entry.add_debit(undelivered_label, purchase_not_received_acccount.id, item.stock_amount) unless item.stock_amount.zero?
+                entry.add_credit(undelivered_label, item.variant.product_account.id, item.stock_amount) unless item.stock_amount.zero?
+                next unless item.variant.storable?
+                entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+                entry.add_debit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
+              end
+            end
          end
       end
     end

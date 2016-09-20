@@ -1301,6 +1301,7 @@ ita:
     type: "Digitare"
     # uid: "UID"
     unconfirmed_email: "e-mail non confermato"
+    # undelivered_invoice_entry: "Undelivered invoice entry"
     undelivered_quantity: "quantità mancante"
     unit_amount: "importo unitario"
     unit_currency: "valuta Unità"
@@ -1446,6 +1447,9 @@ ita:
       mass: "Massa"
     intervention:
       # name: "%{intervention} #%{number}"
+    inventory:
+      # bookkeep: "Physical inventory - [%{resource}] %{number}"
+      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
@@ -1508,6 +1512,7 @@ ita:
         transfer:
           name: "Trasferimento"
     parcel:
+      # bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Bozza"
@@ -1516,6 +1521,7 @@ ita:
           ordered: "Ordinato"
           prepared: "Preparato"
           received: "ricevuto"
+      # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1546,6 +1552,7 @@ ita:
         sales: "Vendite"
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       # label: "%{supplier} at %{address}"
       purchase: "Acquista"
       states:
@@ -1568,6 +1575,7 @@ ita:
         public: "Pubblico"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label:
         # aborted: "Aborted sale %{number}"
         # credit: "Sale credit %{number}"
