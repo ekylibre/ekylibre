@@ -50,6 +50,7 @@
 class ProductNatureVariant < Ekylibre::Record::Base
   include Attachable
   include Customizable
+  attr_readonly :number
   refers_to :variety
   refers_to :derivative_of, class_name: 'Variety'
   belongs_to :nature, class_name: 'ProductNature', inverse_of: :variants
@@ -86,8 +87,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :commercial_name, :name
-
-  acts_as_numbered
 
   delegate :able_to?, :identifiable?, :able_to_each?, :has_indicator?, :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :of_expression, :population_counting_unitary?, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
   delegate :variety, :derivative_of, :name, to: :nature, prefix: true
@@ -136,7 +135,15 @@ class ProductNatureVariant < Ekylibre::Record::Base
     products.any? || sale_items.any? || purchase_items.any? || parcel_items.any?
   end
 
-  before_validation do #on: :create
+  before_validation on: :create do
+    self.number = if ProductNatureVariant.any?
+                    ProductNatureVariant.order(number: :desc).first.number.succ
+                  else
+                    '00000001'
+                  end
+  end
+
+  before_validation do # on: :create
     if nature
       self.category_id = nature.category_id
       self.nature_name ||= nature.name
@@ -171,7 +178,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       # unless self.stock_movement_account
       #    errors.add(:stock_movement_account, :not_defined)
       #  end
-      #end
+      # end
     end
   end
 
