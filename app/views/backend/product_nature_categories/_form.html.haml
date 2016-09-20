@@ -23,7 +23,7 @@
 
 = field_set(:stocks) do
   = f.referenced_association :stock_account
-  = f.referenced_association :movement_stock_account, :source => :stocks_variations
+  = f.referenced_association :stock_movement_account, :source => :stocks_variations
 
 = field_set(:purchases) do
   = f.referenced_association :charge_account

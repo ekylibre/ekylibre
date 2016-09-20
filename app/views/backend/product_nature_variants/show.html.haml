@@ -4,6 +4,7 @@
 = main_informations attachment: true do
   = infos do
     = resource_info(:number, important: true)
+    = resource_info(:work_number, important: true)
     .med-info.important
       - icon = resource.category.pictogram
       %span.title= ProductNatureVariant.human_attribute_name(:nature)
@@ -16,6 +17,7 @@
         %span.value
           %i.picto{class: "picto-stock"}
           = resource.current_stock.to_s + " " + resource.unit_name
+          
   -# .info
     %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
     %span.value= resource.products.map(&:net_mass).compact.sum
@@ -30,6 +32,8 @@
     - l.attribute :unit_name
     - l.attribute :variety
     - l.attribute :derivative_of
+    - l.attribute :stock_account, url: true
+    - l.attribute :stock_movement_account, url: true
 
 
 = cobbles do |c|

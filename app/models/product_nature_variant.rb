@@ -136,7 +136,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     products.any? || sale_items.any? || purchase_items.any? || parcel_items.any?
   end
 
-  before_validation on: :create do
+  before_validation do #on: :create
     if nature
       self.category_id = nature.category_id
       self.nature_name ||= nature.name
@@ -148,7 +148,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       end
       if storable?
         self.stock_account ||= create_unique_account(:stock)
-        self.stock_movement_account ||= create_unique_account(:movement_stock)
+        self.stock_movement_account ||= create_unique_account(:stock_movement)
       end
     end
   end
@@ -164,12 +164,20 @@ class ProductNatureVariant < Ekylibre::Record::Base
           errors.add(:derivative_of, :invalid)
         end
       end
+      # if storable?
+      #  unless self.stock_account
+      #    errors.add(:stock_account, :not_defined)
+      #  end
+      # unless self.stock_movement_account
+      #    errors.add(:stock_movement_account, :not_defined)
+      #  end
+      #end
     end
   end
 
   # create unique account for stock management in accountancy
   def create_unique_account(mode = :stock)
-    if mode == :stock || mode == :movement_stock
+    if mode == :stock || mode == :stock_movement
       unless storable?
         raise ArgumentError, "Unknown to store #{self.name.inspect}. You have to check category first"
       end
