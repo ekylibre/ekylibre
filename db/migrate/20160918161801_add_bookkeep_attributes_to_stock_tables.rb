@@ -1,6 +1,5 @@
 # coding: utf-8
 class AddBookkeepAttributesToStockTables < ActiveRecord::Migration
-
   # Built with following code:
   # Nomen::ProductNatureCategory.list.each_with_object({}) { |c, h| next if c.stock_movement_account.blank?; a = Nomen::Account.find(c.stock_movement_account); h[c.name.to_sym] = { name: I18n.available_locales.each_with_object({}) {|l,h| h[l] = a.human_name(locale: l) }, usages: a.name, number: a.fr_pcga || a.fr_pcg82 } }.to_yaml
   STOCK_MOVEMENT_ACCOUNTS = YAML.load <<-YAML
@@ -631,7 +630,6 @@ class AddBookkeepAttributesToStockTables < ActiveRecord::Migration
   :number: '6032'
 YAML
 
-
   def change
     # Adds stock movement account
     add_reference :product_nature_categories, :stock_movement_account, index: true
@@ -643,36 +641,36 @@ YAML
         locale = select_value("SELECT string_value FROM preferences WHERE name = 'language'")
         locale = locale.blank? ? :eng : locale.to_sym
 
-
         # Adds missing accounts
-        query = 'INSERT INTO accounts (name, number, label, usages, created_at, updated_at) SELECT '
-        query << 'CASE ' + STOCK_MOVEMENT_ACCOUNTS.map { |cat, account|
+        query = 'INSERT INTO accounts (name, number, label, usages, created_at, updated_at) SELECT DISTINCT '
+        query << 'CASE ' + STOCK_MOVEMENT_ACCOUNTS.map do |cat, account|
           "WHEN pnc.reference_name = '#{cat}' THEN '#{account[:name][locale]}'"
-        }.join(' ') + ' END, '
-        query << 'CASE ' + STOCK_MOVEMENT_ACCOUNTS.map { |cat, account|
+        end.join(' ') + ' END, '
+        query << 'CASE ' + STOCK_MOVEMENT_ACCOUNTS.map do |cat, account|
           "WHEN pnc.reference_name = '#{cat}' THEN '#{account[:number]}'"
-        }.join(' ') + ' END, '
-        query << 'CASE ' + STOCK_MOVEMENT_ACCOUNTS.map { |cat, account|
+        end.join(' ') + ' END, '
+        query << 'CASE ' + STOCK_MOVEMENT_ACCOUNTS.map do |cat, account|
           "WHEN pnc.reference_name = '#{cat}' THEN '#{account[:number]} – #{account[:name][locale]}'"
-        }.join(' ') + ' END, '
-        query << 'CASE ' + STOCK_MOVEMENT_ACCOUNTS.map { |cat, account|
+        end.join(' ') + ' END, '
+        query << 'CASE ' + STOCK_MOVEMENT_ACCOUNTS.map do |cat, account|
           "WHEN pnc.reference_name = '#{cat}' THEN '#{account[:usages]}'"
-        }.join(' ') + ' END, '
+        end.join(' ') + ' END, '
         query << 'CURRENT_TIMESTAMP, CURRENT_TIMESTAMP'
         query << '  FROM product_nature_categories AS pnc'
-        query << '  WHERE pnc.reference_name IN (' + STOCK_MOVEMENT_ACCOUNTS.keys.map { |k|
+        query << '    LEFT JOIN accounts AS a ON (pnc.reference_name = CASE ' + STOCK_MOVEMENT_ACCOUNTS.map do |cat, account|
+          "WHEN a.usages = '#{account[:usages]}' THEN '#{cat}'"
+        end.join(' ') + ' END)'
+        query << '  WHERE pnc.reference_name IN (' + STOCK_MOVEMENT_ACCOUNTS.keys.map do |k|
           "'#{k}'"
-        }.join(', ') + ')'
-        query << '    AND pnc.reference_name NOT IN (SELECT CASE ' + STOCK_MOVEMENT_ACCOUNTS.map { |cat, account|
-          "WHEN usages = '#{account[:usages]}' THEN '#{cat}'"
-        }.join(' ') + ' END FROM accounts)'
+        end.join(', ') + ')'
+        query << '    AND a.number IS NULL'
         execute query
 
         # Updates product_nature_categories with movement
         execute 'UPDATE product_nature_categories SET stock_movement_account_id = a.id FROM accounts AS a' \
-                ' WHERE a.usages = CASE ' + STOCK_MOVEMENT_ACCOUNTS.map { |cat, account|
+                ' WHERE a.usages = CASE ' + STOCK_MOVEMENT_ACCOUNTS.map do |cat, account|
           "WHEN reference_name = '#{cat}' THEN '#{account[:usages]}'"
-        }.join(' ') + ' END'
+                                            end.join(' ') + ' END'
       end
     end
 
@@ -684,7 +682,7 @@ YAML
     reversible do |d|
       d.up do
         # Fill number column
-        execute 'UPDATE product_nature_variants SET number = \'PNV\' || LPAD(id::VARCHAR, 8, \'0\')'
+        execute 'UPDATE product_nature_variants SET number = LPAD(id::VARCHAR, 8, \'0\')'
 
         %w(stock stock_movement).each do |account|
           # Create missing stock accounts
@@ -709,7 +707,6 @@ YAML
     end
     change_column_null :product_nature_variants, :number, false
     add_index :product_nature_variants, :number, unique: true
-
 
     # add currency, journal_entry and accounted_at to parcels
     add_column :parcels, :accounted_at, :datetime
