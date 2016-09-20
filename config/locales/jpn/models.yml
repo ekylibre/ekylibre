@@ -396,6 +396,7 @@ jpn:
     by_default: "デフォルト設定で"
     calibrations: "目盛り"
     campaign: "キャンペーン"
+    # campaigns: "Campaigns"
     canal: "運河"
     cap_islet: "キャップ島"
     cap_islets: "キャップの島"

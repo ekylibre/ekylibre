@@ -396,6 +396,7 @@ eng:
     by_default: "By default"
     calibrations: "Calibrations"
     campaign: "Campaign"
+    campaigns: "Campaigns"
     canal: "Canal"
     cap_islet: "CAP islet"
     cap_islets: "CAP islets"

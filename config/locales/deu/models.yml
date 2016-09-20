@@ -396,6 +396,7 @@ deu:
     by_default: "Standardmäßig"
     calibrations: "Calibra"
     campaign: "Kampagne"
+    # campaigns: "Campaigns"
     canal: "Kanal"
     cap_islet: "Cap Insel"
     cap_islets: "Cap-Inseln"

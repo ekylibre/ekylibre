@@ -1074,6 +1074,7 @@ arb:
     cache: "مخبأ" #?
     calibrations: "المعايرة"
     campaign: "حملة"
+    # campaigns: "Campaigns"
     canal: "قناة"
     cap_islet: "كاب جزيرة"
     cap_islets: "الجزر كاب"

@@ -531,6 +531,7 @@ fra:
     by_default: "Par défaut"
     calibrations: "Stock en terre par calibre"
     campaign: "Campagne"
+    # campaigns: "Campaigns"
     canal: "Canal"
     cap_islet: "Ilot PAC"
     cap_islets: "Ilots PAC"

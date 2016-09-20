@@ -427,6 +427,7 @@ ita:
     by_default: "Per impostazione predefinita"
     calibrations: "Le calibrazioni"
     campaign: "Campagna"
+    # campaigns: "Campaigns"
     canal: "Canale"
     cap_islet: "Cap isolotto"
     cap_islets: "isolotti Cap"

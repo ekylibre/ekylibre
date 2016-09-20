@@ -397,6 +397,7 @@ spa:
     by_default: "Por defecto"
     calibrations: "calibraciones"
     campaign: "Campaña"
+    # campaigns: "Campaigns"
     # canal: "Canal"
     cap_islet: "Islote Cap"
     cap_islets: "Islotes Cap"
