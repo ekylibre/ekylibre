@@ -1810,6 +1810,23 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animal_groups">
+        <page to="backend/animal_groups#list_carried_linkages"/>
+        <page to="backend/animal_groups#list_carrier_linkages"/>
+        <page to="backend/animal_groups#list_contained_products"/>
+        <page to="backend/animal_groups#list_groups"/>
+        <page to="backend/animal_groups#list_inspections"/>
+        <page to="backend/animal_groups#list_intervention_product_parameters"/>
+        <page to="backend/animal_groups#list_issues"/>
+        <page to="backend/animal_groups#list_members"/>
+        <page to="backend/animal_groups#list_readings"/>
+        <page to="backend/animal_groups#picture"/>
+        <page to="backend/animal_groups#take"/>
+      </item>
+      <item name="target_distributions">
+        <page to="backend/target_distributions#create"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

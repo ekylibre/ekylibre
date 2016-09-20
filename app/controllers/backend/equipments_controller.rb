@@ -38,7 +38,7 @@ module Backend
       code << "    c[0] << \" AND \#{Equipment.table_name}.id IN (SELECT target_id FROM target_distributions WHERE activity_id = ?)\"\n"
       code << "    c << params[:activity_id].to_i\n"
       code << "  end\n"
-      
+
       code << "c\n"
       code.c
     end
