@@ -668,9 +668,7 @@ YAML
 
         # Updates product_nature_categories with movement
         execute 'UPDATE product_nature_categories SET stock_movement_account_id = a.id FROM accounts AS a' \
-                ' WHERE a.usages = CASE ' + STOCK_MOVEMENT_ACCOUNTS.map do |cat, account|
-          "WHEN reference_name = '#{cat}' THEN '#{account[:usages]}'"
-                                            end.join(' ') + ' END'
+                ' WHERE a.usages = CASE ' + STOCK_MOVEMENT_ACCOUNTS.map { |cat, account| "WHEN reference_name = '#{cat}' THEN '#{account[:usages]}'" }.join(' ') + ' END'
       end
     end
 
