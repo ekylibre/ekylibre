@@ -111,14 +111,16 @@ class Activity < Ekylibre::Record::Base
   scope :main, -> { where(nature: 'main') }
 
   scope :of_campaign, lambda { |campaign|
-    if campaign
-      c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
-      prods = where(id: ActivityProduction.select(:activity_id).of_campaign(c))
-      budgets = where(id: ActivityBudget.select(:activity_id).of_campaign(c))
-      where(id: prods.select(:id) + budgets.select(:id))
-    else
-      none
-    end
+    # if campaign
+    #   c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
+    #   prods = where(id: ActivityProduction.select(:activity_id).of_campaign(c))
+    #   budgets = where(id: ActivityBudget.select(:activity_id).of_campaign(c))
+    #   where(id: prods.select(:id) + budgets.select(:id))
+    # else
+    #   none
+    # end
+
+    includes(:campaigns).where(campaign_id: campaign)
   }
   scope :of_cultivation_variety, lambda { |variety|
     where(cultivation_variety: (variety.is_a?(Nomen::Item) ? variety : Nomen::Variety.find(variety)).self_and_children.map(&:name))

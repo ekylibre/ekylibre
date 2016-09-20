@@ -56,20 +56,18 @@ module Backend
       end
 
       @target_distributions = TargetDistribution.where(target_id: targets).joins(:target).order('products.name')
-      # new_id = TargetDistribution.maximum(:id) + 10_000
-      new_id = 10_000
+      new_id = -1
       targets.order(:name).each do |target|
         unless @target_distributions.detect { |d| d.target_id == target.id }
           @target_distributions << @target_distributions.build(id: new_id, target: target, activity_production: Maybe(target.last_intervention_target).activity_production.or_else(nil))
         end
-        new_id += 1
+        new_id -= 1
       end
     end
 
     def update_many
       saved = true
       @target_distributions = params[:target_distributions].map do |id, target_distribution_params|
-        byebug
         target_distribution = TargetDistribution.find_by(id: id) || TargetDistribution.new
         target_distribution.attributes = target_distribution_params.permit(:target_id, :activity_production_id)
         if target_distribution_params[:activity_production_id].present?

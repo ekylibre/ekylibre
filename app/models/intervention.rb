@@ -119,7 +119,8 @@ class Intervention < Ekylibre::Record::Base
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }
   scope :of_campaign, lambda { |campaign|
-    where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).of_campaign(campaign)))
+    # where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).of_campaign(campaign)))
+    includes(:campaigns).where(campaign_id: campaign)
   }
   scope :of_current_campaigns, -> { of_campaign(Campaign.current) }
   scope :of_activity_production, lambda { |production|
