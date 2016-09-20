@@ -164,6 +164,13 @@ class Activity < Ekylibre::Record::Base
         self.cultivation_variety ||= :animal
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
+      elsif tool_maintaining?
+        self.with_supports = true
+        self.support_variety = :equipment_fleet
+        self.with_cultivation = true
+        self.cultivation_variety ||= :equipment
+        self.size_indicator_name = 'members_population' if size_indicator_name.blank?
+        self.size_unit_name = 'unity' if size_unit_name.blank?
       else
         self.with_supports = false
         self.with_cultivation = false
@@ -190,7 +197,9 @@ class Activity < Ekylibre::Record::Base
         errors.add(:support_variety, :invalid) unless variety <= family.support_variety
       end
       if with_cultivation && variety = Nomen::Variety[cultivation_variety]
-        errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
+        unless family.cultivation_variety.blank?
+          errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
+        end
       end
     end
     if use_gradings
@@ -257,10 +266,15 @@ class Activity < Ekylibre::Record::Base
     productions.of_campaign(campaign).any?
   end
 
-  [:plant_farming, :animal_farming, :equipment_management, :processing].each do |family_name|
-    define_method  family_name.to_s + '?' do
-      family && Nomen::ActivityFamily.find(family) <= family_name
+  Nomen::ActivityFamily.find_each do |base_family|
+    define_method base_family.name.to_s + '?' do
+      family && Nomen::ActivityFamily.find(family) <= base_family
     end
+  end
+
+  def not_distributed_products
+    Product.mine_or_undefined.of_variety(cultivation_variety, support_variety)
+           .where(id: InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).includes(:product))
   end
 
   def of_campaign?(campaign)

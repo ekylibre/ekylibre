@@ -378,6 +378,11 @@ arb:
       new: "انشاء دفتر يومي جديد"
       reopen: "فتح %{name}"
       show: "الدفتر اليومي : %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      index: "تسميات"
+      new: "تسمية جديدة"
+      # show: "Label: %{name}"
     backend/land_parcels:
       edit: "تعديل النظام : %{name}"
       index: "انظمة"
@@ -664,8 +669,8 @@ arb:
       index: "تزامن"
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
-      distribute: "توزيع المنتجات"
       edit: "توزيع هدف تحرير"
+      edit_many: "توزيع المنتجات لم تتأثر"
       index: "توزيعات الهدف"
       new: "توزيع هدف جديد"
       show: "توزيع هدف"
@@ -935,6 +940,7 @@ arb:
     add_intervention_record: "اضافة التسجيلة تدخل"
     add_intervention_request: "إضافة طلب تدخل"
     add_item: "إضافة البند"
+    add_labelling: "إضافة تسمية"
     add_line: "إضافة خط"
     add_linestring: "إضافة تنسيقي"
     add_mail: "إضافة عنوان البريدي"
@@ -1215,6 +1221,7 @@ arb:
     disease_percentage_evolution: "تطور نسبة المرض"
     display: "عرض"
     display_help: "عرض المساعدة" #?
+    distribute_unaffected_products: "توزيع المنتجات لم تتأثر"
     distributions: "التوزيعات"
     district_create: "اضافة منطقة ادارية" #?
     district_x: "%{name} (%{code})" #?
@@ -1297,6 +1304,8 @@ arb:
     # expedier: "Expedier"
     expenses: "مصاريف"
     expenses_by_product_nature_category: "النفقات حسب الفئة طبيعة المنتج"
+    # expired_since: "Expired since"
+    # expired_within: "Expired within"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
@@ -1593,6 +1602,7 @@ arb:
     new_group: "مجموعة جديدة"
     new_incoming_parcel: "لا يتجزأ الجديد الوافد"
     new_issue: "مشكلة جديدة"
+    new_listing: "قائمة جديدة"
     new_organization: "منظمة جديدة"
     new_outgoing_parcel: "الطرد الصادر الجديد"
     new_payment: "تسجيل دفعة جديدة" #?
@@ -1659,6 +1669,7 @@ arb:
     operation_use_create: "اضافة مادة" #?
     operations: "عمليات"
     options: "خيارات"
+    or: "أو"
     order_amount_with_taxes: "قيمة الطلب مع الضرائب" #?
     order_print: "طباعة الطلب" #?
     organic_matter_concentration: "تركيز المواد العضوية"
@@ -1890,6 +1901,7 @@ arb:
     search_sales: "البحث عن طلبات البيع" #?
     second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
+    see_more_details: "مشاهدة مزيد من التفاصيل"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
     select_area: "عنوان بريدي" #?
@@ -1950,6 +1962,7 @@ arb:
     string_case: "خيارات للنص" #?
     subject: "الموضوع"
     submit: "ارسال"
+    # subscribed_on: "Subscribed on"
     subscriber_period: "تم التسجيل في %{subscribed_at}"
     subscriber_quantity: "عدد المشتركيين %{subscribed_at}"
     subscription_create: "اضافة اشتراك" #?
@@ -2522,10 +2535,10 @@ arb:
       destroy: "هدم"
       detach: "فصل"
       detail: "التفاصيل"
-      distribute: "توزيع المنتجات لم تتأثر"
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"
+      edit_many: "تعديل العديد"
       evaluate: "تقييم"
       export: "تصدير"
       extract: "استخراج"
@@ -2590,6 +2603,7 @@ arb:
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
+    # backend/activity_budgets: "%{activity_name} %{campaign_name}"
     # backend/activity_productions: "%{activity_name} %{support_name} #%{rank_number}"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"

@@ -371,6 +371,16 @@ module Backend
       end
     end
 
+    def labels_info(labels)
+      if labels.any?
+        content_tag(:div, class: 'info-labels') do
+          labels.map do |label|
+            content_tag(:div, label.name, class: 'label', style: "background-color: #{label.color}; color: #{contrasted_color(label.color)}") + ' '.html_safe
+          end.join.html_safe
+        end
+      end
+    end
+
     def info(label, value, options = {}, &_block)
       css_class = "#{options.delete(:level) || :med}-info"
       options[:class] = if options[:class]

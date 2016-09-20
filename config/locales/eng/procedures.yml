@@ -1,5 +1,4 @@
 eng:
-  procedo:
   procedure_handlers:
     # dry_matter_mass: "Dry matter mass"
     # dry_matter_mass_area_density: "Dry matter mass area density"
@@ -140,6 +139,7 @@ eng:
     tool: "Tool"
     topper: "Topper"
     tractor: "Tractor"
+    trailer: "Trailer"
     tunnel: "Tunnel"
     tunnel_implanter: "Tunnel implanter"
     tunnel_remover: "Tunnel remover"
@@ -185,6 +185,7 @@ eng:
     greenhouse_assembling: "Greenhouse assembling"
     ground_destratification: "Ground destratification"
     hand_weeding: "Hand weeding"
+    harvest_transportation: "Harvest transportation"
     harvesting: "Harvesting"
     hilling: "Ridging"
     hilling_for_sifting: "Ridging for sifting"

@@ -28,15 +28,19 @@ module Ekylibre
           transporter: row[17].blank? ? false : true,
           siren_number: row[18].blank? ? nil : row[18].to_s.strip,
           vat_number: row[19].blank? ? nil : row[19].to_s,
-          ape_number: row[20].blank? ? nil : row[20].to_s
+          ape_number: row[20].blank? ? nil : row[20].to_s,
+          number: row[21].blank? ? nil : row[21].to_s
         }.to_struct
 
-        if person = Entity.where('first_name ILIKE ? AND last_name ILIKE ?', r.first_name.strip, r.last_name.strip).first
+        person = Entity.find_by(number: r.number) if r.number
+        person ||= Entity.where('first_name ILIKE ? AND last_name ILIKE ?', r.first_name.strip, r.last_name.strip).first
+        if person
           person.update_attributes!(country: r.country) if person.country.blank?
         elsif
           person = Entity.new(
             first_name: r.first_name,
             last_name: r.last_name,
+            number: r.number,
             nature: r.nature,
             country: r.country,
             active: r.active,

@@ -26,6 +26,7 @@ deu:
         none: "Keiner"
     activity_production:
       support_nature:
+        # animal_group: "Animal group"
         border: "Rand"
         buffer: "Puffer"
         cultivation: "Anbau"

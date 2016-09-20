@@ -25,6 +25,19 @@ module Api
         json = JSON.parse response.body
         assert_response :ok
         assert json.size <= 30
+
+        get :index, user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'true'
+        json = JSON.parse response.body
+        assert_response :ok
+        assert json.size <= 30
+
+        get :index, user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'false'
+        json = JSON.parse response.body
+        assert_response :ok
+        assert json.size <= 30
+
+        get :index, user_email: 'admin@ekylibre.org', nature: 'request', with_interventions: 'falsesd'
+        assert_response :unprocessable_entity
       end
     end
   end

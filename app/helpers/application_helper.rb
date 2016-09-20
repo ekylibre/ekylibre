@@ -476,7 +476,7 @@ module ApplicationHelper
           html << dropdown_toggle_button + dropdown_menu(menu.items)
         end
         html
-      elsif menu.list.size == 1 && menu.first.type == :item
+      elsif menu.list.size == 1 && menu.first.type == :item && !options[:force_menu]
         default_item = menu.first
         tool_to(name, default_item.args.second,
                 (default_item.args.third || {}).merge(item_options),

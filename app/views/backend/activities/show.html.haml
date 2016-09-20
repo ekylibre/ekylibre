@@ -7,6 +7,8 @@
     = t.edit params: {controller: :activity_budgets, id: budget.id}, label: :edit_budget.tl
   - if current_campaign && resource.productions.of_campaign(current_campaign).empty?
     = tool_to(:close.ta, { controller: :campaigns, action: :close, id: current_campaign.id, activity_id: resource.id, redirect: url_for(controller: :campaigns, action: :show, id: current_campaign.id) }, method: :delete, data: { confirm: :are_you_sure.tl }, tool: :remove)
+  - if resource.productions.any? && Product.of_variety(resource.cultivation_variety, resource.support_variety).any?
+    = tool_to(:distribute_unaffected_products.tl, { controller: :target_distributions, action: :edit_many, activity_id: resource.id }, icon: false)
 
 - main_period_selector(:years)
 
@@ -95,7 +97,7 @@
           last_inspection.scales.each do |scale|
             dataset = last_inspection.calibrations.of_scale(scale).reorder(:id)
             dataset.map do |calibration|
-              inspections << {label: calibration.name, value: calibration.marketable_net_mass.round(0).convert(symbol_measure).l}
+              inspections << { label: calibration.name, value: Maybe(calibration.marketable_net_mass).or_else(0).round(0).convert(symbol_measure).l }
             end
           end
 
@@ -133,7 +135,7 @@
     - c.cobble(:productions) do
       = render 'productions'
 
-  - if resource.auxiliary?
+  - if resource.auxiliary? && resource.distributions.any?
     - c.cobble(:distributions, title: Activity.human_attribute_name(:distributions)) do
       :ruby
         data = []
@@ -216,7 +218,7 @@
                   Plant.at(curr_date).include? Plant.find(plant)
                 end
                 dataset = dataset.map do |_, inspections|
-                  inspections.last.send("points_#{long_name}_percentage", category).round(2).to_s.to_f
+                  Maybe(inspections.last).send("points_#{long_name}_percentage", category).or_else(0).round(2).to_s.to_f
                 end
                 spline_data << dataset.compact.sum / dataset.compact.count unless dataset.empty?
               end

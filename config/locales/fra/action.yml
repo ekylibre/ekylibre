@@ -365,6 +365,11 @@ fra:
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      index: "Étiquettes"
+      new: "Nouvelle étiquette"
+      # show: "Label: %{name}"
     backend/land_parcel_clusters:  #?
       edit: "Modifier l’îlot\_: %{name}" #?
       index: "Îlots" #?
@@ -612,8 +617,8 @@ fra:
       run: "Lancer une synchronization: %{name}"
       show: "Synchronisation: %{name}" #?
     backend/target_distributions:
-      distribute: "Répartir les produits"
       edit: "Modifier la répartition:"
+      edit_many: "Distribuer les produits non affectés"
       index: "Répartitions"
       new: "Nouvelle répartition"
       show: "Répartition:"
@@ -806,11 +811,12 @@ fra:
     add_intervention_record: "Enregistrer une intervention"
     add_intervention_request: "Demander une intervention"
     add_item: "Ajouter un élément"
+    add_labelling: "Ajouter l’étiquette"
     add_line: "Ajouter une ligne"
     add_linestring: "Ajouter une ligne"
     add_mail: "Ajouter une adresse postale"
     add_mobile: "Ajouter un n° de portable"
-    add_new_record: "Ajouter un nouveau enregistrement"
+    add_new_record: "Ajouter un nouvel enregistrement"
     add_participation: "Ajouter une participation"
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
@@ -1093,6 +1099,7 @@ fra:
     disease_percentage_evolution: "Evolution des maladies"
     display: "Afficher"
     display_help: "Afficher l’aide" #?
+    distribute_unaffected_products: "Distribuer les produits non affectés"
     distributions: "Répartitions"
     district_x: "%{name} (%{code})" #?
     divide: "Diviser"
@@ -1165,6 +1172,8 @@ fra:
     expense_chart: "Évolution des dépenses" #?
     expenses: "Dépenses"
     expenses_by_product_nature_category: "Achats par catégories de produit"
+    expired_since: "Expiré depuis plus de"
+    expired_within: "Expiré dans moins de"
     export: "Exporter"
     export_backup: "Export d’un fichier de sauvegarde" #?
     exportation: "Exportation" #?
@@ -1456,6 +1465,7 @@ fra:
     new_in_line: "Ajouter un produit intrant" #?
     new_incoming_parcel: "Nouveau colis entrant"
     new_issue: "Nouvel incident"
+    new_listing: "Nouvelle extraction"
     new_organization: "Nouvelle organisation"
     new_out_line: "Ajouter un produit sortant" #?
     new_outgoing_parcel: "Nouveau colis sortant"
@@ -1521,6 +1531,7 @@ fra:
     operation_items: "Intrants et sortants" #?
     operations: "Travaux"
     options: "Options"
+    or: "Ou"
     order: "Commande" #?
     order_amount_with_taxes: "Montant de la commande" #?
     order_print: "Imprimer la commande" #?
@@ -1766,6 +1777,7 @@ fra:
     second_building_name: "Entrée de" #?
     second_contact: "Adresse secondaire" #?
     section_x: "%{section} %{x}"
+    see_more_details: "Voir plus de détails"
     select_account_client: "Compte à lettrer" #?
     select_account_supplier: "Compte à lettrer" #?
     select_area: "Zone postale" #?
@@ -1831,6 +1843,7 @@ fra:
     string_case: "Options pour le texte" #?
     subject: "Sujet"
     submit: "Envoyer"
+    subscribed_on: "Abonné au"
     subscriber_period: "Abonné(e) le %{subscribed_at}"
     subscriber_quantity: "Abonné(e) au numéro %{subscribed_at}"
     subscription_nature: "Type d’abonnement"
@@ -2374,11 +2387,11 @@ fra:
       destroy: "Supprimer"
       detach: "Détacher"
       detail: "Détail"
-      distribute: "Répartir les produits non affectés"
       down: "Descendre"
       draft: "Brouillon" #?
       duplicate: "Dupliquer"
       edit: "Modifier"
+      edit_many: "Modifier plusieurs"
       evaluate: "Évaluer"
       export: "Exporter"
       extract: "Extraire"
@@ -2444,6 +2457,7 @@ fra:
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
+    backend/activity_budgets: "%{activity_name} %{campaign_name}"
     backend/activity_inspection_point_natures: "%{activity_name} - %{quality_criterion_name}" #?
     backend/activity_productions: "%{activity_name} %{support_name} n°%{rank_number}"
     backend/animals: "%{name} ‒ %{work_number}"

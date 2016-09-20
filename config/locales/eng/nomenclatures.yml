@@ -1511,6 +1511,7 @@ eng:
         cumulated_rainfall: "Cumulated rainfall"
         daily_average_working_time: "Daily average working time"
         daily_nitrogen_production: "Daily nitrogen production"
+        daily_pest_count: "Pest count (last night)"
         diameter: "Diameter"
         dry_matter_rate: "Dry matter rate"
         easement_area: "Easement area"
@@ -1641,6 +1642,7 @@ eng:
         wait_before_entering_period: "Wait before entering period"
         wait_before_harvest_period: "Wait before harvest period"
         water_content_rate: "Water content rate"
+        weekly_pest_count: "Pest count (7 days)"
         width: "Width"
         wind_direction: "Wind direction"
         wind_speed: "Wind speed"
@@ -2077,6 +2079,7 @@ eng:
         temperature_improvement: "Temperature improvement"
         topkilling: "Topkilling"
         tractor_troubleshooting: "Tractor troubleshooting"
+        transportation: "Transportation"
         troubleshooting: "Troubleshooting"
         tunnel_installation: "Tunnel installation"
         tunnel_removal: "Tunnel removal"
@@ -2309,6 +2312,7 @@ eng:
         electricity: "Electricity"
         electronic_equipment: "Electronic equipment"
         equipment: "Equipment"
+        equipment_fleet: "Equipment fleet"
         equipment_rent: "Equipment rent"
         equipment_repair_services: "Equipment repair services"
         exploitation_subsidies: "Exploitation subsidies"
@@ -4375,6 +4379,7 @@ eng:
         eotetranychus_coryli: "Eotetranychus coryli"       #< insecta
         equidae: "Equidae"                                 #< mammalia
         equipment: "Equipment"                             #< matter
+        equipment_fleet: "Equipment fleet"                 #< product_group
         equipment_part: "Item"                             #< matter
         equus: "Equine"                                    #< equidae
         equus_asinus: "Donkey"                             #< equus

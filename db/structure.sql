@@ -222,7 +222,7 @@ CREATE VIEW activity_productions_campaigns AS
 --
 
 CREATE VIEW activities_campaigns AS
- SELECT activity_productions_campaigns.campaign_id,
+ SELECT DISTINCT activity_productions_campaigns.campaign_id,
     activity_productions_campaigns.activity_id
    FROM activity_productions_campaigns;
 
@@ -769,6 +769,77 @@ CREATE SEQUENCE affairs_id_seq
 --
 
 ALTER SEQUENCE affairs_id_seq OWNED BY affairs.id;
+
+
+--
+-- Name: alert_phases; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE alert_phases (
+    id integer NOT NULL,
+    alert_id integer NOT NULL,
+    started_at timestamp without time zone NOT NULL,
+    level integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: alert_phases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE alert_phases_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: alert_phases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE alert_phases_id_seq OWNED BY alert_phases.id;
+
+
+--
+-- Name: alerts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE alerts (
+    id integer NOT NULL,
+    sensor_id integer,
+    nature character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: alerts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE alerts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: alerts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE alerts_id_seq OWNED BY alerts.id;
 
 
 --
@@ -2860,6 +2931,41 @@ ALTER SEQUENCE integrations_id_seq OWNED BY integrations.id;
 
 
 --
+-- Name: intervention_labellings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_labellings (
+    id integer NOT NULL,
+    intervention_id integer NOT NULL,
+    label_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: intervention_labellings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_labellings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_labellings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_labellings_id_seq OWNED BY intervention_labellings.id;
+
+
+--
 -- Name: intervention_parameter_readings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3199,7 +3305,9 @@ CREATE TABLE journal_entry_items (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     real_balance numeric(19,4) DEFAULT 0.0 NOT NULL,
-    bank_statement_letter character varying
+    bank_statement_letter character varying,
+    activity_budget_id integer,
+    team_id integer
 );
 
 
@@ -3261,6 +3369,41 @@ CREATE SEQUENCE journals_id_seq
 --
 
 ALTER SEQUENCE journals_id_seq OWNED BY journals.id;
+
+
+--
+-- Name: labels; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE labels (
+    id integer NOT NULL,
+    name character varying NOT NULL,
+    color character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: labels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE labels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: labels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE labels_id_seq OWNED BY labels.id;
 
 
 --
@@ -4239,6 +4382,41 @@ ALTER SEQUENCE product_enjoyments_id_seq OWNED BY product_enjoyments.id;
 
 
 --
+-- Name: product_labellings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE product_labellings (
+    id integer NOT NULL,
+    product_id integer NOT NULL,
+    label_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: product_labellings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE product_labellings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_labellings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE product_labellings_id_seq OWNED BY product_labellings.id;
+
+
+--
 -- Name: product_linkages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4905,7 +5083,8 @@ CREATE TABLE products (
     initial_geolocation postgis.geometry(Point,4326),
     uuid uuid,
     initial_movement_id integer,
-    custom_fields jsonb
+    custom_fields jsonb,
+    team_id integer
 );
 
 
@@ -4953,7 +5132,9 @@ CREATE TABLE purchase_items (
     lock_version integer DEFAULT 0 NOT NULL,
     unit_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     fixed boolean DEFAULT false NOT NULL,
-    reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL
+    reduction_percentage numeric(19,4) DEFAULT 0.0 NOT NULL,
+    activity_budget_id integer,
+    team_id integer
 );
 
 
@@ -5130,7 +5311,9 @@ CREATE TABLE sale_items (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     unit_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
-    credited_quantity numeric(19,4)
+    credited_quantity numeric(19,4),
+    activity_budget_id integer,
+    team_id integer
 );
 
 
@@ -5301,7 +5484,10 @@ CREATE TABLE sensors (
     lock_version integer DEFAULT 0 NOT NULL,
     token character varying,
     custom_fields jsonb,
-    euid character varying
+    euid character varying,
+    partner_url character varying,
+    battery_level numeric(19,4),
+    last_transmission_at timestamp without time zone
 );
 
 
@@ -5791,7 +5977,9 @@ CREATE TABLE users (
     invitation_limit integer,
     invited_by_id integer,
     invitations_count integer DEFAULT 0,
-    signup_at timestamp without time zone
+    signup_at timestamp without time zone,
+    provider character varying,
+    uid character varying
 );
 
 
@@ -5946,6 +6134,20 @@ ALTER TABLE ONLY activity_tactics ALTER COLUMN id SET DEFAULT nextval('activity_
 --
 
 ALTER TABLE ONLY affairs ALTER COLUMN id SET DEFAULT nextval('affairs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alert_phases ALTER COLUMN id SET DEFAULT nextval('alert_phases_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alerts ALTER COLUMN id SET DEFAULT nextval('alerts_id_seq'::regclass);
 
 
 --
@@ -6295,6 +6497,13 @@ ALTER TABLE ONLY integrations ALTER COLUMN id SET DEFAULT nextval('integrations_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY intervention_labellings ALTER COLUMN id SET DEFAULT nextval('intervention_labellings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY intervention_parameter_readings ALTER COLUMN id SET DEFAULT nextval('intervention_parameter_readings_id_seq'::regclass);
 
 
@@ -6359,6 +6568,13 @@ ALTER TABLE ONLY journal_entry_items ALTER COLUMN id SET DEFAULT nextval('journa
 --
 
 ALTER TABLE ONLY journals ALTER COLUMN id SET DEFAULT nextval('journals_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY labels ALTER COLUMN id SET DEFAULT nextval('labels_id_seq'::regclass);
 
 
 --
@@ -6520,6 +6736,13 @@ ALTER TABLE ONLY prescriptions ALTER COLUMN id SET DEFAULT nextval('prescription
 --
 
 ALTER TABLE ONLY product_enjoyments ALTER COLUMN id SET DEFAULT nextval('product_enjoyments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_labellings ALTER COLUMN id SET DEFAULT nextval('product_labellings_id_seq'::regclass);
 
 
 --
@@ -6884,6 +7107,22 @@ ALTER TABLE ONLY activity_tactics
 
 ALTER TABLE ONLY affairs
     ADD CONSTRAINT affairs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alert_phases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alert_phases
+    ADD CONSTRAINT alert_phases_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: alerts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alerts
+    ADD CONSTRAINT alerts_pkey PRIMARY KEY (id);
 
 
 --
@@ -7279,6 +7518,14 @@ ALTER TABLE ONLY integrations
 
 
 --
+-- Name: intervention_labellings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_labellings
+    ADD CONSTRAINT intervention_labellings_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: intervention_parameter_readings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7356,6 +7603,14 @@ ALTER TABLE ONLY journal_entry_items
 
 ALTER TABLE ONLY journals
     ADD CONSTRAINT journals_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: labels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY labels
+    ADD CONSTRAINT labels_pkey PRIMARY KEY (id);
 
 
 --
@@ -7540,6 +7795,14 @@ ALTER TABLE ONLY prescriptions
 
 ALTER TABLE ONLY product_enjoyments
     ADD CONSTRAINT product_enjoyments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_labellings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_labellings
+    ADD CONSTRAINT product_labellings_pkey PRIMARY KEY (id);
 
 
 --
@@ -8416,6 +8679,76 @@ CREATE INDEX index_affairs_on_updated_at ON affairs USING btree (updated_at);
 --
 
 CREATE INDEX index_affairs_on_updater_id ON affairs USING btree (updater_id);
+
+
+--
+-- Name: index_alert_phases_on_alert_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alert_phases_on_alert_id ON alert_phases USING btree (alert_id);
+
+
+--
+-- Name: index_alert_phases_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alert_phases_on_created_at ON alert_phases USING btree (created_at);
+
+
+--
+-- Name: index_alert_phases_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alert_phases_on_creator_id ON alert_phases USING btree (creator_id);
+
+
+--
+-- Name: index_alert_phases_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alert_phases_on_updated_at ON alert_phases USING btree (updated_at);
+
+
+--
+-- Name: index_alert_phases_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alert_phases_on_updater_id ON alert_phases USING btree (updater_id);
+
+
+--
+-- Name: index_alerts_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alerts_on_created_at ON alerts USING btree (created_at);
+
+
+--
+-- Name: index_alerts_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alerts_on_creator_id ON alerts USING btree (creator_id);
+
+
+--
+-- Name: index_alerts_on_sensor_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alerts_on_sensor_id ON alerts USING btree (sensor_id);
+
+
+--
+-- Name: index_alerts_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alerts_on_updated_at ON alerts USING btree (updated_at);
+
+
+--
+-- Name: index_alerts_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_alerts_on_updater_id ON alerts USING btree (updater_id);
 
 
 --
@@ -10694,6 +11027,55 @@ CREATE INDEX index_integrations_on_updater_id ON integrations USING btree (updat
 
 
 --
+-- Name: index_intervention_labellings_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_labellings_on_created_at ON intervention_labellings USING btree (created_at);
+
+
+--
+-- Name: index_intervention_labellings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_labellings_on_creator_id ON intervention_labellings USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_labellings_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_labellings_on_intervention_id ON intervention_labellings USING btree (intervention_id);
+
+
+--
+-- Name: index_intervention_labellings_on_intervention_id_and_label_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_intervention_labellings_on_intervention_id_and_label_id ON intervention_labellings USING btree (intervention_id, label_id);
+
+
+--
+-- Name: index_intervention_labellings_on_label_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_labellings_on_label_id ON intervention_labellings USING btree (label_id);
+
+
+--
+-- Name: index_intervention_labellings_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_labellings_on_updated_at ON intervention_labellings USING btree (updated_at);
+
+
+--
+-- Name: index_intervention_labellings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_labellings_on_updater_id ON intervention_labellings USING btree (updater_id);
+
+
+--
 -- Name: index_intervention_parameter_readings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11177,6 +11559,13 @@ CREATE INDEX index_journal_entry_items_on_account_id ON journal_entry_items USIN
 
 
 --
+-- Name: index_journal_entry_items_on_activity_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_activity_budget_id ON journal_entry_items USING btree (activity_budget_id);
+
+
+--
 -- Name: index_journal_entry_items_on_bank_statement_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11240,6 +11629,13 @@ CREATE INDEX index_journal_entry_items_on_name ON journal_entry_items USING btre
 
 
 --
+-- Name: index_journal_entry_items_on_team_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_journal_entry_items_on_team_id ON journal_entry_items USING btree (team_id);
+
+
+--
 -- Name: index_journal_entry_items_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11279,6 +11675,41 @@ CREATE INDEX index_journals_on_updated_at ON journals USING btree (updated_at);
 --
 
 CREATE INDEX index_journals_on_updater_id ON journals USING btree (updater_id);
+
+
+--
+-- Name: index_labels_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_labels_on_created_at ON labels USING btree (created_at);
+
+
+--
+-- Name: index_labels_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_labels_on_creator_id ON labels USING btree (creator_id);
+
+
+--
+-- Name: index_labels_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_labels_on_name ON labels USING btree (name);
+
+
+--
+-- Name: index_labels_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_labels_on_updated_at ON labels USING btree (updated_at);
+
+
+--
+-- Name: index_labels_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_labels_on_updater_id ON labels USING btree (updater_id);
 
 
 --
@@ -12472,6 +12903,55 @@ CREATE INDEX index_product_enjoyments_on_updater_id ON product_enjoyments USING 
 
 
 --
+-- Name: index_product_labellings_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_labellings_on_created_at ON product_labellings USING btree (created_at);
+
+
+--
+-- Name: index_product_labellings_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_labellings_on_creator_id ON product_labellings USING btree (creator_id);
+
+
+--
+-- Name: index_product_labellings_on_label_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_labellings_on_label_id ON product_labellings USING btree (label_id);
+
+
+--
+-- Name: index_product_labellings_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_labellings_on_product_id ON product_labellings USING btree (product_id);
+
+
+--
+-- Name: index_product_labellings_on_product_id_and_label_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_product_labellings_on_product_id_and_label_id ON product_labellings USING btree (product_id, label_id);
+
+
+--
+-- Name: index_product_labellings_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_labellings_on_updated_at ON product_labellings USING btree (updated_at);
+
+
+--
+-- Name: index_product_labellings_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_labellings_on_updater_id ON product_labellings USING btree (updater_id);
+
+
+--
 -- Name: index_product_linkages_on_carried_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13459,6 +13939,13 @@ CREATE INDEX index_products_on_parent_id ON products USING btree (parent_id);
 
 
 --
+-- Name: index_products_on_team_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_team_id ON products USING btree (team_id);
+
+
+--
 -- Name: index_products_on_tracking_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13515,6 +14002,13 @@ CREATE INDEX index_purchase_items_on_account_id ON purchase_items USING btree (a
 
 
 --
+-- Name: index_purchase_items_on_activity_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_activity_budget_id ON purchase_items USING btree (activity_budget_id);
+
+
+--
 -- Name: index_purchase_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13540,6 +14034,13 @@ CREATE INDEX index_purchase_items_on_purchase_id ON purchase_items USING btree (
 --
 
 CREATE INDEX index_purchase_items_on_tax_id ON purchase_items USING btree (tax_id);
+
+
+--
+-- Name: index_purchase_items_on_team_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchase_items_on_team_id ON purchase_items USING btree (team_id);
 
 
 --
@@ -13725,6 +14226,13 @@ CREATE INDEX index_sale_items_on_account_id ON sale_items USING btree (account_i
 
 
 --
+-- Name: index_sale_items_on_activity_budget_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_items_on_activity_budget_id ON sale_items USING btree (activity_budget_id);
+
+
+--
 -- Name: index_sale_items_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13757,6 +14265,13 @@ CREATE INDEX index_sale_items_on_sale_id ON sale_items USING btree (sale_id);
 --
 
 CREATE INDEX index_sale_items_on_tax_id ON sale_items USING btree (tax_id);
+
+
+--
+-- Name: index_sale_items_on_team_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sale_items_on_team_id ON sale_items USING btree (team_id);
 
 
 --
@@ -14544,6 +15059,13 @@ CREATE INDEX index_users_on_person_id ON users USING btree (person_id);
 
 
 --
+-- Name: index_users_on_provider; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_provider ON users USING btree (provider);
+
+
+--
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14562,6 +15084,13 @@ CREATE INDEX index_users_on_role_id ON users USING btree (role_id);
 --
 
 CREATE INDEX index_users_on_team_id ON users USING btree (team_id);
+
+
+--
+-- Name: index_users_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_uid ON users USING btree (uid);
 
 
 --
@@ -14614,10 +15143,26 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alert_phases
+    ADD CONSTRAINT fk_rails_7a9749733c FOREIGN KEY (alert_id) REFERENCES alerts(id);
+
+
+--
+-- Name: fk_rails_a31061effa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY alerts
+    ADD CONSTRAINT fk_rails_a31061effa FOREIGN KEY (sensor_id) REFERENCES sensors(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO public,postgis;
+SET search_path TO "public", "postgis";
 
 INSERT INTO schema_migrations (version) VALUES ('20121212122000');
 
@@ -14915,5 +15460,21 @@ INSERT INTO schema_migrations (version) VALUES ('20160902141500');
 
 INSERT INTO schema_migrations (version) VALUES ('20160906112630');
 
+INSERT INTO schema_migrations (version) VALUES ('20160910200730');
+
+INSERT INTO schema_migrations (version) VALUES ('20160910224234');
+
+INSERT INTO schema_migrations (version) VALUES ('20160911140029');
+
+INSERT INTO schema_migrations (version) VALUES ('20160913133355');
+
+INSERT INTO schema_migrations (version) VALUES ('20160913133407');
+
 INSERT INTO schema_migrations (version) VALUES ('20160914083312');
+
+INSERT INTO schema_migrations (version) VALUES ('20160915094302');
+
+INSERT INTO schema_migrations (version) VALUES ('20160916220901');
+
+INSERT INTO schema_migrations (version) VALUES ('20160918152301');
 

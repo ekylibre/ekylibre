@@ -61,7 +61,7 @@ class CreateDbViews < ActiveRecord::Migration
 
     execute '
       CREATE OR REPLACE VIEW activities_campaigns AS
-        SELECT campaign_id, activity_id
+        SELECT DISTINCT campaign_id, activity_id
         FROM activity_productions_campaigns;
     '
 

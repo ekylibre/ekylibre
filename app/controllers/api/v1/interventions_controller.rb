@@ -35,6 +35,18 @@ module Api
           end
           @interventions = @interventions.with_doers(user.worker)
         end
+        if nature == 'request'
+          if params[:with_interventions]
+            if params[:with_interventions] == 'true'
+              @interventions = @interventions.where(id: Intervention.select(:request_intervention_id))
+            elsif params[:with_interventions] == 'false'
+              @interventions = @interventions.where.not(id: Intervention.select(:request_intervention_id))
+            else
+              head :unprocessable_entity
+              return
+            end
+          end
+        end
         @interventions = @interventions.where(nature: nature).page(page).per(per_page).order(:id)
       end
     end
