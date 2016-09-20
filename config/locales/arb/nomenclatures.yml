@@ -2088,6 +2088,7 @@ arb:
         temperature_improvement: "تحسن درجات الحرارة"
         # topkilling: "Topkilling"
         tractor_troubleshooting: "جرار استكشاف الأخطاء وإصلاحها"
+        # transportation: "Transportation"
         troubleshooting: "استكشاف الأخطاء وإصلاحها"
         tunnel_installation: "تركيب نفق"
         tunnel_removal: "إزالة نفق"
