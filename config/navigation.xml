@@ -9,7 +9,6 @@
         <page to="backend/entities#autocomplete"/>
         <page to="backend/entities#destroy"/>
         <page to="backend/entities#edit"/>
-        <page to="backend/entities#export" nonexistent="true"/>
         <page to="backend/entities#import"/>
         <page to="backend/entities#list"/>
         <page to="backend/entities#list_event_participations"/>
