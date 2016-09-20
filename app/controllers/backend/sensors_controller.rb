@@ -87,7 +87,8 @@ module Backend
                       .includes(:analyses)
                       .find_each
                       .map do |sensor|
-                        if (geoloc = sensor.analyses.last.geolocation)
+                        last_analysis = sensor.analyses.last
+                        if last_analysis.present? && (geoloc = last_analysis.geolocation)
                           [sensor.id, geoloc && JSON(geoloc.to_json)]
                         end
                       end
