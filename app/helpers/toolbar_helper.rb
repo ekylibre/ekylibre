@@ -62,11 +62,11 @@ module ToolbarHelper
       listings = Listing.where(root_model: model).order(:name)
       @template.dropdown_menu_button(:extract, force_menu: true) do |menu|
         listings.each do |listing|
-          menu.item(listing.name, { controller: '/backend/listings', action: :extract, id: listing.id, format: :csv })
+          menu.item(listing.name, controller: '/backend/listings', action: :extract, id: listing.id, format: :csv)
         end
         if options[:new].is_a?(TrueClass) && @template.current_user.can?(:write, :listings)
           menu.separator if listings.any?
-          menu.item(:new_listing.tl, { controller: '/backend/listings', action: :new, root_model: model })
+          menu.item(:new_listing.tl, controller: '/backend/listings', action: :new, root_model: model)
         end
       end
     end

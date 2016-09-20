@@ -18,7 +18,7 @@
 
 module Backend
   class TargetDistributionsController < Backend::BaseController
-    manage_restfully except: [:create]
+    manage_restfully
 
     list order: { started_at: :desc } do |t|
       t.action :edit

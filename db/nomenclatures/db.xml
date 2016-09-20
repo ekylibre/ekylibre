@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160915143142">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160919210501">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -2065,6 +2065,7 @@
       <item name="temperature_improvement"/>
       <item name="topkilling"/>
       <item name="tractor_troubleshooting"/>
+      <item name="transportation"/>
       <item name="troubleshooting"/>
       <item name="tunnel_installation"/>
       <item name="tunnel_removal"/>

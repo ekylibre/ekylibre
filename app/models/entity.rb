@@ -138,6 +138,7 @@ class Entity < Ekylibre::Record::Base
   end
   has_one :cash, class_name: 'Cash', foreign_key: :owner_id
   has_one :worker, foreign_key: :person_id
+  has_one :user, foreign_key: :person_id
   has_picture
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -221,7 +222,7 @@ class Entity < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    destroyable?
+    of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any?
   end
 
   class << self
@@ -451,10 +452,6 @@ class Entity < Ekylibre::Record::Base
     end
   end
 
-  def destroyable?
-    !(of_company? || sales_invoices.any? || participations.any? || sales.any? || parcels.any? || purchases.any?)
-  end
-
   def self.best_clients(limit = -1)
     clients.sort_by { |client| -client.sales.count }[0...limit]
   end
@@ -473,5 +470,4 @@ class Entity < Ekylibre::Record::Base
     columns += CustomField.where("nature in ('string')").collect { |c| [CustomField.model_name.human + '/' + c.name, 'custom_field-id' + c.id.to_s] }.sort
     columns
   end
-
 end

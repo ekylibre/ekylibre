@@ -2,6 +2,8 @@ module Backend
   class ActivityBudgetsController < Backend::BaseController
     manage_restfully except: [:index, :show], t3e: { activity_name: :activity_name, campaign_name: :campaign_name, name: :name }, creation_t3e: true
 
+    unroll activity: :name, campaign: :name
+
     # No index for budgets
     def index
       redirect_to controller: :activities, action: :index

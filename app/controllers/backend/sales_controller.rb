@@ -60,7 +60,7 @@ module Backend
       # t.action :show, url: {format: :pdf}, image: :print
       t.action :edit, if: :draft?
       t.action :cancel, if: :cancellable?
-      t.action :destroy, if: :aborted?
+      t.action :destroy, if: :destroyable?
       t.column :number, url: { action: :show }
       t.column :created_at
       t.column :invoiced_at
@@ -138,6 +138,8 @@ module Backend
       t.column :reduction_percentage
       t.column :pretax_amount, currency: true
       t.column :amount, currency: true
+      t.column :activity_budget, hidden: true
+      t.column :team, hidden: true
     end
 
     # Displays details of one sale selected with +params[:id]+
