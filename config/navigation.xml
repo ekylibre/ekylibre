@@ -1811,16 +1811,6 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="activity_tactic_steps">
-        <page to="backend/activity_tactic_steps#index"/>
-        <page to="backend/activity_tactic_steps#create"/>
-        <page to="backend/activity_tactic_steps#destroy"/>
-        <page to="backend/activity_tactic_steps#edit"/>
-        <page to="backend/activity_tactic_steps#new"/>
-        <page to="backend/activity_tactic_steps#show"/>
-        <page to="backend/activity_tactic_steps#unroll"/>
-        <page to="backend/activity_tactic_steps#update"/>
-      </item>
       <item name="activity_tactics">
         <page to="backend/activity_tactics#actions"/>
         <page to="backend/activity_tactics#procedures_name"/>
@@ -1829,6 +1819,18 @@
         <page to="backend/interventions#change_state"/>
         <page to="backend/interventions#show_intervention_modal"/>
         <page to="backend/interventions#show_modal_state"/>
+      <item name="animal_groups">
+        <page to="backend/animal_groups#list_carried_linkages"/>
+        <page to="backend/animal_groups#list_carrier_linkages"/>
+        <page to="backend/animal_groups#list_contained_products"/>
+        <page to="backend/animal_groups#list_groups"/>
+        <page to="backend/animal_groups#list_inspections"/>
+        <page to="backend/animal_groups#list_intervention_product_parameters"/>
+        <page to="backend/animal_groups#list_issues"/>
+        <page to="backend/animal_groups#list_members"/>
+        <page to="backend/animal_groups#list_readings"/>
+        <page to="backend/animal_groups#picture"/>
+        <page to="backend/animal_groups#take"/>
       </item>
       <item name="target_distributions">
         <page to="backend/target_distributions#create"/>

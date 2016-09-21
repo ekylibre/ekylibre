@@ -80,6 +80,7 @@ eng:
       index: "Animal groups"
       new: "New animal group"
       show: "Animal group: %{name}"
+      # take: "Take animal group: %{name}"
     backend/animals:
       # add_group: "Add group animal: %{name}"
       # add_to_container: "Add to container animal: %{name}"
