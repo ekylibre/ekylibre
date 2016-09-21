@@ -49,8 +49,6 @@ class Campaign < Ekylibre::Record::Base
   validates :harvest_year, length: { is: 4 }, allow_nil: true
   validates :harvest_year, uniqueness: true
 
-  has_many :activity_productions
-
   has_and_belongs_to_many :activities
   has_and_belongs_to_many :interventions
   has_and_belongs_to_many :activity_productions
@@ -58,7 +56,7 @@ class Campaign < Ekylibre::Record::Base
   scope :current, -> { where(closed: false).reorder(:harvest_year) }
   scope :at, ->(searched_at = Time.zone.now) { where(harvest_year: searched_at.year) }
   scope :of_activity_production, lambda { |activity_production|
-    joins(:activity_productions).where(activity_productions: { id: activity_production.id })
+    where('id IN (SELECT campaign_id FROM activity_productions_campaigns WHERE activity_production_id = ?)', activity_production.id)
   }
   scope :of_production, ->(production) { of_activity_production(production) }
 

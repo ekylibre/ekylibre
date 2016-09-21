@@ -36,13 +36,4 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
-
-
-# # Empty samples of activity_tactic_steps
-# activity_tactic_steps_001:
-#   id: 1
-#   name: 'ActivityTacticStep 1'
-
-# activity_tactic_steps_002:
-#   id: 2
-#   name: 'ActivityTacticStep 2'
+--- {}

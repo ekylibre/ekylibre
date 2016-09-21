@@ -152,6 +152,23 @@ CREATE TABLE activities (
 
 
 --
+-- Name: activity_budgets; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE activity_budgets (
+    id integer NOT NULL,
+    activity_id integer NOT NULL,
+    campaign_id integer NOT NULL,
+    currency character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
 -- Name: activity_productions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -204,27 +221,20 @@ CREATE TABLE campaigns (
 
 
 --
--- Name: activity_productions_campaigns; Type: VIEW; Schema: public; Owner: -
---
-
-CREATE VIEW activity_productions_campaigns AS
- SELECT DISTINCT c.id AS campaign_id,
-    ap.id AS activity_production_id,
-    a.id AS activity_id
-   FROM ((activity_productions ap
-     JOIN activities a ON ((ap.activity_id = a.id)))
-     LEFT JOIN campaigns c ON (((c.id = ap.campaign_id) OR ((c.id IS NOT NULL) AND ((a.production_cycle)::text = 'perennial'::text) AND ((((a.production_campaign)::text = 'at_cycle_start'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision >= date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) <= (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision < date_part('year'::text, ap.stopped_on))))) OR (((a.production_campaign)::text = 'at_cycle_end'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision > date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) < (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision <= date_part('year'::text, ap.stopped_on))))))))))
-  ORDER BY c.id;
-
-
---
 -- Name: activities_campaigns; Type: VIEW; Schema: public; Owner: -
 --
 
 CREATE VIEW activities_campaigns AS
- SELECT DISTINCT activity_productions_campaigns.campaign_id,
-    activity_productions_campaigns.activity_id
-   FROM activity_productions_campaigns;
+ SELECT DISTINCT c.id AS campaign_id,
+    a.id AS activity_id
+   FROM (activities a
+     LEFT JOIN campaigns c ON ((((a.id, c.id) IN ( SELECT ab.activity_id,
+            ab.campaign_id
+           FROM activity_budgets ab
+          WHERE ((ab.campaign_id = c.id) AND (ab.activity_id = a.id)))) OR ((a.id, c.id) IN ( SELECT ap.activity_id,
+            ap.campaign_id
+           FROM activity_productions ap
+          WHERE ((ap.campaign_id = c.id) AND (ap.activity_id = a.id)))))));
 
 
 --
@@ -391,23 +401,6 @@ ALTER SEQUENCE activity_budget_items_id_seq OWNED BY activity_budget_items.id;
 
 
 --
--- Name: activity_budgets; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE activity_budgets (
-    id integer NOT NULL,
-    activity_id integer NOT NULL,
-    campaign_id integer NOT NULL,
-    currency character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
 -- Name: activity_budgets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
@@ -569,6 +562,19 @@ CREATE SEQUENCE activity_inspection_point_natures_id_seq
 --
 
 ALTER SEQUENCE activity_inspection_point_natures_id_seq OWNED BY activity_inspection_point_natures.id;
+
+
+--
+-- Name: activity_productions_campaigns; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW activity_productions_campaigns AS
+ SELECT DISTINCT c.id AS campaign_id,
+    ap.id AS activity_production_id
+   FROM ((activity_productions ap
+     JOIN activities a ON ((ap.activity_id = a.id)))
+     LEFT JOIN campaigns c ON (((c.id = ap.campaign_id) OR ((c.id IS NOT NULL) AND ((a.production_cycle)::text = 'perennial'::text) AND ((((a.production_campaign)::text = 'at_cycle_start'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision >= date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) <= (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision < date_part('year'::text, ap.stopped_on))))) OR (((a.production_campaign)::text = 'at_cycle_end'::text) AND (((ap.stopped_on IS NULL) AND ((c.harvest_year)::double precision > date_part('year'::text, ap.started_on))) OR ((ap.stopped_on IS NOT NULL) AND (date_part('year'::text, ap.started_on) < (c.harvest_year)::double precision) AND ((c.harvest_year)::double precision <= date_part('year'::text, ap.stopped_on))))))))))
+  ORDER BY c.id;
 
 
 --

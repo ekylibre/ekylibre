@@ -22,7 +22,7 @@ class CreateDbViews < ActiveRecord::Migration
 
     execute '
       CREATE OR REPLACE VIEW activity_productions_campaigns AS
-        SELECT DISTINCT c.id as campaign_id, ap.id as activity_production_id, a.id as activity_id
+        SELECT DISTINCT c.id as campaign_id, ap.id as activity_production_id
         FROM activity_productions ap
         INNER JOIN activities a ON ap.activity_id = a.id
         LEFT JOIN campaigns c ON (
@@ -61,8 +61,16 @@ class CreateDbViews < ActiveRecord::Migration
 
     execute '
       CREATE OR REPLACE VIEW activities_campaigns AS
-        SELECT DISTINCT campaign_id, activity_id
-        FROM activity_productions_campaigns;
+        SELECT DISTINCT c.id as campaign_id, a.id as activity_id
+        FROM activities a
+        LEFT JOIN campaigns c ON (
+           (a.id, c.id) IN(
+             SELECT ab.activity_id, ab.campaign_id FROM activity_budgets ab WHERE ab.campaign_id = c.id AND ab.activity_id = a.id
+           )
+           OR (a.id, c.id) IN(
+             SELECT ap.activity_id, ap.campaign_id FROM activity_productions ap WHERE ap.campaign_id = c.id AND ap.activity_id = a.id
+           )
+        )
     '
 
     execute '
