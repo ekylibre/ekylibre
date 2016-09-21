@@ -2,14 +2,11 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="ground_destratification" categories="soil_working" actions="loosening">
     <parameters>
-      <parameter name="land_parcel" type="target" filter="is land_parcel and has indicator shape" default-shape=":land_parcel" default-actor="storage">
-        <handler indicator="shape">
-          <converter to="shape" forward="intersection(VALUE, land_parcel.shape)" backward="VALUE"/>
-          <converter to="population" forward="area(VALUE) / land_parcel..net_surface_area(square_meter)"/>
-        </handler>
-      </parameter>
-      <parameter name="driver" type="doer" filter="can move and can drive(tractor)"/>
-      <parameter name="tractor" type="tool" filter="is equipment and can catch(equipment)"/>
+      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+        <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
+      </target>
+      <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

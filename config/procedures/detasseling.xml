@@ -2,11 +2,12 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="detasseling" categories="crop_maintenance" actions="detasseling">
     <parameters>
-      <target name="cultivation" filter="is plant and has indicator shape">
+      <target name="plant" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
+      <tool name="corn_topper" filter="can castrate(plant)" cardinality="*"/>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
       <doer name="doer"  filter="is worker and can move" cardinality="*"/>
-      <tool name="corn_topper"   filter="can castrate(plant)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

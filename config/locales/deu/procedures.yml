@@ -7,7 +7,7 @@ deu:
     animal_housing: "Tierhaltung"
     animal_medicine: "Tiermedizin"
     baler: "Ballenpresse"
-    baler_driver: "Press-Fahrer"
+    baler_driver: "Press-Fahrer" #?
     bird_band: "Vogel-Band"
     bottles: "Flaschen"
     caregiver: "Pflegekraft"
@@ -52,8 +52,8 @@ deu:
     # hiller: "Hiller"
     hive: "Bienenstock"
     hoe: "Hacke"
-    implanter: "Pflanzer"
-    implanter_man: "Implanter Mann"
+    implanter: "Pflanzer" #?
+    implanter_man: "Implanter Mann" #?
     implanter_tool: "Implanter Werkzeug"
     implement: "Implementieren"
     insemination: "Besamung"
@@ -71,15 +71,17 @@ deu:
     mother: "Mutter"
     movement: "Bewegung"
     mower: "Mäher"
-    mower_driver: "Mäher Fahrer"
+    mower_driver: "Mäher Fahrer" #?
+    # mulching_material: "Mulching material"
     net_implanter: "Net Pflanzer"
     net_roll: "Netzrolle"
     oenological_intrant: "önologischen intrant"
     oil: "Öl"
     # operator: "Operator"
+    # plant: "Culture"
     plant_medicine: "Pflanzenmedizin"
     plants: "Pflanzen"
-    plastic: "Kunststoff"
+    plastic: "Kunststoff" #?
     plastic_sheet: "Kunststofffolie" #?
     plow: "Pflug"
     pollinating_insects: "bestäubenden Insekten"
@@ -163,7 +165,8 @@ deu:
     hilling_for_sifting: "Hilling für Sieben"
     # hoeing: "Hoeing"
     indirect_silage: "indirekte Silage"
-    inter-row hoeing: "Inter-Reihe Fräst"
+    # inter_row_hoeing: "Inter-row hoeing"
+    inter-row hoeing: "Inter-Reihe Fräst" #?
     land_parcel_grinding: "Parzelle Schleif"
     lifting: "Heben"
     manual_feeding: "Manueller Einzug"

@@ -7,7 +7,7 @@ arb:
     animal_housing: "حظائر الحيوانات"
     animal_medicine: "الطب الحيواني"
     baler: "المكبس"
-    baler_driver: "سائق المكبس"
+    baler_driver: "سائق المكبس" #?
     bird_band: "الفرقة الطيور"
     bottles: "زجاجات"
     caregiver: "الرعاية"
@@ -52,8 +52,8 @@ arb:
     hiller: "هيلر"
     hive: "خلية"
     hoe: "مجرفة"
-    implanter: "زارع"
-    implanter_man: "Implanter رجل"
+    implanter: "زارع" #?
+    implanter_man: "Implanter رجل" #?
     implanter_tool: "أداة Implanter"
     implement: "تنفيذ"
     insemination: "تخصيب"
@@ -71,15 +71,17 @@ arb:
     mother: "أم"
     movement: "حركة"
     mower: "جزازة"
-    mower_driver: "سائق جزازة"
+    mower_driver: "سائق جزازة" #?
+    # mulching_material: "Mulching material"
     net_implanter: "صافي implanter"
     net_roll: "صافي لفة"
     oenological_intrant: "intrant Oenological"
     oil: "نفط"
     operator: "عامل"
+    # plant: "Culture"
     plant_medicine: "الطب المصنع"
     plants: "النباتات"
-    plastic: "البلاستيك"
+    plastic: "البلاستيك" #?
     plastic_sheet: "ورقة من البلاستيك" #?
     plow: "محراث"
     pollinating_insects: "تلقيح الحشرات"
@@ -163,7 +165,8 @@ arb:
     hilling_for_sifting: "هيلينج لغربلة"
     hoeing: "العزق"
     indirect_silage: "السيلاج غير مباشر"
-    inter-row hoeing: "أمور الصف عزق"
+    # inter_row_hoeing: "Inter-row hoeing"
+    inter-row hoeing: "أمور الصف عزق" #?
     land_parcel_grinding: "قطعة أرض طحن"
     lifting: "رفع"
     manual_feeding: "التغذية اليدوية"

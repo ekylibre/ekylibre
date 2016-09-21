@@ -7,7 +7,7 @@ spa:
     animal_housing: "Alojamiento de animales"
     animal_medicine: "Medicina de los animales"
     baler: "Embaladora"
-    baler_driver: "Controlador Baler"
+    baler_driver: "Controlador Baler" #?
     bird_band: "Banda del pájaro"
     bottles: "Botellas"
     caregiver: "Cuidador"
@@ -52,8 +52,8 @@ spa:
     # hiller: "Hiller"
     hive: "Colmena"
     hoe: "Azada"
-    implanter: "Implantador"
-    implanter_man: "Hombre implantador"
+    implanter: "Implantador" #?
+    implanter_man: "Hombre implantador" #?
     implanter_tool: "Herramienta implantador"
     implement: "Implementar"
     insemination: "Inseminación"
@@ -71,15 +71,17 @@ spa:
     mother: "Madre"
     movement: "Movimiento"
     mower: "Cortacésped"
-    mower_driver: "Conductor del cortacésped"
+    mower_driver: "Conductor del cortacésped" #?
+    # mulching_material: "Mulching material"
     net_implanter: "Implantador neta"
     net_roll: "La recogida de ésta"
     oenological_intrant: "Intrant enológico"
     oil: "Petróleo"
     operator: "Operador"
+    # plant: "Culture"
     plant_medicine: "Planta medicina"
     plants: "Plantas"
-    plastic: "El plastico"
+    plastic: "El plastico" #?
     plastic_sheet: "Lámina de plástico" #?
     plow: "Arado"
     pollinating_insects: "insectos polinizadores"
@@ -163,7 +165,8 @@ spa:
     hilling_for_sifting: "Aporque para tamizar"
     hoeing: "Azada"
     indirect_silage: "Ensilado indirecta"
-    inter-row hoeing: "Entre hileras azada"
+    # inter_row_hoeing: "Inter-row hoeing"
+    inter-row hoeing: "Entre hileras azada" #?
     land_parcel_grinding: "Molienda de parcelas"
     lifting: "Levantamiento"
     manual_feeding: "Alimentación manual"

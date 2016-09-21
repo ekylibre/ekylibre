@@ -5,7 +5,7 @@
       <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="protective_canvas" filter="can care(plant) and can cover(plant)">
+      <input name="protective_canvas" filter="can care(plant) and can cover(plant)" cardinality="*">
         <handler name="population"/>
         <handler indicator="length" unit="meter"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..length?"
@@ -16,8 +16,8 @@
                  backward="POPULATION * (PRODUCT..length(meter) * PRODUCT..width(meter))"
                  forward="VALUE / (PRODUCT..length(meter) * PRODUCT..width(meter))"/>
       </input>
-      <tool name="cover_implanter"  filter="is equipment and can cover(plant)" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="cover_implanter"  filter="is equipment and can cover(plant)" cardinality="*"/>
       <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
     </parameters>
   </procedure>
