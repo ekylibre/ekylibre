@@ -191,9 +191,9 @@ cmn:
         record: "记录"
         request: "请求"
       state:
-        # deleted: "Deleted"
         done: "做"
         in_progress: "进行中"
+        # rejected: "Rejected"
         squeezed: "挤压" #?
         undone: "未完成" #?
         # validated: "Validated"
@@ -393,7 +393,7 @@ cmn:
         supplier: "供应商"
     sensor:
       retrieval_mode:
-        integration: "积分"
+        integration: "积分" #?
         listening: "听力"
         requesting: "请求"
     sequence:

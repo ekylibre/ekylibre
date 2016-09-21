@@ -191,9 +191,9 @@ deu:
         record: "Aufzeichnen"
         request: "Anfordern"
       state:
-        # deleted: "Deleted"
         done: "Erledigt"
         in_progress: "In Bearbeitung"
+        # rejected: "Rejected"
         squeezed: "Eingezwängt" #?
         undone: "unerledigt" #?
         # validated: "Validated"
@@ -393,7 +393,6 @@ deu:
         supplier: "Lieferant"
     sensor:
       retrieval_mode:
-        # integration: "Integration"
         listening: "Hören"
         requesting: "Anfordern"
     sequence:

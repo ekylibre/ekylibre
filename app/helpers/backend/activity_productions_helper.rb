@@ -31,16 +31,23 @@ module Backend
     def interventions_chronology_icons(interventions_list, period_started_on, duration, html_options = {})
       code = ''
       interventions_list.each do |week_number, interventions|
+        html_options[:url] = nil
         now = Date.today
         title = ''
         marked_date = nil
 
         interventions.each do |intervention|
+          html_options[:url] = backend_intervention_path(intervention)
           marked_date = intervention.started_at.to_date
           title += '- ' + intervention.name + "\n"
         end
 
-        marked_date = Date.commercial(now.cwyear, week_number, 1) if interventions.count > 1
+        if interventions.count > 1
+          week_begin_date = Date.commercial(current_campaign.harvest_year, week_number, 1)
+          html_options[:url] = backend_interventions_path(current_period: week_begin_date.to_s, current_period_interval: 'week')
+          marked_date = week_begin_date
+        end
+
         intervention_icon = marked_date > now ? 'clock' : 'check'
         positioned_at = (marked_date - period_started_on).to_f / duration
 

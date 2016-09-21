@@ -245,22 +245,22 @@ module Backend
       render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
     end
 
-    def main_period_selector(period_type = nil)
+    def main_period_selector(period_interval = nil)
       content_for(:heading_toolbar) do
-        period_selector(period_type)
+        period_selector(period_interval)
       end
     end
 
-    def period_selector(period_type = nil, campaign = nil, options = {})
+    def period_selector(period_interval = nil, campaign = nil, options = {})
       unless Campaign.any?
         @current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
         current_user.current_campaign = @current_campaign
       end
 
       campaign ||= current_campaign
-      period_type ||= current_user.current_period_type.to_sym
+      period_interval ||= current_user.current_period_interval.to_sym
 
-      render 'backend/shared/period_selector', period_type: period_type, campaign: campaign, param_name: options[:param_name] || :current_campaign
+      render 'backend/shared/period_selector', period_interval: period_interval, campaign: campaign, param_name: options[:param_name] || :current_campaign
     end
 
     def main_type_period_selector
@@ -270,7 +270,7 @@ module Backend
     end
 
     def type_period_selector
-      render 'backend/shared/period_type_selector'
+      render 'backend/shared/period_interval_selector'
     end
 
     def lights(status, html_options = {})
@@ -438,9 +438,17 @@ module Backend
 
       element_class = html_options[:class] || 'period'
       title = html_options[:title] || ''
+      url = html_options[:url] || nil
 
       content_tag(:div, style: style, class: element_class, title: title) do
-        content_tag(:i, '', class: "picto picto-#{picto_class}")
+        if url.nil?
+          content_tag(:i, '', class: "picto picto-#{picto_class}")
+        else
+
+          link_to(url) do
+            content_tag(:i, '', class: "picto picto-#{picto_class}")
+          end
+        end
       end
     end
 

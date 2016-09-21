@@ -190,9 +190,9 @@ arb:
         record: "سجل"
         request: "طلب"
       state:
-        # deleted: "Deleted"
         done: "فعله"
         in_progress: "في تَقَدم"
+        # rejected: "Rejected"
         squeezed: "تقلص" #?
         undone: "غير مصنوع" #?
         # validated: "Validated"
@@ -392,7 +392,7 @@ arb:
         supplier: "المورد"
     sensor:
       retrieval_mode:
-        integration: "دمج"
+        integration: "دمج" #?
         listening: "استماع"
         requesting: "طلب"
     sequence:

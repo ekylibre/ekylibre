@@ -184,9 +184,9 @@ fra:
         record: "Enregistrement"
         request: "Demande"
       state:
-        deleted: "Supprimée"
         done: "Terminée"
         in_progress: "En cours"
+        rejected: "Rejetée"
         validated: "Validée"
     intervention_parameter_reading:
       indicator_datatype:
@@ -376,7 +376,7 @@ fra:
         supplier: "Fournisseur"
     sensor:
       retrieval_mode:
-        integration: "Intégration"
+        integration: "Intégration" #?
         listening: "Serveur"
         requesting: "Client"
     sequence:

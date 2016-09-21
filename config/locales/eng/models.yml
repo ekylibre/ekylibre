@@ -153,7 +153,6 @@ eng:
       activity_production: "Activity production"
       activity_season: "Activity season"
       activity_tactic: "Activity cropping technique"
-      activity_tactic_step: "Activity tactic step"
       affair: "Affair"
       alert: "Alert"
       alert_phase: "Alert phase"
@@ -327,7 +326,7 @@ eng:
     accounted_at: "Accounted at"
     accuracy: "Accuracy"
     achieved_at: "Achieved at"
-    action: "Action"
+    action: "Action" #?
     actions: "Actions"
     active: "Active"
     active_sessions: "Active sessions"
@@ -1017,7 +1016,7 @@ eng:
     priority: "Priority"
     probability_percentage: "Probability percentage"
     procedure_action: "Procedure action" #?
-    procedure_categorie: "Procedure categorie"
+    procedure_categorie: "Procedure categorie" #?
     procedure_name: "Procedure name"
     producer: "Producer"
     product: "Product"

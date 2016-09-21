@@ -1811,16 +1811,6 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="activity_tactic_steps">
-        <page to="backend/activity_tactic_steps#index"/>
-        <page to="backend/activity_tactic_steps#create"/>
-        <page to="backend/activity_tactic_steps#destroy"/>
-        <page to="backend/activity_tactic_steps#edit"/>
-        <page to="backend/activity_tactic_steps#new"/>
-        <page to="backend/activity_tactic_steps#show"/>
-        <page to="backend/activity_tactic_steps#unroll"/>
-        <page to="backend/activity_tactic_steps#update"/>
-      </item>
       <item name="activity_tactics">
         <page to="backend/activity_tactics#actions"/>
         <page to="backend/activity_tactics#procedures_name"/>
@@ -1840,8 +1830,7 @@
       </item>
       <item name="interventions">
         <page to="backend/interventions#change_state"/>
-        <page to="backend/interventions#show_intervention_modal"/>
-        <page to="backend/interventions#show_modal_state"/>
+        <page to="backend/interventions#display_modal"/>
       </item>
       <item name="target_distributions">
         <page to="backend/target_distributions#create"/>

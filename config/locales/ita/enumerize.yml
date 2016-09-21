@@ -191,9 +191,9 @@ ita:
         record: "Disco"
         request: "Richiesta"
       state:
-        # deleted: "Deleted"
         done: "Fatto"
         in_progress: "In corso"
+        # rejected: "Rejected"
         squeezed: "Spremuto" #?
         undone: "Disfatto" #?
         # validated: "Validated"
@@ -393,7 +393,7 @@ ita:
         supplier: "Fornitore"
     sensor:
       retrieval_mode:
-        integration: "Integrazione"
+        integration: "Integrazione" #?
         listening: "Ascolto"
         requesting: "Richiesta"
     sequence:

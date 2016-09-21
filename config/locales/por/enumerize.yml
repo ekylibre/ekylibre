@@ -193,9 +193,9 @@ por:
         record: "Registro"
         request: "Pedido"
       state:
-        # deleted: "Deleted"
         done: "Finalizado"
         in_progress: "Em progresso"
+        # rejected: "Rejected"
         squeezed: "Apertado" #?
         undone: "Desfeito" #?
         # validated: "Validated"
@@ -406,7 +406,7 @@ por:
         supplier: "Fornecedor"
     sensor:
       retrieval_mode:
-        integration: "Integração"
+        integration: "Integração" #?
         listening: "Ouvindo"
         requesting: "Solicitando"
     sequence:

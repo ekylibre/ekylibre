@@ -49,11 +49,6 @@ eng:
       # index: "Activity seasons"
       # new: "New activity season"
       # show: "Activity season: %{name}"
-    backend/activity_tactic_steps:
-      # edit: "Edit activity tactic step: %{name}"
-      # index: "Activity tactic steps"
-      # new: "New activity tactic step"
-      # show: "Activity tactic step: %{name}"
     backend/activity_tactics:
       # actions: "Actions activity tactic: %{name}"
       # edit: "Edit activity tactic: %{name}"
@@ -352,6 +347,7 @@ eng:
     backend/interventions:
       # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
+      # display_modal: "Display modal intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
       edit_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
@@ -360,8 +356,6 @@ eng:
       new_undefined: "New intervention" #?
       new_undefined_request: "New intervention request" #?
       show: "%{procedure_name}"
-      # show_intervention_modal: "Show intervention modal intervention: %{name}"
-      # show_modal_state: "Show modal state intervention: %{name}"
     backend/inventories:
       edit: "Edit inventory"
       index: "Inventories"
@@ -986,6 +980,7 @@ eng:
     company: "Society" #?
     complete: "Complete"
     completed: "Completed"
+    completely_filled: "Completed" #?
     # components: "Components"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
@@ -1036,6 +1031,7 @@ eng:
     # data_transmissions: "Data transmissions"
     # date: "Date"
     dates: "Select period start date and Period end date" #?
+    day: "Day" #?
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
@@ -1488,6 +1484,7 @@ eng:
     search: "Search"
     search_placeholder: "Search…"
     section_x: "Section %{x}"
+    see_details: "See details"
     see_more_details: "See more details"
     select_closure_date: "Choose closing date"
     select_columns: "Select columns" #??
@@ -1663,6 +1660,7 @@ eng:
     weather: "Weather"
     website: "Website"
     weeks: "Weeks" #?
+    week: "Week" #?
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
@@ -1947,6 +1945,8 @@ eng:
       detach: "Detach"
       # detach_gaps: "Detach gaps"
       detail: "Detail"
+      # display_modal: "Display modal"
+      distribute: "Distribute unaffected products" #?
       down: "Down"
       duplicate: "Duplicate"
       edit: "Edit"
@@ -2007,8 +2007,6 @@ eng:
       select: "Select"
       ship: "Ship"
       show: "Show"
-      # show_intervention_modal: "Show intervention modal"
-      # show_modal_state: "Show modal state"
       sort: "Sort"
       star: "Star"
       start: "Start"

@@ -558,6 +558,10 @@ activities_021:
   grading_sizes_indicator_name: length
   grading_sizes_unit_name: centimeter
   id: 22
+<<<<<<< HEAD
+=======
+  lock_version: 1
+>>>>>>> crop-management-sprint2
   lock_version: 2
   measure_grading_items_count: true
   measure_grading_net_mass: true
@@ -571,6 +575,10 @@ activities_021:
   size_unit_name: hectare
   support_variety: land_parcel
   suspended: false
+<<<<<<< HEAD
+=======
+  updated_at: 2016-07-29 09:03:08.438666000 Z
+>>>>>>> crop-management-sprint2
   updated_at: 2016-08-05 15:12:58.518873000 Z
   updater_id: 1
   use_countings: true

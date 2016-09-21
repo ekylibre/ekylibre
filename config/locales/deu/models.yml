@@ -737,7 +737,6 @@ deu:
     inspection: "Inspektion"
     # inspection_calibration_natures: "Inspection calibration natures"
     # inspection_calibration_scales: "Inspection calibration scales"
-    # inspection_calibrations: "Inspection calibrations"
     # inspection_point_natures: "Inspection point natures"
     # inspection_points: "Inspection points"
     inspections: "Inspektionen"

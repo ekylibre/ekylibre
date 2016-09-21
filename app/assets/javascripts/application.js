@@ -30,8 +30,8 @@
 //= require_self
 //= require i18n
 //= require i18n/translations
-//= require i18n/i18n_locale
-//= require i18n/i18n_ext
+//= require i18n/locale
+//= require i18n/ext
 //= require ekylibre
 //= require formize/behave
 //= require form/dialog
@@ -57,8 +57,8 @@
 //= require leaflet/modal
 //= require leaflet/label
 //= require d3
-//= require d3-tip
-//= require timeline-chart/timeline-chart.js
+//= require d3/tip
+//= require timeline-chart.js
 //= require rbush
 //= require autosize
 //= require plugins

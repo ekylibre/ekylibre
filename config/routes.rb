@@ -219,6 +219,7 @@ Rails.application.routes.draw do
     end
 
     resources :activity_seasons, concerns: [:unroll]
+
     resources :activity_tactics, concerns: [:unroll], except: [:index]
 
     resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
@@ -524,8 +525,9 @@ Rails.application.routes.draw do
     resources :interventions, concerns: [:list, :unroll] do
       collection do
         patch :compute
-        get :show_intervention_modal
-        get :show_modal_state
+        get :display_modal
+        # get :show_intervention_modal
+        # get :show_modal_state
         post :change_state
       end
       member do

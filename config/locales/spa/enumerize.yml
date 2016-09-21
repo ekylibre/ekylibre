@@ -191,9 +191,9 @@ spa:
         record: "Grabar"
         request: "Solicitud"
       state:
-        # deleted: "Deleted"
         done: "Hecho"
         in_progress: "En progreso"
+        # rejected: "Rejected"
         squeezed: "Exprimido" #?
         undone: "Deshecho" #?
         # validated: "Validated"
@@ -393,7 +393,7 @@ spa:
         supplier: "Proveedor"
     sensor:
       retrieval_mode:
-        integration: "Integración"
+        integration: "Integración" #?
         listening: "Escuchando"
         requesting: "Solicitando"
     sequence:

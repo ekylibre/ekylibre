@@ -33,7 +33,8 @@
                   - if task.titles.any?
                     %div.task-texts
                       - task.titles.each do |title|
-                        = content_tag(:p, title[:text], :class => "task-text #{title[:class]}")
+                        = content_tag(:span, title[:text], :class => "task-text #{title[:class]}")
+                        = content_tag(:i, nil, :class => "picto picto-#{title[:icon]} #{title[:icon_class]}") unless title[:icon].nil?
 
                   - if task.datas.any?
                     = content_tag(:div, nil, :class => "task-datas") do

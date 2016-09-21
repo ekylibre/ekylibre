@@ -191,9 +191,9 @@ jpn:
         record: "記録"
         request: "要求"
       state:
-        # deleted: "Deleted"
         done: "終わりました"
         in_progress: "進行中"
+        # rejected: "Rejected"
         squeezed: "スクイーズ" #?
         undone: "元に戻します" #?
         # validated: "Validated"
@@ -393,7 +393,7 @@ jpn:
         supplier: "サプライヤー"
     sensor:
       retrieval_mode:
-        integration: "統合"
+        integration: "統合" #?
         listening: "聞いている"
         requesting: "要求"
     sequence:

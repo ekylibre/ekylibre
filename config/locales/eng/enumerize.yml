@@ -182,9 +182,9 @@ eng:
         record: "Record"
         request: "Request"
       state:
-        deleted: "Deleted"
         done: "Done"
         in_progress: "In progress"
+        rejected: "Rejected"
         validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
@@ -376,7 +376,7 @@ eng:
         supplier: "Supplier"
     sensor:
       retrieval_mode:
-        integration: "Integration"
+        # integration: "Integration"
         listening: "Listening"
         requesting: "Requesting"
     sequence:

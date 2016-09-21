@@ -1104,6 +1104,7 @@ arb:
     company: "المجتمع"
     complete: "كامل"
     # completed: "Completed"
+    # completely_filled: "Completed"
     components: "العناصر" #?
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
@@ -1170,6 +1171,7 @@ arb:
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
     dates: "ادخل تواريخ بداية ونهاية المدة"
+    # day: "Day"
     days: "أيام"
     deals: "عروض"
     debit: "الدين"
@@ -1901,6 +1903,7 @@ arb:
     search_sales: "البحث عن طلبات البيع" #?
     second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
+    # see_details: "See details"
     see_more_details: "مشاهدة مزيد من التفاصيل"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
@@ -2143,6 +2146,7 @@ arb:
     weather: "طقس"
     website: "موقع الكتروني"
     # weeks: "Weeks"
+    # week: "Week"
     wind_speed: "سرعة الرياح"
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
@@ -2535,6 +2539,7 @@ arb:
       destroy: "هدم"
       detach: "فصل"
       detail: "التفاصيل"
+      # distribute: "Distribute unaffected products"
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"

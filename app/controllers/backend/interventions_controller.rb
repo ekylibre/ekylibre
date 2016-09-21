@@ -50,28 +50,28 @@ module Backend
       code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
       code << "c[0] << ' AND #{Intervention.table_name}.request_intervention_id IS NULL'\n"
       code << "c[0] << ' AND #{Intervention.table_name}.state != ?'\n"
-      code << "  c << 'deleted'\n"
+      code << "  c << 'rejected'\n"
 
       # select the interventions according to the user current period
-      code << "unless current_period_type.blank? && current_period.blank?\n"
+      code << "unless current_period_interval.blank? && current_period.blank?\n"
 
-      code << " if current_period_type.to_sym == :days\n"
+      code << " if current_period_interval.to_sym == :day\n"
       code << "   c[0] << ' AND EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
       code << "   c << current_period.to_date.day\n"
       code << "   c << current_period.to_date.month\n"
       code << "   c << current_period.to_date.year\n"
 
-      code << " elsif current_period_type.to_sym == :weeks\n"
+      code << " elsif current_period_interval.to_sym == :week\n"
       code << "   c[0] << ' AND #{Intervention.table_name}.started_at >= ? AND #{Intervention.table_name}.stopped_at <= ?'\n"
       code << "   c << current_period.to_date.at_beginning_of_week.to_time.beginning_of_day\n"
       code << "   c << current_period.to_date.at_end_of_week.to_time.end_of_day\n"
 
-      code << " elsif current_period_type.to_sym == :months\n"
+      code << " elsif current_period_interval.to_sym == :months\n"
       code << "   c[0] << ' AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
       code << "   c << current_period.to_date.month\n"
       code << "   c << current_period.to_date.year\n"
 
-      code << " elsif current_period_type.to_sym == :years\n"
+      code << " elsif current_period_interval.to_sym == :years\n"
       code << "   c[0] << ' AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
       code << "   c << current_period.to_date.year\n"
       code << " end\n"
@@ -249,17 +249,15 @@ module Backend
       end
     end
 
-    def show_intervention_modal
+    def display_modal
       if params[:intervention_id]
         @intervention = Intervention.find(params[:intervention_id])
-        render partial: 'backend/interventions/modal_details', locals: { intervention: @intervention }
+        render partial: 'backend/interventions/details_modal', locals: { intervention: @intervention }
       end
-    end
 
-    def show_modal_state
       if params[:interventions_ids]
         @interventions = Intervention.find(params[:interventions_ids].split(','))
-        render partial: 'backend/interventions/modal_change_state', locals: { interventions: @interventions }
+        render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
       end
     end
 
@@ -272,6 +270,11 @@ module Backend
         @interventions = Intervention.find(interventions_ids)
 
         @interventions.each do |intervention|
+          if intervention.nature == :record && new_state == :rejected
+            intervention.destroy
+            next
+          end
+
           new_intervention = intervention
 
           if intervention.nature == :request

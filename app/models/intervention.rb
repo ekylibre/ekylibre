@@ -78,7 +78,7 @@ class Intervention < Ekylibre::Record::Base
   end
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   enumerize :nature, in: [:request, :record], default: :record, predicates: true
-  enumerize :state, in: [:in_progress, :done, :validated, :deleted], default: :done, predicates: true
+  enumerize :state, in: [:in_progress, :done, :validated, :rejected], default: :done, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
@@ -154,18 +154,18 @@ class Intervention < Ekylibre::Record::Base
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
-    unless params[:period_type].blank? && params[:period].blank?
+    unless params[:period_interval].blank? && params[:period].blank?
 
-      period_type = params[:period_type]
+      period_interval = params[:period_interval]
       period = params[:period]
 
       search_params << ' AND ' unless search_params.blank?
 
-      if period_type.to_sym == :days
+      if period_interval.to_sym == :day
         search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_type.to_sym == :weeks
+      if period_interval.to_sym == :week
 
         beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
         end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
@@ -173,11 +173,11 @@ class Intervention < Ekylibre::Record::Base
         search_params << "#{Intervention.table_name}.started_at >= '#{beginning_of_week}' AND #{Intervention.table_name}.stopped_at <= '#{end_of_week}'"
       end
 
-      if period_type.to_sym == :months
+      if period_interval.to_sym == :months
         search_params << "EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_type.to_sym == :years
+      if period_interval.to_sym == :years
         search_params << "EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
     end
@@ -326,6 +326,15 @@ class Intervention < Ekylibre::Record::Base
 
   def human_working_duration(unit = :hour)
     working_duration.in(:second).convert(unit).round(2).l
+  end
+
+  def completely_filled?
+    reference_names = parameters.pluck(:reference_name).uniq
+    reference_names = reference_names.map(&:to_sym)
+    parameters_names = procedure.parameters.map(&:name).uniq
+
+    result = parameters_names - reference_names | reference_names - parameters_names
+    result.empty?
   end
 
   # Update temporality informations in intervention
