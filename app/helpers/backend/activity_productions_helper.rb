@@ -29,7 +29,6 @@ module Backend
     end
 
     def interventions_chronology_icons(interventions_list, period_started_on, duration, html_options = {})
-
       code = ''
       interventions_list.each do |week_number, interventions|
         html_options[:url] = nil

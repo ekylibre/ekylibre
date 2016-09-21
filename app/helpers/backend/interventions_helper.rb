@@ -9,9 +9,7 @@ module Backend
         task_datas = []
         text_icon = nil
 
-        if intervention.completely_filled?
-          text_icon = 'check'
-        end
+        text_icon = 'check' if intervention.completely_filled?
 
         intervention.activity_productions.find_each do |activity_production|
           activity_color = activity_production.activity.color
@@ -24,7 +22,6 @@ module Backend
 
         unless intervention.activity_productions.any?
           intervention.targets.find_each do |target|
-
             next if target.variant.nil?
 
             if target.reference_name.to_sym == :herd
@@ -47,7 +44,7 @@ module Backend
 
         intervention_datas = { id: intervention.id, name: intervention.name }
 
-        tasks << column.task([{ text: intervention_datas[:name], icon: text_icon, icon_class: "completely_filled" }],
+        tasks << column.task([{ text: intervention_datas[:name], icon: text_icon, icon_class: 'completely_filled' }],
                              task_datas, [], can_select, colors,
                              params: { class: '', data: { intervention: intervention_datas.to_json } })
       end
