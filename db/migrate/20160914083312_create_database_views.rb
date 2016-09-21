@@ -1,4 +1,4 @@
-class CreateDbViews < ActiveRecord::Migration
+class CreateDatabaseViews < ActiveRecord::Migration
   def up
     execute '
       CREATE OR REPLACE VIEW activities_interventions AS

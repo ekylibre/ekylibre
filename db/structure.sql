@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.3
--- Dumped by pg_dump version 9.5.3
+-- Dumped from database version 9.5.4
+-- Dumped by pg_dump version 9.5.4
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -643,46 +643,6 @@ CREATE SEQUENCE activity_seasons_id_seq
 --
 
 ALTER SEQUENCE activity_seasons_id_seq OWNED BY activity_seasons.id;
-
-
---
--- Name: activity_tactic_steps; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE activity_tactic_steps (
-    id integer NOT NULL,
-    tactic_id integer NOT NULL,
-    name character varying NOT NULL,
-    started_on date NOT NULL,
-    stopped_on date NOT NULL,
-    procedure_categorie character varying NOT NULL,
-    procedure_name character varying,
-    action character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creator_id integer,
-    updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: activity_tactic_steps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE activity_tactic_steps_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: activity_tactic_steps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE activity_tactic_steps_id_seq OWNED BY activity_tactic_steps.id;
 
 
 --
@@ -6125,13 +6085,6 @@ ALTER TABLE ONLY activity_seasons ALTER COLUMN id SET DEFAULT nextval('activity_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY activity_tactic_steps ALTER COLUMN id SET DEFAULT nextval('activity_tactic_steps_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY activity_tactics ALTER COLUMN id SET DEFAULT nextval('activity_tactics_id_seq'::regclass);
 
 
@@ -7089,14 +7042,6 @@ ALTER TABLE ONLY activity_productions
 
 ALTER TABLE ONLY activity_seasons
     ADD CONSTRAINT activity_seasons_pkey PRIMARY KEY (id);
-
-
---
--- Name: activity_tactic_steps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY activity_tactic_steps
-    ADD CONSTRAINT activity_tactic_steps_pkey PRIMARY KEY (id);
 
 
 --
@@ -8545,41 +8490,6 @@ CREATE INDEX index_activity_seasons_on_updated_at ON activity_seasons USING btre
 --
 
 CREATE INDEX index_activity_seasons_on_updater_id ON activity_seasons USING btree (updater_id);
-
-
---
--- Name: index_activity_tactic_steps_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_tactic_steps_on_created_at ON activity_tactic_steps USING btree (created_at);
-
-
---
--- Name: index_activity_tactic_steps_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_tactic_steps_on_creator_id ON activity_tactic_steps USING btree (creator_id);
-
-
---
--- Name: index_activity_tactic_steps_on_tactic_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_tactic_steps_on_tactic_id ON activity_tactic_steps USING btree (tactic_id);
-
-
---
--- Name: index_activity_tactic_steps_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_tactic_steps_on_updated_at ON activity_tactic_steps USING btree (updated_at);
-
-
---
--- Name: index_activity_tactic_steps_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_activity_tactic_steps_on_updater_id ON activity_tactic_steps USING btree (updater_id);
 
 
 --
@@ -15448,8 +15358,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160729080926');
 
 INSERT INTO schema_migrations (version) VALUES ('20160730070743');
 
-INSERT INTO schema_migrations (version) VALUES ('20160805094418');
-
 INSERT INTO schema_migrations (version) VALUES ('20160817133216');
 
 INSERT INTO schema_migrations (version) VALUES ('20160822225001');
@@ -15462,9 +15370,9 @@ INSERT INTO schema_migrations (version) VALUES ('20160826125039');
 
 INSERT INTO schema_migrations (version) VALUES ('20160831144010');
 
-INSERT INTO schema_migrations (version) VALUES ('20160902141500');
-
 INSERT INTO schema_migrations (version) VALUES ('20160906112630');
+
+INSERT INTO schema_migrations (version) VALUES ('20160908141500');
 
 INSERT INTO schema_migrations (version) VALUES ('20160910200730');
 

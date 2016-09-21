@@ -1162,6 +1162,7 @@ eng:
     hint: "Hint: %{value}" #?
     historic: "Historic" #?
     home: "Home"
+    # horizontal_timeline: "Horizontal timeline"
     human_working_duration: "Working duration" #?
     iban: "International Bank Account Number (IBAN)"
     identification: "Identification"
@@ -1659,8 +1660,8 @@ eng:
     # wear: "Wear"
     weather: "Weather"
     website: "Website"
-    weeks: "Weeks" #?
     week: "Week" #?
+    weeks: "Weeks" #?
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"

@@ -1221,7 +1221,7 @@ eng:
     state: "State"
     state_label: "State"
     status: "Status"
-    steps: "Steps"
+    steps: "Steps" #?
     stock_account: "Stock account"
     stocks_categories: "Stocks categories"
     stopped_at: "Stopped at"

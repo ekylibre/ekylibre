@@ -153,7 +153,6 @@ jpn:
       activity_production: "生産支援"
       activity_season: "季節性"
       activity_tactic: "アクティビティトリミング技術"
-      # activity_tactic_step: "Activity tactic step"
       affair: "事件"
       alert: "アラート"
       alert_phase: "アラート相"

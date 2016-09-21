@@ -1728,8 +1728,8 @@ spa:
     watering_concentration: "Uso del agua"
     weather: "Clima"
     website: "Sitio web"
-    # weeks: "Weeks"
     # week: "Week"
+    # weeks: "Weeks"
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?

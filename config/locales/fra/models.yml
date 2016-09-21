@@ -268,7 +268,6 @@ fra:
       activity_production: "Support de production"
       activity_season: "Saisonnalité"
       activity_tactic: "Technique de culture d’activité"
-      # activity_tactic_step: "Activity tactic step"
       affair: "Affaire"
       alert: "Alerte"
       alert_phase: "Phase d’alerte"

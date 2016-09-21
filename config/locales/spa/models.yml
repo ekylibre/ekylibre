@@ -153,7 +153,6 @@ spa:
       activity_production: "Soporte de producción"
       activity_season: "Estacionalidad"
       activity_tactic: "Técnica de cultivo actividad"
-      # activity_tactic_step: "Activity tactic step"
       affair: "Asunto"
       alert: "Alerta"
       alert_phase: "Fase de alerta"

@@ -2039,8 +2039,8 @@ fra:
     wear: "Usure" #?
     weather: "Météo"
     website: "Site web"
-    weeks: "Semaines"
     week: "Semaine"
+    weeks: "Semaines"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"

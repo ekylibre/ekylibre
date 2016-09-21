@@ -153,7 +153,6 @@ por:
       activity_production: "Apoio à produção"
       activity_season: "sazonalidade"
       activity_tactic: "Técnica de cultivo Atividade"
-      # activity_tactic_step: "Activity tactic step"
       affair: "Caso"
       alert: "Alerta"
       alert_phase: "Fase de alerta"
