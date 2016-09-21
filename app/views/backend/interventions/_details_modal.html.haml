@@ -58,6 +58,7 @@
           - intervention.targets.each do |targets|
             - title = targets.product.name
             - detail = targets.product.nature.name
+            - detail << ' - ' + intervention.human_working_zone_area unless intervention.working_zone_area.nil?
             = add_detail_to_modal_block(title, detail, {icon: 'picto-land-parcels'})
 
       - if intervention.doers.any?
