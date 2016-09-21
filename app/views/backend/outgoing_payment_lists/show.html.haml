@@ -1,0 +1,12 @@
+- main_toolbar do |t|
+  = t.destroy resource
+
+= main_informations do
+  = attributes_list do |l|
+    - l.attribute :number
+    - l.attribute :mode, url: { controller: '/backend/outgoing_payment_modes' }, label_method: :mode_name
+    - l.attribute :payments_count, datatype: :integer
+
+= cobbles do |c|
+  - c.cobble :payments do
+    = cobble_list(:payments)

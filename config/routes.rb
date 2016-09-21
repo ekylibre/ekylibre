@@ -631,6 +631,12 @@ Rails.application.routes.draw do
 
     resources :outgoing_payments, concerns: [:list, :unroll]
 
+    resources :outgoing_payment_lists, concerns: [:list, :unroll] do
+      member do
+        get :list_payments
+      end
+    end
+
     resources :outgoing_payment_modes, concerns: [:list, :unroll] do
       member do
         post :up
