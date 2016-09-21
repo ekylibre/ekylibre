@@ -275,27 +275,6 @@ ActiveRecord::Schema.define(version: 20160918152301) do
   add_index "activity_seasons", ["updated_at"], name: "index_activity_seasons_on_updated_at", using: :btree
   add_index "activity_seasons", ["updater_id"], name: "index_activity_seasons_on_updater_id", using: :btree
 
-  create_table "activity_tactic_steps", force: :cascade do |t|
-    t.integer  "tactic_id",                       null: false
-    t.string   "name",                            null: false
-    t.date     "started_on",                      null: false
-    t.date     "stopped_on",                      null: false
-    t.string   "procedure_categorie",             null: false
-    t.string   "procedure_name"
-    t.string   "action"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",        default: 0, null: false
-  end
-
-  add_index "activity_tactic_steps", ["created_at"], name: "index_activity_tactic_steps_on_created_at", using: :btree
-  add_index "activity_tactic_steps", ["creator_id"], name: "index_activity_tactic_steps_on_creator_id", using: :btree
-  add_index "activity_tactic_steps", ["tactic_id"], name: "index_activity_tactic_steps_on_tactic_id", using: :btree
-  add_index "activity_tactic_steps", ["updated_at"], name: "index_activity_tactic_steps_on_updated_at", using: :btree
-  add_index "activity_tactic_steps", ["updater_id"], name: "index_activity_tactic_steps_on_updater_id", using: :btree
-
   create_table "activity_tactics", force: :cascade do |t|
     t.integer  "activity_id",              null: false
     t.string   "name",                     null: false
