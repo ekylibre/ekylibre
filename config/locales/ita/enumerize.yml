@@ -26,6 +26,7 @@ ita:
         none: "Nessuna"
     activity_production:
       support_nature:
+        # animal_group: "Animal group"
         border: "Confine"
         # buffer: "Buffer"
         cultivation: "Coltivazione"

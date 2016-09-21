@@ -12,6 +12,10 @@
         %label= ActivityProduction.human_attribute_name(:support)
         = select_tag(:product_id, options_for_select([[]] + targets.select(:product_id).distinct.collect{|u| [u.product.work_name, u.product_id]}, params[:product_id]))
         -#= select_tag(:support_id, options_for_select([[]] + productions.joins(:support).reorder('products.work_number').collect{|u| [u.work_name, u.id]}, params[:support_id]))
+  - if InterventionLabelling.any?
+    - k.helper do
+      %label= Label.model_name.human
+      = select_tag(:label_id, options_for_select([[]] + Label.where(id: InterventionLabelling.select(:label_id).uniq).map{ |l| [l.name, l.id] }, params[:label_id].to_i))
 
 - main_toolbar do |t|
   = t.new(nature: :request, label: :add_intervention_request.tl)

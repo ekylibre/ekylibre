@@ -23,6 +23,7 @@
 # == Table: purchase_items
 #
 #  account_id           :integer          not null
+#  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
 #  created_at           :datetime         not null
@@ -38,6 +39,7 @@
 #  quantity             :decimal(19, 4)   default(1.0), not null
 #  reduction_percentage :decimal(19, 4)   default(0.0), not null
 #  tax_id               :integer          not null
+#  team_id              :integer
 #  unit_amount          :decimal(19, 4)   default(0.0), not null
 #  unit_pretax_amount   :decimal(19, 4)   not null
 #  updated_at           :datetime         not null

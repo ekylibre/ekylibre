@@ -11,25 +11,6 @@ eng:
       production_cycle:
         annual: "Annual"
         perennial: "Perennial"
-    activity:
-      nature:
-        auxiliary: "Auxiliary"
-        main: "Main"
-        standalone: "Standalone"
-      production_campaign:
-        at_cycle_end: "At cycle end"
-        at_cycle_start: "At cycle start"
-      production_cycle:
-        annual: "Annual"
-        perennial: "Perennial"
-    activity_budget_item:
-      computation_method:
-        per_campaign: "Per campaign"
-        per_production: "Per production"
-        per_working_unit: "Per working unit"
-      direction:
-        expense: "Expense"
-        revenue: "Revenue"
     activity_budget_item:
       computation_method:
         per_campaign: "Per campaign"
@@ -43,22 +24,9 @@ eng:
         deformity: "Deformity"
         disease: "Disease"
         none: "None"
-    activity_inspection_point_nature:
-      category:
-        deformity: "Deformity"
-        disease: "Disease"
-        none: "None"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
-        border: "Border"
-        buffer: "Buffer"
-        cultivation: "Cultivation"
-        fallow_land: "Fallow land"
-        none: "None"
-    activity_production:
-      support_nature:
-        # animal_group: "Animal group"
+        animal_group: "Animal group"
         border: "Border"
         buffer: "Buffer"
         cultivation: "Cultivation"
@@ -68,25 +36,10 @@ eng:
       mode:
         harvested: "From harvesting date"
         sowed: "From sowing date"
-    activity_tactic:
-      mode:
-        harvested: "From harvesting date"
-        sowed: "From sowing date"
     affair:
       third_role:
         client: "Client"
         supplier: "Supplier"
-    affair:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
-    analysis:
-      retrieval_status:
-        controller_error: "Controller error"
-        error: "Error"
-        internal_error: "Internal error"
-        ok: "OK"
-        sensor_error: "Sensor error"
     analysis:
       retrieval_status:
         controller_error: "Controller error"
@@ -105,21 +58,6 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
-    analysis_item:
-      indicator_datatype:
-        boolean: "Boolean"
-        choice: "Choice"
-        decimal: "Decimal"
-        geometry: "Geometry"
-        integer: "Integer"
-        measure: "Measure"
-        multi_polygon: "Multi-polygon"
-        point: "Point"
-        string: "String"
-    call_message:
-      nature:
-        incoming: "Incoming"
-        outgoing: "Outgoing"
     call_message:
       nature:
         incoming: "Incoming"
@@ -140,36 +78,12 @@ eng:
         associate_account: "Associate account"
         bank_account: "Bank account"
         cash_box: "Cash box"
-    cash:
-      mode:
-        bban: "Basic Bank Account Number (BBAN)"
-        iban: "International Bank Account Number (IBAN)"
-      nature:
-        associate_account: "Associate account"
-        bank_account: "Bank account"
-        cash_box: "Cash box"
     catalog:
       usage:
         cost: "Cost"
         purchase: "Purchase"
         sale: "Sale"
         stock: "Stock"
-    catalog:
-      usage:
-        cost: "Cost"
-        purchase: "Purchase"
-        sale: "Sale"
-        stock: "Stock"
-    crumb:
-      nature:
-        hard_start: "Hard start"
-        hard_stop: "Hard stop"
-        pause: "Pause"
-        point: "Point"
-        resume: "Resume"
-        scan: "Scan"
-        start: "Start"
-        stop: "Stop"
     crumb:
       nature:
         hard_start: "Hard start"
@@ -188,19 +102,6 @@ eng:
         datetime: "Date and time"
         decimal: "Decimal"
         text: "Text"
-    custom_field:
-      nature:
-        boolean: "Check box"
-        choice: "Choice list"
-        date: "Date"
-        datetime: "Date and time"
-        decimal: "Decimal"
-        text: "Text"
-    delivery:
-      mode:
-        third: "Third"
-        transporter: "By transporter"
-        us: "By us"
     delivery:
       mode:
         third: "Third"
@@ -214,30 +115,10 @@ eng:
         last_of_template: "Last of template"
         none: "None of type"
         none_of_template: "None of template"
-    document_template:
-      archiving:
-        first: "First of type"
-        first_of_template: "First of template"
-        last: "Last of type"
-        last_of_template: "Last of template"
-        none: "None of type"
-        none_of_template: "None of template"
     entity:
       nature:
         contact: "Contact"
         organization: "Organization"
-    entity:
-      nature:
-        contact: "Contact"
-        organization: "Organization"
-    entity_address:
-      canal:
-        email: "Email"
-        fax: "Fax"
-        mail: "Mail"
-        mobile: "Mobile phone"
-        phone: "Phone"
-        website: "Website"
     entity_address:
       canal:
         email: "Email"
@@ -252,16 +133,6 @@ eng:
         informative: "Informative"
         refused: "Refused"
         waiting: "Waiting"
-    event_participation:
-      state:
-        accepted: "Accepted"
-        informative: "Informative"
-        refused: "Refused"
-        waiting: "Waiting"
-    fixed_asset:
-      depreciation_method:
-        linear: "Linear"
-        simplified_linear: "Simplified linear"
     fixed_asset:
       depreciation_method:
         linear: "Linear"
@@ -273,18 +144,6 @@ eng:
       entity_role:
         client: "Client"
         supplier: "Supplier"
-    gap:
-      direction:
-        loss: "Loss"
-        profit: "Profit"
-      entity_role:
-        client: "Client"
-        supplier: "Supplier"
-    georeading:
-      nature:
-        linestring: "Linestring"
-        point: "Point"
-        polygon: "Polygon"
     georeading:
       nature:
         linestring: "Linestring"
@@ -299,28 +158,7 @@ eng:
         none: "None"
         weekly: "Weekly"
         yearly: "Yearly"
-    guide:
-      frequency:
-        daily: "Daily"
-        decadely: "Decadely"
-        hourly: "Hourly"
-        monthly: "Monthly"
-        none: "None"
-        weekly: "Weekly"
-        yearly: "Yearly"
     guide_analysis:
-      acceptance_status:
-        errored: "Errored"
-        failed: "Failed"
-        passed: "Passed"
-        passed_with_warnings: "Passed with warnings"
-    guide_analysis:
-      acceptance_status:
-        errored: "Errored"
-        failed: "Failed"
-        passed: "Passed"
-        passed_with_warnings: "Passed with warnings"
-    guide_analysis_point:
       acceptance_status:
         errored: "Errored"
         failed: "Failed"
@@ -339,22 +177,6 @@ eng:
         finished: "Finished"
         in_progress: "In progress"
         undone: "Undone"
-    import:
-      state:
-        aborted: "Aborted"
-        errored: "Errored"
-        finished: "Finished"
-        in_progress: "In progress"
-        undone: "Undone"
-    intervention:
-      nature:
-        record: "Record"
-        request: "Request"
-      state:
-        done: "Done"
-        in_progress: "In progress"
-        rejected: "Rejected"
-        validated: "Validated"
     intervention:
       nature:
         record: "Record"
@@ -375,17 +197,6 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
-    intervention_parameter_reading:
-      indicator_datatype:
-        boolean: "Boolean"
-        choice: "Choice"
-        decimal: "Decimal"
-        geometry: "Geometry"
-        integer: "Integer"
-        measure: "Measure"
-        multi_polygon: "Multi-polygon"
-        point: "Point"
-        string: "String"
     journal:
       nature:
         bank: "Bank"
@@ -394,25 +205,6 @@ eng:
         purchases: "Purchases"
         sales: "Sales"
         various: "Various operations"
-    journal:
-      nature:
-        bank: "Bank"
-        cash: "Cash"
-        forward: "Carried-forward"
-        purchases: "Purchases"
-        sales: "Sales"
-        various: "Various operations"
-    listing_node:
-      nature:
-        belongs_to: "Belongs to"
-        boolean: "Boolean"
-        column: "Column"
-        custom: "Custom"
-        datetime: "Datetime"
-        has_many: "Has many"
-        numeric: "Numeric"
-        root: "Root"
-        string: "String"
     listing_node:
       nature:
         belongs_to: "Belongs to"
@@ -434,22 +226,6 @@ eng:
       shift_method:
         anatocism: "Anatocism"
         immediate_payment: "Immediate payment"
-    loan:
-      repayment_method:
-        constant_amount: "Constant amount"
-        constant_rate: "Constant rate"
-      repayment_period:
-        month: "Month"
-        year: "Year"
-      shift_method:
-        anatocism: "Anatocism"
-        immediate_payment: "Immediate payment"
-    notification:
-      level:
-        error: "Error"
-        information: "Information"
-        success: "Success"
-        warning: "Warning"
     notification:
       level:
         error: "Error"
@@ -461,19 +237,6 @@ eng:
         important: "Important"
         normal: "Normal"
         notice: "Notice"
-    observation:
-      importance:
-        important: "Important"
-        normal: "Normal"
-        notice: "Notice"
-    parcel:
-      delivery_mode:
-        third: "Transported by recipient"
-        transporter: "Transported by transporter"
-        us: "Transported by us"
-      nature:
-        incoming: "Incoming"
-        outgoing: "Outgoing"
     parcel:
       delivery_mode:
         third: "Transported by recipient"
@@ -494,23 +257,6 @@ eng:
         record: "Record"
         spatial_reference_system: "Spatial reference system"
         string: "String"
-    preference:
-      nature:
-        accounting_system: "Accounting system"
-        boolean: "Boolean"
-        country: "Country"
-        currency: "Currency"
-        decimal: "Decimal"
-        integer: "Integer"
-        language: "Language"
-        record: "Record"
-        spatial_reference_system: "Spatial reference system"
-        string: "String"
-    product_enjoyment:
-      nature:
-        other: "Other"
-        own: "Own"
-        unknown: "Unknown"
     product_enjoyment:
       nature:
         other: "Other"
@@ -524,19 +270,6 @@ eng:
       point:
         front: "Front"
         rear: "Rear"
-    product_linkage:
-      nature:
-        available: "Available"
-        occupied: "Occupied"
-        unavailable: "Unavailable"
-      point:
-        front: "Front"
-        rear: "Rear"
-    product_localization:
-      nature:
-        exterior: "Exterior"
-        interior: "Interior"
-        transfer: "Transfer"
     product_localization:
       nature:
         exterior: "Exterior"
@@ -546,15 +279,6 @@ eng:
       nature:
         exterior: "Exterior"
         interior: "Interior"
-    product_membership:
-      nature:
-        exterior: "Exterior"
-        interior: "Interior"
-    product_nature:
-      population_counting:
-        decimal: "Decimal"
-        integer: "Integer"
-        unitary: "Unitary"
     product_nature:
       population_counting:
         decimal: "Decimal"
@@ -607,72 +331,10 @@ eng:
         user: "User"
         wheat: "Wheat"
         wrench: "Wrench"
-    product_nature_category:
-      pictogram:
-        bank: "Bank"
-        barn: "Barn"
-        beaker: "Beaker"
-        bolt: "Bolt"
-        book: "Book"
-        bug: "Bug"
-        building: "Building"
-        car: "Car"
-        cc: "CC"
-        cow: "Cow"
-        credit_card: "Credit card"
-        desktop: "Desktop"
-        drop: "Drop"
-        fax: "Fax"
-        fish: "Fish"
-        food: "Food"
-        gift: "Gift"
-        group: "Group"
-        home: "Home"
-        land_parcels: "Land parcels"
-        laptop: "Laptop"
-        leaf: "Leaf"
-        legal: "Legal"
-        lemon: "Lemon"
-        light_bulb: "Light bulb"
-        male: "Male"
-        matter: "Matter"
-        medkit: "Medkit"
-        money: "Money"
-        mushroom: "Mushroom"
-        phone: "Phone"
-        pill: "Pill"
-        plane: "Plane"
-        plane: "Plane"
-        road: "Road"
-        subscription: "Subscription"
-        tasks: "Tasks"
-        tractor: "Tractor"
-        truck: "Truck"
-        truck: "Truck"
-        umbrella: "Umbrella"
-        undefined: "Undefined"
-        user: "User"
-        wheat: "Wheat"
-        wrench: "Wrench"
     product_nature_category_taxation:
       usage:
         purchase: "Purchase"
         sale: "Sale"
-    product_nature_category_taxation:
-      usage:
-        purchase: "Purchase"
-        sale: "Sale"
-    product_nature_variant_reading:
-      indicator_datatype:
-        boolean: "Boolean"
-        choice: "Choice"
-        decimal: "Decimal"
-        geometry: "Geometry"
-        integer: "Integer"
-        measure: "Measure"
-        multi_polygon: "Multi-polygon"
-        point: "Point"
-        string: "String"
     product_nature_variant_reading:
       indicator_datatype:
         boolean: "Boolean"
@@ -689,22 +351,6 @@ eng:
         other: "Other"
         own: "Own"
         unknown: "Unknown"
-    product_ownership:
-      nature:
-        other: "Other"
-        own: "Own"
-        unknown: "Unknown"
-    product_reading:
-      indicator_datatype:
-        boolean: "Boolean"
-        choice: "Choice"
-        decimal: "Decimal"
-        geometry: "Geometry"
-        integer: "Integer"
-        measure: "Measure"
-        multi_polygon: "Multi-polygon"
-        point: "Point"
-        string: "String"
     product_reading:
       indicator_datatype:
         boolean: "Boolean"
@@ -720,14 +366,6 @@ eng:
       nature:
         payslip: "Payslip"
         purchase: "Purchase"
-    purchase_nature:
-      nature:
-        payslip: "Payslip"
-        purchase: "Purchase"
-    sale_opportunity:
-      third_role:
-        client: "Client"
-        supplier: "Supplier"
     sale_opportunity:
       third_role:
         client: "Client"
@@ -741,45 +379,6 @@ eng:
         # integration: "Integration"
         listening: "Listening"
         requesting: "Requesting"
-    sensor:
-      retrieval_mode:
-        # integration: "Integration"
-        listening: "Listening"
-        requesting: "Requesting"
-    sequence:
-      period:
-        cweek: "Commercial week"
-        month: "Month"
-        number: "No periodicity"
-        year: "Year"
-      usage:
-        affairs: "Numeration of affairs"
-        analyses: "Numeration of analyses"
-        animals: "Numeration of animals"
-        campaigns: "Numeration of campaigns"
-        cash_transfers: "Numeration of cash transfers"
-        deliveries: "Numeration of deliveries"
-        deposits: "Numeration of deposits"
-        documents: "Numeration of documents"
-        entities: "Numeration of people"
-        fixed_assets: "Numeration of fixed assets"
-        gaps: "Numeration of gaps"
-        incoming_payments: "Numeration of payments"
-        inspections: "Numeration of inspections"
-        interventions: "Numeration of interventions"
-        inventories: "Numeration of inventories"
-        opportunities: "Numeration of opportunities"
-        outgoing_payments: "Numeration of payments"
-        parcels: "Numeration of parcels"
-        plants: "Numeration of plants"
-        product_nature_categories: "Numeration of product type categories"
-        product_nature_variants: "Numeration of product type variants"
-        product_natures: "Numeration of product types"
-        products: "Numeration of products"
-        purchases: "Numeration of purchases"
-        sales: "Numeration of sales"
-        sales_invoices: "Numeration of sales invoices"
-        subscriptions: "Numeration of subscriptions"
     sequence:
       period:
         cweek: "Commercial week"
@@ -826,23 +425,6 @@ eng:
         doing: "Doing"
         done: "Done"
         todo: "Todo"
-    task:
-      nature:
-        incoming_call: "Incoming call"
-        incoming_email: "Incoming email"
-        incoming_mail: "Incoming mail"
-        outgoing_call: "Outgoing call"
-        outgoing_email: "Outgoing email"
-        outgoing_mail: "Outgoing mail"
-      state:
-        doing: "Doing"
-        done: "Done"
-        todo: "Todo"
-    tracking:
-      usage_limit_nature:
-        best_before: "Best before date"
-        no_limit: "No limit"
-        used_by: "Used by date"
     tracking:
       usage_limit_nature:
         best_before: "Best before date"

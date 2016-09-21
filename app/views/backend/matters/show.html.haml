@@ -38,6 +38,7 @@
         %span.value
           %i.picto{class: "picto-movements"}
           = link_to(resource.outgoing_parcel_item.parcel.number, controller: :parcels, action: :show, id: resource.outgoing_parcel_item.parcel.id)
+  = labels_info(resource.labels)
 
 = cobbles do |c|
 

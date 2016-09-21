@@ -51,7 +51,6 @@ class CallRequest < CallMessage
       nature: :incoming, # Because we are in one of our own controllers here.
       headers: request.headers,
       body: request.body,
-      ip_address: request.ip,
       url: request.original_url,
       format: request.format,
       verb: request.method,

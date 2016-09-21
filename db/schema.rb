@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908141500) do
+ActiveRecord::Schema.define(version: 20160918152301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -333,6 +333,39 @@ ActiveRecord::Schema.define(version: 20160908141500) do
   add_index "affairs", ["third_id"], name: "index_affairs_on_third_id", using: :btree
   add_index "affairs", ["updated_at"], name: "index_affairs_on_updated_at", using: :btree
   add_index "affairs", ["updater_id"], name: "index_affairs_on_updater_id", using: :btree
+
+  create_table "alert_phases", force: :cascade do |t|
+    t.integer  "alert_id",                 null: false
+    t.datetime "started_at",               null: false
+    t.integer  "level",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "alert_phases", ["alert_id"], name: "index_alert_phases_on_alert_id", using: :btree
+  add_index "alert_phases", ["created_at"], name: "index_alert_phases_on_created_at", using: :btree
+  add_index "alert_phases", ["creator_id"], name: "index_alert_phases_on_creator_id", using: :btree
+  add_index "alert_phases", ["updated_at"], name: "index_alert_phases_on_updated_at", using: :btree
+  add_index "alert_phases", ["updater_id"], name: "index_alert_phases_on_updater_id", using: :btree
+
+  create_table "alerts", force: :cascade do |t|
+    t.integer  "sensor_id"
+    t.string   "nature",                   null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "alerts", ["created_at"], name: "index_alerts_on_created_at", using: :btree
+  add_index "alerts", ["creator_id"], name: "index_alerts_on_creator_id", using: :btree
+  add_index "alerts", ["sensor_id"], name: "index_alerts_on_sensor_id", using: :btree
+  add_index "alerts", ["updated_at"], name: "index_alerts_on_updated_at", using: :btree
+  add_index "alerts", ["updater_id"], name: "index_alerts_on_updater_id", using: :btree
 
   create_table "analyses", force: :cascade do |t|
     t.string   "number",                                                                           null: false
@@ -1575,6 +1608,24 @@ ActiveRecord::Schema.define(version: 20160908141500) do
   add_index "integrations", ["updated_at"], name: "index_integrations_on_updated_at", using: :btree
   add_index "integrations", ["updater_id"], name: "index_integrations_on_updater_id", using: :btree
 
+  create_table "intervention_labellings", force: :cascade do |t|
+    t.integer  "intervention_id",             null: false
+    t.integer  "label_id",                    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",    default: 0, null: false
+  end
+
+  add_index "intervention_labellings", ["created_at"], name: "index_intervention_labellings_on_created_at", using: :btree
+  add_index "intervention_labellings", ["creator_id"], name: "index_intervention_labellings_on_creator_id", using: :btree
+  add_index "intervention_labellings", ["intervention_id", "label_id"], name: "index_intervention_labellings_on_intervention_id_and_label_id", unique: true, using: :btree
+  add_index "intervention_labellings", ["intervention_id"], name: "index_intervention_labellings_on_intervention_id", using: :btree
+  add_index "intervention_labellings", ["label_id"], name: "index_intervention_labellings_on_label_id", using: :btree
+  add_index "intervention_labellings", ["updated_at"], name: "index_intervention_labellings_on_updated_at", using: :btree
+  add_index "intervention_labellings", ["updater_id"], name: "index_intervention_labellings_on_updater_id", using: :btree
+
   create_table "intervention_parameter_readings", force: :cascade do |t|
     t.string   "indicator_name",                                                                                                      null: false
     t.string   "indicator_datatype",                                                                                                  null: false
@@ -1853,9 +1904,12 @@ ActiveRecord::Schema.define(version: 20160908141500) do
     t.integer  "lock_version",                                        default: 0,   null: false
     t.decimal  "real_balance",              precision: 19, scale: 4,  default: 0.0, null: false
     t.string   "bank_statement_letter"
+    t.integer  "activity_budget_id"
+    t.integer  "team_id"
   end
 
   add_index "journal_entry_items", ["account_id"], name: "index_journal_entry_items_on_account_id", using: :btree
+  add_index "journal_entry_items", ["activity_budget_id"], name: "index_journal_entry_items_on_activity_budget_id", using: :btree
   add_index "journal_entry_items", ["bank_statement_id"], name: "index_journal_entry_items_on_bank_statement_id", using: :btree
   add_index "journal_entry_items", ["bank_statement_letter"], name: "index_journal_entry_items_on_bank_statement_letter", using: :btree
   add_index "journal_entry_items", ["created_at"], name: "index_journal_entry_items_on_created_at", using: :btree
@@ -1865,6 +1919,7 @@ ActiveRecord::Schema.define(version: 20160908141500) do
   add_index "journal_entry_items", ["journal_id"], name: "index_journal_entry_items_on_journal_id", using: :btree
   add_index "journal_entry_items", ["letter"], name: "index_journal_entry_items_on_letter", using: :btree
   add_index "journal_entry_items", ["name"], name: "index_journal_entry_items_on_name", using: :btree
+  add_index "journal_entry_items", ["team_id"], name: "index_journal_entry_items_on_team_id", using: :btree
   add_index "journal_entry_items", ["updated_at"], name: "index_journal_entry_items_on_updated_at", using: :btree
   add_index "journal_entry_items", ["updater_id"], name: "index_journal_entry_items_on_updater_id", using: :btree
 
@@ -1888,6 +1943,22 @@ ActiveRecord::Schema.define(version: 20160908141500) do
   add_index "journals", ["creator_id"], name: "index_journals_on_creator_id", using: :btree
   add_index "journals", ["updated_at"], name: "index_journals_on_updated_at", using: :btree
   add_index "journals", ["updater_id"], name: "index_journals_on_updater_id", using: :btree
+
+  create_table "labels", force: :cascade do |t|
+    t.string   "name",                     null: false
+    t.string   "color",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "labels", ["created_at"], name: "index_labels_on_created_at", using: :btree
+  add_index "labels", ["creator_id"], name: "index_labels_on_creator_id", using: :btree
+  add_index "labels", ["name"], name: "index_labels_on_name", unique: true, using: :btree
+  add_index "labels", ["updated_at"], name: "index_labels_on_updated_at", using: :btree
+  add_index "labels", ["updater_id"], name: "index_labels_on_updater_id", using: :btree
 
   create_table "listing_node_items", force: :cascade do |t|
     t.integer  "node_id",                  null: false
@@ -2480,6 +2551,24 @@ ActiveRecord::Schema.define(version: 20160908141500) do
   add_index "product_enjoyments", ["updated_at"], name: "index_product_enjoyments_on_updated_at", using: :btree
   add_index "product_enjoyments", ["updater_id"], name: "index_product_enjoyments_on_updater_id", using: :btree
 
+  create_table "product_labellings", force: :cascade do |t|
+    t.integer  "product_id",               null: false
+    t.integer  "label_id",                 null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "product_labellings", ["created_at"], name: "index_product_labellings_on_created_at", using: :btree
+  add_index "product_labellings", ["creator_id"], name: "index_product_labellings_on_creator_id", using: :btree
+  add_index "product_labellings", ["label_id"], name: "index_product_labellings_on_label_id", using: :btree
+  add_index "product_labellings", ["product_id", "label_id"], name: "index_product_labellings_on_product_id_and_label_id", unique: true, using: :btree
+  add_index "product_labellings", ["product_id"], name: "index_product_labellings_on_product_id", using: :btree
+  add_index "product_labellings", ["updated_at"], name: "index_product_labellings_on_updated_at", using: :btree
+  add_index "product_labellings", ["updater_id"], name: "index_product_labellings_on_updater_id", using: :btree
+
   create_table "product_linkages", force: :cascade do |t|
     t.integer  "originator_id"
     t.string   "originator_type"
@@ -2934,6 +3023,7 @@ ActiveRecord::Schema.define(version: 20160908141500) do
     t.uuid     "uuid"
     t.integer  "initial_movement_id"
     t.jsonb    "custom_fields"
+    t.integer  "team_id"
   end
 
   add_index "products", ["address_id"], name: "index_products_on_address_id", using: :btree
@@ -2952,6 +3042,7 @@ ActiveRecord::Schema.define(version: 20160908141500) do
   add_index "products", ["nature_id"], name: "index_products_on_nature_id", using: :btree
   add_index "products", ["number"], name: "index_products_on_number", unique: true, using: :btree
   add_index "products", ["parent_id"], name: "index_products_on_parent_id", using: :btree
+  add_index "products", ["team_id"], name: "index_products_on_team_id", using: :btree
   add_index "products", ["tracking_id"], name: "index_products_on_tracking_id", using: :btree
   add_index "products", ["type"], name: "index_products_on_type", using: :btree
   add_index "products", ["updated_at"], name: "index_products_on_updated_at", using: :btree
@@ -2981,13 +3072,17 @@ ActiveRecord::Schema.define(version: 20160908141500) do
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0,   null: false
     t.boolean  "fixed",                                         default: false, null: false
     t.decimal  "reduction_percentage", precision: 19, scale: 4, default: 0.0,   null: false
+    t.integer  "activity_budget_id"
+    t.integer  "team_id"
   end
 
   add_index "purchase_items", ["account_id"], name: "index_purchase_items_on_account_id", using: :btree
+  add_index "purchase_items", ["activity_budget_id"], name: "index_purchase_items_on_activity_budget_id", using: :btree
   add_index "purchase_items", ["created_at"], name: "index_purchase_items_on_created_at", using: :btree
   add_index "purchase_items", ["creator_id"], name: "index_purchase_items_on_creator_id", using: :btree
   add_index "purchase_items", ["purchase_id"], name: "index_purchase_items_on_purchase_id", using: :btree
   add_index "purchase_items", ["tax_id"], name: "index_purchase_items_on_tax_id", using: :btree
+  add_index "purchase_items", ["team_id"], name: "index_purchase_items_on_team_id", using: :btree
   add_index "purchase_items", ["updated_at"], name: "index_purchase_items_on_updated_at", using: :btree
   add_index "purchase_items", ["updater_id"], name: "index_purchase_items_on_updater_id", using: :btree
   add_index "purchase_items", ["variant_id"], name: "index_purchase_items_on_variant_id", using: :btree
@@ -3092,14 +3187,18 @@ ActiveRecord::Schema.define(version: 20160908141500) do
     t.integer  "lock_version",                                  default: 0,   null: false
     t.decimal  "unit_amount",          precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "credited_quantity",    precision: 19, scale: 4
+    t.integer  "activity_budget_id"
+    t.integer  "team_id"
   end
 
   add_index "sale_items", ["account_id"], name: "index_sale_items_on_account_id", using: :btree
+  add_index "sale_items", ["activity_budget_id"], name: "index_sale_items_on_activity_budget_id", using: :btree
   add_index "sale_items", ["created_at"], name: "index_sale_items_on_created_at", using: :btree
   add_index "sale_items", ["creator_id"], name: "index_sale_items_on_creator_id", using: :btree
   add_index "sale_items", ["credited_item_id"], name: "index_sale_items_on_credited_item_id", using: :btree
   add_index "sale_items", ["sale_id"], name: "index_sale_items_on_sale_id", using: :btree
   add_index "sale_items", ["tax_id"], name: "index_sale_items_on_tax_id", using: :btree
+  add_index "sale_items", ["team_id"], name: "index_sale_items_on_team_id", using: :btree
   add_index "sale_items", ["updated_at"], name: "index_sale_items_on_updated_at", using: :btree
   add_index "sale_items", ["updater_id"], name: "index_sale_items_on_updater_id", using: :btree
   add_index "sale_items", ["variant_id"], name: "index_sale_items_on_variant_id", using: :btree
@@ -3199,21 +3298,24 @@ ActiveRecord::Schema.define(version: 20160908141500) do
   create_table "sensors", force: :cascade do |t|
     t.string   "vendor_euid"
     t.string   "model_euid"
-    t.string   "name",                              null: false
-    t.string   "retrieval_mode",                    null: false
+    t.string   "name",                                                          null: false
+    t.string   "retrieval_mode",                                                null: false
     t.json     "access_parameters"
     t.integer  "product_id"
-    t.boolean  "embedded",          default: false, null: false
+    t.boolean  "embedded",                                      default: false, null: false
     t.integer  "host_id"
-    t.boolean  "active",            default: true,  null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.boolean  "active",                                        default: true,  null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0,     null: false
+    t.integer  "lock_version",                                  default: 0,     null: false
     t.string   "token"
     t.jsonb    "custom_fields"
     t.string   "euid"
+    t.string   "partner_url"
+    t.decimal  "battery_level",        precision: 19, scale: 4
+    t.datetime "last_transmission_at"
   end
 
   add_index "sensors", ["created_at"], name: "index_sensors_on_created_at", using: :btree
@@ -3512,6 +3614,8 @@ ActiveRecord::Schema.define(version: 20160908141500) do
     t.integer  "invited_by_id"
     t.integer  "invitations_count",                                               default: 0
     t.datetime "signup_at"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
@@ -3523,9 +3627,11 @@ ActiveRecord::Schema.define(version: 20160908141500) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["person_id"], name: "index_users_on_person_id", using: :btree
+  add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   add_index "users", ["updated_at"], name: "index_users_on_updated_at", using: :btree
   add_index "users", ["updater_id"], name: "index_users_on_updater_id", using: :btree
@@ -3545,4 +3651,6 @@ ActiveRecord::Schema.define(version: 20160908141500) do
   add_index "versions", ["creator_id"], name: "index_versions_on_creator_id", using: :btree
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "alert_phases", "alerts"
+  add_foreign_key "alerts", "sensors"
 end

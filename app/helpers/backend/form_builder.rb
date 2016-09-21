@@ -164,7 +164,7 @@ module Backend
       unless options.key?(:disabled)
         if @object.is_a?(ActiveRecord::Base) && !@object.new_record? &&
            @object.class.readonly_attributes.include?(attribute_name.to_s)
-          options[:disabled] = true
+          options[:disabled] = true unless options[:as] == :hidden
         end
       end
       autocomplete = options[:autocomplete]
@@ -474,11 +474,13 @@ module Backend
         variant = ProductNatureVariant.where(id: variant_id.to_i).first if variant_id
       end
 
-      born_at = nil
       full_name = nil
       if @template.params[:person_id]
-        born_at = Entity.find(@template.params[:person_id]).born_at
-        full_name = Entity.find(@template.params[:person_id]).full_name
+        person = Entity.find(@template.params[:person_id])
+        if person
+          f.object.born_at ||= person.born_at
+          full_name = Entity.find(@template.params[:person_id]).full_name
+        end
       end
 
       options[:input_html] ||= {}
@@ -497,8 +499,10 @@ module Backend
           # Add variant selector
           fs << variety(scope: variant)
 
-          fs << (born_at.nil? ? input(:born_at) : input(:born_at, input_html: { value: born_at }))
+          fs << input(:born_at)
           fs << input(:dead_at)
+
+          fs << nested_association(:labellings)
 
           # error message for indicators
           if Rails.env.development?

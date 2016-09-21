@@ -26,6 +26,7 @@ cmn:
         none: "没有"
     activity_production:
       support_nature:
+        # animal_group: "Animal group"
         border: "边境"
         buffer: "缓冲"
         cultivation: "养殖"

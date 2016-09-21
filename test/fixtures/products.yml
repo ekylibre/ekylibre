@@ -56,6 +56,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -3197,6 +3198,7 @@ workers_001:
   number: '21001'
   parent_id: 65
   person_id: 9
+  team_id: 1
   type: Worker
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
@@ -3254,6 +3256,7 @@ workers_004:
   nature_id: 20
   number: EIZLEIKBWARLXP00000000015
   person_id: 9
+  team_id: 1
   type: Worker
   updated_at: 2014-11-07 17:08:37.125582000 Z
   updater_id: 1
