@@ -326,7 +326,7 @@ class User < Ekylibre::Record::Base
   end
 
   def current_period_type
-    self.preference('current_period_type', :years, :string).value
+    preference('current_period_type', :years, :string).value
   end
 
   def current_period_type=(period_type)
@@ -334,13 +334,12 @@ class User < Ekylibre::Record::Base
   end
 
   def current_period
-    self.preference('current_period', Date.today, :string).value
+    preference('current_period', Date.today, :string).value
   end
 
   def current_period=(period)
     prefer!('current_period', period, :string)
   end
-
 
   def card
     nil

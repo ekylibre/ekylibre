@@ -516,20 +516,16 @@ module ApplicationHelper
     end
   end
 
-  def pop_menu(options = {}, &block)
-
+  def pop_menu(options = {})
     menu = Ekylibre::Support::Lister.new(:item, :separator)
-    default_class = options[:class] || "pop-menu"
+    default_class = options[:class] || 'pop-menu'
 
     yield menu
 
-    content_tag(:nav, '', {:class => default_class}) do
-
+    content_tag(:nav, '', class: default_class) do
       content_tag(:ul, class: 'menu', role: 'menu') do
-
         html = ''.html_safe
         menu.list.each do |item|
-
           if item.name == :item
 
             options = item.args.extract_options!
@@ -976,7 +972,7 @@ module ApplicationHelper
         end
 
         if options[:flex]
-           title + close_button
+          title + close_button
         else
           close_button + title
         end

@@ -40,7 +40,6 @@
 require 'procedo'
 
 class ActivityTacticStep < Ekylibre::Record::Base
-
   refers_to :procedure_categorie, class_name: 'ProcedureCategory'
   refers_to :action, class_name: 'ProcedureAction'
 
@@ -61,6 +60,4 @@ class ActivityTacticStep < Ekylibre::Record::Base
   def of_actions
     Procedo.find(procedure_name).optional_actions_selection
   end
-
-
 end

@@ -137,21 +137,20 @@ class Intervention < Ekylibre::Record::Base
   }
 
   scope :with_unroll, lambda { |*args|
-
     params = args.extract_options!
-    search_params = ""
+    search_params = ''
 
     unless params[:q].blank?
       search_params << " #{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
     end
 
     unless params[:procedure_name].blank?
-      search_params << " AND " unless search_params.blank?
+      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.procedure_name = '#{params[:procedure_name]}'"
     end
 
     unless params[:product_id].blank?
-      search_params << " AND " unless search_params.blank?
+      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
@@ -160,7 +159,7 @@ class Intervention < Ekylibre::Record::Base
       period_type = params[:period_type]
       period = params[:period]
 
-      search_params << " AND " unless search_params.blank?
+      search_params << ' AND ' unless search_params.blank?
 
       if period_type.to_sym == :days
         search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
@@ -184,14 +183,14 @@ class Intervention < Ekylibre::Record::Base
     end
 
     unless params[:nature].blank?
-      search_params << " AND " unless search_params.blank?
+      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
 
       search_params << " AND #{Intervention.table_name}.request_intervention_id IS NULL" if params[:nature] == :request
     end
 
     unless params[:state].blank?
-      search_params << " AND " unless search_params.blank?
+      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
@@ -450,9 +449,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def status
-    if done?
-      return :go
-    end
+    return :go if done?
   end
 
   def runnable?

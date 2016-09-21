@@ -58,7 +58,6 @@ module Backend
     end
 
     def set_current_period_type
-
       if params[:current_period_type]
 
         period_type = params[:current_period_type].to_sym
@@ -78,15 +77,12 @@ module Backend
     end
 
     def set_current_period
-
       if params[:current_period]
 
         period = params[:current_period].to_sym
         current_period = current_user.current_period.to_sym
 
-        if period != current_period
-          current_user.current_period = period
-        end
+        current_user.current_period = period if period != current_period
       end
     end
 

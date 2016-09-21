@@ -252,7 +252,6 @@ module Backend
     end
 
     def period_selector(period_type = nil, campaign = nil, options = {})
-
       unless Campaign.any?
         @current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
         current_user.current_campaign = @current_campaign

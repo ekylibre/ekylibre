@@ -3,7 +3,6 @@ module Backend::TimelineChartHelper
     attr_reader :id
 
     def initialize(id, min_date, max_date)
-
       @id = id
       @min_date = min_date
       @max_date = max_date
@@ -19,15 +18,13 @@ module Backend::TimelineChartHelper
     end
 
     def datas
-
-      datas = Hash.new {|h,k| h[k]=[]}
+      datas = Hash.new { |h, k| h[k] = [] }
       datas[:chart_id] = @id
       datas[:min_date] = @min_date
       datas[:max_date] = @max_date
 
       @groups.each do |group|
-
-        timeline_datas = Hash.new {|h,k| h[k]=[]}
+        timeline_datas = Hash.new { |h, k| h[k] = [] }
         timeline_datas[:label] = group.label
         timeline_datas[:data] = [] unless group.items.any?
 
@@ -42,11 +39,9 @@ module Backend::TimelineChartHelper
     end
 
     def events
-
       events = []
 
       @groups.each do |group|
-
         group.items.each do |item|
           events << item.get_js_datas unless item.get_js_datas.nil?
         end
@@ -54,7 +49,6 @@ module Backend::TimelineChartHelper
 
       events
     end
-
 
     class Group
       attr_reader :label, :items
@@ -78,13 +72,11 @@ module Backend::TimelineChartHelper
     end
 
     class Item
-
-      INTERVAL = "TimelineChart.TYPE.INTERVAL"
-      POINT = "TimelineChart.TYPE.POINT"
-      ICON = "TimelineChart.TYPE.ICON"
+      INTERVAL = 'TimelineChart.TYPE.INTERVAL'.freeze
+      POINT = 'TimelineChart.TYPE.POINT'.freeze
+      ICON = 'TimelineChart.TYPE.ICON'.freeze
 
       def initialize(label, type, options = {}, js_options = {})
-
         @label = label
         @type = type
         @id = options[:id]
@@ -105,7 +97,6 @@ module Backend::TimelineChartHelper
       end
 
       def get_js_datas
-
         js_datas = {}
 
         @js_options.each_pair do |event_name, event_content|
@@ -121,9 +112,7 @@ module Backend::TimelineChartHelper
     end
 
     class Interval < Item
-
       def initialize(label, started_date, stopped_date, options = {}, js_options = {})
-
         @started_date = started_date
         @stopped_date = stopped_date
 
@@ -137,9 +126,7 @@ module Backend::TimelineChartHelper
     end
 
     class Point < Item
-
       def initialize(label, targetted_at, options = {}, js_options = {})
-
         @targetted_at = targetted_at
 
         super(label, POINT, options, js_options)
@@ -151,9 +138,7 @@ module Backend::TimelineChartHelper
     end
 
     class Icon < Item
-
       def initialize(label, targetted_at, icon, font_size, options = {}, js_options = {})
-
         @targetted_at = targetted_at
         @icon = icon
         @font_size = font_size
@@ -170,7 +155,6 @@ module Backend::TimelineChartHelper
   end
 
   def timeline_chart(id, min_date, max_date, &_block)
-
     unless id.nil? && min_date.nil? && max_date.nil?
       timeline_chart = TimelineChart.new(id, min_date, max_date)
       yield timeline_chart
