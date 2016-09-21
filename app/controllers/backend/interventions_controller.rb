@@ -250,7 +250,6 @@ module Backend
     end
 
     def display_modal
-
       if params[:intervention_id]
         @intervention = Intervention.find(params[:intervention_id])
         render partial: 'backend/interventions/details_modal', locals: { intervention: @intervention }

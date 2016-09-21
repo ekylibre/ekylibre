@@ -441,14 +441,13 @@ module Backend
       url = html_options[:url] || nil
 
       content_tag(:div, style: style, class: element_class, title: title) do
-
-        unless url.nil?
+        if url.nil?
+          content_tag(:i, '', class: "picto picto-#{picto_class}")
+        else
 
           link_to(url) do
             content_tag(:i, '', class: "picto picto-#{picto_class}")
           end
-        else
-          content_tag(:i, '', class: "picto picto-#{picto_class}")
         end
       end
     end

@@ -334,9 +334,8 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def completely_filled?
-
     reference_names = parameters.pluck(:reference_name).uniq
-    reference_names = reference_names.map { |name| name.to_sym }
+    reference_names = reference_names.map(&:to_sym)
     parameters_names = procedure.parameters.map(&:name).uniq
 
     result = parameters_names - reference_names | reference_names - parameters_names
