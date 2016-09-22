@@ -167,7 +167,7 @@ fra:
     oil: "Huile"
     oil_to_input: "Huile mise" #?
     operator: "Opérateur"
-    plant: "Culture végétale"
+    plant: "Culture"
     plant_medicine: "Produit phytosanitaire"
     plant_medicine_to_spray: "Produit phytosanitaire à pulvériser" #?
     plants: "Plants"
