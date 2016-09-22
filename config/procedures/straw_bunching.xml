@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="straw_bunching" categories="harvesting" actions="straw_bunching">
     <parameters>
-      <target name="plant" filter="is plant and has indicator shape">
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?">
           <compute expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)" if="VARIANT?" to="population"/>
         </attribute>
