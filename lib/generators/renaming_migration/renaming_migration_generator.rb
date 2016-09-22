@@ -5,8 +5,9 @@ class RenamingMigrationGenerator < Rails::Generators::Base
   argument :procedure_name
 
   def generate_renaming_migration
-    return puts 'Procedure does not exists, stopping...' unless File.file? procedure_path
-    template 'migration.rb', "db/migrate/#{timestamp}_rename_#{old_name}_to_#{new_name}_in_#{procedure_name}_procedure.rb"
+    return say "Sorry but this generator's execution isn't reversible yet.", :yellow if behavior == :revoke
+    return say 'Procedure does not exists, stopping...', :yellow unless File.file? procedure_path
+    template 'migration.rb', File.join('db', 'migrate', "#{timestamp}_rename_#{old_name}_to_#{new_name}_in_#{procedure_name}_procedure.rb")
     gsub_procedure
   end
 
