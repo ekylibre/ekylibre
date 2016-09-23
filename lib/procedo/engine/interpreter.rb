@@ -38,6 +38,7 @@ module Procedo
           run(node.head) * run(node.operand)
         elsif node.is_a?(Procedo::Formula::Language::Division)
           run(node.head) / run(node.operand)
+          raise "Cannot divide by zero: #{run(node.head)} / #{run(node.operand)}" if run(node.operand).zero?
         elsif node.is_a?(Procedo::Formula::Language::Addition)
           run(node.head) + run(node.operand)
         elsif node.is_a?(Procedo::Formula::Language::Substraction)
