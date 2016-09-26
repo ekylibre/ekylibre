@@ -7,7 +7,7 @@
   @@item_count += 1
   item = JournalEntryItem.new(item) if item.is_a?(Hash)
   budget_size = budget_columns_count
-  team_size = 1 if Team.any?
+  team_size = Team.any? ? 1 : 0
 
 - if item.errors.any?
   %tr.inline-errors{id: "#{id}-errors", class: "#{id}-item"}
