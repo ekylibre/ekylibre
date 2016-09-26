@@ -298,12 +298,18 @@ spa:
       index: "gradaciones de productos"
       new: "Nueva clasificación de los productos"
       # show: "Product grading\_: %{number}"
+    backend/integrations:
+      # edit: "Edit integration: %{name}"
+      index: "Integraciones"
+      # new: "Activate integration: %{name}"
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit request %{procedure_name} #%{number}"
+      # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "Intervenciones"
       new: "Intervención New"
       new_request: "Intervención New solicitado"
+      new_undefined: "Intervención New"
+      new_undefined_request: "Nueva solicitud de intervención"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Modificación del inventario"
@@ -337,6 +343,11 @@ spa:
       new: "Crear un nuevo periodico"
       reopen: "Déclôture du %{name}"
       show: "Periodico\_: %{name} (%{code})"
+    backend/labels:
+      # edit: "Edit label: %{name}"
+      index: "Etiquetas"
+      new: "Nuevo titulo"
+      # show: "Label: %{name}"
     backend/land_parcels:
       # edit: "Edit land parcel: %{name}"
       index: "Parcelas"
@@ -537,8 +548,8 @@ spa:
       index: "Sincronizaciones"
       # run: "Run synchronization: %{name}"
     backend/target_distributions:
-      distribute: "distribuir productos"
       edit: "modificar la distribución de destino"
+      edit_many: "Distribuir productos no afectados"
       index: "distribuciones de destino"
       new: "Nueva distribución de destino"
       show: "distribución de destino"
@@ -727,6 +738,7 @@ spa:
     add_intervention_record: "Añadir registro de intervención"
     add_intervention_request: "Añadir solicitud de intervención"
     add_item: "Añadir artículo"
+    add_labelling: "Añadir etiqueta"
     add_line: "Añadir línea"
     add_linestring: "Añadir cadena de líneas"
     add_mail: "Añadir la dirección postal"
@@ -977,6 +989,7 @@ spa:
     disease_percentage: "Enfermedad (%)"
     disease_percentage_evolution: "Evolución porcentual de Enfermedades"
     display: "Monitor"
+    distribute_unaffected_products: "Distribuir productos no afectados"
     distributions: "Distribuciones"
     divide: "Dividir"
     division: "División"
@@ -1040,6 +1053,8 @@ spa:
     expedier: "Expédier"
     expenses: "Gastos"
     expenses_by_product_nature_category: "Los gastos por categoría de productos naturaleza"
+    # expired_since: "Expired since"
+    # expired_within: "Expired within"
     export: "Exportación de un fichero de salvaguardia"
     field_distribution: "Distribución de campo"
     file_nature: "Tipo de fichero"
@@ -1275,6 +1290,7 @@ spa:
     new_group: "Nuevo grupo"
     new_incoming_parcel: "Nueva parcela entrante"
     new_issue: "Nueva edición"
+    new_listing: "Nuevo listado"
     new_organization: "Nueva organización"
     new_outgoing_parcel: "Nueva parcela saliente"
     new_production: "Nueva producción"
@@ -1317,6 +1333,7 @@ spa:
     # operating_profit: "Operating profit %{financial_year}"
     operations: "Operaciones"
     options: "Opciones"
+    or: "O"
     organic_matter_concentration: "Concentración de materia orgánica"
     original_component: "Original"
     other_assessable_operations: "Autras operaciones imponibles" #?
@@ -1499,6 +1516,7 @@ spa:
     search: "buscars piezas/escrituras"
     search_placeholder: "Buscar…"
     # section_x: "Section %{x}"
+    see_more_details: "Ver más detalles"
     select_account_client: "Cuentos a marcar con letras" #?
     select_account_supplier: "Cuento a marcar con letra" #?
     select_building: "Escoger un lugar de deposito" #?
@@ -1551,6 +1569,7 @@ spa:
     storage: "Almacenamiento"
     subject: "Tema"
     submit: "Enviar"
+    # subscribed_on: "Subscribed on"
     # subscriber_period: "Subscribed on %{subscribed_at}"
     # subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     subscription_nature: "Tipo de suscripción"
@@ -1694,6 +1713,7 @@ spa:
     view: "Ver"
     watering_concentration: "Uso del agua"
     weather: "Clima"
+    website: "Sitio web"
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
@@ -1890,6 +1910,7 @@ spa:
       impossible_to_add_items_to_purchase: "No se puede añadir productos a su compra"
       incompatible_browser: "Navegador incompatibles"
       # informations_feed_is_unreachable: "Informations feed (%{url}) is unreachable. Error message: %{message}"
+      integrate_tools_you_are_using_every_day: "Integrar herramientas que se usan todos los días"
       invalid_file_nature: "Tipo de fichero invalido" #?
       invalid_reference_name: "Nombre de referencia no válida"
       journal_closed_at: "%{journal} ha sido cerrado al %{closed_at} correctamente." #?
@@ -2024,10 +2045,10 @@ spa:
       destroy: "Destruir"
       detach: "Despegar"
       detail: "Detalle"
-      distribute: "Distribuir productos no afectados"
       down: "Abajo"
       duplicate: "Duplicar"
       edit: "Editar"
+      edit_many: "Editar muchos"
       evaluate: "Evaluar"
       export: "Exportar"
       extract: "Extraer"
@@ -2092,6 +2113,7 @@ spa:
   unrolls:
     # backend/accounts: "%{number}. %{name}"
     # backend/activities: "%{name}"
+    # backend/activity_budgets: "%{activity_name} %{campaign_name}"
     # backend/activity_productions: "%{activity_name} %{support_name} #%{rank_number}"
     # backend/animals: "%{name} #%{work_number}"
     # backend/campaigns: "%{name}"

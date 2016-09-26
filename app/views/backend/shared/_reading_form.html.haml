@@ -1,7 +1,9 @@
 - default_as = (hidden ? :hidden : nil)
 = f.input(:indicator_name, as: :hidden)
 = f.input(:indicator_datatype, as: :hidden, input_html: {value: f.object.indicator_datatype || indicator.datatype})
-= f.input(indicator.datatype.to_s + '_value_value', as: default_as, wrapper: :append, value: 0, class: :inline, label: indicator.human_name) do
+- input_name = indicator.datatype.to_s + '_value'
+- input_name << '_value' if indicator.datatype == :measure
+= f.input(input_name, as: default_as, wrapper: :append, value: 0, class: :inline, label: indicator.human_name) do
   - if indicator.datatype == :measure
     - f.object.measure_value_unit ||= indicator.unit
     = f.input_field(indicator.datatype.to_s + '_value_value', label: indicator.human_name, as: :string)
@@ -12,6 +14,5 @@
     = f.input_field(indicator.datatype.to_s + '_value', label: indicator.human_name, as: default_as || (indicator.datatype == :decimal ? :string : indicator.datatype))
   - elsif [:geometry, :point, :multi_polygon].include?(indicator.datatype)
     = f.geolocation_field(indicator.datatype.to_s + '_value', value: f.object.value.to_json, label: indicator.human_name)
-    -#= f.input_field(indicator.datatype.to_s + '_value', value: f.object.value.to_json, label: indicator.human_name, as: default_as || indicator.datatype)
   - else
     = f.input_field(indicator.datatype.to_s + '_value', label: indicator.human_name, as: default_as || :string)

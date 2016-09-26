@@ -1,5 +1,137 @@
 # Change Log
 
+## [2.7.0](https://github.com/ekylibre/ekylibre/tree/2.7.0) (2016-09-20)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.6.1...2.7.0)
+
+**Implemented enhancements:**
+
+- Adds activity filter on backend/equipment\#index [\#1070](https://github.com/ekylibre/ekylibre/issues/1070)
+- Adds analytic accountancy [\#1071](https://github.com/ekylibre/ekylibre/pull/1071) ([burisu](https://github.com/burisu))
+
+**Fixed bugs:**
+
+- Parcel invoicing fails due to a not updateable record [\#1102](https://github.com/ekylibre/ekylibre/issues/1102)
+- Labellings doesn't work on animal\_group [\#1101](https://github.com/ekylibre/ekylibre/issues/1101)
+- When updating an intervention, the quantity population of an actor is not computed. [\#1100](https://github.com/ekylibre/ekylibre/issues/1100)
+- View inspections\#show fails when inspections data are not filled [\#1098](https://github.com/ekylibre/ekylibre/issues/1098)
+
+## [2.6.1](https://github.com/ekylibre/ekylibre/tree/2.6.1) (2016-09-19)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.6.0...2.6.1)
+
+**Fixed bugs:**
+
+- Can click on destroy of  product nature category although it's not destroyable [\#1096](https://github.com/ekylibre/ekylibre/issues/1096)
+- Impossible to delete sales containing a suscription. [\#1020](https://github.com/ekylibre/ekylibre/issues/1020)
+
+## [2.6.0](https://github.com/ekylibre/ekylibre/tree/2.6.0) (2016-09-19)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.3...2.6.0)
+
+**Implemented enhancements:**
+
+- Rename "work" in equipment\_maintenance procedure [\#1050](https://github.com/ekylibre/ekylibre/issues/1050)
+- Add a categorization system for equipment [\#1044](https://github.com/ekylibre/ekylibre/issues/1044)
+- Add labels for interventions [\#1041](https://github.com/ekylibre/ekylibre/issues/1041)
+- Add a label tagging system for cross categorization through all app [\#1040](https://github.com/ekylibre/ekylibre/issues/1040)
+- Restore entities export system [\#1095](https://github.com/ekylibre/ekylibre/pull/1095) ([burisu](https://github.com/burisu))
+- Add tool maintaining production [\#1091](https://github.com/ekylibre/ekylibre/pull/1091) ([burisu](https://github.com/burisu))
+- Adds labelling on interventions and products [\#1082](https://github.com/ekylibre/ekylibre/pull/1082) ([burisu](https://github.com/burisu))
+- Record a repair of a component of an equipment without input in an equipment\_maintenance intervention [\#1038](https://github.com/ekylibre/ekylibre/pull/1038) ([burisu](https://github.com/burisu))
+- Oauth sign in [\#1002](https://github.com/ekylibre/ekylibre/pull/1002) ([jonathanpa](https://github.com/jonathanpa))
+
+**Fixed bugs:**
+
+- Inspection\#calibration\_values fails when nil values to sum [\#1083](https://github.com/ekylibre/ekylibre/issues/1083)
+- Cannot search on postal code or city in backend/entities\#index [\#1053](https://github.com/ekylibre/ekylibre/issues/1053)
+- Entity number should be updateable and importable through ekylibre/entities exchanger [\#1027](https://github.com/ekylibre/ekylibre/issues/1027)
+- Maintenance activities should permit to link equiment as productions in order to complete targets distribution [\#1022](https://github.com/ekylibre/ekylibre/issues/1022)
+- Restore entities export system [\#1095](https://github.com/ekylibre/ekylibre/pull/1095) ([burisu](https://github.com/burisu))
+- Add tool maintaining production [\#1091](https://github.com/ekylibre/ekylibre/pull/1091) ([burisu](https://github.com/burisu))
+
+**Merged pull requests:**
+
+- Integration visualization [\#1092](https://github.com/ekylibre/ekylibre/pull/1092) ([Aquaj](https://github.com/Aquaj))
+
+## [2.5.3](https://github.com/ekylibre/ekylibre/tree/2.5.3) (2016-09-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.2...2.5.3)
+
+## [2.5.2](https://github.com/ekylibre/ekylibre/tree/2.5.2) (2016-09-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.1...2.5.2)
+
+**Fixed bugs:**
+
+- New bug on Integrations assets due to different conf data between production and development [\#1081](https://github.com/ekylibre/ekylibre/issues/1081)
+- display problem in the recording of a parcel [\#1079](https://github.com/ekylibre/ekylibre/issues/1079)
+
+## [2.5.1](https://github.com/ekylibre/ekylibre/tree/2.5.1) (2016-09-10)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.0...2.5.1)
+
+**Fixed bugs:**
+
+- Logging fails due to unknown method ip\_address on ActionDispatch::Request [\#1078](https://github.com/ekylibre/ekylibre/issues/1078)
+- Cannot go on Integrations index [\#1077](https://github.com/ekylibre/ekylibre/issues/1077)
+
+## [2.5.0](https://github.com/ekylibre/ekylibre/tree/2.5.0) (2016-09-09)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.4.1...2.5.0)
+
+**Implemented enhancements:**
+
+- Display the name of intervention at creation of a new intervention [\#1075](https://github.com/ekylibre/ekylibre/issues/1075)
+- Payment cancelation doesn't exist [\#1037](https://github.com/ekylibre/ekylibre/issues/1037)
+- Create the Integration system. [\#1032](https://github.com/ekylibre/ekylibre/pull/1032) ([Aquaj](https://github.com/Aquaj))
+- Add ActionCaller module to control calls to other API and track all exchanges [\#1007](https://github.com/ekylibre/ekylibre/pull/1007) ([burisu](https://github.com/burisu))
+
+**Fixed bugs:**
+
+- When dates are not touched in intervention form, selectors failed [\#1074](https://github.com/ekylibre/ekylibre/issues/1074)
+- Crumbs aren't visible [\#1072](https://github.com/ekylibre/ekylibre/issues/1072)
+- Overflow makes scroll on "big" affairs in deals [\#1069](https://github.com/ekylibre/ekylibre/issues/1069)
+- Colors of activities changed and are not representative of cultivations [\#1063](https://github.com/ekylibre/ekylibre/issues/1063)
+- Child components must have diffrent name [\#1060](https://github.com/ekylibre/ekylibre/issues/1060)
+- Duplication of indicator field at creation of a new product\_nature\_variant [\#861](https://github.com/ekylibre/ekylibre/issues/861)
+
+## [2.4.1](https://github.com/ekylibre/ekylibre/tree/2.4.1) (2016-09-07)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.4.0...2.4.1)
+
+**Fixed bugs:**
+
+- Fields of part\_replacement are cleared after adding a new part\_replacement in equipment\_maintenance procedure [\#1054](https://github.com/ekylibre/ekylibre/issues/1054)
+- Cannot filter on equipment component after adding a new input for replacement [\#1039](https://github.com/ekylibre/ekylibre/issues/1039)
+- Bug when i want to bill a parcel [\#949](https://github.com/ekylibre/ekylibre/issues/949)
+
+**Closed issues:**
+
+- Cannot select a land\_parcel in plant\_covering intervention \(solarization\) [\#1067](https://github.com/ekylibre/ekylibre/issues/1067)
+
+## [2.4.0](https://github.com/ekylibre/ekylibre/tree/2.4.0) (2016-09-06)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.3.3...2.4.0)
+
+**Implemented enhancements:**
+
+- Send request intervention to zero [\#1049](https://github.com/ekylibre/ekylibre/issues/1049)
+- Translation update : "item" in maintenance intervention [\#767](https://github.com/ekylibre/ekylibre/issues/767)
+- Completes nomenclatures [\#1065](https://github.com/ekylibre/ekylibre/pull/1065) ([burisu](https://github.com/burisu))
+- Extend API to adds interventions\#index action [\#1064](https://github.com/ekylibre/ekylibre/pull/1064) ([burisu](https://github.com/burisu))
+
+## [2.3.3](https://github.com/ekylibre/ekylibre/tree/2.3.3) (2016-09-02)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.3.2...2.3.3)
+
+## [2.3.2](https://github.com/ekylibre/ekylibre/tree/2.3.2) (2016-09-01)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.3.1...2.3.2)
+
+**Fixed bugs:**
+
+- Production costs with forecast interventions [\#1016](https://github.com/ekylibre/ekylibre/issues/1016)
+- Crash if measure grading net mass misses [\#908](https://github.com/ekylibre/ekylibre/issues/908)
+
+## [2.3.1](https://github.com/ekylibre/ekylibre/tree/2.3.1) (2016-08-31)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.3.0...2.3.1)
+
+**Fixed bugs:**
+
+- Cannot display a worker page [\#1059](https://github.com/ekylibre/ekylibre/issues/1059)
+- Geolocation input field on equipment edit page doesn't work on Chrome and Vivaldi browsers [\#975](https://github.com/ekylibre/ekylibre/issues/975)
+- Printing an intervention sheet provides an empty file [\#907](https://github.com/ekylibre/ekylibre/issues/907)
+
 ## [2.3.0](https://github.com/ekylibre/ekylibre/tree/2.3.0) (2016-08-28)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.2.0...2.3.0)
 
@@ -308,7 +440,6 @@
 - Subsoiling : crop target is not available [\#760](https://github.com/ekylibre/ekylibre/issues/760)
 - Error on display of map at creation of a new intervention [\#759](https://github.com/ekylibre/ekylibre/issues/759)
 - Unchecked indicator's field is still visible in variant product [\#754](https://github.com/ekylibre/ekylibre/issues/754)
-- Installations are not displayed in the dropdowwn list "container" [\#752](https://github.com/ekylibre/ekylibre/issues/752)
 - Update the container of an equipement is impossible [\#751](https://github.com/ekylibre/ekylibre/issues/751)
 - Bad timing on matter tracking \(stocks\) [\#749](https://github.com/ekylibre/ekylibre/issues/749)
 - Fertilization : crop target is not available [\#748](https://github.com/ekylibre/ekylibre/issues/748)
@@ -391,7 +522,6 @@
 - Multiplication of cultivable zones when create activities from telepac [\#570](https://github.com/ekylibre/ekylibre/issues/570)
 - French translations are missing for pictograms [\#568](https://github.com/ekylibre/ekylibre/issues/568)
 - Quantity of plant in matters [\#566](https://github.com/ekylibre/ekylibre/issues/566)
-- Isacompta exchanger is not up-to-date [\#564](https://github.com/ekylibre/ekylibre/issues/564)
 - Delete a product in a parcel [\#563](https://github.com/ekylibre/ekylibre/issues/563)
 - French translations or text are missing on mouse over the cartography buttons [\#561](https://github.com/ekylibre/ekylibre/issues/561)
 - French translation of "required" is missing in all forms [\#559](https://github.com/ekylibre/ekylibre/issues/559)

@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     if Ekylibre::Plugin.redirect_after_login?
       path = Ekylibre::Plugin.after_login_path(resource)
     end
-    path || backend_root_path(locale: (params[:locale] || resource.language || I18n.default_locale))
+    path || super
   end
 
   def self.human_action_name(action, options = {})
@@ -51,6 +51,8 @@ class ApplicationController < ActionController::Base
       options[:default] << (root + 'new').to_sym
     elsif action == 'update' && !options[:default].include?((root + 'edit').to_sym)
       options[:default] << (root + 'edit').to_sym
+    elsif action == 'update_many' && !options[:default].include?((root + 'edit_many').to_sym)
+      options[:default] << (root + 'edit_many').to_sym
     end
     klass = superclass
     while klass != ApplicationController

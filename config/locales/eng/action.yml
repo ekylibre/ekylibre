@@ -3,6 +3,10 @@ eng:
     authentication/invitations:
       edit: "Accept invitation"
       # new: "New invitation"
+    authentication/omniauth_callbacks:
+      # ekylibre: "Ekylibre omniauth callback: %{name}"
+      # failure: "Failure omniauth callback: %{name}"
+      # passthru: "Passthru omniauth callback: %{name}"
     authentication/passwords:
       edit: "Edit password: %{name}"
       new: "New password"
@@ -69,6 +73,7 @@ eng:
       index: "Animal groups"
       new: "New animal group"
       show: "Animal group: %{name}"
+      # take: "Take animal group: %{name}"
     backend/animals:
       # add_group: "Add group animal: %{name}"
       # add_to_container: "Add to container animal: %{name}"
@@ -220,7 +225,7 @@ eng:
     backend/entities:
       # autocomplete: "Autocomplete entity: %{name}"
       edit: "Edit person: %{full_name}"
-      export: "Export people"
+      export: "Export people" #?
       import: "Import people"
       index: "People"
       merge: "Merge two people"
@@ -329,13 +334,19 @@ eng:
       index: "Product gradings"
       new: "New product grading"
       show: "Product grading\_: %{number}"
+    backend/integrations:
+      edit: "Edit integration: %{name}"
+      index: "Integrations"
+      new: "Activate integration: %{name}"
     backend/interventions:
       # compute: "Compute intervention: %{name}"
       edit: "Edit %{procedure_name} #%{number}"
-      edit_request: "Edit request %{procedure_name} #%{number}" #?
+      edit_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
-      new: "New intervention"
-      new_request: "New requested intervention" #?
+      new: "New %{procedure_name}"
+      new_request: "New requested %{procedure_name}" #?
+      new_undefined: "New intervention" #?
+      new_undefined_request: "New intervention request" #?
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Edit inventory"
@@ -374,6 +385,11 @@ eng:
       show: "Journal: %{name} (%{code})"
     backend/kujakus:
       # toggle: "Toggle kujaku: %{name}"
+    backend/labels:
+      edit: "Edit label: %{name}"
+      index: "Labels"
+      new: "New label"
+      show: "Label: %{name}"
     backend/land_parcels:
       edit: "Edit land parcel: %{name}"
       index: "Land parcels"
@@ -596,6 +612,7 @@ eng:
       # detail: "Detail sensor: %{name}"
       edit: "Edit sensor: %{name}"
       index: "Sensors"
+      # last_locations: "Last locations sensor: %{name}"
       # models: "Models sensor: %{name}"
       new: "New sensor"
       # retrieve: "Retrieve sensor: %{name}"
@@ -639,11 +656,12 @@ eng:
       index: "Synchronizations"
       run: "Run synchronization: %{name}"
     backend/target_distributions:
-      distribute: "Distribute products"
       edit: "Edit target distribution"
+      edit_many: "Distribute unaffected products"
       index: "Target distributions"
       new: "New target distribution"
       show: "Target distribution"
+      # update_many: "Update many target distribution: %{name}"
     backend/tasks:
       edit: "Edit task: %{name}"
       # finish: "Finish task: %{name}"
@@ -693,6 +711,9 @@ eng:
     devise/invitations:
       # edit: "Edit invitation: %{name}"
       # new: "New invitation"
+    devise/omniauth_callbacks:
+      # failure: "Failure omniauth callback: %{name}"
+      # passthru: "Passthru omniauth callback: %{name}"
     devise/passwords:
       # edit: "Edit password: %{name}"
       # new: "New password"
@@ -801,7 +822,7 @@ eng:
     active: "Active" #?
     activities: "Activities" #?
     activity: "Activity"
-    activity_production: "Activity production"
+    activity_production: "Activity production" #?
     activity_productions: "Activity productions"
     add: "Add"
     add_a_worker: "Add a worker"
@@ -828,6 +849,7 @@ eng:
     add_intervention_record: "Add intervention record"
     add_intervention_request: "Add intervention request"
     add_item: "Add item"
+    add_labelling: "Add label"
     add_line: "Add line"
     add_linestring: "Add linestring"
     add_mail: "Add postal adress"
@@ -859,7 +881,7 @@ eng:
     all: "All"
     all_accounts: "All accounts"
     all_columns: "All columns" #?
-    all_conditions: "All conditions"
+    all_conditions: "All conditions" #?!
     all_periods: "All financial years"
     amount: "Amount" #?
     amount_computed_from: "Amount computed from %{source}"
@@ -927,7 +949,7 @@ eng:
     centralized_account: "Centralized account %{name}"
     change_password: "Change password"
     chart: "Chart"
-    check: "Check"
+    check: "Check" #?
     children: "Children"
     choices: "Choices"
     choose_a_type_of_product: "Choose a type of product"
@@ -997,7 +1019,7 @@ eng:
     # data_transmissions: "Data transmissions"
     # date: "Date"
     dates: "Select period start date and Period end date" #?
-    days: "Days" #?
+    days: "Days"
     deals: "Deals"
     debit: "Debit" #?
     debts_on_assets: "Debts on assets %{financial_year}"
@@ -1032,6 +1054,7 @@ eng:
     disease_percentage: "Disease (%)" #?
     disease_percentage_evolution: "Disease percentage evolution"
     display: "Display" #?
+    distribute_unaffected_products: "Distribute unaffected products"
     distributions: "Distributions"
     divide: "Divide"
     division: "Division"
@@ -1083,7 +1106,9 @@ eng:
     expedier: "Expedier"
     expenses: "Expenses"
     expenses_by_product_nature_category: "Expenses by product nature category" #?
-    export: "Export documents"
+    expired_since: "Expired since" #?
+    expired_within: "Expired within" #?
+    export: "Export documents" #?
     field_distribution: "Field distribution"
     file_nature: "File type"
     file_preview: "Preview" #?
@@ -1143,6 +1168,7 @@ eng:
     indicators: "Indicators"
     indicators_evolutions: "Indicators evolutions"
     info: "General parameters" #?
+    # informations: "Informations"
     infos: "Product and quantity" #?
     initial_balance_of_bank_statement: "Initial balance of bank statement"
     input_cost: "Input cost"
@@ -1269,6 +1295,7 @@ eng:
     new_group: "New group"
     new_incoming_parcel: "New incoming parcel"
     new_issue: "New issue"
+    new_listing: "New listing"
     new_organization: "New organization"
     new_outgoing_parcel: "New outgoing parcel"
     new_production: "New production"
@@ -1299,7 +1326,7 @@ eng:
     number_of_cap_land_parcels: "Number of CAP land parcels"
     numbers: "Numbers" #?
     on_account: "On account" #?
-    one_condition: "One condition"
+    one_condition: "One condition" #??
     open_a_production: "Open a production"
     open_an_activity: "Open an activity"
     operating_margin: "Operating margin %{financial_year}"
@@ -1307,6 +1334,7 @@ eng:
     operating_profit: "Operating profit %{financial_year}"
     operations: "Operations" #?
     options: "Options"
+    or: "Or"
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     others: "Others" #?
@@ -1440,8 +1468,9 @@ eng:
     search: "Search"
     search_placeholder: "Search…"
     section_x: "Section %{x}"
+    see_more_details: "See more details"
     select_closure_date: "Choose closing date"
-    select_columns: "Select columns"
+    select_columns: "Select columns" #??
     select_date: "Select date"
     select_date_generation: "Limit date for generation"
     select_file_to_upload: "Select file to upload"
@@ -1480,6 +1509,7 @@ eng:
     storage: "Storage" #?
     subject: "Subject"
     submit: "Submit" #?
+    subscribed_on: "Subscribed on" #?
     subscriber_period: "Subscribed on %{subscribed_at}"
     subscriber_quantity: "Subscribed at the number %{subscribed_at}"
     subscription_nature: "Subscription type" #?
@@ -1606,6 +1636,7 @@ eng:
     watering_concentration: "Water use" #?
     # wear: "Wear"
     weather: "Weather"
+    website: "Website"
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
@@ -1790,6 +1821,7 @@ eng:
       impossible_to_add_items_to_purchase: "You can not add products to your purchase" #?
       incompatible_browser: "Incompatible browser"
       informations_feed_is_unreachable: "Informations feed (%{url}) is unreachable. Error message: %{message}"
+      integrate_tools_you_are_using_every_day: "Integrate tools you are using every day"
       invalid_reference_name: "Invalid reference name"
       journal_closed_on: "The journal “%{journal}” was closed on %{closed_on}."
       journal_entry_already_validated: "The record has already been validated and can not be changed"
@@ -1886,13 +1918,15 @@ eng:
       detach: "Detach"
       # detach_gaps: "Detach gaps"
       detail: "Detail"
-      distribute: "Distribute unaffected products"
       down: "Down"
       duplicate: "Duplicate"
       edit: "Edit"
+      edit_many: "Edit many"
+      # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
-      export: "Export"
+      export: "Export" #?
       extract: "Extract"
+      # failure: "Failure"
       family: "Family"
       finish: "Finish"
       generate_last_journal_entry: "Generate last journal entry"
@@ -1901,6 +1935,7 @@ eng:
       incorporate: "Incorporate"
       index: "Index"
       invoice: "Invoice"
+      # last_locations: "Last locations"
       list: "List"
       load: "Load"
       # load_animals: "Load animals"
@@ -1914,6 +1949,7 @@ eng:
       new: "New"
       open: "Open"
       order: "Order"
+      # passthru: "Passthru"
       pick: "Pick"
       picture: "Picture"
       prepare: "Prepare"
@@ -1952,11 +1988,13 @@ eng:
       unvalidateds: "Unvalidateds"
       up: "Up"
       update: "Update"
+      # update_many: "Update many"
       # upload: "Upload"
       win: "Win"
   unrolls:
     backend/accounts: "%{number}. %{name}"
     backend/activities: "%{name}"
+    backend/activity_budgets: "%{activity_name} %{campaign_name}"
     backend/activity_productions: "%{activity_name} %{support_name} #%{rank_number}"
     backend/animals: "%{name} #%{work_number}"
     backend/campaigns: "%{name}"

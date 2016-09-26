@@ -16,8 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-module Backend::AttachmentsHelper
-  def attachments_of(resource)
-    render '/backend/attachments/thumbs', attachments: resource.attachments
+module Backend
+  module AttachmentsHelper
+    def attachments_of(resource)
+      render '/backend/attachments/thumbs', attachments: resource.attachments
+    end
   end
 end

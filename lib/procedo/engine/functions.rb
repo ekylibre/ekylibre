@@ -70,7 +70,7 @@ module Procedo
         end
 
         def first_product_of(set)
-          set.parameters.first && set.parameters.first.product
+          set.parameters.first.product if set.parameters.first
         end
 
         def parent(parameter)

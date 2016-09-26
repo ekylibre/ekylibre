@@ -57,6 +57,7 @@
 #  picture_file_name     :string
 #  picture_file_size     :integer
 #  picture_updated_at    :datetime
+#  team_id               :integer
 #  tracking_id           :integer
 #  type                  :string
 #  updated_at            :datetime         not null
@@ -100,6 +101,8 @@ class Product < Ekylibre::Record::Base
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
+  has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
+  has_many :labels, through: :labellings
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
   has_many :links, class_name: 'ProductLink', foreign_key: :product_id, dependent: :destroy
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
@@ -123,6 +126,7 @@ class Product < Ekylibre::Record::Base
   # FIXME: These reflections are meaningless. Will be removed soon or later.
   has_one :incoming_parcel_item, -> { with_nature(:incoming) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
   has_one :outgoing_parcel_item, -> { with_nature(:outgoing) }, class_name: 'ParcelItem', foreign_key: :product_id, inverse_of: :product
+  has_one :last_intervention_target, -> { order(id: :desc).limit(1) }, class_name: 'InterventionTarget'
   belongs_to :member_variant, class_name: 'ProductNatureVariant'
 
   has_picture
@@ -254,6 +258,7 @@ class Product < Ekylibre::Record::Base
     !reading['indicator_name'] != 'population' && reading[ProductReading.value_column(reading['indicator_name']).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :labellings, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: true
   delegate :serial_number, :producer, to: :tracking
   delegate :variety, :derivative_of, :name, :nature, :reference_name,
@@ -331,8 +336,13 @@ class Product < Ekylibre::Record::Base
     def availables(**args)
       at = args[:at]
       return available if at.blank?
-      if at.is_a? String
-        available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+      if at.is_a?(String)
+        if at =~ /\A\d\d\d\d\-\d\d\-\d\d \d\d\:\d\d/
+          available.at(Time.strptime(at, '%Y-%m-%d %H:%M'))
+        else
+          logger.warn('Cannot parse: ' + at)
+          available
+        end
       else
         available.at(at)
       end

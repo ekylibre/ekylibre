@@ -82,7 +82,7 @@ class Sequence < Ekylibre::Record::Base
 
     def best_period_for(format)
       keys = []
-      format.match(replace_regexp) do |_m|
+      format.match(replace_regexp) do |_|
         key = Regexp.last_match(1)
         size = Regexp.last_match(3)
         pattern = Regexp.last_match(5)
@@ -104,43 +104,73 @@ class Sequence < Ekylibre::Record::Base
     def replace_regexp
       @replace_regexp ||= Regexp.new('\[(' + self.period.values.join('|') + ')(\|(\d+)(\|([^\]]*))?)?\]').freeze
     end
+
+    def compute(format, values = {})
+      format.gsub(replace_regexp) do |_|
+        key = Regexp.last_match(1).to_sym
+        size = Regexp.last_match(3)
+        pattern = Regexp.last_match(5)
+        string = values[key].to_s
+        size.blank? ? string : string.rjust(size.to_i, pattern || '0')
+      end
+    end
   end
 
   def used?
     !usage.blank?
   end
 
-  def compute(number = nil)
-    number ||= last_number
-    today = Time.zone.today
-    self['number_format'].gsub(self.class.replace_regexp) do |_m|
-      key = Regexp.last_match(1)
-      size = Regexp.last_match(3)
-      pattern = Regexp.last_match(5)
-      string = (key == 'number' ? number : today.send(key)).to_s
-      size.nil? ? string : string.rjust(size.to_i, pattern || '0')
-    end
+  def last_value
+    compute(
+      number: last_number,
+      cweek: last_cweek,
+      month: last_month,
+      year: last_year
+    )
+  end
+
+  def next_value(today = nil)
+    compute(next_counters(today))
   end
 
   # Produces the next value of the sequence and update last value in DB
-  def next_value
+  def next_value!
     reload
     # FIXME: Bad method to prevent concurrency access to the method
     sleep(rand(50) / 1000)
-    today = Time.zone.today
-    period = self.period.to_s
-    if last_number.nil?
-      self.last_number = number_start
+    counters = next_counters
+    self.last_number = counters[:number]
+    self.last_cweek = counters[:cweek]
+    self.last_month = counters[:month]
+    self.last_year = counters[:year]
+    save!
+    compute(counters)
+  end
+
+  protected
+
+  # Compute next counters values
+  def next_counters(today = nil)
+    today ||= Time.zone.today
+    counters = { year: today.year, month: today.month, cweek: today.cweek }
+    period = self.period.to_sym
+    counters[:number] = last_number
+    if counters[:number].nil?
+      counters[:number] = number_start
     else
-      self.last_number += number_increment
+      counters[:number] += number_increment
     end
-    if period != 'number' && !send('last_' + period).nil?
-      self.last_number = number_start if send('last_' + period) != today.send(period) || last_year != today.year
+    last_period_value = send('last_' + period.to_s)
+    if period != :number && last_period_value.present?
+      if last_period_value != counters[period.to_sym] || last_year != counters[:year]
+        counters[:number] = number_start
+      end
     end
-    self.last_year = today.year
-    self.last_month = today.month
-    self.last_cweek = today.cweek
-    raise [updateable?, destroyable?, errors.to_hash].inspect unless save
-    compute
+    counters
+  end
+
+  # Compute number with number_format and given counters
+  def compute(counters)
+    self.class.compute(number_format, counters)
   end
 end

@@ -26,6 +26,7 @@ spa:
         none: "Ninguna"
     activity_production:
       support_nature:
+        # animal_group: "Animal group"
         border: "Frontera"
         # buffer: "Buffer"
         cultivation: "Cultivo"
@@ -57,6 +58,18 @@ spa:
         multi_polygon: "Polígono de múltiples"
         point: "Punto"
         string: "Cuerda"
+    call_message:
+      nature:
+        incoming: "Entrante"
+        outgoing: "Extrovertida"
+    call_request:
+      nature:
+        incoming: "Entrante"
+        outgoing: "Extrovertida"
+    call_response:
+      nature:
+        incoming: "Entrante"
+        outgoing: "Extrovertida"
     cash:
       mode:
         bban: "Número de cuenta bancaria básica (BBAN)"
@@ -378,6 +391,7 @@ spa:
         supplier: "Proveedor"
     sensor:
       retrieval_mode:
+        integration: "Integración"
         listening: "Escuchando"
         requesting: "Solicitando"
     sequence:

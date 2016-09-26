@@ -351,6 +351,7 @@ module Clean
           translation << "  enumerize:\n"
           ref[:enumerize] ||= {}
           Clean::Support.models_in_file.each do |model|
+            next unless model.respond_to? :enumerized_attributes
             attrs = []
             model.enumerized_attributes.each do |attr|
               next if attr.i18n_scope
@@ -555,7 +556,6 @@ module Clean
         untranslated = 0
 
         translation  = "#{locale}:\n"
-        translation << "  procedo:\n"
 
         translation << "  procedure_handlers:\n"
         handlers = []
@@ -670,7 +670,7 @@ module Clean
       def write(file, translation, total, untranslated = 0)
         file = locale_dir.join(file) if file.is_a?(String)
         File.write(file, translation.strip)
-        log "  * #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
+        log "  - #{(file.basename.to_s + ':').ljust(20)} #{(100 * (total - untranslated) / total).round.to_s.rjust(3)}% (#{total - untranslated}/#{total})\n"
         @total += total
         @count += total - untranslated
       end

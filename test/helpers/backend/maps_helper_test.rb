@@ -1,4 +1,6 @@
 require 'test_helper'
 
-class Backend::MapsHelperTest < ActionView::TestCase
+module Backend
+  class MapsHelperTest < ActionView::TestCase
+  end
 end

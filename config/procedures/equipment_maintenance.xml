@@ -3,7 +3,11 @@
   <procedure name="equipment_maintenance" categories="equipment_maintenance" optional-actions="preventive_maintenance, curative_maintenance, upgrading_maintenance">
     <parameters>
       <group name="work" cardinality="+">
-        <target name="equipment" filter="is equipment" cardinality="1"/>
+        <!--
+            Cannot use directly SELF in component-of because SELF is not a Set
+            but the variable definition (Procedo::Procedure::Parameter).
+        -->
+        <target name="equipment" filter="is equipment" cardinality="1" component-of="first_product_of(siblings(SELF, equipment))"/>
         <input name="replacement_part" component-of="first_product_of(siblings(SELF, equipment))" filter="is matter and derives from equipment" cardinality="*">
           <handler name="population" />
         </input>
@@ -12,7 +16,7 @@
         </input>
       </group>
       <doer name="mechanic" filter="is worker" cardinality="*"/>
-      <tool name="tool" filter="is equipment" cardinality="*"/>
+      <tool name="tool" filter="is matter" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

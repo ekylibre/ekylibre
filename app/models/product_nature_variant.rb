@@ -141,14 +141,24 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   validate do
     if nature
-      unless Nomen::Variety.all(nature_variety).include?(self.variety.to_s)
+      unless Nomen::Variety.find(nature_variety) >= self.variety
         logger.debug "#{nature_variety}#{Nomen::Variety.all(nature_variety)} not include #{self.variety.inspect}"
         errors.add(:variety, :invalid)
       end
       if self.derivative_of
-        unless Nomen::Variety.all(nature_derivative_of).include?(self.derivative_of.to_s)
+        unless Nomen::Variety.find(nature_derivative_of) >= self.derivative_of
           errors.add(:derivative_of, :invalid)
         end
+      end
+    end
+    if variety && products.any?
+      if products.detect { |p| Nomen::Variety.find(p.variety) > variety }
+        errors.add(:variety, :invalid)
+      end
+    end
+    if derivative_of && products.any?
+      if products.detect { |p| p.derivative_of? && Nomen::Variety.find(p.derivative_of) > derivative_of }
+        errors.add(:derivative_of, :invalid)
       end
     end
   end

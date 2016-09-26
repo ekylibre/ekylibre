@@ -30,4 +30,10 @@
 
   .field= f.submit t('.sign_in', default: "Sign in")
 
-= render "devise/shared/links"
+  = render "devise/shared/links"
+
+  - if Devise.omniauth_providers.include? :ekylibre
+    .separator= :or.tl
+
+    .field= link_to t('.sign_in_with_ekylibre', :default => 'Sign in with Ekylibre.com'), user_ekylibre_omniauth_authorize_path, class: 'btn btn-primary btn-lg btn-block'
+

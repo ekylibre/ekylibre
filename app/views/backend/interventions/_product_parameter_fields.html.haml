@@ -9,8 +9,6 @@
       - started_at = f.object.intervention.started_at
     - else
       - started_at = f.object.intervention.working_periods.map(&:started_at).min
-  - if reference.component_of?
-    = render 'component_field', f: f, reference: reference, prefix: prefix
   - if reference.output?
     = f.referenced_association :variant, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: { data: { intervention_updater: prefix + 'variant_id' }}
     -#= f.referenced_association :product, as: :hidden, input_html: { data: { intervention_updater: prefix + 'product_id' }}
@@ -47,6 +45,8 @@
       end.compact
       plants = Charta.new_collection(plants).to_json_object(true)
     = f.geometry :working_zone, { input_html: { data: { intervention_updater: prefix + 'working_zone' }}, show: {series: {land_parcels_serie: land_parcels, plants_serie: plants},layers: [{name: :land_parcels, label: :land_parcels.tl, serie: :land_parcels_serie, type: :simple }, {name: :plants, label: :plant.tl, serie: :plants_serie, reference: 'variety', stroke: 2, fillOpacity: 0.7, type: :categories}]}, editor: {useFeatures: true, overlaySelector: { editionLayer: f.object.human_attribute_name(:working_zone) }} }
+  - if reference.component_of?
+    = render 'component_field', f: f, reference: reference, prefix: prefix
 
   - if reference.readings.any?
     - reference.readings.each do |reading|

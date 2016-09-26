@@ -156,6 +156,16 @@ class ProductNature < Ekylibre::Record::Base
         errors.add(:subscription_months_count, :invalid)
       end
     end
+    if variety && variants.any?
+      if variants.detect { |p| Nomen::Variety.find(p.variety) > variety }
+        errors.add(:variety, :invalid)
+      end
+    end
+    if derivative_of && variants.any?
+      if variants.detect { |p| p.derivative_of? && Nomen::Variety.find(p.derivative_of) > derivative_of }
+        errors.add(:derivative_of, :invalid)
+      end
+    end
   end
 
   def identifiable?

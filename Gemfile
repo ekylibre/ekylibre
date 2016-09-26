@@ -13,7 +13,7 @@ gem 'activerecord-postgis-adapter', '>= 3.0.0'
 gem 'apartment', '~> 1.0.0', '< 2.0'
 gem 'apartment-sidekiq'
 
-# Ruby functionalities extension
+# Ruby syntax extensions
 gem 'possibly'
 
 # Code manipulation
@@ -23,6 +23,9 @@ gem 'charlock_holmes'
 gem 'browser'
 
 gem 'actionpack-xml_parser'
+
+# Manage env vars
+gem 'figaro'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -95,6 +98,8 @@ gem 'deep_cloneable', '~> 2.2.1'
 gem 'devise'
 gem 'devise_invitable'
 gem 'devise-i18n-views'
+gem 'omniauth'
+gem 'omniauth-oauth2'
 
 # Attachments
 gem 'paperclip'

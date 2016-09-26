@@ -20,6 +20,7 @@ module ActiveSensor
       begin
         report = @controller.retrieve(parameters, options)
       rescue StandardError => e
+        raise e
         report = { status: :controller_error, message: e.message }
       end
       report

@@ -16,14 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-module Backend::CellsHelper
-  # No data permit to mark cell as empty
-  def no_data
-    # content_tag(:div, :no_data.tl, class: 'no-data')
-    nil
-  end
+module Backend
+  module CellsHelper
+    # No data permit to mark cell as empty
+    def no_data
+      # content_tag(:div, :no_data.tl, class: 'no-data')
+      nil
+    end
 
-  def errored
-    content_tag(:div, :internal_error.tl, class: 'internal-error')
+    def errored
+      content_tag(:div, :internal_error.tl, class: 'internal-error')
+    end
   end
 end

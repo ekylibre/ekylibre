@@ -27,6 +27,7 @@ por:
         none: "Nenhum"
     activity_production:
       support_nature:
+        # animal_group: "Animal group"
         border: "Fronteira"
         buffer: "Amortecedor"
         cultivation: "Cultivo"
@@ -58,6 +59,18 @@ por:
         multi_polygon: "Polígono multi"
         point: "Ponto"
         string: "Corda"
+    call_message:
+      nature:
+        incoming: "Entrada"
+        outgoing: "Extrovertido"
+    call_request:
+      nature:
+        incoming: "Entrada"
+        outgoing: "Extrovertido"
+    call_response:
+      nature:
+        incoming: "Entrada"
+        outgoing: "Extrovertido"
     cash:
       mode:
         bban: "Número básico contas bancárias (BBAN)"
@@ -391,6 +404,7 @@ por:
         supplier: "Fornecedor"
     sensor:
       retrieval_mode:
+        integration: "Integração"
         listening: "Ouvindo"
         requesting: "Solicitando"
     sequence:
