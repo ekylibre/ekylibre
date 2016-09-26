@@ -195,6 +195,18 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
+  after_create do
+    ACTIONS = {
+        parturition: :create_new_birth,
+        animal_artificial_insemination: :create_insemination
+    }
+
+    actions.each do |action|
+      next unless ACTIONS.key? action
+      Ekylibre::Hook.publish "ednotif_#{ACTIONS[:action].to_s}", self
+    end
+  end
+
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
     with_undestroyable_products?

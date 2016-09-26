@@ -76,10 +76,6 @@ module Ekylibre
         self.class.where(id: id, lock_version: lock_version).empty?
       end
 
-      def ednotify?
-        false
-      end
-
       @@readonly_counter = 0
 
       class << self
