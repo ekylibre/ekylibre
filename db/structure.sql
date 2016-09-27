@@ -4788,7 +4788,8 @@ CREATE TABLE product_nature_variants (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    gtin character varying
 );
 
 
@@ -5279,7 +5280,8 @@ CREATE TABLE sale_items (
     unit_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     credited_quantity numeric(19,4),
     activity_budget_id integer,
-    team_id integer
+    team_id integer,
+    codes jsonb
 );
 
 
@@ -5396,7 +5398,8 @@ CREATE TABLE sales (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    codes jsonb
 );
 
 
@@ -15393,4 +15396,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160919141500');
 INSERT INTO schema_migrations (version) VALUES ('20160920083312');
 
 INSERT INTO schema_migrations (version) VALUES ('20160921144623');
+
+INSERT INTO schema_migrations (version) VALUES ('20160921185801');
 

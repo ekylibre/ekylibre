@@ -435,6 +435,7 @@ deu:
     closed_on: "geschlossen"
     clusters_work_number: "Cluster arbeiten Nummer"
     # code: "Code"
+    # codes: "Codes"
     coefficient: "Koeffizient"
     collect_account: "Sammeln Konto"
     collected_taxes: "Die gesammelten Steuern"
