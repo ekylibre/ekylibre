@@ -58,6 +58,11 @@ class Intervention < Ekylibre::Record::Base
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
+
+  has_and_belongs_to_many :activities
+  has_and_belongs_to_many :activity_productions
+  has_and_belongs_to_many :campaigns
+
   with_options inverse_of: :intervention do
     has_many :root_parameters, -> { where(group_id: nil) }, class_name: 'InterventionParameter', dependent: :destroy
     has_many :parameters, class_name: 'InterventionParameter'
@@ -109,7 +114,7 @@ class Intervention < Ekylibre::Record::Base
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }
   scope :of_campaign, lambda { |campaign|
-    where(id: InterventionTarget.select(:intervention_id).where(product_id: TargetDistribution.select(:target_id).of_campaign(campaign)))
+    where('id IN (SELECT intervention_id FROM campaigns_interventions WHERE campaign_id = ?)', campaign.id)
   }
   scope :of_current_campaigns, -> { of_campaign(Campaign.current) }
   scope :of_activity_production, lambda { |production|
@@ -248,10 +253,6 @@ class Intervention < Ekylibre::Record::Base
     with_undestroyable_products?
   end
 
-  def activity_productions
-    ActivityProduction.of_intervention(self)
-  end
-
   def with_undestroyable_products?
     outputs.map(&:product).detect do |product|
       next unless product
@@ -259,24 +260,9 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  # Returns activities of intervention through TargetDistribution
-  def activities
-    # re active when Target Distribution works
-    # Activity.of_intervention(self)
-    a = []
-    targets.each do |target|
-      a << target.activity if target.activity
-    end
-    a.uniq
-  end
-
-  def activities_names_list
-    activities.map(&:name).sort
-  end
-
-  # Returns human tool names
+  # Returns human activity names
   def human_activities_names
-    activities.map(&:name).sort.to_sentence
+    activities.map(&:name).to_sentence
   end
 
   def product_parameters
