@@ -1,7 +1,7 @@
 class CreateDatabaseViews < ActiveRecord::Migration
   def up
     execute '
-      CREATE OR REPLACE VIEW activities_interventions AS
+      CREATE VIEW activities_interventions AS
         SELECT DISTINCT interventions.id as intervention_id, activities.id as activity_id
         FROM activities
         INNER JOIN target_distributions ON target_distributions.activity_id = activities.id
@@ -11,7 +11,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
     '
 
     execute '
-      CREATE OR REPLACE VIEW activity_productions_interventions AS
+      CREATE VIEW activity_productions_interventions AS
         SELECT DISTINCT interventions.id as intervention_id, target_distributions.activity_production_id as activity_production_id
         FROM activities
         INNER JOIN target_distributions ON target_distributions.activity_id = activities.id
@@ -21,7 +21,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
     '
 
     execute '
-      CREATE OR REPLACE VIEW activity_productions_campaigns AS
+      CREATE VIEW activity_productions_campaigns AS
         SELECT DISTINCT c.id as campaign_id, ap.id as activity_production_id
         FROM activity_productions ap
         INNER JOIN activities a ON ap.activity_id = a.id
@@ -60,7 +60,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
     '
 
     execute '
-      CREATE OR REPLACE VIEW activities_campaigns AS
+      CREATE VIEW activities_campaigns AS
         SELECT DISTINCT c.id as campaign_id, a.id as activity_id
         FROM activities a
         LEFT JOIN campaigns c ON (
@@ -74,7 +74,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
     '
 
     execute '
-      CREATE OR REPLACE VIEW campaigns_interventions AS
+      CREATE VIEW campaigns_interventions AS
         SELECT DISTINCT campaigns.id as campaign_id, interventions.id as intervention_id
         FROM interventions
         INNER JOIN intervention_parameters ON intervention_parameters.intervention_id = interventions.id
@@ -86,12 +86,10 @@ class CreateDatabaseViews < ActiveRecord::Migration
   end
 
   def down
-    execute "
-      DROP VIEW IF EXISTS activities_interventions;
-      DROP VIEW IF EXISTS activity_productions_interventions;
-      DROP VIEW IF EXISTS activity_productions_campaigns;
-      DROP VIEW IF EXISTS activities_campains;
-      DROP VIEW IF EXISTS campaigns_interventions;
-    "
+    execute 'DROP VIEW activities_interventions'
+    execute 'DROP VIEW activity_productions_interventions'
+    execute 'DROP VIEW activity_productions_campaigns'
+    execute 'DROP VIEW activities_campains'
+    execute 'DROP VIEW campaigns_interventions'
   end
 end
