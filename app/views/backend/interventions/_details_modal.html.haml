@@ -29,14 +29,14 @@
         = resource.stopped_at.l(format: :compact)
 
   - if intervention.activities.any?
-    .activities
+    .intervention-activities
       - intervention.activities.each do |activity|
         %span.label{ style: "background-color: #{activity.color}; color: #{contrasted_color(activity.color)}" }= activity.name
   .blocks
 
     - if intervention.targets.any?
       .block
-        %h3.block-title= :targets.tl
+        %h3.block-title= Intervention.human_attribute_name(:targets)
 
         - intervention.targets.each do |target|
           - title = target.product.name
@@ -47,7 +47,7 @@
 
     - if intervention.doers.any?
       .block
-        %h3.block-title= :doers.tl
+        %h3.block-title= Intervention.human_attribute_name(:doers)
 
         - intervention.doers.each do |doer|
           - title = doer.product.name
@@ -56,7 +56,7 @@
 
     - if intervention.inputs.any?
       .block
-        %h3.block-title= :inputs.tl
+        %h3.block-title= Intervention.human_attribute_name(:inputs)
 
         - intervention.inputs.each do |input|
           - unless input.product.blank?
@@ -72,7 +72,7 @@
 
     - if intervention.tools.any?
       .block
-        %h3.block-title= :tools.tl
+        %h3.block-title= Intervention.human_attribute_name(:tools)
 
         - intervention.tools.each do |tool|
           - title = tool.product.name

@@ -59,15 +59,11 @@ module Backend
 
     def set_current_period_interval
       if params[:current_period_interval]
-
         period_interval = params[:current_period_interval].to_sym
         current_period_interval = current_user.current_period_interval.to_sym
-
         if period_interval != current_period_interval
-
           @current_period_interval = period_interval
           current_user.current_period_interval = @current_period_interval
-          current_user.current_period = Date.today
         end
       end
     end
@@ -78,11 +74,12 @@ module Backend
 
     def set_current_period
       if params[:current_period]
-
-        period = params[:current_period].to_sym
-        current_period = current_user.current_period.to_sym
-
-        current_user.current_period = period if period != current_period
+        period = params[:current_period].to_date
+        current_period = current_user.current_period.to_date
+        if period != current_period
+          @current_period = period
+          current_user.current_period = @current_period.to_s
+        end
       end
     end
 

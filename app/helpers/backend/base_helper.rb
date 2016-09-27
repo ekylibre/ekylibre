@@ -245,32 +245,24 @@ module Backend
       render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
     end
 
-    def main_period_selector(period_interval = nil)
+    def main_period_selector(*intervals)
       content_for(:heading_toolbar) do
-        period_selector(period_interval)
+        period_selector(*intervals)
       end
     end
 
-    def period_selector(period_interval = nil, campaign = nil, options = {})
-      unless Campaign.any?
-        @current_campaign = Campaign.find_or_create_by!(harvest_year: Date.current.year)
-        current_user.current_campaign = @current_campaign
-      end
+    def period_selector(*intervals)
+      options = intervals.extract_options!
+      current_period = current_user.current_period.to_date
+      current_interval = current_user.current_period_interval.to_sym
+      current_user.current_campaign = Campaign.find_or_create_by!(harvest_year: current_period.year)
 
-      campaign ||= current_campaign
-      period_interval ||= current_user.current_period_interval.to_sym
+      default_intervals = [:day, :week, :month, :year]
+      intervals = default_intervals if intervals.empty?
+      intervals &= default_intervals
+      current_interval = intervals.last unless intervals.include?(current_interval)
 
-      render 'backend/shared/period_selector', period_interval: period_interval, campaign: campaign, param_name: options[:param_name] || :current_campaign
-    end
-
-    def main_type_period_selector
-      content_for(:heading_toolbar) do
-        type_period_selector
-      end
-    end
-
-    def type_period_selector
-      render 'backend/shared/period_interval_selector'
+      render 'backend/shared/period_selector', current_period: current_period, intervals: intervals, period_interval: current_interval
     end
 
     def lights(status, html_options = {})

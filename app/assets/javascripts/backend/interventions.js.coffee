@@ -187,7 +187,7 @@
   class InterventionsTaskboard
 
     constructor: ->
-      @taskboard = new ekylibre.taskboard('#interventions-taskboard', true)
+      @taskboard = new ekylibre.taskboard('#interventions', true)
       @taskboardModal = new ekylibre.modal('#taskboard-modal')
 
     initTaskboard: ->

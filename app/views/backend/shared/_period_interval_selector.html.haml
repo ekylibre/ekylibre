@@ -1,6 +1,0 @@
-.btn-group.period-interval-selector
-  - current_period_interval = current_user.current_period_interval.to_sym
-  - [:day, :week, :month, :year].each do |interval|
-    - classes = 'btn period-interval '
-    - classes << 'active' if current_period_interval == interval
-    = link_to("datetime.periods.#{interval}".t, { current_period_interval: interval, current_campaign: current_campaign.harvest_year }, class: classes)

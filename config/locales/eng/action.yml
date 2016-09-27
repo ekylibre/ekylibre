@@ -1071,7 +1071,6 @@ eng:
     document_templates: "Document templates" #?
     documentation: "Documentation"
     doer_cost: "Doer cost"
-    # doers: "Doers"
     done: "Done" #?
     dont_use_journal: "— Do not use journal —"
     down: "Down" #?
@@ -1536,7 +1535,6 @@ eng:
     supports: "Supports" #?
     synthesis: "Synthesis"
     target: "Target" #?
-    # targets: "Targets"
     tasks: "Tasks" #?
     taxations: "Taxations"
     taxes: "Taxes" #?

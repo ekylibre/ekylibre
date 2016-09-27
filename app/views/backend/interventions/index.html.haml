@@ -24,7 +24,6 @@
     - count = current_user.crumbs.unconverted.where(nature: "start").count
     = t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
 
-- main_type_period_selector
 - main_period_selector
 
 - if current_campaign
