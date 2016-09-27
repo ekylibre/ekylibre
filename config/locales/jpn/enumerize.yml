@@ -26,7 +26,7 @@ jpn:
         none: "なし"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "動物群"
         border: "境界"
         buffer: "バッファ"
         cultivation: "栽培"
