@@ -163,6 +163,11 @@
 - else
   = visualization({}, { class: "refresh-locations" }) do |v|
     - v.serie :main, data
+
+    - unless sensor_data.blank?
+      - v.serie :sensor_data, sensor_data
+      - v.point_group :sensors, :sensor_data
+
     - if params[:visualization] == "nitrogen_footprint"
       - v.choropleth :interventions_count, :main
       -# v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
@@ -180,9 +185,6 @@
       - v.choropleth :time_cost, :main, stop_color: "#E77000"
       - v.categories :activity, :main
 
-    - unless sensor_data.blank?
-      - v.serie :sensor_data, sensor_data
-      - v.point_group :sensors, :sensor_data
 
     - v.control :zoom
     - v.control :scale
