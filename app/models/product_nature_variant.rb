@@ -150,7 +150,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
             errors.add(:derivative_of, :invalid)
           end
         else
-            errors.add(:derivative_of, :blank)
+          errors.add(:derivative_of, :blank)
         end
       end
     end
