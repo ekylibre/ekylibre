@@ -376,7 +376,7 @@ fra:
         supplier: "Fournisseur"
     sensor:
       retrieval_mode:
-        integration: "Intégration" #?
+        integration: "Intégration"
         listening: "Serveur"
         requesting: "Client"
     sequence:

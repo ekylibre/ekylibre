@@ -192,10 +192,10 @@ arb:
       state:
         done: "فعله"
         in_progress: "في تَقَدم"
-        # rejected: "Rejected"
+        rejected: "مرفوض"
         squeezed: "تقلص" #?
         undone: "غير مصنوع" #?
-        # validated: "Validated"
+        validated: "التحقق من صحة"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "منطقية"
@@ -392,7 +392,7 @@ arb:
         supplier: "المورد"
     sensor:
       retrieval_mode:
-        integration: "دمج" #?
+        integration: "دمج"
         listening: "استماع"
         requesting: "طلب"
     sequence:

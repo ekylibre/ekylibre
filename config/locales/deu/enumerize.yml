@@ -193,10 +193,10 @@ deu:
       state:
         done: "Erledigt"
         in_progress: "In Bearbeitung"
-        # rejected: "Rejected"
+        rejected: "Zurückgewiesen"
         squeezed: "Eingezwängt" #?
         undone: "unerledigt" #?
-        # validated: "Validated"
+        validated: "Validierte"
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"
@@ -393,6 +393,7 @@ deu:
         supplier: "Lieferant"
     sensor:
       retrieval_mode:
+        # integration: "Integration"
         listening: "Hören"
         requesting: "Anfordern"
     sequence:

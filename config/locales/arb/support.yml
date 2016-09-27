@@ -101,6 +101,11 @@ arb:
         other: "%{count} ثانية"
         two: "ثانيتان" #?
         zero: "صفر ثواني" #?
+    periods:
+      day: "يوم"
+      month: "شهر"
+      week: "أسبوع"
+      year: "عام"
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
@@ -154,9 +159,9 @@ arb:
   time:
     am: "صباحا"
     formats:
-      # compact: "%m/%d/%Y %H:%M"
+      compact: "٪ م /٪ د /٪ Y٪ H:٪ M"
       default: "%b. %d, %Y at %H:%M:%S"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
-      time: "%H:%M"
+      time: "%H:%M" #?
     pm: "مساءا"

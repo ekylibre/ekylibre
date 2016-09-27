@@ -57,6 +57,11 @@ ita:
       x_seconds:
         one: "1 secondo"
         other: "%{count} secondi"
+    periods:
+      day: "Giorno"
+      month: "Mese"
+      week: "Settimana"
+      year: "Anno"
     prompts:  #?
       day: "Giorno" #?
       hour: "Ora" #?
@@ -146,9 +151,9 @@ ita:
   time:
     am: "am"
     formats:
-      # compact: "%m/%d/%Y %H:%M"
+      compact: "% M /% d /% Y% H:% M"
       default: "%a %d %b %Y, %H:%M:%S %z"
       long: "%d %B %Y %H:%M"
       short: "%d %b %H:%M"
-      time: "%H:%M"
+      time: "%H:%M" #?
     pm: "pm"

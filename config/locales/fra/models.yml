@@ -268,7 +268,6 @@ fra:
       activity_production: "Support de production"
       activity_season: "Saisonnalité"
       activity_tactic: "Technique de culture d’activité"
-      # activity_tactic_step: "Activity tactic step"
       affair: "Affaire"
       alert: "Alerte"
       alert_phase: "Phase d’alerte"
@@ -447,7 +446,6 @@ fra:
     accounted_at: "Date comptabilisation"
     accuracy: "Précision"
     achieved_at: "Achevé le"
-    # action: "Action"
     actions: "Actions"
     active: "Actif"
     active_prices: "Prix actifs" #?
@@ -490,10 +488,6 @@ fra:
     analysis_items: "Lignes d’analyse"
     annotation: "Annotation"
     archive: "Archive"
-    # archive_content_type: "Archive content type"
-    # archive_file_name: "Archive file name"
-    # archive_file_size: "Archive file size"
-    # archive_updated_at: "Archive updated at"
     archived_at: "Archivé le" #?
     archives: "Archives" #?
     archives_count: "Nombre d’archives" #?
@@ -804,11 +798,7 @@ fra:
     fifth_producer: "Cinquième producteur" #?
     fifth_producer_way: "Voie du cinquième producteur" #?
     file: "Fichier"
-    # file_content_text: "File content text"
-    # file_content_type: "File content type"
-    # file_file_name: "File file name"
     file_file_size: "Taille du fichier"
-    # file_fingerprint: "File fingerprint"
     file_pages_count: "Pages comptent"
     file_updated_at: "Mis à jour à"
     filtered_columns: "Colonnes filtrées"
@@ -930,10 +920,6 @@ fra:
     initiated_on: "Lancé le"
     inputs: "Intrants"
     inspection: "Agréage"
-    # inspection_calibration_natures: "Inspection calibration natures"
-    # inspection_calibration_scales: "Inspection calibration scales"
-    # inspection_point_natures: "Inspection point natures"
-    # inspection_points: "Inspection points"
     inspections: "Agréages"
     insurance_amount: "Montant de l’assurance"
     insurance_percentage: "Taux d’assurance (%)"
@@ -1011,7 +997,6 @@ fra:
     last_value: "Dernière valeur"
     last_year: "Dernière année"
     latest: "Dernier"
-    # leaves_parameters: "Leaves parameters"
     lender: "Prêteur"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
@@ -1236,8 +1221,6 @@ fra:
     printed_on: "Daté du"
     priority: "Priorité"
     probability_percentage: "Pourcentage de probabilité"
-    # procedure_action: "Procedure action"
-    # procedure_categorie: "Procedure categorie"
     procedure_name: "Nom de la procédure"
     procedures: "Procédures" #?
     process: "Process" #?
@@ -1354,10 +1337,6 @@ fra:
     reference: "Référence" #?
     reference_name: "Référence"
     reference_number: "N°Référence"
-    # reference_source_content_type: "Reference source content type"
-    # reference_source_file_name: "Reference source file name"
-    # reference_source_file_size: "Reference source file size"
-    # reference_source_updated_at: "Reference source updated at"
     reference_tax: "Taxe de référence"
     reference_value: "Valeur de référence"
     reflected: "Changements reflétés"
@@ -1469,7 +1448,6 @@ fra:
     state_label: "État"
     static_support: "Support statique" #?
     status: "Statut"
-    # steps: "Steps"
     stock_account: "Compte de stock"
     stocks_categories: "Catégories de produits avec stock"
     stopped_at: "Arrêté le"

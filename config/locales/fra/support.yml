@@ -59,6 +59,11 @@ fra:
       x_seconds:
         one: "1 seconde"
         other: "%{count} secondes"
+    periods:
+      day: "Journée"
+      month: "Mois"
+      week: "Semaine"
+      year: "An"
     relative_distance_in_words:
       in_sometime: "dans %{distance}"
       sometime_ago: "il y a %{distance}"
@@ -116,5 +121,5 @@ fra:
       default: "%d/%m/%Y %H:%M"
       long: "%A %d %B %Y à %H:%M"
       short: "%d %b %H:%M"
-      time: "%H:%M"
+      time: "%H:%M" #?
     pm: "pm"

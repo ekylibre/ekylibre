@@ -193,10 +193,10 @@ cmn:
       state:
         done: "做"
         in_progress: "进行中"
-        # rejected: "Rejected"
+        rejected: "拒绝"
         squeezed: "挤压" #?
         undone: "未完成" #?
-        # validated: "Validated"
+        validated: "验证"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "布尔"
@@ -393,7 +393,7 @@ cmn:
         supplier: "供应商"
     sensor:
       retrieval_mode:
-        integration: "积分" #?
+        integration: "积分"
         listening: "听力"
         requesting: "请求"
     sequence:

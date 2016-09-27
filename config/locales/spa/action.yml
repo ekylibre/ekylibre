@@ -864,7 +864,8 @@ spa:
     centralize: "Cuentos contables centralizadores"
     centralized_account: "Cuento centralizador %{name}"
     change_password: "Cambia la contraseña"
-    # change_state: "Change state"
+    change_state: "Cambio de estado"
+    change_status_of_selected_interventions: "Cambiar el estado de las intervenciones seleccionadas"
     chart: "Gráfico"
     check: "Comprobar"
     children: "Niños"
@@ -872,7 +873,7 @@ spa:
     choose_a_type_of_product: "Elija un tipo de producto"
     choose_creation_mode: "Elige el modo de creación"
     choose_mail_column: "Por favor escoge la columna a utilizar para el mailing"
-    # choose_options_is_needed: "You must choose the status for the following interventions :"
+    choose_options_is_needed: "Debe elegir el estado de las siguientes intervenciones:"
     clear: "Claro"
     click_to_mail: "Escribe su mensaje con su propia mensajeria electronica"
     client: "Cliente"
@@ -888,8 +889,7 @@ spa:
     commission: "Comisión"
     company: "Sociedad"
     complete: "Completar"
-    # completed: "Completed"
-    # completely_filled: "Completed"
+    completed: "Terminado"
     conditions:
       filter_on_attribute_of_class: "Filtro de atributo de la clase"
       special-subscriber: "Especial abonado"
@@ -946,7 +946,6 @@ spa:
     data_to_export: "Datos a exportar" #?
     data_to_extract: "Datos para extraer" #?
     dates: "Marcar las fechas de empezo y termino por los periodos"
-    # day: "Day"
     days: "Días"
     deals: "Ofertas"
     debit: "Flujo"
@@ -963,6 +962,7 @@ spa:
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     delete: "Borrar"
+    delete_selected_interventions: "Eliminar las intervenciones seleccionadas"
     deliver: "Entregado en"
     deliveries: "Entregas"
     delivery: "Entrega"
@@ -1005,7 +1005,6 @@ spa:
     document_templates: "Modelos de documentos"
     documentation: "Documentación"
     doer_cost: "Costo hacedor"
-    # doers: "Doers"
     done: "Hecho"
     dont_use_journal: "-- No utilizar el periodico --"
     down: "Abajo"
@@ -1116,7 +1115,6 @@ spa:
     implanted_at: "Implantado en"
     import: "Importación de un  fichero de salvaguardia"
     importation_explanation: "Explicación importación"
-    # in_progress: "In progress"
     inactive: "Inactivo"
     include_blank: "Incluir en blanco"
     income_statement: "cuentos de résultos"
@@ -1469,7 +1467,7 @@ spa:
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir" #?
     request_maintenance: "Solicitud de mantenimiento"
-    # requests: "Requests"
+    requests: "Peticiones"
     reservoir: "Deposito" #?
     reservoir_informations: "Informaciones sobre el deposito" #?
     reservoirs_create: "Añadir un deposito" #?
@@ -1524,7 +1522,7 @@ spa:
     search: "buscars piezas/escrituras"
     search_placeholder: "Buscar…"
     # section_x: "Section %{x}"
-    # see_details: "See details"
+    see_details: "Ver detalles"
     see_more_details: "Ver más detalles"
     select_account_client: "Cuentos a marcar con letras" #?
     select_account_supplier: "Cuento a marcar con letra" #?
@@ -1565,7 +1563,6 @@ spa:
     started: "Empezado"
     state: "Estado"
     statistics: "Estadística"
-    # status: "Status"
     stewardship: "Administración"
     stock: "Valores"
     stock_container_map: "Foto mapa"
@@ -1596,7 +1593,6 @@ spa:
     supports_chart: "Soporta gráfica" #?
     synthesis: "Documentos de sintesis"
     target: "Objetivo"
-    # targets: "Targets"
     tasks: "Tareas"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
@@ -1621,8 +1617,6 @@ spa:
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{when}"
     # timeline_task: "%{author} added task %{name} %{when}"
     times: "Veces"
-    # title_change_status_selected_interventions: "Change the status of selected interventions"
-    # title_delete_selected_interventions: "Delete the selected interventions"
     to: "Al"
     to_deposit: "Depositar"
     to_deposit_later: "Para depositar más tarde"
@@ -1720,7 +1714,7 @@ spa:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "Validar la escrituras seleccionadas"
-    # validated: "Validated"
+    validated: "Validado"
     values: "Valores"
     variable_indicators: "Indicadores variables"
     variants: "Variantes"
@@ -1728,7 +1722,6 @@ spa:
     watering_concentration: "Uso del agua"
     weather: "Clima"
     website: "Sitio web"
-    # week: "Week"
     wind_speed: "Velocidad del viento"
     with_fixed_assets_depreciations: "Con activos fijos amortizaciones"
     with_prints: "Incluir las impresiones (facturas, encargos...)" #?
@@ -1867,7 +1860,6 @@ spa:
       one: "1 año"
       # other: "%{count} years"
     yearly: "Anual" #?
-    # years: "Years"
     years_count_in_historic: "Nombre de años en el historico" #?
     yield: "rendimiento"
     yield_by_calibration: "Yield de calibración"
@@ -2061,7 +2053,6 @@ spa:
       destroy: "Destruir"
       detach: "Despegar"
       detail: "Detalle"
-      # distribute: "Distribute unaffected products"
       down: "Abajo"
       duplicate: "Duplicar"
       edit: "Editar"

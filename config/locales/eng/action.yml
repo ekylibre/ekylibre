@@ -1508,7 +1508,6 @@ eng:
     started: "Started"
     state: "State"
     statistics: "Statistics" #?
-    # status: "Status"
     stewardship: "Stewardship"
     stock: "Stock" #?
     stock_container_map: "Stock map" #?

@@ -195,10 +195,10 @@ por:
       state:
         done: "Finalizado"
         in_progress: "Em progresso"
-        # rejected: "Rejected"
+        rejected: "Rejeitado"
         squeezed: "Apertado" #?
         undone: "Desfeito" #?
-        # validated: "Validated"
+        validated: "Validado"
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"
@@ -406,7 +406,7 @@ por:
         supplier: "Fornecedor"
     sensor:
       retrieval_mode:
-        integration: "Integração" #?
+        integration: "Integração"
         listening: "Ouvindo"
         requesting: "Solicitando"
     sequence:
