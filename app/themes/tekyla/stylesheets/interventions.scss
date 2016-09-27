@@ -80,7 +80,7 @@ $preview-modal-height: 80vh;
 
     .block-title {
       margin-right: round($default-gap * 12);
-      border-bottom: 1px solid $default-border-color;
+      border-bottom: $menu-border;
       padding-bottom: round($default-gap * 0.7);
       font-size: $fs-normal;
       font-weight: bold;
@@ -107,13 +107,9 @@ $preview-modal-height: 80vh;
   .taskboard-column {
 
     &.requests {
-      @include border(border, 1px, dashed, $lightened-black);
-    }
-
-    .taskboard-header {
-
-      &--gray {
-        @include border(border-bottom);
+      border: $menu-border-width dashed $text-color;
+      & .tasks {
+        border-top: $menu-border-width dashed $text-color;
       }
     }
   }

@@ -47,7 +47,7 @@ $active-link-color:  darken($base-color, 10%) !default;
 $title-color:        darken($base-color, 40%) !default;
 $selection-color:  $active-color;
 $base-font-color:  $text-color !default;
-$base-font-reversed-color: #FFF !default;
+$base-font-reversed-color: $white !default;
 $default-border-color: #DDD;
 
 // Basic colors
