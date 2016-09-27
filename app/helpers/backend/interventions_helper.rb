@@ -17,7 +17,7 @@ module Backend
 
           next if cultivable_zone.nil?
 
-          task_datas << { icon: 'land-parcels', text: cultivable_zone.work_number, style: "background-color: #{activity_color};" }
+          task_datas << { icon: 'land-parcels', text: cultivable_zone.work_number, style: "background-color: #{activity_color}; color: #{contrasted_color(activity_color)};" }
         end
 
         unless intervention.activity_productions.any?
@@ -27,7 +27,7 @@ module Backend
             if target.reference_name.to_sym == :herd
               activity_color = 'black'
               activity_color = target.activity.color unless target.activity.nil?
-              task_datas << { icon: 'cow', text: target.variant.name, style: "background-color: #{activity_color};" } unless target.variant.name.blank?
+              task_datas << { icon: 'cow', text: target.variant.name, style: "background-color: #{activity_color}; color: #{contrasted_color(activity_color)}" } unless target.variant.name.blank?
             end
           end
         end
