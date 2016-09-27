@@ -1,14 +1,61 @@
 # Change Log
 
+## [2.7.0](https://github.com/ekylibre/ekylibre/tree/2.7.0) (2016-09-20)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.6.1...2.7.0)
+
+**Implemented enhancements:**
+
+- Adds activity filter on backend/equipment\#index [\#1070](https://github.com/ekylibre/ekylibre/issues/1070)
+- Adds analytic accountancy [\#1071](https://github.com/ekylibre/ekylibre/pull/1071) ([burisu](https://github.com/burisu))
+
+**Fixed bugs:**
+
+- Parcel invoicing fails due to a not updateable record [\#1102](https://github.com/ekylibre/ekylibre/issues/1102)
+- Labellings doesn't work on animal\_group [\#1101](https://github.com/ekylibre/ekylibre/issues/1101)
+- When updating an intervention, the quantity population of an actor is not computed. [\#1100](https://github.com/ekylibre/ekylibre/issues/1100)
+- View inspections\#show fails when inspections data are not filled [\#1098](https://github.com/ekylibre/ekylibre/issues/1098)
+
+## [2.6.1](https://github.com/ekylibre/ekylibre/tree/2.6.1) (2016-09-19)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.6.0...2.6.1)
+
+**Fixed bugs:**
+
+- Can click on destroy of  product nature category although it's not destroyable [\#1096](https://github.com/ekylibre/ekylibre/issues/1096)
+- Impossible to delete sales containing a suscription. [\#1020](https://github.com/ekylibre/ekylibre/issues/1020)
+
+## [2.6.0](https://github.com/ekylibre/ekylibre/tree/2.6.0) (2016-09-19)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.3...2.6.0)
+
+**Implemented enhancements:**
+
+- Rename "work" in equipment\_maintenance procedure [\#1050](https://github.com/ekylibre/ekylibre/issues/1050)
+- Add a categorization system for equipment [\#1044](https://github.com/ekylibre/ekylibre/issues/1044)
+- Add labels for interventions [\#1041](https://github.com/ekylibre/ekylibre/issues/1041)
+- Add a label tagging system for cross categorization through all app [\#1040](https://github.com/ekylibre/ekylibre/issues/1040)
+- Restore entities export system [\#1095](https://github.com/ekylibre/ekylibre/pull/1095) ([burisu](https://github.com/burisu))
+- Add tool maintaining production [\#1091](https://github.com/ekylibre/ekylibre/pull/1091) ([burisu](https://github.com/burisu))
+- Adds labelling on interventions and products [\#1082](https://github.com/ekylibre/ekylibre/pull/1082) ([burisu](https://github.com/burisu))
+- Record a repair of a component of an equipment without input in an equipment\_maintenance intervention [\#1038](https://github.com/ekylibre/ekylibre/pull/1038) ([burisu](https://github.com/burisu))
+- Oauth sign in [\#1002](https://github.com/ekylibre/ekylibre/pull/1002) ([jonathanpa](https://github.com/jonathanpa))
+
+**Fixed bugs:**
+
+- Inspection\#calibration\_values fails when nil values to sum [\#1083](https://github.com/ekylibre/ekylibre/issues/1083)
+- Cannot search on postal code or city in backend/entities\#index [\#1053](https://github.com/ekylibre/ekylibre/issues/1053)
+- Entity number should be updateable and importable through ekylibre/entities exchanger [\#1027](https://github.com/ekylibre/ekylibre/issues/1027)
+- Maintenance activities should permit to link equiment as productions in order to complete targets distribution [\#1022](https://github.com/ekylibre/ekylibre/issues/1022)
+- Restore entities export system [\#1095](https://github.com/ekylibre/ekylibre/pull/1095) ([burisu](https://github.com/burisu))
+- Add tool maintaining production [\#1091](https://github.com/ekylibre/ekylibre/pull/1091) ([burisu](https://github.com/burisu))
+
+**Merged pull requests:**
+
+- Integration visualization [\#1092](https://github.com/ekylibre/ekylibre/pull/1092) ([Aquaj](https://github.com/Aquaj))
+
 ## [2.5.3](https://github.com/ekylibre/ekylibre/tree/2.5.3) (2016-09-10)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.2...2.5.3)
 
 ## [2.5.2](https://github.com/ekylibre/ekylibre/tree/2.5.2) (2016-09-10)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.1...2.5.2)
-
-**Implemented enhancements:**
-
-- Record a repair of a component of an equipment without input in an equipment\_maintenance intervention [\#1038](https://github.com/ekylibre/ekylibre/pull/1038) ([burisu](https://github.com/burisu))
 
 **Fixed bugs:**
 
@@ -17,10 +64,6 @@
 
 ## [2.5.1](https://github.com/ekylibre/ekylibre/tree/2.5.1) (2016-09-10)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.5.0...2.5.1)
-
-**Implemented enhancements:**
-
-- Rename "work" in equipment\_maintenance procedure [\#1050](https://github.com/ekylibre/ekylibre/issues/1050)
 
 **Fixed bugs:**
 

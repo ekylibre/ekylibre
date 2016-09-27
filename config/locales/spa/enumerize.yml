@@ -26,7 +26,7 @@ spa:
         none: "Ninguna"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "Grupo de animales"
         border: "Frontera"
         # buffer: "Buffer"
         cultivation: "Cultivo"
@@ -193,10 +193,10 @@ spa:
       state:
         done: "Hecho"
         in_progress: "En progreso"
-        # rejected: "Rejected"
+        rejected: "Rechazado"
         squeezed: "Exprimido" #?
         undone: "Deshecho" #?
-        # validated: "Validated"
+        validated: "Validado"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Boole"
@@ -393,7 +393,7 @@ spa:
         supplier: "Proveedor"
     sensor:
       retrieval_mode:
-        integration: "Integración" #?
+        integration: "Integración"
         listening: "Escuchando"
         requesting: "Solicitando"
     sequence:

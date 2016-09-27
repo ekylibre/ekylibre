@@ -24,7 +24,6 @@
     - count = current_user.crumbs.unconverted.where(nature: "start").count
     = t.index(params: {controller: :crumbs}, label: :validate_crumbs_for_x_interventions.tl(count: count), tool: "my-location")
 
-- main_type_period_selector
 - main_period_selector
 
 - if current_campaign
@@ -35,16 +34,16 @@
 
         - campaign ||= current_campaign
 
-        = taskboard params: { id: "interventionsTaskboard", class: "interventions-board"} do |board|
+        = taskboard :interventions do |board|
 
           = modal(id: "taskboard-modal", class: "interventions-modal", size: :large) do
             .modal-body
             .modal-footer
 
 
-          - edit_icon = content_tag(:i, nil, { :class => "picto picto-long-arrow-right picto--invisible edit-tasks", :title => :title_change_status_selected_interventions.tl })
+          - edit_icon = content_tag(:i, nil, { :class => "picto picto-long-arrow-right picto--invisible edit-tasks", :title => :change_status_of_selected_interventions.tl })
           - delete_icon = link_to(nil, data: {confirm: :are_you_sure.tl} ) do
-            = content_tag(:i, nil, { :class => "picto picto-delete picto--invisible delete-tasks", :title => :title_delete_selected_interventions.tl })
+            = content_tag(:i, nil, { :class => "picto picto-delete picto--invisible delete-tasks", :title => :delete_selected_interventions.tl })
           - headers_actions = [edit_icon, delete_icon]
 
 
@@ -55,7 +54,7 @@
           - header_class = 'taskboard-header--gray'
 
           - board.column :class => "requests" do |column|
-            - requested_interventions = Intervention.with_unroll(search_params.merge({ :nature => :request }))
+            - requested_interventions = Intervention.with_unroll(search_params.merge(nature: :request))
             - column.header :requests.tl + " (" + requested_interventions.count.to_s + ")", headers_actions, class: header_class
             - add_taskboard_tasks(requested_interventions, column)
 

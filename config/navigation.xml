@@ -608,13 +608,6 @@
         <page to="backend/activity_seasons#show"/>
         <page to="backend/activity_seasons#unroll"/>
         <page to="backend/activity_seasons#update"/>
-        <page to="backend/activity_tactics#create"/>
-        <page to="backend/activity_tactics#destroy"/>
-        <page to="backend/activity_tactics#edit"/>
-        <page to="backend/activity_tactics#new"/>
-        <page to="backend/activity_tactics#show"/>
-        <page to="backend/activity_tactics#unroll"/>
-        <page to="backend/activity_tactics#update"/>
         <page to="backend/animals#index"/>
         <page to="backend/animals#add_to_group"/>
         <page to="backend/animals#add_to_container"/>
@@ -689,6 +682,7 @@
         <page to="backend/manure_management_plans#unroll"/>
         <page to="backend/manure_management_plans#update"/>
         <page to="backend/target_distributions#index"/>
+        <page to="backend/target_distributions#create"/>
         <page to="backend/target_distributions#destroy"/>
         <page to="backend/target_distributions#edit_many"/>
         <page to="backend/target_distributions#edit"/>
@@ -712,6 +706,8 @@
         <page to="backend/interventions#list_product_parameters"/>
         <page to="backend/interventions#list_record_interventions"/>
         <page to="backend/interventions#unroll"/>
+        <page to="backend/interventions#change_state"/>
+        <page to="backend/interventions#modal"/>
         <page to="backend/crumbs#index"/>
         <page to="backend/crumbs#update"/>
         <page to="backend/crumbs#convert"/>
@@ -1326,6 +1322,7 @@
         <page to="backend/product_nature_variants#list"/>
         <page to="backend/product_nature_variants#new"/>
         <page to="backend/product_nature_variants#pick"/>
+        <page to="backend/product_nature_variants#picture"/>
         <page to="backend/product_nature_variants#quantifiers"/>
         <page to="backend/product_nature_variants#show"/>
         <page to="backend/product_nature_variants#update"/>
@@ -1464,7 +1461,18 @@
         <page to="backend/animal_groups#update"/>
         <page to="backend/animal_groups#list_animals"/>
         <page to="backend/animal_groups#list_places"/>
+        <page to="backend/animal_groups#list_carried_linkages"/>
+        <page to="backend/animal_groups#list_carrier_linkages"/>
+        <page to="backend/animal_groups#list_contained_products"/>
+        <page to="backend/animal_groups#list_groups"/>
+        <page to="backend/animal_groups#list_inspections"/>
+        <page to="backend/animal_groups#list_intervention_product_parameters"/>
+        <page to="backend/animal_groups#list_issues"/>
+        <page to="backend/animal_groups#list_members"/>
+        <page to="backend/animal_groups#list_readings"/>
         <page to="backend/animal_groups#unroll"/>
+        <page to="backend/animal_groups#picture"/>
+        <page to="backend/animal_groups#take"/>
       </item>
       <item name="settlements">
         <page to="backend/settlements#index"/>
@@ -1810,31 +1818,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="activity_tactics">
-        <page to="backend/activity_tactics#actions"/>
-        <page to="backend/activity_tactics#procedures_name"/>
-      </item>
-      <item name="animal_groups">
-        <page to="backend/animal_groups#list_carried_linkages"/>
-        <page to="backend/animal_groups#list_carrier_linkages"/>
-        <page to="backend/animal_groups#list_contained_products"/>
-        <page to="backend/animal_groups#list_groups"/>
-        <page to="backend/animal_groups#list_inspections"/>
-        <page to="backend/animal_groups#list_intervention_product_parameters"/>
-        <page to="backend/animal_groups#list_issues"/>
-        <page to="backend/animal_groups#list_members"/>
-        <page to="backend/animal_groups#list_readings"/>
-        <page to="backend/animal_groups#picture"/>
-        <page to="backend/animal_groups#take"/>
-      </item>
-      <item name="interventions">
-        <page to="backend/interventions#change_state"/>
-        <page to="backend/interventions#display_modal"/>
-      </item>
-      <item name="target_distributions">
-        <page to="backend/target_distributions#create"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

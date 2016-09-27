@@ -943,6 +943,7 @@ fra:
     change_password: "Changer de mot de passe"
     change_price: "Changer le prix unitaire" #?
     change_state: "Changement du statut"
+    change_status_of_selected_interventions: "Modifier l’état d’interventions sélectionnées"
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
@@ -980,7 +981,7 @@ fra:
     complements: "Champs personnalisés" #?
     complete: "Compléter"
     completed: "Terminées"
-    completely_filled: "Complétée"
+    completely_filled: "Complétée" #?
     component: "Composant" #?
     component_name: "Nom du composant" #?
     components: "Composants" #?
@@ -1061,7 +1062,7 @@ fra:
     data_to_extract: "Données à extraire" #?
     date: "Date" #?
     dates: "Saisissez les dates de début et de fin de la période"
-    day: "Jour"
+    day: "Jour" #?
     days: "Jours"
     deals: "Transactions"
     debit: "Débit"
@@ -1077,6 +1078,7 @@ fra:
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
     delete: "Supprimer"
+    delete_selected_interventions: "Supprimer les interventions sélectionnées"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"
@@ -1112,7 +1114,7 @@ fra:
     document_templates: "Modèles de documents"
     documentation: "Documentation"
     doer_cost: "Coût de main d’œuvre"
-    doers: "Opérateurs"
+    doers: "Opérateurs" #?
     done: "Fait"
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
@@ -1251,7 +1253,7 @@ fra:
     import_backup: "Import de fichier de sauvegarde" #?
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     in_production: "En production" #?
-    in_progress: "En cours"
+    in_progress: "En cours" #?
     inactive: "Inactif"
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
@@ -1826,7 +1828,7 @@ fra:
     started: "Nouveaux"
     state: "État"
     statistics: "Statistiques"
-    status: "État"
+    status: "État" #?
     stewardship: "Assistant"
     stock: "Stock"
     stock_container_map: "Carte des lieux de stockage"
@@ -1868,7 +1870,7 @@ fra:
     target: "Cible"
     target_name: "Nom de la cible" #?
     target_zone: "Zone cible" #?
-    targets: "Cibles"
+    targets: "Cibles" #?
     tasks: "Tâches"
     taxations: "Taxations"
     taxes: "Taxes"
@@ -1894,8 +1896,8 @@ fra:
     timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} %{when}"
     timeline_task: "%{author} a ajouté une tâche %{name} %{when}"
     times: "Temps"
-    title_change_status_selected_interventions: "Changer le statut des interventions selectionées"
-    title_delete_selected_interventions: "Supprimer les interventions selectionnées"
+    title_change_status_selected_interventions: "Changer le statut des interventions selectionées" #?
+    title_delete_selected_interventions: "Supprimer les interventions selectionnées" #?
     to: "Au"
     to_bank_at: "À encaisser le" #?
     to_date: "Au" #?
@@ -2039,8 +2041,7 @@ fra:
     wear: "Usure" #?
     weather: "Météo"
     website: "Site web"
-    week: "Semaine"
-    weeks: "Semaines"
+    week: "Semaine" #?
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
@@ -2203,7 +2204,7 @@ fra:
       zero: "0" #?
     y: "Oui" #?
     yearly: "Annuelle" #?
-    years: "Années"
+    years: "Années" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
     yield: "Rendement"
     yield_by_calibration: "Rendement par calibre"
@@ -2391,7 +2392,6 @@ fra:
       destroy: "Supprimer"
       detach: "Détacher"
       detail: "Détail"
-      # distribute: "Distribute unaffected products"
       down: "Descendre"
       draft: "Brouillon" #?
       duplicate: "Dupliquer"

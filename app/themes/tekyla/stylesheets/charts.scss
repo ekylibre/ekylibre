@@ -2,7 +2,9 @@
  * This is a manifest file that'll be compiled into screen.css, which will include all the files
  * listed below.
  *
- *= require 'c3'
+ *= require c3
+ *= require timeline_chart
+ *= require d3-tip
  */
 
 .c3 {

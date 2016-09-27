@@ -979,7 +979,6 @@ arb:
     accuracy: "دقة"
     achieved_at: "تحقق في"
     acquisition_amount: "قيمة الاقتناء" #?
-    # action: "Action"
     actions: "الإجراءات"
     active: "فعال"
     active_sessions: "جلسات العمل النشطة"
@@ -1022,10 +1021,6 @@ arb:
     analysis_items: "عناصر التحليل"
     annotation: "ملاحظة"
     archive: "أرشيف"
-    # archive_content_type: "Archive content type"
-    # archive_file_name: "Archive file name"
-    # archive_file_size: "Archive file size"
-    # archive_updated_at: "Archive updated at"
     archiving: "أرشفة"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
@@ -1402,11 +1397,7 @@ arb:
     faxes: "الفاكسات"
     fifth_producer: "منتج الخامس" #?
     file: "ملف"
-    # file_content_text: "File content text"
-    # file_content_type: "File content type"
-    # file_file_name: "File file name"
     file_file_size: "حجم الملف"
-    # file_fingerprint: "File fingerprint"
     file_pages_count: "عد الصفحات"
     file_updated_at: "تحديث في"
     filename: "الملف" #?
@@ -1528,11 +1519,6 @@ arb:
     initiated_on: "بدأت يوم"
     inputs: "المدخلات"
     inspection: "تفتيش"
-    # inspection_calibration_natures: "Inspection calibration natures"
-    # inspection_calibration_scales: "Inspection calibration scales"
-    # inspection_calibrations: "Inspection calibrations"
-    # inspection_point_natures: "Inspection point natures"
-    # inspection_points: "Inspection points"
     inspections: "عمليات التفتيش"
     insurance_amount: "مبلغ التأمين"
     insurance_percentage: "نسبة التأمين"
@@ -1617,7 +1603,6 @@ arb:
     last_year: "السنة السابقة"
     latest: "آخر"
     latitude: "خطوط العرض" #?
-    # leaves_parameters: "Leaves parameters"
     lender: "المقرض"
     length_max: "عدد الاحرف كحد اقصى" #?
     letter: "خطاب"
@@ -1896,8 +1881,6 @@ arb:
     printed_on: "طبع يوم"
     priority: "أفضلية"
     probability_percentage: "نسبة احتمال"
-    # procedure_action: "Procedure action"
-    # procedure_categorie: "Procedure categorie"
     procedure_name: "اسم الإجراء"
     producer: "المنتج"
     producer_id: "المنتج" #?
@@ -2018,10 +2001,6 @@ arb:
     reductions: "طرق الخصومات" #?
     reference_name: "اسم الإشارة"
     reference_number: "الرقم المرجعي"
-    # reference_source_content_type: "Reference source content type"
-    # reference_source_file_name: "Reference source file name"
-    # reference_source_file_size: "Reference source file size"
-    # reference_source_updated_at: "Reference source updated at"
     reference_tax: "الضرائب المرجعية"
     reference_value: "قيمة مرجعية"
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
@@ -2161,7 +2140,6 @@ arb:
     state: "الحالة"
     state_label: "حالة النص"
     status: "الحالة"
-    # steps: "Steps"
     stock: "انتاج السهم" #?
     stock_account: "حساب الأسهم"
     stock_id: "انتاج سهم" #?

@@ -238,10 +238,6 @@
 @mixin border-right($value) { @include define-right-property(border, $value); }
 @mixin border-left($value)  { @include define-left-property(border, $value); }
 
-@mixin border($border-type: border, $value: 1px, $style: solid, $color: $default-border-color) {
-  #{$border-type}: $style $value $color;
-}
-
 @mixin left($value) {
   html[dir="ltr"] & { left: $value; }
   html[dir="rtl"] & { right: $value; }

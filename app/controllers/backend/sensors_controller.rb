@@ -87,11 +87,11 @@ module Backend
                       .includes(:analyses)
                       .find_each
                       .map do |sensor|
-                        last_analysis = sensor.analyses.last
-                        if last_analysis.present? && (geoloc = last_analysis.geolocation)
-                          [sensor.id, geoloc && JSON(geoloc.to_json)]
-                        end
-                      end
+        last_analysis = sensor.analyses.last
+        if last_analysis.present? && (geoloc = last_analysis.geolocation)
+          [sensor.id, geoloc && JSON(geoloc.to_json)]
+        end
+      end
                       .compact
                       .to_h
       render json: @geolocations.to_json

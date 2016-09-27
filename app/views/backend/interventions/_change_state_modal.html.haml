@@ -1,23 +1,23 @@
 = form_tag(change_state_backend_interventions_path, method: :post) do
 
-  = modal_header(:change_state.tl, { class: "modal-title", flex: true })
+  = modal_header(:change_state.tl)
 
   .modal-body
 
-    %div.modal-intervention
-
-      = content_tag(:p, :choose_options_is_needed.tl, class: "change-state-text")
-      = content_tag(:ul, class: "interventions-list") do
+    .modal-introduction
+      %p= :choose_options_is_needed.tl
+      %ul
         - interventions.each do |intervention|
-          = content_tag(:li, intervention.name, class: "intervention")
+          %li= intervention.name
 
-      - interventions_ids = []
-      - interventions.each do |intervention|
-        - interventions_ids << intervention.id
+
+    .modal-intervention
+
+      - interventions_ids = interventions.map(&:id)
 
       = hidden_field_tag('intervention[interventions_ids]', interventions_ids.to_json)
 
-      = field :status.tl, nil do |check_box|
+      = field Intervention.human_attribute_name(:status), nil do |check_box|
 
         - Intervention.state.options.each do |state, option|
 
@@ -30,9 +30,9 @@
             - checked = true if option.to_sym == :validated && interventions.first.state.to_sym == :done
 
           - if option.to_sym != :rejected
-            = label_tag(nil) do
+            %label.radio
               = radio_button_tag('intervention[state]', option, checked)
-              = content_tag(:span, state)
+              %span= state
 
   .modal-footer
     = submit_tag :edit.tl, class: 'primary'

@@ -26,7 +26,7 @@ ita:
         none: "Nessuna"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "Gruppo di animali"
         border: "Confine"
         # buffer: "Buffer"
         cultivation: "Coltivazione"
@@ -193,10 +193,10 @@ ita:
       state:
         done: "Fatto"
         in_progress: "In corso"
-        # rejected: "Rejected"
+        rejected: "Respinto"
         squeezed: "Spremuto" #?
         undone: "Disfatto" #?
-        # validated: "Validated"
+        validated: "Convalidato"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booleano"
@@ -393,7 +393,7 @@ ita:
         supplier: "Fornitore"
     sensor:
       retrieval_mode:
-        integration: "Integrazione" #?
+        integration: "Integrazione"
         listening: "Ascolto"
         requesting: "Richiesta"
     sequence:

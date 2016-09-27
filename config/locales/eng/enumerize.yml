@@ -376,7 +376,7 @@ eng:
         supplier: "Supplier"
     sensor:
       retrieval_mode:
-        # integration: "Integration"
+        integration: "Integration"
         listening: "Listening"
         requesting: "Requesting"
     sequence:

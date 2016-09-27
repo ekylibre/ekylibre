@@ -1,15 +1,17 @@
 module Backend
   module TaskboardHelper
     class Taskboard
-      attr_reader :options, :columns
+      attr_reader :name, :id, :options, :columns
 
-      def initialize(options)
+      def initialize(name, options = {})
+        @name = name
+        @id = options[:id] || @name
         @columns = []
-        @options = options[:params]
+        @options = options
       end
 
-      def column(options = {}, &_block)
-        column = Column.new(options)
+      def column(name, options = {}, &_block)
+        column = Column.new(name, options)
 
         yield column
 
@@ -17,9 +19,10 @@ module Backend
       end
 
       class Column
-        attr_reader :column_header, :tasks, :options
+        attr_reader :name, :column_header, :tasks, :options
 
-        def initialize(options)
+        def initialize(name, options = {})
+          @name = name
           @tasks = []
           @options = options
         end
@@ -61,10 +64,10 @@ module Backend
       end
     end
 
-    def taskboard(options = {}, &_block)
-      taskboard = Taskboard.new(options)
+    def taskboard(name, options = {}, &_block)
+      taskboard = Taskboard.new(name, options)
       yield taskboard
-      render partial: 'backend/shared/taskboard.html', locals: { taskboard: taskboard }
+      render partial: 'backend/shared/taskboard', locals: { taskboard: taskboard }
     end
   end
 end

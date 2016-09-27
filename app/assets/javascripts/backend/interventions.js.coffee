@@ -187,7 +187,7 @@
   class InterventionsTaskboard
 
     constructor: ->
-      @taskboard = new ekylibre.taskboard('#interventionsTaskboard', true)
+      @taskboard = new ekylibre.taskboard('#interventions', true)
       @taskboardModal = new ekylibre.modal('#taskboard-modal')
 
     initTaskboard: ->
@@ -229,7 +229,7 @@
         interventionsIds = instance._getSelectedInterventionsIds(event.target)
 
         $.ajax
-          url: "/backend/interventions/display_modal",
+          url: "/backend/interventions/modal",
           data: {interventions_ids: interventionsIds}
           success: (data, status, request) ->
 
@@ -297,7 +297,7 @@
         intervention = JSON.parse(task.attr('data-intervention'))
 
         $.ajax
-          url: "/backend/interventions/display_modal",
+          url: "/backend/interventions/modal",
           data: {intervention_id: intervention.id}
           success: (data, status, request) ->
 

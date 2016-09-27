@@ -2085,7 +2085,7 @@ spa:
         temperature_improvement: "Mejora de temperatura"
         # topkilling: "Topkilling"
         tractor_troubleshooting: "Solución de problemas tractor"
-        # transportation: "Transportation"
+        transportation: "Transporte"
         troubleshooting: "Solución de problemas"
         tunnel_installation: "la instalación del túnel"
         tunnel_removal: "la eliminación del túnel"

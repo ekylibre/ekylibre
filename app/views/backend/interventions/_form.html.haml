@@ -47,7 +47,7 @@
       = render 'parameter_form', reference: parameter, f: f, namespace: ''
 
 - else # Root Procedure Natures
-  - main_period_selector(:years)
+  - main_period_selector(:year)
   - Nomen::ActivityFamily.find_each do |family|
     - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
     - next unless categories.any?

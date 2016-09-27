@@ -1074,7 +1074,8 @@ arb:
     centralized_account: "مركزية الحسابات %{name}"
     change_password: "تغيير كلمة السر"
     change_price: "تغيير وحدة السعر" #?
-    # change_state: "Change state"
+    change_state: "تغيير الدولة"
+    change_status_of_selected_interventions: "تغيير حالة بعض المداخلات المختارة"
     chart: "خريطة"
     check: "نحقق"
     children: "الأطفال"
@@ -1082,7 +1083,7 @@ arb:
     choose_a_type_of_product: "اختر نوع المنتج"
     choose_creation_mode: "اختيار وضع إنشاء"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
-    # choose_options_is_needed: "You must choose the status for the following interventions :"
+    choose_options_is_needed: "يجب عليك اختيار الحالة لالتدخلات التالية:"
     city_name: "المدينة" #?
     clear: "واضح"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
@@ -1103,8 +1104,7 @@ arb:
     commission: "عمولة"
     company: "المجتمع"
     complete: "كامل"
-    # completed: "Completed"
-    # completely_filled: "Completed"
+    completed: "منجز"
     components: "العناصر" #?
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
@@ -1171,7 +1171,6 @@ arb:
     data_to_export: "تصدير البيانات" #?
     data_to_extract: "استخراج البيانات" #?
     dates: "ادخل تواريخ بداية ونهاية المدة"
-    # day: "Day"
     days: "أيام"
     deals: "عروض"
     debit: "الدين"
@@ -1190,6 +1189,7 @@ arb:
     delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
     delete: "حذف"
+    delete_selected_interventions: "حذف التدخلات المنتقاة"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
     delivery: "خدمه توصيل"
@@ -1236,7 +1236,6 @@ arb:
     document_templates: "نموذج الوثائق"
     documentation: "توثيق"
     doer_cost: "تكلفة الفاعل"
-    # doers: "Doers"
     done: "فعله"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
@@ -1306,8 +1305,8 @@ arb:
     # expedier: "Expedier"
     expenses: "مصاريف"
     expenses_by_product_nature_category: "النفقات حسب الفئة طبيعة المنتج"
-    # expired_since: "Expired since"
-    # expired_within: "Expired within"
+    expired_since: "انتهت منذ (بالأيام)"
+    expired_within: "انتهت خلال (بالأيام)"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
@@ -1376,7 +1375,6 @@ arb:
     import: "استيراد"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
-    # in_progress: "In progress"
     inactive: "غير نشط"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
@@ -1831,7 +1829,7 @@ arb:
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
     request_maintenance: "صيانة الطلب"
-    # requests: "Requests"
+    requests: "طلبات"
     reservoir: "الاحتياطي" #?
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
@@ -1903,7 +1901,7 @@ arb:
     search_sales: "البحث عن طلبات البيع" #?
     second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
-    # see_details: "See details"
+    see_details: "انظر التفاصيل"
     see_more_details: "مشاهدة مزيد من التفاصيل"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
@@ -1947,7 +1945,6 @@ arb:
     started: "بدأت"
     state: "الحالة"
     statistics: "إحصائيات"
-    # status: "Status"
     stewardship: "إدارة"
     stock: "مخزون"
     stock_container_map: "خريطة الأسهم"
@@ -1965,7 +1962,7 @@ arb:
     string_case: "خيارات للنص" #?
     subject: "الموضوع"
     submit: "ارسال"
-    # subscribed_on: "Subscribed on"
+    subscribed_on: "اشتركت في"
     subscriber_period: "تم التسجيل في %{subscribed_at}"
     subscriber_quantity: "عدد المشتركيين %{subscribed_at}"
     subscription_create: "اضافة اشتراك" #?
@@ -1986,7 +1983,6 @@ arb:
     supports_chart: "يدعم الرسم البياني" #?
     synthesis: "تجميع الوثائق"
     target: "الهدف"
-    # targets: "Targets"
     tasks: "المهام"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
@@ -2011,8 +2007,6 @@ arb:
     # timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{when}"
     # timeline_task: "%{author} added task %{name} %{when}"
     times: "مرات"
-    # title_change_status_selected_interventions: "Change the status of selected interventions"
-    # title_delete_selected_interventions: "Delete the selected interventions"
     to: "الى"
     to_date: "الى تاريخ" #?
     to_deliver: "للتسليم" #?
@@ -2130,7 +2124,7 @@ arb:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "التحقق من المدخلات المختارة"
-    # validated: "Validated"
+    validated: "التحقق من صحة"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"
@@ -2145,8 +2139,6 @@ arb:
     watering_concentration: "استخدام المياه"
     weather: "طقس"
     website: "موقع الكتروني"
-    # week: "Week"
-    # weeks: "Weeks"
     wind_speed: "سرعة الرياح"
     with_fixed_assets_depreciations: "مع انخفاض قيمة الأصول الثابتة"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر" #?
@@ -2306,7 +2298,6 @@ arb:
       # other: "%{count} years"
     y: "نعم" #?
     yearly: "Annuelle" #?
-    # years: "Years"
     years_count_in_historic: "عدد السنوات عامة" #?
     yield: "يخضع أو يستسلم"
     yield_by_calibration: "العائد من المعايرة"
@@ -2539,7 +2530,6 @@ arb:
       destroy: "هدم"
       detach: "فصل"
       detail: "التفاصيل"
-      # distribute: "Distribute unaffected products"
       down: "أسفل"
       duplicate: "مكرر"
       edit: "تحرير"
