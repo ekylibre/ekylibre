@@ -63,7 +63,7 @@ fra:
       day: "Journée"
       month: "Mois"
       week: "Semaine"
-      year: "An"
+      year: "Année"
     relative_distance_in_words:
       in_sometime: "dans %{distance}"
       sometime_ago: "il y a %{distance}"

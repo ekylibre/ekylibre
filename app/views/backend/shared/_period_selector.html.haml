@@ -2,7 +2,7 @@
   - current_period = current_user.current_period.to_date
   - displayed_period = current_period.l
   - delta = nil
-  - additional_classes = ''
+  - additional_classes = period_interval.to_s
 
   - if period_interval == :day
     - delta = 1.day
@@ -15,9 +15,8 @@
   - elsif period_interval == :year
     - delta = 1.year
     - displayed_period = current_period.year.to_s
-    - additional_classes << "campaign "
   - else
-    - additional_classes << "disabled"
+    - additional_classes << " disabled"
 
   - previous_period = current_period - delta
   - url_params = Hash.new
