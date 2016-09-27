@@ -249,7 +249,7 @@ module Backend
       end
     end
 
-    def display_modal
+    def modal
       if params[:intervention_id]
         @intervention = Intervention.find(params[:intervention_id])
         render partial: 'backend/interventions/details_modal', locals: { intervention: @intervention }
@@ -261,25 +261,21 @@ module Backend
       end
     end
 
-    # def show_intervention_modal
-    #
-    # end
-    #
-    # def show_modal_state
-    #
-    # end
-
     def change_state
-      if interventions_params
+      unless state_change_permitted_params
+        head :unprocessable_entity
+        return
+      end
 
-        interventions_ids = JSON.parse(interventions_params[:interventions_ids]).to_a
-        new_state = interventions_params[:state].to_sym
+      interventions_ids = JSON.parse(state_change_permitted_params[:interventions_ids]).to_a
+      new_state = state_change_permitted_params[:state].to_sym
 
-        @interventions = Intervention.find(interventions_ids)
+      @interventions = Intervention.find(interventions_ids)
 
+      Intervention.transaction do
         @interventions.each do |intervention|
           if intervention.nature == :record && new_state == :rejected
-            intervention.destroy
+            intervention.destroy!
             next
           end
 
@@ -308,7 +304,7 @@ module Backend
 
     private
 
-    def interventions_params
+    def state_change_permitted_params
       params.require(:intervention).permit(:interventions_ids, :state)
     end
   end

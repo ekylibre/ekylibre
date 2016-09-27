@@ -35,7 +35,7 @@
 
         - campaign ||= current_campaign
 
-        = taskboard params: { id: "interventionsTaskboard", class: "interventions-board"} do |board|
+        = taskboard params: { id: "interventions-taskboard", class: "interventions-board"} do |board|
 
           = modal(id: "taskboard-modal", class: "interventions-modal", size: :large) do
             .modal-body
@@ -55,7 +55,7 @@
           - header_class = 'taskboard-header--gray'
 
           - board.column :class => "requests" do |column|
-            - requested_interventions = Intervention.with_unroll(search_params.merge({ :nature => :request }))
+            - requested_interventions = Intervention.with_unroll(search_params.merge(nature: :request))
             - column.header :requests.tl + " (" + requested_interventions.count.to_s + ")", headers_actions, class: header_class
             - add_taskboard_tasks(requested_interventions, column)
 

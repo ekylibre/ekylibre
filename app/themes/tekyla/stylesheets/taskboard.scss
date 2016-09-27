@@ -2,7 +2,7 @@
   @include flex-row(space-between, flex-start);
   padding: $default-gap;
   overflow: auto;
-  
+
   .taskboard-column {
     border: $menu-border;
     @include border-top-radius($default-border-radius);

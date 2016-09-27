@@ -99,7 +99,7 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/interventions#change_state"
-#     - "backend/interventions#display_modal"
+#     - "backend/interventions#modal"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
