@@ -2,15 +2,16 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="gas_weeding" categories="crop_maintenance" actions="weeding">
     <parameters>
-      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <input name="energy" filter="is gas" cardinality="*">
         <handler name="population"/>
       </input>
-      <tool name="gaz_engine" filter="can store_gaz and can kill(plant)"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <doer name="worker" filter="is worker"/>
+      <tool name="gaz_engine" filter="can store_gaz and can kill(plant)" cardinality="*"/>
+      <doer name="driver" filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="worker" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

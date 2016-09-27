@@ -6,7 +6,7 @@
         <target name="land_parcel" filter="is land_parcel and has indicator shape" cardinality="1">
           <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
         </target>
-        <output name="cultivation" filter="is plant" cardinality="1">
+        <output name="plant" filter="is plant" cardinality="1">
           <attribute name="new_name"/>
           <reading name="shape" value="merge_working_zones(siblings(SELF, land_parcel))">
             <compute expr="area(VALUE) / VARIANT.net_surface_area(square_meter)" if="VARIANT?" to="population"/>
@@ -70,9 +70,10 @@
                  backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(land_parcel, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
       </input>
-      <tool name="sower"   filter="can sow" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="sower"   filter="can sow" cardinality="*"/>
       <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
+      <doer name="doer" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

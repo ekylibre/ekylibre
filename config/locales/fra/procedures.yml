@@ -41,7 +41,6 @@ fra:
     animal_medicine: "Produit vétérinaire"
     animal_medicine_to_give: "Produit vétérinaire à donner" #?
     baler: "Botteleuse"
-    baler_driver: "Conducteur (tracteur-botteleuse)"
     bird_band: "Bande d'oiseaux"
     bottles: "Bouteilles"
     bottles_to_use: "Bouteilles à utiliser" #?
@@ -58,7 +57,7 @@ fra:
     corks: "Bouchons"
     corks_to_use: "Bouchons à utiliser" #?
     corn_topper: "Castreuse"
-    cover_implanter: "Plastifieuse"
+    cover_implanter: "Plastiqueuse"
     crop: "Culture"
     cropper: "Outil de récolte"
     cultivation: "Parcelle / Culture"
@@ -117,8 +116,6 @@ fra:
     hive: "Ruche"
     hoe: "Bineuse"
     hoeing_weeder: "Désherbineuse" #?
-    implanter: "Planteuse"
-    implanter_man: "Planteur"
     implanter_tool: "Équipement de plantation"
     implement: "Outil"
     insecticide: "Insecticide" #?
@@ -154,7 +151,7 @@ fra:
     mother_animal: "Mère" #?
     movement: "Mouvement"
     mower: "Faucheuse"
-    mower_driver: "Conducteur de faucheuse"
+    mulching_material: "Matériel de paillage"
     net_implanter: "Dérouleur de filet"
     net_roll: "Enrouleur de filet"
     new_animal_variant: "Nouveau variant de l'animal" #?
@@ -166,13 +163,11 @@ fra:
     oil: "Huile"
     oil_to_input: "Huile mise" #?
     operator: "Opérateur"
-    plant: "Culture végétale" #?
+    plant: "Culture"
     plant_medicine: "Produit phytosanitaire"
     plant_medicine_to_spray: "Produit phytosanitaire à pulvériser" #?
     plants: "Plants"
     plants_to_fix: "Plants à implanter" #?
-    plastic: "Plastique"
-    plastic_sheet: "Bâche plastique" #?
     plastic_to_mulch: "Plastique à poser" #?
     plow: "Charrue"
     pollinating_insects: "Insectes pollinisateurs"
@@ -323,7 +318,7 @@ fra:
     implant_helping: "Aide à l'implantation" #?
     implanting: "Plantation" #?
     indirect_silage: "Ensilage indirect"
-    inter-row hoeing: "Binage inter-rangs"
+    inter_row_hoeing: "Binage inter-rangs"
     item_replacement: "Remplacement de pièce" #?
     land_parcel_grinding: "Broyage du sol"
     lifting: "Soulevage"
