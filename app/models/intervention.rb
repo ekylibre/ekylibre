@@ -73,7 +73,7 @@ class Intervention < Ekylibre::Record::Base
   end
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   enumerize :nature, in: [:request, :record], default: :record, predicates: true
-  enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
+  enumerize :state, in: [:in_progress, :done, :validated, :rejected], default: :done, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
@@ -126,6 +126,70 @@ class Intervention < Ekylibre::Record::Base
     where(id: InterventionProductParameter.of_generic_role(role).of_actor(object).select(:intervention_id))
   }
 
+  scope :with_unroll, lambda { |*args|
+    params = args.extract_options!
+    search_params = ''
+
+    unless params[:q].blank?
+      search_params << " #{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
+    end
+
+    unless params[:procedure_name].blank?
+      search_params << ' AND ' unless search_params.blank?
+      search_params << "#{Intervention.table_name}.procedure_name = '#{params[:procedure_name]}'"
+    end
+
+    unless params[:product_id].blank?
+      search_params << ' AND ' unless search_params.blank?
+      search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
+    end
+
+    unless params[:period_interval].blank? && params[:period].blank?
+
+      period_interval = params[:period_interval]
+      period = params[:period]
+
+      search_params << ' AND ' unless search_params.blank?
+
+      if period_interval.to_sym == :day
+        search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
+      end
+
+      if period_interval.to_sym == :week
+
+        beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
+        end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
+
+        search_params << "#{Intervention.table_name}.started_at >= '#{beginning_of_week}' AND #{Intervention.table_name}.stopped_at <= '#{end_of_week}'"
+      end
+
+      if period_interval.to_sym == :months
+        search_params << "EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
+      end
+
+      if period_interval.to_sym == :years
+        search_params << "EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
+      end
+    end
+
+    unless params[:nature].blank?
+      search_params << ' AND ' unless search_params.blank?
+      search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
+
+      search_params << " AND #{Intervention.table_name}.request_intervention_id IS NULL" if params[:nature] == :request
+    end
+
+    unless params[:state].blank?
+      search_params << ' AND ' unless search_params.blank?
+      search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
+    end
+
+    where(search_params)
+      .includes(:doers)
+      .references(product_parameters: [:product])
+      .order(started_at: :desc)
+  }
+
   scope :with_targets, lambda { |*targets|
     where(id: InterventionTarget.of_actors(targets).select(:intervention_id))
   }
@@ -144,7 +208,7 @@ class Intervention < Ekylibre::Record::Base
     if self.started_at && self.stopped_at
       self.whole_duration = (stopped_at - started_at).to_i
     end
-    self.state ||= self.class.state.default
+    self.state ||= self.class.state.default_value
     if procedure
       self.actions = procedure.actions.map(&:name) if actions && actions.empty?
     end
@@ -167,6 +231,7 @@ class Intervention < Ekylibre::Record::Base
 
   before_save do
     columns = { name: name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention }
+
     if event
       # self.event.update_columns(columns)
       event.attributes = columns
@@ -205,6 +270,10 @@ class Intervention < Ekylibre::Record::Base
     a.uniq
   end
 
+  def activities_names_list
+    activities.map(&:name).sort
+  end
+
   # Returns human tool names
   def human_activities_names
     activities.map(&:name).sort.to_sentence
@@ -226,9 +295,13 @@ class Intervention < Ekylibre::Record::Base
     procedure
   end
 
+  def targets_list
+    targets.map(&:product).compact.map(&:work_name).sort
+  end
+
   # Returns human target names
   def human_target_names
-    targets.map(&:product).compact.map(&:work_name).sort.to_sentence
+    targets_list.to_sentence
   end
 
   # Returns human doer names
@@ -258,6 +331,15 @@ class Intervention < Ekylibre::Record::Base
 
   def human_working_duration(unit = :hour)
     working_duration.in(:second).convert(unit).round(2).l
+  end
+
+  def completely_filled?
+    reference_names = parameters.pluck(:reference_name).uniq
+    reference_names = reference_names.map(&:to_sym)
+    parameters_names = procedure.parameters.map(&:name).uniq
+
+    result = parameters_names - reference_names | reference_names - parameters_names
+    result.empty?
   end
 
   # Update temporality informations in intervention
@@ -381,11 +463,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def status
-    if undone?
-      return (runnable? ? :caution : :stop)
-    elsif done?
-      return :go
-    end
+    return :go if done?
   end
 
   def runnable?

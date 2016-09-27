@@ -1074,6 +1074,8 @@ arb:
     centralized_account: "مركزية الحسابات %{name}"
     change_password: "تغيير كلمة السر"
     change_price: "تغيير وحدة السعر" #?
+    change_state: "تغيير الدولة"
+    change_status_of_selected_interventions: "تغيير حالة بعض المداخلات المختارة"
     chart: "خريطة"
     check: "نحقق"
     children: "الأطفال"
@@ -1081,6 +1083,7 @@ arb:
     choose_a_type_of_product: "اختر نوع المنتج"
     choose_creation_mode: "اختيار وضع إنشاء"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
+    choose_options_is_needed: "يجب عليك اختيار الحالة لالتدخلات التالية:"
     city_name: "المدينة" #?
     clear: "واضح"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
@@ -1101,6 +1104,7 @@ arb:
     commission: "عمولة"
     company: "المجتمع"
     complete: "كامل"
+    completed: "منجز"
     components: "العناصر" #?
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
@@ -1185,6 +1189,7 @@ arb:
     delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
     delete: "حذف"
+    delete_selected_interventions: "حذف التدخلات المنتقاة"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
     delivery: "خدمه توصيل"
@@ -1824,6 +1829,7 @@ arb:
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
     request_maintenance: "صيانة الطلب"
+    requests: "طلبات"
     reservoir: "الاحتياطي" #?
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
@@ -1895,6 +1901,7 @@ arb:
     search_sales: "البحث عن طلبات البيع" #?
     second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
+    see_details: "انظر التفاصيل"
     see_more_details: "مشاهدة مزيد من التفاصيل"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
@@ -2117,6 +2124,7 @@ arb:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "التحقق من المدخلات المختارة"
+    validated: "التحقق من صحة"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"

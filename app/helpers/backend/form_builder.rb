@@ -742,7 +742,6 @@ module Backend
       if units_values.is_a?(Array)
         return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
       end
-
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
   end

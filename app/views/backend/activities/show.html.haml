@@ -10,7 +10,7 @@
   - if resource.productions.any? && Product.of_variety(resource.cultivation_variety, resource.support_variety).any?
     = tool_to(:distribute_unaffected_products.tl, { controller: :target_distributions, action: :edit_many, activity_id: resource.id }, icon: false)
 
-- main_campaign_selector
+- main_period_selector(:year)
 
 
 = main_informations do

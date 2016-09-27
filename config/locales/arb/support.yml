@@ -19,6 +19,7 @@ arb:
       month: "%B %Y"
       month_letter: "%d %B %Y"
       short: "%b %d"
+      short_month: "%d/%Y"
     month_names: ["", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
   datetime:
     distance_in_words:
@@ -100,6 +101,11 @@ arb:
         other: "%{count} ثانية"
         two: "ثانيتان" #?
         zero: "صفر ثواني" #?
+    periods:
+      day: "يوم"
+      month: "شهر"
+      week: "أسبوع"
+      year: "عام"
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
@@ -153,7 +159,9 @@ arb:
   time:
     am: "صباحا"
     formats:
+      compact: "٪ م /٪ د /٪ Y٪ H:٪ M"
       default: "%b. %d, %Y at %H:%M:%S"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+      time: "%H:%M" #?
     pm: "مساءا"

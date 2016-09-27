@@ -2496,14 +2496,22 @@ a[data-annotate] {
   }
 }
 
-.campaign-selector {
-  .campaign {
-    font-size: $fs-large;
+.period-type-selector,
+.period-selector {
+  .period {
+    font-size: $fs-normal;
     padding-left: $default-gap;
     padding-right: $default-gap;
     @include box-sizing(border-box);
+    &.day, &.month, &.year {
+      font-size: $fs-large;
+    }
   }
-  > .btn, > .campaign {
+
+
+  > .btn,
+  > .period-type,
+  > .period {
     height: $lh-large + $button-vertical-padding * 2 + $menu-border-width * 2;
     line-height: $lh-large;
   }
@@ -2642,4 +2650,3 @@ a[data-annotate] {
     margin-bottom: 0;
   }
 }
-

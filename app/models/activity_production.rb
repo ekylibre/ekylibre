@@ -119,7 +119,7 @@ class ActivityProduction < Ekylibre::Record::Base
     where(activity: Activity.of_families(*families))
   }
 
-  scope :of_intervention, ->(intervention) { where(id: TargetDistribution.select(:activity_production_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention.id))) }
+  scope :of_intervention, ->(intervention) { includes(:activity).where(id: TargetDistribution.select(:activity_production_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention.id))).references(:activity) }
 
   scope :current, -> { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: Time.zone.now) }
 

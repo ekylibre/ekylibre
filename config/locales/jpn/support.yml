@@ -19,6 +19,7 @@ jpn:
       month: "%Y年%m月"
       month_letter: "%d %B %Y"
       short: "%m/%d"
+      short_month: "%m/%d"
     month_names: ["", "1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
   datetime:
     distance_in_words:
@@ -56,6 +57,11 @@ jpn:
       x_seconds:
         one: "1秒"
         other: "%{count}秒"
+    periods:
+      day: "日"
+      month: "月"
+      week: "週間"
+      year: "年"
     relative_distance_in_words:
       # in_sometime: "in %{distance}"
       # sometime_ago: "%{distance} ago"
@@ -112,7 +118,9 @@ jpn:
   time:
     am: "午前"
     formats:
+      compact: "％のM /％D /％Y％のH：％M"
       default: "%Y/%m/%d %H:%M:%S"
       long: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
       short: "%y/%m/%d %H:%M"
+      time: "%H:%M" #?
     pm: "午後"

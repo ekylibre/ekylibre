@@ -193,8 +193,10 @@ deu:
       state:
         done: "Erledigt"
         in_progress: "In Bearbeitung"
-        squeezed: "Eingezwängt"
-        undone: "unerledigt"
+        rejected: "Zurückgewiesen"
+        squeezed: "Eingezwängt" #?
+        undone: "unerledigt" #?
+        validated: "Validierte"
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"
