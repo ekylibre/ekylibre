@@ -123,19 +123,34 @@ module Procedo
       @parameter_names ||= parameters.map(&:name)
     end
 
-    def check!
-      # Check ungiven roles
-      remaining_roles = roles - given_roles.uniq
-      if remaining_roles.any?
-        raise Procedo::Errors::MissingRole, "Remaining roles of procedure #{name} are not given: #{remaining_roles.join(', ')}"
-      end
+    def lint
+      messages = []
+      product_parameters.each do |p|
+        if p.filter
+          begin
+            WorkingSet.to_sql(p.filter)
+          rescue SyntaxError => e
+            messages << "Cannot parse filter of #{p.name}: #{e.message}"
+          rescue WorkingSet::InvalidExpression => e
+            messages << "Invalid expression in filter of #{p.name}: #{e.message}"
+          end
+        end
+        if p.component_of?
 
-      # Check producers
-      new_parameters.each do |parameter|
-        unless parameter.producer.is_a?(Parameter)
-          raise Procedo::Errors::UnknownAspect, "Unknown parameter producer for #{parameter.name}"
+        end
+        p.handlers.each do |handler|
+          %w(condition forward backward).each do |tree|
+            next unless handler.send("#{tree}?")
+            parameters = handler.send("#{tree}_parameters")
+            parameters.each do |parameter|
+              unless find(parameter)
+                messages << "Cannot find #{parameter} from #{handler.name}/#{tree} in #{p.name}"
+              end
+            end
+          end
         end
       end
+      messages
     end
 
     def of_activity_family?(*families)
