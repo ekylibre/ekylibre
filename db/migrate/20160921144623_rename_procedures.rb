@@ -1,5 +1,6 @@
 class RenameProcedures < ActiveRecord::Migration
   def change
+    # Rename procedure inter-row hoeing to inter_row_hoeing
     reversible do |d|
       d.up do
         execute "UPDATE interventions SET procedure_name = 'inter_row_hoeing' WHERE procedure_name = 'inter-row hoeing'"
@@ -676,6 +677,81 @@ class RenameProcedures < ActiveRecord::Migration
           FROM interventions
           WHERE (iparam.reference_name = 'plant'
             AND interventions.procedure_name = 'lifting'
+            AND iparam.intervention_id = interventions.id)
+        SQL
+      end
+    end
+
+    reversible do |dir|
+      dir.up do
+        execute <<-SQL
+        UPDATE
+          intervention_parameters AS iparam
+          SET reference_name = 'doer'
+          FROM interventions
+          WHERE (iparam.reference_name = 'implanter_man'
+            AND interventions.procedure_name = 'mechanical_planting'
+            AND iparam.intervention_id = interventions.id)
+        SQL
+      end
+      dir.down do
+        execute <<-SQL
+        UPDATE
+          intervention_parameters AS iparam
+          SET reference_name = 'implanter_man'
+          FROM interventions
+          WHERE (iparam.reference_name = 'doer'
+            AND interventions.procedure_name = 'mechanical_planting'
+            AND iparam.intervention_id = interventions.id)
+        SQL
+      end
+    end
+
+    reversible do |dir|
+      dir.up do
+        execute <<-SQL
+        UPDATE
+          intervention_parameters AS iparam
+          SET reference_name = 'plant'
+          FROM interventions
+          WHERE (iparam.reference_name = 'cultivation'
+            AND interventions.procedure_name = 'harvesting'
+            AND iparam.intervention_id = interventions.id)
+        SQL
+      end
+      dir.down do
+        execute <<-SQL
+        UPDATE
+          intervention_parameters AS iparam
+          SET reference_name = 'cultivation'
+          FROM interventions
+          WHERE (iparam.reference_name = 'plant'
+            AND interventions.procedure_name = 'harvesting'
+            AND iparam.intervention_id = interventions.id)
+        SQL
+      end
+    end
+
+    reversible do |dir|
+      dir.up do
+        execute <<-SQL
+        UPDATE
+          intervention_parameters AS iparam
+          SET reference_name = 'cultivation'
+          FROM interventions
+          WHERE (iparam.reference_name = 'plant'
+            AND interventions.procedure_name = 'straw_bunching'
+            AND iparam.intervention_id = interventions.id)
+        SQL
+      end
+      dir.down do
+        execute <<-SQL
+        UPDATE
+          intervention_parameters AS iparam
+          SET reference_name = 'plant'
+          FROM interventions
+          WHERE (iparam.reference_name = 'cultivation'
+            AND interventions.procedure_name = 'straw_bunching'
             AND iparam.intervention_id = interventions.id)
         SQL
       end
