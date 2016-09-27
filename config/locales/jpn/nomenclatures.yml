@@ -2090,7 +2090,7 @@ jpn:
         temperature_improvement: "温度の改善"
         # topkilling: "Topkilling"
         tractor_troubleshooting: "トラクターのトラブルシューティング"
-        # transportation: "Transportation"
+        transportation: "交通"
         troubleshooting: "トラブルシューティング"
         tunnel_installation: "トンネルのインストール"
         tunnel_removal: "トンネルの除去"

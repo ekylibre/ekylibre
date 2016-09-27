@@ -2079,7 +2079,7 @@ ita:
         temperature_improvement: "miglioramento Temperatura"
         # topkilling: "Topkilling"
         tractor_troubleshooting: "la risoluzione dei problemi del trattore"
-        # transportation: "Transportation"
+        transportation: "Trasporti"
         troubleshooting: "Risoluzione dei problemi"
         tunnel_installation: "installazione Tunnel"
         tunnel_removal: "rimozione Tunnel"

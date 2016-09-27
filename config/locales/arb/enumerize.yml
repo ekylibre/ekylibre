@@ -26,7 +26,7 @@ arb:
         none: "لا شيء"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "مجموعة الحيوانات"
         border: "الحدود"
         buffer: "عازلة"
         cultivation: "زراعة"

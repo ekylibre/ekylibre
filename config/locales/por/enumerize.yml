@@ -27,7 +27,7 @@ por:
         none: "Nenhum"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "Grupo de animais"
         border: "Fronteira"
         buffer: "Amortecedor"
         cultivation: "Cultivo"
