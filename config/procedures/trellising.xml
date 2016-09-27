@@ -7,9 +7,9 @@
       </target>
       <input name="stakes" filter="is stake" cardinality="*">
         <handler indicator="stakes_count" unit="unity_per_hectare"
-                 if="sum(land_parcel, :net_surface_area, :hectare) != 0"
-                 backward="(POPULATION / sum(land_parcel, :net_surface_area, :hectare))"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare))"/>
+                 if="sum(cultivation, :net_surface_area, :hectare) != 0"
+                 backward="(POPULATION / sum(cultivation, :net_surface_area, :hectare))"
+                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare))"/>
       </input>
       <input name="wire_fence" filter="is wire" cardinality="*">
         <handler indicator="length" unit="meter"

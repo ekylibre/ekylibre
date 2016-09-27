@@ -14,11 +14,11 @@
                  backward="POPULATION * VARIANT.net_mass(ton)"
                  forward="VALUE / VARIANT.net_mass(ton)"/>
         <handler indicator="mass_area_density" unit="quintal_per_hectare"
-                 backward="(POPULATION * VARIANT.net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / VARIANT.net_mass(quintal)"/>
+                 backward="(POPULATION * VARIANT.net_mass(quintal)) / sum(plant, :net_surface_area, :hectare)"
+                 forward="(VALUE * sum(plant, :net_surface_area, :hectare)) / VARIANT.net_mass(quintal)"/>
         <handler name="mass_area_density_in_ton_per_hectare" indicator="mass_area_density" unit="ton_per_hectare"
-                 backward="(POPULATION * VARIANT.net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / VARIANT.net_mass(ton)"/>
+                 backward="(POPULATION * VARIANT.net_mass(ton)) / sum(plant, :net_surface_area, :hectare)"
+                 forward="(VALUE * sum(plant, :net_surface_area, :hectare)) / VARIANT.net_mass(ton)"/>
       </output>
       <tool name="tractor" filter="is equipment and (can tow(equipment) or can mow)" cardinality="*"/>
       <tool name="mower" filter="can mow" cardinality="*"/>
