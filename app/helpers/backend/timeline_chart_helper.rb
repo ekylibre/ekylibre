@@ -162,5 +162,5 @@ module Backend
         render partial: 'backend/shared/timeline_chart.html', locals: { timeline_chart: timeline_chart }
       end
     end
-end
+  end
 end
