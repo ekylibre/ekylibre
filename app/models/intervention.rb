@@ -109,11 +109,6 @@ class Intervention < Ekylibre::Record::Base
     where('EXTRACT(YEAR FROM started_at) = ?', year)
   }
 
-  # scope :of_view_activities, lambda { |intervention|
-  #   query = includes(:activities).where(id: intervention.id).uniq.pluck(:activity_id)
-  #   Activity.where(id: query).uniq
-  # }
-
   scope :of_nature, ->(reference_name) { where(reference_name: reference_name) }
   scope :of_category, lambda { |category|
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
@@ -265,13 +260,9 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  def activities_names
-    activities.map(&:name).sort
-  end
-
-  # Returns human tool names
+  # Returns human activity names
   def human_activities_names
-    activities_names.to_sentence
+    activities.map(&:name).to_sentence
   end
 
   def product_parameters

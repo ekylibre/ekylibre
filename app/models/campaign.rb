@@ -79,18 +79,6 @@ class Campaign < Ekylibre::Record::Base
     end
   end
 
-  def activity_productions
-    ActivityProduction.of_campaign(self)
-  end
-
-  # def activities
-  #   Activity.of_campaign(self)
-  # end
-  #
-  # def interventions
-  #   Intervention.of_campaign(self)
-  # end
-
   # Returns all CampaignProduction. These productions always last the campaign
   # duration
   def productions
