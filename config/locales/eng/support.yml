@@ -57,6 +57,11 @@ eng:
       x_seconds:
         one: "1 second"
         other: "%{count} seconds"
+    periods:
+      day: "Day"
+      month: "Month"
+      week: "Week"
+      year: "Year"
     relative_distance_in_words:
       in_sometime: "in %{distance}"
       sometime_ago: "%{distance} ago"
@@ -114,5 +119,4 @@ eng:
       default: "%b. %d, %Y at %H:%M:%S"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
-      time: "%H:%M"
     pm: "pm"

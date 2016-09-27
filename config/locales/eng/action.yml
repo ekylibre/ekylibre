@@ -951,6 +951,7 @@ eng:
     centralized_account: "Centralized account %{name}"
     change_password: "Change password"
     change_state: "Change state"
+    change_status_of_selected_interventions: "Change the status of selected interventions"
     chart: "Chart"
     check: "Check" #?
     children: "Children"
@@ -958,7 +959,7 @@ eng:
     choose_a_type_of_product: "Choose a type of product"
     choose_creation_mode: "Choose creation mode"
     choose_mail_column: "Choose email column"
-    choose_options_is_needed: "You must choose the status for the following interventions :"
+    choose_options_is_needed: "You must choose the status for the following interventions:"
     clear: "Clear"
     click_to_mail: "Click to email with your own mail software"
     client: "Client" #?
@@ -974,7 +975,6 @@ eng:
     company: "Society" #?
     complete: "Complete"
     completed: "Completed"
-    completely_filled: "Completed" #?
     # components: "Components"
     conditions:
       filter_on_attribute_of_class: "Filter on attribute of class"
@@ -1025,7 +1025,6 @@ eng:
     # data_transmissions: "Data transmissions"
     # date: "Date"
     dates: "Select period start date and Period end date" #?
-    day: "Day" #?
     days: "Days"
     deals: "Deals"
     debit: "Debit" #?
@@ -1040,6 +1039,7 @@ eng:
     deformity_percentage: "Deformity (%)" #?
     deformity_percentage_evolution: "Deformity percentage evolution"
     delete: "Delete"
+    delete_selected_interventions: "Delete the selected interventions"
     deliver: "Delivered on" #?
     deliveries: "Deliveries" #?
     delivery: "Delivery" #?
@@ -1071,7 +1071,7 @@ eng:
     document_templates: "Document templates" #?
     documentation: "Documentation"
     doer_cost: "Doer cost"
-    doers: "Doers"
+    # doers: "Doers"
     done: "Done" #?
     dont_use_journal: "— Do not use journal —"
     down: "Down" #?
@@ -1165,7 +1165,6 @@ eng:
     implanted_at: "Implanted at" #?
     import: "Import"
     importation_explanation: "Importation explanation"
-    in_progress: "In progress" #?
     inactive: "Inactive" #?
     include_blank: "Include blank" #?
     income_statement: "Income Statement" #?
@@ -1509,7 +1508,7 @@ eng:
     started: "Started"
     state: "State"
     statistics: "Statistics" #?
-    status: "Status"
+    # status: "Status"
     stewardship: "Stewardship"
     stock: "Stock" #?
     stock_container_map: "Stock map" #?
@@ -1538,7 +1537,7 @@ eng:
     supports: "Supports" #?
     synthesis: "Synthesis"
     target: "Target" #?
-    targets: "Targets"
+    # targets: "Targets"
     tasks: "Tasks" #?
     taxations: "Taxations"
     taxes: "Taxes" #?
@@ -1560,8 +1559,6 @@ eng:
     timeline_sale: "%{type} %{name} of %{amount} added by %{author} %{when}"
     timeline_task: "%{author} added task %{name} %{when}"
     times: "Times"
-    title_change_status_selected_interventions: "Change the status of selected interventions"
-    title_delete_selected_interventions: "Delete the selected interventions"
     to: "to"
     to_deposit: "To deposit"
     to_deposit_later: "To deposit later" #?
@@ -1654,7 +1651,6 @@ eng:
     # wear: "Wear"
     weather: "Weather"
     website: "Website"
-    week: "Week" #?
     wind_speed: "Wind speed"
     with_fixed_assets_depreciations: "With fixed assets depreciations"
     workers: "Workers"
@@ -1790,7 +1786,6 @@ eng:
     x_years:
       one: "1 year"
       other: "%{count} years"
-    years: "Years" #?
     yield: "Yield" #?
     yield_by_calibration: "Yield by calibration"
     zones: "Zones"
@@ -1938,7 +1933,6 @@ eng:
       detach: "Detach"
       # detach_gaps: "Detach gaps"
       detail: "Detail"
-      distribute: "Distribute unaffected products" #?
       down: "Down"
       duplicate: "Duplicate"
       edit: "Edit"
