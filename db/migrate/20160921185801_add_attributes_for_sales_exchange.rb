@@ -7,6 +7,7 @@ class AddAttributesForSalesExchange < ActiveRecord::Migration
       end
     end
     add_column :entities, :codes, :jsonb
+    add_column :sales, :codes, :jsonb
     add_column :sale_items, :codes, :jsonb
   end
 end

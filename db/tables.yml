@@ -1929,6 +1929,8 @@ entities:
   client_account_id:
     type: integer
     references: account
+  codes:
+    type: jsonb
   country:
     type: string
   created_at:

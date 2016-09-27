@@ -1983,7 +1983,8 @@ CREATE TABLE entities (
     title character varying,
     custom_fields jsonb,
     employee boolean DEFAULT false NOT NULL,
-    employee_account_id integer
+    employee_account_id integer,
+    codes jsonb
 );
 
 

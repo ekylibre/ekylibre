@@ -675,6 +675,7 @@ cmn:
     group: "组"
     group_parameters: "组参数"
     groups: "组"
+    # gtin: "GTIN"
     guide: "指南"
     harvest_year: "丰收年"
     has_downpayment: "有首付"

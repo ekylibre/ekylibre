@@ -706,6 +706,7 @@ ita:
     group: "Gruppo"
     group_parameters: "parametri del Gruppo"
     groups: "gruppi"
+    # gtin: "GTIN"
     guide: "Guida"
     harvest_year: "anno Harvest"
     has_downpayment: "ha acconto"

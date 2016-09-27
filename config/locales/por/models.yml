@@ -675,6 +675,7 @@ por:
     group: "Grupo"
     group_parameters: "Parâmetros do Grupo"
     groups: "Grupos"
+    # gtin: "GTIN"
     guide: "Guia"
     harvest_year: "Ano de colheita"
     has_downpayment: "Tem downpayment"

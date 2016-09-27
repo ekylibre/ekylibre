@@ -675,6 +675,7 @@ deu:
     group: "Gruppe"
     group_parameters: "Gruppe Parameter"
     groups: "Gruppen"
+    # gtin: "GTIN"
     guide: "Führen"
     harvest_year: "Erntejahr"
     has_downpayment: "hat Anzahlung"

@@ -679,6 +679,7 @@ spa:
     group: "Grupo"
     group_parameters: "Parámetros del grupo"
     groups: "Grupos"
+    # gtin: "GTIN"
     guide: "Guía"
     harvest_year: "Año de la cosecha"
     has_downpayment: "Tiene el pago inicial"
