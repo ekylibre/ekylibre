@@ -61,6 +61,7 @@
         border-radius: $default-border-radius;
         position: relative;
         cursor: pointer;
+        background: $white;
 
         &-select-field {
           position: absolute;
