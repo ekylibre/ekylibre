@@ -398,6 +398,7 @@ cmn:
     by_default: "默认"
     calibrations: "校准"
     campaign: "运动"
+    campaigns: "活动"
     canal: "运河"
     cap_islet: "胰岛章"
     cap_islets: "盖小岛"
