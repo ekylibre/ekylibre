@@ -191,8 +191,16 @@ class Parcel < Ekylibre::Record::Base
           # for permanent stock inventory
           b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
             for item in items
-              entry.add_credit(undelivered_label, purchase_not_received_acccount.id, item.stock_amount) unless item.stock_amount.zero?
-              entry.add_debit(undelivered_label, item.variant.charge_account.id, item.stock_amount) unless item.stock_amount.zero?
+              # compute amout on purchase or stock catalog
+              if item.purchase_item
+                amount = item.purchase_item.pretax_amount
+              else
+                amount = item.stock_amount
+              end
+              # sale not emitted
+              entry.add_credit(undelivered_label, purchase_not_received_acccount.id, amount) unless amount.zero?
+              entry.add_debit(undelivered_label, item.variant.charge_account.id, amount) unless amount.zero?
+              # permanent stock inventory
               next unless item.variant.storable?
               stock_entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
               stock_entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
@@ -205,8 +213,16 @@ class Parcel < Ekylibre::Record::Base
             # for permanent stock inventory
             b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
               for item in items
-                entry.add_debit(undelivered_label, purchase_not_received_acccount.id, item.stock_amount) unless item.stock_amount.zero?
-                entry.add_credit(undelivered_label, item.variant.product_account.id, item.stock_amount) unless item.stock_amount.zero?
+                # compute amout on sale or stock catalog
+                if item.sale_item
+                  amount = item.sale_item.pretax_amount
+                else
+                  amount = item.stock_amount
+                end
+                # sale not emitted
+                entry.add_debit(undelivered_label, purchase_not_received_acccount.id, amount) unless amount.zero?
+                entry.add_credit(undelivered_label, item.variant.product_account.id, amount) unless amount.zero?
+                # permanent stock inventory
                 next unless item.variant.storable?
                 entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
                 entry.add_debit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?

@@ -1049,6 +1049,7 @@ cmn:
     purchased_on: "购买了"
     purchases: "订单"
     quantity: "数量"
+    # quantity_gap_on_invoice_entry: "Stock quantity gap entry"
     quantity_handler: "处理器数量"
     quantity_indicator: "数量指标"
     quantity_indicator_name: "数量指标名称"
@@ -1524,6 +1525,7 @@ cmn:
       # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       # label: "%{supplier} at %{address}"
       purchase: "采购"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       states:
         aborted: "中止"
         draft: "预算案"
@@ -1553,6 +1555,7 @@ cmn:
         # invoice: "Sales invoice %{number}"
         # order: "Sales order %{number}"
         # refused: "Refused estimate %{number}"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       # sale: "Sale %{number}"
       sales_conditions:
         # downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid at the signature of this present estimate."

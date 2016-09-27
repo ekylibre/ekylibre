@@ -1295,6 +1295,7 @@ fra:
     purchases: "Achats"
     quality_criterion: "Critère qualité" #?
     quantity: "Quantité"
+    quantity_gap_on_invoice_entry: "Ecriture d'ecart de quantité de stock"
     quantity_handler: "Macro-unité Quantité"
     quantity_indicator: "Indicateur Quantité"
     quantity_indicator_name: "Quantité nom de l’indicateur"
@@ -1805,6 +1806,7 @@ fra:
       exchange_undelivered_invoice: "Facture non parvenue - extourne [%{resource} %{mode} %{number}] %{entity}"
       label: "%{supplier} à %{address}"
       purchase: "Achat"
+      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}"
       states:
         aborted: "Abandonné"
         draft: "Devis brouillon"
@@ -1834,6 +1836,7 @@ fra:
         invoice: "Facture %{number}"
         order: "Commande %{number}"
         refused: "Devis refusé %{number}"
+      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}"
       sale: "Vente %{number}"
       sales_conditions:
         downpayment: "Un acompte de %{percentage}% (soit %{amount}) devra être versé à la signature du présent devis."

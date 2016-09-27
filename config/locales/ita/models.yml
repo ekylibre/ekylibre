@@ -1080,6 +1080,7 @@ ita:
     purchased_on: "acquistato su"
     purchases: "Ordini d'acquisto"
     quantity: "Quantità"
+    # quantity_gap_on_invoice_entry: "Stock quantity gap entry"
     quantity_handler: "Quantità gestore"
     quantity_indicator: "indicatore Quantità"
     quantity_indicator_name: "Quantità nome Indicatore"
@@ -1555,6 +1556,7 @@ ita:
       # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       # label: "%{supplier} at %{address}"
       purchase: "Acquista"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       states:
         aborted: "Abortito"
         draft: "progetto stima"
@@ -1584,6 +1586,7 @@ ita:
         # invoice: "Sales invoice %{number}"
         # order: "Sales order %{number}"
         # refused: "Refused estimate %{number}"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       # sale: "Sale %{number}"
       sales_conditions:
         # downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid at the signature of this present estimate."

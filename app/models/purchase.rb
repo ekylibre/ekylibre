@@ -22,31 +22,32 @@
 #
 # == Table: purchases
 #
-#  accounted_at                 :datetime
-#  affair_id                    :integer
-#  amount                       :decimal(19, 4)   default(0.0), not null
-#  confirmed_at                 :datetime
-#  created_at                   :datetime         not null
-#  creator_id                   :integer
-#  currency                     :string           not null
-#  custom_fields                :jsonb
-#  delivery_address_id          :integer
-#  description                  :text
-#  id                           :integer          not null, primary key
-#  invoiced_at                  :datetime
-#  journal_entry_id             :integer
-#  lock_version                 :integer          default(0), not null
-#  nature_id                    :integer
-#  number                       :string           not null
-#  planned_at                   :datetime
-#  pretax_amount                :decimal(19, 4)   default(0.0), not null
-#  reference_number             :string
-#  responsible_id               :integer
-#  state                        :string
-#  supplier_id                  :integer          not null
-#  undelivered_invoice_entry_id :integer
-#  updated_at                   :datetime         not null
-#  updater_id                   :integer
+#  accounted_at                     :datetime
+#  affair_id                        :integer
+#  amount                           :decimal(19, 4)   default(0.0), not null
+#  confirmed_at                     :datetime
+#  created_at                       :datetime         not null
+#  creator_id                       :integer
+#  currency                         :string           not null
+#  custom_fields                    :jsonb
+#  delivery_address_id              :integer
+#  description                      :text
+#  id                               :integer          not null, primary key
+#  invoiced_at                      :datetime
+#  journal_entry_id                 :integer
+#  lock_version                     :integer          default(0), not null
+#  nature_id                        :integer
+#  number                           :string           not null
+#  planned_at                       :datetime
+#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_entry_id :integer
+#  reference_number                 :string
+#  responsible_id                   :integer
+#  state                            :string
+#  supplier_id                      :integer          not null
+#  undelivered_invoice_entry_id     :integer
+#  updated_at                       :datetime         not null
+#  updater_id                       :integer
 #
 
 class Purchase < Ekylibre::Record::Base
@@ -57,6 +58,7 @@ class Purchase < Ekylibre::Record::Base
   belongs_to :delivery_address, class_name: 'EntityAddress'
   belongs_to :journal_entry, dependent: :destroy
   belongs_to :undelivered_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
+  belongs_to :quantity_gap_on_invoice_entry, class_name: 'JournalEntry', dependent: :destroy
   belongs_to :nature, class_name: 'PurchaseNature'
   belongs_to :payee, class_name: 'Entity', foreign_key: :supplier_id
   belongs_to :supplier, class_name: 'Entity'
@@ -160,17 +162,34 @@ class Purchase < Ekylibre::Record::Base
       end
       entry.add_credit(label, self.supplier.account(nature.payslip? ? :employee : :supplier).id, amount)
     end
-    # for undelivered invoice
+    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    # 1 / for undelivered invoice
     # exchange undelivered invoice from parcel
-    b.journal_entry(nature.journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
-      pi = parcels.first
-      if pi && pi.undelivered_invoice_entry
-        undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: self.supplier.full_name, mode: pi.nature.tl)
-        undelivered_items = pi.undelivered_invoice_entry.items
-        for undelivered_item in undelivered_items
-          if undelivered_item.real_balance != 0
-            entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
+    for pi in parcels
+      if pi.undelivered_invoice_entry
+        b.journal_entry(nature.journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+          undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: self.supplier.full_name, mode: pi.nature.tl)
+          undelivered_items = pi.undelivered_invoice_entry.items
+          for undelivered_item in undelivered_items
+            if undelivered_item.real_balance != 0
+              entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
+            end
           end
+        end
+      end
+    end
+    # 2 / for gap between parcel item quantity and purchase item quantity
+    # if more quantity on purchase than parcel then i have value in D of stock account
+    gap_label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: self.supplier.full_name)
+    b.journal_entry(stock_journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+      items.each do |item|
+        next unless item.variant.storable?
+        parcel_items_qty = item.parcel_items.map(&:population).compact.sum
+        gap = item.quantity - parcel_items_qty
+        gap_value = gap * item.parcel_items.first.unit_pretax_stock_amount
+        if gap_value != 0.0
+          entry.add_debit(gap_label, item.variant.stock_account_id, gap_value) unless gap_value.zero?
+          entry.add_credit(gap_label, item.variant.stock_movement_account_id, gap_value) unless gap_value.zero?
         end
       end
     end

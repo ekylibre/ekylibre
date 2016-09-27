@@ -1948,6 +1948,7 @@ arb:
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
     quantity: "الكمية"
+    # quantity_gap_on_invoice_entry: "Stock quantity gap entry"
     quantity_handler: "كمية معالج"
     quantity_indicator: "مؤشر الكمية"
     quantity_indicator_name: "الكمية اسم المؤشر"
@@ -2863,6 +2864,7 @@ arb:
       # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label: "%{supplier} الى %{address}"
       purchase: "Achat"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       states:
         aborted: "أجهض"
         draft: "مشروع تقدير"
@@ -2896,6 +2898,7 @@ arb:
         estimate: "التقدير" #?
         order: "طلب" #?
         sales_invoice: "فاتورة" #?
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       sale: "البيع %{number}"
       sales_conditions:
         downpayment: "دفعة مقدمة %{percent}% (soit %{amount}€) يجب ادخال لبدفعة على توقيع التقدير الحالي"

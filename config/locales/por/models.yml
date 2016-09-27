@@ -1049,6 +1049,7 @@ por:
     purchased_on: "Comprado em"
     purchases: "Ordens de compra"
     quantity: "Quantidade"
+    # quantity_gap_on_invoice_entry: "Stock quantity gap entry"
     quantity_handler: "Manipulador Quantidade"
     quantity_indicator: "Indicador de quantidade de"
     quantity_indicator_name: "Nome do indicador de quantidade de"
@@ -1524,6 +1525,7 @@ por:
       # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       # label: "%{supplier} at %{address}"
       purchase: "Compra"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       states:
         aborted: "Abortado"
         draft: "Projecto de previsão"
@@ -1553,6 +1555,7 @@ por:
         # invoice: "Sales invoice %{number}"
         # order: "Sales order %{number}"
         # refused: "Refused estimate %{number}"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       # sale: "Sale %{number}"
       sales_conditions:
         # downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid at the signature of this present estimate."
