@@ -235,7 +235,7 @@ fra:
     tool: "Outil"
     topper: "Effaneuse"
     tractor: "Tracteur"
-    trailer: "Remorque" #?
+    trailer: "Remorque"
     tunnel: "Tunnel/Chenille"
     tunnel_implanter: "Outil de pose de tunnel/chenille"
     tunnel_remover: "Outil de retrait de tunnel/chenille"
@@ -314,6 +314,7 @@ fra:
     group_inclusion: "Inclusion de groupe" #?
     hand_weeding: "Désherbage manuel"
     harvest_helping: "Aide à la récolte" #?
+    harvest_transportation: "Transport de récolte"
     harvesting: "Récolte"
     hazelnuts_harvest: "Récolte de noisettes" #?
     hazelnuts_transport: "Transport de noisettes" #?

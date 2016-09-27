@@ -476,7 +476,7 @@ module ApplicationHelper
           html << dropdown_toggle_button + dropdown_menu(menu.items)
         end
         html
-      elsif menu.list.size == 1 && menu.first.type == :item
+      elsif menu.list.size == 1 && menu.first.type == :item && !options[:force_menu]
         default_item = menu.first
         tool_to(name, default_item.args.second,
                 (default_item.args.third || {}).merge(item_options),
@@ -513,6 +513,31 @@ module ApplicationHelper
       end
     else
       return tool_to(*args)
+    end
+  end
+
+  def pop_menu(options = {})
+    menu = Ekylibre::Support::Lister.new(:item, :separator)
+    default_class = options[:class] || 'pop-menu'
+
+    yield menu
+
+    content_tag(:nav, '', class: default_class) do
+      content_tag(:ul, class: 'menu', role: 'menu') do
+        html = ''.html_safe
+        menu.list.each do |item|
+          if item.name == :item
+
+            options = item.args.extract_options!
+            html << content_tag(:li, link_to(*item.args, options[:link_url], options[:link_options]), options[:item_options])
+
+          elsif item.name == :separator
+            html << content_tag(:li, '', class: 'separator')
+          end
+        end
+
+        html
+      end
     end
   end
 
@@ -912,6 +937,7 @@ module ApplicationHelper
         options[:id] = id
       end
     end
+
     title = options.delete(:title) || options.delete(:heading)
     options[:aria][:labelledby] ||= options[:id].underscore.camelcase(:lower)
     options[:tabindex] ||= '-1'
@@ -938,9 +964,18 @@ module ApplicationHelper
       if options[:close_button].is_a? FalseClass
         content_tag(:h4, title, class: 'modal-title', id: title_id)
       else
-        button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
+
+        title = content_tag(:h4, title, class: 'modal-title', id: title_id)
+
+        close_button = button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
           content_tag(:span, '&times;'.html_safe, aria: { hidden: 'true' })
-        end + content_tag(:h4, title, class: 'modal-title', id: title_id)
+        end
+
+        if options[:flex]
+          title + close_button
+        else
+          close_button + title
+        end
       end
     end
   end

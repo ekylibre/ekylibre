@@ -19,8 +19,8 @@
 module Backend
   class ProductNatureVariantsController < Backend::BaseController
     manage_restfully active: true
-
     manage_restfully_incorporation
+    manage_restfully_picture
 
     unroll :name, :unit_name, :number
 

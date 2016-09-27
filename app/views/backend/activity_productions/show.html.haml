@@ -169,15 +169,32 @@
         symbol_measure = currency_item.symbol + '/' + unit_item.symbol
         chart_title = :production_cost.tl + ' : ' + global_cost_per_hectare.compact.sum.round(2).to_s + ' ' + label_measure +' (' + symbol_measure + ')'
 
-
-
       = column_highcharts(series, title: chart_title, tooltip: {point_format: "{point.y: 1.2f} #{symbol_measure}"}, y_axis: {title: {text: :cost_per_net_surface_area.tl + ' (' + symbol_measure + ')'}, stack_labels: {enabled: true, format: "{total} " + symbol_measure}, labels: { format: "{value}" }}, x_axis: { categories: categories}, legend: true, plot_options: { column: {stacking: 'normal'}})
   - else
     = no_data
 
+  -# c.cobble(:horizontal_timeline) do
+
+    = timeline_chart("chart", resource.started_on, resource.stopped_on) do |chart|
+      - interventions_menu = pop_menu :class => "timeline-chart-menu" do |menu|
+        - intervention_url = { controller: :interventions, action: :new}
+        - menu.item 'Ajouter une intervention', { item_options: {:class => "menu-item"}, link_url: intervention_url, link_options: {:class => "menu-link"}}
+        - if resource.tactic.present?
+          - period_url = { controller: :activity_tactics, action: :edit, id: resource.tactic.id }
+          - menu.item 'Ajouter une période', { item_options: {:class => "menu-item"}, link_url: period_url, link_options: {:class => "menu-link"}}
+
+      - chart.group "Interventions" do |item|
+
+        - if resource.interventions.any?
+          - resource.interventions.each do |intervention|
+            - item.icon 'test', intervention.started_at, 'tractor', "40px", {"id": "icone2", "custom_class": "blue-interval"}
+
   - c.cobble(:interventions) do
     = cobble_toolbar do |t|
-      = t.new(params: {controller: :interventions, production_support_id: resource.id})
+      - if resource.tactic
+        = t.new(params: { controller: :activity_tactics, action: :edit, id: resource.tactic.id })
+      = t.new(params: { controller: :interventions, production_support_id: resource.id })
+
     - if resource.interventions.any?
       = cobble_list(:interventions)
 

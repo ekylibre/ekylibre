@@ -48,11 +48,34 @@ module Backend
       code << "  c << params[:procedure_name]\n"
       code << "end\n"
       code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
+      code << "c[0] << ' AND #{Intervention.table_name}.request_intervention_id IS NULL'\n"
+      code << "c[0] << ' AND #{Intervention.table_name}.state != ?'\n"
+      code << "  c << 'rejected'\n"
 
-      # Current campaign
-      code << "if current_campaign\n"
-      code << "  c[0] << \" AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?\"\n"
-      code << "  c << current_campaign.harvest_year\n"
+      # select the interventions according to the user current period
+      code << "unless current_period_interval.blank? && current_period.blank?\n"
+
+      code << " if current_period_interval.to_sym == :day\n"
+      code << "   c[0] << ' AND EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
+      code << "   c << current_period.to_date.day\n"
+      code << "   c << current_period.to_date.month\n"
+      code << "   c << current_period.to_date.year\n"
+
+      code << " elsif current_period_interval.to_sym == :week\n"
+      code << "   c[0] << ' AND #{Intervention.table_name}.started_at >= ? AND #{Intervention.table_name}.stopped_at <= ?'\n"
+      code << "   c << current_period.to_date.at_beginning_of_week.to_time.beginning_of_day\n"
+      code << "   c << current_period.to_date.at_end_of_week.to_time.end_of_day\n"
+
+      code << " elsif current_period_interval.to_sym == :months\n"
+      code << "   c[0] << ' AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
+      code << "   c << current_period.to_date.month\n"
+      code << "   c << current_period.to_date.year\n"
+
+      code << " elsif current_period_interval.to_sym == :years\n"
+      code << "   c[0] << ' AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
+      code << "   c << current_period.to_date.year\n"
+      code << " end\n"
+
       code << "end\n"
 
       # Support
@@ -224,6 +247,65 @@ module Backend
           format.json { render json: { errors: e.message }, status: 500 }
         end
       end
+    end
+
+    def modal
+      if params[:intervention_id]
+        @intervention = Intervention.find(params[:intervention_id])
+        render partial: 'backend/interventions/details_modal', locals: { intervention: @intervention }
+      end
+
+      if params[:interventions_ids]
+        @interventions = Intervention.find(params[:interventions_ids].split(','))
+        render partial: 'backend/interventions/change_state_modal', locals: { interventions: @interventions }
+      end
+    end
+
+    def change_state
+      unless state_change_permitted_params
+        head :unprocessable_entity
+        return
+      end
+
+      interventions_ids = JSON.parse(state_change_permitted_params[:interventions_ids]).to_a
+      new_state = state_change_permitted_params[:state].to_sym
+
+      @interventions = Intervention.find(interventions_ids)
+
+      Intervention.transaction do
+        @interventions.each do |intervention|
+          if intervention.nature == :record && new_state == :rejected
+            intervention.destroy!
+            next
+          end
+
+          new_intervention = intervention
+
+          if intervention.nature == :request
+            new_intervention = intervention.dup
+            new_intervention.parameters = intervention.parameters
+          end
+
+          new_intervention.state = new_state
+          new_intervention.nature = :record
+
+          next unless new_intervention.valid?
+          new_intervention.save!
+
+          if intervention.nature == :request
+            intervention.request_intervention_id = new_intervention.id
+            intervention.save!
+          end
+        end
+      end
+
+      redirect_to_back
+    end
+
+    private
+
+    def state_change_permitted_params
+      params.require(:intervention).permit(:interventions_ids, :state)
     end
   end
 end

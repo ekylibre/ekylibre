@@ -197,12 +197,12 @@ Rails.application.routes.draw do
       member do
         get :list_distributions
         get :list_inspections
-        get :list_interventions
+        # get :list_interventions
         get :list_productions
       end
     end
 
-    resources :activity_budgets do
+    resources :activity_budgets, concerns: [:unroll] do
       member do
         post :duplicate
       end
@@ -219,7 +219,6 @@ Rails.application.routes.draw do
     end
 
     resources :activity_seasons, concerns: [:unroll]
-    resources :activity_tactics, concerns: [:unroll], except: [:index]
 
     resources :affairs, concerns: [:list, :affairs], only: [:show, :index]
 
@@ -290,7 +289,7 @@ Rails.application.routes.draw do
         get :current
       end
       member do
-        get :list_activity_productions
+        # get :list_activity_productions
         post :open
         delete :close
       end
@@ -403,7 +402,6 @@ Rails.application.routes.draw do
     resources :entities, concerns: [:autocomplete, :list, :unroll] do
       collection do
         match 'import', via: [:get, :post]
-        match 'export', via: [:get, :post]
         match 'merge',  via: [:get, :post]
       end
       member do
@@ -443,9 +441,9 @@ Rails.application.routes.draw do
 
     resources :fixed_assets, concerns: [:list, :unroll], path: 'fixed-assets' do
       member do
-        get :cede
-        get :sell
-        post :depreciate
+        # get :cede
+        # get :sell
+        # post :depreciate
         get :list_depreciations
         get :list_products
       end
@@ -525,6 +523,8 @@ Rails.application.routes.draw do
     resources :interventions, concerns: [:list, :unroll] do
       collection do
         patch :compute
+        get :modal
+        post :change_state
       end
       member do
         get :list_product_parameters
@@ -585,11 +585,11 @@ Rails.application.routes.draw do
 
     resources :labels, concerns: [:list, :unroll]
 
-    resources :land_parcels, concerns: :products
+    resources :land_parcels, concerns: :products, path: 'land-parcels'
 
-    resources :listing_nodes
+    resources :listing_nodes, except: [:index, :show], path: 'listing-nodes'
 
-    resources :listings, concerns: [:list, :unroll] do
+    resources :listings, concerns: [:list, :unroll], except: [:show] do
       member do
         get :extract
         post :duplicate
@@ -603,9 +603,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :loan_repayments, only: [:index, :show]
+    resources :loan_repayments, only: [:index, :show], path: 'loan-repayments'
 
-    resources :manure_management_plans, concerns: [:list, :unroll] do
+    resources :manure_management_plans, concerns: [:list, :unroll], path: 'manure-management-plans' do
       member do
         get :list_zones
       end
@@ -761,7 +761,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :sale_tickets, concerns: [:list, :affairs], path: 'sale-tickets'
+    resources :sale_tickets, concerns: [:list, :affairs], only: [:index, :show], path: 'sale-tickets'
 
     resources :sales, concerns: [:list, :unroll] do
       collection do

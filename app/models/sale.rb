@@ -199,13 +199,17 @@ class Sale < Ekylibre::Record::Base
     client.add_event(:sale_creation, updater.person) if updater && updater.person
   end
 
+  protect on: :destroy do
+    invoice? || order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
+  end
+
   # This callback bookkeeps the sale depending on its state
   bookkeep do |b|
     b.journal_entry(self.nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice?)) do |entry|
       label = tc(:bookkeep, resource: state_label, number: number, client: client.full_name, products: (description.blank? ? items.pluck(:label).to_sentence : description), sale: initial_number)
       entry.add_debit(label, client.account(:client).id, amount) unless amount.zero?
-      for item in items
-        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount) unless item.pretax_amount.zero?
+      items.each do |item|
+        entry.add_credit(label, (item.account || item.variant.product_account).id, item.pretax_amount, activity_budget: item.activity_budget, team: item.team) unless item.pretax_amount.zero?
         entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
     end

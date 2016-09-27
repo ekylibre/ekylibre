@@ -398,6 +398,7 @@ por:
     by_default: "Por padrão"
     calibrations: "calibrações"
     campaign: "Campanha"
+    campaigns: "Campanhas"
     # canal: "Canal"
     cap_islet: "Cap ilhéu"
     cap_islets: "Ilhotas tampão"

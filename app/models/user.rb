@@ -325,6 +325,22 @@ class User < Ekylibre::Record::Base
     prefer!('current_campaign.id', campaign.id, :integer)
   end
 
+  def current_period_interval
+    preference('current_period_interval', :years, :string).value
+  end
+
+  def current_period_interval=(period_interval)
+    prefer!('current_period_interval', period_interval, :string)
+  end
+
+  def current_period
+    preference('current_period', Date.today, :string).value
+  end
+
+  def current_period=(period)
+    prefer!('current_period', period, :string)
+  end
+
   def card
     nil
   end

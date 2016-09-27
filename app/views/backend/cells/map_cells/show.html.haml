@@ -11,9 +11,8 @@
         if sensor.analyses.last && sensor.analyses.last.geolocation
           analysis = sensor.analyses.last
           popup_lines = analysis.items.map do |item|
-            value = item.value.is_a?(Measure) ? item.value.value.to_f.round : item.value
-            unit = item.value.is_a?(Measure) ? item.value.human_value_measure_unit_name : nil
-            { label: item.human_indicator_name, content: [value, unit].compact.join(" ") }
+            next unless item.value.respond_to? :l
+            { label: item.human_indicator_name, content: item.value.l }
           end
 
           battery = sensor.battery_level
@@ -164,6 +163,11 @@
 - else
   = visualization({}, { class: "refresh-locations" }) do |v|
     - v.serie :main, data
+
+    - unless sensor_data.blank?
+      - v.serie :sensor_data, sensor_data
+      - v.point_group :sensors, :sensor_data
+
     - if params[:visualization] == "nitrogen_footprint"
       - v.choropleth :interventions_count, :main
       -# v.choropleth :nitrogen_concentration, :main, stop_color: "#777777"
@@ -181,9 +185,6 @@
       - v.choropleth :time_cost, :main, stop_color: "#E77000"
       - v.categories :activity, :main
 
-    - unless sensor_data.blank?
-      - v.serie :sensor_data, sensor_data
-      - v.point_group :sensors, :sensor_data
 
     - v.control :zoom
     - v.control :scale

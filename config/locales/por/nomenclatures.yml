@@ -2079,6 +2079,7 @@ por:
         temperature_improvement: "Melhoria temperatura"
         # topkilling: "Topkilling"
         tractor_troubleshooting: "Solução de problemas tractor"
+        transportation: "Transporte"
         troubleshooting: "Solução de problemas"
         tunnel_installation: "instalação de túnel"
         tunnel_removal: "remoção do túnel"
