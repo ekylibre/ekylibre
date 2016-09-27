@@ -1035,7 +1035,6 @@ arb:
     attorney_account_id: "حساب مساعد الوكيل" #?
     attorney_accounts: "وكلاء الحسابات" #?
     attribute_name: "اسم الصفة المميزة"
-    # attribution: "Attribution"
     authentication_token: "رمز المصادقة"
     author: "مؤلف"
     authorized_payments_count: "عدد الدفعات المصرحة بها"
@@ -1077,7 +1076,6 @@ arb:
     cache: "مخبأ" #?
     calibrations: "المعايرة"
     campaign: "حملة"
-    # campaigns: "Campaigns"
     canal: "قناة"
     cap_islet: "كاب جزيرة"
     cap_islets: "الجزر كاب"
@@ -1890,7 +1888,6 @@ arb:
     product_category: "الفئة" #?
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
-    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "المتعة المنتج"
     product_id: "المنتج" #?
     product_identification_number: "رقم الهوية"
@@ -1907,8 +1904,6 @@ arb:
     product_nature_variant: "طبيعة المنتج البديل"
     product_nature_variant_id: "طبيعة المنتج البديل"
     product_natures: "أنواع المنتجات"
-    # product_net_surface_area_unit: "Product net surface area unit"
-    # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "ملكية المنتج"
     product_ownerships: "الملكيات المنتج"
     product_parameters: "المنتج المعلمات"
@@ -2083,7 +2078,6 @@ arb:
     sampling_length_unit: "وحدة طول أخذ العينات"
     sampling_temporal_mode: "وضع الزمني أخذ العينات"
     scale: "مقياس"
-    # scales: "Scales"
     scheduled: "الدفعة المبرمجة"
     season: "موسمية"
     # seasons: "Seasonalities"
@@ -2129,7 +2123,6 @@ arb:
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
     source_product: "مصدر المنتج"
-    # source_product_movement: "Source product movement"
     spaced_iban: "متباعدة IBAN"
     sql_type: "SQL نوع"
     ssl: "خدمة تصميم المواقع"
@@ -2193,7 +2186,6 @@ arb:
     supports: "الدعم"
     surface_units: "وحدات المظهر الخارجي" #?
     suspended: "معطل"
-    # swim_lane_uuid: "Swim lane uuid"
     symbol: "نموذج" #?
     symmetric: "متساو" #?
     tactic: "تقنيات إدارة المحاصيل"

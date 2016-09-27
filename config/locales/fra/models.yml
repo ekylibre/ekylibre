@@ -500,7 +500,6 @@ fra:
     attorney_journal: "Journal mandataire" #?
     attorneys: "Mandataires" #?
     attribute_name: "Nom de l’attribut"
-    # attribution: "Attribution"
     authentication_token: "Clef d’authentification"
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
@@ -534,7 +533,6 @@ fra:
     by_default: "Par défaut"
     calibrations: "Stock en terre par calibre"
     campaign: "Campagne"
-    # campaigns: "Campaigns"
     canal: "Canal"
     cap_islet: "Ilot PAC"
     cap_islets: "Ilots PAC"
@@ -1236,7 +1234,6 @@ fra:
     product_creations: "Créations de produit" #?
     product_deaths: "Morts de produit" #?
     product_divisions: "Divisions de produit" #?
-    # product_enjoyment: "Product enjoyment"
     product_enjoyments: "Usufruit de produit"
     product_grading: "Agréage produit" #?
     product_identification_number: "Numéro d’identification"
@@ -1258,8 +1255,6 @@ fra:
     product_nature_variant_id: "Variante"
     product_natures: "Types de produits"
     product_net_surface_area: "Surface totale" #?
-    # product_net_surface_area_unit: "Product net surface area unit"
-    # product_net_surface_area_value: "Product net surface area value"
     product_ownership: "Propriété de produit"
     product_ownerships: "Propriétés de produit"
     product_parameters: "Paramètres du produit"
@@ -1407,7 +1402,6 @@ fra:
     sampling_length_unit: "Unité de longueur d’échantillonnage"
     sampling_temporal_mode: "Type d’échantillonnage"
     scale: "Échelle"
-    # scales: "Scales"
     scheduled: "Encaissement programmé"
     season: "Saisonnalité"
     seasons: "Saisonnalités"
@@ -1442,7 +1436,6 @@ fra:
     soil_production: "Contribution en azote du sol (Po)"
     source: "Source"
     source_product: "Produit Source"
-    # source_product_movement: "Source product movement"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
     ssl: "Ssl"
@@ -1492,7 +1485,6 @@ fra:
     support_variety: "Variété du support"
     supports: "Supports"
     suspended: "Suspendu"
-    # swim_lane_uuid: "Swim lane uuid"
     tactic: "Itinéraire technique"
     tactics: "Itinéraires culturaux"
     target: "Cible"
