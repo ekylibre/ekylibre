@@ -26,22 +26,24 @@
   = f.attachments
   -# = f.object.errors.inspect
 
+- if f.object.allow_items_update?
+  = field_set f.object.class.human_attribute_name(:items) do
+    %table.list
+      %thead
+        %tr
+          %th.act
+          %th= ParcelItem.human_attribute_name(:product)
+          -# %th= ParcelItem.human_attribute_name(:parted)
+          %th= ParcelItem.human_attribute_name(:population)
+          -# %th= ParcelItem.human_attribute_name(:shape)
+          %th= ParcelItem.human_attribute_name(:analysis)
 
-= field_set f.object.class.human_attribute_name(:items) do
-  %table.list
-    %thead
-      %tr
-        %th.act
-        %th= ParcelItem.human_attribute_name(:product)
-        -# %th= ParcelItem.human_attribute_name(:parted)
-        %th= ParcelItem.human_attribute_name(:population)
-        -# %th= ParcelItem.human_attribute_name(:shape)
-        %th= ParcelItem.human_attribute_name(:analysis)
-
-    = f.simple_fields_for :items, f.object.items do |item|
-      = render item_partial, f: item
-    - if f.object.allow_items_update?
-      %tfoot#items_anchor
-        %tr.total
-          %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items, partial: item_partial, 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
-
+      = f.simple_fields_for :items, f.object.items do |item|
+        = render item_partial, f: item
+      - if f.object.allow_items_update?
+        %tfoot#items_anchor
+          %tr.total
+            %th{colspan: 4}= link_to_add_association :add_item.tl, f, :items, partial: item_partial, 'data-association-insertion-node' => '#items_anchor', 'data-association-insertion-method' => :before, class: "btn primary"
+/ -else
+/   = field_set f.object.class.human_attribute_name(:items) do
+/     = "Items cannot be edited in current parcel state."
