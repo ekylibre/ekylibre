@@ -280,8 +280,8 @@ ita:
       # edit: "Edit %{procedure_name} #%{number}"
       # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "interventi"
-      new: "Nuovo intervento" #?
-      new_request: "Nuova richiesta di intervento" #?
+      new: "Nuovo intervento"
+      new_request: "Nuova richiesta di intervento"
       new_specified: "Nuovo intervento"
       new_specified_request: "Nuovo intervento richiesto"
       # show: "%{procedure_name}"

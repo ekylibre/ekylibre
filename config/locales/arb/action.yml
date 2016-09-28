@@ -341,8 +341,8 @@ arb:
       # edit: "Edit %{procedure_name} #%{number}"
       # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "التدخلات"
-      new: "تدخل جديد" #?
-      new_request: "طلب تدخل جديد" #?
+      new: "تدخل جديد"
+      new_request: "طلب تدخل جديد"
       new_specified: "تدخل جديد"
       new_specified_request: "تدخل طلب جديد"
       # show: "%{procedure_name}"
