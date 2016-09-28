@@ -186,7 +186,11 @@ class Purchase < Ekylibre::Record::Base
         next unless item.variant.storable?
         parcel_items_qty = item.parcel_items.map(&:population).compact.sum
         gap = item.quantity - parcel_items_qty
-        gap_value = gap * item.parcel_items.first.unit_pretax_stock_amount
+        qty = 0.0
+        if item.parcel_items.any?
+          qty = item.parcel_items.first.unit_pretax_stock_amount if item.parcel_items.first.unit_pretax_stock_amount
+        end
+        gap_value = gap * qty
         if gap_value != 0.0
           entry.add_debit(gap_label, item.variant.stock_account_id, gap_value) unless gap_value.zero?
           entry.add_credit(gap_label, item.variant.stock_movement_account_id, gap_value) unless gap_value.zero?
