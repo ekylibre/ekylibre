@@ -53,22 +53,22 @@
 
           - header_class = 'taskboard-header--gray'
 
-          - board.column :class => "requests" do |column|
+          - board.column :requests do |column|
             - requested_interventions = Intervention.with_unroll(search_params.merge(nature: :request))
             - column.header :requests.tl + " (" + requested_interventions.count.to_s + ")", headers_actions, class: header_class
             - add_taskboard_tasks(requested_interventions, column)
 
-          - board.column :class => "current" do |column|
+          - board.column :current do |column|
             - interventions_in_progress = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :in_progress }))
             - column.header :current.tl + " (" + interventions_in_progress.count.to_s + ")", headers_actions, class: header_class
             - add_taskboard_tasks(interventions_in_progress, column)
 
-          - board.column :class => "finished" do |column|
+          - board.column :finished do |column|
             - interventions_done = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :done }))
             - column.header :completed.tl + " (" + interventions_done.count.to_s + ")", headers_actions, class: header_class
             - add_taskboard_tasks(interventions_done, column)
 
-          - board.column :class => "validated" do |column|
+          - board.column :validated do |column|
             - validated_interventions = Intervention.with_unroll(search_params.merge({ :nature => :record, :state => :validated }))
             - column.header :validated.tl + " (" + validated_interventions.count.to_s + ")", [], class: header_class
             - add_taskboard_tasks(validated_interventions, column)

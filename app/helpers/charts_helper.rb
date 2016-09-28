@@ -179,7 +179,8 @@ module ChartsHelper
   }.freeze
 
   def lightness(color)
-    color = COLORS[color.downcase.to_sym] unless color.to_s =~ /\A\#\d{6}\z/
+    color = COLORS[color.downcase.to_sym] unless color.to_s =~ /\A\#[a-fA-F0-9]{6}\z/
+    color ||= '#777777'
     r = color[1..2].to_i(16)
     g = color[3..4].to_i(16)
     b = color[5..6].to_i(16)
