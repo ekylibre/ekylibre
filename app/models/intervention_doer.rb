@@ -67,8 +67,8 @@ class InterventionDoer < InterventionAgent
         # self.update_column(:event_participation_id, event_participation.id)
         self.event_participation_id = event_participation.id
       end
-    elsif self.event_participation
-      self.event_participation.destroy!
+    elsif event_participation
+      event_participation.destroy!
     end
   end
 end

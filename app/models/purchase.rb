@@ -148,19 +148,19 @@ class Purchase < Ekylibre::Record::Base
   end
 
   after_create do
-    self.supplier.add_event(:purchase_creation, updater.person) if updater
+    supplier.add_event(:purchase_creation, updater.person) if updater
   end
 
   # This callback permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     b.journal_entry(nature.journal, printed_on: invoiced_on, if: (with_accounting && invoice?)) do |entry|
-      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: self.supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, supplier: supplier.full_name, products: (description.blank? ? items.collect(&:name).to_sentence : description))
       for item in items
         entry.add_debit(label, item.account, item.pretax_amount, activity_budget: item.activity_budget, team: item.team) unless item.pretax_amount.zero?
         entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
-      entry.add_credit(label, self.supplier.account(nature.payslip? ? :employee : :supplier).id, amount)
+      entry.add_credit(label, supplier.account(nature.payslip? ? :employee : :supplier).id, amount)
     end
     stock_journal = Journal.find_or_create_by!(nature: :stocks)
     # 1 / for undelivered invoice

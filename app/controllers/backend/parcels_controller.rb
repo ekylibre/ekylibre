@@ -99,7 +99,8 @@ module Backend
     list(:outgoing_items, model: :parcel_items, conditions: { parcel_id: 'params[:id]'.c }) do |t|
       t.column :source_product, url: true
       t.column :product, url: true, hidden: true
-      # t.column :product_work_number, through: :product, label_method: :work_number
+      t.column :product_work_number, through: :product, label_method: :work_number, hidden: true
+      t.column :product_identification_number, hidden: true
       t.column :population
       t.column :unit_name, through: :variant
       # t.column :variant, url: true

@@ -6,7 +6,7 @@
       <parameter name="tank_for_wine" type="target" filter="is tank and can store_liquid" default-actor="storage"/>
       <parameter name="tank_for_residue" type="tool" filter="is tank and can store_liquid"/>
       <parameter name="press" type="tool" filter="is equipment and can press(grape)"/>
-      <parameter name="wine_man" type="doer" filter="can move and can drive(press)"/>
+      <parameter name="wine_man" type="doer" filter="can move"/>
       <parameter name="juice" type="output" variety="juice" derivative-of="variety: grape_to_press" filter="is juice and derives from grape" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="net_volume" unit="hectoliter" to="population" backward="POPULATION * PRODUCT..net_volume(hectoliter)" forward="VALUE / PRODUCT..net_volume(hectoliter)"/>
         <handler indicator="net_mass" unit="ton" to="population" backward="POPULATION * PRODUCT..net_mass(ton)" forward="VALUE / PRODUCT..net_mass(ton)"/>

@@ -94,7 +94,7 @@ class InterventionTest < ActiveSupport::TestCase
     LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
       intervention.add_parameter!(:zone) do |g|
         g.add_parameter!(:land_parcel, land_parcel)
-        g.add_parameter!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
+        g.add_parameter!(:plant, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
       end
     end
     assert intervention.runnable?, 'Intervention should be runnable'
@@ -114,7 +114,7 @@ class InterventionTest < ActiveSupport::TestCase
       LandParcel.of_expression('can store(plant)').limit(3).each do |land_parcel|
         i.add!(:zone) do |g|
           g.add!(:land_parcel, land_parcel)
-          g.add!(:cultivation, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
+          g.add!(:plant, variant: cultivation_variant, working_zone: land_parcel.shape, quantity_population: land_parcel.shape_area / cultivation_variant.net_surface_area)
         end
       end
     end

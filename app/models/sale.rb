@@ -204,7 +204,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   protect on: :destroy do
-    invoice? || order?
+    invoice? || order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
   end
 
   # This callback bookkeeps the sale depending on its state

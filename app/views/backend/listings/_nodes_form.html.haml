@@ -1,5 +1,5 @@
 - unless @listing.new_record?
   = toolbar do |t|
-    = t.extract @listing, params: {format: :csv}
-    = t.mail(@listing, :i18n => {:name => @listing.name}) if @listing.can_mail?
+    = t.extract params: { model: @listing, format: :csv }
+    -# = t.mail(@listing, :i18n => {:name => @listing.name}) if @listing.can_mail?
   %ul.tree= render :partial => "backend/listings/node", :object => @listing.root

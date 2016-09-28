@@ -210,7 +210,7 @@ module Clean
           .select { |klass| klass < ActiveRecord::Base }
           .select { |x| !x.name.start_with?('ActiveRecord::') && !x.abstract_class? && !x.name.start_with?('HABTM_') }
           .uniq
-          .sort { |a, b| a.name <=> b.name }
+          .sort_by(&:name)
       end
 
       # Lists all controller that inherits of ApplicationController included
@@ -222,7 +222,7 @@ module Clean
         ObjectSpace
           .each_object(Class)
           .select { |klass| klass <= ::ApplicationController || klass <= ::ApiController }
-          .sort { |a, b| a.name <=> b.name }
+          .sort_by(&:name)
       end
 
       # Lists helpers paths

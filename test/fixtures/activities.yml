@@ -230,9 +230,10 @@ activities_007:
 activities_008:
   created_at: 2016-01-21 14:05:47.480362000 Z
   cultivation_variety: zea_mays
+  description: ''
   family: plant_farming
   id: 9
-  lock_version: 0
+  lock_version: 1
   measure_grading_items_count: false
   measure_grading_net_mass: false
   measure_grading_sizes: false
@@ -244,7 +245,8 @@ activities_008:
   size_unit_name: hectare
   support_variety: cultivable_zone
   suspended: false
-  updated_at: 2016-01-21 14:05:47.480362000 Z
+  updated_at: 2016-07-29 09:03:43.304413000 Z
+  updater_id: 1
   use_countings: false
   use_gradings: false
   use_seasons: false

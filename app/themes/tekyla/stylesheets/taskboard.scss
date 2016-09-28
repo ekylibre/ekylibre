@@ -1,0 +1,124 @@
+.taskboard {
+  @include flex-row(space-between, flex-start);
+  padding: $default-gap;
+  overflow: auto;
+
+  .taskboard-column {
+    border: $menu-border;
+    @include border-top-radius($default-border-radius);
+    flex: 1;
+    background: $darkened-white;
+    margin: $default-gap;
+
+    .taskboard-header {
+      @include flex-row(space-between);
+      padding: $default-gap ($default-gap * 2);
+      line-height: $lh-normal;
+      height: $lh-normal;
+
+      &--fixed {
+        position: fixed;
+        background-color: $darkened-white;
+        z-index: 6;
+      }
+
+      .title {
+        font-size: $fs-normal;
+        font-weight: bold;
+      }
+
+      .actions {
+
+        .picto {
+          color: $lightened-grey;
+          font-size: $fs-large;
+          min-width: initial;
+          line-height: initial;
+        }
+
+        .picto--invisible {
+          display: none;
+        }
+
+        .picto:hover {
+          color: $text-color;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .tasks {
+      padding: round($default-gap / 2) 0;
+      border-top: $menu-border;
+      @include flex-column(stretch, flex-start);
+      flex: 1;
+
+      .task {
+        @include flex-column(flex-start, flex-start);
+        border: $menu-border;
+        margin: round($default-gap / 2) $default-gap;
+        padding: $default-gap;
+        border-radius: $default-border-radius;
+        position: relative;
+        cursor: pointer;
+        background: $white;
+
+        &-select-field {
+          position: absolute;
+          right: round($default-gap * 1.4);
+          top: round($default-gap * 1.4);
+        }
+
+        &-texts {
+          font-weight: bold;
+        }
+
+        &-text {
+          font-size: $fs-normal;
+        }
+
+        &-datas {
+          margin-top: $default-gap;
+          display: flex;
+          flex-wrap: wrap;
+          * {
+            padding: round($default-gap * 0.3) round($default-gap * 0.7);
+            border-radius: $default-border-radius;
+            font-weight: bold;
+            margin-top: round($default-gap * 0.5);
+          }
+
+          .picto {
+            font-size: $fs-large;
+            min-width: initial;
+            line-height: initial;
+            color: inherit;
+          }
+          .task-data {
+            @include margin-right($default-gap);
+          }
+          .data-text {
+            color: inherit;
+            font-size: $fs-normal;
+            font-style: italic;
+            line-height: initial;
+          }
+        }
+
+        &-colors {
+          @include flex-row(flex-start);
+          flex-wrap: wrap;
+          margin-bottom: round($default-gap * 0.7);
+        }
+
+        &-color {
+          width: 40px;
+          height: 10px;
+          border-radius: $default-border-radius;
+          margin-right: round($default-gap * 0.7);
+          margin-bottom: round($default-gap * 0.7);
+        }
+      }
+    }
+  }
+}

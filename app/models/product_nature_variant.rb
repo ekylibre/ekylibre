@@ -74,8 +74,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, inclusion: { in: [true, false] }
-  validates :name, :picture_content_type, :picture_file_name, :reference_name, :work_number, length: { maximum: 500 }, allow_blank: true
-  validates :number, presence: true, uniqueness: true, length: { maximum: 500 }
+  validates :gtin, :name, :number, :picture_content_type, :picture_file_name, :reference_name, length: { maximum: 500 }, allow_blank: true
   validates :picture_file_size, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
   validates :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :unit_name, presence: true, length: { maximum: 500 }
@@ -84,6 +83,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates :number, length: { allow_nil: true, maximum: 60 }
   validates :number, uniqueness: true
   validates :derivative_of, :variety, length: { allow_nil: true, maximum: 120 }
+  validates :gtin, length: { allow_nil: true, maximum: 14 }
   validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :commercial_name, :name
@@ -162,13 +162,17 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   validate do
     if nature
-      unless Nomen::Variety.all(nature_variety).include?(self.variety.to_s)
+      unless Nomen::Variety.find(nature_variety) >= self.variety
         logger.debug "#{nature_variety}#{Nomen::Variety.all(nature_variety)} not include #{self.variety.inspect}"
         errors.add(:variety, :invalid)
       end
-      if self.derivative_of
-        unless Nomen::Variety.all(nature_derivative_of).include?(self.derivative_of.to_s)
-          errors.add(:derivative_of, :invalid)
+      if Nomen::Variety.find(nature_derivative_of)
+        if self.derivative_of
+          unless Nomen::Variety.find(nature_derivative_of) >= self.derivative_of
+            errors.add(:derivative_of, :invalid)
+          end
+        else
+          errors.add(:derivative_of, :blank)
         end
       end
       # if storable?
@@ -199,6 +203,16 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
       return ac = Account.create!(options)
 
+    end
+    if variety && products.any?
+      if products.detect { |p| Nomen::Variety.find(p.variety) > variety }
+        errors.add(:variety, :invalid)
+      end
+    end
+    if derivative_of && products.any?
+      if products.detect { |p| p.derivative_of? && Nomen::Variety.find(p.derivative_of) > derivative_of }
+        errors.add(:derivative_of, :invalid)
+      end
     end
   end
 

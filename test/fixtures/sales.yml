@@ -65,7 +65,6 @@
 #  undelivered_invoice_entry_id     :integer
 #  updated_at                       :datetime         not null
 #  updater_id                       :integer
-#
 ---
 sales_001:
   accounted_at: 2014-11-05 09:58:26.783812000 Z

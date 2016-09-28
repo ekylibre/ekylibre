@@ -126,6 +126,7 @@ class ParcelItem < Ekylibre::Record::Base
     purchase_item_id
     sale_item_id
     updated_at
+    updater_id
   ).freeze
   protect(allow_update_on: ALLOWED, on: [:create, :destroy, :update]) do
     !parcel_allow_items_update?

@@ -1076,6 +1076,7 @@ arb:
     cache: "مخبأ" #?
     calibrations: "المعايرة"
     campaign: "حملة"
+    campaigns: "حملات"
     canal: "قناة"
     cap_islet: "كاب جزيرة"
     cap_islets: "الجزر كاب"
@@ -1125,6 +1126,7 @@ arb:
     clusters_work_number: "مجموعات العمل رقم"
     code: "الرمز"
     code2: "الرمز الثاني" #?
+    codes: "رموز"
     coefficient: "الدرجة"
     collect_account: "جمع الحساب"
     collected_account: "جمع قيمة الضريبة الاضافية" #?
@@ -1461,6 +1463,7 @@ arb:
     group: "مجموعة"
     group_parameters: "معلمات مجموعة"
     groups: "المجموعات"
+    # gtin: "GTIN"
     guide: "دليل"
     harvest_year: "حصاد العام"
     has_downpayment: "لديه عربون واحد"

@@ -26,7 +26,7 @@ arb:
         none: "لا شيء"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "مجموعة الحيوانات"
         border: "الحدود"
         buffer: "عازلة"
         cultivation: "زراعة"
@@ -192,8 +192,10 @@ arb:
       state:
         done: "فعله"
         in_progress: "في تَقَدم"
-        squeezed: "تقلص"
-        undone: "غير مصنوع"
+        rejected: "مرفوض"
+        squeezed: "تقلص" #?
+        undone: "غير مصنوع" #?
+        validated: "التحقق من صحة"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "منطقية"

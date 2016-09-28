@@ -2,10 +2,10 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="net_installation" categories="crop_protection" optional-actions="game_repellent, frost_protection, sun_protection, insect_repellent, bird_repellent">
     <parameters>
-      <target name="cultivation" filter="is plant and has indicator shape">
+      <target name="plant" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <input name="protective_net" filter="can care(plant) and can cover(plant)">
+      <input name="protective_net" filter="can care(plant) and can cover(plant)" cardinality="*">
         <handler name="population"/>
         <handler indicator="length" unit="meter"
                  if="population_counting_is(PRODUCT, :decimal) > 0 and PRODUCT..length?"
@@ -16,9 +16,10 @@
                  backward="POPULATION * (PRODUCT..length(meter) * PRODUCT..width(meter))"
                  forward="VALUE / (PRODUCT..length(meter) * PRODUCT..width(meter))"/>
       </input>
-      <tool name="net_implanter"  filter="is equipment and can cover(plant)" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <doer name="worker"  filter="is worker" cardinality="*"/>
+      <tool name="net_implanter" filter="is equipment and can cover(plant)" cardinality="*"/>
+      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
+      <doer name="worker" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

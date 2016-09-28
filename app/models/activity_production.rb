@@ -61,13 +61,16 @@ class ActivityProduction < Ekylibre::Record::Base
   belongs_to :support, class_name: 'Product' # , inverse_of: :supports
   belongs_to :tactic, class_name: 'ActivityTactic', inverse_of: :productions
   belongs_to :season, class_name: 'ActivitySeason', inverse_of: :productions
-  has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :restrict_with_exception
+  has_many :distributions, class_name: 'TargetDistribution', inverse_of: :activity_production, dependent: :destroy
   has_many :budgets, through: :activity
   has_many :manure_management_plan_zones, class_name: 'ManureManagementPlanZone',
                                           inverse_of: :activity_production
   has_one :selected_manure_management_plan_zone, -> { selecteds },
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
   has_one :cap_land_parcel, class_name: 'CapLandParcel', inverse_of: :activity_production, foreign_key: :support_id
+
+  has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :campaigns
 
   has_geometry :support_shape
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
@@ -99,17 +102,15 @@ class ActivityProduction < Ekylibre::Record::Base
            :color, :annual?, :perennial?, to: :activity
 
   scope :of_campaign, lambda { |campaign|
-    where("(campaign_id = ? AND activity_id IN (SELECT id FROM activities WHERE production_cycle = 'annual'))" \
-          " OR (activity_id IN (SELECT id FROM activities WHERE production_cycle = 'perennial') AND (" \
-          "activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_start' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year >= EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) <= c.harvest_year AND c.harvest_year < EXTRACT(YEAR FROM ap.stopped_on))))" \
-          " OR activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_end' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year > EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) < c.harvest_year AND c.harvest_year <= EXTRACT(YEAR FROM ap.stopped_on))))" \
-          '))', campaign.id, campaign.id, campaign.id)
+    where(id: HABTM_Campaigns.select(:activity_production_id).where(campaign: campaign))
   }
 
   scope :of_cultivation_variety, lambda { |variety|
     where(activity: Activity.of_cultivation_variety(variety))
   }
-  scope :of_current_campaigns, -> { of_campaign(Campaign.current.last) }
+  scope :of_current_campaigns, -> {
+    of_campaign(Campaign.current.last)
+  }
 
   scope :of_activity, ->(activity) { where(activity: activity) }
   scope :of_activities, lambda { |*activities|
@@ -119,9 +120,8 @@ class ActivityProduction < Ekylibre::Record::Base
     where(activity: Activity.of_families(*families))
   }
 
-  scope :of_intervention, ->(intervention) { where(id: TargetDistribution.select(:activity_production_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention.id))) }
-
-  scope :current, -> { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: Time.zone.now) }
+  scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
+  scope :current, -> { at(Time.zone.now) }
 
   state_machine :state, initial: :opened do
     state :opened
@@ -143,8 +143,8 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   before_validation on: :create do
-    if self.activity
-      self.rank_number = (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
+    if activity
+      self.rank_number = (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
     end
     true
   end
@@ -152,11 +152,11 @@ class ActivityProduction < Ekylibre::Record::Base
   before_validation do
     self.started_on ||= Date.today
     self.usage = Nomen::ProductionUsage.first unless usage
-    if self.activity
+    if activity
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
-      self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
+      self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
       if plant_farming?
         initialize_land_parcel_support!
       elsif animal_farming?
@@ -185,8 +185,8 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_commit do
-    if self.activity.productions.where(rank_number: rank_number).count > 1
-      update_column(:rank_number, self.activity.productions.maximum(:rank_number) + 1)
+    if activity.productions.where(rank_number: rank_number).count > 1
+      update_column(:rank_number, activity.productions.maximum(:rank_number) + 1)
     end
     Ekylibre::Hook.publish(:activity_production_change, activity_production_id: id)
   end
@@ -322,11 +322,6 @@ class ActivityProduction < Ekylibre::Record::Base
     !season_id.nil?
   end
 
-  # Returns interventions of current production
-  def interventions
-    Intervention.of_activity_production(self)
-  end
-
   def interventions_by_weeks
     interventions_by_week = {}
 
@@ -343,10 +338,6 @@ class ActivityProduction < Ekylibre::Record::Base
     end
 
     interventions_by_week
-  end
-
-  def campaigns
-    Campaign.of_activity_production(self)
   end
 
   def started_on_for(campaign)

@@ -73,6 +73,11 @@ class Equipment < Matter
   has_many :part_replacements, class_name: 'InterventionInput', foreign_key: :assembly_id
   refers_to :variety, scope: :equipment
 
+  def best_activity_production(options = {})
+    at = options[:at] || Time.zone.now
+    ActivityProduction.where(support: groups_at(at)).at(at).first || super
+  end
+
   ##################################################
   ### Statuses #####################################
 

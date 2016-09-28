@@ -20,9 +20,9 @@
                  backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
       </input>
-      <tool name="sprayer" filter="can spray"/>
       <tool name="tractor" filter="is equipment and can catch(equipment)" cardinality="*"/>
-      <doer name="driver"  filter="can drive(tractor) and can move"/>
+      <tool name="sprayer" filter="can spray" cardinality="*"/>
+      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

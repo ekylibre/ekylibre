@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_mowing" categories="harvesting" actions="harvest">
     <parameters>
-      <target name="cultivation" filter="is plant and has indicator shape">
+      <target name="plant" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?">
           <compute expr="area(VALUE) / PRODUCT..net_surface_area(square_meter)" if="VARIANT?" to="population"/>
         </attribute>
@@ -14,15 +14,15 @@
                  backward="POPULATION * VARIANT.net_mass(ton)"
                  forward="VALUE / VARIANT.net_mass(ton)"/>
         <handler indicator="mass_area_density" unit="quintal_per_hectare"
-                 backward="(POPULATION * VARIANT.net_mass(quintal)) / sum(cultivation, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / VARIANT.net_mass(quintal)"/>
+                 backward="(POPULATION * VARIANT.net_mass(quintal)) / sum(plant, :net_surface_area, :hectare)"
+                 forward="(VALUE * sum(plant, :net_surface_area, :hectare)) / VARIANT.net_mass(quintal)"/>
         <handler name="mass_area_density_in_ton_per_hectare" indicator="mass_area_density" unit="ton_per_hectare"
-                 backward="(POPULATION * VARIANT.net_mass(ton)) / sum(cultivation, :net_surface_area, :hectare)"
-                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare)) / VARIANT.net_mass(ton)"/>
+                 backward="(POPULATION * VARIANT.net_mass(ton)) / sum(plant, :net_surface_area, :hectare)"
+                 forward="(VALUE * sum(plant, :net_surface_area, :hectare)) / VARIANT.net_mass(ton)"/>
       </output>
       <tool name="tractor" filter="is equipment and (can tow(equipment) or can mow)" cardinality="*"/>
       <tool name="mower" filter="can mow" cardinality="*"/>
-      <doer name="mower_driver" filter="can drive(tractor)" cardinality="*"/>
+      <doer name="driver" filter="can drive(equipment)" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

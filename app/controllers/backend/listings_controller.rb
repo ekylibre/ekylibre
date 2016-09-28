@@ -23,7 +23,7 @@ module Backend
     list(order: :name) do |t|
       t.action :extract, url: { format: :csv }, image: :action
       # t.action :extract, url: {format: :csv, mode: :no_mail}, if: :can_mail?, image: :nomail
-      t.action :mail, if: :can_mail?
+      # t.action :mail, if: :can_mail?
       t.action :duplicate, method: :post
       t.action :edit
       t.action :destroy

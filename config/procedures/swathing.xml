@@ -2,11 +2,11 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="swathing" categories="harvesting" actions="harvest">
     <parameters>
-      <target name="land_parcel" filter="(is land_parcel or is plant) and has indicator shape">
+      <target name="cultivation" filter="(is land_parcel or is plant) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <tool name="hay_rake"  filter="can rake(straw) and can rake(hay)" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
+      <tool name="hay_rake"  filter="can rake(straw) and can rake(hay)" cardinality="*"/>
       <doer name="driver"  filter="can drive(equipment) and can move" cardinality="*"/>
     </parameters>
   </procedure>

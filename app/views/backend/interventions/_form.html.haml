@@ -5,9 +5,8 @@
   - interpolations = { number: f.object.number, nature: f.object.nature.l }
   - action_title_key = ['new', 'create'].include?(action_name) ? 'new' : 'edit'
   - if procedure
+    - action_title_key << '_specified'
     - interpolations[:procedure_name] = procedure.human_name
-  - else
-    - action_title_key << '_undefined'
   - action_title_key << "_#{f.object.nature}" unless f.object.record?
   = "actions.#{controller_path}.#{action_title_key}".t(interpolations)
 
@@ -16,6 +15,7 @@
   = field_set do
     = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
     = f.input :nature, as: :hidden
+    = f.input :state, as: :hidden
     = f.referenced_association :issue, new: false
     - if f.object.record?
       = f.referenced_association :request_intervention, new: false, as: :hidden
@@ -46,7 +46,7 @@
       = render 'parameter_form', reference: parameter, f: f, namespace: ''
 
 - else # Root Procedure Natures
-  - main_campaign_selector
+  - main_period_selector(:year)
   - Nomen::ActivityFamily.find_each do |family|
     - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
     - next unless categories.any?
