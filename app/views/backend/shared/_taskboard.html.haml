@@ -3,7 +3,7 @@
 
     - taskboard.columns.each_with_index do |column, index|
 
-      .taskboard-column{ class: column.options[:class], data: { column_index: index } }
+      .taskboard-column{ class: column.name, data: { column_index: index } }
 
         .taskboard-header{ class: column.column_header.options[:class] }
           %h4.title= column.column_header.title
