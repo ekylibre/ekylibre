@@ -125,5 +125,16 @@ module ActionIntegration
 
       integration
     end
+
+    def self.fetch
+      integration ||= ::Integration.find_by_nature(self.integration_name.underscore)
+
+      raise ServiceNotIntegrated unless integration
+      self.parameters.each do |p|
+        raise IntegrationParameterEmpty, p if integration.parameters[p.to_s].blank?
+      end
+
+      integration
+    end
   end
 end

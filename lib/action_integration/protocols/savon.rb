@@ -9,8 +9,8 @@ module ActionIntegration
         request(:authenticate, options, message)
       end
 
-      def call(operation, options, message = {})
-        request(operation, options, message)
+      def call(operation, options, message = {}, &block)
+        request(operation, options, message, &block)
       end
 
       private
@@ -31,7 +31,9 @@ module ActionIntegration
           request_log,
         )
 
-        ActionIntegration::Response.new_from_savon(response)
+        res = ActionIntegration::Response.new_from_savon(response)
+        yield res if block_given?
+        res
       end
     end
   end
