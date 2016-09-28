@@ -280,10 +280,10 @@ cmn:
       # edit: "Edit %{procedure_name} #%{number}"
       # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "干预"
-      new: "新的干预"
-      new_request: "新要求干预"
-      new_undefined: "新的干预"
-      new_undefined_request: "新干预的请求"
+      new: "新的干预" #?
+      new_request: "新干预的请求" #?
+      new_specified: "新的干预"
+      new_specified_request: "新要求干预"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "编辑盘点"

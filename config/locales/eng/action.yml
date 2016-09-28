@@ -345,10 +345,10 @@ eng:
       edit_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
       # modal: "Modal intervention: %{name}"
-      new: "New %{procedure_name}"
-      new_request: "New requested %{procedure_name}" #?
-      new_undefined: "New intervention" #?
-      new_undefined_request: "New intervention request" #?
+      new: "New intervention"
+      new_request: "New intervention request" #?
+      new_specified: "New %{procedure_name}" #?
+      new_specified_request: "New requested %{procedure_name}" #?
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Edit inventory"

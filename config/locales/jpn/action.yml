@@ -280,10 +280,10 @@ jpn:
       # edit: "Edit %{procedure_name} #%{number}"
       # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "介入"
-      new: "新介入"
-      new_request: "新しい要求介入"
-      new_undefined: "新介入"
-      new_undefined_request: "新しい介入要求"
+      new: "新介入" #?
+      new_request: "新しい介入要求" #?
+      new_specified: "新介入"
+      new_specified_request: "新しい要求介入"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "編集インベントリ"
