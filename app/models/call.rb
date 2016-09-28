@@ -39,13 +39,17 @@ class Call < Ekylibre::Record::Base
   has_many :messages, class_name: 'CallMessage'
   has_many :requests, class_name: 'CallRequest'
   has_many :responses, class_name: 'CallResponse'
+  belongs_to :source, polymorphic: true
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :integration_name, :name, :state, length: { maximum: 500 }, allow_blank: true
   # ]VALIDATORS]
 
   # Sync
-  def execute_now
+  def execute_now(source = nil)
+
+    self.source = source if source
+
     save!
 
     # Instantiate a ActionIntegration object with itself as parameter
