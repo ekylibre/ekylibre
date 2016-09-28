@@ -18,9 +18,9 @@ Apartment.configure do |config|
   config.excluded_models = %w()
 
   # use postgres schemas?
-  # config.use_schemas = true
+  config.use_schemas = true
 
-  # use raw SQL dumps for creating postgres schemas? (only appies with use_schemas set to true)
+  # use raw SQL dumps for creating postgres schemas? (only applies with use_schemas set to true)
   config.use_sql = true
 
   # Postgis default Schema must be "postgis"

@@ -51,6 +51,9 @@ class Intervention < Ekylibre::Record::Base
   include PeriodicCalculable, CastGroupable
   include Customizable
   attr_readonly :procedure_name, :production_id
+  enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
+  enumerize :nature, in: [:request, :record], default: :record, predicates: true
+  enumerize :state, in: [:in_progress, :done, :validated, :rejected], default: :done, predicates: true
   belongs_to :event, dependent: :destroy, inverse_of: :intervention
   belongs_to :request_intervention, -> { where(nature: :request) }, class_name: 'Intervention'
   belongs_to :issue
@@ -76,9 +79,6 @@ class Intervention < Ekylibre::Record::Base
     has_many :working_periods, class_name: 'InterventionWorkingPeriod'
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
-  enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
-  enumerize :nature, in: [:request, :record], default: :record, predicates: true
-  enumerize :state, in: [:in_progress, :done, :validated, :rejected], default: :done, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
@@ -453,7 +453,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def runnable?
-    return false unless undone? && procedure
+    return false unless record? && procedure
     valid = true
     # Check cardinality and runnability
     procedure.parameters.each do |parameter|

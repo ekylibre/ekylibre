@@ -9,6 +9,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
         INNER JOIN interventions ON intervention_parameters.intervention_id = interventions.id
         ORDER BY interventions.id;
     '
+    execute 'CREATE RULE delete_activities_interventions AS ON DELETE TO activities_interventions DO INSTEAD NOTHING'
 
     execute '
       CREATE VIEW activity_productions_interventions AS
@@ -19,6 +20,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
         INNER JOIN interventions ON intervention_parameters.intervention_id = interventions.id
         ORDER BY interventions.id;
     '
+    execute 'CREATE RULE delete_activity_productions_interventions AS ON DELETE TO activity_productions_interventions DO INSTEAD NOTHING'
 
     execute '
       CREATE VIEW activity_productions_campaigns AS
@@ -58,6 +60,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
         )
         ORDER BY c.id;
     '
+    execute 'CREATE RULE delete_activity_productions_campaigns AS ON DELETE TO activity_productions_campaigns DO INSTEAD NOTHING'
 
     execute '
       CREATE VIEW activities_campaigns AS
@@ -72,6 +75,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
            )
         )
     '
+    execute 'CREATE RULE delete_activities_campaigns AS ON DELETE TO activities_campaigns DO INSTEAD NOTHING'
 
     execute '
       CREATE VIEW campaigns_interventions AS
@@ -83,6 +87,7 @@ class CreateDatabaseViews < ActiveRecord::Migration
         INNER JOIN campaigns ON activity_productions.campaign_id = campaigns.id
         ORDER BY campaigns.id;
     '
+    execute 'CREATE RULE delete_campaigns_interventions AS ON DELETE TO campaigns_interventions DO INSTEAD NOTHING'
   end
 
   def down

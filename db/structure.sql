@@ -15063,6 +15063,46 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: delete_activities_campaigns; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_activities_campaigns AS
+    ON DELETE TO activities_campaigns DO INSTEAD NOTHING;
+
+
+--
+-- Name: delete_activities_interventions; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_activities_interventions AS
+    ON DELETE TO activities_interventions DO INSTEAD NOTHING;
+
+
+--
+-- Name: delete_activity_productions_campaigns; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_activity_productions_campaigns AS
+    ON DELETE TO activity_productions_campaigns DO INSTEAD NOTHING;
+
+
+--
+-- Name: delete_activity_productions_interventions; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_activity_productions_interventions AS
+    ON DELETE TO activity_productions_interventions DO INSTEAD NOTHING;
+
+
+--
+-- Name: delete_campaigns_interventions; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_campaigns_interventions AS
+    ON DELETE TO campaigns_interventions DO INSTEAD NOTHING;
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
