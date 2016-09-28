@@ -168,11 +168,11 @@ class Intervention < Ekylibre::Record::Base
         search_params << "#{Intervention.table_name}.started_at >= '#{beginning_of_week}' AND #{Intervention.table_name}.stopped_at <= '#{end_of_week}'"
       end
 
-      if period_interval.to_sym == :months
+      if period_interval.to_sym == :month
         search_params << "EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_interval.to_sym == :years
+      if period_interval.to_sym == :year
         search_params << "EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
     end
