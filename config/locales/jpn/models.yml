@@ -981,6 +981,7 @@ jpn:
     points: "点数"
     population: "人口"
     population_counting: "人口のカウント"
+    # populations: "Populations"
     position: "ポジション"
     post: "役職"
     postal_code: "郵便番号"

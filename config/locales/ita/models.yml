@@ -1012,6 +1012,7 @@ ita:
     points: "Punti"
     population: "Popolazione"
     population_counting: "il conteggio della popolazione"
+    # populations: "Populations"
     position: "Posizione"
     post: "Inviare"
     postal_code: "Codice postale"

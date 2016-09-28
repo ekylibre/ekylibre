@@ -981,6 +981,7 @@ deu:
     points: "Punkte"
     population: "Bevölkerung"
     population_counting: "Bevölkerungszählung"
+    # populations: "Populations"
     # position: "Position"
     # post: "Post"
     postal_code: "Postleitzahl"

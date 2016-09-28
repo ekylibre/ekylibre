@@ -1858,6 +1858,7 @@ arb:
     polygon: "متناسقين" #?
     population: "عدد السكان"
     population_counting: "عد السكان"
+    # populations: "Populations"
     position: "الوضع"
     post: "بريد"
     postal_code: "الكود البريدى"

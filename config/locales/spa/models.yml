@@ -985,6 +985,7 @@ spa:
     points: "Puntos"
     population: "Población"
     population_counting: "Censar la población"
+    # populations: "Populations"
     position: "Posición"
     post: "Enviar"
     postal_code: "Código postal"

@@ -981,6 +981,7 @@ por:
     points: "Pontos"
     population: "População"
     population_counting: "Contagem populacional"
+    # populations: "Populations"
     position: "Posição"
     post: "Postar"
     postal_code: "Código postal"

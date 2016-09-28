@@ -981,6 +981,7 @@ cmn:
     points: "点"
     population: "人口"
     population_counting: "人口计数"
+    # populations: "Populations"
     position: "位置"
     post: "岗位"
     postal_code: "邮政编码"

@@ -1201,6 +1201,7 @@ fra:
     points: "Points"
     population: "Population"
     population_counting: "Gestion quantitative"
+    # populations: "Populations"
     position: "Position"
     post: "Poste"
     postal_code: "Code postal"
