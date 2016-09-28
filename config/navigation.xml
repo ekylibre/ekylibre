@@ -608,13 +608,6 @@
         <page to="backend/activity_seasons#show"/>
         <page to="backend/activity_seasons#unroll"/>
         <page to="backend/activity_seasons#update"/>
-        <page to="backend/activity_tactics#create"/>
-        <page to="backend/activity_tactics#destroy"/>
-        <page to="backend/activity_tactics#edit"/>
-        <page to="backend/activity_tactics#new"/>
-        <page to="backend/activity_tactics#show"/>
-        <page to="backend/activity_tactics#unroll"/>
-        <page to="backend/activity_tactics#update"/>
         <page to="backend/animals#index"/>
         <page to="backend/animals#add_to_group"/>
         <page to="backend/animals#add_to_container"/>
@@ -713,6 +706,8 @@
         <page to="backend/interventions#list_product_parameters"/>
         <page to="backend/interventions#list_record_interventions"/>
         <page to="backend/interventions#unroll"/>
+        <page to="backend/interventions#change_state"/>
+        <page to="backend/interventions#modal"/>
         <page to="backend/crumbs#index"/>
         <page to="backend/crumbs#update"/>
         <page to="backend/crumbs#convert"/>

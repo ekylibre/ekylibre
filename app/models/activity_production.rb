@@ -69,6 +69,9 @@ class ActivityProduction < Ekylibre::Record::Base
           class_name: 'ManureManagementPlanZone', inverse_of: :activity_production
   has_one :cap_land_parcel, class_name: 'CapLandParcel', inverse_of: :activity_production, foreign_key: :support_id
 
+  has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :campaigns
+
   has_geometry :support_shape
   composed_of :size, class_name: 'Measure', mapping: [%w(size_value to_d), %w(size_unit_name unit)]
 
@@ -99,17 +102,15 @@ class ActivityProduction < Ekylibre::Record::Base
            :color, :annual?, :perennial?, to: :activity
 
   scope :of_campaign, lambda { |campaign|
-    where("(campaign_id = ? AND activity_id IN (SELECT id FROM activities WHERE production_cycle = 'annual'))" \
-          " OR (activity_id IN (SELECT id FROM activities WHERE production_cycle = 'perennial') AND (" \
-          "activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_start' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year >= EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) <= c.harvest_year AND c.harvest_year < EXTRACT(YEAR FROM ap.stopped_on))))" \
-          " OR activity_productions.id IN (SELECT ap.id FROM activity_productions AS ap JOIN activities AS a ON a.id = ap.activity_id, campaigns AS c WHERE a.production_cycle = 'perennial' AND a.production_campaign = 'at_cycle_end' AND c.id = ? AND ((ap.stopped_on is null AND c.harvest_year > EXTRACT(YEAR FROM ap.started_on)) OR (ap.stopped_on is not null AND EXTRACT(YEAR FROM ap.started_on) < c.harvest_year AND c.harvest_year <= EXTRACT(YEAR FROM ap.stopped_on))))" \
-          '))', campaign.id, campaign.id, campaign.id)
+    where('id IN (SELECT activity_production_id FROM activity_productions_campaigns WHERE campaign_id = ?)', campaign.id)
   }
 
   scope :of_cultivation_variety, lambda { |variety|
     where(activity: Activity.of_cultivation_variety(variety))
   }
-  scope :of_current_campaigns, -> { of_campaign(Campaign.current.last) }
+  scope :of_current_campaigns, -> {
+    of_campaign(Campaign.current.last)
+  }
 
   scope :of_activity, ->(activity) { where(activity: activity) }
   scope :of_activities, lambda { |*activities|
@@ -118,8 +119,6 @@ class ActivityProduction < Ekylibre::Record::Base
   scope :of_activity_families, lambda { |*families|
     where(activity: Activity.of_families(*families))
   }
-
-  scope :of_intervention, ->(intervention) { where(id: TargetDistribution.select(:activity_production_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention.id))) }
 
   scope :current, -> { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: Time.zone.now) }
 

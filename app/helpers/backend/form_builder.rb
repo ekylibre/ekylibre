@@ -611,7 +611,7 @@ module Backend
           derivatives.keep_if { |(_l, n)| child_scope.all? { |c| c.derivative_of? && Nomen::Variety.find(c.derivative_of) <= n } }
         end
       end
-      if derivatives.any?
+      if !derivatives.nil? && derivatives.any?
         return input(:variety, wrapper: :append, class: :inline) do
           field = ('<span class="add-on">' <<
                    ERB::Util.h(:x_of_y.tl(x: '{@@@@VARIETY@@@@}', y: '{@@@@DERIVATIVE@@@@}')) <<
@@ -742,7 +742,6 @@ module Backend
       if units_values.is_a?(Array)
         return input(unit_name_attribute, collection: units_values, include_blank: false, wrapper: :simplest)
       end
-
       @template.content_tag(:span, units_values.tl, class: 'add-on')
     end
   end

@@ -12,4 +12,22 @@
           .periods
             - url_options = { action: :show, controller: :activity_productions, id: production.id }
             - html_options = {:title => production.name}
-            = product_chronology_period(production, campaign, period_started_on, duration, url_options, html_options)
+            = product_chronology_period(production.started_on_for(campaign), production.stopped_on_for(campaign), period_started_on, duration, production.color, url_options, html_options)
+            .markers
+              - unless production.interventions.nil?
+                .interventions
+                  = interventions_chronology_icons(production.interventions_by_weeks, period_started_on, duration, {class: "marker"})
+              -# - if production.tactic.present? && production.tactic.steps.any?
+              -#   .crop-management-technique
+              -#     - url_options = {}
+              -#     - backgrond_color = 'rgba(0, 0, 0, 0.2)'
+              -#     - production.tactic.steps.each_with_index do |step, index|
+              -#       -# Currently, we don't have the ITK icons. That's why i define the icons like below for display the perdiods.
+              -#       - if (index % 2) == 0
+              -#         - icon = 'matter'
+              -#       - else
+              -#         - icon = 'tractor'
+              -#
+              -#       - itk_icon = chronology_period_icon("initial", icon, {class: "marker"})
+              -#       - html_options = {nested_element: itk_icon, title: "Période de semis"}
+              -#       = product_chronology_period(step.started_on, step.stopped_on, period_started_on, duration, backgrond_color, url_options, html_options)

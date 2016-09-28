@@ -51,7 +51,7 @@ por:
       incoming_parcels: "Entregas a receber" #?
       incoming_payment_modes: "Modos de pagamento a receber"
       incoming_payments: "Pagamentos a receber"
-      # integrations: "Integrations"
+      integrations: "Integrações"
       interventions: "Intervenções"
       inventories: "Inventário"
       issues: "Problemas"

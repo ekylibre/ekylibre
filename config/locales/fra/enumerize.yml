@@ -184,10 +184,10 @@ fra:
         record: "Enregistrement"
         request: "Demande"
       state:
-        done: "Réalisée"
+        done: "Terminée"
         in_progress: "En cours"
-        squeezed: "Non réalisée"
-        undone: "Pas encore réalisée"
+        rejected: "Rejetée"
+        validated: "Validée"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Booléen"
