@@ -4955,6 +4955,43 @@ ALTER SEQUENCE product_phases_id_seq OWNED BY product_phases.id;
 
 
 --
+-- Name: product_populations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE product_populations (
+    id integer NOT NULL,
+    product_id integer,
+    value numeric(19,4),
+    started_at timestamp without time zone NOT NULL,
+    stopped_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: product_populations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE product_populations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_populations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE product_populations_id_seq OWNED BY product_populations.id;
+
+
+--
 -- Name: product_readings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6803,6 +6840,13 @@ ALTER TABLE ONLY product_phases ALTER COLUMN id SET DEFAULT nextval('product_pha
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY product_populations ALTER COLUMN id SET DEFAULT nextval('product_populations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY product_readings ALTER COLUMN id SET DEFAULT nextval('product_readings_id_seq'::regclass);
 
 
@@ -7862,6 +7906,14 @@ ALTER TABLE ONLY product_ownerships
 
 ALTER TABLE ONLY product_phases
     ADD CONSTRAINT product_phases_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_populations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_populations
+    ADD CONSTRAINT product_populations_pkey PRIMARY KEY (id);
 
 
 --
@@ -13691,6 +13743,62 @@ CREATE INDEX index_product_phases_on_variant_id ON product_phases USING btree (v
 
 
 --
+-- Name: index_product_populations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_populations_on_created_at ON product_populations USING btree (created_at);
+
+
+--
+-- Name: index_product_populations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_populations_on_creator_id ON product_populations USING btree (creator_id);
+
+
+--
+-- Name: index_product_populations_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_populations_on_product_id ON product_populations USING btree (product_id);
+
+
+--
+-- Name: index_product_populations_on_product_id_and_started_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_product_populations_on_product_id_and_started_at ON product_populations USING btree (product_id, started_at);
+
+
+--
+-- Name: index_product_populations_on_started_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_populations_on_started_at ON product_populations USING btree (started_at);
+
+
+--
+-- Name: index_product_populations_on_stopped_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_populations_on_stopped_at ON product_populations USING btree (stopped_at);
+
+
+--
+-- Name: index_product_populations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_populations_on_updated_at ON product_populations USING btree (updated_at);
+
+
+--
+-- Name: index_product_populations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_populations_on_updater_id ON product_populations USING btree (updater_id);
+
+
+--
 -- Name: index_product_readings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15103,6 +15211,14 @@ CREATE RULE delete_campaigns_interventions AS
 
 
 --
+-- Name: fk_rails_73e7327087; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_populations
+    ADD CONSTRAINT fk_rails_73e7327087 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -15439,4 +15555,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160920083312');
 INSERT INTO schema_migrations (version) VALUES ('20160921144623');
 
 INSERT INTO schema_migrations (version) VALUES ('20160921185801');
+
+INSERT INTO schema_migrations (version) VALUES ('20160927121727');
 
