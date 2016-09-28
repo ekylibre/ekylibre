@@ -189,7 +189,7 @@
       <item name="exceptional_revenues" fr_pcga="77"/>
       <item name="exceptionnal_charge_transfer_revenues" fr_pcg82="797"/>
       <item name="exceptionnal_incorporeal_asset_depreciation_revenues" fr_pcg82="787"/>
-      <item name="execptionnal_depreciations_inputations_expenses" fr_pcg82="687"/>
+      <item name="exceptionnal_depreciations_inputations_expenses" fr_pcg82="687"/>
       <item name="expenses" fr_pcg82="6"/>
       <item name="exploitation_depreciations_inputations_expenses" fr_pcg82="681"/>
       <item name="exploitation_expenses_transfers" fr_pcga="791"/>

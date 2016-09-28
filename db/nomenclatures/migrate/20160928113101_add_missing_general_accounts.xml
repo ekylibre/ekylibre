@@ -72,7 +72,7 @@
   <item-creation item="accounts#trust_creation_operation_expenses" fr_pcg82="674"/>
   <item-creation item="accounts#exploitation_depreciations_inputations_expenses" fr_pcg82="681"/>
   <item-creation item="accounts#financial_depreciations_inputations_expenses" fr_pcg82="686"/>
-  <item-creation item="accounts#execptionnal_depreciations_inputations_expenses" fr_pcg82="687"/>
+  <item-creation item="accounts#exceptionnal_depreciations_inputations_expenses" fr_pcg82="687"/>
   <item-creation item="accounts#employee_participation_and_income_taxes_and_assimilated_payments_expenses" fr_pcg82="69"/>
   <item-creation item="accounts#employee_participation_expenses" fr_pcg82="691"/>
   <item-creation item="accounts#income_taxes_expenses" fr_pcg82="695"/>
