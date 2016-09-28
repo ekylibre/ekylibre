@@ -62,8 +62,8 @@ class Journal < Ekylibre::Record::Base
   selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
 
   scope :used_for, lambda { |nature|
-    unless nature.values.include?(nature.to_s)
-      raise ArgumentError, "Journal#used_for must be one of these: #{nature.values.join(', ')}"
+    unless Journal.nature.values.include?(nature.to_s)
+      raise ArgumentError, "Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}"
     end
     where(nature: nature.to_s)
   }

@@ -107,14 +107,16 @@
           series_disease << { name: nature.l, data: data}
         end
 
+
       - c.cobble(:stock_in_ground_by_calibration) do
         = render 'backend/inspections/unit_selector', activity: last_inspection.activity
         - dataset = last_inspection.calibrations.of_scale(scale).reorder(:id).reverse
         = column_highcharts(series, y_axis: {reversed_stacks: false, title: {text: Nomen::Indicator.find(:net_mass).human_name}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} #{activity.grading_net_mass_unit.symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
 
-      - c.cobble(:disease_deformity_percentage) do
-        = render 'backend/inspections/unit_selector', activity: last_inspection.activity
-        = column_highcharts(series_disease, y_axis: {reversed_stacks: false, title: {text: "%"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} %"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
+      - if activity.inspection_point_natures.any?
+        - c.cobble(:disease_deformity_percentage) do
+          = render 'backend/inspections/unit_selector', activity: last_inspection.activity
+          = column_highcharts(series_disease, y_axis: {reversed_stacks: false, title: {text: "%"}, stack_labels: {enabled: true}}, x_axis: { categories: categories}, legend: true, tooltip: {point_format: "{point.y: 1f} %"},plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}})
 
       - c.cobble(:percentage_by_calibration) do
         = render 'backend/inspections/unit_selector', activity: last_inspection.activity

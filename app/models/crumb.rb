@@ -79,7 +79,7 @@ class Crumb < Ekylibre::Record::Base
   end
 
   after_update do
-    if start? && previous = previous
+    if start? && previous
       previous.update_column(:nature, :stop) unless previous.stop?
     end
   end

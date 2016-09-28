@@ -285,8 +285,8 @@ por:
       # edit: "Edit %{procedure_name} #%{number}"
       # edit_request: "Edit %{procedure_name} request #%{number}"
       index: "Intervenções"
-      new: "Nova intervenção" #?
-      new_request: "Pedido de intervenção Nova" #?
+      new: "Nova intervenção"
+      new_request: "Pedido de intervenção Nova"
       new_specified: "Nova intervenção"
       new_specified_request: "Intervenção New solicitado"
       # show: "%{procedure_name}"
