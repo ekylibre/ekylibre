@@ -78,15 +78,10 @@
         }
 
         &-datas {
-        }
-
-
-        &-datas {
           margin-top: $default-gap;
           display: flex;
           flex-wrap: wrap;
           * {
-            color: $white;
             padding: round($default-gap * 0.3) round($default-gap * 0.7);
             border-radius: $default-border-radius;
             font-weight: bold;
@@ -97,11 +92,13 @@
             font-size: $fs-large;
             min-width: initial;
             line-height: initial;
+            color: inherit;
           }
           .task-data {
             @include margin-right($default-gap);
           }
           .data-text {
+            color: inherit;
             font-size: $fs-normal;
             font-style: italic;
             line-height: initial;
