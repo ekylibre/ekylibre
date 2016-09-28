@@ -435,7 +435,7 @@ por:
     closed_on: "Encerrada em"
     clusters_work_number: "Clusters trabalhar número"
     code: "Código"
-    # codes: "Codes"
+    codes: "Códigos"
     coefficient: "Coeficiente"
     collect_account: "Recolha conta"
     collected_taxes: "Impostos recolhidos"

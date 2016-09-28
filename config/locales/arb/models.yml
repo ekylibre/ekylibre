@@ -1126,7 +1126,7 @@ arb:
     clusters_work_number: "مجموعات العمل رقم"
     code: "الرمز"
     code2: "الرمز الثاني" #?
-    # codes: "Codes"
+    codes: "رموز"
     coefficient: "الدرجة"
     collect_account: "جمع الحساب"
     collected_account: "جمع قيمة الضريبة الاضافية" #?

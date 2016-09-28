@@ -435,7 +435,7 @@ jpn:
     closed_on: "休館"
     clusters_work_number: "クラスタワーク番号"
     code: "コード"
-    # codes: "Codes"
+    codes: "コード"
     coefficient: "係数"
     collect_account: "アカウントを収集"
     collected_taxes: "徴収された税金"

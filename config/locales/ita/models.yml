@@ -466,7 +466,7 @@ ita:
     closed_on: "chiuso il"
     clusters_work_number: "Cluster lavorativi Numero"
     code: "Codice"
-    # codes: "Codes"
+    codes: "Codici"
     coefficient: "Coefficiente"
     collect_account: "raccogliere conto"
     collected_taxes: "tasse raccolte"
