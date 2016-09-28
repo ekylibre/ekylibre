@@ -38,7 +38,8 @@
                   = content_tag(:div, nil, :class => "task-datas") do
                     - task.datas.each do |data|
                       = content_tag(:div, nil, :class => "task-data #{data[:class]}", style: data[:style]) do
-                        = content_tag(:i, nil, :class => "picto picto-#{data[:icon]} #{data[:icon_class]}")
+                        - unless data[:icon].blank?
+                          = content_tag(:i, nil, :class => "picto picto-#{data[:icon]} #{data[:icon_class]}")
                         = content_tag(:span, data[:text], :class => "data-text #{data[:text_class]}")
 
                 - if task.actions.any?
