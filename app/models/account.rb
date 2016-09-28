@@ -127,6 +127,9 @@ class Account < Ekylibre::Record::Base
   before_validation do
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
+    if self.usages.blank? && self.number
+      self.usages = Account.find_parent_usage(self.number)
+    end
   end
 
   protect(on: :destroy) do
@@ -175,6 +178,35 @@ class Account < Ekylibre::Record::Base
         end
       end
       account
+    end
+
+    # Find usage in parent account by number
+    def find_parent_usage(number)
+
+      number = number.to_s
+
+      parent_accounts = nil
+      items = nil
+
+      max = number.size - 1
+      # get usages of nearest existing account by number
+      (0..max).to_a.reverse.each do |i|
+        n = number[0, i]
+        items = Nomen::Account.where(fr_pcga: n)
+        parent_accounts = Account.find_with_regexp(n)
+        break if parent_accounts.any?
+      end
+
+      if parent_accounts && parent_accounts.any?
+        usages = parent_accounts.first.usages
+      elsif items.any?
+        usages = items.first.name
+      else
+        usages = nil
+      end
+
+      return usages
+
     end
 
     # Find all account matching with the regexp in a String

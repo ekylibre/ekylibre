@@ -11,7 +11,7 @@ module Ekylibre
       rows.each do |row|
         r = {
           number: row[0].to_s.strip.gsub(/0+\z/, ''),
-          name: (row[1].blank? ? nil : row[1].to_s),
+          name: (row[1].blank? ? nil : row[1].to_s.strip),
           nature: (row[2].blank? ? nil : row[2].to_sym)
         }.to_struct
 
@@ -25,33 +25,18 @@ module Ekylibre
       rows = CSV.read(file, headers: true).delete_if { |r| r[0].blank? }
       w.count = rows.size
 
-      rows.each do |row|
+      rows.each_with_index do |row, index|
+        line_number = index + 2
         r = {
           number: row[0].to_s.strip.gsub(/0+\z/, ''),
           name: (row[1].blank? ? nil : row[1].to_s),
           nature: (row[2].blank? ? nil : row[2].to_sym)
         }.to_struct
 
-        parent_accounts = nil
-        items = nil
+        puts "line : #{line_number} - number : #{r.number}".inspect.red
 
-        max = r.number.size - 1
-        # get usages of nearest existing account by number
-        (0..max).to_a.reverse.each do |i|
-          number = r.number[0, i]
-          items = Nomen::Account.where(fr_pcga: number)
-          parent_accounts = Account.find_with_regexp(number)
-          break if parent_accounts.any?
-        end
-
-        if parent_accounts && parent_accounts.any?
-          usages = parent_accounts.first.usages
-        elsif items.any?
-          a = Account.find_or_import_from_nomenclature(items.first.usages)
-          usages = a.usages
-        else
-          usages = nil
-        end
+        # get usage from parent account or import account from nomenclature
+        usages = Account.find_parent_usage(r.number)
 
         attributes = {
           name: r.name,
@@ -62,6 +47,8 @@ module Ekylibre
         account = Account.find_or_initialize_by(number: r.number)
         account.attributes = attributes
         account.save!
+
+        puts "line : #{line_number} - account created/updated : #{account.name}".inspect.green
 
         w.check_point
       end
