@@ -40,7 +40,7 @@
 
 # A product move is a movement of population
 class ProductMovement < Ekylibre::Record::Base
-  include Taskable, TimeLineable
+  include Taskable
   belongs_to :intervention
   belongs_to :product
   has_one :container, through: :product
@@ -53,35 +53,24 @@ class ProductMovement < Ekylibre::Record::Base
   # ]VALIDATORS]
 
   before_validation do
-    # errors.add(:delta, :invalid) if delta == 0.0
-    if delta
-      self.population = delta
-      self.population += previous.population if previous
+    # NOTE: -! Deprecated !- only there for it to work until 3.0
+    self.population = 0.0
+  end
+
+  after_save do
+    ProductPopulation.find_or_create_by(product: product, started_at: started_at)
+    if started_at_changed?
+      ProductPopulation.compute_values_for!(product)
+    else
+      product_population.compute_value!(impact_on_following: true)
     end
   end
 
-  before_update do
-    old_record.remove_delta_on_followings
+  def population
+    Maybe(product_population).value.or_else(0)
   end
 
-  after_save :add_delta_on_followings
-  after_destroy :remove_delta_on_followings
-
-  def remove_delta_on_followings
-    impact_on_followings(-delta)
-  end
-
-  def add_delta_on_followings
-    impact_on_followings(delta)
-  end
-
-  private
-
-  def impact_on_followings(quantity)
-    followings.update_all("population = population + (#{quantity})")
-  end
-
-  def siblings
-    product.movements
+  def product_population
+    ProductPopulation.find_by(product: product, started_at: started_at)
   end
 end

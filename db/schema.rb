@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918152301) do
+ActiveRecord::Schema.define(version: 20160927121727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -2946,6 +2946,27 @@ ActiveRecord::Schema.define(version: 20160918152301) do
   add_index "product_phases", ["updater_id"], name: "index_product_phases_on_updater_id", using: :btree
   add_index "product_phases", ["variant_id"], name: "index_product_phases_on_variant_id", using: :btree
 
+  create_table "product_populations", force: :cascade do |t|
+    t.integer  "product_id"
+    t.decimal  "value",        precision: 19, scale: 4
+    t.datetime "started_at",                                        null: false
+    t.datetime "stopped_at"
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                          default: 0, null: false
+  end
+
+  add_index "product_populations", ["created_at"], name: "index_product_populations_on_created_at", using: :btree
+  add_index "product_populations", ["creator_id"], name: "index_product_populations_on_creator_id", using: :btree
+  add_index "product_populations", ["product_id", "started_at"], name: "index_product_populations_on_product_id_and_started_at", unique: true, using: :btree
+  add_index "product_populations", ["product_id"], name: "index_product_populations_on_product_id", using: :btree
+  add_index "product_populations", ["started_at"], name: "index_product_populations_on_started_at", using: :btree
+  add_index "product_populations", ["stopped_at"], name: "index_product_populations_on_stopped_at", using: :btree
+  add_index "product_populations", ["updated_at"], name: "index_product_populations_on_updated_at", using: :btree
+  add_index "product_populations", ["updater_id"], name: "index_product_populations_on_updater_id", using: :btree
+
   create_table "product_readings", force: :cascade do |t|
     t.integer  "originator_id"
     t.string   "originator_type"
@@ -3653,4 +3674,5 @@ ActiveRecord::Schema.define(version: 20160918152301) do
 
   add_foreign_key "alert_phases", "alerts"
   add_foreign_key "alerts", "sensors"
+  add_foreign_key "product_populations", "products"
 end
