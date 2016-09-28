@@ -24,7 +24,7 @@
         = render 'totals', to_display: selected_unit, resource: resource
 
   - if resource.calibrations.any?
-    - if resource.activity.measure_grading_net_mass && resource.calibrations.sum(:net_mass_value) > 0
+    - if (resource.activity.measure_grading_net_mass && resource.calibrations.sum(:net_mass_value) > 0) || (resource.activity.measure_grading_items_count && resource.calibrations.sum(:items_count) > 0)
 
       - c.cobble('stock_in_ground') do
         = render 'unit_selector', activity: resource.activity
