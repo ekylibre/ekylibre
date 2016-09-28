@@ -321,11 +321,6 @@ class ActivityProduction < Ekylibre::Record::Base
     !season_id.nil?
   end
 
-  # Returns interventions of current production
-  def interventions
-    Intervention.of_activity_production(self)
-  end
-
   def interventions_by_weeks
     interventions_by_week = {}
 
@@ -342,10 +337,6 @@ class ActivityProduction < Ekylibre::Record::Base
     end
 
     interventions_by_week
-  end
-
-  def campaigns
-    Campaign.of_activity_production(self)
   end
 
   def started_on_for(campaign)
