@@ -145,7 +145,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   before_validation do
-    family = Nomen::ActivityFamily.find(self.family)
+    family = Nomen::ActivityFamily.find(family)
     if family
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
@@ -190,7 +190,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   validate do
-    if family = Nomen::ActivityFamily[self.family]
+    if family = Nomen::ActivityFamily[family]
       if with_supports && variety = Nomen::Variety[support_variety] && family.support_variety
         errors.add(:support_variety, :invalid) unless variety <= family.support_variety
       end

@@ -210,7 +210,7 @@ class Intervention < Ekylibre::Record::Base
   scope :done, -> {}
 
   before_validation do
-    if self.started_at && self.stopped_at
+    if started_at && stopped_at
       self.whole_duration = (stopped_at - started_at).to_i
     end
     self.state ||= self.class.state.default_value
@@ -228,14 +228,14 @@ class Intervention < Ekylibre::Record::Base
       end
       errors.add(:actions, :invalid) unless all_known
     end
-    if self.started_at && self.stopped_at && self.stopped_at <= self.started_at
-      errors.add(:stopped_at, :posterior, to: self.started_at.l)
+    if started_at && stopped_at && stopped_at <= started_at
+      errors.add(:stopped_at, :posterior, to: started_at.l)
     end
     true
   end
 
   before_save do
-    columns = { name: name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention }
+    columns = { name: name, started_at: started_at, stopped_at: stopped_at, nature: :production_intervention }
 
     if event
       # self.event.update_columns(columns)

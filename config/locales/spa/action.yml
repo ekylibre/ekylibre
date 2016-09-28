@@ -1673,6 +1673,7 @@ spa:
     transfer: "Transferir"
     transformations: "Transformaciones" #?
     transport: "Transporte"
+    undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"
     undelivered: "No entregado"
     undone: "Deshecho"

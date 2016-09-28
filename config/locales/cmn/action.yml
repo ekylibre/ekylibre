@@ -1440,6 +1440,7 @@ cmn:
     transfer: "转让"
     transformations: "转换" #?
     transport: "运输"
+    undefined_activity: "未定义活动"
     undefined_container: "未定义的容器"
     undelivered: "未送达"
     undone: "未完成"

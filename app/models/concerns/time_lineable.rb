@@ -48,8 +48,8 @@ module TimeLineable
     end
 
     after_destroy do
-      if previous = self.previous
-        self.previous.update_column(:stopped_at, stopped_at)
+      if previous = previous
+        previous.update_column(:stopped_at, stopped_at)
       end
     end
   end

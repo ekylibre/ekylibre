@@ -1439,6 +1439,7 @@ deu:
     transfer: "Übertragung"
     transformations: "Transformationen" #?
     # transport: "Transport"
+    undefined_activity: "Nicht definierte Aktivität"
     undefined_container: "undefined Behälter"
     undelivered: "Nicht gesendet"
     undone: "unerledigt"

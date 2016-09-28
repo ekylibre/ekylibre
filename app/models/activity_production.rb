@@ -120,7 +120,8 @@ class ActivityProduction < Ekylibre::Record::Base
     where(activity: Activity.of_families(*families))
   }
 
-  scope :current, -> { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: Time.zone.now) }
+  scope :at, ->(at) { where(':now BETWEEN COALESCE(started_on, :now) AND COALESCE(stopped_on, :now)', now: at.to_date) }
+  scope :current, -> { at(Time.zone.now) }
 
   state_machine :state, initial: :opened do
     state :opened
@@ -142,8 +143,8 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   before_validation on: :create do
-    if self.activity
-      self.rank_number = (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
+    if activity
+      self.rank_number = (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
     end
     true
   end
@@ -151,11 +152,11 @@ class ActivityProduction < Ekylibre::Record::Base
   before_validation do
     self.started_on ||= Date.today
     self.usage = Nomen::ProductionUsage.first unless usage
-    if self.activity
+    if activity
       self.stopped_on ||= self.started_on + 1.year - 1.day if annual?
       self.size_indicator_name ||= activity_size_indicator_name if activity_size_indicator_name
       self.size_unit_name = activity_size_unit_name
-      self.rank_number ||= (self.activity.productions.maximum(:rank_number) ? self.activity.productions.maximum(:rank_number) : 0) + 1
+      self.rank_number ||= (activity.productions.maximum(:rank_number) ? activity.productions.maximum(:rank_number) : 0) + 1
       if plant_farming?
         initialize_land_parcel_support!
       elsif animal_farming?
@@ -184,8 +185,8 @@ class ActivityProduction < Ekylibre::Record::Base
   end
 
   after_commit do
-    if self.activity.productions.where(rank_number: rank_number).count > 1
-      update_column(:rank_number, self.activity.productions.maximum(:rank_number) + 1)
+    if activity.productions.where(rank_number: rank_number).count > 1
+      update_column(:rank_number, activity.productions.maximum(:rank_number) + 1)
     end
     Ekylibre::Hook.publish(:activity_production_change, activity_production_id: id)
   end

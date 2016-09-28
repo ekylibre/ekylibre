@@ -106,4 +106,9 @@ class Animal < Bioproduct
   def variety_text
     "nomenclatures.varieties.items.#{variety}".t
   end
+
+  def best_activity_production(options = {})
+    at = options[:at] || Time.zone.now
+    ActivityProduction.where(support: groups_at(at)).at(at).first || super
+  end
 end

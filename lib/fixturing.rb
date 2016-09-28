@@ -195,7 +195,7 @@ module Fixturing
           end
         end
         data[table.to_s].each do |record, attributes|
-          data[table.to_s][record] = attributes.sort { |a, b| a.first <=> b.first }.each_with_object({}) do |pair, hash|
+          data[table.to_s][record] = attributes.sort_by(&:first).each_with_object({}) do |pair, hash|
             hash[pair.first] = pair.second
             hash
           end
@@ -269,7 +269,7 @@ module Fixturing
 
       data.each do |table, records|
         records.each do |record, attributes|
-          data[table][record] = attributes.delete_if { |k, _v| k == 'id' }.sort { |a, b| a.first <=> b.first }.each_with_object({}) do |pair, hash|
+          data[table][record] = attributes.delete_if { |k, _v| k == 'id' }.sort_by(&:first).each_with_object({}) do |pair, hash|
             hash[pair.first] = pair.second
             hash
           end
@@ -310,7 +310,7 @@ module Fixturing
 
       data.each do |table, records|
         records.each do |record, attributes|
-          data[table][record] = attributes.sort { |a, b| a.first <=> b.first }.each_with_object({}) do |pair, hash|
+          data[table][record] = attributes.sort_by(&:first).each_with_object({}) do |pair, hash|
             hash[pair.first] = pair.second
             hash
           end
