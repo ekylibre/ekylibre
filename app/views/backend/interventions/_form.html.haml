@@ -16,6 +16,7 @@
   = field_set do
     = f.input :procedure_name, as: :hidden, input_html: { data: { procedure: compute_backend_interventions_path(format: :json) }}
     = f.input :nature, as: :hidden
+    = f.input :state, as: :hidden
     = f.referenced_association :issue, new: false
     - if f.object.record?
       = f.referenced_association :request_intervention, new: false, as: :hidden
@@ -46,7 +47,7 @@
       = render 'parameter_form', reference: parameter, f: f, namespace: ''
 
 - else # Root Procedure Natures
-  - main_campaign_selector
+  - main_period_selector(:year)
   - Nomen::ActivityFamily.find_each do |family|
     - categories = Nomen::ProcedureCategory.select { |c| c.activity_family.include?(family.name.to_sym) }
     - next unless categories.any?

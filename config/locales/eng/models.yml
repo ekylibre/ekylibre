@@ -403,6 +403,7 @@ eng:
     by_default: "By default"
     calibrations: "Calibrations"
     campaign: "Campaign"
+    campaigns: "Campaigns"
     canal: "Canal"
     cap_islet: "CAP islet"
     cap_islets: "CAP islets"
@@ -439,6 +440,7 @@ eng:
     closed_on: "Closed on"
     clusters_work_number: "Clusters work number" #?
     code: "Code"
+    codes: "Codes"
     coefficient: "Coefficient"
     collect_account: "Collect account"
     collected_taxes: "Collected taxes"
@@ -684,6 +686,7 @@ eng:
     group: "Group"
     group_parameters: "Group parameters"
     groups: "Groups"
+    gtin: "GTIN"
     guide: "Guide"
     harvest_year: "Harvest year"
     has_downpayment: "Has downpayment"

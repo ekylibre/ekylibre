@@ -19,6 +19,7 @@ spa:
       month: "% B% Y"
       month_letter: "%d %B %Y"
       short: "%b %d"
+      short_month: "%m/%Y"
     month_names: ["", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
   datetime:
     distance_in_words:
@@ -56,6 +57,11 @@ spa:
       x_seconds:
         one: "1 segundo"
         other: "%{count} segundos"
+    periods:
+      day: "Día"
+      month: "Mes"
+      week: "Semana"
+      year: "Año"
     relative_distance_in_words:
       in_sometime: "en %{distance}"
       sometime_ago: "hace %{distance}"
@@ -109,7 +115,9 @@ spa:
   time:
     am: "am"
     formats:
+      compact: "% M /% d /% Y% H:% M"
       default: "%d %b. %Y - %H:%M:%S"
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
+      time: "%H:%M" #?
     pm: "pm"

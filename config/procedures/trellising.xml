@@ -2,14 +2,14 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="trellising" categories="crop_maintenance" optional-actions="plant_support, yield_improvement">
     <parameters>
-      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <input name="stakes" filter="is stake" cardinality="*">
         <handler indicator="stakes_count" unit="unity_per_hectare"
-                 if="sum(land_parcel, :net_surface_area, :hectare) != 0"
-                 backward="(POPULATION / sum(land_parcel, :net_surface_area, :hectare))"
-                 forward="(VALUE * sum(land_parcel, :net_surface_area, :hectare))"/>
+                 if="sum(cultivation, :net_surface_area, :hectare) != 0"
+                 backward="(POPULATION / sum(cultivation, :net_surface_area, :hectare))"
+                 forward="(VALUE * sum(cultivation, :net_surface_area, :hectare))"/>
       </input>
       <input name="wire_fence" filter="is wire" cardinality="*">
         <handler indicator="length" unit="meter"
@@ -17,8 +17,8 @@
                  backward="(POPULATION * PRODUCT..length(meter))"
                  forward="(VALUE / PRODUCT..length(meter))"/>
       </input>
-      <doer name="doer"  filter="is worker and can move" cardinality="*"/>
       <tool name="equipment" filter="is equipment" cardinality="*"/>
+      <doer name="doer"  filter="is worker and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

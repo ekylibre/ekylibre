@@ -28,6 +28,7 @@
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text
 #  client_id           :integer          not null
+#  codes               :jsonb
 #  conclusion          :text
 #  confirmed_at        :datetime
 #  created_at          :datetime         not null
@@ -200,7 +201,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   protect on: :destroy do
-    invoice? || order?
+    invoice? || order? || !parcels.all?(&:destroyable?) || !subscriptions.all?(&:destroyable?)
   end
 
   # This callback bookkeeps the sale depending on its state

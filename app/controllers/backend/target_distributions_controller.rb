@@ -56,12 +56,12 @@ module Backend
       end
 
       @target_distributions = TargetDistribution.where(target_id: targets).joins(:target).order('products.name')
-      new_id = TargetDistribution.maximum(:id) + 10_000
+      new_id = -1
       targets.order(:name).each do |target|
         unless @target_distributions.detect { |d| d.target_id == target.id }
-          @target_distributions << @target_distributions.build(id: new_id, target: target, activity_production: Maybe(target.last_intervention_target).activity_production.id.or_else(nil))
+          @target_distributions << @target_distributions.build(id: new_id, target: target, activity_production_id: Maybe(target.last_intervention_target).activity_production.id.or_else(nil))
         end
-        new_id += 1
+        new_id -= 1
       end
     end
 

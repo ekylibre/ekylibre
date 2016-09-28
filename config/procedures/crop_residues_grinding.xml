@@ -2,12 +2,12 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="crop_residues_grinding" categories="crop_maintenance" actions="residue_destruction, organic_matter_burying" optional-actions="organic_fertilization">
     <parameters>
-      <target name="land_parcel" filter="(is plant or is land_parcel) and has indicator shape">
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
-      <tool name="grinder" filter="can grind(plant)"/>
-      <tool name="tractor" filter="is equipment and can catch(equipment)"/>
-      <doer name="driver"  filter="can drive(tractor) and can move"/>
+      <tool name="tractor" filter="is equipment and can catch(equipment)" cardinality="*"/>
+      <tool name="grinder" filter="can grind(plant)" cardinality="*"/>
+      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

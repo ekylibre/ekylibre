@@ -47,6 +47,10 @@ class ActivityTactic < Ekylibre::Record::Base
   validates :activity, presence: true
   # ]VALIDATORS]
 
+  def of_family
+    Activity.where(id: activity_id).map(&:family).join.to_sym
+  end
+
   def mode_unit_name
     :day
   end
