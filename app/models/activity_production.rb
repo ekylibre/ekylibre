@@ -102,7 +102,7 @@ class ActivityProduction < Ekylibre::Record::Base
            :color, :annual?, :perennial?, to: :activity
 
   scope :of_campaign, lambda { |campaign|
-    where('id IN (SELECT activity_production_id FROM activity_productions_campaigns WHERE campaign_id = ?)', campaign.id)
+    where(id: HABTM_Campaigns.select(:activity_production_id).where(campaign: campaign))
   }
 
   scope :of_cultivation_variety, lambda { |variety|
@@ -321,11 +321,6 @@ class ActivityProduction < Ekylibre::Record::Base
     !season_id.nil?
   end
 
-  # Returns interventions of current production
-  def interventions
-    Intervention.of_activity_production(self)
-  end
-
   def interventions_by_weeks
     interventions_by_week = {}
 
@@ -342,10 +337,6 @@ class ActivityProduction < Ekylibre::Record::Base
     end
 
     interventions_by_week
-  end
-
-  def campaigns
-    Campaign.of_activity_production(self)
   end
 
   def started_on_for(campaign)

@@ -114,7 +114,7 @@ class Intervention < Ekylibre::Record::Base
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }
   scope :of_campaign, lambda { |campaign|
-    where('id IN (SELECT intervention_id FROM campaigns_interventions WHERE campaign_id = ?)', campaign.id)
+    where(id: HABTM_Campaigns.select(:intervention_id).where(campaign: campaign))
   }
   scope :of_current_campaigns, -> { of_campaign(Campaign.current) }
   scope :of_activity_production, lambda { |production|
