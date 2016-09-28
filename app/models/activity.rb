@@ -169,9 +169,6 @@ class Activity < Ekylibre::Record::Base
         self.cultivation_variety ||= :equipment
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
-      else
-        self.with_supports = false
-        self.with_cultivation = false
       end
       # if with_supports || family.support_variety
       #   self.with_supports = true
@@ -186,6 +183,8 @@ class Activity < Ekylibre::Record::Base
       #   self.with_cultivation = false
       # end
     end
+    self.with_supports = false if with_supports.nil?
+    self.with_cultivation = false if with_cultivation.nil?
     true
   end
 
