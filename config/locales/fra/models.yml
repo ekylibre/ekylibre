@@ -577,6 +577,7 @@ fra:
     closed_on: "Clôturé le"
     clusters_work_number: "Ilôts PAC"
     code: "Code"
+    # codes: "Codes"
     coefficient: "Coefficient"
     collect_account: "TVA collectée"
     collect_taxes: "TVA collectées" #?
@@ -868,6 +869,7 @@ fra:
     group: "Groupe"
     group_parameters: "Paramètres de groupe"
     groups: "Groupes"
+    # gtin: "GTIN"
     guide: "Référentiel"
     harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"

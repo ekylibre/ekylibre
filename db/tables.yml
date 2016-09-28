@@ -1929,6 +1929,8 @@ entities:
   client_account_id:
     type: integer
     references: account
+  codes:
+    type: jsonb
   country:
     type: string
   created_at:
@@ -5329,6 +5331,8 @@ product_nature_variants:
     type: jsonb
   derivative_of:
     type: string
+  gtin:
+    type: string
   id:
     type: integer
     required: true
@@ -5977,6 +5981,8 @@ sale_items:
     required: true
   annotation:
     type: text
+  codes:
+    type: jsonb
   created_at:
     type: datetime
     required: true
@@ -6138,6 +6144,8 @@ sales:
     type: integer
     references: entity
     required: true
+  codes:
+    type: jsonb
   conclusion:
     type: text
   confirmed_at:

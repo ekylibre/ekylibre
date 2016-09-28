@@ -1148,6 +1148,7 @@ eng:
     gross_profit: "Gross profit"
     group: "Group" #?
     groups: "Groups"
+    # gtin: "Gtin"
     guide_evolution: "Guide evolution"
     harvested_at: "Harvested at" #?
     help: "Help"
