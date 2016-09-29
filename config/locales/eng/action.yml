@@ -339,18 +339,18 @@ eng:
       index: "Integrations"
       new: "Activate integration: %{name}"
     backend/interventions:
-      # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
       edit: "Edit"
       edit_request: "Edit request" #?
       edit_specified: "Edit %{procedure_name} #%{number}" #?
       edit_specified_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
-      # modal: "Modal intervention: %{name}"
       new: "New intervention"
       new_request: "New intervention request" #?
       new_specified: "New %{procedure_name}" #?
       new_specified_request: "New requested %{procedure_name}" #?
+      # purchase: "Purchase intervention: %{name}"
+      # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Edit inventory"
@@ -1862,6 +1862,7 @@ eng:
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
+      # no_interventions_given: "No interventions given"
       no_parcels_given: "No parcels given"
       no_payment_to_deposit: "There are no payment to deposit"
       no_production_defined_for_current_campaign: "No production defined for current campaign"
@@ -1919,7 +1920,6 @@ eng:
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_password: "Change password"
-      # change_state: "Change state"
       check: "Check"
       close: "Close"
       compute: "Compute"
@@ -1964,7 +1964,6 @@ eng:
       mail: "Mail"
       mark: "Mark"
       merge: "Merge"
-      # modal: "Modal"
       # models: "Models"
       negociate: "Negociate"
       new: "New"
@@ -1978,6 +1977,7 @@ eng:
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
       prospect: "Prospect"
+      purchase: "Turn into purchase"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
@@ -1992,6 +1992,7 @@ eng:
       run: "Run"
       search: "Search" #?
       select: "Select"
+      sell: "Turn into sale"
       ship: "Ship"
       show: "Show"
       sort: "Sort"
