@@ -90,9 +90,11 @@ module Procedo
           product = run(node.object)
           unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
             Rails.logger.warn 'Invalid product. Got: ' + product.inspect
+            return false
           end
-          product.has_indicator?(indicator.name.to_sym) &&
-            (indicator.datatype == :measure ? product.get(indicator.name).to_f.nonzero? : product.get(indicator.name).present?)
+
+          !!(product.has_indicator?(indicator.name.to_sym) &&
+            (indicator.datatype == :measure ? product.get(indicator.name).to_f.nonzero? : product.get(indicator.name).present?))
         elsif node.is_a?(Procedo::Formula::Language::IndividualIndicatorPresenceTest)
           indicator = Nomen::Indicator.find!(node.indicator.text_value)
           product = run(node.object)
@@ -101,8 +103,9 @@ module Procedo
             return false
           end
           variant = product.variant
-          variant.has_frozen_indicator?(indicator.name.to_sym) &&
-            (indicator.datatype == :measure ? variant.get(indicator.name.to_sym).to_f.nonzero? : variant.get(indicator.name.to_sym).present?)
+
+          !!(variant.has_frozen_indicator?(indicator.name.to_sym) &&
+            (indicator.datatype == :measure ? variant.get(indicator.name.to_sym).to_f.nonzero? : variant.get(indicator.name.to_sym).present?))
         elsif node.is_a?(Procedo::Formula::Language::Reading)
           unit = nil
           if node.options && node.options.respond_to?(:unit)
@@ -115,13 +118,14 @@ module Procedo
           end
           product = run(node.object)
           # TODO: Manage when no product...
-          unless product.is_a?(Product)
+          unless product.is_a?(Product) || product.is_a?(ProductNatureVariant)
             Rails.logger.warn 'Invalid product. Got: ' + product.inspect + ' ' + node.text_value
             # raise 'Invalid product: Got: ' + product.inspect + ' ' + node.text_value
           end
           if node.is_a?(Procedo::Formula::Language::IndividualReading)
             product = product.variant
           end
+
           value = product.get(indicator.name.to_sym, @env['READ_AT'])
           value = value.to_f(unit.name) if unit
           value
