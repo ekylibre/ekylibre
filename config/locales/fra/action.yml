@@ -330,7 +330,7 @@ fra:
       index: "Interventions"
       new: "Nouvelle intervention"
       new_request: "Nouvelle demande d’intervention"
-      new_specified: "Nouvelle %{procedure_name}"
+      new_specified: "Nouvelle intervention de %{procedure_name}"
       new_specified_request: "Nouvelle demande de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
     backend/inventories:
