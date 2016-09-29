@@ -32,7 +32,7 @@ module Backend
                     'land-parcels'
                   elsif product.is_a?(Animal) || product.is_a?(AnimalGroup)
                     'cow'
-                  elsif product.is_a?(Equipment) || product.is_a?(EquipmentFleet)
+                  elsif product.is_a?(Equipment) || product.is_a?(EquipmentFleet)
                     'tractor'
                   end
 
