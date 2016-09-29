@@ -159,6 +159,13 @@ module Backend
       t.column :started_at
       t.column :stopped_at
     end
+    
+    # Lists localizations of the current product
+    list(:parcel_items, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
+      t.column :parcel, url: true
+      t.column :population
+      t.column :product_identification_number
+    end
 
     # Lists localizations of the current product
     list(:places, model: :product_localizations, conditions: { product_id: 'params[:id]'.c }, order: { started_at: :desc }) do |t|
