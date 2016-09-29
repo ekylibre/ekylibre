@@ -136,7 +136,13 @@ class Intervention < Ekylibre::Record::Base
     search_params = []
 
     unless params[:q].blank?
-      search_params << "#{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
+      procedures = Procedo.selection.select { |l, n| l.downcase.include? params[:q].strip }.map{|l,n| "'#{n}'"}.join(',')
+
+      search_params << if procedures.empty?
+                        "#{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
+                      else
+                        "(#{Intervention.table_name}.number ILIKE '%#{params[:q]}%' OR procedure_name IN (#{procedures}))"
+                      end
     end
 
     unless params[:procedure_name].blank?
