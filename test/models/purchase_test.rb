@@ -22,30 +22,32 @@
 #
 # == Table: purchases
 #
-#  accounted_at        :datetime
-#  affair_id           :integer
-#  amount              :decimal(19, 4)   default(0.0), not null
-#  confirmed_at        :datetime
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  currency            :string           not null
-#  custom_fields       :jsonb
-#  delivery_address_id :integer
-#  description         :text
-#  id                  :integer          not null, primary key
-#  invoiced_at         :datetime
-#  journal_entry_id    :integer
-#  lock_version        :integer          default(0), not null
-#  nature_id           :integer
-#  number              :string           not null
-#  planned_at          :datetime
-#  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  reference_number    :string
-#  responsible_id      :integer
-#  state               :string
-#  supplier_id         :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  accounted_at                     :datetime
+#  affair_id                        :integer
+#  amount                           :decimal(19, 4)   default(0.0), not null
+#  confirmed_at                     :datetime
+#  created_at                       :datetime         not null
+#  creator_id                       :integer
+#  currency                         :string           not null
+#  custom_fields                    :jsonb
+#  delivery_address_id              :integer
+#  description                      :text
+#  id                               :integer          not null, primary key
+#  invoiced_at                      :datetime
+#  journal_entry_id                 :integer
+#  lock_version                     :integer          default(0), not null
+#  nature_id                        :integer
+#  number                           :string           not null
+#  planned_at                       :datetime
+#  pretax_amount                    :decimal(19, 4)   default(0.0), not null
+#  quantity_gap_on_invoice_entry_id :integer
+#  reference_number                 :string
+#  responsible_id                   :integer
+#  state                            :string
+#  supplier_id                      :integer          not null
+#  undelivered_invoice_entry_id     :integer
+#  updated_at                       :datetime         not null
+#  updater_id                       :integer
 #
 
 require 'test_helper'

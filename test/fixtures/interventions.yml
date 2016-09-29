@@ -22,14 +22,17 @@
 #
 # == Table: interventions
 #
+#  accounted_at            :datetime
 #  actions                 :string
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  currency                :string
 #  custom_fields           :jsonb
 #  description             :text
 #  event_id                :integer
 #  id                      :integer          not null, primary key
 #  issue_id                :integer
+#  journal_entry_id        :integer
 #  lock_version            :integer          default(0), not null
 #  nature                  :string           not null
 #  number                  :string

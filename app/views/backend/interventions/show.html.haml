@@ -107,6 +107,12 @@
         %span.title= Intervention.human_attribute_name(:prescription)
         %span.value= link_to(resource.prescription.name, {controller: :prescriptions, action: :show, id: resource.prescription})
 
+
+    - if resource.journal_entry
+      .info
+        %span.title= Intervention.human_attribute_name(:journal_entry)
+        %span.value= link_to(resource.journal_entry.number, {controller: :journal_entries, action: :show, id: resource.journal_entry.id})
+
     - if resource.issue
       .info
         %span.title= Intervention.human_attribute_name(:issue)

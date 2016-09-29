@@ -287,7 +287,9 @@ CREATE TABLE intervention_parameters (
     group_id integer,
     new_name character varying,
     component_id integer,
-    assembly_id integer
+    assembly_id integer,
+    currency character varying,
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -318,7 +320,10 @@ CREATE TABLE interventions (
     nature character varying NOT NULL,
     request_intervention_id integer,
     trouble_encountered boolean DEFAULT false NOT NULL,
-    trouble_description text
+    trouble_description text,
+    accounted_at timestamp without time zone,
+    currency character varying,
+    journal_entry_id integer
 );
 
 
@@ -3074,7 +3079,9 @@ CREATE TABLE inventories (
     lock_version integer DEFAULT 0 NOT NULL,
     name character varying NOT NULL,
     achieved_at timestamp without time zone,
-    custom_fields jsonb
+    custom_fields jsonb,
+    financial_year_id integer,
+    currency character varying
 );
 
 
@@ -3112,7 +3119,9 @@ CREATE TABLE inventory_items (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    product_movement_id integer
+    product_movement_id integer,
+    currency character varying,
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -3960,7 +3969,9 @@ CREATE TABLE parcel_items (
     product_movement_id integer,
     source_product_movement_id integer,
     product_identification_number character varying,
-    product_name character varying
+    product_name character varying,
+    currency character varying,
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -4016,7 +4027,11 @@ CREATE TABLE parcels (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     with_delivery boolean DEFAULT false NOT NULL,
-    separated_stock boolean
+    separated_stock boolean,
+    accounted_at timestamp without time zone,
+    currency character varying,
+    journal_entry_id integer,
+    undelivered_invoice_entry_id integer
 );
 
 
@@ -4620,7 +4635,8 @@ CREATE TABLE product_nature_categories (
     fixed_asset_expenses_account_id integer,
     fixed_asset_depreciation_percentage numeric(19,4) DEFAULT 0.0,
     fixed_asset_depreciation_method character varying,
-    custom_fields jsonb
+    custom_fields jsonb,
+    stock_movement_account_id integer
 );
 
 
@@ -4774,7 +4790,7 @@ CREATE TABLE product_nature_variants (
     category_id integer NOT NULL,
     nature_id integer NOT NULL,
     name character varying,
-    number character varying,
+    work_number character varying,
     variety character varying NOT NULL,
     derivative_of character varying,
     reference_name character varying,
@@ -4790,7 +4806,10 @@ CREATE TABLE product_nature_variants (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    gtin character varying
+    gtin character varying,
+    number character varying NOT NULL,
+    stock_account_id integer,
+    stock_movement_account_id integer
 );
 
 
@@ -5194,7 +5213,9 @@ CREATE TABLE purchases (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    undelivered_invoice_entry_id integer,
+    quantity_gap_on_invoice_entry_id integer
 );
 
 
@@ -5400,7 +5421,9 @@ CREATE TABLE sales (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    codes jsonb
+    codes jsonb,
+    undelivered_invoice_entry_id integer,
+    quantity_gap_on_invoice_entry_id integer
 );
 
 
@@ -11220,6 +11243,13 @@ CREATE INDEX index_interventions_on_issue_id ON interventions USING btree (issue
 
 
 --
+-- Name: index_interventions_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_interventions_on_journal_entry_id ON interventions USING btree (journal_entry_id);
+
+
+--
 -- Name: index_interventions_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11287,6 +11317,13 @@ CREATE INDEX index_inventories_on_created_at ON inventories USING btree (created
 --
 
 CREATE INDEX index_inventories_on_creator_id ON inventories USING btree (creator_id);
+
+
+--
+-- Name: index_inventories_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_inventories_on_financial_year_id ON inventories USING btree (financial_year_id);
 
 
 --
@@ -12375,6 +12412,13 @@ CREATE INDEX index_parcels_on_delivery_id ON parcels USING btree (delivery_id);
 
 
 --
+-- Name: index_parcels_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_journal_entry_id ON parcels USING btree (journal_entry_id);
+
+
+--
 -- Name: index_parcels_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12435,6 +12479,13 @@ CREATE INDEX index_parcels_on_storage_id ON parcels USING btree (storage_id);
 --
 
 CREATE INDEX index_parcels_on_transporter_id ON parcels USING btree (transporter_id);
+
+
+--
+-- Name: index_parcels_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_undelivered_invoice_entry_id ON parcels USING btree (undelivered_invoice_entry_id);
 
 
 --
@@ -13271,6 +13322,13 @@ CREATE INDEX index_product_nature_categories_on_stock_account_id ON product_natu
 
 
 --
+-- Name: index_product_nature_categories_on_stock_movement_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_categories_on_stock_movement_account_id ON product_nature_categories USING btree (stock_movement_account_id);
+
+
+--
 -- Name: index_product_nature_categories_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13464,6 +13522,27 @@ CREATE INDEX index_product_nature_variants_on_creator_id ON product_nature_varia
 --
 
 CREATE INDEX index_product_nature_variants_on_nature_id ON product_nature_variants USING btree (nature_id);
+
+
+--
+-- Name: index_product_nature_variants_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_product_nature_variants_on_number ON product_nature_variants USING btree (number);
+
+
+--
+-- Name: index_product_nature_variants_on_stock_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variants_on_stock_account_id ON product_nature_variants USING btree (stock_account_id);
+
+
+--
+-- Name: index_product_nature_variants_on_stock_movement_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variants_on_stock_movement_account_id ON product_nature_variants USING btree (stock_movement_account_id);
 
 
 --
@@ -14083,6 +14162,13 @@ CREATE INDEX index_purchases_on_nature_id ON purchases USING btree (nature_id);
 
 
 --
+-- Name: index_purchases_on_quantity_gap_on_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchases_on_quantity_gap_on_invoice_entry_id ON purchases USING btree (quantity_gap_on_invoice_entry_id);
+
+
+--
 -- Name: index_purchases_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14094,6 +14180,13 @@ CREATE INDEX index_purchases_on_responsible_id ON purchases USING btree (respons
 --
 
 CREATE INDEX index_purchases_on_supplier_id ON purchases USING btree (supplier_id);
+
+
+--
+-- Name: index_purchases_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchases_on_undelivered_invoice_entry_id ON purchases USING btree (undelivered_invoice_entry_id);
 
 
 --
@@ -14349,6 +14442,13 @@ CREATE INDEX index_sales_on_nature_id ON sales USING btree (nature_id);
 
 
 --
+-- Name: index_sales_on_quantity_gap_on_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_on_quantity_gap_on_invoice_entry_id ON sales USING btree (quantity_gap_on_invoice_entry_id);
+
+
+--
 -- Name: index_sales_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14360,6 +14460,13 @@ CREATE INDEX index_sales_on_responsible_id ON sales USING btree (responsible_id)
 --
 
 CREATE INDEX index_sales_on_transporter_id ON sales USING btree (transporter_id);
+
+
+--
+-- Name: index_sales_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_on_undelivered_invoice_entry_id ON sales USING btree (undelivered_invoice_entry_id);
 
 
 --
@@ -15439,4 +15546,10 @@ INSERT INTO schema_migrations (version) VALUES ('20160920083312');
 INSERT INTO schema_migrations (version) VALUES ('20160921144623');
 
 INSERT INTO schema_migrations (version) VALUES ('20160921185801');
+
+INSERT INTO schema_migrations (version) VALUES ('20160922161801');
+
+INSERT INTO schema_migrations (version) VALUES ('20160923233801');
+
+INSERT INTO schema_migrations (version) VALUES ('20160927192301');
 

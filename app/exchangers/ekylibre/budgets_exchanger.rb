@@ -39,7 +39,7 @@ module Ekylibre
         if cultivation_variant_reference_name
           if cultivation_variety = Nomen::Variety.find(cultivation_variant_reference_name.to_sym)
             w.info 'cultivation_variant_reference_name is a variety'
-          elsif cultivation_variant = ProductNatureVariant.find_by(number: cultivation_variant_reference_name) ||
+          elsif cultivation_variant = ProductNatureVariant.find_by(work_number: cultivation_variant_reference_name) ||
                                       ProductNatureVariant.find_by(reference_name: cultivation_variant_reference_name)
             w.info 'cultivation_variant_reference_name is an existing variant in DB'
           elsif cultivation_variant = ProductNatureVariant.import_from_nomenclature(cultivation_variant_reference_name)
@@ -54,7 +54,7 @@ module Ekylibre
         # puts cultivation_variety.inspect.red
 
         if support_variant_reference_name
-          unless support_variant = ProductNatureVariant.find_by(number: support_variant_reference_name) ||
+          unless support_variant = ProductNatureVariant.find_by(work_number: support_variant_reference_name) ||
                                    ProductNatureVariant.find_by(reference_name: support_variant_reference_name)
             support_variant = ProductNatureVariant.import_from_nomenclature(support_variant_reference_name)
           end
@@ -210,7 +210,7 @@ module Ekylibre
             w.error "No variant given at row #{row_number}"
             next
           else
-            unless item_variant = ProductNatureVariant.find_by(number: r.item_code_variant) ||
+            unless item_variant = ProductNatureVariant.find_by(work_number: r.item_code_variant) ||
                                   ProductNatureVariant.find_by(reference_name: r.item_code_variant)
               unless Nomen::ProductNatureVariant[r.item_code_variant]
                 w.error "Cannot find valid variant for budget: #{r.item_code_variant.inspect.red}"

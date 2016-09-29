@@ -1260,6 +1260,7 @@ fra:
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
+    incoming: "Entrant" #?
     incoming_parcels: "Colis entrants"
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
@@ -1545,6 +1546,7 @@ fra:
     original_component: "D'origine"
     other_results: "Autres résultats…" #?
     others: "Autres"
+    outgoing: "Sortant" #?
     outgoing_payment: "Décaissement"
     outgoing_payments: "Décaissements"
     outgoing_payments_states:  #?
@@ -2362,6 +2364,7 @@ fra:
     accounting_system: "Plan comptable"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
+    catalog_price_item_addition_if_blank: "Compléter le catalogue de prix pendant les achats et ventes"
     country: "Pays"
     create_activities_from_telepac: "Créer automatiquement les activités lors de l’import TelePAC"
     currency: "Monnaie"
@@ -2369,6 +2372,7 @@ fra:
     host: "Adresse hôte"
     language: "Langue"
     map_measure_srs: "SRS de mesure cartographique"
+    permanent_stock_inventory: "Mode stock permanent (tenue des écritures comptables de stock)"
     sales_conditions: "Conditions de vente"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
   rest:

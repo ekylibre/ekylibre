@@ -1724,6 +1724,7 @@ deu:
     accounting_system: "Kontenplan"
     bookkeep_automatically: "Aktivieren Sie die automatische Buchhaltung"
     bookkeep_in_draft: "Speichern Sie die Aufzeichnungen im Entwurfsmodus während Buchhaltung"
+    catalog_price_item_addition_if_blank: "Katalogpreis Hinzufügen bei Kauf / Verkauf zum Katalog, wenn Katalog leer"
     country: "Land"
     create_activities_from_telepac: "Erstellen Aktivitäten während Telepac Import"
     currency: "Währung"
@@ -1731,6 +1732,7 @@ deu:
     host: "Gastgeber"
     language: "Sprache"
     map_measure_srs: "Karte Maßnahme SRS"
+    permanent_stock_inventory: "Permanent Lagerbestand Modus"
     sales_conditions: "Verkaufsbedingungen"
     use_entity_codes_for_account_numbers: "Benutzen Sie den Code für die Erstellung von Kontonummern"
   rest:

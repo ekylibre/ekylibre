@@ -22,14 +22,17 @@
 #
 # == Table: interventions
 #
+#  accounted_at            :datetime
 #  actions                 :string
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  currency                :string
 #  custom_fields           :jsonb
 #  description             :text
 #  event_id                :integer
 #  id                      :integer          not null, primary key
 #  issue_id                :integer
+#  journal_entry_id        :integer
 #  lock_version            :integer          default(0), not null
 #  nature                  :string           not null
 #  number                  :string
@@ -50,7 +53,8 @@
 class Intervention < Ekylibre::Record::Base
   include PeriodicCalculable, CastGroupable
   include Customizable
-  attr_readonly :procedure_name, :production_id
+  attr_readonly :procedure_name, :production_id, :currency
+  refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   enumerize :nature, in: [:request, :record], default: :record, predicates: true
   enumerize :state, in: [:in_progress, :done, :validated, :rejected], default: :done, predicates: true
@@ -58,6 +62,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :request_intervention, -> { where(nature: :request) }, class_name: 'Intervention'
   belongs_to :issue
   belongs_to :prescription
+  belongs_to :journal_entry, dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
@@ -80,10 +85,10 @@ class Intervention < Ekylibre::Record::Base
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounted_at, :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
-  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
@@ -212,6 +217,7 @@ class Intervention < Ekylibre::Record::Base
     if started_at && stopped_at
       self.whole_duration = (stopped_at - started_at).to_i
     end
+    self.currency ||= Preference[:currency]
     self.state ||= self.class.state.default_value
     if procedure
       self.actions = procedure.actions.map(&:name) if actions && actions.empty?
@@ -250,6 +256,45 @@ class Intervention < Ekylibre::Record::Base
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
     with_undestroyable_products?
+  end
+
+  # This method permits to add stock journal entries corresponding to the interventions which consume or produce products
+  # It depends on the preference which permit to activate the "permanent_stock_inventory" and "automatic bookkeeping"
+  #       Mode Intervention      |     Debit                      |            Credit            |
+  # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
+  # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
+  bookkeep do |b|
+    if Preference[:permanent_stock_inventory] && nature == :record
+      stock_journal = Journal.find_or_create_by!(nature: :stocks)
+      # inputs
+      if inputs.any?
+        for input in inputs
+          label = tc(:bookkeep, resource: name, name: input.product.name)
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: input.product_movement) do |entry|
+            entry.add_debit(label, input.variant.stock_movement_account_id, input.stock_amount) unless input.stock_amount.zero?
+            entry.add_credit(label, input.variant.stock_account_id, input.stock_amount) unless input.stock_amount.zero?
+          end
+        end
+      end
+      # outputs
+      if outputs.any?
+        for output in outputs
+          label = tc(:bookkeep, resource: name, name: output.variant.name)
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: output.product_movement) do |entry|
+            entry.add_debit(label, output.variant.stock_account_id, output.stock_amount) unless output.stock_amount.zero?
+            entry.add_credit(label, output.variant.stock_movement_account_id, output.stock_amount) unless output.stock_amount.zero?
+          end
+         end
+      end
+    end
+  end
+
+  def printed_at
+    (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
+  end
+
+  def activity_productions
+    ActivityProduction.of_intervention(self)
   end
 
   def with_undestroyable_products?
