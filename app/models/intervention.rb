@@ -190,9 +190,9 @@ class Intervention < Ekylibre::Record::Base
     end
 
     where(search_params)
-      .includes(:doers)
-      .references(product_parameters: [:product])
-      .order(started_at: :desc)
+    .reorder(started_at: :desc)
+    .includes(:doers)
+    .references(product_parameters: [:product])
   }
 
   scope :with_targets, lambda { |*targets|
