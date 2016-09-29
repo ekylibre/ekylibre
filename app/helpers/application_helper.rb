@@ -167,7 +167,7 @@ module ApplicationHelper
   # end
 
   def locale_selector_tag
-    locales = ::I18n.available_locales.sort { |a, b| a.to_s <=> b.to_s }
+    locales = ::I18n.available_locales.sort_by(&:to_s)
     # locales = ::I18n.valid_locales.sort{|a,b| a.to_s <=> b.to_s}
     locale = nil # ::I18n.locale
     if params[:locale].to_s =~ /^[a-z][a-z][a-z]$/
@@ -248,7 +248,7 @@ module ApplicationHelper
   def available_languages(native_language = true)
     I18n.available_locales.map do |l|
       [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
-    end.sort { |a, b| a.second <=> b.second }
+    end.sort_by(&:second)
   end
 
   # Returns a selection from names list
@@ -259,7 +259,7 @@ module ApplicationHelper
     items.collect do |name|
       item = nomenclature.find(name)
       [item.human_name, item.name]
-    end.sort { |a, b| a.first <=> b.first }
+    end.sort_by(&:first)
   end
 
   # Returns a selection from names list
@@ -269,7 +269,7 @@ module ApplicationHelper
     items = args.shift || enum.values
     items.collect do |name|
       [name.l, name]
-    end.sort { |a, b| a.first <=> b.first }
+    end.sort_by(&:first)
   end
 
   def back_url

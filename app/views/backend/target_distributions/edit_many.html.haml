@@ -21,7 +21,7 @@
                 = link_to distribution.target.name, backend_product_path(distribution.target)
                 = f.association :target, as: :hidden
               %td
-                = f.association :activity_production, wrapper: :nested, collection: activity_productions, include_blank: true
+                = f.association :activity_production, wrapper: :nested, collection: activity_productions.map{ |p| [p.name, p.id] }, include_blank: true
   = form_actions do
     = submit_tag(:update.tl, data: {disable_with: :please_wait.tl}, class: 'btn btn-primary')
     = link_to(:cancel.tl, (params[:redirect] || { controller: :activities, action: :index }), (params[:dialog] ? { class: 'btn', data: {close_dialog: params[:dialog]} } : { class: 'btn' }))

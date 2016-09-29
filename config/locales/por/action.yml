@@ -282,13 +282,15 @@ por:
       index: "Integrações"
       # new: "Activate integration: %{name}"
     backend/interventions:
-      # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit %{procedure_name} request #%{number}"
+      # edit: "Edit"
+      # edit_request: "Edit request"
+      # edit_specified: "Edit %{procedure_name} #%{number}"
+      # edit_specified_request: "Edit %{procedure_name} request #%{number}"
       index: "Intervenções"
       new: "Nova intervenção"
-      new_request: "Intervenção New solicitado"
-      new_undefined: "Nova intervenção"
-      new_undefined_request: "Pedido de intervenção Nova"
+      new_request: "Pedido de intervenção Nova"
+      new_specified: "Nova intervenção"
+      new_specified_request: "Intervenção New solicitado"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Editar inventário"
@@ -1444,6 +1446,7 @@ por:
     transfer: "Transferir"
     transformations: "Transformações" #?
     transport: "Transporte"
+    undefined_activity: "Atividade indefinida"
     undefined_container: "Recipiente indefinido"
     undelivered: "Não entregue"
     undone: "Desfeito"

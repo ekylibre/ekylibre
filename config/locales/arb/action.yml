@@ -338,13 +338,15 @@ arb:
       index: "التكامل"
       # new: "Activate integration: %{name}"
     backend/interventions:
-      # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit %{procedure_name} request #%{number}"
+      # edit: "Edit"
+      # edit_request: "Edit request"
+      # edit_specified: "Edit %{procedure_name} #%{number}"
+      # edit_specified_request: "Edit %{procedure_name} request #%{number}"
       index: "التدخلات"
       new: "تدخل جديد"
-      new_request: "تدخل طلب جديد"
-      new_undefined: "تدخل جديد"
-      new_undefined_request: "طلب تدخل جديد"
+      new_request: "طلب تدخل جديد"
+      new_specified: "تدخل جديد"
+      new_specified_request: "تدخل طلب جديد"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "تعديل الجرد"
@@ -2074,6 +2076,7 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
     undelivered: "لم يتم التسليم"
     undeposited: "لم يتم اي اقتطاع بنكي" #?

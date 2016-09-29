@@ -157,7 +157,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     end
     self.cumulated_absolute_debit  = absolute_debit
     self.cumulated_absolute_credit = absolute_credit
-    if previous = self.previous
+    if previous
       self.cumulated_absolute_debit += previous.cumulated_absolute_debit
       self.cumulated_absolute_credit += previous.cumulated_absolute_credit
     end

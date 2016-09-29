@@ -65,12 +65,12 @@ module Backend
       code << "   c << current_period.to_date.at_beginning_of_week.to_time.beginning_of_day\n"
       code << "   c << current_period.to_date.at_end_of_week.to_time.end_of_day\n"
 
-      code << " elsif current_period_interval.to_sym == :months\n"
+      code << " elsif current_period_interval.to_sym == :month\n"
       code << "   c[0] << ' AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = ? AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
       code << "   c << current_period.to_date.month\n"
       code << "   c << current_period.to_date.year\n"
 
-      code << " elsif current_period_interval.to_sym == :years\n"
+      code << " elsif current_period_interval.to_sym == :year\n"
       code << "   c[0] << ' AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?'\n"
       code << "   c << current_period.to_date.year\n"
       code << " end\n"

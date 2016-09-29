@@ -303,13 +303,15 @@ spa:
       index: "Integraciones"
       # new: "Activate integration: %{name}"
     backend/interventions:
-      # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit %{procedure_name} request #%{number}"
+      # edit: "Edit"
+      # edit_request: "Edit request"
+      # edit_specified: "Edit %{procedure_name} #%{number}"
+      # edit_specified_request: "Edit %{procedure_name} request #%{number}"
       index: "Intervenciones"
       new: "Intervención New"
-      new_request: "Intervención New solicitado"
-      new_undefined: "Intervención New"
-      new_undefined_request: "Nueva solicitud de intervención"
+      new_request: "Nueva solicitud de intervención"
+      new_specified: "Intervención New"
+      new_specified_request: "Intervención New solicitado"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "Modificación del inventario"
@@ -1673,6 +1675,7 @@ spa:
     transfer: "Transferir"
     transformations: "Transformaciones" #?
     transport: "Transporte"
+    undefined_activity: "Indefinido actividad"
     undefined_container: "Indefinido de contenedores"
     undelivered: "No entregado"
     undone: "Deshecho"

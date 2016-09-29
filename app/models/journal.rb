@@ -62,8 +62,8 @@ class Journal < Ekylibre::Record::Base
   selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
 
   scope :used_for, lambda { |nature|
-    unless self.nature.values.include?(nature.to_s)
-      raise ArgumentError, "Journal#used_for must be one of these: #{self.nature.values.join(', ')}"
+    unless Journal.nature.values.include?(nature.to_s)
+      raise ArgumentError, "Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}"
     end
     where(nature: nature.to_s)
   }
@@ -87,11 +87,11 @@ class Journal < Ekylibre::Record::Base
 
   # this method is .alled before creation or validation method.
   before_validation do
-    self.name = self.nature.l if name.blank? && self.nature
+    self.name = nature.l if name.blank? && nature
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    self.code = self.nature.l if code.blank?
+    self.code = nature.l if code.blank?
     self.code = code.codeize[0..3]
   end
 

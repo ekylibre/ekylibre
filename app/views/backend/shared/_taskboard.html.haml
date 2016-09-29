@@ -3,7 +3,7 @@
 
     - taskboard.columns.each_with_index do |column, index|
 
-      .taskboard-column{ class: column.options[:class], data: { column_index: index } }
+      .taskboard-column{ class: column.name, data: { column_index: index } }
 
         .taskboard-header{ class: column.column_header.options[:class] }
           %h4.title= column.column_header.title
@@ -38,8 +38,10 @@
                   = content_tag(:div, nil, :class => "task-datas") do
                     - task.datas.each do |data|
                       = content_tag(:div, nil, :class => "task-data #{data[:class]}", style: data[:style]) do
-                        = content_tag(:i, nil, :class => "picto picto-#{data[:icon]} #{data[:icon_class]}")
-                        = content_tag(:span, data[:text], :class => "data-text #{data[:text_class]}")
+                        - unless data[:icon].blank?
+                          = content_tag(:i, nil, :class => "picto picto-#{data[:icon]} #{data[:icon_class]}")
+                        - unless data[:text].blank?
+                          = content_tag(:span, data[:text], :class => "data-text #{data[:text_class]}")
 
                 - if task.actions.any?
                   .task-actions

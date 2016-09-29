@@ -341,14 +341,16 @@ eng:
     backend/interventions:
       # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
-      edit: "Edit %{procedure_name} #%{number}"
-      edit_request: "Edit %{procedure_name} request #%{number}" #?
+      edit: "Edit"
+      edit_request: "Edit request" #?
+      edit_specified: "Edit %{procedure_name} #%{number}" #?
+      edit_specified_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
       # modal: "Modal intervention: %{name}"
-      new: "New %{procedure_name}"
-      new_request: "New requested %{procedure_name}" #?
-      new_undefined: "New intervention" #?
-      new_undefined_request: "New intervention request" #?
+      new: "New intervention"
+      new_request: "New intervention request" #?
+      new_specified: "New %{procedure_name}" #?
+      new_specified_request: "New requested %{procedure_name}" #?
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Edit inventory"
@@ -1608,6 +1610,7 @@ eng:
     transactions_by_month: "Transactions by month" #?
     transfer: "Transfer" #?
     transport: "Transport" #?
+    undefined_activity: "Undefined activity"
     undefined_container: "Undefined container"
     undelivered: "Undelivered" #?
     undone: "Undone" #?

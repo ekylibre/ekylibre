@@ -114,7 +114,7 @@ class Intervention < Ekylibre::Record::Base
     where(procedure_name: Procedo::Procedure.of_category(category).map(&:name))
   }
   scope :of_campaign, lambda { |campaign|
-    where('id IN (SELECT intervention_id FROM campaigns_interventions WHERE campaign_id = ?)', campaign.id)
+    where(id: HABTM_Campaigns.select(:intervention_id).where(campaign: campaign))
   }
   scope :of_current_campaigns, -> { of_campaign(Campaign.current) }
   scope :of_activity_production, lambda { |production|
@@ -133,19 +133,23 @@ class Intervention < Ekylibre::Record::Base
 
   scope :with_unroll, lambda { |*args|
     params = args.extract_options!
-    search_params = ''
+    search_params = []
 
     unless params[:q].blank?
-      search_params << " #{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
+      procedures = Procedo.selection.select { |l, _n| l.downcase.include? params[:q].strip }.map { |_l, n| "'#{n}'" }.join(',')
+
+      search_params << if procedures.empty?
+                         "#{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
+                       else
+                         "(#{Intervention.table_name}.number ILIKE '%#{params[:q]}%' OR procedure_name IN (#{procedures}))"
+                      end
     end
 
     unless params[:procedure_name].blank?
-      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.procedure_name = '#{params[:procedure_name]}'"
     end
 
     unless params[:product_id].blank?
-      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
@@ -154,42 +158,37 @@ class Intervention < Ekylibre::Record::Base
       period_interval = params[:period_interval]
       period = params[:period]
 
-      search_params << ' AND ' unless search_params.blank?
-
       if period_interval.to_sym == :day
         search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
       if period_interval.to_sym == :week
-
         beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
         end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
-
         search_params << "#{Intervention.table_name}.started_at >= '#{beginning_of_week}' AND #{Intervention.table_name}.stopped_at <= '#{end_of_week}'"
       end
 
-      if period_interval.to_sym == :months
+      if period_interval.to_sym == :month
         search_params << "EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
-      if period_interval.to_sym == :years
+      if period_interval.to_sym == :year
         search_params << "EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
     end
 
     unless params[:nature].blank?
-      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
-
-      search_params << " AND #{Intervention.table_name}.request_intervention_id IS NULL" if params[:nature] == :request
+      if params[:nature] == :request
+        search_params << "#{Intervention.table_name}.request_intervention_id IS NULL"
+      end
     end
 
     unless params[:state].blank?
-      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
-    where(search_params)
+    where(search_params.join(' AND '))
       .includes(:doers)
       .references(product_parameters: [:product])
       .order(started_at: :desc)
@@ -210,7 +209,7 @@ class Intervention < Ekylibre::Record::Base
   scope :done, -> {}
 
   before_validation do
-    if self.started_at && self.stopped_at
+    if started_at && stopped_at
       self.whole_duration = (stopped_at - started_at).to_i
     end
     self.state ||= self.class.state.default_value
@@ -228,14 +227,14 @@ class Intervention < Ekylibre::Record::Base
       end
       errors.add(:actions, :invalid) unless all_known
     end
-    if self.started_at && self.stopped_at && self.stopped_at <= self.started_at
-      errors.add(:stopped_at, :posterior, to: self.started_at.l)
+    if started_at && stopped_at && stopped_at <= started_at
+      errors.add(:stopped_at, :posterior, to: started_at.l)
     end
     true
   end
 
   before_save do
-    columns = { name: name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention }
+    columns = { name: name, started_at: started_at, stopped_at: stopped_at, nature: :production_intervention }
 
     if event
       # self.event.update_columns(columns)

@@ -95,7 +95,7 @@ class DocumentTemplate < Ekylibre::Record::Base
         # Updates template
         if document.root && document.root.namespace && document.root.namespace.href == 'http://jasperreports.sourceforge.net/jasperreports'
           if template = document.root.xpath('xmlns:template').first
-            logger.info "Update <template> for document template #{self.nature}"
+            logger.info "Update <template> for document template #{nature}"
             template.children.remove
             style_file = Ekylibre::Tenant.private_directory.join('corporate_identity', 'reporting_style.xml')
             # TODO: find a way to permit customization for users to restore that
@@ -105,7 +105,7 @@ class DocumentTemplate < Ekylibre::Record::Base
             end
             template.add_child(Nokogiri::XML::CDATA.new(document, style_file.relative_path_from(source_path.dirname).to_s.inspect))
           else
-            logger.info "Cannot find and update <template> in document template #{self.nature}"
+            logger.info "Cannot find and update <template> in document template #{nature}"
           end
         end
         # Writes source
@@ -121,9 +121,9 @@ class DocumentTemplate < Ekylibre::Record::Base
   # Updates archiving methods of other templates of same nature
   after_save do
     if archiving.to_s =~ /\_of\_template$/
-      self.class.where('nature = ? AND NOT archiving LIKE ? AND id != ?', self.nature, '%_of_template', id).update_all("archiving = archiving || '_of_template'")
+      self.class.where('nature = ? AND NOT archiving LIKE ? AND id != ?', nature, '%_of_template', id).update_all("archiving = archiving || '_of_template'")
     else
-      self.class.where('nature = ? AND id != ?', self.nature, id).update_all(archiving: archiving)
+      self.class.where('nature = ? AND id != ?', nature, id).update_all(archiving: archiving)
     end
   end
 

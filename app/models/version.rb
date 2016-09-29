@@ -60,7 +60,7 @@ class Version < ActiveRecord::Base
     self.creator ||= Version.current_user
     self.creator_name ||= self.creator.name if self.creator
     self.item_object = item.version_object
-    if previous = self.previous
+    if previous
       self.item_changes = self.class.diff(previous.item_object, item_object)
     end
   end

@@ -106,31 +106,31 @@ class IncomingPayment < Ekylibre::Record::Base
   end
 
   before_validation do
-    if self.mode
-      self.commission_account ||= self.mode.commission_account
-      self.commission_amount ||= self.mode.commission_amount(amount)
-      self.currency = self.mode.currency
+    if mode
+      self.commission_account ||= mode.commission_account
+      self.commission_amount ||= mode.commission_amount(amount)
+      self.currency = mode.currency
     end
     true
   end
 
   validate do
-    if self.mode
-      errors.add(:currency, :invalid) if currency != self.mode.currency
-      if self.deposit
-        errors.add(:deposit_id, :invalid) if mode_id != self.deposit.mode_id
+    if mode
+      errors.add(:currency, :invalid) if currency != mode.currency
+      if deposit
+        errors.add(:deposit_id, :invalid) if mode_id != deposit.mode_id
       end
     end
   end
 
   protect(on: :update) do
-    (self.deposit && self.deposit.protected_on_update?) || (journal_entry && journal_entry.closed?)
+    (deposit && deposit.protected_on_update?) || (journal_entry && journal_entry.closed?)
   end
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    mode = self.mode
+    # mode = mode
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, payer: payer.full_name, mode: mode.name, check_number: bank_check_number)
     if mode.with_deposit?
       b.journal_entry(mode.depositables_journal, printed_on: self.to_bank_at.to_date, unless: (!mode || !mode.with_accounting? || !received)) do |entry|
