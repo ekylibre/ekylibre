@@ -4959,36 +4959,18 @@ ALTER SEQUENCE product_phases_id_seq OWNED BY product_phases.id;
 --
 
 CREATE TABLE product_populations (
-    id integer NOT NULL,
     product_id integer,
-    value numeric(19,4),
-    started_at timestamp without time zone NOT NULL,
-    stopped_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
+    started_at timestamp without time zone,
+    value numeric,
     creator_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    id integer,
+    lock_version integer
 );
 
-
---
--- Name: product_populations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE product_populations_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: product_populations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE product_populations_id_seq OWNED BY product_populations.id;
+ALTER TABLE ONLY product_populations REPLICA IDENTITY NOTHING;
 
 
 --
@@ -6840,13 +6822,6 @@ ALTER TABLE ONLY product_phases ALTER COLUMN id SET DEFAULT nextval('product_pha
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY product_populations ALTER COLUMN id SET DEFAULT nextval('product_populations_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY product_readings ALTER COLUMN id SET DEFAULT nextval('product_readings_id_seq'::regclass);
 
 
@@ -7906,14 +7881,6 @@ ALTER TABLE ONLY product_ownerships
 
 ALTER TABLE ONLY product_phases
     ADD CONSTRAINT product_phases_pkey PRIMARY KEY (id);
-
-
---
--- Name: product_populations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_populations
-    ADD CONSTRAINT product_populations_pkey PRIMARY KEY (id);
 
 
 --
@@ -13743,62 +13710,6 @@ CREATE INDEX index_product_phases_on_variant_id ON product_phases USING btree (v
 
 
 --
--- Name: index_product_populations_on_created_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_product_populations_on_created_at ON product_populations USING btree (created_at);
-
-
---
--- Name: index_product_populations_on_creator_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_product_populations_on_creator_id ON product_populations USING btree (creator_id);
-
-
---
--- Name: index_product_populations_on_product_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_product_populations_on_product_id ON product_populations USING btree (product_id);
-
-
---
--- Name: index_product_populations_on_product_id_and_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_product_populations_on_product_id_and_started_at ON product_populations USING btree (product_id, started_at);
-
-
---
--- Name: index_product_populations_on_started_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_product_populations_on_started_at ON product_populations USING btree (started_at);
-
-
---
--- Name: index_product_populations_on_stopped_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_product_populations_on_stopped_at ON product_populations USING btree (stopped_at);
-
-
---
--- Name: index_product_populations_on_updated_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_product_populations_on_updated_at ON product_populations USING btree (updated_at);
-
-
---
--- Name: index_product_populations_on_updater_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_product_populations_on_updater_id ON product_populations USING btree (updater_id);
-
-
---
 -- Name: index_product_readings_on_created_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15171,6 +15082,29 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE "_RETURN" AS
+    ON SELECT TO product_populations DO INSTEAD  SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
+
+
+--
 -- Name: delete_activities_campaigns; Type: RULE; Schema: public; Owner: -
 --
 
@@ -15208,14 +15142,6 @@ CREATE RULE delete_activity_productions_interventions AS
 
 CREATE RULE delete_campaigns_interventions AS
     ON DELETE TO campaigns_interventions DO INSTEAD NOTHING;
-
-
---
--- Name: fk_rails_73e7327087; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_populations
-    ADD CONSTRAINT fk_rails_73e7327087 FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --

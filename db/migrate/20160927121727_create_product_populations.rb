@@ -1,53 +1,28 @@
 class CreateProductPopulations < ActiveRecord::Migration
-  def change
-    create_table :product_populations do |t|
-      t.references :product, index: true, foreign_key: true
-      t.decimal :value, precision: 19, scale: 4
+  def up
+    execute <<-SQL
+      CREATE VIEW product_populations
+      AS SELECT DISTINCT ON (movements.started_at, movements.product_id)
+          movements.product_id AS product_id,
+          movements.started_at AS started_at,
+          SUM(precedings.delta) AS value,
+          MAX(movements.creator_id) AS creator_id,
+          MAX(movements.created_at) AS created_at,
+          MAX(movements.updated_at) AS updated_at,
+          MAX(movements.updater_id) AS updater_id,
+          MIN(movements.id) AS id,
+          1 AS lock_version
 
-      t.datetime :started_at, null: false
-      t.datetime :stopped_at
+          FROM product_movements as movements
+          LEFT JOIN (SELECT SUM(delta) AS delta, product_id, started_at FROM product_movements GROUP BY product_id, started_at) as precedings
+          ON movements.started_at >= precedings.started_at AND movements.product_id = precedings.product_id
+          GROUP BY movements.id
+    SQL
+  end
 
-      t.stamps
-
-      t.index :started_at
-      t.index :stopped_at
-      t.index [:product_id, :started_at], unique: true
-    end
-
-    reversible do |dir|
-      dir.up do
-        # Compute the various populations.
-        execute <<-SQL
-          INSERT INTO product_populations (product_id, started_at, value, created_at, updated_at, lock_version)
-          SELECT movements.product_id, movements.started_at, SUM(precedings.delta), now(), now(), 1
-            FROM product_movements as movements
-            JOIN product_movements as precedings
-            ON movements.started_at >= precedings.started_at AND movements.product_id = precedings.product_id
-            GROUP BY movements.product_id, movements.started_at
-            ORDER BY movements.started_at
-        SQL
-
-        # Compute the stopped_at of the populations.
-        execute <<-SQL
-          UPDATE product_populations
-          SET stopped_at = matches.next_started_at
-          FROM (
-            SELECT
-              pp.started_at,
-              pp.product_id,
-              LEAD(pp.product_id) OVER (ORDER BY pp.product_id, pp.started_at) AS next_product_id,
-              LEAD(pp.started_at) OVER (ORDER BY pp.product_id, pp.started_at) AS next_started_at
-            FROM product_populations pp
-            ORDER BY pp.product_id, pp.started_at
-          ) matches
-          WHERE product_populations.product_id = matches.product_id
-            AND product_populations.started_at = matches.started_at
-            AND matches.product_id = matches.next_product_id
-        SQL
-      end
-
-      # No need for a dir.down since it's pure data and that the table
-      # is already destroyed with all of its data.
-    end
+  def down
+    execute <<-SQL
+      DROP VIEW product_populations
+    SQL
   end
 end

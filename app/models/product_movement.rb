@@ -58,16 +58,6 @@ class ProductMovement < Ekylibre::Record::Base
     self.stopped_at = self.started_at + 1.day
   end
 
-  after_save do
-    puts "After save".green
-    puts " - Find or create".yellow
-    p = ProductPopulation.find_or_create_by(product_id: product_id, started_at: started_at)
-    puts " - Compute value".yellow
-    p.compute_value if p.value.nil?
-    puts " - Impact delta".yellow
-    p.impact_delta(delta_was - delta)
-  end
-
   def population
     Maybe(product_population).value.or_else(0)
   end

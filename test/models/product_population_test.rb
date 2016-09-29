@@ -43,7 +43,7 @@ class ProductPopulationTest < ActiveSupport::TestCase
     initial_population = product.population
     quantity = 5.in_ton.to_d
 
-    product.move! quantity, at: Time.now
+    product.move! quantity, at: Time.now.utc
 
     assert_equal initial_population + quantity, product.population
   end

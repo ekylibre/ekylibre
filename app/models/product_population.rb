@@ -37,14 +37,7 @@
 # Sum of all the deltas in product movements up to and including a date.
 class ProductPopulation < Ekylibre::Record::Base
   belongs_to :product
-  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :started_at, uniqueness: { scope: :product_id }
-  validates :started_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
-  validates :stopped_at, timeliness: { on_or_after: ->(product_population) { product_population.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
-  validates :value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
-  # ]VALIDATORS]
 
-  scope :destroyable,             ->          {  }
   scope :chain,                   ->(product) { where(product: product).order(started_at: :asc) }
   scope :initial_population_for,  ->(product) { chain(product).first }
   scope :at,                      ->(time)    { where(started_at: time) }
@@ -54,24 +47,6 @@ class ProductPopulation < Ekylibre::Record::Base
   scope :first_after,             ->(time)    { after(time).reorder(started_at: :asc).limit(1) }
   scope :before_with,             ->(time)    { where(arel_table[:started_at].lteq(time)) }
   scope :after_with,              ->(time)    { where(arel_table[:started_at].gteq(time)) }
-
-  validate do
-    errors.add(:value, :invalid) if movements.none?
-  end
-
-  # More performance.
-  def self.compute_values_for!(product)
-    chain(product).find_each(&:compute_value)
-  end
-
-  def compute_value
-    update(value: movements.sum(:delta) + Maybe(previous_population).value.or_else(0))
-  end
-
-  def impact_delta(delta)
-    self.class.destroyables.destroy_all
-    self.class.after_with(started_at).update_all("value = value + #{delta}")
-  end
 
   def chain
     self.class.chain(product)
@@ -91,18 +66,5 @@ class ProductPopulation < Ekylibre::Record::Base
 
   def movements
     ProductMovement.where(product: product, started_at: started_at)
-  end
-
-  def self.destroyables
-    movement_table = ProductMovement.arel_table
-    ProductPopulation
-      .where(
-        movement_table.where(
-          movement_table[:product_id].eq(arel_table[:product_id])
-          .and(
-            movement_table[:started_at].eq(arel_table[:started_at])
-          )
-        ).exists.not
-      )
   end
 end
