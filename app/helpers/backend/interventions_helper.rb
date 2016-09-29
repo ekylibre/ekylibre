@@ -1,9 +1,8 @@
 module Backend
   module InterventionsHelper
     def add_taskboard_tasks(interventions, column)
-      tasks = []
 
-      interventions.find_each do |intervention|
+      interventions.each do |intervention|
         can_select = intervention.state != :validated
         colors = []
         task_datas = []
@@ -26,13 +25,13 @@ module Backend
             end
 
             activity_color ||= '#777777'
-            displayed_name ||= product.work_number.nil? ? product.name : product.work_number
+            displayed_name ||= product.work_number.blank? ? product.name : product.work_number
 
             icon = if product.is_a?(LandParcel) || product.is_a?(Plant)
                     'land-parcels'
                   elsif product.is_a?(Animal) || product.is_a?(AnimalGroup)
                     'cow'
-                  elsif product.is_a?(Equipment) || product.is_a?(EquipmentFleet)
+                  elsif product.is_a?(Equipment) || product.is_a?(EquipmentFleet)
                     'tractor'
                   end
 
@@ -52,12 +51,10 @@ module Backend
 
         intervention_datas = { id: intervention.id, name: intervention.name }
 
-        tasks << column.task([{ text: intervention_datas[:name], icon: text_icon, icon_class: 'completely_filled' }],
+        column.task([{ text: intervention_datas[:name], icon: text_icon, icon_class: 'completely_filled' }],
                              task_datas, [], can_select, colors,
                              params: { class: '', data: { intervention: intervention_datas.to_json } })
       end
-
-      tasks
     end
 
     def add_detail_to_modal_block(title, detail, options)

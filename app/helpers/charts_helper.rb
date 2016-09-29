@@ -189,7 +189,7 @@ module ChartsHelper
 
   def contrasted_color(color)
     if lightness(color) > 160
-      '#000000'
+      '#333333'
     else
       '#FFFFFF'
     end

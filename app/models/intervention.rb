@@ -138,19 +138,17 @@ class Intervention < Ekylibre::Record::Base
 
   scope :with_unroll, lambda { |*args|
     params = args.extract_options!
-    search_params = ''
+    search_params = []
 
     unless params[:q].blank?
-      search_params << " #{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
+      search_params << "#{Intervention.table_name}.number ILIKE '%#{params[:q]}%'"
     end
 
     unless params[:procedure_name].blank?
-      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.procedure_name = '#{params[:procedure_name]}'"
     end
 
     unless params[:product_id].blank?
-      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.id IN (SELECT intervention_id FROM intervention_parameters WHERE type = 'InterventionTarget' AND product_id = '#{params[:product_id]}')"
     end
 
@@ -159,17 +157,13 @@ class Intervention < Ekylibre::Record::Base
       period_interval = params[:period_interval]
       period = params[:period]
 
-      search_params << ' AND ' unless search_params.blank?
-
       if period_interval.to_sym == :day
         search_params << "EXTRACT(DAY FROM #{Intervention.table_name}.started_at) = #{period.to_date.day} AND EXTRACT(MONTH FROM #{Intervention.table_name}.started_at) = #{period.to_date.month} AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = #{period.to_date.year}"
       end
 
       if period_interval.to_sym == :week
-
         beginning_of_week = period.to_date.at_beginning_of_week.to_time.beginning_of_day
         end_of_week = period.to_date.at_end_of_week.to_time.end_of_day
-
         search_params << "#{Intervention.table_name}.started_at >= '#{beginning_of_week}' AND #{Intervention.table_name}.stopped_at <= '#{end_of_week}'"
       end
 
@@ -183,18 +177,17 @@ class Intervention < Ekylibre::Record::Base
     end
 
     unless params[:nature].blank?
-      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.nature = '#{params[:nature]}'"
-
-      search_params << " AND #{Intervention.table_name}.request_intervention_id IS NULL" if params[:nature] == :request
+      if params[:nature] == :request
+        search_params << "#{Intervention.table_name}.request_intervention_id IS NULL"
+      end
     end
 
     unless params[:state].blank?
-      search_params << ' AND ' unless search_params.blank?
       search_params << "#{Intervention.table_name}.state = '#{params[:state]}'"
     end
 
-    where(search_params)
+    where(search_params.join(' AND '))
       .includes(:doers)
       .references(product_parameters: [:product])
       .order(started_at: :desc)
