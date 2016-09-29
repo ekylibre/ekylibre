@@ -2482,6 +2482,7 @@ arb:
     accounting_system: "جدول الحسابات"
     bookkeep_automatically: "تفعيل المحاسبة التلقائي"
     bookkeep_in_draft: "حفظ السجلات في وضع المسودة خلال مسك الدفاتر"
+    # catalog_price_item_addition_if_blank: "Catalog Add price to catalog during sale/purchase if catalog blank"
     country: "بلد"
     create_activities_from_telepac: "خلق أنشطة خلال Telepac استيراد"
     currency: "عملة"
@@ -2506,6 +2507,7 @@ arb:
       subscriptions: #?
         numeration: "احصاء الاشتراكات" #?
     map_measure_srs: "SRS خريطة قياس"
+    # permanent_stock_inventory: "Permanent stock inventory mode"
     relations:  #?
       entities: #?
         numeration: "احصاء ملفات العملاء / الممولين" #?

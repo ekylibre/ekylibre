@@ -343,7 +343,7 @@ eng:
       # compute: "Compute intervention: %{name}"
       edit: "Edit"
       edit_request: "Edit request" #?
-      edit_specified: "Edit %{procedure_name} #%{number}"
+      edit_specified: "Edit %{procedure_name} #%{number}" #?
       edit_specified_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
       # modal: "Modal intervention: %{name}"
@@ -1895,6 +1895,7 @@ eng:
     accounting_system: "Accounting plan"
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
+    catalog_price_item_addition_if_blank: "Catalog Add price to catalog during sale/purchase if catalog blank"
     country: "Country"
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
@@ -1902,7 +1903,7 @@ eng:
     host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
-    # permanent_stock_inventory: "Permanent stock inventory"
+    permanent_stock_inventory: "Permanent stock inventory mode"
     sales_conditions: "Sales conditions"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
   rest:

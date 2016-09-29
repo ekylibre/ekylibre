@@ -134,6 +134,18 @@ class SaleItem < Ekylibre::Record::Base
     # TODO: validates responsible can make reduction and reduction percentage is convenient
   end
 
+  after_save do
+    if Preference[:catalog_price_item_addition_if_blank]
+      for usage in [:stock, :sale]
+        # set stock catalog price if blank
+        catalog = Catalog.by_default!(usage)
+        unless self.variant.catalog_items.of_usage(usage).any?
+          self.variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: self.currency) if catalog
+        end
+      end
+    end
+  end
+
   protect(on: :update) do
     !sale.draft?
   end

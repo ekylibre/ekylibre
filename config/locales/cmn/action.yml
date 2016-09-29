@@ -1725,6 +1725,7 @@ cmn:
     accounting_system: "科目表"
     bookkeep_automatically: "激活自动簿记"
     bookkeep_in_draft: "保存在草稿模式下记录的记账期间"
+    # catalog_price_item_addition_if_blank: "Catalog Add price to catalog during sale/purchase if catalog blank"
     country: "国家"
     create_activities_from_telepac: "Telepac导入过程中创建活动"
     currency: "货币"
@@ -1732,6 +1733,7 @@ cmn:
     host: "主办"
     language: "语言"
     map_measure_srs: "地图措施SRS"
+    # permanent_stock_inventory: "Permanent stock inventory mode"
     sales_conditions: "销售条件"
     use_entity_codes_for_account_numbers: "使用代码来创建帐号"
   rest:

@@ -1790,6 +1790,7 @@ ita:
     accounting_system: "Piano dei conti"
     bookkeep_automatically: "Attivare la contabilità automatica"
     bookkeep_in_draft: "Salva i record in modalità bozza durante contabilità"
+    # catalog_price_item_addition_if_blank: "Catalog Add price to catalog during sale/purchase if catalog blank"
     country: "Nazione"
     create_activities_from_telepac: "Creare attività durante l'importazione Telepac"
     currency: "Moneta"
@@ -1797,6 +1798,7 @@ ita:
     host: "Ospite"
     language: "Lingua"
     map_measure_srs: "SRS Mappa misura"
+    # permanent_stock_inventory: "Permanent stock inventory mode"
     sales_conditions: "condizioni di vendita"
     use_entity_codes_for_account_numbers: "Usa il codice per la creazione di numeri di conto"
   rest:
