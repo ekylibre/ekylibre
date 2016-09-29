@@ -28,12 +28,11 @@ module Backend
 
     # params:
     #   :q Text search
-    #   :state State search
+    #   :cultivable_zone_id
     #   :campaign_id
     #   :product_nature_id
     #   :support_id
     def self.list_conditions
-      code = ''
       conn = Intervention.connection
       # , productions: [:name], campaigns: [:name], activities: [:name], products: [:name]
       expressions = []
@@ -76,6 +75,17 @@ module Backend
       code << "   c << current_period.to_date.year\n"
       code << " end\n"
 
+      # Cultivable zones
+      code << "  if params[:cultivable_zone_id].to_i > 0\n"
+      code << "    c[0] << ' AND #{Intervention.table_name}.id IN (SELECT #{Intervention.table_name}.id FROM #{Intervention.table_name} INNER JOIN #{InterventionParameter.table_name} ON #{InterventionParameter.table_name}.intervention_id = #{Intervention.table_name}.id INNER JOIN #{TargetDistribution.table_name} ON #{TargetDistribution.table_name}.target_id = #{InterventionParameter.table_name}.product_id INNER JOIN #{ActivityProduction.table_name} ON #{TargetDistribution.table_name}.activity_production_id = #{ActivityProduction.table_name}.id INNER JOIN #{CultivableZone.table_name} ON #{CultivableZone.table_name}.id = #{ActivityProduction.table_name}.cultivable_zone_id WHERE #{CultivableZone.table_name}.id = ' + params[:cultivable_zone_id] + ')'\n"
+      code << "    c \n"
+      code << "  end\n"
+
+      # Current campaign
+      code << "  if current_campaign\n"
+      code << "    c[0] << \" AND EXTRACT(YEAR FROM #{Intervention.table_name}.started_at) = ?\"\n"
+      code << "    c << current_campaign.harvest_year\n"
+      code << "  end\n"
       code << "end\n"
 
       # Support
@@ -107,6 +117,8 @@ module Backend
 
     # conditions: list_conditions,
     list(conditions: list_conditions, order: { started_at: :desc }, line_class: :status) do |t|
+      t.action :purchase, on: :both, method: :post
+      t.action :sell,     on: :both, method: :post
       t.action :edit, if: :updateable?
       t.action :destroy, if: :destroyable?
       t.column :name, sort: :procedure_name, url: true
@@ -220,6 +232,25 @@ module Backend
       render(locals: { cancel_url: { action: :index } })
     end
 
+    def sell
+      interventions = params[:id].split(',')
+      return unless interventions
+      if interventions
+        redirect_to new_backend_sale_path(intervention_ids: interventions)
+      else
+        redirect_to action: :index
+      end
+    end
+
+    def purchase
+      interventions = params[:id].split(',')
+      if interventions
+        redirect_to new_backend_purchase_path(intervention_ids: interventions)
+      else
+        redirect_to action: :index
+      end
+    end
+
     # Computes impacts of a updated value in an intervention input context
     def compute
       unless params[:intervention]
@@ -247,6 +278,19 @@ module Backend
           format.json { render json: { errors: e.message }, status: 500 }
         end
       end
+    end
+
+    private
+
+    def find_interventions
+      intervention_ids = params[:id].split(',')
+      interventions = intervention_ids.map { |id| Intervention.find_by(id: id) }.compact
+      unless interventions.any?
+        notify_error :no_interventions_given
+        redirect_to(params[:redirect] || { action: :index })
+        return nil
+      end
+      interventions
     end
 
     def modal

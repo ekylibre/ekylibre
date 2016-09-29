@@ -172,9 +172,13 @@ module Backend
         redirect_to action: :index
         return
       end
-      @sale = Sale.new(nature: nature)
+      @sale = if params[:intervention_ids]
+                Intervention.convert_to_sale(params[:intervention_ids])
+              else
+                Sale.new(nature: nature)
+              end
       @sale.currency = @sale.nature.currency
-      if client = Entity.find_by_id(params[:client_id] || params[:entity_id] || session[:current_entity_id])
+      if client = Entity.find_by_id(@sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
         if client.default_mail_address
           cid = client.default_mail_address.id
           @sale.attributes = { address_id: cid, delivery_address_id: cid, invoice_address_id: cid }

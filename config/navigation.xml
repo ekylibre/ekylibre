@@ -705,9 +705,9 @@
         <page to="backend/interventions#update"/>
         <page to="backend/interventions#list_product_parameters"/>
         <page to="backend/interventions#list_record_interventions"/>
+        <page to="backend/interventions#purchase"/>
+        <page to="backend/interventions#sell"/>
         <page to="backend/interventions#unroll"/>
-        <page to="backend/interventions#change_state"/>
-        <page to="backend/interventions#modal"/>
         <page to="backend/crumbs#index"/>
         <page to="backend/crumbs#update"/>
         <page to="backend/crumbs#convert"/>

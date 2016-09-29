@@ -527,6 +527,8 @@ Rails.application.routes.draw do
         post :change_state
       end
       member do
+        post :sell
+        post :purchase
         get :list_product_parameters
         get :list_record_interventions
       end
