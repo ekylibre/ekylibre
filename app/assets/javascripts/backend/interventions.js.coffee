@@ -85,7 +85,8 @@
               update = true
               update = false if value is null and element.val() is ""
               if valueType == "number"
-                update = false if value == element.numericalValue()
+                # When element doesn't have any value, element.numericalValue() == 0
+                update = false if value == element.numericalValue() && element.numericalValue() != 0
               else
                 update = false if value == element.val()
               if update
