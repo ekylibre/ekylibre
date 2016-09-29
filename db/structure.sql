@@ -287,7 +287,9 @@ CREATE TABLE intervention_parameters (
     group_id integer,
     new_name character varying,
     component_id integer,
-    assembly_id integer
+    assembly_id integer,
+    variety character varying,
+    derivative_of character varying
 );
 
 
@@ -15439,4 +15441,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160920083312');
 INSERT INTO schema_migrations (version) VALUES ('20160921144623');
 
 INSERT INTO schema_migrations (version) VALUES ('20160921185801');
+
+INSERT INTO schema_migrations (version) VALUES ('20160929154734');
 
