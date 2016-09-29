@@ -55,15 +55,17 @@ class ProductMovement < Ekylibre::Record::Base
   before_validation do
     # NOTE: -! Deprecated !- only there for it to work until 3.0
     self.population = 0.0
+    self.stopped_at = self.started_at + 1.day
   end
 
   after_save do
-    ProductPopulation.find_or_create_by(product: product, started_at: started_at)
-    if started_at_changed?
-      ProductPopulation.compute_values_for!(product)
-    else
-      product_population.compute_value!(impact_on_following: true)
-    end
+    puts "After save".green
+    puts " - Find or create".yellow
+    p = ProductPopulation.find_or_create_by(product_id: product_id, started_at: started_at)
+    puts " - Compute value".yellow
+    p.compute_value if p.value.nil?
+    puts " - Impact delta".yellow
+    p.impact_delta(delta_was - delta)
   end
 
   def population
@@ -71,6 +73,6 @@ class ProductMovement < Ekylibre::Record::Base
   end
 
   def product_population
-    ProductPopulation.find_by(product: product, started_at: started_at)
+    ProductPopulation.find_by(product_id: product_id, started_at: started_at)
   end
 end
