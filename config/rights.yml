@@ -98,8 +98,6 @@
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
-#     - "backend/interventions#change_state"
-#     - "backend/interventions#modal"
 #     - "backend/januses#toggle"
 #     - "backend/kujakus#toggle"
 #     - "backend/land_parcels#take"
@@ -1698,6 +1696,7 @@ purchases:
     dependencies:
     - read-purchases
     actions:
+    - "backend/interventions#purchase"
     - "backend/parcels#invoice"
     - "backend/purchases#abort"
     - "backend/purchases#confirm"
@@ -1769,6 +1768,7 @@ sales:
     dependencies:
     - read-sales
     actions:
+    - "backend/interventions#sell"
     - "backend/parcels#invoice"
     - "backend/sale_opportunities#attach"
     - "backend/sale_opportunities#create"

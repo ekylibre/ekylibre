@@ -613,7 +613,7 @@ class Intervention < Ekylibre::Record::Base
       transaction do
         interventions = interventions
                         .collect { |intv| (intv.is_a?(self) ? intv : find(intv)) }
-                        .sort { |a, b| a.stopped_at <=> b.stopped_at }
+                        .sort_by(&:stopped_at)
         planned_at = interventions.last.stopped_at
         owners = interventions.map(&:doers).map { |t| t.map(&:product).map(&:owner).compact }.flatten.uniq
         supplier = owners.first unless owners.second.present?
@@ -678,16 +678,15 @@ class Intervention < Ekylibre::Record::Base
       transaction do
         interventions = interventions
                         .collect { |intv| (intv.is_a?(self) ? intv : find(intv)) }
-                        .sort { |a, b| a.stopped_at <=> b.stopped_at }
+                        .sort_by(&:stopped_at)
         planned_at = interventions.last.stopped_at
 
         owners = interventions.map do |intervention|
           intervention.targets.map do |target|
-            case
-            when target.product.is_a?(LandParcel)
+            if target.product.is_a?(LandParcel)
               prod = target.activity_production
               owner = prod && prod.cultivable_zone && prod.cultivable_zone.farmer
-            when target.product.is_a?(Equipment)
+            elsif target.product.is_a?(Equipment)
               owner = target.product.owner
             end
             owner

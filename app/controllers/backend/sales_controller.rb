@@ -172,11 +172,11 @@ module Backend
         redirect_to action: :index
         return
       end
-      if params[:intervention_ids]
-        @sale = Intervention.convert_to_sale(params[:intervention_ids])
-      else
-        @sale = Sale.new(nature: nature)
-      end
+      @sale = if params[:intervention_ids]
+                Intervention.convert_to_sale(params[:intervention_ids])
+              else
+                Sale.new(nature: nature)
+              end
       @sale.currency = @sale.nature.currency
       if client = Entity.find_by_id(@sale.client_id || params[:client_id] || params[:entity_id] || session[:current_entity_id])
         if client.default_mail_address

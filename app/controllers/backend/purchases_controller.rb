@@ -127,11 +127,11 @@ module Backend
         redirect_to action: :index
         return
       end
-      if params[:intervention_ids]
-        @purchase = Intervention.convert_to_purchase(params[:intervention_ids])
-      else
-        @purchase = Purchase.new(nature: nature)
-      end
+      @purchase = if params[:intervention_ids]
+                    Intervention.convert_to_purchase(params[:intervention_ids])
+                  else
+                    Purchase.new(nature: nature)
+                  end
       @purchase.currency = @purchase.nature.currency
       @purchase.responsible = current_user
       @purchase.planned_at = Time.zone.now
