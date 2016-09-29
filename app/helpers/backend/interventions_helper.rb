@@ -1,7 +1,6 @@
 module Backend
   module InterventionsHelper
     def add_taskboard_tasks(interventions, column)
-
       interventions.each do |intervention|
         can_select = intervention.state != :validated
         colors = []
@@ -12,7 +11,6 @@ module Backend
 
         if intervention.targets.any?
           intervention.targets.find_each do |target|
-
             product = target.product
 
             next unless product
@@ -28,11 +26,11 @@ module Backend
             displayed_name ||= product.work_number.blank? ? product.name : product.work_number
 
             icon = if product.is_a?(LandParcel) || product.is_a?(Plant)
-                    'land-parcels'
-                  elsif product.is_a?(Animal) || product.is_a?(AnimalGroup)
-                    'cow'
-                  elsif product.is_a?(Equipment) || product.is_a?(EquipmentFleet)
-                    'tractor'
+                     'land-parcels'
+                   elsif product.is_a?(Animal) || product.is_a?(AnimalGroup)
+                     'cow'
+                   elsif product.is_a?(Equipment) || product.is_a?(EquipmentFleet)
+                     'tractor'
                   end
 
             task_datas << { icon: icon, text: displayed_name, style: "background-color: #{activity_color}; color: #{contrasted_color(activity_color)}" }
@@ -52,8 +50,8 @@ module Backend
         intervention_datas = { id: intervention.id, name: intervention.name }
 
         column.task([{ text: intervention_datas[:name], icon: text_icon, icon_class: 'completely_filled' }],
-                             task_datas, [], can_select, colors,
-                             params: { class: '', data: { intervention: intervention_datas.to_json } })
+                    task_datas, [], can_select, colors,
+                    params: { class: '', data: { intervention: intervention_datas.to_json } })
       end
     end
 
