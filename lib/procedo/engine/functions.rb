@@ -3,7 +3,6 @@ module Procedo
     # This module all functions accessible through formula language
     module Functions
       class << self
-
         def derivative_of(set)
           product = first_product_of(set)
           product ? product.derivative_of : nil
@@ -13,7 +12,7 @@ module Procedo
           product = first_product_of(set)
           product ? product.variety : nil
         end
-        
+
         # Test if population counting is as specified for given product
         def population_counting_is(product, expected)
           ((product && product.population_counting.to_sym) == expected ? 1 : 0)

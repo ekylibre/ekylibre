@@ -3160,6 +3160,8 @@ intervention_parameters:
   creator_id:
     type: integer
     references: user
+  derivative_of:
+    type: string
   event_participation_id:
     type: integer
     references: event_participation
@@ -3224,6 +3226,8 @@ intervention_parameters:
   variant_id:
     type: integer
     references: product_nature_variant
+  variety:
+    type: string
   working_zone:
     type: geometry
     limit:

@@ -26,6 +26,7 @@
 #  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  derivative_of           :string
 #  event_participation_id  :integer
 #  group_id                :integer
 #  id                      :integer          not null, primary key
@@ -48,6 +49,7 @@
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #  variant_id              :integer
+#  variety                 :string
 #  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionParameter < Ekylibre::Record::Base
@@ -57,7 +59,7 @@ class InterventionParameter < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :parameters
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, length: { maximum: 500 }, allow_blank: true
+  validates :derivative_of, :new_name, :quantity_handler, :quantity_indicator_name, :quantity_unit_name, :variety, length: { maximum: 500 }, allow_blank: true
   validates :quantity_population, :quantity_value, numericality: { greater_than: -1_000_000_000_000_000, less_than: 1_000_000_000_000_000 }, allow_blank: true
   validates :reference_name, presence: true, length: { maximum: 500 }
   validates :intervention, presence: true

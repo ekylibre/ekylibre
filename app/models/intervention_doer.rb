@@ -26,6 +26,7 @@
 #  component_id            :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  derivative_of           :string
 #  event_participation_id  :integer
 #  group_id                :integer
 #  id                      :integer          not null, primary key
@@ -48,6 +49,7 @@
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #  variant_id              :integer
+#  variety                 :string
 #  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 class InterventionDoer < InterventionAgent
