@@ -277,8 +277,10 @@ cmn:
       index: "集成"
       # new: "Activate integration: %{name}"
     backend/interventions:
-      # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit %{procedure_name} request #%{number}"
+      # edit: "Edit"
+      # edit_request: "Edit request"
+      # edit_specified: "Edit %{procedure_name} #%{number}"
+      # edit_specified_request: "Edit %{procedure_name} request #%{number}"
       index: "干预"
       new: "新的干预"
       new_request: "新干预的请求"

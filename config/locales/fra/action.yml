@@ -323,8 +323,10 @@ fra:
       index: "Intégrations"
       new: "Activer l'intégration %{name}"
     backend/interventions:
-      edit: "Modifier l’intervention %{procedure_name} n°%{number}"
-      edit_request: "Modifier la demande de %{procedure_name} n°%{number}"
+      edit: "Modifier l’intervention"
+      edit_request: "Modifier la demande d'intervention"
+      edit_specified: "Modifier l’intervention %{procedure_name} n°%{number}"
+      edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
       new_request: "Nouvelle demande d’intervention"
