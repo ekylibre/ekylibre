@@ -192,11 +192,11 @@ class Parcel < Ekylibre::Record::Base
           b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
             for item in items
               # compute amout on purchase or stock catalog
-              if item.purchase_item
-                amount = item.purchase_item.pretax_amount
-              else
-                amount = item.stock_amount
-              end
+              amount = if item.purchase_item
+                         item.purchase_item.pretax_amount
+                       else
+                         item.stock_amount
+                       end
               # sale not emitted
               entry.add_credit(undelivered_label, purchase_not_received_acccount.id, amount) unless amount.zero?
               entry.add_debit(undelivered_label, item.variant.charge_account.id, amount) unless amount.zero?
@@ -207,28 +207,28 @@ class Parcel < Ekylibre::Record::Base
             end
           end
         end
-        elsif mode == :outgoing
-          # for sale_not_emitted
-          b.journal_entry(sale_journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
-            # for permanent stock inventory
-            b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
-              for item in items
-                # compute amout on sale or stock catalog
-                if item.sale_item
-                  amount = item.sale_item.pretax_amount
-                else
-                  amount = item.stock_amount
-                end
-                # sale not emitted
-                entry.add_debit(undelivered_label, purchase_not_received_acccount.id, amount) unless amount.zero?
-                entry.add_credit(undelivered_label, item.variant.product_account.id, amount) unless amount.zero?
-                # permanent stock inventory
-                next unless item.variant.storable?
-                entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-                entry.add_debit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
-              end
+      elsif mode == :outgoing
+        # for sale_not_emitted
+        b.journal_entry(sale_journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
+          # for permanent stock inventory
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |_stock_entry|
+            for item in items
+              # compute amout on sale or stock catalog
+              amount = if item.sale_item
+                         item.sale_item.pretax_amount
+                       else
+                         item.stock_amount
+                       end
+              # sale not emitted
+              entry.add_debit(undelivered_label, purchase_not_received_acccount.id, amount) unless amount.zero?
+              entry.add_credit(undelivered_label, item.variant.product_account.id, amount) unless amount.zero?
+              # permanent stock inventory
+              next unless item.variant.storable?
+              entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
+              entry.add_debit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
             end
-         end
+          end
+        end
       end
     end
   end

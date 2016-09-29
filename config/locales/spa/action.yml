@@ -2025,7 +2025,7 @@ spa:
     accounting_system: "Catálogo de cuentas"
     bookkeep_automatically: "Active la contabilidad automática"
     bookkeep_in_draft: "Guardar los registros en modo de borrador en la contabilidad"
-    # catalog_price_item_addition_if_blank: "Catalog Add price to catalog during sale/purchase if catalog blank"
+    catalog_price_item_addition_if_blank: "Añadir catálogo de precios para catalogar durante la venta / compra si catálogo en blanco"
     country: "País"
     create_activities_from_telepac: "Crear actividades durante la importación Telepac"
     currency: "Moneda"
@@ -2033,7 +2033,7 @@ spa:
     host: "Anfitrión"
     language: "Idioma"
     map_measure_srs: "SRS Mapa de medida"
-    # permanent_stock_inventory: "Permanent stock inventory mode"
+    permanent_stock_inventory: "Modo de inventario de existencias permanentes"
     sales_conditions: "Condiciones de ventas"
     use_entity_codes_for_account_numbers: "Utilice el código para la creación de números de cuenta"
   rest:

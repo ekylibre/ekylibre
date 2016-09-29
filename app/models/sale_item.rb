@@ -139,8 +139,8 @@ class SaleItem < Ekylibre::Record::Base
       for usage in [:stock, :sale]
         # set stock catalog price if blank
         catalog = Catalog.by_default!(usage)
-        unless self.variant.catalog_items.of_usage(usage).any?
-          self.variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: self.currency) if catalog
+        unless variant.catalog_items.of_usage(usage).any?
+          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
         end
       end
     end

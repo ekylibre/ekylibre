@@ -52,10 +52,10 @@
   <item-creation item="accounts#other_supply_expenses" fr_pcg82="602"/>
   <item-creation item="accounts#external_service_expenses" fr_pcg82="61"/>
   <item-creation item="accounts#service_discount_and_reductions_expenses" fr_pcg82="619"/>
-  <item-creation item="accounts#government_payroll_taxe_expenses" fr_pcg82="631"/>
-  <item-creation item="accounts#other_entities_payroll_taxe_expenses" fr_pcg82="633"/>
-  <item-creation item="accounts#government_taxe_expenses" fr_pcg82="635"/>
-  <item-creation item="accounts#other_entities_taxe_expenses" fr_pcg82="637"/>
+  <item-creation item="accounts#government_payroll_tax_expenses" fr_pcg82="631"/>
+  <item-creation item="accounts#other_entities_payroll_tax_expenses" fr_pcg82="633"/>
+  <item-creation item="accounts#government_tax_expenses" fr_pcg82="635"/>
+  <item-creation item="accounts#other_entities_tax_expenses" fr_pcg82="637"/>
   <item-creation item="accounts#staff_remuneration" fr_pcg82="641"/>
   <item-creation item="accounts#owner_remuneration" fr_pcg82="644"/>
   <item-creation item="accounts#other_social_expenses" fr_pcg82="647"/>
@@ -101,7 +101,7 @@
   <item-creation item="accounts#incorporeal_asset_depreciation_revenues" fr_pcg82="781"/>
   <item-creation item="accounts#financial_asset_depreciation_revenues" fr_pcg82="786"/>
   <item-creation item="accounts#exceptionnal_incorporeal_asset_depreciation_revenues" fr_pcg82="787"/>
-  <item-creation item="accounts#taxe_depreciation_revenues" fr_pcg82="787"/>
+  <item-creation item="accounts#tax_depreciation_revenues" fr_pcg82="787"/>
   <item-creation item="accounts#transfer_revenues" fr_pcg82="79"/>
   <item-creation item="accounts#financial_charge_transfer_revenues" fr_pcg82="796"/>
   <item-creation item="accounts#exceptionnal_charge_transfer_revenues" fr_pcg82="797"/>

@@ -1951,7 +1951,7 @@ arb:
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
     quantity: "الكمية"
-    # quantity_gap_on_invoice_entry: "Stock quantity gap entry"
+    quantity_gap_on_invoice_entry: "دخول الفجوة كمية الأسهم"
     quantity_handler: "كمية معالج"
     quantity_indicator: "مؤشر الكمية"
     quantity_indicator_name: "الكمية اسم المؤشر"
@@ -2140,7 +2140,7 @@ arb:
     stock: "انتاج السهم" #?
     stock_account: "حساب الأسهم"
     stock_id: "انتاج سهم" #?
-    # stock_movement_account: "Stock movement account"
+    stock_movement_account: "حساب حركة الأسهم"
     stock_moves: "حركات الاسهم" #?
     stock_transfers: "تحويل او ضياع السهم" #?
     stockable: "ادارة الاسهم" #?
@@ -2253,7 +2253,7 @@ arb:
     type: "النوع"
     # uid: "UID"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
-    # undelivered_invoice_entry: "Undelivered invoice entry"
+    undelivered_invoice_entry: "دخول فاتورة غير المسلمة"
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة" #?
     unit_amount: "كمية وحدة"
@@ -2262,7 +2262,7 @@ arb:
     unit_name: "إسم الوحدة"
     unit_population: "السكان وحدة"
     unit_pretax_amount: "وحدة الكمية قبل الضريبة"
-    # unit_pretax_stock_amount: "Unit pretax stock amount"
+    unit_pretax_stock_amount: "وحدة كمية الأسهم قبل خصم الضرائب"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
     unlock_token: "فتح رمز"

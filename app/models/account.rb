@@ -127,9 +127,7 @@ class Account < Ekylibre::Record::Base
   before_validation do
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
-    if self.usages.blank? && self.number
-      self.usages = Account.find_parent_usage(self.number)
-    end
+    self.usages = Account.find_parent_usage(number) if usages.blank? && number
   end
 
   protect(on: :destroy) do
@@ -182,7 +180,6 @@ class Account < Ekylibre::Record::Base
 
     # Find usage in parent account by number
     def find_parent_usage(number)
-
       number = number.to_s
 
       parent_accounts = nil
@@ -197,16 +194,13 @@ class Account < Ekylibre::Record::Base
         break if parent_accounts.any?
       end
 
-      if parent_accounts && parent_accounts.any?
-        usages = parent_accounts.first.usages
-      elsif items.any?
-        usages = items.first.name
-      else
-        usages = nil
-      end
+      usages = if parent_accounts && parent_accounts.any?
+                 parent_accounts.first.usages
+               elsif items.any?
+                 items.first.name
+               end
 
-      return usages
-
+      usages
     end
 
     # Find all account matching with the regexp in a String

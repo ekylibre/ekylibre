@@ -4806,10 +4806,10 @@ CREATE TABLE product_nature_variants (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
+    gtin character varying,
     number character varying NOT NULL,
     stock_account_id integer,
-    stock_movement_account_id integer,
-    gtin character varying
+    stock_movement_account_id integer
 );
 
 
@@ -5421,8 +5421,8 @@ CREATE TABLE sales (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    undelivered_invoice_entry_id integer,
     codes jsonb,
+    undelivered_invoice_entry_id integer,
     quantity_gap_on_invoice_entry_id integer
 );
 
@@ -15539,17 +15539,17 @@ INSERT INTO schema_migrations (version) VALUES ('20160916220901');
 
 INSERT INTO schema_migrations (version) VALUES ('20160918152301');
 
-INSERT INTO schema_migrations (version) VALUES ('20160918161801');
-
 INSERT INTO schema_migrations (version) VALUES ('20160919141500');
 
 INSERT INTO schema_migrations (version) VALUES ('20160920083312');
 
-INSERT INTO schema_migrations (version) VALUES ('20160920233801');
-
 INSERT INTO schema_migrations (version) VALUES ('20160921144623');
 
 INSERT INTO schema_migrations (version) VALUES ('20160921185801');
+
+INSERT INTO schema_migrations (version) VALUES ('20160922161801');
+
+INSERT INTO schema_migrations (version) VALUES ('20160923233801');
 
 INSERT INTO schema_migrations (version) VALUES ('20160927192301');
 

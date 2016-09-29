@@ -223,14 +223,13 @@ class Sale < Ekylibre::Record::Base
     # exchange undelivered invoice from parcel
     for pi in parcels
       # 1 / for undelivered invoice
-      if pi.undelivered_invoice_entry
-        b.journal_entry(nature.journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
-          undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: self.supplier.full_name, mode: pi.nature.tl)
-          undelivered_items = pi.undelivered_invoice_entry.items
-          for undelivered_item in undelivered_items
-            if undelivered_item.real_balance != 0
-              entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
-            end
+      next unless pi.undelivered_invoice_entry
+      b.journal_entry(nature.journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+        undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: supplier.full_name, mode: pi.nature.tl)
+        undelivered_items = pi.undelivered_invoice_entry.items
+        for undelivered_item in undelivered_items
+          if undelivered_item.real_balance.nonzero?
+            entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
           end
         end
       end

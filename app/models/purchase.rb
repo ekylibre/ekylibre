@@ -166,21 +166,20 @@ class Purchase < Ekylibre::Record::Base
     # 1 / for undelivered invoice
     # exchange undelivered invoice from parcel
     for pi in parcels
-      if pi.undelivered_invoice_entry
-        b.journal_entry(nature.journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
-          undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: self.supplier.full_name, mode: pi.nature.tl)
-          undelivered_items = pi.undelivered_invoice_entry.items
-          for undelivered_item in undelivered_items
-            if undelivered_item.real_balance != 0
-              entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
-            end
+      next unless pi.undelivered_invoice_entry
+      b.journal_entry(nature.journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
+        undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: supplier.full_name, mode: pi.nature.tl)
+        undelivered_items = pi.undelivered_invoice_entry.items
+        for undelivered_item in undelivered_items
+          if undelivered_item.real_balance.nonzero?
+            entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
           end
         end
       end
     end
     # 2 / for gap between parcel item quantity and purchase item quantity
     # if more quantity on purchase than parcel then i have value in D of stock account
-    gap_label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: self.supplier.full_name)
+    gap_label = tc(:quantity_gap_on_invoice, resource: self.class.model_name.human, number: number, entity: supplier.full_name)
     b.journal_entry(stock_journal, printed_on: invoiced_on, column: :quantity_gap_on_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
       items.each do |item|
         next unless item.variant.storable?

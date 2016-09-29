@@ -233,8 +233,8 @@
       <item name="general_installation_asset_depreciations" fr_pcga="28181"/>
       <item name="general_installation_assets" fr_pcga="2135"/>
       <item name="global_land_parcel_assets" fr_pcg82="211"/>
-      <item name="government_payroll_taxe_expenses" fr_pcg82="631"/>
-      <item name="government_taxe_expenses" fr_pcg82="635"/>
+      <item name="government_payroll_tax_expenses" fr_pcg82="631"/>
+      <item name="government_tax_expenses" fr_pcg82="635"/>
       <item name="guaranteed_obligations" fr_pcg82="446"/>
       <item name="holding_accounts" fr_pcg82="451"/>
       <item name="holding_company_and_associate_accounts" fr_pcg82="45"/>
@@ -326,8 +326,8 @@
       <item name="other_day_to_day_management_expenses" fr_pcg82="65"/>
       <item name="other_day_to_day_management_revenues" fr_pcg82="75"/>
       <item name="other_debt_obligation_financials_revenues" fr_pcg82="763"/>
-      <item name="other_entities_payroll_taxe_expenses" fr_pcg82="633"/>
-      <item name="other_entities_taxe_expenses" fr_pcg82="637"/>
+      <item name="other_entities_payroll_tax_expenses" fr_pcg82="633"/>
+      <item name="other_entities_tax_expenses" fr_pcg82="637"/>
       <item name="other_expenses" fr_pcga="618"/>
       <item name="other_exploitation_subsidies" fr_pcga="7458"/>
       <item name="other_fees_expenses" fr_pcga="6226"/>
@@ -479,7 +479,7 @@
       <item name="sustainables_plants_assets" fr_pcga="246"/>
       <item name="sustainables_plants_on_other_land_parcel_assets" fr_pcga="2465"/>
       <item name="sustainables_plants_on_own_land_parcel_assets" fr_pcga="2461"/>
-      <item name="taxe_depreciation_revenues" fr_pcg82="787"/>
+      <item name="tax_depreciation_revenues" fr_pcg82="787"/>
       <item name="taxes_expenses" fr_pcg82="63"/>
       <item name="technical_installation_equipment_and_tools_assets" fr_pcga="215"/>
       <item name="technical_installation_on_other_land_parcel_assets" fr_pcga="2152"/>
