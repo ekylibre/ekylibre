@@ -342,7 +342,7 @@ class Parcel < Ekylibre::Record::Base
       transaction do
         parcels = parcels.collect do |d|
           (d.is_a?(self) ? d : find(d))
-        end.sort { |a, b| a.given_at <=> b.given_at }
+        end.sort_by(&:given_at)
         third = detect_third(parcels)
         planned_at = parcels.map(&:given_at).last || Time.zone.now
         unless nature = SaleNature.actives.first
@@ -397,7 +397,7 @@ class Parcel < Ekylibre::Record::Base
       transaction do
         parcels = parcels.collect do |d|
           (d.is_a?(self) ? d : find(d))
-        end.sort { |a, b| a.given_at <=> b.given_at }
+        end.sort_by(&:given_at)
         third = detect_third(parcels)
         planned_at = parcels.map(&:given_at).last
         unless nature = PurchaseNature.actives.first

@@ -224,7 +224,7 @@ module Backend
         end.collect { |k, v| [k, v.to_s.to_f] }
         # current population
         data << [now.to_usec, resource.population.to_d.to_s.to_f]
-        series << { name: resource.name, data: data.sort { |a, b| a.first <=> b.first }, step: 'left' }
+        series << { name: resource.name, data: data.sort_by(&:first), step: 'left' }
       end
       return no_data if series.empty?
       line_highcharts(series, legend: {}, y_axis: { title: { text: :indicator.tl } }, x_axis: { type: 'datetime', title: { enabled: true, text: :months.tl }, min: min.to_usec })
@@ -243,6 +243,26 @@ module Backend
       end
       campaign ||= current_campaign
       render 'backend/shared/campaign_selector', campaign: campaign, param_name: options[:param_name] || :current_campaign
+    end
+
+    def main_period_selector(*intervals)
+      content_for(:heading_toolbar) do
+        period_selector(*intervals)
+      end
+    end
+
+    def period_selector(*intervals)
+      options = intervals.extract_options!
+      current_period = current_user.current_period.to_date
+      current_interval = current_user.current_period_interval.to_sym
+      current_user.current_campaign = Campaign.find_or_create_by!(harvest_year: current_period.year)
+
+      default_intervals = [:day, :week, :month, :year]
+      intervals = default_intervals if intervals.empty?
+      intervals &= default_intervals
+      current_interval = intervals.last unless intervals.include?(current_interval)
+
+      render 'backend/shared/period_selector', current_period: current_period, intervals: intervals, period_interval: current_interval
     end
 
     def lights(status, html_options = {})
@@ -410,9 +430,17 @@ module Backend
 
       element_class = html_options[:class] || 'period'
       title = html_options[:title] || ''
+      url = html_options[:url] || nil
 
       content_tag(:div, style: style, class: element_class, title: title) do
-        content_tag(:i, '', class: "picto picto-#{picto_class}")
+        if url.nil?
+          content_tag(:i, '', class: "picto picto-#{picto_class}")
+        else
+
+          link_to(url) do
+            content_tag(:i, '', class: "picto picto-#{picto_class}")
+          end
+        end
       end
     end
 

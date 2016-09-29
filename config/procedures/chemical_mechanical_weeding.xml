@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="chemical_mechanical_weeding" categories="crop_maintenance" actions="weeding">
     <parameters>
-      <target name="land_parcel" filter="(is plant or is land_parcel) and has indicator shape">
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <input name="herbicide" filter="is preparation and can kill(plant) and can care(plant)" cardinality="*">
@@ -20,10 +20,10 @@
                  backward="(POPULATION * PRODUCT..net_volume(liter)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_volume(liter)"/>
       </input>
-      <tool name="hoe" filter="is equipment and can hoe"/>
-      <tool name="weeding_kit" filter="is equipment and can spray and can kill(plant)"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <doer name="driver"  filter="can drive(tractor) and can move"/>
+      <tool name="hoe" filter="is equipment and can hoe" cardinality="*"/>
+      <tool name="weeding_kit" filter="is equipment and can spray and can kill(plant)" cardinality="*"/>
+      <doer name="driver"  filter="can drive(tractor) and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

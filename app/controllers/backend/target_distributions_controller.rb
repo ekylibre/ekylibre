@@ -59,7 +59,7 @@ module Backend
       new_id = -1
       targets.order(:name).each do |target|
         unless @target_distributions.detect { |d| d.target_id == target.id }
-          @target_distributions << @target_distributions.build(id: new_id, target: target, activity_production_id: Maybe(target.last_intervention_target).activity_production.id.or_else(nil))
+          @target_distributions << @target_distributions.build(id: new_id, target: target, activity_production: target.best_activity_production)
         end
         new_id -= 1
       end
@@ -74,7 +74,7 @@ module Backend
           saved = false unless target_distribution.save
         end
         target_distribution
-      end.sort { |a, b| a.target_name <=> b.target_name }
+      end.sort_by(&:target_name)
       if saved
         redirect_to params[:redirect] || backend_activities_path
       else

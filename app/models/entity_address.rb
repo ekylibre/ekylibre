@@ -116,7 +116,7 @@ class EntityAddress < Ekylibre::Record::Base
   before_validation(on: :create) do
     if thread.blank?
       self.thread = 'AAAA'
-      while self.class.where('entity_id = ? AND canal = ? AND thread = ?', entity_id, self.canal, thread).count > 0
+      while self.class.where('entity_id = ? AND canal = ? AND thread = ?', entity_id, canal, thread).count > 0
         thread.succ!
       end
     end

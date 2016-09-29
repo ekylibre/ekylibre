@@ -48,7 +48,7 @@ deu:
       incoming_deliveries: "Eingehende Lieferungen"
       incoming_payment_modes: "Eingehende Zahlungsmodalitäten"
       incoming_payments: "Eingehende Zahlungen"
-      # integrations: "Integrations"
+      integrations: "Integrationen"
       interventions: "Interventionen"
       inventories: "Die Vorräte"
       issues: "Probleme"

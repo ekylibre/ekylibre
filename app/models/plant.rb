@@ -111,4 +111,8 @@ class Plant < Bioproduct
     return false unless item
     item.value
   end
+
+  def best_activity_production(options = {})
+    ActivityProduction.where(support: LandParcel.shape_intersecting(shape)).current.first || super
+  end
 end

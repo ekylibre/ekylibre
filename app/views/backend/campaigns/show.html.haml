@@ -13,7 +13,8 @@
   - unless TargetDistribution.distributed?
     = tool_to(:distribute_unaffected_products.tl, { controller: :target_distributions, action: :edit_many }, icon: false)
 
-- main_campaign_selector
+
+- main_period_selector(:year)
 
 - if activities.any?
   = janus do |j|

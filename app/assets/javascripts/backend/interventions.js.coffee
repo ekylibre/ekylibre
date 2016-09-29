@@ -204,5 +204,141 @@
     $(this).each ->
       E.interventions.updateAvailabilityInstant($(this).val())
 
+  $(document).ready ->
+
+    if $('.taskboard').length > 0
+
+      taskboard = new InterventionsTaskboard
+      taskboard.initTaskboard()
+
+
+  class InterventionsTaskboard
+
+    constructor: ->
+      @taskboard = new ekylibre.taskboard('#interventions', true)
+      @taskboardModal = new ekylibre.modal('#taskboard-modal')
+
+    initTaskboard: ->
+      this.addHeaderActionsEvent()
+      this.addEditIconClickEvent()
+      this.addDeleteIconClickEvent()
+      this.addTaskClickEvent()
+
+    getTaskboard: ->
+      return @taskboard
+
+    getTaskboardModal: ->
+      return @taskboardModal
+
+    addHeaderActionsEvent: ->
+
+      instance = this
+
+      @taskboard.addSelectTaskEvent((event) ->
+
+          selectedField = $(event.target)
+          columnIndex = instance.getTaskboard().getColumnIndex(selectedField)
+          header = instance.getTaskboard().getHeaderByIndex(columnIndex)
+          checkedFieldsCount = instance.getTaskboard().getCheckedSelectFieldsCount(selectedField)
+
+          if (checkedFieldsCount == 0)
+
+            instance.getTaskboard().hiddenHeaderIcons(header)
+          else
+            instance.getTaskboard().displayHeaderIcons(header)
+      )
+
+    addEditIconClickEvent: ->
+
+      instance = this
+
+      @taskboard.getHeaderActions().find('.edit-tasks').on('click', (event) ->
+
+        interventionsIds = instance._getSelectedInterventionsIds(event.target)
+
+        $.ajax
+          url: "/backend/interventions/modal",
+          data: {interventions_ids: interventionsIds}
+          success: (data, status, request) ->
+
+            instance._displayModalWithContent(data)
+      )
+
+
+    addDeleteIconClickEvent: ->
+
+      instance = this
+
+      $(document).on('confirm:complete', (event, answer) ->
+
+        if ($(event.target).find('.delete-tasks').length == 0 || !answer)
+          return
+
+
+        columnSelector = event.target
+        interventionsIds = instance._getSelectedInterventionsIds(columnSelector)
+
+        $.ajax
+          method: 'POST'
+          url: "/backend/interventions/change_state",
+          data: {
+            'intervention': {
+              interventions_ids: JSON.stringify(interventionsIds),
+              state: 'rejected'
+            }
+          }
+          success: (data, status, request) ->
+
+            selectedTasks = instance.getTaskboard().getSelectedTasksByColumnSelector(columnSelector)
+            selectedTasks.remove()
+
+      )
+
+
+    _getSelectedInterventionsIds: (columnSelector) ->
+
+      selectedTasks = @taskboard.getSelectedTasksByColumnSelector(columnSelector)
+
+      interventionsIds = [];
+      selectedTasks.each( ->
+
+        interventionDatas = JSON.parse($(this).attr('data-intervention'))
+        interventionsIds.push(interventionDatas.id);
+      );
+
+      return interventionsIds
+
+
+    addTaskClickEvent: ->
+
+      instance = this
+
+      @taskboard.addTaskClickEvent((event) ->
+
+        element = $(event.target)
+
+        if (element.is(':input[type="checkbox"]'))
+          return
+
+        task = element.closest('.task')
+
+        intervention = JSON.parse(task.attr('data-intervention'))
+
+        $.ajax
+          url: "/backend/interventions/modal",
+          data: {intervention_id: intervention.id}
+          success: (data, status, request) ->
+
+            instance._displayModalWithContent(data)
+      )
+
+
+    _displayModalWithContent: (data) ->
+
+      @taskboardModal.removeModalContent()
+      @taskboardModal.getModalContent().append(data)
+      @taskboardModal.getModal().modal 'show'
+
+
   true
 ) ekylibre, jQuery

@@ -92,14 +92,14 @@ class Subscription < Ekylibre::Record::Base
   before_validation(on: :create) do
     self.started_on ||= Time.zone.today
     if product_nature
-      unless self.stopped_on
+      unless stopped_on
         self.stopped_on = product_nature.subscription_stopped_on(self.started_on)
       end
     end
   end
 
   validate do
-    if self.started_on && self.stopped_on
+    if self.started_on && stopped_on
       errors.add(:stopped_on, :posterior, to: started_on.l) unless started_on <= stopped_on
     end
     errors.add(:address_id, :invalid) if address && !address.mail?

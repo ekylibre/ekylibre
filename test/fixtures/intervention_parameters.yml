@@ -226,7 +226,7 @@ intervention_doers_012:
   position: 5
   product_id: 79
   quantity_population: 0.0
-  reference_name: implanter_man
+  reference_name: doer
   type: InterventionDoer
   updated_at: 2014-11-07 16:49:41.951173000 Z
   updater_id: 1
@@ -713,7 +713,7 @@ intervention_outputs_001:
   position: 7
   product_id: 90
   quantity_population: 5.3806
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionOutput
   updated_at: 2015-03-23 09:36:39.562573000 Z
   updater_id: 1
@@ -733,7 +733,7 @@ intervention_outputs_002:
   position: 7
   product_id: 92
   quantity_population: 0.0
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionOutput
   updated_at: 2014-11-06 17:50:07.049999000 Z
   updater_id: 1
@@ -754,7 +754,7 @@ intervention_outputs_003:
   position: 7
   product_id: 103
   quantity_population: 10.1637
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionOutput
   updated_at: 2014-11-07 15:45:45.831395000 Z
   updater_id: 1
@@ -799,7 +799,7 @@ intervention_outputs_006:
   position: 8
   product_id: 110
   quantity_population: 0.0
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionOutput
   updated_at: 2014-11-07 16:50:07.225134000 Z
   updater_id: 1
@@ -1026,7 +1026,7 @@ intervention_targets_008:
   position: 6
   product_id: 83
   quantity_population: 5.3806
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
   updated_at: 2014-11-07 15:26:35.564719000 Z
   updater_id: 1
@@ -1100,7 +1100,7 @@ intervention_targets_012:
   position: 6
   product_id: 84
   quantity_population: 8.349
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
   updated_at: 2014-11-07 16:20:51.443760000 Z
   updater_id: 1
@@ -1168,7 +1168,7 @@ intervention_targets_015:
   position: 3
   product_id: 110
   quantity_population: 5.3954
-  reference_name: cultivation
+  reference_name: plant
   type: InterventionTarget
   updated_at: 2014-11-07 17:07:15.616923000 Z
   updater_id: 1
@@ -1247,7 +1247,7 @@ intervention_targets_020:
   lock_version: 0
   position: 1
   product_id: 106
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
   updated_at: 2016-07-01 20:46:56.175144000 Z
   updater_id: 1
@@ -1270,7 +1270,7 @@ intervention_targets_021:
   lock_version: 0
   position: 1
   product_id: 80
-  reference_name: land_parcel
+  reference_name: cultivation
   type: InterventionTarget
   updated_at: 2016-07-01 20:46:56.179000000 Z
   updater_id: 1

@@ -20,7 +20,7 @@ module OpenWeatherMap
         return { status: :error, message: response.message }
       end
 
-      json = JSON.load(response.body).deep_symbolize_keys
+      json = JSON.parse(response.body).deep_symbolize_keys
 
       unless json[:cod] == 200
         return { status: :error, message: json[:message] }

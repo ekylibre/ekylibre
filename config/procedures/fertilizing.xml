@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="fertilizing" categories="fertilizing" actions="fertilization" optional-actions="biostimulation, organic_fertilization, mineral_fertilization, micronutrient_fertilization, liming">
     <parameters>
-      <target name="land_parcel" filter="(is plant or is land_parcel) and has indicator shape">
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <input name="fertilizer" filter="is preparation and can fertilize">
@@ -12,21 +12,21 @@
                  backward="POPULATION * PRODUCT..net_mass(kilogram)"
                  forward="VALUE / PRODUCT..net_mass(kilogram)"/>
         <handler indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(land_parcel, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(kilogram)"/>
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(kilogram)"/>
         <handler name="ton" indicator="mass_area_density" unit="ton_per_hectare"
-                 if="PRODUCT..net_mass? and sum_working_zone_areas(land_parcel) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum_working_zone_areas(land_parcel, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / PRODUCT..net_mass(ton)"/>
+                 if="PRODUCT..net_mass? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(ton)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / PRODUCT..net_mass(ton)"/>
         <handler name="nitrogen" indicator="mass_area_density" unit="kilogram_per_hectare"
-                 if="PRODUCT..net_mass? and PRODUCT..nitrogen_concentration? and sum_working_zone_areas(land_parcel) != 0"
-                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(land_parcel, :hectare)"
-                 forward="(VALUE * sum_working_zone_areas(land_parcel, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
+                 if="PRODUCT..net_mass? and PRODUCT..nitrogen_concentration? and sum_working_zone_areas(cultivation) != 0"
+                 backward="(POPULATION * PRODUCT..net_mass(kilogram) * (PRODUCT.nitrogen_concentration(percent) / 100)) / sum_working_zone_areas(cultivation, :hectare)"
+                 forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / (PRODUCT..net_mass(kilogram) * PRODUCT.nitrogen_concentration(percent) / 100)"/>
       </input>
-      <tool name="spreader" filter="can spread(preparation)" cardinality="*"/>
       <tool name="tractor" filter="is equipment and can tow(equipment)" cardinality="*"/>
-      <doer name="driver"  filter="can drive(tractor) and can move" cardinality="*"/>
+      <tool name="spreader" filter="can spread(preparation)" cardinality="*"/>
+      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

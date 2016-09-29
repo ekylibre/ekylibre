@@ -56,31 +56,23 @@ class InterventionTarget < InterventionProductParameter
   scope :of_activity, ->(activity) { where(product_id: TargetDistribution.select(:target_id).where(activity_id: activity)) }
   scope :of_activity_production, ->(activity_production) { where(product_id: TargetDistribution.select(:target_id).where(activity_production_id: activity_production)) }
 
+  def best_activity
+    production = best_activity_production
+    production ? production.activity : nil
+  end
+
   def activity
+    ActiveSupport::Deprecation.warn('InterventionTarget#activity is deprecated. Method will be removed in 3.0. Please use InterventionTarget#best_activity instead.')
+    best_activity
+  end
+
+  def best_activity_production
     return nil unless product
-    if product.is_a?(LandParcel)
-      ap = ActivityProduction.find_by(support: product)
-    elsif product && product.is_a?(Plant) && product.shape
-      lp = LandParcel.shape_intersecting(product.shape).first
-      ap = ActivityProduction.find_by(support: lp)
-    elsif product && product.is_a?(Animal)
-      groups = product.groups_at(intervention.started_at)
-      ap = ActivityProduction.find_by(support: groups.first)
-    end
-    ap ? ap.activity : nil
+    product.best_activity_production(at: intervention.started_at)
   end
 
   def activity_production
-    return nil unless product
-    if product.is_a?(LandParcel)
-      ap = ActivityProduction.find_by(support: product)
-    elsif product && product.is_a?(Plant) && product.shape
-      lp = LandParcel.shape_intersecting(product.shape).first
-      ap = ActivityProduction.find_by(support: lp)
-    elsif product && product.is_a?(Animal)
-      groups = product.groups_at(intervention.started_at)
-      ap = ActivityProduction.find_by(support: groups.first)
-    end
-    ap ? ap : nil
+    ActiveSupport::Deprecation.warn('InterventionTarget#activity_production is deprecated. Method will be removed in 3.0. Please use InterventionTarget#best_activity_production instead.')
+    best_activity_production
   end
 end

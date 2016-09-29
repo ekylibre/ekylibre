@@ -361,6 +361,10 @@ class Product < Ekylibre::Record::Base
     activity ? activity.id : nil
   end
 
+  def best_activity_production(_options = {})
+    ActivityProduction.where(support: self).order(id: :desc).first
+  end
+
   # TODO: Removes this ASAP
   def deliverable?
     false

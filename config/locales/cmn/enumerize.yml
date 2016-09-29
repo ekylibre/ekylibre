@@ -26,7 +26,7 @@ cmn:
         none: "没有"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "动物群"
         border: "边境"
         buffer: "缓冲"
         cultivation: "养殖"
@@ -193,8 +193,10 @@ cmn:
       state:
         done: "做"
         in_progress: "进行中"
-        squeezed: "挤压"
-        undone: "未完成"
+        rejected: "拒绝"
+        squeezed: "挤压" #?
+        undone: "未完成" #?
+        validated: "验证"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "布尔"
