@@ -68,4 +68,26 @@ class ProductPopulationTest < ActiveSupport::TestCase
 
     assert_equal initial_population + 8.in_ton.to_d, product.population
   end
+
+  test 'population doesn\'t change when movement is moved earlier in time' do
+    product = products(:matters_001)
+    quantity = 5.in_ton.to_d
+
+    product.move! quantity, at: Time.now.utc - 1.day
+    initial_population = product.population
+    product.movements.first.update started_at: Time.now.utc - 2.days
+
+    assert_equal initial_population, product.population
+  end
+
+  test 'population goes back to initial if two movement is moved to future' do
+    product = products(:matters_001)
+    quantity = 5.in_ton.to_d
+    initial_population = product.population
+
+    product.move! quantity, at: Time.now.utc - 1.day
+    product.movements.first.update started_at: Time.now.utc + 1.day
+
+    assert_equal initial_population, product.population
+  end
 end
