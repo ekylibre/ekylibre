@@ -3715,6 +3715,8 @@ jpn:
           percentage: "パーセンテージ"
       items:
         asset_vat: "資産バット" #?
+        eu_vat: "欧州連合（EU）の付加価値税（VAT）"
+        import_export_vat: "インポート/エクスポート付加価値税（VAT）"
         inflated_vat: "膨張した付加価値税（VAT）"
         intermediate_vat: "中間付加価値税（VAT）"
         normal_vat: "通常の付加価値税（VAT）"
@@ -3731,6 +3733,8 @@ jpn:
         suffix: "サフィックス"
     taxes:
       items:
+        french_vat_eu: "フランスVAT EU"
+        french_vat_import_export: "フランスの付加価値税（VAT）のインポート/エクスポート"
         french_vat_intermediate_2012: "2012年の中間フランスのバット"
         french_vat_intermediate_2014: "2014年の中間フランスのバット"
         french_vat_normal_1966: "フランスのバット通常の1966"
@@ -3747,8 +3751,17 @@ jpn:
         french_vat_particular_1982: "1982特にフランスのバット"
         french_vat_particular_1989: "1989特にフランスのバット"
         french_vat_reduced: "フランスのバットが減少"
+        portugal_vat_eu: "ポルトガルVAT EU"
+        portugal_vat_import_export: "ポルトガル付加価値税（VAT）のインポート/エクスポート"
+        portugal_vat_normal: "ポルトガルVATノーマル"
+        portugal_vat_null: "ポルトガルの付加価値税のヌル"
+        portugal_vat_particular: "ポルトガルVAT特定"
+        portugal_vat_reduced: "ポルトガルの付加価値税が減少します"
+        spain_vat_eu: "スペインVAT EU"
+        spain_vat_import_export: "スペインのVATのインポート/エクスポート"
         spain_vat_intermediate_2013: "2013中間スペインバット"
         spain_vat_normal_2013: "2013年の通常スペインバット"
+        spain_vat_null: "スペインのVATのヌル"
         spain_vat_reduced_2013: "スペインのバットは2013を減少させました"
         swiss_vat_normal_2011: "スイスバット通常の2011"
         swiss_vat_null_2011: "スイスバットヌル2011"
