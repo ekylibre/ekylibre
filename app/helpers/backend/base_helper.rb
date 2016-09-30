@@ -210,16 +210,17 @@ module Backend
 
     # chart for product movements
     def movements_chart(resource)
-      movements = resource.movements.reorder(:started_at)
+      populations = resource.populations.reorder(:started_at)
       series = []
       now = (Time.zone.now + 7.days)
       window = 1.day
       min = (resource.born_at ? resource.born_at : now - window) - 7.days
       min = now - window if (now - min) < window
-      if movements.any?
+      if populations.any?
         data = []
-        data += movements.each_with_object({}) do |pair, hash|
-          hash[pair.started_at.to_usec] = pair.population.to_d
+        data += populations.each_with_object({}) do |pair, hash|
+          time_pos = pair.started_at < min ? min : pair.started_at
+          hash[time_pos.to_usec] = pair.value.to_d
           hash
         end.collect { |k, v| [k, v.to_s.to_f] }
         # current population
