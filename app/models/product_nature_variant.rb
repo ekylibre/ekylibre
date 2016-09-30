@@ -190,7 +190,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # create unique account for stock management in accountancy
   def create_unique_account(mode = :stock)
-    if mode == :stock || mode == :stock_movement
+    if (mode == :stock || mode == :stock_movement) && !(defined? category.send(account_key)).nil?
       unless storable?
         raise ArgumentError, "Unknown to store #{self.name.inspect}. You have to check category first"
       end
