@@ -48,9 +48,9 @@
           console.warn "Cannot find ##{prefix}quantity_handler <select>" unless select.length > 0
           option = select.find("option[value='#{name}']")
           console.warn "Cannot find option #{name} of ##{prefix}quantity_handler <select>" unless option.length > 0
-          if value && !option.is(':visible')
+          if value
             option.show()
-          else if !value && option.is(':visible')
+          else
             option.hide()
 
     unserializeRecord: (form, attributes, prefix = '', updater_id = null) ->
@@ -85,7 +85,8 @@
               update = true
               update = false if value is null and element.val() is ""
               if valueType == "number"
-                update = false if value == element.numericalValue()
+                # When element doesn't have any value, element.numericalValue() == 0
+                update = false if value == element.numericalValue() && element.numericalValue() != 0
               else
                 update = false if value == element.val()
               if update

@@ -10,7 +10,7 @@ module Backend
         token = (identifier ? identifier.value : 'BwQESxTYjPRj58EbvzQA')
         url = "https://www.quandl.com/api/v1/datasets/#{dataset}.json?auth_token=#{token}&trim_start=#{start}&trim_end=#{finish}"
         url = "https://www.quandl.com/api/v1/datasets/#{dataset}.json?auth_token=#{token}"
-        data = JSON.load(open(url))
+        data = JSON.parse(open(url))
         if data['errors'].any?
         # TODO: Prevent ?
         else

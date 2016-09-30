@@ -338,13 +338,15 @@ arb:
       index: "التكامل"
       # new: "Activate integration: %{name}"
     backend/interventions:
-      # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit %{procedure_name} request #%{number}"
+      edit: "تحرير"
+      edit_request: "طلب تحرير"
+      # edit_specified: "Edit %{procedure_name} #%{number}"
+      # edit_specified_request: "Edit %{procedure_name} request #%{number}"
       index: "التدخلات"
       new: "تدخل جديد"
-      new_request: "تدخل طلب جديد"
-      new_undefined: "تدخل جديد"
-      new_undefined_request: "طلب تدخل جديد"
+      new_request: "طلب تدخل جديد"
+      new_specified: "تدخل جديد"
+      new_specified_request: "تدخل طلب جديد"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "تعديل الجرد"
@@ -2074,6 +2076,7 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
     undelivered: "لم يتم التسليم"
     undeposited: "لم يتم اي اقتطاع بنكي" #?
@@ -2479,6 +2482,7 @@ arb:
     accounting_system: "جدول الحسابات"
     bookkeep_automatically: "تفعيل المحاسبة التلقائي"
     bookkeep_in_draft: "حفظ السجلات في وضع المسودة خلال مسك الدفاتر"
+    catalog_price_item_addition_if_blank: "كتالوج اضافة السعر إلى الكتالوج خلال بيع / شراء إذا كتالوج فارغ"
     country: "بلد"
     create_activities_from_telepac: "خلق أنشطة خلال Telepac استيراد"
     currency: "عملة"
@@ -2503,6 +2507,7 @@ arb:
       subscriptions: #?
         numeration: "احصاء الاشتراكات" #?
     map_measure_srs: "SRS خريطة قياس"
+    permanent_stock_inventory: "وضع جرد مخزون دائم"
     relations:  #?
       entities: #?
         numeration: "احصاء ملفات العملاء / الممولين" #?
@@ -2564,6 +2569,7 @@ arb:
       propose: "اقترح"
       propose_and_invoice: "اقتراح وفاتورة"
       prospect: "احتمال"
+      purchase: "تتحول إلى شراء"
       qualify: "التأهل"
       quote: "اقتبس"
       reconciliation: "تصالح"
@@ -2577,6 +2583,7 @@ arb:
       run: "يجري"
       search: "بحث"
       select: "اختار"
+      sell: "تتحول بيع"
       ship: "سفينة"
       show: "تبين"
       sort: "فرز"

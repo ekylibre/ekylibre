@@ -45,7 +45,7 @@ class Journal < Ekylibre::Record::Base
   has_many :cashes, dependent: :restrict_with_exception
   has_many :entry_items, class_name: 'JournalEntryItem', inverse_of: :journal, dependent: :destroy
   has_many :entries, class_name: 'JournalEntry', inverse_of: :journal, dependent: :destroy
-  enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash], default: :various, predicates: true
+  enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash, :stocks], default: :various, predicates: true
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :closed_on, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.today + 50.years }, type: :date }
   validates :code, :name, presence: true, length: { maximum: 500 }
@@ -62,8 +62,8 @@ class Journal < Ekylibre::Record::Base
   selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
 
   scope :used_for, lambda { |nature|
-    unless self.nature.values.include?(nature.to_s)
-      raise ArgumentError, "Journal#used_for must be one of these: #{self.nature.values.join(', ')}"
+    unless Journal.nature.values.include?(nature.to_s)
+      raise ArgumentError, "Journal#used_for must be one of these: #{Journal.nature.values.join(', ')}"
     end
     where(nature: nature.to_s)
   }
@@ -76,6 +76,7 @@ class Journal < Ekylibre::Record::Base
   scope :forwards,  -> { where(nature: 'forward') }
   scope :various,   -> { where(nature: 'various') }
   scope :cashes,    -> { where(nature: 'cashes') }
+  scope :stocks,    -> { where(nature: 'stocks') }
   scope :banks_or_cashes, -> { where(nature: 'cashes').or.where(nature: 'bank') }
 
   before_validation(on: :create) do
@@ -87,11 +88,11 @@ class Journal < Ekylibre::Record::Base
 
   # this method is .alled before creation or validation method.
   before_validation do
-    self.name = self.nature.l if name.blank? && self.nature
+    self.name = nature.l if name.blank? && nature
     if eoc = Entity.of_company
       self.currency ||= eoc.currency
     end
-    self.code = self.nature.l if code.blank?
+    self.code = nature.l if code.blank?
     self.code = code.codeize[0..3]
   end
 

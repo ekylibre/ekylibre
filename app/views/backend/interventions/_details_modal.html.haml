@@ -31,7 +31,8 @@
   - if intervention.activities.any?
     .intervention-activities
       - intervention.activities.each do |activity|
-        %span.label{ style: "background-color: #{activity.color}; color: #{contrasted_color(activity.color)}" }= activity.name
+        = link_to({ action: :show, controller: :activities, id: activity.id}, style: "background-color: #{activity.color}; color: #{contrasted_color(activity.color)}", class: 'label') do
+          = activity.name
   .blocks
 
     - if intervention.targets.any?

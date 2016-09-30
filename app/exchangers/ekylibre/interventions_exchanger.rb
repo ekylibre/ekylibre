@@ -415,7 +415,7 @@ module Ekylibre
         target_variant = ProductNatureVariant.find_or_import!(r.target_variety).first
       end
       if target_variant.nil? && r.target_variant
-        unless target_variant = ProductNatureVariant.find_by(number: r.target_variant)
+        unless target_variant = ProductNatureVariant.find_by(work_number: r.target_variant)
           target_variant = ProductNatureVariant.import_from_nomenclature(r.target_variant)
         end
       end
@@ -435,7 +435,7 @@ module Ekylibre
         a.variant = if a.product = Product.find_by_work_number(a.product_code)
                       a.product.variant
                     else
-                      ProductNatureVariant.find_by_number(a.product_code)
+                      ProductNatureVariant.find_by_work_number(a.product_code)
                     end
       end
       a

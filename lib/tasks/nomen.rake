@@ -3,7 +3,7 @@ namespace :nomen do
   task flatten: :environment do
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.migration name: 'Add initial data' do
-        Nomen.all.sort { |a, b| a.dependency_index <=> b.dependency_index }.each do |nomenclature|
+        Nomen.all.sort_by(&:dependency_index).each do |nomenclature|
           name = nomenclature.name.to_s # .gsub(/(nmp|france|poitou_charentes)_/, '\1/')
           # xml.comment "Dependency index: #{nomenclature.dependency_index}"
           attrs = { name: name }

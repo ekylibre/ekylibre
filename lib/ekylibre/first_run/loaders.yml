@@ -8,6 +8,8 @@ base:
     path: 'alamano/background.jpg'
   ekylibre_backup:
     path: 'ekylibre/backup.zip'
+  ekylibre_accounts:
+    path: 'alamano/accounts.csv'
   ekylibre_variants:
     path: 'alamano/variants.ods'
 

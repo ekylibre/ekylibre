@@ -22,33 +22,35 @@
 #
 # == Table: intervention_parameters
 #
-#  assembly_id             :integer
-#  component_id            :integer
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  event_participation_id  :integer
-#  group_id                :integer
-#  id                      :integer          not null, primary key
-#  intervention_id         :integer          not null
-#  lock_version            :integer          default(0), not null
-#  new_container_id        :integer
-#  new_group_id            :integer
-#  new_name                :string
-#  new_variant_id          :integer
-#  outcoming_product_id    :integer
-#  position                :integer          not null
-#  product_id              :integer
-#  quantity_handler        :string
-#  quantity_indicator_name :string
-#  quantity_population     :decimal(19, 4)
-#  quantity_unit_name      :string
-#  quantity_value          :decimal(19, 4)
-#  reference_name          :string           not null
-#  type                    :string
-#  updated_at              :datetime         not null
-#  updater_id              :integer
-#  variant_id              :integer
-#  working_zone            :geometry({:srid=>4326, :type=>"multi_polygon"})
+#  assembly_id              :integer
+#  component_id             :integer
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string
+#  event_participation_id   :integer
+#  group_id                 :integer
+#  id                       :integer          not null, primary key
+#  intervention_id          :integer          not null
+#  lock_version             :integer          default(0), not null
+#  new_container_id         :integer
+#  new_group_id             :integer
+#  new_name                 :string
+#  new_variant_id           :integer
+#  outcoming_product_id     :integer
+#  position                 :integer          not null
+#  product_id               :integer
+#  quantity_handler         :string
+#  quantity_indicator_name  :string
+#  quantity_population      :decimal(19, 4)
+#  quantity_unit_name       :string
+#  quantity_value           :decimal(19, 4)
+#  reference_name           :string           not null
+#  type                     :string
+#  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
+#  variant_id               :integer
+#  working_zone             :geometry({:srid=>4326, :type=>"multi_polygon"})
 #
 
 # An intervention input represents a product which is used and "consumed" by the
@@ -76,6 +78,10 @@ class InterventionInput < InterventionProductParameter
       movement.stopped_at = intervention.stopped_at || movement.started_at + 1.hour
       movement.save!
     end
+  end
+
+  def stock_amount
+    quantity_population * unit_pretax_stock_amount
   end
 
   def cost_amount_computation

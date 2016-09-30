@@ -82,7 +82,7 @@ class Deposit < Ekylibre::Record::Base
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     payments = reload.payments unless b.action == :destroy
-    amount = self.payments.sum(:amount)
+    amount = payments.sum(:amount)
     b.journal_entry(cash.journal, if: !mode.depositables_account.nil?) do |entry|
       commissions = {}
       commissions_amount = 0

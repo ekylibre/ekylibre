@@ -323,13 +323,15 @@ fra:
       index: "Intégrations"
       new: "Activer l'intégration %{name}"
     backend/interventions:
-      edit: "Modifier l’intervention %{procedure_name} n°%{number}"
-      edit_request: "Modifier la demande de %{procedure_name} n°%{number}"
+      edit: "Modifier l’intervention"
+      edit_request: "Modifier la demande d'intervention"
+      edit_specified: "Modifier l’intervention %{procedure_name} n°%{number}"
+      edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
-      new: "Nouvelle intervention\_: %{procedure_name}"
-      new_request: "Nouvelle demande\_: %{procedure_name}"
-      new_undefined: "Nouvelle intervention"
-      new_undefined_request: "Nouvelle demande d’intervention"
+      new: "Nouvelle intervention"
+      new_request: "Nouvelle demande d’intervention"
+      new_specified: "Nouvelle intervention de %{procedure_name}"
+      new_specified_request: "Nouvelle demande de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
@@ -1258,6 +1260,7 @@ fra:
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
+    incoming: "Entrant" #?
     incoming_parcels: "Colis entrants"
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
@@ -1543,6 +1546,7 @@ fra:
     original_component: "D'origine"
     other_results: "Autres résultats…" #?
     others: "Autres"
+    outgoing: "Sortant" #?
     outgoing_payment: "Décaissement"
     outgoing_payments: "Décaissements"
     outgoing_payments_states:  #?
@@ -1971,6 +1975,7 @@ fra:
       waiting: "En attente" #?
     treatment: "Traitement" #?
     true: "Vrai" #?
+    undefined_activity: "Activité indéfinie"
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
     undone: "Non-fait"
@@ -2359,6 +2364,7 @@ fra:
     accounting_system: "Plan comptable"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
+    catalog_price_item_addition_if_blank: "Compléter le catalogue de prix pendant les achats et ventes"
     country: "Pays"
     create_activities_from_telepac: "Créer automatiquement les activités lors de l’import TelePAC"
     currency: "Monnaie"
@@ -2366,6 +2372,7 @@ fra:
     host: "Adresse hôte"
     language: "Langue"
     map_measure_srs: "SRS de mesure cartographique"
+    permanent_stock_inventory: "Mode stock permanent (tenue des écritures comptables de stock)"
     sales_conditions: "Conditions de vente"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
   rest:
@@ -2427,6 +2434,7 @@ fra:
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"
+      purchase: "Passer en achat"
       qualify: "Qualifier"
       quote: "Réaliser un devis"
       reconciliation: "Rapprocher"
@@ -2440,6 +2448,7 @@ fra:
       run: "Éxécuter"
       search: "Rechercher"
       select: "Selectionner"
+      sell: "Passer en vente"
       set: "Définir" #?
       ship: "Expédier"
       show: "Afficher"

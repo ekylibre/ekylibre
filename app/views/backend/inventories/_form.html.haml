@@ -1,5 +1,6 @@
 = field_set do
   = f.input :name
+  = f.referenced_association :financial_year
   = f.referenced_association :responsible #, source: :employees
   = f.input :achieved_at
   = f.custom_fields

@@ -98,7 +98,7 @@ class Affair < Ekylibre::Record::Base
     # if self.originator
     #   self.originator_type = self.originator.class.base_class.name
     # end
-    deals = self.deals
+    # deals = deals
     self.debit = 0
     self.credit = 0
     self.deals_count = deals.count
@@ -127,7 +127,7 @@ class Affair < Ekylibre::Record::Base
 
   bookkeep do |b|
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, third: third.full_name)
-    all_deals = self.deals
+    all_deals = deals
     thirds = all_deals.each_with_object({}) do |deal, hash|
       if third = deal.deal_third
         # account = third.account(deal.class.affairable_options[:third])
