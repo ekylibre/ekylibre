@@ -2483,12 +2483,12 @@ arb:
     bookkeep_automatically: "تفعيل المحاسبة التلقائي"
     bookkeep_in_draft: "حفظ السجلات في وضع المسودة خلال مسك الدفاتر"
     catalog_price_item_addition_if_blank: "كتالوج اضافة السعر إلى الكتالوج خلال بيع / شراء إذا كتالوج فارغ"
-    # client_account_radix: "Client account radix"
+    client_account_radix: "جذر حساب العميل"
     country: "بلد"
     create_activities_from_telepac: "خلق أنشطة خلال Telepac استيراد"
     currency: "عملة"
     detail_payments_in_deposit_bookkeeping: "التفاصيل جميع المدفوعات في مسك الدفاتر وديعة"
-    # employee_account_radix: "Employee account radix"
+    employee_account_radix: "جذر حساب الموظف"
     general:  #?
       language: "اللغة المفترضة" #?
     host: "مضيف"
@@ -2514,7 +2514,7 @@ arb:
       entities: #?
         numeration: "احصاء ملفات العملاء / الممولين" #?
     sales_conditions: "شروط البيع"
-    # supplier_account_radix: "Supplier account radix"
+    supplier_account_radix: "جذر حساب المورد"
     use_entity_codes_for_account_numbers: "استخدام رمز لخلق أرقام الحسابات"
   rest:
     actions:
