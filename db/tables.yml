@@ -5597,37 +5597,6 @@ product_phases:
     type: integer
     references: product_nature_variant
     required: true
-product_populations:
-  created_at:
-    type: datetime
-    required: true
-  creator_id:
-    type: integer
-    references: user
-  id:
-    type: integer
-    required: true
-  lock_version:
-    type: integer
-    required: true
-  product_id:
-    type: integer
-    references: product
-  started_at:
-    type: datetime
-    required: true
-  stopped_at:
-    type: datetime
-  updated_at:
-    type: datetime
-    required: true
-  updater_id:
-    type: integer
-    references: user
-  value:
-    type: decimal
-    precision: 19
-    scale: 4
 product_readings:
   absolute_measure_value_unit:
     type: string

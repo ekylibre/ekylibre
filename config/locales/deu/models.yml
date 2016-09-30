@@ -278,6 +278,7 @@ deu:
       product_nature_variant_reading: "Produkttyp Variante Lesung"
       product_ownership: "Artikel Eigentum"
       product_phase: "Produktphase"
+      product_population: "Produkt Bevölkerung"
       product_reading: "Artikel lesen"
       purchase: "Kauf"
       purchase_item: "Kaufsache"

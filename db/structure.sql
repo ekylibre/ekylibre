@@ -15252,6 +15252,14 @@ CREATE RULE delete_campaigns_interventions AS
 
 
 --
+-- Name: delete_product_populations; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_product_populations AS
+    ON DELETE TO product_populations DO INSTEAD NOTHING;
+
+
+--
 -- Name: fk_rails_7a9749733c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -15593,7 +15601,7 @@ INSERT INTO schema_migrations (version) VALUES ('20160922161801');
 
 INSERT INTO schema_migrations (version) VALUES ('20160923233801');
 
-INSERT INTO schema_migrations (version) VALUES ('20160927121727');
-
 INSERT INTO schema_migrations (version) VALUES ('20160927192301');
+
+INSERT INTO schema_migrations (version) VALUES ('20160928121727');
 

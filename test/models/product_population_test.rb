@@ -20,18 +20,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: @product_populations
+# == Table: product_populations
 #
-#  created_at   :datetime         not null
+#  created_at   :datetime
 #  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  @product_id   :integer
-#  started_at   :datetime         not null
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
+#  id           :integer
+#  lock_version :integer
+#  product_id   :integer
+#  started_at   :datetime
+#  updated_at   :datetime
 #  updater_id   :integer
-#  value        :decimal(19, 4)
+#  value        :decimal(, )
 #
 require 'test_helper'
 
@@ -58,7 +57,7 @@ class ProductPopulationTest < ActiveSupport::TestCase
   end
 
   test 'population gets updated correctly if moves are simultaneous' do
-    moves = [5, 3 , 4, 2]
+    moves = [5, 3, 4, 2]
     moves.each do |quantity|
       @product.move! quantity.in_ton.to_d, at: @time
     end

@@ -1,8 +1,8 @@
 class CreateProductPopulations < ActiveRecord::Migration
   def up
     execute <<-SQL
-      CREATE VIEW product_populations
-      AS SELECT DISTINCT ON (movements.started_at, movements.product_id)
+      CREATE VIEW product_populations AS
+      SELECT DISTINCT ON (movements.started_at, movements.product_id)
           movements.product_id AS product_id,
           movements.started_at AS started_at,
           SUM(precedings.delta) AS value,
@@ -18,6 +18,7 @@ class CreateProductPopulations < ActiveRecord::Migration
           ON movements.started_at >= precedings.started_at AND movements.product_id = precedings.product_id
           GROUP BY movements.id
     SQL
+    execute 'CREATE RULE delete_product_populations AS ON DELETE TO product_populations DO INSTEAD NOTHING;'
   end
 
   def down

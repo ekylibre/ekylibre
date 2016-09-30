@@ -278,7 +278,7 @@ eng:
       product_nature_variant_reading: "Product type variant reading"
       product_ownership: "Product ownership"
       product_phase: "Product phase"
-      # product_population: "Product population"
+      product_population: "Product population"
       product_reading: "Product reading"
       purchase: "Purchase"
       purchase_item: "Purchase item"

@@ -912,6 +912,7 @@ arb:
       product_nature_variant_reading: "نوع المنتج البديل القراءة"
       product_ownership: "ملكية المنتج"
       product_phase: "مرحلة المنتج"
+      product_population: "السكان المنتج"
       product_price_listing: "فئة الفرد" #?
       product_price_template: "الاسعار" #?
       product_reading: "قراءة المنتج"
@@ -1861,7 +1862,7 @@ arb:
     polygon: "متناسقين" #?
     population: "عدد السكان"
     population_counting: "عد السكان"
-    # populations: "Populations"
+    populations: "السكان"
     position: "الوضع"
     post: "بريد"
     postal_code: "الكود البريدى"

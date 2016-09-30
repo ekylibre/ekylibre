@@ -22,21 +22,25 @@
 #
 # == Table: product_populations
 #
-#  created_at   :datetime         not null
+#  created_at   :datetime
 #  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
+#  id           :integer
+#  lock_version :integer
 #  product_id   :integer
-#  started_at   :datetime         not null
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
+#  started_at   :datetime
+#  updated_at   :datetime
 #  updater_id   :integer
-#  value        :decimal(19, 4)
+#  value        :decimal(, )
 #
 
 # Sum of all the deltas in product movements up to and including a date.
 class ProductPopulation < Ekylibre::Record::Base
   belongs_to :product
+  # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :id, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }, allow_blank: true
+  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
+  validates :value, numericality: true, allow_blank: true
+  # ]VALIDATORS]
 
   scope :chain,                   ->(product) { where(product: product).order(started_at: :asc) }
   scope :initial_population_for,  ->(product) { chain(product).first }
