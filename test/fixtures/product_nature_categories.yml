@@ -118,7 +118,7 @@ product_nature_categories_003:
   reference_name: plant_medicine
   saleable: true
   stock_account_id: 141
-  stock_movement_account_id: 587
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:19.871117000 Z
@@ -163,7 +163,7 @@ product_nature_categories_005:
   reference_name: seed
   saleable: true
   stock_account_id: 155
-  stock_movement_account_id: 590
+  stock_movement_account_id: 585
   storable: true
   subscribing: false
   updated_at: 2014-10-31 20:11:42.132127000 Z
@@ -324,7 +324,7 @@ product_nature_categories_012:
   reference_name: animal_medicine
   saleable: true
   stock_account_id: 17
-  stock_movement_account_id: 591
+  stock_movement_account_id: 586
   storable: true
   subscribing: false
   updated_at: 2014-11-01 20:20:57.118801000 Z
@@ -432,7 +432,7 @@ product_nature_categories_017:
   reference_name: fertilizer
   saleable: true
   stock_account_id: 55
-  stock_movement_account_id: 588
+  stock_movement_account_id: 590
   storable: true
   subscribing: false
   updated_at: 2014-11-07 15:24:11.118240000 Z
@@ -548,7 +548,7 @@ product_nature_categories_022:
   reference_name: oenological_product
   saleable: true
   stock_account_id: 141
-  stock_movement_account_id: 587
+  stock_movement_account_id: 591
   storable: true
   subscribing: false
   updated_at: 2014-11-07 19:03:43.632961000 Z
