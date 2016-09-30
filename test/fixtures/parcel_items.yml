@@ -25,6 +25,7 @@
 #  analysis_id                   :integer
 #  created_at                    :datetime         not null
 #  creator_id                    :integer
+#  currency                      :string
 #  id                            :integer          not null, primary key
 #  lock_version                  :integer          default(0), not null
 #  parcel_id                     :integer          not null
@@ -42,6 +43,7 @@
 #  shape                         :geometry({:srid=>4326, :type=>"multi_polygon"})
 #  source_product_id             :integer
 #  source_product_movement_id    :integer
+#  unit_pretax_stock_amount      :decimal(19, 4)   default(0.0), not null
 #  updated_at                    :datetime         not null
 #  updater_id                    :integer
 #  variant_id                    :integer
@@ -57,6 +59,7 @@ parcel_items_001:
   population: 20.0
   product_id: 55
   source_product_id: 55
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:15:20.018501000 Z
   updater_id: 1
   variant_id: 9
@@ -70,6 +73,7 @@ parcel_items_002:
   population: 5.095
   product_id: 53
   source_product_id: 53
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:15:20.026550000 Z
   updater_id: 1
   variant_id: 10
@@ -83,6 +87,7 @@ parcel_items_003:
   population: 0.0
   product_id: 11
   source_product_id: 11
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:16:19.775348000 Z
   updater_id: 1
   variant_id: 3
@@ -96,6 +101,7 @@ parcel_items_004:
   population: 0.0
   product_id: 56
   source_product_id: 56
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-05 14:16:48.644715000 Z
   updater_id: 1
   variant_id: 11
@@ -109,6 +115,7 @@ parcel_items_005:
   population: 0.0
   product_id: 76
   source_product_id: 76
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 14:13:05.516637000 Z
   updater_id: 1
   variant_id: 1
@@ -122,6 +129,7 @@ parcel_items_006:
   population: 7.0
   product_id: 53
   source_product_id: 53
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-10-31 20:23:37.079652000 Z
   updater_id: 1
   variant_id: 10
@@ -135,6 +143,7 @@ parcel_items_007:
   population: 20.0
   product_id: 54
   source_product_id: 54
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 16:00:08.291496000 Z
   updater_id: 1
   variant_id: 11
@@ -148,6 +157,7 @@ parcel_items_008:
   population: 20.0
   product_id: 55
   source_product_id: 55
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 16:00:08.381565000 Z
   updater_id: 1
   variant_id: 9
@@ -161,6 +171,7 @@ parcel_items_009:
   population: 0.0
   product_id: 56
   source_product_id: 56
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 16:01:24.225780000 Z
   updater_id: 1
   variant_id: 11
@@ -174,6 +185,7 @@ parcel_items_010:
   population: 1.0
   product_id: 5
   source_product_id: 5
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 19:29:58.321983000 Z
   updater_id: 1
   variant_id: 17
@@ -187,6 +199,7 @@ parcel_items_011:
   population: 1.0
   product_id: 6
   source_product_id: 6
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 19:35:50.426074000 Z
   updater_id: 1
   variant_id: 17
@@ -200,6 +213,7 @@ parcel_items_012:
   population: 10.0
   product_id: 57
   source_product_id: 57
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 20:19:35.464060000 Z
   updater_id: 1
   variant_id: 20
@@ -213,6 +227,7 @@ parcel_items_013:
   population: 10.0
   product_id: 58
   source_product_id: 58
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 20:23:55.229924000 Z
   updater_id: 1
   variant_id: 22
@@ -226,6 +241,7 @@ parcel_items_014:
   population: 10.0
   product_id: 59
   source_product_id: 59
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-01 20:23:55.300646000 Z
   updater_id: 1
   variant_id: 21
@@ -239,6 +255,7 @@ parcel_items_015:
   population: 10.0
   product_id: 98
   source_product_id: 98
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:25:51.274872000 Z
   updater_id: 1
   variant_id: 39
@@ -252,6 +269,7 @@ parcel_items_016:
   population: 20.0
   product_id: 100
   source_product_id: 100
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:44:20.571953000 Z
   updater_id: 1
   variant_id: 41
@@ -265,6 +283,7 @@ parcel_items_017:
   population: 200.0
   product_id: 101
   source_product_id: 101
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 15:44:20.650859000 Z
   updater_id: 1
   variant_id: 42
@@ -278,6 +297,7 @@ parcel_items_018:
   population: 0.0
   product_id: 107
   source_product_id: 107
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 16:52:05.873379000 Z
   updater_id: 1
   variant_id: 45
@@ -291,6 +311,7 @@ parcel_items_019:
   population: 2.0
   product_id: 126
   source_product_id: 126
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:05:46.951450000 Z
   updater_id: 1
   variant_id: 57
@@ -304,6 +325,7 @@ parcel_items_020:
   population: 4.0
   product_id: 127
   source_product_id: 127
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:05:47.023821000 Z
   updater_id: 1
   variant_id: 58
@@ -317,6 +339,7 @@ parcel_items_021:
   population: 30.0
   product_id: 128
   source_product_id: 128
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:05:47.096608000 Z
   updater_id: 1
   variant_id: 59
@@ -330,6 +353,7 @@ parcel_items_022:
   population: 10.0
   product_id: 131
   source_product_id: 131
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:12:05.114337000 Z
   updater_id: 1
   variant_id: 60
@@ -343,6 +367,7 @@ parcel_items_023:
   population: 10.0
   product_id: 133
   source_product_id: 133
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:22:38.384189000 Z
   updater_id: 1
   variant_id: 62
@@ -356,6 +381,7 @@ parcel_items_024:
   population: 10000.0
   product_id: 135
   source_product_id: 135
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:34:09.524844000 Z
   updater_id: 1
   variant_id: 63
@@ -369,6 +395,7 @@ parcel_items_025:
   population: 10000.0
   product_id: 136
   source_product_id: 136
+  unit_pretax_stock_amount: 0.0
   updated_at: 2014-11-07 19:34:09.592706000 Z
   updater_id: 1
   variant_id: 64
@@ -382,6 +409,7 @@ parcel_items_026:
   population: 8480.0
   product_id: 136
   source_product_id: 136
+  unit_pretax_stock_amount: 0.0
   updated_at: 2015-09-17 13:24:45.023730000 Z
   updater_id: 1
   variant_id: 64
@@ -401,6 +429,7 @@ parcel_items_027:
   sale_item_id: 19
   source_product_id: 144
   source_product_movement_id: 100
+  unit_pretax_stock_amount: 0.0
   updated_at: 2015-09-17 13:40:58.274949000 Z
   updater_id: 1
   variant_id: 19
@@ -418,6 +447,7 @@ parcel_items_028:
   product_localization_id: 217
   product_name: ''
   product_ownership_id: 125
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 19:23:51.514824000 Z
   updater_id: 1
   variant_id: 8
@@ -435,6 +465,7 @@ parcel_items_029:
   product_localization_id: 218
   product_name: ''
   product_ownership_id: 126
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 19:23:51.516467000 Z
   updater_id: 1
   variant_id: 22
@@ -451,6 +482,7 @@ parcel_items_030:
   product_localization_id: 219
   product_ownership_id: 128
   source_product_id: 177
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 20:13:27.353453000 Z
   updater_id: 1
   variant_id: 8
@@ -468,6 +500,7 @@ parcel_items_031:
   product_localization_id: 221
   product_name: ''
   product_ownership_id: 130
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-07-01 20:23:25.161561000 Z
   updater_id: 1
   variant_id: 39
@@ -486,6 +519,7 @@ parcel_items_032:
   product_movement_id: 174
   product_name: ''
   product_ownership_id: 133
+  unit_pretax_stock_amount: 0.0
   updated_at: 2016-08-10 14:27:50.035720000 Z
   updater_id: 1
   variant_id: 71

@@ -351,6 +351,8 @@ eng:
       new_request: "New intervention request" #?
       new_specified: "New %{procedure_name}" #?
       new_specified_request: "New requested %{procedure_name}" #?
+      # purchase: "Purchase intervention: %{name}"
+      # sell: "Sell intervention: %{name}"
       show: "%{procedure_name}"
     backend/inventories:
       edit: "Edit inventory"
@@ -1862,6 +1864,7 @@ eng:
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
+      # no_interventions_given: "No interventions given"
       no_parcels_given: "No parcels given"
       no_payment_to_deposit: "There are no payment to deposit"
       no_production_defined_for_current_campaign: "No production defined for current campaign"
@@ -1895,14 +1898,19 @@ eng:
     accounting_system: "Accounting plan"
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
+    catalog_price_item_addition_if_blank: "Catalog Add price to catalog during sale/purchase if catalog blank"
+    client_account_radix: "Client account radix"
     country: "Country"
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
+    employee_account_radix: "Employee account radix"
     host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
+    permanent_stock_inventory: "Permanent stock inventory mode"
     sales_conditions: "Sales conditions"
+    supplier_account_radix: "Supplier account radix"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
   rest:
     actions:
@@ -1978,6 +1986,7 @@ eng:
       propose: "Propose"
       propose_and_invoice: "Propose and invoice"
       prospect: "Prospect"
+      purchase: "Turn into purchase"
       qualify: "Qualify"
       # quantifiers: "Quantifiers"
       quote: "Quote"
@@ -1992,6 +2001,7 @@ eng:
       run: "Run"
       search: "Search" #?
       select: "Select"
+      sell: "Turn into sale"
       ship: "Ship"
       show: "Show"
       sort: "Sort"

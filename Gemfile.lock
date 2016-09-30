@@ -73,7 +73,7 @@ GEM
       sidekiq (>= 2.11)
     arel (6.0.3)
     ast (2.3.0)
-    autoprefixer-rails (6.5.0)
+    autoprefixer-rails (6.5.0.1)
       execjs
     awesome_nested_set (3.0.3)
       activerecord (>= 4.0.0, < 5)
@@ -99,7 +99,7 @@ GEM
     browser (2.2.0)
     builder (3.2.2)
     burisu-docsplit (0.7.9)
-    byebug (9.0.5)
+    byebug (9.0.6)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)

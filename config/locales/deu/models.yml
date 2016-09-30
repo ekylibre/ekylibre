@@ -278,6 +278,7 @@ deu:
       product_nature_variant_reading: "Produkttyp Variante Lesung"
       product_ownership: "Artikel Eigentum"
       product_phase: "Produktphase"
+      product_population: "Produkt Bevölkerung"
       product_reading: "Artikel lesen"
       purchase: "Kauf"
       purchase_item: "Kaufsache"
@@ -984,6 +985,7 @@ deu:
     points: "Punkte"
     population: "Bevölkerung"
     population_counting: "Bevölkerungszählung"
+    # populations: "Populations"
     # position: "Position"
     # post: "Post"
     postal_code: "Postleitzahl"
@@ -1052,6 +1054,7 @@ deu:
     purchased_on: "erworben auf"
     purchases: "Kauforder"
     quantity: "Menge"
+    quantity_gap_on_invoice_entry: "Auf Grßenlücke Eintrag"
     quantity_handler: "Menge Handler"
     quantity_indicator: "Mengenindikator"
     quantity_indicator_name: "Mengenindikator Namen"
@@ -1194,6 +1197,7 @@ deu:
     state_label: "Bundesland"
     # status: "Status"
     stock_account: "Auf Rechnung"
+    stock_movement_account: "Auf Bewegungskonto"
     stocks_categories: "Stocks Kategorien"
     stopped_at: "hielten an"
     stopped_on: "gestoppt auf"
@@ -1271,12 +1275,14 @@ deu:
     type: "Art"
     # uid: "UID"
     unconfirmed_email: "Unbestätigten E-Mail"
+    undelivered_invoice_entry: "Nicht zugestellte Rechnungserfassung"
     undelivered_quantity: "nicht gelieferte Menge"
     unit_amount: "Einheitsbetrag"
     unit_currency: "Einheitswährung"
     unit_name: "Gerätename"
     unit_population: "Einheit Bevölkerung"
     unit_pretax_amount: "Einheit Vorsteuerbetrag"
+    unit_pretax_stock_amount: "Einheit vor Steuern Lagermenge"
     unlock_token: "Schalte Token"
     unlocked_payments: "entriegelte Zahlungen"
     unpaid_sales: "Unbezahlte Verkaufs"
@@ -1415,6 +1421,9 @@ deu:
       mass: "Masse"
     intervention:
       # name: "%{intervention} #%{number}"
+    inventory:
+      # bookkeep: "Physical inventory - [%{resource}] %{number}"
+      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
@@ -1477,6 +1486,7 @@ deu:
         transfer:
           name: "Übertragung"
     parcel:
+      # bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Entwurf"
@@ -1485,6 +1495,7 @@ deu:
           ordered: "bestellt"
           prepared: "Bereit"
           received: "Empfangen"
+      # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1515,8 +1526,10 @@ deu:
         sales: "Der Umsatz"
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       # label: "%{supplier} at %{address}"
       purchase: "Kauf"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       states:
         aborted: "abgebrochen"
         draft: "Entwurf des Voranschlags"
@@ -1537,6 +1550,7 @@ deu:
         public: "Öffentlichkeit"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label:
         # aborted: "Aborted sale %{number}"
         # credit: "Sale credit %{number}"
@@ -1545,6 +1559,7 @@ deu:
         # invoice: "Sales invoice %{number}"
         # order: "Sales order %{number}"
         # refused: "Refused estimate %{number}"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       # sale: "Sale %{number}"
       sales_conditions:
         # downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid at the signature of this present estimate."

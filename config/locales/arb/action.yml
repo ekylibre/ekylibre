@@ -338,8 +338,8 @@ arb:
       index: "التكامل"
       # new: "Activate integration: %{name}"
     backend/interventions:
-      # edit: "Edit"
-      # edit_request: "Edit request"
+      edit: "تحرير"
+      edit_request: "طلب تحرير"
       # edit_specified: "Edit %{procedure_name} #%{number}"
       # edit_specified_request: "Edit %{procedure_name} request #%{number}"
       index: "التدخلات"
@@ -2482,10 +2482,13 @@ arb:
     accounting_system: "جدول الحسابات"
     bookkeep_automatically: "تفعيل المحاسبة التلقائي"
     bookkeep_in_draft: "حفظ السجلات في وضع المسودة خلال مسك الدفاتر"
+    catalog_price_item_addition_if_blank: "كتالوج اضافة السعر إلى الكتالوج خلال بيع / شراء إذا كتالوج فارغ"
+    client_account_radix: "جذر حساب العميل"
     country: "بلد"
     create_activities_from_telepac: "خلق أنشطة خلال Telepac استيراد"
     currency: "عملة"
     detail_payments_in_deposit_bookkeeping: "التفاصيل جميع المدفوعات في مسك الدفاتر وديعة"
+    employee_account_radix: "جذر حساب الموظف"
     general:  #?
       language: "اللغة المفترضة" #?
     host: "مضيف"
@@ -2506,10 +2509,12 @@ arb:
       subscriptions: #?
         numeration: "احصاء الاشتراكات" #?
     map_measure_srs: "SRS خريطة قياس"
+    permanent_stock_inventory: "وضع جرد مخزون دائم"
     relations:  #?
       entities: #?
         numeration: "احصاء ملفات العملاء / الممولين" #?
     sales_conditions: "شروط البيع"
+    supplier_account_radix: "جذر حساب المورد"
     use_entity_codes_for_account_numbers: "استخدام رمز لخلق أرقام الحسابات"
   rest:
     actions:
@@ -2567,6 +2572,7 @@ arb:
       propose: "اقترح"
       propose_and_invoice: "اقتراح وفاتورة"
       prospect: "احتمال"
+      purchase: "تتحول إلى شراء"
       qualify: "التأهل"
       quote: "اقتبس"
       reconciliation: "تصالح"
@@ -2580,6 +2586,7 @@ arb:
       run: "يجري"
       search: "بحث"
       select: "اختار"
+      sell: "تتحول بيع"
       ship: "سفينة"
       show: "تبين"
       sort: "فرز"

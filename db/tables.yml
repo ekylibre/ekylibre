@@ -3160,6 +3160,8 @@ intervention_parameters:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   derivative_of:
     type: string
   event_participation_id:
@@ -3217,6 +3219,11 @@ intervention_parameters:
     required: true
   type:
     type: string
+  unit_pretax_stock_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -3266,6 +3273,8 @@ intervention_working_periods:
     type: integer
     references: user
 interventions:
+  accounted_at:
+    type: datetime
   actions:
     type: string
   created_at:
@@ -3274,6 +3283,8 @@ interventions:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   custom_fields:
     type: jsonb
   description:
@@ -3287,6 +3298,9 @@ interventions:
   issue_id:
     type: integer
     references: issue
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   lock_version:
     type: integer
     required: true
@@ -3340,8 +3354,13 @@ inventories:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   custom_fields:
     type: jsonb
+  financial_year_id:
+    type: integer
+    references: financial_year
   id:
     type: integer
     required: true
@@ -3384,6 +3403,8 @@ inventory_items:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   expected_population:
     type: decimal
     precision: 19
@@ -3406,6 +3427,11 @@ inventory_items:
   product_movement_id:
     type: integer
     references: product_movement
+  unit_pretax_stock_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -4428,6 +4454,8 @@ parcel_items:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   id:
     type: integer
     required: true
@@ -4482,6 +4510,11 @@ parcel_items:
   source_product_movement_id:
     type: integer
     references: product_movement
+  unit_pretax_stock_amount:
+    type: decimal
+    precision: 19
+    scale: 4
+    required: true
   updated_at:
     type: datetime
     required: true
@@ -4492,6 +4525,8 @@ parcel_items:
     type: integer
     references: product_nature_variant
 parcels:
+  accounted_at:
+    type: datetime
   address_id:
     type: integer
     references: entity_address
@@ -4501,6 +4536,8 @@ parcels:
   creator_id:
     type: integer
     references: user
+  currency:
+    type: string
   custom_fields:
     type: jsonb
   delivery_id:
@@ -4515,6 +4552,9 @@ parcels:
     required: true
   in_preparation_at:
     type: datetime
+  journal_entry_id:
+    type: integer
+    references: journal_entry
   lock_version:
     type: integer
     required: true
@@ -4562,6 +4602,9 @@ parcels:
   transporter_id:
     type: integer
     references: entity
+  undelivered_invoice_entry_id:
+    type: integer
+    references: journal_entry
   updated_at:
     type: datetime
     required: true
@@ -5168,6 +5211,9 @@ product_nature_categories:
   stock_account_id:
     type: integer
     references: account
+  stock_movement_account_id:
+    type: integer
+    references: account
   storable:
     type: boolean
     required: true
@@ -5351,6 +5397,7 @@ product_nature_variants:
     required: true
   number:
     type: string
+    required: true
   picture_content_type:
     type: string
   picture_file_name:
@@ -5361,6 +5408,12 @@ product_nature_variants:
     type: datetime
   reference_name:
     type: string
+  stock_account_id:
+    type: integer
+    references: account
+  stock_movement_account_id:
+    type: integer
+    references: account
   unit_name:
     type: string
     required: true
@@ -5373,6 +5426,8 @@ product_nature_variants:
   variety:
     type: string
     required: true
+  work_number:
+    type: string
 product_natures:
   abilities_list:
     type: text
@@ -5928,6 +5983,9 @@ purchases:
     precision: 19
     scale: 4
     required: true
+  quantity_gap_on_invoice_entry_id:
+    type: integer
+    references: journal_entry
   reference_number:
     type: string
   responsible_id:
@@ -5939,6 +5997,9 @@ purchases:
     type: integer
     references: entity
     required: true
+  undelivered_invoice_entry_id:
+    type: integer
+    references: journal_entry
   updated_at:
     type: datetime
     required: true
@@ -6230,6 +6291,9 @@ sales:
     precision: 19
     scale: 4
     required: true
+  quantity_gap_on_invoice_entry_id:
+    type: integer
+    references: journal_entry
   reference_number:
     type: string
   responsible_id:
@@ -6243,6 +6307,9 @@ sales:
   transporter_id:
     type: integer
     references: entity
+  undelivered_invoice_entry_id:
+    type: integer
+    references: journal_entry
   updated_at:
     type: datetime
     required: true

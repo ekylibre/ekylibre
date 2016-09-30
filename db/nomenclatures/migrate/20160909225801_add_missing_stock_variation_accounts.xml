@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Add missing stock variation account">
+  <item-creation item="accounts#supply_stock" fr_pcga="301"/>
+  <item-creation item="accounts#long_cycle_vegetals_stock" fr_pcga="33"/>
+  <item-creation item="accounts#short_cycle_vegetals_stock" fr_pcga="34"/>
+  <item-creation item="accounts#fertilizer_stocks_variation" fr_pcga="60311"/>
+  <item-creation item="accounts#seed_stocks_variation" fr_pcga="60312"/>
+  <item-creation item="accounts#plant_medicine_stocks_variation" fr_pcga="60313"/>
+  <item-creation item="accounts#livestock_feed_stocks_variation" fr_pcga="60314"/>
+  <item-creation item="accounts#animal_medicine_stocks_variation" fr_pcga="60315"/>
+  <item-creation item="accounts#animal_reproduction_stocks_variation" fr_pcga="60316"/>
+  <item-creation item="accounts#merchandising_stocks_variation" fr_pcga="6037"/>
+  <item-creation item="accounts#adult_reproductor_animals_inventory_variations" fr_pcga="7121"/>
+  <item-creation item="accounts#young_reproductor_animals_inventory_variations" fr_pcga="7122"/>
+  <item-creation item="accounts#long_cycle_product_inventory_variations" fr_pcga="7135"/>
+  <item-creation item="accounts#short_cycle_product_inventory_variations" fr_pcga="7136"/>
+</migration>

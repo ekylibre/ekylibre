@@ -216,6 +216,7 @@ module ActionController
           attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if do |c|
             [:depth, :lft, :rgt].include?(c)
           end
+
           attributes += options.delete(:other_attributes) || []
           attributes = ('{' + attributes.map(&:to_sym).uniq.collect do |a|
                                 if file_columns[a]

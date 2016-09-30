@@ -288,6 +288,8 @@ CREATE TABLE intervention_parameters (
     new_name character varying,
     component_id integer,
     assembly_id integer,
+    currency character varying,
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL,
     variety character varying,
     derivative_of character varying
 );
@@ -320,7 +322,10 @@ CREATE TABLE interventions (
     nature character varying NOT NULL,
     request_intervention_id integer,
     trouble_encountered boolean DEFAULT false NOT NULL,
-    trouble_description text
+    trouble_description text,
+    accounted_at timestamp without time zone,
+    currency character varying,
+    journal_entry_id integer
 );
 
 
@@ -350,9 +355,10 @@ CREATE TABLE target_distributions (
 CREATE VIEW activities_interventions AS
  SELECT DISTINCT interventions.id AS intervention_id,
     activities.id AS activity_id
-   FROM (((activities
-     JOIN target_distributions ON ((target_distributions.activity_id = activities.id)))
-     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.id)))
+   FROM ((((activities
+     JOIN activity_productions ON ((activity_productions.activity_id = activities.id)))
+     JOIN target_distributions ON ((target_distributions.activity_production_id = activity_productions.id)))
+     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.product_id)))
      JOIN interventions ON ((intervention_parameters.intervention_id = interventions.id)))
   ORDER BY interventions.id;
 
@@ -607,7 +613,7 @@ CREATE VIEW activity_productions_interventions AS
     target_distributions.activity_production_id
    FROM (((activities
      JOIN target_distributions ON ((target_distributions.activity_id = activities.id)))
-     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.id)))
+     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.product_id)))
      JOIN interventions ON ((intervention_parameters.intervention_id = interventions.id)))
   ORDER BY interventions.id;
 
@@ -1143,7 +1149,7 @@ CREATE VIEW campaigns_interventions AS
     interventions.id AS intervention_id
    FROM ((((interventions
      JOIN intervention_parameters ON ((intervention_parameters.intervention_id = interventions.id)))
-     JOIN target_distributions ON ((target_distributions.target_id = intervention_parameters.id)))
+     JOIN target_distributions ON ((target_distributions.target_id = intervention_parameters.product_id)))
      JOIN activity_productions ON ((target_distributions.activity_production_id = activity_productions.id)))
      JOIN campaigns ON ((activity_productions.campaign_id = campaigns.id)))
   ORDER BY campaigns.id;
@@ -3076,7 +3082,9 @@ CREATE TABLE inventories (
     lock_version integer DEFAULT 0 NOT NULL,
     name character varying NOT NULL,
     achieved_at timestamp without time zone,
-    custom_fields jsonb
+    custom_fields jsonb,
+    financial_year_id integer,
+    currency character varying
 );
 
 
@@ -3114,7 +3122,9 @@ CREATE TABLE inventory_items (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    product_movement_id integer
+    product_movement_id integer,
+    currency character varying,
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -3962,7 +3972,9 @@ CREATE TABLE parcel_items (
     product_movement_id integer,
     source_product_movement_id integer,
     product_identification_number character varying,
-    product_name character varying
+    product_name character varying,
+    currency character varying,
+    unit_pretax_stock_amount numeric(19,4) DEFAULT 0.0 NOT NULL
 );
 
 
@@ -4018,7 +4030,11 @@ CREATE TABLE parcels (
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
     with_delivery boolean DEFAULT false NOT NULL,
-    separated_stock boolean
+    separated_stock boolean,
+    accounted_at timestamp without time zone,
+    currency character varying,
+    journal_entry_id integer,
+    undelivered_invoice_entry_id integer
 );
 
 
@@ -4622,7 +4638,8 @@ CREATE TABLE product_nature_categories (
     fixed_asset_expenses_account_id integer,
     fixed_asset_depreciation_percentage numeric(19,4) DEFAULT 0.0,
     fixed_asset_depreciation_method character varying,
-    custom_fields jsonb
+    custom_fields jsonb,
+    stock_movement_account_id integer
 );
 
 
@@ -4776,7 +4793,7 @@ CREATE TABLE product_nature_variants (
     category_id integer NOT NULL,
     nature_id integer NOT NULL,
     name character varying,
-    number character varying,
+    work_number character varying,
     variety character varying NOT NULL,
     derivative_of character varying,
     reference_name character varying,
@@ -4792,7 +4809,10 @@ CREATE TABLE product_nature_variants (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    gtin character varying
+    gtin character varying,
+    number character varying NOT NULL,
+    stock_account_id integer,
+    stock_movement_account_id integer
 );
 
 
@@ -4954,6 +4974,25 @@ CREATE SEQUENCE product_phases_id_seq
 --
 
 ALTER SEQUENCE product_phases_id_seq OWNED BY product_phases.id;
+
+
+--
+-- Name: product_populations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE product_populations (
+    product_id integer,
+    started_at timestamp without time zone,
+    value numeric,
+    creator_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    updater_id integer,
+    id integer,
+    lock_version integer
+);
+
+ALTER TABLE ONLY product_populations REPLICA IDENTITY NOTHING;
 
 
 --
@@ -5196,7 +5235,9 @@ CREATE TABLE purchases (
     creator_id integer,
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
-    custom_fields jsonb
+    custom_fields jsonb,
+    undelivered_invoice_entry_id integer,
+    quantity_gap_on_invoice_entry_id integer
 );
 
 
@@ -5402,7 +5443,9 @@ CREATE TABLE sales (
     updater_id integer,
     lock_version integer DEFAULT 0 NOT NULL,
     custom_fields jsonb,
-    codes jsonb
+    codes jsonb,
+    undelivered_invoice_entry_id integer,
+    quantity_gap_on_invoice_entry_id integer
 );
 
 
@@ -11222,6 +11265,13 @@ CREATE INDEX index_interventions_on_issue_id ON interventions USING btree (issue
 
 
 --
+-- Name: index_interventions_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_interventions_on_journal_entry_id ON interventions USING btree (journal_entry_id);
+
+
+--
 -- Name: index_interventions_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11289,6 +11339,13 @@ CREATE INDEX index_inventories_on_created_at ON inventories USING btree (created
 --
 
 CREATE INDEX index_inventories_on_creator_id ON inventories USING btree (creator_id);
+
+
+--
+-- Name: index_inventories_on_financial_year_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_inventories_on_financial_year_id ON inventories USING btree (financial_year_id);
 
 
 --
@@ -12377,6 +12434,13 @@ CREATE INDEX index_parcels_on_delivery_id ON parcels USING btree (delivery_id);
 
 
 --
+-- Name: index_parcels_on_journal_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_journal_entry_id ON parcels USING btree (journal_entry_id);
+
+
+--
 -- Name: index_parcels_on_nature; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -12437,6 +12501,13 @@ CREATE INDEX index_parcels_on_storage_id ON parcels USING btree (storage_id);
 --
 
 CREATE INDEX index_parcels_on_transporter_id ON parcels USING btree (transporter_id);
+
+
+--
+-- Name: index_parcels_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_parcels_on_undelivered_invoice_entry_id ON parcels USING btree (undelivered_invoice_entry_id);
 
 
 --
@@ -13273,6 +13344,13 @@ CREATE INDEX index_product_nature_categories_on_stock_account_id ON product_natu
 
 
 --
+-- Name: index_product_nature_categories_on_stock_movement_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_categories_on_stock_movement_account_id ON product_nature_categories USING btree (stock_movement_account_id);
+
+
+--
 -- Name: index_product_nature_categories_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -13466,6 +13544,27 @@ CREATE INDEX index_product_nature_variants_on_creator_id ON product_nature_varia
 --
 
 CREATE INDEX index_product_nature_variants_on_nature_id ON product_nature_variants USING btree (nature_id);
+
+
+--
+-- Name: index_product_nature_variants_on_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_product_nature_variants_on_number ON product_nature_variants USING btree (number);
+
+
+--
+-- Name: index_product_nature_variants_on_stock_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variants_on_stock_account_id ON product_nature_variants USING btree (stock_account_id);
+
+
+--
+-- Name: index_product_nature_variants_on_stock_movement_account_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_nature_variants_on_stock_movement_account_id ON product_nature_variants USING btree (stock_movement_account_id);
 
 
 --
@@ -14085,6 +14184,13 @@ CREATE INDEX index_purchases_on_nature_id ON purchases USING btree (nature_id);
 
 
 --
+-- Name: index_purchases_on_quantity_gap_on_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchases_on_quantity_gap_on_invoice_entry_id ON purchases USING btree (quantity_gap_on_invoice_entry_id);
+
+
+--
 -- Name: index_purchases_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14096,6 +14202,13 @@ CREATE INDEX index_purchases_on_responsible_id ON purchases USING btree (respons
 --
 
 CREATE INDEX index_purchases_on_supplier_id ON purchases USING btree (supplier_id);
+
+
+--
+-- Name: index_purchases_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_purchases_on_undelivered_invoice_entry_id ON purchases USING btree (undelivered_invoice_entry_id);
 
 
 --
@@ -14351,6 +14464,13 @@ CREATE INDEX index_sales_on_nature_id ON sales USING btree (nature_id);
 
 
 --
+-- Name: index_sales_on_quantity_gap_on_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_on_quantity_gap_on_invoice_entry_id ON sales USING btree (quantity_gap_on_invoice_entry_id);
+
+
+--
 -- Name: index_sales_on_responsible_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -14362,6 +14482,13 @@ CREATE INDEX index_sales_on_responsible_id ON sales USING btree (responsible_id)
 --
 
 CREATE INDEX index_sales_on_transporter_id ON sales USING btree (transporter_id);
+
+
+--
+-- Name: index_sales_on_undelivered_invoice_entry_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_on_undelivered_invoice_entry_id ON sales USING btree (undelivered_invoice_entry_id);
 
 
 --
@@ -15065,6 +15192,29 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE "_RETURN" AS
+    ON SELECT TO product_populations DO INSTEAD  SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
+
+
+--
 -- Name: delete_activities_campaigns; Type: RULE; Schema: public; Owner: -
 --
 
@@ -15102,6 +15252,14 @@ CREATE RULE delete_activity_productions_interventions AS
 
 CREATE RULE delete_campaigns_interventions AS
     ON DELETE TO campaigns_interventions DO INSTEAD NOTHING;
+
+
+--
+-- Name: delete_product_populations; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_product_populations AS
+    ON DELETE TO product_populations DO INSTEAD NOTHING;
 
 
 --
@@ -15442,5 +15600,15 @@ INSERT INTO schema_migrations (version) VALUES ('20160921144623');
 
 INSERT INTO schema_migrations (version) VALUES ('20160921185801');
 
+INSERT INTO schema_migrations (version) VALUES ('20160922161801');
+
+INSERT INTO schema_migrations (version) VALUES ('20160923233801');
+
+INSERT INTO schema_migrations (version) VALUES ('20160927192301');
+
+INSERT INTO schema_migrations (version) VALUES ('20160928121727');
+
 INSERT INTO schema_migrations (version) VALUES ('20160929154734');
+
+INSERT INTO schema_migrations (version) VALUES ('20160930111020');
 

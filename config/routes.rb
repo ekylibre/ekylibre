@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       get :list_issues
       get :list_readings
       get :list_members
+      get :list_parcel_items
       get :list_places
       get :take
     end
@@ -527,6 +528,8 @@ Rails.application.routes.draw do
         post :change_state
       end
       member do
+        post :sell
+        post :purchase
         get :list_product_parameters
         get :list_record_interventions
       end

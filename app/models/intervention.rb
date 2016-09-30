@@ -22,14 +22,17 @@
 #
 # == Table: interventions
 #
+#  accounted_at            :datetime
 #  actions                 :string
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  currency                :string
 #  custom_fields           :jsonb
 #  description             :text
 #  event_id                :integer
 #  id                      :integer          not null, primary key
 #  issue_id                :integer
+#  journal_entry_id        :integer
 #  lock_version            :integer          default(0), not null
 #  nature                  :string           not null
 #  number                  :string
@@ -50,7 +53,8 @@
 class Intervention < Ekylibre::Record::Base
   include PeriodicCalculable, CastGroupable
   include Customizable
-  attr_readonly :procedure_name, :production_id
+  attr_readonly :procedure_name, :production_id, :currency
+  refers_to :currency
   enumerize :procedure_name, in: Procedo.procedure_names, i18n_scope: ['procedures']
   enumerize :nature, in: [:request, :record], default: :record, predicates: true
   enumerize :state, in: [:in_progress, :done, :validated, :rejected], default: :done, predicates: true
@@ -58,6 +62,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :request_intervention, -> { where(nature: :request) }, class_name: 'Intervention'
   belongs_to :issue
   belongs_to :prescription
+  belongs_to :journal_entry, dependent: :destroy
   has_many :labellings, class_name: 'InterventionLabelling', dependent: :destroy, inverse_of: :intervention
   has_many :labels, through: :labellings
   has_many :record_interventions, -> { where(nature: :record) }, class_name: 'Intervention', inverse_of: 'request_intervention', foreign_key: :request_intervention_id
@@ -80,10 +85,10 @@ class Intervention < Ekylibre::Record::Base
     has_many :leaves_parameters, -> { where.not(type: InterventionGroupParameter) }, class_name: 'InterventionParameter'
   end
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates :accounted_at, :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :actions, :number, length: { maximum: 500 }, allow_blank: true
   validates :description, :trouble_description, length: { maximum: 500_000 }, allow_blank: true
   validates :nature, :procedure_name, :state, presence: true
-  validates :started_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :stopped_at, timeliness: { on_or_after: ->(intervention) { intervention.started_at || Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :trouble_encountered, inclusion: { in: [true, false] }
   validates :whole_duration, :working_duration, presence: true, numericality: { only_integer: true, greater_than: -2_147_483_649, less_than: 2_147_483_648 }
@@ -212,6 +217,7 @@ class Intervention < Ekylibre::Record::Base
     if started_at && stopped_at
       self.whole_duration = (stopped_at - started_at).to_i
     end
+    self.currency ||= Preference[:currency]
     self.state ||= self.class.state.default_value
     if procedure
       self.actions = procedure.actions.map(&:name) if actions && actions.empty?
@@ -250,6 +256,45 @@ class Intervention < Ekylibre::Record::Base
   # Prevents from deleting an intervention that was executed
   protect on: :destroy do
     with_undestroyable_products?
+  end
+
+  # This method permits to add stock journal entries corresponding to the interventions which consume or produce products
+  # It depends on the preference which permit to activate the "permanent_stock_inventory" and "automatic bookkeeping"
+  #       Mode Intervention      |     Debit                      |            Credit            |
+  # outputs                      |    stock(3X)                   |   stock_movement(603X/71X)   |
+  # inputs                       |  stock_movement(603X/71X)      |            stock(3X)         |
+  bookkeep do |b|
+    if Preference[:permanent_stock_inventory] && nature == :record
+      stock_journal = Journal.find_or_create_by!(nature: :stocks)
+      # inputs
+      if inputs.any?
+        for input in inputs
+          label = tc(:bookkeep, resource: name, name: input.product.name)
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: input.product_movement) do |entry|
+            entry.add_debit(label, input.variant.stock_movement_account_id, input.stock_amount) unless input.stock_amount.zero?
+            entry.add_credit(label, input.variant.stock_account_id, input.stock_amount) unless input.stock_amount.zero?
+          end
+        end
+      end
+      # outputs
+      if outputs.any?
+        for output in outputs
+          label = tc(:bookkeep, resource: name, name: output.variant.name)
+          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: output.product_movement) do |entry|
+            entry.add_debit(label, output.variant.stock_account_id, output.stock_amount) unless output.stock_amount.zero?
+            entry.add_credit(label, output.variant.stock_movement_account_id, output.stock_amount) unless output.stock_amount.zero?
+          end
+         end
+      end
+    end
+  end
+
+  def printed_at
+    (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
+  end
+
+  def activity_productions
+    ActivityProduction.of_intervention(self)
   end
 
   def with_undestroyable_products?
@@ -371,11 +416,6 @@ class Intervention < Ekylibre::Record::Base
       movement.started_at = self.started_at
       movement.stopped_at = self.stopped_at
       movement.save!
-
-      # to be sure last
-      last_movement = product.movements.last_of_all
-      last_movement.stopped_at = nil
-      last_movement.save!
     end
   end
 
@@ -606,6 +646,146 @@ class Intervention < Ekylibre::Record::Base
       result.delete_if { |_procedure, relevance, _arity| relevance < relevance_threshold }
       result.delete_if { |_procedure, _relevance, arity| arity < maximum_arity } if options[:max_arity]
       result.sort_by { |_procedure, relevance, _arity| -relevance }[0..limit]
+    end
+
+    def convert_to_purchase(interventions)
+      purchase = nil
+      transaction do
+        interventions = interventions
+                        .collect { |intv| (intv.is_a?(self) ? intv : find(intv)) }
+                        .sort_by(&:stopped_at)
+        planned_at = interventions.last.stopped_at
+        owners = interventions.map(&:doers).map { |t| t.map(&:product).map(&:owner).compact }.flatten.uniq
+        supplier = owners.first unless owners.second.present?
+        unless nature = PurchaseNature.actives.first
+          unless journal = Journal.purchases.opened_at(planned_at).first
+            raise 'No purchase journal'
+          end
+          nature = PurchaseNature.new(
+            active: true,
+            currency: Preference[:currency],
+            with_accounting: true,
+            journal: journal,
+            by_default: true,
+            name: PurchaseNature.tc('default.name', default: PurchaseNature.model_name.human)
+          )
+        end
+        purchase = nature.purchases.new(
+          supplier: supplier,
+          planned_at: planned_at,
+          delivery_address: supplier && supplier.default_mail_address,
+          description: %(#{Intervention.model_name.plural.tl}:
+\t- #{interventions.map(&:name).join("\n\t - ")})
+        )
+
+        # Adds items
+        interventions.each do |intervention|
+          hourly_params = {
+            catalog: Catalog.by_default!(:cost),
+            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+          }
+          components = {
+            doers:  hourly_params,
+            tools:  hourly_params,
+            inputs: {
+              catalog: Catalog.by_default!(:purchase),
+              quantity_method: -> (item) { item.quantity }
+            }
+          }
+
+          components.each do |component, cost_params|
+            intervention.send(component).each do |item|
+              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              quantity = cost_params[:quantity_method].call(item).round(3)
+              purchase.items.new(
+                variant: item.variant,
+                unit_pretax_amount: catalog_item.pretax_amount.or_else(nil),
+                tax: catalog_item.reference_tax.or_else(nil),
+                quantity: quantity.value.to_f,
+                annotation: %(#{Intervention.model_name.human} '#{intervention.name}' > \
+#{Intervention.human_attribute_name(component).capitalize}
+\t- #{item.product.name} x #{quantity.l(precision: 2)})
+              )
+            end
+          end
+        end
+      end
+      purchase
+    end
+
+    def convert_to_sale(interventions)
+      sale = nil
+      transaction do
+        interventions = interventions
+                        .collect { |intv| (intv.is_a?(self) ? intv : find(intv)) }
+                        .sort_by(&:stopped_at)
+        planned_at = interventions.last.stopped_at
+
+        owners = interventions.map do |intervention|
+          intervention.targets.map do |target|
+            if target.product.is_a?(LandParcel)
+              prod = target.activity_production
+              owner = prod && prod.cultivable_zone && prod.cultivable_zone.farmer
+            elsif target.product.is_a?(Equipment)
+              owner = target.product.owner
+            end
+            owner
+          end
+        end
+        owners = owners.flatten.uniq
+        client = owners.first unless owners.count > 1
+        unless nature = SaleNature.actives.first
+          unless journal = Journal.sales.opened_at(planned_at).first
+            raise 'No sale journal'
+          end
+          nature = SaleNature.new(
+            active: true,
+            currency: Preference[:currency],
+            with_accounting: true,
+            journal: journal,
+            by_default: true,
+            name: SaleNature.tc('default.name', default: SaleNature.model_name.human)
+          )
+        end
+        sale = nature.sales.new(
+          client: client,
+          address: client && client.default_mail_address,
+          description: %(#{Intervention.model_name.plural.tl}:
+\t- #{interventions.map(&:name).join("\n\t - ")})
+        )
+        # Adds items
+        interventions.each do |intervention|
+          hourly_params = {
+            catalog: Catalog.by_default!(:purchase),
+            quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
+          }
+          components = {
+            doers:  hourly_params,
+            tools:  hourly_params,
+            inputs: {
+              catalog: Catalog.by_default!(:sale),
+              quantity_method: -> (item) { item.quantity }
+            }
+          }
+
+          components.each do |component, cost_params|
+            intervention.send(component).each do |item|
+              catalog_item = Maybe(cost_params[:catalog].items.find_by_variant_id(item.variant))
+              quantity = cost_params[:quantity_method].call(item).round(3)
+              sale.items.new(
+                variant: item.variant,
+                unit_pretax_amount: catalog_item.pretax_amount.or_else(nil),
+                tax: catalog_item.reference_tax.or_else(nil),
+                quantity: quantity.value.to_f,
+                annotation: %(#{Intervention.model_name.human} '#{intervention.name}' > \
+#{Intervention.human_attribute_name(component).capitalize}
+\t- #{item.product.name} x #{quantity.l(precision: 2)})
+              )
+            end
+          end
+        end
+      end
+      sale
     end
   end
 end

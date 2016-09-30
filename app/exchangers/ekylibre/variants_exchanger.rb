@@ -64,7 +64,7 @@ module Ekylibre
           end
           # update variant with attributes in the current row
           variant.name = r.name if r.name
-          variant.number = r.work_number if r.work_number
+          variant.work_number = r.work_number if r.work_number
           variant.unit_name ||= :unit.tl
           variant.save!
 

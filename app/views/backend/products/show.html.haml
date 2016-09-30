@@ -53,6 +53,9 @@
   - c.cobble(:variable_indicators) do
     = variable_readings(resource)
 
+  - c.cobble(:parcel_items) do
+    = cobble_list(:parcel_items)
+
   -# c.cobble(tl(:x_readings, count: resource.readings.count)) do
     = cobble_list(:readings)
 
