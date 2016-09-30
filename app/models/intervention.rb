@@ -761,7 +761,7 @@ class Intervention < Ekylibre::Record::Base
         # Adds items
         interventions.each do |intervention|
           hourly_params = {
-            catalog: Catalog.by_default!(:purchase),
+            catalog: Catalog.by_default!(:cost),
             quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
           }
           components = {
