@@ -43,38 +43,12 @@ module Fixturing
       table_names = tables_from_files(path: path)
       say 'Load fixtures' if verbose
       Ekylibre::Tenant.switch!(tenant)
-      Rails.logger.info 'Reset fixtures cache'
       ActiveRecord::FixtureSet.reset_cache
       Ekylibre::Schema.tables.each do |table, columns|
-        f = ActiveRecord::Base.connection.select_values("SELECT column_name FROM information_schema.columns WHERE table_schema = '#{tenant}' AND table_name = '#{table}'")
-        puts table.to_s.red + ' ' + f.sort.to_sentence.yellow
+        table.to_s.classify.constantize.reset_column_information
       end
-
-      Rails.logger.info 'Create fixtures...'
       ActiveRecord::FixtureSet.create_fixtures(path, table_names)
-      Rails.logger.info 'Fixtures created'
       migrate(tenant, origin: version) unless up_to_date?(version: version)
-    end
-
-    def build(tenant, options = {})
-      version = options[:version] || current_version
-      Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
-      Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
-      Ekylibre::Tenant.add(tenant)
-      Apartment.connection.execute("SET search_path TO #{tenant}, postgis")
-      Ekylibre::Tenant.migrate(tenant, to: version)
-    end
-
-    
-    def load_data(tenant, options = {})
-      path = options[:path] || directory
-      verbose = !options[:verbose].is_a?(FalseClass)
-      table_names = tables_from_files(path: path)
-      say 'Load fixtures' if verbose
-      Ekylibre::Tenant.switch(tenant) do
-        ActiveRecord::FixtureSet.reset_cache
-        ActiveRecord::FixtureSet.create_fixtures(path, table_names)
-      end
     end
 
     def reverse(tenant, steps = 1)

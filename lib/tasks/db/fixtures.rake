@@ -6,31 +6,15 @@ namespace :db do
     end
 
     desc 'Load fixtures files in tenant (removing existing data)'
-    task old_restore: :environment do
+    task restore: :environment do
       Fixturing.restore(ENV['TENANT'] || ENV['name'] || 'test')
-    end
-
-    desc 'Load fixtures files in tenant (removing existing data)'
-    task restore: [:build, :load_data, :migrate]
-
-    desc 'Load fixtures files in tenant (removing existing data)'
-    task restore: [:load_data, :migrate]
-    
-    desc 'Load schema structure of fixture at its current version'
-    task build: :environment do
-      Fixturing.build(ENV['TENANT'] || ENV['name'] || 'test')
-    end
-    
-    desc 'Load fixtures at its current version'
-    task load_data: :environment do
-      Fixturing.load_data(ENV['TENANT'] || ENV['name'] || 'test')
     end
 
     desc 'Migrate fixtures of tenant'
     task migrate: :environment do
       Ekylibre::Tenant.migrate(ENV['TENANT'] || ENV['name'] || 'test')
     end
-    
+
     desc 'Load fixtures files in tenant (removing existing data)'
     task reverse: :environment do
       Fixturing.reverse(ENV['TENANT'] || ENV['name'] || 'test', ENV['STEPS'] || 1)
