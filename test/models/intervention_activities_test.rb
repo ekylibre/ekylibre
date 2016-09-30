@@ -58,7 +58,6 @@ class InterventionActivitiesTest < ActiveSupport::TestCase
   # test_model_actions
 
   test 'destroy intervention update intervention_activities_db_view' do
-
     first_intervention_id = Intervention.where('id IN (SELECT intervention_id FROM activities_interventions LIMIT 1)').pluck(:id)
 
     Intervention.destroy(first_intervention_id)
