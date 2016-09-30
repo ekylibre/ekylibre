@@ -3704,6 +3704,8 @@ deu:
           percentage: "Prozentsatz"
       items:
         asset_vat: "Vermögens vat" #?
+        eu_vat: "Europäische Union Mehrwertsteuer"
+        import_export_vat: "Import / Export-Mehrwertsteuer"
         inflated_vat: "aufgeblasenen Mehrwertsteuer"
         intermediate_vat: "Zwischen Mehrwertsteuer"
         normal_vat: "normalen Mehrwertsteuer"
@@ -3720,6 +3722,8 @@ deu:
         # suffix: "Suffix"
     taxes:
       items:
+        french_vat_eu: "Frankreich MwSt EU"
+        french_vat_import_export: "France Umsatz Import / Export"
         french_vat_intermediate_2012: "Französisch Bottich Zwischen 2012"
         french_vat_intermediate_2014: "Französisch Bottich Zwischen 2014"
         french_vat_normal_1966: "Französisch Bottich Normal 1966"
@@ -3736,8 +3740,17 @@ deu:
         french_vat_particular_1982: "Französisch Bottich insbesondere 1982"
         french_vat_particular_1989: "Französisch Bottich insbesondere 1989"
         french_vat_reduced: "Französisch Bottich reduziert"
+        portugal_vat_eu: "Portugal MwSt EU"
+        portugal_vat_import_export: "Portugal MwSt Import / Export"
+        portugal_vat_normal: "Portugal Mehrwertsteuer Normal"
+        portugal_vat_null: "Portugal MwSt null"
+        portugal_vat_particular: "Portugal Mehrwertsteuer insbesondere"
+        portugal_vat_reduced: "Portugal Mehrwertsteuer reduziert"
+        spain_vat_eu: "Spanien MwSt EU"
+        spain_vat_import_export: "Spanien Mehrwertsteuer Import / Export"
         spain_vat_intermediate_2013: "Spanien Bottich Zwischen 2013"
         spain_vat_normal_2013: "Spanien Bottich Normal 2013"
+        spain_vat_null: "Spanien Mehrwertsteuer null"
         spain_vat_reduced_2013: "Spanien Bottich reduziert 2013"
         swiss_vat_normal_2011: "Schweizer Mehrwertsteuer Normal 2011"
         swiss_vat_null_2011: "Schweizer Mehrwertsteuer null 2011"
