@@ -3704,6 +3704,8 @@ cmn:
           percentage: "百分比"
       items:
         asset_vat: "资产增值税" #?
+        eu_vat: "欧盟增值税"
+        import_export_vat: "进口/出口增值税"
         inflated_vat: "充气增值税"
         intermediate_vat: "中间增值税"
         normal_vat: "增值税一般"
@@ -3720,6 +3722,8 @@ cmn:
         suffix: "后缀"
     taxes:
       items:
+        french_vat_eu: "法国欧盟增值税"
+        french_vat_import_export: "法国增值税导入/导出"
         french_vat_intermediate_2012: "法国增值税中间2012"
         french_vat_intermediate_2014: "法国增值税中间2014年"
         french_vat_normal_1966: "法国增值税普通1966"
@@ -3736,8 +3740,17 @@ cmn:
         french_vat_particular_1982: "法国增值税尤其1982年"
         french_vat_particular_1989: "法国增值税尤其是1989"
         french_vat_reduced: "法国增值税减少"
+        portugal_vat_eu: "葡萄牙欧盟增值税"
+        portugal_vat_import_export: "葡萄牙增值税导入/导出"
+        portugal_vat_normal: "葡萄牙正常增值税"
+        portugal_vat_null: "葡萄牙增值税空"
+        portugal_vat_particular: "葡萄牙特别是增值税"
+        portugal_vat_reduced: "葡萄牙增值税减少"
+        spain_vat_eu: "西班牙欧盟增值税"
+        spain_vat_import_export: "西班牙增值税的导入/导出"
         spain_vat_intermediate_2013: "西班牙增值税中间2013"
         spain_vat_normal_2013: "西班牙普通增值税2013"
+        spain_vat_null: "西班牙增值税空"
         spain_vat_reduced_2013: "西班牙增值税减少2013"
         swiss_vat_normal_2011: "瑞士增值税普通2011"
         swiss_vat_null_2011: "瑞士增值税空2011"
