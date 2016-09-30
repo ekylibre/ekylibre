@@ -1833,11 +1833,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="interventions">
-        <page to="backend/interventions#change_state"/>
-        <page to="backend/interventions#modal"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>

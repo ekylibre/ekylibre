@@ -1791,15 +1791,18 @@ ita:
     bookkeep_automatically: "Attivare la contabilità automatica"
     bookkeep_in_draft: "Salva i record in modalità bozza durante contabilità"
     catalog_price_item_addition_if_blank: "Catalogo Aggiungere prezzo di catalogare durante la vendita / acquisto se catalogo vuoto"
+    client_account_radix: "Radix account cliente"
     country: "Nazione"
     create_activities_from_telepac: "Creare attività durante l'importazione Telepac"
     currency: "Moneta"
     detail_payments_in_deposit_bookkeeping: "Dettaglio tutti i pagamenti in acconto contabilità"
+    employee_account_radix: "Radix conto dei dipendenti"
     host: "Ospite"
     language: "Lingua"
     map_measure_srs: "SRS Mappa misura"
     permanent_stock_inventory: "Modalità di inventario di magazzino permanente"
     sales_conditions: "condizioni di vendita"
+    supplier_account_radix: "Radix conto Fornitore"
     use_entity_codes_for_account_numbers: "Usa il codice per la creazione di numeri di conto"
   rest:
     actions:
