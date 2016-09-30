@@ -1802,15 +1802,18 @@ jpn:
     bookkeep_automatically: "自動簿記をアクティブ化"
     bookkeep_in_draft: "簿記の間にドラフトモードでレコードを保存"
     catalog_price_item_addition_if_blank: "カタログ販売/購入の際にカタログに価格を追加する場合は空白のカタログ"
+    client_account_radix: "クライアントアカウントの基数"
     country: "国"
     create_activities_from_telepac: "Telepacインポート時に活動を作成します。"
     currency: "通貨"
     detail_payments_in_deposit_bookkeeping: "詳細預金簿記内のすべての支払い"
+    employee_account_radix: "従業員のアカウントの基数"
     host: "ホスト"
     language: "言語"
     map_measure_srs: "地図対策SRS"
     permanent_stock_inventory: "永久在庫棚卸モード"
     sales_conditions: "販売条件"
+    supplier_account_radix: "サプライヤアカウントの基数"
     use_entity_codes_for_account_numbers: "口座番号を作成するためのコードを使用します"
   rest:
     actions:
