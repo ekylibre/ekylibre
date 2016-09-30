@@ -44,9 +44,7 @@ module Fixturing
       say 'Load fixtures' if verbose
       Ekylibre::Tenant.switch!(tenant)
       ActiveRecord::FixtureSet.reset_cache
-      Ekylibre::Schema.tables.each do |table, columns|
-        table.to_s.classify.constantize.reset_column_information
-      end
+      ActiveRecord::Base.connection.schema_cache.clear!
       ActiveRecord::FixtureSet.create_fixtures(path, table_names)
       migrate(tenant, origin: version) unless up_to_date?(version: version)
     end
