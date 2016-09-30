@@ -280,7 +280,6 @@ module Backend
       end
     end
 
-    private
 
     def find_interventions
       intervention_ids = params[:id].split(',')

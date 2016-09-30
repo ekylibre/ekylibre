@@ -163,6 +163,7 @@ module Backend
     # Lists localizations of the current product
     list(:parcel_items, conditions: { product_id: 'params[:id]'.c }, order: { created_at: :desc }) do |t|
       t.column :parcel, url: true
+      t.column :given_at, through: :parcel, datatype: :datetime
       t.column :population
       t.column :product_identification_number
     end
