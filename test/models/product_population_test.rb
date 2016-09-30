@@ -20,13 +20,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_populations
+# == Table: @product_populations
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  product_id   :integer
+#  @product_id   :integer
 #  started_at   :datetime         not null
 #  stopped_at   :datetime
 #  updated_at   :datetime         not null
@@ -38,56 +38,107 @@ require 'test_helper'
 class ProductPopulationTest < ActiveSupport::TestCase
   test_model_actions
 
+  setup do
+    @product = products(:matters_001)
+    @initial_population = @product.population
+    @quantity = 5.in_ton.to_d
+    @time = Time.now.utc
+  end
+
   test 'population gets updated on move!' do
-    product = products(:matters_001)
-    initial_population = product.population
-    quantity = 5.in_ton.to_d
+    @product.move! @quantity, at: @time
 
-    product.move! quantity, at: Time.now.utc
-
-    assert_equal initial_population + quantity, product.population
+    assert_equal @initial_population + @quantity, @product.population
   end
 
   test 'population change in the future doesn\'t impact current population' do
-    product = products(:matters_001)
-    initial_population = product.population
-    quantity = 5.in_ton.to_d
+    @product.move! @quantity, at: @time + 15.days
 
-    product.move! quantity, at: Time.now.utc + 15.days
-
-    assert_equal initial_population, product.population
+    assert_equal @initial_population, @product.population
   end
 
-  test 'population gets updated correctly if two moves are simultaneous' do
-    product = products(:matters_001)
-    initial_population = product.population
-    time = Time.now.utc
+  test 'population gets updated correctly if moves are simultaneous' do
+    moves = [5, 3 , 4, 2]
+    moves.each do |quantity|
+      @product.move! quantity.in_ton.to_d, at: @time
+    end
 
-    product.move! 5.in_ton.to_d, at: time
-    product.move! 3.in_ton.to_d, at: time
-
-    assert_equal initial_population + 8.in_ton.to_d, product.population
+    assert_equal @initial_population + moves.sum.in_ton.to_d, @product.population
   end
 
   test 'population doesn\'t change when movement is moved earlier in time' do
-    product = products(:matters_001)
-    quantity = 5.in_ton.to_d
+    move = @product.move! @quantity, at: @time - 1.day
+    @initial_population = @product.population
 
-    product.move! quantity, at: Time.now.utc - 1.day
-    initial_population = product.population
-    product.movements.first.update started_at: Time.now.utc - 2.days
+    move.update started_at: @time - 2.days
 
-    assert_equal initial_population, product.population
+    assert_equal @initial_population, @product.population
   end
 
   test 'population goes back to initial if two movement is moved to future' do
-    product = products(:matters_001)
-    quantity = 5.in_ton.to_d
-    initial_population = product.population
+    move = @product.move! @quantity, at: @time - 1.day
+    move.update started_at: @time + 1.day
 
-    product.move! quantity, at: Time.now.utc - 1.day
-    product.movements.first.update started_at: Time.now.utc + 1.day
+    assert_equal @initial_population, @product.population
+  end
 
-    assert_equal initial_population, product.population
+  test 'population is correctly updated when movement is moved to same time as an existing movement' do
+    @product.move! 5.in_ton.to_d, at: @time
+    move = @product.move! 3.in_ton.to_d, at: @time + 1.day
+
+    move.update(started_at: @time)
+
+    assert_equal @initial_population + 8.in_ton.to_d, @product.population
+  end
+
+  test 'population is correctly updated when movement is destroyed' do
+    move = @product.move! 5.in_ton.to_d, at: @time - 1.day
+    move.destroy
+
+    assert_equal @initial_population, @product.population
+  end
+
+  test 'population is correctly updated when one of the simultaneous movements is destroyed' do
+    @product.move! 5.in_ton.to_d, at: @time
+    first_population = @product.population
+    move = @product.move! 3.in_ton.to_d, at: @time
+
+    move.destroy
+
+    assert_equal first_population, @product.population
+  end
+
+  test 'population is updated when a movement is moved around another movement' do
+    @product.move! 5.in_ton.to_d, at: @time - 2.days
+    move = @product.move! 3.in_ton.to_d, at: @time - 1.day
+    @initial_population = @product.population
+
+    # Moving it before
+    move.update(started_at: @time - 3.days)
+    assert_equal @initial_population, @product.population
+
+    # Moving it after
+    move.update(started_at: @time - 1.day)
+    assert_equal @initial_population, @product.population
+  end
+
+  test 'populations after simultaneous movements are correct' do
+    @product.move! 5.in_ton.to_d, at: @time - 2.days
+    @product.move! 3.in_ton.to_d, at: @time - 2.days
+    @initial_population = @product.population
+
+    @product.move! 4.in_ton.to_d, at: @time - 1.day
+
+    assert_equal @initial_population + 4.in_ton.to_d, @product.population
+  end
+
+  test 'populations after both simultaneous movements and distinctly-timed ones are correct' do
+    @product.move! 5.in_ton.to_d, at: @time - 1.day
+    @product.move! 3.in_ton.to_d, at: @time - 1.day
+    @initial_population = @product.population
+
+    @product.move! 4.in_ton.to_d, at: @time - 2.days
+
+    assert_equal @initial_population + 4.in_ton.to_d, @product.population
   end
 end
