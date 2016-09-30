@@ -280,19 +280,6 @@ module Backend
       end
     end
 
-    private
-
-    def find_interventions
-      intervention_ids = params[:id].split(',')
-      interventions = intervention_ids.map { |id| Intervention.find_by(id: id) }.compact
-      unless interventions.any?
-        notify_error :no_interventions_given
-        redirect_to(params[:redirect] || { action: :index })
-        return nil
-      end
-      interventions
-    end
-
     def modal
       if params[:intervention_id]
         @intervention = Intervention.find(params[:intervention_id])
@@ -347,6 +334,17 @@ module Backend
     end
 
     private
+
+    def find_interventions
+      intervention_ids = params[:id].split(',')
+      interventions = intervention_ids.map { |id| Intervention.find_by(id: id) }.compact
+      unless interventions.any?
+        notify_error :no_interventions_given
+        redirect_to(params[:redirect] || { action: :index })
+        return nil
+      end
+      interventions
+    end
 
     def state_change_permitted_params
       params.require(:intervention).permit(:interventions_ids, :state)
