@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.5.2
+-- Dumped by pg_dump version 9.5.2
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1096,7 +1096,9 @@ CREATE TABLE calls (
     updated_at timestamp without time zone NOT NULL,
     creator_id integer,
     updater_id integer,
-    lock_version integer DEFAULT 0 NOT NULL
+    lock_version integer DEFAULT 0 NOT NULL,
+    source_id integer,
+    source_type character varying
 );
 
 
@@ -1938,6 +1940,41 @@ CREATE SEQUENCE documents_id_seq
 --
 
 ALTER SEQUENCE documents_id_seq OWNED BY documents.id;
+
+
+--
+-- Name: ednotif_loggers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE ednotif_loggers (
+    id integer NOT NULL,
+    operation_name character varying NOT NULL,
+    state character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: ednotif_loggers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ednotif_loggers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ednotif_loggers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ednotif_loggers_id_seq OWNED BY ednotif_loggers.id;
 
 
 --
@@ -5091,6 +5128,7 @@ CREATE TABLE products (
     uuid uuid,
     initial_movement_id integer,
     custom_fields jsonb,
+    member_variant_id integer,
     team_id integer
 );
 
@@ -6349,6 +6387,13 @@ ALTER TABLE ONLY documents ALTER COLUMN id SET DEFAULT nextval('documents_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY ednotif_loggers ALTER COLUMN id SET DEFAULT nextval('ednotif_loggers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY entities ALTER COLUMN id SET DEFAULT nextval('entities_id_seq'::regclass);
 
 
@@ -7337,6 +7382,14 @@ ALTER TABLE ONLY document_templates
 
 ALTER TABLE ONLY documents
     ADD CONSTRAINT documents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ednotif_loggers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ednotif_loggers
+    ADD CONSTRAINT ednotif_loggers_pkey PRIMARY KEY (id);
 
 
 --
@@ -9037,6 +9090,13 @@ CREATE INDEX index_calls_on_creator_id ON calls USING btree (creator_id);
 
 
 --
+-- Name: index_calls_on_source_type_and_source_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_calls_on_source_type_and_source_id ON calls USING btree (source_type, source_id);
+
+
+--
 -- Name: index_calls_on_updated_at; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -9909,6 +9969,41 @@ CREATE INDEX index_documents_on_updated_at ON documents USING btree (updated_at)
 --
 
 CREATE INDEX index_documents_on_updater_id ON documents USING btree (updater_id);
+
+
+--
+-- Name: index_ednotif_loggers_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ednotif_loggers_on_created_at ON ednotif_loggers USING btree (created_at);
+
+
+--
+-- Name: index_ednotif_loggers_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ednotif_loggers_on_creator_id ON ednotif_loggers USING btree (creator_id);
+
+
+--
+-- Name: index_ednotif_loggers_on_operation_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ednotif_loggers_on_operation_name ON ednotif_loggers USING btree (operation_name);
+
+
+--
+-- Name: index_ednotif_loggers_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ednotif_loggers_on_updated_at ON ednotif_loggers USING btree (updated_at);
+
+
+--
+-- Name: index_ednotif_loggers_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ednotif_loggers_on_updater_id ON ednotif_loggers USING btree (updater_id);
 
 
 --
@@ -13930,6 +14025,13 @@ CREATE INDEX index_products_on_initial_owner_id ON products USING btree (initial
 
 
 --
+-- Name: index_products_on_member_variant_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_member_variant_id ON products USING btree (member_variant_id);
+
+
+--
 -- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -15570,9 +15672,13 @@ INSERT INTO schema_migrations (version) VALUES ('20160825161606');
 
 INSERT INTO schema_migrations (version) VALUES ('20160826125039');
 
+INSERT INTO schema_migrations (version) VALUES ('20160829091835');
+
 INSERT INTO schema_migrations (version) VALUES ('20160831144010');
 
 INSERT INTO schema_migrations (version) VALUES ('20160906112630');
+
+INSERT INTO schema_migrations (version) VALUES ('20160906131401');
 
 INSERT INTO schema_migrations (version) VALUES ('20160910200730');
 
@@ -15605,6 +15711,8 @@ INSERT INTO schema_migrations (version) VALUES ('20160923233801');
 INSERT INTO schema_migrations (version) VALUES ('20160927192301');
 
 INSERT INTO schema_migrations (version) VALUES ('20160928121727');
+
+INSERT INTO schema_migrations (version) VALUES ('20160928132858');
 
 INSERT INTO schema_migrations (version) VALUES ('20160930111020');
 
