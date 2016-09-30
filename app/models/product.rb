@@ -107,6 +107,7 @@ class Product < Ekylibre::Record::Base
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
   has_many :movements, class_name: 'ProductMovement', foreign_key: :product_id, dependent: :destroy
+  has_many :populations, class_name: 'ProductPopulation', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
@@ -571,12 +572,9 @@ class Product < Ekylibre::Record::Base
   end
 
   def population(options = {})
-    movements = self.movements.at(options[:at] || Time.zone.now)
-    if movements.any?
-      return movements.last.population
-    else
-      return 0.0
-    end
+    pops = populations.last_before(options[:at] || Time.zone.now)
+    return 0.0 if pops.none?
+    pops.first.value
   end
 
   # Moves population with given quantity

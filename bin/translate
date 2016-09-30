@@ -202,4 +202,4 @@ unless Translator::KEY
   exit 1
 end
 
-Translator.run_all!(locales: ARGV.first.split(/[^a-z]+/).map(&:to_sym))
+Translator.run_all!(locales: ARGV.first ? ARGV.first.split(/[^a-z]+/).map(&:to_sym) : nil)
