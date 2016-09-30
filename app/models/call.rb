@@ -116,7 +116,9 @@ class Call < Ekylibre::Record::Base
   end
 
   def state_is?(state)
-    @response.state.to_s.split('_').first == state.to_s
+    resp = @response.state.to_s.split('_')
+    state_array = state.to_s.split('_')
+    state_array.all?{ |s| resp.include?(s) }
   end
 
   # Returns false for a nil/false code.
