@@ -38,13 +38,21 @@ module Fixturing
       Apartment.connection.execute("DROP SCHEMA IF EXISTS \"#{tenant}\" CASCADE")
       Apartment.connection.execute("CREATE SCHEMA \"#{tenant}\"")
       Ekylibre::Tenant.add(tenant)
-      Apartment.connection.execute("SET search_path TO '#{tenant}, postgis'")
+      Apartment.connection.execute("SET search_path TO #{tenant}, postgis")
       Ekylibre::Tenant.migrate(tenant, to: version)
       table_names = tables_from_files(path: path)
       say 'Load fixtures' if verbose
       Ekylibre::Tenant.switch!(tenant)
+      Rails.logger.info 'Reset fixtures cache'
       ActiveRecord::FixtureSet.reset_cache
+      Ekylibre::Schema.tables.each do |table, columns|
+        f = ActiveRecord::Base.connection.select_values("SELECT column_name FROM information_schema.columns WHERE table_schema = '#{tenant}' AND table_name = '#{table}'")
+        puts table.to_s.red + ' ' + f.sort.to_sentence.yellow
+      end
+
+      Rails.logger.info 'Create fixtures...'
       ActiveRecord::FixtureSet.create_fixtures(path, table_names)
+      Rails.logger.info 'Fixtures created'
       migrate(tenant, origin: version) unless up_to_date?(version: version)
     end
 
@@ -89,9 +97,9 @@ module Fixturing
       path = options[:path] || directory
       Ekylibre::Schema.tables.each do |table, columns|
         records = {}
-        for row in ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} ORDER BY id")
+        ActiveRecord::Base.connection.select_all("SELECT * FROM #{table} ORDER BY id").each do |row|
           record = {}
-          for attribute, value in row.sort
+          row.sort.each do |attribute, value|
             if columns[attribute]
               unless value.nil?
                 type = columns[attribute].type
