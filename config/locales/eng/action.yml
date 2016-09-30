@@ -339,12 +339,14 @@ eng:
       index: "Integrations"
       new: "Activate integration: %{name}"
     backend/interventions:
+      # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
       edit: "Edit"
       edit_request: "Edit request" #?
       edit_specified: "Edit %{procedure_name} #%{number}" #?
       edit_specified_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
+      # modal: "Modal intervention: %{name}"
       new: "New intervention"
       new_request: "New intervention request" #?
       new_specified: "New %{procedure_name}" #?
@@ -1922,6 +1924,7 @@ eng:
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_password: "Change password"
+      # change_state: "Change state"
       check: "Check"
       close: "Close"
       compute: "Compute"
@@ -1966,6 +1969,7 @@ eng:
       mail: "Mail"
       mark: "Mark"
       merge: "Merge"
+      # modal: "Modal"
       # models: "Models"
       negociate: "Negociate"
       new: "New"

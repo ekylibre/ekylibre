@@ -6,7 +6,7 @@
     shape = parameter.working_zone
     shape ||= parameter.product.shape(at: resource.started_at) if parameter.product
     if shape
-      activity = parameter.activity if parameter.is_a?(InterventionTarget)
+      activity = parameter.best_activity if parameter.is_a?(InterventionTarget)
       if activity
         item = {
           name: parameter.product.name,
