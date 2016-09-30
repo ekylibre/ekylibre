@@ -1730,15 +1730,18 @@ por:
     bookkeep_automatically: "Ative a contabilidade automática"
     bookkeep_in_draft: "Salvar os registros em modo rascunho durante contabilidade"
     catalog_price_item_addition_if_blank: "Catalog Adicionar preço de catálogo durante a venda / compra se catálogo em branco"
+    # client_account_radix: "Client account radix"
     country: "País"
     create_activities_from_telepac: "Criar atividades durante Telepac importação"
     currency: "Moeda"
     detail_payments_in_deposit_bookkeeping: "Detalhe todos os pagamentos em contabilidade depósito"
+    # employee_account_radix: "Employee account radix"
     host: "Anfitrião"
     language: "Língua"
     map_measure_srs: "SRS medida Mapa"
     permanent_stock_inventory: "Modo de inventário de estoque permanente"
     sales_conditions: "Condições de venda"
+    # supplier_account_radix: "Supplier account radix"
     use_entity_codes_for_account_numbers: "Use o código para a criação de números de contas"
   rest:
     actions:

@@ -183,6 +183,9 @@ class Preference < Ekylibre::Record::Base
   prefer :map_measure_srs, :spatial_reference_system, Nomen::SpatialReferenceSystem.default
   prefer :create_activities_from_telepac, :boolean, false
   prefer :catalog_price_item_addition_if_blank, :boolean, true
+  prefer :client_account_radix, :string, ''
+  prefer :supplier_account_radix, :string, ''
+  prefer :employee_account_radix, :string, ''
 
   # Returns the name of the column used to store preference data
   def value_attribute
