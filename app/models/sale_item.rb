@@ -26,6 +26,7 @@
 #  activity_budget_id   :integer
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  annotation           :text
+#  codes                :jsonb
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer
@@ -131,6 +132,18 @@ class SaleItem < Ekylibre::Record::Base
   validate do
     errors.add(:quantity, :invalid) if quantity.zero?
     # TODO: validates responsible can make reduction and reduction percentage is convenient
+  end
+
+  after_save do
+    if Preference[:catalog_price_item_addition_if_blank]
+      for usage in [:stock, :sale]
+        # set stock catalog price if blank
+        catalog = Catalog.by_default!(usage)
+        unless variant.catalog_items.of_usage(usage).any?
+          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
+        end
+      end
+    end
   end
 
   protect(on: :update) do

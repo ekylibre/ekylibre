@@ -56,7 +56,7 @@ module Ekylibre
         end
 
         next unless r.variant_reference_name
-        next if variant = ProductNatureVariant.find_by(number: r.variant_reference_name)
+        next if variant = ProductNatureVariant.find_by(work_number: r.variant_reference_name)
         unless nomen = Nomen::ProductNatureVariant.find(r.variant_reference_name.downcase.to_sym)
           w.error "No variant exist in NOMENCLATURE for #{r.variant_reference_name.inspect}"
           valid = false
@@ -89,13 +89,13 @@ module Ekylibre
           campaign_year: row[12].to_i
         )
 
-        unless variant = ProductNatureVariant.find_by_number(r.nature)
+        unless variant = ProductNatureVariant.find_by_work_number(r.nature)
           variant = ProductNatureVariant.import_from_nomenclature(r.nature.to_sym)
         end
 
         r.member_nature = "#{r.member_nature}_band".to_sym if r.member_nature.to_s =~ /^(fe)?male_young_pig$/
         r.member_nature = :young_rabbit if r.member_nature.to_s =~ /^(fe)?male_young_rabbit$/
-        animal_variant = ProductNatureVariant.find_by(number: r.member_nature) ||
+        animal_variant = ProductNatureVariant.find_by(work_number: r.member_nature) ||
                          ProductNatureVariant.find_by(reference_name: r.member_nature) ||
                          ProductNatureVariant.import_from_nomenclature(r.member_nature)
         unless animal_variant

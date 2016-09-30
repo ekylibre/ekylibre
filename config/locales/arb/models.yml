@@ -912,6 +912,7 @@ arb:
       product_nature_variant_reading: "نوع المنتج البديل القراءة"
       product_ownership: "ملكية المنتج"
       product_phase: "مرحلة المنتج"
+      product_population: "السكان المنتج"
       product_price_listing: "فئة الفرد" #?
       product_price_template: "الاسعار" #?
       product_reading: "قراءة المنتج"
@@ -1076,6 +1077,7 @@ arb:
     cache: "مخبأ" #?
     calibrations: "المعايرة"
     campaign: "حملة"
+    campaigns: "حملات"
     canal: "قناة"
     cap_islet: "كاب جزيرة"
     cap_islets: "الجزر كاب"
@@ -1125,6 +1127,7 @@ arb:
     clusters_work_number: "مجموعات العمل رقم"
     code: "الرمز"
     code2: "الرمز الثاني" #?
+    codes: "رموز"
     coefficient: "الدرجة"
     collect_account: "جمع الحساب"
     collected_account: "جمع قيمة الضريبة الاضافية" #?
@@ -1461,6 +1464,7 @@ arb:
     group: "مجموعة"
     group_parameters: "معلمات مجموعة"
     groups: "المجموعات"
+    # gtin: "GTIN"
     guide: "دليل"
     harvest_year: "حصاد العام"
     has_downpayment: "لديه عربون واحد"
@@ -1859,6 +1863,7 @@ arb:
     polygon: "متناسقين" #?
     population: "عدد السكان"
     population_counting: "عد السكان"
+    populations: "السكان"
     position: "الوضع"
     post: "بريد"
     postal_code: "الكود البريدى"
@@ -1949,6 +1954,7 @@ arb:
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
     quantity: "الكمية"
+    quantity_gap_on_invoice_entry: "دخول الفجوة كمية الأسهم"
     quantity_handler: "كمية معالج"
     quantity_indicator: "مؤشر الكمية"
     quantity_indicator_name: "الكمية اسم المؤشر"
@@ -2137,6 +2143,7 @@ arb:
     stock: "انتاج السهم" #?
     stock_account: "حساب الأسهم"
     stock_id: "انتاج سهم" #?
+    stock_movement_account: "حساب حركة الأسهم"
     stock_moves: "حركات الاسهم" #?
     stock_transfers: "تحويل او ضياع السهم" #?
     stockable: "ادارة الاسهم" #?
@@ -2249,6 +2256,7 @@ arb:
     type: "النوع"
     # uid: "UID"
     unconfirmed_email: "البريد الإلكتروني غير مؤكد"
+    undelivered_invoice_entry: "دخول فاتورة غير المسلمة"
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة" #?
     unit_amount: "كمية وحدة"
@@ -2257,6 +2265,7 @@ arb:
     unit_name: "إسم الوحدة"
     unit_population: "السكان وحدة"
     unit_pretax_amount: "وحدة الكمية قبل الضريبة"
+    unit_pretax_stock_amount: "وحدة كمية الأسهم قبل خصم الضرائب"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
     unlock_token: "فتح رمز"
@@ -2653,6 +2662,9 @@ arb:
       mass: "كتلة"
     intervention:
       # name: "%{intervention} #%{number}"
+    inventory:
+      # bookkeep: "Physical inventory - [%{resource}] %{number}"
+      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
     inventory_item:  #?
       inventory: "عملية الجرد" #?
     issue:
@@ -2754,6 +2766,7 @@ arb:
     outgoing_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})" #?
     parcel:
+      # bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
       state_machine:
         states:
           draft: "مسودة"
@@ -2762,6 +2775,7 @@ arb:
           ordered: "أمر"
           prepared: "أعدت"
           received: "تم الاستلام"
+      # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     product:
       informations:
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)"
@@ -2853,8 +2867,10 @@ arb:
       unknown_use_of_product: "(يجب تحديد الغاية من المنتج (شراء او بيع او تأجير" #?
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} لل %{supplier}"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label: "%{supplier} الى %{address}"
       purchase: "Achat"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       states:
         aborted: "أجهض"
         draft: "مشروع تقدير"
@@ -2875,6 +2891,7 @@ arb:
         public: "عامة"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label:
         # aborted: "Aborted sale %{number}"
         # credit: "Sale credit %{number}"
@@ -2887,6 +2904,7 @@ arb:
         estimate: "التقدير" #?
         order: "طلب" #?
         sales_invoice: "فاتورة" #?
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       sale: "البيع %{number}"
       sales_conditions:
         downpayment: "دفعة مقدمة %{percent}% (soit %{amount}€) يجب ادخال لبدفعة على توقيع التقدير الحالي"

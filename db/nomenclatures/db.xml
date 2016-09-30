@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160919210501">
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures" version="20160930091201">
   <nomenclature name="abilities" translateable="true">
     <properties>
       <property name="parameters" type="choice_list" choices="variety, issue_nature"/>
@@ -88,10 +88,14 @@
       <item name="accrued_bank_interests" fr_pcg82="518"/>
       <item name="accrued_interests" fr_pcg82="1688"/>
       <item name="accrued_interests_on_bank" fr_pcg82="16884"/>
+      <item name="additionnal_taxes_on_distribution_entity_expenses" fr_pcg82="696"/>
       <item name="adult_animal_asset_depreciations" fr_pcga="2841"/>
       <item name="adult_animal_assets" fr_pcga="241"/>
       <item name="adult_animal_expenses" fr_pcga="6041"/>
       <item name="adult_animal_revenues" fr_pcga="7041"/>
+      <item name="adult_reproductor_animals_inventory_variations" fr_pcga="7121"/>
+      <item name="advance_noticed_charges_accounts" fr_pcg82="486"/>
+      <item name="advance_noticed_products_accounts" fr_pcg82="487"/>
       <item name="advertisement_expenses" fr_pcg82="6231"/>
       <item name="advertising_expenses" fr_pcg82="623"/>
       <item name="agricultural_disasters_compensations" fr_pcga="743"/>
@@ -100,12 +104,16 @@
       <item name="animal_locative_expenses" fr_pcga="6144"/>
       <item name="animal_medicine_matter_expenses" fr_pcga="6015"/>
       <item name="animal_medicine_stock" fr_pcga="3015"/>
+      <item name="animal_medicine_stocks_variation" fr_pcga="60315"/>
       <item name="animal_reproduction_matter_expenses" fr_pcga="6016"/>
       <item name="animal_reproduction_stock" fr_pcga="3016"/>
+      <item name="animal_reproduction_stocks_variation" fr_pcga="60316"/>
       <item name="animal_revenues" fr_pcga="704"/>
       <item name="animals_depreciations_inputations_expenses" fr_pcga="68114"/>
       <item name="animals_making_expenses_expenses" fr_pcga="6054"/>
       <item name="animals_subsidies" fr_pcga="7454"/>
+      <item name="asset_impairment_losses" fr_pcg82="29"/>
+      <item name="assets_products_stock" fr_pcg82="36"/>
       <item name="associate_social_contribution_expenses" fr_pcga="646"/>
       <item name="associates_current_accounts" fr_pcga="455"/>
       <item name="associates_frozen_accounts" fr_pcga="4553"/>
@@ -121,6 +129,7 @@
       <item name="building_depreciations_inputations_expenses" fr_pcga="68113"/>
       <item name="campaigns_interests" fr_pcg82="6614"/>
       <item name="capital" fr_pcg82="101"/>
+      <item name="capitalized_revenues" fr_pcg82="72"/>
       <item name="capitals" fr_pcg82="1"/>
       <item name="cashes" fr_pcg82="53"/>
       <item name="catalog_and_print_expenses" fr_pcg82="6236"/>
@@ -129,27 +138,41 @@
       <item name="collected_vat" fr_pcg82="44571"/>
       <item name="collected_vat_to_resolve" fr_pcg82="44575"/>
       <item name="compensation_operations" fr_pcg82="472"/>
+      <item name="concession_asset_depreciations" fr_pcg82="282"/>
       <item name="concession_assets" fr_pcga="22"/>
       <item name="congress_and_symposium_expenses" fr_pcga="6185"/>
       <item name="construction_on_other_land_parcel_assets" fr_pcga="214"/>
       <item name="construction_on_own_land_parcel_assets" fr_pcga="213"/>
       <item name="cooperative_participation_assets" fr_pcga="2621"/>
       <item name="corporeal_asset_depreciations" fr_pcga="281"/>
+      <item name="corporeal_asset_revenues" fr_pcg82="722"/>
       <item name="corporeal_assets" fr_pcga="21"/>
       <item name="corporeals_and_incorporeals_depreciations_inputations_expenses" fr_pcg82="6811"/>
+      <item name="credit_retained_earnings" fr_pcg82="110"/>
+      <item name="creditor_clients" fr_pcg82="419"/>
+      <item name="debit_retained_earnings" fr_pcg82="119"/>
       <item name="debtor_suppliers" fr_pcg82="409"/>
       <item name="deductible_asset_vat" fr_pcg82="44562"/>
       <item name="deductible_vat" fr_pcg82="44566"/>
       <item name="deductible_vat_to_resolve" fr_pcg82="44565"/>
+      <item name="deferred_expense_accounts" fr_pcg82="481"/>
+      <item name="deprecated_client_entity_accounts" fr_pcg82="491"/>
+      <item name="deprecated_entity_accounts" fr_pcg82="49"/>
+      <item name="depreciation_revenues" fr_pcg82="78"/>
       <item name="depreciations_inputations_expenses" fr_pcg82="68"/>
       <item name="discount_and_reductions_expenses" fr_pcg82="609"/>
       <item name="discount_and_reductions_revenues" fr_pcg82="709"/>
       <item name="discount_from_cooperatives" fr_pcga="754"/>
+      <item name="discount_granted_expenses" fr_pcg82="665"/>
       <item name="donation_exceptional_expenses" fr_pcga="6713"/>
       <item name="electricity_expenses" fr_pcga="6063"/>
+      <item name="employee_participation_and_income_taxes_and_assimilated_payments_expenses" fr_pcg82="69"/>
+      <item name="employee_participation_expenses" fr_pcg82="691"/>
+      <item name="employee_representative_committees" fr_pcg82="422"/>
       <item name="end_products_stock" fr_pcga="37"/>
       <item name="enterprise_collected_vat" fr_pcga="4457"/>
       <item name="enterprise_deductible_vat" fr_pcga="4456"/>
+      <item name="entity_collectable_taxes" fr_pcg82="442"/>
       <item name="equipment_asset_depreciations" fr_pcga="2815"/>
       <item name="equipment_assets" fr_pcga="2154"/>
       <item name="equipment_cooperative_participation_assets" fr_pcga="2622"/>
@@ -159,40 +182,70 @@
       <item name="equipment_maintenance_expenses" fr_pcga="6155"/>
       <item name="equipment_rent_expenses" fr_pcga="6132"/>
       <item name="equipment_subventions" fr_pcg82="131"/>
+      <item name="equity_securities" fr_pcg82="261"/>
+      <item name="equity_security_asset_impairment_losses" fr_pcg82="296"/>
       <item name="establishment_charge_assets" fr_pcga="201"/>
       <item name="exceptional_expenses" fr_pcga="67"/>
       <item name="exceptional_revenues" fr_pcga="77"/>
+      <item name="exceptionnal_charge_transfer_revenues" fr_pcg82="797"/>
+      <item name="exceptionnal_depreciations_inputations_expenses" fr_pcg82="687"/>
+      <item name="exceptionnal_incorporeal_asset_depreciation_revenues" fr_pcg82="787"/>
       <item name="expenses" fr_pcg82="6"/>
+      <item name="exploitation_depreciations_inputations_expenses" fr_pcg82="681"/>
       <item name="exploitation_expenses_transfers" fr_pcga="791"/>
       <item name="exploitation_risk_insurance_expenses" fr_pcga="6166"/>
       <item name="exploitation_subsidies" fr_pcga="7452"/>
       <item name="exploitation_subsidies_and_compensations" fr_pcga="74"/>
       <item name="external_expenses" fr_pcga="62"/>
+      <item name="external_service_expenses" fr_pcg82="61"/>
       <item name="external_staff_expenses" fr_pcga="621"/>
       <item name="fees_expenses" fr_pcga="622"/>
       <item name="fertilizer_expenses" fr_pcga="6011"/>
       <item name="fertilizer_stock" fr_pcga="3011"/>
+      <item name="fertilizer_stocks_variation" fr_pcga="60311"/>
       <item name="fill_up_price_revenues" fr_pcga="7087"/>
       <item name="finances" fr_pcg82="5"/>
+      <item name="financial_asset_depreciation_revenues" fr_pcg82="786"/>
+      <item name="financial_charge_transfer_revenues" fr_pcg82="796"/>
+      <item name="financial_depreciations_inputations_expenses" fr_pcg82="686"/>
+      <item name="financial_expenses" fr_pcg82="66"/>
       <item name="financial_year_result" fr_pcg82="12"/>
       <item name="financial_year_result_balance" fr_pcg82="128"/>
       <item name="financial_year_result_loss" fr_pcg82="129"/>
       <item name="financial_year_result_profit" fr_pcg82="120"/>
       <item name="financials_revenues" fr_pcga="76"/>
+      <item name="fiscal_expense_on_vacations" fr_pcg82="448"/>
       <item name="fiscal_fine_exceptional_expenses" fr_pcga="6712"/>
+      <item name="fiscal_integration_expenses" fr_pcg82="698"/>
       <item name="fixed_asset_depreciations" fr_pcga="28"/>
       <item name="fixed_assets" fr_pcg82="2"/>
       <item name="fixed_assets_suppliers" fr_pcg82="404"/>
       <item name="fixed_assets_values" fr_pcg82="675"/>
+      <item name="flat_rate_taxes_expenses" fr_pcg82="697"/>
+      <item name="foreign_exchange_expenses" fr_pcg82="666"/>
+      <item name="foreign_exchange_financials_revenues" fr_pcg82="766"/>
       <item name="forwarding_agent_fees_expenses" fr_pcga="6223"/>
       <item name="fuel_matter_expenses" fr_pcga="6021"/>
       <item name="fuel_stock" fr_pcga="3021"/>
       <item name="fuels_expenses" fr_pcga="6064"/>
       <item name="gas_expenses" fr_pcga="6062"/>
+      <item name="gas_stock" fr_pcga="3018"/>
       <item name="general_installation_asset_depreciations" fr_pcga="28181"/>
       <item name="general_installation_assets" fr_pcga="2135"/>
+      <item name="global_land_parcel_assets" fr_pcg82="211"/>
+      <item name="government_payroll_tax_expenses" fr_pcg82="631"/>
+      <item name="government_tax_expenses" fr_pcg82="635"/>
+      <item name="guaranteed_obligations" fr_pcg82="446"/>
+      <item name="holding_accounts" fr_pcg82="451"/>
+      <item name="holding_company_and_associate_accounts" fr_pcg82="45"/>
       <item name="home_consumption_production" fr_pcga="726"/>
+      <item name="in_cycle_products_stock" fr_pcg82="33"/>
+      <item name="in_cycle_services_stock" fr_pcg82="34"/>
+      <item name="income_taxes" fr_pcg82="444"/>
+      <item name="income_taxes_expenses" fr_pcg82="695"/>
+      <item name="incorporeal_asset_depreciation_revenues" fr_pcg82="781"/>
       <item name="incorporeal_asset_depreciations" fr_pcga="280"/>
+      <item name="incorporeal_asset_revenues" fr_pcg82="721"/>
       <item name="incorporeals_depreciations_inputations_expenses" fr_pcga="68111"/>
       <item name="industrial_cooperative_participation_assets" fr_pcga="2624"/>
       <item name="infirmity_and_death_insurance_expenses" fr_pcga="6168"/>
@@ -204,6 +257,8 @@
       <item name="interests_expenses" fr_pcga="661"/>
       <item name="internal_transfers" fr_pcg82="58"/>
       <item name="inventory_variations" fr_pcga="71"/>
+      <item name="invoice_to_create_clients" fr_pcg82="418"/>
+      <item name="irrecoverable_losses_on_debt_obligation_expenses" fr_pcg82="654"/>
       <item name="irrigation_expenses" fr_pcga="6065"/>
       <item name="land_loans" fr_pcg82="1641"/>
       <item name="land_loans_interests" fr_pcg82="6611"/>
@@ -218,18 +273,22 @@
       <item name="leasing_expenses" fr_pcg82="612"/>
       <item name="legal_reserves" fr_pcg82="1061"/>
       <item name="licences_expenses" fr_pcga="651"/>
+      <item name="litigious_clients" fr_pcg82="416"/>
       <item name="little_office_equipment_expenses" fr_pcga="6066"/>
       <item name="livestock_feed_matter_expenses" fr_pcga="6014"/>
       <item name="livestock_feed_stock" fr_pcga="3014"/>
+      <item name="livestock_feed_stocks_variation" fr_pcga="60314"/>
       <item name="living_corporeal_assets" fr_pcga="24"/>
       <item name="loans" fr_pcg82="164"/>
       <item name="loans_interests" fr_pcg82="661"/>
       <item name="long_cycle_animals_inventory_variations" fr_pcga="7131"/>
       <item name="long_cycle_cultivation_advances" fr_pcga="331"/>
+      <item name="long_cycle_product_inventory_variations" fr_pcga="7135"/>
       <item name="long_cycle_products_liquors_stock" fr_pcga="352"/>
       <item name="long_cycle_products_stock" fr_pcga="35"/>
       <item name="long_cycle_products_wines_stock" fr_pcga="351"/>
       <item name="long_cycle_vegetals_inventory_variations" fr_pcga="7133"/>
+      <item name="long_cycle_vegetals_stock" fr_pcga="33"/>
       <item name="long_term_loans" fr_pcg82="1642"/>
       <item name="long_term_loans_interests" fr_pcg82="6612"/>
       <item name="long_time_animal_stock" fr_pcga="31"/>
@@ -239,12 +298,15 @@
       <item name="making_services_expenses" fr_pcga="605"/>
       <item name="making_services_revenues" fr_pcga="7084"/>
       <item name="management_operation_exceptional_expenses" fr_pcga="671"/>
+      <item name="management_operation_exceptional_revenues" fr_pcg82="771"/>
       <item name="market_fine_exceptional_expenses" fr_pcga="6711"/>
       <item name="materials_expenses" fr_pcga="6026"/>
       <item name="merchandising_accessory_expenses" fr_pcg82="608"/>
       <item name="merchandising_accessory_revenues" fr_pcg82="7085"/>
       <item name="merchandising_expenses" fr_pcg82="607"/>
+      <item name="merchandising_products_stock" fr_pcg82="37"/>
       <item name="merchandising_revenues" fr_pcg82="707"/>
+      <item name="merchandising_stocks_variation" fr_pcga="6037"/>
       <item name="office_equipment_asset_depreciations" fr_pcga="28183"/>
       <item name="office_equipment_assets" fr_pcga="2183"/>
       <item name="office_furniture_asset_depreciations" fr_pcga="28184"/>
@@ -261,9 +323,17 @@
       <item name="other_consumables_stock" fr_pcga="3027"/>
       <item name="other_corporeal_asset_depreciations" fr_pcga="2818"/>
       <item name="other_corporeal_assets" fr_pcga="218"/>
+      <item name="other_day_to_day_management_expenses" fr_pcg82="65"/>
+      <item name="other_day_to_day_management_revenues" fr_pcg82="75"/>
+      <item name="other_debt_obligation_financials_revenues" fr_pcg82="763"/>
+      <item name="other_entities_payroll_tax_expenses" fr_pcg82="633"/>
+      <item name="other_entities_tax_expenses" fr_pcg82="637"/>
       <item name="other_expenses" fr_pcga="618"/>
       <item name="other_exploitation_subsidies" fr_pcga="7458"/>
       <item name="other_fees_expenses" fr_pcga="6226"/>
+      <item name="other_financial_expenses" fr_pcg82="668"/>
+      <item name="other_financials_asset_revenues" fr_pcg82="762"/>
+      <item name="other_financials_revenues" fr_pcg82="768"/>
       <item name="other_general_installation_assets" fr_pcga="2181"/>
       <item name="other_incorporeal_asset_depreciations" fr_pcga="2808"/>
       <item name="other_incorporeal_assets" fr_pcga="208"/>
@@ -273,13 +343,18 @@
       <item name="other_materials_stock" fr_pcga="3026"/>
       <item name="other_professional_agricultural_participation_assets" fr_pcga="2628"/>
       <item name="other_reserves" fr_pcg82="1068"/>
+      <item name="other_social_expenses" fr_pcg82="647"/>
+      <item name="other_social_organisation" fr_pcg82="437"/>
       <item name="other_staff_expenses" fr_pcga="648"/>
+      <item name="other_supplies" fr_pcg82="32"/>
+      <item name="other_supply_expenses" fr_pcg82="602"/>
       <item name="other_supply_stocks_variation" fr_pcga="6032"/>
       <item name="other_taxes" fr_pcga="635"/>
       <item name="other_usual_running_expenses" fr_pcga="658"/>
       <item name="other_usual_running_profits" fr_pcga="758"/>
       <item name="other_various_interests_expenses" fr_pcga="66188"/>
       <item name="others_corporeals_depreciations_inputations_expenses" fr_pcga="68118"/>
+      <item name="others_taxes_and_assimilated_payments" fr_pcg82="447"/>
       <item name="outstanding_adult_animal_assets" fr_pcga="2341"/>
       <item name="outstanding_assets" fr_pcga="23"/>
       <item name="outstanding_construction_on_other_land_parcel_assets" fr_pcga="2314"/>
@@ -296,66 +371,107 @@
       <item name="own_building_asset_depreciations" fr_pcga="2813"/>
       <item name="own_building_expenses" fr_pcga="6153"/>
       <item name="owner_account" fr_pcg82="108"/>
+      <item name="owner_remuneration" fr_pcg82="644"/>
       <item name="ownership_assets" fr_pcga="271"/>
       <item name="ownership_loan" fr_pcga="274"/>
       <item name="packaging" fr_pcga="6017"/>
+      <item name="partial_net_product_on_long_term_operation_revenues" fr_pcga="73"/>
+      <item name="participation_financials_revenues" fr_pcg82="761"/>
+      <item name="participation_losses_on_debt_obligation_expenses" fr_pcg82="664"/>
+      <item name="participations" fr_pcg82="26"/>
+      <item name="particular_operation_with_state" fr_pcg82="443"/>
+      <item name="payment_guarantees" fr_pcg82="275"/>
       <item name="pending_deposit_payments" fr_pcg82="511"/>
       <item name="plant_derivative_stock" fr_pcga="374"/>
       <item name="plant_derivatives_revenues" fr_pcga="701"/>
       <item name="plant_medicine_matter_expenses" fr_pcga="6013"/>
       <item name="plant_medicine_stock" fr_pcga="3013"/>
+      <item name="plant_medicine_stocks_variation" fr_pcga="60313"/>
       <item name="plants_subsidies" fr_pcga="7451"/>
+      <item name="previous_fiscal_year_exceptional_revenues" fr_pcg82="772"/>
+      <item name="previous_fiscal_year_expenses" fr_pcg82="672"/>
+      <item name="previous_product_deferral_expenses" fr_pcg82="699"/>
       <item name="principal_associates_current_accounts" fr_pcga="4551"/>
       <item name="processing_products_revenues" fr_pcga="703"/>
       <item name="processing_products_stock" fr_pcga="376"/>
+      <item name="product_accessory_revenues" fr_pcg82="708"/>
+      <item name="product_inventory_variations" fr_pcg82="713"/>
       <item name="products_inventory_variations" fr_pcga="7137"/>
       <item name="products_specials_taxes" fr_pcga="634"/>
+      <item name="products_stock" fr_pcg82="35"/>
       <item name="professional_agricultural_organization_assets" fr_pcga="262"/>
       <item name="professional_subscriptions_expenses" fr_pcga="628"/>
+      <item name="raw_material_and_supplies" fr_pcg82="31"/>
       <item name="raw_material_expenses" fr_pcga="6028"/>
+      <item name="raw_matter_expenses" fr_pcg82="601"/>
+      <item name="raw_product_stock" fr_pcga="3028"/>
       <item name="redeemable_land_parcel_construction_assets" fr_pcga="2121"/>
       <item name="reductions" fr_pcga="765"/>
       <item name="reevaluation_gaps" fr_pcg82="105"/>
+      <item name="regularisation_accounts" fr_pcg82="48"/>
       <item name="rent_expenses" fr_pcg82="613"/>
       <item name="report_vat_credit" fr_pcg82="44567"/>
       <item name="research_and_development_charge_assets" fr_pcga="203"/>
       <item name="reserves" fr_pcg82="106"/>
       <item name="residual_products_revenues" fr_pcga="705"/>
       <item name="residual_products_stock" fr_pcga="377"/>
+      <item name="retained_earnings" fr_pcg82="11"/>
       <item name="revenue_subsidies" fr_pcga="7453"/>
       <item name="revenues" fr_pcg82="7"/>
       <item name="salary_social_contribution_expenses" fr_pcga="645"/>
       <item name="sales_assets_revenues" fr_pcga="775"/>
       <item name="seed_expenses" fr_pcga="6012"/>
       <item name="seed_stock" fr_pcga="3012"/>
+      <item name="seed_stocks_variation" fr_pcga="60312"/>
       <item name="service_animal_asset_depreciations" fr_pcga="2843"/>
       <item name="service_animal_assets" fr_pcga="243"/>
+      <item name="service_discount_and_reductions_expenses" fr_pcg82="619"/>
       <item name="services_expenses" fr_pcg82="604"/>
       <item name="services_revenues" fr_pcg82="706"/>
       <item name="share_asset_subsidies" fr_pcga="777"/>
+      <item name="share_capital_bonus" fr_pcg82="104"/>
+      <item name="shared_result_operations_expenses" fr_pcg82="655"/>
       <item name="short_cycle_animals_inventory_variations" fr_pcga="7132"/>
       <item name="short_cycle_cultivation_advances" fr_pcga="341"/>
       <item name="short_cycle_cultivation_advances_culturals_ways" fr_pcga="3415"/>
       <item name="short_cycle_cultivation_advances_fertilizers" fr_pcga="3411"/>
       <item name="short_cycle_cultivation_advances_plants_medicines" fr_pcga="3413"/>
       <item name="short_cycle_cultivation_advances_seeds" fr_pcga="3412"/>
+      <item name="short_cycle_product_inventory_variations" fr_pcga="7136"/>
       <item name="short_cycle_products_stock" fr_pcga="36"/>
       <item name="short_cycle_vegetals_inventory_variations" fr_pcga="7134"/>
+      <item name="short_cycle_vegetals_stock" fr_pcga="34"/>
+      <item name="short_term_investment_financials_revenues" fr_pcg82="764"/>
+      <item name="short_term_investment_transfer_expenses" fr_pcg82="667"/>
+      <item name="short_term_investment_transfer_financials_revenues" fr_pcg82="767"/>
       <item name="short_term_loans" fr_pcg82="1643"/>
       <item name="short_term_loans_interests" fr_pcg82="6613"/>
       <item name="short_time_animal_stock" fr_pcga="32"/>
       <item name="social_agricultural_mutuality" fr_pcga="431"/>
+      <item name="social_expense_on_vacations" fr_pcg82="438"/>
+      <item name="social_security" fr_pcg82="431"/>
+      <item name="staff_advances" fr_pcg82="425"/>
+      <item name="staff_and_linked_accounts" fr_pcg82="42"/>
+      <item name="staff_bonus_participation" fr_pcg82="424"/>
       <item name="staff_due_remunerations" fr_pcg82="421"/>
+      <item name="staff_expense_to_sold" fr_pcg82="428"/>
       <item name="staff_expenses" fr_pcga="64"/>
+      <item name="staff_oppositions" fr_pcg82="427"/>
+      <item name="staff_remuneration" fr_pcg82="641"/>
       <item name="staff_salary" fr_pcga="6411"/>
+      <item name="staff_submissions" fr_pcg82="426"/>
+      <item name="state_and_other_public_entities" fr_pcg82="44"/>
+      <item name="state_emission_quota_to_restitute" fr_pcg82="449"/>
       <item name="stocks" fr_pcg82="3"/>
       <item name="stocks_variation" fr_pcga="603"/>
       <item name="studies_and_research_expenses" fr_pcga="617"/>
       <item name="subcontracting_expenses" fr_pcg82="611"/>
       <item name="subsidies" fr_pcga="745"/>
+      <item name="subsidy_to_receive" fr_pcg82="441"/>
       <item name="suppliers" fr_pcg82="401"/>
       <item name="suppliers_balance_after_compensation" fr_pcg82="402"/>
       <item name="suppliers_invoices_not_received" fr_pcg82="408"/>
+      <item name="supply_stock" fr_pcga="301"/>
       <item name="supply_stocks_variation" fr_pcga="6031"/>
       <item name="sustainable_packaging_asset_depreciations" fr_pcga="28186"/>
       <item name="sustainable_packaging_assets" fr_pcga="2186"/>
@@ -363,6 +479,7 @@
       <item name="sustainables_plants_assets" fr_pcga="246"/>
       <item name="sustainables_plants_on_other_land_parcel_assets" fr_pcga="2465"/>
       <item name="sustainables_plants_on_own_land_parcel_assets" fr_pcga="2461"/>
+      <item name="tax_depreciation_revenues" fr_pcg82="787"/>
       <item name="taxes_expenses" fr_pcg82="63"/>
       <item name="technical_installation_equipment_and_tools_assets" fr_pcga="215"/>
       <item name="technical_installation_on_other_land_parcel_assets" fr_pcga="2152"/>
@@ -372,22 +489,27 @@
       <item name="third_party" fr_pcg82="4"/>
       <item name="tools_assets" fr_pcga="2155"/>
       <item name="trade_show_expenses" fr_pcg82="6233"/>
+      <item name="transfer_revenues" fr_pcg82="79"/>
       <item name="transport_vehicle_asset_depreciations" fr_pcga="28182"/>
       <item name="transport_vehicle_assets" fr_pcga="2182"/>
       <item name="transports_expenses" fr_pcga="624"/>
       <item name="travels_expenses" fr_pcga="625"/>
+      <item name="trust_creation_operation_expenses" fr_pcg82="674"/>
       <item name="unstorable_expenses" fr_pcg82="606"/>
       <item name="usual_associates_current_accounts" fr_pcga="4552"/>
       <item name="usual_bank_overdraft" fr_pcg82="519"/>
+      <item name="various_exceptional_revenues" fr_pcg82="778"/>
       <item name="vat" fr_pcga="445"/>
       <item name="vegetals_making_services_expenses" fr_pcga="6051"/>
       <item name="veterinary_fees_expenses" fr_pcga="6225"/>
       <item name="waiting_vat" fr_pcg82="4458"/>
       <item name="water_expenses" fr_pcga="6061"/>
+      <item name="workshop_supplies_stock" fr_pcga="3023"/>
       <item name="young_animal_asset_depreciations" fr_pcga="2842"/>
       <item name="young_animal_assets" fr_pcga="242"/>
       <item name="young_animal_expenses" fr_pcga="6042"/>
       <item name="young_animal_revenues" fr_pcga="7042"/>
+      <item name="young_reproductor_animals_inventory_variations" fr_pcga="7122"/>
     </items>
   </nomenclature>
   <nomenclature name="activity_families" translateable="true">
@@ -2240,35 +2362,36 @@
       <property name="reductible" type="boolean" required="true" default="false"/>
       <property name="saleable" type="boolean" required="true" default="false"/>
       <property name="stock_account" type="item" choices="accounts"/>
+      <property name="stock_movement_account" type="item" choices="accounts"/>
       <property name="storable" type="boolean" required="true" default="false"/>
     </properties>
     <items>
-      <item name="animal_food" charge_account="livestock_feed_matter_expenses" product_account="revenues" stock_account="livestock_feed_stock" purchasable="true" saleable="true" storable="true" pictogram="matter"/>
+      <item name="animal_food" charge_account="livestock_feed_matter_expenses" product_account="revenues" stock_account="livestock_feed_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="livestock_feed_stocks_variation"/>
       <item name="animal_housing_services" charge_account="animals_making_expenses_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="barn"/>
-      <item name="animal_medicine" charge_account="animal_medicine_matter_expenses" product_account="revenues" stock_account="animal_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="pill"/>
-      <item name="animal_reproduction" charge_account="animal_reproduction_matter_expenses" product_account="animal_derivatives_revenues" stock_account="animal_reproduction_stock" purchasable="true" saleable="true" storable="true" pictogram="matter"/>
+      <item name="animal_medicine" charge_account="animal_medicine_matter_expenses" product_account="revenues" stock_account="animal_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="pill" stock_movement_account="animal_medicine_stocks_variation"/>
+      <item name="animal_reproduction" charge_account="animal_reproduction_matter_expenses" product_account="animal_derivatives_revenues" stock_account="animal_reproduction_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="animal_reproduction_stocks_variation"/>
       <item name="animals_making_services" charge_account="animals_making_expenses_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="barn"/>
       <item name="associate_social_contribution" charge_account="associate_social_contribution_expenses" purchasable="true" pictogram="user"/>
-      <item name="aves_band" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow"/>
+      <item name="aves_band" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow" stock_movement_account="short_cycle_animals_inventory_variations"/>
       <item name="aves_herd" stock_account="long_time_animal_stock" pictogram="cow"/>
       <item name="bank_service" charge_account="banks_services_expenses" purchasable="true" pictogram="bank"/>
-      <item name="bee_band" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" depreciation_percentage="25.0" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow"/>
-      <item name="biological_auxiliary" charge_account="plant_medicine_matter_expenses" product_account="revenues" stock_account="plant_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="beaker"/>
+      <item name="bee_band" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" depreciation_percentage="25.0" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="biological_auxiliary" charge_account="plant_medicine_matter_expenses" product_account="revenues" stock_account="plant_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="beaker" stock_movement_account="plant_medicine_stocks_variation"/>
       <item name="bonus_staff_expense" charge_account="bonus_staff_expenses" purchasable="true" pictogram="user"/>
       <item name="building" fixed_asset_account="building_assets" fixed_asset_allocation_account="own_building_asset_depreciations" fixed_asset_expenses_account="building_depreciations_inputations_expenses" depreciation_percentage="5.0" charge_account="own_building_expenses" product_account="sales_assets_revenues" purchasable="true" saleable="true" depreciable="true" pictogram="building"/>
       <item name="building_division" pictogram="barn"/>
-      <item name="calf" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow"/>
+      <item name="calf" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow" stock_movement_account="short_cycle_animals_inventory_variations"/>
       <item name="carriage" charge_account="merchandising_accessory_expenses" product_account="merchandising_accessory_revenues" purchasable="true" saleable="true" pictogram="truck"/>
       <item name="catalog_and_print" charge_account="catalog_and_print_expenses" purchasable="true" pictogram="cc"/>
       <item name="cattle_herd" stock_account="long_time_animal_stock" pictogram="cow"/>
       <item name="congress" charge_account="congress_and_symposium_expenses" purchasable="true" pictogram="plane"/>
-      <item name="construction_materials_in_own_outstanding_installation" charge_account="outstanding_construction_on_own_land_parcel_assets" product_account="sales_assets_revenues" stock_account="other_materials_stock" purchasable="true" saleable="true" storable="true" pictogram="barn"/>
+      <item name="construction_materials_in_own_outstanding_installation" charge_account="outstanding_construction_on_own_land_parcel_assets" product_account="sales_assets_revenues" stock_account="other_materials_stock" purchasable="true" saleable="true" storable="true" pictogram="barn" stock_movement_account="merchandising_stocks_variation"/>
       <item name="consumer_goods_office_item" charge_account="office_supply_matter_expenses" purchasable="true" pictogram="fax"/>
-      <item name="crop" product_account="plant_derivatives_revenues" stock_account="short_cycle_cultivation_advances" saleable="true" storable="true" pictogram="leaf"/>
+      <item name="crop" product_account="plant_derivatives_revenues" stock_account="short_cycle_vegetals_stock" saleable="true" storable="true" pictogram="leaf" stock_movement_account="short_cycle_vegetals_inventory_variations"/>
       <item name="cultivable_zone" pictogram="land_parcels"/>
       <item name="discount_and_reduction" charge_account="discount_and_reductions_expenses" product_account="discount_and_reductions_revenues" purchasable="true" saleable="true" pictogram="gift"/>
       <item name="duty_and_taxe" charge_account="other_taxes" purchasable="true" pictogram="legal"/>
-      <item name="egg" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
+      <item name="egg" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop" stock_movement_account="products_inventory_variations"/>
       <item name="electricity" charge_account="electricity_expenses" purchasable="true" pictogram="bolt"/>
       <item name="electronic_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="33.0" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="laptop"/>
       <item name="equipment" fixed_asset_account="equipment_assets" fixed_asset_allocation_account="equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="15.0" charge_account="equipment_maintenance_expenses" product_account="sales_assets_revenues" purchasable="true" saleable="true" depreciable="true" pictogram="tractor"/>
@@ -2278,20 +2401,20 @@
       <item name="exploitation_subsidies" product_account="exploitation_subsidies" saleable="true" pictogram="legal"/>
       <item name="farm_teaching_services" charge_account="making_services_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="barn"/>
       <item name="fee" charge_account="fees_expenses" purchasable="true" pictogram="tasks"/>
-      <item name="female_adult_cow" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow"/>
-      <item name="female_adult_pig" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow"/>
-      <item name="female_young_cow" fixed_asset_account="young_animal_assets" fixed_asset_allocation_account="young_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow"/>
-      <item name="fertilizer" charge_account="fertilizer_expenses" product_account="residual_products_revenues" stock_account="fertilizer_stock" purchasable="true" saleable="true" storable="true" pictogram="matter"/>
+      <item name="female_adult_cow" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="female_adult_pig" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="female_young_cow" fixed_asset_account="young_animal_assets" fixed_asset_allocation_account="young_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="fertilizer" charge_account="fertilizer_expenses" product_account="residual_products_revenues" stock_account="fertilizer_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="fertilizer_stocks_variation"/>
       <item name="fiscal_fine" charge_account="fiscal_fine_exceptional_expenses" purchasable="true" pictogram="tasks"/>
-      <item name="fish_band" charge_account="other_animal_expenses" product_account="other_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="fish"/>
+      <item name="fish_band" charge_account="other_animal_expenses" product_account="other_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="fish" stock_movement_account="short_cycle_animals_inventory_variations"/>
       <item name="forwarding_agent_fees_expense" charge_account="forwarding_agent_fees_expenses" purchasable="true" pictogram="user"/>
-      <item name="fruit" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf"/>
-      <item name="fuel" charge_account="fuels_expenses" stock_account="fuel_stock" purchasable="true" storable="true" pictogram="bolt"/>
-      <item name="gas" charge_account="gas_expenses" purchasable="true" pictogram="bolt"/>
-      <item name="grain" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" charge_account="raw_material_expenses" purchasable="true" saleable="true" storable="true" pictogram="wheat"/>
-      <item name="grass" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf"/>
+      <item name="fruit" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf" stock_movement_account="products_inventory_variations"/>
+      <item name="fuel" charge_account="fuels_expenses" stock_account="fuel_stock" purchasable="true" storable="true" pictogram="bolt" stock_movement_account="other_supply_stocks_variation"/>
+      <item name="gas" charge_account="gas_expenses" purchasable="true" pictogram="bolt" storable="true" stock_account="gas_stock" stock_movement_account="other_supply_stocks_variation"/>
+      <item name="grain" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" charge_account="raw_material_expenses" purchasable="true" saleable="true" storable="true" pictogram="wheat" stock_movement_account="products_inventory_variations"/>
+      <item name="grass" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf" stock_movement_account="products_inventory_variations"/>
       <item name="harvest_insurance" charge_account="exploitation_risk_insurance_expenses" purchasable="true" pictogram="umbrella"/>
-      <item name="honey" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
+      <item name="honey" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop" stock_movement_account="products_inventory_variations"/>
       <item name="infirmity_and_death_insurance" charge_account="infirmity_and_death_insurance_expenses" purchasable="true" pictogram="umbrella"/>
       <item name="installation" fixed_asset_account="general_installation_assets" fixed_asset_allocation_account="general_installation_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipment_maintenance_expenses" product_account="sales_assets_revenues" purchasable="true" saleable="true" depreciable="true" pictogram="road"/>
       <item name="installing_charge" charge_account="fees_expenses" fixed_asset_account="establishment_charge_assets" fixed_asset_allocation_account="incorporeal_asset_depreciations" fixed_asset_expenses_account="incorporeals_depreciations_inputations_expenses" depreciation_percentage="25.0" purchasable="true" depreciable="true" pictogram="book"/>
@@ -2305,40 +2428,40 @@
       <item name="licence" charge_account="licences_expenses" purchasable="true" pictogram="subscription"/>
       <item name="little_office_item" charge_account="little_office_equipment_expenses" purchasable="true" pictogram="fax"/>
       <item name="loan_interest" charge_account="interests_expenses" purchasable="true" pictogram="bank"/>
-      <item name="long_time_animal" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow"/>
+      <item name="long_time_animal" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
       <item name="maintenance" charge_account="maintenance_expenses" purchasable="true" pictogram="wrench"/>
-      <item name="male_adult_cow" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow"/>
-      <item name="male_adult_pig" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow"/>
-      <item name="male_young_cow" fixed_asset_account="young_animal_assets" fixed_asset_allocation_account="young_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow"/>
-      <item name="meat" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
-      <item name="milk" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
+      <item name="male_adult_cow" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="male_adult_pig" fixed_asset_account="adult_animal_assets" fixed_asset_allocation_account="adult_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="male_young_cow" fixed_asset_account="young_animal_assets" fixed_asset_allocation_account="young_animal_asset_depreciations" fixed_asset_expenses_account="animals_depreciations_inputations_expenses" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="long_time_animal_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+      <item name="meat" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop" stock_movement_account="products_inventory_variations"/>
+      <item name="milk" charge_account="raw_material_expenses" product_account="animal_derivatives_revenues" stock_account="animal_derivative_stock" purchasable="true" saleable="true" storable="true" pictogram="drop" stock_movement_account="products_inventory_variations"/>
       <item name="natural_water" pictogram="drop"/>
-      <item name="oenological_product" charge_account="raw_material_expenses" product_account="revenues" stock_account="plant_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="beaker"/>
-      <item name="office_furniture_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="fax"/>
-      <item name="other_consumable" charge_account="other_consumable_matter_expenses" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter"/>
-      <item name="oyster_band" charge_account="other_animal_expenses" product_account="other_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="fish"/>
-      <item name="package_consumable" charge_account="packaging" stock_account="other_consumables_stock" purchasable="true" storable="true" pictogram="matter"/>
-      <item name="pig_band" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow"/>
-      <item name="plant" fixed_asset_account="sustainables_plants_assets" fixed_asset_allocation_account="sustainables_plants_asset_depreciations" fixed_asset_expenses_account="others_corporeals_depreciations_inputations_expenses" depreciation_percentage="4.0" charge_account="seed_expenses" product_account="revenues" stock_account="seed_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="matter"/>
-      <item name="plant_medicine" charge_account="plant_medicine_matter_expenses" product_account="revenues" stock_account="plant_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="beaker"/>
-      <item name="processed_grain" charge_account="raw_material_expenses" product_account="processing_products_revenues" stock_account="processing_products_stock" purchasable="true" saleable="true" storable="true" pictogram="wheat"/>
-      <item name="processed_meat" charge_account="raw_material_expenses" product_account="processing_products_revenues" stock_account="processing_products_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
-      <item name="processed_milk" charge_account="raw_material_expenses" product_account="processing_products_revenues" stock_account="processing_products_stock" purchasable="true" saleable="true" storable="true" pictogram="drop"/>
+      <item name="oenological_product" charge_account="raw_material_expenses" product_account="revenues" stock_account="plant_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="beaker" stock_movement_account="plant_medicine_stocks_variation"/>
+      <item name="office_furniture_equipment" fixed_asset_account="office_equipment_assets" fixed_asset_allocation_account="office_equipment_asset_depreciations" fixed_asset_expenses_account="equipment_depreciations_inputations_expenses" depreciation_percentage="10.0" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="workshop_supplies_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="fax" stock_movement_account="other_supply_stocks_variation"/>
+      <item name="other_consumable" charge_account="other_consumable_matter_expenses" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="other_supply_stocks_variation"/>
+      <item name="oyster_band" charge_account="other_animal_expenses" product_account="other_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="fish" stock_movement_account="short_cycle_animals_inventory_variations"/>
+      <item name="package_consumable" charge_account="packaging" stock_account="other_consumables_stock" purchasable="true" storable="true" pictogram="matter" stock_movement_account="other_supply_stocks_variation"/>
+      <item name="pig_band" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow" stock_movement_account="short_cycle_animals_inventory_variations"/>
+      <item name="plant" fixed_asset_account="sustainables_plants_assets" fixed_asset_allocation_account="sustainables_plants_asset_depreciations" fixed_asset_expenses_account="others_corporeals_depreciations_inputations_expenses" depreciation_percentage="4.0" charge_account="seed_expenses" product_account="revenues" stock_account="long_cycle_vegetals_stock" purchasable="true" saleable="true" depreciable="true" storable="true" pictogram="matter" stock_movement_account="long_cycle_vegetals_inventory_variations"/>
+      <item name="plant_medicine" charge_account="plant_medicine_matter_expenses" product_account="revenues" stock_account="plant_medicine_stock" purchasable="true" saleable="true" storable="true" pictogram="beaker" stock_movement_account="plant_medicine_stocks_variation"/>
+      <item name="processed_grain" charge_account="raw_material_expenses" product_account="processing_products_revenues" stock_account="processing_products_stock" purchasable="true" saleable="true" storable="true" pictogram="wheat" stock_movement_account="merchandising_stocks_variation"/>
+      <item name="processed_meat" charge_account="raw_material_expenses" product_account="processing_products_revenues" stock_account="processing_products_stock" purchasable="true" saleable="true" storable="true" pictogram="drop" stock_movement_account="merchandising_stocks_variation"/>
+      <item name="processed_milk" charge_account="raw_material_expenses" product_account="processing_products_revenues" stock_account="processing_products_stock" purchasable="true" saleable="true" storable="true" pictogram="drop" stock_movement_account="merchandising_stocks_variation"/>
       <item name="professional_subscription" charge_account="professional_subscriptions_expenses" purchasable="true" pictogram="cc"/>
-      <item name="rabbit_band" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow"/>
-      <item name="raw_materials" charge_account="materials_expenses" stock_account="other_consumables_stock" purchasable="true" storable="true" pictogram="matter"/>
+      <item name="rabbit_band" charge_account="young_animal_expenses" product_account="young_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow" stock_movement_account="short_cycle_animals_inventory_variations"/>
+      <item name="raw_materials" charge_account="materials_expenses" stock_account="other_consumables_stock" purchasable="true" storable="true" pictogram="matter" stock_movement_account="other_supply_stocks_variation"/>
       <item name="rent" charge_account="rent_expenses" product_account="revenues" purchasable="true" saleable="true" pictogram="money"/>
       <item name="rent_hosting_service" charge_account="rent_expenses" purchasable="true" pictogram="subscription"/>
       <item name="representation" charge_account="advertising_expenses" purchasable="true" pictogram="cc"/>
       <item name="running_water" charge_account="water_expenses" purchasable="true" pictogram="drop"/>
       <item name="salary_social_contribution" charge_account="salary_social_contribution_expenses" purchasable="true" pictogram="user"/>
-      <item name="seed" charge_account="seed_expenses" product_account="revenues" stock_account="seed_stock" purchasable="true" saleable="true" storable="true" pictogram="matter"/>
+      <item name="seed" charge_account="seed_expenses" product_account="revenues" stock_account="seed_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="seed_stocks_variation"/>
       <item name="service" product_account="services_revenues" saleable="true" pictogram="user"/>
       <item name="settlement" fixed_asset_account="general_installation_assets" fixed_asset_allocation_account="general_installation_asset_depreciations" fixed_asset_expenses_account="land_parcel_construction_depreciations_inputations_expenses" depreciation_percentage="10.0" product_account="sales_assets_revenues" saleable="true" depreciable="true" pictogram="building"/>
-      <item name="short_time_animal" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow"/>
-      <item name="small_electronic_equipment" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="stocks" purchasable="true" saleable="true" storable="true" pictogram="laptop"/>
-      <item name="small_equipment" charge_account="maintenances_consumables_expenses" product_account="revenues" stock_account="maintenances_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="wrench"/>
-      <item name="straw" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="wheat"/>
+      <item name="short_time_animal" charge_account="adult_animal_expenses" product_account="adult_animal_revenues" stock_account="short_time_animal_stock" purchasable="true" saleable="true" storable="true" pictogram="cow" stock_movement_account="short_cycle_animals_inventory_variations"/>
+      <item name="small_electronic_equipment" charge_account="equipment_expenses" product_account="merchandising_revenues" stock_account="workshop_supplies_stock" purchasable="true" saleable="true" storable="true" pictogram="laptop" stock_movement_account="other_supply_stocks_variation"/>
+      <item name="small_equipment" charge_account="maintenances_consumables_expenses" product_account="revenues" stock_account="maintenances_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="wrench" stock_movement_account="other_supply_stocks_variation"/>
+      <item name="straw" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="wheat" stock_movement_account="products_inventory_variations"/>
       <item name="studies_and_research" charge_account="studies_and_research_expenses" purchasable="true" pictogram="book"/>
       <item name="subcontracting" charge_account="subcontracting_expenses" purchasable="true" pictogram="user"/>
       <item name="taxe" charge_account="taxes_expenses" purchasable="true" pictogram="legal"/>
@@ -2346,10 +2469,10 @@
       <item name="trade_show" charge_account="trade_show_expenses" purchasable="true" pictogram="cc"/>
       <item name="travel" charge_account="travels_expenses" product_account="merchandising_accessory_revenues" purchasable="true" saleable="true" pictogram="plane"/>
       <item name="various_loan_interest" charge_account="other_various_interests_expenses" purchasable="true" pictogram="bank"/>
-      <item name="vegetable" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf"/>
+      <item name="vegetable" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="leaf" stock_movement_account="products_inventory_variations"/>
       <item name="vegetals_making_services" charge_account="vegetals_making_services_expenses" product_account="making_services_revenues" purchasable="true" saleable="true" pictogram="tractor"/>
-      <item name="wine" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="drop"/>
-      <item name="wine_package_consumable" charge_account="packaging" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter"/>
+      <item name="wine" product_account="plant_derivatives_revenues" stock_account="plant_derivative_stock" saleable="true" storable="true" pictogram="drop" stock_movement_account="products_inventory_variations"/>
+      <item name="wine_package_consumable" charge_account="packaging" product_account="revenues" stock_account="other_consumables_stock" purchasable="true" saleable="true" storable="true" pictogram="matter" stock_movement_account="other_supply_stocks_variation"/>
       <item name="worker" charge_account="staff_expenses" product_account="revenues" purchasable="true" saleable="true" pictogram="male"/>
     </items>
   </nomenclature>
@@ -9029,12 +9152,14 @@
       <property name="suffix" type="string"/>
     </properties>
     <items>
+      <item name="eu_vat" computation_method="percentage" deduction_account="deductible_vat" fixed_asset_deduction_account="deductible_asset_vat" collect_account="collected_vat" suffix="2"/>
+      <item name="import_export_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" fixed_asset_deduction_account="deductible_asset_vat" suffix="6"/>
       <item name="inflated_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="8"/>
       <item name="intermediate_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="3"/>
       <item name="normal_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="4" fixed_asset_deduction_account="deductible_asset_vat"/>
       <item name="null_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="9"/>
       <item name="particular_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="1"/>
-      <item name="reduced_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="2"/>
+      <item name="reduced_vat" computation_method="percentage" deduction_account="deductible_vat" collect_account="collected_vat" suffix="5"/>
     </items>
   </nomenclature>
   <nomenclature name="taxes" translateable="true">
@@ -9046,6 +9171,8 @@
       <property name="stopped_on" type="date"/>
     </properties>
     <items>
+      <item name="french_vat_eu" country="fr" nature="eu_vat" started_on="1954-04-10" amount="0.0"/>
+      <item name="french_vat_import_export" country="fr" nature="import_export_vat" started_on="1954-04-10" amount="0.0"/>
       <item name="french_vat_intermediate_2012" country="fr" nature="intermediate_vat" amount="7.0" started_on="2011-12-28" stopped_on="2011-12-31"/>
       <item name="french_vat_intermediate_2014" country="fr" nature="intermediate_vat" amount="10.0" started_on="2014-01-01"/>
       <item name="french_vat_normal_1966" country="fr" nature="normal_vat" amount="17.6" started_on="1966-01-01" stopped_on="1982-03-31"/>
@@ -9057,8 +9184,17 @@
       <item name="french_vat_particular_1982" country="fr" nature="particular_vat" amount="5.5" started_on="1982-04-01" stopped_on="1989-12-28"/>
       <item name="french_vat_particular_1989" country="fr" nature="particular_vat" amount="2.1" started_on="1989-12-29"/>
       <item name="french_vat_reduced" country="fr" nature="reduced_vat" amount="5.5" started_on="1989-12-29"/>
+      <item name="portugal_vat_eu" country="pt" nature="eu_vat" started_on="1954-04-10" amount="0.0"/>
+      <item name="portugal_vat_import_export" country="pt" nature="import_export_vat" started_on="1954-04-10" amount="0.0"/>
+      <item name="portugal_vat_normal" country="pt" nature="normal_vat" started_on="1954-04-10" amount="23.0"/>
+      <item name="portugal_vat_null" country="pt" nature="null_vat" started_on="1954-04-10" amount="0.0"/>
+      <item name="portugal_vat_particular" country="pt" nature="reduced_vat" started_on="1954-04-10" amount="6.0"/>
+      <item name="portugal_vat_reduced" country="pt" nature="intermediate_vat" started_on="1954-04-10" amount="13.0"/>
+      <item name="spain_vat_eu" country="es" nature="eu_vat" started_on="1954-04-10" amount="0.0"/>
+      <item name="spain_vat_import_export" country="es" nature="import_export_vat" started_on="1954-04-10" amount="0.0"/>
       <item name="spain_vat_intermediate_2013" country="es" nature="intermediate_vat" amount="10.0" started_on="2012-09-01"/>
       <item name="spain_vat_normal_2013" country="es" nature="normal_vat" amount="21.0" started_on="2012-09-01"/>
+      <item name="spain_vat_null" country="es" nature="null_vat" started_on="1954-04-10" amount="0.0"/>
       <item name="spain_vat_reduced_2013" country="es" nature="reduced_vat" amount="4.0" started_on="2012-09-01"/>
       <item name="swiss_vat_normal_2011" country="ch" nature="normal_vat" amount="8.0" started_on="2011-01-01"/>
       <item name="swiss_vat_null_2011" country="ch" nature="null_vat" amount="0.0" started_on="2011-01-01"/>

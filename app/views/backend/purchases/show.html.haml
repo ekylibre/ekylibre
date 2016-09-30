@@ -23,6 +23,8 @@
     - l.attribute :description unless resource.description.blank?
     - l.attribute :delivery_address, :label => :coordinate
     - l.attribute :journal_entry, url: true if resource.journal_entry
+    - l.attribute :undelivered_invoice_entry, url: true if resource.undelivered_invoice_entry
+    - l.attribute :quantity_gap_on_invoice_entry, url: true if resource.quantity_gap_on_invoice_entry
 
 = cobbles do |c|
 

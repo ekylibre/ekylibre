@@ -22,26 +22,30 @@
 #
 # == Table: product_nature_variants
 #
-#  active               :boolean          default(FALSE), not null
-#  category_id          :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  custom_fields        :jsonb
-#  derivative_of        :string
-#  id                   :integer          not null, primary key
-#  lock_version         :integer          default(0), not null
-#  name                 :string
-#  nature_id            :integer          not null
-#  number               :string
-#  picture_content_type :string
-#  picture_file_name    :string
-#  picture_file_size    :integer
-#  picture_updated_at   :datetime
-#  reference_name       :string
-#  unit_name            :string           not null
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  variety              :string           not null
+#  active                    :boolean          default(FALSE), not null
+#  category_id               :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  derivative_of             :string
+#  gtin                      :string
+#  id                        :integer          not null, primary key
+#  lock_version              :integer          default(0), not null
+#  name                      :string
+#  nature_id                 :integer          not null
+#  number                    :string           not null
+#  picture_content_type      :string
+#  picture_file_name         :string
+#  picture_file_size         :integer
+#  picture_updated_at        :datetime
+#  reference_name            :string
+#  stock_account_id          :integer
+#  stock_movement_account_id :integer
+#  unit_name                 :string           not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  variety                   :string           not null
+#  work_number               :string
 #
 require 'test_helper'
 

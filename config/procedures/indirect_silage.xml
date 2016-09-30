@@ -27,7 +27,7 @@
                  backward="(POPULATION * VARIANT.net_mass(ton)) / sum_working_zone_areas(cultivation, :hectare)"
                  forward="(VALUE * sum_working_zone_areas(cultivation, :hectare)) / VARIANT.net_mass(ton)"/>
       </output>
-      <tool name="forager" filter="is forager and can harvest(plant)" cardinality="*"/>
+      <tool name="forager" filter="can harvest(plant)" cardinality="*"/>
       <doer name="forager_driver" filter="can drive(equipment)" cardinality="*"/>
     </parameters>
   </procedure>

@@ -323,13 +323,15 @@ fra:
       index: "Intégrations"
       new: "Activer l'intégration %{name}"
     backend/interventions:
-      edit: "Modifier l’intervention %{procedure_name} n°%{number}"
-      edit_request: "Modifier la demande de %{procedure_name} n°%{number}"
+      edit: "Modifier l’intervention"
+      edit_request: "Modifier la demande d'intervention"
+      edit_specified: "Modifier l’intervention %{procedure_name} n°%{number}"
+      edit_specified_request: "Modifier la demande de %{procedure_name} n°%{number}"
       index: "Interventions"
-      new: "Nouvelle intervention\_: %{procedure_name}"
-      new_request: "Nouvelle demande\_: %{procedure_name}"
-      new_undefined: "Nouvelle intervention"
-      new_undefined_request: "Nouvelle demande d’intervention"
+      new: "Nouvelle intervention"
+      new_request: "Nouvelle demande d’intervention"
+      new_specified: "Nouvelle intervention de %{procedure_name}"
+      new_specified_request: "Nouvelle demande de %{procedure_name}"
       show: "%{procedure_name} n°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
@@ -942,6 +944,8 @@ fra:
     centralized_account: "Compte centralisateur %{name}"
     change_password: "Changer de mot de passe"
     change_price: "Changer le prix unitaire" #?
+    change_state: "Changement du statut"
+    change_status_of_selected_interventions: "Modifier l’état d’interventions sélectionnées"
     chart: "Graphique"
     check: "Vérifier"
     check_fields: "Vous devez cocher au moins une case pour effectuer la modification" #?
@@ -952,6 +956,7 @@ fra:
     choose_a_type_of_product: "Choisissez un type de produit"
     choose_creation_mode: "Choisissez un mode de création"
     choose_mail_column: "Veuillez choisir la colonne à utiliser pour le mailing"
+    choose_options_is_needed: "Veuillez choisir le statut sur lequel les interventions suivantes vont être affectées :"
     city_name: "Ville" #?
     clear: "Effacer"
     click_to_mail: "Écrire votre message avec votre propre messagerie électronique"
@@ -977,6 +982,8 @@ fra:
     complement_sort: "Trier les choix par nom" #?
     complements: "Champs personnalisés" #?
     complete: "Compléter"
+    completed: "Terminées"
+    completely_filled: "Complétée" #?
     component: "Composant" #?
     component_name: "Nom du composant" #?
     components: "Composants" #?
@@ -1057,6 +1064,7 @@ fra:
     data_to_extract: "Données à extraire" #?
     date: "Date" #?
     dates: "Saisissez les dates de début et de fin de la période"
+    day: "Jour" #?
     days: "Jours"
     deals: "Transactions"
     debit: "Débit"
@@ -1072,6 +1080,7 @@ fra:
     deformity_percentage: "Malformations (%)"
     deformity_percentage_evolution: "Evolution des malformations"
     delete: "Supprimer"
+    delete_selected_interventions: "Supprimer les interventions sélectionnées"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"
@@ -1107,6 +1116,7 @@ fra:
     document_templates: "Modèles de documents"
     documentation: "Documentation"
     doer_cost: "Coût de main d’œuvre"
+    doers: "Opérateurs" #?
     done: "Fait"
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
@@ -1245,10 +1255,12 @@ fra:
     import_backup: "Import de fichier de sauvegarde" #?
     importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     in_production: "En production" #?
+    in_progress: "En cours" #?
     inactive: "Inactif"
     incident: "Incident" #?
     include_blank: "— Aucune organisation —"
     income_statement: "Compte de résultat"
+    incoming: "Entrant" #?
     incoming_parcels: "Colis entrants"
     incoming_payment: "Encaissement"
     incoming_payment_conditions: "Conditions d’encaissement" #?
@@ -1534,6 +1546,7 @@ fra:
     original_component: "D'origine"
     other_results: "Autres résultats…" #?
     others: "Autres"
+    outgoing: "Sortant" #?
     outgoing_payment: "Décaissement"
     outgoing_payments: "Décaissements"
     outgoing_payments_states:  #?
@@ -1697,6 +1710,7 @@ fra:
     reported_balance: "Crédit à reporter" #?
     reproductor: "Reproducteur" #?
     request_maintenance: "Demander une maintenance"
+    requests: "Demandes"
     reservoir: "Réservoir" #?
     reservoir_informations: "Informations sur le réservoir" #?
     reset: "Réinitialiser"
@@ -1771,6 +1785,7 @@ fra:
     second_building_name: "Entrée de" #?
     second_contact: "Adresse secondaire" #?
     section_x: "%{section} %{x}"
+    see_details: "Voir les détails"
     see_more_details: "Voir plus de détails"
     select_account_client: "Compte à lettrer" #?
     select_account_supplier: "Compte à lettrer" #?
@@ -1859,6 +1874,7 @@ fra:
     target: "Cible"
     target_name: "Nom de la cible" #?
     target_zone: "Zone cible" #?
+    targets: "Cibles" #?
     tasks: "Tâches"
     taxations: "Taxations"
     taxes: "Taxes"
@@ -1884,6 +1900,8 @@ fra:
     timeline_sale: "%{type} %{name} de %{amount} ajouté par %{author} %{when}"
     timeline_task: "%{author} a ajouté une tâche %{name} %{when}"
     times: "Temps"
+    title_change_status_selected_interventions: "Changer le statut des interventions selectionées" #?
+    title_delete_selected_interventions: "Supprimer les interventions selectionnées" #?
     to: "Au"
     to_bank_at: "À encaisser le" #?
     to_date: "Au" #?
@@ -1957,6 +1975,7 @@ fra:
       waiting: "En attente" #?
     treatment: "Traitement" #?
     true: "Vrai" #?
+    undefined_activity: "Activité indéfinie"
     undefined_container: "Emplacement indéfini"
     undelivered: "Reste à livrer"
     undone: "Non-fait"
@@ -2008,6 +2027,7 @@ fra:
       one: "Valider mes miettes pour %{count} intervention"
       other: "Valider mes miettes pour %{count} interventions"
     validate_selected_entries: "Valider les écritures sélectionnées"
+    validated: "Validées"
     values: "Valeurs"
     variable_indicators: "Indicateurs variables"
     variants: "Variantes"
@@ -2026,6 +2046,7 @@ fra:
     wear: "Usure" #?
     weather: "Météo"
     website: "Site web"
+    week: "Semaine" #?
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     with_fixed_assets_depreciations: "Inclure les amortissements des immobilisations"
@@ -2188,6 +2209,7 @@ fra:
       zero: "0" #?
     y: "Oui" #?
     yearly: "Annuelle" #?
+    years: "Années" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
     yield: "Rendement"
     yield_by_calibration: "Rendement par calibre"
@@ -2342,14 +2364,19 @@ fra:
     accounting_system: "Plan comptable"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
+    catalog_price_item_addition_if_blank: "Compléter le catalogue de prix pendant les achats et ventes"
+    client_account_radix: "Radical comptable du compte client"
     country: "Pays"
     create_activities_from_telepac: "Créer automatiquement les activités lors de l’import TelePAC"
     currency: "Monnaie"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
+    employee_account_radix: "Radical comptable du compte salarié"
     host: "Adresse hôte"
     language: "Langue"
     map_measure_srs: "SRS de mesure cartographique"
+    permanent_stock_inventory: "Mode stock permanent (tenue des écritures comptables de stock)"
     sales_conditions: "Conditions de vente"
+    supplier_account_radix: "Radical comptable du compte fournisseur"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
   rest:
     actions:
@@ -2410,6 +2437,7 @@ fra:
       propose: "Proposer"
       propose_and_invoice: "Facturer directement"
       prospect: "Prospecter"
+      purchase: "Passer en achat"
       qualify: "Qualifier"
       quote: "Réaliser un devis"
       reconciliation: "Rapprocher"
@@ -2423,6 +2451,7 @@ fra:
       run: "Éxécuter"
       search: "Rechercher"
       select: "Selectionner"
+      sell: "Passer en vente"
       set: "Définir" #?
       ship: "Expédier"
       show: "Afficher"

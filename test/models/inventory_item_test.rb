@@ -22,17 +22,19 @@
 #
 # == Table: inventory_items
 #
-#  actual_population   :decimal(19, 4)   not null
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  expected_population :decimal(19, 4)   not null
-#  id                  :integer          not null, primary key
-#  inventory_id        :integer          not null
-#  lock_version        :integer          default(0), not null
-#  product_id          :integer          not null
-#  product_movement_id :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
+#  actual_population        :decimal(19, 4)   not null
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  currency                 :string
+#  expected_population      :decimal(19, 4)   not null
+#  id                       :integer          not null, primary key
+#  inventory_id             :integer          not null
+#  lock_version             :integer          default(0), not null
+#  product_id               :integer          not null
+#  product_movement_id      :integer
+#  unit_pretax_stock_amount :decimal(19, 4)   default(0.0), not null
+#  updated_at               :datetime         not null
+#  updater_id               :integer
 #
 
 require 'test_helper'

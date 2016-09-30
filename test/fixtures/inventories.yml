@@ -22,21 +22,23 @@
 #
 # == Table: inventories
 #
-#  accounted_at     :datetime
-#  achieved_at      :datetime
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  custom_fields    :jsonb
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer
-#  lock_version     :integer          default(0), not null
-#  name             :string           not null
-#  number           :string           not null
-#  reflected        :boolean          default(FALSE), not null
-#  reflected_at     :datetime
-#  responsible_id   :integer
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  accounted_at      :datetime
+#  achieved_at       :datetime
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  currency          :string
+#  custom_fields     :jsonb
+#  financial_year_id :integer
+#  id                :integer          not null, primary key
+#  journal_entry_id  :integer
+#  lock_version      :integer          default(0), not null
+#  name              :string           not null
+#  number            :string           not null
+#  reflected         :boolean          default(FALSE), not null
+#  reflected_at      :datetime
+#  responsible_id    :integer
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 ---
 inventories_001:

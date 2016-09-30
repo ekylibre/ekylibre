@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="steam_weeding" categories="crop_maintenance" actions="weeding">
     <parameters>
-      <target name="land_parcel" filter="is land_parcel and has indicator shape">
+      <target name="cultivation" filter="(is plant or is land_parcel) and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <input name="water" filter="is water" cardinality="*">

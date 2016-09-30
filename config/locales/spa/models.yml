@@ -279,6 +279,7 @@ spa:
       product_nature_variant_reading: "Variante de la lectura tipo de producto"
       product_ownership: "Propiedad del producto"
       product_phase: "Fase Producto"
+      product_population: "Producto población"
       product_reading: "Producto de lectura"
       purchase: "Compra"
       purchase_item: "Artículo de la compra"
@@ -399,6 +400,7 @@ spa:
     by_default: "Por defecto"
     calibrations: "calibraciones"
     campaign: "Campaña"
+    campaigns: "Campañas"
     # canal: "Canal"
     cap_islet: "Islote Cap"
     cap_islets: "Islotes Cap"
@@ -435,6 +437,7 @@ spa:
     closed_on: "Cerrada el"
     clusters_work_number: "Funcionan los clústeres número"
     code: "Código"
+    codes: "Códigos"
     coefficient: "Coeficiente"
     collect_account: "Recoger cuenta"
     collected_taxes: "Los impuestos recaudados"
@@ -677,6 +680,7 @@ spa:
     group: "Grupo"
     group_parameters: "Parámetros del grupo"
     groups: "Grupos"
+    # gtin: "GTIN"
     guide: "Guía"
     harvest_year: "Año de la cosecha"
     has_downpayment: "Tiene el pago inicial"
@@ -986,6 +990,7 @@ spa:
     points: "Puntos"
     population: "Población"
     population_counting: "Censar la población"
+    populations: "Poblaciones"
     position: "Posición"
     post: "Enviar"
     postal_code: "Código postal"
@@ -1054,6 +1059,7 @@ spa:
     purchased_on: "Comprado en"
     purchases: "Ordenes de compra"
     quantity: "Cantidad"
+    quantity_gap_on_invoice_entry: "La entrada de la brecha de la cantidad"
     quantity_handler: "Manejador Cantidad"
     quantity_indicator: "Indicador de cantidad"
     quantity_indicator_name: "Nombre del indicador de cantidad"
@@ -1196,6 +1202,7 @@ spa:
     state_label: "Estado"
     status: "Estado"
     stock_account: "De la cuenta"
+    stock_movement_account: "Cuenta el movimiento de la"
     stocks_categories: "Stocks categorías"
     stopped_at: "Se detuvo en"
     stopped_on: "Detenido en"
@@ -1274,12 +1281,14 @@ spa:
     type: "Tipo"
     # uid: "UID"
     unconfirmed_email: "Correo electrónico sin confirmar"
+    undelivered_invoice_entry: "El registro de facturas no entregado"
     undelivered_quantity: "Cantidad no entregada"
     unit_amount: "Importe unitario"
     unit_currency: "Moneda de la unidad"
     unit_name: "Nombre de la unidad"
     unit_population: "Unidad de población"
     unit_pretax_amount: "Cantidad antes de impuestos Unidad"
+    unit_pretax_stock_amount: "Unidad de cantidad de stock antes de impuestos"
     unlock_token: "Desbloquear contador"
     unlocked_payments: "Pagos desbloqueados"
     unpaid_sales: "Ventas no pagadas"
@@ -1418,6 +1427,9 @@ spa:
       mass: "Masa"
     intervention:
       # name: "%{intervention} #%{number}"
+    inventory:
+      # bookkeep: "Physical inventory - [%{resource}] %{number}"
+      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
@@ -1480,6 +1492,7 @@ spa:
         transfer:
           name: "Transferir"
     parcel:
+      # bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Borrador"
@@ -1488,6 +1501,7 @@ spa:
           ordered: "Ordenado"
           prepared: "Preparado"
           received: "Recibido"
+      # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1518,8 +1532,10 @@ spa:
         sales: "Ventas"
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       # label: "%{supplier} at %{address}"
       purchase: "Compra"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       states:
         aborted: "Abortado"
         draft: "Proyecto de previsiones"
@@ -1540,6 +1556,7 @@ spa:
         public: "Público"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label:
         # aborted: "Aborted sale %{number}"
         # credit: "Sale credit %{number}"
@@ -1548,6 +1565,7 @@ spa:
         # invoice: "Sales invoice %{number}"
         # order: "Sales order %{number}"
         # refused: "Refused estimate %{number}"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       # sale: "Sale %{number}"
       sales_conditions:
         # downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid at the signature of this present estimate."

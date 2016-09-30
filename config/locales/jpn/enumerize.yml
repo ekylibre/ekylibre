@@ -26,7 +26,7 @@ jpn:
         none: "なし"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "動物群"
         border: "境界"
         buffer: "バッファ"
         cultivation: "栽培"
@@ -193,8 +193,10 @@ jpn:
       state:
         done: "終わりました"
         in_progress: "進行中"
-        squeezed: "スクイーズ"
-        undone: "元に戻します"
+        rejected: "拒否されました"
+        squeezed: "スクイーズ" #?
+        undone: "元に戻します" #?
+        validated: "有効な"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "ブーリアン"

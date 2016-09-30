@@ -87,6 +87,9 @@ class Activity < Ekylibre::Record::Base
   end
   has_many :supports, through: :productions
 
+  has_and_belongs_to_many :interventions
+  has_and_belongs_to_many :campaigns
+
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :description, length: { maximum: 500_000 }, allow_blank: true
   validates :family, :nature, :production_cycle, presence: true
@@ -106,15 +109,11 @@ class Activity < Ekylibre::Record::Base
   scope :actives, -> { availables.where(id: ActivityProduction.where(state: :opened).select(:activity_id)) }
   scope :availables, -> { where.not('suspended') }
   scope :main, -> { where(nature: 'main') }
-  scope :of_intervention, lambda { |intervention|
-    where(id: TargetDistribution.select(:activity_id).where(target_id: InterventionTarget.select(:product_id).where(intervention_id: intervention)))
-  }
+
   scope :of_campaign, lambda { |campaign|
     if campaign
       c = campaign.is_a?(Campaign) || campaign.is_a?(ActiveRecord::Relation) ? campaign : campaign.map { |c| c.is_a?(Campaign) ? c : Campaign.find(c) }
-      prods = where(id: ActivityProduction.select(:activity_id).of_campaign(c))
-      budgets = where(id: ActivityBudget.select(:activity_id).of_campaign(c))
-      where(id: prods.select(:id) + budgets.select(:id))
+      where(id: HABTM_Campaigns.select(:activity_id).where(campaign: c))
     else
       none
     end
@@ -146,8 +145,7 @@ class Activity < Ekylibre::Record::Base
   end
 
   before_validation do
-    family = Nomen::ActivityFamily.find(self.family)
-    if family
+    if Nomen::ActivityFamily.find(family)
       # FIXME: Need to use nomenclatures to set that data!
       if plant_farming?
         self.with_supports ||= true
@@ -170,9 +168,6 @@ class Activity < Ekylibre::Record::Base
         self.cultivation_variety ||= :equipment
         self.size_indicator_name = 'members_population' if size_indicator_name.blank?
         self.size_unit_name = 'unity' if size_unit_name.blank?
-      else
-        self.with_supports = false
-        self.with_cultivation = false
       end
       # if with_supports || family.support_variety
       #   self.with_supports = true
@@ -187,17 +182,19 @@ class Activity < Ekylibre::Record::Base
       #   self.with_cultivation = false
       # end
     end
+    self.with_supports = false if with_supports.nil?
+    self.with_cultivation = false if with_cultivation.nil?
     true
   end
 
   validate do
-    if family = Nomen::ActivityFamily[self.family]
-      if with_supports && variety = Nomen::Variety[support_variety] && family.support_variety
-        errors.add(:support_variety, :invalid) unless variety <= family.support_variety
+    if family_item = Nomen::ActivityFamily[family]
+      if with_supports && variety = Nomen::Variety[support_variety] && family_item.support_variety
+        errors.add(:support_variety, :invalid) unless variety <= family_item.support_variety
       end
       if with_cultivation && variety = Nomen::Variety[cultivation_variety]
-        unless family.cultivation_variety.blank?
-          errors.add(:cultivation_variety, :invalid) unless variety <= family.cultivation_variety
+        unless family_item.cultivation_variety.blank?
+          errors.add(:cultivation_variety, :invalid) unless variety <= family_item.cultivation_variety
         end
       end
     end

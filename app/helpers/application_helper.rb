@@ -167,7 +167,7 @@ module ApplicationHelper
   # end
 
   def locale_selector_tag
-    locales = ::I18n.available_locales.sort { |a, b| a.to_s <=> b.to_s }
+    locales = ::I18n.available_locales.sort_by(&:to_s)
     # locales = ::I18n.valid_locales.sort{|a,b| a.to_s <=> b.to_s}
     locale = nil # ::I18n.locale
     if params[:locale].to_s =~ /^[a-z][a-z][a-z]$/
@@ -248,7 +248,7 @@ module ApplicationHelper
   def available_languages(native_language = true)
     I18n.available_locales.map do |l|
       [native_language ? I18n.t('i18n.name', locale: l) : Nomen::Language.find(l).human_name, l]
-    end.sort { |a, b| a.second <=> b.second }
+    end.sort_by(&:second)
   end
 
   # Returns a selection from names list
@@ -259,7 +259,7 @@ module ApplicationHelper
     items.collect do |name|
       item = nomenclature.find(name)
       [item.human_name, item.name]
-    end.sort { |a, b| a.first <=> b.first }
+    end.sort_by(&:first)
   end
 
   # Returns a selection from names list
@@ -269,7 +269,7 @@ module ApplicationHelper
     items = args.shift || enum.values
     items.collect do |name|
       [name.l, name]
-    end.sort { |a, b| a.first <=> b.first }
+    end.sort_by(&:first)
   end
 
   def back_url
@@ -513,6 +513,31 @@ module ApplicationHelper
       end
     else
       return tool_to(*args)
+    end
+  end
+
+  def pop_menu(options = {})
+    menu = Ekylibre::Support::Lister.new(:item, :separator)
+    default_class = options[:class] || 'pop-menu'
+
+    yield menu
+
+    content_tag(:nav, '', class: default_class) do
+      content_tag(:ul, class: 'menu', role: 'menu') do
+        html = ''.html_safe
+        menu.list.each do |item|
+          if item.name == :item
+
+            options = item.args.extract_options!
+            html << content_tag(:li, link_to(*item.args, options[:link_url], options[:link_options]), options[:item_options])
+
+          elsif item.name == :separator
+            html << content_tag(:li, '', class: 'separator')
+          end
+        end
+
+        html
+      end
     end
   end
 
@@ -912,6 +937,7 @@ module ApplicationHelper
         options[:id] = id
       end
     end
+
     title = options.delete(:title) || options.delete(:heading)
     options[:aria][:labelledby] ||= options[:id].underscore.camelcase(:lower)
     options[:tabindex] ||= '-1'
@@ -938,9 +964,18 @@ module ApplicationHelper
       if options[:close_button].is_a? FalseClass
         content_tag(:h4, title, class: 'modal-title', id: title_id)
       else
-        button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
+
+        title = content_tag(:h4, title, class: 'modal-title', id: title_id)
+
+        close_button = button_tag({ class: 'close', aria: { label: :close.tl }, data: { dismiss: 'modal' }, type: 'button' }.deep_merge(options[:close_html] || {})) do
           content_tag(:span, '&times;'.html_safe, aria: { hidden: 'true' })
-        end + content_tag(:h4, title, class: 'modal-title', id: title_id)
+        end
+
+        if options[:flex]
+          title + close_button
+        else
+          close_button + title
+        end
       end
     end
   end

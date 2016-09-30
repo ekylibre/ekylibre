@@ -88,8 +88,8 @@ class Event < Ekylibre::Record::Base
     if nature = Nomen::EventNature[self.nature]
       self.duration ||= nature.default_duration.to_i
     end
-    if self.stopped_at && self.started_at
-      self.duration = (self.stopped_at - self.started_at).to_i
+    if stopped_at && self.started_at
+      self.duration = (stopped_at - self.started_at).to_i
     elsif self.started_at && self.duration
       self.stopped_at = self.started_at + self.duration
     else
@@ -98,8 +98,8 @@ class Event < Ekylibre::Record::Base
   end
 
   validate do
-    if self.started_at && self.stopped_at
-      if self.stopped_at < self.started_at
+    if self.started_at && stopped_at
+      if stopped_at < self.started_at
         errors.add(:stopped_at, :posterior, to: self.started_at.l)
       end
     end

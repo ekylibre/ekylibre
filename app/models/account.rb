@@ -83,7 +83,7 @@ class Account < Ekylibre::Record::Base
   }
   # return Account which contains usages mentionned (OR)
   scope :of_usages, lambda { |*usages|
-    where('usages ~ E?', usages.sort.map { |usage| "\\\\m#{usage.to_s.gsub(/\W/, '')}\\\\M" }.join('.*|'))
+    where('usages ~ E?', usages.sort.map { |usage| "\\\\m#{usage.to_s.gsub(/\W/, '')}\\\\M" }.join('.*|')).reorder(:number)
   }
 
   scope :used_between, lambda { |started_at, stopped_at|
@@ -115,10 +115,19 @@ class Account < Ekylibre::Record::Base
   # scope :asset_depreciations_inputations_expenses, -> { where('number LIKE ?', '68%').order(:number, :name) }
   scope :asset_depreciations_inputations_expenses, -> { of_usages(:incorporeals_depreciations_inputations_expenses, :land_parcel_construction_depreciations_inputations_expenses, :building_depreciations_inputations_expenses, :animals_depreciations_inputations_expenses, :equipments_depreciations_inputations_expenses, :others_corporeals_depreciations_inputations_expenses) }
 
+  scope :stocks_variations, -> {
+    of_usages(:fertilizer_stocks_variation, :seed_stocks_variation, :plant_medicine_stocks_variation,
+              :livestock_feed_stocks_variation, :animal_medicine_stocks_variation, :animal_reproduction_stocks_variation,
+              :merchandising_stocks_variation, :adult_reproductor_animals_inventory_variations, :young_reproductor_animals_inventory_variations,
+              :long_cycle_product_inventory_variations, :short_cycle_product_inventory_variations,
+              :stocks_variation, :supply_stocks_variation, :other_supply_stocks_variation)
+  }
+
   # This method:allows to create the parent accounts if it is necessary.
   before_validation do
     self.reconcilable = reconcilableable? if reconcilable.nil?
     self.label = tc(:label, number: number.to_s, name: name.to_s)
+    self.usages = Account.find_parent_usage(number) if usages.blank? && number
   end
 
   protect(on: :destroy) do
@@ -167,6 +176,31 @@ class Account < Ekylibre::Record::Base
         end
       end
       account
+    end
+
+    # Find usage in parent account by number
+    def find_parent_usage(number)
+      number = number.to_s
+
+      parent_accounts = nil
+      items = nil
+
+      max = number.size - 1
+      # get usages of nearest existing account by number
+      (0..max).to_a.reverse.each do |i|
+        n = number[0, i]
+        items = Nomen::Account.where(fr_pcga: n)
+        parent_accounts = Account.find_with_regexp(n)
+        break if parent_accounts.any?
+      end
+
+      usages = if parent_accounts && parent_accounts.any?
+                 parent_accounts.first.usages
+               elsif items.any?
+                 items.first.name
+               end
+
+      usages
     end
 
     # Find all account matching with the regexp in a String

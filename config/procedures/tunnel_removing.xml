@@ -2,15 +2,16 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="tunnel_removing" categories="crop_protection" actions="tunnel_removal">
     <parameters>
-      <target name="cultivation" filter="is plant and has indicator shape">
+      <target name="plant" filter="is plant and has indicator shape">
         <attribute name="working_zone" default-value="PRODUCT.shape" if="PRODUCT?"/>
       </target>
       <output name="tunnel" filter="can care(plant) and can cover(plant)" cardinality="*">
         <handler name="population"/>
       </output>
-      <tool name="tunnel_remover"  filter="can uncover(plant)" cardinality="*"/>
       <tool name="tractor" filter="can tow(equipment) and can move" cardinality="*"/>
-      <doer name="worker"  filter="is worker"/>
+      <tool name="tunnel_remover" filter="can uncover(plant)" cardinality="*"/>
+      <doer name="driver" filter="can drive(tractor) and can move" cardinality="*"/>
+      <doer name="worker" filter="is worker" cardinality="*"/>
     </parameters>
   </procedure>
 </procedures>

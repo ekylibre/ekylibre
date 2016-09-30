@@ -22,26 +22,30 @@
 #
 # == Table: product_nature_variants
 #
-#  active               :boolean          default(FALSE), not null
-#  category_id          :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  custom_fields        :jsonb
-#  derivative_of        :string
-#  id                   :integer          not null, primary key
-#  lock_version         :integer          default(0), not null
-#  name                 :string
-#  nature_id            :integer          not null
-#  number               :string
-#  picture_content_type :string
-#  picture_file_name    :string
-#  picture_file_size    :integer
-#  picture_updated_at   :datetime
-#  reference_name       :string
-#  unit_name            :string           not null
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  variety              :string           not null
+#  active                    :boolean          default(FALSE), not null
+#  category_id               :integer          not null
+#  created_at                :datetime         not null
+#  creator_id                :integer
+#  custom_fields             :jsonb
+#  derivative_of             :string
+#  gtin                      :string
+#  id                        :integer          not null, primary key
+#  lock_version              :integer          default(0), not null
+#  name                      :string
+#  nature_id                 :integer          not null
+#  number                    :string           not null
+#  picture_content_type      :string
+#  picture_file_name         :string
+#  picture_file_size         :integer
+#  picture_updated_at        :datetime
+#  reference_name            :string
+#  stock_account_id          :integer
+#  stock_movement_account_id :integer
+#  unit_name                 :string           not null
+#  updated_at                :datetime         not null
+#  updater_id                :integer
+#  variety                   :string           not null
+#  work_number               :string
 #
 ---
 product_nature_variants_001:
@@ -53,11 +57,12 @@ product_nature_variants_001:
   lock_version: 0
   name: Generic Product Variant
   nature_id: 1
-  number: PNV001
+  number: '00000001'
   unit_name: unit
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: product
+  work_number: PNV001
 product_nature_variants_002:
   active: true
   category_id: 1
@@ -67,11 +72,12 @@ product_nature_variants_002:
   lock_version: 0
   name: Lorem ipsum 2
   nature_id: 1
-  number: PNV002
+  number: '00000002'
   unit_name: unit
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: bos
+  work_number: PNV002
 product_nature_variants_003:
   active: true
   category_id: 1
@@ -81,11 +87,12 @@ product_nature_variants_003:
   lock_version: 0
   name: Building
   nature_id: 4
-  number: PNV004
+  number: '00000003'
   unit_name: unit
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: building
+  work_number: PNV004
 product_nature_variants_004:
   active: true
   category_id: 1
@@ -95,11 +102,12 @@ product_nature_variants_004:
   lock_version: 0
   name: Dry matter
   nature_id: 1
-  number: PNV005
+  number: '00000004'
   unit_name: tas
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: raw_matter
+  work_number: PNV005
 product_nature_variants_005:
   active: true
   category_id: 1
@@ -109,11 +117,12 @@ product_nature_variants_005:
   lock_version: 0
   name: Cow
   nature_id: 5
-  number: PNV007
+  number: '00000005'
   unit_name: head
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: bos
+  work_number: PNV007
 product_nature_variants_006:
   active: true
   category_id: 1
@@ -123,11 +132,12 @@ product_nature_variants_006:
   lock_version: 0
   name: Herd
   nature_id: 7
-  number: PNV029
+  number: '00000007'
   unit_name: herd
   updated_at: 2014-10-31 17:19:32.000000000 Z
   updater_id: 1
   variety: animal_group
+  work_number: PNV029
 product_nature_variants_007:
   active: true
   category_id: 3
@@ -137,12 +147,15 @@ product_nature_variants_007:
   lock_version: 0
   name: Adexar 5 l
   nature_id: 8
-  number: PNV030
+  number: 00000008
   reference_name: coop:adexar_5l
+  stock_account_id: 626
+  stock_movement_account_id: 663
   unit_name: Litre
   updated_at: 2014-10-31 20:11:19.901366000 Z
   updater_id: 1
   variety: preparation
+  work_number: PNV030
 product_nature_variants_008:
   active: true
   category_id: 4
@@ -153,12 +166,15 @@ product_nature_variants_008:
   lock_version: 0
   name: Botte de paille de blé ‒ balle ronde
   nature_id: 9
-  number: PNV031
+  number: 00000009
   reference_name: wheat_straw_round_bales
+  stock_account_id: 618
+  stock_movement_account_id: 641
   unit_name: Botte ronde
   updated_at: 2014-10-31 20:11:30.483301000 Z
   updater_id: 1
   variety: straw
+  work_number: PNV031
 product_nature_variants_009:
   active: true
   category_id: 5
@@ -169,12 +185,15 @@ product_nature_variants_009:
   lock_version: 0
   name: Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
   nature_id: 10
-  number: PNV032
+  number: '00000010'
   reference_name: coop:bth_s_rubisko_r1_gau___red_s25kg
+  stock_account_id: 631
+  stock_movement_account_id: 656
   unit_name: Sac de 25kg
   updated_at: 2014-10-31 20:11:42.154937000 Z
   updater_id: 1
   variety: seed
+  work_number: PNV032
 product_nature_variants_010:
   active: true
   category_id: 5
@@ -185,12 +204,15 @@ product_nature_variants_010:
   lock_version: 0
   name: Semence d’avoine d’hiver une de mai ‒ sac de 25kg
   nature_id: 10
-  number: PNV033
+  number: '00000011'
   reference_name: coop:avoine_d_hiver_une_de_mai_red_25kg
+  stock_account_id: 630
+  stock_movement_account_id: 657
   unit_name: Sac de 25kg
   updated_at: 2014-10-31 20:11:53.428269000 Z
   updater_id: 1
   variety: seed
+  work_number: PNV033
 product_nature_variants_011:
   active: true
   category_id: 6
@@ -200,12 +222,13 @@ product_nature_variants_011:
   lock_version: 0
   name: Bâtiment d’accueil pour les animaux
   nature_id: 11
-  number: PNV034
+  number: '00000012'
   reference_name: animal_building
   unit_name: Bâtiment
   updated_at: 2014-10-31 20:13:23.333612000 Z
   updater_id: 1
   variety: building
+  work_number: PNV034
 product_nature_variants_012:
   active: true
   category_id: 7
@@ -215,12 +238,13 @@ product_nature_variants_012:
   lock_version: 0
   name: Emplacement de stockage du matériel
   nature_id: 12
-  number: PNV035
+  number: '00000013'
   reference_name: equipment_building_division
   unit_name: Salle
   updated_at: 2014-10-31 20:13:55.113547000 Z
   updater_id: 1
   variety: building_division
+  work_number: PNV035
 product_nature_variants_013:
   active: true
   category_id: 7
@@ -230,12 +254,13 @@ product_nature_variants_013:
   lock_version: 0
   name: Zone de stockage des aliments et du matériels
   nature_id: 13
-  number: PNV036
+  number: '00000014'
   reference_name: food_equipment_division
   unit_name: Salle
   updated_at: 2014-10-31 20:21:52.492960000 Z
   updater_id: 1
   variety: building_division
+  work_number: PNV036
 product_nature_variants_014:
   active: true
   category_id: 7
@@ -245,12 +270,13 @@ product_nature_variants_014:
   lock_version: 0
   name: Pièce ou zone d’un bâtiment
   nature_id: 14
-  number: PNV037
+  number: '00000015'
   reference_name: building_division
   unit_name: Salle
   updated_at: 2014-10-31 20:25:22.980248000 Z
   updater_id: 1
   variety: building_division
+  work_number: PNV037
 product_nature_variants_015:
   active: true
   category_id: 8
@@ -260,12 +286,15 @@ product_nature_variants_015:
   lock_version: 0
   name: Culture de blé
   nature_id: 15
-  number: VPNV000000000001
+  number: '00000016'
   reference_name: wheat_crop
+  stock_account_id: 635
+  stock_movement_account_id: 652
   unit_name: Hectare
   updated_at: 2014-11-01 19:06:50.064047000 Z
   updater_id: 1
   variety: triticum_aestivum
+  work_number: VPNV000000000001
 product_nature_variants_016:
   active: true
   category_id: 9
@@ -275,12 +304,15 @@ product_nature_variants_016:
   lock_version: 0
   name: Vache
   nature_id: 16
-  number: YVPNV000000000002
+  number: '00000017'
   reference_name: female_adult_cow
+  stock_account_id: 606
+  stock_movement_account_id: 636
   unit_name: Tête
   updated_at: 2014-11-01 19:08:36.236984000 Z
   updater_id: 1
   variety: bos
+  work_number: YVPNV000000000002
 product_nature_variants_017:
   active: true
   category_id: 10
@@ -291,12 +323,15 @@ product_nature_variants_017:
   lock_version: 0
   name: Lait de vache
   nature_id: 17
-  number: RYVPNV000000000003
+  number: 00000018
   reference_name: cow_milk
+  stock_account_id: 599
+  stock_movement_account_id: 651
   unit_name: Litre
   updated_at: 2014-11-01 19:09:20.953489000 Z
   updater_id: 1
   variety: milk
+  work_number: RYVPNV000000000003
 product_nature_variants_018:
   active: true
   category_id: 11
@@ -307,12 +342,15 @@ product_nature_variants_018:
   lock_version: 0
   name: Graine de blé
   nature_id: 18
-  number: KRYVPNV000000000004
+  number: 00000019
   reference_name: wheat_grain
+  stock_account_id: 617
+  stock_movement_account_id: 642
   unit_name: Tonne
   updated_at: 2014-11-01 19:10:35.097658000 Z
   updater_id: 1
   variety: grain
+  work_number: KRYVPNV000000000004
 product_nature_variants_019:
   active: true
   category_id: 3
@@ -322,12 +360,15 @@ product_nature_variants_019:
   lock_version: 0
   name: Microthiol sp disp
   nature_id: 8
-  number: VKRYVPNV000000000005
+  number: '00000020'
   reference_name: coop:microthiol_sp_disp
+  stock_account_id: 625
+  stock_movement_account_id: 664
   unit_name: Kilogramme
   updated_at: 2014-11-01 20:17:55.024266000 Z
   updater_id: 1
   variety: preparation
+  work_number: VKRYVPNV000000000005
 product_nature_variants_020:
   active: true
   category_id: 12
@@ -337,12 +378,15 @@ product_nature_variants_020:
   lock_version: 0
   name: Acetal
   nature_id: 19
-  number: NVKRYVPNV000000000006
+  number: '00000021'
   reference_name: acetal
+  stock_account_id: 601
+  stock_movement_account_id: 660
   unit_name: Dose de 1l
   updated_at: 2014-11-01 20:20:57.147222000 Z
   updater_id: 1
   variety: preparation
+  work_number: NVKRYVPNV000000000006
 product_nature_variants_021:
   active: true
   category_id: 12
@@ -352,12 +396,15 @@ product_nature_variants_021:
   lock_version: 0
   name: Riflexine
   nature_id: 19
-  number: WNVKRYVPNV000000000007
+  number: '00000022'
   reference_name: riflexine
+  stock_account_id: 600
+  stock_movement_account_id: 661
   unit_name: Dose de 10ml
   updated_at: 2014-11-01 20:21:07.072559000 Z
   updater_id: 1
   variety: preparation
+  work_number: WNVKRYVPNV000000000007
 product_nature_variants_022:
   active: true
   category_id: 13
@@ -367,12 +414,13 @@ product_nature_variants_022:
   lock_version: 0
   name: Employé
   nature_id: 20
-  number: GWNVKRYVPNV000000000008
+  number: '00000023'
   reference_name: employee
   unit_name: Personne
   updated_at: 2014-11-01 20:26:13.069661000 Z
   updater_id: 1
   variety: worker
+  work_number: GWNVKRYVPNV000000000008
 product_nature_variants_023:
   active: true
   category_id: 14
@@ -382,12 +430,13 @@ product_nature_variants_023:
   lock_version: 0
   name: Tracteur
   nature_id: 21
-  number: GWNVKRYVPNV000000000009
+  number: '00000024'
   reference_name: tractor
   unit_name: "Équipement"
   updated_at: 2014-11-02 18:19:37.982583000 Z
   updater_id: 1
   variety: tractor
+  work_number: GWNVKRYVPNV000000000009
 product_nature_variants_024:
   active: true
   category_id: 14
@@ -397,12 +446,13 @@ product_nature_variants_024:
   lock_version: 0
   name: Broyeur
   nature_id: 22
-  number: GWNVKRYVPNV000000000010
+  number: '00000025'
   reference_name: grinder
   unit_name: "Équipement"
   updated_at: 2014-11-02 18:19:51.698049000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVKRYVPNV000000000010
 product_nature_variants_025:
   active: true
   category_id: 14
@@ -412,12 +462,13 @@ product_nature_variants_025:
   lock_version: 0
   name: Tracteur
   nature_id: 21
-  number: GWNVKRYVPNV000000000011
+  number: '00000026'
   reference_name: tractor
   unit_name: "Équipement"
   updated_at: 2014-11-02 18:20:34.104515000 Z
   updater_id: 1
   variety: tractor
+  work_number: GWNVKRYVPNV000000000011
 product_nature_variants_026:
   active: true
   category_id: 14
@@ -427,12 +478,13 @@ product_nature_variants_026:
   lock_version: 0
   name: Charrue
   nature_id: 23
-  number: GWNVKRYVPNV000000000012
+  number: '00000027'
   reference_name: plow
   unit_name: "Équipement"
   updated_at: 2014-11-02 18:29:03.433574000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVKRYVPNV000000000012
 product_nature_variants_027:
   active: true
   category_id: 15
@@ -442,12 +494,13 @@ product_nature_variants_027:
   lock_version: 0
   name: Zone cultivable
   nature_id: 24
-  number: GWNVKRYVPNV000000000013
+  number: 00000028
   reference_name: cultivable_zone
   unit_name: Hectare
   updated_at: 2014-11-02 18:31:53.744596000 Z
   updater_id: 1
   variety: land_parcel
+  work_number: GWNVKRYVPNV000000000013
 product_nature_variants_028:
   active: true
   category_id: 14
@@ -457,12 +510,13 @@ product_nature_variants_028:
   lock_version: 1
   name: Semoir
   nature_id: 25
-  number: GWNVK00014
+  number: 00000029
   reference_name: sower
   unit_name: "Équipement"
   updated_at: 2016-08-05 20:03:17.765627000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVK00014
 product_nature_variants_029:
   active: true
   category_id: 16
@@ -473,12 +527,14 @@ product_nature_variants_029:
   lock_version: 0
   name: Troupeau de vaches laitières
   nature_id: 26
-  number: GWNVKRYVPNV000000000015
+  number: '00000030'
   reference_name: female_adult_cattle_herd
+  stock_account_id: 605
   unit_name: Bande
   updated_at: 2014-11-04 17:27:32.663559000 Z
   updater_id: 1
   variety: animal_group
+  work_number: GWNVKRYVPNV000000000015
 product_nature_variants_030:
   active: true
   category_id: 16
@@ -489,12 +545,14 @@ product_nature_variants_030:
   lock_version: 0
   name: Troupeau de bovins
   nature_id: 27
-  number: GWNVKRYVPNV000000000016
+  number: '00000031'
   reference_name: cattle_herd
+  stock_account_id: 604
   unit_name: Bande
   updated_at: 2014-11-04 17:27:59.316996000 Z
   updater_id: 1
   variety: animal_group
+  work_number: GWNVKRYVPNV000000000016
 product_nature_variants_031:
   active: true
   category_id: 8
@@ -504,12 +562,15 @@ product_nature_variants_031:
   lock_version: 0
   name: Culture de maïs
   nature_id: 15
-  number: GWNVKRYVPNV000000000017
+  number: '00000032'
   reference_name: corn_crop
+  stock_account_id: 634
+  stock_movement_account_id: 653
   unit_name: Hectare
   updated_at: 2014-11-04 18:17:16.166463000 Z
   updater_id: 1
   variety: zea_mays
+  work_number: GWNVKRYVPNV000000000017
 product_nature_variants_032:
   active: true
   category_id: 14
@@ -519,12 +580,13 @@ product_nature_variants_032:
   lock_version: 0
   name: Cultipacker
   nature_id: 28
-  number: GWNVKRYVPNV000000000018
+  number: '00000033'
   reference_name: superficial_plow
   unit_name: "Équipement"
   updated_at: 2014-11-04 18:38:32.203593000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVKRYVPNV000000000018
 product_nature_variants_033:
   active: true
   category_id: 14
@@ -534,12 +596,13 @@ product_nature_variants_033:
   lock_version: 0
   name: Bineuse
   nature_id: 29
-  number: GWNVKRYVPNV000000000019
+  number: '00000034'
   reference_name: hoe
   unit_name: "Équipement"
   updated_at: 2014-11-04 18:40:21.570497000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVKRYVPNV000000000019
 product_nature_variants_034:
   active: true
   category_id: 1
@@ -549,12 +612,13 @@ product_nature_variants_034:
   lock_version: 0
   name: Zone accueillant des animaux
   nature_id: 6
-  number: GWNVKRYVPNV000000000020
+  number: '00000035'
   reference_name: animal_division
   unit_name: Salle
   updated_at: 2014-11-07 14:30:38.001685000 Z
   updater_id: 1
   variety: building_division
+  work_number: GWNVKRYVPNV000000000020
 product_nature_variants_035:
   active: true
   category_id: 14
@@ -564,12 +628,13 @@ product_nature_variants_035:
   lock_version: 0
   name: Pulvérisateur
   nature_id: 30
-  number: GWNVKRYVPNV000000000021
+  number: '00000036'
   reference_name: sprayer
   unit_name: "Équipement"
   updated_at: 2014-11-07 15:00:45.280360000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVKRYVPNV000000000021
 product_nature_variants_036:
   active: true
   category_id: 14
@@ -579,12 +644,13 @@ product_nature_variants_036:
   lock_version: 0
   name: "Épandeur à engrais"
   nature_id: 31
-  number: GWNVKRYVPNV000000000022
+  number: '00000037'
   reference_name: spreader
   unit_name: "Équipement"
   updated_at: 2014-11-07 15:22:23.973592000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVKRYVPNV000000000022
 product_nature_variants_037:
   active: true
   category_id: 14
@@ -594,12 +660,13 @@ product_nature_variants_037:
   lock_version: 0
   name: "Épandeur à fumier"
   nature_id: 32
-  number: GWNVKRYVPNV000000000023
+  number: 00000038
   reference_name: spreader_trailer
   unit_name: "Équipement"
   updated_at: 2014-11-07 15:22:31.413012000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVKRYVPNV000000000023
 product_nature_variants_038:
   active: true
   category_id: 17
@@ -609,12 +676,15 @@ product_nature_variants_038:
   lock_version: 0
   name: Ammonitre 33,5%  Big Bag
   nature_id: 33
-  number: GWNVKRYVPNV000000000024
+  number: 00000039
   reference_name: coop:ammonitre_33_5_____bb
+  stock_account_id: 602
+  stock_movement_account_id: 662
   unit_name: Tonne
   updated_at: 2014-11-07 15:24:11.146570000 Z
   updater_id: 1
   variety: preparation
+  work_number: GWNVKRYVPNV000000000024
 product_nature_variants_039:
   active: true
   category_id: 8
@@ -624,12 +694,15 @@ product_nature_variants_039:
   lock_version: 0
   name: Culture de prairie permanente
   nature_id: 34
-  number: GWNVKRYVPNV000000000025
+  number: '00000040'
   reference_name: permanent_meadow_crop
+  stock_account_id: 633
+  stock_movement_account_id: 654
   unit_name: Hectare
   updated_at: 2014-11-07 15:40:58.381670000 Z
   updater_id: 1
   variety: poa
+  work_number: GWNVKRYVPNV000000000025
 product_nature_variants_040:
   active: true
   category_id: 5
@@ -640,12 +713,15 @@ product_nature_variants_040:
   lock_version: 0
   name: Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
   nature_id: 10
-  number: GWNVKRYVPNV000000000026
+  number: '00000041'
   reference_name: coop:trefle_v__segur_s10k
+  stock_account_id: 629
+  stock_movement_account_id: 658
   unit_name: Sac de 10kg
   updated_at: 2014-11-07 15:41:47.838001000 Z
   updater_id: 1
   variety: seed
+  work_number: GWNVKRYVPNV000000000026
 product_nature_variants_041:
   active: true
   category_id: 5
@@ -656,12 +732,15 @@ product_nature_variants_041:
   lock_version: 0
   name: Semence mixte
   nature_id: 10
-  number: GWNVKRYVPNV000000000027
+  number: '00000042'
   reference_name: mixture_seed
+  stock_account_id: 628
+  stock_movement_account_id: 659
   unit_name: Kilogramme
   updated_at: 2014-11-07 15:43:46.298740000 Z
   updater_id: 1
   variety: seed
+  work_number: GWNVKRYVPNV000000000027
 product_nature_variants_042:
   active: true
   category_id: 18
@@ -672,12 +751,15 @@ product_nature_variants_042:
   lock_version: 0
   name: Herbe de prairie
   nature_id: 35
-  number: GWNVKRYVPNV000000000028
+  number: '00000043'
   reference_name: meadow_grass
+  stock_account_id: 616
+  stock_movement_account_id: 643
   unit_name: Tonne
   updated_at: 2014-11-07 15:46:45.156611000 Z
   updater_id: 1
   variety: grass
+  work_number: GWNVKRYVPNV000000000028
 product_nature_variants_043:
   active: true
   category_id: 8
@@ -687,12 +769,15 @@ product_nature_variants_043:
   lock_version: 0
   name: Culture de vigne
   nature_id: 36
-  number: GWNVKRYVPNV000000000029
+  number: '00000044'
   reference_name: vine_grape_crop
+  stock_account_id: 632
+  stock_movement_account_id: 655
   unit_name: Plant
   updated_at: 2014-11-07 16:33:48.624554000 Z
   updater_id: 1
   variety: vitis_vinifera
+  work_number: GWNVKRYVPNV000000000029
 product_nature_variants_044:
   active: true
   category_id: 19
@@ -703,12 +788,15 @@ product_nature_variants_044:
   lock_version: 0
   name: Plant de vigne standard (So4)
   nature_id: 37
-  number: GWNVKRYVPNV000000000030
+  number: '00000045'
   reference_name: so4_vine_seedling
+  stock_account_id: 627
+  stock_movement_account_id: 638
   unit_name: Unité
   updated_at: 2014-11-07 16:33:59.265372000 Z
   updater_id: 1
   variety: seedling
+  work_number: GWNVKRYVPNV000000000030
 product_nature_variants_045:
   active: true
   category_id: 14
@@ -718,12 +806,13 @@ product_nature_variants_045:
   lock_version: 0
   name: Planteuse
   nature_id: 38
-  number: GWNVKRYVPNV000000000031
+  number: '00000046'
   reference_name: implanter
   unit_name: "Équipement"
   updated_at: 2014-11-07 16:48:34.937972000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVKRYVPNV000000000031
 product_nature_variants_046:
   active: true
   category_id: 14
@@ -733,12 +822,13 @@ product_nature_variants_046:
   lock_version: 0
   name: Machine à vendanger
   nature_id: 39
-  number: GWNVKRYVPNV000000000032
+  number: '00000047'
   reference_name: grape_reaper
   unit_name: "Équipement"
   updated_at: 2014-11-07 17:04:02.267331000 Z
   updater_id: 1
   variety: trailed_equipment
+  work_number: GWNVKRYVPNV000000000032
 product_nature_variants_047:
   active: true
   category_id: 20
@@ -749,12 +839,15 @@ product_nature_variants_047:
   lock_version: 0
   name: Grappe de raisin
   nature_id: 40
-  number: GWNVKRYVPNV000000000033
+  number: 00000048
   reference_name: vine_grape_berry
+  stock_account_id: 615
+  stock_movement_account_id: 644
   unit_name: Kilogramme
   updated_at: 2014-11-07 17:05:38.082911000 Z
   updater_id: 1
   variety: grape
+  work_number: GWNVKRYVPNV000000000033
 product_nature_variants_048:
   active: true
   category_id: 21
@@ -765,12 +858,15 @@ product_nature_variants_048:
   lock_version: 0
   name: Vin
   nature_id: 41
-  number: GWNVKRYVPNV000000000034
+  number: 00000049
   reference_name: wine
+  stock_account_id: 614
+  stock_movement_account_id: 645
   unit_name: Hectolitre
   updated_at: 2014-11-07 17:10:23.486489000 Z
   updater_id: 1
   variety: wine
+  work_number: GWNVKRYVPNV000000000034
 product_nature_variants_049:
   active: true
   category_id: 14
@@ -780,12 +876,13 @@ product_nature_variants_049:
   lock_version: 0
   name: Cuve en acier inox
   nature_id: 42
-  number: GWNVKRYVPNV000000000035
+  number: '00000050'
   reference_name: stainless_steel_tank
   unit_name: "Équipement"
   updated_at: 2014-11-07 17:14:18.214538000 Z
   updater_id: 1
   variety: tank
+  work_number: GWNVKRYVPNV000000000035
 product_nature_variants_050:
   active: true
   category_id: 6
@@ -795,12 +892,13 @@ product_nature_variants_050:
   lock_version: 0
   name: Bâtiment
   nature_id: 11
-  number: GWNVKRYVPNV000000000036
+  number: '00000051'
   reference_name: building
   unit_name: Bâtiment
   updated_at: 2014-11-07 17:16:15.471031000 Z
   updater_id: 1
   variety: building
+  work_number: GWNVKRYVPNV000000000036
 product_nature_variants_051:
   active: true
   category_id: 14
@@ -810,12 +908,13 @@ product_nature_variants_051:
   lock_version: 0
   name: Pressoir
   nature_id: 43
-  number: GWNVKRYVPNV000000000037
+  number: '00000052'
   reference_name: wine_press
   unit_name: "Équipement"
   updated_at: 2014-11-07 17:23:08.062270000 Z
   updater_id: 1
   variety: equipment
+  work_number: GWNVKRYVPNV000000000037
 product_nature_variants_052:
   active: true
   category_id: 20
@@ -826,12 +925,15 @@ product_nature_variants_052:
   lock_version: 0
   name: Moût de raisin
   nature_id: 45
-  number: GWNVKRYVPNV000000000038
+  number: '00000053'
   reference_name: vine_grape_must
+  stock_account_id: 613
+  stock_movement_account_id: 646
   unit_name: Hectolitre
   updated_at: 2014-11-07 17:25:14.424939000 Z
   updater_id: 1
   variety: fermented_juice
+  work_number: GWNVKRYVPNV000000000038
 product_nature_variants_053:
   active: true
   category_id: 4
@@ -842,12 +944,15 @@ product_nature_variants_053:
   lock_version: 0
   name: Résidu de culture
   nature_id: 46
-  number: GWNVKRYVPNV000000000039
+  number: '00000054'
   reference_name: crop_residue
+  stock_account_id: 612
+  stock_movement_account_id: 647
   unit_name: Tonne
   updated_at: 2014-11-07 17:25:46.208771000 Z
   updater_id: 1
   variety: straw
+  work_number: GWNVKRYVPNV000000000039
 product_nature_variants_054:
   active: true
   category_id: 20
@@ -858,12 +963,15 @@ product_nature_variants_054:
   lock_version: 0
   name: Co-produit du raisin
   nature_id: 47
-  number: GWNVKRYVPNV000000000040
+  number: '00000055'
   reference_name: vine_residu
+  stock_account_id: 611
+  stock_movement_account_id: 648
   unit_name: Kilogramme
   updated_at: 2014-11-07 17:27:02.369419000 Z
   updater_id: 1
   variety: pomace
+  work_number: GWNVKRYVPNV000000000040
 product_nature_variants_055:
   active: true
   category_id: 20
@@ -874,12 +982,15 @@ product_nature_variants_055:
   lock_version: 0
   name: Jus de raisin
   nature_id: 48
-  number: GWNVKRYVPNV000000000042
+  number: '00000056'
   reference_name: vine_grape_juice
+  stock_account_id: 610
+  stock_movement_account_id: 649
   unit_name: Hectolitre
   updated_at: 2014-11-07 18:58:14.622969000 Z
   updater_id: 1
   variety: juice
+  work_number: GWNVKRYVPNV000000000042
 product_nature_variants_056:
   active: true
   category_id: 22
@@ -889,12 +1000,15 @@ product_nature_variants_056:
   lock_version: 0
   name: Acide lactique ‒ 25kg
   nature_id: 49
-  number: GWNVKRYVPNV000000000043
+  number: '00000057'
   reference_name: lactic_acid_25kg
+  stock_account_id: 624
+  stock_movement_account_id: 665
   unit_name: Sac de 25kg
   updated_at: 2014-11-07 19:03:43.671512000 Z
   updater_id: 1
   variety: preparation
+  work_number: GWNVKRYVPNV000000000043
 product_nature_variants_057:
   active: true
   category_id: 22
@@ -904,12 +1018,15 @@ product_nature_variants_057:
   lock_version: 0
   name: Acide malique ‒ 25kg
   nature_id: 49
-  number: GWNVKRYVPNV000000000044
+  number: 00000058
   reference_name: malic_acid_25kg
+  stock_account_id: 623
+  stock_movement_account_id: 666
   unit_name: Sac de 25kg
   updated_at: 2014-11-07 19:03:55.045552000 Z
   updater_id: 1
   variety: preparation
+  work_number: GWNVKRYVPNV000000000044
 product_nature_variants_058:
   active: true
   category_id: 22
@@ -920,12 +1037,15 @@ product_nature_variants_058:
   lock_version: 0
   name: Levure œnologique ‒ sachet de 500g
   nature_id: 50
-  number: GWNVKRYVPNV000000000045
+  number: 00000059
   reference_name: oenological_yeast_sc_500g
+  stock_account_id: 622
+  stock_movement_account_id: 667
   unit_name: Sac
   updated_at: 2014-11-07 19:05:20.510880000 Z
   updater_id: 1
   variety: yeast
+  work_number: GWNVKRYVPNV000000000045
 product_nature_variants_059:
   active: true
   category_id: 22
@@ -935,12 +1055,15 @@ product_nature_variants_059:
   lock_version: 0
   name: Sucre blanc ‒ 25kg
   nature_id: 51
-  number: GWNVKRYVPNV000000000046
+  number: '00000060'
   reference_name: white_sugar_25kg
+  stock_account_id: 621
+  stock_movement_account_id: 668
   unit_name: Sac de 25kg
   updated_at: 2014-11-07 19:10:37.826371000 Z
   updater_id: 1
   variety: saccharose
+  work_number: GWNVKRYVPNV000000000046
 product_nature_variants_060:
   active: true
   category_id: 22
@@ -950,12 +1073,15 @@ product_nature_variants_060:
   lock_version: 0
   name: Ferrocyanide de potassium ‒ 25kg
   nature_id: 52
-  number: GWNVKRYVPNV000000000047
+  number: '00000061'
   reference_name: potassium_ferrocyanide_25kg
+  stock_account_id: 620
+  stock_movement_account_id: 669
   unit_name: Sac de 25kg
   updated_at: 2014-11-07 19:16:38.635536000 Z
   updater_id: 1
   variety: potassium_ferrocyanide
+  work_number: GWNVKRYVPNV000000000047
 product_nature_variants_061:
   active: true
   category_id: 22
@@ -965,12 +1091,15 @@ product_nature_variants_061:
   lock_version: 0
   name: So2 liquide 10%
   nature_id: 53
-  number: GWNVKRYVPNV000000000048
+  number: '00000062'
   reference_name: so2_liquid_p10
+  stock_account_id: 619
+  stock_movement_account_id: 670
   unit_name: Litre
   updated_at: 2014-11-07 19:18:50.775331000 Z
   updater_id: 1
   variety: preparation
+  work_number: GWNVKRYVPNV000000000048
 product_nature_variants_062:
   active: true
   category_id: 23
@@ -980,12 +1109,15 @@ product_nature_variants_062:
   lock_version: 0
   name: Bouteille Bordelaise 75cl
   nature_id: 54
-  number: GWNVKRYVPNV000000000049
+  number: '00000063'
   reference_name: bordelaise_75cl_bottle
+  stock_account_id: 608
+  stock_movement_account_id: 639
   unit_name: Bouteille de 75cl
   updated_at: 2014-11-07 19:29:27.409413000 Z
   updater_id: 1
   variety: cork_bottle
+  work_number: GWNVKRYVPNV000000000049
 product_nature_variants_063:
   active: true
   category_id: 23
@@ -995,12 +1127,15 @@ product_nature_variants_063:
   lock_version: 0
   name: Bouchon naturel
   nature_id: 55
-  number: GWNVKRYVPNV000000000050
+  number: '00000064'
   reference_name: natural_cork
+  stock_account_id: 607
+  stock_movement_account_id: 640
   unit_name: Unité
   updated_at: 2014-11-07 19:29:44.237224000 Z
   updater_id: 1
   variety: cork
+  work_number: GWNVKRYVPNV000000000050
 product_nature_variants_064:
   active: true
   category_id: 21
@@ -1011,12 +1146,15 @@ product_nature_variants_064:
   lock_version: 0
   name: Bouteille de vin (75cl)
   nature_id: 41
-  number: GWNVKRYVPNV000000000051
+  number: '00000065'
   reference_name: bottle_75cl_wine
+  stock_account_id: 609
+  stock_movement_account_id: 650
   unit_name: Bouteille de 75cl
   updated_at: 2014-11-07 19:29:57.758780000 Z
   updater_id: 1
   variety: wine
+  work_number: GWNVKRYVPNV000000000051
 product_nature_variants_065:
   active: true
   category_id: 14
@@ -1026,12 +1164,13 @@ product_nature_variants_065:
   lock_version: 0
   name: Tireuse
   nature_id: 56
-  number: GWNVKRYVPNV000000000052
+  number: '00000066'
   reference_name: hand_drawn
   unit_name: "Équipement"
   updated_at: 2014-11-07 19:35:20.887953000 Z
   updater_id: 1
   variety: equipment
+  work_number: GWNVKRYVPNV000000000052
 product_nature_variants_066:
   active: true
   category_id: 14
@@ -1041,12 +1180,13 @@ product_nature_variants_066:
   lock_version: 0
   name: Boucheuse
   nature_id: 57
-  number: GWNVKRYVPNV000000000053
+  number: '00000067'
   reference_name: corker
   unit_name: "Équipement"
   updated_at: 2014-11-07 19:35:28.672313000 Z
   updater_id: 1
   variety: equipment
+  work_number: GWNVKRYVPNV000000000053
 product_nature_variants_067:
   active: true
   category_id: 9
@@ -1056,11 +1196,14 @@ product_nature_variants_067:
   lock_version: 0
   name: Blonde d'Aquitaine
   nature_id: 16
-  number: GWNVKRYVPNV000000000054
+  number: 00000068
+  stock_account_id: 603
+  stock_movement_account_id: 637
   unit_name: Vache
   updated_at: 2015-03-08 16:48:51.065006000 Z
   updater_id: 1
   variety: bos_taurus_blonde_aquitaine
+  work_number: GWNVKRYVPNV000000000054
 product_nature_variants_068:
   active: true
   category_id: 25
@@ -1069,6 +1212,7 @@ product_nature_variants_068:
   lock_version: 0
   name: Land parcel
   nature_id: 59
+  number: 00000069
   reference_name: land_parcel
   unit_name: Hectare
   updated_at: 2016-01-21 14:05:46.964632000 Z
@@ -1082,11 +1226,12 @@ product_nature_variants_069:
   lock_version: 0
   name: Abonnement 1AN News!
   nature_id: 60
-  number: A1
+  number: '00000070'
   unit_name: Abonnement
   updated_at: 2016-05-26 21:24:33.024053000 Z
   updater_id: 1
   variety: immatter
+  work_number: A1
 product_nature_variants_070:
   active: true
   category_id: 14
@@ -1097,8 +1242,9 @@ product_nature_variants_070:
   lock_version: 0
   name: Pièce de machine
   nature_id: 61
-  number: PDM001
+  number: '00000071'
   unit_name: Pièce
   updated_at: 2016-08-10 14:24:46.796093000 Z
   updater_id: 1
   variety: equipment_part
+  work_number: PDM001

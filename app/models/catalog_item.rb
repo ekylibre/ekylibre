@@ -81,7 +81,7 @@ class CatalogItem < Ekylibre::Record::Base
   before_validation do
     self.amount = amount.round(4) if amount
     self.name = commercial_name
-    self.name = variant_name if commercial_name.blank? && self.variant
+    self.name = variant_name if commercial_name.blank? && variant
   end
 
   # Compute a pre-tax amount

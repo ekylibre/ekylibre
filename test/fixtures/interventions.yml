@@ -22,14 +22,17 @@
 #
 # == Table: interventions
 #
+#  accounted_at            :datetime
 #  actions                 :string
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  currency                :string
 #  custom_fields           :jsonb
 #  description             :text
 #  event_id                :integer
 #  id                      :integer          not null, primary key
 #  issue_id                :integer
+#  journal_entry_id        :integer
 #  lock_version            :integer          default(0), not null
 #  nature                  :string           not null
 #  number                  :string
@@ -76,7 +79,7 @@ interventions_002:
   number: '9'
   procedure_name: hoeing
   started_at: 2012-10-04 07:25:00.000000000 Z
-  state: undone
+  state: done
   stopped_at: 2012-10-04 17:50:00.000000000 Z
   trouble_encountered: false
   updated_at: 2014-11-04 18:41:39.737616000 Z
@@ -241,7 +244,7 @@ interventions_011:
   number: '18'
   procedure_name: pasturing
   started_at: 2014-09-01 15:15:00.000000000 Z
-  state: undone
+  state: done
   stopped_at: 2014-10-31 09:35:00.000000000 Z
   trouble_encountered: false
   updated_at: 2014-11-07 16:16:21.819333000 Z
@@ -259,7 +262,7 @@ interventions_012:
   number: '19'
   procedure_name: fertilizing
   started_at: 2014-02-01 09:45:00.000000000 Z
-  state: undone
+  state: done
   stopped_at: 2014-02-01 12:30:00.000000000 Z
   trouble_encountered: false
   updated_at: 2014-11-07 16:20:51.420516000 Z
@@ -424,7 +427,7 @@ interventions_021:
   number: '30'
   procedure_name: fertilizing
   started_at: 2016-07-01 05:46:00.000000000 Z
-  state: undone
+  state: done
   stopped_at: 2016-07-01 20:47:00.000000000 Z
   trouble_encountered: false
   updated_at: 2016-07-01 20:46:56.127570000 Z
@@ -443,7 +446,7 @@ interventions_022:
   number: '31'
   procedure_name: equipment_maintenance
   started_at: 2016-08-10 13:33:00.000000000 Z
-  state: undone
+  state: done
   stopped_at: 2016-08-10 14:33:00.000000000 Z
   trouble_description: ''
   trouble_encountered: false

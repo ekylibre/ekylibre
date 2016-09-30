@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<migration name="Update product nature categorie">
+  <item-creation item="accounts#gas_stock" fr_pcga="3018"/>
+  <item-creation item="accounts#workshop_supplies_stock" fr_pcga="3023"/>
+  <item-creation item="accounts#raw_product_stock" fr_pcga="3028"/>
+  <item-change item="product_nature_categories#animal_food" stock_movement_account="livestock_feed_stocks_variation"/>
+  <item-change item="product_nature_categories#animal_medicine" stock_movement_account="animal_medicine_stocks_variation"/>
+  <item-change item="product_nature_categories#animal_reproduction" stock_movement_account="animal_reproduction_stocks_variation"/>
+  <item-change item="product_nature_categories#aves_band" stock_movement_account="short_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#bee_band" stock_movement_account="long_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#biological_auxiliary" stock_movement_account="plant_medicine_stocks_variation"/>
+  <item-change item="product_nature_categories#calf" stock_movement_account="short_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#construction_materials_in_own_outstanding_installation" stock_movement_account="merchandising_stocks_variation"/>
+  <item-change item="product_nature_categories#crop" stock_account="short_cycle_vegetals_stock" stock_movement_account="short_cycle_vegetals_inventory_variations"/>
+  <item-change item="product_nature_categories#egg" stock_movement_account="products_inventory_variations"/>
+  <item-change item="product_nature_categories#female_adult_cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#female_adult_pig" stock_movement_account="long_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#female_young_cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#fertilizer" stock_movement_account="fertilizer_stocks_variation"/>
+  <item-change item="product_nature_categories#fish_band" stock_movement_account="short_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#fruit" stock_movement_account="products_inventory_variations"/>
+  <item-change item="product_nature_categories#fuel" stock_movement_account="other_supply_stocks_variation"/>
+  <item-change item="product_nature_categories#gas" storable="true" stock_account="gas_stock" stock_movement_account="other_supply_stocks_variation"/>
+  <item-change item="product_nature_categories#grain" stock_movement_account="products_inventory_variations"/>
+  <item-change item="product_nature_categories#grass" stock_movement_account="products_inventory_variations"/>
+  <item-change item="product_nature_categories#honey" stock_movement_account="products_inventory_variations"/>
+  <item-change item="product_nature_categories#long_time_animal" stock_movement_account="long_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#male_adult_cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#male_adult_pig" stock_movement_account="long_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#male_young_cow" stock_movement_account="long_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#meat" stock_movement_account="products_inventory_variations"/>
+  <item-change item="product_nature_categories#milk" stock_movement_account="products_inventory_variations"/>
+  <item-change item="product_nature_categories#oenological_product" stock_movement_account="plant_medicine_stocks_variation"/>
+  <item-change item="product_nature_categories#other_consumable" stock_movement_account="other_supply_stocks_variation"/>
+  <item-change item="product_nature_categories#oyster_band" stock_movement_account="short_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#package_consumable" stock_movement_account="other_supply_stocks_variation"/>
+  <item-change item="product_nature_categories#pig_band" stock_movement_account="short_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#plant" stock_account="long_cycle_vegetals_stock" stock_movement_account="long_cycle_vegetals_inventory_variations"/>
+  <item-change item="product_nature_categories#plant_medicine" stock_movement_account="plant_medicine_stocks_variation"/>
+  <item-change item="product_nature_categories#processed_grain" stock_movement_account="merchandising_stocks_variation"/>
+  <item-change item="product_nature_categories#processed_meat" stock_movement_account="merchandising_stocks_variation"/>
+  <item-change item="product_nature_categories#processed_milk" stock_movement_account="merchandising_stocks_variation"/>
+  <item-change item="product_nature_categories#rabbit_band" stock_movement_account="short_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#raw_materials" stock_movement_account="other_supply_stocks_variation"/>
+  <item-change item="product_nature_categories#seed" stock_movement_account="seed_stocks_variation"/>
+  <item-change item="product_nature_categories#short_time_animal" stock_movement_account="short_cycle_animals_inventory_variations"/>
+  <item-change item="product_nature_categories#small_electronic_equipment" stock_account="workshop_supplies_stock" stock_movement_account="other_supply_stocks_variation"/>
+  <item-change item="product_nature_categories#small_equipment" stock_movement_account="other_supply_stocks_variation"/>
+  <item-change item="product_nature_categories#straw" stock_movement_account="products_inventory_variations"/>
+  <item-change item="product_nature_categories#vegetable" stock_movement_account="products_inventory_variations"/>
+  <item-change item="product_nature_categories#wine" stock_movement_account="products_inventory_variations"/>
+</migration>

@@ -27,7 +27,7 @@ por:
         none: "Nenhum"
     activity_production:
       support_nature:
-        # animal_group: "Animal group"
+        animal_group: "Grupo de animais"
         border: "Fronteira"
         buffer: "Amortecedor"
         cultivation: "Cultivo"
@@ -195,8 +195,10 @@ por:
       state:
         done: "Finalizado"
         in_progress: "Em progresso"
-        squeezed: "Apertado"
-        undone: "Desfeito"
+        rejected: "Rejeitado"
+        squeezed: "Apertado" #?
+        undone: "Desfeito" #?
+        validated: "Validado"
     intervention_parameter_reading:
       indicator_datatype:
         # boolean: "Boolean"

@@ -394,6 +394,7 @@ fra:
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
+      product_population: "Population de produit"
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
       purchase: "Achat"
@@ -533,6 +534,7 @@ fra:
     by_default: "Par défaut"
     calibrations: "Stock en terre par calibre"
     campaign: "Campagne"
+    campaigns: "Campagnes"
     canal: "Canal"
     cap_islet: "Ilot PAC"
     cap_islets: "Ilots PAC"
@@ -576,6 +578,7 @@ fra:
     closed_on: "Clôturé le"
     clusters_work_number: "Ilôts PAC"
     code: "Code"
+    # codes: "Codes"
     coefficient: "Coefficient"
     collect_account: "TVA collectée"
     collect_taxes: "TVA collectées" #?
@@ -867,6 +870,7 @@ fra:
     group: "Groupe"
     group_parameters: "Paramètres de groupe"
     groups: "Groupes"
+    # gtin: "GTIN"
     guide: "Référentiel"
     harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"
@@ -1202,6 +1206,7 @@ fra:
     points: "Points"
     population: "Population"
     population_counting: "Gestion quantitative"
+    # populations: "Populations"
     position: "Position"
     post: "Poste"
     postal_code: "Code postal"
@@ -1296,6 +1301,7 @@ fra:
     purchases: "Achats"
     quality_criterion: "Critère qualité" #?
     quantity: "Quantité"
+    quantity_gap_on_invoice_entry: "Ecriture d'ecart de quantité de stock"
     quantity_handler: "Macro-unité Quantité"
     quantity_indicator: "Indicateur Quantité"
     quantity_indicator_name: "Quantité nom de l’indicateur"
@@ -1450,6 +1456,7 @@ fra:
     static_support: "Support statique" #?
     status: "Statut"
     stock_account: "Compte de stock"
+    stock_movement_account: "Compte mouvement de stock"
     stocks_categories: "Catégories de produits avec stock"
     stopped_at: "Arrêté le"
     stopped_on: "Arrêté le"
@@ -1535,6 +1542,7 @@ fra:
     type: "Type"
     # uid: "UID"
     unconfirmed_email: "E-mail non confirmé"
+    undelivered_invoice_entry: "Ecriture Facture non parvenue (FNP)"
     undelivered_quantity: "Reste à livrer"
     unit: "Unité" #?
     unit_amount: "PU TTC"
@@ -1542,6 +1550,7 @@ fra:
     unit_name: "Unité"
     unit_population: "Population de l’unité"
     unit_pretax_amount: "PU HT"
+    unit_pretax_stock_amount: "Unité stocks avant impôts montant"
     unit_price: "Prix unitaire" #?
     unlock_token: "Jeton de déverrouillage"
     unlocked_payments: "Paiement non verrouillés"
@@ -1688,7 +1697,11 @@ fra:
       items: "Nombre de pièces"
       mass: "Masse"
     intervention:
+      bookkeep: "[%{resource}] %{name}" #?
       name: "%{intervention} n°%{number}"
+    inventory:
+      bookkeep: "Inventaire physique - [%{resource}] %{number}"
+      bookkeep_exchange: "Inventaire physique - extourne [%{resource}] %{number}"
     issue:
       name_with_target: "%{nature} sur %{target}"
       name_without_target: "%{nature}"
@@ -1756,6 +1769,7 @@ fra:
         transfer:
           name: "Virement"
     parcel:
+      bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
       state_machine:
         states:
           draft: "Brouillon"
@@ -1764,6 +1778,7 @@ fra:
           ordered: "Commandé"
           prepared: "Prêt"
           received: "Reçu"
+      undelivered_invoice: "Facture non parvenue [%{resource} %{mode} %{number}] %{entity}"
     product:
       informations:
         with_components: "%{product} (%{unit}) (produit transformé)"
@@ -1794,8 +1809,10 @@ fra:
         sales: "Vente"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} de %{supplier}"
+      exchange_undelivered_invoice: "Facture non parvenue - extourne [%{resource} %{mode} %{number}] %{entity}"
       label: "%{supplier} à %{address}"
       purchase: "Achat"
+      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}"
       states:
         aborted: "Abandonné"
         draft: "Devis brouillon"
@@ -1816,6 +1833,7 @@ fra:
         public: "Public"
     sale:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
+      exchange_undelivered_invoice: "Facture non parvenue - extourne [%{resource} %{mode} %{number}] %{entity}"
       label:
         aborted: "Vente abandonnée %{number}"
         credit: "Avoir %{number}"
@@ -1824,6 +1842,7 @@ fra:
         invoice: "Facture %{number}"
         order: "Commande %{number}"
         refused: "Devis refusé %{number}"
+      quantity_gap_on_invoice: "Ecart de stock en quantité [%{resource} %{number}] de %{entity}"
       sale: "Vente %{number}"
       sales_conditions:
         downpayment: "Un acompte de %{percentage}% (soit %{amount}) devra être versé à la signature du présent devis."

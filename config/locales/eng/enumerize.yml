@@ -184,8 +184,8 @@ eng:
       state:
         done: "Done"
         in_progress: "In progress"
-        squeezed: "Squeezed"
-        undone: "Undone"
+        rejected: "Rejected"
+        validated: "Validated"
     intervention_parameter_reading:
       indicator_datatype:
         boolean: "Boolean"
@@ -204,6 +204,7 @@ eng:
         forward: "Carried-forward"
         purchases: "Purchases"
         sales: "Sales"
+        # stocks: "Stocks"
         various: "Various operations"
     listing_node:
       nature:

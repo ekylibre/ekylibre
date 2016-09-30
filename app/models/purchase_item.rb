@@ -154,6 +154,18 @@ class PurchaseItem < Ekylibre::Record::Base
     errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
+  after_save do
+    if Preference[:catalog_price_item_addition_if_blank]
+      for usage in [:stock, :purchase]
+        # set stock catalog price if blank
+        catalog = Catalog.by_default!(usage)
+        unless variant.catalog_items.of_usage(usage).any?
+          variant.catalog_items.create!(catalog: catalog, all_taxes_included: false, amount: unit_pretax_amount, currency: currency) if catalog
+        end
+      end
+    end
+  end
+
   def product_name
     variant.name
   end

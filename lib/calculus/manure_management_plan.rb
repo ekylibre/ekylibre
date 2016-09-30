@@ -34,7 +34,7 @@ module Calculus
       def method_selection(options = {})
         @registered_methods.keys.collect do |n|
           [human_method_name(n, options), n.to_s]
-        end.sort { |a, b| a.first <=> b.first }
+        end.sort_by(&:first)
       end
 
       def human_method_name(name, options = {})

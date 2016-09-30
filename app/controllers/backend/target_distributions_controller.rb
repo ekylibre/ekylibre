@@ -44,7 +44,7 @@ module Backend
     end
 
     def edit_many
-      targets = Product.mine_or_undefined.includes(:last_intervention_target)
+      targets = Product.mine_or_undefined
 
       if params[:activity_id]
         activity = Activity.find_by(id: params[:activity_id])
@@ -52,14 +52,14 @@ module Backend
           targets = targets.of_variety(activity.cultivation_variety, activity.support_variety)
         end
       else
-        targets = targets.where(id: InterventionTarget.where.not(product_id: TargetDistribution.select(:target_id)).includes(:product))
+        targets = targets.where(type: %w(Animal AnimalGroup Plant LandParcel Equipment EquipmentFleet)) # .where(id: InterventionTarget.includes(:product)) #.where.not(product_id: TargetDistribution.select(:target_id)))
       end
 
       @target_distributions = TargetDistribution.where(target_id: targets).joins(:target).order('products.name')
       new_id = -1
       targets.order(:name).each do |target|
         unless @target_distributions.detect { |d| d.target_id == target.id }
-          @target_distributions << @target_distributions.build(id: new_id, target: target, activity_production_id: Maybe(target.last_intervention_target).activity_production.id.or_else(nil))
+          @target_distributions << @target_distributions.build(id: new_id, target: target, activity_production: target.best_activity_production)
         end
         new_id -= 1
       end
@@ -74,7 +74,7 @@ module Backend
           saved = false unless target_distribution.save
         end
         target_distribution
-      end.sort { |a, b| a.target_name <=> b.target_name }
+      end.sort_by(&:target_name)
       if saved
         redirect_to params[:redirect] || backend_activities_path
       else

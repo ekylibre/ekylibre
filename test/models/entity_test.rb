@@ -28,6 +28,7 @@
 #  born_at                   :datetime
 #  client                    :boolean          default(FALSE), not null
 #  client_account_id         :integer
+#  codes                     :jsonb
 #  country                   :string
 #  created_at                :datetime         not null
 #  creator_id                :integer

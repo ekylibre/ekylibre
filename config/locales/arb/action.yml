@@ -338,13 +338,15 @@ arb:
       index: "التكامل"
       # new: "Activate integration: %{name}"
     backend/interventions:
-      # edit: "Edit %{procedure_name} #%{number}"
-      # edit_request: "Edit %{procedure_name} request #%{number}"
+      edit: "تحرير"
+      edit_request: "طلب تحرير"
+      # edit_specified: "Edit %{procedure_name} #%{number}"
+      # edit_specified_request: "Edit %{procedure_name} request #%{number}"
       index: "التدخلات"
       new: "تدخل جديد"
-      new_request: "تدخل طلب جديد"
-      new_undefined: "تدخل جديد"
-      new_undefined_request: "طلب تدخل جديد"
+      new_request: "طلب تدخل جديد"
+      new_specified: "تدخل جديد"
+      new_specified_request: "تدخل طلب جديد"
       # show: "%{procedure_name}"
     backend/inventories:
       edit: "تعديل الجرد"
@@ -1074,6 +1076,8 @@ arb:
     centralized_account: "مركزية الحسابات %{name}"
     change_password: "تغيير كلمة السر"
     change_price: "تغيير وحدة السعر" #?
+    change_state: "تغيير الدولة"
+    change_status_of_selected_interventions: "تغيير حالة بعض المداخلات المختارة"
     chart: "خريطة"
     check: "نحقق"
     children: "الأطفال"
@@ -1081,6 +1085,7 @@ arb:
     choose_a_type_of_product: "اختر نوع المنتج"
     choose_creation_mode: "اختيار وضع إنشاء"
     choose_mail_column: "الرجاء اختيار العمود المستخدم للرسالة"
+    choose_options_is_needed: "يجب عليك اختيار الحالة لالتدخلات التالية:"
     city_name: "المدينة" #?
     clear: "واضح"
     click_to_mail: "اكتب الرسالة بالبريد الالكتروني الخاص بك"
@@ -1101,6 +1106,7 @@ arb:
     commission: "عمولة"
     company: "المجتمع"
     complete: "كامل"
+    completed: "منجز"
     components: "العناصر" #?
     conditions:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
@@ -1185,6 +1191,7 @@ arb:
     delay_update: "تعديل المهلة" #?
     delays: "التأخير" #?
     delete: "حذف"
+    delete_selected_interventions: "حذف التدخلات المنتقاة"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
     delivery: "خدمه توصيل"
@@ -1300,8 +1307,8 @@ arb:
     # expedier: "Expedier"
     expenses: "مصاريف"
     expenses_by_product_nature_category: "النفقات حسب الفئة طبيعة المنتج"
-    # expired_since: "Expired since"
-    # expired_within: "Expired within"
+    expired_since: "انتهت منذ (بالأيام)"
+    expired_within: "انتهت خلال (بالأيام)"
     export: "اصدار الوثائق"
     extract: "يستخرج" #?
     field_distribution: "مجال التوزيع"
@@ -1824,6 +1831,7 @@ arb:
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد" #?
     request_maintenance: "صيانة الطلب"
+    requests: "طلبات"
     reservoir: "الاحتياطي" #?
     reservoir_informations: "معلومات عن خزان الاحتياطي" #?
     reservoirs_create: "اضافة خزان احتياطي" #?
@@ -1895,6 +1903,7 @@ arb:
     search_sales: "البحث عن طلبات البيع" #?
     second_building_name: "ادخال الاسم" #?
     # section_x: "Section %{x}"
+    see_details: "انظر التفاصيل"
     see_more_details: "مشاهدة مزيد من التفاصيل"
     select_account_client: "كتابة حسابات" #?
     select_account_supplier: "كتابة حسابات" #?
@@ -1955,7 +1964,7 @@ arb:
     string_case: "خيارات للنص" #?
     subject: "الموضوع"
     submit: "ارسال"
-    # subscribed_on: "Subscribed on"
+    subscribed_on: "اشتركت في"
     subscriber_period: "تم التسجيل في %{subscribed_at}"
     subscriber_quantity: "عدد المشتركيين %{subscribed_at}"
     subscription_create: "اضافة اشتراك" #?
@@ -2067,6 +2076,7 @@ arb:
       financial_year: "السنة المالية غير متوفرة %{value}" #?
       journal: "الدفتر اليومي المطلوب غير متوفر (%{value})" #?
       product: "المنتج المطلوب غير متوفر" #?
+    undefined_activity: "النشاط غير محدد"
     undefined_container: "حاوية غير محددة"
     undelivered: "لم يتم التسليم"
     undeposited: "لم يتم اي اقتطاع بنكي" #?
@@ -2117,6 +2127,7 @@ arb:
       # one: "Validate crumbs for %{count} intervention"
       # other: "Validate crumbs for %{count} interventions"
     validate_selected_entries: "التحقق من المدخلات المختارة"
+    validated: "التحقق من صحة"
     values: "القيم"
     variable_indicators: "مؤشرات متغيرة"
     variants: "المتغيرات"
@@ -2471,10 +2482,13 @@ arb:
     accounting_system: "جدول الحسابات"
     bookkeep_automatically: "تفعيل المحاسبة التلقائي"
     bookkeep_in_draft: "حفظ السجلات في وضع المسودة خلال مسك الدفاتر"
+    catalog_price_item_addition_if_blank: "كتالوج اضافة السعر إلى الكتالوج خلال بيع / شراء إذا كتالوج فارغ"
+    client_account_radix: "جذر حساب العميل"
     country: "بلد"
     create_activities_from_telepac: "خلق أنشطة خلال Telepac استيراد"
     currency: "عملة"
     detail_payments_in_deposit_bookkeeping: "التفاصيل جميع المدفوعات في مسك الدفاتر وديعة"
+    employee_account_radix: "جذر حساب الموظف"
     general:  #?
       language: "اللغة المفترضة" #?
     host: "مضيف"
@@ -2495,10 +2509,12 @@ arb:
       subscriptions: #?
         numeration: "احصاء الاشتراكات" #?
     map_measure_srs: "SRS خريطة قياس"
+    permanent_stock_inventory: "وضع جرد مخزون دائم"
     relations:  #?
       entities: #?
         numeration: "احصاء ملفات العملاء / الممولين" #?
     sales_conditions: "شروط البيع"
+    supplier_account_radix: "جذر حساب المورد"
     use_entity_codes_for_account_numbers: "استخدام رمز لخلق أرقام الحسابات"
   rest:
     actions:
@@ -2556,6 +2572,7 @@ arb:
       propose: "اقترح"
       propose_and_invoice: "اقتراح وفاتورة"
       prospect: "احتمال"
+      purchase: "تتحول إلى شراء"
       qualify: "التأهل"
       quote: "اقتبس"
       reconciliation: "تصالح"
@@ -2569,6 +2586,7 @@ arb:
       run: "يجري"
       search: "بحث"
       select: "اختار"
+      sell: "تتحول بيع"
       ship: "سفينة"
       show: "تبين"
       sort: "فرز"

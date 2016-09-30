@@ -29,6 +29,7 @@
 #  born_at                   :datetime
 #  client                    :boolean          default(FALSE), not null
 #  client_account_id         :integer
+#  codes                     :jsonb
 #  country                   :string
 #  created_at                :datetime         not null
 #  creator_id                :integer
@@ -309,7 +310,10 @@ class Entity < Ekylibre::Record::Base
     if valid_account.nil?
       account_nomen = nature.to_s.pluralize
       account_nomen = :staff_due_remunerations if nature == :employee
-      prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
+      prefix = Preference[:"#{nature}_account_radix"]
+      if prefix.blank?
+        prefix = Nomen::Account.find(account_nomen).send(Account.accounting_system)
+      end
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s + self.number.to_s
         unless valid_account = Account.find_by(number: number)

@@ -88,7 +88,7 @@ module Nomen
                 end
               end if nomenclature.properties.any?
               xml.items do
-                nomenclature.items.values.sort { |a, b| a.name <=> b.name }.each do |item|
+                nomenclature.items.values.sort_by(&:name).each do |item|
                   xml.item(item.to_xml_attrs)
                 end
               end if nomenclature.items.any?

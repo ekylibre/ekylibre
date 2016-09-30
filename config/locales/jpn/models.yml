@@ -278,6 +278,7 @@ jpn:
       product_nature_variant_reading: "製品タイプバリアント読み取り"
       product_ownership: "製品の所有権"
       product_phase: "生成物相"
+      product_population: "製品の人口"
       product_reading: "製品のリーディング"
       purchase: "購入"
       purchase_item: "購入アイテム"
@@ -398,6 +399,7 @@ jpn:
     by_default: "デフォルト設定で"
     calibrations: "目盛り"
     campaign: "キャンペーン"
+    campaigns: "キャンペーン"
     canal: "運河"
     cap_islet: "キャップ島"
     cap_islets: "キャップの島"
@@ -434,6 +436,7 @@ jpn:
     closed_on: "休館"
     clusters_work_number: "クラスタワーク番号"
     code: "コード"
+    codes: "コード"
     coefficient: "係数"
     collect_account: "アカウントを収集"
     collected_taxes: "徴収された税金"
@@ -673,6 +676,7 @@ jpn:
     group: "グループ"
     group_parameters: "グループパラメータ"
     groups: "グループ"
+    # gtin: "GTIN"
     guide: "ガイド"
     harvest_year: "収穫年"
     has_downpayment: "頭金を持っています"
@@ -982,6 +986,7 @@ jpn:
     points: "点数"
     population: "人口"
     population_counting: "人口のカウント"
+    populations: "集団"
     position: "ポジション"
     post: "役職"
     postal_code: "郵便番号"
@@ -1050,6 +1055,7 @@ jpn:
     purchased_on: "で購入"
     purchases: "購入注文"
     quantity: "量"
+    quantity_gap_on_invoice_entry: "在庫数のギャップエントリ"
     quantity_handler: "数量ハンドラ"
     quantity_indicator: "数量インジケータ"
     quantity_indicator_name: "数量指標名"
@@ -1192,6 +1198,7 @@ jpn:
     state_label: "状態"
     status: "状態"
     stock_account: "資本勘定"
+    stock_movement_account: "在庫移動アカウント"
     stocks_categories: "株式カテゴリ"
     stopped_at: "で停止"
     stopped_on: "上の停止"
@@ -1270,12 +1277,14 @@ jpn:
     type: "タイプ"
     # uid: "UID"
     unconfirmed_email: "未確認メール"
+    undelivered_invoice_entry: "未引渡請求書入力"
     undelivered_quantity: "未配信量"
     unit_amount: "単位量"
     unit_currency: "単位通貨"
     unit_name: "装置名"
     unit_population: "ユニットの人口"
     unit_pretax_amount: "単位の税引前金額"
+    unit_pretax_stock_amount: "ユニット税引前在庫量"
     unlock_token: "トークンのロックを解除"
     unlocked_payments: "ロック解除支払い"
     unpaid_sales: "未払いの販売"
@@ -1414,6 +1423,9 @@ jpn:
       mass: "質量"
     intervention:
       # name: "%{intervention} #%{number}"
+    inventory:
+      # bookkeep: "Physical inventory - [%{resource}] %{number}"
+      # bookkeep_exchange: "Physical inventory - exchange [%{resource}] %{number}"
     issue:
       # name_with_target: "%{nature} on %{target}"
       # name_without_target: "%{nature}"
@@ -1476,6 +1488,7 @@ jpn:
         transfer:
           name: "転送"
     parcel:
+      # bookkeep: "[%{resource} %{mode} %{number}] %{entity}"
       state_machine:
         states:
           draft: "ドラフト"
@@ -1484,6 +1497,7 @@ jpn:
           ordered: "順序付けられました"
           prepared: "準備"
           received: "受け"
+      # undelivered_invoice: "Undelivered invoice [%{resource} %{mode} %{number}] %{entity}"
     product:
       informations:
         # with_components: "%{product} (%{unit}) (transformed material)"
@@ -1514,8 +1528,10 @@ jpn:
         sales: "セールス"
     purchase:
       # bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       # label: "%{supplier} at %{address}"
       purchase: "購入"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       states:
         aborted: "中止されました"
         draft: "ドラフト見積もり"
@@ -1536,6 +1552,7 @@ jpn:
         public: "パブリック"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      # exchange_undelivered_invoice: "Undelivered invoice - exchange [%{resource} %{mode} %{number}] %{entity}"
       label:
         # aborted: "Aborted sale %{number}"
         # credit: "Sale credit %{number}"
@@ -1544,6 +1561,7 @@ jpn:
         # invoice: "Sales invoice %{number}"
         # order: "Sales order %{number}"
         # refused: "Refused estimate %{number}"
+      # quantity_gap_on_invoice: "Gap on stock quantity [%{resource} %{number}] from %{entity}"
       # sale: "Sale %{number}"
       sales_conditions:
         # downpayment: "A downpayment of %{percentage}% (i.e. %{amount}) must be paid at the signature of this present estimate."
