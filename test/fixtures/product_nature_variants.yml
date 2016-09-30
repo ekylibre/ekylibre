@@ -150,7 +150,7 @@ product_nature_variants_007:
   number: 00000008
   reference_name: coop:adexar_5l
   stock_account_id: 626
-  stock_movement_account_id: 656
+  stock_movement_account_id: 663
   unit_name: Litre
   updated_at: 2014-10-31 20:11:19.901366000 Z
   updater_id: 1
@@ -188,7 +188,7 @@ product_nature_variants_009:
   number: '00000010'
   reference_name: coop:bth_s_rubisko_r1_gau___red_s25kg
   stock_account_id: 631
-  stock_movement_account_id: 665
+  stock_movement_account_id: 656
   unit_name: Sac de 25kg
   updated_at: 2014-10-31 20:11:42.154937000 Z
   updater_id: 1
@@ -207,7 +207,7 @@ product_nature_variants_010:
   number: '00000011'
   reference_name: coop:avoine_d_hiver_une_de_mai_red_25kg
   stock_account_id: 630
-  stock_movement_account_id: 666
+  stock_movement_account_id: 657
   unit_name: Sac de 25kg
   updated_at: 2014-10-31 20:11:53.428269000 Z
   updater_id: 1
@@ -363,7 +363,7 @@ product_nature_variants_019:
   number: '00000020'
   reference_name: coop:microthiol_sp_disp
   stock_account_id: 625
-  stock_movement_account_id: 657
+  stock_movement_account_id: 664
   unit_name: Kilogramme
   updated_at: 2014-11-01 20:17:55.024266000 Z
   updater_id: 1
@@ -381,7 +381,7 @@ product_nature_variants_020:
   number: '00000021'
   reference_name: acetal
   stock_account_id: 601
-  stock_movement_account_id: 669
+  stock_movement_account_id: 660
   unit_name: Dose de 1l
   updated_at: 2014-11-01 20:20:57.147222000 Z
   updater_id: 1
@@ -399,7 +399,7 @@ product_nature_variants_021:
   number: '00000022'
   reference_name: riflexine
   stock_account_id: 600
-  stock_movement_account_id: 670
+  stock_movement_account_id: 661
   unit_name: Dose de 10ml
   updated_at: 2014-11-01 20:21:07.072559000 Z
   updater_id: 1
@@ -679,7 +679,7 @@ product_nature_variants_038:
   number: 00000039
   reference_name: coop:ammonitre_33_5_____bb
   stock_account_id: 602
-  stock_movement_account_id: 664
+  stock_movement_account_id: 662
   unit_name: Tonne
   updated_at: 2014-11-07 15:24:11.146570000 Z
   updater_id: 1
@@ -716,7 +716,7 @@ product_nature_variants_040:
   number: '00000041'
   reference_name: coop:trefle_v__segur_s10k
   stock_account_id: 629
-  stock_movement_account_id: 667
+  stock_movement_account_id: 658
   unit_name: Sac de 10kg
   updated_at: 2014-11-07 15:41:47.838001000 Z
   updater_id: 1
@@ -735,7 +735,7 @@ product_nature_variants_041:
   number: '00000042'
   reference_name: mixture_seed
   stock_account_id: 628
-  stock_movement_account_id: 668
+  stock_movement_account_id: 659
   unit_name: Kilogramme
   updated_at: 2014-11-07 15:43:46.298740000 Z
   updater_id: 1
@@ -1003,7 +1003,7 @@ product_nature_variants_056:
   number: '00000057'
   reference_name: lactic_acid_25kg
   stock_account_id: 624
-  stock_movement_account_id: 658
+  stock_movement_account_id: 665
   unit_name: Sac de 25kg
   updated_at: 2014-11-07 19:03:43.671512000 Z
   updater_id: 1
@@ -1021,7 +1021,7 @@ product_nature_variants_057:
   number: 00000058
   reference_name: malic_acid_25kg
   stock_account_id: 623
-  stock_movement_account_id: 659
+  stock_movement_account_id: 666
   unit_name: Sac de 25kg
   updated_at: 2014-11-07 19:03:55.045552000 Z
   updater_id: 1
@@ -1040,7 +1040,7 @@ product_nature_variants_058:
   number: 00000059
   reference_name: oenological_yeast_sc_500g
   stock_account_id: 622
-  stock_movement_account_id: 660
+  stock_movement_account_id: 667
   unit_name: Sac
   updated_at: 2014-11-07 19:05:20.510880000 Z
   updater_id: 1
@@ -1058,7 +1058,7 @@ product_nature_variants_059:
   number: '00000060'
   reference_name: white_sugar_25kg
   stock_account_id: 621
-  stock_movement_account_id: 661
+  stock_movement_account_id: 668
   unit_name: Sac de 25kg
   updated_at: 2014-11-07 19:10:37.826371000 Z
   updater_id: 1
@@ -1076,7 +1076,7 @@ product_nature_variants_060:
   number: '00000061'
   reference_name: potassium_ferrocyanide_25kg
   stock_account_id: 620
-  stock_movement_account_id: 662
+  stock_movement_account_id: 669
   unit_name: Sac de 25kg
   updated_at: 2014-11-07 19:16:38.635536000 Z
   updater_id: 1
@@ -1094,7 +1094,7 @@ product_nature_variants_061:
   number: '00000062'
   reference_name: so2_liquid_p10
   stock_account_id: 619
-  stock_movement_account_id: 663
+  stock_movement_account_id: 670
   unit_name: Litre
   updated_at: 2014-11-07 19:18:50.775331000 Z
   updater_id: 1

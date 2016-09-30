@@ -3158,51 +3158,51 @@ accounts_241:
   updated_at: 2016-05-10 19:20:54.354885000 Z
   updater_id: 1
 accounts_242:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 585
+  label: 60312 – Variations de stock de semences et plants
+  lock_version: 0
+  name: Variations de stock de semences et plants
+  number: '60312'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: seed_stocks_variation
+accounts_243:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 586
+  label: 60315 – Variations de stock de produits de défense des animaux
+  lock_version: 0
+  name: Variations de stock de produits de défense des animaux
+  number: '60315'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: animal_medicine_stocks_variation
+accounts_244:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 587
   label: 7137 – Variations d’inventaires ‒ produits
   lock_version: 0
   name: Variations d’inventaires ‒ produits
   number: '7137'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
+  updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: products_inventory_variations
-accounts_243:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+accounts_245:
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
-  id: 586
+  id: 588
   label: 7131 – Variations d’inventaires ‒ animaux (cycle long)
   lock_version: 0
   name: Variations d’inventaires ‒ animaux (cycle long)
   number: '7131'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
+  updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: long_cycle_animals_inventory_variations
-accounts_244:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 587
-  label: 60313 – Variations de stock de produits de défense des végétaux
-  lock_version: 0
-  name: Variations de stock de produits de défense des végétaux
-  number: '60313'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: plant_medicine_stocks_variation
-accounts_245:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 588
-  label: 60311 – Variations de stock d’engrais et amendements
-  lock_version: 0
-  name: Variations de stock d’engrais et amendements
-  number: '60311'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: fertilizer_stocks_variation
 accounts_246:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 589
   label: 6032 – Variation des stocks autres approvisionnements
@@ -3210,30 +3210,30 @@ accounts_246:
   name: Variation des stocks autres approvisionnements
   number: '6032'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
+  updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: other_supply_stocks_variation
 accounts_247:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 590
-  label: 60312 – Variations de stock de semences et plants
+  label: 60311 – Variations de stock d’engrais et amendements
   lock_version: 0
-  name: Variations de stock de semences et plants
-  number: '60312'
+  name: Variations de stock d’engrais et amendements
+  number: '60311'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: seed_stocks_variation
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: fertilizer_stocks_variation
 accounts_248:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 591
-  label: 60315 – Variations de stock de produits de défense des animaux
+  label: 60313 – Variations de stock de produits de défense des végétaux
   lock_version: 0
-  name: Variations de stock de produits de défense des animaux
-  number: '60315'
+  name: Variations de stock de produits de défense des végétaux
+  number: '60313'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: animal_medicine_stocks_variation
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
 accounts_249:
   created_at: 2014-10-31 17:19:32.000000000 Z
   debtor: false
@@ -3936,174 +3936,174 @@ accounts_312:
   updated_at: 2014-12-24 11:08:53.093280000 Z
   usages: short_cycle_vegetals_inventory_variations
 accounts_313:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
   id: 656
-  label: 6031300000008 – Adexar 5 l
-  lock_version: 0
-  name: Variations de stock de produits de défense des végétaux – Adexar 5 l
-  number: '6031300000008'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: plant_medicine_stocks_variation
-accounts_314:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 657
-  label: 6031300000020 – Microthiol sp disp
-  lock_version: 0
-  name: Variations de stock de produits de défense des végétaux – Microthiol sp disp
-  number: '6031300000020'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: plant_medicine_stocks_variation
-accounts_315:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 658
-  label: 6031300000057 – Acide lactique ‒ 25kg
-  lock_version: 0
-  name: Variations de stock de produits de défense des végétaux – Acide lactique ‒
-    25kg
-  number: '6031300000057'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: plant_medicine_stocks_variation
-accounts_316:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 659
-  label: 6031300000058 – Acide malique ‒ 25kg
-  lock_version: 0
-  name: Variations de stock de produits de défense des végétaux – Acide malique ‒
-    25kg
-  number: '6031300000058'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: plant_medicine_stocks_variation
-accounts_317:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 660
-  label: 6031300000059 – Levure œnologique ‒ sachet de 500g
-  lock_version: 0
-  name: Variations de stock de produits de défense des végétaux – Levure œnologique
-    ‒ sachet de 500g
-  number: '6031300000059'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: plant_medicine_stocks_variation
-accounts_318:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 661
-  label: 6031300000060 – Sucre blanc ‒ 25kg
-  lock_version: 0
-  name: Variations de stock de produits de défense des végétaux – Sucre blanc ‒ 25kg
-  number: '6031300000060'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: plant_medicine_stocks_variation
-accounts_319:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 662
-  label: 6031300000061 – Ferrocyanide de potassium ‒ 25kg
-  lock_version: 0
-  name: Variations de stock de produits de défense des végétaux – Ferrocyanide de
-    potassium ‒ 25kg
-  number: '6031300000061'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: plant_medicine_stocks_variation
-accounts_320:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 663
-  label: 6031300000062 – So2 liquide 10%
-  lock_version: 0
-  name: Variations de stock de produits de défense des végétaux – So2 liquide 10%
-  number: '6031300000062'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: plant_medicine_stocks_variation
-accounts_321:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 664
-  label: 6031100000039 – Ammonitre 33,5%  Big Bag
-  lock_version: 0
-  name: Variations de stock d’engrais et amendements – Ammonitre 33,5%  Big Bag
-  number: '6031100000039'
-  reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
-  usages: fertilizer_stocks_variation
-accounts_322:
-  created_at: 2016-09-29 20:25:37.625367000 Z
-  debtor: false
-  id: 665
   label: 6031200000010 – Semence de Blé tendre Rubisko (r1 gau red) sac de 25kg
   lock_version: 0
   name: Variations de stock de semences et plants – Semence de Blé tendre Rubisko
     (r1 gau red) sac de 25kg
   number: '6031200000010'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
+  updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: seed_stocks_variation
-accounts_323:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+accounts_314:
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
-  id: 666
+  id: 657
   label: 6031200000011 – Semence d’avoine d’hiver une de mai ‒ sac de 25kg
   lock_version: 0
   name: Variations de stock de semences et plants – Semence d’avoine d’hiver une de
     mai ‒ sac de 25kg
   number: '6031200000011'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
+  updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: seed_stocks_variation
-accounts_324:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+accounts_315:
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
-  id: 667
+  id: 658
   label: 6031200000041 – Semence de trèfle violet ‒ Ségur ‒ sac de 10kg
   lock_version: 0
   name: Variations de stock de semences et plants – Semence de trèfle violet ‒ Ségur
     ‒ sac de 10kg
   number: '6031200000041'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
+  updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: seed_stocks_variation
-accounts_325:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+accounts_316:
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
-  id: 668
+  id: 659
   label: 6031200000042 – Semence mixte
   lock_version: 0
   name: Variations de stock de semences et plants – Semence mixte
   number: '6031200000042'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
+  updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: seed_stocks_variation
-accounts_326:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+accounts_317:
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
-  id: 669
+  id: 660
   label: 6031500000021 – Acetal
   lock_version: 0
   name: Variations de stock de produits de défense des animaux – Acetal
   number: '6031500000021'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
+  updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: animal_medicine_stocks_variation
-accounts_327:
-  created_at: 2016-09-29 20:25:37.625367000 Z
+accounts_318:
+  created_at: 2016-09-30 06:43:11.286837000 Z
   debtor: false
-  id: 670
+  id: 661
   label: 6031500000022 – Riflexine
   lock_version: 0
   name: Variations de stock de produits de défense des animaux – Riflexine
   number: '6031500000022'
   reconcilable: false
-  updated_at: 2016-09-29 20:25:37.625367000 Z
+  updated_at: 2016-09-30 06:43:11.286837000 Z
   usages: animal_medicine_stocks_variation
+accounts_319:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 662
+  label: 6031100000039 – Ammonitre 33,5%  Big Bag
+  lock_version: 0
+  name: Variations de stock d’engrais et amendements – Ammonitre 33,5%  Big Bag
+  number: '6031100000039'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: fertilizer_stocks_variation
+accounts_320:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 663
+  label: 6031300000008 – Adexar 5 l
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Adexar 5 l
+  number: '6031300000008'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_321:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 664
+  label: 6031300000020 – Microthiol sp disp
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Microthiol sp disp
+  number: '6031300000020'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_322:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 665
+  label: 6031300000057 – Acide lactique ‒ 25kg
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Acide lactique ‒
+    25kg
+  number: '6031300000057'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_323:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 666
+  label: 6031300000058 – Acide malique ‒ 25kg
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Acide malique ‒
+    25kg
+  number: '6031300000058'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_324:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 667
+  label: 6031300000059 – Levure œnologique ‒ sachet de 500g
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Levure œnologique
+    ‒ sachet de 500g
+  number: '6031300000059'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_325:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 668
+  label: 6031300000060 – Sucre blanc ‒ 25kg
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Sucre blanc ‒ 25kg
+  number: '6031300000060'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_326:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 669
+  label: 6031300000061 – Ferrocyanide de potassium ‒ 25kg
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – Ferrocyanide de
+    potassium ‒ 25kg
+  number: '6031300000061'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
+accounts_327:
+  created_at: 2016-09-30 06:43:11.286837000 Z
+  debtor: false
+  id: 670
+  label: 6031300000062 – So2 liquide 10%
+  lock_version: 0
+  name: Variations de stock de produits de défense des végétaux – So2 liquide 10%
+  number: '6031300000062'
+  reconcilable: false
+  updated_at: 2016-09-30 06:43:11.286837000 Z
+  usages: plant_medicine_stocks_variation
