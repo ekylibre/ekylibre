@@ -987,7 +987,6 @@ imports:
 incoming_deliveries:
   read:
     actions:
-    - "backend/parcel_items#new"
     - "backend/parcels#index"
     - "backend/parcels#list"
     - "backend/parcels#list_incoming_items"
