@@ -69,11 +69,13 @@ module Backend
     # Maybe an Exporter ? A Presenter ? Something along those lines ?
     def inspections_to_ods_export(inspections)
       require 'odf/spreadsheet'
+      # HACK: To have the details_hash...
+      # that part needs to be reorganized. #TODO
       helper = Object.new.extend(InspectionsHelper)
       output = ODF::Spreadsheet.new
       output.instance_eval do
         office_style :important, family: :cell do
-          property :text, 'font-weight': :bold, 'font-size': '12px'
+          property :text, 'font-weight': :bold, 'font-size': '11px'
         end
         office_style :bold, family: :cell do
           property :text, 'font-weight': :bold
@@ -116,7 +118,7 @@ module Backend
                   .map do |i_row|
                     row do
                       i_row.each do |col|
-                        style = :bold if part == :subtotal
+                        style = :bold if [:total, :subtotal].include? part
                         style = :important if col[:tag] == :th
                         cell (col[:content] || '-'), span: col[:colspan], style: style
                       end
