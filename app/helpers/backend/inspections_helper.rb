@@ -22,13 +22,13 @@ module Backend
         ### INIT
         columns = Hash.new { Hash.new [] }
 
-        name = [InspectionCalibration.human_attribute_name(:name)]
+        name = InspectionCalibration.human_attribute_name(:name)
         columns[name] = { body: [], total: [], colspan: 3 }
 
         quantity = {}
         [:items_count, :net_mass].each do |dimension|
           next unless inspection.measure_grading(dimension)
-          quantity[dimension] = [InspectionCalibration.human_attribute_name(dimension)]
+          quantity[dimension] = InspectionCalibration.human_attribute_name(dimension)
           columns[quantity[dimension]] = { body: [], total: [], colspan: 1 }
         end
 
@@ -90,7 +90,7 @@ module Backend
         ### INIT
         columns = Hash.new { Hash.new { [] } }
 
-        name = [InspectionPoint.human_attribute_name(:name)]
+        name = InspectionPoint.human_attribute_name(:name)
         columns[name] = { body: [], subtotal: [], total: [], colspan: 3 }
 
         quantity = {}

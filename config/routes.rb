@@ -689,7 +689,11 @@ Rails.application.routes.draw do
 
     resources :products, concerns: [:products]
 
-    resources :inspections, concerns: [:list, :unroll]
+    resources :inspections, concerns: [:list, :unroll] do
+      member do
+        get :export, defaults: { format: 'ods' }
+      end
+    end
 
     resources :product_groups, concerns: :products
 

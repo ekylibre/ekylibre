@@ -997,9 +997,14 @@ module ApplicationHelper
       class: options[:filler_class]
     )
     size = cells.size
+    # Number of depth levels we're going to need
+    # log2(number of elements)
+    # +1 here for proper handling of odds
     n = Math.log(size + 1, 2).round
 
     unbalanced = cells.count(nil).odd? && size.even?
+
+    # You can't balance a odd number of elements inside an odd numbered grid
     cells.delete_at(cells.find_index(nil)) if unbalanced
 
     empties = cells.count(nil)
@@ -1008,6 +1013,10 @@ module ApplicationHelper
     return safe_join(cells.map { |cell| content_tag(options[:cell_tag], cell, class: options[:cell_class]) }) if empties.zero?
 
     result = []
+    # We strive to put everything in the middle
+    # `filled <= (n - 1) * 2 - 1` tells us if there's
+    # enough roomin the inner levels to handle the elements
+    # or if we should take some of the burden.
     if filled <= (n - 1) * 2 - 1
       result << filler
       result << even_cells(*(cells.compact + [nil] * (empties - 2)), **options)
@@ -1024,6 +1033,7 @@ module ApplicationHelper
         class: options[:cell_class]
       )
     end
+    # Continuation of the `odd in even` problem mentioned above.
     result << filler if unbalanced
 
     safe_join(result)

@@ -27,12 +27,107 @@ module Backend
     list do |t|
       t.action :edit
       t.action :destroy
+      t.action :export, on: :both
       t.column :number, url: true
       t.column :activity, url: true
       t.column :product, url: true
       t.column :sampled_at, datatype: :datetime
       # t.column :implanter_rows_number
       # t.column :implanter_working_width
+    end
+
+    def export
+      inspections = find_inspections
+      respond_to do |format|
+        format.html
+        format.ods do
+          send_data(
+            inspections_to_ods_export(inspections).bytes,
+            filename: "[#{Time.zone.now.l}] #{Inspection.model_name.human}.ods".underscore
+          )
+        end
+      end
+    end
+
+    private
+
+    def find_inspections
+      inspection_ids = params[:id].split(',')
+      inspections = Inspection.where(id: inspection_ids)
+      unless inspections.any?
+        notify_error :no_inspections_given
+        redirect_to(params[:redirect] || { action: :index })
+        return nil
+      end
+      inspections
+    end
+
+    # FIXME
+    # Not satisfied that the code is here instead of somewhere else but I can't
+    # really figure out where it should be.
+    #
+    # Maybe an Exporter ? A Presenter ? Something along those lines ?
+    def inspections_to_ods_export(inspections)
+      require 'odf/spreadsheet'
+      helper = Object.new.extend(InspectionsHelper)
+      output = ODF::Spreadsheet.new
+      output.instance_eval do
+        office_style :important, family: :cell do
+          property :text, 'font-weight': :bold, 'font-size': '12px'
+        end
+        office_style :bold, family: :cell do
+          property :text, 'font-weight': :bold
+        end
+        inspections.reorder(:activity_id, :sampled_at).each do |inspection|
+          table inspection.number do
+            row do
+              cell "#{Inspection.model_name.human} #{inspection.number}", span: 11, style: :important
+            end
+
+            row do
+              cell "#{Inspection.human_attribute_name(:activity)}: #{inspection.activity.name}", style: :important, span: 3
+              cell
+              cell "#{Inspection.human_attribute_name(:product)}: #{inspection.product.name}", style: :important, span: 3
+              cell
+              cell "#{Inspection.human_attribute_name(:sampled_at)}: #{inspection.sampled_at}", style: :important, span: 3
+            end
+
+
+            hash = helper.data_to_details_hash(inspection)
+            hash.each do |title, table|
+              row
+              row do
+                title_colspan = table.map { |_title, contents| contents[:colspan] }.sum
+                cell (title.is_a?(Hash) ? title[:title] : title), span: title_colspan, style: :important
+              end
+
+              row do
+                table.map do |subtitle, contents|
+                  cell (subtitle.is_a?(Hash) ? subtitle[:title] : subtitle), style: :important, span: contents[:colspan]
+                end
+              end
+
+              [:body, :subtotal, :total].each do |part|
+                table
+                  .values
+                  .map { |content| content[part] && content[part].map { |col| col.merge(colspan: content[:colspan]) } }
+                  .compact
+                  .transpose
+                  .map do |i_row|
+                    row do
+                      i_row.each do |col|
+                        style = :bold if part == :subtotal
+                        style = :important if col[:tag] == :th
+                        cell (col[:content] || '-'), span: col[:colspan], style: style
+                      end
+                    end
+                  end
+              end
+            end
+          end
+        end
+      end
+      output
     end
   end
 end

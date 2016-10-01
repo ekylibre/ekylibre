@@ -377,6 +377,10 @@ GEM
     rjb-loader (0.0.2)
       rails (>= 3.2)
       rjb (>= 1.4.8)
+    rodf (0.3.7)
+      activesupport (>= 3.0, < 6.0)
+      builder (~> 3.0)
+      rubyzip (~> 1.0)
     roo (2.5.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
@@ -573,6 +577,7 @@ DEPENDENCIES
   rest-client
   rgeo-geojson
   rgeo-shapefile
+  rodf
   roo
   rubocop
   rubyntlm (>= 0.3.2)
