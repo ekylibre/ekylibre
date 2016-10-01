@@ -339,12 +339,14 @@ eng:
       index: "Integrations"
       new: "Activate integration: %{name}"
     backend/interventions:
+      # change_state: "Change state intervention: %{name}"
       # compute: "Compute intervention: %{name}"
       edit: "Edit"
       edit_request: "Edit request" #?
       edit_specified: "Edit %{procedure_name} #%{number}" #?
       edit_specified_request: "Edit %{procedure_name} request #%{number}" #?
       index: "Interventions"
+      # modal: "Modal intervention: %{name}"
       new: "New intervention"
       new_request: "New intervention request" #?
       new_specified: "New %{procedure_name}" #?
@@ -1373,6 +1375,7 @@ eng:
     payments_count: "Payments count"
     people: "People"
     percentage_by_calibration: "Percentage by calibration"
+    # percentage_by_calibration_x: "Percentage by calibration x"
     period: "Period"
     periods: "Periods" #?
     permute: "Permute" #?
@@ -1515,6 +1518,7 @@ eng:
     stock_container_map: "Stock map" #?
     stock_in_ground: "Stock in ground"
     stock_in_ground_by_calibration: "Stocks in ground by calibration"
+    # stock_in_ground_by_calibration_x: "Stock in ground by calibration x"
     stock_of_x: "Stock of %{x}"
     stocks: "Stocks"
     stop: "Stop" #?
@@ -1788,7 +1792,8 @@ eng:
       one: "1 year"
       other: "%{count} years"
     yield: "Yield" #?
-    yield_by_calibration: "Yield by calibration"
+    yield_by_calibration: "Yield by calibration" #?
+    # yield_by_calibration_x: "Yield by calibration x"
     zones: "Zones"
     # }: "}"
   notifications:
@@ -1922,6 +1927,7 @@ eng:
       # change: "Change"
       # change_minutes: "Change minutes"
       # change_password: "Change password"
+      # change_state: "Change state"
       check: "Check"
       close: "Close"
       compute: "Compute"
@@ -1966,6 +1972,7 @@ eng:
       mail: "Mail"
       mark: "Mark"
       merge: "Merge"
+      # modal: "Modal"
       # models: "Models"
       negociate: "Negociate"
       new: "New"

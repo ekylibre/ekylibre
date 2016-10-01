@@ -83,6 +83,7 @@ cmn:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          # checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "至少，当检查被通缉应选择的一种度量类型"
         bank_statement:
           no_cash_match_ofx: "没有现金找到该文件中给出的银行账号"
@@ -770,6 +771,7 @@ cmn:
     item_value: "项目价值"
     items: "项目"
     items_count: "项目数"
+    # items_count_value: "Items count value"
     journal: "日志"
     journal_entries: "日记帐分录"
     journal_entry: "日记条目"

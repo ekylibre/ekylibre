@@ -92,6 +92,7 @@ ita:
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
       models:
         activity:
+          # checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
         bank_statement:
           no_cash_match_ofx: "Nessun denaro trovato per il numero di conto bancario data nel file"
@@ -801,6 +802,7 @@ ita:
     item_value: "valore Articolo"
     items: "Elementi"
     items_count: "contano articoli"
+    # items_count_value: "Items count value"
     journal: "rivista"
     journal_entries: "Le voci del diario"
     journal_entry: "annotazione"

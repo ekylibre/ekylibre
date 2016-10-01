@@ -197,6 +197,7 @@ fra:
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
         activity:
+          checked_off_with_inspections: "Des agréages sont déjà présents pour cette activité"
           checked_without_measures: "Au moins un type de mesure doit être sélectionné lorsque l'utilisation des agréages est demandée"
         bank_statement:
           no_cash_match_ofx: "Aucune somme d’argent trouvée pour le numéro de compte bancaire donné dans le fichier"
@@ -969,6 +970,7 @@ fra:
     item_value: "Valeur de l’élément"
     items: "Élements"
     items_count: "Nombre d’éléments"
+    # items_count_value: "Items count value"
     journal: "Journal"
     journal_entries: "Écritures"
     journal_entry: "Écriture"
@@ -1691,8 +1693,10 @@ fra:
         transfer:
           name: "Virement"
     inspection:
-      items: "Nombre de pièces"
-      mass: "Masse"
+      # items: "Items"
+      items_count: "Nombre de pièces" #?
+      # mass: "Mass"
+      net_mass: "Masse" #?
     intervention:
       bookkeep: "[%{resource}] %{name}" #?
       name: "%{intervention} n°%{number}"

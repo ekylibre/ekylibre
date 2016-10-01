@@ -988,4 +988,57 @@ module ApplicationHelper
       'datetime.relative_distance_in_words.sometime_ago'.t(distance: time_ago_in_words(time))
     end
   end
+
+  def even_cells(*cells, **options)
+    options = default_evening_options(options)
+    filler = content_tag(
+      options[:filler_tag],
+      options[:filler_content],
+      class: options[:filler_class]
+    )
+    size = cells.size
+    n = Math.log(size + 1, 2).round
+
+    unbalanced = cells.count(nil).odd? && size.even?
+    cells.delete_at(cells.find_index(nil)) if unbalanced
+
+    empties = cells.count(nil)
+    filled = size - empties
+    return safe_join(cells.map { |_| filler }) if filled.zero?
+    return safe_join(cells.map { |cell| content_tag(options[:cell_tag], cell, class: options[:cell_class]) }) if empties.zero?
+
+    result = []
+    if filled <= (n - 1) * 2 - 1
+      result << filler
+      result << even_cells(*(cells.compact + [nil] * (empties - 2)), **options)
+      result << filler
+    else
+      result << content_tag(
+        options[:cell_tag],
+        cells.compact.first,
+        class: options[:cell_class])
+      result << even_cells(*(cells.compact[1...-1] + [nil] * empties), **options)
+      result << content_tag(
+        options[:cell_tag],
+        cells.compact.last,
+        class: options[:cell_class]
+      )
+    end
+    result << filler if unbalanced
+
+    safe_join(result)
+  end
+
+  private
+
+  def default_evening_options(options)
+    defaults = {}
+    defaults[:filler_tag]     = options[:filler_tag]      || :div
+    defaults[:filler_class]   = options[:filler_class]    || :"even-filler"
+    defaults[:filler_content] = options[:filler_content]  || nil
+
+    defaults[:cell_tag]       = options[:cell_tag]        || :div
+    defaults[:cell_class]     = options[:cell_class]      || :"even-cell"
+    defaults
+  end
 end

@@ -1578,6 +1578,7 @@ fra:
     payments_count: "Nombre de %{mode}"
     people: "Personnes"
     percentage_by_calibration: "Pourcentage de stock en terre par calibre"
+    percentage_by_calibration_x: "Pourcentage de stock en terre par calibre - %{x}" #?
     period: "Période prédéfinie"
     periods: "Périodes"
     permute: "Permuter les fiches"
@@ -1838,6 +1839,7 @@ fra:
     stock_container_map: "Carte des lieux de stockage"
     stock_in_ground: "Stock en terre"
     stock_in_ground_by_calibration: "Stock en terre par calibre"
+    stock_in_ground_by_calibration_x: "Stock en terre par calibre - %{x}" #?
     stock_in_ground_by_calibres: "Stocks en terre par calibre" #?
     stock_max: "Stock maximum" #?
     stock_min: "Stock minimum" #?
@@ -2213,6 +2215,7 @@ fra:
     years_count_in_historic: "Nombre d’années dans l’historique" #?
     yield: "Rendement"
     yield_by_calibration: "Rendement par calibre"
+    yield_by_calibration_x: "Rendement par calibre - %{x}" #?
     yield_by_calibrations: "Rendement par calibre" #?
     zones: "Zones"
   notifications:

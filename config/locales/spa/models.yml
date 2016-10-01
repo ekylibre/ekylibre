@@ -83,6 +83,7 @@ spa:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          # checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones"
         bank_statement:
           no_cash_match_ofx: "No hay resultados para el número de cuenta bancaria que figura en el archivo de efectivo"
@@ -774,6 +775,7 @@ spa:
     item_value: "Valor del ítem"
     items: "Elementos"
     items_count: "Los productos que cuentan"
+    # items_count_value: "Items count value"
     journal: "Diario"
     journal_entries: "Las entradas de diario"
     journal_entry: "Entrada de diario"

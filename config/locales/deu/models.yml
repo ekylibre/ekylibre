@@ -83,6 +83,7 @@ deu:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          # checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "Zumindest sollte eine Maßnahme Typ gewählt werden, wenn Kontrollen gewünscht werden"
         bank_statement:
           no_cash_match_ofx: "Kein Geld für die Bankkontonummer in der Datei angegeben gefunden"
@@ -770,6 +771,7 @@ deu:
     item_value: "Artikel Wert"
     items: "Artikel"
     items_count: "Artikel zählen"
+    # items_count_value: "Items count value"
     journal: "Zeitschrift"
     journal_entries: "Journaleinträge"
     journal_entry: "Tagebucheintrag"

@@ -83,6 +83,7 @@ jpn:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          # checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "検査が求められていたときに少なくとも、1小節の種類を選択する必要があります"
         bank_statement:
           no_cash_match_ofx: "ファイルで指定された銀行口座番号が見つかり代引き不可"
@@ -770,6 +771,7 @@ jpn:
     item_value: "アイテムの値"
     items: "アイテム"
     items_count: "アイテム数"
+    # items_count_value: "Items count value"
     journal: "ジャーナル"
     journal_entries: "仕訳"
     journal_entry: "仕訳記入"

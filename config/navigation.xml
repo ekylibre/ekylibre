@@ -1818,6 +1818,11 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="interventions">
+        <page to="backend/interventions#change_state"/>
+        <page to="backend/interventions#modal"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

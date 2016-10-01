@@ -114,4 +114,54 @@ class Plant < Bioproduct
   def best_activity_production(options = {})
     ActivityProduction.where(support: LandParcel.shape_intersecting(shape)).current.first || super
   end
+
+  # INSPECTIONS RELATED
+
+  def stock_in_ground_by_calibration_series(dimension, scales)
+    scale_natures = scales
+    find_calib = ->(i, scale) { i.marketable_quantity(dimension, scale) }
+    marketable = ->(value) { value }
+
+    curves(scale_natures, find_calib, marketable)
+  end
+
+  def disease_deformity_series(dimension)
+    categories = ActivityInspectionPointNature.unmarketable_categories
+    cat_percentage = ->(i, category) { i.points_percentage(dimension, category) }
+    nothing = ->(percentage) { percentage }
+
+    curves(categories, cat_percentage, nothing)
+  end
+
+  private
+
+  def curves(collection, set_first_val, get_value, round = 2)
+    hashes = inspections.reorder(:sampled_at).map do |intervention|
+      pairs = collection.map do |grouping_crit|
+        pre_val = set_first_val.call(intervention, grouping_crit)
+        value = (pre_val ? get_value.call(pre_val) : 0).to_s.to_f
+        value = value.round(round) if round
+        [grouping_crit, value]
+      end
+
+      pairs_to_hash(pairs)
+    end
+
+    merge_all(hashes)
+  end
+
+  # [ {}, {}, {} ] => { [], [], [] }
+  def merge_all(hashes)
+    hashes.reduce do |final, caliber_hash|
+      final.merge(caliber_hash) { |_k, old_val, new_val| old_val + new_val }
+    end
+  end
+
+  # [[1, 2], [1, 3], [2, 3]] => { 1: [2, 3], 2: [3] }
+  def pairs_to_hash(array_of_pairs)
+    array_of_pairs
+      .group_by(&:first)
+      .map { |crit, g_pairs| [crit, g_pairs.map(&:last)] }
+      .to_h
+  end
 end
