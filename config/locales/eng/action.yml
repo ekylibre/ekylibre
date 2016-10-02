@@ -1349,7 +1349,8 @@ eng:
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     others: "Others" #?
-    # outgoing_parcels: "Outgoing parcels"
+    outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
+    outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
     page_title: "%{company_code} · %{menu} · %{action}"
@@ -1358,7 +1359,7 @@ eng:
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?
     parameters: "Parameters"
-    # parcel_items: "Parcel items"
+    parcel_items: "Parcel items"
     parcels: "Parcels"
     participants: "Participants"
     participations: "Participations"
@@ -1473,6 +1474,7 @@ eng:
     sales: "Sales"
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
+    sales_pretax_amount: "Pretax amount (Sales)"
     same_variant_as_x: "Same variant as %{x}"
     save: "Save"
     save_in_draft: "Save as draft"

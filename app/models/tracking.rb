@@ -53,8 +53,8 @@ class Tracking < Ekylibre::Record::Base
   validates :usage_limit_on, presence: { unless: :no_limit? }
 
   alias_attribute :serial_number, :serial
-  
-  
+
+
   # get outgoing parcel quantity throught tracking
   def outgoing_parcel_quantity(unit = :kilogram)
     if parcel_items.any?
@@ -64,9 +64,9 @@ class Tracking < Ekylibre::Record::Base
       nil
     end
   end
-  
+
   # get sale amount throught tracking
-  def sales_amount(currency = Preference[:currency].to_s)
+  def sales_pretax_amount(currency = Preference[:currency].to_s)
     sale_items = SaleItem.where(id: parcel_items.pluck(:sale_item_id))
     if sale_items.any?
       sale_items.map(&:pretax_amount).compact.sum.l(currency: currency)
@@ -74,5 +74,5 @@ class Tracking < Ekylibre::Record::Base
       nil
     end
   end
-  
+
 end
