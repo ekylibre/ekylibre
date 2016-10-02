@@ -202,10 +202,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
   def create_unique_account(mode = :stock)
     account_key = mode.to_s + '_account'
     unless storable?
-      raise ArgumentError, "Unknown to store #{self.name.inspect}. You have to check category first"
+      raise ArgumentError, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
     end
-      
+
     category_account = category.send(account_key)
+    unless category_account
+      raise ArgumentError, "Account is not configure for #{self.name.inspect}. You have to check category first"
+    end
 
     options = {}
     options[:number] = category_account.number + number[-6, 6].rjust(6)

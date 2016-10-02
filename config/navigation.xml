@@ -531,7 +531,6 @@
         <page to="backend/parcels#give"/>
         <page to="backend/parcels#order"/>
         <page to="backend/parcels#prepare"/>
-        <page to="backend/parcel_items#new"/>
       </item>
       <item name="deliveries">
         <page to="backend/deliveries#index"/>

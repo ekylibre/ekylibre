@@ -1,3 +1,0 @@
-= backend_fields_for(@parcel) do |f|
-  = f.backend_fields_for(:items, :child_index => (1_000_000_000 + rand(1_000_000)).to_s(36)) do |i|
-    = render("form", f: i)
