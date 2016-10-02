@@ -42,6 +42,7 @@ module Backend
       t.action :destroy, if: :destroyable?
       t.column :number, url: true
       t.column :name, url: true
+      t.column :usages, hidden: true
       t.column :reconcilable
       t.column :description
     end
