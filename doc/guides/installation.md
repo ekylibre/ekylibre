@@ -61,7 +61,9 @@ If you are on Debian Jessie, please take a look at [detailed installation guide]
 *   Move to Ekylibre directory root and install gems with bundler:
 
         cd /path/to/ekylibre
-        JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
+        JAVA_HOME=/usr/lib/jvm/java-7-openjdk 
+        NOKOGIRI_USE_SYSTEM_LIBRARIES=1 
+        bundle install
 
     Or you can add the following lines in your +~/.bash_profile+ in your home
     directory and run +bundle install+ after:
