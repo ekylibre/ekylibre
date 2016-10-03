@@ -176,58 +176,30 @@ class Parcel < Ekylibre::Record::Base
   # incoming parcel        |    stock(3X)                   |   stock_movement(603X/71X)   |
   # outgoing parcel        |  stock_movement(603X/71X)      |            stock(3X)         |
   bookkeep do |b|
-    if Preference[:permanent_stock_inventory]
-      purchase_not_received_acccount = Account.find_or_import_from_nomenclature(:suppliers_invoices_not_received)
-      mode = nature
-      entity = recipient || sender
-      label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
-      undelivered_label = tc(:undelivered_invoice, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
-      stock_journal = Journal.find_or_create_by!(nature: :stocks)
-      sale_journal = Journal.find_or_create_by!(nature: :sales)
-      purchase_journal = Journal.find_or_create_by!(nature: :purchases)
-      if mode == :incoming
-        # for purchase_not_received
-        b.journal_entry(purchase_journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
-          # for permanent stock inventory
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
-            for item in items
-              # compute amout on purchase or stock catalog
-              amount = if item.purchase_item
-                         item.purchase_item.pretax_amount
-                       else
-                         item.stock_amount
-                       end
-              # sale not emitted
-              entry.add_credit(undelivered_label, purchase_not_received_acccount.id, amount) unless amount.zero?
-              entry.add_debit(undelivered_label, item.variant.charge_account.id, amount) unless amount.zero?
-              # permanent stock inventory
-              next unless item.variant.storable?
-              stock_entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
-              stock_entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-            end
-          end
-        end
-      elsif mode == :outgoing
-        # for sale_not_emitted
-        b.journal_entry(sale_journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
-          # for permanent stock inventory
-          b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |_stock_entry|
-            for item in items
-              # compute amout on sale or stock catalog
-              amount = if item.sale_item
-                         item.sale_item.pretax_amount
-                       else
-                         item.stock_amount
-                       end
-              # sale not emitted
-              entry.add_debit(undelivered_label, purchase_not_received_acccount.id, amount) unless amount.zero?
-              entry.add_credit(undelivered_label, item.variant.product_account.id, amount) unless amount.zero?
-              # permanent stock inventory
-              next unless item.variant.storable?
-              entry.add_credit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
-              entry.add_debit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
-            end
-          end
+    return unless Preference[:permanent_stock_inventory]
+    invoice_not_received_account = Account.find_or_import_from_nomenclature(:suppliers_invoices_not_received)
+    mode = nature
+    entity = recipient || sender
+    label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
+    undelivered_label = tc(:undelivered_invoice, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
+    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    return unless [:incoming, :outgoing].include? mode
+    # for purchase_not_received or sale_not_emitted
+    journal = Journal.find_or_create_by!(nature: { incoming: :sales, outgoing: :purchases }[mode])
+    b.journal_entry(journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
+      # for permanent stock inventory
+      b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
+        items.each do |item|
+          transaction_item = mode == :incoming ? item.purchase_item : item.sale_item
+          # compute amout on purchase/sale or stock catalog
+          amount = (transaction_item && transaction_item.pretax_amount) || item.stock_amount
+          # purchase/sale not emitted
+          entry.add_credit(undelivered_label, invoice_not_received_account.id, amount) unless amount.zero?
+          entry.add_debit(undelivered_label, item.variant.charge_account.id, amount) unless amount.zero?
+          # permanent stock inventory
+          next unless item.variant.storable?
+          stock_entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?
+          stock_entry.add_debit(label, item.variant.stock_account_id, item.stock_amount) unless item.stock_amount.zero?
         end
       end
     end

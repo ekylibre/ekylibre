@@ -221,16 +221,15 @@ class Sale < Ekylibre::Record::Base
     stock_journal = Journal.find_or_create_by!(nature: :stocks)
     # 1 / for undelivered invoice
     # exchange undelivered invoice from parcel
-    for pi in parcels
+    parcels.each do |pi|
       # 1 / for undelivered invoice
       next unless pi.undelivered_invoice_entry
       b.journal_entry(nature.journal, printed_on: invoiced_on, column: :undelivered_invoice_entry_id, if: (with_accounting && invoice?)) do |entry|
         undelivered_label = tc(:exchange_undelivered_invoice, resource: pi.class.model_name.human, number: pi.number, entity: supplier.full_name, mode: pi.nature.tl)
         undelivered_items = pi.undelivered_invoice_entry.items
-        for undelivered_item in undelivered_items
-          if undelivered_item.real_balance.nonzero?
-            entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
-          end
+        undelivered_items.each do |undelivered_item|
+          next unless undelivered_item.real_balance.nonzero?
+          entry.add_credit(undelivered_label, undelivered_item.account.id, undelivered_item.real_balance)
         end
       end
     end
@@ -242,15 +241,12 @@ class Sale < Ekylibre::Record::Base
         next unless item.variant.storable?
         parcel_items_qty = item.parcel_items.map(&:population).compact.sum
         gap = item.quantity - parcel_items_qty
-        qty = 0.0
-        if item.parcel_items.any?
-          qty = item.parcel_items.first.unit_pretax_stock_amount if item.parcel_items.first.unit_pretax_stock_amount
-        end
+        next unless item.parcel_items.any? && item.parcel_items.first.unit_pretax_stock_amount
+        qty = item.parcel_items.first.unit_pretax_stock_amount
         gap_value = gap * qty
-        if gap_value != 0.0
-          entry.add_credit(gap_label, item.variant.stock_account_id, gap_value) unless gap_value.zero?
-          entry.add_debit(gap_label, item.variant.stock_movement_account_id, gap_value) unless gap_value.zero?
-        end
+        next if gap_value.zero?
+        entry.add_credit(gap_label, item.variant.stock_account_id, gap_value)
+        entry.add_debit(gap_label, item.variant.stock_movement_account_id, gap_value)
       end
     end
   end
