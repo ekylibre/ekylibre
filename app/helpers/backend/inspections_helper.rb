@@ -77,8 +77,8 @@ module Backend
         end
 
         columns[name][:total] << { tag: :th, content: :totals.tl }
-        columns[grading_sizes[:min]][:total] << {}
-        columns[grading_sizes[:max]][:total] << {}
+        columns[grading_sizes[:min]][:total] << total_decimal_cell('')
+        columns[grading_sizes[:max]][:total] << total_decimal_cell('')
         #########
 
         details[scale.size_indicator.human_name] = columns
@@ -139,29 +139,29 @@ module Backend
         ### SUBTOTAL
         ActivityInspectionPointNature.unmarketable_categories.each do |category|
           [:items_count, :net_mass].each do |dimension|
-            columns[quantity[dimension]][:subtotal] << decimal_cell(inspection.points_sum(dimension, category).round(0).l(precision: 0))
-            columns[statable[dimension][:total]][:subtotal] << decimal_cell(inspection.points_total(dimension, category).round(0).l(precision: 0))
-            columns[statable[dimension][:yield]][:subtotal] << decimal_cell(inspection.points_yield(dimension, category).round(2).l(precision: 2))
-            columns[statable[dimension][:market]][:subtotal] << decimal_cell(inspection.points_percentage(dimension, category).round(2).l(precision: 2) + '%')
+            columns[quantity[dimension]][:subtotal] << total_decimal_cell(inspection.points_sum(dimension, category).round(0).l(precision: 0))
+            columns[statable[dimension][:total]][:subtotal] << total_decimal_cell(inspection.points_total(dimension, category).round(0).l(precision: 0))
+            columns[statable[dimension][:yield]][:subtotal] << total_decimal_cell(inspection.points_yield(dimension, category).round(2).l(precision: 2))
+            columns[statable[dimension][:market]][:subtotal] << total_decimal_cell(inspection.points_percentage(dimension, category).round(2).l(precision: 2) + '%')
           end
 
-          columns[name][:subtotal] << { tag: :td, content: "enumerize.activity_inspection_point_nature.category.#{category}".t }
-          columns[grading_sizes[:min]][:subtotal] << {}
-          columns[grading_sizes[:max]][:subtotal] << {}
+          columns[name][:subtotal] << { tag: :th, content: "enumerize.activity_inspection_point_nature.category.#{category}".t }
+          columns[grading_sizes[:min]][:subtotal] << total_decimal_cell('')
+          columns[grading_sizes[:max]][:subtotal] << total_decimal_cell('')
         end
         #########
 
         ### TOTAL
         [:items_count, :net_mass].each do |dimension|
-            columns[quantity[dimension]][:total] << decimal_cell(inspection.points_sum(dimension).round(0).l(precision: 0))
-            columns[statable[dimension][:total]][:total] << decimal_cell(inspection.points_total(dimension).round(0).l(precision: 0))
-            columns[statable[dimension][:yield]][:total] << decimal_cell(inspection.points_yield(dimension).round(2).l(precision: 2))
-            columns[statable[dimension][:market]][:total] << decimal_cell(inspection.points_percentage(dimension).round(2).l(precision: 2) + '%')
+            columns[quantity[dimension]][:total] << total_decimal_cell(inspection.points_sum(dimension).round(0).l(precision: 0))
+            columns[statable[dimension][:total]][:total] << total_decimal_cell(inspection.points_total(dimension).round(0).l(precision: 0))
+            columns[statable[dimension][:yield]][:total] << total_decimal_cell(inspection.points_yield(dimension).round(2).l(precision: 2))
+            columns[statable[dimension][:market]][:total] << total_decimal_cell(inspection.points_percentage(dimension).round(2).l(precision: 2) + '%')
           end
 
         columns[name][:total] << { tag: :th, content: :totals.tl }
-        columns[grading_sizes[:min]][:total] << {}
-        columns[grading_sizes[:max]][:total] << {}
+        columns[grading_sizes[:min]][:total] << total_decimal_cell('')
+        columns[grading_sizes[:max]][:total] << total_decimal_cell('')
         #########
 
         details[Inspection.human_attribute_name(:points)] = columns
@@ -190,7 +190,6 @@ module Backend
             html += table.values.map { |content| content[part] }.compact.transpose.map do |row|
               content_tag :tr, class: part do
                 cols = row.map do |col|
-                  next if col.blank?
                   content_tag col[:tag], col[:content] || '&ndash;'.html_safe, class: col[:class]
                 end
                 safe_join(cols)
