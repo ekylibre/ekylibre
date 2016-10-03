@@ -41,5 +41,5 @@
           %th.act
 
     %tbody#items.items
-      = render partial: 'backend/journal_entry_items/row_form', collection: items.sort_by(&:position)
+      = render partial: 'backend/journal_entry_items/row_form', collection: items.sort_by{|item| item.position || 0}
       = render partial: 'backend/journal_entry_items/row_form', object: @journal_entry.items.new if items.empty?
