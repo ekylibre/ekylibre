@@ -353,9 +353,10 @@ CREATE TABLE target_distributions (
 CREATE VIEW activities_interventions AS
  SELECT DISTINCT interventions.id AS intervention_id,
     activities.id AS activity_id
-   FROM (((activities
-     JOIN target_distributions ON ((target_distributions.activity_id = activities.id)))
-     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.id)))
+   FROM ((((activities
+     JOIN activity_productions ON ((activity_productions.activity_id = activities.id)))
+     JOIN target_distributions ON ((target_distributions.activity_production_id = activity_productions.id)))
+     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.product_id)))
      JOIN interventions ON ((intervention_parameters.intervention_id = interventions.id)))
   ORDER BY interventions.id;
 
@@ -610,7 +611,7 @@ CREATE VIEW activity_productions_interventions AS
     target_distributions.activity_production_id
    FROM (((activities
      JOIN target_distributions ON ((target_distributions.activity_id = activities.id)))
-     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.id)))
+     JOIN intervention_parameters ON ((target_distributions.target_id = intervention_parameters.product_id)))
      JOIN interventions ON ((intervention_parameters.intervention_id = interventions.id)))
   ORDER BY interventions.id;
 
@@ -1146,7 +1147,7 @@ CREATE VIEW campaigns_interventions AS
     interventions.id AS intervention_id
    FROM ((((interventions
      JOIN intervention_parameters ON ((intervention_parameters.intervention_id = interventions.id)))
-     JOIN target_distributions ON ((target_distributions.target_id = intervention_parameters.id)))
+     JOIN target_distributions ON ((target_distributions.target_id = intervention_parameters.product_id)))
      JOIN activity_productions ON ((target_distributions.activity_production_id = activity_productions.id)))
      JOIN campaigns ON ((activity_productions.campaign_id = campaigns.id)))
   ORDER BY campaigns.id;
@@ -4971,6 +4972,25 @@ CREATE SEQUENCE product_phases_id_seq
 --
 
 ALTER SEQUENCE product_phases_id_seq OWNED BY product_phases.id;
+
+
+--
+-- Name: product_populations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE product_populations (
+    product_id integer,
+    started_at timestamp without time zone,
+    value numeric,
+    creator_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    updater_id integer,
+    id integer,
+    lock_version integer
+);
+
+ALTER TABLE ONLY product_populations REPLICA IDENTITY NOTHING;
 
 
 --
@@ -15170,6 +15190,29 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
+-- Name: _RETURN; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE "_RETURN" AS
+    ON SELECT TO product_populations DO INSTEAD  SELECT DISTINCT ON (movements.started_at, movements.product_id) movements.product_id,
+    movements.started_at,
+    sum(precedings.delta) AS value,
+    max(movements.creator_id) AS creator_id,
+    max(movements.created_at) AS created_at,
+    max(movements.updated_at) AS updated_at,
+    max(movements.updater_id) AS updater_id,
+    min(movements.id) AS id,
+    1 AS lock_version
+   FROM (product_movements movements
+     LEFT JOIN ( SELECT sum(product_movements.delta) AS delta,
+            product_movements.product_id,
+            product_movements.started_at
+           FROM product_movements
+          GROUP BY product_movements.product_id, product_movements.started_at) precedings ON (((movements.started_at >= precedings.started_at) AND (movements.product_id = precedings.product_id))))
+  GROUP BY movements.id;
+
+
+--
 -- Name: delete_activities_campaigns; Type: RULE; Schema: public; Owner: -
 --
 
@@ -15207,6 +15250,14 @@ CREATE RULE delete_activity_productions_interventions AS
 
 CREATE RULE delete_campaigns_interventions AS
     ON DELETE TO campaigns_interventions DO INSTEAD NOTHING;
+
+
+--
+-- Name: delete_product_populations; Type: RULE; Schema: public; Owner: -
+--
+
+CREATE RULE delete_product_populations AS
+    ON DELETE TO product_populations DO INSTEAD NOTHING;
 
 
 --
@@ -15552,6 +15603,10 @@ INSERT INTO schema_migrations (version) VALUES ('20160922161801');
 INSERT INTO schema_migrations (version) VALUES ('20160923233801');
 
 INSERT INTO schema_migrations (version) VALUES ('20160927192301');
+
+INSERT INTO schema_migrations (version) VALUES ('20160928121727');
+
+INSERT INTO schema_migrations (version) VALUES ('20160930111020');
 
 INSERT INTO schema_migrations (version) VALUES ('20160930142110');
 

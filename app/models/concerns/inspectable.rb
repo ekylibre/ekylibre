@@ -2,7 +2,7 @@ module Inspectable
   extend ActiveSupport::Concern
 
   included do
-    has_one :activity, through: :inspection
+    has_one :activity, through: :nature
     has_one :product, through: :inspection
 
     delegate :human_grading_net_mass_unit_name,
