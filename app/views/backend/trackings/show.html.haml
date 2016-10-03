@@ -1,14 +1,33 @@
 - main_toolbar do |t|
   = t.edit resource
 
+= main_informations do
+  = infos do
+    .med-info
+      %span.title= Tracking.human_attribute_name(:serial)
+      %span.value
+        = resource.serial
+    - if resource.outgoing_parcel_quantity
+      .med-info
+        %span.title= :outgoing_parcel_quantities.tl
+        %span.value
+          %i.picto{class: "picto-truck"}
+          = resource.outgoing_parcel_quantity.l(precision: 0)
+    - if resource.sales_pretax_amount
+      .med-info
+        %span.title= :sales_pretax_amount.tl
+        %span.value
+          %i.picto{class: "picto-money"}
+          = resource.sales_pretax_amount.l(precision: 0)
+
 = cobbles do |c|
   - c.cobble :general_informations do
     = attributes_list do |l|
-      - l.attribute :name
-      - l.attribute :serial
       - l.attribute :description
       - l.attribute :usage_limit_nature
       - l.attribute :usage_limit_on
+      - l.attribute :product, url: true if resource.product
+      - l.attribute :producer, url: true if resource.producer
 
   - c.cobble(:products) do
     = cobble_list(:products)

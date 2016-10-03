@@ -186,26 +186,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
       #  end
       # end
     end
-  end
-
-  # create unique account for stock management in accountancy
-  def create_unique_account(mode = :stock)
-    if (mode == :stock || mode == :stock_movement) && !(defined? category.send(account_key)).nil?
-      unless storable?
-        raise ArgumentError, "Unknown to store #{self.name.inspect}. You have to check category first"
-      end
-      account_key = mode.to_s + '_account'
-      category_account = category.send(account_key)
-
-      options = {}
-      options[:number] = category_account.number + number[-6, 6].rjust(6)
-      options[:name] = category_account.name + ' [' + self.name + ']'
-      options[:label] = options[:number] + ' - ' + options[:name]
-      options[:usages] = category_account.usages
-
-      return ac = Account.create!(options)
-
-    end
     if variety && products.any?
       if products.detect { |p| Nomen::Variety.find(p.variety) > variety }
         errors.add(:variety, :invalid)
@@ -216,6 +196,27 @@ class ProductNatureVariant < Ekylibre::Record::Base
         errors.add(:derivative_of, :invalid)
       end
     end
+  end
+
+  # create unique account for stock management in accountancy
+  def create_unique_account(mode = :stock)
+    account_key = mode.to_s + '_account'
+    unless storable?
+      raise ArgumentError, "Don't known how to create account for #{self.name.inspect}. You have to check category first"
+    end
+
+    category_account = category.send(account_key)
+    unless category_account
+      raise ArgumentError, "Account is not configure for #{self.name.inspect}. You have to check category first"
+    end
+
+    options = {}
+    options[:number] = category_account.number + number[-6, 6].rjust(6)
+    options[:name] = category_account.name + ' [' + self.name + ']'
+    options[:label] = options[:number] + ' - ' + options[:name]
+    options[:usages] = category_account.usages
+
+    Account.create!(options)
   end
 
   # add animals to new variant

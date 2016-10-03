@@ -1349,6 +1349,8 @@ spa:
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
     out_vat_amount: "Basa fuera de tarifa" #?
+    # outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
+    # outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Salida de pagos"
     outgoing_payments: "Pagos salientes"
     overflow: "CREDITO O ECCEDENTE" #?
@@ -1358,6 +1360,7 @@ spa:
     paid_amount: "Monto de pago"
     paid_at: "Pagado en"
     parameters: "Parametros"
+    # parcel_items: "Parcel items"
     parcels: "Parcelas"
     participants: "Los participantes"
     participations: "Participaciones"
@@ -1517,6 +1520,7 @@ spa:
     sales_invoice: "Facturas"
     sales_invoice_items: "Lineas de factura" #?
     sales_invoice_print: "Imprimir la factura" #?
+    # sales_pretax_amount: "Pretax amount (Sales)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvar"
     save_in_draft: "Salvar en la niebla"

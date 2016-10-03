@@ -439,6 +439,8 @@
         <page to="backend/product_groups#take"/>
         <page to="backend/product_groups#unroll"/>
         <page to="backend/product_groups#update"/>
+      </item>
+      <item name="trackings">
         <page to="backend/trackings#index"/>
         <page to="backend/trackings#create"/>
         <page to="backend/trackings#destroy"/>
@@ -531,7 +533,6 @@
         <page to="backend/parcels#give"/>
         <page to="backend/parcels#order"/>
         <page to="backend/parcels#prepare"/>
-        <page to="backend/parcel_items#new"/>
       </item>
       <item name="deliveries">
         <page to="backend/deliveries#index"/>

@@ -674,8 +674,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :parcel_items, only: [:new], path: 'parcel-items'
-
     resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
 
     resources :plants, concerns: :products

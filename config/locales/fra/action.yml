@@ -1547,6 +1547,8 @@ fra:
     other_results: "Autres résultats…" #?
     others: "Autres"
     outgoing: "Sortant" #?
+    outgoing_parcel_quantities: "Quantités (Colis sortant)"
+    # outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Décaissement"
     outgoing_payments: "Décaissements"
     outgoing_payments_states:  #?
@@ -1560,6 +1562,7 @@ fra:
     paid_amount: "Montant réglé"
     paid_at: "Réglé le"
     parameters: "Paramètres"
+    # parcel_items: "Parcel items"
     parcels: "Colis"
     part: "Pièce" #?
     participants: "Participants"
@@ -1767,6 +1770,7 @@ fra:
       cancelled: "Passées en avoir" #?
       credits: "Avoirs" #?
     sales_invoices_total: "Total factures" #?
+    sales_pretax_amount: "Montant HT (Ventes)"
     sales_states:  #?
       all: "Toutes" #?
       current: "En cours" #?

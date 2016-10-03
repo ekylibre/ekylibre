@@ -502,7 +502,7 @@ module ActionController
           end
 
           code << "test '#{action} action"
-          code << "in #{mode}" if action != mode
+          code << " in #{mode}" if action != mode
           code << "' do\n"
           # code << "  puts '#{controller_path.to_s.yellow}##{action.to_s.red}'\n"
           code << test_code.dig
