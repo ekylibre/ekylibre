@@ -8,13 +8,13 @@
         %span.value= resource.points_percentage(dimension, category).round(2).l(precision: 2) + '%'
   - if resource.activity.inspection_calibration_scales.any?
     :ruby
-      totals_of = [
-        :marketable_quantity,
-        :marketable_yield,
-        :projected_total,
-        :quantity_yield
-      ]
-    - totals_of.each do |method|
+      totals_of = {
+        marketable_quantity: :marketable,
+        marketable_yield: nil,
+        projected_total: :total,
+        quantity_yield: nil
+      }
+    - totals_of.each do |method, name|
       .med-info
-        %span.title= Inspection.human_attribute_name(method)
+        %span.title= (name && Inspection.human_attribute_name("#{name}_#{dimension}".tl)) || Inspection.human_attribute_name(method)
         %span.value= resource.send(method, dimension).round(2).l(precision: 0)

@@ -1053,7 +1053,6 @@ fra:
     marketable: "Commercialisable"
     marketable_items_count: "Nombre d'unités commercialisables"
     marketable_net_mass: "Masse nette commercialisable"
-    marketable_net_yield: "Rendement net commercialisable"
     marketable_yield: "Rendement commercialisable"
     mass: "Poids (kg)"
     max_zoom: "Zoom maximal"
@@ -1310,6 +1309,7 @@ fra:
     quantity_unit: "Unité de quantité"
     quantity_unit_name: "Quantité nom de l’unité"
     quantity_value: "Valeur Quantité"
+    quantity_yield: "Rendement net commercialisable"
     query: "Requête"
     rank_number: "Numéro de Rang"
     read_at: "Mesuré à"
@@ -1525,6 +1525,7 @@ fra:
     tools: "Outils"
     total_cost: "Coût total"
     total_net_mass: "Masse nette totale"
+    total_items_count: "Nombre total d'éléments"
     town_number: "Numéro de commune"
     tracking: "Lot"
     tracking_serial: "Numéro de lot" #?

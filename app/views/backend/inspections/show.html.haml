@@ -20,13 +20,12 @@
     = infos do
       = render 'totals', resource: resource
 
-  - if resource.calibrations.any?
-    - if resource.any_quantity?
-      - c.cobble('stock_in_ground') do
-        = render 'unit_selector', activity: resource.activity
-        .chart-table
-          - resource.scales.each do |scale|
-            = render 'charts', resource: resource, scale: scale
+  - if resource.calibrations.any? && resource.any_quantity?
+    - c.cobble('stock_in_ground') do
+      = render 'unit_selector', activity: resource.activity
+      .chart-table
+        - resource.scales.each do |scale|
+          = render 'charts', resource: resource, scale: scale
 
   - c.cobble(:analyses) do
     - analysis = resource.product.analyses.where(nature: 'plant_analysis').reorder(:sampled_at).last

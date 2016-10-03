@@ -1086,6 +1086,7 @@ eng:
     quantity_unit: "Quantity unit"
     quantity_unit_name: "Quantity unit name"
     quantity_value: "Quantity value"
+    quantity_yield: "Net marketable yield"
     query: "Query"
     rank_number: "Rank number"
     read_at: "Read at"
@@ -1289,6 +1290,7 @@ eng:
     tools: "Tools"
     total_cost: "Total cost"
     total_net_mass: "Total net mass" #?
+    total_items_count: "Total items count" #?
     town_number: "Town number"
     tracking: "Tracking"
     trackings: "Trackings"
