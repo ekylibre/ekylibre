@@ -465,8 +465,6 @@ eng:
       index: "Disbursements"
       new: "New disbursement"
       show: "Disbursement %{number} for %{payee}"
-    backend/parcel_items:
-      # new: "New parcel item"
     backend/parcels:
       # cancel: "Cancel parcel: %{name}"
       # check: "Check parcel: %{name}"
@@ -1351,7 +1349,8 @@ eng:
     organic_matter_concentration: "Organic matter concentration" #?
     original_component: "original"
     others: "Others" #?
-    # outgoing_parcels: "Outgoing parcels"
+    outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
+    outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Outgoing payment" #?
     outgoing_payments: "Outgoing payments"
     page_title: "%{company_code} · %{menu} · %{action}"
@@ -1360,7 +1359,7 @@ eng:
     paid_amount: "Paid amount" #?
     paid_at: "Paid at" #?
     parameters: "Parameters"
-    # parcel_items: "Parcel items"
+    parcel_items: "Parcel items"
     parcels: "Parcels"
     participants: "Participants"
     participations: "Participations"
@@ -1443,7 +1442,7 @@ eng:
     relationship_of_entity_as_inverse_post: "%{relationship} of %{entity} (%{inverse_post})"
     relationship_of_entity_as_post: "%{relationship} of %{entity} as %{post}"
     remaining_amount_to_reconcile: "Remaining amount to reconcile"
-    remove: "Remove"
+    remove: "Remove" #?
     remove_item: "Remove item"
     remove_subscription: "Remove subscription"
     renewed: "Renewed"
@@ -1476,6 +1475,7 @@ eng:
     sales: "Sales"
     sales_conditions: "Conditions of sales" #?
     sales_invoice: "Invoicing" #?
+    sales_pretax_amount: "Pretax amount (Sales)"
     same_variant_as_x: "Same variant as %{x}"
     save: "Save"
     save_in_draft: "Save as draft"
@@ -1902,15 +1902,18 @@ eng:
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
     catalog_price_item_addition_if_blank: "Catalog Add price to catalog during sale/purchase if catalog blank"
+    client_account_radix: "Client account radix"
     country: "Country"
     create_activities_from_telepac: "Create activities during Telepac import"
     currency: "Currency"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
+    employee_account_radix: "Employee account radix"
     host: "Host"
     language: "Language"
     map_measure_srs: "Map measure SRS"
     permanent_stock_inventory: "Permanent stock inventory mode"
     sales_conditions: "Sales conditions"
+    supplier_account_radix: "Supplier account radix"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
   rest:
     actions:

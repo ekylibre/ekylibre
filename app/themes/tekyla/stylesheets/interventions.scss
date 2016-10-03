@@ -5,6 +5,10 @@ $preview-modal-height: 80vh;
 .interventions-modal {
   .intervention-activities {
     padding: $default-gap;
+
+    .label {
+      margin-right: round($default-gap * 1.4);
+    }
   }
   .indicators {
     @include flex-row(space-around);

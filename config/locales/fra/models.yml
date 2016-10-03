@@ -395,6 +395,7 @@ fra:
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       product_phase: "Phase de produits"
+      product_population: "Population de produit"
       product_reading: "Valeur d’indicateur"
       production: "Production" #?
       purchase: "Achat"
@@ -1206,6 +1207,7 @@ fra:
     points: "Points"
     population: "Population"
     population_counting: "Gestion quantitative"
+    # populations: "Populations"
     position: "Position"
     post: "Poste"
     postal_code: "Code postal"

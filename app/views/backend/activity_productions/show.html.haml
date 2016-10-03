@@ -73,8 +73,8 @@
         resource.interventions.real.where(state: 'done').of_category(:fertilizing).between(opened_at, Time.zone.now).reorder(:started_at).find_each do |intervention|
           i = 0
           intervention.inputs.each do |input|
-            m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
-            n = (input.actor ? input.actor.nitrogen_concentration.to_d(:unity) : 0.0)
+            m = (input.product ? input.product.net_mass(input).to_d(:kilogram) : 0.0)
+            n = (input.product ? input.product.nitrogen_concentration.to_d(:unity) : 0.0)
             nitrogen_mass <<  m * n
           end
           target = intervention.targets.first

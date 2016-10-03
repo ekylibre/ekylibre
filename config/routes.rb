@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       get :list_issues
       get :list_readings
       get :list_members
+      get :list_parcel_items
       get :list_places
       get :take
     end
@@ -672,8 +673,6 @@ Rails.application.routes.draw do
         post :cancel
       end
     end
-
-    resources :parcel_items, only: [:new], path: 'parcel-items'
 
     resources :plant_density_abaci, concerns: [:list], path: 'plant-density-abaci'
 

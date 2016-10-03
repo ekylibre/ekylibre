@@ -107,12 +107,14 @@ class Product < Ekylibre::Record::Base
   has_many :localizations, class_name: 'ProductLocalization', foreign_key: :product_id, dependent: :destroy
   has_many :memberships, class_name: 'ProductMembership', foreign_key: :member_id, dependent: :destroy
   has_many :movements, class_name: 'ProductMovement', foreign_key: :product_id, dependent: :destroy
+  has_many :populations, class_name: 'ProductPopulation', foreign_key: :product_id, dependent: :destroy
   has_many :ownerships, class_name: 'ProductOwnership', foreign_key: :product_id, dependent: :destroy
   has_many :inspections, class_name: 'Inspection', foreign_key: :product_id, dependent: :destroy
   has_many :parcel_items, dependent: :restrict_with_exception
   has_many :phases, class_name: 'ProductPhase', dependent: :destroy
   has_many :sensors
   has_many :supports, class_name: 'ActivityProduction', foreign_key: :support_id, inverse_of: :support
+  has_many :trackings, class_name: 'Tracking', foreign_key: :product_id, inverse_of: :product
   has_many :variants, class_name: 'ProductNatureVariant', through: :phases
   has_one :current_phase,        -> { current }, class_name: 'ProductPhase',        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: 'ProductLocalization', foreign_key: :product_id
@@ -216,7 +218,7 @@ class Product < Ekylibre::Record::Base
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
-  scope :storage, -> { of_expression('is building or is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
+  scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
 
   scope :mine, -> { of_owner(:own) }
@@ -571,12 +573,9 @@ class Product < Ekylibre::Record::Base
   end
 
   def population(options = {})
-    movements = self.movements.at(options[:at] || Time.zone.now)
-    if movements.any?
-      return movements.last.population
-    else
-      return 0.0
-    end
+    pops = populations.last_before(options[:at] || Time.zone.now)
+    return 0.0 if pops.none?
+    pops.first.value
   end
 
   # Moves population with given quantity

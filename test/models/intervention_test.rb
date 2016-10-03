@@ -128,4 +128,9 @@ class InterventionTest < ActiveSupport::TestCase
     intervention = Intervention.new(procedure_name: :sowing, actions: [:sowing, :loosening])
     assert_not intervention.save, 'Intervention with invalid actions should not be saved'
   end
+
+  test 'destroy intervention update intervention_activities_db_view' do
+    first_activity_intervention = Intervention::HABTM_Activities.first
+    assert Intervention.destroy(first_activity_intervention.intervention_id)
+  end
 end
