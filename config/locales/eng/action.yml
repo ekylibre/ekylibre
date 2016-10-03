@@ -443,6 +443,9 @@ eng:
     backend/observations:
       edit: "Edit observation"
       new: "New observation"
+    backend/outgoing_payment_lists:
+      show: "Outgoing payments batch"
+      index: "Outgoing payments batch list"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
       index: "Disbursement modes"
@@ -1907,6 +1910,7 @@ eng:
       edit: "Edit"
       evaluate: "Evaluate"
       export: "Export"
+      export_to_sepa: "Export to SEPA"
       extract: "Extract"
       family: "Family"
       finish: "Finish"

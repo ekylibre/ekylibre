@@ -21,6 +21,7 @@ module Backend
     manage_restfully
 
     list do |t|
+      t.action :export_to_sepa, method: :get, if: :sepa?
       t.column :number, url: true
       t.column :created_at
       t.column :mode, url: { controller: '/backend/outgoing_payment_modes', id: 'RECORD.mode.id'.c }, label_method: :mode_name
@@ -38,6 +39,17 @@ module Backend
       t.column :work_name, through: :affair, label: :affair_number, url: true
       t.column :deal_work_name, through: :affair, label: :purchase_number, url: { controller: :purchases, id: 'RECORD.affair.deals_of_type(Purchase).first.id'.c }
       t.column :main_bank_statement_number, through: :journal_entry, label: :bank_statement_number, url: { controller: :bank_statements, id: 'RECORD.journal_entry.bank_statement.first.id'.c }
+    end
+
+    def export_to_sepa
+      list = OutgoingPaymentList.find(params[:id])
+
+      if list.sepa?
+        send_data(list.to_sepa, filename: "#{list.number}.xml", type: 'text/xml')
+      else
+        render :index
+      end
+
     end
 
   end
