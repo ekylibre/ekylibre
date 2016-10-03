@@ -59,9 +59,9 @@ namespace :clean do
             log.write(" - Error: Duplicates record labels in #{file}\n")
           end
 
-          yaml.each do |record_name, values|
+          yaml.each do |_record_name, values|
             requireds = required_attributes.dup
-            values.each do |attribute, value|
+            values.each do |attribute, _value|
               unless attributes.include?(attribute)
                 errors[:fixtures] += 1
                 log.write(" - Errors: Attribute #{attribute} is unknown in #{file}\n")

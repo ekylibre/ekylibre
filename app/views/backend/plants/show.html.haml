@@ -32,6 +32,13 @@
             %i.picto{class: "picto-grain"}
             - unit = stock.unit + "_per_" + resource.net_surface_area.unit
             = (stock.to_d / resource.population).in(unit).round(3).l
+    - if resource.trackings.any?
+      - resource.trackings.each do |tracking|
+        .med-info
+          %span.title= Tracking.human_attribute_name(:serial)
+          %span.value
+            %i.picto{class: "picto-barcode"}
+            = link_to(tracking.serial, controller: :trackings, action: :show, id: tracking.id)
     = product_info(:status, important: true) do |status|
       = lights(status)
     .med-info

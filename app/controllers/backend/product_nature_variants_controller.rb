@@ -53,6 +53,7 @@ module Backend
       t.column :name, url: true
       t.column :number
       t.column :nature, url: true
+      t.column :category, url: true
       t.column :current_stock
       t.column :current_outgoing_stock_ordered_not_delivered
       t.column :unit_name

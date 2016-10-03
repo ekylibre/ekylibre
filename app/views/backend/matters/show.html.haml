@@ -21,6 +21,8 @@
     - unless resource.population_counting_unitary?
       = product_info :population, important: true do |population|
         = population.l + " " + resource.unit_name
+    = product_info(:tracking, important: true) do |tracking|
+      = link_to(resource.tracking.serial, controller: :trackings, action: :show, id: resource.tracking.id)
     - if resource.has_indicator?(:net_mass) && resource.net_mass.to_d > 0
       = product_info(:net_mass, important: true)
     - if resource.current_ownership && resource.current_ownership.other?
@@ -59,6 +61,9 @@
 
   -# c.cobble(:variable_indicators) do
     = variable_readings(resource)
+
+  - c.cobble(:parcel_items) do
+    = cobble_list(:parcel_items)
 
   -# c.cobble(tl(:x_readings, count: resource.readings.count)) do
     = cobble_list(:readings)

@@ -1349,6 +1349,8 @@ spa:
     other_services: "Otros bienes y servicios" #?
     others: "Otra TVA a deducir"
     out_vat_amount: "Basa fuera de tarifa" #?
+    # outgoing_parcel_quantities: "Quantities (Outgoing parcel)"
+    # outgoing_parcels: "Outgoing parcels"
     outgoing_payment: "Salida de pagos"
     outgoing_payments: "Pagos salientes"
     overflow: "CREDITO O ECCEDENTE" #?
@@ -1358,6 +1360,7 @@ spa:
     paid_amount: "Monto de pago"
     paid_at: "Pagado en"
     parameters: "Parametros"
+    # parcel_items: "Parcel items"
     parcels: "Parcelas"
     participants: "Los participantes"
     participations: "Participaciones"
@@ -1517,6 +1520,7 @@ spa:
     sales_invoice: "Facturas"
     sales_invoice_items: "Lineas de factura" #?
     sales_invoice_print: "Imprimir la factura" #?
+    # sales_pretax_amount: "Pretax amount (Sales)"
     # same_variant_as_x: "Same variant as %{x}"
     save: "Salvar"
     save_in_draft: "Salvar en la niebla"
@@ -2026,15 +2030,18 @@ spa:
     bookkeep_automatically: "Active la contabilidad automática"
     bookkeep_in_draft: "Guardar los registros en modo de borrador en la contabilidad"
     catalog_price_item_addition_if_blank: "Añadir catálogo de precios para catalogar durante la venta / compra si catálogo en blanco"
+    client_account_radix: "Radix de cuenta de cliente"
     country: "País"
     create_activities_from_telepac: "Crear actividades durante la importación Telepac"
     currency: "Moneda"
     detail_payments_in_deposit_bookkeeping: "Detalle todos los pagos en la contabilidad de depósitos"
+    employee_account_radix: "Radix de la cuenta del empleado"
     host: "Anfitrión"
     language: "Idioma"
     map_measure_srs: "SRS Mapa de medida"
     permanent_stock_inventory: "Modo de inventario de existencias permanentes"
     sales_conditions: "Condiciones de ventas"
+    supplier_account_radix: "Radix de la cuenta del proveedor"
     use_entity_codes_for_account_numbers: "Utilice el código para la creación de números de cuenta"
   rest:
     actions:

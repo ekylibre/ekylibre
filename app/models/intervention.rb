@@ -293,10 +293,6 @@ class Intervention < Ekylibre::Record::Base
     (stopped_at? ? stopped_at : created_at? ? created_at : Time.zone.now)
   end
 
-  def activity_productions
-    ActivityProduction.of_intervention(self)
-  end
-
   def with_undestroyable_products?
     outputs.map(&:product).detect do |product|
       next unless product
@@ -416,11 +412,6 @@ class Intervention < Ekylibre::Record::Base
       movement.started_at = self.started_at
       movement.stopped_at = self.stopped_at
       movement.save!
-
-      # to be sure last
-      last_movement = product.movements.last_of_all
-      last_movement.stopped_at = nil
-      last_movement.save!
     end
   end
 
@@ -761,7 +752,7 @@ class Intervention < Ekylibre::Record::Base
         # Adds items
         interventions.each do |intervention|
           hourly_params = {
-            catalog: Catalog.by_default!(:purchase),
+            catalog: Catalog.by_default!(:cost),
             quantity_method: -> (_item) { intervention.duration.in_second.in_hour }
           }
           components = {
