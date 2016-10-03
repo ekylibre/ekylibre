@@ -218,7 +218,7 @@ class Product < Ekylibre::Record::Base
   scope :identifiables, -> { where(nature: ProductNature.identifiables) }
   scope :tools, -> { of_variety(:equipment) }
   scope :support, -> { joins(:nature).merge(ProductNature.support) }
-  scope :storage, -> { of_expression('is building or is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
+  scope :storage, -> { of_expression('is building_division or can store(product) or can store_liquid or can store_fluid or can store_gaz') }
   scope :plants, -> { where(type: 'Plant') }
 
   scope :mine, -> { of_owner(:own) }
