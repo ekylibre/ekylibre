@@ -190,6 +190,7 @@ module Backend
             html += table.values.map { |content| content[part] }.compact.transpose.map do |row|
               content_tag :tr, class: part do
                 cols = row.map do |col|
+                  next if col.blank?
                   content_tag col[:tag], col[:content] || '&ndash;'.html_safe, class: col[:class]
                 end
                 safe_join(cols)
