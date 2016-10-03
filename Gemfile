@@ -135,6 +135,8 @@ gem 'rgeo-shapefile'
 gem 'rgeo-geojson'
 gem 'rubyzip'
 gem 'roo'
+gem 'sepa_king'
+# gem 'sepa_king', path: '/home/jonathan/Workspace/sepa_king'
 
 # Demo data
 gem 'ffaker', '>= 2.0.0'

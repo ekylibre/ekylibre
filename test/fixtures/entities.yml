@@ -184,6 +184,9 @@ entities_004:
   updater_id: 1
   vat_number: ''
   vat_subjected: false
+  bank_account_holder_name: BAKTOUBI Inc.
+  bank_identifier_code: ABNANL2AXXX
+  iban: NL72ABNA0897960274
 entities_005:
   active: false
   activity_code: ''
@@ -451,6 +454,9 @@ entities_013:
   updater_id: 1
   vat_number: ''
   vat_subjected: false
+  bank_account_holder_name: Coop Ain Coop'In
+  bank_identifier_code: TRIONL2UXXX
+  iban: NL64TRIO0393404405
 entities_014:
   active: true
   activity_code: ''
