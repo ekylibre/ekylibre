@@ -1,16 +1,15 @@
 require 'test_helper'
 
 class OutgoingPaymentListTest < ActiveSupport::TestCase
+  setup { @list = outgoing_payment_lists(:outgoing_payment_lists_001) }
 
   test 'to_sepa' do
-    list = outgoing_payment_lists(:outgoing_payment_lists_001)
-
     Timecop.freeze(Time.zone.local(2016, 10, 1, 9, 1, 35)) do
-      doc = Nokogiri::XML(list.to_sepa)
+      doc = Nokogiri::XML(@list.to_sepa)
       doc.collect_namespaces
       doc.remove_namespaces!
 
-      message_identification = "EKY-#{list.number}-161001-0901"
+      message_identification = "EKY-#{@list.number}-161001-0901"
 
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
       assert_equal('2016-10-01T11:01:35+02:00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
@@ -47,20 +46,18 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
   end
 
   test 'to_sepa with BIC nil' do
-    list = outgoing_payment_lists(:outgoing_payment_lists_001)
+    @list.mode.cash.update!(bank_identifier_code: nil)
 
-    list.mode.cash.update!(bank_identifier_code: nil)
-
-    list.payments.each do |payment|
+    @list.payments.each do |payment|
       payment.payee.update!(bank_identifier_code: nil)
     end
 
     Timecop.freeze(Time.zone.local(2016, 10, 1, 9, 1, 35)) do
-      doc = Nokogiri::XML(list.to_sepa)
+      doc = Nokogiri::XML(@list.to_sepa)
       doc.collect_namespaces
       doc.remove_namespaces!
 
-      message_identification = "EKY-#{list.number}-161001-0901"
+      message_identification = "EKY-#{@list.number}-161001-0901"
 
       assert_equal(message_identification, doc.xpath('//CstmrCdtTrfInitn/GrpHdr/MsgId').text)
       assert_equal('2016-10-01T11:01:35+02:00', doc.xpath('//CstmrCdtTrfInitn/GrpHdr/CreDtTm').text)
@@ -94,5 +91,29 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
       assert_equal('NL64TRIO0393404405', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('CdtrAcct/Id/IBAN').text)
       assert_equal('A201411000002', doc.xpath('//CstmrCdtTrfInitn/PmtInf/CdtTrfTxInf')[1].xpath('RmtInf/Ustrd').text)
     end
+  end
+
+  test 'destroyable? with bank_statement_letter present' do
+    @list.payments.last.journal_entry.items.last.update_column(
+      :bank_statement_letter, 'someting'
+    )
+
+    assert_not(@list.destroyable?, 'returns false')
+  end
+
+  test 'destroyable? with all bank_statement_letter blank' do
+    assert(@list.destroyable?, 'returns true')
+  end
+
+  test 'destroy with bank_statement_letter present' do
+    @list.payments.last.journal_entry.items.last.update_column(
+      :bank_statement_letter, 'someting'
+    )
+
+    assert_raise(Ekylibre::Record::RecordNotDestroyable) { @list.destroy }
+  end
+
+  test 'destroy with all bank_statement_letter blank' do
+    assert(@list.destroy)
   end
 end

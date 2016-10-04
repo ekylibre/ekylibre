@@ -21,6 +21,7 @@ module Backend
     manage_restfully
 
     list do |t|
+      t.action :destroy, if: :destroyable?
       t.action :export_to_sepa, method: :get, if: :sepa?
       t.column :number, url: true
       t.column :created_at

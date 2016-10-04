@@ -1,5 +1,5 @@
 class OutgoingPaymentList < Ekylibre::Record::Base
-  has_many :payments, class_name: 'OutgoingPayment', foreign_key: :list_id, inverse_of: :list, dependent: :restrict_with_error
+  has_many :payments, class_name: 'OutgoingPayment', foreign_key: :list_id, inverse_of: :list, dependent: :destroy
 
   delegate :name, to: :mode, prefix: true
   delegate :sepa?, to: :mode
@@ -54,5 +54,15 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     end
 
     new(payments: outgoing_payments)
+  end
+
+  def destroyable?
+    !payments
+      .includes(journal_entry: :items)
+      .map(&:journal_entry)
+      .flatten
+      .map(&:items)
+      .flatten
+      .any? { |i| i.bank_statement_letter.present? }
   end
 end
