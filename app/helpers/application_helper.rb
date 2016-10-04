@@ -427,7 +427,7 @@ module ApplicationHelper
     class_attribute << ' sr-only' if name.blank?
     class_attribute << ' icn btn-' + options[:icon].to_s if options[:icon]
     content_tag(:button, name, class: class_attribute,
-                               data: { toggle: 'dropdown' },
+                               data: { toggle: 'dropdown', disable_with: options[:disable_with] },
                                aria: { haspopup: 'true', expanded: 'false' })
   end
 
@@ -482,7 +482,7 @@ module ApplicationHelper
                 (default_item.args.third || {}).merge(item_options),
                 &default_item.block)
       else
-        dropdown_toggle_button(name, icon: options[:icon]) +
+        dropdown_toggle_button(name, icon: options[:icon], disable_with: options[:disable_with]) +
           dropdown_menu(menu.list)
       end
     end

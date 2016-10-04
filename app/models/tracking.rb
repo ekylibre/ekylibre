@@ -54,14 +54,11 @@ class Tracking < Ekylibre::Record::Base
 
   alias_attribute :serial_number, :serial
 
-
   # get outgoing parcel quantity throught tracking
   def outgoing_parcel_quantity(unit = :kilogram)
     if parcel_items.any?
       qty = parcel_items.map(&:population).sum
       return qty.in(unit)
-    else
-      nil
     end
   end
 
@@ -70,9 +67,6 @@ class Tracking < Ekylibre::Record::Base
     sale_items = SaleItem.where(id: parcel_items.pluck(:sale_item_id))
     if sale_items.any?
       sale_items.map(&:pretax_amount).compact.sum.l(currency: currency)
-    else
-      nil
     end
   end
-
 end

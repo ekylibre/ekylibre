@@ -43,7 +43,7 @@ module Clean
       def write_job_test_file(klass)
         code = ''
         code << "require 'test_helper'\n\n"
-        code << modularize(klass, 'ActionJob::TestCase') do |c|
+        code << modularize(klass, 'ActiveJob::TestCase') do |c|
           c << "# Add tests here...\n"
         end
         file = Rails.root.join('test', 'jobs', klass.underscore + '.rb')
