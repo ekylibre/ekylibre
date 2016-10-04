@@ -1068,6 +1068,7 @@ spa:
     quantity_unit: "Unidad Cantidad"
     quantity_unit_name: "Nombre de la unidad Cantidad"
     quantity_value: "Cantidad valor"
+    # quantity_yield: "Net marketable yield"
     query: "Consulta"
     rank_number: "Número de rango"
     read_at: "Lea por lo"
@@ -1265,6 +1266,7 @@ spa:
     tool: "Herramienta"
     tools: "Instrumentos"
     total_cost: "Coste total"
+    # total_items_count: "Total items count"
     total_net_mass: "masa neta total"
     town_number: "Número ciudad"
     tracking: "Rastreo"
@@ -1424,8 +1426,10 @@ spa:
         transfer:
           name: "Virement"
     inspection:
-      items: "Artículos"
-      mass: "Masa"
+      items: "Artículos" #?
+      # items_count: "Items"
+      mass: "Masa" #?
+      # net_mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

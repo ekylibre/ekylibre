@@ -1965,6 +1965,7 @@ arb:
     quantity_unit: "وحدة الكمية"
     quantity_unit_name: "الكمية اسم الوحدة"
     quantity_value: "قيمة الكمية"
+    # quantity_yield: "Net marketable yield"
     query: "التساؤل"
     range: "فترة فاصلة" #?
     rank_number: "عدد رتبة"
@@ -2235,6 +2236,7 @@ arb:
     tools: "الادوات"
     tools_list: "معدات" #?
     total_cost: "التكلفة الإجمالية"
+    # total_items_count: "Total items count"
     total_net_mass: "مجموع الكتلة الصافية"
     town_number: "عدد تاون"
     tracking: "الحصة"
@@ -2659,8 +2661,10 @@ arb:
     incoming_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
     inspection:
-      items: "العناصر"
-      mass: "كتلة"
+      items: "العناصر" #?
+      # items_count: "Items"
+      mass: "كتلة" #?
+      # net_mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

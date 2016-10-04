@@ -66,10 +66,10 @@ class Catalog < Ekylibre::Record::Base
     self.code = code[0..19]
   end
 
-  def self.by_default!(usage)
-    catalog = by_default(usage)
+  def self.by_default!(usage, options = {})
+    catalog = where(options).by_default(usage)
     unless catalog
-      catalog = create!(name: usage.t(scope: 'enumerize.catalog.usage'), usage: usage, by_default: true)
+      catalog = create!(options.merge(name: usage.t(scope: 'enumerize.catalog.usage'), usage: usage, by_default: true))
     end
     catalog
   end

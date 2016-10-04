@@ -1064,6 +1064,7 @@ jpn:
     quantity_unit: "数量単位"
     quantity_unit_name: "数量ユニット名"
     quantity_value: "数量値"
+    # quantity_yield: "Net marketable yield"
     query: "クエリー"
     rank_number: "ランク番号"
     read_at: "読みます"
@@ -1261,6 +1262,7 @@ jpn:
     tool: "ツール"
     tools: "ツール"
     total_cost: "総費用"
+    # total_items_count: "Total items count"
     total_net_mass: "合計正味質量"
     town_number: "タウン番号"
     tracking: "追跡"
@@ -1420,8 +1422,10 @@ jpn:
         transfer:
           name: "費目変更"
     inspection:
-      items: "アイテム"
-      mass: "質量"
+      items: "アイテム" #?
+      # items_count: "Items"
+      mass: "質量" #?
+      # net_mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

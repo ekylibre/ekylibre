@@ -1289,8 +1289,8 @@ eng:
     tool: "Tool"
     tools: "Tools"
     total_cost: "Total cost"
-    total_net_mass: "Total net mass" #?
     total_items_count: "Total items count" #?
+    total_net_mass: "Total net mass" #?
     town_number: "Town number"
     tracking: "Tracking"
     trackings: "Trackings"

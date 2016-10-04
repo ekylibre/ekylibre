@@ -331,6 +331,7 @@ eng:
       show: "Incoming payment %{number} of %{entity}"
     backend/inspections:
       edit: "Edit product grading\_: %{number}"
+      # export: "Export inspections"
       index: "Product gradings"
       new: "New product grading"
       show: "Product grading\_: %{number}"
@@ -1867,6 +1868,7 @@ eng:
       no_budget_defined_for_current_campaign: "No budget defined for current campaign"
       no_closable_journal: "No closable journal"
       no_depositable_payments: "There are no payment to deposit"
+      # no_inspections_given: "No inspections given"
       # no_interventions_given: "No interventions given"
       no_parcels_given: "No parcels given"
       no_payment_to_deposit: "There are no payment to deposit"
@@ -1951,7 +1953,7 @@ eng:
       edit_many: "Edit many"
       # ekylibre: "Ekylibre"
       evaluate: "Evaluate"
-      export: "Export" #?
+      export: "Export"
       extract: "Extract"
       # failure: "Failure"
       family: "Family"

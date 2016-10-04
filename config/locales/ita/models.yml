@@ -1095,6 +1095,7 @@ ita:
     quantity_unit: "unità Quantità"
     quantity_unit_name: "Quantità nome dell'unità"
     quantity_value: "valore Quantità"
+    # quantity_yield: "Net marketable yield"
     query: "domanda"
     rank_number: "numero Classifica"
     read_at: "Leggi a"
@@ -1292,6 +1293,7 @@ ita:
     tool: "Strumento"
     tools: "Utensili"
     total_cost: "Costo totale"
+    # total_items_count: "Total items count"
     total_net_mass: "massa netta totale"
     town_number: "numero di Città"
     tracking: "puntamento"
@@ -1451,8 +1453,10 @@ ita:
         transfer:
           name: "virement"
     inspection:
-      items: "Elementi"
-      mass: "Massa"
+      items: "Elementi" #?
+      # items_count: "Items"
+      mass: "Massa" #?
+      # net_mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

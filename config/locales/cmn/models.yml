@@ -1064,6 +1064,7 @@ cmn:
     quantity_unit: "数量单位"
     quantity_unit_name: "数量单位名称"
     quantity_value: "量值"
+    # quantity_yield: "Net marketable yield"
     query: "询问"
     rank_number: "排名"
     read_at: "在阅读"
@@ -1261,6 +1262,7 @@ cmn:
     tool: "工具"
     tools: "工具"
     total_cost: "总成本"
+    # total_items_count: "Total items count"
     total_net_mass: "总净重"
     town_number: "镇号"
     tracking: "跟踪"
@@ -1420,8 +1422,10 @@ cmn:
         transfer:
           # name: "Virement"
     inspection:
-      items: "项目"
-      mass: "块"
+      items: "项目" #?
+      # items_count: "Items"
+      mass: "块" #?
+      # net_mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

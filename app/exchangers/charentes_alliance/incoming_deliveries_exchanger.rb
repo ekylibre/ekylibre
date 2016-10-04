@@ -5,8 +5,8 @@ module CharentesAlliance
     def import
       here = Pathname.new(__FILE__).dirname
 
-      purchase_catalog = Catalog.by_default!(:purchase)
-      stock_catalog = Catalog.by_default!(:stock)
+      purchase_catalog = Catalog.by_default!(:purchase, currency: 'EUR')
+      stock_catalog = Catalog.by_default!(:stock, currency: 'EUR')
       building_division = BuildingDivision.first ||
                           BuildingDivision.create!(
                             name: 'Default storage',
@@ -105,15 +105,13 @@ module CharentesAlliance
         product_nature_variant.nature.update_columns(population_counting: :decimal)
         # find a price from current supplier for a consider variant
         # TODO: waiting for a product price capitalization method
-        catalog_item = purchase_catalog.items.find_by(variant_id: product_nature_variant.id)
-        catalog_item ||= purchase_catalog.items.create!(
+        catalog_item = purchase_catalog.items.find_or_create_by!(
           currency: 'EUR',
           amount: r.product_unit_price,
           variant_id: product_nature_variant.id
         )
 
-        stock_catalog_item = stock_catalog.items.find_by(variant_id: product_nature_variant.id)
-        stock_catalog_item ||= stock_catalog.items.create!(
+        stock_catalog_item = stock_catalog.items.find_or_create_by!(
           currency: 'EUR',
           amount: r.product_unit_price,
           variant_id: product_nature_variant.id
