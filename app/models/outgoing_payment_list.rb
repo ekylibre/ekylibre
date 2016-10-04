@@ -13,7 +13,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
   def to_sepa
     sct = SEPA::CreditTransfer.new(
-      name: mode.cash.bank_account_holder_name,
+      name: mode.cash.bank_account_holder_name.truncate(70, omission: ''),
       bic: mode.cash.bank_identifier_code || 'NOTPROVIDED',
       iban: mode.cash.iban
     )
@@ -23,7 +23,7 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
     payments.each do |payment|
       sct.add_transaction(
-        name: payment.payee.bank_account_holder_name,
+        name: payment.payee.bank_account_holder_name.truncate(70, omission: ''),
         bic: payment.payee.bank_identifier_code || 'NOTPROVIDED',
         iban: payment.payee.iban,
         amount: format('%.2f', payment.amount.round(2)),
