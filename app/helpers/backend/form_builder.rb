@@ -478,7 +478,7 @@ module Backend
       if @template.params[:person_id]
         person = Entity.find(@template.params[:person_id])
         if person
-          f.object.born_at ||= person.born_at
+          @object.born_at ||= person.born_at
           full_name = Entity.find(@template.params[:person_id]).full_name
         end
       end
