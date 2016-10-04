@@ -178,7 +178,7 @@ class Parcel < Ekylibre::Record::Base
   bookkeep do |b|
     return unless Preference[:permanent_stock_inventory]
     invoice_not_received_account = Account.find_or_import_from_nomenclature(:suppliers_invoices_not_received)
-    mode = nature
+    mode = nature.to_sym
     entity = recipient || sender
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
     undelivered_label = tc(:undelivered_invoice, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
@@ -190,7 +190,7 @@ class Parcel < Ekylibre::Record::Base
       # for permanent stock inventory
       b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
         items.each do |item|
-          transaction_item = mode == :incoming ? item.purchase_item : item.sale_item
+          transaction_item = (mode == :incoming ? item.purchase_item : item.sale_item)
           # compute amout on purchase/sale or stock catalog
           amount = (transaction_item && transaction_item.pretax_amount) || item.stock_amount
           # purchase/sale not emitted
