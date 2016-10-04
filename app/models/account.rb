@@ -76,7 +76,7 @@ class Account < Ekylibre::Record::Base
   # default_scope order(:number, :name)
   scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
-    unless Nomen::Account[usage]
+    unless Nomen::Account.find(usage)
       raise ArgumentError, "Unknown usage #{usage.inspect}"
     end
     where('usages ~ E?', "\\\\m#{usage}\\\\M")
@@ -170,10 +170,10 @@ class Account < Ekylibre::Record::Base
 
     # Find account with its usage among all existing account records
     def find_in_nomenclature(usage)
-      unless account = of_usage(usage).first
-        if item = Nomen::Account[usage]
-          account = find_by(number: item.send(accounting_system))
-        end
+      account = of_usage(usage).first
+      unless account
+        item = Nomen::Account[usage]
+        account = find_by(number: item.send(accounting_system)) if item
       end
       account
     end
@@ -239,14 +239,18 @@ class Account < Ekylibre::Record::Base
 
     # Find or create an account with its name in accounting system if not exist in DB
     def find_or_import_from_nomenclature(usage)
-      if account = find_in_nomenclature(usage)
-        return account
-      elsif item = Nomen::Account.find(usage)
-        account = create!(name: item.human_name, number: item.send(accounting_system), debtor: !!item.debtor, usages: item.name)
-        return account
-      else
-        raise ArgumentError, "The usage #{usage.inspect} is unknown"
+      item = Nomen::Account.find(usage)
+      raise ArgumentError, "The usage #{usage.inspect} is unknown" unless item
+      account = find_in_nomenclature(usage)
+      unless account
+        account = create!(
+          name: item.human_name,
+          number: item.send(accounting_system),
+          debtor: !!item.debtor,
+          usages: item.name
+        )
       end
+      account
     end
     alias import_from_nomenclature find_or_import_from_nomenclature
 

@@ -139,11 +139,12 @@ class ProductNatureCategory < Ekylibre::Record::Base
 
     # Load a product nature category from product nature category nomenclature
     def import_from_nomenclature(reference_name, force = false)
-      unless item = Nomen::ProductNatureCategory.find(reference_name)
+      unless (item = Nomen::ProductNatureCategory.find(reference_name))
         raise ArgumentError, "The product_nature_category #{reference_name.inspect} is unknown"
       end
-      if !force && category = ProductNatureCategory.find_by_reference_name(reference_name)
-        return category
+      unless force
+        category = ProductNatureCategory.find_by(reference_name: reference_name)
+        return category if category
       end
       attributes = {
         active: true,
@@ -158,10 +159,11 @@ class ProductNatureCategory < Ekylibre::Record::Base
         fixed_asset_depreciation_percentage: (item.depreciation_percentage.present? ? item.depreciation_percentage : 20),
         fixed_asset_depreciation_method: :simplified_linear
       }.with_indifferent_access
-      [:fixed_asset, :fixed_asset_allocation, :fixed_asset_expenses, :charge, :product, :stock, :stock_movement].each do |account|
-        name = item.send("#{account}_account")
-        unless name.blank?
-          attributes["#{account}_account"] = Account.find_or_import_from_nomenclature(name)
+      [:fixed_asset, :fixed_asset_allocation, :fixed_asset_expenses,
+       :charge, :product, :stock, :stock_movement].each do |account|
+        account_name = item.send("#{account}_account")
+        unless account_name.blank?
+          attributes["#{account}_account"] = Account.find_or_import_from_nomenclature(account_name)
         end
       end
       # TODO: add in rake clean method a way to detect same translation in nomenclatures by locale (to avoid conflict with validation on uniq name for example)
