@@ -79,14 +79,16 @@ module Backend
         end
 
         inspections.group_by(&:activity).each do |activity, a_inspections|
+          dimensions = [:items_count, :net_mass].select { |dim| a_inspections.any? { |i| i.measure_grading(dim) } }
+
           table activity.name do
             row do
               cell Plant.model_name.human,                    style: :important
               cell Plant.human_attribute_name(:variety),      style: :important
               cell Inspection.human_attribute_name(:number),  style: :important
               cell InspectionCalibration.model_name.human,    style: :important
-              [:items_count, :net_mass].each do |dimension|
-                next unless a_inspections.any? { |i| i.measure_grading(dimension) }
+              dimensions.each do |dimension|
+                next unless
                 cell Inspection.human_attribute_name("total_#{dimension}"),                                 style: :important
               end
             end
@@ -99,8 +101,8 @@ module Backend
                     cell plant.variety.capitalize
                     cell inspection.number
                     cell calib.nature_name
-                    [:items_count, :net_mass].each do |dimension|
-                      next unless inspection.measure_grading(dimension)
+                    dimensions.each do |dimension|
+                      next cell('-') unless inspection.measure_grading(dimension)
                       cell calib.projected_total(dimension).round(0).l(precision: 0)
                     end
                   end
