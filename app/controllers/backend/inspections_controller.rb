@@ -88,8 +88,7 @@ module Backend
               cell Inspection.human_attribute_name(:number),  style: :important
               cell InspectionCalibration.model_name.human,    style: :important
               dimensions.each do |dimension|
-                next unless
-                cell Inspection.human_attribute_name("total_#{dimension}"),                                 style: :important
+                cell Inspection.human_attribute_name("total_#{dimension}"), style: :important
               end
             end
 
