@@ -65,7 +65,7 @@ class InspectionCalibration < Ekylibre::Record::Base
 
   def marketable_yield(dimension)
     market_quantity = marketable_quantity(dimension).to_d(quantity_unit(dimension))
-    y = (market_quantity / total_area).in(quantity_per_area_unit(dimension))
+    y = (market_quantity / total_area).in(default_per_area_unit(dimension))
     y.in(quantity_per_area_unit(dimension))
   end
 end

@@ -198,11 +198,13 @@ class Inspection < Ekylibre::Record::Base
   # BASIC VALUES
 
   ### AREAS
-  def total_area(unit: :square_meter)
+  def total_area(unit: nil)
+    unit ||= default_area_unit
     product_net_surface_area.to_d(unit)
   end
 
-  def sample_area(unit: :square_meter)
+  def sample_area(unit: nil)
+    unit ||= default_area_unit
     sampling_area.to_d(unit)
   end
 
@@ -260,9 +262,21 @@ class Inspection < Ekylibre::Record::Base
     default_per_area_unit(dimension)
   end
 
+  def user_quantity_unit(dimension)
+    return :thousand  if dimension.to_sym == :items_count
+    return :ton       if dimension.to_sym ==:net_mass
+    error_unknown(dimension)
+  end
+
+  def user_per_area_unit(dimension)
+    return :thousand_per_hectare      if dimension.to_sym == :items_count
+    return :ton_per_hectare           if dimension.to_sym == :net_mass
+    error_unknown(dimension)
+  end
+
   def default_per_area_unit(dimension)
-    return :unity_per_hectare     if dimension.to_sym == :items_count
-    return :kilogram_per_hectare  if dimension.to_sym == :net_mass
+    return :unity_per_square_meter     if dimension.to_sym == :items_count
+    return :kilogram_per_square_meter  if dimension.to_sym == :net_mass
     error_unknown(dimension)
   end
 
@@ -270,6 +284,10 @@ class Inspection < Ekylibre::Record::Base
     return :unity     if dimension.to_sym == :items_count
     return :kilogram  if dimension.to_sym == :net_mass
     error_unknown(dimension)
+  end
+
+  def default_area_unit
+    :square_meter
   end
 
   protected

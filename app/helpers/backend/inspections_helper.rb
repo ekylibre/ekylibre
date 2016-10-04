@@ -44,9 +44,9 @@ module Backend
         [:items_count, :net_mass].each do |dimension|
           statable[dimension] = {}
           next unless inspection.quantity_statable?(dimension)
-          statable[dimension][:total] = { title: :total.tl, unicity: dimension }
-          statable[dimension][:yield] = { title: Inspection.human_attribute_name(:gross_yield_value), unicity: dimension }
-          statable[dimension][:market] = { title: InspectionCalibration.human_attribute_name(:marketable), unicity: dimension }
+          statable[dimension][:total] = { title: Inspection.human_attribute_name("total_#{dimension}"), unicity: dimension }
+          statable[dimension][:yield] = { title: Inspection.human_attribute_name("gross_#{dimension}_yield"), unicity: dimension }
+          statable[dimension][:market] = { title: InspectionCalibration.human_attribute_name("marketable_#{dimension}"), unicity: dimension }
           columns[statable[dimension][:total]] = { body: [], total: [], colspan: 1 }
           columns[statable[dimension][:yield]] = { body: [], total: [], colspan: 1 }
           columns[statable[dimension][:market]] = { body: [], total: [], colspan: 1 }
@@ -56,24 +56,24 @@ module Backend
         ### BODY
         inspection.calibrations.of_scale(scale).reorder(:id).each do |calibration|
           [:items_count, :net_mass].each do |dimension|
-            columns[quantity[dimension]][:body] << decimal_cell(calibration.quantity_in_unit(dimension).round(0).l(precision: 0))
-            columns[statable[dimension][:total]][:body] << decimal_cell(calibration.projected_total(dimension).round(0).l(precision: 0))
+            columns[quantity[dimension]][:body] << decimal_cell(calibration.quantity_in_unit(dimension).round(2).l(precision: 2))
+            columns[statable[dimension][:total]][:body] << decimal_cell(calibration.projected_total(dimension).round(2).l(precision: 2))
             columns[statable[dimension][:yield]][:body] << decimal_cell(calibration.quantity_yield(dimension).round(2).l(precision: 2))
-            columns[statable[dimension][:market]][:body] << decimal_cell(calibration.marketable? ? calibration.marketable_quantity(dimension).round(0).l(precision: 0) : nil)
+            columns[statable[dimension][:market]][:body] << decimal_cell(calibration.marketable? ? calibration.marketable_quantity(dimension).round(2).l(precision: 2) : nil)
           end
 
           columns[name][:body] << { tag: :td, content: calibration.nature_name }
-          columns[grading_sizes[:min]][:body] << decimal_cell(calibration.extremum_size(:min).round(0).l(precision: 0))
-          columns[grading_sizes[:max]][:body] << decimal_cell(calibration.extremum_size(:max).round(0).l(precision: 0))
+          columns[grading_sizes[:min]][:body] << decimal_cell(calibration.extremum_size(:min).round(2).l(precision: 2))
+          columns[grading_sizes[:max]][:body] << decimal_cell(calibration.extremum_size(:max).round(2).l(precision: 2))
         end
         #########
 
         ### TOTALS
         [:items_count, :net_mass].each do |dimension|
-          columns[quantity[dimension]][:total] << total_decimal_cell(inspection.quantity(dimension, scale).round(0).l(precision: 0))
-          columns[statable[dimension][:total]][:total] << total_decimal_cell(inspection.projected_total(dimension, scale).round(0).l(precision: 0))
+          columns[quantity[dimension]][:total] << total_decimal_cell(inspection.quantity(dimension, scale).round(2).l(precision: 2))
+          columns[statable[dimension][:total]][:total] << total_decimal_cell(inspection.projected_total(dimension, scale).round(2).l(precision: 2))
           columns[statable[dimension][:yield]][:total] << total_decimal_cell(inspection.quantity_yield(dimension).round(2).l(precision: 2))
-          columns[statable[dimension][:market]][:total] << total_decimal_cell(inspection.marketable_quantity(dimension).round(2).l(precision: 0))
+          columns[statable[dimension][:market]][:total] << total_decimal_cell(inspection.marketable_quantity(dimension).round(2).l(precision: 2))
         end
 
         columns[name][:total] << { tag: :th, content: :totals.tl }
@@ -112,9 +112,9 @@ module Backend
         [:items_count, :net_mass].each do |dimension|
           statable[dimension] = {}
           next unless inspection.quantity_statable?(dimension)
-          statable[dimension][:total]   = { title: :total.tl, unicity: dimension }
-          statable[dimension][:yield]   = { title: Inspection.human_attribute_name(:gross_yield_value), unicity: dimension }
-          statable[dimension][:market]  = { title: InspectionPoint.human_attribute_name(:marketable), unicity: dimension }
+          statable[dimension][:total]   = { title: Inspection.human_attribute_name("total_#{dimension}"), u_attributenicity: dimension }
+          statable[dimension][:yield]   = { title: Inspection.human_attribute_name("gross_#{dimension}_yield"), unicity: dimension }
+          statable[dimension][:market]  = { title: InspectionPoint.human_attribute_name("marketable_#{dimension}"), unicity: dimension }
           columns[statable[dimension][:total]]  = { body: [], subtotal: [], total: [], colspan: 1 }
           columns[statable[dimension][:yield]]  = { body: [], subtotal: [], total: [], colspan: 1 }
           columns[statable[dimension][:market]] = { body: [], subtotal: [], total: [], colspan: 1 }
@@ -124,23 +124,23 @@ module Backend
         ### BODY
         inspection.points.joins(:nature).order('category, name').each do |point|
           [:items_count, :net_mass].each do |dimension|
-            columns[quantity[dimension]][:body] << decimal_cell(point.quantity_in_unit(dimension).round(0).l(precision: 0))
-            columns[statable[dimension][:total]][:body] << decimal_cell(point.projected_total(dimension).round(0).l(precision: 0))
+            columns[quantity[dimension]][:body] << decimal_cell(point.quantity_in_unit(dimension).round(2).l(precision: 2))
+            columns[statable[dimension][:total]][:body] << decimal_cell(point.projected_total(dimension).round(2).l(precision: 2))
             columns[statable[dimension][:yield]][:body] << decimal_cell(point.quantity_yield(dimension).round(2).l(precision: 2))
             columns[statable[dimension][:market]][:body] << decimal_cell(point.percentage(dimension).round(2).l(precision: 2) + '%')
           end
 
           columns[name][:body] << { tag: :td, content: point.nature_name }
-          columns[grading_sizes[:min]][:body] << decimal_cell(point.extremum_size(:min).round(0).l(precision: 0))
-          columns[grading_sizes[:max]][:body] << decimal_cell(point.extremum_size(:max).round(0).l(precision: 0))
+          columns[grading_sizes[:min]][:body] << decimal_cell(point.extremum_size(:min).round(2).l(precision: 2))
+          columns[grading_sizes[:max]][:body] << decimal_cell(point.extremum_size(:max).round(2).l(precision: 2))
         end
         #########
 
         ### SUBTOTAL
         ActivityInspectionPointNature.unmarketable_categories.each do |category|
           [:items_count, :net_mass].each do |dimension|
-            columns[quantity[dimension]][:subtotal] << total_decimal_cell(inspection.points_sum(dimension, category).round(0).l(precision: 0))
-            columns[statable[dimension][:total]][:subtotal] << total_decimal_cell(inspection.points_total(dimension, category).round(0).l(precision: 0))
+            columns[quantity[dimension]][:subtotal] << total_decimal_cell(inspection.points_sum(dimension, category).round(2).l(precision: 2))
+            columns[statable[dimension][:total]][:subtotal] << total_decimal_cell(inspection.points_total(dimension, category).round(2).l(precision: 2))
             columns[statable[dimension][:yield]][:subtotal] << total_decimal_cell(inspection.points_yield(dimension, category).round(2).l(precision: 2))
             columns[statable[dimension][:market]][:subtotal] << total_decimal_cell(inspection.points_percentage(dimension, category).round(2).l(precision: 2) + '%')
           end
@@ -153,8 +153,8 @@ module Backend
 
         ### TOTAL
         [:items_count, :net_mass].each do |dimension|
-            columns[quantity[dimension]][:total] << total_decimal_cell(inspection.points_sum(dimension).round(0).l(precision: 0))
-            columns[statable[dimension][:total]][:total] << total_decimal_cell(inspection.points_total(dimension).round(0).l(precision: 0))
+            columns[quantity[dimension]][:total] << total_decimal_cell(inspection.points_sum(dimension).round(2).l(precision: 2))
+            columns[statable[dimension][:total]][:total] << total_decimal_cell(inspection.points_total(dimension).round(2).l(precision: 2))
             columns[statable[dimension][:yield]][:total] << total_decimal_cell(inspection.points_yield(dimension).round(2).l(precision: 2))
             columns[statable[dimension][:market]][:total] << total_decimal_cell(inspection.points_percentage(dimension).round(2).l(precision: 2) + '%')
           end

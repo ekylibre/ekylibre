@@ -19,18 +19,19 @@ module Inspectable
              :quantity_unit,
              :quantity_per_area_unit,
              :default_per_area_unit,
+             :default_area_unit,
              :default_quantity_unit,
              :error_unkown, to: :inspection
   end
 
   def projected_total(dimension)
-    number_of_samples = total_area / sample_area
+    number_of_samples = (total_area / sample_area)
     (quantity_in_unit(dimension) * number_of_samples)
   end
 
   def quantity_yield(dimension)
     quantity = quantity_in_unit(dimension).to_d(quantity_unit(dimension))
-    y = (quantity / sample_area).in(quantity_per_area_unit(dimension))
+    y = (quantity / sample_area).in(default_per_area_unit(dimension))
     y.in(quantity_per_area_unit(dimension))
   end
 

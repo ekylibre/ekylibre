@@ -1,4 +1,6 @@
 - dimension = resource.activity.unit_preference(current_user)
+- user_q_unit = resource.user_quantity_unit(dimension)
+- user_a_unit = resource.user_per_area_unit(dimension)
 
 - if resource.quantity_statable? dimension
   - ActivityInspectionPointNature.unmarketable_categories.each do |category|
@@ -8,13 +10,16 @@
         %span.value= resource.points_percentage(dimension, category).round(2).l(precision: 2) + '%'
   - if resource.activity.inspection_calibration_scales.any?
     :ruby
-      totals_of = {
-        marketable_quantity: :marketable,
-        marketable_yield: nil,
-        projected_total: :total,
-        quantity_yield: nil
-      }
-    - totals_of.each do |method, name|
+      totals_of = [
+        [:marketable_quantity, :marketable, user_q_unit],
+        [:marketable_yield, nil, user_a_unit],
+        [:projected_total, :total, user_q_unit],
+        [:quantity_yield, nil, user_a_unit]
+      ]
+    - totals_of.each do |config|
+      - method = config.first
+      - name = config.second
+      - unit = config.last
       .med-info
         %span.title= (name && Inspection.human_attribute_name("#{name}_#{dimension}".tl)) || Inspection.human_attribute_name(method)
-        %span.value= resource.send(method, dimension).round(2).l(precision: 0)
+        %span.value= resource.send(method, dimension).in(unit).round(2).l(precision: 2)
