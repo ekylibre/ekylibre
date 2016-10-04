@@ -649,7 +649,7 @@ arb:
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
         activity:
-          # checked_off_with_inspections: "Inspections have already been created for this activity"
+          checked_off_with_inspections: "وقد تم بالفعل خلق التفتيش لهذا النشاط"
           checked_without_measures: "على الأقل، يجب أن يتم اختيار نوع واحد الاجراء عندما أراد التفتيش"
         bank_statement:
           no_cash_match_ofx: "لم يتم العثور على رقم الحساب المصرفي الواردة في الملف النقدية"
@@ -1459,8 +1459,12 @@ arb:
     grading_sizes_unit_name: "الدرجات أحجام اسم الوحدة"
     gradings: "الى التصنيف"
     gravity: "الجاذبية"
-    gross_items: "العد الإجمالي"
-    gross_mass: "الكتلة الإجمالية"
+    gross_items: "العد الإجمالي" #?
+    gross_items_count: "البنود الإجمالية تحسب"
+    gross_items_count_yield: "العائد الإجمالي البند"
+    gross_mass: "الكتلة الإجمالية" #?
+    gross_net_mass: "الكتلة الإجمالية"
+    gross_net_mass_yield: "العائد الإجمالي الشامل"
     gross_yield_value: "القيمة الإنتاجية الإجمالية"
     group: "مجموعة"
     group_parameters: "معلمات مجموعة"
@@ -1575,7 +1579,7 @@ arb:
     item_value: "قيمة البند"
     items: "بنود عقد الاستخراج"
     items_count: "عد البنود"
-    # items_count_value: "Items count value"
+    items_count_value: "البنود تحسب قيمة"
     journal: "الدفتر اليومي"
     journal_entries: "سجلات المحاسبة"
     journal_entry: "سجل المحاسبة"
@@ -1672,6 +1676,7 @@ arb:
     marketable_items_count: "البنود تسويق عد"
     marketable_net_mass: "الكتلة الصافية للتسويق"
     marketable_net_yield: "العائد الصافي للتسويق"
+    marketable_quantity: "كمية قابلة للتسويق"
     marketable_yield: "العائد للتسويق"
     mass: "الوزن"
     master: "كتلة رئيسية" #?
@@ -1965,7 +1970,7 @@ arb:
     quantity_unit: "وحدة الكمية"
     quantity_unit_name: "الكمية اسم الوحدة"
     quantity_value: "قيمة الكمية"
-    # quantity_yield: "Net marketable yield"
+    quantity_yield: "العائد الصافي للتسويق"
     query: "التساؤل"
     range: "فترة فاصلة" #?
     rank_number: "عدد رتبة"
@@ -2236,7 +2241,7 @@ arb:
     tools: "الادوات"
     tools_list: "معدات" #?
     total_cost: "التكلفة الإجمالية"
-    # total_items_count: "Total items count"
+    total_items_count: "مجموع البنود عد"
     total_net_mass: "مجموع الكتلة الصافية"
     town_number: "عدد تاون"
     tracking: "الحصة"
@@ -2662,9 +2667,9 @@ arb:
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
     inspection:
       items: "العناصر" #?
-      # items_count: "Items"
+      items_count: "العناصر"
       mass: "كتلة" #?
-      # net_mass: "Mass"
+      net_mass: "كتلة"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

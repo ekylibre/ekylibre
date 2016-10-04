@@ -83,7 +83,7 @@ deu:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
-          # checked_off_with_inspections: "Inspections have already been created for this activity"
+          checked_off_with_inspections: "Die Kontrollen wurden bereits für diese Tätigkeit geschaffen"
           checked_without_measures: "Zumindest sollte eine Maßnahme Typ gewählt werden, wenn Kontrollen gewünscht werden"
         bank_statement:
           no_cash_match_ofx: "Kein Geld für die Bankkontonummer in der Datei angegeben gefunden"
@@ -671,8 +671,12 @@ deu:
     grading_sizes_unit_name: "Grading Größen Gerätenamen"
     gradings: "Sortierungen"
     gravity: "Schwerkraft"
-    gross_items: "Gross Zahl"
-    gross_mass: "Rohmasse"
+    gross_items: "Gross Zahl" #?
+    gross_items_count: "Gross Artikel zählen"
+    gross_items_count_yield: "Gross Artikel Ausbeute"
+    gross_mass: "Rohmasse" #?
+    gross_net_mass: "Rohmasse"
+    gross_net_mass_yield: "Rohmasse Ausbeute"
     gross_yield_value: "Die Bruttoertragswert"
     group: "Gruppe"
     group_parameters: "Gruppe Parameter"
@@ -772,7 +776,7 @@ deu:
     item_value: "Artikel Wert"
     items: "Artikel"
     items_count: "Artikel zählen"
-    # items_count_value: "Items count value"
+    items_count_value: "Artikel Zählwert"
     journal: "Zeitschrift"
     journal_entries: "Journaleinträge"
     journal_entry: "Tagebucheintrag"
@@ -847,6 +851,7 @@ deu:
     marketable_items_count: "Marktfähige Produkte zählen"
     marketable_net_mass: "Marktgängige Nettomasse"
     marketable_net_yield: "Marktfähige Nettorendite"
+    marketable_quantity: "Marktfähige Menge"
     marketable_yield: "Marktgängige Ausbeute"
     mass: "Masse (kg)"
     max_zoom: "Max Zoom"
@@ -1064,7 +1069,7 @@ deu:
     quantity_unit: "Mengeneinheit"
     quantity_unit_name: "Mengeneinheit Name"
     quantity_value: "Mengenwert"
-    # quantity_yield: "Net marketable yield"
+    quantity_yield: "Net vermarktbare Ertrag"
     query: "Abfrage"
     rank_number: "Rang Nummer"
     read_at: "lesen Sie bei"
@@ -1262,7 +1267,7 @@ deu:
     tool: "Werkzeug"
     tools: "Werkzeuge"
     total_cost: "Gesamtkosten"
-    # total_items_count: "Total items count"
+    total_items_count: "Insgesamt Produkte zählen"
     total_net_mass: "Gesamtnettomasse"
     town_number: "Stadt Zahl"
     tracking: "Verfolgung"
@@ -1422,9 +1427,9 @@ deu:
           # name: "Virement"
     inspection:
       items: "Artikel" #?
-      # items_count: "Items"
+      items_count: "Artikel"
       mass: "Masse" #?
-      # net_mass: "Mass"
+      net_mass: "Masse"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

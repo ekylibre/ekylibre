@@ -83,7 +83,7 @@ spa:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
-          # checked_off_with_inspections: "Inspections have already been created for this activity"
+          checked_off_with_inspections: "Inspecciones ya se han creado para esta actividad"
           checked_without_measures: "Al menos, un tipo de medida debe seleccionarse cuando se quieren inspecciones"
         bank_statement:
           no_cash_match_ofx: "No hay resultados para el número de cuenta bancaria que figura en el archivo de efectivo"
@@ -675,8 +675,12 @@ spa:
     grading_sizes_unit_name: "La clasificación tamaños nombre de la unidad"
     gradings: "gradaciones"
     gravity: "Gravedad"
-    gross_items: "recuento bruto"
-    gross_mass: "masa bruta"
+    gross_items: "recuento bruto" #?
+    gross_items_count: "Cuentan artículos brutas"
+    gross_items_count_yield: "Rendimiento bruto elemento"
+    gross_mass: "masa bruta" #?
+    gross_net_mass: "Masa bruta"
+    gross_net_mass_yield: "Rendimiento masa bruta"
     gross_yield_value: "Valor de rendimiento bruto"
     group: "Grupo"
     group_parameters: "Parámetros del grupo"
@@ -776,7 +780,7 @@ spa:
     item_value: "Valor del ítem"
     items: "Elementos"
     items_count: "Los productos que cuentan"
-    # items_count_value: "Items count value"
+    items_count_value: "Los productos que cuentan valor"
     journal: "Diario"
     journal_entries: "Las entradas de diario"
     journal_entry: "Entrada de diario"
@@ -851,6 +855,7 @@ spa:
     marketable_items_count: "cuentan artículos negociables"
     marketable_net_mass: "masa neta comercializable"
     marketable_net_yield: "rendimiento neto comercializable"
+    marketable_quantity: "Cantidad comercializable"
     marketable_yield: "rendimiento comercial"
     mass: "Masa (kg)"
     # max_zoom: "Max zoom"
@@ -1068,7 +1073,7 @@ spa:
     quantity_unit: "Unidad Cantidad"
     quantity_unit_name: "Nombre de la unidad Cantidad"
     quantity_value: "Cantidad valor"
-    # quantity_yield: "Net marketable yield"
+    quantity_yield: "Rendimiento neto comercializable"
     query: "Consulta"
     rank_number: "Número de rango"
     read_at: "Lea por lo"
@@ -1266,7 +1271,7 @@ spa:
     tool: "Herramienta"
     tools: "Instrumentos"
     total_cost: "Coste total"
-    # total_items_count: "Total items count"
+    total_items_count: "Cuentan artículos totales"
     total_net_mass: "masa neta total"
     town_number: "Número ciudad"
     tracking: "Rastreo"
@@ -1427,9 +1432,9 @@ spa:
           name: "Virement"
     inspection:
       items: "Artículos" #?
-      # items_count: "Items"
+      items_count: "Artículos"
       mass: "Masa" #?
-      # net_mass: "Mass"
+      net_mass: "Masa"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

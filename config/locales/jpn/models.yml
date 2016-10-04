@@ -83,7 +83,7 @@ jpn:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
-          # checked_off_with_inspections: "Inspections have already been created for this activity"
+          checked_off_with_inspections: "検査は既にこの活動のために作成されています"
           checked_without_measures: "検査が求められていたときに少なくとも、1小節の種類を選択する必要があります"
         bank_statement:
           no_cash_match_ofx: "ファイルで指定された銀行口座番号が見つかり代引き不可"
@@ -671,8 +671,12 @@ jpn:
     grading_sizes_unit_name: "グレーディングサイズのユニット名"
     gradings: "グレーディング"
     gravity: "重力"
-    gross_items: "総カウント数"
-    gross_mass: "総質量"
+    gross_items: "総カウント数" #?
+    gross_items_count: "総アイテムがカウント"
+    gross_items_count_yield: "総アイテム収率"
+    gross_mass: "総質量" #?
+    gross_net_mass: "総質量"
+    gross_net_mass_yield: "総質量収率"
     gross_yield_value: "総降伏値"
     group: "グループ"
     group_parameters: "グループパラメータ"
@@ -772,7 +776,7 @@ jpn:
     item_value: "アイテムの値"
     items: "アイテム"
     items_count: "アイテム数"
-    # items_count_value: "Items count value"
+    items_count_value: "アイテムは、カウント値"
     journal: "ジャーナル"
     journal_entries: "仕訳"
     journal_entry: "仕訳記入"
@@ -847,6 +851,7 @@ jpn:
     marketable_items_count: "有価項目はカウント"
     marketable_net_mass: "有価正味質量"
     marketable_net_yield: "有価純利回り"
+    marketable_quantity: "有価量"
     marketable_yield: "有価収量"
     mass: "質量（キログラム）"
     max_zoom: "最大ズーム"
@@ -1064,7 +1069,7 @@ jpn:
     quantity_unit: "数量単位"
     quantity_unit_name: "数量ユニット名"
     quantity_value: "数量値"
-    # quantity_yield: "Net marketable yield"
+    quantity_yield: "ネットの市場利回り"
     query: "クエリー"
     rank_number: "ランク番号"
     read_at: "読みます"
@@ -1262,7 +1267,7 @@ jpn:
     tool: "ツール"
     tools: "ツール"
     total_cost: "総費用"
-    # total_items_count: "Total items count"
+    total_items_count: "合計項目カウント"
     total_net_mass: "合計正味質量"
     town_number: "タウン番号"
     tracking: "追跡"
@@ -1423,9 +1428,9 @@ jpn:
           name: "費目変更"
     inspection:
       items: "アイテム" #?
-      # items_count: "Items"
+      items_count: "アイテム"
       mass: "質量" #?
-      # net_mass: "Mass"
+      net_mass: "質量"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

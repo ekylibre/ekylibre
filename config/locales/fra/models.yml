@@ -865,12 +865,10 @@ fra:
     grading_sizes_unit_name: "Classement tailles nom de l’unité"
     gradings: "Agréages"
     gravity: "Gravité"
-    # gross_items: "Gross count"
-    gross_items_count: "Nombre de pièce brut" #?
-    gross_items_count_yield: "Rendement brut (nombre)" #?
-    # gross_mass: "Gross mass"
-    gross_net_mass: "Masse brute" #?
-    gross_net_mass_yield: "Rendement brut (masse)" #?
+    gross_items_count: "Nombre de pièce brut"
+    gross_items_count_yield: "Rendement brut (nombre)"
+    gross_net_mass: "Masse brute"
+    gross_net_mass_yield: "Rendement brut (masse)"
     gross_yield_value: "Rendement brut"
     group: "Groupe"
     group_parameters: "Paramètres de groupe"
@@ -975,7 +973,7 @@ fra:
     item_value: "Valeur de l’élément"
     items: "Élements"
     items_count: "Nombre d’éléments"
-    # items_count_value: "Items count value"
+    items_count_value: "Articles comptent valeur"
     journal: "Journal"
     journal_entries: "Écritures"
     journal_entry: "Écriture"
@@ -1315,7 +1313,7 @@ fra:
     quantity_unit: "Unité de quantité"
     quantity_unit_name: "Quantité nom de l’unité"
     quantity_value: "Valeur Quantité"
-    # quantity_yield: "Net marketable yield"
+    quantity_yield: "Rendement commercialisable net"
     query: "Requête"
     rank_number: "Numéro de Rang"
     read_at: "Mesuré à"

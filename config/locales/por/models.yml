@@ -83,7 +83,7 @@ por:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
-          # checked_off_with_inspections: "Inspections have already been created for this activity"
+          checked_off_with_inspections: "Inspeções já foram criados para esta atividade"
           checked_without_measures: "Pelo menos, um tipo de medida deve ser selecionada quando as inspecções são procurados"
         bank_statement:
           no_cash_match_ofx: "Nenhum dinheiro encontrado com o número da conta bancária dada no arquivo"
@@ -671,8 +671,12 @@ por:
     grading_sizes_unit_name: "Grading tamanhos nome da unidade"
     gradings: "gradings"
     gravity: "Gravidade"
-    gross_items: "contagem bruta"
-    gross_mass: "massa bruta"
+    gross_items: "contagem bruta" #?
+    gross_items_count: "De itens brutos contar"
+    gross_items_count_yield: "Rendimento de produto bruto"
+    gross_mass: "massa bruta" #?
+    gross_net_mass: "Massa bruta"
+    gross_net_mass_yield: "Rendimento de massa bruta"
     gross_yield_value: "Valor do rendimento bruto"
     group: "Grupo"
     group_parameters: "Parâmetros do Grupo"
@@ -772,7 +776,7 @@ por:
     item_value: "Valor do item"
     items: "Itens"
     items_count: "itens contar"
-    # items_count_value: "Items count value"
+    items_count_value: "Itens contam valor"
     journal: "Diário"
     journal_entries: "Entradas de diário"
     journal_entry: "Entrada de diário"
@@ -847,6 +851,7 @@ por:
     marketable_items_count: "itens comercializáveis ​​contar"
     marketable_net_mass: "massa líquida comercializável"
     marketable_net_yield: "rendimento líquido comercializável"
+    marketable_quantity: "Quantidade comercializável"
     marketable_yield: "A produtividade comercial"
     mass: "Massa (kg)"
     max_zoom: "zoom Max"
@@ -1064,7 +1069,7 @@ por:
     quantity_unit: "Unidade de quantidade"
     quantity_unit_name: "Nome da unidade Quantidade"
     quantity_value: "Valor de quantidade"
-    # quantity_yield: "Net marketable yield"
+    quantity_yield: "Produtividade comercial Net"
     query: "Pergunta"
     rank_number: "Número de classificação"
     read_at: "Leia pelo"
@@ -1262,7 +1267,7 @@ por:
     tool: "Ferramenta"
     tools: "Ferramentas"
     total_cost: "Custo total"
-    # total_items_count: "Total items count"
+    total_items_count: "Total de itens contar"
     total_net_mass: "massa líquida total"
     town_number: "Número cidade"
     tracking: "Rastreamento"
@@ -1423,9 +1428,9 @@ por:
           name: "Virement"
     inspection:
       items: "Unid" #?
-      # items_count: "Items"
+      items_count: "Unid"
       mass: "Massa" #?
-      # net_mass: "Mass"
+      net_mass: "Massa"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

@@ -92,7 +92,7 @@ ita:
           other: "è della lunghezza sbagliata (deve essere di %{count} caratteri)" #? String excepted (Hash:{:one=>"è della lunghezza sbagliata (deve essere di 1 carattere)", :other=>"è della lunghezza sbagliata (deve essere di %{count} caratteri)"})
       models:
         activity:
-          # checked_off_with_inspections: "Inspections have already been created for this activity"
+          checked_off_with_inspections: "Le ispezioni sono già stati creati per questa attività"
           checked_without_measures: "Almeno, un tipo di misura dovrebbe essere selezionato quando i controlli sono ricercati"
         bank_statement:
           no_cash_match_ofx: "Nessun denaro trovato per il numero di conto bancario data nel file"
@@ -702,8 +702,12 @@ ita:
     grading_sizes_unit_name: "Grading dimensioni nome dell’unità"
     gradings: "classificazioni"
     gravity: "Gravità"
-    gross_items: "conteggio lordo"
-    gross_mass: "massa lorda"
+    gross_items: "conteggio lordo" #?
+    gross_items_count: "Contano articoli Gross"
+    gross_items_count_yield: "Rendimento lordo voce"
+    gross_mass: "massa lorda" #?
+    gross_net_mass: "Massa lorda"
+    gross_net_mass_yield: "Rendimento Massa lorda"
     gross_yield_value: "Valore di rendimento lordo"
     group: "Gruppo"
     group_parameters: "parametri del Gruppo"
@@ -803,7 +807,7 @@ ita:
     item_value: "valore Articolo"
     items: "Elementi"
     items_count: "contano articoli"
-    # items_count_value: "Items count value"
+    items_count_value: "Articoli contano valore"
     journal: "rivista"
     journal_entries: "Le voci del diario"
     journal_entry: "annotazione"
@@ -878,6 +882,7 @@ ita:
     marketable_items_count: "contano articoli negoziabili"
     marketable_net_mass: "massa netta commerciabile"
     marketable_net_yield: "rendimento netto commerciabile"
+    marketable_quantity: "Quantità commerciabile"
     marketable_yield: "resa commerciabile"
     mass: "Massa (kg)"
     # max_zoom: "Max zoom"
@@ -1095,7 +1100,7 @@ ita:
     quantity_unit: "unità Quantità"
     quantity_unit_name: "Quantità nome dell'unità"
     quantity_value: "valore Quantità"
-    # quantity_yield: "Net marketable yield"
+    quantity_yield: "Rendimento netto commerciabile"
     query: "domanda"
     rank_number: "numero Classifica"
     read_at: "Leggi a"
@@ -1293,7 +1298,7 @@ ita:
     tool: "Strumento"
     tools: "Utensili"
     total_cost: "Costo totale"
-    # total_items_count: "Total items count"
+    total_items_count: "Conteggio totale articoli"
     total_net_mass: "massa netta totale"
     town_number: "numero di Città"
     tracking: "puntamento"
@@ -1454,9 +1459,9 @@ ita:
           name: "virement"
     inspection:
       items: "Elementi" #?
-      # items_count: "Items"
+      items_count: "Elementi"
       mass: "Massa" #?
-      # net_mass: "Mass"
+      net_mass: "Massa"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

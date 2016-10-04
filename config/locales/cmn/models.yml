@@ -83,7 +83,7 @@ cmn:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
-          # checked_off_with_inspections: "Inspections have already been created for this activity"
+          checked_off_with_inspections: "检查已为这一活动创建"
           checked_without_measures: "至少，当检查被通缉应选择的一种度量类型"
         bank_statement:
           no_cash_match_ofx: "没有现金找到该文件中给出的银行账号"
@@ -671,8 +671,12 @@ cmn:
     grading_sizes_unit_name: "分级尺寸单位名称"
     gradings: "放坡"
     gravity: "重力"
-    gross_items: "格罗斯计数"
-    gross_mass: "总质量"
+    gross_items: "格罗斯计数" #?
+    gross_items_count: "总项目数"
+    gross_items_count_yield: "项目总收益率"
+    gross_mass: "总质量" #?
+    gross_net_mass: "总质量"
+    gross_net_mass_yield: "总质量产量"
     gross_yield_value: "总收益率值"
     group: "组"
     group_parameters: "组参数"
@@ -772,7 +776,7 @@ cmn:
     item_value: "项目价值"
     items: "项目"
     items_count: "项目数"
-    # items_count_value: "Items count value"
+    items_count_value: "项目计数值"
     journal: "日志"
     journal_entries: "日记帐分录"
     journal_entry: "日记条目"
@@ -847,6 +851,7 @@ cmn:
     marketable_items_count: "适销对路的项目数"
     marketable_net_mass: "适销对路的净质量"
     marketable_net_yield: "适销对路的净收益"
+    marketable_quantity: "可流通数量"
     marketable_yield: "适销对路的产量"
     mass: "质量（kg）"
     max_zoom: "最大变焦"
@@ -1064,7 +1069,7 @@ cmn:
     quantity_unit: "数量单位"
     quantity_unit_name: "数量单位名称"
     quantity_value: "量值"
-    # quantity_yield: "Net marketable yield"
+    quantity_yield: "净销售收益"
     query: "询问"
     rank_number: "排名"
     read_at: "在阅读"
@@ -1262,7 +1267,7 @@ cmn:
     tool: "工具"
     tools: "工具"
     total_cost: "总成本"
-    # total_items_count: "Total items count"
+    total_items_count: "总笔数算"
     total_net_mass: "总净重"
     town_number: "镇号"
     tracking: "跟踪"
@@ -1423,9 +1428,9 @@ cmn:
           # name: "Virement"
     inspection:
       items: "项目" #?
-      # items_count: "Items"
+      items_count: "项目"
       mass: "块" #?
-      # net_mass: "Mass"
+      net_mass: "块"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:
