@@ -1058,6 +1058,7 @@ fra:
     marketable_items_count: "Nombre d'unités commercialisables"
     marketable_net_mass: "Masse nette commercialisable"
     marketable_net_yield: "Rendement net commercialisable"
+    marketable_quantity: "Quantité commercialisable"
     marketable_yield: "Rendement commercialisable"
     mass: "Poids (kg)"
     max_zoom: "Zoom maximal"

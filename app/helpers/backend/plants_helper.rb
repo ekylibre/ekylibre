@@ -1,6 +1,7 @@
 module Backend
   module PlantsHelper
     def plants_map
+      dimension = :quantity
       data = Plant.of_campaign(current_campaign).collect do |p|
         next unless p.shape
 
@@ -35,14 +36,15 @@ module Backend
           popup_content << { label: :last_issue.tl, value: link_to(last_issue.name, backend_issue_path(last_issue)) }
         end
 
-        # for inspection and marketable_net_mass
+        # for inspection and marketable_quantity
         inspection = p.inspections.reorder(sampled_at: :desc).first
         if inspection
           activity = inspection.activity
+          dimension = activity.unit_preference(current_user)
           popup_content << { label: :last_inspection.tl, value: link_to(inspection.position.to_s, backend_inspection_path(inspection)) }
           if activity.inspection_calibration_scales.any?
-            marketable_net_mass = inspection.marketable_net_mass.l(precision: 0)
-            popup_content << { label: :marketable_net_mass.tl, value: marketable_net_mass }
+            marketable_quantity = inspection.marketable_quantity(dimension).round(2).l(precision: 0)
+            popup_content << { label: Inspection.human_attribute_name("marketable_#{dimension}"), value: marketable_quantity }
           end
         end
 
@@ -62,7 +64,7 @@ module Backend
         {
           name: p.name,
           shape: p.shape,
-          marketable_net_mass: marketable_net_mass.to_s.to_f,
+          marketable_quantity: marketable_quantity.to_s.to_f,
           ready_to_harvest: (p.ready_to_harvest? ? :ready.tl : :not_ready.tl),
           age: (Time.zone.now - p.born_at) / (3600 * 24 * 30),
           plantation_density: (p.plants_count.to_d / p.net_surface_area.in(:square_meter).to_d).to_s.to_f,
@@ -83,7 +85,7 @@ module Backend
       water_concentration_unit = "#{water}/#{area}".downcase
       visualization(box: { height: '100%' }) do |v|
         v.serie :main, data
-        v.bubbles :marketable_net_mass, :main
+        v.bubbles :marketable_quantity, :main
         v.categories :ready_to_harvest, :main, without_ghost_label: true
         v.choropleth :plantation_density, :main, unit: plantation_density_unit
         v.categories :variety, :main
