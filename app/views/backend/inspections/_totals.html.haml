@@ -11,15 +11,15 @@
   - if resource.activity.inspection_calibration_scales.any?
     :ruby
       totals_of = [
-        [:marketable_quantity, :marketable, user_q_unit],
-        [:marketable_yield, nil, user_a_unit],
-        [:projected_total, :total, user_q_unit],
-        [:quantity_yield, nil, user_a_unit]
+        [:marketable_quantity, "marketable_DIMENSION", user_q_unit],
+        [:marketable_yield, "marketable_net_yield", user_a_unit],
+        [:projected_total, "gross_DIMENSION", user_q_unit],
+        [:quantity_yield, "gross_yield_value", user_a_unit]
       ]
     - totals_of.each do |config|
       - method = config.first
       - name = config.second
       - unit = config.last
       .med-info
-        %span.title= (name && Inspection.human_attribute_name("#{name}_#{dimension}".tl)) || Inspection.human_attribute_name(method)
+        %span.title= (name && Inspection.human_attribute_name(name.gsub(/DIMENSION/, dimension.to_s).tl)) || Inspection.human_attribute_name(method)
         %span.value= resource.send(method, dimension).in(unit).round(2).l(precision: 2)
