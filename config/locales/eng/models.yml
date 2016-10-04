@@ -682,9 +682,11 @@ eng:
     grading_sizes_unit_name: "Grading sizes unit name"
     gradings: "Gradings" #?
     gravity: "Gravity"
-    gross_items: "Gross count" #?
-    gross_mass: "Gross mass" #?
-    gross_yield_value: "Gross yield value" #?
+    gross_items_count: "Gross items count"
+    gross_net_mass: "Gross mass"
+    gross_items_count_yield: "Gross item yield"
+    gross_net_mass_yield: "Gross mass yield"
+    gross_yield_value: "Gross yield"
     group: "Group"
     group_parameters: "Group parameters"
     groups: "Groups"
