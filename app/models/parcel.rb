@@ -182,10 +182,10 @@ class Parcel < Ekylibre::Record::Base
     entity = recipient || sender
     label = tc(:bookkeep, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
     undelivered_label = tc(:undelivered_invoice, resource: self.class.model_name.human, number: number, entity: entity.full_name, mode: mode.tl)
-    stock_journal = Journal.find_or_create_by!(nature: :stocks)
+    stock_journal = Journal.find_or_create_by!(nature: :stocks, currency: self.currency)
     return unless [:incoming, :outgoing].include? mode
     # for purchase_not_received or sale_not_emitted
-    journal = Journal.find_or_create_by!(nature: { incoming: :sales, outgoing: :purchases }[mode])
+    journal = Journal.find_or_create_by!(nature: { incoming: :sales, outgoing: :purchases }[mode], currency: self.currency)
     b.journal_entry(journal, printed_on: printed_at.to_date, column: :undelivered_invoice_entry_id, if: given?) do |entry|
       # for permanent stock inventory
       b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
