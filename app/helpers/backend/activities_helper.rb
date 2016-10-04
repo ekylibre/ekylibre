@@ -37,7 +37,7 @@ module Backend
           disease_percentage: disease_percentage,
           deformity_percentage: deformity_percentage,
           ready_to_harvest: (plant.ready_to_harvest? ? :ready.tl : :not_ready.tl),
-          popup: {header: true, content: popup_content}
+          popup: { header: true, content: popup_content }
         }
       end
     end
@@ -84,12 +84,12 @@ module Backend
                    .values
                    .compact
                    .map do |insps_per_plant|
-                       sum = insps_per_plant
-                             .map do |insp|
-                               insp.points_percentage(dimension, category)
-                             end
-                             .sum
-                       sum / insps_per_plant.length
+                     sum = insps_per_plant
+                           .map do |insp|
+                             insp.points_percentage(dimension, category)
+                           end
+                           .sum
+                     sum / insps_per_plant.length
                    end
 
           [sample_time.l, (values.sum / values.count).to_f.round(3)]

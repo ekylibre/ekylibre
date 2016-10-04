@@ -190,7 +190,6 @@ class Parcel < Ekylibre::Record::Base
       # for permanent stock inventory
       b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
         items.each do |item|
-
           next unless item.variant
 
           transaction_item = (mode == :incoming ? item.purchase_item : item.sale_item)

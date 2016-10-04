@@ -1025,7 +1025,8 @@ module ApplicationHelper
       result << content_tag(
         options[:cell_tag],
         cells.compact.first,
-        class: options[:cell_class])
+        class: options[:cell_class]
+      )
       result << even_cells(*(cells.compact[1...-1] + [nil] * empties), **options)
       result << content_tag(
         options[:cell_tag],

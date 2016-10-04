@@ -115,7 +115,7 @@ class Import < Ekylibre::Record::Base
     undone? && archive.file?
   end
 
-  # Removing progress is the signal to interrupt the process
+  # Removing progress file is the signal to interrupt the process
   def abort
     FileUtils.rm_rf(progress_file)
     update_column(:state, :aborted)
