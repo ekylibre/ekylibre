@@ -156,11 +156,11 @@ module Backend
 
         ### TOTAL
         [:items_count, :net_mass].each do |dimension|
-            columns[quantity[dimension]][:total] << total_decimal_cell(inspection.points_sum(dimension).round(2).l(precision: 2))
-            columns[statable[dimension][:total]][:total] << total_decimal_cell(inspection.points_total(dimension).round(2).l(precision: 2))
-            columns[statable[dimension][:yield]][:total] << total_decimal_cell(inspection.points_yield(dimension).round(2).l(precision: 2))
-            columns[statable[dimension][:market]][:total] << total_decimal_cell(inspection.points_percentage(dimension).round(2).l(precision: 2) + '%')
-          end
+          columns[quantity[dimension]][:total] << total_decimal_cell(inspection.points_sum(dimension).round(2).l(precision: 2))
+          columns[statable[dimension][:total]][:total] << total_decimal_cell(inspection.points_total(dimension).round(2).l(precision: 2))
+          columns[statable[dimension][:yield]][:total] << total_decimal_cell(inspection.points_yield(dimension).round(2).l(precision: 2))
+          columns[statable[dimension][:market]][:total] << total_decimal_cell(inspection.points_percentage(dimension).round(2).l(precision: 2) + '%')
+        end
 
         columns[name][:total] << { tag: :th, content: :totals.tl }
         columns[grading_sizes[:min]][:total] << total_decimal_cell(nil)

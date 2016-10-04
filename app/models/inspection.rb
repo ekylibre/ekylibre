@@ -264,7 +264,7 @@ class Inspection < Ekylibre::Record::Base
 
   def user_quantity_unit(dimension)
     return :thousand  if dimension.to_sym == :items_count
-    return :ton       if dimension.to_sym ==:net_mass
+    return :ton       if dimension.to_sym == :net_mass
     error_unknown(dimension)
   end
 

@@ -83,13 +83,13 @@ module Procedo
         def area(shape)
           return shape.area.to_f(:square_meter)
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         def intersection(shape, other_shape)
           return shape.intersection(other_shape)
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         def members_count(group)
@@ -100,13 +100,13 @@ module Procedo
             return 0
           end
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
 
         def contents_count(container)
           return container.actor.containeds.count(&:available?)
         rescue
-          raise Procedo::FailedFunctionCall
+          raise Procedo::Errors::FailedFunctionCall
         end
       end
     end

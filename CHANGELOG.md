@@ -1,5 +1,32 @@
 # Change Log
 
+## [2.10.0](https://github.com/ekylibre/ekylibre/tree/2.10.0) (2016-10-04)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.9.0...2.10.0)
+
+## [2.9.0](https://github.com/ekylibre/ekylibre/tree/2.9.0) (2016-09-30)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.8.2...2.9.0)
+
+**Implemented enhancements:**
+
+- Allows conversion of an intervention to a Sale or a Purchase [\#1093](https://github.com/ekylibre/ekylibre/issues/1093)
+- Adds preferences to configure default radix for entity [\#1145](https://github.com/ekylibre/ekylibre/pull/1145) ([burisu](https://github.com/burisu))
+- Add missing taxes \(fr,es,pt\) and update label in purchase and sale. [\#1144](https://github.com/ekylibre/ekylibre/pull/1144) ([burisu](https://github.com/burisu))
+- Product movements rework [\#1128](https://github.com/ekylibre/ekylibre/pull/1128) ([Aquaj](https://github.com/Aquaj))
+- Intervention billing [\#1103](https://github.com/ekylibre/ekylibre/pull/1103) ([Aquaj](https://github.com/Aquaj))
+- Add stock and inventory accounting [\#1094](https://github.com/ekylibre/ekylibre/pull/1094) ([ionosphere](https://github.com/ionosphere))
+
+**Fixed bugs:**
+
+- Double click on intervention modal change state create other interventions [\#1149](https://github.com/ekylibre/ekylibre/issues/1149)
+- ActivityBudget\#activity\_name delegated to activity.name, but activity is nil [\#1148](https://github.com/ekylibre/ekylibre/issues/1148)
+- Bug when i click on intervention on kanban board [\#1143](https://github.com/ekylibre/ekylibre/issues/1143)
+- Intervention kanban top bar is not correctly displayed when i scroll down the page [\#1141](https://github.com/ekylibre/ekylibre/issues/1141)
+- Too much activity labels in intervention details modal [\#1140](https://github.com/ekylibre/ekylibre/issues/1140)
+- journal\_entries\#create "comparison of Fixnum with nil failed" [\#1136](https://github.com/ekylibre/ekylibre/issues/1136)
+
+## [2.8.2](https://github.com/ekylibre/ekylibre/tree/2.8.2) (2016-09-29)
+[Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.8.1...2.8.2)
+
 ## [2.8.1](https://github.com/ekylibre/ekylibre/tree/2.8.1) (2016-09-28)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.8.0...2.8.1)
 
@@ -9,6 +36,8 @@
 - Intervention show page doesn't work [\#1130](https://github.com/ekylibre/ekylibre/issues/1130)
 - Filter on intervention doesn't work for month and year [\#1129](https://github.com/ekylibre/ekylibre/issues/1129)
 - French translation of "new intervention" is wrong in matters view [\#1123](https://github.com/ekylibre/ekylibre/issues/1123)
+- Bug with the journal\_entries create action [\#1115](https://github.com/ekylibre/ekylibre/issues/1115)
+- Products of parcels can be updated after being received [\#882](https://github.com/ekylibre/ekylibre/issues/882)
 
 ## [2.8.0](https://github.com/ekylibre/ekylibre/tree/2.8.0) (2016-09-28)
 [Full Changelog](https://github.com/ekylibre/ekylibre/compare/2.7.2...2.8.0)

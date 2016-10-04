@@ -767,6 +767,7 @@
         <page to="backend/inspections#create"/>
         <page to="backend/inspections#destroy"/>
         <page to="backend/inspections#edit"/>
+        <page to="backend/inspections#export"/>
         <page to="backend/inspections#list"/>
         <page to="backend/inspections#new"/>
         <page to="backend/inspections#show"/>
@@ -1834,10 +1835,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="inspections">
-        <page to="backend/inspections#export"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </navigation>
