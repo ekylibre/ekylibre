@@ -18,8 +18,11 @@ module Inspectable
              :sample_area,
              :quantity_unit,
              :quantity_per_area_unit,
+             :default_quantity_unit,
              :default_per_area_unit,
              :default_area_unit,
+             :user_quantity_unit,
+             :user_per_area_unit,
              :default_quantity_unit,
              :error_unkown, to: :inspection
   end

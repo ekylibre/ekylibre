@@ -1,5 +1,5 @@
 - dimension = resource.activity.unit_preference(current_user)
-- symbol_measure = resource.quantity_unit(dimension).symbol
+- symbol_measure = Nomen::Unit.find(resource.user_quantity_unit(dimension)).symbol
 
 - dataset = resource.calibrations.of_scale(scale).reorder(:id)
 

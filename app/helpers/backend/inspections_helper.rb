@@ -3,7 +3,10 @@ module Backend
     def data_series(dimension, method, dataset)
       dataset
         .map do |calibration|
-          result = calibration.send(method, dimension).to_d.to_s.to_f.round(2)
+          result = calibration.send(method, dimension)
+          unit = calibration.user_per_area_unit(dimension) if [:surface_area_density, :mass_area_density].include? result.dimension
+          unit = calibration.user_quantity_unit(dimension) if [:none, :mass].include? result.dimension
+          result = result.to_d(unit).to_s.to_f.round(2)
           next if result.zero?
           if block_given?
             yield(calibration.name, result)
