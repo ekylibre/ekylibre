@@ -69,9 +69,6 @@ module Backend
     # Maybe an Exporter ? A Presenter ? Something along those lines ?
     def inspections_to_ods_export(inspections)
       require 'odf/spreadsheet'
-      # HACK: To have the details_hash...
-      # that part needs to be reorganized. #TODO
-      helper = Object.new.extend(InspectionsHelper)
       output = ODF::Spreadsheet.new
       output.instance_eval do
         office_style :important, family: :cell do
@@ -80,50 +77,34 @@ module Backend
         office_style :bold, family: :cell do
           property :text, 'font-weight': :bold
         end
-        inspections.reorder(:activity_id, :sampled_at).each do |inspection|
-          table inspection.number do
+
+        inspections.group_by(&:activity).each do |activity, a_inspections|
+          table activity.name do
             row do
-              cell "#{Inspection.model_name.human} #{inspection.number}", span: 11, style: :important
+              cell Plant.model_name.human,                    style: :important
+              cell Plant.human_attribute_name(:variety),      style: :important
+              cell Inspection.human_attribute_name(:number),  style: :important
+              cell InspectionCalibration.model_name.human,    style: :important
+              [:items_count, :net_mass].each do |dimension|
+                next unless a_inspections.any? { |i| i.measure_grading(dimension) }
+                cell Inspection.human_attribute_name("total_#{dimension}"),                                 style: :important
+              end
             end
 
-            row do
-              cell "#{Inspection.human_attribute_name(:activity)}: #{inspection.activity.name}", style: :important, span: 3
-              cell
-              cell "#{Inspection.human_attribute_name(:product)}: #{inspection.product.name}", style: :important, span: 3
-              cell
-              cell "#{Inspection.human_attribute_name(:sampled_at)}: #{inspection.sampled_at}", style: :important, span: 3
-            end
-
-
-            hash = helper.data_to_details_hash(inspection)
-            hash.each do |title, table|
-              row
-              row do
-                title_colspan = table.map { |_title, contents| contents[:colspan] }.sum
-                cell (title.is_a?(Hash) ? title[:title] : title), span: title_colspan, style: :important
-              end
-
-              row do
-                table.map do |subtitle, contents|
-                  cell (subtitle.is_a?(Hash) ? subtitle[:title] : subtitle), style: :important, span: contents[:colspan]
-                end
-              end
-
-              [:body, :subtotal, :total].each do |part|
-                table
-                  .values
-                  .map { |content| content[part] && content[part].map { |col| col.merge(colspan: content[:colspan]) } }
-                  .compact
-                  .transpose
-                  .map do |i_row|
-                    row do
-                      i_row.each do |col|
-                        style = :bold if [:total, :subtotal].include? part
-                        style = :important if col[:tag] == :th
-                        cell (col[:content] || '-'), span: col[:colspan], style: style
-                      end
+            a_inspections.group_by(&:product).each do |plant, p_inspections|
+              p_inspections.each do |inspection|
+                inspection.calibrations.each do |calib|
+                  row do
+                    cell plant.name
+                    cell plant.variety.capitalize
+                    cell inspection.number
+                    cell calib.nature_name
+                    [:items_count, :net_mass].each do |dimension|
+                      next unless inspection.measure_grading(dimension)
+                      cell calib.projected_total(dimension).round(0).l(precision: 0)
                     end
                   end
+                end
               end
             end
           end
