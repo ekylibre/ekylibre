@@ -71,9 +71,11 @@
     - activity = last_inspection.activity
 
     - dimension = activity.unit_preference(current_user)
-    - symbol_measure = last_inspection.quantity_unit(dimension).symbol
+    - symbol_measure = Nomen::Unit.find(last_inspection.user_quantity_unit(dimension)).symbol
 
-    - series = resource.stock_in_ground_by_calibration_series(dimension, activity.inspection_calibration_scales).map { |scale, value| {name: scale.name, data: value} }
+    - series = activity.inspection_calibration_scales.map do |scale|
+      -resource.stock_in_ground_by_calibration_series(dimension, scale.natures.reorder(:minimal_value)).map { |name, data| { name: name, data: data } }
+    - series.flatten!
 
     - series_disease = resource.disease_deformity_series(dimension)
     - series_disease = series_disease.map { |cat, data| { name: cat.l, data: data } }
