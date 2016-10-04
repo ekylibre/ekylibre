@@ -866,7 +866,7 @@ fra:
     gradings: "Agréages"
     gravity: "Gravité"
     # gross_items: "Gross count"
-    gross_items_count: "Nombre d'unités brut" #?
+    gross_items_count: "Nombre de pièce brut" #?
     gross_items_count_yield: "Rendement brut (nombre)" #?
     # gross_mass: "Gross mass"
     gross_net_mass: "Masse brute" #?
@@ -1055,9 +1055,10 @@ fra:
     manure_management_plan_zones: "Zones de plan de fumure"
     markers: "Repères" #?
     marketable: "Commercialisable"
-    marketable_items_count: "Nombre d'unités commercialisables"
+    marketable_items_count: "Nombre de pièces commercialisables"
     marketable_net_mass: "Masse nette commercialisable"
     marketable_net_yield: "Rendement net commercialisable"
+    marketable_quantity: "Quantité commercialisable"
     marketable_yield: "Rendement commercialisable"
     mass: "Poids (kg)"
     max_zoom: "Zoom maximal"

@@ -117,12 +117,12 @@ class Plant < Bioproduct
 
   # INSPECTIONS RELATED
 
-  def stock_in_ground_by_calibration_series(dimension, scales)
-    scale_natures = scales
-    find_calib = ->(i, scale) { i.marketable_quantity(dimension, scale) }
-    marketable = ->(value) { value }
+  def stock_in_ground_by_calibration_series(dimension, natures)
+    find_calib = ->(i, nature) { i.calibrations.find_by(nature: nature) }
+    marketable = ->(calib) { calib.marketable_quantity(dimension) }
+    name = ->(nature) { nature.name }
 
-    curves(scale_natures, find_calib, marketable)
+    r = curves(natures, find_calib, marketable, name)
   end
 
   def disease_deformity_series(dimension)
@@ -130,27 +130,27 @@ class Plant < Bioproduct
     cat_percentage = ->(i, category) { i.points_percentage(dimension, category) }
     nothing = ->(percentage) { percentage }
 
-    curves(categories, cat_percentage, nothing)
+    curves(categories, cat_percentage, nothing, nothing)
   end
 
   private
 
-  def curves(collection, set_first_val, get_value, round = 2)
+  def curves(collection, set_first_val, get_value, get_name, round = 2)
     hashes = inspections.reorder(:sampled_at).map do |intervention|
       pairs = collection.map do |grouping_crit|
         pre_val = set_first_val.call(intervention, grouping_crit)
         value = (pre_val ? get_value.call(pre_val) : 0).to_s.to_f
         value = value.round(round) if round
-        [grouping_crit, value]
+        [get_name.call(grouping_crit), value]
       end
-
+      Rails.logger.info pairs.inspect.red
       pairs_to_hash(pairs)
     end
 
     merge_all(hashes)
   end
 
-  # [ {}, {}, {} ] => { [], [], [] }
+  # [ {[1]}, {[2]}, {[3]} ] => { [1,2], [3] }
   def merge_all(hashes)
     hashes.reduce do |final, caliber_hash|
       final.merge(caliber_hash) { |_k, old_val, new_val| old_val + new_val }
