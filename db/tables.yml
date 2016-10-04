@@ -2901,7 +2901,7 @@ inspection_calibrations:
     type: integer
     references: inspection
     required: true
-  items_count:
+  items_count_value:
     type: integer
   lock_version:
     type: integer
@@ -2942,7 +2942,7 @@ inspection_points:
     type: integer
     references: inspection
     required: true
-  items_count:
+  items_count_value:
     type: integer
   lock_version:
     type: integer

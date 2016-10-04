@@ -40,5 +40,16 @@
         }
       }
     }
+
+    .even-filler {
+      width: 33.33%;
+      @include float(left);
+      @for $weight from 1 to 12 {
+        .chart-cell-#{$weight} {
+          width: floor(10000% / $weight) / 100;
+        }
+      }
+      height: 400px;
+    }
   }
 }

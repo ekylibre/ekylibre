@@ -2753,7 +2753,7 @@ CREATE TABLE inspection_calibrations (
     id integer NOT NULL,
     inspection_id integer NOT NULL,
     nature_id integer NOT NULL,
-    items_count integer,
+    items_count_value integer,
     net_mass_value numeric(19,4),
     minimal_size_value numeric(19,4),
     maximal_size_value numeric(19,4),
@@ -2792,7 +2792,7 @@ CREATE TABLE inspection_points (
     id integer NOT NULL,
     inspection_id integer NOT NULL,
     nature_id integer NOT NULL,
-    items_count integer,
+    items_count_value integer,
     net_mass_value numeric(19,4),
     minimal_size_value numeric(19,4),
     maximal_size_value numeric(19,4),
@@ -15607,4 +15607,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160927192301');
 INSERT INTO schema_migrations (version) VALUES ('20160928121727');
 
 INSERT INTO schema_migrations (version) VALUES ('20160930111020');
+
+INSERT INTO schema_migrations (version) VALUES ('20160930142110');
 

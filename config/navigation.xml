@@ -1834,6 +1834,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="inspections">
+        <page to="backend/inspections#export"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>

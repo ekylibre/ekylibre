@@ -83,6 +83,7 @@ jpn:
         # wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          # checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "検査が求められていたときに少なくとも、1小節の種類を選択する必要があります"
         bank_statement:
           no_cash_match_ofx: "ファイルで指定された銀行口座番号が見つかり代引き不可"
@@ -771,6 +772,7 @@ jpn:
     item_value: "アイテムの値"
     items: "アイテム"
     items_count: "アイテム数"
+    # items_count_value: "Items count value"
     journal: "ジャーナル"
     journal_entries: "仕訳"
     journal_entry: "仕訳記入"
@@ -1062,6 +1064,7 @@ jpn:
     quantity_unit: "数量単位"
     quantity_unit_name: "数量ユニット名"
     quantity_value: "数量値"
+    # quantity_yield: "Net marketable yield"
     query: "クエリー"
     rank_number: "ランク番号"
     read_at: "読みます"
@@ -1259,6 +1262,7 @@ jpn:
     tool: "ツール"
     tools: "ツール"
     total_cost: "総費用"
+    # total_items_count: "Total items count"
     total_net_mass: "合計正味質量"
     town_number: "タウン番号"
     tracking: "追跡"
@@ -1418,8 +1422,10 @@ jpn:
         transfer:
           name: "費目変更"
     inspection:
-      items: "アイテム"
-      mass: "質量"
+      items: "アイテム" #?
+      # items_count: "Items"
+      mass: "質量" #?
+      # net_mass: "Mass"
     intervention:
       # name: "%{intervention} #%{number}"
     inventory:

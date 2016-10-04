@@ -137,6 +137,7 @@ gem 'rgeo-shapefile'
 gem 'rgeo-geojson'
 gem 'rubyzip'
 gem 'roo'
+gem 'rodf'
 
 # Demo data
 gem 'ffaker', '>= 2.0.0'

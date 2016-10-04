@@ -83,6 +83,7 @@ eng:
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
         activity:
+          checked_off_with_inspections: "Inspections have already been created for this activity"
           checked_without_measures: "At least, one measure type should be selected when inspections are wanted"
         bank_statement:
           no_cash_match_ofx: "No cash found for the bank account number given in the file"
@@ -787,7 +788,8 @@ eng:
     item_type: "Item type"
     item_value: "Item value"
     items: "Items"
-    items_count: "Items count"
+    items_count: "Items count" #?
+    items_count_value: "Items count value"
     journal: "Journal"
     journal_entries: "Journal entries"
     journal_entry: "Journal entry"
@@ -860,15 +862,15 @@ eng:
     managed_sales: "Managed sales"
     manure_management_plan_zones: "Manure management plan zones"
     marketable: "Marketable"
-    marketable_items_count: "Marketable items count"
-    marketable_net_mass: "Marketable net mass"
+    marketable_items_count: "Marketable items count" #?
+    marketable_net_mass: "Marketable net mass" #?
     marketable_net_yield: "Marketable net yield" #?
-    marketable_yield: "Marketable yield" #?
+    marketable_yield: "Marketable yield"
     mass: "Mass (kg)" #?
     max_zoom: "Max zoom"
     maximal_grantable_reduction_percentage: "Maximal grantable reduction percentage"
     maximal_length: "Maximal length"
-    maximal_size: "Maximal size"
+    maximal_size: "Maximal size" #?
     maximal_size_value: "Maximal size value"
     maximal_value: "Maximal value"
     maximum_nitrogen_input: "Maximum nitrogen input"
@@ -890,7 +892,7 @@ eng:
     min_zoom: "Min zoom"
     mineral_nitrogen_at_opening: "Mineral nitrogen at opening"
     minimal_length: "Minimal length"
-    minimal_size: "Minimal size"
+    minimal_size: "Minimal size" #?
     minimal_size_value: "Minimal size value"
     minimal_value: "Minimal value"
     mobiles: "Mobile phones"
@@ -905,10 +907,10 @@ eng:
     nature: "Type"
     nature_name: "Type name"
     natures: "Types"
-    net_mass: "Net mass"
-    net_mass_percentage: "Net mass percentage"
+    net_mass: "Net mass" #?
+    net_mass_percentage: "Net mass percentage" #?
     net_mass_value: "Net mass value"
-    net_mass_yield: "Net mass yield"
+    net_mass_yield: "Net mass yield" #?
     net_service: "Net service"
     new_container: "New container"
     new_group: "New group"
@@ -1081,9 +1083,10 @@ eng:
     quantity_indicator: "Quantity indicator" #?
     quantity_indicator_name: "Quantity indicator name"
     quantity_population: "Quantity population"
-    quantity_unit: "Quantity unit" #?
+    quantity_unit: "Quantity unit"
     quantity_unit_name: "Quantity unit name"
     quantity_value: "Quantity value"
+    quantity_yield: "Net marketable yield"
     query: "Query"
     rank_number: "Rank number"
     read_at: "Read at"
@@ -1286,7 +1289,8 @@ eng:
     tool: "Tool"
     tools: "Tools"
     total_cost: "Total cost"
-    total_net_mass: "Total net mass"
+    total_items_count: "Total items count" #?
+    total_net_mass: "Total net mass" #?
     town_number: "Town number"
     tracking: "Tracking"
     trackings: "Trackings"
@@ -1441,8 +1445,8 @@ eng:
         transfer:
           name: "Virement"
     inspection:
-      items: "Items"
-      mass: "Mass"
+      items_count: "Items"
+      net_mass: "Mass"
     intervention:
       name: "%{intervention} #%{number}"
     inventory:
