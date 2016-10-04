@@ -77,8 +77,8 @@ module Backend
         end
 
         columns[name][:total] << { tag: :th, content: :totals.tl }
-        columns[grading_sizes[:min]][:total] << total_decimal_cell('')
-        columns[grading_sizes[:max]][:total] << total_decimal_cell('')
+        columns[grading_sizes[:min]][:total] << total_decimal_cell(nil)
+        columns[grading_sizes[:max]][:total] << total_decimal_cell(nil)
         #########
 
         details[scale.size_indicator.human_name] = columns
@@ -146,8 +146,8 @@ module Backend
           end
 
           columns[name][:subtotal] << { tag: :th, content: "enumerize.activity_inspection_point_nature.category.#{category}".t }
-          columns[grading_sizes[:min]][:subtotal] << total_decimal_cell('')
-          columns[grading_sizes[:max]][:subtotal] << total_decimal_cell('')
+          columns[grading_sizes[:min]][:subtotal] << total_decimal_cell(nil)
+          columns[grading_sizes[:max]][:subtotal] << total_decimal_cell(nil)
         end
         #########
 
@@ -160,8 +160,8 @@ module Backend
           end
 
         columns[name][:total] << { tag: :th, content: :totals.tl }
-        columns[grading_sizes[:min]][:total] << total_decimal_cell('')
-        columns[grading_sizes[:max]][:total] << total_decimal_cell('')
+        columns[grading_sizes[:min]][:total] << total_decimal_cell(nil)
+        columns[grading_sizes[:max]][:total] << total_decimal_cell(nil)
         #########
 
         details[Inspection.human_attribute_name(:points)] = columns
@@ -181,9 +181,10 @@ module Backend
           end
 
           html << content_tag(:tr) do
-            table.map do |subtitle, _contents|
-              content_tag :th, subtitle
+            cols = table.keys.map do |subtitle|
+              content_tag :th, subtitle.is_a?(Hash) ? subtitle[:title] : subtitle
             end
+            safe_join(cols)
           end
 
           [:body, :subtotal, :total].each do |part|
