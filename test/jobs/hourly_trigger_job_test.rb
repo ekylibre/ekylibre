@@ -1,5 +1,5 @@
 require 'test_helper'
 
-class HourlyTriggerJobTest < ActionJob::TestCase
+class HourlyTriggerJobTest < ActiveJob::TestCase
   # Add tests here...
 end
