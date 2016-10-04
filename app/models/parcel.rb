@@ -190,12 +190,17 @@ class Parcel < Ekylibre::Record::Base
       # for permanent stock inventory
       b.journal_entry(stock_journal, printed_on: printed_at.to_date, if: given?) do |stock_entry|
         items.each do |item|
+
+          next unless item.variant
+
           transaction_item = (mode == :incoming ? item.purchase_item : item.sale_item)
           # compute amout on purchase/sale or stock catalog
           amount = (transaction_item && transaction_item.pretax_amount) || item.stock_amount
           # purchase/sale not emitted
-          entry.add_credit(undelivered_label, invoice_not_received_account.id, amount) unless amount.zero?
-          entry.add_debit(undelivered_label, item.variant.charge_account.id, amount) unless amount.zero?
+          if item.variant.charge_account
+            entry.add_credit(undelivered_label, invoice_not_received_account.id, amount) unless amount.zero?
+            entry.add_debit(undelivered_label, item.variant.charge_account.id, amount) unless amount.zero?
+          end
           # permanent stock inventory
           next unless item.variant.storable?
           stock_entry.add_credit(label, item.variant.stock_movement_account_id, item.stock_amount) unless item.stock_amount.zero?

@@ -65,7 +65,7 @@ module CharentesAlliance
           )
           order.delivery_id = delivery.id
           order.give
-          order.save!
+          # order.save!
           delivery.check
           delivery.start
           delivery.finish
