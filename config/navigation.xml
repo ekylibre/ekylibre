@@ -363,6 +363,13 @@
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
       </item>
+      <item name="outgoing_payment_lists">
+        <page to="backend/outgoing_payment_lists#index"/>
+        <page to="backend/outgoing_payment_lists#destroy"/>
+        <page to="backend/outgoing_payment_lists#list"/>
+        <page to="backend/outgoing_payment_lists#show"/>
+        <page to="backend/outgoing_payment_lists#unroll"/>
+      </item>
     </group>
   </part>
   <part name="stocks" icon="truck">
