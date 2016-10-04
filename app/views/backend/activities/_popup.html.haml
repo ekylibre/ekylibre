@@ -11,7 +11,7 @@
         %td= inspection[:value]
 
 - if inspection_qualities_evolutions.any?
-  - inspection_qualities_evolutions.each do |evolution|
+  - inspection_qualities_evolutions.compact.each do |evolution|
     %tr
       %td= evolution[:label]
       %td= evolution[:value]
