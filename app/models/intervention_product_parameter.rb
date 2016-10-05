@@ -105,16 +105,13 @@ class InterventionProductParameter < InterventionParameter
     end
     if product.is_a?(Product)
       self.variant ||= product.variant
-      # for indicator_name in product.whole_indicators_list
-      #   if send(indicator_name).blank? # and !reference.worked?
-      #     send("#{indicator_name}=", product.send(indicator_name, started_at))
-      #   end
-      # end
     end
     v = variant || new_variant
-    catalog_item = v.catalog_items.of_usage(:stock)
-    if catalog_item.any? && catalog_item.first.pretax_amount != 0.0
-      self.unit_pretax_stock_amount = catalog_item.first.pretax_amount
+    if v
+      catalog_item = v.catalog_items.of_usage(:stock).first
+      if catalog_item && catalog_item.pretax_amount != 0.0
+        self.unit_pretax_stock_amount = catalog_item.pretax_amount
+      end
     end
     true
   end
