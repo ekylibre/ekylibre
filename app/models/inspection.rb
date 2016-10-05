@@ -308,7 +308,7 @@ class Inspection < Ekylibre::Record::Base
       calib = calib.marketable if marketable
       calib.map(&mappable(method_name, dimension)).compact.sum
     end
-    sum_per_calib.sum / sum_per_calib.size
+    sum_per_calib.compact.reject(&:zero?).sum / sum_per_calib.size
   end
 
   def sum_on_points(method, from: nil, with: nil, round: false)

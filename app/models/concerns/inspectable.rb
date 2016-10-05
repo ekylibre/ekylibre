@@ -47,14 +47,14 @@ module Inspectable
   end
 
   def quantity_in_unit(dimension)
-    (quantity_value(dimension) || 0).in(quantity_unit(dimension))
+    quantity_value(dimension).in(quantity_unit(dimension))
   end
 
   ### Values
 
   # Quantities
   def quantity_value(dimension)
-    return send(:"#{dimension}_value") if respond_to?(:"#{dimension}_value")
+    return (send(:"#{dimension}_value") || 0) if respond_to?(:"#{dimension}_value")
     error_unknown(dimension)
   end
 end
