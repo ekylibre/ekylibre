@@ -11,6 +11,10 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     payments.first.mode
   end
 
+  def currency
+    mode.cash.currency
+  end
+
   def to_sepa
     sct = SEPA::CreditTransfer.new(
       name: mode.cash.bank_account_holder_name.truncate(70, omission: ''),
@@ -37,6 +41,20 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     sct.to_xml
   end
 
+  def destroyable?
+    !payments
+      .includes(journal_entry: :items)
+      .map(&:journal_entry)
+      .flatten
+      .map(&:items)
+      .flatten
+      .any? { |i| i.bank_statement_letter.present? }
+  end
+
+  def payments_sum
+    payments.sum(:amount)
+  end
+
   def self.build_from_purchases(purchases, mode, responsible)
     outgoing_payments = purchases.map do |purchase|
       OutgoingPayment.new(
@@ -54,15 +72,5 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     end
 
     new(payments: outgoing_payments)
-  end
-
-  def destroyable?
-    !payments
-      .includes(journal_entry: :items)
-      .map(&:journal_entry)
-      .flatten
-      .map(&:items)
-      .flatten
-      .any? { |i| i.bank_statement_letter.present? }
   end
 end

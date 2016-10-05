@@ -7,6 +7,7 @@
     - l.attribute :number
     - l.attribute :mode, url: { controller: '/backend/outgoing_payment_modes' }, label_method: :mode_name
     - l.attribute :payments_count, datatype: :integer
+    - l.attribute :payments_sum, label: :total, datatype: :float, currency: true
 
 = cobbles do |c|
   - c.cobble :payments do

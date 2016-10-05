@@ -88,6 +88,8 @@ fra:
         items: "Lignes de colis à expédier" #?
       outgoing_payment:
         delivered: "Remis au bénéficiaire"
+      outgoing_payment_list:
+        payments_sum: "Total"
       outgoing_payment_mode:  #?
         payments: "Décaissements" #?
       parcel_item:
