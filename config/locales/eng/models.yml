@@ -29,6 +29,8 @@ eng:
         born_at: "Created at"
       outgoing_payment:
         delivered: "Given to recipient"
+      outgoing_payment_list:
+        payments_sum: "Total"
       parcel_item:
         population: "Quantity"
       plant:

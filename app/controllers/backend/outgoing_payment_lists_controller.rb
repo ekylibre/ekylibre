@@ -27,6 +27,7 @@ module Backend
       t.column :created_at
       t.column :mode, url: { controller: '/backend/outgoing_payment_modes', id: 'RECORD.mode.id'.c }, label_method: :mode_name
       t.column :payments_count, datatype: :integer
+      t.column :payments_sum, label: :total, datatype: :float, currency: true
     end
 
     list(:payments, model: 'OutgoingPayment', conditions: { list_id: 'params[:id]'.c }) do |t|
