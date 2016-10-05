@@ -178,4 +178,14 @@ class InspectionPointTest < ActiveSupport::TestCase
 
     assert_equal 0, point.quantity_value(:net_mass)
   end
+
+  test 'yield is correctly calculated' do
+    point = @inspection.points.create!(
+      nature_id: @nature.id,
+      net_mass_value: 1
+    )
+
+    assert_equal 6_504.065040650407.in(point.quantity_unit(:net_mass)).to_d,
+                 point.quantity_yield(:net_mass).round(15).to_d
+  end
 end
