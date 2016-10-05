@@ -93,27 +93,17 @@ class OutgoingPaymentListTest < ActiveSupport::TestCase
     end
   end
 
-  test 'destroyable? with bank_statement_letter present' do
-    @list.payments.last.journal_entry.items.last.update_column(
-      :bank_statement_letter, 'someting'
-    )
-
-    assert_not(@list.destroyable?, 'returns false')
-  end
-
-  test 'destroyable? with all bank_statement_letter blank' do
-    assert(@list.destroyable?, 'returns true')
-  end
-
   test 'destroy with bank_statement_letter present' do
     @list.payments.last.journal_entry.items.last.update_column(
       :bank_statement_letter, 'someting'
     )
 
     assert_raise(Ekylibre::Record::RecordNotDestroyable) { @list.destroy }
+    assert(@list.reload.persisted?)
   end
 
   test 'destroy with all bank_statement_letter blank' do
     assert(@list.destroy)
+    assert_raise(ActiveRecord::RecordNotFound) { @list.reload }
   end
 end

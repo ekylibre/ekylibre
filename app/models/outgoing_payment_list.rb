@@ -7,6 +7,16 @@ class OutgoingPaymentList < Ekylibre::Record::Base
 
   acts_as_numbered
 
+  protect(on: :destroy) do
+    payments
+      .includes(journal_entry: :items)
+      .map(&:journal_entry)
+      .flatten
+      .map(&:items)
+      .flatten
+      .any? { |i| i.bank_statement_letter.present? }
+  end
+
   def mode
     payments.first.mode
   end
@@ -39,16 +49,6 @@ class OutgoingPaymentList < Ekylibre::Record::Base
     end
 
     sct.to_xml
-  end
-
-  def destroyable?
-    !payments
-      .includes(journal_entry: :items)
-      .map(&:journal_entry)
-      .flatten
-      .map(&:items)
-      .flatten
-      .any? { |i| i.bank_statement_letter.present? }
   end
 
   def payments_sum
