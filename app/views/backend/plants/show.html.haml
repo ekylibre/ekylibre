@@ -94,9 +94,10 @@
       - c.cobble(:percentage_by_calibration) do
         = render 'backend/inspections/unit_selector', activity: activity
         - pies = last_inspection.scales.map do |scale|
-          - render "backend/inspections/percentage_chart", dataset: last_inspection.calibrations.of_scale(scale).reorder(:id), scale: scale, dimension: dimension, symbol_measure: symbol_measure
+          -if scale.natures.any? { |n| n.inspection_calibrations.any? }
+            - render "backend/inspections/percentage_chart", dataset: last_inspection.calibrations.of_scale(scale).reorder(:id), scale: scale, dimension: dimension, symbol_measure: symbol_measure
         .chart-table
-          - pies.each_slice(3) do |slice_of_pie|
+          - pies.compact.each_slice(3) do |slice_of_pie|
             - to_even = slice_of_pie
             - rounded = ((to_even.length / 3.0).ceil)*3
             - to_even += [nil]*(rounded - to_even.length)
