@@ -103,9 +103,7 @@ class InterventionProductParameter < InterventionParameter
         end
       end
     end
-    if product.is_a?(Product)
-      self.variant ||= product.variant
-    end
+    self.variant ||= product.variant if product.is_a?(Product)
     v = variant || new_variant
     if v
       catalog_item = v.catalog_items.of_usage(:stock).first

@@ -46,10 +46,10 @@ class InspectionTest < ActiveSupport::TestCase
   test_model_actions
 
   SCALES_ATTRIBUTES = [
-    [false,  0,  20],
-    [ true, 20,  30],
-    [ true, 30,  35],
-    [ true, 35,  40],
+    [false, 0, 20],
+    [true, 20,  30],
+    [true, 30,  35],
+    [true, 35,  40],
     [false, 40, 150]
   ].freeze
 
@@ -70,9 +70,9 @@ class InspectionTest < ActiveSupport::TestCase
   ].freeze
 
   CALIBRATION_ATTRIBUTES = [
-    [ 61,  0.8,   5,  15],
-    [ 82, 2.32,   5,  15],
-    [  2, 0.13,  15,  17],
+    [61, 0.8,   5, 15],
+    [82, 2.32, 5, 15],
+    [2, 0.13, 15, 17],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil]
   ].freeze

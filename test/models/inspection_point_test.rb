@@ -42,14 +42,14 @@ class InspectionPointTest < ActiveSupport::TestCase
 
   DISEASES    = %w(Fusarium Mouche Pythium Rhizoctonia Sclérotinia).freeze
   DEFORMITIES = [
-        'Gel',
-        'Défaut',
-        'Éclatement',
-        'Forme tordue',
-        'Carotte ligneuse',
-        'Problème de conicité',
-        'Problème de coloration',
-        'Déformation par nématodes'
+    'Gel',
+    'Défaut',
+    'Éclatement',
+    'Forme tordue',
+    'Carotte ligneuse',
+    'Problème de conicité',
+    'Problème de coloration',
+    'Déformation par nématodes'
   ].freeze
 
   setup do
