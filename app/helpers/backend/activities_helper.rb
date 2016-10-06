@@ -47,6 +47,7 @@ module Backend
         data = inspections
                .reject { |i| i.calibrations.of_scale(scale).empty? }
                .group_by(&:product_id)
+               .reject { |plant, _values| Product.find(plant).dead_at && (Product.find(plant).dead_at < Time.zone.now) }
                .map(&:last)
                .map(&:last)
                .map do |last_inspection|
