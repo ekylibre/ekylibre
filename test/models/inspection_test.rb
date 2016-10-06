@@ -79,15 +79,15 @@ class InspectionTest < ActiveSupport::TestCase
 
   DISEASES    = %w(Fusarium Mouche Pythium Rhizoctonia Sclérotinia).freeze
   DEFORMITIES = [
-        'Gel',
-        'Défaut',
-        'Éclatement',
-        'Forme tordue',
-        'Carotte ligneuse',
-        'Problème de conicité',
-        'Problème de coloration',
-        'Déformation par nématodes'
-      ].freeze
+    'Gel',
+    'Défaut',
+    'Éclatement',
+    'Forme tordue',
+    'Carotte ligneuse',
+    'Problème de conicité',
+    'Problème de coloration',
+    'Déformation par nématodes'
+  ].freeze
 
   setup do
     @activity = Activity.create!(
@@ -183,7 +183,7 @@ class InspectionTest < ActiveSupport::TestCase
     end
   end
 
-  test 'population gets updated on move!' do
+  test '' do
     assert true
   end
 end

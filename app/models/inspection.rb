@@ -246,7 +246,7 @@ class Inspection < Ekylibre::Record::Base
     :"#{dimension}_value"
   end
 
-  def error_unkown(dimension)
+  def unknown_dimension(dimension)
     raise "Unknown dimension #{dimension.inspect}"
   end
 
@@ -265,25 +265,25 @@ class Inspection < Ekylibre::Record::Base
   def user_quantity_unit(dimension)
     return :thousand  if dimension.to_sym == :items_count
     return :ton       if dimension.to_sym == :net_mass
-    error_unknown(dimension)
+    unknown_dimension(dimension)
   end
 
   def user_per_area_unit(dimension)
     return :thousand_per_hectare      if dimension.to_sym == :items_count
     return :ton_per_hectare           if dimension.to_sym == :net_mass
-    error_unknown(dimension)
+    unknown_dimension(dimension)
   end
 
   def default_per_area_unit(dimension)
     return :unity_per_square_meter     if dimension.to_sym == :items_count
     return :kilogram_per_square_meter  if dimension.to_sym == :net_mass
-    error_unknown(dimension)
+    unknown_dimension(dimension)
   end
 
   def default_quantity_unit(dimension)
     return :unity     if dimension.to_sym == :items_count
     return :kilogram  if dimension.to_sym == :net_mass
-    error_unknown(dimension)
+    unknown_dimension(dimension)
   end
 
   def default_area_unit
@@ -303,6 +303,7 @@ class Inspection < Ekylibre::Record::Base
   def calibration_values(dimension, method_name, scale = nil, marketable = false)
     on_scales = [scale]
     on_scales = scales if scale.nil?
+    return 0 if on_scales.empty?
     sum_per_calib = on_scales.map do |s|
       calib = calibrations.of_scale(s)
       calib = calib.marketable if marketable

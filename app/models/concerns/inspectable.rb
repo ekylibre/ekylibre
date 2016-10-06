@@ -24,7 +24,7 @@ module Inspectable
              :user_quantity_unit,
              :user_per_area_unit,
              :default_quantity_unit,
-             :error_unkown, to: :inspection
+             :unknown_dimension, to: :inspection
   end
 
   def projected_total(dimension)
@@ -55,6 +55,6 @@ module Inspectable
   # Quantities
   def quantity_value(dimension)
     return (send(:"#{dimension}_value") || 0) if respond_to?(:"#{dimension}_value")
-    error_unknown(dimension)
+    unknown_dimension(dimension)
   end
 end

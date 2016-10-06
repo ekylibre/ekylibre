@@ -138,6 +138,22 @@ class InspectionPointTest < ActiveSupport::TestCase
     assert_equal 7, point.quantity_value(:net_mass)
   end
 
+  test 'point value in dimension that\'s not available is 0' do
+    point = @inspection.points.create!(
+      nature_id: @nature.id,
+      net_mass_value: 7
+    )
+
+    assert_equal 0, point.quantity_value(:items_count)
+
+    point = @inspection.points.create!(
+      nature_id: @nature.id,
+      items_count_value: 7
+    )
+
+    assert_equal 0, point.quantity_value(:net_mass)
+  end
+
   test 'point properly stores extremum values' do
     point = @inspection.points.create!(
       nature_id: @nature.id,
@@ -163,20 +179,16 @@ class InspectionPointTest < ActiveSupport::TestCase
                     point.projected_total(:items_count).to_d
   end
 
-  test 'point value in dimension that\'s not available is 0' do
+  test 'quantity_in_unit is in an appropriate unit' do
     point = @inspection.points.create!(
-      nature_id: @nature.id,
-      net_mass_value: 7
+      nature_id: @nature.id
     )
 
-    assert_equal 0, point.quantity_value(:items_count)
+    assert_kind_of Measure, point.quantity_in_unit(:items_count)
+    assert_match(/none/, point.quantity_in_unit(:items_count).dimension)
 
-    point = @inspection.points.create!(
-      nature_id: @nature.id,
-      items_count_value: 7
-    )
-
-    assert_equal 0, point.quantity_value(:net_mass)
+    assert_kind_of Measure, point.quantity_in_unit(:net_mass)
+    assert_match(/mass/, point.quantity_in_unit(:net_mass).dimension)
   end
 
   test 'yield is correctly calculated' do
@@ -189,15 +201,37 @@ class InspectionPointTest < ActiveSupport::TestCase
                     point.quantity_yield(:net_mass).to_d
   end
 
-  test 'quantity_in_unit is in an appropriate unit' do
+  test 'percentage is correctly computed' do
+    @activity.inspection_calibration_scales.create!(
+      size_indicator_name: 'diameter',
+      size_unit_name: 'millimeter'
+    )
+    @nature = @activity.inspection_calibration_scales.first.natures.create!(
+      marketable: true,
+      minimal_value: 20,
+      maximal_value: 30
+    )
+    @inspection.calibrations.create!(
+      nature_id: @nature.id,
+      items_count_value: 10,
+      net_mass_value: 1,
+      minimal_size_value: 5,
+      maximal_size_value: 15
+    )
     point = @inspection.points.create!(
-      nature_id: @nature.id
+      nature_id: @nature.id,
+      net_mass_value: 1
     )
 
-    assert_kind_of Measure, point.quantity_in_unit(:items_count)
-    assert_match :none, point.quantity_in_unit(:none).dimension
+    assert_equal 100, point.percentage(:net_mass).to_d
+  end
 
-    assert_kind_of Measure, point.quantity_in_unit(:net_mass)
-    assert_match :mass, point.quantity_in_unit(:net_mass).dimension
+  test 'percentage returns 0 when inspection quantity is empty' do
+    point = @inspection.points.create!(
+      nature_id: @nature.id,
+      items_count_value: 3
+    )
+
+    assert_equal 0, point.percentage(:items_count)
   end
 end
