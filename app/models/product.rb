@@ -243,11 +243,11 @@ class Product < Ekylibre::Record::Base
   validates :nature, :variant, :name, :uuid, presence: true
   validates_attachment_content_type :picture, content_type: /image/
 
-  validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions.pluck(:started_at).any? }
+  validate :born_at_in_interventions, if: ->(product) { product.born_at? && product.interventions_used_in.pluck(:started_at).any? }
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
   def born_at_in_interventions
-    return unless first_intervention = interventions_used_in.order(started_at: :asc).first
+    return true unless first_intervention = interventions_used_in.order(started_at: :asc).first
     first_used_at = first_intervention.started_at
     errors.add(:born_at, :on_or_before, restriction: first_used_at.l) if born_at > first_used_at
   end
