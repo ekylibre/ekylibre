@@ -100,6 +100,8 @@ class Product < Ekylibre::Record::Base
   has_many :issues, as: :target, dependent: :destroy
   has_many :intervention_product_parameters, -> { unscope(where: :type).of_generic_roles([:input, :output, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
   has_many :interventions, through: :intervention_product_parameters
+  has_many :used_intervention_parameters, -> { unscope(where: :type).of_generic_roles([:input, :target, :doer, :tool]) }, foreign_key: :product_id, inverse_of: :product, dependent: :restrict_with_exception
+  has_many :interventions_used_in, through: :used_interventions_parameters
   has_many :labellings, class_name: 'ProductLabelling', dependent: :destroy, inverse_of: :product
   has_many :labels, through: :labellings
   has_many :linkages, class_name: 'ProductLinkage', foreign_key: :carrier_id, dependent: :destroy
@@ -245,7 +247,7 @@ class Product < Ekylibre::Record::Base
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
   def born_at_in_interventions
-    first_used_at = interventions.order(started_at: :asc).first.started_at
+    first_used_at = interventions_used_at.order(started_at: :asc).first.started_at
     errors.add(:born_at, :on_or_before, restriction: first_used_at.l) if born_at > first_used_at
   end
 
