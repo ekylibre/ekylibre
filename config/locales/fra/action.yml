@@ -1581,8 +1581,8 @@ fra:
     payments: "Règlements"
     payments_count: "Nombre de %{mode}"
     people: "Personnes"
-    percentage_by_calibration: "Pourcentage de stock en terre par calibre"
-    percentage_by_calibration_x: "Pourcentage net de stock en terre par calibre - %{x}" #?
+    percentage_by_calibration: "Pourcentage de stock en terre net par calibre"
+    percentage_by_calibration_x: "Pourcentage de stock en terre net par calibre - %{x}" #?
     period: "Période prédéfinie"
     periods: "Périodes"
     permute: "Permuter les fiches"
