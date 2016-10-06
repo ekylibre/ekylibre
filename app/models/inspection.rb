@@ -58,8 +58,6 @@ class Inspection < Ekylibre::Record::Base
   validates :sampled_at, presence: true, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }
   validates :activity, :product, presence: true
   # ]VALIDATORS]
-  validates :implanter_application_width, :implanter_rows_number,
-            :sampling_distance, numericality: { greater_than: 0 }, presence: true
   validates :product_net_surface_area, presence: true
 
   composed_of :product_net_surface_area, class_name: 'Measure',
@@ -106,7 +104,6 @@ class Inspection < Ekylibre::Record::Base
     # get sowing intervention of current plant
     interventions = Intervention.real.with_outputs(product)
     return if interventions.none?
-
     # get abilities of each tool to grab sower or implanter
     sower = interventions.first.tools.find do |tool|
       equipment = tool.product
@@ -117,9 +114,9 @@ class Inspection < Ekylibre::Record::Base
     return unless equipment
 
     # get rows_count and application_width of sower or implanter
-    rows_count = equipment.rows_count(sampled_at)
+    rows_count = equipment.variant.rows_count(sampled_at)
     # rows_count = equipment.rows_count(self.sampled_at)
-    application_width = equipment.application_width(sampled_at)
+    application_width = equipment.variant.application_width(sampled_at)
     # set rows_count to implanter_application_width
     self.implanter_rows_number ||= rows_count if rows_count
     self.implanter_application_width ||= application_width.to_d(:meter) if application_width
