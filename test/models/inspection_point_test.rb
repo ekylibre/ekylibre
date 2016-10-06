@@ -159,8 +159,8 @@ class InspectionPointTest < ActiveSupport::TestCase
 
     assert_equal 10_000, point.projected_total(:net_mass).to_d
 
-    assert_equal 65_040.6504065040.in(point.quantity_unit(:items_count)).to_d,
-                 point.projected_total(:items_count).round(15).to_d
+    assert_in_delta 65_040.650.in(point.quantity_unit(:items_count)).to_d,
+                    point.projected_total(:items_count).to_d
   end
 
   test 'point value in dimension that\'s not available is 0' do
@@ -185,7 +185,19 @@ class InspectionPointTest < ActiveSupport::TestCase
       net_mass_value: 1
     )
 
-    assert_equal 6_504.065040650407.in(point.quantity_unit(:net_mass)).to_d,
-                 point.quantity_yield(:net_mass).round(15).to_d
+    assert_in_delta 6_504.065.in(point.quantity_unit(:net_mass)).to_d,
+                    point.quantity_yield(:net_mass).to_d
+  end
+
+  test 'quantity_in_unit is in an appropriate unit' do
+    point = @inspection.points.create!(
+      nature_id: @nature.id
+    )
+
+    assert_kind_of Measure, point.quantity_in_unit(:items_count)
+    assert_match :none, point.quantity_in_unit(:none).dimension
+
+    assert_kind_of Measure, point.quantity_in_unit(:net_mass)
+    assert_match :mass, point.quantity_in_unit(:net_mass).dimension
   end
 end
