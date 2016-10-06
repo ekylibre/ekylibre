@@ -87,7 +87,8 @@
 
   - if resource.inspectionable?
     - dimension = resource.unit_preference(current_user)
-    - symbol_measure = resource.inspections.last.quantity_unit(dimension).symbol
+    - symbol_measure = Nomen::Unit.find(resource.inspections.last.user_quantity_unit(dimension)).symbol
+    - yield_symbol = Nomen::Unit.find(resource.inspections.last.user_per_area_unit(dimension)).symbol
 
     - c.cobble(:stock_in_ground) do
       = render 'backend/inspections/unit_selector', activity: resource
@@ -98,8 +99,8 @@
           - stock_series = base_series[:stock]
           - yield_series = base_series[:yield]
 
-          - stock_chart = column_highcharts(stock_series, title: {text: :stock_in_ground_by_calibration_x.tl(x: scale.name)}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}}) if resource.inspections.any? { |i| i.calibrations.of_scale(scale).any? }
-          - yield_chart = column_highcharts(yield_series, title: {text: :yield_by_calibration_x.tl(x: scale.name)}, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}}) if resource.inspections.any? { |i| i.calibrations.of_scale(scale).any? }
+          - stock_chart = column_highcharts(stock_series, title: {text: :stock_in_ground_by_calibration_x.tl(x: scale.name)}, x_axis: { categories: [''] }, y_axis: {reversed_stacks: false, title: {text: "#{symbol_measure}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{symbol_measure}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}}) if resource.inspections.any? { |i| i.calibrations.of_scale(scale).any? }
+          - yield_chart = column_highcharts(yield_series, title: {text: :yield_by_calibration_x.tl(x: scale.name)}, x_axis: { categories: [''] },y_axis: {reversed_stacks: false, title: {text: "#{yield_symbol}"}, stack_labels: {enabled: true}}, legend: true, tooltip: {point_format: "{point.y: 1f} #{yield_symbol}"}, plot_options: { column: {stacking: 'normal', data_labels: {enabled: true}}}) if resource.inspections.any? { |i| i.calibrations.of_scale(scale).any? }
           - evolt_chart = spline_highcharts(spline_series(dimension, resource.inspections), x_axis: {categories: spline_categories(resource.inspections).map(&:l)}, y_axis: { title: {text: "%"} }, title: {text: :unmarketable_inspection_categories_evolution.tl}, legend: true, tooltip: {point_format: "{point.y: 1f} %"}, plot_options: {}) if resource.inspection_point_natures.any? && resource.inspections.any? { |i| i.points.any? }
           - unless [stock_chart, yield_chart, evolt_chart].compact.blank?
             .chart-line

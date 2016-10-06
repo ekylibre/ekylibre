@@ -119,10 +119,10 @@ class Plant < Bioproduct
 
   def stock_in_ground_by_calibration_series(dimension, natures)
     find_calib = ->(i, nature) { i.calibrations.find_by(nature: nature) }
-    marketable = ->(calib) { calib.marketable_quantity(dimension) }
+    marketable = ->(calib) { calib.marketable_quantity(dimension).in(calib.user_quantity_unit(dimension)) }
     name = ->(nature) { nature.name }
 
-    r = curves(natures, find_calib, marketable, name)
+    curves(natures, find_calib, marketable, name)
   end
 
   def disease_deformity_series(dimension)

@@ -1403,6 +1403,7 @@ fra:
     mark_all_as_read: "Tout marquer comme lu"
     mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
+    marketable_items_count: "Masse nette commercialisable"
     marketable_net_mass: "Masse nette commercialisable"
     mass: "Masse"
     max_level: "Niveau maximum" #?
@@ -1581,7 +1582,7 @@ fra:
     payments_count: "Nombre de %{mode}"
     people: "Personnes"
     percentage_by_calibration: "Pourcentage de stock en terre par calibre"
-    percentage_by_calibration_x: "Pourcentage de stock en terre par calibre - %{x}" #?
+    percentage_by_calibration_x: "Pourcentage net de stock en terre par calibre - %{x}" #?
     period: "Période prédéfinie"
     periods: "Périodes"
     permute: "Permuter les fiches"
@@ -1842,8 +1843,8 @@ fra:
     stock: "Stock"
     stock_container_map: "Carte des lieux de stockage"
     stock_in_ground: "Stock en terre"
-    stock_in_ground_by_calibration: "Stock en terre par calibre"
-    stock_in_ground_by_calibration_x: "Stock en terre par calibre - %{x}" #?
+    stock_in_ground_by_calibration: "Stock en terre net par calibre"
+    stock_in_ground_by_calibration_x: "Stock en terre net par calibre - %{x}" #?
     stock_in_ground_by_calibres: "Stocks en terre par calibre" #?
     stock_max: "Stock maximum" #?
     stock_min: "Stock minimum" #?
@@ -1997,7 +1998,7 @@ fra:
     unknown_variant: "Variante de produit inconnue"
     unlock: "Déverrouiller"
     unmark: "Délettrer"
-    unmarketable_inspection_categories_evolution: "Évolution du pourcentage de malformations et maladies"
+    unmarketable_inspection_categories_evolution: "Évolution du pourcentage de maladies et malformations"
     unpaid: "Impayées"
     unpaid_amount: "Montant restant à payer" #?
     unpaid_days: "À payer depuis (jours)"
@@ -2218,8 +2219,8 @@ fra:
     years: "Années" #?
     years_count_in_historic: "Nombre d’années dans l’historique" #?
     yield: "Rendement"
-    yield_by_calibration: "Rendement par calibre"
-    yield_by_calibration_x: "Rendement par calibre - %{x}" #?
+    yield_by_calibration: "Rendement net par calibre"
+    yield_by_calibration_x: "Rendement net par calibre - %{x}" #?
     yield_by_calibrations: "Rendement par calibre" #?
     zones: "Zones"
   notifications:

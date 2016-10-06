@@ -11,7 +11,7 @@ module Backend
           if block_given?
             yield(calibration.name, result)
           else
-            { name: calibration.name, data: [result] }
+            { name: calibration.name, data: [[calibration.name, result]] }
           end
         end
         .compact
@@ -117,7 +117,7 @@ module Backend
           next unless inspection.quantity_statable?(dimension)
           statable[dimension][:total]   = Inspection.human_attribute_name("gross_#{dimension}")
           statable[dimension][:yield]   = { title: Inspection.human_attribute_name("gross_#{dimension}_yield"), unicity: dimension }
-          statable[dimension][:market]  = { title: InspectionPoint.human_attribute_name("marketable_#{dimension}"), unicity: dimension }
+          statable[dimension][:market]  = { title: InspectionPoint.human_attribute_name("gross_#{dimension}_percentage"), unicity: dimension }
           columns[statable[dimension][:total]]  = { body: [], subtotal: [], total: [], colspan: 1 }
           columns[statable[dimension][:yield]]  = { body: [], subtotal: [], total: [], colspan: 1 }
           columns[statable[dimension][:market]] = { body: [], subtotal: [], total: [], colspan: 1 }

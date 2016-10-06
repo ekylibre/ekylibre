@@ -52,8 +52,8 @@ module Backend
                .map do |last_inspection|
                  l = last_inspection.calibrations.of_scale(scale).where(nature_id: nature.id)
                  [
-                   Maybe(l.first).marketable_quantity(dimension).to_d(last_inspection.quantity_unit(:dimension)).or_nil,
-                   Maybe(l.first).marketable_yield(dimension).to_d(last_inspection.quantity_unit(:dimension)).or_nil
+                   Maybe(l.first).marketable_quantity(dimension).to_d(last_inspection.user_quantity_unit(dimension)).or_nil,
+                   Maybe(l.first).marketable_yield(dimension).to_d(last_inspection.user_per_area_unit(dimension)).or_nil
                  ]
                end
 
@@ -61,8 +61,8 @@ module Backend
         last_calibrations_yield = data.map(&:last)
 
         [
-          { name: nature.name, data: [last_calibrations.compact.sum.to_s.to_f.round(2)] },
-          { name: nature.name, data: [(last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f.round(2)] }
+          { name: nature.name, data: [[nature.name, last_calibrations.compact.sum.to_s.to_f.round(2)]] },
+          { name: nature.name, data: [[nature.name, (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f.round(2)]] }
         ]
       end
 
@@ -84,18 +84,17 @@ module Backend
                    .values
                    .compact
                    .map do |insps_per_plant|
-                     sum = insps_per_plant
-                           .map do |insp|
-                             insp.points_percentage(dimension, category)
-                           end
-                           .sum
-                     sum / insps_per_plant.length
+                     insps_per_plant
+                       .map do |insp|
+                         insp.points_percentage(dimension, category)
+                       end
+                       .last
                    end
 
-          [sample_time.l, (values.sum / values.count).to_f.round(3)]
+          [sample_time.l, (values.sum / values.count).to_f.round(2)]
         end
 
-        { data: spline_data }
+        { name: category.tl, data: spline_data }
       end
     end
 

@@ -6,5 +6,5 @@
     .btn-group.pull-right
       - choices.each do |pref, name|
         - classes = ['btn', 'btn-default', ('active' if current == pref)]
-        = link_to({ unit: pref, activity_id: activity.id }, class: classes) do
+        = link_to({ unit: pref, activity_id: activity.id, anchor: "#{CobblesHelper::Cobble.current.id}" }, class: classes) do
           = "models.inspection.#{name.downcase}".t
