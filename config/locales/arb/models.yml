@@ -1540,6 +1540,7 @@ arb:
     intervention_parameter: "معلمة تدخل"
     intervention_product_parameters: "يلقي تدخل"
     interventions: "التدخلات"
+    # interventions_used_in: "Interventions used in"
     introduction: "المقدمة"
     inventories: "عمليات الجرد" #?
     inventory: "عملية الجرد"
@@ -2302,6 +2303,7 @@ arb:
     use_tactics: "استخدام تقنيات إدارة المحاصيل"
     used_for_affairs: "تستخدم للشؤون"
     used_for_gaps: "تستخدم لالثغرات"
+    # used_intervention_parameters: "Used intervention parameters"
     useful_items: "المواد المفيدة"
     user: "المستخدم"
     user_id: "المستخدم" #?
