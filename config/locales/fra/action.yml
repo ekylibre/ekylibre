@@ -1403,7 +1403,7 @@ fra:
     mark_all_as_read: "Tout marquer comme lu"
     mark_as_read: "Marquer comme lu"
     markers: "Objectifs" #?
-    marketable_items_count: "Masse nette commercialisable" #?
+    marketable_items_count: "Nombre de pièces commercialisables"
     marketable_net_mass: "Masse nette commercialisable"
     mass: "Masse"
     max_level: "Niveau maximum" #?
