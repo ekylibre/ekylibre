@@ -50,7 +50,7 @@ class InspectionPointTest < ActiveSupport::TestCase
         'Problème de conicité',
         'Problème de coloration',
         'Déformation par nématodes'
-      ].freeze
+  ].freeze
 
   setup do
     @activity = Activity.create!(
