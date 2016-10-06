@@ -247,7 +247,7 @@ class Product < Ekylibre::Record::Base
   validate :dead_at_in_interventions, if: ->(product) { product.dead_at? && product.interventions.pluck(:stopped_at).any? }
 
   def born_at_in_interventions
-    first_used_at = interventions_used_at.order(started_at: :asc).first.started_at
+    first_used_at = interventions_used_in.order(started_at: :asc).first.started_at
     errors.add(:born_at, :on_or_before, restriction: first_used_at.l) if born_at > first_used_at
   end
 
