@@ -46,11 +46,23 @@ class InspectionTest < ActiveSupport::TestCase
   test_model_actions
 
   SCALES_ATTRIBUTES = [
-    [false, 0, 20],
-    [true, 20,  30],
-    [true, 30,  35],
-    [true, 35,  40],
-    [false, 40, 150]
+    [:diameter, :millimeter],
+    [  :height, :centimeter]
+  ].freeze
+
+  SCALE_NATURES_ATTRIBUTES = [
+    [
+      [false,  0,  20],
+      [ true, 20,  30],
+      [ true, 30,  35],
+      [ true, 35,  40],
+      [false, 40, 150]
+    ],
+    [
+      [false, 15, 25],
+      [ true, 25, 35],
+      [false, 35, 45]
+    ]
   ].freeze
 
   POINTS_ATTRIBUTES = [
@@ -60,21 +72,28 @@ class InspectionTest < ActiveSupport::TestCase
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
-    [nil, 0.21, nil, nil],
+    [  3, 0.21, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil],
-    [nil,  0.1, nil, nil],
+    [  1,  0.1, nil, nil],
     [nil,  nil, nil, nil],
     [nil,  nil, nil, nil]
   ].freeze
 
   CALIBRATION_ATTRIBUTES = [
-    [61, 0.8,   5, 15],
-    [82, 2.32, 5, 15],
-    [2, 0.13, 15, 17],
-    [nil,  nil, nil, nil],
-    [nil,  nil, nil, nil]
+    [
+      [ 61,  0.8,   5,  15],
+      [ 82, 2.32,   5,  15],
+      [  2, 0.13,  15,  17],
+      [nil,  nil, nil, nil],
+      [nil,  nil, nil, nil]
+    ],
+    [
+      [  4,    1, nil, nil],
+      [  9,    1, nil, nil],
+      [  10,   2, nil, nil]
+    ]
   ].freeze
 
   DISEASES    = %w(Fusarium Mouche Pythium Rhizoctonia Sclérotinia).freeze
@@ -122,13 +141,13 @@ class InspectionTest < ActiveSupport::TestCase
       grading_sizes_unit_name: 'centimeter'
     )
 
-    @scale = @activity.inspection_calibration_scales.create!(
-      size_indicator_name: 'diameter',
-      size_unit_name: 'millimeter'
-    )
+    @scales = SCALES_ATTRIBUTES.map { |attrs| {size_indicator_name: attrs.first, size_unit_name: attrs.last} }
+                               .map { |s_attrs| @activity.inspection_calibration_scales.create!(s_attrs) }
 
-    SCALES_ATTRIBUTES.map { |attrs| { marketable: attrs.first, minimal_value: attrs.second, maximal_value: attrs.last } }
-                     .each { |nat_attr| @activity.inspection_calibration_scales.first.natures.create!(nat_attr) }
+    SCALE_NATURES_ATTRIBUTES.each_with_index do |n_vals, index|
+      n_vals.map { |attrs| { marketable: attrs.first, minimal_value: attrs.second, maximal_value: attrs.last } }
+            .each { |nat_attr| @activity.inspection_calibration_scales[index].natures.create!(nat_attr) }
+    end
 
     {
       disease: DISEASES,
@@ -147,6 +166,7 @@ class InspectionTest < ActiveSupport::TestCase
       variety: 'daucus',
       number: 'P00000001184',
       initial_population: 0.0,
+      born_at: Time.zone.now - 1.day,
       initial_shape: Charta::MultiPolygon.new('SRID=4326;MULTIPOLYGON(((-0.884541571140289 44.3063013339422,-0.88527113199234 44.3066564276896,-0.886043608188629 44.3070364715909,-0.88676780462265 44.3074011578695,-0.88664710521698 44.3075815807696,-0.886537134647369 44.307767761266,-0.886322557926178 44.3081420398584,-0.88590145111084 44.3087101710069,-0.883626937866211 44.3080806199454,-0.883047580718994 44.3081420398584,-0.883798599243164 44.3060422101222,-0.884541571140289 44.3063013339422)))')
     )
 
@@ -162,14 +182,16 @@ class InspectionTest < ActiveSupport::TestCase
       product_net_surface_area_unit: 'hectare'
     )
 
-    CALIBRATION_ATTRIBUTES.each_with_index do |c_attrs, i|
-      @inspection.calibrations.create!(
-        nature_id: @scale.natures.order(:id)[i].id,
-        items_count_value: c_attrs[0],
-        net_mass_value: c_attrs[1],
-        minimal_size_value: c_attrs[2],
-        maximal_size_value: c_attrs[3]
-      )
+    CALIBRATION_ATTRIBUTES.each_with_index do |n_vals, index|
+      n_vals.each_with_index do |c_attrs, i|
+        @inspection.calibrations.create!(
+          nature_id: @scales[index].natures.order(:id)[i].id,
+          items_count_value: c_attrs[0],
+          net_mass_value: c_attrs[1],
+          minimal_size_value: c_attrs[2],
+          maximal_size_value: c_attrs[3]
+        )
+      end
     end
 
     POINTS_ATTRIBUTES.each_with_index do |p_attrs, i|
@@ -183,7 +205,155 @@ class InspectionTest < ActiveSupport::TestCase
     end
   end
 
-  test '' do
-    assert true
+  test 'implanter values are properly set when not specified' do
+    category = ProductNatureCategory.create!(
+      name: 'ÉquipementInspectionTest',
+      number: '00000024',
+      reference_name: 'equipment',
+      pictogram: 'tractor'
+    )
+
+    nature = ProductNature.create!(
+      category_id: category.id,
+      name: 'SemoirInspectionTest',
+      number: '00000058',
+      variety: 'trailed_equipment',
+      reference_name: 'sower',
+      abilities_list: ['sow'],
+      population_counting: 'unitary',
+      variable_indicators_list: [:geolocation],
+      frozen_indicators_list: [:nominal_storable_net_volume, :application_width, :rows_count, :theoretical_working_speed]
+    )
+
+    variant = ProductNatureVariant.create!(
+      category_id: category.id,
+      nature_id: nature.id,
+      name: 'SemoirInspectionTest',
+      work_number: nil,
+      variety: 'trailed_equipment',
+      derivative_of: nil,
+      reference_name: 'sower',
+      unit_name: 'Équipement'
+    )
+
+    variant.readings.create!(
+      indicator_name: 'rows_count',
+      indicator_datatype: 'integer',
+      integer_value: 4
+    )
+
+    variant.readings.create!(
+      indicator_name: 'application_width',
+      indicator_datatype: 'measure',
+      absolute_measure_value_value: 2.05,
+      absolute_measure_value_unit: 'meter',
+      measure_value_value: 2.05E1,
+      measure_value_unit: 'meter'
+    )
+
+    equipment = variant.products.create!(
+      type: 'Equipment',
+      name: 'Semoir Agricola neuf',
+      number: 'P00000000087',
+      initial_population: 0.0,
+      variety: 'trailed_equipment',
+      born_at: Time.zone.now
+    )
+
+    intervention = Intervention.create!(
+      procedure_name: 'sowing',
+      state: 'done',
+      started_at: Time.zone.now,
+      stopped_at: Time.zone.now,
+      number: '50',
+      nature: 'record'
+    )
+
+    intervention.outputs.create!(
+      quantity_population: @plant.net_surface_area,
+      variant_id: @variant.id,
+      reference_name: 'plant',
+      position: 3
+    )
+
+    intervention.tools.create!(
+      product_id: equipment.id,
+      reference_name: 'sower',
+      position: 5
+    )
+
+    inspection = @activity.inspections.create!(
+      product_id: intervention.outputs.first.product.id,
+      sampled_at: Time.zone.now,
+      sampling_distance: 3,
+      product_net_surface_area_value: 5,
+      product_net_surface_area_unit: 'hectare',
+      comment: ''
+    )
+
+    assert_equal 4, inspection.implanter_rows_number
+    assert_equal 5.125, inspection.implanter_working_width
+    assert_equal 20.5, inspection.implanter_application_width
+  end
+
+  test 'position is correctly computed' do
+    assert_equal 1, @inspection.position
+
+    inspection = @activity.inspections.create!(
+      product_id: @plant.id,
+      sampled_at: Time.zone.now,
+      implanter_rows_number: 4,
+      implanter_working_width: 0.5125,
+      comment: '',
+      implanter_application_width: 2.05,
+      sampling_distance: 3,
+      product_net_surface_area_value: 5,
+      product_net_surface_area_unit: 'hectare'
+    )
+
+    assert_equal 2, inspection.position
+  end
+
+  [:items_count, :net_mass].each do |dimension|
+    test "#{dimension} - quantity is correctly computed" do
+      expected = { items_count: 84.in(:unity), net_mass: 3.625.in(:kilogram) }
+
+      assert_equal expected[dimension].unit, @inspection.quantity(dimension).unit
+      assert_in_delta expected[dimension].to_d, @inspection.quantity(dimension).to_d
+    end
+
+    test "#{dimension} - quantity yield is correctly computed" do
+      expected = { items_count: 546_341.4634100406.in(:unity_per_hectare), net_mass: 23_577.235772357722.in(:kilogram_per_hectare) }
+
+      assert_equal expected[dimension].unit, @inspection.quantity_yield(dimension).unit
+      assert_in_delta expected[dimension].to_d, @inspection.quantity_yield(dimension).to_d
+    end
+
+    test "#{dimension} - marketable quantity is correctly computed" do
+      expected = { items_count: 1_440_185.830429733.in(:unity), net_mass: 51_300.25231286796.in(:kilogram) }
+
+      assert_equal expected[dimension].unit, @inspection.marketable_quantity(dimension).unit
+      assert_in_delta expected[dimension].to_d, @inspection.marketable_quantity(dimension).to_d
+    end
+
+    test "#{dimension} - marketable yield is correctly computed" do
+      expected = { items_count: 288_037.1660859464.in(:unity_per_hectare), net_mass: 10_260.050462573454.in(:kilogram_per_hectare) }
+
+      assert_equal expected[dimension].unit, @inspection.marketable_yield(dimension).unit
+      assert_in_delta expected[dimension].to_d, @inspection.marketable_yield(dimension).to_d
+    end
+
+    test "#{dimension} - projected total is correctly computed" do
+      expected = { items_count: 2_731_707.317073171.in(:unity), net_mass: 117_886.17886178862.in(:kilogram) }
+
+      assert_equal expected[dimension].unit, @inspection.projected_total(dimension).unit
+      assert_in_delta expected[dimension].to_d, @inspection.projected_total(dimension).to_d
+    end
+
+    test "#{dimension} - unmarketable rate is correctly computed" do
+      expected = { items_count: 4.762, net_mass: 8.552 }
+
+      assert_in_delta expected[dimension], @inspection.unmarketable_rate(dimension) * 100
+    end
   end
 end
