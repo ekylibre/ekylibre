@@ -1,3 +1,3 @@
 - main_toolbar do |t|
-  = t.new variants: Nomen::NetService.list.sort.map { |net_service| NetService.find_by(reference_name: net_service.name) ? nil : [net_service.human_name, { reference_name: net_service.name } ] }.compact
+  = t.new variants: Nomen::NetService.list.sort.map { |net_service| NetService.find_by(reference_name: net_service.name) ? nil : [net_service.human_name, { reference_name: net_service.name } ] }.compact, params: { redirect: nil }
 = main_list
