@@ -18,7 +18,13 @@ module Autocomplete
           return
         end
         pattern = '%' + params[:q].to_s.mb_chars.downcase.strip.gsub(/\s+/, '%').gsub(/[#{String::MINUSCULES.join}]/, '_') + '%'
-        items = model.select("DISTINCT #{column}").where("#{column} ILIKE ?", pattern).order(column => :asc).limit(15)
+        start_pattern = params[:q].to_s.mb_chars.downcase.strip.gsub(/\s+/, '%').gsub(/[#{String::MINUSCULES.join}]/, '_') + '%'
+        items = model
+                .select("DISTINCT #{column}")
+                .where("#{column} ILIKE ?", pattern)
+                .reorder(model.send(:sanitize_sql_array, ["\"#{model.table_name}\".#{column} ILIKE ?", start_pattern]))
+                .order(column => :asc)
+                .limit(15)
         respond_to do |format|
           format.html { render inline: '<%= content_tag(:ul, items.map { |item| content_tag(:li, item.send(column)) }.join.html_safe) %>' }
           format.json { render json: items.map { |item| item.send(column) }.to_json }

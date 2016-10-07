@@ -37,7 +37,6 @@ module Unrollable
         order = filters.map { |f| f[:search] }.compact
         order ||= :id
       end
-
       roots = filters.select { |f| f[:root] }
       fill_in = (options.key?(:fill_in) ? options[:fill_in] : roots.any? ? roots.first[:column_name] : nil)
       fill_in = fill_in.to_sym unless fill_in.nil?
@@ -75,7 +74,7 @@ module Unrollable
       haml << "- elsif params[:insert].to_i > 0\n"
       haml << "  %ul.items-list\n"
       unless fill_in.nil?
-        haml << "    - unless search.blank?\n"
+        haml << "    - unless search.blank?\n    - byebug\n"
         haml << "      %li.item.special{data: {new_item: search, new_item_parameter: '#{fill_in}'}}= :add_x.th(x: search).html_safe\n"
       end
       haml << "    %li.item.special{data: {new_item: ''}}= 'labels.add_#{model.name.underscore}'.t(default: [:'labels.add_new_record'])\n"
