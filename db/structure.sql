@@ -3006,6 +3006,44 @@ ALTER SEQUENCE intervention_parameters_id_seq OWNED BY intervention_parameters.i
 
 
 --
+-- Name: intervention_participations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE intervention_participations (
+    id integer NOT NULL,
+    intervention_id integer,
+    product_id integer,
+    started_at timestamp without time zone,
+    stopped_at timestamp without time zone,
+    nature character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    creator_id integer,
+    updater_id integer,
+    lock_version integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: intervention_participations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE intervention_participations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: intervention_participations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE intervention_participations_id_seq OWNED BY intervention_participations.id;
+
+
+--
 -- Name: intervention_working_periods; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -6524,6 +6562,13 @@ ALTER TABLE ONLY intervention_parameters ALTER COLUMN id SET DEFAULT nextval('in
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY intervention_participations ALTER COLUMN id SET DEFAULT nextval('intervention_participations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY intervention_working_periods ALTER COLUMN id SET DEFAULT nextval('intervention_working_periods_id_seq'::regclass);
 
 
@@ -7537,6 +7582,14 @@ ALTER TABLE ONLY intervention_parameter_readings
 
 ALTER TABLE ONLY intervention_parameters
     ADD CONSTRAINT intervention_parameters_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: intervention_participations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT intervention_participations_pkey PRIMARY KEY (id);
 
 
 --
@@ -11197,6 +11250,48 @@ CREATE INDEX index_intervention_parameters_on_updater_id ON intervention_paramet
 --
 
 CREATE INDEX index_intervention_parameters_on_variant_id ON intervention_parameters USING btree (variant_id);
+
+
+--
+-- Name: index_intervention_participations_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_created_at ON intervention_participations USING btree (created_at);
+
+
+--
+-- Name: index_intervention_participations_on_creator_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_creator_id ON intervention_participations USING btree (creator_id);
+
+
+--
+-- Name: index_intervention_participations_on_intervention_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_intervention_id ON intervention_participations USING btree (intervention_id);
+
+
+--
+-- Name: index_intervention_participations_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_product_id ON intervention_participations USING btree (product_id);
+
+
+--
+-- Name: index_intervention_participations_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_updated_at ON intervention_participations USING btree (updated_at);
+
+
+--
+-- Name: index_intervention_participations_on_updater_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_intervention_participations_on_updater_id ON intervention_participations USING btree (updater_id);
 
 
 --
@@ -15269,11 +15364,27 @@ ALTER TABLE ONLY alert_phases
 
 
 --
+-- Name: fk_rails_930f08f448; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT fk_rails_930f08f448 FOREIGN KEY (intervention_id) REFERENCES interventions(id);
+
+
+--
 -- Name: fk_rails_a31061effa; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY alerts
     ADD CONSTRAINT fk_rails_a31061effa FOREIGN KEY (sensor_id) REFERENCES sensors(id);
+
+
+--
+-- Name: fk_rails_e81467e70f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY intervention_participations
+    ADD CONSTRAINT fk_rails_e81467e70f FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
@@ -15611,4 +15722,6 @@ INSERT INTO schema_migrations (version) VALUES ('20160930111020');
 INSERT INTO schema_migrations (version) VALUES ('20160930142110');
 
 INSERT INTO schema_migrations (version) VALUES ('20161007151444');
+
+INSERT INTO schema_migrations (version) VALUES ('20161010143455');
 

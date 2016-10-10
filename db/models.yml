@@ -83,6 +83,7 @@
 - intervention_output
 - intervention_parameter
 - intervention_parameter_reading
+- intervention_participation
 - intervention_product_parameter
 - intervention_target
 - intervention_tool

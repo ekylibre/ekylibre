@@ -3236,6 +3236,37 @@ intervention_parameters:
     limit:
       srid: 4326
       type: multi_polygon
+intervention_participations:
+  created_at:
+    type: datetime
+    required: true
+  creator_id:
+    type: integer
+    references: user
+  id:
+    type: integer
+    required: true
+  intervention_id:
+    type: integer
+    references: intervention
+  lock_version:
+    type: integer
+    required: true
+  nature:
+    type: string
+  product_id:
+    type: integer
+    references: product
+  started_at:
+    type: datetime
+  stopped_at:
+    type: datetime
+  updated_at:
+    type: datetime
+    required: true
+  updater_id:
+    type: integer
+    references: user
 intervention_working_periods:
   created_at:
     type: datetime

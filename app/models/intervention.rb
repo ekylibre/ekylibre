@@ -72,6 +72,7 @@ class Intervention < Ekylibre::Record::Base
   has_and_belongs_to_many :campaigns
 
   with_options inverse_of: :intervention do
+    has_many :participations, class_name: 'InterventionParticipation', dependent: :destroy
     has_many :root_parameters, -> { where(group_id: nil) }, class_name: 'InterventionParameter', dependent: :destroy
     has_many :parameters, class_name: 'InterventionParameter'
     has_many :group_parameters, -> { order(:position) }, class_name: 'InterventionGroupParameter'
