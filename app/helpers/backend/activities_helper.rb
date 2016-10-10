@@ -60,7 +60,7 @@ module Backend
 
         last_calibrations       = data.map(&:first)
         last_calibrations_yield = data.map(&:last)
-        yield_value = last_calibrations_yield.compact.count.nonzero? ? (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count) : 0
+        yield_value = last_calibrations_yield.compact.blank? ? (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count) : 0
 
         [
           { name: nature.name, data: [[nature.name, last_calibrations.compact.sum.to_s.to_f.round(2)]] },
@@ -93,7 +93,7 @@ module Backend
                        .last
                    end
 
-          [sample_time.l, (values.sum / values.count).to_f.round(2)]
+          [sample_time.l, (values.blank? ? (values.sum / values.count) : 0).to_f.round(2)]
         end
 
         { name: category.tl, data: spline_data }
