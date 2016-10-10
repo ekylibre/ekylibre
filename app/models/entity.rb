@@ -194,6 +194,8 @@ class Entity < Ekylibre::Record::Base
     self.language = Preference[:language] if language.blank?
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
+    self.iban = iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
+    self.bank_identifier_code = bank_identifier_code.to_s.upper.gsub(/[^A-Z0-9]/, '')
     self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
   end
 
