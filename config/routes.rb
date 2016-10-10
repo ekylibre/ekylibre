@@ -93,6 +93,7 @@ Rails.application.routes.draw do
       resources :plant_density_abaci
       resources :plant_countings
       resources :plants
+      resources :intervention_participations, only: [:create]
     end
   end
 
