@@ -31,7 +31,7 @@ module Backend
       t.column :name
       t.column :cash, url: true
       t.column :with_accounting
-      t.column :sepa
+      # t.column :sepa
     end
   end
 end
