@@ -362,6 +362,9 @@ ita:
     backend/observations:
       edit: "Modifica osservazione"
       new: "Nuovo osservazione"
+    backend/outgoing_payment_lists:
+      # index: "Outgoing payments batch list"
+      # show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "modalità di erogazione Edit"
       index: "modalità di erogazione"
@@ -1674,6 +1677,7 @@ ita:
       # access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "Tutti i tuoi dati sono stati importati"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Tutti i pacchi devono essere fatturabile e della stessa natura e terzo"
+      # all_purchases_must_be_ordered: "All purchases must be ordered."
       an_activity_must_be_defined: "Un'attività deve essere definito"
       bookkeeping_is_finished: "Il trasferimento dei dati è terminata commerciale."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1739,6 +1743,7 @@ ita:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Nessuna produzione trovato. È possibile aggiungere nuovi o copiare alcuni dalla precedente campagna."
       no_reopenable_journal: "Non si può riaprire questa rivista."
       no_replacements_since_beginning: "Non ci sono sostituzioni fin dall’inizio"
+      # purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Record già importati"
       record_cannot_be_removed: "Il record non può essere eliminato"
       record_has_been_correctly_removed: "Il record è stato rimosso con successo"
@@ -1803,6 +1808,7 @@ ita:
       edit: "Modifica"
       evaluate: "Valutare"
       export: "Esportare"
+      # export_to_sepa: "Export to SEPA"
       extract: "Estratto"
       family: "Famiglia"
       finish: "finire"
@@ -1825,6 +1831,7 @@ ita:
       new: "Nuovo"
       open: "aperto"
       order: "Ordine"
+      # pay: "Pay"
       pick: "scegliere"
       picture: "Immagine"
       prepare: "Preparare"

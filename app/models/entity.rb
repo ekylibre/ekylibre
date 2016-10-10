@@ -26,6 +26,8 @@
 #  active                    :boolean          default(TRUE), not null
 #  activity_code             :string
 #  authorized_payments_count :integer
+#  bank_account_holder_name  :string
+#  bank_identifier_code      :string
 #  born_at                   :datetime
 #  client                    :boolean          default(FALSE), not null
 #  client_account_id         :integer
@@ -42,6 +44,7 @@
 #  first_met_at              :datetime
 #  first_name                :string
 #  full_name                 :string           not null
+#  iban                      :string
 #  id                        :integer          not null, primary key
 #  language                  :string           not null
 #  last_name                 :string           not null
@@ -62,6 +65,7 @@
 #  siret_number              :string
 #  supplier                  :boolean          default(FALSE), not null
 #  supplier_account_id       :integer
+#  supplier_payment_delay    :string
 #  title                     :string
 #  transporter               :boolean          default(FALSE), not null
 #  updated_at                :datetime         not null
@@ -135,7 +139,7 @@ class Entity < Ekylibre::Record::Base
 
   # [VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates :active, :client, :employee, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, inclusion: { in: [true, false] }
-  validates :activity_code, :deliveries_conditions, :first_name, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
+  validates :activity_code, :bank_account_holder_name, :bank_identifier_code, :deliveries_conditions, :first_name, :iban, :meeting_origin, :number, :picture_content_type, :picture_file_name, :siret_number, :supplier_payment_delay, :title, :vat_number, length: { maximum: 500 }, allow_blank: true
   validates :born_at, :dead_at, :first_met_at, :picture_updated_at, timeliness: { on_or_after: -> { Time.new(1, 1, 1).in_time_zone }, on_or_before: -> { Time.zone.now + 50.years } }, allow_blank: true
   validates :currency, :language, :nature, presence: true
   validates :description, length: { maximum: 500_000 }, allow_blank: true
@@ -150,6 +154,7 @@ class Entity < Ekylibre::Record::Base
   validates :deliveries_conditions, :number, length: { allow_nil: true, maximum: 60 }
   validates :iban, iban: true, allow_blank: true
   validates_attachment_content_type :picture, content_type: /image/
+  validates_delay_format_of :supplier_payment_delay
 
   alias_attribute :name, :full_name
 
@@ -195,6 +200,7 @@ class Entity < Ekylibre::Record::Base
     self.currency = Preference[:currency] if currency.blank?
     self.country  = Preference[:country]  if country.blank?
     self.bank_account_holder_name = full_name if bank_account_holder_name.blank?
+    self.supplier_payment_delay = '30 days' if supplier_payment_delay.blank?
   end
 
   validate do

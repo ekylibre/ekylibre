@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916091854) do
+ActiveRecord::Schema.define(version: 20161010205901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1036,6 +1036,7 @@ ActiveRecord::Schema.define(version: 20160916091854) do
     t.string   "bank_account_holder_name"
     t.string   "bank_identifier_code"
     t.string   "iban"
+    t.string   "supplier_payment_delay"
   end
 
   add_index "entities", ["client_account_id"], name: "index_entities_on_client_account_id", using: :btree
@@ -3051,6 +3052,8 @@ ActiveRecord::Schema.define(version: 20160916091854) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                 default: 0,   null: false
     t.jsonb    "custom_fields"
+    t.string   "payment_delay"
+    t.datetime "payment_at"
   end
 
   add_index "purchases", ["accounted_at"], name: "index_purchases_on_accounted_at", using: :btree

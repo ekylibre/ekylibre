@@ -502,9 +502,8 @@ fra:
     balance: "Solde"
     balance_amount: "Solde" #?
     balances: "Balances de compte"
-    bank_account_key: "Clé RIB"
     bank_account_holder_name: "Titulaire du compte"
-    bank_account_number: "Numéro de compte bancaire"
+    bank_account_key: "Clé RIB"
     bank_account_number: "Numéro de compte bancaire"
     bank_agency_address: "Adresse de l’agence bancaire"
     bank_agency_code: "Code guichet"
@@ -570,6 +569,7 @@ fra:
     closed_on: "Clôturé le"
     clusters_work_number: "Ilôts PAC"
     code: "Code"
+    # codes: "Codes"
     coefficient: "Coefficient"
     collect_account: "TVA collectée"
     collect_taxes: "TVA collectées" #?
@@ -956,6 +956,7 @@ fra:
     item_value: "Valeur de l’élément"
     items: "Élements"
     items_count: "Nombre d’éléments"
+    # items_count_value: "Items count value"
     journal: "Journal"
     journal_entries: "Écritures"
     journal_entry: "Écriture"
@@ -1520,6 +1521,7 @@ fra:
     unit_name: "Unité"
     unit_population: "Population de l’unité"
     unit_pretax_amount: "PU HT"
+    # unit_pretax_stock_amount: "Unit pretax stock amount"
     unit_price: "Prix unitaire" #?
     unlock_token: "Jeton de déverrouillage"
     unlocked_payments: "Paiement non verrouillés"

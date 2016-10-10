@@ -362,6 +362,9 @@ deu:
     backend/observations:
       edit: "Bearbeiten Beobachtung"
       new: "New Beobachtung"
+    backend/outgoing_payment_lists:
+      # index: "Outgoing payments batch list"
+      # show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "Bearbeiten Auszahlungsmodus"
       index: "Die Auszahlung Modi"
@@ -1608,6 +1611,7 @@ deu:
       # access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "All das wurde Ihrer Daten importiert"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "Alle Pakete müssen abrechenbaren und von gleicher Art und dritte sein"
+      # all_purchases_must_be_ordered: "All purchases must be ordered."
       an_activity_must_be_defined: "Eine Aktivität muss definiert werden"
       bookkeeping_is_finished: "Die kommerzielle Datenübertragung beendet ist."
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1673,6 +1677,7 @@ deu:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "Keine Produktion gefunden. Sie können neue hinzufügen oder einige der letzten Kampagne kopieren."
       no_reopenable_journal: "Sie können nicht diese Zeitschrift wieder zu öffnen."
       no_replacements_since_beginning: "Kein Ersatz seit Beginn"
+      # purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "Nehmen Sie bereits importiert"
       record_cannot_be_removed: "Der Datensatz kann nicht gelöscht werden"
       record_has_been_correctly_removed: "Die Aufzeichnung wurde erfolgreich entfernt"
@@ -1736,6 +1741,7 @@ deu:
       edit: "Bearbeiten"
       evaluate: "Bewerten"
       # export: "Export"
+      # export_to_sepa: "Export to SEPA"
       extract: "Extrakt"
       family: "Familie"
       finish: "Fertig"
@@ -1758,6 +1764,7 @@ deu:
       new: "Neu"
       open: "Öffnen"
       order: "Auftrag"
+      # pay: "Pay"
       pick: "pflücken"
       picture: "Bild"
       prepare: "Bereiten"

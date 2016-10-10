@@ -104,6 +104,12 @@
 #     - "backend/notifications#index"
 #     - "backend/notifications#show"
 #     - "backend/notifications#unread"
+#     - "backend/outgoing_payment_lists#create"
+#     - "backend/outgoing_payment_lists#edit"
+#     - "backend/outgoing_payment_lists#export_to_sepa"
+#     - "backend/outgoing_payment_lists#list_payments"
+#     - "backend/outgoing_payment_lists#new"
+#     - "backend/outgoing_payment_lists#update"
 #     - "backend/plants#take"
 #     - "backend/product_groups#take"
 #     - "backend/product_nature_variant_components#autocomplete"
@@ -112,6 +118,7 @@
 #     - "backend/product_nature_variants#list_components"
 #     - "backend/product_nature_variants#quantifiers"
 #     - "backend/products#take"
+#     - "backend/purchases#pay"
 #     - "backend/settlements#take"
 #     - "backend/snippets#toggle"
 #     - "backend/tours#finish"
@@ -674,7 +681,7 @@ entities:
     - "backend/entities#list_issues"
     - "backend/entities#list_links"
     - "backend/entities#list_observations"
-    - "backend/entities#list_outgoing_payment_lists"
+    - "backend/entities#list_outgoing_payment_lists" #?
     - "backend/entities#list_outgoing_payments"
     - "backend/entities#list_purchases"
     - "backend/entities#list_sale_opportunities"
@@ -1394,6 +1401,19 @@ outgoing_deliveries:
     - "backend/parcels#prepare"
     - "backend/parcels#update"
 
+outgoing_payment_lists:
+  read:
+    actions:
+    - "backend/outgoing_payment_lists#index"
+    - "backend/outgoing_payment_lists#list"
+    - "backend/outgoing_payment_lists#show"
+    - "backend/outgoing_payment_lists#unroll" #?
+  write:
+    dependencies:
+    - read-outgoing_payment_lists
+    actions:
+    - "backend/outgoing_payment_lists#destroy"
+
 outgoing_payment_modes:
   read:
     actions:
@@ -1412,19 +1432,6 @@ outgoing_payment_modes:
     - "backend/outgoing_payment_modes#new"
     - "backend/outgoing_payment_modes#up"
     - "backend/outgoing_payment_modes#update"
-
-outgoing_payment_lists:
-  read:
-    actions:
-    - "backend/outgoing_payment_lists#index"
-    - "backend/outgoing_payment_lists#list"
-    - "backend/outgoing_payment_lists#show"
-    - "backend/outgoing_payment_lists#unroll"
-  write:
-    dependencies:
-    - read-outgoing_payment_lists
-    actions:
-    - "backend/outgoing_payment_lists#destroy"
 
 outgoing_payments:
   read:

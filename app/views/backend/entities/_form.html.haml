@@ -40,7 +40,9 @@
   = f.input :supplier, show: '#supplier-informations'
   #supplier-informations
     = f.referenced_association :supplier_account, source: :suppliers, buttons: { new: { number: Account.find_or_import_from_nomenclature(:suppliers).number}}
+  = f.input :supplier_payment_delay
   = f.input :transporter
+
 
 - if f.object.contact?
   = field_set(:employee_informations) do

@@ -362,6 +362,9 @@ jpn:
     backend/observations:
       edit: "編集観測"
       new: "新しい観測"
+    backend/outgoing_payment_lists:
+      # index: "Outgoing payments batch list"
+      # show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "編集支出モード"
       index: "支払いモード"
@@ -1685,6 +1688,7 @@ jpn:
       # access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "すべてのデータはインポートされました"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "すべての小包はinvoiceableと同じ性質と第三のものでなければなりません"
+      # all_purchases_must_be_ordered: "All purchases must be ordered."
       an_activity_must_be_defined: "アクティビティを定義する必要があります"
       bookkeeping_is_finished: "商用のデータ転送が終了します。"
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1750,6 +1754,7 @@ jpn:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "生産見つかりません。あなたは、新しい追加したり、前のキャンペーンからいくつかをコピーすることができます。"
       no_reopenable_journal: "あなたはこの雑誌を再度開くことができません。"
       no_replacements_since_beginning: "初めから無置換ません"
+      # purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "レコードがすでにインポート"
       record_cannot_be_removed: "レコードを削除することはできません"
       record_has_been_correctly_removed: "レコードが正常に削除されました"
@@ -1814,6 +1819,7 @@ jpn:
       edit: "編集"
       evaluate: "評価します"
       export: "エクスポート"
+      # export_to_sepa: "Export to SEPA"
       extract: "エキス"
       family: "家族"
       finish: "仕上げ"
@@ -1836,6 +1842,7 @@ jpn:
       new: "新しい"
       open: "開いた"
       order: "注文"
+      # pay: "Pay"
       pick: "ピック"
       picture: "画像"
       prepare: "準備します"

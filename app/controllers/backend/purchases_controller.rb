@@ -68,6 +68,7 @@ module Backend
       t.column :created_at
       t.column :planned_at, hidden: true
       t.column :invoiced_at
+      t.column :payment_at
       t.column :supplier, url: true
       t.column :supplier_address, hidden: true
       t.column :description

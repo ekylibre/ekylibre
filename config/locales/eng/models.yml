@@ -248,6 +248,7 @@ eng:
       notification: "Notification"
       observation: "Observation"
       outgoing_payment: "Disbursement"
+      # outgoing_payment_list: "Outgoing payment list"
       outgoing_payment_mode: "Disbursement mode"
       parcel: "Parcel"
       parcel_item: "Parcel item"
@@ -377,8 +378,8 @@ eng:
     average_value: "Average value"
     balance: "Balance"
     balances: "Balances"
-    bank_account_key: "Bank account key"
     bank_account_holder_name: "Account owner"
+    bank_account_key: "Bank account key"
     bank_account_number: "Bank account number"
     bank_agency_address: "Bank agency address"
     bank_agency_code: "Bank agency code"
@@ -434,6 +435,7 @@ eng:
     closed_on: "Closed on"
     clusters_work_number: "Clusters work number" #?
     code: "Code"
+    codes: "Codes" #?
     coefficient: "Coefficient"
     collect_account: "Collect account"
     collected_taxes: "Collected taxes"
@@ -773,6 +775,7 @@ eng:
     item_value: "Item value"
     items: "Items"
     items_count: "Items count"
+    items_count_value: "Items count value" #?
     journal: "Journal"
     journal_entries: "Journal entries"
     journal_entry: "Journal entry"
@@ -807,6 +810,7 @@ eng:
     linked: "Linked"
     linked_role: "Entity 2 role"
     links: "Links"
+    # list: "List"
     listing: "Listing"
     loan: "Loan"
     local_balance: "Local balance"
@@ -1225,6 +1229,7 @@ eng:
     supplier: "Supplier"
     supplier_account: "Supplier account"
     supplier_address: "Supplier address"
+    # supplier_payment_delay: "Supplier payment delay"
     suppliers: "Suppliers"
     support: "Support"
     support_nature: "Support type"
@@ -1282,6 +1287,7 @@ eng:
     unit_name: "Unit name"
     unit_population: "Unit population"
     unit_pretax_amount: "Unit pre-tax amount"
+    unit_pretax_stock_amount: "Unit pretax stock amount" #?
     unlock_token: "Unlock token"
     unlocked_payments: "Unlocked payments"
     unpaid_sales: "Unpaid sales"

@@ -65,6 +65,7 @@ eng:
       net_services: "Net services"
       observations: "Observations"
       outgoing_deliveries: "Outgoing deliveries"
+      # outgoing_payment_lists: "Outgoing payment lists"
       outgoing_payment_modes: "Outgoing payment modes"
       outgoing_payments: "Outgoing payments"
       plants: "Crops"

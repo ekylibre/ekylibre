@@ -30,6 +30,7 @@
 #  lock_version    :integer          default(0), not null
 #  name            :string           not null
 #  position        :integer
+#  sepa            :boolean          default(FALSE), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  with_accounting :boolean          default(FALSE), not null

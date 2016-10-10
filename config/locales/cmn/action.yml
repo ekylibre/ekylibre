@@ -362,6 +362,9 @@ cmn:
     backend/observations:
       edit: "编辑观察"
       new: "新观察"
+    backend/outgoing_payment_lists:
+      # index: "Outgoing payments batch list"
+      # show: "Outgoing payments batch"
     backend/outgoing_payment_modes:
       edit: "编辑付款方式"
       index: "支付方式"
@@ -1609,6 +1612,7 @@ cmn:
       # access_denied: "Access denied. %{reason} (%{url})"
       all_data_import_finished: "您的所有数据被导入"
       all_parcels_must_be_invoiceable_and_of_same_nature_and_third: "所有包裹必须开发票和同一性质和第三位"
+      # all_purchases_must_be_ordered: "All purchases must be ordered."
       an_activity_must_be_defined: "一个活动必须被定义"
       bookkeeping_is_finished: "商业数据传送已完成。"
       # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
@@ -1674,6 +1678,7 @@ cmn:
       no_production_found_you_can_add_it_or_copy_from_previous_records: "没有生产中。您可以添加新的或复制一些从以前的运动。"
       no_reopenable_journal: "你不能重新打开该杂志。"
       no_replacements_since_beginning: "年初以来没有更换"
+      # purchases_invalid_for_sepa: "Purchases selected invalid for SEPA transfer (invalid disbursement mode or wrong currency or missing payee's IBAN or bank account holder name)"
       record_already_imported: "记录已导入"
       record_cannot_be_removed: "该记录不能被删除"
       record_has_been_correctly_removed: "该记录已成功删除"
@@ -1738,6 +1743,7 @@ cmn:
       edit: "编辑"
       evaluate: "评估"
       export: "出口"
+      # export_to_sepa: "Export to SEPA"
       extract: "提取"
       family: "家庭"
       finish: "完"
@@ -1760,6 +1766,7 @@ cmn:
       new: "新"
       open: "打开"
       order: "订购"
+      # pay: "Pay"
       pick: "挑"
       picture: "图片"
       prepare: "准备"
