@@ -60,10 +60,11 @@ module Backend
 
         last_calibrations       = data.map(&:first)
         last_calibrations_yield = data.map(&:last)
+        yield_value = last_calibrations_yield.compact.count.nonzero? ? (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count) : 0
 
         [
           { name: nature.name, data: [[nature.name, last_calibrations.compact.sum.to_s.to_f.round(2)]] },
-          { name: nature.name, data: [[nature.name, (last_calibrations_yield.compact.sum / last_calibrations_yield.compact.count).to_s.to_f.round(2)]] }
+          { name: nature.name, data: [[nature.name, yield_value.to_s.to_f.round(2)]] }
         ]
       end
 
