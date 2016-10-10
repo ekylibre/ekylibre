@@ -197,6 +197,11 @@ eng:
         multi_polygon: "Multi-polygon"
         point: "Point"
         string: "String"
+    intervention_participation:
+      nature:
+        # intervention: "Intervention"
+        # preparation: "Preparation"
+        # travel: "Travel"
     journal:
       nature:
         bank: "Bank"

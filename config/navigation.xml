@@ -1835,6 +1835,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="intervention_participations">
+        <page to="api/v1/intervention_participations#create"/>
+      </item>
+    </group>
   </untreated-actions>
 </navigation>
