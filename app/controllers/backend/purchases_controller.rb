@@ -174,7 +174,7 @@ module Backend
         return
       end
 
-      cash_mode = OutgoingPaymentMode.sepa.first
+      cash_mode = OutgoingPaymentMode.mode_sepa.first
 
       unless purchases.all?(&:sepable?)
         notify_error(:purchases_invalid_for_sepa)

@@ -55,7 +55,7 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
     payments.any?
   end
 
-  scope :sepa,    -> { where(sepa: true) }
+  scope :mode_sepa,    -> { where(sepa: true) }
   scope :active,  -> { where(active: true) }
 
   def self.load_defaults

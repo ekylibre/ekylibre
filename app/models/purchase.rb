@@ -276,7 +276,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def sepable?
-    cash_mode = OutgoingPaymentMode.sepa.first
+    cash_mode = OutgoingPaymentMode.mode_sepa.first
 
     cash_mode &&
       currency == cash_mode.cash.currency &&
